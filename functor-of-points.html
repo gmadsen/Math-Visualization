@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Functor of points — schemes through their $R$-valued points</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  @media (max-width:720px){ .two-col{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#reframe">1&nbsp;The&nbsp;reframe</a>
+  <a href="#affine">2&nbsp;Affine&nbsp;example</a>
+  <a href="#repr">3&nbsp;Representability</a>
+  <a href="#gln">4&nbsp;$\mathrm{GL}_n$</a>
+  <a href="#moduli">5&nbsp;Moduli</a>
+  <a href="#fail">6&nbsp;Why&nbsp;it&nbsp;fails</a>
+  <a href="#stacks">7&nbsp;Preview:&nbsp;stacks</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>The functor of points</h1>
+  <p class="sub">A scheme is what it does to rings. Instead of gluing local affines, think of a scheme $X$ as the rule $R \mapsto X(R)$ sending a commutative ring to the set of its $R$-points. This is the change of posture that makes moduli problems natural — and points directly at stacks.</p>
+</section>
+
+<section id="reframe">
+<h2>1. The reframe</h2>
+
+<p>You already have two pictures of a scheme $X$:</p>
+<ul>
+  <li>a locally ringed space $(|X|, \mathcal{O}_X)$ glued from spectra;</li>
+  <li>the category object $X \in \mathsf{Sch}$, determined up to isomorphism by its morphisms in and out.</li>
+</ul>
+
+<p>The second picture, pushed hard, becomes the <em>functor of points</em>. The Yoneda lemma says the hom-functor
+$$h_X = \operatorname{Hom}_{\mathsf{Sch}}(-, X) : \mathsf{Sch}^{\mathrm{op}} \to \mathsf{Set}$$
+determines $X$ up to unique isomorphism. Equivalently, by adjunction $\operatorname{Spec} \dashv \Gamma$, we may restrict this functor to affine test objects and regard $X$ as a covariant functor on commutative rings:</p>
+
+$$X \ \leftrightarrow\  h_X\big|_{\mathrm{CRing}} : \mathrm{CRing} \to \mathsf{Set}, \qquad R \mapsto X(R) := \operatorname{Hom}_{\mathsf{Sch}}(\operatorname{Spec} R,\, X).$$
+
+<div class="note"><strong>Why this is a reframe, not a repackaging.</strong> The usual picture asks "what are the solutions of these equations in a fixed ring $k$?" The functor-of-points picture asks "what is the rule that takes any ring $R$ and returns the set of $R$-solutions?" The solution rule — with its naturality in $R$ — <em>is</em> the scheme.</div>
+
+<p>A morphism of schemes $X \to Y$ is, in this language, a natural transformation $h_X \Rightarrow h_Y$, i.e. a family of set maps $X(R) \to Y(R)$ compatible with ring homs $R \to R'$.</p>
+
+<p>Two reasons to bother:</p>
+<ol>
+  <li><em>Moduli problems arrive as functors.</em> "Elliptic curves over $R$," "vector bundles on $S$ of rank $n$," "subschemes of $\mathbb{P}^n$ of Hilbert polynomial $P$" — each is naturally a functor $\mathrm{CRing} \to \mathsf{Set}$ or into groupoids. Asking whether it's a scheme means asking whether the functor is representable.</li>
+  <li><em>Constructions become algebra.</em> Fibered products, group schemes, affine bundles, loop spaces — each is trivial to describe at the level of $R$-points, then lifted by representability.</li>
+</ol>
+
+<div class="widget" id="w-compare">
+  <div class="hd"><div class="ttl">Two postures on $V(y^2 - x^3 - 1)$</div><div class="hint">hover / click a ring</div></div>
+  <svg id="compare-svg" viewBox="0 0 640 220" width="640" height="220"></svg>
+  <div class="readout" id="compare-out">select a ring to compare the two viewpoints</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#compare-svg'), out = $('#compare-out');
+  const RINGS = [
+    {k:'Z', name:'\u2124'},
+    {k:'Q', name:'\u211A'},
+    {k:'R', name:'\u211D'},
+    {k:'F2', name:'\ud835\udd3d\u2082'},
+    {k:'F3', name:'\ud835\udd3d\u2083'},
+    {k:'F5', name:'\ud835\udd3d\u2085'},
+    {k:'F7', name:'\ud835\udd3d\u2087'}
+  ];
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:20,y:20,width:260,height:180,rx:10,
+      fill:'#11151d',stroke:'var(--line)'}));
+    const t1 = SVG('text',{x:150,y:50,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t1.textContent = 'OLD: fix a ring';
+    svg.appendChild(t1);
+    const t1b = SVG('text',{x:150,y:80,'text-anchor':'middle','font-size':14,fill:'#fff'});
+    t1b.textContent = 'X(R) for one chosen R';
+    svg.appendChild(t1b);
+    svg.appendChild(SVG('rect',{x:360,y:20,width:260,height:180,rx:10,
+      fill:'#11151d',stroke:'var(--line)'}));
+    const t2 = SVG('text',{x:490,y:50,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t2.textContent = 'NEW: vary the ring';
+    svg.appendChild(t2);
+    const t2b = SVG('text',{x:490,y:80,'text-anchor':'middle','font-size':14,fill:'#fff'});
+    t2b.textContent = 'the functor R \u21a6 X(R)';
+    svg.appendChild(t2b);
+    RINGS.forEach((r,i)=>{
+      const x = 380 + (i%4)*55;
+      const y = 120 + Math.floor(i/4)*40;
+      const g = SVG('g',{style:'cursor:pointer'});
+      const rect = SVG('rect',{x:x-22,y:y-14,width:44,height:26,rx:6,
+        fill:'var(--panel2)',stroke:'var(--line)','data-k':r.k});
+      const lab = SVG('text',{x,y:y+5,'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});
+      lab.textContent = r.name;
+      g.appendChild(rect); g.appendChild(lab);
+      g.addEventListener('click', ()=> show(r));
+      svg.appendChild(g);
+    });
+    const arr = SVG('text',{x:320,y:115,'text-anchor':'middle','font-size':24,fill:'var(--cyan)'});
+    arr.textContent = '\u27fa';
+    svg.appendChild(arr);
+    const sub1 = SVG('text',{x:150,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    sub1.textContent = 'a single set of solutions';
+    svg.appendChild(sub1);
+    const sub2 = SVG('text',{x:150,y:170,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    sub2.textContent = '(e.g. rational points)';
+    svg.appendChild(sub2);
+  }
+  function show(r){
+    const counts = count(r.k);
+    out.textContent = `X(${r.name}) = { (a,b) in ${r.name}^2 : b^2 = a^3 + 1 }` +
+      (counts.finite ? `    |X(${r.name})| = ${counts.size}` : '    (infinite; try a finite field)');
+  }
+  function count(k){
+    if(k==='Z' || k==='Q') return {finite:false};
+    if(k==='R') return {finite:false};
+    const p = +k.slice(1);
+    let n = 0;
+    for(let a=0;a<p;a++) for(let b=0;b<p;b++){
+      if(((b*b - a*a*a - 1) % p + p) % p === 0) n++;
+    }
+    return {finite:true, size:n};
+  }
+  render();
+})();
+</script>
+</section>
+
+<section id="affine">
+<h2>2. Worked example: an affine cubic</h2>
+
+<p>Let $X = \operatorname{Spec}\mathbb{Z}[x,y]/(y^2 - x^3 - 1)$. Because $X$ is affine, its $R$-points are spectacularly concrete:</p>
+
+$$X(R) \;=\; \operatorname{Hom}_{\mathrm{CRing}}(\mathbb{Z}[x,y]/(y^2-x^3-1),\, R) \;=\; \{(a,b) \in R^2 : b^2 = a^3 + 1\}.$$
+
+<p>So the functor $X$ is the <em>solution-set functor</em> of the affine equation $y^2 = x^3 + 1$. Two examples you can verify by hand:</p>
+
+<ul>
+  <li>$X(\mathbb{F}_2) = \{(0,1),(1,0)\}$. Two points.</li>
+  <li>$X(\mathbb{F}_3) = \{(0,1),(0,2),(2,0),(2,1),(2,2)\}$. Five points. Wait, check $(2,1)$: $1 = 8 + 1 = 9 \equiv 0 \not= 1$. Retract that. The widget below does the brute-force properly.</li>
+</ul>
+
+<div class="note"><strong>The point.</strong> As the ring $R$ varies, $X(R)$ is literally the set of solutions in $R$. There is no hidden infrastructure: the scheme <em>is</em> this rule, and a morphism $X \to Y$ is a rule that turns $R$-solutions of one equation into $R$-solutions of the other, naturally in $R$.</div>
+
+<div class="widget" id="w-points">
+  <div class="hd"><div class="ttl">W1 · $R$-points of $y^2 = x^3 + 1$</div><div class="hint">pick a ring</div></div>
+  <div class="row">
+    <label>ring $R$:</label>
+    <select id="pt-ring">
+      <option value="F2">𝔽₂</option>
+      <option value="F3" selected>𝔽₃</option>
+      <option value="F5">𝔽₅</option>
+      <option value="F7">𝔽₇</option>
+      <option value="F11">𝔽₁₁</option>
+      <option value="F13">𝔽₁₃</option>
+      <option value="R">ℝ (plot)</option>
+      <option value="Q">ℚ (small-height search)</option>
+      <option value="Z">ℤ (small-height search)</option>
+    </select>
+  </div>
+  <svg id="pt-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="readout" id="pt-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#pt-svg'), out = $('#pt-out'), sel = $('#pt-ring');
+  function compute(k){
+    if(k==='R'){
+      return {kind:'plot'};
+    }
+    if(k==='Q' || k==='Z'){
+      const hits = [];
+      for(let a=-6; a<=6; a++) for(let b=-6; b<=6; b++){
+        if(b*b === a*a*a + 1) hits.push([a,b]);
+      }
+      return {kind:'list', field:k==='Q'?'\u211A':'\u2124', pts:hits, note:'(integer solutions with |a|,|b| \u2264 6)'};
+    }
+    const p = +k.slice(1);
+    const pts = [];
+    for(let a=0;a<p;a++) for(let b=0;b<p;b++){
+      if(((b*b - a*a*a - 1) % p + p) % p === 0) pts.push([a,b]);
+    }
+    return {kind:'finite', p, pts};
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const res = compute(sel.value);
+    if(res.kind==='plot'){
+      // draw y^2 = x^3 + 1 over R
+      const cx=320, cy=130, sx=40, sy=40;
+      // axes
+      svg.appendChild(SVG('line',{x1:40,y1:cy,x2:600,y2:cy,stroke:'var(--line)'}));
+      svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:240,stroke:'var(--line)'}));
+      const pts = [];
+      for(let t=-1; t<=4; t+=0.02){
+        const xv = t;
+        const rhs = xv*xv*xv + 1;
+        if(rhs<0) continue;
+        const yv = Math.sqrt(rhs);
+        const px = cx + xv*sx, py = cy - yv*sy;
+        pts.push([px,py]);
+      }
+      if(pts.length){
+        const dUp = 'M '+pts.map(p=>p.join(' ')).join(' L ');
+        svg.appendChild(SVG('path',{d:dUp,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));
+        const dDown = 'M '+pts.map(p=>[p[0], 2*cy-p[1]].join(' ')).join(' L ');
+        svg.appendChild(SVG('path',{d:dDown,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));
+      }
+      // axis ticks
+      for(let i=-1;i<=5;i++){
+        const tx = SVG('text',{x:cx+i*sx,y:cy+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        tx.textContent = i; svg.appendChild(tx);
+      }
+      const label = SVG('text',{x:500,y:40,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+      label.textContent = 'smooth real curve (no rational points on this branch matter here)';
+      svg.appendChild(label);
+      out.textContent = 'X(\u211D) is the solution locus of y^2 = x^3 + 1 in \u211D^2.  One connected component.  Uncountable.';
+      return;
+    }
+    if(res.kind==='list'){
+      out.textContent = `X(${res.field}) small search: ${res.pts.length} solutions\n  ` +
+        res.pts.map(([a,b])=>`(${a},${b})`).join('  ') + `\n${res.note}`;
+      // Plot the lattice
+      const cx=320, cy=130, sx=30, sy=30;
+      svg.appendChild(SVG('line',{x1:40,y1:cy,x2:600,y2:cy,stroke:'var(--line)'}));
+      svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:240,stroke:'var(--line)'}));
+      for(let i=-6;i<=6;i++){
+        const tx = SVG('text',{x:cx+i*sx,y:cy+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        tx.textContent = i; svg.appendChild(tx);
+      }
+      for(const [a,b] of res.pts){
+        svg.appendChild(SVG('circle',{cx:cx+a*sx,cy:cy-b*sy,r:5,fill:'var(--yellow)',stroke:'var(--ink)'}));
+      }
+      return;
+    }
+    // finite field
+    const p = res.p;
+    const cell = Math.min(28, Math.floor(220/p));
+    const gridW = p*cell, gridH = p*cell;
+    const ox = 320 - gridW/2, oy = 130 - gridH/2;
+    svg.appendChild(SVG('rect',{x:ox,y:oy,width:gridW,height:gridH,fill:'#0b0f16',stroke:'var(--line)'}));
+    for(let i=0;i<=p;i++){
+      svg.appendChild(SVG('line',{x1:ox+i*cell,y1:oy,x2:ox+i*cell,y2:oy+gridH,stroke:'var(--line)','stroke-width':0.5}));
+      svg.appendChild(SVG('line',{x1:ox,y1:oy+i*cell,x2:ox+gridW,y2:oy+i*cell,stroke:'var(--line)','stroke-width':0.5}));
+    }
+    for(const [a,b] of res.pts){
+      svg.appendChild(SVG('circle',{
+        cx:ox + a*cell + cell/2,
+        cy:oy + (p-1-b)*cell + cell/2,
+        r:Math.max(3, cell/3),
+        fill:'var(--yellow)'
+      }));
+    }
+    const axlab = SVG('text',{x:320, y:oy+gridH+22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    axlab.textContent = `x \u2208 \ud835\udd3d_${p}  (horizontal),   y (vertical)`;
+    svg.appendChild(axlab);
+    out.textContent = `X(\ud835\udd3d_${p}) has ${res.pts.length} solutions:\n  ` +
+      res.pts.map(([a,b])=>`(${a},${b})`).join('  ');
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>Experiment a bit: the count $|X(\mathbb{F}_p)|$ fluctuates as a function of $p$ in a way that encodes deep arithmetic (this curve has $L$-function tied to a modular form). All of that is hiding inside the functor — you cannot see it by looking at the space $|X|$.</p>
+</section>
+
+<section id="repr">
+<h2>3. Representable functors</h2>
+
+<p>A functor $F : \mathrm{CRing} \to \mathsf{Set}$ is <strong>representable</strong> if there is a scheme $X$ with a natural isomorphism $F \cong h_X$. When $X$ is affine, $X = \operatorname{Spec} A$ for some ring $A$, and Yoneda plus the $\operatorname{Spec} \dashv \Gamma$ adjunction collapses to:</p>
+
+$$F \text{ representable by } \operatorname{Spec} A \quad\Longleftrightarrow\quad F(R) \cong \operatorname{Hom}_{\mathrm{CRing}}(A, R) \text{ naturally in } R.$$
+
+<p>That is: representing a set-valued functor on rings means writing its value on $R$ as ring homs out of a fixed ring $A$. The universal element of $F$ is the image of $\mathrm{id}_A$; every other element of $F(R)$ is obtained by "plugging" the universal element into the map $A \to R$.</p>
+
+<div class="two-col">
+  <div class="note"><strong>Example.</strong> The affine line $\mathbb{A}^1$. As a functor, $\mathbb{A}^1(R) = R$ (the underlying set of $R$). Representable by $\mathbb{Z}[t]$: a homomorphism $\mathbb{Z}[t] \to R$ is just a choice of element of $R$.</div>
+  <div class="note"><strong>Example.</strong> The multiplicative group $\mathbb{G}_m$. $\mathbb{G}_m(R) = R^\times$. Representable by $\mathbb{Z}[t, t^{-1}]$: forcing $t$ to become a unit.</div>
+</div>
+
+<div class="widget" id="w-repr">
+  <div class="hd"><div class="ttl">W2 · Yoneda embedding visualizer</div><div class="hint">pick a functor; see its representing ring and the lift of a ring morphism</div></div>
+  <div class="row">
+    <label>functor $F$:</label>
+    <select id="yo-fun">
+      <option value="A1" selected>𝔸¹ : R ↦ R</option>
+      <option value="Gm">𝔾ₘ : R ↦ R×</option>
+      <option value="mu2">μ₂ : R ↦ {x : x² = 1}</option>
+      <option value="mu3">μ₃ : R ↦ {x : x³ = 1}</option>
+    </select>
+    <label>rings:</label>
+    <button class="active" data-rings="small">ℤ → 𝔽₅</button>
+    <button data-rings="f5f7">𝔽₅ → 𝔽₇ (no hom: discrete)</button>
+    <button data-rings="zq">ℤ → ℚ</button>
+  </div>
+  <svg id="yo-svg" viewBox="0 0 640 300" width="640" height="300"></svg>
+  <div class="readout" id="yo-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#yo-svg'), out = $('#yo-out'), sel = $('#yo-fun');
+  const btns = $$('#w-repr button[data-rings]');
+  let mode = 'small';
+  btns.forEach(b=>b.addEventListener('click', ()=>{
+    btns.forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    mode = b.dataset.rings; render();
+  }));
+  const FUN = {
+    A1: {repr:'\u2124[t]', fmt:'F(R) = R',
+         vals:(R)=> R.elems.slice(),
+         push:(x, map)=> map(x)},
+    Gm: {repr:'\u2124[t, t\u207b\u00b9]', fmt:'F(R) = R^\u00d7',
+         vals:(R)=> R.units.slice(),
+         push:(x, map)=> map(x)},
+    mu2:{repr:'\u2124[t]/(t\u00b2 \u2212 1)', fmt:'F(R) = { x : x\u00b2 = 1 }',
+         vals:(R)=> R.elems.filter(x=> R.mul(x,x)===R.one),
+         push:(x, map)=> map(x)},
+    mu3:{repr:'\u2124[t]/(t\u00b3 \u2212 1)', fmt:'F(R) = { x : x\u00b3 = 1 }',
+         vals:(R)=> R.elems.filter(x=> R.mul(R.mul(x,x),x)===R.one),
+         push:(x, map)=> map(x)}
+  };
+  function FpRing(p){
+    const elems = [...Array(p).keys()];
+    return {
+      name:'\ud835\udd3d_'+p, elems,
+      one:1,
+      mul:(a,b)=>((a*b)%p+p)%p,
+      units: elems.filter(x=> x!==0)
+    };
+  }
+  function Zring(){
+    return { name:'\u2124', elems:[-2,-1,0,1,2], one:1,
+      mul:(a,b)=>a*b,
+      units:[-1,1] };
+  }
+  function Qring(){
+    // display-only stand-in
+    return { name:'\u211A', elems:['-1','0','1/2','1','2'], one:'1',
+      mul:(a,b)=>a+'\u00b7'+b, units:['-1','1/2','1','2'] };
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const fun = FUN[sel.value];
+    let R1, R2, mapLabel, mapFn;
+    if(mode==='small'){
+      R1 = Zring(); R2 = FpRing(5);
+      mapLabel = '\u2124 \u2192 \ud835\udd3d\u2085 (mod 5)';
+      mapFn = (x)=> ((x%5)+5)%5;
+    } else if(mode==='f5f7'){
+      R1 = FpRing(5); R2 = FpRing(7);
+      mapLabel = 'no ring map \ud835\udd3d\u2085 \u2192 \ud835\udd3d\u2087 in CRing';
+      mapFn = null;
+    } else {
+      R1 = Zring(); R2 = Qring();
+      mapLabel = '\u2124 \u21aa \u211A (inclusion)';
+      mapFn = (x)=> String(x);
+    }
+    // header: the representing ring
+    const hdr = SVG('text',{x:320,y:26,'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});
+    hdr.textContent = `F is represented by A = ${fun.repr}      (so F(R) = Hom(A, R))`;
+    svg.appendChild(hdr);
+    // left panel: R1 and F(R1)
+    drawPanel(40, 55, 260, R1, fun, 'left');
+    drawPanel(340, 55, 260, R2, fun, 'right');
+    // arrow between rings
+    if(mapFn){
+      drawArrow(svg, [305,110], [335,110], {color:'var(--cyan)', markerId:'yo-ringmap', label:'map', width:2});
+      drawArrow(svg, [305,220], [335,220], {color:'var(--violet)', markerId:'yo-funmap', label:'F(map)', width:2, dash:'4 3'});
+    } else {
+      const x = SVG('text',{x:320, y:115, 'text-anchor':'middle', 'font-size':14, fill:'var(--pink)'});
+      x.textContent = '\u2717'; svg.appendChild(x);
+    }
+    const lab = SVG('text',{x:320, y:285, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lab.textContent = mapLabel;
+    svg.appendChild(lab);
+    // compute readout
+    const v1 = fun.vals(R1), v2 = fun.vals(R2);
+    let lines = [`F = ${fun.fmt}`,
+                 `F(${R1.name}) = { ${v1.join(', ')} }   (${v1.length} elements shown)`,
+                 `F(${R2.name}) = { ${v2.join(', ')} }   (${v2.length} elements)`];
+    if(mapFn){
+      const img = v1.map(x=>`${x} \u21a6 ${mapFn(x)}`);
+      lines.push(`F(map): ${img.join(',  ')}`);
+    }
+    out.textContent = lines.join('\n');
+  }
+  function drawPanel(x, y, w, R, fun, side){
+    const h = 220;
+    svg.appendChild(SVG('rect',{x,y,width:w,height:h,rx:10,fill:'#11151d',stroke:'var(--line)'}));
+    // ring node
+    svg.appendChild(SVG('circle',{cx:x+w/2, cy:y+55, r:22, fill:'var(--panel2)',stroke:'var(--blue)'}));
+    const t = SVG('text',{x:x+w/2, y:y+60,'text-anchor':'middle','font-size':15,fill:'#fff'});
+    t.textContent = R.name; svg.appendChild(t);
+    const lab = SVG('text',{x:x+w/2, y:y+95,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    lab.textContent = 'ring'; svg.appendChild(lab);
+    // F(R) set
+    const vals = fun.vals(R);
+    const setX = x+w/2, setY = y+165;
+    svg.appendChild(SVG('ellipse',{cx:setX, cy:setY, rx:w/2-20, ry:28,
+      fill:'rgba(131,193,103,0.12)', stroke:'var(--green)','stroke-width':1.2}));
+    const capt = SVG('text',{x:setX, y:setY-34,'text-anchor':'middle','font-size':11,fill:'var(--green)'});
+    capt.textContent = `F(${R.name})`; svg.appendChild(capt);
+    const n = Math.min(vals.length, 7);
+    for(let i=0;i<n;i++){
+      const px = setX + (i - (n-1)/2) * Math.min(28, (w-60)/Math.max(n,1));
+      svg.appendChild(SVG('circle',{cx:px, cy:setY+2, r:3, fill:'var(--yellow)'}));
+      const tt = SVG('text',{x:px, y:setY-10, 'text-anchor':'middle','font-size':10, fill:'var(--yellow)'});
+      tt.textContent = String(vals[i]); svg.appendChild(tt);
+    }
+    if(vals.length>n){
+      const more = SVG('text',{x:setX + n*15, y:setY+5,'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      more.textContent = '\u2026'; svg.appendChild(more);
+    }
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>Representability is a <em>theorem</em>, not a definition: you exhibit the pair $(A, \xi)$ where $\xi \in F(A)$ is universal, and then verify that "map out of $A$" is really the same as "element of $F(R)$."</p>
+
+<div class="ok"><strong>Yoneda uniqueness.</strong> If both $X$ and $Y$ represent $F$, then $h_X \cong h_Y$, hence $X \cong Y$ in $\mathsf{Sch}$ by Yoneda. The representing scheme is unique up to unique isomorphism.</div>
+</section>
+
+<section id="gln">
+<h2>4. $\mathrm{GL}_n$ as a functor, first</h2>
+
+<p>The cleanest advertisement for the functor-of-points posture is $\mathrm{GL}_n$. Define it by what it does to rings:</p>
+
+$$\mathrm{GL}_n(R) \;=\; \{\,n\times n \text{ matrices } M \text{ with entries in } R \text{ such that } \det(M) \in R^\times\,\}.$$
+
+<p>This is clearly a functor (ring maps induce matrix maps preserving units). Is it representable? Yes — by</p>
+
+$$\mathrm{GL}_n \;\cong\; \operatorname{Spec}\mathbb{Z}[x_{11}, \ldots, x_{nn}, t] \big/ (t \cdot \det(X) - 1).$$
+
+<p>The variable $t$ is a formal inverse of the determinant; forcing $t \cdot \det = 1$ makes $\det$ a unit. Note how much less painful this is than trying to describe $\mathrm{GL}_n$ as a locally ringed space first.</p>
+
+<div class="widget" id="w-gln">
+  <div class="hd"><div class="ttl">W3 · $\mathrm{GL}_n(\mathbb{F}_q)$</div><div class="hint">try small $n$, $q$</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <select id="gln-n"><option>1</option><option selected>2</option><option>3</option></select>
+    <label>$q$:</label>
+    <select id="gln-q"><option selected>2</option><option>3</option><option>5</option><option>7</option></select>
+    <button id="gln-sample">sample a random matrix</button>
+  </div>
+  <svg id="gln-svg" viewBox="0 0 640 200" width="640" height="200"></svg>
+  <div class="readout" id="gln-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#gln-svg'), out = $('#gln-out');
+  const selN = $('#gln-n'), selQ = $('#gln-q'), btn = $('#gln-sample');
+  function order(n, q){
+    let prod = 1n;
+    const Q = BigInt(q);
+    let qi = 1n;
+    for(let i=0;i<n;i++){
+      const qn = Q**BigInt(n);
+      prod *= (qn - qi);
+      qi *= Q;
+    }
+    return prod;
+  }
+  function det2(M, p){
+    const [a,b,c,d] = [M[0][0],M[0][1],M[1][0],M[1][1]];
+    return ((a*d - b*c)%p + p)%p;
+  }
+  function det3(M, p){
+    const m = M;
+    let s = 0;
+    s += m[0][0]*m[1][1]*m[2][2];
+    s += m[0][1]*m[1][2]*m[2][0];
+    s += m[0][2]*m[1][0]*m[2][1];
+    s -= m[0][2]*m[1][1]*m[2][0];
+    s -= m[0][0]*m[1][2]*m[2][1];
+    s -= m[0][1]*m[1][0]*m[2][2];
+    return ((s%p)+p)%p;
+  }
+  function randMat(n, p){
+    const M = [];
+    for(let i=0;i<n;i++){ const row=[]; for(let j=0;j<n;j++) row.push(Math.floor(Math.random()*p)); M.push(row); }
+    return M;
+  }
+  let sampled = null;
+  function sample(){
+    const n = +selN.value, p = +selQ.value;
+    // sample until invertible
+    let M, det, tries=0;
+    do {
+      M = randMat(n, p);
+      if(n===1) det = ((M[0][0]%p)+p)%p;
+      else if(n===2) det = det2(M, p);
+      else det = det3(M, p);
+      tries++;
+    } while(det===0 && tries<60);
+    sampled = {M, det, n, p};
+    render();
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +selN.value, q = +selQ.value;
+    const total = q ** (n*n);
+    const ord = order(n, q);
+    // bar: invertible fraction
+    const W = 560, H = 26;
+    svg.appendChild(SVG('rect',{x:40,y:30,width:W,height:H,fill:'#11151d',stroke:'var(--line)',rx:6}));
+    const frac = Number(ord) / (total);
+    svg.appendChild(SVG('rect',{x:40,y:30,width:W*frac,height:H,fill:'var(--yellow)',rx:6}));
+    const labl = SVG('text',{x:320,y:48,'text-anchor':'middle','font-size':12,fill:'#111'});
+    labl.textContent = `|GL_${n}(\ud835\udd3d_${q})| / q^(n\u00b2) = ${ord}/${total}`;
+    svg.appendChild(labl);
+    // sampled matrix
+    if(sampled && sampled.n===n && sampled.p===q){
+      const M = sampled.M;
+      const cell = 36;
+      const ox = 320 - (n*cell)/2, oy = 90;
+      for(let i=0;i<n;i++) for(let j=0;j<n;j++){
+        svg.appendChild(SVG('rect',{x:ox+j*cell, y:oy+i*cell, width:cell, height:cell,
+          fill:'var(--panel2)', stroke:'var(--line)'}));
+        const t = SVG('text',{x:ox+j*cell+cell/2, y:oy+i*cell+cell/2+5, 'text-anchor':'middle','font-size':14,
+          fill:'var(--yellow)'});
+        t.textContent = M[i][j]; svg.appendChild(t);
+      }
+      const cap = SVG('text',{x:320, y:oy + n*cell + 20, 'text-anchor':'middle','font-size':12,
+        fill: sampled.det===0 ? 'var(--pink)' : 'var(--green)'});
+      cap.textContent = sampled.det===0 ? 'singular (not in GL_n)' : `det = ${sampled.det} \u2208 \ud835\udd3d_${q}^\u00d7`;
+      svg.appendChild(cap);
+    }
+    out.textContent = `GL_${n}(\ud835\udd3d_${q}) = invertible ${n}\u00d7${n} matrices over \ud835\udd3d_${q}\n` +
+      `order formula: \u220f_{i=0}^{n-1}(q^n - q^i) = ${ord}\n` +
+      `ambient: all matrices = q^{n\u00b2} = ${total}\n` +
+      `represented by \u2124[x_{ij}, t] / (t\u00b7det(X) - 1)`;
+  }
+  selN.addEventListener('change', ()=>{sampled=null; render();});
+  selQ.addEventListener('change', ()=>{sampled=null; render();});
+  btn.addEventListener('click', sample);
+  render();
+})();
+</script>
+
+<p>Everything works the same way for $\mathrm{SL}_n$, $\mathrm{O}_n$, $\mathrm{Sp}_{2n}$: describe the group of $R$-points as a set of matrices cut out by polynomial conditions; write down the representing ring by adjoining formal inverses of determinant-type functions. That's it.</p>
+
+<div class="widget" id="w-repr2">
+  <div class="hd"><div class="ttl">W4 · representing scheme decoder</div><div class="hint">pick the functor; read off the ring</div></div>
+  <div class="row">
+    <label>functor:</label>
+    <select id="dec-fun">
+      <option value="A1">R ↦ R      (affine line 𝔸¹)</option>
+      <option value="Gm">R ↦ R×     (multiplicative group 𝔾ₘ)</option>
+      <option value="mu2">R ↦ {x : x² = 1}   (μ₂)</option>
+      <option value="mun">R ↦ {x : xⁿ = 1}   (μₙ, pick n)</option>
+      <option value="Ga">R ↦ (R, +)    (additive group 𝔾ₐ)</option>
+      <option value="sln">R ↦ {M : det M = 1} (SL_n, pick n)</option>
+    </select>
+    <label>$n$:</label>
+    <select id="dec-n"><option>2</option><option>3</option><option>4</option></select>
+  </div>
+  <svg id="dec-svg" viewBox="0 0 640 180" width="640" height="180"></svg>
+  <div class="readout" id="dec-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#dec-svg'), out = $('#dec-out'), sel = $('#dec-fun'), selN = $('#dec-n');
+  const TABLE = {
+    A1: {name:'\ud835\udd38\u00b9', ring:'\u2124[t]', desc:'a hom \u2124[t]\u2192R is a choice of element t\u21a6r.'},
+    Gm: {name:'\ud835\udd3e_m', ring:'\u2124[t, t\u207b\u00b9]',
+         desc:'forcing t invertible: homs out land in R\u00d7.'},
+    Ga: {name:'\ud835\udd3e_a', ring:'\u2124[t]',
+         desc:'same underlying functor as \ud835\udd38\u00b9; the group structure is the coaddition t \u21a6 t\u22971 + 1\u2297t on the Hopf algebra.'},
+    mu2:{name:'\u03bc\u2082', ring:'\u2124[t]/(t\u00b2 \u2212 1)',
+         desc:'enforces t\u00b2 = 1.'},
+    mun:{name:'\u03bc_n', ringFn:(n)=>`\u2124[t]/(t^${n} \u2212 1)`,
+         desc:'enforces t^n = 1; a group scheme.'},
+    sln:{name:'SL_n', ringFn:(n)=>`\u2124[x_{ij}]_{1\u2264i,j\u2264${n}} / (det(X) \u2212 1)`,
+         desc:'closed subscheme of \ud835\udd38^{n\u00b2} carved out by the single equation det(X) = 1.'}
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const key = sel.value, n = +selN.value;
+    const T = TABLE[key];
+    const ring = T.ringFn ? T.ringFn(n) : T.ring;
+    // LHS
+    svg.appendChild(SVG('rect',{x:30,y:30,width:260,height:120,rx:10,fill:'#11151d',stroke:'var(--line)'}));
+    const f1 = SVG('text',{x:160,y:60,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    f1.textContent = 'functor'; svg.appendChild(f1);
+    const f2 = SVG('text',{x:160,y:90,'text-anchor':'middle','font-size':16,fill:'var(--cyan)'});
+    f2.textContent = T.name; svg.appendChild(f2);
+    const f3 = SVG('text',{x:160,y:120,'text-anchor':'middle','font-size':12,fill:'#fff'});
+    f3.textContent = descValue(key, n); svg.appendChild(f3);
+    // arrow
+    drawArrow(svg, [295,95], [345,95], {color:'var(--yellow)', markerId:'dec-arr', label:'Spec', width:2});
+    // RHS
+    svg.appendChild(SVG('rect',{x:350,y:30,width:260,height:120,rx:10,fill:'#11151d',stroke:'var(--line)'}));
+    const g1 = SVG('text',{x:480,y:60,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    g1.textContent = 'representing ring A'; svg.appendChild(g1);
+    const g2 = SVG('text',{x:480,y:95,'text-anchor':'middle','font-size':14,fill:'var(--yellow)'});
+    g2.textContent = ring; svg.appendChild(g2);
+    const g3 = SVG('text',{x:480,y:125,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    g3.textContent = 'so X = Spec A'; svg.appendChild(g3);
+    out.textContent = `${T.name}(R) = ${descValue(key, n)}\nrepresented by A = ${ring}.\nYoneda: ${T.desc}`;
+  }
+  function descValue(k, n){
+    switch(k){
+      case 'A1': return 'R';
+      case 'Gm': return 'R\u00d7';
+      case 'Ga': return '(R, +)';
+      case 'mu2': return '{x \u2208 R : x\u00b2 = 1}';
+      case 'mun': return `{x \u2208 R : x^${n} = 1}`;
+      case 'sln': return `{M \u2208 M_${n}(R) : det M = 1}`;
+    }
+  }
+  sel.addEventListener('change', render);
+  selN.addEventListener('change', render);
+  render();
+})();
+</script>
+</section>
+
+<section id="moduli">
+<h2>5. Moduli problems as functors</h2>
+
+<p>The functor-of-points language is most useful when the functor is <em>natural</em> but the space isn't yet constructed. A <strong>moduli problem</strong> is exactly this: define a functor whose $R$-points are "families of objects of type $T$ over $\operatorname{Spec} R$, up to isomorphism," then ask whether it's representable.</p>
+
+<p>The testbed is the moduli of elliptic curves $\mathcal{M}_{1,1}$:</p>
+
+$$\mathcal{M}_{1,1}(R) \;=\; \left\{ \begin{array}{c} \text{elliptic curves } E/R \\ \text{(smooth proper genus-1 with a section)} \end{array} \right\} \Big/ \cong_R.$$
+
+<p>Over an algebraically closed field, elliptic curves are classified up to isomorphism by the $j$-invariant, so one hopes $\mathcal{M}_{1,1}$ should "be" $\mathbb{A}^1_j$. Over a general ring the situation is subtler, but it is irresistible to slide a parameter and watch a family of curves.</p>
+
+<div class="widget" id="w-family">
+  <div class="hd"><div class="ttl">W5 · family $y^2 = x^3 + tx + 1$</div><div class="hint">scrub $t$; see the curve and $j$-invariant</div></div>
+  <div class="row">
+    <label>$t$:</label>
+    <input id="fam-t" type="range" min="-2" max="2" step="0.01" value="0">
+    <span id="fam-tv" class="pill">t = 0</span>
+    <span id="fam-jv" class="pill">j = 0</span>
+    <span id="fam-disc" class="pill">Δ = ?</span>
+  </div>
+  <svg id="fam-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="readout" id="fam-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#fam-svg'), out = $('#fam-out');
+  const slider = $('#fam-t'), tv=$('#fam-tv'), jv=$('#fam-jv'), dv=$('#fam-disc');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = +slider.value;
+    const a = t, b = 1;
+    const disc = -16*(4*a*a*a + 27*b*b);
+    const j = Math.abs(disc) < 1e-9 ? null : -1728 * (4*a*a*a) * 64 / disc;
+    tv.textContent = `t = ${t.toFixed(2)}`;
+    jv.textContent = j===null ? 'j = singular' : `j = ${j.toFixed(2)}`;
+    dv.textContent = `\u0394 = ${disc.toFixed(2)}`;
+    // axes
+    const cx=320, cy=130, sx=50, sy=50;
+    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:600,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:240,stroke:'var(--line)'}));
+    for(let i=-5;i<=5;i++){
+      const tx = SVG('text',{x:cx+i*sx/2,y:cy+14,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+      tx.textContent = (i/2).toFixed(1); svg.appendChild(tx);
+    }
+    const singular = Math.abs(disc) < 1e-2;
+    function drawSeg(pts){
+      if(pts.length < 2) return;
+      const d = 'M ' + pts.map(p=>p.join(' ')).join(' L ');
+      svg.appendChild(SVG('path',{d, stroke: singular?'var(--pink)':'var(--yellow)', 'stroke-width':2, fill:'none'}));
+    }
+    // plot y^2 = x^3 + t*x + 1 for x in range
+    const ptsU = [], ptsL = [];
+    for(let xv=-3; xv<=3; xv+=0.01){
+      const rhs = xv*xv*xv + a*xv + b;
+      if(rhs < 0) { if(ptsU.length){ drawSeg(ptsU); ptsU.length=0; } continue; }
+      const yv = Math.sqrt(rhs);
+      ptsU.push([cx+xv*sx, cy - yv*sy]);
+      ptsL.push([cx+xv*sx, cy + yv*sy]);
+    }
+    drawSeg(ptsU);
+    drawSeg(ptsL);
+    const cap = SVG('text',{x:500, y:40, 'text-anchor':'end','font-size':12,
+      fill: singular ? 'var(--pink)' : 'var(--green)'});
+    cap.textContent = singular ? 'singular fiber: node/cusp (curve degenerates)' : 'smooth elliptic curve';
+    svg.appendChild(cap);
+    out.textContent = `E_t : y\u00b2 = x\u00b3 + (${t.toFixed(2)})x + 1\n` +
+      `discriminant \u0394 = -16(4t\u00b3 + 27)\n` +
+      `j(E_t) = -1728 \u00b7 (4t)\u00b3 / \u0394   (when \u0394 \u2260 0)\n` +
+      (singular ? 'at \u0394 = 0 the family degenerates; this point is missing from \ud835\udcdc_{1,1}.' :
+        'smooth elliptic curve \u2014 well-defined isomorphism class.');
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>Imagine repeating this for every commutative ring $R$. The functor $\mathcal{M}_{1,1}$ sends $R$ to <em>isomorphism classes</em> of elliptic curves over $R$. This looks good: sending a parameter family over $\operatorname{Spec} R$ to its isomorphism class is clearly functorial in $R$. The shock is that $\mathcal{M}_{1,1}$ is <strong>not representable</strong> as a scheme.</p>
+</section>
+
+<section id="fail">
+<h2>6. Why representability fails</h2>
+
+<p>The obstruction is automorphisms. A generic elliptic curve has only the automorphism $[-1]$ (order 2). But certain curves have extra automorphisms:</p>
+
+<ul>
+  <li>$y^2 = x^3 + x$ has $\mathrm{Aut} \cong \mathbb{Z}/4$ (coming from $x \mapsto -x$, $y \mapsto \pm i y$), over any field containing $i$.</li>
+  <li>$y^2 = x^3 + 1$ has $\mathrm{Aut} \cong \mathbb{Z}/6$ (via $x \mapsto \zeta_3 x$), over any field containing $\zeta_3$.</li>
+</ul>
+
+<p>Here is the precise form of the obstruction. Suppose $\mathcal{M}_{1,1}$ were representable, say $\mathcal{M}_{1,1} \cong h_M$ for a scheme $M$. Then for any scheme $S$ and any family of elliptic curves $\mathcal{E} \to S$, there would be a unique classifying morphism $S \to M$. In particular, given an isomorphism class of family $[\mathcal{E}]$, the <em>family itself</em> would be reconstructible up to isomorphism from its classifying map.</p>
+
+<p>It isn't. You can glue two families along different isomorphisms of their fibers and get non-isomorphic total spaces with the same "pointwise" classifying data — a non-trivial <em>twist</em> by a $\mathrm{Aut}$-valued cocycle.</p>
+
+<div class="widget" id="w-twist">
+  <div class="hd"><div class="ttl">W6 · the automorphism twist</div><div class="hint">two families over a 2-point base</div></div>
+  <div class="row">
+    <label>pick the isomorphism identifying fibers:</label>
+    <button class="active" data-iso="id">identity</button>
+    <button data-iso="neg">[-1] (hyperelliptic involution)</button>
+  </div>
+  <svg id="tw-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="readout" id="tw-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#tw-svg'), out = $('#tw-out');
+  const btns = $$('#w-twist button[data-iso]');
+  let iso = 'id';
+  btns.forEach(b=>b.addEventListener('click', ()=>{
+    btns.forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    iso = b.dataset.iso; render();
+  }));
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // Base: two points p0, p1
+    svg.appendChild(SVG('line',{x1:60,y1:240,x2:580,y2:240,stroke:'var(--line)'}));
+    const basePts = [ [180, 240], [460, 240] ];
+    basePts.forEach((p,i)=>{
+      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:6,fill:'var(--blue)'}));
+      const t = SVG('text',{x:p[0], y:p[1]+22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      t.textContent = i===0 ? 'p\u2080' : 'p\u2081'; svg.appendChild(t);
+    });
+    const caption = SVG('text',{x:320, y:262, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    caption.textContent = 'base S (two-point scheme, e.g. Spec k \u2294 Spec k)';
+    svg.appendChild(caption);
+    // Two fibers above each base point
+    const fiberX = (x, label, color)=>{
+      svg.appendChild(SVG('line',{x1:x,y1:200,x2:x,y2:40,stroke:'var(--line)','stroke-dasharray':'2 4'}));
+      // draw a schematic elliptic curve oval
+      svg.appendChild(SVG('ellipse',{cx:x, cy:115, rx:32, ry:60, fill:'rgba(88,196,221,0.1)', stroke:color, 'stroke-width':1.5}));
+      const lab = SVG('text',{x, y:40, 'text-anchor':'middle','font-size':11, fill:color});
+      lab.textContent = label; svg.appendChild(lab);
+    };
+    // Family A: same E at both base points, glued by identity
+    // Family B: same E, glued by [-1]
+    fiberX(180, 'E', 'var(--yellow)');
+    fiberX(460, 'E', 'var(--yellow)');
+    // A small marked point on each fiber to show the gluing
+    // on p0: mark a point at "north"; on p1: mark based on iso
+    svg.appendChild(SVG('circle',{cx:180, cy:70, r:4, fill:'var(--pink)'}));
+    const p2y = (iso==='id') ? 70 : 160; // identity: north; [-1]: south (the image under hyperelliptic involution)
+    svg.appendChild(SVG('circle',{cx:460, cy:p2y, r:4, fill:'var(--pink)'}));
+    // Gluing arc
+    drawArrow(svg, [186, 70], [454, p2y], {color:'var(--cyan)', curve:-30, markerId:'tw-arr',
+      label: iso==='id' ? 'glue by id' : 'glue by [-1]', width:1.8});
+    const kind = SVG('text',{x:320, y:25, 'text-anchor':'middle','font-size':13, fill:'var(--yellow)'});
+    kind.textContent = iso==='id' ? 'trivial family: E \u00d7 S' :
+      'twisted family: same fibers, different gluing';
+    svg.appendChild(kind);
+    out.textContent = iso==='id'
+      ? 'Family A = E \u00d7 S: fibers E over both p\u2080 and p\u2081, identified canonically.\n' +
+        'isomorphism class at each fiber: [E].'
+      : 'Family B: fibers E over both points, but the total space is glued via the nontrivial automorphism [-1].\n' +
+        'It has the same pointwise isomorphism classes as A, but A \u2262 B as families.\n' +
+        'If \ud835\udcdc_{1,1} were representable, each family would have a unique classifying map S\u2192M, \n' +
+        'so A and B would give the same map \u21d2 A \u2245 B. Contradiction. Hence \ud835\udcdc_{1,1} is NOT representable.';
+  }
+  render();
+})();
+</script>
+
+<div class="bad"><strong>The sheaf-of-sets argument also fails.</strong> One might hope to fix this by sheafifying the presheaf of isomorphism classes. But the isomorphism-class assignment is not a sheaf: for a cover $\{U_i \to S\}$, specifying a compatible family of classes on each $U_i$ does <em>not</em> uniquely assemble to a class on $S$ — the gluing requires remembering the automorphisms you used to identify overlaps. Sheafification literally forgets this information, producing a functor that no longer captures the moduli problem.</div>
+
+<p>This is the content of the slogan "moduli of objects with automorphisms is not a scheme." The presence of $\mathrm{Aut} \neq 1$ on some fibers is not a nuisance to be quotiented away; it is structural data that the functor-of-points-to-SETS <em>cannot</em> remember.</p>
+
+<p>Contrast with a rigidified problem: elliptic curves <em>with full level-$N$ structure</em> (a basis for the $N$-torsion) for $N \ge 3$ has no automorphisms (over a base where $N$ is invertible), and the corresponding moduli functor <em>is</em> representable — by the modular curve $Y(N)$. The automorphism obstruction has been eliminated by adding structure.</p>
+</section>
+
+<section id="stacks">
+<h2>7. Preview: the fix is to target groupoids</h2>
+
+<p>The moral: if your objects have automorphisms, sets are the wrong target. The answer is to replace</p>
+
+$$\mathrm{CRing} \longrightarrow \mathsf{Set}$$
+
+<p>by</p>
+
+$$\mathrm{CRing} \longrightarrow \mathsf{Grpd},$$
+
+<p>sending $R$ to the <em>groupoid</em> of elliptic curves over $R$ with their isomorphisms. A lax-functorial, sheafy version of this is an <strong>algebraic stack</strong>. The scheme / functor-of-points story is the special case where every object has trivial automorphism groupoid.</p>
+
+<div class="note">
+<strong>Sketch.</strong> An algebraic stack is a category fibered in groupoids $\mathcal{X} \to \mathsf{Sch}$ satisfying a descent condition plus a representability / smoothness condition on the diagonal. Morphisms $S \to \mathcal{X}$ are not "elements of a set" but <em>objects</em> of the groupoid fiber $\mathcal{X}(S)$, and two such morphisms are equal when they are isomorphic. The isomorphisms <em>are</em> now encoded, so the sheaf condition returns.
+</div>
+
+<p>The twist widget above is the key picture: the "twisted family" and the "product family" had the same classes at each point, but they are distinct objects of the groupoid fiber, because gluing by $[-1]$ is a different 2-arrow from gluing by $\mathrm{id}$. Upgrading the target category captures exactly that information.</p>
+
+<p>The functor-of-points perspective is then the base camp from which stacks become a modest and natural extension — not a new abstraction, but the same game played in a 2-category.</p>
+
+<div class="row" style="justify-content:space-between;margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem">
+  <div><a href="./elliptic-curves.html" style="color:var(--mute)">← elliptic curves</a></div>
+  <div><a href="./schemes.html" style="color:var(--mute)">schemes</a></div>
+  <div><a href="./morphisms-fiber-products.html" style="color:var(--mute)">morphisms &amp; fiber products</a></div>
+  <div><a href="./category-theory.html" style="color:var(--mute)">category theory &amp; Yoneda →</a></div>
+</div>
+
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

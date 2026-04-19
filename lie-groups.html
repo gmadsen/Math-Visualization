@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lie groups, Lie algebras, and the exponential map</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  .matgrid{display:inline-grid;grid-template-columns:repeat(3,minmax(74px,1fr));gap:4px;
+    font-family:ui-monospace,monospace;font-size:.92rem}
+  .matgrid > div{background:#0b0f16;border:1px solid var(--line);border-radius:4px;
+    padding:.35rem .45rem;text-align:right;color:#cbd5e1}
+  .matgrid.m2{grid-template-columns:repeat(2,minmax(74px,1fr))}
+  .tabs{display:flex;gap:.4rem;margin-bottom:.6rem}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+// numeric helpers shared across widgets
+function fmt(x, p=3){
+  if(!isFinite(x)) return 'NaN';
+  if(Math.abs(x) < 1e-9) x = 0;
+  const s = x.toFixed(p);
+  return (x >= 0 ? ' ' : '') + s;
+}
+function matMul(A,B){
+  const n = A.length, m = B[0].length, k = B.length;
+  const C = Array.from({length:n}, ()=>new Array(m).fill(0));
+  for(let i=0;i<n;i++) for(let j=0;j<m;j++){
+    let s=0; for(let l=0;l<k;l++) s += A[i][l]*B[l][j];
+    C[i][j]=s;
+  }
+  return C;
+}
+function matSub(A,B){
+  return A.map((row,i)=>row.map((v,j)=>v - B[i][j]));
+}
+function matAdd(A,B){
+  return A.map((row,i)=>row.map((v,j)=>v + B[i][j]));
+}
+function matScale(A,s){
+  return A.map(row=>row.map(v=>v*s));
+}
+function eye(n){
+  const I = Array.from({length:n}, ()=>new Array(n).fill(0));
+  for(let i=0;i<n;i++) I[i][i]=1;
+  return I;
+}
+function matExpSeries(A, terms=24){
+  const n = A.length;
+  let S = eye(n);
+  let term = eye(n);
+  for(let k=1;k<=terms;k++){
+    term = matScale(matMul(term, A), 1/k);
+    S = matAdd(S, term);
+  }
+  return S;
+}
+// Rodrigues for so(3): exp of skew-symmetric K with axis omega
+function rodrigues(omega, theta){
+  // omega assumed unit; if zero handle below
+  const n = Math.hypot(omega[0],omega[1],omega[2]);
+  if(n < 1e-12 || Math.abs(theta) < 1e-12) return eye(3);
+  const u = [omega[0]/n, omega[1]/n, omega[2]/n];
+  const c = Math.cos(theta), s = Math.sin(theta), C = 1-c;
+  const [x,y,z] = u;
+  return [
+    [c + x*x*C,    x*y*C - z*s, x*z*C + y*s],
+    [y*x*C + z*s,  c + y*y*C,   y*z*C - x*s],
+    [z*x*C - y*s,  z*y*C + x*s, c + z*z*C  ]
+  ];
+}
+// Render a NxN matrix into a .matgrid container
+function renderMat(container, M, p=3){
+  const n = M.length, m = M[0].length;
+  container.innerHTML = '';
+  container.style.gridTemplateColumns = `repeat(${m},minmax(70px,1fr))`;
+  for(let i=0;i<n;i++) for(let j=0;j<m;j++){
+    const d = document.createElement('div');
+    d.textContent = fmt(M[i][j], p);
+    container.appendChild(d);
+  }
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#intro">1&nbsp;Lie&nbsp;groups</a>
+  <a href="#algebra">2&nbsp;Lie&nbsp;algebra</a>
+  <a href="#exp">3&nbsp;Exp&nbsp;map</a>
+  <a href="#bracket">4&nbsp;Bracket</a>
+  <a href="#so3su2">5&nbsp;SO(3)&nbsp;&amp;&nbsp;SU(2)</a>
+  <a href="#adjoint">6&nbsp;Adjoint</a>
+  <a href="#roots">7&nbsp;Root&nbsp;systems</a>
+  <a href="#outro">8&nbsp;Connections</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Lie groups, Lie algebras, and the exponential map</h1>
+  <p class="sub">Smooth manifolds that are also groups, and their tangent spaces at the identity. The exponential map turns infinitesimal data — a Lie algebra — into one-parameter subgroups, and the bracket records the failure of two flows to commute. We end with a glimpse of root systems, the combinatorics that classify the simple Lie algebras.</p>
+</section>
+
+<section id="intro">
+<h2>1. Lie groups: smooth manifolds with a compatible group law</h2>
+<p>A <strong>Lie group</strong> $G$ is a smooth manifold equipped with a group structure such that multiplication $\mu : G\times G \to G$ and inversion $\iota : G\to G$ are smooth maps. The geometry constrains the algebra: any smooth homomorphism between Lie groups is, up to its derivative at the identity, controlled by linear data. Conversely, the algebra constrains the geometry: most of what one wants to know about $G$ near $e$ is encoded in $T_eG$ and a single bilinear bracket on it.</p>
+
+<p>The classical examples are matrix Lie groups — closed subgroups of $\mathrm{GL}_n(\mathbb{R})$ or $\mathrm{GL}_n(\mathbb{C})$. A theorem of von Neumann and Cartan asserts that every closed subgroup of $\mathrm{GL}_n$ is automatically a smooth submanifold, hence a Lie group. So our zoo is large.</p>
+
+<table class="plain">
+<thead><tr><th>group</th><th>defining condition</th><th>$\dim_{\mathbb R}$</th><th>compact?</th><th>connected?</th></tr></thead>
+<tbody>
+<tr><td>$\mathrm{GL}_n(\mathbb{R})$</td><td>$\det A \ne 0$</td><td>$n^2$</td><td>no</td><td>no (2 cmps)</td></tr>
+<tr><td>$\mathrm{SL}_n(\mathbb{R})$</td><td>$\det A = 1$</td><td>$n^2-1$</td><td>no</td><td>yes</td></tr>
+<tr><td>$\mathrm{O}(n)$</td><td>$A^\top A = I$</td><td>$\binom{n}{2}$</td><td>yes</td><td>no (2 cmps)</td></tr>
+<tr><td>$\mathrm{SO}(n)$</td><td>$A^\top A=I$, $\det A=1$</td><td>$\binom{n}{2}$</td><td>yes</td><td>yes</td></tr>
+<tr><td>$\mathrm{U}(n)$</td><td>$A^*A = I$</td><td>$n^2$</td><td>yes</td><td>yes</td></tr>
+<tr><td>$\mathrm{SU}(n)$</td><td>$A^*A=I$, $\det A = 1$</td><td>$n^2-1$</td><td>yes</td><td>yes</td></tr>
+<tr><td>$\mathrm{Sp}(2n,\mathbb{R})$</td><td>$A^\top J A = J$</td><td>$n(2n+1)$</td><td>no</td><td>yes</td></tr>
+</tbody>
+</table>
+
+<p>The dimensions are not arbitrary: each is the dimension of the tangent space at $I$, which we will identify in §2 with a vector space of matrices satisfying a linearised version of the defining equation.</p>
+
+<p>Here is a working visualization of $\mathrm{SO}(3)$, the rotation group of $\mathbb{R}^3$. A rotation is determined by an axis $\hat n\in S^2$ and an angle $\theta\in[0,\pi]$ (with $(\hat n,\theta)\sim(-\hat n,2\pi-\theta)$), giving $\mathrm{SO}(3)\cong\mathbb{RP}^3$, a closed 3-manifold of dimension $\binom{3}{2}=3$.</p>
+
+<div class="widget" id="w-so3rot">
+<div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
+<div class="row"><label>azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
+<div class="row"><label>elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
+<div class="row"><label>angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
+<div class="row" style="align-items:flex-start;gap:1.2rem">
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$R(\hat n,\theta)\in\mathrm{SO}(3)$</div>
+    <div class="matgrid" id="so3-mat"></div>
+  </div>
+  <svg id="so3-svg" viewBox="0 0 320 260" width="320" height="260"></svg>
+</div>
+<div class="small" id="so3-info"></div>
+</div>
+<script>
+(function(){
+  const az = $('#so3-az'), el = $('#so3-el'), th = $('#so3-th');
+  const azR = $('#so3-az-r'), elR = $('#so3-el-r'), thR = $('#so3-th-r');
+  const matEl = $('#so3-mat'), svg = $('#so3-svg'), info = $('#so3-info');
+  // axonometric projection: (x,y,z) -> 2D
+  // Use isometric-ish projection
+  const cx = 160, cy = 130, scale = 55;
+  function project(p){
+    // rotated isometric: x right, y up, z back-up-right
+    const a = Math.PI/6, b = Math.PI/6;
+    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];
+    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];
+    return [cx + scale*X, cy - scale*Y];
+  }
+  // unit cube corners
+  const cube = [];
+  for(const x of [-0.5,0.5]) for(const y of [-0.5,0.5]) for(const z of [-0.5,0.5]) cube.push([x,y,z]);
+  const edges = [];
+  for(let i=0;i<8;i++) for(let j=i+1;j<8;j++){
+    let d = 0;
+    for(let k=0;k<3;k++) if(cube[i][k]!==cube[j][k]) d++;
+    if(d===1) edges.push([i,j]);
+  }
+  function applyR(R, v){
+    return [R[0][0]*v[0]+R[0][1]*v[1]+R[0][2]*v[2],
+            R[1][0]*v[0]+R[1][1]*v[1]+R[1][2]*v[2],
+            R[2][0]*v[0]+R[2][1]*v[1]+R[2][2]*v[2]];
+  }
+  function update(){
+    const phi = +az.value * Math.PI/180;
+    const theta = +el.value * Math.PI/180;
+    const ang = +th.value * Math.PI/180;
+    azR.textContent = az.value+'°';
+    elR.textContent = el.value+'°';
+    thR.textContent = th.value+'°';
+    // axis from spherical (phi,theta)
+    const ax = [Math.cos(theta)*Math.cos(phi), Math.sin(theta), Math.cos(theta)*Math.sin(phi)];
+    const R = rodrigues(ax, ang);
+    renderMat(matEl, R);
+    // draw cube
+    svg.innerHTML = '';
+    // axes
+    const aProj = project([0,0,0]);
+    const xEnd = project([1.1,0,0]), yEnd = project([0,1.1,0]), zEnd = project([0,0,1.1]);
+    const axCol = ['#7de0d6','#ffd866','#e07a5f'];
+    const lblTxt = ['x','y','z'];
+    [xEnd,yEnd,zEnd].forEach((p,i)=>{
+      svg.appendChild(SVG('line',{x1:aProj[0],y1:aProj[1],x2:p[0],y2:p[1],
+        stroke:axCol[i],'stroke-width':1,opacity:.55}));
+      const t = SVG('text',{x:p[0]+4,y:p[1]+4,'font-size':10,fill:axCol[i]});
+      t.textContent = lblTxt[i]; svg.appendChild(t);
+    });
+    // rotated cube edges
+    const rotatedCorners = cube.map(v => applyR(R,v));
+    const projCorners = rotatedCorners.map(project);
+    // approximate depth ordering by z
+    edges.forEach(([i,j])=>{
+      const [a,b] = [projCorners[i], projCorners[j]];
+      const zMid = (rotatedCorners[i][2] + rotatedCorners[j][2])/2;
+      const op = 0.55 + 0.4 * (zMid + 0.7);
+      svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],
+        stroke:'#58c4dd','stroke-width':1.4,opacity:Math.max(.25,Math.min(1,op))}));
+    });
+    // draw axis of rotation
+    const axA = project([-1.4*ax[0], -1.4*ax[1], -1.4*ax[2]]);
+    const axB = project([ 1.4*ax[0],  1.4*ax[1],  1.4*ax[2]]);
+    svg.appendChild(SVG('line',{x1:axA[0],y1:axA[1],x2:axB[0],y2:axB[1],
+      stroke:'#ffd866','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    info.textContent = `axis = (${ax.map(v=>v.toFixed(2)).join(', ')}),  angle = ${(+th.value).toFixed(0)}°,  det R = ${(determinant3(R)).toFixed(3)}`;
+  }
+  function determinant3(M){
+    return M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])
+         - M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])
+         + M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]);
+  }
+  [az,el,th].forEach(s => s.addEventListener('input', update));
+  update();
+})();
+</script>
+
+<p>Move the sliders: the matrix updates by Rodrigues's formula and the cube rigidly rotates about the dashed axis. Two facts to internalise: $R^\top R = I$ holds at every parameter setting (orthogonality is a closed condition), and $\det R = +1$ is automatic — flipping sign would take you out of $\mathrm{SO}(3)$ into the other component of $\mathrm{O}(3)$.</p>
+
+<div class="note"><strong>Local vs global.</strong> Lie groups can have intricate global topology — $\mathrm{SO}(3)\cong\mathbb{RP}^3$ has fundamental group $\mathbb{Z}/2$, $\mathrm{SU}(n)$ is simply connected, $\mathrm{GL}_n(\mathbb{R})$ has two components. But locally near $e$, every Lie group looks like its Lie algebra, and the bracket determines the local group law completely (Baker–Campbell–Hausdorff).</div>
+
+<h3>Why these specific groups?</h3>
+
+<p>The classical groups are not an arbitrary collection. Each one is the isometry group of a particular bilinear form on a vector space:</p>
+<ul>
+  <li>$\mathrm{O}(n)$ preserves the standard inner product $\langle v,w\rangle = \sum v_iw_i$ on $\mathbb{R}^n$.</li>
+  <li>$\mathrm{U}(n)$ preserves the Hermitian form $\langle v,w\rangle = \sum \bar v_iw_i$ on $\mathbb{C}^n$.</li>
+  <li>$\mathrm{Sp}(2n,\mathbb{R})$ preserves a non-degenerate skew-symmetric form $\omega$ on $\mathbb{R}^{2n}$.</li>
+  <li>$\mathrm{SL}_n$ preserves the top exterior form $e_1\wedge\cdots\wedge e_n$ (i.e., volume).</li>
+</ul>
+<p>The $S$-prefixes isolate the identity component by imposing $\det = 1$. On the physics side, each group governs a different kind of symmetry: rotations ($\mathrm{SO}(3)$), phases ($\mathrm{U}(1)$), internal spin ($\mathrm{SU}(2)$), the Standard Model gauge group ($\mathrm{U}(1)\times\mathrm{SU}(2)\times\mathrm{SU}(3)$), and symplectic evolution in classical mechanics ($\mathrm{Sp}(2n)$).</p>
+</section>
+
+<section id="algebra">
+<h2>2. The Lie algebra: tangent space at the identity</h2>
+
+<p>The <strong>Lie algebra</strong> of a Lie group $G$ is</p>
+$$\mathfrak{g} = T_e G,$$
+<p>the tangent space at the identity element. Equivalently, it is the space of left-invariant vector fields on $G$. The bracket $[\,,\,]$ on $\mathfrak{g}$ is the commutator of vector fields, restricted to $T_eG$; for matrix groups it is just $[X,Y] = XY-YX$.</p>
+
+<p>To compute $\mathfrak{g}$ for a matrix group, differentiate the defining equation along a smooth curve $A(t)$ with $A(0) = I$, $A'(0) = X$:</p>
+
+<table class="plain">
+<thead><tr><th>group $G$</th><th>defining equation</th><th>linearised at $I$</th><th>Lie algebra $\mathfrak{g}$</th><th>$\dim$</th></tr></thead>
+<tbody>
+<tr><td>$\mathrm{GL}_n(\mathbb{R})$</td><td>$\det A\ne 0$</td><td>(open condition)</td><td>$\mathfrak{gl}_n = M_n(\mathbb{R})$</td><td>$n^2$</td></tr>
+<tr><td>$\mathrm{SL}_n$</td><td>$\det A = 1$</td><td>$\operatorname{tr} X = 0$</td><td>$\mathfrak{sl}_n$ (traceless)</td><td>$n^2-1$</td></tr>
+<tr><td>$\mathrm{O}(n)$</td><td>$A^\top A = I$</td><td>$X^\top + X = 0$</td><td>$\mathfrak{so}(n)$ (skew-symmetric)</td><td>$\binom{n}{2}$</td></tr>
+<tr><td>$\mathrm{U}(n)$</td><td>$A^*A = I$</td><td>$X^* + X = 0$</td><td>$\mathfrak{u}(n)$ (skew-Hermitian)</td><td>$n^2$</td></tr>
+<tr><td>$\mathrm{SU}(n)$</td><td>$A^*A=I,\ \det A=1$</td><td>$X^*+X=0,\ \operatorname{tr} X = 0$</td><td>$\mathfrak{su}(n)$</td><td>$n^2-1$</td></tr>
+<tr><td>$\mathrm{Sp}(2n,\mathbb{R})$</td><td>$A^\top JA=J$</td><td>$X^\top J + JX = 0$</td><td>$\mathfrak{sp}(2n)$</td><td>$n(2n+1)$</td></tr>
+</tbody>
+</table>
+
+<p>For $\mathrm{O}(n)$: differentiate $A(t)^\top A(t) = I$ at $t=0$ to get $X^\top + X = 0$. So $\mathfrak{so}(n) = \mathfrak{o}(n)$ is the space of $n\times n$ skew-symmetric matrices, with the bracket $[X,Y] = XY - YX$ (one checks the result is again skew). Note that $\mathfrak{o}(n) = \mathfrak{so}(n)$ even though $\mathrm{O}(n)\ne\mathrm{SO}(n)$: the disconnected piece carries no extra infinitesimal information.</p>
+
+<p>For $\mathrm{SU}(n)$: the determinant condition $\det A(t) = 1$ linearises (using $\det e^{tX} = e^{t\operatorname{tr}X}$) to $\operatorname{tr} X = 0$. So $\mathfrak{su}(n)$ consists of $n\times n$ traceless skew-Hermitian matrices, and $\dim_{\mathbb R}\mathfrak{su}(n) = n^2-1$. In particular $\mathfrak{su}(2)$ is 3-dimensional with basis</p>
+$$\frac{1}{2i}\sigma_1,\ \frac{1}{2i}\sigma_2,\ \frac{1}{2i}\sigma_3,$$
+<p>where $\sigma_k$ are the Pauli matrices.</p>
+
+<div class="note"><strong>Two definitions, one object.</strong> Abstractly, a <em>Lie algebra</em> is a vector space $\mathfrak{g}$ with a bilinear, antisymmetric bracket satisfying the Jacobi identity $[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$. Lie's three theorems say: every finite-dimensional real Lie algebra arises as $T_eG$ for some Lie group $G$, and the simply-connected $G$ realising a given $\mathfrak{g}$ is unique. So Lie algebras and simply-connected Lie groups are essentially the same data.</div>
+
+<h3>The bracket on $\mathfrak{so}(3)$</h3>
+<p>A skew-symmetric $3\times3$ matrix has the form</p>
+$$X = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix},$$
+<p>and the map $X\leftrightarrow(a,b,c)$ identifies $\mathfrak{so}(3)$ with $\mathbb{R}^3$. Under this identification one computes $[X,Y]\leftrightarrow X\cdot \vec v\times \vec w$, i.e., the Lie bracket on $\mathfrak{so}(3)$ is the cross product on $\mathbb{R}^3$. This is the prototype for everything in §6 — the adjoint action of a Lie group on its Lie algebra.</p>
+
+<h3>Why the left-invariant picture</h3>
+
+<p>There is a choice to make: a tangent vector at $e$ extends uniquely to a left-invariant vector field by $X^L_g = (dL_g)_e(X)$, where $L_g : h\mapsto gh$ is left translation. This construction turns $\mathfrak{g}$ into a Lie algebra of <em>vector fields</em> on $G$ — all invariant under left translation — and the bracket of vector fields restricts correctly to the tangent space at $e$.</p>
+
+<p>The slightly subtle sign convention: some texts use right-invariant fields, which produces the same $\mathfrak{g}$ as a vector space but flips the bracket ($[X,Y]_{\text{right}} = -[X,Y]_{\text{left}}$). For matrix groups the matrix commutator corresponds to the <em>left</em>-invariant convention. Either choice is fine as long as you are consistent.</p>
+
+<h3>Sub-algebras, ideals, quotients</h3>
+
+<p>Just as for groups, $\mathfrak{g}$ has a natural notion of sub-structure. A <em>subalgebra</em> is a vector subspace closed under $[\,,\,]$. An <em>ideal</em> $\mathfrak{i}\subset\mathfrak{g}$ satisfies $[\mathfrak{g},\mathfrak{i}]\subset\mathfrak{i}$; the quotient $\mathfrak{g}/\mathfrak{i}$ inherits a Lie bracket. Ideals correspond to normal Lie subgroups by Lie's correspondence, and simple Lie algebras (no nontrivial ideals, $\dim > 1$) correspond to simple Lie groups.</p>
+
+<p>Two structural ideals deserve names. The <strong>centre</strong> $Z(\mathfrak{g}) = \{X : [X,Y] = 0\ \forall Y\}$ is the kernel of $\operatorname{ad}$. The <strong>derived algebra</strong> $[\mathfrak{g},\mathfrak{g}]$ is the ideal generated by all brackets. A Lie algebra is <em>abelian</em> iff $[\mathfrak{g},\mathfrak{g}] = 0$, <em>perfect</em> iff $[\mathfrak{g},\mathfrak{g}] = \mathfrak{g}$ (e.g., $\mathfrak{sl}_n$ for $n\ge 2$), and <em>semisimple</em> iff it has no nonzero abelian ideals.</p>
+</section>
+
+<section id="exp">
+<h2>3. The exponential map</h2>
+
+<p>The bridge from algebra back to group is the <strong>exponential map</strong></p>
+$$\exp : \mathfrak{g} \to G.$$
+<p>For a matrix Lie group it is given by the absolutely-convergent power series</p>
+$$\exp(X) = \sum_{k=0}^\infty \frac{X^k}{k!} = I + X + \tfrac{1}{2}X^2 + \tfrac{1}{6}X^3 + \cdots.$$
+
+<p>Three structural facts make $\exp$ the right notion:</p>
+<ul>
+  <li>$\exp(0) = e$ and $d\exp_0 = \mathrm{id} : \mathfrak{g}\to\mathfrak{g}$, so $\exp$ is a local diffeomorphism near $0$.</li>
+  <li>For each $X\in\mathfrak{g}$, the curve $\gamma_X(t) = \exp(tX)$ is the unique <em>one-parameter subgroup</em> with $\gamma_X'(0) = X$. That is, $\gamma_X : \mathbb{R}\to G$ is a smooth homomorphism from the additive group $\mathbb{R}$.</li>
+  <li>If $G$ is connected and compact, $\exp$ is surjective — every group element is the exponential of some Lie algebra element. In general $\exp$ surjects onto the identity component, but only after taking <em>products</em> of exponentials.</li>
+</ul>
+
+<p>The crucial caveat: $\exp(X+Y) \ne \exp(X)\exp(Y)$ unless $X$ and $Y$ commute. The defect is exactly the bracket, as we will see in §4.</p>
+
+<h3>$\exp$ on $\mathfrak{so}(3)$ via Rodrigues</h3>
+<p>For a skew-symmetric $X = \theta K$ with $K$ unit (i.e., $K = \hat n^\wedge$ for some unit axis $\hat n$ and $\theta = \|X\|$), the series telescopes because $K^3 = -K$. The result is <strong>Rodrigues's formula</strong>:</p>
+$$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
+
+<div class="widget" id="w-expso3">
+<div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
+<div class="row"><label>$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
+<div class="row"><label>$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
+<div class="row"><label>$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
+<div class="row"><label>parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
+<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$X$ (skew-symmetric)</div>
+    <div class="matgrid" id="ex-X"></div>
+  </div>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$\exp(tX)\in\mathrm{SO}(3)$</div>
+    <div class="matgrid" id="ex-eX"></div>
+  </div>
+  <svg id="ex-svg" viewBox="0 0 320 240" width="320" height="240"></svg>
+</div>
+<div class="small" id="ex-info"></div>
+</div>
+<script>
+(function(){
+  const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');
+  const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');
+  const Xgrid = $('#ex-X'), Egrid = $('#ex-eX');
+  const svg = $('#ex-svg'), info = $('#ex-info');
+  // axonometric projection same as previous
+  const cx = 160, cy = 120, scale = 60;
+  function project(p){
+    const a = Math.PI/6, b = Math.PI/6;
+    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];
+    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];
+    return [cx + scale*X, cy - scale*Y];
+  }
+  function update(){
+    const a = +x1.value, b = +x2.value, c = +x3.value;
+    const t = +tS.value;
+    x1R.textContent = a.toFixed(2); x2R.textContent = b.toFixed(2);
+    x3R.textContent = c.toFixed(2); tR.textContent = t.toFixed(2);
+    // X with axis (a,b,c)
+    const X = [
+      [0, -c,  b],
+      [c,  0, -a],
+      [-b, a,  0]
+    ];
+    renderMat(Xgrid, X, 2);
+    // omega = (a,b,c); for tX, axis same, theta = t * |omega|
+    const norm = Math.hypot(a,b,c);
+    const theta = t * norm;
+    const R = rodrigues([a,b,c], theta);
+    renderMat(Egrid, R, 3);
+    // draw axis and a sample probe point (e1) under the rotation, plus the great circle traced
+    svg.innerHTML = '';
+    // base axes faint
+    const O = project([0,0,0]);
+    [[1,0,0],[0,1,0],[0,0,1]].forEach((u,i)=>{
+      const p = project(u);
+      svg.appendChild(SVG('line',{x1:O[0],y1:O[1],x2:p[0],y2:p[1],
+        stroke:'#3a4458','stroke-width':1}));
+    });
+    // axis of rotation
+    if(norm > 1e-9){
+      const u = [a/norm, b/norm, c/norm];
+      const A = project([-1.3*u[0],-1.3*u[1],-1.3*u[2]]);
+      const B = project([ 1.3*u[0], 1.3*u[1], 1.3*u[2]]);
+      svg.appendChild(SVG('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],
+        stroke:'#ffd866','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    }
+    // path of e1 under exp(sX) for s in [0, t]
+    const pts = [];
+    const N = 80;
+    for(let k=0;k<=N;k++){
+      const s = (t * k)/N;
+      const Rk = rodrigues([a,b,c], s * norm);
+      const v = [Rk[0][0], Rk[1][0], Rk[2][0]]; // R e1
+      pts.push(project(v));
+    }
+    if(pts.length > 1){
+      const d = pts.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:'#7de0d6','stroke-width':1.6}));
+    }
+    // probe point e1 under current R
+    const v = [R[0][0], R[1][0], R[2][0]];
+    const pv = project(v);
+    svg.appendChild(SVG('circle',{cx:pv[0], cy:pv[1], r:5, fill:'#83c167'}));
+    const tx = SVG('text',{x:pv[0]+8,y:pv[1]+4,'font-size':11,fill:'#83c167'});
+    tx.textContent = 'R e₁'; svg.appendChild(tx);
+    info.textContent = `‖X‖ = ${norm.toFixed(3)},  effective angle θ = t·‖X‖ = ${theta.toFixed(3)} rad`;
+  }
+  [x1,x2,x3,tS].forEach(s => s.addEventListener('input', update));
+  update();
+})();
+</script>
+
+<p>The slider $t$ sweeps the one-parameter subgroup $t\mapsto\exp(tX)$. Note: scaling $X\mapsto cX$ rescales the parameter (it does <em>not</em> change the trajectory in $G$, only its speed), so what matters for the orbit is the line $\mathbb{R}\cdot X\subset\mathfrak{g}$. The little green dot traces a circle on $S^2$ — the orbit of $e_1$ under the one-parameter subgroup, a great circle perpendicular to $\hat n$.</p>
+
+<h3>One-parameter subgroup on $\mathrm{SU}(2)$</h3>
+
+<p>Let us repeat the construction for $\mathrm{SU}(2)$. The Lie algebra $\mathfrak{su}(2)$ consists of $2\times2$ traceless skew-Hermitian matrices, with basis</p>
+$$T_k = -\tfrac{i}{2}\sigma_k, \qquad \sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\ \sigma_2=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\ \sigma_3=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.$$
+<p>An element is $X = -\tfrac{i}{2}(a\sigma_1 + b\sigma_2 + c\sigma_3)$, and a short computation shows $\exp(tX) = \cos(t\rho/2)\,I - i\sin(t\rho/2)\,\hat n\cdot\vec\sigma$, where $\rho = \sqrt{a^2+b^2+c^2}$ and $\hat n = (a,b,c)/\rho$. The image is a great circle on $S^3 = \mathrm{SU}(2)$.</p>
+
+<div class="widget" id="w-su2path">
+<div class="hd"><span class="ttl">One-parameter subgroup on $\mathrm{SU}(2)\cong S^3$</span><span class="hint">stereographic projection from the north pole</span></div>
+<div class="row"><label>$a$ (σ₁)</label><input type="range" id="su-a" min="-2" max="2" step="0.01" value="1.0"><span class="readout" id="su-a-r" style="min-width:55px"></span></div>
+<div class="row"><label>$b$ (σ₂)</label><input type="range" id="su-b" min="-2" max="2" step="0.01" value="0.4"><span class="readout" id="su-b-r" style="min-width:55px"></span></div>
+<div class="row"><label>$c$ (σ₃)</label><input type="range" id="su-c" min="-2" max="2" step="0.01" value="0.6"><span class="readout" id="su-c-r" style="min-width:55px"></span></div>
+<div class="row"><label>parameter $t$</label><input type="range" id="su-t" min="0" max="12.56" step="0.02" value="2.5"><span class="readout" id="su-t-r" style="min-width:55px"></span></div>
+<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <svg id="su-svg" viewBox="-150 -150 300 300" width="320" height="320"></svg>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">current $\exp(tX)\in\mathrm{SU}(2)$</div>
+    <div class="readout" id="su-mat" style="min-width:280px"></div>
+  </div>
+</div>
+<div class="small" id="su-info"></div>
+</div>
+<script>
+(function(){
+  const a = $('#su-a'), b = $('#su-b'), c = $('#su-c'), tS = $('#su-t');
+  const aR = $('#su-a-r'), bR = $('#su-b-r'), cR = $('#su-c-r'), tR = $('#su-t-r');
+  const svg = $('#su-svg'), matEl = $('#su-mat'), info = $('#su-info');
+  // SU(2) elements parametrise S^3 via q = (q0, q1, q2, q3); stereographic from N=(1,0,0,0) projects (q1,q2,q3)/(1-q0)
+  function stereo(q){
+    const denom = 1 - q[0];
+    if(Math.abs(denom) < 1e-6) return null; // near pole
+    return [q[1]/denom, q[2]/denom, q[3]/denom];
+  }
+  // 3D->2D using same axonometric proj
+  function proj3(p){
+    const a = Math.PI/6, b = Math.PI/6;
+    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];
+    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];
+    return [60*X, -60*Y];
+  }
+  function update(){
+    const A = +a.value, B = +b.value, C = +c.value, t = +tS.value;
+    aR.textContent = A.toFixed(2); bR.textContent = B.toFixed(2);
+    cR.textContent = C.toFixed(2); tR.textContent = t.toFixed(2);
+    const rho = Math.hypot(A,B,C) || 1e-9;
+    // current quaternion
+    function quatAt(s){
+      const ang = s * rho / 2;
+      return [Math.cos(ang),
+              -Math.sin(ang)*A/rho,
+              -Math.sin(ang)*B/rho,
+              -Math.sin(ang)*C/rho];
+    }
+    svg.innerHTML = '';
+    // background: unit sphere wireframe (the projected image of S^3 is all of R^3 union infty)
+    // draw a faint sphere of radius ~80 in projection space as reference
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:90,fill:'none',stroke:'#2a3242','stroke-width':1}));
+    // ellipses to suggest 3D
+    svg.appendChild(SVG('ellipse',{cx:0,cy:0,rx:90,ry:30,fill:'none',stroke:'#2a3242','stroke-width':1}));
+    svg.appendChild(SVG('ellipse',{cx:0,cy:0,rx:30,ry:90,fill:'none',stroke:'#2a3242','stroke-width':1}));
+    // path
+    const N = 200;
+    const pts = [];
+    for(let k=0;k<=N;k++){
+      const s = (t * k)/N;
+      const q = quatAt(s);
+      const p3 = stereo(q);
+      if(p3){
+        const dist = Math.hypot(p3[0],p3[1],p3[2]);
+        if(dist < 6){ // clip far points
+          pts.push(proj3(p3));
+        } else {
+          pts.push(null); // gap
+        }
+      } else {
+        pts.push(null);
+      }
+    }
+    let d = '';
+    for(let k=0;k<pts.length;k++){
+      if(pts[k]==null){ continue; }
+      d += (d.length===0 || pts[k-1]==null ? 'M' : 'L') + pts[k][0].toFixed(1) + ' ' + pts[k][1].toFixed(1) + ' ';
+    }
+    if(d) svg.appendChild(SVG('path',{d,fill:'none',stroke:'#58c4dd','stroke-width':1.6}));
+    // current point
+    const qNow = quatAt(t);
+    const p3now = stereo(qNow);
+    if(p3now && Math.hypot(p3now[0],p3now[1],p3now[2]) < 6){
+      const p2 = proj3(p3now);
+      svg.appendChild(SVG('circle',{cx:p2[0],cy:p2[1],r:5,fill:'#ffd866'}));
+    }
+    // start point (identity = (1,0,0,0))
+    // identity is the north pole, projects to infty: indicate origin's preimage as N label
+    const tlabel = SVG('text',{x:0,y:-100,'text-anchor':'middle','font-size':11,fill:'#9aa4b2'});
+    tlabel.textContent = 'stereographic image of S³ ⊂ ℝ⁴';
+    svg.appendChild(tlabel);
+    // matrix readout
+    const ang = t * rho / 2;
+    const c0 = Math.cos(ang), s0 = Math.sin(ang);
+    // exp(tX) = c0 I - i s0 (n·σ)/|n| ... but we used 1/2 in T_k => = c0 I + s0 * X/||X||·something
+    // direct: cos(tρ/2) I + sin(tρ/2) (-i (a/ρ σ1 + b/ρ σ2 + c/ρ σ3))
+    // 2x2 complex, write as real string
+    // M = [[c0 - i s0 c/ρ, -s0(b/ρ) - i s0 a/ρ], [s0(b/ρ) - i s0 a/ρ, c0 + i s0 c/ρ]]
+    const m11r = c0,             m11i = -s0 * C/rho;
+    const m12r = -s0 * B/rho,    m12i = -s0 * A/rho;
+    const m21r =  s0 * B/rho,    m21i = -s0 * A/rho;
+    const m22r =  c0,            m22i =  s0 * C/rho;
+    function cstr(re,im){
+      const r = re.toFixed(3), i = Math.abs(im).toFixed(3);
+      const sgn = im >= 0 ? '+' : '-';
+      return `${r} ${sgn} ${i}i`;
+    }
+    matEl.textContent =
+      `[ ${cstr(m11r,m11i)},  ${cstr(m12r,m12i)} ]\n` +
+      `[ ${cstr(m21r,m21i)},  ${cstr(m22r,m22i)} ]`;
+    info.textContent = `‖X‖ = ${rho.toFixed(3)},  effective half-angle = tρ/2 = ${(t*rho/2).toFixed(3)},  period in t = ${(4*Math.PI/rho).toFixed(3)}`;
+  }
+  [a,b,c,tS].forEach(s => s.addEventListener('input', update));
+  update();
+})();
+</script>
+
+<p>Two things stand out. First, the trajectory is closed: $\exp(tX)$ comes back to $I$ at $t = 4\pi/\rho$ (not $2\pi/\rho$ — this is the "spinor sign" that distinguishes $\mathrm{SU}(2)$ from $\mathrm{SO}(3)$). Second, the projection sometimes "escapes to infinity": that is the moment the trajectory passes through the north pole $q_0=1$, the antipode of the origin in $S^3$, the place where stereographic projection is undefined.</p>
+</section>
+
+<section id="bracket">
+<h2>4. The bracket captures commutators</h2>
+
+<p>The bracket $[X,Y] = XY-YX$ on $\mathfrak{g}$ measures how badly $\exp(X)$ and $\exp(Y)$ fail to commute. To lowest order this failure is exactly second-order:</p>
+$$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY) = \exp\!\big(t^2[X,Y] + O(t^3)\big).$$
+
+<p>Take logarithm and divide by $t^2$ on both sides; the limit as $t\to 0$ is $[X,Y]$. The full statement is the <strong>Baker–Campbell–Hausdorff</strong> formula</p>
+$$\log(\exp X \exp Y) = X + Y + \tfrac12[X,Y] + \tfrac{1}{12}\!\big([X,[X,Y]] + [Y,[Y,X]]\big) + \cdots,$$
+<p>an iterated bracket series. The remarkable point: it expresses the group product entirely in terms of the bracket. Up to convergence issues, the group is reconstructible from the algebra.</p>
+
+<p>The bracket also satisfies the <strong>Jacobi identity</strong>:</p>
+$$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
+<p>For matrices this is a one-line check. Conceptually it says that $\operatorname{ad}_X = [X,\cdot] : \mathfrak{g}\to\mathfrak{g}$ is a derivation: $\operatorname{ad}_X[Y,Z] = [\operatorname{ad}_X Y, Z] + [Y,\operatorname{ad}_X Z]$.</p>
+
+<div class="widget" id="w-comm">
+<div class="hd"><span class="ttl">Commutator and BCH numerical check</span><span class="hint">$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY)\stackrel{?}{=}I + t^2[X,Y]$</span></div>
+<div class="row">
+  <label>basis:</label>
+  <select id="cm-basis">
+    <option value="sl2">𝔰𝔩₂ basis (e, f, h)</option>
+    <option value="so3">𝔰𝔬(3) basis (E₁, E₂, E₃)</option>
+  </select>
+  <label style="margin-left:1rem">$X$:</label><select id="cm-X"></select>
+  <label>$Y$:</label><select id="cm-Y"></select>
+</div>
+<div class="row"><label>parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
+<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$X$</div>
+    <div class="matgrid" id="cm-Xm"></div>
+  </div>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$Y$</div>
+    <div class="matgrid" id="cm-Ym"></div>
+  </div>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$[X,Y]$ (exact)</div>
+    <div class="matgrid" id="cm-Bm"></div>
+  </div>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$\frac{1}{t^2}\log\big(e^{tX}e^{tY}e^{-tX}e^{-tY}\big)$</div>
+    <div class="matgrid" id="cm-Lm"></div>
+  </div>
+</div>
+<div class="small" id="cm-info"></div>
+</div>
+<script>
+(function(){
+  const basisSel = $('#cm-basis'), Xsel = $('#cm-X'), Ysel = $('#cm-Y'), tS = $('#cm-t'), tR = $('#cm-t-r');
+  const Xm = $('#cm-Xm'), Ym = $('#cm-Ym'), Bm = $('#cm-Bm'), Lm = $('#cm-Lm');
+  const info = $('#cm-info');
+  const sl2 = {
+    e: [[0,1],[0,0]],
+    f: [[0,0],[1,0]],
+    h: [[1,0],[0,-1]]
+  };
+  const so3 = {
+    'E₁': [[0,0,0],[0,0,-1],[0,1,0]],
+    'E₂': [[0,0,1],[0,0,0],[-1,0,0]],
+    'E₃': [[0,-1,0],[1,0,0],[0,0,0]]
+  };
+  function fillSelectors(){
+    const which = basisSel.value === 'sl2' ? sl2 : so3;
+    const keys = Object.keys(which);
+    Xsel.innerHTML = ''; Ysel.innerHTML = '';
+    keys.forEach(k=>{
+      const o1=document.createElement('option'); o1.value=k; o1.textContent=k; Xsel.appendChild(o1);
+      const o2=document.createElement('option'); o2.value=k; o2.textContent=k; Ysel.appendChild(o2);
+    });
+    Xsel.value = keys[0];
+    Ysel.value = keys[1] ?? keys[0];
+  }
+  // matrix log via Schur-free fallback: M = I + N with small N => log M = N - N^2/2 + N^3/3 - ...
+  function matLog(M, terms=30){
+    const n = M.length;
+    const N = matSub(M, eye(n));
+    let res = Array.from({length:n}, ()=>new Array(n).fill(0));
+    let term = N.map(r=>r.slice());
+    for(let k=1;k<=terms;k++){
+      res = matAdd(res, matScale(term, ((-1)**(k+1))/k));
+      term = matMul(term, N);
+    }
+    return res;
+  }
+  function frob(A){ let s=0; for(const r of A) for(const v of r) s += v*v; return Math.sqrt(s); }
+  function update(){
+    const which = basisSel.value === 'sl2' ? sl2 : so3;
+    const keys = Object.keys(which);
+    if(!keys.includes(Xsel.value)) Xsel.value = keys[0];
+    if(!keys.includes(Ysel.value)) Ysel.value = keys[1] ?? keys[0];
+    const X = which[Xsel.value], Y = which[Ysel.value];
+    const t = +tS.value;
+    tR.textContent = t.toFixed(3);
+    renderMat(Xm, X, 2); renderMat(Ym, Y, 2);
+    const B = matSub(matMul(X,Y), matMul(Y,X));
+    renderMat(Bm, B, 2);
+    // numerical: M = exp(tX) exp(tY) exp(-tX) exp(-tY)
+    const tX = matScale(X, t), tY = matScale(Y, t);
+    const eX = matExpSeries(tX), eY = matExpSeries(tY);
+    const emX = matExpSeries(matScale(X,-t)), emY = matExpSeries(matScale(Y,-t));
+    const M = matMul(matMul(matMul(eX, eY), emX), emY);
+    const L = matLog(M);
+    const Lscaled = matScale(L, 1/(t*t));
+    renderMat(Lm, Lscaled, 3);
+    const diff = frob(matSub(B, Lscaled));
+    info.textContent = `‖[X,Y] - log(M)/t²‖ = ${diff.toExponential(2)}.  As t → 0 this should drop like O(t).`;
+  }
+  basisSel.addEventListener('change', ()=>{ fillSelectors(); update(); });
+  Xsel.addEventListener('change', update);
+  Ysel.addEventListener('change', update);
+  tS.addEventListener('input', update);
+  fillSelectors();
+  update();
+})();
+</script>
+
+<p>Slide $t$ down: the right grid converges to the bracket grid, with error proportional to $t$. The $\mathfrak{sl}_2$ basis $(e,f,h)$ satisfies the famous relations $[h,e] = 2e$, $[h,f] = -2f$, $[e,f] = h$ — the same relations that drive the rep-theory page's weight diagram. The $\mathfrak{so}(3)$ basis $(E_1, E_2, E_3)$ satisfies $[E_i, E_j] = \varepsilon_{ijk} E_k$, the cross product on $\mathbb{R}^3$.</p>
+
+<div class="note"><strong>Why second order?</strong> First order: $\exp(tX)\exp(tY) = I + t(X+Y) + O(t^2)$, which is symmetric in $X,Y$ — no commutator yet. The four-fold product is constructed precisely to kill the symmetric part: $X+Y-X-Y = 0$, so the leading nonzero contribution is the antisymmetric piece $t^2(XY-YX)$.</div>
+</section>
+
+<section id="so3su2">
+<h2>5. SO(3), SU(2), and the double cover</h2>
+
+<p>The same Lie algebra can underlie different Lie groups. A clean example: $\mathfrak{su}(2)\cong\mathfrak{so}(3)$ as real Lie algebras (both are 3-dimensional with bracket given by the cross product), but the global groups differ:</p>
+
+<table class="plain">
+<thead><tr><th>group</th><th>topology</th><th>$\pi_1$</th><th>$\pi_3$</th></tr></thead>
+<tbody>
+<tr><td>$\mathrm{SU}(2)$</td><td>$S^3$ (3-sphere)</td><td>$0$</td><td>$\mathbb{Z}$</td></tr>
+<tr><td>$\mathrm{SO}(3)$</td><td>$\mathbb{RP}^3$</td><td>$\mathbb{Z}/2$</td><td>$\mathbb{Z}$</td></tr>
+</tbody>
+</table>
+
+<p>$\mathrm{SU}(2)$ is the universal cover of $\mathrm{SO}(3)$. There is a smooth surjective homomorphism</p>
+$$\pi : \mathrm{SU}(2) \twoheadrightarrow \mathrm{SO}(3), \qquad \ker\pi = \{\pm I\},$$
+<p>making $\mathrm{SU}(2)$ a 2:1 cover. Concretely, identify $\mathrm{SU}(2)$ with unit quaternions $q = a + b\mathbf{i} + c\mathbf{j} + d\mathbf{k}$ (with $a^2+b^2+c^2+d^2=1$), and let $q$ act on $\vec v\in\mathbb{R}^3 = \operatorname{Im}\mathbb{H}$ by conjugation $\vec v\mapsto q\vec v q^{-1}$. This is an orthogonal transformation of determinant $+1$, so an element of $\mathrm{SO}(3)$. The map $q\mapsto (\vec v\mapsto q\vec v q^{-1})$ is the double cover, and its kernel is exactly $\pm 1$.</p>
+
+<p>In matrix terms, given $q = (a,b,c,d)$, the corresponding rotation is</p>
+$$R(q) = \begin{pmatrix}
+a^2+b^2-c^2-d^2 & 2(bc-ad) & 2(bd+ac) \\
+2(bc+ad) & a^2-b^2+c^2-d^2 & 2(cd-ab) \\
+2(bd-ac) & 2(cd+ab) & a^2-b^2-c^2+d^2
+\end{pmatrix}.$$
+
+<div class="widget" id="w-cover">
+<div class="hd"><span class="ttl">SU(2) → SO(3) double cover</span><span class="hint">$q\mapsto R(q) = R(-q)$</span></div>
+<div class="row"><label>$a$</label><input type="range" id="qv-a" min="-1" max="1" step="0.005" value="0.7"><span class="readout" id="qv-ar" style="min-width:55px"></span></div>
+<div class="row"><label>$b$</label><input type="range" id="qv-b" min="-1" max="1" step="0.005" value="0.4"><span class="readout" id="qv-br" style="min-width:55px"></span></div>
+<div class="row"><label>$c$</label><input type="range" id="qv-c" min="-1" max="1" step="0.005" value="0.3"><span class="readout" id="qv-cr" style="min-width:55px"></span></div>
+<div class="row"><label>$d$</label><input type="range" id="qv-d" min="-1" max="1" step="0.005" value="0.5"><span class="readout" id="qv-dr" style="min-width:55px"></span></div>
+<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div>
+    <div class="small" style="margin-bottom:.3rem">normalised quaternion $q$</div>
+    <div class="readout" id="qv-q" style="min-width:280px"></div>
+    <div style="margin-top:.6rem">
+      <button id="qv-flip">flip $q \to -q$</button>
+      <button id="qv-rand">random</button>
+    </div>
+  </div>
+  <div>
+    <div class="small" style="margin-bottom:.3rem">$R(q)\in\mathrm{SO}(3)$</div>
+    <div class="matgrid" id="qv-R"></div>
+  </div>
+</div>
+<div class="small" id="qv-info"></div>
+</div>
+<script>
+(function(){
+  const sa = $('#qv-a'), sb = $('#qv-b'), sc = $('#qv-c'), sd = $('#qv-d');
+  const ra = $('#qv-ar'), rb = $('#qv-br'), rc = $('#qv-cr'), rd = $('#qv-dr');
+  const qOut = $('#qv-q'), Rgrid = $('#qv-R'), info = $('#qv-info');
+  const flip = $('#qv-flip'), rand = $('#qv-rand');
+  let lastR = null;
+  function update(){
+    let a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;
+    const N = Math.hypot(a,b,c,d) || 1;
+    a/=N; b/=N; c/=N; d/=N;
+    ra.textContent = a.toFixed(3); rb.textContent = b.toFixed(3);
+    rc.textContent = c.toFixed(3); rd.textContent = d.toFixed(3);
+    qOut.textContent = `q = ${a.toFixed(3)} + ${b.toFixed(3)}i + ${c.toFixed(3)}j + ${d.toFixed(3)}k\n‖q‖ = ${(a*a+b*b+c*c+d*d).toFixed(4)}`;
+    const R = [
+      [a*a+b*b-c*c-d*d, 2*(b*c-a*d),       2*(b*d+a*c)],
+      [2*(b*c+a*d),     a*a-b*b+c*c-d*d,   2*(c*d-a*b)],
+      [2*(b*d-a*c),     2*(c*d+a*b),       a*a-b*b-c*c+d*d]
+    ];
+    renderMat(Rgrid, R, 3);
+    let same = '';
+    if(lastR){
+      let diff = 0;
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++) diff += Math.abs(R[i][j] - lastR[i][j]);
+      same = diff < 1e-6 ? '  ←  identical to previous (kernel element ±I)' : '';
+    }
+    lastR = R;
+    info.textContent = `det R = ${(R[0][0]*(R[1][1]*R[2][2]-R[1][2]*R[2][1]) - R[0][1]*(R[1][0]*R[2][2]-R[1][2]*R[2][0]) + R[0][2]*(R[1][0]*R[2][1]-R[1][1]*R[2][0])).toFixed(4)}${same}`;
+  }
+  [sa,sb,sc,sd].forEach(s => s.addEventListener('input', update));
+  flip.addEventListener('click', ()=>{
+    sa.value = -(+sa.value);
+    sb.value = -(+sb.value);
+    sc.value = -(+sc.value);
+    sd.value = -(+sd.value);
+    update();
+  });
+  rand.addEventListener('click', ()=>{
+    sa.value = (Math.random()*2-1).toFixed(3);
+    sb.value = (Math.random()*2-1).toFixed(3);
+    sc.value = (Math.random()*2-1).toFixed(3);
+    sd.value = (Math.random()*2-1).toFixed(3);
+    update();
+  });
+  update();
+})();
+</script>
+
+<p>Click "flip $q\to -q$" and watch the matrix not change a single digit. That is the kernel of the double cover laid bare. Geometrically: a $360°$ rotation in $\mathrm{SO}(3)$ is the identity, but in $\mathrm{SU}(2)$ it is $-I$; you have to go around twice to come back to $+I$. This is the spinor sign, and it is the reason fermions are "real" — they live in a representation of $\mathrm{SU}(2)$ that does not descend to $\mathrm{SO}(3)$.</p>
+
+<div class="note"><strong>Topological summary.</strong> $\mathrm{SU}(2) = S^3$ is simply connected. The quotient by $\pm I$ identifies antipodes, giving $\mathbb{RP}^3 = \mathrm{SO}(3)$, which has $\pi_1 = \mathbb{Z}/2$. The nontrivial loop in $\mathrm{SO}(3)$ — a continuous 360° rotation about a fixed axis — lifts to a path from $I$ to $-I$ in $\mathrm{SU}(2)$. Doing it twice (720°) lifts to a closed loop, which is contractible. This is the celebrated "belt trick" or "Dirac plate trick".</div>
+</section>
+
+<section id="adjoint">
+<h2>6. The adjoint representation</h2>
+
+<p>A Lie group acts on its own Lie algebra by conjugation. For each $g\in G$, define</p>
+$$\mathrm{Ad}_g : \mathfrak{g}\to\mathfrak{g}, \qquad \mathrm{Ad}_g(X) = g X g^{-1}$$
+<p>(for matrix groups; in general it is the differential of conjugation $h\mapsto ghg^{-1}$ at $e$). This gives a homomorphism $\mathrm{Ad} : G\to\mathrm{GL}(\mathfrak{g})$, the <strong>adjoint representation</strong> of the group.</p>
+
+<p>Differentiate at the identity: $\mathrm{Ad}_{\exp(tX)}(Y) = e^{tX} Y e^{-tX}$, and</p>
+$$\frac{d}{dt}\bigg|_{t=0} e^{tX} Y e^{-tX} = XY - YX = [X,Y].$$
+<p>So the differential $d\mathrm{Ad}_e : \mathfrak{g}\to\mathrm{End}(\mathfrak{g})$ is</p>
+$$\operatorname{ad}_X(Y) = [X,Y],$$
+<p>the <strong>adjoint representation of the Lie algebra</strong>. Jacobi's identity is the statement that $\operatorname{ad}_{[X,Y]} = [\operatorname{ad}_X, \operatorname{ad}_Y]$, i.e., $\operatorname{ad}$ itself is a Lie algebra homomorphism $\mathfrak{g}\to\mathfrak{gl}(\mathfrak{g})$.</p>
+
+<h3>The Killing form</h3>
+
+<p>From $\operatorname{ad}$ one builds a canonical symmetric bilinear form on $\mathfrak{g}$, the <strong>Killing form</strong>:</p>
+$$B(X,Y) = \operatorname{tr}\!\big(\operatorname{ad}_X\operatorname{ad}_Y\big).$$
+<p>For $\mathfrak{so}(3)$ the Killing form is negative definite (all eigenvalues of $\operatorname{ad}_X$ are imaginary, square gives negatives); for $\mathfrak{sl}_2(\mathbb{R})$ it is indefinite of signature $(2,1)$. The sign tells you whether the corresponding compact group is compact ($B<0$) or not.</p>
+
+<p><strong>Cartan's criterion.</strong> A Lie algebra is <em>semisimple</em> iff its Killing form is non-degenerate. This single algebraic condition classifies an enormous class of Lie algebras and is the entry point to the root system theory of §7.</p>
+
+<div class="note"><strong>Adjoint orbits.</strong> The orbits of $G$ on $\mathfrak{g}$ under $\mathrm{Ad}$ are remarkable submanifolds: for $G = \mathrm{SU}(n)$ they are flag manifolds carrying $G$-invariant symplectic structures (Kirillov–Kostant–Souriau), and they parametrise the irreducible unitary representations of $G$ in a precise way (orbit method). For $G = \mathrm{SO}(3)$ the orbits are concentric spheres in $\mathbb{R}^3 = \mathfrak{so}(3)$ — radius $r$ corresponds to the spin-$r$ phase space.</div>
+</section>
+
+<section id="roots">
+<h2>7. Root systems preview: $A_1$ and $A_2$</h2>
+
+<p>For a complex semisimple Lie algebra $\mathfrak{g}_\mathbb{C}$, the structural classification rests on a beautiful piece of combinatorics: the <strong>root system</strong>. Pick a maximal abelian subalgebra $\mathfrak{h}\subset\mathfrak{g}_\mathbb{C}$ on which all $\operatorname{ad}_H$ ($H\in\mathfrak{h}$) are simultaneously diagonalisable — a <em>Cartan subalgebra</em>. The simultaneous eigenspace decomposition is</p>
+$$\mathfrak{g}_\mathbb{C} = \mathfrak{h} \oplus \bigoplus_{\alpha\in\Phi} \mathfrak{g}_\alpha,$$
+<p>where $\Phi\subset\mathfrak{h}^*\setminus\{0\}$ is the finite set of <strong>roots</strong>: nonzero linear functionals $\alpha:\mathfrak{h}\to\mathbb{C}$ such that $[H,X] = \alpha(H)X$ for all $H\in\mathfrak{h}$ and $X\in\mathfrak{g}_\alpha$.</p>
+
+<h3>Type $A_1$: the algebra $\mathfrak{sl}_2$</h3>
+<p>For $\mathfrak{g} = \mathfrak{sl}_2(\mathbb{C})$ with basis $h,e,f$ as in the rep-theory page, take $\mathfrak{h} = \mathbb{C}\cdot h$. One computes</p>
+$$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
+<p>So $\operatorname{ad}_h$ acts diagonally with eigenvalues $0, +2, -2$. The roots are $\alpha:h\mapsto 2$ and $-\alpha:h\mapsto -2$. As a picture in $\mathfrak{h}^*\cong\mathbb{R}$:</p>
+
+<h3>Type $A_2$: the algebra $\mathfrak{sl}_3$</h3>
+<p>For $\mathfrak{sl}_3(\mathbb{C})$, $\mathfrak{h}$ is the 2-dimensional space of traceless diagonal matrices $\operatorname{diag}(h_1,h_2,h_3)$ with $\sum h_i = 0$. Define $\varepsilon_i\in\mathfrak{h}^*$ by $\varepsilon_i(H) = h_i$. The roots are the six functionals $\varepsilon_i - \varepsilon_j$ ($i\ne j$): they form a regular hexagon in the plane $\{\sum h_i = 0\}\cong\mathbb{R}^2$.</p>
+
+<div class="widget" id="w-roots">
+<div class="hd"><span class="ttl">Root systems $A_1$ and $A_2$</span><span class="hint">click a root to apply the Weyl reflection through its perpendicular hyperplane</span></div>
+<div class="tabs">
+  <button id="rt-a1" class="active">$A_1$ (𝔰𝔩₂)</button>
+  <button id="rt-a2">$A_2$ (𝔰𝔩₃)</button>
+</div>
+<svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"></svg>
+<div class="small" id="rt-info"></div>
+</div>
+<script>
+(function(){
+  const a1Btn = $('#rt-a1'), a2Btn = $('#rt-a2'), svg = $('#rt-svg'), info = $('#rt-info');
+  let mode = 'A1';
+  let highlight = null; // index of hovered root
+  let reflectAxis = null; // root index whose reflection to display
+
+  function clear(){ svg.innerHTML = ''; }
+  function drawAxes(){
+    svg.appendChild(SVG('line',{x1:-160,y1:0,x2:160,y2:0,stroke:'#2a3242','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:0,y1:-140,x2:0,y2:140,stroke:'#2a3242','stroke-width':1}));
+  }
+  function drawRoot(p, label, opts={}){
+    const {color='#58c4dd', simple=false, highest=false} = opts;
+    const O = [0,0];
+    const dx = p[0], dy = p[1];
+    const L = Math.hypot(dx,dy);
+    const ux = dx/L, uy = dy/L;
+    const tip = [p[0] - ux*8, p[1] - uy*8];
+    // arrow
+    const aid = 'rt-' + Math.abs(Math.round(p[0]+p[1]*7));
+    ensureArrow(svg, aid, color);
+    const path = SVG('path',{
+      d:`M0 0 L${tip[0]} ${tip[1]}`,
+      stroke:color, 'stroke-width': simple || highest ? 2.6 : 1.6,
+      fill:'none', 'marker-end':`url(#${aid})`
+    });
+    svg.appendChild(path);
+    // dot at tip
+    svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:5,fill:color}));
+    // label
+    const lbl = SVG('text',{x:p[0]+10*Math.sign(p[0]||1),y:p[1]+5+(p[1]<0?-8:12),
+      'font-size':12,fill:color,'text-anchor':'middle'});
+    lbl.textContent = label;
+    svg.appendChild(lbl);
+    if(simple){
+      const tag = SVG('text',{x:p[0]*0.55, y:p[1]*0.55-6, 'font-size':10, fill:'#ffd866','text-anchor':'middle','font-style':'italic'});
+      tag.textContent = 'simple'; svg.appendChild(tag);
+    }
+    if(highest){
+      const tag = SVG('text',{x:p[0]+6, y:p[1]-12, 'font-size':10, fill:'#83c167','text-anchor':'middle','font-style':'italic'});
+      tag.textContent = 'highest'; svg.appendChild(tag);
+    }
+    return path;
+  }
+  function drawReflectionLine(axis){
+    // perpendicular line through origin (perpendicular to root axis)
+    const [ax,ay] = axis;
+    const L = Math.hypot(ax,ay);
+    if(L < 1e-9) return;
+    const px = -ay/L, py = ax/L;
+    svg.appendChild(SVG('line',{
+      x1: -150*px, y1: -150*py, x2: 150*px, y2: 150*py,
+      stroke:'#e07a5f','stroke-width':1.4,'stroke-dasharray':'5 4',opacity:.85
+    }));
+  }
+  function drawA1(){
+    clear(); drawAxes();
+    // roots ±α at ±100 on x-axis (matches rep-theory weights ±2 picture)
+    const R = 110;
+    const roots = [
+      {p:[ R, 0], label:'α',  simple:true,  highest:true},
+      {p:[-R, 0], label:'−α', simple:false, highest:false}
+    ];
+    roots.forEach(r => drawRoot(r.p, r.label, r));
+    // weights 1,-1 of standard rep ghosted (matches rep-theory page weights for std)
+    [[ R/2,0],[-R/2,0]].forEach(p=>{
+      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:3,fill:'#9aa4b2'}));
+    });
+    const tip = SVG('text',{x:0,y:130,'text-anchor':'middle','font-size':11,fill:'#9aa4b2'});
+    tip.textContent = 'roots = {±α} on the line ℝ·h*; grey dots = weights ±1 of the standard rep';
+    svg.appendChild(tip);
+    info.textContent = 'A₁: rank 1, two roots, simple root α, highest root α, Weyl group ℤ/2 (reflection x↦−x).';
+  }
+  function drawA2(){
+    clear(); drawAxes();
+    const R = 110;
+    // 6 roots at angles 0,60,...,300
+    const roots = [];
+    for(let k=0;k<6;k++){
+      const ang = k*Math.PI/3;
+      roots.push({p:[R*Math.cos(ang), -R*Math.sin(ang)], label:'', idx:k});
+    }
+    // label them: α1 = root at 0°, α2 at 120°, then α1+α2 at 60° = highest, and the negatives
+    roots[0].label = 'α₁'; roots[0].simple = true;
+    roots[2].label = 'α₂'; roots[2].simple = true;
+    roots[1].label = 'α₁+α₂'; roots[1].highest = true;
+    roots[3].label = '−α₁';
+    roots[4].label = '−α₁−α₂';
+    roots[5].label = '−α₂';
+    roots.forEach((r,i) => {
+      const path = drawRoot(r.p, r.label, {
+        color: r.simple ? '#ffd866' : (r.highest ? '#83c167' : '#58c4dd'),
+        simple: r.simple, highest: r.highest
+      });
+      // make hoverable
+      const hit = SVG('circle',{cx:r.p[0],cy:r.p[1],r:14,fill:'transparent','pointer-events':'all',style:'cursor:pointer'});
+      hit.addEventListener('mouseenter', ()=>{ reflectAxis = r.p; render(); });
+      hit.addEventListener('mouseleave', ()=>{ reflectAxis = null; render(); });
+      svg.appendChild(hit);
+    });
+    if(reflectAxis){
+      drawReflectionLine(reflectAxis);
+      // show that reflection through this axis permutes the 6 roots
+      const [ax,ay] = reflectAxis;
+      const L2 = ax*ax+ay*ay;
+      roots.forEach(r=>{
+        const dot = (r.p[0]*ax + r.p[1]*ay)/L2;
+        const refl = [r.p[0] - 2*dot*ax, r.p[1] - 2*dot*ay];
+        svg.appendChild(SVG('circle',{cx:refl[0],cy:refl[1],r:3,fill:'#e07a5f'}));
+        svg.appendChild(SVG('line',{x1:r.p[0],y1:r.p[1],x2:refl[0],y2:refl[1],
+          stroke:'#e07a5f','stroke-width':0.7,opacity:.5,'stroke-dasharray':'2 2'}));
+      });
+    }
+    const tip = SVG('text',{x:0,y:148,'text-anchor':'middle','font-size':11,fill:'#9aa4b2'});
+    tip.textContent = 'hover any root to see its Weyl reflection (perpendicular hyperplane)';
+    svg.appendChild(tip);
+    info.textContent = 'A₂: rank 2, six roots at 60° apart, simple roots {α₁,α₂} with angle 120°, highest root α₁+α₂, Weyl group S₃ (six reflections/rotations of the hexagon).';
+  }
+  function render(){
+    if(mode === 'A1') drawA1(); else drawA2();
+  }
+  a1Btn.addEventListener('click', ()=>{
+    mode='A1'; a1Btn.classList.add('active'); a2Btn.classList.remove('active'); reflectAxis=null; render();
+  });
+  a2Btn.addEventListener('click', ()=>{
+    mode='A2'; a2Btn.classList.add('active'); a1Btn.classList.remove('active'); reflectAxis=null; render();
+  });
+  render();
+})();
+</script>
+
+<p>The $A_1$ picture is the same as the rep-theory page's weight diagram for $\mathfrak{sl}_2$: roots are weights of $\operatorname{ad}$, and the "weight 2" arrow on the right is the eigenvalue of $h$ on $e$. The $A_2$ hexagon is the prototype for everything in semisimple theory: pick two adjacent roots as <em>simple roots</em>, the reflections through their perpendicular hyperplanes generate the <strong>Weyl group</strong> (here $S_3$), and the integers $\langle\alpha,\beta^\vee\rangle\in\mathbb{Z}$ assemble into the Cartan matrix.</p>
+
+<table class="plain">
+<thead><tr><th>system</th><th>rank</th><th>$|\Phi|$</th><th>Weyl group</th><th>Lie algebra</th></tr></thead>
+<tbody>
+<tr><td>$A_1$</td><td>1</td><td>2</td><td>$\mathbb{Z}/2$</td><td>$\mathfrak{sl}_2$</td></tr>
+<tr><td>$A_2$</td><td>2</td><td>6</td><td>$S_3$</td><td>$\mathfrak{sl}_3$</td></tr>
+<tr><td>$A_n$</td><td>$n$</td><td>$n(n+1)$</td><td>$S_{n+1}$</td><td>$\mathfrak{sl}_{n+1}$</td></tr>
+<tr><td>$B_n$</td><td>$n$</td><td>$2n^2$</td><td>$(\mathbb{Z}/2)^n\rtimes S_n$</td><td>$\mathfrak{so}(2n+1)$</td></tr>
+<tr><td>$D_n$</td><td>$n$</td><td>$2n(n-1)$</td><td>—</td><td>$\mathfrak{so}(2n)$</td></tr>
+<tr><td>$E_8$</td><td>8</td><td>240</td><td>order $696{,}729{,}600$</td><td>$\mathfrak{e}_8$</td></tr>
+</tbody>
+</table>
+
+<div class="note"><strong>Killing–Cartan classification.</strong> The complex simple Lie algebras are exactly those with root system in the four infinite families $A_n, B_n, C_n, D_n$ and the five exceptionals $G_2, F_4, E_6, E_7, E_8$. This is one of the deepest classification results in mathematics — and the proof is essentially combinatorial, working entirely with root systems and Dynkin diagrams.</div>
+</section>
+
+<section id="outro">
+<h2>8. Connections</h2>
+
+<p>Lie groups sit at the centre of the notebook, and what we have built here connects outward in several directions.</p>
+
+<ul>
+  <li><strong>Representation theory.</strong> The rep-theory page's analysis of $\mathfrak{sl}_2(\mathbb{C})$-modules — highest weight vectors, weight-string structure, the irreducible $V_n$ of dimension $n+1$ — is the local model for representation theory of every semisimple Lie algebra. The roots we drew in §7 are the <em>weights of the adjoint representation</em>, and a general highest-weight $V_\lambda$ is built by raising and lowering between weight spaces just as we did for $V_n$.</li>
+  <li><strong>Differential geometry.</strong> The one-parameter subgroups $t\mapsto\exp(tX)$ are exactly the geodesics through $e$ for any left-invariant Riemannian metric on $G$ (provided one uses the right connection — the Levi-Civita connection of a bi-invariant metric, which exists when $G$ is compact). So the exponential map of §3 <em>is</em> the Riemannian exponential of differential geometry. The differential-geometry page builds this picture from the manifold side.</li>
+  <li><strong>Differential forms.</strong> On any Lie group, the <em>Maurer–Cartan form</em> $\omega = g^{-1}dg$ is a $\mathfrak{g}$-valued 1-form satisfying the structural equation $d\omega + \tfrac12[\omega,\omega] = 0$. The bracket appears as the curvature of trivial connection — and this equation is the prototype for connection 1-forms in gauge theory. Lie algebra cohomology, on the algebra side, mirrors de Rham cohomology of the group.</li>
+  <li><strong>Topology.</strong> $\pi_3(G) = \mathbb{Z}$ for every compact simple Lie group $G$ — generated, in $\mathrm{SU}(2) = S^3$, by the identity map. The integer is the <em>instanton number</em> in physics, and the same integer measures Chern–Simons levels in 3-manifold invariants.</li>
+  <li><strong>Algebraic geometry.</strong> Algebraic groups (e.g., $\mathrm{GL}_n$ as a group scheme over $\mathrm{Spec}\,\mathbb{Z}$) bring Lie-theoretic ideas into the world of schemes. Their representations classify principal bundles, and the Borel–Weil theorem realises every irreducible $G$-module as global sections of a line bundle on the flag variety $G/B$.</li>
+</ul>
+
+<p>From here it is a short hop to almost everything else: physics (Yang–Mills, the Standard Model, Wigner classification of particles), geometry (symmetric spaces, locally homogeneous structures), number theory (automorphic forms on $G(\mathbb{A}_F)$), and combinatorics (Schubert calculus, Kazhdan–Lusztig polynomials). The bracket on a 3-dimensional vector space — a one-line definition — really is the seed of an enormous subject.</p>
+
+<p class="small" style="margin-top:1.6rem">Suggested next stops in the notebook: <a href="./representation-theory.html">representation theory</a> for the highest-weight machinery on $\mathfrak{sl}_2$; <a href="./differential-geometry.html">differential geometry</a> for connections, geodesics, and curvature; <a href="./topology.html">topology</a> for fundamental groups and covering spaces.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

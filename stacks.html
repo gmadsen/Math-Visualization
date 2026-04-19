@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stacks — groupoids, descent, and moduli</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+function drawLoop(svg, cx, cy, label, color, markerId){
+  ensureArrow(svg, markerId, color);
+  const d = `M ${cx-10} ${cy-22} C ${cx-38} ${cy-72}, ${cx+38} ${cy-72}, ${cx+10} ${cy-22}`;
+  svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':1.5,'marker-end':`url(#${markerId})`}));
+  if(label){
+    const t = SVG('text',{x:cx, y:cy-58,'text-anchor':'middle','font-size':11,fill:color,'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#recap">1&nbsp;Recap</a>
+  <a href="#grpd">2&nbsp;Groupoids</a>
+  <a href="#fib">3&nbsp;Fibered&nbsp;categories</a>
+  <a href="#descent">4&nbsp;Descent</a>
+  <a href="#bg">5&nbsp;$BG$</a>
+  <a href="#dm">6&nbsp;DM&nbsp;stacks</a>
+  <a href="#m11">7&nbsp;$\mathcal{M}_{1,1}$</a>
+  <a href="#coarse">8&nbsp;Coarse&nbsp;moduli</a>
+  <a href="#take">9&nbsp;Takeaways</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Stacks: groupoids, descent, and moduli</h1>
+  <p class="sub">A moduli problem wants a fine space. When objects have automorphisms, no scheme can do the job honestly. Stacks fix the deficit by remembering not just isomorphism classes but the automorphisms themselves. This page builds the Deligne–Mumford level of the theory: groupoid-valued functors, the descent condition, the classifying stack $BG$, and $\mathcal{M}_{1,1}$ as the first truly stacky example.</p>
+</section>
+
+<section id="recap">
+<h2>1. Recap: the moduli problem</h2>
+<p>A <strong>moduli problem</strong> asks for a space whose points parameterise some class of geometric objects — elliptic curves, vector bundles, stable maps, and so on. The naive formulation is a functor</p>
+$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad R \longmapsto \{\text{objects over } \mathrm{Spec}\, R\}/\cong. $$
+<p>If this functor is representable by a scheme $M$, we call $M$ a <strong>fine moduli space</strong>. For elliptic curves the functor is <em>not</em> representable: the culprit is the non-trivial automorphism $[-1]$ on every elliptic curve, and the extra automorphisms $\mu_4$ at $j=1728$, $\mu_6$ at $j=0$. See the <a href="./elliptic-curves.html">elliptic-curves</a>, <a href="./moduli-spaces.html">moduli-spaces</a>, and <a href="./functor-of-points.html">functor-of-points</a> pages for the obstruction in detail.</p>
+<div class="note"><strong>The diagnostic.</strong> Take a family $\mathcal{E}\to B$ and an automorphism $\sigma$ of a fibre. If the representing object ignored $\sigma$, twisting $\mathcal{E}$ along a cover by $\sigma$ would give an inequivalent family with the <em>same</em> classifying map. Representability fails because distinct families produce the same classifying morphism.</div>
+<p>The standard move — pass to the coarse moduli space (here, the $j$-line $\mathbb{A}^1_j$) — discards the automorphism data entirely. Coarse moduli is a bijection on points but forgets the $\mathrm{Aut}$-groups that made the problem interesting in the first place.</p>
+<p><strong>Forward-pointing question.</strong> What if, instead of throwing the automorphisms away, we keep them as part of the moduli object?</p>
+</section>
+
+<section id="grpd">
+<h2>2. Groupoids, not sets</h2>
+<p>A <strong>groupoid</strong> is a category in which every morphism is an isomorphism. Groupoids are the right replacement for sets whenever your objects come with automorphisms you do not want to forget.</p>
+<p>If $\mathcal{C}$ is any category (say, elliptic curves over a fixed ring $R$ with isomorphisms of elliptic curves as the only morphisms), its <strong>underlying groupoid</strong> $\mathcal{C}^{\cong}$ throws away non-invertible arrows but keeps everything else. The <em>set of isomorphism classes</em> $\pi_0(\mathcal{C}^{\cong})$ is the skeletal shadow of this groupoid.</p>
+<p>Collapsing a groupoid to its $\pi_0$ is a lossy operation: you recover the number of components but lose the automorphism group $\mathrm{Aut}(x)$ at each object $x$.</p>
+
+<div class="widget" id="w-grpd">
+  <div class="hd"><div class="ttl">W1 · Groupoid vs. set</div><div class="hint">toggle between the full groupoid and its $\pi_0$</div></div>
+  <svg id="grpd-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="row">
+    <button id="grpd-full" class="active">groupoid view</button>
+    <button id="grpd-pi0">set view ($\pi_0$)</button>
+  </div>
+  <div class="readout" id="grpd-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#grpd-svg'), out = $('#grpd-out');
+  const bFull = $('#grpd-full'), bPi0 = $('#grpd-pi0');
+  let mode = 'full';
+  function render(){
+    svg.innerHTML = '';
+    if(mode === 'full'){
+      // three isomorphic objects with automorphisms
+      const pts = [{x:160,y:150,label:'E_1',aut:'Z/2'},{x:310,y:150,label:'E_2',aut:'Z/2'},{x:460,y:150,label:'E_3',aut:'Z/2'}];
+      // iso arrows between pairs (curved, both directions)
+      drawArrow(svg,[pts[0].x,pts[0].y],[pts[1].x,pts[1].y],{curve:-30,label:'φ',color:'var(--cyan)',markerId:'gg1'});
+      drawArrow(svg,[pts[1].x,pts[1].y],[pts[0].x,pts[0].y],{curve:-30,label:'φ⁻¹',color:'var(--cyan)',markerId:'gg1b'});
+      drawArrow(svg,[pts[1].x,pts[1].y],[pts[2].x,pts[2].y],{curve:-30,label:'ψ',color:'var(--cyan)',markerId:'gg2'});
+      drawArrow(svg,[pts[2].x,pts[2].y],[pts[1].x,pts[1].y],{curve:-30,label:'ψ⁻¹',color:'var(--cyan)',markerId:'gg2b'});
+      drawArrow(svg,[pts[0].x,pts[0].y],[pts[2].x,pts[2].y],{curve:80,label:'ψ∘φ',color:'var(--blue)',markerId:'gg3'});
+      // automorphism loops
+      for(const p of pts){
+        drawLoop(svg, p.x, p.y, '[-1]', 'var(--yellow)', 'gg-l-'+p.label);
+      }
+      for(const p of pts){ drawNode(svg, p.x, p.y, p.label, {r:22, stroke:'var(--blue)'}); }
+      out.textContent = 'groupoid: 3 objects, each with Aut = Z/2, all connected by isomorphisms.\niso classes π₀ = 1, but automorphism data persists at every object.';
+    } else {
+      // collapsed to single dot
+      drawNode(svg, 310, 150, '[E]', {r:26, stroke:'var(--green)', textColor:'#fff'});
+      const t = SVG('text',{x:310, y:210,'text-anchor':'middle','font-size':13, fill:'var(--mute)'});
+      t.textContent = 'π₀ = { [E] }  — automorphism info lost';
+      svg.appendChild(t);
+      out.textContent = 'set view: a single iso class. The Z/2 automorphism at [E] has been forgotten.\nThis is what a moduli functor to Sets records.';
+    }
+  }
+  bFull.addEventListener('click',()=>{ mode='full'; bFull.classList.add('active'); bPi0.classList.remove('active'); render(); });
+  bPi0.addEventListener('click',()=>{ mode='pi0'; bPi0.classList.add('active'); bFull.classList.remove('active'); render(); });
+  render();
+})();
+</script>
+
+<p>The slogan: <em>Schemes are to sets as stacks are to groupoids.</em> To keep automorphism data, redefine the moduli functor to land in groupoids.</p>
+</section>
+
+<section id="fib">
+<h2>3. Fibered categories and groupoid-valued functors</h2>
+<p>Repackage the moduli problem as</p>
+$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Grpd}, \qquad R \longmapsto \mathcal{M}(R), $$
+<p>where $\mathcal{M}(R)$ is the <em>groupoid</em> whose objects are families $X\to\mathrm{Spec}\,R$ of the desired type and whose arrows are isomorphisms of families over $\mathrm{Spec}\,R$. For a ring map $R\to S$, pullback sends a family over $R$ to a family over $S$ and gives the restriction functor $\mathcal{M}(R)\to\mathcal{M}(S)$.</p>
+
+<div class="note"><strong>Subtlety.</strong> Pullback is only defined up to canonical isomorphism, not on the nose — $f^*(g^*X)$ and $(gf)^*X$ are canonically isomorphic but not equal. The honest way to handle this is a <strong>fibered category</strong> $\mathcal{M}\to\mathrm{Sch}$: one single category sitting over $\mathrm{Sch}$, with a prescribed notion of pullback via cartesian arrows. A groupoid-valued pseudo-functor and a category fibered in groupoids carry the same information; use whichever feels lighter.</div>
+
+<div class="widget" id="w-fib">
+  <div class="hd"><div class="ttl">W·A · Fibered category</div><div class="hint">a category sitting over $\mathrm{Sch}$</div></div>
+  <svg id="fib-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
+  <div class="readout" id="fib-out">Top row: the total category $\mathcal{M}$. Bottom row: the base $\mathrm{Sch}$.
+Cartesian squares upstairs project to commuting squares downstairs — "pullback of a family along a ring map".</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#fib-svg');
+  // upstairs: families; downstairs: spec R
+  const up = [
+    {x:120,y:90,label:'X_R'},
+    {x:320,y:90,label:'X_S'},
+    {x:520,y:90,label:'X_T'},
+  ];
+  const dn = [
+    {x:120,y:250,label:'Spec R'},
+    {x:320,y:250,label:'Spec S'},
+    {x:520,y:250,label:'Spec T'},
+  ];
+  // horizontal cartesian arrows upstairs (right-to-left: pullback direction)
+  drawArrow(svg,[up[1].x,up[1].y],[up[0].x,up[0].y],{color:'var(--yellow)',markerId:'fu1',label:'f*'});
+  drawArrow(svg,[up[2].x,up[2].y],[up[1].x,up[1].y],{color:'var(--yellow)',markerId:'fu2',label:'g*'});
+  // downstairs arrows (left-to-right: spec map direction)
+  drawArrow(svg,[dn[0].x,dn[0].y],[dn[1].x,dn[1].y],{color:'var(--blue)',markerId:'fd1',label:'f'});
+  drawArrow(svg,[dn[1].x,dn[1].y],[dn[2].x,dn[2].y],{color:'var(--blue)',markerId:'fd2',label:'g'});
+  // projection arrows (vertical)
+  for(let i=0;i<3;i++){
+    drawArrow(svg,[up[i].x,up[i].y],[dn[i].x,dn[i].y],{color:'var(--mute)',markerId:'fp'+i,dash:'4 3'});
+  }
+  // label projection
+  const pr = SVG('text',{x:580,y:170,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});
+  pr.textContent = 'π';
+  svg.appendChild(pr);
+  // nodes
+  for(const p of up) drawNode(svg,p.x,p.y,p.label,{r:26,stroke:'var(--yellow)'});
+  for(const p of dn) drawNode(svg,p.x,p.y,p.label,{r:28,stroke:'var(--blue)'});
+  // side labels
+  const lu = SVG('text',{x:30,y:95,'font-size':13,fill:'var(--mute)'}); lu.textContent = 'ℳ'; svg.appendChild(lu);
+  const ld = SVG('text',{x:30,y:255,'font-size':13,fill:'var(--mute)'}); ld.textContent = 'Sch'; svg.appendChild(ld);
+})();
+</script>
+
+<p>Either way, a moduli problem is now a functor (or fibered category) valued in groupoids. That is still not a stack — we need one more condition.</p>
+</section>
+
+<section id="descent">
+<h2>4. The descent (sheaf) condition</h2>
+<p>A presheaf of sets is a <em>sheaf</em> if local data glue uniquely. The groupoid analog has two layers: objects must glue (up to iso), and isomorphisms must glue on the nose.</p>
+
+<div class="note"><strong>Stack.</strong> A fibered category $\mathcal{X}\to\mathrm{Sch}$ is a <strong>stack</strong> (for a chosen Grothendieck topology, typically étale or fppf) when for every cover $\{U_i\to U\}$:
+<ol>
+  <li><strong>Isomorphisms are a sheaf.</strong> For any two objects $x,y\in\mathcal{X}(U)$, the presheaf $V\mapsto \mathrm{Iso}_{\mathcal{X}(V)}(x|_V, y|_V)$ is a sheaf on $U$.</li>
+  <li><strong>Descent for objects.</strong> Given local objects $x_i\in\mathcal{X}(U_i)$ with transition isomorphisms $\varphi_{ij}:x_j|_{U_{ij}}\xrightarrow{\sim} x_i|_{U_{ij}}$ satisfying the cocycle $\varphi_{ik}=\varphi_{ij}\circ\varphi_{jk}$ on triple overlaps, there is an object $x\in\mathcal{X}(U)$ (unique up to unique iso) with $x|_{U_i}\cong x_i$ compatibly.</li>
+</ol></div>
+
+<p>The first condition says "being isomorphic is a local property". The second says "you can glue families". Both were invisible in the set-valued theory because sets have no non-trivial automorphisms.</p>
+
+<div class="widget" id="w-descent">
+  <div class="hd"><div class="ttl">W2 · Descent / gluing</div><div class="hint">glue local objects along a two-open cover</div></div>
+  <svg id="descent-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="row">
+    <button id="descent-glue">glue</button>
+    <button id="descent-reset">reset</button>
+    <button id="descent-cocycle">triple-overlap cocycle</button>
+  </div>
+  <div class="readout" id="descent-out">Two local families on $U$ and $V$, with a transition iso $\varphi$ on $U\cap V$. Click "glue".</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#descent-svg'), out = $('#descent-out');
+  const bGlue = $('#descent-glue'), bReset = $('#descent-reset'), bCoc = $('#descent-cocycle');
+  let state = 'local';
+  function render(){
+    svg.innerHTML='';
+    if(state === 'local' || state === 'glued'){
+      // base: U (left oval), V (right oval), overlap in middle
+      const uC = [180,200], vC = [440,200];
+      svg.appendChild(SVG('ellipse',{cx:uC[0],cy:uC[1],rx:150,ry:60,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));
+      svg.appendChild(SVG('ellipse',{cx:vC[0],cy:vC[1],rx:150,ry:60,fill:'none',stroke:'var(--green)','stroke-width':1.5}));
+      const lU = SVG('text',{x:80,y:200,'font-size':14,fill:'var(--blue)','font-weight':600}); lU.textContent='U'; svg.appendChild(lU);
+      const lV = SVG('text',{x:540,y:200,'font-size':14,fill:'var(--green)','font-weight':600}); lV.textContent='V'; svg.appendChild(lV);
+      const lUV = SVG('text',{x:310,y:275,'text-anchor':'middle','font-size':12,fill:'var(--mute)','font-style':'italic'}); lUV.textContent='U ∩ V'; svg.appendChild(lUV);
+      // local families above
+      if(state === 'local'){
+        drawNode(svg, 180, 80, 'x_U', {r:22, stroke:'var(--blue)'});
+        drawNode(svg, 440, 80, 'x_V', {r:22, stroke:'var(--green)'});
+        drawArrow(svg,[202,80],[418,80],{label:'φ on U∩V',color:'var(--yellow)',markerId:'dc1',curve:-20});
+        // restriction dashed arrows down to the overlap region
+        drawArrow(svg,[180,102],[310,195],{color:'var(--mute)',dash:'4 3',markerId:'ddU'});
+        drawArrow(svg,[440,102],[310,195],{color:'var(--mute)',dash:'4 3',markerId:'ddV'});
+        out.textContent = 'Local data: x_U on U, x_V on V, transition iso φ : x_V|U∩V → x_U|U∩V.\nIf the stack condition holds, this glues.';
+      } else {
+        drawNode(svg, 310, 80, 'x  on  U ∪ V', {r:38, stroke:'var(--yellow)', fontSize:13});
+        drawArrow(svg,[285,100],[180,180],{color:'var(--mute)',dash:'4 3',markerId:'dgU',label:'|_U'});
+        drawArrow(svg,[335,100],[440,180],{color:'var(--mute)',dash:'4 3',markerId:'dgV',label:'|_V'});
+        out.textContent = 'Glued! The descent datum (x_U, x_V, φ) produces a global x on U ∪ V, unique up to unique iso.\nThis is what the stack axiom guarantees.';
+      }
+    } else if(state === 'cocycle'){
+      // Three circles representing U_i, U_j, U_k and their triple overlap
+      const C = [{x:200,y:170,r:90,lab:'U_i',col:'var(--blue)'},
+                 {x:340,y:170,r:90,lab:'U_j',col:'var(--green)'},
+                 {x:270,y:260,r:90,lab:'U_k',col:'var(--pink)'}];
+      for(const c of C) svg.appendChild(SVG('circle',{cx:c.x,cy:c.y,r:c.r,fill:'none',stroke:c.col,'stroke-width':1.3,opacity:0.7}));
+      // labels
+      svg.appendChild(Object.assign(SVG('text',{x:140,y:100,'font-size':13,fill:'var(--blue)','font-weight':600}),{textContent:'U_i'}));
+      svg.appendChild(Object.assign(SVG('text',{x:410,y:100,'font-size':13,fill:'var(--green)','font-weight':600}),{textContent:'U_j'}));
+      svg.appendChild(Object.assign(SVG('text',{x:260,y:365,'font-size':13,fill:'var(--pink)','font-weight':600}),{textContent:'U_k'}));
+      // cocycle triangle at the triple overlap
+      const a=[230,200], b=[310,200], c=[270,240];
+      drawArrow(svg,a,b,{label:'φ_ij',color:'var(--yellow)',markerId:'c1',pad1:2,pad2:2});
+      drawArrow(svg,b,c,{label:'φ_jk',color:'var(--yellow)',markerId:'c2',pad1:2,pad2:2});
+      drawArrow(svg,a,c,{label:'φ_ik',color:'var(--cyan)',markerId:'c3',pad1:2,pad2:2,curve:30});
+      const eq = SVG('text',{x:310,y:295,'font-size':13,fill:'var(--ink)'});
+      eq.textContent = 'cocycle:  φ_ik = φ_ij ∘ φ_jk';
+      svg.appendChild(eq);
+      out.textContent = 'On triple overlaps U_i ∩ U_j ∩ U_k, the transition isomorphisms must compose consistently.\nThis cocycle condition is automatic for presheaves of sets but essential for groupoids.';
+    }
+  }
+  bGlue.addEventListener('click',()=>{ state='glued'; render(); });
+  bReset.addEventListener('click',()=>{ state='local'; render(); });
+  bCoc.addEventListener('click',()=>{ state='cocycle'; render(); });
+  render();
+})();
+</script>
+
+<p>Grothendieck topology choice matters. The Zariski topology is too coarse to make moduli functors into stacks; the <strong>étale</strong> or <strong>fppf</strong> topologies are the workhorses. All reasonable moduli problems are stacks in the étale or fppf topology.</p>
+</section>
+
+<section id="bg">
+<h2>5. Example: $BG$, the classifying stack</h2>
+<p>Fix a finite group $G$. The <strong>classifying stack</strong> $BG$ is defined by</p>
+$$ BG(R) \;=\; \text{groupoid of } G\text{-torsors on } \mathrm{Spec}\,R. $$
+<p>A $G$-torsor on $\mathrm{Spec}\,R$ is an $R$-scheme $P\to\mathrm{Spec}\,R$ with a free $G$-action, étale-locally isomorphic to $G\times\mathrm{Spec}\,R$. For $R$ a field, the set of iso classes is $H^1(\mathrm{Spec}\,R, G)$, and the automorphism group of any torsor is a form of $G$; for the trivial torsor it is literally $G$ acting by translation.</p>
+
+<div class="note"><strong>$BG$ is not a scheme.</strong> Its unique geometric point $\mathrm{Spec}\,\overline{k}\to BG$ (the trivial torsor) has automorphism group $G$. A scheme cannot have non-trivial automorphisms at a geometric point, because its functor of points lands in sets. So $BG$ is the simplest genuinely-stacky stack.</div>
+
+<div class="widget" id="w-bg">
+  <div class="hd"><div class="ttl">W3 · $BG$ torsors</div><div class="hint">count $G$-torsors over $\mathrm{Spec}\,R$</div></div>
+  <div class="row">
+    <label>group $G$:</label>
+    <select id="bg-grp">
+      <option value="Z2">ℤ/2</option>
+      <option value="Z3">ℤ/3</option>
+      <option value="S3">S_3</option>
+    </select>
+    <label>base ring $R$:</label>
+    <select id="bg-ring">
+      <option value="F2">𝔽₂</option>
+      <option value="F3">𝔽₃</option>
+      <option value="F7">𝔽₇</option>
+      <option value="R">ℝ</option>
+    </select>
+  </div>
+  <svg id="bg-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="readout" id="bg-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#bg-svg'), out = $('#bg-out');
+  const selG = $('#bg-grp'), selR = $('#bg-ring');
+  // For cyclic G = Z/n, |H^1(Spec F_q, G)| = gcd(n, q-1) when we use étale cohomology with constant sheaf?
+  // Actually |Hom(Gal(F_q), Z/n)| = #(Z/n whose order divides... the absolute Galois group of F_q is Ẑ, so Hom(Ẑ, Z/n) = Z/n as a set.
+  // So |H^1(Spec F_q, Z/n)_et| = n for any finite field. Simpler: Z/n-torsors on Spec F_q correspond to Z/n-covers, i.e. étale Z/n extensions of F_q, which is unique of each degree dividing n; total count = n.
+  // For S_3 over F_q: H^1(Gal, S_3) (non-abelian) = conjugacy classes of homs from Ẑ to S_3 = conjugacy classes of elements of S_3 = 3 (id, transposition, 3-cycle).
+  // For R: Gal(C/R) = Z/2. Hom(Z/2, Z/n) = elements of order dividing 2, so 2 if n even, 1 if n odd. For S_3: elts of order ≤2 up to conjugacy = 2 (id and transposition).
+  function data(G, R){
+    if(R === 'R'){
+      if(G === 'Z2') return {n:2, classes:['trivial','sign: x²=-1'], aut:['Z/2','Z/2']};
+      if(G === 'Z3') return {n:1, classes:['trivial'], aut:['Z/3']};
+      if(G === 'S3') return {n:2, classes:['trivial','transposition'], aut:['S_3','Z/2']};
+    }
+    // finite field case: Galois group is Ẑ, so Hom to a finite group classified by conjugacy classes of elts (for non-abelian) or all elts (abelian)
+    if(G === 'Z2') return {n:2, classes:['trivial','unique nontrivial Z/2-cover'], aut:['Z/2','Z/2']};
+    if(G === 'Z3') return {n:3, classes:['trivial','Z/3-cover A','Z/3-cover B'], aut:['Z/3','Z/3','Z/3']};
+    if(G === 'S3') return {n:3, classes:['trivial','transposition-type','3-cycle-type'], aut:['S_3','Z/2','Z/3']};
+    return {n:1, classes:['?'], aut:['?']};
+  }
+  function render(){
+    svg.innerHTML='';
+    const d = data(selG.value, selR.value);
+    const n = d.n;
+    const W = 620, cy=100;
+    for(let i=0;i<n;i++){
+      const x = (W/(n+1))*(i+1);
+      drawNode(svg, x, cy, `P_${i+1}`, {r:22, stroke:'var(--yellow)'});
+      // automorphism loop
+      drawLoop(svg, x, cy, 'Aut = '+d.aut[i], 'var(--cyan)', 'bg-l-'+i);
+      // label underneath
+      const t = SVG('text',{x, y:cy+55,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = d.classes[i];
+      svg.appendChild(t);
+    }
+    const title = SVG('text',{x:310, y:210,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
+    title.textContent = `iso classes of ${selG.options[selG.selectedIndex].text}-torsors over Spec ${selR.options[selR.selectedIndex].text}: ${n}`;
+    svg.appendChild(title);
+    out.textContent = `π₀(BG(R)) has ${n} element${n===1?'':'s'}. At every object the automorphism group is a form of G.\nFor G abelian, π₀ = H¹(Spec R, G); for non-abelian G, it is the pointed set of 1-cocycles mod coboundary.`;
+  }
+  selG.addEventListener('change', render);
+  selR.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>$BG$ has a universal property: maps $T\to BG$ from a scheme $T$ correspond to $G$-torsors on $T$. In particular $\mathrm{Spec}\,k\to BG$ classifies the trivial torsor and is itself a <strong>smooth surjection</strong> — this will be our model for "atlas" in a moment.</p>
+</section>
+
+<section id="dm">
+<h2>6. Deligne–Mumford stacks</h2>
+<p>Not every stack is geometrically tractable. The <strong>Deligne–Mumford</strong> condition isolates the ones that behave like schemes with finite automorphism groups.</p>
+
+<div class="note"><strong>Operational definition.</strong> A stack $\mathcal{X}$ (over $\mathrm{Sch}/S$, say) is a <strong>Deligne–Mumford stack</strong> if
+<ol>
+  <li>the diagonal $\Delta:\mathcal{X}\to\mathcal{X}\times_S\mathcal{X}$ is representable, quasi-compact, and unramified — equivalently, automorphism schemes of objects are finite and unramified;</li>
+  <li>there exists a scheme $X$ and an <em>étale surjection</em> $X\to\mathcal{X}$. We call such an $X\to\mathcal{X}$ an <strong>étale atlas</strong>.</li>
+</ol>
+If instead you only have a <em>smooth</em> surjection from a scheme, you get an <strong>Artin</strong> (= algebraic) stack — a larger class that includes $BG$ for positive-dimensional $G$ and is not treated here.</div>
+
+<p>The étale atlas $X\to\mathcal{X}$ and its fiber product $X\times_{\mathcal{X}} X$ together form a <strong>groupoid in schemes</strong></p>
+$$ X \times_{\mathcal{X}} X \;\rightrightarrows\; X, $$
+<p>whose two maps are "first projection" and "second projection" and whose composition records how patches overlap. A DM stack <em>is</em> such an étale groupoid object, up to Morita equivalence.</p>
+
+<div class="widget" id="w-atlas">
+  <div class="hd"><div class="ttl">W4 · Étale atlas $X \to \mathcal{X}$</div><div class="hint">click to reveal the groupoid of overlaps</div></div>
+  <svg id="atlas-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <button id="atlas-toggle">show fiber product</button>
+    <button id="atlas-reset">reset</button>
+  </div>
+  <div class="readout" id="atlas-out">A scheme $X$ covering a stack $\mathcal{X}$ by an étale surjection.</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#atlas-svg'), out = $('#atlas-out');
+  const bT = $('#atlas-toggle'), bR = $('#atlas-reset');
+  let show = false;
+  function render(){
+    svg.innerHTML='';
+    // stack at bottom as fuzzy oval
+    svg.appendChild(SVG('ellipse',{cx:310,cy:240,rx:180,ry:40,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 3'}));
+    const lX = SVG('text',{x:500,y:245,'font-size':14,fill:'var(--violet)','font-weight':600}); lX.textContent='𝒳'; svg.appendChild(lX);
+    // atlas scheme at top
+    svg.appendChild(SVG('rect',{x:220,y:40,width:180,height:50,rx:6,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+    const lSc = SVG('text',{x:310,y:72,'text-anchor':'middle','font-size':14,fill:'var(--yellow)','font-weight':600}); lSc.textContent='X (scheme)'; svg.appendChild(lSc);
+    drawArrow(svg,[310,92],[310,200],{label:'étale surj.',color:'var(--yellow)',markerId:'at1'});
+    if(show){
+      // fiber product on upper-left
+      svg.appendChild(SVG('rect',{x:40,y:130,width:130,height:45,rx:6,fill:'none',stroke:'var(--cyan)','stroke-width':1.5}));
+      const lF = SVG('text',{x:105,y:158,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600}); lF.textContent='X ×_𝒳 X'; svg.appendChild(lF);
+      // two arrows to X
+      drawArrow(svg,[170,145],[240,70],{label:'pr_1',color:'var(--cyan)',markerId:'at2'});
+      drawArrow(svg,[170,165],[240,78],{label:'pr_2',color:'var(--cyan)',markerId:'at3',curve:-20});
+      // note about automorphisms
+      const note = SVG('text',{x:105,y:210,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});
+      note.textContent = 'points = pairs (x,y,φ:π(x)≅π(y))';
+      svg.appendChild(note);
+      out.textContent = 'The fiber product X ×_𝒳 X parametrises pairs of points in X with an isomorphism of their images in 𝒳.\nFor x = y, these are the automorphisms. For x ≠ y, these record overlap.\n(X ×_𝒳 X ⇒ X) is the groupoid object presenting 𝒳.';
+    } else {
+      out.textContent = 'A scheme X with an étale surjection to the stack 𝒳. This is an atlas.\nClick "show fiber product" to see the groupoid of overlaps.';
+    }
+  }
+  bT.addEventListener('click',()=>{ show = !show; bT.textContent = show?'hide fiber product':'show fiber product'; render(); });
+  bR.addEventListener('click',()=>{ show = false; bT.textContent = 'show fiber product'; render(); });
+  render();
+})();
+</script>
+
+<p>Because the cover is étale, geometric points of $\mathcal{X}$ have étale-locally trivial automorphism action, i.e. finite automorphism groups. This is exactly the tractability you want.</p>
+</section>
+
+<section id="m11">
+<h2>7. $\mathcal{M}_{1,1}$ as a DM stack</h2>
+<p>Finally we can describe the moduli of elliptic curves honestly. $\mathcal{M}_{1,1}$ is the stack whose $R$-points are the groupoid of elliptic curves $E\to\mathrm{Spec}\,R$ with their isomorphisms. It is a DM stack.</p>
+
+<p>An atlas: fix $N\ge 3$ prime to the characteristics in sight. The functor "elliptic curve with full level-$N$ structure" $\mathcal{M}_{1,1}(N)$ is already representable by a scheme $Y(N)$ because level-$N$ structure rigidifies (no non-trivial automorphism fixes a level-3 structure). The forgetful map</p>
+$$ Y(N) \longrightarrow \mathcal{M}_{1,1} $$
+<p>is étale (the Galois group being $\mathrm{GL}_2(\mathbb{Z}/N)/\{\pm1\}$) and surjective, i.e. an étale atlas.</p>
+
+<div class="note"><strong>Coarse shadow.</strong> The coarse moduli space of $\mathcal{M}_{1,1}$ is the $j$-line $\mathbb{A}^1_j$. Generic points have automorphism group $\mu_2 = \{\pm1\}$ (the $[-1]$ involution on every elliptic curve). Two points are <em>stacky</em> in the sense that their automorphism group is larger:
+<ul>
+  <li>$j=1728$: $E: y^2=x^3+x$ has $\mathrm{Aut}(E)=\mu_4$ (complex multiplication by $\mathbb{Z}[i]$);</li>
+  <li>$j=0$: $E: y^2=x^3+1$ has $\mathrm{Aut}(E)=\mu_6$ (CM by $\mathbb{Z}[\zeta_3]$).</li>
+</ul>
+After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ and residual $\mu_3$ at $j=0$: locally $\mathcal{M}_{1,1}$ looks like $[\mathbb{A}^1/\mu_2]$ near $j=1728$ and $[\mathbb{A}^1/\mu_3]$ near $j=0$.</div>
+
+<div class="widget" id="w-jline">
+  <div class="hd"><div class="ttl">W5 · $j$-line with stacky points</div><div class="hint">hover a point to see its automorphism group</div></div>
+  <svg id="jline-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <div class="readout" id="jline-out">The coarse moduli $\mathbb{A}^1_j$ with the automorphism-group decoration coming from $\mathcal{M}_{1,1}$.</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#jline-svg'), out = $('#jline-out');
+  // horizontal line
+  svg.appendChild(SVG('line',{x1:40,y1:110,x2:580,y2:110,stroke:'var(--line)','stroke-width':1.5}));
+  // axis label
+  const axl = SVG('text',{x:600,y:114,'font-size':13,fill:'var(--mute)','font-style':'italic'}); axl.textContent='j'; svg.appendChild(axl);
+  // generic tick marks with Z/2 decoration
+  const ticks = [130,230,330,430,530];
+  for(const x of ticks){
+    svg.appendChild(SVG('circle',{cx:x,cy:110,r:3,fill:'var(--mute)'}));
+  }
+  // stacky point j = 0
+  const p0 = {x:170, y:110, j:'0', aut:'μ_6 (residual μ_3)', col:'var(--pink)'};
+  const p1728 = {x:450, y:110, j:'1728', aut:'μ_4 (residual μ_2)', col:'var(--cyan)'};
+  for(const p of [p0,p1728]){
+    // stacky thickening: dashed small circle
+    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:16,fill:'none',stroke:p.col,'stroke-width':1.5,'stroke-dasharray':'3 2'}));
+    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:5,fill:p.col}));
+    const lab = SVG('text',{x:p.x,y:p.y-24,'text-anchor':'middle','font-size':12,fill:p.col,'font-weight':600});
+    lab.textContent = 'j = '+p.j;
+    svg.appendChild(lab);
+    // hover area
+    const hit = SVG('circle',{cx:p.x,cy:p.y,r:22,fill:'transparent',style:'cursor:pointer'});
+    hit.addEventListener('mouseenter',()=>{ out.textContent = `stacky point j = ${p.j}:  Aut(E) = ${p.aut}.\nThe stack looks like [A¹/μ_k] locally around this point.`; });
+    hit.addEventListener('mouseleave',()=>{ out.textContent = 'The coarse moduli A¹_j with the automorphism-group decoration coming from ℳ_{1,1}.'; });
+    svg.appendChild(hit);
+  }
+  // generic legend
+  const gen = SVG('text',{x:310,y:170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+  gen.textContent = 'generic j: Aut = μ₂ (the [−1] map)   —   stacky j=0, j=1728';
+  svg.appendChild(gen);
+})();
+</script>
+
+<p>The stack is <em>not</em> a Deligne–Mumford stack in characteristic $2$ or $3$ over the entire base (automorphism schemes become non-reduced there), but the classical statement holds over $\mathrm{Spec}\,\mathbb{Z}[1/6]$ and gives you everything you need for the analytic picture.</p>
+</section>
+
+<section id="coarse">
+<h2>8. Coarse moduli map</h2>
+<p>Even though $\mathcal{M}_{1,1}$ is not a scheme, it has a best-possible scheme approximation. This is a general fact:</p>
+
+<div class="note"><strong>Keel–Mori (for DM stacks of finite type).</strong> For a DM stack $\mathcal{X}$ of finite type with finite inertia over a locally Noetherian base $S$, there is a scheme $X$ (the <strong>coarse moduli space</strong>) and a morphism $\pi:\mathcal{X}\to X$ such that:
+<ol>
+  <li>$\pi$ induces a bijection on geometric points;</li>
+  <li>any map $\mathcal{X}\to Y$ to a scheme $Y$ factors uniquely through $\pi$.</li>
+</ol></div>
+
+<p>For $\mathcal{X} = \mathcal{M}_{1,1}$ the coarse moduli is $X = \mathbb{A}^1_j$. For $\mathcal{X} = BG$ over a field $k$ the coarse moduli is just $\mathrm{Spec}\,k$: a single point with all automorphism data discarded. The coarse map is the mechanism that turns the "naive" moduli functor-to-sets back on, and it is why people got so far with coarse spaces before stacks were invented — you are allowed to use them, you just know they are lossy.</p>
+
+<div class="widget" id="w-coarse">
+  <div class="hd"><div class="ttl">W6 · Coarse moduli universal property</div><div class="hint">click to factor a scheme-map through the coarse space</div></div>
+  <svg id="coarse-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="row">
+    <button id="coarse-go">send map through π</button>
+    <button id="coarse-reset">reset</button>
+  </div>
+  <div class="readout" id="coarse-out">A sample scheme morphism $f:\mathcal{M}_{1,1}\to Y$. Since $Y$ is a scheme, $f$ factors uniquely through the coarse space.</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#coarse-svg'), out = $('#coarse-out');
+  const bGo = $('#coarse-go'), bR = $('#coarse-reset');
+  let step = 0;
+  function render(){
+    svg.innerHTML='';
+    // nodes
+    const mx = {x:140, y:100};
+    const X  = {x:140, y:220};
+    const Y  = {x:460, y:160};
+    // stack
+    svg.appendChild(SVG('ellipse',{cx:mx.x,cy:mx.y,rx:80,ry:28,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 3'}));
+    const lM = SVG('text',{x:mx.x,y:mx.y+5,'text-anchor':'middle','font-size':14,fill:'var(--violet)','font-weight':600}); lM.textContent='ℳ_{1,1}'; svg.appendChild(lM);
+    // coarse
+    svg.appendChild(SVG('rect',{x:mx.x-80,y:X.y-24,width:160,height:48,rx:6,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+    const lX = SVG('text',{x:X.x,y:X.y+5,'text-anchor':'middle','font-size':14,fill:'var(--yellow)','font-weight':600}); lX.textContent='A¹_j'; svg.appendChild(lX);
+    // scheme Y
+    svg.appendChild(SVG('rect',{x:Y.x-50,y:Y.y-24,width:100,height:48,rx:6,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));
+    const lY = SVG('text',{x:Y.x,y:Y.y+5,'text-anchor':'middle','font-size':14,fill:'var(--blue)','font-weight':600}); lY.textContent='Y'; svg.appendChild(lY);
+    // π always
+    drawArrow(svg,[mx.x,mx.y+28],[X.x,X.y-24],{label:'π',color:'var(--green)',markerId:'co1'});
+    // f always
+    drawArrow(svg,[mx.x+80,mx.y],[Y.x-50,Y.y],{label:'f',color:'var(--pink)',markerId:'co2'});
+    if(step >= 1){
+      // factorization
+      drawArrow(svg,[X.x+80,X.y],[Y.x-50,Y.y+10],{label:'∃! f̄',color:'var(--cyan)',markerId:'co3',dash:'6 3'});
+      out.textContent = 'Unique factorization: f = f̄ ∘ π. On points, f̄ sends j ↦ f(any elliptic curve with that j-invariant).';
+    }
+  }
+  bGo.addEventListener('click',()=>{ step = 1; render(); });
+  bR.addEventListener('click',()=>{ step = 0; render(); });
+  render();
+})();
+</script>
+
+<p>Two cautions. First, the map $\pi$ is <em>not</em> a gerbe quotient in general — the fiber of $\pi$ over a stacky point is a classifying stack $B\mathrm{Aut}$, so the coarse space really does forget structure. Second, Chow groups, cohomology, and intersection theory of $\mathcal{X}$ and of its coarse space $X$ differ in a controlled way: for $\mathcal{M}_{1,1}$ the integer Chow ring is $\mathbb{Z}[t]/(12t)$, not the Chow ring of $\mathbb{A}^1$.</p>
+</section>
+
+<section id="take">
+<h2>9. Takeaways</h2>
+<ul>
+  <li><strong>Slogan.</strong> Schemes : Sets :: Stacks : Groupoids. A stack is a sheaf of groupoids on the étale (or fppf) site.</li>
+  <li><strong>Why they exist.</strong> Moduli problems with non-trivial automorphisms cannot have fine moduli schemes; stacks are the smallest enlargement of $\mathrm{Sch}$ that admits them.</li>
+  <li><strong>DM stacks.</strong> Automorphism groups are finite; there is an étale atlas $X\to\mathcal{X}$. They behave like schemes for most practical purposes — you can do cohomology, Chow theory, deformation theory, intersection numbers.</li>
+  <li><strong>$BG$ and $\mathcal{M}_{1,1}$.</strong> The two canonical examples. $BG$ is pure automorphism with no moduli; $\mathcal{M}_{1,1}$ is generic moduli with residual automorphism at two points.</li>
+  <li><strong>Coarse moduli.</strong> Always there (Keel–Mori), always a scheme, always a bijection on points, always lossy about automorphisms.</li>
+  <li><strong>What comes next.</strong> Artin (algebraic) stacks drop "étale atlas" to "smooth atlas" and accommodate $BG$ for positive-dimensional $G$, $[X/G]$ for non-free actions, and moduli of sheaves. The theory of $\infty$-stacks pushes the groupoid target to simplicial sets / $\infty$-groupoids and is the setting for derived algebraic geometry.</li>
+</ul>
+
+<div class="ok"><strong>Mental model.</strong> A DM stack is "a scheme together with a finite automorphism group attached to each geometric point, glued étale-locally so the gluing data is just the automorphism groupoid of the cover." Everything you want to do with schemes still works — you just carry a finite group along at each point.</div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

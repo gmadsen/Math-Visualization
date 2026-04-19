@@ -1,0 +1,17 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Node (if you ever run a local server with npm)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Local verification and scratch scripts — not part of the notebook
+_verify*.js
+_sidetoc_verify.js
+test_index.js

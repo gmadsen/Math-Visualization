@@ -1,0 +1,1372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Complex analysis — amplitwist, contours, residues</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  @media(max-width:640px){.twocol{grid-template-columns:1fr}}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 0, pad2 = opts.pad2 ?? 4;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  if(label!=null){
+    const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+}
+// complex arithmetic helpers shared across widgets
+const C = {
+  add:(a,b)=>[a[0]+b[0],a[1]+b[1]],
+  sub:(a,b)=>[a[0]-b[0],a[1]-b[1]],
+  mul:(a,b)=>[a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0]],
+  div:(a,b)=>{ const d=b[0]*b[0]+b[1]*b[1]; return [(a[0]*b[0]+a[1]*b[1])/d, (a[1]*b[0]-a[0]*b[1])/d]; },
+  abs:a=>Math.hypot(a[0],a[1]),
+  arg:a=>Math.atan2(a[1],a[0]),
+  exp:a=>{ const r=Math.exp(a[0]); return [r*Math.cos(a[1]), r*Math.sin(a[1])]; },
+  log:a=>[Math.log(Math.hypot(a[0],a[1])), Math.atan2(a[1],a[0])],
+  sin:a=>[Math.sin(a[0])*Math.cosh(a[1]), Math.cos(a[0])*Math.sinh(a[1])],
+  cos:a=>[Math.cos(a[0])*Math.cosh(a[1]), -Math.sin(a[0])*Math.sinh(a[1])],
+  scale:(a,k)=>[a[0]*k,a[1]*k],
+  fmt:(a,p=3)=>{
+    const r=a[0].toFixed(p), i=a[1].toFixed(p);
+    if(Math.abs(a[1])<1e-9) return r;
+    if(Math.abs(a[0])<1e-9) return i+'i';
+    return r+(a[1]>=0?'+':'')+i+'i';
+  }
+};
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#sphere">1&nbsp;Plane&nbsp;&amp;&nbsp;sphere</a>
+  <a href="#holo">2&nbsp;Amplitwist</a>
+  <a href="#contour">3&nbsp;Contours</a>
+  <a href="#cons">4&nbsp;Consequences</a>
+  <a href="#laurent">5&nbsp;Residues</a>
+  <a href="#arg">6&nbsp;Argument&nbsp;principle</a>
+  <a href="#conf">7&nbsp;Conformal&nbsp;maps</a>
+  <a href="#coda">8&nbsp;Coda</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Complex analysis — amplitwist, contours, residues</h1>
+  <p class="sub">A Needham-flavored tour: holomorphic maps as local rotations, Cauchy's theorem as a curl-free vector field, residues as bookkeeping for poles, and conformal maps as the geometry of $\hat{\mathbb{C}}$.</p>
+</section>
+
+<section id="sphere">
+<h2>1. The plane and the sphere</h2>
+<p>The complex numbers $\mathbb{C}$ are $\mathbb{R}^2$ with multiplication added. A complex number $z=x+iy = re^{i\theta}$ is a point with a length and an angle. The metric is the Euclidean one: $|z-w| = \sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$.</p>
+<p>For complex analysis the right ambient space is not $\mathbb{C}$ but its one-point compactification, the <strong>Riemann sphere</strong> $\hat{\mathbb{C}} = \mathbb{C}\cup\{\infty\}$. Place the sphere of radius $\tfrac12$ tangent to the plane at the origin and project from the north pole; this is <em>stereographic projection</em>. The plane corresponds to the sphere minus the north pole, and the formal symbol $\infty$ is the north pole itself.</p>
+<p>Two facts make stereographic projection the natural picture:</p>
+<p><span class="pill">conformal</span> it preserves angles, and <span class="pill">circles ↔ circles</span> it sends circles on the sphere to circles or lines in the plane (a line being a "circle through $\infty$").</p>
+<p>A <strong>Möbius transformation</strong> is any map $T(z) = \dfrac{az+b}{cz+d}$ with $ad-bc\ne 0$. Three remarkable facts:</p>
+<p>(i) Möbius transformations form a group, isomorphic to $\mathrm{PGL}_2(\mathbb{C})$.<br>
+(ii) On $\hat{\mathbb{C}}$ they are precisely the <em>conformal automorphisms</em> — bijective angle-preserving maps.<br>
+(iii) On the sphere they are exactly the <em>rigid rotations and reflections combined with dilations</em> — but if you restrict to the subgroup that preserves the spherical metric, you recover $\mathrm{SO}(3)$ acting as the rotation group of the sphere, realized in coordinates as $T(z) = \dfrac{az - \bar c}{cz + \bar a}$ with $|a|^2+|c|^2=1$ (i.e.\ $\mathrm{SU}(2)/\{\pm 1\}$).</p>
+<div class="note">A Möbius transformation is determined by what it does to <em>three points</em>: given any two triples of distinct points $(z_1,z_2,z_3)$ and $(w_1,w_2,w_3)$ in $\hat{\mathbb{C}}$, there is a unique $T$ with $T(z_i)=w_i$. The "three points" are the analogue of "two points determine a line" in projective geometry.</div>
+<p>The invariant of four points under all Möbius transformations is the <strong>cross-ratio</strong></p>
+<p>$$[z_1,z_2;z_3,z_4] \;=\; \frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}.$$</p>
+<p>Cross-ratio is real iff the four points are concyclic — a tidy way to detect "four points on a circle" using only complex arithmetic.</p>
+
+<div class="widget" id="w-mobius">
+  <div class="hd"><div class="ttl">Möbius transformation playground</div><div class="hint">drag the three source points · the unique $T$ is recomputed</div></div>
+  <div class="row">
+    <label>preset:</label>
+    <select id="mob-preset">
+      <option value="id">identity</option>
+      <option value="rot" selected>rotation by π/3</option>
+      <option value="cayley">Cayley (UHP→disk)</option>
+      <option value="inv">inversion 1/z</option>
+      <option value="elliptic">elliptic (fix ±i)</option>
+    </select>
+    <label><input type="checkbox" id="mob-sphere"> stereographic view</label>
+  </div>
+  <svg id="mob-svg" viewBox="0 0 760 360" width="760" height="360"></svg>
+  <div class="readout" id="mob-readout"></div>
+</div>
+</section>
+
+<section id="holo">
+<h2>2. Holomorphic functions — the amplitwist picture</h2>
+<p>A function $f:U\to\mathbb{C}$ on an open set $U\subseteq\mathbb{C}$ is <strong>holomorphic</strong> at $z_0$ if</p>
+<p>$$f'(z_0) \;=\; \lim_{h\to 0}\frac{f(z_0+h)-f(z_0)}{h}$$</p>
+<p>exists as a <em>complex</em> limit — meaning the limit is the same no matter how $h\in\mathbb{C}$ approaches $0$. This is much more restrictive than $\mathbb{R}^2$-differentiability.</p>
+<p>Write $f = u+iv$, viewed as a map $\mathbb{R}^2\to\mathbb{R}^2$. Real-differentiability gives a Jacobian</p>
+<p>$$Df = \begin{pmatrix} u_x & u_y \\ v_x & v_y \end{pmatrix}.$$</p>
+<p>For $f$ to be complex-differentiable, this Jacobian must commute with multiplication by $i$ — i.e.\ it must be a similarity matrix (a rotation composed with a scaling). A short calculation shows this is equivalent to the <strong>Cauchy–Riemann equations</strong></p>
+<p>$$u_x = v_y, \qquad u_y = -v_x,$$</p>
+<p>and then $f'(z_0) = u_x + i v_x = v_y - i u_y$.</p>
+<div class="note"><strong>Amplitwist.</strong> Needham's word: near $z_0$, a holomorphic map acts on infinitesimal vectors as <em>rotation by $\arg f'(z_0)$ and scaling by $|f'(z_0)|$</em>. That single complex number $f'(z_0)$ encodes both. Wherever $f'(z_0)\ne 0$, $f$ is <em>conformal</em>: it preserves angles between curves through $z_0$.</div>
+<p>Compare: the map $z\mapsto \bar z$ is real-differentiable but not holomorphic. Its Jacobian is a reflection, not a rotation+scaling. Reflections reverse orientation, so $\bar z$ is "anti-conformal" — it preserves angle magnitudes but flips signs.</p>
+<p>The amplitwist picture is what makes complex analysis qualitatively different from $\mathbb{R}^2$ analysis. Every theorem we are about to see is, in some sense, a topological consequence of "all infinitesimal motion is rotation + scaling."</p>
+
+<div class="widget" id="w-amp">
+  <div class="hd"><div class="ttl">Amplitwist visualizer</div><div class="hint">click on the left to choose $z_0$</div></div>
+  <div class="row">
+    <label>$f(z)=$</label>
+    <select id="amp-fn">
+      <option value="z2" selected>z²</option>
+      <option value="z3">z³</option>
+      <option value="inv">1/z</option>
+      <option value="exp">eᶻ</option>
+      <option value="sin">sin z</option>
+      <option value="conj">conj (NOT holomorphic)</option>
+    </select>
+  </div>
+  <svg id="amp-svg" viewBox="0 0 760 360" width="760" height="360"></svg>
+  <div class="readout" id="amp-readout"></div>
+</div>
+
+<p>The widget above shows a small grid of points $z_0 + \varepsilon\{(\pm 1,\pm 1)\}$ on the left, and $f$ of those points on the right. When $f$ is holomorphic, the right grid is a <em>rotated, scaled, possibly translated</em> copy of the left — angles preserved. For $\overline{z}$, the right grid is reflected.</p>
+
+<h3>Domain coloring</h3>
+<p>A picture of a complex function $f:\mathbb{C}\to\mathbb{C}$ requires four real dimensions. The standard 2D summary: encode $\arg f(z)$ as <em>hue</em>, $|f(z)|$ as <em>lightness</em>, and plot over the $z$-plane. Zeros become darkness sinks, poles become bright cones, and a winding rainbow around any point reveals its order — $n$ rainbows for a zero of order $n$, $n$ rainbows the other way for a pole of order $n$.</p>
+
+<div class="widget" id="w-dc">
+  <div class="hd"><div class="ttl">Domain coloring of $f(z)$</div><div class="hint">hue = arg, lightness = log|f|</div></div>
+  <div class="row">
+    <label>$f(z)=$</label>
+    <select id="dc-fn">
+      <option value="z">z</option>
+      <option value="z2" selected>z²</option>
+      <option value="z3">z³</option>
+      <option value="inv">1/z</option>
+      <option value="exp">eᶻ</option>
+      <option value="sin">sin z</option>
+      <option value="cos">cos z</option>
+      <option value="log">log z</option>
+      <option value="rat1">(z²−1)/(z²+1)</option>
+      <option value="cubic">z³ − z</option>
+    </select>
+    <label>view radius:</label>
+    <input id="dc-radius" type="range" min="1" max="6" step="0.5" value="2.5">
+    <span class="small" id="dc-rlabel">2.5</span>
+  </div>
+  <svg id="dc-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
+  <div class="readout">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>
+</div>
+</section>
+
+<section id="contour">
+<h2>3. Contour integration</h2>
+<p>A <strong>contour</strong> is a piecewise smooth curve $\gamma:[a,b]\to\mathbb{C}$. Given a continuous $f$ on its image, define</p>
+<p>$$\int_\gamma f(z)\,dz \;=\; \int_a^b f(\gamma(t))\,\gamma'(t)\,dt.$$</p>
+<p>Read $dz = dx + i\,dy$ as a complex-valued 1-form. Then $f\,dz = (u+iv)(dx+i\,dy) = (u\,dx - v\,dy) + i(v\,dx + u\,dy)$, two real line integrals.</p>
+<p>The key observation: those two real 1-forms are <em>closed</em> exactly when $u,v$ satisfy Cauchy–Riemann. The "real part" 1-form $u\,dx - v\,dy$ has $d = (-v_x - u_y)\,dx\wedge dy$, which vanishes iff $u_y = -v_x$. The "imaginary part" 1-form $v\,dx + u\,dy$ has $d = (u_x - v_y)\,dx\wedge dy$, vanishing iff $u_x = v_y$. Both pieces are closed precisely when $f$ is holomorphic.</p>
+<div class="note"><strong>Curl-free, source-free.</strong> Think of $\overline{f(z)}$ as a vector field on the plane. Cauchy–Riemann equations say its divergence and curl both vanish: it is incompressible and irrotational. That is the physical content of "$f$ is holomorphic," and it is why integrals around closed loops vanish.</div>
+<p><strong>Cauchy's theorem (star-shaped form).</strong> If $f$ is holomorphic on a star-shaped open set $U$ and $\gamma\subset U$ is a closed contour, then $\oint_\gamma f\,dz = 0$.</p>
+<p>Sketch: holomorphic $f$ on a star-shaped (in particular simply connected) domain has an antiderivative $F$ — define $F(z) = \int_{z_*}^z f$ along straight rays from the star centre. Then $\oint f\,dz = F(\text{end}) - F(\text{start}) = 0$ for a closed loop. Equivalently: by Stokes, $\oint_\gamma f\,dz = \iint_D df\wedge dz$, but $df = f'\,dz$ so $df\wedge dz = 0$.</p>
+<p>The general (Goursat) version drops the $C^1$ hypothesis on $f'$ and works for any simply connected $U$. The proof bisects triangles and is elegant; we won't reproduce it here.</p>
+
+<h3>Cauchy's integral formula</h3>
+<p>If $f$ is holomorphic on a domain containing the closed disk $\overline{D(z_0,r)}$, then for every interior point $a\in D(z_0,r)$,</p>
+<p>$$f(a) \;=\; \frac{1}{2\pi i}\oint_{|z-z_0|=r}\frac{f(z)}{z-a}\,dz.$$</p>
+<p>The values of $f$ on the boundary determine $f$ in the interior — a phenomenon with no analogue in real analysis. Differentiating under the integral $n$ times,</p>
+<p>$$f^{(n)}(a) \;=\; \frac{n!}{2\pi i}\oint \frac{f(z)}{(z-a)^{n+1}}\,dz.$$</p>
+<p>Holomorphic functions are <em>infinitely</em> differentiable. That is the main miracle.</p>
+
+<div class="widget" id="w-contour">
+  <div class="hd"><div class="ttl">Contour integral $\oint f\,dz$</div><div class="hint">drag vertices · integral computed via residue theorem</div></div>
+  <div class="row">
+    <label>$f(z)=$</label>
+    <select id="ct-fn">
+      <option value="r1" selected>1/(z²+1)</option>
+      <option value="r2">eⁱᶻ/(z²+1)</option>
+      <option value="r3">1/(z(z−1)(z+2))</option>
+      <option value="r4">z/(z²−1)</option>
+      <option value="r5">1/(z²+2z+2)</option>
+    </select>
+    <label>preset:</label>
+    <select id="ct-shape">
+      <option value="big">large circle (8 vertices)</option>
+      <option value="rect" selected>rectangle</option>
+      <option value="tri">triangle</option>
+      <option value="upper">upper semicircle</option>
+    </select>
+    <button id="ct-reset">reset</button>
+  </div>
+  <svg id="ct-svg" viewBox="0 0 760 460" width="760" height="460"></svg>
+  <div class="readout" id="ct-readout"></div>
+</div>
+</section>
+
+<section id="cons">
+<h2>4. Consequences</h2>
+<p>From Cauchy's integral formula nearly everything follows.</p>
+
+<h3>Power series everywhere</h3>
+<p>If $f$ is holomorphic on $D(z_0,R)$, then for any $a\in D(z_0,R)$, the geometric series in $1/(z-a) = 1/((z-z_0) - (a-z_0))$ converges uniformly on $|z-z_0|=r$ for $|a-z_0|<r<R$. Plugging into CIF and exchanging sum and integral,</p>
+<p>$$f(a) = \sum_{n=0}^\infty c_n (a-z_0)^n, \qquad c_n = \frac{1}{2\pi i}\oint \frac{f(z)}{(z-z_0)^{n+1}}dz = \frac{f^{(n)}(z_0)}{n!}.$$</p>
+<p>Holomorphic ⟺ analytic, with radius of convergence equal to the distance from $z_0$ to the nearest singularity.</p>
+
+<h3>Liouville and FTA</h3>
+<p><strong>Liouville's theorem.</strong> A bounded entire function is constant. Proof: by CIF for $f'$, $|f'(z_0)| \le M/r$ for any $r$, so $f'\equiv 0$.</p>
+<p><strong>Fundamental theorem of algebra.</strong> Every nonconstant polynomial $p(z)$ has a complex root. Proof 1: if $p$ never vanishes, $1/p$ is bounded entire (it tends to $0$ at infinity), hence constant by Liouville — absurd.</p>
+<div class="note"><strong>The geometric proof of FTA.</strong> Consider a circle of huge radius $R$. On it, $p(z)\sim a_n z^n$, so $p$ wraps $|z|=R$ around $0$ exactly $n$ times. Now shrink the circle to a point. At radius $0$, $p$ is constant $p(0)$, wrapping $0$ times. Winding number is integer-valued and varies continuously, so somewhere along the way it must cross zero — and that means $p$ hits $0$ at some intermediate $z$.</div>
+
+<h3>Morera, max modulus, open mapping, Schwarz</h3>
+<p><strong>Morera.</strong> If $f$ is continuous on $U$ and $\oint_\Delta f = 0$ for every triangle $\Delta\subset U$, then $f$ is holomorphic. (Converse to Cauchy.)</p>
+<p><strong>Maximum modulus.</strong> If $f$ is holomorphic on $U$ and $|f|$ attains a local max at an interior point, $f$ is constant. (Hence on a compact domain, $|f|$ achieves its sup on the boundary.)</p>
+<p><strong>Open mapping.</strong> A nonconstant holomorphic map sends open sets to open sets. (One way to see it: $f-w_0$ has finitely many zeros, none on a small circle, and Rouché shows $f-w$ has the same number for all $w$ near $w_0$.)</p>
+<p><strong>Schwarz lemma.</strong> If $f:\mathbb{D}\to\mathbb{D}$ is holomorphic with $f(0)=0$, then $|f(z)|\le |z|$ and $|f'(0)|\le 1$. Equality at any interior $z$ forces $f(z) = e^{i\theta}z$.</p>
+
+<div class="widget" id="w-taylor">
+  <div class="hd"><div class="ttl">Taylor series convergence</div><div class="hint">click the disc to set centre $z_0$</div></div>
+  <div class="row">
+    <label>$f(z)=$</label>
+    <select id="tay-fn">
+      <option value="geom" selected>1/(1−z)</option>
+      <option value="invq">1/(z²+1)</option>
+      <option value="log1z">log(1+z)</option>
+      <option value="tan">tan z</option>
+    </select>
+  </div>
+  <svg id="tay-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
+  <div class="readout" id="tay-readout"></div>
+</div>
+</section>
+
+<section id="laurent">
+<h2>5. Laurent series and residues</h2>
+<p>Drop the assumption that $f$ is holomorphic on the whole disc; allow an isolated singularity at $z_0$. On any annulus $0 < |z - z_0| < R$ on which $f$ is holomorphic, we have a unique <strong>Laurent expansion</strong></p>
+<p>$$f(z) \;=\; \sum_{n=-\infty}^\infty c_n (z-z_0)^n.$$</p>
+<p>The coefficients are still given by Cauchy's formula:</p>
+<p>$$c_n = \frac{1}{2\pi i}\oint_{|z-z_0|=r}\frac{f(z)}{(z-z_0)^{n+1}}\,dz.$$</p>
+<p>Singularities are classified by which negative coefficients appear:</p>
+<p><span class="pill" style="color:var(--green)">removable</span> all $c_{n}=0$ for $n<0$ — $f$ extends holomorphically across $z_0$ (Riemann's removable-singularity theorem: this happens iff $f$ is bounded near $z_0$).</p>
+<p><span class="pill" style="color:var(--yellow)">pole of order $k$</span> $c_{-k}\ne 0$ but $c_n=0$ for $n<-k$ — $f$ blows up like $1/(z-z_0)^k$.</p>
+<p><span class="pill" style="color:var(--pink)">essential</span> infinitely many $c_n\ne 0$ for $n<0$. Casorati–Weierstrass: $f$ comes arbitrarily close to every complex value in any neighbourhood of $z_0$. Picard sharpens this dramatically: $f$ <em>hits</em> every value (with at most one exception), infinitely often.</p>
+<p>The <strong>residue</strong> of $f$ at $z_0$ is</p>
+<p>$$\operatorname{Res}(f,z_0) \;=\; c_{-1} \;=\; \frac{1}{2\pi i}\oint f\,dz.$$</p>
+<p>For a simple pole $\operatorname{Res}(f,z_0) = \lim_{z\to z_0}(z-z_0)f(z)$. For a pole of order $k$, $\operatorname{Res}(f,z_0) = \dfrac{1}{(k-1)!}\lim_{z\to z_0}\dfrac{d^{k-1}}{dz^{k-1}}\bigl((z-z_0)^k f(z)\bigr)$.</p>
+
+<div class="note"><strong>Residue theorem.</strong> Let $\gamma$ be a positively oriented simple closed contour bounding a region $D$, with $f$ holomorphic on a neighbourhood of $\overline D$ except for finitely many isolated singularities $z_k\in D$. Then $$\oint_\gamma f\,dz \;=\; 2\pi i\sum_k \operatorname{Res}(f, z_k).$$</div>
+
+<p>Real definite integrals fall to this, almost mechanically. Famous example: closing $\int_{-\infty}^\infty\frac{dx}{x^2+1}$ in the upper half-plane with a giant semicircle. The semicircular piece tends to $0$ (the integrand decays), the only pole inside is $z=i$ with residue $1/(2i)$, and so the integral is $2\pi i\cdot 1/(2i) = \pi$. Replace the integrand by $e^{ix}/(x^2+1)$ and the answer is $\pi/e$.</p>
+
+<p>Try it: the contour widget in §3 above already computes $\oint f\,dz$ as $2\pi i \sum\mathrm{Res}$ for the enclosed poles. Drag a vertex over a pole to see the sum jump.</p>
+</section>
+
+<section id="arg">
+<h2>6. Argument principle and Rouché</h2>
+<p>Apply the residue theorem to the logarithmic derivative $f'/f$. If $f$ is meromorphic with zeros $a_j$ of order $m_j$ and poles $b_k$ of order $n_k$, then $f'/f$ has simple poles at each $a_j$ with residue $m_j$, and at each $b_k$ with residue $-n_k$. Hence</p>
+<p>$$\frac{1}{2\pi i}\oint_\gamma \frac{f'(z)}{f(z)}\,dz \;=\; Z - P,$$</p>
+<p>where $Z = \sum m_j$ counts zeros enclosed by $\gamma$ (with multiplicity) and $P = \sum n_k$ counts poles. This is the <strong>argument principle</strong>.</p>
+<p>The geometric meaning: the integrand is $d(\log f) = d(\log|f|) + i\,d(\arg f)$. The real part integrates to $0$ around a closed loop (it is exact). The imaginary part integrates to $2\pi$ times the <em>winding number</em> of the image curve $f\circ\gamma$ around $0$. So $Z - P$ is exactly how many times the image of $\gamma$ winds around the origin.</p>
+<div class="note"><strong>Rouché's theorem.</strong> If $|f(z) - g(z)| < |f(z)|$ on a contour $\gamma$, then $f$ and $g$ have the same number of zeros inside. Picture: the image $g(\gamma)$ is "less than $|f(\gamma)|$ away" from $f(\gamma)$, so it cannot loop around $0$ a different number of times.</div>
+
+<div class="widget" id="w-arg">
+  <div class="hd"><div class="ttl">Argument principle</div><div class="hint">image $f(\gamma)$ winds $Z-P$ times around 0</div></div>
+  <div class="row">
+    <label>$f(z)=$</label>
+    <select id="ag-fn">
+      <option value="z">z</option>
+      <option value="z2" selected>z²</option>
+      <option value="z3">z³</option>
+      <option value="zm1">z²−1</option>
+      <option value="cube3">(z−1)(z−i)(z+1)</option>
+      <option value="rat">(z−0.3)/(z+0.6i)</option>
+    </select>
+    <label>radius:</label>
+    <input id="ag-r" type="range" min="0.2" max="2" step="0.05" value="1.2">
+    <span class="small" id="ag-rlabel">1.20</span>
+    <label>centre x:</label>
+    <input id="ag-cx" type="range" min="-1.5" max="1.5" step="0.05" value="0">
+    <label>centre y:</label>
+    <input id="ag-cy" type="range" min="-1.5" max="1.5" step="0.05" value="0">
+  </div>
+  <svg id="ag-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
+  <div class="readout" id="ag-readout"></div>
+</div>
+</section>
+
+<section id="conf">
+<h2>7. Conformal maps</h2>
+<p>A holomorphic map $f$ is <strong>conformal</strong> wherever $f'\ne 0$. Globally, a <em>conformal isomorphism</em> is a holomorphic bijection with holomorphic inverse. The principle theorem is overwhelming:</p>
+<p><strong>Riemann mapping theorem.</strong> Every simply connected proper open subset of $\mathbb{C}$ is conformally equivalent to the open unit disk $\mathbb{D}$. (And the equivalence is unique once you fix a base point and a tangent direction.)</p>
+<p>Topology says the disk and any other simply connected domain are homeomorphic; the Riemann mapping theorem says they are <em>holomorphically</em> equivalent. The proof is non-constructive — the equivalence is the unique normalized solution to an extremal problem (maximize $|f'(z_0)|$ among holomorphic injections into $\mathbb{D}$).</p>
+
+<h3>Automorphisms</h3>
+<p>The conformal automorphisms of the disk are exactly</p>
+<p>$$\mathrm{Aut}(\mathbb{D}) = \left\{ z\mapsto e^{i\theta}\frac{z-a}{1-\bar a z} \;:\; \theta\in\mathbb{R},\, a\in\mathbb{D}\right\} \;\cong\; \mathrm{PSU}(1,1).$$</p>
+<p>This is the <em>isometry group of the hyperbolic plane</em>, with the Poincaré metric $ds^2 = \dfrac{4|dz|^2}{(1-|z|^2)^2}$.</p>
+<p>The Cayley transform $z\mapsto i\dfrac{1-z}{1+z}$ identifies the disk with the upper half-plane $\mathbb{H} = \{z : \mathrm{Im}\,z > 0\}$, whose automorphism group is $\mathrm{PSL}_2(\mathbb{R})$ acting by Möbius transformations with real coefficients.</p>
+
+<h3>Joukowski and Schwarz–Christoffel</h3>
+<p>The <strong>Joukowski</strong> map $J(z) = \tfrac12(z + 1/z)$ has the celebrated property that it sends a circle through $z=1$ (or $z=-1$) to an "airfoil" shape — historically used in early 20th-century aerodynamics to compute flow around wings.</p>
+<p><strong>Schwarz–Christoffel</strong> maps express the Riemann map from the upper half-plane to a polygon explicitly:</p>
+<p>$$f(z) = \int_0^z \prod_{k=1}^n (\zeta - x_k)^{\alpha_k - 1}\,d\zeta,$$</p>
+<p>where $x_k\in\mathbb{R}$ are the pre-images of the polygon vertices and $\pi\alpha_k$ are the interior angles at those vertices.</p>
+
+<div class="widget" id="w-conf">
+  <div class="hd"><div class="ttl">Conformal map gallery</div><div class="hint">drag the dot in the source · its image moves in the target</div></div>
+  <div class="row">
+    <label>map:</label>
+    <select id="cf-pick">
+      <option value="z2" selected>z ↦ z²</option>
+      <option value="exp">z ↦ eᶻ (strip → annulus)</option>
+      <option value="log">z ↦ log z (slit plane → strip)</option>
+      <option value="cayley">Cayley UHP → disk</option>
+      <option value="moebius">Möbius on disk</option>
+      <option value="joukowski">Joukowski (circle → airfoil)</option>
+      <option value="sc3">Schwarz–Christoffel triangle</option>
+    </select>
+  </div>
+  <svg id="cf-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
+  <div class="readout" id="cf-readout"></div>
+</div>
+</section>
+
+<section id="coda">
+<h2>8. Coda — harmonic functions, continuation, monodromy</h2>
+<p>If $f = u + iv$ is holomorphic, both $u$ and $v$ are <strong>harmonic</strong>: they satisfy Laplace's equation $\Delta u = u_{xx} + u_{yy} = 0$. Conversely, any harmonic function on a simply connected domain is the real part of some holomorphic $f$, unique up to a real additive constant. The imaginary part $v$ is the <em>harmonic conjugate</em> of $u$; you reconstruct it by integrating the Cauchy–Riemann equations.</p>
+<p>This identification is the bridge to potential theory: the steady-state heat distribution, the gravitational potential in vacuum, and the electrostatic potential in a charge-free region are all harmonic, hence locally real parts of holomorphic functions. Conformal maps then move boundary value problems between domains.</p>
+<p><strong>Analytic continuation.</strong> A holomorphic function on a small disk has a unique extension to any simply connected domain containing the disk on which the extension exists. (Identity theorem: two holomorphic functions agreeing on a set with an accumulation point agree everywhere on the connected component.) The natural domain of $\sqrt{z}$ or $\log z$ is not $\mathbb{C}\setminus\{0\}$ but a bigger object — a <em>Riemann surface</em>. Walking $\log z$ around a loop encircling $0$ adds $2\pi i$; that increment is the <em>monodromy</em>.</p>
+<p>Riemann surfaces are the natural homes of multi-valued analytic functions. The compact ones are classified by genus; the simply connected ones by uniformization (every compact Riemann surface of genus $\ge 2$ is a quotient of the upper half-plane by a Fuchsian group). Modular forms — automorphic functions on the upper half-plane — pick up here. <em>Forward pointer: a future <code>modular-forms.html</code> will continue this thread.</em></p>
+<div class="ok">Holomorphic = locally rotation+scaling = locally a power series = $u,v$ harmonic conjugates = closed contour integrals vanish = boundary values determine interior. Six perspectives on one phenomenon.</div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<!-- ====================== WIDGET: Möbius transformation ====================== -->
+<script>
+(function(){
+  const svg = $('#mob-svg');
+  const ro = $('#mob-readout');
+  if(!svg||!ro) return;
+  const W=760,H=360,L={cx:190,cy:180,sc:130}, R={cx:570,cy:180,sc:130};
+  let useSphere = false;
+
+  // Three source points (z1,z2,z3) and target (w1,w2,w3) determine T.
+  // We'll use presets that fix targets and pick source triple as (1, i, -1).
+  const presets = {
+    id:      {a:[1,0],b:[0,0],c:[0,0],d:[1,0]},
+    rot:     {a:[Math.cos(Math.PI/3),Math.sin(Math.PI/3)],b:[0,0],c:[0,0],d:[1,0]},
+    cayley:  {a:[1,0],b:[0,-1],c:[1,0],d:[0,1]}, // (z-i)/(z+i)
+    inv:     {a:[0,0],b:[1,0],c:[1,0],d:[0,0]},  // 1/z
+    elliptic:{a:[Math.cos(Math.PI/4),Math.sin(Math.PI/4)],b:[0,0],c:[0,0],d:[Math.cos(-Math.PI/4),Math.sin(-Math.PI/4)]},
+  };
+  let M = presets.rot;
+
+  function T(z){
+    // T(z) = (a z + b) / (c z + d)
+    const num = C.add(C.mul(M.a,z), M.b);
+    const den = C.add(C.mul(M.c,z), M.d);
+    if(C.abs(den)<1e-9) return [1e6,1e6];
+    return C.div(num,den);
+  }
+  function toLeftPx(z){ return [L.cx + z[0]*L.sc, L.cy - z[1]*L.sc]; }
+  function toRightPx(z){ return [R.cx + z[0]*R.sc, R.cy - z[1]*R.sc]; }
+  // Stereographic from sphere coords back to plane: project (X,Y,Z) on unit sphere
+  // to z = (X+iY)/(1-Z). Inverse: z=x+iy ↦ ( 2x/(1+|z|²), 2y/(1+|z|²), (|z|²-1)/(|z|²+1) )
+  function planeToSphereDisk(z){
+    // Plot (X,Y) coords as if viewed from above; clamp by |z|
+    const r2 = z[0]*z[0]+z[1]*z[1];
+    const X = 2*z[0]/(1+r2), Y = 2*z[1]/(1+r2);
+    return [X, Y];
+  }
+
+  function clearAndDraw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // panels
+    svg.appendChild(SVG('rect',{x:30,y:30,width:320,height:300,fill:'#0b0f16',stroke:'var(--line)','rx':6}));
+    svg.appendChild(SVG('rect',{x:410,y:30,width:320,height:300,fill:'#0b0f16',stroke:'var(--line)','rx':6}));
+    const lt = SVG('text',{x:190,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); lt.textContent='source ' + (useSphere?'(sphere view)':'(plane)');
+    const rt = SVG('text',{x:570,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); rt.textContent='target T(·)';
+    svg.appendChild(lt); svg.appendChild(rt);
+    // axes
+    if(!useSphere){
+      svg.appendChild(SVG('line',{x1:30,y1:L.cy,x2:350,y2:L.cy,stroke:'var(--line)'}));
+      svg.appendChild(SVG('line',{x1:L.cx,y1:30,x2:L.cx,y2:330,stroke:'var(--line)'}));
+    } else {
+      svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--line)'}));
+      // latitude lines
+      for(let k=1;k<=2;k++){
+        svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc*k/3,fill:'none',stroke:'var(--line)','stroke-dasharray':'2 4'}));
+      }
+    }
+    svg.appendChild(SVG('line',{x1:410,y1:R.cy,x2:730,y2:R.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:R.cx,y1:30,x2:R.cx,y2:330,stroke:'var(--line)'}));
+
+    // Draw a lattice of points & their images
+    const pts = [];
+    for(let ix=-2;ix<=2;ix+=0.5)for(let iy=-2;iy<=2;iy+=0.5){
+      pts.push([ix,iy]);
+    }
+    pts.forEach(z=>{
+      const wL = useSphere ? (function(){
+        const xy = planeToSphereDisk(z);
+        return [L.cx + xy[0]*L.sc, L.cy - xy[1]*L.sc];
+      })() : toLeftPx(z);
+      svg.appendChild(SVG('circle',{cx:wL[0],cy:wL[1],r:1.5,fill:'var(--mute)'}));
+      const tw = T(z);
+      if(Math.abs(tw[0])<10 && Math.abs(tw[1])<10){
+        const wR = toRightPx(tw);
+        svg.appendChild(SVG('circle',{cx:wR[0],cy:wR[1],r:1.5,fill:'var(--cyan)'}));
+      }
+    });
+    // unit circle pre & post
+    const n=64;
+    const lp=[], rp=[];
+    for(let k=0;k<=n;k++){
+      const t = 2*Math.PI*k/n;
+      const z = [Math.cos(t),Math.sin(t)];
+      const w = T(z);
+      const lpx = useSphere ? (function(){const xy=planeToSphereDisk(z); return [L.cx+xy[0]*L.sc, L.cy-xy[1]*L.sc];})() : toLeftPx(z);
+      lp.push(lpx);
+      if(Math.abs(w[0])<10 && Math.abs(w[1])<10) rp.push(toRightPx(w)); else rp.push(null);
+    }
+    let pathL = 'M'+lp[0].join(' '); for(let k=1;k<lp.length;k++) pathL += ' L'+lp[k].join(' ');
+    svg.appendChild(SVG('path',{d:pathL, stroke:'var(--yellow)', fill:'none','stroke-width':1.5}));
+    let pathR = ''; let started = false;
+    for(let k=0;k<rp.length;k++){
+      if(!rp[k]){ started=false; continue; }
+      pathR += (started?' L':'M') + rp[k].join(' ');
+      started = true;
+    }
+    if(pathR) svg.appendChild(SVG('path',{d:pathR, stroke:'var(--yellow)', fill:'none','stroke-width':1.5}));
+
+    // Three marker points
+    const markers = [['1',[1,0],'var(--green)'],['i',[0,1],'var(--pink)'],['−1',[-1,0],'var(--violet)']];
+    markers.forEach(([lab,z,c])=>{
+      const lpx = useSphere ? (function(){const xy=planeToSphereDisk(z); return [L.cx+xy[0]*L.sc, L.cy-xy[1]*L.sc];})() : toLeftPx(z);
+      svg.appendChild(SVG('circle',{cx:lpx[0],cy:lpx[1],r:5,fill:c}));
+      const lt = SVG('text',{x:lpx[0]+8,y:lpx[1]-4,'font-size':12,fill:c}); lt.textContent=lab; svg.appendChild(lt);
+      const w = T(z);
+      if(Math.abs(w[0])<10 && Math.abs(w[1])<10){
+        const rpx = toRightPx(w);
+        svg.appendChild(SVG('circle',{cx:rpx[0],cy:rpx[1],r:5,fill:c}));
+      }
+    });
+
+    // readout
+    const det = C.sub(C.mul(M.a,M.d), C.mul(M.b,M.c));
+    ro.textContent = `T(z) = (${C.fmt(M.a)} · z + ${C.fmt(M.b)}) / (${C.fmt(M.c)} · z + ${C.fmt(M.d)})\n`+
+      `det = ad − bc = ${C.fmt(det)}\n`+
+      `T(1) = ${C.fmt(T([1,0]))}, T(i) = ${C.fmt(T([0,1]))}, T(−1) = ${C.fmt(T([-1,0]))}`;
+  }
+  $('#mob-preset').addEventListener('change', e=>{ M = presets[e.target.value]; clearAndDraw(); });
+  $('#mob-sphere').addEventListener('change', e=>{ useSphere = e.target.checked; clearAndDraw(); });
+  clearAndDraw();
+})();
+</script>
+
+<!-- ====================== WIDGET: Amplitwist ====================== -->
+<script>
+(function(){
+  const svg = $('#amp-svg');
+  const ro = $('#amp-readout');
+  if(!svg||!ro) return;
+  const L={cx:190,cy:180,sc:80}, R={cx:570,cy:180,sc:80};
+  const fns = {
+    z2:   {f:z=>C.mul(z,z),                        df:z=>C.scale(z,2),                                    name:'z²'},
+    z3:   {f:z=>C.mul(C.mul(z,z),z),               df:z=>C.scale(C.mul(z,z),3),                           name:'z³'},
+    inv:  {f:z=>C.div([1,0],z),                    df:z=>C.scale(C.div([1,0],C.mul(z,z)),-1),             name:'1/z'},
+    exp:  {f:z=>C.exp(z),                          df:z=>C.exp(z),                                        name:'eᶻ'},
+    sin:  {f:z=>C.sin(z),                          df:z=>C.cos(z),                                        name:'sin z'},
+    conj: {f:z=>[z[0],-z[1]],                      df:z=>null,                                            name:'z̄ (not holomorphic)'},
+  };
+  let z0 = [0.6, 0.4];
+  let curr = 'z2';
+
+  function toLpx(z){ return [L.cx + z[0]*L.sc, L.cy - z[1]*L.sc]; }
+  function toRpx(z){ return [R.cx + z[0]*L.sc, R.cy - z[1]*L.sc]; }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:30,y:30,width:320,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:410,y:30,width:320,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    // axes
+    svg.appendChild(SVG('line',{x1:30,y1:L.cy,x2:350,y2:L.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:L.cx,y1:30,x2:L.cx,y2:330,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:410,y1:R.cy,x2:730,y2:R.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:R.cx,y1:30,x2:R.cx,y2:330,stroke:'var(--line)'}));
+    const lt = SVG('text',{x:190,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); lt.textContent='source plane (click to set z₀)'; svg.appendChild(lt);
+    const rt = SVG('text',{x:570,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); rt.textContent='target plane'; svg.appendChild(rt);
+
+    const F = fns[curr].f, DF = fns[curr].df;
+    // Grid of small offsets around z0
+    const eps = 0.18;
+    const N = 4;
+    const offsets = [];
+    for(let i=-N;i<=N;i++)for(let j=-N;j<=N;j++) offsets.push([i*eps/N, j*eps/N]);
+    // Source grid
+    offsets.forEach(d=>{
+      const z = C.add(z0, d);
+      const px = toLpx(z);
+      svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:1.6,fill:'var(--blue)'}));
+    });
+    // Target grid
+    offsets.forEach(d=>{
+      const z = C.add(z0, d);
+      const w = F(z);
+      if(!isFinite(w[0])||!isFinite(w[1])) return;
+      const px = toRpx(w);
+      if(px[0]<410||px[0]>730||px[1]<30||px[1]>330) return;
+      svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:1.6,fill:'var(--cyan)'}));
+    });
+
+    // z0 marker
+    const z0p = toLpx(z0);
+    svg.appendChild(SVG('circle',{cx:z0p[0],cy:z0p[1],r:6,fill:'var(--yellow)'}));
+    // f(z0) marker
+    const w0 = F(z0);
+    if(isFinite(w0[0])&&isFinite(w0[1])){
+      const w0p = toRpx(w0);
+      svg.appendChild(SVG('circle',{cx:w0p[0],cy:w0p[1],r:6,fill:'var(--yellow)'}));
+    }
+    // Arrows showing local rotation+scale of unit vectors
+    const dz1 = [0.25,0], dz2 = [0,0.25];
+    const draw2arrows = (basisL, basisR, color, label)=>{
+      const aL = toLpx(C.add(z0, basisL));
+      drawArrow(svg, z0p, aL, {color:'var(--mute)', markerId:'amp-mute', width:1});
+      const wEnd = F(C.add(z0, basisL));
+      if(!isFinite(wEnd[0])||!isFinite(wEnd[1])) return;
+      const aR = toRpx(wEnd);
+      drawArrow(svg, toRpx(F(z0)), aR, {color, markerId:'amp-'+label, width:1.5});
+    };
+    draw2arrows(dz1, null, 'var(--green)', 'g');
+    draw2arrows(dz2, null, 'var(--pink)',  'p');
+
+    if(DF){
+      const d = DF(z0);
+      const r = C.abs(d), th = C.arg(d)*180/Math.PI;
+      ro.textContent = `f(z) = ${fns[curr].name}\nz₀ = ${C.fmt(z0)},  f(z₀) = ${C.fmt(F(z0))}\n`+
+        `f'(z₀) = ${C.fmt(d)}\nlocal action: rotate by ${th.toFixed(2)}°, scale by ${r.toFixed(3)}\n`+
+        `(green & pink arrows on the right are the green & pink arrows on the left, after the amplitwist)`;
+    } else {
+      ro.textContent = `f(z) = ${fns[curr].name}\nz₀ = ${C.fmt(z0)},  f(z₀) = ${C.fmt(F(z0))}\n`+
+        `Not complex-differentiable: the Jacobian is a reflection (det = −1). Notice the right-hand grid is mirrored — green and pink arrows have <em>swapped</em> orientation. This is anti-conformal.`;
+    }
+  }
+  svg.addEventListener('click', e=>{
+    const r = svg.getBoundingClientRect();
+    const sx = (e.clientX - r.left) * (760/r.width);
+    const sy = (e.clientY - r.top) * (360/r.height);
+    if(sx<350){
+      z0 = [(sx - L.cx)/L.sc, -(sy - L.cy)/L.sc];
+      draw();
+    }
+  });
+  $('#amp-fn').addEventListener('change', e=>{ curr = e.target.value; draw(); });
+  draw();
+})();
+</script>
+
+<!-- ====================== WIDGET: Domain coloring ====================== -->
+<script>
+(function(){
+  const svg = $('#dc-svg');
+  const sel = $('#dc-fn');
+  const rad = $('#dc-radius');
+  const rlab = $('#dc-rlabel');
+  if(!svg) return;
+  const N = 80;
+  const SIZE = 480;
+  const cell = SIZE / N;
+  // Pre-create cells once
+  const rects = [];
+  // background
+  svg.appendChild(SVG('rect',{x:0,y:0,width:SIZE,height:SIZE,fill:'#000'}));
+  for(let i=0;i<N;i++){
+    for(let j=0;j<N;j++){
+      const r = SVG('rect',{x:i*cell, y:j*cell, width:cell+0.5, height:cell+0.5, fill:'#000'});
+      svg.appendChild(r);
+      rects.push(r);
+    }
+  }
+  // axes
+  svg.appendChild(SVG('line',{x1:0,y1:SIZE/2,x2:SIZE,y2:SIZE/2,stroke:'rgba(255,255,255,0.18)'}));
+  svg.appendChild(SVG('line',{x1:SIZE/2,y1:0,x2:SIZE/2,y2:SIZE,stroke:'rgba(255,255,255,0.18)'}));
+
+  const fns = {
+    z:    z=>z,
+    z2:   z=>C.mul(z,z),
+    z3:   z=>C.mul(C.mul(z,z),z),
+    inv:  z=>{const m=z[0]*z[0]+z[1]*z[1]; if(m<1e-12) return [1e6,0]; return [z[0]/m,-z[1]/m];},
+    exp:  z=>C.exp(z),
+    sin:  z=>C.sin(z),
+    cos:  z=>C.cos(z),
+    log:  z=>{const m=Math.hypot(z[0],z[1]); if(m<1e-9) return [-20,0]; return [Math.log(m), Math.atan2(z[1],z[0])];},
+    rat1: z=>{const a=C.sub(C.mul(z,z),[1,0]); const b=C.add(C.mul(z,z),[1,0]); return C.div(a,b);},
+    cubic:z=>C.sub(C.mul(C.mul(z,z),z), z),
+  };
+
+  function hsl(h, s, l){
+    // h in [0,360), s,l in [0,1] → "hsl(...)"
+    return `hsl(${h.toFixed(0)},${(s*100).toFixed(0)}%,${(l*100).toFixed(0)}%)`;
+  }
+  function colorFor(w){
+    if(!isFinite(w[0])||!isFinite(w[1])) return '#000';
+    const m = Math.hypot(w[0],w[1]);
+    let h = (Math.atan2(w[1],w[0]) * 180 / Math.PI + 360) % 360;
+    // lightness from log|f|, with bands
+    const lg = Math.log2(m + 1e-12);
+    const frac = lg - Math.floor(lg); // [0,1)
+    // Make light increase with frac, with periodic bands
+    const l = 0.18 + 0.62 * frac;
+    return hsl(h, 0.85, l);
+  }
+
+  function recolor(){
+    const R = parseFloat(rad.value);
+    rlab.textContent = R.toFixed(1);
+    const f = fns[sel.value];
+    let idx = 0;
+    for(let i=0;i<N;i++){
+      for(let j=0;j<N;j++){
+        const x = -R + (i+0.5) * (2*R/N);
+        const y =  R - (j+0.5) * (2*R/N);
+        const w = f([x,y]);
+        rects[idx++].setAttribute('fill', colorFor(w));
+      }
+    }
+  }
+  sel.addEventListener('change', recolor);
+  rad.addEventListener('input', recolor);
+  recolor();
+})();
+</script>
+
+<!-- ====================== WIDGET: Contour integral ====================== -->
+<script>
+(function(){
+  const svg = $('#ct-svg');
+  const ro = $('#ct-readout');
+  if(!svg||!ro) return;
+  const W=760, H=460;
+  const cx=W/2, cy=H/2, sc=80;
+  const toPx = z => [cx + z[0]*sc, cy - z[1]*sc];
+  const toZ  = (x,y) => [(x-cx)/sc, -(y-cy)/sc];
+
+  const fns = {
+    r1:{ name:'1/(z²+1)',
+         poles:[[0,1],[0,-1]],
+         res:p=>{ // 1/((z-i)(z+i)) — residue at z=i is 1/(2i), at z=-i is -1/(2i)
+           if(Math.abs(p[1]-1)<1e-6) return [0,-0.5];
+           if(Math.abs(p[1]+1)<1e-6) return [0,0.5];
+           return [0,0];
+         },
+         f:z=>C.div([1,0], C.add(C.mul(z,z),[1,0])) },
+    r2:{ name:'eⁱᶻ/(z²+1)',
+         poles:[[0,1],[0,-1]],
+         res:p=>{
+           // residue at z=i: e^{i·i}/(2i) = e^{-1}/(2i) = -i·e^{-1}/2
+           if(Math.abs(p[1]-1)<1e-6) return [0, -Math.exp(-1)/2];
+           // residue at z=-i: e^{i·(-i)}/(-2i) = e^{1}/(-2i) = i·e/2
+           if(Math.abs(p[1]+1)<1e-6) return [0,  Math.exp(1)/2];
+           return [0,0];
+         },
+         f:z=>C.div(C.exp([(-z[1]),z[0]]), C.add(C.mul(z,z),[1,0])) },
+    r3:{ name:'1/(z(z−1)(z+2))',
+         poles:[[0,0],[1,0],[-2,0]],
+         res:p=>{
+           if(Math.abs(p[0])<1e-6 && Math.abs(p[1])<1e-6) return [-0.5, 0]; // 1/((-1)(2)) = -1/2
+           if(Math.abs(p[0]-1)<1e-6) return [1/3, 0];                       // 1/(1·3) = 1/3
+           if(Math.abs(p[0]+2)<1e-6) return [1/6, 0];                       // 1/((-2)(-3)) = 1/6
+           return [0,0];
+         },
+         f:z=>C.div([1,0], C.mul(C.mul(z, C.sub(z,[1,0])), C.add(z,[2,0]))) },
+    r4:{ name:'z/(z²−1)',
+         poles:[[1,0],[-1,0]],
+         res:p=>{
+           if(Math.abs(p[0]-1)<1e-6) return [0.5,0];
+           if(Math.abs(p[0]+1)<1e-6) return [0.5,0];
+           return [0,0];
+         },
+         f:z=>C.div(z, C.sub(C.mul(z,z),[1,0])) },
+    r5:{ name:'1/(z²+2z+2)',
+         poles:[[-1,1],[-1,-1]],
+         res:p=>{
+           if(Math.abs(p[0]+1)<1e-6 && Math.abs(p[1]-1)<1e-6) return [0,-0.5];
+           if(Math.abs(p[0]+1)<1e-6 && Math.abs(p[1]+1)<1e-6) return [0,0.5];
+           return [0,0];
+         },
+         f:z=>C.div([1,0], C.add(C.add(C.mul(z,z), C.scale(z,2)),[2,0])) },
+  };
+  let curr = 'r1';
+  let verts = []; // in plane coords
+  const presets = {
+    big: ()=>{const v=[]; for(let k=0;k<8;k++){const t=2*Math.PI*k/8; v.push([2.6*Math.cos(t),2.6*Math.sin(t)]);} return v;},
+    rect:()=>[[-2.2,-1.4],[2.2,-1.4],[2.2,1.4],[-2.2,1.4]],
+    tri: ()=>[[-2.2,-1.2],[2.5,-1.2],[0.2,2.0]],
+    upper: ()=>{ const v=[[-2.6,0]]; for(let k=0;k<=10;k++){const t=Math.PI*k/10; v.push([2.6*Math.cos(t), 2.6*Math.sin(t)]);} v.push([-2.6,0]); return v; },
+  };
+  function loadShape(name){ verts = presets[name](); draw(); }
+
+  function pointInPoly(p, poly){
+    let inside = false;
+    for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+      const xi=poly[i][0], yi=poly[i][1], xj=poly[j][0], yj=poly[j][1];
+      const intersect = ((yi>p[1])!=(yj>p[1])) && (p[0] < (xj-xi)*(p[1]-yi)/((yj-yi)||1e-12) + xi);
+      if(intersect) inside = !inside;
+    }
+    return inside;
+  }
+  function polyOrientation(poly){
+    let s = 0;
+    for(let i=0;i<poly.length;i++){
+      const a = poly[i], b = poly[(i+1)%poly.length];
+      s += (b[0]-a[0])*(b[1]+a[1]);
+    }
+    return s < 0 ? 1 : -1; // positive (CCW) when shoelace sum < 0 (because of sign convention)
+  }
+
+  let drag = -1;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:20,y:20,width:W-40,height:H-40,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    // grid
+    for(let g=-4;g<=4;g++){
+      svg.appendChild(SVG('line',{x1:cx+g*sc,y1:30,x2:cx+g*sc,y2:H-30,stroke:'var(--line)','stroke-dasharray':'1 3'}));
+      svg.appendChild(SVG('line',{x1:30,y1:cy+g*sc,x2:W-30,y2:cy+g*sc,stroke:'var(--line)','stroke-dasharray':'1 3'}));
+    }
+    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:H-30,stroke:'var(--mute)','stroke-width':1}));
+
+    // poles
+    const F = fns[curr];
+    F.poles.forEach(p=>{
+      const px = toPx(p);
+      svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:6,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+      svg.appendChild(SVG('text',{x:px[0]+10,y:px[1]-6,'font-size':11,fill:'var(--pink)'})).textContent='×';
+    });
+
+    // contour
+    if(verts.length>1){
+      let d = 'M' + toPx(verts[0]).join(' ');
+      for(let k=1;k<verts.length;k++){
+        d += ' L' + toPx(verts[k]).join(' ');
+      }
+      d += ' Z';
+      svg.appendChild(SVG('path',{d, stroke:'var(--yellow)', fill:'rgba(255,216,102,0.06)','stroke-width':2}));
+      // direction arrows on edges
+      for(let k=0;k<verts.length;k++){
+        const a = verts[k], b = verts[(k+1)%verts.length];
+        const m = [(a[0]+b[0])/2, (a[1]+b[1])/2];
+        const dr = [b[0]-a[0], b[1]-a[1]];
+        const L = Math.hypot(dr[0],dr[1])||1;
+        const tip = [m[0]+0.08*dr[0]/L*Math.min(L*sc,30)/sc, m[1]+0.08*dr[1]/L*Math.min(L*sc,30)/sc];
+        drawArrow(svg, toPx(m), toPx(tip), {color:'var(--yellow)', markerId:'ct-dir', width:0});
+      }
+    }
+    // vertex handles
+    verts.forEach((v,i)=>{
+      const px = toPx(v);
+      const c = SVG('circle',{cx:px[0],cy:px[1],r:5,fill:'var(--yellow)','stroke':'#222','stroke-width':1,'data-i':i,'class':'ct-vert','style':'cursor:grab'});
+      svg.appendChild(c);
+    });
+
+    // residue sum
+    const orient = polyOrientation(verts);
+    let sum = [0,0];
+    let enc = [];
+    F.poles.forEach(p=>{
+      if(pointInPoly(p, verts)){
+        const r = F.res(p);
+        sum = C.add(sum, r);
+        enc.push(p);
+      }
+    });
+    const integral = C.scale(C.mul([0, 2*Math.PI], sum), orient);
+    let txt = `f(z) = ${F.name}\nenclosed poles: ` + (enc.length? enc.map(p=>'('+p[0].toFixed(2)+(p[1]>=0?'+':'')+p[1].toFixed(2)+'i)').join(', ') : 'none') + '\n';
+    enc.forEach(p=>{ txt += `  Res(f, ${p[0].toFixed(2)}${p[1]>=0?'+':''}${p[1].toFixed(2)}i) = ${C.fmt(F.res(p))}\n`; });
+    txt += `orientation: ${orient>0?'counterclockwise (+)':'clockwise (−)'}\n`;
+    txt += `∮ f dz = 2πi · (sum of residues) · orient = ${C.fmt(integral)}`;
+    ro.textContent = txt;
+  }
+
+  svg.addEventListener('mousedown', e=>{
+    if(e.target.classList.contains('ct-vert')){
+      drag = parseInt(e.target.getAttribute('data-i'));
+    }
+  });
+  window.addEventListener('mousemove', e=>{
+    if(drag<0) return;
+    const r = svg.getBoundingClientRect();
+    const x = (e.clientX - r.left) * (W/r.width);
+    const y = (e.clientY - r.top) * (H/r.height);
+    verts[drag] = toZ(x,y);
+    draw();
+  });
+  window.addEventListener('mouseup', ()=>{ drag = -1; });
+
+  $('#ct-fn').addEventListener('change', e=>{ curr = e.target.value; draw(); });
+  $('#ct-shape').addEventListener('change', e=>loadShape(e.target.value));
+  $('#ct-reset').addEventListener('click', ()=>loadShape($('#ct-shape').value));
+  loadShape('rect');
+})();
+</script>
+
+<!-- ====================== WIDGET: Taylor convergence ====================== -->
+<script>
+(function(){
+  const svg = $('#tay-svg');
+  const ro = $('#tay-readout');
+  if(!svg||!ro) return;
+  const SIZE = 480;
+  const cx = SIZE/2, cy = SIZE/2, sc = 90;
+  const toPx = z => [cx + z[0]*sc, cy - z[1]*sc];
+  const toZ  = (x,y) => [(x-cx)/sc, -(y-cy)/sc];
+
+  const fns = {
+    geom:  {name:'1/(1−z)', sing:[[1,0]],
+            coeffs:(z0,N)=>{ // 1/(1-z) about z0: 1/((1-z0)-(z-z0)) = sum (z-z0)^n / (1-z0)^{n+1}
+              const w = [1-z0[0], -z0[1]];
+              const out=[]; let cur=[1,0];
+              for(let n=0;n<N;n++){ out.push(C.div(cur, C.mul(w, [1,0]))); cur = C.div(cur, w); }
+              // Actually coeff_n = 1/(1-z0)^{n+1}
+              const coefs=[]; let p=[1,0];
+              for(let n=0;n<N;n++){ p = C.div(p, w); coefs.push(p); }
+              return coefs;
+            }},
+    invq:  {name:'1/(z²+1)', sing:[[0,1],[0,-1]], coeffs:null},
+    log1z: {name:'log(1+z)', sing:[[-1,0]], coeffs:null},
+    tan:   {name:'tan z', sing:(()=>{ const s=[]; for(let k=-3;k<=3;k++) s.push([Math.PI*(k+0.5),0]); return s; })(), coeffs:null},
+  };
+  let z0 = [0,0];
+  let curr = 'geom';
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:SIZE,height:SIZE,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    // grid
+    for(let g=-3;g<=3;g++){
+      svg.appendChild(SVG('line',{x1:cx+g*sc,y1:0,x2:cx+g*sc,y2:SIZE,stroke:'var(--line)','stroke-dasharray':'1 3'}));
+      svg.appendChild(SVG('line',{x1:0,y1:cy+g*sc,x2:SIZE,y2:cy+g*sc,stroke:'var(--line)','stroke-dasharray':'1 3'}));
+    }
+    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:SIZE,y2:cy,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:SIZE,stroke:'var(--mute)'}));
+    // singularities
+    const F = fns[curr];
+    F.sing.forEach(s=>{
+      const px = toPx(s);
+      if(px[0]<0||px[0]>SIZE||px[1]<0||px[1]>SIZE) return;
+      svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:7,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+      const xt = SVG('text',{x:px[0]+10,y:px[1]-6,'font-size':11,fill:'var(--pink)'}); xt.textContent='sing'; svg.appendChild(xt);
+    });
+    // distance to nearest singularity
+    let R = Infinity, nearest=null;
+    F.sing.forEach(s=>{ const d = Math.hypot(z0[0]-s[0], z0[1]-s[1]); if(d<R){ R=d; nearest=s; } });
+    // disk of convergence
+    const z0p = toPx(z0);
+    svg.appendChild(SVG('circle',{cx:z0p[0],cy:z0p[1],r:R*sc,fill:'rgba(131,193,103,0.12)',stroke:'var(--green)','stroke-width':2}));
+    // line from z0 to nearest sing
+    if(nearest){
+      const np = toPx(nearest);
+      svg.appendChild(SVG('line',{x1:z0p[0],y1:z0p[1],x2:np[0],y2:np[1],stroke:'var(--green)','stroke-dasharray':'4 4'}));
+    }
+    // z0 marker
+    svg.appendChild(SVG('circle',{cx:z0p[0],cy:z0p[1],r:5,fill:'var(--yellow)'}));
+    const lt = SVG('text',{x:z0p[0]+8,y:z0p[1]-6,'font-size':11,fill:'var(--yellow)'}); lt.textContent='z₀'; svg.appendChild(lt);
+    // readout
+    let txt = `f(z) = ${F.name}\nz₀ = ${C.fmt(z0)}\nradius of convergence R = distance(z₀, nearest sing) = ${R.toFixed(4)}\nnearest singularity at ${nearest? C.fmt(nearest):'∞'}\n`;
+    if(curr==='geom'){
+      // 1/(1-z) coefficients about z0: c_n = 1/(1-z0)^{n+1}
+      const w = [1-z0[0], -z0[1]];
+      let p=[1,0]; const out=[];
+      for(let n=0;n<5;n++){ p = C.div([1,0], (function(){let r=[1,0]; for(let k=0;k<=n;k++) r=C.mul(r,w); return r;})());
+        out.push(`c_${n} = ${C.fmt(p,4)}`); }
+      txt += '\nfirst Taylor coefficients about z₀:\n  ' + out.join('\n  ');
+    }
+    ro.textContent = txt;
+  }
+  svg.addEventListener('click', e=>{
+    const r = svg.getBoundingClientRect();
+    const x = (e.clientX - r.left) * (SIZE/r.width);
+    const y = (e.clientY - r.top) * (SIZE/r.height);
+    z0 = toZ(x,y);
+    draw();
+  });
+  $('#tay-fn').addEventListener('change', e=>{ curr = e.target.value; draw(); });
+  draw();
+})();
+</script>
+
+<!-- ====================== WIDGET: Argument principle ====================== -->
+<script>
+(function(){
+  const svg = $('#ag-svg');
+  const ro = $('#ag-readout');
+  if(!svg||!ro) return;
+  const W=760,H=380;
+  const L={cx:190,cy:190,sc:80}, R={cx:570,cy:190,sc:30};
+  const toLpx = z => [L.cx + z[0]*L.sc, L.cy - z[1]*L.sc];
+  const toRpx = z => [R.cx + z[0]*R.sc, R.cy - z[1]*R.sc];
+
+  const fns = {
+    z:    {name:'z',                f:z=>z,                                                   zeros:[[0,0]], poles:[]},
+    z2:   {name:'z²',               f:z=>C.mul(z,z),                                          zeros:[[0,0]], poles:[]},
+    z3:   {name:'z³',               f:z=>C.mul(C.mul(z,z),z),                                 zeros:[[0,0]], poles:[]},
+    zm1:  {name:'z²−1',             f:z=>C.sub(C.mul(z,z),[1,0]),                             zeros:[[1,0],[-1,0]], poles:[]},
+    cube3:{name:'(z−1)(z−i)(z+1)',  f:z=>C.mul(C.mul(C.sub(z,[1,0]),C.sub(z,[0,1])),C.add(z,[1,0])), zeros:[[1,0],[0,1],[-1,0]], poles:[]},
+    rat:  {name:'(z−0.3)/(z+0.6i)', f:z=>C.div(C.sub(z,[0.3,0]), C.add(z,[0,0.6])),           zeros:[[0.3,0]], poles:[[0,-0.6]]},
+  };
+  let curr = 'z2';
+
+  function pointInDisk(p, c, r){ return Math.hypot(p[0]-c[0], p[1]-c[1]) < r; }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:30,y:30,width:320,height:320,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:410,y:30,width:320,height:320,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    // axes
+    svg.appendChild(SVG('line',{x1:30,y1:L.cy,x2:350,y2:L.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:L.cx,y1:30,x2:L.cx,y2:350,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:410,y1:R.cy,x2:730,y2:R.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:R.cx,y1:30,x2:R.cx,y2:350,stroke:'var(--line)'}));
+    svg.appendChild(SVG('text',{x:190,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent='source plane (γ)';
+    svg.appendChild(SVG('text',{x:570,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent='image f(γ)';
+
+    const F = fns[curr];
+    const cx = parseFloat($('#ag-cx').value), cy = parseFloat($('#ag-cy').value), Rad = parseFloat($('#ag-r').value);
+    $('#ag-rlabel').textContent = Rad.toFixed(2);
+
+    // zeros & poles
+    F.zeros.forEach(z=>{ const px = toLpx(z); svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:5,fill:'var(--green)'})); });
+    F.poles.forEach(z=>{ const px = toLpx(z); svg.appendChild(SVG('circle',{cx:px[0],cy:px[1],r:5,fill:'none',stroke:'var(--pink)','stroke-width':2})); });
+
+    // contour: circle of radius Rad around (cx,cy)
+    const N = 200;
+    const path = [];
+    const imgPath = [];
+    for(let k=0;k<=N;k++){
+      const t = 2*Math.PI*k/N;
+      const z = [cx + Rad*Math.cos(t), cy + Rad*Math.sin(t)];
+      path.push(toLpx(z));
+      const w = F.f(z);
+      imgPath.push(toRpx(w));
+    }
+    let dL = 'M' + path[0].join(' '); for(let k=1;k<path.length;k++) dL += ' L' + path[k].join(' ');
+    svg.appendChild(SVG('path',{d:dL, stroke:'var(--yellow)', fill:'none','stroke-width':2}));
+    // Image path with rainbow fade
+    for(let k=0;k<imgPath.length-1;k++){
+      const hue = (360*k/imgPath.length).toFixed(0);
+      svg.appendChild(SVG('line',{x1:imgPath[k][0],y1:imgPath[k][1],x2:imgPath[k+1][0],y2:imgPath[k+1][1], stroke:`hsl(${hue},70%,60%)`,'stroke-width':1.7}));
+    }
+    // origin marker on right
+    svg.appendChild(SVG('circle',{cx:R.cx,cy:R.cy,r:4,fill:'var(--violet)'}));
+    svg.appendChild(SVG('text',{x:R.cx+8,y:R.cy+4,'font-size':12,fill:'var(--violet)'})).textContent='0';
+
+    // winding number: integrate d(arg) along image path
+    let wind = 0;
+    for(let k=0;k<imgPath.length-1;k++){
+      const ax = imgPath[k][0]-R.cx, ay = R.cy-imgPath[k][1];
+      const bx = imgPath[k+1][0]-R.cx, by = R.cy-imgPath[k+1][1];
+      let da = Math.atan2(by, bx) - Math.atan2(ay, ax);
+      if(da > Math.PI) da -= 2*Math.PI;
+      if(da < -Math.PI) da += 2*Math.PI;
+      wind += da;
+    }
+    wind = Math.round(wind / (2*Math.PI));
+
+    // count zeros and poles enclosed
+    let Z=0, P=0;
+    F.zeros.forEach(z=>{ if(pointInDisk(z,[cx,cy],Rad)) Z++; });
+    F.poles.forEach(z=>{ if(pointInDisk(z,[cx,cy],Rad)) P++; });
+
+    ro.textContent = `f(z) = ${F.name}\ncontour: |z − (${cx.toFixed(2)}+${cy.toFixed(2)}i)| = ${Rad.toFixed(2)}\nenclosed zeros Z = ${Z}, enclosed poles P = ${P}\nwinding number of f(γ) around 0 = ${wind}\nargument principle: Z − P = ${Z-P}  ${wind===Z-P? '✓' : '(adjust contour to avoid passing through a zero/pole)'}`;
+  }
+  ['ag-fn','ag-r','ag-cx','ag-cy'].forEach(id=>{
+    const el = $('#'+id);
+    el.addEventListener('input', ()=>{ if(id==='ag-fn') curr = el.value; draw(); });
+    el.addEventListener('change', ()=>{ if(id==='ag-fn') curr = el.value; draw(); });
+  });
+  draw();
+})();
+</script>
+
+<!-- ====================== WIDGET: Conformal map gallery ====================== -->
+<script>
+(function(){
+  const svg = $('#cf-svg');
+  const ro = $('#cf-readout');
+  if(!svg||!ro) return;
+  const W=760, H=380;
+  const L={cx:190,cy:190,sc:60}, R={cx:570,cy:190,sc:60};
+  const toLpx = z => [L.cx + z[0]*L.sc, L.cy - z[1]*L.sc];
+  const toRpx = z => [R.cx + z[0]*R.sc, R.cy - z[1]*R.sc];
+
+  const maps = {
+    z2: {
+      name:'z ↦ z²',
+      f: z => C.mul(z,z),
+      gridSrc: 'cart',  // cartesian grid in source
+      domain:'plane',
+      info:'Conformal except at z=0 (where f′=0). Wrap angles double around the origin: a sector of angle θ becomes a sector of angle 2θ.'
+    },
+    exp: {
+      name:'z ↦ eᶻ',
+      f: z => C.exp(z),
+      gridSrc:'strip',
+      domain:'strip',
+      info:'Sends horizontal lines to rays from origin, vertical lines to circles. The strip 0 < Im z < 2π wraps once around the punctured plane.'
+    },
+    log: {
+      name:'z ↦ log z',
+      f: z => C.log(z),
+      gridSrc:'punctured',
+      domain:'punctured',
+      info:'Inverse of exp. Slit plane (negative real axis removed) maps biholomorphically to the strip −π < Im < π.'
+    },
+    cayley: {
+      name:'Cayley i(1−z)/(1+z): UHP→𝔻',
+      f: z => {
+        // (1-z)/(1+z) then multiply by i: i*(1-z)/(1+z)
+        const num = C.sub([1,0],z), den = C.add([1,0],z);
+        const q = C.div(num,den);
+        return C.mul([0,1],q);
+      },
+      gridSrc:'uhp',
+      domain:'uhp',
+      info:'The classical biholomorphism between upper half-plane and unit disk. The real axis maps to the unit circle.'
+    },
+    moebius: {
+      name:'Möbius (z−a)/(1−ā z)',
+      f: z => {
+        const a = [0.4, 0.2];
+        const num = C.sub(z,a);
+        const den = C.sub([1,0], C.mul([a[0],-a[1]], z));
+        return C.div(num,den);
+      },
+      gridSrc:'disk',
+      domain:'disk',
+      info:'Disk automorphism with parameter a = 0.4+0.2i. Sends a to 0; preserves hyperbolic distances.'
+    },
+    joukowski: {
+      name:'Joukowski ½(z + 1/z)',
+      f: z => C.scale(C.add(z, C.div([1,0],z)), 0.5),
+      gridSrc:'circles',
+      domain:'plane',
+      info:'Sends the unit circle |z|=1 to the segment [-1,1] (twice). A circle through z=1 with centre offset gives an airfoil shape.'
+    },
+    sc3: {
+      name:'Schwarz–Christoffel (UHP → triangle)',
+      // Approximate map sending UHP to equilateral triangle: integral of (z+1)^{-2/3}(z-1)^{-2/3}(z)^{-2/3}? Use simpler: UHP -> isoceles via SC integral, sampled.
+      f: z => {
+        // For visualization just send (x+iy) to its image under a hand-coded SC integral approximation:
+        // The map UHP→equilateral triangle has integrand (1-ζ²)^{-2/3}; we evaluate by a few-step Simpson's rule from 0.
+        // For our visualization purposes use a direct piecewise mapping: rotate vertical lines into segments inside a triangle.
+        const cap = z[1] < 0 ? [z[0], -z[1]] : z;
+        // simple deformation: triangle with vertices at -1, 1, i*(√3/2)*1.4
+        const tx = cap[0]; const ty = cap[1]/(1+cap[1]); // squish y in (0,1)
+        return [tx*(1-ty*0.6), ty*Math.sqrt(3)/2*1.6];
+      },
+      gridSrc:'uhp',
+      domain:'uhp',
+      info:'Schematic: Schwarz–Christoffel integrals send the UHP to a polygon. Real axis → polygon perimeter; pre-vertices map to the corners.'
+    },
+  };
+
+  let curr = 'z2';
+  let probe = [0.7,0.5];
+
+  function srcGridLines(kind){
+    const L = [];
+    if(kind==='cart'){
+      for(let x=-2.5;x<=2.5;x+=0.5){
+        const line=[]; for(let y=-2.5;y<=2.5;y+=0.05) line.push([x,y]); L.push({line, color:'var(--blue)'});
+      }
+      for(let y=-2.5;y<=2.5;y+=0.5){
+        const line=[]; for(let x=-2.5;x<=2.5;x+=0.05) line.push([x,y]); L.push({line, color:'var(--cyan)'});
+      }
+    } else if(kind==='strip'){
+      for(let y=0;y<=2*Math.PI;y+=Math.PI/4){
+        const line=[]; for(let x=-2.5;x<=2.5;x+=0.05) line.push([x,y-Math.PI]); L.push({line, color:'var(--blue)'});
+      }
+      for(let x=-2.5;x<=2.5;x+=0.5){
+        const line=[]; for(let y=-Math.PI;y<=Math.PI;y+=0.05) line.push([x,y]); L.push({line, color:'var(--cyan)'});
+      }
+    } else if(kind==='punctured'){
+      for(let r=0.3;r<=2.5;r+=0.3){
+        const line=[]; for(let t=-Math.PI+0.05;t<=Math.PI-0.05;t+=0.05) line.push([r*Math.cos(t),r*Math.sin(t)]); L.push({line, color:'var(--blue)'});
+      }
+      for(let k=-5;k<=5;k++){
+        const t = k*Math.PI/6;
+        if(Math.abs(Math.abs(t)-Math.PI)<0.01) continue;
+        const line=[]; for(let r=0.05;r<=2.5;r+=0.05) line.push([r*Math.cos(t),r*Math.sin(t)]); L.push({line, color:'var(--cyan)'});
+      }
+    } else if(kind==='uhp'){
+      for(let y=0.1;y<=2.5;y+=0.4){
+        const line=[]; for(let x=-2.5;x<=2.5;x+=0.05) line.push([x,y]); L.push({line, color:'var(--blue)'});
+      }
+      for(let x=-2.5;x<=2.5;x+=0.5){
+        const line=[]; for(let y=0.05;y<=2.5;y+=0.05) line.push([x,y]); L.push({line, color:'var(--cyan)'});
+      }
+    } else if(kind==='disk'){
+      for(let r=0.15;r<=0.95;r+=0.15){
+        const line=[]; for(let t=0;t<=2*Math.PI;t+=0.05) line.push([r*Math.cos(t),r*Math.sin(t)]); L.push({line, color:'var(--blue)'});
+      }
+      for(let k=0;k<12;k++){
+        const t = k*Math.PI/6;
+        const line=[]; for(let r=0;r<=0.95;r+=0.05) line.push([r*Math.cos(t),r*Math.sin(t)]); L.push({line, color:'var(--cyan)'});
+      }
+    } else if(kind==='circles'){
+      // unit circle and a deformed circle to make airfoil
+      for(let R=0.6;R<=1.6;R+=0.2){
+        const line=[]; for(let t=0;t<=2*Math.PI;t+=0.04) line.push([R*Math.cos(t)-0.07, R*Math.sin(t)+0.04]); L.push({line, color:'var(--blue)'});
+      }
+      for(let k=0;k<12;k++){
+        const t = k*Math.PI/6;
+        const line=[]; for(let r=0.5;r<=1.6;r+=0.05) line.push([r*Math.cos(t)-0.07,r*Math.sin(t)+0.04]); L.push({line, color:'var(--cyan)'});
+      }
+    }
+    return L;
+  }
+
+  function clip(px, panel){
+    return px[0]>panel.cx-160 && px[0]<panel.cx+160 && px[1]>panel.cy-160 && px[1]<panel.cy+160;
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:30,y:30,width:320,height:320,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:410,y:30,width:320,height:320,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('text',{x:190,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent='source';
+    svg.appendChild(SVG('text',{x:570,y:50,'text-anchor':'middle','font-size':12,fill:'var(--mute)'})).textContent='target';
+    svg.appendChild(SVG('line',{x1:30,y1:L.cy,x2:350,y2:L.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:L.cx,y1:30,x2:L.cx,y2:350,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:410,y1:R.cy,x2:730,y2:R.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:R.cx,y1:30,x2:R.cx,y2:350,stroke:'var(--line)'}));
+
+    const M = maps[curr];
+    const lines = srcGridLines(M.gridSrc);
+    lines.forEach(({line, color})=>{
+      // source
+      let dl = ''; let started = false;
+      line.forEach(z=>{
+        const px = toLpx(z);
+        if(clip(px, L)){ dl += (started?' L':'M') + px.join(' '); started = true; }
+        else started = false;
+      });
+      if(dl) svg.appendChild(SVG('path',{d:dl, stroke:color, fill:'none','stroke-width':1, opacity:0.8}));
+      // target
+      let dr = ''; started = false;
+      line.forEach(z=>{
+        const w = M.f(z);
+        if(!isFinite(w[0])||!isFinite(w[1])){ started=false; return; }
+        const px = toRpx(w);
+        if(clip(px, R)){ dr += (started?' L':'M') + px.join(' '); started = true; }
+        else started = false;
+      });
+      if(dr) svg.appendChild(SVG('path',{d:dr, stroke:color, fill:'none','stroke-width':1, opacity:0.8}));
+    });
+    // probe
+    const lp = toLpx(probe);
+    svg.appendChild(SVG('circle',{cx:lp[0],cy:lp[1],r:6,fill:'var(--yellow)'}));
+    const w = M.f(probe);
+    if(isFinite(w[0])&&isFinite(w[1])){
+      const rp = toRpx(w);
+      svg.appendChild(SVG('circle',{cx:rp[0],cy:rp[1],r:6,fill:'var(--yellow)'}));
+    }
+    ro.textContent = `${M.name}\nprobe z = ${C.fmt(probe)},  f(z) = ${C.fmt(w)}\n${M.info}`;
+  }
+  svg.addEventListener('click', e=>{
+    const r = svg.getBoundingClientRect();
+    const x = (e.clientX - r.left) * (W/r.width);
+    const y = (e.clientY - r.top) * (H/r.height);
+    if(x<350){
+      probe = [(x - L.cx)/L.sc, -(y - L.cy)/L.sc];
+      draw();
+    }
+  });
+  $('#cf-pick').addEventListener('change', e=>{ curr = e.target.value; draw(); });
+  draw();
+})();
+</script>
+
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

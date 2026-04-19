@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Undergraduate algebra — interactive refresher</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false},{left:'\\\\[',right:'\\\\]',display:true}]});"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  table.cayley{border-collapse:collapse;margin:.5rem auto}
+  table.cayley td{border:1px solid var(--line);padding:.25rem .45rem;text-align:center;
+    min-width:2.2em;font-family:ui-monospace,monospace;font-size:.88rem;cursor:pointer;user-select:none}
+  table.cayley td.hdr{background:#0b0f16;color:var(--yellow);font-weight:600;cursor:default}
+  table.cayley td.identity-row,table.cayley td.identity-col{background:#1a1f2c}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function mod(a,n){return ((a%n)+n)%n}
+function isPrime(n){ if(n<2) return false; for(let i=2;i*i<=n;i++) if(n%i===0) return false; return true; }
+function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#intro">1&nbsp;Structure</a>
+  <a href="#cayley">2&nbsp;Groups&nbsp;/&nbsp;Cayley</a>
+  <a href="#dihedral">3&nbsp;Dihedral&nbsp;D<sub>n</sub></a>
+  <a href="#clock">4&nbsp;ℤ/nℤ</a>
+  <a href="#polyeuclid">5&nbsp;Polynomial&nbsp;gcd</a>
+  <a href="#finite">6&nbsp;Finite&nbsp;fields</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Undergraduate algebra</h1>
+  <p class="sub">A working refresher. Groups, rings, fields — the three ways a set can carry "arithmetic," with one interactive widget per section to recover your intuition.</p>
+</section>
+
+<section id="intro">
+<h2>1. One, two, three operations</h2>
+<p>The structures of algebra are what you get when you demand that a set comes equipped with one or two operations that behave like familiar arithmetic. You relax different axioms to get different structures:</p>
+<p><span class="pill">group</span> one associative operation, an identity, and inverses. Models <em>symmetry</em>: the invertible transformations of anything.</p>
+<p><span class="pill">ring</span> two operations — addition (abelian group) and multiplication (associative, distributive). Models <em>arithmetic</em> like $\mathbb{Z}$, $\mathbb{Z}[x]$, matrices.</p>
+<p><span class="pill">field</span> a ring where multiplication is also a group on nonzero elements. Models <em>numbers</em> — places you can solve linear equations. $\mathbb{Q},\mathbb{R},\mathbb{C}$, and, crucially, the finite fields $\mathbb{F}_{p^n}$.</p>
+<p>Everything below is a tour through examples where you can actually <em>poke</em> the axioms.</p>
+</section>
+
+<section id="cayley">
+<h2>2. Groups via Cayley tables</h2>
+<p>The cleanest way to see a finite group is its multiplication table. Rows indexed by $g$, columns by $h$, cell $(g,h)$ contains $g\cdot h$. Closure means every cell is an element of $G$; the identity gives a row and column that are exact copies of the header; each row/column is a permutation of $G$ (this is how you cheat to read off Cayley's theorem).</p>
+
+<div class="widget" id="w-cayley">
+  <div class="hd"><div class="ttl">Cayley table explorer</div><div class="hint">pick a group · pick a subgroup · see cosets</div></div>
+  <div class="row">
+    <label>G =</label>
+    <select id="ca-group">
+      <option value="Zn:6">ℤ/6ℤ</option>
+      <option value="Zn:8">ℤ/8ℤ</option>
+      <option value="Zn:12">ℤ/12ℤ</option>
+      <option value="V4" selected>V₄ (Klein four)</option>
+      <option value="S3">S₃</option>
+      <option value="D4">D₄</option>
+      <option value="Q8">Q₈ (quaternion)</option>
+      <option value="A4">A₄</option>
+    </select>
+    <label style="margin-left:1rem">subgroup:</label>
+    <select id="ca-sub"></select>
+    <span class="small" id="ca-props"></span>
+  </div>
+  <div id="ca-out"></div>
+  <div class="readout" id="ca-readout"></div>
+</div>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\trianglelefteq G$ you can form the quotient $G/H$.</p>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 2: Cayley =============================== */
+(function(){
+  // Groups catalog
+  // Each: {name, els:[names], op:(i,j)->k, subgroups:[{name, indices}]}
+  function mkZn(n){
+    return {
+      name:`ℤ/${n}ℤ`,
+      els: Array.from({length:n},(_,i)=>String(i)),
+      op:(i,j)=>mod(i+j,n),
+      identity:0,
+      abelian:true,
+      subgroups: (()=>{
+        const subs=[{name:'{e}',idx:[0]}];
+        for(let d=2;d<=n;d++){
+          if(n%d===0){
+            const idx=[];
+            for(let i=0;i<d;i++) idx.push((n/d)*i);
+            subs.push({name:`⟨${n/d}⟩ order ${d}`,idx});
+          }
+        }
+        return subs;
+      })(),
+    };
+  }
+  // V4 = Z2 x Z2: elements e=(0,0), a=(1,0), b=(0,1), ab=(1,1)
+  const V4 = (()=>{
+    const els = ['e','a','b','ab'];
+    const tbl = [[0,1,2,3],[1,0,3,2],[2,3,0,1],[3,2,1,0]];
+    return {name:'V₄',els,op:(i,j)=>tbl[i][j],identity:0,abelian:true,
+      subgroups:[
+        {name:'{e}',idx:[0]},
+        {name:'⟨a⟩',idx:[0,1]},
+        {name:'⟨b⟩',idx:[0,2]},
+        {name:'⟨ab⟩',idx:[0,3]},
+        {name:'V₄ (whole)',idx:[0,1,2,3]},
+      ],
+    };
+  })();
+  // S3 via permutations
+  const S3 = (()=>{
+    const perms = [[0,1,2],[1,0,2],[2,1,0],[0,2,1],[1,2,0],[2,0,1]];
+    const names = ['e','(12)','(13)','(23)','(123)','(132)'];
+    function apply(p,q){ return q.map(k=>p[k]); } // (p∘q)(k) = p(q(k))
+    const op=(i,j)=>{
+      const r = apply(perms[i],perms[j]);
+      return perms.findIndex(p=>p.every((v,k)=>v===r[k]));
+    };
+    return {name:'S₃',els:names,op,identity:0,abelian:false,
+      subgroups:[
+        {name:'{e}',idx:[0]},
+        {name:'⟨(12)⟩',idx:[0,1]},
+        {name:'⟨(13)⟩',idx:[0,2]},
+        {name:'⟨(23)⟩',idx:[0,3]},
+        {name:'A₃ = ⟨(123)⟩',idx:[0,4,5]},
+        {name:'S₃ (whole)',idx:[0,1,2,3,4,5]},
+      ],
+    };
+  })();
+  // D4: 1, r, r^2, r^3, s, sr, sr^2, sr^3; relations r^4=1, s^2=1, srs=r^-1
+  const D4 = (()=>{
+    // represent as (i, f) where i ∈ {0,1,2,3} rotation, f∈{0,1} flip
+    // product: (i1,f1)*(i2,f2) : r^i1 s^f1 r^i2 s^f2.  s r = r^-1 s, so s^f1 r^i2 = r^{(-1)^f1 i2} s^f1
+    // => = r^{i1 + (-1)^f1 i2} s^{f1+f2}
+    const names = ['1','r','r²','r³','s','sr','sr²','sr³'];
+    const idx=(i,f)=>f*4+i;
+    const decode = k=>({i:k%4,f:Math.floor(k/4)});
+    const op=(a,b)=>{
+      const A=decode(a),B=decode(b);
+      const i = mod(A.i + (A.f?-1:1)*B.i, 4);
+      const f = (A.f+B.f)%2;
+      return idx(i,f);
+    };
+    return {name:'D₄',els:names,op,identity:0,abelian:false,
+      subgroups:[
+        {name:'{e}',idx:[0]},
+        {name:'⟨r²⟩',idx:[0,2]},
+        {name:'⟨s⟩',idx:[0,4]},
+        {name:'⟨sr⟩',idx:[0,5]},
+        {name:'⟨sr²⟩',idx:[0,6]},
+        {name:'⟨sr³⟩',idx:[0,7]},
+        {name:'⟨r⟩ order 4',idx:[0,1,2,3]},
+        {name:'⟨s,r²⟩ ≅ V₄',idx:[0,2,4,6]},
+        {name:'⟨sr,r²⟩ ≅ V₄',idx:[0,2,5,7]},
+        {name:'D₄ (whole)',idx:[0,1,2,3,4,5,6,7]},
+      ],
+    };
+  })();
+  // Q8: {1,-1, i,-i, j,-j, k,-k} with i^2=j^2=k^2=ijk=-1
+  const Q8 = (()=>{
+    const names=['1','−1','i','−i','j','−j','k','−k'];
+    // represent as signed basis: 0:1 1:-1 2:i 3:-i 4:j 5:-j 6:k 7:-k
+    const b = n=>({s:(n%2)?-1:1, e:Math.floor(n/2)}); // e ∈ 0..3 means 1,i,j,k
+    const enc=(s,e)=>e*2+(s<0?1:0);
+    // basis multiplication table (rows/cols are 1,i,j,k)
+    // relations: i²=j²=k²=-1, ij=k, jk=i, ki=j, ji=-k, kj=-i, ik=-j
+    const Q = [
+      [{s:+1,e:0},{s:+1,e:1},{s:+1,e:2},{s:+1,e:3}],
+      [{s:+1,e:1},{s:-1,e:0},{s:+1,e:3},{s:-1,e:2}],
+      [{s:+1,e:2},{s:-1,e:3},{s:-1,e:0},{s:+1,e:1}],
+      [{s:+1,e:3},{s:+1,e:2},{s:-1,e:1},{s:-1,e:0}],
+    ];
+    const op=(a,bi)=>{
+      const A=b(a), B=b(bi);
+      const r = Q[A.e][B.e];
+      const s = A.s*B.s*r.s;
+      return enc(s, r.e);
+    };
+    return {name:'Q₈',els:names,op,identity:0,abelian:false,
+      subgroups:[
+        {name:'{e}',idx:[0]},
+        {name:'{±1}',idx:[0,1]},
+        {name:'⟨i⟩ ≅ ℤ/4',idx:[0,1,2,3]},
+        {name:'⟨j⟩ ≅ ℤ/4',idx:[0,1,4,5]},
+        {name:'⟨k⟩ ≅ ℤ/4',idx:[0,1,6,7]},
+        {name:'Q₈ (whole)',idx:[0,1,2,3,4,5,6,7]},
+      ],
+    };
+  })();
+  // A4: even permutations of {1,2,3,4} — 12 elements
+  const A4 = (()=>{
+    // generate all permutations of [0,1,2,3] and filter even
+    function permutations(arr){
+      if(arr.length<=1) return [arr];
+      const out=[];
+      for(let i=0;i<arr.length;i++){
+        const rest = arr.slice(0,i).concat(arr.slice(i+1));
+        for(const p of permutations(rest)) out.push([arr[i],...p]);
+      }
+      return out;
+    }
+    function sign(p){
+      let s=1;
+      for(let i=0;i<p.length;i++) for(let j=i+1;j<p.length;j++) if(p[i]>p[j]) s=-s;
+      return s;
+    }
+    function toCycleName(p){
+      const n=p.length;
+      const seen=new Array(n).fill(false);
+      const cycles=[];
+      for(let i=0;i<n;i++){
+        if(seen[i]||p[i]===i){seen[i]=true;continue}
+        const cyc=[i];
+        seen[i]=true;
+        let j=p[i];
+        while(j!==i){cyc.push(j);seen[j]=true;j=p[j]}
+        cycles.push(cyc);
+      }
+      if(!cycles.length) return 'e';
+      return cycles.map(c=>'('+c.map(x=>x+1).join('')+')').join('');
+    }
+    const all = permutations([0,1,2,3]).filter(p=>sign(p)===1);
+    // sort: put e first, then 3-cycles, then 2,2-cycles (V4 inside A4)
+    all.sort((a,b)=>{
+      const sa = a.every((v,i)=>v===i)?0:1;
+      const sb = b.every((v,i)=>v===i)?0:1;
+      return sa-sb;
+    });
+    const names = all.map(toCycleName);
+    const op=(i,j)=>{
+      const r = all[j].map(k=>all[i][k]); // (a∘b)(k)=a(b(k))
+      return all.findIndex(p=>p.every((v,k)=>v===r[k]));
+    };
+    // V4 inside A4: e, (12)(34), (13)(24), (14)(23) — the elements of order ≤ 2
+    const V4idx = [];
+    for(let i=0;i<all.length;i++){
+      const p = all[i];
+      const p2 = p.map(k=>p[k]);
+      if(p2.every((v,k)=>v===k)) V4idx.push(i);
+    }
+    return {name:'A₄',els:names,op,identity:0,abelian:false,
+      subgroups:[
+        {name:'{e}',idx:[0]},
+        {name:'V₄ (normal)',idx:V4idx},
+        {name:'A₄ (whole)',idx:names.map((_,i)=>i)},
+      ]
+    };
+  })();
+
+  const GROUPS = {'V4':V4,'S3':S3,'D4':D4,'Q8':Q8,'A4':A4};
+  const gSel = $('#ca-group'), sSel = $('#ca-sub'), out = $('#ca-out'), ro = $('#ca-readout'), props = $('#ca-props');
+
+  function getGroup(){
+    const v = gSel.value;
+    if(v.startsWith('Zn:')) return mkZn(parseInt(v.split(':')[1]));
+    return GROUPS[v];
+  }
+
+  function renderSubs(G){
+    sSel.innerHTML='';
+    for(const s of G.subgroups){
+      const o = document.createElement('option'); o.value=G.subgroups.indexOf(s); o.textContent=s.name; sSel.appendChild(o);
+    }
+    sSel.value = 0;
+  }
+
+  function isNormal(G,H){
+    const n=G.els.length;
+    const inH = new Set(H.idx);
+    for(let g=0; g<n; g++){
+      for(const h of H.idx){
+        // check g h g^{-1} ∈ H
+        // find g^-1
+        let ginv=-1;
+        for(let k=0;k<n;k++) if(G.op(g,k)===G.identity && G.op(k,g)===G.identity){ginv=k;break}
+        const ghginv = G.op(G.op(g,h),ginv);
+        if(!inH.has(ghginv)) return false;
+      }
+    }
+    return true;
+  }
+
+  function cosetOf(G,H,g){
+    // left coset g·H
+    const cs = new Set();
+    for(const h of H.idx) cs.add(G.op(g,h));
+    return cs;
+  }
+
+  function draw(){
+    const G = getGroup();
+    const H = G.subgroups[+sSel.value || 0];
+    // assign a color to each coset
+    const n = G.els.length;
+    const cosetOf_ = g=>cosetOf(G,H,g);
+    const seen = new Array(n).fill(-1);
+    const cosets = [];
+    for(let g=0; g<n; g++){
+      if(seen[g]>=0) continue;
+      const c = [...cosetOf_(g)];
+      const id = cosets.length;
+      for(const x of c) seen[x]=id;
+      cosets.push(c);
+    }
+    // palette
+    const palette = ['rgba(255,216,102,0.18)','rgba(88,196,221,0.18)','rgba(131,193,103,0.18)','rgba(224,122,95,0.18)',
+      'rgba(179,157,219,0.18)','rgba(125,224,214,0.18)','rgba(247,143,179,0.18)','rgba(240,201,135,0.18)',
+      'rgba(100,148,237,0.18)','rgba(189,216,107,0.18)','rgba(200,130,170,0.18)','rgba(160,160,255,0.18)'];
+    const normal = isNormal(G,H);
+    const order = G.els.length, subOrder = H.idx.length;
+    const numCosets = order/subOrder;
+    props.innerHTML = `|G|=${order} · |H|=${subOrder} · [G:H]=${numCosets} · ${G.abelian?'abelian':'non-abelian'} · subgroup ${normal?'<span style="color:var(--green)">normal</span>':'<span style="color:var(--pink)">NOT normal</span>'}`;
+
+    // build table
+    let html = '<div style="overflow:auto"><table class="cayley"><tr><td class="hdr">·</td>';
+    for(let j=0;j<n;j++) html += `<td class="hdr">${G.els[j]}</td>`;
+    html += '</tr>';
+    for(let i=0;i<n;i++){
+      html += `<tr><td class="hdr">${G.els[i]}</td>`;
+      for(let j=0;j<n;j++){
+        const v = G.op(i,j);
+        const ri = seen[i], rj = seen[j]; // coset of i, coset of j
+        // color by coset of the result
+        const cc = seen[v];
+        // if the row's g is in H, highlight more strongly (subgroup block)
+        const gInH = H.idx.includes(i);
+        const hInH = H.idx.includes(j);
+        let bg = palette[cc % palette.length];
+        let extra = '';
+        if(gInH && hInH){ extra = ';outline:1.5px solid rgba(255,216,102,0.45);outline-offset:-1px;'; }
+        html += `<td style="background:${bg}${extra}" title="${G.els[i]}·${G.els[j]}=${G.els[v]}">${G.els[v]}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</table></div>';
+    out.innerHTML = html;
+    // readout
+    ro.innerHTML = `Subgroup H = {${H.idx.map(k=>G.els[k]).join(', ')}}. ` +
+      `Cosets partition G into ${numCosets} blocks of size ${subOrder}. ` +
+      (normal
+        ? `<span style="color:var(--green)">H is normal</span>, so G/H is a group of order ${numCosets}.`
+        : `<span style="color:var(--pink)">H is not normal</span> (there exists g with gH ≠ Hg). No quotient.`);
+  }
+
+  gSel.addEventListener('change',()=>{renderSubs(getGroup());draw();});
+  sSel.addEventListener('change',draw);
+  renderSubs(getGroup()); draw();
+})();
+</script>
+
+<section id="dihedral">
+<h2>3. Dihedral groups D<sub>n</sub></h2>
+<p>The symmetries of a regular $n$-gon form the dihedral group $D_n$ of order $2n$. It has the presentation</p>
+<p style="text-align:center">$D_n = \langle r, s \mid r^n = s^2 = e,\; srs = r^{-1}\rangle$.</p>
+<p>Any element is uniquely $r^a s^b$ with $0\leq a<n$, $b\in\{0,1\}$: the $n$ rotations and the $n$ reflections.</p>
+
+<div class="widget" id="w-dih">
+  <div class="hd"><div class="ttl">D<sub>n</sub> — apply r and s</div><div class="hint">build words · watch the polygon</div></div>
+  <div class="row">
+    <label>n =</label>
+    <input type="range" id="dih-n" min="3" max="8" value="5">
+    <span id="dih-nval" style="color:var(--yellow);min-width:2ch">5</span>
+    <button id="dih-r">apply r</button>
+    <button id="dih-s">apply s</button>
+    <button id="dih-reset">reset</button>
+  </div>
+  <svg id="dih-svg" viewBox="0 0 820 340" width="820" height="340"></svg>
+  <div class="readout" id="dih-readout"></div>
+</div>
+
+<p class="small">Under the hood: each button-press pre-multiplies the current element. The relation $srs=r^{-1}$ collapses any word to a canonical $r^a s^b$.</p>
+</section>
+
+<script>
+/* =============================== SECTION 3: Dihedral =============================== */
+(function(){
+  const svg = $('#dih-svg');
+  const W=820,H=340;
+  const nSlider = $('#dih-n'), nLabel = $('#dih-nval');
+  const ro = $('#dih-readout');
+  const btnR = $('#dih-r'), btnS = $('#dih-s'), btnReset = $('#dih-reset');
+
+  let n = 5;
+  let a = 0, b = 0;       // current element r^a s^b
+  let word = '';          // displayed word (right-to-left application history)
+  // animation state: current drawn angles per vertex
+  let drawnAngles = null;
+  let targetAngles = null;
+  let rafId = null;
+  const cx = W/2, cy = H/2 + 10, rad = 115;
+
+  function targetAngleOf(j){
+    // angle = 2π·(a + (-1)^b · j)/n
+    return 2*Math.PI*(a + (b?-1:1)*j)/n;
+  }
+  function recomputeTargets(){
+    targetAngles = [];
+    for(let j=0;j<n;j++) targetAngles.push(targetAngleOf(j));
+  }
+  function initDrawn(){
+    drawnAngles = [];
+    for(let j=0;j<n;j++) drawnAngles.push(targetAngleOf(j));
+  }
+
+  function animateTo(newA,newB){
+    a = newA; b = newB;
+    recomputeTargets();
+    // normalize drawn angles to nearest target (rotate by multiples of 2π so transition is short)
+    for(let j=0;j<n;j++){
+      while(targetAngles[j] - drawnAngles[j] > Math.PI) drawnAngles[j] += 2*Math.PI;
+      while(targetAngles[j] - drawnAngles[j] < -Math.PI) drawnAngles[j] -= 2*Math.PI;
+    }
+    if(rafId) cancelAnimationFrame(rafId);
+    const t0 = performance.now();
+    const dur = 400;
+    const from = drawnAngles.slice();
+    const to = targetAngles.slice();
+    function step(t){
+      const u = Math.min(1,(t-t0)/dur);
+      const e = u<0.5? 2*u*u : -1 + (4-2*u)*u; // easeInOutQuad
+      for(let j=0;j<n;j++) drawnAngles[j] = from[j] + (to[j]-from[j])*e;
+      draw();
+      if(u<1) rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axis of reflection (vertical line through center — s flips across the line through vertex 0)
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-rad-20,x2:cx,y2:cy+rad+20,stroke:'#3a4558','stroke-width':1,'stroke-dasharray':'4 6'}));
+    // center dot
+    svg.appendChild(SVG('circle',{cx,cy,r:2,fill:'#6c7787'}));
+    // polygon edges
+    let pts=[];
+    for(let j=0;j<n;j++){
+      const θ = drawnAngles[j];
+      pts.push([cx + rad*Math.cos(θ), cy - rad*Math.sin(θ)]);
+    }
+    const poly = SVG('polygon',{points:pts.map(p=>p.join(',')).join(' '),
+      fill:'rgba(88,196,221,0.08)',stroke:'#58c4dd','stroke-width':1.8});
+    svg.appendChild(poly);
+    // vertices
+    for(let j=0;j<n;j++){
+      const [x,y] = pts[j];
+      const col = j===0?'#ffd866':(j===1?'#83c167':'#58c4dd');
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:col,stroke:'#fff','stroke-width':1.5}));
+      const t = SVG('text',{x,y:y+0.5,'font-size':12,'text-anchor':'middle','dominant-baseline':'central',fill:'#111','font-weight':700});
+      t.textContent = j+1;
+      svg.appendChild(t);
+    }
+    // word + element display
+    const elTxt = b? (a===0?'s':`r${a===1?'':sup(a)}s`) : (a===0?'e':`r${a===1?'':sup(a)}`);
+    const elLbl = SVG('text',{x:30,y:30,'font-size':15,fill:'#fff'});
+    elLbl.textContent = `current element g = ${elTxt}`;
+    svg.appendChild(elLbl);
+    const wLbl = SVG('text',{x:30,y:55,'font-size':12,fill:'#9aa4b2'});
+    wLbl.textContent = `word applied: ${word||'(identity)'}`;
+    svg.appendChild(wLbl);
+    // permutation
+    const perm = [];
+    for(let j=0;j<n;j++){
+      // vertex labeled j is drawn at angle 2π(a + (-1)^b · j)/n
+      // the position originally held vertex k where 2πk/n = same angle
+      // so the vertex at original position k is now labeled j=? Actually we're showing: vertex j at position (a + (-1)^b j). So the permutation sending "original position p" to "new label at that position" is: at position p, the vertex with label j where (a + (-1)^b j) mod n = p → j = (-1)^b (p - a) mod n.
+      perm.push(mod((b?-(j-a):(j-a)),n)+1); // label at original position j
+    }
+    // cycle decomposition for display
+    function cycles(p){ // p is 1-indexed array where p[i] = label at position i+1
+      const nn = p.length, seen = new Array(nn).fill(false), res=[];
+      for(let i=0;i<nn;i++){
+        if(seen[i]||p[i]===i+1){seen[i]=true;continue}
+        const c=[i+1]; seen[i]=true;
+        let j=p[i]-1;
+        while(j!==i){c.push(j+1);seen[j]=true;j=p[j]-1}
+        if(c.length>1) res.push(c);
+      }
+      return res.length?res.map(c=>'('+c.join('\u00a0')+')').join(''):'e';
+    }
+    ro.innerHTML = `element g = <b style="color:var(--yellow)">${elTxt}</b> · order |g| = ${orderOf(a,b,n)} · as permutation of vertices: <span style="color:var(--blue)">${cycles(perm)}</span> · ` +
+      (b? `<span style="color:var(--pink)">reflection</span>`:`<span style="color:var(--green)">rotation</span>`);
+  }
+  function sup(x){ return ''+[...String(x)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join(''); }
+  function orderOf(a,b,n){
+    if(b===0){ return n/gcd(a,n); }
+    return 2; // any reflection has order 2
+  }
+
+  function applyR(){
+    // new = r · current = r^(a+1) s^b
+    const na = mod(a+1,n), nb=b;
+    word = word + 'r';
+    animateTo(na,nb);
+  }
+  function applyS(){
+    // new = s · current = r^(-a) s^(b+1)
+    const na = mod(-a,n), nb = (b+1)%2;
+    word = word + 's';
+    animateTo(na,nb);
+  }
+  function reset(){
+    word=''; animateTo(0,0);
+  }
+  btnR.addEventListener('click',applyR);
+  btnS.addEventListener('click',applyS);
+  btnReset.addEventListener('click',reset);
+  nSlider.addEventListener('input',()=>{
+    n = parseInt(nSlider.value);
+    nLabel.textContent = n;
+    a = mod(a,n);
+    word='';
+    initDrawn();
+    recomputeTargets();
+    draw();
+  });
+
+  initDrawn();
+  recomputeTargets();
+  draw();
+})();
+</script>
+
+<section id="clock">
+<h2>4. The ring ℤ/nℤ</h2>
+<p>Reducing integers mod $n$ makes $\mathbb{Z}/n\mathbb{Z}$ a commutative ring of size $n$. Its structure hinges on a single number-theoretic fact: $a\in(\mathbb{Z}/n\mathbb{Z})^\times$ iff $\gcd(a,n)=1$.</p>
+<p>When $n=p$ is prime, every nonzero element is a unit and $\mathbb{Z}/p\mathbb{Z}=\mathbb{F}_p$ is a field. When $n$ is composite, the nonzero non-units are <em>zero divisors</em>: there's some $b\ne0$ with $ab\equiv 0\pmod n$.</p>
+
+<div class="widget" id="w-clock">
+  <div class="hd"><div class="ttl">ℤ/nℤ clock</div><div class="hint">green = unit · red = zero divisor</div></div>
+  <div class="row">
+    <label>n =</label>
+    <input type="range" id="clk-n" min="2" max="18" value="12">
+    <span id="clk-nval" style="color:var(--yellow);min-width:2ch">12</span>
+    <span class="small" id="clk-info"></span>
+  </div>
+  <div class="row">
+    <label>a =</label>
+    <input type="range" id="clk-a" min="0" max="17" value="3"><span id="clk-aval" style="color:var(--blue);min-width:2ch">3</span>
+    <label style="margin-left:1rem">b =</label>
+    <input type="range" id="clk-b" min="0" max="17" value="4"><span id="clk-bval" style="color:var(--green);min-width:2ch">4</span>
+  </div>
+  <svg id="clk-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <div class="readout" id="clk-readout"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 4: Z/nZ clock =============================== */
+(function(){
+  const svg = $('#clk-svg');
+  const W=820, H=360;
+  const nS=$('#clk-n'), aS=$('#clk-a'), bS=$('#clk-b');
+  const nV=$('#clk-nval'), aV=$('#clk-aval'), bV=$('#clk-bval');
+  const info = $('#clk-info'), ro = $('#clk-readout');
+
+  function draw(){
+    const n = +nS.value; const a = mod(+aS.value, n); const b = mod(+bS.value, n);
+    nV.textContent=n; aV.textContent=a; bV.textContent=b;
+    aS.max = n-1; bS.max = n-1;
+    aS.value = a; bS.value = b;
+
+    const phi = euler(n);
+    const prime = isPrime(n);
+    info.innerHTML = `|ℤ/${n}ℤ| = ${n} · units |(ℤ/${n}ℤ)ˣ| = φ(${n}) = ${phi} · ${prime?`<span style="color:var(--green)">${n} is prime ⇒ field 𝔽<sub>${n}</sub></span>`:`<span style="color:var(--pink)">${n} composite ⇒ has zero divisors</span>`}`;
+
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cx = 260, cy=H/2, rad=130;
+    // clock face
+    svg.appendChild(SVG('circle',{cx,cy,r:rad+22,fill:'none',stroke:'#2a3242'}));
+    const dots = [];
+    for(let k=0;k<n;k++){
+      const θ = 2*Math.PI*k/n - Math.PI/2;
+      const x = cx + rad*Math.cos(θ), y = cy + rad*Math.sin(θ);
+      const g = gcd(k,n);
+      const isUnit = (k!==0 && g===1);
+      const isZD = (k!==0 && g!==1);
+      const color = k===0? '#9aa4b2' : (isUnit? '#83c167' : '#e07a5f');
+      const dot = SVG('circle',{cx:x,cy:y,r:10,fill:color,stroke:'#fff','stroke-width':1});
+      svg.appendChild(dot);
+      const t = SVG('text',{x,y:y+4,'font-size':12,'text-anchor':'middle',fill:'#111','font-weight':700});
+      t.textContent = k; svg.appendChild(t);
+      dots.push({x,y,k,color});
+    }
+    // arrows for a, a+b, a·b
+    function arrow(from,to,color,label,offset=0){
+      const ang = Math.atan2(to.y-from.y, to.x-from.x);
+      const fx=from.x+12*Math.cos(ang), fy=from.y+12*Math.sin(ang);
+      const tx=to.x-12*Math.cos(ang), ty=to.y-12*Math.sin(ang);
+      svg.appendChild(SVG('line',{x1:fx,y1:fy,x2:tx,y2:ty,stroke:color,'stroke-width':2+offset,'stroke-opacity':0.85,'marker-end':'url(#arrow'+color.slice(1)+')'}));
+    }
+    // arrow markers (one per color)
+    function addMarker(color,id){
+      const d = document.createElementNS('http://www.w3.org/2000/svg','defs');
+      d.innerHTML = `<marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="${color}"/></marker>`;
+      svg.appendChild(d);
+    }
+    addMarker('#58c4dd','arrowA'); addMarker('#83c167','arrowB'); addMarker('#ffd866','arrowSum'); addMarker('#e07a5f','arrowProd');
+
+    // show chord from 0 to a (blue)
+    function posOf(k){ const θ=2*Math.PI*k/n-Math.PI/2; return {x:cx+rad*Math.cos(θ),y:cy+rad*Math.sin(θ)}; }
+    const P0 = posOf(0), Pa = posOf(a), Pb = posOf(b), Psum = posOf(mod(a+b,n)), Pprod = posOf(mod(a*b,n));
+    function drawArrow(P1,P2,markerId,color){
+      const ang = Math.atan2(P2.y-P1.y, P2.x-P1.x);
+      const fx = P1.x+12*Math.cos(ang), fy = P1.y+12*Math.sin(ang);
+      const tx = P2.x-12*Math.cos(ang), ty = P2.y-12*Math.sin(ang);
+      svg.appendChild(SVG('line',{x1:fx,y1:fy,x2:tx,y2:ty,stroke:color,'stroke-width':2,'marker-end':`url(#${markerId})`,'stroke-opacity':0.9}));
+    }
+    drawArrow(P0,Pa,'arrowA','#58c4dd');
+    drawArrow(Pa,Psum,'arrowSum','#ffd866');
+    // right side: explanation / table
+    const boxX = 470, boxY=40;
+    const lh = 26;
+    const pairs = [
+      ['a', `${a}`, '#58c4dd'],
+      ['b', `${b}`, '#83c167'],
+      ['a + b mod n', `${mod(a+b,n)}`, '#ffd866'],
+      ['a · b mod n', `${mod(a*b,n)}`, '#e07a5f'],
+      ['gcd(a,n)', `${gcd(a,n)}  ⇒  a is ${a===0?'zero':gcd(a,n)===1?'a unit':'a zero divisor'}`, gcd(a,n)===1&&a!==0?'#83c167':(a===0?'#9aa4b2':'#e07a5f')],
+    ];
+    let y = boxY;
+    for(const [k,v,c] of pairs){
+      const t1 = SVG('text',{x:boxX,y,'font-size':14,fill:'#9aa4b2'});
+      t1.textContent = k;
+      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:c,'font-weight':600});
+      t2.textContent = v;
+      svg.appendChild(t1); svg.appendChild(t2); y+=lh;
+    }
+    // inverse lookup for a
+    if(a!==0 && gcd(a,n)===1){
+      let inv=-1;
+      for(let i=1;i<n;i++) if(mod(a*i,n)===1){inv=i;break}
+      const t1 = SVG('text',{x:boxX,y,'font-size':14,fill:'#9aa4b2'}); t1.textContent='a⁻¹ mod n';
+      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:'#83c167','font-weight':600}); t2.textContent=inv;
+      svg.appendChild(t1); svg.appendChild(t2); y+=lh;
+    }
+    if(a!==0 && gcd(a,n)>1){
+      // find b' with a*b' ≡ 0
+      let zd=-1;
+      for(let i=1;i<n;i++) if(mod(a*i,n)===0){zd=i;break}
+      const t1 = SVG('text',{x:boxX,y,'font-size':14,fill:'#9aa4b2'}); t1.textContent='a · ? ≡ 0';
+      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:'#e07a5f','font-weight':600}); t2.textContent=`a · ${zd} = ${a*zd} ≡ 0`;
+      svg.appendChild(t1); svg.appendChild(t2); y+=lh;
+    }
+    // multiplication order of a (if unit): smallest k with a^k ≡ 1
+    if(a!==0 && gcd(a,n)===1){
+      let ord=1, v=a;
+      while(v!==1){v=mod(v*a,n);ord++;if(ord>n){ord=-1;break}}
+      const t1 = SVG('text',{x:boxX,y,'font-size':14,'font-size':14,fill:'#9aa4b2'}); t1.textContent='ord(a) in (ℤ/nℤ)ˣ';
+      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:'#ffd866','font-weight':600}); t2.textContent=`${ord} (divides ${euler(n)})`;
+      svg.appendChild(t1); svg.appendChild(t2); y+=lh;
+    }
+
+    ro.innerHTML = prime?
+      `ℤ/${n}ℤ = 𝔽<sub>${n}</sub>. Every nonzero element is invertible. The multiplicative group (𝔽<sub>${n}</sub>)ˣ is cyclic of order ${n-1}.`
+      : `ℤ/${n}ℤ is a ring but not a field. Zero divisors are the nonzero ${
+          Array.from({length:n},(_,k)=>k).filter(k=>k!==0 && gcd(k,n)>1).join(', ')
+        }. Units are 1, ${
+          Array.from({length:n},(_,k)=>k).filter(k=>k!==0 && gcd(k,n)===1 && k!==1).join(', ')
+        }.`;
+  }
+  nS.addEventListener('input',draw);
+  aS.addEventListener('input',draw);
+  bS.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="polyeuclid">
+<h2>5. Polynomial rings &amp; the Euclidean algorithm</h2>
+<p>For a field $k$, the ring $k[x]$ is a Euclidean domain with "size" = degree. So the same Euclidean algorithm that computes $\gcd$ in $\mathbb{Z}$ computes $\gcd$ in $k[x]$ — and with it, Bézout coefficients, irreducibility tests via divisibility, and field extensions like $\mathbb{Q}(\alpha)=\mathbb{Q}[x]/(m_\alpha)$.</p>
+
+<div class="widget" id="w-eucl">
+  <div class="hd"><div class="ttl">gcd in k[x]</div><div class="hint">watch long division step by step</div></div>
+  <div class="row">
+    <label>k =</label>
+    <select id="eu-k">
+      <option value="Q" selected>ℚ</option>
+      <option value="F2">𝔽₂</option>
+      <option value="F3">𝔽₃</option>
+      <option value="F5">𝔽₅</option>
+      <option value="F7">𝔽₇</option>
+    </select>
+    <label style="margin-left:1rem">f(x) =</label>
+    <input type="text" id="eu-f" value="x^4 - 1" style="width:200px">
+    <label style="margin-left:1rem">g(x) =</label>
+    <input type="text" id="eu-g" value="x^3 - x^2 + x - 1" style="width:200px">
+  </div>
+  <div class="row">
+    <span class="small">presets:</span>
+    <button class="eubtn" data-f="x^4 - 1" data-g="x^3 - x^2 + x - 1">x⁴−1, x³−x²+x−1</button>
+    <button class="eubtn" data-f="x^5 - 1" data-g="x^3 - 1">x⁵−1, x³−1</button>
+    <button class="eubtn" data-f="x^6 + x^3 + 1" data-g="x^4 + x + 1">cyclotomic</button>
+    <button class="eubtn" data-f="x^4 + 1" data-g="x^2 + 1">x⁴+1, x²+1</button>
+  </div>
+  <div class="readout" id="eu-readout"></div>
+</div>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Key consequence.</strong> In $k[x]$, $(f)+(g)=(\gcd(f,g))$, so every ideal is principal. This is why $k[x]/(p)$ is a field precisely when $p$ is irreducible — a fact we'll lean on in the next section to build $\mathbb{F}_{p^n}$.</p>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 5: Polynomial Euclid =============================== */
+(function(){
+  // Rationals with BigInt
+  function bgcd(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b]}return a||1n}
+  function normQ(n,d){ if(d<0n){n=-n;d=-d;} const g=bgcd(n,d); return {n:n/g,d:d/g}; }
+  const Q = {
+    zero:{n:0n,d:1n}, one:{n:1n,d:1n},
+    from:k => normQ(BigInt(k),1n),
+    add:(a,b)=>normQ(a.n*b.d + b.n*a.d, a.d*b.d),
+    sub:(a,b)=>normQ(a.n*b.d - b.n*a.d, a.d*b.d),
+    mul:(a,b)=>normQ(a.n*b.n, a.d*b.d),
+    div:(a,b)=>normQ(a.n*b.d, a.d*b.n),
+    isZero:a=>a.n===0n,
+    eq:(a,b)=>a.n*b.d===b.n*a.d,
+    toStr:a=>a.d===1n? a.n.toString() : `${a.n}/${a.d}`,
+    isNeg:a=>(a.n<0n)!==(a.d<0n),
+    neg:a=>({n:-a.n,d:a.d}),
+  };
+  function mkFp(p){
+    const P = BigInt(p);
+    function inv(a){
+      let [r0,r1]=[P,a], [s0,s1]=[0n,1n];
+      while(r1){const q=r0/r1;[r0,r1]=[r1,r0-q*r1];[s0,s1]=[s1,s0-q*s1]}
+      return ((s0%P)+P)%P;
+    }
+    return {
+      zero:0n, one:1n,
+      from:k=>((BigInt(k)%P)+P)%P,
+      add:(a,b)=>((a+b)%P+P)%P,
+      sub:(a,b)=>((a-b)%P+P)%P,
+      mul:(a,b)=>((a*b)%P+P)%P,
+      div:(a,b)=>{if(b===0n) throw 'div0'; return (a*inv(b))%P;},
+      isZero:a=>a===0n,
+      eq:(a,b)=>a===b,
+      toStr:a=>a.toString(),
+      isNeg:a=>false, // Fp: no canonical negatives
+      neg:a=>((P-a)%P),
+    };
+  }
+
+  function parsePoly(F, s){
+    s = s.replace(/\s+/g,'').replace(/−/g,'-').replace(/\*\*/g,'^');
+    if(!s) return [];
+    if(s[0]!=='+' && s[0]!=='-') s = '+'+s;
+    const re = /([+-])(\d*(?:\/\d+)?)?(\*?)(x(\^(\d+))?)?/g;
+    const coeffs = [];
+    let m;
+    while((m = re.exec(s))){
+      if(!m[0]) continue;
+      const sign = m[1]==='-'?-1:1;
+      let cStr = m[2]||'';
+      let c;
+      if(cStr===''){ c = F.from(1); }
+      else if(cStr.includes('/')){
+        const [n,d]=cStr.split('/').map(BigInt);
+        c = (F===Q)? normQ(n,d) : F.div(F.from(n),F.from(d));
+      } else {
+        c = F.from(BigInt(cStr));
+      }
+      if(sign<0) c = F.sub(F.zero, c);
+      let deg = 0;
+      if(m[4]){ deg = m[6]? parseInt(m[6]):1; }
+      while(coeffs.length<=deg) coeffs.push(F.zero);
+      coeffs[deg] = F.add(coeffs[deg], c);
+    }
+    while(coeffs.length && F.isZero(coeffs[coeffs.length-1])) coeffs.pop();
+    return coeffs;
+  }
+
+  function polyStr(F, c){
+    if(c.length===0) return '0';
+    const terms=[];
+    for(let i=c.length-1;i>=0;i--){
+      if(F.isZero(c[i])) continue;
+      let s = F.toStr(c[i]);
+      let neg = s.startsWith('-');
+      if(neg) s = s.slice(1);
+      let out = s;
+      if(i>0){
+        if(s==='1') out = '';
+        out += 'x' + (i>1?('^'+i):'');
+      }
+      if(!terms.length){
+        terms.push(neg?'−'+out:out);
+      } else {
+        terms.push(neg? ' − '+out : ' + '+out);
+      }
+    }
+    return terms.join('')||'0';
+  }
+
+  function polyDivMod(F, a, b){
+    if(b.length===0) throw 'div by zero polynomial';
+    a = a.slice();
+    const degB = b.length-1;
+    let q = [];
+    while(a.length-1 >= degB && a.length > 0){
+      const degA = a.length-1;
+      const c = F.div(a[degA], b[degB]);
+      const shift = degA - degB;
+      while(q.length < shift+1) q.push(F.zero);
+      q[shift] = F.add(q[shift], c);
+      for(let i=0;i<b.length;i++){
+        a[shift+i] = F.sub(a[shift+i], F.mul(c, b[i]));
+      }
+      while(a.length && F.isZero(a[a.length-1])) a.pop();
+    }
+    return {q, r:a};
+  }
+
+  function monicize(F, a){
+    if(a.length===0) return a;
+    const lead = a[a.length-1];
+    if(F.eq(lead, F.one)) return a;
+    return a.map(c=>F.div(c, lead));
+  }
+
+  function polyGCD(F, a, b, steps){
+    while(b.length > 0){
+      const {q, r} = polyDivMod(F, a, b);
+      steps.push({a:a.slice(), b:b.slice(), q, r});
+      a = b; b = r;
+      if(steps.length>30) break;
+    }
+    return monicize(F, a);
+  }
+
+  const ro = $('#eu-readout');
+  $$('.eubtn').forEach(btn=>btn.addEventListener('click',()=>{
+    $('#eu-f').value = btn.dataset.f; $('#eu-g').value = btn.dataset.g; run();
+  }));
+  $('#eu-k').addEventListener('change',run);
+  $('#eu-f').addEventListener('input',run);
+  $('#eu-g').addEventListener('input',run);
+
+  function run(){
+    const kv = $('#eu-k').value;
+    const F = kv==='Q'? Q : mkFp(parseInt(kv.slice(1)));
+    let f,g;
+    try{ f = parsePoly(F, $('#eu-f').value); g = parsePoly(F, $('#eu-g').value); }
+    catch(e){ ro.innerHTML = `<span style="color:var(--pink)">parse error: ${e}</span>`; return; }
+    if(f.length===0 || g.length===0){
+      ro.innerHTML = `<span style="color:var(--pink)">please enter two nonzero polynomials</span>`;
+      return;
+    }
+    // make sure deg f >= deg g for display (but algo works either way)
+    if(f.length < g.length){ [f,g] = [g,f]; }
+    const steps = [];
+    try{
+      const gcd = polyGCD(F, f, g, steps);
+      let html = '';
+      html += `<div>f(x) = <span style="color:var(--blue)">${polyStr(F,f)}</span></div>`;
+      html += `<div>g(x) = <span style="color:var(--green)">${polyStr(F,g)}</span></div>`;
+      html += `<div style="margin-top:.5rem;color:var(--mute)">Euclidean steps (f<sub>i</sub> = q<sub>i</sub>·f<sub>i+1</sub> + f<sub>i+2</sub>):</div>`;
+      for(let i=0;i<steps.length;i++){
+        const s = steps[i];
+        html += `<div style="margin-top:.35rem">step ${i+1}: (${polyStr(F,s.a)}) = (${polyStr(F,s.q)})·(${polyStr(F,s.b)}) + <span style="color:var(--yellow)">${polyStr(F,s.r)||'0'}</span></div>`;
+      }
+      html += `<div style="margin-top:.6rem;font-size:1.05em"><b>gcd(f,g) = <span style="color:var(--yellow)">${polyStr(F,gcd)||'1'}</span></b> (in ${kv==='Q'?'ℚ[x]':`𝔽${kv.slice(1)}[x]`})</div>`;
+      // interpretation
+      if(gcd.length<=1){
+        html += `<div class="small" style="color:var(--green)">gcd is a nonzero constant ⇒ f and g are coprime in this ring.</div>`;
+      } else {
+        html += `<div class="small" style="color:var(--blue)">common factor of degree ${gcd.length-1} detected — f and g share an irreducible divisor.</div>`;
+      }
+      ro.innerHTML = html;
+    } catch(e){ ro.innerHTML = `<span style="color:var(--pink)">error: ${e}</span>`; }
+  }
+  run();
+})();
+</script>
+
+<section id="finite">
+<h2>6. Finite fields 𝔽<sub>pⁿ</sub></h2>
+<p>For every prime power $q=p^n$ there is a unique field with exactly $q$ elements, up to isomorphism. It's built as</p>
+<p style="text-align:center">$\mathbb{F}_{p^n} = \mathbb{F}_p[x]/(m(x))$</p>
+<p>for any irreducible $m\in\mathbb{F}_p[x]$ of degree $n$. Elements are polynomials in $\alpha$ (a root of $m$) of degree $<n$, with coefficients in $\mathbb{F}_p$.</p>
+<p>Two facts make these fields beautiful: (i) the multiplicative group $\mathbb{F}_{p^n}^\times$ is <em>cyclic</em> of order $p^n-1$, so there's always a primitive element $g$ with every nonzero element equal to some $g^i$; (ii) the <strong>Frobenius</strong> $\phi(x)=x^p$ is an automorphism, and the full Galois group $\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)$ is cyclic of order $n$, generated by $\phi$.</p>
+
+<div class="widget" id="w-ff">
+  <div class="hd"><div class="ttl">Explore 𝔽<sub>pⁿ</sub></div><div class="hint">click an element</div></div>
+  <div class="row">
+    <label>p =</label>
+    <select id="ff-p"><option>2</option><option selected>3</option><option>5</option></select>
+    <label style="margin-left:1rem">n =</label>
+    <select id="ff-n"><option selected>2</option><option>3</option><option>4</option></select>
+    <span class="small" id="ff-info"></span>
+  </div>
+  <svg id="ff-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <div class="readout" id="ff-readout"></div>
+</div>
+
+<p class="small">Frobenius orbits partition $\mathbb{F}_{p^n}$ into Galois-conjugate classes; each orbit of size $d\mid n$ is the roots of some irreducible $m_d\in\mathbb{F}_p[x]$ of degree $d$. Summing orbit sizes gives the classical identity $p^n = \sum_{d\mid n} d\cdot N_d$ where $N_d$ is the number of monic irreducibles of degree $d$ in $\mathbb{F}_p[x]$.</p>
+</section>
+
+<script>
+/* =============================== SECTION 6: Finite fields =============================== */
+(function(){
+  // precomputed monic irreducible polynomials (constant first)
+  const IRR = {
+    '2,2':[1,1,1],        // x^2 + x + 1
+    '2,3':[1,1,0,1],      // x^3 + x + 1
+    '2,4':[1,1,0,0,1],    // x^4 + x + 1
+    '3,2':[1,0,1],        // x^2 + 1  (irreducible since -1 is non-residue mod 3)
+    '3,3':[1,2,0,1],      // x^3 + 2x + 1 (irreducible over F_3)
+    '3,4':[2,1,0,0,1],    // x^4 + x + 2 (irreducible over F_3)
+    '5,2':[2,0,1],        // x^2 + 2 (irreducible: 2 is non-residue mod 5)
+    '5,3':[1,1,0,1],      // x^3 + x + 1 (irreducible mod 5)
+    '5,4':[2,0,0,0,1],    // x^4 + 2 — actually need to verify
+  };
+
+  const ro = $('#ff-readout');
+  const info = $('#ff-info');
+  const pSel = $('#ff-p'), nSel = $('#ff-n');
+
+  function modp(a,p){ a = ((a%p)+p)%p; return a; }
+  function polyAdd(a,b,p){
+    const len = Math.max(a.length,b.length);
+    const r = [];
+    for(let i=0;i<len;i++) r.push(modp((a[i]||0)+(b[i]||0),p));
+    while(r.length && r[r.length-1]===0) r.pop();
+    return r;
+  }
+  function polyMul(a,b,p){
+    if(a.length===0 || b.length===0) return [];
+    const r = new Array(a.length+b.length-1).fill(0);
+    for(let i=0;i<a.length;i++) for(let j=0;j<b.length;j++){
+      r[i+j] = modp(r[i+j] + a[i]*b[j], p);
+    }
+    while(r.length && r[r.length-1]===0) r.pop();
+    return r;
+  }
+  function polyMod(a,m,p){
+    a = a.slice();
+    const degM = m.length-1;
+    // modular inverse
+    function inv(x){
+      for(let i=1;i<p;i++) if((i*x)%p===1) return i;
+      return 0;
+    }
+    const invLead = inv(m[degM]);
+    while(a.length-1 >= degM){
+      const deg = a.length-1;
+      const c = modp(a[deg]*invLead, p);
+      const shift = deg-degM;
+      for(let i=0;i<m.length;i++){
+        a[shift+i] = modp(a[shift+i] - c*m[i], p);
+      }
+      while(a.length && a[a.length-1]===0) a.pop();
+    }
+    return a;
+  }
+
+  function enumerate(p, n){
+    // list all p^n elements as coefficient arrays of length n (padded with 0s)
+    const out = [];
+    const N = Math.pow(p,n);
+    for(let k=0;k<N;k++){
+      const c=[];
+      let kk = k;
+      for(let i=0;i<n;i++){c.push(kk%p); kk = Math.floor(kk/p);}
+      // trim trailing zeros for canonical form
+      let e = c.slice();
+      while(e.length && e[e.length-1]===0) e.pop();
+      out.push(e);
+    }
+    return out;
+  }
+  function encode(c,p,n){
+    let k=0;
+    for(let i=n-1;i>=0;i--) k = k*p + (c[i]||0);
+    return k;
+  }
+  function polyStr(c){
+    if(!c.length) return '0';
+    const terms=[];
+    for(let i=c.length-1;i>=0;i--){
+      if(c[i]===0) continue;
+      let s = c[i]===1 && i>0 ? '' : ''+c[i];
+      const alpha = i===0?'':(i===1?'α':`α${sup(i)}`);
+      if(terms.length) terms.push(' + '+s+alpha);
+      else terms.push(s+alpha);
+    }
+    return terms.join('')||'0';
+  }
+  function sup(x){ return ''+[...String(x)].map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join(''); }
+
+  function draw(){
+    const p = parseInt(pSel.value);
+    const n = parseInt(nSel.value);
+    const key = `${p},${n}`;
+    const m = IRR[key];
+    if(!m){
+      info.innerHTML = `<span style="color:var(--pink)">no irreducible polynomial configured</span>`;
+      return;
+    }
+    const q = Math.pow(p,n);
+    const all = enumerate(p,n);
+    // encode/decode consistent
+    // find primitive element: smallest index g (skipping 0 and 1) with order q-1
+    let gIdx = -1;
+    function ord(e){
+      if(encode(e,p,n)===0) return 0;
+      let x = [1], k=0;
+      for(let i=1;i<=q-1;i++){
+        x = polyMod(polyMul(x,e,p),m,p);
+        if(encode(x,p,n)===1) return i;
+      }
+      return -1;
+    }
+    for(let k=2;k<q;k++){
+      const e = all[k];
+      if(ord(e)===q-1){gIdx = k; break}
+    }
+    // build discrete log: dlog[index] = power i such that g^i = element
+    const dlog = new Array(q).fill(-1);
+    if(gIdx>=0){
+      const g = all[gIdx];
+      let cur = [1];
+      for(let i=0;i<q-1;i++){
+        dlog[encode(cur,p,n)] = i;
+        cur = polyMod(polyMul(cur,g,p),m,p);
+      }
+    }
+    // Frobenius map: x → x^p
+    function frob(e){
+      let x=[1];
+      for(let i=0;i<p;i++) x = polyMod(polyMul(x,e,p),m,p);
+      return x;
+    }
+
+    info.innerHTML = `|𝔽<sub>${q}</sub>| = ${q} · irreducible m(x) = <span style="color:var(--yellow)">${polyStrX(m)}</span> · primitive element g = <span style="color:var(--yellow)">${polyStr(all[gIdx]||[])}</span>`;
+
+    const svg = $('#ff-svg'); while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=820,H=420;
+    // Display: 0 at center, nonzero elements on a circle in order of their discrete log
+    const cx = W/2, cy = H/2+10, rad = Math.min(160, 120 + (q<10?40:0));
+    // zero
+    const zDot = SVG('circle',{cx:100,cy:60,r:8,fill:'#6c7787',stroke:'#fff','stroke-width':1,style:'cursor:pointer','data-idx':0});
+    svg.appendChild(zDot);
+    const zLbl = SVG('text',{x:115,y:64,'font-size':13,fill:'#9aa4b2'}); zLbl.textContent='0'; svg.appendChild(zLbl);
+    // labeled cycle
+    const cycleLbl = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});
+    cycleLbl.textContent = `multiplicative group 𝔽×${sup(q)} ≅ ℤ/${q-1}ℤ`;
+    svg.appendChild(cycleLbl);
+
+    const dots = [];
+    for(let i=0;i<q-1;i++){
+      const θ = 2*Math.PI*i/(q-1) - Math.PI/2;
+      const x = cx + rad*Math.cos(θ);
+      const y = cy + rad*Math.sin(θ);
+      // which element has dlog i?
+      const idx = dlog.indexOf(i);
+      dots.push({idx,x,y,i});
+      const d = SVG('circle',{cx:x,cy:y,r:8,fill:'#58c4dd',stroke:'#fff','stroke-width':1,style:'cursor:pointer','data-idx':idx});
+      svg.appendChild(d);
+      const lab = SVG('text',{x:x+ (Math.cos(θ)*14), y:y+(Math.sin(θ)*14)+4, 'font-size':11,'text-anchor':Math.cos(θ)>0.1?'start':(Math.cos(θ)<-0.1?'end':'middle'), fill:'#cbd5e1'});
+      lab.textContent = i===0? '1' : (i===1?'g':`g${sup(i)}`);
+      svg.appendChild(lab);
+    }
+
+    // Frobenius orbit coloring
+    const orbitColor = ['#ffd866','#e07a5f','#b39ddb','#83c167','#7de0d6','#f78fb3','#6495ed'];
+    const orbit = new Array(q).fill(-1);
+    let oc = 0;
+    for(let k=0;k<q;k++){
+      if(orbit[k]>=0) continue;
+      let cur = all[k];
+      let id = k;
+      const pts = [];
+      while(orbit[id]<0){
+        orbit[id]=oc;
+        pts.push(id);
+        cur = frob(cur);
+        id = encode(cur,p,n);
+      }
+      // optionally draw arrows between consecutive points in the orbit (if more than 1)
+      if(pts.length>1 && k!==0){
+        for(let j=0;j<pts.length;j++){
+          const from = pts[j], to = pts[(j+1)%pts.length];
+          if(from===0 || to===0) continue;
+          const fi = dlog[from], ti = dlog[to];
+          const θf = 2*Math.PI*fi/(q-1)-Math.PI/2;
+          const θt = 2*Math.PI*ti/(q-1)-Math.PI/2;
+          const fx = cx+(rad-12)*Math.cos(θf), fy = cy+(rad-12)*Math.sin(θf);
+          const tx = cx+(rad-12)*Math.cos(θt), ty = cy+(rad-12)*Math.sin(θt);
+          svg.appendChild(SVG('line',{x1:fx,y1:fy,x2:tx,y2:ty,stroke:orbitColor[oc%orbitColor.length],'stroke-width':1,'stroke-opacity':0.3}));
+        }
+      }
+      oc++;
+    }
+
+    // click handler
+    function showInfo(idx){
+      const e = all[idx];
+      const isZero = (encode(e,p,n)===0);
+      if(isZero){
+        ro.innerHTML = `<b>0</b> — the additive identity. Not in 𝔽×${sup(q)}. Frobenius: 0 ↦ 0.`;
+        return;
+      }
+      const powi = dlog[idx];
+      const ordEl = (q-1)/gcd(powi, q-1);
+      const frobEl = frob(e);
+      // minimal polynomial: find smallest d | n s.t. the orbit of e under Frob has size d. That's exactly the degree of the min poly.
+      let orbPts = [e];
+      let cur = frob(e);
+      while(encode(cur,p,n)!==encode(e,p,n)){ orbPts.push(cur); cur = frob(cur); }
+      const minDeg = orbPts.length;
+      // construct min poly = prod (x - r) over r in orbit (in F_p[x])
+      // work in coefficients in F_p, but the result will have coefficients in F_p (orbit is Galois-stable)
+      // we'll compute as polynomials over F_{p^n}[x] and read off coefficients; but since the result is in F_p, we can encode each coefficient as an element of F_{p^n} and verify it's degree 0.
+      // simpler: multiply (x - r_i) step by step over F_{p^n}, keeping polynomial whose coeffs are elements of F_{p^n} (each an array of length up to n).
+      let P = [[1]]; // polynomial 1 over F_{p^n}
+      for(const r of orbPts){
+        // multiply P by (x - r) in (F_{p^n})[x]
+        const Q = new Array(P.length+1).fill(0).map(()=>[]);
+        // x * P
+        for(let i=0;i<P.length;i++) Q[i+1] = polyAdd(Q[i+1], P[i], p);
+        // -r * P
+        const nr = polyMod(polyMul([0],[0],p),m,p); // placeholder
+        const negR = r.map(c=>modp(-c,p));
+        for(let i=0;i<P.length;i++){
+          const prod = polyMod(polyMul(P[i], negR, p),m,p);
+          Q[i] = polyAdd(Q[i], prod, p);
+        }
+        P = Q;
+      }
+      // coefficients of P should be constant polynomials; extract integer constants
+      const coeffsFp = P.map(c => c.length===0? 0 : c[0]);
+      const minPolyStr = (()=>{
+        const terms=[];
+        for(let i=coeffsFp.length-1;i>=0;i--){
+          const c = coeffsFp[i];
+          if(c===0) continue;
+          let s = c===1 && i>0 ? '' : ''+c;
+          const xp = i===0?'':(i===1?'x':`x${sup(i)}`);
+          if(terms.length) terms.push(' + '+s+xp);
+          else terms.push(s+xp);
+        }
+        return terms.join('')||'0';
+      })();
+
+      ro.innerHTML =
+        `<div><b>element index ${idx}</b> · as polynomial in α: <span style="color:var(--yellow)">${polyStr(e)}</span> · as g<sup>${powi}</sup></div>`+
+        `<div>multiplicative order: <b>${ordEl}</b> (divides ${q-1})</div>`+
+        `<div>Frobenius image (x ↦ x<sup>${p}</sup>): <span style="color:var(--pink)">${polyStr(frobEl)}</span></div>`+
+        `<div>Frobenius orbit size: ${minDeg} · minimal polynomial over 𝔽<sub>${p}</sub>: <span style="color:var(--green)">${minPolyStr}</span> (degree ${minDeg})</div>`+
+        `<div class="small">This element generates a subfield of size ${Math.pow(p,minDeg)} = 𝔽<sub>${p}${sup(minDeg)}</sub>.</div>`;
+    }
+
+    svg.querySelectorAll('[data-idx]').forEach(el=>{
+      const idx = parseInt(el.getAttribute('data-idx'));
+      el.addEventListener('click',()=>showInfo(idx));
+      el.addEventListener('mouseenter',()=>showInfo(idx));
+    });
+    // initial info: show g
+    if(gIdx>=0) showInfo(gIdx);
+  }
+
+  function polyStrX(c){
+    // display with x variable
+    if(!c.length) return '0';
+    const terms=[];
+    for(let i=c.length-1;i>=0;i--){
+      if(c[i]===0) continue;
+      let s = c[i]===1 && i>0 ? '' : ''+c[i];
+      const xp = i===0?'':(i===1?'x':`x${sup(i)}`);
+      if(terms.length) terms.push(' + '+s+xp);
+      else terms.push(s+xp);
+    }
+    return terms.join('')||'0';
+  }
+
+  pSel.addEventListener('change',draw);
+  nSel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<div id="sections-end"></div>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

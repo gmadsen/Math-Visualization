@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Algebraic topology</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.simple{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.simple th{color:var(--mute);text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--line);font-weight:600}
+  table.simple td{padding:.35rem .5rem;border-bottom:1px solid #1a1f29}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function mod(a,n){return ((a%n)+n)%n}
+// --- rational arithmetic (for Gaussian elimination over Q) ---
+function Q(n,d){ if(d===undefined) d=1; if(d<0){n=-n;d=-d;} const g=gcd(Math.abs(n)||1,Math.abs(d)); return [n/g, d/g]; }
+function qAdd(a,b){ return Q(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+function qSub(a,b){ return Q(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+function qMul(a,b){ return Q(a[0]*b[0], a[1]*b[1]); }
+function qDiv(a,b){ if(b[0]===0) throw new Error('div0'); return Q(a[0]*b[1], a[1]*b[0]); }
+function qIsZero(a){ return a[0]===0; }
+// rank of m x n rational matrix via Gaussian elimination
+function rankQ(M){
+  if(!M.length || !M[0].length) return 0;
+  const A = M.map(r=>r.map(x=>Array.isArray(x)?[x[0],x[1]]:Q(x)));
+  const rows = A.length, cols = A[0].length;
+  let r = 0;
+  for(let c=0; c<cols && r<rows; c++){
+    // find pivot
+    let piv = -1;
+    for(let i=r;i<rows;i++){ if(!qIsZero(A[i][c])){ piv=i; break; } }
+    if(piv<0) continue;
+    if(piv!==r){ const tmp=A[r]; A[r]=A[piv]; A[piv]=tmp; }
+    // eliminate below
+    for(let i=r+1;i<rows;i++){
+      if(qIsZero(A[i][c])) continue;
+      const f = qDiv(A[i][c], A[r][c]);
+      for(let j=c;j<cols;j++){
+        A[i][j] = qSub(A[i][j], qMul(f, A[r][j]));
+      }
+    }
+    r++;
+  }
+  return r;
+}
+// matrix multiply (for sanity checks of d^2 = 0)
+function matMul(A,B){
+  if(!A.length) return [];
+  const m=A.length, n=B[0].length, k=B.length;
+  const C = Array.from({length:m},()=>Array(n).fill(0));
+  for(let i=0;i<m;i++) for(let j=0;j<n;j++){ let s=0; for(let l=0;l<k;l++) s+=A[i][l]*B[l][j]; C[i][j]=s; }
+  return C;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#intro">1&nbsp;Shapes&nbsp;to&nbsp;invariants</a>
+  <a href="#pi1">2&nbsp;Fundamental&nbsp;group</a>
+  <a href="#cover">3&nbsp;Covering&nbsp;spaces</a>
+  <a href="#homology">4&nbsp;Homology</a>
+  <a href="#mv">5&nbsp;Mayer–Vietoris</a>
+  <a href="#chi">6&nbsp;Euler&nbsp;&amp;&nbsp;cohomology</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Algebraic topology</h1>
+  <p class="sub">Turning continuous deformations into algebra — loops, coverings, chain complexes, and the Euler characteristic. A tour of how the global shape of a space is recorded in finite algebraic data.</p>
+</section>
+
+<section id="intro">
+<h2>1. From shapes to invariants</h2>
+<p>Algebraic topology is the business of replacing a space $X$ — a gelatinous continuous thing — by algebraic invariants: groups, rings, vector spaces. The translation is functorial: a continuous map $f\colon X\to Y$ gets sent to a homomorphism $f_*\colon \pi_1(X)\to\pi_1(Y)$ or $f_*\colon H_n(X)\to H_n(Y)$. The decisive property is that these invariants are <strong>homotopy invariants</strong>: continuously deforming the map does not change the induced algebraic map.</p>
+
+<p>Why would you want to do this? Because continuous problems become combinatorial the moment you apply a functor. Three classic examples:</p>
+
+<div class="note"><strong>Brouwer fixed point.</strong> Every continuous $f\colon D^n\to D^n$ has a fixed point. Proof: if $f$ had no fixed point, the map $x\mapsto$ (intersection of the ray from $f(x)$ through $x$ with $\partial D^n$) would retract $D^n$ onto $S^{n-1}$. But a retraction would produce a section of $H_{n-1}(S^{n-1})\hookrightarrow H_{n-1}(D^n)=0$, absurd because $H_{n-1}(S^{n-1})=\mathbb{Z}$.</div>
+
+<div class="note"><strong>Hairy ball.</strong> $S^2$ admits no nowhere-vanishing continuous tangent vector field. The obstruction is the Euler characteristic $\chi(S^2)=2\ne 0$ — a tangent field with a single isolated zero would have total index $\chi=2$, so you can't get rid of the zeros.</div>
+
+<div class="note"><strong>Ham sandwich.</strong> Given $n$ bounded measurable sets in $\mathbb{R}^n$, there is a single hyperplane that bisects each one. This is a corollary of the Borsuk–Ulam theorem, which in turn follows from the fact that there is no $\mathbb{Z}/2$-equivariant map $S^n\to S^{n-1}$ — a homological statement.</div>
+
+<p>Each time, the argument is: assume the continuous statement fails; derive an algebraic impossibility; contradiction. The main characters in what follows are the <em>fundamental group</em> $\pi_1$ (a refined version of "how loops wind"), the <em>homology groups</em> $H_n$ (counting $n$-dimensional holes), and finally cohomology with its cup-product ring structure. Everything is insensitive to continuous deformation: if $X\simeq Y$ are homotopy-equivalent, all these invariants agree.</p>
+</section>
+
+<section id="pi1">
+<h2>2. The fundamental group</h2>
+<p>Fix a basepoint $x_0\in X$. A <em>loop</em> is a continuous $\gamma\colon[0,1]\to X$ with $\gamma(0)=\gamma(1)=x_0$. Two loops are <em>homotopic</em> (rel basepoint) if one can be continuously deformed into the other through loops at $x_0$. The set of homotopy classes forms a group under concatenation:</p>
+
+<p style="text-align:center">$\pi_1(X,x_0) = \{\text{loops at }x_0\}/\text{homotopy}$, multiplication = "first go around $\alpha$, then $\beta$".</p>
+
+<p>The identity is the constant loop; the inverse is the reversed loop. Changing basepoint in a path-connected space gives an isomorphic group (via conjugation by a path), so we usually drop $x_0$.</p>
+
+<div class="ok"><strong>Theorem.</strong> $\pi_1(S^1) \cong \mathbb{Z}$, and the isomorphism is the <em>winding number</em>.</div>
+
+<p>The proof: the exponential $p\colon\mathbb{R}\to S^1$, $t\mapsto e^{2\pi i t}$, is a <em>covering map</em> (see §3). Any loop $\gamma\colon[0,1]\to S^1$ lifts uniquely to a path $\tilde\gamma\colon[0,1]\to\mathbb{R}$ with $\tilde\gamma(0)=0$; its endpoint $\tilde\gamma(1)\in\mathbb{Z}$ is the winding number. Two loops are homotopic iff their lifts have the same endpoint. So the winding number gives a bijection $\pi_1(S^1)\xrightarrow{\sim}\mathbb{Z}$, and concatenation of loops corresponds to addition of integers.</p>
+
+<div class="widget" id="w-wind">
+  <div class="hd"><div class="ttl">Loops on the circle</div><div class="hint">drag inside the box to draw · winding number updates live</div></div>
+  <svg id="wind-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <div class="row">
+    <button id="wind-clear">clear</button>
+    <button id="wind-ex1">preset: wind once</button>
+    <button id="wind-ex2">preset: wind twice</button>
+    <button id="wind-ex3">preset: wind 0 (null-homotopic)</button>
+    <button id="wind-ex4">preset: wind −1</button>
+    <span class="small" id="wind-count"></span>
+  </div>
+  <div class="readout" id="wind-readout">Draw a loop that starts and ends near the basepoint (the yellow dot). The widget tracks the continuous lift to ℝ and reports the integer endpoint — the winding number.</div>
+</div>
+
+<h3>A few more $\pi_1$'s to remember</h3>
+<table class="simple">
+  <thead><tr><th>space</th><th>$\pi_1$</th><th>intuition</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathbb{R}^n$ or any contractible space</td><td>$0$ (trivial)</td><td>every loop contracts to the basepoint</td></tr>
+    <tr><td>$S^1$</td><td>$\mathbb{Z}$</td><td>winding number</td></tr>
+    <tr><td>$S^n$ for $n\ge 2$</td><td>$0$</td><td>loops in dimension $\ge 2$ have room to slide off</td></tr>
+    <tr><td>$T^2 = S^1\times S^1$</td><td>$\mathbb{Z}^2$</td><td>two independent loops, they commute</td></tr>
+    <tr><td>$S^1 \vee S^1$ (figure-eight)</td><td>$F_2$ = free on $a,b$</td><td>loops no longer commute</td></tr>
+    <tr><td>$\mathbb{RP}^n$ for $n\ge 2$</td><td>$\mathbb{Z}/2$</td><td>a loop is trivial iff you traverse the antipode twice</td></tr>
+    <tr><td>genus-$g$ surface $\Sigma_g$</td><td>$\langle a_1,b_1,\dots,a_g,b_g\mid \prod[a_i,b_i]\rangle$</td><td>one relation from the $4g$-gon</td></tr>
+  </tbody>
+</table>
+
+<p>A clean slogan: $\pi_1$ is abelian whenever loops have "room to slide past each other" — true for any H-space, any product, and any space of dimension $\ge 2$ in the sense of CW dimension if $\pi_1$ happens to commute. In general though — figure-eight, surface groups, braid groups — $\pi_1$ is gloriously non-abelian.</p>
+</section>
+
+<script>
+/* =============================== SECTION 2: winding number widget =============================== */
+(function(){
+  const svg = $('#wind-svg');
+  const W=820, H=360;
+  // Left pane: drawing area with unit circle centered at (220, 180), radius 100.
+  // Right pane: helical lift of the path to R, shown as a line plot of t -> theta(t)/2pi.
+  const cxL=220, cyL=180, R=100;
+  const xR0=430, xR1=800, yRmid=180, yRscale=55; // range of the lift plot
+  const readout = $('#wind-readout'), count = $('#wind-count');
+  const btnClear = $('#wind-clear');
+
+  let pts = [];     // array of [x,y] canvas coords in the left pane
+  let drawing = false;
+  let winding = 0;  // integer
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // left pane: gridded square
+    svg.appendChild(SVG('rect',{x:20,y:30,width:400,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:8}));
+    // circle
+    svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2,'stroke-opacity':0.7}));
+    // basepoint
+    svg.appendChild(SVG('circle',{cx:cxL+R,cy:cyL,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+    // axes (faint)
+    svg.appendChild(SVG('line',{x1:20,y1:cyL,x2:420,y2:cyL,stroke:'#1c2230'}));
+    svg.appendChild(SVG('line',{x1:cxL,y1:30,x2:cxL,y2:330,stroke:'#1c2230'}));
+
+    // right pane
+    svg.appendChild(SVG('rect',{x:xR0,y:30,width:xR1-xR0,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:8}));
+    // horizontal grid lines at integer values of θ/(2π): -3..3
+    for(let k=-3;k<=3;k++){
+      const y = yRmid - k*yRscale;
+      if(y<30 || y>330) continue;
+      svg.appendChild(SVG('line',{x1:xR0,y1:y,x2:xR1,y2:y,stroke:k===0?'#2a3242':'#1a1f29','stroke-dasharray':k===0?'':'2 3'}));
+      const lab = SVG('text',{x:xR0+6,y:y-3,'font-size':11,fill:'var(--mute)'});
+      lab.textContent = `n=${k}`;
+      svg.appendChild(lab);
+    }
+    // titles
+    const t1 = SVG('text',{x:30,y:22,'font-size':13,fill:'#fff','font-weight':600}); t1.textContent='path on S¹ (drag to draw)'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:xR0+10,y:22,'font-size':13,fill:'#fff','font-weight':600}); t2.textContent='continuous lift θ/2π to ℝ'; svg.appendChild(t2);
+
+    if(pts.length<2){
+      const hint = SVG('text',{x:220,y:cyL+170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      hint.textContent='start near the yellow dot, loop around, return';
+      svg.appendChild(hint);
+      count.textContent = '';
+      return;
+    }
+
+    // draw path in left
+    let d = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)} `;
+    for(let i=1;i<pts.length;i++) d += `L ${pts[i][0].toFixed(1)} ${pts[i][1].toFixed(1)} `;
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':2.3,'stroke-linejoin':'round','stroke-linecap':'round'}));
+
+    // compute running angle θ by summing signed angle increments
+    // project point onto circle direction from center
+    const thetas = [];
+    for(const [x,y] of pts){
+      const a = Math.atan2(-(y-cyL), x-cxL);  // in (-π,π], y inverted because SVG y grows down
+      thetas.push(a);
+    }
+    // unwrap
+    const unwrapped = [thetas[0]];
+    for(let i=1;i<thetas.length;i++){
+      let dif = thetas[i]-thetas[i-1];
+      while(dif>Math.PI) dif -= 2*Math.PI;
+      while(dif<-Math.PI) dif += 2*Math.PI;
+      unwrapped.push(unwrapped[i-1]+dif);
+    }
+
+    // plot in right pane: x = progression along path, y = unwrapped/2π
+    const n = pts.length;
+    let d2 = '';
+    for(let i=0;i<n;i++){
+      const xp = xR0 + (xR1-xR0)*(i/(n-1));
+      const yp = yRmid - yRscale*(unwrapped[i]/(2*Math.PI));
+      d2 += (i===0?'M ':'L ') + xp.toFixed(1) + ' ' + Math.max(30,Math.min(330,yp)).toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--green)','stroke-width':2.3}));
+
+    // endpoint marker: the integer
+    const wind = (unwrapped[n-1] - unwrapped[0])/(2*Math.PI);
+    const wRound = Math.round(wind);
+    winding = wRound;
+    const endY = yRmid - yRscale*(unwrapped[n-1]/(2*Math.PI));
+    svg.appendChild(SVG('circle',{cx:xR1-8,cy:Math.max(30,Math.min(330,endY)),r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+
+    // endpoint-drift readout
+    count.textContent = `winding n ≈ ${wind.toFixed(3)} → rounded ${wRound}`;
+    const endGap = Math.abs(wind - wRound);
+    let msg;
+    if(endGap < 0.08){
+      msg = `path is (approximately) a loop; homotopy class [γ] = ${wRound}·[generator] ∈ π₁(S¹)=ℤ.`;
+    } else {
+      msg = `endpoint drift = ${endGap.toFixed(2)} — your path is not yet a closed loop at the basepoint.`;
+    }
+    readout.textContent = msg;
+  }
+
+  function toLocal(ev){
+    const rect = svg.getBoundingClientRect();
+    const sx = 820/rect.width, sy = 360/rect.height;
+    const x = (ev.clientX - rect.left)*sx;
+    const y = (ev.clientY - rect.top)*sy;
+    return [x,y];
+  }
+  function inLeft([x,y]){ return x>=20 && x<=420 && y>=30 && y<=330; }
+
+  svg.addEventListener('mousedown',e=>{
+    const p = toLocal(e); if(!inLeft(p)) return;
+    drawing = true; pts = [p]; draw();
+  });
+  svg.addEventListener('mousemove',e=>{
+    if(!drawing) return;
+    const p = toLocal(e); if(!inLeft(p)) return;
+    const last = pts[pts.length-1];
+    if(Math.hypot(p[0]-last[0],p[1]-last[1])<2) return;
+    pts.push(p); draw();
+  });
+  const stop = ()=>{ drawing=false; };
+  svg.addEventListener('mouseup',stop);
+  svg.addEventListener('mouseleave',stop);
+
+  btnClear.addEventListener('click',()=>{pts=[]; draw();});
+
+  function presetWind(n){
+    pts = [];
+    const N = 240;
+    // smooth loop: start at (R,0), go around n times, perturb radius slightly to look hand-drawn
+    for(let i=0;i<=N;i++){
+      const t = i/N;
+      const theta = 2*Math.PI*n*t;
+      const r = R * (1 + 0.06*Math.sin(8*Math.PI*t));
+      pts.push([cxL + r*Math.cos(theta), cyL - r*Math.sin(theta)]);
+    }
+    draw();
+  }
+  function presetNull(){
+    pts = [];
+    // small loop near the basepoint that does not enclose the origin
+    const N = 200, x0 = cxL + R, y0 = cyL;
+    for(let i=0;i<=N;i++){
+      const t = i/N;
+      const a = 2*Math.PI*t;
+      pts.push([x0 + 40*Math.cos(a) - 40, y0 + 22*Math.sin(a)]);
+    }
+    draw();
+  }
+  $('#wind-ex1').addEventListener('click',()=>presetWind(1));
+  $('#wind-ex2').addEventListener('click',()=>presetWind(2));
+  $('#wind-ex3').addEventListener('click',presetNull);
+  $('#wind-ex4').addEventListener('click',()=>presetWind(-1));
+
+  draw();
+  // kick with wind-once preset to show off
+  presetWind(1);
+})();
+</script>
+
+<section id="cover">
+<h2>3. Covering spaces</h2>
+<p>A <strong>covering map</strong> $p\colon \tilde X\to X$ is a continuous surjection such that every $x\in X$ has a neighborhood $U$ whose preimage $p^{-1}(U)$ is a disjoint union of copies of $U$, each mapped homeomorphically by $p$. The fibers $p^{-1}(x)$ are all homeomorphic to a discrete set $F$ — the "sheets" of the cover. Paths lift uniquely (given a starting lift), and homotopies lift too.</p>
+
+<div class="ok"><strong>Classification (Galois correspondence for covers).</strong> Let $X$ be a reasonable space (path-connected, locally path-connected, semilocally simply-connected) with universal cover $\tilde X$. Then connected covers of $X$ (up to isomorphism rel basepoint) correspond bijectively to subgroups $H\le\pi_1(X,x_0)$; the cover is $\tilde X/H$ and its fundamental group is $H$. Normal subgroups correspond to <em>regular</em> covers, whose deck group is $\pi_1(X)/H$.</div>
+
+<p>In particular, the <strong>universal cover</strong> is the one with $H=\{e\}$. It is simply connected, and $\pi_1(X)$ acts freely on it by deck transformations with quotient $X$:</p>
+<p style="text-align:center">$\tilde X\longrightarrow X = \tilde X/\pi_1(X)$.</p>
+
+<h3>Example: $\mathbb{R}\to S^1$</h3>
+<p>The universal cover of the circle is the real line, via $p(t)=e^{2\pi i t}$. Each fiber is a coset of $\mathbb{Z}\subset\mathbb{R}$; the deck group $\mathbb{Z}$ acts by translation. This is the cleanest picture of "$\pi_1(S^1)=\mathbb{Z}$": the integers <em>are</em> the deck group of the universal cover.</p>
+
+<div class="widget" id="w-cov">
+  <div class="hd"><div class="ttl">Universal covers</div><div class="hint">ℝ → S¹ · tree → figure-eight</div></div>
+  <div class="row">
+    <label>pick:</label>
+    <select id="cov-pick">
+      <option value="R">ℝ → S¹  (helix)</option>
+      <option value="tree">tree → S¹ ∨ S¹  (figure-eight)</option>
+    </select>
+    <label>basepoint lift <span id="cov-lab" style="color:var(--yellow)">t = 0</span>:</label>
+    <input type="range" id="cov-slide" min="-3" max="3" step="0.01" value="0">
+  </div>
+  <svg id="cov-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <div class="readout" id="cov-readout"></div>
+</div>
+
+<p>For $X=S^1\vee S^1$ the universal cover is the infinite 4-valent tree (the Cayley graph of the free group $F_2$). Every reduced word in $a,b,a^{-1},b^{-1}$ is a distinct vertex, and no nontrivial loop can exist in a tree — exactly what "simply connected" demands.</p>
+
+<div class="note"><strong>Connection to Galois theory.</strong> The correspondence "subgroups ↔ covers" is a topological analogue of "subgroups of $\operatorname{Gal}(L/K)$ ↔ intermediate fields $K\subseteq M\subseteq L$": fixed subspace = subgroup-cover; normal = Galois/regular; quotient = deck group = $\operatorname{Gal}$. The fundamental group is literally a kind of étale fundamental group, and this isn't a coincidence — Grothendieck unified both under the notion of a <em>Galois category</em>.</div>
+</section>
+
+<script>
+/* =============================== SECTION 3: covering spaces =============================== */
+(function(){
+  const pick = $('#cov-pick'), slide = $('#cov-slide'), lab = $('#cov-lab');
+  const svg = $('#cov-svg'), ro = $('#cov-readout');
+  const W=820, H=420;
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = parseFloat(slide.value);
+    lab.textContent = `t = ${t.toFixed(2)}`;
+
+    if(pick.value==='R'){
+      drawRcoverS1(t);
+    } else {
+      drawTreeCoverFig8(t);
+    }
+  }
+
+  function drawRcoverS1(t){
+    // Left: the circle S^1 with a moving point
+    const cxL=180, cyL=H/2, Rc=110;
+    svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:Rc,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+    // basepoint
+    svg.appendChild(SVG('circle',{cx:cxL+Rc,cy:cyL,r:5,fill:'var(--yellow)',stroke:'#111'}));
+    // moving projected point p(t) = e^{2π i t}
+    const ang = 2*Math.PI*t;
+    const px = cxL + Rc*Math.cos(ang), py = cyL - Rc*Math.sin(ang);
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:7,fill:'var(--pink)',stroke:'#111','stroke-width':1.5}));
+    const lbl1 = SVG('text',{x:cxL,y:cyL+Rc+30,'text-anchor':'middle','font-size':13,fill:'#fff'}); lbl1.textContent='S¹ = ℝ/ℤ'; svg.appendChild(lbl1);
+
+    // arrow between panes
+    const arrow = SVG('text',{x:360,y:cyL+4,'font-size':20,fill:'var(--mute)','text-anchor':'middle'}); arrow.textContent='← p'; svg.appendChild(arrow);
+
+    // Right: a helix viewed as a projection onto (x, y=axis into screen)
+    // Render helix: parameter s in [-3,3], helix position = (cos(2πs), sin(2πs)) lifted by s along vertical axis
+    const xR0=440, xR1=800, yTop=30, yBot=H-30;
+    const helixCx = (xR0+xR1)/2 - 30;   // x center
+    const helixRad = 70;
+    const sMin=-3.2, sMax=3.2;
+    function helixProject(s){
+      // helix: (r cos θ, r sin θ, s) with θ = 2π s. We'll display as 2D with an oblique axis:
+      // screen x = helixCx + r cos(θ) * 1.0 + (s) * 12
+      // screen y = (linear in s from sMax -> yTop, sMin -> yBot) minus r sin(θ)*0.28 for slight tilt
+      const th = 2*Math.PI*s;
+      const sx = helixCx + helixRad*Math.cos(th);
+      // y-axis linear in s from yTop (s=sMax) to yBot (s=sMin)
+      const linY = yBot - ((s - sMin)/(sMax - sMin)) * (yBot - yTop);
+      const sy = linY - helixRad*0.28*Math.sin(th);
+      return [sx, sy];
+    }
+    // draw vertical axis of R
+    svg.appendChild(SVG('line',{x1:helixCx-helixRad-20,y1:yTop,x2:helixCx-helixRad-20,y2:yBot,stroke:'#2a3242','stroke-width':1.5}));
+    // tick marks at integers
+    for(let n=-3;n<=3;n++){
+      const linY = yBot - ((n - sMin)/(sMax - sMin)) * (yBot - yTop);
+      svg.appendChild(SVG('line',{x1:helixCx-helixRad-25,y1:linY,x2:helixCx-helixRad-15,y2:linY,stroke:'#2a3242'}));
+      const lb = SVG('text',{x:helixCx-helixRad-30,y:linY+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      lb.textContent = `${n}`;
+      svg.appendChild(lb);
+    }
+    const lblR = SVG('text',{x:helixCx-helixRad-30,y:yTop-10,'text-anchor':'end','font-size':13,fill:'#fff'}); lblR.textContent='ℝ'; svg.appendChild(lblR);
+
+    // helix path
+    let d='';
+    const N=320;
+    for(let i=0;i<=N;i++){
+      const s = sMin + (sMax-sMin)*i/N;
+      const [x,y] = helixProject(s);
+      d += (i===0?'M ':'L ') + x.toFixed(2) + ' ' + y.toFixed(2) + ' ';
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':1.6,'stroke-opacity':0.75}));
+
+    // fiber over the basepoint = {..., -2,-1,0,1,2,...}
+    for(let n=Math.ceil(sMin);n<=Math.floor(sMax);n++){
+      const [fx,fy] = helixProject(n);
+      svg.appendChild(SVG('circle',{cx:fx,cy:fy,r:5,fill:'var(--yellow)',stroke:'#111','stroke-width':1.2}));
+    }
+    // moving lifted point at parameter t
+    const [ptX,ptY] = helixProject(t);
+    svg.appendChild(SVG('circle',{cx:ptX,cy:ptY,r:7,fill:'var(--pink)',stroke:'#111','stroke-width':1.5}));
+    // connecting dashed line from lifted point down onto S^1 plane
+    svg.appendChild(SVG('line',{x1:ptX,y1:ptY,x2:px,y2:py,stroke:'var(--mute)','stroke-dasharray':'4 4','stroke-width':1}));
+
+    // labels
+    const lblp = SVG('text',{x:helixCx+helixRad+10,y:ptY,'font-size':13,fill:'var(--pink)'});
+    lblp.textContent = `t = ${t.toFixed(2)}`;
+    svg.appendChild(lblp);
+
+    ro.textContent =
+      `Projection p(t) = e^{2πi t}.\n`+
+      `  t = ${t.toFixed(3)}\n`+
+      `  image on S¹ is at angle ${(t*360).toFixed(1)}° from basepoint.\n`+
+      `  fiber p⁻¹(basepoint) = ℤ ⊂ ℝ (yellow dots); the deck group ℤ acts on ℝ by translation.\n`+
+      `  so π₁(S¹) = deck(ℝ → S¹) = ℤ.`;
+  }
+
+  function drawTreeCoverFig8(t){
+    // Left pane: figure-eight
+    const cxA=140, cyA=H/2, rA=65, cxB=140+2*rA, cyB=H/2, rB=65;
+    svg.appendChild(SVG('circle',{cx:cxA,cy:cyA,r:rA,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+    svg.appendChild(SVG('circle',{cx:cxB,cy:cyB,r:rB,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // basepoint
+    svg.appendChild(SVG('circle',{cx:cxA+rA,cy:cyA,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+    // labels a, b
+    const la = SVG('text',{x:cxA-rA+6,y:cyA-rA-6,'font-size':14,fill:'var(--blue)','font-weight':700}); la.textContent='a'; svg.appendChild(la);
+    const lb = SVG('text',{x:cxB+rB-14,y:cyA-rA-6,'font-size':14,fill:'var(--pink)','font-weight':700}); lb.textContent='b'; svg.appendChild(lb);
+    const lf = SVG('text',{x:cxA+rA,y:cyA+rA+24,'text-anchor':'middle','font-size':13,fill:'#fff'}); lf.textContent='S¹ ∨ S¹'; svg.appendChild(lf);
+
+    // Right pane: infinite 4-valent tree (Cayley graph of F_2)
+    // root at (cx, cy), 4 children labeled a, a^{-1}, b, b^{-1}
+    const cxT=560, cyT=H/2;
+    const depth = 3;
+    // We will recursively draw edges of length L, each child offset by angle and halved length.
+    const baseLen = 140;
+    // colors: a-edges blue, b-edges pink
+    // direction encoding: 'a'→(1,0), 'a^{-1}'→(-1,0), 'b'→(0,-1), 'b^{-1}'→(0,1)
+    const DIRS = [
+      {lab:'a',    col:'var(--blue)',  dx:1,  dy:0,  inv:'A'},
+      {lab:'A',    col:'var(--blue)',  dx:-1, dy:0,  inv:'a'},
+      {lab:'b',    col:'var(--pink)',  dx:0,  dy:-1, inv:'B'},
+      {lab:'B',    col:'var(--pink)',  dx:0,  dy:1,  inv:'b'},
+    ];
+    function drawNode(x,y,depth,incoming,len){
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3.5,fill:'var(--ink)'}));
+      if(depth===0) return;
+      for(const d of DIRS){
+        if(incoming && d.lab===incoming) continue; // no backtracking (reduced words)
+        const nx = x + d.dx*len;
+        const ny = y + d.dy*len;
+        svg.appendChild(SVG('line',{x1:x,y1:y,x2:nx,y2:ny,stroke:d.col,'stroke-width':1.6,'stroke-opacity':0.8}));
+        drawNode(nx,ny,depth-1, d.inv, len*0.55);
+      }
+    }
+    // center marker
+    svg.appendChild(SVG('circle',{cx:cxT,cy:cyT,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+    drawNode(cxT,cyT,depth,null,baseLen);
+    const lblT = SVG('text',{x:cxT,y:35,'text-anchor':'middle','font-size':13,fill:'#fff'}); lblT.textContent='universal cover = 4-valent tree'; svg.appendChild(lblT);
+
+    // arrow
+    const arrow = SVG('text',{x:340,y:cyA+4,'font-size':20,fill:'var(--mute)','text-anchor':'middle'}); arrow.textContent='← p'; svg.appendChild(arrow);
+
+    ro.textContent =
+      `π₁(S¹ ∨ S¹) = F₂ = 〈a, b〉, the free group on two generators.\n`+
+      `The universal cover is the infinite 4-valent tree (Cayley graph of F₂).\n`+
+      `Vertices ↔ reduced words in {a, a⁻¹, b, b⁻¹}; F₂ acts freely by left multiplication.\n`+
+      `Because the tree is simply connected, there is no non-trivial loop that survives in the quotient.`;
+  }
+
+  pick.addEventListener('change',draw);
+  slide.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="homology">
+<h2>4. Simplicial and singular homology</h2>
+<p>The fundamental group sees only one-dimensional information and is painfully hard to compute (it's non-abelian in general). <em>Homology</em> is its abelianized cousin in all dimensions, and the price of abelianization is that we can actually compute it.</p>
+
+<p>Fix a simplicial complex $K$. Let $C_n(K)$ be the free abelian group on the $n$-simplices, and define the boundary</p>
+<p style="text-align:center">$\partial_n\colon C_n \to C_{n-1}, \quad [v_0,\dots,v_n]\mapsto\sum_{i=0}^n (-1)^i [v_0,\dots,\hat v_i,\dots,v_n]$.</p>
+<p>A direct signed-sum check gives the central identity $\partial_{n-1}\circ\partial_n = 0$, so $\operatorname{im}\partial_{n+1}\subseteq\ker\partial_n$. The $n$-th homology is the quotient:</p>
+<p style="text-align:center">$H_n(K) = \ker\partial_n / \operatorname{im}\partial_{n+1}$.</p>
+
+<p>Elements of $\ker\partial$ are <em>cycles</em>; elements of $\operatorname{im}\partial$ are <em>boundaries</em>. Homology asks: which cycles bound? The <em>Betti number</em> $b_n=\dim_\mathbb{Q} H_n(K;\mathbb{Q})$ counts independent $n$-dimensional holes.</p>
+
+<p>The fact that changing the triangulation doesn't change $H_*$ — and that $H_*$ agrees with <em>singular</em> homology (defined with continuous simplices) — is a nontrivial theorem. In practice we just compute $H_*$ from any convenient simplicial decomposition.</p>
+
+<div class="widget" id="w-simp">
+  <div class="hd"><div class="ttl">Simplicial complex builder</div><div class="hint">click a preset · (or click vertices, then edges, then triangles to build your own)</div></div>
+  <div class="row">
+    <label>preset:</label>
+    <select id="sp-preset">
+      <option value="point">single point</option>
+      <option value="segment">segment (1-simplex)</option>
+      <option value="triangle-filled">disk = filled triangle</option>
+      <option value="triangle-boundary" selected>S¹ = boundary of triangle</option>
+      <option value="sphere">S² = boundary of tetrahedron</option>
+      <option value="torus">T² = torus triangulation (3×3 grid)</option>
+      <option value="rp2">ℝP² = antipodal quotient (6 triangles)</option>
+      <option value="figure8">figure-eight (two circles at a point)</option>
+    </select>
+    <button id="sp-clear">clear</button>
+    <label>mode:</label>
+    <button id="sp-mode-v" class="active">vertex</button>
+    <button id="sp-mode-e">edge</button>
+    <button id="sp-mode-f">face</button>
+  </div>
+  <svg id="sp-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <div class="row"><div class="readout" id="sp-out" style="flex:1;min-width:340px"></div></div>
+</div>
+
+<p>Some sanity-checking values:</p>
+<ul>
+  <li>a point: $H_0=\mathbb{Z}$, all higher $H_n=0$. Betti: $b_0=1$.</li>
+  <li>$S^1$: $H_0=\mathbb{Z}$, $H_1=\mathbb{Z}$. One connected component, one loop.</li>
+  <li>$S^2$: $H_0=\mathbb{Z}$, $H_1=0$, $H_2=\mathbb{Z}$. One connected component, no 1-holes, one 2-dimensional "cavity".</li>
+  <li>$T^2$: $H_0=\mathbb{Z}$, $H_1=\mathbb{Z}^2$, $H_2=\mathbb{Z}$. The $\mathbb{Z}^2$ comes from the two independent loops; note it matches $\pi_1$ abelianized.</li>
+  <li>$\mathbb{RP}^2$ (over $\mathbb{Q}$): $b_0=1$, $b_1=0$, $b_2=0$. The single nontrivial loop has order 2, so rationally it dies. Over $\mathbb{Z}$ there is a torsion summand $H_1=\mathbb{Z}/2$.</li>
+</ul>
+</section>
+
+<script>
+/* =============================== SECTION 4: simplicial complex =============================== */
+(function(){
+  const svg = $('#sp-svg'), out = $('#sp-out');
+  const preset = $('#sp-preset'), clearB = $('#sp-clear');
+  const W=820, H=360;
+
+  // Data: a simplicial complex is {V:[[x,y]], E:[[i,j]], F:[[i,j,k]]}.
+  // Positions are in SVG coords.
+  let V=[], E=[], F=[];
+  let mode='v';
+
+  const modeBtns = {v:$('#sp-mode-v'), e:$('#sp-mode-e'), f:$('#sp-mode-f')};
+  let edgePick = null;  // first vertex of an edge when in mode 'e'
+  let facePick = [];    // up to 3 vertices for a face
+
+  function setMode(m){
+    mode=m; edgePick=null; facePick=[];
+    for(const k of Object.keys(modeBtns)) modeBtns[k].classList.toggle('active', k===m);
+    draw();
+  }
+  modeBtns.v.addEventListener('click',()=>setMode('v'));
+  modeBtns.e.addEventListener('click',()=>setMode('e'));
+  modeBtns.f.addEventListener('click',()=>setMode('f'));
+
+  clearB.addEventListener('click',()=>{
+    V=[]; E=[]; F=[]; edgePick=null; facePick=[];
+    preset.value='';
+    draw(); compute();
+  });
+
+  preset.addEventListener('change',()=>{
+    loadPreset(preset.value);
+  });
+
+  function loadPreset(key){
+    V=[]; E=[]; F=[]; edgePick=null; facePick=[];
+    const cx=W/2, cy=H/2;
+    if(key==='point'){
+      V=[[cx,cy]];
+    } else if(key==='segment'){
+      V=[[cx-100,cy],[cx+100,cy]];
+      E=[[0,1]];
+    } else if(key==='triangle-filled'){
+      V=[[cx-100,cy+70],[cx+100,cy+70],[cx,cy-80]];
+      E=[[0,1],[1,2],[0,2]];
+      F=[[0,1,2]];
+    } else if(key==='triangle-boundary'){
+      V=[[cx-100,cy+70],[cx+100,cy+70],[cx,cy-80]];
+      E=[[0,1],[1,2],[0,2]];
+    } else if(key==='sphere'){
+      // Boundary of a tetrahedron: 4 vertices, 6 edges, 4 faces
+      V=[[cx,cy-90],[cx-90,cy+50],[cx+90,cy+50],[cx,cy+10]]; // last is "top" projected
+      E=[[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+      F=[[0,1,2],[0,1,3],[0,2,3],[1,2,3]];
+    } else if(key==='torus'){
+      // Standard 3×3 grid triangulation of the torus: 9 vertices, 27 edges, 18 triangles.
+      // Each vertex (i,j) for i,j in {0,1,2}; edges identify (3,j) with (0,j) and (i,3) with (i,0).
+      V = [];
+      for(let j=0;j<3;j++) for(let i=0;i<3;i++){
+        V.push([cx - 130 + i*130, cy - 90 + j*90]);
+      }
+      const idx = (i,j) => ((j%3)*3) + (i%3);
+      F = [];
+      for(let j=0;j<3;j++) for(let i=0;i<3;i++){
+        // each cell gives two triangles with the 'lower-left' orientation
+        const a = idx(i,j), b = idx(i+1,j), c = idx(i,j+1), dd = idx(i+1,j+1);
+        F.push([a,b,dd].slice().sort((u,v)=>u-v));
+        F.push([a,c,dd].slice().sort((u,v)=>u-v));
+      }
+      E=[];
+      const seen=new Set();
+      for(const [a,b,c] of F){
+        for(const [u,v] of [[a,b],[b,c],[a,c]]){
+          const mn=Math.min(u,v), mx=Math.max(u,v);
+          const k=`${mn}_${mx}`;
+          if(!seen.has(k)){ seen.add(k); E.push([mn,mx]); }
+        }
+      }
+    } else if(key==='rp2'){
+      // Minimal triangulation of ℝP² (Möbius, 1861): 6 vertices, 15 edges, 10 triangles.
+      V=[];
+      for(let i=0;i<6;i++){
+        const a = 2*Math.PI*i/6;
+        V.push([cx + 110*Math.cos(a), cy + 80*Math.sin(a)]);
+      }
+      // Known valid 10-face triangulation of RP² on 6 vertices (Möbius triangulation),
+      // faces written with vertices in increasing order:
+      F = [
+        [0,1,2],[0,1,4],[0,2,3],[0,3,5],[0,4,5],
+        [1,2,5],[1,3,4],[1,3,5],[2,3,4],[2,4,5]
+      ];
+      E=[];
+      const seen = new Set();
+      for(const [a,b,c] of F){
+        for(const [u,v] of [[a,b],[b,c],[a,c]]){
+          const k = `${u}_${v}`;
+          if(!seen.has(k)){ seen.add(k); E.push([u,v]); }
+        }
+      }
+    } else if(key==='figure8'){
+      V=[[cx,cy],[cx-110,cy-60],[cx-60,cy+60],[cx+60,cy+60],[cx+110,cy-60]];
+      E=[[0,1],[1,2],[2,0],[0,3],[3,4],[4,0]];
+    }
+    draw(); compute();
+  }
+
+  svg.addEventListener('click',ev=>{
+    const rect = svg.getBoundingClientRect();
+    const sx = W/rect.width, sy = H/rect.height;
+    const x=(ev.clientX-rect.left)*sx, y=(ev.clientY-rect.top)*sy;
+    if(mode==='v'){
+      // snap to existing vertex if close
+      const hit = nearest(x,y);
+      if(hit<0){ V.push([x,y]); }
+      draw(); compute();
+    } else if(mode==='e'){
+      const hit = nearest(x,y);
+      if(hit<0) return;
+      if(edgePick===null){ edgePick = hit; draw(); return; }
+      if(edgePick===hit){ edgePick=null; draw(); return; }
+      const a = Math.min(edgePick,hit), b = Math.max(edgePick,hit);
+      if(!E.some(([u,v])=>u===a&&v===b)) E.push([a,b]);
+      edgePick=null; draw(); compute();
+    } else if(mode==='f'){
+      const hit = nearest(x,y);
+      if(hit<0) return;
+      if(!facePick.includes(hit)) facePick.push(hit);
+      if(facePick.length===3){
+        const s = facePick.slice().sort((a,b)=>a-b);
+        if(!F.some(f=>f[0]===s[0]&&f[1]===s[1]&&f[2]===s[2])) F.push(s);
+        // also auto-add edges
+        for(const [u,v] of [[s[0],s[1]],[s[1],s[2]],[s[0],s[2]]]){
+          if(!E.some(([a,b])=>a===u&&b===v)) E.push([u,v]);
+        }
+        facePick=[];
+      }
+      draw(); compute();
+    }
+  });
+
+  function nearest(x,y){
+    let best=-1, bd=400;
+    for(let i=0;i<V.length;i++){
+      const d = Math.hypot(V[i][0]-x, V[i][1]-y);
+      if(d<bd){bd=d; best=i;}
+    }
+    return bd<14 ? best : -1;
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    // faces
+    for(const [a,b,c] of F){
+      const [xa,ya]=V[a], [xb,yb]=V[b], [xc,yc]=V[c];
+      svg.appendChild(SVG('polygon',{
+        points:`${xa},${ya} ${xb},${yb} ${xc},${yc}`,
+        fill:'rgba(88,196,221,0.12)', stroke:'none'
+      }));
+    }
+    // edges
+    for(const [i,j] of E){
+      const [xi,yi]=V[i], [xj,yj]=V[j];
+      svg.appendChild(SVG('line',{x1:xi,y1:yi,x2:xj,y2:yj,stroke:'var(--yellow)','stroke-width':1.6,'stroke-opacity':0.9}));
+    }
+    // vertices
+    for(let i=0;i<V.length;i++){
+      const [x,y]=V[i];
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:'var(--ink)',stroke:'#111','stroke-width':1.4}));
+      const lb = SVG('text',{x:x+8,y:y-8,'font-size':11,fill:'var(--mute)'});
+      lb.textContent = `${i}`;
+      svg.appendChild(lb);
+    }
+    // highlight edge pick
+    if(edgePick!==null && V[edgePick]){
+      const [x,y]=V[edgePick];
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:9,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    }
+    // highlight face picks
+    for(const idx of facePick){
+      const [x,y]=V[idx];
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:10,fill:'none',stroke:'var(--green)','stroke-width':2}));
+    }
+  }
+
+  function compute(){
+    // Build boundary matrices d1: C1 -> C0 (rows=V, cols=E), d2: C2 -> C1 (rows=E, cols=F)
+    const nV=V.length, nE=E.length, nF=F.length;
+    // edge index map
+    const eidx = new Map();
+    E.forEach(([a,b],k)=>{ eidx.set(`${a}_${b}`,k); });
+
+    // d1[v][e] = -1 if e=[v,*], +1 if e=[*,v] (we use orientation a<b: ∂[a,b] = [b]-[a])
+    // so for edge k = (a,b) with a<b: d1[a][k] = -1, d1[b][k] = +1.
+    const d1 = Array.from({length:Math.max(nV,1)},()=>Array(Math.max(nE,1)).fill(0));
+    for(let k=0;k<nE;k++){
+      const [a,b]=E[k];
+      d1[a][k] -= 1; d1[b][k] += 1;
+    }
+
+    // d2[e][f] = signed incidence. For oriented face [i,j,k] with i<j<k:
+    //   ∂[i,j,k] = [j,k] - [i,k] + [i,j]
+    const d2 = Array.from({length:Math.max(nE,1)},()=>Array(Math.max(nF,1)).fill(0));
+    for(let fidx=0;fidx<nF;fidx++){
+      const [i,j,k]=F[fidx];
+      const jk = eidx.get(`${j}_${k}`), ik = eidx.get(`${i}_${k}`), ij = eidx.get(`${i}_${j}`);
+      if(jk!==undefined) d2[jk][fidx] += 1;
+      if(ik!==undefined) d2[ik][fidx] -= 1;
+      if(ij!==undefined) d2[ij][fidx] += 1;
+    }
+
+    const r1 = nE>0 ? rankQ(d1) : 0;
+    const r2 = nF>0 ? rankQ(d2) : 0;
+    const b0 = nV - r1;                     // dim H_0 = dim ker d0 - rank d1 = nV - r1 (d0=0)
+    const b1 = (nE - r1) - r2;              // dim H_1 = dim ker d1 - rank d2 = (nE - r1) - r2
+    const b2 = nF - r2;                     // dim H_2 = dim ker d2 - 0
+    const chi = nV - nE + nF;
+
+    let msg =
+      `simplices:  V = ${nV},  E = ${nE},  F = ${nF}\n`+
+      `rank ∂₁ = ${r1},  rank ∂₂ = ${r2}\n`+
+      `Betti:    b₀ = ${b0}   b₁ = ${b1}   b₂ = ${b2}\n`+
+      `χ = V − E + F = ${chi}  (= b₀ − b₁ + b₂ = ${b0-b1+b2})`;
+
+    // sanity: d1 ∘ d2 should be 0
+    if(nE>0 && nF>0){
+      const prod = matMul(d1,d2);
+      let ok=true;
+      for(const row of prod) for(const v of row) if(v!==0){ok=false;break;}
+      if(!ok) msg += `\n[warning] ∂₁∘∂₂ ≠ 0 — the complex is malformed.`;
+    }
+    out.textContent = msg;
+  }
+
+  // kick off with the S¹-preset
+  loadPreset('triangle-boundary');
+})();
+</script>
+
+<section id="mv">
+<h2>5. Mayer–Vietoris</h2>
+<p>For $X = U\cup V$ with $U, V$ open (or more generally, a suitable cover), there is a long exact sequence of homology groups</p>
+
+<p style="text-align:center">$\cdots\to H_n(U\cap V)\xrightarrow{(\iota_U,\iota_V)} H_n(U)\oplus H_n(V)\xrightarrow{j_U-j_V} H_n(X)\xrightarrow{\partial} H_{n-1}(U\cap V)\to\cdots$</p>
+
+<p>This is the topological analogue of inclusion-exclusion: you patch $X$ from $U$ and $V$, and the sequence tracks how the homology of the pieces combines, with a correction term — the boundary map — that encodes what happens at the intersection.</p>
+
+<div class="ok"><strong>Derivation of $H_*(S^n)$ by induction.</strong>  Cover $S^n$ with two open hemispheres $D_\pm$, each contractible (so $H_k(D_\pm)=H_k(\mathrm{pt})$), with intersection homotopy-equivalent to the equator $S^{n-1}$. The Mayer–Vietoris sequence collapses in all but two spots, and you read off
+$$H_k(S^n) = \begin{cases}\mathbb{Z} & k=0, n \\ 0 & \text{else}\end{cases}$$
+for $n\ge 1$. The base case $n=1$ is just $H_*(S^1)=\{\mathbb{Z},\mathbb{Z},0,\dots\}$, which you can compute directly.</div>
+
+<div class="widget" id="w-mv">
+  <div class="hd"><div class="ttl">Mayer–Vietoris for Sⁿ</div><div class="hint">pick n · watch the LES collapse</div></div>
+  <div class="row">
+    <label>n =</label>
+    <select id="mv-n">
+      <option value="1">1</option>
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+  <svg id="mv-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <div class="readout" id="mv-out"></div>
+</div>
+
+<p>The same machinery tells you $H_*(T^2)$ via a split of the torus as two annuli; $H_*$ of any CW-complex via its cell filtration; and generally reduces the topology of a complicated space to its pieces plus a connecting homomorphism.</p>
+</section>
+
+<script>
+/* =============================== SECTION 5: Mayer–Vietoris =============================== */
+(function(){
+  const sel = $('#mv-n'), svg = $('#mv-svg'), out = $('#mv-out');
+  const W=820, H=420;
+
+  // H_*(pt) = Z in degree 0, else 0.
+  // Inductively H_k(S^n) = Z if k in {0,n}, else 0.
+  function HSn(n,k){
+    if(k===0) return 1;
+    if(k===n && n>=1) return 1;
+    return 0;
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = parseInt(sel.value,10);
+
+    // top: sphere = D_+ ∪ D_- with intersection S^{n-1}. Visualize as three labeled boxes + arrows.
+    // We render the LES row by row, for k from n+1 down to 0:
+    //   H_k(S^{n-1}) -> H_k(D_+)⊕H_k(D_-) -> H_k(S^n) -> H_{k-1}(S^{n-1}) -> ...
+    // Box layout: columns x positions = 60, 260, 460, 660. connecting arrows at x=190,390,590,790 horizontal; vertical jumps between rows.
+
+    const cols = [
+      {x:70,  w:180, lab:'H_k(S^{n-1})',     col:'var(--blue)'},
+      {x:280, w:190, lab:'H_k(D_+)⊕H_k(D_-)', col:'var(--violet)'},
+      {x:490, w:170, lab:'H_k(S^n)',          col:'var(--yellow)'},
+      {x:700, w:100, lab:'…∂',                col:'var(--mute)'},
+    ];
+    // header
+    for(const c of cols){
+      const t = SVG('text',{x:c.x+c.w/2,y:32,'text-anchor':'middle','font-size':13,fill:c.col,'font-weight':700});
+      t.textContent = c.lab;
+      svg.appendChild(t);
+    }
+
+    // rows: k = n+1, n, n-1, ..., 0. show k from max=n+1 down to 0, that's n+2 rows.
+    const rows = [];
+    for(let k=n+1;k>=0;k--) rows.push(k);
+    const rowH = 54;
+    const topY = 60;
+
+    // draw rows
+    for(let r=0;r<rows.length;r++){
+      const k = rows[r];
+      const y = topY + r*rowH;
+      // k label on far left
+      const kl = SVG('text',{x:30,y:y+4,'font-size':12,fill:'var(--mute)'}); kl.textContent=`k=${k}`; svg.appendChild(kl);
+      // the three main entries at k
+      const hSnm1 = HSn(n-1,k);
+      const hDpm  = (k===0)?2:0;  // H_k(pt ⊔ pt) via each piece; H_0(D_+) ⊕ H_0(D_-) = Z^2; higher = 0
+      const hSn   = HSn(n,k);
+      const cells = [hSnm1, hDpm, hSn];
+      for(let i=0;i<3;i++){
+        const c = cols[i];
+        const val = cells[i];
+        const txt = val===0 ? '0' : `ℤ${val>1?'^'+val:''}`;
+        const box = SVG('rect',{x:c.x,y:y-18,width:c.w,height:30,rx:6,fill:val===0?'#1a1f29':'#121826',stroke:val===0?'#2a3242':c.col,'stroke-width':1.3});
+        svg.appendChild(box);
+        const t = SVG('text',{x:c.x+c.w/2,y:y+3,'text-anchor':'middle','font-size':14,fill:val===0?'var(--mute)':'#fff'});
+        t.textContent = txt;
+        svg.appendChild(t);
+      }
+      // arrows between the three: → → →
+      for(let i=0;i<3;i++){
+        const x1 = cols[i].x + cols[i].w;
+        const x2 = cols[i+1].x;
+        svg.appendChild(SVG('line',{x1:x1+4,y1:y,x2:x2-6,y2:y,stroke:'var(--mute)','stroke-width':1}));
+        svg.appendChild(SVG('polygon',{points:`${x2-6},${y} ${x2-12},${y-4} ${x2-12},${y+4}`,fill:'var(--mute)'}));
+      }
+    }
+
+    // vertical ∂-arrows: each row's H_k(S^n) connects down to next row's H_{k-1}(S^{n-1})
+    for(let r=0;r<rows.length-1;r++){
+      const y1 = topY + r*rowH + 14;
+      const y2 = topY + (r+1)*rowH - 18;
+      const x = cols[2].x + cols[2].w + 20;
+      svg.appendChild(SVG('path',{
+        d:`M ${x} ${y1} Q ${x+40} ${(y1+y2)/2} ${cols[0].x + cols[0].w/2} ${y2}`,
+        fill:'none',stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3 3'
+      }));
+    }
+    // label connecting hom
+    const ln = SVG('text',{x:cols[2].x+cols[2].w+42,y:topY+26,'font-size':11,fill:'var(--pink)','font-weight':600});
+    ln.textContent = '∂ (connecting)';
+    svg.appendChild(ln);
+
+    // summary text
+    let msg = `n = ${n}.   S^n = D_+ ∪ D_-, with D_+ ∩ D_- ≃ S^{n-1}.\n`;
+    msg += `Each D_± is contractible ⇒ H_k(D_±) = ℤ if k=0, else 0.\n`;
+    msg += `The LES collapses outside k∈{0,n-1,n}. Reading off the nonzero entries:\n`;
+    for(let k=n;k>=0;k--){
+      const h = HSn(n,k);
+      msg += `  H_${k}(S^${n}) = ${h===0?'0':'ℤ'}`;
+      if(k===0 || k===n) msg += `   (connected, or top class)`;
+      msg += `\n`;
+    }
+    msg += `\nEuler characteristic:  χ(S^${n}) = ${ (n%2===0 ? 2 : 0) }   (Σ(-1)^k b_k).`;
+    out.textContent = msg;
+  }
+
+  sel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<section id="chi">
+<h2>6. Euler characteristic and a taste of cohomology</h2>
+<p>The <strong>Euler characteristic</strong> of a finite CW-complex $X$ is the alternating sum</p>
+<p style="text-align:center">$\chi(X) = \sum_{n\ge 0} (-1)^n c_n = \sum_{n\ge 0}(-1)^n b_n$,</p>
+<p>where $c_n$ is the number of $n$-cells and $b_n=\dim H_n(X;\mathbb{Q})$. The second equality comes from the fact that alternating sums of dimensions in a bounded chain complex are preserved under passage to homology — the same trick that makes $V-E+F$ independent of the polyhedral subdivision.</p>
+
+<div class="ok"><strong>Classical corollary.</strong> For any convex polyhedron homeomorphic to $S^2$, $V - E + F = 2$. This is Euler's formula. For a closed orientable surface of genus $g$, $\chi = 2 - 2g$.</div>
+
+<div class="widget" id="w-chi">
+  <div class="hd"><div class="ttl">Euler characteristic calculator</div><div class="hint">pick a polyhedron or surface</div></div>
+  <div class="row">
+    <label>shape:</label>
+    <select id="chi-pick">
+      <option value="tet">tetrahedron (≃ S²)</option>
+      <option value="cube">cube (≃ S²)</option>
+      <option value="oct">octahedron (≃ S²)</option>
+      <option value="dodec">dodecahedron (≃ S²)</option>
+      <option value="icos">icosahedron (≃ S²)</option>
+      <option value="torus">torus T² (7-triangle triangulation)</option>
+      <option value="genus2">genus-2 surface (16-gon triangulation)</option>
+      <option value="mobius">Möbius band (5-triangle)</option>
+      <option value="klein">Klein bottle (16-triangle triangulation)</option>
+      <option value="rp2">ℝP²  (6-triangle triangulation)</option>
+    </select>
+  </div>
+  <svg id="chi-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <div class="readout" id="chi-out"></div>
+</div>
+
+<h3>A taste of cohomology</h3>
+<p>Dualizing the chain complex $C_\bullet$ gives the <em>cochain complex</em> $C^\bullet=\operatorname{Hom}(C_\bullet,\mathbb{Z})$ with coboundary $\delta\colon C^n\to C^{n+1}$ transpose to $\partial$. Its cohomology $H^n(X)$ is a refinement of homology with extra structure: a graded-commutative ring under the <em>cup product</em> $\smile\colon H^p\otimes H^q\to H^{p+q}$. For instance, $H^*(T^2;\mathbb{Z})\cong\Lambda[\alpha,\beta]$ — the exterior algebra on two degree-1 generators — while $H^*(\mathbb{CP}^n;\mathbb{Z})\cong\mathbb{Z}[x]/(x^{n+1})$ with $|x|=2$.</p>
+
+<div class="note"><strong>Poincaré duality.</strong> If $M$ is a closed oriented $n$-manifold, there is a natural isomorphism
+$$H^k(M;\mathbb{Z})\;\cong\;H_{n-k}(M;\mathbb{Z}).$$
+Equivalently, cap product with the fundamental class $[M]\in H_n(M)$ is an isomorphism. The dual picture: a codimension-$k$ submanifold gives a class in $H^k$. For $M=S^n$: $H^0=H^n=\mathbb{Z}$, everything else zero — the duality is tautological. For surfaces: $b_k=b_{2-k}$; for $T^2$ you get $1,2,1$; for $\Sigma_g$ you get $1, 2g, 1$.</div>
+
+<div class="ok"><strong>Gauss–Bonnet, one-liner.</strong> For a closed oriented Riemannian 2-manifold,
+$$\int_M K\,dA = 2\pi\,\chi(M).$$
+The left side is a local analytic invariant (curvature integrated); the right side is a global discrete invariant (Euler characteristic). A round sphere has $K=1/R^2$, $\int K dA = 4\pi = 2\pi\cdot 2$. A flat torus has $K=0$ and $\chi(T^2)=0$, a perfect match.</div>
+
+<p>The story continues from here — characteristic classes, spectral sequences, stable homotopy theory — but the germ is always the same. Attach a functor $X\mapsto A(X)$ that turns continuous deformations into algebra, and the functor will see shadows of the shape you could not otherwise make precise.</p>
+
+<div class="note"><strong>Big picture.</strong> The leap from $\pi_1$ to $H_*$ was the leap from non-abelian to abelian — from words to equivalence classes of chains. That move made everything computable. The price: information is lost (a knot complement has $\pi_1$ distinguishing knots that $H_*$ cannot tell apart). The trade-off between computable and sensitive is the central tension of the whole field, and it is why $\pi_n$, $H_n$, $H^n$, $K$-theory, bordism, etc. all coexist: each one picks a different balance on that axis.</div>
+
+<p class="small">Algebraic topology as a named discipline goes back to Poincaré's Analysis Situs (1895). Homology was in something like modern form by the 1920s (Noether insisted on groups instead of Betti numbers and torsion coefficients separately). Eilenberg and Steenrod axiomatized it all in 1952. Category-theoretic refinements from Grothendieck, Quillen, Lurie extend the story into derived and higher algebra — the algebraic topology of today.</p>
+</section>
+
+<script>
+/* =============================== SECTION 6: χ calculator =============================== */
+(function(){
+  const pick = $('#chi-pick'), out = $('#chi-out'), svg = $('#chi-svg');
+  const W=820, H=300;
+
+  // Each preset: {name, V, E, F, verdict, projection}: we also draw a small schematic.
+  // V,E,F as plain integer counts from a triangulation/CW-structure.
+  const SHAPES = {
+    tet:   {V:4, E:6, F:4, closed:true, orient:true, name:'tetrahedron'},
+    cube:  {V:8, E:12, F:6, closed:true, orient:true, name:'cube'},
+    oct:   {V:6, E:12, F:8, closed:true, orient:true, name:'octahedron'},
+    dodec: {V:20,E:30, F:12,closed:true, orient:true, name:'dodecahedron'},
+    icos:  {V:12,E:30, F:20,closed:true, orient:true, name:'icosahedron'},
+    torus: {V:7, E:21, F:14, closed:true, orient:true, name:'torus (Csaszar)'},
+    genus2:{V:1, E:4, F:1, closed:true, orient:true, name:'genus-2 surface (CW)', note:'1 zero-cell, 4 one-cells (a_1,b_1,a_2,b_2), 1 two-cell attached by [a_1,b_1][a_2,b_2].'},
+    mobius:{V:5, E:10, F:5, closed:false, orient:false, name:'Möbius band'},
+    klein: {V:8, E:24, F:16, closed:true, orient:false, name:'Klein bottle'},
+    rp2:   {V:6, E:15, F:10, closed:true, orient:false, name:'ℝP²'},
+  };
+
+  function compute(){
+    const k = pick.value;
+    const S = SHAPES[k];
+    const chi = S.V - S.E + S.F;
+    let verdict = '';
+    if(S.closed && S.orient){
+      // closed orientable surface: χ = 2 - 2g ⇒ g = (2-chi)/2, needs even
+      if(k==='tet'||k==='cube'||k==='oct'||k==='dodec'||k==='icos'){
+        verdict = `homeomorphic to S² (genus 0).  χ = 2.`;
+      } else {
+        const g = (2-chi)/2;
+        verdict = `closed oriented surface of genus g = ${g}.`;
+      }
+    } else if(S.closed && !S.orient){
+      // closed non-orientable surface: χ = 2 - k where k = number of crosscaps
+      const kcap = 2 - chi;
+      verdict = `closed non-orientable surface with ${kcap} crosscap${kcap===1?'':'s'}.`;
+    } else {
+      verdict = `surface with boundary.`;
+    }
+    let msg = `${S.name}\n  V = ${S.V},  E = ${S.E},  F = ${S.F}\n  χ = V − E + F = ${chi}\n  ${verdict}`;
+    if(S.note) msg += `\n  (${S.note})`;
+    out.textContent = msg;
+    drawShape(k,S,chi);
+  }
+
+  function drawShape(k,S,chi){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    // left half: schematic picture; right half: bar chart of V, E, F
+    const cxL=200, cyL=H/2;
+
+    if(k==='tet' || k==='cube' || k==='oct' || k==='dodec' || k==='icos'){
+      drawPolyhedron(k, cxL, cyL);
+    } else if(k==='torus' || k==='genus2' || k==='klein'){
+      drawTorus(k, cxL, cyL);
+    } else if(k==='mobius'){
+      drawMobius(cxL, cyL);
+    } else if(k==='rp2'){
+      drawRP2(cxL, cyL);
+    }
+    // right: V,E,F,χ bars
+    const baseX=450, baseY=240, barW=50, gap=32;
+    const mx = Math.max(S.V, S.E, S.F, Math.abs(chi), 1);
+    const mxScale = 180/mx;
+    const vals = [
+      {lab:'V', val:S.V, col:'var(--blue)'},
+      {lab:'E', val:S.E, col:'var(--yellow)'},
+      {lab:'F', val:S.F, col:'var(--pink)'},
+      {lab:'χ', val:chi, col:'var(--green)'},
+    ];
+    for(let i=0;i<vals.length;i++){
+      const v = vals[i];
+      const bx = baseX + i*(barW+gap);
+      const bh = v.val*mxScale;
+      const sign = bh<0?-1:1;
+      svg.appendChild(SVG('rect',{x:bx,y:Math.min(baseY,baseY-bh),width:barW,height:Math.abs(bh),fill:v.col,'fill-opacity':0.75}));
+      const lab = SVG('text',{x:bx+barW/2,y:baseY+20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+      lab.textContent=v.lab; svg.appendChild(lab);
+      const valT = SVG('text',{x:bx+barW/2,y:(bh<0?baseY-bh+16:baseY-bh-5),'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});
+      valT.textContent=v.val; svg.appendChild(valT);
+    }
+    // axis
+    svg.appendChild(SVG('line',{x1:baseX-10,y1:baseY,x2:baseX + vals.length*(barW+gap),y2:baseY,stroke:'var(--line)'}));
+  }
+
+  function drawPolyhedron(k,cx,cy){
+    // project each polyhedron onto 2D
+    const R=110;
+    let verts=[], edges=[];
+    if(k==='tet'){
+      verts=[[0,0,1],[1,1,-1],[1,-1,-1],[-1,0,-1]];
+      edges=[[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+    } else if(k==='cube'){
+      verts=[];
+      for(const x of [-1,1]) for(const y of [-1,1]) for(const z of [-1,1]) verts.push([x,y,z]);
+      edges=[];
+      for(let i=0;i<8;i++) for(let j=i+1;j<8;j++){
+        let d=0; for(let a=0;a<3;a++) if(verts[i][a]!==verts[j][a]) d++;
+        if(d===1) edges.push([i,j]);
+      }
+    } else if(k==='oct'){
+      verts=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+      edges=[];
+      for(let i=0;i<6;i++) for(let j=i+1;j<6;j++){
+        let match=0; for(let a=0;a<3;a++) if(verts[i][a]===-verts[j][a]&&verts[i][a]!==0) match++;
+        if(match===0){ // not opposite
+          let zeroAgree=0; for(let a=0;a<3;a++) if(verts[i][a]===0 && verts[j][a]===0) zeroAgree++;
+          if(zeroAgree===1) edges.push([i,j]);
+        }
+      }
+    } else if(k==='dodec' || k==='icos'){
+      // just draw a circle with count label
+      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':14,fill:'var(--mute)'});
+      t.textContent = k==='dodec'?'dodecahedron — 20V 30E 12F':'icosahedron — 12V 30E 20F';
+      svg.appendChild(t);
+      const c = SVG('circle',{cx,cy,r:80,fill:'none',stroke:'var(--blue)','stroke-dasharray':'4 4'});
+      svg.appendChild(c);
+      return;
+    }
+    // rotate slightly
+    const A=0.4, B=0.3;
+    function proj(v){
+      const [x,y,z]=v;
+      // rotate around Y by A, then around X by B
+      const x1 = x*Math.cos(A)+z*Math.sin(A);
+      const z1 = -x*Math.sin(A)+z*Math.cos(A);
+      const y1 = y*Math.cos(B)-z1*Math.sin(B);
+      return [cx + x1*R, cy - y1*R];
+    }
+    const P = verts.map(proj);
+    for(const [i,j] of edges){
+      svg.appendChild(SVG('line',{x1:P[i][0],y1:P[i][1],x2:P[j][0],y2:P[j][1],stroke:'var(--blue)','stroke-width':1.6,'stroke-opacity':0.85}));
+    }
+    for(const [x,y] of P){
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3,fill:'var(--ink)'}));
+    }
+  }
+
+  function drawTorus(k,cx,cy){
+    // draw a donut schematic
+    svg.appendChild(SVG('ellipse',{cx,cy,rx:110,ry:60,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));
+    svg.appendChild(SVG('ellipse',{cx,cy,rx:50,ry:18,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));
+    svg.appendChild(SVG('path',{d:`M ${cx-80} ${cy+8} Q ${cx} ${cy+30} ${cx+80} ${cy+8}`,fill:'none',stroke:'var(--blue)','stroke-width':1.3,'stroke-opacity':0.7}));
+    const t = SVG('text',{x:cx,y:cy+90,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t.textContent = k==='torus'?'T² : genus 1':'Σ₂ : genus 2 (schematic)';
+    if(k==='klein'){
+      t.textContent = 'Klein bottle (immersed in ℝ³)';
+    }
+    svg.appendChild(t);
+    if(k==='klein'){
+      // draw a bottle self-intersection hint
+      svg.appendChild(SVG('circle',{cx,cy,r:14,fill:'none',stroke:'var(--pink)','stroke-dasharray':'3 3'}));
+    }
+    if(k==='genus2'){
+      // add a second hole
+      svg.appendChild(SVG('ellipse',{cx:cx+35,cy,rx:14,ry:7,fill:'none',stroke:'var(--blue)'}));
+    }
+  }
+  function drawMobius(cx,cy){
+    // a twisted band
+    let d = 'M ';
+    const R=80, pts=[];
+    for(let t=0;t<=1.001;t+=0.02){
+      const u=-1 + 2*t;
+      const a = 2*Math.PI*u*0.5;
+      const wob = Math.sin(a);
+      const x = cx + R*Math.cos(2*Math.PI*t);
+      const y = cy + R*0.55*Math.sin(2*Math.PI*t) + 10*wob;
+      pts.push([x,y]);
+    }
+    let path='';
+    for(let i=0;i<pts.length;i++){ path += (i===0?'M':'L') + ' ' + pts[i][0].toFixed(1) + ' ' + pts[i][1].toFixed(1) + ' '; }
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:'var(--violet)','stroke-width':2}));
+    const t = SVG('text',{x:cx,y:cy+90,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t.textContent='Möbius band (non-orientable, boundary = S¹)';
+    svg.appendChild(t);
+  }
+  function drawRP2(cx,cy){
+    // cross-cap schematic: a disk with antipodal boundary identified
+    svg.appendChild(SVG('circle',{cx,cy,r:70,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // antipodal arrows on boundary
+    for(let i=0;i<8;i++){
+      const a = Math.PI*i/8;
+      const x1 = cx + 70*Math.cos(a), y1 = cy + 70*Math.sin(a);
+      const x2 = cx - 70*Math.cos(a), y2 = cy - 70*Math.sin(a);
+      svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--mute)','stroke-width':0.6,'stroke-opacity':0.5,'stroke-dasharray':'2 3'}));
+    }
+    const t = SVG('text',{x:cx,y:cy+90,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t.textContent='ℝP² = disk / antipodal identification on ∂';
+    svg.appendChild(t);
+  }
+
+  pick.addEventListener('change',compute);
+  compute();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

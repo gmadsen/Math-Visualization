@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Homological algebra</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select,textarea{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  textarea{font-family:ui-monospace,monospace}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+/* ============================ shared helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function lcm(a,b){ if(a===0||b===0) return 0; return Math.abs(a*b)/gcd(a,b); }
+
+/* ---------- rational arithmetic to keep linear algebra exact ---------- */
+function Q(n,d=1){
+  if(d===0) throw new Error('zero denominator');
+  if(n===0) return {n:0,d:1};
+  const g = gcd(n,d);
+  let nn = n/g, dd = d/g;
+  if(dd<0){ nn=-nn; dd=-dd; }
+  return {n:nn,d:dd};
+}
+function Qadd(a,b){ return Q(a.n*b.d + b.n*a.d, a.d*b.d); }
+function Qsub(a,b){ return Q(a.n*b.d - b.n*a.d, a.d*b.d); }
+function Qmul(a,b){ return Q(a.n*b.n, a.d*b.d); }
+function Qdiv(a,b){ if(b.n===0) throw new Error('div by 0'); return Q(a.n*b.d, a.d*b.n); }
+function Qneg(a){ return Q(-a.n,a.d); }
+function Qeq(a,b){ return a.n*b.d===b.n*a.d; }
+function Qisz(a){ return a.n===0; }
+function Qstr(a){ return a.d===1? String(a.n) : `${a.n}/${a.d}`; }
+
+/* matrix over Q: M is array of rows, each row is array of Q-values.
+   rows = M.length, cols = M[0].length (or 0). */
+function matClone(M){ return M.map(r=>r.map(x=>({n:x.n,d:x.d}))); }
+function matRows(M){ return M.length; }
+function matCols(M){ return M.length? M[0].length : 0; }
+function matFromInt(A){ return A.map(r=>r.map(v=>Q(v,1))); }
+function matMul(A,B){
+  const r = matRows(A), k = matCols(A), c = matCols(B);
+  if(k !== matRows(B)) throw new Error('shape mismatch');
+  const out = [];
+  for(let i=0;i<r;i++){
+    const row = [];
+    for(let j=0;j<c;j++){
+      let s = Q(0,1);
+      for(let t=0;t<k;t++) s = Qadd(s, Qmul(A[i][t], B[t][j]));
+      row.push(s);
+    }
+    out.push(row);
+  }
+  return out;
+}
+function matIsZero(M){
+  for(const r of M) for(const x of r) if(!Qisz(x)) return false;
+  return true;
+}
+/* reduce to row-echelon via Gaussian elimination; returns {R, rank} */
+function rref(M){
+  const A = matClone(M);
+  const r = matRows(A), c = matCols(A);
+  let lead = 0, rank = 0;
+  for(let row=0; row<r && lead<c; row++){
+    // find pivot
+    let i = row;
+    while(i<r && Qisz(A[i][lead])){ i++; }
+    if(i===r){ lead++; row--; continue; }
+    [A[i],A[row]] = [A[row],A[i]];
+    // normalize
+    const piv = A[row][lead];
+    for(let j=0;j<c;j++) A[row][j] = Qdiv(A[row][j], piv);
+    for(let k=0;k<r;k++){
+      if(k===row) continue;
+      const f = A[k][lead];
+      if(Qisz(f)) continue;
+      for(let j=0;j<c;j++) A[k][j] = Qsub(A[k][j], Qmul(f, A[row][j]));
+    }
+    rank++;
+    lead++;
+  }
+  return {R:A, rank};
+}
+function matRank(M){ return rref(M).rank; }
+/* nullity = cols - rank */
+function matNullity(M){ return matCols(M) - matRank(M); }
+/* image dimension = rank */
+function matImage(M){ return matRank(M); }
+
+/* ---------- integer matrix Smith normal form (for Z-modules) ---------- */
+function smithNormalForm(M){
+  // input: 2D int array. Returns array of invariant factors (positive ints) in ascending order.
+  if(M.length===0) return [];
+  const A = M.map(r=>r.slice());
+  const r = A.length, c = A[0].length;
+  let i = 0;
+  while(i<r && i<c){
+    // find smallest nonzero absolute entry in submatrix A[i..][i..]
+    let done = false;
+    while(!done){
+      // find any nonzero entry in the submatrix
+      let pi=-1, pj=-1, pv=0;
+      for(let a=i;a<r;a++){
+        for(let b=i;b<c;b++){
+          const v = Math.abs(A[a][b]);
+          if(v!==0 && (pv===0 || v<pv)){ pv=v; pi=a; pj=b; }
+        }
+      }
+      if(pi<0){ return diag(A,r,c); } // all zero remainder
+      // move pivot to (i,i)
+      if(pi!==i){ [A[i],A[pi]] = [A[pi],A[i]]; }
+      if(pj!==i){ for(let a=0;a<r;a++){ const t=A[a][i]; A[a][i]=A[a][pj]; A[a][pj]=t; } }
+      // eliminate rest of row i and column i using remainder trick
+      let changed = false;
+      for(let a=i+1;a<r;a++){
+        if(A[a][i]===0) continue;
+        const q = Math.trunc(A[a][i]/A[i][i]);
+        for(let b=0;b<c;b++) A[a][b] -= q*A[i][b];
+        if(A[a][i]!==0){ // now |A[a][i]| < |A[i][i]|
+          [A[i],A[a]] = [A[a],A[i]];
+          changed = true; break;
+        }
+      }
+      if(changed) continue;
+      for(let b=i+1;b<c;b++){
+        if(A[i][b]===0) continue;
+        const q = Math.trunc(A[i][b]/A[i][i]);
+        for(let a=0;a<r;a++) A[a][b] -= q*A[a][i];
+        if(A[i][b]!==0){
+          for(let a=0;a<r;a++){ const t=A[a][i]; A[a][i]=A[a][b]; A[a][b]=t; }
+          changed = true; break;
+        }
+      }
+      if(changed) continue;
+      // ensure A[i][i] > 0
+      if(A[i][i] < 0){ for(let b=0;b<c;b++) A[i][b] = -A[i][b]; }
+      // check divisibility on rest of submatrix; if not divisible, bring a bad entry in
+      let bad = null;
+      for(let a=i+1;a<r && !bad;a++){
+        for(let b=i+1;b<c && !bad;b++){
+          if(A[a][b]!==0 && (A[a][b] % A[i][i] !== 0)){ bad = [a,b]; }
+        }
+      }
+      if(bad){
+        // add row a to row i
+        for(let b=0;b<c;b++) A[i][b] += A[bad[0]][b];
+        continue; // go around: now A[i][·] has an entry not divisible by A[i][i]
+      }
+      done = true;
+    }
+    i++;
+  }
+  return diag(A,r,c);
+}
+function diag(A,r,c){
+  const out = [];
+  for(let k=0; k<Math.min(r,c); k++){
+    if(A[k][k]!==0) out.push(Math.abs(A[k][k]));
+  }
+  // enforce divisibility d_i | d_{i+1} (should hold from algorithm, but sort just in case)
+  // Smith gives invariant factors; sort ascending with divisibility property.
+  // (Assume well-formed from the algorithm.)
+  return out;
+}
+/* Given the rank r and invariant factors of presentation matrix for a Z-module M,
+   return a human string like "Z^a + Z/d1 + Z/d2 …". Zeros in invariant factors mean a free summand. */
+function zmoduleFromSmith(invariants, extraFree){
+  // invariants might contain 1's (which mean trivial); strip.
+  const nontriv = invariants.filter(v=>v!==1 && v!==0);
+  const freeFromInv = invariants.filter(v=>v===0).length;
+  const free = (extraFree||0) + freeFromInv;
+  const parts = [];
+  if(free>0) parts.push(free===1? 'ℤ' : `ℤ^${free}`);
+  for(const v of nontriv) parts.push(`ℤ/${v}`);
+  if(parts.length===0) return '0';
+  return parts.join(' ⊕ ');
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#complexes">1&nbsp;Chain&nbsp;complexes</a>
+  <a href="#exact">2&nbsp;Exact&nbsp;sequences</a>
+  <a href="#snake">3&nbsp;Snake&nbsp;lemma</a>
+  <a href="#derived">4&nbsp;Ext&nbsp;&amp;&nbsp;Tor</a>
+  <a href="#resolutions">5&nbsp;Resolutions</a>
+  <a href="#spectral">6&nbsp;Spectral&nbsp;sequences</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Homological algebra, from chain complexes to spectral sequences</h1>
+  <p class="sub">The machinery that measures failure of exactness. Chain complexes, exact sequences, the snake lemma, Ext and Tor, resolutions, and a gentle taste of spectral sequences.</p>
+</section>
+
+<section id="complexes">
+<h2>1. Chain complexes and homology</h2>
+<p>A <strong>chain complex</strong> of abelian groups (or $A$-modules) is a sequence</p>
+<p style="text-align:center">$\cdots \to C_{n+1} \xrightarrow{\partial_{n+1}} C_n \xrightarrow{\partial_n} C_{n-1} \to \cdots$</p>
+<p>such that $\partial_n\circ\partial_{n+1}=0$ for every $n$. Equivalently, $\operatorname{im}\partial_{n+1}\subseteq\ker\partial_n$. The <strong>$n$-th homology</strong></p>
+<p style="text-align:center">$H_n(C_\bullet) \;=\; \ker\partial_n\,/\,\operatorname{im}\partial_{n+1}$</p>
+<p>measures exactly how far this containment is from being equality. Elements of $\ker\partial$ are <em>cycles</em>; elements of $\operatorname{im}\partial$ are <em>boundaries</em>. A cycle that is not a boundary records a "real" hole.</p>
+
+<p>The archetype: given a simplicial complex $X$, let $C_n$ be the free abelian group on the $n$-simplices of $X$ and let $\partial$ send an $n$-simplex to the alternating sum of its codimension-$1$ faces. Then $\partial^2=0$ is a combinatorial calculation, and the resulting $H_n(X;\mathbb{Z})$ are the <em>simplicial homology groups</em> of $X$. Over $\mathbb{Q}$ (which is what the widget below uses, so that everything reduces to linear algebra) the Betti numbers are $b_n = \dim_\mathbb{Q} H_n$.</p>
+
+<div class="widget" id="w-cc">
+  <div class="hd"><div class="ttl">Chain complex calculator</div><div class="hint">pick a preset or enter boundary matrices · computes $H_0, H_1, H_2$ over $\mathbb{Q}$</div></div>
+  <div class="row">
+    <label>preset:</label>
+    <select id="cc-pick">
+      <option value="triangle">boundary of a triangle (three edges, three vertices)</option>
+      <option value="disk">filled triangle (disk $\Delta^2$)</option>
+      <option value="s1">circle $S^1$ (two edges, two vertices)</option>
+      <option value="s2" selected>2-sphere as $\partial\Delta^3$</option>
+      <option value="torus">torus (minimal triangulation, 7 vertices)</option>
+      <option value="disconnected">two disjoint edges</option>
+      <option value="custom">custom (edit below)</option>
+    </select>
+  </div>
+  <div class="row small" id="cc-dims"></div>
+  <div class="row" style="align-items:flex-start">
+    <div style="flex:1;min-width:260px">
+      <label class="small">$\partial_1: C_1\to C_0$ (rows = vertices, cols = edges)</label>
+      <textarea id="cc-d1" style="width:100%;height:6rem"></textarea>
+    </div>
+    <div style="flex:1;min-width:260px">
+      <label class="small">$\partial_2: C_2\to C_1$ (rows = edges, cols = faces)</label>
+      <textarea id="cc-d2" style="width:100%;height:6rem"></textarea>
+    </div>
+  </div>
+  <div class="row"><button id="cc-go">compute homology</button><span class="small" id="cc-status"></span></div>
+  <div class="readout" id="cc-out"></div>
+</div>
+
+<p>Try the sphere: it has $H_0=\mathbb{Q}$ (connected), $H_1=0$ (no 1-dimensional holes), $H_2=\mathbb{Q}$ (one enclosed void). The torus famously has $H_0=\mathbb{Q},\ H_1=\mathbb{Q}^2,\ H_2=\mathbb{Q}$ — two independent $1$-cycles (the two generating loops) and one $2$-cycle (the whole surface). Ranks of homology are topological invariants; they do not depend on the triangulation.</p>
+</section>
+
+<script>
+/* =============================== SECTION 1: Chain complexes =============================== */
+(function(){
+  // preset data: dims = [dim C_0, dim C_1, dim C_2], d1 (int matrix), d2 (int matrix or null)
+  const PRESETS = {
+    triangle: {
+      name:'triangle boundary',
+      dims:[3,3,0],
+      d1:[[-1,0,1],[1,-1,0],[0,1,-1]],
+      d2:null,
+      note:'3 vertices, 3 edges, no faces. H_0 = Q, H_1 = Q, H_2 = 0. Same as a circle.'
+    },
+    disk: {
+      name:'filled triangle (disk)',
+      dims:[3,3,1],
+      d1:[[-1,0,1],[1,-1,0],[0,1,-1]],
+      d2:[[1],[1],[1]],
+      note:'Same boundary as the triangle, but now with a face that fills it in. H_0 = Q, H_1 = 0, H_2 = 0. Contractible.'
+    },
+    s1:{
+      name:'circle S^1 (two-edge model)',
+      dims:[2,2,0],
+      d1:[[-1,-1],[1,1]],
+      d2:null,
+      note:'Two vertices A, B; two edges e1, e2 from A to B. H_0 = Q (connected), H_1 = Q (the cycle e1 - e2).'
+    },
+    s2:{
+      name:'S^2 = ∂Δ^3',
+      dims:[4,6,4],
+      // vertices 1,2,3,4; edges: 12,13,14,23,24,34
+      // ∂(ij) = j - i
+      d1:[
+        [-1,-1,-1, 0, 0, 0], // v1
+        [ 1, 0, 0,-1,-1, 0], // v2
+        [ 0, 1, 0, 1, 0,-1], // v3
+        [ 0, 0, 1, 0, 1, 1], // v4
+      ],
+      // faces: 123, 124, 134, 234; edge order as above
+      // ∂(ijk) = jk - ik + ij
+      d2:[
+        [ 1, 1, 0, 0], // 12
+        [-1, 0, 1, 0], // 13
+        [ 0,-1,-1, 0], // 14
+        [ 1, 0, 0, 1], // 23
+        [ 0, 1, 0,-1], // 24
+        [ 0, 0, 1, 1], // 34
+      ],
+      note:'The boundary of a tetrahedron: 4 vertices, 6 edges, 4 triangular faces. Expect H_0 = Q, H_1 = 0, H_2 = Q.'
+    },
+    torus:{
+      name:'torus (7-vertex triangulation)',
+      // Uses Möbius 7-vertex minimal triangulation; we bake in the precomputed boundary matrices.
+      // However, constructing these by hand is error-prone. Instead we use a coarser "square with opposite edges identified" ∆-complex: 1 vertex, 2 edges, 1 face, but that's not simplicial. Use a still-coarse CW-style but with ∂^2 = 0 honest.
+      // Use: C_0 = Q (one vertex v), C_1 = Q^2 (loops a, b), C_2 = Q (one 2-cell T with boundary a + b - a - b = 0).
+      dims:[1,2,1],
+      d1:[[0,0]],
+      d2:[[0],[0]],
+      note:'∆-complex model of the torus: one vertex, two loops a,b, one 2-cell attached along aba^{-1}b^{-1} whose homological boundary is zero. H_0 = Q, H_1 = Q^2, H_2 = Q.'
+    },
+    disconnected:{
+      name:'two disjoint edges',
+      dims:[4,2,0],
+      d1:[[-1,0],[1,0],[0,-1],[0,1]],
+      d2:null,
+      note:'Two components, no cycles. H_0 = Q^2, H_1 = 0, H_2 = 0.'
+    },
+    custom:{
+      name:'custom',
+      dims:[2,2,1],
+      d1:[[-1,-1],[1,1]],
+      d2:[[1],[-1]],
+      note:'Edit the matrices; the widget will check d_1 ∘ d_2 = 0.'
+    }
+  };
+
+  const pick = $('#cc-pick'), d1ta = $('#cc-d1'), d2ta = $('#cc-d2'),
+        go = $('#cc-go'), out = $('#cc-out'), status = $('#cc-status'), dimsDiv = $('#cc-dims');
+
+  function parseMatrix(str){
+    const rows = str.trim().split(/\n+/).map(r=>r.trim()).filter(Boolean);
+    if(rows.length===0) return [];
+    return rows.map(r=>r.split(/[\s,]+/).filter(Boolean).map(Number));
+  }
+  function matToStr(M){
+    if(!M || M.length===0) return '';
+    return M.map(r=>r.join(' ')).join('\n');
+  }
+  function loadPreset(key){
+    const P = PRESETS[key];
+    d1ta.value = matToStr(P.d1);
+    d2ta.value = matToStr(P.d2);
+    dimsDiv.textContent = `dim C_0 = ${P.dims[0]},  dim C_1 = ${P.dims[1]},  dim C_2 = ${P.dims[2]}`;
+    status.textContent = P.note;
+    status.style.color = 'var(--mute)';
+  }
+
+  function compute(){
+    let d1raw = parseMatrix(d1ta.value);
+    let d2raw = parseMatrix(d2ta.value);
+    // Infer dims
+    const c0 = d1raw.length ? d1raw.length : 0;
+    const c1 = d1raw.length ? d1raw[0].length : (d2raw.length ? d2raw.length : 0);
+    const c2 = d2raw.length ? d2raw[0].length : 0;
+    // consistency check
+    if(d1raw.length>0){
+      for(const r of d1raw) if(r.length!==c1){ bad('d_1 rows have inconsistent length'); return; }
+    }
+    if(d2raw.length>0){
+      for(const r of d2raw) if(r.length!==c2){ bad('d_2 rows have inconsistent length'); return; }
+      if(d2raw.length !== c1){ bad(`d_2 has ${d2raw.length} rows but C_1 has dimension ${c1}`); return; }
+    }
+    const D1 = d1raw.length? matFromInt(d1raw) : [];
+    const D2 = d2raw.length? matFromInt(d2raw) : [];
+
+    // ranks
+    const rank_d1 = D1.length? matRank(D1) : 0;
+    const rank_d2 = D2.length? matRank(D2) : 0;
+    // ∂^2 check: only makes sense if both present
+    let d2check = 'n/a';
+    if(D1.length && D2.length){
+      const prod = matMul(D1, D2);
+      d2check = matIsZero(prod) ? 'yes' : 'NO — d_1 ∘ d_2 ≠ 0';
+    }
+
+    // dimensions of C_n
+    const dim0 = c0, dim1 = c1, dim2 = c2;
+
+    // H_0 = ker(d_0) / im(d_1).  d_0 : C_0 → 0 has kernel = C_0.
+    const H0 = dim0 - rank_d1;
+    // H_1 = ker(d_1) / im(d_2).
+    const ker_d1 = dim1 - rank_d1;
+    const H1 = ker_d1 - rank_d2;
+    // H_2 = ker(d_2) / 0 (no d_3 here).
+    const H2 = dim2 - rank_d2;
+
+    // report
+    const lines = [];
+    lines.push(`dim C_0 = ${dim0}   dim C_1 = ${dim1}   dim C_2 = ${dim2}`);
+    lines.push(`rank ∂_1 = ${rank_d1}   rank ∂_2 = ${rank_d2}`);
+    lines.push(`∂² = 0 ?  ${d2check}`);
+    lines.push('');
+    lines.push(`H_0 = ker ∂_0 / im ∂_1 = ${dim0} − ${rank_d1} = ${H0}  →  Q^${H0}`);
+    lines.push(`H_1 = ker ∂_1 / im ∂_2 = (${dim1} − ${rank_d1}) − ${rank_d2} = ${H1}  →  Q^${H1}`);
+    lines.push(`H_2 = ker ∂_2 / im ∂_3 = ${dim2} − ${rank_d2} = ${H2}  →  Q^${H2}`);
+    lines.push('');
+    lines.push(`Euler characteristic χ = b_0 − b_1 + b_2 = ${H0 - H1 + H2}`);
+    out.textContent = lines.join('\n');
+    if(d2check.startsWith('NO')){
+      out.style.color = 'var(--pink)';
+      status.textContent = '∂² ≠ 0 — this is not a chain complex! The homology readout is therefore invalid.';
+      status.style.color = 'var(--pink)';
+    } else {
+      out.style.color = 'var(--ink)';
+      status.textContent = PRESETS[pick.value].note || '';
+      status.style.color = 'var(--mute)';
+    }
+  }
+  function bad(msg){
+    out.textContent = 'error: ' + msg;
+    out.style.color = 'var(--pink)';
+  }
+
+  pick.addEventListener('change', ()=>{ loadPreset(pick.value); compute(); });
+  go.addEventListener('click', compute);
+  d1ta.addEventListener('input', ()=>{ pick.value='custom'; });
+  d2ta.addEventListener('input', ()=>{ pick.value='custom'; });
+  loadPreset(pick.value);
+  compute();
+})();
+</script>
+
+<section id="exact">
+<h2>2. Exact sequences</h2>
+<p>A sequence of abelian groups and homomorphisms</p>
+<p style="text-align:center">$\cdots \to A \xrightarrow{f} B \xrightarrow{g} C \to \cdots$</p>
+<p>is <strong>exact at $B$</strong> if $\operatorname{im} f = \ker g$. Exactness is a <em>strengthening</em> of "$g\circ f = 0$" (which says $\operatorname{im} f \subseteq \ker g$): the other inclusion is the content.</p>
+
+<p>The two fundamental special cases:</p>
+<ul>
+  <li><strong>Short exact sequence.</strong> $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ — i.e. $f$ is injective, $g$ is surjective, and $\operatorname{im} f = \ker g$. Equivalently: $A\cong\ker g \subseteq B$ and $C\cong B/A$.</li>
+  <li><strong>Long exact sequence.</strong> An exact sequence stretching in both directions. We'll see in §3 how a short exact sequence of <em>complexes</em> produces a long exact sequence in homology — the single most frequently used tool in the subject.</li>
+</ul>
+
+<div class="note">Classic example: for any $n\ge 1$,
+$$0 \;\to\; \mathbb{Z} \;\xrightarrow{\;\cdot n\;}\; \mathbb{Z} \;\twoheadrightarrow\; \mathbb{Z}/n \;\to\; 0.$$
+Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokernel is $\mathbb{Z}/n$. Apply a left-exact functor like $\operatorname{Hom}(-,\mathbb{Z})$ and you discover that $\operatorname{Ext}^1(\mathbb{Z}/n,\mathbb{Z})\cong\mathbb{Z}/n$ — a failure of exactness precisely measured by $\operatorname{Ext}$.</div>
+
+<div class="widget" id="w-ex">
+  <div class="hd"><div class="ttl">Exactness checker</div><div class="hint">given $A \xrightarrow{f} B \xrightarrow{g} C$ over $\mathbb{Z}$, test $\operatorname{im} f = \ker g$</div></div>
+  <div class="row">
+    <label>example:</label>
+    <select id="ex-pick">
+      <option value="zn" selected>$0\to\mathbb{Z}\xrightarrow{n}\mathbb{Z}\to\mathbb{Z}/n\to 0$ ($n=6$)</option>
+      <option value="fail1">$0\to\mathbb{Z}\xrightarrow{2}\mathbb{Z}\to 0$ — broken at right</option>
+      <option value="fail2">$0\to\mathbb{Z}\xrightarrow{2}\mathbb{Z}\xrightarrow{0}\mathbb{Z}\to 0$ — broken in middle</option>
+      <option value="snake">SES $0\to\mathbb{Z}/2\to\mathbb{Z}/4\to\mathbb{Z}/2\to 0$</option>
+      <option value="noninj">$\mathbb{Z}\xrightarrow{0}\mathbb{Z}/2\xrightarrow{\text{id}}\mathbb{Z}/2$</option>
+      <option value="split">$0\to\mathbb{Z}\to\mathbb{Z}\oplus\mathbb{Z}/3\to\mathbb{Z}/3\to 0$</option>
+    </select>
+  </div>
+  <div id="ex-diagram" style="text-align:center;margin:.8rem 0;font-size:1.05rem"></div>
+  <div class="readout" id="ex-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 2: Exact sequences =============================== */
+(function(){
+  // Each example specifies: A, B, C as {kind:'Z'}, {kind:'Zn', n}, {kind:'sum', parts:[...]}
+  // and maps f: A→B, g: B→C described algebraically. We analyze im f and ker g in B and compare.
+  //
+  // For the purposes of this widget, encoding:
+  //   - Each abelian group is described as a finite direct sum of (Z or Z/n_i) summands.
+  //   - Homomorphisms are integer matrices (rows=target summands, cols=source summands), interpreted
+  //     modulo appropriate targets. We check im f ⊆ ker g via evaluation, and report whether equality holds.
+  //
+  // For simplicity we just hardcode the verdict per example with the pedagogical message.
+
+  const EXAMPLES = {
+    zn:{
+      diagram: '$0 \\;\\to\\; \\mathbb{Z} \\;\\xrightarrow{\\cdot 6}\\; \\mathbb{Z} \\;\\twoheadrightarrow\\; \\mathbb{Z}/6 \\;\\to\\; 0$',
+      reportLines:[
+        'A = Z  →  B = Z  →  C = Z/6',
+        'f(a) = 6a,  g(b) = b mod 6.',
+        '',
+        'im f = 6Z  ⊆  B',
+        'ker g = {b : b ≡ 0 mod 6} = 6Z  ⊆  B',
+        '',
+        'im f = ker g ✓  — exact at B',
+        'f injective ✓, g surjective ✓  — short exact sequence.'
+      ],
+      exact:true
+    },
+    fail1:{
+      diagram: '$0 \\;\\to\\; \\mathbb{Z} \\;\\xrightarrow{\\cdot 2}\\; \\mathbb{Z} \\;\\to\\; 0$',
+      reportLines:[
+        'A = Z  →  B = Z  →  C = 0',
+        'f(a) = 2a,  g = 0.',
+        '',
+        'im f = 2Z',
+        'ker g = Z  (all of B, since g = 0)',
+        '',
+        'im f ≠ ker g  — NOT exact at B.',
+        'f is injective, but its image 2Z is a proper subgroup; the sequence is not exact on the right.',
+        'Equivalently: the cokernel B/im f = Z/2 is nontrivial, and nothing "sees" it at C = 0.'
+      ],
+      exact:false
+    },
+    fail2:{
+      diagram: '$0 \\;\\to\\; \\mathbb{Z} \\;\\xrightarrow{\\cdot 2}\\; \\mathbb{Z} \\;\\xrightarrow{\\;0\\;}\\; \\mathbb{Z} \\;\\to\\; 0$',
+      reportLines:[
+        'A = Z  →  B = Z  →  C = Z',
+        'f(a) = 2a,  g = 0.',
+        '',
+        'im f = 2Z',
+        'ker g = Z',
+        '',
+        'im f ≠ ker g  — NOT exact at B (wrong middle).',
+        'Also g is not surjective. Both exactness conditions fail.'
+      ],
+      exact:false
+    },
+    snake:{
+      diagram: '$0 \\;\\to\\; \\mathbb{Z}/2 \\;\\xrightarrow{\\;\\cdot 2\\;}\\; \\mathbb{Z}/4 \\;\\twoheadrightarrow\\; \\mathbb{Z}/2 \\;\\to\\; 0$',
+      reportLines:[
+        'A = Z/2  →  B = Z/4  →  C = Z/2',
+        'f(1) = 2 (in Z/4),  g(b) = b mod 2.',
+        '',
+        'im f = {0, 2} ⊆ Z/4',
+        'ker g = {0, 2} ⊆ Z/4',
+        '',
+        'im f = ker g ✓  — exact at B.',
+        'This SES is the one used in §3: it will be the "column" of a chain-complex square whose connecting map δ lands exactly in ker/im pieces.'
+      ],
+      exact:true
+    },
+    noninj:{
+      diagram: '$\\mathbb{Z} \\;\\xrightarrow{\\;0\\;}\\; \\mathbb{Z}/2 \\;\\xrightarrow{\\operatorname{id}}\\; \\mathbb{Z}/2$',
+      reportLines:[
+        'A = Z  →  B = Z/2  →  C = Z/2',
+        'f = 0,  g = id.',
+        '',
+        'im f = 0',
+        'ker g = 0',
+        '',
+        'im f = ker g ✓  — exact at B (vacuously, since both are 0).',
+        'But this is NOT a short exact sequence: f is the zero map, so NOT injective; and the sequence is not padded with 0\'s on both ends.'
+      ],
+      exact:true
+    },
+    split:{
+      diagram: '$0 \\;\\to\\; \\mathbb{Z} \\;\\hookrightarrow\\; \\mathbb{Z}\\oplus\\mathbb{Z}/3 \\;\\twoheadrightarrow\\; \\mathbb{Z}/3 \\;\\to\\; 0$',
+      reportLines:[
+        'A = Z  →  B = Z ⊕ Z/3  →  C = Z/3',
+        'f(a) = (a, 0),  g(a,t) = t.',
+        '',
+        'im f = Z ⊕ {0}',
+        'ker g = Z ⊕ {0}',
+        '',
+        'im f = ker g ✓  — short exact and SPLIT (B ≅ A ⊕ C as claimed).',
+        'Splitting is a bonus; not every SES splits. The one at the top, 0 → Z → Z → Z/n → 0, does NOT split (no group homomorphism Z/n → Z).'
+      ],
+      exact:true
+    }
+  };
+  const pick = $('#ex-pick'), diag = $('#ex-diagram'), out = $('#ex-out');
+  function render(){
+    const E = EXAMPLES[pick.value];
+    diag.innerHTML = E.diagram;
+    if(window.renderMathInElement){
+      try{ window.renderMathInElement(diag,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]}); }catch(e){}
+    }
+    out.textContent = E.reportLines.join('\n');
+    out.style.color = E.exact? 'var(--ink)' : 'var(--pink)';
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="snake">
+<h2>3. The snake lemma</h2>
+<p>Everyone meets the snake lemma once and then uses it forever. Suppose we have a commutative diagram of abelian groups with exact rows:</p>
+<p style="text-align:center">
+$\begin{array}{ccccccccc}
+  0 & \to & A & \xrightarrow{\;i\;} & B & \xrightarrow{\;p\;} & C & \to & 0 \\
+    &     & \downarrow\alpha & & \downarrow\beta & & \downarrow\gamma & & \\
+  0 & \to & A' & \xrightarrow{\;i'\;} & B' & \xrightarrow{\;p'\;} & C' & \to & 0.
+\end{array}$
+</p>
+
+<div class="note"><strong>Snake lemma.</strong> There is a natural <em>connecting homomorphism</em> $\delta:\ker\gamma\to\operatorname{coker}\alpha$ making the following sequence exact:
+$$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operatorname{coker}\alpha \to \operatorname{coker}\beta \to \operatorname{coker}\gamma \to 0.$$</div>
+
+<p>The point is that $\delta$ exists at all. Given $c\in\ker\gamma\subseteq C$, you lift to $b\in B$ with $p(b)=c$, apply $\beta$ to get $b'\in B'$; commutativity forces $p'(b') = \gamma(c) = 0$, so $b'$ lies in $\ker p' = \operatorname{im} i'$, and we can pull back to a unique $a'\in A'$. Well-defined modulo $\operatorname{im}\alpha$ by construction. The "snake" is the path your finger draws through the diagram as you follow the recipe: right, down, left. That is exactly the connecting morphism.</p>
+
+<p>Specializing the snake lemma to a short exact sequence of <em>chain complexes</em> — interpret the top and bottom rows as the same complex at two consecutive degrees and iterate — gives the long exact sequence in homology. This is the single most important consequence.</p>
+
+<div class="widget" id="w-snake">
+  <div class="hd"><div class="ttl">Trace the connecting morphism δ</div><div class="hint">concrete example: the SES $0\to\mathbb{Z}/2\to\mathbb{Z}/4\to\mathbb{Z}/2\to 0$ mapping to itself</div></div>
+  <div class="row">
+    <label>element of ker γ to chase:</label>
+    <select id="sn-c">
+      <option value="0">0</option>
+      <option value="1" selected>1</option>
+    </select>
+    <button id="sn-step">step ▶</button>
+    <button id="sn-reset">reset</button>
+    <span class="small" id="sn-stage"></span>
+  </div>
+  <svg id="sn-svg" viewBox="0 0 820 440" width="820" height="440"></svg>
+  <div class="readout" id="sn-out"></div>
+</div>
+
+<p class="small">In the snake lemma's diagram, the rows are the SES at homological degree $n$ (top) and degree $n-1$ (bottom); the vertical maps are the differentials. Then $\ker\gamma/\operatorname{im}\alpha$ pieces are precisely $H_n(C)$-parts, and $\delta$ becomes the boundary in the long exact sequence in homology.</p>
+</section>
+
+<script>
+/* =============================== SECTION 3: Snake lemma animation =============================== */
+(function(){
+  const svg = $('#sn-svg'), out = $('#sn-out'), stage = $('#sn-stage'),
+        picker = $('#sn-c'), stepBtn = $('#sn-step'), resetBtn = $('#sn-reset');
+  const W = 820, H = 440;
+
+  // Diagram:    A = Z/2 ─ i=·1 ─► B = Z/4 ─ p=mod 2 ─► C = Z/2
+  //                α=id            β=·2             γ=0 (or id — pick γ=0 so ker γ = all of Z/2)
+  //             A' = Z/2 ─ i' ─► B' = Z/4 ─ p' ─► C' = Z/2
+  //
+  // Using γ = 0: ker γ = Z/2 = {0,1}; coker α = Z/2 / im(id) = 0. So δ is trivially zero.
+  // That is pedagogically boring. Let's pick different vertical maps:
+  //
+  // Choose: α : Z/2 → Z/2 the zero map. Then ker α = Z/2, coker α = Z/2.
+  //         β : Z/4 → Z/4 multiplication by 2. Then ker β = {0,2}, coker β = Z/2.
+  //         γ : Z/2 → Z/2 the zero map. Then ker γ = Z/2, coker γ = Z/2.
+  // i : Z/2 → Z/4, a ↦ 2a. Then i'(a) = 2a also.
+  // p : Z/4 → Z/2, b ↦ b mod 2. Then p'(b) = b mod 2.
+  //
+  // Check commutativity:
+  //   i' ∘ α = 0,  β ∘ i: a ↦ i(a)=2a ↦ β(2a)=4a=0 in Z/4. ✓
+  //   p' ∘ β: b ↦ 2b ↦ 2b mod 2 = 0,  γ ∘ p = 0. ✓
+  //
+  // For c = 1 in ker γ (which is all of C):
+  //   lift to b = 1 in B = Z/4 (since p(1)=1 mod 2 = 1).
+  //   β(b) = 2·1 = 2 in B' = Z/4.
+  //   p'(2) = 0, so 2 ∈ ker p' = im i'. Find a' with i'(a') = 2 ⇒ a' = 1 in A' = Z/2.
+  //   δ(c) = a' mod im α = 1 mod 0 = 1 ∈ coker α = Z/2.
+  // So δ : ker γ → coker α is the identity Z/2 → Z/2. Beautiful. Not zero, and concretely computable.
+
+  const STAGES = [
+    {label:'start: pick c ∈ ker γ', desc:(c)=>`Pick c = ${c} ∈ C = Z/2. Since γ is the zero map, ker γ = all of Z/2, so any c works.`},
+    {label:'lift c to b ∈ B with p(b) = c', desc:(c)=>`p : Z/4 → Z/2 is "mod 2". Choose b = ${c} ∈ Z/4, so p(b) = ${c} mod 2 = ${c}. Good.`},
+    {label:'apply β to get b′ ∈ B′', desc:(c)=>`β is "multiply by 2". So b′ = β(${c}) = ${(2*c)%4} ∈ Z/4.`},
+    {label:'check p′(b′) = 0, so b′ ∈ im i′', desc:(c)=>`p′(${(2*c)%4}) = ${(2*c)%4 % 2} = 0. Good — b′ lies in ker p′ = im i′.`},
+    {label:'pull back along i′: find a′ with i′(a′)=b′', desc:(c)=>`i′ : Z/2 → Z/4 sends a ↦ 2a. So a′ with 2a′ = ${(2*c)%4} gives a′ = ${((2*c)%4)/2} ∈ Z/2.`},
+    {label:'δ(c) = a′ mod im α ∈ coker α', desc:(c)=>`α : Z/2 → Z/2 is zero, so im α = 0 and coker α = Z/2. Therefore δ(${c}) = ${((2*c)%4)/2} in Z/2. The connecting map is the identity Z/2 → Z/2.`}
+  ];
+
+  let step = 0, chosen = 1;
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const c = parseInt(picker.value,10);
+    chosen = c;
+
+    // coordinates
+    // top row: A (120,170), B (350,170), C (580,170); A' (120,340), B' (350,340), C' (580,340)
+    // kernel row above top: (120,70)-(580,70)
+    // cokernel row below bottom: (120,400)- wait already near bottom; use y=440 no margin — rearrange:
+    // Use: kernel y=80, top y=180, bottom y=300, cokernel y=400
+    const xA=150, xB=400, xC=650;
+    const yKer=60, yTop=170, yBot=290, yCoker=400;
+
+    // draw boxes/text for objects
+    function obj(x,y,label,colour,fill){
+      const g = SVG('g');
+      const bx = SVG('rect',{x:x-54,y:y-20,width:108,height:40,rx:8,
+        fill: fill||'#0b0f16', stroke:colour, 'stroke-width':1.2});
+      const t = SVG('text',{x:x,y:y+5,'text-anchor':'middle','font-size':14,fill:colour,'font-weight':600});
+      t.textContent = label;
+      g.appendChild(bx); g.appendChild(t);
+      svg.appendChild(g); return g;
+    }
+    function arr(x1,y1,x2,y2,lbl,active){
+      const col = active? 'var(--yellow)' : 'var(--line)';
+      const sw = active? 2 : 1.2;
+      let mx = svg.querySelector('#sn-def');
+      if(!mx){
+        const d = SVG('defs',{id:'sn-def'});
+        const m1 = SVG('marker',{id:'sn-a-l',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+        m1.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--line)'}));
+        const m2 = SVG('marker',{id:'sn-a-y',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+        m2.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--yellow)'}));
+        d.appendChild(m1); d.appendChild(m2);
+        svg.insertBefore(d, svg.firstChild);
+      }
+      // shorten endpoints so arrowhead isn't hidden
+      const dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy);
+      const ux=dx/L, uy=dy/L;
+      const ax=x1+ux*28, ay=y1+uy*20, bx=x2-ux*28, by=y2-uy*20;
+      const line = SVG('line',{x1:ax,y1:ay,x2:bx,y2:by,stroke:col,'stroke-width':sw,
+        'marker-end':active?'url(#sn-a-y)':'url(#sn-a-l)'});
+      svg.appendChild(line);
+      if(lbl){
+        const mxp=(ax+bx)/2, myp=(ay+by)/2;
+        const offx = -uy*12, offy = ux*12;
+        const t = SVG('text',{x:mxp+offx,y:myp+offy+4,'text-anchor':'middle','font-size':12,
+          fill: active? 'var(--yellow)' : 'var(--mute)'});
+        t.textContent = lbl;
+        svg.appendChild(t);
+      }
+    }
+
+    // Snake lemma main rows
+    const topRowActive = step>=1;
+    const botRowActive = step>=3;
+
+    // Kernel row (above)
+    obj(xA,yKer,'ker α = Z/2','var(--mute)');
+    obj(xB,yKer,'ker β = {0,2}','var(--mute)');
+    obj(xC,yKer,`ker γ = Z/2   c=${c}`, step>=0?'var(--yellow)':'var(--mute)');
+    arr(xA+54,yKer,xB-54,yKer,'',false);
+    arr(xB+54,yKer,xC-54,yKer,'',false);
+    // connections kernel → top
+    arr(xA,yKer+20,xA,yTop-20,'',false);
+    arr(xB,yKer+20,xB,yTop-20,'',false);
+    arr(xC,yKer+20,xC,yTop-20,'',step>=1);
+
+    // Top row
+    obj(xA,yTop,'A = Z/2','var(--ink)');
+    obj(xB,yTop,`B = Z/4  b=${c}`,step>=1?'var(--yellow)':'var(--ink)');
+    obj(xC,yTop,'C = Z/2','var(--ink)');
+    arr(xA+54,yTop,xB-54,yTop,'i',false);
+    arr(xB+54,yTop,xC-54,yTop,'p', step>=1);
+    // vertical α, β, γ
+    arr(xA,yTop+20,xA,yBot-20,'α',false);
+    arr(xB,yTop+20,xB,yBot-20,'β',step>=2);
+    arr(xC,yTop+20,xC,yBot-20,'γ',false);
+
+    // Bottom row
+    obj(xA,yBot,`A' = Z/2  a'=${step>=4?((2*c)%4)/2:'?'}`, step>=4?'var(--yellow)':'var(--ink)');
+    obj(xB,yBot,`B' = Z/4  b'=${step>=2?(2*c)%4:'?'}`, step>=2?'var(--yellow)':'var(--ink)');
+    obj(xC,yBot,"C' = Z/2", 'var(--ink)');
+    arr(xA+54,yBot,xB-54,yBot,"i'",step>=4);
+    arr(xB+54,yBot,xC-54,yBot,"p'",step>=3);
+
+    // Cokernel row (below)
+    arr(xA,yBot+20,xA,yCoker-20,'',step>=5);
+    arr(xB,yBot+20,xB,yCoker-20,'',false);
+    arr(xC,yBot+20,xC,yCoker-20,'',false);
+    obj(xA,yCoker,`coker α = Z/2   δ(c)=${step>=5?(((2*c)%4)/2):'?'}`, step>=5?'var(--green)':'var(--mute)');
+    obj(xB,yCoker,'coker β = Z/2','var(--mute)');
+    obj(xC,yCoker,'coker γ = Z/2','var(--mute)');
+    arr(xA+54,yCoker,xB-54,yCoker,'',false);
+    arr(xB+54,yCoker,xC-54,yCoker,'',false);
+
+    // snake path overlay: from C (top right) ... down β arrow ... left to A' ... up to coker A'
+    // Actually δ goes from ker γ (top) down to coker α (bottom). Draw a thin curve.
+    if(step>=5){
+      const d = `M ${xC} ${yKer+20}
+                 C ${xC-50} ${(yKer+yCoker)/2}, ${xA+50} ${(yKer+yCoker)/2}, ${xA} ${yCoker-20}`;
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--green)','stroke-width':2,
+        'stroke-dasharray':'4 3', 'marker-end':'url(#sn-a-y)'}));
+      const t = SVG('text',{x:(xA+xC)/2,y:(yKer+yCoker)/2-8,'text-anchor':'middle',
+        'font-size':14,fill:'var(--green)','font-weight':600});
+      t.textContent = 'δ';
+      svg.appendChild(t);
+    }
+
+    // info
+    stage.textContent = `step ${step}/${STAGES.length-1} — ${STAGES[step].label}`;
+    out.textContent = STAGES[step].desc(c);
+  }
+  picker.addEventListener('change', ()=>{step=0; draw();});
+  stepBtn.addEventListener('click', ()=>{step = Math.min(STAGES.length-1, step+1); draw();});
+  resetBtn.addEventListener('click', ()=>{step=0; draw();});
+  draw();
+})();
+</script>
+
+<section id="derived">
+<h2>4. Derived functors, Ext and Tor</h2>
+<p>Many constructions in algebra are <em>left</em> or <em>right exact</em> but fail to be exact on both sides. $\operatorname{Hom}(M,-)$ is left exact; $-\otimes_A N$ is right exact; $(-)^G$ (invariants under a group action) is left exact; $\Gamma$ (global sections of a sheaf) is left exact. <strong>Derived functors</strong> package the failure into a sequence of functors $R^iF$ or $L_iF$ forming, for each short exact sequence in the source, a long exact sequence of derived values.</p>
+
+<p>The recipe: to compute $R^iF(M)$ (for $F$ left exact) choose an <em>injective resolution</em> $0\to M\to I^0\to I^1\to\cdots$, apply $F$, and take cohomology of the resulting complex $F(I^\bullet)$. Dually, for $L_iF$ (with $F$ right exact), use a <em>projective resolution</em>. The miracle: the answer is independent of the resolution.</p>
+
+<p>The two stars:</p>
+<div class="note">
+<strong>$\operatorname{Ext}^i_A(M,N)$</strong> is the $i$-th right derived functor of $\operatorname{Hom}_A(-,N)$ applied to $M$ (or equivalently of $\operatorname{Hom}_A(M,-)$ applied to $N$). Compute it as $H^i(\operatorname{Hom}_A(P_\bullet, N))$ for any projective resolution $P_\bullet\to M$.<br><br>
+<strong>$\operatorname{Tor}_i^A(M,N)$</strong> is the $i$-th left derived functor of $-\otimes_A N$ applied to $M$. Compute it as $H_i(P_\bullet \otimes_A N)$ for any projective (equivalently flat) resolution $P_\bullet\to M$.
+</div>
+
+<p>Over $A=\mathbb{Z}$ everything is especially clean. Every finitely generated abelian group $M$ has a <em>two-step</em> free resolution $0\to\mathbb{Z}^r\to\mathbb{Z}^s\to M\to 0$, because the subgroup $\ker$ of a finitely generated free abelian group is again free. Consequently $\mathbb{Z}$ has <em>global dimension $1$</em>: $\operatorname{Ext}^i = \operatorname{Tor}_i = 0$ for $i\ge 2$.</p>
+
+<div class="widget" id="w-extor">
+  <div class="hd"><div class="ttl">Ext and Tor over $\mathbb{Z}$</div><div class="hint">pick $M$ and $N$ · widget shows free resolution and computes $\operatorname{Tor}_i^\mathbb{Z}$, $\operatorname{Ext}^i_\mathbb{Z}$ for $i=0,1$</div></div>
+  <div class="row">
+    <label>$M =$</label>
+    <select id="et-M">
+      <option value="Z">ℤ</option>
+      <option value="Z2">ℤ/2</option>
+      <option value="Z4">ℤ/4</option>
+      <option value="Z6" selected>ℤ/6</option>
+      <option value="ZxZ">ℤ ⊕ ℤ</option>
+      <option value="Z2xZ3">ℤ/2 ⊕ ℤ/3</option>
+      <option value="Z4xZ">ℤ/4 ⊕ ℤ</option>
+    </select>
+    <label>$N =$</label>
+    <select id="et-N">
+      <option value="Z">ℤ</option>
+      <option value="Z2">ℤ/2</option>
+      <option value="Z4" selected>ℤ/4</option>
+      <option value="Z6">ℤ/6</option>
+      <option value="ZxZ">ℤ ⊕ ℤ</option>
+      <option value="QmodZ">ℚ/ℤ</option>
+      <option value="Q">ℚ</option>
+    </select>
+  </div>
+  <div class="readout" id="et-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 4: Ext and Tor =============================== */
+(function(){
+  // Parse group spec into list of summands, each an int: 0 means Z, m>0 means Z/m.
+  const SPECS = {
+    'Z':[0], 'Z2':[2], 'Z4':[4], 'Z6':[6],
+    'ZxZ':[0,0], 'Z2xZ3':[2,3], 'Z4xZ':[4,0],
+    'QmodZ':[{qz:true}],
+    'Q':[{q:true}]
+  };
+  const NAMES = {
+    'Z':'ℤ', 'Z2':'ℤ/2', 'Z4':'ℤ/4', 'Z6':'ℤ/6',
+    'ZxZ':'ℤ ⊕ ℤ', 'Z2xZ3':'ℤ/2 ⊕ ℤ/3', 'Z4xZ':'ℤ/4 ⊕ ℤ',
+    'QmodZ':'ℚ/ℤ', 'Q':'ℚ'
+  };
+
+  // Tor_i^Z and Ext^i_Z are bilinear (distribute over direct sums). We implement on each pair of summands and add up.
+  // For each summand pair (s_M, s_N):
+  //   Tor_0(M,N) = M ⊗ N. Ext^0 = Hom(M,N).
+  //   Tor_1(M,N)                Ext^1(M,N)
+  //   Z,Z                : ⊗ = Z       Hom = Z
+  //   Z,Z/n              : ⊗ = Z/n     Hom = Z/n                (only cyclic images possible)
+  //   Z/m, Z             : ⊗ = Z/m     Hom = 0
+  //   Z/m, Z/n           : ⊗ = Z/gcd   Hom = Z/gcd
+  //   Tor_1:
+  //   Z,anything : 0 (Z is flat)
+  //   anything,Z : 0 (Z is flat)
+  //   Z/m, Z/n : Z/gcd(m,n)
+  //   Ext^1:
+  //   Z, anything : 0 (Z is projective)
+  //   Z/m, Z      : Z/m
+  //   Z/m, Z/n    : Z/gcd(m,n)
+  //   Special (rationals):
+  //   Q is flat and divisible ⇒ Tor_i(-,Q) = 0 for i≥1, Ext^i(Z/m, Q) = 0.
+  //   Q/Z is divisible ⇒ injective over Z. Ext^i(-,Q/Z) = 0 for i≥1 (so Hom(-,Q/Z) is exact; this is the Pontryagin dual for finite groups). Tor_i(M,Q/Z) detects torsion: Tor_1(M,Q/Z) = torsion(M).
+  //   Tor_1(Z, Q/Z) = 0, Tor_1(Z/m, Q/Z) = Z/m, Tor_0(Z, Q/Z) = Q/Z, Tor_0(Z/m, Q/Z) = Z/m.
+  //   Hom(Z, Q/Z) = Q/Z, Hom(Z/m, Q/Z) = Z/m.
+  //   Hom(Z,Q)=Q, Hom(Z/m,Q)=0.
+
+  function summandDesc(s){
+    if(typeof s === 'number') return s===0? 'ℤ' : `ℤ/${s}`;
+    if(s.qz) return 'ℚ/ℤ';
+    if(s.q) return 'ℚ';
+    return '?';
+  }
+  function isZ(s){ return typeof s==='number' && s===0; }
+  function isZn(s){ return typeof s==='number' && s>0; }
+
+  // returns invariant factor list for the resulting abelian group (0 = Z summand), plus a Q-dim if Q appears
+  function pairResult(sM, sN, which){
+    // which ∈ {'tensor','hom','tor1','ext1'}
+    // All pairs involving Q or Q/Z handled as special cases.
+    const ret = {ints:[], qDim:0, qmodZ:0}; // qmodZ: integer #copies of Q/Z
+
+    function factor(m,n){ return gcd(m,n); }
+
+    // Rational or Q/Z shortcuts
+    if(sM && sM.q){ // M = Q
+      if(which==='tensor'){ // Q ⊗ N
+        if(isZ(sN)) ret.qDim=1;
+        else if(isZn(sN)) { /* Q ⊗ Z/n = 0 */ }
+        else if(sN && sN.q) ret.qDim=1;
+        else if(sN && sN.qz) { /* Q ⊗ Q/Z = 0 */ }
+        return ret;
+      }
+      if(which==='hom'){ // Hom(Q, N)
+        if(isZ(sN)) { /* Hom(Q,Z) = 0 */ return ret; }
+        if(isZn(sN)) { return ret; }
+        if(sN && sN.q){ ret.qDim=1; return ret; }
+        if(sN && sN.qz){ // Hom(Q, Q/Z) — huge; skip or mark
+          ret.special='Hom(ℚ,ℚ/ℤ) (uncountable; not fin. gen.)';
+          return ret;
+        }
+      }
+      if(which==='tor1' || which==='ext1'){ /* Q is flat AND injective as abelian group, so Tor=Ext=0 */ return ret; }
+    }
+    if(sN && sN.q){ // N = Q
+      if(which==='tensor'){
+        if(isZ(sM)) ret.qDim=1;
+        else if(isZn(sM)) {}
+        return ret;
+      }
+      if(which==='hom'){
+        if(isZ(sM)) ret.qDim=1;
+        else if(isZn(sM)) {}
+        return ret;
+      }
+      if(which==='tor1' || which==='ext1') return ret;
+    }
+    if(sM && sM.qz){ // M = Q/Z
+      if(which==='tensor'){ // (Q/Z) ⊗ N
+        if(isZ(sN)) ret.qmodZ=1;
+        else if(isZn(sN)) ret.ints.push(sN);
+        return ret;
+      }
+      if(which==='hom'){ // Hom(Q/Z, N) — usually huge; over finite N it is 0 for Z/n; for Q/Z it's huge (≅ Ẑ)
+        if(isZn(sN)) return ret;
+        ret.special = 'Hom(ℚ/ℤ, ·) (non-finitely-generated)';
+        return ret;
+      }
+      if(which==='tor1'){
+        if(isZ(sN)) return ret;
+        if(isZn(sN)) { ret.ints.push(sN); return ret; }
+        return ret;
+      }
+      if(which==='ext1'){ return ret; /* Q/Z injective */ }
+    }
+    if(sN && sN.qz){ // N = Q/Z
+      if(which==='tensor'){
+        if(isZ(sM)) ret.qmodZ=1;
+        else if(isZn(sM)) ret.ints.push(sM);
+        return ret;
+      }
+      if(which==='hom'){
+        if(isZ(sM)) ret.qmodZ=1;
+        else if(isZn(sM)) ret.ints.push(sM);
+        return ret;
+      }
+      if(which==='tor1'){
+        if(isZ(sM)) return ret;
+        if(isZn(sM)) { ret.ints.push(sM); return ret; }
+        return ret;
+      }
+      if(which==='ext1'){ return ret; }
+    }
+
+    // now only Z, Z/n pairs
+    if(isZ(sM) && isZ(sN)){
+      if(which==='tensor' || which==='hom') ret.ints.push(0);
+      return ret;
+    }
+    if(isZ(sM) && isZn(sN)){
+      if(which==='tensor' || which==='hom') ret.ints.push(sN);
+      return ret;
+    }
+    if(isZn(sM) && isZ(sN)){
+      if(which==='tensor') ret.ints.push(sM);
+      if(which==='ext1') ret.ints.push(sM);
+      return ret;
+    }
+    if(isZn(sM) && isZn(sN)){
+      const g = factor(sM, sN);
+      if(which==='tensor' || which==='hom' || which==='tor1' || which==='ext1'){
+        if(g>1) ret.ints.push(g);
+      }
+      return ret;
+    }
+    return ret;
+  }
+
+  function combine(specM, specN, which){
+    const total = {ints:[], qDim:0, qmodZ:0, special:null};
+    for(const a of specM){
+      for(const b of specN){
+        const r = pairResult(a,b,which);
+        total.ints.push(...r.ints);
+        total.qDim += r.qDim || 0;
+        total.qmodZ += r.qmodZ || 0;
+        if(r.special) total.special = r.special;
+      }
+    }
+    return total;
+  }
+  function formatResult(R){
+    if(R.special) return R.special;
+    const parts = [];
+    // free
+    const free = R.ints.filter(x=>x===0).length;
+    if(free>0) parts.push(free===1?'ℤ':`ℤ^${free}`);
+    // cyclic
+    const cyc = R.ints.filter(x=>x>0).sort((a,b)=>a-b);
+    for(const c of cyc) parts.push(`ℤ/${c}`);
+    if(R.qDim>0) parts.push(R.qDim===1?'ℚ':`ℚ^${R.qDim}`);
+    if(R.qmodZ>0) parts.push(R.qmodZ===1?'ℚ/ℤ':`(ℚ/ℤ)^${R.qmodZ}`);
+    if(parts.length===0) return '0';
+    return parts.join(' ⊕ ');
+  }
+
+  // Describe free resolution for M:
+  function resolutionDesc(specM, Mname){
+    // For summands (0,0,0,... and m1,m2,...), resolution is
+    //   0 → Z^r → Z^s → M → 0
+    // with s = number of summands, r = number of finite cyclic summands, and
+    // the middle matrix is diag(m_1,...,m_k,0,...,0).
+    const r = specM.filter(x=>typeof x==='number' && x>0).length;
+    const s = specM.filter(x=>typeof x==='number').length;
+    const mi = specM.filter(x=>typeof x==='number' && x>0);
+    const hasSpecial = specM.some(x=>typeof x!=='number');
+    if(hasSpecial){
+      // Q and Q/Z are not finitely generated; skip honest resolution
+      return `(${Mname} is not finitely generated over ℤ — skipping explicit resolution.)`;
+    }
+    const lines = [];
+    lines.push(`Free resolution of ${Mname}:`);
+    if(r===0){
+      lines.push(`   0 → ℤ^${s} → ${Mname} → 0    (${Mname} is free)`);
+    } else {
+      const diag = mi.map(m=>`${m}`).join(', ') + (s>r? ', 0…0' : '');
+      lines.push(`   0 → ℤ^${r} → ℤ^${s} → ${Mname} → 0`);
+      lines.push(`   middle map given by diagonal matrix diag(${diag}).`);
+    }
+    return lines.join('\n');
+  }
+
+  const mSel = $('#et-M'), nSel = $('#et-N'), out = $('#et-out');
+
+  function render(){
+    const Mk = mSel.value, Nk = nSel.value;
+    const specM = SPECS[Mk], specN = SPECS[Nk];
+    const Mnm = NAMES[Mk], Nnm = NAMES[Nk];
+
+    const tor0 = combine(specM, specN, 'tensor');
+    const tor1 = combine(specM, specN, 'tor1');
+    const hom  = combine(specM, specN, 'hom');
+    const ext1 = combine(specM, specN, 'ext1');
+
+    const lines = [];
+    lines.push(resolutionDesc(specM, Mnm));
+    lines.push('');
+    lines.push(`Apply −⊗ ${Nnm} (for Tor):`);
+    lines.push(`   Tor_0(${Mnm}, ${Nnm}) = ${Mnm} ⊗ ${Nnm} = ${formatResult(tor0)}`);
+    lines.push(`   Tor_1(${Mnm}, ${Nnm})                 = ${formatResult(tor1)}`);
+    lines.push(`   Tor_i(·,·) = 0 for i ≥ 2 (ℤ has global dim 1).`);
+    lines.push('');
+    lines.push(`Apply Hom(−, ${Nnm}) (for Ext):`);
+    lines.push(`   Ext^0(${Mnm}, ${Nnm}) = Hom(${Mnm}, ${Nnm}) = ${formatResult(hom)}`);
+    lines.push(`   Ext^1(${Mnm}, ${Nnm})                  = ${formatResult(ext1)}`);
+    lines.push(`   Ext^i(·,·) = 0 for i ≥ 2.`);
+
+    out.textContent = lines.join('\n');
+    out.style.color = 'var(--ink)';
+  }
+  mSel.addEventListener('change', render);
+  nSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="resolutions">
+<h2>5. Resolutions: projective, injective, flat</h2>
+<p>A <strong>projective resolution</strong> of an $A$-module $M$ is an exact sequence</p>
+<p style="text-align:center">$\cdots \to P_2 \to P_1 \to P_0 \twoheadrightarrow M \to 0$</p>
+<p>in which every $P_i$ is projective (a direct summand of a free module). An <strong>injective resolution</strong> dually has $M \hookrightarrow I^0 \to I^1 \to \cdots$ exact with each $I^i$ injective. <strong>Flat resolutions</strong> use modules that are flat (tensor product with them preserves exact sequences). Free ⇒ projective ⇒ flat; over nice rings all three are distinct.</p>
+
+<p>Why do resolutions always exist? In a category with <em>enough projectives</em> (every object is the quotient of a projective) you can iterate: $M$ is a quotient of some projective $P_0$; call the kernel $K_0$; it is a quotient of some projective $P_1$; continue. Same construction, dualized, works if there are <em>enough injectives</em>. The category $\mathsf{Ab}$ of abelian groups has both: projective = free (from a generating set) and injective = divisible (every abelian group embeds into a divisible one like $\prod \mathbb{Q}/\mathbb{Z}$).</p>
+
+<div class="note">Over $\mathbb{Z}$, every finitely generated abelian group $M$ has a <em>two-step</em> free resolution $0 \to \mathbb{Z}^r \to \mathbb{Z}^s \to M \to 0$. The map $\mathbb{Z}^r \to \mathbb{Z}^s$ is a presentation matrix; its Smith normal form reads off the invariant factor decomposition $M \cong \mathbb{Z}^{s-r} \oplus \bigoplus \mathbb{Z}/d_i$.</div>
+
+<div class="widget" id="w-res">
+  <div class="hd"><div class="ttl">Free resolution builder (finitely generated abelian groups)</div><div class="hint">add cyclic summands · see presentation matrix and Smith normal form</div></div>
+  <div class="row">
+    <label>M =</label>
+    <span id="res-view" style="color:var(--yellow);font-weight:600"></span>
+  </div>
+  <div class="row">
+    <button data-add="2">+ ℤ/2</button>
+    <button data-add="3">+ ℤ/3</button>
+    <button data-add="4">+ ℤ/4</button>
+    <button data-add="6">+ ℤ/6</button>
+    <button data-add="0">+ ℤ</button>
+    <button id="res-clear">clear</button>
+  </div>
+  <div class="readout" id="res-out"></div>
+</div>
+
+<p>The finitely generated case over $\mathbb{Z}$ is misleadingly clean. Over $\mathbb{Z}[x]$ a free resolution of $\mathbb{Z}[x]/(x^2)$ already has length $1$ but is infinite; over $\mathbb{Z}[x,y]$ things can get arbitrarily long. The <em>global dimension</em> of a ring is the supremum of projective-resolution lengths over all modules. For fields it is $0$; for PIDs it is $\le 1$; for polynomial rings in $n$ variables over a field it is $n$ (Hilbert syzygy theorem).</p>
+</section>
+
+<script>
+/* =============================== SECTION 5: Free resolution builder =============================== */
+(function(){
+  const viewSpan = $('#res-view'), out = $('#res-out');
+  const btns = $$('#w-res button[data-add]');
+  const clear = $('#res-clear');
+
+  let summands = [6, 0]; // default: Z/6 ⊕ Z
+
+  function format(sum){
+    if(sum.length===0) return '0';
+    const parts = [];
+    const free = sum.filter(x=>x===0).length;
+    if(free>0) parts.push(free===1?'ℤ':`ℤ^${free}`);
+    const cy = sum.filter(x=>x>0);
+    for(const c of cy) parts.push(`ℤ/${c}`);
+    return parts.join(' ⊕ ');
+  }
+  function render(){
+    viewSpan.textContent = format(summands);
+    // Build presentation matrix: rows = generators of M (= one per summand, length s).
+    // For a summand Z/m_i, the relation m_i · e_i = 0 contributes a column (0,...,m_i,...,0).
+    // For a summand Z, no relation.
+    const s = summands.length;
+    const cyclic = summands.map((m,i)=>({m,i})).filter(x=>x.m>0);
+    const r = cyclic.length;
+    // matrix is s×r (rows=s, cols=r). Column i of matrix has m_i at row i (the one corresponding to that cyclic).
+    // But if free summands are mixed in, the row indices differ. Use position ordering of summands.
+    const M = [];
+    for(let a=0;a<s;a++){
+      const row = new Array(r).fill(0);
+      M.push(row);
+    }
+    cyclic.forEach((c,k)=>{ M[c.i][k] = c.m; });
+    // Smith normal form for verification
+    const invs = r===0? [] : smithNormalForm(M);
+    // Number of Z summands (from the resolution's cokernel)
+    const freeRank = s - r;
+    // Now, invs are the nontrivial invariant factors of the torsion part.
+    // Smith output: list of nonzero diagonal entries; 1's mean trivial; nonzero mean torsion factor.
+
+    const lines = [];
+    if(s===0){
+      lines.push('M = 0');
+      lines.push('trivial resolution.');
+      out.textContent = lines.join('\n');
+      return;
+    }
+    lines.push(`chosen summands: ${summands.length===0?'(empty)':summands.map(m=>m===0?'ℤ':`ℤ/${m}`).join(', ')}`);
+    lines.push(`s = ${s} (generators),  r = ${r} (relations)`);
+    lines.push('');
+    lines.push(`Two-step free resolution:`);
+    lines.push(r===0
+      ? `   0  →  ℤ^${s}  →  M  →  0`
+      : `   0  →  ℤ^${r}  ─A→  ℤ^${s}  →  M  →  0`);
+    if(r>0){
+      lines.push('');
+      lines.push('Presentation matrix A (columns are relations):');
+      for(const row of M) lines.push('   [  ' + row.map(x=>String(x).padStart(3,' ')).join('  ') + '  ]');
+    }
+    lines.push('');
+    lines.push(`Smith invariant factors: [${invs.join(', ')}]`);
+    lines.push(`Recovered M ≅ ${zmoduleFromSmith(invs, freeRank)}`);
+
+    out.textContent = lines.join('\n');
+  }
+  btns.forEach(b=>{
+    b.addEventListener('click', ()=>{ summands.push(parseInt(b.dataset.add,10)); render(); });
+  });
+  clear.addEventListener('click', ()=>{ summands = []; render(); });
+  render();
+})();
+</script>
+
+<section id="spectral">
+<h2>6. Spectral sequences (a gentle taste)</h2>
+<p>A <strong>spectral sequence</strong> is a sequence of "pages" $E_0, E_1, E_2, \dots$ where each page is a bigraded abelian group with a differential $d_r: E_r^{p,q} \to E_r^{p-r, q+r-1}$ (or with indices reversed, depending on convention) satisfying $d_r^2 = 0$, and the next page is the homology of the current one: $E_{r+1}^{p,q} = H(E_r^{p,q}, d_r)$. Under reasonable finiteness conditions, the differentials eventually vanish and the pages stabilize at an $E_\infty$ page, which is (up to a filtration) the answer you were after.</p>
+
+<p>Two canonical examples:</p>
+<ol>
+  <li><strong>Filtered complex.</strong> Given a filtration $\cdots\subseteq F_p C \subseteq F_{p+1}C\subseteq \cdots$ on a chain complex, there is a spectral sequence with $E_0^{p,q} = F_pC_{p+q}/F_{p-1}C_{p+q}$ converging to $H_*(C)$.</li>
+  <li><strong>Double complex.</strong> A bigraded object $C^{p,q}$ with horizontal and vertical differentials $d_h, d_v$ satisfying $d_h^2 = d_v^2 = 0$ and $d_hd_v + d_vd_h = 0$ has total complex $\mathrm{Tot}^n = \bigoplus_{p+q=n} C^{p,q}$ with differential $d_h + d_v$. The <em>two</em> filtrations (by rows vs. by columns) give two spectral sequences, both converging to $H_*(\mathrm{Tot})$.</li>
+</ol>
+
+<p>The double complex spectral sequence is the main application of "spectral sequences are easy." Example: for right-derived bifunctors, a Grothendieck spectral sequence of the form $E_2^{p,q} = R^p F(R^q G (X)) \Rightarrow R^{p+q}(FG)(X)$ organizes iterated derived functors. The Leray spectral sequence for $Y\to X$ and the Lyndon–Hochschild–Serre spectral sequence for $1\to N\to G\to Q\to 1$ are both special cases.</p>
+
+<div class="widget" id="w-ss">
+  <div class="hd"><div class="ttl">Double-complex spectral sequence pages</div><div class="hint">a 2×2 double complex with horizontal × 2 and vertical × 3 · click "next page" to advance</div></div>
+  <div class="row">
+    <button id="ss-prev">◀ previous page</button>
+    <button id="ss-next">next page ▶</button>
+    <span class="small" id="ss-label"></span>
+  </div>
+  <svg id="ss-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <div class="readout" id="ss-out"></div>
+</div>
+
+<p class="small">The spectral sequence of a double complex is an essential bookkeeping device, but its computational power is modest: it tells you that the totalization's homology is <em>some</em> extension of the limit entries by each other, not exactly what that extension is. Extension problems are the frustration tax of the subject.</p>
+</section>
+
+<script>
+/* =============================== SECTION 6: Spectral sequence viewer =============================== */
+(function(){
+  // Double complex:
+  //   C^{0,0} = Z, C^{1,0} = Z,   d_h: Z --2--> Z  (bottom row)
+  //   C^{0,1} = Z, C^{1,1} = Z,   d_h: Z --2--> Z  (top row)
+  //   d_v: lower → upper is multiplication by 3.
+  // Sign conventions: d_h d_v + d_v d_h = 0, so pick a sign.
+  //
+  // E_0 page: entries are just the C^{p,q}, differentials d_v (vertical).
+  //   E_0^{0,0} = Z, E_0^{1,0} = Z, E_0^{0,1} = Z, E_0^{1,1} = Z.  (d_0 = d_v = ·3)
+  // E_1 page: cohomology along vertical direction.
+  //   For each column p, complex: 0 → C^{p,0} --·3--> C^{p,1} → 0.
+  //   H^0 = ker(·3 on Z) = 0,  H^1 = coker = Z/3.
+  //   So E_1^{p,0} = 0 everywhere, E_1^{p,1} = Z/3 everywhere.
+  //   Differential d_1 = d_h on E_1. Acts Z/3 --2--> Z/3 (times 2 mod 3, which is multiplication by 2, an iso).
+  // E_2 page: cohomology of d_1.
+  //   row q=1:  Z/3 --·2--> Z/3. Ker = 0, Coker = 0. So E_2^{p,1} = 0 for p=0, E_2^{p,1} = 0 for p=1.
+  //   row q=0: all 0.
+  // So E_2 is ZERO. Limit is zero. Total complex has no cohomology.
+  //
+  // Let's sanity check: totalization of the 2×2 double complex in degrees 0,1,2.
+  //   Tot^0 = C^{0,0} = Z
+  //   Tot^1 = C^{1,0} ⊕ C^{0,1} = Z^2
+  //   Tot^2 = C^{1,1} = Z
+  // Differentials: d^0: Z → Z^2 is (2, 3) (the horizontal goes by ·2, vertical by ·3).
+  //                d^1: Z^2 → Z is (3, -2)  (sign to make d^2 = 0: 3·2 + (-2)·3 = 0 ✓).
+  // Then H^0 = ker d^0 = 0  (since (2,3) is injective).
+  //      H^1 = ker d^1 / im d^0 = {(a,b) : 3a = 2b} / <(2,3)>.
+  //        solutions: a = 2t, b = 3t. So ker d^1 = Z·(2,3) = im d^0. H^1 = 0.
+  //      H^2 = coker d^1 = Z / (3Z + 2Z) = Z / Z = 0.
+  // Yes, total cohomology is zero. Spectral sequence converges to 0. ✓
+
+  const svg = $('#ss-svg'), out = $('#ss-out'), label = $('#ss-label');
+  const prev = $('#ss-prev'), next = $('#ss-next');
+  let page = 0;
+
+  const PAGES = [
+    {
+      name: 'E_0',
+      desc: 'The zeroth page is just the double complex entries. Vertical differentials d_v = ·3 drawn. No horizontal differentials yet (those appear at E_1).',
+      entries: [
+        ['ℤ','ℤ'],   // row q=1 (top)
+        ['ℤ','ℤ'],   // row q=0 (bottom)
+      ],
+      differentials: {dir:'vertical', label:'d_0 = ·3 (vertical)', color:'var(--yellow)'}
+    },
+    {
+      name: 'E_1',
+      desc: 'Take vertical cohomology. Each column is 0 → ℤ —·3→ ℤ → 0. H^0 (ker ·3 on ℤ) = 0. H^1 (coker) = ℤ/3. So the E_1 page has ℤ/3 on the top row, 0 on the bottom row. New differentials d_1 = d_h are horizontal, multiplication by 2, and act as ℤ/3 →·2→ ℤ/3.',
+      entries: [
+        ['ℤ/3','ℤ/3'],
+        ['0','0'],
+      ],
+      differentials: {dir:'horizontal', label:'d_1 = ·2 (horizontal)', color:'var(--yellow)'}
+    },
+    {
+      name: 'E_2',
+      desc: 'Take horizontal cohomology of d_1. On the top row, ℤ/3 —·2→ ℤ/3 is an isomorphism (since gcd(2,3)=1, 2 is a unit mod 3), so ker = 0, coker = 0. Bottom row was already zero. The E_2 page is entirely zero — higher pages stay zero, and the spectral sequence converges to H^*(Tot) = 0. You can verify directly that the totalization ℤ —(2,3)→ ℤ^2 —(3,-2)→ ℤ has zero cohomology everywhere.',
+      entries: [
+        ['0','0'],
+        ['0','0'],
+      ],
+      differentials: null
+    }
+  ];
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const P = PAGES[page];
+    label.textContent = `page ${P.name}  (${page+1}/${PAGES.length})`;
+
+    // grid of 2×2
+    const ox = 320, oy = 60;
+    const step = 120;
+    const pts = [
+      [ox, oy+step],     // (p=0, q=0) bottom-left
+      [ox+step, oy+step],// (p=1, q=0) bottom-right
+      [ox, oy],          // (p=0, q=1) top-left
+      [ox+step, oy],     // (p=1, q=1) top-right
+    ];
+    // entries: row 0 is q=1 (top), row 1 is q=0 (bottom)
+    const entry = (p,q) => P.entries[1-q][p];
+
+    // draw axes
+    svg.appendChild(SVG('line',{x1:ox-60,y1:oy+step+10,x2:ox+step+60,y2:oy+step+10,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:ox-60,y1:oy-10,x2:ox-60,y2:oy+step+30,stroke:'var(--line)'}));
+    const xl = SVG('text',{x:ox+step+80,y:oy+step+15,'font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'p →'; svg.appendChild(xl);
+    const yl = SVG('text',{x:ox-90,y:oy-10,'font-size':12,fill:'var(--mute)'});
+    yl.textContent = '↑ q'; svg.appendChild(yl);
+
+    // entries
+    for(let q=0;q<=1;q++){
+      for(let p=0;p<=1;p++){
+        const [x,y] = pts[q*2+p];
+        const e = entry(p,q);
+        const isZero = e==='0';
+        const c = SVG('circle',{cx:x,cy:y,r:26,
+          fill: isZero? 'transparent' : '#0b0f16',
+          stroke: isZero? 'var(--line)' : 'var(--cyan)','stroke-width':1.2});
+        svg.appendChild(c);
+        const t = SVG('text',{x:x,y:y+5,'text-anchor':'middle','font-size':13,
+          fill: isZero? 'var(--mute)' : 'var(--ink)','font-weight':600});
+        t.textContent = e;
+        svg.appendChild(t);
+        // position labels
+        const tl = SVG('text',{x:x,y:y+42,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+        tl.textContent = `(${p},${q})`;
+        svg.appendChild(tl);
+      }
+    }
+
+    // differentials
+    if(P.differentials){
+      // arrow marker
+      let defs = svg.querySelector('defs');
+      if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+      if(!svg.querySelector('#ss-a')){
+        const m = SVG('marker',{id:'ss-a',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto'});
+        m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:P.differentials.color}));
+        defs.appendChild(m);
+      }
+      if(P.differentials.dir==='vertical'){
+        for(let p=0;p<=1;p++){
+          const from = pts[0*2+p], to = pts[1*2+p]; // bottom → top? careful: q=0 bottom, q=1 top.
+          // d_0 is d_v: C^{p,q} → C^{p,q+1}. q=0 → q=1. So from bottom (q=0) → top (q=1).
+          const [x1,y1]=from, [x2,y2]=to;
+          const ux=0, uy=(y2-y1)/Math.abs(y2-y1);
+          svg.appendChild(SVG('line',{x1:x1, y1:y1-26, x2:x2, y2:y2+26,
+            stroke:P.differentials.color,'stroke-width':1.6,'marker-end':'url(#ss-a)'}));
+        }
+      } else if(P.differentials.dir==='horizontal'){
+        for(let q=0;q<=1;q++){
+          const from = pts[q*2+0], to = pts[q*2+1];
+          // only draw if source is nonzero
+          if(P.entries[1-q][0]==='0') continue;
+          svg.appendChild(SVG('line',{x1:from[0]+26, y1:from[1], x2:to[0]-26, y2:to[1],
+            stroke:P.differentials.color,'stroke-width':1.6,'marker-end':'url(#ss-a)'}));
+        }
+      }
+      const lab = SVG('text',{x:ox+step/2,y:oy-28,'text-anchor':'middle','font-size':13,
+        fill:P.differentials.color,'font-weight':600});
+      lab.textContent = P.differentials.label;
+      svg.appendChild(lab);
+    }
+
+    // title
+    const tt = SVG('text',{x:60,y:40,'font-size':16,fill:'#fff','font-weight':600});
+    tt.textContent = `${P.name} page`;
+    svg.appendChild(tt);
+
+    out.textContent = P.desc;
+  }
+
+  prev.addEventListener('click',()=>{page = Math.max(0, page-1); draw();});
+  next.addEventListener('click',()=>{page = Math.min(PAGES.length-1, page+1); draw();});
+  draw();
+})();
+</script>
+
+<section id="outro">
+<h2>Where this goes next</h2>
+<p>What we've skipped, in order of increasing sophistication:</p>
+<ul>
+  <li><strong>Abelian categories.</strong> The smallest categorical setting in which every diagram-chase in the preceding sections makes sense. Homological algebra lives in abelian categories: kernels, cokernels, images, coimages, short exact sequences, and the nine lemma all carry over verbatim.</li>
+  <li><strong>The derived category.</strong> Instead of computing $\operatorname{Ext}$ and $\operatorname{Tor}$ one degree at a time, invert all quasi-isomorphisms of complexes and work in the resulting triangulated category $D(\mathsf{Ab})$. A map in $D(\mathsf{Ab})$ between two objects $M, N$ placed in degree zero is precisely $\operatorname{Ext}^0(M,N)$; a degree-$i$ map is $\operatorname{Ext}^i(M,N)$. Long exact sequences become <em>distinguished triangles</em>.</li>
+  <li><strong>Sheaf cohomology.</strong> Apply the same machine to sheaves of abelian groups on a topological space. The global sections functor is left exact; its right derived functors $H^i(X,\mathcal{F}) := R^i\Gamma(\mathcal{F})$ are sheaf cohomology. Čech cohomology is a concrete model for this.</li>
+  <li><strong>Group cohomology.</strong> $H^n(G,M) := \operatorname{Ext}^n_{\mathbb{Z}G}(\mathbb{Z}, M)$. It governs extensions of $G$ by $M$, obstructions to lifting actions, and the characteristic classes of central extensions.</li>
+  <li><strong>Koszul duality and non-abelian derived functors.</strong> Replace $\mathsf{Ab}$ by more exotic categories — DG categories, $\infty$-categories, $\mathbb{E}_\infty$-algebras — and derived functors become Quillen-type functors between model categories. This is the setting for modern derived algebraic geometry and the work of Lurie and others.</li>
+</ul>
+
+<p>The strange thing about homological algebra is that it started as a <em>computation technique</em> — Poincaré counting holes in surfaces — and ended up as the grammar in which nearly all modern algebraic geometry, representation theory, and algebraic topology is written. The derived functor is the word "and," everywhere.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

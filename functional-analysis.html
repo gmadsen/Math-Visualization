@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Functional analysis — Banach, Hilbert, and the spectral theorem</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#intro">1&nbsp;Normed,&nbsp;Banach,&nbsp;Hilbert</a>
+  <a href="#hilbert">2&nbsp;Hilbert&nbsp;geometry</a>
+  <a href="#bounded">3&nbsp;Bounded&nbsp;operators</a>
+  <a href="#bigfour">4&nbsp;Big&nbsp;four&nbsp;theorems</a>
+  <a href="#compact">5&nbsp;Compact&nbsp;&amp;&nbsp;spectrum</a>
+  <a href="#spectral">6&nbsp;Spectral&nbsp;theorem</a>
+  <a href="#duality">7&nbsp;Duality&nbsp;&amp;&nbsp;Riesz</a>
+  <a href="#outro">8&nbsp;Connections</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Functional analysis: Banach spaces, Hilbert spaces, and the spectral theorem</h1>
+  <p class="sub">Infinite-dimensional linear algebra done with an eye on convergence. The story: pick a norm, ask for completeness, trade geometry for topology, and watch operators decompose along their spectrum.</p>
+</section>
+
+<section id="intro">
+<h2>1. Normed, Banach, Hilbert</h2>
+
+<p>Functional analysis begins with a confession: infinite-dimensional vector spaces are not $\mathbb{R}^n$. Different norms on the same space can give genuinely different topologies; linear functionals can be discontinuous; a bounded sequence may have no convergent subsequence at all. The fix is to work with norms <em>and</em> topological compatibility: that is, Banach and Hilbert spaces.</p>
+
+<p>A <strong>normed space</strong> is a vector space $X$ (over $\mathbb{R}$ or $\mathbb{C}$) equipped with a map $\|\cdot\|\colon X\to[0,\infty)$ satisfying</p>
+<ul>
+  <li>$\|x\|=0\iff x=0$ (definiteness),</li>
+  <li>$\|\alpha x\|=|\alpha|\,\|x\|$ (absolute homogeneity),</li>
+  <li>$\|x+y\|\le\|x\|+\|y\|$ (triangle inequality).</li>
+</ul>
+<p>A norm makes $X$ a metric space via $d(x,y)=\|x-y\|$. A <strong>Banach space</strong> is a normed space that is complete in this metric: every Cauchy sequence converges. Completeness is what lets us write limits, series, and fixed points with a straight face — it is the switch that turns pure linear algebra into analysis.</p>
+
+<h3>The canonical examples</h3>
+<p>Not every complete inner-product-less normed space is a Banach space you will care about, but it is worth naming them: $(\mathbb{R},|\cdot|)$, $(\mathbb{C}^n,\|\cdot\|_p)$ for every $p\in[1,\infty]$, and finite-dimensional spaces in general are trivially Banach. The drama starts infinite-dimensionally.</p>
+
+<p>Fix $1\le p\le\infty$. The sequence spaces</p>
+$$\ell^p = \Big\{(x_n)_{n\ge1}\in\mathbb{C}^{\mathbb{N}} : \|x\|_p := \big(\sum_{n}|x_n|^p\big)^{1/p} < \infty\Big\}\qquad(1\le p<\infty),$$
+$$\ell^\infty = \big\{(x_n) : \|x\|_\infty := \sup_n|x_n|<\infty\big\}$$
+<p>are all Banach spaces. The key inequality behind completeness for $\ell^p$ is <strong>Minkowski's inequality</strong> $\|x+y\|_p\le\|x\|_p+\|y\|_p$, itself a consequence of <strong>Hölder's inequality</strong></p>
+$$\sum|x_n y_n|\le\|x\|_p\|y\|_q,\qquad \tfrac1p+\tfrac1q = 1.$$
+<p>So are their continuous cousins: for a measure space $(\Omega,\mu)$,</p>
+$$L^p(\Omega,\mu) = \Big\{f : \|f\|_p = \big(\textstyle\int_\Omega |f|^p\,d\mu\big)^{1/p} <\infty\Big\}\quad(\text{modulo }\mu\text{-null functions}).$$
+<p>The proof of completeness is the Riesz–Fischer theorem; the key move is extracting a fast-Cauchy subsequence $(f_{n_k})$ with $\|f_{n_{k+1}}-f_{n_k}\|_p\le 2^{-k}$, showing pointwise a.e. convergence of $\sum(f_{n_{k+1}}-f_{n_k})$ to some $f$, then applying Fatou to $|f_{n_k}-f|^p$ to verify $\|f_{n_k}-f\|_p\to 0$. For continuous functions on a compact interval,</p>
+$$C[a,b] \text{ with } \|f\|_\infty = \sup_{t\in[a,b]}|f(t)|$$
+<p>is a Banach space — uniform limits of continuous functions are continuous. In contrast $C[a,b]$ with the $L^2$ norm is <em>not</em> complete; its completion is $L^2[a,b]$.</p>
+
+<h3>Hilbert spaces: when the norm comes from an inner product</h3>
+<p>An <strong>inner product space</strong> has a sesquilinear (or bilinear, over $\mathbb{R}$) form $\langle\cdot,\cdot\rangle\colon X\times X\to\mathbb{C}$ with $\langle x,x\rangle\ge 0$, zero only at $x=0$, and $\langle x,y\rangle=\overline{\langle y,x\rangle}$. Then $\|x\|:=\sqrt{\langle x,x\rangle}$ is a norm (Cauchy–Schwarz). A <strong>Hilbert space</strong> is a complete inner product space. Distinguished examples:</p>
+$$\ell^2,\qquad L^2(\Omega,\mu),\qquad\text{Sobolev }H^s(\mathbb{R}^n).$$
+
+<div class="note"><strong>A norm comes from an inner product iff the parallelogram law holds:</strong>
+$$\|x+y\|^2+\|x-y\|^2 = 2\|x\|^2+2\|y\|^2.$$
+The law fails already in $\ell^p$ for $p\ne 2$ — Hilbert structure is a <em>very</em> restrictive bonus on a Banach space.</div>
+
+<p>Quick arithmetic on $\ell^p$: take $x=(1,0,0,\ldots)$ and $y=(0,1,0,\ldots)$. Then</p>
+$$\|x+y\|_p^2+\|x-y\|_p^2 = 2\cdot 2^{2/p},\qquad 2\|x\|_p^2+2\|y\|_p^2 = 4.$$
+<p>These agree only at $p=2$. The Jordan–von Neumann theorem promotes "parallelogram law holds" to "inner product exists, via polarization", so the logic is tight.</p>
+
+<h3>Widget — unit balls of $\ell^p$ norms on $\mathbb{R}^2$</h3>
+
+<div class="widget" id="w-ball">
+  <div class="hd"><div class="ttl">$p$-norm unit ball</div><div class="hint">$\{(x,y):|x|^p+|y|^p\le 1\}$</div></div>
+  <svg id="ball-svg" viewBox="0 0 520 360" width="520" height="360"></svg>
+  <div class="row">
+    <label>$p$</label>
+    <input type="range" id="ball-p" min="0.5" max="5" step="0.01" value="2">
+    <span class="readout" id="ball-p-out" style="min-width:60px;flex:0 0 auto">p = 2.00</span>
+    <button id="ball-inf">$p=\infty$</button>
+  </div>
+  <div class="readout" id="ball-note">p = 2 gives the Euclidean circle; p = 1 the diamond; p = ∞ the axis-aligned square.</div>
+</div>
+
+<p>For $p<1$ the unit "ball" is non-convex — the triangle inequality fails, so $\|\cdot\|_p$ is a <em>quasi-norm</em>, not a norm. The widget flags this visually.</p>
+
+<h3>Equivalence of norms in finite dimensions</h3>
+<p>On $\mathbb{R}^n$ any two norms are equivalent: there are $c,C>0$ with $c\|x\|_\alpha\le\|x\|_\beta\le C\|x\|_\alpha$. In particular all finite-dimensional normed spaces are Banach, and every linear map between them is bounded. <em>None</em> of this survives infinite dimensions: on $C[0,1]$, $\|\cdot\|_\infty$ and $\|\cdot\|_{L^2}$ are not equivalent — uniform convergence is strictly stronger than mean-square convergence.</p>
+
+<h3>Separability, density, and the subspace of polynomials</h3>
+<p>A Banach space is <strong>separable</strong> if it has a countable dense subset. $\ell^p$ and $L^p[a,b]$ are separable for $1\le p<\infty$; $\ell^\infty$ is not. The <strong>Weierstrass approximation theorem</strong> (polynomials are dense in $C[a,b]$ with sup norm) and the <strong>Stone–Weierstrass theorem</strong> (any subalgebra of $C(X)$ separating points and containing constants is dense) are the first tools that populate Banach spaces with explicit bases.</p>
+
+<div class="note"><strong>Cautionary example.</strong> Not every Banach space has a Schauder basis. Enflo (1973) constructed a separable Banach space with no Schauder basis, settling a forty-year open problem; the approximation property is genuinely subtle outside the Hilbert setting.</div>
+</section>
+
+<script>
+/* ============================ §1 norm-ball widget ============================ */
+(function(){
+  const svg = $('#ball-svg'), pSlider = $('#ball-p'), pOut = $('#ball-p-out'),
+        note = $('#ball-note'), infBtn = $('#ball-inf');
+  const W=520, H=360, cx=W/2, cy=H/2, R=130;
+  let infinity = false;
+
+  function axes(){
+    const g = SVG('g');
+    g.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    g.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));
+    for(let k=-2;k<=2;k++){
+      if(k===0) continue;
+      g.appendChild(SVG('line',{x1:cx+k*R/2, y1:cy-4, x2:cx+k*R/2, y2:cy+4, stroke:'var(--mute)'}));
+      g.appendChild(SVG('line',{x1:cx-4, y1:cy+k*R/2, x2:cx+4, y2:cy+k*R/2, stroke:'var(--mute)'}));
+    }
+    const tx1 = SVG('text',{x:cx+R+8,y:cy+4,'font-size':12,fill:'var(--mute)'}); tx1.textContent='1';
+    g.appendChild(tx1);
+    const tyl = SVG('text',{x:cx+6,y:cy-R+4,'font-size':12,fill:'var(--mute)'}); tyl.textContent='1';
+    g.appendChild(tyl);
+    return g;
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    svg.appendChild(axes());
+    const p = parseFloat(pSlider.value);
+    let pts = [];
+    if(infinity){
+      // square
+      pts = [[1,1],[-1,1],[-1,-1],[1,-1],[1,1]];
+    } else {
+      const N = 400;
+      for(let i=0;i<=N;i++){
+        const t = 2*Math.PI*i/N;
+        const c = Math.cos(t), s = Math.sin(t);
+        const denom = Math.pow(Math.abs(c),p) + Math.pow(Math.abs(s),p);
+        const r = Math.pow(denom, -1/p);
+        pts.push([r*c, r*s]);
+      }
+    }
+    const isNorm = infinity || p >= 1;
+    const color = isNorm ? 'var(--yellow)' : 'var(--pink)';
+    const d = pts.map(([x,y],i)=>`${i===0?'M':'L'}${cx+x*R} ${cy-y*R}`).join(' ') + ' Z';
+    svg.appendChild(SVG('path',{d, fill:color+'22', stroke:color, 'stroke-width':2}));
+
+    // label inside
+    const lbl = SVG('text',{x:cx, y:cy-R-12, 'text-anchor':'middle','font-size':13, fill:color});
+    lbl.textContent = infinity ? 'p = ∞  (sup norm → square)' : `p = ${p.toFixed(2)}`;
+    svg.appendChild(lbl);
+
+    pOut.textContent = infinity ? 'p = ∞' : `p = ${p.toFixed(2)}`;
+
+    if(infinity){
+      note.textContent = 'p = ∞:  ‖x‖_∞ = max(|x₁|,|x₂|). Unit ball is the axis-aligned square [-1,1]².';
+      note.style.color = '';
+    } else if(p < 1){
+      note.textContent = `p = ${p.toFixed(2)} < 1: non-convex "ball". The triangle inequality fails — this is a quasi-norm, not a norm.`;
+      note.style.color = 'var(--pink)';
+    } else if(Math.abs(p-1) < 1e-3){
+      note.textContent = 'p = 1:  ℓ¹ "taxicab" diamond. Extremal points on the axes; sparsity-inducing.';
+      note.style.color = '';
+    } else if(Math.abs(p-2) < 1e-3){
+      note.textContent = 'p = 2:  Euclidean unit disk. The only p giving a Hilbert (inner-product) norm.';
+      note.style.color = '';
+    } else {
+      note.textContent = `p = ${p.toFixed(2)}:  convex, interpolates between diamond (p=1) and square (p=∞).`;
+      note.style.color = '';
+    }
+  }
+
+  pSlider.addEventListener('input', ()=>{ infinity=false; infBtn.classList.remove('active'); render(); });
+  infBtn.addEventListener('click', ()=>{
+    infinity = !infinity;
+    infBtn.classList.toggle('active', infinity);
+    render();
+  });
+  render();
+})();
+</script>
+
+<section id="hilbert">
+<h2>2. Hilbert-space geometry</h2>
+<p>Hilbert space feels like $\mathbb{R}^n$ with a countable basis — angles, perpendicularity, Pythagoras, projection onto a subspace, all work. The miracle is that these survive infinite dimensions <em>when</em> the space is complete.</p>
+
+<h3>Inner-product inequalities to internalize</h3>
+<table class="plain">
+<thead><tr><th>name</th><th>statement</th></tr></thead>
+<tbody>
+<tr><td>Cauchy–Schwarz</td><td>$|\langle x,y\rangle|\le\|x\|\,\|y\|$, equality iff $x\parallel y$</td></tr>
+<tr><td>Triangle</td><td>$\|x+y\|\le\|x\|+\|y\|$ (consequence of CS)</td></tr>
+<tr><td>Parallelogram</td><td>$\|x+y\|^2+\|x-y\|^2=2\|x\|^2+2\|y\|^2$</td></tr>
+<tr><td>Polarization (real)</td><td>$\langle x,y\rangle = \tfrac{1}{4}(\|x+y\|^2 - \|x-y\|^2)$</td></tr>
+<tr><td>Polarization (complex)</td><td>$\langle x,y\rangle = \tfrac{1}{4}\sum_{k=0}^3 i^k\|x + i^k y\|^2$</td></tr>
+<tr><td>Pythagoras</td><td>$x\perp y\Rightarrow \|x+y\|^2=\|x\|^2+\|y\|^2$</td></tr>
+</tbody>
+</table>
+<p>The polarization identities say the inner product is <em>determined</em> by the norm (when the parallelogram law holds). You get the geometry back from the metric.</p>
+
+<h3>Orthogonal projection</h3>
+<p>Let $H$ be a Hilbert space and $M\subset H$ a closed subspace. For every $x\in H$ there is a unique $Px\in M$ minimizing $\|x-m\|$ over $m\in M$, and it is characterized by</p>
+$$x - Px \perp M,\qquad\text{i.e. }\langle x-Px, m\rangle = 0\ \forall m\in M.$$
+<p>The map $P\colon H\to M$ is linear, idempotent ($P^2=P$), self-adjoint ($P^*=P$), and satisfies the <strong>Pythagorean identity</strong></p>
+$$\|x\|^2 = \|Px\|^2 + \|x-Px\|^2.$$
+<p>Equivalently, $H = M\oplus M^\perp$ for every closed $M$. Non-closed subspaces do not split this way, and this is the first place "complete" buys geometry.</p>
+
+<p>As always, the uniqueness proof is free: if $m_1,m_2\in M$ both minimize, $m=(m_1+m_2)/2\in M$, and the parallelogram law on $x-m_1, x-m_2$ gives $\|m_1-m_2\|^2=0$. The existence proof needs a minimizing sequence $(m_n)$ and the parallelogram identity to make it Cauchy — completeness of $M$ does the rest.</p>
+
+<h3>Orthonormal bases and Gram–Schmidt</h3>
+<p>A family $\{e_i\}_{i\in I}\subset H$ is <strong>orthonormal</strong> if $\langle e_i,e_j\rangle=\delta_{ij}$. It is an <strong>orthonormal basis</strong> when the closed linear span is all of $H$. Then every $x\in H$ has a Fourier expansion</p>
+$$x = \sum_{i\in I}\langle x,e_i\rangle e_i,\qquad \|x\|^2 = \sum_i|\langle x,e_i\rangle|^2\quad(\text{Parseval}).$$
+<p>Before that: for <em>any</em> orthonormal set, <strong>Bessel's inequality</strong> $\sum|\langle x,e_i\rangle|^2\le\|x\|^2$ holds. Equality (for every $x$) is equivalent to the set being an orthonormal basis (Parseval's theorem); equivalently, the only vector orthogonal to all $e_i$ is $0$. A separable Hilbert space has a countable orthonormal basis and is unitarily isomorphic to $\ell^2$ — all separable Hilbert spaces are, up to isomorphism, <em>the</em> Hilbert space.</p>
+<p><strong>Gram–Schmidt</strong> turns a linearly independent sequence $(v_n)$ into an orthonormal $(e_n)$ with the same span at every stage:</p>
+$$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
+
+<div class="widget" id="w-gs">
+  <div class="hd"><div class="ttl">Gram–Schmidt in $\mathbb{R}^2$</div><div class="hint">drag $v_1, v_2, v_3$; watch the orthonormal frame emerge</div></div>
+  <svg id="gs-svg" viewBox="0 0 520 360" width="520" height="360"></svg>
+  <div class="row">
+    <label>step</label>
+    <input type="range" id="gs-step" min="0" max="3" step="1" value="3">
+    <span class="readout" id="gs-step-out" style="min-width:140px;flex:0 0 auto">step 3 / 3</span>
+    <button id="gs-reset">reset vectors</button>
+  </div>
+  <div class="readout" id="gs-out"></div>
+</div>
+
+<h3>Widget — orthogonal projection in $\mathbb{R}^3$</h3>
+<p>Pick a subspace (a line or a plane) and drag the tip of $v$; the widget splits $v = Pv + (v-Pv)$ and shows the Pythagorean decomposition.</p>
+
+<div class="widget" id="w-proj">
+  <div class="hd"><div class="ttl">Orthogonal projection, $P_M\colon\mathbb{R}^3\to M$</div><div class="hint">axonometric view; drag the blue tip</div></div>
+  <svg id="proj-svg" viewBox="0 0 560 380" width="560" height="380"></svg>
+  <div class="row">
+    <label>subspace $M$</label>
+    <select id="proj-sub">
+      <option value="L1">line $L = \mathrm{span}(e_1)$</option>
+      <option value="P12">plane $P = \mathrm{span}(e_1,e_2)$</option>
+      <option value="Pd" selected>plane $\{x+y+z=0\}$</option>
+    </select>
+  </div>
+  <div class="readout" id="proj-out"></div>
+</div>
+</section>
+
+<script>
+/* ============================ §2 Gram–Schmidt widget ============================ */
+(function(){
+  const svg = $('#gs-svg'), step = $('#gs-step'), stepOut = $('#gs-step-out'),
+        out = $('#gs-out'), reset = $('#gs-reset');
+  const W=520, H=360, cx=W/2, cy=H/2, S=55;
+  // vector data (in math coords, y up)
+  let vs = [ {x:2.6,y:0.6,color:'var(--blue)',lbl:'v₁'},
+             {x:0.9,y:2.3,color:'var(--green)',lbl:'v₂'},
+             {x:-1.6,y:1.6,color:'var(--pink)',lbl:'v₃'} ];
+
+  function toPix(v){ return [cx+v.x*S, cy-v.y*S]; }
+  function fromPix(p){ return {x:(p[0]-cx)/S, y:(cy-p[1])/S}; }
+
+  function drawAxes(){
+    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
+    for(let k=-4;k<=4;k++){
+      if(k===0) continue;
+      svg.appendChild(SVG('line',{x1:cx+k*S,y1:cy-3,x2:cx+k*S,y2:cy+3,stroke:'var(--mute)'}));
+      svg.appendChild(SVG('line',{x1:cx-3,y1:cy-k*S,x2:cx+3,y2:cy-k*S,stroke:'var(--mute)'}));
+    }
+  }
+  function arrow(from, to, color, label, width=2){
+    drawArrow(svg, from, to, {color, width, markerId:'gs-'+color.replace(/[^a-z]/g,''), pad1:0, pad2:2});
+    if(label){
+      const t = SVG('text',{x:to[0]+8, y:to[1]-4, 'font-size':13, fill:color,'font-weight':600});
+      t.textContent = label; svg.appendChild(t);
+    }
+  }
+
+  function dot(a,b){ return a.x*b.x + a.y*b.y; }
+  function sub(a,b){ return {x:a.x-b.x, y:a.y-b.y}; }
+  function scale(a,t){ return {x:a.x*t, y:a.y*t}; }
+  function norm(a){ return Math.hypot(a.x,a.y); }
+
+  function render(){
+    svg.innerHTML = '';
+    drawAxes();
+    const s = parseInt(step.value);
+    // draw input vectors (dim)
+    for(const v of vs){
+      arrow([cx,cy], toPix(v), v.color, v.lbl, 1.5);
+    }
+    // Gram–Schmidt (2D, so e3 will be zero)
+    const v1=vs[0], v2=vs[1], v3=vs[2];
+    const n1 = norm(v1);
+    const e1 = n1>1e-9 ? scale(v1,1/n1) : {x:0,y:0};
+    const u2 = sub(v2, scale(e1, dot(v2,e1)));
+    const n2 = norm(u2);
+    const e2 = n2>1e-9 ? scale(u2,1/n2) : {x:0,y:0};
+    const u3 = sub(sub(v3, scale(e1, dot(v3,e1))), scale(e2, dot(v3,e2)));
+    const n3 = norm(u3);
+    const e3 = n3>1e-9 ? scale(u3,1/n3) : {x:0,y:0};
+
+    let lines = [];
+    if(s>=1){ arrow([cx,cy], toPix(e1), 'var(--yellow)', 'e₁'); lines.push(`e₁ = v₁/‖v₁‖ = (${e1.x.toFixed(2)}, ${e1.y.toFixed(2)})`); }
+    if(s>=2){
+      // show the projection of v2 onto span(e1) as a dashed vector
+      const proj2 = scale(e1, dot(v2,e1));
+      drawArrow(svg, [cx,cy], toPix(proj2), {color:'var(--mute)', dash:'4 3', width:1, markerId:'gs-proj', pad1:0, pad2:0});
+      arrow([cx,cy], toPix(e2), 'var(--yellow)', 'e₂');
+      lines.push(`e₂ = (v₂ − ⟨v₂,e₁⟩ e₁) / ‖·‖ = (${e2.x.toFixed(2)}, ${e2.y.toFixed(2)})`);
+    }
+    if(s>=3){
+      lines.push(`e₃ would be (v₃ − ⟨v₃,e₁⟩e₁ − ⟨v₃,e₂⟩e₂)/‖·‖`);
+      if(n3 < 1e-6){
+        lines.push(`‖u₃‖ = ${n3.toExponential(2)}  →  v₃ lies in span(v₁,v₂) (forced in 2D); e₃ = 0.`);
+      } else {
+        lines.push(`but we're in ℝ²:  u₃ = (${u3.x.toFixed(3)}, ${u3.y.toFixed(3)}) rounds to zero within the span.`);
+      }
+    }
+    stepOut.textContent = `step ${s} / 3`;
+    out.textContent = lines.join('\n') || 'slide the step to 1 to orthogonalize.';
+
+    // draggable handles
+    vs.forEach((v,i)=>{
+      const [px,py] = toPix(v);
+      const h = SVG('circle',{cx:px,cy:py,r:7,fill:v.color,stroke:'#fff','stroke-width':1.5, style:'cursor:grab'});
+      h.addEventListener('pointerdown', ev=>{
+        ev.preventDefault();
+        h.setPointerCapture(ev.pointerId);
+        const move = e=>{
+          const rect = svg.getBoundingClientRect();
+          const sx = (e.clientX-rect.left)*W/rect.width;
+          const sy = (e.clientY-rect.top)*H/rect.height;
+          const p = fromPix([sx,sy]);
+          vs[i].x = Math.max(-4,Math.min(4,p.x));
+          vs[i].y = Math.max(-3,Math.min(3,p.y));
+          render();
+        };
+        h.addEventListener('pointermove', move);
+        h.addEventListener('pointerup', ()=>{ h.removeEventListener('pointermove', move); }, {once:true});
+      });
+      svg.appendChild(h);
+    });
+  }
+  step.addEventListener('input', render);
+  reset.addEventListener('click', ()=>{
+    vs = [ {x:2.6,y:0.6,color:'var(--blue)',lbl:'v₁'},
+           {x:0.9,y:2.3,color:'var(--green)',lbl:'v₂'},
+           {x:-1.6,y:1.6,color:'var(--pink)',lbl:'v₃'} ];
+    render();
+  });
+  render();
+})();
+</script>
+
+<script>
+/* ============================ §2 projection in ℝ³ widget ============================ */
+(function(){
+  const svg = $('#proj-svg'), sel = $('#proj-sub'), out = $('#proj-out');
+  const W=560, H=380, cx=W/2, cy=H*0.58;
+  // axonometric projection: ℝ³ → plane
+  function proj3(p){
+    const [x,y,z] = p;
+    // standard isometric-ish
+    const a = Math.PI/6;
+    const sx = x*Math.cos(a) - y*Math.cos(a);
+    const sy = -(z - x*Math.sin(a) - y*Math.sin(a));
+    return [cx + sx*50, cy + sy*50];
+  }
+  function sub3(a,b){ return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+  function add3(a,b){ return [a[0]+b[0], a[1]+b[1], a[2]+b[2]]; }
+  function sc3(a,t){ return [a[0]*t, a[1]*t, a[2]*t]; }
+  function dot3(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+  function nrm3(a){ return Math.sqrt(dot3(a,a)); }
+
+  let v = [1.8, 1.2, 2.0];
+
+  function projectOnto(kind, v){
+    if(kind==='L1'){
+      // span(e1)
+      return [v[0], 0, 0];
+    }
+    if(kind==='P12'){
+      return [v[0], v[1], 0];
+    }
+    // plane x+y+z=0, normal n=(1,1,1)/√3
+    const n = [1/Math.sqrt(3), 1/Math.sqrt(3), 1/Math.sqrt(3)];
+    const c = dot3(v,n);
+    return sub3(v, sc3(n, c));
+  }
+
+  function drawAxes(){
+    const O = proj3([0,0,0]);
+    const ex = proj3([3,0,0]), ey = proj3([0,3,0]), ez = proj3([0,0,3]);
+    drawArrow(svg, O, ex, {color:'var(--mute)', markerId:'p3-x', width:1, pad1:0, pad2:2});
+    drawArrow(svg, O, ey, {color:'var(--mute)', markerId:'p3-y', width:1, pad1:0, pad2:2});
+    drawArrow(svg, O, ez, {color:'var(--mute)', markerId:'p3-z', width:1, pad1:0, pad2:2});
+    for(const [p,lbl] of [[ex,'x'],[ey,'y'],[ez,'z']]){
+      const t = SVG('text',{x:p[0]+6, y:p[1]+4,'font-size':12, fill:'var(--mute)'});
+      t.textContent = lbl; svg.appendChild(t);
+    }
+  }
+
+  function drawSubspace(kind){
+    if(kind==='L1'){
+      const a = proj3([-3,0,0]), b = proj3([3,0,0]);
+      svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],
+        stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'5 4'}));
+    } else if(kind==='P12'){
+      // parallelogram corners
+      const pts = [[-2.5,-2.5,0],[2.5,-2.5,0],[2.5,2.5,0],[-2.5,2.5,0]];
+      const d = pts.map(p=>proj3(p)).map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ')+' Z';
+      svg.appendChild(SVG('path',{d, fill:'var(--cyan)', 'fill-opacity':0.12, stroke:'var(--cyan)','stroke-width':1}));
+    } else {
+      // plane x+y+z=0; parameterize with u=(1,-1,0)/√2, w=(1,1,-2)/√6
+      const u=[1/Math.sqrt(2),-1/Math.sqrt(2),0], w=[1/Math.sqrt(6),1/Math.sqrt(6),-2/Math.sqrt(6)];
+      const pts=[];
+      for(const s of [-2.5,2.5]) for(const t of [-2.5,2.5]){
+        pts.push([u[0]*s+w[0]*t, u[1]*s+w[1]*t, u[2]*s+w[2]*t]);
+      }
+      // reorder to a proper quad
+      const quad=[pts[0],pts[1],pts[3],pts[2]];
+      const d = quad.map(p=>proj3(p)).map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ')+' Z';
+      svg.appendChild(SVG('path',{d, fill:'var(--cyan)', 'fill-opacity':0.12, stroke:'var(--cyan)','stroke-width':1}));
+    }
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    drawAxes();
+    const kind = sel.value;
+    drawSubspace(kind);
+
+    const O = proj3([0,0,0]);
+    const Vp = proj3(v);
+    const Pv = projectOnto(kind, v);
+    const r  = sub3(v,Pv);
+    const PvP = proj3(Pv);
+
+    // v (blue)
+    drawArrow(svg, O, Vp, {color:'var(--blue)', width:2.2, markerId:'p3-v', pad1:0, pad2:4});
+    const tv = SVG('text',{x:Vp[0]+8,y:Vp[1]-4,'font-size':13,fill:'var(--blue)','font-weight':600});
+    tv.textContent='v'; svg.appendChild(tv);
+    // Pv (yellow)
+    drawArrow(svg, O, PvP, {color:'var(--yellow)', width:2.2, markerId:'p3-pv', pad1:0, pad2:4});
+    const tp = SVG('text',{x:PvP[0]+8,y:PvP[1]+14,'font-size':13,fill:'var(--yellow)','font-weight':600});
+    tp.textContent='Pv'; svg.appendChild(tp);
+    // residual (pink) from Pv to v
+    drawArrow(svg, PvP, Vp, {color:'var(--pink)', width:2, markerId:'p3-r', pad1:0, pad2:4, dash:'4 3'});
+    const tr = SVG('text',{x:(PvP[0]+Vp[0])/2+8,y:(PvP[1]+Vp[1])/2,'font-size':12,fill:'var(--pink)'});
+    tr.textContent='v − Pv'; svg.appendChild(tr);
+
+    // handle on v
+    const h = SVG('circle',{cx:Vp[0],cy:Vp[1],r:7,fill:'var(--blue)',stroke:'#fff','stroke-width':1.5, style:'cursor:grab'});
+    h.addEventListener('pointerdown', ev=>{
+      ev.preventDefault();
+      h.setPointerCapture(ev.pointerId);
+      const startX = ev.clientX, startY = ev.clientY;
+      const v0 = v.slice();
+      const rect = svg.getBoundingClientRect();
+      const move = e=>{
+        const dx = (e.clientX-startX)*W/rect.width/50;
+        const dy = (e.clientY-startY)*H/rect.height/50;
+        // move in (x,z) plane: left/right changes x; up/down changes z
+        v = [v0[0]+dx, v0[1], v0[2]-dy];
+        render();
+      };
+      h.addEventListener('pointermove', move);
+      h.addEventListener('pointerup', ()=>h.removeEventListener('pointermove', move), {once:true});
+    });
+    svg.appendChild(h);
+
+    const nv=nrm3(v), npv=nrm3(Pv), nr=nrm3(r);
+    out.textContent =
+`v     = (${v[0].toFixed(2)}, ${v[1].toFixed(2)}, ${v[2].toFixed(2)})    ‖v‖   = ${nv.toFixed(3)}
+Pv    = (${Pv[0].toFixed(2)}, ${Pv[1].toFixed(2)}, ${Pv[2].toFixed(2)})    ‖Pv‖  = ${npv.toFixed(3)}
+v−Pv  = (${r[0].toFixed(2)}, ${r[1].toFixed(2)}, ${r[2].toFixed(2)})    ‖v−Pv‖= ${nr.toFixed(3)}
+⟨Pv, v−Pv⟩ = ${dot3(Pv,r).toFixed(4)}    (should be 0 — orthogonality)
+‖v‖² = ${(nv*nv).toFixed(3)}    vs    ‖Pv‖² + ‖v−Pv‖² = ${(npv*npv + nr*nr).toFixed(3)}  (Pythagoras)`;
+  }
+
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="bounded">
+<h2>3. Bounded linear operators</h2>
+<p>Let $X,Y$ be normed spaces. A linear map $T\colon X\to Y$ is <strong>bounded</strong> when</p>
+$$\|T\| := \sup_{\|x\|\le 1}\|Tx\|_Y < \infty.$$
+<p>For linear maps, bounded $\iff$ continuous $\iff$ continuous at $0$. The collection</p>
+$$B(X,Y) = \{T\colon X\to Y\text{ bounded linear}\}$$
+<p>is itself a normed space under the operator norm, and <em>complete whenever $Y$ is</em> — a lovely "completeness is contagious" result. When $Y=X$, $B(X)=B(X,X)$ is a Banach algebra under composition.</p>
+
+<h3>The dual space</h3>
+<p>The <strong>dual</strong> $X^* := B(X,\mathbb{K})$ is always a Banach space (the scalars are complete). A vector can be probed with linear functionals — this is the engine of weak convergence, duality, and optimization.</p>
+
+<h3>Examples to live with</h3>
+<table class="plain">
+<thead><tr><th>operator</th><th>space</th><th>operator norm</th></tr></thead>
+<tbody>
+<tr><td>unilateral shift $(x_1,x_2,\ldots)\mapsto(0,x_1,x_2,\ldots)$</td><td>$\ell^2$</td><td>$1$ (isometry, not surjective)</td></tr>
+<tr><td>multiplication $M_g f = gf$, $g\in L^\infty$</td><td>$L^2(\Omega,\mu)$</td><td>$\|g\|_\infty$</td></tr>
+<tr><td>integral operator $(Tf)(x)=\int k(x,y)f(y)\,dy$</td><td>$L^2(\Omega)$ with $k\in L^2(\Omega^2)$</td><td>$\le\|k\|_{L^2(\Omega^2)}$ (Hilbert–Schmidt)</td></tr>
+<tr><td>differentiation $f\mapsto f'$</td><td>$C^1[0,1]\to C[0,1]$</td><td>$1$ (bounded — because of $C^1$ norm)</td></tr>
+<tr><td>differentiation $f\mapsto f'$</td><td>$C[0,1]\to C[0,1]$ dense domain</td><td>$\infty$ — <em>unbounded</em> on the sup norm</td></tr>
+</tbody>
+</table>
+
+<p>An <strong>isometry</strong> satisfies $\|Tx\|=\|x\|$ for all $x$; it is always injective, norm-preserving, not necessarily surjective (as the shift shows). A surjective isometry between Banach spaces is an <strong>isometric isomorphism</strong>.</p>
+
+<div class="note"><strong>Why "bounded" is the right word.</strong> A linear map takes $0\to 0$, so continuity at any point is equivalent to continuity at $0$. Continuity at $0$ means $Tx\to 0$ whenever $x\to 0$; that is exactly $\|Tx\|\le C\|x\|$ for some $C$. So bounded = continuous = Lipschitz with constant $\|T\|$.</div>
+
+<h3>Adjoints</h3>
+<p>On a Hilbert space, every $T\in B(H)$ has a unique <strong>adjoint</strong> $T^*\in B(H)$ defined by</p>
+$$\langle Tx,y\rangle = \langle x,T^*y\rangle,\qquad\forall x,y\in H.$$
+<p>Then $\|T^*\|=\|T\|$ and $\|T^*T\|=\|T\|^2$ (the <strong>$C^*$-identity</strong>). We call $T$ <em>self-adjoint</em> if $T^*=T$, <em>normal</em> if $T^*T=TT^*$, <em>unitary</em> if $T^*T=TT^*=I$. Self-adjoint operators have real spectrum; unitaries have spectrum on the unit circle; normal operators are the class for which the spectral theorem holds in its cleanest form.</p>
+
+<p>On a Banach space, the adjoint $T^*\colon Y^*\to X^*$ lives between <em>different</em> spaces, defined by $(T^*\phi)(x)=\phi(Tx)$. Norms still match, $\|T^*\|=\|T\|$, but the $C^*$-identity fails without a compatible inner product.</p>
+
+<h3>A tiny operator algebra sampler</h3>
+<p>On the two-dimensional Hilbert space $\mathbb{C}^2$, the <em>Pauli matrices</em></p>
+$$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
+\sigma_y=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\quad
+\sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$
+<p>are self-adjoint, unitary, and traceless. Each has spectrum $\{-1,+1\}$ and the two spectral projections are $(I\pm\sigma_k)/2$. This is the simplest nontrivial illustration of the spectral theorem in finite dimensions: each $\sigma_k = (+1)\cdot P_+^{(k)} + (-1)\cdot P_-^{(k)}$, and the three bases are mutually unbiased.</p>
+</section>
+
+<section id="bigfour">
+<h2>4. The big four theorems</h2>
+<p>Four theorems, all ultimately powered by the <strong>Baire category theorem</strong> (a complete metric space is not a countable union of nowhere-dense sets) or by <strong>Zorn's lemma</strong>, organize Banach-space analysis.</p>
+
+<h3>A one-minute summary</h3>
+<table class="plain">
+<thead><tr><th>theorem</th><th>input</th><th>output</th></tr></thead>
+<tbody>
+<tr><td>Hahn–Banach</td><td>functional on subspace</td><td>extension to whole space with same norm</td></tr>
+<tr><td>Open Mapping</td><td>surjective bounded linear</td><td>the map is open</td></tr>
+<tr><td>Closed Graph</td><td>closed-graph linear $T$</td><td>$T$ is bounded</td></tr>
+<tr><td>Banach–Steinhaus</td><td>family with pointwise bounds</td><td>uniform operator-norm bound</td></tr>
+</tbody>
+</table>
+
+<h3>Hahn–Banach (extension form)</h3>
+<div class="note"><strong>Theorem (Hahn–Banach).</strong> Let $X$ be a real vector space, $p\colon X\to\mathbb{R}$ a sublinear functional ($p(x+y)\le p(x)+p(y),\ p(\alpha x)=\alpha p(x)$ for $\alpha\ge 0$), and $\ell\colon M\to\mathbb{R}$ a linear functional on a subspace $M$ with $\ell\le p$ on $M$. Then $\ell$ extends to $\tilde\ell\colon X\to\mathbb{R}$ linear with $\tilde\ell\le p$ on all of $X$.</div>
+
+<p>Corollary: on a normed space, every bounded linear functional on a subspace extends to $X$ with the same norm. Consequence: $X^*$ separates points. This is what gives duality traction — the existence of "enough" linear functionals is not automatic and requires choice.</p>
+
+<h3>Hahn–Banach (separation form)</h3>
+<div class="note"><strong>Theorem.</strong> If $A, B$ are disjoint convex subsets of a normed space, $A$ open, then there is a continuous linear functional $\ell$ and $c\in\mathbb{R}$ with $\ell(a)<c\le\ell(b)$ for $a\in A, b\in B$. If $A$ is compact and $B$ closed, one can separate <em>strictly</em>: $\sup_A\ell<\inf_B\ell$.</div>
+
+<p>Applications: existence of supporting hyperplanes, convex optimization duality, Mazur's theorem (weakly closed convex = strongly closed convex).</p>
+
+<h3>Open Mapping Theorem</h3>
+<div class="note"><strong>Theorem (Banach).</strong> A surjective bounded linear map $T\colon X\to Y$ between Banach spaces is open: $T(U)$ is open for every open $U\subset X$.</div>
+
+<p>Corollary (<strong>Inverse Mapping Theorem</strong>): a bijective bounded linear map between Banach spaces has a bounded inverse. So "continuous and invertible" automatically gives "continuously invertible" — no extra work. Application: an ODE operator that is bijective from $C^2[0,1]\cap$(boundary conditions) to $C[0,1]$ automatically has bounded inverse (Green's function).</p>
+
+<h3>Closed Graph Theorem</h3>
+<div class="note"><strong>Theorem.</strong> Let $T\colon X\to Y$ be linear, $X,Y$ Banach. If the graph $\{(x,Tx):x\in X\}$ is closed in $X\times Y$, then $T$ is bounded.</div>
+
+<p>The practical use is backwards from what one might guess: checking continuity of $T$ reduces to checking that $x_n\to x$ and $Tx_n\to y$ already forces $y=Tx$. You get the convergence $Tx_n\to Tx$ for free from closedness.</p>
+
+<h3>Uniform boundedness (Banach–Steinhaus)</h3>
+<div class="note"><strong>Theorem.</strong> Let $(T_\alpha)_{\alpha\in A}\subset B(X,Y)$ with $X$ Banach. If $\sup_\alpha\|T_\alpha x\|<\infty$ for <em>every</em> fixed $x\in X$, then $\sup_\alpha\|T_\alpha\|<\infty$.</div>
+
+<p>"Pointwise bounded ⇒ uniformly bounded" in the Banach setting. This is the tool behind pointwise limits of operators being bounded, the convergence of Fourier series at "enough" points, and the Nikishin–Stein theory.</p>
+
+<div class="ok"><strong>Proof sketch — all four from Baire.</strong> Pick the set $E_n=\{x:\sup_\alpha\|T_\alpha x\|\le n\}$; each $E_n$ is closed by continuity of $T_\alpha$; their union is $X$ by hypothesis. Baire gives some $E_{n_0}$ with non-empty interior; a translation + dilation argument delivers the uniform bound. The Open Mapping and Closed Graph proofs run along parallel lines.</div>
+
+<h3>Where the big four actually get used</h3>
+<ul>
+  <li><strong>Hahn–Banach</strong> → existence of Green's functions, Lagrange multipliers in infinite dimensions, continuous extension of densely-defined functionals, and the entire theory of weak topologies.</li>
+  <li><strong>Open Mapping</strong> → boundedness of $T^{-1}$ without computing it; automatic continuity of inverse operators in PDE; Banach isomorphism theorem.</li>
+  <li><strong>Closed Graph</strong> → if an operator factors through a Banach space and each factor has closed graph, so does the composition. Used repeatedly to promote a-priori estimates into continuity.</li>
+  <li><strong>Banach–Steinhaus</strong> → divergence of Fourier series at a dense $G_\delta$ of points (du Bois-Reymond), existence of pathological operators, resonance theorems.</li>
+</ul>
+</section>
+
+<section id="compact">
+<h2>5. Compact operators and the spectrum</h2>
+
+<p>A bounded operator $T\colon X\to Y$ is <strong>compact</strong> if $T(B_X)$ is relatively compact in $Y$, where $B_X$ is the closed unit ball. Equivalently, $T$ sends bounded sequences to sequences with norm-convergent subsequences. Compact operators are the infinite-dimensional analogue of "finite-rank-ish" — they are a closed two-sided ideal in $B(X)$ and the norm-closure of finite-rank operators on a Hilbert space (and on many Banach spaces with the approximation property).</p>
+
+<h3>Classical examples of compact operators</h3>
+<ul>
+  <li><strong>Finite-rank operators</strong> are always compact. On a Hilbert space (and any Banach space with the approximation property), the closure of finite-rank operators in operator norm equals the compacts.</li>
+  <li><strong>Integral operators with continuous kernels</strong> $(Tf)(x)=\int_0^1 k(x,y)f(y)\,dy$ on $C[0,1]$ or $L^2[0,1]$ are compact when $k\in C([0,1]^2)$ or $k\in L^2([0,1]^2)$ (Arzelà–Ascoli / Hilbert–Schmidt).</li>
+  <li><strong>Inclusion $H^1[0,1]\hookrightarrow L^2[0,1]$</strong> is compact (Rellich). This is <em>the</em> reason compactness appears in PDE: a bound in a stronger norm gives you a convergent subsequence in a weaker norm.</li>
+  <li><strong>Inverses of elliptic differential operators</strong> on bounded domains are compact by Rellich plus elliptic regularity, which explains why Laplacian eigenvalues form an unbounded discrete sequence $0<\lambda_1<\lambda_2\le\cdots\to\infty$ (apply Riesz–Schauder to $(-\Delta)^{-1}$).</li>
+</ul>
+
+<h3>Spectrum</h3>
+<p>For $T\in B(X)$, the <strong>resolvent set</strong> is $\rho(T)=\{\lambda\in\mathbb{C}:T-\lambda I\text{ invertible in }B(X)\}$; the <strong>spectrum</strong> is $\sigma(T)=\mathbb{C}\setminus\rho(T)$. It is always a compact non-empty subset of $\{|\lambda|\le\|T\|\}$.</p>
+
+<p>The spectrum subdivides into:</p>
+<ul>
+  <li><strong>Point spectrum</strong> $\sigma_p(T)$: $\lambda$ is an eigenvalue, $T-\lambda I$ not injective.</li>
+  <li><strong>Continuous spectrum</strong>: $T-\lambda I$ injective, range dense, not closed.</li>
+  <li><strong>Residual spectrum</strong>: $T-\lambda I$ injective, range not dense.</li>
+</ul>
+
+<h3>Riesz–Schauder</h3>
+<div class="note"><strong>Theorem.</strong> If $T\in B(X)$ is compact on an infinite-dimensional Banach space, then:
+<ul>
+  <li>$0\in\sigma(T)$;</li>
+  <li>every $\lambda\in\sigma(T)\setminus\{0\}$ is an eigenvalue of finite geometric multiplicity;</li>
+  <li>$\sigma(T)$ is at most countable, with $0$ as the only possible accumulation point.</li>
+</ul></div>
+
+<p>So compact operators are <em>almost</em> diagonalizable: outside $0$, the spectrum is a sequence tending to $0$, and each non-zero eigenvalue has a finite-dimensional generalized eigenspace.</p>
+
+<h3>Fredholm alternative</h3>
+<div class="note"><strong>Theorem.</strong> If $T$ is compact and $\lambda\ne 0$, then $T-\lambda I$ is Fredholm of index $0$: $\dim\ker(T-\lambda I) = \dim\mathrm{coker}(T-\lambda I) < \infty$, and exactly one of the following holds:
+<ul>
+  <li>$T-\lambda I$ is a bijection, so $(T-\lambda I)x = y$ has a unique solution for every $y$;</li>
+  <li>$\ker(T-\lambda I)\ne\{0\}$, and $(T-\lambda I)x = y$ is solvable iff $y\perp\ker(T^*-\bar\lambda I)$.</li>
+</ul></div>
+
+<p>This is the abstract version of the existence/uniqueness dichotomy for integral equations: either the homogeneous equation has only zero, or the inhomogeneous equation has solutions exactly when the right-hand side satisfies finitely many orthogonality conditions.</p>
+
+<h3>Trace-class and Hilbert–Schmidt</h3>
+<p>Two special ideals of compact operators sit inside $B(H)$:</p>
+<ul>
+  <li><strong>Hilbert–Schmidt</strong> operators: $\|T\|_{HS}^2=\sum_n\|Te_n\|^2=\sum_{m,n}|\langle Te_m,e_n\rangle|^2<\infty$. Form a Hilbert space themselves; integral operators with $L^2$ kernels are the standard examples.</li>
+  <li><strong>Trace-class</strong> operators: $\|T\|_1 = \sum s_n(T)<\infty$ where $s_n$ are singular values. Then $\mathrm{tr}(T)=\sum\langle Te_n,e_n\rangle$ is basis-independent.</li>
+</ul>
+<p>Inclusions: (finite rank) $\subset$ trace-class $\subset$ Hilbert–Schmidt $\subset$ compact $\subset$ bounded, all proper on an infinite-dimensional Hilbert space.</p>
+
+<h3>Widget — the spectrum of a compact diagonal operator</h3>
+
+<div class="widget" id="w-spec">
+  <div class="hd"><div class="ttl">Compact vs non-compact spectrum</div><div class="hint">eigenvalues on the number line</div></div>
+  <svg id="spec-svg" viewBox="0 0 560 220" width="560" height="220"></svg>
+  <div class="row">
+    <label>$N$ truncation</label>
+    <input type="range" id="spec-N" min="5" max="100" step="1" value="30">
+    <span class="readout" id="spec-N-out" style="min-width:60px;flex:0 0 auto">N = 30</span>
+  </div>
+  <div class="row">
+    <button id="spec-c" class="active">compact: λₙ = 1/n</button>
+    <button id="spec-nc">non-compact: λₙ = 1 + 1/n</button>
+  </div>
+  <div class="readout" id="spec-out"></div>
+</div>
+</section>
+
+<script>
+/* ============================ §5 spectrum widget ============================ */
+(function(){
+  const svg = $('#spec-svg'), N = $('#spec-N'), NOut = $('#spec-N-out'),
+        cBtn = $('#spec-c'), ncBtn = $('#spec-nc'), out = $('#spec-out');
+  const W=560, H=220, padL=40, padR=40, axY=120;
+  let mode = 'compact';
+
+  function render(){
+    svg.innerHTML='';
+    const n = parseInt(N.value);
+    NOut.textContent = 'N = '+n;
+
+    // axis
+    const x0 = padL, x1 = W-padR;
+    svg.appendChild(SVG('line',{x1:x0,y1:axY,x2:x1,y2:axY,stroke:'var(--line)','stroke-width':1.5}));
+    // ticks: 0, 0.5, 1, 1.5, 2
+    const xmin = 0, xmax = 2;
+    const sc = (v)=> x0 + (v-xmin)/(xmax-xmin)*(x1-x0);
+    for(const v of [0,0.5,1,1.5,2]){
+      const x = sc(v);
+      svg.appendChild(SVG('line',{x1:x,y1:axY-5,x2:x,y2:axY+5,stroke:'var(--mute)'}));
+      const t = SVG('text',{x, y:axY+20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      t.textContent = v; svg.appendChild(t);
+    }
+    // zero marker
+    const z = SVG('circle',{cx:sc(0),cy:axY,r:4,fill:'var(--cyan)'});
+    svg.appendChild(z);
+    const zt = SVG('text',{x:sc(0),y:axY-14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});
+    zt.textContent='0 (accum.)'; svg.appendChild(zt);
+
+    const eigs = [];
+    for(let k=1;k<=n;k++){
+      eigs.push(mode==='compact' ? 1/k : 1 + 1/k);
+    }
+    // draw markers — higher k gets subtler color
+    eigs.forEach((v,i)=>{
+      const x = sc(v);
+      const alpha = Math.max(0.25, 1 - i/n*0.7);
+      const col = mode==='compact' ? 'var(--yellow)' : 'var(--pink)';
+      const m = SVG('circle',{cx:x,cy:axY-24-((i%5)*6), r:3.5, fill:col, 'fill-opacity':alpha});
+      svg.appendChild(m);
+    });
+
+    // summary
+    const minGap = mode==='compact' ? (1/n - 1/(n+1)) : (1/n - 1/(n+1));
+    const accum = mode==='compact' ? '0' : '1';
+    out.textContent =
+`operator: T diagonal with eigenvalues ${mode==='compact' ? 'λₙ = 1/n' : 'λₙ = 1 + 1/n'}, n = 1,…,∞
+showing N = ${n} eigenvalues.
+smallest shown: ${eigs[n-1].toFixed(5)}    largest shown: ${eigs[0].toFixed(5)}
+accumulation point of spectrum: ${accum}
+${mode==='compact'
+  ? 'COMPACT: eigenvalues accumulate at 0 → T is compact (sum of |λₙ|² finite, Hilbert–Schmidt). Riesz–Schauder applies.'
+  : 'NOT COMPACT: eigenvalues accumulate at 1, not 0. No finite-rank approximation in operator norm — T−λI for λ near 1 has thick spectrum.'}`;
+  }
+
+  N.addEventListener('input', render);
+  cBtn.addEventListener('click', ()=>{
+    mode='compact'; cBtn.classList.add('active'); ncBtn.classList.remove('active'); render();
+  });
+  ncBtn.addEventListener('click', ()=>{
+    mode='noncompact'; ncBtn.classList.add('active'); cBtn.classList.remove('active'); render();
+  });
+  render();
+})();
+</script>
+
+<section id="spectral">
+<h2>6. The spectral theorem</h2>
+
+<p>The spectral theorem is the centerpiece: it says a self-adjoint (or more generally <em>normal</em>) operator can be decomposed along its spectrum, in a way that reduces the study of $T$ to the study of scalar multiplication. Four tiers:</p>
+
+<h3>Rayleigh quotients and the variational principle</h3>
+<p>For self-adjoint $T$ on a Hilbert space, the <strong>Rayleigh quotient</strong> is $R_T(x)=\langle Tx,x\rangle/\|x\|^2$. Critical points of $R_T$ on the unit sphere are eigenvectors; the critical values are the eigenvalues. The <strong>Courant–Fischer min-max principle</strong> for compact self-adjoint operators on Hilbert space says the ordered eigenvalues $\lambda_1\ge\lambda_2\ge\cdots$ (by absolute value, with multiplicity) satisfy</p>
+$$\lambda_k = \max_{\dim V=k}\min_{x\in V,\|x\|=1}\langle Tx,x\rangle.$$
+<p>This is how you prove existence of the eigenvectors in the first place: iterate "maximize $R_T$ on the orthogonal complement of the previous eigenvectors".</p>
+
+<h3>Finite-dimensional: normal matrices diagonalize</h3>
+<div class="note"><strong>Theorem.</strong> A matrix $A\in\mathbb{C}^{n\times n}$ is <em>normal</em> ($AA^*=A^*A$) $\iff$ there is a unitary $U$ and a diagonal $D$ with $A=UDU^*$. Equivalently, $\mathbb{C}^n$ has an orthonormal eigenbasis of $A$. In the self-adjoint case ($A=A^*$), the eigenvalues are real.</div>
+
+$$A = \sum_{i=1}^n \lambda_i v_i v_i^*$$
+
+<p>is the <strong>spectral decomposition</strong>: a sum of rank-one orthogonal projections weighted by eigenvalues. The widget below computes this for a $3\times 3$ symmetric matrix.</p>
+
+<div class="widget" id="w-sym">
+  <div class="hd"><div class="ttl">Spectral decomposition of a $3\times 3$ symmetric matrix</div><div class="hint">Jacobi iteration in the browser</div></div>
+  <div class="row"><label>$A_{11}$</label><input type="range" id="sym-a11" min="-3" max="3" step="0.1" value="2"></div>
+  <div class="row"><label>$A_{22}$</label><input type="range" id="sym-a22" min="-3" max="3" step="0.1" value="1"></div>
+  <div class="row"><label>$A_{33}$</label><input type="range" id="sym-a33" min="-3" max="3" step="0.1" value="-1"></div>
+  <div class="row"><label>$A_{12}$</label><input type="range" id="sym-a12" min="-3" max="3" step="0.1" value="0.5"></div>
+  <div class="row"><label>$A_{13}$</label><input type="range" id="sym-a13" min="-3" max="3" step="0.1" value="0.3"></div>
+  <div class="row"><label>$A_{23}$</label><input type="range" id="sym-a23" min="-3" max="3" step="0.1" value="-0.4"></div>
+  <div class="readout" id="sym-out"></div>
+</div>
+
+<h3>Spectral radius and the Gelfand formula</h3>
+<p>For $T\in B(X)$, the <strong>spectral radius</strong> $r(T)=\sup\{|\lambda|:\lambda\in\sigma(T)\}$ satisfies</p>
+$$r(T) = \lim_{n\to\infty}\|T^n\|^{1/n}\le\|T\|.$$
+<p>This "Gelfand's formula" is a genuine surprise: the spectrum — a complex-analytic, algebra-theoretic object — is computed from the norm of iterates. For normal operators on Hilbert space, equality holds: $r(T)=\|T\|$. For self-adjoint $T$, $\|T\|=\sup_{\|x\|=1}|\langle Tx,x\rangle|$.</p>
+
+<h3>Compact self-adjoint operators</h3>
+<div class="note"><strong>Theorem (Hilbert–Schmidt).</strong> Let $T$ be a compact self-adjoint operator on a Hilbert space $H$. Then $H$ has an orthonormal basis $(e_n)$ of eigenvectors with real eigenvalues $\lambda_n\to 0$, and
+$$Tx=\sum_n\lambda_n\langle x,e_n\rangle e_n.$$</div>
+<p>This is the infinite-dimensional diagonalization theorem, and it is proven by the Courant–Fischer variational principle: the top eigenvalue is $\max_{\|x\|=1}\langle Tx,x\rangle$, then induct on orthogonal complements.</p>
+
+<p>A key corollary: the Laplacian on a bounded smooth domain $\Omega\subset\mathbb{R}^n$ with Dirichlet boundary conditions has an orthonormal basis of eigenfunctions $\{\phi_k\}\subset H^1_0(\Omega)$ with $-\Delta\phi_k=\lambda_k\phi_k$ and $\lambda_k\uparrow\infty$. This is the spectral theorem applied to $(-\Delta)^{-1}$, which is compact self-adjoint on $L^2$ by Rellich. It is the bedrock for separation-of-variables, heat kernel expansions, and the mathematics of vibrating drums.</p>
+
+<h3>Bounded self-adjoint operators: spectral measures</h3>
+<p>For a general bounded self-adjoint $T$ on a Hilbert space $H$, there may be no eigenvalues at all (think of $M_x$ on $L^2[0,1]$: $\sigma(M_x)=[0,1]$, $\sigma_p=\emptyset$). But there is a <strong>projection-valued measure</strong> $E\colon\mathrm{Borel}(\mathbb{R})\to B(H)$ supported on $\sigma(T)\subset\mathbb{R}$ such that</p>
+$$T = \int_{\sigma(T)} \lambda\,dE(\lambda),\qquad f(T) = \int f(\lambda)\,dE(\lambda)\ \text{for}\ f\in C(\sigma(T)).$$
+
+<p>Formally $E(B)$ is the orthogonal projection onto the closed subspace "of vectors whose spectrum lies in $B$". Concretely, for the multiplication operator $M_g$ on $L^2(X,\mu)$, $E(B) = M_{\mathbf{1}_{g^{-1}(B)}}$: the projection onto functions supported where $g$ lands in $B$. Every self-adjoint operator is cohomologous, in this precise sense, to a multiplication operator — see the statement below.</p>
+
+
+<p>The projections $E(B)$ satisfy $E(B_1\cap B_2)=E(B_1)E(B_2)$; the finite-sum spectral decomposition $T=\sum\lambda_i P_i$ is the special case where $E$ is atomic. The functional calculus $f\mapsto f(T)$ extends continuously from polynomials to all bounded Borel functions on $\sigma(T)$.</p>
+
+<h3>Multiplication-operator model</h3>
+<div class="ok"><strong>Spectral theorem (multiplication form).</strong> Every bounded self-adjoint $T$ on a separable Hilbert space $H$ is unitarily equivalent to a multiplication operator $M_g$ on $L^2(X,\mu)$ for some $\sigma$-finite measure space and $g\in L^\infty(X,\mu)$ real-valued:
+$$UTU^{-1}=M_g,\qquad U\colon H\xrightarrow{\sim} L^2(X,\mu).$$</div>
+
+<p>This is the statement mathematicians usually reach for. It says: every self-adjoint operator "is" multiplication by a real function, after a change of basis. Quantum mechanics lives off this theorem — position, momentum, and Hamiltonian all become multiplication operators in the right picture.</p>
+
+<h3>Continuous functional calculus</h3>
+<p>Once we have spectral measures, we get a homomorphism of Banach algebras</p>
+$$C(\sigma(T))\hookrightarrow B(H),\qquad f\mapsto f(T)=\int_{\sigma(T)} f(\lambda)\,dE(\lambda).$$
+<p>It satisfies $\overline{f}(T) = f(T)^*$ and $\|f(T)\|=\|f\|_{\sup,\sigma(T)}$. So for self-adjoint $T$ with $\sigma(T)\subset[0,\infty)$, $\sqrt{T}$ is unambiguously defined; for the Laplacian on a compact domain, $e^{-tT}$ is the heat semigroup; for the Hamiltonian, $e^{-itH}$ is unitary evolution. The calculus extends (via bounded Borel functions) to indicator functions $\mathbf{1}_B(T)=E(B)$, giving direct access to the spectral projections.</p>
+
+<h3>Unbounded self-adjoint operators</h3>
+<p>Most interesting operators (differential operators on $L^2$) are <em>unbounded</em>: they are defined only on a dense domain $D(T)\subset H$, and bookkeeping about domains becomes essential. The right notion is that $T$ is <strong>self-adjoint</strong> if $T=T^*$ as unbounded operators (domains included). The spectral theorem, Stone's theorem on one-parameter unitary groups, and the Schrödinger equation all live in this setting — but the price is that "self-adjoint" is genuinely stronger than "symmetric" ($\langle Tx,y\rangle=\langle x,Ty\rangle$ on $D(T)$), and von Neumann's deficiency-index theory is the tool for deciding when a symmetric operator extends to a self-adjoint one.</p>
+</section>
+
+<script>
+/* ============================ §6 symmetric 3×3 spectral widget ============================ */
+(function(){
+  const ids = ['sym-a11','sym-a22','sym-a33','sym-a12','sym-a13','sym-a23'];
+  const out = $('#sym-out');
+  const sliders = ids.map(id=>$('#'+id));
+
+  function makeA(){
+    const v = sliders.map(s=>parseFloat(s.value));
+    return [
+      [v[0], v[3], v[4]],
+      [v[3], v[1], v[5]],
+      [v[4], v[5], v[2]]
+    ];
+  }
+  function clone(M){ return M.map(r=>r.slice()); }
+  function eye(n){ const E=Array.from({length:n},()=>Array(n).fill(0)); for(let i=0;i<n;i++)E[i][i]=1; return E; }
+  function matmul(A,B){
+    const n=A.length, m=B[0].length, p=B.length;
+    const C=Array.from({length:n},()=>Array(m).fill(0));
+    for(let i=0;i<n;i++) for(let j=0;j<m;j++) for(let k=0;k<p;k++) C[i][j]+=A[i][k]*B[k][j];
+    return C;
+  }
+  function transpose(M){
+    const n=M.length, m=M[0].length;
+    const T=Array.from({length:m},()=>Array(n).fill(0));
+    for(let i=0;i<n;i++) for(let j=0;j<m;j++) T[j][i]=M[i][j];
+    return T;
+  }
+  function frob(M){ let s=0; for(const r of M) for(const v of r) s+=v*v; return Math.sqrt(s); }
+
+  function jacobi(A0){
+    // classical Jacobi eigendecomposition for symmetric 3x3
+    let A = clone(A0);
+    let V = eye(3);
+    const n = 3;
+    for(let iter=0; iter<80; iter++){
+      // find largest off-diagonal
+      let p=0,q=1,max=Math.abs(A[0][1]);
+      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+        if(Math.abs(A[i][j])>max){ max=Math.abs(A[i][j]); p=i; q=j; }
+      }
+      if(max < 1e-12) break;
+      const app=A[p][p], aqq=A[q][q], apq=A[p][q];
+      const theta = (aqq-app)/(2*apq);
+      const t = Math.sign(theta)/(Math.abs(theta)+Math.sqrt(1+theta*theta));
+      const c = 1/Math.sqrt(1+t*t);
+      const s = t*c;
+      // rotate A
+      const Anew = clone(A);
+      Anew[p][p] = app - t*apq;
+      Anew[q][q] = aqq + t*apq;
+      Anew[p][q] = Anew[q][p] = 0;
+      for(let i=0;i<n;i++) if(i!==p && i!==q){
+        Anew[i][p] = Anew[p][i] = c*A[i][p] - s*A[i][q];
+        Anew[i][q] = Anew[q][i] = s*A[i][p] + c*A[i][q];
+      }
+      A = Anew;
+      // update V
+      const Vnew = clone(V);
+      for(let i=0;i<n;i++){
+        Vnew[i][p] = c*V[i][p] - s*V[i][q];
+        Vnew[i][q] = s*V[i][p] + c*V[i][q];
+      }
+      V = Vnew;
+    }
+    const eigs = [A[0][0], A[1][1], A[2][2]];
+    const vecs = [0,1,2].map(j => [V[0][j], V[1][j], V[2][j]]);
+    return {eigs, vecs};
+  }
+
+  function fmt(m){
+    return m.map(r=>r.map(x=>x>=0?' '+x.toFixed(3):x.toFixed(3)).join(' ')).join('\n');
+  }
+
+  function render(){
+    const A = makeA();
+    const {eigs, vecs} = jacobi(A);
+    // sort by eigenvalue descending
+    const order = [0,1,2].sort((a,b)=>Math.abs(eigs[b])-Math.abs(eigs[a]));
+    const lam = order.map(i=>eigs[i]);
+    const v = order.map(i=>vecs[i]);
+    // reconstruct A via sum lambda_i v_i v_i^T
+    const Arec = [[0,0,0],[0,0,0],[0,0,0]];
+    for(let k=0;k<3;k++){
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++) Arec[i][j] += lam[k]*v[k][i]*v[k][j];
+    }
+    // residual
+    const R = [[0,0,0],[0,0,0],[0,0,0]];
+    for(let i=0;i<3;i++) for(let j=0;j<3;j++) R[i][j] = A[i][j]-Arec[i][j];
+    // orthogonality check  V^T V
+    const V = [[v[0][0],v[1][0],v[2][0]],
+               [v[0][1],v[1][1],v[2][1]],
+               [v[0][2],v[1][2],v[2][2]]];
+    const G = matmul(transpose(V), V);
+
+    out.textContent =
+`A =
+${fmt(A)}
+
+eigenvalues   λ = [${lam.map(x=>x.toFixed(4)).join(', ')}]
+eigenvector 1:  v₁ = (${v[0].map(x=>x.toFixed(3)).join(', ')})
+eigenvector 2:  v₂ = (${v[1].map(x=>x.toFixed(3)).join(', ')})
+eigenvector 3:  v₃ = (${v[2].map(x=>x.toFixed(3)).join(', ')})
+
+orthonormality (VᵀV):
+${fmt(G)}
+
+Σ λᵢ vᵢ vᵢᵀ =
+${fmt(Arec)}
+
+‖A − Σ λᵢ vᵢ vᵢᵀ‖_F = ${frob(R).toExponential(3)}   ✓`;
+  }
+  sliders.forEach(s=>s.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<section id="duality">
+<h2>7. Duality and the Riesz representation</h2>
+
+<p>Every Banach space $X$ has a dual $X^* = B(X,\mathbb{K})$. Understanding $X^*$ concretely is often half the job; it tells you which "tests" probe points of $X$.</p>
+
+<h3>$(L^p)^* = L^q$</h3>
+<div class="note"><strong>Theorem.</strong> Let $1<p<\infty$, $1/p+1/q=1$, and $(\Omega,\mu)$ be $\sigma$-finite. The map $g\mapsto \Lambda_g$, where $\Lambda_g(f)=\int fg\,d\mu$, is an isometric isomorphism $L^q\xrightarrow{\sim}(L^p)^*$.</div>
+
+<p>The edge cases are interesting: $(L^1)^*=L^\infty$ on a $\sigma$-finite space, but $(L^\infty)^*\supsetneq L^1$ — the dual of $L^\infty$ is the space of finitely-additive measures (so $L^\infty$ is not reflexive). For $1<p<\infty$, $L^p$ is reflexive ($X^{**}=X$) and uniformly convex.</p>
+
+<h3>Riesz representation on Hilbert space</h3>
+<div class="note"><strong>Theorem (Riesz).</strong> Let $H$ be a Hilbert space. The map
+$$\Phi\colon H\to H^*,\qquad (\Phi y)(x) = \langle x,y\rangle,$$
+is a conjugate-linear isometric bijection. Thus $H\cong H^*$ canonically (up to complex conjugation).</div>
+
+<p>Proof sketch: given $\ell\in H^*$, let $M=\ker\ell$. If $\ell\ne 0$ then $M^\perp$ is 1-dimensional, pick a unit $z\in M^\perp$ and set $y=\overline{\ell(z)}z$. Then $\ell(x)=\langle x,y\rangle$ by checking the two sides on $M$ and on $z$.</p>
+
+<p>This identification is what makes the adjoint $T^*$ of an operator on a Hilbert space live in the <em>same</em> space — on a Banach space, $T^*$ naturally lives in $B(Y^*,X^*)$.</p>
+
+<h3>Riesz–Markov–Kakutani</h3>
+<div class="note"><strong>Theorem.</strong> For a locally compact Hausdorff space $X$, $C_0(X)^*$ is isometrically the space $M(X)$ of finite complex regular Borel measures with the total-variation norm. Every continuous linear functional on $C_0(X)$ is integration against a measure.</div>
+
+<p>This is the bridge between the "function" and "measure" worldviews: the dual of functions is measures, and vice versa under suitable hypotheses. It underlies weak-* convergence of probability measures, Young measures in PDE, and much of geometric measure theory.</p>
+
+<h3>Hölder and duality at the source</h3>
+<p>The $(L^p)^*=L^q$ identification is a theorem, but the inequality that drives it is elementary:</p>
+$$\Big|\int fg\,d\mu\Big|\le\|f\|_p\|g\|_q\qquad\text{(Hölder)}.$$
+<p>Hölder says the pairing is well-defined and bounded; the content of the theorem is that <em>every</em> bounded functional on $L^p$ is of this pairing form. The proof passes through the Radon–Nikodym theorem on finite measure spaces, then bootstraps to $\sigma$-finite ones — measure theory inside functional analysis inside measure theory.</p>
+
+<h3>Reflexive spaces at a glance</h3>
+<table class="plain">
+<thead><tr><th>space</th><th>dual</th><th>reflexive?</th></tr></thead>
+<tbody>
+<tr><td>$\ell^p,\ L^p$ for $1<p<\infty$</td><td>$\ell^q,\ L^q$</td><td>yes</td></tr>
+<tr><td>Hilbert $H$</td><td>$H$ (via Riesz)</td><td>yes</td></tr>
+<tr><td>$\ell^1$</td><td>$\ell^\infty$</td><td>no</td></tr>
+<tr><td>$L^1$ on $\sigma$-finite</td><td>$L^\infty$</td><td>no</td></tr>
+<tr><td>$\ell^\infty$</td><td>$(\ell^\infty)^*\supsetneq \ell^1$</td><td>no</td></tr>
+<tr><td>$c_0$</td><td>$\ell^1$</td><td>no</td></tr>
+<tr><td>$C[0,1]$ (sup norm)</td><td>$M[0,1]$</td><td>no</td></tr>
+</tbody>
+</table>
+
+<h3>Weak and weak-* topologies</h3>
+<p>On $X$, the <strong>weak topology</strong> is the coarsest making every $\ell\in X^*$ continuous: $x_n\rightharpoonup x$ iff $\ell(x_n)\to\ell(x)$ for all $\ell\in X^*$. On $X^*$, the <strong>weak-* topology</strong> is the coarsest making evaluation-at-$x$ continuous for every $x\in X$. The <strong>Banach–Alaoglu theorem</strong> says the closed unit ball of $X^*$ is weak-* compact — an infinite-dimensional substitute for the Heine–Borel theorem, absolutely essential for existence-via-compactness arguments (minimizers, weak solutions to PDE, invariant measures).</p>
+
+<h3>Reflexivity</h3>
+<p>The natural map $J\colon X\to X^{**}$, $Jx(\ell)=\ell(x)$, is always an isometric embedding. $X$ is <strong>reflexive</strong> when $J$ is surjective. Hilbert spaces are reflexive (Riesz gives $H\cong H^*\cong H^{**}$); $L^p$ is reflexive for $1<p<\infty$; $L^1$, $L^\infty$, $C[0,1]$, $c_0$, and $\ell^1$ are <em>not</em>. Reflexivity is a compactness property: the unit ball of a reflexive space is weakly sequentially compact (Eberlein–Šmulian), which is why variational problems love reflexive spaces.</p>
+
+<h3>Widget — $L^2$ convergence of Fourier series</h3>
+<p>On $[-\pi,\pi]$, the exponentials $\{e^{ikx}/\sqrt{2\pi}\}_{k\in\mathbb{Z}}$ form an orthonormal basis of $L^2$; Parseval says partial sums converge in $L^2$ for every $L^2$ function. Pointwise convergence can fail at jumps (Gibbs).</p>
+
+<div class="widget" id="w-fs">
+  <div class="hd"><div class="ttl">Fourier partial sum $S_N f$</div><div class="hint">in $L^2[-\pi,\pi]$</div></div>
+  <svg id="fs-svg" viewBox="0 0 560 300" width="560" height="300"></svg>
+  <div class="row">
+    <label>target</label>
+    <select id="fs-tgt">
+      <option value="step">step (sign)</option>
+      <option value="tri">triangle</option>
+      <option value="saw">sawtooth</option>
+    </select>
+    <label>$N$</label>
+    <input type="range" id="fs-N" min="1" max="30" step="1" value="5">
+    <span class="readout" id="fs-N-out" style="min-width:60px;flex:0 0 auto">N = 5</span>
+  </div>
+  <div class="readout" id="fs-out"></div>
+</div>
+</section>
+
+<script>
+/* ============================ §7 Fourier-series widget ============================ */
+(function(){
+  const svg = $('#fs-svg'), tgt = $('#fs-tgt'), N = $('#fs-N'), NOut = $('#fs-N-out'), out = $('#fs-out');
+  const W=560, H=300, padL=40, padR=20, padT=20, padB=30;
+  const xmin=-Math.PI, xmax=Math.PI;
+  function f(name, x){
+    if(name==='step') return x>0 ? 1 : (x<0 ? -1 : 0);
+    if(name==='tri')  return 1 - Math.abs(x)/Math.PI * 2;
+    if(name==='saw')  return x/Math.PI;
+    return 0;
+  }
+
+  // Fourier coefficients via numerical integration (fine grid)
+  const G = 1024;
+  function coeffs(name, N){
+    // real Fourier: a_0/2 + sum a_k cos(kx) + b_k sin(kx)
+    const a = new Array(N+1).fill(0);
+    const b = new Array(N+1).fill(0);
+    const dx = 2*Math.PI/G;
+    for(let i=0;i<G;i++){
+      const x = -Math.PI + (i+0.5)*dx;
+      const y = f(name, x);
+      a[0] += y*dx;
+      for(let k=1;k<=N;k++){
+        a[k] += y*Math.cos(k*x)*dx;
+        b[k] += y*Math.sin(k*x)*dx;
+      }
+    }
+    for(let k=0;k<=N;k++){ a[k] /= Math.PI; b[k] /= Math.PI; }
+    return {a,b};
+  }
+  function SN(name, N, x){
+    const {a,b} = coeffs(name, N);
+    let s = a[0]/2;
+    for(let k=1;k<=N;k++) s += a[k]*Math.cos(k*x) + b[k]*Math.sin(k*x);
+    return s;
+  }
+  // Parseval-based L^2 error:
+  // ||f||^2 = π (a_0^2/2 + Σ (a_k^2 + b_k^2))  [using our normalization a_k = (1/π)∫ f cos(kx)]
+  // Actually with our conventions:
+  //   f ~ a_0/2 + Σ a_k cos + b_k sin
+  //   ||f||_L2^2 = π ( a_0^2/2 + Σ (a_k^2 + b_k^2) )
+  // ||f - S_N||^2 = π Σ_{k>N} (a_k^2 + b_k^2)
+  // We estimate via a larger set of coefficients.
+
+  function L2error(name, N){
+    const {a,b} = coeffs(name, Math.max(80, N+50));
+    let tail = 0;
+    for(let k=N+1;k<a.length;k++) tail += a[k]*a[k] + b[k]*b[k];
+    return Math.sqrt(Math.PI*tail);
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const name = tgt.value;
+    const n = parseInt(N.value);
+    NOut.textContent = 'N = '+n;
+
+    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy = y => padT + (1.6 - y)/3.2 *(H-padT-padB);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+    for(const v of [-Math.PI,-Math.PI/2,Math.PI/2,Math.PI]){
+      const x = sx(v);
+      svg.appendChild(SVG('line',{x1:x,y1:sy(0)-3,x2:x,y2:sy(0)+3,stroke:'var(--mute)'}));
+    }
+    for(const v of [-1,1]){
+      const y = sy(v);
+      svg.appendChild(SVG('line',{x1:sx(0)-3,y1:y,x2:sx(0)+3,y2:y,stroke:'var(--mute)'}));
+    }
+
+    // target f — piecewise to handle the jump cleanly
+    let tpts = [];
+    const M = 800;
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      tpts.push([sx(x), sy(f(name,x))]);
+    }
+    const td = tpts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ');
+    svg.appendChild(SVG('path',{d:td, fill:'none', stroke:'var(--mute)', 'stroke-width':1.5, 'stroke-dasharray':'4 3'}));
+
+    // S_N f
+    let spts = [];
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      spts.push([sx(x), sy(SN(name, n, x))]);
+    }
+    const sd = spts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ');
+    svg.appendChild(SVG('path',{d:sd, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+
+    // legend
+    const lg1 = SVG('text',{x:W-padR-4,y:padT+14,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lg1.textContent = 'target f(x)'; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-padR-4,y:padT+30,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg2.textContent = `S_${n} f(x)`; svg.appendChild(lg2);
+
+    const err = L2error(name, n);
+    out.textContent =
+`target: ${name},  N = ${n}
+‖f − S_N f‖_{L²[-π,π]}  ≈ ${err.toFixed(4)}
+(decreases monotonically as N→∞ for any f ∈ L²; Parseval guarantees → 0.)
+Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N — but it is localized to a shrinking window, so L² error still → 0.`;
+  }
+
+  tgt.addEventListener('change', render);
+  N.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="outro">
+<h2>8. Connections</h2>
+
+<p>Functional analysis is the grammar of modern mathematical analysis. Some of the neighbors:</p>
+
+<ul>
+  <li><strong>Real analysis</strong> — $L^p$, convergence theorems, and the completeness proofs are the anchor; this page assumes basic measure theory, and the companion page will dig into it.</li>
+  <li><strong>Representation theory</strong> — unitary representations of a locally compact group $G$ live in $B(H)$ for a Hilbert space $H$; Peter–Weyl and Gelfand–Naimark–Segal rest directly on the spectral theorem and $C^*$-algebra theory.</li>
+  <li><strong>Partial differential equations</strong> — Sobolev spaces $H^s$ are Hilbert, Lax–Milgram is a Hilbert-space fixed-point theorem, and weak solutions live in reflexive Banach spaces so that Banach–Alaoglu delivers compactness. Elliptic regularity and semigroup theory sit on top of spectral theory.</li>
+  <li><strong>Quantum mechanics</strong> — states are rays in a Hilbert space, observables are self-adjoint operators, the spectral theorem gives probability distributions for measurement, and time evolution is a unitary group $e^{-itH/\hbar}$ by Stone's theorem. Every computation with observables is secretly a computation with spectral measures.</li>
+  <li><strong>$C^*$-algebras and noncommutative geometry</strong> — Gelfand: commutative $C^*$-algebras with unit are exactly $C(X)$ for compact Hausdorff $X$. Dropping commutativity gives operator algebras, the "noncommutative" side of the bridge.</li>
+  <li><strong>Optimization and economics</strong> — Hahn–Banach separation is the linear-programming duality theorem in disguise; Minkowski and Farkas are its finite-dimensional shadows.</li>
+  <li><strong>Signal processing and machine learning</strong> — reproducing kernel Hilbert spaces, kernel methods, and the representer theorem all live in a Hilbert framework; the SVD of a compact operator is the Mercer expansion.</li>
+  <li><strong>Ergodic theory</strong> — the mean ergodic theorem is a Hilbert-space statement about the projection onto the invariant subspace of a unitary operator (Stone–von Neumann).</li>
+  <li><strong>Number theory</strong> — modular forms live in $L^2$ of a fundamental domain; the Selberg trace formula relates spectral data of Laplacians to geometric data of geodesics.</li>
+  <li><strong>Category theory (companion page)</strong> — $B(H)$, viewed as a dagger category with adjoint as the dagger, is the testbed for categorical approaches to quantum mechanics and compositional semantics.</li>
+</ul>
+
+<p>The spectral theorem is the destination: it says that on a Hilbert space, self-adjoint operators are, up to a change of basis, just multiplication. Everything else on this page — completeness, the big four theorems, compactness, duality — is infrastructure to make that statement precise and to extend it as far as the hypotheses will carry.</p>
+
+<h3>A short reading route</h3>
+<ol>
+  <li><strong>Start at the norm.</strong> Learn $\ell^p$ and $L^p$ well enough to prove completeness, duality, and density of simple functions. These are the non-Hilbert Banach spaces you will actually use.</li>
+  <li><strong>Get comfortable in Hilbert.</strong> Projections, orthonormal bases, Fourier series, the Riesz representation theorem, and the adjoint. Do the exercises with shift operators.</li>
+  <li><strong>Internalize the big four.</strong> Understand each as a statement about maps or functionals, not as a proof. Use them as licenses.</li>
+  <li><strong>Compact, then spectral.</strong> Spectral theory on compact operators is "infinite-dimensional linear algebra". Only then move to bounded and unbounded self-adjoint.</li>
+  <li><strong>Pick a partner field.</strong> PDE (Sobolev and semigroups), quantum mechanics (Stone's theorem, unbounded Hamiltonians), or harmonic analysis (Fourier multipliers). Each one sharpens different theorems on this page.</li>
+</ol>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Category theory — objects, arrows, and universality</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#cat">1&nbsp;Categories</a>
+  <a href="#fun">2&nbsp;Functors</a>
+  <a href="#nat">3&nbsp;Natural&nbsp;transformations</a>
+  <a href="#yoneda">4&nbsp;Yoneda</a>
+  <a href="#lim">5&nbsp;(Co)limits</a>
+  <a href="#adj">6&nbsp;Adjoints</a>
+  <a href="#play">7&nbsp;Proof&nbsp;play</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Categories, functors, and the Yoneda lemma</h1>
+  <p class="sub">A disciplined way to say "arrows between things behave like the things themselves." From objects and morphisms to the universal property of the pullback and the adjunction that constructs free groups.</p>
+</section>
+
+<section id="cat">
+<h2>1. What is a category?</h2>
+<p>A <strong>category</strong> $\mathcal{C}$ consists of:</p>
+<ul>
+  <li>a class of <em>objects</em> $\operatorname{ob}\mathcal{C}$;</li>
+  <li>for every ordered pair $(A,B)$, a set $\operatorname{Hom}_{\mathcal{C}}(A,B)$ of <em>morphisms</em> (or arrows) $f\colon A\to B$;</li>
+  <li>a composition law $\operatorname{Hom}(B,C)\times\operatorname{Hom}(A,B)\to\operatorname{Hom}(A,C)$, $(g,f)\mapsto g\circ f$, that is associative;</li>
+  <li>for each $A$, an identity $\mathrm{id}_A\in\operatorname{Hom}(A,A)$ satisfying $f\circ\mathrm{id}_A=f$ and $\mathrm{id}_B\circ f=f$.</li>
+</ul>
+<p>That is all. The data is so sparse that almost anything is a category, and the discipline is to see which statements about mathematical objects are <em>really</em> statements about the arrows between them.</p>
+
+<h3>Examples you already know</h3>
+<table class="plain">
+<thead><tr><th>category</th><th>objects</th><th>morphisms</th></tr></thead>
+<tbody>
+<tr><td>$\mathsf{Set}$</td><td>sets</td><td>functions</td></tr>
+<tr><td>$\mathsf{Grp}$</td><td>groups</td><td>group homomorphisms</td></tr>
+<tr><td>$\mathsf{Ab}$</td><td>abelian groups</td><td>group homomorphisms</td></tr>
+<tr><td>$\mathsf{Ring}$</td><td>(commutative, unital) rings</td><td>ring homomorphisms preserving $1$</td></tr>
+<tr><td>$\mathsf{Top}$</td><td>topological spaces</td><td>continuous maps</td></tr>
+<tr><td>$\mathsf{Vect}_k$</td><td>$k$-vector spaces</td><td>$k$-linear maps</td></tr>
+<tr><td>$\mathsf{Sch}$</td><td>schemes</td><td>morphisms of schemes</td></tr>
+</tbody>
+</table>
+
+<p>More surprising are the cases where a category is a <em>single</em> structured object:</p>
+
+<div class="note"><strong>A poset is a category.</strong> Given a partially ordered set $(P,\le)$, take $\operatorname{ob}=P$ and $\operatorname{Hom}(x,y)$ is a singleton if $x\le y$, empty otherwise. Composition is forced by transitivity; identities by reflexivity.</div>
+
+<div class="note"><strong>A group is a one-object category.</strong> Let $G$ be a group. Define $\mathcal{B}G$ with one object $*$ and $\operatorname{Hom}(*,*)=G$, composition = group multiplication. Associativity and identities come for free. A functor $\mathcal{B}G\to\mathsf{Set}$ is a $G$-set; a functor $\mathcal{B}G\to\mathsf{Vect}_k$ is a representation.</div>
+
+<div class="note"><strong>A monoid is a one-object category</strong> (same construction, drop "inverses"). A <strong>groupoid</strong> is a category in which every morphism is invertible.</div>
+
+<h3>A tiny explicit category</h3>
+<p>Here is a three-object category $\mathcal{C}$ with hand-picked non-trivial arrows. The only non-identity morphisms are $f\colon A\to B$, $g\colon B\to C$, and $h\colon A\to C$ — with the forced equation $h=g\circ f$. Click two composable arrows (first the left-hand one, then the right) and the widget will display the composite.</p>
+
+<div class="widget" id="w-cat">
+  <div class="hd"><div class="ttl">Composition explorer</div><div class="hint">click arrow 1 then arrow 2 to compose</div></div>
+  <svg id="cat-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="readout" id="cat-out">click an arrow to start…</div>
+  <div class="row">
+    <button id="cat-reset">reset</button>
+    <span class="small">morphisms: id_A, id_B, id_C, f:A→B, g:B→C, h:A→C.  law: g∘f = h.</span>
+  </div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg = $('#cat-svg'), out = $('#cat-out'), resetBtn = $('#cat-reset');
+  // positions
+  const A=[120,200], B=[310,80], C=[500,200];
+  // morphisms as {id, src, tgt, label, path-info}
+  const MORPHS = [
+    {id:'idA',  src:'A', tgt:'A', label:'id_A', loop:true},
+    {id:'idB',  src:'B', tgt:'B', label:'id_B', loop:true},
+    {id:'idC',  src:'C', tgt:'C', label:'id_C', loop:true},
+    {id:'f',    src:'A', tgt:'B', label:'f'},
+    {id:'g',    src:'B', tgt:'C', label:'g'},
+    {id:'h',    src:'A', tgt:'C', label:'h', curve:-40},
+  ];
+  const POS = {A,B,C};
+  // composition table: compose[left][right] (right applied first)
+  // we store compose(g,f) under key g.f  — i.e. first "f" then "g"
+  const COMP = {
+    'idA.idA':'idA', 'idB.idB':'idB', 'idC.idC':'idC',
+    'idB.f':'f',  'f.idA':'f',
+    'idC.g':'g',  'g.idB':'g',
+    'idC.h':'h',  'h.idA':'h',
+    'g.f':'h',
+  };
+  let picks = []; // array of morph-ids
+
+  function findMorph(id){ return MORPHS.find(m=>m.id===id); }
+  function loopArrow(svgEl, p, label, mid, highlight){
+    // draw a small loop above a node
+    const [x,y]=p;
+    const col = highlight?'var(--yellow)':'var(--violet)';
+    ensureArrow(svgEl, 'arr-loop-'+(highlight?'h':'n'), col);
+    const d = `M ${x-10} ${y-22} C ${x-36} ${y-70}, ${x+36} ${y-70}, ${x+10} ${y-22}`;
+    const p1 = SVG('path',{d, fill:'none', stroke:col, 'stroke-width':1.4,
+      'marker-end':`url(#arr-loop-${highlight?'h':'n'})`});
+    svgEl.appendChild(p1);
+    const t = SVG('text',{x:x, y:y-52, 'text-anchor':'middle','font-size':12, fill:col,
+      'font-style':'italic'});
+    t.textContent = label;
+    svgEl.appendChild(t);
+    // make clickable via a transparent overlay rect
+    const r = SVG('rect',{x:x-30,y:y-72,width:60,height:40,fill:'transparent',
+      style:'cursor:pointer','data-mid':mid});
+    svgEl.appendChild(r);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // nodes
+    drawNode(svg, A[0], A[1], 'A');
+    drawNode(svg, B[0], B[1], 'B');
+    drawNode(svg, C[0], C[1], 'C');
+    // arrows (non-loops)
+    for(const m of MORPHS){
+      if(m.loop) continue;
+      const highlight = picks.includes(m.id);
+      const color = highlight? 'var(--yellow)' : (m.id==='h' ? 'var(--pink)' : 'var(--blue)');
+      const markerId = 'arr-cat-'+m.id+(highlight?'h':'');
+      const p1 = POS[m.src], p2 = POS[m.tgt];
+      drawArrow(svg, p1, p2, {color, curve: m.curve||14, label:m.label, markerId, pad1:20, pad2:22, width:1.8});
+      // enlarge click target
+      const midx=(p1[0]+p2[0])/2, midy=(p1[1]+p2[1])/2 - (m.curve? m.curve*0.55 : 8);
+      const r = SVG('rect',{x:midx-18,y:midy-14,width:36,height:22,fill:'transparent',
+        style:'cursor:pointer','data-mid':m.id});
+      svg.appendChild(r);
+    }
+    // identity loops
+    for(const m of MORPHS){
+      if(!m.loop) continue;
+      const highlight = picks.includes(m.id);
+      loopArrow(svg, POS[m.src], m.label, m.id, highlight);
+    }
+  }
+
+  function onClickId(mid){
+    if(picks.length === 0){
+      picks = [mid]; render(); showState();
+    } else if(picks.length === 1){
+      picks = [picks[0], mid]; render(); showState();
+    } else {
+      picks = [mid]; render(); showState();
+    }
+  }
+  function showState(){
+    if(picks.length === 0){
+      out.textContent = 'click an arrow to start…';
+      return;
+    }
+    if(picks.length === 1){
+      const m = findMorph(picks[0]);
+      out.textContent = `picked: ${m.label} : ${m.src} → ${m.tgt}\n(now click a second morphism — the FIRST one to apply, i.e. the one on the right of ∘)`;
+      return;
+    }
+    // two picks — treat first as "left" (outer), second as "right" (inner)
+    const left = findMorph(picks[0]), right = findMorph(picks[1]);
+    const key = `${left.id}.${right.id}`;
+    if(left.src !== right.tgt){
+      out.textContent =
+        `${left.label} : ${left.src} → ${left.tgt}\n` +
+        `${right.label} : ${right.src} → ${right.tgt}\n\n` +
+        `NOT composable: need right.tgt = left.src, but ${right.tgt} ≠ ${left.src}.`;
+      return;
+    }
+    const res = COMP[key] || '??';
+    const resM = findMorph(res);
+    out.textContent =
+      `${left.label} ∘ ${right.label}\n` +
+      `  = (${left.src}←${left.tgt}? no, it's ${right.src} → ${right.tgt} → ${left.tgt})\n` +
+      `  : ${right.src} → ${left.tgt}\n` +
+      `  = ${resM.label}.`;
+  }
+  svg.addEventListener('click',e=>{
+    const mid = e.target && e.target.getAttribute && e.target.getAttribute('data-mid');
+    if(mid) onClickId(mid);
+  });
+  resetBtn.addEventListener('click',()=>{ picks=[]; render(); showState(); });
+  render(); showState();
+})();
+</script>
+
+<p>An <strong>isomorphism</strong> is a morphism $f\colon A\to B$ with a two-sided inverse. In $\mathsf{Set}$: bijections. In $\mathsf{Top}$: homeomorphisms. In $\mathsf{Grp}$: group isomorphisms. The point is that "isomorphism" is a notion purely of the category — you never unpack it into elements.</p>
+
+<div class="note"><strong>Opposite category.</strong> $\mathcal{C}^{\mathrm{op}}$ has the same objects as $\mathcal{C}$ but $\operatorname{Hom}_{\mathcal{C}^{\mathrm{op}}}(A,B)=\operatorname{Hom}_{\mathcal{C}}(B,A)$; composition is reversed. Every definition about $\mathcal{C}$ has a <em>dual</em> got by flipping all arrows.</div>
+</section>
+
+<section id="fun">
+<h2>2. Functors</h2>
+<p>A <strong>functor</strong> $F\colon\mathcal{C}\to\mathcal{D}$ is a homomorphism of categories: it sends objects to objects, morphisms to morphisms, preserving sources, targets, identities, and composition:</p>
+<p style="text-align:center">$F(g\circ f)=F(g)\circ F(f),\qquad F(\mathrm{id}_A)=\mathrm{id}_{F(A)}.$</p>
+<p>This is the <em>covariant</em> case. A <strong>contravariant</strong> functor $\mathcal{C}\to\mathcal{D}$ (equivalently a covariant functor $\mathcal{C}^{\mathrm{op}}\to\mathcal{D}$) reverses direction: $F(g\circ f)=F(f)\circ F(g)$.</p>
+
+<h3>Classic functors</h3>
+<ul>
+  <li><strong>Forgetful</strong>: $U\colon\mathsf{Grp}\to\mathsf{Set}$ sends a group to its underlying set. It drops structure; it is <em>faithful</em> (injective on $\operatorname{Hom}$s) but not full.</li>
+  <li><strong>Free</strong>: $F\colon\mathsf{Set}\to\mathsf{Grp}$ sends a set $X$ to the free group on $X$. It is left-adjoint to $U$ (§6).</li>
+  <li><strong>Fundamental group</strong>: $\pi_1\colon\mathsf{Top}_*\to\mathsf{Grp}$ is a functor from pointed topological spaces to groups. Continuous maps of pointed spaces induce group homomorphisms; composition is preserved. Functoriality is the <em>entire point</em> — it is what lets you prove $S^1$ is not contractible.</li>
+  <li><strong>Hom-functors</strong>: for fixed $A\in\mathcal{C}$, $\operatorname{Hom}(A,-)\colon\mathcal{C}\to\mathsf{Set}$ is covariant; $\operatorname{Hom}(-,A)\colon\mathcal{C}\to\mathsf{Set}$ is contravariant. The most important functors in the subject.</li>
+  <li><strong>Abelianization</strong>: $G\mapsto G/[G,G]$ is a functor $\mathsf{Grp}\to\mathsf{Ab}$, left-adjoint to the inclusion $\mathsf{Ab}\hookrightarrow\mathsf{Grp}$.</li>
+  <li><strong>$\operatorname{Spec}$</strong>: a contravariant functor $\mathsf{CRing}\to\mathsf{Sch}$. You know this one.</li>
+</ul>
+
+<p>A functor from the <strong>walking arrow</strong> category $\mathbf{2}=(\bullet\to\bullet)$ to $\mathcal{D}$ is exactly a choice of morphism in $\mathcal{D}$: two objects $F(0), F(1)$ and an arrow $F(0\to 1)$. The widget below builds one into $\mathsf{Set}$.</p>
+
+<div class="widget" id="w-fun">
+  <div class="hd"><div class="ttl">Functor $\mathbf{2}\to\mathsf{Set}$</div><div class="hint">pick source, target, and a function</div></div>
+  <div class="row">
+    <label>source $F(0)$:</label>
+    <select id="fn-src">
+      <option value="1">{a}</option>
+      <option value="2" selected>{a,b}</option>
+      <option value="3">{a,b,c}</option>
+    </select>
+    <label>target $F(1)$:</label>
+    <select id="fn-tgt">
+      <option value="1">{1}</option>
+      <option value="2" selected>{1,2}</option>
+      <option value="3">{1,2,3}</option>
+      <option value="4">{1,2,3,4}</option>
+    </select>
+    <button id="fn-rand">randomize function</button>
+  </div>
+  <div class="row" id="fn-assign"></div>
+  <svg id="fn-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="readout" id="fn-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  const srcSel=$('#fn-src'), tgtSel=$('#fn-tgt'), rand=$('#fn-rand');
+  const assignRow=$('#fn-assign'), svg=$('#fn-svg'), out=$('#fn-out');
+  let nS=2, nT=2, assign=[0,1];
+  const SRC_LABELS = ['a','b','c'];
+
+  function ensureAssignLength(){
+    while(assign.length < nS) assign.push(0);
+    assign = assign.slice(0,nS).map(v=>Math.min(v,nT-1));
+  }
+  function buildAssignUI(){
+    assignRow.innerHTML='';
+    const lab = document.createElement('span');
+    lab.className='small'; lab.style.color='var(--mute)';
+    lab.textContent='function: ';
+    assignRow.appendChild(lab);
+    for(let i=0;i<nS;i++){
+      const block=document.createElement('span');
+      block.innerHTML = `<span class="small" style="color:var(--mute)">${SRC_LABELS[i]} ↦ </span>`;
+      const sel=document.createElement('select');
+      sel.style.marginLeft='.2rem'; sel.style.marginRight='.6rem';
+      for(let j=0;j<nT;j++){
+        const o=document.createElement('option'); o.value=j; o.textContent=String(j+1);
+        if(assign[i]===j) o.selected=true;
+        sel.appendChild(o);
+      }
+      sel.addEventListener('change',()=>{assign[i]=parseInt(sel.value,10); render();});
+      block.appendChild(sel);
+      assignRow.appendChild(block);
+    }
+  }
+  function render(){
+    svg.innerHTML='';
+    const W=620, H=260;
+    const xL=170, xR=450;
+    const yMidS=H/2, yMidT=H/2;
+    const spacing=52;
+    // source blob
+    const srcYs=[]; const tgtYs=[];
+    for(let i=0;i<nS;i++) srcYs.push(yMidS + (i - (nS-1)/2)*spacing);
+    for(let j=0;j<nT;j++) tgtYs.push(yMidT + (j - (nT-1)/2)*spacing);
+    // blob rectangles
+    svg.appendChild(SVG('rect',{x:xL-60,y:Math.min(...srcYs)-34,width:120,
+      height:(srcYs[srcYs.length-1]-srcYs[0])+68,rx:16,ry:16,
+      fill:'rgba(88,196,221,0.08)',stroke:'var(--blue)','stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('rect',{x:xR-60,y:Math.min(...tgtYs)-34,width:120,
+      height:(tgtYs[tgtYs.length-1]-tgtYs[0])+68,rx:16,ry:16,
+      fill:'rgba(255,216,102,0.08)',stroke:'var(--yellow)','stroke-dasharray':'4 4'}));
+    // labels
+    const tS=SVG('text',{x:xL,y:Math.min(...srcYs)-46,'text-anchor':'middle','font-size':13,fill:'var(--blue)'});
+    tS.textContent='F(0) — source set'; svg.appendChild(tS);
+    const tT=SVG('text',{x:xR,y:Math.min(...tgtYs)-46,'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});
+    tT.textContent='F(1) — target set'; svg.appendChild(tT);
+    // dots + labels
+    for(let i=0;i<nS;i++){
+      svg.appendChild(SVG('circle',{cx:xL,cy:srcYs[i],r:7,fill:'var(--blue)'}));
+      const t=SVG('text',{x:xL-18,y:srcYs[i]+5,'text-anchor':'end','font-size':13,fill:'#fff'});
+      t.textContent=SRC_LABELS[i]; svg.appendChild(t);
+    }
+    for(let j=0;j<nT;j++){
+      svg.appendChild(SVG('circle',{cx:xR,cy:tgtYs[j],r:7,fill:'var(--yellow)'}));
+      const t=SVG('text',{x:xR+18,y:tgtYs[j]+5,'text-anchor':'start','font-size':13,fill:'#fff'});
+      t.textContent=String(j+1); svg.appendChild(t);
+    }
+    // arrows
+    ensureArrow(svg,'fn-arr','var(--violet)');
+    for(let i=0;i<nS;i++){
+      const j=assign[i];
+      const path=SVG('path',{d:`M${xL+10} ${srcYs[i]} C ${xL+120} ${srcYs[i]}, ${xR-120} ${tgtYs[j]}, ${xR-10} ${tgtYs[j]}`,
+        fill:'none',stroke:'var(--violet)','stroke-width':1.6,'marker-end':'url(#fn-arr)'});
+      svg.appendChild(path);
+    }
+    // image
+    const image = [...new Set(assign)].sort((a,b)=>a-b);
+    const injective = (new Set(assign).size === assign.length);
+    const surjective = image.length === nT;
+    let msg = `F(0) = {${SRC_LABELS.slice(0,nS).join(',')}}   (size ${nS})\n`
+            + `F(1) = {${Array.from({length:nT},(_,j)=>j+1).join(',')}}   (size ${nT})\n`
+            + `F(0→1) : ${SRC_LABELS.slice(0,nS).map((x,i)=>`${x}↦${assign[i]+1}`).join(', ')}\n`
+            + `image = {${image.map(j=>j+1).join(',')}}   (size ${image.length})\n`
+            + `injective? ${injective?'yes':'no'}   surjective? ${surjective?'yes':'no'}`;
+    out.textContent = msg;
+  }
+  function rebuild(){
+    nS=parseInt(srcSel.value,10); nT=parseInt(tgtSel.value,10);
+    ensureAssignLength(); buildAssignUI(); render();
+  }
+  srcSel.addEventListener('change',rebuild);
+  tgtSel.addEventListener('change',rebuild);
+  rand.addEventListener('click',()=>{
+    assign = Array.from({length:nS},()=>Math.floor(Math.random()*nT));
+    buildAssignUI(); render();
+  });
+  rebuild();
+})();
+</script>
+
+<p>The point of the walking arrow is that a functor out of any "shape" category is just a <em>diagram</em> of that shape. Functors out of $\mathbf{2}$ are arrows; functors out of $\mathbf{3}=(\bullet\to\bullet\to\bullet)$ are composable pairs; functors out of the <em>span</em> $(\bullet\leftarrow\bullet\to\bullet)$ are the data defining a pullback (§5).</p>
+</section>
+
+<section id="nat">
+<h2>3. Natural transformations</h2>
+<p>Functors $F,G\colon\mathcal{C}\to\mathcal{D}$ are the objects of a category; morphisms between them are <strong>natural transformations</strong> $\eta\colon F\Rightarrow G$. The data: for each $A\in\mathcal{C}$ a morphism $\eta_A\colon F(A)\to G(A)$ in $\mathcal{D}$ (the <em>component</em> at $A$). The constraint: for each $f\colon A\to B$ in $\mathcal{C}$, the square</p>
+
+<div style="text-align:center;margin:1rem 0">
+  <svg viewBox="0 0 360 180" width="360" height="180">
+    <text x="70" y="40" text-anchor="middle" font-size="16" fill="#fff">F(A)</text>
+    <text x="290" y="40" text-anchor="middle" font-size="16" fill="#fff">F(B)</text>
+    <text x="70" y="160" text-anchor="middle" font-size="16" fill="#fff">G(A)</text>
+    <text x="290" y="160" text-anchor="middle" font-size="16" fill="#fff">G(B)</text>
+    <defs>
+      <marker id="nat-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="#ffd866"/>
+      </marker>
+    </defs>
+    <line x1="105" y1="34" x2="255" y2="34" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="105" y1="154" x2="255" y2="154" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="70" y1="55" x2="70" y2="140" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="290" y1="55" x2="290" y2="140" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <text x="180" y="28" text-anchor="middle" font-size="13" fill="#ffd866" font-style="italic">F(f)</text>
+    <text x="180" y="175" text-anchor="middle" font-size="13" fill="#ffd866" font-style="italic">G(f)</text>
+    <text x="55" y="100" text-anchor="end" font-size="13" fill="#ffd866" font-style="italic">η_A</text>
+    <text x="305" y="100" text-anchor="start" font-size="13" fill="#ffd866" font-style="italic">η_B</text>
+  </svg>
+</div>
+
+<p style="text-align:center">$\eta_B\circ F(f) \;=\; G(f)\circ \eta_A$</p>
+
+<p>commutes. Naturality says the components "vary with the category $\mathcal{C}$ in a way that is built out of the arrows of $\mathcal{C}$ alone" — no arbitrary choices per object.</p>
+
+<h3>The canonical example: $V\to V^{**}$</h3>
+<p>For each $k$-vector space $V$ there is a map $\mathrm{ev}_V\colon V\to V^{**}$, $v\mapsto (\varphi\mapsto\varphi(v))$. It is an isomorphism on finite-dimensional $V$. Crucially, for every linear $f\colon V\to W$ the square</p>
+<p style="text-align:center">$\mathrm{ev}_W \circ f = f^{**} \circ \mathrm{ev}_V$</p>
+<p>commutes. So $\mathrm{ev}$ is a natural transformation $\mathrm{id}_{\mathsf{Vect}_k}\Rightarrow (-)^{**}$. By contrast, <em>there is no natural isomorphism</em> $\mathrm{id}\Rightarrow(-)^{*}$: any isomorphism $V\cong V^*$ requires choosing a basis, and the choice can't be made naturally (in the precise sense above).</p>
+
+<p>The widget below lets you vary a morphism $f\colon A\to B$ inside $\mathcal{C}$ and watch both naturality-square components get re-induced — specifically for $F=\operatorname{Hom}(X,-)$ and $G=\operatorname{Hom}(Y,-)$ with $\eta$ induced by precomposition with a fixed $u\colon Y\to X$.</p>
+
+<div class="widget" id="w-nat">
+  <div class="hd"><div class="ttl">Naturality square — element trace</div><div class="hint">$F=\text{Hom}(X,-)$ · $G=\text{Hom}(Y,-)$ · $\eta=u^*$ with $u(y)=x_1$</div></div>
+
+  <p class="small" style="margin:4px 0 10px;color:var(--mute)">
+    Each corner is a hom-set; <em>every little cell is one function in that hom-set</em>, with its label giving its values.
+    Pick a <span style="color:var(--yellow);font-weight:600">yellow φ</span> in $\text{Hom}(X,A)$ (click any top-left cell). Then watch it get chased two ways to $\text{Hom}(Y,B)$:
+    the <span style="color:var(--blue);font-weight:600">blue route</span> goes top-then-right ($F(f)$ then $\eta_B$),
+    the <span style="color:var(--pink);font-weight:600">pink route</span> goes left-then-bottom ($\eta_A$ then $G(f)$).
+    Both arrows land on the <span style="color:var(--green);font-weight:600">same green cell</span> — that equality, for every $\varphi$ and every $f$, <em>is</em> naturality. Move the sliders and watch the endpoints jump together.
+  </p>
+
+  <div class="row">
+    <label>$f\colon A\to B$:</label>
+    <input type="range" id="nt-f" min="0" max="7" step="1" value="3">
+    <span class="small" id="nt-f-lbl"></span>
+    <button id="nt-play">play</button>
+  </div>
+  <div class="row">
+    <label>$\varphi\in\text{Hom}(X,A)$:</label>
+    <input type="range" id="nt-phi" min="0" max="8" step="1" value="1">
+    <span class="small" id="nt-phi-lbl"></span>
+  </div>
+
+  <svg id="nt-svg" viewBox="0 0 720 440" width="720" height="440"></svg>
+  <div class="readout" id="nt-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  // Set up the concrete example: X={x1,x2}, Y={y}, u:Y→X with u(y)=x1.
+  // F = Hom(X,-) covariant; G = Hom(Y,-); η = u* (precompose with u).
+  // A = {a1,a2,a3}, B = {b1,b2}, f varies over Hom(A,B) (8 functions).
+
+  const svg=$('#nt-svg'), out=$('#nt-out');
+  const slider=$('#nt-f'), flbl=$('#nt-f-lbl'), play=$('#nt-play');
+  const phiSl=$('#nt-phi'), phiLbl=$('#nt-phi-lbl');
+  const A=['a₁','a₂','a₃'], B=['b₁','b₂'];
+
+  // enumerate the four hom-sets
+  const HXA=[]; for(let i=0;i<3;i++) for(let j=0;j<3;j++) HXA.push([i,j]);   // 9: (φ(x1), φ(x2))
+  const HXB=[]; for(let i=0;i<2;i++) for(let j=0;j<2;j++) HXB.push([i,j]);   // 4: (ψ(x1), ψ(x2))
+  const HYA=[[0],[1],[2]];                                                    // 3: ρ(y)
+  const HYB=[[0],[1]];                                                        // 2: σ(y)
+  const FS=[]; for(let i=0;i<2;i++) for(let j=0;j<2;j++) for(let k=0;k<2;k++) FS.push([i,j,k]); // 8
+  slider.max=FS.length-1; phiSl.max=HXA.length-1;
+
+  // layout: four grids at corners
+  const G={
+    HXA:{x:110, y:66,  cols:3, rows:3, cell:34, title:'Hom(X, A)', colHdr:'φ(x₂) →', rowHdr:'φ(x₁) ↓'},
+    HXB:{x:540, y:83,  cols:2, rows:2, cell:34, title:'Hom(X, B)', colHdr:'ψ(x₂) →', rowHdr:'ψ(x₁) ↓'},
+    HYA:{x:110, y:330, cols:3, rows:1, cell:34, title:'Hom(Y, A)', rowHdr:'ρ(y) →'},
+    HYB:{x:540, y:330, cols:2, rows:1, cell:34, title:'Hom(Y, B)', rowHdr:'σ(y) →'}
+  };
+  function center(g,i){ const r=Math.floor(i/g.cols), c=i%g.cols;
+    return [g.x + c*g.cell + g.cell/2, g.y + r*g.cell + g.cell/2]; }
+  function cellLabel(name, i){
+    if(name==='HXA'){ const p=HXA[i]; return A[p[0]]+A[p[1]]; }
+    if(name==='HXB'){ const p=HXB[i]; return B[p[0]]+B[p[1]]; }
+    if(name==='HYA'){ return A[HYA[i][0]]; }
+    if(name==='HYB'){ return B[HYB[i][0]]; }
+  }
+
+  let fi=3, phii=1, timer=null;
+
+  function drawGrid(name, highlights, clickable){
+    const g=G[name];
+    // title
+    const t=SVG('text',{x:g.x + g.cols*g.cell/2, y:g.y-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600});
+    t.textContent=g.title; svg.appendChild(t);
+    // size caption
+    const cap=SVG('text',{x:g.x + g.cols*g.cell/2, y:g.y + g.rows*g.cell + 16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    cap.textContent='|'+g.title.replace(/\s+/g,'')+'| = '+(g.cols*g.rows);
+    svg.appendChild(cap);
+    // cells
+    const N=g.cols*g.rows;
+    for(let i=0;i<N;i++){
+      const r=Math.floor(i/g.cols), c=i%g.cols;
+      const x=g.x + c*g.cell, y=g.y + r*g.cell;
+      const hl=highlights[i];
+      const fill = hl ? hl.fill : 'var(--panel2)';
+      const stroke = hl ? hl.stroke : 'var(--line)';
+      const sw = hl ? 2.5 : 1;
+      const rect=SVG('rect',{x:x+2,y:y+2,width:g.cell-4,height:g.cell-4,fill,stroke,'stroke-width':sw,rx:4,
+        'data-grid':name,'data-idx':i, style: clickable?'cursor:pointer':'cursor:default'});
+      svg.appendChild(rect);
+      const txt=SVG('text',{x:x+g.cell/2,y:y+g.cell/2+4,'text-anchor':'middle','font-size':11,
+        fill: hl ? (hl.textColor||'#000') : 'var(--mute)',
+        'font-family':'ui-monospace, monospace','pointer-events':'none','font-weight': hl?700:400});
+      txt.textContent=cellLabel(name,i);
+      svg.appendChild(txt);
+    }
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const f=FS[fi], phi=HXA[phii];
+    flbl.textContent=`f(a₁)=${B[f[0]]}, f(a₂)=${B[f[1]]}, f(a₃)=${B[f[2]]}`;
+    phiLbl.textContent=`φ: x₁↦${A[phi[0]]}, x₂↦${A[phi[1]]}`;
+
+    // Compute images along each arrow
+    // F(f)(φ) = f∘φ : X→B, values (f(φ(x1)), f(φ(x2)))
+    const fphi=[f[phi[0]], f[phi[1]]];
+    const topIdx = fphi[0]*2 + fphi[1];              // index in HXB
+    // η_A(φ) = φ∘u : Y→A, y ↦ φ(x1)
+    const leftIdx = phi[0];                          // index in HYA
+    // Blue finish: η_B(f∘φ) = (f∘φ)∘u : y ↦ (f∘φ)(x1) = f[phi[0]] = fphi[0]
+    const blueBR = fphi[0];                          // index in HYB
+    // Pink finish: G(f)(φ∘u) = f∘(φ∘u) : y ↦ f(φ(x1)) = f[phi[0]]
+    const pinkBR = f[leftIdx];                       // index in HYB
+    const agree = (blueBR===pinkBR);
+
+    // Highlights
+    const hlHXA={[phii]: {fill:'var(--yellow)', stroke:'var(--yellow)', textColor:'#0b0d10'}};
+    const hlHXB={[topIdx]: {fill:'var(--blue)', stroke:'var(--blue)', textColor:'#0b0d10'}};
+    const hlHYA={[leftIdx]: {fill:'var(--pink)', stroke:'var(--pink)', textColor:'#0b0d10'}};
+    const hlHYB={};
+    if(agree){ hlHYB[blueBR]={fill:'var(--green)', stroke:'var(--green)', textColor:'#0b0d10'}; }
+    else { hlHYB[blueBR]={fill:'var(--blue)', stroke:'var(--blue)', textColor:'#0b0d10'};
+           hlHYB[pinkBR]={fill:'var(--pink)', stroke:'var(--pink)', textColor:'#0b0d10'}; }
+
+    drawGrid('HXA', hlHXA, true);
+    drawGrid('HXB', hlHXB, false);
+    drawGrid('HYA', hlHYA, false);
+    drawGrid('HYB', hlHYB, false);
+
+    // Functor-action labels in the gaps
+    const midX = (G.HXA.x + G.HXA.cols*G.HXA.cell + G.HXB.x)/2;
+    const midY_top = G.HXA.y - 40;
+    const midY_bot = G.HYA.y + G.HYA.cell + 40;
+    function txt(x,y,s,c,style){ const t=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:c,'font-style':'italic'});
+      if(style==='b') t.setAttribute('font-weight','600'); t.textContent=s; svg.appendChild(t); }
+    txt(midX, midY_top, 'F(f) = f ∘ —', 'var(--blue)', 'b');
+    txt(midX, midY_bot, 'G(f) = f ∘ —', 'var(--pink)', 'b');
+
+    // Left / right η labels
+    const midY_lr = (G.HXA.y + G.HXA.rows*G.HXA.cell + G.HYA.y)/2;
+    txt(60, midY_lr-8, 'η_A = — ∘ u', 'var(--pink)', 'b');
+    txt(60, midY_lr+8, '(precompose)', 'var(--mute)');
+    txt(670, midY_lr-8, 'η_B = — ∘ u', 'var(--blue)', 'b');
+    txt(670, midY_lr+8, '(precompose)', 'var(--mute)');
+
+    // --- Route arrows drawn CELL-TO-CELL ---
+    // blue top: yellow cell → blue cell
+    const pYellow = center(G.HXA, phii);
+    const pBlueT  = center(G.HXB, topIdx);
+    const pPinkL  = center(G.HYA, leftIdx);
+    const pBlueBR = center(G.HYB, blueBR);
+    const pPinkBR = center(G.HYB, pinkBR);
+
+    drawArrow(svg, pYellow, pBlueT, {color:'var(--blue)', markerId:'nt-blueTop', curve:-18, width:2.2, pad1:20, pad2:22});
+    drawArrow(svg, pBlueT,  pBlueBR, {color:'var(--blue)', markerId:'nt-blueRight', curve:18, width:2.2, pad1:20, pad2:22});
+    drawArrow(svg, pYellow, pPinkL, {color:'var(--pink)', markerId:'nt-pinkLeft', curve:-18, width:2.2, pad1:20, pad2:22, dash:'6 3'});
+    drawArrow(svg, pPinkL,  pPinkBR, {color:'var(--pink)', markerId:'nt-pinkBot', curve:18, width:2.2, pad1:20, pad2:22, dash:'6 3'});
+
+    // agreement ring
+    if(agree){
+      svg.appendChild(SVG('circle',{cx:pBlueBR[0], cy:pBlueBR[1], r:22, fill:'none',
+        stroke:'var(--green)', 'stroke-width':2, 'stroke-dasharray':'3 2', opacity:0.9}));
+      const chk=SVG('text',{x:pBlueBR[0]+28, y:pBlueBR[1]+4,'font-size':14,fill:'var(--green)','font-weight':700});
+      chk.textContent='✓'; svg.appendChild(chk);
+    }
+
+    // readout
+    out.innerHTML =
+      `<div><span style="color:var(--yellow);font-weight:600">φ</span>: x₁↦${A[phi[0]]}, x₂↦${A[phi[1]]} &nbsp;·&nbsp; <b>f</b>: (${B[f[0]]}, ${B[f[1]]}, ${B[f[2]]})</div>`+
+      `<div style="color:var(--blue);margin-top:6px">▸ blue (top → right): φ  ─F(f)→  f∘φ = ${B[fphi[0]]}${B[fphi[1]]}  ─η_B→  y ↦ ${B[blueBR]}</div>`+
+      `<div style="color:var(--pink)">▸ pink (left → bottom): φ  ─η_A→  y ↦ ${A[leftIdx]}  ─G(f)→  y ↦ ${B[pinkBR]}</div>`+
+      `<div style="color:var(--green);margin-top:6px;font-weight:600">`+
+        (agree?`✓ both routes end at ${B[blueBR]} — the square commutes (as it must for every φ and every f).`
+             :`✗ routes disagree (this is a bug — naturality should force agreement).`)+
+      `</div>`;
+  }
+
+  slider.addEventListener('input', ()=>{fi=parseInt(slider.value,10); render();});
+  phiSl.addEventListener('input',  ()=>{phii=parseInt(phiSl.value,10); render();});
+  // click a yellow cell to choose φ
+  svg.addEventListener('click', (e)=>{
+    const g=e.target.getAttribute && e.target.getAttribute('data-grid');
+    const i=e.target.getAttribute && e.target.getAttribute('data-idx');
+    if(g==='HXA' && i!=null){ phii=parseInt(i,10); phiSl.value=phii; render(); }
+  });
+  play.addEventListener('click', ()=>{
+    if(timer){ clearInterval(timer); timer=null; play.textContent='play'; return; }
+    play.textContent='stop';
+    timer=setInterval(()=>{
+      fi=(fi+1)%FS.length;
+      if(fi===0) phii=(phii+1)%HXA.length;
+      slider.value=fi; phiSl.value=phii;
+      render();
+    }, 900);
+  });
+  render();
+})();
+</script>
+
+<p>Natural transformations organize functors into a category: $[\mathcal{C},\mathcal{D}]$ or $\mathsf{Fun}(\mathcal{C},\mathcal{D})$. This is where the <em>Yoneda</em> magic happens.</p>
+</section>
+
+<section id="yoneda">
+<h2>4. The Yoneda lemma</h2>
+<p>Fix a locally small category $\mathcal{C}$. For each $X\in\mathcal{C}$ we have the contravariant representable functor</p>
+<p style="text-align:center">$h_X = \operatorname{Hom}_{\mathcal{C}}(-,X)\;\colon\;\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}.$</p>
+<p>On objects: $h_X(C)=\operatorname{Hom}(C,X)$. On a morphism $g\colon C'\to C$: $h_X(g)=g^*\colon \operatorname{Hom}(C,X)\to\operatorname{Hom}(C',X)$, $\varphi\mapsto\varphi\circ g$.</p>
+
+<div class="note"><strong>Yoneda lemma.</strong> For any contravariant $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$ and any $X\in\mathcal{C}$,
+$$\operatorname{Nat}(h_X, F) \;\;\xrightarrow{\;\;\cong\;\;}\;\; F(X),\qquad \eta\longmapsto \eta_X(\mathrm{id}_X).$$
+The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component sends $\varphi\colon C\to X$ to $F(\varphi)(x)$. The bijection is natural in both $X$ and $F$.</div>
+
+<p>Three immediate consequences:</p>
+<ol>
+  <li><strong>Yoneda embedding.</strong> $h_{(-)}\colon\mathcal{C}\hookrightarrow\mathsf{Fun}(\mathcal{C}^{\mathrm{op}},\mathsf{Set})$ is fully faithful. Taking $F=h_Y$ in the lemma gives $\operatorname{Nat}(h_X,h_Y)\cong\operatorname{Hom}(X,Y)$.</li>
+  <li><strong>Identifying objects.</strong> $X\cong Y$ in $\mathcal{C}$ iff $h_X\cong h_Y$ as functors. An object is determined up to iso by its functor of points.</li>
+  <li><strong>Representability = universal property.</strong> A functor $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$ is <em>representable</em> if $F\cong h_X$ for some $X$; this $X$ is unique. Most universal constructions (products, limits, free objects) are "find an object representing this functor."</li>
+</ol>
+
+<p>Consequence 2 is how algebraic geometers think about schemes: a scheme $X$ is determined by its functor of points $R\mapsto\operatorname{Hom}(\operatorname{Spec}R, X)$ on commutative rings. The <em>moduli interpretation</em> of a scheme is nothing but its $h_X$.</p>
+
+<h3>Why the map $\eta\mapsto\eta_X(\mathrm{id}_X)$ is a bijection</h3>
+<p>Given $\eta\colon h_X\Rightarrow F$, and any $\varphi\colon C\to X$, naturality against $\varphi\colon C\to X$ in $\mathcal{C}^{\mathrm{op}}$ gives $\eta_C(\varphi)=\eta_C(\mathrm{id}_X\circ\varphi)=F(\varphi)(\eta_X(\mathrm{id}_X))$. So $\eta$ is determined by the single element $\eta_X(\mathrm{id}_X)\in F(X)$. Conversely any $x\in F(X)$ defines components by this formula; functoriality of $F$ checks naturality.</p>
+
+<div class="widget" id="w-yo">
+  <div class="hd"><div class="ttl">Yoneda tester</div><div class="hint">small poset · pick $X$ and an arbitrary $F$ · watch the bijection</div></div>
+  <div class="row">
+    <label>object $X$:</label>
+    <select id="yo-X">
+      <option value="0">⊥ (bottom)</option>
+      <option value="1">M (middle)</option>
+      <option value="2" selected>⊤ (top)</option>
+    </select>
+    <button id="yo-reroll">re-roll F</button>
+  </div>
+  <svg id="yo-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="readout" id="yo-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  // Poset category: 0 < 1 < 2 (⊥, M, ⊤). Hom(i,j) = singleton if i<=j else empty.
+  // Work in Set-valued CONTRAVARIANT functors. h_X(C) = Hom(C,X) — a singleton if C<=X else empty.
+  // We display F by giving, for each object, a small natural number |F(obj)| and a chosen restriction map (contravariant).
+  // A contravariant functor F on {0<1<2} is: sets F(0),F(1),F(2) + maps F(2)->F(1), F(1)->F(0). (Functoriality is automatic.)
+  // Then Nat(h_X, F) ≅ F(X). We enumerate both and display.
+
+  const OBJS = ['⊥','M','⊤']; // indexed 0,1,2
+  const N=3;
+  const yoX=$('#yo-X'), svg=$('#yo-svg'), out=$('#yo-out'), reroll=$('#yo-reroll');
+
+  // F: store as sets (arrays of labels) + restriction maps.
+  let F = randomF();
+
+  function randomF(){
+    const sizes = [1+Math.floor(Math.random()*3), 1+Math.floor(Math.random()*3), 1+Math.floor(Math.random()*3)];
+    const mk = (n,prefix) => Array.from({length:n},(_,i)=>`${prefix}${i+1}`);
+    const sets = [mk(sizes[0],'p'), mk(sizes[1],'q'), mk(sizes[2],'r')];
+    // restriction maps rho_{i+1->i}: F(i+1) -> F(i)
+    // i.e. rho10: sets[1] -> sets[0], rho21: sets[2] -> sets[1]
+    const rho10 = sets[1].map(()=>Math.floor(Math.random()*sizes[0]));
+    const rho21 = sets[2].map(()=>Math.floor(Math.random()*sizes[1]));
+    return {sets, rho10, rho21};
+  }
+  function hX_at(C, X){
+    // Hom(C,X) is singleton if C<=X else empty
+    return (C<=X) ? ['•'] : [];
+  }
+  function natTransToF(X, x_index){
+    // given chosen element x = F(X)[x_index], the induced nat transformation's component at C
+    // is the map Hom(C,X) -> F(C) sending the unique arrow to F(ι)(x) where ι: C->X is the unique map.
+    // For our poset, F applied to ι: C->X (which only exists if C<=X) is a restriction F(X) -> F(C).
+    // We compose the restriction chain X -> X-1 -> ... -> C.
+    const comps = [];
+    for(let C=0;C<=2;C++){
+      if(C<=X){
+        // restrict x from X down to C
+        let y = x_index;
+        for(let k=X; k>C; k--){
+          if(k===2) y = F.rho21[y];
+          else if(k===1) y = F.rho10[y];
+        }
+        comps.push({C, from:'•', to: F.sets[C][y]});
+      } else {
+        comps.push({C, from:null, to:null});
+      }
+    }
+    return comps;
+  }
+
+  function render(){
+    const X=parseInt(yoX.value,10);
+    svg.innerHTML='';
+    // Layout: a column of poset objects on the left, a table on the right
+    // Poset diagram
+    const px=[90,90,90], py=[240,150,60];
+    // edges
+    drawArrow(svg,[px[1],py[1]],[px[0],py[0]],{color:'var(--line)',markerId:'yo-arr-l',pad1:14,pad2:14,curve:0,width:1});
+    drawArrow(svg,[px[2],py[2]],[px[1],py[1]],{color:'var(--line)',markerId:'yo-arr-l2',pad1:14,pad2:14,curve:0,width:1});
+    for(let i=0;i<3;i++){
+      const fill = (i===X)?'var(--yellow)':'var(--panel2)';
+      const stroke = (i===X)?'var(--yellow)':'var(--blue)';
+      drawNode(svg, px[i], py[i], OBJS[i], {r:18, fill, stroke, textColor:(i===X?'#111':'#fff')});
+    }
+    const pt=SVG('text',{x:90,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    pt.textContent='poset 𝒞'; svg.appendChild(pt);
+
+    // Table header
+    const xs=[200,310,420,530];
+    const tHead=['C','h_X(C)','F(C)','η_C : h_X(C)→F(C)'];
+    tHead.forEach((h,i)=>{
+      const t=SVG('text',{x:xs[i],y:34,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+      t.textContent=h; svg.appendChild(t);
+    });
+    // For each C display a row
+    // Choose x ∈ F(X) for the demo: take first element.
+    const x_idx = 0;
+    const comps = natTransToF(X, x_idx);
+    for(let C=0;C<3;C++){
+      const y = 70 + C*70;
+      // object
+      const t0=SVG('text',{x:xs[0],y:y+4,'text-anchor':'middle','font-size':14,fill:'#fff'});
+      t0.textContent=OBJS[C]; svg.appendChild(t0);
+      // h_X(C)
+      const h = hX_at(C,X);
+      const t1=SVG('text',{x:xs[1],y:y+4,'text-anchor':'middle','font-size':13,fill:'var(--blue)','font-family':'ui-monospace, monospace'});
+      t1.textContent = h.length? '{•}' : '∅';
+      svg.appendChild(t1);
+      // F(C)
+      const t2=SVG('text',{x:xs[2],y:y+4,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-family':'ui-monospace, monospace'});
+      t2.textContent = '{'+F.sets[C].join(',')+'}';
+      svg.appendChild(t2);
+      // η_C
+      const t3=SVG('text',{x:xs[3],y:y+4,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-family':'ui-monospace, monospace'});
+      t3.textContent = (comps[C].to===null) ? '(trivially ∅→F(C))'
+                      : `•  ↦  ${comps[C].to}`;
+      svg.appendChild(t3);
+    }
+
+    // readout
+    const FX = F.sets[X];
+    let msg = `choosing X = ${OBJS[X]}.\n`;
+    msg += `F(⊥)={${F.sets[0].join(',')}}, F(M)={${F.sets[1].join(',')}}, F(⊤)={${F.sets[2].join(',')}}\n`;
+    msg += `restriction F(M)→F(⊥): ${F.rho10.map((v,i)=>`${F.sets[1][i]}↦${F.sets[0][v]}`).join(', ')}\n`;
+    msg += `restriction F(⊤)→F(M): ${F.rho21.map((v,i)=>`${F.sets[2][i]}↦${F.sets[1][v]}`).join(', ')}\n\n`;
+    msg += `Yoneda:   Nat(h_${OBJS[X]}, F)   ≅   F(${OBJS[X]}) = {${FX.join(',')}}\n`;
+    msg += `so there are exactly ${FX.length} natural transformations h_${OBJS[X]} ⇒ F.\n\n`;
+    msg += `the one with η_${OBJS[X]}(id) = ${FX[0]} acts on each component as shown above.`;
+    out.textContent = msg;
+  }
+  yoX.addEventListener('change',render);
+  reroll.addEventListener('click',()=>{F=randomF(); render();});
+  render();
+})();
+</script>
+
+<p>In the poset case above, $h_X$ is the downward-closed indicator of $X$: $h_X(C)=\{\ast\}$ if $C\le X$, else $\emptyset$. A natural transformation $h_X\Rightarrow F$ is pinned by a single element of $F(X)$, which then restricts down to elements of $F(C)$ for each $C\le X$, compatibly with the restriction maps of $F$ — exactly what the table displays.</p>
+</section>
+
+<section id="lim">
+<h2>5. Limits and colimits</h2>
+<p>A <em>diagram</em> in $\mathcal{C}$ of shape $\mathcal{J}$ is a functor $D\colon\mathcal{J}\to\mathcal{C}$. A <em>cone</em> on $D$ with apex $L$ is a collection of morphisms $\pi_j\colon L\to D(j)$ commuting with every $D(\alpha)$, $\alpha\in\operatorname{Mor}\mathcal{J}$. The <strong>limit</strong> $\varprojlim D$ is a cone through which every other cone factors uniquely — i.e. $L$ represents the functor $A\mapsto\{\text{cones on }D\text{ with apex }A\}$.</p>
+
+<p>Dualize everything (flip the arrows) to get <strong>colimits</strong>.</p>
+
+<table class="plain">
+<thead><tr><th>shape $\mathcal{J}$</th><th>limit name</th><th>colimit name</th></tr></thead>
+<tbody>
+<tr><td>empty</td><td>terminal object</td><td>initial object</td></tr>
+<tr><td>discrete (two objects)</td><td>product $X\times Y$</td><td>coproduct $X\sqcup Y$</td></tr>
+<tr><td>parallel pair $\bullet\rightrightarrows\bullet$</td><td>equalizer $\mathrm{eq}(f,g)$</td><td>coequalizer</td></tr>
+<tr><td>cospan $\bullet\to\bullet\leftarrow\bullet$</td><td>pullback $X\times_Z Y$</td><td>—</td></tr>
+<tr><td>span $\bullet\leftarrow\bullet\to\bullet$</td><td>—</td><td>pushout $X\sqcup_Z Y$</td></tr>
+</tbody>
+</table>
+
+<p>In $\mathsf{Set}$ the pullback is completely concrete:</p>
+<p style="text-align:center">$X\times_Z Y \;=\; \{(x,y)\in X\times Y \;:\; f(x)=g(y)\}.$</p>
+
+<p>This is the single most important diagram to internalize. In $\mathsf{Sch}$ the same universal property gives the <em>fiber product</em> $X\times_Z Y$ — the scheme whose $R$-points are pairs of $R$-points of $X$ and $Y$ that agree after the map to $Z$. Everything from base change to fibers of morphisms to intersections of subvarieties is a pullback.</p>
+
+<div class="widget" id="w-pb">
+  <div class="hd"><div class="ttl">Pullback in Set</div><div class="hint">pick $f\colon X\to Z$, $g\colon Y\to Z$ · see $X\times_Z Y$</div></div>
+  <div class="row">
+    <label>preset:</label>
+    <select id="pb-preset">
+      <option value="classic" selected>classic (|X|=3, |Y|=3, |Z|=2)</option>
+      <option value="fiber">fiber of a point (Y=1 → Z)</option>
+      <option value="square">both injections (subset intersect)</option>
+      <option value="constant">constant g</option>
+      <option value="custom">custom (edit below)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>|X|</label><input type="number" id="pb-nX" min="1" max="5" value="3" style="width:60px">
+    <label>|Y|</label><input type="number" id="pb-nY" min="1" max="5" value="3" style="width:60px">
+    <label>|Z|</label><input type="number" id="pb-nZ" min="1" max="5" value="2" style="width:60px">
+    <button id="pb-apply">apply sizes</button>
+  </div>
+  <div class="row" id="pb-frow"></div>
+  <div class="row" id="pb-grow"></div>
+  <svg id="pb-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <div class="readout" id="pb-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  const presetSel=$('#pb-preset'), nXIn=$('#pb-nX'), nYIn=$('#pb-nY'), nZIn=$('#pb-nZ');
+  const apply=$('#pb-apply'), frow=$('#pb-frow'), grow=$('#pb-grow');
+  const svg=$('#pb-svg'), out=$('#pb-out');
+  let nX=3,nY=3,nZ=2;
+  let f=[0,0,1], g=[0,1,1];
+
+  function xLab(i){ return 'x'+(i+1); }
+  function yLab(i){ return 'y'+(i+1); }
+  function zLab(i){ return 'z'+(i+1); }
+
+  function presets(key){
+    if(key==='classic'){ nX=3;nY=3;nZ=2; f=[0,0,1]; g=[0,1,1]; }
+    else if(key==='fiber'){ nX=4;nY=1;nZ=3; f=[0,1,2,0]; g=[0]; }
+    else if(key==='square'){ nX=3;nY=3;nZ=4; f=[0,1,2]; g=[1,2,3]; }
+    else if(key==='constant'){ nX=3;nY=4;nZ=2; f=[0,1,1]; g=[0,0,0,0]; }
+    else return; // custom: don't touch
+  }
+  function fitFG(){
+    while(f.length<nX) f.push(0);
+    while(g.length<nY) g.push(0);
+    f=f.slice(0,nX).map(v=>Math.min(v,nZ-1));
+    g=g.slice(0,nY).map(v=>Math.min(v,nZ-1));
+  }
+  function buildFGUI(){
+    frow.innerHTML=''; grow.innerHTML='';
+    const flab=document.createElement('span'); flab.className='small'; flab.style.color='var(--mute)';
+    flab.textContent='f : X → Z  '; frow.appendChild(flab);
+    for(let i=0;i<nX;i++){
+      const b=document.createElement('span');
+      b.innerHTML=`<span class="small" style="color:var(--mute)">${xLab(i)}↦</span>`;
+      const s=document.createElement('select'); s.style.marginRight='.5rem';
+      for(let j=0;j<nZ;j++){
+        const o=document.createElement('option'); o.value=j; o.textContent=zLab(j);
+        if(f[i]===j) o.selected=true;
+        s.appendChild(o);
+      }
+      s.addEventListener('change',()=>{f[i]=parseInt(s.value,10); render();});
+      b.appendChild(s); frow.appendChild(b);
+    }
+    const glab=document.createElement('span'); glab.className='small'; glab.style.color='var(--mute)';
+    glab.textContent='g : Y → Z  '; grow.appendChild(glab);
+    for(let i=0;i<nY;i++){
+      const b=document.createElement('span');
+      b.innerHTML=`<span class="small" style="color:var(--mute)">${yLab(i)}↦</span>`;
+      const s=document.createElement('select'); s.style.marginRight='.5rem';
+      for(let j=0;j<nZ;j++){
+        const o=document.createElement('option'); o.value=j; o.textContent=zLab(j);
+        if(g[i]===j) o.selected=true;
+        s.appendChild(o);
+      }
+      s.addEventListener('change',()=>{g[i]=parseInt(s.value,10); render();});
+      b.appendChild(s); grow.appendChild(b);
+    }
+  }
+  function render(){
+    svg.innerHTML='';
+    // Compute pullback elements
+    const PB=[]; // list of [i,j]
+    for(let i=0;i<nX;i++) for(let j=0;j<nY;j++) if(f[i]===g[j]) PB.push([i,j]);
+
+    const W=620, H=380;
+    // positions for the four corners of the pullback square:
+    // XZ_Y (PB) top-left, X top-right, Y bottom-left, Z bottom-right
+    const PBpos=[170,90], Xpos=[450,90], Ypos=[170,290], Zpos=[450,290];
+    const dotR=6;
+
+    function blob(center, items, labeler, color, fill){
+      const n = items.length;
+      const spacing=32;
+      const yTop = center[1] - (n-1)*spacing/2 - 24;
+      const yBot = center[1] + (n-1)*spacing/2 + 24;
+      svg.appendChild(SVG('rect',{x:center[0]-62,y:yTop,width:124,height:yBot-yTop,rx:14,ry:14,
+        fill, stroke:color, 'stroke-dasharray':'4 4'}));
+      const positions=[];
+      for(let i=0;i<n;i++){
+        const y = center[1] + (i - (n-1)/2)*spacing;
+        svg.appendChild(SVG('circle',{cx:center[0],cy:y,r:dotR,fill:color}));
+        const t=SVG('text',{x:center[0],y:y+4,'text-anchor':'middle','font-size':11,fill:'#111','font-weight':600});
+        t.textContent=labeler(items[i]);
+        svg.appendChild(t);
+        positions.push([center[0],y]);
+      }
+      return positions;
+    }
+
+    // Draw blobs
+    const Xitems = Array.from({length:nX},(_,i)=>i);
+    const Yitems = Array.from({length:nY},(_,i)=>i);
+    const Zitems = Array.from({length:nZ},(_,i)=>i);
+    const PBitems = PB;
+    const Xpts = blob(Xpos, Xitems, xLab, 'var(--blue)',  'rgba(88,196,221,0.08)');
+    const Ypts = blob(Ypos, Yitems, yLab, 'var(--pink)',  'rgba(224,122,95,0.08)');
+    const Zpts = blob(Zpos, Zitems, zLab, 'var(--yellow)','rgba(255,216,102,0.08)');
+    const PBpts = blob(PBpos, PBitems, p=>`(${xLab(p[0])},${yLab(p[1])})`,
+      PB.length? 'var(--green)' : 'var(--mute)',
+      PB.length?'rgba(131,193,103,0.08)':'rgba(154,164,178,0.06)');
+
+    // corner labels
+    const lab = (p, text, col, dx=0, dy=-4) => {
+      const t=SVG('text',{x:p[0]+dx,y:p[1]+dy,'font-size':14,fill:col,'text-anchor':'middle','font-weight':600});
+      t.textContent=text; svg.appendChild(t);
+    };
+    lab(PBpos,'X ×_Z Y','var(--green)',0,-((PB.length-1)*32/2+44));
+    lab(Xpos,'X','var(--blue)',0,-((nX-1)*32/2+44));
+    lab(Ypos,'Y','var(--pink)',0,-((nY-1)*32/2+44));
+    lab(Zpos,'Z','var(--yellow)',0,-((nZ-1)*32/2+44));
+
+    // Arrows f, g
+    ensureArrow(svg,'pb-arr','var(--blue)');
+    ensureArrow(svg,'pb-arr2','var(--pink)');
+    // f: for each x_i, Xpts[i] -> Zpts[f[i]]
+    for(let i=0;i<nX;i++){
+      const p1=Xpts[i], p2=Zpts[f[i]];
+      svg.appendChild(SVG('line',{x1:p1[0]+10,y1:p1[1],x2:p2[0]+10,y2:p2[1],
+        stroke:'var(--blue)','stroke-width':1.3,opacity:0.55,'marker-end':'url(#pb-arr)'}));
+    }
+    for(let j=0;j<nY;j++){
+      const p1=Ypts[j], p2=Zpts[g[j]];
+      svg.appendChild(SVG('line',{x1:p1[0]+10,y1:p1[1],x2:p2[0]+10,y2:p2[1],
+        stroke:'var(--pink)','stroke-width':1.3,opacity:0.55,'marker-end':'url(#pb-arr2)'}));
+    }
+    // f and g labels (big)
+    const fl=SVG('text',{x:(Xpos[0]+Zpos[0])/2 + 30, y:(Xpos[1]+Zpos[1])/2,'text-anchor':'middle','font-size':14,
+      fill:'var(--blue)','font-style':'italic'});
+    fl.textContent='f'; svg.appendChild(fl);
+    const gl=SVG('text',{x:(Ypos[0]+Zpos[0])/2, y:(Ypos[1]+Zpos[1])/2 + 18,'text-anchor':'middle','font-size':14,
+      fill:'var(--pink)','font-style':'italic'});
+    gl.textContent='g'; svg.appendChild(gl);
+
+    // Projections pr_X, pr_Y
+    ensureArrow(svg,'pb-arr-prx','var(--green)');
+    ensureArrow(svg,'pb-arr-pry','var(--green)');
+    for(let k=0;k<PB.length;k++){
+      const [i,j] = PB[k];
+      const p = PBpts[k];
+      svg.appendChild(SVG('line',{x1:p[0]+12,y1:p[1],x2:Xpts[i][0]-12,y2:Xpts[i][1],
+        stroke:'var(--green)','stroke-width':1.2,opacity:0.7,'marker-end':'url(#pb-arr-prx)'}));
+      svg.appendChild(SVG('line',{x1:p[0],y1:p[1]+12,x2:Ypts[j][0],y2:Ypts[j][1]-12,
+        stroke:'var(--green)','stroke-width':1.2,opacity:0.7,'marker-end':'url(#pb-arr-pry)'}));
+    }
+
+    // commuting-square indicator
+    const ok = SVG('text',{x:(PBpos[0]+Zpos[0])/2,y:(PBpos[1]+Zpos[1])/2,'text-anchor':'middle','font-size':11,
+      fill:'var(--mute)','font-style':'italic'});
+    ok.textContent='(square commutes by construction)';
+    svg.appendChild(ok);
+
+    // readout
+    let msg = `|X|=${nX}, |Y|=${nY}, |Z|=${nZ}\n`;
+    msg += `f: ${Array.from({length:nX},(_,i)=>`${xLab(i)}↦${zLab(f[i])}`).join(', ')}\n`;
+    msg += `g: ${Array.from({length:nY},(_,j)=>`${yLab(j)}↦${zLab(g[j])}`).join(', ')}\n\n`;
+    msg += `X ×_Z Y = {(x,y) : f(x)=g(y)}\n`;
+    if(PB.length===0) msg += `        = ∅   (no agreement — pullback is empty)\n`;
+    else {
+      msg += '        = { ' + PB.map(([i,j])=>`(${xLab(i)},${yLab(j)})`).join(', ') + ' }\n';
+      msg += `  (size ${PB.length})\n`;
+    }
+    // also show fibers over each z
+    msg += '\nfibers, as a sanity check:\n';
+    for(let z=0;z<nZ;z++){
+      const Xz = Array.from({length:nX},(_,i)=>i).filter(i=>f[i]===z);
+      const Yz = Array.from({length:nY},(_,j)=>j).filter(j=>g[j]===z);
+      const fiberSize = Xz.length*Yz.length;
+      msg += `  over ${zLab(z)}:  f⁻¹=${Xz.length?Xz.map(xLab).join(','):'∅'}   g⁻¹=${Yz.length?Yz.map(yLab).join(','):'∅'}   contributes ${fiberSize} pairs\n`;
+    }
+    msg += `\nand indeed  |X ×_Z Y|  =  Σ_z  |f⁻¹(z)|·|g⁻¹(z)|`;
+    out.textContent = msg;
+  }
+
+  apply.addEventListener('click',()=>{
+    nX=Math.max(1,Math.min(5,parseInt(nXIn.value,10)||1));
+    nY=Math.max(1,Math.min(5,parseInt(nYIn.value,10)||1));
+    nZ=Math.max(1,Math.min(5,parseInt(nZIn.value,10)||1));
+    presetSel.value='custom';
+    fitFG(); buildFGUI(); render();
+  });
+  presetSel.addEventListener('change',()=>{
+    const k=presetSel.value;
+    if(k==='custom') return;
+    presets(k);
+    nXIn.value=nX; nYIn.value=nY; nZIn.value=nZ;
+    buildFGUI(); render();
+  });
+  presets('classic');
+  nXIn.value=nX; nYIn.value=nY; nZIn.value=nZ;
+  buildFGUI(); render();
+})();
+</script>
+
+<div class="ok"><strong>Preview of $\mathsf{Sch}$.</strong> In algebraic geometry the fiber product $X\times_Z Y$ solves exactly the same universal problem, but in a category where "sets of elements" is replaced by "functors of points." Taking $Z=\operatorname{Spec}k$ and $X,Y$ both $k$-schemes, $X\times_k Y$ is the product. Taking $Y=\operatorname{Spec}k(z)$ the inclusion of a point, $X\times_Z Y$ is the scheme-theoretic fiber $X_z$. The four-blob picture you just played with is <em>literally</em> the diagram you draw when computing a base change.</div>
+</section>
+
+<section id="adj">
+<h2>6. Adjoint functors</h2>
+<p>Two functors $F\colon\mathcal{C}\leftrightarrows\mathcal{D}:G$ are <strong>adjoint</strong> ($F$ is left-adjoint to $G$, written $F\dashv G$) when there is an isomorphism, natural in $A\in\mathcal{C}$ and $B\in\mathcal{D}$,</p>
+<p style="text-align:center">$\operatorname{Hom}_{\mathcal{D}}(F(A),B) \;\xrightarrow{\;\cong\;}\; \operatorname{Hom}_{\mathcal{C}}(A,G(B)).$</p>
+<p>An equivalent packaging: a <strong>unit</strong> $\eta\colon \mathrm{id}_{\mathcal{C}}\Rightarrow G\circ F$ and a <strong>counit</strong> $\varepsilon\colon F\circ G\Rightarrow\mathrm{id}_{\mathcal{D}}$ satisfying the triangle identities $(\varepsilon F)\circ(F\eta)=\mathrm{id}_F$ and $(G\varepsilon)\circ(\eta G)=\mathrm{id}_G$.</p>
+
+<div class="note"><strong>Slogan.</strong> $F\dashv G$ means $F$ is the "freest way" to build a $\mathcal{D}$-object out of a $\mathcal{C}$-object; equivalently $G$ is forgetful; equivalently $A\to G(B)$ is the same data as $F(A)\to B$.</div>
+
+<h3>A zoo of adjunctions</h3>
+<table class="plain">
+<thead><tr><th>$F$ (left)</th><th>$G$ (right)</th><th>$\mathsf{Hom}$-iso</th></tr></thead>
+<tbody>
+<tr><td>free group functor $\mathsf{Set}\to\mathsf{Grp}$</td><td>forgetful $\mathsf{Grp}\to\mathsf{Set}$</td><td>$\operatorname{Hom}_{\mathsf{Grp}}(F(X),G)\cong\operatorname{Hom}_{\mathsf{Set}}(X,UG)$</td></tr>
+<tr><td>abelianization $\mathsf{Grp}\to\mathsf{Ab}$</td><td>inclusion $\mathsf{Ab}\hookrightarrow\mathsf{Grp}$</td><td>$\operatorname{Hom}_{\mathsf{Ab}}(G^{\mathrm{ab}},A)\cong\operatorname{Hom}_{\mathsf{Grp}}(G,A)$</td></tr>
+<tr><td>$(-)\times A\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\operatorname{Hom}(A,-)\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\operatorname{Hom}(X\times A,Y)\cong\operatorname{Hom}(X,\operatorname{Hom}(A,Y))$ (currying)</td></tr>
+<tr><td>$(-)\otimes_R M$</td><td>$\operatorname{Hom}_R(M,-)$</td><td>tensor-hom</td></tr>
+<tr><td>$\pi_0\colon\mathsf{Top}\to\mathsf{Set}$</td><td>discrete $\mathsf{Set}\to\mathsf{Top}$</td><td>continuous maps from $X$ to a discrete set = functions on $\pi_0 X$</td></tr>
+<tr><td>$F\colon\mathsf{Sch}\to\mathsf{Ring}^{\mathrm{op}}$, $X\mapsto\mathcal{O}(X)$</td><td>$\operatorname{Spec}$</td><td>$\operatorname{Hom}(X,\operatorname{Spec}R)\cong\operatorname{Hom}_{\mathsf{Ring}}(R,\mathcal{O}(X))$</td></tr>
+</tbody>
+</table>
+
+<p>The last row is the adjunction underlying the entire correspondence "affine schemes $\leftrightarrow$ commutative rings."</p>
+
+<h3>Free groups, concretely</h3>
+<p>Given a set $X=\{x_1,\dots,x_n\}$, the free group $F(X)$ consists of all <em>reduced words</em> in the symbols $x_1,\dots,x_n,x_1^{-1},\dots,x_n^{-1}$ — formal products with no adjacent cancellation $x_i x_i^{-1}$ or $x_i^{-1}x_i$ — with concatenation as multiplication. The unit $\eta_X\colon X\to U(F(X))$ is the obvious inclusion $x_i\mapsto x_i$.</p>
+
+<p>The adjunction $\operatorname{Hom}_{\mathsf{Grp}}(F(X),G)\cong\operatorname{Hom}_{\mathsf{Set}}(X,U(G))$ says: a group map out of $F(X)$ is determined by a choice of <em>image for each generator</em>, and any such choice extends uniquely. The extension $\tilde f\colon F(X)\to G$ of $f\colon X\to U(G)$ sends a word $w=x_{i_1}^{\epsilon_1}\cdots x_{i_k}^{\epsilon_k}$ to $f(x_{i_1})^{\epsilon_1}\cdots f(x_{i_k})^{\epsilon_k}$.</p>
+
+<div class="widget" id="w-adj">
+  <div class="hd"><div class="ttl">Free group explorer</div><div class="hint">pick $|X|$, a target group $G$, a map $X\to G$ · see $\tilde f$ on short words</div></div>
+  <div class="row">
+    <label>$n = |X|$</label>
+    <select id="aj-n">
+      <option value="1">1</option>
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+    </select>
+    <label>target $G$</label>
+    <select id="aj-G">
+      <option value="Z2">ℤ/2</option>
+      <option value="Z3">ℤ/3</option>
+      <option value="Z" selected>ℤ</option>
+      <option value="S3">S₃</option>
+      <option value="Z2Z2">ℤ/2 × ℤ/2</option>
+    </select>
+  </div>
+  <div class="row" id="aj-assign"></div>
+  <svg id="aj-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <div class="readout" id="aj-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  const nSel=$('#aj-n'), GSel=$('#aj-G'), assignRow=$('#aj-assign'), svg=$('#aj-svg'), out=$('#aj-out');
+
+  // Group targets implemented as {elements, mult, inv, id, fmt}
+  const GROUPS = {
+    Z2:  (()=>{ return {name:'ℤ/2', els:[0,1], mult:(a,b)=>(a+b)%2, inv:a=>(2-a)%2, id:0, fmt:a=>String(a), gens:[1]}})(),
+    Z3:  (()=>{ return {name:'ℤ/3', els:[0,1,2], mult:(a,b)=>(a+b)%3, inv:a=>(3-a)%3, id:0, fmt:a=>String(a), gens:[1,2]}})(),
+    Z:   (()=>{ return {name:'ℤ', els:null, mult:(a,b)=>a+b, inv:a=>-a, id:0, fmt:a=>String(a), gens:[0,1,-1,2,-2,3]}})(),
+    S3:  (()=>{
+      // elements as permutations of [0,1,2]
+      const e=[0,1,2], r1=[1,2,0], r2=[2,0,1], s0=[0,2,1], s1=[2,1,0], s2=[1,0,2];
+      const els=[e,r1,r2,s0,s1,s2];
+      const names=['e','(123)','(132)','(23)','(13)','(12)'];
+      function mult(a,b){ return a.map((_,i)=>a[b[i]]); }
+      function inv(a){ const r=Array(a.length); a.forEach((v,i)=>r[v]=i); return r; }
+      function find(p){ return els.findIndex(e=>e.every((v,i)=>v===p[i])); }
+      return {name:'S₃', els, mult, inv, id:e, fmt:p=>names[find(p)], gens:[r1,s0], _names:names, _find:find};
+    })(),
+    Z2Z2:(()=>{
+      const els=[[0,0],[1,0],[0,1],[1,1]];
+      function mult(a,b){return [(a[0]+b[0])%2,(a[1]+b[1])%2]}
+      function inv(a){return [(2-a[0])%2,(2-a[1])%2]}
+      return {name:'ℤ/2 × ℤ/2', els, mult, inv, id:[0,0], fmt:a=>`(${a[0]},${a[1]})`, gens:[[1,0],[0,1]]};
+    })(),
+  };
+  function groupEq(G,a,b){
+    if(G.els===null) return a===b;
+    if(Array.isArray(a)) return a.every((v,i)=>v===b[i]);
+    return a===b;
+  }
+
+  let n=2, Gkey='Z';
+  let assign=[]; // for each generator, an element of G
+
+  function initAssign(){
+    const G=GROUPS[Gkey];
+    const pick = G.gens[0];
+    assign = Array.from({length:n},(_,i)=>G.gens[i%G.gens.length]);
+  }
+  function buildAssignUI(){
+    const G=GROUPS[Gkey];
+    assignRow.innerHTML='';
+    const lbl=document.createElement('span'); lbl.className='small'; lbl.style.color='var(--mute)';
+    lbl.textContent=`f : X → U(${G.name})   `;
+    assignRow.appendChild(lbl);
+    for(let i=0;i<n;i++){
+      const b=document.createElement('span');
+      b.innerHTML=`<span class="small" style="color:var(--mute)">x${i+1}↦</span>`;
+      const s=document.createElement('select'); s.style.marginLeft='.2rem'; s.style.marginRight='.5rem';
+      const opts = G.els || G.gens; // Z is infinite; offer gens as palette
+      for(let j=0;j<opts.length;j++){
+        const v=opts[j];
+        const o=document.createElement('option'); o.value=j; o.textContent=G.fmt(v);
+        if(groupEq(G,v,assign[i])) o.selected=true;
+        s.appendChild(o);
+      }
+      s.addEventListener('change',()=>{
+        const idx=parseInt(s.value,10);
+        assign[i]=opts[idx];
+        render();
+      });
+      b.appendChild(s); assignRow.appendChild(b);
+    }
+  }
+
+  // Enumerate reduced words of length <= L in generators x1..xn and their inverses.
+  // Letter codes: positive (1..n) for xi, negative (-1..-n) for xi^{-1}.
+  function reducedWords(n, maxLen){
+    const out=[['']]; // store as arrays of codes; include empty word (identity)
+    const byLen=[[[]]]; // length 0
+    for(let L=1;L<=maxLen;L++){
+      const prev=byLen[L-1]; const cur=[];
+      for(const w of prev){
+        const last = w.length? w[w.length-1] : null;
+        for(let k=1;k<=n;k++){
+          for(const sign of [1,-1]){
+            const c = sign*k;
+            if(last!==null && last===-c) continue; // no cancellation
+            cur.push([...w, c]);
+          }
+        }
+      }
+      byLen.push(cur);
+    }
+    const all=[];
+    for(const L of byLen) for(const w of L) all.push(w);
+    return all;
+  }
+
+  function formatWord(w){
+    if(w.length===0) return 'ε';
+    const sup = {'-1':'⁻¹'};
+    return w.map(c=>{
+      const i = Math.abs(c);
+      return 'x'+i + (c<0?'⁻¹':'');
+    }).join(' ');
+  }
+  function evalExt(w, G, assign){
+    let cur=G.id;
+    for(const c of w){
+      const gen = assign[Math.abs(c)-1];
+      const factor = c<0 ? G.inv(gen) : gen;
+      cur = G.mult(cur, factor);
+    }
+    return cur;
+  }
+
+  function render(){
+    const G=GROUPS[Gkey];
+    svg.innerHTML='';
+    // Draw unit diagram: X -> U(F(X)) -> U(G)
+    // Three "blobs" indicating X on the left, F(X) middle, G right, with η and tilde-f arrows
+    ensureArrow(svg,'aj-arr1','var(--violet)');
+    ensureArrow(svg,'aj-arr2','var(--yellow)');
+    ensureArrow(svg,'aj-arr3','var(--green)');
+    svg.appendChild(SVG('rect',{x:30,y:50,width:140,height:110,rx:14,ry:14,
+      fill:'rgba(88,196,221,0.08)',stroke:'var(--blue)','stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('rect',{x:230,y:30,width:180,height:150,rx:14,ry:14,
+      fill:'rgba(179,157,219,0.08)',stroke:'var(--violet)','stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('rect',{x:470,y:50,width:130,height:110,rx:14,ry:14,
+      fill:'rgba(131,193,103,0.08)',stroke:'var(--green)','stroke-dasharray':'4 4'}));
+    const lab=(x,y,t,c)=>{const e=SVG('text',{x,y,'text-anchor':'middle','font-size':13,fill:c,'font-weight':600});e.textContent=t;svg.appendChild(e)};
+    lab(100,40,'X','var(--blue)');
+    lab(320,20,'F(X) — free group','var(--violet)');
+    lab(535,40,`U(${G.name})`,'var(--green)');
+    // generators
+    for(let i=0;i<n;i++){
+      const y=80+i*24;
+      svg.appendChild(SVG('circle',{cx:100,cy:y,r:5,fill:'var(--blue)'}));
+      const t=SVG('text',{x:100,y:y+4,'text-anchor':'middle','font-size':10,fill:'#111','font-weight':700});
+      t.textContent=`x${i+1}`; svg.appendChild(t);
+      // unit
+      drawArrow(svg,[100,y],[250,y],{color:'var(--violet)',markerId:'aj-arr1',label:null,pad1:10,pad2:0});
+    }
+    // η label
+    const etaL=SVG('text',{x:185,y:60,'text-anchor':'middle','font-size':12,fill:'var(--violet)','font-style':'italic'});
+    etaL.textContent='η_X  (unit)'; svg.appendChild(etaL);
+    // sample words inside F(X)
+    const shortWords = reducedWords(n, 2).slice(0,8);
+    for(let k=0;k<shortWords.length;k++){
+      const y = 60 + k*14;
+      const t=SVG('text',{x:320,y,'text-anchor':'middle','font-size':11,fill:'var(--ink)','font-family':'ui-monospace, monospace'});
+      t.textContent=formatWord(shortWords[k]); svg.appendChild(t);
+    }
+    // ~f arrow to G
+    drawArrow(svg,[410,100],[475,100],{color:'var(--yellow)',markerId:'aj-arr2',label:'f̃ (universal extension)',labelSide:1,curve:-14,pad1:4,pad2:4});
+
+    // list target images
+    const Gimages = shortWords.map(w=>evalExt(w,G,assign));
+    for(let k=0;k<Gimages.length;k++){
+      const y = 60 + k*14;
+      const t=SVG('text',{x:535,y,'text-anchor':'middle','font-size':11,fill:'var(--green)','font-family':'ui-monospace, monospace'});
+      t.textContent=G.fmt(Gimages[k]); svg.appendChild(t);
+    }
+
+    // readout: enumerate longer words up to length 3
+    const wordsAll = reducedWords(n, 3);
+    let lines = [];
+    lines.push(`X = {${Array.from({length:n},(_,i)=>'x'+(i+1)).join(',')}}`);
+    lines.push(`G = ${G.name}`);
+    lines.push(`f : X → U(G)`);
+    for(let i=0;i<n;i++) lines.push(`    x${i+1} ↦ ${G.fmt(assign[i])}`);
+    lines.push('');
+    lines.push(`universal extension f̃ : F(X) → G on reduced words of length ≤ 3:`);
+    lines.push('');
+    for(const w of wordsAll){
+      const img = evalExt(w,G,assign);
+      lines.push(`  f̃(${formatWord(w).padEnd(18,' ')}) = ${G.fmt(img)}`);
+    }
+    lines.push('');
+    lines.push(`the triangle  X ─η→ U(F(X)) ─U(f̃)→ U(G)  recovers f.`);
+    out.textContent = lines.join('\n');
+  }
+
+  nSel.addEventListener('change',()=>{n=parseInt(nSel.value,10); initAssign(); buildAssignUI(); render();});
+  GSel.addEventListener('change',()=>{Gkey=GSel.value; initAssign(); buildAssignUI(); render();});
+  initAssign(); buildAssignUI(); render();
+})();
+</script>
+
+<div class="ok"><strong>Why adjoints are everywhere.</strong> Any "structure-adding" construction worth its salt (freely generate, localize, sheafify, complete, Stone–Čech compactify, tensor, abelianize, $\ldots$) is a left adjoint to a forgetful functor. Left adjoints preserve colimits; right adjoints preserve limits. That single fact replaces a thousand ad-hoc verifications.</div>
+
+<h3>Universal properties = representability</h3>
+<p>Combining §4 and §6: an adjunction $F\dashv G$ is the same data as a natural iso $\operatorname{Hom}_{\mathcal{D}}(F(-), -)\cong\operatorname{Hom}_{\mathcal{C}}(-, G(-))$, which by Yoneda is equivalent to specifying, for each $A$, the object $F(A)$ <em>representing</em> the functor $B\mapsto\operatorname{Hom}_{\mathcal{C}}(A,G(B))$. So:</p>
+<p style="text-align:center;font-style:italic">left adjoint = initial object of a comma category = representation of a Hom functor.</p>
+<p>This is the machine behind "the free $X$ on a $Y$ is whatever represents $\operatorname{Hom}(Y, U(-))$." Any universal property you've seen — direct sum, completion, sheafification, localization of rings, fundamental group — is an instance.</p>
+
+<p class="small">Categories, functors, and natural transformations were invented by Eilenberg and Mac Lane in 1945 — originally as the language in which to state the naturality of the double-dual, and to separate honest "canonical" isomorphisms from artifacts of basis choice. The Yoneda lemma was first stated in a paper by Saunders Mac Lane attributing it to a private communication from Nobuo Yoneda; Yoneda himself never wrote it down. It took another fifteen years for it to be recognized as the beating heart of the subject.</p>
+
+</section>
+
+<section id="play">
+<h2>7. Proofs are diagrams that grow</h2>
+<p>In Eugenia Cheng's <em>The Joy of Abstraction</em>, a category-theory proof looks like a picture that grows one arrow at a time. Each new arrow is justified by one of three moves: a hypothesis, a composition of existing arrows, or the invocation of a universal property. When the arrow you wanted is on the page, you're done. Three quintessentially categorical proofs, played out step by step.</p>
+
+<div class="widget" id="w-proof">
+  <div class="hd"><div class="ttl">Proof stepper</div><div class="hint">click <em>next</em> · watch each arrow appear</div></div>
+  <div class="row">
+    <label>proof:</label>
+    <select id="pf-pick">
+      <option value="identity">Identity morphisms are unique</option>
+      <option value="initial">Initial objects are unique up to unique iso</option>
+      <option value="product">Products are unique up to unique iso</option>
+    </select>
+    <button id="pf-prev">◀ back</button>
+    <button id="pf-next">next ▶</button>
+    <button id="pf-reset">reset</button>
+    <span class="small" id="pf-counter" style="margin-left:.4rem"></span>
+  </div>
+  <svg id="pf-svg" viewBox="0 0 560 320" width="100%" style="max-width:560px"></svg>
+  <div class="readout" id="pf-text"></div>
+  <div class="readout" id="pf-log" style="margin-top:.4rem;min-height:1.6em"></div>
+</div>
+
+<p class="small">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: "something exists and is unique" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \operatorname{id}_P$ at the end of the product-uniqueness proof.</p>
+</section>
+
+<script>
+(function(){
+  const PROOFS = {
+    identity: {
+      title: 'Identity morphisms are unique',
+      nodes: { A: {x: 280, y: 160} },
+      intro: "Suppose e and e' are both identity morphisms on A. We'll show e = e'.",
+      // arrows keyed by id
+      given: [
+        {id:'e',      from:'A', to:'A', loop:'top',    label:"e"},
+        {id:'eprime', from:'A', to:'A', loop:'bottom', label:"e'"}
+      ],
+      steps: [
+        {
+          highlight:['e'],
+          equation: "e ∘ e' = e'",
+          text: "Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'."
+        },
+        {
+          highlight:['eprime'],
+          equation: "e ∘ e' = e",
+          text: "Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e."
+        },
+        {
+          highlight:[],
+          equation: "⟹   e = e'",
+          text: "Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.",
+          done: true
+        }
+      ]
+    },
+
+    initial: {
+      title: 'Initial objects are unique up to unique iso',
+      nodes: { I: {x: 160, y: 160}, J: {x: 400, y: 160} },
+      intro: "Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.",
+      given: [],
+      steps: [
+        {
+          add: [{id:'f', from:'I', to:'J', curve:-22, label:"f", derived:true}],
+          highlight: ['f'],
+          equation: "∃! f: I → J",
+          text: "I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f."
+        },
+        {
+          add: [{id:'g', from:'J', to:'I', curve:-22, label:"g", derived:true}],
+          highlight: ['g'],
+          equation: "∃! g: J → I",
+          text: "Symmetrically, J is initial, so there is a unique arrow g: J → I."
+        },
+        {
+          highlight: ['f','g'],
+          equation: "g ∘ f = id_I",
+          text: "Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I."
+        },
+        {
+          highlight: ['f','g'],
+          equation: "f ∘ g = id_J",
+          text: "The symmetric argument gives f ∘ g = id_J."
+        },
+        {
+          highlight: ['f'],
+          equation: "⟹  I ≅ J uniquely via f",
+          text: "f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.",
+          done: true
+        }
+      ]
+    },
+
+    product: {
+      title: 'Products are unique up to unique iso',
+      nodes: {
+        P: {x: 130, y:  80},
+        Q: {x: 430, y:  80},
+        X: {x: 180, y: 260},
+        Y: {x: 380, y: 260}
+      },
+      intro: "Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.",
+      given: [
+        {id:'pi1',  from:'P', to:'X', label:'π₁'},
+        {id:'pi2',  from:'P', to:'Y', label:'π₂'},
+        {id:'rho1', from:'Q', to:'X', label:'ρ₁'},
+        {id:'rho2', from:'Q', to:'Y', label:'ρ₂'}
+      ],
+      steps: [
+        {
+          add: [{id:'u', from:'P', to:'Q', curve:-30, label:"u", derived:true}],
+          highlight: ['u'],
+          equation: "∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂",
+          text: "P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂."
+        },
+        {
+          add: [{id:'v', from:'Q', to:'P', curve:-30, label:"v", derived:true}],
+          highlight: ['v'],
+          equation: "∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂",
+          text: "Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P."
+        },
+        {
+          highlight: ['u','v'],
+          equation: "π₁(vu) = π₁,   π₂(vu) = π₂",
+          text: "Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute."
+        },
+        {
+          highlight: ['u','v'],
+          equation: "vu = id_P",
+          text: "But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P."
+        },
+        {
+          highlight: ['u','v'],
+          equation: "uv = id_Q",
+          text: "The symmetric argument gives uv = id_Q."
+        },
+        {
+          highlight: ['u'],
+          equation: "⟹  P ≅ Q uniquely",
+          text: "u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.",
+          done: true
+        }
+      ]
+    }
+  };
+
+  // locals
+  const pick = $('#pf-pick'), next = $('#pf-next'), prev = $('#pf-prev'),
+        reset = $('#pf-reset'), cnt = $('#pf-counter'),
+        svg = $('#pf-svg'), textEl = $('#pf-text'), logEl = $('#pf-log');
+  let key = 'identity', step = 0;
+
+  // Loop-arrow drawer (for identity proof)
+  function drawLoop(svg, pos, side, label, color){
+    const markerId = 'pf-loop-' + (color==='var(--yellow)'?'hl':(color==='var(--green)'?'dr':'in'));
+    ensureArrow(svg, markerId, color);
+    const s = side === 'bottom' ? 1 : -1;
+    const r = 18;
+    const x0 = pos.x - 10, y0 = pos.y + s*r*0.6;
+    const x1 = pos.x + 10, y1 = pos.y + s*r*0.6;
+    const cx1 = pos.x - 50, cy1 = pos.y + s*(r*0.4 + 55);
+    const cx2 = pos.x + 50, cy2 = pos.y + s*(r*0.4 + 55);
+    const p = SVG('path', {
+      d: `M${x0} ${y0} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x1} ${y1}`,
+      fill:'none', stroke: color, 'stroke-width': 1.8,
+      'marker-end': `url(#${markerId})`
+    });
+    svg.appendChild(p);
+    if(label){
+      const t = SVG('text', {
+        x: pos.x, y: pos.y + s*(r + 58),
+        'text-anchor':'middle', 'font-size': 14,
+        fill: color, 'font-style':'italic'
+      });
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const P = PROOFS[key];
+
+    // Build the set of visible arrows and highlighted ids based on current step.
+    const visible = P.given.slice();
+    let highlights = new Set();
+    const eqs = [];
+    let captionText = P.intro;
+
+    for(let i = 0; i < step; i++){
+      const s = P.steps[i];
+      if(s.add) for(const a of s.add) visible.push(a);
+      if(s.equation) eqs.push(s.equation);
+      if(i === step - 1){
+        captionText = s.text;
+        if(s.highlight) for(const h of s.highlight) highlights.add(h);
+      }
+    }
+
+    // Draw nodes first.
+    for(const [id, pos] of Object.entries(P.nodes)){
+      drawNode(svg, pos.x, pos.y, id, {r:20, stroke:'var(--blue)'});
+    }
+
+    // Draw arrows
+    for(const a of visible){
+      const from = P.nodes[a.from], to = P.nodes[a.to];
+      const hl = highlights.has(a.id);
+      const color = hl ? 'var(--yellow)' : (a.derived ? 'var(--green)' : 'var(--ink)');
+      if(a.loop){
+        drawLoop(svg, from, a.loop, a.label, color);
+      } else {
+        drawArrow(svg, [from.x, from.y], [to.x, to.y], {
+          curve: a.curve || 0,
+          label: a.label,
+          color,
+          width: hl ? 2.2 : 1.5,
+          markerId: 'pf-' + (hl?'hl':(a.derived?'dr':'in')),
+          pad1: 20, pad2: 22
+        });
+      }
+    }
+
+    // Caption + log
+    textEl.textContent = captionText;
+    logEl.textContent = eqs.length ? 'established:\n  ' + eqs.join('\n  ') : '';
+    logEl.style.color = step >= P.steps.length ? 'var(--green)' : 'var(--ink)';
+
+    cnt.textContent = step >= P.steps.length
+      ? `complete · ${P.steps.length}/${P.steps.length}`
+      : `step ${step}/${P.steps.length}`;
+    prev.disabled = step === 0;
+    next.disabled = step >= P.steps.length;
+    prev.style.opacity = prev.disabled ? 0.5 : 1;
+    next.style.opacity = next.disabled ? 0.5 : 1;
+  }
+
+  pick.addEventListener('change', () => { key = pick.value; step = 0; render(); });
+  next.addEventListener('click', () => {
+    const P = PROOFS[key];
+    if(step < P.steps.length){ step++; render(); }
+  });
+  prev.addEventListener('click', () => { if(step > 0){ step--; render(); } });
+  reset.addEventListener('click', () => { step = 0; render(); });
+
+  render();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

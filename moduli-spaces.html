@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Moduli spaces — the j-line, fine vs. coarse, and $M_{g,n}$</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#what">1&nbsp;Moduli&nbsp;problems</a>
+  <a href="#jline">2&nbsp;The&nbsp;j-line</a>
+  <a href="#finecoarse">3&nbsp;Fine&nbsp;vs.&nbsp;coarse</a>
+  <a href="#whyfail">4&nbsp;Why&nbsp;fine&nbsp;fails</a>
+  <a href="#level">5&nbsp;Level&nbsp;structure</a>
+  <a href="#higher">6&nbsp;$M_g$&nbsp;and&nbsp;$M_{g,n}$</a>
+  <a href="#summary">7&nbsp;Mental&nbsp;model</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Moduli spaces: the j-line, fine vs. coarse, and $M_{g,n}$</h1>
+  <p class="sub">A moduli space packages "all objects of type $X$ up to isomorphism" into a single geometric object. We start where it works cleanest — the $j$-line classifying elliptic curves over $\mathbb{C}$ — watch the classical setup fail to be <em>fine</em>, see how level structures rescue it, and end at the moduli of curves $M_{g,n}$ and its Deligne–Mumford compactification.</p>
+  <p class="small">Companion pages: <a href="./elliptic-curves.html">Elliptic curves</a> for the $j$-invariant itself, <a href="./schemes.html">Schemes</a> for representability, and a forward link to <a href="./stacks.html">Stacks</a> for the groupoid-valued fix.</p>
+</section>
+
+<section id="what">
+<h2>1. What is a moduli problem?</h2>
+<p>Informally, a <strong>moduli problem</strong> asks: <em>is there a space whose points are the objects of type $X$, up to isomorphism?</em> The word "space" is deliberately vague — we will sharpen it. The running example here is</p>
+<p>$$\text{type } X \;=\; \text{elliptic curves over } \mathbb{C}, \qquad \text{isomorphism} \;=\; \text{isomorphism of algebraic curves with marked origin.}$$</p>
+<p>The set of such curves, up to iso, is huge — but it admits a remarkably tidy parameter. Over $\mathbb{C}$, the $j$-invariant gives a bijection</p>
+<p>$$j\colon \{\text{elliptic curves}/\mathbb{C}\}/\!\cong \;\xrightarrow{\;\sim\;}\; \mathbb{A}^1(\mathbb{C}) = \mathbb{C}.$$</p>
+<p>So the <em>set</em> of iso classes is in bijection with the <em>set</em> of complex numbers. The moduli problem asks more: can we do this <em>geometrically</em>, so that the parameter space "feels" like a variety, and so that a family of curves over a base $B$ corresponds to a morphism $B \to \mathbb{A}^1$?</p>
+
+<div class="note"><strong>Point-of-view shift.</strong> Classical geometry starts with a space and asks about its points. Moduli theory starts with a <em>class of objects</em> and tries to <em>build</em> a space whose points are those objects. Whether such a space exists, and in what category, is the subtle part.</div>
+
+<p>Formally, we attach to the moduli problem a <em>functor</em>
+$$\mathcal{M}\colon \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad \mathcal{M}(S) = \{\text{families of objects of type } X \text{ over } S\} / \cong_S.$$
+A <em>family over $S$</em> is a flat, proper morphism $E \to S$ whose geometric fibres are objects of type $X$. The moduli problem is <strong>representable</strong> if there is a scheme $M$ with $\mathcal{M}(-) \cong h_M(-) = \operatorname{Hom}(-,M)$. This is the gold standard; we call $M$ a <em>fine</em> moduli space.</p>
+</section>
+
+<section id="jline">
+<h2>2. The j-line</h2>
+<p>For elliptic curves over $\mathbb{C}$, every iso class has a Weierstrass model $y^2 = x^3 + ax + b$ with $\Delta = -16(4a^3 + 27b^2) \ne 0$. The <strong>j-invariant</strong>
+$$j(E) \;=\; 1728 \cdot \frac{4a^3}{4a^3 + 27b^2}$$
+is a complete invariant over an algebraically closed field: two curves are $\mathbb{C}$-isomorphic iff they have the same $j$.</p>
+
+<p>Below: slide $j$ and see a representative Weierstrass curve deform. The real locus $\{y^2 = x^3 + ax + b\} \subset \mathbb{R}^2$ changes shape as we move through $j$-values.</p>
+
+<div class="widget" id="w-jslider">
+  <div class="hd"><div class="ttl">W1 · j-invariant slider</div><div class="hint">drag $j$ and watch the curve</div></div>
+  <svg id="w1-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <label>$j$</label>
+    <input type="range" id="w1-j" min="-600" max="3000" value="1728" step="1" />
+    <span class="readout" id="w1-out" style="min-width:240px"></span>
+  </div>
+  <div class="row">
+    <button data-j="0">j = 0</button>
+    <button data-j="1728">j = 1728</button>
+    <button data-j="-400">j = -400</button>
+    <button data-j="500">j = 500</button>
+  </div>
+</div>
+
+<p>The two <strong>special values</strong>:</p>
+<ul>
+  <li>$j = 0$ corresponds to curves $y^2 = x^3 + b$ (for instance $y^2 = x^3 + 1$). The extra automorphism $(x,y) \mapsto (\omega x,\,-y)$ with $\omega = e^{2\pi i / 3}$ has order $6$: $\operatorname{Aut}(E) \cong \mathbb{Z}/6$.</li>
+  <li>$j = 1728$ corresponds to $y^2 = x^3 + ax$ (for instance $y^2 = x^3 + x$). The extra automorphism $(x,y) \mapsto (-x,\,i y)$ has order $4$: $\operatorname{Aut}(E) \cong \mathbb{Z}/4$.</li>
+  <li>At every <em>other</em> $j$, the only non-trivial automorphism is $[-1]\colon (x,y) \mapsto (x,-y)$, so $\operatorname{Aut}(E) \cong \mathbb{Z}/2$.</li>
+</ul>
+
+<div class="widget" id="w-special">
+  <div class="hd"><div class="ttl">W2 · special points exhibitor</div><div class="hint">toggle between $j=0$, $j=1728$, generic</div></div>
+  <svg id="w2-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <button class="w2-btn active" data-mode="generic">generic ($\mathbb{Z}/2$)</button>
+    <button class="w2-btn" data-mode="j0">j = 0 ($\mathbb{Z}/6$)</button>
+    <button class="w2-btn" data-mode="j1728">j = 1728 ($\mathbb{Z}/4$)</button>
+    <button id="w2-animate">animate automorphism</button>
+  </div>
+  <div class="readout" id="w2-out"></div>
+</div>
+</section>
+
+<section id="finecoarse">
+<h2>3. Fine versus coarse moduli</h2>
+<p>Take the moduli functor $\mathcal{M}_{1,1}(S) = \{\text{elliptic curves } E \to S\}/\cong_S$. There are two levels of "solution."</p>
+
+<h3>Fine moduli</h3>
+<p>$M$ is a <strong>fine moduli space</strong> for $\mathcal{M}_{1,1}$ if $\mathcal{M}_{1,1} \cong h_M$ as functors. Taking $S = M$ and the identity in $\operatorname{Hom}(M,M) \cong \mathcal{M}_{1,1}(M)$ produces a <em>universal family</em> $\mathcal{E} \to M$ such that every family $E \to S$ is the pullback of $\mathcal{E}$ along a unique morphism $S \to M$.</p>
+
+<h3>Coarse moduli</h3>
+<p>$M$ is a <strong>coarse moduli space</strong> if we have a natural transformation $\varphi\colon \mathcal{M}_{1,1} \to h_M$ that is (a) a bijection on $\mathcal{M}_{1,1}(\operatorname{Spec} k) \to M(k)$ for every algebraically closed field $k$, and (b) universal among such natural transformations to a scheme. Coarse says: <em>points match, but there is no universal family</em>.</p>
+
+<p>The $j$-line is the <strong>coarse</strong> moduli space of $\mathcal{M}_{1,1}$ — not fine. The bijection on geometric points is exactly the $j$-invariant. Below: an interactive diagram of the two situations.</p>
+
+<div class="widget" id="w-diag">
+  <div class="hd"><div class="ttl">W3 · fine vs. coarse diagram</div><div class="hint">click to toggle regimes</div></div>
+  <svg id="w3-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="row">
+    <button class="w3-btn active" data-mode="fine">fine (representable)</button>
+    <button class="w3-btn" data-mode="coarse">coarse (pointwise only)</button>
+  </div>
+  <div class="readout" id="w3-out"></div>
+</div>
+</section>
+
+<section id="whyfail">
+<h2>4. Why fine moduli fails for $\mathcal{M}_{1,1}$</h2>
+<p>The obstruction to representability is <strong>automorphisms</strong>. Here is the mechanism in a sentence: if an object has a non-trivial automorphism, one can <em>twist</em> a trivial family into a non-trivial family whose fibres are still isomorphic to the original, and a representable functor cannot see this.</p>
+
+<p>Concretely, consider the two families over the affine line $\mathbb{A}^1 = \operatorname{Spec} \mathbb{Q}[t]$:</p>
+<p>$$E_1: \; y^2 = x^3 + 1, \qquad E_2: \; y^2 = x^3 + t^6.$$</p>
+<p>Over every $\bar{\mathbb{Q}}$-point $t = t_0 \ne 0$, both fibres have $j = 0$ and are isomorphic (via $x \mapsto t_0^2 x$, $y \mapsto t_0^3 y$). So they are <em>pointwise</em> the same family. But they are not isomorphic as families over $\mathbb{A}^1 \setminus \{0\}$: the isomorphism $x \mapsto t^2 x$, $y \mapsto t^3 y$ is <em>not defined globally</em>, and the obstruction to gluing lives in</p>
+<p>$$H^1\!\left(\mathbb{A}^1 \setminus \{0\},\,\underline{\operatorname{Aut}}(E_1)\right).$$</p>
+<p>If $\mathcal{M}_{1,1}$ were representable, the classifying maps of $E_1$ and $E_2$ would both be the constant map to $j = 0$, and so the families would be equal — but they are not. Contradiction.</p>
+
+<div class="widget" id="w-twist">
+  <div class="hd"><div class="ttl">W4 · twist widget</div><div class="hint">compare $E_1$ and $E_2$ over varying $t$</div></div>
+  <svg id="w4-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <label>$t$</label>
+    <input type="range" id="w4-t" min="0.2" max="2.5" value="1.0" step="0.01" />
+    <span class="readout" id="w4-out" style="min-width:260px"></span>
+  </div>
+  <p class="small">Left: $E_1 = \{y^2 = x^3+1\}$ (fibre at $t$). Right: $E_2 = \{y^2 = x^3+t^6\}$ (fibre at $t$). Both have $j = 0$; both are iso as abstract curves at every $t \ne 0$. But the iso requires the sixth-root twist $x \mapsto t^2 x$, $y \mapsto t^3 y$, which is a non-trivial class in $H^1$.</p>
+</div>
+
+<div class="note">The same phenomenon happens at $j = 1728$ (quartic twist) and more mildly at every $j$ (quadratic twist from $[-1]$). The mass of automorphisms at $j = 0$ and $j = 1728$ makes $\mathcal{M}_{1,1}$ an <em>orbifold</em> / <em>Deligne–Mumford stack</em> with extra structure at those two points.</div>
+</section>
+
+<section id="level">
+<h2>5. Rigidifying with level structure</h2>
+<p>A <strong>level-$N$ structure</strong> on an elliptic curve $E$ is an isomorphism $\alpha\colon (\mathbb{Z}/N)^2 \xrightarrow{\;\sim\;} E[N]$, i.e. an ordered basis of the $N$-torsion. Equivalently: a pair of points $P, Q \in E[N]$ generating $E[N]$.</p>
+
+<p>The key fact: for $N \ge 3$, no non-trivial automorphism of an elliptic curve fixes a level-$N$ structure. The functor</p>
+<p>$$\mathcal{M}_{1,1}[N](S) \;=\; \{(E \to S,\,\alpha) : \text{level-}N \text{ structure}\}/\cong$$</p>
+<p>is <em>representable</em> by a smooth affine variety $Y(N)$. The natural forgetful map $Y(N) \to \mathcal{M}_{1,1}$ is finite étale (over the locus away from $j = 0, 1728$), with Galois group $\operatorname{GL}_2(\mathbb{Z}/N)$.</p>
+
+<p>This is the standard <em>rigidification</em> trick: add data that kills automorphisms, get fine moduli, then quotient to recover the original.</p>
+
+<div class="widget" id="w-torsion">
+  <div class="hd"><div class="ttl">W5 · 2-torsion visualizer</div><div class="hint">label the four 2-torsion points</div></div>
+  <svg id="w5-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <button id="w5-label">toggle labels $P_1, P_2, P_3$</button>
+    <button id="w5-swap">apply automorphism (swap $P_1 \leftrightarrow P_2$)</button>
+  </div>
+  <div class="readout" id="w5-out"></div>
+</div>
+
+<div class="note"><strong>Why $N \ge 3$?</strong> For $N = 2$, every elliptic curve has automorphism $[-1]$, and $[-1]$ acts as the identity on $E[2]$ (because $-P = P$ for $2$-torsion). So a level-$2$ structure is <em>not</em> rigid enough — $[-1]$ still fixes every level-$2$ basis. For $N = 3$, $[-1]$ acts as $-1 \ne 1$ on $E[3]$, so it is detected.</div>
+</section>
+
+<section id="higher">
+<h2>6. Higher genus: $M_g$ and $M_{g,n}$</h2>
+<p>Let $M_g$ be the (coarse) moduli space of smooth projective curves of genus $g$, and $M_{g,n}$ the moduli of such curves with $n$ ordered distinct marked points. These exist as quasi-projective varieties (for $g \ge 2$; $M_{0,n}$ and $M_{1,n}$ require care).</p>
+
+<p>Their dimensions:</p>
+<p>$$\dim M_g \;=\; \begin{cases} 0 & g = 0,\\ 1 & g = 1,\\ 3g - 3 & g \ge 2, \end{cases} \qquad \dim M_{g,n} \;=\; \dim M_g + n.$$</p>
+<p>The $3g-3$ comes from Riemann–Roch / deformation theory: $\dim H^1(C, T_C) = 3g - 3$ is the dimension of first-order deformations of a smooth curve of genus $g \ge 2$.</p>
+
+<h3>Compactification: stable curves</h3>
+<p>The open moduli $M_{g,n}$ is not compact — curves can degenerate. Deligne and Mumford (1969) enlarge to the moduli of <strong>stable curves</strong>, giving a smooth proper Deligne–Mumford stack $\overline{\mathcal{M}}_{g,n}$ with coarse space $\overline{M}_{g,n}$.</p>
+
+<p>A <strong>stable curve</strong> $(C, p_1, \dots, p_n)$ is a connected, proper, reduced, at-worst-nodal curve of arithmetic genus $g$ such that:</p>
+<ul>
+  <li>every smooth rational component contains at least $3$ special points (nodes + markings);</li>
+  <li>every genus-$1$ component contains at least $1$ special point.</li>
+</ul>
+<p>Equivalently: $\operatorname{Aut}(C, p_1, \dots, p_n)$ is finite. Stability is exactly what is needed to cut out a Deligne–Mumford stack.</p>
+
+<div class="widget" id="w-stable">
+  <div class="hd"><div class="ttl">W6 · stable curve gallery</div><div class="hint">click through small-$(g,n)$ examples</div></div>
+  <svg id="w6-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
+  <div class="row" id="w6-buttons"></div>
+  <div class="readout" id="w6-out"></div>
+</div>
+</section>
+
+<section id="summary">
+<h2>7. Mental model summary</h2>
+<p>A moduli problem is, at heart, a functor
+$$\mathcal{F}\colon \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set} \;\text{ or }\; \mathrm{Grpd}.$$
+The question "does $\mathcal{F}$ come from a scheme?" has three graded answers.</p>
+
+<table class="plain">
+<thead><tr><th>level</th><th>condition</th><th>what you get</th></tr></thead>
+<tbody>
+<tr><td><strong>fine</strong></td><td>$\mathcal{F} \cong h_M$ as set-valued functors</td><td>scheme $M$ + universal family</td></tr>
+<tr><td><strong>coarse</strong></td><td>$\mathcal{F} \to h_M$ bijective on $\bar k$-points, universal into schemes</td><td>scheme $M$, no universal family</td></tr>
+<tr><td><strong>stack</strong></td><td>$\mathcal{F}$ valued in groupoids, satisfies descent</td><td>Deligne–Mumford or Artin stack</td></tr>
+</tbody>
+</table>
+
+<p>Automorphisms are the villain and the hero. They obstruct fine moduli (by making twists), but they are also the data that upgrades a coarse variety into a richer <em>stack</em>: the stack $\overline{\mathcal{M}}_{g,n}$ remembers, at each curve $C$, the finite group $\operatorname{Aut}(C)$. The coarse space $\overline{M}_{g,n}$ is obtained by forgetting these groups.</p>
+
+<div class="ok">The forward link: <a href="./stacks.html">stacks</a> is exactly the framework that lets us replace "functor to Set, mod out by iso, lose information" with "functor to Groupoids, remember the isos as data." The $j$-line then becomes the coarse space of the stack $\overline{\mathcal{M}}_{1,1}$, with stacky points of order $6$ at $j = 0$ and order $4$ at $j = 1728$.</div>
+
+<p class="small">See also: <a href="./elliptic-curves.html">Elliptic curves</a> for $j$ and Weierstrass forms; <a href="./riemann-surfaces.html">Riemann surfaces</a> for the $\mathbb{H}/\operatorname{SL}_2(\mathbb{Z})$ picture of $\mathcal{M}_{1,1}^{\mathrm{an}}$; <a href="./schemes.html">Schemes</a> for representable functors; <a href="./sheaf-cohomology.html">Sheaf cohomology</a> for the $H^1$ of twists; <a href="./morphisms-fiber-products.html">Morphisms &amp; fibre products</a> for pullback-of-family statements.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* =============================== W1 · j-slider =============================== */
+(function(){
+  const svg = $('#w1-svg'), out = $('#w1-out');
+  const slider = $('#w1-j');
+  const buttons = $$('#w-jslider button[data-j]');
+
+  // pick (a,b) for given j via the standard family y^2 = x^3 - 3kx - 2k (k = j/(j-1728))
+  // when j != 0, 1728: take k = j/(1728 - j), a = -3k, b = -2k.
+  function ab(j){
+    if(Math.abs(j) < 1e-6) return [0, 1];       // y^2 = x^3 + 1
+    if(Math.abs(j - 1728) < 1e-6) return [1, 0]; // y^2 = x^3 + x
+    const k = j / (1728 - j);
+    return [-3*k, -2*k];
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const j = +slider.value;
+    const [a,b] = ab(j);
+
+    // axes box
+    const X0=60, Y0=30, W=500, H=260;
+    svg.appendChild(SVG('rect',{x:X0,y:Y0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)'}));
+
+    // draw curve y^2 = x^3 + a x + b over x ∈ [xmin, xmax]
+    // rescale so the interesting region fits. Use a fixed x-range [-3, 3] scaled to box.
+    const xmin=-3, xmax=3, ymin=-4, ymax=4;
+    const toPx = (x,y) => [X0 + (x-xmin)/(xmax-xmin)*W, Y0 + H - (y-ymin)/(ymax-ymin)*H];
+
+    // axes
+    const [ax0,ay0] = toPx(0,ymin), [ax1,ay1] = toPx(0,ymax);
+    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--line)','stroke-width':1}));
+    const [bx0,by0] = toPx(xmin,0), [bx1,by1] = toPx(xmax,0);
+    svg.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--line)','stroke-width':1}));
+
+    // plot curve: for each x, if x^3 + ax + b >= 0, draw (x, ±sqrt). walk in x.
+    // We produce two polylines: upper and lower branches, possibly disconnected.
+    function sample(sign){
+      const pts=[]; let current=[];
+      const N=600;
+      for(let i=0;i<=N;i++){
+        const x = xmin + (xmax-xmin)*i/N;
+        const v = x*x*x + a*x + b;
+        if(v < 0){
+          if(current.length>1) pts.push(current);
+          current=[];
+          continue;
+        }
+        const y = sign*Math.sqrt(v);
+        if(y<ymin || y>ymax){
+          if(current.length>1) pts.push(current);
+          current=[];
+          continue;
+        }
+        current.push(toPx(x,y));
+      }
+      if(current.length>1) pts.push(current);
+      return pts;
+    }
+    const color = 'var(--yellow)';
+    const allPts = [...sample(+1), ...sample(-1)];
+    for(const arr of allPts){
+      const d = 'M' + arr.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':2}));
+    }
+
+    // equation label
+    const eq = SVG('text',{x:X0+10,y:Y0+22,'font-size':14,fill:'var(--mute)'});
+    eq.textContent = `y² = x³ + (${a.toFixed(3)}) x + (${b.toFixed(3)})`;
+    svg.appendChild(eq);
+
+    // readout
+    const disc = -16*(4*a*a*a + 27*b*b);
+    out.textContent = `j = ${j.toFixed(1)}   (a, b) = (${a.toFixed(3)}, ${b.toFixed(3)})   Δ = ${disc.toFixed(2)}`;
+  }
+  slider.addEventListener('input', draw);
+  buttons.forEach(b => b.addEventListener('click', () => { slider.value = b.dataset.j; draw(); }));
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== W2 · special points =============================== */
+(function(){
+  const svg = $('#w2-svg'), out = $('#w2-out');
+  const btns = $$('.w2-btn');
+  const anim = $('#w2-animate');
+  let mode = 'generic';
+  let t = 0, running = false, raf = null;
+
+  const DATA = {
+    generic: {a:-1, b:1, j:'≈ 1259', aut:'Z/2', desc:'generic curve y² = x³ - x + 1. Only non-trivial aut: (x,y) ↦ (x, -y).'},
+    j0:      {a:0,  b:1, j:'0',       aut:'Z/6', desc:'j = 0: y² = x³ + 1. Aut = Z/6 generated by (x,y) ↦ (ω x, -y), ω = e^{2πi/3}.'},
+    j1728:   {a:1,  b:0, j:'1728',    aut:'Z/4', desc:'j = 1728: y² = x³ + x. Aut = Z/4 generated by (x,y) ↦ (-x, i y).'}
+  };
+
+  function draw(){
+    svg.innerHTML = '';
+    const D = DATA[mode];
+    const X0=60, Y0=30, W=500, H=260;
+    svg.appendChild(SVG('rect',{x:X0,y:Y0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)'}));
+    const xmin=-2.5, xmax=2.5, ymin=-3, ymax=3;
+    const toPx = (x,y)=>[X0 + (x-xmin)/(xmax-xmin)*W, Y0 + H - (y-ymin)/(ymax-ymin)*H];
+
+    const [ax0,ay0] = toPx(0,ymin), [ax1,ay1] = toPx(0,ymax);
+    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--line)'}));
+    const [bx0,by0] = toPx(xmin,0), [bx1,by1] = toPx(xmax,0);
+    svg.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--line)'}));
+
+    // draw real locus
+    const {a,b} = D;
+    function samp(sign){
+      const N=600, out=[]; let cur=[];
+      for(let i=0;i<=N;i++){
+        const x=xmin+(xmax-xmin)*i/N;
+        const v=x*x*x + a*x + b;
+        if(v<0){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        const y=sign*Math.sqrt(v);
+        if(y<ymin||y>ymax){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        cur.push(toPx(x,y));
+      }
+      if(cur.length>1) out.push(cur);
+      return out;
+    }
+    const all = [...samp(+1), ...samp(-1)];
+    for(const arr of all){
+      const d='M'+arr.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    }
+
+    // sample tracking point, apply the automorphism angle t
+    // For Z/2: (x,y) → (x, -y). Linear interp on y.
+    // For Z/4 (j=1728): rotate by 90°· t on (x, y) → (-x, iy) complex; we simulate by rotating the DISPLAYED
+    //   representative: (x, y) in plane gets rotated: x -> x·cos(πt/2) - y·sin(πt/2) ? No: we want to show a 4-fold symmetry.
+    // For demo, draw a ghost (rotated by the group action). We'll just mark the aut by rotating a marker point
+    // by the group action around the origin (as a geometric avatar only).
+    const order = mode==='generic'?2: mode==='j1728'?4: 6;
+    const angle = (2*Math.PI/order) * t;
+    const mx = 1.3, my = Math.sqrt(Math.max(0, mx*mx*mx + a*mx + b));
+    // rotate (mx,my) by angle (avatar rotation only)
+    const rx = mx*Math.cos(angle) - my*Math.sin(angle);
+    const ry = mx*Math.sin(angle) + my*Math.cos(angle);
+    const [px,py] = toPx(rx, ry);
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:6,fill:'var(--pink)'}));
+    const [ox,oy] = toPx(mx,my);
+    svg.appendChild(SVG('circle',{cx:ox,cy:oy,r:4,fill:'var(--blue)','fill-opacity':0.5}));
+
+    const lab = SVG('text',{x:X0+10,y:Y0+22,'font-size':14,fill:'var(--mute)'});
+    lab.textContent = `mode: ${mode}   j = ${D.j}   Aut = ${D.aut}`;
+    svg.appendChild(lab);
+    const hint = SVG('text',{x:X0+W-10,y:Y0+22,'font-size':12,fill:'var(--mute)','text-anchor':'end'});
+    hint.textContent = `order of Aut: ${order}`;
+    svg.appendChild(hint);
+
+    out.textContent = D.desc;
+  }
+
+  function step(){
+    if(!running) return;
+    t = (t + 0.01) % 1;
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.mode;
+    t = 0;
+    draw();
+  }));
+  anim.addEventListener('click', () => {
+    running = !running;
+    anim.textContent = running ? 'stop animation' : 'animate automorphism';
+    if(running){ step(); } else { cancelAnimationFrame(raf); }
+  });
+
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== W3 · fine vs coarse diagram =============================== */
+(function(){
+  const svg = $('#w3-svg'), out = $('#w3-out');
+  const btns = $$('.w3-btn');
+  let mode = 'fine';
+
+  function draw(){
+    svg.innerHTML = '';
+    const W=620, H=300;
+    // nodes: S (top-left), M (bottom-left), E_over_S (top-right), E_over_M (bottom-right)
+    const S = [130, 80], M = [130, 220], EoverS = [420, 80], EoverM = [420, 220];
+
+    // arrows
+    drawArrow(svg, S, M, {label:'classifying map', color:'var(--blue)', markerId:'w3-blue'});
+    drawArrow(svg, EoverS, S, {label:'family', color:'var(--yellow)', markerId:'w3-ye'});
+    drawArrow(svg, EoverM, M, {label:mode==='fine'?'universal family':'no univ. family', color: mode==='fine'?'var(--green)':'var(--pink)', markerId:mode==='fine'?'w3-gr':'w3-pn', dash: mode==='fine'? null:'6 5'});
+    // pullback arrow from EoverS -> EoverM
+    drawArrow(svg, EoverS, EoverM, {label:'pullback', color:'var(--cyan)', markerId:'w3-cy'});
+
+    drawNode(svg, S[0], S[1], 'S', {r:24, stroke:'var(--blue)'});
+    drawNode(svg, M[0], M[1], 'M', {r:24, stroke:'var(--violet)'});
+    drawNode(svg, EoverS[0], EoverS[1], 'E/S', {r:26, stroke:'var(--yellow)'});
+    drawNode(svg, EoverM[0], EoverM[1], 'ℰ/M', {r:26, stroke: mode==='fine'?'var(--green)':'var(--pink)'});
+
+    // caption
+    const cap = SVG('text',{x:W/2,y:H-15,'text-anchor':'middle','font-size':14,fill:'var(--mute)'});
+    cap.textContent = mode==='fine'
+      ? 'fine: every family E/S is uniquely the pullback of the universal family ℰ/M along S → M'
+      : 'coarse: S → M exists pointwise via j-invariant, but NO universal family ℰ/M exists';
+    svg.appendChild(cap);
+
+    out.textContent = mode==='fine'
+      ? 'fine moduli: ℳ(S) ≅ Hom(S,M) naturally. Universal family ℰ → M classifies everything.'
+      : 'coarse moduli: ℳ(Spec k̄) ↔ M(k̄) bijectively, but no universal family exists. (This is the j-line situation.)';
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.mode;
+    draw();
+  }));
+
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== W4 · twist widget =============================== */
+(function(){
+  const svg = $('#w4-svg'), out = $('#w4-out');
+  const slider = $('#w4-t');
+
+  function curvePath(a, b, xmin, xmax, ymin, ymax, toPx){
+    function samp(sign){
+      const N=400, out=[]; let cur=[];
+      for(let i=0;i<=N;i++){
+        const x=xmin+(xmax-xmin)*i/N;
+        const v=x*x*x + a*x + b;
+        if(v<0){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        const y=sign*Math.sqrt(v);
+        if(y<ymin||y>ymax){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        cur.push(toPx(x,y));
+      }
+      if(cur.length>1) out.push(cur);
+      return out;
+    }
+    return [...samp(+1), ...samp(-1)];
+  }
+
+  function drawPanel(X0, Y0, W, H, a, b, title, color){
+    svg.appendChild(SVG('rect',{x:X0,y:Y0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)'}));
+    const xmin=-3.5, xmax=3.5, ymin=-5, ymax=5;
+    const toPx=(x,y)=>[X0 + (x-xmin)/(xmax-xmin)*W, Y0 + H - (y-ymin)/(ymax-ymin)*H];
+
+    const [ax0,ay0] = toPx(0,ymin), [ax1,ay1] = toPx(0,ymax);
+    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--line)'}));
+    const [bx0,by0] = toPx(xmin,0), [bx1,by1] = toPx(xmax,0);
+    svg.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--line)'}));
+
+    const pts = curvePath(a, b, xmin, xmax, ymin, ymax, toPx);
+    for(const arr of pts){
+      const d='M'+arr.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':2}));
+    }
+    const lab = SVG('text',{x:X0 + W/2, y:Y0+18, 'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
+    lab.textContent = title;
+    svg.appendChild(lab);
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const t = +slider.value;
+    // E1: a=0, b=1 (always)
+    // E2: a=0, b=t^6 — fibre at this t, so coefficient is t^6
+    const b2 = Math.pow(t, 6);
+    drawPanel(20, 20, 280, 260, 0, 1, 'E₁: y² = x³ + 1 (fibre at t)', 'var(--yellow)');
+    drawPanel(320, 20, 280, 260, 0, b2, `E₂: y² = x³ + t⁶ = x³ + ${b2.toFixed(3)}`, 'var(--cyan)');
+
+    // connecting label
+    const cap = SVG('text',{x:310, y:305,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-style':'italic'});
+    cap.textContent = `iso at t: (x,y) ↦ (t²x, t³y).   requires t ≠ 0.`;
+    svg.appendChild(cap);
+
+    out.textContent = `t = ${t.toFixed(3)}   E₂ coeff = t⁶ = ${b2.toFixed(4)}.   At every t ≠ 0 fibres are iso; not iso as families over A¹\\{0}.`;
+  }
+
+  slider.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== W5 · 2-torsion visualizer =============================== */
+(function(){
+  const svg = $('#w5-svg'), out = $('#w5-out');
+  const labelBtn = $('#w5-label'), swapBtn = $('#w5-swap');
+  let showLabels = true;
+  let swap = false;
+
+  // fix curve y^2 = x^3 - x (so j = 1728). Then 2-torsion points over C:
+  // y = 0 → x^3 - x = 0 → x ∈ {0, 1, -1}. Plus the point at infinity O.
+  // In the real plane: (0,0), (1,0), (-1,0), plus "O" drawn off-box.
+  function draw(){
+    svg.innerHTML = '';
+    const X0=60, Y0=30, W=500, H=260;
+    svg.appendChild(SVG('rect',{x:X0,y:Y0,width:W,height:H,fill:'var(--panel2)',stroke:'var(--line)'}));
+    const xmin=-2, xmax=2, ymin=-2.5, ymax=2.5;
+    const toPx=(x,y)=>[X0 + (x-xmin)/(xmax-xmin)*W, Y0 + H - (y-ymin)/(ymax-ymin)*H];
+
+    const [ax0,ay0] = toPx(0,ymin), [ax1,ay1] = toPx(0,ymax);
+    svg.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--line)'}));
+    const [bx0,by0] = toPx(xmin,0), [bx1,by1] = toPx(xmax,0);
+    svg.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--line)'}));
+
+    // curve y² = x³ - x, real locus: two components
+    const a=-1, b=0;
+    function samp(sign){
+      const N=500,out=[]; let cur=[];
+      for(let i=0;i<=N;i++){
+        const x=xmin+(xmax-xmin)*i/N;
+        const v=x*x*x + a*x + b;
+        if(v<0){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        const y=sign*Math.sqrt(v);
+        if(y<ymin||y>ymax){ if(cur.length>1) out.push(cur); cur=[]; continue; }
+        cur.push(toPx(x,y));
+      }
+      if(cur.length>1) out.push(cur);
+      return out;
+    }
+    const all=[...samp(+1),...samp(-1)];
+    for(const arr of all){
+      const d='M'+arr.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    }
+
+    // 2-torsion points
+    // O is "at infinity", we'll just draw a marker near the top-right with label
+    // non-trivial: P1 = (-1,0), P2 = (0,0), P3 = (1,0). Under swap, swap labels of P1 and P2.
+    const basePts = [
+      {name: swap?'P2':'P1', x:-1, y:0, color:'var(--pink)'},
+      {name: swap?'P1':'P2', x: 0, y:0, color:'var(--cyan)'},
+      {name: 'P3',            x: 1, y:0, color:'var(--green)'},
+    ];
+    for(const p of basePts){
+      const [px,py] = toPx(p.x, p.y);
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:6,fill:p.color}));
+      if(showLabels){
+        const t = SVG('text',{x:px,y:py-12,'text-anchor':'middle','font-size':12,fill:p.color,'font-weight':600});
+        t.textContent = p.name;
+        svg.appendChild(t);
+      }
+    }
+    // label O
+    const [ox,oy] = [X0 + W - 50, Y0 + 50];
+    svg.appendChild(SVG('circle',{cx:ox,cy:oy,r:6,fill:'var(--violet)'}));
+    if(showLabels){
+      const t = SVG('text',{x:ox,y:oy-12,'text-anchor':'middle','font-size':12,fill:'var(--violet)','font-weight':600});
+      t.textContent = 'O (∞)';
+      svg.appendChild(t);
+    }
+
+    const lab = SVG('text',{x:X0+10,y:Y0+22,'font-size':13,fill:'var(--mute)'});
+    lab.textContent = `y² = x³ - x   (j = 1728).   E[2] = {O, (-1,0), (0,0), (1,0)}.`;
+    svg.appendChild(lab);
+
+    out.textContent = swap
+      ? 'automorphism applied: labels P1 ↔ P2 have swapped. A level-2 structure (choice of ordered basis) is NOT fixed — but note [-1] acts trivially on E[2]. So level-2 is not rigid enough; N ≥ 3 needed.'
+      : 'unlabelled 2-torsion: {O, (-1,0), (0,0), (1,0)}. [-1]: (x,y)↦(x,-y) fixes all of them pointwise. Automorphisms of the curve permute {P1,P2,P3}.';
+  }
+
+  labelBtn.addEventListener('click', () => { showLabels = !showLabels; draw(); });
+  swapBtn.addEventListener('click', () => { swap = !swap; draw(); });
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== W6 · stable curve gallery =============================== */
+(function(){
+  const svg = $('#w6-svg'), out = $('#w6-out');
+  const row = $('#w6-buttons');
+
+  const GALLERY = [
+    {key:'g0', g:0, n:3, stable:true, title:'(g,n) = (0,3) · P¹ with 3 marked points',
+     desc:'dim M₀,₃ = 0 — a single point. Stable because 3 marked points satisfy the rule for rational components.'},
+    {key:'g1', g:1, n:1, stable:true, title:'(g,n) = (1,1) · smooth elliptic curve, 1 marked point',
+     desc:'dim M₁,₁ = 1. This is the j-line. Smooth genus-1 with one marking (the origin).'},
+    {key:'g2', g:2, n:0, stable:true, title:'(g,n) = (2,0) · smooth genus-2 curve',
+     desc:'dim M₂ = 3g - 3 = 3. A hyperelliptic surface with six Weierstrass points.'},
+    {key:'g3', g:3, n:0, stable:true, title:'(g,n) = (3,0) · smooth genus-3 curve',
+     desc:'dim M₃ = 6. Generic g=3 curve is a smooth plane quartic.'},
+    {key:'g4', g:4, n:0, stable:true, title:'(g,n) = (4,0) · smooth genus-4 curve',
+     desc:'dim M₄ = 9. Generic g=4 curve is a complete intersection of quadric + cubic in P³.'},
+    {key:'g2n1', g:2, n:0, stable:true, title:'(g,n) = (2,0) · nodal: two elliptic curves glued at a point',
+     desc:'Stable degeneration in ∂M̄₂: two genus-1 components meeting at a node. Arithmetic genus = 1+1+0 = 2. ✓ stable: each genus-1 component has 1 special point (the node).'},
+    {key:'g2n2', g:2, n:0, stable:true, title:'(g,n) = (2,0) · irreducible self-node',
+     desc:'Geometric genus 1, arithmetic genus 2 via the self-node. Smoothing parameter gives a local chart of M̄₂ near the boundary.'},
+    {key:'g0n5', g:0, n:5, stable:true, title:'(g,n) = (0,5) · P¹ with 5 marked points',
+     desc:'dim M₀,₅ = 2. The boundary ∂M̄₀,₅ is a union of divisors, one for each way to split {1..5} into two groups of size ≥ 2.'},
+  ];
+
+  let idx = 1;
+
+  function drawCurve(key){
+    // draw a schematic "curve" in the middle of the SVG
+    const W=620, H=340;
+    svg.innerHTML = '';
+    svg.appendChild(SVG('rect',{x:20,y:20,width:W-40,height:H-40,fill:'var(--panel2)',stroke:'var(--line)'}));
+
+    // For each key, hand-crafted cartoon
+    function genus0(cx,cy){
+      // a horizontal line with 3 or 5 dots
+      svg.appendChild(SVG('line',{x1:cx-140,y1:cy,x2:cx+140,y2:cy,stroke:'var(--yellow)','stroke-width':2}));
+      return {cx,cy};
+    }
+    function genusHandles(cx,cy,n){
+      // draw a tube with n handles (figure of genus n via n circles stacked horizontally, connected)
+      // For simplicity just draw n circles joined.
+      const spacing = 70;
+      const x0 = cx - (n-1)*spacing/2;
+      for(let i=0;i<n;i++){
+        svg.appendChild(SVG('ellipse',{cx:x0+i*spacing,cy:cy,rx:35,ry:24,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+      }
+      // connect them with a bold envelope
+      const env = SVG('ellipse',{cx:cx,cy:cy,rx:(n-1)*spacing/2+50,ry:36,fill:'none',stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'3 3'});
+      svg.appendChild(env);
+    }
+    function markDots(cx, cy, count, yOffset=0){
+      for(let i=0;i<count;i++){
+        const x = cx - (count-1)*20 + i*40;
+        svg.appendChild(SVG('circle',{cx:x,cy:cy+yOffset,r:5,fill:'var(--pink)',stroke:'#fff','stroke-width':1}));
+        const t = SVG('text',{x:x,y:cy+yOffset-12,'text-anchor':'middle','font-size':11,fill:'var(--pink)'});
+        t.textContent = 'p'+(i+1);
+        svg.appendChild(t);
+      }
+    }
+
+    const cx=W/2, cy=H/2-10;
+    if(key==='g0'){ genus0(cx,cy); markDots(cx,cy,3,-10); }
+    else if(key==='g1'){ genusHandles(cx,cy,1); markDots(cx,cy-40,1); }
+    else if(key==='g2'){ genusHandles(cx,cy,2); }
+    else if(key==='g3'){ genusHandles(cx,cy,3); }
+    else if(key==='g4'){ genusHandles(cx,cy,4); }
+    else if(key==='g2n1'){
+      // two ellipses meeting at a central node
+      svg.appendChild(SVG('ellipse',{cx:cx-70,cy:cy,rx:55,ry:35,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+      svg.appendChild(SVG('ellipse',{cx:cx+70,cy:cy,rx:55,ry:35,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:5,fill:'var(--pink)'}));
+      const t = SVG('text',{x:cx,y:cy+25,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t.textContent='node'; svg.appendChild(t);
+      const t1 = SVG('text',{x:cx-70,y:cy-50,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'}); t1.textContent='g=1'; svg.appendChild(t1);
+      const t2 = SVG('text',{x:cx+70,y:cy-50,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); t2.textContent='g=1'; svg.appendChild(t2);
+    }
+    else if(key==='g2n2'){
+      // one curve with a self-node: draw a "figure eight-ish" shape
+      svg.appendChild(SVG('path',{d:`M ${cx-80} ${cy} C ${cx-80} ${cy-60}, ${cx+20} ${cy-60}, ${cx+20} ${cy} S ${cx+120} ${cy+60}, ${cx+120} ${cy} C ${cx+120} ${cy-40}, ${cx-30} ${cy+60}, ${cx-80} ${cy} Z`,
+        fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+      svg.appendChild(SVG('circle',{cx:cx+5,cy:cy,r:5,fill:'var(--pink)'}));
+      const t = SVG('text',{x:cx+5,y:cy+20,'text-anchor':'middle','font-size':12,fill:'var(--pink)'}); t.textContent='self-node'; svg.appendChild(t);
+    }
+    else if(key==='g0n5'){
+      genus0(cx,cy); markDots(cx,cy,5,-10);
+    }
+
+    // caption
+    const D = GALLERY.find(g=>g.key===key);
+    const title = SVG('text',{x:cx,y:40,'text-anchor':'middle','font-size':14,fill:'#fff','font-weight':600});
+    title.textContent = D.title;
+    svg.appendChild(title);
+
+    // dimension formula
+    let dim;
+    if(D.g === 0) dim = Math.max(0, D.n - 3);
+    else if(D.g === 1) dim = D.n;
+    else dim = 3*D.g - 3 + D.n;
+    const dimT = SVG('text',{x:cx,y:H-35,'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});
+    dimT.textContent = `dim M_{${D.g},${D.n}} = ${dim}   (g=${D.g}, n=${D.n})`;
+    svg.appendChild(dimT);
+
+    out.textContent = D.desc + (D.stable ? '   [stable ✓]' : '   [NOT stable]');
+  }
+
+  // build buttons
+  GALLERY.forEach((g, i) => {
+    const b = document.createElement('button');
+    b.textContent = `(g=${g.g}, n=${g.n})${g.key.includes('n1')||g.key.includes('n2')?' nodal':''}`;
+    b.addEventListener('click', () => {
+      idx = i;
+      [...row.querySelectorAll('button')].forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      drawCurve(g.key);
+    });
+    if(i===idx) b.classList.add('active');
+    row.appendChild(b);
+  });
+
+  drawCurve(GALLERY[idx].key);
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Commutative algebra</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+/* ============================ shared helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function lcm(a,b){ if(a===0||b===0) return 0; return Math.abs(a*b)/gcd(a,b); }
+function mod(a,n){return ((a%n)+n)%n}
+function isPrime(n){ if(n<2) return false; for(let i=2;i*i<=n;i++) if(n%i===0) return false; return true; }
+function factorizeInt(n){
+  n=Math.abs(n);
+  if(n<=1) return [];
+  const out=[];
+  for(let p=2;p*p<=n;p++){
+    let e=0; while(n%p===0){n=n/p;e++}
+    if(e) out.push([p,e]);
+  }
+  if(n>1) out.push([n,1]);
+  return out;
+}
+/* all divisors of n, sorted ascending */
+function divisors(n){
+  n = Math.abs(n); if(n===0) return [0];
+  const out=[];
+  for(let i=1;i*i<=n;i++){
+    if(n%i===0){ out.push(i); if(i!==n/i) out.push(n/i); }
+  }
+  out.sort((a,b)=>a-b);
+  return out;
+}
+/* ---------- polynomial arithmetic over F_p (coefficients low-to-high) ---------- */
+function polyTrim(a){ let i=a.length-1; while(i>0 && a[i]===0) i--; return a.slice(0,i+1); }
+function polyAdd(a,b,p){
+  const n=Math.max(a.length,b.length); const r=Array(n).fill(0);
+  for(let i=0;i<n;i++) r[i] = mod((a[i]||0)+(b[i]||0), p);
+  return polyTrim(r);
+}
+function polySub(a,b,p){
+  const n=Math.max(a.length,b.length); const r=Array(n).fill(0);
+  for(let i=0;i<n;i++) r[i] = mod((a[i]||0)-(b[i]||0), p);
+  return polyTrim(r);
+}
+function polyMul(a,b,p){
+  const r = Array(a.length+b.length-1).fill(0);
+  for(let i=0;i<a.length;i++) for(let j=0;j<b.length;j++){
+    r[i+j] = mod(r[i+j] + a[i]*b[j], p);
+  }
+  return polyTrim(r);
+}
+function modInv(a,p){ a = mod(a,p); for(let k=1;k<p;k++) if((a*k)%p===1) return k; return 1; }
+function polyDivMod(a,b,p){
+  a = a.slice(); b = polyTrim(b);
+  const db = b.length-1;
+  if(db<0) throw 'div by 0';
+  const lead = b[db]; const invLead = modInv(lead,p);
+  const q = Array(Math.max(0,a.length-db)).fill(0);
+  for(let i=a.length-1; i>=db; i--){
+    if(a[i]===0) continue;
+    const c = mod(a[i]*invLead, p);
+    q[i-db] = c;
+    for(let j=0;j<=db;j++){
+      a[i-db+j] = mod(a[i-db+j] - c*b[j], p);
+    }
+  }
+  return { q: polyTrim(q), r: polyTrim(a.slice(0,db)) };
+}
+function polyMod(a,b,p){ return polyDivMod(a,b,p).r; }
+function polyGcd(a,b,p){
+  a = polyTrim(a); b = polyTrim(b);
+  while(!(b.length===1 && b[0]===0)){
+    const r = polyMod(a,b,p);
+    a = b; b = r;
+  }
+  // normalize to monic
+  if(a.length>0){
+    const lead = a[a.length-1];
+    const inv = modInv(lead,p);
+    a = a.map(c=>mod(c*inv,p));
+  }
+  return a;
+}
+function polyEq(a,b){
+  a = polyTrim(a); b = polyTrim(b);
+  if(a.length!==b.length) return false;
+  for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false;
+  return true;
+}
+function polyIsZero(a){ a=polyTrim(a); return a.length===1 && a[0]===0; }
+function polyIsOne(a){ a=polyTrim(a); return a.length===1 && a[0]===1; }
+/* pretty print polynomial over F_p, variable x */
+function polyStr(a, v='x'){
+  a = polyTrim(a);
+  if(a.length===1 && a[0]===0) return '0';
+  const parts = [];
+  for(let i=a.length-1;i>=0;i--){
+    const c = a[i]; if(c===0) continue;
+    let s = '';
+    if(i===0) s = `${c}`;
+    else {
+      const cs = c===1 ? '' : `${c}`;
+      const vs = i===1 ? v : `${v}^${i}`;
+      s = cs+vs;
+    }
+    parts.push(s);
+  }
+  return parts.join(' + ');
+}
+/* evaluate poly at x in F_p */
+function polyEval(a,x,p){
+  let r = 0;
+  for(let i=a.length-1;i>=0;i--) r = mod(r*x + a[i], p);
+  return r;
+}
+/* partial derivative (single variable) */
+function polyDeriv(a,p){
+  if(a.length<=1) return [0];
+  const r = Array(a.length-1).fill(0);
+  for(let i=1;i<a.length;i++) r[i-1] = mod(i*a[i], p);
+  return polyTrim(r);
+}
+/* monic factor enumeration: all monic polys of degree < d over F_p (small only) */
+function allMonicPolysUpToDeg(d,p){
+  const out = [[0]]; // zero poly
+  // all polys of degree 0..d-1 (not monic), useful for generators
+  function rec(i, cur){
+    if(i===d){ out.push(cur.slice()); return; }
+    for(let c=0;c<p;c++){ cur.push(c); rec(i+1,cur); cur.pop(); }
+  }
+  rec(0, []);
+  // dedupe (poly [0,0,..] trimmed)
+  const seen = new Set(); const uniq = [];
+  for(const a of out){
+    const t = polyTrim(a); const k = t.join(',');
+    if(!seen.has(k)){ seen.add(k); uniq.push(t); }
+  }
+  return uniq;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#ideals">1&nbsp;Ideals&nbsp;&amp;&nbsp;Spec</a>
+  <a href="#modules">2&nbsp;Modules&nbsp;&amp;&nbsp;tensor</a>
+  <a href="#localize">3&nbsp;Localization</a>
+  <a href="#flat">4&nbsp;Flatness</a>
+  <a href="#nakayama">5&nbsp;Nakayama</a>
+  <a href="#dim">6&nbsp;Dimension</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Commutative algebra, from primes to dimension</h1>
+  <p class="sub">Rings, their ideals, and the geometry hiding inside them. A working tour through the six things you actually use: spectra, modules, localization, flatness, Nakayama, and Krull dimension.</p>
+</section>
+
+<section id="ideals">
+<h2>1. Ideals, primes, and the spectrum</h2>
+<p>Every ring in sight is commutative with $1$. A prime ideal $\mathfrak{p}\subset A$ is one where $A/\mathfrak{p}$ is an integral domain; maximal if $A/\mathfrak{p}$ is a field. The <strong>spectrum</strong></p>
+<p style="text-align:center">$\mathrm{Spec}(A) = \{\mathfrak{p}\subset A : \mathfrak{p}\text{ prime}\}$</p>
+<p>is a topological space with closed sets $V(I)=\{\mathfrak{p}:I\subseteq\mathfrak{p}\}$. Two pictures to keep side by side:</p>
+<p><span class="pill">arithmetic</span> $\mathrm{Spec}(\mathbb{Z})$ is the primes $(2),(3),(5),\dots$ plus a generic point $(0)$. Each closed point is a "residue $\mathbb{F}_p$".</p>
+<p><span class="pill">geometric</span> $\mathrm{Spec}(k[x,y])$ has closed points $(x-a,y-b)$ (the actual points of $\mathbb{A}^2_k$), height-1 primes $(f)$ for irreducible $f$ (curves), and the generic point $(0)$.</p>
+<p>Ideals are the fundamental subobjects. Below, the Hasse diagram of ideals for small rings. Primes are the ones sitting "below" chain tops in a very particular sense — geometrically, closed irreducible subsets.</p>
+
+<div class="widget" id="w-lat">
+  <div class="hd"><div class="ttl">Ideal lattice explorer</div><div class="hint">click any node to see its data</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="lat-ring">
+      <option value="Z/12">ℤ/12ℤ</option>
+      <option value="Z/30">ℤ/30ℤ</option>
+      <option value="Z/36">ℤ/36ℤ</option>
+      <option value="Z/8">ℤ/8ℤ</option>
+      <option value="F2x/x3+x+1">𝔽₂[x]/(x³+x+1)</option>
+      <option value="F2x/x2+x">𝔽₂[x]/(x²+x)</option>
+      <option value="F3x/x2+1">𝔽₃[x]/(x²+1)</option>
+      <option value="F2x/x3">𝔽₂[x]/(x³)</option>
+    </select>
+    <span class="small">
+      <span style="color:var(--pink)">■</span> maximal ·
+      <span style="color:var(--yellow)">■</span> prime ·
+      <span style="color:var(--blue)">■</span> primary ·
+      <span style="color:var(--violet)">■</span> radical ·
+      <span style="color:#888">■</span> other
+    </span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 260px;gap:1rem;align-items:start">
+    <svg id="lat-svg" viewBox="0 0 560 420" width="100%" style="max-width:560px"></svg>
+    <div>
+      <div class="readout" id="lat-info" style="min-height:8em"></div>
+    </div>
+  </div>
+</div>
+<p class="small">In $\mathbb{Z}/n$, the ideals correspond to divisors of $n$: $(d)$ for $d|n$. The prime ideals are $(p)$ for primes $p|n$, and in $\mathbb{Z}/n$ every prime is maximal (Artinian). The nilradical $\mathrm{Nil}(A)=\bigcap\mathfrak{p}$ is the intersection of all primes.</p>
+</section>
+
+<script>
+/* =============================== SECTION 1: ideal lattice =============================== */
+(function(){
+  const svg = $('#lat-svg'), pick = $('#lat-ring'), info = $('#lat-info');
+
+  /* build lattice data from ring spec */
+  function buildZn(n){
+    const divs = divisors(n);
+    // ideal (d) corresponds to d | n; (d)=(e) iff d=e up to unit, here d is the generator
+    // lattice: (d1) subseteq (d2) iff d2 | d1
+    const primes = new Set(factorizeInt(n).map(([p])=>p));
+    const nodes = divs.map(d=>{
+      const quot = n/d; // |R/I| = d? No: ideal (d) in Z/n has size n/d so |R/(d)| = d
+      // actually: (d) as subset of Z/n equals dZ/nZ, which has n/d elements; quotient has d elements
+      const quotSize = d;
+      // Is (d) prime in Z/n? Iff Z/n / (d) = Z/d is a domain, iff d is prime or d=1? d=1 gives (1)=R, not prime.
+      // Actually quotient Z/n /(d) as a group is Z/d if d | n. Is it a domain? It's Z/d, which is a domain iff d=0 or d prime. d ranges in divisors of n, so d>=1.
+      // So prime iff d is prime. Maximal iff Z/d is a field iff d prime. So prime=maximal here (Artinian).
+      const isPrime = primes.has(d);
+      const isMaximal = isPrime;
+      // primary: (d) primary iff quotient has only one associated prime; in Z/n, (d) primary iff d is a prime power
+      const isPrimePower = (d>1) && factorizeInt(d).length===1;
+      const isPrimary = isPrimePower;
+      // radical of (d) in Z/n: rad = product of distinct primes dividing d (intersected with the primes of n)
+      let rad = 1;
+      for(const [p] of factorizeInt(d)) rad *= p;
+      // but rad in Z/n means smallest d' | n with same prime support as d:
+      let radGen = rad;
+      // if d=1 -> rad = n (the full ideal? No, rad of (1) in Z/n... (1)=unit ideal so rad=(1))
+      if(d===1) radGen = 1;
+      else {
+        // adjust: radGen should divide n
+        while(n%radGen!==0) radGen++;
+      }
+      const isRadical = (d===radGen);
+      return {
+        id: `d${d}`,
+        label: d===1 ? '(1)=R' : (d===n ? `(${d})=(0)` : `(${d})`),
+        gen: d,
+        quotSize,
+        isPrime, isMaximal, isPrimary, isRadical,
+        info: (()=>{
+          const lines = [];
+          lines.push(`ideal (${d}) in ℤ/${n}`);
+          lines.push(`quotient R/I ≅ ℤ/${d}`);
+          lines.push(`|R/I| = ${d}`);
+          if(d===1) lines.push('this is the unit ideal');
+          if(d===n) lines.push('this is the zero ideal');
+          const tags = [];
+          if(isMaximal) tags.push('maximal');
+          else if(isPrime) tags.push('prime');
+          if(isPrimary && !isPrime) tags.push('primary');
+          if(isRadical) tags.push('radical');
+          if(tags.length) lines.push('type: ' + tags.join(', '));
+          return lines.join('\n');
+        })(),
+      };
+    });
+    // edges: (d1) directly contains (d2) means d2 is a multiple of d1 and d2/d1 is prime
+    const edges = [];
+    for(const a of nodes) for(const b of nodes){
+      if(a.gen!==b.gen && b.gen%a.gen===0){
+        const q = b.gen/a.gen;
+        if(isPrime(q)){
+          // a ⊇ b (bigger ideal contains smaller)
+          edges.push([b.id, a.id]); // draw from smaller (lower) to bigger (upper)
+        }
+      }
+    }
+    return { nodes, edges, title:`ℤ/${n}ℤ`, orderBy:'gen' };
+  }
+
+  function buildPolyQuot(p, f, fDisplay){
+    // ring R = F_p[x] / (f). Ideals correspond to monic divisors g | f.
+    // enumerate all monic divisors of f by trying all monic polys of degree 0..deg f
+    const d = f.length-1;
+    if(d>4){ return null; }
+    // enumerate all monic polys of degree 1..d, and check divides f
+    const divs = [];
+    // divisor (1) i.e. the unit ideal: generator 1
+    divs.push([1]);
+    for(let dg=1; dg<=d; dg++){
+      // iterate over leading-coeff-1 polys of degree dg
+      const coefs = Array(dg).fill(0);
+      function rec(i){
+        if(i===dg){
+          const g = coefs.concat([1]); // leading 1
+          const {q,r} = polyDivMod(f, g, p);
+          if(polyIsZero(r)){
+            divs.push(polyTrim(g));
+          }
+          return;
+        }
+        for(let c=0;c<p;c++){ coefs[i]=c; rec(i+1); }
+      }
+      rec(0);
+    }
+    // dedupe
+    const seen = new Set();
+    const divs2 = [];
+    for(const g of divs){
+      const k = g.join(',');
+      if(!seen.has(k)){ seen.add(k); divs2.push(g); }
+    }
+    // For each divisor g, the ideal (g) in R satisfies (g) ⊇ (h) iff g | h
+    // primes of R are (g) for g monic irreducible factor of f
+    // need to factor f into irreducibles to identify primes
+    // factorization: try all monic polys of degree 1..d/2 and see if divides
+    function factorIrreducible(a){
+      // returns list of [irred factor, multiplicity]
+      const out = [];
+      const da = a.length-1;
+      let cur = a.slice();
+      for(let dg=1; dg<=da; dg++){
+        // iterate monics of degree dg
+        let found = true;
+        while(found){
+          found = false;
+          const coefs = Array(dg).fill(0);
+          let chosen = null;
+          function rec(i){
+            if(chosen) return;
+            if(i===dg){
+              const g = coefs.concat([1]);
+              const {q,r} = polyDivMod(cur, g, p);
+              if(polyIsZero(r) && g.length-1===dg){
+                // check g is irreducible: no divisor of degree 1..dg/2
+                let irr = true;
+                if(dg>1){
+                  for(let dgg=1; dgg<=dg/2 && irr; dgg++){
+                    const coefs2 = Array(dgg).fill(0);
+                    function rec2(j){
+                      if(!irr) return;
+                      if(j===dgg){
+                        const h = coefs2.concat([1]);
+                        const {r:rr2} = polyDivMod(g, h, p);
+                        if(polyIsZero(rr2)) irr = false;
+                        return;
+                      }
+                      for(let c=0;c<p;c++){ coefs2[j]=c; rec2(j+1); }
+                    }
+                    rec2(0);
+                  }
+                }
+                if(irr) chosen = g;
+              }
+              return;
+            }
+            for(let c=0;c<p;c++){ coefs[i]=c; rec(i+1); }
+          }
+          rec(0);
+          if(chosen){
+            const {q} = polyDivMod(cur, chosen, p);
+            cur = q;
+            // add to out
+            const existing = out.find(e=>polyEq(e[0], chosen));
+            if(existing) existing[1]++;
+            else out.push([chosen, 1]);
+            found = true;
+            if(cur.length-1 < dg) break;
+          }
+        }
+      }
+      return out;
+    }
+    const fFact = factorIrreducible(f);
+
+    function isPrimeIdeal(g){
+      // (g) prime iff g is irreducible (in R = F_p[x]/(f), ideal (g) where g | f)
+      // (g) ≠ R requires g != unit
+      if(g.length===1 && g[0]===1) return false;
+      if(g.length-1===0) return false;
+      // g is irreducible iff no divisor of degree 1..deg(g)/2
+      const dg = g.length-1;
+      for(let dgg=1; dgg<=dg/2; dgg++){
+        const coefs = Array(dgg).fill(0);
+        let flag = false;
+        function rec(j){
+          if(flag) return;
+          if(j===dgg){
+            const h = coefs.concat([1]);
+            const {r:rr} = polyDivMod(g, h, p);
+            if(polyIsZero(rr) && g.length-1 > dgg) flag = true;
+            return;
+          }
+          for(let c=0;c<p;c++){ coefs[j]=c; rec(j+1); }
+        }
+        rec(0);
+        if(flag) return false;
+      }
+      return true;
+    }
+
+    function isPrimaryIdeal(g){
+      // in R = F_p[x]/(f), (g) primary iff g is a power of an irreducible
+      // meaning g = q^k for some irreducible q
+      if(g.length===1 && g[0]===1) return false;
+      if(g.length-1===0) return false;
+      // factor g
+      const gf = factorIrreducible(g);
+      return gf.length===1;
+    }
+
+    function radicalOf(g){
+      // radical in R: product of distinct irreducible factors, intersected with structure.
+      // Here rad((g)) = (square-free part of g, reduced mod f)
+      // But in R = F_p[x]/(f), we only consider g | f, so factors are among factors of f.
+      if(g.length===1 && g[0]===1) return [1];
+      const gf = factorIrreducible(g);
+      let r = [1];
+      for(const [q] of gf) r = polyMul(r, q, p);
+      // reduce mod f just in case (though r | f)
+      return polyMod(r, f, p);
+    }
+
+    const nodes = divs2.map(g=>{
+      const isPr = isPrimeIdeal(g);
+      // maximal iff quotient is a field; R/(g) as F_p[x]/(g)... but R = F_p[x]/(f), so R/(g) = F_p[x]/(g) when g|f
+      // R/(g) field iff g irreducible. So maximal iff prime (true in this Artinian quotient).
+      const isMax = isPr;
+      const isPrimary = isPrimaryIdeal(g);
+      const rad = radicalOf(g);
+      const isRad = polyEq(rad, g);
+      const isUnit = g.length===1 && g[0]===1;
+      const isZero = polyEq(g, f);
+      const label = isUnit ? '(1)=R' : (isZero ? `(${polyStr(g)})=(0)` : `(${polyStr(g)})`);
+      const qStr = isUnit ? '0' : (isZero ? `${fDisplay}` : `${fDisplay}/(${polyStr(g)})`);
+      const lines = [];
+      lines.push(`ideal (${polyStr(g)}) in R`);
+      lines.push(`R/I = 𝔽${p===2?'₂':p===3?'₃':p===5?'₅':p}[x] mod (${polyStr(g)})`);
+      const qDeg = g.length-1;
+      if(!isUnit) lines.push(`|R/I| = ${p}^${qDeg}`);
+      const tags = [];
+      if(isMax) tags.push('maximal');
+      else if(isPr) tags.push('prime');
+      if(isPrimary && !isPr) tags.push('primary');
+      if(isRad) tags.push('radical');
+      if(tags.length) lines.push('type: '+tags.join(', '));
+      return {
+        id: 'g'+g.join('_'),
+        label, gen: g,
+        isPrime: isPr, isMaximal: isMax, isPrimary, isRadical: isRad,
+        deg: qDeg,
+        info: lines.join('\n'),
+      };
+    });
+
+    // edges: (g1) contains (g2) iff g1 | g2 (smaller degree bigger ideal)
+    const edges = [];
+    for(const a of nodes) for(const b of nodes){
+      if(a.id===b.id) continue;
+      // a.gen divides b.gen AND b.gen/a.gen is irreducible
+      const {q,r} = polyDivMod(b.gen, a.gen, p);
+      if(polyIsZero(r)){
+        // check q is irreducible of positive degree
+        if(q.length-1>=1 && isPrimeIdeal(q)){
+          edges.push([b.id, a.id]);
+        }
+      }
+    }
+
+    return { nodes, edges, title: `𝔽${p===2?'₂':p===3?'₃':p}[x]/(${fDisplay})`, orderBy:'deg' };
+  }
+
+  const PRESETS = {
+    'Z/12': ()=>buildZn(12),
+    'Z/30': ()=>buildZn(30),
+    'Z/36': ()=>buildZn(36),
+    'Z/8':  ()=>buildZn(8),
+    'F2x/x3+x+1': ()=>buildPolyQuot(2, [1,1,0,1], 'x³+x+1'),
+    'F2x/x2+x':   ()=>buildPolyQuot(2, [0,1,1],   'x²+x'),
+    'F3x/x2+1':   ()=>buildPolyQuot(3, [1,0,1],   'x²+1'),
+    'F2x/x3':     ()=>buildPolyQuot(2, [0,0,0,1], 'x³'),
+  };
+
+  let selectedId = null;
+
+  function render(){
+    const data = PRESETS[pick.value]();
+    if(!data){ info.textContent = 'unavailable'; return; }
+    // compute layout by rank (number of prime factors of generator / degree)
+    // group nodes by "level" = number of primes in generator (with multiplicity)
+    // for Z/n: level = total prime exponent of (n/d) meaning height from bottom
+    // simpler: topo rank from bottom
+    const { nodes, edges, title } = data;
+    const idMap = {};
+    nodes.forEach(n=>idMap[n.id]=n);
+    // compute rank: longest chain from a bottom node (no outgoing edge in 'contained-in' direction)
+    // edges are [lower, upper] meaning lower ⊂ upper
+    const children = {}, parents = {};
+    nodes.forEach(n=>{ children[n.id]=[]; parents[n.id]=[]; });
+    edges.forEach(([lo,up])=>{
+      children[lo].push(up); parents[up].push(lo);
+    });
+    const rank = {};
+    function getRank(id){
+      if(rank[id]!==undefined) return rank[id];
+      if(parents[id].length===0){ rank[id]=0; return 0; }
+      const r = 1 + Math.max(...parents[id].map(getRank));
+      rank[id] = r; return r;
+    }
+    nodes.forEach(n=>getRank(n.id));
+    const maxRank = Math.max(...nodes.map(n=>rank[n.id]));
+    const layers = {};
+    nodes.forEach(n=>{
+      const r = rank[n.id];
+      (layers[r]=layers[r]||[]).push(n);
+    });
+    // layout
+    svg.innerHTML = '';
+    const W=560, H=420;
+    const padT=40, padB=30;
+    // draw title
+    const t = SVG('text',{x:W/2,y:24,'text-anchor':'middle','font-size':15,fill:'#fff','font-weight':600});
+    t.textContent = title;
+    svg.appendChild(t);
+    // position
+    const pos = {};
+    const nLayers = maxRank+1;
+    const yStep = (H-padT-padB) / Math.max(nLayers-1, 1);
+    for(let r=0;r<=maxRank;r++){
+      const layer = layers[r] || [];
+      const count = layer.length;
+      layer.sort((a,b)=>{
+        // sort by generator for stable order
+        const ga = typeof a.gen==='number' ? a.gen : a.gen.join(',');
+        const gb = typeof b.gen==='number' ? b.gen : b.gen.join(',');
+        return ga<gb?-1:ga>gb?1:0;
+      });
+      layer.forEach((n,i)=>{
+        const x = (W/(count+1))*(i+1);
+        // bottom = zero ideal (high rank), top = unit (rank 0)
+        const y = padT + r*yStep;
+        pos[n.id] = [x,y];
+      });
+    }
+    // edges
+    for(const [lo,up] of edges){
+      const [x1,y1]=pos[lo], [x2,y2]=pos[up];
+      svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--line)','stroke-width':1.2}));
+    }
+    // nodes
+    for(const n of nodes){
+      const [x,y]=pos[n.id];
+      let fill = '#555';
+      if(n.isMaximal) fill = 'var(--pink)';
+      else if(n.isPrime) fill = 'var(--yellow)';
+      else if(n.isPrimary) fill = 'var(--blue)';
+      else if(n.isRadical) fill = 'var(--violet)';
+      const g = SVG('g',{});
+      g.style.cursor='pointer';
+      const isSel = selectedId===n.id;
+      const c = SVG('circle',{cx:x,cy:y,r:isSel?10:7,fill,stroke:isSel?'#fff':'#111','stroke-width':isSel?2:1});
+      const lab = SVG('text',{x:x+12,y:y+4,'font-size':12,fill:'#e8ecf1'});
+      lab.textContent = n.label;
+      g.appendChild(c); g.appendChild(lab);
+      g.addEventListener('click',()=>{ selectedId=n.id; render(); });
+      svg.appendChild(g);
+    }
+    // info
+    const sel = nodes.find(n=>n.id===selectedId) || nodes[0];
+    info.textContent = sel.info;
+  }
+
+  pick.addEventListener('change',()=>{ selectedId=null; render(); });
+  render();
+})();
+</script>
+
+<section id="modules">
+<h2>2. Modules and tensor products</h2>
+<p>A module $M$ over $A$ is an abelian group with an $A$-action — "linear algebra over rings". When $A$ is a field this is just a vector space; when $A=\mathbb{Z}$ it is an abelian group. The interesting thing is that over $\mathbb{Z}$, unlike over a field, modules can have <em>torsion</em>: $2\cdot \bar 1 = 0$ in $\mathbb{Z}/2$.</p>
+<p>The <strong>tensor product</strong> $M\otimes_A N$ is the universal object through which $A$-bilinear maps $M\times N\to P$ factor. Two operational rules do all the work:</p>
+<div class="note">
+$$(m_1+m_2)\otimes n = m_1\otimes n + m_2\otimes n, \qquad (am)\otimes n = m\otimes (an).$$
+Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd(m,n)$. Because $n\cdot (1\otimes 1) = 1\otimes n = 0$ and $m\cdot(1\otimes 1)=0$.
+</div>
+<p>For f.g. abelian groups, tensor is additive in each slot; so by the structure theorem you can tensor piece-by-piece. This is a <em>computation</em>, not a theory.</p>
+
+<div class="widget" id="w-tens">
+  <div class="hd"><div class="ttl">Tensor product over ℤ</div><div class="hint">enter M and N as products of cyclic groups</div></div>
+  <div class="row">
+    <label>M =</label>
+    <input type="text" id="t-m" value="Z + Z/6" style="width:160px">
+    <label>N =</label>
+    <input type="text" id="t-n" value="Z/4 + Z/10" style="width:160px">
+    <button id="t-go">compute</button>
+    <span class="small">syntax: <code>Z + Z/4 + Z/6</code></span>
+  </div>
+  <div class="row">
+    <button class="preset" data-m="Z/2" data-n="Z/3">ℤ/2 ⊗ ℤ/3</button>
+    <button class="preset" data-m="Z/4" data-n="Z/6">ℤ/4 ⊗ ℤ/6</button>
+    <button class="preset" data-m="Z" data-n="Z/6">ℤ ⊗ ℤ/6</button>
+    <button class="preset" data-m="Z + Z/6" data-n="Z/4 + Z/10">mixed</button>
+    <button class="preset" data-m="Z/12" data-n="Z/18">ℤ/12 ⊗ ℤ/18</button>
+  </div>
+  <div class="readout" id="t-out"></div>
+</div>
+
+<p class="small">Two things to notice. (i) <em>Tensoring with $\mathbb{Q}$ kills torsion</em>: $\mathbb{Z}/n\otimes_\mathbb{Z}\mathbb{Q}=0$. (ii) $\mathbb{Z}\otimes_\mathbb{Z}\mathbb{Z}/n=\mathbb{Z}/n$ (identity). Over $\mathbb{Z}$ the tensor product is <em>not</em> left-exact — we'll see this bite in §4.</p>
+</section>
+
+<script>
+/* =============================== SECTION 2: tensor product =============================== */
+(function(){
+  function parseGroup(s){
+    // input like "Z + Z/4 + Z/6" -> list of orders; 0 means Z (free)
+    return s.split('+').map(x=>x.trim()).filter(Boolean).map(tok=>{
+      if(tok==='Z') return 0;
+      const m = tok.match(/^Z\/(\d+)$/);
+      if(!m) return null;
+      const v = parseInt(m[1],10);
+      if(!isFinite(v) || v<1) return null;
+      return v;
+    });
+  }
+  function fmt(ords){
+    // format list of orders into a string
+    if(ords.length===0) return '0';
+    const frees = ords.filter(x=>x===0).length;
+    const tors = ords.filter(x=>x>0).slice().sort((a,b)=>a-b);
+    const parts = [];
+    if(frees===1) parts.push('ℤ');
+    else if(frees>1) parts.push(`ℤ^${frees}`);
+    for(const t of tors) parts.push(`ℤ/${t}`);
+    return parts.join(' ⊕ ');
+  }
+  function tensor(ms, ns){
+    // ms ⊗ ns = direct sum of (m_i ⊗ n_j)
+    // rules: 0 ⊗ x = x (Z tensor X = X, both as Z and as Z/n)
+    //         m ⊗ n = gcd(m,n)-torsion (if m,n > 0)
+    //         0 ⊗ 0 = 0 (Z tensor Z = Z) => represent as 0 in list
+    const out = [];
+    for(const a of ms) for(const b of ns){
+      if(a===0 && b===0) out.push(0);
+      else if(a===0) out.push(b);
+      else if(b===0) out.push(a);
+      else out.push(gcd(a,b));
+    }
+    // drop zeros of the form Z/1 (trivial)
+    return out.filter(x=>x!==1);
+  }
+  function snfLike(ords){
+    // put into "canonical" form: list of invariant factors d1 | d2 | ... plus free rank
+    const frees = ords.filter(x=>x===0).length;
+    const tors = ords.filter(x=>x>0);
+    // combine cyclic factors into invariant factors via primary decomposition
+    // collect prime-power components
+    const primePowers = {};
+    for(const t of tors){
+      for(const [p,e] of factorizeInt(t)){
+        const pp = Math.pow(p,e);
+        primePowers[p] = primePowers[p] || [];
+        primePowers[p].push(pp);
+      }
+    }
+    // sort each prime's list descending
+    for(const p in primePowers) primePowers[p].sort((a,b)=>b-a);
+    // number of invariant factors = max length
+    let maxLen = 0;
+    for(const p in primePowers) maxLen = Math.max(maxLen, primePowers[p].length);
+    const inv = Array(maxLen).fill(1);
+    for(const p in primePowers){
+      const list = primePowers[p];
+      for(let i=0;i<list.length;i++){
+        inv[i] *= list[i];
+      }
+    }
+    // filter 1's
+    return { free: frees, inv: inv.filter(x=>x>1) };
+  }
+  function fmtSNF(snf){
+    const parts = [];
+    for(const d of snf.inv) parts.push(`ℤ/${d}`);
+    if(snf.free===1) parts.push('ℤ');
+    else if(snf.free>1) parts.push(`ℤ^${snf.free}`);
+    if(parts.length===0) return '0';
+    return parts.join(' ⊕ ');
+  }
+
+  const mi = $('#t-m'), ni = $('#t-n'), out = $('#t-out'), go = $('#t-go');
+  function compute(){
+    const ms = parseGroup(mi.value), ns = parseGroup(ni.value);
+    if(!ms || ms.some(x=>x===null) || !ns || ns.some(x=>x===null)){
+      out.textContent = 'parse error — use "Z", "Z/n", and "+"';
+      return;
+    }
+    const result = tensor(ms, ns);
+    const snf = snfLike(result);
+    let msg = '';
+    msg += `M = ${fmt(ms)}\n`;
+    msg += `N = ${fmt(ns)}\n\n`;
+    msg += `M ⊗_ℤ N, expanded bilinearly:\n`;
+    const lines = [];
+    for(const a of ms) for(const b of ns){
+      const left = a===0 ? 'ℤ' : `ℤ/${a}`;
+      const right = b===0 ? 'ℤ' : `ℤ/${b}`;
+      let res;
+      if(a===0 && b===0) res = 'ℤ';
+      else if(a===0) res = b===1 ? '0' : `ℤ/${b}`;
+      else if(b===0) res = a===1 ? '0' : `ℤ/${a}`;
+      else { const g = gcd(a,b); res = g===1 ? '0' : `ℤ/${g}`; }
+      lines.push(`  ${left} ⊗ ${right} = ${res}`);
+    }
+    msg += lines.join('\n');
+    msg += `\n\nsum = ${fmt(result)}\n`;
+    msg += `\nin invariant-factor form:\n  M ⊗ N ≅ ${fmtSNF(snf)}`;
+    out.textContent = msg;
+  }
+  go.addEventListener('click', compute);
+  mi.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });
+  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });
+  $$('.preset', $('#w-tens')).forEach(b=>{
+    b.addEventListener('click',()=>{
+      mi.value = b.dataset.m; ni.value = b.dataset.n; compute();
+    });
+  });
+  compute();
+})();
+</script>
+
+<section id="localize">
+<h2>3. Localization</h2>
+<p>Localization is the algebraic shadow of "zooming in". Pick a multiplicatively closed set $S\subset A$ (with $1\in S$, closed under multiplication, not containing $0$ unless you want to kill the ring). The <strong>localization</strong></p>
+<p style="text-align:center">$S^{-1}A = \{a/s : a\in A, s\in S\} / \sim, \qquad a/s \sim a'/s' \iff \exists t\in S,\; t(a s' - a' s) = 0.$</p>
+<p>The extra "$t$" is there to handle zero-divisors. Two important special cases:</p>
+<p><span class="pill">$A_f$</span> invert a single element $f$. Geometrically: remove $V(f)$ from $\mathrm{Spec}$. $\mathrm{Spec}(A_f) = D(f)$.</p>
+<p><span class="pill">$A_\mathfrak{p}$</span> invert <em>everything outside</em> a prime $\mathfrak{p}$. The result is a <em>local ring</em>: one maximal ideal, namely $\mathfrak{p}A_\mathfrak{p}$. This is the local ring "at the point $\mathfrak{p}$".</p>
+<div class="note">Primes of $S^{-1}A$ = primes of $A$ disjoint from $S$. Hence $\mathrm{Spec}(A_\mathfrak{p})=\{\mathfrak{q}\subseteq\mathfrak{p}\}$ and $\mathrm{Spec}(A_f)=\{\mathfrak{q}:f\notin\mathfrak{q}\}$. The residue field $A_\mathfrak{p}/\mathfrak{p}A_\mathfrak{p} = \mathrm{Frac}(A/\mathfrak{p})$ is the "function field of the stalk".</div>
+
+<div class="widget" id="w-loc">
+  <div class="hd"><div class="ttl">Localization computer</div><div class="hint">pick a ring, pick what to invert</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="loc-ring">
+      <option value="Z">ℤ</option>
+      <option value="Z12">ℤ/12</option>
+      <option value="Z30">ℤ/30</option>
+      <option value="Z6">ℤ/6</option>
+    </select>
+    <label>invert:</label>
+    <select id="loc-mode">
+      <option value="f">single element A_f</option>
+      <option value="p">complement of prime A_𝔭</option>
+    </select>
+    <label>element:</label>
+    <input type="number" id="loc-elt" value="2" style="width:90px">
+  </div>
+  <div class="readout" id="loc-out"></div>
+</div>
+
+<p>A clean example worth carrying around: $\mathbb{Z}_{(p)}$ = rationals with denominator coprime to $p$. It's local, its maximal ideal is $(p)$, its residue field is $\mathbb{F}_p$. Inverting $p$ instead gives $\mathbb{Z}[1/p]$, whose Spec is $\mathrm{Spec}(\mathbb{Z})\setminus\{(p)\}$.</p>
+</section>
+
+<script>
+/* =============================== SECTION 3: localization =============================== */
+(function(){
+  const ringSel = $('#loc-ring'), modeSel = $('#loc-mode'),
+        eltIn = $('#loc-elt'), out = $('#loc-out');
+
+  function compute(){
+    const ring = ringSel.value, mode = modeSel.value;
+    let elt = parseInt(eltIn.value,10);
+    if(!isFinite(elt)){ out.textContent='bad element'; return; }
+    const lines = [];
+
+    if(ring==='Z'){
+      lines.push('A = ℤ');
+      if(mode==='f'){
+        if(elt===0){ lines.push('inverting 0 kills everything: ℤ[1/0] = 0'); out.textContent=lines.join('\n'); return; }
+        lines.push(`S = {1, ${elt}, ${elt}², …}`);
+        const fact = factorizeInt(Math.abs(elt));
+        const pstr = fact.map(([p,e])=>e===1?`${p}`:`${p}^${e}`).join(' · ') || '1';
+        lines.push(`S^{-1}ℤ = ℤ[1/${elt}]`);
+        if(fact.length){
+          lines.push(`        = ℤ[1/${fact.map(f=>f[0]).join(', 1/')}]`);
+        }
+        lines.push(`Spec = Spec(ℤ) − V(${elt}) = {(p) : p prime, p ∤ ${elt}}`);
+        lines.push(`removed points: ${fact.map(f=>`(${f[0]})`).join(', ') || 'none'}`);
+        lines.push('local? no (infinitely many primes remain)');
+      } else {
+        if(elt===0){
+          lines.push('S = ℤ − (0) = all non-zero integers');
+          lines.push('S^{-1}ℤ = ℚ (fraction field)');
+          lines.push('this is ℤ localized at the generic point (0)');
+          lines.push('local ring: maximal ideal (0), residue field ℚ');
+        } else if(isPrime(Math.abs(elt))){
+          const p = Math.abs(elt);
+          lines.push(`𝔭 = (${p})`);
+          lines.push(`S = ℤ − (${p}) = {integers coprime to ${p}}`);
+          lines.push(`S^{-1}ℤ = ℤ_{(${p})} = {a/b : p ∤ b}`);
+          lines.push(`this is a DVR — local, maximal ideal (${p}), residue field 𝔽${p}`);
+          lines.push(`Spec = {(0), (${p})} — the generic point and the closed point`);
+        } else {
+          lines.push(`(${elt}) is not prime in ℤ — pick a prime or 0`);
+        }
+      }
+    } else {
+      // Z/n
+      const n = ring==='Z12'?12: ring==='Z30'?30: 6;
+      lines.push(`A = ℤ/${n}`);
+      if(mode==='f'){
+        const a = mod(elt, n);
+        const g = gcd(a, n);
+        lines.push(`invert ${a} ∈ ℤ/${n}`);
+        lines.push(`S = {1, ${a}, ${a}², …} mod ${n}`);
+        // In Z/n, inverting a: a has finite powers, eventually periodic. S^{-1}A = A/(ann) essentially.
+        // S^{-1}(Z/n) = Z/(n/gcd(n,a^∞)) where gcd(n,a^∞) = radical stuff.
+        // Actually: inverting a in Z/n gives Z/n[1/a]. Let d = gcd(n, a^k) for large k.
+        // Result: Z/n localized at {powers of a} = Z/(n/d), where d = largest divisor of n whose prime factors divide a.
+        let d = 1;
+        // primes of n dividing a:
+        for(const [p] of factorizeInt(n)){
+          if(a % p === 0){
+            // find largest power of p dividing n
+            let q = 1; while(n % (q*p) === 0) q *= p;
+            d *= q;
+          }
+        }
+        const m = n/d;
+        if(m===1){
+          lines.push(`a eventually generates all primes of ${n}; S hits 0`);
+          lines.push(`S^{-1}A = 0`);
+        } else {
+          lines.push(`primes of ${n} dividing ${a}: ${factorizeInt(n).filter(([p])=>a%p===0).map(f=>f[0]).join(', ') || 'none'}`);
+          lines.push(`"killed" factor d = ${d}`);
+          lines.push(`S^{-1}(ℤ/${n}) ≅ ℤ/${m}`);
+          if(m>1 && factorizeInt(m).length===1 && factorizeInt(m)[0][1]===1){
+            lines.push(`local? yes — residue field 𝔽${m}`);
+          }
+        }
+      } else {
+        const p = Math.abs(elt);
+        // check p is prime and divides n
+        if(!isPrime(p) || n%p!==0){
+          lines.push(`(${p}) is not a prime ideal of ℤ/${n} — use a prime dividing ${n}`);
+        } else {
+          lines.push(`𝔭 = (${p})`);
+          lines.push(`S = ℤ/${n} − (${p}) = units ∪ (elements whose gcd with ${n} doesn't include ${p})`);
+          // (Z/n)_𝔭 ≅ Z/p^k where p^k || n
+          let k = 0, N = n; while(N%p===0){ N/=p; k++; }
+          const pk = Math.pow(p,k);
+          lines.push(`(ℤ/${n})_{(${p})} ≅ ℤ/${pk}`);
+          lines.push(`local ring — unique maximal ideal (${p}), residue field 𝔽${p}`);
+          lines.push(`this is the "stalk at the point (${p}) ∈ Spec(ℤ/${n})"`);
+        }
+      }
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  ringSel.addEventListener('change', compute);
+  modeSel.addEventListener('change', compute);
+  eltIn.addEventListener('input', compute);
+  compute();
+})();
+</script>
+
+<section id="flat">
+<h2>4. Flatness</h2>
+<p>Tensoring is right-exact but not always left-exact. An $A$-module $M$ is <strong>flat</strong> if tensoring with $M$ preserves injections — equivalently, preserves all short exact sequences:</p>
+<p style="text-align:center">$0\to N'\to N\to N''\to 0$ remains exact after $-\otimes_A M$.</p>
+<p>Equivalently: $\mathrm{Tor}_1^A(M,-)=0$. The implication chain is</p>
+<p style="text-align:center">free $\Rightarrow$ projective $\Rightarrow$ flat $\Rightarrow$ torsion-free,</p>
+<p>and over a PID the last implication reverses, so over $\mathbb{Z}$: flat = torsion-free. Hence $\mathbb{Z}/n$ is <em>not</em> flat over $\mathbb{Z}$ for any $n\ge 2$.</p>
+
+<div class="note"><strong>The canonical failure.</strong> The sequence $0\to\mathbb{Z}\xrightarrow{n}\mathbb{Z}\to\mathbb{Z}/n\to 0$ tensored with $\mathbb{Z}/n$ gives
+$$\mathbb{Z}/n\xrightarrow{n=0}\mathbb{Z}/n\to\mathbb{Z}/n\to 0,$$
+so the first map becomes zero and is no longer injective. The kernel is $\mathrm{Tor}_1^\mathbb{Z}(\mathbb{Z}/n,\mathbb{Z}/n)=\mathbb{Z}/n$.</div>
+
+<div class="widget" id="w-flat">
+  <div class="hd"><div class="ttl">Flatness tester</div><div class="hint">tensor a SES with a module M</div></div>
+  <div class="row">
+    <label>SES: 0 →</label>
+    <select id="fl-a"><option value="Z">ℤ</option><option value="Z/2">ℤ/2</option><option value="Z/4">ℤ/4</option><option value="Z/6">ℤ/6</option></select>
+    <label>→</label>
+    <select id="fl-b"><option value="Z">ℤ</option><option value="Z/4">ℤ/4</option><option value="Z/8">ℤ/8</option><option value="Z/12">ℤ/12</option></select>
+    <label>→ ? → 0</label>
+  </div>
+  <div class="row">
+    <label>injection multiplies by n =</label>
+    <input type="number" id="fl-n" value="2" min="1" style="width:70px">
+    <label style="margin-left:1rem">tensor with M =</label>
+    <select id="fl-m">
+      <option value="Z">ℤ (free, flat)</option>
+      <option value="Z/2" selected>ℤ/2</option>
+      <option value="Z/3">ℤ/3</option>
+      <option value="Q">ℚ</option>
+      <option value="Z[1/2]">ℤ[1/2]</option>
+    </select>
+    <button id="fl-go">tensor</button>
+  </div>
+  <div class="readout" id="fl-out"></div>
+</div>
+
+<p class="small">Recipe: tensoring with $M$ is a functor, so it turns $0\to A\xrightarrow{n}B\to C\to 0$ into $A\otimes M\xrightarrow{n}B\otimes M\to C\otimes M\to 0$ (the tail is exact; the head might not be). Injectivity of "multiplication by $n$" on $A\otimes M$ is what flatness of $M$ buys you. Whenever $M$ has $n$-torsion, you lose it.</p>
+</section>
+
+<script>
+/* =============================== SECTION 4: flatness =============================== */
+(function(){
+  // Express each group as its order (0 = Z)
+  function parse(s){
+    if(s==='Z') return 0;
+    if(s==='Q') return -1;            // special: Q
+    if(s==='Z[1/2]') return -2;       // special: Z[1/2]
+    const m = s.match(/^Z\/(\d+)$/);
+    if(m) return parseInt(m[1],10);
+    return null;
+  }
+  function fmt(x){
+    if(x===0) return 'ℤ';
+    if(x===-1) return 'ℚ';
+    if(x===-2) return 'ℤ[1/2]';
+    if(x===1) return '0';
+    return `ℤ/${x}`;
+  }
+  // Tensor over Z of two such objects
+  function tens(a,b){
+    // handle Q, Z[1/2]
+    if(a===-1 || b===-1){
+      // ⊗ Q: kills torsion and tensors ranks
+      if(a===-1 && b===-1) return -1;
+      const other = a===-1 ? b : a;
+      if(other===0) return -1;     // Z ⊗ Q = Q
+      if(other>0) return 1;        // torsion ⊗ Q = 0
+    }
+    if(a===-2 || b===-2){
+      // ⊗ Z[1/2]: kills 2-torsion; keeps odd torsion
+      if(a===-2 && b===-2) return -2;
+      const other = a===-2 ? b : a;
+      if(other===0) return -2;
+      if(other>0){
+        // Z/n ⊗ Z[1/2] = Z[1/2]/n = (Z/n)[1/2], which kills 2-power part of n
+        let odd = other; while(odd%2===0) odd/=2;
+        return odd===1 ? 1 : odd;
+        // technically this is (Z/odd)[1/2]=Z/odd, since 2 is a unit mod odd
+      }
+    }
+    if(a===0 && b===0) return 0;
+    if(a===0) return b;
+    if(b===0) return a;
+    if(a===1 || b===1) return 1;
+    return gcd(a,b);
+  }
+  function mulBy(n, M){
+    // "multiplication by n" map: M -> M (as an abelian group). Return kernel and image as order values.
+    // For M of order m>0: ker(·n on Z/m) = Z/gcd(n,m); image = n·(Z/m) has order m/gcd(n,m), which as subgroup ≅ Z/(m/gcd(n,m))
+    // For M=Z: ker = 0; image = nZ
+    // For M=Q: ker = 0; image = Q
+    // For M=Z[1/2] with n>0: ker=0 unless n has odd factor? Actually multiplication by n on Z[1/2] has kernel 0 always (torsion-free)
+    if(M===0){ return { ker: 1, coker: n===1?1:n, injective: true }; }
+    if(M===-1){ return { ker:1, coker:1, injective:true }; } // Q torsion-free divisible
+    if(M===-2){
+      let odd = n; while(odd%2===0) odd/=2;
+      return { ker:1, coker: odd===1?1:odd, injective:true };
+    }
+    if(M===1){ return {ker:1, coker:1, injective:true}; }
+    const g = gcd(n, M);
+    // kernel = Z/g; coker = Z/g? Actually:
+    // on Z/m, multiplication by n has kernel = Z/gcd(n,m); image has order m/gcd(n,m); coker has order gcd(n,m).
+    return { ker: g===1?1:g, coker: g===1?1:g, injective: g===1 };
+  }
+
+  const elA = $('#fl-a'), elB = $('#fl-b'), elN = $('#fl-n'), elM = $('#fl-m'),
+        go = $('#fl-go'), out = $('#fl-out');
+
+  function compute(){
+    const A = parse(elA.value), B = parse(elB.value), M = parse(elM.value);
+    const n = Math.max(1, parseInt(elN.value,10)||1);
+    if(A===null||B===null||M===null){ out.textContent='bad input'; return; }
+    // Is 0 -> A -n-> B -> C -> 0 actually exact? Need: multiplication by n on A -> B is injective, and quotient is C.
+    // For simplicity: require A and B such that ·n: A -> B is well-defined and injective.
+    // A -> B is injective iff multiplication by n kills nobody in A AND image has order |A| (no collapse).
+    // Easiest: just check |A|·n ≤ |B| or similar. Here we just compute assuming user provides a valid SES.
+    const lines = [];
+    lines.push(`SES:  0 → ${fmt(A)} —·${n}→ ${fmt(B)} → C → 0`);
+    // compute C = B / (n·A in B)
+    let C;
+    if(B===0){
+      if(A===0) C = n===1?1:n;
+      else if(A>0) C = 1; // injection of Z/k into Z impossible unless k=1
+      else C = 0; // Q into Z impossible
+    } else if(B>0){
+      if(A===0){
+        // image of n·Z in Z/B is nZ/B = Z/gcd(n,B) if n and B... actually image = n·(Z mod B). subgroup of order B/gcd(n,B), quotient of order gcd(n,B)
+        C = gcd(n,B)===1?1:gcd(n,B);
+      } else {
+        // image of n·(Z/A) in Z/B: makes sense if A | B / gcd(n,B) or something. treat as ker(Z/B -> Z/(B - nA)), for user-selected A>0 we just compute formally as Z/(B / (n·A))
+        // we'll assume valid: C has order B/A (for Z/A -> Z/B via nA=B... hack)
+        // Actually: embed Z/A as the subgroup (B/A)Z/B provided A | B; in that case ·n just describes which subgroup.
+        if(B%A===0){
+          C = A===1?1:(B/A);
+        } else C = null;
+      }
+    }
+    if(C===null){
+      lines.push('(this choice of A, B does not form a valid SES — pick compatible sizes)');
+      out.textContent = lines.join('\n');
+      return;
+    }
+    lines.push(`        (so C ≅ ${fmt(C)})`);
+    lines.push('');
+    // now tensor with M
+    const tA = tens(A,M), tB = tens(B,M), tC = tens(C,M);
+    lines.push(`tensor with M = ${fmt(M)}:`);
+    lines.push(`      ${fmt(tA)} —·${n}→ ${fmt(tB)} → ${fmt(tC)} → 0`);
+    const mb = mulBy(n, tA);
+    const inj = mb.injective;
+    const ker = mb.ker;
+    lines.push('');
+    lines.push(`ker(·${n} on ${fmt(tA)}) = ${fmt(ker)}`);
+    if(inj){
+      lines.push('');
+      lines.push('exactness preserved at the left end.');
+      if(M===0 || M===-1){
+        lines.push(`(${fmt(M)} is flat — free / torsion-free over ℤ)`);
+      } else if(M===-2){
+        lines.push('ℤ[1/2] is flat (a localization of ℤ).');
+      }
+    } else {
+      lines.push('');
+      lines.push('INJECTIVITY FAILS — multiplication by '+n+' has kernel '+fmt(ker));
+      lines.push(`so 0 → ${fmt(tA)} → ${fmt(tB)} is not exact on the left.`);
+      lines.push(`Tor₁^ℤ(M, C) ≅ ${fmt(ker)} (this is the obstruction)`);
+      lines.push(`→ ${fmt(M)} is NOT flat over ℤ.`);
+    }
+    out.textContent = lines.join('\n');
+  }
+  go.addEventListener('click', compute);
+  [elA,elB,elN,elM].forEach(e=>e.addEventListener('change', compute));
+  elN.addEventListener('input', compute);
+  compute();
+})();
+</script>
+
+<section id="nakayama">
+<h2>5. Nakayama's lemma</h2>
+<p>Let $(A,\mathfrak{m})$ be a local ring (one maximal ideal) with residue field $k=A/\mathfrak{m}$.</p>
+<div class="note"><strong>Nakayama.</strong> If $M$ is a finitely generated $A$-module with $\mathfrak{m}M=M$, then $M=0$.</div>
+<p>The standard use: $M/\mathfrak{m}M$ is a $k$-vector space, and a family $m_1,\dots,m_r\in M$ generates $M$ iff their images generate $M/\mathfrak{m}M$. So <em>the dimension of $M/\mathfrak{m}M$ is the minimal number of generators</em>.</p>
+<p>Applied to $M=\mathfrak{m}$ itself: $\mathfrak{m}/\mathfrak{m}^2$ is a finite-dimensional $k$-vector space whose dual is the <strong>Zariski tangent space</strong> at the closed point. For a regular local ring this dimension equals $\dim A$; the discrepancy $\dim_k(\mathfrak{m}/\mathfrak{m}^2) - \dim A$ measures singularity.</p>
+
+<p>For $A = k[x_1,\dots,x_n]_{(x_1-a_1,\dots,x_n-a_n)}/(f)$ (the local ring of $V(f)$ at a point $p=(a_1,\dots,a_n)$), the Zariski tangent space is simply the kernel of the Jacobian of $f$ evaluated at $p$:</p>
+<p style="text-align:center">$T_pV(f) = \ker\left(\left.\nabla f\right|_p\colon k^n\to k\right).$</p>
+<p>If $V(f)$ has dimension $n-1$ and $T_p$ has dimension $n-1$ also, $p$ is smooth. If $T_p = k^n$ — i.e. all partials vanish — $p$ is singular.</p>
+
+<div class="widget" id="w-tan">
+  <div class="hd"><div class="ttl">Zariski tangent space</div><div class="hint">pick a plane curve and a point</div></div>
+  <div class="row">
+    <label>f(x,y) =</label>
+    <select id="tan-pick">
+      <option value="y2-x3-x2">y² − x³ − x² (nodal cubic)</option>
+      <option value="y2-x3">y² − x³ (cuspidal cubic)</option>
+      <option value="xy">xy (coordinate cross)</option>
+      <option value="y2-x3-1">y² − x³ − 1 (elliptic, smooth)</option>
+      <option value="x2+y2-1">x² + y² − 1 (circle)</option>
+      <option value="x2-y2">x² − y² (two lines crossing at origin)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>point (a,b) — a:</label>
+    <input type="number" id="tan-a" value="0" step="0.5" style="width:80px">
+    <label>b:</label>
+    <input type="number" id="tan-b" value="0" step="0.5" style="width:80px">
+    <button id="tan-go">compute tangent</button>
+    <span class="small" id="tan-verdict"></span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start">
+    <svg id="tan-svg" viewBox="-140 -140 280 280" width="100%" style="max-width:320px"></svg>
+    <div class="readout" id="tan-out"></div>
+  </div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 5: tangent space =============================== */
+(function(){
+  const CURVES = {
+    'y2-x3-x2': {
+      f: (x,y)=> y*y - x*x*x - x*x,
+      fx:(x,y)=> -3*x*x - 2*x,
+      fy:(x,y)=> 2*y,
+      label:'y² − x³ − x²',
+      singAt: [[0,0]],
+      xr:[-1.5,2.5], yr:[-2,2]
+    },
+    'y2-x3': {
+      f: (x,y)=> y*y - x*x*x,
+      fx:(x,y)=> -3*x*x,
+      fy:(x,y)=> 2*y,
+      label:'y² − x³',
+      singAt: [[0,0]],
+      xr:[-0.5,2.5], yr:[-2.5,2.5]
+    },
+    'xy': {
+      f: (x,y)=> x*y,
+      fx:(x,y)=> y,
+      fy:(x,y)=> x,
+      label:'xy',
+      singAt:[[0,0]],
+      xr:[-2,2], yr:[-2,2]
+    },
+    'y2-x3-1': {
+      f: (x,y)=> y*y - x*x*x - 1,
+      fx:(x,y)=> -3*x*x,
+      fy:(x,y)=> 2*y,
+      label:'y² − x³ − 1',
+      singAt:[],
+      xr:[-1.5,2.5], yr:[-3,3]
+    },
+    'x2+y2-1': {
+      f:(x,y)=> x*x+y*y-1,
+      fx:(x,y)=> 2*x,
+      fy:(x,y)=> 2*y,
+      label:'x² + y² − 1',
+      singAt:[],
+      xr:[-1.6,1.6], yr:[-1.6,1.6]
+    },
+    'x2-y2': {
+      f:(x,y)=> x*x-y*y,
+      fx:(x,y)=> 2*x,
+      fy:(x,y)=> -2*y,
+      label:'x² − y²',
+      singAt:[[0,0]],
+      xr:[-2,2], yr:[-2,2]
+    }
+  };
+
+  const pick = $('#tan-pick'), aIn = $('#tan-a'), bIn = $('#tan-b'),
+        go = $('#tan-go'), out = $('#tan-out'), svg = $('#tan-svg'),
+        verdict = $('#tan-verdict');
+
+  function draw(curve, a, b){
+    svg.innerHTML = '';
+    const S = 100; // scale for ±1 math unit -> 100 px
+    const tx = x => x*S;
+    const ty = y => -y*S;
+    // axes
+    svg.appendChild(SVG('line',{x1:-130,y1:0,x2:130,y2:0,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:0,y1:-130,x2:0,y2:130,stroke:'var(--line)','stroke-width':1}));
+    // plot curve via marching squares (implicit curve)
+    const N = 120;
+    const xmin=-1.5, xmax=1.5, ymin=-1.5, ymax=1.5;
+    const step = 3/N;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      const x0=xmin+i*step, x1=xmin+(i+1)*step;
+      const y0=ymin+j*step, y1=ymin+(j+1)*step;
+      const v00=curve.f(x0,y0), v10=curve.f(x1,y0),
+            v11=curve.f(x1,y1), v01=curve.f(x0,y1);
+      // draw edges where sign changes
+      function isect(va,vb,pa,pb){
+        const t = va/(va-vb);
+        return [pa[0]+t*(pb[0]-pa[0]), pa[1]+t*(pb[1]-pa[1])];
+      }
+      const pts = [];
+      if((v00>0)!==(v10>0)) pts.push(isect(v00,v10,[x0,y0],[x1,y0]));
+      if((v10>0)!==(v11>0)) pts.push(isect(v10,v11,[x1,y0],[x1,y1]));
+      if((v11>0)!==(v01>0)) pts.push(isect(v11,v01,[x1,y1],[x0,y1]));
+      if((v01>0)!==(v00>0)) pts.push(isect(v01,v00,[x0,y1],[x0,y0]));
+      if(pts.length===2){
+        svg.appendChild(SVG('line',{
+          x1:tx(pts[0][0]), y1:ty(pts[0][1]),
+          x2:tx(pts[1][0]), y2:ty(pts[1][1]),
+          stroke:'var(--blue)','stroke-width':1.4
+        }));
+      }
+    }
+    // point
+    if(isFinite(a) && isFinite(b)){
+      const onCurve = Math.abs(curve.f(a,b)) < 1e-6;
+      const fxv = curve.fx(a,b), fyv = curve.fy(a,b);
+      const sing = onCurve && Math.abs(fxv)<1e-9 && Math.abs(fyv)<1e-9;
+      // draw tangent line if smooth & on curve
+      if(onCurve && !sing){
+        // tangent direction: perpendicular to (fx,fy) is (fy,-fx)
+        const dx = fyv, dy = -fxv;
+        const L = Math.hypot(dx,dy);
+        const ux = dx/L, uy = dy/L;
+        const TL = 1.2;
+        svg.appendChild(SVG('line',{
+          x1: tx(a-TL*ux), y1: ty(b-TL*uy),
+          x2: tx(a+TL*ux), y2: ty(b+TL*uy),
+          stroke:'var(--yellow)','stroke-width':1.6, 'stroke-dasharray':'4 3'
+        }));
+      }
+      const col = !onCurve ? 'var(--mute)' : (sing ? 'var(--pink)' : 'var(--green)');
+      svg.appendChild(SVG('circle',{cx:tx(a),cy:ty(b),r:5,fill:col,stroke:'#111','stroke-width':1.5}));
+    }
+  }
+
+  function compute(){
+    const key = pick.value;
+    const curve = CURVES[key];
+    const a = parseFloat(aIn.value), b = parseFloat(bIn.value);
+    const lines = [];
+    lines.push(`f = ${curve.label}`);
+    lines.push(`p = (${a}, ${b})`);
+    const fval = curve.f(a,b);
+    const onCurve = Math.abs(fval) < 1e-6;
+    lines.push(`f(p) = ${fval.toFixed(3)}`);
+    if(!onCurve){
+      lines.push('point is not on V(f) — pick (a,b) satisfying f=0');
+      verdict.textContent = 'off the curve';
+      verdict.style.color = 'var(--mute)';
+      draw(curve,a,b);
+      out.textContent = lines.join('\n');
+      return;
+    }
+    const fxv = curve.fx(a,b), fyv = curve.fy(a,b);
+    lines.push(`∇f(p) = (${fxv.toFixed(3)}, ${fyv.toFixed(3)})`);
+    const sing = Math.abs(fxv)<1e-9 && Math.abs(fyv)<1e-9;
+    if(sing){
+      lines.push('Jacobian is zero at p — T_p V(f) = k², dim = 2');
+      lines.push('but dim V(f) = 1, so p is SINGULAR');
+      lines.push('(the local ring 𝒪_p is not regular: dim 𝔪/𝔪² = 2 > 1 = dim)');
+      verdict.textContent = 'singular';
+      verdict.style.color = 'var(--pink)';
+    } else {
+      lines.push(`ker(∇f|_p) = line through (${fyv.toFixed(2)}, ${(-fxv).toFixed(2)})`);
+      lines.push('T_p V(f) = 1-dimensional');
+      lines.push('dim V(f) = 1 = dim T_p → p is SMOOTH');
+      lines.push(`(local ring 𝒪_p is a regular local ring of dim 1 — a DVR)`);
+      verdict.textContent = 'smooth';
+      verdict.style.color = 'var(--green)';
+    }
+    draw(curve,a,b);
+    out.textContent = lines.join('\n');
+  }
+
+  go.addEventListener('click', compute);
+  pick.addEventListener('change',()=>{
+    // suggest a natural point
+    const c = CURVES[pick.value];
+    if(c.singAt.length){ aIn.value = c.singAt[0][0]; bIn.value = c.singAt[0][1]; }
+    compute();
+  });
+  aIn.addEventListener('input', compute);
+  bIn.addEventListener('input', compute);
+  compute();
+})();
+</script>
+
+<section id="dim">
+<h2>6. Dimension and primary decomposition</h2>
+<p>The <strong>Krull dimension</strong> of a ring $A$ is the supremum of lengths $n$ of chains</p>
+<p style="text-align:center">$\mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\cdots\subsetneq\mathfrak{p}_n$</p>
+<p>of prime ideals. It's the algebraic shadow of "dimension of a variety". The basic table:</p>
+<div class="note">
+$\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] = 1$ · $\dim k[x_1,\dots,x_n] = n$ · $\dim \mathbb{Z}[x] = 2$. In general $\dim A[x]=\dim A + 1$ for $A$ Noetherian.
+</div>
+
+<p>For <em>quotients</em>: $\dim A/I$ = longest chain of primes of $A$ <em>containing</em> $I$. Example: $k[x,y]/(xy)$ has $\dim = 1$: its Spec is two coordinate lines meeting at the origin; the longest chain is (generic point of one line) $\subsetneq$ (origin).</p>
+
+<p>Primary decomposition generalizes the fundamental theorem of arithmetic. Every ideal in a Noetherian ring admits $I=\bigcap_i Q_i$ with each $Q_i$ primary; the associated primes $\sqrt{Q_i}$ are intrinsic. For $(n)\subset\mathbb{Z}$ this is just $n=\prod p_i^{e_i}$.</p>
+
+<div class="widget" id="w-dim">
+  <div class="hd"><div class="ttl">Krull dimension chain explorer</div><div class="hint">spec as a Hasse diagram · height = dim</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="dim-pick">
+      <option value="Z">ℤ</option>
+      <option value="k[x]">k[x]</option>
+      <option value="k[x,y]">k[x,y]</option>
+      <option value="Z[x]">ℤ[x]</option>
+      <option value="k[x,y]/xy">k[x,y]/(xy)</option>
+      <option value="k[x,y]/y2-x3">k[x,y]/(y²−x³)</option>
+      <option value="k[x,y,z]">k[x,y,z]</option>
+      <option value="Z/12">ℤ/12</option>
+    </select>
+  </div>
+  <svg id="dim-svg" viewBox="0 0 640 340" width="100%" style="max-width:640px"></svg>
+  <div class="readout" id="dim-out"></div>
+</div>
+
+<p class="small">Notice how $k[x,y]/(xy)$ (union of axes) has dimension $1$ even though it sits inside the $2$-dimensional affine plane: Krull dimension sees the biggest component. The height of a prime is its length as a chain ending there; the coheight (dimension of the closure) complements it to $\dim A$ in nice cases (catenary rings).</p>
+
+<h3>Primary decomposition preview</h3>
+<p>For $I=(xy)\subset k[x,y]$ the decomposition is $I=(x)\cap(y)$, recovering the two irreducible components. For $I=(x^2, xy)=(x)\cap(x,y)^2$ in $k[x,y]$ — two components, one <em>embedded</em> in the other — primary decomposition is how scheme-theoretic multiplicity makes its appearance.</p>
+</section>
+
+<script>
+/* =============================== SECTION 6: Krull dimension =============================== */
+(function(){
+  // each preset: list of primes with labels and heights; edges (containment)
+  const RINGS = {
+    'Z': {
+      title:'ℤ',
+      dim:1,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic point'},
+        {id:'2', label:'(2)', height:1, desc:'closed point, residue 𝔽₂'},
+        {id:'3', label:'(3)', height:1, desc:'closed point, residue 𝔽₃'},
+        {id:'5', label:'(5)', height:1, desc:'closed point, residue 𝔽₅'},
+        {id:'p', label:'(p)…', height:1, desc:'infinitely many closed points'},
+      ],
+      edges:[['0','2'],['0','3'],['0','5'],['0','p']],
+    },
+    'k[x]': {
+      title:'k[x]',
+      dim:1,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic point'},
+        {id:'x', label:'(x)', height:1, desc:'origin'},
+        {id:'x-1', label:'(x−1)', height:1, desc:'point 1'},
+        {id:'f', label:'(f) irr.', height:1, desc:'non-rational closed points'},
+      ],
+      edges:[['0','x'],['0','x-1'],['0','f']],
+    },
+    'k[x,y]': {
+      title:'k[x,y]',
+      dim:2,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic point of 𝔸²'},
+        {id:'x', label:'(x)', height:1, desc:'y-axis (curve)'},
+        {id:'y', label:'(y)', height:1, desc:'x-axis (curve)'},
+        {id:'f', label:'(f) irr.', height:1, desc:'irreducible curve'},
+        {id:'xy', label:'(x,y)', height:2, desc:'origin (closed point)'},
+        {id:'xab', label:'(x−a,y−b)', height:2, desc:'closed point (a,b)'},
+      ],
+      edges:[['0','x'],['0','y'],['0','f'],['x','xy'],['y','xy'],['f','xab']],
+    },
+    'Z[x]': {
+      title:'ℤ[x]',
+      dim:2,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic'},
+        {id:'p', label:'(p)', height:1, desc:'fiber over (p) ∈ Spec ℤ'},
+        {id:'f', label:'(f)', height:1, desc:'irr. poly in ℚ[x]'},
+        {id:'pf', label:'(p, f)', height:2, desc:'closed pt, residue 𝔽_{p^d}'},
+      ],
+      edges:[['0','p'],['0','f'],['p','pf'],['f','pf']],
+    },
+    'k[x,y]/xy': {
+      title:'k[x,y]/(xy)',
+      dim:1,
+      primes:[
+        {id:'x', label:'(x)', height:0, desc:'generic pt of y-axis'},
+        {id:'y', label:'(y)', height:0, desc:'generic pt of x-axis'},
+        {id:'xab', label:'(x,y−b)', height:1, desc:'closed pt on y-axis'},
+        {id:'yab', label:'(x−a,y)', height:1, desc:'closed pt on x-axis'},
+        {id:'00', label:'(x,y)', height:1, desc:'origin — intersection'},
+      ],
+      edges:[['x','xab'],['x','00'],['y','yab'],['y','00']],
+    },
+    'k[x,y]/y2-x3': {
+      title:'k[x,y]/(y²−x³)',
+      dim:1,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic pt of cuspidal cubic'},
+        {id:'00', label:'(x,y)', height:1, desc:'cusp point — singular'},
+        {id:'p', label:'(x−a,y−b)', height:1, desc:'smooth closed points'},
+      ],
+      edges:[['0','00'],['0','p']],
+    },
+    'k[x,y,z]': {
+      title:'k[x,y,z]',
+      dim:3,
+      primes:[
+        {id:'0', label:'(0)', height:0, desc:'generic of 𝔸³'},
+        {id:'f', label:'(f)', height:1, desc:'irreducible surface'},
+        {id:'fg', label:'(f,g)', height:2, desc:'irreducible curve'},
+        {id:'fgh', label:'(x,y,z)', height:3, desc:'closed point'},
+      ],
+      edges:[['0','f'],['f','fg'],['fg','fgh']],
+    },
+    'Z/12': {
+      title:'ℤ/12',
+      dim:0,
+      primes:[
+        {id:'2', label:'(2)', height:0, desc:'maximal, residue 𝔽₂'},
+        {id:'3', label:'(3)', height:0, desc:'maximal, residue 𝔽₃'},
+      ],
+      edges:[],
+    },
+  };
+
+  const pick = $('#dim-pick'), svg = $('#dim-svg'), out = $('#dim-out');
+  let selectedId = null;
+
+  function render(){
+    const R = RINGS[pick.value];
+    svg.innerHTML = '';
+    const W=640, H=340;
+    // title
+    const t = SVG('text',{x:W/2,y:26,'text-anchor':'middle','font-size':15,fill:'#fff','font-weight':600});
+    t.textContent = `Spec(${R.title})   —   Krull dim = ${R.dim}`;
+    svg.appendChild(t);
+    // group by height
+    const heights = [...new Set(R.primes.map(p=>p.height))].sort((a,b)=>a-b);
+    const maxH = Math.max(...heights, 0);
+    const layers = {};
+    for(const p of R.primes) (layers[p.height]=layers[p.height]||[]).push(p);
+    const pos = {};
+    const padT=50, padB=30;
+    const yStep = maxH===0 ? 0 : (H-padT-padB)/maxH;
+    for(const h of heights){
+      const layer = layers[h];
+      layer.forEach((p,i)=>{
+        const x = W*(i+1)/(layer.length+1);
+        const y = padT + h*yStep;
+        pos[p.id] = [x,y];
+      });
+    }
+    // edges
+    for(const [lo,up] of R.edges){
+      const [x1,y1]=pos[lo], [x2,y2]=pos[up];
+      svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--line)','stroke-width':1.2}));
+    }
+    // nodes
+    for(const p of R.primes){
+      const [x,y]=pos[p.id];
+      const size = 6 + 3*p.height;
+      let col = 'var(--blue)';
+      if(p.height===0) col = 'var(--violet)';
+      else if(p.height===maxH) col = 'var(--pink)';
+      else col = 'var(--yellow)';
+      const g = SVG('g'); g.style.cursor='pointer';
+      const isSel = selectedId===p.id;
+      const c = SVG('circle',{cx:x,cy:y,r:isSel?size+3:size, fill:col, stroke:isSel?'#fff':'#111','stroke-width':isSel?2:1});
+      const lab = SVG('text',{x:x+12,y:y+4,'font-size':12,fill:'#e8ecf1'});
+      lab.textContent = p.label;
+      g.appendChild(c); g.appendChild(lab);
+      g.addEventListener('click',()=>{ selectedId=p.id; render(); });
+      svg.appendChild(g);
+    }
+    // legend: height bands
+    for(const h of heights){
+      const ytxt = padT + h*yStep;
+      const band = SVG('text',{x:16,y:ytxt+4,'font-size':11,fill:'var(--mute)'});
+      band.textContent = `h=${h}`;
+      svg.appendChild(band);
+    }
+    // info
+    const sel = R.primes.find(p=>p.id===selectedId) || R.primes[0];
+    let info = `ring: ${R.title}\nKrull dim = ${R.dim}\n\n`;
+    info += `selected: ${sel.label}\n  height = ${sel.height}\n  ${sel.desc}\n\n`;
+    // show longest chain
+    info += 'longest chains:\n';
+    function chainsFrom(id,path){
+      const outs = R.edges.filter(([a])=>a===id).map(([_,b])=>b);
+      if(outs.length===0) return [path];
+      const all = [];
+      for(const o of outs) all.push(...chainsFrom(o, path.concat(o)));
+      return all;
+    }
+    const mins = R.primes.filter(p=>p.height===0).map(p=>p.id);
+    let chains = [];
+    for(const m of mins) chains.push(...chainsFrom(m,[m]));
+    if(chains.length===0 && mins.length){
+      chains = mins.map(m=>[m]);
+    }
+    chains.sort((a,b)=>b.length-a.length);
+    const top = chains.slice(0, Math.min(3, chains.length));
+    for(const ch of top){
+      info += '  ' + ch.map(id=>R.primes.find(p=>p.id===id).label).join(' ⊂ ') + '\n';
+    }
+    out.textContent = info;
+  }
+  pick.addEventListener('change',()=>{selectedId=null; render();});
+  render();
+})();
+</script>
+
+<p style="margin-top:3rem">The pattern running through these six sections: every classical operation (taking a subvariety, zooming in, linearizing, perturbing) has an exact algebraic shadow — quotient, localization, tangent space via $\mathfrak{m}/\mathfrak{m}^2$, flatness. Commutative algebra is the language that lets you turn geometric questions into finite computations on ideals and modules, and vice versa. The payoff, once you start using schemes seriously, is that the two pictures collapse into one.</p>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

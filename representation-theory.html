@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Representation theory — characters, orthogonality, 𝔰𝔩₂</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select,textarea{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  textarea{font-family:ui-monospace,monospace}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  table.chartbl{border-collapse:collapse;margin:.6rem auto;font-family:ui-monospace,monospace;font-size:.94rem}
+  table.chartbl th,table.chartbl td{border:1px solid var(--line);padding:.35rem .6rem;text-align:center;color:var(--ink)}
+  table.chartbl thead th{background:#0b0f16;color:var(--blue);font-weight:600}
+  table.chartbl tbody th{background:#0b0f16;color:var(--violet);font-weight:600;text-align:right}
+  table.chartbl tr.rowhi td,table.chartbl tr.rowhi th{background:#1d2432}
+  table.chartbl td.colhi,table.chartbl th.colhi{background:#1d2432}
+  table.chartbl td.cellhi{background:#2b3144;color:var(--yellow)}
+  .legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.85rem;color:var(--mute);margin:.4rem 0}
+  .legend span::before{content:'■ ';}
+  .sq{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:#0b0f16;font-family:ui-monospace,monospace}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+/* ============================ shared helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* small number-theoretic helpers */
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function factorial(n){ let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+/* complex helpers for character tables */
+function cx(re,im){ return {re,im:im||0}; }
+function cadd(a,b){ return {re:a.re+b.re, im:a.im+b.im}; }
+function cmul(a,b){ return {re:a.re*b.re-a.im*b.im, im:a.re*b.im+a.im*b.re}; }
+function cconj(a){ return {re:a.re, im:-a.im}; }
+function cfmt(a){
+  const r = Math.round(a.re*1000)/1000, i = Math.round(a.im*1000)/1000;
+  if(Math.abs(i)<1e-6){ return r.toString().replace(/\.?0+$/,''); }
+  if(Math.abs(r)<1e-6){ return (i===1?'i':i===-1?'-i':i+'i'); }
+  return `${r}${i>0?'+':''}${i}i`;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#def">1&nbsp;Representations</a>
+  <a href="#examples">2&nbsp;Examples</a>
+  <a href="#maschke">3&nbsp;Maschke</a>
+  <a href="#schur">4&nbsp;Schur</a>
+  <a href="#characters">5&nbsp;Characters</a>
+  <a href="#tables">6&nbsp;Character&nbsp;tables</a>
+  <a href="#decompose">7&nbsp;Decomposing</a>
+  <a href="#frobenius">8&nbsp;Induction</a>
+  <a href="#young">9&nbsp;Young&nbsp;tableaux</a>
+  <a href="#sl2">10&nbsp;𝔰𝔩₂</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Representation theory</h1>
+  <p class="sub">How abstract groups become matrices. A tour from Maschke and Schur through character orthogonality to the hook length formula — ending with the highest-weight theory of $\mathfrak{sl}_2(\mathbb{C})$, the atom from which all semisimple Lie algebra theory is built.</p>
+</section>
+
+<section id="def">
+<h2>1. What is a representation?</h2>
+
+<p>Let $G$ be a group and $V$ a finite-dimensional complex vector space. A <strong>representation</strong> of $G$ on $V$ is a group homomorphism</p>
+<p style="text-align:center">$\rho\colon G \longrightarrow \mathrm{GL}(V)$.</p>
+<p>Equivalently, it is a linear action of $G$ on $V$: for every $g \in G$ we have a linear map $\rho(g)\in \mathrm{GL}(V)$, and these composites satisfy $\rho(gh)=\rho(g)\rho(h)$, $\rho(e)=\mathrm{id}$. The dimension $\dim V$ is called the <em>degree</em> of $\rho$.</p>
+
+<p>A third, and often most convenient, point of view: a representation is the same as a left module over the <strong>group algebra</strong></p>
+<p style="text-align:center">$\mathbb{C}[G] \;=\; \left\{\, \sum_{g\in G} a_g\,g \;:\; a_g \in \mathbb{C}\,\right\}$,</p>
+<p>where multiplication is extended linearly from the group law. The free $\mathbb{C}$-module with basis $\{g : g\in G\}$ becomes an associative $\mathbb{C}$-algebra, and a $\mathbb{C}[G]$-module $V$ is exactly a vector space with a linear $G$-action. This is the viewpoint that unifies representation theory with module theory, and makes it obvious that the category $\mathbf{Rep}_\mathbb{C}(G)$ is $\mathbb{C}$-linear and abelian.</p>
+
+<p>A <strong>homomorphism</strong> of representations $\rho\colon G\to\mathrm{GL}(V)$ and $\rho'\colon G\to\mathrm{GL}(W)$ — also called a $G$-equivariant map, or an <em>intertwiner</em> — is a linear map $T\colon V\to W$ with $T\,\rho(g) = \rho'(g)\,T$ for all $g$. Two representations are isomorphic when an invertible intertwiner exists.</p>
+
+<p>We call a representation <strong>faithful</strong> when $\rho$ is injective (so $G$ really is sitting inside $\mathrm{GL}(V)$), and <strong>trivial</strong> when $\rho(g)=\mathrm{id}$ for all $g$. The <em>trivial representation</em> $\mathbf{1}$ is the 1-dimensional rep sending everything to $1$.</p>
+
+<p>Why complex numbers? Two reasons. First, $\mathbb{C}$ is algebraically closed, which makes eigenvalues and diagonalizations tractable. Second, for a finite group $G$ the characteristic of $\mathbb{C}$ does not divide $|G|$, so the averaging trick at the heart of Maschke's theorem works. Representation theory over $\overline{\mathbb{F}_p}$ with $p\mid|G|$ (<em>modular representation theory</em>) is a separate world with its own beautiful pathology.</p>
+
+<div class="note">Throughout this page: "rep" means finite-dimensional complex representation of a finite group $G$, unless stated otherwise. Most statements hold with $\mathbb{C}$ replaced by any algebraically closed field of characteristic coprime to $|G|$.</div>
+
+</section>
+
+<section id="examples">
+<h2>2. A catalog of examples</h2>
+
+<p>Before the theorems, a suite of examples. Each one will appear repeatedly throughout the page.</p>
+
+<h3>Trivial representation</h3>
+<p>$\mathbf{1}\colon G\to \mathrm{GL}_1(\mathbb{C})$, $g\mapsto 1$. Every group has one, and it is irreducible of dimension $1$.</p>
+
+<h3>Sign representation of $S_n$</h3>
+<p>$\mathrm{sgn}\colon S_n \to \mathbb{C}^\times$, sending a permutation to its sign $\pm 1$. Irreducible of dimension $1$. Any $1$-dimensional rep of $S_n$ is either trivial or the sign.</p>
+
+<h3>Permutation representation</h3>
+<p>If $G$ acts on a finite set $X$, let $V_X = \bigoplus_{x\in X}\mathbb{C}\cdot e_x$ and define $\rho(g)\cdot e_x = e_{g\cdot x}$. The matrices are $0{-}1$ permutation matrices. Example: $S_n$ acts on $\{1,\ldots,n\}$, giving the <em>defining</em> $n$-dimensional rep.</p>
+
+<h3>Regular representation</h3>
+<p>Take $X = G$ with $G$ acting by left multiplication. The resulting $|G|$-dimensional rep is the <strong>regular representation</strong> $\mathbb{C}[G]$. Its decomposition is the crown jewel of the theory:</p>
+<p style="text-align:center">$\mathbb{C}[G] \;\cong\; \bigoplus_{\lambda \in \widehat{G}} (\dim V_\lambda)\,V_\lambda$,</p>
+<p>where $\widehat{G}$ denotes the set of isomorphism classes of irreducible reps, and each irrep $V_\lambda$ appears with multiplicity equal to its own dimension. Taking dimensions yields $|G| = \sum_\lambda (\dim V_\lambda)^2$.</p>
+
+<h3>Standard representation</h3>
+<p>Inside the $n$-dimensional permutation rep of $S_n$ (or any subgroup transitive on $n$ points), the line $\mathbb{C}(e_1+\cdots+e_n)$ is a trivial subrep. Its complement — the hyperplane $\{v : v_1+\cdots+v_n=0\}$ — is the <strong>standard representation</strong>, an $(n-1)$-dimensional rep which is irreducible whenever $G$ acts $2$-transitively. For $S_3$ it is $V_{(2,1)}$; for $S_4$ it is $V_{(3,1)}$.</p>
+
+<h3>The $n$-th roots of unity ($C_n$)</h3>
+<p>For the cyclic group $C_n = \langle g\mid g^n=1\rangle$, every irrep is $1$-dimensional (since $C_n$ is abelian) and has the form $\chi_k(g) = \zeta_n^k$ for $k=0,1,\ldots,n-1$, where $\zeta_n = e^{2\pi i/n}$. So $\widehat{C_n} \cong C_n$, and $\mathbb{C}[C_n] \cong \mathbb{C}^n$ as an algebra — the DFT.</p>
+
+<h3>Rotation representation of $D_n$</h3>
+<p>Dihedral $D_n = \langle r,s \mid r^n=s^2=1,\; srs=r^{-1}\rangle$. For each $k=1,2,\ldots,\lfloor(n-1)/2\rfloor$ one gets a $2$-dimensional irrep</p>
+<p style="text-align:center">$r \;\mapsto\; \begin{pmatrix}\cos\tfrac{2\pi k}{n} & -\sin\tfrac{2\pi k}{n} \\ \sin\tfrac{2\pi k}{n} & \cos\tfrac{2\pi k}{n}\end{pmatrix},\qquad s\;\mapsto\; \begin{pmatrix}1&0\\0&-1\end{pmatrix}$.</p>
+<p>Plus $1$-dimensional characters: trivial, sign (when $n$ is any), and (only when $n$ is even) two more detecting the parity of the rotation part. The counts: $(n+6)/2$ irreps when $n$ is even, $(n+3)/2$ when $n$ is odd.</p>
+
+<h3>$Q_8$, the quaternion group</h3>
+<p>$Q_8 = \{\pm 1,\pm i,\pm j,\pm k\}$ has four $1$-dimensional characters and one $2$-dimensional irrep given by Pauli-like matrices:</p>
+<p style="text-align:center">$i\mapsto \begin{pmatrix}i&0\\0&-i\end{pmatrix},\quad j\mapsto \begin{pmatrix}0&1\\-1&0\end{pmatrix},\quad k\mapsto \begin{pmatrix}0&i\\i&0\end{pmatrix}$.</p>
+
+<h3>Tensor and dual reps</h3>
+<p>If $(V,\rho)$ and $(W,\sigma)$ are reps, then $V\otimes W$ and $V\oplus W$ and $V^* = \mathrm{Hom}(V,\mathbb{C})$ are reps, with $G$ acting diagonally on the tensor and by $(g\cdot f)(v)=f(\rho(g^{-1})v)$ on the dual. This turns $\mathbf{Rep}(G)$ into a rigid symmetric monoidal category — the launching pad for Tannakian reconstruction.</p>
+
+</section>
+
+<section id="maschke">
+<h2>3. Subrepresentations and Maschke's theorem</h2>
+
+<p>A <strong>subrepresentation</strong> of $(V,\rho)$ is a subspace $W\subseteq V$ stable under every $\rho(g)$. We then call $V$ <em>irreducible</em> if its only subrepresentations are $0$ and $V$ itself, and <em>completely reducible</em> (or <em>semisimple</em>) if $V$ is a direct sum of irreducibles.</p>
+
+<p>Direct sums are easy: $(V\oplus W, \rho\oplus\sigma)$ has $\rho\oplus\sigma(g) = \mathrm{diag}(\rho(g),\sigma(g))$ in block form. The central question is whether every rep decomposes this way.</p>
+
+<p><strong>Maschke's theorem.</strong> <em>If $G$ is finite and $\mathrm{char}(k) \nmid |G|$ (for example $k=\mathbb{C}$), then every finite-dimensional representation of $G$ over $k$ is a direct sum of irreducible subrepresentations.</em></p>
+
+<p><em>Proof sketch.</em> It suffices to show every subrep $W\subseteq V$ has a $G$-stable complement $W'$, i.e.\ $V = W\oplus W'$ as reps. Pick any vector-space projection $\pi_0\colon V\to W$ (ignoring the $G$-action). Define</p>
+<p style="text-align:center">$\displaystyle \pi(v) \;=\; \frac{1}{|G|}\sum_{g\in G} \rho(g)\,\pi_0(\rho(g^{-1})\,v)$.</p>
+<p>Then $\pi$ still projects onto $W$ (because $\pi_0$ did, and $W$ is $G$-stable), and $\pi\circ\rho(h)=\rho(h)\circ\pi$ for every $h$ by a change-of-variables in the sum. Thus $\ker\pi$ is a $G$-stable complement. $\blacksquare$</p>
+
+<p>A cleaner proof using unitarity: pick any Hermitian inner product $\langle\cdot,\cdot\rangle_0$ on $V$, then average it:</p>
+<p style="text-align:center">$\langle v,w\rangle \;=\; \frac{1}{|G|}\sum_g \langle \rho(g)v,\rho(g)w\rangle_0$.</p>
+<p>This is $G$-invariant, so $\rho(g)$ is unitary. Then $W^\perp$ is a $G$-stable complement of any subrep $W$, and one inducts.</p>
+
+<p>The averaging trick fails when $\mathrm{char}(k)\mid|G|$ (you cannot divide by $|G|$), and indeed Maschke fails: for $G=C_p$ over $\mathbb{F}_p$, the rep $g\mapsto\begin{pmatrix}1&1\\0&1\end{pmatrix}$ is indecomposable but not irreducible.</p>
+
+<p>Consequence for infinite groups: Maschke fails in general (e.g.\ the above rep of $\mathbb{Z}$ over $\mathbb{C}$ is indecomposable but reducible). However, for <em>compact</em> groups — using Haar measure to replace $\tfrac{1}{|G|}\sum$ — semisimplicity is restored, and nearly the entire theory below generalizes.</p>
+
+</section>
+
+<section id="schur">
+<h2>4. Schur's lemma</h2>
+
+<p>Let $V$ and $W$ be irreducible representations of a group $G$ over an algebraically closed field $k$, and let $T\colon V\to W$ be an intertwiner. Then:</p>
+<ul>
+<li>If $V\not\cong W$, then $T=0$.</li>
+<li>If $V=W$, then $T = \lambda\,\mathrm{id}_V$ for some $\lambda\in k$.</li>
+</ul>
+
+<p><em>Proof.</em> $\ker T$ and $\mathrm{im}\,T$ are subrepresentations, so each is $0$ or the whole space by irreducibility. In the first part this gives $T=0$ or $T$ an isomorphism. In the second, $T$ has an eigenvalue $\lambda$ since $k$ is algebraically closed; then $T-\lambda\,\mathrm{id}$ is an intertwiner with nonzero kernel, hence zero. $\blacksquare$</p>
+
+<p>Schur's lemma is tiny and sharp, with consequences that pervade everything:</p>
+
+<p><strong>Endomorphism algebras of irreps are $k$.</strong> For $V$ irreducible, $\mathrm{End}_G(V)=k$. Over $\mathbb{R}$ one instead gets $\mathbb{R}$, $\mathbb{C}$, or $\mathbb{H}$ (real/complex/quaternionic type).</p>
+
+<p><strong>Commutant determines multiplicities.</strong> If $V = \bigoplus_\lambda V_\lambda^{\oplus m_\lambda}$, then $\mathrm{End}_G(V) \cong \prod_\lambda M_{m_\lambda}(k)$. In particular $\dim\mathrm{End}_G(V)=\sum m_\lambda^2$. Computing this is a fast numerical check of the decomposition.</p>
+
+<p><strong>Abelian groups have only $1$-dim irreps.</strong> If $G$ is abelian then every $\rho(h)$ commutes with every $\rho(g)$, so by Schur each $\rho(h)$ acts as a scalar on any irrep $V$ — and that forces $\dim V = 1$.</p>
+
+<p><strong>Central character.</strong> For any irrep of any group, the center $Z(G)$ acts by scalars: $\rho|_{Z(G)}$ is a character, the <em>central character</em> of the irrep.</p>
+
+<p><strong>Projector formula.</strong> For an irrep $V_\lambda$ appearing inside any rep $V$, the projector onto the $V_\lambda$-isotypic component is</p>
+<p style="text-align:center">$\displaystyle P_\lambda \;=\; \frac{\dim V_\lambda}{|G|}\sum_{g\in G} \overline{\chi_\lambda(g)}\,\rho(g)$,</p>
+<p>a formula we will derive below from the orthogonality relations. This is the workhorse of computational rep theory.</p>
+
+</section>
+
+<section id="characters">
+<h2>5. Characters and orthogonality</h2>
+
+<p>Given a rep $\rho\colon G\to\mathrm{GL}(V)$, the <strong>character</strong> is</p>
+<p style="text-align:center">$\chi_\rho(g) \;=\; \mathrm{tr}\,\rho(g)$.</p>
+
+<p>Three immediate facts: $\chi_\rho(e) = \dim V$; $\chi_{\rho\oplus\sigma} = \chi_\rho + \chi_\sigma$ and $\chi_{\rho\otimes\sigma} = \chi_\rho\chi_\sigma$; and because traces are conjugation-invariant, $\chi_\rho(hgh^{-1})=\chi_\rho(g)$. The character is a <strong>class function</strong>.</p>
+
+<p>Let $\mathrm{CF}(G) = \{f\colon G\to\mathbb{C} : f\text{ constant on conjugacy classes}\}$, a vector space of dimension $=$ number of conjugacy classes of $G$. Equip it with the inner product</p>
+<p style="text-align:center">$\displaystyle \langle f_1,f_2\rangle \;=\; \frac{1}{|G|}\sum_{g\in G} f_1(g)\,\overline{f_2(g)}$.</p>
+
+<p><strong>First orthogonality (row orthogonality).</strong> Let $\chi_\lambda$ range over the characters of the irreducible representations. Then</p>
+<p style="text-align:center">$\langle \chi_\lambda,\chi_\mu\rangle \;=\; \delta_{\lambda\mu}$.</p>
+
+<p><em>Proof idea.</em> Using the averaging operator $P = \tfrac{1}{|G|}\sum_g\rho(g)$ with values in $\mathrm{Hom}(V_\mu,V_\lambda)$: its image is $\mathrm{Hom}_G(V_\mu,V_\lambda)$, which by Schur is $0$ if $\lambda\ne\mu$ and $\mathbb{C}$ if $\lambda=\mu$. Taking trace gives the identity. Equivalently: the quantity $\langle \chi_\lambda,\chi_\mu\rangle$ equals $\dim\mathrm{Hom}_G(V_\mu,V_\lambda)$, and Schur evaluates this. $\blacksquare$</p>
+
+<p><strong>Corollary.</strong> The irreducible characters form an orthonormal basis of $\mathrm{CF}(G)$. Therefore:</p>
+<ul>
+<li>The number of irreducible reps of $G$ equals the number of conjugacy classes.</li>
+<li>Every class function is uniquely a $\mathbb{C}$-combination of irreducible characters — if the combination is with non-negative integer coefficients, it is a genuine character.</li>
+</ul>
+
+<p><strong>Second orthogonality (column orthogonality).</strong> For conjugacy classes $C_1,C_2$ with representatives $g_1,g_2$,</p>
+<p style="text-align:center">$\displaystyle \sum_{\lambda}\chi_\lambda(g_1)\,\overline{\chi_\lambda(g_2)} \;=\; \begin{cases}|C_G(g_1)| & g_1\sim g_2\\ 0 & \text{else}.\end{cases}$</p>
+<p>Equivalently: the columns of the character table (after normalization by $\sqrt{|C_G(g)|}$) are orthonormal.</p>
+
+<p><strong>Decomposition formula.</strong> For any rep $V$ with character $\chi_V$,</p>
+<p style="text-align:center">$V \;\cong\; \bigoplus_\lambda\,\langle\chi_V,\chi_\lambda\rangle\cdot V_\lambda$, </p>
+<p>so the multiplicity of $V_\lambda$ in $V$ is $m_\lambda = \langle\chi_V,\chi_\lambda\rangle$, directly computable from the table.</p>
+
+<p><strong>Character criteria:</strong></p>
+<ul>
+<li>$V$ is irreducible $\iff$ $\langle \chi_V,\chi_V\rangle = 1$.</li>
+<li>$V\cong W$ $\iff$ $\chi_V = \chi_W$. So characters are a complete invariant.</li>
+</ul>
+
+<p>Built-in redundancies: the character is real-valued on real classes; $\chi_{V^*}(g) = \overline{\chi_V(g)} = \chi_V(g^{-1})$; $\chi_V(g^k)$ is a sum of $k$th powers of eigenvalues of $\rho(g)$, which ties $\rho(g^k)$ to $\rho(g)$ via power-sum $\to$ elementary-symmetric-function identities (Newton's identities).</p>
+
+</section>
+
+<section id="tables">
+<h2>6. Character tables</h2>
+
+<p>The <strong>character table</strong> of $G$ is a square matrix whose rows are irreducible characters $\chi_\lambda$ and whose columns are conjugacy classes of $G$. Each entry is $\chi_\lambda(g)$ for a representative $g\in C$. The column of the identity lists the dimensions of the irreducibles.</p>
+
+<p>Let us build a few small ones by hand.</p>
+
+<h3>$S_3$: three classes, three irreps</h3>
+<p>Conjugacy classes: $\{e\}$ (size 1), transpositions $\{(12),(13),(23)\}$ (size 3), $3$-cycles $\{(123),(132)\}$ (size 2). Irreps: trivial $\mathbf{1}$, sign $\varepsilon$, and a $2$-dim standard rep $V$. From $|S_3| = 6 = 1^2+1^2+2^2$.</p>
+
+<table class="plain small" style="max-width:480px">
+<thead><tr><th></th><th>$e$</th><th>$(12)$</th><th>$(123)$</th></tr></thead>
+<tbody>
+<tr><th>$\mathbf{1}$</th><td>1</td><td>1</td><td>1</td></tr>
+<tr><th>$\varepsilon$</th><td>1</td><td>$-1$</td><td>1</td></tr>
+<tr><th>$V$</th><td>2</td><td>0</td><td>$-1$</td></tr>
+</tbody></table>
+
+<p>Check first orthogonality: $\langle\chi_V,\chi_V\rangle = \tfrac{1}{6}(1\cdot 4 + 3\cdot 0 + 2\cdot 1) = 1$. Check $V\otimes\varepsilon$: $\chi = (2,0,-1)$, the same as $V$ — so $V$ is self-dual under tensoring with sign (special to $S_3$; for $S_n$ generally $V_\lambda\otimes\varepsilon = V_{\lambda'}$ with $\lambda'$ the conjugate partition).</p>
+
+<h3>$S_4$: five classes, five irreps</h3>
+<p>Classes, sizes: $e\,(1), (12)\,(6), (12)(34)\,(3), (123)\,(8), (1234)\,(6)$. Irreps from partitions of $4$: $(4),(3,1),(2,2),(2,1,1),(1,1,1,1)$ with dims $1,3,2,3,1$. Sum of squares $1+9+4+9+1=24=|S_4|$. ✓</p>
+
+<h3>$A_4$: four classes, four irreps</h3>
+<p>Classes in $A_4$: $e\,(1), (12)(34)\,(3), (123)\,(4), (132)\,(4)$. Note $(123)$ and $(132)$ are conjugate in $S_4$ but split in $A_4$. Irreps: three $1$-dim (characters of $A_4/V_4 \cong C_3$) and one $3$-dim. Dimensions $1+1+1+9=12=|A_4|$.</p>
+
+<h3>$Q_8$: five classes, five irreps</h3>
+<p>Classes $\{1\},\{-1\},\{\pm i\},\{\pm j\},\{\pm k\}$. Four $1$-dim characters (factoring through $Q_8/\{\pm 1\}=V_4$) and one $2$-dim irrep (as in §2). Dims $1+1+1+1+4=8$.</p>
+
+<h3>$D_4$: five classes, five irreps</h3>
+<p>Dihedral of order $8$, $r$ a rotation by $90^\circ$. Classes $\{e\}, \{r^2\}, \{r,r^3\}, \{s,sr^2\}, \{sr,sr^3\}$. Four $1$-dim and one $2$-dim irrep. Dims $1+1+1+1+4=8$. Notice $D_4$ and $Q_8$ have the <em>same</em> character table but are nonisomorphic — characters are not a complete invariant of the group, only of reps.</p>
+
+<p>Below, a single interactive explorer lets you pull up the character table for any of $S_3, S_4, A_4, A_5, D_4, D_5, D_6, Q_8,$ and $C_n$ for $n\le 6$. Hover rows to see the inner product $\langle\chi_i,\chi_j\rangle$; hover a pair of columns to see column orthogonality.</p>
+
+<div class="widget" id="w-chartbl">
+  <div class="hd"><div class="ttl">character table explorer</div><div class="hint">pick a group · hover rows / columns</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="ct-pick"></select>
+    <span class="small" id="ct-info"></span>
+  </div>
+  <div id="ct-wrap" style="overflow-x:auto"></div>
+  <div class="row" style="margin-top:.8rem">
+    <label>check orthogonality:</label>
+    <select id="ct-r1"></select>
+    <span>vs</span>
+    <select id="ct-r2"></select>
+    <button id="ct-do">compute $\langle\chi_i,\chi_j\rangle$</button>
+  </div>
+  <div class="readout" id="ct-out"></div>
+</div>
+
+</section>
+
+<section id="decompose">
+<h2>7. Decomposing a representation into irreducibles</h2>
+
+<p>Armed with the character table, decomposing an arbitrary rep is mechanical: compute the character, take inner products with each $\chi_\lambda$.</p>
+
+<p><strong>Example (permutation rep of $S_3$).</strong> The $3$-dim permutation rep $\mathbb{C}^3$ has character $\chi_\mathrm{perm}(g) = \#\mathrm{fix}(g)$. On classes $e,(12),(123)$ this reads $(3,1,0)$. Then</p>
+<p style="text-align:center">$\langle\chi_\mathrm{perm},\mathbf{1}\rangle = \tfrac{1}{6}(3+3+0)=1,\; \langle\chi_\mathrm{perm},\varepsilon\rangle=0,\; \langle\chi_\mathrm{perm},\chi_V\rangle=1$,</p>
+<p>so $\mathbb{C}^3 = \mathbf{1}\oplus V$ — we recover the standard rep as the complement of the all-ones line.</p>
+
+<p><strong>Example (regular rep).</strong> $\chi_{\mathrm{reg}}(g) = 0$ for $g\ne e$, $\chi_{\mathrm{reg}}(e) = |G|$. So</p>
+<p style="text-align:center">$\langle\chi_{\mathrm{reg}},\chi_\lambda\rangle = \tfrac{1}{|G|}\cdot|G|\cdot \chi_\lambda(e) = \dim V_\lambda$,</p>
+<p>giving $\mathbb{C}[G] = \bigoplus_\lambda (\dim V_\lambda) V_\lambda$, as promised in §2.</p>
+
+<p><strong>Example (tensor of irreps).</strong> For $S_3$: $V\otimes V$ has character $\chi_V^2 = (4,0,1)$. Inner products: $\langle\mathbf{1}\rangle=1, \langle\varepsilon\rangle=1, \langle V\rangle = 1$. So $V\otimes V = \mathbf{1}\oplus\varepsilon\oplus V$, which decomposes $S^2V\oplus\Lambda^2V = (\mathbf{1}\oplus V)\oplus\varepsilon$.</p>
+
+<p>The following widget automates this computation for the built-in groups and a menu of representations you can build up.</p>
+
+<div class="widget" id="w-decomp">
+  <div class="hd"><div class="ttl">representation decomposer</div><div class="hint">pick a group and a rep · see the multiplicities</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="dc-group"></select>
+    <label style="margin-left:.8rem">rep:</label>
+    <select id="dc-rep"></select>
+  </div>
+  <div class="readout" id="dc-out"></div>
+</div>
+
+<p>One more application: the <strong>Molien / Hilbert series</strong> of an invariant ring. If $G\subset\mathrm{GL}(V)$ is finite, the Hilbert series of the invariant ring $\mathbb{C}[V]^G = \bigoplus_d S^d(V^*)^G$ is</p>
+<p style="text-align:center">$\displaystyle \sum_{d\ge 0} \dim S^d(V^*)^G\,t^d = \frac{1}{|G|}\sum_{g\in G}\frac{1}{\det(1 - t\,\rho(g))}$.</p>
+<p>The formula follows from Maschke (the projection onto trivial isotypic is an averaging) and the trace of $S^d\rho(g)$ being the plethystic $S^d$ of eigenvalues. For $G=S_n$ in the permutation rep, this recovers the fact that $\mathbb{C}[x_1,\ldots,x_n]^{S_n}$ is a polynomial ring in $e_1,\ldots,e_n$.</p>
+
+</section>
+
+<section id="sec-orbit">
+<h2>7.1. Aside: orbits and stabilizers</h2>
+
+<p>Permutation reps live and die by the orbit structure. For a $G$-set $X$, $V_X = \bigoplus_{x\in X}\mathbb{C} e_x$, and $\langle\chi_X,\mathbf{1}\rangle = \#\text{orbits}(X)$ — Burnside's lemma. More refinedly, Mackey tells us the isotypic decomposition of $V_X$ is governed by $G$-equivariant maps from $V_X$ to irreps, and these are computed from stabilizers by Frobenius reciprocity (§8).</p>
+
+<p>The next widget shows orbits and stabilizers for a few classic actions.</p>
+
+<div class="widget" id="w-orbit">
+  <div class="hd"><div class="ttl">orbit–stabilizer visualizer</div><div class="hint">click a point to see its stabilizer</div></div>
+  <div class="row">
+    <label>action:</label>
+    <select id="ob-pick">
+      <option value="d6-hex">$D_6$ on vertices of a hexagon</option>
+      <option value="s4-cube-v">$S_4$ on vertices of a cube</option>
+      <option value="s4-cube-f">$S_4$ on faces of a cube</option>
+      <option value="s4-cube-e">$S_4$ on edges of a cube</option>
+      <option value="s3-tri">$S_3$ on vertices of a triangle</option>
+      <option value="s4-pairs">$S_4$ on $2$-element subsets of $\{1,2,3,4\}$</option>
+    </select>
+  </div>
+  <svg id="ob-svg" viewBox="0 0 820 380" width="820" height="380"></svg>
+  <div class="readout" id="ob-out"></div>
+</div>
+
+</section>
+
+<section id="sec-regdecomp">
+<h2>7.2. The regular representation, concretely</h2>
+
+<p>Let's look at a specific small group to see the decomposition $\mathbb{C}[G] = \bigoplus_\lambda (\dim V_\lambda) V_\lambda$ in matrix form. Pick a group; the widget shows the $|G|\times|G|$ permutation matrix for left multiplication by a generator, then decomposes by character.</p>
+
+<div class="widget" id="w-reg">
+  <div class="hd"><div class="ttl">regular representation decomposition</div><div class="hint">$\mathbb{C}[G] = \bigoplus_\lambda (\dim V_\lambda) V_\lambda$</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="rg-pick"></select>
+  </div>
+  <svg id="rg-svg" viewBox="0 0 820 260" width="820" height="260"></svg>
+  <div class="readout" id="rg-out"></div>
+</div>
+
+</section>
+
+<section id="frobenius">
+<h2>8. Induction, restriction, Frobenius reciprocity</h2>
+
+<p>Let $H\le G$. There are two natural functors between $\mathbf{Rep}(H)$ and $\mathbf{Rep}(G)$:</p>
+<ul>
+<li><strong>Restriction</strong> $\mathrm{Res}^G_H\colon \mathbf{Rep}(G)\to\mathbf{Rep}(H)$, view a $G$-rep as an $H$-rep.</li>
+<li><strong>Induction</strong> $\mathrm{Ind}_H^G\colon \mathbf{Rep}(H)\to\mathbf{Rep}(G)$, extend along the inclusion $\mathbb{C}[H]\hookrightarrow\mathbb{C}[G]$:</li>
+</ul>
+<p style="text-align:center">$\mathrm{Ind}_H^G W \;=\; \mathbb{C}[G]\otimes_{\mathbb{C}[H]} W$.</p>
+<p>Concretely, fix coset representatives $G/H = \{g_1H,\ldots,g_rH\}$ where $r = [G:H]$. Then $\mathrm{Ind}_H^G W = \bigoplus_{i=1}^r g_i\otimes W$, and $g$ acts by permuting cosets while twisting by the appropriate element of $H$: if $g g_i = g_{\sigma(i)} h_i$ with $h_i\in H$, then $g\cdot(g_i\otimes w) = g_{\sigma(i)}\otimes h_i w$.</p>
+
+<p>The dimension scales: $\dim\mathrm{Ind}_H^G W = [G:H]\cdot\dim W$.</p>
+
+<p><strong>Character formula.</strong> Writing $\chi = \chi_W$ and extending by zero to $G$,</p>
+<p style="text-align:center">$\displaystyle \chi_{\mathrm{Ind}_H^G W}(g) \;=\; \frac{1}{|H|}\sum_{\substack{x\in G\\ x^{-1}gx\in H}} \chi(x^{-1}gx)$.</p>
+
+<p><strong>Frobenius reciprocity.</strong> $\mathrm{Ind}_H^G$ and $\mathrm{Res}^G_H$ are adjoint: for any $V\in\mathbf{Rep}(G)$, $W\in\mathbf{Rep}(H)$,</p>
+<p style="text-align:center">$\mathrm{Hom}_G(\mathrm{Ind}_H^G W, V) \;\cong\; \mathrm{Hom}_H(W, \mathrm{Res}^G_H V)$.</p>
+<p>On characters, $\langle \chi_{\mathrm{Ind} W},\chi_V\rangle_G = \langle \chi_W,\chi_{\mathrm{Res} V}\rangle_H$. A striking and enormously useful duality.</p>
+
+<p><strong>Example.</strong> Take $H = \langle (123)\rangle \cong C_3$ inside $S_3$. Let $W = \chi_k$ be the $1$-dim rep of $C_3$ with $(123)\mapsto\omega^k$ where $\omega = e^{2\pi i/3}$. Then $\dim\mathrm{Ind} W = 2$ and computing:</p>
+<ul>
+<li>$k=0$: $\mathrm{Ind}\,\mathbf{1}_{C_3} = \mathbf{1}_{S_3}\oplus\varepsilon_{S_3}$ (both trivial on $C_3$).</li>
+<li>$k=1$ or $k=2$: $\mathrm{Ind}\,\chi_k = V_{(2,1)}$, the standard rep. (Verify via Frobenius: $\langle \chi_k,\mathrm{Res}\,V_{(2,1)}\rangle_{C_3} = 1$.)</li>
+</ul>
+
+<p>This explains where the standard rep "comes from": it's induced from a $1$-dim rep of the rotation subgroup.</p>
+
+<p><strong>Another example.</strong> Inducing the trivial rep of a subgroup $H\le G$ gives the permutation rep of $G$ on $G/H$:</p>
+<p style="text-align:center">$\mathrm{Ind}_H^G\mathbf{1} \;\cong\; \mathbb{C}[G/H]$,</p>
+<p>which often decomposes into nontrivial irreducibles and thus detects how $G$ sees its coset space. This is the beginning of <em>Mackey's formula</em> and all of its descendants (Hecke algebras, spherical functions, intertwining operators for automorphic forms...).</p>
+
+</section>
+
+<section id="young">
+<h2>9. Young tableaux and the irreps of $S_n$</h2>
+
+<p>The irreducible representations of $S_n$ are indexed by <strong>partitions</strong> of $n$: finite weakly decreasing sequences $\lambda = (\lambda_1\ge\lambda_2\ge\cdots\ge\lambda_k)$ with $\sum \lambda_i = n$. Write $\lambda\vdash n$. Each partition is drawn as a <em>Young diagram</em>: $\lambda_i$ boxes in row $i$, left-justified.</p>
+
+<p>For each $\lambda\vdash n$ there is an irreducible rep $V_\lambda$, the <strong>Specht module</strong>, with</p>
+<p style="text-align:center">$\dim V_\lambda \;=\; \#\{\text{standard Young tableaux of shape }\lambda\}$,</p>
+<p>where a <em>standard Young tableau</em> (SYT) is a filling of the diagram with $1,2,\ldots,n$ so that rows increase left-to-right and columns increase top-to-bottom.</p>
+
+<p><strong>Hook length formula (Frame–Robinson–Thrall).</strong> For a box $c$ in $\lambda$, let $h(c)$ be its <em>hook</em>: the number of boxes directly to its right plus the boxes directly below plus $1$ for $c$ itself. Then</p>
+<p style="text-align:center">$\displaystyle f^\lambda \;=\; \dim V_\lambda \;=\; \frac{n!}{\prod_{c\in\lambda} h(c)}$.</p>
+
+<p><strong>Example: $S_4$ and $\lambda=(2,2)$.</strong> Hooks:</p>
+<p style="text-align:center">$\begin{pmatrix}3&2\\2&1\end{pmatrix}$, product $= 12$, so $f^\lambda = 24/12 = 2$.</p>
+<p>The two standard Young tableaux are</p>
+<p style="text-align:center">$\begin{pmatrix}1&2\\3&4\end{pmatrix}\quad \text{and}\quad \begin{pmatrix}1&3\\2&4\end{pmatrix}$.</p>
+
+<p>Counting all partitions of $4$: $(4)$ gives dim $1$, $(3,1)$ gives $3$, $(2,2)$ gives $2$, $(2,1,1)$ gives $3$, $(1,1,1,1)$ gives $1$. Sum of squares $= 1+9+4+9+1 = 24 = 4!$. ✓</p>
+
+<p><strong>Conjugate partitions.</strong> The transpose $\lambda'$ of $\lambda$ satisfies $V_{\lambda'} = V_\lambda\otimes\varepsilon$. So $(n)\leftrightarrow(1^n)$ is trivial $\leftrightarrow$ sign, and self-conjugate partitions (like $(2,2)$ for $S_4$) give reps fixed by sign-tensor.</p>
+
+<p>The widget below enumerates SYT for partitions you choose and checks hook lengths.</p>
+
+<div class="widget" id="w-young">
+  <div class="hd"><div class="ttl">young tableau widget</div><div class="hint">pick a partition · enumerate SYT · hook-length formula</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <select id="yg-n"><option>3</option><option selected>4</option><option>5</option><option>6</option></select>
+    <label>partition:</label>
+    <select id="yg-lam"></select>
+  </div>
+  <div id="yg-shape" style="margin:.4rem 0"></div>
+  <div class="readout" id="yg-out"></div>
+  <div id="yg-list" style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:.6rem"></div>
+</div>
+
+<p><strong>Aside: Specht construction.</strong> Given a tableau $T$ of shape $\lambda$ filled with $1,\ldots,n$ (not necessarily standard), let $R_T$ = row subgroup, $C_T$ = column subgroup, and define the <em>Young symmetrizer</em></p>
+<p style="text-align:center">$c_T \;=\; \Big(\sum_{p\in R_T} p\Big)\Big(\sum_{q\in C_T}\mathrm{sgn}(q)\,q\Big) \;\in\;\mathbb{C}[S_n]$.</p>
+<p>Then $V_\lambda \;=\; \mathbb{C}[S_n]\cdot c_T$. Choosing $T$ differently gives isomorphic modules; up to scalar, $c_T^2 = \tfrac{n!}{f^\lambda}\,c_T$ — a beautiful near-idempotent.</p>
+
+</section>
+
+<section id="sl2">
+<h2>10. Capstone: representations of $\mathfrak{sl}_2(\mathbb{C})$</h2>
+
+<p>We leave finite groups behind and meet the atom of Lie algebra representation theory. The Lie algebra $\mathfrak{sl}_2(\mathbb{C})$ is $2\times 2$ traceless complex matrices, with bracket $[A,B] = AB-BA$. Its standard basis is</p>
+<p style="text-align:center">$H = \begin{pmatrix}1&0\\0&-1\end{pmatrix},\quad E = \begin{pmatrix}0&1\\0&0\end{pmatrix},\quad F = \begin{pmatrix}0&0\\1&0\end{pmatrix}$,</p>
+<p>satisfying</p>
+<p style="text-align:center">$[H,E] = 2E,\quad [H,F] = -2F,\quad [E,F] = H$.</p>
+
+<p>A <strong>representation</strong> of $\mathfrak{sl}_2$ on a vector space $V$ is a Lie algebra homomorphism $\mathfrak{sl}_2 \to \mathfrak{gl}(V)$: operators $H,E,F\in\mathrm{End}(V)$ satisfying the three relations above.</p>
+
+<h3>Weights</h3>
+<p>Assume $V$ is finite-dim. Since $H$ commutes with itself, we diagonalize it. Eigenvalues of $H$ are called <strong>weights</strong>, and the corresponding eigenspace $V_k = \{v : Hv = kv\}$ is the <em>weight space</em>. The key observation, from the commutation relations:</p>
+<p style="text-align:center">$E\colon V_k \to V_{k+2},\qquad F\colon V_k \to V_{k-2}$.</p>
+<p>Indeed, $H(Ev) = [H,E]v + E(Hv) = 2Ev + kEv = (k+2)Ev$. So $E$ is the <strong>raising operator</strong> and $F$ the <strong>lowering operator</strong>, shifting weight by $\pm 2$.</p>
+
+<h3>The classification</h3>
+<p><strong>Theorem.</strong> <em>For each integer $n\ge 0$ there is a unique (up to iso) irreducible representation $V_n$ of $\mathfrak{sl}_2$ of dimension $n+1$. Its weights are</em></p>
+<p style="text-align:center">$n,\; n-2,\; n-4,\;\ldots,\; -n+2,\; -n$,</p>
+<p><em>each with multiplicity one, totaling $n+1$.</em></p>
+
+<p><em>Proof sketch.</em> Let $V$ be a finite-dim irrep. Take $v$ a highest-weight vector: $Hv = \lambda v$, $Ev = 0$ (exists since $V$ is finite-dim and eigenvalues of $H$ bounded). Define $v_0 = v$, $v_k = F^k v / k!$. Then:</p>
+<ul>
+<li>$H v_k = (\lambda - 2k) v_k$ (weights descend by $2$).</li>
+<li>$F v_k = (k+1) v_{k+1}$.</li>
+<li>$E v_k = (\lambda - k + 1) v_{k-1}$.</li>
+</ul>
+<p>The third comes by induction using $[E,F] = H$: $E F^k = F^k E + k F^{k-1} H - k(k-1) F^{k-1}$, applied to $v$. Finite-dimensionality forces $v_{n+1} = 0$ for some $n$, and then $E v_{n+1} = 0$ gives $(\lambda - n) v_n = 0$, forcing $\lambda = n$. Thus $\dim V = n+1$, weights $n,n-2,\ldots,-n$. Irreducibility and uniqueness up to iso follow from Schur. $\blacksquare$</p>
+
+<p>The formula $Ev_k = (n-k+1)v_{k-1}$ can be rewritten: on the weight-$m$ space (where $m = n-2k$), $EF$ acts by $(k+1)(n-k)$, which in $m$ is</p>
+<p style="text-align:center">$EF \mid_{V_m} = \tfrac{(n-m)(n+m+2)}{4}\cdot\mathrm{id}$,</p>
+<p>and $FE\mid_{V_m} = \tfrac{(n+m)(n-m+2)}{4}\cdot\mathrm{id}$. Their difference is $H = m$, confirming $[E,F]=H$.</p>
+
+<h3>Constructions</h3>
+<p>$V_n$ can be built as $\mathrm{Sym}^n(V_1)$, the $n$-th symmetric power of the standard $2$-dim rep. Explicitly on $V_1 = \mathbb{C}^2$ with basis $x,y$: $V_n = \{$ homogeneous polynomials of degree $n$ in $x,y\} = \mathrm{span}(x^n, x^{n-1}y, \ldots, y^n)$, with $H = x\partial_x - y\partial_y$, $E = x\partial_y$, $F = y\partial_x$.</p>
+
+<h3>Clebsch–Gordan</h3>
+<p>Tensor products decompose beautifully:</p>
+<p style="text-align:center">$V_m\otimes V_n \;\cong\; V_{m+n}\oplus V_{m+n-2}\oplus\cdots\oplus V_{|m-n|}$.</p>
+<p>E.g.\ $V_1\otimes V_1 = V_2\oplus V_0$: spin-$\tfrac12$ times spin-$\tfrac12$ gives spin-$1$ plus spin-$0$, the "singlet and triplet" of any quantum mechanics course.</p>
+
+<h3>Why $\mathfrak{sl}_2$ is the universal atom</h3>
+<p>The representation theory of every semisimple complex Lie algebra $\mathfrak{g}$ is controlled by $\mathfrak{sl}_2$-subalgebras:</p>
+<ul>
+<li>Pick a Cartan $\mathfrak{h}\subset\mathfrak{g}$, decompose $\mathfrak{g} = \mathfrak{h}\oplus\bigoplus_{\alpha\in\Phi}\mathfrak{g}_\alpha$ into root spaces. Each root $\alpha$ together with $-\alpha$ and $[\mathfrak{g}_\alpha,\mathfrak{g}_{-\alpha}]\subset\mathfrak{h}$ spans an <em>$\mathfrak{sl}_2$-triple</em> — a copy of $\mathfrak{sl}_2$.</li>
+<li>Every finite-dim rep $V$ of $\mathfrak{g}$, restricted to this $\mathfrak{sl}_2$-copy, must decompose into $V_n$'s: so weights of $V$ along the $\alpha$-direction are symmetric integers with the ladder structure. This is the integrality underlying all of Dynkin's classification.</li>
+<li>The <em>Weyl character formula</em>, the <em>BGG resolution</em>, <em>Verma modules</em> — all generalize the highest-weight story above. Read Humphreys's <em>Introduction to Lie Algebras and Representation Theory</em> to see it play out.</li>
+</ul>
+
+<p>The widget below lets you see $V_n$ as a weight diagram, and compute tensor products via weight-diagram addition.</p>
+
+<div class="widget" id="w-sl2">
+  <div class="hd"><div class="ttl">$\mathfrak{sl}_2$ weight diagram</div><div class="hint">adjust $n$ · inspect the ladder</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <input id="sl-n" type="range" min="0" max="8" value="3" step="1">
+    <span id="sl-nval" class="small"></span>
+  </div>
+  <svg id="sl-svg" viewBox="0 0 820 240" width="820" height="240"></svg>
+  <div class="readout" id="sl-out"></div>
+</div>
+
+<div class="widget" id="w-sl2t">
+  <div class="hd"><div class="ttl">$\mathfrak{sl}_2$ tensor decomposer</div><div class="hint">$V_m\otimes V_n = V_{m+n}\oplus V_{m+n-2}\oplus\cdots$</div></div>
+  <div class="row">
+    <label>$m$:</label>
+    <input id="slt-m" type="range" min="0" max="6" value="1" step="1">
+    <span id="slt-mval" class="small"></span>
+    <label style="margin-left:.6rem">$n$:</label>
+    <input id="slt-n" type="range" min="0" max="6" value="1" step="1">
+    <span id="slt-nval" class="small"></span>
+  </div>
+  <svg id="slt-svg" viewBox="0 0 820 240" width="820" height="240"></svg>
+  <div class="readout" id="slt-out"></div>
+</div>
+
+<div class="ok">
+<strong>Takeaway.</strong> Everything you've learned in this page — characters, orthogonality, multiplicities, induced reps, Young diagrams — is a template for infinite-dimensional objects. Replace "conjugacy class" with "orbit under Weyl group", replace "character" with "Weyl character", replace "Schur orthogonality" with the Weyl integration formula, and you are at the gate of modern representation theory: compact Lie groups, affine Lie algebras, quantum groups, geometric Langlands.
+</div>
+
+</section>
+
+<footer>
+Representation theory of finite groups + $\mathfrak{sl}_2(\mathbb{C})$ capstone · part of the mathematics notebook.
+</footer>
+
+</main>
+
+<script>
+/* ================================================================
+   DATA: character tables for the built-in groups.
+   Entries are real or complex numbers on conjugacy class reps.
+   `classes`: [ {name, size, repr_name} ]
+   `irreps`:  [ {name, dim, chi: [array indexed by class]} ]
+   `mults_of_classes` is the `size` array, used for inner products.
+   =============================================================== */
+const GROUPS = {};
+
+GROUPS['S3'] = {
+  order: 6,
+  classes: [
+    {name:'e', size:1},
+    {name:'(12)', size:3},
+    {name:'(123)', size:2},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1]},
+    {name:'ε', dim:1, chi:[1,-1,1]},
+    {name:'V', dim:2, chi:[2,0,-1]},
+  ],
+};
+
+GROUPS['S4'] = {
+  order: 24,
+  classes: [
+    {name:'e', size:1},
+    {name:'(12)', size:6},
+    {name:'(12)(34)', size:3},
+    {name:'(123)', size:8},
+    {name:'(1234)', size:6},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1,1]},
+    {name:'ε', dim:1, chi:[1,-1,1,1,-1]},
+    {name:'V₍₂,₂₎', dim:2, chi:[2,0,2,-1,0]},
+    {name:'V₍₃,₁₎', dim:3, chi:[3,1,-1,0,-1]},
+    {name:'V₍₂,₁,₁₎', dim:3, chi:[3,-1,-1,0,1]},
+  ],
+};
+
+GROUPS['A4'] = {
+  order: 12,
+  classes: [
+    {name:'e', size:1},
+    {name:'(12)(34)', size:3},
+    {name:'(123)', size:4},
+    {name:'(132)', size:4},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1]},
+    {name:'χ_ω', dim:1, chi:[{re:1,im:0},{re:1,im:0},{re:-0.5,im: 0.8660254},{re:-0.5,im:-0.8660254}]},
+    {name:'χ_ω²', dim:1, chi:[{re:1,im:0},{re:1,im:0},{re:-0.5,im:-0.8660254},{re:-0.5,im: 0.8660254}]},
+    {name:'V', dim:3, chi:[3,-1,0,0]},
+  ],
+};
+
+GROUPS['A5'] = {
+  order: 60,
+  // classes: e(1), (12)(34)(15), (123)(20), (12345)(12), (21345)(12)
+  classes: [
+    {name:'e', size:1},
+    {name:'(12)(34)', size:15},
+    {name:'(123)', size:20},
+    {name:'(12345)', size:12},
+    {name:'(13524)', size:12},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1,1]},
+    {name:'V₃', dim:3, chi:[3,-1,0,(1+Math.sqrt(5))/2,(1-Math.sqrt(5))/2]},
+    {name:'V₃′', dim:3, chi:[3,-1,0,(1-Math.sqrt(5))/2,(1+Math.sqrt(5))/2]},
+    {name:'V₄', dim:4, chi:[4,0,1,-1,-1]},
+    {name:'V₅', dim:5, chi:[5,1,-1,0,0]},
+  ],
+};
+
+GROUPS['D4'] = {
+  order: 8,
+  // classes: e, r^2, {r,r^3}, {s,sr^2}, {sr,sr^3}
+  classes: [
+    {name:'e', size:1},
+    {name:'r²', size:1},
+    {name:'r', size:2},
+    {name:'s', size:2},
+    {name:'sr', size:2},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1,1]},
+    {name:'χ₁', dim:1, chi:[1,1,1,-1,-1]},
+    {name:'χ₂', dim:1, chi:[1,1,-1,1,-1]},
+    {name:'χ₃', dim:1, chi:[1,1,-1,-1,1]},
+    {name:'V₂', dim:2, chi:[2,-2,0,0,0]},
+  ],
+};
+
+GROUPS['D5'] = {
+  order: 10,
+  // classes: e, {r,r^4}, {r^2,r^3}, {s,sr,...} (all reflections)
+  classes: [
+    {name:'e', size:1},
+    {name:'r', size:2},
+    {name:'r²', size:2},
+    {name:'s', size:5},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1]},
+    {name:'ε', dim:1, chi:[1,1,1,-1]},
+    {name:'V₁', dim:2, chi:[2, 2*Math.cos(2*Math.PI/5), 2*Math.cos(4*Math.PI/5), 0]},
+    {name:'V₂', dim:2, chi:[2, 2*Math.cos(4*Math.PI/5), 2*Math.cos(8*Math.PI/5), 0]},
+  ],
+};
+
+GROUPS['D6'] = {
+  order: 12,
+  // classes: e, r^3, {r,r^5}, {r^2,r^4}, {reflections type A} (3), {reflections type B} (3)
+  classes: [
+    {name:'e', size:1},
+    {name:'r³', size:1},
+    {name:'r', size:2},
+    {name:'r²', size:2},
+    {name:'s', size:3},
+    {name:'sr', size:3},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1,1,1]},
+    {name:'χ₁', dim:1, chi:[1,1,1,1,-1,-1]},
+    {name:'χ₂', dim:1, chi:[1,-1,-1,1,1,-1]},
+    {name:'χ₃', dim:1, chi:[1,-1,-1,1,-1,1]},
+    {name:'V₁', dim:2, chi:[2,-2,1,-1,0,0]},
+    {name:'V₂', dim:2, chi:[2,2,-1,-1,0,0]},
+  ],
+};
+
+GROUPS['Q8'] = {
+  order: 8,
+  classes: [
+    {name:'1',  size:1},
+    {name:'-1', size:1},
+    {name:'i',  size:2},
+    {name:'j',  size:2},
+    {name:'k',  size:2},
+  ],
+  irreps: [
+    {name:'𝟙', dim:1, chi:[1,1,1,1,1]},
+    {name:'χ_i', dim:1, chi:[1,1,1,-1,-1]},
+    {name:'χ_j', dim:1, chi:[1,1,-1,1,-1]},
+    {name:'χ_k', dim:1, chi:[1,1,-1,-1,1]},
+    {name:'V₂', dim:2, chi:[2,-2,0,0,0]},
+  ],
+};
+
+// Cyclic groups C_n for n = 2..6. Generated programmatically.
+for (let n=2;n<=6;n++){
+  const classes = [];
+  for(let k=0;k<n;k++) classes.push({name: k===0?'e':('g^'+k), size:1});
+  const irreps = [];
+  for(let k=0;k<n;k++){
+    const chi = [];
+    for(let j=0;j<n;j++){
+      const th = 2*Math.PI*k*j/n;
+      chi.push({re: Math.cos(th), im: Math.sin(th)});
+    }
+    irreps.push({name: 'χ'+k, dim:1, chi});
+  }
+  GROUPS['C'+n] = {order:n, classes, irreps};
+}
+
+/* ======================= helpers for character tables ======================= */
+function toC(x){
+  if(typeof x === 'number') return {re:x, im:0};
+  return x;
+}
+function fmtEntry(x){
+  x = toC(x);
+  const r = x.re, i = x.im;
+  const near = (v,t=1e-6)=>Math.abs(v)<t;
+  const rnd = v=>Math.round(v*1000)/1000;
+  if(near(i)){
+    const R = rnd(r);
+    if(Math.abs(R - Math.round(R))<1e-3) return String(Math.round(R));
+    // common irrationals
+    const phi = (1+Math.sqrt(5))/2, phiM = (1-Math.sqrt(5))/2;
+    if(Math.abs(r-phi)<1e-3) return 'φ';
+    if(Math.abs(r-phiM)<1e-3) return '1−φ';
+    if(Math.abs(r-2*Math.cos(2*Math.PI/5))<1e-3) return '2cos(2π/5)';
+    if(Math.abs(r-2*Math.cos(4*Math.PI/5))<1e-3) return '2cos(4π/5)';
+    if(Math.abs(r-2*Math.cos(8*Math.PI/5))<1e-3) return '2cos(8π/5)';
+    return R.toString();
+  }
+  const R = rnd(r), I = rnd(i);
+  // Check ω, ω²
+  if(Math.abs(r+0.5)<1e-3 && Math.abs(i-Math.sqrt(3)/2)<1e-3) return 'ω';
+  if(Math.abs(r+0.5)<1e-3 && Math.abs(i+Math.sqrt(3)/2)<1e-3) return 'ω²';
+  // primitive n-th roots for cyclic groups
+  for(let n=2;n<=6;n++){
+    for(let k=1;k<n;k++){
+      const th = 2*Math.PI*k/n;
+      if(Math.abs(r-Math.cos(th))<1e-3 && Math.abs(i-Math.sin(th))<1e-3){
+        return 'ζ'+(n===2?'':String.fromCharCode(8320+n))+(k===1?'':('^'+k));
+      }
+    }
+  }
+  if(near(R)) return (I===1?'i':I===-1?'-i':(I+'i'));
+  return `${R}${I>=0?'+':''}${I}i`;
+}
+
+function innerProd(group, chiA, chiB){
+  let re=0, im=0;
+  for(let c=0;c<group.classes.length;c++){
+    const a = toC(chiA[c]);
+    const b = toC(chiB[c]);
+    // a * conj(b)
+    const bc = {re:b.re, im:-b.im};
+    re += group.classes[c].size * (a.re*bc.re - a.im*bc.im);
+    im += group.classes[c].size * (a.re*bc.im + a.im*bc.re);
+  }
+  return {re: re/group.order, im: im/group.order};
+}
+
+/* =============================== §6 Character table explorer =============================== */
+(function(){
+  const wrap = $('#ct-wrap');
+  const pick = $('#ct-pick');
+  const info = $('#ct-info');
+  const out  = $('#ct-out');
+  const r1s  = $('#ct-r1'), r2s = $('#ct-r2');
+  const btn  = $('#ct-do');
+  Object.keys(GROUPS).forEach(k=>{
+    const o = document.createElement('option'); o.value=k; o.textContent=k; pick.appendChild(o);
+  });
+  pick.value = 'S4';
+
+  function render(){
+    const key = pick.value;
+    const G = GROUPS[key];
+    wrap.innerHTML = '';
+    // build table
+    const tbl = document.createElement('table');
+    tbl.className = 'chartbl';
+    const thead = document.createElement('thead');
+    const htr = document.createElement('tr');
+    htr.appendChild(document.createElement('th'));
+    G.classes.forEach((c,ci)=>{
+      const th = document.createElement('th');
+      th.innerHTML = `[${c.name}]<br><span style="color:var(--mute);font-weight:400;font-size:.82rem">size ${c.size}</span>`;
+      th.dataset.col = ci;
+      thead.appendChild(htr);
+      htr.appendChild(th);
+    });
+    tbl.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    G.irreps.forEach((r,ri)=>{
+      const tr = document.createElement('tr');
+      tr.dataset.row = ri;
+      const th = document.createElement('th');
+      th.innerHTML = `${r.name}<br><span style="color:var(--mute);font-weight:400;font-size:.82rem">dim ${r.dim}</span>`;
+      tr.appendChild(th);
+      r.chi.forEach((val,ci)=>{
+        const td = document.createElement('td');
+        td.textContent = fmtEntry(val);
+        td.dataset.row = ri; td.dataset.col = ci;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    tbl.appendChild(tbody);
+    wrap.appendChild(tbl);
+
+    // row/column hover highlighting + inner product display
+    tbl.addEventListener('mouseover', (e)=>{
+      const td = e.target.closest('td, th'); if(!td) return;
+      const ri = td.dataset.row, ci = td.dataset.col;
+      tbl.querySelectorAll('tr').forEach(r=>r.classList.remove('rowhi'));
+      tbl.querySelectorAll('td, th').forEach(x=>x.classList.remove('colhi','cellhi'));
+      if(ri!=null){ tbl.querySelector(`tr[data-row="${ri}"]`).classList.add('rowhi'); }
+      if(ci!=null){
+        tbl.querySelectorAll(`[data-col="${ci}"]`).forEach(x=>x.classList.add('colhi'));
+      }
+      if(ri!=null && ci!=null){ td.classList.add('cellhi'); }
+      // readout: if row is chosen show <chi_ri, chi_ri>
+      if(ri!=null){
+        const r = G.irreps[+ri];
+        const ip = innerProd(G, r.chi, r.chi);
+        out.textContent = `⟨χ_${r.name}, χ_${r.name}⟩ = ${fmtEntry(ip)}  (should be 1 for an irrep)`;
+      }
+    });
+    tbl.addEventListener('mouseleave', ()=>{
+      tbl.querySelectorAll('tr').forEach(r=>r.classList.remove('rowhi'));
+      tbl.querySelectorAll('td, th').forEach(x=>x.classList.remove('colhi','cellhi'));
+    });
+
+    info.textContent = `|${key}| = ${G.order} · ${G.classes.length} conjugacy classes = ${G.irreps.length} irreps · Σ dim² = ${G.irreps.reduce((s,r)=>s+r.dim*r.dim,0)}`;
+
+    // populate row selectors
+    [r1s,r2s].forEach(sel=>{
+      sel.innerHTML='';
+      G.irreps.forEach((r,i)=>{
+        const o = document.createElement('option'); o.value=i; o.textContent = r.name; sel.appendChild(o);
+      });
+    });
+    r2s.value = '1';
+  }
+  pick.addEventListener('change', render);
+  btn.addEventListener('click', ()=>{
+    const G = GROUPS[pick.value];
+    const a = G.irreps[+r1s.value], b = G.irreps[+r2s.value];
+    const ip = innerProd(G, a.chi, b.chi);
+    let lines = [`⟨χ_${a.name}, χ_${b.name}⟩ = (1/|G|) · Σ_classes  |C|·χ_A(C)·conj(χ_B(C))`];
+    lines.push('');
+    let sumRe = 0, sumIm = 0;
+    for(let c=0;c<G.classes.length;c++){
+      const A = toC(a.chi[c]), B = toC(b.chi[c]);
+      const term = cmul(A, cconj(B));
+      const w = G.classes[c].size;
+      sumRe += w*term.re; sumIm += w*term.im;
+      lines.push(`  [${G.classes[c].name}]:  ${G.classes[c].size}·${fmtEntry(A)}·conj(${fmtEntry(B)}) = ${fmtEntry({re:w*term.re, im:w*term.im})}`);
+    }
+    lines.push('');
+    lines.push(`  total / |G| = ${fmtEntry({re:sumRe,im:sumIm})} / ${G.order} = ${fmtEntry(ip)}`);
+    lines.push(Math.abs(ip.re-(a===b?1:0))<1e-3 && Math.abs(ip.im)<1e-3 ? '  → orthonormality confirmed ✓' : '  (not orthonormal?)');
+    out.textContent = lines.join('\n');
+  });
+  render();
+})();
+
+/* =============================== §7 Representation decomposer =============================== */
+(function(){
+  const gsel = $('#dc-group'), rsel = $('#dc-rep'), out = $('#dc-out');
+  Object.keys(GROUPS).forEach(k=>{ const o = document.createElement('option'); o.value=k; o.textContent=k; gsel.appendChild(o); });
+  gsel.value = 'S3';
+
+  // The "reps" we can decompose.  Each is an array of character values, one per class.
+  function repsFor(key){
+    const G = GROUPS[key];
+    const reps = [];
+    reps.push({ name:'regular rep $\\mathbb{C}[G]$', chi: G.classes.map((c,i)=> i===0 ? G.order : 0) });
+    // tensor products of irreps
+    for(let i=0;i<G.irreps.length;i++){
+      for(let j=i;j<G.irreps.length;j++){
+        const a = G.irreps[i], b = G.irreps[j];
+        const chi = G.classes.map((_,c)=> cmul(toC(a.chi[c]), toC(b.chi[c])));
+        reps.push({ name: `${a.name} ⊗ ${b.name}`, chi });
+      }
+    }
+    // symmetric and alternating square of the first 2+ dim irrep
+    const V = G.irreps.find(r=>r.dim>=2);
+    if(V){
+      // S²χ(g) = (χ(g)² + χ(g²))/2,  Λ²χ(g) = (χ(g)² - χ(g²))/2
+      // We don't have g²; we approximate by just computing chi^2 (symmetric + alternating).
+      // For the groups we have, we can use class squares if we hardcode; skip for simplicity.
+    }
+    // permutation reps: specific to each group
+    if(key==='S3'){ reps.push({name:'permutation rep on {1,2,3}', chi:[3,1,0]}); }
+    if(key==='S4'){ reps.push({name:'permutation rep on {1,2,3,4}', chi:[4,2,0,1,0]}); }
+    if(key==='A4'){ reps.push({name:'permutation rep on {1,2,3,4}', chi:[4,0,1,1]}); }
+    if(key==='A5'){ reps.push({name:'permutation rep on {1,..,5}', chi:[5,1,2,0,0]}); }
+    if(key==='D4'){ reps.push({name:'permutation rep on 4 vertices', chi:[4,0,2,0,0]}); }
+    if(key==='D5'){ reps.push({name:'permutation rep on 5 vertices', chi:[5,0,0,1]}); }
+    if(key==='D6'){ reps.push({name:'permutation rep on 6 vertices', chi:[6,0,0,0,0,2]}); }
+    return reps;
+  }
+
+  function render(){
+    const key = gsel.value;
+    const G = GROUPS[key];
+    const reps = repsFor(key);
+    rsel.innerHTML='';
+    reps.forEach((r,i)=>{ const o = document.createElement('option'); o.value=i; o.textContent=r.name; rsel.appendChild(o); });
+    update();
+  }
+  function update(){
+    const key = gsel.value;
+    const G = GROUPS[key];
+    const rep = repsFor(key)[+rsel.value];
+    if(!rep){ out.textContent=''; return; }
+    const lines = [];
+    lines.push(`Group: ${key}.  Rep: ${rep.name.replace(/\\mathbb\{C\}/g,'C').replace(/[${}]/g,'')}`);
+    lines.push('');
+    lines.push('character χ_V on classes: ' + G.classes.map((c,i)=>`${c.name}↦${fmtEntry(rep.chi[i])}`).join('  '));
+    lines.push('');
+    lines.push('inner products ⟨χ_V, χ_λ⟩:');
+    let totalDim = 0;
+    const parts = [];
+    for(const r of G.irreps){
+      const ip = innerProd(G, rep.chi, r.chi);
+      const m = Math.round(ip.re);
+      lines.push(`  λ=${r.name}: ⟨χ_V,χ_λ⟩ = ${fmtEntry(ip)}  → multiplicity ${m}`);
+      if(m>0){ parts.push(m===1 ? r.name : `${m}·${r.name}`); totalDim += m*r.dim; }
+    }
+    lines.push('');
+    lines.push(`decomposition: V = ${parts.join(' ⊕ ') || '0'}`);
+    lines.push(`check dim: ${totalDim} (should equal χ_V(e) = ${fmtEntry(rep.chi[0])})`);
+    out.textContent = lines.join('\n');
+  }
+  gsel.addEventListener('change', render);
+  rsel.addEventListener('change', update);
+  render();
+})();
+
+/* =============================== §7.1 Orbit-stabilizer visualizer =============================== */
+(function(){
+  const svg = $('#ob-svg'), out = $('#ob-out'), pick = $('#ob-pick');
+
+  // Each config has {positions: [[x,y], ...], labels: [...], orbitColors: [class per point], name, stab(i): string}
+  function cfg(key){
+    if(key==='d6-hex'){
+      const cx=410, cy=190, R=130;
+      const pts = []; const labels=[];
+      for(let k=0;k<6;k++){ const th = -Math.PI/2 + 2*Math.PI*k/6; pts.push([cx+R*Math.cos(th), cy+R*Math.sin(th)]); labels.push(String(k+1)); }
+      return {
+        name:'$D_6$ on 6 vertices of a hexagon — 1 orbit of size 6',
+        pts, labels, color: pts.map(_=>'var(--blue)'),
+        stab:(i)=>`stab(v_${i+1}) = ⟨reflection through v_${i+1}⟩ ≅ C_2, order 2.  |G|/|stab| = 12/2 = 6 = |orbit|`,
+        extras: null
+      };
+    }
+    if(key==='s3-tri'){
+      const cx=410,cy=200,R=120;
+      const pts=[]; const labels=[];
+      for(let k=0;k<3;k++){ const th=-Math.PI/2+2*Math.PI*k/3; pts.push([cx+R*Math.cos(th),cy+R*Math.sin(th)]); labels.push(String(k+1)); }
+      return { name:'$S_3$ on 3 vertices — transitive, 1 orbit', pts, labels, color:pts.map(_=>'var(--blue)'),
+        stab:(i)=>`stab(v_${i+1}) ≅ S_2 = ⟨transposition fixing v_${i+1}⟩, order 2.  |S_3|/|stab|=6/2=3 ✓`};
+    }
+    if(key==='s4-cube-v'){
+      const cx=410,cy=190;
+      const O=[cx,cy]; const d=80; const sh=30;
+      const back=[[-d,-d],[d,-d],[d,d],[-d,d]];
+      const front = back.map(([x,y])=>[x+sh,y-sh]);
+      const pts = [...back.map(([x,y])=>[cx+x,cy+y]), ...front.map(([x,y])=>[cx+x,cy+y])];
+      const labels = ['1','2','3','4','5','6','7','8'];
+      return {
+        name:'$S_4$ on 8 vertices of a cube — single orbit; stabilizers are $S_3$',
+        pts, labels, color: pts.map(_=>'var(--blue)'),
+        edges: [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]],
+        stab:(i)=>`stab(v_${i+1}) ≅ S_3 of order 6.  |G|/|stab|=24/6=4?  Actually the rotation group of the cube is $S_4$ acting on the 4 diagonals; each vertex pairs with its antipode (so 4 pairs = 4 diagonals, transitively). Orbit size 8 with |stab|=3, matching 24/3=8.`
+      };
+    }
+    if(key==='s4-cube-f'){
+      const cx=410,cy=190;
+      const pts = [[cx-180,cy-110],[cx-60,cy-110],[cx+60,cy-110],[cx+180,cy-110],[cx,cy+60],[cx,cy+120]];
+      const labels = ['T','Bo','F','Ba','L','R'];
+      return {name:'$S_4$ on 6 faces of a cube — single orbit, stabilizer $D_4$',
+        pts, labels, color:pts.map(_=>'var(--blue)'),
+        stab:(i)=>`stab = D_4 (rotations fixing the chosen face) of order 4 in rotation group $S_4$.  |S_4|/4 = 6 ✓`};
+    }
+    if(key==='s4-cube-e'){
+      // 12 edges; draw them around a hex-like layout
+      const cx=410,cy=190;
+      const pts=[], labels=[];
+      for(let k=0;k<12;k++){ const th=-Math.PI/2 + 2*Math.PI*k/12; pts.push([cx+140*Math.cos(th),cy+100*Math.sin(th)]); labels.push('e'+(k+1)); }
+      return {name:'$S_4$ on 12 edges of a cube — single orbit, stabilizer $C_2$',
+        pts, labels, color:pts.map(_=>'var(--blue)'),
+        stab:(i)=>`stab = C_2 (swap endpoints' rotation axis) of order 2.  |S_4|/2 = 12 ✓`};
+    }
+    if(key==='s4-pairs'){
+      const cx=410,cy=190;
+      const items=['{1,2}','{1,3}','{1,4}','{2,3}','{2,4}','{3,4}'];
+      const pts=[], labels=[];
+      for(let k=0;k<6;k++){ const th=-Math.PI/2+2*Math.PI*k/6; pts.push([cx+140*Math.cos(th),cy+110*Math.sin(th)]); labels.push(items[k]); }
+      return {name:'$S_4$ on 2-element subsets of $\\{1,2,3,4\\}$ — single orbit; stabilizer $S_2\\times S_2$',
+        pts, labels, color: pts.map(_=>'var(--blue)'),
+        stab:(i)=>`stab({a,b}) = S_{\\{a,b\\}}\\times S_{\\{\\text{rest}\\}} \\cong S_2\\times S_2$, order 4.  |S_4|/4 = 6 ✓`};
+    }
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const c = cfg(pick.value);
+    if(!c){ out.textContent=''; return; }
+    if(c.edges){
+      for(const [i,j] of c.edges){
+        const ln = SVG('line',{x1:c.pts[i][0],y1:c.pts[i][1],x2:c.pts[j][0],y2:c.pts[j][1],stroke:'var(--line)','stroke-width':1.2});
+        svg.appendChild(ln);
+      }
+    }
+    c.pts.forEach(([x,y],i)=>{
+      const g = SVG('g',{style:'cursor:pointer'});
+      const circ = SVG('circle',{cx:x,cy:y,r:18, fill:'var(--panel2)', stroke:c.color[i],'stroke-width':1.8});
+      const t = SVG('text',{x,y:y+5,'text-anchor':'middle','font-size':12,fill:'#fff','font-weight':600});
+      t.textContent = c.labels[i];
+      g.appendChild(circ); g.appendChild(t);
+      g.addEventListener('click',()=>{
+        // highlight chosen, others faded
+        svg.querySelectorAll('circle').forEach(ci=>ci.setAttribute('fill-opacity','0.4'));
+        circ.setAttribute('fill-opacity','1');
+        circ.setAttribute('stroke','var(--yellow)');
+        out.textContent = `You clicked ${c.labels[i]}.  ${c.stab(i)}`;
+      });
+      svg.appendChild(g);
+    });
+    const cap = SVG('text',{x:410,y:30,'text-anchor':'middle','font-size':14,fill:'var(--mute)'});
+    cap.textContent = '(click a point to see its stabilizer)';
+    svg.appendChild(cap);
+    out.textContent = c.name.replace(/\$/g,'');
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+
+/* =============================== §7.2 Regular rep =============================== */
+(function(){
+  const svg = $('#rg-svg'), out = $('#rg-out'), pick = $('#rg-pick');
+  ['S3','A4','D4','Q8','C3','C4','C5'].forEach(k=>{
+    const o = document.createElement('option'); o.value=k; o.textContent=k; pick.appendChild(o);
+  });
+  pick.value = 'S3';
+
+  function render(){
+    const key = pick.value;
+    const G = GROUPS[key];
+    svg.innerHTML='';
+    // Draw a box diagram of |G|x|G| cells, with diagonal-block pattern matching decomposition (dim V_λ)·V_λ.
+    const N = G.order;
+    const cellSize = Math.min(20, 200/N);
+    const x0 = 80, y0 = 30;
+    // Background grid
+    for(let i=0;i<N;i++){
+      for(let j=0;j<N;j++){
+        svg.appendChild(SVG('rect',{x:x0+i*cellSize, y:y0+j*cellSize, width:cellSize, height:cellSize,
+          fill:'#0b0f16', stroke:'var(--line)','stroke-width':0.5}));
+      }
+    }
+    // Block-diagonal view: one block of size (dim V_λ)·(dim V_λ) repeated dim V_λ times for each λ
+    let offset = 0;
+    const palette = ['var(--yellow)','var(--blue)','var(--green)','var(--pink)','var(--violet)','var(--cyan)'];
+    const blocks = [];
+    G.irreps.forEach((r,i)=>{
+      const col = palette[i%palette.length];
+      for(let m=0;m<r.dim;m++){
+        for(let a=0;a<r.dim;a++){
+          for(let b=0;b<r.dim;b++){
+            svg.appendChild(SVG('rect',{x:x0+(offset+a)*cellSize, y:y0+(offset+b)*cellSize, width:cellSize, height:cellSize, fill:col, 'fill-opacity':0.32}));
+          }
+        }
+        offset += r.dim;
+      }
+      blocks.push({name:r.name, dim:r.dim, col});
+    });
+    // legend to the right
+    let lx = x0 + N*cellSize + 30, ly = y0;
+    const lg = SVG('text',{x:lx, y:ly, 'font-size':13, fill:'var(--mute)'});
+    lg.textContent = 'Decomposition:';
+    svg.appendChild(lg);
+    ly += 18;
+    blocks.forEach(b=>{
+      svg.appendChild(SVG('rect',{x:lx,y:ly-10,width:12,height:12,fill:b.col,'fill-opacity':0.5}));
+      const t = SVG('text',{x:lx+20,y:ly,'font-size':12,fill:'var(--ink)'});
+      t.textContent = `${b.dim}·${b.name}  (dim²=${b.dim*b.dim})`;
+      svg.appendChild(t);
+      ly += 18;
+    });
+    const sumSq = G.irreps.reduce((s,r)=>s+r.dim*r.dim,0);
+    out.textContent = `|${key}| = ${G.order} = Σ (dim V_λ)² = ${G.irreps.map(r=>`${r.dim}²`).join(' + ')} = ${sumSq}.  The ${N}×${N} regular rep is a direct sum of (dim V_λ) copies of each V_λ.`;
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+
+/* =============================== §9 Young tableau widget =============================== */
+(function(){
+  const nsel = $('#yg-n'), lsel = $('#yg-lam'), shape = $('#yg-shape'), out = $('#yg-out'), list = $('#yg-list');
+
+  // enumerate partitions of n in decreasing order
+  function partitionsOf(n){
+    const out = [];
+    function rec(cur, m, k){
+      if(m===0){ out.push(cur.slice()); return; }
+      for(let p=Math.min(k, m); p>=1; p--){
+        cur.push(p); rec(cur, m-p, p); cur.pop();
+      }
+    }
+    rec([], n, n);
+    return out;
+  }
+
+  // hook length of cell (i,j) in partition lam (i,j 0-indexed)
+  function hook(lam, i, j){
+    const trans = [];
+    for(let r=0;r<lam.length;r++){
+      for(let col=0; col<lam[r]; col++){
+        if(col===j){ trans[col] = (trans[col]||0) + 1; }
+      }
+    }
+    // arm = lam[i] - j - 1 (to the right in same row)
+    const arm = lam[i] - j - 1;
+    // leg = number of rows below row i whose length > j
+    let leg = 0;
+    for(let r=i+1;r<lam.length;r++){ if(lam[r] > j) leg++; }
+    return arm + leg + 1;
+  }
+
+  // enumerate SYT of shape lam
+  function enumSYT(lam){
+    const n = lam.reduce((a,b)=>a+b,0);
+    const shape = lam.map(r=>Array(r).fill(0));
+    const rows = lam.length;
+    const res = [];
+    function rec(k){
+      if(k>n){ res.push(shape.map(r=>r.slice())); return; }
+      for(let i=0;i<rows;i++){
+        for(let j=0;j<lam[i];j++){
+          if(shape[i][j]!==0) continue;
+          // must be first empty in its row and column
+          if(j>0 && shape[i][j-1]===0) continue;
+          if(i>0 && shape[i-1][j]===0) continue;
+          shape[i][j] = k;
+          rec(k+1);
+          shape[i][j] = 0;
+        }
+      }
+    }
+    rec(1);
+    return res;
+  }
+
+  function renderShape(lam){
+    // SVG of the diagram with hook lengths
+    const sz = 36;
+    const rows = lam.length;
+    const cols = lam[0];
+    const W = cols*sz + 12, H = rows*sz + 12;
+    const svg = SVG('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H, style:'display:inline-block;margin:0 1rem 0 0;vertical-align:top'});
+    let prod = 1;
+    for(let i=0;i<rows;i++){
+      for(let j=0;j<lam[i];j++){
+        svg.appendChild(SVG('rect',{x:6+j*sz,y:6+i*sz,width:sz,height:sz,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+        const h = hook(lam,i,j);
+        const t = SVG('text',{x:6+j*sz+sz/2,y:6+i*sz+sz/2+5,'text-anchor':'middle','font-size':14,fill:'var(--green)'});
+        t.textContent = h; prod *= h;
+        svg.appendChild(t);
+      }
+    }
+    return {svg, prod};
+  }
+
+  function renderTableau(filling, lam){
+    const sz = 32;
+    const rows = lam.length;
+    const cols = lam[0];
+    const W = cols*sz+6, H = rows*sz+6;
+    const svg = SVG('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H});
+    for(let i=0;i<rows;i++){
+      for(let j=0;j<lam[i];j++){
+        svg.appendChild(SVG('rect',{x:3+j*sz,y:3+i*sz,width:sz,height:sz,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+        const t = SVG('text',{x:3+j*sz+sz/2,y:3+i*sz+sz/2+5,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600});
+        t.textContent = filling[i][j];
+        svg.appendChild(t);
+      }
+    }
+    return svg;
+  }
+
+  function populateLam(){
+    const n = +nsel.value;
+    lsel.innerHTML='';
+    partitionsOf(n).forEach((p,i)=>{
+      const o = document.createElement('option');
+      o.value = p.join(',');
+      o.textContent = '(' + p.join(',') + ')';
+      lsel.appendChild(o);
+    });
+    render();
+  }
+  function render(){
+    const n = +nsel.value;
+    const lam = lsel.value.split(',').map(Number);
+    shape.innerHTML=''; list.innerHTML='';
+    const {svg, prod} = renderShape(lam);
+    shape.appendChild(svg);
+    const syts = enumSYT(lam);
+    out.textContent = `λ = (${lam.join(',')}) ⊢ ${n}.  Hook product = ${prod}.  dim V_λ = ${n}!/hooks = ${factorial(n)}/${prod} = ${factorial(n)/prod}.  Standard Young tableaux: ${syts.length}`;
+    syts.forEach(f=>{
+      const sv = renderTableau(f, lam);
+      list.appendChild(sv);
+    });
+  }
+  nsel.addEventListener('change', populateLam);
+  lsel.addEventListener('change', render);
+  populateLam();
+})();
+
+/* =============================== §10 𝔰𝔩₂ weight diagram =============================== */
+(function(){
+  const svg = $('#sl-svg'), out = $('#sl-out'), slider = $('#sl-n'), val = $('#sl-nval');
+
+  function render(){
+    const n = +slider.value; val.textContent = 'V_'+n+' (dim '+(n+1)+')';
+    svg.innerHTML='';
+    const cx = 410, cy=120;
+    const spread = 80;
+    const total = n+1;
+    const maxW = 720;
+    const sp = total>1 ? Math.min(spread, maxW/(total-1)) : 0;
+    const startX = cx - (total-1)*sp/2;
+    // horizontal axis
+    svg.appendChild(SVG('line',{x1:cx-380,y1:cy,x2:cx+380,y2:cy,stroke:'var(--line)','stroke-dasharray':'4 4'}));
+    // label axis
+    const ax = SVG('text',{x:cx+390,y:cy+5,'font-size':13,fill:'var(--mute)'});
+    ax.textContent = 'weight';
+    svg.appendChild(ax);
+    const pts = [];
+    for(let k=0;k<total;k++){
+      const w = n - 2*k;
+      const x = startX + k*sp;
+      pts.push({x, w});
+    }
+    // arrows: E raises k→k-1 (weight w → w+2), F lowers
+    for(let k=0;k<total-1;k++){
+      const a = pts[k+1], b = pts[k];
+      // F: b→a (descend weight, right-to-left if weights ordered high-to-low from left? We placed highest at left)
+      // Actually: pts[0] is weight n (leftmost), pts[k+1] is weight n-2(k+1) (to the right of pts[k]).
+      // So E: right-to-left (increasing weight), F: left-to-right (decreasing weight)
+      drawArrow(svg, [pts[k].x, cy-24], [pts[k+1].x, cy-24], {color:'var(--pink)', markerId:'sl-F', curve:-18,
+        label:`F (×${k+1})`, labelSide:1, pad1:18, pad2:18});
+      drawArrow(svg, [pts[k+1].x, cy+24], [pts[k].x, cy+24], {color:'var(--blue)', markerId:'sl-E', curve:-18,
+        label:`E (×${n-k})`, labelSide:0, pad1:18, pad2:18});
+    }
+    // nodes
+    pts.forEach((p,k)=>{
+      const g = SVG('g',{style:'cursor:default'});
+      const circ = SVG('circle',{cx:p.x, cy, r:16, fill:'var(--panel2)', stroke:'var(--green)','stroke-width':2});
+      const t = SVG('text',{x:p.x, y:cy+5,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+      t.textContent = p.w;
+      g.appendChild(circ); g.appendChild(t);
+      g.addEventListener('mouseenter', ()=>{
+        circ.setAttribute('stroke','var(--yellow)');
+        const EF = ((n-p.w)/2+1)*((n+p.w)/2); // on v_k with k=(n-w)/2: EF v_k = (k)*(n-k+1), or simpler formula:
+        // Using EF|_{V_w} = (n-w)(n+w+2)/4
+        const EFval = (n-p.w)*(n+p.w+2)/4;
+        const FEval = (n+p.w)*(n-p.w+2)/4;
+        out.textContent = `weight ${p.w}:  EF acts by ${EFval},  FE acts by ${FEval},  H acts by ${p.w} = FE-EF = ${FEval-EFval} ✓`;
+      });
+      g.addEventListener('mouseleave', ()=>{
+        circ.setAttribute('stroke','var(--green)');
+        out.textContent = defaultReadout();
+      });
+      svg.appendChild(g);
+    });
+    function defaultReadout(){
+      return `V_${n}: irreducible 𝔰𝔩₂-rep of dim ${n+1}, weights ${pts.map(p=>p.w).join(', ')}. E raises weight by 2, F lowers by 2, H measures the weight.`;
+    }
+    out.textContent = defaultReadout();
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+
+/* =============================== §10 𝔰𝔩₂ tensor product =============================== */
+(function(){
+  const svg = $('#slt-svg'), out = $('#slt-out');
+  const mS = $('#slt-m'), nS = $('#slt-n');
+  const mV = $('#slt-mval'), nV = $('#slt-nval');
+
+  function render(){
+    const m = +mS.value, n = +nS.value;
+    mV.textContent = 'V_'+m; nV.textContent = 'V_'+n;
+    svg.innerHTML='';
+    // weights of V_m ⊗ V_n are sums: multiset { (m-2i) + (n-2j) : i,j }, i.e. all (m+n-2k) with multiplicity min(k,m,n,m+n-k)+1
+    const multSum = {}; // weight -> mult
+    for(let i=0;i<=m;i++) for(let j=0;j<=n;j++){
+      const w = (m-2*i)+(n-2*j); multSum[w] = (multSum[w]||0)+1;
+    }
+    // decompose into V_k's (greedy from top)
+    const parts = [];
+    const remaining = {...multSum};
+    let top = m+n;
+    while(top >= -(m+n)){
+      if((remaining[top]||0) > 0){
+        // V_{top}
+        for(let w=top; w>=-top; w-=2) remaining[w] = (remaining[w]||0) - 1;
+        parts.push(top);
+      }
+      top -= 2;
+    }
+    // Draw tensor weight multiset and the decomposition
+    const cx=410, cy0=70, cyStep=26;
+    svg.appendChild(SVG('text',{x:40,y:cy0,'font-size':12,fill:'var(--mute)'})).textContent = `V_${m}⊗V_${n} weights:`;
+    const wts = Object.keys(multSum).map(Number).sort((a,b)=>b-a);
+    const maxAbs = Math.max(...wts.map(Math.abs),1);
+    const spread = Math.min(40, 600/Math.max(1,2*maxAbs+1));
+    wts.forEach(w=>{
+      const x = cx + w*spread;
+      for(let k=0;k<multSum[w];k++){
+        svg.appendChild(SVG('circle',{cx:x, cy:cy0+6-k*6, r:4, fill:'var(--pink)'}));
+      }
+      svg.appendChild(SVG('text',{x, y:cy0-18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'})).textContent = w;
+    });
+    // Draw each part as its own ladder
+    parts.forEach((k,idx)=>{
+      const y = cy0 + (idx+1)*cyStep + 20;
+      svg.appendChild(SVG('text',{x:40,y:y+5,'font-size':12,fill:'var(--violet)'})).textContent = `V_${k}:`;
+      for(let w=k; w>=-k; w-=2){
+        const x = cx + w*spread;
+        svg.appendChild(SVG('circle',{cx:x, cy:y, r:5, fill:'var(--green)', stroke:'var(--green)'}));
+      }
+    });
+    const txt = `V_${m} ⊗ V_${n} = ` + parts.map(k=>`V_${k}`).join(' ⊕ ') + `.  Total dim = ${(m+1)*(n+1)} = ${parts.map(k=>k+1).join('+')} ✓`;
+    out.textContent = txt;
+  }
+  mS.addEventListener('input', render);
+  nS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

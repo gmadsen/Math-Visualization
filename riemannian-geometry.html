@@ -1,0 +1,1839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Riemannian geometry — metrics, connections, curvature</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  .tabrow{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.5rem}
+  .tabrow button{font-size:.88rem}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;align-items:start}
+  @media (max-width:720px){ .twocol{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#intro">1&nbsp;From&nbsp;surfaces&nbsp;to&nbsp;manifolds</a>
+  <a href="#metric">2&nbsp;Metric&nbsp;tensor</a>
+  <a href="#christoffel">3&nbsp;Levi-Civita&nbsp;connection</a>
+  <a href="#geodesics">4&nbsp;Geodesics</a>
+  <a href="#curvature">5&nbsp;Riemann&nbsp;curvature</a>
+  <a href="#models">6&nbsp;Model&nbsp;spaces</a>
+  <a href="#jacobi">7&nbsp;Jacobi&nbsp;fields</a>
+  <a href="#comparison">8&nbsp;Comparison&nbsp;theorems</a>
+  <a href="#outro">9&nbsp;Connections</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Riemannian geometry — metrics, connections, curvature</h1>
+  <p class="sub">A smooth manifold carries no intrinsic geometry; the choice of a Riemannian metric gives one. From this single extra datum flow lengths, angles, geodesics, parallel transport, and a rich curvature tensor that decides whether triangles have too much or too little angle.</p>
+</section>
+
+<section id="intro">
+<h2>1. From surfaces to manifolds</h2>
+
+<p>The companion page <a href="./differential-geometry.html">differential geometry</a> develops the geometry of curves and surfaces in $\mathbb{R}^3$: the first fundamental form $I$, the shape operator and second fundamental form, the Gauss map, and Gauss&ndash;Bonnet. The objects there are embedded in an ambient Euclidean space, and the metric is inherited by restriction. Those preliminaries are assumed here.</p>
+
+<p>We now drop the ambient space. A <strong>smooth manifold</strong> $M$ of dimension $n$ is a topological space locally modelled on $\mathbb{R}^n$ via smoothly compatible charts. At each point $p\in M$ there is a tangent space $T_p M$, a real vector space of dimension $n$, constructed without reference to an embedding &mdash; as derivations on germs of smooth functions, or equivalence classes of curves through $p$. A <em>smooth manifold carries no intrinsic geometry:</em> tangent vectors at different points cannot be compared, curves have no canonical notion of length, triangles have no angles.</p>
+
+<div class="note"><strong>The extra datum.</strong> A <strong>Riemannian metric</strong> $g$ on $M$ is a smooth choice, for each $p\in M$, of a positive-definite symmetric bilinear form
+$$g_p : T_p M \times T_p M \to \mathbb{R}.$$
+Equivalently, $g$ is a smooth section of $\operatorname{Sym}^2 T^*M$ that is pointwise positive-definite. The pair $(M,g)$ is a <strong>Riemannian manifold</strong>.</div>
+
+<p>With $g$ in hand, each tangent space becomes a Euclidean vector space: vectors have lengths $\|v\|_g = \sqrt{g_p(v,v)}$, and pairs have angles $\cos\theta = g_p(u,v)/(\|u\|\|v\|)$. Smooth curves acquire lengths by integration:
+$$L(\gamma) = \int_a^b \sqrt{g_{\gamma(t)}(\dot\gamma(t),\dot\gamma(t))}\,dt,$$
+and the <strong>Riemannian distance</strong> is the infimum
+$$d_g(p,q) = \inf\{ L(\gamma) : \gamma \text{ a piecewise smooth curve from } p \text{ to } q \}.$$
+The Hopf&ndash;Rinow theorem asserts that on a connected, geodesically complete manifold this infimum is attained by a length-minimizing geodesic.</p>
+
+<p>The fundamental distinction from the surfaces story: only the <em>intrinsic</em> data matter. A surface in $\mathbb{R}^3$ and the same surface bent isometrically to a new embedding carry the same $(M,g)$; the embedding was a crutch. Gauss's Theorema Egregium &mdash; that the Gauss curvature of a surface depends only on the first fundamental form &mdash; is the first hint, and Riemannian geometry is its systematic generalization.</p>
+
+<p>The road map of this page:</p>
+<ul>
+  <li>&sect;2 &mdash; the metric $g$ in coordinates, with examples.</li>
+  <li>&sect;3 &mdash; the unique Levi-Civita connection $\nabla$ it determines.</li>
+  <li>&sect;4 &mdash; geodesics as the auto-parallel curves of $\nabla$.</li>
+  <li>&sect;5 &mdash; the Riemann curvature tensor $R$ and its traces.</li>
+  <li>&sect;6 &mdash; the three model spaces of constant curvature.</li>
+  <li>&sect;7&ndash;8 &mdash; Jacobi fields and comparison theorems.</li>
+</ul>
+</section>
+
+<section id="metric">
+<h2>2. The metric tensor</h2>
+
+<p>In a chart $(U,x^1,\dots,x^n)$, the coordinate vector fields $\partial_i = \partial/\partial x^i$ form a basis of each tangent space over $U$. The metric is determined by its matrix of components
+$$g_{ij}(p) = g_p(\partial_i, \partial_j), \qquad g = g_{ij}\, dx^i\otimes dx^j,$$
+a symmetric positive-definite matrix varying smoothly with $p$. Einstein summation is in force. Under a change of coordinates $y^a = y^a(x^1,\dots,x^n)$ the components transform as a $(0,2)$-tensor:
+$$\tilde g_{ab} = \frac{\partial x^i}{\partial y^a}\frac{\partial x^j}{\partial y^b}\, g_{ij}.$$
+The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and $(g^{ij})$ are dual in the sense $g^{ik}g_{kj} = \delta^i_j$.</p>
+
+<h3>Examples to keep in mind</h3>
+<table class="plain">
+<thead><tr><th>manifold</th><th>coordinates</th><th>line element $ds^2 = g_{ij}dx^i dx^j$</th></tr></thead>
+<tbody>
+<tr><td>Euclidean $\mathbb{R}^n$</td><td>$x^1,\dots,x^n$</td><td>$(dx^1)^2 + \cdots + (dx^n)^2$</td></tr>
+<tr><td>round sphere $S^2$ of radius $1$</td><td>$(\theta,\varphi)$, $\theta\in(0,\pi)$</td><td>$d\theta^2 + \sin^2\theta\, d\varphi^2$</td></tr>
+<tr><td>hyperbolic half-plane $\mathbb{H}^2$</td><td>$(x,y)$, $y>0$</td><td>$(dx^2 + dy^2)/y^2$</td></tr>
+<tr><td>flat torus $T^2$</td><td>$(u,v)\in\mathbb{R}^2/\mathbb{Z}^2$</td><td>$du^2 + dv^2$</td></tr>
+<tr><td>warped product $I\times_f F$</td><td>$(t,\cdot)$</td><td>$dt^2 + f(t)^2\, g_F$</td></tr>
+</tbody>
+</table>
+
+<p>The sphere's metric in $(\theta,\varphi)$ is $\operatorname{diag}(1,\sin^2\theta)$: it is positive-definite except at the poles, where the chart itself breaks down. The half-plane is the <em>Poincar&eacute;</em> model of hyperbolic geometry: as $y\to 0^+$ the metric blows up, so points near the real axis are infinitely far away. The flat torus is a compact example with zero curvature despite being topologically nontrivial.</p>
+
+<div class="note"><strong>Visualizing a metric.</strong> At each $p$, the unit ball $\{v\in T_p M : g_p(v,v)\le \epsilon\}$ is an ellipse (for $n=2$). When $g$ is Euclidean these are all round circles of equal size; when $g$ varies, so do the ellipses. The widget below shows the unit balls on a grid &mdash; the shape of the ellipses reads out the local geometry.</div>
+
+<div class="widget" id="w-metric">
+  <div class="hd"><div class="ttl">Metric visualizer</div><div class="hint">unit balls in $T_p M$ on a $16\times 16$ grid</div></div>
+  <div class="row">
+    <label>metric:</label>
+    <select id="met-sel">
+      <option value="euclid">Euclidean: $ds^2 = du^2 + dv^2$</option>
+      <option value="sphere">Round sphere: $d\theta^2 + \sin^2\theta\,d\varphi^2$</option>
+      <option value="hyp">Hyperbolic half-plane: $(du^2+dv^2)/v^2$</option>
+    </select>
+  </div>
+  <svg id="met-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="readout" id="met-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const svg = $('#met-svg'), sel = $('#met-sel'), out = $('#met-out');
+  const W = 620, H = 360;
+  const N = 16;
+  // render a grid of ellipses; each ellipse indicates the unit ball of g at that grid point
+  // The grid is placed in SVG pixel coordinates; each manifold has its natural parameter domain mapped to the drawing box.
+  function metricAt(kind, u, v){
+    // returns {a,b,c} for the 2x2 symmetric matrix [[a,b],[b,c]]
+    if(kind==='euclid'){
+      return {a:1, b:0, c:1};
+    } else if(kind==='sphere'){
+      // (theta, phi) in (0,pi) x (0, 2pi); domain u in (0.05, pi-.05), v free
+      const theta = u;
+      return {a:1, b:0, c: Math.sin(theta)*Math.sin(theta)};
+    } else if(kind==='hyp'){
+      // half-plane; v > 0; ds^2 = (du^2 + dv^2)/v^2
+      const y = v;
+      const s = 1/(y*y);
+      return {a:s, b:0, c:s};
+    }
+  }
+  // domain for each kind
+  function domainOf(kind){
+    if(kind==='euclid') return {u0:-1, u1:1, v0:-1, v1:1, label:'(x, y) in [-1,1]^2'};
+    if(kind==='sphere') return {u0:0.12, u1:Math.PI-0.12, v0:0, v1:2*Math.PI, label:'(θ, φ) ∈ (0,π) × (0,2π)'};
+    if(kind==='hyp')    return {u0:-1.5, u1:1.5, v0:0.15, v1:2.5, label:'(x, y), y > 0'};
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const kind = sel.value;
+    const dom = domainOf(kind);
+    // background
+    const bg = SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'});
+    svg.appendChild(bg);
+    // draw grid points as small ellipses representing the unit ball of g
+    // base step in each coordinate
+    const du = (dom.u1-dom.u0)/(N-1);
+    const dv = (dom.v1-dom.v0)/(N-1);
+    // scale: want ellipses about "step" size in pixels for the Euclidean case, then scale by 1/sqrt(eigvals) for others
+    const pxU = (W-60)/(N-1);
+    const pxV = (H-40)/(N-1);
+    // pick a base radius so the Euclidean case is a round circle of fixed size
+    const base = 0.42 * Math.min(pxU, pxV);
+
+    // compute a global normalization so the biggest ellipse fits
+    // We'll scale each ellipse's axes by (base / sqrt(eigval)) but clamp to [0.12*base, 2.2*base].
+    for(let j=0;j<N;j++){
+      for(let i=0;i<N;i++){
+        const u = dom.u0 + i*du;
+        const v = dom.v0 + j*dv;
+        const px = 30 + i*pxU;
+        const py = H - 20 - j*pxV;
+        const m = metricAt(kind, u, v);
+        // eigen-decompose [[a,b],[b,c]]
+        const tr = m.a + m.c, det = m.a*m.c - m.b*m.b;
+        const disc = Math.max(0, tr*tr/4 - det);
+        const s = Math.sqrt(disc);
+        const l1 = tr/2 + s, l2 = tr/2 - s;
+        // unit ball of g: {v: g(v,v) <= 1}.  Principal axes of ellipse have length 1/sqrt(l_i).
+        let rx = 1/Math.sqrt(Math.max(1e-4, l1));
+        let ry = 1/Math.sqrt(Math.max(1e-4, l2));
+        // angle of eigenvector for l1
+        let theta = 0;
+        if(Math.abs(m.b) > 1e-9){
+          theta = Math.atan2(l1 - m.a, m.b);
+        } else if(m.a > m.c){
+          theta = 0;
+        } else {
+          theta = Math.PI/2;
+        }
+        // scale
+        let scale = base;
+        // for hyperbolic, the raw size gets huge near y=0; clamp.
+        rx *= scale; ry *= scale;
+        const maxR = 2.6*base;
+        rx = Math.min(rx, maxR); ry = Math.min(ry, maxR);
+        rx = Math.max(rx, 0.08*base); ry = Math.max(ry, 0.08*base);
+        // draw the ellipse, rotated
+        // NOTE: we swap rx<->ry if the eigenvector we're rotating to is for rx direction
+        // Our convention: principal axis of length 1/sqrt(l1) along eigenvector for l1.
+        // rx corresponds to l1, ry to l2; rotate coordinate system by theta so the x-axis aligns with eigenvector of l1.
+        const g = SVG('g',{transform:`translate(${px} ${py}) rotate(${(theta*180/Math.PI).toFixed(2)})`});
+        const e = SVG('ellipse',{cx:0,cy:0,rx:rx.toFixed(2),ry:ry.toFixed(2),
+          fill:'rgba(88,196,221,0.10)',stroke:'var(--blue)','stroke-width':1});
+        g.appendChild(e);
+        svg.appendChild(g);
+      }
+    }
+    // annotate
+    out.textContent = `domain ${dom.label} — ellipses are the unit balls {v : g_p(v,v) ≤ 1} (rescaled for display)`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="christoffel">
+<h2>3. The Levi-Civita connection</h2>
+
+<p>To differentiate a vector field $Y$ in the direction of another vector field $X$ we need a rule for comparing tangent vectors at nearby points &mdash; a <strong>connection</strong>. Formally, a connection on $TM$ is an $\mathbb{R}$-bilinear map $\nabla : \mathfrak{X}(M)\times\mathfrak{X}(M)\to\mathfrak{X}(M)$, $(X,Y)\mapsto\nabla_X Y$, satisfying
+$$\nabla_{fX}Y = f\,\nabla_X Y,\qquad \nabla_X(fY) = X(f)\,Y + f\,\nabla_X Y,$$
+for $f\in C^\infty(M)$. The first law says $\nabla_X Y|_p$ depends only on $X_p$ (not on the values of $X$ away from $p$); the second is a Leibniz rule.</p>
+
+<p>There are infinitely many connections on a manifold. The metric $g$ picks out exactly one:</p>
+
+<div class="ok"><strong>Fundamental theorem of Riemannian geometry.</strong> On any Riemannian manifold $(M,g)$ there is a unique connection $\nabla$ satisfying
+<ol>
+  <li><em>metric compatibility:</em> $X\bigl(g(Y,Z)\bigr) = g(\nabla_X Y, Z) + g(Y, \nabla_X Z)$;</li>
+  <li><em>torsion-freeness:</em> $\nabla_X Y - \nabla_Y X = [X,Y]$.</li>
+</ol>
+This $\nabla$ is the <strong>Levi-Civita connection</strong>. It is written in coordinates via the <strong>Christoffel symbols</strong>
+$$\Gamma^k_{ij} = \tfrac12 g^{k\ell}\bigl(\partial_i g_{j\ell} + \partial_j g_{i\ell} - \partial_\ell g_{ij}\bigr),\qquad \nabla_{\partial_i}\partial_j = \Gamma^k_{ij}\,\partial_k.$$
+</div>
+
+<p><em>Existence.</em> The Koszul formula, obtained by cyclically combining the metric-compatibility identity, gives
+$$2\, g(\nabla_X Y, Z) = X g(Y,Z) + Y g(X,Z) - Z g(X,Y) + g([X,Y],Z) - g([X,Z],Y) - g([Y,Z],X).$$
+The right side depends only on $g$ and the vector fields, so $\nabla_X Y$ is well-defined and unique. Substituting $X=\partial_i$, $Y=\partial_j$, $Z=\partial_\ell$ and using $[\partial_i,\partial_j]=0$ yields the formula for the Christoffels.</p>
+
+<p>The Christoffels are <em>not</em> tensorial: under a change of coordinates a second-derivative term appears,
+$$\tilde\Gamma^c_{ab} = \frac{\partial y^c}{\partial x^k}\frac{\partial x^i}{\partial y^a}\frac{\partial x^j}{\partial y^b}\Gamma^k_{ij} + \frac{\partial y^c}{\partial x^k}\frac{\partial^2 x^k}{\partial y^a \partial y^b}.$$
+At any single point they can be killed by a clever choice of chart &mdash; the <em>normal</em> coordinates &mdash; even though the curvature they encode cannot.</p>
+
+<h3>Parallel transport</h3>
+
+<p>Given a smooth curve $\gamma:[0,1]\to M$, a vector field $V$ along $\gamma$ is <strong>parallel</strong> if its covariant derivative vanishes,
+$$\frac{DV}{dt} = \nabla_{\dot\gamma}V = 0,\qquad \dot V^k + \Gamma^k_{ij}\,\dot\gamma^i V^j = 0.$$
+This is a linear first-order ODE in the components of $V$; given $V(0)\in T_{\gamma(0)}M$, there is a unique parallel $V(t)\in T_{\gamma(t)}M$. Parallel transport $P_\gamma : T_{\gamma(0)}M \to T_{\gamma(1)}M$ is a linear isometry (by metric compatibility) &mdash; but it depends on the path $\gamma$. The failure to be path-independent is the curvature.</p>
+
+<p>On a closed loop $\gamma$ at $p$, the isometry $P_\gamma : T_p M \to T_p M$ is the <strong>holonomy</strong> of $\gamma$. On the round sphere, parallel transporting a vector around a loop rotates it by an angle equal to the enclosed solid area. This is the first visible manifestation of curvature.</p>
+
+<div class="widget" id="w-ptrans">
+  <div class="hd"><div class="ttl">Parallel transport on the sphere</div><div class="hint">drag triangle vertices; watch holonomy rotation</div></div>
+  <svg id="pt-svg" viewBox="0 0 620 400" width="620" height="400"></svg>
+  <div class="row">
+    <button id="pt-play">animate transport</button>
+    <button id="pt-reset">reset vertices</button>
+    <span class="readout" id="pt-out" style="flex:1"></span>
+  </div>
+  <p class="small">On the unit sphere, the holonomy angle equals the oriented spherical area enclosed by the loop (Gauss&ndash;Bonnet for a simply connected region: $\iint K\,dA = \text{area}$ since $K=1$).</p>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 3 widget — parallel transport on sphere =============================== */
+(function(){
+  const svg = $('#pt-svg'), out = $('#pt-out'), play = $('#pt-play'), reset = $('#pt-reset');
+  const W = 620, H = 400, CX = 310, CY = 200, R = 160;
+
+  // Vertices on the sphere (as 3D unit vectors). Start: a spherical triangle.
+  // We use three points: north-ish, a point to the right on equator-ish, a point front-left.
+  const defaults = [
+    sph(0.8, 0.9),   // (theta, phi)
+    sph(1.2, 2.3),
+    sph(1.1, -0.2),
+  ];
+  let verts = defaults.map(v=>v.slice());
+  let dragging = -1;
+
+  function sph(theta, phi){
+    // theta from y-axis: 0 top, pi bottom; phi around.
+    // 3D coords with y up (but we project with z "out of the screen")
+    const x = Math.sin(theta)*Math.cos(phi);
+    const y = Math.cos(theta);
+    const z = Math.sin(theta)*Math.sin(phi);
+    return [x,y,z];
+  }
+  function proj(v){
+    // Orthographic projection onto (x,y) with slight rotation
+    // We'll rotate around y axis by angle A to add depth.
+    const A = 0.35;
+    const sA = Math.sin(A), cA = Math.cos(A);
+    const x =  cA*v[0] + sA*v[2];
+    const y =  v[1];
+    const z = -sA*v[0] + cA*v[2];
+    return [CX + R*x, CY - R*y, z];
+  }
+  function unproject(px, py){
+    // given pixel (px,py), return 3D point on the sphere with same (x,y) and z>=0 (front-face).
+    const x = (px-CX)/R;
+    const y = (CY-py)/R;
+    const rr = x*x + y*y;
+    if(rr>1) return null;
+    const zView = Math.sqrt(1-rr);
+    // undo the rotation (we rotated by A about y; here invert)
+    const A = -0.35;
+    const sA = Math.sin(A), cA = Math.cos(A);
+    const xv =  cA*x + sA*zView;
+    const yv =  y;
+    const zv = -sA*x + cA*zView;
+    return [xv,yv,zv];
+  }
+
+  // normalize a 3-vector
+  function nrm(v){ const L = Math.hypot(v[0],v[1],v[2])||1; return [v[0]/L, v[1]/L, v[2]/L]; }
+  function dot(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+  function cross(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+  function scale(a,s){ return [a[0]*s, a[1]*s, a[2]*s]; }
+  function add(a,b){ return [a[0]+b[0],a[1]+b[1],a[2]+b[2]]; }
+  function sub(a,b){ return [a[0]-b[0],a[1]-b[1],a[2]-b[2]]; }
+
+  // great-circle arc between two unit vectors a,b, parameter t∈[0,1]
+  function slerp(a,b,t){
+    const c = Math.max(-1, Math.min(1, dot(a,b)));
+    const omg = Math.acos(c);
+    if(omg < 1e-6) return a.slice();
+    const s = Math.sin(omg);
+    return add(scale(a, Math.sin((1-t)*omg)/s), scale(b, Math.sin(t*omg)/s));
+  }
+
+  // Tangent vector transported along a great-circle arc from a to b, starting with tangent v at a (with v⊥a).
+  // Parallel transport on the sphere along a great circle simply rotates the tangent plane; components along the arc direction are preserved.
+  // Equivalently, at point p(t)=slerp(a,b,t), the tangent direction "along the arc" is dp/dt normalized; the "orthogonal" component (p × dp/dt) direction is also preserved.
+  // So if at a we decompose v = alpha * e_along + beta * e_perp, then at p(t) the transported v is alpha * e_along(t) + beta * e_perp(t).
+  function transportArc(a,b, v0){
+    // basis at a
+    const tAng = nrm(sub(b, scale(a, dot(a,b))));
+    const nAng = cross(a, tAng);
+    const alpha = dot(v0, tAng), beta = dot(v0, nAng);
+    return {alpha, beta, arcStart:a, arcEnd:b,
+      sample: function(t){
+        const p = nrm(slerp(a,b,t));
+        const tdir = nrm(sub(b, scale(p, dot(p,b))));
+        const ndir = cross(p, tdir);
+        return { p, v: add(scale(tdir, alpha), scale(ndir, beta)) };
+      },
+      final: function(){
+        const p = b;
+        const tdir = nrm(sub(a, scale(p, dot(p,a))));
+        // tangent "coming in" at b: direction from predecessor; but consistent with dp/dt at t=1 means point in the same sense as d/dt slerp
+        const tInc = nrm(sub(b, scale(a, dot(a,b))));
+        // easier: take limit by finite difference
+        const pp = nrm(slerp(a,b,0.999));
+        const tEnd = nrm(sub(p, pp));
+        const nEnd = cross(p, tEnd);
+        return add(scale(tEnd, alpha), scale(nEnd, beta));
+      }
+    };
+  }
+
+  // spherical area of a triangle with vertices A,B,C (unit vectors); by L'Huilier / excess formula.
+  function sphArea(A,B,C){
+    // sum of interior angles - pi
+    function ang(P, Q, R){
+      // angle at P between arcs PQ and PR
+      const u = nrm(sub(Q, scale(P, dot(P,Q))));
+      const w = nrm(sub(R, scale(P, dot(P,R))));
+      const c = Math.max(-1, Math.min(1, dot(u,w)));
+      return Math.acos(c);
+    }
+    return ang(A,B,C) + ang(B,A,C) + ang(C,A,B) - Math.PI;
+  }
+
+  // total holonomy: transport a tangent vector around the 3-arc triangle A->B->C->A.
+  // Returns the final vector at A and the rotation angle vs the initial.
+  function holonomy(v0){
+    const A=verts[0], B=verts[1], C=verts[2];
+    // pick initial v0 in T_A S^2
+    let v = v0.slice();
+    let ab = transportArc(A,B,v); v = ab.final();
+    let bc = transportArc(B,C,v); v = bc.final();
+    let ca = transportArc(C,A,v); v = ca.final();
+    // angle between v and v0 in tangent plane at A
+    // project v into T_A
+    const vT = sub(v, scale(A, dot(A,v)));
+    const v0T = sub(v0, scale(A, dot(A,v0)));
+    const n = A;
+    const ux = nrm(v0T), uy = nrm(cross(n, ux));
+    const x = dot(vT, ux), y = dot(vT, uy);
+    const angle = Math.atan2(y, x);
+    return {final:v, angle};
+  }
+
+  // tangent reference at each vertex for visualization: e.g., (d phi) direction.
+  function refTangent(A){
+    // perpendicular to A, in the horizontal (x,z) plane if possible
+    let cand = [A[2], 0, -A[0]];
+    const L = Math.hypot(cand[0], cand[2]);
+    if(L < 1e-3) cand = [0,0,1];
+    return nrm(cand);
+  }
+
+  let animT = 0, animRAF=0;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // sphere disk
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('circle',{cx:CX,cy:CY,r:R,fill:'rgba(88,196,221,0.06)',stroke:'var(--line)','stroke-width':1}));
+    // latitude lines for decoration
+    for(let k=1;k<6;k++){
+      const lat = -1 + k*2/6;
+      const rr = Math.sqrt(1-lat*lat);
+      svg.appendChild(SVG('ellipse',{cx:CX,cy:CY - lat*R, rx:rr*R*0.96, ry:rr*R*0.18,
+        fill:'none', stroke:'var(--line)', 'stroke-width':0.7}));
+    }
+    // triangle arcs
+    const A=verts[0], B=verts[1], C=verts[2];
+    const colors = ['var(--blue)','var(--blue)','var(--blue)'];
+    const arcs = [[A,B],[B,C],[C,A]];
+    for(let k=0;k<3;k++){
+      const pathD = [];
+      const [p,q] = arcs[k];
+      const STEPS = 48;
+      for(let i=0;i<=STEPS;i++){
+        const t = i/STEPS;
+        const s = nrm(slerp(p,q,t));
+        const pr = proj(s);
+        pathD.push((i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1));
+      }
+      svg.appendChild(SVG('path',{d:pathD.join(' '),fill:'none',stroke:colors[k],'stroke-width':2}));
+    }
+    // vertices
+    const names = ['A','B','C'];
+    for(let k=0;k<3;k++){
+      const pr = proj(verts[k]);
+      svg.appendChild(SVG('circle',{cx:pr[0], cy:pr[1], r:7, fill:'var(--yellow)', stroke:'#111', 'stroke-width':1.5,
+        style:'cursor:grab'}));
+      const t = SVG('text',{x:pr[0]+12, y:pr[1]-8, 'font-size':12, fill:'var(--yellow)'});
+      t.textContent = names[k];
+      svg.appendChild(t);
+    }
+    // reference tangent at A (starting vector)
+    const v0 = refTangent(A);
+    // compute the traveling vector across the three arcs at animT
+    const segs = [[A,B],[B,C],[C,A]];
+    let vCur = v0.slice();
+    let arcIdx = 0;
+    let tInArc = 0;
+    if(animT > 0){
+      const totalT = animT;
+      const sPerArc = 1/3;
+      arcIdx = Math.min(2, Math.floor(totalT / sPerArc));
+      tInArc = (totalT - arcIdx*sPerArc)/sPerArc;
+      for(let k=0;k<arcIdx;k++){
+        vCur = transportArc(segs[k][0], segs[k][1], vCur).final();
+      }
+    }
+    // draw the vector at current position
+    const segNow = segs[arcIdx];
+    const tAt = transportArc(segNow[0], segNow[1], vCur);
+    const smp = tAt.sample(tInArc);
+    const pNow = smp.p, vNow = smp.v;
+    // draw arrow in 3D: from pNow to pNow + 0.22*vNow
+    const pEnd = nrm(add(pNow, scale(vNow, 0.28)));
+    const a = proj(pNow), b = proj(pEnd);
+    ensureArrow(svg, 'pt-v', 'var(--green)');
+    svg.appendChild(SVG('path',{d:`M${a[0]} ${a[1]} L ${b[0]} ${b[1]}`, stroke:'var(--green)','stroke-width':2.4,
+      'marker-end':'url(#pt-v)', fill:'none'}));
+    // starting reference vector (dashed, at A)
+    const pS = proj(A);
+    const ref = nrm(add(A, scale(v0, 0.28)));
+    const pRef = proj(ref);
+    svg.appendChild(SVG('path',{d:`M${pS[0]} ${pS[1]} L ${pRef[0]} ${pRef[1]}`, stroke:'var(--violet)','stroke-width':1.8,
+      'stroke-dasharray':'3,3', fill:'none'}));
+
+    // readout
+    const area = sphArea(A,B,C);
+    const hol = holonomy(v0);
+    out.textContent =
+      `holonomy rotation: ${(hol.angle*180/Math.PI).toFixed(1)}° (as predicted by area = ${(area*180/Math.PI).toFixed(1)}°)  · on S² with K=1, holonomy = area`;
+  }
+
+  function animate(){
+    animT = 0;
+    cancelAnimationFrame(animRAF);
+    const t0 = performance.now();
+    function step(ts){
+      animT = Math.min(1, (ts - t0)/3000);
+      render();
+      if(animT < 1) animRAF = requestAnimationFrame(step);
+    }
+    animRAF = requestAnimationFrame(step);
+  }
+
+  play.addEventListener('click', animate);
+  reset.addEventListener('click', ()=>{
+    verts = defaults.map(v=>v.slice());
+    animT = 0;
+    render();
+  });
+
+  // simple drag
+  svg.addEventListener('mousedown', ev=>{
+    const rect = svg.getBoundingClientRect();
+    const px = (ev.clientX - rect.left) * (W/rect.width);
+    const py = (ev.clientY - rect.top) * (H/rect.height);
+    for(let k=0;k<3;k++){
+      const pr = proj(verts[k]);
+      if(Math.hypot(pr[0]-px, pr[1]-py) < 14){
+        dragging = k;
+        return;
+      }
+    }
+  });
+  svg.addEventListener('mousemove', ev=>{
+    if(dragging<0) return;
+    const rect = svg.getBoundingClientRect();
+    const px = (ev.clientX - rect.left) * (W/rect.width);
+    const py = (ev.clientY - rect.top) * (H/rect.height);
+    const p = unproject(px, py);
+    if(p){
+      verts[dragging] = nrm(p);
+      animT = 0;
+      render();
+    }
+  });
+  svg.addEventListener('mouseup', ()=>{ dragging=-1; });
+  svg.addEventListener('mouseleave', ()=>{ dragging=-1; });
+
+  render();
+})();
+</script>
+
+<section id="geodesics">
+<h2>4. Geodesics</h2>
+
+<p>Among all curves between two points, a <strong>geodesic</strong> is one that is "auto-parallel": its velocity is parallel-transported along itself,
+$$\nabla_{\dot\gamma}\dot\gamma = 0.$$
+In coordinates this is the system of second-order ODEs
+$$\ddot\gamma^k + \Gamma^k_{ij}\,\dot\gamma^i\dot\gamma^j = 0.$$
+Standard ODE theory gives, for every initial condition $(p,v)\in TM$, a unique geodesic $\gamma_v(t)$ with $\gamma_v(0)=p$, $\dot\gamma_v(0)=v$, defined on a maximal interval about $0$.</p>
+
+<p>Geodesics are also the critical points of the length functional (or, equivalently and more conveniently, the energy functional) &mdash; so length-minimizing curves, when they exist, are geodesics. The converse fails globally: a great circle on $S^2$ is a geodesic, but only the shorter arc is length-minimizing.</p>
+
+<div class="note"><strong>The exponential map.</strong> For $p\in M$ and small $v\in T_p M$ define
+$$\exp_p(v) = \gamma_v(1).$$
+This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neighbourhood of $p$ in $M$. Its inverse gives <em>normal coordinates</em> &mdash; coordinates in which, at $p$, the metric is Euclidean to first order and the Christoffels vanish, even though they do not vanish nearby.</div>
+
+<h3>Geodesics in the three examples</h3>
+
+<ul>
+  <li><strong>Sphere $S^2$.</strong> Geodesics are great circles. Any geodesic starting at $p$ with unit speed returns to $p$ at time $2\pi$.</li>
+  <li><strong>Hyperbolic half-plane $\mathbb{H}^2$.</strong> Geodesics are either vertical lines $\{x=c\}$ or semicircles with both endpoints on the boundary axis $\{y=0\}$. They are infinite in both directions.</li>
+  <li><strong>Flat torus $T^2$.</strong> Geodesics are images of straight lines in $\mathbb{R}^2$ under the covering map. A line of rational slope closes up into a finite loop; a line of irrational slope is dense.</li>
+</ul>
+
+<div class="widget" id="w-geo">
+  <div class="hd"><div class="ttl">Geodesic shooter</div><div class="hint">click a start point; drag to set initial velocity</div></div>
+  <div class="tabrow" id="geo-tabs">
+    <button class="active" data-tab="sphere">Sphere</button>
+    <button data-tab="hyp">Hyperbolic half-plane</button>
+    <button data-tab="torus">Flat torus</button>
+  </div>
+  <svg id="geo-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <div class="row">
+    <label>speed T:</label>
+    <input type="range" id="geo-T" min="0.5" max="8" step="0.1" value="3"/>
+    <span id="geo-Tv" class="small"></span>
+    <button id="geo-clear">clear</button>
+  </div>
+  <div class="readout" id="geo-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 4 widget — geodesic shooter =============================== */
+(function(){
+  const svg = $('#geo-svg'), out = $('#geo-out'), TS = $('#geo-T'), TV = $('#geo-Tv'), CLR = $('#geo-clear');
+  const tabs = $$('#geo-tabs button');
+  const W=620, H=380;
+  let tab = 'sphere';
+  let geodesics = []; // {tab, data}
+  let drag = null; // {x0,y0,x1,y1}  pixel coords
+
+  function setTab(name){
+    tab = name;
+    tabs.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+    geodesics = [];
+    render();
+  }
+  tabs.forEach(b => b.addEventListener('click', ()=>setTab(b.dataset.tab)));
+  TS.addEventListener('input', ()=>{ TV.textContent = 'T = '+(+TS.value).toFixed(1); render(); });
+  TV.textContent = 'T = '+(+TS.value).toFixed(1);
+  CLR.addEventListener('click', ()=>{ geodesics=[]; render(); });
+
+  // ---------- SPHERE projection (orthographic front-face) ----------
+  const S_CX=310, S_CY=190, S_R=155;
+  function sphToPixel(v){ // v: 3D unit vector
+    // rotation about y by 0.3
+    const A = 0.3; const sA=Math.sin(A), cA=Math.cos(A);
+    const x = cA*v[0] + sA*v[2];
+    const y = v[1];
+    const z = -sA*v[0] + cA*v[2];
+    return [S_CX + S_R*x, S_CY - S_R*y, z];
+  }
+  function pixelToSph(px,py){
+    const x = (px - S_CX)/S_R, y = (S_CY - py)/S_R;
+    const rr = x*x + y*y; if(rr>1) return null;
+    const z0 = Math.sqrt(1-rr);
+    const A = -0.3; const sA=Math.sin(A), cA=Math.cos(A);
+    return [cA*x + sA*z0, y, -sA*x + cA*z0];
+  }
+  // tangent at p given screen direction (dx, dy)
+  function tangentFromScreen(p, dx, dy){
+    // We want a tangent v to p such that when projected it points in direction (dx, dy).
+    // Rotation used: cols of rotation
+    // projected point = ( (cA*p[0]+sA*p[2])*S_R + S_CX,  S_CY - p[1]*S_R )
+    // Varying p slightly by v, the projected differential is ( (cA*v[0]+sA*v[2])*S_R,  -v[1]*S_R )
+    const A = 0.3; const sA=Math.sin(A), cA=Math.cos(A);
+    // want (cA*vx + sA*vz, -vy) proportional to (dx, dy) (after dividing by S_R)
+    // one solution: vx = dx*cA/(cA^2+sA^2) ... but we need vy=-dy and (cA*vx + sA*vz) = dx; v dot p = 0.
+    // Pick vy = -dy (so that projected y matches).
+    const vy = -dy/S_R;
+    // Let vx = dx*cA/S_R; then sA*vz = dx/S_R - cA*vx = dx/S_R*(1-cA^2) = dx/S_R * sA^2 => vz = dx*sA/S_R
+    const vx = dx*cA/S_R;
+    const vz = dx*sA/S_R;
+    // project out radial component
+    let v = [vx, vy, vz];
+    const d = v[0]*p[0]+v[1]*p[1]+v[2]*p[2];
+    v = [v[0]-d*p[0], v[1]-d*p[1], v[2]-d*p[2]];
+    return v;
+  }
+
+  // ---------- HYPERBOLIC half-plane ----------
+  const H_X0=40, H_X1=W-40, H_Y0=30, H_Y1=H-30;
+  // parameter range: x in [-2, 2], y in (0, 3]
+  const HX0=-2, HX1=2, HY0=0.06, HY1=3;
+  function hypToPixel(x,y){
+    const px = H_X0 + (x-HX0)/(HX1-HX0)*(H_X1-H_X0);
+    const py = H_Y1 - (y-HY0)/(HY1-HY0)*(H_Y1-H_Y0);
+    return [px, py];
+  }
+  function pixelToHyp(px,py){
+    const x = HX0 + (px-H_X0)/(H_X1-H_X0)*(HX1-HX0);
+    const y = HY0 + (H_Y1-py)/(H_Y1-H_Y0)*(HY1-HY0);
+    return [x,y];
+  }
+
+  // ---------- FLAT TORUS: [0,1]^2 square ----------
+  const T_MARGIN=40, T_SIZE = Math.min(W,H) - 2*T_MARGIN;
+  const T_X0 = (W - T_SIZE)/2, T_Y0 = (H - T_SIZE)/2;
+  function torusToPixel(u,v){
+    return [T_X0 + u*T_SIZE, T_Y0 + (1-v)*T_SIZE];
+  }
+  function pixelToTorus(px,py){
+    return [(px-T_X0)/T_SIZE, 1 - (py-T_Y0)/T_SIZE];
+  }
+
+  // ---------- RENDER ----------
+  function clearSvg(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+  }
+
+  function drawSphereBg(){
+    svg.appendChild(SVG('circle',{cx:S_CX, cy:S_CY, r:S_R, fill:'rgba(88,196,221,0.06)', stroke:'var(--line)'}));
+    // latitudes
+    for(let k=1;k<6;k++){
+      const lat = -1 + k*2/6; const rr = Math.sqrt(1-lat*lat);
+      svg.appendChild(SVG('ellipse',{cx:S_CX, cy:S_CY-lat*S_R, rx:rr*S_R*0.96, ry:rr*S_R*0.18,
+        fill:'none', stroke:'var(--line)', 'stroke-width':0.6}));
+    }
+  }
+
+  function drawHypBg(){
+    // background rectangle already there
+    // axes (the boundary y=0)
+    const [x0,y0] = hypToPixel(HX0, HY0);
+    const [x1,y1] = hypToPixel(HX1, HY0);
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1, stroke:'var(--pink)', 'stroke-width':2}));
+    // gridlines
+    for(let x=HX0;x<=HX1+1e-6;x+=0.5){
+      const [a,b] = hypToPixel(x, HY0);
+      const [c,d] = hypToPixel(x, HY1);
+      svg.appendChild(SVG('line',{x1:a,y1:b,x2:c,y2:d, stroke:'var(--line)', 'stroke-width':0.5}));
+    }
+    for(let y=0.5;y<=HY1+1e-6;y+=0.5){
+      const [a,b] = hypToPixel(HX0, y);
+      const [c,d] = hypToPixel(HX1, y);
+      svg.appendChild(SVG('line',{x1:a,y1:b,x2:c,y2:d, stroke:'var(--line)', 'stroke-width':0.5}));
+    }
+    const t = SVG('text',{x: (x0+x1)/2, y:y0+18, 'text-anchor':'middle', 'font-size':12, fill:'var(--pink)'});
+    t.textContent = 'boundary y = 0 (at infinity)';
+    svg.appendChild(t);
+  }
+
+  function drawTorusBg(){
+    svg.appendChild(SVG('rect',{x:T_X0, y:T_Y0, width:T_SIZE, height:T_SIZE, fill:'rgba(88,196,221,0.04)',
+      stroke:'var(--line)', 'stroke-width':1}));
+    // identified-sides marks
+    const pairs = [
+      [[T_X0, T_Y0], [T_X0+T_SIZE, T_Y0], 'var(--yellow)'],
+      [[T_X0, T_Y0+T_SIZE], [T_X0+T_SIZE, T_Y0+T_SIZE], 'var(--yellow)'],
+      [[T_X0, T_Y0], [T_X0, T_Y0+T_SIZE], 'var(--pink)'],
+      [[T_X0+T_SIZE, T_Y0], [T_X0+T_SIZE, T_Y0+T_SIZE], 'var(--pink)'],
+    ];
+    for(const [p,q,c] of pairs){
+      svg.appendChild(SVG('line',{x1:p[0], y1:p[1], x2:q[0], y2:q[1], stroke:c, 'stroke-width':3}));
+    }
+  }
+
+  // Geodesic samplers
+  function sphereGeodesic(p0, v0, T, steps=200){
+    // great circle: gamma(t) = cos(|v|t) p + sin(|v|t)/|v| v  (v tangent to p)
+    const vn = Math.hypot(v0[0],v0[1],v0[2]);
+    if(vn < 1e-6) return [p0];
+    const out = [];
+    for(let i=0;i<=steps;i++){
+      const t = T*i/steps;
+      const c = Math.cos(vn*t), s = Math.sin(vn*t)/vn;
+      const p = [c*p0[0]+s*v0[0], c*p0[1]+s*v0[1], c*p0[2]+s*v0[2]];
+      out.push(p);
+    }
+    return out;
+  }
+  function hypGeodesic(p0, v0, T, steps=400){
+    // (x,y); ds^2 = (dx^2+dy^2)/y^2.
+    // Geodesics: vertical lines or circles with center on x-axis.
+    // We integrate the geodesic ODE with unit-speed scaling; use RK4.
+    // Christoffels: Γ^x_{xy} = Γ^x_{yx} = -1/y; Γ^y_{xx} = 1/y; Γ^y_{yy} = -1/y.
+    let x=p0[0], y=p0[1], vx=v0[0], vy=v0[1];
+    const out = [[x,y]];
+    const dt = T/steps;
+    function rhs(x,y,vx,vy){
+      return {
+        x: vx, y: vy,
+        vx: -(-2/y)*vx*vy,     // -Γ^x_{ij} v^i v^j; with Γ^x_{xy}=Γ^x_{yx}=-1/y we get  -2*(-1/y)*vx*vy = +2 vx vy / y
+        vy: -(1/y)*vx*vx - (-1/y)*vy*vy  // -(Γ^y_{xx} vx^2 + Γ^y_{yy} vy^2) = -(vx^2/y) + vy^2/y = (vy^2 - vx^2)/y
+      };
+    }
+    for(let i=0;i<steps;i++){
+      // RK4
+      const k1 = rhs(x,y,vx,vy);
+      const k2 = rhs(x+0.5*dt*k1.x, y+0.5*dt*k1.y, vx+0.5*dt*k1.vx, vy+0.5*dt*k1.vy);
+      const k3 = rhs(x+0.5*dt*k2.x, y+0.5*dt*k2.y, vx+0.5*dt*k2.vx, vy+0.5*dt*k2.vy);
+      const k4 = rhs(x+dt*k3.x,     y+dt*k3.y,     vx+dt*k3.vx,     vy+dt*k3.vy);
+      x  += dt*(k1.x + 2*k2.x + 2*k3.x + k4.x)/6;
+      y  += dt*(k1.y + 2*k2.y + 2*k3.y + k4.y)/6;
+      vx += dt*(k1.vx + 2*k2.vx + 2*k3.vx + k4.vx)/6;
+      vy += dt*(k1.vy + 2*k2.vy + 2*k3.vy + k4.vy)/6;
+      if(y <= 0.01){ out.push([x,Math.max(y,0.01)]); break; }
+      out.push([x,y]);
+    }
+    return out;
+  }
+  function torusGeodesic(p0, v0, T, steps=400){
+    // flat metric; geodesic is a straight line, but wrap mod 1.
+    // We emit segments; each segment is a polyline until we cross a boundary, then modwrap.
+    const out = [];
+    let seg = [[p0[0], p0[1]]];
+    let x = p0[0], y = p0[1];
+    const dx = v0[0], dy = v0[1];
+    const dt = T/steps;
+    for(let i=1;i<=steps;i++){
+      let nx = x + dt*dx, ny = y + dt*dy;
+      // detect boundary crossings: simple check; break segment at crossing
+      if(nx > 1 || nx < 0 || ny > 1 || ny < 0){
+        // find t_cross within this step
+        let tc = 1;
+        if(dx>0 && nx>1) tc = Math.min(tc, (1-x)/(nx-x));
+        if(dx<0 && nx<0) tc = Math.min(tc, (0-x)/(nx-x));
+        if(dy>0 && ny>1) tc = Math.min(tc, (1-y)/(ny-y));
+        if(dy<0 && ny<0) tc = Math.min(tc, (0-y)/(ny-y));
+        const xc = x + tc*(nx-x), yc = y + tc*(ny-y);
+        seg.push([xc,yc]);
+        out.push(seg);
+        // wrap
+        let xw = xc, yw = yc;
+        if(xc >= 1-1e-6) xw = 0; else if(xc <= 1e-6) xw = 1;
+        if(yc >= 1-1e-6) yw = 0; else if(yc <= 1e-6) yw = 1;
+        // remaining fraction
+        const remX = xw + (1-tc)*(nx-x);
+        const remY = yw + (1-tc)*(ny-y);
+        x = remX; y = remY;
+        seg = [[xw, yw], [x, y]];
+      } else {
+        x = nx; y = ny;
+        seg.push([x,y]);
+      }
+    }
+    out.push(seg);
+    return out; // list of polyline segments (parameter space)
+  }
+
+  function render(){
+    clearSvg();
+    const T = +TS.value;
+    if(tab==='sphere'){
+      drawSphereBg();
+      for(const g of geodesics){
+        if(g.tab!=='sphere') continue;
+        const pts = sphereGeodesic(g.p, g.v, T);
+        const d = [];
+        for(let i=0;i<pts.length;i++){
+          const pr = sphToPixel(pts[i]);
+          if(i===0 || pr[2] * sphToPixel(pts[i-1])[2] > 0){
+            d.push((i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1));
+          } else {
+            // visibility change: start a new subpath
+            d.push('M'+pr[0].toFixed(1)+' '+pr[1].toFixed(1));
+          }
+        }
+        svg.appendChild(SVG('path',{d:d.join(' '), fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+        const pStart = sphToPixel(g.p);
+        svg.appendChild(SVG('circle',{cx:pStart[0], cy:pStart[1], r:4, fill:'var(--green)'}));
+      }
+      out.textContent = `Sphere: geodesics are great circles; period 2π (for unit speed).`;
+    }
+    else if(tab==='hyp'){
+      drawHypBg();
+      for(const g of geodesics){
+        if(g.tab!=='hyp') continue;
+        const pts = hypGeodesic(g.p, g.v, T);
+        const d = pts.map((p,i)=>{
+          const pr = hypToPixel(p[0], p[1]);
+          return (i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1);
+        }).join(' ');
+        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+        const pStart = hypToPixel(g.p[0], g.p[1]);
+        svg.appendChild(SVG('circle',{cx:pStart[0], cy:pStart[1], r:4, fill:'var(--green)'}));
+      }
+      out.textContent = `Hyperbolic: vertical rays and half-circles with center on y=0 (all orthogonal to the boundary).`;
+    }
+    else if(tab==='torus'){
+      drawTorusBg();
+      for(const g of geodesics){
+        if(g.tab!=='torus') continue;
+        const segs = torusGeodesic(g.p, g.v, T);
+        for(const seg of segs){
+          const d = seg.map((p,i)=>{
+            const pr = torusToPixel(p[0], p[1]);
+            return (i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1);
+          }).join(' ');
+          svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+        }
+        const pStart = torusToPixel(g.p[0], g.p[1]);
+        svg.appendChild(SVG('circle',{cx:pStart[0], cy:pStart[1], r:4, fill:'var(--green)'}));
+      }
+      out.textContent = `Torus: straight lines; rational slope = closed loop, irrational = dense.`;
+    }
+    // drag-preview arrow
+    if(drag){
+      ensureArrow(svg, 'geo-drag', 'var(--cyan)');
+      svg.appendChild(SVG('path',{d:`M${drag.x0} ${drag.y0} L ${drag.x1} ${drag.y1}`,
+        stroke:'var(--cyan)', 'stroke-width':2, 'marker-end':'url(#geo-drag)', fill:'none'}));
+    }
+  }
+
+  // mouse handlers
+  function pix(ev){
+    const r = svg.getBoundingClientRect();
+    return [(ev.clientX-r.left)*(W/r.width), (ev.clientY-r.top)*(H/r.height)];
+  }
+  svg.addEventListener('mousedown', ev=>{
+    const [x,y] = pix(ev);
+    drag = {x0:x, y0:y, x1:x, y1:y};
+    render();
+  });
+  svg.addEventListener('mousemove', ev=>{
+    if(!drag) return;
+    const [x,y] = pix(ev);
+    drag.x1 = x; drag.y1 = y;
+    render();
+  });
+  svg.addEventListener('mouseup', ev=>{
+    if(!drag) return;
+    const {x0,y0,x1,y1} = drag;
+    const dx = x1-x0, dy = y1-y0;
+    if(Math.hypot(dx,dy) < 5){ drag=null; render(); return; }
+    if(tab==='sphere'){
+      const p = pixelToSph(x0,y0);
+      if(p){
+        const v = tangentFromScreen(p, dx, dy);
+        geodesics.push({tab:'sphere', p, v});
+      }
+    }
+    else if(tab==='hyp'){
+      const p = pixelToHyp(x0,y0);
+      if(p[1] > 0.05){
+        // convert screen velocity to parameter velocity
+        const vx = dx / (H_X1-H_X0) * (HX1-HX0);
+        const vy = -dy / (H_Y1-H_Y0) * (HY1-HY0);
+        geodesics.push({tab:'hyp', p, v:[vx, vy]});
+      }
+    }
+    else if(tab==='torus'){
+      const p = pixelToTorus(x0,y0);
+      if(p[0]>=0 && p[0]<=1 && p[1]>=0 && p[1]<=1){
+        const vu = dx/T_SIZE;
+        const vv = -dy/T_SIZE;
+        geodesics.push({tab:'torus', p, v:[vu, vv]});
+      }
+    }
+    drag = null;
+    render();
+  });
+  svg.addEventListener('mouseleave', ()=>{ drag=null; render(); });
+
+  render();
+})();
+</script>
+
+<section id="curvature">
+<h2>5. The Riemann curvature tensor</h2>
+
+<p>On Euclidean space, mixed partial derivatives commute: $\partial_i\partial_j = \partial_j\partial_i$. On a curved manifold, the covariant derivatives $\nabla_X\nabla_Y$ do <em>not</em> commute. Their failure is measured by the Riemann curvature tensor.</p>
+
+<div class="ok"><strong>Riemann curvature tensor.</strong> For vector fields $X,Y,Z$,
+$$R(X,Y)Z = \nabla_X \nabla_Y Z - \nabla_Y \nabla_X Z - \nabla_{[X,Y]}Z.$$
+One checks (in spite of appearances) that $R(X,Y)Z_p$ is <em>tensorial</em> &mdash; depending only on the values of $X,Y,Z$ at $p$.</div>
+
+<p>In coordinates
+$$R^\ell_{ijk} = \partial_i \Gamma^\ell_{jk} - \partial_j \Gamma^\ell_{ik} + \Gamma^\ell_{im}\Gamma^m_{jk} - \Gamma^\ell_{jm}\Gamma^m_{ik},$$
+and with the metric we lower an index to get a $(0,4)$-tensor
+$$R_{ijk\ell} = g_{\ell m} R^m_{ijk}.$$
+This $(0,4)$-tensor enjoys the symmetries
+$$R_{ijk\ell} = -R_{jik\ell} = -R_{ij\ell k}, \qquad R_{ijk\ell} = R_{k\ell ij}, \qquad R_{ijk\ell}+R_{ikj\ell}+R_{ij\ell k}\text{ (first Bianchi)}.$$
+
+<h3>Sectional curvature</h3>
+
+<p>The curvature tensor is an object of bewildering size &mdash; a $(1,3)$-tensor with up to $n^2(n^2-1)/12$ independent components at each point. A single number captures the "amount" of curvature along a $2$-plane $\Pi\subset T_pM$:</p>
+
+<div class="note"><strong>Sectional curvature.</strong> Given a plane $\Pi\subset T_pM$ with basis $\{u,v\}$,
+$$K(\Pi) = \frac{g(R(u,v)v, u)}{g(u,u)\,g(v,v) - g(u,v)^2}.$$
+This depends only on $\Pi$, not the chosen basis. In dimension $2$, $K$ equals the Gauss curvature.</div>
+
+<p>The Riemann tensor is determined, as a function on $2$-planes, by its sectional curvatures: if $K$ is known at every plane in $T_pM$, then $R$ is determined at $p$.</p>
+
+<h3>Ricci and scalar curvature</h3>
+
+<p>Two useful contractions are:</p>
+<ul>
+  <li><strong>Ricci tensor:</strong> $\operatorname{Ric}_{ij} = R^k_{kij} = g^{k\ell} R_{k i \ell j}$. Equivalently, $\operatorname{Ric}(v,v) = (n-1)\cdot(\text{average of $K$ over planes containing }v)$.</li>
+  <li><strong>Scalar curvature:</strong> $S = g^{ij}\operatorname{Ric}_{ij}$. For $n\ge 2$, $S(p) = n(n-1)\cdot(\text{average of $K$ over all planes at }p)$.</li>
+</ul>
+
+<p>The Ricci tensor controls the infinitesimal rate at which small geodesic balls <em>shrink</em> relative to Euclidean: in normal coordinates, $\sqrt{\det g}(x) = 1 - \frac{1}{6}\operatorname{Ric}_{ij}x^i x^j + O(|x|^3)$. Einstein's equations of general relativity are a condition on the Ricci tensor of a Lorentzian manifold.</p>
+
+<div class="widget" id="w-sec">
+  <div class="hd"><div class="ttl">Sectional curvature calculator</div><div class="hint">constant-curvature model spaces</div></div>
+  <div class="row">
+    <label>space:</label>
+    <select id="sec-sp">
+      <option value="sphere">Round sphere S²  (K ≡ +1)</option>
+      <option value="euclid">Euclidean plane R²  (K ≡ 0)</option>
+      <option value="hyp">Hyperbolic plane H²  (K ≡ -1)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>u angle:</label>
+    <input type="range" id="sec-ua" min="0" max="360" step="1" value="0"/>
+    <label>v angle:</label>
+    <input type="range" id="sec-va" min="0" max="360" step="1" value="90"/>
+  </div>
+  <svg id="sec-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="readout" id="sec-out"></div>
+  <p class="small">For a $2$-manifold there is only one plane at each point: the sectional curvature <em>is</em> $K$. For constant-curvature spaces, $R(u,v)w = K\bigl(g(v,w)u - g(u,w)v\bigr)$, so $K(\Pi) = K$ for every plane.</p>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 5 widget — sectional curvature =============================== */
+(function(){
+  const svg=$('#sec-svg'), out=$('#sec-out'), sp=$('#sec-sp'), ua=$('#sec-ua'), va=$('#sec-va');
+  const W=620, H=220;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    const uA = (+ua.value)*Math.PI/180, vA = (+va.value)*Math.PI/180;
+    const CX=180, CY=110, RR=72;
+    // tangent plane illustration
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:RR, fill:'rgba(88,196,221,0.06)', stroke:'var(--line)'}));
+    // u and v as arrows
+    const u = [Math.cos(uA)*RR, -Math.sin(uA)*RR];
+    const v = [Math.cos(vA)*RR, -Math.sin(vA)*RR];
+    ensureArrow(svg,'sec-u','var(--yellow)');
+    ensureArrow(svg,'sec-v','var(--cyan)');
+    svg.appendChild(SVG('path',{d:`M${CX} ${CY} L ${CX+u[0]} ${CY+u[1]}`,
+      stroke:'var(--yellow)','stroke-width':2.2, 'marker-end':'url(#sec-u)', fill:'none'}));
+    svg.appendChild(SVG('path',{d:`M${CX} ${CY} L ${CX+v[0]} ${CY+v[1]}`,
+      stroke:'var(--cyan)','stroke-width':2.2, 'marker-end':'url(#sec-v)', fill:'none'}));
+    svg.appendChild(SVG('text',{x:CX+u[0]*1.15, y:CY+u[1]*1.15+5, 'font-size':14, fill:'var(--yellow)',
+      'text-anchor':'middle', 'font-style':'italic'})).textContent='u';
+    svg.appendChild(SVG('text',{x:CX+v[0]*1.15, y:CY+v[1]*1.15+5, 'font-size':14, fill:'var(--cyan)',
+      'text-anchor':'middle', 'font-style':'italic'})).textContent='v';
+    // plane label
+    const tP = SVG('text',{x:CX, y:CY+RR+22, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    tP.textContent = 'tangent plane T_p M with vectors u, v';
+    svg.appendChild(tP);
+
+    // Right panel: formula + result
+    const K = sp.value==='sphere' ? 1 : (sp.value==='hyp' ? -1 : 0);
+    // Compute (u, v) in 2D; sectional curvature is K irrespective.
+    const guu = u[0]*u[0]+u[1]*u[1];
+    const gvv = v[0]*v[0]+v[1]*v[1];
+    const guv = u[0]*v[0]+u[1]*v[1];
+    const denom = guu*gvv - guv*guv;
+    // R(u,v)v, u> = K (g(v,v) g(u,u) - g(u,v)^2) = K * denom
+    const num = K * denom;
+    const Kcomputed = denom > 1e-8 ? num/denom : 0;
+
+    // Panel
+    const x0=360;
+    svg.appendChild(SVG('rect',{x:x0-10, y:18, width:W-x0-10, height:H-36, rx:8, ry:8,
+      fill:'var(--panel2)', stroke:'var(--line)'}));
+    const txt = [
+      `space: ${sp.options[sp.selectedIndex].text.split('(')[0].trim()}`,
+      ``,
+      `K_model = ${K}`,
+      ``,
+      `⟨u,u⟩ = ${guu.toFixed(1)}`,
+      `⟨v,v⟩ = ${gvv.toFixed(1)}`,
+      `⟨u,v⟩ = ${guv.toFixed(1)}`,
+      `|u|²|v|² − ⟨u,v⟩² = ${denom.toFixed(1)}`,
+      ``,
+      `K(Π) = ⟨R(u,v)v,u⟩ / (…) = ${Kcomputed.toFixed(3)}`
+    ];
+    txt.forEach((s,i)=>{
+      const t = SVG('text',{x:x0+4, y:42+i*16, 'font-size':12, fill: (i===txt.length-1?'var(--green)':'var(--ink)'),
+        'font-family':'ui-monospace, monospace'});
+      t.textContent = s;
+      svg.appendChild(t);
+    });
+    out.textContent = `u angle ${uA.toFixed(2)} rad, v angle ${vA.toFixed(2)} rad — sectional curvature K(Π) = ${Kcomputed.toFixed(3)} (matches constant model value)`;
+  }
+  [sp, ua, va].forEach(el=>el.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<section id="models">
+<h2>6. Model spaces of constant curvature</h2>
+
+<p>A Riemannian manifold has <strong>constant sectional curvature $\kappa$</strong> if $K(\Pi) = \kappa$ for every $p\in M$ and every tangent plane $\Pi\subset T_pM$. In dimension $\ge 3$, by Schur's lemma, pointwise-constant already implies globally constant. The complete simply-connected model spaces are, up to isometry:</p>
+
+<table class="plain">
+<thead><tr><th>$\kappa$</th><th>model</th><th>comment</th></tr></thead>
+<tbody>
+<tr><td>$+1$</td><td>sphere $S^n\subset\mathbb{R}^{n+1}$</td><td>compact; finite volume; every pair of geodesics meets</td></tr>
+<tr><td>$0$</td><td>Euclidean $\mathbb{R}^n$</td><td>flat; geodesics are straight lines; parallel postulate holds</td></tr>
+<tr><td>$-1$</td><td>hyperbolic $\mathbb{H}^n$</td><td>non-compact; volume grows exponentially with radius</td></tr>
+</tbody>
+</table>
+
+<p>Every complete simply connected Riemannian manifold of constant curvature $\kappa$ is isometric to one of these (rescaled by $1/\sqrt{|\kappa|}$ if $\kappa\neq 0$). Removing simple-connectedness produces the <em>space forms</em>, obtained as quotients by discrete isometry groups: lens spaces, tori, and hyperbolic manifolds such as closed surfaces of genus $\ge 2$.</p>
+
+<h3>Geodesic triangles and angle sum</h3>
+
+<p>In Euclidean plane geometry the angles of a triangle sum to $\pi$. On a curved surface the sum deviates, and Gauss&ndash;Bonnet for a simply-connected geodesic triangle $\Delta$ says exactly
+$$\sum_{i=1}^3 \theta_i - \pi = \iint_\Delta K\, dA.$$
+In particular, on a constant-curvature surface with $K = \kappa$, the <em>excess</em> $\sum\theta_i - \pi = \kappa\cdot \operatorname{area}(\Delta)$. Positive excess &rarr; $\kappa>0$ (sphere); zero &rarr; flat; negative &rarr; $\kappa<0$ (hyperbolic).</p>
+
+<p>The companion page treats Gauss&ndash;Bonnet in the surface-in-$\mathbb{R}^3$ setting. The intrinsic version given here is the prototype of the Chern&ndash;Gauss&ndash;Bonnet theorem in all even dimensions.</p>
+
+<div class="widget" id="w-tri">
+  <div class="hd"><div class="ttl">Geodesic triangles: angle sum</div><div class="hint">drag vertices; sphere / flat / hyperbolic side-by-side</div></div>
+  <svg id="tri-svg" viewBox="0 0 660 280" width="660" height="280"></svg>
+  <div class="readout" id="tri-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 6 widget — geodesic triangles =============================== */
+(function(){
+  const svg=$('#tri-svg'), out=$('#tri-out');
+  const W=660, H=280;
+  // three panels side by side: sphere (hemisphere), flat, hyperbolic Poincaré disk
+  const PANEL_W = W/3;
+  // Initial triangles in intrinsic 2D coordinates for each panel.
+  // Sphere: 3D points on S^2 (orthographic projection, front hemisphere). drag constrained to front.
+  // Flat: (x,y) in [-1,1]^2; center at panel.
+  // Hyperbolic disk: points in open unit disk (Poincaré). Geodesics: circular arcs orthogonal to boundary, or diameters.
+  const sphereVerts = [sph3(0.6, 0.8), sph3(1.2, 2.1), sph3(1.1, -0.1)];
+  const flatVerts = [[-0.5,-0.4], [0.6,-0.3], [0.1,0.6]];
+  const hypVerts = [[-0.5,-0.4], [0.5,-0.3], [0.05,0.55]];
+
+  function sph3(theta, phi){
+    return [Math.sin(theta)*Math.cos(phi), Math.cos(theta), Math.sin(theta)*Math.sin(phi)];
+  }
+
+  // --- projections ---
+  function sphToPx(v){
+    const CX = PANEL_W/2, CY = H/2, R=95;
+    const A = 0.28; const sA=Math.sin(A), cA=Math.cos(A);
+    const x = cA*v[0] + sA*v[2];
+    const y = v[1];
+    return [CX + R*x, CY - R*y, -sA*v[0] + cA*v[2]];
+  }
+  function pxToSph(px,py){
+    const CX=PANEL_W/2, CY=H/2, R=95;
+    const x=(px-CX)/R, y=(CY-py)/R;
+    const rr=x*x+y*y; if(rr>1) return null;
+    const z0 = Math.sqrt(1-rr);
+    const A=-0.28, sA=Math.sin(A), cA=Math.cos(A);
+    return [cA*x+sA*z0, y, -sA*x+cA*z0];
+  }
+  function flatToPx(p){
+    const CX = PANEL_W + PANEL_W/2, CY = H/2, R = 90;
+    return [CX + p[0]*R, CY - p[1]*R];
+  }
+  function pxToFlat(px,py){
+    const CX = PANEL_W + PANEL_W/2, CY = H/2, R = 90;
+    return [(px-CX)/R, (CY-py)/R];
+  }
+  function hypToPx(p){
+    const CX = 2*PANEL_W + PANEL_W/2, CY = H/2, R = 95;
+    return [CX + p[0]*R, CY - p[1]*R];
+  }
+  function pxToHyp(px,py){
+    const CX = 2*PANEL_W + PANEL_W/2, CY = H/2, R = 95;
+    return [(px-CX)/R, (CY-py)/R];
+  }
+
+  // --- geodesic samplers and angle computations ---
+  function sphereArc(a,b, n=40){
+    const out=[];
+    const c = Math.max(-1, Math.min(1, a[0]*b[0]+a[1]*b[1]+a[2]*b[2]));
+    const omg = Math.acos(c);
+    if(omg<1e-6) return [a];
+    const s = Math.sin(omg);
+    for(let i=0;i<=n;i++){
+      const t=i/n;
+      const p = [
+        Math.sin((1-t)*omg)/s * a[0] + Math.sin(t*omg)/s * b[0],
+        Math.sin((1-t)*omg)/s * a[1] + Math.sin(t*omg)/s * b[1],
+        Math.sin((1-t)*omg)/s * a[2] + Math.sin(t*omg)/s * b[2],
+      ];
+      out.push(p);
+    }
+    return out;
+  }
+  function sphereAngleAt(P, Q, R){
+    // angle at P between arcs PQ and PR
+    function tan(P,X){
+      // direction at P toward X along geodesic
+      const c = P[0]*X[0]+P[1]*X[1]+P[2]*X[2];
+      return [X[0]-c*P[0], X[1]-c*P[1], X[2]-c*P[2]];
+    }
+    const u = tan(P,Q), w = tan(P,R);
+    const nu = Math.hypot(u[0],u[1],u[2]), nw = Math.hypot(w[0],w[1],w[2]);
+    if(nu<1e-6 || nw<1e-6) return 0;
+    const c = Math.max(-1, Math.min(1, (u[0]*w[0]+u[1]*w[1]+u[2]*w[2])/(nu*nw)));
+    return Math.acos(c);
+  }
+  function sphereArea(A,B,C){
+    return sphereAngleAt(A,B,C) + sphereAngleAt(B,A,C) + sphereAngleAt(C,A,B) - Math.PI;
+  }
+  function flatAngleAt(P, Q, R){
+    const u=[Q[0]-P[0], Q[1]-P[1]];
+    const w=[R[0]-P[0], R[1]-P[1]];
+    const nu=Math.hypot(u[0],u[1]), nw=Math.hypot(w[0],w[1]);
+    if(nu<1e-6||nw<1e-6) return 0;
+    const c = Math.max(-1, Math.min(1, (u[0]*w[0]+u[1]*w[1])/(nu*nw)));
+    return Math.acos(c);
+  }
+  // Poincaré disk: a geodesic between two interior points is a circular arc orthogonal to the boundary (or a diameter).
+  // We sample by parameterizing.  Pseudo-code using Möbius transformations:
+  // For points a,b in the open disk, the hyperbolic geodesic from a to b can be sampled by first translating a to 0 via Möbius, then interpolating along the straight line (diameter) to the translated b, and pulling back.
+  function mobiusNeg(a, z){
+    // T_a(z) = (z - a)/(1 - \bar a z)   (complex), sends a -> 0
+    // z,a complex = x + iy
+    const [ax, ay] = a;
+    const [zx, zy] = z;
+    // numerator (z-a)
+    const nx = zx - ax, ny = zy - ay;
+    // denominator 1 - conj(a) z = 1 - (ax - i ay)(zx + i zy) = 1 - (ax*zx + ay*zy) + i(ay*zx - ax*zy)
+    const dx = 1 - (ax*zx + ay*zy);
+    const dy = -(ax*zy - ay*zx); // careful: conj(a) = ax - i ay, conj(a)*z = ax*zx + ay*zy + i(ax*zy - ay*zx)
+    // wait recompute: conj(a)*z = (ax-i ay)(zx+i zy) = ax*zx + i ax*zy - i ay*zx + ay*zy (since -i^2=1)
+    // = (ax*zx + ay*zy) + i(ax*zy - ay*zx)
+    // so 1 - conj(a)*z has real = 1 - (ax*zx + ay*zy), imag = -(ax*zy - ay*zx) = ay*zx - ax*zy
+    const Dx = 1 - (ax*zx + ay*zy);
+    const Dy = ay*zx - ax*zy;
+    // divide (nx, ny) / (Dx, Dy)
+    const D2 = Dx*Dx + Dy*Dy || 1e-12;
+    return [(nx*Dx + ny*Dy)/D2, (ny*Dx - nx*Dy)/D2];
+  }
+  function mobiusPos(a, z){
+    // inverse: T_a^{-1}(w) = (w + a)/(1 + conj(a)*w)
+    const [ax, ay] = a, [zx, zy] = z;
+    const nx = zx + ax, ny = zy + ay;
+    // 1 + conj(a)*z (same as above with minus flipped)
+    const Dx = 1 + (ax*zx + ay*zy);
+    const Dy = -(ay*zx - ax*zy);
+    const D2 = Dx*Dx + Dy*Dy || 1e-12;
+    return [(nx*Dx + ny*Dy)/D2, (ny*Dx - nx*Dy)/D2];
+  }
+  function hypArc(a,b, n=50){
+    // send a to 0, interpolate along straight line to T_a(b), pull back
+    const Tb = mobiusNeg(a, b);
+    const out = [];
+    for(let i=0;i<=n;i++){
+      const t=i/n;
+      const z = [t*Tb[0], t*Tb[1]];
+      const p = mobiusPos(a, z);
+      out.push(p);
+    }
+    return out;
+  }
+  function hypDist(a,b){
+    // d(a,b) = artanh(|T_a(b)|)  gives half-distance; formula: d = 2 artanh(|T_a(b)|)
+    const Tb = mobiusNeg(a, b);
+    const r = Math.hypot(Tb[0], Tb[1]);
+    const rc = Math.min(r, 0.99999);
+    return 2*Math.atanh(rc);
+  }
+  function hypAngleAt(P,Q,R){
+    // the hyperbolic angle at P equals the Euclidean angle between the initial tangents of the two geodesics at P in the disk model (conformal!)
+    // so we can just take Euclidean tangents of arcs: arc from P to Q, first segment direction.
+    const arcPQ = hypArc(P, Q, 2);
+    const arcPR = hypArc(P, R, 2);
+    const u = [arcPQ[1][0]-P[0], arcPQ[1][1]-P[1]];
+    const w = [arcPR[1][0]-P[0], arcPR[1][1]-P[1]];
+    const nu = Math.hypot(u[0],u[1]), nw = Math.hypot(w[0],w[1]);
+    if(nu<1e-9 || nw<1e-9) return 0;
+    const c = Math.max(-1, Math.min(1, (u[0]*w[0]+u[1]*w[1])/(nu*nw)));
+    return Math.acos(c);
+  }
+  function hypArea(A,B,C){
+    // Gauss-Bonnet: area = pi - sum(angles) for K = -1
+    return Math.PI - (hypAngleAt(A,B,C) + hypAngleAt(B,A,C) + hypAngleAt(C,A,B));
+  }
+
+  // --- render ---
+  let drag = null;
+  function clearSvg(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+  }
+  function render(){
+    clearSvg();
+    // panel separators
+    for(let k=1;k<3;k++){
+      svg.appendChild(SVG('line',{x1:k*PANEL_W, y1:10, x2:k*PANEL_W, y2:H-10, stroke:'var(--line)', 'stroke-width':1}));
+    }
+    // headers
+    const hdrs = [
+      {x: PANEL_W/2, text:'Sphere (K=+1)', color:'var(--green)'},
+      {x: PANEL_W + PANEL_W/2, text:'Euclidean (K=0)', color:'var(--yellow)'},
+      {x: 2*PANEL_W + PANEL_W/2, text:'Hyperbolic disk (K=-1)', color:'var(--pink)'}
+    ];
+    hdrs.forEach(h=>{
+      const t = SVG('text',{x:h.x, y:22, 'text-anchor':'middle', 'font-size':12, fill:h.color});
+      t.textContent = h.text; svg.appendChild(t);
+    });
+
+    // ----- sphere panel -----
+    {
+      const CX = PANEL_W/2, CY = H/2, R=95;
+      svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(131,193,103,0.06)', stroke:'var(--line)'}));
+      // arcs
+      const [A,B,C] = sphereVerts;
+      const arcs = [[A,B],[B,C],[C,A]];
+      arcs.forEach(([p,q])=>{
+        const pts = sphereArc(p,q);
+        const d = pts.map((P,i)=>{
+          const pr = sphToPx(P);
+          return (i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1);
+        }).join(' ');
+        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--green)', 'stroke-width':2}));
+      });
+      [A,B,C].forEach((P,i)=>{
+        const pr = sphToPx(P);
+        svg.appendChild(SVG('circle',{cx:pr[0],cy:pr[1],r:6, fill:'var(--yellow)', stroke:'#111'}));
+      });
+      const sum = sphereAngleAt(A,B,C)+sphereAngleAt(B,A,C)+sphereAngleAt(C,A,B);
+      const area = sphereArea(A,B,C);
+      const tb = SVG('text',{x:CX, y:H-30, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)'});
+      tb.textContent = `Σθ = ${(sum*180/Math.PI).toFixed(1)}°  (excess ${(area*180/Math.PI).toFixed(1)}° = area)`;
+      svg.appendChild(tb);
+    }
+    // ----- flat panel -----
+    {
+      const CX = PANEL_W + PANEL_W/2, CY = H/2, R=90;
+      svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(255,216,102,0.04)', stroke:'var(--line)'}));
+      const [A,B,C] = flatVerts;
+      const verts = [A,B,C];
+      const d = verts.map((p,i)=>{
+        const pr = flatToPx(p);
+        return (i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1);
+      }).join(' ')+' Z';
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+      verts.forEach(p=>{
+        const pr = flatToPx(p);
+        svg.appendChild(SVG('circle',{cx:pr[0], cy:pr[1], r:6, fill:'var(--yellow)', stroke:'#111'}));
+      });
+      const sum = flatAngleAt(A,B,C)+flatAngleAt(B,A,C)+flatAngleAt(C,A,B);
+      const tb = SVG('text',{x:CX, y:H-30, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)'});
+      tb.textContent = `Σθ = ${(sum*180/Math.PI).toFixed(1)}°  (exactly 180°)`;
+      svg.appendChild(tb);
+    }
+    // ----- hyperbolic panel -----
+    {
+      const CX = 2*PANEL_W + PANEL_W/2, CY = H/2, R=95;
+      svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(224,122,95,0.05)', stroke:'var(--pink)', 'stroke-width':1.3}));
+      const [A,B,C] = hypVerts;
+      [[A,B],[B,C],[C,A]].forEach(([p,q])=>{
+        const pts = hypArc(p,q);
+        const d = pts.map((P,i)=>{
+          const pr = hypToPx(P);
+          return (i===0?'M':'L')+pr[0].toFixed(1)+' '+pr[1].toFixed(1);
+        }).join(' ');
+        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--pink)', 'stroke-width':2}));
+      });
+      [A,B,C].forEach(p=>{
+        const pr = hypToPx(p);
+        svg.appendChild(SVG('circle',{cx:pr[0],cy:pr[1],r:6, fill:'var(--yellow)', stroke:'#111'}));
+      });
+      const sum = hypAngleAt(A,B,C)+hypAngleAt(B,A,C)+hypAngleAt(C,A,B);
+      const area = hypArea(A,B,C);
+      const tb = SVG('text',{x:CX, y:H-30, 'text-anchor':'middle', 'font-size':12, fill:'var(--ink)'});
+      tb.textContent = `Σθ = ${(sum*180/Math.PI).toFixed(1)}°  (deficit ${((Math.PI-sum)*180/Math.PI).toFixed(1)}° = area)`;
+      svg.appendChild(tb);
+    }
+  }
+
+  function pix(ev){
+    const r = svg.getBoundingClientRect();
+    return [(ev.clientX-r.left)*(W/r.width), (ev.clientY-r.top)*(H/r.height)];
+  }
+  function panelOf(px){ if(px<PANEL_W) return 'sph'; if(px<2*PANEL_W) return 'flat'; return 'hyp'; }
+
+  svg.addEventListener('mousedown', ev=>{
+    const [px,py] = pix(ev);
+    const pn = panelOf(px);
+    let verts, toPx;
+    if(pn==='sph'){ verts=sphereVerts; toPx = sphToPx; }
+    else if(pn==='flat'){ verts=flatVerts; toPx = flatToPx; }
+    else { verts=hypVerts; toPx = hypToPx; }
+    for(let k=0;k<3;k++){
+      const pr = toPx(verts[k]);
+      if(Math.hypot(pr[0]-px, pr[1]-py) < 12){
+        drag = {panel:pn, idx:k};
+        return;
+      }
+    }
+  });
+  svg.addEventListener('mousemove', ev=>{
+    if(!drag) return;
+    const [px,py] = pix(ev);
+    if(drag.panel==='sph'){
+      const v = pxToSph(px,py);
+      if(v) sphereVerts[drag.idx] = v;
+    } else if(drag.panel==='flat'){
+      flatVerts[drag.idx] = pxToFlat(px,py);
+    } else {
+      let h = pxToHyp(px,py);
+      const r = Math.hypot(h[0], h[1]);
+      if(r > 0.95) h = [h[0]*0.95/r, h[1]*0.95/r];
+      hypVerts[drag.idx] = h;
+    }
+    render();
+  });
+  svg.addEventListener('mouseup', ()=>{ drag=null; });
+  svg.addEventListener('mouseleave', ()=>{ drag=null; });
+
+  out.textContent = 'Drag any vertex. Sum of angles = π + K·(area) by Gauss–Bonnet for geodesic triangles on constant-curvature surfaces.';
+  render();
+})();
+</script>
+
+<section id="jacobi">
+<h2>7. Jacobi fields</h2>
+
+<p>A geodesic $\gamma:[0,L]\to M$ does not live alone: it sits inside a family of nearby geodesics, parameterized by $s$: $\gamma_s(t)$ with $\gamma_0 = \gamma$. The <em>variation vector field</em>
+$$J(t) = \left.\frac{\partial \gamma_s(t)}{\partial s}\right|_{s=0}$$
+is a vector field along $\gamma$ that measures the infinitesimal separation between $\gamma$ and its neighbours. Differentiating the geodesic equation with respect to $s$ gives the <strong>Jacobi equation</strong>:</p>
+
+$$\nabla_t \nabla_t J + R(J, \dot\gamma)\dot\gamma = 0.$$
+
+<p>This is a linear second-order ODE for $J$ along $\gamma$; the space of solutions has dimension $2n$. A vector field $J$ satisfying this equation is a <strong>Jacobi field</strong>. The curvature term is what couples the geodesic spread to the geometry: positive curvature pulls neighbouring geodesics together, negative curvature pushes them apart.</p>
+
+<h3>Constant curvature case</h3>
+
+<p>On a space of constant sectional curvature $\kappa$, if $J$ is perpendicular to $\dot\gamma$ and $|\dot\gamma|=1$, the Jacobi equation reduces to the scalar ODE $|J|'' = -\kappa\, |J|$, whose solutions are
+$$|J|(t) = \begin{cases}
+\frac{1}{\sqrt{\kappa}}\sin(\sqrt{\kappa}\,t) & \kappa>0\\
+t & \kappa=0\\
+\frac{1}{\sqrt{-\kappa}}\sinh(\sqrt{-\kappa}\,t) & \kappa<0
+\end{cases}\qquad (\text{with }|J|(0)=0,\ |J|'(0)=1).$$
+Positive curvature gives sinusoidal behaviour &mdash; neighbours <em>refocus</em>; flat gives linear growth; negative gives exponential divergence.</p>
+
+<h3>Conjugate points</h3>
+
+<p>A point $\gamma(t_0)$ with $t_0>0$ is <strong>conjugate</strong> to $\gamma(0)$ along $\gamma$ if there exists a nontrivial Jacobi field $J$ along $\gamma$ with $J(0)=J(t_0)=0$. At a conjugate point, nearby geodesics starting at $\gamma(0)$ meet infinitesimally with $\gamma$. On $S^n$ the antipodal point to $\gamma(0)$ is conjugate at distance $\pi$; beyond the first conjugate point the geodesic is no longer length-minimizing.</p>
+
+<div class="widget" id="w-jac">
+  <div class="hd"><div class="ttl">Jacobi field on the sphere</div><div class="hint">two nearby geodesics from the north pole</div></div>
+  <div class="row">
+    <label>δ (initial angular spread):</label>
+    <input type="range" id="jac-d" min="0.05" max="0.6" step="0.01" value="0.25"/>
+    <span id="jac-dv" class="small"></span>
+  </div>
+  <svg id="jac-svg" viewBox="0 0 660 320" width="660" height="320"></svg>
+  <div class="readout" id="jac-out"></div>
+  <p class="small">Left: two geodesics from $N$ on the unit sphere. Right: separation $|J|(t) = \delta \cdot \sin t$ plotted as a function of $t$. Max at equator $(t=\pi/2)$; conjugate point at south pole $(t=\pi)$.</p>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 7 widget — Jacobi field on sphere =============================== */
+(function(){
+  const svg=$('#jac-svg'), out=$('#jac-out'), dEl=$('#jac-d'), dVv=$('#jac-dv');
+  const W=660, H=320;
+
+  const SPH = {cx: 180, cy: 170, r: 130};
+  const PLT = {x0: 380, x1: 640, y0: 40, y1: 280};
+
+  function sphToPx(v){
+    const A=0.25; const sA=Math.sin(A), cA=Math.cos(A);
+    const x = cA*v[0] + sA*v[2];
+    const y = v[1];
+    return [SPH.cx + SPH.r*x, SPH.cy - SPH.r*y, -sA*v[0] + cA*v[2]];
+  }
+  // Geodesic from (0,1,0) with initial direction at azimuth phi and "polar" t
+  // gamma(t) = (sin t cos phi, cos t, sin t sin phi)
+  function arc(phi, T=Math.PI, n=80){
+    const out = [];
+    for(let i=0;i<=n;i++){
+      const t = T*i/n;
+      out.push([Math.sin(t)*Math.cos(phi), Math.cos(t), Math.sin(t)*Math.sin(phi)]);
+    }
+    return out;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    const d = +dEl.value;
+    dVv.textContent = `δ = ${d.toFixed(2)} rad`;
+    // sphere
+    svg.appendChild(SVG('circle',{cx:SPH.cx, cy:SPH.cy, r:SPH.r, fill:'rgba(88,196,221,0.06)', stroke:'var(--line)'}));
+    // latitudes
+    for(let k=1;k<6;k++){
+      const lat = -1 + k*2/6; const rr = Math.sqrt(1-lat*lat);
+      svg.appendChild(SVG('ellipse',{cx:SPH.cx, cy:SPH.cy - lat*SPH.r, rx:rr*SPH.r*0.96, ry:rr*SPH.r*0.18,
+        fill:'none', stroke:'var(--line)', 'stroke-width':0.7}));
+    }
+    // geodesic 1: phi = 0
+    const g1 = arc(0);
+    // geodesic 2: phi = delta
+    const g2 = arc(d);
+    // draw each; switch to dashed when behind (z<0). We'll draw visible segments solid, invisible dashed.
+    function drawArc(pts, color){
+      let inFront = null; let subpath = [];
+      const segs = [];
+      for(let i=0;i<pts.length;i++){
+        const pr = sphToPx(pts[i]);
+        const front = pr[2] >= 0;
+        if(inFront===null || front===inFront){
+          subpath.push(pr);
+        } else {
+          segs.push({front:inFront, pts:subpath});
+          subpath = [pr];
+        }
+        inFront = front;
+      }
+      if(subpath.length) segs.push({front:inFront, pts:subpath});
+      segs.forEach(s=>{
+        const d = s.pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+        const p = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':2});
+        if(!s.front) p.setAttribute('stroke-dasharray','3,3');
+        svg.appendChild(p);
+      });
+    }
+    drawArc(g1, 'var(--yellow)');
+    drawArc(g2, 'var(--cyan)');
+    // labels
+    const pN = sphToPx([0,1,0]);
+    svg.appendChild(SVG('circle',{cx:pN[0], cy:pN[1], r:4, fill:'var(--green)'}));
+    const tN = SVG('text',{x:pN[0]+10, y:pN[1]-6, 'font-size':12, fill:'var(--green)'});
+    tN.textContent='N'; svg.appendChild(tN);
+    const pS = sphToPx([0,-1,0]);
+    svg.appendChild(SVG('circle',{cx:pS[0], cy:pS[1], r:4, fill:'var(--pink)'}));
+    const tS = SVG('text',{x:pS[0]+10, y:pS[1]+14, 'font-size':12, fill:'var(--pink)'});
+    tS.textContent='S (conjugate)'; svg.appendChild(tS);
+
+    // separation segments at several t
+    const tSamples = [Math.PI*0.25, Math.PI*0.5, Math.PI*0.75];
+    tSamples.forEach(t=>{
+      const p1 = [Math.sin(t), Math.cos(t), 0];
+      const p2 = [Math.sin(t)*Math.cos(d), Math.cos(t), Math.sin(t)*Math.sin(d)];
+      const a = sphToPx(p1), b = sphToPx(p2);
+      svg.appendChild(SVG('path',{d:`M${a[0]} ${a[1]} L ${b[0]} ${b[1]}`, stroke:'var(--violet)',
+        'stroke-width':1.4}));
+    });
+
+    // right panel: |J|(t) = sin(t) * delta (since |J|(0)=0, |J|'(0)=delta for initial tangent angular spread delta)
+    svg.appendChild(SVG('rect',{x:PLT.x0-10, y:PLT.y0-10, width:PLT.x1-PLT.x0+20, height:PLT.y1-PLT.y0+20,
+      fill:'var(--panel2)', stroke:'var(--line)'}));
+    // axes
+    const xax = SVG('line',{x1:PLT.x0, y1:PLT.y1, x2:PLT.x1, y2:PLT.y1, stroke:'var(--mute)', 'stroke-width':1});
+    const yax = SVG('line',{x1:PLT.x0, y1:PLT.y0, x2:PLT.x0, y2:PLT.y1, stroke:'var(--mute)', 'stroke-width':1});
+    svg.appendChild(xax); svg.appendChild(yax);
+    const xMax = Math.PI;
+    const yMax = d * 1.1; // scale
+    function mapXY(t, v){
+      return [PLT.x0 + (t/xMax)*(PLT.x1-PLT.x0), PLT.y1 - (v/Math.max(yMax, 0.05))*(PLT.y1-PLT.y0)];
+    }
+    // plot: |J| = sin(t) * delta for t in [0, pi]
+    const pts = [];
+    for(let i=0;i<=120;i++){
+      const t = xMax*i/120;
+      pts.push([t, Math.sin(t)*d]);
+    }
+    const pd = pts.map((p,i)=>{
+      const xy = mapXY(p[0], p[1]);
+      return (i===0?'M':'L')+xy[0].toFixed(1)+' '+xy[1].toFixed(1);
+    }).join(' ');
+    svg.appendChild(SVG('path',{d:pd, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+    // t markers at π/4, π/2, 3π/4, π
+    const ticks = [0, Math.PI/4, Math.PI/2, 3*Math.PI/4, Math.PI];
+    const tlbl = ['0','π/4','π/2','3π/4','π'];
+    ticks.forEach((t,k)=>{
+      const xy = mapXY(t, 0);
+      svg.appendChild(SVG('line',{x1:xy[0], y1:xy[1], x2:xy[0], y2:xy[1]+4, stroke:'var(--mute)'}));
+      const lbl = SVG('text',{x:xy[0], y:xy[1]+18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+      lbl.textContent = tlbl[k];
+      svg.appendChild(lbl);
+    });
+    // title
+    const ttl = SVG('text',{x:(PLT.x0+PLT.x1)/2, y:PLT.y0-4, 'text-anchor':'middle', 'font-size':12, fill:'var(--yellow)'});
+    ttl.textContent = '|J|(t) = δ sin(t)'; svg.appendChild(ttl);
+    // markers at sampled t
+    tSamples.forEach(t=>{
+      const xy = mapXY(t, Math.sin(t)*d);
+      svg.appendChild(SVG('circle',{cx:xy[0], cy:xy[1], r:4, fill:'var(--violet)'}));
+    });
+    // max
+    const xyMax = mapXY(Math.PI/2, d);
+    svg.appendChild(SVG('circle',{cx:xyMax[0], cy:xyMax[1], r:5, fill:'var(--green)'}));
+    const tMax = SVG('text',{x:xyMax[0]+8, y:xyMax[1]-6, 'font-size':11, fill:'var(--green)'});
+    tMax.textContent = `max = δ = ${d.toFixed(2)}`; svg.appendChild(tMax);
+
+    out.textContent =
+      `On S² (K=+1): along a unit-speed great circle, the transverse Jacobi field has magnitude δ·sin(t). It vanishes at t=0 and t=π (conjugate pair), with max δ at the equator.`;
+  }
+  dEl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="comparison">
+<h2>8. Comparison theorems</h2>
+
+<p>A great deal of Riemannian geometry is the strategy: <em>bound the curvature, deduce global geometric consequences.</em> Three classical results:</p>
+
+<div class="ok"><strong>Bonnet&ndash;Myers theorem.</strong> If $(M,g)$ is a complete Riemannian manifold of dimension $n$ with
+$$\operatorname{Ric}(v,v) \ge (n-1)\kappa\, g(v,v)$$
+for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sqrt{\kappa}$. The fundamental group is finite.</div>
+
+<p>Positive Ricci curvature forces neighbouring geodesics to refocus sooner than $\pi/\sqrt{\kappa}$ &mdash; the sphere's conjugate-point phenomenon, in disguise. A manifold that doesn't close off can't have uniformly positive Ricci.</p>
+
+<div class="ok"><strong>Synge's theorem.</strong> A compact, orientable, even-dimensional Riemannian manifold with positive sectional curvature is simply-connected. (In particular, $S^2$ and $\mathbb{CP}^n$ are simply-connected; $\mathbb{RP}^{2n}$ is ruled out as a space of positive sectional curvature.)</div>
+
+<div class="ok"><strong>Cartan&ndash;Hadamard theorem.</strong> A complete, simply-connected Riemannian manifold with non-positive sectional curvature is diffeomorphic to $\mathbb{R}^n$ via $\exp_p : T_p M \to M$ (for any $p$). There are no conjugate points; geodesics between any two points are unique.</div>
+
+<div class="widget" id="w-comp">
+  <div class="hd"><div class="ttl">Comparison theorems at a glance</div></div>
+  <svg id="comp-svg" viewBox="0 0 660 260" width="660" height="260"></svg>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 8 widget — comparison visuals =============================== */
+(function(){
+  const svg=$('#comp-svg');
+  const W=660, H=260;
+  const PW = W/3;
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+  for(let k=1;k<3;k++){
+    svg.appendChild(SVG('line',{x1:k*PW, y1:10, x2:k*PW, y2:H-10, stroke:'var(--line)'}));
+  }
+
+  // ---- Bonnet-Myers: sphere with diameter marked ----
+  {
+    const CX=PW/2, CY=110, R=70;
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(131,193,103,0.05)', stroke:'var(--line)'}));
+    // diameter arc (great circle through 2 antipodes, projected as a vertical line — substituted by a drawn arc)
+    // draw two antipodal points
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY-R, r:4, fill:'var(--yellow)'}));
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY+R, r:4, fill:'var(--yellow)'}));
+    // arc along meridian (appears as a vertical line segment through the sphere, but visually draw a curved line)
+    svg.appendChild(SVG('path',{d:`M${CX} ${CY-R} Q ${CX-R*0.3} ${CY}, ${CX} ${CY+R}`, fill:'none',
+      stroke:'var(--green)', 'stroke-width':2}));
+    const t1 = SVG('text',{x:CX, y:30, 'text-anchor':'middle', 'font-size':13, fill:'var(--green)'});
+    t1.textContent='Bonnet–Myers'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:CX, y:H-25, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t2.textContent='Ric ≥ (n−1)κ  ⇒  diam ≤ π/√κ'; svg.appendChild(t2);
+  }
+  // ---- Synge: S^2, "orientable even-dim + K>0 ⇒ π1 = 0" ----
+  {
+    const CX=PW + PW/2, CY=110, R=70;
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(255,216,102,0.05)', stroke:'var(--line)'}));
+    // tiny loop, contractible
+    svg.appendChild(SVG('ellipse',{cx:CX-10, cy:CY-5, rx:30, ry:15, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+    svg.appendChild(SVG('ellipse',{cx:CX-10, cy:CY-5, rx:15, ry:7, fill:'none', stroke:'var(--yellow)', 'stroke-width':1,
+      'stroke-dasharray':'3,3'}));
+    const t1 = SVG('text',{x:CX, y:30, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'});
+    t1.textContent='Synge'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:CX, y:H-25, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t2.textContent='orientable, even-dim, K>0 ⇒ π₁=0'; svg.appendChild(t2);
+  }
+  // ---- Cartan-Hadamard: K<=0, simply connected ⇒ diffeo to R^n (exp is a diffeo) ----
+  {
+    const CX=2*PW + PW/2, CY=110, R=70;
+    // draw a disk-like region with rays from center (exp_p)
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:R, fill:'rgba(224,122,95,0.06)', stroke:'var(--line)'}));
+    for(let k=0;k<8;k++){
+      const a = k*Math.PI/4;
+      svg.appendChild(SVG('line',{x1:CX, y1:CY, x2:CX+R*Math.cos(a), y2:CY+R*Math.sin(a),
+        stroke:'var(--pink)', 'stroke-width':1.3}));
+    }
+    svg.appendChild(SVG('circle',{cx:CX, cy:CY, r:4, fill:'var(--pink)'}));
+    const t1 = SVG('text',{x:CX, y:30, 'text-anchor':'middle', 'font-size':13, fill:'var(--pink)'});
+    t1.textContent='Cartan–Hadamard'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:CX, y:H-25, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t2.textContent='K ≤ 0, simply connected ⇒ exp_p : T_pM ⭢ M a diffeo'; svg.appendChild(t2);
+  }
+})();
+</script>
+
+<section id="outro">
+<h2>9. Connections to the rest of the notebook</h2>
+
+<p>Riemannian geometry sits at a crossroads of the notebook. Three threads worth following:</p>
+
+<ul>
+  <li><strong>Lie groups</strong> (<a href="./lie-groups.html">lie-groups.html</a>). A Lie group $G$ with a bi-invariant metric has Levi-Civita connection
+  $$\nabla_X Y = \tfrac12 [X,Y]$$
+  on left-invariant fields, and its geodesics through the identity are exactly the one-parameter subgroups $\exp(tX)$. The sectional curvature is $K(X,Y) = \tfrac14 \|[X,Y]\|^2 \ge 0$ &mdash; compact Lie groups have non-negative curvature. The symmetric spaces $G/H$ generalize the model spaces.</li>
+
+  <li><strong>Differential forms</strong> (<a href="./differential-forms.html">differential-forms.html</a>). The Levi-Civita connection can be repackaged via an $\mathfrak{so}(n)$-valued <em>connection $1$-form</em> $\omega$ on the frame bundle, with <em>curvature $2$-form</em> $\Omega = d\omega + \omega\wedge\omega$. The Riemann tensor is the components of $\Omega$ in a local frame. This Cartan formalism is indispensable in modern differential geometry and gauge theory.</li>
+
+  <li><strong>Algebraic topology.</strong> The Gauss&ndash;Bonnet theorem
+  $$\int_M K\, dA = 2\pi\,\chi(M)$$
+  (for a closed surface $M$, with the geodesic-triangle version extended to all of $M$) is the first example of a <em>characteristic-class</em> statement: a purely topological invariant &mdash; the Euler characteristic &mdash; computed by integrating local curvature. It generalizes to the Chern&ndash;Gauss&ndash;Bonnet theorem for even-dimensional manifolds and to the Atiyah&ndash;Singer index theorem.</li>
+</ul>
+
+<p>The companion <a href="./differential-geometry.html">differential geometry</a> page treats the Gauss curvature of surfaces, the Theorema Egregium, and Gauss&ndash;Bonnet in the embedded setting; this page lifted all of that into the intrinsic, coordinate-free, higher-dimensional world. The move from surface to manifold is the move from "intuition assisted by an ambient $\mathbb{R}^3$" to "geometry done on its own terms."</p>
+
+<div class="note"><strong>Where to read next.</strong> A choice in rough order of accessibility: do Carmo, <em>Riemannian Geometry</em> (clean and minimal); Lee, <em>Riemannian Manifolds</em> (thorough and modern); Petersen, <em>Riemannian Geometry</em> (toward comparison geometry); Cheeger&ndash;Ebin, <em>Comparison Theorems in Riemannian Geometry</em> (classical and concise).</div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

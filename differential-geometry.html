@@ -1,0 +1,1902 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Differential geometry — curves, surfaces, curvature</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.simple{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.simple th{color:var(--mute);text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--line);font-weight:600}
+  table.simple td{padding:.35rem .5rem;border-bottom:1px solid #1a1f29}
+
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+</style>
+</head>
+<body>
+<script>
+/* ============================ shared helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 0, pad2 = opts.pad2 ?? 8;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* --- small vector / matrix helpers for §3–§10 --- */
+function vsub(a,b){return a.map((_,i)=>a[i]-b[i])}
+function vadd(a,b){return a.map((_,i)=>a[i]+b[i])}
+function vscl(a,s){return a.map(x=>x*s)}
+function vdot(a,b){let s=0; for(let i=0;i<a.length;i++) s+=a[i]*b[i]; return s}
+function vlen(a){return Math.sqrt(vdot(a,a))}
+function vnorm(a){const L=vlen(a)||1; return a.map(x=>x/L)}
+function vcross(a,b){return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]}
+/* isometric projection: world (x,y,z) → 2d screen with a configurable rotation angle */
+function proj3(p, yaw=0.6, pitch=0.45){
+  const [x,y,z]=p;
+  // yaw around z-axis
+  const c1=Math.cos(yaw), s1=Math.sin(yaw);
+  const x1 = c1*x - s1*y;
+  const y1 = s1*x + c1*y;
+  const z1 = z;
+  // pitch around x-axis
+  const c2=Math.cos(pitch), s2=Math.sin(pitch);
+  const y2 = c2*y1 - s2*z1;
+  const z2 = s2*y1 + c2*z1;
+  return [x1, y2, z2]; // z2 acts as depth (higher = closer to viewer)
+}
+/* RGB color helpers for curvature heatmaps */
+function curvColor(K){
+  const k = Math.max(-1, Math.min(1, K));
+  if(k>=0){
+    // white → green for positive K
+    const t = k; // 0..1
+    const r = Math.round(255*(1-t) + 131*t);
+    const g = Math.round(255*(1-t) + 193*t);
+    const b = Math.round(255*(1-t) + 103*t);
+    return `rgb(${r},${g},${b})`;
+  } else {
+    const t = -k;
+    const r = Math.round(255*(1-t) + 224*t);
+    const g = Math.round(255*(1-t) + 122*t);
+    const b = Math.round(255*(1-t) + 95*t);
+    return `rgb(${r},${g},${b})`;
+  }
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#curves">1&nbsp;Curves</a>
+  <a href="#osculating">2&nbsp;Osculating&nbsp;circle</a>
+  <a href="#surfaces">3&nbsp;Surfaces</a>
+  <a href="#first">4&nbsp;First&nbsp;form</a>
+  <a href="#gauss">5&nbsp;Gauss&nbsp;map</a>
+  <a href="#egregium">6&nbsp;Theorema&nbsp;Egregium</a>
+  <a href="#geodesics">7&nbsp;Geodesics</a>
+  <a href="#gaussbonnet">8&nbsp;Gauss–Bonnet</a>
+  <a href="#manifolds">9&nbsp;Smooth&nbsp;manifolds</a>
+  <a href="#riemann">10&nbsp;Riemannian</a>
+  <a href="#coda">11&nbsp;Coda</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Differential geometry — curves, surfaces, curvature</h1>
+  <p class="sub">The classical story from Frenet frames on space curves to the Gauss–Bonnet theorem, with a gentle bridge to abstract smooth and Riemannian manifolds. Curvature is the throughline: how a curve bends in its ambient space, how a surface bends intrinsically, and how those bendings conspire with topology.</p>
+</section>
+
+<section id="curves">
+<h2>1. Curves in the plane and in space</h2>
+<p>A <strong>parametrized smooth curve</strong> in $\mathbb{R}^n$ is a $C^\infty$ map $\gamma\colon I \to \mathbb{R}^n$ from an open interval $I \subseteq \mathbb{R}$. It is <em>regular</em> if $\dot\gamma(t) \neq 0$ for all $t$; this is the only condition we need to talk about tangent lines and unit tangent vectors.</p>
+
+<p>The <strong>arc length</strong> from $t_0$ to $t$ is $s(t) = \int_{t_0}^t \lVert \dot\gamma(\tau) \rVert\,d\tau$. Since $\dot s = \lVert \dot\gamma \rVert > 0$, the map $t \mapsto s(t)$ is a diffeomorphism onto its image, and we can <em>reparametrize by arc length</em>. Throughout this section, primes denote $d/ds$, dots denote $d/dt$. When $\gamma$ is arc-length parametrized, $\lVert \gamma'(s) \rVert = 1$ identically — the <strong>unit tangent</strong> $T(s) = \gamma'(s)$.</p>
+
+<p>Differentiating $T \cdot T = 1$ gives $T \cdot T' = 0$: the derivative of the unit tangent is always perpendicular to $T$. For a <em>plane curve</em> there is a preferred unit normal: rotate $T$ by $+\pi/2$ to get $N$. The <strong>signed curvature</strong> is defined by</p>
+<p style="text-align:center">$T'(s) = \kappa(s)\,N(s)$,</p>
+<p>and equivalently $\kappa = \det(\dot\gamma, \ddot\gamma) / \lVert \dot\gamma \rVert^3$ in any parametrization. Positive $\kappa$ means left-turning, negative means right-turning. The sign flips if you traverse the curve in reverse.</p>
+
+<p>In $\mathbb{R}^3$ things are more interesting. We still have $T(s) = \gamma'(s)$, and $T' \neq 0$ whenever the curve isn't locally a straight line. The <strong>principal normal</strong> and <strong>curvature</strong> are</p>
+<p style="text-align:center">$N(s) = T'(s)/\lVert T'(s) \rVert, \qquad \kappa(s) = \lVert T'(s) \rVert \ge 0.$</p>
+<p>(For space curves, $\kappa \ge 0$ by convention — the signed version requires a preferred orientation of the normal plane.) Complete the right-handed frame by setting $B = T \times N$, the <strong>binormal</strong>. The plane spanned by $T$ and $N$ is the <em>osculating plane</em>; the curve locally lives in this plane up to $o(s^2)$.</p>
+
+<p>How fast does the osculating plane itself twist out of itself? That is measured by the <strong>torsion</strong> $\tau(s)$, defined by $B'(s) = -\tau(s)\,N(s)$. Combining everything yields the <strong>Frenet–Serret formulas</strong>:</p>
+<div class="note"><strong>Frenet–Serret.</strong> For an arc-length parametrized space curve with $\kappa > 0$,
+$$\begin{pmatrix} T' \\ N' \\ B' \end{pmatrix} = \begin{pmatrix} 0 & \kappa & 0 \\ -\kappa & 0 & \tau \\ 0 & -\tau & 0 \end{pmatrix} \begin{pmatrix} T \\ N \\ B \end{pmatrix}.$$
+The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa$ is the in-plane turning rate; torsion $\tau$ is the out-of-plane twisting rate.</div>
+
+<p>The fundamental theorem of space curves says that $\kappa(s) > 0$ and $\tau(s)$, as functions of arc length, determine $\gamma$ up to a rigid motion of $\mathbb{R}^3$. Two curves with the same curvature and torsion profiles are <em>congruent</em>. Curvature and torsion are the complete Euclidean invariants of a space curve.</p>
+
+<p>Arc length is rigid and coordinate-free, but in practice you almost never parametrize by it — the formulas in a general parametrization are</p>
+<p style="text-align:center">$\kappa = \dfrac{\lVert \dot\gamma \times \ddot\gamma \rVert}{\lVert \dot\gamma \rVert^3}, \qquad \tau = \dfrac{(\dot\gamma \times \ddot\gamma)\cdot\dddot\gamma}{\lVert \dot\gamma \times \ddot\gamma \rVert^2}.$</p>
+
+<div class="widget" id="w-plane">
+  <div class="hd"><div class="ttl">Plane curve: tangent, normal, osculating circle</div><div class="hint">slide the point · watch $\kappa(s)$ and $1/|\kappa|$</div></div>
+  <div class="row">
+    <label>curve:</label>
+    <select id="pc-pick">
+      <option value="circle">circle (radius 1)</option>
+      <option value="ellipse" selected>ellipse (a=1.5, b=1)</option>
+      <option value="parabola">parabola y = x²/2</option>
+      <option value="cardioid">cardioid r = 1 − cosθ</option>
+      <option value="lemniscate">lemniscate r² = cos(2θ)</option>
+      <option value="cycloid">cycloid</option>
+    </select>
+    <label>t:</label>
+    <input type="range" id="pc-t" min="0" max="1000" value="300" step="1">
+    <span class="small" id="pc-tval"></span>
+  </div>
+  <svg id="pc-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="pc-out"></div>
+</div>
+
+<p>Things to notice while playing with the widget:</p>
+<ul>
+  <li>On a <em>circle</em> of radius $r$, $\kappa = 1/r$ everywhere and the osculating circle equals the curve itself.</li>
+  <li>On the <em>ellipse</em>, $\kappa$ is largest at the two ends of the major axis — the curve bends the most there — and smallest at the ends of the minor axis.</li>
+  <li>The <em>cardioid</em> has a cusp at the origin where $\dot\gamma = 0$; the curvature blows up there. The radius $1/|\kappa|$ goes to zero.</li>
+  <li>The <em>parabola</em> flattens out at infinity: $\kappa \to 0$.</li>
+</ul>
+
+<p>For a space curve we lose the "left vs right" sign on $\kappa$, but we gain torsion. The simplest test case is the <strong>helix</strong> $\gamma(t) = (a\cos t, a\sin t, bt)$, for which one computes $\kappa = a/(a^2+b^2)$ and $\tau = b/(a^2+b^2)$ — both constants. Setting $b = 0$ gives a circle (no torsion); setting $a=0$ gives a straight line (both vanish). A helix is uniquely characterized among space curves as "the curve of constant $\kappa$ and constant $\tau$."</p>
+
+<div class="widget" id="w-space">
+  <div class="hd"><div class="ttl">Space curve: the Frenet frame $T,N,B$</div><div class="hint">pick a curve · drag the slider · $T$ yellow, $N$ green, $B$ violet</div></div>
+  <div class="row">
+    <label>curve:</label>
+    <select id="sc-pick">
+      <option value="helix" selected>helix</option>
+      <option value="trefoil">trefoil knot</option>
+      <option value="torusk">(2,3) torus knot</option>
+      <option value="vivi">Viviani's curve</option>
+      <option value="helcyc">helical cycloid</option>
+      <option value="ellcon">elliptical conic helix</option>
+    </select>
+    <label>t:</label>
+    <input type="range" id="sc-t" min="0" max="1000" value="250" step="1">
+    <label>view:</label>
+    <input type="range" id="sc-yaw" min="0" max="628" value="180" step="1" title="yaw">
+  </div>
+  <svg id="sc-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="sc-out"></div>
+</div>
+
+</section>
+
+<script>
+/* =============================== §1 widgets =============================== */
+(function(){
+  const svg = $('#pc-svg'), pick = $('#pc-pick'), tSlider = $('#pc-t'),
+        tVal = $('#pc-tval'), out = $('#pc-out');
+  const W=520,H=360, cx=0, cy=0, sc=90;
+  function tx(x){return x*sc}
+  function ty(y){return -y*sc}
+  const CURVES = {
+    circle: {
+      tMin:0, tMax:2*Math.PI,
+      g: t => [Math.cos(t), Math.sin(t)],
+      dg: t => [-Math.sin(t), Math.cos(t)],
+      ddg: t => [-Math.cos(t), -Math.sin(t)],
+      label:'circle', bbox:[[-1.2,1.2],[-1.2,1.2]]
+    },
+    ellipse: {
+      tMin:0, tMax:2*Math.PI,
+      g: t => [1.5*Math.cos(t), Math.sin(t)],
+      dg: t => [-1.5*Math.sin(t), Math.cos(t)],
+      ddg: t => [-1.5*Math.cos(t), -Math.sin(t)],
+      label:'ellipse a=1.5, b=1'
+    },
+    parabola: {
+      tMin:-1.8, tMax:1.8,
+      g: t => [t, 0.5*t*t],
+      dg: t => [1, t],
+      ddg: t => [0, 1],
+      label:'parabola y = x²/2'
+    },
+    cardioid: {
+      tMin:0.001, tMax:2*Math.PI-0.001,
+      g: t => { const r = 1-Math.cos(t); return [r*Math.cos(t), r*Math.sin(t)]; },
+      dg: t => {
+        // d/dt (r cosθ, r sinθ), r=1-cosθ, θ=t
+        // x = (1-cos t)cos t; y = (1-cos t)sin t
+        const s=Math.sin(t), c=Math.cos(t);
+        const dx = s*c + (1-c)*(-s);
+        const dy = s*s + (1-c)*c;
+        return [dx,dy];
+      },
+      ddg: t => {
+        const s=Math.sin(t), c=Math.cos(t);
+        // numeric second derivative via finite diff is simpler; use analytic:
+        // x'  = sin t cos t - (1-cos t) sin t = sin t (cos t - 1 + cos t) = sin t (2cos t - 1)
+        // x'' = cos t (2cos t - 1) + sin t (-2 sin t) = 2cos²t - cos t - 2sin²t
+        //     = 2cos²t - cos t - 2(1-cos²t) = 4cos²t - cos t - 2
+        // y'  = sin²t + (1-cos t)cos t = 1 - cos²t + cos t - cos²t = 1 + cos t - 2cos²t
+        // y'' = -sin t + 4 cos t sin t = sin t (4 cos t - 1)
+        const xpp = 4*c*c - c - 2;
+        const ypp = s*(4*c - 1);
+        return [xpp, ypp];
+      },
+      label:'cardioid r = 1 − cos θ'
+    },
+    lemniscate: {
+      tMin:-Math.PI/4+0.01, tMax:Math.PI/4-0.01,
+      g: t => { const r=Math.sqrt(Math.max(0,Math.cos(2*t))); return [r*Math.cos(t), r*Math.sin(t)]; },
+      dg: null, ddg:null, // use finite diff
+      label:'lemniscate (right lobe)'
+    },
+    cycloid: {
+      tMin:0, tMax:4*Math.PI,
+      g: t => [t - Math.sin(t), 1 - Math.cos(t)],
+      dg: t => [1 - Math.cos(t), Math.sin(t)],
+      ddg: t => [Math.sin(t), Math.cos(t)],
+      label:'cycloid'
+    }
+  };
+
+  function fd(f, t, h=1e-4){
+    const a = f(t+h), b = f(t-h);
+    return [(a[0]-b[0])/(2*h), (a[1]-b[1])/(2*h)];
+  }
+
+  function curveBox(key){
+    const c = CURVES[key];
+    const N = 400;
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(let i=0;i<=N;i++){
+      const t = c.tMin + (c.tMax-c.tMin)*i/N;
+      const p = c.g(t);
+      xmin=Math.min(xmin,p[0]); xmax=Math.max(xmax,p[0]);
+      ymin=Math.min(ymin,p[1]); ymax=Math.max(ymax,p[1]);
+    }
+    return [xmin,xmax,ymin,ymax];
+  }
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value;
+    const c = CURVES[key];
+    const tFrac = +tSlider.value / 1000;
+    const t = c.tMin + (c.tMax-c.tMin)*tFrac;
+
+    // background grid
+    for(let i=-3;i<=3;i++){
+      svg.appendChild(SVG('line',{x1:tx(i),y1:ty(-3),x2:tx(i),y2:ty(3),stroke:'#1a2030','stroke-width':0.5}));
+      svg.appendChild(SVG('line',{x1:tx(-3),y1:ty(i),x2:tx(3),y2:ty(i),stroke:'#1a2030','stroke-width':0.5}));
+    }
+    svg.appendChild(SVG('line',{x1:tx(-3),y1:ty(0),x2:tx(3),y2:ty(0),stroke:'#2a3242'}));
+    svg.appendChild(SVG('line',{x1:tx(0),y1:ty(-3),x2:tx(0),y2:ty(3),stroke:'#2a3242'}));
+
+    // trace curve
+    const N = 400;
+    let d = '';
+    for(let i=0;i<=N;i++){
+      const u = c.tMin + (c.tMax-c.tMin)*i/N;
+      const p = c.g(u);
+      d += (i===0?'M':'L') + tx(p[0]) + ' ' + ty(p[1]) + ' ';
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--ink)','stroke-width':2}));
+
+    // current point, T, N, κ
+    const p = c.g(t);
+    let dp, ddp;
+    if(c.dg) dp = c.dg(t); else dp = fd(c.g, t);
+    if(c.ddg) ddp = c.ddg(t); else ddp = fd(x => c.dg?c.dg(x):fd(c.g,x), t);
+    // curvature (signed) = (dx * ddy - dy * ddx) / |dp|^3
+    const speed = Math.hypot(dp[0], dp[1]);
+    const cross = dp[0]*ddp[1] - dp[1]*ddp[0];
+    const kappa = cross / Math.max(speed*speed*speed, 1e-9);
+    const T = [dp[0]/speed, dp[1]/speed];
+    const N2 = [-T[1], T[0]]; // left-hand normal (90° CCW)
+
+    // osculating circle
+    const r = 1/Math.max(Math.abs(kappa),1e-6);
+    const sign = kappa>=0?1:-1;
+    const center = [p[0] + sign*r*N2[0], p[1] + sign*r*N2[1]];
+    if(isFinite(r) && r < 50){
+      svg.appendChild(SVG('circle',{
+        cx:tx(center[0]),cy:ty(center[1]),r:r*sc,
+        fill:'none',stroke:'var(--blue)','stroke-width':1.2,'stroke-opacity':0.8,'stroke-dasharray':'4 3'
+      }));
+      svg.appendChild(SVG('circle',{cx:tx(center[0]),cy:ty(center[1]),r:2.5,fill:'var(--blue)'}));
+    }
+
+    // tangent arrow (yellow)
+    drawArrow(svg, [tx(p[0]),ty(p[1])], [tx(p[0]+T[0]*0.7), ty(p[1]+T[1]*0.7)],
+      {color:'var(--yellow)', markerId:'pc-T', width:2.2, pad2:6});
+    svg.appendChild(SVG('text',{x:tx(p[0]+T[0]*0.75)+4, y:ty(p[1]+T[1]*0.75)-4,
+      fill:'var(--yellow)', 'font-size':14, 'font-style':'italic','font-weight':600})).textContent='T';
+
+    // normal arrow (green) — in direction of curvature
+    drawArrow(svg, [tx(p[0]),ty(p[1])], [tx(p[0]+sign*N2[0]*0.5), ty(p[1]+sign*N2[1]*0.5)],
+      {color:'var(--green)', markerId:'pc-N', width:2.2, pad2:6});
+    svg.appendChild(SVG('text',{x:tx(p[0]+sign*N2[0]*0.55)+4, y:ty(p[1]+sign*N2[1]*0.55)-4,
+      fill:'var(--green)', 'font-size':14, 'font-style':'italic','font-weight':600})).textContent='N';
+
+    // point
+    svg.appendChild(SVG('circle',{cx:tx(p[0]),cy:ty(p[1]),r:5, fill:'#fff', stroke:'#111','stroke-width':1.5}));
+
+    tVal.textContent = `t = ${t.toFixed(3)}`;
+    out.textContent =
+      `${c.label}\n` +
+      `point:      (${p[0].toFixed(3)}, ${p[1].toFixed(3)})\n` +
+      `T:          (${T[0].toFixed(3)}, ${T[1].toFixed(3)})\n` +
+      `N:          (${(sign*N2[0]).toFixed(3)}, ${(sign*N2[1]).toFixed(3)})\n` +
+      `speed |γ'|: ${speed.toFixed(3)}\n` +
+      `κ (signed): ${kappa.toFixed(4)}\n` +
+      `radius 1/|κ|: ${(1/Math.max(Math.abs(kappa),1e-9)).toFixed(3)}`;
+  }
+
+  pick.addEventListener('change',draw);
+  tSlider.addEventListener('input',draw);
+  draw();
+})();
+
+/* space curve Frenet */
+(function(){
+  const svg = $('#sc-svg'), pick = $('#sc-pick'), tSlider = $('#sc-t'),
+        yawS = $('#sc-yaw'), out = $('#sc-out');
+  const CURVES = {
+    helix: {
+      tMin:-4*Math.PI, tMax:4*Math.PI,
+      g: t => [Math.cos(t), Math.sin(t), 0.2*t],
+      label:'helix γ(t) = (cos t, sin t, 0.2 t)'
+    },
+    trefoil: {
+      tMin:0, tMax:2*Math.PI,
+      g: t => {
+        const s = Math.sin(t), c=Math.cos(t);
+        const x = Math.sin(t) + 2*Math.sin(2*t);
+        const y = Math.cos(t) - 2*Math.cos(2*t);
+        const z = -Math.sin(3*t);
+        return [0.35*x, 0.35*y, 0.55*z];
+      },
+      label:'trefoil knot'
+    },
+    torusk: {
+      tMin:0, tMax:2*Math.PI,
+      g: t => {
+        const R=1.2, rr=0.45, p=2, q=3;
+        const x = (R + rr*Math.cos(q*t))*Math.cos(p*t);
+        const y = (R + rr*Math.cos(q*t))*Math.sin(p*t);
+        const z = rr*Math.sin(q*t);
+        return [x, y, z];
+      },
+      label:'(2,3) torus knot'
+    },
+    vivi: {
+      tMin:-2*Math.PI, tMax:2*Math.PI,
+      g: t => [1+Math.cos(t), Math.sin(t), 2*Math.sin(t/2)],
+      label:"Viviani's curve (torus × sphere)"
+    },
+    helcyc: {
+      tMin:0, tMax:4*Math.PI,
+      g: t => [t - Math.sin(t), 1-Math.cos(t), 0.4*Math.sin(t)],
+      label:'helical cycloid'
+    },
+    ellcon: {
+      tMin:-3*Math.PI, tMax:3*Math.PI,
+      g: t => [Math.cos(t)*(1+0.1*t), 1.4*Math.sin(t)*(1+0.1*t), 0.3*t],
+      label:'elliptical conic helix'
+    }
+  };
+
+  function fd(f, t, h=1e-3){
+    const a = f(t+h), b = f(t-h);
+    return a.map((_,i)=>(a[i]-b[i])/(2*h));
+  }
+  function fd2(f, t, h=5e-3){
+    const a=f(t+h), b=f(t), c=f(t-h);
+    return a.map((_,i)=>(a[i]-2*b[i]+c[i])/(h*h));
+  }
+  function fd3(f, t, h=8e-3){
+    const a = f(t+2*h), b = f(t+h), c=f(t-h), d=f(t-2*h);
+    return a.map((_,i)=>(a[i]-2*b[i]+2*c[i]-d[i])/(2*h*h*h));
+  }
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value;
+    const c = CURVES[key];
+    const tFrac = +tSlider.value/1000;
+    const t = c.tMin + (c.tMax-c.tMin)*tFrac;
+    const yaw = (+yawS.value/100);
+    const pitch = 0.5;
+
+    // compute a bunch of points for projection bounding
+    const N = 500;
+    const pts = [];
+    for(let i=0;i<=N;i++){
+      const u = c.tMin + (c.tMax-c.tMin)*i/N;
+      pts.push(proj3(c.g(u), yaw, pitch));
+    }
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const [x,y] of pts){
+      xmin=Math.min(xmin,x); xmax=Math.max(xmax,x);
+      ymin=Math.min(ymin,y); ymax=Math.max(ymax,y);
+    }
+    const pad = 0.3;
+    xmin-=pad;xmax+=pad;ymin-=pad;ymax+=pad;
+    const spanX = xmax-xmin, spanY = ymax-ymin;
+    const scale = Math.min(440/spanX, 300/spanY);
+    const tx = x => (x - (xmin+xmax)/2)*scale;
+    const ty = y => -(y - (ymin+ymax)/2)*scale;
+
+    // axes (soft)
+    const O = proj3([0,0,0], yaw, pitch);
+    const X1 = proj3([2,0,0], yaw, pitch);
+    const Y1 = proj3([0,2,0], yaw, pitch);
+    const Z1 = proj3([0,0,2], yaw, pitch);
+    for(const [P,col,lab] of [[X1,'#3a4254','x'],[Y1,'#3a4254','y'],[Z1,'#3a4254','z']]){
+      svg.appendChild(SVG('line',{x1:tx(O[0]),y1:ty(O[1]),x2:tx(P[0]),y2:ty(P[1]),
+        stroke:col,'stroke-width':1,'stroke-opacity':0.7}));
+      const lt = SVG('text',{x:tx(P[0])+4, y:ty(P[1])-4, 'font-size':11, fill:'#4a5268'});
+      lt.textContent = lab; svg.appendChild(lt);
+    }
+
+    // trace curve — color along depth (z2)
+    let dstr = '';
+    for(let i=0;i<=N;i++){
+      const [x,y] = pts[i];
+      dstr += (i===0?'M':'L') + tx(x) + ' ' + ty(y) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dstr,fill:'none',stroke:'var(--ink)','stroke-width':2,'stroke-opacity':0.75}));
+
+    // compute T, N, B at t
+    const p = c.g(t);
+    const dp = fd(c.g, t);
+    const ddp = fd2(c.g, t);
+    const dddp = fd3(c.g, t);
+    const speed = vlen(dp);
+    const cross = vcross(dp, ddp);
+    const kappa = vlen(cross) / Math.pow(speed, 3);
+    const T = vnorm(dp);
+    // binormal: (dp × ddp) / |...|
+    const B = vlen(cross)>1e-9 ? vnorm(cross) : [0,0,1];
+    const Nv = vcross(B, T);
+    const torsion = vdot(cross, dddp) / Math.max(vdot(cross,cross), 1e-9);
+
+    // project p, and endpoints of T, N, B
+    const L = 0.55;
+    const projAt = v => proj3(vadd(p, vscl(v, L)), yaw, pitch);
+    const pP = proj3(p, yaw, pitch);
+    const pT = projAt(T);
+    const pN = projAt(Nv);
+    const pB = projAt(B);
+
+    // draw arrows
+    drawArrow(svg, [tx(pP[0]),ty(pP[1])], [tx(pT[0]),ty(pT[1])],
+      {color:'var(--yellow)', markerId:'sc-T', width:2.2, pad2:6});
+    drawArrow(svg, [tx(pP[0]),ty(pP[1])], [tx(pN[0]),ty(pN[1])],
+      {color:'var(--green)', markerId:'sc-N', width:2.2, pad2:6});
+    drawArrow(svg, [tx(pP[0]),ty(pP[1])], [tx(pB[0]),ty(pB[1])],
+      {color:'var(--violet)', markerId:'sc-B', width:2.2, pad2:6});
+
+    svg.appendChild(SVG('circle',{cx:tx(pP[0]),cy:ty(pP[1]),r:5, fill:'#fff', stroke:'#111','stroke-width':1.5}));
+
+    // labels
+    function lab(pp, name, color){
+      const t = SVG('text',{x:tx(pp[0])+5, y:ty(pp[1])-5, 'font-size':14, fill:color, 'font-weight':600, 'font-style':'italic'});
+      t.textContent = name; svg.appendChild(t);
+    }
+    lab(pT,'T','var(--yellow)'); lab(pN,'N','var(--green)'); lab(pB,'B','var(--violet)');
+
+    out.textContent =
+      `${c.label}\n` +
+      `t = ${t.toFixed(3)}\n` +
+      `κ(t) = ${kappa.toFixed(4)}\n` +
+      `τ(t) = ${torsion.toFixed(4)}\n` +
+      `|γ'(t)| = ${speed.toFixed(3)}`;
+  }
+
+  pick.addEventListener('change',draw);
+  tSlider.addEventListener('input',draw);
+  yawS.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="osculating">
+<h2>2. Osculating circles, evolutes, involutes</h2>
+<p>The circle of radius $1/|\kappa|$ tangent to the curve at $p$, lying on the concave side, is the <strong>osculating circle</strong>. It agrees with the curve up to order two: $\gamma$ and the osculating circle have the same value, same tangent direction, and same curvature at $p$. Its center, the <strong>center of curvature</strong>, is $p + (1/\kappa)\,N$.</p>
+
+<p>Trace the center of curvature as $p$ sweeps along $\gamma$: the resulting curve is called the <strong>evolute</strong> of $\gamma$. The evolute has beautiful properties:</p>
+<ul>
+  <li>The tangent line to the evolute at the center-of-curvature for $\gamma(s)$ coincides with the <em>normal</em> line of $\gamma$ at $s$.</li>
+  <li>Cusps of the evolute occur at points where $d\kappa/ds = 0$ — vertices of $\gamma$.</li>
+  <li>The evolute of an ellipse is an asteroid-like curve with four cusps, one per vertex.</li>
+  <li>The evolute of a cycloid is another cycloid, shifted by half a period.</li>
+</ul>
+
+<p>The <strong>involute</strong> is the inverse operation: start with a curve $\gamma$, unroll a taut string along it, and trace the tip. Involutes are used in gear-tooth design because two involute-shaped gears mesh with a constant transmission ratio. The involute of a circle is the spiral that starts tight and grows linearly; it is the classical involute gear profile.</p>
+
+<p>A circle has constant curvature — no evolute worth drawing, since all centers of curvature pile up at one point. A parabola's evolute is a semicubical parabola (Neil's parabola), with a single cusp at the vertex. These facts all follow from the <em>elementary</em> observation that $\kappa$ records second-order information and its derivative records third-order.</p>
+
+<h3>Vertex theorem</h3>
+<p>A simple closed convex plane curve has at least four <strong>vertices</strong> — points where $\kappa'(s) = 0$, i.e. local extrema of $\kappa$. Circles achieve infinitely many (every point is a vertex); generic ovals have exactly four. The vertex theorem is an early example of a <em>global</em> geometric statement: local behaviour of curvature constrained by the topology of being a closed convex curve.</p>
+
+</section>
+
+<section id="surfaces">
+<h2>3. Surfaces in $\mathbb{R}^3$</h2>
+<p>A <strong>regular surface</strong> $S \subseteq \mathbb{R}^3$ is a subset such that around every point $p \in S$ there is an open neighborhood $U \subseteq \mathbb{R}^2$, an open $W \ni p$ in $\mathbb{R}^3$, and a smooth map $\mathbf{x}\colon U \to W \cap S$ that is a homeomorphism onto its image, with $d\mathbf{x}_q$ injective at every $q \in U$. The pair $(\mathbf{x}, U)$ is a <strong>local parametrization</strong> (or <em>chart</em>) of $S$.</p>
+
+<p>Concretely: $\mathbf{x}(u,v) = (x(u,v), y(u,v), z(u,v))$ is a smooth function of two variables with linearly independent partial derivatives $\mathbf{x}_u = \partial \mathbf{x}/\partial u$ and $\mathbf{x}_v = \partial \mathbf{x}/\partial v$. The condition "$d\mathbf{x}$ injective" is equivalent to $\mathbf{x}_u \times \mathbf{x}_v \neq 0$.</p>
+
+<p>The <strong>tangent plane</strong> at $p = \mathbf{x}(q)$ is</p>
+<p style="text-align:center">$T_pS = \operatorname{span}\{\mathbf{x}_u(q), \mathbf{x}_v(q)\}$.</p>
+<p>It is a two-dimensional subspace of $\mathbb{R}^3$, independent of the chart (different charts give different bases for the same plane). The <strong>unit normal</strong> at $p$ is</p>
+<p style="text-align:center">$\mathbf{n}(p) = \dfrac{\mathbf{x}_u \times \mathbf{x}_v}{\lVert \mathbf{x}_u \times \mathbf{x}_v \rVert}$.</p>
+
+<p>Like orientations of a line, $\mathbf{n}$ has a sign ambiguity globally — some surfaces (Möbius band, Klein bottle) admit no continuous choice of unit normal; they are <em>non-orientable</em>. An <strong>orientable</strong> surface has two smooth normal fields $\mathbf{n}$ and $-\mathbf{n}$ and a choice between them is an <em>orientation</em>.</p>
+
+<p>Classic parametrizations used throughout this page:</p>
+<table class="simple">
+<thead><tr><th>surface</th><th>parametrization</th><th>domain</th></tr></thead>
+<tbody>
+<tr><td>sphere $S^2_R$</td><td>$(R\sin u\cos v, R\sin u\sin v, R\cos u)$</td><td>$u\in(0,\pi), v\in[0,2\pi)$</td></tr>
+<tr><td>cylinder</td><td>$(\cos u, \sin u, v)$</td><td>$(u,v)\in[0,2\pi)\times\mathbb{R}$</td></tr>
+<tr><td>torus</td><td>$((R+r\cos v)\cos u, (R+r\cos v)\sin u, r\sin v)$</td><td>$(u,v)\in [0,2\pi)^2$</td></tr>
+<tr><td>saddle</td><td>$(u,v,u^2-v^2)$</td><td>$(u,v)\in\mathbb{R}^2$</td></tr>
+<tr><td>hyperboloid (1-sheet)</td><td>$(\cosh u\cos v, \cosh u\sin v, \sinh u)$</td><td>$(u,v)\in\mathbb{R}\times[0,2\pi)$</td></tr>
+<tr><td>pseudosphere</td><td>$(\mathrm{sech}\,u\cos v, \mathrm{sech}\,u\sin v, u-\tanh u)$</td><td>$(u,v)\in(0,\infty)\times[0,2\pi)$</td></tr>
+</tbody>
+</table>
+
+<p>Most of what follows applies to any surface; we'll use these explicit parametrizations in the widgets so the formulas compute in closed form.</p>
+
+</section>
+
+<section id="first">
+<h2>4. The first fundamental form</h2>
+<p>The ambient Euclidean inner product on $\mathbb{R}^3$, restricted to each tangent plane $T_pS$, gives the surface an intrinsic way to measure lengths of tangent vectors, angles between them, and areas. Expressed in a local chart $(u,v)$, with $E = \mathbf{x}_u \cdot \mathbf{x}_u$, $F = \mathbf{x}_u \cdot \mathbf{x}_v$, $G = \mathbf{x}_v \cdot \mathbf{x}_v$, the restricted inner product on a tangent vector $a\,\mathbf{x}_u + b\,\mathbf{x}_v$ has squared length $Ea^2 + 2Fab + Gb^2$. Writing $du, dv$ for the dual basis of tangent covectors:</p>
+<div class="note"><strong>First fundamental form.</strong>
+$$I = E\,du^2 + 2F\,du\,dv + G\,dv^2, \qquad E = \mathbf{x}_u\cdot\mathbf{x}_u,\ F = \mathbf{x}_u\cdot\mathbf{x}_v,\ G = \mathbf{x}_v\cdot\mathbf{x}_v.$$
+It is a positive-definite symmetric bilinear form on each tangent plane. It determines lengths, angles, and areas on $S$ intrinsically — no reference to the ambient $\mathbb{R}^3$ needed after $(E,F,G)$ are known as functions of $(u,v)$.</div>
+
+<p>Once you have $I$, the following are automatic:</p>
+<ul>
+  <li><strong>Length of a curve</strong> $\gamma(t) = \mathbf{x}(u(t), v(t))$ on $S$:
+  $$\mathrm{length}(\gamma) = \int \sqrt{E\dot u^2 + 2F\dot u\dot v + G\dot v^2}\,dt.$$</li>
+  <li><strong>Angle</strong> between two tangent vectors $w_1, w_2 \in T_pS$: $\cos\theta = I(w_1,w_2)/\sqrt{I(w_1)I(w_2)}$.</li>
+  <li><strong>Area element</strong>: $dA = \sqrt{EG - F^2}\,du\,dv$. Note $EG - F^2 = \lVert \mathbf{x}_u\times\mathbf{x}_v\rVert^2$, so this matches the Euclidean area of the parallelogram spanned by $\mathbf{x}_u, \mathbf{x}_v$.</li>
+</ul>
+
+<p>Two surfaces $S_1, S_2$ are <strong>locally isometric</strong> at $p_1 \in S_1$ and $p_2 \in S_2$ if there exist charts $\mathbf{x}_1$ of $S_1$ around $p_1$ and $\mathbf{x}_2$ of $S_2$ around $p_2$ with the same first fundamental form (as functions of $(u,v)$). Equivalently, there is a local diffeomorphism $\phi\colon (S_1, p_1) \to (S_2, p_2)$ preserving lengths of curves.</p>
+
+<p>Key examples of isometric surfaces:</p>
+<ul>
+  <li>Plane and cylinder. The cylinder $\mathbf{x}(u,v) = (\cos u, \sin u, v)$ has $E = G = 1$ and $F = 0$ — the same first fundamental form as the flat plane. You can roll a piece of paper into a cylinder without stretching; this is why cylinders are <em>developable</em> surfaces.</li>
+  <li>Plane and cone. Cut a cone along a generator and unroll it; the first fundamental form in the rolled-out coordinates is flat.</li>
+  <li>Catenoid and helicoid. Two strikingly different-looking surfaces — one a surface of revolution, one a ruled surface — are in fact locally isometric (you can continuously deform one into the other through a family of isometric minimal surfaces).</li>
+  <li>Sphere and anything. The round sphere is <em>not</em> locally isometric to the plane — no flat map of the globe preserves distances. This fact is essentially Gauss's Theorema Egregium.</li>
+</ul>
+
+<p>Whenever you compute something on $S$ from $(E,F,G)$ alone, without referring to the embedding, that quantity is <strong>intrinsic</strong>. Length, angle, area, and (surprise!) Gaussian curvature are intrinsic. Mean curvature, principal curvatures, and the second fundamental form are not — they depend on how $S$ sits in $\mathbb{R}^3$.</p>
+
+</section>
+
+<section id="gauss">
+<h2>5. The Gauss map and the second fundamental form</h2>
+<p>Orient the surface $S$ with a unit normal field $\mathbf{n}\colon S \to S^2$. This is the <strong>Gauss map</strong>. It records how the tangent plane rotates in $\mathbb{R}^3$ as you move over $S$. If $S$ is flat (a plane), $\mathbf{n}$ is constant. If $S$ is a sphere of radius $R$, $\mathbf{n}(p) = p/R$ — the Gauss map is an isomorphism (up to scale), hitting every direction on $S^2$ exactly once.</p>
+
+<p>Differentiating $\mathbf{n}$ at $p$ gives a linear map $dN_p\colon T_pS \to T_{\mathbf{n}(p)}S^2$. Since $T_{\mathbf{n}(p)}S^2$ is the plane perpendicular to $\mathbf{n}(p)$ — which is exactly $T_pS$ — we can view</p>
+<p style="text-align:center">$dN_p\colon T_pS \to T_pS$,</p>
+<p>a linear operator on the tangent plane. It is called the <strong>Weingarten map</strong> or <strong>shape operator</strong> (some authors use $S_p = -dN_p$). The shape operator captures how the surface curves in its ambient space.</p>
+
+<p>The <strong>second fundamental form</strong> is the associated quadratic form</p>
+<p style="text-align:center">$II_p(w) = -\langle dN_p(w), w\rangle = \langle S_p(w), w\rangle.$</p>
+<p>Equivalently, $II_p(w) = \langle \ddot\gamma(0), \mathbf{n}(p)\rangle$ for any curve $\gamma$ on $S$ with $\gamma(0)=p$ and $\dot\gamma(0)=w$. It measures how much an arc on $S$ in the direction $w$ departs from its tangent plane.</p>
+
+<p>In local coordinates, writing $e = \mathbf{x}_{uu}\cdot \mathbf{n}$, $f = \mathbf{x}_{uv}\cdot \mathbf{n}$, $g = \mathbf{x}_{vv}\cdot \mathbf{n}$,</p>
+<p style="text-align:center">$II = e\,du^2 + 2f\,du\,dv + g\,dv^2$.</p>
+
+<p>The shape operator, in the basis $(\mathbf{x}_u, \mathbf{x}_v)$, has matrix</p>
+<p style="text-align:center">$[S_p] = I^{-1}\,II = \begin{pmatrix} E & F \\ F & G \end{pmatrix}^{-1} \begin{pmatrix} e & f \\ f & g \end{pmatrix}.$</p>
+
+<p>It is <em>self-adjoint</em> with respect to $I$, hence diagonalizable with real eigenvalues. The eigenvalues are the <strong>principal curvatures</strong> $k_1 \ge k_2$; the eigenvectors are the <strong>principal directions</strong>. Two rotationally invariant quantities are the <strong>Gaussian curvature</strong> and <strong>mean curvature</strong>:</p>
+<div class="note">
+$$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}{2}\operatorname{tr} S_p = \tfrac{1}{2}(k_1 + k_2) = \frac{eG - 2fF + gE}{2(EG - F^2)}.$$
+</div>
+
+<p>Classification of points by $K$:</p>
+<ul>
+  <li><strong>Elliptic:</strong> $K > 0$. Both principal curvatures have the same sign; the surface looks like a dome locally. Sphere, ellipsoid, convex region of a torus.</li>
+  <li><strong>Hyperbolic:</strong> $K < 0$. Principal curvatures have opposite signs; saddle shape. Saddle surface, inside of torus.</li>
+  <li><strong>Parabolic:</strong> $K = 0$ but not both $k_i = 0$. Flat in one direction, curved in the other. Cylinder, cone.</li>
+  <li><strong>Planar:</strong> $k_1 = k_2 = 0$. Plane.</li>
+</ul>
+
+<div class="widget" id="w-gmap">
+  <div class="hd"><div class="ttl">The Gauss map</div><div class="hint">move the point · watch $\mathbf{n}(p)$ on $S^2$</div></div>
+  <div class="row">
+    <label>surface:</label>
+    <select id="gm-pick">
+      <option value="sphere" selected>sphere</option>
+      <option value="cylinder">cylinder</option>
+      <option value="torus">torus</option>
+      <option value="saddle">saddle z = x²−y²</option>
+      <option value="hyp">hyperboloid (1-sheet)</option>
+      <option value="pseudo">pseudosphere</option>
+    </select>
+    <label>u:</label>
+    <input type="range" id="gm-u" min="0" max="1000" value="500" step="1">
+    <label>v:</label>
+    <input type="range" id="gm-v" min="0" max="1000" value="500" step="1">
+  </div>
+  <svg id="gm-svg" viewBox="-340 -200 680 400" width="100%" style="max-width:720px;height:auto"></svg>
+  <div class="readout" id="gm-out"></div>
+</div>
+
+<p>Two qualitative behaviours stand out in the widget. For the <em>sphere</em> the Gauss map is a diffeomorphism onto $S^2$: as $p$ runs over $S^2_R$, $\mathbf{n}(p)$ runs over $S^2$ exactly once. The <em>degree</em> of the Gauss map is $+1$. For a <em>saddle</em>, moving $p$ around a loop near the origin produces an image on $S^2$ that winds backwards — the Gauss map has negative Jacobian, which is exactly $K < 0$. For the <em>cylinder</em>, $\mathbf{n}$ stays on the equator of $S^2$; the image is one-dimensional, and $K = 0$ everywhere.</p>
+
+<p>More quantitatively: the Jacobian of the Gauss map at $p$ equals $K(p)$ in absolute value, with sign matching the orientation behaviour. This identifies Gaussian curvature as a local measure of "how much $\mathbf{n}$ spreads on $S^2$" per unit area on $S$.</p>
+
+<div class="widget" id="w-khm">
+  <div class="hd"><div class="ttl">Gaussian curvature heatmap</div><div class="hint">green: $K > 0$ · pink: $K < 0$ · white: $K = 0$</div></div>
+  <div class="row">
+    <label>surface:</label>
+    <select id="kh-pick">
+      <option value="sphere">sphere (K = 1/R², uniform green)</option>
+      <option value="plane">plane (K = 0, uniform white)</option>
+      <option value="cylinder">cylinder (K = 0, uniform white)</option>
+      <option value="torus" selected>torus (mixed — striped)</option>
+      <option value="saddle">saddle (K &lt; 0 at origin)</option>
+      <option value="hyp">hyperboloid (K &lt; 0)</option>
+      <option value="pseudo">pseudosphere (K = −1, uniform pink)</option>
+      <option value="ellipsoid">ellipsoid</option>
+    </select>
+  </div>
+  <svg id="kh-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="kh-out"></div>
+</div>
+
+</section>
+
+<script>
+/* ========================== §5 Gauss map ========================== */
+(function(){
+  const svg = $('#gm-svg'), pick = $('#gm-pick'),
+        uS = $('#gm-u'), vS = $('#gm-v'), out = $('#gm-out');
+
+  // Each surface returns {point, n, uMin, uMax, vMin, vMax, paramLines, label}
+  const SURF = {
+    sphere: {
+      uMin:0.1, uMax:Math.PI-0.1, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)],
+      n: (u,v) => [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)],
+      label:'unit sphere'
+    },
+    cylinder: {
+      uMin:0, uMax:2*Math.PI, vMin:-1.2, vMax:1.2,
+      x: (u,v) => [Math.cos(u), Math.sin(u), v],
+      n: (u,v) => [Math.cos(u), Math.sin(u), 0],
+      label:'cylinder'
+    },
+    torus: {
+      uMin:0, uMax:2*Math.PI, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => { const R=1.0, r=0.35;
+        return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)];},
+      n: (u,v) => [Math.cos(v)*Math.cos(u), Math.cos(v)*Math.sin(u), Math.sin(v)],
+      label:'torus'
+    },
+    saddle: {
+      uMin:-1.0, uMax:1.0, vMin:-1.0, vMax:1.0,
+      x: (u,v) => [u, v, u*u - v*v],
+      n: (u,v) => { const nn=[-2*u, 2*v, 1]; const L=vlen(nn); return nn.map(c=>c/L); },
+      label:'saddle z = x² − y²'
+    },
+    hyp: {
+      uMin:-1.0, uMax:1.0, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => [Math.cosh(u)*Math.cos(v), Math.cosh(u)*Math.sin(v), Math.sinh(u)],
+      n: (u,v) => {
+        const xu = [Math.sinh(u)*Math.cos(v), Math.sinh(u)*Math.sin(v), Math.cosh(u)];
+        const xv = [-Math.cosh(u)*Math.sin(v), Math.cosh(u)*Math.cos(v), 0];
+        const nn = vcross(xu,xv); return vnorm(nn);
+      },
+      label:'hyperboloid of one sheet'
+    },
+    pseudo: {
+      uMin:0.3, uMax:2.2, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => { const s=1/Math.cosh(u); return [s*Math.cos(v), s*Math.sin(v), u - Math.tanh(u)]; },
+      n: (u,v) => {
+        const s=1/Math.cosh(u);
+        const th=Math.tanh(u);
+        const xu = [-s*th*Math.cos(v), -s*th*Math.sin(v), 1 - 1/Math.pow(Math.cosh(u),2)];
+        const xv = [-s*Math.sin(v), s*Math.cos(v), 0];
+        const nn = vcross(xu,xv); return vnorm(nn);
+      },
+      label:'pseudosphere'
+    }
+  };
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value; const S = SURF[key];
+    const u = S.uMin + (S.uMax-S.uMin)*(+uS.value/1000);
+    const v = S.vMin + (S.vMax-S.vMin)*(+vS.value/1000);
+
+    // left half: surface with wireframe
+    const yaw = 0.75, pitch = 0.55;
+    // collect triangles
+    const NU = 22, NV = 30;
+    const verts = [];
+    for(let i=0;i<=NU;i++){
+      const row = [];
+      for(let j=0;j<=NV;j++){
+        const uu = S.uMin + (S.uMax-S.uMin)*i/NU;
+        const vv = S.vMin + (S.vMax-S.vMin)*j/NV;
+        const P = S.x(uu,vv);
+        const pp = proj3(P, yaw, pitch);
+        row.push({P, pp, u:uu, v:vv});
+      }
+      verts.push(row);
+    }
+    // bbox
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const row of verts) for(const {pp} of row){
+      xmin=Math.min(xmin,pp[0]); xmax=Math.max(xmax,pp[0]);
+      ymin=Math.min(ymin,pp[1]); ymax=Math.max(ymax,pp[1]);
+    }
+    const leftCx = -170, leftCy = 0;
+    const pad=0.15;
+    xmin-=pad;xmax+=pad;ymin-=pad;ymax+=pad;
+    const scale = Math.min(280/(xmax-xmin), 330/(ymax-ymin));
+    const sx = x => leftCx + (x - (xmin+xmax)/2)*scale;
+    const sy = y => leftCy - (y - (ymin+ymax)/2)*scale;
+
+    // Build quads with average depth for painter's algorithm
+    const quads = [];
+    for(let i=0;i<NU;i++) for(let j=0;j<NV;j++){
+      const a = verts[i][j], b = verts[i+1][j], c = verts[i+1][j+1], d = verts[i][j+1];
+      const zavg = (a.pp[2]+b.pp[2]+c.pp[2]+d.pp[2])/4;
+      // face normal using cross of diagonals in 3D
+      const v1 = vsub(c.P, a.P), v2 = vsub(d.P, b.P);
+      const nn = vnorm(vcross(v1,v2));
+      const light = vnorm([0.4,0.3,0.8]);
+      const sh = Math.max(0.15, vdot(nn, light));
+      quads.push({a,b,c,d,zavg,sh});
+    }
+    quads.sort((x,y)=>x.zavg - y.zavg);
+    for(const q of quads){
+      const col = Math.round(80 + 120*q.sh);
+      const pts = [q.a.pp, q.b.pp, q.c.pp, q.d.pp].map(p=>sx(p[0])+','+sy(p[1])).join(' ');
+      svg.appendChild(SVG('polygon',{
+        points:pts, fill:`rgb(${col-30},${col-10},${col+30})`,
+        stroke:'#2a3242','stroke-width':0.35,'stroke-opacity':0.4
+      }));
+    }
+    // surface label
+    const lt = SVG('text',{x:leftCx, y:sy(ymax)-8, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lt.textContent = S.label; svg.appendChild(lt);
+
+    // current point on surface
+    const Pcur = S.x(u,v);
+    const ppcur = proj3(Pcur, yaw, pitch);
+    svg.appendChild(SVG('circle',{cx:sx(ppcur[0]), cy:sy(ppcur[1]), r:5, fill:'#fff', stroke:'#111','stroke-width':1.5}));
+    // normal at p projected
+    const nn = S.n(u,v);
+    const pEnd = proj3(vadd(Pcur, vscl(nn, 0.5)), yaw, pitch);
+    drawArrow(svg, [sx(ppcur[0]),sy(ppcur[1])], [sx(pEnd[0]),sy(pEnd[1])],
+      {color:'var(--blue)', markerId:'gm-n', width:2, pad2:5});
+
+    // RIGHT half: the unit sphere S²
+    const rightCx = 170, rightCy = 0, R = 120;
+    // background circle
+    svg.appendChild(SVG('circle',{cx:rightCx, cy:rightCy, r:R, fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+    // latitude lines (5)
+    for(let k=-2;k<=2;k++){
+      const lat = k*Math.PI/6;
+      let d='';
+      for(let j=0;j<=40;j++){
+        const lon = -Math.PI + 2*Math.PI*j/40;
+        const P=[Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];
+        const pp = proj3(P, yaw, pitch);
+        d += (j===0?'M':'L') + (rightCx + pp[0]*R) + ' ' + (rightCy - pp[1]*R) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.7}));
+    }
+    // longitude lines (6)
+    for(let k=0;k<6;k++){
+      const lon = k*Math.PI/3;
+      let d='';
+      for(let j=0;j<=40;j++){
+        const lat = -Math.PI/2 + Math.PI*j/40;
+        const P=[Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];
+        const pp = proj3(P, yaw, pitch);
+        d += (j===0?'M':'L') + (rightCx + pp[0]*R) + ' ' + (rightCy - pp[1]*R) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.7}));
+    }
+    // n(p) on sphere
+    const ppN = proj3(nn, yaw, pitch);
+    const isFront = ppN[2] > 0;
+    svg.appendChild(SVG('circle',{cx:rightCx + ppN[0]*R, cy:rightCy - ppN[1]*R, r:6,
+      fill:isFront?'var(--blue)':'#3a4258', stroke:'#fff','stroke-width':1.3, opacity:isFront?1:0.55}));
+
+    // image of a small neighborhood: trace n along a short u-v arc
+    let d2='';
+    const Nsamples = 40;
+    for(let k=0;k<=Nsamples;k++){
+      const dd = (k/Nsamples - 0.5);
+      const du = 0.25*(S.uMax-S.uMin)/Math.PI;
+      const nn2 = S.n(u + Math.cos(2*Math.PI*k/Nsamples)*du, v + Math.sin(2*Math.PI*k/Nsamples)*du);
+      const pp2 = proj3(nn2, yaw, pitch);
+      d2 += (k===0?'M':'L') + (rightCx + pp2[0]*R) + ' ' + (rightCy - pp2[1]*R) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-opacity':0.85}));
+
+    const lt2 = SVG('text',{x:rightCx, y:rightCy - R - 8, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lt2.textContent = 'S² — unit normal image';
+    svg.appendChild(lt2);
+
+    out.textContent =
+      `surface: ${S.label}\n` +
+      `(u,v) = (${u.toFixed(3)}, ${v.toFixed(3)})\n` +
+      `p = (${Pcur.map(x=>x.toFixed(3)).join(', ')})\n` +
+      `n(p) = (${nn.map(x=>x.toFixed(3)).join(', ')})\n` +
+      `The violet loop on S² is the image of a small (u,v)-disk around p under the Gauss map.`;
+  }
+  pick.addEventListener('change',draw);
+  uS.addEventListener('input',draw);
+  vS.addEventListener('input',draw);
+  draw();
+})();
+
+/* ========================== §5 Curvature heatmap ========================== */
+(function(){
+  const svg = $('#kh-svg'), pick = $('#kh-pick'), out = $('#kh-out');
+  const SURF = {
+    sphere: {
+      uMin:0.05, uMax:Math.PI-0.05, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => [Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)],
+      K: (u,v) => 1,
+      label:'sphere: K = 1/R² = 1 (R=1)'
+    },
+    plane: {
+      uMin:-1, uMax:1, vMin:-1, vMax:1,
+      x: (u,v) => [u, v, 0],
+      K: (u,v) => 0,
+      label:'plane: K = 0'
+    },
+    cylinder: {
+      uMin:0, uMax:2*Math.PI, vMin:-1.2, vMax:1.2,
+      x: (u,v) => [Math.cos(u), Math.sin(u), v],
+      K: (u,v) => 0,
+      label:'cylinder: K = 0 (developable)'
+    },
+    torus: {
+      uMin:0, uMax:2*Math.PI, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => { const R=1, r=0.4;
+        return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)];},
+      K: (u,v) => {
+        const R=1, r=0.4;
+        return Math.cos(v)/(r*(R+r*Math.cos(v)));
+      },
+      label:'torus: K = cos v / (r(R+r cos v)) — mixed sign'
+    },
+    saddle: {
+      uMin:-1, uMax:1, vMin:-1, vMax:1,
+      x: (u,v) => [u, v, u*u - v*v],
+      K: (u,v) => -4/Math.pow(1 + 4*u*u + 4*v*v, 2),
+      label:'saddle z = x² − y²: K < 0'
+    },
+    hyp: {
+      uMin:-1, uMax:1, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => [Math.cosh(u)*Math.cos(v), Math.cosh(u)*Math.sin(v), Math.sinh(u)],
+      K: (u,v) => -1/Math.pow(Math.cosh(2*u), 2),
+      label:'hyperboloid (1-sheet): K < 0'
+    },
+    pseudo: {
+      uMin:0.4, uMax:2.0, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => { const s=1/Math.cosh(u); return [s*Math.cos(v), s*Math.sin(v), u - Math.tanh(u)]; },
+      K: (u,v) => -1,
+      label:'pseudosphere: K = −1 identically'
+    },
+    ellipsoid: {
+      uMin:0.05, uMax:Math.PI-0.05, vMin:0, vMax:2*Math.PI,
+      x: (u,v) => [1.5*Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), 0.7*Math.cos(u)],
+      K: (u,v) => {
+        const a=1.5, b=1, c=0.7;
+        const s=Math.sin(u), cu=Math.cos(u);
+        const num = a*a*b*b*c*c;
+        const den = Math.pow(a*a*b*b*cu*cu + c*c*(b*b*Math.cos(v)*Math.cos(v) + a*a*Math.sin(v)*Math.sin(v))*s*s, 2);
+        return num/den;
+      },
+      label:'ellipsoid: K > 0 everywhere, non-constant'
+    }
+  };
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value; const S = SURF[key];
+    const NU=28, NV=40;
+    const verts = [];
+    for(let i=0;i<=NU;i++){
+      const row=[];
+      for(let j=0;j<=NV;j++){
+        const uu = S.uMin + (S.uMax-S.uMin)*i/NU;
+        const vv = S.vMin + (S.vMax-S.vMin)*j/NV;
+        const P = S.x(uu,vv);
+        const pp = proj3(P, 0.75, 0.55);
+        row.push({P,pp,u:uu,v:vv,K:S.K(uu,vv)});
+      }
+      verts.push(row);
+    }
+    // bbox
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const row of verts) for(const {pp} of row){
+      xmin=Math.min(xmin,pp[0]); xmax=Math.max(xmax,pp[0]);
+      ymin=Math.min(ymin,pp[1]); ymax=Math.max(ymax,pp[1]);
+    }
+    const pad=0.15; xmin-=pad;xmax+=pad;ymin-=pad;ymax+=pad;
+    const scale = Math.min(420/(xmax-xmin), 320/(ymax-ymin));
+    const sx = x => (x - (xmin+xmax)/2)*scale;
+    const sy = y => -(y - (ymin+ymax)/2)*scale;
+
+    // normalize K range
+    let Kabs = 0;
+    for(const row of verts) for(const {K} of row) if(isFinite(K)) Kabs = Math.max(Kabs, Math.abs(K));
+    if(Kabs<1e-6) Kabs = 1;
+
+    const quads=[];
+    for(let i=0;i<NU;i++) for(let j=0;j<NV;j++){
+      const a=verts[i][j], b=verts[i+1][j], c=verts[i+1][j+1], d=verts[i][j+1];
+      const zavg=(a.pp[2]+b.pp[2]+c.pp[2]+d.pp[2])/4;
+      const Kavg=(a.K+b.K+c.K+d.K)/4;
+      quads.push({a,b,c,d,zavg,Kavg});
+    }
+    quads.sort((x,y)=>x.zavg-y.zavg);
+    for(const q of quads){
+      const pts=[q.a.pp,q.b.pp,q.c.pp,q.d.pp].map(p=>sx(p[0])+','+sy(p[1])).join(' ');
+      svg.appendChild(SVG('polygon',{
+        points:pts, fill:curvColor(q.Kavg/Kabs),
+        stroke:'#2a3242','stroke-width':0.3,'stroke-opacity':0.5
+      }));
+    }
+    // legend
+    const lg = SVG('g',{transform:'translate(-200,-150)'});
+    const grad = `linearGradient-kh-${Math.random().toString(36).slice(2,6)}`;
+    const defs = SVG('defs');
+    const lgrad = SVG('linearGradient',{id:grad, x1:0,y1:0,x2:1,y2:0});
+    lgrad.appendChild(SVG('stop',{offset:'0%','stop-color':curvColor(-1)}));
+    lgrad.appendChild(SVG('stop',{offset:'50%','stop-color':curvColor(0)}));
+    lgrad.appendChild(SVG('stop',{offset:'100%','stop-color':curvColor(1)}));
+    defs.appendChild(lgrad); svg.appendChild(defs);
+    lg.appendChild(SVG('rect',{x:0,y:0,width:120,height:10,fill:`url(#${grad})`,stroke:'var(--line)'}));
+    const t1 = SVG('text',{x:0,y:24,'font-size':10,fill:'var(--mute)'});   t1.textContent = 'K < 0';
+    const t2 = SVG('text',{x:120,y:24,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t2.textContent = 'K > 0';
+    const t3 = SVG('text',{x:60,y:24,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t3.textContent = 'K = 0';
+    lg.appendChild(t1); lg.appendChild(t2); lg.appendChild(t3);
+    svg.appendChild(lg);
+
+    out.textContent = `${S.label}\nmax |K| on the mesh: ${Kabs.toFixed(4)}`;
+  }
+  pick.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<section id="egregium">
+<h2>6. Gauss's <em>Theorema Egregium</em></h2>
+<p>The shape operator, the second fundamental form, the principal curvatures, and even the mean curvature $H$ all depend on how $S$ is embedded in $\mathbb{R}^3$. If you bend an infinite cylinder — wrap a piece of paper around it — the second fundamental form changes (the mean curvature of the flat sheet is zero, but it's nonzero on the cylinder). These are <em>extrinsic</em> invariants.</p>
+
+<p>What Gauss discovered, to his own astonishment:</p>
+<div class="ok"><strong>Theorema Egregium.</strong> The Gaussian curvature $K$ depends only on the first fundamental form $I$, not on the embedding. That is, $K$ is an <em>intrinsic</em> invariant of the surface.</div>
+
+<p>Formally: any local isometry preserves $K$. If you can deform $S_1$ to $S_2$ without stretching or tearing — without changing the induced metric — then their Gaussian curvature functions match up point by point.</p>
+
+<p>This is the reason no flat map of the Earth can be distance-preserving: $K = 1/R^2 > 0$ on the sphere and $K = 0$ on any flat sheet of paper, so no local isometry exists. All world maps must distort either distances or angles (or both). Mercator preserves angles (conformal) at the cost of area; equal-area projections distort angles.</p>
+
+<h3>Why it's "extraordinary"</h3>
+<p>The intrinsic side of the first fundamental form speaks in terms of $(E, F, G)$ and derivatives of these functions. The extrinsic shape operator speaks in terms of $(e, f, g)$ — the second derivatives of the parametrization <em>in the normal direction</em>. There is no obvious reason the product $k_1 k_2$, built from $(e,f,g)$, should be expressible in terms of $(E,F,G)$ alone. The <strong>Brioschi formula</strong> makes it explicit (one version of many):</p>
+
+<div class="note"><strong>Brioschi.</strong> For $F = 0$ (orthogonal coordinates),
+$$K = \frac{-1}{2\sqrt{EG}}\left(\frac{\partial}{\partial u}\frac{G_u}{\sqrt{EG}} + \frac{\partial}{\partial v}\frac{E_v}{\sqrt{EG}}\right).$$
+Only $(E,G)$ and their derivatives appear on the right — no $(e,f,g)$.</div>
+
+<p>A second formulation, via the <strong>Christoffel symbols</strong> $\Gamma^k_{ij}$ (which themselves only depend on $I$), gives</p>
+<p style="text-align:center">$K = R_{1212}/(EG - F^2)$,</p>
+<p>where $R_{ijkl}$ is the Riemann curvature tensor built from $\Gamma$. The equation $K = R_{1212}/(EG-F^2)$ in two dimensions foreshadows the structure we will see in general Riemannian geometry (§10): curvature is always derivable from the metric, via the Levi-Civita connection.</p>
+
+<h3>The infinitesimal-triangle intuition</h3>
+<p>Here is the cleanest intuition for why $K$ is intrinsic. Consider a small geodesic triangle on $S$ with interior angles $\alpha, \beta, \gamma$. The <strong>angle defect</strong> — the amount by which $\alpha + \beta + \gamma$ fails to equal $\pi$ — equals the integral of $K$ over the triangle:</p>
+<p style="text-align:center">$\alpha + \beta + \gamma - \pi = \displaystyle\int_\triangle K\,dA.$</p>
+<p>But "the angles in a geodesic triangle" depends only on distances and angles — things $I$ sees. So the angle defect is intrinsic. Dividing by area and shrinking the triangle shows $K$ is intrinsic.</p>
+
+<p>Concretely: a spherical triangle with three right angles (one vertex at the pole, two on the equator at 90° longitude apart) has $\alpha + \beta + \gamma = 3\pi/2 > \pi$. The extra $\pi/2$ equals $\int K\,dA = (1/R^2)\cdot(R^2\cdot\pi/2) = \pi/2$ — area $R^2\pi/2$ is one-eighth of the total sphere area $4\pi R^2$. Check.</p>
+
+<p>On a hyperbolic surface ($K < 0$), triangle angles add to <em>less</em> than $\pi$; you get an angle <em>deficit</em>. On the pseudosphere ($K = -1$), a triangle of area $A$ has angle deficit exactly $A$.</p>
+
+</section>
+
+<section id="geodesics">
+<h2>7. Geodesics</h2>
+<p>A <strong>geodesic</strong> on a surface is the analog of a straight line: a curve that is "locally length-minimizing" (more precisely, its length is critical among all nearby curves with the same endpoints). The Euler–Lagrange equations for the arc-length functional $\int \sqrt{g_{ij}\dot\gamma^i\dot\gamma^j}\,dt$ give, after switching to the arc-length parametrization,</p>
+<div class="note"><strong>Geodesic equation.</strong>
+$$\ddot\gamma^k + \Gamma^k_{ij}\,\dot\gamma^i \dot\gamma^j = 0, \qquad k = 1, 2,$$
+where $\Gamma^k_{ij}$ are the <strong>Christoffel symbols</strong> of the metric,
+$$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il} - \partial_l g_{ij}\bigr).$$
+</div>
+
+<p>An equivalent extrinsic characterization: a curve $\gamma$ on $S$ is a geodesic iff $\ddot\gamma$ is everywhere normal to $S$. In other words, the acceleration of a geodesic, as measured in $\mathbb{R}^3$, points straight out of the surface — it has no tangential component. An ant walking in a "straight line" on a curved surface feels no sideways force.</p>
+
+<p>Known geodesics:</p>
+<ul>
+  <li>On the <strong>plane</strong>: straight lines. Christoffels vanish in Cartesian coordinates; the equation is $\ddot\gamma^k = 0$.</li>
+  <li>On the <strong>sphere</strong>: great circles. The ant walks in a circle whose center is the sphere's center.</li>
+  <li>On the <strong>cylinder</strong>: helices (including vertical generators and horizontal circles as limiting cases). Unroll the cylinder to a strip; a straight line on the strip becomes a helix when re-rolled.</li>
+  <li>On the <strong>cone</strong>: unroll it along a generator into a flat sector; geodesics are straight lines in the sector. When re-rolled, they spiral around the cone.</li>
+  <li>On a <strong>torus</strong>: complicated. Rational and irrational windings; a closed geodesic corresponds to a rational winding.</li>
+</ul>
+
+<p>The <strong>exponential map</strong> $\exp_p\colon T_pS \to S$ sends a tangent vector $v$ to the point at arc-length $\lVert v \rVert$ along the geodesic from $p$ in direction $v/\lVert v \rVert$. On a small enough neighborhood it is a diffeomorphism; its derivative at $0$ is the identity. The exponential map gives a canonical system of <em>normal coordinates</em> around $p$: the metric becomes $\delta_{ij} + O(\lVert v \rVert^2)$, with the quadratic correction governed by the curvature tensor.</p>
+
+<div class="widget" id="w-geo">
+  <div class="hd"><div class="ttl">Geodesic flow on a surface</div><div class="hint">pick a surface · drag to set the starting direction</div></div>
+  <div class="row">
+    <label>surface:</label>
+    <select id="ge-pick">
+      <option value="sphere" selected>sphere (geodesics = great circles)</option>
+      <option value="cylinder">cylinder (geodesics = helices)</option>
+      <option value="torus">torus (mixed)</option>
+      <option value="cone">cone (unroll to straight line)</option>
+      <option value="saddle">saddle</option>
+    </select>
+    <label>u₀:</label>
+    <input type="range" id="ge-u0" min="0" max="1000" value="500" step="1">
+    <label>v₀:</label>
+    <input type="range" id="ge-v0" min="0" max="1000" value="500" step="1">
+    <label>angle:</label>
+    <input type="range" id="ge-ang" min="0" max="628" value="180" step="1">
+    <label>length:</label>
+    <input type="range" id="ge-len" min="50" max="1500" value="600" step="10">
+  </div>
+  <svg id="ge-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="ge-out"></div>
+</div>
+
+</section>
+
+<script>
+/* ============================ §7 geodesic ============================ */
+(function(){
+  const svg=$('#ge-svg'), pick=$('#ge-pick'),
+        u0S=$('#ge-u0'), v0S=$('#ge-v0'), angS=$('#ge-ang'), lenS=$('#ge-len'),
+        out = $('#ge-out');
+
+  // Each surface supplies x(u,v) and a function to compute the induced metric
+  // and Christoffel symbols numerically. We integrate the geodesic ODE in (u,v).
+  const SURF = {
+    sphere: {
+      uMin:0.1, uMax:Math.PI-0.1, vMin:0, vMax:2*Math.PI, periodic:[false,true],
+      x:(u,v)=>[Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)],
+      label:'unit sphere'
+    },
+    cylinder: {
+      uMin:0, uMax:2*Math.PI, vMin:-1.5, vMax:1.5, periodic:[true,false],
+      x:(u,v)=>[Math.cos(u), Math.sin(u), v],
+      label:'cylinder'
+    },
+    torus: {
+      uMin:0, uMax:2*Math.PI, vMin:0, vMax:2*Math.PI, periodic:[true,true],
+      x:(u,v)=>{const R=1, r=0.4;
+        return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)];},
+      label:'torus (R=1, r=0.4)'
+    },
+    cone: {
+      uMin:0.05, uMax:1.5, vMin:0, vMax:2*Math.PI, periodic:[false,true],
+      // z = u (height along axis), radius = u·tan(α), α = 30°
+      x:(u,v)=>{const a=Math.tan(Math.PI/6);
+        return [a*u*Math.cos(v), a*u*Math.sin(v), u];},
+      label:'cone (half-angle 30°)'
+    },
+    saddle: {
+      uMin:-1.2, uMax:1.2, vMin:-1.2, vMax:1.2, periodic:[false,false],
+      x:(u,v)=>[u, v, 0.5*(u*u - v*v)],
+      label:'saddle z = ½(u² − v²)'
+    }
+  };
+
+  // numeric partial derivatives of x(u,v)
+  function partials(S, u, v, h=1e-4){
+    const xu = vscl(vsub(S.x(u+h,v), S.x(u-h,v)), 1/(2*h));
+    const xv = vscl(vsub(S.x(u,v+h), S.x(u,v-h)), 1/(2*h));
+    return {xu, xv};
+  }
+  function metric(S, u, v){
+    const {xu, xv} = partials(S,u,v);
+    return {E:vdot(xu,xu), F:vdot(xu,xv), G:vdot(xv,xv)};
+  }
+  function christoffel(S, u, v){
+    // second derivatives via finite differences
+    const h = 1e-3;
+    const {xu:xu0, xv:xv0} = partials(S,u,v,h);
+    const {xu:xuu1, xv:xvu1} = partials(S,u+h,v,h);
+    const {xu:xuu2, xv:xvu2} = partials(S,u-h,v,h);
+    const {xu:xuv1, xv:xvv1} = partials(S,u,v+h,h);
+    const {xu:xuv2, xv:xvv2} = partials(S,u,v-h,h);
+    const xuu = vscl(vsub(xuu1, xuu2), 1/(2*h));
+    const xvv = vscl(vsub(xvv1, xvv2), 1/(2*h));
+    const xuv = vscl(vsub(xuv1, xuv2), 1/(2*h));
+    const {xu, xv} = partials(S,u,v,h);
+    const E = vdot(xu,xu), F = vdot(xu,xv), G = vdot(xv,xv);
+    const det = E*G - F*F;
+    // In 2D: want Γ^k_ij where x_{ij} = Γ^1_{ij} x_u + Γ^2_{ij} x_v + L_{ij} n.
+    // Tangential component: [Γ^1_{ij}, Γ^2_{ij}] satisfies
+    //   [E F; F G] [Γ^1; Γ^2] = [ x_{ij}·x_u ; x_{ij}·x_v ]
+    function solve(a,b){
+      // (1/det) [ G -F; -F E] [a;b]
+      return [(G*a - F*b)/det, (-F*a + E*b)/det];
+    }
+    const g_uu = solve(vdot(xuu,xu), vdot(xuu,xv));
+    const g_uv = solve(vdot(xuv,xu), vdot(xuv,xv));
+    const g_vv = solve(vdot(xvv,xu), vdot(xvv,xv));
+    return {
+      G1: [[g_uu[0], g_uv[0]],[g_uv[0], g_vv[0]]],
+      G2: [[g_uu[1], g_uv[1]],[g_uv[1], g_vv[1]]],
+      E, F, G
+    };
+  }
+
+  function rk4Step(S, state, dt){
+    function deriv(s){
+      const [u,v,du,dv] = s;
+      const {G1, G2} = christoffel(S, u, v);
+      const ddu = -(G1[0][0]*du*du + 2*G1[0][1]*du*dv + G1[1][1]*dv*dv);
+      const ddv = -(G2[0][0]*du*du + 2*G2[0][1]*du*dv + G2[1][1]*dv*dv);
+      return [du, dv, ddu, ddv];
+    }
+    const k1 = deriv(state);
+    const k2 = deriv(state.map((s,i)=>s + dt/2*k1[i]));
+    const k3 = deriv(state.map((s,i)=>s + dt/2*k2[i]));
+    const k4 = deriv(state.map((s,i)=>s + dt*k3[i]));
+    return state.map((s,i)=>s + dt/6*(k1[i] + 2*k2[i] + 2*k3[i] + k4[i]));
+  }
+
+  function integrate(S, u0, v0, angle, totalLen, nSteps=800){
+    // pick initial direction in (u,v) with unit speed in the metric
+    const {E, F, G} = metric(S, u0, v0);
+    // want w = [cos(angle), sin(angle)] in orthonormal tangent basis;
+    // convert to (u,v) basis by Gram-Schmidt: ê1 = xu/√E, ê2 = (xv - (F/E)xu)/√(G - F²/E)
+    // so w in (u,v) coords = cosθ·(1/√E, 0) + sinθ·(-F/(E√(G-F²/E)), 1/√(G-F²/E))
+    const sE = Math.sqrt(E);
+    const GmFE = G - F*F/E;
+    const sGmFE = Math.sqrt(Math.max(GmFE, 1e-9));
+    const du0 = Math.cos(angle)/sE - Math.sin(angle)*F/(E*sGmFE);
+    const dv0 = Math.sin(angle)/sGmFE;
+    const dt = totalLen / nSteps;
+    let state = [u0, v0, du0, dv0];
+    const pts = [[u0,v0]];
+    for(let i=0;i<nSteps;i++){
+      state = rk4Step(S, state, dt);
+      // handle periodic coords
+      if(S.periodic[0]){ const span=S.uMax-S.uMin; state[0] = ((state[0]-S.uMin)%span + span)%span + S.uMin; }
+      if(S.periodic[1]){ const span=S.vMax-S.vMin; state[1] = ((state[1]-S.vMin)%span + span)%span + S.vMin; }
+      if(!isFinite(state[0]) || !isFinite(state[1])) break;
+      // clamp non-periodic bounds
+      if(!S.periodic[0] && (state[0]<S.uMin || state[0]>S.uMax)) break;
+      if(!S.periodic[1] && (state[1]<S.vMin || state[1]>S.vMax)) break;
+      pts.push([state[0], state[1]]);
+    }
+    return pts;
+  }
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value; const S = SURF[key];
+    const yaw = 0.75, pitch = 0.55;
+
+    const u0 = S.uMin + (S.uMax-S.uMin)*(+u0S.value/1000);
+    const v0 = S.vMin + (S.vMax-S.vMin)*(+v0S.value/1000);
+    const angle = +angS.value/100;
+    const len = +lenS.value/100;
+
+    // mesh
+    const NU=24, NV=32;
+    const verts = [];
+    for(let i=0;i<=NU;i++){
+      const row=[];
+      for(let j=0;j<=NV;j++){
+        const uu = S.uMin + (S.uMax-S.uMin)*i/NU;
+        const vv = S.vMin + (S.vMax-S.vMin)*j/NV;
+        const P=S.x(uu,vv);
+        const pp=proj3(P,yaw,pitch);
+        row.push({P,pp});
+      }
+      verts.push(row);
+    }
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const row of verts) for(const {pp} of row){
+      xmin=Math.min(xmin,pp[0]); xmax=Math.max(xmax,pp[0]);
+      ymin=Math.min(ymin,pp[1]); ymax=Math.max(ymax,pp[1]);
+    }
+    const pad=0.2; xmin-=pad;xmax+=pad;ymin-=pad;ymax+=pad;
+    const scale=Math.min(420/(xmax-xmin), 320/(ymax-ymin));
+    const sx=x=>(x-(xmin+xmax)/2)*scale;
+    const sy=y=>-(y-(ymin+ymax)/2)*scale;
+
+    // draw surface with painter's algorithm
+    const quads=[];
+    for(let i=0;i<NU;i++) for(let j=0;j<NV;j++){
+      const a=verts[i][j], b=verts[i+1][j], c=verts[i+1][j+1], d=verts[i][j+1];
+      const zavg=(a.pp[2]+b.pp[2]+c.pp[2]+d.pp[2])/4;
+      const v1 = vsub(c.P, a.P), v2 = vsub(d.P, b.P);
+      const nn = vnorm(vcross(v1,v2));
+      const light = vnorm([0.3,0.4,0.9]);
+      const sh = Math.max(0.15, Math.abs(vdot(nn, light)));
+      quads.push({a,b,c,d,zavg,sh});
+    }
+    quads.sort((x,y)=>x.zavg-y.zavg);
+    for(const q of quads){
+      const col = Math.round(60 + 100*q.sh);
+      const pts=[q.a.pp,q.b.pp,q.c.pp,q.d.pp].map(p=>sx(p[0])+','+sy(p[1])).join(' ');
+      svg.appendChild(SVG('polygon',{
+        points:pts, fill:`rgb(${col-20},${col},${col+30})`,
+        stroke:'#2a3242','stroke-width':0.3,'stroke-opacity':0.4
+      }));
+    }
+
+    // integrate geodesic
+    const pts = integrate(S, u0, v0, angle, len);
+    let d='';
+    let lastScreen = null;
+    for(let i=0;i<pts.length;i++){
+      const P = S.x(pts[i][0], pts[i][1]);
+      const pp = proj3(P, yaw, pitch);
+      const scr = [sx(pp[0]), sy(pp[1])];
+      if(i===0){ d += 'M'+scr[0]+' '+scr[1]+' '; }
+      else {
+        // break on wrap for periodic coordinates to avoid long straight-line jumps
+        if(lastScreen && Math.hypot(scr[0]-lastScreen[0], scr[1]-lastScreen[1]) > 60){
+          d += 'M'+scr[0]+' '+scr[1]+' ';
+        } else {
+          d += 'L'+scr[0]+' '+scr[1]+' ';
+        }
+      }
+      lastScreen = scr;
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)','stroke-width':2.4}));
+
+    // start point
+    const Pstart = S.x(u0, v0);
+    const ppStart = proj3(Pstart, yaw, pitch);
+    svg.appendChild(SVG('circle',{cx:sx(ppStart[0]), cy:sy(ppStart[1]), r:5, fill:'var(--yellow)', stroke:'#111','stroke-width':1.5}));
+    // end point
+    const last = pts[pts.length-1];
+    const Pend = S.x(last[0], last[1]);
+    const ppEnd = proj3(Pend, yaw, pitch);
+    svg.appendChild(SVG('circle',{cx:sx(ppEnd[0]), cy:sy(ppEnd[1]), r:4, fill:'var(--pink)', stroke:'#111','stroke-width':1.3}));
+
+    out.textContent =
+      `${S.label}\n` +
+      `start (u,v) = (${u0.toFixed(3)}, ${v0.toFixed(3)})\n` +
+      `initial angle = ${angle.toFixed(3)} rad\n` +
+      `geodesic length ≈ ${len.toFixed(2)}\n` +
+      `integrated ${pts.length} RK4 steps\n` +
+      `yellow = start · pink = current endpoint`;
+  }
+
+  pick.addEventListener('change',draw);
+  [u0S,v0S,angS,lenS].forEach(s=>s.addEventListener('input',draw));
+  draw();
+})();
+</script>
+
+<section id="gaussbonnet">
+<h2>8. Gauss–Bonnet</h2>
+<p>For a geodesic triangle with interior angles $\alpha, \beta, \gamma$ on a surface $S$, the angle sum is</p>
+<p style="text-align:center">$\alpha + \beta + \gamma = \pi + \displaystyle\int_\triangle K\,dA.$</p>
+<p>If the boundary of the region is not geodesic but a piecewise smooth curve with exterior angles $\epsilon_i$ at its corners and geodesic curvature $\kappa_g$ along its smooth parts, the general local version is:</p>
+<div class="note"><strong>Gauss–Bonnet (local).</strong> For a compact region $R \subseteq S$ with piecewise smooth boundary,
+$$\int_R K\,dA + \int_{\partial R} \kappa_g\,ds + \sum_i \epsilon_i = 2\pi.$$
+The exterior angles $\epsilon_i$ are the turning angles at corners.</div>
+
+<p>On a geodesic $\kappa_g \equiv 0$, so for a geodesic polygon with $n$ vertices and exterior angles $\epsilon_i = \pi - (\text{interior angle}_i)$, the formula reduces to the angle-sum formula.</p>
+
+<p>The <em>global</em> version pastes local Gauss–Bonnet together over a triangulation of a closed surface, and the exterior-angle contributions telescope to the Euler characteristic:</p>
+<div class="ok"><strong>Gauss–Bonnet (global).</strong> For a compact oriented surface $S$ without boundary,
+$$\int_S K\,dA = 2\pi\,\chi(S),$$
+where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</div>
+
+<p>Three striking consequences:</p>
+<ul>
+  <li>The total curvature of a sphere is $4\pi$, regardless of how dented it is. You can deform a sphere by pushing some regions to negative curvature, but the total always returns to $4\pi = 2\pi\cdot 2 = 2\pi\chi(S^2)$.</li>
+  <li>The total curvature of a torus is $0$. If you look at the outside (positive $K$) and the inside (negative $K$) of an embedded torus, they exactly cancel. $\chi(T^2) = 0$.</li>
+  <li>A genus-$g$ surface has $\chi = 2 - 2g$. A double torus has $\chi = -2$ and total curvature $-4\pi$. This topologically constrains the distribution of positive and negative curvature.</li>
+</ul>
+
+<h3>Worked example: the round sphere</h3>
+<p>Sphere of radius $R$. First fundamental form in spherical coordinates $(u, v) = (\theta, \phi)$ with $\mathbf{x}(\theta, \phi) = (R\sin\theta\cos\phi, R\sin\theta\sin\phi, R\cos\theta)$:</p>
+<p style="text-align:center">$E = R^2, \qquad F = 0, \qquad G = R^2\sin^2\theta.$</p>
+<p>Second fundamental form and Gauss map: $\mathbf{n} = \mathbf{x}/R$, shape operator equals $(1/R)\cdot\mathrm{id}$. So $k_1 = k_2 = 1/R$, hence $K = 1/R^2$ everywhere. Integral: $\int_S K\,dA = (1/R^2)\cdot 4\pi R^2 = 4\pi$. And $\chi(S^2) = 2$, so $2\pi\chi = 4\pi$. Check.</p>
+
+<h3>Euler characteristic via triangulation</h3>
+<p>You can compute $\chi$ combinatorially: triangulate the surface, count $V$ vertices, $E$ edges, $F$ faces; then $\chi = V - E + F$ is an invariant of the surface, not of the triangulation. For a tetrahedron triangulating $S^2$: $V=4, E=6, F=4$, so $\chi = 2$. For a torus triangulated nicely: say $V=9, E=27, F=18$, $\chi=0$.</p>
+
+<div class="widget" id="w-gb">
+  <div class="hd"><div class="ttl">Gauss–Bonnet calculator</div><div class="hint">compare ∫K dA and 2πχ on a closed surface</div></div>
+  <div class="row">
+    <label>surface:</label>
+    <select id="gb-pick">
+      <option value="sphere" selected>sphere (g=0)</option>
+      <option value="torus">torus (g=1)</option>
+      <option value="dtorus">double torus (g=2)</option>
+      <option value="ellipsoid">ellipsoid (dented sphere)</option>
+    </select>
+  </div>
+  <svg id="gb-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;height:auto"></svg>
+  <div class="readout" id="gb-out"></div>
+</div>
+
+</section>
+
+<script>
+/* ====================== §8 Gauss–Bonnet widget ====================== */
+(function(){
+  const svg=$('#gb-svg'), pick=$('#gb-pick'), out=$('#gb-out');
+
+  // Each surface has: parametrization x(u,v), K(u,v), and a precomputed (V,E,F) for a reasonable triangulation.
+  const SURF = {
+    sphere: {
+      uMin:0.01, uMax:Math.PI-0.01, vMin:0, vMax:2*Math.PI,
+      x:(u,v)=>[Math.sin(u)*Math.cos(v), Math.sin(u)*Math.sin(v), Math.cos(u)],
+      K:(u,v)=>1, dA:(u,v)=>Math.sin(u),
+      genus:0, label:'unit sphere (tetrahedron triangulation: V=4, E=6, F=4)'
+    },
+    torus: {
+      uMin:0, uMax:2*Math.PI, vMin:0, vMax:2*Math.PI,
+      x:(u,v)=>{const R=1, r=0.4;
+        return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)];},
+      K:(u,v)=>{const R=1,r=0.4; return Math.cos(v)/(r*(R+r*Math.cos(v)));},
+      dA:(u,v)=>{const R=1,r=0.4; return r*(R+r*Math.cos(v));},
+      genus:1, label:'torus — 9 vertices × 3 faces per vertex ⇒ V=9, E=27, F=18'
+    },
+    dtorus: {
+      // double torus represented symbolically (actual surface integration uses the identity χ=−2)
+      genus:2, label:'double torus — combinatorial: V=10, E=24, F=12 ⇒ χ = −2'
+    },
+    ellipsoid: {
+      uMin:0.02, uMax:Math.PI-0.02, vMin:0, vMax:2*Math.PI,
+      x:(u,v)=>[1.4*Math.sin(u)*Math.cos(v), 0.9*Math.sin(u)*Math.sin(v), 1.1*Math.cos(u)],
+      K:(u,v)=>{
+        const a=1.4,b=0.9,c=1.1;
+        const s=Math.sin(u), cu=Math.cos(u);
+        const num = a*a*b*b*c*c;
+        const den = Math.pow(a*a*b*b*cu*cu + c*c*(b*b*Math.cos(v)*Math.cos(v) + a*a*Math.sin(v)*Math.sin(v))*s*s, 2);
+        return num/den;
+      },
+      dA:(u,v)=>{
+        const a=1.4,b=0.9,c=1.1;
+        const s=Math.sin(u), cu=Math.cos(u);
+        return s*Math.sqrt(a*a*b*b*cu*cu + c*c*(b*b*Math.cos(v)*Math.cos(v) + a*a*Math.sin(v)*Math.sin(v))*s*s);
+      },
+      genus:0, label:'ellipsoid (diffeomorphic to S², χ=2)'
+    }
+  };
+
+  function integrateK(S){
+    const NU=80, NV=120;
+    let sum = 0;
+    const du = (S.uMax-S.uMin)/NU, dv = (S.vMax-S.vMin)/NV;
+    for(let i=0;i<NU;i++) for(let j=0;j<NV;j++){
+      const u = S.uMin + (i+0.5)*du, v = S.vMin + (j+0.5)*dv;
+      sum += S.K(u,v) * S.dA(u,v) * du * dv;
+    }
+    return sum;
+  }
+
+  function drawGenus2(){
+    // stylized double-torus silhouette
+    const d = 'M -130 0 C -130 -90 -30 -90 -30 -10 C -30 -90 30 -90 30 -10 C 30 -90 130 -90 130 0 C 130 90 30 90 30 10 C 30 90 -30 90 -30 10 C -30 90 -130 90 -130 0 Z';
+    svg.appendChild(SVG('path',{d,fill:'rgba(131,193,103,0.15)',stroke:'var(--green)','stroke-width':2}));
+    // two "holes"
+    svg.appendChild(SVG('ellipse',{cx:-80,cy:0,rx:28,ry:10,fill:'rgba(0,0,0,0.4)',stroke:'var(--line)'}));
+    svg.appendChild(SVG('ellipse',{cx:80,cy:0,rx:28,ry:10,fill:'rgba(0,0,0,0.4)',stroke:'var(--line)'}));
+  }
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value; const S = SURF[key];
+    const chi = 2 - 2*S.genus;
+
+    if(key === 'dtorus'){
+      drawGenus2();
+      const t1 = SVG('text',{x:0,y:-110,'text-anchor':'middle','font-size':14,fill:'#fff','font-weight':600});
+      t1.textContent = 'double torus (genus 2)'; svg.appendChild(t1);
+      out.textContent =
+        `${S.label}\n` +
+        `χ(Σ_2) = 2 − 2·2 = −2\n` +
+        `2π·χ    = ${(2*Math.PI*chi).toFixed(4)}\n` +
+        `∫ K dA  = −4π = ${(-4*Math.PI).toFixed(4)}  (by Gauss–Bonnet)\n` +
+        `We represent this symbolically — triangulation V=10, E=24, F=12 ⇒ V−E+F = −2.`;
+      return;
+    }
+
+    const intK = integrateK(S);
+
+    // draw the surface with K color
+    const NU=26, NV=38;
+    const yaw=0.75, pitch=0.55;
+    const verts=[];
+    for(let i=0;i<=NU;i++){
+      const row=[];
+      for(let j=0;j<=NV;j++){
+        const uu = S.uMin + (S.uMax-S.uMin)*i/NU;
+        const vv = S.vMin + (S.vMax-S.vMin)*j/NV;
+        const P=S.x(uu,vv);
+        const pp=proj3(P,yaw,pitch);
+        row.push({P,pp,u:uu,v:vv,K:S.K(uu,vv)});
+      }
+      verts.push(row);
+    }
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const row of verts) for(const {pp} of row){
+      xmin=Math.min(xmin,pp[0]); xmax=Math.max(xmax,pp[0]);
+      ymin=Math.min(ymin,pp[1]); ymax=Math.max(ymax,pp[1]);
+    }
+    const pad=0.2; xmin-=pad;xmax+=pad;ymin-=pad;ymax+=pad;
+    const scale=Math.min(460/(xmax-xmin), 320/(ymax-ymin));
+    const sx=x=>(x-(xmin+xmax)/2)*scale;
+    const sy=y=>-(y-(ymin+ymax)/2)*scale;
+
+    let Kabs=0;
+    for(const row of verts) for(const {K} of row) Kabs = Math.max(Kabs, Math.abs(K));
+    if(Kabs<1e-6) Kabs=1;
+
+    const quads=[];
+    for(let i=0;i<NU;i++) for(let j=0;j<NV;j++){
+      const a=verts[i][j], b=verts[i+1][j], c=verts[i+1][j+1], d=verts[i][j+1];
+      const zavg=(a.pp[2]+b.pp[2]+c.pp[2]+d.pp[2])/4;
+      const Kavg=(a.K+b.K+c.K+d.K)/4;
+      quads.push({a,b,c,d,zavg,Kavg});
+    }
+    quads.sort((x,y)=>x.zavg-y.zavg);
+    for(const q of quads){
+      const pts=[q.a.pp,q.b.pp,q.c.pp,q.d.pp].map(p=>sx(p[0])+','+sy(p[1])).join(' ');
+      svg.appendChild(SVG('polygon',{
+        points:pts, fill:curvColor(q.Kavg/Kabs),
+        stroke:'#2a3242','stroke-width':0.3,'stroke-opacity':0.5
+      }));
+    }
+
+    out.textContent =
+      `${S.label}\n` +
+      `genus g = ${S.genus}, χ = 2 − 2g = ${chi}\n` +
+      `2π·χ    = ${(2*Math.PI*chi).toFixed(4)}\n` +
+      `∫ K dA  ≈ ${intK.toFixed(4)}   (numerical, ${80*120} midpoint samples)\n` +
+      `match?  ${Math.abs(intK - 2*Math.PI*chi) < 0.05 ? 'yes ✓' : 'no'}`;
+  }
+  pick.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<div class="widget" id="w-hol">
+  <div class="hd"><div class="ttl">Parallel transport and holonomy on the sphere</div><div class="hint">transport a tangent vector around a loop</div></div>
+  <div class="row">
+    <label>loop:</label>
+    <select id="hl-pick">
+      <option value="triangle" selected>octant triangle (3 right angles)</option>
+      <option value="latitude">latitude circle at θ₀</option>
+      <option value="small">small geodesic triangle</option>
+    </select>
+    <label>θ₀:</label>
+    <input type="range" id="hl-theta" min="100" max="1400" value="700" step="5">
+  </div>
+  <svg id="hl-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="hl-out"></div>
+</div>
+
+<script>
+/* ====================== §8 Holonomy (parallel transport) ====================== */
+(function(){
+  const svg=$('#hl-svg'), pick=$('#hl-pick'), thetaS=$('#hl-theta'), out=$('#hl-out');
+
+  function draw(){
+    svg.innerHTML='';
+    const key = pick.value;
+    const yaw=0.6, pitch=0.5;
+    // draw sphere wireframe
+    const R = 1;
+    // latitudes
+    for(let k=-4;k<=4;k++){
+      const lat = k*Math.PI/10;
+      let d='';
+      for(let j=0;j<=60;j++){
+        const lon = -Math.PI + 2*Math.PI*j/60;
+        const P=[R*Math.cos(lat)*Math.cos(lon), R*Math.cos(lat)*Math.sin(lon), R*Math.sin(lat)];
+        const pp = proj3(P,yaw,pitch);
+        d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.7}));
+    }
+    // meridians
+    for(let k=0;k<12;k++){
+      const lon = k*Math.PI/6;
+      let d='';
+      for(let j=0;j<=60;j++){
+        const lat = -Math.PI/2 + Math.PI*j/60;
+        const P=[R*Math.cos(lat)*Math.cos(lon), R*Math.cos(lat)*Math.sin(lon), R*Math.sin(lat)];
+        const pp = proj3(P,yaw,pitch);
+        d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.6}));
+    }
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:140,fill:'none',stroke:'var(--line)','stroke-width':1}));
+
+    let holonomyAngle = 0;
+    let areaEnclosed = 0;
+
+    if(key === 'triangle'){
+      // octant: equator from (1,0,0) to (0,1,0), then to north pole (0,0,1), then back to (1,0,0)
+      // three geodesic arcs — each a quarter-circle
+      const arcs = [
+        { // equator, from e1 to e2
+          P:(t)=>[Math.cos(t), Math.sin(t), 0], tMin:0, tMax:Math.PI/2
+        },
+        { // meridian at lon=π/2, from e2 to N
+          P:(t)=>[0, Math.cos(t), Math.sin(t)], tMin:0, tMax:Math.PI/2
+        },
+        { // meridian at lon=0, from N back to e1
+          P:(t)=>[Math.sin(t), 0, Math.cos(t)], tMin:0, tMax:Math.PI/2
+        }
+      ];
+      drawArcs(arcs, yaw, pitch);
+      holonomyAngle = Math.PI/2;  // area = π/2, K=1, so ∫K dA = π/2
+      areaEnclosed = Math.PI/2;
+    } else if(key === 'latitude'){
+      const lat = Math.PI/2 - (+thetaS.value/1000);  // θ₀ = polar angle
+      let d='';
+      for(let j=0;j<=80;j++){
+        const lon = 2*Math.PI*j/80;
+        const P = [R*Math.cos(lat)*Math.cos(lon), R*Math.cos(lat)*Math.sin(lon), R*Math.sin(lat)];
+        const pp = proj3(P,yaw,pitch);
+        d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+      // enclosed area above latitude θ₀ (measured from north pole with polar angle θ = π/2 − lat):
+      // A = 2π R² (1 − cos θ) where θ = polar angle from pole
+      const polar = Math.PI/2 - lat;
+      areaEnclosed = 2*Math.PI*(1 - Math.cos(polar));
+      holonomyAngle = areaEnclosed;  // ∫K dA on unit sphere
+      // draw rotated vector on latitude
+      const lon0 = 0;
+      const P0 = [R*Math.cos(lat)*Math.cos(lon0), R*Math.cos(lat)*Math.sin(lon0), R*Math.sin(lat)];
+      const pp0 = proj3(P0,yaw,pitch);
+      // initial tangent vector pointing east (∂/∂φ direction)
+      const east = [-Math.sin(lon0), Math.cos(lon0), 0];
+      const ppEast = proj3(vadd(P0, vscl(east, 0.3)), yaw, pitch);
+      drawArrow(svg, [pp0[0]*140, -pp0[1]*140], [ppEast[0]*140, -ppEast[1]*140],
+        {color:'var(--yellow)', markerId:'hl-v0', width:2.2, pad2:6});
+      // after transport: rotated by -holonomyAngle in tangent plane
+      const north = vcross(vnorm(P0), east);
+      const rotV = vadd(vscl(east, Math.cos(holonomyAngle)), vscl(north, Math.sin(holonomyAngle)));
+      const ppR = proj3(vadd(P0, vscl(rotV, 0.3)), yaw, pitch);
+      drawArrow(svg, [pp0[0]*140, -pp0[1]*140], [ppR[0]*140, -ppR[1]*140],
+        {color:'var(--pink)', markerId:'hl-vR', width:2.2, pad2:6});
+    } else {
+      // small geodesic triangle near north pole
+      const eps = +thetaS.value/2000;
+      const arcs = [
+        {P:(t)=>{const lat=Math.PI/2 - eps, lon=2*Math.PI*t/3;
+          return [Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];},
+          tMin:0, tMax:1},
+        {P:(t)=>{const lat=Math.PI/2 - eps, lon=2*Math.PI*(1+t)/3;
+          return [Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];},
+          tMin:0, tMax:1},
+        {P:(t)=>{const lat=Math.PI/2 - eps, lon=2*Math.PI*(2+t)/3;
+          return [Math.cos(lat)*Math.cos(lon), Math.cos(lat)*Math.sin(lon), Math.sin(lat)];},
+          tMin:0, tMax:1},
+      ];
+      drawArcs(arcs, yaw, pitch);
+      areaEnclosed = 2*Math.PI*(1 - Math.cos(eps));
+      holonomyAngle = areaEnclosed;
+    }
+
+    function drawArcs(arcs, yaw, pitch){
+      for(const a of arcs){
+        let d='';
+        for(let j=0;j<=40;j++){
+          const t = a.tMin + (a.tMax-a.tMin)*j/40;
+          const pp = proj3(a.P(t), yaw, pitch);
+          d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
+        }
+        svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+      }
+    }
+
+    out.textContent =
+      `loop type: ${key}\n` +
+      `enclosed area = ${areaEnclosed.toFixed(4)}\n` +
+      `∫ K dA = ${areaEnclosed.toFixed(4)}   (K ≡ 1 on unit sphere)\n` +
+      `holonomy angle = ${holonomyAngle.toFixed(4)} rad = ${(holonomyAngle*180/Math.PI).toFixed(2)}°\n` +
+      `(cyan = loop, yellow = initial vector, pink = transported vector)`;
+  }
+  pick.addEventListener('change',draw);
+  thetaS.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<p>Parallel transport around a closed loop does <em>not</em> return the vector to itself — it rotates by an angle equal to $\int K\,dA$ over the enclosed region. This is the <strong>holonomy</strong> of the Levi-Civita connection; on a flat surface it would be zero, and the fact that it isn't is exactly curvature. It is the local-to-global shadow of the exterior angle contribution in Gauss–Bonnet.</p>
+
+<section id="manifolds">
+<h2>9. Abstract smooth manifolds</h2>
+<p>So far $S$ has been an embedded surface in $\mathbb{R}^3$. The abstract notion frees us from the ambient space. A <strong>smooth $n$-manifold</strong> is a topological space $M$ (second-countable Hausdorff) with an <strong>atlas</strong> $\{(U_\alpha, \varphi_\alpha)\}$: each $\varphi_\alpha$ is a homeomorphism from $U_\alpha$ to an open subset of $\mathbb{R}^n$, and the transition maps $\varphi_\beta \circ \varphi_\alpha^{-1}$ are $C^\infty$ wherever defined.</p>
+
+<p>A function $f\colon M \to \mathbb{R}$ is <strong>smooth</strong> if $f \circ \varphi_\alpha^{-1}$ is smooth for every chart. The ring of smooth functions is $C^\infty(M)$. Smooth maps between manifolds, diffeomorphisms, submanifolds, tangent vectors, etc., are all defined chart-wise.</p>
+
+<p>There are three equivalent definitions of the <strong>tangent space</strong> $T_pM$:</p>
+<ul>
+  <li><strong>Via velocities.</strong> Equivalence classes of smooth curves $\gamma\colon (-\epsilon, \epsilon) \to M$ with $\gamma(0) = p$, under the relation $\gamma_1 \sim \gamma_2$ if their derivatives in some (equivalently, every) chart agree at $0$.</li>
+  <li><strong>Via derivations.</strong> $\mathbb{R}$-linear maps $D\colon C^\infty(M) \to \mathbb{R}$ satisfying the Leibniz rule $D(fg) = f(p)\,D(g) + g(p)\,D(f)$.</li>
+  <li><strong>Via charts.</strong> Fix a chart $(U, \varphi)$ with $p \in U$; define $T_pM = T_{\varphi(p)}\mathbb{R}^n = \mathbb{R}^n$ up to the change-of-chart rule given by Jacobians of transition maps.</li>
+</ul>
+
+<p>These are all canonically isomorphic; the derivation picture is the most elegant, the velocity picture the most hands-on. The <strong>tangent bundle</strong> $TM = \bigsqcup_{p\in M} T_pM$ is itself a $2n$-manifold with natural projection $\pi\colon TM \to M$. Sections of $\pi$ are <strong>vector fields</strong>; they form a Lie algebra under the commutator bracket $[X, Y]f = X(Yf) - Y(Xf)$.</p>
+
+<p>Classic examples of smooth manifolds that are not given as embedded surfaces:</p>
+<ul>
+  <li>$\mathbb{R}P^n$, $\mathbb{C}P^n$ — real and complex projective spaces.</li>
+  <li>Lie groups: $GL_n(\mathbb{R})$, $SO(n)$, $U(n)$, $SU(n)$, Sp($n$). Each carries a smooth manifold structure, and multiplication and inversion are smooth.</li>
+  <li>Grassmannians $\mathrm{Gr}(k, n)$ — the space of $k$-planes in $\mathbb{R}^n$. $\mathrm{Gr}(1, n+1) = \mathbb{R}P^n$.</li>
+  <li>Configuration spaces: the space of $n$ distinct points on a surface, the space of classical mechanics trajectories, etc.</li>
+  <li>The 7-sphere $S^7$ has <em>exotic</em> smooth structures (Milnor, 1956): topologically the same as the round $S^7$ but diffeomorphically inequivalent. Dimension $4$ is even wilder — $\mathbb{R}^4$ itself has uncountably many smooth structures.</li>
+</ul>
+
+<p>A key early fact: every smooth manifold admits an <strong>embedding</strong> into some $\mathbb{R}^N$ (Whitney's embedding theorem, $N = 2n$ is enough). So at the cost of remembering a huge ambient space, you can always pretend to be a submanifold of Euclidean space. But intrinsic statements — things that depend only on the manifold structure, not the embedding — are cleaner.</p>
+
+</section>
+
+<section id="riemann">
+<h2>10. Riemannian manifolds</h2>
+<p>A <strong>Riemannian metric</strong> $g$ on $M$ is a smooth, positive-definite, symmetric bilinear form on each tangent space $T_pM$, varying smoothly with $p$. Equivalently, it is a smooth section of $T^*M \otimes T^*M$. In local coordinates, $g = g_{ij}(x)\,dx^i\,dx^j$ — this is the multi-dimensional analog of $(E, F, G)$.</p>
+
+<p>Given $g$, the <strong>Levi-Civita connection</strong> $\nabla$ is the unique connection on $TM$ that is both:</p>
+<ul>
+  <li><em>Metric-compatible:</em> $\partial_k g(X,Y) = g(\nabla_k X, Y) + g(X, \nabla_k Y)$ for any vector fields $X, Y$.</li>
+  <li><em>Torsion-free:</em> $\nabla_X Y - \nabla_Y X = [X, Y]$.</li>
+</ul>
+<p>Explicitly in coordinates, the <strong>Christoffel symbols</strong> are again</p>
+<p style="text-align:center">$\Gamma^k_{ij} = \tfrac{1}{2}g^{kl}(\partial_i g_{jl} + \partial_j g_{il} - \partial_l g_{ij}),$</p>
+<p>and $\nabla_i \partial_j = \Gamma^k_{ij}\partial_k$. This is a purely algebraic formula from the metric coefficients.</p>
+
+<p>The <strong>Riemann curvature tensor</strong> is</p>
+<p style="text-align:center">$R(X, Y)Z = \nabla_X \nabla_Y Z - \nabla_Y \nabla_X Z - \nabla_{[X,Y]}Z.$</p>
+<p>In coordinates, $R^l_{ijk} = \partial_i \Gamma^l_{jk} - \partial_j \Gamma^l_{ik} + \Gamma^m_{jk}\Gamma^l_{im} - \Gamma^m_{ik}\Gamma^l_{jm}.$ Lowering an index: $R_{lijk} = g_{lm}R^m_{ijk}$.</p>
+
+<p>Symmetries: $R_{ijkl} = -R_{jikl} = -R_{ijlk} = R_{klij}$, plus the first Bianchi identity $R_{i[jkl]} = 0$. In dimension $n$ these constrain $R$ to $n^2(n^2-1)/12$ independent components at each point: $1$ in dim $2$, $6$ in dim $3$, $20$ in dim $4$, matching the classical tally.</p>
+
+<p>The <strong>sectional curvature</strong> of a 2-plane $\sigma \subseteq T_pM$ spanned by orthonormal $u, v$ is</p>
+<p style="text-align:center">$K(\sigma) = g(R(u,v)v, u).$</p>
+<p>When $M$ is a surface, $K$ is the Gaussian curvature of §5. In higher dimensions, $K(\sigma)$ at each point is a function on the Grassmannian of 2-planes. Manifolds of <em>constant sectional curvature</em> are the space forms: spheres, Euclidean space, and hyperbolic space — up to scaling and quotients.</p>
+
+<h3>Ricci curvature</h3>
+<p>Contracting once: $\mathrm{Ric}_{ij} = R^k_{kij}$. This is a symmetric 2-tensor. Geometrically, $\mathrm{Ric}(v, v)$ is (essentially) the average of sectional curvatures over all 2-planes containing $v$. Ricci curvature governs the behaviour of volumes of geodesic tubes: where Ricci is positive, volumes grow slower than Euclidean; where negative, faster. This is the curvature that enters Einstein's field equations $\mathrm{Ric} - \tfrac{1}{2}R\,g + \Lambda g = 8\pi T$ in general relativity.</p>
+
+<h3>Scalar curvature</h3>
+<p>Contracting once more: $R = g^{ij}\mathrm{Ric}_{ij}$. A single number at each point, capturing the average curvature in all planes. In dimension 2, $R = 2K$. In higher dimensions $R$ is much weaker than $\mathrm{Ric}$, which is much weaker than the full Riemann tensor.</p>
+
+<p>A hierarchy of invariants emerges:</p>
+<p style="text-align:center">Riemann tensor $R^l_{ijk}$  $\Rightarrow$  sectional curvature $K(\sigma)$  $\Rightarrow$  Ricci $\mathrm{Ric}_{ij}$  $\Rightarrow$  scalar $R$.</p>
+<p>Each arrow discards information. Theorems that control $R$ — e.g. the Gauss-Bonnet theorem in dim 2 and its higher-dimensional generalization the Chern-Gauss-Bonnet theorem — are more accessible than theorems controlling $\mathrm{Ric}$, which are more accessible than theorems controlling the full curvature tensor.</p>
+
+</section>
+
+<section id="coda">
+<h2>11. Coda — what's next</h2>
+<p>Differential geometry is a crossroads. From the basic framework laid out above, several major directions fan out:</p>
+<ul>
+  <li><strong>Lie groups and principal bundles.</strong> A Lie group is a smooth manifold with a group structure where multiplication and inversion are smooth. The tangent space at the identity is a Lie algebra, and the adjoint representation ties the geometry to linear algebra. Principal $G$-bundles are the right setting for gauge theory; connections on them generalize the Levi-Civita connection. (Future notebook page: <code>lie-groups.html</code>.)</li>
+  <li><strong>Symplectic geometry.</strong> A symplectic manifold is a smooth manifold with a closed non-degenerate 2-form $\omega$. The prototype is $T^*M$ with the canonical 2-form — the phase space of classical mechanics. Hamiltonian flows, Liouville's theorem, moment maps, and symplectic reduction live here. (Future: <code>symplectic.html</code>.)</li>
+  <li><strong>Complex geometry and Kähler manifolds.</strong> A complex structure $J$ on $M$ compatible with a Riemannian metric $g$ gives a Hermitian manifold; if the associated 2-form is closed, you get a <em>Kähler</em> manifold — the intersection of complex, symplectic, and Riemannian geometries. Examples: $\mathbb{C}P^n$ with the Fubini-Study metric, Calabi-Yau manifolds. (Future: <code>complex-geometry.html</code>.)</li>
+  <li><strong>Global analysis and index theory.</strong> On a Riemannian manifold, elliptic operators — the Laplacian, Dirac, Dolbeault, de Rham — have Fredholm index determined by topology (Atiyah-Singer). This knits differential geometry to topology and analysis.</li>
+  <li><strong>General relativity.</strong> Einstein's theory is pseudo-Riemannian geometry in dimension 4 with signature $(-, +, +, +)$. The Einstein field equations relate curvature of spacetime to the stress-energy of matter. Schwarzschild, Kerr, FLRW solutions; black holes, cosmology.</li>
+  <li><strong>Geometric analysis.</strong> Curvature flows (Ricci flow, mean curvature flow) deform metrics toward canonical forms. Ricci flow was the key tool in Perelman's proof of the Poincaré conjecture.</li>
+</ul>
+
+<p>Classical differential geometry — the story of this page — is the common trunk. Every one of the branches above has its own character, its own questions, and its own techniques; but they all start with $(M, g)$, a smooth manifold and a way to measure.</p>
+
+<p>The big picture: a smooth manifold is a space where calculus works. A Riemannian metric is a local inner product that lets you measure. Curvature is the obstruction to the metric being flat. Topology constrains the total curvature (Gauss-Bonnet); conversely, controlled curvature constrains topology (Bonnet–Myers, Synge, Hadamard, Cheeger-Gromoll). The dialogue between curvature and topology is the deep engine of modern Riemannian geometry.</p>
+
+<div class="ok">
+<p><strong>Recap.</strong></p>
+<ol>
+  <li>A curve has curvature ($\kappa$) and torsion ($\tau$) as its Euclidean invariants; a plane curve has signed $\kappa(s)$, a space curve adds $\tau(s)$. Together they determine the curve up to rigid motion.</li>
+  <li>A surface carries a first fundamental form $I$ (intrinsic — lengths, angles, areas) and a second fundamental form $II$ (extrinsic — how it bends in ambient space). The shape operator is $I^{-1}II$.</li>
+  <li>Gaussian curvature $K = \det(S_p) = k_1 k_2$ is miraculously intrinsic (Theorema Egregium).</li>
+  <li>Geodesics satisfy $\ddot\gamma^k + \Gamma^k_{ij}\dot\gamma^i\dot\gamma^j = 0$; on the sphere they are great circles, on the cylinder they are helices, on the plane they are straight lines.</li>
+  <li>Gauss–Bonnet: $\int_S K\,dA = 2\pi\chi(S)$. Curvature totals up to a topological invariant.</li>
+  <li>Abstract smooth manifolds generalize from $\mathbb{R}^3$; Riemannian manifolds add a metric; Levi-Civita is unique torsion-free metric-compatible; Riemann curvature, Ricci, and scalar curvatures are successive contractions.</li>
+</ol>
+</div>
+
+</section>
+
+<footer>Part of the interactive mathematics notebook. Built with KaTeX, SVG, vanilla JS.</footer>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>
