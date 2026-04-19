@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -227,6 +229,9 @@ const C = {
   <svg id="mob-svg" viewBox="0 0 760 360" width="760" height="360"></svg>
   <div class="readout" id="mob-readout"></div>
 </div>
+
+<div class="quiz" data-concept="complex-numbers"></div>
+<div class="quiz" data-concept="mobius-transformations"></div>
 </section>
 
 <section id="holo">
@@ -288,6 +293,9 @@ const C = {
   <svg id="dc-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
   <div class="readout">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>
 </div>
+
+<div class="quiz" data-concept="amplitwist"></div>
+<div class="quiz" data-concept="cauchy-riemann"></div>
 </section>
 
 <section id="contour">
@@ -388,6 +396,8 @@ const C = {
 <p>Real definite integrals fall to this, almost mechanically. Famous example: closing $\int_{-\infty}^\infty\frac{dx}{x^2+1}$ in the upper half-plane with a giant semicircle. The semicircular piece tends to $0$ (the integrand decays), the only pole inside is $z=i$ with residue $1/(2i)$, and so the integral is $2\pi i\cdot 1/(2i) = \pi$. Replace the integrand by $e^{ix}/(x^2+1)$ and the answer is $\pi/e$.</p>
 
 <p>Try it: the contour widget in §3 above already computes $\oint f\,dz$ as $2\pi i \sum\mathrm{Res}$ for the enclosed poles. Drag a vertex over a pole to see the sum jump.</p>
+
+<div class="quiz" data-concept="residue-theorem"></div>
 </section>
 
 <section id="arg">
@@ -1365,6 +1375,14 @@ const C = {
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('complex-analysis'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 
