@@ -8,182 +8,242 @@
       "title": "Complex numbers",
       "anchor": "sphere",
       "prereqs": [],
-      "tags": ["foundation"],
+      "tags": [
+        "foundation"
+      ],
       "blurb": "Arithmetic, modulus, argument, polar form, roots of unity."
     },
     {
       "id": "riemann-sphere",
       "title": "Riemann sphere",
       "anchor": "sphere",
-      "prereqs": ["complex-numbers"],
-      "blurb": "Stereographic projection; ∞ as a point; circles/lines unified."
+      "prereqs": [
+        "complex-numbers"
+      ],
+      "blurb": "Stereographic projection; \u221e as a point; circles/lines unified."
     },
     {
       "id": "mobius-transformations",
-      "title": "Möbius transformations",
+      "title": "M\u00f6bius transformations",
       "anchor": "sphere",
-      "prereqs": ["riemann-sphere"],
-      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ."
+      "prereqs": [
+        "riemann-sphere"
+      ],
+      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of \u0108."
     },
     {
       "id": "amplitwist",
       "title": "Amplitwist",
       "anchor": "holo",
-      "prereqs": ["complex-numbers"],
-      "blurb": "Local linear model: f′(z) as (rotate, scale)."
+      "prereqs": [
+        "complex-numbers",
+        "real-differentiation"
+      ],
+      "blurb": "Local linear model: f\u2032(z) as (rotate, scale)."
     },
     {
       "id": "cauchy-riemann",
-      "title": "Cauchy–Riemann equations",
+      "title": "Cauchy\u2013Riemann equations",
       "anchor": "holo",
-      "prereqs": ["amplitwist"],
-      "blurb": "u_x = v_y, u_y = −v_x; ∂̄f = 0."
+      "prereqs": [
+        "amplitwist"
+      ],
+      "blurb": "u_x = v_y, u_y = \u2212v_x; \u2202\u0304f = 0."
     },
     {
       "id": "holomorphic-function",
       "title": "Holomorphic functions",
       "anchor": "holo",
-      "prereqs": ["cauchy-riemann"],
+      "prereqs": [
+        "cauchy-riemann"
+      ],
       "blurb": "Complex-differentiable on an open set; infinitely more rigid than real."
     },
     {
       "id": "domain-coloring",
       "title": "Domain coloring",
       "anchor": "holo",
-      "prereqs": ["holomorphic-function"],
-      "blurb": "Visualizing f: C→C by hue(arg) and lightness(modulus)."
+      "prereqs": [
+        "holomorphic-function"
+      ],
+      "blurb": "Visualizing f: C\u2192C by hue(arg) and lightness(modulus)."
     },
     {
       "id": "contour-integral",
       "title": "Contour integrals",
       "anchor": "contour",
-      "prereqs": ["holomorphic-function"],
-      "blurb": "∫_γ f dz along parametrized paths; ML inequality."
+      "prereqs": [
+        "holomorphic-function",
+        "paths"
+      ],
+      "blurb": "\u222b_\u03b3 f dz along parametrized paths; ML inequality."
     },
     {
       "id": "cauchy-theorem",
       "title": "Cauchy's theorem",
       "anchor": "contour",
-      "prereqs": ["contour-integral"],
-      "blurb": "∫_γ f dz = 0 on simply connected domains."
+      "prereqs": [
+        "contour-integral",
+        "simply-connected"
+      ],
+      "blurb": "\u222b_\u03b3 f dz = 0 on simply connected domains."
     },
     {
       "id": "cauchy-integral-formula",
       "title": "Cauchy integral formula",
       "anchor": "contour",
-      "prereqs": ["cauchy-theorem"],
-      "blurb": "f(a) = (1/2πi) ∮ f(z)/(z−a) dz; the reproducing kernel of holomorphy."
+      "prereqs": [
+        "cauchy-theorem"
+      ],
+      "blurb": "f(a) = (1/2\u03c0i) \u222e f(z)/(z\u2212a) dz; the reproducing kernel of holomorphy."
     },
     {
       "id": "analyticity",
       "title": "Analyticity = holomorphy",
       "anchor": "cons",
-      "prereqs": ["cauchy-integral-formula"],
+      "prereqs": [
+        "cauchy-integral-formula"
+      ],
       "blurb": "Every holomorphic function is locally a convergent power series."
     },
     {
       "id": "liouville",
       "title": "Liouville's theorem",
       "anchor": "cons",
-      "prereqs": ["cauchy-integral-formula"],
-      "blurb": "Bounded entire ⇒ constant."
+      "prereqs": [
+        "cauchy-integral-formula"
+      ],
+      "blurb": "Bounded entire \u21d2 constant."
     },
     {
       "id": "fta",
       "title": "Fundamental theorem of algebra",
       "anchor": "cons",
-      "prereqs": ["liouville"],
+      "prereqs": [
+        "liouville"
+      ],
       "blurb": "Every non-constant polynomial over C has a root."
     },
     {
       "id": "maximum-modulus",
       "title": "Maximum modulus principle",
       "anchor": "cons",
-      "prereqs": ["cauchy-integral-formula"],
+      "prereqs": [
+        "cauchy-integral-formula"
+      ],
       "blurb": "Non-constant holomorphic f has no interior max of |f|."
     },
     {
       "id": "schwarz-lemma",
       "title": "Schwarz lemma",
       "anchor": "cons",
-      "prereqs": ["maximum-modulus"],
-      "blurb": "f: D→D with f(0)=0 satisfies |f(z)| ≤ |z| and |f′(0)| ≤ 1."
+      "prereqs": [
+        "maximum-modulus"
+      ],
+      "blurb": "f: D\u2192D with f(0)=0 satisfies |f(z)| \u2264 |z| and |f\u2032(0)| \u2264 1."
     },
     {
       "id": "laurent-series",
       "title": "Laurent series",
       "anchor": "laurent",
-      "prereqs": ["analyticity"],
+      "prereqs": [
+        "analyticity"
+      ],
       "blurb": "Expansions on annuli; principal part captures singular behavior."
     },
     {
       "id": "singularity-classification",
       "title": "Classification of singularities",
       "anchor": "laurent",
-      "prereqs": ["laurent-series"],
-      "blurb": "Removable, pole of order n, essential (Casorati–Weierstrass)."
+      "prereqs": [
+        "laurent-series"
+      ],
+      "blurb": "Removable, pole of order n, essential (Casorati\u2013Weierstrass)."
     },
     {
       "id": "residue-theorem",
       "title": "Residue theorem",
       "anchor": "laurent",
-      "prereqs": ["singularity-classification", "cauchy-theorem"],
-      "blurb": "∮ f dz = 2πi · Σ Res(f; z_k). Computes real integrals, sums series."
+      "prereqs": [
+        "singularity-classification",
+        "cauchy-theorem"
+      ],
+      "blurb": "\u222e f dz = 2\u03c0i \u00b7 \u03a3 Res(f; z_k). Computes real integrals, sums series."
     },
     {
       "id": "argument-principle",
       "title": "Argument principle",
       "anchor": "arg",
-      "prereqs": ["residue-theorem"],
-      "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles."
+      "prereqs": [
+        "residue-theorem"
+      ],
+      "blurb": "(1/2\u03c0i) \u222e f\u2032/f = Z \u2212 P; winding of f(\u03b3) counts zeros minus poles."
     },
     {
       "id": "rouche",
-      "title": "Rouché's theorem",
+      "title": "Rouch\u00e9's theorem",
       "anchor": "arg",
-      "prereqs": ["argument-principle"],
-      "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside."
+      "prereqs": [
+        "argument-principle"
+      ],
+      "blurb": "|g| < |f| on \u03b3 \u21d2 f and f+g have the same number of zeros inside."
     },
     {
       "id": "conformal-map",
       "title": "Conformal maps",
       "anchor": "conf",
-      "prereqs": ["amplitwist"],
-      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
+      "prereqs": [
+        "amplitwist"
+      ],
+      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f\u2032 \u2260 0."
     },
     {
       "id": "disk-automorphisms",
       "title": "Disk automorphisms",
       "anchor": "conf",
-      "prereqs": ["schwarz-lemma", "mobius-transformations"],
-      "blurb": "Aut(D) = Blaschke factors e^{iθ}(z−a)/(1−ā z)."
+      "prereqs": [
+        "schwarz-lemma",
+        "mobius-transformations"
+      ],
+      "blurb": "Aut(D) = Blaschke factors e^{i\u03b8}(z\u2212a)/(1\u2212\u0101 z)."
     },
     {
       "id": "normal-families",
       "title": "Normal families (Montel)",
       "anchor": "conf",
-      "prereqs": ["analyticity"],
-      "blurb": "Locally bounded ⇒ normal; compactness in the space of holomorphic functions."
+      "prereqs": [
+        "analyticity",
+        "uniform-convergence"
+      ],
+      "blurb": "Locally bounded \u21d2 normal; compactness in the space of holomorphic functions."
     },
     {
       "id": "riemann-mapping",
       "title": "Riemann mapping theorem",
       "anchor": "conf",
-      "prereqs": ["disk-automorphisms", "normal-families", "schwarz-lemma"],
-      "blurb": "Any simply connected proper open U ⊂ C is conformally equivalent to D."
+      "prereqs": [
+        "disk-automorphisms",
+        "normal-families",
+        "schwarz-lemma"
+      ],
+      "blurb": "Any simply connected proper open U \u2282 C is conformally equivalent to D."
     },
     {
       "id": "harmonic-functions",
       "title": "Harmonic functions",
       "anchor": "coda",
-      "prereqs": ["cauchy-riemann"],
-      "blurb": "Re(f) and Im(f) satisfy Δu = 0; mean-value and maximum principles."
+      "prereqs": [
+        "cauchy-riemann"
+      ],
+      "blurb": "Re(f) and Im(f) satisfy \u0394u = 0; mean-value and maximum principles."
     },
     {
       "id": "analytic-continuation",
       "title": "Analytic continuation",
       "anchor": "coda",
-      "prereqs": ["analyticity"],
+      "prereqs": [
+        "analyticity"
+      ],
       "blurb": "Uniqueness of extension along paths; monodromy around branch points."
     }
   ]
