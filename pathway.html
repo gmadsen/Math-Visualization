@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pathways — concept DAG</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:16px;line-height:1.55}
+  a{color:var(--blue)}
+  main{max-width:1200px;margin:0 auto;padding:2.4rem 1.2rem 5rem}
+  h1{font-size:1.9rem;margin:0 0 .3rem;color:#fff;letter-spacing:-0.01em}
+  .sub{color:var(--mute);margin:0 0 1.4rem}
+  .back{display:inline-block;color:var(--mute);text-decoration:none;margin-bottom:1.2rem;font-size:.9rem}
+  .back:hover{color:var(--yellow)}
+  .bar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.7rem .9rem;margin-bottom:1.2rem}
+  .bar label{color:var(--mute);font-size:.88rem}
+  select,button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.4rem .6rem;font-family:inherit;font-size:.92rem;cursor:pointer}
+  button:hover{background:#242c3e}
+  .legend{display:flex;gap:.8rem;flex-wrap:wrap;color:var(--mute);font-size:.85rem;margin-left:auto}
+  .legend span{display:inline-flex;align-items:center;gap:.35rem}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+  .sw.ready{background:var(--yellow)}
+  .sw.mastered{background:var(--green)}
+  .sw.locked{background:var(--panel2)}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:.6rem;overflow:auto}
+  svg.dag{display:block;margin:0 auto;background:transparent}
+  .nodebox{cursor:pointer}
+  .nodebox rect{stroke:var(--line);stroke-width:1.2;fill:var(--panel2);
+    transition:fill 150ms ease, stroke 150ms ease}
+  .nodebox text{fill:var(--ink);font-size:13px;pointer-events:none}
+  .nodebox .sub{fill:var(--mute);font-size:11px}
+  .nodebox.ready rect{stroke:var(--yellow)}
+  .nodebox.ready text{fill:var(--yellow)}
+  .nodebox.mastered rect{fill:rgba(131,193,103,0.18);stroke:var(--green)}
+  .nodebox.mastered text{fill:var(--green)}
+  .nodebox.locked rect{opacity:.6}
+  .nodebox.goal rect{stroke-width:2.4}
+  .nodebox:hover rect{fill:#242c3e}
+  .edge{fill:none;stroke:var(--line);stroke-width:1.3}
+  .edge.lit{stroke:var(--violet)}
+  .panel-right{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;margin-top:1rem}
+  .panel-right h3{margin:.2rem 0 .6rem;color:var(--yellow);font-size:1rem}
+  .panel-right .blurb{color:var(--ink);margin:.3rem 0 .8rem}
+  .panel-right .meta{color:var(--mute);font-size:.85rem;margin:.2rem 0}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.78rem;color:var(--mute);margin-right:4px}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}
+  .small{font-size:.85rem;color:var(--mute)}
+  .stats{display:flex;gap:1.2rem;color:var(--mute);font-size:.88rem}
+  .stats b{color:#fff}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./index.html">← Notebook</a>
+  <h1>Concept pathways</h1>
+  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery.</p>
+
+  <div class="bar">
+    <label>Goal:</label>
+    <select id="goal-select"></select>
+    <button id="btn-reset">reset progress</button>
+    <div class="legend">
+      <span><i class="sw locked"></i>locked</span>
+      <span><i class="sw ready"></i>ready</span>
+      <span><i class="sw mastered"></i>mastered</span>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="stage">
+    <svg class="dag" id="dag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <div class="panel-right" id="detail">
+    <div class="small">select a node to see prereqs</div>
+  </div>
+</main>
+
+<script>
+(async function(){
+  // ---------- data loading ----------
+  const idx = await fetch('./concepts/index.json').then(r=>r.json());
+  const topics = await Promise.all(idx.topics.map(t =>
+    fetch(`./concepts/${t}.json`).then(r=>r.json())
+  ));
+  const capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+
+  const byId = new Map();
+  for(const t of topics){
+    for(const c of t.concepts){
+      byId.set(c.id, {...c, topicPage: t.page, topicTitle: t.title});
+    }
+  }
+
+  // Validate: every prereq resolves; graph is acyclic.
+  for(const [id, c] of byId){
+    for(const p of c.prereqs){
+      if(!byId.has(p)) console.warn(`[concepts] ${id} references unknown prereq ${p}`);
+    }
+  }
+  (function assertDAG(){
+    const color = new Map();
+    function dfs(id){
+      const s = color.get(id);
+      if(s === 1) throw new Error('cycle at ' + id);
+      if(s === 2) return;
+      color.set(id, 1);
+      for(const p of (byId.get(id)?.prereqs || [])) dfs(p);
+      color.set(id, 2);
+    }
+    for(const id of byId.keys()) dfs(id);
+  })();
+
+  // ---------- subgraph for a goal ----------
+  function ancestors(goalId){
+    const keep = new Set();
+    (function walk(id){
+      if(keep.has(id)) return;
+      keep.add(id);
+      for(const p of (byId.get(id)?.prereqs || [])) walk(p);
+    })(goalId);
+    return keep;
+  }
+
+  // ---------- layered layout ----------
+  function layout(ids){
+    const nodes = [...ids].map(id => ({id, node: byId.get(id)}));
+    // layer = 1 + max(layer(prereq)) intersected with ids
+    const layer = new Map();
+    function lyr(id){
+      if(layer.has(id)) return layer.get(id);
+      const ps = byId.get(id).prereqs.filter(p => ids.has(p));
+      const v = ps.length === 0 ? 0 : 1 + Math.max(...ps.map(lyr));
+      layer.set(id, v);
+      return v;
+    }
+    for(const n of nodes) lyr(n.id);
+
+    const layers = [];
+    for(const n of nodes){
+      const L = layer.get(n.id);
+      (layers[L] = layers[L] || []).push(n);
+    }
+
+    // One barycenter pass per layer to reduce crossings.
+    for(let pass=0; pass<3; pass++){
+      for(let L=1; L<layers.length; L++){
+        const prevOrder = new Map();
+        layers[L-1].forEach((n,i)=>prevOrder.set(n.id, i));
+        for(const n of layers[L]){
+          const ps = byId.get(n.id).prereqs.filter(p => prevOrder.has(p));
+          n._bary = ps.length ? ps.reduce((s,p)=>s+prevOrder.get(p),0)/ps.length : 0;
+        }
+        layers[L].sort((a,b)=>a._bary-b._bary);
+      }
+    }
+
+    // Assign coordinates.
+    const colW = 240, rowH = 84, padX = 40, padY = 40;
+    const maxRows = Math.max(...layers.map(l => l.length));
+    const svgH = padY*2 + maxRows*rowH;
+    const svgW = padX*2 + layers.length*colW;
+    for(let L=0; L<layers.length; L++){
+      const col = layers[L];
+      const yStart = padY + (maxRows - col.length) * rowH / 2;
+      col.forEach((n,i)=>{
+        n.x = padX + L*colW;
+        n.y = yStart + i*rowH;
+        n.w = 200;
+        n.h = 56;
+      });
+    }
+    return {layers, svgW, svgH, nodesById: new Map(nodes.map(n=>[n.id,n]))};
+  }
+
+  // ---------- render ----------
+  const svg = document.getElementById('dag');
+  const detail = document.getElementById('detail');
+  const statsEl = document.getElementById('stats');
+  function el(tag, attrs){
+    const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for(const [k,v] of Object.entries(attrs||{})) e.setAttribute(k, v);
+    return e;
+  }
+  const conceptsMap = new Map([...byId].map(([id,c]) => [id, {prereqs: c.prereqs}]));
+
+  let currentGoal = null;
+  let currentLayout = null;
+  let currentSelection = null;
+
+  function render(goalId){
+    currentGoal = goalId;
+    const ids = ancestors(goalId);
+    currentLayout = layout(ids);
+    svg.innerHTML = '';
+    svg.setAttribute('viewBox', `0 0 ${currentLayout.svgW} ${currentLayout.svgH}`);
+    svg.setAttribute('height', Math.min(currentLayout.svgH, 900));
+
+    // edges first
+    const edgeGroup = el('g', {});
+    for(const [id,n] of currentLayout.nodesById){
+      for(const p of byId.get(id).prereqs){
+        const src = currentLayout.nodesById.get(p);
+        if(!src) continue;
+        const x1 = src.x + src.w, y1 = src.y + src.h/2;
+        const x2 = n.x, y2 = n.y + n.h/2;
+        const mx = (x1+x2)/2;
+        const path = el('path', {
+          class: 'edge',
+          d: `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
+          'data-from': p, 'data-to': id
+        });
+        edgeGroup.appendChild(path);
+      }
+    }
+    svg.appendChild(edgeGroup);
+
+    // nodes
+    for(const [id,n] of currentLayout.nodesById){
+      const g = el('g', {class: 'nodebox', transform: `translate(${n.x},${n.y})`, 'data-id': id});
+      g.classList.add(MVProgress.stateOf(id, conceptsMap));
+      if(id === goalId) g.classList.add('goal');
+      g.appendChild(el('rect', {width: n.w, height: n.h, rx: 8, ry: 8}));
+      const t1 = el('text', {x: 12, y: 22});
+      t1.textContent = n.node.title;
+      g.appendChild(t1);
+      const t2 = el('text', {x: 12, y: 42, class: 'sub'});
+      t2.setAttribute('class','sub');
+      t2.textContent = '#' + id;
+      g.appendChild(t2);
+      g.addEventListener('click', (ev)=>{
+        if(ev.metaKey || ev.ctrlKey){
+          MVProgress.setMastered(id, !MVProgress.isMastered(id));
+          render(currentGoal);
+          return;
+        }
+        selectNode(id);
+      });
+      svg.appendChild(g);
+    }
+
+    updateStats();
+    if(currentSelection && ids.has(currentSelection)) selectNode(currentSelection);
+    else renderDetail(null);
+  }
+
+  function updateStats(){
+    const ids = [...currentLayout.nodesById.keys()];
+    const total = ids.length;
+    const mastered = ids.filter(id => MVProgress.isMastered(id)).length;
+    const ready = ids.filter(id => MVProgress.stateOf(id, conceptsMap) === 'ready').length;
+    statsEl.innerHTML = `<span><b>${mastered}</b> / ${total} mastered</span>` +
+                       `<span><b>${ready}</b> ready to learn</span>` +
+                       `<span>${total - mastered - ready} locked</span>`;
+  }
+
+  function selectNode(id){
+    currentSelection = id;
+    // highlight incoming edges
+    svg.querySelectorAll('.edge').forEach(e => e.classList.remove('lit'));
+    svg.querySelectorAll(`.edge[data-to="${id}"]`).forEach(e => e.classList.add('lit'));
+    renderDetail(id);
+  }
+
+  function renderDetail(id){
+    if(!id){ detail.innerHTML = '<div class="small">select a node to see prereqs</div>'; return; }
+    const c = byId.get(id);
+    const state = MVProgress.stateOf(id, conceptsMap);
+    const prereqList = c.prereqs.length
+      ? c.prereqs.map(p => {
+          const done = MVProgress.isMastered(p) ? '✓' : '·';
+          const pc = byId.get(p);
+          return `<span class="pill">${done} ${pc ? pc.title : p}</span>`;
+        }).join(' ')
+      : '<span class="small">no prerequisites</span>';
+    const anchor = c.anchor ? `${c.topicPage}#${c.anchor}` : c.topicPage;
+    detail.innerHTML = `
+      <h3>${c.title}</h3>
+      <div class="meta">${c.topicTitle} · <a href="${anchor}">open page →</a></div>
+      <div class="blurb">${c.blurb || ''}</div>
+      <div class="meta"><b>Prereqs:</b> ${prereqList}</div>
+      <div class="row">
+        <button id="btn-mastered">${MVProgress.isMastered(id) ? 'mark unmastered' : 'mark mastered'}</button>
+        <span class="small">state: <b>${state}</b></span>
+      </div>
+    `;
+    document.getElementById('btn-mastered').addEventListener('click', ()=>{
+      MVProgress.setMastered(id, !MVProgress.isMastered(id));
+      render(currentGoal);
+    });
+  }
+
+  // ---------- capstone picker ----------
+  const goalSel = document.getElementById('goal-select');
+  for(const cap of capstones){
+    const opt = document.createElement('option');
+    opt.value = cap.goal;
+    opt.textContent = cap.title;
+    goalSel.appendChild(opt);
+  }
+  const params = new URLSearchParams(location.search);
+  const initial = params.get('goal') || capstones[0].goal;
+  goalSel.value = initial;
+  goalSel.addEventListener('change', ()=>{
+    const g = goalSel.value;
+    history.replaceState(null, '', `?goal=${encodeURIComponent(g)}`);
+    render(g);
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', ()=>{
+    if(confirm('Reset all mastery progress?')){ MVProgress.clearAll(); render(currentGoal); }
+  });
+
+  render(initial);
+})();
+</script>
+</body>
+</html>

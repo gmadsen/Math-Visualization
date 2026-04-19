@@ -1,0 +1,28 @@
+{
+  "capstones": [
+    {
+      "id": "capstone-residue-theorem",
+      "title": "Master the residue theorem",
+      "goal": "residue-theorem",
+      "blurb": "Integrate f around a closed contour by summing residues at its poles. The algorithmic heart of complex analysis."
+    },
+    {
+      "id": "capstone-riemann-mapping",
+      "title": "Prove the Riemann mapping theorem",
+      "goal": "riemann-mapping",
+      "blurb": "Every simply connected proper open U ⊂ C is conformally the disk. Needs Schwarz, Möbius, Montel."
+    },
+    {
+      "id": "capstone-fta",
+      "title": "Complex-analytic proof of the FTA",
+      "goal": "fta",
+      "blurb": "Liouville gives the one-page proof: a bounded entire function is constant."
+    },
+    {
+      "id": "capstone-rouche",
+      "title": "Locate zeros with Rouché",
+      "goal": "rouche",
+      "blurb": "Count zeros of holomorphic functions by perturbation. Foundation for the argument-principle toolkit."
+    }
+  ]
+}
