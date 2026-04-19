@@ -1,0 +1,1373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Operator algebras — C*-algebras and Gelfand duality</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  table.plain th{color:var(--mute);font-weight:500}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1rem;margin:.6rem 0}
+  @media (max-width:680px){ .grid2{grid-template-columns:1fr} }
+  .matgrid{display:inline-grid;gap:.3rem;margin:.3rem .4rem .3rem 0}
+  .matgrid input{width:54px;text-align:center;font-family:ui-monospace,monospace}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* ====== complex arithmetic helpers ====== */
+const C = {
+  add:(a,b)=>[a[0]+b[0],a[1]+b[1]],
+  sub:(a,b)=>[a[0]-b[0],a[1]-b[1]],
+  mul:(a,b)=>[a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0]],
+  scale:(a,s)=>[a[0]*s,a[1]*s],
+  conj:(a)=>[a[0],-a[1]],
+  abs:(a)=>Math.hypot(a[0],a[1]),
+  div:(a,b)=>{ const d=b[0]*b[0]+b[1]*b[1]; return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d]; },
+  fmt:(a,p=2)=>{
+    const r = +a[0].toFixed(p), i = +a[1].toFixed(p);
+    if(Math.abs(i)<1e-9) return `${r}`;
+    if(Math.abs(r)<1e-9) return `${i}i`;
+    return `${r}${i>=0?'+':''}${i}i`;
+  }
+};
+/* roots of monic poly via Aberth-like iteration; for n<=3 use closed form */
+function roots2(b,c){
+  // x^2 + b x + c = 0 ; b,c complex
+  const disc = C.sub(C.mul(b,b), C.scale(c,4));
+  const s = csqrt(disc);
+  const r1 = C.scale(C.sub(C.scale(b,-1), s), 0.5);
+  const r2 = C.scale(C.add(C.scale(b,-1), s), 0.5);
+  return [r1,r2];
+}
+function csqrt(z){
+  const r = Math.hypot(z[0],z[1]);
+  const a = Math.sqrt((r+z[0])/2);
+  const b = Math.sign(z[1]||1)*Math.sqrt(Math.max(0,(r-z[0])/2));
+  return [a,b];
+}
+function roots3(a2,a1,a0){
+  // x^3 + a2 x^2 + a1 x + a0 = 0, real coefficients (we accept complex too via Durand-Kerner)
+  // Durand-Kerner with 60 iterations
+  let r = [[0.4,0.9],[-0.7,0.3],[0.2,-0.6]];
+  for(let it=0; it<80; it++){
+    const next = [];
+    for(let k=0;k<3;k++){
+      const x = r[k];
+      // p(x) = x^3 + a2 x^2 + a1 x + a0
+      const x2 = C.mul(x,x);
+      const x3 = C.mul(x2,x);
+      const p = C.add(C.add(C.add(x3, C.mul([a2[0],a2[1]],x2)),
+                            C.mul([a1[0],a1[1]],x)),
+                      [a0[0],a0[1]]);
+      let denom = [1,0];
+      for(let j=0;j<3;j++){ if(j!==k){ denom = C.mul(denom, C.sub(x,r[j])); } }
+      const corr = C.div(p, denom);
+      next.push(C.sub(x,corr));
+    }
+    r = next;
+  }
+  return r;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#cx">1&nbsp;Functions&nbsp;to&nbsp;algebra</a>
+  <a href="#cstar">2&nbsp;C*-algebras</a>
+  <a href="#spec">3&nbsp;Spectrum&nbsp;&amp;&nbsp;calculus</a>
+  <a href="#chars">4&nbsp;Characters&nbsp;&amp;&nbsp;Gelfand&nbsp;spectrum</a>
+  <a href="#transform">5&nbsp;Gelfand&nbsp;transform</a>
+  <a href="#duality">6&nbsp;Gelfand&nbsp;duality</a>
+  <a href="#ncg">7&nbsp;Noncommutative&nbsp;turn</a>
+  <a href="#groth">8&nbsp;Grothendieck&nbsp;parallel</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Operator algebras, C*-algebras, and Gelfand duality</h1>
+  <p class="sub">A compact Hausdorff space and its algebra of continuous functions are the same object viewed two ways. Drop commutativity and you have invented noncommutative geometry. The story is set up as analytic backbone for everything that calls itself a "spectrum."</p>
+</section>
+
+<section id="cx">
+<h2>1. From a space to its algebra of functions</h2>
+
+<p>Fix a compact Hausdorff space $X$. The set</p>
+$$C(X) \;=\; \{\, f\colon X\to\mathbb{C}\ \text{continuous}\,\}$$
+<p>is a complex vector space under pointwise operations. Multiply pointwise too: $(fg)(x)=f(x)g(x)$. Take the constant function $1$ for a unit, and complex conjugation as an involution: $f^* := \overline f$, with $(f^*)(x)=\overline{f(x)}$. The natural norm is the supremum norm</p>
+$$\|f\|_\infty \;=\; \sup_{x\in X} |f(x)|.$$
+<p>Compactness of $X$ guarantees the sup is attained, and $C(X)$ is complete in this norm — uniform limits of continuous functions are continuous. So $C(X)$ is a unital, commutative <strong>Banach *-algebra</strong>: a Banach algebra with a conjugate-linear, multiplication-reversing, idempotent map $a\mapsto a^*$.</p>
+
+<p>One identity stands out. For any $f\in C(X)$ and any $x\in X$, $|\overline{f(x)}\, f(x)| = |f(x)|^2$, so</p>
+$$\|f^* f\|_\infty \;=\; \sup_x |f(x)|^2 \;=\; \|f\|_\infty^2.$$
+<p>This innocuous equality is the seed of everything that follows. Algebras satisfying it abstractly are called <strong>$C^*$-algebras</strong>, and we will see that <em>every</em> commutative unital one is of the form $C(X)$ for a unique $X$.</p>
+
+<p>Background on the analytic side lives at <a href="./functional-analysis.html">functional analysis</a> (Banach spaces, bounded operators, the spectrum) and on the topological side at <a href="./topology.html">topology</a> (compact Hausdorff, weak-* topology, Stone–Čech). Holomorphic input — used in section 3 — comes from <a href="./complex-analysis.html">complex analysis</a>.</p>
+
+<h3>What does $C(X)$ remember about $X$?</h3>
+<p>Already at the level of a Banach algebra, $C(X)$ is a startlingly faithful invariant. <strong>Banach–Stone:</strong> two compact Hausdorff $X$, $Y$ are homeomorphic iff $C(X)$ and $C(Y)$ are isometrically isomorphic as Banach spaces (no algebra structure needed). With the algebra structure, the same conclusion holds even more rigidly. Gelfand duality (section 6) is a sharp upgrade: $C(\,\cdot\,)$ is essentially a categorical equivalence.</p>
+</section>
+
+<section id="cstar">
+<h2>2. Banach *-algebras and C*-algebras</h2>
+
+<p>Strip $C(X)$ down to its bones. A <strong>$*$-algebra</strong> over $\mathbb{C}$ is an associative $\mathbb{C}$-algebra $A$ with a map $a\mapsto a^*$ satisfying</p>
+<ul>
+  <li>$(a+b)^* = a^* + b^*$ and $(\lambda a)^* = \overline{\lambda}\, a^*$ (conjugate linearity),</li>
+  <li>$(ab)^* = b^* a^*$ (anti-multiplicative),</li>
+  <li>$(a^*)^* = a$ (involution).</li>
+</ul>
+<p>A <strong>Banach $*$-algebra</strong> is a $*$-algebra carrying a complete submultiplicative norm $\|ab\|\le\|a\|\,\|b\|$ for which $\|a^*\|=\|a\|$. A <strong>$C^*$-algebra</strong> is a Banach $*$-algebra satisfying the <em>$C^*$-identity</em></p>
+$$\boxed{\quad \|a^* a\| = \|a\|^2 \quad\text{for every } a\in A.\quad}$$
+<p>The $C^*$-identity ties norm to involution to multiplication so tightly that only one norm on a given $*$-algebra can ever satisfy it (uniqueness of the $C^*$-norm). This is what gives $C^*$-algebras their rigidity; in particular it forces $\|a^*a\|\ge \|a\|^2$, so combined with submultiplicativity we automatically have $\|a^*\|=\|a\|$ — that axiom is redundant once the $C^*$-identity is in play.</p>
+
+<h3>The cast of examples</h3>
+<table class="plain">
+<thead><tr><th>algebra</th><th>elements</th><th>commutative?</th></tr></thead>
+<tbody>
+<tr><td>$\mathbb{C}$</td><td>scalars</td><td>yes</td></tr>
+<tr><td>$C(X)$, $X$ compact Hausdorff</td><td>continuous $f\colon X\to\mathbb{C}$, sup norm, $f^*=\overline f$</td><td>yes</td></tr>
+<tr><td>$C_0(X)$, $X$ locally compact Hausdorff</td><td>continuous $f$ vanishing at infinity</td><td>yes (usually non-unital)</td></tr>
+<tr><td>$M_n(\mathbb{C})$</td><td>$n\times n$ complex matrices, operator norm, $A^*=\bar A^{\mathsf T}$</td><td>only $n=1$</td></tr>
+<tr><td>$B(H)$</td><td>bounded operators on a Hilbert space $H$</td><td>only $\dim H = 1$</td></tr>
+<tr><td>$K(H)$</td><td>compact operators on $H$</td><td>no (closed two-sided ideal of $B(H)$)</td></tr>
+<tr><td>$B(H)/K(H)$ (Calkin)</td><td>operators modulo compacts</td><td>no</td></tr>
+<tr><td>$C^*_r(G)$, $C^*(G)$</td><td>group $C^*$-algebras of a locally compact group $G$</td><td>iff $G$ abelian</td></tr>
+</tbody>
+</table>
+
+<p>For $a\in A$, special elements get names:</p>
+<ul>
+  <li><strong>Self-adjoint</strong> if $a^*=a$. In $C(X)$: real-valued functions. In $B(H)$: Hermitian operators. Spectrum is real.</li>
+  <li><strong>Normal</strong> if $a^*a = a a^*$. The class for which a continuous functional calculus exists.</li>
+  <li><strong>Unitary</strong> if $a^* a = a a^* = 1$ (in unital $A$). In $C(X)$: $|f|=1$ pointwise. Spectrum lies in the unit circle $\mathbb{T}$.</li>
+  <li><strong>Positive</strong> if $a = b^* b$ for some $b$. Equivalently for normal $a$: spectrum $\subseteq [0,\infty)$. The positive elements form a cone.</li>
+  <li><strong>Projection</strong> if $a = a^* = a^2$. Idempotent self-adjoints.</li>
+</ul>
+
+<h3>Sub-algebras, ideals, *-homomorphisms</h3>
+<p>A <strong>$*$-homomorphism</strong> $\pi\colon A\to B$ is an algebra map with $\pi(a^*) = \pi(a)^*$. A foundational analytic fact: any $*$-homomorphism between $C^*$-algebras is automatically <em>contractive</em> ($\|\pi(a)\|\le\|a\|$); if injective it is automatically isometric. So $C^*$-algebras have no slack — algebraic structure determines the norm.</p>
+
+<div class="note"><strong>GNS construction.</strong> Every $C^*$-algebra embeds isometrically into $B(H)$ for some Hilbert space $H$. So abstract $C^*$-algebras and concrete operator algebras are the same thing — a result one should keep in mind whenever a definition feels too axiomatic.</div>
+</section>
+
+<section id="spec">
+<h2>3. Spectrum of an element and functional calculus</h2>
+
+<p>Let $A$ be a unital Banach algebra and $a\in A$. The <strong>spectrum</strong> of $a$ is</p>
+$$\sigma(a) \;=\; \{\,\lambda\in\mathbb{C}\ :\ a-\lambda\cdot 1\ \text{is not invertible in } A\,\}.$$
+<p>Three foundational facts (Banach algebra-level, no $C^*$ structure used yet):</p>
+<ul>
+  <li>$\sigma(a)$ is a non-empty compact subset of $\mathbb{C}$, contained in the closed disk of radius $\|a\|$.</li>
+  <li>The <strong>resolvent</strong> $\lambda\mapsto (a-\lambda)^{-1}$ is a holomorphic $A$-valued function on $\rho(a):=\mathbb{C}\setminus\sigma(a)$.</li>
+  <li><strong>Spectral radius formula (Gelfand 1941).</strong> $\displaystyle r(a):=\sup_{\lambda\in\sigma(a)} |\lambda| = \lim_{n\to\infty}\|a^n\|^{1/n}.$ This computes a complex-analytic invariant from norms of iterates — surprising every time.</li>
+</ul>
+
+<h3>Holomorphic functional calculus</h3>
+<p>If $f$ is holomorphic on an open neighborhood $U\supset \sigma(a)$ and $\Gamma$ is a contour in $U$ winding once counter-clockwise around $\sigma(a)$,</p>
+$$f(a) \;=\; \frac{1}{2\pi i}\oint_\Gamma f(\lambda)\,(\lambda-a)^{-1}\,d\lambda \;\in\; A.$$
+<p>This is the <em>Riesz–Dunford</em> functional calculus. It satisfies the spectral mapping theorem $\sigma(f(a)) = f(\sigma(a))$, is multiplicative ($(fg)(a)=f(a)g(a)$), and recovers polynomials in the obvious way.</p>
+
+<h3>Continuous functional calculus (the C* upgrade)</h3>
+<p>If $A$ is a $C^*$-algebra and $a\in A$ is <em>normal</em> ($a^*a=aa^*$), the holomorphic calculus extends to a contractive $*$-homomorphism</p>
+$$\Phi_a\colon C(\sigma(a)) \;\longrightarrow\; A,\qquad f\mapsto f(a),$$
+<p>which is in fact isometric onto the unital $C^*$-subalgebra of $A$ generated by $a$. So you can plug a continuous (not just holomorphic) function into any normal element. This is the analytic engine behind the spectral theorem for self-adjoint operators on Hilbert space.</p>
+
+<div class="note"><strong>Why "normal" is the right hypothesis.</strong> If $a$ commutes with $a^*$, then the unital $*$-subalgebra it generates is commutative. Apply Gelfand duality (section 6) to that subalgebra: it must be $C(Y)$ for some compact Hausdorff $Y$. The character argument then identifies $Y$ with $\sigma(a)$.</div>
+
+<h3>Widget — spectrum of a small matrix</h3>
+<p>Edit the entries of a $2\times 2$ or $3\times 3$ complex matrix; the spectrum (eigenvalues, computed by Durand–Kerner for $n=3$, by the quadratic formula for $n=2$) is plotted in $\mathbb{C}$. Self-adjointness ($A=A^*$) forces real eigenvalues; unitarity ($A^*A=I$) puts them on the unit circle.</p>
+
+<div class="widget" id="w-spec">
+  <div class="hd"><div class="ttl">Spectrum in $\mathbb{C}$</div><div class="hint">edit entries — eigenvalues are roots of $\det(\lambda I - A)$</div></div>
+  <div class="row">
+    <label>size</label>
+    <button id="spec-2" class="active">2×2</button>
+    <button id="spec-3">3×3</button>
+    <button id="spec-pauli">Pauli σ_x</button>
+    <button id="spec-rot">rotate π/3</button>
+    <button id="spec-shift">nilpotent</button>
+  </div>
+  <div id="spec-mat" class="row" style="align-items:flex-start"></div>
+  <svg id="spec-svg" viewBox="0 0 520 360" width="520" height="360"></svg>
+  <div class="readout" id="spec-out">eigenvalues:</div>
+</div>
+</section>
+
+<script>
+/* =============================== §3 spectrum widget =============================== */
+(function(){
+  const matBox = $('#spec-mat'), svg = $('#spec-svg'), out = $('#spec-out');
+  let n = 2;
+  // matrices stored as n×n of complex pairs
+  let M = [[[0,0],[1,0]],[[1,0],[0,0]]]; // Pauli sigma_x
+
+  function build(){
+    matBox.innerHTML='';
+    const grid = document.createElement('div');
+    grid.className = 'matgrid';
+    grid.style.gridTemplateColumns = `repeat(${n}, auto)`;
+    for(let i=0;i<n;i++){
+      for(let j=0;j<n;j++){
+        const inp = document.createElement('input');
+        inp.type='text';
+        inp.value = C.fmt(M[i][j],3);
+        inp.title = `entry [${i+1},${j+1}] (e.g. 1, 2.5, 0.3+1i, -1i)`;
+        inp.addEventListener('change', ()=>{
+          M[i][j] = parseC(inp.value);
+          inp.value = C.fmt(M[i][j],3);
+          render();
+        });
+        grid.appendChild(inp);
+      }
+    }
+    matBox.appendChild(grid);
+  }
+  function parseC(s){
+    s = s.replace(/\s+/g,'');
+    if(!s) return [0,0];
+    if(s==='i') return [0,1];
+    if(s==='-i') return [0,-1];
+    // generic a+bi or a-bi or pure real or pure imag
+    const m = s.match(/^([+-]?(?:\d+\.?\d*|\.\d+)?)([+-](?:\d+\.?\d*|\.\d+)?)i$/);
+    if(m){
+      const a = m[1]===''||m[1]==='+'||m[1]==='-' ? (m[1]+'1') : m[1];
+      const b = m[2]==='+'||m[2]==='-' ? (m[2]+'1') : m[2];
+      return [parseFloat(a)||0, parseFloat(b)||0];
+    }
+    const im = s.match(/^([+-]?(?:\d+\.?\d*|\.\d+))i$/);
+    if(im){ return [0, parseFloat(im[1])]; }
+    const re = s.match(/^([+-]?(?:\d+\.?\d*|\.\d+))$/);
+    if(re){ return [parseFloat(re[1]),0]; }
+    // tolerate "1i" / "-2i" alt
+    return [0,0];
+  }
+
+  function eigs(){
+    if(n===2){
+      const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];
+      const tr = C.add(a,d);
+      const det = C.sub(C.mul(a,d), C.mul(b,c));
+      // x^2 - tr x + det = 0
+      return roots2(C.scale(tr,-1), det);
+    } else {
+      // characteristic poly det(λI - M) = λ^3 - c2 λ^2 + c1 λ - c0
+      // c2 = trace, c0 = det, c1 = sum of 2x2 principal minors
+      const a=M[0][0],b=M[0][1],c=M[0][2],
+            d=M[1][0],e=M[1][1],f=M[1][2],
+            g=M[2][0],h=M[2][1],k=M[2][2];
+      const c2 = C.add(C.add(a,e),k);
+      const m1 = C.sub(C.mul(e,k), C.mul(f,h));
+      const m2 = C.sub(C.mul(a,k), C.mul(c,g));
+      const m3 = C.sub(C.mul(a,e), C.mul(b,d));
+      const c1 = C.add(C.add(m1,m2),m3);
+      // det = a(ek-fh) - b(dk-fg) + c(dh-eg)
+      const det = C.add(C.sub(C.mul(a, m1),
+                              C.mul(b, C.sub(C.mul(d,k), C.mul(f,g)))),
+                        C.mul(c, C.sub(C.mul(d,h), C.mul(e,g))));
+      // poly: λ^3 + (-c2) λ^2 + c1 λ + (-det)
+      return roots3(C.scale(c2,-1), c1, C.scale(det,-1));
+    }
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=520,H=360, cx=W/2, cy=H/2;
+    // axes
+    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));
+    // unit circle (light)
+    svg.appendChild(SVG('circle',{cx,cy,r:80,fill:'none',stroke:'var(--line)','stroke-dasharray':'3,3'}));
+    // axis labels
+    svg.appendChild(Object.assign(SVG('text',{x:W-22,y:cy-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'}),{textContent:'Re'}));
+    svg.appendChild(Object.assign(SVG('text',{x:cx+8,y:24,'text-anchor':'start','font-size':12,fill:'var(--mute)'}),{textContent:'Im'}));
+    // ticks
+    for(let k=-2;k<=2;k++){
+      if(k===0) continue;
+      svg.appendChild(SVG('line',{x1:cx+k*80,y1:cy-3,x2:cx+k*80,y2:cy+3,stroke:'var(--mute)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:cx+k*80,y:cy+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:k}));
+      svg.appendChild(SVG('line',{x1:cx-3,y1:cy-k*80,x2:cx+3,y2:cy-k*80,stroke:'var(--mute)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:cx-10,y:cy-k*80+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}),{textContent:k}));
+    }
+    const evs = eigs();
+    const lines = [];
+    evs.forEach((z, idx) => {
+      const px = cx + z[0]*80, py = cy - z[1]*80;
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:7,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+      svg.appendChild(Object.assign(SVG('text',{x:px+12,y:py-8,'font-size':12,fill:'var(--ink)'}),{textContent:'λ'+(idx+1)+' = '+C.fmt(z,3)}));
+      lines.push('λ'+(idx+1)+' = '+C.fmt(z,3));
+    });
+    // diagnostics: self-adjoint? unitary?
+    const sa = isSelfAdjoint();
+    const un = isUnitary();
+    const norm = isNormal();
+    out.textContent =
+      'eigenvalues:\n  ' + lines.join('\n  ') +
+      '\n\n' +
+      `self-adjoint (A* = A): ${sa}\n` +
+      `normal      (A*A = AA*): ${norm}\n` +
+      `unitary     (A*A = I):   ${un}\n` +
+      `→ ${sa ? 'spectrum is real (Hermitian).' : un ? 'spectrum lies on the unit circle.' : norm ? 'normal: continuous functional calculus available on σ(A).' : 'non-normal: only holomorphic calculus.'}`;
+  }
+  function transpose(){
+    const T = Array.from({length:n},()=>Array.from({length:n},()=>[0,0]));
+    for(let i=0;i<n;i++) for(let j=0;j<n;j++) T[i][j] = C.conj(M[j][i]);
+    return T;
+  }
+  function multiply(A,B){
+    const R = Array.from({length:n},()=>Array.from({length:n},()=>[0,0]));
+    for(let i=0;i<n;i++) for(let j=0;j<n;j++){
+      let s=[0,0];
+      for(let k=0;k<n;k++) s = C.add(s, C.mul(A[i][k],B[k][j]));
+      R[i][j]=s;
+    }
+    return R;
+  }
+  function eq(A,B,tol=1e-6){
+    for(let i=0;i<n;i++) for(let j=0;j<n;j++)
+      if(Math.abs(A[i][j][0]-B[i][j][0])>tol || Math.abs(A[i][j][1]-B[i][j][1])>tol) return false;
+    return true;
+  }
+  function isSelfAdjoint(){ return eq(M, transpose()); }
+  function isNormal(){ const Mt=transpose(); return eq(multiply(M,Mt), multiply(Mt,M)); }
+  function isUnitary(){
+    const Mt=transpose();
+    const I = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?[1,0]:[0,0]));
+    return eq(multiply(M,Mt), I);
+  }
+
+  function setSize(s){
+    n = s;
+    if(n===2){ M = [[[0,0],[1,0]],[[1,0],[0,0]]]; }
+    else { M = [[[0,0],[1,0],[0,0]],[[0,0],[0,0],[1,0]],[[1,0],[0,0],[0,0]]]; }
+    $('#spec-2').classList.toggle('active', n===2);
+    $('#spec-3').classList.toggle('active', n===3);
+    build(); render();
+  }
+
+  $('#spec-2').addEventListener('click', ()=>setSize(2));
+  $('#spec-3').addEventListener('click', ()=>setSize(3));
+  $('#spec-pauli').addEventListener('click', ()=>{
+    n=2; M=[[[0,0],[1,0]],[[1,0],[0,0]]];
+    $('#spec-2').classList.add('active'); $('#spec-3').classList.remove('active');
+    build(); render();
+  });
+  $('#spec-rot').addEventListener('click', ()=>{
+    n=2; const c=Math.cos(Math.PI/3), s=Math.sin(Math.PI/3);
+    M=[[[c,0],[-s,0]],[[s,0],[c,0]]];
+    $('#spec-2').classList.add('active'); $('#spec-3').classList.remove('active');
+    build(); render();
+  });
+  $('#spec-shift').addEventListener('click', ()=>{
+    n=3; M=[[[0,0],[1,0],[0,0]],[[0,0],[0,0],[1,0]],[[0,0],[0,0],[0,0]]];
+    $('#spec-2').classList.remove('active'); $('#spec-3').classList.add('active');
+    build(); render();
+  });
+
+  build(); render();
+})();
+</script>
+
+<section id="chars">
+<h2>4. Characters and the Gelfand spectrum</h2>
+
+<p>Now restrict to a <em>commutative</em> unital Banach algebra $A$ over $\mathbb{C}$. A <strong>character</strong> of $A$ is a non-zero algebra homomorphism</p>
+$$\varphi\colon A\to\mathbb{C},\qquad \varphi(ab)=\varphi(a)\varphi(b),\quad\varphi(1)=1.$$
+<p>Equivalently, the kernel of $\varphi$ is a maximal ideal of $A$ of codimension $1$. In the commutative Banach setting, every maximal ideal arises this way uniquely (because $A/\mathfrak m \cong \mathbb{C}$ is forced by Gelfand–Mazur: a complex Banach division algebra is $\mathbb{C}$).</p>
+
+<p>Two key bounds:</p>
+<ul>
+  <li>Each character is automatically continuous with $\|\varphi\|\le 1$. (Idea: $\varphi(a)\in\sigma(a)$, hence $|\varphi(a)|\le r(a)\le \|a\|$.)</li>
+  <li>Conversely, the values $\varphi(a)$ as $\varphi$ ranges over characters are exactly the spectrum of $a$ in the commutative case: $\sigma(a) = \{\varphi(a):\varphi\in\hat A\}$.</li>
+</ul>
+
+<p>The <strong>Gelfand spectrum</strong> (or character space, or maximal ideal space) is</p>
+$$\hat A \;=\; \{\,\varphi\colon A\to\mathbb{C}\ \text{nonzero algebra hom}\,\} \;\subset\; A^*$$
+<p>topologized as a subspace of the dual $A^*$ with the <strong>weak-$*$ topology</strong> — pointwise convergence on $A$.</p>
+
+<div class="note"><strong>Theorem.</strong> $\hat A$ is a compact Hausdorff space. Compactness is Banach–Alaoglu: $\hat A$ sits in the closed unit ball of $A^*$, which is weak-$*$ compact, and the multiplicativity condition is closed under weak-$*$ convergence.</div>
+
+<h3>What characters look like, in pictures</h3>
+<ul>
+  <li><strong>$A = \mathbb{C}^n$</strong> (functions on $n$ points). The characters are the $n$ coordinate projections $\mathrm{ev}_k(x_1,\ldots,x_n)=x_k$. So $\hat A = \{1,2,\ldots,n\}$ as a discrete space.</li>
+  <li><strong>$A = C(X)$, $X$ compact Hausdorff.</strong> Every character is evaluation at some point: $\varphi = \mathrm{ev}_x$ for a unique $x\in X$. So the natural map $X\to\hat{C(X)}$, $x\mapsto\mathrm{ev}_x$, is a homeomorphism. <em>The space recovers itself.</em></li>
+  <li><strong>$A = \ell^1(\mathbb{Z})$</strong> with convolution. Characters are exponentials $\varphi_z((a_n)) = \sum a_n z^n$ for $z\in\mathbb{T}$, so $\hat A = \mathbb{T}$ (the unit circle). This is the Fourier transform in disguise.</li>
+  <li><strong>$A = $ disk algebra</strong> $\mathcal A(\overline{\mathbb D})$ (continuous on $\overline{\mathbb D}$, holomorphic on $\mathbb D$). Characters are evaluation at points of $\overline{\mathbb D}$, so $\hat A = \overline{\mathbb D}$.</li>
+</ul>
+
+<h3>Widget — pick a point, get a character</h3>
+<p>For two illustrative spaces — a finite discrete space $X = \{1,2,\ldots,N\}$ and the unit circle $X = \mathbb{T}$ — pick a point and watch the corresponding character $\mathrm{ev}_x$ act on a sample function $f$.</p>
+
+<div class="widget" id="w-evx">
+  <div class="hd"><div class="ttl">Sample a character $\mathrm{ev}_x$</div><div class="hint">point $x\in X$ becomes a multiplicative functional on $C(X)$</div></div>
+  <div class="row">
+    <label>space $X$</label>
+    <button id="evx-disc" class="active">discrete (N pts)</button>
+    <button id="evx-circ">circle 𝕋</button>
+  </div>
+  <div class="row" id="evx-N-row">
+    <label>N</label>
+    <input type="range" id="evx-N" min="3" max="12" step="1" value="6">
+    <span class="readout" id="evx-N-out" style="min-width:48px;flex:0 0 auto">6</span>
+  </div>
+  <div class="row">
+    <label>point index / angle</label>
+    <input type="range" id="evx-t" min="0" max="100" step="1" value="0">
+    <span class="readout" id="evx-t-out" style="min-width:80px;flex:0 0 auto">x = 1</span>
+  </div>
+  <div class="row">
+    <label>sample $f$</label>
+    <select id="evx-f">
+      <option value="id">f(x) = x  (real coord on disc; angle/(2π) on 𝕋)</option>
+      <option value="sq">f(x) = x²</option>
+      <option value="cos" selected>f = cos (only on 𝕋: cos θ)</option>
+      <option value="exp">f(z) = z  (complex; on 𝕋 just Re iθ)</option>
+    </select>
+  </div>
+  <svg id="evx-svg" viewBox="0 0 520 280" width="520" height="280"></svg>
+  <div class="readout" id="evx-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== §4 evaluation widget =============================== */
+(function(){
+  const svg=$('#evx-svg'), out=$('#evx-out');
+  const NRow=$('#evx-N-row'), Nsl=$('#evx-N'), Nout=$('#evx-N-out');
+  const tsl=$('#evx-t'), tout=$('#evx-t-out'), fsel=$('#evx-f');
+  const dBtn=$('#evx-disc'), cBtn=$('#evx-circ');
+  let mode='disc';
+
+  function fEval(kind, xRealOrTheta){
+    if(mode==='disc'){
+      const x = xRealOrTheta; // index 1..N treated as real coord x
+      switch(kind){
+        case 'id': return x;
+        case 'sq': return x*x;
+        case 'cos': return Math.cos(x);
+        case 'exp': return x; // pure real
+      }
+    } else {
+      const θ = xRealOrTheta;
+      switch(kind){
+        case 'id': return θ/(2*Math.PI);
+        case 'sq': return Math.cos(2*θ); // proxy for "z²" real part
+        case 'cos': return Math.cos(θ);
+        case 'exp': return Math.cos(θ); // Re e^{iθ}
+      }
+    }
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=520, H=280, padL=46, padR=20, padT=20, padB=36;
+    const plotW = W-padL-padR, plotH = H-padT-padB;
+    const cx0 = padL, cy0 = padT;
+    const xAxisY = cy0 + plotH/2;
+
+    if(mode==='disc'){
+      NRow.style.display='';
+      const N = +Nsl.value;
+      Nout.textContent = N;
+      tsl.max = N-1;
+      const idx = Math.min(+tsl.value, N-1);
+      const x = idx+1;
+      tout.textContent = `x = ${x}`;
+      // baseline
+      svg.appendChild(SVG('line',{x1:cx0,y1:xAxisY,x2:cx0+plotW,y2:xAxisY,stroke:'var(--line)'}));
+      // points along x-axis at x = 1..N
+      const minX=0.5, maxX=N+0.5;
+      const sx = v => cx0 + (v-minX)/(maxX-minX) * plotW;
+      // function values, scale
+      const fs = [];
+      for(let k=1;k<=N;k++) fs.push(fEval(fsel.value,k));
+      const fmin = Math.min(...fs, 0), fmax = Math.max(...fs, 1);
+      const sy = v => xAxisY - (v - (fmin+fmax)/2)/(fmax-fmin+1e-9) * (plotH*0.8);
+      // dotted graph of f over the discrete points
+      for(let k=1;k<=N;k++){
+        const px = sx(k), py = sy(fs[k-1]);
+        svg.appendChild(SVG('line',{x1:px,y1:xAxisY,x2:px,y2:py,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+        svg.appendChild(SVG('circle',{cx:px,cy:py,r:4,fill:'var(--blue)'}));
+        svg.appendChild(Object.assign(SVG('text',{x:px,y:xAxisY+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:k}));
+      }
+      // highlight chosen point
+      const px = sx(x), py = sy(fs[x-1]);
+      svg.appendChild(SVG('circle',{cx:px,cy:xAxisY,r:8,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:7,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+      svg.appendChild(SVG('line',{x1:px,y1:xAxisY,x2:px,y2:py,stroke:'var(--yellow)','stroke-width':1.6}));
+      svg.appendChild(Object.assign(SVG('text',{x:cx0+plotW-4,y:cy0+12,'text-anchor':'end','font-size':12,fill:'var(--cyan)'}),{textContent:`f : X → ℂ`}));
+      out.textContent =
+        `X = {1, 2, …, ${N}} — discrete, |X| = ${N}\n`+
+        `character ev_${x} : C(X) → ℂ,  ev_${x}(f) = f(${x}) = ${fs[x-1].toFixed(4)}\n\n`+
+        `under Gelfand: hat(C(X)) ≅ X = {1,…,${N}}, with ${N} characters total — one per point.`;
+    } else {
+      NRow.style.display='none';
+      tsl.max = 100;
+      const θ = (+tsl.value/100) * 2*Math.PI;
+      tout.textContent = `θ = ${(θ/Math.PI).toFixed(2)}π`;
+      // draw circle
+      const cxc = cx0 + plotH/2 + 20, cyc = cy0 + plotH/2;
+      const R = plotH*0.4;
+      svg.appendChild(SVG('circle',{cx:cxc,cy:cyc,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+      // graph of f around the circle
+      const samples = 120;
+      let pts = '';
+      let fs = [];
+      for(let i=0;i<=samples;i++){
+        const t = i/samples * 2*Math.PI;
+        fs.push(fEval(fsel.value,t));
+      }
+      const fmin=Math.min(...fs), fmax=Math.max(...fs);
+      const span = fmax-fmin || 1;
+      // overlay graph as deformed circle
+      let dpath='';
+      for(let i=0;i<=samples;i++){
+        const t = i/samples * 2*Math.PI;
+        const v = (fs[i]-fmin)/span; // 0..1
+        const r = R*(0.4 + 0.7*v);
+        const px = cxc + r*Math.cos(t), py = cyc - r*Math.sin(t);
+        dpath += (i===0?'M':'L')+px+' '+py+' ';
+      }
+      svg.appendChild(SVG('path',{d:dpath, fill:'none', stroke:'var(--blue)', 'stroke-width':1.6, opacity:0.85}));
+      // chosen point on circle and on graph
+      const cxp = cxc+R*Math.cos(θ), cyp = cyc-R*Math.sin(θ);
+      const fv = fEval(fsel.value,θ);
+      const v = (fv-fmin)/span;
+      const r2 = R*(0.4 + 0.7*v);
+      const gxp = cxc+r2*Math.cos(θ), gyp = cyc-r2*Math.sin(θ);
+      svg.appendChild(SVG('line',{x1:cxp,y1:cyp,x2:gxp,y2:gyp,stroke:'var(--yellow)','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:cxp,cy:cyp,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:gxp,cy:gyp,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+      // legend
+      svg.appendChild(Object.assign(SVG('text',{x:cx0+12,y:cy0+16,'font-size':12,fill:'var(--mute)'}),{textContent:'X = 𝕋  (radial offset = f value, scaled)'}));
+      out.textContent =
+        `X = 𝕋 (unit circle in ℂ) — compact Hausdorff, uncountable\n`+
+        `character ev_θ : C(𝕋) → ℂ,  ev_θ(f) = f(e^{iθ})\n`+
+        `at θ = ${(θ/Math.PI).toFixed(3)}π:  f(e^{iθ}) = ${fv.toFixed(4)}\n\n`+
+        `Gelfand: hat(C(𝕋)) ≅ 𝕋, one character per angle.`;
+    }
+  }
+
+  dBtn.addEventListener('click', ()=>{ mode='disc'; dBtn.classList.add('active'); cBtn.classList.remove('active'); render(); });
+  cBtn.addEventListener('click', ()=>{ mode='circ'; cBtn.classList.add('active'); dBtn.classList.remove('active'); render(); });
+  Nsl.addEventListener('input', render);
+  tsl.addEventListener('input', render);
+  fsel.addEventListener('change', render);
+
+  render();
+})();
+</script>
+
+<section id="transform">
+<h2>5. The Gelfand transform</h2>
+
+<p>Given a commutative unital Banach algebra $A$ and its character space $\hat A$ (compact Hausdorff, by section 4), define</p>
+$$\Gamma\colon A \;\longrightarrow\; C(\hat A),\qquad \Gamma(a)(\varphi) = \varphi(a).$$
+<p>That is, an element $a\in A$ becomes the function on $\hat A$ that "asks each character what it thinks $a$ is." This map is automatically:</p>
+<ul>
+  <li>a unital algebra homomorphism, $\Gamma(ab) = \Gamma(a)\Gamma(b)$, $\Gamma(1) = 1$;</li>
+  <li>contractive, $\|\Gamma(a)\|_\infty \le \|a\|$;</li>
+  <li>has $\|\Gamma(a)\|_\infty = r(a)$, the spectral radius.</li>
+</ul>
+
+<p>So in general the Gelfand transform can fail in two ways: it can have a kernel (the <em>Jacobson radical</em> $\bigcap_{\varphi\in\hat A}\ker\varphi$), and it can fail to be isometric (when $r(a) < \|a\|$ for some $a$).</p>
+
+<div class="ok"><strong>Gelfand–Naimark (commutative case, 1943).</strong> If $A$ is a <em>commutative unital $C^*$-algebra</em>, the Gelfand transform $\Gamma\colon A\to C(\hat A)$ is an <em>isometric $*$-isomorphism</em>. So every commutative unital $C^*$-algebra is, up to canonical isomorphism, $C(X)$ for $X = \hat A$.</div>
+
+<p>Two ingredients make this work:</p>
+<ol>
+  <li><strong>Characters preserve $*$.</strong> If $a = a^*$ in a commutative $C^*$-algebra, then the spectrum is real (because the unital $C^*$-subalgebra generated by $a$ is $C(\sigma(a))$, in which the involution is complex conjugation). So $\varphi(a)\in\sigma(a)\subset\mathbb{R}$, hence $\varphi(a^*)=\overline{\varphi(a)}$. Splitting into real and imaginary parts gives $\varphi(a^*)=\overline{\varphi(a)}$ in general.</li>
+  <li><strong>The image is dense by Stone–Weierstrass:</strong> $\Gamma(A)\subseteq C(\hat A)$ is a unital $*$-subalgebra that separates points (different characters give different functions). Hence it is dense. The $C^*$-identity then promotes "isometric" — $\|a^*a\|=\|a\|^2$ matches $\|\Gamma(a^*a)\|_\infty=\|\Gamma(a)\|_\infty^2$ — to an actual equality $\|\Gamma(a)\|=\|a\|$, hence the image is closed, hence everything.</li>
+</ol>
+
+<h3>Widget — Gelfand transform in action</h3>
+<p>Pick a small commutative algebra $A$ and an element $a\in A$. The widget computes $\hat A$ and plots the function $\Gamma(a)\colon\hat A\to\mathbb{C}$.</p>
+
+<div class="widget" id="w-gt">
+  <div class="hd"><div class="ttl">$\Gamma(a)$ as a function on $\hat A$</div><div class="hint">the algebra is shown on the left, $\hat A$ on the right</div></div>
+  <div class="row">
+    <label>algebra A</label>
+    <select id="gt-A">
+      <option value="C5">𝔸 = ℂ⁵ (functions on 5 points)</option>
+      <option value="trig">𝔸 = trig polys deg ≤ 3 on 𝕋</option>
+      <option value="poly" selected>𝔸 = ℂ[x]/(x²-1) (≅ ℂ²)</option>
+    </select>
+  </div>
+  <div class="row" id="gt-element-row">
+    <label>element a</label>
+    <input type="text" id="gt-a" value="x+1" style="min-width:200px">
+    <span class="small" id="gt-a-hint">format depends on algebra</span>
+  </div>
+  <svg id="gt-svg" viewBox="0 0 560 280" width="560" height="280"></svg>
+  <div class="readout" id="gt-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== §5 Gelfand transform widget =============================== */
+(function(){
+  const sel=$('#gt-A'), aIn=$('#gt-a'), hint=$('#gt-a-hint'), svg=$('#gt-svg'), out=$('#gt-out');
+
+  function parseTuple(s, n){
+    const parts = s.split(',').map(t=>t.trim()).slice(0,n);
+    while(parts.length<n) parts.push('0');
+    return parts.map(p=>parseFloat(p)||0);
+  }
+  function parsePoly(s){
+    // parse a + b x  (deg ≤ 1) for ℂ[x]/(x²-1)
+    s = s.replace(/\s+/g,'').replace(/-/g,'+-');
+    const terms = s.split('+').filter(Boolean);
+    let a0=0, a1=0;
+    for(const t of terms){
+      if(/x/i.test(t)){
+        const c = t.replace(/x/i,'');
+        a1 += (c===''||c==='+')?1:(c==='-'?-1:parseFloat(c));
+      } else if(t!==''){
+        a0 += parseFloat(t);
+      }
+    }
+    return [a0,a1];
+  }
+  function parseTrig(s){
+    // a + b cos θ + c sin θ + d cos 2θ + e sin 2θ + f cos 3θ + g sin 3θ
+    // accept "a + b cos + c sin + d cos2 + e sin2 + f cos3 + g sin3"
+    s = s.toLowerCase();
+    const get = (re) => { const m = s.match(re); return m ? parseFloat(m[1]) : 0; };
+    return {
+      a: (function(){
+        const m = s.match(/(?:^|[+\-])\s*([+-]?\d*\.?\d+)\s*(?![a-z\d])/);
+        return m ? parseFloat(m[1]) : (parseFloat(s.match(/^([+-]?\d*\.?\d+)/)?.[1])||0);
+      })(),
+      b: get(/([+-]?\d*\.?\d*)\s*cos(?!\d)/) || 0,
+      c: get(/([+-]?\d*\.?\d*)\s*sin(?!\d)/) || 0,
+      d: get(/([+-]?\d*\.?\d*)\s*cos2/) || 0,
+      e: get(/([+-]?\d*\.?\d*)\s*sin2/) || 0,
+      f: get(/([+-]?\d*\.?\d*)\s*cos3/) || 0,
+      g: get(/([+-]?\d*\.?\d*)\s*sin3/) || 0
+    };
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=560, H=280;
+    // left half = "A", right half = "hat A"
+    const midX = W/2;
+    svg.appendChild(SVG('line',{x1:midX,y1:20,x2:midX,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));
+    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'A'}));
+    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Γ(a) on  Â'}));
+
+    let info='';
+    if(sel.value==='C5'){
+      hint.textContent = 'enter 5 comma-separated complex numbers, e.g. 1, 0, -1, 2, 0';
+      const a = parseTuple(aIn.value, 5);
+      // characters = ev_1..ev_5, hat A = {1..5}
+      // draw the 5 points on the right and the values
+      const ys = [];
+      for(let k=0;k<5;k++){
+        ys.push(60 + k*45);
+      }
+      // left: algebra element as 5 stacked numbers
+      for(let k=0;k<5;k++){
+        svg.appendChild(Object.assign(SVG('text',{x:W/4,y:ys[k]+5,'text-anchor':'middle','font-size':14,fill:'var(--blue)'}),{textContent:`a${k+1} = ${a[k].toFixed(2)}`}));
+      }
+      // right: hat A points
+      const minV = Math.min(0,...a), maxV=Math.max(1,...a);
+      const span = maxV-minV || 1;
+      for(let k=0;k<5;k++){
+        const px = midX + 60 + (k/4)*180;
+        const py = H-50 - ((a[k]-minV)/span)*150;
+        const ax = midX + 60 + (k/4)*180;
+        const baseY = H-50;
+        svg.appendChild(SVG('line',{x1:ax,y1:baseY,x2:ax,y2:py,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+        svg.appendChild(SVG('circle',{cx:px,cy:py,r:5,fill:'var(--yellow)'}));
+        svg.appendChild(Object.assign(SVG('text',{x:ax,y:baseY+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`ev_${k+1}`}));
+      }
+      svg.appendChild(SVG('line',{x1:midX+50,y1:H-50,x2:midX+260,y2:H-50,stroke:'var(--line)'}));
+      info = `A = ℂ⁵, Â = {1,2,3,4,5} (5 characters, one per coordinate).\n`+
+             `Γ(a)(ev_k) = a_k. So Γ is an isometric *-iso A → C(Â) — both sides are 5 numbers.`;
+    } else if(sel.value==='poly'){
+      hint.textContent = 'polynomial in x, deg ≤ 1 (since x² ≡ 1).  e.g. "x+1", "2-3x".';
+      const [a0,a1] = parsePoly(aIn.value);
+      // ℂ[x]/(x²-1) ≅ ℂ × ℂ via x ↦ ±1 ; characters: ev_+1 and ev_-1
+      const v1 = a0 + a1, v2 = a0 - a1;
+      // left: a + b x
+      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:H/2-10,'text-anchor':'middle','font-size':16,fill:'var(--blue)'}),{textContent:`a = ${a0} + (${a1})·x`}));
+      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:H/2+18,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'in ℂ[x]/(x²-1)'}));
+      // right
+      const px1 = midX + 90, px2 = midX + 240;
+      const py = H/2 + 30;
+      svg.appendChild(SVG('line',{x1:midX+50,y1:py,x2:midX+280,y2:py,stroke:'var(--line)'}));
+      svg.appendChild(SVG('circle',{cx:px1,cy:py,r:6,fill:'var(--yellow)'}));
+      svg.appendChild(SVG('circle',{cx:px2,cy:py,r:6,fill:'var(--yellow)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:px1,y:py+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:'ev_{x↦+1}'}));
+      svg.appendChild(Object.assign(SVG('text',{x:px2,y:py+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:'ev_{x↦-1}'}));
+      svg.appendChild(SVG('line',{x1:px1,y1:py,x2:px1,y2:py-30-Math.abs(v1)*15,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+      svg.appendChild(SVG('line',{x1:px2,y1:py,x2:px2,y2:py-30-Math.abs(v2)*15,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+      svg.appendChild(Object.assign(SVG('text',{x:px1,y:py-40-Math.abs(v1)*15,'text-anchor':'middle','font-size':13,fill:'var(--cyan)'}),{textContent:`Γ(a) = ${v1.toFixed(2)}`}));
+      svg.appendChild(Object.assign(SVG('text',{x:px2,y:py-40-Math.abs(v2)*15,'text-anchor':'middle','font-size':13,fill:'var(--cyan)'}),{textContent:`Γ(a) = ${v2.toFixed(2)}`}));
+      info = `A = ℂ[x]/(x²-1).  Characters: x ↦ +1 and x ↦ -1.  Â = {+1,-1} (two points).\n`+
+             `Γ(a)(ev_{+1}) = ${v1}, Γ(a)(ev_{-1}) = ${v2}.\n`+
+             `This is the simplest commutative C*-algebra that's not just ℂ — and Γ matches it with C({±1}) = ℂ².`;
+    } else { // trig
+      hint.textContent = 'a + b cos + c sin + d cos2 + e sin2 + f cos3 + g sin3, real coefficients';
+      const T = parseTrig(aIn.value);
+      // Plot a (which is a continuous function on T) on the right; show coeffs on left
+      // left: list coeffs
+      const labels = [
+        ['const', T.a], ['cos', T.b], ['sin', T.c],
+        ['cos2', T.d], ['sin2', T.e], ['cos3', T.f], ['sin3', T.g]
+      ];
+      labels.forEach((lab, k) => {
+        const y = 50 + k*28;
+        svg.appendChild(Object.assign(SVG('text',{x:60,y:y,'font-size':12,fill:'var(--mute)'}),{textContent:lab[0]}));
+        svg.appendChild(Object.assign(SVG('text',{x:130,y:y,'font-size':13,fill:'var(--blue)'}),{textContent:lab[1].toFixed(2)}));
+      });
+      // right: graph on circle
+      const cxc = midX + 130, cyc = H/2;
+      const R = 90;
+      svg.appendChild(SVG('circle',{cx:cxc,cy:cyc,r:R,fill:'none',stroke:'var(--line)','stroke-dasharray':'3,3'}));
+      const samples=200;
+      const fEval = θ => T.a + T.b*Math.cos(θ) + T.c*Math.sin(θ) + T.d*Math.cos(2*θ) + T.e*Math.sin(2*θ) + T.f*Math.cos(3*θ) + T.g*Math.sin(3*θ);
+      let fmin=Infinity, fmax=-Infinity;
+      const fs=[];
+      for(let i=0;i<=samples;i++){
+        const θ = i/samples * 2*Math.PI;
+        const v = fEval(θ); fs.push(v);
+        if(v<fmin) fmin=v; if(v>fmax) fmax=v;
+      }
+      const span = (fmax-fmin)||1;
+      let dpath='';
+      for(let i=0;i<=samples;i++){
+        const θ = i/samples * 2*Math.PI;
+        const v = (fs[i]-fmin)/span;
+        const r = R*(0.4 + 0.7*v);
+        const px = cxc + r*Math.cos(θ), py = cyc - r*Math.sin(θ);
+        dpath += (i===0?'M':'L')+px+' '+py+' ';
+      }
+      svg.appendChild(SVG('path',{d:dpath, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.8}));
+      svg.appendChild(Object.assign(SVG('text',{x:cxc,y:cyc-R-8,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Γ(a) on Â = 𝕋'}));
+      info = `A = trig polys of degree ≤ 3 on 𝕋, a commutative C*-subalgebra of C(𝕋).\n`+
+             `Â = 𝕋 (every character is ev_θ for some angle θ).\n`+
+             `Γ(a)(θ) = ${T.a.toFixed(2)} + ${T.b.toFixed(2)} cos θ + ${T.c.toFixed(2)} sin θ + … is just "evaluate the function at θ".\n`+
+             `Range of Γ(a):  [${fmin.toFixed(3)}, ${fmax.toFixed(3)}].`;
+    }
+
+    // arrow from A to hat A
+    drawArrow(svg, [W/4+50, H/2-30], [3*W/4-90, H/2-30], {color:'var(--violet)', curve:-20, label:'Γ', markerId:'gt-arr'});
+    out.textContent = info;
+  }
+
+  sel.addEventListener('change', ()=>{
+    if(sel.value==='C5') aIn.value = '1, 0, -1, 2, 0';
+    else if(sel.value==='trig') aIn.value = '1 + 0.5 cos + 0.7 sin + 0.3 cos2';
+    else aIn.value = 'x+1';
+    render();
+  });
+  aIn.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="duality">
+<h2>6. Gelfand duality as an equivalence of categories</h2>
+
+<p>We have two functors going back and forth:</p>
+$$\mathsf{CHaus}\;\xrightleftharpoons[\,\hat{(-)}\,]{\,C(-)\,}\;\mathsf{cCAlg}_1^{\mathrm{op}}.$$
+<p>Here $\mathsf{CHaus}$ is the category of compact Hausdorff spaces with continuous maps, and $\mathsf{cCAlg}_1$ is the category of <em>commutative unital $C^*$-algebras</em> with unital $*$-homomorphisms. The arrows reverse: a continuous map $\phi\colon X\to Y$ pulls back to $\phi^*\colon C(Y)\to C(X)$, $\phi^*(f)=f\circ\phi$.</p>
+
+<p>The two unit/counit isomorphisms are:</p>
+<ul>
+  <li><strong>$X \;\xrightarrow{\sim}\; \hat{C(X)}$</strong>, $x\mapsto \mathrm{ev}_x$ — every character of $C(X)$ is evaluation at a unique point.</li>
+  <li><strong>$A \;\xrightarrow{\sim}\; C(\hat A)$</strong>, $a\mapsto \Gamma(a)$ — Gelfand–Naimark for commutative unital $C^*$-algebras.</li>
+</ul>
+
+<div class="ok"><strong>Theorem (Gelfand duality, 1943).</strong> $C(-)$ and $\widehat{(-)}$ are mutually quasi-inverse contravariant equivalences of categories between $\mathsf{CHaus}$ and $\mathsf{cCAlg}_1$.</div>
+
+<h3>Widget — arrow reversal</h3>
+<p>Pick a continuous map $\phi$ on a small space; the widget shows the contravariant pullback $\phi^*$ between the corresponding algebras.</p>
+
+<div class="widget" id="w-dual">
+  <div class="hd"><div class="ttl">A map $X\to Y$ becomes $C(Y)\to C(X)$</div><div class="hint">arrows reverse, structure is preserved</div></div>
+  <div class="row">
+    <label>map type</label>
+    <button id="dual-coll" class="active">collapse Y → pt</button>
+    <button id="dual-incl">inclusion {1,2}↪{1,2,3}</button>
+    <button id="dual-double">double cover 𝕋 → 𝕋</button>
+  </div>
+  <svg id="dual-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="readout" id="dual-out"></div>
+</div>
+
+<h3>Functoriality and consequences</h3>
+<ul>
+  <li><strong>Surjective maps $\phi\colon X\twoheadrightarrow Y$ ↔ injective $*$-homs $\phi^*\colon C(Y)\hookrightarrow C(X)$.</strong> Quotients of spaces correspond to subalgebras of functions.</li>
+  <li><strong>Closed embeddings $Y\hookrightarrow X$ ↔ surjective $*$-homs $C(X)\twoheadrightarrow C(Y)$.</strong> Closed subspaces correspond to quotient algebras (kernel is the ideal of functions vanishing on $Y$).</li>
+  <li><strong>Products $X\times Y$ ↔ tensor products $C(X)\otimes C(Y) \cong C(X\times Y)$</strong> (in a $C^*$-suitable sense — every reasonable cross-norm agrees on commutative $C^*$-algebras).</li>
+  <li><strong>One-point compactification</strong> on the topological side ↔ <em>unitization</em> $A\mapsto A^+$ on the algebraic side. This packages the non-unital $C_0(X)$ ↔ locally compact Hausdorff $X$ duality as a corollary.</li>
+</ul>
+
+<p>Compare with the categorical machinery in <a href="./category-theory.html">category theory</a> (Yoneda, adjoints) and the dual setup for schemes in <a href="./functor-of-points.html">functor of points</a>.</p>
+</section>
+
+<script>
+/* =============================== §6 duality widget =============================== */
+(function(){
+  const svg=$('#dual-svg'), out=$('#dual-out');
+  const buttons = {coll:$('#dual-coll'), incl:$('#dual-incl'), double:$('#dual-double')};
+  let mode='coll';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=320;
+    // header bands
+    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'TOPOLOGY  (CHaus)'}));
+    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'C*-ALGEBRAS (cCAlg₁ᵒᵖ)'}));
+    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));
+
+    if(mode==='coll'){
+      // left: Y = {a,b,c} → X = {*}
+      drawNode(svg, 100, 100, 'a', {r:14,stroke:'var(--blue)'});
+      drawNode(svg, 100, 160, 'b', {r:14,stroke:'var(--blue)'});
+      drawNode(svg, 100, 220, 'c', {r:14,stroke:'var(--blue)'});
+      drawNode(svg, 230, 160, '*', {r:14,stroke:'var(--green)'});
+      drawArrow(svg, [115,100],[215,160],{color:'var(--mute)',markerId:'d-coll1'});
+      drawArrow(svg, [115,160],[215,160],{color:'var(--mute)',markerId:'d-coll1'});
+      drawArrow(svg, [115,220],[215,160],{color:'var(--mute)',markerId:'d-coll1'});
+      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = {a,b,c}  →  X = {*},  φ(everything) = *'}));
+      // right: C(X) = ℂ → C(Y) = ℂ³, constant map
+      drawNode(svg, 410, 160, 'ℂ', {r:18,stroke:'var(--green)'});
+      drawNode(svg, 540, 100, 'ℂ', {r:14,stroke:'var(--blue)'});
+      drawNode(svg, 540, 160, 'ℂ', {r:14,stroke:'var(--blue)'});
+      drawNode(svg, 540, 220, 'ℂ', {r:14,stroke:'var(--blue)'});
+      drawArrow(svg, [428,160],[525,100],{color:'var(--violet)',markerId:'d-coll2',label:'φ*'});
+      drawArrow(svg, [428,160],[525,160],{color:'var(--violet)',markerId:'d-coll2'});
+      drawArrow(svg, [428,160],[525,220],{color:'var(--violet)',markerId:'d-coll2'});
+      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'C(X) = ℂ  →  C(Y) = ℂ³,  φ*(c) = (c,c,c)'}));
+      out.textContent =
+        `Topology: φ : Y={a,b,c} → X={*} is the unique map (collapse).\n`+
+        `Algebra:  φ* : C(X)=ℂ → C(Y)=ℂ³, φ*(c) = constant c.\n`+
+        `Note arrow direction reversal: a SURJECTION on the left becomes an INJECTION (in fact, the diagonal embedding ℂ ↪ ℂ³) on the right.`;
+    } else if(mode==='incl'){
+      // left: i : {1,2} ↪ {1,2,3}
+      drawNode(svg, 90, 130, '1', {r:13,stroke:'var(--blue)'});
+      drawNode(svg, 90, 200, '2', {r:13,stroke:'var(--blue)'});
+      drawNode(svg, 230, 110, '1', {r:13,stroke:'var(--green)'});
+      drawNode(svg, 230, 170, '2', {r:13,stroke:'var(--green)'});
+      drawNode(svg, 230, 230, '3', {r:13,stroke:'var(--green)'});
+      drawArrow(svg, [103,130],[218,110],{color:'var(--mute)',markerId:'d-incl1'});
+      drawArrow(svg, [103,200],[218,170],{color:'var(--mute)',markerId:'d-incl1'});
+      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i : Y={1,2} ↪ X={1,2,3}'}));
+      // right: C(X)=ℂ³ → C(Y)=ℂ², restriction (drop coord 3)
+      drawNode(svg, 410, 110, 'ℂ', {r:13,stroke:'var(--green)'});
+      drawNode(svg, 410, 170, 'ℂ', {r:13,stroke:'var(--green)'});
+      drawNode(svg, 410, 230, 'ℂ', {r:13,stroke:'var(--green)'});
+      drawNode(svg, 540, 130, 'ℂ', {r:13,stroke:'var(--blue)'});
+      drawNode(svg, 540, 200, 'ℂ', {r:13,stroke:'var(--blue)'});
+      drawArrow(svg, [423,110],[527,130],{color:'var(--violet)',markerId:'d-incl2',label:'i*'});
+      drawArrow(svg, [423,170],[527,200],{color:'var(--violet)',markerId:'d-incl2'});
+      // x for the dropped one
+      svg.appendChild(Object.assign(SVG('text',{x:475,y:240,'text-anchor':'middle','font-size':14,fill:'var(--pink)'}),{textContent:'×'}));
+      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i* : ℂ³ ↠ ℂ², (a,b,c) ↦ (a,b)'}));
+      out.textContent =
+        `Topology: a closed inclusion {1,2} ↪ {1,2,3}.\n`+
+        `Algebra: i* : C(X)=ℂ³ ↠ C(Y)=ℂ², "restrict to {1,2}".\n`+
+        `Kernel: {(0,0,c) : c ∈ ℂ} = functions vanishing on Y. Closed inclusions ↔ quotient algebras.`;
+    } else { // double cover
+      // left: T → T,  z ↦ z²
+      const cxL=130, cyL=160, RL=70;
+      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:RL,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));
+      const cxR=270, cyR=160, RR=70;
+      svg.appendChild(SVG('circle',{cx:cxR,cy:cyR,r:RR,fill:'none',stroke:'var(--green)','stroke-width':1.5}));
+      // mark a base point and its preimages
+      svg.appendChild(SVG('circle',{cx:cxR+RR,cy:cyR,r:5,fill:'var(--green)'}));
+      svg.appendChild(SVG('circle',{cx:cxL+RL,cy:cyL,r:5,fill:'var(--yellow)'}));
+      svg.appendChild(SVG('circle',{cx:cxL-RL,cy:cyL,r:5,fill:'var(--yellow)'}));
+      drawArrow(svg, [cxL+8,cyL-RL-10],[cxR-8,cyR-RR-10],{color:'var(--mute)',markerId:'d-dbl1',curve:-20,label:'z↦z²'});
+      svg.appendChild(Object.assign(SVG('text',{x:cxL,y:cyL+RL+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = 𝕋'}));
+      svg.appendChild(Object.assign(SVG('text',{x:cxR,y:cyR+RR+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'X = 𝕋'}));
+      // right: C(T) → C(T), f(z) ↦ f(z²)  (pullback embeds even-Fourier subalgebra)
+      const lx=410, rx=560, by=140;
+      svg.appendChild(Object.assign(SVG('text',{x:lx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'C(X) = C(𝕋)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--blue)'}),{textContent:'C(Y) = C(𝕋)'}));
+      drawArrow(svg, [lx+30,by],[rx-30,by],{color:'var(--violet)',markerId:'d-dbl2',label:'φ*'});
+      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+44,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'φ*(f)(w) = f(w²)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+72,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'image = even Fourier modes  {f : f̂(2k+1)=0}'}));
+      out.textContent =
+        `Topology: φ : 𝕋 → 𝕋, z ↦ z² (degree-2 covering).\n`+
+        `Algebra:  φ* : C(𝕋) → C(𝕋), f ↦ f∘φ.  Image is the subalgebra of functions g with g(z) = g(-z) — equivalently, only even Fourier coefficients.\n`+
+        `Surjective covering  ↔  injective *-hom into a subalgebra. φ* is NOT surjective.`;
+    }
+    // big curved arrow on top showing functor reversal
+    drawArrow(svg, [W/4-10, 50],[3*W/4-30, 50],{color:'var(--cyan)',markerId:'d-fun',curve:-15,label:'C(-)'});
+    drawArrow(svg, [3*W/4-30, 70],[W/4-10, 70],{color:'var(--cyan)',markerId:'d-fun2',curve:15,label:'(-)^'});
+  }
+
+  Object.entries(buttons).forEach(([k,b])=> b.addEventListener('click', ()=>{
+    mode = k;
+    Object.values(buttons).forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render();
+  }));
+  render();
+})();
+</script>
+
+<section id="ncg">
+<h2>7. The noncommutative turn</h2>
+
+<p>Drop commutativity. A general $C^*$-algebra $A$ has a perfectly good "spectrum" of an element (section 3), but its <em>character space</em> $\hat A$ collapses dramatically — and often is uninteresting.</p>
+
+<div class="bad"><strong>$M_n(\mathbb{C})$ has no characters at all for $n\ge 2$.</strong> A character $\varphi\colon M_n(\mathbb{C})\to\mathbb{C}$ would factor through a maximal ideal of codimension $1$, but $M_n(\mathbb{C})$ is simple — its only ideals are $0$ and itself. Conclusion: $\hat{M_n(\mathbb{C})}=\emptyset$. So you cannot recover a "space" of points from a noncommutative $C^*$-algebra in this naive way.</div>
+
+<p>The right replacement, due to Connes and others, is to declare:</p>
+
+<div class="ok"><strong>Slogan (noncommutative geometry).</strong> A $C^*$-algebra <em>is</em> a noncommutative compact Hausdorff space. All geometric concepts — points, measures, vector bundles, K-theory, differential forms, Riemannian structure — are reformulated as algebraic-analytic data on a $C^*$-algebra (or on a richer object built from it, like a spectral triple).</div>
+
+<p>The translation table:</p>
+<table class="plain">
+<thead><tr><th>commutative concept</th><th>$C^*$-algebraic counterpart</th></tr></thead>
+<tbody>
+<tr><td>compact Hausdorff space $X$</td><td>commutative unital $C^*$-algebra (=$C(X)$)</td></tr>
+<tr><td>locally compact Hausdorff $X$</td><td>commutative $C^*$-algebra, possibly non-unital ($C_0(X)$)</td></tr>
+<tr><td>continuous map $X\to Y$</td><td>$*$-homomorphism $C(Y)\to C(X)$</td></tr>
+<tr><td>point of $X$</td><td>character; or "pure state" in the noncommutative case</td></tr>
+<tr><td>Borel measure on $X$</td><td>positive linear functional ($=$ state)</td></tr>
+<tr><td>complex vector bundle on $X$</td><td>finitely generated projective $A$-module (Serre–Swan)</td></tr>
+<tr><td>K-theory $K^0(X)$</td><td>operator K-theory $K_0(A)$</td></tr>
+<tr><td>de Rham complex</td><td>Connes's cyclic / Hochschild cohomology</td></tr>
+<tr><td>spin manifold + Dirac operator</td><td>spectral triple $(A, H, D)$</td></tr>
+</tbody>
+</table>
+
+<h3>Examples worth knowing</h3>
+<ul>
+  <li><strong>Group $C^*$-algebras.</strong> $C^*(G)$ for a locally compact group $G$. Commutative iff $G$ is abelian; in that case $\widehat{C^*(G)}$ is the Pontryagin dual $\hat G$. Non-abelian $G$ gives genuinely noncommutative algebras whose representation theory is the Plancherel decomposition.</li>
+  <li><strong>The Calkin algebra.</strong> $B(H)/K(H)$ for $H$ separable infinite-dimensional. Captures "operators modulo small perturbation" and is the home of Brown–Douglas–Fillmore index theory.</li>
+  <li><strong>AF algebras.</strong> Inductive limits of finite-dimensional $C^*$-algebras. Classified up to isomorphism by their ordered $K_0$ (Elliott).</li>
+  <li><strong>Cuntz algebras $\mathcal O_n$.</strong> Generated by isometries $s_1,\ldots,s_n$ with $\sum s_i s_i^* = 1$. Models for endomorphisms; appear in self-similar / fractal contexts.</li>
+  <li><strong>Foliation algebras.</strong> Connes attaches a $C^*$-algebra to a foliation; the leaf space — usually a horrible quotient as a topological space — becomes a perfectly behaved noncommutative space.</li>
+</ul>
+
+<h3>Widget — the noncommutative torus $A_\theta$</h3>
+<p>The <strong>irrational rotation algebra</strong> (or noncommutative torus) $A_\theta$ is the universal $C^*$-algebra generated by two unitaries $u, v$ subject to</p>
+$$v\,u \;=\; e^{2\pi i \theta}\, u\, v.$$
+<p>For $\theta = 0$ this is just $C(\mathbb{T}^2)$ (commutative; spectrum is the 2-torus). For $\theta\notin\mathbb{Q}$ it is simple, has a unique trace, and has <em>no</em> nontrivial characters — its classical character spectrum is empty even though it is a perfectly good "noncommutative 2-torus."</p>
+
+<div class="widget" id="w-nct">
+  <div class="hd"><div class="ttl">$A_\theta$ — a knob with no spectrum</div><div class="hint">drag $\theta$; the classical points vanish for $\theta$ irrational</div></div>
+  <div class="row">
+    <label>θ</label>
+    <input type="range" id="nct-th" min="0" max="100" step="0.1" value="61.8">
+    <span class="readout" id="nct-th-out" style="min-width:90px;flex:0 0 auto">θ = 0.618</span>
+  </div>
+  <svg id="nct-svg" viewBox="0 0 540 280" width="540" height="280"></svg>
+  <div class="readout" id="nct-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== §7 noncommutative torus widget =============================== */
+(function(){
+  const sl=$('#nct-th'), sout=$('#nct-th-out'), svg=$('#nct-svg'), out=$('#nct-out');
+
+  function isRational(θ, eps=1e-3){
+    // crude: check small-denominator continued fraction approx
+    let best=null;
+    for(let q=1;q<=12;q++){
+      const p = Math.round(θ*q);
+      if(Math.abs(θ - p/q) < eps){ best={p,q}; break; }
+    }
+    return best;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const θ = (+sl.value)/100;
+    sout.textContent = `θ = ${θ.toFixed(3)}`;
+    const W=540, H=280;
+    const rat = isRational(θ);
+
+    // Visualize the unit-disc orbit of v u v* u* relation: angles e^{2πiθ}
+    // left: a circle with two unitary generators u, v as rotations
+    const cx=130, cy=140, R=90;
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    // base point
+    svg.appendChild(SVG('circle',{cx:cx+R,cy,r:4,fill:'var(--ink)'}));
+    // orbit under multiplication by e^{2πiθ}
+    const ORB=24;
+    for(let k=0;k<ORB;k++){
+      const ang = 2*Math.PI*θ*k;
+      const x = cx + R*Math.cos(ang), y = cy - R*Math.sin(ang);
+      const op = 1 - k/ORB*0.7;
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3.5,fill:'var(--yellow)','fill-opacity':op}));
+    }
+    svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'u-orbit of 1 ∈ 𝕋, step e^{2πiθ}'}));
+
+    // right: status panel
+    const rx=320, ry=80;
+    svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry,'font-size':14,fill:'var(--ink)','font-weight':600}),{textContent:`A_θ generated by u, v with vu = e^{2πiθ} uv`}));
+    if(θ===0){
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--green)'}),{textContent:'θ = 0:  uv = vu, so A_0 ≅ C(𝕋²)'}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--green)'}),{textContent:'classical spectrum = 𝕋² (the 2-torus)'}));
+      out.textContent = `θ=0: A_θ is commutative, equals C(𝕋²). Gelfand spectrum = 𝕋².\nThis is the classical commutative endpoint of the family.`;
+    } else if(rat){
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--blue)'}),{textContent:`θ = ${rat.p}/${rat.q} (rational)`}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--blue)'}),{textContent:`A_{p/q} = sections of an M_q-bundle over 𝕋²`}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':12,fill:'var(--mute)'}),{textContent:`center ≅ C(𝕋²); has ordinary spectrum = 𝕋² (with multiplicity)`}));
+      out.textContent = `θ = ${rat.p}/${rat.q}:  A_θ is a homogeneous Azumaya-type algebra over the 2-torus.\nIt has a rich character/representation theory, but A_θ ≇ C(X) for any X — it is noncommutative.`;
+    } else {
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--pink)'}),{textContent:`θ = ${θ.toFixed(3)}  (irrational)`}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--pink)'}),{textContent:'A_θ is simple, has a UNIQUE TRACE,'}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':13,fill:'var(--pink)'}),{textContent:'and has  Â = ∅  (no characters).'}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+96,'font-size':12,fill:'var(--mute)'}),{textContent:'classical Gelfand machinery FAILS.'}));
+      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+114,'font-size':12,fill:'var(--mute)'}),{textContent:'still: K_0(A_θ) = ℤ + θℤ ⊂ ℝ (Pimsner–Voiculescu).'}));
+      out.textContent = `θ irrational: A_θ is simple. Its only "spectrum" in the classical sense is empty.\nBut K-theory and trace pairings give it K_0(A_θ) = ℤ + θℤ as an ordered subgroup of ℝ — Connes's first triumph for noncommutative geometry.\nThis is the prototypical noncommutative space: orbit space of the irrational rotation 𝕋 ↻ 𝕋, which is a horrible topological quotient but a perfectly good C*-algebra.`;
+    }
+  }
+
+  sl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="groth">
+<h2>8. The Grothendieck parallel — Spec of a ring</h2>
+
+<p>The user's aside, made precise. Both Gelfand and Grothendieck recover a "geometric object" from a "ring of functions" by looking at its ideal theory and re-topologizing. They are the two great commutative-to-geometric dualities of the twentieth century, each adapted to its own world.</p>
+
+<h3>Side-by-side: characters vs prime ideals</h3>
+<table class="plain">
+<thead><tr><th></th><th>Gelfand (analytic)</th><th>Grothendieck (algebraic)</th></tr></thead>
+<tbody>
+<tr><td><em>Algebra</em></td><td>commutative unital $C^*$-algebra $A$ (analytic: norm + involution)</td><td>commutative ring $R$ (no analytic data)</td></tr>
+<tr><td><em>"Spectrum"</em></td><td>$\hat A = \{$characters $A\to\mathbb{C}\}$, weak-$*$ topology</td><td>$\mathrm{Spec}\,R = \{$prime ideals of $R\}$, Zariski topology</td></tr>
+<tr><td><em>Points correspond to</em></td><td>maximal ideals $\mathfrak m$ with $A/\mathfrak m \cong \mathbb{C}$</td><td>all primes — including non-maximal "generic" ones</td></tr>
+<tr><td><em>Topology</em></td><td>compact Hausdorff (always)</td><td>quasi-compact, $T_0$, but generally not Hausdorff</td></tr>
+<tr><td><em>Recovery</em></td><td>$A \cong C(\hat A)$ (just continuous functions)</td><td>$R \cong \Gamma(\mathrm{Spec}\,R, \mathcal O_{\mathrm{Spec}\,R})$ (need a structure <em>sheaf</em>)</td></tr>
+<tr><td><em>Functoriality</em></td><td>$\mathsf{CHaus} \;\simeq\; \mathsf{cCAlg}_1^{\mathrm{op}}$</td><td>$\mathsf{AffSch} \;\simeq\; \mathsf{CRing}^{\mathrm{op}}$</td></tr>
+<tr><td><em>Drop the commutativity</em></td><td>noncommutative geometry (Connes)</td><td>noncommutative algebraic geometry (Stafford–van den Bergh, Kontsevich, …)</td></tr>
+</tbody>
+</table>
+
+<h3>Three honest differences</h3>
+<ol>
+  <li><strong>$C^*$-Spec sees only points.</strong> For $A=C(X)$, every multiplicative functional is $\mathrm{ev}_x$ for some $x\in X$, so $\hat A = X$ literally. There is no "generic point" the way $\mathrm{Spec}\,\mathbb{C}[x]$ has the prime $(0)$ in addition to all the maximal ideals $(x-a)$. The reason is analytic: a $\mathbb{C}$-valued character on $C(X)$ is forced to be evaluation by Stone–Weierstrass, while a $\mathbb{C}[x]$-algebra map to a domain can land in $\mathbb{C}(x)$.</li>
+  <li><strong>Schemes need a structure sheaf; $C(X)$ does not.</strong> The data $(\mathrm{Spec}\,R, \mathcal O_{\mathrm{Spec}\,R})$ is a locally ringed space — the topology alone forgets too much (the topology of $\mathrm{Spec}\,\mathbb{Z}$ is just the cofinite topology, identical for every Dedekind domain with countably many primes). On the analytic side, $X$ alone determines $C(X)$ up to canonical iso; the topology already carries everything.</li>
+  <li><strong>Analytic data lets you go noncommutative cleanly.</strong> The norm and involution on a $C^*$-algebra survive when commutativity is dropped, and you keep tools (functional calculus on normal elements, GNS, K-theory, Connes's spectral triples). On the algebraic side, dropping commutativity for a ring leaves you only with module categories — there is no "$\mathrm{Spec}\,R$" for noncommutative $R$ in the naive sense, and noncommutative algebraic geometry uses derived/categorical replacements (DG-categories, abelian categories of modules, $A_\infty$-algebras).</li>
+</ol>
+
+<h3>Widget — $\hat A$ vs $\mathrm{Spec}\,R$ side by side</h3>
+<p>For $A = C(\{1,2,3\})$ (simplest unital commutative $C^*$-algebra of dimension $> 1$) and $R = \mathbb{Z}$ (or $\mathbb{C}[x]$), see the difference: $\hat A$ has only "closed points," $\mathrm{Spec}\,R$ has a generic point too.</p>
+
+<div class="widget" id="w-cmp">
+  <div class="hd"><div class="ttl">Spectra compared</div><div class="hint">closed points vs prime ideals</div></div>
+  <div class="row">
+    <label>example</label>
+    <button id="cmp-Z" class="active">A = C({1,2,3}) vs R = ℤ</button>
+    <button id="cmp-Cx">A = C(𝕋) vs R = ℂ[x]</button>
+  </div>
+  <svg id="cmp-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="readout" id="cmp-out"></div>
+</div>
+
+<h3>Where to read more</h3>
+<ul>
+  <li><a href="./functional-analysis.html">Functional analysis</a> — the Banach/Hilbert backbone, $B(H)$, the spectral theorem.</li>
+  <li><a href="./complex-analysis.html">Complex analysis</a> — the Cauchy integral that powers holomorphic functional calculus.</li>
+  <li><a href="./topology.html">Topology</a> — compact Hausdorff, weak-$*$ topology, Stone–Čech compactification.</li>
+  <li><a href="./schemes.html">Schemes</a> and <a href="./commutative-algebra.html">commutative algebra</a> — the Grothendieck side of this table.</li>
+  <li><a href="./functor-of-points.html">Functor of points</a> — the categorical re-statement of Spec, parallel to "$X = \hat{C(X)}$."</li>
+  <li><a href="./sheaves.html">Sheaves</a> — what's missing on the analytic side and present on the algebraic side.</li>
+  <li><a href="./category-theory.html">Category theory</a> — the equivalence-of-categories language.</li>
+</ul>
+
+<h3>Reading order</h3>
+<ol>
+  <li>Spectra and the spectral radius for bounded operators (functional analysis).</li>
+  <li>Banach algebras, characters, the Gelfand–Mazur theorem.</li>
+  <li>$C^*$-axioms and the commutative Gelfand–Naimark theorem.</li>
+  <li>Continuous and Borel functional calculus; the spectral theorem.</li>
+  <li>GNS construction and the noncommutative Gelfand–Naimark theorem ($A\hookrightarrow B(H)$).</li>
+  <li>K-theory of $C^*$-algebras and a sample noncommutative space — $A_\theta$ is the standard tutorial.</li>
+  <li>Then: spectral triples, Connes's noncommutative geometry, or branch into operator $K$-theory and Baum–Connes.</li>
+</ol>
+</section>
+
+<script>
+/* =============================== §8 comparison widget =============================== */
+(function(){
+  const svg=$('#cmp-svg'), out=$('#cmp-out');
+  const bZ=$('#cmp-Z'), bC=$('#cmp-Cx');
+  let mode='Z';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=320, midX=W/2;
+    svg.appendChild(SVG('line',{x1:midX,y1:20,x2:midX,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));
+    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â  (Gelfand)'}));
+    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Spec R  (Grothendieck)'}));
+
+    if(mode==='Z'){
+      // left: A = C({1,2,3}), three points
+      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C({1,2,3}) ≅ ℂ³'}));
+      const ys = [120,180,240];
+      ['1','2','3'].forEach((lab,i)=>{
+        svg.appendChild(SVG('circle',{cx:W/4, cy:ys[i], r:9, fill:'var(--yellow)'}));
+        svg.appendChild(Object.assign(SVG('text',{x:W/4+18,y:ys[i]+4,'font-size':12,fill:'var(--ink)'}),{textContent:`ev_${lab} = (a₁,a₂,a₃)↦a_${lab}`}));
+      });
+      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'all points are closed; |Â| = 3'}));
+
+      // right: Spec ℤ — primes 2,3,5,7,... and (0) generic
+      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℤ'}));
+      const primes=[2,3,5,7,11,13];
+      primes.forEach((p,i)=>{
+        const x = midX + 70 + i*38;
+        svg.appendChild(SVG('circle',{cx:x,cy:170,r:7,fill:'var(--blue)'}));
+        svg.appendChild(Object.assign(SVG('text',{x,y:188,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(${p})`}));
+      });
+      svg.appendChild(Object.assign(SVG('text',{x:midX+70 + 6*38 + 10, y:174,'font-size':12,fill:'var(--mute)'}),{textContent:'…'}));
+      // generic point (0) drawn as a fat fuzzy bar across
+      svg.appendChild(SVG('rect',{x:midX+50, y:240, width:300, height:18, fill:'var(--violet)','fill-opacity':0.25, stroke:'var(--violet)','stroke-dasharray':'3,3'}));
+      svg.appendChild(Object.assign(SVG('text',{x:midX+200,y:252,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point, dense in Spec ℤ'}));
+      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed points + 1 generic point;  topology cofinite'}));
+
+      out.textContent =
+        `Gelfand: Â consists of three closed points, namely ev_1, ev_2, ev_3 — one per point of {1,2,3}. There is NO "generic" character.\n\n`+
+        `Grothendieck: Spec ℤ has one closed point per prime p (the maximal ideal (p)), plus a single GENERIC POINT (0) that is dense.\n`+
+        `The generic point is invisible to Gelfand because A/(0) would have to be a complex Banach division algebra with the C*-axioms — Gelfand–Mazur forces it to be ℂ, killing non-maximal ideals.`;
+    } else {
+      // A = C(T)
+      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C(𝕋)'}));
+      const cx=W/4, cy=180, R=70;
+      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+      // mark sample points
+      for(let k=0;k<8;k++){
+        const a = k/8 * 2*Math.PI;
+        svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(a), cy:cy-R*Math.sin(a), r:3.5,fill:'var(--yellow)'}));
+      }
+      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â = 𝕋, all closed; uncountably many points, no generic point'}));
+
+      // R = C[x]
+      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℂ[x]'}));
+      // affine line: closed points = (x - a) for a ∈ ℂ — draw a small grid; plus generic (0)
+      const Lx=midX+50, Rx=midX+300, Ly=160;
+      svg.appendChild(SVG('line',{x1:Lx,y1:Ly,x2:Rx,y2:Ly,stroke:'var(--line)'}));
+      // sample closed points
+      [-2,-1,0,1,2,3].forEach(a => {
+        const x = Lx + (a+2)*((Rx-Lx)/5);
+        svg.appendChild(SVG('circle',{cx:x,cy:Ly,r:5,fill:'var(--blue)'}));
+        svg.appendChild(Object.assign(SVG('text',{x,y:Ly+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(x-${a})`}));
+      });
+      // generic point — dense bar
+      svg.appendChild(SVG('rect',{x:Lx, y:Ly+40, width:Rx-Lx, height:18, fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-dasharray':'3,3'}));
+      svg.appendChild(Object.assign(SVG('text',{x:(Lx+Rx)/2,y:Ly+52,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point of 𝔸¹_ℂ'}));
+      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed pts ↔ ℂ, plus 1 generic point;  topology cofinite'}));
+
+      out.textContent =
+        `Gelfand: Â = 𝕋 (compact Hausdorff). Every character is ev_{e^{iθ}} for some θ.\n\n`+
+        `Grothendieck: Spec ℂ[x] = 𝔸¹_ℂ has one closed point per a ∈ ℂ (the prime (x-a)) PLUS one generic point (0) which is dense.\n`+
+        `Note: the topological spaces Â and Spec ℂ[x] are completely different — Â is Hausdorff and uncountable in a "geometric" sense, Spec ℂ[x] is non-Hausdorff with cofinite topology and only encodes geometry through its structure sheaf 𝒪.`;
+    }
+  }
+
+  bZ.addEventListener('click', ()=>{ mode='Z'; bZ.classList.add('active'); bC.classList.remove('active'); render(); });
+  bC.addEventListener('click', ()=>{ mode='Cx'; bC.classList.add('active'); bZ.classList.remove('active'); render(); });
+  render();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>
