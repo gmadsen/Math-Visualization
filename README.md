@@ -35,6 +35,7 @@ Every topic page has a sticky sidebar table of contents that highlights the curr
 - [Complex analysis](./complex-analysis.html) — Needham-style: amplitwist, residues, Möbius
 - [Riemann surfaces](./riemann-surfaces.html) — branched covers, uniformization
 - [Functional analysis](./functional-analysis.html) — Banach/Hilbert, four pillars, spectrum
+- [Operator algebras](./operator-algebras.html) — C*-algebras, Gelfand duality, noncommutative geometry
 
 ### Topology & geometry
 - [Algebraic topology](./topology.html) — fundamental groups, covers, homology
