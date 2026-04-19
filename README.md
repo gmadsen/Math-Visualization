@@ -1,6 +1,14 @@
 # Interactive Mathematics Notebook
 
-A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets. No build step, no server, no dependencies beyond two CDN links.
+A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets.
+
+The notebook currently includes **41 topic pages** organized into **6 sections**:
+- Algebra
+- Analysis
+- Geometry & topology
+- Number theory
+- Modular forms & L-functions
+- Algebraic geometry
 
 Open [`index.html`](./index.html) in any modern browser and start wherever you like.
 
@@ -10,13 +18,21 @@ Just open the files in a browser — either by double-clicking `index.html` or s
 
 ```bash
 # Python 3
-python -m http.server 8000
+python3 -m http.server 8000
 
 # Node
 npx serve .
 ```
 
-Every topic page has a sticky sidebar table of contents that highlights the current section, and a `← Notebook` back-link to the index.
+## Learning pathways
+
+- Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals.
+- Topic cards on the index can carry a level badge:
+  - `prereq` (foundational)
+  - `advanced` (specialized)
+  - `capstone` (synthesis topics)
+
+Concept graph data lives under [`concepts/`](./concepts), with topic registration in [`concepts/index.json`](./concepts/index.json).
 
 ## Contents
 
@@ -75,10 +91,9 @@ Every topic page has a sticky sidebar table of contents that highlights the curr
 
 ## Design
 
-- **Single-file pages.** Each topic is one HTML file with embedded CSS and JavaScript. No bundler, no package manager, no framework.
-- **Widgets are vanilla.** SVG built with a small set of helper functions (`SVG`, `$`, `drawArrow`, `drawNode`). Interactions are plain event listeners.
-- **Math via KaTeX.** Rendered in-browser from CDN, with `$...$` inline and `$$...$$` display delimiters.
-- **Dark palette.** `#0f1218` background with accent colors for conceptual grouping (yellow for invariants, blue for structure, green for examples, pink for diagrams, violet for transformations, cyan for spaces).
+- **Single-file pages.** Each topic is one HTML file with embedded CSS and JavaScript.
+- **Widgets are vanilla.** SVG built with a small helper set (`SVG`, `$`, `drawArrow`, `drawNode`) and plain event listeners.
+- **Math via KaTeX.** Rendered in-browser from CDN with `$...$` and `$$...$$` delimiters.
 
 ## Contributing
 
@@ -87,5 +102,3 @@ This is a personal study notebook. If you spot an error or have a suggestion, fe
 ## License
 
 [MIT](./LICENSE) — Copyright (c) 2026 Garrett Madsen.
-
-Math typeset with [KaTeX](https://katex.org). Dark palette and pedagogical spirit after [3Blue1Brown](https://www.3blue1brown.com/).
