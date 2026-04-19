@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sums of squares — Fermat, Lagrange, and theta functions</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  table.plain td.num{font-family:ui-monospace,monospace;color:#cbd5e1}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#question">1&nbsp;The&nbsp;question</a>
+  <a href="#fermat">2&nbsp;Fermat's&nbsp;two&nbsp;squares</a>
+  <a href="#gaussian">3&nbsp;Gaussian&nbsp;integers</a>
+  <a href="#twosq">4&nbsp;Two&nbsp;squares&nbsp;in&nbsp;general</a>
+  <a href="#three">5&nbsp;Three&nbsp;squares</a>
+  <a href="#four">6&nbsp;Four&nbsp;squares</a>
+  <a href="#waring">7&nbsp;Waring</a>
+  <a href="#forward">8&nbsp;Forward:&nbsp;theta</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Sums of squares</h1>
+  <p class="sub">Which integers are sums of two, three, or four squares? The answers run through Fermat's descent, the Gaussian integers, Legendre–Gauss, Lagrange, and finally the generating function $\theta(\tau)^k$ that connects it all to modular forms.</p>
+</section>
+
+<section id="question">
+<h2>1. The question</h2>
+<p>For $k\ge 1$ and $n\ge 0$, let
+$$r_k(n)=\#\bigl\{(x_1,\ldots,x_k)\in\mathbb{Z}^k : x_1^2+\cdots+x_k^2=n\bigr\},$$
+the number of ways to write $n$ as an ordered sum of $k$ integer squares (with signs and zero allowed). The natural questions split in two:</p>
+<ul>
+  <li><strong>Qualitative.</strong> For which $n$ is $r_k(n)>0$?</li>
+  <li><strong>Quantitative.</strong> Can we compute $r_k(n)$ in closed form?</li>
+</ul>
+
+<p>Here is the raw data for small $n$ and $k$:</p>
+
+<div class="widget" id="w-table">
+  <div class="hd"><div class="ttl">$r_k(n)$ for small $n,\,k$</div><div class="hint">$r_k(n)$ counts signed ordered representations</div></div>
+  <div id="rtable"></div>
+  <p class="small">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\ge 1$ for every $n$ — foreshadowing Lagrange.</p>
+</div>
+
+<p>The goal is to understand why these patterns appear, first by elementary number theory (Fermat, Gauss, Lagrange) and then by recognising the $r_k(n)$ as Fourier coefficients of a modular form.</p>
+</section>
+
+<script>
+(function(){
+  function r2(n){
+    if(n<0) return 0;
+    let c=0;
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      const r=n-a*a; if(r<0) continue;
+      const b=Math.round(Math.sqrt(r));
+      if(b*b===r) c++;
+    }
+    return c;
+  }
+  function r3(n){
+    if(n<0) return 0;
+    let c=0;
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      for(let b=-s;b<=s;b++){
+        const r=n-a*a-b*b; if(r<0) continue;
+        const cc=Math.round(Math.sqrt(r));
+        if(cc*cc===r) c+=(cc===0?1:2);
+      }
+    }
+    return c;
+  }
+  function r4(n){
+    if(n<0) return 0;
+    let c=0;
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      for(let b=-s;b<=s;b++){
+        const rem=n-a*a-b*b;
+        if(rem<0) continue;
+        // count reps of rem as r2
+        c += r2(rem);
+      }
+    }
+    return c;
+  }
+  const host = document.getElementById('rtable');
+  const t = document.createElement('table');
+  t.className='plain';
+  const head = document.createElement('thead');
+  head.innerHTML = '<tr><th>$n$</th><th>$r_2(n)$</th><th>$r_3(n)$</th><th>$r_4(n)$</th><th>smallest rep of $n$ as sum of $\\le 4$ squares</th></tr>';
+  t.appendChild(head);
+  const body = document.createElement('tbody');
+  function bestRep(n){
+    // min k s.t. n = sum of k squares of positive ints (k up to 4)
+    if(n===0) return '0';
+    for(let k=1;k<=4;k++){
+      const found = [];
+      function go(rem, start, chosen){
+        if(chosen.length===k){
+          if(rem===0){ found.push([...chosen]); return true; }
+          return false;
+        }
+        for(let x=start;x*x<=rem;x++){
+          chosen.push(x);
+          if(go(rem-x*x, x, chosen)) return true;
+          chosen.pop();
+        }
+        return false;
+      }
+      if(go(n,1,[])) return found[0].map(x=>x+'²').join(' + ');
+    }
+    return '—';
+  }
+  const ns = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+  for(const n of ns){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="num">${n}</td><td class="num">${r2(n)}</td><td class="num">${r3(n)}</td><td class="num">${r4(n)}</td><td class="num">${bestRep(n)}</td>`;
+    body.appendChild(tr);
+  }
+  t.appendChild(body);
+  host.appendChild(t);
+})();
+</script>
+
+<section id="fermat">
+<h2>2. Fermat's two-squares theorem</h2>
+<p>The key prime-level result, conjectured by Girard (1625), claimed by Fermat (1640), and proved by Euler by infinite descent (1749):</p>
+
+<div class="ok"><strong>Theorem (Fermat).</strong> An odd prime $p$ is a sum of two squares,
+$$p=a^2+b^2,\qquad a,b\in\mathbb{Z}_{\ge 0},$$
+if and only if $p\equiv 1\pmod 4$. The representation is then unique up to order and signs. (The prime $p=2=1^2+1^2$ is the exceptional case.)</div>
+
+<h3>The easy direction</h3>
+<p>If $p=a^2+b^2$ with $p$ odd, reduce mod $4$: squares are $0$ or $1$, so $a^2+b^2\in\{0,1,2\}\pmod 4$. Since $p$ is odd, we need $a^2+b^2\equiv 1\pmod 4$, hence $p\equiv 1\pmod 4$.</p>
+
+<h3>The hard direction: Euler's descent</h3>
+<p>Assume $p\equiv 1\pmod 4$. Then $-1$ is a quadratic residue mod $p$ (by Euler's criterion, $(-1)^{(p-1)/2}=1$), so there is $m$ with $m^2\equiv -1\pmod p$, giving $m^2+1^2\equiv 0\pmod p$. Thus $p\mid a^2+b^2$ for some $a,b$ not both divisible by $p$. Now the descent: starting from a multiple $kp=a^2+b^2$ with $k<p$, one finds a smaller multiple $k'p=a'^2+b'^2$ with $k'<k$, using the Brahmagupta–Fibonacci identity
+$$(a^2+b^2)(c^2+d^2)=(ac+bd)^2+(ad-bc)^2.$$
+Iterating until $k=1$ produces $p=a^2+b^2$.</p>
+
+<div class="note">The identity says: the set of integers that are sums of two squares is closed under multiplication. This is a shadow of multiplicativity in $\mathbb{Z}[i]$ — the true home of the theorem.</div>
+
+<div class="widget" id="w-desc">
+  <div class="hd"><div class="ttl">Brahmagupta–Fibonacci multiplier</div><div class="hint">multiply two sums of two squares</div></div>
+  <div class="row">
+    <label>$a^2+b^2$:</label>
+    <input type="number" id="bf-a" value="2" style="width:4em">
+    <input type="number" id="bf-b" value="3" style="width:4em">
+    <label>×</label>
+    <label>$c^2+d^2$:</label>
+    <input type="number" id="bf-c" value="1" style="width:4em">
+    <input type="number" id="bf-d" value="4" style="width:4em">
+    <button id="bf-go">multiply</button>
+  </div>
+  <div class="readout" id="bf-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  const go=document.getElementById('bf-go'), out=document.getElementById('bf-out');
+  function render(){
+    const a=+document.getElementById('bf-a').value|0;
+    const b=+document.getElementById('bf-b').value|0;
+    const c=+document.getElementById('bf-c').value|0;
+    const d=+document.getElementById('bf-d').value|0;
+    const L=a*a+b*b, R=c*c+d*d;
+    const p=a*c+b*d, q=a*d-b*c;
+    const P=Math.abs(p), Q=Math.abs(q);
+    const check = P*P+Q*Q;
+    out.textContent =
+      `(${a}² + ${b}²) · (${c}² + ${d}²) = ${L} · ${R} = ${L*R}\n`+
+      `                       = (${a}·${c} + ${b}·${d})² + (${a}·${d} - ${b}·${c})²\n`+
+      `                       = ${P}² + ${Q}² = ${check}  ${check===L*R?'✓':'(mismatch)'}`;
+  }
+  go.addEventListener('click', render);
+  render();
+})();
+</script>
+
+<section id="gaussian">
+<h2>3. Why it works: the Gaussian integers</h2>
+<p>Fermat's theorem is the surface of a deeper structural fact. Pass from $\mathbb{Z}$ to the <strong>Gaussian integers</strong>
+$$\mathbb{Z}[i]=\{a+bi : a,b\in\mathbb{Z}\}\subset\mathbb{C}.$$
+The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean domain (division with remainder in $\mathbb{C}$, then round to nearest Gaussian integer), hence a <strong>unique factorization domain</strong>. Writing $p=a^2+b^2$ means exactly $p=(a+bi)(a-bi)$, i.e. the rational prime $p$ <em>factors</em> in $\mathbb{Z}[i]$.</p>
+
+<p>Whether a rational prime $p$ factors in $\mathbb{Z}[i]$ is controlled by the <em>splitting behaviour</em> of the ideal $(p)$:</p>
+
+<table class="plain">
+<thead><tr><th>$p$</th><th>behaviour in $\mathbb{Z}[i]$</th><th>factorisation</th><th>condition</th></tr></thead>
+<tbody>
+<tr><td>$2$</td><td>ramified</td><td>$(2)=(1+i)^2\cdot(\text{unit})$</td><td>$p=2$</td></tr>
+<tr><td>$p\equiv 1\pmod 4$</td><td>split</td><td>$(p)=\mathfrak{p}\bar{\mathfrak{p}}$</td><td>$(-1/p)=+1$</td></tr>
+<tr><td>$p\equiv 3\pmod 4$</td><td>inert</td><td>$(p)$ stays prime</td><td>$(-1/p)=-1$</td></tr>
+</tbody>
+</table>
+
+<p>The splitting is controlled by the Legendre symbol $(-1/p)$, which is $+1$ iff $p\equiv 1\pmod 4$ by Euler's criterion — a special case of the broader machinery developed on the <a href="./quadratic-reciprocity.html">quadratic reciprocity</a> page. The theorem of Fermat is then a one-line corollary:</p>
+
+<div class="note">$p$ splits in $\mathbb{Z}[i]$ iff $p=\pi\bar\pi=N(\pi)=a^2+b^2$. And $p$ splits iff $(-1/p)=+1$ iff $p\equiv 1\pmod 4$.</div>
+
+<p>Visually: the Gaussian integers form the square lattice in $\mathbb{C}$. The primes $\pi\in\mathbb{Z}[i]$ above a rational prime $p$ are exactly the lattice points on the circle $|\alpha|^2=p$. For $p=5$ there are eight such points ($(\pm 1\pm 2i)$ and $(\pm 2\pm i)$, giving four associate pairs — one prime up to units); for $p=3$ the circle $|\alpha|^2=3$ contains no lattice points at all.</p>
+
+<div class="widget" id="w-lattice">
+  <div class="hd"><div class="ttl">Gaussian integer lattice</div><div class="hint">circles $|\alpha|^2 = p$ for small primes</div></div>
+  <svg id="lat-svg" viewBox="0 0 620 460" width="620" height="460"></svg>
+  <div class="row">
+    <label>highlight $p=$</label>
+    <select id="lat-p">
+      <option value="2">2 (ramified)</option>
+      <option value="3">3 (inert)</option>
+      <option value="5" selected>5 (split)</option>
+      <option value="7">7 (inert)</option>
+      <option value="11">11 (inert)</option>
+      <option value="13">13 (split)</option>
+      <option value="17">17 (split)</option>
+      <option value="19">19 (inert)</option>
+    </select>
+    <span class="small" id="lat-info"></span>
+  </div>
+</div>
+</section>
+
+<script>
+(function(){
+  const svg = document.getElementById('lat-svg');
+  const pick = document.getElementById('lat-p');
+  const info = document.getElementById('lat-info');
+  const W=620, H=460, cx=W/2, cy=H/2;
+  const unit=36;  // pixels per lattice step
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1}));
+    // axis labels
+    const tx = SVG('text',{x:W-10,y:cy-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    tx.textContent='Re'; svg.appendChild(tx);
+    const ty = SVG('text',{x:cx+8,y:14,'text-anchor':'start','font-size':12,fill:'var(--mute)'});
+    ty.textContent='Im'; svg.appendChild(ty);
+
+    const p = +pick.value;
+    // circle |α|²=p
+    const R = unit*Math.sqrt(p);
+    const col = (p===2)?'var(--pink)' : ((p%4===1)?'var(--green)':'var(--yellow)');
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:col,'stroke-width':1.8,'stroke-dasharray':'4 3'}));
+    // lattice points
+    const xmax = Math.floor((W-cx)/unit), ymax = Math.floor((H-cy)/unit);
+    const hits = [];
+    for(let a=-xmax-1;a<=xmax+1;a++){
+      for(let b=-ymax-1;b<=ymax+1;b++){
+        const x = cx + a*unit, y = cy - b*unit;
+        if(x<-2||x>W+2||y<-2||y>H+2) continue;
+        const onCircle = (a*a+b*b===p);
+        const r = onCircle?5:2.2;
+        const fill = onCircle? col : 'var(--mute)';
+        svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill}));
+        if(onCircle && !(a===0&&b===0)) hits.push([a,b]);
+      }
+    }
+    // origin
+    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--blue)'}));
+    // annotate hits (unique up to ±) with labels
+    const labeled = new Set();
+    for(const [a,b] of hits){
+      const key = Math.abs(a)+':'+Math.abs(b);
+      if(labeled.has(key)) continue;
+      labeled.add(key);
+      if(a<0||(a===0&&b<0)) continue;
+      const x = cx + a*unit, y = cy - b*unit;
+      const t = SVG('text',{x:x+9,y:y-6,'font-size':12,fill:col});
+      t.textContent = `${a}${b>=0?'+':''}${b}i`;
+      svg.appendChild(t);
+    }
+    const kind = (p===2)?'ramified, (2)=(1+i)²·(-i)'
+               : (p%4===1)?`split, (${p})=(a+bi)(a-bi) with ${p}=${hits.length?Math.abs(hits[0][0]):'?'}²+${hits.length?Math.abs(hits[0][1]):'?'}²`
+               : `inert (no lattice points on circle): ${p}≡3 (mod 4)`;
+    info.textContent = kind;
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="twosq">
+<h2>4. Two squares for general $n$</h2>
+<p>Multiplicativity in $\mathbb{Z}[i]$ lets us read off the answer for composite $n$. Factor $n=2^{e_0}\prod_{p\equiv 1} p^{e_p}\prod_{q\equiv 3} q^{f_q}$.</p>
+
+<div class="ok"><strong>Theorem.</strong> $n$ is a sum of two squares iff every prime $q\equiv 3\pmod 4$ appears in $n$ to an <em>even</em> power — i.e. every $f_q$ is even.</div>
+
+<p>Reason: each $p\equiv 1\pmod 4$ splits as $\pi\bar\pi$, so $p^{e_p}=(\pi\bar\pi)^{e_p}$ is freely a norm. Each $q\equiv 3\pmod 4$ is inert; $q^{f_q}$ has norm $q^{2f_q}$ inside $\mathbb{Z}[i]$, and to be a norm of a single Gaussian integer it must come in pairs, forcing $f_q$ even. The prime $2$ is ramified and never an obstruction.</p>
+
+<h3>Jacobi's counting formula</h3>
+<p>More precisely, counting ordered signed representations:</p>
+<div class="ok"><strong>Theorem (Jacobi).</strong> For $n\ge 1$,
+$$r_2(n)=4\bigl(d_1(n)-d_3(n)\bigr),$$
+where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$.</div>
+<p>E.g. $n=25$: divisors $1,5,25$, all $\equiv 1\pmod 4$, so $r_2(25)=4(3-0)=12$. And indeed $25=0^2+(\pm 5)^2=(\pm 3)^2+(\pm 4)^2$, which with ordering gives $4+8=12$. The factor of $4$ is the unit group $\{\pm 1,\pm i\}$ of $\mathbb{Z}[i]$.</p>
+
+<div class="widget" id="w-twosq">
+  <div class="hd"><div class="ttl">Two-squares checker</div><div class="hint">enter $n\le 10\,000$</div></div>
+  <div class="row">
+    <label>$n =$</label>
+    <input type="number" id="ts-n" value="325" min="1" max="10000" style="width:7em">
+    <button id="ts-go">check</button>
+  </div>
+  <div class="readout" id="ts-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  function factor(n){
+    const f={}; let m=n;
+    for(let p=2;p*p<=m;p++){
+      while(m%p===0){ f[p]=(f[p]||0)+1; m/=p; }
+    }
+    if(m>1) f[m]=(f[m]||0)+1;
+    return f;
+  }
+  function r2(n){
+    if(n===0) return 1;
+    let c=0;
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      const r=n-a*a; if(r<0) continue;
+      const b=Math.round(Math.sqrt(r));
+      if(b*b===r) c++;
+    }
+    return c;
+  }
+  function divs(n){
+    const ds=[]; for(let d=1;d*d<=n;d++) if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }
+    return ds.sort((a,b)=>a-b);
+  }
+  function oneRep(n){
+    if(n===0) return '0²+0²';
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=0;a<=s;a++){
+      const r=n-a*a; if(r<0) break;
+      const b=Math.round(Math.sqrt(r));
+      if(b>=a && b*b===r) return `${a}² + ${b}²`;
+    }
+    return null;
+  }
+  const go=document.getElementById('ts-go'), out=document.getElementById('ts-out');
+  function render(){
+    const n = Math.max(1,Math.min(10000, +document.getElementById('ts-n').value|0));
+    const f = factor(n);
+    const bad = [];
+    const parts = [];
+    for(const p of Object.keys(f).map(Number).sort((a,b)=>a-b)){
+      const e = f[p];
+      const tag = (p===2)?'[ram]' : (p%4===1?'[split]':'[inert]');
+      if(p%4===3 && e%2===1) bad.push(p);
+      parts.push(`${p}^${e} ${tag}`);
+    }
+    const ok = bad.length===0;
+    const rep = ok ? oneRep(n) : null;
+    const ds = divs(n);
+    const d1 = ds.filter(d=>d%4===1).length;
+    const d3 = ds.filter(d=>d%4===3).length;
+    const jac = 4*(d1-d3);
+    out.textContent =
+      `n = ${n}\n`+
+      `factorisation: ${parts.join(' · ')}\n`+
+      (ok
+        ? `YES — sum of two squares.  one rep: ${n} = ${rep}\n`+
+          `Jacobi: r₂(${n}) = 4·(d₁−d₃) = 4·(${d1}−${d3}) = ${jac}  (brute: r₂=${r2(n)})`
+        : `NO — bad primes (≡3 mod 4, odd exponent): ${bad.join(', ')}\n`+
+          `Jacobi: r₂(${n}) = 4·(${d1}−${d3}) = ${jac}`);
+  }
+  go.addEventListener('click', render);
+  document.getElementById('ts-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });
+  render();
+})();
+</script>
+
+<section id="three">
+<h2>5. Three squares: Legendre–Gauss</h2>
+<p>Sums of three squares are more delicate — they do not form a semigroup under multiplication. Legendre (1798) and Gauss (1801) settled the question:</p>
+
+<div class="ok"><strong>Theorem (Legendre–Gauss).</strong> A non-negative integer $n$ is a sum of three squares iff $n$ is <em>not</em> of the form $4^a(8b+7)$ for some $a,b\ge 0$.</div>
+
+<p>The easy direction: if $n=x^2+y^2+z^2$, reduce mod $8$. Squares mod $8$ are $\{0,1,4\}$, so sums of three squares mod $8$ miss the value $7$; a quick 2-adic argument then rules out $4^a(8b+7)$. The hard direction requires the theory of ternary quadratic forms and genus theory; Gauss showed that $r_3(n)$ is essentially a <em>class number</em> of imaginary quadratic orders — a remarkable bridge to <a href="./algebraic-number-theory.html">algebraic number theory</a>.</p>
+
+<div class="note">Gauss's exact formula: for $n$ squarefree, $n>3$,
+$$r_3(n)=\begin{cases} 12\,h(-4n), & n\equiv 1,2\pmod 4,\\ 24\,h(-n), & n\equiv 3\pmod 8,\\ 0, & n\equiv 7\pmod 8,\end{cases}$$
+where $h(D)$ is the class number of discriminant $D$. This is the first appearance of a class number in the count of something concrete.</div>
+
+<div class="widget" id="w-three">
+  <div class="hd"><div class="ttl">Three-squares: excluded integers</div><div class="hint">red = $4^a(8b+7)$, not a sum of three squares</div></div>
+  <svg id="three-svg" viewBox="0 0 620 160" width="620" height="160"></svg>
+  <div class="row">
+    <label>check $n =$</label>
+    <input type="number" id="th-n" value="28" min="0" max="2000" style="width:7em">
+    <button id="th-go">check</button>
+  </div>
+  <div class="readout" id="th-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  function isExcluded(n){
+    if(n<=0) return false;
+    let m=n;
+    while(m%4===0) m/=4;
+    return m%8===7;
+  }
+  function r3(n){
+    if(n===0) return 1;
+    let c=0; const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++)
+      for(let b=-s;b<=s;b++){
+        const r=n-a*a-b*b; if(r<0) continue;
+        const cc=Math.round(Math.sqrt(r));
+        if(cc*cc===r) c+=(cc===0?1:2);
+      }
+    return c;
+  }
+  function oneRep3(n){
+    if(n===0) return '0²+0²+0²';
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++){
+      const r=n-a*a-b*b; if(r<0) break;
+      const c=Math.round(Math.sqrt(r));
+      if(c>=b && c*c===r) return `${a}² + ${b}² + ${c}²`;
+    }
+    return null;
+  }
+  // draw number line 0..200, mark excluded red, others small tick
+  const svg = document.getElementById('three-svg');
+  const W=620, H=160;
+  const N=200;
+  const xof = n => 20 + (n/N)*(W-40);
+  const yLine = 100;
+  // line
+  svg.appendChild(SVG('line',{x1:20,y1:yLine,x2:W-20,y2:yLine,stroke:'var(--line)','stroke-width':1.5}));
+  // ticks every 20
+  for(let n=0;n<=N;n+=20){
+    svg.appendChild(SVG('line',{x1:xof(n),y1:yLine-5,x2:xof(n),y2:yLine+5,stroke:'var(--mute)','stroke-width':1}));
+    const t = SVG('text',{x:xof(n),y:yLine+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent = n; svg.appendChild(t);
+  }
+  // excluded marks
+  for(let n=0;n<=N;n++){
+    if(isExcluded(n)){
+      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-14,r:4,fill:'var(--pink)'}));
+      const t = SVG('text',{x:xof(n),y:yLine-22,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
+      t.textContent = n;
+      svg.appendChild(t);
+    } else if(n>0){
+      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-8,r:1.6,fill:'var(--green)'}));
+    }
+  }
+  // title
+  const lbl = SVG('text',{x:20,y:30,'font-size':13,fill:'var(--mute)'});
+  lbl.textContent = 'Red: excluded (of form 4ᵃ(8b+7)).  Green dots: sums of three squares.';
+  svg.appendChild(lbl);
+
+  const go=document.getElementById('th-go'), out=document.getElementById('th-out');
+  function render(){
+    const n = Math.max(0, Math.min(2000, +document.getElementById('th-n').value|0));
+    const ex = isExcluded(n);
+    if(ex){
+      let m=n, a=0; while(m%4===0){ m/=4; a++; }
+      const b = (m-7)/8;
+      out.textContent = `n = ${n} = 4^${a}·(8·${b}+7) — EXCLUDED\nr₃(${n}) = 0.`;
+    } else {
+      const rep = oneRep3(n);
+      out.textContent = `n = ${n} — NOT of form 4ᵃ(8b+7)\none rep: ${n} = ${rep}\nr₃(${n}) = ${r3(n)}`;
+    }
+  }
+  go.addEventListener('click', render);
+  document.getElementById('th-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });
+  render();
+})();
+</script>
+
+<section id="four">
+<h2>6. Four squares: Lagrange</h2>
+<p>Finally, everything becomes a sum of four squares:</p>
+
+<div class="ok"><strong>Theorem (Lagrange, 1770).</strong> Every non-negative integer $n$ is a sum of four integer squares:
+$$n=a^2+b^2+c^2+d^2.$$</div>
+
+<p>The standard modern proof mirrors Fermat's descent:</p>
+<ol>
+  <li><strong>Multiplicativity.</strong> Sums of four squares are closed under multiplication, via Euler's four-square identity
+$$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
+  for explicit $c_i$ that are bilinear in $a,b$. (This is the norm form of the Hurwitz quaternions $\mathbb{H}_\mathbb{Z}$, exactly as Brahmagupta–Fibonacci is the norm form of $\mathbb{Z}[i]$.)</li>
+  <li><strong>Reduce to primes.</strong> By (1), it suffices to show every prime $p$ is a sum of four squares.</li>
+  <li><strong>Prime step.</strong> For odd prime $p$, the sets $\{a^2\bmod p\}$ and $\{-1-b^2\bmod p\}$ each have $(p+1)/2$ elements, so they intersect: $\exists a,b$ with $a^2+b^2\equiv -1\pmod p$, i.e. $mp=a^2+b^2+1$ for some $m<p$.</li>
+  <li><strong>Descent.</strong> Starting from a positive multiple $mp$ with $1\le m<p$ that is a sum of four squares, produce a strictly smaller such multiple. Iterate to $m=1$.</li>
+</ol>
+
+<p>Jacobi improved Lagrange to a <em>count</em>:</p>
+<div class="ok"><strong>Theorem (Jacobi).</strong> $r_4(n)=8\sum_{d\mid n,\,4\nmid d} d$. In particular for odd $n$, $r_4(n)=8\sigma(n)$.</div>
+
+<p>The formula arises from comparing two expressions for $\theta(\tau)^4$: the generating-function expansion $\sum r_4(n)q^n$ on one side, and the $q$-expansion of an Eisenstein series of weight $2$ (on $\Gamma_0(4)$) on the other.</p>
+
+<div class="widget" id="w-four">
+  <div class="hd"><div class="ttl">Four-squares decomposer</div><div class="hint">enter $n\le 2000$</div></div>
+  <div class="row">
+    <label>$n =$</label>
+    <input type="number" id="fs-n" value="103" min="0" max="2000" style="width:7em">
+    <button id="fs-go">decompose</button>
+  </div>
+  <div class="readout" id="fs-out"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  function oneRep4(n){
+    if(n===0) return '0²+0²+0²+0²';
+    const s=Math.floor(Math.sqrt(n));
+    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++) for(let c=b;c<=s;c++){
+      const r=n-a*a-b*b-c*c; if(r<0) break;
+      const d=Math.round(Math.sqrt(r));
+      if(d>=c && d*d===r) return `${a}² + ${b}² + ${c}² + ${d}²`;
+    }
+    return null;
+  }
+  function r2(n){
+    if(n<0) return 0;
+    if(n===0) return 1;
+    let c=0; const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      const r=n-a*a; if(r<0) continue;
+      const b=Math.round(Math.sqrt(r));
+      if(b*b===r) c++;
+    }
+    return c;
+  }
+  function r4(n){
+    if(n===0) return 1;
+    let c=0; const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++) for(let b=-s;b<=s;b++){
+      const rem=n-a*a-b*b; if(rem<0) continue;
+      c += r2(rem);
+    }
+    return c;
+  }
+  function sigma(n){ // sum of divisors
+    let s=0; for(let d=1;d*d<=n;d++) if(n%d===0){ s+=d; if(d!==n/d) s+=n/d; } return s;
+  }
+  function jacobi4(n){
+    if(n===0) return 1;
+    let s=0;
+    for(let d=1;d<=n;d++) if(n%d===0 && d%4!==0) s+=d;
+    return 8*s;
+  }
+  const go=document.getElementById('fs-go'), out=document.getElementById('fs-out');
+  function render(){
+    const n = Math.max(0, Math.min(2000, +document.getElementById('fs-n').value|0));
+    const rep = oneRep4(n);
+    const cnt = r4(n);
+    const j = jacobi4(n);
+    const oddNote = (n>0 && n%2===1) ? `\nn is odd:   8·σ(n) = 8·${sigma(n)} = ${8*sigma(n)}  ${8*sigma(n)===cnt?'✓':'✗'}` : '';
+    out.textContent =
+      `n = ${n}\none rep: ${rep}\n`+
+      `r₄(${n}) = ${cnt}     (brute count)\n`+
+      `Jacobi: 8·Σ d (d|n, 4∤d) = ${j}   ${j===cnt?'✓':'✗'}`+oddNote;
+  }
+  go.addEventListener('click', render);
+  document.getElementById('fs-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });
+  render();
+})();
+</script>
+
+<section id="waring">
+<h2>7. Waring's problem</h2>
+<p>If four squares suffice for every $n$, what about higher powers? Waring asked (1770): is there, for each $k\ge 1$, a finite number $g(k)$ such that every positive integer is a sum of at most $g(k)$ $k$-th powers?</p>
+
+<div class="ok"><strong>Theorem (Hilbert, 1909).</strong> $g(k)$ is finite for every $k\ge 1$.</div>
+
+<p>Sharper variants:</p>
+<ul>
+  <li>$g(k)$ — the smallest $s$ such that every $n\ge 1$ is a sum of $s$ $k$-th powers.</li>
+  <li>$G(k)$ — the smallest $s$ such that every <em>sufficiently large</em> $n$ is a sum of $s$ $k$-th powers. $G(k)\le g(k)$, with strict inequality the interesting case.</li>
+</ul>
+
+<p>Small known values:</p>
+
+<div class="widget" id="w-waring">
+  <div class="hd"><div class="ttl">Waring constants</div><div class="hint">click a row for a decomposition of a random $n$</div></div>
+  <table class="plain" id="waring-tbl"><thead>
+    <tr><th>$k$</th><th>$g(k)$</th><th>$G(k)$</th><th>note</th></tr>
+  </thead><tbody></tbody></table>
+  <div class="readout" id="waring-out">click a row…</div>
+</div>
+</section>
+
+<script>
+(function(){
+  const rows = [
+    {k:2, g:'4 (Lagrange)',         G:'4',      note:'Legendre–Gauss rules out $4^a(8b+7)$ for three'},
+    {k:3, g:'9',                    G:'4–7',    note:'$23=2\\cdot 2^3+7\\cdot 1^3$ needs 9 cubes; $G(3)\\le 7$ (Linnik)'},
+    {k:4, g:'19',                   G:'16',     note:'$79$ needs 19 fourth powers'},
+    {k:5, g:'37',                   G:'6–17',   note:'classical, still some open bounds on $G$'},
+    {k:6, g:'73',                   G:'9–24',   note:''},
+    {k:7, g:'143',                  G:'8–33',   note:''},
+    {k:8, g:'279',                  G:'32–42',  note:''}
+  ];
+  function powers(k,lim){
+    const arr=[0]; for(let x=1; ;x++){ const v=Math.pow(x,k); if(v>lim) break; arr.push(v); } return arr;
+  }
+  function decompose(n, k, s){
+    // greedy then backtracking: find s k-th powers summing to n
+    const P = powers(k, n);
+    const found = [];
+    function go(rem, left, start){
+      if(left===0) return rem===0;
+      if(rem<0) return false;
+      for(let i=P.length-1;i>=0;i--){
+        const p = P[i];
+        if(p>rem) continue;
+        found.push(Math.round(Math.pow(p,1/k)));
+        if(go(rem-p, left-1, i)) return true;
+        found.pop();
+      }
+      return false;
+    }
+    if(go(n, s, P.length-1)) return found.filter(x=>x>0);
+    return null;
+  }
+  function minPowers(n, k){
+    // BFS / iterative deepening: smallest s
+    for(let s=1; s<=40; s++){
+      const r = decompose(n, k, s);
+      if(r) return {s, rep:r};
+    }
+    return null;
+  }
+  const tb = document.querySelector('#waring-tbl tbody');
+  const out = document.getElementById('waring-out');
+  rows.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.style.cursor='pointer';
+    tr.innerHTML = `<td class="num">${r.k}</td><td>${r.g}</td><td>${r.G}</td><td class="small">${r.note}</td>`;
+    tr.addEventListener('click', ()=>{
+      const k = r.k;
+      // pick a random n in a small range
+      const maxN = Math.min(200, Math.floor(Math.pow(50,k/2)));
+      const n = 5 + Math.floor(Math.random()*maxN);
+      const res = minPowers(n, k);
+      if(!res){ out.textContent = `no decomposition found within search bounds for n=${n}, k=${k}.`; return; }
+      out.textContent =
+        `k = ${k},  n = ${n}\n`+
+        `minimum # of ${k}-th powers found: ${res.s}\n`+
+        `decomposition: ${n} = ${res.rep.map(x=>`${x}^${k}`).join(' + ')}`;
+    });
+    tb.appendChild(tr);
+  });
+})();
+</script>
+
+<section id="forward">
+<h2>8. Forward: $\theta$-series and modular forms</h2>
+<p>All of these counts $r_k(n)$ are Fourier coefficients of a single object. Define the Jacobi theta series
+$$\theta(\tau)=\sum_{n\in\mathbb{Z}} q^{n^2},\qquad q=e^{2\pi i\tau},\ \tau\in\mathbb{H}.$$
+Squaring the series and counting coefficients by total exponent,
+$$\theta(\tau)^k = \sum_{n\ge 0} r_k(n)\,q^n.$$
+So every question about $r_k(n)$ is a question about the $q$-expansion of $\theta^k$.</p>
+
+<div class="widget" id="w-hist">
+  <div class="hd"><div class="ttl">$r_2(n)$ for $n=1..100$</div><div class="hint">hover a bar to see a decomposition</div></div>
+  <svg id="hist-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="readout" id="hist-out">hover a bar…</div>
+</div>
+
+<p>The key miracle, due to Jacobi, is that $\theta(\tau)$ is a <strong>modular form of weight $1/2$</strong> on a congruence subgroup — more precisely, $\theta(\tau)$ satisfies functional equations under $\tau\mapsto \tau+1$ (trivially) and $\tau\mapsto -1/4\tau$ (via Poisson summation). Hence $\theta^k$ is a modular form of weight $k/2$, and the ring of modular forms on $\Gamma_0(4)$ is <em>finite-dimensional</em> in each weight. This forces identities like $\theta^4=1+8\sum_{d}\sigma^{(2)}(d) q^d$ (an Eisenstein series), recovering Jacobi's $r_4(n)=8\sum_{d\mid n,\,4\nmid d}d$ for free.</p>
+
+<p>The same machinery powers:</p>
+<ul>
+  <li>$r_6(n)$, $r_8(n)$, $\ldots$ — closed forms from Eisenstein series of higher weight;</li>
+  <li>the deep formula for $r_3(n)$ in terms of class numbers (a weight-$3/2$ modular form);</li>
+  <li>and, transposing to <a href="./elliptic-curves.html">elliptic curves</a>, the modularity theorem for $E/\mathbb{Q}$.</li>
+</ul>
+
+<p>Two pages in this notebook will develop the tools:</p>
+<ul>
+  <li><em>theta-functions.html</em> — $\theta$ as an entire object: transformation laws, Jacobi's triple product, applications to partitions.</li>
+  <li><em>modular-forms.html</em> — modular forms for $\mathrm{SL}_2(\mathbb{Z})$ and congruence subgroups, Eisenstein and cusp forms, Hecke operators, and the identification of $\theta^k$.</li>
+</ul>
+
+<p>So: the puzzle of which integers are sums of $k$ squares, which took two hundred years to untangle by elementary means, turns out to be <em>one equation</em> among generating functions on the upper half-plane — a story continued at <a href="./upper-half-plane-hyperbolic.html">upper-half-plane-hyperbolic.html</a> and onward.</p>
+</section>
+
+<script>
+(function(){
+  function r2(n){
+    if(n===0) return 1;
+    let c=0; const s=Math.floor(Math.sqrt(n));
+    for(let a=-s;a<=s;a++){
+      const r=n-a*a; if(r<0) continue;
+      const b=Math.round(Math.sqrt(r));
+      if(b*b===r) c++;
+    }
+    return c;
+  }
+  function reps(n){
+    const out=[]; const s=Math.floor(Math.sqrt(n));
+    for(let a=0;a<=s;a++){
+      const r=n-a*a; if(r<0) break;
+      const b=Math.round(Math.sqrt(r));
+      if(b>=a && b*b===r) out.push([a,b]);
+    }
+    return out;
+  }
+  const svg = document.getElementById('hist-svg');
+  const out = document.getElementById('hist-out');
+  const W=620, H=240, pad=28;
+  const nMax=100;
+  let maxR = 0;
+  const data = [];
+  for(let n=1;n<=nMax;n++){ const v=r2(n); data.push(v); if(v>maxR) maxR=v; }
+  const bw = (W-2*pad)/nMax;
+  // axes
+  svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));
+  svg.appendChild(SVG('line',{x1:pad,y1:pad/2,x2:pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));
+  // y-ticks
+  for(let k=0;k<=maxR;k+=4){
+    const y = (H-pad) - (k/maxR)*(H-pad-pad/2);
+    svg.appendChild(SVG('line',{x1:pad-4,y1:y,x2:pad,y2:y,stroke:'var(--mute)','stroke-width':1}));
+    const t=SVG('text',{x:pad-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+    t.textContent=k; svg.appendChild(t);
+  }
+  // x ticks every 10
+  for(let n=10;n<=nMax;n+=10){
+    const x = pad + (n-0.5)*bw;
+    const t=SVG('text',{x,y:H-pad+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    t.textContent=n; svg.appendChild(t);
+  }
+  // bars
+  data.forEach((v,i)=>{
+    const n=i+1;
+    const x=pad + i*bw;
+    const h = maxR? (v/maxR)*(H-pad-pad/2) : 0;
+    const y = (H-pad)-h;
+    const col = v===0 ? 'var(--pink)' : 'var(--cyan)';
+    const bar = SVG('rect',{x:x+1,y,width:Math.max(1,bw-1.2),height:h,fill:col,opacity:0.85});
+    bar.addEventListener('mouseenter', ()=>{
+      const rs = reps(n);
+      const list = rs.length? rs.map(([a,b])=>`${a}²+${b}²`).join(', ') : '— none —';
+      out.textContent = `n=${n}  r₂=${v}  ·  reps (unordered, nonneg): ${list}`;
+    });
+    svg.appendChild(bar);
+  });
+  // label
+  const lbl = SVG('text',{x:W-pad,y:pad-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+  lbl.textContent = 'pink bars: r₂=0 (bad prime q≡3 mod 4 to odd power)';
+  svg.appendChild(lbl);
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Galois representations — the absolute Galois group in matrix form</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* shared helpers */
+function isPrime(n){
+  if(n<2) return false;
+  if(n<4) return true;
+  if(n%2===0) return false;
+  for(let i=3;i*i<=n;i+=2) if(n%i===0) return false;
+  return true;
+}
+function primesUpTo(N){
+  const out = [];
+  for(let n=2;n<=N;n++) if(isPrime(n)) out.push(n);
+  return out;
+}
+function mod(a,n){ return ((a%n)+n)%n; }
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#abs">1&nbsp;Absolute&nbsp;Galois&nbsp;group</a>
+  <a href="#rep">2&nbsp;Galois&nbsp;representations</a>
+  <a href="#ex">3&nbsp;Three&nbsp;families&nbsp;of&nbsp;examples</a>
+  <a href="#tate">4&nbsp;Tate&nbsp;module&nbsp;of&nbsp;an&nbsp;elliptic&nbsp;curve</a>
+  <a href="#frob">5&nbsp;Frobenius&nbsp;and&nbsp;traces</a>
+  <a href="#lfac">6&nbsp;Local&nbsp;$L$-factors</a>
+  <a href="#mod">7&nbsp;Modular&nbsp;forms&nbsp;and&nbsp;Deligne</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Galois representations</h1>
+  <p class="sub">The absolute Galois group $G_\mathbb{Q}$ is unimaginably huge — but you can study it by letting it act on vector spaces. A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n$ packages an entire Diophantine object (an elliptic curve, a modular form, a number field) as a tower of matrices. The Frobenius trace at each unramified prime is the fingerprint.</p>
+  <p class="small">Prerequisites: <a href="./frobenius-and-reciprocity.html">Frobenius and reciprocity</a>, <a href="./representation-theory.html">representation theory</a>, <a href="./galois.html">Galois theory</a>, <a href="./elliptic-curves.html">elliptic curves</a>, <a href="./p-adic-numbers.html">$p$-adic numbers</a>.</p>
+</section>
+
+<section id="abs">
+<h2>1. The absolute Galois group $G_\mathbb{Q}$</h2>
+<p>Let $\bar{\mathbb{Q}} \subset \mathbb{C}$ be the field of all algebraic numbers. The <strong>absolute Galois group</strong> of $\mathbb{Q}$ is</p>
+$$ G_\mathbb{Q} \;=\; \mathrm{Gal}(\bar{\mathbb{Q}}/\mathbb{Q}) \;=\; \{\sigma:\bar{\mathbb{Q}}\to\bar{\mathbb{Q}} \text{ field auto, fixing } \mathbb{Q}\}. $$
+<p>It is the symmetry group of <em>all</em> of algebraic number theory at once. Every finite Galois extension $K/\mathbb{Q}$ appears as a quotient:</p>
+$$ G_\mathbb{Q} \;\twoheadrightarrow\; \mathrm{Gal}(K/\mathbb{Q}). $$
+<p>And $G_\mathbb{Q}$ is the <em>inverse limit</em> over all such finite quotients — a <strong>profinite group</strong>:</p>
+$$ G_\mathbb{Q} \;\cong\; \varprojlim_{K/\mathbb{Q}\text{ finite Galois}}\; \mathrm{Gal}(K/\mathbb{Q}). $$
+<p>Its topology is generated by these finite quotients. Two automorphisms are close when they agree on a large finite extension. This topology is compact, Hausdorff, totally disconnected — like the Cantor set.</p>
+
+<h3>Frobenius at a prime $p$</h3>
+<p>For each prime $p$, pick an embedding $\bar{\mathbb{Q}} \hookrightarrow \bar{\mathbb{Q}}_p$. That choice identifies a <strong>decomposition subgroup</strong> $D_p \subset G_\mathbb{Q}$ — the stabiliser of the embedding. Inside $D_p$ sits the <strong>inertia subgroup</strong> $I_p$, which encodes wild/tame ramification. When $p$ is <em>unramified</em> in a finite Galois extension $K/\mathbb{Q}$, the quotient $D_p/I_p$ is cyclic, generated canonically by the <strong>Frobenius</strong> element</p>
+$$ \mathrm{Frob}_p \in \mathrm{Gal}(K/\mathbb{Q}) \big/ I_p, \qquad \mathrm{Frob}_p: x \mapsto x^p \pmod{\mathfrak p}. $$
+<p>Different choices of embedding give conjugate $\mathrm{Frob}_p$'s, so $\mathrm{Frob}_p$ is well-defined as a <em>conjugacy class</em> in $G_\mathbb{Q}/I_p$.</p>
+
+<div class="widget" id="w-profinite">
+  <div class="hd"><span class="ttl">Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</span>
+    <span class="hint">finite quotients fan out; $G_\mathbb{Q}$ sits at the top</span></div>
+  <svg viewBox="0 0 820 340" width="100%"></svg>
+  <div class="row">
+    <label>zoom to:</label>
+    <button data-pf="all" class="active">all levels</button>
+    <button data-pf="abelian">abelian quotients</button>
+    <button data-pf="cyclo">cyclotomic tower</button>
+  </div>
+  <div class="readout" id="pf-text">$G_\mathbb{Q}$ surjects onto every finite Galois group $\mathrm{Gal}(K/\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.</div>
+</div>
+
+<div class="note">Think of $G_\mathbb{Q}$ as "the group of all coherent permutations of algebraic numbers that respect every field relation." Its structure is almost entirely unknown — understanding its representations is a substitute for understanding the group itself.</div>
+</section>
+
+<section id="rep">
+<h2>2. What is a Galois representation?</h2>
+<p>A <strong>Galois representation</strong> is a continuous homomorphism</p>
+$$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
+<p>where the coefficient field $K$ is one of three standard choices:</p>
+<table class="plain">
+<thead><tr><th>coefficient field</th><th>name</th><th>source</th></tr></thead>
+<tbody>
+<tr><td>$K = \mathbb{C}$</td><td>Artin representation</td><td>finite image; factors through $\mathrm{Gal}(L/\mathbb{Q})$ for some finite $L$</td></tr>
+<tr><td>$K = \bar{\mathbb{Q}}_\ell$</td><td>$\ell$-adic representation</td><td>from étale cohomology, elliptic curves, modular forms</td></tr>
+<tr><td>$K = \bar{\mathbb{F}}_\ell$</td><td>mod-$\ell$ representation</td><td>reductions of $\ell$-adic representations; images are finite</td></tr>
+</tbody>
+</table>
+<p>Continuity is the real content. Since $G_\mathbb{Q}$ is profinite, a continuous $\rho$ must have <em>open</em> kernel on finite quotients, but an $\ell$-adic representation need <strong>not</strong> factor through any finite quotient — the target $\mathrm{GL}_n(\mathbb{Z}_\ell)$ itself is profinite, and a generic element of its image can have infinite order.</p>
+
+<h3>Why "linear symmetries of $G_\mathbb{Q}$"?</h3>
+<p>A Galois representation is the $\ell$-adic (or complex) analog of a representation of a finite group. For finite groups, characters classify representations, and characters are determined by conjugacy classes. For $G_\mathbb{Q}$, the <em>trace of Frobenius</em> at each unramified prime plays the role of the character — and the astonishing fact is that this finite amount of data really does determine $\rho$ (up to semisimplification).</p>
+
+<div class="widget" id="w-diagram">
+  <div class="hd"><span class="ttl">Widget 2 · The representation map</span>
+    <span class="hint">pick a coefficient field</span></div>
+  <svg viewBox="0 0 720 240" width="100%"></svg>
+  <div class="row">
+    <label>ℓ-adic target:</label>
+    <button data-field="C">$\mathrm{GL}_n(\mathbb{C})$ (Artin)</button>
+    <button data-field="Ql" class="active">$\mathrm{GL}_n(\bar{\mathbb{Q}}_\ell)$</button>
+    <button data-field="Fl">$\mathrm{GL}_n(\bar{\mathbb{F}}_\ell)$ (mod ℓ)</button>
+  </div>
+  <div class="readout" id="rep-text"></div>
+</div>
+</section>
+
+<section id="ex">
+<h2>3. Three families of examples</h2>
+
+<h3>(a) The cyclotomic character</h3>
+<p>The group $G_\mathbb{Q}$ acts on the $\ell^n$-th roots of unity $\mu_{\ell^n} = \{\zeta \in \bar{\mathbb{Q}}: \zeta^{\ell^n}=1\} \cong \mathbb{Z}/\ell^n$. On a generator $\zeta$, any $\sigma \in G_\mathbb{Q}$ acts by</p>
+$$ \sigma(\zeta) \;=\; \zeta^{\,\chi_n(\sigma)}, \qquad \chi_n(\sigma) \in (\mathbb{Z}/\ell^n)^\times. $$
+<p>These fit together into the <strong>$\ell$-adic cyclotomic character</strong></p>
+$$ \chi \colon G_\mathbb{Q} \;\longrightarrow\; \varprojlim_n\, (\mathbb{Z}/\ell^n)^\times \;=\; \mathbb{Z}_\ell^\times. $$
+<p>This is a 1-dimensional $\ell$-adic Galois representation. At an unramified prime $p \neq \ell$, $\chi(\mathrm{Frob}_p) = p$.</p>
+
+<div class="widget" id="w-cyclo">
+  <div class="hd"><span class="ttl">Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</span>
+    <span class="hint">slide $n$; Galois elements act by multiplication in $(\mathbb{Z}/\ell^n)^\times$</span></div>
+  <svg viewBox="0 0 720 300" width="100%"></svg>
+  <div class="row">
+    <label>$\ell$ =</label>
+    <select id="cy-ell"><option>2</option><option selected>3</option><option>5</option></select>
+    <label>$n$ =</label>
+    <input type="range" id="cy-n" min="1" max="3" step="1" value="2">
+    <span id="cy-nlab" class="small">n=2</span>
+  </div>
+  <div class="row">
+    <label>$\chi(\sigma)$ =</label>
+    <input type="number" id="cy-a" min="1" value="2" style="width:70px">
+    <span class="small" id="cy-ahint"></span>
+  </div>
+  <div class="readout" id="cy-text"></div>
+</div>
+
+<h3>(b) Dirichlet characters</h3>
+<p>A <strong>Dirichlet character</strong> modulo $N$ is a homomorphism $\psi:(\mathbb{Z}/N)^\times \to \mathbb{C}^\times$. Composing with the mod-$N$ cyclotomic quotient $G_\mathbb{Q} \twoheadrightarrow (\mathbb{Z}/N)^\times$ gives a 1-dimensional Artin representation</p>
+$$ \rho_\psi \colon G_\mathbb{Q} \to (\mathbb{Z}/N)^\times \xrightarrow{\psi} \mathbb{C}^\times. $$
+<p>Every 1-dimensional Artin representation is of this form (class field theory for $\mathbb{Q}$). The image is finite, and $\rho_\psi(\mathrm{Frob}_p) = \psi(p)$ for $p \nmid N$.</p>
+
+<h3>(c) Artin representations</h3>
+<p>More generally, any representation $\mathrm{Gal}(L/\mathbb{Q}) \to \mathrm{GL}_n(\mathbb{C})$ of a finite Galois group inflates to a continuous $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(\mathbb{C})$ with <em>finite</em> image. These are <strong>Artin representations</strong>, and their conjectural $L$-functions (the Artin conjecture) are at the heart of the Langlands program.</p>
+
+<h3>(d) The 2-dimensional zoo</h3>
+<p>The most interesting representations are 2-dimensional and $\ell$-adic, coming from:</p>
+<ul>
+  <li>Tate modules of elliptic curves (§4),</li>
+  <li>weight-2 cusp forms (§7),</li>
+  <li>odd irreducible Artin representations (Khare–Wintenberger theorem).</li>
+</ul>
+</section>
+
+<section id="tate">
+<h2>4. The Tate module of an elliptic curve</h2>
+<p>Let $E/\mathbb{Q}$ be an elliptic curve and $\ell$ a prime. The $\ell^n$-torsion subgroup $E[\ell^n] \subset E(\bar{\mathbb{Q}})$ is isomorphic to $(\mathbb{Z}/\ell^n)^2$ as an abelian group, and $G_\mathbb{Q}$ acts on it because the torsion points have algebraic coordinates.</p>
+<p>The multiplication-by-$\ell$ map $[\ell]: E[\ell^{n+1}] \to E[\ell^n]$ lets us take the inverse limit:</p>
+$$ T_\ell E \;=\; \varprojlim_n\, E[\ell^n] \;\cong\; \mathbb{Z}_\ell^2. $$
+<p>This is the <strong>Tate module</strong>. It is a free rank-2 $\mathbb{Z}_\ell$-module, and $G_\mathbb{Q}$ acts $\mathbb{Z}_\ell$-linearly. Choosing a basis gives the $\ell$-adic Galois representation attached to $E$:</p>
+$$ \rho_{E,\ell} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(\mathbb{Z}_\ell). $$
+<p>Tensoring with $\mathbb{Q}_\ell$ gives a representation on a 2-dimensional $\mathbb{Q}_\ell$-vector space $V_\ell E = T_\ell E \otimes \mathbb{Q}_\ell$.</p>
+
+<div class="widget" id="w-tate">
+  <div class="hd"><span class="ttl">Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</span>
+    <span class="hint">click a level to see the $(\mathbb{Z}/\ell^n)^2$ lattice it represents</span></div>
+  <svg viewBox="0 0 780 340" width="100%"></svg>
+  <div class="row">
+    <label>$\ell$ =</label>
+    <select id="tt-ell"><option>2</option><option selected>3</option><option>5</option></select>
+    <label>level:</label>
+    <button data-lvl="1">$E[\ell]$</button>
+    <button data-lvl="2" class="active">$E[\ell^2]$</button>
+    <button data-lvl="3">$E[\ell^3]$</button>
+  </div>
+  <div class="readout" id="tt-text"></div>
+</div>
+
+<div class="note">The determinant of $\rho_{E,\ell}$ is the cyclotomic character $\chi$: that is, the Weil pairing identifies $\bigwedge^2 T_\ell E \cong \mathbb{Z}_\ell(1)$, the 1-twist of the trivial representation. So $\det \rho_{E,\ell}(\mathrm{Frob}_p) = p$.</div>
+</section>
+
+<section id="frob">
+<h2>5. Frobenius traces and the Hasse bound</h2>
+<p>Suppose $E/\mathbb{Q}$ has good reduction at $p$ — equivalently, $p$ does not divide the discriminant. Then $p$ is <em>unramified</em> in $\rho_{E,\ell}$ (for $\ell \neq p$), and $\rho_{E,\ell}(\mathrm{Frob}_p)$ is a well-defined conjugacy class in $\mathrm{GL}_2(\mathbb{Z}_\ell)$. The matrix itself depends on choices, but its <strong>characteristic polynomial</strong> does not:</p>
+$$ \det(t\cdot I - \rho_{E,\ell}(\mathrm{Frob}_p)) \;=\; t^2 - a_p\, t + p, $$
+<p>where</p>
+$$ a_p \;=\; p + 1 - |\tilde E(\mathbb{F}_p)| $$
+<p>is the <strong>trace of Frobenius</strong>: count the points of the reduction $\tilde E$ over $\mathbb{F}_p$, and subtract from $p+1$. This is where Diophantine geometry meets linear algebra.</p>
+
+<h3>Hasse's theorem</h3>
+<p>The eigenvalues $\alpha_p, \beta_p$ of $\rho_{E,\ell}(\mathrm{Frob}_p)$ are algebraic integers satisfying $\alpha_p\beta_p = p$ and $|\alpha_p| = |\beta_p| = \sqrt{p}$. Equivalently,</p>
+$$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
+<p>This is the Riemann hypothesis for elliptic curves over $\mathbb{F}_p$. The eigenvalues land on a circle of radius $\sqrt{p}$.</p>
+
+<div class="widget" id="w-matrix">
+  <div class="hd"><span class="ttl">Widget 5 · The Frobenius matrix dial</span>
+    <span class="hint">slide $a_p$ within $[-2\sqrt{p},\,2\sqrt{p}]$; eigenvalues move on a circle of radius $\sqrt{p}$</span></div>
+  <svg viewBox="0 0 760 340" width="100%"></svg>
+  <div class="row">
+    <label>$p$ =</label>
+    <select id="mx-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
+    <label>$a_p$ =</label>
+    <input type="range" id="mx-a" min="-14" max="14" step="1" value="-2">
+    <span id="mx-alab" class="small">a=-2</span>
+  </div>
+  <div class="readout" id="mx-text"></div>
+</div>
+
+<div class="widget" id="w-apbar">
+  <div class="hd"><span class="ttl">Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</span>
+    <span class="hint">bars obey the Hasse bound; half are zero (the CM symmetry)</span></div>
+  <svg viewBox="0 0 820 300" width="100%"></svg>
+  <div class="row">
+    <label>curve:</label>
+    <select id="ap-curve">
+      <option value="A">$y^2 = x^3 - x$ (conductor 32, CM)</option>
+      <option value="B" selected>$y^2 + y = x^3 - x^2$ (conductor 11)</option>
+      <option value="C">$y^2 = x^3 - 43x + 166$ (conductor 26)</option>
+    </select>
+    <label>show Hasse envelope:</label>
+    <input type="checkbox" id="ap-env" checked>
+  </div>
+  <div class="readout" id="ap-text"></div>
+</div>
+
+<div class="widget" id="w-hasse">
+  <div class="hd"><span class="ttl">Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</span>
+    <span class="hint">the $\sqrt{p}$-circle; conjugate eigenvalues as two dots</span></div>
+  <svg viewBox="0 0 640 340" width="100%"></svg>
+  <div class="row">
+    <label>$p$ =</label>
+    <select id="hs-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
+    <label>$a_p$ =</label>
+    <input type="range" id="hs-a" min="-14" max="14" step="1" value="-2">
+    <span id="hs-alab" class="small">a=-2</span>
+  </div>
+  <div class="readout" id="hs-text"></div>
+</div>
+</section>
+
+<section id="lfac">
+<h2>6. Local $L$-factors from Galois representations</h2>
+<p>Once you have the representation $\rho_{E,\ell}$, the $L$-function of $E$ emerges by a very clean formula. For each unramified prime $p$ (not $\ell$), define the <strong>local $L$-factor</strong></p>
+$$ L_p(E,s) \;=\; \det\!\Big(1 - \rho_{E,\ell}(\mathrm{Frob}_p)\, p^{-s}\Big)^{-1} \;=\; \frac{1}{1 - a_p p^{-s} + p^{1-2s}}. $$
+<p>This is literally the determinant of a $2\times 2$ matrix. The global $L$-function is the Euler product</p>
+$$ L(E,s) \;=\; \prod_p L_p(E,s). $$
+<p>For ramified primes (bad reduction) the Euler factor is $1/(1 - a_p p^{-s})$ with $a_p \in \{-1, 0, 1\}$ depending on the reduction type. The conductor $N$ of $E$ records the ramification.</p>
+
+<h3>What the determinant encodes</h3>
+<p>The local factor packages <em>all</em> the local information at $p$: how many points the reduction has, and whether reduction is good/multiplicative/additive. Different Galois representations $\rho$ give different $L$-functions — and conversely, $L(\rho,s)$ nearly determines $\rho$ (strong multiplicity one).</p>
+
+<div class="widget" id="w-lfac">
+  <div class="hd"><span class="ttl">Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</span>
+    <span class="hint">for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$</span></div>
+  <svg viewBox="0 0 720 260" width="100%"></svg>
+  <div class="row">
+    <label>$p$ =</label>
+    <select id="lf-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>
+    <label>$a_p$ =</label>
+    <input type="range" id="lf-a" min="-12" max="12" step="1" value="-2">
+    <span id="lf-alab" class="small">a=-2</span>
+  </div>
+  <div class="readout" id="lf-text"></div>
+</div>
+</section>
+
+<section id="mod">
+<h2>7. Modular forms and Deligne's construction</h2>
+<p>Let $f = \sum_{n\ge 1} a_n(f) q^n$ be a normalised cuspidal eigenform of weight $k\ge 2$ on $\Gamma_0(N)$ with character $\varepsilon$. Its Fourier coefficients $a_n(f)$ are algebraic numbers, generating a finite extension $K_f \subset \bar{\mathbb{Q}}$.</p>
+<p>A theorem of Eichler–Shimura (weight 2) and Deligne (all weights) attaches to $f$, for each prime $\ell$ and each place $\lambda$ of $K_f$ above $\ell$, a continuous 2-dimensional Galois representation</p>
+$$ \rho_{f,\lambda} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(K_{f,\lambda}) $$
+<p>that is unramified outside $N\ell$ and satisfies, for every prime $p \nmid N\ell$,</p>
+$$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; \varepsilon(p)\, p^{k-1}. $$
+<p>The Fourier coefficients of an eigenform <em>are</em> traces of Frobenius. This is one of the deepest bridges in number theory: automorphic $\leftrightarrow$ Galois.</p>
+
+<h3>Weight 2 and elliptic curves</h3>
+<p>When $f$ has weight 2 and rational coefficients, $\rho_{f,\ell}$ lives in $\mathrm{GL}_2(\mathbb{Z}_\ell)$. Comparing $\operatorname{tr}\rho_{f,\ell}(\mathrm{Frob}_p) = a_p(f)$ to the $a_p$ of an elliptic curve, one is led to ask whether every elliptic curve arises this way. That question has an answer — but you'll find it in <a href="./modular-forms.html">its own discussion</a>, not here.</p>
+
+<div class="widget" id="w-deligne">
+  <div class="hd"><span class="ttl">Widget 9 · Eigenform $\to$ Galois representation</span>
+    <span class="hint">three prototypical examples; $a_p$ becomes $\operatorname{tr}\rho(\mathrm{Frob}_p)$</span></div>
+  <svg viewBox="0 0 820 320" width="100%"></svg>
+  <div class="row">
+    <label>eigenform:</label>
+    <select id="de-f">
+      <option value="N11" selected>$f_{11}$ (weight 2, level 11)</option>
+      <option value="D12">$\Delta$ (weight 12, level 1)</option>
+      <option value="E4">$E_4$ (weight 4, non-cuspidal; for comparison)</option>
+    </select>
+  </div>
+  <div class="readout" id="de-text"></div>
+</div>
+
+<div class="ok">The picture in §7 closes the loop: start with a Diophantine object, attach a Galois representation, read off traces of Frobenius, recover the object's arithmetic. This is the modern formulation of "class field theory for non-abelian extensions."</div>
+
+<h3>What comes next</h3>
+<p>Everything downstream — the Langlands program, modularity, $R=T$ theorems, deformation theory of Galois representations — assumes this framework. The next layers of the Notebook explore $L$-functions explicitly (see <a href="./dirichlet-series-euler-products.html">Dirichlet series and Euler products</a>) and the arithmetic of specific representations (see <a href="./modular-forms.html">modular forms</a>).</p>
+</section>
+
+<script>
+/* =================== Widget 1 — Profinite cartoon =================== */
+(function(){
+  const root = document.getElementById('w-profinite');
+  const svg = root.querySelector('svg');
+  const text = root.querySelector('#pf-text');
+  const btns = root.querySelectorAll('button[data-pf]');
+  let mode = 'all';
+
+  const layouts = {
+    all: {
+      text: "$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.",
+      nodes: [
+        {id:'G', x:410, y:40, label:'G_Q', big:true},
+        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},
+        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},
+        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},
+        {id:'D', x:260, y:240, label:'Z/2'},
+        {id:'E', x:410, y:240, label:'Z/2'},
+        {id:'F', x:560, y:240, label:'S₃'},
+        {id:'tr', x:410, y:300, label:'{1}'}
+      ],
+      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]
+    },
+    abelian: {
+      text: "The maximal abelian quotient $G_\\mathbb{Q}^{ab}$ is $\\widehat{\\mathbb{Z}}^\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.",
+      nodes: [
+        {id:'G', x:410, y:40, label:'G_Q', big:true},
+        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},
+        {id:'A1', x:220, y:240, label:'(Z/5)^×'},
+        {id:'A2', x:400, y:240, label:'(Z/7)^×'},
+        {id:'A3', x:580, y:240, label:'(Z/11)^×'}
+      ],
+      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]
+    },
+    cyclo: {
+      text: "The cyclotomic tower $\\mathbb{Q}(\\mu_{\\ell^n})$ has $\\mathrm{Gal} = (\\mathbb{Z}/\\ell^n)^\\times$. Taking the limit gives the cyclotomic character $G_\\mathbb{Q} \\to \\mathbb{Z}_\\ell^\\times$.",
+      nodes: [
+        {id:'G', x:410, y:40, label:'G_Q', big:true},
+        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},
+        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},
+        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},
+        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}
+      ],
+      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]
+    }
+  };
+
+  function render(){
+    svg.innerHTML = '';
+    const L = layouts[mode];
+    text.textContent = L.text;
+    for(const [from, to] of L.edges){
+      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);
+      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});
+    }
+    for(const n of L.nodes){
+      const r = n.big ? 26 : 18;
+      const w = Math.max(n.label.length*7+18, r*2+4);
+      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,
+        fill: n.big ? 'var(--panel2)' : 'var(--panel)',
+        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));
+      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,
+        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});
+      t.textContent = n.label;
+      svg.appendChild(t);
+    }
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.pf;
+    render();
+  }));
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 2 — Representation map =================== */
+(function(){
+  const root = document.getElementById('w-diagram');
+  const svg = root.querySelector('svg');
+  const text = root.querySelector('#rep-text');
+  const btns = root.querySelectorAll('button[data-field]');
+  let field = 'Ql';
+
+  const info = {
+    C:  {target:'GL_n(C)', label:'Artin', color:'var(--violet)',
+         note:"Classical (complex) representation. Factors through a finite quotient. Image is finite. Conjectural Artin L-functions."},
+    Ql: {target:'GL_n(Q̄_ℓ)', label:'ℓ-adic', color:'var(--yellow)',
+         note:"The workhorse. Comes from ℓ-adic étale cohomology of algebraic varieties. Image need NOT be finite. Used for elliptic curves, modular forms."},
+    Fl: {target:'GL_n(F̄_ℓ)', label:'mod ℓ', color:'var(--pink)',
+         note:"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture: every odd, irreducible, 2-d mod-ℓ representation is modular."}
+  };
+
+  function render(){
+    svg.innerHTML = '';
+    // G_Q box
+    svg.appendChild(SVG('rect', {x:60, y:90, width:160, height:60, rx:8,
+      fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));
+    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});
+    t1.textContent = 'G_Q';
+    svg.appendChild(t1);
+    const t1s = SVG('text', {x:140, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t1s.textContent = 'absolute Galois group';
+    svg.appendChild(t1s);
+
+    const I = info[field];
+    // target box
+    svg.appendChild(SVG('rect', {x:460, y:90, width:220, height:60, rx:8,
+      fill:'var(--panel2)', stroke:I.color, 'stroke-width':1.6}));
+    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});
+    t2.textContent = I.target;
+    svg.appendChild(t2);
+    const t2s = SVG('text', {x:570, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t2s.textContent = I.label + ' representation';
+    svg.appendChild(t2s);
+
+    drawArrow(svg, [220, 120], [460, 120], {markerId:'rep-'+field, color:I.color, label:'ρ', width:2, pad1:4, pad2:4});
+    text.textContent = I.note;
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    field = b.dataset.field;
+    render();
+  }));
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 3 — Cyclotomic character =================== */
+(function(){
+  const root = document.getElementById('w-cyclo');
+  const svg = root.querySelector('svg');
+  const elSel = root.querySelector('#cy-ell');
+  const nRng = root.querySelector('#cy-n');
+  const nLab = root.querySelector('#cy-nlab');
+  const aIn  = root.querySelector('#cy-a');
+  const aHint = root.querySelector('#cy-ahint');
+  const text = root.querySelector('#cy-text');
+
+  function gcd(a,b){ while(b){ [a,b]=[b,a%b]; } return a; }
+
+  function render(){
+    svg.innerHTML = '';
+    const ell = parseInt(elSel.value,10);
+    const n = parseInt(nRng.value,10);
+    nLab.textContent = 'n=' + n;
+    const N = Math.pow(ell,n);
+    let a = parseInt(aIn.value,10);
+    if(!Number.isFinite(a)) a = 1;
+    // nearest valid a (coprime to ell)
+    if(a % ell === 0){ a = a+1; aIn.value = a; }
+    const amod = mod(a, N);
+    aHint.textContent = "σ acts by ζ ↦ ζ^" + a + " (must be coprime to " + ell + "; mod " + N + " → " + amod + ")";
+
+    const cx = 360, cy = 150, R = 110;
+    // outer title
+    const tt = SVG('text',{x:cx, y:28, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)'});
+    tt.textContent = 'μ_'+N+' : '+N+' points';
+    svg.appendChild(tt);
+
+    // circle
+    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1}));
+    // points
+    const pts = [];
+    for(let k=0;k<N;k++){
+      const th = 2*Math.PI*k/N - Math.PI/2;
+      pts.push([cx + R*Math.cos(th), cy + R*Math.sin(th)]);
+    }
+    // action arrows k -> a*k (mod N), draw only 'primitive' images from a generator
+    for(let k=1;k<N;k++){
+      const j = mod(a*k, N);
+      const [x1,y1] = pts[k], [x2,y2] = pts[j];
+      if(k === j) continue;
+      drawArrow(svg, [x1,y1], [x2,y2], {color:'var(--cyan)', markerId:'cy-arr', width:1, pad1:6, pad2:8, curve:10});
+    }
+    // points on top
+    for(let k=0;k<N;k++){
+      const prim = (gcd(k,N)===1);
+      const r = prim ? 4.5 : 3;
+      svg.appendChild(SVG('circle',{cx:pts[k][0], cy:pts[k][1], r,
+        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'#0b0f16', 'stroke-width':1}));
+    }
+    // center label
+    const c1 = SVG('text',{x:cx, y:cy-6, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});
+    c1.textContent = 'ζ ↦ ζ^'+amod;
+    svg.appendChild(c1);
+    const c2 = SVG('text',{x:cx, y:cy+12, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    c2.textContent = '(Z/'+N+')^× has φ('+N+')='+phi(N)+' units';
+    svg.appendChild(c2);
+
+    const isUnit = (gcd(amod, N) === 1);
+    text.textContent = isUnit
+      ? "Valid χ(σ) = "+amod+" ∈ (Z/"+N+")^×. On the "+N+"-th roots of unity, σ permutes ζ^k to ζ^("+amod+"·k mod "+N+"). Yellow dots are primitive roots; gray dots are higher-order fixed loci."
+      : "NOT a unit: "+amod+" shares a factor with "+N+", so this is not a Galois action on μ_"+N+".";
+  }
+
+  function phi(n){
+    let r = n, m = n;
+    for(let p=2;p*p<=m;p++){
+      if(m%p===0){ while(m%p===0) m/=p; r -= r/p; }
+    }
+    if(m>1) r -= r/m;
+    return Math.round(r);
+  }
+
+  elSel.addEventListener('change', render);
+  nRng.addEventListener('input', render);
+  aIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 4 — Tate module tower =================== */
+(function(){
+  const root = document.getElementById('w-tate');
+  const svg = root.querySelector('svg');
+  const elSel = root.querySelector('#tt-ell');
+  const btns = root.querySelectorAll('button[data-lvl]');
+  const text = root.querySelector('#tt-text');
+  let lvl = 2;
+
+  function render(){
+    svg.innerHTML = '';
+    const ell = parseInt(elSel.value,10);
+    const N = Math.pow(ell, lvl);
+
+    // three small lattices in a row
+    const centers = [[170, 170], [400, 170], [630, 170]];
+    const labels  = ['E[ℓ]', 'E[ℓ²]', 'E[ℓ³]'];
+    const exps    = [1, 2, 3];
+    const sizes   = [Math.pow(ell,1), Math.pow(ell,2), Math.pow(ell,3)];
+
+    for(let i=0;i<3;i++){
+      const [cx, cy] = centers[i];
+      const Ni = sizes[i];
+      const isActive = (exps[i] === lvl);
+      // background
+      svg.appendChild(SVG('rect',{x:cx-80, y:cy-80, width:160, height:160, rx:6,
+        fill: isActive ? 'var(--panel2)' : 'var(--panel)',
+        stroke: isActive ? 'var(--yellow)' : 'var(--line)', 'stroke-width':isActive?2:1}));
+      // lattice of Ni × Ni
+      const step = 140/(Ni);
+      for(let a=0;a<Ni;a++) for(let b=0;b<Ni;b++){
+        const x = cx - 70 + step*a + step/2;
+        const y = cy - 70 + step*b + step/2;
+        const r = isActive ? 2.5 : 1.8;
+        svg.appendChild(SVG('circle',{cx:x, cy:y, r,
+          fill: (a===0 && b===0) ? 'var(--green)' : (isActive ? 'var(--yellow)' : 'var(--mute)')}));
+      }
+      const t = SVG('text',{x:cx, y:cy+100, 'text-anchor':'middle', 'font-size':14,
+        fill: isActive ? 'var(--yellow)' : 'var(--ink)', 'font-weight':600});
+      t.textContent = labels[i] + ' (' + Ni + '×' + Ni + ')';
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:cx, y:cy+118, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+      t2.textContent = '≅ (Z/' + Ni + ')²';
+      svg.appendChild(t2);
+    }
+
+    // [ell] arrows between them (right to left)
+    drawArrow(svg, [centers[1][0] - 90, 170], [centers[0][0] + 90, 170],
+      {color:'var(--cyan)', markerId:'tt-1', pad1:2, pad2:2, label:'[ℓ]', width:1.8});
+    drawArrow(svg, [centers[2][0] - 90, 170], [centers[1][0] + 90, 170],
+      {color:'var(--cyan)', markerId:'tt-2', pad1:2, pad2:2, label:'[ℓ]', width:1.8});
+
+    // limit label
+    const lim = SVG('text',{x:390, y:40, 'text-anchor':'middle', 'font-size':15, fill:'var(--violet)', 'font-weight':600});
+    lim.textContent = 'T_ℓ E = lim← E[ℓⁿ] ≅ Z_ℓ²';
+    svg.appendChild(lim);
+    const lim2 = SVG('text',{x:390, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lim2.textContent = 'ρ_{E,ℓ}: G_Q → GL₂(Z_ℓ)';
+    svg.appendChild(lim2);
+    const lim3 = SVG('text',{x:720, y:45, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lim3.textContent = '···';
+    svg.appendChild(lim3);
+
+    text.textContent = "Level " + lvl + ": E[ℓ^" + lvl + "] ≅ (Z/" + N + ")² has " + (N*N)
+      + " torsion points. Galois acts linearly, giving a continuous ρ: G_Q → GL₂(Z/" + N + "). Taking the inverse limit over all levels recovers ρ_{E,ℓ}.";
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    lvl = parseInt(b.dataset.lvl,10);
+    render();
+  }));
+  elSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 5 — Frobenius matrix dial =================== */
+(function(){
+  const root = document.getElementById('w-matrix');
+  const svg = root.querySelector('svg');
+  const pSel = root.querySelector('#mx-p');
+  const aR  = root.querySelector('#mx-a');
+  const aLab = root.querySelector('#mx-alab');
+  const text = root.querySelector('#mx-text');
+
+  function clampA(a, p){
+    const m = Math.floor(2*Math.sqrt(p));
+    return Math.max(-m, Math.min(m, a));
+  }
+
+  function updateRange(){
+    const p = parseInt(pSel.value,10);
+    const m = Math.floor(2*Math.sqrt(p));
+    aR.min = -m; aR.max = m;
+    aR.value = clampA(parseInt(aR.value,10), p);
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const p = parseInt(pSel.value,10);
+    updateRange();
+    const a = clampA(parseInt(aR.value,10), p);
+    aLab.textContent = 'a='+a;
+
+    // LEFT: matrix box
+    const mx = 170, my = 170;
+    svg.appendChild(SVG('rect',{x:mx-120, y:my-90, width:240, height:180, rx:8,
+      fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5}));
+    const tt = SVG('text',{x:mx, y:my-60, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});
+    tt.textContent = 'representative of ρ(Frob_p)';
+    svg.appendChild(tt);
+    // choose rational conjugacy-class representative with tr=a, det=p
+    // use companion matrix [[0,-p],[1,a]] so tr = a, det = p
+    const rows = [
+      ['0', String(-p)],
+      ['1', String(a)]
+    ];
+    for(let r=0;r<2;r++) for(let c=0;c<2;c++){
+      const x = mx - 55 + c*70, y = my - 20 + r*42;
+      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'#0b0f16', stroke:'var(--line)'}));
+      const t = SVG('text',{x, y:y+5, 'text-anchor':'middle', 'font-size':15, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});
+      t.textContent = rows[r][c];
+      svg.appendChild(t);
+    }
+
+    // brackets
+    for(const xb of [mx-82, mx+82]){
+      const dir = xb<mx ? 1 : -1;
+      svg.appendChild(SVG('path',{d:`M${xb+dir*6} ${my-40} L${xb} ${my-40} L${xb} ${my+40} L${xb+dir*6} ${my+40}`,
+        fill:'none', stroke:'var(--ink)', 'stroke-width':1.8}));
+    }
+
+    // RIGHT: characteristic polynomial + eigenvalues
+    const rx = 550, ry = 80;
+    const chrt = SVG('text',{x:rx, y:ry, 'text-anchor':'middle', 'font-size':16, fill:'var(--yellow)', 'font-weight':600});
+    chrt.textContent = "char poly: t² − "+a+"t + "+p;
+    svg.appendChild(chrt);
+
+    // eigenvalues
+    const disc = a*a - 4*p;
+    let ev = '';
+    let complex = false;
+    if(disc >= 0){
+      const s = Math.sqrt(disc);
+      ev = 'α = ' + ((a+s)/2).toFixed(3) + ', β = ' + ((a-s)/2).toFixed(3);
+    } else {
+      const s = Math.sqrt(-disc);
+      ev = 'α = ' + (a/2).toFixed(3) + ' + ' + (s/2).toFixed(3) + 'i,  β = conj';
+      complex = true;
+    }
+    const ep = SVG('text',{x:rx, y:ry+26, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});
+    ep.textContent = ev;
+    svg.appendChild(ep);
+
+    // circle of radius √p
+    const cx = 570, cy = 230, R = 80;
+    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('line',{x1:cx-R-10, y1:cy, x2:cx+R+10, y2:cy, stroke:'var(--line)', 'stroke-width':0.5}));
+    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-10, x2:cx, y2:cy+R+10, stroke:'var(--line)', 'stroke-width':0.5}));
+    const rlab = SVG('text',{x:cx+R+14, y:cy+4, 'text-anchor':'start', 'font-size':11, fill:'var(--mute)'});
+    rlab.textContent = '|α|=√p='+Math.sqrt(p).toFixed(2);
+    svg.appendChild(rlab);
+
+    // plot eigenvalues
+    const sp = Math.sqrt(p);
+    let a1, a2;
+    if(complex){
+      const s = Math.sqrt(-disc)/2;
+      a1 = {re: a/2, im: s};
+      a2 = {re: a/2, im: -s};
+    } else {
+      const s = Math.sqrt(disc);
+      a1 = {re: (a+s)/2, im:0};
+      a2 = {re: (a-s)/2, im:0};
+    }
+    for(const pt of [a1,a2]){
+      const sx = cx + R * pt.re / sp;
+      const sy = cy - R * pt.im / sp;
+      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'#0b0f16', 'stroke-width':1.5}));
+    }
+
+    text.textContent = "Representative matrix with trace " + a + " and determinant " + p + ". Characteristic polynomial t² − " + a + "t + " + p + ". "
+      + (complex ? "Complex-conjugate eigenvalues, both of modulus √p." : "Real eigenvalues (only possible when a² = 4p, i.e. on the boundary).")
+      + "  |a| ≤ 2√p = " + (2*Math.sqrt(p)).toFixed(2) + ".";
+  }
+
+  pSel.addEventListener('change', render);
+  aR.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 6 — a_p bar chart =================== */
+(function(){
+  const root = document.getElementById('w-apbar');
+  const svg = root.querySelector('svg');
+  const curSel = root.querySelector('#ap-curve');
+  const envCk = root.querySelector('#ap-env');
+  const text = root.querySelector('#ap-text');
+
+  // simple point-count for y^2 + a1 xy + a3 y = x^3 + a2 x^2 + a4 x + a6
+  function countPts(p, coeffs){
+    const {a1=0, a2=0, a3=0, a4=0, a6=0} = coeffs;
+    let n = 1; // point at infinity
+    for(let x=0;x<p;x++){
+      const rhs = mod(x*x*x + a2*x*x + a4*x + a6, p);
+      // y^2 + (a1 x + a3) y = rhs  <=>  y^2 + By = rhs  where B = a1 x + a3
+      const B = mod(a1*x + a3, p);
+      for(let y=0;y<p;y++){
+        if(mod(y*y + B*y - rhs, p) === 0) n++;
+      }
+    }
+    return n;
+  }
+
+  // detect discriminant zero by a crude scan: if point count matches degenerate pattern, skip
+  const curves = {
+    A: {label:'y² = x³ − x', coeffs:{a4:-1}, badPrimes:[2]},
+    B: {label:'y² + y = x³ − x²', coeffs:{a2:-1, a3:1}, badPrimes:[11]},
+    C: {label:'y² = x³ − 43x + 166', coeffs:{a4:-43, a6:166}, badPrimes:[2,13]}
+  };
+
+  function render(){
+    svg.innerHTML = '';
+    const cur = curves[curSel.value];
+    const ps = primesUpTo(100);
+    const W = 820, H = 300;
+    const marL = 40, marR = 20, marT = 40, marB = 40;
+    const plotW = W - marL - marR;
+    const plotH = H - marT - marB;
+
+    // compute a_p for each p
+    const vals = [];
+    let maxAbs = 0;
+    for(const p of ps){
+      if(cur.badPrimes.includes(p)){ vals.push({p, ap:null}); continue; }
+      if(p>50){ vals.push({p, ap:null, skip:true}); continue; } // avoid slow point-count at large p in browser
+      const np = countPts(p, cur.coeffs);
+      const ap = p + 1 - np;
+      vals.push({p, ap});
+      if(Math.abs(ap) > maxAbs) maxAbs = Math.abs(ap);
+    }
+    // for p>50 use Hasse bound as placeholder
+    for(const v of vals) if(v.skip) maxAbs = Math.max(maxAbs, 2*Math.sqrt(v.p));
+    if(maxAbs < 4) maxAbs = 4;
+
+    // axes
+    const y0 = marT + plotH/2;
+    svg.appendChild(SVG('line',{x1:marL, y1:y0, x2:W-marR, y2:y0, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:marL, y1:marT, x2:marL, y2:H-marB, stroke:'var(--line)', 'stroke-width':1}));
+
+    // bars
+    const n = ps.length;
+    const bw = plotW / n * 0.8;
+    for(let i=0;i<n;i++){
+      const v = vals[i];
+      const x = marL + plotW*(i+0.5)/n;
+      if(v.ap === null && !v.skip){
+        // bad prime
+        svg.appendChild(SVG('rect',{x:x-bw/2, y:marT, width:bw, height:plotH, fill:'rgba(224,122,95,0.12)'}));
+        continue;
+      }
+      if(v.skip) continue;
+      const h = plotH/2 * (v.ap / maxAbs);
+      svg.appendChild(SVG('rect',{x:x-bw/2, y: v.ap>=0 ? y0-h : y0, width:bw, height:Math.abs(h),
+        fill: v.ap===0 ? 'var(--mute)' : (v.ap>0 ? 'var(--green)' : 'var(--pink)')}));
+    }
+    // selected prime labels
+    const pickLabels = [2,7,17,31,47];
+    for(let i=0;i<n;i++){
+      if(!pickLabels.includes(ps[i])) continue;
+      const x = marL + plotW*(i+0.5)/n;
+      const t = SVG('text',{x, y:H-marB+14, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'});
+      t.textContent = ps[i];
+      svg.appendChild(t);
+    }
+
+    // Hasse envelope
+    if(envCk.checked){
+      const path1 = [], path2 = [];
+      for(let i=0;i<n;i++){
+        const p = ps[i];
+        const x = marL + plotW*(i+0.5)/n;
+        const h = plotH/2 * (2*Math.sqrt(p) / maxAbs);
+        path1.push([x, y0-h]);
+        path2.push([x, y0+h]);
+      }
+      const d1 = 'M' + path1.map(p=>p.join(' ')).join(' L');
+      const d2 = 'M' + path2.map(p=>p.join(' ')).join(' L');
+      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));
+      svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));
+    }
+
+    // title
+    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'});
+    tt.textContent = 'a_p for ' + cur.label + ' (red shade = bad reduction)';
+    svg.appendChild(tt);
+
+    // readout: list first few ap
+    const first = vals.filter(v=>v.ap!==null && !v.skip).slice(0, 10)
+      .map(v => 'a_'+v.p+'='+v.ap).join(', ');
+    text.textContent = first + '.  Dashed violet lines are the Hasse envelope ±2√p.';
+  }
+
+  curSel.addEventListener('change', render);
+  envCk.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 7 — Hasse disk =================== */
+(function(){
+  const root = document.getElementById('w-hasse');
+  const svg = root.querySelector('svg');
+  const pSel = root.querySelector('#hs-p');
+  const aR = root.querySelector('#hs-a');
+  const aLab = root.querySelector('#hs-alab');
+  const text = root.querySelector('#hs-text');
+
+  function clampA(a,p){
+    const m = Math.floor(2*Math.sqrt(p));
+    return Math.max(-m, Math.min(m, a));
+  }
+  function updateRange(){
+    const p = parseInt(pSel.value,10);
+    const m = Math.floor(2*Math.sqrt(p));
+    aR.min = -m; aR.max = m;
+    aR.value = clampA(parseInt(aR.value,10), p);
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const p = parseInt(pSel.value,10);
+    updateRange();
+    const a = clampA(parseInt(aR.value,10), p);
+    aLab.textContent = 'a='+a;
+    const sp = Math.sqrt(p);
+
+    const cx = 320, cy = 170, R = 120;
+    // disk
+    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'rgba(88,196,221,0.06)', stroke:'var(--blue)', 'stroke-width':1.5, 'stroke-dasharray':'5 3'}));
+    // axes
+    svg.appendChild(SVG('line',{x1:cx-R-30, y1:cy, x2:cx+R+30, y2:cy, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-30, x2:cx, y2:cy+R+30, stroke:'var(--line)', 'stroke-width':1}));
+    svg.appendChild(SVG('text',{x:cx+R+20, y:cy+16, 'font-size':11, fill:'var(--mute)'}))
+      .textContent = 'Re';
+
+    // eigenvalues
+    const disc = a*a - 4*p;
+    let a1, a2;
+    if(disc >= 0){
+      const s = Math.sqrt(disc);
+      a1 = {re:(a+s)/2, im:0};
+      a2 = {re:(a-s)/2, im:0};
+    } else {
+      const s = Math.sqrt(-disc)/2;
+      a1 = {re:a/2, im:s};
+      a2 = {re:a/2, im:-s};
+    }
+    // mapping: unit circle of radius sp maps to radius R
+    for(const [pt, col] of [[a1,'var(--yellow)'],[a2,'var(--pink)']]){
+      const sx = cx + R * pt.re / sp;
+      const sy = cy - R * pt.im / sp;
+      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'#0b0f16', 'stroke-width':1.5}));
+      // dashed line to origin
+      svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:sx, y2:sy, stroke:col, 'stroke-width':1, 'stroke-dasharray':'3 3', opacity:0.5}));
+    }
+
+    // label radius
+    const rlab = SVG('text',{x:cx+R*0.70, y:cy-R*0.70-6, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    rlab.textContent = '|α|=√p='+sp.toFixed(2);
+    svg.appendChild(rlab);
+
+    // text box on right
+    const tx = 480;
+    let ty = 70;
+    const add = (s, col='var(--ink)', sz=13) => {
+      const t = SVG('text',{x:tx, y:ty, 'font-size':sz, fill:col});
+      t.textContent = s; svg.appendChild(t); ty += sz+5;
+    };
+    add('p = ' + p, 'var(--yellow)', 14);
+    add('a_p = ' + a);
+    add('disc = a² − 4p = ' + disc);
+    add('|α| = |β| = √p = ' + sp.toFixed(3));
+    add('α + β = ' + a);
+    add('α · β = ' + p);
+    if(disc < 0){
+      add('eigenvalues: complex conjugate', 'var(--cyan)', 12);
+    } else if(disc === 0){
+      add('repeated root (supersingular in char p)', 'var(--pink)', 12);
+    } else {
+      add('real eigenvalues — on circle boundary', 'var(--pink)', 12);
+    }
+
+    text.textContent = "The two Frobenius eigenvalues sit on the circle of radius √p in C. They are complex conjugates exactly when disc = a² − 4p < 0, which is the generic case.";
+  }
+
+  pSel.addEventListener('change', render);
+  aR.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 8 — Local L-factor =================== */
+(function(){
+  const root = document.getElementById('w-lfac');
+  const svg = root.querySelector('svg');
+  const pSel = root.querySelector('#lf-p');
+  const aR = root.querySelector('#lf-a');
+  const aLab = root.querySelector('#lf-alab');
+  const text = root.querySelector('#lf-text');
+
+  function clampA(a,p){
+    const m = Math.floor(2*Math.sqrt(p));
+    return Math.max(-m, Math.min(m, a));
+  }
+  function updateRange(){
+    const p = parseInt(pSel.value,10);
+    const m = Math.floor(2*Math.sqrt(p));
+    aR.min = -m; aR.max = m;
+    aR.value = clampA(parseInt(aR.value,10), p);
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const p = parseInt(pSel.value,10);
+    updateRange();
+    const a = clampA(parseInt(aR.value,10), p);
+    aLab.textContent = 'a='+a;
+
+    const rows = [
+      {y:40,  col:'var(--blue)',   txt:'ρ(Frob_p)  ~  '+(a>=0?'[[α,0],[0,β]]':'[[α,0],[0,β]]')+'   with tr=α+β='+a+', αβ='+p},
+      {y:80,  col:'var(--violet)', txt:'1 − ρ(Frob_p)·p^(−s)  acts on V_ℓ E ⊗ C'},
+      {y:120, col:'var(--yellow)', txt:'det(1 − ρ(Frob_p)·p^(−s))  =  1 − a_p·p^(−s) + p·p^(−2s)'},
+      {y:160, col:'var(--green)',  txt:'L_p(E,s)  =  1 / (1 − '+a+'·p^(−s) + p^(1−2s))'}
+    ];
+    for(const r of rows){
+      svg.appendChild(SVG('rect',{x:20, y:r.y-18, width:680, height:32, rx:4, fill:'var(--panel2)', stroke:r.col, 'stroke-width':1}));
+      const t = SVG('text',{x:40, y:r.y+4, 'font-size':13, fill:r.col, 'font-family':'ui-monospace,monospace'});
+      t.textContent = r.txt;
+      svg.appendChild(t);
+    }
+    const tt = SVG('text',{x:360, y:220, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});
+    tt.textContent = 'L(E,s) = ∏_p L_p(E,s)   (Euler product, valid for Re(s) > 3/2 by Hasse)';
+    svg.appendChild(tt);
+
+    text.textContent = "The local L-factor at a good prime is the reciprocal of the characteristic polynomial of Frobenius, evaluated at t = p^(−s). The global L-function is the product over all primes.";
+  }
+
+  pSel.addEventListener('change', render);
+  aR.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<script>
+/* =================== Widget 9 — Eigenform → Galois rep =================== */
+(function(){
+  const root = document.getElementById('w-deligne');
+  const svg = root.querySelector('svg');
+  const fSel = root.querySelector('#de-f');
+  const text = root.querySelector('#de-text');
+
+  // curated first Fourier coefficients
+  const forms = {
+    N11: {
+      label:'f_{11} on Γ_0(11), weight 2',
+      weight:2, N:11,
+      // a_p for p = 2,3,5,7,11,13,... (well-known)
+      ap:{2:-2, 3:-1, 5:1, 7:-2, 13:4, 17:-2, 19:0, 23:-1, 29:0, 31:7, 37:3, 41:-8, 43:-6, 47:8},
+      note:'Same a_p as the elliptic curve y² + y = x³ − x².'
+    },
+    D12: {
+      label:'Δ = η(τ)^{24}, weight 12, level 1',
+      weight:12, N:1,
+      // Ramanujan τ function values
+      ap:{2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738},
+      note:"Ramanujan's τ. Deligne proved |τ(p)| ≤ 2 p^(11/2)."
+    },
+    E4: {
+      label:'E_4 (Eisenstein, NOT cuspidal) weight 4, level 1',
+      weight:4, N:1,
+      // a_p(E_4) = 1 + p^3 if normalized that way; this is reducible
+      ap:{2:9, 3:28, 5:126, 7:344, 11:1332},
+      note:'Eisenstein series are not cuspidal — the attached Galois representation is REDUCIBLE, a sum of two 1-d characters.'
+    }
+  };
+
+  function render(){
+    svg.innerHTML = '';
+    const key = fSel.value;
+    const F = forms[key];
+
+    // left: q-expansion
+    svg.appendChild(SVG('rect',{x:30, y:30, width:330, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.5}));
+    const t1 = SVG('text',{x:195, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});
+    t1.textContent = F.label;
+    svg.appendChild(t1);
+    const t1b = SVG('text',{x:195, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    t1b.textContent = 'f(q) = q + Σ a_n q^n';
+    svg.appendChild(t1b);
+
+    let y = 100;
+    for(const [p, ap] of Object.entries(F.ap).slice(0, 8)){
+      const t = SVG('text',{x:60, y, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});
+      t.textContent = 'a_' + p + ' = ' + ap;
+      svg.appendChild(t);
+      y += 22;
+    }
+
+    // arrow to right
+    drawArrow(svg, [370, 160], [470, 160], {label:'ρ_f', color:'var(--yellow)', markerId:'de-arr', width:2, pad1:4, pad2:4});
+
+    // right: Galois rep box
+    svg.appendChild(SVG('rect',{x:480, y:30, width:320, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--pink)', 'stroke-width':1.5}));
+    const r1 = SVG('text',{x:640, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--pink)', 'font-weight':600});
+    r1.textContent = 'ρ_{f,ℓ}: G_Q → GL_2';
+    svg.appendChild(r1);
+    const r1b = SVG('text',{x:640, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+    r1b.textContent = 'unramified outside Nℓ';
+    svg.appendChild(r1b);
+
+    const rules = [
+      'tr ρ(Frob_p) = a_p(f)',
+      'det ρ(Frob_p) = p^{k−1}',
+      'weight k = ' + F.weight,
+      'level N = ' + F.N
+    ];
+    let ry = 110;
+    for(const r of rules){
+      const t = SVG('text',{x:500, y:ry, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});
+      t.textContent = r;
+      svg.appendChild(t);
+      ry += 24;
+    }
+
+    text.textContent = F.note + " Continuity and compatibility across primes ℓ is part of Deligne's construction.";
+  }
+
+  fSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

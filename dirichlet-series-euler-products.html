@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dirichlet series &amp; Euler products — analytic form of unique factorization</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#series">1&nbsp;Dirichlet&nbsp;series</a>
+  <a href="#zeta">2&nbsp;The&nbsp;zeta&nbsp;prototype</a>
+  <a href="#euler">3&nbsp;Euler&nbsp;products</a>
+  <a href="#chars">4&nbsp;Characters&nbsp;&amp;&nbsp;L</a>
+  <a href="#cont">5&nbsp;Continuation</a>
+  <a href="#dir">6&nbsp;Primes&nbsp;in&nbsp;APs</a>
+  <a href="#forward">7&nbsp;What&nbsp;comes&nbsp;next</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Dirichlet series and Euler products</h1>
+  <p class="sub">From $\sum a_n/n^s$ to the analytic form of unique factorization. The Riemann zeta function, Dirichlet $L$-functions, the functional equation, and the theorem that every arithmetic progression $a \bmod N$ with $\gcd(a,N)=1$ contains infinitely many primes.</p>
+</section>
+
+<section id="series">
+<h2>1. Dirichlet series and the half-plane of convergence</h2>
+<p>A <strong>Dirichlet series</strong> is a formal expression
+$$D(s) \;=\; \sum_{n=1}^{\infty} \frac{a_n}{n^s}, \qquad s \in \mathbb{C},$$
+where the coefficients $a_n$ are complex numbers. Power series live on discs; Dirichlet series live on right half-planes. Write $s = \sigma + it$. If the series converges absolutely at some $s_0 = \sigma_0 + it_0$, then
+$$\sum_n \frac{|a_n|}{n^{\sigma_0}} < \infty \;\Longrightarrow\; \sum_n \frac{|a_n|}{n^{\sigma}} \le \sum_n \frac{|a_n|}{n^{\sigma_0}} < \infty$$
+for every $\sigma \ge \sigma_0$, because $n^{-\sigma} \le n^{-\sigma_0}$ when $n \ge 1$. So the set of $s$ at which $D(s)$ converges absolutely is a right half-plane
+$$\{\,s : \mathrm{Re}\,s > \sigma_a\,\}$$
+for some <strong>abscissa of absolute convergence</strong> $\sigma_a \in [-\infty, +\infty]$. Conditional convergence has its own abscissa $\sigma_c \le \sigma_a$, and $\sigma_a - \sigma_c \le 1$ — we stay in the absolute regime here for simplicity.</p>
+
+<h3>Uniqueness of coefficients</h3>
+<p>On its half-plane of absolute convergence, the coefficients are uniquely recoverable:
+$$a_n \;=\; \lim_{\sigma \to \infty} n^\sigma \Bigl( D(\sigma) - \sum_{k<n} \frac{a_k}{k^\sigma} \Bigr).$$
+As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by multiplication by $n^\sigma$ (because $(n/k)^\sigma \to \infty$ eats the tail), while the $n$-th term becomes $a_n$, and tails beyond $n$ vanish. So if $D_1 = D_2$ as functions on a half-plane, their coefficient sequences are identical — a first hint that these objects are rigid.</p>
+
+<div class="widget" id="w-halfplane">
+  <div class="hd"><div class="ttl">Half-plane of convergence</div><div class="hint">drag the abscissa $\sigma_a$</div></div>
+  <svg id="hp-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="row">
+    <label for="hp-sig">abscissa $\sigma_a$</label>
+    <input type="range" id="hp-sig" min="-2" max="3" step="0.05" value="1">
+    <span id="hp-sigv" class="readout" style="min-width:120px;flex:0 0 auto">$\sigma_a = 1.00$</span>
+  </div>
+  <div class="small">Green = absolute convergence. Red = divergence. The boundary line $\mathrm{Re}\,s = \sigma_a$ is where $\sum |a_n|/n^\sigma$ first goes finite.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');
+  const W = 620, H = 260, pad = 40;
+  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;
+  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);
+
+  function draw(){
+    svg.innerHTML = '';
+    const sv = parseFloat(sig.value);
+    // green half-plane (right of sv)
+    const xL = toX(sv), xR = toX(xmax);
+    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),
+      fill:'rgba(131,193,103,0.18)'}));
+    // red half-plane (left of sv)
+    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),
+      fill:'rgba(224,122,95,0.15)'}));
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));
+    // grid ticks
+    for(let k=-2;k<=3;k++){
+      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+    // boundary
+    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),
+      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));
+    // labels
+    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});
+    lbl1.textContent = 'Re s = σₐ';
+    svg.appendChild(lbl1);
+    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});
+    lbl2.textContent = 'absolute convergence';
+    svg.appendChild(lbl2);
+    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});
+    lbl3.textContent = 'divergence';
+    svg.appendChild(lbl3);
+    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);
+    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});
+    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);
+    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;
+  }
+  sig.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="zeta">
+<h2>2. The prototype: Riemann's $\zeta(s)$</h2>
+<p>Take every $a_n = 1$. You get the Riemann zeta function:
+$$\zeta(s) \;=\; \sum_{n=1}^{\infty} \frac{1}{n^s}.$$
+Compare with $\int_1^\infty x^{-\sigma}\,dx = 1/(\sigma-1)$ for $\sigma > 1$. The integral test gives absolute convergence for $\mathrm{Re}\,s > 1$ and divergence at $s = 1$ (where the series is the harmonic series). The abscissa of absolute convergence is $\sigma_a = 1$.</p>
+
+<p>Near $s=1$ the function has a <strong>simple pole with residue $1$</strong>:
+$$\zeta(s) \;=\; \frac{1}{s-1} \;+\; \gamma \;+\; O(s-1),$$
+where $\gamma = \lim_{N\to\infty}\!\bigl(\sum_{n\le N} 1/n - \log N\bigr) \approx 0.5772$ is Euler's constant. One way to see the pole: $\sum_{n=1}^N n^{-s} \approx \int_1^N x^{-s}\,dx = (N^{1-s}-1)/(1-s)$, whose limit as $N\to\infty$ has a $1/(s-1)$ singularity. Read more on the <a href="./complex-analysis.html">complex-analysis</a> page for what "simple pole with residue" means.</p>
+
+<div class="widget" id="w-zeta">
+  <div class="hd"><div class="ttl">$\zeta(\sigma)$ on the real axis</div><div class="hint">drag $\sigma$ on $(1,\infty)$</div></div>
+  <svg id="z-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="row">
+    <label for="z-sig">$\sigma$</label>
+    <input type="range" id="z-sig" min="1.01" max="5" step="0.01" value="2">
+    <span id="z-val" class="readout" style="min-width:240px;flex:0 0 auto">ζ(2.00) ≈ 1.6449</span>
+  </div>
+  <div class="small">Partial sum to $N=200$ shown. As $\sigma \downarrow 1$ the value blows up like $1/(\sigma-1)$.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');
+  const W = 620, H = 280, pad = 40;
+  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;
+  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);
+
+  function zeta(s){
+    let S = 0; const N = 400;
+    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);
+    return S;
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));
+    // ticks
+    for(let k=1;k<=5;k++){
+      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+    for(let k=0;k<=6;k++){
+      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+    // vertical asymptote at s=1
+    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),
+      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));
+    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});
+    a.textContent = 'pole at s=1'; svg.appendChild(a);
+
+    // curve
+    let dStr = '';
+    const steps = 140;
+    for(let i=0;i<=steps;i++){
+      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;
+      const y = zeta(s);
+      const X = toX(s), Y = toY(Math.min(y,ymax));
+      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+
+    // marker
+    const s0 = parseFloat(sig.value);
+    const z = zeta(s0);
+    const X = toX(s0), Y = toY(Math.min(z,ymax));
+    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));
+    const lblY = Y - 12;
+    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});
+    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;
+    svg.appendChild(t);
+
+    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;
+  }
+  sig.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="euler">
+<h2>3. Euler products: the analytic form of unique factorization</h2>
+<p>Here is the miracle. A Dirichlet series whose coefficients $a_n$ are <strong>multiplicative</strong> — meaning $a_{mn} = a_m a_n$ whenever $\gcd(m,n)=1$, and $a_1 = 1$ — splits as a product indexed by primes:
+$$\sum_{n\ge 1} \frac{a_n}{n^s} \;=\; \prod_{p\text{ prime}} \Bigl(\sum_{k\ge 0} \frac{a_{p^k}}{p^{ks}}\Bigr).$$
+Why? Expand the right side. Unique factorization says every $n \ge 1$ is a finite product $n = p_1^{k_1}\cdots p_r^{k_r}$ in <em>exactly one way</em>, so every term $a_n/n^s$ appears <em>exactly once</em> in the product. That is the entire proof. The <strong>Euler product</strong> is, in Riemann's words, "the analytic form of unique factorization."</p>
+
+<p>If $a_n$ is <strong>completely multiplicative</strong> — $a_{mn} = a_m a_n$ for <em>all</em> $m,n$ — the local factor at $p$ collapses to a geometric series:
+$$\sum_{k\ge 0} \frac{a_p^k}{p^{ks}} \;=\; \frac{1}{1 - a_p/p^s}.$$
+So $\zeta(s)$, with $a_n \equiv 1$ (the identity is completely multiplicative), becomes
+$$\zeta(s) \;=\; \prod_{p}\frac{1}{1-p^{-s}} \qquad (\mathrm{Re}\,s>1).$$
+A statement about factoring integers has become a statement about an analytic function. See <a href="./algebraic-number-theory.html">algebraic-number-theory</a> for why "unique factorization" is the right primitive, and what goes wrong (ideals) when it fails in number rings.</p>
+
+<h3>Sieving the primes out</h3>
+<p>Multiply $\zeta(s)$ by $(1-2^{-s})$: every term whose index is divisible by $2$ cancels, leaving the sum of $1/n^s$ over <em>odd</em> $n$. Multiply by $(1-3^{-s})$: the remaining multiples of $3$ cancel too. Continue over all primes and you are left with $1/1^s = 1$. That is the Euler product rearranged as a sieve:
+$$\zeta(s) \cdot \prod_{p}(1-p^{-s}) \;=\; 1.$$
+Watch the partial sieve converge to $1$.</p>
+
+<div class="widget" id="w-sieve">
+  <div class="hd"><div class="ttl">Sieve: $\zeta(s)\cdot(1-2^{-s})\cdot(1-3^{-s})\cdots \to 1$</div><div class="hint">toggle primes, pick $s$</div></div>
+  <svg id="sv-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="row">
+    <label>$s$</label>
+    <input type="range" id="sv-s" min="1.1" max="3" step="0.05" value="2">
+    <span id="sv-s-val" class="small">s = 2.00</span>
+  </div>
+  <div class="row" id="sv-btns"></div>
+  <div class="readout" id="sv-out"></div>
+</div>
+
+<h3>Euler product vs. partial sum</h3>
+<p>Two different approximations to $\zeta(s)$: the partial sum $\sum_{n\le N} 1/n^s$ and the partial Euler product over primes $\le P$. Both converge to the same limit, but as $s \to 1^+$ the partial product is much slower (it must sieve through increasingly dense multiples).</p>
+
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">Euler product vs. partial sum for $\zeta(s)$</div><div class="hint">drag $N$ or $s$</div></div>
+  <svg id="ep-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="row">
+    <label>cutoff $N$</label>
+    <input type="range" id="ep-N" min="2" max="60" step="1" value="20">
+    <span id="ep-Nv" class="small">N = 20</span>
+  </div>
+  <div class="row">
+    <label>$s$</label>
+    <input type="range" id="ep-s" min="1.2" max="4" step="0.05" value="2">
+    <span id="ep-sv" class="small">s = 2.00</span>
+  </div>
+  <div class="readout" id="ep-out"></div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 3a: sieve =============================== */
+(function(){
+  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');
+  const PRIMES = [2,3,5,7,11,13,17,19,23,29];
+  const active = new Set();
+  const W = 620, H = 240, pad = 40;
+  // init buttons
+  PRIMES.forEach(p => {
+    const b = document.createElement('button');
+    b.textContent = 'p=' + p;
+    b.addEventListener('click', () => {
+      if(active.has(p)) active.delete(p); else active.add(p);
+      b.classList.toggle('active');
+      draw();
+    });
+    btnRow.appendChild(b);
+  });
+
+  function zeta(s){
+    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const s = parseFloat(sRange.value);
+    sVal.textContent = 's = ' + s.toFixed(2);
+    // compute sequence of partial products
+    const Z = zeta(s);
+    const sortedPs = [...active].sort((a,b)=>a-b);
+    const ys = [Z];
+    let cur = Z;
+    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }
+    // draw bars horizontally
+    const maxBars = 11;
+    const n = ys.length;
+    const barW = (W - 2*pad) / maxBars - 6;
+    const y0 = H - pad - 20;
+    const maxY = Math.max(Z, 2);
+    for(let i=0;i<n;i++){
+      const x = pad + i*((W-2*pad)/maxBars);
+      const h = (ys[i]/maxY) * (H - 2*pad - 30);
+      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';
+      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));
+      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';
+      svg.appendChild(t);
+      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});
+      v.textContent = ys[i].toFixed(4);
+      svg.appendChild(v);
+    }
+    // 1-line
+    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);
+    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));
+    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});
+    t.textContent = 'target = 1'; svg.appendChild(t);
+
+    const last = ys[ys.length-1];
+    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;
+  }
+  sRange.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 3b: Euler product vs partial sum =============================== */
+(function(){
+  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');
+  const W = 620, H = 260, pad = 40;
+
+  function isPrime(n){
+    if(n<2) return false;
+    for(let k=2;k*k<=n;k++) if(n%k===0) return false;
+    return true;
+  }
+  function partialSum(s, M){
+    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;
+  }
+  function partialEuler(s, M){
+    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;
+  }
+  function trueZeta(s){ return partialSum(s, 4000); }
+
+  function draw(){
+    svg.innerHTML = '';
+    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);
+    Nv.textContent = 'N = ' + Nm;
+    sVal.textContent = 's = ' + s.toFixed(2);
+
+    const xmin = 2, xmax = Math.max(Nm, 10);
+    const target = trueZeta(s);
+    const ymin = Math.max(0, target*0.5), ymax = target*1.5;
+    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));
+    // target line
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));
+    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});
+    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;
+    svg.appendChild(tl);
+
+    // plot partial sum curve and partial euler curve
+    let dS = '', dE = '';
+    for(let M = 2; M <= xmax; M++){
+      const PS = partialSum(s, M), PE = partialEuler(s, M);
+      const X = toX(M);
+      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';
+      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+
+    // marker at N
+    const Xn = toX(Nm);
+    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);
+    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));
+    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));
+    // legend
+    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});
+    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);
+    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});
+    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);
+
+    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;
+  }
+  N.addEventListener('input', draw);
+  sR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="chars">
+<h2>4. Dirichlet characters and $L$-functions</h2>
+<p>A <strong>Dirichlet character modulo $N$</strong> is a homomorphism
+$$\chi\colon (\mathbb{Z}/N)^\times \;\longrightarrow\; \mathbb{C}^\times,$$
+extended to all of $\mathbb{Z}$ by declaring $\chi(n) = \chi(n \bmod N)$ if $\gcd(n,N)=1$ and $\chi(n)=0$ otherwise. Because the image lands in roots of unity (the group $(\mathbb{Z}/N)^\times$ is finite, so every element has finite order), $|\chi(n)| \le 1$. The <strong>trivial character</strong> $\chi_0$ is $1$ on units and $0$ on non-units; it is not quite the constant $1$ (it picks up the non-units).</p>
+
+<p>Characters are <em>completely multiplicative</em>: $\chi(mn)=\chi(m)\chi(n)$ for all $m,n$. So the associated <strong>Dirichlet $L$-function</strong>
+$$L(s,\chi) \;=\; \sum_{n=1}^\infty \frac{\chi(n)}{n^s}$$
+has an Euler product:
+$$L(s,\chi) \;=\; \prod_p \frac{1}{1-\chi(p)\,p^{-s}} \qquad (\mathrm{Re}\,s > 1).$$
+For $\chi = \chi_0$ mod $N$: the local factor at $p\mid N$ is $1$ (since $\chi_0(p)=0$), everywhere else it is $(1-p^{-s})^{-1}$. So
+$$L(s,\chi_0) \;=\; \zeta(s) \prod_{p\mid N}(1-p^{-s}).$$
+For $\chi \ne \chi_0$, the sum is <em>conditionally</em> convergent for $\mathrm{Re}\,s > 0$ too (the character values are bounded and roughly cancel), so $L(s,\chi)$ extends to the half-plane $\mathrm{Re}\,s > 0$ directly — a smaller miracle than $\zeta$'s full continuation.</p>
+
+<h3>Example: the non-trivial character mod 4</h3>
+<p>Here $(\mathbb{Z}/4)^\times = \{1,3\}$ is cyclic of order $2$. The non-trivial character $\chi_3$ sends $1\mapsto 1$, $3\mapsto -1$:
+$$\chi_3(n) = \begin{cases} +1 & n\equiv 1\pmod 4\\ -1 & n\equiv 3\pmod 4\\ 0 & n\text{ even}\end{cases}$$
+giving the famous Leibniz series:
+$$L(s,\chi_3) \;=\; 1 - \frac{1}{3^s} + \frac{1}{5^s} - \frac{1}{7^s} + \cdots, \qquad L(1,\chi_3) = \frac{\pi}{4}.$$
+That specific identity — evaluating the series at $s=1$ — is a prototype of what class-number formulas compute. See <a href="./quadratic-reciprocity.html">quadratic-reciprocity</a> for how quadratic characters $\left(\tfrac{\cdot}{p}\right)$ fit this framework.</p>
+
+<div class="widget" id="w-chartab">
+  <div class="hd"><div class="ttl">Character table $(\mathbb{Z}/N)^\times$</div><div class="hint">pick $N$</div></div>
+  <div class="row">
+    <label>modulus $N$</label>
+    <select id="ct-N">
+      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>
+    </select>
+    <span id="ct-info" class="small"></span>
+  </div>
+  <div id="ct-table"></div>
+</div>
+
+<div class="widget" id="w-lchi">
+  <div class="hd"><div class="ttl">$L(s,\chi_3)$ — non-trivial character mod 4</div><div class="hint">drag $s$</div></div>
+  <svg id="lc-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="row">
+    <label>$s$</label>
+    <input type="range" id="lc-s" min="0.2" max="4" step="0.02" value="1">
+    <span id="lc-val" class="readout" style="min-width:280px;flex:0 0 auto"></span>
+  </div>
+  <div class="small">At $s=1$: $L(1,\chi_3) = \pi/4 \approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 4a: character table =============================== */
+(function(){
+  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');
+
+  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }
+  function units(N){
+    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;
+  }
+  function orderOf(g, N){
+    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }
+    return k;
+  }
+  function primitiveRoot(N){
+    const U = units(N), phi = U.length;
+    for(const g of U){ if(orderOf(g,N) === phi) return g; }
+    return null; // group is not cyclic (e.g. N=8)
+  }
+  function characters(N){
+    const U = units(N), phi = U.length;
+    const g = primitiveRoot(N);
+    if(g !== null){
+      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}
+      const chis = [];
+      for(let k=0;k<phi;k++){
+        const chi = {};
+        // precompute powers of g
+        let x = 1;
+        for(let j=0;j<phi;j++){
+          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};
+          chi[x] = val;
+          x = (x*g) % N;
+        }
+        chis.push(chi);
+      }
+      return {U, chis};
+    } else {
+      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2
+      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7
+      if(N === 8){
+        const chis = [];
+        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}
+        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};
+        for(let a=0;a<2;a++) for(let b=0;b<2;b++){
+          const chi = {};
+          for(const [u,[i,j]] of Object.entries(table)){
+            const sgn = Math.pow(-1, a*i + b*j);
+            chi[+u] = {re: sgn, im: 0};
+          }
+          chis.push(chi);
+        }
+        return {U, chis};
+      }
+      // fallback: only trivial
+      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};
+      return {U, chis: [chi]};
+    }
+  }
+
+  function fmt(z){
+    const eps = 1e-9;
+    if(Math.abs(z.im) < eps){
+      if(Math.abs(z.re-1) < eps) return '1';
+      if(Math.abs(z.re+1) < eps) return '−1';
+      return z.re.toFixed(3);
+    }
+    if(Math.abs(z.re) < eps){
+      if(Math.abs(z.im-1) < eps) return 'i';
+      if(Math.abs(z.im+1) < eps) return '−i';
+      return z.im.toFixed(3)+'i';
+    }
+    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;
+  }
+
+  function render(){
+    const N = parseInt(NSel.value,10);
+    const {U, chis} = characters(N);
+    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;
+    let html = '<table class="plain"><thead><tr><th>n</th>';
+    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;
+    html += '</tr></thead><tbody>';
+    for(const u of U){
+      html += `<tr><td>${u}</td>`;
+      for(const chi of chis){
+        html += `<td>${fmt(chi[u])}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    out.innerHTML = html;
+  }
+  NSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 4b: L(s, chi_3 mod 4) =============================== */
+(function(){
+  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');
+  const W = 620, H = 260, pad = 40;
+  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;
+  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);
+
+  function Lchi(s){
+    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s
+    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);
+    return S;
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));
+    for(let k=0;k<=4;k++){
+      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+    for(let k=0;k<=1.2;k+=0.2){
+      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent = k.toFixed(1); svg.appendChild(t);
+    }
+    // curve
+    let d = '';
+    const steps = 140;
+    for(let i=0;i<=steps;i++){
+      const s = xmin + (xmax - xmin) * i/steps;
+      const y = Lchi(s);
+      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+
+    // highlight L(1, chi_3) = π/4
+    const X1 = toX(1), Y1 = toY(Math.PI/4);
+    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));
+    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});
+    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);
+
+    // marker
+    const s0 = parseFloat(sR.value);
+    const y0 = Lchi(s0);
+    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));
+    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));
+    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;
+  }
+  sR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="cont">
+<h2>5. Analytic continuation and the functional equation</h2>
+<p>The series $\sum 1/n^s$ only makes sense for $\mathrm{Re}\,s > 1$. But $\zeta$ extends to a meromorphic function on <em>all</em> of $\mathbb{C}$, with a single simple pole at $s=1$. The extension is not merely a technicality — it connects the primes at $\mathrm{Re}\,s > 1$ to the "mirror world" at $\mathrm{Re}\,s < 0$ via a <strong>functional equation</strong>.</p>
+
+<p>Define the <strong>completed zeta</strong>
+$$\Lambda(s) \;=\; \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s).$$
+The factor $\pi^{-s/2}\Gamma(s/2)$ is the "archimedean Euler factor" at the prime at infinity — each prime, including the archimedean one, contributes. The functional equation reads:
+$$\boxed{\;\Lambda(s) \;=\; \Lambda(1-s).\;}$$</p>
+
+<h3>Sketch of Riemann's contour argument</h3>
+<p>Riemann starts from $\Gamma(s/2)\pi^{-s/2} n^{-s} = \int_0^\infty x^{s/2-1} e^{-\pi n^2 x}\,dx$ (a scaled gamma integral). Summing over $n$ and interchanging:
+$$\Lambda(s) \;=\; \int_0^\infty x^{s/2-1} \Bigl(\sum_{n\ge 1} e^{-\pi n^2 x}\Bigr) dx \;=\; \int_0^\infty x^{s/2-1}\, \tfrac{\theta(x) - 1}{2}\, dx,$$
+where $\theta(x) = \sum_{n\in\mathbb{Z}} e^{-\pi n^2 x}$ is the Jacobi theta function. The <strong>key fact</strong> is the modular transformation
+$$\theta(1/x) \;=\; \sqrt{x}\,\theta(x)$$
+(a consequence of Poisson summation). Split the integral at $x=1$, apply $\theta(1/x) = \sqrt x\, \theta(x)$ to the $[0,1]$ half, and the symmetry $s \leftrightarrow 1-s$ drops out after an elementary substitution. The formula also exhibits $\Lambda$ as meromorphic on $\mathbb{C}$ with simple poles only at $s=0$ and $s=1$ (so $\zeta$ has only the pole at $s=1$; the one at $0$ is eaten by $\Gamma(s/2)$).</p>
+
+<div class="widget" id="w-funceq">
+  <div class="hd"><div class="ttl">Reflection $s \leftrightarrow 1-s$</div><div class="hint">drag $s$ on the critical line's axis</div></div>
+  <svg id="fe-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="row">
+    <label>$s$ (real part)</label>
+    <input type="range" id="fe-s" min="-3" max="4" step="0.05" value="2.5">
+    <span id="fe-sv" class="readout" style="min-width:280px;flex:0 0 auto"></span>
+  </div>
+  <div class="small">Blue = $s$; yellow = $1-s$. The critical line $\mathrm{Re}\,s = 1/2$ is fixed by $s\mapsto 1-s$.</div>
+</div>
+
+<div class="ok"><strong>Why this matters.</strong> The functional equation trades knowledge of $\zeta$ on $\mathrm{Re}\,s > 1$ (where we have convergence) for knowledge on $\mathrm{Re}\,s < 0$. The "critical strip" $0 \le \mathrm{Re}\,s \le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\mathrm{Re}\,s = 1/2$.</div>
+
+<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a "root number" $W(\chi)$ (a complex number of absolute value $1$) appearing:
+$$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p>
+</section>
+
+<script>
+/* =============================== SECTION 5 widget =============================== */
+(function(){
+  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');
+  const W = 620, H = 240, pad = 40;
+  const xmin = -3.5, xmax = 4.5;
+  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+  const yMid = H/2;
+
+  function draw(){
+    svg.innerHTML = '';
+    // axis
+    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));
+    for(let k=-3;k<=4;k++){
+      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+    // strip 0..1
+    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));
+    // critical line x=1/2
+    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));
+    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});
+    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);
+    // pole at s=1
+    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));
+    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
+    pt.textContent = 'pole'; svg.appendChild(pt);
+
+    const s = parseFloat(sR.value);
+    const ref = 1 - s;
+    // s
+    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));
+    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});
+    ts.textContent = 's'; svg.appendChild(ts);
+    // 1-s
+    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));
+    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});
+    tr.textContent = '1−s'; svg.appendChild(tr);
+    // reflection arrow
+    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {
+      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8
+    });
+
+    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;
+  }
+  sR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="dir">
+<h2>6. Dirichlet's theorem: primes in arithmetic progressions</h2>
+<p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\gcd(a,N) = 1$, then there are infinitely many primes $p$ with $p \equiv a \pmod N$.</em></p>
+
+<p>Euclid showed infinitely many primes by evaluating $\zeta(s)$ at $s=1$ and watching it blow up. Dirichlet's theorem refines this: not just "infinitely many primes" but "infinitely many primes in <em>each</em> residue class coprime to $N$." The proof runs on $L$-functions.</p>
+
+<p>Recall the Euler product
+$$L(s,\chi) \;=\; \prod_p \bigl(1-\chi(p)p^{-s}\bigr)^{-1} \quad\Longrightarrow\quad \log L(s,\chi) \;=\; \sum_p \frac{\chi(p)}{p^s} + O(1)$$
+as $s \to 1^+$ (the $O(1)$ absorbs the convergent higher-power terms). Using orthogonality of characters — $\frac{1}{\varphi(N)}\sum_\chi \overline{\chi(a)}\chi(p) = \mathbf{1}[p \equiv a]$ — we pick out residues:
+$$\sum_{p \equiv a\,(N)} \frac{1}{p^s} \;=\; \frac{1}{\varphi(N)} \sum_\chi \overline{\chi(a)}\,\log L(s,\chi) + O(1).$$
+The trivial character contributes $\log L(s,\chi_0) = \log \zeta(s) + O(1) \to +\infty$ as $s \to 1^+$ (that is Euclid's divergence). If we can show each <strong>non-trivial</strong> $\log L(s,\chi)$ stays <em>bounded</em> as $s\to 1^+$, then the main term diverges at the rate $\frac{1}{\varphi(N)}\log\zeta(s)$, forcing the residue-class sum $\sum_{p\equiv a} 1/p^s$ to diverge — hence infinitely many such primes.</p>
+
+<h3>The crucial non-vanishing</h3>
+<p>"$\log L(s,\chi)$ stays bounded as $s\to 1^+$" is equivalent to
+$$\boxed{\;L(1,\chi) \ne 0 \text{ and } L(1,\chi) \text{ is finite for every } \chi \ne \chi_0.\;}$$
+Finiteness is easy (the conditionally convergent series $\sum \chi(n)/n$ converges). Non-vanishing is the hard part. For complex characters it follows from comparing to $\zeta$; for real non-trivial characters it requires genuinely new ideas — one slick route uses the fact that the class number of a related quadratic field is positive.</p>
+
+<p>The theorem has a quantitative refinement: <strong>primes are equidistributed</strong> among the $\varphi(N)$ allowed residue classes. The counting function $\pi(x; N, a) = \#\{p \le x : p \equiv a \pmod N\}$ satisfies
+$$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)=1).$$</p>
+
+<div class="widget" id="w-apprimes">
+  <div class="hd"><div class="ttl">$\pi(x;4,1)$ vs. $\pi(x;4,3)$</div><div class="hint">primes $\equiv 1$ vs. $\equiv 3 \pmod 4$</div></div>
+  <svg id="ap-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="row">
+    <label>$x$</label>
+    <input type="range" id="ap-x" min="20" max="2000" step="20" value="500">
+    <span id="ap-xv" class="small">x = 500</span>
+  </div>
+  <div class="readout" id="ap-out"></div>
+  <div class="small">Chebyshev's bias: $\pi(x;4,3)$ tends to <em>slightly</em> lead $\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\to \infty$ at the same rate $x/(2\log x)$.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 6 widget =============================== */
+(function(){
+  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');
+  const W = 620, H = 300, pad = 40;
+
+  function sieve(N){
+    const comp = new Uint8Array(N+1);
+    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;
+    const primes = [];
+    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);
+    return primes;
+  }
+  const PRIMES = sieve(2000);
+
+  function draw(){
+    svg.innerHTML = '';
+    const X = parseInt(xR.value, 10);
+    xv.textContent = 'x = ' + X;
+    // counts up through X
+    const xs = [], c1 = [], c3 = [];
+    const step = Math.max(1, Math.floor(X/80));
+    let n1 = 0, n3 = 0;
+    for(let p=2;p<=X;p++){
+      if(PRIMES.indexOf(p) !== -1){
+        if(p%4===1) n1++;
+        else if(p%4===3) n3++;
+      }
+      if(p%step===0 || p===X){
+        xs.push(p); c1.push(n1); c3.push(n3);
+      }
+    }
+    const ymax = Math.max(n1, n3, 5) * 1.15;
+    const toX = x => pad + x/X*(W-2*pad);
+    const toY = y => H - pad - y/ymax*(H-2*pad);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));
+    // curves
+    let d1 = '', d3 = '';
+    for(let i=0;i<xs.length;i++){
+      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';
+      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // asymptote x/(2 log x)
+    let dA = '';
+    for(let i=1;i<xs.length;i++){
+      const y = xs[i] / (2*Math.log(xs[i]));
+      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));
+
+    // legends
+    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});
+    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);
+    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});
+    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);
+    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});
+    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);
+
+    // ticks
+    for(let k=0;k<=5;k++){
+      const v = Math.round(X*k/5);
+      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = v; svg.appendChild(t);
+    }
+
+    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;
+  }
+  xR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="forward">
+<h2>7. What comes next</h2>
+<p>Once you believe a Dirichlet series encodes arithmetic into analysis, and an Euler product encodes unique factorization into geometry, you can ask the same questions of other arithmetic objects.</p>
+
+<ul>
+  <li><strong>$L$-functions of modular forms.</strong> A modular form $f = \sum a_n q^n$ produces a Dirichlet series $L(f,s) = \sum a_n / n^s$. When $f$ is a Hecke eigenform, $L(f,s)$ has an Euler product — the Hecke eigenvalues at primes $p$ become the local factor.</li>
+  <li><strong>$L$-functions of elliptic curves.</strong> An elliptic curve $E/\mathbb{Q}$ gives $L(E,s) = \prod_p L_p(E,s)^{-1}$, where $L_p(E,s) = 1 - a_p p^{-s} + p^{1-2s}$ and $a_p = p+1 - \#E(\mathbb{F}_p)$ is the error in counting points mod $p$. See the <a href="./elliptic-curves.html">elliptic-curves</a> page.</li>
+  <li><strong>Modularity.</strong> The deep theorem at the heart of this circle (Wiles, Breuil–Conrad–Diamond–Taylor): every $L(E,s)$ is also the $L$-function of a weight-$2$ modular form. Analytic continuation for $L(E,s)$ is then automatic.</li>
+  <li><strong>BSD.</strong> The Birch–Swinnerton-Dyer conjecture predicts that the rank of $E(\mathbb{Q})$ equals the order of vanishing of $L(E,s)$ at $s=1$. It is the modern analogue of Dirichlet's $L(1,\chi) \ne 0$.</li>
+</ul>
+
+<p>Each of these moves promotes a finite-dimensional arithmetic quantity (a class number, a rank, a point count) into a question about zeros and residues of a generating Dirichlet series.</p>
+
+<div class="note">Adjacent reading in this notebook:
+<a href="./complex-analysis.html">complex-analysis</a> (poles, residues, meromorphic continuation) ·
+<a href="./algebraic-number-theory.html">algebraic-number-theory</a> (unique factorization into ideals, class numbers) ·
+<a href="./quadratic-reciprocity.html">quadratic-reciprocity</a> (quadratic characters as Dirichlet characters) ·
+<a href="./elliptic-curves.html">elliptic-curves</a> (where the whole story lands) ·
+<a href="./p-adic-numbers.html">p-adic-numbers</a> (why Euler factors are "local at $p$").</div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

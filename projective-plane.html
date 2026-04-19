@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The projective plane — where parallel lines meet</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  @media (max-width:680px){ .grid2{grid-template-columns:1fr} }
+  .chartbox{background:#0b0f16;border:1px solid var(--line);border-radius:8px;padding:.5rem;cursor:pointer;
+    transition:border-color 120ms ease}
+  .chartbox.sel{border-color:var(--yellow)}
+  .chartbox .lbl{font-size:.78rem;color:var(--mute);text-align:center;margin-bottom:.2rem;letter-spacing:.05em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#meet">1&nbsp;Where&nbsp;parallel&nbsp;lines&nbsp;meet</a>
+  <a href="#defn">2&nbsp;Definition&nbsp;of&nbsp;P²</a>
+  <a href="#charts">3&nbsp;Affine&nbsp;charts</a>
+  <a href="#infty">4&nbsp;Line&nbsp;at&nbsp;infinity</a>
+  <a href="#homog">5&nbsp;Homogenization</a>
+  <a href="#pgl">6&nbsp;Projective&nbsp;transformations</a>
+  <a href="#why">7&nbsp;Why&nbsp;projective?</a>
+  <a href="#higher">8&nbsp;RP²&nbsp;and&nbsp;CP²</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>The projective plane</h1>
+  <p class="sub">Add one point for each direction and the world snaps into place: parallel lines meet, every two conics intersect in four points, and the elliptic curve grows an inflection point at infinity. A working tour of $\mathbb{P}^2$.</p>
+</section>
+
+<section id="meet">
+<h2>1. Where parallel lines meet</h2>
+<p>Stand on a long straight road. The two rails of a railway track, which you know are parallel, appear to meet at a single point on the horizon. A Renaissance painter calls this the <em>vanishing point</em>; a projective geometer calls it a <strong>point at infinity</strong>.</p>
+<p>The thought experiment generalizes. In the affine plane $\mathbb{A}^2$ a family of parallel lines (all of slope $m$, say) refuses to meet — and we declare this an inconvenience to be fixed. Add one new "ideal" point $\infty_m$ for each direction $m\in\mathbb{R}\cup\{\infty\}$, and decree that every line of slope $m$ passes through $\infty_m$. Two lines of the same slope now meet there; two lines of different slopes meet in the usual finite point. Every pair of distinct lines now meets in exactly one point.</p>
+<p>The collection of all the new points $\{\infty_m\}$ forms a single new "line" — the <strong>line at infinity</strong> $\ell_\infty$. Affine plane plus line at infinity equals projective plane.</p>
+
+<div class="widget" id="w-meet">
+  <div class="hd"><div class="ttl">Two parallel lines meeting at infinity</div><div class="hint">drag the slider — zoom out toward the horizon</div></div>
+  <svg id="meet-svg" viewBox="0 0 760 320" width="760" height="320"></svg>
+  <div class="row">
+    <label>zoom out</label>
+    <input type="range" id="meet-z" min="0" max="100" value="0">
+    <span class="small" id="meet-info"></span>
+  </div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 1 widget: parallel lines meeting at horizon ============ */
+(function(){
+  const svg = $('#meet-svg'), z = $('#meet-z'), info = $('#meet-info');
+  const W=760, H=320;
+  function render(){
+    svg.innerHTML = '';
+    const t = +z.value / 100;            // 0 = affine, 1 = full perspective
+    // affine plane drawn as a strip; perspective adds vanishing toward center
+    // two parallel lines: y = 0.4 and y = -0.4, slope 0
+    // we render them as quadrilaterals in screen space.
+    const cx = W/2, cy = H*0.42;          // vanishing point on horizon
+    // horizon line
+    const hY = cy;
+    if(t > 0.05){
+      svg.appendChild(SVG('line',{x1:0,y1:hY,x2:W,y2:hY,stroke:'var(--line)','stroke-dasharray':'4 6','stroke-width':1.2}));
+      const tx = SVG('text',{x:W-10,y:hY-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+      tx.textContent = 'line at infinity ℓ∞';
+      svg.appendChild(tx);
+    }
+    // line A (top) and line B (bottom) in affine coords y = +/- 1
+    // pixel y at horizontal x with depth d in [0,1]: lines diverge to the edges as d->0 and converge to vanishing point as d->1
+    function project(s, yAff){
+      // s in [-1,1] is along the rail; depth = (s+1)/2 * (1 - t) + t
+      // when t=0 we have flat parallel lines; when t=1 they go to vanishing point.
+      const screenX = cx + s * (W*0.46);
+      // affine y: at t=0, y stays the same vertical separation (yAff*40)
+      // at t=1, y collapses to (cy) at far end (s=1) and stays full at near end (s=-1)
+      const farFrac = (s + 1) / 2;   // 0 at front, 1 at back
+      // sep at this x: linearly interpolate from yAff*60 (front) to yAff*60*(1-t*farFrac)
+      const sep = yAff * 60 * (1 - t * farFrac);
+      const baseY = H*0.78;
+      const screenY = baseY + sep - (baseY - hY) * t * farFrac;
+      return [screenX, screenY];
+    }
+    function rail(yAff, color){
+      const pts = [];
+      for(let i=0;i<=40;i++){
+        const s = -1 + 2*i/40;
+        pts.push(project(s, yAff).join(','));
+      }
+      const pl = SVG('polyline',{points:pts.join(' '),stroke:color,'stroke-width':2,fill:'none'});
+      svg.appendChild(pl);
+    }
+    // sleepers (cross ties) for visual flair when zooming out
+    if(t > 0.15){
+      for(let i=1;i<=8;i++){
+        const s = -0.95 + 1.9*i/9;
+        const a = project(s, 1), b = project(s, -1);
+        svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#3a4252','stroke-width':1}));
+      }
+    }
+    rail(1,  'var(--blue)');
+    rail(-1, 'var(--green)');
+    // mark the meeting point at the vanishing point as we zoom out
+    if(t > 0.6){
+      const op = Math.min(1, (t-0.6)/0.3);
+      svg.appendChild(SVG('circle',{cx:cx,cy:hY,r:6,fill:'var(--yellow)','fill-opacity':op}));
+      const tx = SVG('text',{x:cx+12,y:hY-10,'font-size':13,fill:'var(--yellow)','fill-opacity':op});
+      tx.textContent = '[1:0:0]  — point at infinity for slope 0';
+      svg.appendChild(tx);
+    }
+    // labels
+    const lbl1 = SVG('text',{x:30,y:H*0.78+62,'font-size':12,fill:'var(--blue)'}); lbl1.textContent = 'y = +1';
+    const lbl2 = SVG('text',{x:30,y:H*0.78-50,'font-size':12,fill:'var(--green)'}); lbl2.textContent = 'y = −1';
+    svg.appendChild(lbl1); svg.appendChild(lbl2);
+    info.textContent = t < 0.05 ? 'affine view: parallel lines never meet' :
+                       t < 0.95 ? 'perspective view forming…' :
+                                  'projective view: both lines pass through the same point on ℓ∞';
+  }
+  z.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="defn">
+<h2>2. Definition of $\mathbb{P}^2(K)$</h2>
+<p>Fix a field $K$. The <strong>projective plane over $K$</strong> is the quotient
+$$\mathbb{P}^2(K) \;=\; (K^3 \setminus \{0\}) / {\sim}, \qquad (X,Y,Z) \sim (\lambda X, \lambda Y, \lambda Z) \text{ for } \lambda \in K^\times.$$
+A point $[X:Y:Z]$ is the equivalence class — the colon notation reminds you that only the <em>ratio</em> matters. These are the <em>homogeneous coordinates</em>.</p>
+
+<p>Equivalently, $\mathbb{P}^2(K)$ is the set of <strong>lines through the origin in $K^3$</strong>: each non-zero $(X,Y,Z)$ spans a one-dimensional subspace, and rescaling by $\lambda$ doesn't change the line.</p>
+
+<div class="note"><strong>Same idea, two pictures.</strong>
+<ul style="margin:.4rem 0">
+<li>Quotient: the points are equivalence classes of triples up to common scaling.</li>
+<li>Geometric: the points are lines through the origin in $K^3$.</li>
+</ul>
+A "point" of $\mathbb{P}^2$ is a 1-dimensional linear subspace of $K^3$. A "line" of $\mathbb{P}^2$ is a 2-dimensional linear subspace of $K^3$, i.e.\ a plane through the origin, cut out by a single homogeneous linear equation $aX+bY+cZ=0$.</div>
+
+<p>Two points determine a unique line and two distinct lines determine a unique point. (In linear-algebra terms: two distinct 1D subspaces span a unique 2D subspace; two distinct 2D subspaces in $K^3$ intersect in a unique 1D subspace.) <em>No exceptions, no parallels.</em></p>
+
+<div class="widget" id="w-defn">
+  <div class="hd"><div class="ttl">A line through the origin = a point of P²</div><div class="hint">drag the line direction</div></div>
+  <svg id="defn-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="readout" id="defn-out"></div>
+  <div class="row">
+    <label>X</label><input type="range" id="defn-x" min="-100" max="100" value="60">
+    <label>Y</label><input type="range" id="defn-y" min="-100" max="100" value="40">
+    <label>Z</label><input type="range" id="defn-z" min="-100" max="100" value="80">
+  </div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 2 widget: line through origin in K^3 = point of P^2 ============ */
+(function(){
+  const svg = $('#defn-svg'), out = $('#defn-out');
+  const xR = $('#defn-x'), yR = $('#defn-y'), zR = $('#defn-z');
+  const cx = 310, cy = 150;
+  // simple oblique projection of (X,Y,Z) -> screen
+  // axes: X right, Y up, Z down-left
+  function P(X,Y,Z){
+    return [cx + X*1.6 - Z*0.7, cy - Y*1.4 + Z*0.4];
+  }
+  function render(){
+    svg.innerHTML = '';
+    // axes
+    function axis(p1, p2, color, label, lp){
+      svg.appendChild(SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:color,'stroke-width':1,'stroke-dasharray':'3 4'}));
+      const t = SVG('text',{x:lp[0],y:lp[1],'font-size':12,fill:color}); t.textContent = label; svg.appendChild(t);
+    }
+    axis(P(-130,0,0), P(130,0,0), 'var(--mute)', 'X', P(140,0,0));
+    axis(P(0,-90,0), P(0,90,0), 'var(--mute)', 'Y', P(0,98,0));
+    axis(P(0,0,-110), P(0,0,110), 'var(--mute)', 'Z', P(0,0,118));
+    // the line through origin spanned by (X,Y,Z)
+    const X = +xR.value, Y = +yR.value, Z = +zR.value;
+    if(X===0 && Y===0 && Z===0){ out.textContent = 'origin not allowed'; return; }
+    const k = 1.4;
+    const a = P(-X*k, -Y*k, -Z*k), b = P(X*k, Y*k, Z*k);
+    svg.appendChild(SVG('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'var(--yellow)','stroke-width':2.5}));
+    // origin
+    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--ink)'}));
+    // a representative point on the line
+    const r = P(X,Y,Z);
+    svg.appendChild(SVG('circle',{cx:r[0],cy:r[1],r:5,fill:'var(--blue)'}));
+    const txt = SVG('text',{x:r[0]+8,y:r[1]-6,'font-size':12,fill:'var(--blue)'});
+    txt.textContent = `(${X},${Y},${Z})`;
+    svg.appendChild(txt);
+    // a different scalar multiple
+    const r2 = P(X*0.4, Y*0.4, Z*0.4);
+    svg.appendChild(SVG('circle',{cx:r2[0],cy:r2[1],r:4,fill:'var(--green)'}));
+    const t2 = SVG('text',{x:r2[0]+8,y:r2[1]+12,'font-size':12,fill:'var(--green)'});
+    t2.textContent = `(0.4·X, 0.4·Y, 0.4·Z)`;
+    svg.appendChild(t2);
+    out.textContent = `[X : Y : Z] = [${X} : ${Y} : ${Z}]   — same point of P² as any non-zero scalar multiple`;
+  }
+  [xR,yR,zR].forEach(r => r.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<section id="charts">
+<h2>3. Affine charts</h2>
+<p>$\mathbb{P}^2$ is built from three overlapping copies of $K^2$. Let
+$$U_Z = \{[X:Y:Z]\in\mathbb{P}^2 : Z \ne 0\}.$$
+The map
+$$\varphi_Z\colon U_Z \xrightarrow{\;\sim\;} K^2, \qquad [X:Y:Z] \mapsto (X/Z,\, Y/Z)$$
+is a bijection: in any equivalence class with $Z\ne 0$ choose the representative with $Z = 1$, namely $[X/Z : Y/Z : 1]$. The first two coordinates give a point of $K^2$, and conversely every $(x,y)\in K^2$ comes from $[x:y:1]$.</p>
+<p>The same construction with $X$ or $Y$ in the role of $Z$ gives charts $\varphi_X\colon U_X \to K^2$ and $\varphi_Y\colon U_Y \to K^2$. Together $U_X \cup U_Y \cup U_Z = \mathbb{P}^2$ (every point has at least one nonzero coordinate), so $\mathbb{P}^2$ is covered by three "affine patches."</p>
+
+<h3>Transition maps</h3>
+<p>On the overlap $U_Y \cap U_Z = \{Y \ne 0,\, Z \ne 0\}$ the change of coordinates is
+$$\varphi_Z \circ \varphi_Y^{-1}\colon (u, w) \;\mapsto\; \bigl(u/w,\; 1/w\bigr),$$
+where $(u,w) = (X/Y, Z/Y)$ on the $Y$-chart and $(x,y) = (X/Z, Y/Z) = (u/w, 1/w)$ on the $Z$-chart. These rational transition maps are the prototype of <em>algebraic-geometric gluing</em>: $\mathbb{P}^2$ is a scheme glued from three copies of $\mathbb{A}^2$.</p>
+
+<table class="plain">
+<thead><tr><th>chart</th><th>condition</th><th>$\varphi$</th><th>standard rep.</th></tr></thead>
+<tbody>
+<tr><td>$U_X$</td><td>$X\ne 0$</td><td>$[X:Y:Z]\mapsto (Y/X, Z/X)$</td><td>$[1:y:z]$</td></tr>
+<tr><td>$U_Y$</td><td>$Y\ne 0$</td><td>$[X:Y:Z]\mapsto (X/Y, Z/Y)$</td><td>$[x:1:z]$</td></tr>
+<tr><td>$U_Z$</td><td>$Z\ne 0$</td><td>$[X:Y:Z]\mapsto (X/Z, Y/Z)$</td><td>$[x:y:1]$</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-charts">
+  <div class="hd"><div class="ttl">Three-chart viewer · the projective conic X² + Y² = Z²</div><div class="hint">click a chart to highlight</div></div>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="chartbox" data-c="Z"><div class="lbl">U_Z chart  (Z=1)</div><svg id="ch-z" viewBox="0 0 220 200" width="220" height="200"></svg></div>
+    <div class="chartbox" data-c="Y"><div class="lbl">U_Y chart  (Y=1)</div><svg id="ch-y" viewBox="0 0 220 200" width="220" height="200"></svg></div>
+    <div class="chartbox" data-c="X"><div class="lbl">U_X chart  (X=1)</div><svg id="ch-x" viewBox="0 0 220 200" width="220" height="200"></svg></div>
+  </div>
+  <div class="readout" id="ch-out" style="margin-top:.6rem">click a chart for its dehomogenized equation and the points "at infinity" relative to that chart.</div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 3 widget: three-chart viewer for X²+Y²=Z² ============ */
+(function(){
+  function plot(svgId, eqFn, infoXY){
+    // eqFn(x,y) -> 0 plotted in [-3,3] x [-3,3] using marching grid
+    const svg = $('#'+svgId);
+    svg.innerHTML = '';
+    const W=220, H=200;
+    const ox = W/2, oy = H/2, sc = 30;
+    // grid axes
+    svg.appendChild(SVG('line',{x1:0,y1:oy,x2:W,y2:oy,stroke:'#2a3242','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ox,y1:0,x2:ox,y2:H,stroke:'#2a3242','stroke-width':1}));
+    // sample contour by sweeping x and finding y by approximate isolines
+    // For these small finite curves we just plot polyline samples directly with parametric forms below.
+    return svg;
+  }
+  function drawCircleConic(svgId, color){
+    const svg = plot(svgId);
+    const W=220, H=200, ox=W/2, oy=H/2, sc=50;
+    const pts = [];
+    for(let i=0;i<=120;i++){
+      const t = 2*Math.PI*i/120;
+      pts.push((ox + Math.cos(t)*sc) + ',' + (oy - Math.sin(t)*sc));
+    }
+    svg.appendChild(SVG('polyline',{points:pts.join(' '),stroke:color,'stroke-width':2,fill:'none'}));
+    // axis labels
+    const lx = SVG('text',{x:W-10,y:oy-4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); lx.textContent='x'; svg.appendChild(lx);
+    const ly = SVG('text',{x:ox+4,y:10,'font-size':10,fill:'var(--mute)'}); ly.textContent='y'; svg.appendChild(ly);
+  }
+  function drawHyperbolaConic(svgId, color, sign){
+    // Z=1: x²+y²=1 (circle).  Y=1: x²+1=z² → z²-x²=1 hyperbola.  X=1: 1+y²=z² same.
+    const svg = plot(svgId);
+    const W=220, H=200, ox=W/2, oy=H/2, sc=40;
+    // hyperbola z²-x²=1 → z=±sqrt(1+x²)
+    for(const sgn of [1,-1]){
+      const pts = [];
+      for(let i=0;i<=80;i++){
+        const x = -2 + 4*i/80;
+        const z = sgn*Math.sqrt(1 + x*x);
+        const sx = ox + x*sc, sy = oy - z*sc;
+        if(sy>=0 && sy<=H) pts.push(sx+','+sy);
+      }
+      svg.appendChild(SVG('polyline',{points:pts.join(' '),stroke:color,'stroke-width':2,fill:'none'}));
+    }
+    // asymptotes (these correspond to points at infinity)
+    for(const m of [1,-1]){
+      svg.appendChild(SVG('line',{x1:0, y1:oy + ox*m, x2:W, y2:oy - (W-ox)*m, stroke:'#444a5e','stroke-width':1,'stroke-dasharray':'3 4'}));
+    }
+    const lx = SVG('text',{x:W-10,y:oy-4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); lx.textContent='1st coord'; svg.appendChild(lx);
+    const ly = SVG('text',{x:ox+4,y:10,'font-size':10,fill:'var(--mute)'}); ly.textContent='2nd coord'; svg.appendChild(ly);
+  }
+  drawCircleConic('ch-z', 'var(--blue)');
+  drawHyperbolaConic('ch-y', 'var(--green)');
+  drawHyperbolaConic('ch-x', 'var(--pink)');
+
+  const out = $('#ch-out');
+  const boxes = $$('.chartbox');
+  const txts = {
+    Z: 'U_Z (Z=1):  x² + y² = 1.   Compact circle.   Points at infinity from this chart: [X:Y:0] with X²+Y²=0, i.e. only [1:i:0] and [1:-i:0] over C — none over R.',
+    Y: 'U_Y (Y=1):  x² + 1 = z²,  i.e. z² − x² = 1.   Hyperbola.   The two missing points are where Y=0: [1:0:1] and [1:0:-1] are visible here, and [1:0:0] (the X-axis direction) is at infinity in this chart.',
+    X: 'U_X (X=1):  1 + y² = z²,  i.e. z² − y² = 1.   Same hyperbola, different chart.   [0:1:0] (the Y-axis direction) is at infinity here.'
+  };
+  function pick(c){
+    boxes.forEach(b => b.classList.toggle('sel', b.dataset.c === c));
+    out.textContent = txts[c];
+  }
+  boxes.forEach(b => b.addEventListener('click', () => pick(b.dataset.c)));
+  pick('Z');
+})();
+</script>
+
+<section id="infty">
+<h2>4. The line at infinity</h2>
+<p>Fix the chart $U_Z$. Its complement is $\{Z = 0\}$, the locus of all points $[X:Y:0]$ with $(X,Y) \ne (0,0)$. As $X,Y$ range over non-zero pairs, the equivalence class $[X:Y:0]$ depends only on the ratio $X:Y$ — so this complement is itself a copy of $\mathbb{P}^1(K)$, the <strong>line at infinity</strong> $\ell_\infty^{(Z)}$.</p>
+
+<p>Now interpret a direction in the affine chart. A line in $K^2$ with direction vector $(a,b)$ has parametrization $(x,y) = (x_0 + ta, y_0 + tb)$. Lifting to homogeneous coordinates,
+$$[x:y:1] \;=\; [x_0 + ta : y_0 + tb : 1].$$
+Multiplying by $1/t$ and letting $t\to\infty$,
+$$[x_0/t + a : y_0/t + b : 1/t] \;\longrightarrow\; [a : b : 0].$$
+So <em>every line of direction $(a,b)$ passes through the point $[a:b:0]\in\ell_\infty$</em>, regardless of where the line sits in the plane. Two parallel lines (same $(a,b)$ up to scale) meet at this single point at infinity. Two non-parallel lines have different $(a,b)$ and so meet at different points of $\ell_\infty$ — hence at a finite point of $\mathbb{A}^2$.</p>
+
+<div class="ok"><strong>Bookkeeping.</strong> $\mathbb{P}^2 = \mathbb{A}^2 \sqcup \ell_\infty = K^2 \sqcup \mathbb{P}^1(K)$. The cardinalities check out (over $\mathbb{F}_q$): $|\mathbb{P}^2(\mathbb{F}_q)| = q^2 + q + 1 = q^2 + (q+1)$.</div>
+
+<div class="widget" id="w-dir">
+  <div class="hd"><div class="ttl">Direction in A² ↔ point on ℓ∞</div><div class="hint">drag the arrow</div></div>
+  <svg id="dir-svg" viewBox="0 0 720 300" width="720" height="300"></svg>
+  <div class="readout" id="dir-out"></div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 4 widget W6: direction-as-point-at-infinity ============ */
+(function(){
+  const svg = $('#dir-svg'), out = $('#dir-out');
+  const W=720, H=300;
+  // left panel: affine A^2 with several parallel lines of given direction
+  // right panel: a circle representing ℓ∞ (= P^1(R) ≅ S^1/{±1}); the point [a:b:0] = direction (a,b) up to sign
+  const Lcx=180, Lcy=150, Lr=120;     // affine viewport center
+  const Rcx=540, Rcy=150, Rr=110;     // circle for ℓ∞
+  let theta = 0.7;
+  function render(){
+    svg.innerHTML = '';
+    // panel borders / titles
+    const t1 = SVG('text',{x:Lcx,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t1.textContent = 'affine plane A²: parallel family of slope tan(θ)';
+    const t2 = SVG('text',{x:Rcx,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t2.textContent = 'line at infinity ℓ∞ ≅ P¹(R) (antipodal points identified)';
+    svg.appendChild(t1); svg.appendChild(t2);
+    // left: axes
+    svg.appendChild(SVG('line',{x1:Lcx-Lr,y1:Lcy,x2:Lcx+Lr,y2:Lcy,stroke:'#2a3242'}));
+    svg.appendChild(SVG('line',{x1:Lcx,y1:Lcy-Lr,x2:Lcx,y2:Lcy+Lr,stroke:'#2a3242'}));
+    // a few parallel lines through different points
+    const a = Math.cos(theta), b = Math.sin(theta);
+    for(let k=-3;k<=3;k++){
+      // line through (k*Lr/4, 0) (perpendicular offset) with direction (a,b)
+      // Use perpendicular offset
+      const px = -b * (k*22), py = a * (k*22);
+      const x1 = Lcx + px - a*Lr, y1 = Lcy - (py - b*Lr);
+      const x2 = Lcx + px + a*Lr, y2 = Lcy - (py + b*Lr);
+      svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke: k===0 ? 'var(--yellow)' : 'var(--blue)','stroke-width': k===0 ? 2 : 1.2,'stroke-opacity': k===0 ? 1 : 0.55}));
+    }
+    // direction arrow
+    const ax = Lcx + a*Lr*0.55, ay = Lcy - b*Lr*0.55;
+    drawArrow(svg, [Lcx, Lcy], [ax, ay], {color:'var(--yellow)', markerId:'dir-mk', width:2, pad1:0, pad2:6});
+    // right: circle
+    svg.appendChild(SVG('circle',{cx:Rcx,cy:Rcy,r:Rr,fill:'none',stroke:'var(--mute)','stroke-dasharray':'4 5'}));
+    // axes
+    svg.appendChild(SVG('line',{x1:Rcx-Rr-10,y1:Rcy,x2:Rcx+Rr+10,y2:Rcy,stroke:'#2a3242'}));
+    svg.appendChild(SVG('line',{x1:Rcx,y1:Rcy-Rr-10,x2:Rcx,y2:Rcy+Rr+10,stroke:'#2a3242'}));
+    // antipodal pair representing the SAME projective point
+    const px = Rcx + a*Rr, py = Rcy - b*Rr;
+    const qx = Rcx - a*Rr, qy = Rcy + b*Rr;
+    svg.appendChild(SVG('line',{x1:px,y1:py,x2:qx,y2:qy,stroke:'var(--yellow)','stroke-width':1.2,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:6,fill:'var(--yellow)'}));
+    svg.appendChild(SVG('circle',{cx:qx,cy:qy,r:6,fill:'var(--yellow)','fill-opacity':0.6}));
+    const lab = SVG('text',{x:px+10,y:py-6,'font-size':12,fill:'var(--yellow)'});
+    lab.textContent = `[${a.toFixed(2)} : ${b.toFixed(2)} : 0]`;
+    svg.appendChild(lab);
+    out.textContent = `direction = (${a.toFixed(3)}, ${b.toFixed(3)})   →   point at infinity  [${a.toFixed(3)} : ${b.toFixed(3)} : 0].   (a,b) and −(a,b) name the same projective point.`;
+  }
+  // dragging on the right circle controls θ
+  function fromEvt(ev){
+    const rect = svg.getBoundingClientRect();
+    const sx = (ev.clientX - rect.left) * (W/rect.width);
+    const sy = (ev.clientY - rect.top) * (H/rect.height);
+    // if near right panel, set theta
+    if(sx > 400){
+      theta = Math.atan2(-(sy - Rcy), sx - Rcx);
+    } else {
+      // dragging in left: also derive direction
+      theta = Math.atan2(-(sy - Lcy), sx - Lcx);
+    }
+    render();
+  }
+  let dragging = false;
+  svg.addEventListener('mousedown', e => { dragging = true; fromEvt(e); });
+  svg.addEventListener('mousemove', e => { if(dragging) fromEvt(e); });
+  window.addEventListener('mouseup', () => { dragging = false; });
+  render();
+})();
+</script>
+
+<section id="homog">
+<h2>5. Homogenization</h2>
+<p>An affine plane curve is the zero set of a polynomial $f(x,y)\in K[x,y]$. To work projectively we need a <em>homogeneous</em> polynomial — one whose every monomial has the same total degree. The recipe is mechanical.</p>
+
+<p>If $f$ has degree $d$, set
+$$F(X,Y,Z) \;=\; Z^{\,d}\cdot f(X/Z,\, Y/Z).$$
+Each monomial $x^iy^j$ with $i+j\le d$ becomes $X^iY^jZ^{d-i-j}$, restoring total degree $d$. The original affine curve is recovered by setting $Z=1$.</p>
+
+<table class="plain">
+<thead><tr><th>affine $f(x,y)=0$</th><th>degree</th><th>homogenization $F(X,Y,Z)=0$</th><th>points at infinity ($Z=0$)</th></tr></thead>
+<tbody>
+<tr><td>$ax+by+c$</td><td>$1$</td><td>$aX+bY+cZ$</td><td>$[b:-a:0]$ — one point</td></tr>
+<tr><td>$y - x^2$</td><td>$2$</td><td>$YZ - X^2$</td><td>$[0:1:0]$ — the parabola has one point at infinity</td></tr>
+<tr><td>$x^2 + y^2 - 1$</td><td>$2$</td><td>$X^2 + Y^2 - Z^2$</td><td>over $\mathbb{R}$: none.  Over $\mathbb{C}$: $[1:\pm i:0]$</td></tr>
+<tr><td>$y^2 - x^3 - 1$</td><td>$3$</td><td>$Y^2Z - X^3 - Z^3$</td><td>$[0:1:0]$ — one inflection at infinity</td></tr>
+</tbody>
+</table>
+
+<div class="note"><strong>Why this works.</strong> A homogeneous polynomial $F$ has the property that $F(\lambda X, \lambda Y, \lambda Z) = \lambda^d F(X,Y,Z)$. So whether $F$ vanishes at $(X,Y,Z)$ depends only on the equivalence class $[X:Y:Z]$. The zero locus $V(F)\subset\mathbb{P}^2$ is well-defined.</div>
+
+<div class="widget" id="w-hom">
+  <div class="hd"><div class="ttl">Homogenize an affine polynomial</div><div class="hint">use ^2, +, −, *, x, y</div></div>
+  <div class="row">
+    <label>f(x,y) =</label>
+    <input type="text" id="hom-in" value="y^2 - x^3 - 1" style="width:280px">
+    <button id="hom-go">homogenize</button>
+  </div>
+  <div class="readout" id="hom-out"></div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 5 widget: homogenization ============ */
+(function(){
+  const inp = $('#hom-in'), btn = $('#hom-go'), out = $('#hom-out');
+  // tiny polynomial parser: monomials of form  c * x^i * y^j  separated by + or -
+  function parse(s){
+    s = s.replace(/\s+/g,'').replace(/-/g,'+-');
+    if(s.startsWith('+')) s = s.slice(1);
+    const monos = s.split('+').filter(Boolean);
+    const out = [];
+    for(let m of monos){
+      let sign = 1;
+      if(m.startsWith('-')){ sign = -1; m = m.slice(1); }
+      // coefficient
+      let coef = 1;
+      const cMatch = m.match(/^(\d+(?:\.\d+)?)/);
+      if(cMatch){ coef = parseFloat(cMatch[1]); m = m.slice(cMatch[1].length); }
+      // strip leading *
+      if(m.startsWith('*')) m = m.slice(1);
+      // x^i and y^j
+      let i=0, j=0;
+      const parts = m.split('*').filter(Boolean);
+      for(const p of parts){
+        const xm = p.match(/^x(?:\^(\d+))?$/);
+        const ym = p.match(/^y(?:\^(\d+))?$/);
+        if(xm){ i += xm[1] ? +xm[1] : 1; }
+        else if(ym){ j += ym[1] ? +ym[1] : 1; }
+        else if(p === ''){ /* skip */ }
+        else if(/^\d+(\.\d+)?$/.test(p)){ coef *= parseFloat(p); }
+        else { throw new Error('bad token: ' + p); }
+      }
+      if(parts.length === 0 && !cMatch){ throw new Error('empty monomial'); }
+      out.push({c: sign*coef, i, j});
+    }
+    return out;
+  }
+  function fmt(c, i, j, k){
+    let s = '';
+    const ac = Math.abs(c);
+    if(ac !== 1 || (i===0 && j===0 && k===0)) s += (Number.isInteger(ac) ? ac : ac);
+    if(i){ s += 'X' + (i>1 ? '^'+i : ''); }
+    if(j){ s += 'Y' + (j>1 ? '^'+j : ''); }
+    if(k){ s += 'Z' + (k>1 ? '^'+k : ''); }
+    if(s === '') s = '1';
+    return s;
+  }
+  function homog(monos){
+    let d = 0;
+    for(const m of monos) d = Math.max(d, m.i + m.j);
+    const terms = monos.map(m => ({c: m.c, i: m.i, j: m.j, k: d - m.i - m.j}));
+    let str = '';
+    terms.forEach((t,idx) => {
+      if(idx === 0) str += (t.c < 0 ? '−' : '');
+      else str += (t.c < 0 ? ' − ' : ' + ');
+      str += fmt(t.c, t.i, t.j, t.k);
+    });
+    return {d, str, terms};
+  }
+  function go(){
+    try{
+      const m = parse(inp.value);
+      if(!m.length){ out.textContent = '(zero polynomial)'; return; }
+      const {d, str, terms} = homog(m);
+      // points at infinity: solve homogeneous-of-Z=0 part for [X:Y:0]
+      const z0 = terms.filter(t => t.k === 0);
+      let infStr;
+      if(!z0.length){ infStr = 'no points at infinity (every term contains Z)'; }
+      else {
+        // try to factor over the rationals for low degree forms in (X,Y)
+        // simplest analysis: if it's a single monomial X^i Y^j, infinity points are [1:0:0] and/or [0:1:0]
+        if(z0.length === 1){
+          const t = z0[0];
+          const pts = [];
+          if(t.j > 0) pts.push('[1:0:0]');
+          if(t.i > 0) pts.push('[0:1:0]');
+          infStr = 'Z=0 cuts the highest-degree form ' + fmt(t.c,t.i,t.j,0) + ' = 0  ⇒ points at infinity: ' + (pts.join(', ') || '[a:b:0] for any (a,b)');
+        } else {
+          infStr = 'Z=0 cuts the homogeneous form  ' + z0.map((t,k)=> (k? (t.c<0?' − ':' + '): (t.c<0?'−':'')) + fmt(t.c,t.i,t.j,0)).join('') + ' = 0  in [X:Y:0].';
+        }
+      }
+      out.innerHTML =
+        'degree d = ' + d + '\n' +
+        'F(X,Y,Z) = ' + str + '\n\n' +
+        infStr;
+    }catch(err){
+      out.textContent = 'parse error: ' + err.message + '\n(use monomials like 3*x^2*y or -y^2 separated by + or −.)';
+    }
+  }
+  btn.addEventListener('click', go);
+  inp.addEventListener('keydown', e => { if(e.key==='Enter') go(); });
+  go();
+})();
+</script>
+
+<section id="pgl">
+<h2>6. Projective transformations</h2>
+<p>The natural symmetries of $\mathbb{P}^2(K)$ are <strong>projective linear transformations</strong>: invertible $3\times 3$ matrices $A\in\mathrm{GL}_3(K)$ act on $\mathbb{P}^2$ by
+$$A\cdot[X:Y:Z] = [A(X,Y,Z)^T].$$
+Two matrices give the same map iff they differ by a non-zero scalar, so the symmetry group is
+$$\mathrm{PGL}_3(K) \;=\; \mathrm{GL}_3(K)/K^\times.$$
+This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
+
+<p>The action is highly transitive in the following precise sense.</p>
+<div class="ok">
+<p style="margin:.2rem 0"><strong>Fundamental theorem of projective geometry (qualitative form).</strong></p>
+<ul style="margin:.4rem 0">
+<li>A projective <em>line</em> is determined by 2 points and 2 points always determine a unique line.</li>
+<li>A projective <em>conic</em> (smooth) is determined by $5$ general points.</li>
+<li>A projective <em>cubic</em> is determined by $9$ general points (the basis for the geometry of elliptic curves).</li>
+<li>$\mathrm{PGL}_3(K)$ acts simply transitively on ordered $4$-tuples of points in <em>general position</em> (no 3 collinear).</li>
+</ul>
+<p style="margin:.2rem 0">In particular, two smooth plane conics are projectively equivalent over $\bar{K}$: every smooth conic can be brought into the form $X^2+Y^2 = Z^2$ (a circle) or $XY = Z^2$ (a parabola) — over the algebraic closure they are the same curve.</p>
+</div>
+
+<div class="widget" id="w-conic">
+  <div class="hd"><div class="ttl">Projective conic classifier</div><div class="hint">set coefficients of  AX² + BXY + CY² + DXZ + EYZ + FZ²</div></div>
+  <div class="row">
+    <label>A</label><input type="number" id="cn-A" value="1" step="1" style="width:60px">
+    <label>B</label><input type="number" id="cn-B" value="0" step="1" style="width:60px">
+    <label>C</label><input type="number" id="cn-C" value="1" step="1" style="width:60px">
+    <label>D</label><input type="number" id="cn-D" value="0" step="1" style="width:60px">
+    <label>E</label><input type="number" id="cn-E" value="0" step="1" style="width:60px">
+    <label>F</label><input type="number" id="cn-F" value="-1" step="1" style="width:60px">
+  </div>
+  <div class="readout" id="cn-out"></div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 6 widget: conic classifier via det of symmetric matrix ============ */
+(function(){
+  const ids = ['A','B','C','D','E','F'];
+  const els = ids.map(c => $('#cn-'+c));
+  const out = $('#cn-out');
+  function det3(m){
+    return m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])
+         - m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])
+         + m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+  }
+  function rank(m){
+    // numeric rank via Gaussian elimination
+    const eps = 1e-9;
+    const M = m.map(r => r.slice());
+    let r = 0;
+    for(let c=0; c<3 && r<3; c++){
+      let piv = r;
+      for(let i=r+1;i<3;i++) if(Math.abs(M[i][c]) > Math.abs(M[piv][c])) piv = i;
+      if(Math.abs(M[piv][c]) < eps) continue;
+      [M[r],M[piv]] = [M[piv],M[r]];
+      for(let i=r+1;i<3;i++){
+        const f = M[i][c] / M[r][c];
+        for(let j=c;j<3;j++) M[i][j] -= f*M[r][j];
+      }
+      r++;
+    }
+    return r;
+  }
+  function classify(){
+    const [A,B,C,D,E,F] = els.map(e => parseFloat(e.value)||0);
+    // associated symmetric matrix M of  X^T M X / 2's not needed; use
+    //  AX² + CY² + FZ² + BXY + DXZ + EYZ
+    // M = [[A, B/2, D/2],[B/2, C, E/2],[D/2, E/2, F]]
+    const M = [[A, B/2, D/2],[B/2, C, E/2],[D/2, E/2, F]];
+    const det = det3(M);
+    const rk = rank(M);
+    let kind, detail;
+    if(rk === 3){
+      kind = 'smooth (nondegenerate) conic';
+      // over R the signature distinguishes empty / oval
+      // compute eigvalue signs via determinant + trace + 2x2 minors
+      // simple test: empty? use real classification of quadratic form (signature)
+      // for brevity just say "smooth"
+      detail = 'discriminant det(M) = ' + det.toFixed(3) + ' ≠ 0; over C the curve is a smooth rational curve isomorphic to P¹.';
+    } else if(rk === 2){
+      kind = 'pair of distinct lines  (degenerate)';
+      detail = 'det(M) = 0 and rank 2: the conic factors into two distinct linear forms over an extension.';
+    } else if(rk === 1){
+      kind = 'double line  (degenerate)';
+      detail = 'rank 1: the form is a perfect square of one linear form, e.g. (aX+bY+cZ)².';
+    } else {
+      kind = 'zero form (everything)';
+      detail = 'all coefficients vanish.';
+    }
+    out.textContent =
+      'Q(X,Y,Z) = ' + (`${A}X² + ${B}XY + ${C}Y² + ${D}XZ + ${E}YZ + ${F}Z²`) + '\n' +
+      'symmetric matrix rank = ' + rk + ',  det = ' + det.toFixed(4) + '\n' +
+      'classification:  ' + kind + '\n' +
+      detail;
+  }
+  els.forEach(e => e.addEventListener('input', classify));
+  classify();
+})();
+</script>
+
+<section id="why">
+<h2>7. Why projective?</h2>
+<p>Three answers, in order of how often they will save your life.</p>
+
+<h3>(a) Bézout</h3>
+<p><strong>Bézout's theorem</strong> says that two projective plane curves of degrees $m$ and $n$ with no common component meet in exactly $mn$ points, counted with multiplicity, in $\mathbb{P}^2(\bar K)$. The theorem fails in $\mathbb{A}^2$ for two reasons that projective space corrects:</p>
+<ul>
+<li>Parallel lines "miss"; in $\mathbb{P}^2$ they meet on $\ell_\infty$.</li>
+<li>Asymptotes hide intersection points; in $\mathbb{P}^2$ they show up as points at infinity.</li>
+</ul>
+<p>For example, two distinct smooth conics in $\mathbb{A}^2$ may visibly intersect in $0$, $1$, $2$, $3$, or $4$ real points, but in $\mathbb{P}^2(\mathbb{C})$ they always intersect in exactly $4$ points counted properly. (This will get its own page in Wave 2.)</p>
+
+<h3>(b) Weierstrass form for elliptic curves</h3>
+<p>A smooth plane cubic $C\subset\mathbb{P}^2$ has $9$ inflection points in $\mathbb{P}^2(\mathbb{C})$ (Bézout: $C$ meets its Hessian, also a cubic, in $3\cdot 3 = 9$ points). Choose one inflection point $O$, send it to $[0:1:0]$ by a projective change of coordinates with the tangent line at $O$ becoming $Z=0$, and one obtains the <strong>Weierstrass form</strong>
+$$Y^2 Z + a_1 XYZ + a_3 YZ^2 \;=\; X^3 + a_2 X^2 Z + a_4 XZ^2 + a_6 Z^3.$$
+The chosen point $O = [0:1:0]$ is the identity of the group law on $C$. The full story is on <a href="./elliptic-curves.html">elliptic-curves.html</a>; see the next widget for the picture.</p>
+
+<h3>(c) Compactification</h3>
+<p>$\mathbb{P}^n$ is the smallest natural compactification of $\mathbb{A}^n$ that adds <em>one point per direction</em>. It plays the role of "the space of all directions plus the affine space," and the construction generalizes to any toric variety, blow-up, or proj of a graded ring. Most theorems of algebraic geometry assume properness (the algebraic substitute for compactness), and projective space is the universal source of properness.</p>
+
+<div class="widget" id="w-weier">
+  <div class="hd"><div class="ttl">Weierstrass curve, two charts</div><div class="hint">y² = x³ + 1, with the inflection at infinity made visible</div></div>
+  <div class="grid2">
+    <div>
+      <div class="lbl small" style="text-align:center;color:var(--mute);text-transform:uppercase;letter-spacing:.05em">U_Z chart  (affine xy-plane)</div>
+      <svg id="we-z" viewBox="0 0 320 280" width="320" height="280"></svg>
+    </div>
+    <div>
+      <div class="lbl small" style="text-align:center;color:var(--mute);text-transform:uppercase;letter-spacing:.05em">U_Y chart  (Y=1; ∞ becomes finite)</div>
+      <svg id="we-y" viewBox="0 0 320 280" width="320" height="280"></svg>
+    </div>
+  </div>
+  <div class="readout" id="we-out">in U_Z: the two affine branches running to infinity. in U_Y: those branches return to the finite point [0:1:0], which is the group identity O for the elliptic curve.</div>
+</div>
+</section>
+
+<script>
+/* ============ SECTION 7 widget W5: Weierstrass in two charts ============ */
+(function(){
+  // y² = x³ + 1   (affine).  Homogenization Y²Z = X³ + Z³.
+  // U_Z chart: usual xy plot
+  // U_Y chart (Y=1): u² t = 1 + t³ where u = X/Y, t = Z/Y;  i.e.  u² = (1 + t³)/t ;  also  t = 0 corresponds to Y=∞ direction... wait: Z/Y = t; at the point [0:1:0] we have t = 0, u = 0. Plot in (u,t).
+  function plotZ(){
+    const svg = $('#we-z'); svg.innerHTML='';
+    const W=320, H=280, ox=W/2, oy=H/2, sc=42;
+    svg.appendChild(SVG('line',{x1:0,y1:oy,x2:W,y2:oy,stroke:'#2a3242'}));
+    svg.appendChild(SVG('line',{x1:ox,y1:0,x2:ox,y2:H,stroke:'#2a3242'}));
+    // y² = x³ + 1: real for x ≥ -1
+    const upper=[], lower=[];
+    for(let i=0;i<=200;i++){
+      const x = -1 + 4*i/200;
+      const r = x*x*x + 1;
+      if(r < 0) continue;
+      const y = Math.sqrt(r);
+      const sx = ox + x*sc;
+      upper.push(sx + ',' + (oy - y*sc));
+      lower.push(sx + ',' + (oy + y*sc));
+    }
+    svg.appendChild(SVG('polyline',{points:upper.join(' '),stroke:'var(--blue)','stroke-width':2,fill:'none'}));
+    svg.appendChild(SVG('polyline',{points:lower.join(' '),stroke:'var(--blue)','stroke-width':2,fill:'none'}));
+    // the "missing" identity O lives at infinity (vertical direction)
+    const tx = SVG('text',{x:ox+6,y:14,'font-size':11,fill:'var(--yellow)'});
+    tx.textContent = 'O = [0:1:0] is at infinity ↑';
+    svg.appendChild(tx);
+    // arrows up/down
+    drawArrow(svg, [ox+sc*1.7, oy-sc*2.6], [ox+sc*1.7, 6], {color:'var(--yellow)', markerId:'we-up', dash:'4 4'});
+  }
+  function plotY(){
+    const svg = $('#we-y'); svg.innerHTML='';
+    // (u,t) plane, u = X/Y, t = Z/Y
+    // equation:  u² t = 1 + t³  =>  u² = (1 + t³)/t   (for t≠0)
+    // at t=0 we have the point [0:1:0] = (u=0, t=0)
+    // and the curve passes through it: as t→0+, u² ~ 1/t → ∞ on the branch u² = (1+t³)/t but also there's a different branch
+    // Actually the projective closure passes through (u,t)=(0,0) smoothly: rewrite as 1 = u²t - t³.
+    // Implicit plot: F(u,t) = u² t - t³ - 1 = 0. Use marching squares-lite over a grid.
+    const W=320, H=280, ox=W/2, oy=H/2, sc=70;
+    svg.appendChild(SVG('line',{x1:0,y1:oy,x2:W,y2:oy,stroke:'#2a3242'}));
+    svg.appendChild(SVG('line',{x1:ox,y1:0,x2:ox,y2:H,stroke:'#2a3242'}));
+    function f(u,t){ return u*u*t - t*t*t - 1; }
+    // sample a fine grid and connect zero crossings
+    const N=200;
+    const lo=-2.2, hi=2.2;
+    const seg = [];
+    for(let i=0;i<N;i++){
+      for(let j=0;j<N;j++){
+        const u0 = lo + (hi-lo)*i/N, u1 = lo + (hi-lo)*(i+1)/N;
+        const t0 = lo + (hi-lo)*j/N, t1 = lo + (hi-lo)*(j+1)/N;
+        const v00 = f(u0,t0), v10 = f(u1,t0), v01 = f(u0,t1), v11 = f(u1,t1);
+        const sgns = [v00,v10,v11,v01].map(v => v>0?1:-1);
+        const min = Math.min(...sgns), max = Math.max(...sgns);
+        if(min === max) continue;
+        // approximate: take cell center
+        const u = (u0+u1)/2, t = (t0+t1)/2;
+        const sx = ox + u*sc, sy = oy - t*sc;
+        seg.push([sx,sy]);
+      }
+    }
+    seg.forEach(([sx,sy]) => {
+      svg.appendChild(SVG('circle',{cx:sx,cy:sy,r:0.9,fill:'var(--green)'}));
+    });
+    // mark the identity point O = (0,0) in this chart
+    svg.appendChild(SVG('circle',{cx:ox, cy:oy, r:5, fill:'var(--yellow)', stroke:'#000','stroke-width':1}));
+    const tx = SVG('text',{x:ox+8,y:oy-6,'font-size':12,fill:'var(--yellow)'});
+    tx.textContent = 'O = (0,0)  ←  was at infinity in U_Z';
+    svg.appendChild(tx);
+    // axis labels
+    const lx = SVG('text',{x:W-10,y:oy-4,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent='u = X/Y'; svg.appendChild(lx);
+    const ly = SVG('text',{x:ox+4,y:12,'font-size':11,fill:'var(--mute)'}); ly.textContent='t = Z/Y'; svg.appendChild(ly);
+  }
+  plotZ(); plotY();
+})();
+</script>
+
+<section id="higher">
+<h2>8. Higher dimensions, and a note on $\mathbb{RP}^2$ vs $\mathbb{CP}^2$</h2>
+<p>The construction generalizes verbatim. The <strong>projective $n$-space over $K$</strong> is
+$$\mathbb{P}^n(K) \;=\; (K^{n+1} \setminus 0)/\sim$$
+with $(X_0,\dots,X_n) \sim (\lambda X_0,\dots,\lambda X_n)$. As a topological space (when $K = \mathbb{R}$ or $\mathbb{C}$) it has dimension $n$ over $\mathbb{R}$ in the real case and $n$ over $\mathbb{C}$ (so $2n$ over $\mathbb{R}$) in the complex case.</p>
+
+<h3>The real projective plane $\mathbb{RP}^2$</h3>
+<p>Realize $\mathbb{RP}^2$ as the upper hemisphere of $S^2$ with antipodal boundary points glued. It is a compact non-orientable surface; it cannot be embedded in $\mathbb{R}^3$ without self-intersection (cf.\ Boy's surface, the Roman surface). Topologically it is a Möbius band glued to a disk along their common circular boundary.</p>
+
+<h3>The complex projective plane $\mathbb{CP}^2$</h3>
+<p>$\mathbb{CP}^2$ is a $4$-real-dimensional, simply connected, smooth, oriented manifold with $H^*(\mathbb{CP}^2;\mathbb{Z}) = \mathbb{Z}[h]/(h^3)$ where $h$ is the class of a projective line. It is the natural setting for plane algebraic curves over $\mathbb{C}$, where Bézout becomes a clean count of intersection numbers.</p>
+
+<h3>Cell decomposition</h3>
+<p>$\mathbb{P}^n = \mathbb{A}^n \sqcup \mathbb{P}^{n-1} = \mathbb{A}^n \sqcup \mathbb{A}^{n-1} \sqcup \cdots \sqcup \mathbb{A}^0$. This recursive decomposition gives the famous Poincaré polynomial $1 + t^2 + t^4 + \cdots + t^{2n}$ for $\mathbb{CP}^n$, i.e.\ one even Betti number equal to $1$ in each even degree up to $2n$.</p>
+
+<h3>Where to go next</h3>
+<ul>
+<li><strong>Bézout</strong> (Wave 2) — the headline theorem made possible by $\mathbb{P}^2$.</li>
+<li><a href="./elliptic-curves.html">Elliptic curves</a> — the inflection-at-infinity construction makes a smooth cubic into an abelian variety.</li>
+<li><a href="./schemes.html">Schemes</a> — the gluing $\mathbb{P}^n = \bigcup U_i$ generalizes to "every scheme is locally $\mathrm{Spec}$ of a ring."</li>
+<li><a href="./sheaf-cohomology.html">Sheaf cohomology</a> — line bundles on $\mathbb{P}^n$ classify polynomial maps to $\mathbb{P}^n$, and their cohomology is the Bott formula.</li>
+</ul>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

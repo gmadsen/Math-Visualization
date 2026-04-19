@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Quadratic reciprocity — the first deep symmetry of the primes</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  .chip{display:inline-block;min-width:2.2em;text-align:center;padding:2px 6px;
+    border-radius:4px;font-family:ui-monospace,monospace;font-size:.88rem;margin:1px}
+  .chip.qr{background:#3d3418;color:var(--yellow);border:1px solid #5a4a1e}
+  .chip.nonqr{background:#1a1f2b;color:var(--mute);border:1px solid var(--line)}
+  .chip.neg{background:#2a1a18;color:var(--pink);border:1px solid #4a2820}
+  .chip.pos{background:#1a2418;color:var(--green);border:1px solid #2a4a20}
+  .cell{display:inline-flex;align-items:center;justify-content:center;
+    width:2.4em;height:2.4em;margin:1px;border-radius:4px;
+    font-family:ui-monospace,monospace;font-size:.85rem;border:1px solid var(--line)}
+  .grid-wrap{overflow-x:auto;padding:.4rem 0}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+
+/* number-theory helpers (shared by widgets) */
+function mod(a,n){ return ((a%n)+n)%n; }
+function modPow(b,e,n){
+  b = mod(b,n);
+  let r = 1n, bb = BigInt(b), ee = BigInt(e), nn = BigInt(n);
+  while(ee>0n){ if(ee&1n) r = (r*bb)%nn; bb=(bb*bb)%nn; ee>>=1n; }
+  return Number(r);
+}
+function isPrime(n){
+  if(n<2) return false;
+  if(n<4) return true;
+  if(n%2===0) return false;
+  for(let i=3;i*i<=n;i+=2) if(n%i===0) return false;
+  return true;
+}
+// Legendre symbol (a/p), p odd prime
+function legendre(a,p){
+  a = mod(a,p);
+  if(a===0) return 0;
+  const r = modPow(a,(p-1)/2,p);
+  return r===1 ? 1 : -1;
+}
+// Jacobi symbol (a/n), n odd positive
+function jacobi(a,n){
+  a = mod(a,n);
+  let t = 1;
+  while(a!==0){
+    while(a%2===0){
+      a/=2;
+      const r = n%8;
+      if(r===3||r===5) t = -t;
+    }
+    [a,n] = [n,a];
+    if(a%4===3 && n%4===3) t = -t;
+    a = mod(a,n);
+  }
+  return n===1 ? t : 0;
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#question">1&nbsp;The&nbsp;question</a>
+  <a href="#legendre">2&nbsp;Legendre&nbsp;symbol</a>
+  <a href="#supplementary">3&nbsp;Supplementary&nbsp;laws</a>
+  <a href="#gauss-lemma">4&nbsp;Gauss's&nbsp;lemma</a>
+  <a href="#reciprocity">5&nbsp;Reciprocity</a>
+  <a href="#engine">6&nbsp;Computation&nbsp;engine</a>
+  <a href="#why">7&nbsp;Why&nbsp;it&nbsp;matters</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Quadratic reciprocity — the first deep symmetry of the primes</h1>
+  <p class="sub">Gauss called it the <em>theorema aureum</em>. A statement about which numbers are squares modulo a prime turns out to hide a perfect symmetry between pairs of primes — and that symmetry is the prototype of every reciprocity law that follows, from Artin to Langlands.</p>
+</section>
+
+<section id="question">
+<h2>1. The question</h2>
+<p>Fix an odd prime $p$ and an integer $a$ not divisible by $p$. Ask: does the congruence
+$$ x^2 \equiv a \pmod p $$
+have a solution? If yes, call $a$ a <strong>quadratic residue</strong> (QR) mod $p$; otherwise a <strong>non-residue</strong> (NR).</p>
+
+<p>For a fixed $p$, exactly half of the nonzero residues are QRs, because the squaring map $(\mathbb{Z}/p)^\times \to (\mathbb{Z}/p)^\times$ is two-to-one onto its image — the kernel $\{\pm 1\}$ has order $2$. That half of the story is easy. The hard half is the <em>reverse</em>:</p>
+
+<div class="note">Fix $a$ (say $a=5$). For which primes $p$ is $a$ a QR mod $p$? Equivalently: as $p$ runs through the primes, which ones does $5$ "belong to"?</div>
+
+<p>Squaring is a local operation, so there is no reason to expect the answer to be describable in terms of $p$ alone. And yet — the answer depends <em>only on</em> $p \bmod 4a$. This is the miracle we are here to unpack.</p>
+
+<h3>Hunt for the pattern</h3>
+<p>Pick a small prime $p$ and inspect the squares. The yellow entries are the QRs; the rest are non-residues (excluding $0$).</p>
+
+<div class="widget" id="w-squares">
+  <div class="hd"><div class="ttl">Squares modulo <em>p</em></div><div class="hint">yellow = quadratic residue</div></div>
+  <div class="row">
+    <label for="sq-p">prime $p$:</label>
+    <select id="sq-p"></select>
+    <span class="small" id="sq-count"></span>
+  </div>
+  <div class="grid-wrap" id="sq-grid"></div>
+  <div class="readout" id="sq-out"></div>
+</div>
+
+<script>
+(function(){
+  const primes = [3,5,7,11,13,17,19,23,29,31];
+  const sel = $('#sq-p');
+  for(const p of primes){
+    const o = document.createElement('option');
+    o.value = p; o.textContent = String(p);
+    sel.appendChild(o);
+  }
+  sel.value = 13;
+  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');
+  function render(){
+    const p = +sel.value;
+    grid.innerHTML = '';
+    const qr = new Set();
+    for(let x=1;x<p;x++) qr.add((x*x)%p);
+    // table row: x, x^2 mod p
+    const wrap = document.createElement('div');
+    wrap.innerHTML = '<div class="small" style="color:var(--mute);margin:.2rem 0">$x$ on top, $x^2 \\bmod p$ below</div>';
+    const row1 = document.createElement('div'), row2 = document.createElement('div');
+    for(let x=0;x<p;x++){
+      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;
+      c1.style.color='var(--mute)';
+      const v = (x*x)%p;
+      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');
+      c2.textContent=v;
+      row1.appendChild(c1); row2.appendChild(c2);
+    }
+    wrap.appendChild(row1); wrap.appendChild(row2);
+    // also a row showing which residues are QR vs NR
+    const hdr = document.createElement('div'); hdr.className='small';
+    hdr.style.cssText='color:var(--mute);margin-top:.6rem';
+    hdr.textContent='nonzero residues colored by QR / NR:';
+    wrap.appendChild(hdr);
+    const row3 = document.createElement('div');
+    for(let r=1;r<p;r++){
+      const c = document.createElement('span');
+      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');
+      c.textContent=r;
+      row3.appendChild(c);
+    }
+    wrap.appendChild(row3);
+    grid.appendChild(wrap);
+    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;
+    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+</section>
+
+<section id="legendre">
+<h2>2. The Legendre symbol</h2>
+<p>Package the answer as a sign. For odd prime $p$ and $a\in\mathbb{Z}$ with $\gcd(a,p)=1$, define the <strong>Legendre symbol</strong>
+$$
+\left(\frac{a}{p}\right) = \begin{cases} +1 & a\text{ is a QR mod }p,\\ -1 & a\text{ is a NR mod }p. \end{cases}
+$$
+Extend by $\left(\frac{a}{p}\right)=0$ when $p\mid a$.</p>
+
+<h3>Multiplicativity</h3>
+<p>The map $a\mapsto \left(\tfrac{a}{p}\right)$ is a homomorphism
+$(\mathbb{Z}/p)^\times \to \{\pm 1\}$. Concretely
+$$ \left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right). $$
+Proof: $(\mathbb{Z}/p)^\times$ is cyclic, say with generator $g$. Squares are even powers of $g$. Write $a=g^i$, $b=g^j$; then $ab=g^{i+j}$ is a square iff $i+j$ is even, iff $i$ and $j$ have the same parity — matching the sign product.</p>
+
+<h3>Euler's criterion</h3>
+<div class="note"><strong>Euler's criterion.</strong> For odd prime $p$ and $\gcd(a,p)=1$,
+$$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
+
+<p>Proof. By Fermat $a^{p-1}\equiv 1$, so $a^{(p-1)/2}\equiv \pm 1$. If $a=x^2$ then $a^{(p-1)/2}=x^{p-1}\equiv 1$. For the converse, the polynomial $X^{(p-1)/2}-1$ has at most $(p-1)/2$ roots in the field $\mathbb{F}_p$, and the $(p-1)/2$ QRs are already roots — so the NRs cannot be, and hit $-1$ instead.</p>
+
+<p>This gives a polynomial-time test: compute $a^{(p-1)/2} \bmod p$ by repeated squaring. The widget below walks through the exponentiation.</p>
+
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">Euler's criterion by fast exponentiation</div><div class="hint">compute $a^{(p-1)/2} \bmod p$</div></div>
+  <div class="row">
+    <label>$a =$</label><input id="eu-a" type="number" value="5" style="width:5em">
+    <label>$p =$</label><input id="eu-p" type="number" value="41" style="width:6em">
+    <button id="eu-go">compute</button>
+  </div>
+  <div class="readout" id="eu-out"></div>
+</div>
+
+<script>
+(function(){
+  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');
+  function run(){
+    const a = parseInt(aI.value), p = parseInt(pI.value);
+    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }
+    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }
+    if(p%2===0){ out.textContent='p must be odd'; return; }
+    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }
+    const e = (p-1)/2;
+    const lines = [];
+    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);
+    // binary expansion of e
+    const bits = e.toString(2);
+    lines.push(`exponent ${e} = (${bits})_2`);
+    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);
+    // left-to-right square-and-multiply
+    for(let i=0;i<bits.length;i++){
+      r = (r*r)%P;
+      lines.push(`  square → ${r}`);
+      if(bits[i]==='1'){
+        r = (r*base)%P;
+        lines.push(`  bit 1: multiply by ${base} → ${r}`);
+      }
+    }
+    const val = Number(r);
+    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);
+    lines.push('');
+    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);
+    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);
+    out.textContent = lines.join('\n');
+  }
+  go.addEventListener('click', run);
+  aI.addEventListener('change', run); pI.addEventListener('change', run);
+  run();
+})();
+</script>
+</section>
+
+<section id="supplementary">
+<h2>3. The supplementary laws</h2>
+<p>Multiplicativity reduces any Legendre symbol to a product of symbols $\left(\tfrac{-1}{p}\right)$, $\left(\tfrac{2}{p}\right)$, and $\left(\tfrac{q}{p}\right)$ for odd primes $q$. Reciprocity will handle the last kind. The first two are the <em>supplementary laws</em>:</p>
+
+<div class="note">
+<strong>First supplement.</strong> $\displaystyle \left(\frac{-1}{p}\right) = (-1)^{(p-1)/2} = \begin{cases} +1 & p\equiv 1\pmod 4,\\ -1 & p\equiv 3\pmod 4. \end{cases}$
+</div>
+
+<p>Proof: by Euler, $\left(\tfrac{-1}{p}\right) \equiv (-1)^{(p-1)/2}$; both sides are $\pm 1$, so they are equal as integers.</p>
+
+<div class="note">
+<strong>Second supplement.</strong> $\displaystyle \left(\frac{2}{p}\right) = (-1)^{(p^2-1)/8} = \begin{cases} +1 & p\equiv \pm 1\pmod 8,\\ -1 & p\equiv \pm 3\pmod 8. \end{cases}$
+</div>
+
+<p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\{2,4,6,\ldots,p-1\}$ reduce to the "upper half" $\{(p+1)/2,\ldots,p-1\}$ mod $p$, and read off the sign. The count turns out to be $\lfloor p/4 \rfloor$, giving the displayed parity.</p>
+
+<p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \bmod 8$.</p>
+</section>
+
+<section id="gauss-lemma">
+<h2>4. Gauss's lemma</h2>
+<p>This is the combinatorial lever that lifts Euler's criterion to a form where reciprocity becomes visible. Fix odd prime $p$ and $a$ with $\gcd(a,p)=1$. Consider the set
+$$ S = \{a, 2a, 3a, \ldots, \tfrac{p-1}{2}a\} \pmod p. $$
+Reduce each element to its representative in $\{1,2,\ldots,p-1\}$, and let $\mu$ be the number of them that land in the <em>upper half</em> $\{(p+1)/2, \ldots, p-1\}$.</p>
+
+<div class="note"><strong>Gauss's lemma.</strong> $\displaystyle \left(\frac{a}{p}\right) = (-1)^\mu.$</div>
+
+<p>Sketch: reflect each upper-half residue $r$ to its negative $p-r$. The resulting set is exactly $\{1,2,\ldots,(p-1)/2\}$ — so
+$$ \prod_{j=1}^{(p-1)/2} ja \equiv (-1)^\mu \prod_{j=1}^{(p-1)/2} j \pmod p, $$
+which after cancelling factorials gives $a^{(p-1)/2} \equiv (-1)^\mu \pmod p$, and Euler finishes the job.</p>
+
+<p>The widget below reveals $\mu$ graphically. The circles are the residues $ja \bmod p$ for $j=1,\ldots,(p-1)/2$; red markers are in the upper half, so they contribute a $-1$.</p>
+
+<div class="widget" id="w-gauss">
+  <div class="hd"><div class="ttl">Gauss's lemma visualizer</div><div class="hint">count the red dots</div></div>
+  <div class="row">
+    <label>$p =$</label>
+    <select id="gl-p"></select>
+    <label>$a =$</label>
+    <input id="gl-a" type="number" value="3" style="width:5em">
+    <button id="gl-go">draw</button>
+  </div>
+  <svg id="gl-svg" viewBox="0 0 820 190" width="820" height="190"></svg>
+  <div class="readout" id="gl-out"></div>
+</div>
+
+<script>
+(function(){
+  const primes = [5,7,11,13,17,19,23,29,31,37,41,43,47];
+  const sel = $('#gl-p');
+  for(const p of primes){
+    const o = document.createElement('option');
+    o.value=p; o.textContent=String(p); sel.appendChild(o);
+  }
+  sel.value = 17;
+  const aI = $('#gl-a'), go = $('#gl-go'), svg = $('#gl-svg'), out = $('#gl-out');
+  function run(){
+    const p = +sel.value, a = parseInt(aI.value);
+    svg.innerHTML = '';
+    if(!Number.isFinite(a) || mod(a,p)===0){
+      out.textContent='pick a with gcd(a,p)=1'; return;
+    }
+    const W = 820, H = 190;
+    const margin = 40;
+    const axisY = 110;
+    const x0 = margin, x1 = W-margin;
+    // draw axis
+    const ax = SVG('line',{x1:x0,y1:axisY,x2:x1,y2:axisY,
+      stroke:'var(--mute)','stroke-width':1});
+    svg.appendChild(ax);
+    // tick marks at 0..p
+    for(let k=0;k<=p;k++){
+      const x = x0 + (x1-x0)*k/p;
+      const t = SVG('line',{x1:x,y1:axisY-3,x2:x,y2:axisY+3,stroke:'var(--mute)','stroke-width':1});
+      svg.appendChild(t);
+      if(k===0 || k===p || k===(p-1)/2 || k===(p+1)/2){
+        const lab = SVG('text',{x, y:axisY+18,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+        lab.textContent = (k===(p-1)/2)? '(p-1)/2' : (k===(p+1)/2)? '(p+1)/2' : String(k);
+        svg.appendChild(lab);
+      }
+    }
+    // shade upper half
+    const shade = SVG('rect',{
+      x: x0 + (x1-x0)*((p+1)/2)/p, y: axisY-50,
+      width: (x1-x0)*((p-1)/2)/p, height: 50,
+      fill:'rgba(224,122,95,0.08)'
+    });
+    svg.insertBefore(shade, svg.firstChild);
+    // plot residues
+    let mu = 0;
+    const residues = [];
+    for(let j=1;j<=(p-1)/2;j++){
+      const r = mod(j*a, p);
+      const up = r > (p-1)/2;
+      if(up) mu++;
+      residues.push({j, r, up});
+      const x = x0 + (x1-x0)*r/p;
+      const y = axisY - 30 + (j%2? -8 : 8);
+      const col = up ? 'var(--pink)' : 'var(--green)';
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:col,stroke:'#0b0f16','stroke-width':1.5}));
+      // small label j above/below
+      const lab = SVG('text',{x, y: y-10, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+      lab.textContent = 'j='+j;
+      svg.appendChild(lab);
+    }
+    // header text
+    const hdr = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--ink)'});
+    hdr.textContent = `residues ja mod ${p} for a = ${mod(a,p)}`;
+    svg.appendChild(hdr);
+    const leg = SVG('text',{x:W/2, y:170, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    leg.textContent = 'shaded region = upper half  ( > (p-1)/2 )';
+    svg.appendChild(leg);
+    // compute symbol directly, compare
+    const sym = legendre(a,p);
+    const sign = (mu%2===0)? 1 : -1;
+    const match = sym === sign ? 'matches' : 'DISAGREES WITH';
+    out.textContent =
+`p = ${p},  a = ${mod(a,p)}
+upper-half residues:
+  ${residues.filter(x=>x.up).map(x=>`${x.j}·${mod(a,p)} ≡ ${x.r}`).join('\n  ') || '(none)'}
+μ = ${mu}
+(-1)^μ = ${sign>0?'+1':'-1'}  —  ${match}  Legendre (${mod(a,p)}/${p}) = ${sym>0?'+1':'-1'}`;
+  }
+  go.addEventListener('click', run);
+  sel.addEventListener('change', run); aI.addEventListener('change', run);
+  run();
+})();
+</script>
+</section>
+
+<section id="reciprocity">
+<h2>5. The reciprocity law</h2>
+<p>Let $p, q$ be distinct odd primes. The symbols $\left(\tfrac{p}{q}\right)$ and $\left(\tfrac{q}{p}\right)$ are, individually, properties of how $p$ sits inside $\mathbb{F}_q$ and how $q$ sits inside $\mathbb{F}_p$ — two seemingly independent facts. Gauss's theorem says they are tied:</p>
+
+<div class="note"><strong>Quadratic reciprocity (Gauss 1796).</strong>
+$$ \left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\tfrac{p-1}{2}\cdot\tfrac{q-1}{2}}. $$
+Equivalently: the two symbols agree unless <em>both</em> $p$ and $q$ are $\equiv 3 \pmod 4$, in which case they flip signs.</div>
+
+<p>This is the "golden theorem." The only way the product can be $-1$ is if $p\equiv q\equiv 3\pmod 4$. Otherwise the two symbols track each other.</p>
+
+<h3>Sketch via Eisenstein's lemma</h3>
+<p>One way to see reciprocity is to refine Gauss's lemma. Count the lattice points strictly inside the triangle with vertices $(0,0), (p/2, 0), (p/2, q/2)$ and under the line $y = (q/p)x$. Call this count $T(p,q)$. Eisenstein's lemma says
+$$ \left(\frac{q}{p}\right) = (-1)^{T(p,q)}. $$
+Swapping $p$ and $q$ swaps the two legs of the rectangle and replaces $T(p,q)$ by $T(q,p)$, and
+$$ T(p,q) + T(q,p) = \frac{p-1}{2}\cdot\frac{q-1}{2} $$
+is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$, split by the diagonal (which misses all lattice points when $p\ne q$). Multiplying the two symbols yields the parity of the sum, which is the reciprocity exponent.</p>
+
+<h3>The sign pattern</h3>
+<p>Visualise it. For each pair of small odd primes $(p,q)$, color the cell by whether $\left(\tfrac{p}{q}\right)\left(\tfrac{q}{p}\right)$ is $+1$ (green) or $-1$ (red). The red cells are precisely those where $p\equiv q\equiv 3 \pmod 4$. The pattern is symmetric in $p,q$ and has a visible block structure.</p>
+
+<div class="widget" id="w-pattern">
+  <div class="hd"><div class="ttl">QR sign pattern over prime pairs</div><div class="hint">red: symbols flip;&nbsp; green: agree</div></div>
+  <div id="pat-grid"></div>
+  <div class="readout" id="pat-out">green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$</div>
+</div>
+
+<script>
+(function(){
+  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];
+  const grid = $('#pat-grid');
+  const tbl = document.createElement('table');
+  tbl.className = 'plain';
+  tbl.style.fontFamily = 'ui-monospace,monospace';
+  tbl.style.fontSize = '.85rem';
+  // header
+  const thead = document.createElement('thead');
+  const tr0 = document.createElement('tr');
+  tr0.appendChild(document.createElement('th'));
+  for(const q of primes){
+    const th = document.createElement('th');
+    th.textContent = q;
+    th.style.textAlign='center'; th.style.color='var(--mute)';
+    tr0.appendChild(th);
+  }
+  thead.appendChild(tr0); tbl.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  for(const p of primes){
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = p;
+    th.style.color='var(--mute)';
+    tr.appendChild(th);
+    for(const q of primes){
+      const td = document.createElement('td');
+      td.style.textAlign='center';
+      if(p===q){
+        td.textContent='—';
+        td.style.color='var(--mute)';
+      } else {
+        const prod = legendre(p,q) * legendre(q,p);
+        const span = document.createElement('span');
+        span.className = 'chip ' + (prod>0?'pos':'neg');
+        span.textContent = prod>0 ? '+' : '−';
+        td.appendChild(span);
+      }
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  tbl.appendChild(tbody);
+  grid.appendChild(tbl);
+})();
+</script>
+</section>
+
+<section id="engine">
+<h2>6. The computation engine</h2>
+<p>With multiplicativity, the two supplements, and reciprocity, every Legendre symbol reduces to $\pm 1$ by elementary operations. Two tricks make it fast:</p>
+<ul>
+  <li><strong>Reduce the top mod the bottom</strong> — $\left(\tfrac{a}{p}\right) = \left(\tfrac{a\bmod p}{p}\right)$;</li>
+  <li><strong>Peel off factors of 2</strong> using the second supplement, and <strong>odd prime on top</strong> using reciprocity (with a sign flip iff $p\equiv q\equiv 3\pmod 4$).</li>
+</ul>
+<p>This is exactly how the Jacobi-symbol algorithm works — and it runs in $O(\log p)$ arithmetic operations, no factoring required. Try it.</p>
+
+<div class="widget" id="w-calc">
+  <div class="hd"><div class="ttl">Legendre symbol calculator</div><div class="hint">step-by-step reduction</div></div>
+  <div class="row">
+    <label>$a =$</label><input id="lc-a" type="number" value="30" style="width:6em">
+    <label>$p =$</label><input id="lc-p" type="number" value="37" style="width:6em">
+    <button id="lc-go">compute</button>
+  </div>
+  <div class="readout" id="lc-out"></div>
+</div>
+
+<script>
+(function(){
+  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');
+  function run(){
+    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);
+    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }
+    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }
+    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }
+    const lines = [];
+    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer
+    // We'll use odd-integer version (Jacobi). End when a=1.
+    let sign = 1;
+    let a = mod(a0, p0), p = p0;
+    lines.push(`compute (${a0}/${p0})`);
+    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);
+    let guard = 0;
+    while(a !== 1 && a !== 0 && guard++ < 50){
+      // factor out -1
+      if(a === p - 1 || a < 0){
+        const aa = mod(a,p);
+        if(aa === p-1){
+          const flip = ((p-1)/2) % 2;
+          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }
+          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);
+          a = 1; break;
+        }
+      }
+      // peel 2s
+      while(a % 2 === 0){
+        a /= 2;
+        const r8 = p % 8;
+        const two = (r8===1||r8===7) ? +1 : -1;
+        if(two<0) sign = -sign;
+        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);
+      }
+      if(a === 1) break;
+      // now a is odd >=3; apply reciprocity with p (both odd)
+      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)
+      const flip = (((a-1)/2) * ((p-1)/2)) % 2;
+      const before = `(${a}/${p})`;
+      const pmod = mod(p,a);
+      if(flip){
+        sign = -sign;
+        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);
+      } else {
+        lines.push(`  reciprocity: ${before} = (${p}/${a})`);
+      }
+      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);
+      const newA = pmod, newP = a;
+      a = newA; p = newP;
+      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\n'); return; }
+    }
+    if(a === 1) lines.push(`  (1/${p}) = +1`);
+    lines.push('');
+    const final = sign * (a===1?1:0);
+    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);
+    // verify via Euler
+    const check = legendre(a0, p0);
+    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);
+    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);
+    out.textContent = lines.join('\n');
+  }
+  go.addEventListener('click', run);
+  aI.addEventListener('change', run); pI.addEventListener('change', run);
+  run();
+})();
+</script>
+
+<h3>The $(a/p)$ pattern as a function of $p$</h3>
+<p>Fix $a$. Then $\left(\tfrac{a}{p}\right)$ is periodic in $p$ with period dividing $4|a|$. The reciprocity law is exactly the statement that this pattern exists and is governed by $p \bmod 4a$ — a perfect preview of class field theory: the "splitting behaviour" of primes in $\mathbb{Q}(\sqrt a)$ depends only on a congruence condition.</p>
+
+<div class="widget" id="w-aqr">
+  <div class="hd"><div class="ttl">When is <em>a</em> a QR mod <em>p</em>?</div><div class="hint">period in $p$ is a divisor of $4|a|$</div></div>
+  <div class="row">
+    <label>$a =$</label>
+    <select id="aqr-a">
+      <option value="-1">-1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5" selected>5</option>
+      <option value="7">7</option>
+      <option value="-3">-3</option>
+    </select>
+    <span class="small" id="aqr-period"></span>
+  </div>
+  <div id="aqr-strip"></div>
+  <div class="readout" id="aqr-out"></div>
+</div>
+
+<script>
+(function(){
+  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');
+  function run(){
+    const a = parseInt(sel.value);
+    strip.innerHTML = '';
+    const primes = [];
+    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);
+    const modulus = 4*Math.abs(a);
+    // build table row: prime, symbol, residue mod 4a
+    const wrap = document.createElement('div');
+    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';
+    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');
+    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';
+    row2.style.cssText='margin-bottom:.2rem';
+    row3.style.cssText='color:var(--mute);margin-top:.2rem';
+    row1.textContent = 'p:';
+    row2.textContent = `(${a}/p):`;
+    row3.textContent = `p mod ${modulus}:`;
+    row1.style.whiteSpace='pre';
+    row2.style.whiteSpace='pre';
+    row3.style.whiteSpace='pre';
+    // use chip row instead
+    wrap.appendChild(document.createElement('div'));
+    wrap.innerHTML = '';
+    const makeRow = (label) => {
+      const d = document.createElement('div');
+      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';
+      const lab = document.createElement('span');
+      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';
+      lab.textContent=label;
+      d.appendChild(lab);
+      return d;
+    };
+    const r1 = makeRow('p:');
+    const r2 = makeRow(`(${a}/p):`);
+    const r3 = makeRow(`p mod ${modulus}:`);
+    // residue-class → sign dictionary
+    const classMap = {};
+    for(const p of primes){
+      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;
+      c1.style.minWidth='2.4em';
+      r1.appendChild(c1);
+      const s = legendre(a,p);
+      const c2 = document.createElement('span');
+      c2.className='chip ' + (s>0?'pos':'neg');
+      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';
+      r2.appendChild(c2);
+      const rclass = mod(p, modulus);
+      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;
+      c3.style.minWidth='2.4em';
+      r3.appendChild(c3);
+      // track consistency
+      if(!(rclass in classMap)) classMap[rclass] = s;
+      else if(classMap[rclass] !== s) classMap[rclass] = 0;
+    }
+    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);
+    strip.appendChild(wrap);
+    per.textContent = `sign depends only on p mod ${modulus}`;
+    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);
+    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);
+    out.textContent =
+`a = ${a},  modulus = 4|a| = ${modulus}
+${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }
+${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;
+  }
+  sel.addEventListener('change', run);
+  run();
+})();
+</script>
+</section>
+
+<section id="why">
+<h2>7. Why it matters</h2>
+<p>Quadratic reciprocity is the first and simplest in a tower of <em>reciprocity laws</em>, each saying that some subtle arithmetic invariant attached to a prime can be read off a congruence. The grand generalisation, <strong>Artin reciprocity</strong>, is the main theorem of class field theory; the <strong>Langlands program</strong> posits still deeper nonabelian analogues.</p>
+
+<h3>The bridge: Frobenius</h3>
+<p>Why should $(a/p)$ depend only on $p \bmod 4a$? Because $(a/p) = +1$ iff $p$ <em>splits</em> in the quadratic number field $K = \mathbb{Q}(\sqrt a)$. Splitting is governed by the Frobenius element $\mathrm{Frob}_p \in \mathrm{Gal}(K/\mathbb{Q}) \cong \{\pm 1\}$. The ramification of $K/\mathbb{Q}$ is supported on primes dividing $4a$, so $K$ is contained in the cyclotomic field $\mathbb{Q}(\zeta_{4a})$; Frobenius in a cyclotomic field is literally raising $\zeta\mapsto \zeta^p$, which depends only on $p \bmod 4a$. Quadratic reciprocity <em>is</em> the compatibility of these two pictures.</p>
+
+<div class="note">The keyword is <strong>abelian extension</strong>. The Frobenius element in an abelian Galois group depends only on a congruence condition on $p$ — that is the one-line summary of class field theory, and the reason reciprocity exists.</div>
+
+<h3>Where to read next</h3>
+<ul>
+  <li><a href="./algebraic-number-theory.html">Algebraic number theory</a> — rings of integers, primes splitting, Dedekind domains.</li>
+  <li><a href="./galois.html">Galois theory</a> — the algebraic side of the Frobenius.</li>
+  <li><a href="./elliptic-curves.html">Elliptic curves</a> — reciprocity for modular forms (the Taniyama–Shimura side of Langlands).</li>
+  <li><em>Sums of squares</em> (forthcoming <code>sums-of-squares.html</code>) — Fermat's theorem on $p = x^2+y^2$ is $\left(\tfrac{-1}{p}\right) = +1$.</li>
+  <li><em>p-adic numbers</em> (forthcoming <code>p-adic-numbers.html</code>) — reciprocity generalises via Hilbert symbols and the product formula.</li>
+  <li><em>Frobenius and reciprocity</em> (forthcoming <code>frobenius-and-reciprocity.html</code>) — the long climb from Gauss to Langlands.</li>
+</ul>
+
+<p class="small">Sources: Ash &amp; Gross, <em>Fearless Symmetry</em>, chs. 7–8; Edwards, <em>Higher Arithmetic</em>; Ireland &amp; Rosen, <em>A Classical Introduction to Modern Number Theory</em>, chs. 5 &amp; 11; Davenport, <em>The Higher Arithmetic</em>.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

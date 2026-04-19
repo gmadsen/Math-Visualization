@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Modular forms — SL₂(ℤ), Eisenstein series, and the j-invariant</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#sl2z">1&nbsp;SL₂(ℤ)</a>
+  <a href="#fund">2&nbsp;Fundamental&nbsp;domain</a>
+  <a href="#forms">3&nbsp;Modular&nbsp;forms</a>
+  <a href="#eisen">4&nbsp;Eisenstein&nbsp;series</a>
+  <a href="#jinv">5&nbsp;Δ&nbsp;and&nbsp;j</a>
+  <a href="#cusps">6&nbsp;Cusp&nbsp;forms</a>
+  <a href="#qexp">7&nbsp;q-expansions&nbsp;&&nbsp;Hecke</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Modular forms on the upper half-plane</h1>
+  <p class="sub">Functions on $\mathcal{H}$ that transform in a specific, rigid way under $\mathrm{SL}_2(\mathbb{Z})$. Their spaces are finite-dimensional, their Fourier coefficients encode arithmetic, and a single one — the $j$-invariant — parametrizes elliptic curves over $\mathbb{C}$.</p>
+  <div class="note"><strong>Prerequisites.</strong> The geometric setup lives in <a href="./upper-half-plane-hyperbolic.html">the upper half-plane</a>. Holomorphy in the sense needed here is <a href="./complex-analysis.html">complex analysis</a>. The global viewpoint — a modular form is a section of a line bundle on a <a href="./riemann-surfaces.html">Riemann surface</a> — is sketched in passing, and the arithmetic payoff (Eichler–Shimura, Taniyama) links back to <a href="./elliptic-curves.html">elliptic curves</a>.</div>
+</section>
+
+<section id="sl2z">
+<h2>1. The group $\mathrm{SL}_2(\mathbb{Z})$ and its action on $\mathcal{H}$</h2>
+<p>The <strong>modular group</strong> is
+$$\mathrm{SL}_2(\mathbb{Z}) \;=\; \Bigl\{ \begin{pmatrix} a & b \\ c & d \end{pmatrix} : a,b,c,d \in \mathbb{Z},\; ad-bc = 1 \Bigr\}.$$
+It acts on the upper half-plane $\mathcal{H} = \{\tau \in \mathbb{C} : \mathrm{Im}\,\tau > 0\}$ by Möbius transformations,
+$$\gamma \cdot \tau \;=\; \frac{a\tau + b}{c\tau + d}.$$
+The identity matrix and $-I$ act trivially, so the effective action is by $\mathrm{PSL}_2(\mathbb{Z}) = \mathrm{SL}_2(\mathbb{Z})/\{\pm I\}$.</p>
+
+<h3>Two generators do all the work</h3>
+<p>A remarkable classical fact: every element of $\mathrm{SL}_2(\mathbb{Z})$ is a word in
+$$S \;=\; \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \qquad T \;=\; \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}.$$
+On the upper half-plane $S$ is the inversion $\tau \mapsto -1/\tau$, and $T$ is the unit translation $\tau \mapsto \tau + 1$. They satisfy $S^2 = -I$ and $(ST)^3 = -I$; in $\mathrm{PSL}_2(\mathbb{Z})$ these become $S^2 = 1$ and $(ST)^3 = 1$, and there are no further relations — we will say more about this presentation when it matters.</p>
+
+<div class="widget" id="w-gen">
+  <div class="hd"><span class="ttl">Widget 1 · Generator word → matrix</span><span class="hint">click $S$ and $T$ to build a word; see the matrix and its action on $\tau$</span></div>
+  <div class="row" id="w-gen-buttons">
+    <button data-g="S">apply $S$</button>
+    <button data-g="T">apply $T$</button>
+    <button data-g="Ti">apply $T^{-1}$</button>
+    <button data-g="clear" style="margin-left:auto">reset</button>
+  </div>
+  <div class="row"><label>starting $\tau$:</label>
+    <input id="w-gen-re" type="number" value="0.3" step="0.05" style="width:6em">
+    <input id="w-gen-im" type="number" value="1.1" step="0.05" style="width:6em">
+    <label class="small" style="margin-left:1rem">word length</label>
+    <span id="w-gen-len" class="pill">0</span>
+  </div>
+  <div class="readout" id="w-gen-out"></div>
+  <svg id="w-gen-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="upper half-plane with orbit points"></svg>
+</div>
+
+<script>
+(function(){
+  const buttons = $('#w-gen-buttons');
+  const re = $('#w-gen-re'), im = $('#w-gen-im');
+  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');
+  const svg = $('#w-gen-svg');
+  const W = 720, H = 300;
+  // map tau -> pixel
+  const xmin = -2.5, xmax = 2.5, ymax = 3;
+  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }
+
+  const word = []; // list of 'S' | 'T' | 'Ti'
+  function matmul(A,B){
+    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
+            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];
+  }
+  const MS = [[0,-1],[1,0]];
+  const MT = [[1,1],[0,1]];
+  const MTi = [[1,-1],[0,1]];
+  const MI = [[1,0],[0,1]];
+  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }
+
+  function apply(M, t){
+    const re = M[0][0]*t.re + M[0][1];
+    const reDen = M[1][0]*t.re + M[1][1];
+    const imNum = M[0][0]*t.im;
+    const imDen = M[1][0]*t.im;
+    // (a*tau+b)/(c*tau+d) with tau = re+i*im
+    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];
+    const nr = a*t.re + b, ni = a*t.im;
+    const dr = c*t.re + d, di = c*t.im;
+    const denom = dr*dr + di*di;
+    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    // grid
+    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){
+      const [px1] = px({re:x,im:0});
+      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));
+    }
+    for(let y=1;y<=3;y++){
+      const [,py1] = px({re:0,im:y});
+      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));
+    }
+    // real axis
+    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));
+    // unit semicircle |tau|=1
+    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});
+    let d='';
+    for(let k=0;k<=60;k++){
+      const theta = Math.PI*k/60;
+      const t = {re:Math.cos(theta), im:Math.sin(theta)};
+      const [X,Y] = px(t);
+      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
+    }
+    path.setAttribute('d', d);
+    svg.appendChild(path);
+    // fundamental-domain vertical edges at x=±1/2
+    for(const x of [-0.5,0.5]){
+      const [X] = px({re:x,im:0});
+      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));
+    }
+
+    // orbit: start with (re,im), apply word
+    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};
+    if(!(t.im > 0)){ t.im = 0.1; }
+    const pts = [t];
+    let M = MI;
+    for(const g of word){
+      M = matmul(gmat(g), M);
+      pts.push(apply(gmat(g), pts[pts.length-1]));
+    }
+    // draw trail
+    for(let i=1;i<pts.length;i++){
+      const [x0,y0] = px(pts[i-1]);
+      const [x1,y1] = px(pts[i]);
+      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));
+    }
+    // points
+    pts.forEach((p,i) => {
+      const [X,Y] = px(p);
+      if(X<0||X>W||Y<0||Y>H) return;
+      const last = i === pts.length-1;
+      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,
+        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));
+      if(i===0){
+        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});
+        tx.textContent = 'τ₀'; svg.appendChild(tx);
+      }
+    });
+    // readout
+    const tau = pts[pts.length-1];
+    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]
+word:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}
+τ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;
+    lenEl.textContent = word.length;
+  }
+
+  buttons.addEventListener('click', (e)=>{
+    const g = e.target.dataset && e.target.dataset.g;
+    if(!g) return;
+    if(g==='clear'){ word.length = 0; }
+    else word.push(g);
+    render();
+  });
+  re.addEventListener('input', render);
+  im.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>The action is geometric: $T$ slides the whole half-plane horizontally, and $S$ is the "conformal flip" that interchanges the inside and outside of the unit circle, upper half preserved. Compose them and you can carry any point anywhere — but in an extremely constrained way, because determinant one and integer entries together force a Euclidean-algorithm rigidity.</p>
+</section>
+
+<section id="fund">
+<h2>2. The fundamental domain $\mathcal{F}$</h2>
+<p>If a group acts, it is natural to ask for a set of representatives for the orbits. For $\mathrm{SL}_2(\mathbb{Z})$ on $\mathcal{H}$ the answer is beautiful and explicit:
+$$\mathcal{F} \;=\; \Bigl\{\, \tau \in \mathcal{H} \,:\, |\mathrm{Re}\,\tau| \le \tfrac{1}{2} \text{ and } |\tau| \ge 1 \,\Bigr\}.$$
+Every orbit hits $\mathcal{F}$ at least once; two points of $\mathcal{F}$ lie in the same orbit only through the boundary identifications $\tau \sim \tau+1$ on the vertical sides and $\tau \sim -1/\tau$ on the bottom arc.</p>
+
+<div class="widget" id="w-tile">
+  <div class="hd"><span class="ttl">Widget 2 · The $\mathrm{SL}_2(\mathbb{Z})$-tiling of $\mathcal{H}$</span><span class="hint">toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain</span></div>
+  <div class="row">
+    <button id="w-tile-sT" class="active">show $T$-translates</button>
+    <button id="w-tile-sS" class="active">show $S$-image</button>
+    <button id="w-tile-sTST" class="active">show $TS$, $T^{-1}S$</button>
+    <button id="w-tile-reset" style="margin-left:auto">reset</button>
+  </div>
+  <svg id="w-tile-svg" viewBox="0 0 720 340" width="720" height="340" aria-label="SL2Z tiling"></svg>
+  <div class="readout small" id="w-tile-out">The darker tile is the canonical $\mathcal{F}$. Every other tile is $\gamma \mathcal{F}$ for some $\gamma \in \mathrm{SL}_2(\mathbb{Z})$.</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w-tile-svg');
+  const W = 720, H = 340;
+  const xmin = -2.5, xmax = 2.5, ymax = 2.5;
+  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }
+
+  const state = { T:true, S:true, TST:true };
+  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');
+
+  function applyMobius(M, t){
+    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];
+    const nr = a*t.re + b, ni = a*t.im;
+    const dr = c*t.re + d, di = c*t.im;
+    const denom = dr*dr + di*di;
+    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };
+  }
+
+  // polygon for F: sample many points along its boundary, then push through M
+  const Fbdry = (function(){
+    const pts = [];
+    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2
+    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});
+    // arc from angle 2π/3 to π/3 on unit circle
+    for(let k=0;k<=30;k++){
+      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;
+      pts.push({re:Math.cos(th), im:Math.sin(th)});
+    }
+    // right vertical up
+    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});
+    return pts;
+  })();
+
+  function polyPath(pts){
+    let d = '';
+    pts.forEach((p,i)=>{
+      const [X,Y] = px(p);
+      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
+    });
+    return d + 'Z';
+  }
+
+  function drawTile(M, color, opacity, label){
+    const pts = Fbdry.map(p => applyMobius(M, p));
+    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,
+      stroke:'var(--line)','stroke-width':1});
+    svg.appendChild(path);
+    if(label){
+      // centroid
+      let cx=0, cy=0;
+      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });
+      cx/=pts.length; cy/=pts.length;
+      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = label; svg.appendChild(t);
+    }
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    // real axis
+    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));
+    // vertical grid
+    for(let x=-2;x<=2;x++){
+      const [X] = px({re:x,im:0});
+      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));
+    }
+
+    // T-translates first (lighter)
+    if(state.T){
+      for(const n of [-2,-1,1,2]){
+        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');
+      }
+    }
+    // S-image: -1/tau sends F to the "tongue" below
+    if(state.S){
+      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');
+    }
+    // TS and T^{-1}S
+    if(state.TST){
+      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute
+      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]
+      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);
+      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]
+      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');
+    }
+
+    // canonical F on top, darker
+    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');
+  }
+
+  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });
+  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });
+  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });
+  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;
+    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });
+  render();
+})();
+</script>
+
+<h3>Area, cusp, and elliptic points</h3>
+<p>The hyperbolic area of $\mathcal{F}$ is $\pi/3$ — a famous finite answer that seeds every volume computation for arithmetic quotients. Three kinds of points in $\mathcal{F}$ play a special structural role:</p>
+<ul>
+  <li>$i$ is fixed by $S$ — stabilizer of order $2$;</li>
+  <li>$\rho = e^{2\pi i/3}$ is fixed by $ST$ — stabilizer of order $3$;</li>
+  <li>the <em>cusp</em> $i\infty$ (a single boundary point after the identification) — stabilizer $\langle T \rangle$.</li>
+</ul>
+<p>These are exactly the points where the quotient $\mathcal{H}/\mathrm{SL}_2(\mathbb{Z})$ fails to be a smooth manifold in the naive sense; adding the cusp compactifies the quotient to a <a href="./riemann-surfaces.html">Riemann surface</a> of genus $0$, the <em>modular curve</em> $X(1)$.</p>
+</section>
+
+<section id="forms">
+<h2>3. What is a modular form?</h2>
+<p>Fix an integer $k \ge 0$. A <strong>modular form of weight $k$</strong> for $\mathrm{SL}_2(\mathbb{Z})$ is a holomorphic function $f \colon \mathcal{H} \to \mathbb{C}$ satisfying the transformation law
+$$f\!\left(\frac{a\tau + b}{c\tau + d}\right) \;=\; (c\tau + d)^k \, f(\tau) \qquad \text{for all }\begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z}),$$
+together with a holomorphicity condition at the cusp $i\infty$: the function
+$$\tilde f(q) \;=\; f(\tau), \qquad q = e^{2\pi i \tau}$$
+extends to a holomorphic function on a neighborhood of $q=0$. Applying the law to $T$ gives $f(\tau+1) = f(\tau)$, which is exactly the periodicity that lets us Fourier-expand in $q$.</p>
+
+<p>If $k$ is <em>odd</em> the transformation law applied to $-I \in \mathrm{SL}_2(\mathbb{Z})$ forces $f = (-1)^k f$, so $f \equiv 0$. Hence only even weights give anything interesting.</p>
+
+<h3>The two minimal identities</h3>
+<p>Because $S$ and $T$ generate, $f$ is modular of weight $k$ if and only if it is holomorphic, holomorphic at $\infty$, and satisfies both
+$$f(\tau + 1) = f(\tau), \qquad f(-1/\tau) = \tau^k f(\tau).$$
+Almost every proof about modular forms is, at heart, a clever use of these two identities at once.</p>
+
+<div class="widget" id="w-wk">
+  <div class="hd"><span class="ttl">Widget 3 · The weight-$k$ factor $(c\tau+d)^k$</span><span class="hint">watch the automorphy factor blow up or collapse as $k$ changes</span></div>
+  <div class="row">
+    <label>weight $k$:</label>
+    <input id="w-wk-k" type="range" min="2" max="14" step="2" value="4">
+    <span id="w-wk-kv" class="pill">k=4</span>
+    <label style="margin-left:1rem">matrix choice:</label>
+    <select id="w-wk-m">
+      <option value="S">$S = [[0,-1],[1,0]]$</option>
+      <option value="ST">$ST$</option>
+      <option value="T2S">$T^2 S$</option>
+      <option value="T-1S">$T^{-1}S$</option>
+    </select>
+  </div>
+  <svg id="w-wk-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="automorphy factor"></svg>
+  <div class="readout small" id="w-wk-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w-wk-svg');
+  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');
+  const W=720, H=260;
+  const Ms = {
+    S:  [[0,-1],[1,0]],
+    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]
+    'T2S': [[2,-1],[1,0]],
+    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]
+  };
+
+  function render(){
+    svg.innerHTML='';
+    const k = +kSl.value;
+    kLbl.textContent = 'k=' + k;
+    const M = Ms[mSel.value];
+    const c = M[1][0], d = M[1][1];
+
+    // sample tau along Re=0, Im from 0.2 to 2
+    // plot |c*tau+d|^k as a function of Im(tau)
+    const pad = 40;
+    const xs = [], ys = [];
+    for(let n=0;n<=120;n++){
+      const y = 0.2 + (2.2-0.2)*n/120;
+      const tre = 0, tim = y;
+      const re = c*tre + d, im = c*tim;
+      const mag = Math.hypot(re,im);
+      xs.push(y); ys.push(Math.pow(mag,k));
+    }
+    const ymin = Math.min(...ys), ymax = Math.max(...ys);
+    const logscale = ymax/Math.max(ymin,1e-9) > 30;
+    function mapy(v){
+      if(logscale){
+        const lv = Math.log(Math.max(v,1e-9));
+        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));
+        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));
+      }
+      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));
+    }
+    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }
+
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));
+    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    xlab.textContent = 'Im(τ), with Re(τ)=0';
+    svg.appendChild(xlab);
+    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});
+    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';
+    svg.appendChild(ylab);
+
+    // curve
+    let dstr = '';
+    for(let i=0;i<xs.length;i++){
+      const X = mapx(xs[i]), Y = mapy(ys[i]);
+      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));
+
+    // mark Im=1 reference
+    const xref = mapx(1);
+    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));
+    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});
+    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);
+
+    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})
+|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}
+f is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;
+  }
+
+  kSl.addEventListener('input', render);
+  mSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>Geometric reading.</strong> The symbol $d\tau$ transforms by $d(\gamma\tau) = (c\tau+d)^{-2}\,d\tau$. A modular form of weight $k$ is therefore — morally — a section of $(T^*\mathcal{H})^{\otimes k/2}$ that descends to the quotient. That is why only <em>even</em> $k$ can have nonzero invariants: odd powers of the cotangent bundle pick up a sign under $-I$.</div>
+</section>
+
+<section id="eisen">
+<h2>4. Eisenstein series: the first examples</h2>
+<p>The cleanest way to produce a modular form is to average. For even $k \ge 4$, define the <strong>Eisenstein series</strong>
+$$E_k(\tau) \;=\; \tfrac{1}{2} \sum_{\substack{(m,n) \in \mathbb{Z}^2 \\ (m,n)\ne(0,0)}} \frac{1}{(m\tau + n)^k}.$$
+The half is for normalization ($(m,n)$ and $(-m,-n)$ give the same term when $k$ is even). The series converges absolutely for $k \ge 4$ and defines a holomorphic function on $\mathcal{H}$.</p>
+
+<h3>Why it transforms correctly</h3>
+<p>For $\gamma = \begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z})$ apply the change of variable $(m,n) \mapsto (m,n)\gamma^{-1}$ in the sum: the lattice $\mathbb{Z}^2 \setminus \{0\}$ is stable under $\mathrm{GL}_2(\mathbb{Z})$, and a direct computation gives $m(\gamma\tau) + n = (c\tau + d)^{-1} \cdot (m'\tau + n')$ for the relabeled indices. Summing over the permuted lattice yields $E_k(\gamma\tau) = (c\tau+d)^k E_k(\tau)$.</p>
+
+<h3>The $q$-expansion and divisor sums</h3>
+<p>Every modular form for $\mathrm{SL}_2(\mathbb{Z})$ is, by $T$-periodicity, a power series in $q = e^{2\pi i \tau}$. The $q$-expansion of $E_k$ (with a standard normalization where the constant term is $1$) is
+$$E_k(\tau) \;=\; 1 - \frac{2k}{B_k} \sum_{n\ge 1} \sigma_{k-1}(n)\, q^n,$$
+where $B_k$ is the $k$-th Bernoulli number and $\sigma_{s}(n) = \sum_{d \mid n} d^s$. The constants for the first few:</p>
+<table class="plain">
+<thead><tr><th>$k$</th><th>$-2k/B_k$</th><th>first Fourier terms of $E_k$</th></tr></thead>
+<tbody>
+<tr><td>$4$</td><td>$240$</td><td>$1 + 240\,q + 2160\,q^2 + 6720\,q^3 + 17520\,q^4 + \cdots$</td></tr>
+<tr><td>$6$</td><td>$-504$</td><td>$1 - 504\,q - 16632\,q^2 - 122976\,q^3 + \cdots$</td></tr>
+<tr><td>$8$</td><td>$480$</td><td>$1 + 480\,q + 61920\,q^2 + \cdots$</td></tr>
+<tr><td>$10$</td><td>$-264$</td><td>$1 - 264\,q - 135432\,q^2 + \cdots$</td></tr>
+<tr><td>$12$</td><td>$\tfrac{65520}{691}$</td><td>the $691$ in the denominator is the reason for Ramanujan's congruence</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-qbar">
+  <div class="hd"><span class="ttl">Widget 4 · $q$-expansion bar chart</span><span class="hint">compare the Fourier coefficients of $E_4$, $E_6$, $\Delta$ — note the signs and magnitudes</span></div>
+  <div class="row" id="w-qbar-btns">
+    <button data-f="E4" class="active">$E_4$</button>
+    <button data-f="E6">$E_6$</button>
+    <button data-f="Delta">$\Delta$</button>
+    <button data-f="E8">$E_8$</button>
+    <label style="margin-left:auto">log scale</label>
+    <input id="w-qbar-log" type="checkbox" checked>
+  </div>
+  <svg id="w-qbar-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="q-expansion bar chart"></svg>
+  <div class="readout small" id="w-qbar-out"></div>
+</div>
+
+<script>
+(function(){
+  // precomputed q-expansions (standard normalization)
+  const data = {
+    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],
+    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],
+    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],
+    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)
+    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]
+  };
+  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };
+
+  const btns = $('#w-qbar-btns');
+  const svg = $('#w-qbar-svg');
+  const out = $('#w-qbar-out');
+  const logCb = $('#w-qbar-log');
+  let cur = 'E4';
+
+  function render(){
+    svg.innerHTML = '';
+    const W = 720, H = 300, pad = 40;
+    const arr = data[cur];
+    const N = arr.length;
+    const bw = (W - 2*pad) / N;
+    const log = logCb.checked;
+    const vals = arr.map(v => v);
+    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);
+    function yscale(v){
+      const signed = v;
+      const absV = Math.abs(signed);
+      if(log){
+        const lv = Math.log10(1 + absV);
+        const lm = Math.log10(1 + absMax);
+        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);
+      }
+      return (H/2 - pad/2) * (signed/absMax);
+    }
+    // axis
+    const zeroY = H/2;
+    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));
+    // title
+    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';
+    svg.appendChild(tt);
+
+    for(let i=0;i<N;i++){
+      const x = pad + i*bw;
+      const h = yscale(arr[i]);
+      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');
+      svg.appendChild(SVG('rect',{
+        x: x+1, y: h>=0 ? zeroY - h : zeroY,
+        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,
+        fill: color, 'fill-opacity':0.85
+      }));
+      // index labels every few
+      if(i % Math.max(1, Math.floor(N/10)) === 0){
+        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+        ix.textContent = i;
+        svg.appendChild(ix);
+      }
+    }
+
+    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}
+a_0 = ${arr[0]}
+a_1 = ${arr[1]}
+a_2 = ${arr[2]}
+a_3 = ${arr[3]}`;
+  }
+
+  btns.addEventListener('click', (e)=>{
+    const f = e.target.dataset && e.target.dataset.f;
+    if(!f) return;
+    cur = f;
+    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));
+    render();
+  });
+  logCb.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>Two features of this picture are hard to overstate. First: a single transcendentally-defined function on a complex domain is really a sequence of integers — in the $E_4$ case, the integers $240\,\sigma_3(n)$ counting divisor sums. Second: the same integers arise from counting lattice points on spheres (the theta functions used in <a href="./sums-of-squares.html">sums of squares</a>), which is why modular forms encode arithmetic.</p>
+</section>
+
+<section id="jinv">
+<h2>5. The discriminant $\Delta$ and the $j$-invariant</h2>
+<p>Define
+$$\Delta(\tau) \;=\; \frac{E_4(\tau)^3 - E_6(\tau)^2}{1728}.$$
+This is a modular form of weight $12$: subtract the right multiple of $E_4^3$ from $E_6^2$ and the constant term cancels, leaving a $q$-series that starts with $q$. Its $q$-expansion is the famous Ramanujan tau function:
+$$\Delta(\tau) \;=\; q \prod_{n=1}^{\infty}(1-q^n)^{24} \;=\; \sum_{n\ge 1} \tau(n)\, q^n, \qquad \tau(1)=1,\,\tau(2)=-24,\,\tau(3)=252,\,\ldots$$
+$\Delta$ has no zeros on $\mathcal{H}$ — it vanishes only to first order at the cusp. This makes the quotient
+$$j(\tau) \;=\; \frac{E_4(\tau)^3}{\Delta(\tau)} \;=\; \frac{1}{q} + 744 + 196884\, q + 21493760\, q^2 + \cdots$$
+well-defined and holomorphic on all of $\mathcal{H}$, with a simple pole at the cusp. It has weight $4 \cdot 3 - 12 = 0$ — it is <em>modular-invariant</em>, a genuine function on $\mathcal{H}/\mathrm{SL}_2(\mathbb{Z})$.</p>
+
+<h3>The one-line theorem</h3>
+<div class="ok"><strong>Theorem.</strong> $j \colon \mathcal{H}/\mathrm{SL}_2(\mathbb{Z}) \to \mathbb{C}$ is a bijection, and the map extends to an isomorphism of Riemann surfaces $X(1) \xrightarrow{\sim} \mathbb{P}^1_\mathbb{C}$.</div>
+<p>In particular, two points $\tau_1, \tau_2 \in \mathcal{H}$ give isomorphic complex <a href="./elliptic-curves.html">elliptic curves</a> $\mathbb{C}/(\mathbb{Z} + \tau_i \mathbb{Z})$ iff $j(\tau_1) = j(\tau_2)$. The $j$-invariant is the moduli-space coordinate — see <a href="./moduli-spaces.html">moduli spaces</a> for the general story.</p>
+
+<div class="widget" id="w-j">
+  <div class="hd"><span class="ttl">Widget 5 · The $j$-function on a vertical strip</span><span class="hint">$j(\tau)$ along $\mathrm{Re}\,\tau=x_0$, as $\mathrm{Im}\,\tau$ varies: a pole at $i\infty$, regular on $\mathcal{H}$</span></div>
+  <div class="row">
+    <label>$\mathrm{Re}\,\tau$:</label>
+    <input id="w-j-x" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+    <span id="w-j-xv" class="pill">x=0</span>
+    <label style="margin-left:1rem">Im range:</label>
+    <input id="w-j-y" type="range" min="0.3" max="3" step="0.02" value="1.3">
+    <span id="w-j-yv" class="pill">y=1.30</span>
+  </div>
+  <svg id="w-j-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="j-function heat strip"></svg>
+  <div class="readout small" id="w-j-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w-j-svg');
+  const xS = $('#w-j-x'), xL = $('#w-j-xv');
+  const yS = $('#w-j-y'), yL = $('#w-j-yv');
+  const out = $('#w-j-out');
+
+  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...
+  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];
+  function jApprox(tau){
+    // q = e^{2pi i tau}
+    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);
+    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);
+    // 1/q = e^{-2pi i tau}
+    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);
+    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);
+    let re = iqre + 744, im = iqim;
+    let pre = 1, pim = 0;
+    for(let k=0;k<jcoef.length;k++){
+      // multiply p *= q
+      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;
+      pre = npre; pim = npim;
+      re += jcoef[k]*pre; im += jcoef[k]*pim;
+    }
+    return { re, im, abs: Math.hypot(re,im) };
+  }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+  // HSV to hex
+  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }
+
+  function render(){
+    svg.innerHTML = '';
+    const W = 720, H = 260, pad = 40;
+    const x0 = parseFloat(xS.value);
+    xL.textContent = 'x=' + x0.toFixed(2);
+    const ytop = parseFloat(yS.value);
+    yL.textContent = 'y=' + ytop.toFixed(2);
+    const ymin = 0.1, ymax = Math.max(ytop, 0.4);
+
+    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)
+    const strips = 120;
+    const sh = (H - 2*pad) / strips;
+    const cellX = pad+20, cellW = W - 2*pad - 40;
+
+    // first pass, collect values
+    const rows = [];
+    for(let i=0;i<strips;i++){
+      const y = ymin + (ymax - ymin) * i/(strips-1);
+      const j = jApprox({re:x0, im:y});
+      rows.push({y, j});
+    }
+    const logs = rows.map(r => Math.log10(1 + r.j.abs));
+    const lmax = Math.max(...logs), lmin = Math.min(...logs);
+
+    for(let i=0;i<strips;i++){
+      const r = rows[i];
+      const t = (logs[i]-lmin)/(lmax-lmin || 1);
+      const arg = Math.atan2(r.j.im, r.j.re);
+      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;
+      const light = 0.22 + 0.55 * t;
+      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));
+      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));
+    }
+    // frame
+    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,
+      fill:'none', stroke:'var(--line)','stroke-width':1}));
+    // y labels
+    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){
+      if(yval<ymin || yval>ymax) continue;
+      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));
+      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));
+      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});
+      t.textContent = 'Im=' + yval.toFixed(1);
+      svg.appendChild(t);
+    }
+    // caption
+    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';
+    svg.appendChild(cap);
+    // title
+    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;
+    svg.appendChild(ttl);
+
+    // sample readouts
+    const ys = [0.3, 0.5, 1.0, 2.0];
+    let ln = '';
+    for(const yv of ys){
+      const jj = jApprox({re:x0, im:yv});
+      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\n`;
+    }
+    out.textContent = ln.trim();
+  }
+  xS.addEventListener('input', render);
+  yS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>The Monster.</strong> The Fourier coefficient $196884$ in $j$'s expansion equals $196883 + 1$, where $196883$ is the dimension of the smallest nontrivial irreducible representation of the Monster group. This "monstrous moonshine" connection — now a theorem of Borcherds — is one of the strangest bridges in mathematics.</div>
+</section>
+
+<section id="cusps">
+<h2>6. Spaces of modular forms and cusp forms</h2>
+<p>Fix even $k \ge 0$. Let $M_k$ denote the $\mathbb{C}$-vector space of weight-$k$ modular forms for $\mathrm{SL}_2(\mathbb{Z})$, and $S_k \subset M_k$ the subspace of <strong>cusp forms</strong> — those vanishing at $i\infty$, i.e.\ with $q$-expansion starting at $q^1$.</p>
+
+<h3>The dimension formula</h3>
+<p>A contour-integral / valence argument (Serre's valence formula) gives the clean dimension count:</p>
+<div class="widget" id="w-dim">
+  <div class="hd"><span class="ttl">Widget 6 · Dimensions of $M_k$ and $S_k$</span><span class="hint">$\dim M_k = \lfloor k/12 \rfloor + \epsilon_k$ with a single correction at $k \equiv 2 \pmod{12}$</span></div>
+  <div class="row">
+    <label>max weight:</label>
+    <input id="w-dim-kmax" type="range" min="12" max="36" step="2" value="24">
+    <span id="w-dim-kv" class="pill">k ≤ 24</span>
+  </div>
+  <svg id="w-dim-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="dimension bar chart"></svg>
+  <div class="readout small" id="w-dim-out"></div>
+</div>
+
+<script>
+(function(){
+  function dimMk(k){
+    if(k < 0 || k % 2 !== 0) return 0;
+    const q = Math.floor(k/12), r = k % 12;
+    if(r === 2) return q;
+    return q + 1;
+  }
+  function dimSk(k){
+    if(k < 12) return 0;
+    return dimMk(k) - 1;
+  }
+
+  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');
+
+  function render(){
+    svg.innerHTML = '';
+    const kmax = +kSl.value;
+    kLbl.textContent = 'k ≤ ' + kmax;
+    const W=720, H=280, pad=40;
+    const weights = [];
+    for(let k=0;k<=kmax;k+=2) weights.push(k);
+    const N = weights.length;
+    const bw = (W - 2*pad)/N;
+    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);
+    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }
+
+    // grid
+    for(let g=0; g<=maxDim; g++){
+      const Y = mapy(g);
+      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));
+    }
+
+    weights.forEach((k,i)=>{
+      const x = pad + i*bw;
+      const dM = dimMk(k), dS = dimSk(k);
+      // M_k bar (yellow, faint)
+      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),
+        fill:'var(--yellow)','fill-opacity':0.35}));
+      // S_k bar (green, darker)
+      if(dS>0){
+        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),
+          fill:'var(--green)','fill-opacity':0.85}));
+      }
+      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      tx.textContent = k;
+      svg.appendChild(tx);
+    });
+
+    // legend
+    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';
+    svg.appendChild(lg);
+
+    // readout table
+    let lines = 'k     dim M_k    dim S_k\n';
+    for(let k=0;k<=Math.min(kmax,28);k+=2){
+      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\n`;
+    }
+    out.textContent = lines.trim();
+  }
+  kSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>The key structural facts one reads off:</p>
+<ul>
+  <li>$\dim M_k = 0$ for $k < 0$ or $k$ odd;</li>
+  <li>$\dim M_k = 1$ for $k \in \{0,4,6,8,10,14\}$ — these are spanned by $1, E_4, E_6, E_8 = E_4^2, E_{10} = E_4 E_6, E_{14} = E_4^2 E_6$;</li>
+  <li>$\dim M_{12} = 2$, spanned by $E_{12}$ and $\Delta$;</li>
+  <li>$\dim S_k = \dim M_k - 1$ for $k \ge 12$: one constraint to kill the value at the cusp.</li>
+</ul>
+
+<h3>The ring structure</h3>
+<p>Collecting all weights, $M_* = \bigoplus_k M_k$ is a graded $\mathbb{C}$-algebra. The finite-dimensional data above is, miraculously, one fact:</p>
+<div class="ok"><strong>Structure theorem.</strong> $M_*(\mathrm{SL}_2(\mathbb{Z})) \;=\; \mathbb{C}[E_4, E_6]$, a polynomial ring in two algebraically independent generators, with $\deg E_4 = 4$ and $\deg E_6 = 6$.</div>
+<p>A one-variable polynomial ring has a predictable dimension growth; the <em>two</em>-variable graded piece gives exactly the "floor of $k/12$" shape. From this one gets $\dim S_k = \dim M_{k-12}$ and the multiplication-by-$\Delta$ isomorphism $M_{k-12} \xrightarrow{\sim} S_k$.</p>
+</section>
+
+<section id="qexp">
+<h2>7. $q$-expansions and the shadow of Hecke theory</h2>
+<p>The structure so far is elegant but static. The arithmetic really begins when we ask: what operators act on the finite-dimensional spaces $M_k$ and $S_k$?</p>
+
+<h3>The $q$-expansion principle</h3>
+<p>Two modular forms of the same weight with the same $q$-expansion are equal — holomorphy at the cusp plus the identity theorem force it. This is why a finite initial segment of Fourier coefficients <em>is</em> the form.</p>
+
+<div class="widget" id="w-id">
+  <div class="hd"><span class="ttl">Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\,\Delta$</span><span class="hint">truncate $q$-expansions; check the identity coefficient-by-coefficient</span></div>
+  <div class="row">
+    <label>compare up to $q^N$ with $N$ =</label>
+    <input id="w-id-N" type="range" min="2" max="15" step="1" value="6">
+    <span id="w-id-Nv" class="pill">N=6</span>
+  </div>
+  <div class="readout" id="w-id-out" style="min-height:10em"></div>
+</div>
+
+<script>
+(function(){
+  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];
+  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];
+  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];
+
+  function polyMul(a,b, maxLen){
+    const out = new Array(maxLen).fill(0);
+    for(let i=0;i<a.length && i<maxLen;i++)
+      for(let j=0;j<b.length && i+j<maxLen;j++)
+        out[i+j] += a[i]*b[j];
+    return out;
+  }
+  function polySub(a,b){
+    const L = Math.max(a.length,b.length);
+    const out = new Array(L).fill(0);
+    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);
+    return out;
+  }
+  function scale(a,s){ return a.map(v=>v*s); }
+
+  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');
+  function render(){
+    const N = +nS.value;
+    nL.textContent = 'N='+N;
+    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);
+    const E6_2 = polyMul(E6,E6,N+1);
+    const lhs = polySub(E4_3, E6_2);
+    const rhs = scale(Delta.slice(0,N+1), 1728);
+    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\n';
+    let ok = true;
+    for(let n=0;n<=N;n++){
+      const L = lhs[n]||0, R = rhs[n]||0;
+      const m = L===R ? 'yes' : 'NO';
+      if(L!==R) ok = false;
+      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\n`;
+    }
+    lines += '\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');
+    out.textContent = lines;
+  }
+  nS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<h3>Hecke operators — a first look</h3>
+<p>For each prime $p$ there is a linear operator $T_p$ on $M_k$ defined on $q$-expansions by the curious-looking formula
+$$(T_p f)(\tau) \;=\; \sum_{n\ge 0} \left( a_{pn} + p^{k-1} a_{n/p} \right) q^n,$$
+where $a_{n/p} = 0$ if $p \nmid n$. The $T_p$ commute, are self-adjoint for the Petersson inner product, and preserve $S_k$. This forces $S_k$ to decompose into <em>simultaneous eigenspaces</em> — the <strong>Hecke eigenforms</strong> — and each eigenform has Fourier coefficients that form a multiplicative sequence. In the one-dimensional case $S_{12} = \mathbb{C}\cdot \Delta$, the eigenvalue of $T_p$ on $\Delta$ is precisely Ramanujan's $\tau(p)$, and the multiplicativity says
+$$\tau(mn) = \tau(m)\tau(n) \text{ when } (m,n)=1, \qquad \tau(p^{r+1}) = \tau(p)\tau(p^r) - p^{11}\tau(p^{r-1}).$$
+These relations encode the arithmetic content of $\Delta$.</p>
+
+<div class="note"><strong>Looking forward.</strong> The Hecke algebra $\mathbb{T}_k \subset \mathrm{End}(S_k)$ and its eigenforms are the link to Galois representations: to each eigenform one attaches a $2$-dimensional $\ell$-adic representation of $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$ whose trace on Frobenius at $p$ equals $a_p$. That correspondence, in the weight-$2$ case, is the modularity theorem for <a href="./elliptic-curves.html">elliptic curves</a>. The full action of $\mathbb{T}$, its structure as a commutative ring, and the Petersson product live in a next chapter of their own.</div>
+
+<h3>Where this page ends</h3>
+<p>Everything here has been at level $1$ — full $\mathrm{SL}_2(\mathbb{Z})$ invariance. The next moves are:</p>
+<ul>
+  <li>replace $\mathrm{SL}_2(\mathbb{Z})$ by a congruence subgroup $\Gamma_0(N)$, producing modular forms of level $N$ and a richer compactified modular curve $X_0(N)$;</li>
+  <li>add characters (nebentype) to get a Dirichlet-twisted version of the theory;</li>
+  <li>attach an $L$-function $L(f,s) = \sum a_n n^{-s}$ to each eigenform, a Dirichlet series with Euler product expressing the Hecke relations analytically;</li>
+  <li>tie these $L$-functions to Galois representations and to the $L$-functions of elliptic curves.</li>
+</ul>
+<p>But the engine is already in place: a finite-dimensional space, a canonical basis of Hecke eigenforms, and a $q$-expansion that turns a transcendental function into an arithmetic sequence.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>p-adic numbers — trees, ultrametrics, and Hensel's lemma</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+// small number-theory helpers
+function isPrime(n){ n=Math.abs(n|0); if(n<2) return false; if(n<4) return true; if(n%2===0) return false;
+  for(let k=3;k*k<=n;k+=2) if(n%k===0) return false; return true; }
+function vpInt(n,p){ n=Math.abs(n|0); if(n===0) return Infinity; let v=0; while(n%p===0){ n=n/p; v++; } return v; }
+function vpRat(a,b,p){ return vpInt(a,p)-vpInt(b,p); }
+function gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }
+function modpow(base, exp, mod){
+  base = ((base%mod)+mod)%mod;
+  let r = 1 % mod;
+  while(exp>0){
+    if(exp & 1) r = (r*base) % mod;
+    base = (base*base) % mod;
+    exp = Math.floor(exp/2);
+  }
+  return r;
+}
+// p-adic digits of a non-negative integer n < p^depth
+function digitsOfInt(n, p, depth){
+  const out = [];
+  let x = n;
+  for(let i=0;i<depth;i++){ out.push(x%p); x = Math.floor(x/p); }
+  return out; // little-endian: a_0, a_1, ...
+}
+// p-adic digits of a rational a/b with gcd(b,p)=1, up to given depth (in Z_p)
+function digitsOfRatInZp(a, b, p, depth){
+  // find inverse of b mod p^depth then multiply by a, reduce
+  let mod = 1; for(let i=0;i<depth;i++) mod *= p;
+  // guard against overflow for large depths
+  const A = ((a % mod)+mod)%mod;
+  const B = ((b % mod)+mod)%mod;
+  // extended Euclid mod
+  function eea(x,y){ // returns [g,s,t] with s*x+t*y=g
+    if(y===0) return [x,1,0];
+    const [g,s1,t1] = eea(y, x%y);
+    return [g, t1, s1 - Math.floor(x/y)*t1];
+  }
+  const [g,s,] = eea(B, mod);
+  if(g!==1) return null;
+  const Binv = ((s%mod)+mod)%mod;
+  let N = (A*Binv) % mod;
+  return digitsOfInt(N, p, depth);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#abs">1&nbsp;Other&nbsp;absolute&nbsp;value</a>
+  <a href="#ultra">2&nbsp;Ultrametric</a>
+  <a href="#expand">3&nbsp;p-adic&nbsp;expansions</a>
+  <a href="#inv">4&nbsp;Inverse&nbsp;limit</a>
+  <a href="#tree">5&nbsp;The&nbsp;p-adic&nbsp;tree</a>
+  <a href="#qp">6&nbsp;$\mathbb{Q}_p$&nbsp;and&nbsp;completion</a>
+  <a href="#hensel">7&nbsp;Hensel's&nbsp;lemma</a>
+  <a href="#why">8&nbsp;Why&nbsp;care</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>p-adic numbers: trees, ultrametrics, and Hensel</h1>
+  <p class="sub">A parallel universe of "size" on the rationals, built from divisibility by a prime. The number line is replaced by a rooted tree, triangles become isoceles, and power series converge when their coefficients grow. This page keeps one image at the center: $\mathbb{Z}_p$ as a Cantor-set-like tree.</p>
+</section>
+
+<section id="abs">
+<h2>1. The other absolute value</h2>
+<p>On the rationals $\mathbb{Q}$ we are used to one measure of size, the usual absolute value $|x|_\infty$. But a prime $p$ secretly supplies another one. For a nonzero integer $n$, let the <strong>$p$-adic valuation</strong> be
+$$v_p(n) = \max\{k\ge 0 : p^k \mid n\},$$
+extended to $\mathbb{Q}^\times$ by $v_p(a/b) = v_p(a)-v_p(b)$, and set $v_p(0)=\infty$. The <strong>$p$-adic absolute value</strong> is
+$$|x|_p = p^{-v_p(x)}, \qquad |0|_p=0.$$
+So $|p|_p = 1/p$ is <em>small</em>, while $1/p$ is large: divisibility by $p$ makes a number tiny.</p>
+
+<div class="note"><strong>Ostrowski's theorem.</strong> Every nontrivial absolute value on $\mathbb{Q}$ is equivalent either to $|\cdot|_\infty$ or to $|\cdot|_p$ for a unique prime $p$. So the list is complete: one Archimedean place, one place for each prime, and nothing else.</div>
+
+<p>The product formula neatly ties them together: for every nonzero rational $x$,
+$$\prod_{v} |x|_v = 1,$$
+where $v$ ranges over $\infty$ and all primes. Decrease somewhere, increase somewhere else.</p>
+
+<div class="widget" id="w1">
+  <div class="hd"><span class="ttl">W1 · $v_p$ and $|\cdot|_p$ calculator</span><span class="hint">enter $p$ prime and $a/b$</span></div>
+  <div class="row">
+    <label>$p=$</label><input type="number" id="w1-p" value="7" min="2" step="1" style="width:70px">
+    <label>$a=$</label><input type="number" id="w1-a" value="98" step="1" style="width:110px">
+    <label>$b=$</label><input type="number" id="w1-b" value="3" step="1" style="width:110px">
+    <button id="w1-go">compute</button>
+  </div>
+  <div class="readout" id="w1-out"></div>
+  <svg id="w1-svg" viewBox="0 0 720 160" width="720" height="160" aria-label="bar chart"></svg>
+</div>
+
+<script>
+(function(){
+  const out = $('#w1-out'), svg = $('#w1-svg');
+  function go(){
+    const p = parseInt($('#w1-p').value,10);
+    const a = parseInt($('#w1-a').value,10);
+    const b = parseInt($('#w1-b').value,10);
+    svg.innerHTML = '';
+    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){
+      out.textContent = 'need a prime p and integers a,b with b\u22600';
+      return;
+    }
+    const va = (a===0) ? '\u221E' : vpInt(a,p);
+    const vb = vpInt(b,p);
+    const v  = (a===0) ? '\u221E' : (vpInt(a,p) - vb);
+    const absVal = (a===0) ? 0 : Math.pow(p, -v);
+    out.textContent =
+      `x = ${a}/${b}\n` +
+      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\n` +
+      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\n` +
+      `|x|_\u221E = ${Math.abs(a/b).toPrecision(6)}`;
+    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity
+    const primes = [2,3,5,7,11,13].filter(q=>q!==null);
+    const W = 720, H = 160, pad = 30;
+    const n = primes.length + 1;
+    const bw = (W - 2*pad)/n * 0.6;
+    const step = (W - 2*pad)/n;
+    // each |x|_q
+    const vals = primes.map(q=>{
+      if(a===0) return 0;
+      const vq = vpInt(a,q) - vpInt(b,q);
+      return Math.pow(q, -vq);
+    });
+    const infVal = Math.abs(a/b);
+    const all = [...vals, infVal];
+    const maxV = Math.max(1e-6, ...all);
+    primes.concat(['\u221E']).forEach((q, i) => {
+      const x = pad + step*i + step*0.2;
+      const val = (q==='\u221E') ? infVal : vals[i];
+      const h = (H-pad-20) * (val / maxV);
+      const color = (q===p) ? 'var(--yellow)' : (q==='\u221E' ? 'var(--pink)' : 'var(--blue)');
+      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));
+      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t1.textContent = (q==='\u221E') ? '|x|\u221E' : `|x|_${q}`;
+      svg.appendChild(t1);
+      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});
+      t2.textContent = val.toPrecision(3);
+      svg.appendChild(t2);
+    });
+  }
+  $('#w1-go').addEventListener('click', go);
+  go();
+})();
+</script>
+</section>
+
+<section id="ultra">
+<h2>2. The ultrametric inequality</h2>
+<p>The $p$-adic absolute value satisfies more than the triangle inequality. For all $x,y\in\mathbb{Q}$,
+$$|x+y|_p \le \max(|x|_p,|y|_p).$$
+Call an absolute value with this property <strong>non-Archimedean</strong>, or an <strong>ultrametric</strong>. Three small but dramatic consequences:</p>
+<ul>
+  <li><strong>Every triangle is isoceles.</strong> If $|x|_p \ne |y|_p$, then $|x+y|_p = \max(|x|_p,|y|_p)$. So among three pairwise distances, the two largest must be equal.</li>
+  <li><strong>Every point inside a ball is its center.</strong> If $y$ lies in $\overline{B}(x,r) = \{z : |z-x|_p \le r\}$, then $\overline{B}(y,r) = \overline{B}(x,r)$.</li>
+  <li><strong>Balls are clopen.</strong> A $p$-adic ball is both open and closed. The topology is totally disconnected — no nontrivial connected sets.</li>
+</ul>
+
+<p>A short reason for ultrametricity: $v_p(x+y) \ge \min(v_p(x),v_p(y))$ (factors of $p$ survive addition), and exponentiating by $-\log p$ flips the inequality.</p>
+
+<div class="widget" id="w4">
+  <div class="hd"><span class="ttl">W4 · Ultrametric triangle</span><span class="hint">three integers in $\mathbb{Z}_p$</span></div>
+  <div class="row">
+    <label>$p=$</label><input type="number" id="w4-p" value="2" min="2" step="1" style="width:70px">
+    <label>$a=$</label><input type="number" id="w4-a" value="17" step="1" style="width:90px">
+    <label>$b=$</label><input type="number" id="w4-b" value="5" step="1" style="width:90px">
+    <label>$c=$</label><input type="number" id="w4-c" value="6" step="1" style="width:90px">
+    <button id="w4-go">check</button>
+  </div>
+  <div class="readout" id="w4-out"></div>
+</div>
+
+<script>
+(function(){
+  const out = $('#w4-out');
+  function go(){
+    const p = parseInt($('#w4-p').value,10);
+    const a = parseInt($('#w4-a').value,10);
+    const b = parseInt($('#w4-b').value,10);
+    const c = parseInt($('#w4-c').value,10);
+    if(!isPrime(p)){ out.textContent='p must be prime'; return; }
+    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }
+    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);
+    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);
+    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;
+    out.textContent =
+      `|a-b|_${p} = ${dab.toPrecision(4)}\n` +
+      `|b-c|_${p} = ${dbc.toPrecision(4)}\n` +
+      `|a-c|_${p} = ${dac.toPrecision(4)}\n` +
+      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \u2265 ')}\n` +
+      (isIsoc ? 'two largest agree \u2014 isoceles, as forced by the ultrametric.' :
+                'distances strict \u2014 this would violate the ultrametric if inputs were valid!');
+  }
+  $('#w4-go').addEventListener('click', go);
+  go();
+})();
+</script>
+</section>
+
+<section id="expand">
+<h2>3. p-adic expansions</h2>
+<p>Every $x\in \mathbb{Z}_p$ (the $p$-adic integers, to be defined precisely in a moment) has a unique expansion
+$$x = a_0 + a_1 p + a_2 p^2 + a_3 p^3 + \cdots, \qquad a_i \in \{0,1,\ldots,p-1\}.$$
+For a non-negative integer $n$, the expansion terminates: it is exactly the base-$p$ representation. For a rational $a/b$ with $\gcd(b,p)=1$, the expansion is eventually periodic. Rationals with $p\mid b$ need a finite <em>negative</em> tail and live in $\mathbb{Q}_p\setminus\mathbb{Z}_p$.</p>
+<p>The ring structure on these expansions is usual base-$p$ arithmetic with carries propagating to the <em>right</em> — toward higher powers of $p$. Addition and multiplication do not depend on "where the expansion ends" because $p^n\to 0$ in $|\cdot|_p$.</p>
+
+<div class="widget" id="w2">
+  <div class="hd"><span class="ttl">W2 · p-adic expansion</span><span class="hint">integer or rational $a/b$ with $\gcd(b,p)=1$</span></div>
+  <div class="row">
+    <label>$p=$</label><input type="number" id="w2-p" value="5" min="2" step="1" style="width:70px">
+    <label>$a=$</label><input type="number" id="w2-a" value="-1" step="1" style="width:110px">
+    <label>$b=$</label><input type="number" id="w2-b" value="1" step="1" style="width:110px">
+    <label>digits</label><input type="number" id="w2-d" value="10" min="1" max="14" step="1" style="width:70px">
+    <button id="w2-go">expand</button>
+  </div>
+  <div class="readout" id="w2-out"></div>
+</div>
+
+<script>
+(function(){
+  const out = $('#w2-out');
+  function go(){
+    const p = parseInt($('#w2-p').value,10);
+    const a = parseInt($('#w2-a').value,10);
+    const b = parseInt($('#w2-b').value,10);
+    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));
+    if(!isPrime(p)){ out.textContent='p must be prime'; return; }
+    if(b===0){ out.textContent='b cannot be zero'; return; }
+    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }
+    const digs = digitsOfRatInZp(a, b, p, D);
+    if(!digs){ out.textContent='inversion failed'; return; }
+    // check periodicity on the first half
+    let period = null;
+    for(let L=1; L<=Math.floor(D/2); L++){
+      let ok = true;
+      for(let i=0;i+L<D;i++){
+        if(digs[i]!==digs[i+L]){ ok=false; break; }
+      }
+      if(ok){ period=L; break; }
+    }
+    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\u00b7'+p+(i===1?'':'^'+i))).join('');
+    const vec = digs.join(' ');
+    out.textContent =
+      `x = ${a}/${b}  in base ${p}\n` +
+      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\n` +
+      `x \u2248 ${line} + \u2026\n` +
+      (period ? `eventually periodic, period \u2264 ${period}` : 'no short period detected in window');
+  }
+  $('#w2-go').addEventListener('click', go);
+  go();
+})();
+</script>
+
+<p class="small">Example: in $\mathbb{Z}_5$, $-1 = 4 + 4\cdot 5 + 4\cdot 5^2 + \cdots$ because $(p-1)\sum_{i\ge 0} p^i = -1$ under $|\cdot|_p$. Every negative integer has an infinite expansion.</p>
+</section>
+
+<section id="inv">
+<h2>4. $\mathbb{Z}_p$ as an inverse limit</h2>
+<p>The cleanest definition: set
+$$\mathbb{Z}_p = \varprojlim_{n} \mathbb{Z}/p^n\mathbb{Z}.$$
+An element is a compatible tower $(x_1,x_2,x_3,\ldots)$ with $x_n\in \mathbb{Z}/p^n$ and $x_{n+1}\equiv x_n\pmod{p^n}$. Compatibility is exactly the statement that the digits $a_0,a_1,\ldots$ are consistent across precisions.</p>
+<p>Concretely,</p>
+<table class="plain">
+<thead><tr><th>$n$</th><th>$x_n \in \mathbb{Z}/p^n$</th><th>meaning</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>$a_0$</td><td>residue mod $p$</td></tr>
+<tr><td>2</td><td>$a_0 + a_1 p$</td><td>residue mod $p^2$</td></tr>
+<tr><td>3</td><td>$a_0 + a_1 p + a_2 p^2$</td><td>residue mod $p^3$</td></tr>
+<tr><td>$\vdots$</td><td>$\vdots$</td><td>$\vdots$</td></tr>
+</tbody>
+</table>
+<p>The topology is the projective-limit topology from the discrete $\mathbb{Z}/p^n$, making $\mathbb{Z}_p$ compact, Hausdorff, and totally disconnected — homeomorphic to a Cantor set. It is also a commutative ring, integral domain, and in fact a complete DVR with residue field $\mathbb{F}_p$.</p>
+
+<div class="widget" id="w2b">
+  <div class="hd"><span class="ttl">Inverse system view</span><span class="hint">a compatible tower</span></div>
+  <svg id="w2b-svg" viewBox="0 0 720 160" width="720" height="160" aria-label="inverse limit diagram"></svg>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w2b-svg');
+  const labels = ['\u2124/p','\u2124/p\u00b2','\u2124/p\u00b3','\u2124/p\u2074','\u2124/p\u2075'];
+  const y = 70;
+  const xs = [80, 200, 330, 460, 590];
+  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));
+  for(let i=labels.length-1;i>0;i--){
+    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});
+  }
+  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});
+  zp.textContent = '\u2190 \u2124_p';
+  svg.appendChild(zp);
+  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+  cap.textContent = 'reduction maps \u2124/p^{n+1} \u2192 \u2124/p^n';
+  svg.appendChild(cap);
+})();
+</script>
+</section>
+
+<section id="tree">
+<h2>5. The p-adic tree</h2>
+<p>Here is the picture to imprint. Represent $\mathbb{Z}_p$ as a rooted tree: the root is the full ring; at level 1 the root has $p$ children, one for each residue class mod $p$; each of those has $p$ children, one for each residue mod $p^2$ refining the parent; and so on. Each infinite downward path corresponds to a unique element of $\mathbb{Z}_p$, namely the compatible tower of its residues.</p>
+
+<p><strong>Distance is shared depth.</strong> Two elements $x,y\in\mathbb{Z}_p$ are close iff they agree modulo a high power of $p$, iff their paths in the tree share a long initial segment. Explicitly,
+$$|x-y|_p = p^{-n} \iff x\equiv y\pmod{p^n},\ x\not\equiv y\pmod{p^{n+1}}.$$
+That is why $\mathbb{Z}_p$ is homeomorphic to a Cantor set: its leaves at infinity are exactly the branches of a complete infinite tree.</p>
+
+<div class="widget" id="w3">
+  <div class="hd"><span class="ttl">W3 · The p-adic tree</span><span class="hint">click a node to expand, hover to see its coset</span></div>
+  <div class="row">
+    <label>$p=$</label>
+    <select id="w3-p"><option>2</option><option selected>3</option><option>5</option></select>
+    <label>max depth</label>
+    <select id="w3-d"><option>3</option><option selected>4</option><option>5</option></select>
+    <button id="w3-reset">reset</button>
+    <span class="pill" id="w3-info">hover a node</span>
+  </div>
+  <svg id="w3-svg" viewBox="0 0 760 420" width="760" height="420" aria-label="p-adic tree"></svg>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w3-svg'), info = $('#w3-info');
+  let p = 3, maxDepth = 4;
+  // state: each node keyed by its digit tuple string, { expanded: bool }
+  let state = new Map();
+
+  function keyFor(digits){ return digits.join(','); }
+  function valueOf(digits){ // lift residue in Z/p^n given digits
+    let s = 0, pw = 1;
+    for(const d of digits){ s += d*pw; pw*=p; }
+    return s;
+  }
+  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }
+
+  function render(){
+    svg.innerHTML = '';
+    const W = 760, H = 420;
+    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits
+    // We'll walk and place visible nodes in rows.
+    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);
+
+    // root
+    const rootX = W/2;
+    const rootY = rowY(0);
+    const nodes = []; // {x,y,digits,depth}
+    const edges = []; // {x1,y1,x2,y2}
+
+    function visit(digits, xMin, xMax){
+      const depth = digits.length;
+      const x = (xMin+xMax)/2;
+      const y = rowY(depth);
+      nodes.push({x,y,digits:digits.slice(),depth});
+      const st = state.get(keyFor(digits));
+      if(st && st.expanded && depth < maxDepth){
+        const w = (xMax - xMin);
+        for(let d=0; d<p; d++){
+          const cxMin = xMin + w*d/p;
+          const cxMax = xMin + w*(d+1)/p;
+          const childDigits = digits.concat([d]);
+          const cx = (cxMin+cxMax)/2;
+          const cy = rowY(depth+1);
+          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});
+          visit(childDigits, cxMin, cxMax);
+        }
+      }
+    }
+    visit([], 40, W-40);
+
+    // draw edges first
+    edges.forEach(e=>{
+      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});
+      svg.appendChild(ln);
+      const tx = (e.x1+e.x2)/2 + 6;
+      const ty = (e.y1+e.y2)/2;
+      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});
+      t.textContent = e.lbl;
+      svg.appendChild(t);
+    });
+    // draw nodes
+    nodes.forEach(n=>{
+      const isRoot = n.depth===0;
+      const st = state.get(keyFor(n.digits)) || {};
+      const leafAtMax = n.depth === maxDepth;
+      const expanded = !!st.expanded;
+      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));
+      const r = isRoot ? 22 : 14;
+      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});
+      svg.appendChild(circ);
+      const label = isRoot ? '\u2124_p' : String(valueOf(n.digits));
+      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});
+      t.textContent = label;
+      svg.appendChild(t);
+      // interactions
+      circ.addEventListener('click', ()=>{
+        if(n.depth === maxDepth) return;
+        const k = keyFor(n.digits);
+        const s = state.get(k) || {expanded:false};
+        s.expanded = !s.expanded;
+        state.set(k, s);
+        render();
+      });
+      circ.addEventListener('mouseenter', ()=>{
+        if(isRoot){ info.textContent = '\u2124_p (whole ring)'; return; }
+        const val = valueOf(n.digits);
+        const mod = powP(n.depth);
+        info.textContent = `${val} + ${p}^${n.depth}\u2124_p  (coset in \u2124/${p}^${n.depth} = ${val})`;
+      });
+    });
+  }
+
+  function reset(){
+    state = new Map();
+    state.set('', {expanded:true}); // root expanded by default
+    render();
+  }
+  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });
+  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });
+  $('#w3-reset').addEventListener('click', reset);
+  p = parseInt($('#w3-p').value,10);
+  maxDepth = parseInt($('#w3-d').value,10);
+  reset();
+})();
+</script>
+
+<p>Convergence becomes visual: a sequence $x_n\to x$ iff, for every $k$, eventually all $x_n$ lie in the same subtree of depth $k$ as $x$.</p>
+</section>
+
+<section id="qp">
+<h2>6. $\mathbb{Q}_p$ and completion</h2>
+<p>Define $\mathbb{Q}_p$ as the completion of $\mathbb{Q}$ with respect to $|\cdot|_p$ — the same Cauchy-sequence construction that produces $\mathbb{R}$ from $|\cdot|_\infty$. It is a field, and $\mathbb{Z}_p$ sits inside as the closed unit ball $\{x : |x|_p \le 1\}$.</p>
+
+<p>Elements of $\mathbb{Q}_p$ have expansions</p>
+$$x = \sum_{i=N}^{\infty} a_i p^i, \qquad a_i \in \{0,\ldots,p-1\},\ N\in\mathbb{Z},$$
+<p>where $N = v_p(x)$ is the location of the first nonzero digit. The left-infinite part is unavailable; all the action is to the <em>right</em>, toward higher powers of $p$.</p>
+
+<div class="note"><strong>Structure summary.</strong> $\mathbb{Q}_p$ is a complete non-Archimedean local field with residue field $\mathbb{F}_p$, uniformizer $p$, and ring of integers $\mathbb{Z}_p = \{|x|_p\le 1\}$. Its unit group is $\mathbb{Z}_p^\times = \{|x|_p=1\}$, and $\mathbb{Q}_p^\times \cong p^{\mathbb{Z}}\times \mathbb{Z}_p^\times$.</div>
+
+<div class="widget" id="w6">
+  <div class="hd"><span class="ttl">W6 · Convergence comparison</span><span class="hint">same series, two absolute values</span></div>
+  <div class="row">
+    <label>series</label>
+    <select id="w6-series">
+      <option value="pn">$\sum p^n$</option>
+      <option value="factp">$\sum n! \cdot p^n$</option>
+      <option value="fact">$\sum n!$</option>
+      <option value="invn">$\sum 1/n$</option>
+    </select>
+    <label>$p=$</label><input type="number" id="w6-p" value="3" min="2" step="1" style="width:70px">
+    <label>terms</label><input type="number" id="w6-N" value="12" min="2" max="24" step="1" style="width:80px">
+    <button id="w6-go">plot</button>
+  </div>
+  <svg id="w6-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="dual convergence"></svg>
+  <div class="readout" id="w6-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w6-svg'), out = $('#w6-out');
+  function term(n, series, p){
+    if(series==='pn') return 1;      // multiplied by p^n below
+    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }
+    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }
+    if(series==='invn') return n===0 ? 0 : 1/n;
+    return 0;
+  }
+  function power(n, series, p){ // multiplier by power of p
+    if(series==='pn') return Math.pow(p,n);
+    if(series==='factp') return Math.pow(p,n);
+    return 1;
+  }
+  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }
+
+  // For |.|_p we track v_p of the *partial sum*, not just the term.
+  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.
+  function run(){
+    const series = $('#w6-series').value;
+    const p = parseInt($('#w6-p').value,10);
+    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));
+    if(!isPrime(p)){ out.textContent='p must be prime'; return; }
+    svg.innerHTML = '';
+    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;
+    const innerW = W-padL-padR, innerH = H-padT-padB;
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+
+    // accumulate
+    let sumReal = 0;
+    const absInf = [], absP = [];
+    // for vp we need integer arithmetic when possible
+    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer
+    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');
+
+    for(let n=0;n<=N;n++){
+      const tv = termValue(n, series, p);
+      sumReal += tv;
+      absInf.push(Math.abs(sumReal));
+      // v_p of partial sum
+      let vp = 0;
+      if(series==='invn'){
+        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational
+        if(n>=1){
+          // increment: intNum/intDen += 1/n
+          // new = (intNum*n + intDen)/(intDen*n)
+          const newNum = intNum*n + intDen;
+          const newDen = intDen*n;
+          const g = gcd(newNum, newDen);
+          intNum = newNum/g; intDen = newDen/g;
+        }
+        if(intNum===0) vp = Infinity;
+        else vp = vpInt(intNum, p) - vpInt(intDen, p);
+      } else {
+        // integer series: track integer sum
+        if(n===0){
+          intNum = tv; intDen = 1;
+        } else {
+          intNum = intNum + tv; intDen = 1;
+        }
+        vp = (intNum===0) ? Infinity : vpInt(intNum, p);
+      }
+      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);
+      absP.push(absv);
+    }
+    // plot two lines: blue = log(|S_n|_\infty + 1), yellow = |S_n|_p (scaled)
+    // Use log scale for inf, linear for p
+    const infMax = Math.max(1, ...absInf);
+    const pMax = Math.max(1e-6, ...absP);
+    // draw infinity curve (log scale)
+    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }
+    // plot
+    const step = innerW / N;
+    // |.|_\infty curve
+    let d1 = '';
+    absInf.forEach((v,i)=>{
+      const x = padL + step*i;
+      const y = H-padB - innerH*logScale(v);
+      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // |.|_p curve
+    let d2 = '';
+    absP.forEach((v,i)=>{
+      const x = padL + step*i;
+      const y = H-padB - innerH*(v/pMax);
+      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // legend
+    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});
+    lg1.textContent = '|S_n|_\u221E  (log scale)';
+    svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});
+    lg2.textContent = `|S_n|_${p}`;
+    svg.appendChild(lg2);
+    // final diagnosis
+    const finInf = absInf[absInf.length-1];
+    const finP   = absP[absP.length-1];
+    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);
+    out.textContent =
+      `N=${N}  p=${p}  series=${series}\n` +
+      `|S_N|_\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\n` +
+      (trendP ? `p-adically the partial sums are shrinking \u2192 convergent in \u211A_${p}.` :
+                `p-adically no shrinkage detected in this window.`);
+  }
+  $('#w6-go').addEventListener('click', run);
+  run();
+})();
+</script>
+
+<p class="small">Striking cases: $\sum p^n$ diverges in $\mathbb{R}$ but converges to $1/(1-p)$ in $\mathbb{Q}_p$; $\sum n!$ diverges in $\mathbb{R}$ but <em>converges</em> in every $\mathbb{Q}_p$ because $v_p(n!)\to\infty$.</p>
+</section>
+
+<section id="hensel">
+<h2>7. Hensel's lemma</h2>
+<p><strong>Hensel's lemma (first form).</strong> Let $f(x)\in\mathbb{Z}_p[x]$ and $x_0\in\mathbb{Z}_p$ with $f(x_0)\equiv 0\pmod p$ and $f'(x_0)\not\equiv 0\pmod p$. Then there is a unique $x\in\mathbb{Z}_p$ with $f(x)=0$ and $x\equiv x_0\pmod p$.</p>
+
+<p>Think of this as Newton's method with automatic quadratic convergence. Given $x_n$ with $f(x_n)\equiv 0\pmod{p^{n+1}}$, set
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.$$
+Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Taylor-expansion argument shows $f(x_{n+1})\equiv 0\pmod{p^{2n+2}}$.</p>
+
+<p><strong>Example.</strong> In $\mathbb{Z}_7$, does $\sqrt{2}$ exist? Try $f(x)=x^2-2$. We need $x_0^2\equiv 2\pmod 7$. Since $3^2=9\equiv 2\pmod 7$, take $x_0=3$. Then $f'(3)=6\not\equiv 0\pmod 7$. Hensel says a unique lift exists, and the Newton iteration gives it digit by digit.</p>
+
+<div class="widget" id="w5">
+  <div class="hd"><span class="ttl">W5 · Hensel lift step-by-step</span><span class="hint">$f(x)=x^2-k$, solve $x^2=k$ in $\mathbb{Z}_p$</span></div>
+  <div class="row">
+    <label>$p=$</label><input type="number" id="w5-p" value="7" min="2" step="1" style="width:70px">
+    <label>$k=$</label><input type="number" id="w5-k" value="2" step="1" style="width:80px">
+    <label>$x_0=$</label><input type="number" id="w5-x0" value="3" step="1" style="width:80px">
+    <label>steps</label><input type="number" id="w5-n" value="6" min="1" max="12" step="1" style="width:70px">
+    <button id="w5-go">lift</button>
+  </div>
+  <div class="readout" id="w5-out"></div>
+</div>
+
+<script>
+(function(){
+  const out = $('#w5-out');
+  function go(){
+    const p = parseInt($('#w5-p').value,10);
+    const k = parseInt($('#w5-k').value,10);
+    const x0 = parseInt($('#w5-x0').value,10);
+    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));
+    if(!isPrime(p)){ out.textContent='p must be prime'; return; }
+    // Check hypotheses
+    const f0 = ((x0*x0 - k) % p + p) % p;
+    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \u2261 0 (mod p).  Here ${x0}\u00b2-${k} \u2261 ${f0} (mod ${p}).`; return; }
+    const df0 = ((2*x0) % p + p) % p;
+    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \u2262 0 (mod p).  Here 2\u00b7${x0} \u2261 0 (mod ${p}).`; return; }
+    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.
+    // We compute x_n \in Z/p^{n+1} such that x_n^2 \equiv k (mod p^{n+1}).
+    const lines = [`f(x)=x\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];
+    let pn = p; // modulus starts at p (we have x_0 mod p)
+    let x  = ((x0 % pn) + pn) % pn;
+    lines.push(`n=0   x_0 \u2261 ${x} (mod ${pn})   f(x_0) \u2261 ${(x*x - k) % pn} (mod ${pn})`);
+    for(let n=1; n<=N; n++){
+      const newPn = pn * p;
+      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \u2261 k (mod newPn)
+      // (x^2 - k) + 2*x*a*pn \u2261 0 (mod p^{n+1})
+      // a \u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)
+      const delta = (x*x - k);
+      // make sure delta is divisible by pn
+      const deltaOverPn = Math.round(delta / pn);
+      // inverse of 2x mod p
+      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);
+      let a = ((-deltaOverPn * inv2x) % p + p) % p;
+      const xNew = x + a*pn;
+      const fv = (xNew*xNew - k);
+      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \u2261 ${xNew} (mod ${newPn})   f(x_${n}) \u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);
+      x = xNew; pn = newPn;
+    }
+    lines.push(`\nLift converges: sqrt(${k}) \u2208 \u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);
+    out.textContent = lines.join('\n');
+  }
+  $('#w5-go').addEventListener('click', go);
+  go();
+})();
+</script>
+
+<p>The take-away: in $\mathbb{Z}_p$, "approximate solution mod $p$" plus "derivative is a unit" always promotes to an exact root. This is why $p$-adic fields behave so well for deformation arguments.</p>
+</section>
+
+<section id="why">
+<h2>8. Why care</h2>
+<p>$p$-adic numbers are not exotic formalism; they reorganize number theory, algebraic geometry, and representation theory.</p>
+<ul>
+  <li><strong>Local-global (Hasse) principle.</strong> For quadratic forms over $\mathbb{Q}$, a form represents zero globally iff it does so over $\mathbb{R}$ and every $\mathbb{Q}_p$. "Check the problem at every place." It fails for higher-degree forms, but the failure itself is organized (Brauer groups, Tate–Shafarevich). See the sibling page on <a href="./quadratic-reciprocity.html">quadratic reciprocity</a>.</li>
+  <li><strong>Reduction of elliptic curves.</strong> An elliptic curve $E/\mathbb{Q}$ reduces mod $p$ for each prime, and whether the reduction is good, multiplicative, or additive is controlled by $p$-adic geometry. Forward to <a href="./elliptic-curves.html">elliptic curves</a>.</li>
+  <li><strong>$\ell$-adic Galois representations.</strong> The étale cohomology of a variety over $\mathbb{Q}$ produces continuous representations $\rho\colon G_\mathbb{Q}\to\mathrm{GL}_n(\mathbb{Q}_\ell)$ carrying deep arithmetic information (Frobenius traces $=$ point counts). Forward-linked in the <a href="./galois.html">Galois</a> and <a href="./algebraic-number-theory.html">ANT</a> pages.</li>
+  <li><strong>Completion = localization + analysis.</strong> Doing analysis at a prime ideal lets you use calculus (Newton's method, Taylor series, $p$-adic $L$-functions) exactly where the combinatorics of primes lives.</li>
+</ul>
+
+<div class="ok"><strong>Mental picture to leave with.</strong> The rationals have one "place at infinity" (Euclidean distance) and one place per prime. Each place has a completion; together they form the <em>adèles</em>. Every global arithmetic phenomenon factors through its behavior at each place, and the $p$-adic places are rooted trees, not lines.</div>
+
+<p class="small">Siblings in Wave 1: <a href="./quadratic-reciprocity.html">quadratic reciprocity</a>, <a href="./sums-of-squares.html">sums of squares</a>, <a href="./projective-plane.html">projective plane</a>, <a href="./upper-half-plane-hyperbolic.html">upper half-plane and hyperbolic geometry</a>.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

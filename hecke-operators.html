@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hecke operators — the symmetries that pick out eigenforms</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#why">1&nbsp;Which&nbsp;forms&nbsp;are&nbsp;canonical?</a>
+  <a href="#tp">2&nbsp;$T_p$&nbsp;on&nbsp;lattices</a>
+  <a href="#qexp">3&nbsp;Action&nbsp;on&nbsp;$q$-expansions</a>
+  <a href="#algebra">4&nbsp;The&nbsp;Hecke&nbsp;algebra</a>
+  <a href="#eigen">5&nbsp;Eigenforms</a>
+  <a href="#petersson">6&nbsp;Petersson&nbsp;pairing</a>
+  <a href="#forward">7&nbsp;Forward&nbsp;pointers</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Hecke operators and the eigenforms they crown</h1>
+  <p class="sub">The space of <a href="./modular-forms.html">modular forms</a> of weight $k$ is finite-dimensional but otherwise unremarkable — just a vector space. Hecke operators endow it with a commuting family of self-adjoint maps, and the simultaneous eigenvectors are the <em>eigenforms</em>: the arithmetic atoms whose Fourier coefficients are Galois-theoretic.</p>
+</section>
+
+<section id="why">
+<h2>1. Among all modular forms, which are canonical?</h2>
+<p>Fix an even integer $k \ge 4$. The space $M_k = M_k(\mathrm{SL}_2(\mathbb{Z}))$ of weight-$k$ holomorphic modular forms for the full modular group is a finite-dimensional $\mathbb{C}$-vector space. A basis is easy to write down (Eisenstein series $E_4, E_6$ and the cusp form $\Delta$ generate everything), but a basis is not canonical — any linear combination is still a modular form.</p>
+
+<p>So the question is:</p>
+<div class="note">
+Among all weight-$k$ modular forms, which ones are <em>distinguished</em> by structural properties of the space itself?
+</div>
+
+<p>The answer, discovered in the 1930s, is that $M_k$ carries a commuting family of linear operators indexed by primes:
+$$T_2,\; T_3,\; T_5,\; T_7,\; \ldots$$
+These <strong>Hecke operators</strong> preserve $M_k$. They commute with each other. And under a natural inner product they are <em>self-adjoint</em>. So by the spectral theorem $M_k$ has an orthogonal basis of simultaneous eigenvectors — the <strong>Hecke eigenforms</strong>. These eigenforms, and nothing else, are the distinguished elements.</p>
+
+<p>The Fourier coefficient $a_p$ of a normalized eigenform is then not just a number; it is the eigenvalue of $T_p$. It turns out that sequence of eigenvalues $(a_p)_p$ behaves as if it came from a two-dimensional Galois representation — which, thanks to work in the 1970s through 2000s, it actually does.</p>
+
+<div class="widget" id="w-motive">
+  <div class="hd"><div class="ttl">The spectral decomposition of $M_k$</div><div class="hint">dimensions of $M_k$ for $k = 4,6,8,\ldots,26$</div></div>
+  <svg id="motive-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="dimensions of weight-k forms"></svg>
+  <div class="readout small" id="motive-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('motive-svg');
+  const out = document.getElementById('motive-out');
+  if(!svg) return;
+  // dim M_k(SL_2(Z)) for even k >= 4:  floor(k/12) + 1 if k != 2 mod 12, else floor(k/12)
+  function dimMk(k){
+    if(k < 0 || k%2) return 0;
+    if(k === 0) return 1;
+    if(k === 2) return 0;
+    return (k%12 === 2) ? Math.floor(k/12) : Math.floor(k/12)+1;
+  }
+  const ks = [4,6,8,10,12,14,16,18,20,22,24,26];
+  const W = 720, H = 220, m = {l:50, r:20, t:20, b:40};
+  const bw = (W - m.l - m.r) / ks.length;
+  const maxD = 3;
+  const yScale = v => H - m.b - (v / maxD) * (H - m.t - m.b);
+  // axes
+  svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)'}));
+  svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,stroke:'var(--line)'}));
+  for(let d=0; d<=maxD; d++){
+    const y = yScale(d);
+    const t = SVG('text',{x:m.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    t.textContent = d;
+    svg.appendChild(t);
+    if(d>0) svg.appendChild(SVG('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+  }
+  ks.forEach((k,i) => {
+    const d = dimMk(k);
+    const x = m.l + bw*i + bw*0.15;
+    const y = yScale(d);
+    const w = bw*0.7;
+    const h = (H - m.b) - y;
+    svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--yellow)',opacity:0.85,rx:2}));
+    const tk = SVG('text',{x:x+w/2,y:H-m.b+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    tk.textContent = 'k='+k;
+    svg.appendChild(tk);
+    if(d>0){
+      const td = SVG('text',{x:x+w/2,y:y-4,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      td.textContent = d;
+      svg.appendChild(td);
+    }
+  });
+  const t = SVG('text',{x:W-m.r,y:m.t+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+  t.textContent = 'dim M_k';
+  svg.appendChild(t);
+  out.textContent = 'Each bar is dim M_k. The Hecke algebra acts, and the space splits as an orthogonal sum of eigenspaces — each atom a single eigenform.';
+})();
+</script>
+</section>
+
+<section id="tp">
+<h2>2. The Hecke operator $T_p$ on lattices</h2>
+<p>A weight-$k$ modular form is really a function on <em>lattices</em> in $\mathbb{C}$: given a lattice $\Lambda$, $f$ assigns a complex number $f(\Lambda)$ that scales as $f(c\Lambda) = c^{-k} f(\Lambda)$ for $c \in \mathbb{C}^\times$. Writing $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2$ with $\tau = \omega_1/\omega_2 \in \mathcal{H}$ recovers the familiar $f(\tau)$ on the <a href="./upper-half-plane-hyperbolic.html">upper half-plane</a>.</p>
+
+<p>Now fix a prime $p$. A lattice $\Lambda$ has finitely many <em>sublattices of index $p$</em>. In fact, there are exactly $p+1$ of them: the index-$p$ sublattices of $\mathbb{Z}^2$ correspond to the lines in $\mathbb{F}_p^2$, of which there are $\frac{p^2-1}{p-1} = p+1$. Explicitly, if $\Lambda = \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2$, the $p+1$ sublattices are
+$$\Lambda_\infty = \mathbb{Z}(p\omega_1) + \mathbb{Z}\omega_2, \qquad \Lambda_b = \mathbb{Z}(\omega_1 + b\omega_2) + \mathbb{Z}(p\omega_2)\ \ (b=0,1,\ldots,p-1).$$</p>
+
+<p>The <strong>Hecke operator $T_p$</strong> averages $f$ over these sublattices, with a weight factor that makes the result still weight $k$:
+$$(T_p f)(\Lambda) \;=\; p^{k-1} \sum_{\Lambda' \subset \Lambda,\; [\Lambda:\Lambda'] = p} f(\Lambda').$$</p>
+
+<p>Translating back to the $\tau$-picture: the sublattice $\Lambda_\infty$ has basis $(p\omega_1, \omega_2)$ with ratio $p\tau$; each $\Lambda_b$ has basis $(\omega_1 + b\omega_2, p\omega_2)$, which after scaling by $1/p$ has ratio $(\tau + b)/p$. Working through the weight-$k$ normalization (scaling by the second basis vector to put the lattice in $\tau$-form) yields the working formula:</p>
+
+<div class="note">
+$$(T_p f)(\tau) \;=\; p^{\,k-1}\, f(p\tau) \;+\; \frac{1}{p} \sum_{b=0}^{p-1} f\!\left(\frac{\tau + b}{p}\right).$$
+</div>
+
+<p>One term (the "upstairs" direction) multiplies $\tau$ by $p$; the other $p$ terms (the "downstairs" directions) divide $\tau + b$ by $p$, averaging over the $p$ possible lifts. The total is $p+1$ sublattices, weighted by $p^{k-1}$ and $1/p = p^{-1}$ respectively.</p>
+
+<div class="widget" id="w-sub">
+  <div class="hd"><div class="ttl">Sublattices of index $p$</div><div class="hint">the $p+1$ directions that $T_p$ averages over</div></div>
+  <div class="row">
+    <label>prime $p$</label>
+    <button data-p="2" class="pbtn active">2</button>
+    <button data-p="3" class="pbtn">3</button>
+    <button data-p="5" class="pbtn">5</button>
+    <label style="margin-left:1rem">lattice point $\tau$</label>
+    <input type="range" id="sub-re" min="-0.5" max="0.5" step="0.02" value="0.2">
+    <input type="range" id="sub-im" min="0.6" max="2.0" step="0.02" value="1.0">
+    <span id="sub-tau" class="pill">τ</span>
+  </div>
+  <svg id="sub-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="sublattices of index p"></svg>
+  <div class="readout small" id="sub-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('sub-svg');
+  const out = document.getElementById('sub-out');
+  const tauEl = document.getElementById('sub-tau');
+  if(!svg) return;
+  let p = 2;
+  const reEl = document.getElementById('sub-re');
+  const imEl = document.getElementById('sub-im');
+  document.querySelectorAll('.pbtn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.pbtn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      p = +b.dataset.p;
+      draw();
+    });
+  });
+  reEl.addEventListener('input', draw);
+  imEl.addEventListener('input', draw);
+
+  const W = 720, H = 320;
+  const cxMain = 160, cyMain = 160;
+  const scale = 46;  // pixels per lattice unit for the base lattice
+  function drawLattice(cx, cy, basis, opts={}){
+    const {dotColor='var(--ink)', highlightDots=[], range=4, showBasis=true, basisColor='var(--yellow)', small=false} = opts;
+    const sc = small ? 20 : scale;
+    // draw faint grid of points
+    for(let i=-range;i<=range;i++){
+      for(let j=-range;j<=range;j++){
+        const x = cx + sc*(i*basis.a + j*basis.c);
+        const y = cy - sc*(i*basis.b + j*basis.d);
+        if(x < cx-120 || x > cx+120 || y < cy-120 || y > cy+120) continue;
+        const isHl = highlightDots.some(([ii,jj]) => ii===i && jj===j);
+        svg.appendChild(SVG('circle',{cx:x,cy:y,r:isHl?3:1.8,
+          fill:isHl?'var(--yellow)':dotColor,opacity:isHl?1:0.55}));
+      }
+    }
+    if(showBasis){
+      // basis vectors
+      const e1x = cx + sc*basis.a, e1y = cy - sc*basis.b;
+      const e2x = cx + sc*basis.c, e2y = cy - sc*basis.d;
+      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:e1x,y2:e1y,stroke:basisColor,'stroke-width':1.6}));
+      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:e2x,y2:e2y,stroke:basisColor,'stroke-width':1.6}));
+    }
+    svg.appendChild(SVG('circle',{cx,cy,r:2.5,fill:'var(--pink)'}));
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const re = +reEl.value, im = +imEl.value;
+    tauEl.textContent = `τ = ${re.toFixed(2)} + ${im.toFixed(2)}i`;
+
+    // background
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--panel)'}));
+    // divider
+    svg.appendChild(SVG('line',{x1:300,y1:20,x2:300,y2:H-20,stroke:'var(--line)','stroke-dasharray':'3,4'}));
+
+    // base lattice Λ = Z + Zτ
+    // basis in (a + bi) complex form: ω1 = 1, ω2 = τ = re + im·i
+    // we'll represent each as pixel vector: ω1 -> (scale, 0); ω2 -> (scale*re, -scale*im)
+    const base = {a:1, b:0, c:re, d:im};
+    // big label
+    const hdr1 = SVG('text',{x:cxMain,y:30,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+    hdr1.textContent = 'Λ = ℤ + ℤτ';
+    svg.appendChild(hdr1);
+    drawLattice(cxMain, cyMain, base, {dotColor:'var(--ink)', showBasis:true, basisColor:'var(--blue)'});
+    const l1 = SVG('text',{x:cxMain + scale + 8, y:cyMain+4,'font-size':11,fill:'var(--blue)'});
+    l1.textContent = '1';
+    svg.appendChild(l1);
+    const l2 = SVG('text',{x:cxMain + scale*re + 8, y:cyMain - scale*im - 4,'font-size':11,fill:'var(--blue)'});
+    l2.textContent = 'τ';
+    svg.appendChild(l2);
+
+    // right side: the p+1 sublattices as small diagrams
+    const hdr2 = SVG('text',{x:510, y:30,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+    hdr2.textContent = `${p+1} sublattices of index ${p}`;
+    svg.appendChild(hdr2);
+
+    // arrange p+1 small lattices in a grid around (510, 160)
+    const small_cx0 = 400, small_cy0 = 90;
+    const cellW = 110, cellH = 110;
+    const cols = Math.min(3, p+1);
+    const rows = Math.ceil((p+1)/cols);
+    // sublattice bases (column-wise in complex form):
+    // Λ_∞: ω1' = p, ω2' = τ  => basis {a:p,b:0,c:re,d:im}, after scaling τ_new = τ/p (divide by p)
+    //   but for showing the sublattice inside Λ, we use the lattice structure directly
+    // Λ_b (b = 0..p-1): ω1' = 1 + b·τ, ω2' = p·τ  (scaled so ratio is (τ+b)/p after dividing by p)
+    const lattices = [];
+    lattices.push({label:'Λ_∞ (pτ)', basis:{a:p,b:0,c:re,d:im}, color:'var(--green)'});
+    for(let b=0; b<p; b++){
+      lattices.push({label:`Λ_${b} ((τ+${b})/p)`, basis:{a:1, b:0, c:b+p*re, d:p*im}, color:'var(--cyan)'});
+      // note: using ω1' = 1, ω2' = p*τ + b  as vectors; above encodes that
+    }
+    // Actually better: use ω1' = p, ω2' = τ and ω1' = 1, ω2' = (τ+b) ... but for visualization
+    // the sublattice is best shown as: points (m·ω1' + n·ω2') in Λ. Let's just emphasize the sub-lattice points.
+
+    lattices.forEach((L, idx) => {
+      const c = idx % cols;
+      const r = Math.floor(idx/cols);
+      const cx = small_cx0 + c*cellW + cellW/2;
+      const cy = small_cy0 + r*cellH + cellH/2;
+      // box
+      svg.appendChild(SVG('rect',{x:cx-cellW/2+4, y:cy-cellH/2+4, width:cellW-8, height:cellH-8,
+        fill:'var(--panel2)', stroke:L.color, 'stroke-width':1.2, rx:5}));
+      // background Λ points (faint)
+      const sc = 14;
+      for(let i=-3;i<=3;i++){
+        for(let j=-3;j<=3;j++){
+          const x = cx + sc*(i + j*re);
+          const y = cy - sc*(j*im);
+          if(Math.abs(x-cx) < cellW/2-8 && Math.abs(y-cy) < cellH/2-10){
+            svg.appendChild(SVG('circle',{cx:x,cy:y,r:1.2,fill:'var(--mute)',opacity:0.4}));
+          }
+        }
+      }
+      // sublattice points (highlighted)
+      // for each sublattice, points = a·ω1' + b·ω2' in (x,y). We express ω1', ω2' in terms of (1,τ)
+      let w1, w2;
+      if(idx === 0){ w1 = {x:p, y:0}; w2 = {x:re, y:-im}; }
+      else { const b = idx-1; w1 = {x:1, y:0}; w2 = {x:b + p*re, y:-p*im}; }
+      for(let i=-3;i<=3;i++){
+        for(let j=-2;j<=2;j++){
+          const dx = sc*(i*w1.x + j*w2.x);
+          const dy = sc*(i*w1.y + j*w2.y);
+          const x = cx + dx, y = cy + dy;
+          if(Math.abs(x-cx) < cellW/2-10 && Math.abs(y-cy) < cellH/2-14){
+            svg.appendChild(SVG('circle',{cx:x,cy:y,r:2.4,fill:L.color,opacity:0.95}));
+          }
+        }
+      }
+      // label
+      const t = SVG('text',{x:cx, y:cy+cellH/2-8,'text-anchor':'middle','font-size':10,fill:L.color});
+      t.textContent = L.label;
+      svg.appendChild(t);
+    });
+
+    out.textContent =
+      `p = ${p}: (T_p f)(τ) = p^{k-1} f(pτ)  +  (1/p) · [ f(τ/p) + f((τ+1)/p) + ... + f((τ+${p-1})/p) ].` +
+      `   Total: ${p+1} sublattices. The one marked Λ_∞ is p·ω_1 + ω_2, the others are ω_1 + b·ω_2 + p·ω_2 in the second direction.`;
+  }
+  draw();
+})();
+</script>
+
+<p>The weight factor $p^{k-1}$ is there for exactly one reason: to make $(T_p f)(\tau)$ a modular form of the <em>same</em> weight $k$ — not of weight $k$ shifted by anything. Checking that $(T_p f)|_k \gamma = T_p f$ for every $\gamma \in \mathrm{SL}_2(\mathbb{Z})$ is a short calculation using the right coset decomposition of $\mathrm{SL}_2(\mathbb{Z})\, \mathrm{diag}(1,p)\, \mathrm{SL}_2(\mathbb{Z})$.</p>
+</section>
+
+<section id="qexp">
+<h2>3. Action on $q$-expansions</h2>
+<p>Because $T_p$ commutes with translation $\tau \mapsto \tau+1$ (that is one of the modular transformations), it preserves the Fourier expansion. Plugging the $q$-expansion $f(\tau) = \sum_{n \ge 0} a_n q^n$ with $q = e^{2\pi i \tau}$ into the formula from the previous section gives a completely explicit recipe.</p>
+
+<p>The "$p\tau$" term produces $\sum_n a_n q^{pn}$, multiplied by $p^{k-1}$. The sum over $b$ produces
+$$\frac{1}{p}\sum_{b=0}^{p-1} f\!\left(\frac{\tau+b}{p}\right) \;=\; \frac{1}{p}\sum_{b=0}^{p-1} \sum_n a_n e^{2\pi i n (\tau+b)/p} \;=\; \sum_n a_n \,q^{n/p}\!\cdot\!\frac{1}{p}\sum_{b=0}^{p-1}\! e^{2\pi i nb/p}.$$
+The inner sum is $1$ if $p \mid n$ and $0$ otherwise. So only $n$ divisible by $p$ survives; re-index $n = pm$:
+$$\frac{1}{p}\sum_{b=0}^{p-1} f\!\left(\frac{\tau+b}{p}\right) \;=\; \sum_m a_{pm} q^m.$$
+Combining:</p>
+
+<div class="note">
+$$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},$$
+</div>
+
+<p>with the convention that $a_{n/p} = 0$ unless $p \mid n$. So $T_p$ acts on the coefficient sequence by mixing the $p$-th <em>contraction</em> $a_{pn}$ with the $p$-th <em>dilation</em> $p^{k-1} a_{n/p}$.</p>
+
+<div class="widget" id="w-qact">
+  <div class="hd"><div class="ttl">$T_p$ on the Fourier coefficients</div><div class="hint">weight-12 cusp form $\Delta$: try $p=2$ and see $c_n = a_p \cdot a_n$</div></div>
+  <div class="row">
+    <label>prime $p$</label>
+    <select id="qact-p"><option>2</option><option>3</option><option>5</option><option>7</option></select>
+    <label style="margin-left:.8rem">weight $k$</label>
+    <select id="qact-k"><option>12</option><option>16</option><option>20</option></select>
+    <label style="margin-left:.8rem">form</label>
+    <select id="qact-f"><option value="delta">Δ (cusp, weight 12)</option><option value="E4">E_4 (Eisenstein, weight 4)</option></select>
+  </div>
+  <svg id="qact-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="q-expansion action"></svg>
+  <div class="readout small" id="qact-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('qact-svg');
+  const out = document.getElementById('qact-out');
+  if(!svg) return;
+  const pSel = document.getElementById('qact-p');
+  const kSel = document.getElementById('qact-k');
+  const fSel = document.getElementById('qact-f');
+
+  // Ramanujan tau coefficients a_n of Δ, indexed by n=1..20
+  const tau = {1:1, 2:-24, 3:252, 4:-1472, 5:4830, 6:-6048, 7:-16744, 8:84480,
+               9:-113643, 10:-115920, 11:534612, 12:-370944, 13:-577738, 14:401856,
+               15:1217160, 16:987136, 17:-6905934, 18:2727432, 19:10661420, 20:-7109760};
+  // Eisenstein E_4 coefficients: E_4 = 1 + 240 Σ σ_3(n) q^n
+  function sigma3(n){ let s=0; for(let d=1; d<=n; d++) if(n%d===0) s += d*d*d; return s; }
+  function E4coeff(n){ return n===0 ? 1 : 240*sigma3(n); }
+
+  function draw(){
+    svg.innerHTML='';
+    const p = +pSel.value, k = +kSel.value, which = fSel.value;
+    let a = {};
+    let Nmax = 20;
+    if(which === 'delta'){
+      for(let n=1;n<=Nmax;n++) a[n] = tau[n] || 0;
+      a[0] = 0;
+    } else {
+      for(let n=0;n<=Nmax;n++) a[n] = E4coeff(n);
+    }
+    const pkm1 = Math.pow(p, k-1);
+    // compute c_n = a_{pn} + p^{k-1} a_{n/p}
+    const c = {};
+    for(let n=0; n<=Math.floor(Nmax/p); n++){
+      const term1 = a[p*n] || 0;
+      const term2 = (n%p===0) ? pkm1 * (a[n/p] || 0) : 0;
+      c[n] = term1 + term2;
+    }
+
+    // layout: upper row = a_n, lower row = c_n
+    const W = 720, H = 260, m = {l:50, r:20, t:30, b:30};
+    const rows = 2;
+    const rowH = (H - m.t - m.b) / rows;
+    // normalize bars by log-scaling absolute value
+    const vals = [];
+    for(let n=0;n<=Nmax;n++) if(a[n]!==undefined) vals.push(Math.abs(a[n]));
+    for(const k2 in c) vals.push(Math.abs(c[k2]));
+    const vmax = Math.max(1, ...vals);
+    function lh(v){ return v===0? 0 : (rowH*0.4) * Math.log(1+Math.abs(v)) / Math.log(1+vmax); }
+
+    // upper: a_n
+    const labA = SVG('text',{x:m.l-8,y:m.t+rowH/2+4,'text-anchor':'end','font-size':12,fill:'var(--blue)'});
+    labA.textContent = 'a_n';
+    svg.appendChild(labA);
+    const barW = (W - m.l - m.r) / (Nmax+1) - 2;
+    for(let n=0;n<=Nmax;n++){
+      const x = m.l + n*(barW+2);
+      const yMid = m.t + rowH/2;
+      const v = a[n] || 0;
+      const h = lh(v);
+      const y = v >= 0 ? yMid - h : yMid;
+      svg.appendChild(SVG('rect',{x,y,width:barW,height:Math.max(0.5,h),fill:v>=0?'var(--blue)':'var(--pink)',opacity:0.8}));
+      if(n % 2 === 0){
+        const t = SVG('text',{x:x+barW/2,y:m.t+rowH+4,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+        t.textContent = n;
+        svg.appendChild(t);
+      }
+    }
+    // lower: c_n
+    const labC = SVG('text',{x:m.l-8,y:m.t+rowH+rowH/2+4,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    labC.textContent = 'c_n (=T_p a)_n';
+    svg.appendChild(labC);
+    const cmax = Math.max(0, ...Object.keys(c).map(k2 => Math.floor(Nmax/p)+0));
+    for(let n=0;n<=Math.floor(Nmax/p);n++){
+      const x = m.l + n*(barW+2)*p;
+      const yMid = m.t + rowH + rowH/2;
+      const v = c[n] || 0;
+      const h = lh(v);
+      const y = v >= 0 ? yMid - h : yMid;
+      svg.appendChild(SVG('rect',{x,y,width:barW,height:Math.max(0.5,h),fill:v>=0?'var(--yellow)':'var(--pink)',opacity:0.9}));
+      const t = SVG('text',{x:x+barW/2,y:m.t+2*rowH+4,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+      t.textContent = n;
+      svg.appendChild(t);
+    }
+
+    // check eigenform property: c_n == a_p * a_n ?
+    const ap = a[p] || 0;
+    let isEig = true;
+    for(let n=1; n<=Math.floor(Nmax/p); n++){
+      if(Math.abs(c[n] - ap*(a[n] || 0)) > 1e-6){ isEig = false; break; }
+    }
+    if(which === 'delta'){
+      out.textContent =
+        `Δ: p=${p}, k=12.  a_p = ${ap}.  c_1 = a_p · a_1 = ${ap}·1 = ${ap}; computed c_1 = ${c[1]}.\n` +
+        (isEig ? `✓ Hecke eigenform: c_n = a_p · a_n for all n. The eigenvalue is a_p.` :
+                 `(numerical roundoff aside, c_n should equal a_p · a_n — Δ is an eigenform)`);
+    } else {
+      out.textContent =
+        `E_4: p=${p}. a_0 = 1, a_p = ${ap}.  c_0 = a_0 + p^{k-1}·0 = 1.  c_n = a_{pn} + p^{k-1}·a_{n/p}.\n` +
+        `E_4 is also a Hecke eigenform (it's the unique weight-4 form up to scale), with eigenvalue a_p = 240·σ_3(p) = 1 + p^3.`;
+    }
+  }
+  [pSel,kSel,fSel].forEach(e => e.addEventListener('change', draw));
+  draw();
+})();
+</script>
+</section>
+
+<section id="algebra">
+<h2>4. The Hecke algebra</h2>
+<p>Hecke operators are indexed by positive integers, not just primes: there is a $T_n$ for every $n \ge 1$. On $q$-expansions, the general formula is
+$$(T_n f)_m \;=\; \sum_{d \mid \gcd(m,n)} d^{\,k-1}\, a_{mn/d^2}.$$
+For $n = p$ prime this specializes to the formula above. The crucial structural facts are:</p>
+
+<ul>
+  <li><strong>Commutativity.</strong> $T_m T_n = T_n T_m$ for all $m,n$.</li>
+  <li><strong>Multiplicative relation.</strong> $T_m T_n = T_{mn}$ whenever $\gcd(m,n) = 1$.</li>
+  <li><strong>Prime-power recursion.</strong> $T_{p^{r+1}} = T_p T_{p^r} - p^{k-1}\, T_{p^{r-1}}$.</li>
+</ul>
+
+<p>So the whole algebra $\mathbb{T}_k = \langle T_1, T_2, T_3, \ldots \rangle$ is generated — as a commutative ring of operators on $M_k$ — by the $T_p$ for $p$ prime, subject to those relations. In particular, $\mathbb{T}_k$ is commutative.</p>
+
+<div class="widget" id="w-commute">
+  <div class="hd"><div class="ttl">Hecke algebra commutativity</div><div class="hint">$T_m T_n = T_n T_m$</div></div>
+  <svg id="cm-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="commutativity diagram"></svg>
+  <div class="readout small" id="cm-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('cm-svg');
+  const out = document.getElementById('cm-out');
+  if(!svg) return;
+  // Four-corner commutative square: M_k --T_m--> M_k
+  //                                 |              |
+  //                                 T_n            T_n
+  //                                 v              v
+  //                                 M_k --T_m--> M_k
+  // with  "T_m T_n = T_n T_m = T_mn" if (m,n)=1  in the center
+  const W = 720, H = 260;
+  const nodes = {
+    TL: {x:220, y:70, lab:'M_k'},
+    TR: {x:500, y:70, lab:'M_k'},
+    BL: {x:220, y:200, lab:'M_k'},
+    BR: {x:500, y:200, lab:'M_k'},
+  };
+  for(const k in nodes){
+    const n = nodes[k];
+    drawNode(svg, n.x, n.y, n.lab, {r:24, stroke:'var(--blue)'});
+  }
+  // arrows
+  drawArrow(svg, [nodes.TL.x, nodes.TL.y], [nodes.TR.x, nodes.TR.y],
+    {label:'T_m', color:'var(--yellow)', pad1:26, pad2:28, markerId:'cm-tm1'});
+  drawArrow(svg, [nodes.BL.x, nodes.BL.y], [nodes.BR.x, nodes.BR.y],
+    {label:'T_m', color:'var(--yellow)', pad1:26, pad2:28, markerId:'cm-tm2'});
+  drawArrow(svg, [nodes.TL.x, nodes.TL.y], [nodes.BL.x, nodes.BL.y],
+    {label:'T_n', color:'var(--green)', pad1:26, pad2:28, markerId:'cm-tn1', labelSide:0});
+  drawArrow(svg, [nodes.TR.x, nodes.TR.y], [nodes.BR.x, nodes.BR.y],
+    {label:'T_n', color:'var(--green)', pad1:26, pad2:28, markerId:'cm-tn2', labelSide:0});
+  // diagonal both ways = T_mn (when gcd(m,n)=1)
+  drawArrow(svg, [nodes.TL.x+20, nodes.TL.y+20], [nodes.BR.x-20, nodes.BR.y-20],
+    {label:'T_{mn}  (if (m,n)=1)', color:'var(--violet)', dash:'4,4', pad1:18, pad2:22, markerId:'cm-diag'});
+  // title
+  const t1 = SVG('text',{x:W/2, y:30,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+  t1.textContent = 'T_m T_n = T_n T_m';
+  svg.appendChild(t1);
+  const t2 = SVG('text',{x:W/2, y:H-16,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+  t2.textContent = 'Both paths TL → BR equal, and (if m,n coprime) equal T_{mn}.';
+  svg.appendChild(t2);
+  out.textContent = 'The square commutes for every pair (m,n). When gcd(m,n)=1, both composites also equal T_{mn} — this is the multiplicativity of the Hecke ring.';
+})();
+</script>
+
+<h3>Why does $T_m T_n = T_n T_m$?</h3>
+<p>The slick proof goes through the <em>double coset algebra</em>. The operators $T_p$ correspond to the double coset $\mathrm{SL}_2(\mathbb{Z})\, \mathrm{diag}(1,p)\, \mathrm{SL}_2(\mathbb{Z})$ in $\mathrm{GL}_2^+(\mathbb{Q})$, and the product of two double cosets is commutative by the Satake isomorphism (abstractly: because $\mathrm{GL}_2$ modulo its center is "almost" a symmetric space). A direct coefficient computation also works — expand $T_m T_n$ on $q$-expansions using the formula above and check the divisor sum collapses symmetrically in $m,n$.</p>
+</section>
+
+<section id="eigen">
+<h2>5. Eigenforms and their arithmetic coefficients</h2>
+<p>Since $\mathbb{T}_k$ is a commutative algebra of operators on the finite-dimensional space $M_k$, and since — we will see next — each $T_p$ is diagonalizable, the $T_p$'s are <em>simultaneously diagonalizable</em>. A simultaneous eigenvector $f \in M_k$ is a <strong>Hecke eigenform</strong>:
+$$T_p f \;=\; \lambda_p f \quad \text{for every prime } p.$$</p>
+
+<p>Now suppose $f = \sum a_n q^n$ is a Hecke eigenform. Comparing the $q^1$-coefficient of $T_p f = \lambda_p f$:
+$$c_1 = a_p + p^{k-1} a_{1/p} = a_p \quad (\text{since } a_{1/p}=0), \qquad c_1 = \lambda_p \cdot a_1.$$
+So $\lambda_p = a_p / a_1$. It is conventional to <strong>normalize</strong> so that $a_1 = 1$ (possible unless $a_1 = 0$, which for cusp forms is the only degenerate case and forces $f = 0$ by the $q$-expansion principle). Then:</p>
+
+<div class="note">
+For a normalized Hecke eigenform, the eigenvalue of $T_p$ is exactly $a_p$:
+$$\boxed{\;T_p f \,=\, a_p\, f\;}, \qquad a_p = \text{$p$-th Fourier coefficient}.$$
+</div>
+
+<p>The same comparison at $q^n$ gives
+$$\lambda_p \, a_n \;=\; a_{pn} + p^{k-1} a_{n/p}, \quad \text{i.e.} \quad a_{pn} \;=\; a_p a_n - p^{k-1} a_{n/p}.$$
+This is a <em>recursion</em>: the coefficients $a_{p^r}$ for $r \ge 2$ are determined by $a_p$. Combined with the fact that $T_m T_n = T_{mn}$ for $\gcd(m,n) = 1$ applied to $f$, we get the celebrated multiplicative identity:</p>
+
+<div class="note">
+$$a_m \cdot a_n \;=\; a_{mn} \qquad \text{whenever } \gcd(m,n) = 1,$$
+for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd(m,n)} d^{\,k-1}\, a_{mn/d^2}$.
+</div>
+
+<p>So the entire coefficient sequence $(a_n)$ is determined by its values at primes, plus the prime-power recursion. This is a <em>huge</em> reduction: infinitely many integers are encoded by one integer per prime.</p>
+
+<div class="widget" id="w-eig">
+  <div class="hd"><div class="ttl">Ramanujan $\tau$: eigenvalues of $\Delta$</div><div class="hint">$a_p = \tau(p)$ for $\Delta$, weight 12</div></div>
+  <svg id="eig-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="tau eigenvalues"></svg>
+  <div class="readout small" id="eig-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('eig-svg');
+  const out = document.getElementById('eig-out');
+  if(!svg) return;
+  // Ramanujan tau(p) for primes up to 50
+  const primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];
+  const taup = {2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738, 17:-6905934, 19:10661420,
+                23:18643272, 29:128406630, 31:-52843168, 37:-182213314, 41:308120442, 43:-17125708,
+                47:2687348496};
+  const W = 720, H = 240, m = {l:60, r:30, t:40, b:40};
+  // Deligne bound: |tau(p)| <= 2 p^{11/2}
+  function bound(p){ return 2*Math.pow(p, 11/2); }
+  // normalize to [-1,1] scale by dividing by Deligne bound
+  const barW = (W - m.l - m.r) / primes.length - 4;
+  // zero line
+  const midY = (m.t + H - m.b)/2;
+  svg.appendChild(SVG('line',{x1:m.l,y1:midY,x2:W-m.r,y2:midY,stroke:'var(--line)'}));
+  // axis label
+  const lax = SVG('text',{x:m.l-10, y:midY+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  lax.textContent = 'τ(p) / 2p^{11/2}';
+  svg.appendChild(lax);
+  const lax2 = SVG('text',{x:m.l-10, y:m.t+8,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  lax2.textContent = '+1';
+  svg.appendChild(lax2);
+  const lax3 = SVG('text',{x:m.l-10, y:H-m.b,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  lax3.textContent = '-1';
+  svg.appendChild(lax3);
+  svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:W-m.r,y2:m.t,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+  svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)','stroke-dasharray':'2,3'}));
+  // title
+  const tt = SVG('text',{x:W/2,y:22,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+  tt.textContent = 'T_p Δ = τ(p) · Δ — the eigenvalues lie in [-2p^{11/2}, 2p^{11/2}]  (Deligne)';
+  svg.appendChild(tt);
+
+  const halfH = (H - m.t - m.b)/2;
+  primes.forEach((p, i) => {
+    const x = m.l + i*(barW+4);
+    const v = (taup[p] || 0) / bound(p);   // in [-1,1]
+    const h = halfH * Math.abs(v);
+    const y = v >= 0 ? midY - h : midY;
+    svg.appendChild(SVG('rect',{x, y, width:barW, height:Math.max(0.5,h),
+      fill: v>=0 ? 'var(--yellow)' : 'var(--pink)', opacity:0.92}));
+    const tp = SVG('text',{x:x+barW/2,y:H-m.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    tp.textContent = p;
+    svg.appendChild(tp);
+  });
+
+  out.textContent =
+    'Each bar is the Hecke eigenvalue τ(p) of Δ, normalized by the Deligne bound 2p^{11/2}. ' +
+    'All values lie in [-1, +1] — a deep fact proved by linking τ(p) to the trace of Frobenius on an ℓ-adic Galois representation.';
+})();
+</script>
+
+<div class="widget" id="w-mult">
+  <div class="hd"><div class="ttl">Multiplicative relation check: $a_m a_n \stackrel{?}{=} a_{mn}$ when $\gcd(m,n)=1$</div><div class="hint">for $\Delta$ / Ramanujan $\tau$</div></div>
+  <div class="row">
+    <label>$m$</label>
+    <input type="number" id="mult-m" min="1" max="20" value="2" style="width:5em">
+    <label>$n$</label>
+    <input type="number" id="mult-n" min="1" max="20" value="3" style="width:5em">
+    <button id="mult-go">check</button>
+  </div>
+  <div class="readout" id="mult-out"></div>
+</div>
+
+<script>
+(function(){
+  const out = document.getElementById('mult-out');
+  if(!out) return;
+  // Extended tau: tau(n) for n=1..50 (via multiplicativity and Hecke recursion)
+  // We'll compute tau(n) up to 50 using tau(p) and tau(p^{r+1}) = tau(p) tau(p^r) - p^11 tau(p^{r-1})
+  const tauP = {2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738, 17:-6905934, 19:10661420,
+                23:18643272, 29:128406630, 31:-52843168, 37:-182213314, 41:308120442, 43:-17125708, 47:2687348496};
+  const p11 = Math.pow(2, 11)*Math.pow(2,0); // 2^11 = 2048 is for p=2; we need p^11 per prime
+  function tauPrimePower(p, r){
+    if(r === 0) return 1;
+    if(r === 1) return tauP[p];
+    let t_rm1 = 1, t_r = tauP[p];
+    for(let i=1; i<r; i++){
+      const nextVal = tauP[p]*t_r - Math.pow(p,11)*t_rm1;
+      t_rm1 = t_r; t_r = nextVal;
+    }
+    return t_r;
+  }
+  function factor(n){
+    const f = {};
+    let x = n;
+    for(let p=2; p*p<=x; p++){
+      while(x%p===0){ f[p] = (f[p]||0)+1; x/=p; }
+    }
+    if(x>1) f[x] = (f[x]||0)+1;
+    return f;
+  }
+  function tauN(n){
+    if(n === 1) return 1;
+    const f = factor(n);
+    let prod = 1;
+    for(const p in f){ prod *= tauPrimePower(+p, f[p]); }
+    return prod;
+  }
+
+  const mE = document.getElementById('mult-m');
+  const nE = document.getElementById('mult-n');
+  const go = document.getElementById('mult-go');
+
+  function gcd(a,b){ return b===0? a : gcd(b, a%b); }
+
+  function check(){
+    const m = +mE.value, n = +nE.value;
+    if(m<1 || n<1 || m>20 || n>20){ out.textContent = 'use 1 ≤ m,n ≤ 20'; return; }
+    const am = tauN(m), an = tauN(n), amn = tauN(m*n);
+    const g = gcd(m,n);
+    const prod = am*an;
+    let line1 = `τ(${m}) = ${am}\nτ(${n}) = ${an}\nτ(${m}·${n}) = τ(${m*n}) = ${amn}\n`;
+    line1 += `τ(${m})·τ(${n}) = ${prod}\n`;
+    if(g === 1){
+      const ok = prod === amn;
+      line1 += `gcd(${m},${n}) = 1, so we expect τ(m)τ(n) = τ(mn).  ${ok ? '✓ TRUE' : '✗ FALSE'}`;
+    } else {
+      line1 += `gcd(${m},${n}) = ${g} ≠ 1 — the simple product law does not apply. Instead:\n`;
+      line1 += `  τ(m)τ(n) = Σ_{d | gcd(m,n)} d^{11} τ(mn/d²).`;
+      // Verify with general formula
+      let rhs = 0;
+      for(let d=1; d<=g; d++){
+        if(g%d===0){
+          rhs += Math.pow(d,11) * tauN((m*n)/(d*d));
+        }
+      }
+      line1 += `\n  computed RHS = ${rhs}, LHS = ${prod}, equal? ${rhs===prod ? '✓' : '✗ (rounding — numbers are large)'}`;
+    }
+    out.textContent = line1;
+  }
+  go.addEventListener('click', check);
+  check();
+})();
+</script>
+</section>
+
+<section id="petersson">
+<h2>6. The Petersson inner product and self-adjointness</h2>
+<p>To deduce that $M_k$ has a basis of eigenforms, we need the Hecke operators to be <em>normal</em> — and in fact they are self-adjoint for a natural inner product on the space of cusp forms $S_k = \{\,f \in M_k : f \text{ vanishes at the cusp}\,\}$.</p>
+
+<p>The <strong>Petersson inner product</strong> is defined on $S_k$ by
+$$\langle f, g \rangle \;=\; \int_{\mathcal{F}} f(\tau) \overline{g(\tau)} \, y^{k-2} \, dx\,dy,$$
+where $\tau = x + iy$, $y = \mathrm{Im}(\tau) > 0$, and $\mathcal{F}$ is the standard fundamental domain for $\mathrm{SL}_2(\mathbb{Z})$ acting on $\mathcal{H}$. The integrand $y^{k-2}\,dx\,dy$ is carefully chosen: the product $f(\tau)\overline{g(\tau)}\,y^k$ is $\mathrm{SL}_2(\mathbb{Z})$-invariant (because $f$ and $g$ each transform by $(c\tau+d)^k$, and $y^k$ picks up $|c\tau+d|^{-2k}$), and $dx\,dy/y^2$ is the <a href="./upper-half-plane-hyperbolic.html">hyperbolic measure</a> on $\mathcal{H}$ — so $\langle f,g \rangle$ is an integral over the finite-volume hyperbolic quotient $\mathrm{SL}_2(\mathbb{Z}) \backslash \mathcal{H}$.</p>
+
+<div class="widget" id="w-pet">
+  <div class="hd"><div class="ttl">Petersson integral on the fundamental domain</div><div class="hint">$\mathcal{F}$ with hyperbolic measure $y^{-2}\,dx\,dy$</div></div>
+  <svg id="pet-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="fundamental domain"></svg>
+  <div class="readout small" id="pet-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('pet-svg');
+  const out = document.getElementById('pet-out');
+  if(!svg) return;
+  const W = 720, H = 300;
+  // horizon line (y=0)
+  const yBase = H - 30;
+  const cx = W/2;
+  const scale = 90; // pixels per unit
+  // axes
+  svg.appendChild(SVG('line',{x1:40,y1:yBase,x2:W-40,y2:yBase,stroke:'var(--line)'}));
+  // background shading for the fundamental domain F = {|τ| >= 1, -1/2 <= Re τ <= 1/2, Im τ > 0}
+  // vertical strips at Re = -1/2 and +1/2
+  const xL = cx - scale/2, xR = cx + scale/2;
+  // polyline for F boundary
+  // arc: circle of radius 1 centered at origin, from (-1/2, √3/2) to (1/2, √3/2)
+  // We'll draw F as path
+  const top = 30;
+  const y_arc_start = yBase - (Math.sqrt(3)/2)*scale;
+  // main path
+  const pth = SVG('path',{
+    d:`M ${xL} ${top} L ${xL} ${y_arc_start} A ${scale} ${scale} 0 0 0 ${xR} ${y_arc_start} L ${xR} ${top} Z`,
+    fill:'var(--yellow)', opacity:0.11, stroke:'var(--yellow)', 'stroke-width':1.4
+  });
+  svg.appendChild(pth);
+  // arc unit circle (for reference)
+  svg.appendChild(SVG('circle',{cx,cy:yBase,r:scale,fill:'none',stroke:'var(--line)','stroke-dasharray':'3,4'}));
+  // marker: i
+  svg.appendChild(SVG('circle',{cx,cy:yBase-scale,r:3,fill:'var(--cyan)'}));
+  const ti = SVG('text',{x:cx+6,y:yBase-scale-4,'font-size':12,fill:'var(--cyan)'});
+  ti.textContent = 'i';
+  svg.appendChild(ti);
+  // ρ = e^{2πi/3} = (-1/2, √3/2)
+  svg.appendChild(SVG('circle',{cx:xL,cy:y_arc_start,r:3,fill:'var(--cyan)'}));
+  const trho = SVG('text',{x:xL-14,y:y_arc_start-4,'font-size':12,fill:'var(--cyan)'});
+  trho.textContent = 'ρ';
+  svg.appendChild(trho);
+  // -1/2, 1/2 on x-axis
+  [['−1/2',xL],['0',cx],['1/2',xR]].forEach(([lab,x]) => {
+    const t = SVG('text',{x,y:yBase+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent = lab;
+    svg.appendChild(t);
+  });
+  // Dotted mesh inside F showing integration sample points weighted by y^{-2}
+  // sample points
+  const samples = [];
+  for(let yy = 0.95; yy <= 3.0; yy += 0.25){
+    for(let xx = -0.45; xx <= 0.45; xx += 0.15){
+      // check in F
+      if(xx*xx + yy*yy < 1 - 1e-6) continue;
+      const px = cx + xx*scale, py = yBase - yy*scale;
+      if(py < 30) continue;
+      samples.push([px,py,yy]);
+    }
+  }
+  samples.forEach(([px,py,yy]) => {
+    // dot size inversely proportional to y (hyperbolic measure shrinks with y)
+    const r = Math.min(3.5, 1 + 1.1/yy);
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r,fill:'var(--green)',opacity:0.65}));
+  });
+  // label
+  const t1 = SVG('text',{x:cx,y:top-10,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+  t1.textContent = '⟨f, g⟩ = ∫∫_F  f(τ)·conj(g(τ)) · y^{k-2} dx dy';
+  svg.appendChild(t1);
+  // cusp arrow
+  const ci = SVG('text',{x:cx,y:top+12,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});
+  ci.textContent = 'cusp at i∞';
+  svg.appendChild(ci);
+
+  out.textContent =
+    'Green dots are sample points in F. Their size reflects the hyperbolic measure y^{-2} dx dy (smaller as y grows). ' +
+    'The integrand |f|² y^k is SL_2(ℤ)-invariant, so the integral descends to the finite-volume quotient.';
+})();
+</script>
+
+<h3>Self-adjointness of $T_p$</h3>
+<p>The key fact is:</p>
+
+<div class="note">
+For every prime $p$,
+$$\langle T_p f, g \rangle \;=\; \langle f, T_p g \rangle.$$
+</div>
+
+<p>The proof is a change-of-variables computation using the explicit formula for $T_p$: the sum over cosets that defines $T_p$ is sent under the integral-equivalence to the "transpose" coset sum, and those two coset sums are identical for the standard Hecke operators on $\mathrm{SL}_2(\mathbb{Z})$ (for congruence subgroups $\Gamma_0(N)$, self-adjointness holds for $T_p$ with $p \nmid N$; at the primes dividing $N$ one gets <em>Atkin–Lehner</em> operators).</p>
+
+<p>Since the $T_p$ are self-adjoint, each is diagonalizable with real eigenvalues. Since they also commute, they are simultaneously diagonalizable. The conclusion is:</p>
+
+<div class="ok">
+$S_k$ admits an orthogonal basis of normalized Hecke eigenforms. This basis is <em>unique</em> (up to reordering and sign) — it is determined by the Hecke algebra acting on $S_k$.
+</div>
+
+<p>The Eisenstein series contribute a 1-dimensional "non-cuspidal" part of $M_k$ on which the Hecke operators also act; including them, $M_k = \mathbb{C}\,E_k \oplus S_k$ decomposes as an orthogonal direct sum of Hecke eigenspaces.</p>
+</section>
+
+<section id="forward">
+<h2>7. Where this goes: Galois, Euler, and $L$-functions</h2>
+<p>The single most astonishing property of Hecke eigenvalues is how they encode <em>Galois-theoretic</em> data.</p>
+
+<h3>Eigenvalues as Frobenius traces</h3>
+<p>For a normalized eigenform $f$ of weight $k \ge 2$ and level $N$ — a Galois-representation-theoretic object lurking in the background is an $\ell$-adic <em>Galois representation</em>
+$$\rho_f \colon \operatorname{Gal}(\overline{\mathbb{Q}}/\mathbb{Q}) \longrightarrow \mathrm{GL}_2(\overline{\mathbb{Q}}_\ell)$$
+attached to $f$. For every prime $p \nmid N\ell$,
+$$\operatorname{tr}\rho_f(\mathrm{Frob}_p) \;=\; a_p, \qquad \det\rho_f(\mathrm{Frob}_p) \;=\; p^{\,k-1}.$$
+The Hecke eigenvalue $a_p$, computed from a complex-analytic $q$-expansion, equals the trace of Frobenius — a purely algebraic invariant of number fields. This is the modularity / reciprocity principle in a nutshell, and it unifies the arithmetic story with the <a href="./representation-theory.html">representation-theoretic</a> one. (Cross-links to a full account live on the <a href="./galois.html">Galois theory</a> page; a dedicated page on <em>Galois representations</em> is forthcoming.)</p>
+
+<h3>The Euler product of $L(f,s)$</h3>
+<p>Define the $L$-function of a normalized eigenform by its Dirichlet series:
+$$L(f, s) \;=\; \sum_{n \ge 1} \frac{a_n}{n^s}.$$
+Because $a_{mn} = a_m a_n$ for coprime $m,n$, the series factors over primes into an <a href="./dirichlet-series-euler-products.html">Euler product</a>, and the prime-power recursion $a_{p^{r+1}} = a_p a_{p^r} - p^{k-1} a_{p^{r-1}}$ says each local factor is a degree-2 rational function:</p>
+
+<div class="note">
+$$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s}}.$$
+</div>
+
+<p>The $p$-th Euler factor is the <em>characteristic polynomial</em> of $\rho_f(\mathrm{Frob}_p)$, evaluated at $p^{-s}$. So the classical complex-analytic $L$-function of a modular form and the motivic / $\ell$-adic $L$-function of its Galois representation are the <em>same</em> object, viewed through different lenses.</p>
+
+<p>From here several threads unfold:</p>
+
+<ul>
+  <li><strong>Ramanujan bound (Deligne).</strong> $|a_p| \le 2 p^{(k-1)/2}$ for normalized cusp-form eigenforms. Equivalently, the roots of the Euler factor have absolute value $p^{(k-1)/2}$. Proved via the Weil conjectures for products of modular curves.</li>
+  <li><strong>Modularity.</strong> For every elliptic curve $E/\mathbb{Q}$, the $L$-function $L(E,s)$ equals $L(f_E, s)$ for a unique normalized weight-2 eigenform $f_E$ of level $N = $ conductor$(E)$. See <a href="./elliptic-curves.html">elliptic curves</a> for the role Hecke eigenforms play here.</li>
+  <li><strong>Functional equation.</strong> $L(f,s)$ extends to an entire function with a functional equation $s \leftrightarrow k-s$ — mirroring the functional equation of $\zeta(s)$ and $\zeta(1-s)$, and explaining why modular forms are the right <em>automorphic</em> inputs for the Langlands programme.</li>
+</ul>
+
+<p>A dedicated page on $L$-functions will unpack the analytic continuation, functional equation, and special values.</p>
+
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">Euler factor of $\Delta$ at $p$</div><div class="hint">$1 - \tau(p) p^{-s} + p^{11} p^{-2s}$</div></div>
+  <div class="row">
+    <label>prime $p$</label>
+    <select id="eu-p">
+      <option value="2">2</option><option value="3">3</option><option value="5">5</option>
+      <option value="7" selected>7</option><option value="11">11</option><option value="13">13</option>
+    </select>
+  </div>
+  <svg id="eu-svg" viewBox="0 0 720 200" width="720" height="200" aria-label="Euler factor"></svg>
+  <div class="readout small" id="eu-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('eu-svg');
+  const out = document.getElementById('eu-out');
+  if(!svg) return;
+  const sel = document.getElementById('eu-p');
+  const taup = {2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738};
+
+  function draw(){
+    svg.innerHTML='';
+    const p = +sel.value;
+    const ap = taup[p];
+    const p11 = Math.pow(p,11);
+    // roots α,β of 1 - a_p x + p^11 x^2 = 0  => x = (a_p ± √(a_p² - 4 p^11))/(2 p^11)
+    // (inverse: solve p^11 x^2 - a_p x + 1 = 0)
+    // actually: polynomial is 1 - a_p X + p^11 X^2; roots X = (a_p ± √(a_p² - 4 p^11)) / (2 p^11)
+    const disc = ap*ap - 4*p11;
+    let r1, r2, complex = false;
+    if(disc >= 0){
+      r1 = (ap + Math.sqrt(disc))/(2*p11);
+      r2 = (ap - Math.sqrt(disc))/(2*p11);
+    } else {
+      complex = true;
+      // X = (a_p ± i√(-disc)) / (2 p^11)
+      r1 = {re: ap/(2*p11), im: Math.sqrt(-disc)/(2*p11)};
+      r2 = {re: ap/(2*p11), im: -Math.sqrt(-disc)/(2*p11)};
+    }
+    // By Deligne, |X| = 1/p^{11/2}  (X is 1/α where α has |α| = p^{11/2})
+    // Expected |X| = p^{-11/2}
+    const absX = complex ? Math.sqrt(r1.re*r1.re + r1.im*r1.im) : Math.abs(r1);
+    const expected = Math.pow(p, -11/2);
+
+    // Plot: draw the Euler factor curve for real s in [0, 15]
+    const W=720, H=200, m={l:60,r:30,t:20,b:30};
+    const sMin=0, sMax=15;
+    const xOf = s => m.l + (s-sMin)/(sMax-sMin)*(W-m.l-m.r);
+    const f = s => 1 - ap*Math.pow(p,-s) + p11*Math.pow(p,-2*s);
+    // sample
+    const pts = [];
+    for(let s=sMin; s<=sMax; s+=0.04){ pts.push([s, f(s)]); }
+    const ys = pts.map(([_,v])=>v);
+    const ymin = Math.min(...ys), ymax = Math.max(...ys);
+    const yRange = Math.max(1e-9, ymax - ymin);
+    const yOf = v => m.t + (ymax - v)/yRange * (H - m.t - m.b);
+    // zero line
+    const zeroY = yOf(0);
+    if(zeroY >= m.t && zeroY <= H-m.b){
+      svg.appendChild(SVG('line',{x1:m.l,y1:zeroY,x2:W-m.r,y2:zeroY,stroke:'var(--line)','stroke-dasharray':'3,4'}));
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,stroke:'var(--line)'}));
+    // curve
+    const pathD = pts.map(([s,v],i) => (i===0?'M':'L') + xOf(s) + ' ' + yOf(v)).join(' ');
+    svg.appendChild(SVG('path',{d:pathD,fill:'none',stroke:'var(--yellow)','stroke-width':1.6}));
+    // s ticks
+    [0,3,6,9,12,15].forEach(s => {
+      const x = xOf(s);
+      svg.appendChild(SVG('line',{x1:x,y1:H-m.b,x2:x,y2:H-m.b+4,stroke:'var(--line)'}));
+      const t = SVG('text',{x,y:H-m.b+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = 's='+s;
+      svg.appendChild(t);
+    });
+    const lab = SVG('text',{x:W-m.r-4,y:m.t+12,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lab.textContent = `L_p(Δ,s) = 1 − ${ap}·${p}^{−s} + ${p11}·${p}^{−2s}`;
+    svg.appendChild(lab);
+
+    out.textContent =
+      `p = ${p}: a_p = τ(p) = ${ap}.  Euler factor 1 − a_p·p^{−s} + p^{11}·p^{−2s}.\n` +
+      `Discriminant a_p² − 4·p^{11} = ${ap*ap} − ${4*p11} = ${ap*ap - 4*p11} ${disc < 0 ? '< 0 (complex roots — consistent with Ramanujan)' : '≥ 0'}\n` +
+      `|root| = ${absX.toFixed(6)}, expected 1/p^{11/2} = ${expected.toFixed(6)} ${Math.abs(absX-expected)<1e-6 ? '✓' : ''}\n` +
+      `So the inverse roots α_p, β_p of the polynomial X² − a_p X + p^{11} satisfy |α_p| = |β_p| = p^{11/2}, the Ramanujan–Deligne bound.`;
+  }
+  sel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+<p class="small">Related pages:
+<a href="./modular-forms.html">modular forms</a> (prerequisite — the ambient spaces $M_k$ and $S_k$) ·
+<a href="./upper-half-plane-hyperbolic.html">upper half-plane &amp; hyperbolic geometry</a> (where the Petersson integral lives) ·
+<a href="./elliptic-curves.html">elliptic curves</a> (the modularity picture) ·
+<a href="./representation-theory.html">representation theory</a> (the Hecke algebra as a commutative ring) ·
+<a href="./dirichlet-series-euler-products.html">Dirichlet series &amp; Euler products</a> (the analytic form of the product).</p>
+
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

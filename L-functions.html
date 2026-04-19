@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>L-functions — Dirichlet series, Euler products, functional equations</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#unified">1&nbsp;Unified&nbsp;picture</a>
+  <a href="#zeta">2&nbsp;The&nbsp;$\zeta$&nbsp;prototype</a>
+  <a href="#elliptic">3&nbsp;$L(E,s)$</a>
+  <a href="#modular">4&nbsp;$L(f,s)$</a>
+  <a href="#completed">5&nbsp;Completed&nbsp;$\Lambda$</a>
+  <a href="#mellin">6&nbsp;Mellin&nbsp;transform</a>
+  <a href="#modularity">7&nbsp;Why&nbsp;modularity&nbsp;matters</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>$L$-functions</h1>
+  <p class="sub">A single object — the $L$-function — binds together a Dirichlet series, an Euler product, an analytic continuation, and a functional equation. Its coefficients come from local data (a prime at a time); its global identities encode reciprocity. $\zeta(s)$ is the template, $L(E,s)$ and $L(f,s)$ are the arithmetic payload, and modularity makes them agree.</p>
+</section>
+
+<section id="unified">
+<h2>1. The unified picture</h2>
+<p>Every $L$-function we meet on this page wears four costumes at once:</p>
+
+<ol>
+  <li><strong>A Dirichlet series</strong> $\;L(s) = \sum_{n\ge 1} a_n\,n^{-s}\;$ converging on some right half-plane $\mathrm{Re}\,s > \sigma_0$ — see <a href="./dirichlet-series-euler-products.html">Dirichlet series &amp; Euler products</a>.</li>
+  <li><strong>An Euler product</strong> $\;L(s) = \prod_p L_p(s)\;$ over primes, where each $L_p$ is a local factor encoding arithmetic at $p$.</li>
+  <li><strong>An analytic continuation</strong> to a meromorphic function on all of $\mathbb{C}$, typically with at most a pole at $s=1$.</li>
+  <li><strong>A functional equation</strong> relating $L(s)$ (or a completion $\Lambda(s)$) to $L(k-s)$ for some weight-determined reflection point.</li>
+</ol>
+
+<p>These four properties are not independent: the Dirichlet series determines the Euler product (if it exists); analytic continuation plus the functional equation is what "makes" $L$ a proper $L$-function in the modern sense. What varies between examples is the <em>local recipe</em> assigning a factor $L_p$ to each prime.</p>
+
+<div class="widget" id="w-schema">
+  <div class="hd"><div class="ttl">Anatomy of an $L$-function</div><div class="hint">four costumes, one object</div></div>
+  <svg id="sch-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="small">The same $L$ looks like a sum (left), a product over primes (top), a meromorphic function on $\mathbb{C}$ (right), and a symmetric completion $\Lambda$ (bottom).</div>
+</div>
+</section>
+
+<script>
+(function(){
+  const svg = $('#sch-svg');
+  if(!svg) return;
+  const cx = 320, cy = 140;
+  drawNode(svg, cx, cy, 'L(s)', {r:38, stroke:'var(--yellow)', fontSize:18});
+  const corners = [
+    {x: 110, y: 80,  lbl:'Dirichlet series',  sub:'Σ aₙ / nˢ',           col:'var(--cyan)'},
+    {x: 530, y: 80,  lbl:'Euler product',     sub:'∏_p L_p(s)',          col:'var(--blue)'},
+    {x: 530, y: 220, lbl:'Meromorphic on ℂ',  sub:'analytic continuation', col:'var(--green)'},
+    {x: 110, y: 220, lbl:'Functional equation', sub:'Λ(s) = w Λ(k-s)',   col:'var(--violet)'},
+  ];
+  for(const c of corners){
+    svg.appendChild(SVG('rect',{x:c.x-85,y:c.y-26,width:170,height:52,rx:8,ry:8,
+      fill:'var(--panel2)',stroke:c.col,'stroke-width':1.3}));
+    const t1 = SVG('text',{x:c.x,y:c.y-4,'text-anchor':'middle','font-size':13,fill:c.col,'font-weight':600});
+    t1.textContent = c.lbl;
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:c.x,y:c.y+14,'text-anchor':'middle','font-size':12,fill:'var(--mute)',
+      'font-family':'ui-monospace,monospace'});
+    t2.textContent = c.sub;
+    svg.appendChild(t2);
+    drawArrow(svg, [c.x, c.y + (c.y<cy?26:-26)], [cx + (c.x<cx?-38:38)*0.85, cy + (c.y<cy?-12:12)],
+      {color:c.col, width:1.2, markerId:'arr-sch-'+c.col.replace(/[^\w]/g,''), pad2:10});
+  }
+})();
+</script>
+
+<section id="zeta">
+<h2>2. $\zeta(s)$ as prototype</h2>
+<p>The <strong>Riemann zeta function</strong> is the $L$-function with all local data trivial:
+$$\zeta(s) \;=\; \sum_{n=1}^{\infty}\frac{1}{n^s} \;=\; \prod_p \frac{1}{1 - p^{-s}}, \qquad \mathrm{Re}\,s > 1.$$
+The Euler product follows from <a href="./dirichlet-series-euler-products.html">unique factorization</a>: expand each geometric series $1/(1-p^{-s}) = \sum_{k\ge 0} p^{-ks}$, multiply across all primes, and every integer $n = \prod p^{k_p}$ appears exactly once with weight $n^{-s}$.</p>
+
+<p>The local factor is $L_p(s) = (1-p^{-s})^{-1}$ — the simplest nontrivial thing. Each prime contributes one "mode." The completed $\zeta$ is
+$$\Lambda(s) \;=\; \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s), \qquad \Lambda(s) \;=\; \Lambda(1-s),$$
+reflecting across the <em>critical line</em> $\mathrm{Re}\,s = 1/2$. The factor $\pi^{-s/2}\Gamma(s/2)$ is the "archimedean local factor" $L_\infty(s)$ — the place at infinity pulls its weight.</p>
+
+<div class="note"><strong>Pattern.</strong> Choose a source of arithmetic (zeta: just the positive integers; an elliptic curve: its point-counts mod $p$; a modular form: its Fourier coefficients). Manufacture local factors $L_p$ from that data. Multiply. Analytically continue. Check a functional equation. That is an $L$-function.</div>
+</section>
+
+<section id="elliptic">
+<h2>3. $L(E,s)$ of an elliptic curve</h2>
+<p>Let $E/\mathbb{Q}$ be an <a href="./elliptic-curves.html">elliptic curve</a> with minimal discriminant $\Delta$ and conductor $N$ (same prime support as $\Delta$; see <a href="./singular-cubics-reduction.html">singular cubics &amp; reduction</a>). For each prime $p$ we classify reduction and read off a local factor. Define $a_p = p + 1 - \#E(\mathbb{F}_p)$, the prime-to-$p$ part of the <em>trace of Frobenius</em>.</p>
+
+<table class="plain">
+<thead><tr><th>reduction type at $p$</th><th>condition on $p$ and $\Delta$</th><th>local factor $L_p(s)$</th></tr></thead>
+<tbody>
+<tr><td>good</td><td>$p \nmid \Delta$</td><td>$\bigl(1 - a_p p^{-s} + p\cdot p^{-2s}\bigr)^{-1}$</td></tr>
+<tr><td>multiplicative</td><td>$p \mid \Delta$, reduced curve is a node</td><td>$\bigl(1 - a_p p^{-s}\bigr)^{-1}$ with $a_p \in\{+1,-1\}$</td></tr>
+<tr><td>additive</td><td>$p \mid \Delta$, reduced curve is a cusp</td><td>$1$</td></tr>
+</tbody>
+</table>
+
+<p>The <strong>$L$-function of $E$</strong> is the Dirichlet series obtained by multiplying these local factors:
+$$L(E,s) \;=\; \prod_{p} L_p(s) \;=\; \sum_{n\ge 1}\frac{a_n}{n^s}, \qquad \mathrm{Re}\,s > \tfrac{3}{2}.$$
+The coefficients $a_n$ are determined by the local quadratics via the recursion $a_{p^{k+1}} = a_p\,a_{p^k} - p\,a_{p^{k-1}}$ (good primes) and $a_{mn} = a_m a_n$ when $\gcd(m,n)=1$.</p>
+
+<p>The Hasse bound $|a_p| \le 2\sqrt{p}$ (at good primes) makes the local factor roots $\alpha_p, \beta_p$ (with $\alpha_p \beta_p = p$ and $\alpha_p + \beta_p = a_p$) complex conjugate of absolute value $\sqrt{p}$, which is what tames the global growth.</p>
+
+<div class="widget" id="w-ap">
+  <div class="hd"><div class="ttl">$a_p$ for $E:\ y^2 = x^3 - x$</div><div class="hint">primes up to 60 (good reduction at $p \ne 2$)</div></div>
+  <svg id="ap-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <div class="small">Negative bars: $a_p &lt; 0$; positive bars: $a_p &gt; 0$; zero bars (supersingular) are the tall "$a_p = 0$" events. This curve has CM by $\mathbb{Z}[i]$: $a_p = 0$ whenever $p \equiv 3 \pmod 4$.</div>
+</div>
+
+<div class="widget" id="w-decoder">
+  <div class="hd"><div class="ttl">Local-factor decoder</div><div class="hint">choose $E$ and $p$, read off $L_p$</div></div>
+  <div class="row">
+    <label for="dc-curve">curve</label>
+    <select id="dc-curve">
+      <option value="11a">E: y² + y = x³ − x² − 10x − 20 (conductor 11, bad: 11 mult.)</option>
+      <option value="37a">E: y² + y = x³ − x (conductor 37, rank 1, bad: 37 mult.)</option>
+      <option value="cm">E: y² = x³ − x (conductor 32, bad: 2 additive)</option>
+    </select>
+    <label for="dc-p">$p$</label>
+    <select id="dc-p"></select>
+  </div>
+  <div class="readout" id="dc-out"></div>
+</div>
+
+<div class="widget" id="w-eulerconv">
+  <div class="hd"><div class="ttl">Partial Euler product vs partial sum</div><div class="hint">watch both approach $L(E,s)$ as we take more primes</div></div>
+  <svg id="ec-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <div class="row">
+    <label for="ec-s">$s$</label>
+    <input type="range" id="ec-s" min="1.55" max="3.0" step="0.02" value="2.0">
+    <span id="ec-sv" class="readout" style="min-width:90px;flex:0 0 auto">s = 2.00</span>
+  </div>
+  <div class="small">Partial sum $\sum_{n\le N} a_n/n^s$ (cyan) vs partial Euler product $\prod_{p \le P} L_p(s)$ (yellow), for the CM curve $E: y^2 = x^3 - x$ (conductor 32). Both converge to $L(E,s)$ in the half-plane $\mathrm{Re}\,s &gt; 3/2$.</div>
+</div>
+</section>
+
+<script>
+/* ============ ap bar chart for y^2 = x^3 - x ============ */
+(function(){
+  const svg = $('#ap-svg');
+  if(!svg) return;
+  // a_p for E: y^2 = x^3 - x (LMFDB 32.a, CM by Z[i])
+  // For this CM curve, a_p = 0 when p ≡ 3 (mod 4); else a_p computed from p = a^2+b^2 with a odd.
+  const PRIMES = [3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59];
+  function ap(p){
+    if(p===2) return null; // additive
+    if(p%4 === 3) return 0;
+    // p = a^2 + b^2 with a odd, a ≡ 1 (mod 4) possibly; take a_p = 2a with that sign convention.
+    for(let a = 1; a*a <= p; a+=2){
+      const b2 = p - a*a;
+      const b = Math.round(Math.sqrt(b2));
+      if(b*b === b2){
+        // convention: a_p = 2a if a is odd and a ≡ 1 (mod 4), else 2a with a ≡ 1 (mod 4) forced
+        let aa = a;
+        if(aa % 4 === 3) aa = -aa;
+        return 2*aa;
+      }
+    }
+    return 0;
+  }
+  const data = PRIMES.map(p=>({p, a: ap(p)}));
+  const W = 640, H = 240, padL = 40, padR = 14, padT = 20, padB = 36;
+  const maxAbs = Math.max(...data.map(d=>Math.abs(d.a)), 8);
+  const midY = padT + (H-padT-padB)/2;
+  const barW = (W-padL-padR)/data.length * 0.6;
+  const step = (W-padL-padR)/data.length;
+
+  // axes
+  svg.appendChild(SVG('line',{x1:padL,y1:midY,x2:W-padR,y2:midY,stroke:'var(--mute)','stroke-width':1}));
+  // y-axis labels
+  [-2*Math.ceil(maxAbs/4)*2, 0, 2*Math.ceil(maxAbs/4)*2].forEach(v=>{
+    const y = midY - v/maxAbs * (H-padT-padB)/2;
+    svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));
+    const t = SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    t.textContent = v;
+    svg.appendChild(t);
+  });
+
+  data.forEach((d, i)=>{
+    const x = padL + step*(i+0.5) - barW/2;
+    const h = d.a === 0 ? 2 : Math.abs(d.a)/maxAbs * (H-padT-padB)/2;
+    const y = d.a >= 0 ? midY - h : midY;
+    const color = d.a === 0 ? 'var(--mute)' : (d.a > 0 ? 'var(--green)' : 'var(--pink)');
+    svg.appendChild(SVG('rect',{x,y,width:barW,height:h,fill:color,opacity:0.85}));
+    // label prime
+    const tp = SVG('text',{x:x+barW/2,y:H-padB+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    tp.textContent = d.p;
+    svg.appendChild(tp);
+    // a_p value
+    const ta = SVG('text',{x:x+barW/2, y: d.a >= 0 ? y-4 : y+h+12,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});
+    ta.textContent = d.a;
+    svg.appendChild(ta);
+  });
+
+  const tt = SVG('text',{x:padL, y: padT-4, 'font-size':11, fill:'var(--mute)'});
+  tt.textContent = 'a_p'; svg.appendChild(tt);
+  const tp = SVG('text',{x:W-padR-2, y:H-6, 'text-anchor':'end','font-size':11, fill:'var(--mute)'});
+  tp.textContent = 'prime p'; svg.appendChild(tp);
+})();
+</script>
+
+<script>
+/* ============ local-factor decoder ============ */
+(function(){
+  const curveSel = $('#dc-curve');
+  const pSel = $('#dc-p');
+  const out = $('#dc-out');
+  if(!curveSel || !pSel || !out) return;
+
+  // hand-curated (a_p, reduction) tables for illustration
+  const DATA = {
+    '11a': {
+      name:'E/ℚ: y² + y = x³ − x² − 10x − 20', cond: 11,
+      primes: [
+        {p:2, red:'good', a:-2},
+        {p:3, red:'good', a:-1},
+        {p:5, red:'good', a:1},
+        {p:7, red:'good', a:-2},
+        {p:11, red:'mult', a:1},  // split multiplicative
+        {p:13, red:'good', a:4},
+        {p:17, red:'good', a:-2},
+        {p:19, red:'good', a:0},
+        {p:23, red:'good', a:-1},
+      ]
+    },
+    '37a': {
+      name:'E/ℚ: y² + y = x³ − x', cond: 37,
+      primes: [
+        {p:2, red:'good', a:-2},
+        {p:3, red:'good', a:-3},
+        {p:5, red:'good', a:-2},
+        {p:7, red:'good', a:-1},
+        {p:11, red:'good', a:-5},
+        {p:13, red:'good', a:-2},
+        {p:17, red:'good', a:0},
+        {p:19, red:'good', a:0},
+        {p:23, red:'good', a:2},
+        {p:29, red:'good', a:6},
+        {p:31, red:'good', a:-4},
+        {p:37, red:'mult', a:1}, // split multiplicative
+      ]
+    },
+    'cm': {
+      name:'E/ℚ: y² = x³ − x', cond: 32,
+      primes: [
+        {p:2, red:'add', a:0},
+        {p:3, red:'good', a:0},
+        {p:5, red:'good', a:-2},
+        {p:7, red:'good', a:0},
+        {p:11, red:'good', a:0},
+        {p:13, red:'good', a:6},
+        {p:17, red:'good', a:2},
+        {p:19, red:'good', a:0},
+        {p:23, red:'good', a:0},
+        {p:29, red:'good', a:-10},
+        {p:31, red:'good', a:0},
+      ]
+    }
+  };
+
+  function fillPrimes(){
+    const key = curveSel.value;
+    const ps = DATA[key].primes;
+    pSel.innerHTML = '';
+    ps.forEach(p => {
+      const o = document.createElement('option');
+      o.value = p.p;
+      o.textContent = 'p = ' + p.p + ' (' + p.red + ')';
+      pSel.appendChild(o);
+    });
+    render();
+  }
+
+  function render(){
+    const key = curveSel.value;
+    const C = DATA[key];
+    const p = parseInt(pSel.value, 10);
+    const row = C.primes.find(r => r.p === p);
+    if(!row){ out.textContent = ''; return; }
+    let factor, meaning;
+    if(row.red === 'good'){
+      factor = `(1 − (${row.a})·${p}^(−s) + ${p}·${p}^(−2s))^(−1)`;
+      meaning = `good reduction → degree-2 local factor; Hasse: |a_p| ≤ 2√p = ${(2*Math.sqrt(p)).toFixed(3)}`;
+    } else if(row.red === 'mult'){
+      factor = `(1 − (${row.a})·${p}^(−s))^(−1)`;
+      meaning = `multiplicative reduction (node) → degree-1 factor; a_p = ±1 records split vs non-split`;
+    } else {
+      factor = `1`;
+      meaning = `additive reduction (cusp) → local factor is 1 (trivial contribution)`;
+    }
+    out.textContent =
+      C.name + '\n' +
+      'conductor N = ' + C.cond + '\n' +
+      'prime p = ' + p + '   reduction: ' + row.red + '   a_p = ' + row.a + '\n\n' +
+      'L_p(s) = ' + factor + '\n\n' +
+      meaning;
+  }
+
+  curveSel.addEventListener('change', fillPrimes);
+  pSel.addEventListener('change', render);
+  fillPrimes();
+})();
+</script>
+
+<script>
+/* ============ partial-Euler vs partial-sum convergence ============ */
+(function(){
+  const svg = $('#ec-svg');
+  const sInp = $('#ec-s');
+  const sV = $('#ec-sv');
+  if(!svg || !sInp) return;
+
+  // same CM curve data — compute a_n from a_p via multiplicativity + recursion
+  function apCurve(p){
+    if(p===2) return 0; // additive
+    if(p%4 === 3) return 0;
+    for(let a=1;a*a<=p;a+=2){
+      const b2 = p-a*a; const b = Math.round(Math.sqrt(b2));
+      if(b*b===b2){ let aa=a; if(aa%4===3) aa=-aa; return 2*aa; }
+    }
+    return 0;
+  }
+  function isPrime(n){ if(n<2) return false; for(let k=2;k*k<=n;k++){ if(n%k===0) return false; } return true; }
+  const PR = [];
+  for(let n=2;n<=80;n++) if(isPrime(n)) PR.push(n);
+
+  // build a_n up to N=80
+  const N = 80;
+  const an = new Array(N+1).fill(0);
+  an[1] = 1;
+  // For each prime p compute a_{p^k} via a_{p^(k+1)} = a_p * a_{p^k} − p * a_{p^(k-1)} (good), or a_{p^k}=a_p^k (mult), or 0 (additive).
+  function apkTable(p){
+    const out = {1: 1};
+    let pk = p;
+    if(p===2){ // additive reduction
+      while(pk<=N){ out[pk]=0; pk*=p; }
+      return out;
+    }
+    const ap = apCurve(p);
+    out[p] = ap;
+    let prev = 1, cur = ap; pk = p*p;
+    while(pk<=N){
+      const next = ap*cur - p*prev;
+      out[pk] = next;
+      prev = cur; cur = next; pk *= p;
+    }
+    return out;
+  }
+  const tbl = {};
+  PR.forEach(p => { tbl[p] = apkTable(p); });
+  // factor n, a_n = prod a_{p^{k}}
+  function factor(n){
+    const f = {};
+    for(const p of PR){ if(p*p>n && n>1) break; while(n%p===0){ f[p]=(f[p]||0)+1; n/=p; } if(n===1) break; }
+    if(n>1) f[n] = 1;
+    return f;
+  }
+  for(let n=2;n<=N;n++){
+    const f = factor(n);
+    let prod = 1;
+    let ok = true;
+    for(const p in f){
+      const pk = Math.pow(parseInt(p,10), f[p]);
+      const v = tbl[p] && tbl[p][pk];
+      if(v === undefined){ ok = false; break; }
+      prod *= v;
+    }
+    an[n] = ok ? prod : 0;
+  }
+
+  // compute series partial sum S_N(s) and Euler partial prod E_P(s) for P ranging over primes up to 60
+  function partials(s){
+    const S = []; let sum = 0;
+    for(let n=1;n<=N;n++){ sum += an[n]/Math.pow(n, s); S.push(sum); }
+    const Pmax = 60;
+    const E = []; let prod = 1;
+    for(const p of PR){
+      if(p>Pmax) break;
+      let Lp;
+      if(p===2){ Lp = 1; } // additive
+      else {
+        const ap = apCurve(p);
+        Lp = 1 / (1 - ap*Math.pow(p,-s) + p*Math.pow(p,-2*s));
+      }
+      prod *= Lp;
+      E.push({p, val: prod});
+    }
+    return {S, E};
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const s = parseFloat(sInp.value);
+    sV.textContent = 's = ' + s.toFixed(2);
+    const {S, E} = partials(s);
+    // shared y range
+    const allv = [...S, ...E.map(x=>x.val)];
+    const ymin = Math.min(...allv);
+    const ymax = Math.max(...allv);
+    const pad = 0.05*(ymax-ymin || 1);
+    const yLo = ymin - pad, yHi = ymax + pad;
+
+    const W = 640, H = 240, padL = 46, padR = 16, padT = 14, padB = 34;
+    const toX = i => padL + (i/(N-1))*(W-padL-padR);
+    const toY = v => H - padB - (v-yLo)/(yHi-yLo)*(H-padT-padB);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)'}));
+    // y ticks
+    for(let k=0;k<=4;k++){
+      const v = yLo + k*(yHi-yLo)/4;
+      const y = toY(v);
+      svg.appendChild(SVG('line',{x1:padL-3,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent = v.toFixed(3); svg.appendChild(t);
+    }
+
+    // partial-sum curve (cyan) — indexed by n
+    let d1 = '';
+    S.forEach((v, i) => {
+      const x = toX(i), y = toY(v);
+      d1 += (i===0?'M':'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
+
+    // partial-Euler points (yellow) — each at prime position p on same x-axis scaled to index n=p
+    E.forEach(pt => {
+      const i = Math.min(pt.p - 1, N - 1);
+      const x = toX(i), y = toY(pt.val);
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3,fill:'var(--yellow)'}));
+    });
+    // connect Euler points with a dashed line
+    let d2 = '';
+    E.forEach((pt, i) => {
+      const x = toX(Math.min(pt.p - 1, N - 1));
+      const y = toY(pt.val);
+      d2 += (i===0?'M':'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+
+    // legend
+    const g1 = SVG('g'); svg.appendChild(g1);
+    svg.appendChild(SVG('line',{x1:W-180,y1:padT+10,x2:W-160,y2:padT+10,stroke:'var(--cyan)','stroke-width':2}));
+    let ttt = SVG('text',{x:W-155,y:padT+14,'font-size':11,fill:'var(--ink)'});
+    ttt.textContent = 'partial sum  Σ a_n/n^s';
+    svg.appendChild(ttt);
+    svg.appendChild(SVG('line',{x1:W-180,y1:padT+28,x2:W-160,y2:padT+28,stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 3'}));
+    ttt = SVG('text',{x:W-155,y:padT+32,'font-size':11,fill:'var(--ink)'});
+    ttt.textContent = 'partial Euler  ∏_{p ≤ P} L_p(s)';
+    svg.appendChild(ttt);
+
+    const xl = SVG('text',{x:W-padR,y:H-10,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    xl.textContent = 'index (n for sum, p for Euler)';
+    svg.appendChild(xl);
+  }
+  sInp.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="modular">
+<h2>4. $L(f,s)$ of a cusp form eigenform</h2>
+<p>Let $f = \sum_{n\ge 1} a_n q^n \in S_k(\Gamma_0(N))$ be a weight-$k$ cusp form that is also a simultaneous eigenform for all the <a href="./modular-forms.html">Hecke operators</a> $T_p$. Then its Dirichlet series
+$$L(f,s) \;=\; \sum_{n\ge 1}\frac{a_n}{n^s}$$
+has an Euler product, courtesy of Hecke:
+$$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\cdot\; \prod_{p \mid N}\frac{1}{1 - a_p\,p^{-s}}.$$</p>
+
+<p>The factorization follows from the Hecke recursions $a_{p^{k+1}} = a_p\,a_{p^k} - p^{k-1}\,a_{p^{k-1}}$ at good primes and $a_{mn} = a_m\,a_n$ for $\gcd(m,n)=1$. Multiplicativity of the coefficients is exactly the statement that $L(f,s)$ factors as a product over primes.</p>
+
+<p>For weight $k=2$ the local factor $\bigl(1 - a_p p^{-s} + p\cdot p^{-2s}\bigr)^{-1}$ has <em>the same shape</em> as the local factor of an elliptic curve at a good prime. This coincidence is not a coincidence; it is the statement of <a href="#modularity">modularity</a>.</p>
+
+<div class="note"><strong>Reading the shape.</strong> A weight-$k$ Euler factor is a geometric-series inverse of a degree-2 polynomial in $p^{-s}$ whose roots $\alpha,\beta$ satisfy $\alpha\beta = p^{k-1}$. The exponent $k-1$ sets the "weight" — the reflection point of the functional equation will be $s \mapsto k-s$.</div>
+
+<div class="widget" id="w-hecke">
+  <div class="hd"><div class="ttl">Hecke multiplicativity at $p$</div><div class="hint">scroll the prime power</div></div>
+  <svg id="hk-svg" viewBox="0 0 640 220" width="640" height="220"></svg>
+  <div class="row">
+    <label for="hk-k">weight $k$</label>
+    <select id="hk-k">
+      <option value="2">2 (elliptic-curve shape)</option>
+      <option value="4">4</option>
+      <option value="12" selected>12 (cusp form $\Delta$)</option>
+    </select>
+    <label for="hk-p">$p$</label>
+    <select id="hk-p">
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="7">7</option>
+    </select>
+    <label for="hk-ap">$a_p$</label>
+    <input type="number" id="hk-ap" value="-24" step="1" style="width:90px">
+  </div>
+  <div class="readout" id="hk-out"></div>
+  <div class="small">Shows $a_{p^j}$ for $j = 0,1,2,\dots$ via $a_{p^{j+1}} = a_p\,a_{p^j} - p^{k-1}\,a_{p^{j-1}}$. For $k=12, p=2, a_2=-24$ this matches Ramanujan's $\tau(2^j)$.</div>
+</div>
+</section>
+
+<script>
+/* ============ Hecke recursion demo ============ */
+(function(){
+  const kSel = $('#hk-k'), pSel = $('#hk-p'), apIn = $('#hk-ap'), out = $('#hk-out'), svg = $('#hk-svg');
+  if(!kSel || !pSel || !apIn) return;
+  function run(){
+    const k = parseInt(kSel.value, 10);
+    const p = parseInt(pSel.value, 10);
+    const ap = parseFloat(apIn.value);
+    const pw = Math.pow(p, k-1);
+    const A = [1, ap];
+    for(let j=2;j<=8;j++){
+      A.push(ap*A[j-1] - pw*A[j-2]);
+    }
+    out.textContent =
+      `L_p(s)⁻¹ = 1 − ${ap}·${p}^(−s) + ${p}^${k-1}·${p}^(−2s)\n` +
+      `         = 1 − ${ap}·${p}^(−s) + ${pw}·${p}^(−2s)\n\n` +
+      'j   p^j         a_{p^j}\n' +
+      A.map((v,j)=>`${j}   ${String(Math.pow(p,j)).padStart(7,' ')}    ${v}`).join('\n');
+
+    // draw bar chart
+    svg.innerHTML = '';
+    const W = 640, H = 220, padL = 40, padR = 14, padT = 14, padB = 34;
+    const n = A.length;
+    const maxAbs = Math.max(...A.map(v=>Math.abs(v)), 1);
+    const midY = padT + (H-padT-padB)/2;
+    const barW = (W-padL-padR)/n * 0.55;
+    const step = (W-padL-padR)/n;
+    svg.appendChild(SVG('line',{x1:padL,y1:midY,x2:W-padR,y2:midY,stroke:'var(--mute)'}));
+    A.forEach((v, j) => {
+      const x = padL + step*(j+0.5) - barW/2;
+      const h = v === 0 ? 2 : Math.abs(v)/maxAbs * (H-padT-padB)/2;
+      const y = v >= 0 ? midY - h : midY;
+      const color = v >= 0 ? 'var(--cyan)' : 'var(--pink)';
+      svg.appendChild(SVG('rect',{x,y,width:barW,height:h,fill:color,opacity:0.85}));
+      const tp = SVG('text',{x:x+barW/2,y:H-padB+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tp.textContent = 'p^'+j;
+      svg.appendChild(tp);
+    });
+    const lbl = SVG('text',{x:padL, y: padT-2, 'font-size':11, fill:'var(--mute)'});
+    lbl.textContent = 'a_{p^j}'; svg.appendChild(lbl);
+  }
+  [kSel, pSel, apIn].forEach(e => e.addEventListener('change', run));
+  apIn.addEventListener('input', run);
+  run();
+})();
+</script>
+
+<section id="completed">
+<h2>5. The completed $L$-function and the functional equation</h2>
+<p>Local data at primes gives a Dirichlet series; to get a clean functional equation we also need to include the <em>archimedean place</em>. For an elliptic curve $E/\mathbb{Q}$ with conductor $N$, define the <strong>completed $L$-function</strong>
+$$\Lambda(E,s) \;=\; N^{s/2}\,(2\pi)^{-s}\,\Gamma(s)\,L(E,s).$$
+Theorem (consequence of modularity): $\Lambda(E,s)$ continues to an entire function of $s\in\mathbb{C}$ and satisfies
+$$\Lambda(E,s) \;=\; w\,\Lambda(E, 2-s), \qquad w \in \{+1, -1\}.$$
+The sign $w$ is the <strong>root number</strong> (or sign of the functional equation) and is computed as a product of local root numbers $w = \prod_v w_v$.</p>
+
+<p>The reflection point is $s = 1$ — the "center of the critical strip" for $L(E,s)$, playing the role of $s=1/2$ for $\zeta(s)$. The functional equation says $L(E,s)$ is highly constrained: knowing it on $\mathrm{Re}\,s > 3/2$ plus the functional equation determines it everywhere.</p>
+
+<div class="note"><strong>Weight dictionary.</strong> An $L$-function of "motivic weight" $k-1$ has a functional equation $s \mapsto k-s$. For $\zeta$: weight $0$, reflection $s \mapsto 1-s$. For $L(E,s)$: weight $1$, reflection $s \mapsto 2-s$. For $L(f,s)$ with $f$ a weight-$k$ eigenform: reflection $s \mapsto k-s$. Same machine, different exponent.</div>
+
+<div class="widget" id="w-fe">
+  <div class="hd"><div class="ttl">Completed vs bare $L$-function</div><div class="hint">watch the reflection symmetry</div></div>
+  <svg id="fe-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="row">
+    <label for="fe-N">conductor $N$</label>
+    <select id="fe-N">
+      <option value="11" selected>11</option>
+      <option value="32">32</option>
+      <option value="37">37</option>
+    </select>
+    <label for="fe-w">sign $w$</label>
+    <select id="fe-w">
+      <option value="1" selected>+1 (even)</option>
+      <option value="-1">−1 (odd)</option>
+    </select>
+  </div>
+  <div class="small">For illustration the "bare" $L$-curve is the model function $L(s) = 1$ (a constant stand-in); the completed $\Lambda(s) = N^{s/2}(2\pi)^{-s}\Gamma(s)\cdot L(s)$ is plotted on $s\in[0,2]$, and $\Lambda(s)$ vs $w\cdot\Lambda(2-s)$ overlay exactly.</div>
+</div>
+
+<div class="widget" id="w-sign">
+  <div class="hd"><div class="ttl">Sign of the functional equation</div><div class="hint">$w = +1$ forces even vanishing at $s=1$; $w = −1$ forces odd vanishing</div></div>
+  <svg id="sg-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <div class="row">
+    <button id="sg-plus" class="active">w = +1</button>
+    <button id="sg-minus">w = −1</button>
+  </div>
+  <div class="small">When $w = +1$, $\Lambda(E,s)$ is symmetric about $s=1$, so it can be nonzero there (and BSD predicts $\mathrm{ord}_{s=1} L(E,s)$ equals the rank, an even number if $w=+1$). When $w = -1$, antisymmetry forces $\Lambda(E,1) = 0$ — so the rank is odd (predicted $\ge 1$).</div>
+</div>
+</section>
+
+<script>
+/* ============ completed vs bare ============ */
+(function(){
+  const svg = $('#fe-svg'), NSel = $('#fe-N'), wSel = $('#fe-w');
+  if(!svg || !NSel || !wSel) return;
+  // Gamma for real s>0 via Lanczos
+  const g = 7;
+  const gc = [
+    0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+    771.32342877765313, -176.61502916214059, 12.507343278686905,
+    -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7
+  ];
+  function gamma(x){
+    if(x<0.5) return Math.PI/(Math.sin(Math.PI*x)*gamma(1-x));
+    x -= 1; let a = gc[0];
+    const t = x + g + 0.5;
+    for(let i=1;i<gc.length;i++) a += gc[i]/(x+i);
+    return Math.sqrt(2*Math.PI) * Math.pow(t, x+0.5) * Math.exp(-t) * a;
+  }
+  function draw(){
+    svg.innerHTML = '';
+    const N = parseInt(NSel.value, 10);
+    const w = parseInt(wSel.value, 10);
+    const W = 640, H = 260, padL = 50, padR = 16, padT = 18, padB = 36;
+    const xL = 0, xR = 2; // plot s in [0,2]
+    // For illustration treat L(s) ≡ 1 so Lambda(s) = N^{s/2} (2π)^{-s} Γ(s).
+    const pts = [];
+    const M = 200;
+    for(let i=0;i<=M;i++){
+      const s = xL + (i/M)*(xR-xL);
+      const ls = 1.0; // stand-in
+      const lambda = Math.pow(N, s/2) * Math.pow(2*Math.PI, -s) * gamma(s) * ls;
+      pts.push({s, lam: lambda, bare: ls});
+    }
+    const lamMax = Math.max(...pts.map(p=>p.lam));
+    const lamMin = Math.min(...pts.map(p=>p.lam));
+    const pad = (lamMax-lamMin)*0.08 || 1;
+    const yLo = Math.min(lamMin-pad, -0.1), yHi = lamMax+pad;
+    const toX = s => padL + (s-xL)/(xR-xL)*(W-padL-padR);
+    const toY = v => H-padB - (v-yLo)/(yHi-yLo)*(H-padT-padB);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:toY(0),x2:W-padR,y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)'}));
+    // s ticks
+    [0, 0.5, 1, 1.5, 2].forEach(s=>{
+      const x = toX(s);
+      svg.appendChild(SVG('line',{x1:x,y1:toY(0)-3,x2:x,y2:toY(0)+3,stroke:'var(--mute)'}));
+      const t = SVG('text',{x, y:toY(0)+16, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = s; svg.appendChild(t);
+    });
+    // reflection axis s=1
+    svg.appendChild(SVG('line',{x1:toX(1),y1:padT,x2:toX(1),y2:H-padB,
+      stroke:'var(--yellow)','stroke-width':1,'stroke-dasharray':'4 4'}));
+    const rl = SVG('text',{x:toX(1)+4,y:padT+10,'font-size':11,fill:'var(--yellow)'});
+    rl.textContent = 's = 1 (reflection)'; svg.appendChild(rl);
+
+    // Lambda curve
+    let d = '';
+    pts.forEach((p,i)=>{
+      d += (i===0?'M':'L') + toX(p.s).toFixed(1) + ' ' + toY(p.lam).toFixed(1) + ' ';
+    });
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--green)','stroke-width':2}));
+
+    // reflected curve: w * Lambda(2-s), sampled symmetrically
+    let d2 = '';
+    pts.forEach((p,i)=>{
+      const sr = 2 - p.s;
+      const lamR = Math.pow(N, sr/2) * Math.pow(2*Math.PI, -sr) * gamma(sr) * 1.0;
+      d2 += (i===0?'M':'L') + toX(p.s).toFixed(1) + ' ' + toY(w*lamR).toFixed(1) + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--pink)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+
+    // bare L (= 1)
+    svg.appendChild(SVG('line',{x1:toX(xL),y1:toY(1),x2:toX(xR),y2:toY(1),
+      stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'2 3'}));
+
+    // legend
+    svg.appendChild(SVG('line',{x1:W-220,y1:padT+8,x2:W-200,y2:padT+8,stroke:'var(--green)','stroke-width':2}));
+    let t = SVG('text',{x:W-195,y:padT+12,'font-size':11,fill:'var(--ink)'}); t.textContent = 'Λ(s) = N^{s/2}(2π)^{-s}Γ(s)L(s)'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:W-220,y1:padT+26,x2:W-200,y2:padT+26,stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'4 3'}));
+    t = SVG('text',{x:W-195,y:padT+30,'font-size':11,fill:'var(--ink)'}); t.textContent = 'w · Λ(2−s)'; svg.appendChild(t);
+    svg.appendChild(SVG('line',{x1:W-220,y1:padT+44,x2:W-200,y2:padT+44,stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'2 3'}));
+    t = SVG('text',{x:W-195,y:padT+48,'font-size':11,fill:'var(--ink)'}); t.textContent = 'bare L(s) (stand-in ≡ 1)'; svg.appendChild(t);
+  }
+  NSel.addEventListener('change', draw);
+  wSel.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+<script>
+/* ============ sign-of-functional-equation toggle ============ */
+(function(){
+  const svg = $('#sg-svg'), bPlus = $('#sg-plus'), bMinus = $('#sg-minus');
+  if(!svg || !bPlus || !bMinus) return;
+  let w = +1;
+  function draw(){
+    svg.innerHTML = '';
+    const W = 640, H = 240, padL = 50, padR = 16, padT = 16, padB = 36;
+    const xL = 0, xR = 2;
+    const toX = s => padL + (s-xL)/(xR-xL)*(W-padL-padR);
+    const toY = v => H-padB - (v+1.4)/(2.8)*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:toY(0),x2:W-padR,y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--mute)'}));
+    [0,0.5,1,1.5,2].forEach(s=>{
+      const x = toX(s);
+      svg.appendChild(SVG('line',{x1:x,y1:toY(0)-3,x2:x,y2:toY(0)+3,stroke:'var(--mute)'}));
+      const t = SVG('text',{x, y:toY(0)+16, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = s; svg.appendChild(t);
+    });
+    svg.appendChild(SVG('line',{x1:toX(1),y1:padT,x2:toX(1),y2:H-padB,
+      stroke:'var(--yellow)','stroke-width':1,'stroke-dasharray':'4 4'}));
+
+    // model Lambda: cosh-like for w=+1, sinh-like for w=-1, both symmetric/antisymmetric about s=1
+    const pts = [];
+    const M = 300;
+    for(let i=0;i<=M;i++){
+      const s = xL + (i/M)*(xR-xL);
+      const u = s - 1;
+      const val = w === +1 ? 1 + 0.6*Math.cosh(u)-0.6 : 0.9*Math.sinh(u);
+      pts.push({s, val});
+    }
+    let d = '';
+    pts.forEach((p,i)=>{
+      d += (i===0?'M':'L') + toX(p.s).toFixed(1) + ' ' + toY(p.val).toFixed(1) + ' ';
+    });
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:w===+1?'var(--green)':'var(--pink)','stroke-width':2}));
+
+    // point at s=1
+    svg.appendChild(SVG('circle',{cx:toX(1),cy:toY(w===+1?1:0), r:4, fill:'var(--yellow)'}));
+    const t1 = SVG('text',{x:toX(1)+8, y:toY(w===+1?1:0)-6,'font-size':12,
+      fill:w===+1?'var(--green)':'var(--pink)'});
+    t1.textContent = w===+1
+      ? 'Λ(1) ≠ 0 possible (even order vanishing)'
+      : 'Λ(1) = 0 forced (odd order vanishing)';
+    svg.appendChild(t1);
+
+    const t2 = SVG('text',{x:padL+4,y:padT+12,'font-size':11,fill:'var(--mute)'});
+    t2.textContent = 'Λ(s)'; svg.appendChild(t2);
+    const t3 = SVG('text',{x:W-padR,y:H-10,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    t3.textContent = 's'; svg.appendChild(t3);
+  }
+  bPlus.addEventListener('click', ()=>{ w = +1; bPlus.classList.add('active'); bMinus.classList.remove('active'); draw(); });
+  bMinus.addEventListener('click', ()=>{ w = -1; bMinus.classList.add('active'); bPlus.classList.remove('active'); draw(); });
+  draw();
+})();
+</script>
+
+<section id="mellin">
+<h2>6. The Mellin transform: from $f$ to $L(f,s)$</h2>
+<p>The bridge between the <em>upper half plane</em> and the <em>$s$-plane</em> is the Mellin transform. For a cusp form $f(\tau) = \sum_{n\ge 1} a_n\,e^{2\pi i n\tau}$ on the ray $\tau = iy$ with $y > 0$, we have $f(iy) = \sum_{n\ge 1} a_n\,e^{-2\pi n y}$ and
+$$\int_0^{\infty} f(iy)\,y^{s-1}\,dy \;=\; \sum_{n\ge 1} a_n \int_0^\infty e^{-2\pi n y}\,y^{s-1}\,dy \;=\; \sum_{n\ge 1}\frac{a_n \cdot \Gamma(s)}{(2\pi n)^s} \;=\; (2\pi)^{-s}\Gamma(s)\,L(f,s).$$</p>
+
+<p>So the <strong>completed $L$-function</strong> of a weight-$k$ cusp form is literally the Mellin transform of its restriction to the imaginary axis:
+$$\Lambda(f,s) \;=\; (2\pi)^{-s}\,\Gamma(s)\,L(f,s) \;=\; \int_0^{\infty} f(iy)\,y^{s-1}\,dy.$$
+The functional equation $\Lambda(f,s) = \varepsilon\,\Lambda(f, k-s)$ is then a direct consequence of the modular transformation $f(-1/\tau) = \varepsilon\,\tau^k\,f(\tau)$: the change of variables $y \mapsto 1/y$ in the integral swaps the behavior at $0$ and $\infty$ and converts $y^{s-1}\,dy$ into $y^{k-s-1}\,dy$.</p>
+
+<div class="note"><strong>One-line derivation of the functional equation.</strong> Split $\int_0^\infty = \int_0^1 + \int_1^\infty$. Apply $y \mapsto 1/y$ to the first integral; the modular relation turns $f(i/y)$ into $\varepsilon\,y^{k} f(iy)$, and the Jacobian converts $y^{s-1}\,dy$ into $-y^{k-s-1}\,dy$. The result is exactly $\varepsilon$ times the original integral with $s$ replaced by $k-s$.</div>
+
+<div class="widget" id="w-mellin">
+  <div class="hd"><div class="ttl">Mellin transform visual</div><div class="hint">$f(iy)$ as $y$ runs along the vertical ray</div></div>
+  <svg id="mel-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="small">Left: the upper half plane with the imaginary ray $\tau = iy$ highlighted. Right: the real-valued function $y \mapsto f(iy)$ decays exponentially at $\infty$ and (after the modular symmetry $y \mapsto 1/y$) at $0$. The Mellin integral $\int_0^\infty f(iy) y^{s-1}\,dy$ packages this two-sided decay into $\Lambda(f,s)$.</div>
+</div>
+</section>
+
+<script>
+/* ============ Mellin visual ============ */
+(function(){
+  const svg = $('#mel-svg');
+  if(!svg) return;
+  const W = 640, H = 260;
+  // left panel: upper half plane with imaginary ray
+  const Lx = 20, Ly = 20, Lw = 260, Lh = 220;
+  svg.appendChild(SVG('rect',{x:Lx,y:Ly,width:Lw,height:Lh,fill:'var(--panel2)',stroke:'var(--line)'}));
+  // real axis
+  svg.appendChild(SVG('line',{x1:Lx+20,y1:Ly+Lh-30,x2:Lx+Lw-20,y2:Ly+Lh-30,stroke:'var(--mute)'}));
+  // imaginary ray
+  const ray_x = Lx + Lw/2;
+  svg.appendChild(SVG('line',{x1:ray_x,y1:Ly+Lh-30,x2:ray_x,y2:Ly+18,
+    stroke:'var(--yellow)','stroke-width':2}));
+  // mark y=1
+  svg.appendChild(SVG('circle',{cx:ray_x,cy:Ly+Lh-30-80,r:3.5,fill:'var(--yellow)'}));
+  let t = SVG('text',{x:ray_x+8,y:Ly+Lh-30-78,'font-size':11,fill:'var(--yellow)'});
+  t.textContent = 'y = 1 (fixed pt of y→1/y)'; svg.appendChild(t);
+  // "small y" annotation
+  t = SVG('text',{x:ray_x+8,y:Ly+Lh-36,'font-size':11,fill:'var(--mute)'});
+  t.textContent = 'y → 0  (cusp ∞ via −1/τ)'; svg.appendChild(t);
+  t = SVG('text',{x:ray_x+8,y:Ly+26,'font-size':11,fill:'var(--mute)'});
+  t.textContent = 'y → ∞  (q = e^{−2πy} → 0)'; svg.appendChild(t);
+  t = SVG('text',{x:Lx+8,y:Ly+14,'font-size':12,fill:'var(--ink)'});
+  t.textContent = 'upper half plane ℋ'; svg.appendChild(t);
+  // axis labels
+  t = SVG('text',{x:Lx+Lw-24,y:Ly+Lh-16,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  t.textContent = 'Re τ'; svg.appendChild(t);
+  t = SVG('text',{x:ray_x-14,y:Ly+18,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  t.textContent = 'Im τ = y'; svg.appendChild(t);
+
+  // right panel: f(iy) curve
+  const Rx = 320, Ry = 20, Rw = 300, Rh = 220;
+  svg.appendChild(SVG('rect',{x:Rx,y:Ry,width:Rw,height:Rh,fill:'var(--panel2)',stroke:'var(--line)'}));
+  // x axis: log-ish y from 0.1 to 5
+  const yMin = 0.1, yMax = 5;
+  const padL = 36, padB = 28, padT = 18, padR = 14;
+  const toX = y => Rx + padL + (Math.log(y)-Math.log(yMin))/(Math.log(yMax)-Math.log(yMin))*(Rw-padL-padR);
+  const toY = v => Ry + Rh - padB - v*(Rh-padT-padB);
+
+  // axes
+  svg.appendChild(SVG('line',{x1:Rx+padL,y1:toY(0),x2:Rx+Rw-padR,y2:toY(0),stroke:'var(--mute)'}));
+  svg.appendChild(SVG('line',{x1:Rx+padL,y1:Ry+padT,x2:Rx+padL,y2:Ry+Rh-padB,stroke:'var(--mute)'}));
+  // ticks at y = 0.1, 1, 5
+  [0.1,0.5,1,2,5].forEach(yv=>{
+    const x = toX(yv);
+    svg.appendChild(SVG('line',{x1:x,y1:toY(0)-3,x2:x,y2:toY(0)+3,stroke:'var(--mute)'}));
+    const tk = SVG('text',{x, y:toY(0)+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    tk.textContent = yv; svg.appendChild(tk);
+  });
+  // plot f(iy) ~ q - 24 q^2 + ... for Delta; for visualization just a decaying-hump curve
+  // use model g(y) = (2π y) * exp(-2π y) normalized; with bump at y ~ 1
+  let d = '';
+  for(let i=0;i<=200;i++){
+    const logy = Math.log(yMin) + i/200*(Math.log(yMax)-Math.log(yMin));
+    const y = Math.exp(logy);
+    const q = Math.exp(-2*Math.PI*y);
+    // weight-k modular model: g(y) = (2π y)^6 * q * (1 - 24 q + ...) normalized
+    let v = Math.pow(2*Math.PI*y, 6) * q;
+    // clamp for display
+    v = Math.min(v, 1.0);
+    d += (i===0?'M':'L') + toX(y).toFixed(1) + ' ' + toY(v).toFixed(1) + ' ';
+  }
+  svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+
+  // mark y=1 line
+  svg.appendChild(SVG('line',{x1:toX(1),y1:Ry+padT,x2:toX(1),y2:Ry+Rh-padB,
+    stroke:'var(--yellow)','stroke-dasharray':'3 3'}));
+
+  t = SVG('text',{x:Rx+8,y:Ry+14,'font-size':12,fill:'var(--ink)'});
+  t.textContent = 'y ↦ f(iy)  (schematic, weight 12)'; svg.appendChild(t);
+  t = SVG('text',{x:Rx+Rw-padR-2,y:Ry+Rh-8,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+  t.textContent = 'y (log scale)'; svg.appendChild(t);
+
+  // arrow connecting ray → curve
+  drawArrow(svg, [Lx+Lw-6, Ly+Lh/2], [Rx+4, Ry+Rh/2],
+    {color:'var(--violet)', label:'Mellin', markerId:'arr-mel', pad1:4, pad2:4});
+})();
+</script>
+
+<section id="modularity">
+<h2>7. Why modularity matters</h2>
+<p>Two $L$-functions were constructed independently:
+<strong>$L(E,s)$</strong> from counting points on an elliptic curve $E/\mathbb{Q}$,
+and <strong>$L(f,s)$</strong> from Hecke eigenvalues of a weight-$2$ cusp form $f$ on $\Gamma_0(N)$.
+<em>Modularity</em> says that if we start with any elliptic curve $E/\mathbb{Q}$ of conductor $N$, there exists a weight-$2$ newform $f \in S_2(\Gamma_0(N))$ such that
+$$L(E,s) \;=\; L(f,s).$$
+Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ prime by prime, $a_p(f) = a_p(E)$ for all primes $p$.</p>
+
+<p>This is the Modularity Theorem (Taylor–Wiles, Breuil–Conrad–Diamond–Taylor). It is the content of the statement "every elliptic curve over $\mathbb{Q}$ is modular." What does it buy?</p>
+
+<ul>
+  <li><strong>Analytic continuation.</strong> $L(E,s)$ only converges a priori on $\mathrm{Re}\,s > 3/2$. But $L(f,s)$, coming from a Mellin transform, continues entire to all of $\mathbb{C}$. Modularity transports that continuation back to $L(E,s)$.</li>
+  <li><strong>Functional equation.</strong> The modular form's automorphy gives $\Lambda(f,s) = \varepsilon\,\Lambda(f, 2-s)$; modularity gives $\Lambda(E,s) = w\,\Lambda(E,2-s)$ with $w = \varepsilon$.</li>
+  <li><strong>The lever for <a href="./frobenius-and-reciprocity.html">Fermat's Last Theorem</a>.</strong> FLT follows because a putative counterexample would give a non-modular semistable elliptic curve, contradicting modularity.</li>
+  <li><strong>The Birch–Swinnerton-Dyer conjecture.</strong> BSD predicts $\mathrm{ord}_{s=1}L(E,s) = \mathrm{rank}\,E(\mathbb{Q})$ — a statement about special values at the center of the functional equation. Modularity is what lets us evaluate $L(E,s)$ at $s=1$ in the first place.</li>
+</ul>
+
+<div class="widget" id="w-mod">
+  <div class="hd"><div class="ttl">The modularity dictionary</div><div class="hint">two worlds, same $L$-function</div></div>
+  <svg id="md-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="small">The identity $L(E,s) = L(f,s)$ is two different manufacturing processes producing the same Dirichlet series.</div>
+</div>
+
+<div class="ok"><strong>The takeaway.</strong> An $L$-function is the right shape to see that arithmetic (point-counts) and analysis (modular forms) are telling the same story. The Euler product hides the arithmetic; the functional equation reveals the symmetry; the Mellin transform moves fluently between sides; modularity is the bridge that makes the whole mechanism coherent.</div>
+</section>
+
+<script>
+/* ============ modularity dictionary schematic ============ */
+(function(){
+  const svg = $('#md-svg');
+  if(!svg) return;
+  const W = 640, H = 260;
+  // Left: E
+  drawNode(svg, 110, 80, 'E/ℚ', {r:26, stroke:'var(--cyan)', fontSize:14});
+  let t = SVG('text',{x:110,y:120,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent = 'elliptic curve'; svg.appendChild(t);
+  t = SVG('text',{x:110,y:135,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent = 'conductor N'; svg.appendChild(t);
+
+  // Right: f
+  drawNode(svg, 530, 80, 'f', {r:26, stroke:'var(--violet)', fontSize:16});
+  t = SVG('text',{x:530,y:120,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent = 'cusp form'; svg.appendChild(t);
+  t = SVG('text',{x:530,y:135,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent = 'weight 2 on Γ₀(N)'; svg.appendChild(t);
+
+  // Middle: L function
+  svg.appendChild(SVG('rect',{x:260,y:200,width:120,height:40,rx:6,fill:'var(--panel2)',stroke:'var(--yellow)','stroke-width':1.5}));
+  t = SVG('text',{x:320,y:216,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600}); t.textContent = 'L(s) = Σ a_n/nˢ'; svg.appendChild(t);
+  t = SVG('text',{x:320,y:232,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent = '= ∏_p L_p(s)'; svg.appendChild(t);
+
+  // arrows
+  drawArrow(svg, [130, 95], [270, 210], {color:'var(--cyan)', curve:-15, label:'count points mod p', labelSide:0, markerId:'arr-md1'});
+  drawArrow(svg, [510, 95], [370, 210], {color:'var(--violet)', curve:15, label:'Fourier coefficients', labelSide:1, markerId:'arr-md2'});
+
+  // equals sign in the middle-top
+  t = SVG('text',{x:320,y:90,'text-anchor':'middle','font-size':34,fill:'var(--yellow)','font-weight':600}); t.textContent = '='; svg.appendChild(t);
+  t = SVG('text',{x:320,y:115,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'}); t.textContent = 'modularity: a_p(E) = a_p(f)'; svg.appendChild(t);
+
+  // arrow E -> f
+  drawArrow(svg, [140, 75], [500, 75], {color:'var(--yellow)', curve:-18, markerId:'arr-md3', dash:'5 4'});
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>

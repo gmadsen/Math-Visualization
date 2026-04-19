@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Theta functions — the modular bridge between lattices and forms</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#def">1&nbsp;Definition</a>
+  <a href="#conv">2&nbsp;Convergence&nbsp;&amp;&nbsp;$q$-expansion</a>
+  <a href="#trans">3&nbsp;Transformation&nbsp;law</a>
+  <a href="#sos">4&nbsp;Sums&nbsp;of&nbsp;squares</a>
+  <a href="#jtp">5&nbsp;Jacobi&nbsp;triple&nbsp;product</a>
+  <a href="#eta">6&nbsp;Dedekind&nbsp;$\eta$</a>
+  <a href="#lat">7&nbsp;Lattice&nbsp;theta&nbsp;series</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Theta functions</h1>
+  <p class="sub">A single sum $\sum e^{\pi i n^2 \tau}$ over the integers, restricted to the upper half-plane, turns out to be a modular form of half-integer weight. Its powers count representations of integers as sums of squares, its reciprocal builds the Dedekind eta, and its lattice generalization encodes the geometry of $\mathbb{Z}^n$, $E_8$, and the Leech lattice in a single Fourier series.</p>
+</section>
+
+<section id="def">
+<h2>1. The Jacobi theta function</h2>
+<p>Fix $\tau$ in the <a href="./upper-half-plane-hyperbolic.html">upper half-plane</a> $\mathcal{H} = \{\tau \in \mathbb{C} : \operatorname{Im}\tau > 0\}$ and set $q = e^{2\pi i \tau}$. The (most basic) Jacobi theta series is
+$$\theta(\tau) \;=\; \sum_{n \in \mathbb{Z}} e^{\pi i n^2 \tau} \;=\; \sum_{n \in \mathbb{Z}} q^{\,n^2/2}.$$
+The half-integer exponent is not a typo: we are using the $q^{1/2} = e^{\pi i \tau}$ square root that lives on $\mathcal{H}$ because $\operatorname{Im}\tau > 0$ makes $|q^{1/2}| < 1$. The sum is over <em>all</em> integers, positive and negative, so
+$$\theta(\tau) \;=\; 1 + 2\sum_{n \ge 1} q^{\,n^2/2} \;=\; 1 + 2q^{1/2} + 2q^{2} + 2q^{9/2} + 2q^{8} + 2q^{25/2} + \cdots.$$
+The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect squares — with every positive square counted twice because $n$ and $-n$ contribute the same term.</p>
+
+<h3>Why the integers? Because a lattice.</h3>
+<p>The set $\mathbb{Z} \subset \mathbb{R}$ is a rank-one lattice with quadratic form $n \mapsto n^2$. The sum $\sum q^{n^2/2}$ is <em>the generating function of how many lattice points have a given squared length</em>, weighted by $q^{\text{length}^2/2}$. This is the pattern we will lift in §7 to arbitrary lattices — $\Theta_L(\tau) = \sum_{v \in L} q^{\|v\|^2/2}$. The scalar $\theta(\tau)$ is the baby case $L = \mathbb{Z}$.</p>
+
+<div class="note"><strong>Variants and conventions.</strong> Different books use different theta series. The one here — often called $\theta_3$ — uses $q^{n^2/2}$ and runs over $\mathbb{Z}$. Others write $\vartheta(\tau) = \sum e^{\pi i n^2 \tau}$ with no $1/2$, or use $q = e^{i\pi \tau}$ so that $\theta = \sum q^{n^2}$. The substance is the same; only the normalization shifts.</div>
+
+<div class="widget" id="w-defplot">
+  <div class="hd"><div class="ttl">$\theta(iy)$ along the imaginary axis</div><div class="hint">drag $y$; watch the series collapse to $1$</div></div>
+  <svg id="def-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="row">
+    <label for="def-y">$y = \operatorname{Im}\tau$</label>
+    <input type="range" id="def-y" min="0.05" max="2" step="0.01" value="0.3">
+    <span id="def-yv" class="readout" style="min-width:160px;flex:0 0 auto">y = 0.30</span>
+  </div>
+  <div class="small">Plotted: the real value $\theta(iy) = 1 + 2\sum_{n\ge 1} e^{-\pi n^2 y}$. As $y\to\infty$ only $n=0$ survives and $\theta\to 1$. As $y\to 0^+$, $\theta \to \infty$ like $1/\sqrt{y}$ (this is the transformation law of §3).</div>
+</div>
+</section>
+
+<script>
+/* =============================== widget 1: theta(iy) ============================== */
+(function(){
+  const svg = $('#def-svg'), slider = $('#def-y'), yv = $('#def-yv');
+  const W=620,H=260, pad={l:55,r:20,t:20,b:40};
+  const xmin=0.02, xmax=2.0;
+  const ymin=0.0, ymax=6.0;
+  const X = x => pad.l + (x-xmin)/(xmax-xmin)*(W-pad.l-pad.r);
+  const Y = v => H - pad.b - (v-ymin)/(ymax-ymin)*(H-pad.t-pad.b);
+
+  function thetaReal(y){
+    // 1 + 2 sum_{n>=1} exp(-pi n^2 y)
+    let s = 1.0;
+    for(let n=1;n<=200;n++){
+      const t = Math.exp(-Math.PI*n*n*y);
+      if(t < 1e-14) break;
+      s += 2*t;
+    }
+    return s;
+  }
+
+  function render(){
+    svg.innerHTML='';
+    // axes
+    const ax = SVG('line',{x1:pad.l,y1:Y(0),x2:W-pad.r,y2:Y(0),stroke:'var(--line)','stroke-width':1});
+    const ay = SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)','stroke-width':1});
+    svg.appendChild(ax); svg.appendChild(ay);
+    // y ticks
+    for(let v=1; v<=6; v++){
+      const y = Y(v);
+      svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent = v;
+      svg.appendChild(t);
+    }
+    // x ticks
+    for(const xv of [0.1,0.5,1.0,1.5,2.0]){
+      const x = X(xv);
+      svg.appendChild(SVG('line',{x1:x,y1:Y(0),x2:x,y2:Y(0)+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x,y:Y(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = xv;
+      svg.appendChild(t);
+    }
+    // labels
+    const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-8, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'y'; svg.appendChild(xl);
+    const yl = SVG('text',{x:16, y:(H+pad.t-pad.b)/2, 'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 16 ${(H+pad.t-pad.b)/2})`});
+    yl.textContent = 'θ(iy)'; svg.appendChild(yl);
+
+    // theta curve
+    const pts = [];
+    const N = 240;
+    for(let i=0;i<=N;i++){
+      const xv = xmin + (xmax-xmin)*i/N;
+      const yv = thetaReal(xv);
+      pts.push([X(xv), Y(Math.min(yv, ymax+1))]);
+    }
+    const d = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+
+    // asymptote y=1
+    const y1 = Y(1);
+    svg.appendChild(SVG('line',{x1:pad.l,y1,x2:W-pad.r,y2:y1,stroke:'var(--green)','stroke-dasharray':'4 3','stroke-width':1}));
+    const at = SVG('text',{x:W-pad.r-4, y:y1-4, 'text-anchor':'end','font-size':11,fill:'var(--green)'});
+    at.textContent = 'θ → 1'; svg.appendChild(at);
+
+    // marker for current y
+    const yC = parseFloat(slider.value);
+    const vC = thetaReal(yC);
+    svg.appendChild(SVG('line',{x1:X(yC),y1:pad.t,x2:X(yC),y2:H-pad.b,stroke:'var(--yellow)','stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('circle',{cx:X(yC),cy:Y(Math.min(vC,ymax+1)),r:4,fill:'var(--yellow)'}));
+    const lab = SVG('text',{x:X(yC)+8, y:Y(Math.min(vC,ymax+1))-8,'font-size':12, fill:'var(--yellow)'});
+    lab.textContent = `θ(i·${yC.toFixed(2)}) ≈ ${vC.toFixed(4)}`;
+    svg.appendChild(lab);
+    yv.textContent = `y = ${yC.toFixed(2)},  θ = ${vC.toFixed(5)}`;
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="conv">
+<h2>2. Convergence and the $q$-expansion</h2>
+<p>On $\mathcal{H}$ we have $|q| = |e^{2\pi i \tau}| = e^{-2\pi \operatorname{Im}\tau} < 1$, so $|q^{1/2}| = e^{-\pi \operatorname{Im}\tau}$ also satisfies $|q^{1/2}| < 1$. The individual term $|q^{n^2/2}| = e^{-\pi n^2 \operatorname{Im}\tau}$ decays like a Gaussian in $n$, which is far faster than geometric. So $\theta(\tau)$ converges absolutely and uniformly on any set $\operatorname{Im}\tau \ge \varepsilon > 0$, and is holomorphic on $\mathcal{H}$.</p>
+
+<p>Writing $\tau = x + iy$, the exponent of a term is
+$$e^{\pi i n^2 \tau} \;=\; e^{\pi i n^2 x}\, e^{-\pi n^2 y},$$
+which for any fixed $n$ is periodic in $x$ with period $\frac{2}{n^2}$. But the <em>minimal common period</em> of the whole family is $x \mapsto x + 2$, since $e^{\pi i n^2 \cdot 2} = e^{2\pi i n^2} = 1$ for every $n \in \mathbb{Z}$. Hence
+$$\theta(\tau + 2) \;=\; \theta(\tau).$$
+This is the first of two symmetries that together generate the transformation law. Note that $\theta(\tau+1) \ne \theta(\tau)$ in general: the term $n=1$ flips sign under $\tau \mapsto \tau+1$ because $e^{\pi i \cdot 1 \cdot 1} = -1$. Period <em>two</em>, not one — this is a hint that $\theta$ transforms under the subgroup $\Gamma_\theta \subset \mathrm{SL}_2(\mathbb{Z})$ generated by $\tau\mapsto\tau+2$ and $\tau\mapsto -1/\tau$, a congruence subgroup of level $2$.</p>
+
+<h3>The $q$-expansion as a power series in $q^{1/2}$</h3>
+<p>Collecting the contributions $n$ and $-n$ for $n \ge 1$:
+$$\theta(\tau) \;=\; \sum_{m \ge 0} r_1^*(m)\, q^{m/2}, \qquad r_1^*(m) = \#\{n \in \mathbb{Z} : n^2 = m\}.$$
+That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $0$. The theta series is the generating function for the indicator of perfect squares, each counted with its sign-multiplicity.</p>
+
+<div class="widget" id="w-qexp">
+  <div class="hd"><div class="ttl">$q$-expansion of $\theta^k$</div><div class="hint">coefficient of $q^{n/2}$ in $\theta^k(\tau)$</div></div>
+  <div class="row">
+    <button data-k="1" class="active">$\theta$</button>
+    <button data-k="2">$\theta^2$</button>
+    <button data-k="3">$\theta^3$</button>
+    <button data-k="4">$\theta^4$</button>
+    <button data-k="8">$\theta^8$</button>
+  </div>
+  <svg id="qexp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
+  <div class="small">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>
+</div>
+</section>
+
+<script>
+/* ========================= widget 2: q-expansion bar chart ======================== */
+(function(){
+  const svg = $('#qexp-svg');
+  const btns = $$('#w-qexp [data-k]');
+
+  // r_k(n): number of ways to write n as an ordered sum of k signed squares.
+  // Compute by convolving the theta sequence r1(n)=1 if n is a square (with sign multiplicity),
+  // actually r1 takes values 1 (n=0), 2 (n square >0), 0 else.
+  function makeRk(k, N){
+    // build r1 up to N
+    const r1 = new Array(N+1).fill(0);
+    r1[0] = 1;
+    for(let m=1; m*m<=N; m++) r1[m*m] = 2;
+    // convolve k times
+    let cur = r1.slice();
+    for(let i=1;i<k;i++){
+      const nxt = new Array(N+1).fill(0);
+      for(let a=0;a<=N;a++){
+        if(cur[a]===0) continue;
+        for(let b=0;a+b<=N;b++){
+          if(r1[b]===0) continue;
+          nxt[a+b] += cur[a]*r1[b];
+        }
+      }
+      cur = nxt;
+    }
+    return cur;
+  }
+
+  function render(k){
+    svg.innerHTML = '';
+    const W=620, H=270, pad={l:50,r:16,t:20,b:36};
+    const Nmax = 40;
+    const coeffs = makeRk(k, Nmax);
+    // Use max over visible range
+    let maxV = 1;
+    for(let n=0;n<=Nmax;n++) if(coeffs[n]>maxV) maxV = coeffs[n];
+    // log-ish scale when too big
+    const useLog = maxV > 50;
+    const scale = v => useLog ? Math.log(1+v) / Math.log(1+maxV) : v/maxV;
+
+    const bw = (W - pad.l - pad.r) / (Nmax+1);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+    // bars
+    for(let n=0;n<=Nmax;n++){
+      const v = coeffs[n];
+      const h = v>0 ? Math.max(2, scale(v) * (H - pad.t - pad.b)) : 0;
+      const x = pad.l + n*bw;
+      const yTop = H - pad.b - h;
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+1, y:yTop, width:Math.max(1,bw-2), height:h, fill:'var(--yellow)', opacity:0.85}));
+      }
+      if(n%5===0){
+        const t = SVG('text',{x:x+bw/2, y:H-pad.b+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});
+        t.textContent = n;
+        svg.appendChild(t);
+      }
+      if(v>0 && n<=Nmax){
+        const lbl = SVG('text',{x:x+bw/2, y:yTop-3, 'text-anchor':'middle','font-size':9, fill:'var(--ink)'});
+        lbl.textContent = v;
+        svg.appendChild(lbl);
+      }
+    }
+    // axis labels
+    const tx = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    tx.textContent = 'exponent index n  (term q^(n/2))'; svg.appendChild(tx);
+    const ty = SVG('text',{x:16,y:(H+pad.t-pad.b)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 16 ${(H+pad.t-pad.b)/2})`});
+    ty.textContent = useLog ? 'r_k(n) (log scale)' : 'r_k(n)';
+    svg.appendChild(ty);
+
+    // title tag
+    const tt = SVG('text',{x:W-pad.r,y:pad.t+4, 'text-anchor':'end','font-size':12,fill:'var(--blue)','font-style':'italic'});
+    tt.textContent = `θ^${k}`; svg.appendChild(tt);
+  }
+
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render(parseInt(b.dataset.k,10));
+  }));
+  render(1);
+})();
+</script>
+
+<section id="trans">
+<h2>3. The transformation law</h2>
+<p>The periodic symmetry $\theta(\tau+2) = \theta(\tau)$ is easy. The deep fact — and the whole reason theta is a modular object — is what happens under $\tau \mapsto -1/\tau$:
+$$\boxed{\;\theta(-1/\tau) \;=\; \sqrt{-i\tau}\, \theta(\tau)\;}$$
+where $\sqrt{-i\tau}$ is the branch with positive real part on $\mathcal{H}$ (so at $\tau = i$, $\sqrt{-i\cdot i} = \sqrt{1} = 1$). This is the <strong>Jacobi transformation</strong>, and its proof is one line of Poisson summation applied to the Gaussian.</p>
+
+<h3>Proof sketch via Poisson summation</h3>
+<p>Poisson summation says that for a Schwartz function $f$ on $\mathbb{R}$,
+$$\sum_{n \in \mathbb{Z}} f(n) \;=\; \sum_{m \in \mathbb{Z}} \hat f(m), \qquad \hat f(\xi) = \int_{\mathbb{R}} f(x)\,e^{-2\pi i x \xi}\,dx.$$
+Take $f(x) = e^{\pi i x^2 \tau}$ — valid on $\mathcal{H}$ because the exponent has negative real part. A classical Gaussian calculation gives
+$$\hat f(\xi) \;=\; \frac{1}{\sqrt{-i\tau}}\, e^{-\pi i \xi^2 / \tau}.$$
+Applying Poisson:
+$$\theta(\tau) \;=\; \sum_n e^{\pi i n^2 \tau} \;=\; \frac{1}{\sqrt{-i\tau}} \sum_m e^{-\pi i m^2 / \tau} \;=\; \frac{1}{\sqrt{-i\tau}}\, \theta(-1/\tau).$$
+Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight $1/2$" of $\theta$ — half-integer weight, which is why $\theta$ is not a classical modular form but transforms under a <em>cover</em> of $\mathrm{SL}_2(\mathbb{Z})$ called the metaplectic group.</p>
+
+<div class="note"><strong>From half-integer weight to integer weight: $\theta^4$.</strong> Squaring the factor of $\sqrt{-i\tau}$ twice gives $(-i\tau)^2 = -\tau^2$. So $\theta^4(-1/\tau) = -\tau^2\, \theta^4(\tau)$. On the level-$2$ congruence subgroup $\Gamma_0(4) \subset \mathrm{SL}_2(\mathbb{Z})$ this says $\theta^4$ is a holomorphic modular form of weight $2$. We will use this in §4 to compute $r_4(n)$.</div>
+
+<div class="widget" id="w-trans">
+  <div class="hd"><div class="ttl">Verifying $\theta(-1/iy) = \sqrt{y}\, \theta(iy)$</div><div class="hint">both sides, plotted vs. $y$</div></div>
+  <svg id="trans-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="readout" id="trans-out" style="font-size:.88rem"></div>
+  <div class="small">On the imaginary axis $\tau = iy$ we have $-1/iy = i/y$, and $\sqrt{-i\cdot iy} = \sqrt{y}$ is real. The graphs of $\theta(i/y)$ (blue) and $\sqrt{y}\,\theta(iy)$ (yellow) coincide point-by-point — that is the identity.</div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 3: transformation ========================== */
+(function(){
+  const svg = $('#trans-svg'), out = $('#trans-out');
+  const W=620,H=260, pad={l:55,r:20,t:20,b:40};
+
+  function thetaReal(y){
+    let s = 1.0;
+    for(let n=1;n<=200;n++){
+      const t = Math.exp(-Math.PI*n*n*y);
+      if(t<1e-14) break;
+      s += 2*t;
+    }
+    return s;
+  }
+
+  const xmin=0.1, xmax=2.5;
+  // find max of both curves
+  let ymax = 0;
+  const N=220;
+  const ptsA=[], ptsB=[];
+  for(let i=0;i<=N;i++){
+    const xv = xmin + (xmax-xmin)*i/N;
+    const a = thetaReal(1/xv);         // θ(i/y)
+    const b = Math.sqrt(xv)*thetaReal(xv); // √y · θ(iy)
+    ptsA.push([xv,a]); ptsB.push([xv,b]);
+    if(a>ymax) ymax=a; if(b>ymax) ymax=b;
+  }
+  ymax = Math.min(ymax, 8);
+
+  const X = x => pad.l + (x-xmin)/(xmax-xmin)*(W-pad.l-pad.r);
+  const Y = v => H - pad.b - (Math.min(v,ymax)/ymax)*(H-pad.t-pad.b);
+
+  // axes
+  svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+  svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+  // y-ticks
+  for(let v=1; v<=Math.floor(ymax); v++){
+    const y = Y(v);
+    svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));
+    const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    t.textContent = v; svg.appendChild(t);
+  }
+  // x-ticks
+  for(const xv of [0.5,1.0,1.5,2.0,2.5]){
+    const x = X(xv);
+    svg.appendChild(SVG('line',{x1:x,y1:H-pad.b,x2:x,y2:H-pad.b+4,stroke:'var(--mute)'}));
+    const t = SVG('text',{x,y:H-pad.b+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent = xv; svg.appendChild(t);
+  }
+  // labels
+  const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+  xl.textContent = 'y'; svg.appendChild(xl);
+
+  function pathOf(pts, color, dash){
+    const d = pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+    const pth = SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2});
+    if(dash) pth.setAttribute('stroke-dasharray', dash);
+    svg.appendChild(pth);
+  }
+  pathOf(ptsA, 'var(--blue)');
+  pathOf(ptsB, 'var(--yellow)', '4 3');
+
+  // legend
+  const lg = SVG('g',{});
+  svg.appendChild(lg);
+  lg.appendChild(SVG('line',{x1:W-pad.r-180,y1:pad.t+14,x2:W-pad.r-150,y2:pad.t+14,stroke:'var(--blue)','stroke-width':2.2}));
+  const t1 = SVG('text',{x:W-pad.r-146,y:pad.t+18,'font-size':12,fill:'var(--ink)'}); t1.textContent='θ(i/y)';
+  lg.appendChild(t1);
+  const l2 = SVG('line',{x1:W-pad.r-180,y1:pad.t+32,x2:W-pad.r-150,y2:pad.t+32,stroke:'var(--yellow)','stroke-width':2.2,'stroke-dasharray':'4 3'});
+  lg.appendChild(l2);
+  const t2 = SVG('text',{x:W-pad.r-146,y:pad.t+36,'font-size':12,fill:'var(--ink)'}); t2.textContent='√y · θ(iy)';
+  lg.appendChild(t2);
+
+  // numeric check
+  const samples = [0.25,0.5,1.0,1.7];
+  let msg = 'spot check:\n';
+  for(const y of samples){
+    const lhs = thetaReal(1/y);
+    const rhs = Math.sqrt(y)*thetaReal(y);
+    msg += `  y=${y.toFixed(2)}:  θ(i/y)=${lhs.toFixed(6)},  √y·θ(iy)=${rhs.toFixed(6)},  diff=${(lhs-rhs).toExponential(2)}\n`;
+  }
+  out.textContent = msg.trim();
+})();
+</script>
+
+<section id="sos">
+<h2>4. Sums of squares from $\theta^k$</h2>
+<p>The generating-function engine. Because $\theta(\tau) = \sum_{n\in\mathbb{Z}} q^{n^2/2}$, taking the $k$-th power multiplies out to
+$$\theta(\tau)^k \;=\; \sum_{(n_1,\ldots,n_k) \in \mathbb{Z}^k} q^{(n_1^2+\cdots+n_k^2)/2} \;=\; \sum_{m \ge 0} r_k(m)\, q^{m/2},$$
+where
+$$r_k(m) \;=\; \#\{(n_1,\ldots,n_k) \in \mathbb{Z}^k : n_1^2+\cdots+n_k^2 = m\}$$
+is the number of ways to write $m$ as an ordered sum of $k$ signed squares. See <a href="./sums-of-squares.html">sums of squares</a> for the elementary half of the story. The theta side is the Fourier-analytic half.</p>
+
+<h3>Two classical consequences</h3>
+<p><strong>Two squares.</strong> $\theta^2$ turns out to be (up to normalization) the Eisenstein series that counts divisors of $n$ with residues mod $4$:
+$$r_2(n) \;=\; 4\bigl(d_1(n) - d_3(n)\bigr),$$
+where $d_j(n)$ counts divisors of $n$ congruent to $j \bmod 4$. The factor of $4$ is the unit group $\{\pm 1, \pm i\}$ of the Gaussian integers $\mathbb{Z}[i]$ — the deep reason is that a representation $n = a^2 + b^2$ is essentially a factorization $n = (a+bi)(a-bi)$ in $\mathbb{Z}[i]$.</p>
+
+<p><strong>Four squares (Jacobi's theorem).</strong> $\theta^4$ is a weight-$2$ modular form on $\Gamma_0(4)$. Weight-$2$ forms are spanned by Eisenstein series; matching $q$-coefficients gives
+$$r_4(n) \;=\; 8\sigma(n) - 32\,\sigma(n/4),$$
+where $\sigma(n) = \sum_{d\mid n} d$ is the sum-of-divisors function and $\sigma(n/4) = 0$ if $4 \nmid n$. For odd $n$ this collapses to $r_4(n) = 8\sigma(n)$.</p>
+
+<div class="widget" id="w-rk">
+  <div class="hd"><div class="ttl">$r_k(n)$ calculator</div><div class="hint">pick $n \le 50$ and watch the identity</div></div>
+  <div class="row">
+    <label for="rk-n">$n$</label>
+    <input type="number" id="rk-n" min="0" max="50" step="1" value="25">
+    <span class="small" id="rk-hint"></span>
+  </div>
+  <svg id="rk-svg" viewBox="0 0 620 180" width="620" height="180"></svg>
+  <div class="readout" id="rk-out" style="font-family:ui-monospace,monospace;font-size:.88rem"></div>
+  <div class="small">The bars show $r_k(n)$ for the chosen $n$ at $k = 1,2,3,4,8$. Below: the divisor formulas $r_2(n) = 4(d_1 - d_3)$ and $r_4(n) = 8\sigma(n) - 32\sigma(n/4)$ are cross-checked.</div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 4: r_k(n) calculator ======================= */
+(function(){
+  const input = $('#rk-n'), out = $('#rk-out'), hint = $('#rk-hint'), svg = $('#rk-svg');
+
+  function sigma(n){
+    if(n<=0) return 0;
+    let s=0;
+    for(let d=1; d*d<=n; d++){
+      if(n%d===0){ s+=d; if(d*d!==n) s+=n/d; }
+    }
+    return s;
+  }
+  function d_mod4(n){ // (d_1, d_3)
+    let a=0,b=0;
+    for(let d=1; d<=n; d++){
+      if(n%d===0){
+        if(d%4===1) a++;
+        if(d%4===3) b++;
+      }
+    }
+    return [a,b];
+  }
+  function r2(n){
+    if(n===0) return 1;
+    let c=0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const rem = n - a*a;
+      if(rem<0) continue;
+      const b = Math.round(Math.sqrt(rem));
+      if(b*b===rem) c += (b===0?1:2);
+    }
+    return c;
+  }
+  function r3(n){
+    if(n===0) return 1;
+    let c=0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n-a*a; if(r<0) continue;
+      c += r2(r);
+    }
+    return c;
+  }
+  function r4(n){
+    if(n===0) return 1;
+    let c=0;
+    const B = Math.floor(Math.sqrt(n));
+    for(let a=-B; a<=B; a++){
+      const r = n-a*a; if(r<0) continue;
+      c += r3(r);
+    }
+    return c;
+  }
+
+  function render(){
+    let n = parseInt(input.value,10);
+    if(!Number.isFinite(n)) n = 0;
+    n = Math.max(0, Math.min(50, n));
+    input.value = n;
+
+    const R2 = r2(n), R3 = r3(n), R4 = r4(n);
+    const sig = sigma(n);
+    const sigQ = (n%4===0) ? sigma(n/4) : 0;
+    const rhs4 = 8*sig - 32*sigQ;
+    const [d1,d3] = d_mod4(n);
+    const rhs2 = 4*(d1 - d3);
+
+    const lines = [];
+    lines.push(`n = ${n}`);
+    lines.push(`r_2(n) = ${R2}        4(d_1(n) - d_3(n)) = 4·(${d1} - ${d3}) = ${rhs2}     ${R2===rhs2?'OK':'DIFF'}`);
+    lines.push(`r_3(n) = ${R3}        (no simple closed form;   Gauss genus theory gives one mod 8)`);
+    lines.push(`r_4(n) = ${R4}        8σ(n) - 32σ(n/4)  = 8·${sig} - 32·${sigQ} = ${rhs4}     ${R4===rhs4?'OK':'DIFF'}`);
+    if(n>0 && n%2===1) lines.push(`         (n odd ⇒ r_4(n) = 8σ(n) = ${8*sig})`);
+    out.textContent = lines.join('\n');
+
+    // small example hint
+    if(n>0){
+      hint.textContent = `try 25, 30, 32, 48 …`;
+    } else {
+      hint.textContent = `r_k(0) = 1 for all k (the all-zero tuple).`;
+    }
+
+    // r_8 by convolution using the small-n r2 table
+    function r8(nn){
+      if(nn===0) return 1;
+      let c = 0;
+      for(let a=0; a<=nn; a++){
+        const b = nn-a;
+        c += r4(a)*r4(b);
+      }
+      return c;
+    }
+    // draw bar chart across k=1,2,3,4,8
+    svg.innerHTML = '';
+    const W=620, H=180, pad={l:50,r:16,t:24,b:36};
+    const kList = [1,2,3,4,8];
+    const vals = [n===0?1:(n===1?2:0), R2, R3, R4, r8(n)];
+    // k=1 value for given n: 2 if positive square, 1 if n=0, else 0
+    if(n>0){
+      const rt = Math.round(Math.sqrt(n));
+      vals[0] = rt*rt===n ? 2 : 0;
+    }
+    const maxV = Math.max(1, ...vals);
+    const scale = v => Math.log(1+v)/Math.log(1+maxV);
+    const bw = (W-pad.l-pad.r)/kList.length;
+
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+    const COLORS = ['var(--blue)','var(--yellow)','var(--green)','var(--cyan)','var(--violet)'];
+    for(let i=0;i<kList.length;i++){
+      const k = kList[i], v = vals[i];
+      const x = pad.l + i*bw;
+      const h = v>0 ? scale(v)*(H-pad.t-pad.b) : 0;
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+bw*0.2, y:H-pad.b-h, width:bw*0.6, height:h, fill:COLORS[i], opacity:0.9}));
+      }
+      const lab = SVG('text',{x:x+bw/2,y:H-pad.b+18,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      lab.textContent = 'k=' + k; svg.appendChild(lab);
+      const vlab = SVG('text',{x:x+bw/2,y:H-pad.b-h-6,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      vlab.textContent = v; svg.appendChild(vlab);
+    }
+    const ttl = SVG('text',{x:pad.l, y:pad.t-6,'font-size':12,fill:'var(--blue)','font-style':'italic'});
+    ttl.textContent = `r_k(${n})  for  k = 1, 2, 3, 4, 8`;
+    svg.appendChild(ttl);
+  }
+  input.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="jtp">
+<h2>5. The Jacobi triple product</h2>
+<p>Theta has a second life as an infinite product. The <strong>Jacobi triple product identity</strong> states that, as formal series in $q$ and $z$,
+$$\prod_{n \ge 1}\bigl(1 - q^n\bigr)\bigl(1 + z\,q^{n-1/2}\bigr)\bigl(1 + z^{-1}\,q^{n-1/2}\bigr) \;=\; \sum_{n \in \mathbb{Z}} z^n\, q^{n^2/2}.$$
+The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\theta(\tau)$, and many classical identities drop out as specializations.</p>
+
+<h3>Why is there a product at all?</h3>
+<p>Combinatorially: in the right-hand side, the coefficient of $z^n q^{n^2/2}$ is $1$. The product on the left is a generating function for triples of partitions into distinct parts, and the identity is an exact cancellation of a partition-theoretic involution. Analytically: both sides are holomorphic in $(q,z)$ for $|q|<1$, $z\ne 0$, and both satisfy the functional equation $F(z) = z q F(zq)$; a normalization pins down the ratio to $1$.</p>
+
+<h3>Specializations — classical identities for free</h3>
+<div class="note">
+<p><strong>$z = 1$</strong>: $\sum_{n\in\mathbb{Z}} q^{n^2/2} = \theta(\tau) = \prod_{n\ge 1}(1-q^n)(1+q^{n-1/2})^2.$</p>
+<p><strong>$z = -1$</strong>: $\sum_{n\in\mathbb{Z}} (-1)^n q^{n^2/2} = \prod_{n\ge 1}(1-q^n)(1-q^{n-1/2})^2 = \frac{\eta(\tau/2)^2}{\eta(\tau)}.$</p>
+<p><strong>$z = q^{1/2}$</strong>: gives Euler's pentagonal number theorem $\prod(1-q^n) = \sum_{k\in\mathbb{Z}} (-1)^k q^{k(3k-1)/2}.$</p>
+</div>
+
+<div class="widget" id="w-jtp">
+  <div class="hd"><div class="ttl">Triple-product partial sums vs. partial products</div><div class="hint">truncate at $N$; watch them agree</div></div>
+  <div class="row">
+    <label for="jtp-N">truncation $N$</label>
+    <input type="range" id="jtp-N" min="1" max="18" step="1" value="6">
+    <span id="jtp-Nv" class="readout" style="min-width:90px;flex:0 0 auto">N = 6</span>
+  </div>
+  <svg id="jtp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
+  <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
+  <div class="small">At the specialization $z=1$: blue bars are the truncated sum $\sum_{|n|\le N} q^{n^2/2}$, yellow bars are the truncated product $\prod_{n=1}^N (1-q^n)(1+q^{n-1/2})^2$. Once $N$ is big enough the leading coefficients lock in and never change.</div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 5: triple product ========================== */
+(function(){
+  const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');
+
+  // We work in the variable u = q^{1/2}.  Then q^n = u^{2n} and q^{n-1/2} = u^{2n-1}.
+  // Coefficients of polynomials/series are arrays a[i] = coefficient of u^i, up to degree D.
+  const D = 30;
+
+  function zeros(){ return new Array(D+1).fill(0); }
+
+  function mul(A,B){
+    const C = zeros();
+    for(let i=0;i<=D;i++){
+      if(!A[i]) continue;
+      for(let j=0;j+i<=D;j++){
+        if(!B[j]) continue;
+        C[i+j] += A[i]*B[j];
+      }
+    }
+    return C;
+  }
+
+  // series (1 - u^k) as polynomial
+  function oneMinusU(k){
+    const p = zeros(); p[0] = 1;
+    if(k<=D) p[k] = -1;
+    return p;
+  }
+  // series (1 + u^k)
+  function onePlusU(k){
+    const p = zeros(); p[0] = 1;
+    if(k<=D) p[k] = 1;
+    return p;
+  }
+
+  function partialSum(N){
+    const S = zeros();
+    for(let n=-N;n<=N;n++){
+      const e = n*n;  // exponent of u
+      if(e<=D) S[e] += 1;
+    }
+    return S;
+  }
+  function partialProduct(N){
+    let P = zeros(); P[0] = 1;
+    for(let n=1;n<=N;n++){
+      P = mul(P, oneMinusU(2*n));                // (1 - u^{2n})
+      P = mul(P, onePlusU(2*n-1));                // (1 + u^{2n-1}) -- twice
+      P = mul(P, onePlusU(2*n-1));
+    }
+    return P;
+  }
+
+  function render(){
+    const N = parseInt(Nin.value,10);
+    Nv.textContent = `N = ${N}`;
+    const S = partialSum(N);
+    const P = partialProduct(N);
+
+    svg.innerHTML='';
+    const W=620,H=270, pad={l:40,r:16,t:18,b:40};
+    const cols = D+1;
+    const cw = (W-pad.l-pad.r)/cols;
+    // we display |coef| with log-ish scale because coefficients can be 0,1,2
+    const maxV = Math.max(3, ...S.map(Math.abs), ...P.map(Math.abs));
+
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+    for(let i=0;i<=D;i++){
+      const x = pad.l + i*cw;
+      const hs = (Math.abs(S[i])/maxV) * (H-pad.t-pad.b);
+      const hp = (Math.abs(P[i])/maxV) * (H-pad.t-pad.b);
+      if(S[i]!==0){
+        svg.appendChild(SVG('rect',{x:x+1, y:H-pad.b-hs, width:Math.max(1,cw/2-1), height:hs,
+          fill: S[i]>0 ? 'var(--blue)':'var(--pink)', opacity:0.85}));
+      }
+      if(P[i]!==0){
+        svg.appendChild(SVG('rect',{x:x+cw/2, y:H-pad.b-hp, width:Math.max(1,cw/2-1), height:hp,
+          fill: P[i]>0 ? 'var(--yellow)':'var(--pink)', opacity:0.85}));
+      }
+      if(i%4===0){
+        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent = i; svg.appendChild(t);
+      }
+    }
+    // legend
+    svg.appendChild(SVG('rect',{x:W-pad.r-170,y:pad.t,width:10,height:10,fill:'var(--blue)'}));
+    const tL1 = SVG('text',{x:W-pad.r-154,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); tL1.textContent='sum (truncated)'; svg.appendChild(tL1);
+    svg.appendChild(SVG('rect',{x:W-pad.r-170,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));
+    const tL2 = SVG('text',{x:W-pad.r-154,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); tL2.textContent='product (truncated)'; svg.appendChild(tL2);
+
+    const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    xl.textContent = 'exponent of u = q^(1/2)'; svg.appendChild(xl);
+
+    // summary
+    const first = [];
+    for(let i=0;i<=Math.min(12,D);i++){
+      first.push(`[u^${i}] sum=${S[i]} prod=${P[i]}${S[i]===P[i]?'':' ←disagree'}`);
+    }
+    out.textContent = 'first dozen coefficients:\n  ' + first.join('\n  ');
+  }
+  Nin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="eta">
+<h2>6. The Dedekind eta function</h2>
+<p>Theta has an arithmetic sibling: the <strong>Dedekind eta function</strong>
+$$\eta(\tau) \;=\; q^{1/24} \prod_{n \ge 1} \bigl(1 - q^n\bigr), \qquad q = e^{2\pi i \tau}.$$
+The factor $q^{1/24}$ is the one thing that makes $\eta$ a modular form of weight $1/2$ (rather than a mere $q$-series). Under the two generators of $\mathrm{SL}_2(\mathbb{Z})$:
+$$\eta(\tau+1) \;=\; e^{\pi i /12}\, \eta(\tau), \qquad \eta(-1/\tau) \;=\; \sqrt{-i\tau}\,\eta(\tau).$$
+The first identity is immediate from $q^{1/24}$; the second is equivalent, by a short calculation, to the Jacobi transformation of $\theta$ applied through the triple product.</p>
+
+<h3>The discriminant as $\eta^{24}$</h3>
+<p>Raising eta to the $24$-th power kills the root-of-unity phase and gives a holomorphic modular form of weight $24 \cdot \tfrac{1}{2} = 12$ on all of $\mathrm{SL}_2(\mathbb{Z})$:
+$$\Delta(\tau) \;=\; \eta(\tau)^{24} \;=\; q \prod_{n \ge 1}(1-q^n)^{24} \;=\; \sum_{n \ge 1} \tau(n)\, q^n.$$
+This is the <strong>discriminant modular form</strong> — the first cusp form of weight $12$ — and its Fourier coefficients $\tau(n)$ are Ramanujan's celebrated tau function:
+$$\tau(1) = 1,\ \tau(2) = -24,\ \tau(3) = 252,\ \tau(4) = -1472,\ \tau(5) = 4830,\ \ldots$$
+See <a href="./modular-forms.html">modular forms</a> for the construction of $\Delta$ from Eisenstein series and the conjectures of Ramanujan about $\tau$.</p>
+
+<div class="widget" id="w-eta">
+  <div class="hd"><div class="ttl">$\eta^{24}$ via the product vs. Ramanujan's $\tau(n)$</div><div class="hint">expand $\prod(1-q^n)^{24}$ and compare</div></div>
+  <div class="row">
+    <label for="eta-K">product truncation $K$</label>
+    <input type="range" id="eta-K" min="4" max="24" step="1" value="12">
+    <span id="eta-Kv" class="readout" style="min-width:90px;flex:0 0 auto">K = 12</span>
+  </div>
+  <svg id="eta-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="readout" id="eta-out" style="font-size:.85rem"></div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 6: eta^24 vs tau =========================== */
+(function(){
+  const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');
+
+  // Known Ramanujan tau
+  const TAU = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643,
+    -115920, 534612, -370944, -577738, 401856, 1217160, 987136, -6905934,
+    2727432, 10661420, -7109760];
+
+  const D = 16; // we'll compare up to q^16
+
+  function zeros(){ return new Array(D+1).fill(0); }
+  function mul(A,B){
+    const C = zeros();
+    for(let i=0;i<=D;i++){
+      if(!A[i]) continue;
+      for(let j=0;j+i<=D;j++){
+        if(!B[j]) continue;
+        C[i+j] += A[i]*B[j];
+      }
+    }
+    return C;
+  }
+  function oneMinusQn(n){
+    const p = zeros(); p[0] = 1;
+    if(n<=D) p[n] = -1;
+    return p;
+  }
+
+  function etaPowerExpansion(K){
+    // first compute P = prod_{n=1..K} (1 - q^n)
+    let P = zeros(); P[0] = 1;
+    for(let n=1;n<=K;n++) P = mul(P, oneMinusQn(n));
+    // now raise to 24th power; but our series starts at q^0, so this gives
+    // (prod (1-q^n))^24.   Delta(tau) = q · that.  So coefficient of q^m in Delta
+    // is coefficient of q^{m-1} in P^24.
+    let R = zeros(); R[0]=1;
+    for(let i=0;i<24;i++) R = mul(R,P);
+    // shift by 1 for the q^(1/24)^24 = q factor
+    const Delta = zeros();
+    for(let m=1;m<=D;m++) Delta[m] = R[m-1];
+    return Delta;
+  }
+
+  function render(){
+    const K = parseInt(Kin.value,10);
+    Kv.textContent = `K = ${K}`;
+    const Delta = etaPowerExpansion(K);
+
+    svg.innerHTML='';
+    const W=620,H=240,pad={l:50,r:16,t:20,b:38};
+    // log-ish scale because |tau(n)| grows fast
+    const allV = [];
+    for(let n=1;n<=D;n++){ allV.push(Math.abs(Delta[n])); allV.push(Math.abs(TAU[n]||0)); }
+    const maxV = Math.max(10, ...allV);
+    const scale = v => Math.log(1+Math.abs(v))/Math.log(1+maxV);
+
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+    const cw = (W-pad.l-pad.r)/D;
+    for(let n=1;n<=D;n++){
+      const x = pad.l + (n-1)*cw;
+      const a = Delta[n], b = TAU[n]||0;
+      const ha = scale(a)*(H-pad.t-pad.b);
+      const hb = scale(b)*(H-pad.t-pad.b);
+      // eta^24 bar (left half), tau bar (right half)
+      const midY = H - pad.b;
+      if(a!==0){
+        const h = ha;
+        const top = a>0 ? midY - h : midY;
+        svg.appendChild(SVG('rect',{x:x+1,y:top,width:Math.max(1,cw/2-1),height:h,
+          fill: a>0?'var(--blue)':'var(--pink)', opacity:0.9}));
+      }
+      if(b!==0){
+        const h = hb;
+        const top = b>0 ? midY - h : midY;
+        svg.appendChild(SVG('rect',{x:x+cw/2,y:top,width:Math.max(1,cw/2-1),height:h,
+          fill: b>0?'var(--yellow)':'var(--pink)', opacity:0.9}));
+      }
+      if(n%2===1){
+        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent = n; svg.appendChild(t);
+      }
+    }
+    // legend
+    svg.appendChild(SVG('rect',{x:W-pad.r-160,y:pad.t,width:10,height:10,fill:'var(--blue)'}));
+    const t1 = SVG('text',{x:W-pad.r-144,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='η^24 (truncated)'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:W-pad.r-160,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));
+    const t2 = SVG('text',{x:W-pad.r-144,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='Ramanujan τ(n)'; svg.appendChild(t2);
+
+    // zero line
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+
+    const rows = [];
+    rows.push('n   η^24 coeff      τ(n)            match?');
+    for(let n=1;n<=Math.min(10,D);n++){
+      const a = Delta[n], b = TAU[n]||0;
+      const ok = a===b ? 'OK' : (K<n+2 ? '(need larger K)' : 'DIFF');
+      rows.push(`${n.toString().padStart(2,' ')}  ${String(a).padStart(12,' ')}   ${String(b).padStart(12,' ')}   ${ok}`);
+    }
+    out.textContent = rows.join('\n');
+  }
+  Kin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="lat">
+<h2>7. Theta series of a lattice</h2>
+<p>The pattern lifts cleanly. Let $L \subset \mathbb{R}^n$ be a lattice — an abelian subgroup of rank $n$ spanning $\mathbb{R}^n$ — equipped with the standard inner product. Define
+$$\Theta_L(\tau) \;=\; \sum_{v \in L} q^{\|v\|^2 / 2}, \qquad q = e^{2\pi i \tau}.$$
+Expanding: $\Theta_L(\tau) = \sum_{m \ge 0} N_L(m)\, q^{m/2}$, where
+$$N_L(m) \;=\; \#\{v \in L : \|v\|^2 = m\}$$
+is the number of lattice points on the sphere of squared radius $m$. The scalar case is $L = \mathbb{Z}$, where $N_{\mathbb{Z}}(m) = r_1^*(m)$ and we recover $\theta$.</p>
+
+<h3>When is $\Theta_L$ a modular form?</h3>
+<p>Call $L$ an <strong>even unimodular lattice</strong> if $\|v\|^2 \in 2\mathbb{Z}$ for every $v \in L$ (even) and the volume of the fundamental domain is $1$ (unimodular). For such $L$, Poisson summation applied to $\sum_{v \in L} e^{\pi i \tau \|v\|^2}$ shows that $\Theta_L$ is a modular form of weight $n/2$ on the full modular group $\mathrm{SL}_2(\mathbb{Z})$. Even unimodular lattices exist only in dimensions $n$ divisible by $8$, and the smallest example is the $8$-dimensional $E_8$ root lattice.</p>
+
+<div class="note"><strong>Dimension $8$: the only even unimodular lattice is $E_8$.</strong> $\Theta_{E_8}(\tau)$ is a modular form of weight $4$ on $\mathrm{SL}_2(\mathbb{Z})$; but $\dim M_4 = 1$, so up to scaling there is only one such form, namely the Eisenstein series $E_4$. Hence
+$$\Theta_{E_8}(\tau) \;=\; E_4(\tau) \;=\; 1 + 240 \sum_{n\ge 1} \sigma_3(n)\, q^n.$$
+The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3(n)$.</div>
+
+<div class="note"><strong>Dimension $24$: the Leech lattice.</strong> Even unimodular lattices in dimension $24$ form a famous list of $24$ examples (Niemeier's classification); the unique one with no vectors of squared length $2$ is the Leech lattice $\Lambda_{24}$, whose theta series is $E_{12} - \tfrac{65520}{691}\Delta$. Its symmetry group (modulo $\pm 1$) is the Conway group $\mathrm{Co}_1$, a sporadic simple group.</div>
+
+<div class="widget" id="w-lat">
+  <div class="hd"><div class="ttl">Theta series of 2D lattices</div><div class="hint">compare $\mathbb{Z}^2$, hexagonal $A_2$, and $D_4$</div></div>
+  <div class="row">
+    <button data-lat="Z2" class="active">$\mathbb{Z}^2$</button>
+    <button data-lat="A2">hexagonal $A_2$</button>
+    <button data-lat="D4">$D_4$</button>
+  </div>
+  <svg id="lat-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="readout" id="lat-out" style="font-size:.85rem"></div>
+  <div class="small">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\Theta_L(\tau) = \sum N_L(m)\, q^{m/2}$, first several coefficients.</div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 7: lattice theta =========================== */
+(function(){
+  const svg = $('#lat-svg'), out = $('#lat-out');
+  const btns = $$('#w-lat [data-lat]');
+
+  // lattices: each is a function that returns {vectors:[ [x,y,|v|^2], ...], name, counts: {m:n}}
+  function buildZ2(B){
+    const vs = [];
+    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){
+      vs.push([a,b,a*a+b*b]);
+    }
+    return vs;
+  }
+  function buildA2(B){
+    // basis: e1=(1,0), e2=(1/2, sqrt(3)/2).  Inner product is standard, giving norm^2 = a^2+ab+b^2.
+    const vs = [];
+    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){
+      const x = a + b*0.5;
+      const y = b*Math.sqrt(3)/2;
+      const n = a*a + a*b + b*b;
+      vs.push([x,y,n]);
+    }
+    return vs;
+  }
+  function buildD4proj(B){
+    // D4 = { (x1,x2,x3,x4) ∈ Z^4 : x1+x2+x3+x4 even }
+    // project to 2D by (x1+x3, x2+x4) (not an isometry but good for visualization).
+    // But for the theta series we use the true 4D norm.
+    const vs = [];
+    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++) for(let c=-B;c<=B;c++) for(let d=-B;d<=B;d++){
+      if(((a+b+c+d) & 1) !== 0) continue;
+      const x = a + c*0.6;
+      const y = b + d*0.6;
+      const n = a*a+b*b+c*c+d*d;
+      vs.push([x,y,n]);
+    }
+    return vs;
+  }
+
+  const LATS = {
+    'Z2': {name:'Z²', vectors:buildZ2(6), scale:20,
+      info:'basis (1,0),(0,1);  norm² = a²+b²'},
+    'A2': {name:'A₂ (hex)', vectors:buildA2(7), scale:22,
+      info:'basis (1,0),(1/2,√3/2);  norm² = a²+ab+b²'},
+    'D4': {name:'D₄', vectors:buildD4proj(3), scale:20,
+      info:'even-sum lattice in Z⁴; displayed via oblique 2D projection'}
+  };
+
+  function render(key){
+    svg.innerHTML='';
+    const L = LATS[key];
+    // Count multiplicities by squared length (integer)
+    const cnt = {};
+    for(const v of L.vectors){
+      const m = v[2];
+      cnt[m] = (cnt[m]||0)+1;
+    }
+    const lengths = Object.keys(cnt).map(Number).sort((a,b)=>a-b);
+
+    // Left half: draw lattice
+    const W=620, H=320, leftW = 300;
+    const cx = 150, cy = H/2;
+    const s = L.scale;
+
+    // axes
+    svg.appendChild(SVG('line',{x1:10,y1:cy,x2:leftW-10,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
+
+    // first few shells with distinct colors
+    const PALETTE = ['var(--yellow)','var(--green)','var(--cyan)','var(--pink)','var(--violet)','var(--blue)'];
+
+    // show origin ring guides for first few nonzero shells
+    const firstShells = lengths.filter(m=>m>0).slice(0,5);
+    for(let i=0;i<firstShells.length;i++){
+      const m = firstShells[i];
+      const r = Math.sqrt(m)*s;
+      if(r > leftW/2) continue;
+      svg.appendChild(SVG('circle',{cx,cy,r, fill:'none', stroke:PALETTE[i],'stroke-width':0.7,'stroke-dasharray':'2 3',opacity:0.55}));
+    }
+
+    for(const v of L.vectors){
+      const [x,y,m] = v;
+      const px = cx + x*s, py = cy - y*s;
+      if(px<5 || px>leftW-5 || py<15 || py>H-15) continue;
+      let color = 'var(--mute)';
+      const idx = firstShells.indexOf(m);
+      if(m===0) color = '#fff';
+      else if(idx>=0) color = PALETTE[idx];
+      const rr = m===0?3.5:2.5;
+      svg.appendChild(SVG('circle',{cx:px,cy:py,r:rr,fill:color,opacity:0.95}));
+    }
+
+    // Right half: theta series coefficients
+    const rightX = 330;
+    const rightW = W-rightX-12;
+    const maxM = Math.min(10, lengths[lengths.length-1]);
+    const shown = [];
+    for(let m=0;m<=maxM;m++) shown.push([m, cnt[m]||0]);
+    const maxV = Math.max(1, ...shown.map(p=>p[1]));
+    const scale = v => Math.log(1+v)/Math.log(1+maxV);
+
+    const barAreaH = 220, barAreaTop = 40;
+    const bw = rightW/(shown.length);
+    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop+barAreaH, x2:rightX+rightW, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop, x2:rightX, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));
+
+    for(let i=0;i<shown.length;i++){
+      const [m,v] = shown[i];
+      const x = rightX + i*bw;
+      const h = scale(v)*barAreaH;
+      if(v>0){
+        let color = 'var(--yellow)';
+        const idx = firstShells.indexOf(m);
+        if(idx>=0) color = PALETTE[idx];
+        if(m===0) color = '#fff';
+        svg.appendChild(SVG('rect',{x:x+2,y:barAreaTop+barAreaH-h,width:Math.max(1,bw-4),height:h,fill:color,opacity:0.9}));
+      }
+      const t = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = m; svg.appendChild(t);
+      if(v>0){
+        const t2 = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});
+        t2.textContent = v; svg.appendChild(t2);
+      }
+    }
+    const tx = SVG('text',{x:rightX+rightW/2, y:barAreaTop+barAreaH+30, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    tx.textContent = 'squared length m  (coefficient of q^(m/2))'; svg.appendChild(tx);
+
+    const ttl = SVG('text',{x:rightX, y:barAreaTop-12,'font-size':12,fill:'var(--blue)','font-style':'italic'});
+    ttl.textContent = `Θ_${L.name}(τ)`; svg.appendChild(ttl);
+
+    // text summary
+    const terms = [];
+    terms.push(`Θ_{${L.name}}(τ) = `);
+    let first = true;
+    for(const [m,v] of shown){
+      if(v===0) continue;
+      if(first){ terms.push(`${v}${m===0?'':' q^('+m+'/2)'}`); first=false; }
+      else terms.push(` + ${v} q^(${m}/2)`);
+    }
+    terms.push(' + …');
+    out.textContent = `${L.info}\n${terms.join('')}`;
+  }
+
+  btns.forEach(b => b.addEventListener('click', ()=>{
+    btns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render(b.dataset.lat);
+  }));
+  render('Z2');
+})();
+</script>
+
+<section id="forward">
+<h2>Where this goes next</h2>
+<p>Every strand started here widens downstream.</p>
+<ul>
+  <li><a href="./modular-forms.html">Modular forms</a>: $\theta^4$ and $\Delta = \eta^{24}$ are concrete instances of the graded ring $\bigoplus_k M_k$; classifying forms of weight $k$ gives the closed-form evaluations of $r_k(n)$.</li>
+  <li><a href="./sums-of-squares.html">Sums of squares</a>: the elementary geometric half of the $r_k$ story — why there is a gap at $4 \nmid n$, why Gaussian integers appear, Lagrange's four-square theorem.</li>
+  <li><a href="./upper-half-plane-hyperbolic.html">Upper half-plane &amp; hyperbolic geometry</a>: the domain on which $\theta$, $\eta$, and modular forms live; the action of $\mathrm{SL}_2(\mathbb{Z})$ by Möbius transformations.</li>
+  <li><a href="./complex-analysis.html">Complex analysis</a>: Poisson summation, contour integrals for the functional equation, and the general principle that a $q$-series on $\mathcal{H}$ with good transformation becomes an object on a <a href="./riemann-surfaces.html">Riemann surface</a>.</li>
+  <li><a href="./elliptic-curves.html">Elliptic curves</a>: the Jacobi theta variables $(z,\tau)$ parametrize the group law on the Jacobian of an elliptic curve $\mathbb{C}/(\mathbb{Z} + \tau\mathbb{Z})$; the triple product is secretly the factorization of a section of a line bundle on that curve.</li>
+</ul>
+
+<p class="small">Further afield: higher-rank theta series for <em>Siegel modular forms</em>, automorphic $L$-functions via Mellin transforms of theta, and the Kudla program relating lattice counting to special values of $L$-functions.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+</body>
+</html>
