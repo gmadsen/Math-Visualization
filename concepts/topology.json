@@ -1,0 +1,27 @@
+{
+  "topic": "topology",
+  "title": "Topology prerequisites",
+  "page": "topology.html",
+  "concepts": [
+    {
+      "id": "open-sets",
+      "label": "Open sets",
+      "prereqs": []
+    },
+    {
+      "id": "continuity-topology",
+      "label": "Continuity in topology",
+      "prereqs": ["open-sets"]
+    },
+    {
+      "id": "paths",
+      "label": "Paths and homotopy",
+      "prereqs": ["continuity-topology"]
+    },
+    {
+      "id": "simply-connected",
+      "label": "Simply connected domains",
+      "prereqs": ["paths"]
+    }
+  ]
+}

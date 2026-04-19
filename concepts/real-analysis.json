@@ -1,0 +1,32 @@
+{
+  "topic": "real-analysis",
+  "title": "Real analysis prerequisites",
+  "page": "real-analysis.html",
+  "concepts": [
+    {
+      "id": "real-numbers",
+      "label": "Real numbers",
+      "prereqs": []
+    },
+    {
+      "id": "real-continuity",
+      "label": "Continuity on R",
+      "prereqs": ["real-numbers"]
+    },
+    {
+      "id": "real-differentiation",
+      "label": "Differentiation",
+      "prereqs": ["real-continuity"]
+    },
+    {
+      "id": "uniform-convergence",
+      "label": "Uniform convergence",
+      "prereqs": ["real-continuity"]
+    },
+    {
+      "id": "riemann-integral",
+      "label": "Riemann integral",
+      "prereqs": ["real-continuity"]
+    }
+  ]
+}

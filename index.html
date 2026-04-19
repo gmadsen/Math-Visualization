@@ -64,6 +64,11 @@
   .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
   .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
   svg{display:block}
+  .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
+    border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
+  .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
+  .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
+  .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
     border-top:1px solid var(--line);padding-top:1.4rem}
 </style>
@@ -75,8 +80,10 @@
     <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples. Start anywhere — or <a href="./pathway.html">follow a capstone pathway</a>.</p>
   </section>
 
-  <div class="sec">Foundations</div>
+
+  <div class="sec">Algebra</div>
   <div class="grid">
+
     <a class="card y" href="./algebra.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="#ffd866"><circle cx="50" cy="15" r="4.2"/><circle cx="80" cy="40" r="4.2"/><circle cx="50" cy="65" r="4.2"/><circle cx="20" cy="40" r="4.2"/></g>
@@ -88,11 +95,12 @@
         </g>
       </svg></div>
       <div class="body">
-        <div class="tt">Algebra refresher</div>
+        <div class="tt">Algebra refresher <span class="level prereq">prereq</span></div>
         <div class="desc">Groups, rings, fields — the vocabulary of everything else. Subgroups, ideals, quotients, homomorphisms, with live toy examples.</div>
         <span class="tag">groups · rings · fields</span>
       </div>
     </a>
+
 
     <a class="card b" href="./category-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -112,28 +120,6 @@
       </div>
     </a>
 
-    <a class="card c" href="./lie-groups.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- great circle on S^3 / matrix group with tangent at identity -->
-        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
-        <!-- identity point -->
-        <circle cx="80" cy="40" r="2.8" fill="#ffd866"/>
-        <text x="80" y="55" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">e</text>
-        <!-- tangent vector at identity: T_e G = g -->
-        <line x1="80" y1="40" x2="94" y2="20" stroke="#ffd866" stroke-width="1.4" marker-end="url(#lg1)"/>
-        <!-- one-parameter subgroup: a second point along the curve -->
-        <circle cx="66" cy="20" r="2.2" fill="#7de0d6"/>
-        <text x="66" y="14" text-anchor="middle" font-size="7" fill="#7de0d6" font-style="italic" font-family="serif">exp(tX)</text>
-        <defs>
-          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Lie groups &amp; algebras</div>
-        <div class="desc">Classical matrix groups as manifolds, $\mathfrak{g}=T_eG$, the exponential map, brackets, $\mathrm{SU}(2)\!\to\!\mathrm{SO}(3)$ double cover, and $A_1,A_2$ root systems.</div>
-        <span class="tag">exp · [·,·] · roots</span>
-      </div>
-    </a>
 
     <a class="card p" href="./representation-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -162,10 +148,301 @@
         <span class="tag">χ · Sₙ · 𝔰𝔩₂</span>
       </div>
     </a>
+
+
+    <a class="card g" href="./commutative-algebra.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="#83c167" stroke-width="1.5">
+          <rect x="10" y="30" width="24" height="22" rx="3"/>
+          <rect x="66" y="30" width="24" height="22" rx="3"/>
+        </g>
+        <text x="22" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">M</text>
+        <text x="78" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">N</text>
+        <text x="50" y="46" text-anchor="middle" font-size="18" fill="#83c167">⊗</text>
+        <text x="50" y="22" text-anchor="middle" font-size="8" fill="#83c167" opacity="0.75">over R</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Commutative algebra</div>
+        <div class="desc">Ideals, localization, tensor products, flatness, Nakayama, Krull dimension — the engine room underneath scheme theory.</div>
+        <span class="tag">ideals · ⊗ · flat</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./homological.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="#e07a5f"><circle cx="15" cy="45" r="3.3"/><circle cx="40" cy="45" r="3.3"/><circle cx="65" cy="45" r="3.3"/><circle cx="90" cy="45" r="3.3"/></g>
+        <g stroke="#e07a5f" stroke-width="1.3" fill="none">
+          <line x1="18" y1="45" x2="37" y2="45"/>
+          <line x1="43" y1="45" x2="62" y2="45"/>
+          <line x1="68" y1="45" x2="87" y2="45"/>
+        </g>
+        <text x="27" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
+        <text x="52" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
+        <text x="77" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Homological algebra</div>
+        <div class="desc">Chain complexes, exact sequences, the snake lemma, derived functors Ext &amp; Tor, resolutions, spectral sequences.</div>
+        <span class="tag">∂² = 0 · Ext · Tor</span>
+      </div>
+    </a>
+
   </div>
 
-  <div class="sec">Galois &amp; number theory</div>
+  <div class="sec">Analysis</div>
   <div class="grid">
+
+    <a class="card g" href="./real-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Cantor-set construction: three horizontal bars -->
+        <g stroke="#83c167" stroke-width="3" stroke-linecap="square">
+          <line x1="10" y1="22" x2="90" y2="22"/>
+          <line x1="10" y1="40" x2="37" y2="40"/><line x1="63" y1="40" x2="90" y2="40"/>
+          <line x1="10" y1="58" x2="19" y2="58"/><line x1="28" y1="58" x2="37" y2="58"/>
+          <line x1="63" y1="58" x2="72" y2="58"/><line x1="81" y1="58" x2="90" y2="58"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">measure zero</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Real analysis <span class="level prereq">prereq</span></div>
+        <div class="desc">Lebesgue measure via the Cantor set, simple functions, monotone &amp; dominated convergence, $L^p$ spaces, and why Riemann fails where Lebesgue succeeds.</div>
+        <span class="tag">μ · ∫ · Lᵖ · DCT</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./complex-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- unit circle and a small amplitwist arrow -->
+        <circle cx="50" cy="40" r="24" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <!-- tiny arrow being amplitwisted at a point -->
+        <line x1="50" y1="40" x2="62" y2="40" stroke="#58c4dd" stroke-width="1.4" marker-end="url(#ca1)"/>
+        <line x1="50" y1="40" x2="57" y2="31" stroke="#e07a5f" stroke-width="1.4" marker-end="url(#ca2)"/>
+        <!-- sample point -->
+        <circle cx="50" cy="40" r="2.2" fill="#fff"/>
+        <!-- arc showing rotation angle -->
+        <path d="M 59 40 A 9 9 0 0 0 55 33" fill="none" stroke="#ffd866" stroke-width="0.9" opacity="0.8"/>
+        <defs>
+          <marker id="ca1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+          <marker id="ca2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#e07a5f"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Complex analysis <span class="level prereq">prereq</span></div>
+        <div class="desc">Needham-style: holomorphic = amplitwist, Möbius transformations, domain coloring, contour integrals, residues, and the argument principle.</div>
+        <span class="tag">amplitwist · residues · Möbius</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="./functional-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- three unit balls: ℓ¹ (diamond), ℓ² (circle), ℓ∞ (square) -->
+        <polygon points="18,40 30,28 42,40 30,52" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
+        <circle cx="63" cy="40" r="12" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
+        <rect x="76" y="28" width="14" height="24" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
+        <!-- axes through each -->
+        <g stroke="#b39ddb" stroke-width="0.6" opacity="0.4">
+          <line x1="14" y1="40" x2="46" y2="40"/><line x1="30" y1="24" x2="30" y2="56"/>
+          <line x1="49" y1="40" x2="77" y2="40"/><line x1="63" y1="26" x2="63" y2="54"/>
+          <line x1="72" y1="40" x2="94" y2="40"/><line x1="83" y1="24" x2="83" y2="56"/>
+        </g>
+        <g font-size="7" fill="#b39ddb" font-style="italic" font-family="serif" text-anchor="middle">
+          <text x="30" y="72">ℓ¹</text><text x="63" y="72">ℓ²</text><text x="83" y="72">ℓ∞</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Functional analysis</div>
+        <div class="desc">Banach &amp; Hilbert spaces, bounded operators, the four pillars (Hahn–Banach, open mapping, closed graph, uniform boundedness), spectrum, and the spectral theorem.</div>
+        <span class="tag">‖·‖ · ⟨·,·⟩ · σ(T)</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./operator-algebras.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- C*-algebra: spectrum as a topological space -->
+        <circle cx="35" cy="40" r="20" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
+        <g fill="#7de0d6"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="36" r="2"/><circle cx="33" cy="48" r="2"/><circle cx="44" cy="46" r="2"/></g>
+        <path d="M 60 28 L 90 28 L 90 52 L 60 52 Z" fill="none" stroke="#7de0d6" stroke-width="1.2" opacity="0.8"/>
+        <text x="75" y="44" fill="#7de0d6" font-size="11" font-style="italic" font-family="serif" text-anchor="middle">C(X)</text>
+        <path d="M 56 40 L 60 40" stroke="#ffd866" stroke-width="1.4" marker-end="url(#caa)"/>
+        <defs><marker id="caa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd866"/></marker></defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Operator algebras <span class="level advanced">advanced</span></div>
+        <div class="desc">C*-algebras and Gelfand duality: a compact Hausdorff space and its commutative C*-algebra of functions are the same data. Functional calculus, characters, the Gelfand transform, and the noncommutative turn.</div>
+        <span class="tag">A ↔ Spec(A)</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="sec">Geometry &amp; topology</div>
+  <div class="grid">
+
+    <a class="card c" href="./topology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="#7de0d6" stroke-width="1.5"/>
+        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="#ffd866" stroke-width="1.2" stroke-dasharray="3 2"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic topology <span class="level prereq">prereq</span></div>
+        <div class="desc">Fundamental groups, covering spaces, simplicial homology, Mayer–Vietoris, the Euler characteristic as a homotopy invariant.</div>
+        <span class="tag">π₁ · Hₙ · covers</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./smooth-manifolds.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- sphere with two chart patches overlapping -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <!-- chart U_1 (north) -->
+        <path d="M 30 30 Q 50 18 70 30 Q 50 44 30 30 Z" fill="#ffd866" opacity="0.15" stroke="#ffd866" stroke-width="0.9"/>
+        <!-- chart U_2 (south) -->
+        <path d="M 30 50 Q 50 62 70 50 Q 50 36 30 50 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.9"/>
+        <!-- overlap region dashed -->
+        <ellipse cx="50" cy="40" rx="18" ry="5" fill="none" stroke="#e07a5f" stroke-width="0.9" stroke-dasharray="2 2"/>
+        <text x="30" y="22" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">φ₁</text>
+        <text x="70" y="62" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">φ₂</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Smooth manifolds</div>
+        <div class="desc">Charts and atlases, transition maps, the tangent space three ways, the differential, immersions vs. embeddings, vector fields and the Lie bracket via flows.</div>
+        <span class="tag">(U, φ) · T_pM · [X,Y]</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./differential-forms.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
+        <g stroke="#58c4dd" stroke-width="1.2" opacity="0.75">
+          <line x1="14" y1="20" x2="86" y2="20"/>
+          <line x1="14" y1="32" x2="86" y2="32"/>
+          <line x1="14" y1="44" x2="86" y2="44"/>
+          <line x1="14" y1="56" x2="86" y2="56"/>
+          <line x1="14" y1="68" x2="86" y2="68"/>
+        </g>
+        <!-- a vector piercing the stack -->
+        <line x1="30" y1="62" x2="72" y2="22" stroke="#ffd866" stroke-width="1.6" marker-end="url(#df1)"/>
+        <!-- basepoint -->
+        <circle cx="30" cy="62" r="2" fill="#fff"/>
+        <text x="78" y="14" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ω(v)</text>
+        <defs>
+          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Differential forms</div>
+        <div class="desc">$k$-forms as oriented volume-eaters, wedge and exterior derivative, Stokes's theorem as the master identity, and de Rham cohomology on the annulus.</div>
+        <span class="tag">ω · d · ∫∂ = ∫d</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="./differential-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- a curved surface patch with a normal vector -->
+        <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="#b39ddb" stroke-width="1.4"/>
+        <path d="M 12 64 Q 32 34 52 40 Q 72 46 88 28" fill="none" stroke="#b39ddb" stroke-width="1.1" opacity="0.6"/>
+        <path d="M 12 70 Q 32 40 52 46 Q 72 52 88 34" fill="none" stroke="#b39ddb" stroke-width="0.9" opacity="0.4"/>
+        <!-- normal vector at a point on the top curve -->
+        <circle cx="52" cy="34" r="2.2" fill="#ffd866"/>
+        <line x1="52" y1="34" x2="58" y2="16" stroke="#ffd866" stroke-width="1.3" marker-end="url(#dg1)"/>
+        <!-- tangent -->
+        <line x1="52" y1="34" x2="72" y2="37" stroke="#58c4dd" stroke-width="1.2" opacity="0.85" marker-end="url(#dg2)"/>
+        <defs>
+          <marker id="dg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+          <marker id="dg2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Differential geometry</div>
+        <div class="desc">Frenet frames, first and second fundamental forms, the Gauss map, geodesics on surfaces, parallel transport, and Gauss–Bonnet.</div>
+        <span class="tag">κ · τ · geodesics · G–B</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./riemannian-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- sphere with a geodesic triangle on it -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="#e07a5f" stroke-width="1.3"/>
+        <!-- inner latitude ellipse -->
+        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="#e07a5f" stroke-width="0.8" opacity="0.45"/>
+        <!-- geodesic triangle: north pole and two equator points -->
+        <g stroke="#ffd866" stroke-width="1.3" fill="none">
+          <path d="M 50 14 Q 36 26 28 45"/>
+          <path d="M 50 14 Q 64 26 72 45"/>
+          <path d="M 28 45 Q 50 55 72 45"/>
+        </g>
+        <g fill="#ffd866"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#e07a5f" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Riemannian geometry</div>
+        <div class="desc">The metric $g$, Levi-Civita connection, parallel transport, geodesics via exponential map, sectional/Ricci curvature, Jacobi fields, and Bonnet–Myers.</div>
+        <span class="tag">g · ∇ · R · exp</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./lie-groups.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- great circle on S^3 / matrix group with tangent at identity -->
+        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
+        <!-- identity point -->
+        <circle cx="80" cy="40" r="2.8" fill="#ffd866"/>
+        <text x="80" y="55" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">e</text>
+        <!-- tangent vector at identity: T_e G = g -->
+        <line x1="80" y1="40" x2="94" y2="20" stroke="#ffd866" stroke-width="1.4" marker-end="url(#lg1)"/>
+        <!-- one-parameter subgroup: a second point along the curve -->
+        <circle cx="66" cy="20" r="2.2" fill="#7de0d6"/>
+        <text x="66" y="14" text-anchor="middle" font-size="7" fill="#7de0d6" font-style="italic" font-family="serif">exp(tX)</text>
+        <defs>
+          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Lie groups &amp; algebras</div>
+        <div class="desc">Classical matrix groups as manifolds, $\mathfrak{g}=T_eG$, the exponential map, brackets, $\mathrm{SU}(2)\!\to\!\mathrm{SO}(3)$ double cover, and $A_1,A_2$ root systems.</div>
+        <span class="tag">exp · [·,·] · roots</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./riemann-surfaces.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- fundamental parallelogram with side identifications -->
+        <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <!-- single-arrow identification on top/bottom -->
+        <polygon points="35,60 40,57 40,63" fill="#ffd866"/>
+        <polygon points="60,20 65,17 65,23" fill="#ffd866"/>
+        <!-- double-arrow identification on left/right -->
+        <g fill="#e07a5f">
+          <polygon points="30,42 34,39 34,45"/><polygon points="34,38 38,35 38,41"/>
+          <polygon points="65,42 69,39 69,45"/><polygon points="69,38 73,35 73,41"/>
+        </g>
+        <!-- tau parameter hint -->
+        <text x="50" y="75" text-anchor="middle" font-size="8" fill="#7de0d6" font-style="italic" font-family="serif">ℂ/Λ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Riemann surfaces</div>
+        <div class="desc">Sphere and torus as prototypes, branched covers of $w^2=P(z)$, Riemann–Hurwitz, the uniformization trichotomy, and a peek at divisors &amp; Riemann–Roch.</div>
+        <span class="tag">ℂ/Λ · covers · genus</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="sec">Number theory</div>
+  <div class="grid">
+
     <a class="card v" href="./galois.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="#b39ddb">
@@ -185,28 +462,6 @@
       </div>
     </a>
 
-    <a class="card g" href="./algebraic-number-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- lattice with a highlighted non-principal ideal -->
-        <g fill="#83c167">
-          <circle cx="20" cy="60" r="2"/><circle cx="40" cy="60" r="2"/><circle cx="60" cy="60" r="2"/><circle cx="80" cy="60" r="2"/>
-          <circle cx="20" cy="40" r="2"/><circle cx="40" cy="40" r="2"/><circle cx="60" cy="40" r="2"/><circle cx="80" cy="40" r="2"/>
-          <circle cx="20" cy="20" r="2"/><circle cx="40" cy="20" r="2"/><circle cx="60" cy="20" r="2"/><circle cx="80" cy="20" r="2"/>
-        </g>
-        <!-- highlighted index-2 sublattice -->
-        <g fill="#ffd866">
-          <circle cx="20" cy="60" r="3"/><circle cx="60" cy="60" r="3"/>
-          <circle cx="40" cy="40" r="3"/><circle cx="80" cy="40" r="3"/>
-          <circle cx="20" cy="20" r="3"/><circle cx="60" cy="20" r="3"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">𝒪ₖ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic number theory</div>
-        <div class="desc">Rings of integers, Dedekind domains, ramification, the ideal class group, Minkowski's theorem, and Dirichlet's unit theorem.</div>
-        <span class="tag">𝒪ₖ · Cl(K) · units</span>
-      </div>
-    </a>
 
     <a class="card y" href="./quadratic-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -229,6 +484,7 @@
         <span class="tag">(a/p) · Gauss · ± 1</span>
       </div>
     </a>
+
 
     <a class="card b" href="./sums-of-squares.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -253,6 +509,31 @@
         <span class="tag">r₂(n) · ℤ[i] · Lagrange</span>
       </div>
     </a>
+
+
+    <a class="card g" href="./algebraic-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- lattice with a highlighted non-principal ideal -->
+        <g fill="#83c167">
+          <circle cx="20" cy="60" r="2"/><circle cx="40" cy="60" r="2"/><circle cx="60" cy="60" r="2"/><circle cx="80" cy="60" r="2"/>
+          <circle cx="20" cy="40" r="2"/><circle cx="40" cy="40" r="2"/><circle cx="60" cy="40" r="2"/><circle cx="80" cy="40" r="2"/>
+          <circle cx="20" cy="20" r="2"/><circle cx="40" cy="20" r="2"/><circle cx="60" cy="20" r="2"/><circle cx="80" cy="20" r="2"/>
+        </g>
+        <!-- highlighted index-2 sublattice -->
+        <g fill="#ffd866">
+          <circle cx="20" cy="60" r="3"/><circle cx="60" cy="60" r="3"/>
+          <circle cx="40" cy="40" r="3"/><circle cx="80" cy="40" r="3"/>
+          <circle cx="20" cy="20" r="3"/><circle cx="60" cy="20" r="3"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">𝒪ₖ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic number theory</div>
+        <div class="desc">Rings of integers, Dedekind domains, ramification, the ideal class group, Minkowski's theorem, and Dirichlet's unit theorem.</div>
+        <span class="tag">𝒪ₖ · Cl(K) · units</span>
+      </div>
+    </a>
+
 
     <a class="card c" href="./p-adic-numbers.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -280,6 +561,7 @@
         <span class="tag">ℤₚ · ℚₚ · Hensel</span>
       </div>
     </a>
+
 
     <a class="card g" href="./frobenius-and-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -315,45 +597,26 @@
       </div>
     </a>
 
-    <a class="card v" href="./modular-forms.html">
+
+    <a class="card v" href="./class-field-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- fundamental domain with T-tile neighbors -->
-        <line x1="6" y1="66" x2="94" y2="66" stroke="#b39ddb" stroke-width="1.2"/>
-        <!-- fundamental F domain shaded -->
-        <path d="M 42 52 L 42 18 L 58 18 L 58 52 A 12 12 0 0 1 42 52 Z" fill="#b39ddb" opacity="0.25" stroke="#b39ddb" stroke-width="1.2"/>
-        <!-- T-neighbors (dashed outlines) -->
-        <path d="M 26 52 L 26 18 L 42 18 L 42 52 A 12 12 0 0 1 26 52 Z" fill="none" stroke="#b39ddb" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
-        <path d="M 58 52 L 58 18 L 74 18 L 74 52 A 12 12 0 0 1 58 52 Z" fill="none" stroke="#b39ddb" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
-        <!-- S-image below |τ|=1 -->
-        <path d="M 42 66 A 12 12 0 0 1 58 66 A 6 6 0 0 1 42 66 Z" fill="none" stroke="#ffd866" stroke-width="0.9" stroke-dasharray="2 2" opacity="0.75"/>
-        <text x="50" y="34" text-anchor="middle" font-size="9" fill="#b39ddb" font-style="italic" font-family="serif">ℱ</text>
-        <text x="50" y="78" text-anchor="middle" font-size="7" fill="#b39ddb" font-style="italic" font-family="serif">SL₂(ℤ)\ℋ</text>
+        <g fill="none" stroke="#b39ddb" stroke-width="1.2">
+          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
+          <path d="M42 32 L50 42 L58 32"/>
+        </g>
+        <g fill="#b39ddb"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
       </svg></div>
       <div class="body">
-        <div class="tt">Modular forms</div>
-        <div class="desc">$\mathrm{SL}_2(\mathbb{Z})$ action on $\mathcal{H}$, fundamental domain, weight-$k$ forms and their $q$-expansions, Eisenstein series $E_k$, the discriminant $\Delta$, and $j(\tau) = E_4^3/\Delta$.</div>
-        <span class="tag">Eₖ · Δ · j · q-expansion</span>
+        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
+        <span class="tag">Artin map · ideles · reciprocity</span>
       </div>
     </a>
 
-    <a class="card y" href="./dirichlet-series-euler-products.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- sigma notation and product -->
-        <text x="22" y="42" text-anchor="middle" font-size="22" fill="#ffd866" font-family="serif">∑</text>
-        <text x="22" y="58" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">n≥1</text>
-        <text x="40" y="45" font-size="12" fill="#ffd866" font-style="italic" font-family="serif">aₙ/nˢ</text>
-        <text x="62" y="42" text-anchor="middle" font-size="11" fill="#58c4dd">=</text>
-        <text x="78" y="42" text-anchor="middle" font-size="22" fill="#58c4dd" font-family="serif">∏</text>
-        <text x="78" y="58" text-anchor="middle" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">p prime</text>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">Euler product</text>
-        <text x="50" y="16" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ζ(s), L(s,χ)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Dirichlet series &amp; Euler products</div>
-        <div class="desc">$\sum a_n/n^s$, the half-plane of convergence, $\zeta(s) = \prod_p (1-p^{-s})^{-1}$, Dirichlet characters and $L(s,\chi)$, the functional equation, and Dirichlet's theorem.</div>
-        <span class="tag">ζ · L(s,χ) · ∏ₚ · Λ(s)</span>
-      </div>
-    </a>
+  </div>
+
+  <div class="sec">Modular forms &amp; L-functions</div>
+  <div class="grid">
 
     <a class="card p" href="./upper-half-plane-hyperbolic.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -375,264 +638,156 @@
         <span class="tag">ℋ · SL₂(ℝ) · Möbius</span>
       </div>
     </a>
-  </div>
 
-  <div class="sec">Analysis</div>
-  <div class="grid">
-    <a class="card g" href="./real-analysis.html">
+
+    <a class="card v" href="./modular-forms.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Cantor-set construction: three horizontal bars -->
-        <g stroke="#83c167" stroke-width="3" stroke-linecap="square">
-          <line x1="10" y1="22" x2="90" y2="22"/>
-          <line x1="10" y1="40" x2="37" y2="40"/><line x1="63" y1="40" x2="90" y2="40"/>
-          <line x1="10" y1="58" x2="19" y2="58"/><line x1="28" y1="58" x2="37" y2="58"/>
-          <line x1="63" y1="58" x2="72" y2="58"/><line x1="81" y1="58" x2="90" y2="58"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">measure zero</text>
+        <!-- fundamental domain with T-tile neighbors -->
+        <line x1="6" y1="66" x2="94" y2="66" stroke="#b39ddb" stroke-width="1.2"/>
+        <!-- fundamental F domain shaded -->
+        <path d="M 42 52 L 42 18 L 58 18 L 58 52 A 12 12 0 0 1 42 52 Z" fill="#b39ddb" opacity="0.25" stroke="#b39ddb" stroke-width="1.2"/>
+        <!-- T-neighbors (dashed outlines) -->
+        <path d="M 26 52 L 26 18 L 42 18 L 42 52 A 12 12 0 0 1 26 52 Z" fill="none" stroke="#b39ddb" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+        <path d="M 58 52 L 58 18 L 74 18 L 74 52 A 12 12 0 0 1 58 52 Z" fill="none" stroke="#b39ddb" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+        <!-- S-image below |τ|=1 -->
+        <path d="M 42 66 A 12 12 0 0 1 58 66 A 6 6 0 0 1 42 66 Z" fill="none" stroke="#ffd866" stroke-width="0.9" stroke-dasharray="2 2" opacity="0.75"/>
+        <text x="50" y="34" text-anchor="middle" font-size="9" fill="#b39ddb" font-style="italic" font-family="serif">ℱ</text>
+        <text x="50" y="78" text-anchor="middle" font-size="7" fill="#b39ddb" font-style="italic" font-family="serif">SL₂(ℤ)\ℋ</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Real analysis</div>
-        <div class="desc">Lebesgue measure via the Cantor set, simple functions, monotone &amp; dominated convergence, $L^p$ spaces, and why Riemann fails where Lebesgue succeeds.</div>
-        <span class="tag">μ · ∫ · Lᵖ · DCT</span>
+        <div class="tt">Modular forms</div>
+        <div class="desc">$\mathrm{SL}_2(\mathbb{Z})$ action on $\mathcal{H}$, fundamental domain, weight-$k$ forms and their $q$-expansions, Eisenstein series $E_k$, the discriminant $\Delta$, and $j(\tau) = E_4^3/\Delta$.</div>
+        <span class="tag">Eₖ · Δ · j · q-expansion</span>
       </div>
     </a>
 
-    <a class="card y" href="./complex-analysis.html">
+
+    <a class="card b" href="./theta-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- unit circle and a small amplitwist arrow -->
-        <circle cx="50" cy="40" r="24" fill="none" stroke="#ffd866" stroke-width="1.3"/>
-        <!-- tiny arrow being amplitwisted at a point -->
-        <line x1="50" y1="40" x2="62" y2="40" stroke="#58c4dd" stroke-width="1.4" marker-end="url(#ca1)"/>
-        <line x1="50" y1="40" x2="57" y2="31" stroke="#e07a5f" stroke-width="1.4" marker-end="url(#ca2)"/>
-        <!-- sample point -->
-        <circle cx="50" cy="40" r="2.2" fill="#fff"/>
-        <!-- arc showing rotation angle -->
-        <path d="M 59 40 A 9 9 0 0 0 55 33" fill="none" stroke="#ffd866" stroke-width="0.9" opacity="0.8"/>
-        <defs>
-          <marker id="ca1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
-          <marker id="ca2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#e07a5f"/></marker>
-        </defs>
+        <path d="M12 50 Q26 24 40 50 T68 50 T92 50" fill="none" stroke="#58c4dd" stroke-width="1.5"/>
+        <g fill="#58c4dd"><circle cx="20" cy="50" r="2.3"/><circle cx="48" cy="50" r="2.3"/><circle cx="76" cy="50" r="2.3"/></g>
       </svg></div>
       <div class="body">
-        <div class="tt">Complex analysis</div>
-        <div class="desc">Needham-style: holomorphic = amplitwist, Möbius transformations, domain coloring, contour integrals, residues, and the argument principle.</div>
-        <span class="tag">amplitwist · residues · Möbius</span>
+        <div class="tt">Theta functions <span class="level advanced">advanced</span></div>
+        <div class="desc">Jacobi theta series on the upper half-plane, transformation laws, and bridges between lattices, modular forms, and counting problems.</div>
+        <span class="tag">θ(τ) · q-series · modular transforms</span>
       </div>
     </a>
 
-    <a class="card c" href="./riemann-surfaces.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- fundamental parallelogram with side identifications -->
-        <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
-        <!-- single-arrow identification on top/bottom -->
-        <polygon points="35,60 40,57 40,63" fill="#ffd866"/>
-        <polygon points="60,20 65,17 65,23" fill="#ffd866"/>
-        <!-- double-arrow identification on left/right -->
-        <g fill="#e07a5f">
-          <polygon points="30,42 34,39 34,45"/><polygon points="34,38 38,35 38,41"/>
-          <polygon points="65,42 69,39 69,45"/><polygon points="69,38 73,35 73,41"/>
-        </g>
-        <!-- tau parameter hint -->
-        <text x="50" y="75" text-anchor="middle" font-size="8" fill="#7de0d6" font-style="italic" font-family="serif">ℂ/Λ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Riemann surfaces</div>
-        <div class="desc">Sphere and torus as prototypes, branched covers of $w^2=P(z)$, Riemann–Hurwitz, the uniformization trichotomy, and a peek at divisors &amp; Riemann–Roch.</div>
-        <span class="tag">ℂ/Λ · covers · genus</span>
-      </div>
-    </a>
 
-    <a class="card v" href="./functional-analysis.html">
+    <a class="card c" href="./hecke-operators.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- three unit balls: ℓ¹ (diamond), ℓ² (circle), ℓ∞ (square) -->
-        <polygon points="18,40 30,28 42,40 30,52" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
-        <circle cx="63" cy="40" r="12" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
-        <rect x="76" y="28" width="14" height="24" fill="none" stroke="#b39ddb" stroke-width="1.3"/>
-        <!-- axes through each -->
-        <g stroke="#b39ddb" stroke-width="0.6" opacity="0.4">
-          <line x1="14" y1="40" x2="46" y2="40"/><line x1="30" y1="24" x2="30" y2="56"/>
-          <line x1="49" y1="40" x2="77" y2="40"/><line x1="63" y1="26" x2="63" y2="54"/>
-          <line x1="72" y1="40" x2="94" y2="40"/><line x1="83" y1="24" x2="83" y2="56"/>
-        </g>
-        <g font-size="7" fill="#b39ddb" font-style="italic" font-family="serif" text-anchor="middle">
-          <text x="30" y="72">ℓ¹</text><text x="63" y="72">ℓ²</text><text x="83" y="72">ℓ∞</text>
+        <g fill="none" stroke="#7de0d6" stroke-width="1.2">
+          <rect x="16" y="18" width="24" height="16"/><rect x="44" y="18" width="24" height="16"/><rect x="30" y="46" width="24" height="16"/>
+          <path d="M40 26 L44 26 M54 34 L42 46 M58 34 L54 46"/>
         </g>
       </svg></div>
       <div class="body">
-        <div class="tt">Functional analysis</div>
-        <div class="desc">Banach &amp; Hilbert spaces, bounded operators, the four pillars (Hahn–Banach, open mapping, closed graph, uniform boundedness), spectrum, and the spectral theorem.</div>
-        <span class="tag">‖·‖ · ⟨·,·⟩ · σ(T)</span>
+        <div class="tt">Hecke operators <span class="level advanced">advanced</span></div>
+        <div class="desc">Commuting correspondences on modular forms with eigenbases, multiplicative relations, and Fourier coefficients that package deep arithmetic information.</div>
+        <span class="tag">T_n · eigenforms · multiplicativity</span>
       </div>
     </a>
 
-    <a class="card c" href="./operator-algebras.html">
+
+    <a class="card y" href="./dirichlet-series-euler-products.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- C*-algebra: spectrum as a topological space -->
-        <circle cx="35" cy="40" r="20" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
-        <g fill="#7de0d6"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="36" r="2"/><circle cx="33" cy="48" r="2"/><circle cx="44" cy="46" r="2"/></g>
-        <path d="M 60 28 L 90 28 L 90 52 L 60 52 Z" fill="none" stroke="#7de0d6" stroke-width="1.2" opacity="0.8"/>
-        <text x="75" y="44" fill="#7de0d6" font-size="11" font-style="italic" font-family="serif" text-anchor="middle">C(X)</text>
-        <path d="M 56 40 L 60 40" stroke="#ffd866" stroke-width="1.4" marker-end="url(#caa)"/>
-        <defs><marker id="caa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd866"/></marker></defs>
+        <!-- sigma notation and product -->
+        <text x="22" y="42" text-anchor="middle" font-size="22" fill="#ffd866" font-family="serif">∑</text>
+        <text x="22" y="58" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">n≥1</text>
+        <text x="40" y="45" font-size="12" fill="#ffd866" font-style="italic" font-family="serif">aₙ/nˢ</text>
+        <text x="62" y="42" text-anchor="middle" font-size="11" fill="#58c4dd">=</text>
+        <text x="78" y="42" text-anchor="middle" font-size="22" fill="#58c4dd" font-family="serif">∏</text>
+        <text x="78" y="58" text-anchor="middle" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">p prime</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">Euler product</text>
+        <text x="50" y="16" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ζ(s), L(s,χ)</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Operator algebras</div>
-        <div class="desc">C*-algebras and Gelfand duality: a compact Hausdorff space and its commutative C*-algebra of functions are the same data. Functional calculus, characters, the Gelfand transform, and the noncommutative turn.</div>
-        <span class="tag">A ↔ Spec(A)</span>
+        <div class="tt">Dirichlet series &amp; Euler products</div>
+        <div class="desc">$\sum a_n/n^s$, the half-plane of convergence, $\zeta(s) = \prod_p (1-p^{-s})^{-1}$, Dirichlet characters and $L(s,\chi)$, the functional equation, and Dirichlet's theorem.</div>
+        <span class="tag">ζ · L(s,χ) · ∏ₚ · Λ(s)</span>
       </div>
     </a>
-  </div>
 
-  <div class="sec">Topology &amp; geometry</div>
-  <div class="grid">
-    <a class="card c" href="./topology.html">
+
+    <a class="card y" href="./L-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="#7de0d6" stroke-width="1.5"/>
-        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
-        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
-        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="#ffd866" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <path d="M10 56 C28 22, 42 66, 58 30 S86 24, 92 50" fill="none" stroke="#ffd866" stroke-width="1.6"/>
+        <line x1="12" y1="60" x2="92" y2="60" stroke="#ffd866" stroke-opacity="0.45"/>
+        <line x1="50" y1="12" x2="50" y2="68" stroke="#ffd866" stroke-opacity="0.35"/>
       </svg></div>
       <div class="body">
-        <div class="tt">Algebraic topology</div>
-        <div class="desc">Fundamental groups, covering spaces, simplicial homology, Mayer–Vietoris, the Euler characteristic as a homotopy invariant.</div>
-        <span class="tag">π₁ · Hₙ · covers</span>
+        <div class="tt">L-functions <span class="level capstone">capstone</span></div>
+        <div class="desc">A capstone view of Dirichlet series, Euler products, functional equations, and analytic continuation as one unified language across arithmetic and geometry.</div>
+        <span class="tag">Euler product · FE · continuation</span>
       </div>
     </a>
 
-    <a class="card y" href="./smooth-manifolds.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- sphere with two chart patches overlapping -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="#ffd866" stroke-width="1.3"/>
-        <!-- chart U_1 (north) -->
-        <path d="M 30 30 Q 50 18 70 30 Q 50 44 30 30 Z" fill="#ffd866" opacity="0.15" stroke="#ffd866" stroke-width="0.9"/>
-        <!-- chart U_2 (south) -->
-        <path d="M 30 50 Q 50 62 70 50 Q 50 36 30 50 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.9"/>
-        <!-- overlap region dashed -->
-        <ellipse cx="50" cy="40" rx="18" ry="5" fill="none" stroke="#e07a5f" stroke-width="0.9" stroke-dasharray="2 2"/>
-        <text x="30" y="22" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">φ₁</text>
-        <text x="70" y="62" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">φ₂</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Smooth manifolds</div>
-        <div class="desc">Charts and atlases, transition maps, the tangent space three ways, the differential, immersions vs. embeddings, vector fields and the Lie bracket via flows.</div>
-        <span class="tag">(U, φ) · T_pM · [X,Y]</span>
-      </div>
-    </a>
 
-    <a class="card b" href="./differential-forms.html">
+    <a class="card p" href="./galois-representations.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
-        <g stroke="#58c4dd" stroke-width="1.2" opacity="0.75">
-          <line x1="14" y1="20" x2="86" y2="20"/>
-          <line x1="14" y1="32" x2="86" y2="32"/>
-          <line x1="14" y1="44" x2="86" y2="44"/>
-          <line x1="14" y1="56" x2="86" y2="56"/>
-          <line x1="14" y1="68" x2="86" y2="68"/>
+        <g stroke="#e07a5f" fill="none" stroke-width="1.2">
+          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
+          <rect x="37" y="46" width="26" height="20" rx="2"/>
+          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
         </g>
-        <!-- a vector piercing the stack -->
-        <line x1="30" y1="62" x2="72" y2="22" stroke="#ffd866" stroke-width="1.6" marker-end="url(#df1)"/>
-        <!-- basepoint -->
-        <circle cx="30" cy="62" r="2" fill="#fff"/>
-        <text x="78" y="14" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ω(v)</text>
-        <defs>
-          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
-        </defs>
       </svg></div>
       <div class="body">
-        <div class="tt">Differential forms</div>
-        <div class="desc">$k$-forms as oriented volume-eaters, wedge and exterior derivative, Stokes's theorem as the master identity, and de Rham cohomology on the annulus.</div>
-        <span class="tag">ω · d · ∫∂ = ∫d</span>
+        <div class="tt">Galois representations <span class="level capstone">capstone</span></div>
+        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
+        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
       </div>
     </a>
 
-    <a class="card v" href="./differential-geometry.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- a curved surface patch with a normal vector -->
-        <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="#b39ddb" stroke-width="1.4"/>
-        <path d="M 12 64 Q 32 34 52 40 Q 72 46 88 28" fill="none" stroke="#b39ddb" stroke-width="1.1" opacity="0.6"/>
-        <path d="M 12 70 Q 32 40 52 46 Q 72 52 88 34" fill="none" stroke="#b39ddb" stroke-width="0.9" opacity="0.4"/>
-        <!-- normal vector at a point on the top curve -->
-        <circle cx="52" cy="34" r="2.2" fill="#ffd866"/>
-        <line x1="52" y1="34" x2="58" y2="16" stroke="#ffd866" stroke-width="1.3" marker-end="url(#dg1)"/>
-        <!-- tangent -->
-        <line x1="52" y1="34" x2="72" y2="37" stroke="#58c4dd" stroke-width="1.2" opacity="0.85" marker-end="url(#dg2)"/>
-        <defs>
-          <marker id="dg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
-          <marker id="dg2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Differential geometry</div>
-        <div class="desc">Frenet frames, first and second fundamental forms, the Gauss map, geodesics on surfaces, parallel transport, and Gauss–Bonnet.</div>
-        <span class="tag">κ · τ · geodesics · G–B</span>
-      </div>
-    </a>
-
-    <a class="card p" href="./riemannian-geometry.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- sphere with a geodesic triangle on it -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="#e07a5f" stroke-width="1.3"/>
-        <!-- inner latitude ellipse -->
-        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="#e07a5f" stroke-width="0.8" opacity="0.45"/>
-        <!-- geodesic triangle: north pole and two equator points -->
-        <g stroke="#ffd866" stroke-width="1.3" fill="none">
-          <path d="M 50 14 Q 36 26 28 45"/>
-          <path d="M 50 14 Q 64 26 72 45"/>
-          <path d="M 28 45 Q 50 55 72 45"/>
-        </g>
-        <g fill="#ffd866"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#e07a5f" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Riemannian geometry</div>
-        <div class="desc">The metric $g$, Levi-Civita connection, parallel transport, geodesics via exponential map, sectional/Ricci curvature, Jacobi fields, and Bonnet–Myers.</div>
-        <span class="tag">g · ∇ · R · exp</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="sec">Commutative &amp; homological algebra</div>
-  <div class="grid">
-    <a class="card g" href="./commutative-algebra.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="#83c167" stroke-width="1.5">
-          <rect x="10" y="30" width="24" height="22" rx="3"/>
-          <rect x="66" y="30" width="24" height="22" rx="3"/>
-        </g>
-        <text x="22" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">M</text>
-        <text x="78" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">N</text>
-        <text x="50" y="46" text-anchor="middle" font-size="18" fill="#83c167">⊗</text>
-        <text x="50" y="22" text-anchor="middle" font-size="8" fill="#83c167" opacity="0.75">over R</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Commutative algebra</div>
-        <div class="desc">Ideals, localization, tensor products, flatness, Nakayama, Krull dimension — the engine room underneath scheme theory.</div>
-        <span class="tag">ideals · ⊗ · flat</span>
-      </div>
-    </a>
-
-    <a class="card p" href="./homological.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="#e07a5f"><circle cx="15" cy="45" r="3.3"/><circle cx="40" cy="45" r="3.3"/><circle cx="65" cy="45" r="3.3"/><circle cx="90" cy="45" r="3.3"/></g>
-        <g stroke="#e07a5f" stroke-width="1.3" fill="none">
-          <line x1="18" y1="45" x2="37" y2="45"/>
-          <line x1="43" y1="45" x2="62" y2="45"/>
-          <line x1="68" y1="45" x2="87" y2="45"/>
-        </g>
-        <text x="27" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
-        <text x="52" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
-        <text x="77" y="38" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">∂</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Homological algebra</div>
-        <div class="desc">Chain complexes, exact sequences, the snake lemma, derived functors Ext &amp; Tor, resolutions, spectral sequences.</div>
-        <span class="tag">∂² = 0 · Ext · Tor</span>
-      </div>
-    </a>
   </div>
 
   <div class="sec">Algebraic geometry</div>
   <div class="grid">
+
+    <a class="card y" href="./projective-plane.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- affine lines meeting at a point at infinity -->
+        <g stroke="#ffd866" stroke-width="1.2" fill="none" opacity="0.85">
+          <line x1="14" y1="62" x2="86" y2="18"/>
+          <line x1="14" y1="46" x2="86" y2="46"/>
+          <line x1="14" y1="22" x2="86" y2="66"/>
+        </g>
+        <!-- line at infinity: circle around the plane -->
+        <circle cx="50" cy="40" r="32" fill="none" stroke="#58c4dd" stroke-width="1" stroke-dasharray="3 2" opacity="0.8"/>
+        <!-- marked point at infinity -->
+        <circle cx="82" cy="40" r="3" fill="#e07a5f"/>
+        <text x="50" y="78" text-anchor="middle" font-size="8" fill="#58c4dd" font-style="italic" font-family="serif">ℙ² = 𝔸² ∪ ℓ∞</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Projective plane <span class="level prereq">prereq</span></div>
+        <div class="desc">Points at infinity, homogeneous coordinates $[X{:}Y{:}Z]$, three affine patches, parallel lines meeting on $\ell_\infty$, and projective curves as the right stage for Bézout.</div>
+        <span class="tag">[X:Y:Z] · 𝔸² ∪ ℓ∞ · patches</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./bezout.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two conics intersecting at 4 points -->
+        <ellipse cx="40" cy="40" rx="24" ry="18" fill="none" stroke="#58c4dd" stroke-width="1.3"/>
+        <ellipse cx="60" cy="40" rx="24" ry="18" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <!-- 4 intersection points -->
+        <g fill="#e07a5f">
+          <circle cx="50" cy="26.5" r="2.6"/>
+          <circle cx="50" cy="53.5" r="2.6"/>
+          <circle cx="23" cy="40" r="2.6"/>
+          <circle cx="77" cy="40" r="2.6"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="8" fill="#58c4dd" font-style="italic" font-family="serif">#(C ∩ D) = d·e</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Bézout's theorem</div>
+        <div class="desc">Intersection multiplicities via local rings $\dim_k \mathcal{O}/(f,g)$, resultants, two plane curves of degrees $d, e$ meeting in $de$ points (in $\mathbb{P}^2$, over $\bar k$, with multiplicity).</div>
+        <span class="tag">Iₚ(f,g) · d·e · ℙ²</span>
+      </div>
+    </a>
+
+
     <a class="card g" href="./schemes.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="8" y1="55" x2="92" y2="55" stroke="#83c167" opacity="0.4"/>
@@ -652,6 +807,7 @@
         <span class="tag">Spec · 𝒪ₓ · points</span>
       </div>
     </a>
+
 
     <a class="card b" href="./sheaves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -675,47 +831,6 @@
       </div>
     </a>
 
-    <a class="card y" href="./projective-plane.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- affine lines meeting at a point at infinity -->
-        <g stroke="#ffd866" stroke-width="1.2" fill="none" opacity="0.85">
-          <line x1="14" y1="62" x2="86" y2="18"/>
-          <line x1="14" y1="46" x2="86" y2="46"/>
-          <line x1="14" y1="22" x2="86" y2="66"/>
-        </g>
-        <!-- line at infinity: circle around the plane -->
-        <circle cx="50" cy="40" r="32" fill="none" stroke="#58c4dd" stroke-width="1" stroke-dasharray="3 2" opacity="0.8"/>
-        <!-- marked point at infinity -->
-        <circle cx="82" cy="40" r="3" fill="#e07a5f"/>
-        <text x="50" y="78" text-anchor="middle" font-size="8" fill="#58c4dd" font-style="italic" font-family="serif">ℙ² = 𝔸² ∪ ℓ∞</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Projective plane</div>
-        <div class="desc">Points at infinity, homogeneous coordinates $[X{:}Y{:}Z]$, three affine patches, parallel lines meeting on $\ell_\infty$, and projective curves as the right stage for Bézout.</div>
-        <span class="tag">[X:Y:Z] · 𝔸² ∪ ℓ∞ · patches</span>
-      </div>
-    </a>
-
-    <a class="card b" href="./bezout.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- two conics intersecting at 4 points -->
-        <ellipse cx="40" cy="40" rx="24" ry="18" fill="none" stroke="#58c4dd" stroke-width="1.3"/>
-        <ellipse cx="60" cy="40" rx="24" ry="18" fill="none" stroke="#ffd866" stroke-width="1.3"/>
-        <!-- 4 intersection points -->
-        <g fill="#e07a5f">
-          <circle cx="50" cy="26.5" r="2.6"/>
-          <circle cx="50" cy="53.5" r="2.6"/>
-          <circle cx="23" cy="40" r="2.6"/>
-          <circle cx="77" cy="40" r="2.6"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="8" fill="#58c4dd" font-style="italic" font-family="serif">#(C ∩ D) = d·e</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Bézout's theorem</div>
-        <div class="desc">Intersection multiplicities via local rings $\dim_k \mathcal{O}/(f,g)$, resultants, two plane curves of degrees $d, e$ meeting in $de$ points (in $\mathbb{P}^2$, over $\bar k$, with multiplicity).</div>
-        <span class="tag">Iₚ(f,g) · d·e · ℙ²</span>
-      </div>
-    </a>
 
     <a class="card p" href="./morphisms-fiber-products.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -741,6 +856,7 @@
         <span class="tag">Spec(φ) · ⊗_R · fibers</span>
       </div>
     </a>
+
 
     <a class="card c" href="./functor-of-points.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -773,6 +889,7 @@
       </div>
     </a>
 
+
     <a class="card y" href="./elliptic-curves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- elliptic curve y^2 = x^3 + 1 (single oval) -->
@@ -799,6 +916,7 @@
       </div>
     </a>
 
+
     <a class="card p" href="./singular-cubics-reduction.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- nodal cubic on left, cuspidal cubic on right -->
@@ -824,6 +942,7 @@
         <span class="tag">Δ mod p · 𝔾ₘ · 𝔾ₐ · Hasse</span>
       </div>
     </a>
+
 
     <a class="card v" href="./moduli-spaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -855,6 +974,7 @@
       </div>
     </a>
 
+
     <a class="card c" href="./sheaf-cohomology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Čech nerve: two overlapping opens with a 1-cocycle arc -->
@@ -875,6 +995,7 @@
         <span class="tag">Čech · H^i · 𝒪(d)</span>
       </div>
     </a>
+
 
     <a class="card g" href="./stacks.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
@@ -900,11 +1021,12 @@
         </defs>
       </svg></div>
       <div class="body">
-        <div class="tt">Stacks (Deligne–Mumford)</div>
+        <div class="tt">Stacks (Deligne–Mumford) <span class="level advanced">advanced</span></div>
         <div class="desc">Groupoid-valued functors, descent, $BG$, étale atlases, and $\mathcal{M}_{1,1}$ as a DM stack with stacky points at $j=0, 1728$ — with the j-line as coarse moduli.</div>
         <span class="tag">Grpd · BG · M_{g,n} · étale</span>
       </div>
     </a>
+
   </div>
 
   <footer>

@@ -4,7 +4,7 @@ Planned expansion of the Interactive Mathematics Notebook, drawing topic coverag
 
 ## Current state
 
-25 topic pages live at [github.com/gmadsen/Math-Visualization](https://github.com/gmadsen/Math-Visualization). Six sections: Foundations, Galois & number theory, Analysis, Topology & geometry, Commutative & homological algebra, Algebraic geometry. See [`README.md`](./README.md) for the full index.
+25 topic pages live at [github.com/gmadsen/Math-Visualization](https://github.com/gmadsen/Math-Visualization). Six sections: Algebra, Analysis, Geometry & topology, Number theory, Modular forms & L-functions, Algebraic geometry. See [`README.md`](./README.md) for the full index.
 
 ## Source books
 
@@ -81,25 +81,16 @@ Ideas from the books that don't sit on the critical path. Build if interested, s
 
 ## Proposed index restructure
 
-Adding roughly 15 core pages + up to 5 optional means the index needs more sections. Proposed layout after all waves complete (pages marked `+` are new):
+The index is now organized into six sections that better reflect prerequisites and advanced arcs:
 
-**Foundations** *(unchanged)* — algebra, category-theory, lie-groups, representation-theory
+- **Algebra** — algebra, category-theory, representation-theory, commutative-algebra, homological
+- **Analysis** — real-analysis, complex-analysis, functional-analysis, operator-algebras
+- **Geometry & topology** — topology, smooth-manifolds, differential-forms, differential-geometry, riemannian-geometry, lie-groups, riemann-surfaces
+- **Number theory** — galois, quadratic-reciprocity, sums-of-squares, algebraic-number-theory, p-adic-numbers, frobenius-and-reciprocity, class-field-theory
+- **Modular forms & L-functions** — upper-half-plane-hyperbolic, modular-forms, theta-functions, hecke-operators, dirichlet-series-euler-products, L-functions, galois-representations
+- **Algebraic geometry** — projective-plane, bezout, schemes, sheaves, morphisms-fiber-products, functor-of-points, elliptic-curves, singular-cubics-reduction, moduli-spaces, sheaf-cohomology, stacks
 
-**Galois & number theory** *(expanded)* — galois, algebraic-number-theory, + quadratic-reciprocity, + sums-of-squares, + p-adic-numbers, + class-field-theory
-
-**Analysis** *(unchanged)* — real-analysis, complex-analysis, riemann-surfaces, functional-analysis
-
-**Topology & geometry** *(unchanged)* — topology, smooth-manifolds, differential-forms, differential-geometry, riemannian-geometry
-
-**Commutative & homological algebra** *(unchanged)* — commutative-algebra, homological
-
-**Algebraic geometry** *(expanded)* — schemes, sheaves, morphisms-fiber-products, functor-of-points, + projective-plane, + bezout, elliptic-curves, + singular-cubics-reduction, moduli-spaces, sheaf-cohomology, + etale-cohomology, stacks
-
-**Modular forms** *(new section)* — + upper-half-plane-hyperbolic, + modular-forms, + hecke-operators, + theta-functions
-
-**Arithmetic capstones** *(new section)* — + frobenius-and-reciprocity, + galois-representations, + dirichlet-series-euler-products, + L-functions, + modularity-and-flt, + bsd, + sato-tate
-
-Final count would be 25 existing + 16 core new + up to 5 optional = **41–46 pages** across 8 sections.
+This structure keeps prerequisite-friendly material discoverable while isolating the automorphic/capstone sequence into a dedicated track.
 
 ## Cross-reference matrix
 

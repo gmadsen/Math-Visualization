@@ -20,40 +20,55 @@ Every topic page has a sticky sidebar table of contents that highlights the curr
 
 ## Contents
 
-### Foundations
+### Algebra
 - [Algebra refresher](./algebra.html) — groups, rings, fields
 - [Category theory](./category-theory.html) — objects, arrows, functors, Yoneda, adjunctions
-- [Lie groups & algebras](./lie-groups.html) — matrix groups, exponential map, root systems
 - [Representation theory](./representation-theory.html) — characters, orthogonality, $\mathfrak{sl}_2$
-
-### Galois & number theory
-- [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
-- [Algebraic number theory](./algebraic-number-theory.html) — rings of integers, class groups, Minkowski
+- [Commutative algebra](./commutative-algebra.html) — ideals, localization, tensor, flatness
+- [Homological algebra](./homological.html) — chain complexes, Ext, Tor, spectral sequences
 
 ### Analysis
 - [Real analysis](./real-analysis.html) — Lebesgue measure, $L^p$, DCT
 - [Complex analysis](./complex-analysis.html) — Needham-style: amplitwist, residues, Möbius
-- [Riemann surfaces](./riemann-surfaces.html) — branched covers, uniformization
 - [Functional analysis](./functional-analysis.html) — Banach/Hilbert, four pillars, spectrum
 - [Operator algebras](./operator-algebras.html) — C*-algebras, Gelfand duality, noncommutative geometry
 
-### Topology & geometry
+### Geometry & topology
 - [Algebraic topology](./topology.html) — fundamental groups, covers, homology
 - [Smooth manifolds](./smooth-manifolds.html) — charts, tangent spaces, Lie brackets
 - [Differential forms](./differential-forms.html) — $k$-forms, wedge, Stokes
 - [Differential geometry](./differential-geometry.html) — curves, surfaces, Gauss–Bonnet
 - [Riemannian geometry](./riemannian-geometry.html) — metric, connection, curvature, geodesics
+- [Lie groups & algebras](./lie-groups.html) — matrix groups, exponential map, root systems
+- [Riemann surfaces](./riemann-surfaces.html) — branched covers, uniformization
 
-### Commutative & homological algebra
-- [Commutative algebra](./commutative-algebra.html) — ideals, localization, tensor, flatness
-- [Homological algebra](./homological.html) — chain complexes, Ext, Tor, spectral sequences
+### Number theory
+- [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
+- [Quadratic reciprocity](./quadratic-reciprocity.html) — Legendre symbols and reciprocity law
+- [Sums of squares](./sums-of-squares.html) — two/four-square theorems and theta previews
+- [Algebraic number theory](./algebraic-number-theory.html) — rings of integers, class groups, Minkowski
+- [p-adic numbers](./p-adic-numbers.html) — inverse limits, Hensel lifting, p-adic metrics
+- [Frobenius & reciprocity](./frobenius-and-reciprocity.html) — splitting types, Frobenius classes, reciprocity dictionary
+- [Class field theory](./class-field-theory.html) — Artin reciprocity, ideles, abelian extensions
+
+### Modular forms & L-functions
+- [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action
+- [Modular forms](./modular-forms.html) — $\mathrm{SL}_2(\mathbb{Z})$ action, q-expansions, Eisenstein series
+- [Theta functions](./theta-functions.html) — Jacobi theta series and modular transforms
+- [Hecke operators](./hecke-operators.html) — Hecke algebra, eigenforms, coefficient multiplicativity
+- [Dirichlet series & Euler products](./dirichlet-series-euler-products.html) — analytic continuation and Euler factorizations
+- [L-functions](./L-functions.html) — functional equations and arithmetic avatars
+- [Galois representations](./galois-representations.html) — Frobenius traces and modularity links
 
 ### Algebraic geometry
+- [Projective plane](./projective-plane.html) — homogeneous coordinates and points at infinity
+- [Bézout's theorem](./bezout.html) — intersection multiplicity and curve counting
 - [Schemes](./schemes.html) — $\mathrm{Spec}$, locally ringed spaces
 - [Sheaves](./sheaves.html) — presheaves, stalks, sheafification, quasi-coherent
 - [Morphisms & fiber products](./morphisms-fiber-products.html) — base change, ramified families
 - [Functor of points](./functor-of-points.html) — $h_X$, representable functors, Yoneda in AG
 - [Elliptic curves](./elliptic-curves.html) — Weierstrass, chord-tangent law, $j$-invariant
+- [Singular cubics & reduction](./singular-cubics-reduction.html) — nodal/cuspidal reduction and local behavior
 - [Moduli spaces](./moduli-spaces.html) — $j$-line, fine vs. coarse, $\overline{M}_{g,n}$
 - [Sheaf cohomology](./sheaf-cohomology.html) — Čech, $H^i(\mathbb{P}^n, \mathcal{O}(d))$
 - [Stacks (Deligne–Mumford)](./stacks.html) — groupoid-valued functors, $BG$, $\mathcal{M}_{1,1}$
