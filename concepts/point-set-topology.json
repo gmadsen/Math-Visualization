@@ -15,7 +15,7 @@
       "title": "Topological spaces",
       "anchor": "open",
       "prereqs": ["metric-spaces", "axiom-of-choice-intuition"],
-      "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
+      "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals."
     },
     {
       "id": "continuity-topology",

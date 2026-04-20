@@ -930,7 +930,7 @@ window.__MVConcepts = {
             "metric-spaces",
             "axiom-of-choice-intuition"
           ],
-          "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
+          "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals."
         },
         {
           "id": "continuity-topology",
@@ -991,7 +991,7 @@ window.__MVConcepts = {
           "prereqs": [
             "paths"
           ],
-          "blurb": "Path-connected + trivial fundamental group. The hypothesis Cauchy's theorem and the Riemann mapping theorem rely on."
+          "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis."
         },
         {
           "id": "fundamental-group",

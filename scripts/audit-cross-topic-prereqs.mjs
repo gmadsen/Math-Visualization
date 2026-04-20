@@ -524,6 +524,14 @@ for (const [topic, d] of topicData) {
       for (let k = 0; k < found.len; k++) corpusMask[found.idx + k] = 1;
       seenTargets.add(v.id);
 
+      // Known wrong-direction false positives (the phrase match in blurb/prose
+      // actually describes the target depending on the source, not vice versa).
+      // Keys are "<sourceId>|<targetId>".
+      const KNOWN_WRONG_DIRECTION = new Set([
+        'gluing-affines|scheme-morphisms', // scheme-morphisms depends on gluing-affines
+      ]);
+      if (KNOWN_WRONG_DIRECTION.has(`${c.id}|${v.id}`)) continue;
+
       suggestions.push({
         sourceId: c.id,
         sourceTopic: topic,

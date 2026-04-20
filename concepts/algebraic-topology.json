@@ -15,7 +15,7 @@
       "title": "Simply connected domains",
       "anchor": "simply-connected",
       "prereqs": ["paths"],
-      "blurb": "Path-connected + trivial fundamental group. The hypothesis Cauchy's theorem and the Riemann mapping theorem rely on."
+      "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis."
     },
     {
       "id": "fundamental-group",
