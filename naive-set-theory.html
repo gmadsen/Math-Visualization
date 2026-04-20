@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Naive set theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#sets">1&nbsp;Sets&nbsp;and&nbsp;functions</a>
+  <a href="#equivalence">2&nbsp;Equivalence&nbsp;&amp;&nbsp;quotients</a>
+  <a href="#countable">3&nbsp;Countability</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Naive set theory</h1>
+  <p class="sub">Sets, functions, equivalence classes, and Cantor's counting of infinities — the quiet undergrowth beneath every other topic in this notebook. You can't state a continuous map, a group homomorphism, or a quotient space without it, so we spell it out first.</p>
+</section>
+
+<p>Before topology, algebra, or analysis, everything in this notebook speaks the language of <em>sets and functions</em>. This page spells the language out. We work <strong>naively</strong> — Cantor's original viewpoint, not ZFC — which is enough for everything you'll do in a graduate math course. The only cost is that you have to step carefully around paradoxes like "the set of all sets that don't contain themselves" (Russell), which show up only when you try to form collections that are too large to be sets. The things we form below — finite or countable lists, power sets of named sets, images of functions — are all safe.</p>
+
+<div class="note"><strong>Working definition (Cantor).</strong> A <em>set</em> is any well-defined collection of distinct objects considered as a single whole. The objects are its <em>elements</em>. We write $x \in X$ for "$x$ is an element of $X$" and $x \notin X$ for its negation. Two sets are <em>equal</em> iff they have the same elements (the axiom of extensionality): $X = Y \iff \forall x\,(x\in X \leftrightarrow x\in Y)$.</div>
+
+<section id="sets">
+<h2>1. Sets and functions</h2>
+<p>We build everything from four operations on sets, one basic construction (functions), and three classifications of those functions (injective, surjective, bijective).</p>
+
+<h3>Subsets, union, intersection, complement</h3>
+<p>If every element of $A$ is also an element of $B$, we write $A \subseteq B$ and call $A$ a <strong>subset</strong> of $B$. Note the two directions: $A = B$ iff $A\subseteq B$ and $B\subseteq A$. The <strong>empty set</strong> $\emptyset$ is a subset of every set, vacuously.</p>
+
+<p>Given sets $A$ and $B$ inside a common universe $U$, we define:</p>
+<table class="plain">
+<thead><tr><th>operation</th><th>symbol</th><th>definition</th></tr></thead>
+<tbody>
+<tr><td>union</td><td>$A\cup B$</td><td>$\{x : x\in A \text{ or } x\in B\}$</td></tr>
+<tr><td>intersection</td><td>$A\cap B$</td><td>$\{x : x\in A \text{ and } x\in B\}$</td></tr>
+<tr><td>difference</td><td>$A\setminus B$</td><td>$\{x : x\in A \text{ and } x\notin B\}$</td></tr>
+<tr><td>symmetric difference</td><td>$A\triangle B$</td><td>$(A\setminus B)\cup(B\setminus A) = (A\cup B)\setminus(A\cap B)$</td></tr>
+<tr><td>complement (in $U$)</td><td>$A^c$</td><td>$U\setminus A$</td></tr>
+<tr><td>power set</td><td>$\mathcal{P}(A)$</td><td>$\{S : S\subseteq A\}$</td></tr>
+<tr><td>Cartesian product</td><td>$A\times B$</td><td>$\{(a,b) : a\in A, b\in B\}$</td></tr>
+</tbody>
+</table>
+
+<p>Two foundational counting facts we'll use over and over:</p>
+
+<div class="ok"><strong>Inclusion–exclusion (two sets).</strong> For finite sets, $|A\cup B| = |A| + |B| - |A\cap B|$. Equivalently, $|A\triangle B| = |A| + |B| - 2|A\cap B|$.</div>
+
+<div class="ok"><strong>Power-set size.</strong> If $|A|=n$ is finite then $|\mathcal{P}(A)| = 2^n$: each element is independently in or out of a subset, giving $2^n$ independent binary choices.</div>
+
+<p>Play with the Venn widget: click elements of the universe $U=\{1,2,\dots,8\}$ into $A$ (blue), into $B$ (yellow), or out (grey). The readout tracks every derived set live.</p>
+
+<div class="widget" id="w-venn">
+  <div class="hd"><div class="ttl">Venn-diagram explorer</div><div class="hint">click an element to cycle: out → $A$ → $B$ → $A\cap B$ → out</div></div>
+  <svg id="venn-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <button id="venn-clear">clear</button>
+    <button id="venn-rand">randomize</button>
+    <span class="small">universe $U=\{1,\dots,8\}$</span>
+  </div>
+  <div class="readout" id="venn-out"></div>
+</div>
+</section>
+
+<script>
+/* =========================== Venn widget =========================== */
+(function(){
+  const svg = $('#venn-svg'), out = $('#venn-out');
+  const clearBtn = $('#venn-clear'), randBtn = $('#venn-rand');
+  const N = 8;
+  // state[i] ∈ {0: out, 1: A only, 2: B only, 3: both}
+  let state = [0,0,0,0,0,0,0,0];
+
+  // Fixed pixel positions for the 8 elements inside the two overlapping circles.
+  // Circle A centered at (230, 160), r=110. Circle B centered at (390, 160), r=110.
+  // We assign elements to named regions; user clicking cycles membership.
+  const POS = [
+    [170, 110], // 1 — A only (upper)
+    [170, 210], // 2 — A only (lower)
+    [225, 160], // 3 — A only (center)
+    [310,  98], // 4 — intersection (top)
+    [310, 160], // 5 — intersection (middle)
+    [310, 222], // 6 — intersection (bottom)
+    [395, 160], // 7 — B only (center)
+    [460, 160], // 8 — B only (right)
+  ];
+
+  function regionColor(s){
+    if(s===1) return 'var(--blue)';
+    if(s===2) return 'var(--yellow)';
+    if(s===3) return 'var(--green)';
+    return 'var(--panel2)';
+  }
+  function regionText(s){
+    if(s===1) return '#0b0d10';
+    if(s===2) return '#0b0d10';
+    if(s===3) return '#0b0d10';
+    return 'var(--mute)';
+  }
+
+  function render(){
+    svg.innerHTML='';
+    // outer universe rect
+    svg.appendChild(SVG('rect',{x:20, y:20, width:580, height:280, rx:12, ry:12,
+      fill:'rgba(154,164,178,0.04)', stroke:'var(--line)', 'stroke-dasharray':'4 4'}));
+    const u = SVG('text',{x:44, y:46,'font-size':13, fill:'var(--mute)'});
+    u.textContent = 'U'; svg.appendChild(u);
+    // two circles
+    svg.appendChild(SVG('circle',{cx:230, cy:160, r:110, fill:'rgba(88,196,221,0.10)',
+      stroke:'var(--blue)', 'stroke-width':1.5}));
+    svg.appendChild(SVG('circle',{cx:390, cy:160, r:110, fill:'rgba(255,216,102,0.10)',
+      stroke:'var(--yellow)', 'stroke-width':1.5}));
+    // circle labels
+    const la = SVG('text',{x:148, y:66,'font-size':18, fill:'var(--blue)','font-weight':700});
+    la.textContent='A'; svg.appendChild(la);
+    const lb = SVG('text',{x:460, y:66,'font-size':18, fill:'var(--yellow)','font-weight':700});
+    lb.textContent='B'; svg.appendChild(lb);
+    // element cells
+    for(let i=0;i<N;i++){
+      const [x,y] = POS[i];
+      const s = state[i];
+      svg.appendChild(SVG('circle',{cx:x, cy:y, r:16, fill:regionColor(s),
+        stroke:'var(--ink)', 'stroke-width': s? 2 : 1,
+        style:'cursor:pointer', 'data-idx': String(i)}));
+      const t = SVG('text',{x, y:y+4,'text-anchor':'middle','font-size':13,
+        fill: regionText(s), 'font-weight':700, 'pointer-events':'none'});
+      t.textContent = String(i+1);
+      svg.appendChild(t);
+    }
+    // legend
+    const lgY = 298;
+    const legend = [
+      [40, lgY, 'var(--panel2)', 'out'],
+      [110, lgY, 'var(--blue)', 'only $A$'],
+      [195, lgY, 'var(--yellow)', 'only $B$'],
+      [285, lgY, 'var(--green)', '$A\\cap B$'],
+    ];
+    // (plain-text fallback inside svg — katex does not typeset inside SVG)
+    const lg = ['out', 'A only', 'B only', 'A∩B'];
+    [40,108,188,278].forEach((x,i)=>{
+      svg.appendChild(SVG('circle',{cx:x, cy:lgY, r:7,
+        fill: i===0?'var(--panel2)': i===1?'var(--blue)': i===2?'var(--yellow)':'var(--green)',
+        stroke:'var(--ink)','stroke-width':1}));
+      const t=SVG('text',{x:x+12, y:lgY+4,'font-size':11, fill:'var(--mute)'});
+      t.textContent = lg[i];
+      svg.appendChild(t);
+    });
+    renderReadout();
+  }
+
+  function renderReadout(){
+    const A = [], B = [];
+    for(let i=0;i<N;i++){
+      if(state[i]===1 || state[i]===3) A.push(i+1);
+      if(state[i]===2 || state[i]===3) B.push(i+1);
+    }
+    const setS = arr => arr.length? '{'+arr.join(',')+'}' : '∅';
+    const inter = A.filter(x=>B.includes(x));
+    const union = [...new Set([...A,...B])].sort((a,b)=>a-b);
+    const diffAB = A.filter(x=>!B.includes(x));
+    const diffBA = B.filter(x=>!A.includes(x));
+    const sym = [...diffAB, ...diffBA].sort((a,b)=>a-b);
+    const compA = [];
+    for(let i=1;i<=N;i++) if(!A.includes(i)) compA.push(i);
+
+    const lines = [
+      `A          = ${setS(A)}       |A|          = ${A.length}`,
+      `B          = ${setS(B)}       |B|          = ${B.length}`,
+      `A ∩ B      = ${setS(inter)}       |A ∩ B|      = ${inter.length}`,
+      `A ∪ B      = ${setS(union)}       |A ∪ B|      = ${union.length}`,
+      `A \\ B      = ${setS(diffAB)}       |A \\ B|      = ${diffAB.length}`,
+      `A △ B      = ${setS(sym)}       |A △ B|      = ${sym.length}`,
+      `A^c (in U) = ${setS(compA)}       |A^c|        = ${compA.length}`,
+      ``,
+      `check: |A∪B| = |A| + |B| − |A∩B|   →   ${union.length} = ${A.length} + ${B.length} − ${inter.length}   ${union.length === A.length + B.length - inter.length ? '✓' : '✗'}`,
+      `check: |A△B| = |A∪B| − |A∩B|       →   ${sym.length} = ${union.length} − ${inter.length}   ${sym.length === union.length - inter.length ? '✓' : '✗'}`,
+    ];
+    out.textContent = lines.join('\n');
+  }
+
+  svg.addEventListener('click', (e)=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-idx');
+    if(idx === null || idx === undefined) return;
+    const i = parseInt(idx,10);
+    state[i] = (state[i]+1) % 4;
+    render();
+  });
+  clearBtn.addEventListener('click', ()=>{ state = state.map(()=>0); render(); });
+  randBtn.addEventListener('click', ()=>{ state = state.map(()=>Math.floor(Math.random()*4)); render(); });
+  render();
+})();
+</script>
+
+<h3>Functions</h3>
+<p>A <strong>function</strong> (or <em>map</em>) $f\colon A\to B$ assigns to every $a\in A$ exactly one $b\in B$, written $f(a)=b$. Formally, $f$ is a subset of $A\times B$ — its <em>graph</em> — with the property that for each $a\in A$ there is exactly one $b\in B$ with $(a,b)\in f$. ("Exactly one" = "at least one" (totality) + "at most one" (well-definedness).)</p>
+
+<p>The set $A$ is the <em>domain</em>, $B$ the <em>codomain</em>, and the <em>image</em> is $f(A)=\{f(a):a\in A\}\subseteq B$. The <em>preimage</em> of $S\subseteq B$ is $f^{-1}(S)=\{a\in A:f(a)\in S\}$.</p>
+
+<div class="note"><strong>Three classifications.</strong>
+<ul style="margin:.3rem 0">
+  <li><strong>Injective</strong> (one-to-one): $f(a_1)=f(a_2) \Rightarrow a_1=a_2$. No two inputs collide.</li>
+  <li><strong>Surjective</strong> (onto): $f(A)=B$. Every output is hit.</li>
+  <li><strong>Bijective</strong>: both. Equivalently, $f$ has a two-sided inverse $f^{-1}\colon B\to A$.</li>
+</ul>
+A function from a finite set to itself is injective iff surjective iff bijective — the pigeonhole principle. <em>For infinite sets this collapse fails</em>, and that failure is the whole point of §3.</div>
+
+<p>Play with the function widget. Choose sizes for $A$ and $B$, pick where each element of $A$ goes, and the readout tells you whether the resulting map is injective, surjective, or bijective. Note: if $|A|\neq|B|$ then $f$ cannot be bijective.</p>
+
+<div class="widget" id="w-fn">
+  <div class="hd"><div class="ttl">Function classifier</div><div class="hint">build an $f\colon A\to B$ by picking images</div></div>
+  <div class="row">
+    <label>$|A|$</label>
+    <select id="fn-nA">
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <label>$|B|$</label>
+    <select id="fn-nB">
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button id="fn-rand">randomize</button>
+    <button id="fn-id">identity</button>
+  </div>
+  <div class="row" id="fn-picker"></div>
+  <svg id="fn-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="readout" id="fn-out"></div>
+</div>
+</section>
+
+<script>
+/* =========================== Function classifier widget =========================== */
+(function(){
+  const nAsel=$('#fn-nA'), nBsel=$('#fn-nB'), rand=$('#fn-rand'), idBtn=$('#fn-id');
+  const picker=$('#fn-picker'), svg=$('#fn-svg'), out=$('#fn-out');
+  let nA=3, nB=3, f=[0,1,2];
+  const aLabel = i => 'a'+(i+1);
+  const bLabel = j => 'b'+(j+1);
+
+  function fit(){
+    while(f.length<nA) f.push(0);
+    f = f.slice(0,nA).map(v=>Math.min(Math.max(v,0), nB-1));
+  }
+  function buildPicker(){
+    picker.innerHTML='';
+    const lab=document.createElement('span'); lab.className='small'; lab.style.color='var(--mute)';
+    lab.textContent='function: ';
+    picker.appendChild(lab);
+    for(let i=0;i<nA;i++){
+      const span=document.createElement('span');
+      span.innerHTML=`<span class="small" style="color:var(--mute)">${aLabel(i)} ↦ </span>`;
+      const sel=document.createElement('select'); sel.style.marginRight='.6rem';
+      for(let j=0;j<nB;j++){
+        const o=document.createElement('option'); o.value=j; o.textContent=bLabel(j);
+        if(f[i]===j) o.selected=true;
+        sel.appendChild(o);
+      }
+      sel.addEventListener('change',()=>{f[i]=parseInt(sel.value,10); render();});
+      span.appendChild(sel);
+      picker.appendChild(span);
+    }
+  }
+  function render(){
+    svg.innerHTML='';
+    const W=620, H=280;
+    const xL=180, xR=440;
+    const spacing=46;
+    const yMid=H/2;
+    const aYs=[]; for(let i=0;i<nA;i++) aYs.push(yMid + (i - (nA-1)/2)*spacing);
+    const bYs=[]; for(let j=0;j<nB;j++) bYs.push(yMid + (j - (nB-1)/2)*spacing);
+    const yTopA = Math.min(...aYs)-30, yBotA = Math.max(...aYs)+30;
+    const yTopB = Math.min(...bYs)-30, yBotB = Math.max(...bYs)+30;
+    svg.appendChild(SVG('rect',{x:xL-60, y:yTopA, width:120, height:yBotA-yTopA, rx:14, ry:14,
+      fill:'rgba(88,196,221,0.08)', stroke:'var(--blue)', 'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('rect',{x:xR-60, y:yTopB, width:120, height:yBotB-yTopB, rx:14, ry:14,
+      fill:'rgba(255,216,102,0.08)', stroke:'var(--yellow)', 'stroke-dasharray':'4 4'}));
+    const tA=SVG('text',{x:xL, y:yTopA-10,'text-anchor':'middle','font-size':14, fill:'var(--blue)','font-weight':700});
+    tA.textContent='A'; svg.appendChild(tA);
+    const tB=SVG('text',{x:xR, y:yTopB-10,'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-weight':700});
+    tB.textContent='B'; svg.appendChild(tB);
+    // compute image/hit counts
+    const hitCount = Array(nB).fill(0);
+    for(let i=0;i<nA;i++) hitCount[f[i]]++;
+    // dots
+    for(let i=0;i<nA;i++){
+      svg.appendChild(SVG('circle',{cx:xL, cy:aYs[i], r:7, fill:'var(--blue)'}));
+      const t=SVG('text',{x:xL-20, y:aYs[i]+5,'text-anchor':'end','font-size':13,fill:'#fff'});
+      t.textContent=aLabel(i); svg.appendChild(t);
+    }
+    for(let j=0;j<nB;j++){
+      const unhit = hitCount[j]===0;
+      svg.appendChild(SVG('circle',{cx:xR, cy:bYs[j], r:7,
+        fill:unhit?'var(--panel2)':'var(--yellow)',
+        stroke: unhit?'var(--mute)':'var(--yellow)', 'stroke-width':1.5}));
+      const t=SVG('text',{x:xR+20, y:bYs[j]+5,'text-anchor':'start','font-size':13,
+        fill: unhit?'var(--mute)':'#fff'});
+      t.textContent=bLabel(j); svg.appendChild(t);
+    }
+    // arrows
+    ensureArrow(svg,'fn-arr','var(--violet)');
+    for(let i=0;i<nA;i++){
+      const j=f[i];
+      const collision = hitCount[j] > 1;
+      const color = collision ? 'var(--pink)' : 'var(--violet)';
+      const mid = 'fn-arr-' + (collision?'coll':'ok');
+      ensureArrow(svg, mid, color);
+      const p=SVG('path',{d:`M${xL+10} ${aYs[i]} C ${xL+120} ${aYs[i]}, ${xR-120} ${bYs[j]}, ${xR-10} ${bYs[j]}`,
+        fill:'none', stroke:color, 'stroke-width':1.6, 'marker-end':`url(#${mid})`});
+      svg.appendChild(p);
+    }
+    // classify
+    const image = [...new Set(f)];
+    const injective = image.length === f.length;
+    const surjective = image.length === nB;
+    const bijective = injective && surjective;
+    const verdict = bijective ? 'BIJECTIVE'
+                    : injective ? 'injective (not surjective)'
+                    : surjective ? 'surjective (not injective)'
+                    : 'neither injective nor surjective';
+    let why = '';
+    if(!injective){
+      // find a collision
+      for(let j=0;j<nB;j++){
+        if(hitCount[j]>1){
+          const inputs=[];
+          for(let i=0;i<nA;i++) if(f[i]===j) inputs.push(aLabel(i));
+          why += `  ✗ injectivity fails: ${inputs.join(', ')} all map to ${bLabel(j)}\n`;
+          break;
+        }
+      }
+    } else {
+      why += `  ✓ injective: no collisions\n`;
+    }
+    if(!surjective){
+      for(let j=0;j<nB;j++){
+        if(hitCount[j]===0){ why += `  ✗ surjectivity fails: ${bLabel(j)} is never hit\n`; break; }
+      }
+    } else {
+      why += `  ✓ surjective: every b in B is in the image\n`;
+    }
+    out.textContent =
+      `f : A → B,  |A|=${nA}, |B|=${nB}\n` +
+      `f = { ${f.map((j,i)=>`${aLabel(i)}↦${bLabel(j)}`).join(',  ')} }\n` +
+      `image = {${image.map(bLabel).join(',')}}  (size ${image.length})\n\n` +
+      `${verdict}\n${why}` +
+      (nA!==nB ? `\nnote: |A|=${nA} ≠ |B|=${nB}, so a bijection is impossible regardless of f.` : '');
+  }
+  function rebuild(){
+    nA=parseInt(nAsel.value,10); nB=parseInt(nBsel.value,10);
+    fit(); buildPicker(); render();
+  }
+  nAsel.addEventListener('change', rebuild);
+  nBsel.addEventListener('change', rebuild);
+  rand.addEventListener('click', ()=>{
+    f = Array.from({length:nA}, ()=>Math.floor(Math.random()*nB));
+    buildPicker(); render();
+  });
+  idBtn.addEventListener('click', ()=>{
+    const n = Math.min(nA,nB);
+    f = Array.from({length:nA}, (_,i)=> i<n ? i : 0);
+    buildPicker(); render();
+  });
+  rebuild();
+})();
+</script>
+
+<p>Injections and surjections compose: if $f\colon A\to B$ and $g\colon B\to C$ are both injective then so is $g\circ f$, and similarly for surjective. So bijections compose to bijections, and the bijections $A\to A$ form a group under composition — the symmetric group $S_A$. For $|A|=n$ finite, $|S_A|=n!$.</p>
+
+<div class="quiz" data-concept="sets-functions"></div>
+</section>
+
+<section id="equivalence">
+<h2>2. Equivalence relations and quotients</h2>
+
+<p>"Equality" is one relation on a set; there are many others. A <strong>relation</strong> on $X$ is any subset $R\subseteq X\times X$; we write $x\sim y$ for $(x,y)\in R$. Three properties make a relation well-behaved:</p>
+
+<div class="note"><strong>Equivalence relation.</strong> A relation $\sim$ on $X$ is an <em>equivalence relation</em> if for all $x,y,z\in X$:
+<ul style="margin:.3rem 0">
+  <li><strong>reflexive:</strong> $x\sim x$;</li>
+  <li><strong>symmetric:</strong> $x\sim y \implies y\sim x$;</li>
+  <li><strong>transitive:</strong> $x\sim y$ and $y\sim z \implies x\sim z$.</li>
+</ul></div>
+
+<p>The <strong>equivalence class</strong> of $x$ is $[x] = \{y\in X : y\sim x\}$. The fundamental fact is that equivalence classes <em>partition</em> $X$: every element belongs to exactly one class, and any two classes are either identical or disjoint. Conversely, any partition of $X$ defines an equivalence relation ($x\sim y$ iff they lie in the same block). The set of equivalence classes is the <strong>quotient set</strong>:</p>
+
+<p style="text-align:center">$X/{\sim} \;=\; \{[x] : x\in X\},\qquad \pi\colon X\to X/{\sim},\;\; x\mapsto [x].$</p>
+
+<p>The map $\pi$ is always surjective. It is the canonical example of "collapse data you don't care about."</p>
+
+<h3>Canonical examples</h3>
+<ul>
+  <li><strong>Congruence mod $n$</strong> on $\mathbb{Z}$: $a\sim b$ iff $n\mid a-b$. Classes are $\{[0],[1],\dots,[n-1]\}$; the quotient is $\mathbb{Z}/n\mathbb{Z}$.</li>
+  <li><strong>Rational numbers</strong>: on $\mathbb{Z}\times(\mathbb{Z}\setminus\{0\})$, declare $(a,b)\sim(c,d)$ iff $ad=bc$. The quotient <em>is</em> $\mathbb{Q}$ by definition.</li>
+  <li><strong>Projective space</strong>: on $\mathbb{R}^{n+1}\setminus\{0\}$, $v\sim\lambda v$ for any $\lambda\ne 0$. Quotient is $\mathbb{RP}^n$.</li>
+  <li><strong>Homotopy</strong>: on continuous loops at a basepoint, $\alpha\sim\beta$ iff they can be continuously deformed into each other. Quotient is the fundamental group $\pi_1$.</li>
+</ul>
+
+<div class="ok"><strong>Universal property of the quotient.</strong> Let $f\colon X\to Y$ be a function that is <em>constant on $\sim$-classes</em>: $x\sim x' \implies f(x)=f(x')$. Then there is a unique function $\bar f\colon X/{\sim}\to Y$ with $\bar f\circ\pi = f$. In diagram form:
+$$X \xrightarrow{\;\pi\;} X/{\sim} \xrightarrow{\;\bar f\;} Y,\qquad \bar f([x]):=f(x).$$
+Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant function $g\circ\pi\colon X\to Y$. So $\operatorname{Hom}(X/{\sim}, Y)$ is in bijection with $\{\sim\text{-invariant functions }X\to Y\}$.</div>
+
+<p>In the widget below, click pairs of cells to <em>merge</em> their classes (computing the transitive closure automatically); click the × on a class label to split a single cell back out. Watch the partition of $X=\{1,\dots,12\}$ update, along with the quotient count $|X/{\sim}|$ and the list of representatives.</p>
+
+<div class="widget" id="w-eq">
+  <div class="hd"><div class="ttl">Partition builder (quotient of $\{1,\dots,12\}$)</div><div class="hint">click two cells to merge their classes</div></div>
+  <svg id="eq-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="row">
+    <button id="eq-reset">reset to discrete ($\sim$ = equality)</button>
+    <button id="eq-mod3">preset: mod 3</button>
+    <button id="eq-mod4">preset: mod 4</button>
+    <button id="eq-trivial">preset: single class</button>
+  </div>
+  <div class="readout" id="eq-out"></div>
+</div>
+</section>
+
+<script>
+/* =========================== Equivalence widget =========================== */
+(function(){
+  const svg=$('#eq-svg'), out=$('#eq-out');
+  const resetBtn=$('#eq-reset'), m3=$('#eq-mod3'), m4=$('#eq-mod4'), triv=$('#eq-trivial');
+  const N=12;
+  // union-find
+  let parent = Array.from({length:N}, (_,i)=>i);
+  function find(i){ while(parent[i]!==i){ parent[i]=parent[parent[i]]; i=parent[i]; } return i; }
+  function union(i,j){ const ri=find(i), rj=find(j); if(ri!==rj) parent[ri]=rj; }
+  function reset(){ parent = Array.from({length:N}, (_,i)=>i); }
+
+  // state for pending first click
+  let picked = -1;
+
+  // layout: 12 cells in 3 rows of 4
+  const COLS=6, ROWS=2;
+  const CELL=70;
+  const X0=60, Y0=30;
+  function cellPos(i){
+    const r=Math.floor(i/COLS), c=i%COLS;
+    return [X0 + c*CELL + CELL/2, Y0 + r*CELL + CELL/2];
+  }
+
+  // assign a color per root, stable across renders
+  const PALETTE = ['var(--blue)','var(--yellow)','var(--green)','var(--pink)',
+                   '--violet-bg','--cyan-bg','#e8a87c','#a1c6ea','#b8d8be','#d9b382','#c2b2e8','#f3a7c1'];
+  const RESOLVE = ['var(--blue)','var(--yellow)','var(--green)','var(--pink)',
+                   'var(--violet)','var(--cyan)','#e8a87c','#a1c6ea','#b8d8be','#d9b382','#c2b2e8','#f3a7c1'];
+
+  function render(){
+    svg.innerHTML='';
+    // compute class roots in order of first appearance
+    const rootOrder = [];
+    const rootOfIdx = [];
+    for(let i=0;i<N;i++){
+      const r = find(i); rootOfIdx.push(r);
+      if(!rootOrder.includes(r)) rootOrder.push(r);
+    }
+    // draw cells
+    for(let i=0;i<N;i++){
+      const [x,y] = cellPos(i);
+      const classIdx = rootOrder.indexOf(rootOfIdx[i]);
+      const color = RESOLVE[classIdx % RESOLVE.length];
+      const isPicked = (i===picked);
+      svg.appendChild(SVG('rect',{x:x-28, y:y-22, width:56, height:44, rx:9, ry:9,
+        fill: color, stroke: isPicked ? 'var(--ink)' : 'transparent',
+        'stroke-width': isPicked ? 3 : 0,
+        style:'cursor:pointer', 'data-idx': String(i)}));
+      const t = SVG('text',{x, y:y+5,'text-anchor':'middle','font-size':16,
+        fill:'#0b0d10','font-weight':700,'pointer-events':'none'});
+      t.textContent = String(i+1);
+      svg.appendChild(t);
+    }
+    // classes summary
+    const classes = rootOrder.map(r => {
+      const members = [];
+      for(let i=0;i<N;i++) if(find(i)===r) members.push(i+1);
+      return members;
+    });
+    let body = `X = {1,2,…,12}\nclasses (${classes.length}):\n`;
+    classes.forEach((c,i)=>{
+      const rep = Math.min(...c);
+      body += `  [${rep}] = {${c.join(',')}}   (size ${c.length})\n`;
+    });
+    body += `\n|X/∼| = ${classes.length}\n`;
+    body += `π : X → X/∼,   n ↦ [n]\n`;
+    body += `\nuniversal property: a function f:X→Y factors through π iff f is constant on classes.\n`;
+    // a little sanity: check the reflexive/symmetric/transitive axioms are satisfied (they are, by construction).
+    body += `(reflexive ✓ symmetric ✓ transitive ✓ — guaranteed by union-find.)`;
+    out.textContent = body;
+  }
+
+  svg.addEventListener('click', (e)=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-idx');
+    if(idx === null || idx === undefined) return;
+    const i = parseInt(idx,10);
+    if(picked === -1){ picked = i; render(); return; }
+    if(picked === i){ picked = -1; render(); return; }
+    union(picked, i);
+    picked = -1;
+    render();
+  });
+  resetBtn.addEventListener('click', ()=>{ reset(); picked=-1; render(); });
+  m3.addEventListener('click', ()=>{
+    reset();
+    for(let i=1;i<N;i++) if(i%3 === 0 % 3) {} // no-op
+    // group by n mod 3
+    const bucket = {};
+    for(let i=0;i<N;i++){
+      const k = (i+1) % 3;
+      if(bucket[k]===undefined) bucket[k]=i;
+      else union(bucket[k], i);
+    }
+    picked=-1; render();
+  });
+  m4.addEventListener('click', ()=>{
+    reset();
+    const bucket={};
+    for(let i=0;i<N;i++){
+      const k=(i+1)%4;
+      if(bucket[k]===undefined) bucket[k]=i;
+      else union(bucket[k], i);
+    }
+    picked=-1; render();
+  });
+  triv.addEventListener('click', ()=>{
+    reset();
+    for(let i=1;i<N;i++) union(0,i);
+    picked=-1; render();
+  });
+  render();
+})();
+</script>
+
+<h3>Why the universal property matters</h3>
+<p>"$f$ is constant on classes" is a concrete, checkable property. The universal property turns it into a <em>construction</em>: given such an $f$, you get $\bar f$ for free, and it is the unique map making the triangle commute. This is how you define maps <em>out of</em> a quotient.</p>
+
+<div class="note"><strong>Examples of maps defined by the universal property.</strong>
+<ul style="margin:.3rem 0">
+  <li>On $\mathbb{Z}/n$: addition $\overline{+}\colon\mathbb{Z}/n\times\mathbb{Z}/n\to\mathbb{Z}/n$ is well-defined because $(a+b)\bmod n$ depends only on $a\bmod n$ and $b\bmod n$.</li>
+  <li>On $\mathbb{Q}=(\mathbb{Z}\times\mathbb{Z}_{\ne 0})/{\sim}$: $[a,b]+[c,d]:=[ad+bc,bd]$ is well-defined (the value is a $\sim$-invariant of its inputs).</li>
+  <li>On $\mathbb{RP}^n$: a <em>well-defined</em> map out of $\mathbb{RP}^n$ is a map on $\mathbb{R}^{n+1}\setminus 0$ that is invariant under $v\mapsto \lambda v$. Checking that is the first homework of any projective-geometry course.</li>
+</ul></div>
+
+<div class="quiz" data-concept="equivalence-relations"></div>
+</section>
+
+<section id="countable">
+<h2>3. Countability</h2>
+
+<p>Two sets have the same <strong>cardinality</strong>, written $|A|=|B|$, if there exists a bijection $A\to B$. This is an equivalence relation on sets. For finite sets it matches the usual count. For infinite sets it is subtler — and delivers Cantor's great surprise: there are <em>different sizes of infinity</em>.</p>
+
+<div class="note"><strong>Countable.</strong> A set $S$ is <em>countable</em> if $|S|\le|\mathbb{N}|$, i.e. there is an injection $S\hookrightarrow\mathbb{N}$ (equivalently a surjection $\mathbb{N}\twoheadrightarrow S$ if $S$ is non-empty). Equivalently, $S$ is finite or its elements can be listed as $s_0, s_1, s_2, \dots$. A set that is not countable is <em>uncountable</em>.</div>
+
+<h3>Lots of sets are countable</h3>
+<p>$\mathbb{Z}$ is countable — the list $0, 1, -1, 2, -2, 3, -3, \dots$ exhibits a bijection $\mathbb{N}\to\mathbb{Z}$. More impressive:</p>
+
+<div class="ok"><strong>$\mathbb{N}\times\mathbb{N}$ is countable.</strong> Walk along the anti-diagonals $i+j=0,1,2,\dots$: $(0,0); (0,1),(1,0); (0,2),(1,1),(2,0); \dots$ This is Cantor's zigzag pairing. Concretely, $\langle i,j\rangle := \tfrac{(i+j)(i+j+1)}{2}+i$ is a bijection $\mathbb{N}^2\to\mathbb{N}$.</div>
+
+<p>Consequences cascade. A countable union of countable sets is countable: lay out the sets as rows of a grid, then zigzag. Products: $\mathbb{Z}^k$ is countable for any finite $k$, by induction. Rationals: $\mathbb{Q}$ injects into $\mathbb{Z}^2$ (send $p/q$ in lowest terms to $(p,q)$), hence is countable. Algebraic numbers: the set of roots of polynomials in $\mathbb{Z}[x]$ is a countable union (over countably many polynomials) of finite sets, hence countable.</p>
+
+<h3>But $\mathbb{R}$ is not</h3>
+<p>Cantor's <strong>diagonal argument</strong> shows that no countable list exhausts the real numbers — or even the binary sequences. Suppose, for contradiction, that we have a complete enumeration $s_0, s_1, s_2, \dots$ of all infinite binary sequences $\{0,1\}^{\mathbb{N}}$. Form a new sequence $d$ by flipping the $n$-th bit of the $n$-th sequence:</p>
+
+<p style="text-align:center">$d_n := 1 - s_n(n).$</p>
+
+<p>By construction $d$ differs from $s_n$ in position $n$, for every $n$. So $d$ is not on the list. Contradiction. Hence $\{0,1\}^{\mathbb{N}}$ — and therefore $\mathbb{R}$ — is <em>uncountable</em>. Since $\mathbb{Q}$ <em>is</em> countable, we conclude $|\mathbb{R}|>|\mathbb{Q}|$.</p>
+
+<div class="widget" id="w-diag">
+  <div class="hd"><div class="ttl">Cantor's diagonal — step through</div><div class="hint">any "complete list" of binary sequences misses at least one</div></div>
+  <svg id="diag-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <button id="diag-prev">← back</button>
+    <button id="diag-next">next →</button>
+    <button id="diag-reroll">re-roll the list</button>
+    <span class="small" id="diag-step"></span>
+  </div>
+  <div class="readout" id="diag-out"></div>
+</div>
+</section>
+
+<script>
+/* =========================== Cantor diagonal widget =========================== */
+(function(){
+  const svg=$('#diag-svg'), out=$('#diag-out');
+  const prev=$('#diag-prev'), next=$('#diag-next'), reroll=$('#diag-reroll');
+  const stepLbl=$('#diag-step');
+  const ROWS=8, COLS=8;
+  let list = makeList();
+  let step = 0;  // 0 .. ROWS; step k means the first k diagonal bits are shown flipped
+
+  function makeList(){
+    const L = [];
+    for(let i=0;i<ROWS;i++){
+      const row=[];
+      for(let j=0;j<COLS;j++) row.push(Math.random()<0.5?0:1);
+      L.push(row);
+    }
+    return L;
+  }
+  function diagAt(i){ return 1 - list[i][i]; }
+
+  function render(){
+    svg.innerHTML='';
+    const X0=60, Y0=30, CELL=30;
+    // header
+    const hdr = SVG('text',{x:X0 + COLS*CELL/2, y:Y0-10,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    hdr.textContent = 'enumerated list of binary sequences s₀, s₁, …';
+    svg.appendChild(hdr);
+    // list rows
+    for(let i=0;i<ROWS;i++){
+      // row label
+      const lab = SVG('text',{x:X0-10, y:Y0 + i*CELL + CELL/2 + 4,'text-anchor':'end','font-size':13,fill:'var(--mute)'});
+      lab.textContent = 's'+i;
+      svg.appendChild(lab);
+      for(let j=0;j<COLS;j++){
+        const bit = list[i][j];
+        const onDiag = (i===j);
+        const fillCell = onDiag ? 'rgba(255,216,102,0.18)' : 'var(--panel2)';
+        const strokeCell = onDiag ? 'var(--yellow)' : 'var(--line)';
+        svg.appendChild(SVG('rect',{x:X0 + j*CELL, y:Y0 + i*CELL, width:CELL-2, height:CELL-2,
+          fill:fillCell, stroke:strokeCell, 'stroke-width': onDiag?1.5:1, rx:3}));
+        const t=SVG('text',{x:X0 + j*CELL + CELL/2 - 1, y:Y0 + i*CELL + CELL/2 + 5,
+          'text-anchor':'middle','font-size':14,
+          fill: onDiag ? 'var(--yellow)' : 'var(--ink)',
+          'font-family':'ui-monospace, monospace',
+          'font-weight': onDiag ? 700 : 400});
+        t.textContent = String(bit);
+        svg.appendChild(t);
+      }
+    }
+    // bottom: d row. shows flipped bits for positions < step, blanks beyond.
+    const dY = Y0 + ROWS*CELL + 26;
+    const dLab = SVG('text',{x:X0-10, y:dY + CELL/2 + 4,'text-anchor':'end','font-size':13,fill:'var(--pink)','font-weight':700});
+    dLab.textContent='d';
+    svg.appendChild(dLab);
+    for(let j=0;j<COLS;j++){
+      const shown = j < step;
+      svg.appendChild(SVG('rect',{x:X0 + j*CELL, y:dY, width:CELL-2, height:CELL-2,
+        fill: shown ? 'var(--pink)' : 'var(--panel2)',
+        stroke: shown ? 'var(--pink)' : 'var(--line)', 'stroke-width':1.2, rx:3}));
+      const t=SVG('text',{x:X0 + j*CELL + CELL/2 - 1, y:dY + CELL/2 + 5,
+        'text-anchor':'middle','font-size':14,
+        fill: shown ? '#0b0d10' : 'var(--mute)',
+        'font-family':'ui-monospace, monospace','font-weight':700});
+      t.textContent = shown ? String(diagAt(j)) : '?';
+      svg.appendChild(t);
+    }
+    // arrow connecting current diagonal cell to d column
+    if(step > 0 && step <= ROWS){
+      const i = step-1, j = step-1;
+      const from = [X0 + j*CELL + CELL/2, Y0 + i*CELL + CELL/2];
+      const to   = [X0 + j*CELL + CELL/2, dY + CELL/2];
+      drawArrow(svg, from, to, {color:'var(--pink)', markerId:'diag-flip', width:1.8,
+        curve: 14, pad1:12, pad2:14});
+    }
+    // legend and captions
+    const cap = SVG('text',{x:X0, y:dY + CELL + 24,'font-size':12,fill:'var(--mute)'});
+    cap.textContent = 'd disagrees with sₙ in position n  ⇒  d ≠ sₙ for every n  ⇒  d is not on the list.';
+    svg.appendChild(cap);
+
+    stepLbl.textContent = step===0 ? 'step 0 of '+ROWS+' · press "next →" to start building d'
+                      : step<ROWS ? `step ${step} of ${ROWS}` : `step ${ROWS} of ${ROWS} · d is complete`;
+    prev.disabled = step===0;
+    next.disabled = step>=ROWS;
+    prev.style.opacity = prev.disabled? 0.5 : 1;
+    next.style.opacity = next.disabled? 0.5 : 1;
+
+    // readout
+    const dFull = Array.from({length:COLS},(_,k)=>diagAt(k));
+    const dShown = dFull.map((b,k)=> k<step ? String(b) : '·').join('');
+    let msg = `list (${ROWS} sequences, first ${COLS} bits each):\n`;
+    list.forEach((row,i)=>{
+      const marked = row.map((b,j)=> j===i ? `[${b}]` : String(b)).join('');
+      msg += `  s${i} = ${marked}\n`;
+    });
+    msg += `\nd[n] := 1 − sₙ(n)   →   d = ${dShown}`;
+    if(step === ROWS){
+      msg += `\n\nd differs from s₀ at position 0, from s₁ at position 1, …, from s${ROWS-1} at position ${ROWS-1}.`;
+      msg += `\ntherefore d ∉ {s₀,…,s${ROWS-1}} — but by assumption the list contained every binary sequence.  ⇒  contradiction.`;
+      msg += `\n\nconclusion: {0,1}^ℕ is uncountable.  |ℝ| ≥ |{0,1}^ℕ| > |ℕ| = |ℚ|.`;
+    }
+    out.textContent = msg;
+  }
+
+  next.addEventListener('click', ()=>{ if(step<ROWS){ step++; render(); } });
+  prev.addEventListener('click', ()=>{ if(step>0){ step--; render(); } });
+  reroll.addEventListener('click', ()=>{ list = makeList(); step = 0; render(); });
+  render();
+})();
+</script>
+
+<h3>Cardinal arithmetic, briefly</h3>
+<p>Cantor proved something sharper: for <em>any</em> set $A$, $|\mathcal{P}(A)| > |A|$. (If $f\colon A\to\mathcal{P}(A)$ were a bijection, the set $D = \{a\in A : a\notin f(a)\}$ is an element of $\mathcal{P}(A)$ not in the image — a second diagonal argument.) So there is no largest cardinal; the ladder of infinities $|\mathbb{N}|<|\mathcal{P}(\mathbb{N})|<|\mathcal{P}(\mathcal{P}(\mathbb{N}))|<\dots$ never terminates. It's conventional to write $\aleph_0 = |\mathbb{N}|$ and $\mathfrak{c} = |\mathbb{R}| = 2^{\aleph_0}$; the <em>continuum hypothesis</em> asks whether there is a cardinal strictly between them, and is famously independent of ZFC.</p>
+
+<div class="ok"><strong>Cheat-sheet.</strong>
+<ul style="margin:.3rem 0">
+  <li>$|\mathbb{N}|=|\mathbb{Z}|=|\mathbb{Q}|=|\mathbb{N}^k|=|$algebraic numbers$|=\aleph_0$ — all countable.</li>
+  <li>$|\mathbb{R}|=|\mathbb{C}|=|\mathcal{P}(\mathbb{N})|=|\{0,1\}^{\mathbb{N}}|=\mathfrak{c}$ — all equinumerous with the continuum.</li>
+  <li>Transcendental numbers: $\mathbb{R}\setminus\overline{\mathbb{Q}}$ has cardinality $\mathfrak{c}$, since the countable set of algebraic numbers can't fill $\mathbb{R}$. In particular <em>almost every</em> real is transcendental, even though writing down specific examples (like $\pi$ and $e$) is delicate.</li>
+</ul></div>
+
+<div class="quiz" data-concept="countability"></div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('naive-set-theory'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+</body>
+</html>

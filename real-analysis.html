@@ -3,10 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Real analysis — measure theory and the Lebesgue integral</title>
+<title>Real analysis — completeness, continuity, differentiation, integration</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -156,13 +159,14 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Why&nbsp;measure?</a>
-  <a href="#sigma">2&nbsp;$\sigma$-algebras</a>
-  <a href="#integral">3&nbsp;Lebesgue&nbsp;integral</a>
-  <a href="#conv">4&nbsp;Convergence</a>
-  <a href="#lp">5&nbsp;$L^p$&nbsp;spaces</a>
-  <a href="#product">6&nbsp;Fubini</a>
-  <a href="#outro">7&nbsp;Connections</a>
+  <a href="#reals">1&nbsp;Real&nbsp;numbers</a>
+  <a href="#continuity">2&nbsp;Continuity</a>
+  <a href="#differentiation">3&nbsp;Differentiation</a>
+  <a href="#uniform">4&nbsp;Uniform&nbsp;convergence</a>
+  <a href="#riemann">5&nbsp;Riemann&nbsp;integral</a>
+  <a href="#multi-diff">6&nbsp;Multi&nbsp;diff</a>
+  <a href="#multi-int">7&nbsp;Multi&nbsp;int</a>
+  <a href="#ift">8&nbsp;IFT&nbsp;&&nbsp;implicit</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -170,751 +174,931 @@ function drawNode(svg, x, y, label, opts={}){
 <main>
 
 <section class="hero">
-  <h1>Measure theory and the Lebesgue integral</h1>
-  <p class="sub">From the failure of the Riemann integral on pathological functions to a theory of integration that is closed under pointwise limits, with $L^p$ spaces as its Banach-space completion. A structured review.</p>
+  <h1>Real analysis</h1>
+  <p class="sub">Undergraduate analysis on $\mathbb{R}$ and $\mathbb{R}^n$: completeness, continuity, differentiation, Riemann integration, uniform convergence, and the inverse/implicit function theorems. Metric spaces and general topology live on <a href="./point-set-topology.html">point-set topology</a>; Lebesgue measure and $L^p$ spaces are the subject of <a href="./measure-theory.html">measure theory</a>.</p>
 </section>
 
-<section id="intro">
-<h2>1. Why measure theory?</h2>
-<p>Riemann's construction integrates a bounded function $f\colon[a,b]\to\mathbb{R}$ by partitioning the <em>domain</em> into subintervals and sandwiching the area between upper and lower step approximations. When these agree in the limit, the common value is $\int_a^b f$. This works beautifully for continuous functions, and well enough for functions with only countably many discontinuities. But it has two fatal defects.</p>
+<!-- =============================== §1 REAL NUMBERS =============================== -->
+<section id="real-numbers">
+<h2>1. Real numbers and completeness</h2>
 
-<p><strong>First defect: pointwise limits break Riemann integrability.</strong> Enumerate $\mathbb{Q}\cap[0,1] = \{q_1,q_2,\dots\}$. Set
-$$ f_n(x) = \begin{cases} 1, & x\in\{q_1,\dots,q_n\},\\ 0,& \text{otherwise.}\end{cases}$$
-Each $f_n$ is zero except on a finite set and is trivially Riemann-integrable with $\int f_n = 0$. The pointwise limit $f(x)=\lim_n f_n(x) = \mathbf{1}_{\mathbb{Q}\cap[0,1]}(x)$ — Dirichlet's indicator of the rationals — is <em>not</em> Riemann-integrable: in every subinterval, rationals and irrationals are dense, so the upper Riemann sum is always $1$ and the lower always $0$. A category of integrable functions that is not closed under pointwise limits is not a workable category.</p>
+<p>Calculus textbooks write $\mathbb{R}$ as "the number line" and move on. Analysis begins by asking what property of $\mathbb{R}$, beyond $\mathbb{Q}$, actually <em>does</em> the work. The answer is the <strong>least-upper-bound property</strong>: every nonempty subset $S\subseteq\mathbb{R}$ that is bounded above has a <em>smallest</em> upper bound, $\sup S\in\mathbb{R}$. Equivalently — by Dedekind cuts, by Cauchy sequences, or by nested intervals — $\mathbb{R}$ is a <em>complete</em> ordered field, and that word "complete" is what fails for $\mathbb{Q}$.</p>
 
-<p><strong>Second defect: unbounded domains and unbounded integrands.</strong> Improper Riemann integrals like $\int_0^\infty \tfrac{\sin x}{x}\,dx$ exist only as conditional limits; their value depends on how one approaches the singular endpoint or $\infty$. Even such a "nice" function as $\tfrac{\sin x}{x}$ fails to be <em>absolutely</em> integrable. Swapping limit and integral — the move underlying Fourier analysis, probability, and PDE — requires a theory where the unsigned integral $\int |f|$ controls everything.</p>
+<div class="note"><strong>Why $\mathbb{Q}$ isn't enough.</strong> Consider $S=\{q\in\mathbb{Q}: q>0, q^2<2\}\subset\mathbb{Q}$. This set is nonempty and bounded above (by $2$), yet it has <em>no</em> least upper bound in $\mathbb{Q}$: for any rational $q$ with $q^2\ge 2$, one can always find a smaller rational $q'\in\mathbb{Q}$ with $q'>\sqrt 2$. In $\mathbb{R}$ the supremum exists and equals $\sqrt 2\notin\mathbb{Q}$. The rationals have holes exactly where irrational cuts ought to live.</div>
 
-<div class="note"><strong>Desiderata for a better theory.</strong> We want a class $\mathcal{L}$ of functions and an integral $f\mapsto\int f$ such that:<br>
-(i) $\mathcal{L}$ contains the Riemann-integrable functions and assigns them the same value;<br>
-(ii) $\mathcal{L}$ is closed under a.e.\ pointwise limits (modulo a dominating hypothesis);<br>
-(iii) $\mathcal{L}$ is a Banach space under an integral norm;<br>
-(iv) integration is well-defined on $[0,\infty]\cup\mathbb{R}$ and on abstract measure spaces.<br>
-Lebesgue's idea: <em>slice the range, not the domain.</em> Instead of summing $f(\xi_k)\Delta x_k$ over a partition of $[a,b]$, sum $y_k\cdot m\{f\approx y_k\}$ over a partition of the range $[\min f, \max f]$. The price of admission: we must know how to measure $\{x: f(x)\in E\}$ for every reasonable $E\subset\mathbb{R}$.</div>
-
-<p>This is why measure theory comes first: the integral is built on a prior notion of "size" for subsets of the domain. Once we have a measure $\mu$ — a countably additive, nonnegative set function — the Lebesgue integral is forced. The four sections that follow develop this machinery: $\sigma$-algebras and Lebesgue measure ($\S 2$); the integral of measurable functions ($\S 3$); convergence theorems that license the limit-integral swap ($\S 4$); and the $L^p$ spaces that package the result as functional analysis ($\S 5$).</p>
-
-<div class="widget" id="w-rvl">
-  <div class="hd"><div class="ttl">Riemann vs Lebesgue on Dirichlet's indicator</div><div class="hint">partition the domain or the range?</div></div>
-  <svg id="rvl-svg" viewBox="0 0 760 260" width="760" height="260"></svg>
-  <div class="row">
-    <button id="rvl-rat">Riemann sum (rational samples)</button>
-    <button id="rvl-irr">Riemann sum (irrational samples)</button>
-    <button id="rvl-leb">Lebesgue (partition the range)</button>
-    <button id="rvl-reset">reset</button>
-  </div>
-  <div class="readout" id="rvl-out">Pick a strategy. Rationals are drawn as short cyan ticks (dense in $[0,1]$); irrationals are implicit between them.</div>
-</div>
-</section>
-
-<script>
-/* =============================== §1 Riemann vs Lebesgue widget =============================== */
-(function(){
-  const svg = $('#rvl-svg'), out = $('#rvl-out');
-  const W=760, H=260, pad=50;
-  const x0=pad, x1=W-pad, y0=40, y1=H-40;
-  // map [0,1] domain to pixels
-  const X = t => x0 + t*(x1-x0);
-  const Y = v => y1 - v*(y1-y0); // v in [0,1]
-  // generate "rationals" — fractions p/q with small q, dense enough visually
-  const rats = [];
-  for(let q=2;q<=20;q++){
-    for(let p=1;p<q;p++){
-      // reduced only
-      const g=(a,b)=>b?g(b,a%b):a;
-      if(g(p,q)!==1) continue;
-      rats.push(p/q);
-    }
-  }
-  rats.sort((a,b)=>a-b);
-
-  function baseAxes(mode){
-    svg.innerHTML = '';
-    // axes
-    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)','stroke-width':1.3}));
-    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)','stroke-width':1.3}));
-    // tick labels on y
-    const tk = [0,0.5,1];
-    for(const v of tk){
-      svg.appendChild(SVG('line',{x1:x0-4,y1:Y(v),x2:x0,y2:Y(v),stroke:'var(--mute)'}));
-      const t=SVG('text',{x:x0-8,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
-      t.textContent=v; svg.appendChild(t);
-    }
-    // x axis labels
-    for(const v of [0,0.5,1]){
-      const t=SVG('text',{x:X(v),y:y1+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-      t.textContent=v; svg.appendChild(t);
-    }
-    // draw Dirichlet rationals
-    for(const r of rats){
-      svg.appendChild(SVG('line',{x1:X(r),y1:Y(0),x2:X(r),y2:Y(1),
-        stroke:'var(--cyan)','stroke-width':0.6,opacity:0.55}));
-    }
-    // title
-    const t = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
-    t.textContent = mode;
-    svg.appendChild(t);
-  }
-
-  function riemann(sampleKind){
-    baseAxes('Riemann: partition x-axis into 20 subintervals; choose samples of type "'+sampleKind+'"');
-    const N=20;
-    let S=0;
-    for(let k=0;k<N;k++){
-      const a=k/N, b=(k+1)/N;
-      // choose a sample in [a,b]
-      // if rational: pick nearest rational in rats inside interval
-      let xi=null;
-      if(sampleKind==='rational'){
-        for(const r of rats){ if(r>=a && r<b){ xi=r; break; } }
-        if(xi===null) xi=(a+b)/2;       // fallback
-      } else {
-        // irrational sample: use a+(b-a)*1/pi (almost surely irrational)
-        xi = a + (b-a)*(1/Math.PI);
-      }
-      const val = (sampleKind==='rational') ? 1 : 0;
-      S += val * (b-a);
-      // rectangle
-      svg.appendChild(SVG('rect',{x:X(a),y:Y(val),width:X(b)-X(a),height:Y(0)-Y(val),
-        fill: val? 'rgba(255,216,102,0.35)':'rgba(255,216,102,0.08)',
-        stroke:'var(--yellow)','stroke-width':1}));
-      // sample dot
-      svg.appendChild(SVG('circle',{cx:X(xi),cy:Y(val),r:2.5,fill:'var(--yellow)'}));
-    }
-    out.textContent =
-      sampleKind==='rational'
-        ? 'Rational samples ⇒ every rectangle has height 1, Riemann sum = 1.\n'
-          +'This is the upper Darboux sum — rationals dense in every subinterval.'
-        : 'Irrational samples ⇒ every rectangle has height 0, Riemann sum = 0.\n'
-          +'This is the lower Darboux sum — irrationals dense in every subinterval.\n'
-          +'U = 1, L = 0 — the function is NOT Riemann-integrable.';
-  }
-
-  function lebesgue(){
-    baseAxes('Lebesgue: partition y-axis. Two level sets: {f=0} and {f=1}.');
-    // horizontal bands
-    const bands = [
-      {y:0, col:'rgba(131,193,103,0.25)', lbl:'{f = 0} (irrationals) — measure 1'},
-      {y:1, col:'rgba(224,122,95,0.25)',  lbl:'{f = 1} (rationals) — measure 0'}
-    ];
-    // show full "mass" band on {f=0}: indicator shaded from 0→0 visually is nothing;
-    // instead we display two coloured stripes across the whole x range meaning
-    // "this entire x-range maps into this y-band".
-    // stripe 1: f=0  — entire [0,1] minus a measure-0 set
-    svg.appendChild(SVG('rect',{x:X(0),y:Y(0.04),width:X(1)-X(0),height:8,
-      fill:'rgba(131,193,103,0.55)',stroke:'var(--green)'}));
-    const t1 = SVG('text',{x:X(1)+8,y:Y(0.04)+6,'font-size':11,fill:'var(--green)'});
-    t1.textContent = '{f=0}, measure = 1';
-    svg.appendChild(t1);
-    // stripe 2: f=1 — rationals only (measure 0, drawn as ticks)
-    for(const r of rats){
-      svg.appendChild(SVG('line',{x1:X(r),y1:Y(1)-4,x2:X(r),y2:Y(1)+4,
-        stroke:'var(--pink)','stroke-width':1}));
-    }
-    const t2 = SVG('text',{x:X(1)+8,y:Y(1)+4,'font-size':11,fill:'var(--pink)'});
-    t2.textContent = '{f=1}, measure = 0';
-    svg.appendChild(t2);
-    out.textContent =
-      'Lebesgue: ∫ f dm = 0·m{f=0} + 1·m{f=1} = 0·1 + 1·0 = 0.\n'
-      +'The rationals are countable, hence Lebesgue-measure 0. The irrationals have full measure.\n'
-      +'1_{ℚ∩[0,1]} is Lebesgue integrable with integral 0.';
-  }
-
-  function reset(){ baseAxes('Dirichlet indicator 1_{ℚ∩[0,1]}: rationals shown as ticks, irrationals implicit.'); out.textContent='Pick a strategy.'; }
-
-  $('#rvl-rat').addEventListener('click',()=>riemann('rational'));
-  $('#rvl-irr').addEventListener('click',()=>riemann('irrational'));
-  $('#rvl-leb').addEventListener('click',lebesgue);
-  $('#rvl-reset').addEventListener('click',reset);
-  reset();
-})();
-</script>
-
-<section id="sigma">
-<h2>2. $\sigma$-algebras and measures</h2>
-
-<p>A <strong>$\sigma$-algebra</strong> on a set $X$ is a collection $\mathcal{A}\subseteq\mathcal{P}(X)$ satisfying:</p>
+<h3>Three equivalent forms of completeness</h3>
 <ul>
-  <li>$\emptyset\in\mathcal{A}$;</li>
-  <li>$A\in\mathcal{A}\Rightarrow A^c\in\mathcal{A}$;</li>
-  <li>$(A_n)_{n\ge 1}\subset\mathcal{A} \Rightarrow \bigcup_n A_n\in\mathcal{A}$.</li>
+  <li><strong>Least upper bound (LUB):</strong> every nonempty bounded-above $S\subseteq\mathbb{R}$ has $\sup S\in\mathbb{R}$.</li>
+  <li><strong>Cauchy completeness:</strong> every Cauchy sequence in $\mathbb{R}$ converges. (A sequence $(a_n)$ is Cauchy if $\forall\varepsilon>0\;\exists N\;\forall m,n\ge N: |a_m-a_n|<\varepsilon$.)</li>
+  <li><strong>Nested intervals:</strong> if $[a_1,b_1]\supseteq [a_2,b_2]\supseteq\cdots$ is a nested sequence of closed bounded intervals with $b_n-a_n\to 0$, then $\bigcap_n [a_n,b_n]$ is a single point.</li>
 </ul>
 
-<p>The three axioms are chosen to make <em>countable</em> operations safe. Finite additivity is easy; it is the step from finite to countable that distinguishes measure theory from its classical ancestor (Jordan content).</p>
+<p>Over an ordered Archimedean field these are logically interchangeable; losing any one forces one to lose all three. Proofs of the big theorems (intermediate value, extreme value, Heine–Borel on intervals) all reduce to completeness.</p>
 
-<p>Given a family $\mathcal{E}\subseteq\mathcal{P}(X)$, the intersection of all $\sigma$-algebras containing $\mathcal{E}$ is itself a $\sigma$-algebra, the <strong>$\sigma$-algebra generated by $\mathcal{E}$</strong>, written $\sigma(\mathcal{E})$. Applied to the open sets of a topological space, this yields the <em>Borel $\sigma$-algebra</em> $\mathcal{B}(X)$.</p>
+<h3>Dedekind's construction</h3>
 
-<p>A <strong>measure</strong> on $(X,\mathcal{A})$ is a function $\mu\colon\mathcal{A}\to[0,\infty]$ with $\mu(\emptyset)=0$ and <em>countable additivity</em>: for pairwise disjoint $(A_n)\subset\mathcal{A}$,
-$$ \mu\!\left(\bigsqcup_n A_n\right) = \sum_n \mu(A_n). $$
-This single property — that the measure of a disjoint countable union is the sum of the measures — is the engine of the entire theory.</p>
+<p>A <strong>Dedekind cut</strong> is a partition $(L,U)$ of $\mathbb{Q}$ with $L$ nonempty, bounded above, downward-closed, and with no maximum. Each cut names a real number: the rationals less than it. Addition, multiplication, and order lift from $\mathbb{Q}$. Cauchy's alternative construction builds $\mathbb{R}$ as equivalence classes of Cauchy rational sequences. Both constructions produce the same — unique up to ordered-field isomorphism — complete ordered field.</p>
 
-<h3>Outer measure and Carathéodory</h3>
-
-<p>Lebesgue measure on $\mathbb{R}$ is constructed in two stages. First define the <strong>outer measure</strong>
-$$ m^*(E) = \inf\!\Bigl\{\,\sum_n (b_n-a_n) : E\subseteq \bigcup_n (a_n,b_n)\,\Bigr\},$$
-the infimum over countable covers by open intervals. The outer measure is defined for every subset of $\mathbb{R}$ and is countably <em>subadditive</em>, but it is not countably additive on $\mathcal{P}(\mathbb{R})$ (Vitali).</p>
-
-<p>Carathéodory's criterion picks out a $\sigma$-algebra on which the outer measure restricts to a measure. Say $E$ is <strong>measurable</strong> if for every $A\subseteq\mathbb{R}$,
-$$ m^*(A) = m^*(A\cap E) + m^*(A\cap E^c). $$
-The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction of $m^*$ to $\mathcal{M}$ is a complete measure — <em>Lebesgue measure</em> $m$ — which extends the ordinary length on intervals.</p>
-
-<div class="note"><strong>Why the Carathéodory condition?</strong> It forces the test set $A$ to be split additively by $E$. A set that the outer measure <em>already</em> splits additively against every test set cannot fail additivity in any combination: this closure gives a $\sigma$-algebra essentially by bookkeeping. Once you see the proof that measurable sets form an algebra (direct verification), the jump to $\sigma$-algebra is a standard truncation argument.</div>
-
-<p>Borel sets are measurable ($\mathcal{B}(\mathbb{R})\subsetneq\mathcal{M}$, strictly), and every subset of a Lebesgue null set is Lebesgue measurable with measure zero — i.e., Lebesgue measure is <em>complete</em>.</p>
-
-<h3>The Cantor set: uncountable, measure zero</h3>
-
-<p>Iteratively remove middle thirds. Start with $C_0=[0,1]$, and at stage $k$ delete the open middle third of each surviving interval, obtaining $C_k$ as a disjoint union of $2^k$ intervals each of length $3^{-k}$. The <em>Cantor set</em> is $C = \bigcap_k C_k$.</p>
-
-<p>By countable additivity (or monotonicity), $m(C) = \lim_k m(C_k) = \lim_k (2/3)^k = 0$. Yet $C$ is uncountable — bijective to $\{0,1\}^{\mathbb{N}}$ via ternary expansions. This is the prototype of a Lebesgue-null set with the cardinality of the continuum.</p>
-
-<div class="widget" id="w-cantor">
-  <div class="hd"><div class="ttl">Middle-thirds Cantor set</div><div class="hint">drag depth $k$ to iterate</div></div>
-  <svg id="cantor-svg" viewBox="0 0 760 240" width="760" height="240"></svg>
+<div class="widget" id="w-sqrt2">
+  <div class="hd"><div class="ttl">Rational approximations to $\sqrt 2$</div><div class="hint">drag the slider — every rational leaves a gap</div></div>
+  <svg id="sqrt2-svg" viewBox="0 0 760 210" width="760" height="210"></svg>
   <div class="row">
-    <label for="cantor-k">depth $k$</label>
-    <input id="cantor-k" type="range" min="0" max="8" step="1" value="3">
-    <span id="cantor-kv" class="small"></span>
+    <label>rational $p/q$ with $q\le$</label>
+    <input type="range" id="sqrt2-q" min="1" max="200" value="1" step="1">
+    <span class="pill" id="sqrt2-qval">q ≤ 1</span>
   </div>
-  <div class="readout" id="cantor-out"></div>
+  <div class="readout" id="sqrt2-out"></div>
 </div>
 
-<h3>Non-measurable sets (Vitali)</h3>
-
-<p>Define $x\sim y$ iff $x-y\in\mathbb{Q}$ on $[0,1]$. The equivalence classes partition $[0,1]$ into uncountably many countable classes. Choose (AC) one representative from each: call the resulting set $V$. The translates $V_q = V+q$ for $q\in\mathbb{Q}\cap[-1,1]$ are pairwise disjoint, and
-$$ [0,1]\subseteq \bigsqcup_{q\in\mathbb{Q}\cap[-1,1]} V_q \subseteq [-1,2].$$
-If $V$ were measurable, translation invariance gives $m(V_q)=m(V)$; countable additivity then forces
-$$ 1 \le \sum_{q} m(V) \le 3,$$
-which is impossible whether $m(V)=0$ (sum = 0) or $m(V)>0$ (sum = $\infty$). Hence $V\notin\mathcal{M}$. Without some choice axiom Vitali's construction fails, and in models of ZF with Dependent Choice + "every set is measurable" (Solovay) the theory is consistent.</p>
-</section>
-
 <script>
-/* =============================== §2 Cantor set widget =============================== */
 (function(){
-  const svg = $('#cantor-svg'), out = $('#cantor-out');
-  const slider = $('#cantor-k'), kv = $('#cantor-kv');
-  const W=760, H=240, pad=40;
-  function draw(){
-    const k = +slider.value;
-    kv.textContent = `k = ${k}`;
-    svg.innerHTML = '';
-    // draw iterations 0..k stacked vertically
-    const rows = k+1;
-    const rowH = (H - 2*pad) / Math.max(rows,1);
-    // start from [0,1]
-    let intervals = [[0,1]];
-    for(let j=0;j<=k;j++){
-      const y = pad + j*rowH + rowH*0.3;
-      const h = Math.max(rowH*0.45, 6);
-      for(const [a,b] of intervals){
-        const x = pad + a*(W-2*pad);
-        const w = (b-a)*(W-2*pad);
-        svg.appendChild(SVG('rect',{x,y,width:w,height:h,
-          fill:'var(--yellow)', opacity:0.85, stroke:'var(--yellow)'}));
+  const svg=$('#sqrt2-svg'), out=$('#sqrt2-out'), slider=$('#sqrt2-q'), qpill=$('#sqrt2-qval');
+  const W=760, H=210, pad=40;
+  const xmin=1.25, xmax=1.55;
+  function X(v){ return pad + (v-xmin)/(xmax-xmin)*(W-2*pad); }
+  function bestRational(maxQ){
+    // best rational p/q with q<=maxQ and (p/q)^2 < 2, and smallest upper (p/q)^2 > 2
+    let bestLo={p:1,q:1,val:1}, bestHi={p:2,q:1,val:2};
+    for(let q=1;q<=maxQ;q++){
+      // p around sqrt(2)*q
+      const pc = Math.floor(Math.SQRT2 * q);
+      for(const p of [pc, pc+1]){
+        if(p<=0) continue;
+        const v=p/q, sq=v*v;
+        if(sq<2 && v>bestLo.val){ bestLo={p,q,val:v}; }
+        if(sq>2 && v<bestHi.val){ bestHi={p,q,val:v}; }
       }
-      // label
-      const meas = Math.pow(2/3,j);
-      const t=SVG('text',{x:pad-6,y:y+h*0.7,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
-      t.textContent = `C_${j}  m=${meas.toFixed(4)}`;
-      svg.appendChild(t);
-      // next iteration: remove middle third
-      const next = [];
-      for(const [a,b] of intervals){
-        const d=(b-a)/3;
-        next.push([a, a+d]);
-        next.push([b-d, b]);
-      }
-      intervals = next;
     }
-    const meas = Math.pow(2/3,k);
-    out.textContent =
-      `After k = ${k} iterations:\n`+
-      `  number of surviving intervals: 2^k = ${Math.pow(2,k)}\n`+
-      `  each has length 3^-k = ${Math.pow(3,-k).toExponential(3)}\n`+
-      `  total length m(C_k) = (2/3)^k = ${meas.toFixed(6)}\n`+
-      `limit set C is uncountable (|C| = 2^ℵ₀) but m(C) = 0.`;
+    return {lo:bestLo, hi:bestHi};
   }
-  slider.addEventListener('input',draw);
-  draw();
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const maxQ = +slider.value;
+    qpill.textContent = `q ≤ ${maxQ}`;
+    // axis
+    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)','stroke-width':1.4}));
+    // tick marks
+    for(let t=1.3;t<=1.5;t+=0.05){
+      const tx=X(t);
+      svg.appendChild(SVG('line',{x1:tx,y1:H/2-5,x2:tx,y2:H/2+5,stroke:'var(--mute)','stroke-width':1}));
+      const lab=SVG('text',{x:tx,y:H/2+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent = t.toFixed(2); svg.appendChild(lab);
+    }
+    // √2 marker
+    const sx = X(Math.SQRT2);
+    svg.appendChild(SVG('line',{x1:sx,y1:30,x2:sx,y2:H-50,stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));
+    const lab=SVG('text',{x:sx,y:22,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600});
+    lab.textContent='√2 ≈ 1.41421…'; svg.appendChild(lab);
+    // best rationals
+    const {lo, hi} = bestRational(maxQ);
+    const drawDot=(r,color,label,dy)=>{
+      const rx = X(r.val);
+      if(rx < pad || rx > W-pad) return;
+      svg.appendChild(SVG('circle',{cx:rx,cy:H/2,r:5,fill:color,stroke:'#0b0f16','stroke-width':1.5}));
+      const t1=SVG('text',{x:rx,y:H/2+dy,'text-anchor':'middle','font-size':12,fill:color,'font-weight':600});
+      t1.textContent = `${r.p}/${r.q}`; svg.appendChild(t1);
+      const t2=SVG('text',{x:rx,y:H/2+dy+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t2.textContent = r.val.toFixed(5); svg.appendChild(t2);
+    };
+    drawDot(lo,'var(--blue)','lo', -40);
+    drawDot(hi,'var(--pink)','hi', -40);
+    // readout
+    out.textContent =
+      `best rational lower bound  :  ${lo.p}/${lo.q} = ${lo.val.toFixed(8)}   (square = ${(lo.val*lo.val).toFixed(6)})\n`+
+      `best rational upper bound  :  ${hi.p}/${hi.q} = ${hi.val.toFixed(8)}   (square = ${(hi.val*hi.val).toFixed(6)})\n`+
+      `gap                        :  ${(hi.val-lo.val).toExponential(3)}   — shrinks to 0, but never snaps to a rational`;
+  }
+  slider.addEventListener('input',render);
+  render();
 })();
 </script>
 
-<section id="integral">
-<h2>3. The Lebesgue integral</h2>
+<p>As $q$ grows, rational approximations squeeze in on $\sqrt 2$ from both sides, yet neither side ever reaches a rational equal to $\sqrt 2$. The <em>existence</em> of the supremum is therefore not automatic — it is the additional axiom that distinguishes $\mathbb{R}$ from $\mathbb{Q}$.</p>
 
-<p>With Lebesgue measure in hand, the integral is built in three steps: (i) for simple functions (finite-range measurable functions); (ii) extended to nonnegative measurable functions by monotone limits; (iii) extended to signed/complex measurable functions by decomposition. A function $f\colon X\to\overline{\mathbb{R}}$ is <strong>measurable</strong> if $f^{-1}((\alpha,\infty])\in\mathcal{A}$ for every $\alpha\in\mathbb{R}$ — equivalently, preimages of Borel sets land in $\mathcal{A}$.</p>
+<div class="note"><strong>Archimedean property.</strong> For every real $x$ there is a natural number $n$ with $n>x$. This sounds obvious and follows from completeness: if $\mathbb{N}$ were bounded above, it would have a supremum $s$, but $s-1$ would also be an upper bound. The Archimedean property excludes infinitesimals and is what lets $\varepsilon$–$\delta$ arguments grind forward.</div>
 
-<h3>Simple functions</h3>
-
-<p>A <strong>simple function</strong> is a finite measurable linear combination
-$$ \varphi = \sum_{k=1}^N c_k\,\mathbf{1}_{E_k}, \qquad E_k\in\mathcal{A}, $$
-with the $E_k$ pairwise disjoint and $c_k\ge 0$. Its integral is defined in the obvious way:
-$$ \int \varphi\,d\mu := \sum_{k=1}^N c_k\,\mu(E_k), $$
-with the convention $0\cdot\infty=0$. The definition is independent of representation, linear, monotone, and agrees on common domains.</p>
-
-<h3>Monotone extension to $[0,\infty]$-valued measurable functions</h3>
-
-<p>For $f\colon X\to[0,\infty]$ measurable, set
-$$ \int f\,d\mu := \sup\!\left\{\int \varphi\,d\mu\;:\; 0\le\varphi\le f,\ \varphi\text{ simple}\right\}. $$
-The key fact is that every such $f$ is the pointwise increasing limit of simple functions $\varphi_n\nearrow f$. Explicitly, for each $n$ define
-$$ \varphi_n(x) = \begin{cases} k\,2^{-n} & \text{if } k\,2^{-n} \le f(x) < (k+1)\,2^{-n},\ 0\le k < n\,2^n \\ n & \text{if } f(x)\ge n. \end{cases}$$
-These $\varphi_n$ are simple, $0\le\varphi_n\nearrow f$, and the monotone convergence theorem (next section) will confirm $\int\varphi_n\to\int f$. Slicing the <em>range</em> into dyadic bands is exactly Lebesgue's original idea.</p>
-
-<h3>Signed/complex: Jordan decomposition</h3>
-
-<p>For general measurable $f$, write $f = f^+ - f^-$ with $f^\pm := \max(\pm f,0)\ge 0$. Say $f$ is <strong>integrable</strong> ($f\in L^1$) if $\int f^+ + \int f^- < \infty$ — equivalently, $\int|f| < \infty$ — and define
-$$ \int f\,d\mu := \int f^+\,d\mu - \int f^-\,d\mu. $$
-Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int |f|$ follow. For complex-valued functions take real and imaginary parts.</p>
-
-<div class="ok"><strong>Compatibility with Riemann.</strong> If $f\colon[a,b]\to\mathbb{R}$ is bounded, then $f$ is Riemann-integrable iff the set of discontinuities has Lebesgue measure zero (Lebesgue's criterion), and the Riemann and Lebesgue integrals coincide. Every Riemann-integrable function is Lebesgue-integrable; the new theory is a strict extension.</div>
-
-<div class="widget" id="w-simple">
-  <div class="hd"><div class="ttl">Simple-function approximation $\varphi_n\nearrow f$</div><div class="hint">partition the range into $n$ dyadic bands</div></div>
-  <svg id="simple-svg" viewBox="0 0 760 300" width="760" height="300"></svg>
-  <div class="row">
-    <label for="simple-n">bands $n$</label>
-    <select id="simple-n">
-      <option>2</option><option>4</option><option selected>8</option>
-      <option>16</option><option>32</option><option>64</option>
-    </select>
-    <span class="small">target: $f(x)=\sin(\pi x)+1$ on $[0,1]$</span>
-  </div>
-  <div class="readout" id="simple-out"></div>
-</div>
+<div class="quiz" data-concept="real-numbers"></div>
 </section>
 
-<script>
-/* =============================== §3 Simple-function approximation =============================== */
-(function(){
-  const svg = $('#simple-svg'), out = $('#simple-out'), sel = $('#simple-n');
-  const W=760, H=300, pad=40;
-  const xl=pad, xr=W-pad, yt=20, yb=H-pad;
-  const f = x => Math.sin(Math.PI*x) + 1;  // range [1,2] ⊂ [0,2]
-  const YMAX = 2;
-  const X = t => xl + t*(xr-xl);
-  const Y = v => yb - (v/YMAX)*(yb-yt);
+<!-- =============================== §2 CONTINUITY =============================== -->
+<section id="real-continuity">
+<h2>2. Continuity on $\mathbb{R}$</h2>
 
-  function draw(){
-    const n = +sel.value;
-    svg.innerHTML = '';
-    // axes
-    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
-    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
-    // y ticks at each band boundary
-    for(let k=0;k<=n;k++){
-      const v = (k/n)*YMAX;
-      svg.appendChild(SVG('line',{x1:xl-3,y1:Y(v),x2:xl,y2:Y(v),stroke:'var(--mute)'}));
-    }
-    // label extremes
-    for(const v of [0,1,2]){
-      const t=SVG('text',{x:xl-6,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
-      t.textContent=v; svg.appendChild(t);
-    }
-    for(const v of [0,0.5,1]){
-      const t=SVG('text',{x:X(v),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-      t.textContent=v; svg.appendChild(t);
-    }
+<p>A function $f\colon D\to\mathbb{R}$ is <strong>continuous at $a\in D$</strong> if for every $\varepsilon>0$ there exists $\delta>0$ such that</p>
+$$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
+<p>The definition trades a target tolerance $\varepsilon$ (how close the output must be to $f(a)$) for a domain tolerance $\delta$ (how close the input must be to $a$). The function is continuous on $D$ if it is continuous at every point of $D$.</p>
 
-    // For each band [k/n * YMAX, (k+1)/n * YMAX), find the x-subset mapped there,
-    // highlight on x-axis; draw simple function bar at height k/n*YMAX over that subset.
-    // f(x)=sin(πx)+1 is symmetric around x=1/2, increasing on [0,1/2], decreasing on [1/2,1].
-    // Inverse on each half: for target y ∈ [0,2], sin(πx)=y-1 ⇒ x = arcsin(y-1)/π for left branch.
-    const Ns = 400;
-    // compute integral of simple function
-    let simpleInt = 0;
-    // build a color scale
-    for(let k=0;k<n;k++){
-      const yLow = (k/n)*YMAX, yHigh = ((k+1)/n)*YMAX;
-      const barH = yLow;  // floor height of band (monotone from below)
-      // for each x in [0,1], is f(x) ∈ [yLow, yHigh)?
-      const mask = new Array(Ns).fill(false);
-      let mLen = 0;
-      for(let i=0;i<Ns;i++){
-        const x = (i+0.5)/Ns;
-        const fv = f(x);
-        if(fv >= yLow && fv < yHigh){ mask[i]=true; mLen++; }
-      }
-      const measure = mLen/Ns;
-      simpleInt += barH * measure;
-      if(measure===0) continue;
-      // draw simple bar at height barH on the mask
-      // group contiguous runs
-      let i=0;
-      while(i<Ns){
-        if(!mask[i]){ i++; continue; }
-        let j=i;
-        while(j<Ns && mask[j]) j++;
-        const a = i/Ns, b = j/Ns;
-        const col = `hsl(${40 + (k/Math.max(n-1,1))*200}, 65%, 55%)`;
-        // bar
-        svg.appendChild(SVG('rect',{x:X(a),y:Y(barH+YMAX/n),
-          width:X(b)-X(a),height:Y(0)-Y(YMAX/n),
-          fill:col,opacity:0.18,stroke:col,'stroke-width':0.6}));
-        // highlight on x-axis
-        svg.appendChild(SVG('line',{x1:X(a),y1:yb+2,x2:X(b),y2:yb+2,
-          stroke:col,'stroke-width':3}));
-        i=j;
-      }
-    }
-    // draw the target curve on top
-    let d='';
-    for(let i=0;i<=Ns;i++){
-      const x=i/Ns, y=f(x);
-      d += (i? ' L':'M')+X(x)+' '+Y(y);
-    }
-    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
-    // title
-    const t = SVG('text',{x:W/2,y:14,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-    t.textContent = `n = ${n} bands: simple-function floor under f`;
-    svg.appendChild(t);
-
-    // exact integral ∫_0^1 (sin πx + 1) dx = 2/π + 1 ≈ 1.6366
-    const exact = 2/Math.PI + 1;
-    out.textContent =
-      `bands n = ${n}\n`+
-      `simple-function integral ∑ (k/n)·m{x: f(x)∈[k/n·2,(k+1)/n·2)} = ${simpleInt.toFixed(5)}\n`+
-      `target ∫_0^1 (sin πx + 1) dx = 2/π + 1 = ${exact.toFixed(5)}\n`+
-      `gap = ${(exact-simpleInt).toFixed(5)}   (→ 0 as n → ∞ by MCT)`;
-  }
-  sel.addEventListener('input',draw);
-  draw();
-})();
-</script>
-
-<section id="conv">
-<h2>4. Convergence theorems</h2>
-
-<p>The appeal of Lebesgue integration is that it plays well with limits. Three theorems — each a step weaker in hypothesis, each a direct consequence of the last — cover the main cases.</p>
-
-<h3>Monotone convergence (Beppo Levi)</h3>
-
-<div class="ok"><strong>Theorem (MCT).</strong> Let $f_n\colon X\to[0,\infty]$ be measurable with $f_n\nearrow f$ pointwise a.e. Then
-$$ \int f_n\,d\mu \ \nearrow\ \int f\,d\mu. $$</div>
-
-<p>This is the foundational theorem: both Fatou and dominated convergence reduce to it. It is almost a tautology, given the definition of $\int f$ for nonnegative measurable $f$ as a supremum over simple minorants.</p>
-
-<h3>Fatou's lemma</h3>
-
-<div class="ok"><strong>Fatou.</strong> For any sequence $(f_n)$ of nonnegative measurable functions,
-$$ \int \liminf_n f_n\,d\mu \ \le\ \liminf_n \int f_n\,d\mu. $$</div>
-
-<p>Proof: apply MCT to $g_n = \inf_{k\ge n} f_k$ (which $\nearrow \liminf f_n$) and note $\int g_n\le\int f_k$ for all $k\ge n$. Fatou does <em>not</em> give equality — only an inequality, and in the wrong direction.</p>
-
-<h3>Dominated convergence (DCT)</h3>
-
-<div class="ok"><strong>DCT.</strong> Let $f_n\to f$ pointwise a.e.\ and suppose there is an integrable $g\ge 0$ with $|f_n|\le g$ a.e.\ for all $n$. Then $f\in L^1$ and
-$$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0. $$</div>
-
-<p>Proof: apply Fatou to $g + f_n$ and to $g - f_n$; the two inequalities pinch $\int f_n$ to $\int f$. The domination hypothesis is what allows the swap. Without an integrable dominator every conclusion can fail.</p>
-
-<h3>Failure modes</h3>
-
-<p>Counterexamples clarify the hypotheses. Define on $[0,2]$ with Lebesgue measure:</p>
-
-<ul>
-  <li><strong>Spike escaping to infinity:</strong> $f_n(x) = n\cdot\mathbf{1}_{[0,1/n]}(x)$. Then $f_n(x)\to 0$ for every $x>0$, yet $\int f_n = 1$ for every $n$. The mass concentrates at $0$ and is invisible pointwise. No integrable dominator exists (the pointwise supremum $\sup_n f_n$ behaves like $1/x$ near $0$, which is not integrable).</li>
-  <li><strong>Drifting spike:</strong> $f_n(x) = \mathbf{1}_{[n,n+1]}(x)$ on $\mathbb{R}$. Again $f_n\to 0$ pointwise but $\int f_n = 1$. Mass escapes to $+\infty$. No integrable dominator.</li>
-  <li><strong>DCT does apply:</strong> $g_n(x) = \tfrac{\sin(n x)}{n}$ on $[0,2\pi]$. Then $|g_n|\le 1/n \le 1$ (the constant $1$ is integrable on a finite-measure space) and $g_n\to 0$ uniformly, hence $\int g_n\to 0$.</li>
-</ul>
-
-<div class="widget" id="w-dct">
-  <div class="hd"><div class="ttl">Dominated convergence: who satisfies it?</div><div class="hint">two sequences; only one has an integrable dominator</div></div>
-  <svg id="dct-svg" viewBox="0 0 760 300" width="760" height="300"></svg>
+<div class="widget" id="w-eps">
+  <div class="hd"><div class="ttl">$\varepsilon$–$\delta$ on $f(x)=x^2$ at $a=1$</div><div class="hint">shrink $\delta$ until the $x$-box lands inside the $\varepsilon$-box</div></div>
+  <svg id="eps-svg" viewBox="0 0 560 340" width="560" height="340"></svg>
   <div class="row">
-    <label for="dct-pre">sequence</label>
-    <select id="dct-pre">
-      <option value="spike">$f_n = n\cdot\mathbf{1}_{[0,1/n]}$ (DCT fails)</option>
-      <option value="sin">$g_n = \sin(nx)/n$ on $[0,2\pi]$ (DCT applies)</option>
-    </select>
-    <label for="dct-n">$n$</label>
-    <input id="dct-n" type="range" min="1" max="40" step="1" value="6">
-    <span id="dct-nv" class="small"></span>
+    <label>$\varepsilon$</label>
+    <input type="range" id="eps-e" min="0.1" max="1.2" value="0.4" step="0.02">
+    <span class="pill" id="eps-eval">ε = 0.40</span>
+    <label>$\delta$</label>
+    <input type="range" id="eps-d" min="0.02" max="0.8" value="0.3" step="0.01">
+    <span class="pill" id="eps-dval">δ = 0.30</span>
   </div>
-  <div class="readout" id="dct-out"></div>
+  <div class="readout" id="eps-out"></div>
 </div>
-</section>
 
 <script>
-/* =============================== §4 DCT demonstrator =============================== */
 (function(){
-  const svg = $('#dct-svg'), out = $('#dct-out');
-  const pre = $('#dct-pre'), ns = $('#dct-n'), nv = $('#dct-nv');
-  const W=760, H=300, pad=40;
-  function draw(){
-    const mode = pre.value, n = +ns.value;
-    nv.textContent = `n = ${n}`;
-    svg.innerHTML = '';
-    const xl=pad, xr=W-pad, yt=20, yb=H-pad;
-    let Xmax, Ymax;
-    if(mode==='spike'){ Xmax=2; Ymax=Math.max(5, n+2); }
-    else              { Xmax=2*Math.PI; Ymax=1.2; }
-    const X = x => xl + (x/Xmax)*(xr-xl);
-    const Y = v => yb - ((v+Ymax)/(2*Ymax))*(yb-yt);
-
+  const svg=$('#eps-svg'), out=$('#eps-out');
+  const eE=$('#eps-e'), eD=$('#eps-d'), eLab=$('#eps-eval'), dLab=$('#eps-dval');
+  const W=560, H=340, pl=50, pr=20, pt=20, pb=40;
+  const xmin=-0.4, xmax=2.4, ymin=-0.3, ymax=5.2;
+  function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+  function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+  const a=1;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const eps=+eE.value, d=+eD.value;
+    eLab.textContent = `ε = ${eps.toFixed(2)}`;
+    dLab.textContent = `δ = ${d.toFixed(2)}`;
     // axes
-    svg.appendChild(SVG('line',{x1:xl,y1:(yb+yt)/2,x2:xr,y2:(yb+yt)/2,stroke:'var(--line)'}));
-    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
-
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pt,x2:X(0),y2:H-pb,stroke:'var(--line)','stroke-width':1}));
+    // epsilon band (horizontal around f(a)=1)
+    const fa = a*a;
+    svg.appendChild(SVG('rect',{x:pl, y:Y(fa+eps), width:W-pl-pr, height:Y(fa-eps)-Y(fa+eps),
+      fill:'rgba(255,216,102,0.11)', stroke:'var(--yellow)','stroke-dasharray':'4 4','stroke-width':1}));
+    // delta band (vertical around x=a)
+    svg.appendChild(SVG('rect',{x:X(a-d), y:pt, width:X(a+d)-X(a-d), height:H-pt-pb,
+      fill:'rgba(88,196,221,0.10)', stroke:'var(--blue)','stroke-dasharray':'4 4','stroke-width':1}));
+    // f(x) = x^2
+    const pts=[]; const N=220;
+    for(let i=0;i<=N;i++){
+      const x=xmin+(xmax-xmin)*i/N;
+      pts.push(`${X(x)},${Y(x*x)}`);
+    }
+    svg.appendChild(SVG('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // point (a, f(a))
+    svg.appendChild(SVG('circle',{cx:X(a),cy:Y(fa),r:4,fill:'var(--yellow)',stroke:'#0b0f16','stroke-width':1.2}));
     // labels
-    for(const tv of [0, Xmax/2, Xmax]){
-      const t=SVG('text',{x:X(tv),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-      t.textContent=tv.toFixed(Xmax===2?1:2); svg.appendChild(t);
-    }
-
-    // plot f_n
-    const Ns = 1000;
-    let d='', integ=0;
-    if(mode==='spike'){
-      // f_n(x) = n * 1_[0,1/n]
-      // draw rectangle
-      const a=0, b=1/n, h=n;
-      svg.appendChild(SVG('rect',{x:X(a),y:Y(h),width:X(b)-X(a),height:Y(0)-Y(h),
-        fill:'rgba(224,122,95,0.35)',stroke:'var(--pink)','stroke-width':1.4}));
-      integ = 1;
-      // pointwise limit = 0
-      svg.appendChild(SVG('line',{x1:xl,y1:Y(0),x2:xr,y2:Y(0),
-        stroke:'var(--green)','stroke-width':1,'stroke-dasharray':'4 4'}));
-      const t=SVG('text',{x:xr-4,y:Y(0)-6,'text-anchor':'end','font-size':11,fill:'var(--green)'});
-      t.textContent='pointwise limit = 0'; svg.appendChild(t);
-    } else {
-      // g_n(x) = sin(nx)/n
-      integ = 0;
-      for(let i=0;i<=Ns;i++){
-        const x=(i/Ns)*Xmax;
-        const v=Math.sin(n*x)/n;
-        if(i) integ += v * (Xmax/Ns);
-        d += (i? ' L':'M')+X(x)+' '+Y(v);
-      }
-      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':1.5}));
-      // dominator ±1/n
-      const dom = 1/n;
-      svg.appendChild(SVG('line',{x1:xl,y1:Y(dom),x2:xr,y2:Y(dom),
-        stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3'}));
-      svg.appendChild(SVG('line',{x1:xl,y1:Y(-dom),x2:xr,y2:Y(-dom),
-        stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 3'}));
-      const t=SVG('text',{x:xr-4,y:Y(dom)-4,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
-      t.textContent=`±1/n dominator (integrable)`; svg.appendChild(t);
-    }
-    // title
-    const tt = SVG('text',{x:W/2,y:14,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-    tt.textContent = mode==='spike'
-      ? 'height n, width 1/n: ∫ = 1 for every n, yet f_n → 0 pointwise'
-      : 'sin(nx)/n: uniformly small, ∫ → 0';
-    svg.appendChild(tt);
-
-    if(mode==='spike'){
-      out.textContent =
-        `f_n(x) = n · 1_{[0, 1/n]}(x), integrated on [0,2]\n`+
-        `∫ f_n dm = n · (1/n) = 1   for every n.\n`+
-        `f_n(x) → 0 for every x > 0 (and the single point x=0 is null).\n`+
-        `so lim ∫ f_n = 1 ≠ 0 = ∫ lim f_n.\n`+
-        `DCT fails: no integrable g with |f_n| ≤ g — sup_n f_n ~ 1/x near 0, not integrable.`;
-    } else {
-      out.textContent =
-        `g_n(x) = sin(nx)/n on [0, 2π]\n`+
-        `|g_n(x)| ≤ 1/n ≤ 1 = integrable dominator on a finite-measure space.\n`+
-        `∫_0^{2π} g_n dm = (1 - cos(2πn))/n² = ${integ.toExponential(3)}\n`+
-        `DCT applies: lim ∫ g_n = 0 = ∫ lim g_n.`;
-    }
+    const la=SVG('text',{x:X(a)+6,y:Y(fa)-8,'font-size':12,fill:'var(--yellow)'});
+    la.textContent='(1, 1)'; svg.appendChild(la);
+    // check: does f([a-d, a+d]) ⊂ (f(a)-eps, f(a)+eps) ?
+    // For f=x^2 on neighborhood of 1, range is ((a-d)^2, (a+d)^2) when a-d>0
+    let lo, hi;
+    if(a-d>=0){ lo=(a-d)*(a-d); hi=(a+d)*(a+d); }
+    else { lo=0; hi=Math.max((a-d)*(a-d),(a+d)*(a+d)); }
+    const ok = (lo >= fa-eps-1e-12) && (hi <= fa+eps+1e-12);
+    const maxDev = Math.max(Math.abs(hi-fa), Math.abs(fa-lo));
+    out.textContent =
+      `f(x) = x² ,  a = 1 ,  f(a) = 1\n`+
+      `f maps [${(a-d).toFixed(2)}, ${(a+d).toFixed(2)}] onto [${lo.toFixed(3)}, ${hi.toFixed(3)}]\n`+
+      `we need this ⊆ [${(fa-eps).toFixed(3)}, ${(fa+eps).toFixed(3)}]  (half-width ε = ${eps.toFixed(2)})\n`+
+      `max deviation from f(a): ${maxDev.toFixed(3)}\n\n`+
+      (ok
+        ? `✓ ε–δ satisfied: |x-1|<δ  ⇒  |x²-1| ≤ ${maxDev.toFixed(3)} < ε`
+        : `✗ δ too big: some x with |x-1|<δ has |x²-1| = ${maxDev.toFixed(3)} > ε.  Shrink δ.`);
   }
-  pre.addEventListener('change',draw);
-  ns.addEventListener('input',draw);
-  draw();
+  eE.addEventListener('input',render);
+  eD.addEventListener('input',render);
+  render();
 })();
 </script>
 
-<section id="lp">
-<h2>5. $L^p$ spaces</h2>
+<h3>Two theorems that live and die with completeness</h3>
 
-<p>Fix a measure space $(X,\mathcal{A},\mu)$ and a real parameter $1\le p<\infty$. The space
-$$ \mathcal{L}^p(\mu) := \Bigl\{ f\colon X\to\mathbb{C} \text{ measurable} : \int |f|^p\,d\mu < \infty\Bigr\} $$
-is a vector space. The functional $\|f\|_p := (\int |f|^p)^{1/p}$ is a seminorm — it vanishes on the subspace $\mathcal{N}$ of functions zero a.e. — and passing to the quotient yields a genuine normed space
-$$ L^p(\mu) := \mathcal{L}^p(\mu)/\mathcal{N}. $$
-In practice we work with $f$ "defined a.e." and suppress the quotient.</p>
+<p><strong>Intermediate value theorem (IVT).</strong> If $f\colon[a,b]\to\mathbb{R}$ is continuous and $y$ lies between $f(a)$ and $f(b)$, then there exists $c\in[a,b]$ with $f(c)=y$. The proof is a bisection argument: repeatedly halve the interval, keeping the half where $f$ changes sign relative to $y$. Completeness delivers the limit point. Without completeness, the continuous function $f(q)=q^2-2$ on $\mathbb{Q}\cap[0,2]$ would have $f(0)=-2$, $f(2)=2$, but no rational zero.</p>
 
-<p>For $p=\infty$ use the <strong>essential supremum</strong> $\|f\|_\infty = \inf\{M : |f|\le M\text{ a.e.}\}$, giving $L^\infty(\mu)$.</p>
+<p><strong>Extreme value theorem (EVT).</strong> A continuous function on a closed bounded interval $[a,b]$ attains its maximum and minimum. This follows from the Heine–Borel fact that $[a,b]$ is compact (every open cover admits a finite subcover) plus the observation that continuous images of compact sets are compact, hence bounded and closed — in $\mathbb{R}$, that means they contain their sup and inf.</p>
 
-<h3>Hölder, Minkowski</h3>
+<div class="note"><strong>Uniform continuity.</strong> On a <em>compact</em> set $K$, a continuous function is automatically <strong>uniformly continuous</strong>: the same $\delta$ works everywhere in $K$, given $\varepsilon$. On non-compact domains this fails — $f(x)=x^2$ is continuous on $\mathbb{R}$ but not uniformly continuous; $f(x)=1/x$ is continuous on $(0,1]$ but not uniformly continuous either.</div>
 
-<div class="ok"><strong>Hölder's inequality.</strong> If $1\le p,q\le\infty$ satisfy $1/p + 1/q = 1$, then
-$$ \int |fg|\,d\mu \ \le\ \|f\|_p\,\|g\|_q. $$</div>
-
-<p>Proof: the Young inequality $ab\le a^p/p + b^q/q$ (follows from the convexity of $\exp$). Apply with $a = |f|/\|f\|_p$, $b=|g|/\|g\|_q$, and integrate.</p>
-
-<div class="ok"><strong>Minkowski.</strong> For $1\le p \le \infty$, $\|f+g\|_p \le \|f\|_p + \|g\|_p$.</div>
-
-<p>Minkowski follows from Hölder by expanding $|f+g|^p \le |f+g|^{p-1}(|f|+|g|)$ and conjugating the exponents. Together, Hölder and Minkowski make $L^p$ a <em>normed</em> space. The non-trivial fact is that this norm is <em>complete</em>:</p>
-
-<h3>Riesz–Fischer</h3>
-
-<div class="ok"><strong>Riesz–Fischer.</strong> For $1\le p\le\infty$, $L^p(\mu)$ is a Banach space.</div>
-
-<p>Proof sketch ($1\le p <\infty$): a Cauchy sequence has a rapidly convergent subsequence with $\sum\|f_{n_{k+1}}-f_{n_k}\|_p < \infty$; by Minkowski the telescoping series $\sum|f_{n_{k+1}}-f_{n_k}|$ lies in $L^p$, so it converges a.e.; the limit is the candidate; DCT finishes.</p>
-
-<h3>$L^2$ as a Hilbert space</h3>
-
-<p>The exponent $p=2$ is self-conjugate: $1/2+1/2=1$. The resulting inner product
-$$ \langle f,g\rangle := \int f\,\overline{g}\,d\mu $$
-makes $L^2(\mu)$ a Hilbert space. Orthogonality, projections, and the spectral theorem all become available. The Riesz representation theorem identifies $(L^2)^* = L^2$ via $g\mapsto\langle\,\cdot\,,g\rangle$. Fourier analysis on $\mathbb{R}^n$, quantum mechanics, and stochastic calculus are all $L^2$ theories.</p>
-
-<h3>Duality $L^p/L^q$</h3>
-
-<p>For $1\le p<\infty$ and $1/p+1/q=1$, Hölder's inequality gives a bounded linear map
-$$ L^q(\mu)\ \hookrightarrow\ L^p(\mu)^*, \qquad g\mapsto \Lambda_g f = \int fg\,d\mu.$$
-The <em>Riesz representation theorem</em> says this map is an isometric isomorphism when $\mu$ is $\sigma$-finite (and without that hypothesis for $1<p<\infty$):
-$$ L^p(\mu)^* \cong L^q(\mu). $$
-The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is exceptional: $L^\infty(\mu)^*$ is strictly larger than $L^1(\mu)$ (it is a space of finitely additive measures).</p>
-
-<h3>Geometry of $L^p$: unit balls</h3>
-
-<p>The unit ball of $\ell^p_2 = (\mathbb{R}^2, \|\cdot\|_p)$ is $\{(x,y): |x|^p + |y|^p \le 1\}$. For $p=1$ it is the $45°$-rotated square (the $\ell^1$ ball); for $p=2$ it is the Euclidean disk; for $p=\infty$ it is the axis-aligned square; for $p\in(1,\infty)$ it interpolates smoothly. For $p<1$ the "unit ball" is <em>concave</em>, so $(|x|^p+|y|^p)^{1/p}$ is not a norm — it fails the triangle inequality.</p>
-
-<div class="widget" id="w-lp">
-  <div class="hd"><div class="ttl">Unit balls $\{|x|^p+|y|^p\le 1\}$</div><div class="hint">slide $p$; toggle $p=\infty$</div></div>
-  <svg id="lp-svg" viewBox="0 0 420 420" width="420" height="420"></svg>
-  <div class="row">
-    <label for="lp-p">$p$</label>
-    <input id="lp-p" type="range" min="0.5" max="5" step="0.05" value="2">
-    <span id="lp-pv" class="small"></span>
-    <button id="lp-inf">$p=\infty$</button>
-  </div>
-  <div class="readout" id="lp-out"></div>
-</div>
+<div class="quiz" data-concept="real-continuity"></div>
 </section>
+
+<!-- =============================== §3 DIFFERENTIATION =============================== -->
+<section id="real-differentiation">
+<h2>3. Differentiation</h2>
+
+<p>The derivative at $a$ is a number $f'(a)$, but the <em>right</em> way to read its definition is as a best-linear-approximation statement. A function $f$ is <strong>differentiable at $a$</strong> if there exists a linear map $L\colon\mathbb{R}\to\mathbb{R}$ (multiplication by the single number $f'(a)$) such that</p>
+$$ f(a+h) = f(a) + L(h) + r(h),\quad \text{with}\quad \frac{|r(h)|}{|h|}\longrightarrow 0 \text{ as } h\to 0. $$
+<p>Equivalently $f'(a)=\lim_{h\to 0}\big(f(a+h)-f(a)\big)/h$. The packaging matters: in §6 the "linear map $L$" becomes the Jacobian, and the limit condition generalizes verbatim.</p>
+
+<div class="widget" id="w-mvt">
+  <div class="hd"><div class="ttl">Best linear approximation & mean value theorem</div><div class="hint">drag $a$; compare tangent slope to secant slope</div></div>
+  <svg id="mvt-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <div class="row">
+    <label>$a$</label>
+    <input type="range" id="mvt-a" min="0.1" max="2.9" value="1.2" step="0.01">
+    <span class="pill" id="mvt-aval">a = 1.20</span>
+    <label>function</label>
+    <select id="mvt-fn">
+      <option value="sin">f(x) = sin(x)</option>
+      <option value="poly" selected>f(x) = x³/6 − x</option>
+      <option value="exp">f(x) = e^(x/2) − 1</option>
+    </select>
+  </div>
+  <div class="readout" id="mvt-out"></div>
+</div>
 
 <script>
-/* =============================== §5 Lp unit ball widget =============================== */
 (function(){
-  const svg = $('#lp-svg'), out = $('#lp-out');
-  const pr = $('#lp-p'), pv = $('#lp-pv'), binf = $('#lp-inf');
-  const W=420, H=420, cx=W/2, cy=H/2, R=170;
-  let useInf = false;
-
-  function draw(){
-    const p = useInf ? Infinity : +pr.value;
-    pv.textContent = useInf ? 'p = ∞' : `p = ${p.toFixed(2)}`;
-    svg.innerHTML = '';
+  const svg=$('#mvt-svg'), out=$('#mvt-out');
+  const sa=$('#mvt-a'), la=$('#mvt-aval'), fn=$('#mvt-fn');
+  const W=640,H=340,pl=40,pr=20,pt=20,pb=40;
+  const xmin=0, xmax=3, ymin=-1.6, ymax=1.6;
+  function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+  function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+  const FNS = {
+    sin:  { f:x=>Math.sin(x),          df:x=>Math.cos(x),              name:'sin x',  d:'cos x' },
+    poly: { f:x=>x*x*x/6 - x,          df:x=>x*x/2 - 1,                name:'x³/6 − x', d:'x²/2 − 1' },
+    exp:  { f:x=>Math.exp(x/2)-1,      df:x=>0.5*Math.exp(x/2),        name:'e^(x/2) − 1', d:'½e^(x/2)' }
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const a=+sa.value; la.textContent=`a = ${a.toFixed(2)}`;
+    const F=FNS[fn.value];
     // axes
-    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));
-    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
-    // reference: p=2 circle in faint
-    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 3'}));
-    // Compute boundary: parametrize
-    let pts = [];
-    const Ns = 400;
-    if(useInf){
-      pts = [[1,1],[1,-1],[-1,-1],[-1,1],[1,1]];
-    } else {
-      // |cos t|^p + |sin t|^p = r^p  on unit circle... instead plot by (x,y) = (sign(c) |c|^{1/p}, sign(s) |s|^{1/p}) /nope
-      // use: for each t in [0, 2pi], (x,y) where we solve |x|^p+|y|^p=1 with x=cos t, y=sin t NORMALIZED
-      for(let i=0;i<=Ns;i++){
-        const t = (i/Ns)*2*Math.PI;
-        const c = Math.cos(t), s = Math.sin(t);
-        // normalizing factor so that (r c, r s) lies on the boundary
-        const denom = Math.pow(Math.abs(c),p) + Math.pow(Math.abs(s),p);
-        const r = Math.pow(denom, -1/p);
-        pts.push([r*c, r*s]);
-      }
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pt,x2:X(0),y2:H-pb,stroke:'var(--line)'}));
+    // curve
+    const pts=[]; const N=260;
+    for(let i=0;i<=N;i++){
+      const x=xmin+(xmax-xmin)*i/N;
+      pts.push(`${X(x)},${Y(F.f(x))}`);
     }
-    // draw fill
-    const ok = !useInf && p >= 1;
-    const color = ok ? 'var(--yellow)' : (useInf ? 'var(--yellow)' : 'var(--pink)');
-    const fill = ok ? 'rgba(255,216,102,0.14)' : (useInf? 'rgba(255,216,102,0.14)' : 'rgba(224,122,95,0.14)');
-    let dstr='';
-    for(let i=0;i<pts.length;i++){
-      const [x,y]=pts[i];
-      const X=cx+x*R, Y=cy-y*R;
-      dstr += (i? ' L':'M')+X.toFixed(2)+' '+Y.toFixed(2);
+    svg.appendChild(SVG('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // endpoints A, B of [0, 3]
+    const A=[0, F.f(0)], B=[3, F.f(3)];
+    const secSlope=(B[1]-A[1])/(B[0]-A[0]);
+    // secant AB
+    svg.appendChild(SVG('line',{x1:X(A[0]),y1:Y(A[1]),x2:X(B[0]),y2:Y(B[1]),
+      stroke:'var(--violet)','stroke-width':2,'stroke-dasharray':'5 4'}));
+    // tangent line at a
+    const slope=F.df(a), fa=F.f(a);
+    const tx1=xmin, ty1=fa+slope*(tx1-a);
+    const tx2=xmax, ty2=fa+slope*(tx2-a);
+    svg.appendChild(SVG('line',{x1:X(tx1),y1:Y(ty1),x2:X(tx2),y2:Y(ty2),
+      stroke:'var(--yellow)','stroke-width':2}));
+    // point (a, f(a))
+    svg.appendChild(SVG('circle',{cx:X(a),cy:Y(fa),r:5,fill:'var(--yellow)',stroke:'#0b0f16','stroke-width':1.2}));
+    // find MVT point c where f'(c)=secSlope
+    let cFound=null;
+    // scan
+    let prev=F.df(xmin)-secSlope;
+    for(let i=1;i<=400;i++){
+      const x=xmin+(xmax-xmin)*i/400;
+      const cur=F.df(x)-secSlope;
+      if(prev*cur<=0){ cFound=x; break; }
+      prev=cur;
     }
-    dstr += ' Z';
-    svg.appendChild(SVG('path',{d:dstr,fill,stroke:color,'stroke-width':2}));
-
-    // title
-    const t = SVG('text',{x:W/2,y:16,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
-    t.textContent = useInf ? 'ℓ^∞ unit ball: the square [-1,1]²' : `{(x,y): |x|^${p.toFixed(2)} + |y|^${p.toFixed(2)} ≤ 1}`;
-    svg.appendChild(t);
-
-    let msg;
-    if(useInf){
-      msg = 'p = ∞. Norm: max(|x|,|y|). Ball is the axis-aligned square.';
-    } else if(p < 1){
-      msg = `p = ${p.toFixed(2)} < 1. This is NOT a norm — the set is concave (non-convex), triangle inequality fails. The quasi-norm still makes L^p a complete metric space, but it is not a Banach space.`;
-    } else if(Math.abs(p-1)<1e-6){
-      msg = 'p = 1. Ball is the 45°-rotated unit square (ℓ^1 = taxicab).';
-    } else if(Math.abs(p-2)<1e-6){
-      msg = 'p = 2. Ball is the Euclidean disk. L² is Hilbert.';
-    } else if(p>1 && p<2){
-      msg = `p = ${p.toFixed(2)} ∈ (1,2). Smoothly interpolates diamond → disk.`;
-    } else {
-      msg = `p = ${p.toFixed(2)} ∈ (2,∞). Smoothly interpolates disk → square.`;
+    if(cFound!==null){
+      svg.appendChild(SVG('circle',{cx:X(cFound),cy:Y(F.f(cFound)),r:5,fill:'var(--green)',stroke:'#0b0f16','stroke-width':1.2}));
+      const t=SVG('text',{x:X(cFound)+6,y:Y(F.f(cFound))-8,'font-size':12,fill:'var(--green)'});
+      t.textContent='c: f′(c)=avg slope'; svg.appendChild(t);
     }
-    out.textContent = msg;
+    // endpoint markers
+    svg.appendChild(SVG('circle',{cx:X(A[0]),cy:Y(A[1]),r:4,fill:'var(--violet)'}));
+    svg.appendChild(SVG('circle',{cx:X(B[0]),cy:Y(B[1]),r:4,fill:'var(--violet)'}));
+    // legend text
+    const lg=SVG('text',{x:W-pr-8, y:pt+14,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg.textContent='tangent at a'; svg.appendChild(lg);
+    const lg2=SVG('text',{x:W-pr-8, y:pt+30,'text-anchor':'end','font-size':12,fill:'var(--violet)'});
+    lg2.textContent='secant from 0 to 3'; svg.appendChild(lg2);
+    out.textContent =
+      `f(x) = ${F.name}   ,   f′(x) = ${F.d}\n`+
+      `tangent slope at a = ${a.toFixed(2)} :  f′(a) = ${slope.toFixed(4)}\n`+
+      `mean-value slope  (f(3)-f(0))/3     =  ${secSlope.toFixed(4)}\n`+
+      (cFound!==null
+        ? `MVT guarantees some c ∈ (0,3) with f′(c) = avg slope. Found  c ≈ ${cFound.toFixed(3)}.`
+        : `MVT: no c found in scan — try another function.`);
   }
-  pr.addEventListener('input',()=>{ useInf=false; draw(); });
-  binf.addEventListener('click',()=>{ useInf=!useInf; draw(); });
-  draw();
+  sa.addEventListener('input',render); fn.addEventListener('change',render);
+  render();
 })();
 </script>
 
-<section id="product">
-<h2>6. Product measures and Fubini</h2>
+<h3>The chain rule as composition of best approximations</h3>
 
-<p>Given $\sigma$-finite measure spaces $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\nu)$, the product $\sigma$-algebra $\mathcal{A}\otimes\mathcal{B}$ is generated by the rectangles $A\times B$, $A\in\mathcal{A}, B\in\mathcal{B}$. There is a unique product measure $\mu\otimes\nu$ on $\mathcal{A}\otimes\mathcal{B}$ satisfying
-$$ (\mu\otimes\nu)(A\times B) = \mu(A)\,\nu(B). $$
-Existence uses the Carathéodory extension applied to the rectangle pre-measure; $\sigma$-finiteness ensures uniqueness.</p>
+<p>If $g$ is differentiable at $a$ and $f$ is differentiable at $g(a)$, the composition $f\circ g$ is differentiable at $a$ with $(f\circ g)'(a) = f'(g(a))\cdot g'(a)$. Written in best-linear-approximation language, the linear approximation to $f\circ g$ at $a$ is just the <em>composition</em> of the two linear approximations. The product of derivatives is the statement that "composition of one-dimensional linear maps is multiplication."</p>
 
-<h3>Tonelli and Fubini</h3>
+<h3>The mean value theorem</h3>
 
-<div class="ok"><strong>Tonelli.</strong> For $f\colon X\times Y\to[0,\infty]$ measurable,
-$$ \int_{X\times Y} f\,d(\mu\otimes\nu) = \int_X\!\int_Y f(x,y)\,d\nu(y)\,d\mu(x) = \int_Y\!\int_X f(x,y)\,d\mu(x)\,d\nu(y). $$
-All three are elements of $[0,\infty]$ and are equal — no integrability hypothesis required.</div>
+<p><strong>MVT.</strong> If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there exists $c\in(a,b)$ with</p>
+$$ f'(c) = \frac{f(b)-f(a)}{b-a}. $$
+<p>The widget above exhibits such a $c$ as the green dot. MVT is the workhorse of single-variable analysis: it underwrites Taylor's theorem, the sign of $f'$ controlling monotonicity, and L'Hôpital's rule. Its proof is a one-line reduction to Rolle's theorem, which is in turn an EVT argument.</p>
 
-<div class="ok"><strong>Fubini.</strong> For $f\colon X\times Y\to\mathbb{C}$ with $\int |f|\,d(\mu\otimes\nu) < \infty$, the iterated integrals exist for a.e.\ section and are equal, and all three agree.</div>
+<h3>Taylor's theorem with remainder</h3>
 
-<p>The usual proof: first verify for indicators of measurable rectangles (easy); linearity to simple functions; MCT to $[0,\infty]$-valued measurable; then split $f=f^+-f^-$ and invoke integrability to avoid $\infty - \infty$. The single hypothesis in Fubini — $f\in L^1(\mu\otimes\nu)$ — is not optional.</p>
+<p>If $f$ is $n$-times differentiable on $[a,b]$ and $f^{(n+1)}$ exists on $(a,b)$, then for each $x\in[a,b]$ there exists $\xi$ between $a$ and $x$ such that</p>
+$$ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \;+\; \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}. $$
+<p>The first sum is the degree-$n$ Taylor polynomial; the last term is <em>Lagrange's form</em> of the remainder (integral and Cauchy forms also exist). The remainder quantifies how well polynomials approximate smooth functions — tightly, if $f^{(n+1)}$ is bounded — and underlies every error estimate in numerical analysis.</p>
 
-<h3>Failure when integrability fails</h3>
-
-<p>On $X=Y=\mathbb{N}$ with counting measure, consider
-$$ a_{m,n} = \begin{cases} 1 & n=m, \\ -1 & n=m+1, \\ 0 & \text{otherwise.} \end{cases}$$
-Then $\sum_n a_{m,n} = 0$ for each $m$, so $\sum_m\sum_n a_{m,n} = 0$. But $\sum_m a_{m,n}$ equals $1$ for $n=0$ (from the diagonal), and telescopes elsewhere: $\sum_n\sum_m a_{m,n} = 1$. The two iterated sums disagree because $\sum_{m,n}|a_{m,n}|=\infty$.</p>
-
-<div class="note">A continuous version: on $[0,1]^2$ with Lebesgue measure, let
-$$ f(x,y) = \frac{x^2-y^2}{(x^2+y^2)^2}, \qquad (x,y)\ne (0,0).$$
-Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx = -\pi/4$. The function is not absolutely integrable near the origin, so Fubini's hypothesis is violated, and the iterated integrals are genuinely different.</div>
-
-<p>Operationally: before swapping order of integration, check $\int |f| < \infty$ (by computing it in either order — Tonelli makes the unsigned iterated integrals automatically equal).</p>
+<div class="quiz" data-concept="real-differentiation"></div>
 </section>
 
-<section id="outro">
-<h2>7. Connections</h2>
+<!-- =============================== §4 UNIFORM CONVERGENCE =============================== -->
+<section id="uniform-convergence">
+<h2>4. Uniform convergence</h2>
 
-<p>Measure theory is not an end in itself. It is the substrate on which several further theories are built; each contributes back motivation for why the definitions of $\S 2$ were the right ones.</p>
+<p>Given a sequence of functions $f_n\colon D\to\mathbb{R}$, two convergence notions compete:</p>
+<ul>
+  <li><strong>Pointwise:</strong> $f_n\to f$ pointwise if $\forall x\in D\;\forall\varepsilon>0\;\exists N(x,\varepsilon)\;\forall n\ge N: |f_n(x)-f(x)|<\varepsilon$. The $N$ is allowed to depend on the point $x$.</li>
+  <li><strong>Uniform:</strong> $f_n\to f$ uniformly if $\forall\varepsilon>0\;\exists N(\varepsilon)\;\forall n\ge N\;\forall x\in D: |f_n(x)-f(x)|<\varepsilon$. A single $N$ works for every $x$ simultaneously.</li>
+</ul>
+<p>The quantifier swap is everything. Uniform convergence is equivalent to $\sup_{x\in D}|f_n(x)-f(x)|\to 0$, and it is the kind of convergence that <em>preserves</em> continuity, boundedness, and Riemann integrability.</p>
 
-<h3>Functional analysis</h3>
+<div class="widget" id="w-unif">
+  <div class="hd"><div class="ttl">Pointwise vs uniform convergence</div><div class="hint">x^n on [0,1] is pointwise but not uniform</div></div>
+  <svg id="unif-svg" viewBox="0 0 640 320" width="640" height="320"></svg>
+  <div class="row">
+    <label>family</label>
+    <select id="unif-fam">
+      <option value="xn" selected>f_n(x) = xⁿ on [0,1]</option>
+      <option value="sinn">f_n(x) = sin(nx)/n on [0,π]</option>
+      <option value="bump">f_n(x) = n x (1-x)ⁿ on [0,1]  (spike)</option>
+    </select>
+    <label>$n$</label>
+    <input type="range" id="unif-n" min="1" max="60" value="4" step="1">
+    <span class="pill" id="unif-nval">n = 4</span>
+  </div>
+  <div class="readout" id="unif-out"></div>
+</div>
 
-<p>$L^p$ spaces are the first examples of Banach spaces that are not finite-dimensional and not obviously sequence spaces. The Hahn–Banach theorem, weak-$*$ topologies, Banach–Alaoglu, and the open-mapping/closed-graph theorems all find their first applications here. $L^2$ theory, with Fourier-basis expansions, is the bridge to spectral theory and PDE. A companion notebook page (coming) will develop Hilbert spaces, Riesz representation, bounded operators, and the spectral theorem for compact/self-adjoint operators with the $L^2$ theory above as the running example.</p>
+<script>
+(function(){
+  const svg=$('#unif-svg'), out=$('#unif-out');
+  const fam=$('#unif-fam'), sn=$('#unif-n'), nl=$('#unif-nval');
+  const W=640, H=320, pl=45, pr=20, pt=20, pb=40;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n=+sn.value; nl.textContent=`n = ${n}`;
+    let xmin=0, xmax=1, ymin=-0.2, ymax=1.1, fn, limitFn, name, isUniform, limitName;
+    if(fam.value==='xn'){
+      xmin=0; xmax=1; ymin=-0.1; ymax=1.1;
+      fn = x => Math.pow(x,n);
+      limitFn = x => (x<1? 0:1);
+      name='xⁿ'; limitName='f(x)=0 on [0,1), f(1)=1 (discontinuous!)';
+      isUniform=false;
+    } else if(fam.value==='sinn'){
+      xmin=0; xmax=Math.PI; ymin=-0.6; ymax=0.6;
+      fn = x => Math.sin(n*x)/n;
+      limitFn = x => 0;
+      name='sin(nx)/n'; limitName='f(x) = 0';
+      isUniform=true;
+    } else {
+      xmin=0; xmax=1; ymin=-0.2; ymax=1.6;
+      fn = x => n*x*Math.pow(1-x,n);
+      limitFn = x => 0;
+      name='n x (1-x)ⁿ'; limitName='f(x) = 0 pointwise (but sup = (n/(n+1))^(n+1) ≈ 1/e does NOT go to 0)';
+      isUniform=false;
+    }
+    function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+    function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+    // axes
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(xmin),y1:pt,x2:X(xmin),y2:H-pb,stroke:'var(--line)'}));
+    // limit function (green)
+    const lpts=[]; const N=260;
+    for(let i=0;i<=N;i++){
+      const x=xmin+(xmax-xmin)*i/N;
+      lpts.push(`${X(x)},${Y(limitFn(x))}`);
+    }
+    svg.appendChild(SVG('polyline',{points:lpts.join(' '),fill:'none',stroke:'var(--green)','stroke-width':2,'stroke-dasharray':'5 4'}));
+    // f_n (pink)
+    const fpts=[]; let sup=0;
+    for(let i=0;i<=N;i++){
+      const x=xmin+(xmax-xmin)*i/N;
+      const y=fn(x);
+      fpts.push(`${X(x)},${Y(y)}`);
+      sup = Math.max(sup, Math.abs(y - limitFn(x)));
+    }
+    svg.appendChild(SVG('polyline',{points:fpts.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // legend
+    const l1=SVG('text',{x:W-pr-8,y:pt+14,'text-anchor':'end','font-size':12,fill:'var(--pink)'});
+    l1.textContent=`f_n(x) = ${name}`; svg.appendChild(l1);
+    const l2=SVG('text',{x:W-pr-8,y:pt+30,'text-anchor':'end','font-size':12,fill:'var(--green)'});
+    l2.textContent='pointwise limit f'; svg.appendChild(l2);
+    out.textContent =
+      `family : f_n(x) = ${name}\n`+
+      `limit  : ${limitName}\n`+
+      `current n = ${n}\n`+
+      `sup |f_n − f| on domain ≈ ${sup.toFixed(4)}\n\n`+
+      (isUniform
+        ? `convergence is UNIFORM: sup → 0 as n → ∞.`
+        : `convergence is POINTWISE but NOT UNIFORM: sup does not go to 0.`);
+  }
+  fam.addEventListener('change',render); sn.addEventListener('input',render);
+  render();
+})();
+</script>
 
-<h3>Probability</h3>
+<h3>Two clean theorems</h3>
 
-<p>A probability space is a triple $(\Omega,\mathcal{F},P)$ with $P(\Omega)=1$. A random variable is a measurable function; an expectation is a Lebesgue integral. The convergence theorems reappear: almost-sure convergence vs convergence in probability vs $L^p$-convergence, with DCT/MCT the workhorses. Conditional expectation is an $L^2$ orthogonal projection. Martingales, ergodic theory, stochastic calculus — none of it works without measure theory first.</p>
+<p><strong>Continuity preservation.</strong> If each $f_n$ is continuous on $D$ and $f_n\to f$ uniformly on $D$, then $f$ is continuous on $D$. The proof is a $3\varepsilon/3$ argument: write</p>
+$$ |f(x)-f(y)| \le |f(x)-f_N(x)| + |f_N(x)-f_N(y)| + |f_N(y)-f(y)|, $$
+<p>bound the outer terms by uniformity and the middle term by continuity of $f_N$. Pointwise convergence is not enough — the pointwise limit of $x^n$ on $[0,1]$ is discontinuous at $1$.</p>
 
-<h3>Fourier analysis</h3>
+<p><strong>Integration swap.</strong> If each $f_n$ is Riemann-integrable on $[a,b]$ and $f_n\to f$ uniformly, then $f$ is Riemann-integrable and $\int_a^b f_n\to\int_a^b f$. Pointwise convergence on its own does <em>not</em> license this swap — compare the Dirichlet example from <a href="./measure-theory.html">measure theory</a>, §1.</p>
 
-<p>The Fourier transform $\hat f(\xi) = \int f(x)e^{-2\pi i x\xi}\,dx$ is a $L^2(\mathbb{R})\to L^2(\mathbb{R})$ unitary operator (Plancherel) extended by density from the Schwartz class. Convolutions in $L^1$, the $L^p$ exchange properties (Hausdorff–Young), and the role of the Fourier transform in PDE all require $L^p$-theory.</p>
+<div class="note"><strong>Weierstrass M-test.</strong> If $\sum M_n<\infty$ and $|f_n(x)|\le M_n$ for all $x\in D$, then $\sum f_n$ converges absolutely and uniformly on $D$. This is the standard tool for producing uniform convergence of power series on compact subsets of their disk of convergence, and Fourier series of sufficiently smooth functions.</div>
 
-<h3>Harmonic analysis</h3>
+<div class="quiz" data-concept="uniform-convergence"></div>
+</section>
 
-<p>Maximal functions, singular integrals (Calderón–Zygmund), Hardy spaces, BMO, Littlewood–Paley theory: each of these lives on $L^p$ and exploits measure-theoretic tools at the boundary of Fourier analysis and real analysis. The Hardy–Littlewood maximal theorem is itself a Lebesgue-differentiation statement.</p>
+<!-- =============================== §5 RIEMANN INTEGRAL =============================== -->
+<section id="riemann-integral">
+<h2>5. The Riemann integral</h2>
 
-<h3>PDE</h3>
+<p>A <strong>partition</strong> of $[a,b]$ is a finite sequence $P\colon a=x_0<x_1<\cdots<x_n=b$. For a bounded $f\colon[a,b]\to\mathbb{R}$ define the <strong>upper and lower sums</strong></p>
+$$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,P)=\sum_{k=1}^n \Big(\inf_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}). $$
+<p>Refining $P$ makes $U$ go down and $L$ go up. Define the <em>upper</em> and <em>lower</em> Darboux integrals as the $\inf_P U$ and $\sup_P L$. When these agree, $f$ is <strong>Riemann-integrable</strong> and their common value is $\int_a^b f$.</p>
 
-<p>Sobolev spaces $W^{k,p}$ are $L^p$-spaces of weak derivatives; well-posedness of elliptic, parabolic, and hyperbolic PDE is stated and proved in these spaces. Distributions (Schwartz) are continuous linear functionals; their duality with test-functions generalises the $L^p/L^q$ pairing.</p>
+<div class="widget" id="w-riem">
+  <div class="hd"><div class="ttl">Riemann upper/lower sums</div><div class="hint">increase the partition size and watch the gap shrink</div></div>
+  <svg id="riem-svg" viewBox="0 0 640 320" width="640" height="320"></svg>
+  <div class="row">
+    <label>function</label>
+    <select id="riem-fn">
+      <option value="smooth" selected>f(x) = (sin(πx) + 1)/2 + x/4</option>
+      <option value="step">f(x) = ⌊3x⌋/3 + 0.1  (discontinuous)</option>
+      <option value="dirichlet">Dirichlet-like (f(q)=1 if q∈ℚ with small denom)</option>
+    </select>
+    <label>$n$ partitions</label>
+    <input type="range" id="riem-n" min="2" max="60" value="8" step="1">
+    <span class="pill" id="riem-nval">n = 8</span>
+  </div>
+  <div class="readout" id="riem-out"></div>
+</div>
 
-<h3>Geometric measure theory</h3>
+<script>
+(function(){
+  const svg=$('#riem-svg'), out=$('#riem-out');
+  const fn=$('#riem-fn'), sn=$('#riem-n'), nl=$('#riem-nval');
+  const W=640, H=320, pl=40, pr=20, pt=20, pb=40;
+  const xmin=0, xmax=1, ymin=0, ymax=1.6;
+  function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+  function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+  const FNS = {
+    smooth: { f: x => (Math.sin(Math.PI*x)+1)/2 + x/4, name:'smooth',
+              analytic: ( ( -Math.cos(Math.PI)+Math.cos(0) )/Math.PI/2 + 0.5 + 1/8 ),
+              inner: (a,b,max)=>{ // actual sup/inf by sampling
+                let lo=Infinity,hi=-Infinity;
+                const S=16; for(let i=0;i<=S;i++){const x=a+(b-a)*i/S; const y=(Math.sin(Math.PI*x)+1)/2 + x/4; if(y<lo)lo=y; if(y>hi)hi=y;}
+                return {lo,hi};
+              } },
+    step: { f: x => Math.floor(3*x)/3 + 0.1, name:'step',
+            analytic: (0.1 + (1/3)*1/3 + (2/3)*1/3),
+            inner: (a,b)=>{
+              let lo=Infinity,hi=-Infinity;
+              const S=20; for(let i=0;i<=S;i++){const x=a+(b-a)*i/S; const y=Math.floor(3*x)/3 + 0.1; if(y<lo)lo=y; if(y>hi)hi=y;}
+              return {lo,hi};
+            } },
+    dirichlet: { f: x => { // plotted as 1 if x close to small-denom rational, else 0
+                  for(let q=1;q<=8;q++){ const p=Math.round(q*x); if(Math.abs(x-p/q)<1e-4) return 1; }
+                  return 0;
+                },
+                name:'dirichlet-like',
+                analytic: NaN,
+                inner: (a,b)=>({lo:0, hi:1}) }  // always 0 and 1 on any sub-interval (limit case)
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n=+sn.value; nl.textContent=`n = ${n}`;
+    const F=FNS[fn.value];
+    // axes
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pt,x2:X(0),y2:H-pb,stroke:'var(--line)'}));
+    // boxes: upper (pink translucent), lower (blue translucent)
+    let U=0, L=0;
+    for(let k=0;k<n;k++){
+      const a=k/n, b=(k+1)/n;
+      const {lo,hi}=F.inner(a,b);
+      U += hi*(b-a); L += lo*(b-a);
+      // upper box
+      svg.appendChild(SVG('rect',{x:X(a),y:Y(hi),width:X(b)-X(a),height:Y(0)-Y(hi),
+        fill:'rgba(224,122,95,0.18)',stroke:'var(--pink)','stroke-width':0.8}));
+      // lower box outline
+      svg.appendChild(SVG('rect',{x:X(a),y:Y(lo),width:X(b)-X(a),height:Y(0)-Y(lo),
+        fill:'rgba(88,196,221,0.22)',stroke:'var(--blue)','stroke-width':0.8}));
+    }
+    // curve on top
+    const pts=[]; const N=300;
+    for(let i=0;i<=N;i++){
+      const x=xmin+(xmax-xmin)*i/N;
+      pts.push(`${X(x)},${Y(F.f(x))}`);
+    }
+    if(fn.value==='dirichlet'){
+      // draw scattered 1s
+      for(let q=1;q<=8;q++){ for(let p=0;p<=q;p++){ const xv=p/q; svg.appendChild(SVG('circle',{cx:X(xv),cy:Y(1),r:1.8,fill:'var(--yellow)'})); } }
+      // and the "0" baseline in yellow
+      svg.appendChild(SVG('line',{x1:X(0),y1:Y(0),x2:X(1),y2:Y(0),stroke:'var(--yellow)','stroke-width':2}));
+    } else {
+      svg.appendChild(SVG('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    }
+    // legend
+    const lg=SVG('text',{x:W-pr-8,y:pt+14,'text-anchor':'end','font-size':12,fill:'var(--pink)'});
+    lg.textContent='U(f,P)  (upper sum)'; svg.appendChild(lg);
+    const lg2=SVG('text',{x:W-pr-8,y:pt+30,'text-anchor':'end','font-size':12,fill:'var(--blue)'});
+    lg2.textContent='L(f,P)  (lower sum)'; svg.appendChild(lg2);
+    const ans = Number.isFinite(F.analytic) ? F.analytic.toFixed(4) : '— (undefined: Riemann-non-integrable)';
+    out.textContent =
+      `f = ${F.name}   ,   partition size n = ${n}\n`+
+      `U(f, P) = ${U.toFixed(4)}\n`+
+      `L(f, P) = ${L.toFixed(4)}\n`+
+      `gap U − L = ${(U-L).toFixed(4)}\n`+
+      `∫₀¹ f  (analytic) = ${ans}\n`+
+      (fn.value==='dirichlet'
+        ? `\nFor the Dirichlet-like indicator, every subinterval contains both rationals and irrationals, so sup=1 and inf=0 on every piece — the gap U−L stays at 1 for every partition. Riemann-nonintegrable.`
+        : fn.value==='step'
+          ? `\nThe step function is bounded with finitely many discontinuities — Riemann-integrable. The gap shrinks like O(1/n).`
+          : `\nContinuous f on [0,1] is Riemann-integrable; U and L squeeze together at rate O(1/n).`);
+  }
+  fn.addEventListener('change',render); sn.addEventListener('input',render);
+  render();
+})();
+</script>
 
-<p>Hausdorff measures $\mathcal{H}^s$ measure $s$-dimensional sets even when $s$ is not an integer. Rectifiable sets, currents, varifolds, the Plateau problem — a substantial industry built on the same $\sigma$-algebra + countable additivity foundation, tuned to geometry.</p>
+<h3>When is $f$ Riemann-integrable?</h3>
 
-<p class="small" style="margin-top:2.5rem">Prerequisites throughout: basic set theory, undergraduate real analysis (Riemann integral, metric spaces), linear algebra. The graduate "big theorem" list — MCT, Fatou, DCT, Riesz–Fischer, Radon–Nikodym, Fubini–Tonelli — is roughly what is assumed elsewhere in this notebook.</p>
+<p>A bounded function is Riemann-integrable on $[a,b]$ iff for every $\varepsilon>0$ there is a partition with $U(f,P)-L(f,P)<\varepsilon$. A clean characterization due to Lebesgue: $f$ is Riemann-integrable iff $f$ is bounded and its set of discontinuities has <em>Lebesgue measure zero</em>. Every continuous function on $[a,b]$ qualifies; every monotone function qualifies; the Dirichlet indicator $\mathbf 1_{\mathbb{Q}\cap[0,1]}$ does not.</p>
+
+<h3>The fundamental theorem of calculus</h3>
+
+<p><strong>FTC I.</strong> If $f$ is continuous on $[a,b]$ and $F(x)=\int_a^x f(t)\,dt$, then $F$ is differentiable on $(a,b)$ with $F'(x)=f(x)$. So <em>indefinite integration undoes differentiation</em>.</p>
+
+<p><strong>FTC II.</strong> If $F$ is continuous on $[a,b]$ and $F'=f$ on $(a,b)$ with $f$ Riemann-integrable, then $\int_a^b f=F(b)-F(a)$. So <em>differentiation undoes indefinite integration</em>.</p>
+
+<div class="note"><strong>Bridge to measure theory.</strong> Pointwise limits break Riemann integrability (Dirichlet); unbounded domains produce only conditional convergence (Fourier's integrals); the class of integrable functions is not a Banach space. These pathologies motivate Lebesgue's slice-the-range construction in <a href="./measure-theory.html">measure theory</a>, whose dominated convergence theorem licenses the swap $\int\lim = \lim\int$ under a single integrable dominator.</div>
+
+<div class="quiz" data-concept="riemann-integral"></div>
+</section>
+
+<!-- =============================== §6 MULTIVARIABLE DIFFERENTIATION =============================== -->
+<section id="multivariable-differentiation">
+<h2>6. Multivariable differentiation</h2>
+
+<p>A map $F\colon U\subseteq\mathbb{R}^n\to\mathbb{R}^m$ is <strong>differentiable at $a\in U$</strong> if there exists a <em>linear map</em> $L\colon\mathbb{R}^n\to\mathbb{R}^m$ such that</p>
+$$ F(a+h) = F(a) + L(h) + r(h),\qquad \frac{\|r(h)\|}{\|h\|}\longrightarrow 0 \text{ as } h\to 0. $$
+<p>The linear map $L$ is the <strong>total derivative</strong> $DF(a)\in\mathrm{Hom}(\mathbb{R}^n,\mathbb{R}^m)$. In the standard basis it is represented by the <strong>Jacobian matrix</strong></p>
+$$ J_F(a) = \Big[\partial_j F^i(a)\Big]_{\substack{1\le i\le m\\ 1\le j\le n}}. $$
+<p>The $i$-th row is the gradient $\nabla F^i$ of the $i$-th component; the $j$-th column is the partial derivative vector $\partial_j F$.</p>
+
+<div class="note"><strong>Partials are not enough.</strong> Existence of all partial derivatives $\partial_j F^i(a)$ does <em>not</em> imply differentiability. The classical counterexample $f(x,y)=xy/(x^2+y^2)$ (with $f(0,0)=0$) has $\partial_x f(0,0)=\partial_y f(0,0)=0$, yet $f$ is not even continuous at the origin. Sufficient condition: if all partials exist on a neighborhood of $a$ and are continuous at $a$, then $F$ is (totally) differentiable at $a$ — i.e., $C^1$ implies $C^1$-differentiable in the strong sense.</div>
+
+<h3>Gradient and directional derivative</h3>
+
+<p>For scalar $f\colon U\subseteq\mathbb{R}^n\to\mathbb{R}$, the gradient $\nabla f(a)=(\partial_1 f,\dots,\partial_n f)^T$ is the vector whose dot product with a unit direction $v$ gives the directional derivative</p>
+$$ D_v f(a) = \lim_{t\to 0}\frac{f(a+tv)-f(a)}{t} = \nabla f(a)\cdot v. $$
+<p>Hence $\nabla f(a)$ points in the direction of steepest ascent and $\|\nabla f(a)\|$ is the steepest slope. Level sets $\{f=c\}$ are perpendicular to $\nabla f$ wherever $\nabla f\ne 0$.</p>
+
+<div class="widget" id="w-grad">
+  <div class="hd"><div class="ttl">Gradient field of $f(x,y)$</div><div class="hint">click the heatmap to place the probe</div></div>
+  <svg id="grad-svg" viewBox="0 0 640 360" width="640" height="360"></svg>
+  <div class="row">
+    <label>function</label>
+    <select id="grad-fn">
+      <option value="quad" selected>f(x,y) = x² + 2y²</option>
+      <option value="saddle">f(x,y) = x² − y²  (saddle)</option>
+      <option value="trig">f(x,y) = sin x · cos y</option>
+    </select>
+  </div>
+  <div class="readout" id="grad-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#grad-svg'), out=$('#grad-out');
+  const fn=$('#grad-fn');
+  const W=640, H=360, pl=40, pr=20, pt=20, pb=40;
+  const xmin=-2, xmax=2, ymin=-2, ymax=2;
+  function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+  function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+  function iX(px){ return xmin + (px-pl)/(W-pl-pr)*(xmax-xmin); }
+  function iY(py){ return ymin + ((H-pb)-py)/(H-pt-pb)*(ymax-ymin); }
+  const FNS = {
+    quad:   { f:(x,y)=>x*x + 2*y*y,            grad:(x,y)=>[2*x, 4*y],            name:'x² + 2y²',    d:'(2x, 4y)' },
+    saddle: { f:(x,y)=>x*x - y*y,               grad:(x,y)=>[2*x, -2*y],           name:'x² − y²',    d:'(2x, −2y)' },
+    trig:   { f:(x,y)=>Math.sin(x)*Math.cos(y), grad:(x,y)=>[Math.cos(x)*Math.cos(y), -Math.sin(x)*Math.sin(y)], name:'sin x · cos y', d:'(cos x cos y, −sin x sin y)' }
+  };
+  let px=1, py=0.6;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const F=FNS[fn.value];
+    // heatmap
+    const cols=32, rows=24;
+    let vmin=Infinity, vmax=-Infinity;
+    for(let i=0;i<cols;i++) for(let j=0;j<rows;j++){
+      const x=xmin+(xmax-xmin)*(i+.5)/cols;
+      const y=ymin+(ymax-ymin)*(j+.5)/rows;
+      const v=F.f(x,y); if(v<vmin)vmin=v; if(v>vmax)vmax=v;
+    }
+    const dw=(W-pl-pr)/cols, dh=(H-pt-pb)/rows;
+    for(let i=0;i<cols;i++) for(let j=0;j<rows;j++){
+      const x=xmin+(xmax-xmin)*(i+.5)/cols;
+      const y=ymin+(ymax-ymin)*(j+.5)/rows;
+      const v=F.f(x,y);
+      const t=(v-vmin)/(vmax-vmin+1e-9);
+      // purple(lo) → cyan(hi) ramp
+      const r = Math.round(60 + 100*t), g = Math.round(40 + 180*t), b = Math.round(120 + 80*(1-t));
+      svg.appendChild(SVG('rect',{x:pl+i*dw, y:pt+j*dh, width:dw+0.5, height:dh+0.5,
+        fill:`rgb(${r},${g},${b})`, 'fill-opacity':0.75, stroke:'none'}));
+    }
+    // a few gradient arrows on a grid
+    const gcols=10, grows=8;
+    for(let i=0;i<gcols;i++) for(let j=0;j<grows;j++){
+      const x=xmin+(xmax-xmin)*(i+.5)/gcols;
+      const y=ymin+(ymax-ymin)*(j+.5)/grows;
+      const [gx,gy]=F.grad(x,y);
+      const len=Math.hypot(gx,gy);
+      if(len<1e-6) continue;
+      const s=0.2; // scale
+      const x2=x+gx/len*s, y2=y+gy/len*s;
+      drawArrow(svg, [X(x),Y(y)], [X(x2),Y(y2)],
+        {color:'rgba(255,216,102,0.65)', markerId:'grad-a', width:1.2, pad1:2, pad2:6});
+    }
+    // probe point
+    const [gx,gy]=F.grad(px,py);
+    svg.appendChild(SVG('circle',{cx:X(px),cy:Y(py),r:5,fill:'var(--pink)',stroke:'#0b0f16','stroke-width':1.3}));
+    const glen=Math.hypot(gx,gy);
+    if(glen>1e-6){
+      const s=0.5/glen*Math.min(1, glen);
+      drawArrow(svg, [X(px),Y(py)], [X(px+gx*0.4),Y(py+gy*0.4)],
+        {color:'var(--pink)', markerId:'probe-a', width:2.2});
+    }
+    // tangent plane readout
+    const fa=F.f(px,py);
+    out.textContent =
+      `f(x,y) = ${F.name}     ,     ∇f = ${F.d}\n`+
+      `probe  (x₀, y₀) = (${px.toFixed(2)}, ${py.toFixed(2)})\n`+
+      `f(x₀, y₀) = ${fa.toFixed(3)}\n`+
+      `∇f(x₀, y₀) = (${gx.toFixed(3)}, ${gy.toFixed(3)})     ‖∇f‖ = ${glen.toFixed(3)}\n`+
+      `tangent plane :  z ≈ ${fa.toFixed(3)} + ${gx.toFixed(3)}·(x−${px.toFixed(2)}) + ${gy.toFixed(3)}·(y−${py.toFixed(2)})`;
+  }
+  svg.addEventListener('click', e=>{
+    const rect=svg.getBoundingClientRect();
+    const ax=((e.clientX-rect.left)/rect.width)*W;
+    const ay=((e.clientY-rect.top)/rect.height)*H;
+    const x=iX(ax), y=iY(ay);
+    if(x>=xmin && x<=xmax && y>=ymin && y<=ymax){
+      px=x; py=y; render();
+    }
+  });
+  fn.addEventListener('change',render);
+  render();
+})();
+</script>
+
+<h3>Chain rule</h3>
+
+<p>If $G\colon\mathbb{R}^n\to\mathbb{R}^m$ is differentiable at $a$ and $F\colon\mathbb{R}^m\to\mathbb{R}^k$ is differentiable at $G(a)$, then $F\circ G$ is differentiable at $a$ with</p>
+$$ D(F\circ G)(a) = DF(G(a))\circ DG(a),\qquad J_{F\circ G}(a) = J_F(G(a))\cdot J_G(a). $$
+<p>The derivative of a composition is the <em>matrix product</em> of Jacobians. In single-variable language this collapses to $(f\circ g)'(a)=f'(g(a))g'(a)$.</p>
+
+<div class="quiz" data-concept="multivariable-differentiation"></div>
+</section>
+
+<!-- =============================== §7 MULTIVARIABLE INTEGRATION =============================== -->
+<section id="multivariable-integration">
+<h2>7. Multivariable integration</h2>
+
+<p>Integration on $\mathbb{R}^n$ is built on boxes. A closed <strong>box</strong> is a product $B=[a_1,b_1]\times\cdots\times[a_n,b_n]$; its volume is $\operatorname{vol}(B)=\prod (b_j-a_j)$. A bounded function $f\colon B\to\mathbb{R}$ is Riemann-integrable if upper and lower sums over grid-partitions of $B$ agree, and when they do, $\int_B f$ is their common value. This generalizes §5 verbatim.</p>
+
+<h3>Fubini's theorem</h3>
+
+<p><strong>Fubini (Riemann form).</strong> If $f$ is Riemann-integrable on $B=[a,b]\times[c,d]$ and for each $x\in[a,b]$ the single-variable function $y\mapsto f(x,y)$ is Riemann-integrable on $[c,d]$, then the iterated integral equals the double integral:</p>
+$$ \iint_{B} f \;=\; \int_a^b\!\!\bigg(\int_c^d f(x,y)\,dy\bigg)dx \;=\; \int_c^d\!\!\bigg(\int_a^b f(x,y)\,dx\bigg)dy. $$
+<p>Continuity of $f$ is the usual sufficient hypothesis; Tonelli's theorem extends this to nonnegative measurable functions in the <a href="./measure-theory.html">measure-theoretic</a> setting.</p>
+
+<h3>Change of variables</h3>
+
+<p>Let $\varphi\colon U\to V$ be a $C^1$-diffeomorphism between open sets in $\mathbb{R}^n$ and $f\colon V\to\mathbb{R}$ continuous with compact support in $V$. Then</p>
+$$ \int_V f(y)\,dy = \int_U f(\varphi(x))\,|\det J_\varphi(x)|\,dx. $$
+<p>The factor $|\det J_\varphi|$ is how local volumes get rescaled by $\varphi$: a small box of volume $dV$ at $x$ is mapped by the linearization to a parallelepiped of volume $|\det J_\varphi(x)|\,dV$.</p>
+
+<div class="widget" id="w-jac">
+  <div class="hd"><div class="ttl">Area scaling by $|\det J_\varphi|$</div><div class="hint">drag $u_0, v_0$; watch the rectangle deform</div></div>
+  <svg id="jac-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <div class="row">
+    <label>map</label>
+    <select id="jac-fn">
+      <option value="polar" selected>polar: (r, θ) ↦ (r cos θ, r sin θ)</option>
+      <option value="scale">scale: (u, v) ↦ (2u, 3v)</option>
+      <option value="shear">nonlinear: (u, v) ↦ (u+v², v)</option>
+    </select>
+    <label>$u_0$</label>
+    <input type="range" id="jac-u" min="0.3" max="1.8" value="1.0" step="0.01">
+    <label>$v_0$</label>
+    <input type="range" id="jac-v" min="0.0" max="1.3" value="0.6" step="0.01">
+  </div>
+  <div class="readout" id="jac-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#jac-svg'), out=$('#jac-out');
+  const fn=$('#jac-fn'), su=$('#jac-u'), sv=$('#jac-v');
+  const W=640, H=340, pad=30;
+  // left panel: (u,v) domain box [0,2]x[0,1.5]; right panel: image
+  const L={x:pad, y:pad, w:(W-3*pad)/2, h:H-2*pad, umin:0, umax:2, vmin:0, vmax:1.6};
+  const R={x:pad*2+L.w, y:pad, w:(W-3*pad)/2, h:H-2*pad};
+  const MAPS = {
+    polar:  { f:(u,v)=>[u*Math.cos(v), u*Math.sin(v)], J:(u,v)=>u, xr:[-2,2], yr:[-2,2], name:'(u cos v, u sin v)', det:'u' },
+    scale:  { f:(u,v)=>[2*u, 3*v],                       J:()=>6,     xr:[0,4], yr:[0,5], name:'(2u, 3v)', det:'6' },
+    shear:  { f:(u,v)=>[u+v*v, v],                       J:(u,v)=>1,  xr:[0,4], yr:[0,2], name:'(u+v², v)', det:'1' }
+  };
+  function LX(u){ return L.x + (u-L.umin)/(L.umax-L.umin)*L.w; }
+  function LY(v){ return L.y+L.h - (v-L.vmin)/(L.vmax-L.vmin)*L.h; }
+  function RX(x, M){ return R.x + (x-M.xr[0])/(M.xr[1]-M.xr[0])*R.w; }
+  function RY(y, M){ return R.y+R.h - (y-M.yr[0])/(M.yr[1]-M.yr[0])*R.h; }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const u=+su.value, v=+sv.value;
+    const M=MAPS[fn.value];
+    // panel frames
+    svg.appendChild(SVG('rect',{x:L.x,y:L.y,width:L.w,height:L.h,fill:'none',stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('rect',{x:R.x,y:R.y,width:R.w,height:R.h,fill:'none',stroke:'var(--line)','stroke-width':1}));
+    // panel titles
+    const t1=SVG('text',{x:L.x+L.w/2,y:L.y-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t1.textContent='domain (u, v)'; svg.appendChild(t1);
+    const t2=SVG('text',{x:R.x+R.w/2,y:R.y-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t2.textContent='image φ(u, v)'; svg.appendChild(t2);
+    // small rectangle [u,u+du]x[v,v+dv]
+    const du=0.3, dv=0.25;
+    // draw in domain
+    svg.appendChild(SVG('rect',{x:LX(u), y:LY(v+dv), width:LX(u+du)-LX(u), height:LY(v)-LY(v+dv),
+      fill:'rgba(88,196,221,0.25)', stroke:'var(--blue)','stroke-width':1.6}));
+    // polyline of image (sample boundary of the rectangle with many points)
+    const bdy=[];
+    const N=24;
+    for(let i=0;i<=N;i++){ const t=i/N; const uu=u+du*t, vv=v; bdy.push([uu,vv]); }
+    for(let i=1;i<=N;i++){ const t=i/N; const uu=u+du, vv=v+dv*t; bdy.push([uu,vv]); }
+    for(let i=1;i<=N;i++){ const t=i/N; const uu=u+du-du*t, vv=v+dv; bdy.push([uu,vv]); }
+    for(let i=1;i<=N;i++){ const t=i/N; const uu=u, vv=v+dv-dv*t; bdy.push([uu,vv]); }
+    const imgPts = bdy.map(([uu,vv])=>M.f(uu,vv));
+    // image polygon
+    const ptsStr = imgPts.map(([x,y])=>`${RX(x,M)},${RY(y,M)}`).join(' ');
+    svg.appendChild(SVG('polygon',{points:ptsStr, fill:'rgba(224,122,95,0.25)', stroke:'var(--pink)','stroke-width':1.6}));
+    // area by shoelace
+    let area2=0;
+    for(let i=0;i<imgPts.length;i++){
+      const [x1,y1]=imgPts[i], [x2,y2]=imgPts[(i+1)%imgPts.length];
+      area2 += (x1*y2 - x2*y1);
+    }
+    const imgArea=Math.abs(area2)/2;
+    const domArea=du*dv;
+    const det=M.J(u+du/2, v+dv/2);
+    out.textContent =
+      `φ : ${M.name}    ,    det J_φ = ${M.det}\n`+
+      `rectangle at (u₀,v₀) = (${u.toFixed(2)}, ${v.toFixed(2)})  of  Δu·Δv = ${domArea.toFixed(4)}\n`+
+      `|det J_φ(u₀+½Δu, v₀+½Δv)| = ${Math.abs(det).toFixed(4)}\n`+
+      `predicted image area    = |det J_φ| · Δu·Δv ≈ ${(Math.abs(det)*domArea).toFixed(4)}\n`+
+      `actual image area (shoelace) = ${imgArea.toFixed(4)}\n\n`+
+      `as Δu, Δv → 0 the ratio (actual / predicted) → 1 — this is change-of-variables.`;
+  }
+  fn.addEventListener('change',render);
+  su.addEventListener('input',render); sv.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="multivariable-integration"></div>
+</section>
+
+<!-- =============================== §8 IFT / IMPLICIT =============================== -->
+<section id="inverse-function-theorem">
+<h2>8. Inverse and implicit function theorems</h2>
+
+<p>Both theorems upgrade a statement about a <em>linear</em> map (the Jacobian) at a point to a statement about the <em>nonlinear</em> map near that point. They are the engine behind local coordinates on submanifolds — the starting point of differential geometry.</p>
+
+<h3>Inverse function theorem</h3>
+
+<p><strong>IFT.</strong> Let $F\colon U\subseteq\mathbb{R}^n\to\mathbb{R}^n$ be $C^1$ on an open set $U$ and suppose the Jacobian $J_F(a)$ is invertible at some $a\in U$. Then there exist open neighborhoods $V\ni a$ and $W\ni F(a)$ such that $F\colon V\to W$ is a $C^1$-diffeomorphism, and its inverse satisfies</p>
+$$ J_{F^{-1}}(F(a)) = J_F(a)^{-1}. $$
+
+<p>The proof idea: the linear approximation $DF(a)$ is invertible, and the nonlinear remainder is small by differentiability. A fixed-point (contraction-mapping) argument on the map $y\mapsto x + DF(a)^{-1}(y-F(x))$ produces the local inverse; the Banach fixed-point theorem does the analytic heavy lifting.</p>
+
+<h3>Implicit function theorem</h3>
+
+<p><strong>Implicit FT.</strong> Let $F\colon U\subseteq\mathbb{R}^n\times\mathbb{R}^m\to\mathbb{R}^m$ be $C^1$, suppose $F(a,b)=0$, and assume the $m\times m$ Jacobian block $\partial F/\partial y(a,b)$ is invertible. Then there exist neighborhoods $V\ni a$ in $\mathbb{R}^n$ and $W\ni b$ in $\mathbb{R}^m$ and a unique $C^1$ map $g\colon V\to W$ such that for all $x\in V$</p>
+$$ F(x, g(x)) = 0, \qquad g(a)=b. $$
+<p>Moreover, implicit differentiation gives $Dg(x) = -\big(\partial F/\partial y\big)^{-1}\cdot\big(\partial F/\partial x\big)$. The implicit FT is a restatement of the inverse FT applied to the map $(x,y)\mapsto (x,F(x,y))$.</p>
+
+<div class="widget" id="w-ift">
+  <div class="hd"><div class="ttl">Solving $F(x,y)=0$ locally</div><div class="hint">drag $x_0$; the widget solves for $y=g(x_0)$ when possible</div></div>
+  <svg id="ift-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <div class="row">
+    <label>$F(x,y) = 0$</label>
+    <select id="ift-fn">
+      <option value="circle" selected>x² + y² − 1 = 0  (unit circle)</option>
+      <option value="cubic">y³ + y − x = 0</option>
+      <option value="folium">x³ + y³ − 3xy = 0  (folium)</option>
+    </select>
+    <label>$x_0$</label>
+    <input type="range" id="ift-x" min="-1.4" max="1.4" value="0.5" step="0.01">
+    <label>branch</label>
+    <select id="ift-branch">
+      <option value="upper" selected>upper (y ≥ 0)</option>
+      <option value="lower">lower (y ≤ 0)</option>
+    </select>
+  </div>
+  <div class="readout" id="ift-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#ift-svg'), out=$('#ift-out');
+  const fn=$('#ift-fn'), sx=$('#ift-x'), sb=$('#ift-branch');
+  const W=640, H=340, pl=40, pr=20, pt=20, pb=40;
+  const xmin=-1.8, xmax=1.8, ymin=-1.8, ymax=1.8;
+  function X(v){ return pl + (v-xmin)/(xmax-xmin)*(W-pl-pr); }
+  function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+  function solve(F, Fy, x0, yGuess){
+    // Newton on y: F(x0, y) = 0
+    let y=yGuess;
+    for(let i=0;i<60;i++){
+      const f=F(x0,y), dy=Fy(x0,y);
+      if(Math.abs(dy)<1e-10) return null;
+      const step=f/dy;
+      y -= step;
+      if(Math.abs(step)<1e-10) return y;
+    }
+    return null;
+  }
+  const FNS = {
+    circle: { F:(x,y)=>x*x+y*y-1, Fx:(x,y)=>2*x, Fy:(x,y)=>2*y,
+              name:'x² + y² − 1', pts:()=>{
+                const L=[];
+                for(let t=0;t<=2*Math.PI+0.01;t+=0.02) L.push([Math.cos(t), Math.sin(t)]);
+                return L;
+              }, upper:x=>Math.sqrt(Math.max(0,1-x*x)), lower:x=>-Math.sqrt(Math.max(0,1-x*x)) },
+    cubic: { F:(x,y)=>y*y*y+y-x, Fx:(x,y)=>-1, Fy:(x,y)=>3*y*y+1,
+              name:'y³ + y − x', pts:()=>{
+                const L=[];
+                for(let yy=-1.6;yy<=1.6;yy+=0.02){ const xx=yy*yy*yy+yy; if(xx>=xmin && xx<=xmax) L.push([xx,yy]); }
+                return L;
+              }, upper:x=>solve((a,b)=>b*b*b+b-a, (a,b)=>3*b*b+1, x, 1), lower:x=>solve((a,b)=>b*b*b+b-a, (a,b)=>3*b*b+1, x, -1) },
+    folium: { F:(x,y)=>x*x*x+y*y*y-3*x*y, Fx:(x,y)=>3*x*x-3*y, Fy:(x,y)=>3*y*y-3*x,
+              name:'x³ + y³ − 3xy', pts:()=>{
+                const L=[];
+                for(let t=-6;t<=6;t+=0.01){
+                  const den=1+t*t*t;
+                  if(Math.abs(den)<1e-3) continue;
+                  const xx=3*t/den, yy=3*t*t/den;
+                  if(xx>=xmin && xx<=xmax && yy>=ymin && yy<=ymax) L.push([xx,yy]);
+                }
+                return L;
+              }, upper:x=>solve((a,b)=>a*a*a+b*b*b-3*a*b, (a,b)=>3*b*b-3*a, x, 1.2),
+                  lower:x=>solve((a,b)=>a*a*a+b*b*b-3*a*b, (a,b)=>3*b*b-3*a, x, -1.2) }
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const x0=+sx.value;
+    const F=FNS[fn.value];
+    // axes
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pt,x2:X(0),y2:H-pb,stroke:'var(--line)'}));
+    // zero-set
+    const curve=F.pts();
+    if(curve.length){
+      const ptStr=curve.map(([x,y])=>`${X(x)},${Y(y)}`).join(' ');
+      svg.appendChild(SVG('polyline',{points:ptStr,fill:'none',stroke:'var(--pink)','stroke-width':1.8}));
+    }
+    // vertical line at x0
+    svg.appendChild(SVG('line',{x1:X(x0),y1:pt,x2:X(x0),y2:H-pb,stroke:'var(--blue)','stroke-dasharray':'4 4','stroke-width':1}));
+    // solve
+    let y0 = sb.value==='upper' ? F.upper(x0) : F.lower(x0);
+    let msg;
+    if(y0===null || !Number.isFinite(y0) || (fn.value==='circle' && Math.abs(x0)>1)){
+      msg = `cannot solve F(x₀, y) = 0 near this branch/point.`;
+    } else {
+      svg.appendChild(SVG('circle',{cx:X(x0),cy:Y(y0),r:5,fill:'var(--yellow)',stroke:'#0b0f16','stroke-width':1.2}));
+      // tangent slope via implicit diff: dy/dx = -Fx/Fy
+      const fx=F.Fx(x0,y0), fy=F.Fy(x0,y0);
+      if(Math.abs(fy)<1e-8){
+        msg = `F(x₀, y₀) = 0 at (${x0.toFixed(2)}, ${y0.toFixed(2)}), but ∂F/∂y ≈ 0 — implicit FT fails, curve is vertical here.`;
+      } else {
+        const slope=-fx/fy;
+        // draw a short tangent segment
+        const dx=0.4;
+        svg.appendChild(SVG('line',{
+          x1:X(x0-dx), y1:Y(y0-slope*dx), x2:X(x0+dx), y2:Y(y0+slope*dx),
+          stroke:'var(--yellow)','stroke-width':2}));
+        msg = `F(x₀,y₀) = 0 at  (${x0.toFixed(2)}, ${y0.toFixed(2)})\n`+
+              `∂F/∂x = ${fx.toFixed(3)}   ,   ∂F/∂y = ${fy.toFixed(3)}\n`+
+              `implicit diff :  dy/dx = −(∂F/∂x)/(∂F/∂y) = ${slope.toFixed(3)}\n`+
+              `IFT applies : locally, y = g(x) with g′(x₀) = ${slope.toFixed(3)}.`;
+      }
+    }
+    out.textContent = `F(x,y) = ${F.name}\nbranch = ${sb.value}\n\n${msg}`;
+  }
+  fn.addEventListener('change',render); sx.addEventListener('input',render); sb.addEventListener('change',render);
+  render();
+})();
+</script>
+
+<h3>Why this is the gateway to manifolds</h3>
+
+<p>A subset $M\subseteq\mathbb{R}^N$ is a <strong>smooth $k$-dimensional submanifold</strong> if near each point it looks, after a $C^\infty$ change of coordinates, like $\mathbb{R}^k\subseteq\mathbb{R}^N$. The implicit function theorem is the mechanism: given a $C^1$ map $F\colon\mathbb{R}^N\to\mathbb{R}^{N-k}$ whose Jacobian has full rank at each point of $F^{-1}(0)$, the level set $M=F^{-1}(0)$ is automatically a $k$-dimensional submanifold, parametrized locally by $k$ of the coordinates. This regular-value theorem is the workhorse constructor of manifolds — see <a href="./smooth-manifolds.html">smooth manifolds</a> for the coordinate-invariant formulation and the rank theorem, its cleanest generalization.</p>
+
+<div class="note"><strong>Where IFT fails.</strong> On the folium $x^3+y^3-3xy=0$, both partials vanish at the origin — so near $(0,0)$ the curve is <em>not</em> the graph of $y=g(x)$ or of $x=h(y)$. Geometrically, it self-intersects. IFT guarantees nothing when the relevant Jacobian block is singular; the failure modes are where interesting singularity theory starts.</div>
+
+<div class="quiz" data-concept="inverse-function-theorem"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -965,6 +1149,14 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('real-analysis'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

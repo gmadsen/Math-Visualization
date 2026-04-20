@@ -195,6 +195,48 @@ function curvColor(K){
     return `rgb(${r},${g},${b})`;
   }
 }
+/* make3DDraggable: wire pointer drag on an <svg> to a { yaw, pitch } state object,
+   calling draw() (rAF-throttled) on each move. Returns the state object so callers
+   can mutate defaults before the first draw. Works with pointer events (mouse, touch,
+   pen) and uses setPointerCapture so drags survive leaving the svg while held. */
+function make3DDraggable(svg, draw, opts={}){
+  const state = { yaw: opts.yaw ?? 0.75, pitch: opts.pitch ?? 0.55, dragging: false };
+  const sens = opts.sensitivity ?? 0.01;
+  const pitchMin = opts.pitchMin ?? -Math.PI/2 + 0.05;
+  const pitchMax = opts.pitchMax ??  Math.PI/2 - 0.05;
+  let start = null, rafId = 0, pending = false;
+  const schedule = () => {
+    if(pending) return;
+    pending = true;
+    rafId = requestAnimationFrame(() => { pending = false; draw(); });
+  };
+  svg.style.cursor = 'grab';
+  svg.style.touchAction = 'none';
+  svg.addEventListener('pointerdown', e => {
+    start = { x: e.clientX, y: e.clientY, yaw: state.yaw, pitch: state.pitch };
+    state.dragging = true;
+    svg.style.cursor = 'grabbing';
+    try { svg.setPointerCapture(e.pointerId); } catch(_) {}
+    e.preventDefault();
+  });
+  svg.addEventListener('pointermove', e => {
+    if(!state.dragging || !start) return;
+    state.yaw   = start.yaw   + (e.clientX - start.x) * sens;
+    let p = start.pitch + (e.clientY - start.y) * sens;
+    state.pitch = Math.max(pitchMin, Math.min(pitchMax, p));
+    schedule();
+  });
+  const end = e => {
+    if(!state.dragging) return;
+    state.dragging = false;
+    svg.style.cursor = 'grab';
+    try { svg.releasePointerCapture(e.pointerId); } catch(_) {}
+    schedule();   // final full-resolution redraw at rest
+  };
+  svg.addEventListener('pointerup', end);
+  svg.addEventListener('pointercancel', end);
+  return state;
+}
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
@@ -274,7 +316,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 <p>For a space curve we lose the "left vs right" sign on $\kappa$, but we gain torsion. The simplest test case is the <strong>helix</strong> $\gamma(t) = (a\cos t, a\sin t, bt)$, for which one computes $\kappa = a/(a^2+b^2)$ and $\tau = b/(a^2+b^2)$ — both constants. Setting $b = 0$ gives a circle (no torsion); setting $a=0$ gives a straight line (both vanish). A helix is uniquely characterized among space curves as "the curve of constant $\kappa$ and constant $\tau$."</p>
 
 <div class="widget" id="w-space">
-  <div class="hd"><div class="ttl">Space curve: the Frenet frame $T,N,B$</div><div class="hint">pick a curve · drag the slider · $T$ yellow, $N$ green, $B$ violet</div></div>
+  <div class="hd"><div class="ttl">Space curve: the Frenet frame $T,N,B$</div><div class="hint">pick a curve · $t$ slider picks the point · drag the canvas to rotate · $T$ yellow, $N$ green, $B$ violet</div></div>
   <div class="row">
     <label>curve:</label>
     <select id="sc-pick">
@@ -287,8 +329,6 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
     </select>
     <label>t:</label>
     <input type="range" id="sc-t" min="0" max="1000" value="250" step="1">
-    <label>view:</label>
-    <input type="range" id="sc-yaw" min="0" max="628" value="180" step="1" title="yaw">
   </div>
   <svg id="sc-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
   <div class="readout" id="sc-out"></div>
@@ -467,7 +507,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 /* space curve Frenet */
 (function(){
   const svg = $('#sc-svg'), pick = $('#sc-pick'), tSlider = $('#sc-t'),
-        yawS = $('#sc-yaw'), out = $('#sc-out');
+        out = $('#sc-out');
   const CURVES = {
     helix: {
       tMin:-4*Math.PI, tMax:4*Math.PI,
@@ -532,8 +572,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
     const c = CURVES[key];
     const tFrac = +tSlider.value/1000;
     const t = c.tMin + (c.tMax-c.tMin)*tFrac;
-    const yaw = (+yawS.value/100);
-    const pitch = 0.5;
+    const yaw = view.yaw, pitch = view.pitch;
 
     // compute a bunch of points for projection bounding
     const N = 500;
@@ -618,12 +657,13 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
       `t = ${t.toFixed(3)}\n` +
       `κ(t) = ${kappa.toFixed(4)}\n` +
       `τ(t) = ${torsion.toFixed(4)}\n` +
-      `|γ'(t)| = ${speed.toFixed(3)}`;
+      `|γ'(t)| = ${speed.toFixed(3)}\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
   }
 
   pick.addEventListener('change',draw);
   tSlider.addEventListener('input',draw);
-  yawS.addEventListener('input',draw);
+  const view = make3DDraggable(svg, draw, { yaw: 1.8, pitch: 0.5 });
   draw();
 })();
 </script>
@@ -740,7 +780,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
 </ul>
 
 <div class="widget" id="w-gmap">
-  <div class="hd"><div class="ttl">The Gauss map</div><div class="hint">move the point · watch $\mathbf{n}(p)$ on $S^2$</div></div>
+  <div class="hd"><div class="ttl">The Gauss map</div><div class="hint">drag to rotate · move the point · watch $\mathbf{n}(p)$ on $S^2$</div></div>
   <div class="row">
     <label>surface:</label>
     <select id="gm-pick">
@@ -765,7 +805,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
 <p>More quantitatively: the Jacobian of the Gauss map at $p$ equals $K(p)$ in absolute value, with sign matching the orientation behaviour. This identifies Gaussian curvature as a local measure of "how much $\mathbf{n}$ spreads on $S^2$" per unit area on $S$.</p>
 
 <div class="widget" id="w-khm">
-  <div class="hd"><div class="ttl">Gaussian curvature heatmap</div><div class="hint">green: $K > 0$ · pink: $K < 0$ · white: $K = 0$</div></div>
+  <div class="hd"><div class="ttl">Gaussian curvature heatmap</div><div class="hint">drag to rotate · green: $K > 0$ · pink: $K < 0$ · white: $K = 0$</div></div>
   <div class="row">
     <label>surface:</label>
     <select id="kh-pick">
@@ -848,10 +888,11 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
     const u = S.uMin + (S.uMax-S.uMin)*(+uS.value/1000);
     const v = S.vMin + (S.vMax-S.vMin)*(+vS.value/1000);
 
-    // left half: surface with wireframe
-    const yaw = 0.75, pitch = 0.55;
-    // collect triangles
-    const NU = 22, NV = 30;
+    // left half: surface with wireframe — view angles come from the drag state
+    const yaw = view.yaw, pitch = view.pitch;
+    // decimate mesh while dragging for responsiveness
+    const NU = view.dragging ? 11 : 22;
+    const NV = view.dragging ? 15 : 30;
     const verts = [];
     for(let i=0;i<=NU;i++){
       const row = [];
@@ -967,8 +1008,10 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
       `(u,v) = (${u.toFixed(3)}, ${v.toFixed(3)})\n` +
       `p = (${Pcur.map(x=>x.toFixed(3)).join(', ')})\n` +
       `n(p) = (${nn.map(x=>x.toFixed(3)).join(', ')})\n` +
-      `The violet loop on S² is the image of a small (u,v)-disk around p under the Gauss map.`;
+      `The violet loop on S² is the image of a small (u,v)-disk around p under the Gauss map.\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
   }
+  const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
   pick.addEventListener('change',draw);
   uS.addEventListener('input',draw);
   vS.addEventListener('input',draw);
@@ -1042,7 +1085,9 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
   function draw(){
     svg.innerHTML='';
     const key = pick.value; const S = SURF[key];
-    const NU=28, NV=40;
+    // decimate mesh during drag for responsiveness; full mesh at rest
+    const NU = view.dragging ? 14 : 28;
+    const NV = view.dragging ? 20 : 40;
     const verts = [];
     for(let i=0;i<=NU;i++){
       const row=[];
@@ -1050,7 +1095,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
         const uu = S.uMin + (S.uMax-S.uMin)*i/NU;
         const vv = S.vMin + (S.vMax-S.vMin)*j/NV;
         const P = S.x(uu,vv);
-        const pp = proj3(P, 0.75, 0.55);
+        const pp = proj3(P, view.yaw, view.pitch);
         row.push({P,pp,u:uu,v:vv,K:S.K(uu,vv)});
       }
       verts.push(row);
@@ -1086,8 +1131,8 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
         stroke:'#2a3242','stroke-width':0.3,'stroke-opacity':0.5
       }));
     }
-    // legend
-    const lg = SVG('g',{transform:'translate(-200,-150)'});
+    // legend — anchored in the viewBox bottom-left, not in data coords
+    const lg = SVG('g',{transform:'translate(-230,155)'});
     const grad = `linearGradient-kh-${Math.random().toString(36).slice(2,6)}`;
     const defs = SVG('defs');
     const lgrad = SVG('linearGradient',{id:grad, x1:0,y1:0,x2:1,y2:0});
@@ -1102,8 +1147,9 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
     lg.appendChild(t1); lg.appendChild(t2); lg.appendChild(t3);
     svg.appendChild(lg);
 
-    out.textContent = `${S.label}\nmax |K| on the mesh: ${Kabs.toFixed(4)}`;
+    out.textContent = `${S.label}\nmax |K| on the mesh: ${Kabs.toFixed(4)}\nyaw ${view.yaw.toFixed(2)} · pitch ${view.pitch.toFixed(2)} — drag to rotate`;
   }
+  const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
   pick.addEventListener('change',draw);
   draw();
 })();
@@ -1140,6 +1186,145 @@ Only $(E,G)$ and their derivatives appear on the right — no $(e,f,g)$.</div>
 
 <p>On a hyperbolic surface ($K < 0$), triangle angles add to <em>less</em> than $\pi$; you get an angle <em>deficit</em>. On the pseudosphere ($K = -1$), a triangle of area $A$ has angle deficit exactly $A$.</p>
 
+<div class="widget" id="w-defect">
+  <div class="hd"><div class="ttl">Angular defect on the unit sphere</div><div class="hint">two sliders shape a geodesic triangle · drag canvas to rotate · excess = area</div></div>
+  <div class="row">
+    <label>latitude of B, C:</label>
+    <input type="range" id="df-lat" min="50" max="1500" value="700" step="5">
+    <label>longitude spread Δ:</label>
+    <input type="range" id="df-del" min="20" max="625" value="310" step="5">
+  </div>
+  <svg id="df-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="df-out"></div>
+</div>
+
+<script>
+/* ====================== §6 Needham angular-defect triangle ===================== */
+(function(){
+  const svg = $('#df-svg'), latS = $('#df-lat'), delS = $('#df-del'), out = $('#df-out');
+
+  // Interior angle of spherical triangle at vertex A, given unit-vector vertices A,B,C.
+  // Tangent to great-circle from A toward B is (B − (A·B)A); interior angle is angle between
+  // that and tangent toward C.
+  function angleAt(A, B, C){
+    const ab = vdot(A,B), ac = vdot(A,C);
+    const tB = vnorm(vsub(B, vscl(A, ab)));
+    const tC = vnorm(vsub(C, vscl(A, ac)));
+    return Math.acos(Math.max(-1, Math.min(1, vdot(tB, tC))));
+  }
+  // Van Oosterom–Strackee: tan(E/2) = |A·(B×C)| / (1 + A·B + B·C + C·A)
+  function excess(A, B, C){
+    const num = Math.abs(vdot(A, vcross(B, C)));
+    const den = 1 + vdot(A,B) + vdot(B,C) + vdot(C,A);
+    return 2 * Math.atan2(num, den);
+  }
+
+  function greatArc(P, Q, n=40){
+    // parametrize geodesic between unit vectors P and Q: (sin((1−t)ω)P + sin(tω)Q)/sin(ω)
+    const om = Math.acos(Math.max(-1, Math.min(1, vdot(P,Q))));
+    const s = Math.sin(om) || 1;
+    const pts = [];
+    for(let i=0;i<=n;i++){
+      const t = i/n;
+      pts.push(vadd(vscl(P, Math.sin((1-t)*om)/s), vscl(Q, Math.sin(t*om)/s)));
+    }
+    return pts;
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const yaw = view.yaw, pitch = view.pitch;
+    const R = 130;
+
+    // vertices
+    const A = [0, 0, 1];  // north pole
+    const lat = +latS.value/1000;           // polar angle (0 = pole)
+    const del = +delS.value/100;            // longitude spread
+    const B = [Math.sin(lat)*Math.cos(-del/2), Math.sin(lat)*Math.sin(-del/2), Math.cos(lat)];
+    const C = [Math.sin(lat)*Math.cos( del/2), Math.sin(lat)*Math.sin( del/2), Math.cos(lat)];
+
+    // sphere wireframe (decimated during drag)
+    const Nw = view.dragging ? 30 : 60;
+    for(let k=-4;k<=4;k++){
+      const L = k*Math.PI/10;
+      let d='';
+      for(let j=0;j<=Nw;j++){
+        const lon = -Math.PI + 2*Math.PI*j/Nw;
+        const P=[Math.cos(L)*Math.cos(lon), Math.cos(L)*Math.sin(lon), Math.sin(L)];
+        const pp = proj3(P, yaw, pitch);
+        d += (j===0?'M':'L') + pp[0]*R + ' ' + (-pp[1]*R) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.6}));
+    }
+    for(let k=0;k<12;k++){
+      const lon = k*Math.PI/6;
+      let d='';
+      for(let j=0;j<=Nw;j++){
+        const lat2 = -Math.PI/2 + Math.PI*j/Nw;
+        const P=[Math.cos(lat2)*Math.cos(lon), Math.cos(lat2)*Math.sin(lon), Math.sin(lat2)];
+        const pp = proj3(P, yaw, pitch);
+        d += (j===0?'M':'L') + pp[0]*R + ' ' + (-pp[1]*R) + ' ';
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'#2a3242','stroke-width':0.5}));
+    }
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:R,fill:'none',stroke:'var(--line)','stroke-width':1}));
+
+    // three great-circle arcs
+    const arcs = [greatArc(A,B), greatArc(B,C), greatArc(C,A)];
+    const toScreen = P => { const pp = proj3(P, yaw, pitch); return [pp[0]*R, -pp[1]*R]; };
+
+    // translucent fill (polygon approximation of the spherical triangle)
+    const fillPts = [
+      ...greatArc(A,B,20),
+      ...greatArc(B,C,20).slice(1),
+      ...greatArc(C,A,20).slice(1)
+    ].map(toScreen).map(p => p.join(',')).join(' ');
+    svg.appendChild(SVG('polygon',{points:fillPts, fill:'rgba(255,216,102,0.22)', stroke:'none'}));
+
+    for(const arc of arcs){
+      let d='';
+      arc.forEach((P,i)=>{
+        const [x,y] = toScreen(P);
+        d += (i===0?'M':'L') + x + ' ' + y + ' ';
+      });
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    }
+
+    // vertex markers + labels
+    const labels = [['A', A, 'var(--yellow)'], ['B', B, 'var(--pink)'], ['C', C, 'var(--cyan)']];
+    for(const [name, P, col] of labels){
+      const [x,y] = toScreen(P);
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:col,stroke:'#111','stroke-width':1.2}));
+      const t = SVG('text',{x:x+8, y:y-6, 'font-size':14, fill:col, 'font-weight':600}); t.textContent = name;
+      svg.appendChild(t);
+    }
+
+    // interior angles
+    const a = angleAt(A, B, C);
+    const b = angleAt(B, A, C);
+    const c = angleAt(C, A, B);
+    const sum = a + b + c;
+    const E = excess(A, B, C);     // = area on unit sphere
+    const sumFromExcess = Math.PI + E;
+
+    const deg = r => (r*180/Math.PI).toFixed(2)+'°';
+    out.textContent =
+      `angle at A = ${deg(a)}\n` +
+      `angle at B = ${deg(b)}\n` +
+      `angle at C = ${deg(c)}\n` +
+      `sum α+β+γ  = ${deg(sum)}\n` +
+      `excess     = ${deg(sum - Math.PI)}  (direct computation from tangents)\n` +
+      `area ∫K dA = ${E.toFixed(4)} sr = ${deg(E)}  (Van Oosterom–Strackee, K ≡ 1)\n` +
+      `consistency: ${Math.abs(sum - sumFromExcess) < 1e-6 ? 'α+β+γ − π = ∫K dA ✓' : 'mismatch'}\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
+  }
+
+  [latS, delS].forEach(s => s.addEventListener('input', draw));
+  const view = make3DDraggable(svg, draw, { yaw: 0.5, pitch: 0.45 });
+  draw();
+})();
+</script>
+
 </section>
 
 <section id="geodesics">
@@ -1165,7 +1350,7 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
 <p>The <strong>exponential map</strong> $\exp_p\colon T_pS \to S$ sends a tangent vector $v$ to the point at arc-length $\lVert v \rVert$ along the geodesic from $p$ in direction $v/\lVert v \rVert$. On a small enough neighborhood it is a diffeomorphism; its derivative at $0$ is the identity. The exponential map gives a canonical system of <em>normal coordinates</em> around $p$: the metric becomes $\delta_{ij} + O(\lVert v \rVert^2)$, with the quadratic correction governed by the curvature tensor.</p>
 
 <div class="widget" id="w-geo">
-  <div class="hd"><div class="ttl">Geodesic flow on a surface</div><div class="hint">pick a surface · drag to set the starting direction</div></div>
+  <div class="hd"><div class="ttl">Geodesic flow on a surface</div><div class="hint">pick a surface · drag on the canvas to rotate · sliders set start + direction</div></div>
   <div class="row">
     <label>surface:</label>
     <select id="ge-pick">
@@ -1317,15 +1502,16 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
   function draw(){
     svg.innerHTML='';
     const key = pick.value; const S = SURF[key];
-    const yaw = 0.75, pitch = 0.55;
+    const yaw = view.yaw, pitch = view.pitch;
 
     const u0 = S.uMin + (S.uMax-S.uMin)*(+u0S.value/1000);
     const v0 = S.vMin + (S.vMax-S.vMin)*(+v0S.value/1000);
     const angle = +angS.value/100;
     const len = +lenS.value/100;
 
-    // mesh
-    const NU=24, NV=32;
+    // mesh (decimate during drag for responsiveness)
+    const NU = view.dragging ? 14 : 24;
+    const NV = view.dragging ? 18 : 32;
     const verts = [];
     for(let i=0;i<=NU;i++){
       const row=[];
@@ -1406,11 +1592,13 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
       `initial angle = ${angle.toFixed(3)} rad\n` +
       `geodesic length ≈ ${len.toFixed(2)}\n` +
       `integrated ${pts.length} RK4 steps\n` +
-      `yellow = start · pink = current endpoint`;
+      `yellow = start · pink = current endpoint\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
   }
 
   pick.addEventListener('change',draw);
   [u0S,v0S,angS,lenS].forEach(s=>s.addEventListener('input',draw));
+  const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
   draw();
 })();
 </script>
@@ -1447,7 +1635,7 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
 <p>You can compute $\chi$ combinatorially: triangulate the surface, count $V$ vertices, $E$ edges, $F$ faces; then $\chi = V - E + F$ is an invariant of the surface, not of the triangulation. For a tetrahedron triangulating $S^2$: $V=4, E=6, F=4$, so $\chi = 2$. For a torus triangulated nicely: say $V=9, E=27, F=18$, $\chi=0$.</p>
 
 <div class="widget" id="w-gb">
-  <div class="hd"><div class="ttl">Gauss–Bonnet calculator</div><div class="hint">compare ∫K dA and 2πχ on a closed surface</div></div>
+  <div class="hd"><div class="ttl">Gauss–Bonnet calculator</div><div class="hint">compare ∫K dA and 2πχ · drag to rotate</div></div>
   <div class="row">
     <label>surface:</label>
     <select id="gb-pick">
@@ -1547,9 +1735,10 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
 
     const intK = integrateK(S);
 
-    // draw the surface with K color
-    const NU=26, NV=38;
-    const yaw=0.75, pitch=0.55;
+    // draw the surface with K color (decimate during drag)
+    const NU = view.dragging ? 14 : 26;
+    const NV = view.dragging ? 20 : 38;
+    const yaw = view.yaw, pitch = view.pitch;
     const verts=[];
     for(let i=0;i<=NU;i++){
       const row=[];
@@ -1597,15 +1786,170 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
       `genus g = ${S.genus}, χ = 2 − 2g = ${chi}\n` +
       `2π·χ    = ${(2*Math.PI*chi).toFixed(4)}\n` +
       `∫ K dA  ≈ ${intK.toFixed(4)}   (numerical, ${80*120} midpoint samples)\n` +
-      `match?  ${Math.abs(intK - 2*Math.PI*chi) < 0.05 ? 'yes ✓' : 'no'}`;
+      `match?  ${Math.abs(intK - 2*Math.PI*chi) < 0.05 ? 'yes ✓' : 'no'}\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
   }
   pick.addEventListener('change',draw);
+  const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
   draw();
 })();
 </script>
 
+<h3>Discrete Gauss–Bonnet: polyhedra</h3>
+<p>There is a combinatorial version of Gauss–Bonnet for polyhedra, going back to Descartes. On a polyhedron, curvature is not spread over faces (which are flat) or along edges (where face tangent planes hinge, but the metric is locally Euclidean after unfolding). All the curvature is concentrated at the <strong>vertices</strong>, and at each vertex $p$ it takes the form of the <strong>angular defect</strong></p>
+<p style="text-align:center">$\delta(p) = 2\pi - \displaystyle\sum_{\text{faces at } p} \alpha_i(p),$</p>
+<p>where $\alpha_i(p)$ is the interior angle at $p$ of the $i$-th face meeting there. If the total were exactly $2\pi$, you could unfold the neighborhood of $p$ flat — so $\delta(p)$ measures how far the neighborhood is from being locally Euclidean, which is the discrete analog of $\int_\text{disk} K\,dA$ over an infinitesimal disk around $p$.</p>
+<div class="ok"><strong>Descartes' theorem (discrete Gauss–Bonnet).</strong> For any convex polyhedron,
+$$\sum_{p \in V} \delta(p) = 2\pi\,\chi.$$
+Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphere is exactly $4\pi$.</div>
+<p>For a Platonic solid with regular $n$-gon faces, $k$ meeting at each vertex, the interior face angle is $(n-2)\pi/n$ and the defect at every vertex is</p>
+<p style="text-align:center">$\delta = 2\pi - k\cdot\dfrac{(n-2)\pi}{n}.$</p>
+<p>Check the cube: $n=4, k=3$, so $\delta = 2\pi - 3\cdot(\pi/2) = \pi/2$. Eight vertices times $\pi/2$ is $4\pi$. $\checkmark$</p>
+
+<div class="widget" id="w-poly">
+  <div class="hd"><div class="ttl">Polyhedral Gauss–Bonnet</div><div class="hint">angular defects sum to 2πχ · drag to rotate</div></div>
+  <div class="row">
+    <label>solid:</label>
+    <select id="pb-pick">
+      <option value="tet" selected>tetrahedron (V=4, F=4, χ=2)</option>
+      <option value="cube">cube (V=8, F=6, χ=2)</option>
+      <option value="oct">octahedron (V=6, F=8, χ=2)</option>
+      <option value="ico">icosahedron (V=12, F=20, χ=2)</option>
+    </select>
+  </div>
+  <svg id="pb-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <div class="readout" id="pb-out"></div>
+</div>
+
+<script>
+/* =============== §8 Polyhedral Gauss–Bonnet (discrete version) =============== */
+(function(){
+  const svg = $('#pb-svg'), pick = $('#pb-pick'), out = $('#pb-out');
+
+  const sqrt3 = Math.sqrt(3);
+  const phi   = (1 + Math.sqrt(5)) / 2;
+  const sIco  = 1 / Math.sqrt(1 + phi*phi);
+  const cc    = 1 / sqrt3;
+
+  // Tetrahedron (inscribed in unit sphere)
+  const tet_v = [[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]].map(p => p.map(c => c/sqrt3));
+  const tet_f = [[0,1,2],[0,3,1],[0,2,3],[1,3,2]];
+
+  // Cube
+  const cube_v = [
+    [-cc,-cc,-cc],[ cc,-cc,-cc],[ cc, cc,-cc],[-cc, cc,-cc],
+    [-cc,-cc, cc],[ cc,-cc, cc],[ cc, cc, cc],[-cc, cc, cc]
+  ];
+  const cube_f = [
+    [0,3,2,1], [4,5,6,7], [0,1,5,4],
+    [1,2,6,5], [2,3,7,6], [3,0,4,7]
+  ];
+
+  // Octahedron
+  const oct_v = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  const oct_f = [
+    [0,2,4],[2,1,4],[1,3,4],[3,0,4],
+    [0,5,2],[2,5,1],[1,5,3],[3,5,0]
+  ];
+
+  // Icosahedron — compute faces algorithmically from vertex distances
+  const ia = sIco, ib = phi*sIco;
+  const ico_v = [
+    [0, ia, ib], [0,-ia, ib], [0, ia,-ib], [0,-ia,-ib],
+    [ia, ib, 0], [-ia, ib, 0], [ia,-ib, 0], [-ia,-ib, 0],
+    [ib, 0, ia], [ib, 0,-ia], [-ib, 0, ia], [-ib, 0,-ia]
+  ];
+  const ico_f = (() => {
+    const target = 4/(1+phi*phi);
+    const out = [];
+    const d2 = (u,v) => (u[0]-v[0])*(u[0]-v[0]) + (u[1]-v[1])*(u[1]-v[1]) + (u[2]-v[2])*(u[2]-v[2]);
+    for(let i=0;i<12;i++) for(let j=i+1;j<12;j++) for(let k=j+1;k<12;k++){
+      if(Math.abs(d2(ico_v[i],ico_v[j])-target)<1e-6 &&
+         Math.abs(d2(ico_v[j],ico_v[k])-target)<1e-6 &&
+         Math.abs(d2(ico_v[i],ico_v[k])-target)<1e-6){
+        out.push([i,j,k]);
+      }
+    }
+    return out;
+  })();
+
+  const SOLIDS = {
+    tet:  {name:'Tetrahedron', v:tet_v,  f:tet_f,  n:3, k:3, V:4,  E:6,  F:4},
+    cube: {name:'Cube',        v:cube_v, f:cube_f, n:4, k:3, V:8,  E:12, F:6},
+    oct:  {name:'Octahedron',  v:oct_v,  f:oct_f,  n:3, k:4, V:6,  E:12, F:8},
+    ico:  {name:'Icosahedron', v:ico_v,  f:ico_f,  n:3, k:5, V:12, E:30, F:20},
+  };
+
+  function draw(){
+    svg.innerHTML = '';
+    const S = SOLIDS[pick.value];
+    const yaw = view.yaw, pitch = view.pitch;
+    const R = 140;
+
+    // Project all vertices
+    const pts = S.v.map(V => {
+      const pp = proj3(V, yaw, pitch);
+      return {P:V, pp, x: pp[0]*R, y: -pp[1]*R};
+    });
+
+    // Depth-sort faces by centroid z
+    const fd = S.f.map(face => {
+      const z = face.reduce((s,i) => s + pts[i].pp[2], 0) / face.length;
+      return {face, z};
+    }).sort((a,b) => a.z - b.z);
+
+    // Draw translucent faces back-to-front; front faces get brighter fill and bolder edges
+    for(const {face, z} of fd){
+      const points = face.map(i => pts[i].x + ',' + pts[i].y).join(' ');
+      const front  = z > 0;
+      svg.appendChild(SVG('polygon', {
+        points,
+        fill: front ? 'rgba(102,170,255,0.18)' : 'rgba(102,170,255,0.05)',
+        stroke: front ? 'var(--cyan)' : '#2a3242',
+        'stroke-width': front ? 1.6 : 0.7,
+        'stroke-opacity': front ? 1 : 0.55
+      }));
+    }
+
+    // Vertex markers
+    for(const p of pts){
+      const front = p.pp[2] > 0;
+      svg.appendChild(SVG('circle', {
+        cx: p.x, cy: p.y, r: front ? 5 : 3,
+        fill: 'var(--yellow)',
+        stroke: '#111', 'stroke-width': 1.1,
+        'fill-opacity': front ? 1 : 0.5
+      }));
+    }
+
+    // Readout (analytic values — same at every vertex for a Platonic solid)
+    const faceAngle = (S.n - 2)*Math.PI/S.n;
+    const defect    = 2*Math.PI - S.k*faceAngle;
+    const totalDef  = S.V * defect;
+    const chi       = S.V - S.E + S.F;
+    const match     = Math.abs(totalDef - 2*Math.PI*chi) < 1e-9 ? '✓' : '✗';
+    const deg       = r => (r*180/Math.PI);
+
+    out.textContent =
+      `${S.name}    V=${S.V}, E=${S.E}, F=${S.F}, regular ${S.n}-gon faces, ${S.k} faces meet at each vertex\n` +
+      `Euler:      χ = V − E + F = ${S.V} − ${S.E} + ${S.F} = ${chi}\n` +
+      `face angle: α = (n−2)π/n = ${S.n-2}π/${S.n} = ${deg(faceAngle).toFixed(2)}°\n` +
+      `defect:     δ = 2π − k·α = ${deg(defect).toFixed(3)}° = ${defect.toFixed(4)} rad (same at every vertex)\n` +
+      `Σ δ  (over ${S.V} vertices) = ${totalDef.toFixed(4)} rad = ${deg(totalDef).toFixed(2)}°\n` +
+      `2π·χ                       = ${(2*Math.PI*chi).toFixed(4)} rad = ${deg(2*Math.PI*chi).toFixed(2)}°   ${match}\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
+  }
+
+  pick.addEventListener('change', draw);
+  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.5 });
+  draw();
+})();
+</script>
+
+<p>As you refine a polyhedron (subdividing faces, flattening each patch), each vertex's defect shrinks but vertices multiply. In the limit, the <em>sum</em> of defects becomes $\int K\,dA$ and the statement becomes the smooth Gauss–Bonnet theorem. Descartes' theorem is its combinatorial skeleton.</p>
+
 <div class="widget" id="w-hol">
-  <div class="hd"><div class="ttl">Parallel transport and holonomy on the sphere</div><div class="hint">transport a tangent vector around a loop</div></div>
+  <div class="hd"><div class="ttl">Parallel transport and holonomy on the sphere</div><div class="hint">transport a tangent vector around a loop · drag to rotate</div></div>
   <div class="row">
     <label>loop:</label>
     <select id="hl-pick">
@@ -1628,15 +1972,18 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
   function draw(){
     svg.innerHTML='';
     const key = pick.value;
-    const yaw=0.6, pitch=0.5;
+    const yaw = view.yaw, pitch = view.pitch;
+    // decimate wireframe density during drag
+    const Nlat = view.dragging ? 30 : 60;
+    const Nmer = view.dragging ? 30 : 60;
     // draw sphere wireframe
     const R = 1;
     // latitudes
     for(let k=-4;k<=4;k++){
       const lat = k*Math.PI/10;
       let d='';
-      for(let j=0;j<=60;j++){
-        const lon = -Math.PI + 2*Math.PI*j/60;
+      for(let j=0;j<=Nlat;j++){
+        const lon = -Math.PI + 2*Math.PI*j/Nlat;
         const P=[R*Math.cos(lat)*Math.cos(lon), R*Math.cos(lat)*Math.sin(lon), R*Math.sin(lat)];
         const pp = proj3(P,yaw,pitch);
         d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
@@ -1647,8 +1994,8 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
     for(let k=0;k<12;k++){
       const lon = k*Math.PI/6;
       let d='';
-      for(let j=0;j<=60;j++){
-        const lat = -Math.PI/2 + Math.PI*j/60;
+      for(let j=0;j<=Nmer;j++){
+        const lat = -Math.PI/2 + Math.PI*j/Nmer;
         const P=[R*Math.cos(lat)*Math.cos(lon), R*Math.cos(lat)*Math.sin(lon), R*Math.sin(lat)];
         const pp = proj3(P,yaw,pitch);
         d += (j===0?'M':'L') + pp[0]*140 + ' ' + (-pp[1]*140) + ' ';
@@ -1743,10 +2090,12 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
       `enclosed area = ${areaEnclosed.toFixed(4)}\n` +
       `∫ K dA = ${areaEnclosed.toFixed(4)}   (K ≡ 1 on unit sphere)\n` +
       `holonomy angle = ${holonomyAngle.toFixed(4)} rad = ${(holonomyAngle*180/Math.PI).toFixed(2)}°\n` +
-      `(cyan = loop, yellow = initial vector, pink = transported vector)`;
+      `(cyan = loop, yellow = initial vector, pink = transported vector)\n` +
+      `yaw ${yaw.toFixed(2)} · pitch ${pitch.toFixed(2)} — drag to rotate`;
   }
   pick.addEventListener('change',draw);
   thetaS.addEventListener('input',draw);
+  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.5 });
   draw();
 })();
 </script>

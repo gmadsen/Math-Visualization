@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sato–Tate — Frobenius angles, semicircle law, symmetric powers</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#angle">1&nbsp;Frobenius&nbsp;angle</a>
+  <a href="#measure">2&nbsp;Sato–Tate&nbsp;measure</a>
+  <a href="#symn">3&nbsp;Symmetric&nbsp;powers</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Sato–Tate: semicircles from elliptic curves</h1>
+  <p class="sub">For a non-CM elliptic curve $E/\mathbb{Q}$, the Frobenius traces $a_p$ fill the Hasse interval $[-2\sqrt{p},2\sqrt{p}]$ by a universal law — the semicircle density $(2/\pi)\sin^2\theta\,d\theta$. It is the arithmetic shadow of Haar measure on $\mathrm{SU}(2)$.</p>
+</section>
+
+<section id="angle">
+<h2>1. The Frobenius angle</h2>
+
+<p>Fix a prime $p$ of good reduction for $E$. The <em>trace of Frobenius</em> $a_p = p+1-\#E(\mathbb{F}_p)$ is an integer, and by <a href="./elliptic-curves.html">Hasse's theorem</a> $|a_p|\le 2\sqrt{p}$. The characteristic polynomial of Frobenius on the Tate module factors as
+$$T^2 - a_p T + p = (T-\alpha_p)(T-\beta_p),\qquad \alpha_p\beta_p=p,\ \alpha_p+\beta_p=a_p,$$
+and Hasse is equivalent to $|\alpha_p|=|\beta_p|=\sqrt{p}$.</p>
+
+<p>Thus $\alpha_p=\sqrt{p}\,e^{i\theta_p}$, $\beta_p=\sqrt{p}\,e^{-i\theta_p}$ for a unique <em>Frobenius angle</em>
+$$\theta_p\in[0,\pi],\qquad a_p=2\sqrt{p}\cos\theta_p.$$
+After rescaling, Frobenius is a conjugacy class in $\mathrm{SU}(2)$.</p>
+
+<div class="ok"><b>Hasse bound, geometric form.</b> The map $\theta\mapsto 2\sqrt{p}\cos\theta$ is a bijection $[0,\pi]\to[-2\sqrt{p},2\sqrt{p}]$. The Hasse bound is the exact statement that Frobenius eigenvalues sit on the circle $|z|=\sqrt{p}$.</div>
+
+<p>At $\theta_p=0$ or $\pi$ the trace saturates Hasse ($a_p=\pm 2\sqrt{p}$) — impossible at good primes because $\sqrt{p}\notin\mathbb{Z}$. At $\theta_p=\pi/2$ we have $a_p=0$, eigenvalues $\pm i\sqrt{p}$: $p$ is <strong>supersingular</strong>.</p>
+
+<p>Slide $a_p$ to watch $\alpha_p,\beta_p$ move along the Hasse circle; the supersingular locus $\theta=\pi/2$ is marked in violet.</p>
+
+<div class="widget" id="w-angle">
+  <div class="hd"><div class="ttl">Frobenius eigenvalues on the Hasse circle</div><div class="hint">drag $a_p$ · pick a prime</div></div>
+  <svg id="ang-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="row">
+    <label>prime $p$</label>
+    <select id="ang-p">
+      <option value="5">5</option><option value="7">7</option>
+      <option value="11" selected>11</option><option value="13">13</option>
+      <option value="23">23</option><option value="37">37</option>
+      <option value="101">101</option>
+    </select>
+    <label>$a_p$</label>
+    <input id="ang-a" type="range" step="0.01">
+    <span id="ang-aval" class="small"></span>
+  </div>
+  <div class="readout" id="ang-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#ang-svg'), pSel=$('#ang-p'), aSl=$('#ang-a'), aVal=$('#ang-aval'), out=$('#ang-out');
+  function state(){
+    const p = +pSel.value;
+    const bound = 2*Math.sqrt(p);
+    aSl.min = (-bound).toFixed(3); aSl.max = bound.toFixed(3);
+    if(+aSl.value < -bound || +aSl.value > bound) aSl.value = 0;
+    const a = +aSl.value;
+    const c = Math.max(-1, Math.min(1, a/(2*Math.sqrt(p))));
+    const theta = Math.acos(c);
+    return {p, a, theta, bound};
+  }
+  function render(){
+    const {p,a,theta,bound} = state();
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cx=310, cy=170, R = 120; // visual radius (represents √p)
+    // axes
+    svg.appendChild(SVG('line',{x1:cx-R-30,y1:cy,x2:cx+R+30,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-R-30,x2:cx,y2:cy+R+30,stroke:'var(--line)','stroke-width':1}));
+    // circle of radius √p
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':1.4,'stroke-dasharray':'4 4'}));
+    // label axes
+    let t;
+    t=SVG('text',{x:cx+R+36,y:cy+4,'font-size':12,fill:'var(--mute)'}); t.textContent='Re'; svg.appendChild(t);
+    t=SVG('text',{x:cx-6,y:cy-R-34,'font-size':12,fill:'var(--mute)'}); t.textContent='Im'; svg.appendChild(t);
+    t=SVG('text',{x:cx+R+8,y:cy-6,'font-size':11,fill:'var(--blue)','font-style':'italic'}); t.textContent='|z|=√p'; svg.appendChild(t);
+    // supersingular markers at ±i (θ=π/2)
+    svg.appendChild(SVG('circle',{cx,cy:cy-R,r:3,fill:'var(--violet)'}));
+    svg.appendChild(SVG('circle',{cx,cy:cy+R,r:3,fill:'var(--violet)'}));
+    // eigenvalue points
+    const ex = cx + R*Math.cos(theta), ey1 = cy - R*Math.sin(theta), ey2 = cy + R*Math.sin(theta);
+    // angle arcs
+    function arc(a0,a1,col,r){
+      const x0=cx+r*Math.cos(a0), y0=cy-r*Math.sin(a0);
+      const x1=cx+r*Math.cos(a1), y1=cy-r*Math.sin(a1);
+      const sweep = a1>a0?0:1;
+      const p = SVG('path',{d:`M ${x0} ${y0} A ${r} ${r} 0 0 ${sweep} ${x1} ${y1}`,
+        fill:'none',stroke:col,'stroke-width':1.5});
+      svg.appendChild(p);
+    }
+    arc(0, theta, 'var(--yellow)', 36);
+    arc(0, -theta, 'var(--yellow)', 30);
+    // radii to eigenvalues
+    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:ex,y2:ey1,stroke:'var(--yellow)','stroke-width':1.2}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:ex,y2:ey2,stroke:'var(--yellow)','stroke-width':1.2,'stroke-dasharray':'3 3'}));
+    // eigenvalue dots
+    svg.appendChild(SVG('circle',{cx:ex,cy:ey1,r:5,fill:'var(--yellow)'}));
+    svg.appendChild(SVG('circle',{cx:ex,cy:ey2,r:5,fill:'var(--pink)'}));
+    t=SVG('text',{x:ex+10,y:ey1-6,'font-size':12,fill:'var(--yellow)'});
+    t.textContent='α_p = √p·e^{iθ}'; svg.appendChild(t);
+    t=SVG('text',{x:ex+10,y:ey2+14,'font-size':12,fill:'var(--pink)'});
+    t.textContent='β_p = √p·e^{-iθ}'; svg.appendChild(t);
+    // a_p mark on real axis (projection)
+    const ax = cx + R*Math.cos(theta); // same as Re(α) = √p cos θ
+    svg.appendChild(SVG('line',{x1:ax,y1:cy,x2:ax,y2:cy+R+18,stroke:'var(--green)','stroke-width':1,'stroke-dasharray':'2 3'}));
+    t=SVG('text',{x:ax,y:cy+R+32,'font-size':11,fill:'var(--green)','text-anchor':'middle'});
+    t.textContent='a_p / 2'; svg.appendChild(t);
+    // theta label
+    t=SVG('text',{x:cx+50,y:cy-6,'font-size':12,fill:'var(--yellow)'});
+    t.textContent='θ_p'; svg.appendChild(t);
+
+    // readout
+    aVal.textContent = 'a_p = ' + a.toFixed(3);
+    const supersingular = Math.abs(theta - Math.PI/2) < 1e-3;
+    const deg = (theta*180/Math.PI);
+    out.textContent =
+      'p = '+p+'    Hasse bound: |a_p| ≤ 2√p ≈ '+bound.toFixed(4)+'\n'+
+      'a_p = 2√p · cos θ_p\n'+
+      '  θ_p = '+theta.toFixed(4)+' rad  ('+deg.toFixed(2)+'°)\n'+
+      '  α_p = √p · e^{iθ_p}  ≈  '+(Math.sqrt(p)*Math.cos(theta)).toFixed(3)+' + '+(Math.sqrt(p)*Math.sin(theta)).toFixed(3)+'·i\n'+
+      '  β_p = √p · e^{-iθ_p} ≈  '+(Math.sqrt(p)*Math.cos(theta)).toFixed(3)+' − '+(Math.sqrt(p)*Math.sin(theta)).toFixed(3)+'·i\n'+
+      (supersingular ? '  ⟵ supersingular: θ_p = π/2, a_p = 0, eigenvalues ±i√p.' : '');
+  }
+  pSel.addEventListener('change', render);
+  aSl.addEventListener('input', render);
+  // initialize
+  aSl.min=-6.633; aSl.max=6.633; aSl.value=2.5;
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="hasse-bound-angle"></div>
+</section>
+
+<section id="measure">
+<h2>2. The Sato–Tate measure</h2>
+
+<p>Every prime $p$ of good reduction hands us an angle $\theta_p\in[0,\pi]$. The <strong>Sato–Tate conjecture</strong> — proved for non-CM elliptic curves over totally real fields by Clozel, Harris, Shepherd-Barron, Taylor, Barnet-Lamb and Geraghty (2008–11) — specifies how they distribute.</p>
+
+<div class="note"><b>Sato–Tate (theorem, non-CM case).</b> For $E/\mathbb{Q}$ non-CM elliptic and any continuous $f\colon[0,\pi]\to\mathbb{R}$,
+$$\lim_{X\to\infty}\frac{1}{\pi(X)}\sum_{p\le X}f(\theta_p)=\int_0^\pi f\,d\mu_{ST},\qquad d\mu_{ST}=\frac{2}{\pi}\sin^2\theta\,d\theta.$$</div>
+
+<p>Why that density? The Haar probability measure on $\mathrm{SU}(2)$, pushed to conjugacy classes $\operatorname{diag}(e^{i\theta},e^{-i\theta})$, is $(2/\pi)\sin^2\theta\,d\theta$. Sato–Tate is <em>Chebotarev for a compact Lie group</em>: rescaled Frobenius classes equidistribute with respect to Haar measure on $\mathrm{SU}(2)$.</p>
+
+<p>The density vanishes quadratically at the endpoints (reflecting Hasse saturation) and peaks at $\theta=\pi/2$ — supersingular angles are the modal event even though $a_p=0$ has measure zero on the real line.</p>
+
+<p>CM breaks universality. For $E:y^2=x^3-x$ (CM by $\mathbb{Z}[i]$), roughly half of primes are supersingular (a Dirac mass at $\pi/2$) and the rest equidistribute uniformly as $(1/\pi)\,d\theta$ — the Haar measure of the normalizer of a torus, not the full $\mathrm{SU}(2)$.</p>
+
+<p>Below, we draw $\sim\!4000$ samples from $\mu_{ST}$ by Newton-inverting the CDF
+$$F(\theta)=\frac{\theta}{\pi}-\frac{\sin 2\theta}{2\pi},$$
+bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degenerate uniform-plus-spike distribution.</p>
+
+<div class="widget" id="w-hist">
+  <div class="hd"><div class="ttl">Sato–Tate histogram (4000 samples)</div><div class="hint">resample · toggle CM / non-CM</div></div>
+  <svg id="hist-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="row">
+    <button id="hist-resample">resample</button>
+    <button id="hist-mode" class="active" data-mode="nonCM">non-CM · $y^2=x^3+1$</button>
+    <button id="hist-mode-cm" data-mode="CM">CM · $y^2=x^3-x$</button>
+  </div>
+  <div class="readout" id="hist-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#hist-svg'), btn=$('#hist-resample'),
+        bNon=$('#hist-mode'), bCM=$('#hist-mode-cm'), out=$('#hist-out');
+  const N = 4000, B = 24;
+  let mode = 'nonCM';
+
+  function sampleST(){
+    let u = Math.random(), θ = Math.PI*u;
+    for(let i=0;i<30;i++){
+      const F  = θ/Math.PI - Math.sin(2*θ)/(2*Math.PI);
+      const Fp = (2/Math.PI)*Math.sin(θ)*Math.sin(θ);
+      if(Fp < 1e-12) break;
+      const Δ = (F - u)/Fp;
+      θ -= Δ;
+      if(Math.abs(Δ) < 1e-10) break;
+    }
+    return Math.min(Math.PI, Math.max(0, θ));
+  }
+  function sampleCM(){
+    // Half probability: supersingular θ=π/2. Else uniform on [0,π].
+    if(Math.random() < 0.5) return Math.PI/2;
+    return Math.random()*Math.PI;
+  }
+  let samples = [];
+  function resample(){
+    samples = [];
+    const S = (mode==='CM') ? sampleCM : sampleST;
+    for(let i=0;i<N;i++) samples.push(S());
+    render();
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=640, H=280, pad={l:46,r:20,t:14,b:38};
+    const plotW = W - pad.l - pad.r, plotH = H - pad.t - pad.b;
+    // bin
+    const counts = new Array(B).fill(0);
+    const h = Math.PI / B;
+    for(const θ of samples){
+      let k = Math.floor(θ/h);
+      if(k >= B) k = B-1;
+      if(k < 0) k = 0;
+      counts[k]++;
+    }
+    // normalize counts to density (# per bin / total / h)
+    const dens = counts.map(c => c/(N*h));
+    // y scale: max density ≈ 2/π ≈ 0.637 for non-CM; CM can spike very high → clip
+    const yMax = 0.85;
+    const xmap = θ => pad.l + plotW * θ/Math.PI;
+    const ymap = v => pad.t + plotH * (1 - Math.min(v,yMax)/yMax);
+    // bars
+    for(let k=0;k<B;k++){
+      const x0=xmap(k*h), x1=xmap((k+1)*h);
+      const y = ymap(dens[k]);
+      const r = SVG('rect',{x:x0+1,y:y,width:(x1-x0-2),height:(ymap(0)-y),
+        fill:'var(--blue)',opacity:0.55,stroke:'var(--blue)','stroke-width':0.6});
+      svg.appendChild(r);
+    }
+    // true density curve
+    let d='';
+    for(let k=0;k<=120;k++){
+      const θ=Math.PI*k/120, v=(2/Math.PI)*Math.sin(θ)*Math.sin(θ);
+      d += (k===0?'M':' L') + xmap(θ).toFixed(2)+' '+ymap(v).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // CM overlay: flat line at 1/(2π)*... (half-mass uniform) + arrow at π/2
+    if(mode==='CM'){
+      let d2='';
+      for(let k=0;k<=30;k++){
+        const θ=Math.PI*k/30, v=0.5*(1/Math.PI);
+        d2 += (k===0?'M':' L') + xmap(θ).toFixed(2)+' '+ymap(v).toFixed(2);
+      }
+      svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'4 4'}));
+      // spike marker at π/2
+      const xs = xmap(Math.PI/2);
+      svg.appendChild(SVG('line',{x1:xs,y1:ymap(0),x2:xs,y2:pad.t+4,stroke:'var(--pink)','stroke-width':2}));
+      const t=SVG('text',{x:xs+6,y:pad.t+14,'font-size':11,fill:'var(--pink)'});
+      t.textContent='½ mass at π/2 (supersingular)'; svg.appendChild(t);
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:pad.l,y1:ymap(0),x2:pad.l+plotW,y2:ymap(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:ymap(0),stroke:'var(--line)'}));
+    // x ticks
+    const xticks=[0, Math.PI/4, Math.PI/2, 3*Math.PI/4, Math.PI];
+    const xlabs=['0','π/4','π/2','3π/4','π'];
+    for(let i=0;i<xticks.length;i++){
+      const x=xmap(xticks[i]);
+      svg.appendChild(SVG('line',{x1:x,y1:ymap(0),x2:x,y2:ymap(0)+5,stroke:'var(--line)'}));
+      const t=SVG('text',{x,y:ymap(0)+19,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=xlabs[i]; svg.appendChild(t);
+    }
+    // y ticks
+    for(const v of [0, 0.2, 0.4, 0.6, 0.8]){
+      const y=ymap(v);
+      svg.appendChild(SVG('line',{x1:pad.l-5,y1:y,x2:pad.l,y2:y,stroke:'var(--line)'}));
+      const t=SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=v.toFixed(1); svg.appendChild(t);
+    }
+    // legend
+    let t=SVG('text',{x:pad.l+plotW-8,y:pad.t+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    t.textContent='(2/π) sin²θ'; svg.appendChild(t);
+    t=SVG('text',{x:W/2,y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent='θ'; svg.appendChild(t);
+
+    // readout: χ² rough and max-abs-deviation
+    let chi = 0, maxDev = 0;
+    for(let k=0;k<B;k++){
+      const θmid=(k+0.5)*h, exp=(2/Math.PI)*Math.sin(θmid)*Math.sin(θmid);
+      const o=dens[k];
+      if(exp>1e-6) chi += (o-exp)*(o-exp)/exp;
+      maxDev = Math.max(maxDev, Math.abs(o-exp));
+    }
+    out.textContent =
+      (mode==='CM' ? 'mode: CM ( y² = x³ − x ) — half supersingular + uniform residual'
+                   : 'mode: non-CM ( y² = x³ + 1 ) — Sato–Tate semicircle law') + '\n' +
+      'samples: '+N+'   bins: '+B+'   ∫ density ≈ '+
+        (dens.reduce((s,v)=>s+v,0)*h).toFixed(3) +
+      '   max |obs − (2/π)sin²θ|: '+ maxDev.toFixed(3);
+  }
+
+  btn.addEventListener('click', resample);
+  bNon.addEventListener('click', ()=>{
+    mode='nonCM';
+    bNon.classList.add('active'); bCM.classList.remove('active');
+    resample();
+  });
+  bCM.addEventListener('click', ()=>{
+    mode='CM';
+    bCM.classList.add('active'); bNon.classList.remove('active');
+    resample();
+  });
+  resample();
+})();
+</script>
+
+<div class="quiz" data-concept="sato-tate-measure"></div>
+</section>
+
+<section id="symn">
+<h2>3. Symmetric powers and the $L$-function strategy</h2>
+
+<p>Proof of equidistribution flows through harmonic analysis on $\mathrm{SU}(2)$. Its irreducibles are the symmetric powers $\mathrm{Sym}^n\mathbb{C}^2$ ($n\ge 0$), with characters
+$$\chi_n(\theta)=U_n(\cos\theta)=\sum_{k=0}^{n}e^{i(n-2k)\theta}=\frac{\sin((n+1)\theta)}{\sin\theta},$$
+the Chebyshev polynomials of the second kind. They are an orthonormal basis of $L^2([0,\pi],d\mu_{ST})$:
+$$\int_0^\pi U_m(\cos\theta)\,U_n(\cos\theta)\,\tfrac{2}{\pi}\sin^2\theta\,d\theta=\delta_{m,n}.$$</p>
+
+<div class="note"><b>Symmetric-power $L$-function.</b> At good primes,
+$$L_p(\mathrm{Sym}^n E,s)=\prod_{k=0}^{n}\bigl(1-\alpha_p^{n-k}\beta_p^{k}\,p^{-s}\bigr)^{-1},$$
+collecting the $n{+}1$ Frobenius eigenvalues on $\mathrm{Sym}^n$. Globally $L(\mathrm{Sym}^n E,s)=\prod_p L_p$.</div>
+
+<p>The trace of $\mathrm{Sym}^n\operatorname{Frob}_p$ is $\sum_k\alpha_p^{n-k}\beta_p^{k}=p^{n/2}U_n(\cos\theta_p)$. By Wiener–Ikehara, equidistribution with respect to $\mu_{ST}$ is equivalent to
+$$\lim_{X\to\infty}\frac{1}{\pi(X)}\sum_{p\le X}U_n(\cos\theta_p)=\delta_{n,0},\qquad n\ge 0,$$
+which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sym}^n E,s)$ on $\operatorname{Re}s=1$.</p>
+
+<div class="ok"><b>Sato–Tate ⇔ symmetric-power analyticity.</b> For non-CM $E/\mathbb{Q}$, Sato–Tate holds iff $L(\mathrm{Sym}^n E,s)$ is holomorphic and non-vanishing on $\operatorname{Re}s\ge 1$ for every $n\ge 1$. The cited 2008–11 theorems supply exactly this.</div>
+
+<p>Slide $\theta$ and $n$ to watch $U_n(\cos\theta)$ oscillate; its $n$ zeros are evenly spaced, and $(2/\pi)\sin^2\theta$ weights the curve so that $\int U_n^2\,d\mu_{ST}=1$.</p>
+
+<div class="widget" id="w-symn">
+  <div class="hd"><div class="ttl">Chebyshev $U_n$ and $\mathrm{SU}(2)$ characters</div><div class="hint">slide $n$ and $\theta$</div></div>
+  <svg id="symn-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="row">
+    <label>$n$</label>
+    <input id="symn-n" type="range" min="1" max="8" step="1" value="2">
+    <span id="symn-nv" class="small"></span>
+    <label>$\theta$</label>
+    <input id="symn-t" type="range" min="0" max="3.14159" step="0.001" value="1.047">
+    <span id="symn-tv" class="small"></span>
+  </div>
+  <div class="readout" id="symn-out"></div>
+</div>
+<p class="small">Footnote: $\int_0^\pi U_n^2\,d\mu_{ST}=1$ for every $n\ge 0$ — the analytic content of equidistribution.</p>
+
+<script>
+(function(){
+  const svg=$('#symn-svg'), nSl=$('#symn-n'), tSl=$('#symn-t'),
+        nv=$('#symn-nv'), tv=$('#symn-tv'), out=$('#symn-out');
+  function U(n,ct){
+    // evaluate U_n(cos θ) = sin((n+1)θ)/sin θ; numerically stable near θ=0,π
+    const θ = Math.acos(Math.max(-1,Math.min(1,ct)));
+    const s = Math.sin(θ);
+    if(Math.abs(s) < 1e-6){
+      // limit: U_n(1) = n+1, U_n(-1) = (-1)^n (n+1)
+      return (ct>=0 ? 1 : ((-1)**n)) * (n+1);
+    }
+    return Math.sin((n+1)*θ)/s;
+  }
+  function orthIntegral(m,n){
+    // numerical integral of U_m U_n * (2/π) sin²θ on [0,π]
+    const K=4000; let s=0;
+    for(let i=0;i<=K;i++){
+      const θ=Math.PI*i/K, c=Math.cos(θ), w=(i===0||i===K)?0.5:1;
+      s += w*U(m,c)*U(n,c)*(2/Math.PI)*Math.sin(θ)*Math.sin(θ);
+    }
+    return s*(Math.PI/K);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n=+nSl.value, θc=+tSl.value;
+    const W=640,H=280, pad={l:42,r:20,t:14,b:34};
+    const plotW=W-pad.l-pad.r, plotH=H-pad.t-pad.b;
+    const yMax = n+1.5; // U_n peaks at n+1 at θ=0
+    const xmap = θ => pad.l + plotW * θ/Math.PI;
+    const ymap = v => pad.t + plotH * (1 - (v+yMax)/(2*yMax));
+    // zero axis
+    svg.appendChild(SVG('line',{x1:pad.l,y1:ymap(0),x2:pad.l+plotW,y2:ymap(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:pad.t+plotH,stroke:'var(--line)'}));
+    // semicircle weight overlay (scaled)
+    let dw='';
+    for(let k=0;k<=120;k++){
+      const θ=Math.PI*k/120, v=(2/Math.PI)*Math.sin(θ)*Math.sin(θ)*(n+1);
+      dw += (k===0?'M':' L')+xmap(θ).toFixed(2)+' '+ymap(v).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d:dw,fill:'none',stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 4',opacity:0.7}));
+    // U_n curve
+    let d='';
+    for(let k=0;k<=300;k++){
+      const θ=Math.PI*k/300, v=U(n,Math.cos(θ));
+      d += (k===0?'M':' L')+xmap(θ).toFixed(2)+' '+ymap(v).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // current θ marker
+    const xC = xmap(θc), yC = ymap(U(n,Math.cos(θc)));
+    svg.appendChild(SVG('line',{x1:xC,y1:pad.t,x2:xC,y2:pad.t+plotH,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('circle',{cx:xC,cy:yC,r:5,fill:'var(--pink)'}));
+    // axis labels
+    const xticks=[0,Math.PI/4,Math.PI/2,3*Math.PI/4,Math.PI];
+    const xlabs=['0','π/4','π/2','3π/4','π'];
+    for(let i=0;i<xticks.length;i++){
+      const x=xmap(xticks[i]);
+      svg.appendChild(SVG('line',{x1:x,y1:ymap(0),x2:x,y2:ymap(0)+5,stroke:'var(--line)'}));
+      const t=SVG('text',{x,y:ymap(0)+19,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=xlabs[i]; svg.appendChild(t);
+    }
+    for(const v of [-Math.floor(yMax), 0, Math.floor(yMax)]){
+      const y=ymap(v);
+      svg.appendChild(SVG('line',{x1:pad.l-5,y1:y,x2:pad.l,y2:y,stroke:'var(--line)'}));
+      const t=SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=v.toFixed(0); svg.appendChild(t);
+    }
+    // legend
+    let t=SVG('text',{x:pad.l+8,y:pad.t+14,'font-size':11,fill:'var(--yellow)'});
+    t.textContent='U_'+n+'(cos θ)'; svg.appendChild(t);
+    t=SVG('text',{x:pad.l+8,y:pad.t+30,'font-size':11,fill:'var(--violet)'});
+    t.textContent='(scaled) (2/π) sin²θ'; svg.appendChild(t);
+
+    // readouts
+    nv.textContent = 'n='+n;
+    tv.textContent = 'θ='+θc.toFixed(3);
+    const Uval = U(n, Math.cos(θc));
+    const norm = orthIntegral(n,n);
+    const cross = orthIntegral(n, (n===1?2:1));
+    out.textContent =
+      'U_'+n+'(cos θ) = sin(('+(n+1)+')θ)/sin θ   evaluated at θ = '+θc.toFixed(3)+':\n'+
+      '  value = '+Uval.toFixed(4)+'\n'+
+      'zeros of U_'+n+' on (0,π): k·π/('+(n+1)+'), k=1..'+n+'\n'+
+      '∫ U_'+n+'² dμ_ST ≈ '+norm.toFixed(4)+'  (should be 1)\n'+
+      '∫ U_'+n+'·U_'+(n===1?2:1)+' dμ_ST ≈ '+cross.toFixed(4)+'  (should be 0)';
+  }
+  nSl.addEventListener('input', render);
+  tSl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<div class="quiz" data-concept="symmetric-power-l-functions"></div>
+</section>
+
+<section id="coda">
+<h2>Coda: open horizons</h2>
+<p>Sato–Tate for a single non-CM elliptic curve is the $\mathrm{GL}_2$ slice of a larger picture. The <em>generalized Sato–Tate conjecture</em> predicts Satake parameters of any cuspidal automorphic representation equidistribute against Haar measure on a compact form of the associated $L$-group; for $\mathrm{GL}_n$ forms and higher-rank abelian varieties most cases remain open. The dual <strong>Katz–Sarnak heuristic</strong> matches zeros of $L$-function families to unitary/orthogonal/symplectic random-matrix ensembles, binding Sato–Tate to the spectral side of analytic number theory.</p>
+<p>See also: <a href="./L-functions.html">$L$-functions</a>, <a href="./galois-representations.html">Galois representations</a>, <a href="./modular-forms.html">modular forms</a>.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('sato-tate'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Point-set topology — metric spaces, opens, continuity, compactness</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#metric">1&nbsp;Metric&nbsp;spaces</a>
+  <a href="#open">2&nbsp;Topological&nbsp;spaces</a>
+  <a href="#continuity">3&nbsp;Continuity</a>
+  <a href="#compact">4&nbsp;Compactness</a>
+  <a href="#connected">5&nbsp;Connectedness</a>
+  <a href="#separation">6&nbsp;Separation</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Point-set topology</h1>
+  <p class="sub">From $\varepsilon$–$\delta$ to opens: start with metric spaces, forget the numbers, and keep only the lattice of open sets. Continuity, compactness, connectedness, and the separation hierarchy are what survive — the invariants on which <a href="./algebraic-topology.html">algebraic topology</a> and <a href="./measure-theory.html">measure theory</a> build.</p>
+</section>
+
+<section id="metric">
+<h2>1. Metric spaces</h2>
+<p>A <strong>metric</strong> on a set $X$ is a function $d\colon X\times X\to[0,\infty)$ satisfying, for all $x,y,z\in X$,</p>
+<ol>
+  <li>$d(x,y)=0\iff x=y$ (identity of indiscernibles),</li>
+  <li>$d(x,y)=d(y,x)$ (symmetry),</li>
+  <li>$d(x,z)\le d(x,y)+d(y,z)$ (triangle inequality).</li>
+</ol>
+<p>The pair $(X,d)$ is a <strong>metric space</strong>. The three axioms are the minimum you need to talk about "how close" two points are without leaning on linear structure.</p>
+
+<h3>The standard examples</h3>
+<table class="plain">
+<thead><tr><th>space</th><th>metric</th><th>comment</th></tr></thead>
+<tbody>
+<tr><td>$\mathbb{R}^n$</td><td>$d_2(x,y)=\sqrt{\sum_i(x_i-y_i)^2}$</td><td>Euclidean; the default</td></tr>
+<tr><td>$\mathbb{R}^n$</td><td>$d_1(x,y)=\sum_i|x_i-y_i|$</td><td>taxicab / $\ell^1$</td></tr>
+<tr><td>$\mathbb{R}^n$</td><td>$d_\infty(x,y)=\max_i|x_i-y_i|$</td><td>sup / $\ell^\infty$ / Chebyshev</td></tr>
+<tr><td>any $X$</td><td>$d(x,y)=[x\ne y]$</td><td>discrete — every point is isolated</td></tr>
+<tr><td>$C([0,1])$</td><td>$d(f,g)=\sup_t|f(t)-g(t)|$</td><td>uniform metric; completion of polynomials</td></tr>
+<tr><td>$\mathbb{Q}$</td><td>$|x-y|_p$</td><td>$p$-adic; triangle becomes ultrametric $d(x,z)\le\max$</td></tr>
+</tbody>
+</table>
+
+<p>The <strong>open ball</strong> of radius $\varepsilon>0$ around $x\in X$ is
+$$B(x,\varepsilon)=\{y\in X:d(x,y)<\varepsilon\}.$$
+A set $U\subseteq X$ is <strong>open</strong> if every $x\in U$ lies inside some $B(x,\varepsilon)\subseteq U$. The open balls are a <em>basis</em>: the family of open sets is exactly the arbitrary unions of open balls. Closed sets are complements of opens, equivalently the sets containing every limit point of any sequence they contain.</p>
+
+<div class="note"><strong>Continuity, $\varepsilon$–$\delta$.</strong> A map $f\colon(X,d_X)\to(Y,d_Y)$ is continuous at $x_0$ if
+$$\forall\varepsilon>0,\ \exists\delta>0: d_X(x,x_0)<\delta\implies d_Y(f(x),f(x_0))<\varepsilon.$$
+Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\varepsilon$–$\delta$ dance is really a statement about preimages of opens.</div>
+
+<h3>Cauchy sequences and completeness</h3>
+<p>A sequence $(x_n)$ in $(X,d)$ is <strong>Cauchy</strong> if $d(x_n,x_m)\to 0$ as $n,m\to\infty$. Every convergent sequence is Cauchy; the converse is the defining property of a <strong>complete</strong> metric space. $\mathbb{R}^n$ is complete. $\mathbb{Q}$ with the usual metric is not — its completion is $\mathbb{R}$. $\mathbb{Q}$ with the $p$-adic metric has a different completion, $\mathbb{Q}_p$ (see <a href="./p-adic-numbers.html">$p$-adic numbers</a>). Completeness is a <em>metric</em> property, not a topological one: it depends on $d$, not just on the opens — $(0,1)$ and $\mathbb{R}$ are homeomorphic but only one is complete under the inherited Euclidean metric.</p>
+
+<div class="ok"><strong>Banach fixed-point theorem.</strong> If $(X,d)$ is complete and $T\colon X\to X$ is a contraction ($d(Tx,Ty)\le k\,d(x,y)$ for some $k<1$), then $T$ has a unique fixed point, reached by iterating $Tx_0,T^2x_0,\dots$ from any $x_0$. This single theorem gives Picard existence for ODEs, the inverse function theorem, and the convergence of Newton's method.</div>
+
+<p>Which brings us to the first mind-stretch of the subject. The <em>shape</em> of an open ball depends drastically on the choice of metric — a disk in $d_2$, a square in $d_\infty$, a diamond in $d_1$, a single point in the discrete metric — but the three metrics $d_1, d_2, d_\infty$ on $\mathbb{R}^n$ all yield the <em>same</em> collection of open sets and so define the same topology. Only the discrete metric has a different topology, because its balls of radius $<1$ are singletons. Drag the center point, slide $\varepsilon$, and flip the metric to feel which data is topological and which is not.</p>
+
+<div class="widget" id="w-metric">
+  <div class="hd"><div class="ttl">Open balls in four metrics</div><div class="hint">drag the blue point · slide $\varepsilon$ · flip the metric</div></div>
+  <svg id="met-svg" viewBox="0 0 640 360" width="640" height="360"></svg>
+  <div class="row">
+    <label>metric</label>
+    <button data-met="e" class="active">Euclidean $d_2$</button>
+    <button data-met="t">taxicab $d_1$</button>
+    <button data-met="s">sup $d_\infty$</button>
+    <button data-met="d">discrete</button>
+  </div>
+  <div class="row">
+    <label>$\varepsilon$</label>
+    <input type="range" id="met-eps" min="0.1" max="4" step="0.05" value="1.3"/>
+    <span class="small" id="met-epsv">1.30</span>
+  </div>
+  <div class="readout" id="met-out"></div>
+</div>
+
+<div class="quiz" data-concept="metric-spaces"></div>
+</section>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg=$('#met-svg'), out=$('#met-out'), eps=$('#met-eps'), epsv=$('#met-epsv');
+  let metric='e';
+  let cx=0, cy=0; // in math coords
+  const W=640, H=360;
+  const scale=60; // pixels per unit
+  function toPx(x,y){ return [W/2 + x*scale, H/2 - y*scale]; }
+  function toMath(px,py){ return [(px-W/2)/scale, -(py-H/2)/scale]; }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // grid
+    const grid = SVG('g');
+    for(let i=-5;i<=5;i++){
+      const [px0,py0]=toPx(i,-3), [px1,py1]=toPx(i,3);
+      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,
+        stroke:'var(--line)','stroke-width':0.5}));
+    }
+    for(let j=-3;j<=3;j++){
+      const [px0,py0]=toPx(-5,j), [px1,py1]=toPx(5,j);
+      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,
+        stroke:'var(--line)','stroke-width':0.5}));
+    }
+    // axes
+    const [ax0,ay0]=toPx(-5,0), [ax1,ay1]=toPx(5,0);
+    grid.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.8}));
+    const [bx0,by0]=toPx(0,-3), [bx1,by1]=toPx(0,3);
+    grid.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--mute)','stroke-width':0.8}));
+    svg.appendChild(grid);
+
+    const e = parseFloat(eps.value);
+    const [pcx,pcy]=toPx(cx,cy);
+    // draw the open ball
+    let shape, shapeText;
+    if(metric==='e'){
+      shape = SVG('circle',{cx:pcx,cy:pcy,r:e*scale,
+        fill:'rgba(88,196,221,0.18)',stroke:'var(--blue)','stroke-width':1.5});
+      shapeText='disk';
+    } else if(metric==='t'){
+      // taxicab: |x-cx|+|y-cy|<e → diamond
+      const pts=[
+        toPx(cx+e,cy),toPx(cx,cy+e),toPx(cx-e,cy),toPx(cx,cy-e)
+      ].map(p=>p.join(',')).join(' ');
+      shape = SVG('polygon',{points:pts,
+        fill:'rgba(255,216,102,0.18)',stroke:'var(--yellow)','stroke-width':1.5});
+      shapeText='diamond (rotated square)';
+    } else if(metric==='s'){
+      const [x0,y0]=toPx(cx-e,cy+e), [x1,y1]=toPx(cx+e,cy-e);
+      shape = SVG('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,
+        fill:'rgba(131,193,103,0.18)',stroke:'var(--green)','stroke-width':1.5});
+      shapeText='axis-aligned square';
+    } else {
+      // discrete: if e<=1, ball={center}; if e>1, all of X (draw big translucent frame)
+      if(e<=1){
+        shape = SVG('circle',{cx:pcx,cy:pcy,r:5,
+          fill:'var(--pink)',stroke:'var(--pink)','stroke-width':1.5});
+        shapeText='singleton {x}';
+      } else {
+        shape = SVG('rect',{x:0,y:0,width:W,height:H,
+          fill:'rgba(224,122,95,0.12)',stroke:'var(--pink)','stroke-width':1.5,
+          'stroke-dasharray':'6 4'});
+        shapeText='all of X';
+      }
+    }
+    svg.appendChild(shape);
+    // center point
+    svg.appendChild(SVG('circle',{cx:pcx,cy:pcy,r:5,fill:'var(--blue)','stroke':'#fff','stroke-width':1.5,
+      style:'cursor:grab','data-drag':'1'}));
+    const lbl = SVG('text',{x:pcx+8,y:pcy-8,'font-size':12,fill:'var(--ink)'});
+    lbl.textContent = `x=(${cx.toFixed(2)}, ${cy.toFixed(2)})`;
+    svg.appendChild(lbl);
+
+    epsv.textContent = e.toFixed(2);
+    const mNames = {e:'Euclidean', t:'taxicab', s:'sup', d:'discrete'};
+    out.textContent =
+      `metric: ${mNames[metric]}\n` +
+      `open ball B(x,ε) of radius ε=${e.toFixed(2)}\n` +
+      `shape: ${shapeText}\n\n` +
+      (metric==='d'
+        ? 'Discrete metric: every singleton is open, so every subset is open. This is a genuinely different topology — sequences converge only if eventually constant.'
+        : 'Euclidean, taxicab, and sup metrics on ℝ² have different ball shapes but generate the SAME topology — any taxicab ball contains a smaller Euclidean ball and vice versa. Topology sees only which sets are open, not which metric you used.');
+  }
+
+  // dragging
+  let dragging=false;
+  svg.addEventListener('pointerdown',e=>{
+    if(e.target.getAttribute('data-drag')){
+      dragging=true; svg.setPointerCapture(e.pointerId);
+    }
+  });
+  svg.addEventListener('pointermove',e=>{
+    if(!dragging) return;
+    const rect = svg.getBoundingClientRect();
+    const sx = W/rect.width, sy = H/rect.height;
+    const px = (e.clientX-rect.left)*sx, py=(e.clientY-rect.top)*sy;
+    [cx,cy] = toMath(px,py);
+    cx = Math.max(-4.5, Math.min(4.5, cx));
+    cy = Math.max(-2.5, Math.min(2.5, cy));
+    render();
+  });
+  svg.addEventListener('pointerup',e=>{ dragging=false; });
+  svg.addEventListener('pointercancel',e=>{ dragging=false; });
+
+  eps.addEventListener('input',render);
+  $$('[data-met]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      metric = b.getAttribute('data-met');
+      $$('[data-met]').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      render();
+    });
+  });
+  render();
+})();
+</script>
+
+<section id="open">
+<h2>2. Topological spaces</h2>
+<p>The widget above gave away the punchline: three different metrics on $\mathbb{R}^2$ produced the same family of open sets. So the natural object to keep is <em>the family of opens itself</em>, and the natural generalisation is to <em>drop the metric</em>.</p>
+
+<p>A <strong>topology</strong> on a set $X$ is a collection $\tau\subseteq\mathcal{P}(X)$ of "open" subsets satisfying:</p>
+<ol>
+  <li>$\emptyset\in\tau$ and $X\in\tau$,</li>
+  <li>arbitrary unions of opens are open: $U_\alpha\in\tau\implies\bigcup_\alpha U_\alpha\in\tau$,</li>
+  <li>finite intersections of opens are open: $U_1,\dots,U_n\in\tau\implies U_1\cap\cdots\cap U_n\in\tau$.</li>
+</ol>
+<p>The pair $(X,\tau)$ is a <strong>topological space</strong>. Every metric space is a topological space with $\tau$ the collection generated by open balls. Most of the theorems below assume only the axioms — the metric is scaffolding you remove once built.</p>
+
+<div class="note"><strong>Why infinite intersections are banned.</strong> In $\mathbb{R}$, $\bigcap_{n\ge 1}(-1/n,1/n)=\{0\}$, which is <em>not</em> open. Arbitrary intersections of opens can collapse to non-open sets; only finite intersections are safe.</div>
+
+<h3>Extremes and small examples</h3>
+<p>On any set $X$ there are two trivial topologies:</p>
+<ul>
+  <li>the <strong>discrete</strong> topology $\tau=\mathcal{P}(X)$ (every subset open);</li>
+  <li>the <strong>indiscrete</strong> topology $\tau=\{\emptyset,X\}$ (only the trivial opens).</li>
+</ul>
+<p>Between these extremes sits everything interesting. On $\mathbb{R}$, the usual topology has as opens exactly the arbitrary unions of open intervals. Another topology on $\mathbb{R}$ is the <strong>cofinite</strong> topology: opens are $\emptyset$ and the complements of finite sets. It satisfies the axioms and is strictly coarser than the Euclidean one.</p>
+
+<div class="note"><strong>Sierpiński space.</strong> $S=\{0,1\}$ with $\tau=\{\emptyset,\{1\},\{0,1\}\}$. Despite having just two points, it is the universal "observable" space: a function $f\colon X\to S$ is continuous iff $f^{-1}(\{1\})$ is open in $X$, i.e. continuous functions to $S$ <em>are</em> open subsets. It recurs all over pointless topology and computer science.</div>
+
+<h3>Bases and subbases</h3>
+<p>Specifying a topology by listing every open set is impractical. A <strong>basis</strong> $\mathcal{B}$ for a topology on $X$ is a family of subsets such that (i) every $x\in X$ lies in some $B\in\mathcal{B}$, and (ii) if $x\in B_1\cap B_2$ there is $B_3\in\mathcal{B}$ with $x\in B_3\subseteq B_1\cap B_2$. The topology <em>generated</em> by $\mathcal{B}$ is the set of arbitrary unions of basis elements. For $\mathbb{R}^n$, the open balls are a basis; so are the open rectangles. A <strong>subbasis</strong> is any collection whose finite intersections form a basis — usually the easiest way to specify large topologies (e.g. the product topology).</p>
+
+<h3>Subspace and product topologies</h3>
+<p>If $(X,\tau)$ is a topological space and $A\subseteq X$, the <strong>subspace topology</strong> on $A$ has opens $\{U\cap A:U\in\tau\}$. If $(X_i,\tau_i)_{i\in I}$ is a family, the <strong>product topology</strong> on $\prod_i X_i$ has as subbasis the cylinders $\pi_i^{-1}(U_i)$ for $U_i\in\tau_i$; equivalently, a basis is the collection of boxes $\prod_i U_i$ with $U_i\in\tau_i$ and $U_i=X_i$ for all but finitely many $i$. For finite products the "boxes" description is enough, and matches your intuition from $\mathbb{R}^2=\mathbb{R}\times\mathbb{R}$.</p>
+
+<p>Time to sanity-check the axioms by hand. Pick a tiny set $X=\{a,b,c,d\}$, toggle which subsets you declare open, and the widget will tell you whether the declared family actually is a topology — whether it contains $\emptyset$ and $X$, is closed under union, and closed under finite intersection.</p>
+
+<div class="widget" id="w-top">
+  <div class="hd"><div class="ttl">Is this a topology on $X=\{a,b,c,d\}$?</div><div class="hint">click subsets to toggle in/out · readout checks the three axioms</div></div>
+  <svg id="top-svg" viewBox="0 0 640 120" width="640" height="120"></svg>
+  <div class="row" id="top-grid"></div>
+  <div class="readout" id="top-out"></div>
+  <div class="row">
+    <button id="top-ex1">preset: discrete</button>
+    <button id="top-ex2">preset: indiscrete</button>
+    <button id="top-ex3">preset: Sierpiński-like</button>
+    <button id="top-ex4">preset: broken (no union-closure)</button>
+    <button id="top-clear">clear</button>
+  </div>
+</div>
+
+<div class="quiz" data-concept="open-sets"></div>
+</section>
+
+<script>
+/* =============================== SECTION 2 widget =============================== */
+(function(){
+  const X = ['a','b','c','d'];
+  // enumerate all 16 subsets as bitmasks
+  const subs = [];
+  for(let m=0;m<16;m++){
+    const els = X.filter((_,i)=>m&(1<<i));
+    subs.push({mask:m, name: '{'+els.join(',')+'}'||'∅', pretty: els.length? '{'+els.join(',')+'}':'∅'});
+  }
+  subs[0].pretty='∅';
+  const grid = $('#top-grid'), out = $('#top-out'), topSvg = $('#top-svg');
+  const picked = new Set();
+
+  // 4 points laid out in a row with fixed SVG coords
+  const PT = {a:[120,60], b:[240,60], c:[360,60], d:[480,60]};
+  function renderSVG(){
+    while(topSvg.firstChild) topSvg.removeChild(topSvg.firstChild);
+    // draw each picked subset as a translucent capsule that encloses its points
+    const sortedByCount = [...picked].sort((a,b)=>{
+      const ca = X.filter((_,i)=>a&(1<<i)).length;
+      const cb = X.filter((_,i)=>b&(1<<i)).length;
+      return cb-ca;
+    });
+    sortedByCount.forEach((m,idx)=>{
+      const els = X.filter((_,i)=>m&(1<<i));
+      if(els.length===0) return; // don't draw ∅
+      if(m===15){
+        // full set: big rounded rect
+        topSvg.appendChild(SVG('rect',{x:60,y:22,width:540,height:76,rx:38,ry:38,
+          fill:'rgba(179,157,219,0.10)',stroke:'var(--violet)','stroke-width':1}));
+        return;
+      }
+      const xs = els.map(e=>PT[e][0]);
+      const xMin=Math.min(...xs)-24, xMax=Math.max(...xs)+24;
+      const pad = 14 + (idx%3)*4;
+      topSvg.appendChild(SVG('rect',{x:xMin, y:60-pad, width:xMax-xMin, height:2*pad, rx:pad, ry:pad,
+        fill:'rgba(88,196,221,0.12)',stroke:'var(--blue)','stroke-width':1,opacity:0.9}));
+    });
+    // points and labels
+    X.forEach(n=>{
+      const [x,y]=PT[n];
+      topSvg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.2}));
+      const t=SVG('text',{x,y:y+22,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
+      t.textContent=n; topSvg.appendChild(t);
+    });
+  }
+
+  function renderGrid(){
+    grid.innerHTML='';
+    subs.forEach(s=>{
+      const b = document.createElement('button');
+      b.textContent = s.pretty;
+      if(picked.has(s.mask)) b.classList.add('active');
+      b.addEventListener('click',()=>{
+        if(picked.has(s.mask)) picked.delete(s.mask);
+        else picked.add(s.mask);
+        renderGrid(); check(); renderSVG();
+      });
+      grid.appendChild(b);
+    });
+  }
+  function check(){
+    const arr = [...picked].sort((a,b)=>a-b);
+    const hasEmpty = arr.includes(0);
+    const hasX = arr.includes(15);
+    // union closure
+    let unionOk=true, unionFail=null;
+    for(const a of arr){
+      for(const b of arr){
+        const u=a|b;
+        if(!arr.includes(u)){ unionOk=false; unionFail=[a,b,u]; break; }
+      }
+      if(!unionOk) break;
+    }
+    // finite intersection closure
+    let interOk=true, interFail=null;
+    for(const a of arr){
+      for(const b of arr){
+        const i=a&b;
+        if(!arr.includes(i)){ interOk=false; interFail=[a,b,i]; break; }
+      }
+      if(!interOk) break;
+    }
+    function nm(m){ return subs[m].pretty; }
+    const lines = [];
+    lines.push(`declared open: ${arr.map(nm).join(', ') || '(none)'}`);
+    lines.push('');
+    lines.push(`contains ∅ and X ?   ${hasEmpty && hasX ? '✓' : '✗'}`);
+    lines.push(`closed under union ? ${unionOk ? '✓' : '✗  (e.g. '+nm(unionFail[0])+' ∪ '+nm(unionFail[1])+' = '+nm(unionFail[2])+' is missing)'}`);
+    lines.push(`closed under ∩ ?     ${interOk ? '✓' : '✗  (e.g. '+nm(interFail[0])+' ∩ '+nm(interFail[1])+' = '+nm(interFail[2])+' is missing)'}`);
+    lines.push('');
+    const isTop = hasEmpty && hasX && unionOk && interOk;
+    lines.push(isTop ? '★ this IS a topology on X' : '✗ not a topology');
+    out.textContent = lines.join('\n');
+  }
+  function setPreset(fn){
+    picked.clear();
+    for(let m=0;m<16;m++) if(fn(m)) picked.add(m);
+    renderGrid(); check();
+  }
+  $('#top-ex1').addEventListener('click',()=>setPreset(()=>true)); // all 16
+  $('#top-ex2').addEventListener('click',()=>setPreset(m=>m===0||m===15));
+  // Sierpiński-like: ∅, {a}, X
+  $('#top-ex3').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===15));
+  // broken: ∅, {a}, {b}, X — union {a}∪{b}={a,b} missing
+  $('#top-ex4').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===2||m===15));
+  $('#top-clear').addEventListener('click',()=>{ picked.clear(); renderGrid(); check(); });
+
+  setPreset(m=>m===0||m===1||m===15); // default = Sierpiński-like
+})();
+</script>
+
+<section id="continuity">
+<h2>3. Continuity and homeomorphism</h2>
+<p>With opens as primitive, the definition of continuity no longer needs $\varepsilon$ or $\delta$:</p>
+
+<div class="ok"><strong>Definition.</strong> $f\colon(X,\tau_X)\to(Y,\tau_Y)$ is <strong>continuous</strong> iff $f^{-1}(V)\in\tau_X$ for every $V\in\tau_Y$. Equivalently, preimages of closed sets are closed.</div>
+
+<p>On metric spaces this definition is equivalent to $\varepsilon$–$\delta$ (proof: unwind "$f^{-1}(B(f(x_0),\varepsilon))$ is open" as "contains an open ball around $x_0$"). But the abstract version is robust: it composes trivially ($f^{-1}g^{-1}(V) = (g\circ f)^{-1}(V)$), it handles product and subspace topologies without fuss, and it extends to spaces where no natural metric exists (Zariski, étale, Stone–Čech).</p>
+
+<h3>Homeomorphisms</h3>
+<p>A <strong>homeomorphism</strong> is a continuous bijection $f\colon X\to Y$ whose inverse $f^{-1}$ is also continuous. Equivalently, $f$ is a bijection under which opens correspond to opens in both directions. Homeomorphisms are the isomorphisms of the category $\mathsf{Top}$; two spaces that differ by a homeomorphism are indistinguishable to a topologist.</p>
+
+<p>Continuity alone is not enough: the identity map $(\mathbb{R},\tau_{\text{discrete}})\to(\mathbb{R},\tau_{\text{usual}})$ is continuous (preimage of any Euclidean open is a subset of the discrete space, hence open) but its inverse is not. The two topologies are not homeomorphic.</p>
+
+<h3>Classifying invariants</h3>
+<p>To show two spaces are <em>not</em> homeomorphic, exhibit a topological invariant they differ on: compactness, connectedness, number of components, number of ends, cardinality of the topology, homotopy type, cohomology, the cut-point count. The classical warm-up:</p>
+
+<div class="note"><strong>The open interval and the circle are not homeomorphic.</strong> $(0,1)$ has the property: deleting any point disconnects the space into two pieces. $S^1$ does not: deleting one point of a circle leaves a connected arc. So any candidate homeomorphism would send a cut point to a non-cut point, a contradiction with being a bijection that preserves connectedness.</div>
+
+<div class="note"><strong>$[0,1]$ and $(0,1)$ are not homeomorphic.</strong> $[0,1]$ is compact, $(0,1)$ is not (§4). Or: $[0,1]$ has two non-cut points (the endpoints), $(0,1)$ has none.</div>
+
+<div class="ok"><strong>Continuous images of connected are connected; of compact are compact.</strong> These two facts are the workhorses — every invariant in this course boils down to one of them.</div>
+
+<p>The widget pairs an interval and a circle side by side. Pick a candidate map, then drag a point in the target and the widget will shade its preimage. When you pick the cut-point map you will see the obstruction visually: a single point in the circle has two preimages in the interval under a 2-to-1 map but zero preimages under an injection that "misses" the cut. Only the identity-like and rotation maps are actual homeomorphisms <em>within</em> a type.</p>
+
+<div class="widget" id="w-hom">
+  <div class="hd"><div class="ttl">Continuous? Homeomorphism? Preimages of opens</div><div class="hint">pick a map · drag the target point to see the preimage</div></div>
+  <div class="row">
+    <label>map</label>
+    <select id="hm-pick">
+      <option value="id-II">id : $(0,1)\to(0,1)$ (homeomorphism)</option>
+      <option value="sq-II">$t\mapsto t^2$ : $(0,1)\to(0,1)$ (homeomorphism)</option>
+      <option value="wrap">$t\mapsto e^{2\pi i t}$ : $[0,1]\to S^1$ (continuous surjection, NOT injective)</option>
+      <option value="rot">rotation : $S^1\to S^1$ (homeomorphism)</option>
+      <option value="incl">inclusion $(0,1)\hookrightarrow S^1$ (continuous injection, NOT surjective, NOT a homeomorphism)</option>
+    </select>
+  </div>
+  <svg id="hm-svg" viewBox="0 0 700 260" width="700" height="260"></svg>
+  <div class="row">
+    <label>target sample $y$</label>
+    <input type="range" id="hm-y" min="0" max="1" step="0.005" value="0.3"/>
+  </div>
+  <div class="readout" id="hm-out"></div>
+</div>
+
+<div class="quiz" data-concept="continuity-topology"></div>
+</section>
+
+<script>
+/* =============================== SECTION 3 widget =============================== */
+(function(){
+  const svg=$('#hm-svg'), out=$('#hm-out'), pick=$('#hm-pick'), ySlider=$('#hm-y');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const mode = pick.value;
+    const y = parseFloat(ySlider.value);
+
+    // Left panel: domain. Right panel: codomain.
+    // Axes: left (0,300)x(0,260); right (400,700)x(0,260).
+    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:260,fill:'transparent'}));
+
+    // left label
+    const lt = SVG('text',{x:10,y:18,'font-size':12,fill:'var(--mute)'});
+    lt.textContent='domain X';
+    svg.appendChild(lt);
+    const rt = SVG('text',{x:410,y:18,'font-size':12,fill:'var(--mute)'});
+    rt.textContent='codomain Y';
+    svg.appendChild(rt);
+
+    // draw domain shape
+    function drawInterval(x0,y0,w, color, label){
+      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0+w,y2:y0,stroke:color,'stroke-width':2}));
+      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:x0+w,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));
+      const t=SVG('text',{x:x0+w/2,y:y0+25,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent=label; svg.appendChild(t);
+    }
+    function drawCircle(cx,cy,r,color,label){
+      svg.appendChild(SVG('circle',{cx,cy,r,fill:'none',stroke:color,'stroke-width':2}));
+      const t=SVG('text',{x:cx,y:cy+r+22,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent=label; svg.appendChild(t);
+    }
+
+    // helpers to draw points
+    function ptOnInterval(x0,y0,w,t,color){
+      return SVG('circle',{cx:x0+w*t,cy:y0,r:6,fill:color});
+    }
+    function ptOnCircle(cx,cy,r,t,color){
+      const a=2*Math.PI*t;
+      return SVG('circle',{cx:cx+r*Math.cos(a),cy:cy-r*Math.sin(a),r:6,fill:color});
+    }
+    function highlightIntervalRegion(x0,y0,w,t0,t1,color){
+      const a=x0+w*t0, b=x0+w*t1;
+      svg.appendChild(SVG('line',{x1:a,y1:y0,x2:b,y2:y0,stroke:color,'stroke-width':6,opacity:0.5}));
+    }
+    function highlightArc(cx,cy,r,t0,t1,color){
+      const a0=2*Math.PI*t0, a1=2*Math.PI*t1;
+      const p=SVG('path',{
+        d:`M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 ${a1-a0>Math.PI?1:0} 0 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}`,
+        fill:'none',stroke:color,'stroke-width':6,opacity:0.5});
+      svg.appendChild(p);
+    }
+
+    let msg='';
+    // layout switch per map
+    if(mode==='id-II' || mode==='sq-II'){
+      drawInterval(40,130,240,'var(--blue)','(0,1)');
+      drawInterval(440,130,240,'var(--yellow)','(0,1)');
+      // preimage of y: f^{-1}(y)
+      const preT = mode==='id-II' ? y : Math.sqrt(y);
+      svg.appendChild(ptOnInterval(40,130,240,preT,'var(--pink)'));
+      svg.appendChild(ptOnInterval(440,130,240,y,'var(--yellow)'));
+      // preimage of a small open interval around y
+      const dy=0.06;
+      const a=Math.max(0,y-dy), b=Math.min(1,y+dy);
+      const preA = mode==='id-II'? a : Math.sqrt(a);
+      const preB = mode==='id-II'? b : Math.sqrt(b);
+      highlightIntervalRegion(440,130,240,a,b,'var(--yellow)');
+      highlightIntervalRegion(40,130,240,preA,preB,'var(--pink)');
+      msg = `f = ${mode==='id-II'?'identity':'t → t²'}\n`+
+        `preimage of y = ${y.toFixed(3)} is ${preT.toFixed(3)}\n`+
+        `preimage of open (${a.toFixed(2)}, ${b.toFixed(2)}) is open (${preA.toFixed(3)}, ${preB.toFixed(3)})\n`+
+        `preimages of opens stay open ✓   bijective ✓   inverse continuous ✓\n→ HOMEOMORPHISM`;
+    } else if(mode==='wrap'){
+      drawInterval(40,130,240,'var(--blue)','[0,1]');
+      drawCircle(560,130,60,'var(--yellow)','S¹');
+      // preimage of e^{2πi y} is {y} if y∈(0,1), is {0,1} if y=0
+      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));
+      // domain points
+      svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));
+      if(Math.abs(y)<1e-6 || Math.abs(y-1)<1e-6){
+        svg.appendChild(ptOnInterval(40,130,240,0,'var(--pink)'));
+        svg.appendChild(ptOnInterval(40,130,240,1,'var(--pink)'));
+      }
+      // preimage of an arc around y
+      const da=0.06;
+      const a=y-da, b=y+da;
+      highlightArc(560,130,60,Math.max(0,a),Math.min(1,b),'var(--yellow)');
+      highlightIntervalRegion(40,130,240,Math.max(0,a),Math.min(1,b),'var(--pink)');
+      msg = `f(t) = e^{2πi t} wraps [0,1] onto S¹\n`+
+        `preimage of the arc around y is the open interval around t=y\n`+
+        `→ continuous SURJECTION, preimages of opens are open\n`+
+        `but f(0)=f(1), so NOT injective, NOT a homeomorphism`;
+    } else if(mode==='rot'){
+      drawCircle(160,130,60,'var(--blue)','S¹');
+      drawCircle(540,130,60,'var(--yellow)','S¹');
+      const shift = 0.25;
+      svg.appendChild(ptOnCircle(540,130,60,y,'var(--yellow)'));
+      svg.appendChild(ptOnCircle(160,130,60,(y-shift+1)%1,'var(--pink)'));
+      const da=0.06;
+      highlightArc(540,130,60,y-da,y+da,'var(--yellow)');
+      highlightArc(160,130,60,(y-shift-da+1)%1,(y-shift+da+1)%1,'var(--pink)');
+      msg = `f(z) = e^{2πi·0.25}·z rotates the circle\n`+
+        `bijective, continuous, inverse = rotate by -π/2\n→ HOMEOMORPHISM`;
+    } else if(mode==='incl'){
+      drawInterval(40,130,240,'var(--blue)','(0,1)');
+      drawCircle(560,130,60,'var(--yellow)','S¹');
+      // inclusion: t in (0,1) → e^{2πi t}, with t=0,1 identified so this misses one point
+      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));
+      // preimage existence check: if y near 0 or 1 (the missing basepoint), no preimage
+      const nearBase = (y<0.05 || y>0.95);
+      if(!nearBase){
+        svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));
+      }
+      const da=0.06;
+      highlightArc(560,130,60,y-da,y+da,'var(--yellow)');
+      if(!nearBase){
+        highlightIntervalRegion(40,130,240,y-da,y+da,'var(--pink)');
+      }
+      msg = `inclusion (0,1) ↪ S¹ via t ↦ e^{2πi t}, t∈(0,1)\n`+
+        `image misses the basepoint 1 ∈ S¹\n`+
+        `continuous, injective, NOT surjective\n→ not a homeomorphism (domain has a cut point, image doesn't)`;
+    }
+    out.textContent = msg;
+  }
+  pick.addEventListener('change',render);
+  ySlider.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<section id="compact">
+<h2>4. Compactness</h2>
+<p>Compactness is the topological analogue of finiteness. Its technical form is unintuitive at first, but the consequences — extreme value theorem, uniform continuity, Heine–Borel, Tychonoff's theorem — make it the single most useful property a space can have.</p>
+
+<div class="ok"><strong>Definition.</strong> A topological space $X$ is <strong>compact</strong> if every open cover has a finite subcover: given any family $\{U_\alpha\}$ of opens with $\bigcup_\alpha U_\alpha=X$, there are finitely many indices $\alpha_1,\dots,\alpha_n$ with $U_{\alpha_1}\cup\cdots\cup U_{\alpha_n}=X$.</div>
+
+<p>Equivalent formulations: every family of closed sets with the finite-intersection property has nonempty total intersection; every net (or filter) has a convergent subnet (Bolzano–Weierstrass–style). On metric spaces, compact also means <strong>sequentially compact</strong>: every sequence has a convergent subsequence. Sequential compactness and open-cover compactness are equivalent for metric spaces but can diverge on general topological spaces.</p>
+
+<h3>Heine–Borel and its kin</h3>
+<div class="ok"><strong>Heine–Borel.</strong> In $\mathbb{R}^n$ (with the Euclidean topology), a subset is compact iff it is closed and bounded.</div>
+<p>So $[0,1]$, $S^1$, $S^n$, and closed balls are compact. Open intervals, half-lines, all of $\mathbb{R}^n$, and $\mathbb{Q}\cap[0,1]$ are not. "Closed and bounded" is special to finite-dimensional normed spaces — in $\ell^2$ the closed unit ball is <em>not</em> compact because the standard basis sequence $e_1,e_2,\dots$ has no convergent subsequence.</p>
+
+<h3>Consequences</h3>
+<ul>
+  <li><strong>Continuous image.</strong> If $X$ is compact and $f\colon X\to Y$ is continuous, $f(X)$ is compact. Immediate corollary: the <strong>extreme value theorem</strong> — a continuous $\mathbb{R}$-valued function on a compact space attains its max and min.</li>
+  <li><strong>Uniform continuity.</strong> Continuous $f\colon K\to(Y,d_Y)$ with $K$ compact metric is automatically uniformly continuous.</li>
+  <li><strong>Closed map.</strong> Compact $\to$ Hausdorff continuous maps are automatically closed, hence homeomorphisms if bijective.</li>
+  <li><strong>Tychonoff.</strong> Arbitrary products of compact spaces are compact (in the product topology). Equivalent to the axiom of choice.</li>
+</ul>
+
+<div class="note"><strong>Compact Hausdorff is the "good" category.</strong> In a compact Hausdorff space, every continuous bijection to a Hausdorff space is a homeomorphism (since a continuous map from compact to Hausdorff is closed). This is why compact Hausdorff is the target category for Stone duality, Gelfand duality, and most of functional analysis.</div>
+
+<p>The widget below plays the open-cover game in one dimension. Choose a candidate subset of $\mathbb{R}$ and an open cover, and the widget tries to pick a finite subcover, reporting success or the structural obstruction. $[0,1]$ admits finite subcovers; $(0,1)$ does not (a cover by shrinking intervals near $0$ has no finite subfamily reaching the endpoint); and $\mathbb{R}$ is hopeless.</p>
+
+<div class="widget" id="w-comp">
+  <div class="hd"><div class="ttl">Open-cover compactness in 1D</div><div class="hint">pick a set · pick a cover · can we finitely subcover?</div></div>
+  <div class="row">
+    <label>the set</label>
+    <button data-set="c" class="active">$[0,1]$</button>
+    <button data-set="o">$(0,1)$</button>
+    <button data-set="r">$\mathbb{R}$</button>
+  </div>
+  <div class="row">
+    <label>the cover</label>
+    <button data-cov="sh" class="active">shrinking: $\{(1/(n+2),1/n)\}_{n\ge 1}\cup\{(-0.1,0.3),(0.7,1.1)\}$</button>
+    <button data-cov="thirds">thirds: $\{(k/3 - 0.2,\ k/3+0.4)\}$</button>
+    <button data-cov="ints">$\{(n-0.6,n+0.6):n\in\mathbb{Z}\}$</button>
+  </div>
+  <svg id="cmp-svg" viewBox="0 0 700 230" width="700" height="230"></svg>
+  <div class="readout" id="cmp-out"></div>
+</div>
+
+<div class="quiz" data-concept="compactness"></div>
+</section>
+
+<script>
+/* =============================== SECTION 4 widget =============================== */
+(function(){
+  const svg=$('#cmp-svg'), out=$('#cmp-out');
+  let set='c', cov='sh';
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=700, midY=120;
+    const x0=60, x1=640;
+    // axis from -2 to 2
+    function xOf(v){ return x0 + (v+2)/4 * (x1-x0); }
+    svg.appendChild(SVG('line',{x1:x0,y1:midY,x2:x1,y2:midY,stroke:'var(--mute)','stroke-width':0.8}));
+    for(let v=-2; v<=2; v+=0.5){
+      svg.appendChild(SVG('line',{x1:xOf(v),y1:midY-4,x2:xOf(v),y2:midY+4,stroke:'var(--mute)','stroke-width':0.8}));
+      const t=SVG('text',{x:xOf(v),y:midY+20,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent=v.toFixed(1); svg.appendChild(t);
+    }
+
+    // draw set
+    let setLo=0, setHi=1, setColor='var(--yellow)', setLabel='[0,1]';
+    if(set==='o'){ setLo=0; setHi=1; setLabel='(0,1)'; }
+    if(set==='r'){ setLo=-2; setHi=2; setColor='var(--pink)'; setLabel='ℝ (showing [-2,2])'; }
+    svg.appendChild(SVG('line',{x1:xOf(setLo),y1:midY,x2:xOf(setHi),y2:midY,stroke:setColor,'stroke-width':4,opacity:0.7}));
+    // endpoints mark open or closed
+    const r = set==='c' ? 6 : 6;
+    if(set==='c'){
+      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:setColor}));
+      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:setColor}));
+    } else if(set==='o'){
+      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));
+    }
+    const lblSet=SVG('text',{x:xOf(0.5),y:midY-16,'font-size':12,fill:'var(--ink)','text-anchor':'middle'});
+    lblSet.textContent=setLabel; svg.appendChild(lblSet);
+
+    // cover intervals
+    let intervals=[];
+    if(cov==='sh'){
+      intervals.push([-0.1,0.3],[0.7,1.1]);
+      for(let n=1;n<=10;n++) intervals.push([1/(n+2),1/n]);
+    } else if(cov==='thirds'){
+      for(let k=-2;k<=4;k++) intervals.push([k/3-0.2, k/3+0.4]);
+    } else if(cov==='ints'){
+      for(let n=-3;n<=3;n++) intervals.push([n-0.6,n+0.6]);
+    }
+
+    // greedy finite subcover within set [setLo, setHi]
+    function greedyCover(arr, lo, hi){
+      // sort by left endpoint; repeatedly pick the interval with largest right endpoint that overlaps current frontier
+      const sorted = arr.slice().sort((a,b)=>a[0]-b[0]);
+      let frontier = lo;
+      const pick = [];
+      let safety = 0;
+      while(frontier<hi-1e-9 && safety<200){
+        safety++;
+        let best = null;
+        for(const I of sorted){
+          if(I[0]<=frontier+1e-9 && I[1]>frontier){
+            if(!best || I[1]>best[1]) best=I;
+          }
+        }
+        if(!best) return {ok:false, pick, stuckAt:frontier};
+        pick.push(best); frontier=best[1];
+      }
+      return {ok:frontier>=hi-1e-9, pick};
+    }
+    // for open (0,1) treat lo,hi as open — need strict covering of every point in (0,1)
+    // Note: for ℝ we restrict to window [-2,2].
+    const res = greedyCover(intervals, setLo, setHi);
+
+    // paint all cover intervals
+    intervals.forEach((I,i)=>{
+      const y = midY-45 - (i%6)*7;
+      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);
+      if(x2<=x1) return;
+      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,
+        stroke:'var(--line)','stroke-width':2}));
+    });
+    // paint chosen subcover
+    (res.pick||[]).forEach((I,i)=>{
+      const y = midY-45 - (i%6)*7;
+      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);
+      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,
+        stroke:'var(--cyan)','stroke-width':3.5,opacity:0.9}));
+    });
+
+    // verdict
+    const picked = res.pick.length;
+    let lines = [];
+    lines.push(`set: ${setLabel}`);
+    lines.push(`cover: ${intervals.length} open intervals`);
+    lines.push('');
+    if(set==='c' && cov==='sh'){
+      // [0,1] is covered: the (-0.1,0.3) and (0.7,1.1) leave only [0.3,0.7], which needs finitely many shrinking intervals
+      lines.push(`greedy finite subcover: ${picked} intervals, covers [0,1] ✓`);
+      lines.push(`[0,1] is compact: every open cover has a finite subcover.`);
+    } else if(set==='o' && cov==='sh'){
+      lines.push(`greedy subcover at (0,1): the shrinking family (1/(n+2),1/n) covers near 0 but any FINITE subfamily of it omits (0, 1/N) for large N.`);
+      lines.push(`Finite subcover impossible ✗`);
+      lines.push(`(0,1) is NOT compact.`);
+    } else if(set==='c' && cov==='ints'){
+      lines.push(`[0,1] ⊂ (-0.6,0.6) ∪ (0.4,1.6), so finite subcover = 2 ✓`);
+    } else if(set==='c' && cov==='thirds'){
+      lines.push(`covers [0,1] with ~4 intervals ✓`);
+    } else if(set==='o' && (cov==='thirds'||cov==='ints')){
+      lines.push(`these covers happen to admit finite subcovers even for (0,1) — but the shrinking cover shows (0,1) fails compactness in general.`);
+    } else if(set==='r'){
+      if(cov==='ints'){
+        lines.push(`ℝ = ⋃_{n∈ℤ} (n-0.6,n+0.6), no finite subfamily reaches ±∞.`);
+      } else {
+        lines.push(`ℝ is unbounded, no finite set of bounded intervals can cover it.`);
+      }
+      lines.push(`ℝ is NOT compact (not bounded).`);
+    }
+    out.textContent = lines.join('\n');
+  }
+  $$('[data-set]').forEach(b=>b.addEventListener('click',()=>{
+    set=b.getAttribute('data-set');
+    $$('[data-set]').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render();
+  }));
+  $$('[data-cov]').forEach(b=>b.addEventListener('click',()=>{
+    cov=b.getAttribute('data-cov');
+    $$('[data-cov]').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    render();
+  }));
+  render();
+})();
+</script>
+
+<section id="connected">
+<h2>5. Connectedness</h2>
+<p>The intuitive picture is a space "in one piece." Formally:</p>
+<div class="ok"><strong>Definition.</strong> A space $X$ is <strong>connected</strong> if it cannot be written as $X=U\sqcup V$ with $U,V\in\tau$ nonempty disjoint opens. Equivalently, the only clopen (simultaneously open and closed) subsets are $\emptyset$ and $X$.</div>
+
+<p>Typical connected spaces: intervals in $\mathbb{R}$, $\mathbb{R}^n$, the circle, any convex subset of $\mathbb{R}^n$, $\mathsf{GL}_n(\mathbb{C})$ (though $\mathsf{GL}_n(\mathbb{R})$ is not). Disconnected: $\mathbb{Q}$ (take $U=\{x:x<\sqrt{2}\}$, $V=\{x:x>\sqrt 2\}$), $\{0\}\cup\{1\}$ as a subspace of $\mathbb{R}$, any finite space with the discrete topology.</p>
+
+<h3>Path-connectedness</h3>
+<p>$X$ is <strong>path-connected</strong> if for any $x,y\in X$ there is a continuous $\gamma\colon[0,1]\to X$ with $\gamma(0)=x,\gamma(1)=y$. Every path-connected space is connected: otherwise a path would pull back the separation into a disconnection of $[0,1]$, contradicting the connectedness of $[0,1]$ (which is the key atomic fact, proven from the supremum property of $\mathbb{R}$).</p>
+
+<p>The converse fails.</p>
+
+<div class="bad"><strong>The topologist's sine curve.</strong> Let $T=\{(x,\sin(1/x)):x\in(0,1]\}\cup\{0\}\times[-1,1]$. The limit segment on the $y$-axis is glued to the oscillating graph by closure in $\mathbb{R}^2$. $T$ is connected (closure of a connected set is connected, and the graph is connected) but not path-connected — any path from a point on the $y$-axis to a point on the graph would have to traverse infinitely many oscillations in finite time, impossible for a continuous path.</div>
+
+<h3>Components</h3>
+<p>The <strong>connected components</strong> of $X$ are the maximal connected subsets — they are closed, and they partition $X$. Similarly the <strong>path components</strong> partition $X$ and refine the connected components. Path components can fail to be closed (again the sine curve).</p>
+
+<div class="note"><strong>Intermediate value theorem.</strong> If $X$ is connected and $f\colon X\to\mathbb{R}$ is continuous, $f(X)$ is an interval. Combined with "connected subsets of $\mathbb{R}$ are intervals," this is Bolzano's IVT in one line.</div>
+
+<p>The widget below lets you interpolate between two disks. Drag the gap slider: at $g>0$ the union is disconnected (two components), at $g=0$ the disks touch at a point and the union becomes connected. A toggle replaces the second blob with the topologist's sine curve — connected but not path-connected.</p>
+
+<div class="widget" id="w-conn">
+  <div class="hd"><div class="ttl">Connectedness vs path-connectedness</div><div class="hint">shrink the gap · try the sine-curve toggle</div></div>
+  <svg id="cn-svg" viewBox="0 0 700 280" width="700" height="280"></svg>
+  <div class="row">
+    <label>gap $g$</label>
+    <input type="range" id="cn-g" min="0" max="1.5" step="0.01" value="0.6"/>
+    <span class="small" id="cn-gv">0.60</span>
+  </div>
+  <div class="row">
+    <button id="cn-sine">toggle topologist's sine curve</button>
+  </div>
+  <div class="readout" id="cn-out"></div>
+</div>
+
+<div class="quiz" data-concept="connectedness"></div>
+</section>
+
+<script>
+/* =============================== SECTION 5 widget =============================== */
+(function(){
+  const svg=$('#cn-svg'), out=$('#cn-out'), gS=$('#cn-g'), gV=$('#cn-gv'), sineBtn=$('#cn-sine');
+  let sineMode=false;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = parseFloat(gS.value);
+    gV.textContent = g.toFixed(2);
+    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:280,fill:'transparent'}));
+
+    // axes
+    svg.appendChild(SVG('line',{x1:40,y1:140,x2:660,y2:140,stroke:'var(--line)','stroke-width':0.5}));
+
+    // left disk
+    const r=60;
+    const c1x = 200, c1y=140;
+    svg.appendChild(SVG('circle',{cx:c1x,cy:c1y,r,fill:'rgba(88,196,221,0.2)',stroke:'var(--blue)','stroke-width':2}));
+
+    if(!sineMode){
+      const c2x = 200 + 2*r + g*60, c2y=140;
+      svg.appendChild(SVG('circle',{cx:c2x,cy:c2y,r,fill:'rgba(255,216,102,0.2)',stroke:'var(--yellow)','stroke-width':2}));
+      let verdict;
+      if(g>0.005){
+        verdict = `two disks separated by gap ${g.toFixed(2)}\nDISCONNECTED: open balls around the left and right disks give U ⊔ V.\npath-components: 2 · connected components: 2`;
+      } else {
+        verdict = `disks touch at a single point (gap = 0)\nCONNECTED (and path-connected) — any separation U ⊔ V would have to assign the touching point to one side; neither U nor V is then open.\npath-components: 1 · connected components: 1`;
+      }
+      out.textContent = verdict;
+    } else {
+      // topologist's sine curve
+      // on right half, draw the curve y = sin(1/x) for x∈(0.03,0.8), scaled, plus y-axis segment
+      const ox = 400, oy = 140;
+      const W=240, H=80;
+      // y-axis segment
+      svg.appendChild(SVG('line',{x1:ox,y1:oy-H,x2:ox,y2:oy+H,stroke:'var(--pink)','stroke-width':3}));
+      const path = [];
+      const N=400;
+      let first = true;
+      for(let i=1;i<=N;i++){
+        const t = i/N;
+        const x = 0.02 + t*0.8;
+        const y = Math.sin(1/x);
+        const px = ox + x/0.82*W;
+        const py = oy - y*H*0.95;
+        path.push((first?'M':'L')+' '+px.toFixed(1)+' '+py.toFixed(1));
+        first=false;
+      }
+      svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.5}));
+      const t=SVG('text',{x:ox+W/2,y:oy+H+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent='topologist\u2019s sine curve: graph ∪ limit segment';
+      svg.appendChild(t);
+      out.textContent =
+        'left disk + topologist\u2019s sine curve T (right).\n'+
+        '\n'+
+        'T alone: CONNECTED (closure of a connected set), NOT path-connected\n'+
+        '(no continuous path from the y-axis segment to the oscillating graph).\n'+
+        '→ connected components of T: 1\n'+
+        '→ path-components of T: 2 (segment, graph)\n'+
+        '\n'+
+        'This is the canonical example showing connected ⇏ path-connected.';
+    }
+  }
+  gS.addEventListener('input',render);
+  sineBtn.addEventListener('click',()=>{ sineMode=!sineMode; sineBtn.classList.toggle('active',sineMode); render(); });
+  render();
+})();
+</script>
+
+<section id="separation">
+<h2>6. Separation and countability axioms</h2>
+<p>The bare definition of a topological space is <em>very</em> permissive — the indiscrete topology is a topology, the Sierpiński space is a topology, the cofinite topology on $\mathbb{R}$ is a topology. Before you can prove theorems you often need to exclude pathologies. The <strong>separation axioms</strong> are a graded hierarchy of "points and closed sets can be pried apart by opens."</p>
+
+<table class="plain">
+<thead><tr><th>axiom</th><th>statement</th></tr></thead>
+<tbody>
+<tr><td>$T_0$</td><td>distinct points have distinct neighborhood filters</td></tr>
+<tr><td>$T_1$</td><td>for $x\ne y$, some open contains $x$ but not $y$ (equivalently, every singleton is closed)</td></tr>
+<tr><td>$T_2$ Hausdorff</td><td>distinct points have disjoint open neighborhoods</td></tr>
+<tr><td>$T_3$ regular</td><td>$T_1$ + a point and a closed set not containing it have disjoint opens around them</td></tr>
+<tr><td>$T_4$ normal</td><td>$T_1$ + two disjoint closed sets have disjoint opens around them</td></tr>
+</tbody>
+</table>
+
+<p>The implications run $T_4\Rightarrow T_3\Rightarrow T_2\Rightarrow T_1\Rightarrow T_0$. Each reverse arrow fails: there are $T_1$-non-Hausdorff, Hausdorff-non-regular, etc. Every metric space is normal. Hausdorff is usually the lowest rung worth demanding because limits of sequences become unique — sequences can have at most one limit iff the space is Hausdorff. Compact Hausdorff spaces are automatically normal.</p>
+
+<h3>Two critical payoffs</h3>
+<div class="ok"><strong>Urysohn's lemma.</strong> In a normal space, any two disjoint closed sets $A,B$ can be separated by a continuous function: there exists continuous $f\colon X\to[0,1]$ with $f\equiv 0$ on $A$, $f\equiv 1$ on $B$. <em>Functions</em> distinguish closed sets, not just opens.</div>
+
+<div class="ok"><strong>Urysohn's metrization theorem.</strong> A regular, second-countable Hausdorff space is metrizable — there is a metric on $X$ inducing its topology.</div>
+
+<h3>Countability axioms</h3>
+<ul>
+  <li><strong>First-countable.</strong> Every point has a countable neighborhood basis. On such spaces, sequences suffice: closure = limits of sequences. Every metric space is first-countable.</li>
+  <li><strong>Second-countable.</strong> There is a countable basis for the topology. Stronger; implies separable (has a countable dense subset) and Lindelöf (every open cover has a countable subcover). $\mathbb{R}^n$ is second-countable.</li>
+</ul>
+
+<div class="note"><strong>Classical pathologies.</strong> Sierpiński $\{0,1\}$ with $\tau=\{\emptyset,\{1\},\{1,0\}\}$: $T_0$ but not $T_1$. $\mathbb{R}$ with the cofinite topology: $T_1$ but not Hausdorff (any two nonempty opens meet). The double-origin line ($\mathbb{R}$ with two copies of $0$ glued away from $0$): Hausdorff fails at the two origins — any opens around them must intersect.</div>
+
+<p>The widget below lays out the hierarchy as nested regions. Click an example space to see where it lands. Note the strict inclusions: the cofinite line is $T_1$ but escapes Hausdorff; the double-origin line is $T_1$ not Hausdorff; Sierpiński even fails $T_1$.</p>
+
+<div class="widget" id="w-sep">
+  <div class="hd"><div class="ttl">The separation hierarchy, by example</div><div class="hint">click a space · see its tier light up</div></div>
+  <svg id="sep-svg" viewBox="0 0 700 330" width="700" height="330"></svg>
+  <div class="row">
+    <button data-sp="sierp">Sierpiński $\{0,1\}$</button>
+    <button data-sp="cof">$\mathbb{R}$, cofinite</button>
+    <button data-sp="doub">double-origin line</button>
+    <button data-sp="r">$\mathbb{R}$, Euclidean</button>
+    <button data-sp="disc">any metric space</button>
+    <button data-sp="ind">indiscrete $\{a,b\}$</button>
+  </div>
+  <div class="readout" id="sep-out">click an example to place it in the hierarchy</div>
+</div>
+
+<div class="quiz" data-concept="separation-axioms"></div>
+</section>
+
+<script>
+/* =============================== SECTION 6 widget =============================== */
+(function(){
+  const svg=$('#sep-svg'), out=$('#sep-out');
+  // concentric boxes: normal ⊂ regular ⊂ Hausdorff ⊂ T1 ⊂ T0 ⊂ all
+  const TIERS = [
+    {id:'all',    name:'all spaces',  color:'var(--line)',   box:[30,30,640,270]},
+    {id:'t0',     name:'T₀',          color:'var(--mute)',   box:[60,55,580,215]},
+    {id:'t1',     name:'T₁',          color:'var(--pink)',   box:[95,80,510,165]},
+    {id:'t2',     name:'T₂ Hausdorff',color:'var(--violet)', box:[130,105,440,115]},
+    {id:'t3',     name:'T₃ regular',  color:'var(--cyan)',   box:[170,130,360,65]},
+    {id:'t4',     name:'T₄ normal',   color:'var(--green)',  box:[215,155,270,20]},
+  ];
+  const SPACES = {
+    sierp:{name:'Sierpiński {0,1}',    tier:'t0', note:'distinguishes points (so T₀) but {1} is open and {0} is closed — {0} is not open, so no open separates 0 from 1. T₁ FAILS: the closure of {1} is {0,1}.'},
+    cof:  {name:'ℝ with cofinite τ',    tier:'t1', note:'every singleton is closed (T₁), but any two nonempty opens have finite complement each, so they intersect. NOT Hausdorff.'},
+    doub: {name:'double-origin line',   tier:'t1', note:'T₁ because points are closed, but the two origins 0₁, 0₂ cannot be separated: every open around either contains a small interval around the common axis.'},
+    r:    {name:'ℝ with Euclidean τ',   tier:'t4', note:'metric space ⇒ normal ⇒ regular ⇒ Hausdorff ⇒ T₁. Second-countable, first-countable, separable — all the good stuff.'},
+    disc: {name:'any metric space',     tier:'t4', note:'every metric space is normal. Disjoint closeds A,B can be separated by Urysohn-type function d(x,A)/(d(x,A)+d(x,B)).'},
+    ind:  {name:'indiscrete {a,b}',     tier:'all',note:'the topology is {∅,X}. The two points have no open that separates them. FAILS T₀.'}
+  };
+  let active = null;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    TIERS.forEach(t=>{
+      const [x,y,w,h]=t.box;
+      const rect = SVG('rect',{x,y,width:w,height:h,rx:8,ry:8,
+        fill:'rgba(255,255,255,0.02)',stroke:t.color,'stroke-width': active && SPACES[active].tier===t.id ? 2.5 : 1.2});
+      if(active && SPACES[active].tier===t.id){
+        rect.setAttribute('fill','rgba(131,193,103,0.12)');
+      }
+      svg.appendChild(rect);
+      const txt = SVG('text',{x:x+10,y:y+16,'font-size':12,fill:t.color,'font-weight':600});
+      txt.textContent=t.name;
+      svg.appendChild(txt);
+    });
+    if(active){
+      const t = TIERS.find(x=>x.id===SPACES[active].tier);
+      const [bx,by,bw,bh]=t.box;
+      const cx=bx+bw/2, cy=by+bh/2;
+      svg.appendChild(SVG('circle',{cx,cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));
+      const lbl=SVG('text',{x:cx,y:cy-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});
+      lbl.textContent=SPACES[active].name;
+      svg.appendChild(lbl);
+    }
+  }
+
+  $$('[data-sp]').forEach(b=>b.addEventListener('click',()=>{
+    active = b.getAttribute('data-sp');
+    $$('[data-sp]').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const s = SPACES[active];
+    const t = TIERS.find(x=>x.id===s.tier);
+    out.textContent = `${s.name}\ntier: ${t.name}\n\n${s.note}`;
+    render();
+  }));
+  render();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('point-set-topology'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+</body>
+</html>

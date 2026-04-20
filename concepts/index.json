@@ -1,7 +1,14 @@
 {
   "topics": [
-    "complex-analysis",
+    "naive-set-theory",
     "real-analysis",
-    "topology"
+    "point-set-topology",
+    "algebraic-topology",
+    "measure-theory",
+    "complex-analysis",
+    "sato-tate",
+    "bsd",
+    "etale-cohomology",
+    "modularity-and-flt"
   ]
 }

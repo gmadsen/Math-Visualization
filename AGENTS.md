@@ -30,6 +30,16 @@ When parallelizing: every agent spawned to draft or edit a page must read `categ
 - **Widget chrome**: wrap interactives in `<div class="widget">` with `<div class="hd"><div class="ttl">…</div><div class="hint">…</div></div>`. Use `.readout`, `.row`, `.note`, `.ok`, `.bad` for standard sub-elements.
 - **Level badges** on index cards: `<span class="level prereq">prereq</span>`, `advanced`, or `capstone`. Match the roadmap's classification.
 - **SVG**: use the shared helpers, include `viewBox`, let CSS size it. Text inherits `fill:var(--ink)` from the stylesheet.
+- **Storage**: the only persistence mechanism is `MVProgress` (localStorage) for mastery state. Don't add ad-hoc `localStorage` keys, cookies, or IndexedDB — anything else goes in memory for the session.
+- **Index sections** (as of 2026-04-19, 44 topics). When registering a new card, put it in one of:
+  1. **Foundations** (blue) — naive set theory.
+  2. **Algebra** (yellow/pink/violet mix) — abstract algebra, category theory, representation theory, commutative algebra, homological algebra.
+  3. **Analysis** (pink/cyan) — real analysis, measure theory, complex analysis, functional analysis, operator algebras.
+  4. **Geometry & topology** (violet/green) — point-set topology, algebraic topology, smooth manifolds, differential forms, differential geometry, Riemannian geometry, Lie groups, Riemann surfaces.
+  5. **Number theory** (yellow/pink) — Galois, quadratic reciprocity, sums of squares, algebraic number theory, p-adics, Frobenius & reciprocity, class field theory.
+  6. **Modular forms & L-functions** (cyan/pink) — upper half-plane, modular forms, theta functions, Hecke operators, Dirichlet series, L-functions, Galois representations.
+  7. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms & fiber products, functor of points, elliptic curves, singular cubics, moduli spaces, sheaf cohomology, stacks.
+- **Card color palette**: each card uses one of the six accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine.
 
 ## Helper tools (in every page's top `<script>`)
 
@@ -43,6 +53,40 @@ drawNode(svg, x, y, label, opts)  // circle + centered label
 
 Copy the block verbatim from `category-theory.html` rather than rewriting.
 
+### 3D widgets — vectors, projection, and rotation
+
+Pages that render 3D surfaces or curves (e.g. `differential-geometry.html`, `smooth-manifolds.html`) keep a second helper block at the top of `<body>`. Copy it verbatim from [`differential-geometry.html`](./differential-geometry.html) — it provides:
+
+```js
+vsub, vadd, vscl, vdot, vlen, vnorm, vcross    // basic 3-vector ops (arrays of 3 numbers)
+proj3(p, yaw, pitch)                           // isometric 3D → 2D projection, yaw around z, pitch around x
+curvColor(t)                                   // diverging colormap for curvature-tinted meshes (−1..+1 → blue..white..red)
+make3DDraggable(svg, draw, opts)               // pointer-drag → { yaw, pitch, dragging } state; calls draw() rAF-throttled
+```
+
+`make3DDraggable` is the canonical way to make a 3D widget rotatable. Usage pattern:
+
+```js
+function draw(){
+  svg.innerHTML = '';
+  const yaw = view.yaw, pitch = view.pitch;
+  // decimate mesh density while dragging so the user sees smooth rotation:
+  const NU = view.dragging ? 14 : 28;
+  const NV = view.dragging ? 20 : 40;
+  // ...project vertices via proj3(P, yaw, pitch), sort quads by z (painter's algorithm), fill polygons...
+}
+const view = make3DDraggable(svg, draw, { yaw: 0.75, pitch: 0.55 });
+draw();
+```
+
+Three recurring gotchas:
+
+- **Decimation on drag** — cut `NU`/`NV` (or whatever your mesh density knob is) while `view.dragging` is true, then the final `pointerup` triggers a full-resolution redraw automatically. Without this, heavy meshes chug on a drag.
+- **Legends in viewport coords, not data coords** — if you place a legend with `translate(xmin, ymin + pad)` it will drift as the bounding box changes with rotation. Anchor legends at fixed viewport coordinates (e.g. `translate(-230, 155)`).
+- **Readout should advertise the interaction** — include a `yaw … · pitch … — drag to rotate` line in the widget's `.readout` so the affordance is discoverable.
+
+For widgets that also need a view slider (e.g. pre-existing `yaw`/`pitch` sliders), remove the slider — the drag interaction supersedes it and redundant controls confuse users.
+
 ## Quiz + progression (Brilliant-style)
 
 Every new topic page should ship with quizzes for its concepts.
@@ -51,7 +95,10 @@ Every new topic page should ship with quizzes for its concepts.
    ```html
    <script src="./js/progress.js"></script>
    <script src="./js/quiz.js"></script>
+   <script src="./quizzes/bundle.js"></script>
    ```
+   The bundle assigns `window.MVQuizBank = { <topic>: {...}, ... }`. `MVQuiz.init` reads it first and falls back to `fetch('./quizzes/<topic>.json')` for dev servers. Without the bundle tag, opening the page via `file://` shows "could not load" because browsers block local-file `fetch()`.
+
    At the bottom of `<body>`:
    ```html
    <script>
@@ -90,17 +137,39 @@ Every new topic page should ship with quizzes for its concepts.
 
 - [`concepts/<topic>.json`](./concepts) declares each concept with `id`, `title`, `anchor`, `prereqs`, `blurb`. Prereqs can reference ids from other topic files — cross-topic edges are the whole point of [`pathway.html`](./pathway.html).
 - Register the topic in [`concepts/index.json`](./concepts/index.json).
-- When adding a capstone page, also extend [`concepts/capstones.json`](./concepts/capstones.json) with a capstone entry.
+- When adding a capstone page, also extend [`concepts/capstones.json`](./concepts/capstones.json) with a capstone entry. Each capstone entry needs a `section` field (one of the 7 index-section names above) — `pathway.html` uses it to group the capstone dropdown via `<optgroup>`.
+- **Rebuild the bundle** after any edit to `concepts/*.json` or `capstones.json`:
+  ```bash
+  node scripts/build-concepts-bundle.mjs
+  ```
+  `pathway.html` reads `concepts/bundle.js` first because browsers block `fetch()` of local JSON over `file://` (the double-click flow). If the bundle is stale, the page falls back to `fetch` and works under a dev server but shows an error when opened by double-clicking.
+
+## Page scaffolding — required on every topic page
+
+Every topic HTML file must include, in order:
+
+1. **Top-nav backlink** inside `<nav class="toc">`: `<a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>` as the first anchor. Without it there is no way back to the index from a deep link.
+2. **Sidetoc scaffold**: `<aside class="sidetoc" aria-label="Table of contents"></aside>`. The shared helper populates it at page load.
+3. **`MVQuiz.init('<topic-id>')` footer** at the bottom of `<body>`, exactly as shown in the Quiz + progression section below. Without it, quizzes render but do not wire up answer-checking or `MVProgress` calls.
+
+Skipping any of these is a silent break — quizzes appear but do nothing, or the sidebar stays empty. Always copy the scaffolding from `category-theory.html` rather than reconstructing it.
 
 ## Registering a new page
 
 When you publish `new-topic.html`:
 
-1. Add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`).
+1. Add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`). Put it under the appropriate section header from the 7-section list above.
 2. Add a bullet to [`README.md`](./README.md) under the matching `###` section.
 3. Create `concepts/new-topic.json` and register it in `concepts/index.json`.
 4. Create `quizzes/new-topic.json` with one quiz per concept id.
-5. Bump the "41 topic pages" count in `README.md` and `ROADMAP.md`.
+5. If it's a capstone, add an entry (with `section` field) to [`concepts/capstones.json`](./concepts/capstones.json).
+6. Bump the topic count in `README.md` and `ROADMAP.md` (currently 44 pages across 7 sections — update both in sync).
+7. **Regenerate both bundles** so pages opened via `file://` still work:
+   ```bash
+   node scripts/build-concepts-bundle.mjs
+   node scripts/build-quizzes-bundle.mjs
+   ```
+   `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
 
 ## Verification (required before claiming done)
 
@@ -119,9 +188,36 @@ Check all of:
 - **Links**: the top-nav "← Notebook" link resolves; internal `#anchor` links jump; the sidetoc highlights the active section on scroll.
 - **Index card**: open [`index.html`](./index.html), find the new card in its section, click through.
 - **Pathway**: if the page adds concepts with prereqs from other topics, load [`pathway.html`](./pathway.html) and confirm the new nodes appear in the right state.
+- **Concept graph**: run `node scripts/validate-concepts.mjs` (exit 0 clean, exit 1 on errors) whenever you touch `concepts/*.json`. It catches duplicate ids, broken prereqs, cycles, and missing `anchor`/`blurb` fields.
+- **Concept bundle**: after any edit to `concepts/*.json` or `concepts/capstones.json`, run `node scripts/build-concepts-bundle.mjs`. `pathway.html` will fall back to `fetch()` under a dev server but silently fail when opened by double-click if the bundle is stale.
+- **Quiz bundle**: after any edit to `quizzes/*.json`, run `node scripts/build-quizzes-bundle.mjs`. Topic pages show "could not load ./quizzes/\<topic\>.json" under `file://` if the bundle is missing or stale.
 - **Console**: no errors in the browser devtools console.
 
-If you can't run a browser, say so explicitly — do not claim a visual feature works.
+### Agent-environment fallback (no browser)
+
+If you're running in an agent sandbox without a real browser, use jsdom as a partial substitute — it won't exercise CSS layout or user interaction, but it will run the page's top-of-body helper script and KaTeX, and will surface script errors. Minimum shape:
+
+```js
+const { JSDOM, VirtualConsole } = require('jsdom');
+const errors = [];
+const vc = new VirtualConsole();
+vc.on('jsdomError', e => errors.push('jsdomError: ' + (e && (e.message||e))));
+vc.on('error',      e => errors.push('error: ' + (e && (e.message||e))));
+const dom = new JSDOM(html, {
+  runScripts: 'dangerously',
+  pretendToBeVisual: true,
+  virtualConsole: vc,
+  url: 'file://' + file
+});
+setTimeout(() => {
+  const { document } = dom.window;
+  // count sidebar links, top-nav anchors, .widget, section, svg; assert errors.length === 0
+}, 500);
+```
+
+Count `aside.sidetoc a`, `nav.toc a[href^="#"]`, `.widget`, `section`, and `.widget svg` to catch missing scaffolding, and assert zero jsdom errors. A clean jsdom run is necessary but not sufficient — say so explicitly when reporting. Widget interactivity still has to be verified by a human in a real browser before the page is considered final.
+
+If you can't run even jsdom, say so explicitly — do not claim a visual feature works.
 
 ## Parallelization protocol
 
@@ -141,3 +237,4 @@ Side tasks that are safe to parallelize with page drafting: concept-graph valida
 - Don't add external JS dependencies beyond the KaTeX CDN already in use.
 - Don't rewrite the helper block in a new style — copy from `category-theory.html`.
 - Don't claim a page is done without browser verification.
+- Don't commit scratch verification scripts into the repo. Ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the workspace (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public; keep it free of throwaway instrumentation.

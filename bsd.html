@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Birch and Swinnerton-Dyer — ranks, L-values, and a million-dollar zero</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#mordell-weil">1&nbsp;Mordell–Weil</a>
+  <a href="#point-counting-heuristic">2&nbsp;Point&nbsp;counts</a>
+  <a href="#bsd-rank-equality">3&nbsp;BSD&nbsp;rank</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Birch and Swinnerton-Dyer</h1>
+  <p class="sub">Count points on $E$ modulo each prime and multiply. Growth of order $(\log X)^r$ recovers the Mordell–Weil rank $r$. Transpose to the $s$-plane and BSD predicts $L(E, s)$ vanishes to order exactly $r$ at $s = 1$ — a million-dollar conjecture born on EDSAC printouts.</p>
+</section>
+
+<section id="mordell-weil">
+<h2>1. Mordell–Weil: a finitely generated group of rational points</h2>
+
+<p>Fix $E/\mathbb{Q}$ in Weierstrass form $y^2 = x^3 + Ax + B$ with nonzero discriminant $\Delta = -16(4A^3 + 27 B^2)$. The rational solutions, with a point at infinity $O$ and the chord-and-tangent group law, form an abelian group $E(\mathbb{Q})$.</p>
+
+<div class="ok"><strong>Mordell–Weil (1922/1928).</strong> For any elliptic curve over a number field $K$, $E(K)$ is <em>finitely generated</em>. Over $\mathbb{Q}$:
+$$E(\mathbb{Q}) \;\cong\; \mathbb{Z}^r \oplus E(\mathbb{Q})_{\text{tors}},$$
+with $r \ge 0$ the <strong>rank</strong> and $E(\mathbb{Q})_{\text{tors}}$ finite.</div>
+
+<p>Torsion is completely understood: <strong>Mazur (1977)</strong> classified $E(\mathbb{Q})_{\text{tors}}$ as one of 15 groups ($\mathbb{Z}/n$ for $n \le 10$ or $n=12$, or $\mathbb{Z}/2 \oplus \mathbb{Z}/2n$ for $n \le 4$). The rank is different: no algorithm provably computes $r$, and boundedness of ranks is open.</p>
+
+<p>The proof has two pieces. <em>Weak Mordell–Weil</em> shows $E(\mathbb{Q})/nE(\mathbb{Q})$ is finite, via a Galois cohomology calculation. A <em>height function</em> $\hat h$ with $\hat h(nP) = n^2 \hat h(P)$ then descends: a quasi-basis of $E(\mathbb{Q})/nE(\mathbb{Q})$ plus finitely many small-height points generates the whole group.</p>
+
+<p>The widget shows six curves of known rank and torsion. The <em>doubling formula</em> for $P = (x, y)$ with $y \ne 0$ is
+$$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \lambda(x - x_{2P}) - y.$$</p>
+
+<div class="widget" id="w-mw">
+  <div class="hd"><div class="ttl">Mordell–Weil explorer</div><div class="hint">pick a curve, double the generator</div></div>
+  <div class="row">
+    <label>curve</label>
+    <select id="mw-pick"></select>
+    <button id="mw-double">compute 2P</button>
+    <button id="mw-reset">reset</button>
+  </div>
+  <svg id="mw-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="readout" id="mw-out">pick a curve…</div>
+</div>
+
+<script>
+/* =================== SECTION 1: Mordell–Weil widget =================== */
+(function(){
+  const CURVES = [
+    {id:'a',eqn:'y² = x³ − x',     A:-1, B:0, rank:0,tors:'Z/2 ⊕ Z/2',gen:null, pts2:[[-1,0],[0,0],[1,0]],note:'rank 0; only 2-torsion'},
+    {id:'b',eqn:'y² = x³ + 1',     A:0, B:1,  rank:0,tors:'Z/6',      gen:[2,3],pts2:[[-1,0]],note:'rank 0; (2,3) is a 6-torsion generator'},
+    {id:'c',eqn:'y² = x³ − x + 1', A:-1,B:1,  rank:1,tors:'trivial',  gen:[0,1],pts2:[],note:'rank 1; P = (0,1) generates E(Q)'},
+    {id:'d',eqn:'y² = x³ − 7',     A:0, B:-7, rank:0,tors:'trivial',  gen:null, pts2:[],note:'rank 0; no non-identity rational points'},
+    {id:'e',eqn:'y² = x³ + 17',    A:0, B:17, rank:2,tors:'trivial',  gen:[-2,3],pts2:[],note:'rank 2; P₁=(−2,3), P₂=(−1,4) independent'},
+    {id:'f',eqn:'y² = x³ − 82x',   A:-82,B:0, rank:1,tors:'Z/2',      gen:[-9,24],pts2:[[0,0]],note:'rank 1 congruent-number curve'},
+  ];
+
+  const pick = $('#mw-pick'), svg = $('#mw-svg'), out = $('#mw-out');
+  const dblBtn = $('#mw-double'), rst = $('#mw-reset');
+  CURVES.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id; o.textContent = c.eqn + '   (rank ' + c.rank + ')';
+    pick.appendChild(o);
+  });
+  let cur = CURVES[0], P = null;
+
+  function setCurve(id){
+    cur = CURVES.find(c => c.id === id);
+    P = cur.gen ? [cur.gen[0], cur.gen[1]] : null;
+    draw();
+  }
+
+  function doubleP(){
+    if(!P) return;
+    const [x,y] = P; if(y === 0) return;
+    const lam = (3*x*x + cur.A) / (2*y);
+    const xr  = lam*lam - 2*x;
+    const yr  = lam*(x - xr) - y;
+    P = [xr, yr];
+    draw();
+  }
+
+  function curvePoints(A, B, xmin, xmax, N){
+    const top = [], bot = [];
+    const f = x => x*x*x + A*x + B;
+    for(let i=0;i<=N;i++){
+      const x = xmin + (xmax-xmin)*i/N;
+      const v = f(x);
+      if(v >= 0){
+        const y = Math.sqrt(v);
+        top.push([x, y]); bot.push([x,-y]);
+      } else {
+        if(top.length){ top.push(null); bot.push(null); }
+      }
+    }
+    return {top, bot};
+  }
+
+  function splitBranches(arr){
+    const out = []; let cur = [];
+    for(const p of arr){
+      if(p === null){ if(cur.length) out.push(cur); cur = []; }
+      else cur.push(p);
+    }
+    if(cur.length) out.push(cur);
+    return out;
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=320, pad=34;
+    const xmin=-5, xmax=5, ymin=-8, ymax=8;
+    const X = x => pad + (x-xmin)*(W-2*pad)/(xmax-xmin);
+    const Y = y => H-pad - (y-ymin)*(H-2*pad)/(ymax-ymin);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:Y(0),x2:W-pad,y2:Y(0),stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pad,x2:X(0),y2:H-pad,stroke:'var(--line)','stroke-width':1}));
+    for(let k=xmin; k<=xmax; k++){
+      svg.appendChild(SVG('line',{x1:X(k),y1:Y(0)-3,x2:X(k),y2:Y(0)+3,stroke:'var(--mute)'}));
+    }
+    // curve (real locus)
+    const {top, bot} = curvePoints(cur.A, cur.B, xmin, xmax, 400);
+    const toPath = branch => 'M ' + branch.map(([x,y]) => X(x)+' '+Y(y)).join(' L ');
+    for(const b of splitBranches(top)){
+      if(b.length<2) continue;
+      svg.appendChild(SVG('path',{d:toPath(b),fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    }
+    for(const b of splitBranches(bot)){
+      if(b.length<2) continue;
+      svg.appendChild(SVG('path',{d:toPath(b),fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    }
+    // 2-torsion markers
+    for(const [x,y] of cur.pts2){
+      if(x < xmin || x > xmax) continue;
+      svg.appendChild(SVG('circle',{cx:X(x),cy:Y(y),r:4,fill:'var(--pink)'}));
+    }
+    // generator P and 2P
+    if(P && isFinite(P[0]) && isFinite(P[1]) && P[0] >= xmin && P[0] <= xmax && P[1] >= ymin && P[1] <= ymax){
+      svg.appendChild(SVG('circle',{cx:X(P[0]),cy:Y(P[1]),r:5,fill:'var(--yellow)'}));
+      const t = SVG('text',{x:X(P[0])+8,y:Y(P[1])-6,'font-size':12,fill:'var(--yellow)'});
+      t.textContent = '('+P[0].toFixed(3)+', '+P[1].toFixed(3)+')';
+      svg.appendChild(t);
+    }
+    // equation label
+    const lab = SVG('text',{x:W-pad,y:pad-8,'text-anchor':'end','font-size':13,fill:'var(--mute)'});
+    lab.textContent = cur.eqn;
+    svg.appendChild(lab);
+
+    // readout
+    const lines = [];
+    lines.push('E(Q) ≅ Z^' + cur.rank + (cur.tors==='trivial' ? '' : ' ⊕ ' + cur.tors));
+    lines.push(cur.note);
+    if(P){
+      lines.push('P = ('+P[0].toFixed(4)+', '+P[1].toFixed(4)+')');
+    } else {
+      lines.push('no infinite-order generator on this curve');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  pick.addEventListener('change', () => setCurve(pick.value));
+  dblBtn.addEventListener('click', doubleP);
+  rst.addEventListener('click', () => { P = cur.gen ? [cur.gen[0], cur.gen[1]] : null; draw(); });
+  setCurve('a');
+})();
+</script>
+
+<p>Doubling $P$ on a rank-$\ge 1$ curve produces rational points with rapidly growing heights. For $y^2 = x^3 - x + 1$, doubling $P = (0,1)$ gives $(1/4, -7/8), (72/49, 611/343), \ldots$ — all free multiples of the same generator, with coordinates exploding at rate $\hat h(nP) = n^2 \hat h(P)$.</p>
+
+<div class="quiz" data-concept="mordell-weil"></div>
+</section>
+
+<section id="point-counting-heuristic">
+<h2>2. Counting points modulo $p$ and the original BSD heuristic</h2>
+
+<p>For a prime $p$ of good reduction ($p \nmid \Delta$), reduce $E \bmod p$ to get $\tilde E / \mathbb{F}_p$, and count:
+$$N_p = \#\tilde E(\mathbb{F}_p), \qquad a_p = p + 1 - N_p.$$
+<strong>Hasse's theorem:</strong> $|a_p| \le 2\sqrt p$, so each factor $N_p/p \approx 1$ — each prime sees about $p$ points, give or take $2\sqrt p$.</p>
+
+<p>In 1963 Birch and Swinnerton-Dyer ran a pile of curves through EDSAC and plotted
+$$\Pi(X) \;=\; \prod_{\substack{p \le X \\ p \text{ good}}} \frac{N_p}{p}.$$
+Naively each factor fluctuates about $1$, so $\Pi(X)$ should stay bounded. Instead it grew, and the growth rate tracked the Mordell–Weil rank:</p>
+
+<div class="note"><strong>BSD heuristic.</strong> As $X \to \infty$,
+$$\prod_{\substack{p \le X \\ p \text{ good}}} \frac{N_p}{p} \;\sim\; c \cdot (\log X)^{r},$$
+where $r = \operatorname{rank} E(\mathbb{Q})$ and $c > 0$ is a constant depending on $E$. Higher rank ⇒ systematically more points mod $p$.</div>
+
+<p>Heuristically, many rational points force many reductions — $a_p$ biases negative, nudging $N_p/p$ above $1$. The same data packaged as an Euler product $\prod (1 - a_p p^{-s} + p^{1-2s})^{-1}$ gives $L(E, s)$, and BSD ties its order of vanishing at $s = 1$ to this rank.</p>
+
+<p>The widget computes $a_p$ by brute force — count $(x, y)$ with $y^2 \equiv x^3 + Ax + B \pmod p$ via Euler's criterion — forms $\Pi(X)$, and plots $\log \Pi$ vs $\log p$. A line fit to $\log \Pi(X)$ vs $\log \log X$ recovers an empirical slope hovering near $r$.</p>
+
+<div class="widget" id="w-pc">
+  <div class="hd"><div class="ttl">Point-counting product</div><div class="hint">watch $\log \Pi(X)$ climb with slope ≈ $r$</div></div>
+  <div class="row">
+    <label>curve</label>
+    <select id="pc-pick">
+      <option value="0">y² = x³ − x    (rank 0)</option>
+      <option value="1">y² = x³ + 1    (rank 0)</option>
+      <option value="2">y² = x³ − x + 1 (rank 1)</option>
+      <option value="3">y² = x³ + 17   (rank 2)</option>
+    </select>
+    <label>X</label>
+    <input type="range" id="pc-X" min="10" max="2000" value="500" step="10">
+    <span class="readout" id="pc-xval" style="min-width:100px">X = 500</span>
+  </div>
+  <svg id="pc-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="readout" id="pc-out">computing…</div>
+</div>
+
+<script>
+/* =================== SECTION 2: Point counts =================== */
+(function(){
+  const CURVES = [
+    { A:-1, B:0,  rank:0, bad:new Set([2]) },
+    { A:0,  B:1,  rank:0, bad:new Set([2,3]) },
+    { A:-1, B:1,  rank:1, bad:new Set([2,11]) },
+    { A:0,  B:17, rank:2, bad:new Set([2,3,17]) },
+  ];
+  const PMAX = 2000;
+  // sieve of primes up to PMAX
+  const primes = (()=>{
+    const sv = new Uint8Array(PMAX+1);
+    for(let i=2;i<=PMAX;i++){
+      if(!sv[i]){
+        for(let j=i*i;j<=PMAX;j+=i) sv[j]=1;
+      }
+    }
+    const out=[]; for(let i=2;i<=PMAX;i++) if(!sv[i]) out.push(i); return out;
+  })();
+
+  const modp = (a,m) => ((a%m)+m)%m;
+  function powmod(a,e,m){
+    let r=1n; a=BigInt(modp(a,m)); e=BigInt(e); const M=BigInt(m);
+    while(e>0n){ if(e&1n) r=(r*a)%M; a=(a*a)%M; e>>=1n; }
+    return Number(r);
+  }
+  function countNp(A,B,p){
+    let N=1;
+    for(let x=0;x<p;x++){
+      const rhs = modp(x*x%p*x + A*x + B, p);
+      if(rhs===0) N+=1;
+      else if(powmod(rhs,(p-1)/2,p)===1) N+=2;
+    }
+    return N;
+  }
+
+  // precompute ap per curve
+  const apCache = CURVES.map(C => {
+    const arr = new Int32Array(primes.length);
+    for(let i=0;i<primes.length;i++){
+      const p = primes[i];
+      if(C.bad.has(p)){ arr[i] = 99999; continue; } // sentinel
+      const Np = countNp(C.A, C.B, p);
+      arr[i] = p + 1 - Np;
+    }
+    return arr;
+  });
+
+  const pick = $('#pc-pick'), xs = $('#pc-X'), svg = $('#pc-svg'), out = $('#pc-out'), xv = $('#pc-xval');
+
+  function draw(){
+    const ci = +pick.value;
+    const X = +xs.value;
+    xv.textContent = 'X = ' + X;
+    const ap = apCache[ci];
+    const pts = []; // (log X_p, log Pi)
+    let logPi = 0;
+    for(let i=0;i<primes.length;i++){
+      const p = primes[i]; if(p > X) break;
+      if(CURVES[ci].bad.has(p)) continue;
+      const a = ap[i];
+      // factor = N_p / p = 1 - a/p + 1/p
+      const f = 1 - a/p + 1/p;
+      if(f <= 0) continue;
+      logPi += Math.log(f);
+      pts.push([Math.log(p), logPi]);
+    }
+    const Pi = Math.exp(logPi);
+    // least-squares fit of logPi vs log(log p) using tail (skip early noisy points)
+    let slope = NaN;
+    if(pts.length > 20){
+      const tail = pts.slice(Math.floor(pts.length*0.3));
+      const n = tail.length;
+      let sx=0, sy=0, sxx=0, sxy=0;
+      for(const [lp, lPi] of tail){
+        const u = Math.log(lp); // log log p
+        sx+=u; sy+=lPi; sxx+=u*u; sxy+=u*lPi;
+      }
+      slope = (n*sxy - sx*sy)/(n*sxx - sx*sx);
+    }
+
+    // render
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=300, pad=36;
+    if(!pts.length){ out.textContent = 'need more primes'; return; }
+    const xmin = pts[0][0], xmax = pts[pts.length-1][0];
+    const ymin = Math.min(0, ...pts.map(p=>p[1])) - 0.2;
+    const ymax = Math.max(0.2, ...pts.map(p=>p[1])) + 0.2;
+    const X2 = u => pad + (u - xmin) * (W - 2*pad) / (xmax - xmin || 1);
+    const Y2 = u => H - pad - (u - ymin) * (H - 2*pad) / (ymax - ymin || 1);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:Y2(0),x2:W-pad,y2:Y2(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));
+    // polyline
+    const d = 'M ' + pts.map(([u,v]) => X2(u)+' '+Y2(v)).join(' L ');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+    // axis labels
+    const lx = SVG('text',{x:W-pad,y:H-8,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lx.textContent = 'log p  →'; svg.appendChild(lx);
+    const ly = SVG('text',{x:pad+6,y:pad+4,'font-size':12,fill:'var(--mute)'});
+    ly.textContent = 'log Π(X)'; svg.appendChild(ly);
+
+    const r = CURVES[ci].rank;
+    const slopeStr = isFinite(slope) ? slope.toFixed(3) : '—';
+    out.textContent =
+      'curve rank r = ' + r + '\n' +
+      'Π(' + X + ')  = ' + Pi.toFixed(4) + '      log Π = ' + logPi.toFixed(4) + '\n' +
+      'good primes used: ' + pts.length + '\n' +
+      'fit slope of log Π vs log log X  ≈  ' + slopeStr + '   (BSD predicts ≈ ' + r + ')';
+  }
+
+  pick.addEventListener('change', draw);
+  xs.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<p>Two caveats. The empirical slope drifts until $X$ is large — Sato–Tate fluctuations of $a_p$ swamp the rank signal at small $X$. And rank zero means $\Pi(X)$ approaches a positive constant, not zero: $\log \Pi$ stays flat.</p>
+
+<div class="quiz" data-concept="point-counting-heuristic"></div>
+</section>
+
+<section id="bsd-rank-equality">
+<h2>3. The conjecture: analytic rank = algebraic rank</h2>
+
+<p>Package the local data globally. The Hasse–Weil $L$-function is
+$$L(E, s) \;=\; \prod_{p \text{ good}} (1 - a_p p^{-s} + p^{1-2s})^{-1} \cdot \prod_{p \text{ bad}} (1 - a_p p^{-s})^{-1},$$
+convergent for $\operatorname{Re}(s) > 3/2$. <strong>Modularity</strong> (Wiles, BCDT) identifies $L(E, s) = L(f, s)$ for a weight-2 newform $f$ of level $N$, yielding entire continuation and a functional equation $\Lambda(E, s) = \pm \Lambda(E, 2-s)$ with center $s = 1$.</p>
+
+<div class="ok"><strong>BSD (weak form).</strong> $\quad \operatorname{ord}_{s=1} L(E, s) \;=\; \operatorname{rank} E(\mathbb{Q}).$</div>
+
+<p>That is: $L(E, s)$ vanishes at $s=1$ to the same order as the free rank. The left side is <em>analytic</em> (Taylor expansion); the right side is <em>algebraic</em> (group theory). BSD says they agree.</p>
+
+<div class="note"><strong>Refined (strong) BSD.</strong> The leading Taylor coefficient is explicitly predicted:
+$$\lim_{s \to 1} \frac{L(E, s)}{(s-1)^r} \;=\; \frac{\Omega \cdot R \cdot |\Sha(E/\mathbb{Q})| \cdot \prod_p c_p}{|E(\mathbb{Q})_{\text{tors}}|^2},$$
+where $\Omega$ is the real period, $R$ the regulator (determinant of the Néron–Tate height pairing on a basis of the free part), $\Sha$ the Tate–Shafarevich group (conjecturally finite!), $c_p$ the Tamagawa numbers at bad primes, and $|E(\mathbb{Q})_{\text{tors}}|$ the size of the torsion subgroup.</div>
+
+<p>The widget sketches $L(E, s)$ near $s=1$ using toy Taylor models $L(s) \approx c(s-1)^r(1 + a(s-1))$. Toggling rank $0, 1, 2$ visibly changes the zero: a nonzero value, a transverse crossing, or a tangential touch.</p>
+
+<div class="widget" id="w-Lz">
+  <div class="hd"><div class="ttl">BSD L-function zero</div><div class="hint">toggle rank; watch the order of vanishing</div></div>
+  <div class="row">
+    <label>curve</label>
+    <button class="rk" data-r="0">rank 0</button>
+    <button class="rk active" data-r="1">rank 1</button>
+    <button class="rk" data-r="2">rank 2</button>
+  </div>
+  <svg id="Lz-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="readout" id="Lz-out"></div>
+</div>
+
+<script>
+/* =================== SECTION 3: L-function zero =================== */
+(function(){
+  const MODELS = {
+    0:{c:0.92,a:0.30,note:'L(E,1) ≠ 0 ⇒ rank 0 (Kolyvagin ⇒ BSD holds)'},
+    1:{c:1.05,a:-0.20,note:'simple zero at s=1 ⇒ rank 1 (Kolyvagin + Gross–Zagier)'},
+    2:{c:0.80,a:0.15,note:'double zero at s=1 ⇒ rank 2 (BSD still open in general)'},
+  };
+  let r = 1;
+  const svg = $('#Lz-svg'), out = $('#Lz-out');
+  const btns = $$('.rk', $('#w-Lz'));
+
+  function Lmod(s, rr){
+    const M = MODELS[rr];
+    return M.c * Math.pow(s - 1, rr) * (1 + M.a*(s-1));
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=280, pad=36;
+    const smin=0.3, smax=1.7;
+    const X = s => pad + (s-smin)*(W-2*pad)/(smax-smin);
+    // sample curve
+    const vals = [];
+    for(let i=0;i<=400;i++){
+      const s = smin + (smax-smin)*i/400;
+      vals.push([s, Lmod(s, r)]);
+    }
+    let ymin = Math.min(0, ...vals.map(v=>v[1]));
+    let ymax = Math.max(0, ...vals.map(v=>v[1]));
+    const pady = (ymax-ymin)*0.1 || 0.5;
+    ymin -= pady; ymax += pady;
+    const Y = v => H-pad - (v-ymin)*(H-2*pad)/(ymax-ymin);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:Y(0),x2:W-pad,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(1),y1:pad,x2:X(1),y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));
+    // L curve
+    const d = 'M ' + vals.map(([s,v]) => X(s)+' '+Y(v)).join(' L ');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // critical point marker
+    svg.appendChild(SVG('circle',{cx:X(1),cy:Y(Lmod(1,r)),r:5,fill:'var(--pink)'}));
+    // labels
+    const t1 = SVG('text',{x:X(1)+6,y:pad+14,'font-size':12,fill:'var(--violet)'});
+    t1.textContent = 's = 1 (center of symmetry)';
+    svg.appendChild(t1);
+    const tx = SVG('text',{x:W-pad,y:H-8,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    tx.textContent = 's  →'; svg.appendChild(tx);
+    const ty = SVG('text',{x:pad+4,y:pad+10,'font-size':12,fill:'var(--mute)'});
+    ty.textContent = 'L(E, s)'; svg.appendChild(ty);
+
+    const L1 = Lmod(1, r);
+    out.textContent =
+      'analytic rank = ord_{s=1} L(E,s) = ' + r + '\n' +
+      'algebraic rank = rank E(Q) = ' + r + '   (equal, by BSD)\n' +
+      'L(E, 1) = ' + L1.toFixed(4) + '\n' +
+      MODELS[r].note;
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    r = +b.dataset.r; draw();
+  }));
+  draw();
+})();
+</script>
+
+<p>What is known (for modular $E$, so all $E/\mathbb{Q}$):</p>
+<ul>
+  <li><strong>Kolyvagin (1989):</strong> if analytic rank $\le 1$, then algebraic rank agrees and $\Sha$ is finite.</li>
+  <li><strong>Gross–Zagier (1986):</strong> for analytic rank $1$, a Heegner point gives a non-torsion element of $E(\mathbb{Q})$ whose height ties to $L'(E, 1)$.</li>
+  <li><strong>Rank $\ge 2$:</strong> wide open in both directions.</li>
+</ul>
+
+<p>BSD is a Clay Millennium Prize Problem — a \$1M bounty on the statement that two different ways of counting rational points agree. It is the arithmetic heart of the Langlands philosophy: the analytic behavior of an automorphic $L$-function encodes the arithmetic of the motive it comes from.</p>
+
+<div class="quiz" data-concept="bsd-rank-equality"></div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('bsd'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+</body>
+</html>

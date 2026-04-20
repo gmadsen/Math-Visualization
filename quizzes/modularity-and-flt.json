@@ -1,0 +1,115 @@
+{
+  "topic": "modularity-and-flt",
+  "quizzes": {
+    "frey-curve": {
+      "title": "The Frey curve",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $a,b,c$ be a hypothetical coprime solution of $a^p + b^p = c^p$ with $p \\ge 5$ prime. The Frey curve $E_{a,b,c}: y^2 = x(x-a^p)(x+b^p)$ has discriminant equal to which of the following?",
+          "choices": [
+            "$\\Delta = (abc)^{2p}/2^{8}$",
+            "$\\Delta = (abc)^{p}$",
+            "$\\Delta = a^p b^p c^p$",
+            "$\\Delta = 2^{8}(abc)^{2p}$"
+          ],
+          "answer": 0,
+          "explain": "For $y^2 = x(x-\\alpha)(x+\\beta)$ with $\\gamma = \\alpha+\\beta$, the discriminant is $16(\\alpha\\beta\\gamma)^2$. With $\\alpha=a^p,\\beta=b^p,\\gamma=c^p$ this gives $16\\,(a b c)^{2p}$; after the standard change of variables to minimal model the factor of $2^{8}$ drops out, leaving $\\Delta = (abc)^{2p}/2^{8}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Evaluate $\\log_{10}\\Delta$ for the <em>formal</em> Frey discriminant $\\Delta = (abc)^{2p}/2^{8}$ with $a=3,\\ b=4,\\ c=5,\\ p=5$. (No integer $c$ exists with $3^5+4^5=c^5$ \u2014 this is a sanity check on the formula only.) Round to 2 decimals.",
+          "answer": 15.37,
+          "tol": 0.05,
+          "explain": "$abc = 60$, so $(abc)^{2p} = 60^{10}$. $\\log_{10}(60^{10}) = 10\\log_{10}60 \\approx 10\\cdot 1.7782 = 17.782$. Subtract $\\log_{10}2^{8} = 8\\log_{10}2 \\approx 2.408$: $17.782-2.408 \\approx 15.37$."
+        },
+        {
+          "type": "mcq",
+          "q": "The prime factorization of the Frey discriminant is a perfect $2p$-th power away from $2$. This forces the Frey curve to be:",
+          "choices": [
+            "supersingular at every prime",
+            "semistable (multiplicative reduction at every odd prime dividing $abc$)",
+            "isogenous to $y^2 = x^3 - x$",
+            "ramified at every prime"
+          ],
+          "answer": 1,
+          "explain": "A prime $\\ell \\mid abc$ with $\\ell$ odd appears in $\\Delta$ to multiplicity $2p$, i.e. a perfect square. By Tate's algorithm this gives multiplicative reduction, so the curve is semistable; the conductor $N_E$ is squarefree away from $2$."
+        }
+      ]
+    },
+
+    "modularity-theorem": {
+      "title": "Modularity theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which space of modular forms is matched to an elliptic curve $E/\\mathbb{Q}$ of conductor $N$ by the modularity theorem?",
+          "choices": [
+            "$M_k(\\mathrm{SL}_2(\\mathbb{Z}))$ for $k$ even",
+            "$S_2(\\Gamma_0(N))$ \u2014 weight-2 cusp forms for $\\Gamma_0(N)$",
+            "$S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))$",
+            "$M_2(\\Gamma_1(N))$"
+          ],
+          "answer": 1,
+          "explain": "Modularity: $E$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N_E))$ with $a_p(E) = a_p(f_E)$ for all good primes $p$. The weight is $2$ because $E$ has dimension $1$ (H^1 is 2-dimensional)."
+        },
+        {
+          "type": "numeric",
+          "q": "Cremona's curve $E: y^2 + y = x^3 - x^2$ has conductor $11$. Its associated newform has the $q$-expansion $q - 2q^2 - q^3 + 2q^4 + q^5 + \\cdots$. Independently, one can verify $\\#E(\\mathbb{F}_2) = 5$. What is $a_2(f_E)$? (Use $a_p(E) = p + 1 - \\#E(\\mathbb{F}_p)$.)",
+          "answer": -2,
+          "tol": 0.01,
+          "explain": "$a_2(E) = 2 + 1 - 5 = -2$. Modularity says $a_2(f_E) = a_2(E) = -2$, which matches the $-2q^2$ coefficient of the newform $\\eta(\\tau)^2\\eta(11\\tau)^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Wiles and Taylor\u2013Wiles (1995) proved modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$. Who extended this to <em>every</em> elliptic curve over $\\mathbb{Q}$?",
+          "choices": [
+            "Ribet",
+            "Serre",
+            "Breuil\u2013Conrad\u2013Diamond\u2013Taylor (2001)",
+            "Deligne"
+          ],
+          "answer": 2,
+          "explain": "The full modularity theorem was completed in 2001 by Breuil, Conrad, Diamond, and Taylor, handling the remaining cases of additive reduction at $3$."
+        }
+      ]
+    },
+
+    "ribet-level-lowering": {
+      "title": "Ribet's level lowering",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Ribet's level-lowering, applied to the mod-$p$ Galois representation of the Frey curve, lowers the level from the Frey conductor down to the squarefree part of $\\{2\\}$: the final level is $N = 2$. What is $\\dim S_2(\\Gamma_0(2))$?",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "The genus of $X_0(2)$ is $0$, and $\\dim S_2(\\Gamma_0(N)) = \\mathrm{genus}(X_0(N))$. So $\\dim S_2(\\Gamma_0(2)) = 0$: there are no weight-2 cusp forms of level 2. This is the contradiction that finishes FLT."
+        },
+        {
+          "type": "mcq",
+          "q": "Ribet's theorem is sometimes called the ``$\\varepsilon$-conjecture.'' Conceptually, what principle does it embody?",
+          "choices": [
+            "Every modular form is a cusp form",
+            "Level lowering: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is already modular of level $N$",
+            "Every elliptic curve over $\\mathbb{Q}$ is semistable",
+            "The Galois group $G_\\mathbb{Q}$ has no nontrivial finite quotients"
+          ],
+          "answer": 1,
+          "explain": "Ribet proved that superfluous primes in the level can be removed whenever the residual Galois representation is unramified there. Applied to the Frey curve, this strips the level all the way down to $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Put the pieces together. Assuming $a^p+b^p=c^p$ (with $p\\ge 5$, $abc\\ne0$), the Frey curve $E_{a,b,c}$ is semistable, hence modular (Wiles), and Ribet's theorem lowers the level of $\\overline\\rho_{E,p}$ to $2$. Why is this a contradiction?",
+          "choices": [
+            "Because $\\Gamma_0(2)$ is not a congruence subgroup",
+            "Because $\\dim S_2(\\Gamma_0(2)) = 0$: there is no weight-2 newform of level 2 to host $\\overline\\rho_{E,p}$",
+            "Because $E_{a,b,c}$ has complex multiplication",
+            "Because $p$ is prime"
+          ],
+          "answer": 1,
+          "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists \u2014 contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
+        }
+      ]
+    }
+  }
+}

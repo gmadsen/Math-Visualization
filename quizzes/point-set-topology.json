@@ -1,0 +1,246 @@
+{
+  "topic": "point-set-topology",
+  "quizzes": {
+    "metric-spaces": {
+      "title": "Metric spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT required for $d\\colon X\\times X\\to[0,\\infty)$ to be a metric?",
+          "choices": [
+            "$d(x,y)=0 \\iff x=y$",
+            "$d(x,y)=d(y,x)$",
+            "$d(x,z)\\le d(x,y)+d(y,z)$",
+            "$d(x,y)\\le 1$ for all $x,y$"
+          ],
+          "answer": 3,
+          "explain": "Metrics need not be bounded. The three required axioms are identity of indiscernibles, symmetry, and triangle inequality. Boundedness is a separate property (e.g. discrete metrics are bounded by $1$, Euclidean metrics are not)."
+        },
+        {
+          "type": "numeric",
+          "q": "In $(\\mathbb{R}^2, d_\\infty)$ with $d_\\infty(x,y)=\\max(|x_1-y_1|,|x_2-y_2|)$, what is the area of the open ball $B(0,1)$ (as a subset of the plane)?",
+          "answer": 4,
+          "tol": 0.001,
+          "explain": "The sup-ball of radius $1$ around the origin is the open square $(-1,1)\\times(-1,1)$, with area $2\\cdot 2 = 4$. By contrast the Euclidean disk has area $\\pi\\approx 3.14$ and the taxicab diamond has area $2$ — same topology, different shapes."
+        },
+        {
+          "type": "mcq",
+          "q": "Which space is NOT complete with respect to the indicated metric?",
+          "choices": [
+            "$\\mathbb{R}^n$ with Euclidean metric",
+            "$(0,1)$ with the metric inherited from $\\mathbb{R}$",
+            "$\\mathbb{Q}_p$ with the $p$-adic metric",
+            "$C([0,1])$ with the uniform metric"
+          ],
+          "answer": 1,
+          "explain": "$(0,1)$ is not complete: the sequence $x_n=1/n$ is Cauchy but its limit $0$ lies outside the space. Completeness is a metric property, not a topological one — $(0,1)$ is homeomorphic to $\\mathbb{R}$, which is complete."
+        }
+      ]
+    },
+
+    "open-sets": {
+      "title": "Topological spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $X=\\{a,b,c\\}$. Which of the following is a topology on $X$?",
+          "choices": [
+            "$\\{\\emptyset, \\{a\\}, \\{b\\}, X\\}$",
+            "$\\{\\emptyset, \\{a\\}, \\{a,b\\}, X\\}$",
+            "$\\{\\emptyset, \\{a,b\\}, \\{b,c\\}, X\\}$",
+            "$\\{\\{a\\}, \\{b\\}, \\{c\\}, X\\}$"
+          ],
+          "answer": 1,
+          "explain": "Option (b) contains $\\emptyset$ and $X$, and the union / intersection of any listed opens remains in the family. Option (a) fails because $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is missing; (c) fails because $\\{a,b\\}\\cap\\{b,c\\}=\\{b\\}$ is missing; (d) fails because $\\emptyset$ is missing."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are topologies required to be closed under FINITE intersections rather than arbitrary intersections?",
+          "choices": [
+            "arbitrary intersections would make the axioms inconsistent",
+            "in $\\mathbb{R}$, $\\bigcap_n (-1/n, 1/n) = \\{0\\}$ is not open",
+            "finite intersections are computationally easier",
+            "arbitrary intersections always give the empty set"
+          ],
+          "answer": 1,
+          "explain": "Countable intersections of opens can collapse to non-open sets: $\\bigcap_{n\\ge 1}(-1/n,1/n)=\\{0\\}$ is not open in $\\mathbb{R}$. Only finite intersections are safe."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct topologies are there on a 2-element set $X=\\{a,b\\}$?",
+          "answer": 4,
+          "tol": 0.0001,
+          "explain": "The four topologies are: (i) indiscrete $\\{\\emptyset,X\\}$; (ii) discrete $\\{\\emptyset,\\{a\\},\\{b\\},X\\}$; (iii) Sierpiński $\\{\\emptyset,\\{a\\},X\\}$; (iv) the mirror $\\{\\emptyset,\\{b\\},X\\}$."
+        }
+      ]
+    },
+
+    "continuity-topology": {
+      "title": "Continuity and homeomorphism",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The topological definition of continuity says $f\\colon X\\to Y$ is continuous iff:",
+          "choices": [
+            "the image of every open set is open",
+            "the preimage of every open set is open",
+            "the image of every closed set is closed",
+            "$f$ is a bijection"
+          ],
+          "answer": 1,
+          "explain": "$f$ is continuous iff $f^{-1}(V)$ is open in $X$ whenever $V$ is open in $Y$. Images of opens generally need not be open — consider $x\\mapsto x^2$ on $\\mathbb{R}$, which sends the open interval $(-1,1)$ to the non-open $[0,1)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these pairs of spaces is NOT a pair of homeomorphic spaces?",
+          "choices": [
+            "$(0,1)$ and $\\mathbb{R}$",
+            "$[0,1]$ and $(0,1)$",
+            "$S^1$ and the boundary of the unit square in $\\mathbb{R}^2$",
+            "$S^1\\times [0,1]$ and the cylinder $\\{(x,y,z):x^2+y^2=1,\\ 0\\le z\\le 1\\}$"
+          ],
+          "answer": 1,
+          "explain": "$[0,1]$ is compact and $(0,1)$ is not — continuous images of compact sets are compact, so no continuous bijection between them can be a homeomorphism. Meanwhile $(0,1)\\cong \\mathbb{R}$ via $t\\mapsto \\tan(\\pi(t-1/2))$, and both (c) and (d) are homeomorphic pairs."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are the open interval $(0,1)$ and the circle $S^1$ not homeomorphic?",
+          "choices": [
+            "$S^1$ has more points",
+            "removing any point of $(0,1)$ disconnects it; removing a point of $S^1$ does not",
+            "$(0,1)$ is compact and $S^1$ is not",
+            "$S^1$ is not Hausdorff"
+          ],
+          "answer": 1,
+          "explain": "$(0,1)$ has the cut-point property: removing any interior point disconnects it. $S^1\\setminus\\{p\\}$ is a connected arc. Since homeomorphisms preserve connectedness and bijections, no homeomorphism can match cut points to non-cut points."
+        }
+      ]
+    },
+
+    "compactness": {
+      "title": "Compactness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Heine–Borel: in $\\mathbb{R}^n$ with the Euclidean topology, a subset is compact iff it is:",
+          "choices": [
+            "open",
+            "closed",
+            "bounded",
+            "closed and bounded"
+          ],
+          "answer": 3,
+          "explain": "Heine–Borel: compact in $\\mathbb{R}^n$ $\\iff$ closed and bounded. Warning — this equivalence is specific to $\\mathbb{R}^n$. In infinite-dimensional Banach spaces the closed unit ball is bounded and closed but not compact."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following subsets of $\\mathbb{R}$ is compact?",
+          "choices": [
+            "$(0,1)$",
+            "$[0,\\infty)$",
+            "$\\{0\\}\\cup\\{1/n : n\\ge 1\\}$",
+            "$\\mathbb{Q}\\cap[0,1]$"
+          ],
+          "answer": 2,
+          "explain": "$\\{0\\}\\cup\\{1/n\\}$ is closed (contains its limit point $0$) and bounded, hence compact. $(0,1)$ is not closed, $[0,\\infty)$ is not bounded, $\\mathbb{Q}\\cap[0,1]$ is not closed in $\\mathbb{R}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $K$ be compact, $f\\colon K\\to\\mathbb{R}$ continuous. Which statement is FALSE?",
+          "choices": [
+            "$f$ attains a maximum on $K$",
+            "$f(K)$ is compact in $\\mathbb{R}$",
+            "$f$ is uniformly continuous (if $K$ is metric)",
+            "$f$ is necessarily injective"
+          ],
+          "answer": 3,
+          "explain": "The constant function is continuous on any $K$ and is far from injective. The other three are standard consequences of compactness: extreme value theorem, continuous image of compact is compact, Heine–Cantor."
+        }
+      ]
+    },
+
+    "connectedness": {
+      "title": "Connectedness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following spaces is NOT connected?",
+          "choices": [
+            "$\\mathbb{R}$ with Euclidean topology",
+            "$[0,1]\\cup[2,3]$ as a subspace of $\\mathbb{R}$",
+            "the circle $S^1$",
+            "any convex subset of $\\mathbb{R}^n$"
+          ],
+          "answer": 1,
+          "explain": "$[0,1]\\cup[2,3]$ is disconnected: take $U=(-1,1.5)$, $V=(1.5,4)$; both hit the subspace in disjoint nonempty opens. The other three are connected — intervals and convex sets are path-connected, and path-connected implies connected."
+        },
+        {
+          "type": "mcq",
+          "q": "The topologist's sine curve $T = \\{(x,\\sin(1/x)):x\\in(0,1]\\}\\cup(\\{0\\}\\times[-1,1])$ is:",
+          "choices": [
+            "connected and path-connected",
+            "connected but NOT path-connected",
+            "path-connected but NOT connected",
+            "neither connected nor path-connected"
+          ],
+          "answer": 1,
+          "explain": "$T$ is the closure of a connected set (the graph), so it is connected. But any continuous path from the limit segment to the graph would have to traverse infinitely many oscillations in finite time, which fails to exist. Hence connected but not path-connected."
+        },
+        {
+          "type": "mcq",
+          "q": "If $X$ is connected and $f\\colon X\\to\\mathbb{R}$ is continuous, then $f(X)$ must be:",
+          "choices": [
+            "finite",
+            "an interval",
+            "closed",
+            "a single point"
+          ],
+          "answer": 1,
+          "explain": "Continuous images of connected sets are connected; the connected subsets of $\\mathbb{R}$ are exactly the intervals (possibly unbounded, possibly degenerate). This is the abstract form of the intermediate value theorem."
+        }
+      ]
+    },
+
+    "separation-axioms": {
+      "title": "Separation and countability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A space is Hausdorff ($T_2$) iff:",
+          "choices": [
+            "every singleton is closed",
+            "any two distinct points have disjoint open neighborhoods",
+            "every pair of disjoint closed sets has disjoint open neighborhoods",
+            "every open cover has a finite subcover"
+          ],
+          "answer": 1,
+          "explain": "$T_2$ = Hausdorff = distinct points can be separated by disjoint opens. Option (a) is $T_1$, option (c) is normality ($T_4$), option (d) is compactness."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these is $T_1$ but NOT Hausdorff?",
+          "choices": [
+            "$\\mathbb{R}$ with Euclidean topology",
+            "Sierpiński space $\\{0,1\\}$ with $\\tau=\\{\\emptyset,\\{1\\},\\{0,1\\}\\}$",
+            "$\\mathbb{R}$ with the cofinite topology",
+            "any discrete space"
+          ],
+          "answer": 2,
+          "explain": "The cofinite topology on $\\mathbb{R}$: every singleton is closed (hence $T_1$), but any two nonempty opens have finite complements, so they must intersect — failing Hausdorff. Sierpiński is $T_0$ but not even $T_1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Urysohn's metrization theorem says a topological space is metrizable if it is:",
+          "choices": [
+            "Hausdorff and compact",
+            "regular, Hausdorff, and second-countable",
+            "connected and path-connected",
+            "$T_0$ and separable"
+          ],
+          "answer": 1,
+          "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
+        }
+      ]
+    }
+  }
+}

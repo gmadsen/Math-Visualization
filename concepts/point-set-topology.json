@@ -1,0 +1,49 @@
+{
+  "topic": "point-set-topology",
+  "title": "Point-set topology",
+  "page": "point-set-topology.html",
+  "concepts": [
+    {
+      "id": "metric-spaces",
+      "title": "Metric spaces",
+      "anchor": "metric",
+      "prereqs": [],
+      "blurb": "Distance axioms, open balls, ε-continuity, Cauchy sequences and completeness — the ε–δ archetype before topology gets abstracted."
+    },
+    {
+      "id": "open-sets",
+      "title": "Topological spaces",
+      "anchor": "open",
+      "prereqs": ["metric-spaces"],
+      "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
+    },
+    {
+      "id": "continuity-topology",
+      "title": "Continuity & homeomorphism",
+      "anchor": "continuity",
+      "prereqs": ["open-sets"],
+      "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
+    },
+    {
+      "id": "compactness",
+      "title": "Compactness",
+      "anchor": "compact",
+      "prereqs": ["open-sets"],
+      "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category."
+    },
+    {
+      "id": "connectedness",
+      "title": "Connectedness",
+      "anchor": "connected",
+      "prereqs": ["open-sets"],
+      "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space."
+    },
+    {
+      "id": "separation-axioms",
+      "title": "Separation & countability",
+      "anchor": "separation",
+      "prereqs": ["open-sets"],
+      "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff."
+    }
+  ]
+}

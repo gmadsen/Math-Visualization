@@ -1,40 +1,63 @@
 {
   "topic": "real-analysis",
-  "title": "Real analysis prerequisites",
+  "title": "Real analysis",
   "page": "real-analysis.html",
   "concepts": [
     {
       "id": "real-numbers",
+      "title": "Real numbers",
+      "anchor": "reals",
       "prereqs": [],
-      "title": "Real numbers"
+      "blurb": "The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn't enough."
     },
     {
       "id": "real-continuity",
-      "prereqs": [
-        "real-numbers"
-      ],
-      "title": "Continuity on R"
+      "title": "Continuity on R",
+      "anchor": "continuity",
+      "prereqs": ["real-numbers"],
+      "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals."
     },
     {
       "id": "real-differentiation",
-      "prereqs": [
-        "real-continuity"
-      ],
-      "title": "Differentiation"
+      "title": "Differentiation",
+      "anchor": "differentiation",
+      "prereqs": ["real-continuity"],
+      "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder."
     },
     {
       "id": "uniform-convergence",
-      "prereqs": [
-        "real-continuity"
-      ],
-      "title": "Uniform convergence"
+      "title": "Uniform convergence",
+      "anchor": "uniform",
+      "prereqs": ["real-continuity"],
+      "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability."
     },
     {
       "id": "riemann-integral",
-      "prereqs": [
-        "real-continuity"
-      ],
-      "title": "Riemann integral"
+      "title": "Riemann integral",
+      "anchor": "riemann",
+      "prereqs": ["real-continuity"],
+      "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
+    },
+    {
+      "id": "multivariable-differentiation",
+      "title": "Multivariable differentiation",
+      "anchor": "multi-diff",
+      "prereqs": ["real-differentiation"],
+      "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives."
+    },
+    {
+      "id": "multivariable-integration",
+      "title": "Multivariable integration",
+      "anchor": "multi-int",
+      "prereqs": ["riemann-integral", "multivariable-differentiation"],
+      "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n."
+    },
+    {
+      "id": "inverse-function-theorem",
+      "title": "Inverse & implicit function theorems",
+      "anchor": "ift",
+      "prereqs": ["multivariable-differentiation"],
+      "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds."
     }
   ]
 }

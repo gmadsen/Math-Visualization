@@ -127,12 +127,15 @@
   async function init(topicId){
     const placeholders = document.querySelectorAll('.quiz[data-concept]');
     if(placeholders.length === 0) return;
-    let bank;
-    try { bank = await fetch(`./quizzes/${topicId}.json`).then(r=>r.json()); }
-    catch(e){
-      placeholders.forEach(ph => ph.innerHTML =
-        `<div class="bad">could not load ./quizzes/${topicId}.json</div>`);
-      return;
+    // Prefer the precompiled bundle (works from file://); fall back to fetch for dev servers.
+    let bank = global.MVQuizBank?.[topicId];
+    if(!bank){
+      try { bank = await fetch(`./quizzes/${topicId}.json`).then(r=>r.json()); }
+      catch(e){
+        placeholders.forEach(ph => ph.innerHTML =
+          `<div class="bad">could not load ./quizzes/${topicId}.json — run <code>node scripts/build-quizzes-bundle.mjs</code> or serve over http://</div>`);
+        return;
+      }
     }
     placeholders.forEach(ph => {
       const id = ph.getAttribute('data-concept');

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./concepts/bundle.js"></script>
 <script src="./js/progress.js"></script>
 <style>
   :root{
@@ -99,11 +100,30 @@
 <script>
 (async function(){
   // ---------- data loading ----------
-  const idx = await fetch('./concepts/index.json').then(r=>r.json());
-  const topics = await Promise.all(idx.topics.map(t =>
-    fetch(`./concepts/${t}.json`).then(r=>r.json())
-  ));
-  const capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+  // Prefer the pre-built bundle (loaded via <script src>), which works from
+  // file:// — browsers block fetch() of local JSON there. Fall back to fetch
+  // when the bundle isn't present (e.g. running off a dev server).
+  let idx, topics, capstones;
+  if(window.__MVConcepts){
+    idx = window.__MVConcepts.index;
+    topics = idx.topics.map(t => window.__MVConcepts.topics[t]);
+    capstones = window.__MVConcepts.capstones.capstones;
+  } else {
+    try {
+      idx = await fetch('./concepts/index.json').then(r=>r.json());
+      topics = await Promise.all(idx.topics.map(t =>
+        fetch(`./concepts/${t}.json`).then(r=>r.json())
+      ));
+      capstones = (await fetch('./concepts/capstones.json').then(r=>r.json())).capstones;
+    } catch(e) {
+      document.getElementById('stats').innerHTML =
+        '<span style="color:var(--pink)">Failed to load concept data: ' + e.message +
+        '. If you opened this file via <code>file://</code>, regenerate ' +
+        '<code>concepts/bundle.js</code> with <code>node scripts/build-concepts-bundle.mjs</code>, ' +
+        'or serve the folder (<code>python3 -m http.server</code>).</span>';
+      throw e;
+    }
+  }
 
   const byId = new Map();
   for(const t of topics){
@@ -312,19 +332,37 @@
 
   // ---------- capstone picker ----------
   const goalSel = document.getElementById('goal-select');
+  // Group capstones by section via <optgroup> so the dropdown scales as we
+  // add arithmetic/AG goals. Capstones missing a section fall into "Other".
+  const bySection = new Map();
   for(const cap of capstones){
-    const opt = document.createElement('option');
-    opt.value = cap.goal;
-    opt.textContent = cap.title;
-    goalSel.appendChild(opt);
+    const s = cap.section || 'Other';
+    if(!bySection.has(s)) bySection.set(s, []);
+    bySection.get(s).push(cap);
+  }
+  for(const [section, caps] of bySection){
+    const group = document.createElement('optgroup');
+    group.label = section;
+    for(const cap of caps){
+      const opt = document.createElement('option');
+      opt.value = cap.goal;
+      opt.textContent = cap.title;
+      group.appendChild(opt);
+    }
+    goalSel.appendChild(group);
   }
   const params = new URLSearchParams(location.search);
   const initial = params.get('goal') || capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
     const g = goalSel.value;
-    history.replaceState(null, '', `?goal=${encodeURIComponent(g)}`);
     render(g);
+    // history.replaceState throws SecurityError on file:// — skip it there
+    // so double-clicking pathway.html still lets you change the goal.
+    if(location.protocol !== 'file:'){
+      try { history.replaceState(null, '', `?goal=${encodeURIComponent(g)}`); }
+      catch(_) { /* ignore — e.g. sandboxed iframes */ }
+    }
   });
 
   document.getElementById('btn-reset').addEventListener('click', ()=>{

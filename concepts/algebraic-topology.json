@@ -1,0 +1,42 @@
+{
+  "topic": "algebraic-topology",
+  "title": "Algebraic topology",
+  "page": "algebraic-topology.html",
+  "concepts": [
+    {
+      "id": "paths",
+      "title": "Paths and homotopy",
+      "anchor": "paths",
+      "prereqs": ["continuity-topology"],
+      "blurb": "Continuous paths I→X, homotopy rel endpoints, and the concatenation that makes loop classes a group."
+    },
+    {
+      "id": "simply-connected",
+      "title": "Simply connected domains",
+      "anchor": "simply-connected",
+      "prereqs": ["paths"],
+      "blurb": "Path-connected + trivial fundamental group. The hypothesis Cauchy's theorem and the Riemann mapping theorem rely on."
+    },
+    {
+      "id": "fundamental-group",
+      "title": "Fundamental group",
+      "anchor": "pi1",
+      "prereqs": ["paths"],
+      "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
+    },
+    {
+      "id": "covering-spaces",
+      "title": "Covering spaces",
+      "anchor": "covers",
+      "prereqs": ["fundamental-group"],
+      "blurb": "Locally trivial surjections p:E→B with discrete fibers; the Galois correspondence between covers of B and subgroups of π₁(B)."
+    },
+    {
+      "id": "singular-homology",
+      "title": "Singular homology",
+      "anchor": "homology",
+      "prereqs": ["fundamental-group"],
+      "blurb": "Chains, boundaries, Hₙ(X) as a homotopy invariant; Mayer–Vietoris and the Euler characteristic."
+    }
+  ]
+}

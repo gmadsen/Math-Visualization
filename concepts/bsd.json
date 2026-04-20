@@ -5,23 +5,19 @@
   "concepts": [
     {
       "id": "mordell-weil",
-      "title": "Mordell\u2013Weil theorem",
+      "title": "Mordell–Weil theorem",
       "anchor": "mordell-weil",
-      "prereqs": [
-        "elliptic-curve",
-        "rational-points"
-      ],
-      "blurb": "E(Q) is finitely generated: E(Q) \u2245 Z^r \u2295 E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur)."
+      "prereqs": [],
+      "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur)."
     },
     {
       "id": "point-counting-heuristic",
-      "title": "Birch\u2013Swinnerton-Dyer heuristic",
+      "title": "Birch–Swinnerton-Dyer heuristic",
       "anchor": "point-counting-heuristic",
       "prereqs": [
-        "mordell-weil",
-        "hasse-bound"
+        "mordell-weil"
       ],
-      "blurb": "Numerical origin of BSD: \u220f_{p\u2264X} N_p/p \u2248 c\u00b7(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
+      "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
     },
     {
       "id": "bsd-rank-equality",
@@ -29,7 +25,6 @@
       "anchor": "bsd-rank-equality",
       "prereqs": [
         "point-counting-heuristic",
-        "L-function-elliptic",
         "analytic-continuation"
       ],
       "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."

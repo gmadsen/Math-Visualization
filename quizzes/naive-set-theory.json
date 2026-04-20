@@ -1,0 +1,105 @@
+{
+  "topic": "naive-set-theory",
+  "quizzes": {
+    "sets-functions": {
+      "title": "Sets and functions",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "If $|A| = 7$, $|B| = 9$, and $|A \\cap B| = 4$, what is $|A \\cup B|$?",
+          "answer": 12,
+          "tol": 0,
+          "explain": "Inclusion–exclusion: $|A \\cup B| = |A| + |B| - |A \\cap B| = 7 + 9 - 4 = 12$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $f\\colon \\{1,2,3,4\\} \\to \\{a,b,c\\}$ be given by $1 \\mapsto a,\\ 2 \\mapsto b,\\ 3 \\mapsto a,\\ 4 \\mapsto c$. Which is true?",
+          "choices": [
+            "injective but not surjective",
+            "surjective but not injective",
+            "bijective",
+            "neither injective nor surjective"
+          ],
+          "answer": 1,
+          "explain": "The image is $\\{a,b,c\\}$, the whole codomain, so $f$ is surjective. But $f(1) = f(3) = a$ shows $f$ is not injective. With $|A|=4 > 3 = |B|$ no function $A \\to B$ can be injective (pigeonhole)."
+        },
+        {
+          "type": "numeric",
+          "q": "How many subsets does a set of size $6$ have? (That is, compute $|\\mathcal{P}(A)|$ for $|A| = 6$.)",
+          "answer": 64,
+          "tol": 0,
+          "explain": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$."
+        }
+      ]
+    },
+
+    "equivalence-relations": {
+      "title": "Equivalence relations and quotients",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many equivalence classes does the relation '$a \\sim b$ iff $5 \\mid a - b$' on $\\mathbb{Z}$ have?",
+          "answer": 5,
+          "tol": 0,
+          "explain": "The classes are $[0], [1], [2], [3], [4]$ — the residue classes modulo $5$. So $|\\mathbb{Z}/5\\mathbb{Z}| = 5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following relations on $\\mathbb{Z}$ is an equivalence relation?",
+          "choices": [
+            "$a \\sim b \\iff a \\le b$",
+            "$a \\sim b \\iff a \\ne b$",
+            "$a \\sim b \\iff a^2 = b^2$",
+            "$a \\sim b \\iff a \\mid b$"
+          ],
+          "answer": 2,
+          "explain": "$a \\sim b \\iff a^2 = b^2$ is reflexive ($a^2 = a^2$), symmetric ($a^2 = b^2 \\Rightarrow b^2 = a^2$), and transitive. The others fail: $\\le$ is not symmetric, $\\ne$ is not reflexive (and not transitive), and $\\mid$ is not symmetric."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $\\pi\\colon X \\to X/{\\sim}$ be the quotient map. Which statement correctly expresses the universal property of the quotient?",
+          "choices": [
+            "Every function $X \\to Y$ factors uniquely through $\\pi$.",
+            "A function $f\\colon X \\to Y$ factors uniquely through $\\pi$ iff $f$ is constant on $\\sim$-classes.",
+            "A function $f\\colon X \\to Y$ factors uniquely through $\\pi$ iff $f$ is injective.",
+            "A function $X/{\\sim} \\to Y$ factors through $\\pi$ iff it is surjective."
+          ],
+          "answer": 1,
+          "explain": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e. $x \\sim x' \\Rightarrow f(x) = f(x')$."
+        }
+      ]
+    },
+
+    "countability": {
+      "title": "Countability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following sets is uncountable?",
+          "choices": [
+            "$\\mathbb{Q}$",
+            "$\\mathbb{Z}^3$",
+            "the set of algebraic numbers",
+            "$\\mathcal{P}(\\mathbb{N})$"
+          ],
+          "answer": 3,
+          "explain": "By Cantor's theorem $|\\mathcal{P}(\\mathbb{N})| > |\\mathbb{N}|$, so $\\mathcal{P}(\\mathbb{N})$ is uncountable (in fact $|\\mathcal{P}(\\mathbb{N})| = 2^{\\aleph_0} = \\mathfrak{c} = |\\mathbb{R}|$). The other three are countable: $\\mathbb{Q}$ injects into $\\mathbb{Z}^2$; $\\mathbb{Z}^3$ is a finite product of countables; the algebraic numbers are a countable union of finite root-sets of integer polynomials."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $s_0, s_1, s_2, \\dots$ be an enumeration of binary sequences with $s_0 = 0110\\dots$, $s_1 = 1001\\dots$, $s_2 = 0011\\dots$, $s_3 = 1111\\dots$. What are the first four bits of the Cantor diagonal sequence $d$ defined by $d_n = 1 - s_n(n)$?",
+          "choices": ["$0110$", "$1100$", "$1001$", "$0011$"],
+          "answer": 1,
+          "explain": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$. Flipping each bit gives $d = 1100\\dots$, which differs from each $s_n$ in position $n$."
+        },
+        {
+          "type": "numeric",
+          "q": "Under the Cantor zigzag pairing $\\langle i, j \\rangle = \\tfrac{(i+j)(i+j+1)}{2} + i$ (with $i, j \\ge 0$), what is $\\langle 2, 1 \\rangle$?",
+          "answer": 8,
+          "tol": 0,
+          "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
+        }
+      ]
+    }
+  }
+}

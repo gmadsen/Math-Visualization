@@ -1,0 +1,28 @@
+{
+  "topic": "naive-set-theory",
+  "title": "Naive set theory",
+  "page": "naive-set-theory.html",
+  "concepts": [
+    {
+      "id": "sets-functions",
+      "title": "Sets and functions",
+      "anchor": "sets",
+      "prereqs": [],
+      "blurb": "Sets, membership, subsets, unions/intersections, functions as single-valued relations, injections and surjections."
+    },
+    {
+      "id": "equivalence-relations",
+      "title": "Equivalence relations and quotients",
+      "anchor": "equivalence",
+      "prereqs": ["sets-functions"],
+      "blurb": "Equivalence relations partition sets; the quotient set X/∼ as the universal recipient of functions constant on classes."
+    },
+    {
+      "id": "countability",
+      "title": "Countability",
+      "anchor": "countable",
+      "prereqs": ["sets-functions"],
+      "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
+    }
+  ]
+}
