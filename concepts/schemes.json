@@ -1,0 +1,34 @@
+{
+  "topic": "schemes",
+  "title": "Schemes",
+  "page": "schemes.html",
+  "concepts": [
+    {
+      "id": "spectrum-primes",
+      "title": "Prime spectrum and Zariski topology",
+      "anchor": "intro",
+      "prereqs": [
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Spec R turns commutative rings into geometric spaces with generic points."
+    },
+    {
+      "id": "structure-sheaf-schemes",
+      "title": "Structure sheaf and affine schemes",
+      "anchor": "speckxy",
+      "prereqs": [
+        "spectrum-primes"
+      ],
+      "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces."
+    },
+    {
+      "id": "gluing-affines",
+      "title": "Gluing affine schemes",
+      "anchor": "gluing",
+      "prereqs": [
+        "structure-sheaf-schemes"
+      ],
+      "blurb": "General schemes are built by gluing affine pieces along compatible overlaps."
+    }
+  ]
+}

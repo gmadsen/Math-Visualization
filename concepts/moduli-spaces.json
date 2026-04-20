@@ -1,0 +1,35 @@
+{
+  "topic": "moduli-spaces",
+  "title": "Moduli spaces",
+  "page": "moduli-spaces.html",
+  "concepts": [
+    {
+      "id": "moduli-problem",
+      "title": "Moduli problems and parameters",
+      "anchor": "what",
+      "prereqs": [
+        "representability-criteria"
+      ],
+      "blurb": "A moduli problem asks for a geometric space classifying objects in families."
+    },
+    {
+      "id": "fine-vs-coarse-moduli",
+      "title": "Fine versus coarse moduli",
+      "anchor": "finecoarse",
+      "prereqs": [
+        "moduli-problem"
+      ],
+      "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes."
+    },
+    {
+      "id": "level-structures-moduli",
+      "title": "Level structure and compactification ideas",
+      "anchor": "level",
+      "prereqs": [
+        "fine-vs-coarse-moduli",
+        "modular-form-definition"
+      ],
+      "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces."
+    }
+  ]
+}

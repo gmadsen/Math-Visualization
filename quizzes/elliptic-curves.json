@@ -1,7 +1,7 @@
 {
   "topic": "elliptic-curves",
   "quizzes": {
-    "elliptic-curve-nonsingular": {
+    "elliptic-curve-definition": {
       "title": "Nonsingularity",
       "questions": [
         {
@@ -35,7 +35,7 @@
         }
       ]
     },
-    "rational-points": {
+    "elliptic-group-law": {
       "title": "Group law",
       "questions": [
         {

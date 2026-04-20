@@ -1,0 +1,32 @@
+{
+  "topic": "algebra",
+  "title": "Abstract algebra",
+  "page": "algebra.html",
+  "concepts": [
+    {
+      "id": "algebraic-structures",
+      "title": "Groups, rings, and fields",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Core algebraic structures package operations with axioms and examples from symmetries to polynomial arithmetic."
+    },
+    {
+      "id": "cayley-tables",
+      "title": "Cayley tables and subgroups",
+      "anchor": "cayley",
+      "prereqs": [
+        "algebraic-structures"
+      ],
+      "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially."
+    },
+    {
+      "id": "quotients-homomorphisms",
+      "title": "Quotients and finite fields",
+      "anchor": "finite",
+      "prereqs": [
+        "cayley-tables"
+      ],
+      "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+    }
+  ]
+}

@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -159,7 +162,7 @@ function matMul(A,B){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#intro">1&nbsp;Shapes&nbsp;to&nbsp;invariants</a>
   <a href="#pi1">2&nbsp;Fundamental&nbsp;group</a>
-  <a href="#cover">3&nbsp;Covering&nbsp;spaces</a>
+  <a href="#covers">3&nbsp;Covering&nbsp;spaces</a>
   <a href="#homology">4&nbsp;Homology</a>
   <a href="#mv">5&nbsp;Mayer–Vietoris</a>
   <a href="#chi">6&nbsp;Euler&nbsp;&amp;&nbsp;cohomology</a>
@@ -180,8 +183,12 @@ function matMul(A,B){
 <h3 id="paths">Paths and homotopy</h3>
 <p>A path in $X$ is a continuous map $\gamma:[0,1]\to X$, and a homotopy between paths is a continuous deformation through paths. Passing to homotopy classes turns geometric motion into algebraic data, first for loops (yielding $\pi_1$), then for chains (yielding $H_n$).</p>
 
+<div class="quiz" data-concept="paths"></div>
+
 <h3 id="simply-connected">Simply connected spaces</h3>
 <p>A space is simply connected if it is path-connected and every loop contracts to a point, equivalently $\pi_1(X)=0$. This hypothesis appears repeatedly in analysis and geometry (for example, contour integration on simply connected domains).</p>
+
+<div class="quiz" data-concept="simply-connected"></div>
 
 <p>Why would you want to do this? Because continuous problems become combinatorial the moment you apply a functor. Three classic examples:</p>
 
@@ -398,6 +405,8 @@ function matMul(A,B){
 })();
 </script>
 
+<div class="quiz" data-concept="fundamental-group"></div>
+
 <section id="covers">
 <h2>3. Covering spaces</h2>
 <p>A <strong>covering map</strong> $p\colon \tilde X\to X$ is a continuous surjection such that every $x\in X$ has a neighborhood $U$ whose preimage $p^{-1}(U)$ is a disjoint union of copies of $U$, each mapped homeomorphically by $p$. The fibers $p^{-1}(x)$ are all homeomorphic to a discrete set $F$ — the "sheets" of the cover. Paths lift uniquely (given a starting lift), and homotopies lift too.</p>
@@ -584,6 +593,8 @@ function matMul(A,B){
   draw();
 })();
 </script>
+
+<div class="quiz" data-concept="covering-spaces"></div>
 
 <section id="homology">
 <h2>4. Simplicial and singular homology</h2>
@@ -871,6 +882,8 @@ function matMul(A,B){
   loadPreset('triangle-boundary');
 })();
 </script>
+
+<div class="quiz" data-concept="singular-homology"></div>
 
 <section id="mv">
 <h2>5. Mayer–Vietoris</h2>
@@ -1256,6 +1269,14 @@ The left side is a local analytic invariant (curvature integrated); the right si
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('algebraic-topology'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
 
 <script>
 /* sidebar TOC builder + active-section highlighting */

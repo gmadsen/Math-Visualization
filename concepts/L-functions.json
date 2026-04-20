@@ -4,35 +4,32 @@
   "page": "L-functions.html",
   "concepts": [
     {
-      "id": "L-function-elliptic",
-      "title": "Elliptic-curve L-series",
-      "anchor": "elliptic",
+      "id": "lfunction-prototype",
+      "title": "Prototype L-functions",
+      "anchor": "unified",
       "prereqs": [
-        "euler-product",
-        "rational-points"
+        "dirichlet-characters-lseries"
       ],
-      "blurb": "For an elliptic curve, local point counts produce coefficients $a_p$ and an Euler product defining $L(E,s)$. This packages Frobenius trace data into one analytic object."
+      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
     },
     {
-      "id": "modular-form-lfunction",
-      "title": "Modular-form L-series",
-      "anchor": "modular",
-      "prereqs": [
-        "modular-form-definition",
-        "hecke-operator-tp",
-        "euler-product"
-      ],
-      "blurb": "A normalized Hecke eigenform $f$ has coefficients with multiplicative relations, giving $L(f,s)=\\sum a_n n^{-s}=\\prod_p(1-a_pp^{-s}+\\cdots)^{-1}$."
-    },
-    {
-      "id": "completed-L-functional-equation",
-      "title": "Completed L-function and symmetry",
+      "id": "functional-equation-completion",
+      "title": "Completion and functional equations",
       "anchor": "completed",
       "prereqs": [
-        "L-function-elliptic",
-        "modular-form-lfunction"
+        "lfunction-prototype"
       ],
-      "blurb": "Adding Gamma-factors and conductor yields a completed function $\\Lambda(s)$ with functional equation $\\Lambda(s)=w\\Lambda(1-s)$, exposing central-point symmetry and arithmetic parity effects."
+      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations."
+    },
+    {
+      "id": "arithmetic-data-lfunctions",
+      "title": "Arithmetic data and modularity links",
+      "anchor": "modularity",
+      "prereqs": [
+        "functional-equation-completion",
+        "eigenforms-and-euler-factors"
+      ],
+      "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
     }
   ]
 }

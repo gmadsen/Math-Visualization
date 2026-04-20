@@ -1,0 +1,37 @@
+{
+  "topic": "galois-representations",
+  "title": "Galois representations",
+  "page": "galois-representations.html",
+  "concepts": [
+    {
+      "id": "galois-rep-definition",
+      "title": "Galois representations and examples",
+      "anchor": "rep",
+      "prereqs": [
+        "field-extensions-galois",
+        "group-representations"
+      ],
+      "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
+    },
+    {
+      "id": "frobenius-traces-grep",
+      "title": "Frobenius traces and compatibility",
+      "anchor": "frob",
+      "prereqs": [
+        "galois-rep-definition",
+        "frobenius-element"
+      ],
+      "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data."
+    },
+    {
+      "id": "modularity-and-deformations",
+      "title": "Residual reps, deformations, modularity",
+      "anchor": "mod",
+      "prereqs": [
+        "frobenius-traces-grep",
+        "modularity-theorem"
+      ],
+      "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds."
+    }
+  ]
+}

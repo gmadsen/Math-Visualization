@@ -4,31 +4,32 @@
   "page": "dirichlet-series-euler-products.html",
   "concepts": [
     {
-      "id": "dirichlet-series-convergence",
-      "title": "Abscissa of convergence",
+      "id": "dirichlet-series-basics",
+      "title": "Dirichlet series basics",
       "anchor": "series",
       "prereqs": [
-        "analytic-continuation"
+        "riemann-integral"
       ],
-      "blurb": "A Dirichlet series $\\sum a_n n^{-s}$ converges in a right half-plane $\\Re(s)>\\sigma_a$. The boundary $\\sigma_a$ captures growth of partial sums and controls where Euler-product manipulations are justified."
+      "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions."
     },
     {
-      "id": "euler-product",
-      "title": "Euler product factorization",
+      "id": "euler-product-structure",
+      "title": "Euler products and multiplicativity",
       "anchor": "euler",
       "prereqs": [
-        "dirichlet-series-convergence"
+        "dirichlet-series-basics"
       ],
-      "blurb": "When coefficients are multiplicative, a Dirichlet series factors as an infinite product over primes. This analytic encoding of unique factorization is the bridge from arithmetic data to complex-analytic behavior."
+      "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence."
     },
     {
-      "id": "dirichlet-theorem-ap",
-      "title": "Primes in arithmetic progressions",
+      "id": "dirichlet-characters-lseries",
+      "title": "Dirichlet characters and L-series",
       "anchor": "dir",
       "prereqs": [
-        "euler-product"
+        "euler-product-structure",
+        "legendre-symbol"
       ],
-      "blurb": "Dirichlet characters split residue classes, and nonvanishing of $L(1,\\chi)$ for nontrivial $\\chi$ forces infinitely many primes in each reduced class $a \\bmod q$."
+      "blurb": "Characters twist Euler products and prove arithmetic distribution results."
     }
   ]
 }

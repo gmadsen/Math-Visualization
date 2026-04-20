@@ -5,7 +5,7 @@ window.MVQuizBank = {
   "L-functions": {
     "topic": "L-functions",
     "quizzes": {
-      "L-function-elliptic": {
+      "lfunction-prototype": {
         "title": "Elliptic $L(E,s)$",
         "questions": [
           {
@@ -39,7 +39,7 @@ window.MVQuizBank = {
           }
         ]
       },
-      "modular-form-lfunction": {
+      "functional-equation-completion": {
         "title": "Modular-form $L(f,s)$",
         "questions": [
           {
@@ -73,7 +73,7 @@ window.MVQuizBank = {
           }
         ]
       },
-      "completed-L-functional-equation": {
+      "arithmetic-data-lfunctions": {
         "title": "Completed $L$-function",
         "questions": [
           {
@@ -104,6 +104,181 @@ window.MVQuizBank = {
             "answer": 0.5,
             "tol": 1e-9,
             "explain": "$s=1/2$ is fixed by the involution $s\\mapsto1-s$."
+          }
+        ]
+      }
+    }
+  },
+  "algebraic-topology": {
+    "topic": "algebraic-topology",
+    "quizzes": {
+      "paths": {
+        "title": "Paths and homotopy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two paths $\\gamma_0,\\gamma_1:[0,1]\\to X$ with the same endpoints are homotopic rel endpoints if:",
+            "choices": [
+              "they have the same length",
+              "there exists a continuous $H:[0,1]^2\\to X$ fixing endpoints with $H(t,0)=\\gamma_0(t),\\ H(t,1)=\\gamma_1(t)$",
+              "they are both piecewise linear",
+              "they have equal winding number in every space"
+            ],
+            "answer": 1,
+            "explain": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times."
+          },
+          {
+            "type": "numeric",
+            "q": "How many boundary points does the interval $[0,1]$ have?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points."
+          },
+          {
+            "type": "complex",
+            "q": "On the loop $\\gamma(t)=e^{2\\pi i t}$, compute $\\gamma(1/4)$ as $a+bi$.",
+            "answer": [
+              0,
+              1
+            ],
+            "tol": 0.000001,
+            "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
+          }
+        ]
+      },
+      "simply-connected": {
+        "title": "Simply connected domains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which space is simply connected?",
+            "choices": [
+              "$S^1$",
+              "$\\mathbb{R}^2\\setminus\\{0\\}$",
+              "$\\mathbb{R}^2$",
+              "the torus $T^2$"
+            ],
+            "answer": 2,
+            "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the rank of $\\pi_1(\\mathbb{R}^2)$ as an abelian group?",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $e^{2\\pi i}$.",
+            "answer": [
+              1,
+              0
+            ],
+            "tol": 0.000001,
+            "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
+          }
+        ]
+      },
+      "fundamental-group": {
+        "title": "Fundamental group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which is true about $\\pi_1(S^1)$?",
+            "choices": [
+              "$\\pi_1(S^1)=0$",
+              "$\\pi_1(S^1)\\cong \\mathbb{Z}$",
+              "$\\pi_1(S^1)\\cong \\mathbb{Z}/2\\mathbb{Z}$",
+              "$\\pi_1(S^1)$ is not a group"
+            ],
+            "answer": 1,
+            "explain": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$."
+          },
+          {
+            "type": "numeric",
+            "q": "If a loop winds $-3$ times around $S^1$, what integer does it represent in $\\pi_1(S^1)\\cong\\mathbb{Z}$?",
+            "answer": -3,
+            "tol": 0.000001,
+            "explain": "The winding number itself is the class in $\\mathbb{Z}$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $(e^{i\\pi/3})^3$ as $a+bi$.",
+            "answer": [
+              -1,
+              0
+            ],
+            "tol": 0.000001,
+            "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
+          }
+        ]
+      },
+      "covering-spaces": {
+        "title": "Covering spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the covering map $p:\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, the fiber over $1\\in S^1$ is:",
+            "choices": [
+              "$\\{0\\}$",
+              "$\\mathbb{Z}$",
+              "$\\mathbb{R}$",
+              "empty"
+            ],
+            "answer": 1,
+            "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $p_n:S^1\\to S^1$, $p_n(z)=z^n$, how many points lie over a generic point of the target circle when $n=5$?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points."
+          },
+          {
+            "type": "complex",
+            "q": "Under $p_2(z)=z^2$, one preimage of $-1$ is $i$. Give the other preimage as $a+bi$.",
+            "answer": [
+              0,
+              -1
+            ],
+            "tol": 0.000001,
+            "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
+          }
+        ]
+      },
+      "singular-homology": {
+        "title": "Singular homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which equality encodes the chain-complex condition?",
+            "choices": [
+              "$\\partial_n\\partial_n=0$",
+              "$\\partial_{n-1}\\circ\\partial_n=0$",
+              "$\\partial_n=\\mathrm{id}$",
+              "$\\partial_n$ is invertible"
+            ],
+            "answer": 1,
+            "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using reduced homology ranks for a torus $T^2$ ($\\beta_0,\\beta_1,\\beta_2)=(1,2,1)$, compute $\\chi(T^2)=\\beta_0-\\beta_1+\\beta_2$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\chi(T^2)=1-2+1=0$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $\\dfrac{1+i}{1-i}$ as $a+bi$.",
+            "answer": [
+              0,
+              1
+            ],
+            "tol": 0.000001,
+            "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
           }
         ]
       }
@@ -397,7 +572,7 @@ window.MVQuizBank = {
   "dirichlet-series-euler-products": {
     "topic": "dirichlet-series-euler-products",
     "quizzes": {
-      "dirichlet-series-convergence": {
+      "dirichlet-series-basics": {
         "title": "Abscissa of convergence",
         "questions": [
           {
@@ -431,7 +606,7 @@ window.MVQuizBank = {
           }
         ]
       },
-      "euler-product": {
+      "euler-product-structure": {
         "title": "Euler products",
         "questions": [
           {
@@ -465,7 +640,7 @@ window.MVQuizBank = {
           }
         ]
       },
-      "dirichlet-theorem-ap": {
+      "dirichlet-characters-lseries": {
         "title": "Dirichlet theorem",
         "questions": [
           {
@@ -504,7 +679,7 @@ window.MVQuizBank = {
   "elliptic-curves": {
     "topic": "elliptic-curves",
     "quizzes": {
-      "elliptic-curve-nonsingular": {
+      "elliptic-curve-definition": {
         "title": "Nonsingularity",
         "questions": [
           {
@@ -538,7 +713,7 @@ window.MVQuizBank = {
           }
         ]
       },
-      "rational-points": {
+      "elliptic-group-law": {
         "title": "Group law",
         "questions": [
           {
@@ -855,6 +1030,212 @@ window.MVQuizBank = {
             "answer": -6,
             "tol": 0.001,
             "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+          }
+        ]
+      }
+    }
+  },
+  "measure-theory": {
+    "topic": "measure-theory",
+    "quizzes": {
+      "sigma-algebras": {
+        "title": "σ-algebras and measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which collection on a set $X$ is always a $\\sigma$-algebra?",
+            "choices": [
+              "All open subsets of $X$",
+              "$\\{\\varnothing, X\\}$",
+              "All finite subsets of an infinite $X$",
+              "All intervals in $\\mathbb{R}$"
+            ],
+            "answer": 1,
+            "explain": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions. Open sets and intervals are not closed under complements, and finite subsets are not closed under countable unions in an infinite set."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
+          },
+          {
+            "type": "complex",
+            "q": "Write $e^{i\\pi}$ as $a+bi$.",
+            "answer": [
+              -1,
+              0
+            ],
+            "tol": 0.000001,
+            "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
+          }
+        ]
+      },
+      "lebesgue-measure": {
+        "title": "Lebesgue measure",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the Lebesgue measure of a singleton $\\{x\\}\\subset\\mathbb{R}$?",
+            "choices": [
+              "$1$",
+              "$\\infty$",
+              "$0$",
+              "depends on $x$"
+            ],
+            "answer": 2,
+            "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $(1+i)^2$.",
+            "answer": [
+              0,
+              2
+            ],
+            "tol": 0.000001,
+            "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
+          }
+        ]
+      },
+      "measurable-functions": {
+        "title": "Measurable functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function $f\\colon(X,\\mathcal A)\\to(\\mathbb R,\\mathcal B)$ is measurable iff for every Borel set $B\\subset\\mathbb R$ we have:",
+            "choices": [
+              "$f(B)\\in\\mathcal A$",
+              "$f^{-1}(B)\\in\\mathcal A$",
+              "$f(B)$ is open",
+              "$f^{-1}(B)$ is finite"
+            ],
+            "answer": 1,
+            "explain": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $\\overline{(3-4i)}$.",
+            "answer": [
+              3,
+              4
+            ],
+            "tol": 0.000001,
+            "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
+          }
+        ]
+      },
+      "lebesgue-integral": {
+        "title": "Lebesgue integral",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For nonnegative measurable $f$, the Lebesgue integral is defined as:",
+            "choices": [
+              "an infimum over upper Riemann sums",
+              "a supremum of integrals of simple functions $s\\le f$",
+              "the derivative of an antiderivative",
+              "the limit of midpoint sums only"
+            ],
+            "answer": 1,
+            "explain": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $\\int_0^{2\\pi} e^{ix}\\,dx$ and report as $a+bi$.",
+            "answer": [
+              0,
+              0
+            ],
+            "tol": 0.000001,
+            "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
+          }
+        ]
+      },
+      "convergence-theorems": {
+        "title": "Monotone and dominated convergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
+            "choices": [
+              "Fatou lemma",
+              "Monotone convergence theorem",
+              "Fubini theorem",
+              "Jensen inequality"
+            ],
+            "answer": 1,
+            "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
+            "answer": 0.1,
+            "tol": 0.000001,
+            "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $i^5$ as $a+bi$.",
+            "answer": [
+              0,
+              1
+            ],
+            "tol": 0.000001,
+            "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
+          }
+        ]
+      },
+      "lp-spaces": {
+        "title": "$L^p$ spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which statement is true on a finite-measure space?",
+            "choices": [
+              "$L^2\\subset L^1$ always fails",
+              "$L^2\\subset L^1$ and $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$",
+              "$L^1=L^\\infty$",
+              "$L^p$ is never complete"
+            ],
+            "answer": 1,
+            "explain": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
+            "answer": 0.5773502692,
+            "tol": 0.001,
+            "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
+          },
+          {
+            "type": "complex",
+            "q": "Compute $\\left|\\,1-i\\,\\right|$.",
+            "answer": 1.414213562,
+            "tol": 0.001,
+            "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
           }
         ]
       }

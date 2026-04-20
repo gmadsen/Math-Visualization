@@ -1,0 +1,34 @@
+{
+  "topic": "representation-theory",
+  "title": "Representation theory",
+  "page": "representation-theory.html",
+  "concepts": [
+    {
+      "id": "group-representations",
+      "title": "Group representations",
+      "anchor": "def",
+      "prereqs": [
+        "cayley-tables"
+      ],
+      "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
+    },
+    {
+      "id": "characters-orthogonality",
+      "title": "Characters and orthogonality",
+      "anchor": "characters",
+      "prereqs": [
+        "group-representations"
+      ],
+      "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
+    },
+    {
+      "id": "induction-and-young",
+      "title": "Induction and symmetric-group combinatorics",
+      "anchor": "young",
+      "prereqs": [
+        "characters-orthogonality"
+      ],
+      "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+    }
+  ]
+}

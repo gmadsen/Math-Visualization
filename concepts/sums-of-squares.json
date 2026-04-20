@@ -1,0 +1,34 @@
+{
+  "topic": "sums-of-squares",
+  "title": "Sums of squares",
+  "page": "sums-of-squares.html",
+  "concepts": [
+    {
+      "id": "two-squares-theorem",
+      "title": "Sum of two squares",
+      "anchor": "twosq",
+      "prereqs": [
+        "quadratic-reciprocity-law"
+      ],
+      "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
+    },
+    {
+      "id": "three-squares-theorem",
+      "title": "Legendre three-square theorem",
+      "anchor": "three",
+      "prereqs": [
+        "two-squares-theorem"
+      ],
+      "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
+    },
+    {
+      "id": "four-squares-and-waring",
+      "title": "Four squares and Waring perspective",
+      "anchor": "four",
+      "prereqs": [
+        "three-squares-theorem"
+      ],
+      "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+    }
+  ]
+}

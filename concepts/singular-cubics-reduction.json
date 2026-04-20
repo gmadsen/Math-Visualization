@@ -1,0 +1,34 @@
+{
+  "topic": "singular-cubics-reduction",
+  "title": "Singular cubics and reduction",
+  "page": "singular-cubics-reduction.html",
+  "concepts": [
+    {
+      "id": "singular-cubic-types",
+      "title": "Singular cubic types",
+      "anchor": "sing",
+      "prereqs": [
+        "elliptic-curve-definition"
+      ],
+      "blurb": "Nodal and cuspidal degenerations control failures of smooth group laws."
+    },
+    {
+      "id": "reduction-mod-p",
+      "title": "Reduction modulo p",
+      "anchor": "reduction",
+      "prereqs": [
+        "elliptic-group-law"
+      ],
+      "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
+    },
+    {
+      "id": "kodaira-néron-preview",
+      "title": "Bad reduction taxonomy",
+      "anchor": "badtypes",
+      "prereqs": [
+        "reduction-mod-p"
+      ],
+      "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity."
+    }
+  ]
+}

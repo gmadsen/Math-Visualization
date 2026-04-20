@@ -1,0 +1,35 @@
+{
+  "topic": "functor-of-points",
+  "title": "Functor of points",
+  "page": "functor-of-points.html",
+  "concepts": [
+    {
+      "id": "yoneda-functor-points",
+      "title": "Functor-of-points viewpoint",
+      "anchor": "reframe",
+      "prereqs": [
+        "yoneda-limits-adjunctions",
+        "scheme-morphisms"
+      ],
+      "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem."
+    },
+    {
+      "id": "representability-criteria",
+      "title": "Representability and moduli functors",
+      "anchor": "repr",
+      "prereqs": [
+        "yoneda-functor-points"
+      ],
+      "blurb": "Representable functors correspond to genuine geometric objects."
+    },
+    {
+      "id": "stacky-obstructions",
+      "title": "When functors require stacks",
+      "anchor": "stacks",
+      "prereqs": [
+        "representability-criteria"
+      ],
+      "blurb": "Automorphisms obstruct representability by schemes and motivate stack language."
+    }
+  ]
+}

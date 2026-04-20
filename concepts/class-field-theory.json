@@ -1,0 +1,34 @@
+{
+  "topic": "class-field-theory",
+  "title": "Class field theory",
+  "page": "class-field-theory.html",
+  "concepts": [
+    {
+      "id": "idele-class-groups",
+      "title": "Idèles and class formations",
+      "anchor": "cls",
+      "prereqs": [
+        "artin-reciprocity-preview"
+      ],
+      "blurb": "Idèle class groups package global and local arithmetic data in one object."
+    },
+    {
+      "id": "artin-map-cft",
+      "title": "Artin reciprocity map",
+      "anchor": "artin",
+      "prereqs": [
+        "idele-class-groups"
+      ],
+      "blurb": "The Artin map identifies abelianized Galois groups with arithmetic quotient groups."
+    },
+    {
+      "id": "local-global-cft",
+      "title": "Local and global class field theory",
+      "anchor": "ray",
+      "prereqs": [
+        "artin-map-cft"
+      ],
+      "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
+    }
+  ]
+}

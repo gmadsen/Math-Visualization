@@ -1,7 +1,7 @@
 {
   "topic": "L-functions",
   "quizzes": {
-    "L-function-elliptic": {
+    "lfunction-prototype": {
       "title": "Elliptic $L(E,s)$",
       "questions": [
         {
@@ -35,7 +35,7 @@
         }
       ]
     },
-    "modular-form-lfunction": {
+    "functional-equation-completion": {
       "title": "Modular-form $L(f,s)$",
       "questions": [
         {
@@ -69,7 +69,7 @@
         }
       ]
     },
-    "completed-L-functional-equation": {
+    "arithmetic-data-lfunctions": {
       "title": "Completed $L$-function",
       "questions": [
         {

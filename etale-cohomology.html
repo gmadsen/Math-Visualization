@@ -202,6 +202,33 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Étale site.</strong> Étale morphisms $U\to X$ with jointly-surjective families as covers form a Grothendieck <em>site</em>; sheaves on it are the primary objects. The <strong>étale fundamental group</strong> $\pi_1^{\text{ét}}(X,\bar x)$ classifies finite étale covers and unifies $\operatorname{Gal}(\bar k/k) = \pi_1^{\text{ét}}(\operatorname{Spec} k)$ with the profinite completion of the topological $\pi_1$ of $X(\mathbb{C})$.</div>
 
+
+<p class="small">A quick local test is Jacobian invertibility. For $f(t)=t^n-u$, étale over a point means $f'(t)=nt^{n-1}$ stays invertible on the fiber — exactly where inseparability disappears.</p>
+
+<div class="widget" id="w-jac">
+  <div class="hd"><div class="ttl">Jacobian unit test</div><div class="hint">toggle characteristic and exponent; inspect derivative on roots</div></div>
+  <div class="row">
+    <label>char p <select id="jc-p"><option>0</option><option>2</option><option>3</option><option>5</option></select></label>
+    <label>n <input id="jc-n" type="range" min="1" max="10" step="1" value="4"></label>
+    <span id="jc-nv" class="small">n = 4</span>
+  </div>
+  <div class="readout" id="jc-out"></div>
+</div>
+
+<script>
+(function(){
+  const pSel=$('#jc-p'), nSl=$('#jc-n'), nv=$('#jc-nv'), out=$('#jc-out');
+  function render(){
+    const p=+pSel.value,n=+nSl.value; nv.textContent='n = '+n;
+    const sep = (p===0) || (n%p!==0);
+    out.textContent = sep
+      ? 'f(t)=t^n-u has derivative n t^{n-1} not identically zero in char '+(p||'0')+'. Fibers are separable, so finite map is étale away from t=0 singularities.'
+      : 'p divides n (p='+p+'). Then derivative n t^{n-1} ≡ 0, so every root is multiple: purely inseparable extension, not étale.';
+  }
+  pSel.addEventListener('change',render); nSl.addEventListener('input',render); render();
+})();
+</script>
+
 <div class="quiz" data-concept="etale-morphism"></div>
 </section>
 
@@ -278,6 +305,38 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
 </script>
 
 <p>Sanity check: a smooth cubic surface has $b_2 = 27-36+18-2 = 7$ and $\chi = 9$ — matching the classical Picard rank (27 lines, rank 7). $E\times E$ has Künneth Betti numbers $(1,4,6,4,1)$ and $\chi = 0$, as expected for an abelian surface.</p>
+
+
+<p class="small">Inverse limits can feel abstract. The next panel truncates at level $n$ and shows stabilization: once $n$ is large enough, low-precision information has essentially settled, and tensoring with $\mathbb{Q}_\ell$ removes torsion noise.</p>
+
+<div class="widget" id="w-tower">
+  <div class="hd"><div class="ttl">Inverse-limit tower sampler</div><div class="hint">increase truncation depth n</div></div>
+  <div class="row">
+    <label>$\ell$ <select id="tw-l"><option>2</option><option selected>3</option><option>5</option><option>7</option></select></label>
+    <label>depth n <input id="tw-n" type="range" min="1" max="8" step="1" value="4"></label>
+    <span id="tw-nv" class="small">n = 4</span>
+  </div>
+  <svg id="tw-svg" viewBox="0 0 560 180" width="560" height="180"></svg>
+  <div class="readout" id="tw-out"></div>
+</div>
+
+<script>
+(function(){
+  const lSel=$('#tw-l'), nSl=$('#tw-n'), nv=$('#tw-nv'), svg=$('#tw-svg'), out=$('#tw-out');
+  function render(){
+    const l=+lSel.value,n=+nSl.value; nv.textContent='n = '+n; svg.innerHTML='';
+    for(let k=1;k<=n;k++){
+      const x=40+(k-1)*62, y=70;
+      svg.appendChild(SVG('rect',{x,y,width:50,height:42,rx:6,fill:'var(--panel2)',stroke:'var(--line)'}));
+      const t=SVG('text',{x:x+25,y:y+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent='ℤ/'+(l**k)+'ℤ'; svg.appendChild(t);
+      const h=SVG('text',{x:x+25,y:y+34,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); h.textContent='H^i'; svg.appendChild(h);
+      if(k<n) drawArrow(svg,[x+52,y+21],[x+60,y+21],{color:'var(--violet)',pad1:0,pad2:0,markerId:'tw-arr'});
+    }
+    out.textContent='Tower: H^i(X,ℤ/'+l+'^n) with transition maps mod ℓ^k. Increasing n refines congruence data; lim← gives a ℤ_'+l+'-module, then ⊗ℚ_'+l+' yields H^i(X,ℚ_'+l+').';
+  }
+  lSel.addEventListener('change',render); nSl.addEventListener('input',render); render();
+})();
+</script>
 
 <div class="quiz" data-concept="l-adic-cohomology"></div>
 </section>

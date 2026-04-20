@@ -1,0 +1,35 @@
+{
+  "topic": "lie-groups",
+  "title": "Lie groups",
+  "page": "lie-groups.html",
+  "concepts": [
+    {
+      "id": "lie-group-definition",
+      "title": "Lie groups and matrix examples",
+      "anchor": "intro",
+      "prereqs": [
+        "smooth-manifold-definition",
+        "algebraic-structures"
+      ],
+      "blurb": "Lie groups combine smooth manifolds with group multiplication."
+    },
+    {
+      "id": "lie-algebra-and-exp",
+      "title": "Lie algebra and exponential map",
+      "anchor": "exp",
+      "prereqs": [
+        "lie-group-definition"
+      ],
+      "blurb": "The tangent space at identity with bracket linearizes local group structure."
+    },
+    {
+      "id": "adjoint-roots",
+      "title": "Adjoint action and root data",
+      "anchor": "roots",
+      "prereqs": [
+        "lie-algebra-and-exp"
+      ],
+      "blurb": "Adjoint representations and root systems classify semisimple behavior."
+    }
+  ]
+}

@@ -374,6 +374,45 @@ whose $q$-expansion we can match term-by-term with Frobenius traces computed by 
 })();
 </script>
 
+
+<p class="small">Coefficient matching is local in $p$, but it also encodes an Euler product identity globally. The residual mismatch chart below emphasizes where any failure would first appear.</p>
+
+<div class="widget" id="w-resid">
+  <div class="hd"><div class="ttl">Trace mismatch meter</div><div class="hint">select displayed prime range</div></div>
+  <div class="row">
+    <label>up to prime <input id="rs-max" type="range" min="7" max="19" step="2" value="19"></label>
+    <span id="rs-v" class="small">p ≤ 19</span>
+  </div>
+  <svg id="rs-svg" viewBox="0 0 640 180" width="640" height="180"></svg>
+  <div class="readout" id="rs-out"></div>
+</div>
+
+<script>
+(function(){
+  const maxSl=$('#rs-max'), vv=$('#rs-v'), svg=$('#rs-svg'), out=$('#rs-out'), pick=$('#md-pick');
+  const data={
+    '11a':{p:[2,3,5,7,11,13,17,19], ap:[-2,-1,1,-2,1,4,-2,0], af:[-2,-1,1,-2,1,4,-2,0]},
+    '32a':{p:[2,3,5,7,11,13,17,19], ap:[0,0,-2,0,0,-6,2,0], af:[0,0,0,0,0,-6,2,0]}
+  };
+  function draw(){
+    const k=pick.value, lim=+maxSl.value; vv.textContent='p ≤ '+lim;
+    const P=[],D=[]; data[k].p.forEach((p,i)=>{ if(p<=lim){ P.push(p); D.push(data[k].ap[i]-data[k].af[i]); }});
+    svg.innerHTML=''; const W=640,H=180,pad=30,pw=W-2*pad; const X=i=>pad+pw*(i+0.5)/Math.max(P.length,1), Y=v=>H/2-30*v;
+    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));
+    for(let i=0;i<P.length;i++){
+      const x=X(i),d=D[i];
+      svg.appendChild(SVG('rect',{x:x-14,y:Math.min(Y(0),Y(d)),width:28,height:Math.abs(Y(d)-Y(0)),fill:d===0?'var(--green)':'var(--pink)',opacity:0.75}));
+      const t=SVG('text',{x,y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(P[i]); svg.appendChild(t);
+    }
+    const mism=D.filter(x=>x!==0).length;
+    out.textContent='Displayed primes: '+P.join(', ')+'
+Residuals a_p(E)-a_p(f): ['+D.join(', ')+']
+Mismatches: '+mism+' (should be 0 at good primes for the matched modular pair).';
+  }
+  maxSl.addEventListener('input',draw); pick.addEventListener('change',draw); draw();
+})();
+</script>
+
 <div class="quiz" data-concept="modularity-theorem"></div>
 </section>
 
@@ -452,6 +491,38 @@ There is no weight-2 newform of level 2 for $\overline\rho$ to come from. The ch
     out.textContent = `[${n.label}] ${n.text}`;
     draw();
   });
+  draw();
+})();
+</script>
+
+
+<p class="small">Ribet's theorem is iterative. This final control lets you stage the level-lowering process prime-by-prime and see exactly when the target level 2 is reached.</p>
+
+<div class="widget" id="w-level">
+  <div class="hd"><div class="ttl">Level-lowering simulator</div><div class="hint">add odd bad primes, then peel them off mod p</div></div>
+  <div class="row">
+    <label>odd bad primes dividing abc</label>
+    <button class="lv-add" data-q="3">+3</button>
+    <button class="lv-add" data-q="5">+5</button>
+    <button class="lv-add" data-q="7">+7</button>
+    <button class="lv-add" data-q="11">+11</button>
+    <button id="lv-step">lower one prime</button>
+    <button id="lv-reset">reset</button>
+  </div>
+  <div class="readout" id="lv-out"></div>
+</div>
+
+<script>
+(function(){
+  const adds=$$('.lv-add'), step=$('#lv-step'), reset=$('#lv-reset'), out=$('#lv-out');
+  let S=[];
+  function level(){ return 2*S.reduce((a,v)=>a*v,1); }
+  function draw(){ out.textContent='Current odd support: '+(S.length?S.join('·'):'(none)')+'
+Conductor model N_E = 2·∏ℓ = '+level()+'
+Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.'; }
+  adds.forEach(b=>b.addEventListener('click',()=>{ const q=+b.dataset.q; if(!S.includes(q)) S.push(q); S.sort((a,b)=>a-b); draw(); }));
+  step.addEventListener('click',()=>{ if(S.length) S.pop(); draw(); });
+  reset.addEventListener('click',()=>{ S=[]; draw(); });
   draw();
 })();
 </script>

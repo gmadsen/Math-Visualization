@@ -4,30 +4,31 @@
   "page": "elliptic-curves.html",
   "concepts": [
     {
-      "id": "elliptic-curve-nonsingular",
-      "title": "Nonsingular cubic models",
+      "id": "elliptic-curve-definition",
+      "title": "Elliptic curves and Weierstrass models",
       "anchor": "intro",
-      "prereqs": [],
-      "blurb": "A Weierstrass equation $y^2=x^3+ax+b$ defines an elliptic curve when $\\Delta=-16(4a^3+27b^2)\\neq0$. Nonsingularity is exactly what lets geometry and arithmetic interact cleanly."
+      "prereqs": [
+        "projective-points-lines"
+      ],
+      "blurb": "A smooth genus-1 curve with basepoint admits Weierstrass equations and rich arithmetic."
     },
     {
-      "id": "rational-points",
-      "title": "Rational points and the group law",
+      "id": "elliptic-group-law",
+      "title": "Group law on cubic curves",
       "anchor": "group",
       "prereqs": [
-        "elliptic-curve-nonsingular"
+        "elliptic-curve-definition"
       ],
-      "blurb": "Secant–tangent addition makes $E(\\mathbb{Q})$ an abelian group with identity at infinity. Arithmetic questions become structural questions about this group of rational points."
+      "blurb": "Chord-tangent constructions define an abelian group on rational points."
     },
     {
       "id": "mordell-weil-ec",
-      "title": "Mordell–Weil finiteness",
+      "title": "Mordell–Weil and invariants",
       "anchor": "mordell",
       "prereqs": [
-        "rational-points",
-        "mordell-weil"
+        "elliptic-group-law"
       ],
-      "blurb": "Mordell–Weil says $E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\mathrm{tors}}\\oplus\\mathbb{Z}^r$. The finite rank $r$ is the key invariant linked conjecturally to $L(E,s)$ at $s=1$."
+      "blurb": "Rational points form a finitely generated group with rank and torsion invariants."
     }
   ]
 }

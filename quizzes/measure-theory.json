@@ -1,0 +1,181 @@
+{
+  "topic": "measure-theory",
+  "quizzes": {
+    "sigma-algebras": {
+      "title": "σ-algebras and measures",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which collection on a set $X$ is always a $\\sigma$-algebra?",
+          "choices": [
+            "All open subsets of $X$",
+            "$\\{\\varnothing, X\\}$",
+            "All finite subsets of an infinite $X$",
+            "All intervals in $\\mathbb{R}$"
+          ],
+          "answer": 1,
+          "explain": "$\\{\\varnothing, X\\}$ is closed under complements and countable unions. Open sets and intervals are not closed under complements, and finite subsets are not closed under countable unions in an infinite set."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
+        },
+        {
+          "type": "complex",
+          "q": "Write $e^{i\\pi}$ as $a+bi$.",
+          "answer": [-1, 0],
+          "tol": 1e-6,
+          "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
+        }
+      ]
+    },
+    "lebesgue-measure": {
+      "title": "Lebesgue measure",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the Lebesgue measure of a singleton $\\{x\\}\\subset\\mathbb{R}$?",
+          "choices": ["$1$", "$\\infty$", "$0$", "depends on $x$"],
+          "answer": 2,
+          "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $(1+i)^2$.",
+          "answer": [0, 2],
+          "tol": 1e-6,
+          "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
+        }
+      ]
+    },
+    "measurable-functions": {
+      "title": "Measurable functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A function $f\\colon(X,\\mathcal A)\\to(\\mathbb R,\\mathcal B)$ is measurable iff for every Borel set $B\\subset\\mathbb R$ we have:",
+          "choices": [
+            "$f(B)\\in\\mathcal A$",
+            "$f^{-1}(B)\\in\\mathcal A$",
+            "$f(B)$ is open",
+            "$f^{-1}(B)$ is finite"
+          ],
+          "answer": 1,
+          "explain": "Measurability is defined by preimages: all Borel sets pull back to measurable sets in $\\mathcal A$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $\\overline{(3-4i)}$.",
+          "answer": [3, 4],
+          "tol": 1e-6,
+          "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
+        }
+      ]
+    },
+    "lebesgue-integral": {
+      "title": "Lebesgue integral",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For nonnegative measurable $f$, the Lebesgue integral is defined as:",
+          "choices": [
+            "an infimum over upper Riemann sums",
+            "a supremum of integrals of simple functions $s\\le f$",
+            "the derivative of an antiderivative",
+            "the limit of midpoint sums only"
+          ],
+          "answer": 1,
+          "explain": "For $f\\ge 0$, $\\int f\\,d\\mu := \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s\\text{ simple}\\}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
+          "answer": 0.5,
+          "tol": 1e-6,
+          "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $\\int_0^{2\\pi} e^{ix}\\,dx$ and report as $a+bi$.",
+          "answer": [0, 0],
+          "tol": 1e-6,
+          "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
+        }
+      ]
+    },
+    "convergence-theorems": {
+      "title": "Monotone and dominated convergence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
+          "choices": ["Fatou lemma", "Monotone convergence theorem", "Fubini theorem", "Jensen inequality"],
+          "answer": 1,
+          "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
+          "answer": 0.1,
+          "tol": 1e-6,
+          "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $i^5$ as $a+bi$.",
+          "answer": [0, 1],
+          "tol": 1e-6,
+          "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
+        }
+      ]
+    },
+    "lp-spaces": {
+      "title": "$L^p$ spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which statement is true on a finite-measure space?",
+          "choices": [
+            "$L^2\\subset L^1$ always fails",
+            "$L^2\\subset L^1$ and $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$",
+            "$L^1=L^\\infty$",
+            "$L^p$ is never complete"
+          ],
+          "answer": 1,
+          "explain": "By Hölder, on finite measure spaces one has $\\|f\\|_1\\le \\mu(X)^{1/2}\\|f\\|_2$, so $L^2\\subset L^1$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
+          "answer": 0.5773502692,
+          "tol": 1e-3,
+          "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $\\left|\\,1-i\\,\\right|$.",
+          "answer": 1.414213562,
+          "tol": 1e-3,
+          "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
+        }
+      ]
+    }
+  }
+}
