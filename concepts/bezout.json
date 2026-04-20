@@ -1,0 +1,34 @@
+{
+  "topic": "bezout",
+  "title": "Bézout theorem",
+  "page": "bezout.html",
+  "concepts": [
+    {
+      "id": "intersection-multiplicity",
+      "title": "Intersection multiplicity",
+      "anchor": "mult",
+      "prereqs": [
+        "projective-points-lines"
+      ],
+      "blurb": "Counting intersections correctly requires multiplicity at each point."
+    },
+    {
+      "id": "resultants-elimination",
+      "title": "Resultants and elimination",
+      "anchor": "resultant",
+      "prereqs": [
+        "intersection-multiplicity"
+      ],
+      "blurb": "Resultants detect common roots and compute projected elimination conditions."
+    },
+    {
+      "id": "bezout-theorem-core",
+      "title": "Bézout theorem",
+      "anchor": "statement",
+      "prereqs": [
+        "resultants-elimination"
+      ],
+      "blurb": "Plane curves of degrees m,n meet in mn points counting multiplicity over algebraic closure."
+    }
+  ]
+}

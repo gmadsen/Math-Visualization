@@ -1,0 +1,34 @@
+{
+  "topic": "commutative-algebra",
+  "title": "Commutative algebra",
+  "page": "commutative-algebra.html",
+  "concepts": [
+    {
+      "id": "ideals-quotients-ca",
+      "title": "Ideals and quotient rings",
+      "anchor": "ideals",
+      "prereqs": [
+        "algebraic-structures"
+      ],
+      "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries."
+    },
+    {
+      "id": "localization-ca",
+      "title": "Localization and local algebra",
+      "anchor": "localize",
+      "prereqs": [
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Localization zooms to behavior near primes and isolates local properties."
+    },
+    {
+      "id": "krull-dimension-ca",
+      "title": "Krull dimension and depth heuristics",
+      "anchor": "dim",
+      "prereqs": [
+        "localization-ca"
+      ],
+      "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
+    }
+  ]
+}

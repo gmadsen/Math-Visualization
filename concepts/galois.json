@@ -1,0 +1,34 @@
+{
+  "topic": "galois",
+  "title": "Galois theory",
+  "page": "galois.html",
+  "concepts": [
+    {
+      "id": "field-extensions-galois",
+      "title": "Field extensions and automorphisms",
+      "anchor": "galois",
+      "prereqs": [
+        "algebraic-structures"
+      ],
+      "blurb": "Splitting fields and automorphism groups link polynomial equations to symmetry."
+    },
+    {
+      "id": "fundamental-theorem-galois",
+      "title": "Fundamental theorem of Galois theory",
+      "anchor": "solvable",
+      "prereqs": [
+        "field-extensions-galois"
+      ],
+      "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group."
+    },
+    {
+      "id": "solvability-by-radicals",
+      "title": "Solvability by radicals",
+      "anchor": "quintic",
+      "prereqs": [
+        "fundamental-theorem-galois"
+      ],
+      "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
+    }
+  ]
+}

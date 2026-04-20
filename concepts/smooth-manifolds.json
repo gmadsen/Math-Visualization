@@ -1,0 +1,34 @@
+{
+  "topic": "smooth-manifolds",
+  "title": "Smooth manifolds",
+  "page": "smooth-manifolds.html",
+  "concepts": [
+    {
+      "id": "smooth-manifold-definition",
+      "title": "Smooth manifolds and atlases",
+      "anchor": "intro",
+      "prereqs": [
+        "inverse-function-theorem"
+      ],
+      "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps."
+    },
+    {
+      "id": "tangent-space-manifolds",
+      "title": "Tangent spaces and bundles",
+      "anchor": "tangent",
+      "prereqs": [
+        "smooth-manifold-definition"
+      ],
+      "blurb": "Tangent vectors form bundles supporting differential equations and geometry."
+    },
+    {
+      "id": "submanifolds-immersions",
+      "title": "Immersions, submersions, and submanifolds",
+      "anchor": "sub",
+      "prereqs": [
+        "tangent-space-manifolds"
+      ],
+      "blurb": "Rank conditions control local models for embedded and immersed manifolds."
+    }
+  ]
+}

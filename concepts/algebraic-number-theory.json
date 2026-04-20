@@ -1,0 +1,34 @@
+{
+  "topic": "algebraic-number-theory",
+  "title": "Algebraic number theory",
+  "page": "algebraic-number-theory.html",
+  "concepts": [
+    {
+      "id": "number-fields-integers",
+      "title": "Number fields and rings of integers",
+      "anchor": "examples",
+      "prereqs": [
+        "field-extensions-galois"
+      ],
+      "blurb": "Finite extensions of Q carry arithmetic via algebraic integers."
+    },
+    {
+      "id": "prime-ideals-factorization-ant",
+      "title": "Ideal factorization and ramification",
+      "anchor": "ramification",
+      "prereqs": [
+        "number-fields-integers"
+      ],
+      "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification."
+    },
+    {
+      "id": "class-group-units-ant",
+      "title": "Class group and units",
+      "anchor": "units",
+      "prereqs": [
+        "prime-ideals-factorization-ant"
+      ],
+      "blurb": "Class group and unit rank measure arithmetic failure and structure."
+    }
+  ]
+}

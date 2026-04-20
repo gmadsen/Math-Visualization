@@ -1,0 +1,34 @@
+{
+  "topic": "category-theory",
+  "title": "Category theory",
+  "page": "category-theory.html",
+  "concepts": [
+    {
+      "id": "categories-morphisms",
+      "title": "Categories and morphisms",
+      "anchor": "cat",
+      "prereqs": [
+        "sets-functions"
+      ],
+      "blurb": "A category organizes objects and arrows with associative composition and identities."
+    },
+    {
+      "id": "functors-natural-transformations",
+      "title": "Functors and natural transformations",
+      "anchor": "nat",
+      "prereqs": [
+        "categories-morphisms"
+      ],
+      "blurb": "Functors map structure between categories, and natural transformations compare functors componentwise."
+    },
+    {
+      "id": "yoneda-limits-adjunctions",
+      "title": "Yoneda, limits, and adjunctions",
+      "anchor": "adj",
+      "prereqs": [
+        "functors-natural-transformations"
+      ],
+      "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
+    }
+  ]
+}

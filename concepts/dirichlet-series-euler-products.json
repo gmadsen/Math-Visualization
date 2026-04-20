@@ -1,0 +1,35 @@
+{
+  "topic": "dirichlet-series-euler-products",
+  "title": "Dirichlet series and Euler products",
+  "page": "dirichlet-series-euler-products.html",
+  "concepts": [
+    {
+      "id": "dirichlet-series-basics",
+      "title": "Dirichlet series basics",
+      "anchor": "series",
+      "prereqs": [
+        "riemann-integral"
+      ],
+      "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions."
+    },
+    {
+      "id": "euler-product-structure",
+      "title": "Euler products and multiplicativity",
+      "anchor": "euler",
+      "prereqs": [
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence."
+    },
+    {
+      "id": "dirichlet-characters-lseries",
+      "title": "Dirichlet characters and L-series",
+      "anchor": "dir",
+      "prereqs": [
+        "euler-product-structure",
+        "legendre-symbol"
+      ],
+      "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+    }
+  ]
+}

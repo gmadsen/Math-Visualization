@@ -1,0 +1,34 @@
+{
+  "topic": "riemannian-geometry",
+  "title": "Riemannian geometry",
+  "page": "riemannian-geometry.html",
+  "concepts": [
+    {
+      "id": "riemannian-metrics",
+      "title": "Riemannian metrics",
+      "anchor": "metric",
+      "prereqs": [
+        "smooth-manifold-definition"
+      ],
+      "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
+    },
+    {
+      "id": "levi-civita-connection",
+      "title": "Levi-Civita connection and geodesics",
+      "anchor": "geodesics",
+      "prereqs": [
+        "riemannian-metrics"
+      ],
+      "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations."
+    },
+    {
+      "id": "riemann-curvature-tensor",
+      "title": "Curvature tensor and comparison",
+      "anchor": "comparison",
+      "prereqs": [
+        "levi-civita-connection"
+      ],
+      "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+    }
+  ]
+}
