@@ -1,0 +1,108 @@
+{
+  "topic": "bsd",
+  "quizzes": {
+    "mordell-weil": {
+      "title": "Mordell\u2013Weil",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Mordell\u2013Weil says that for an elliptic curve $E/\\mathbb{Q}$, the group $E(\\mathbb{Q})$ is:",
+          "choices": [
+            "always finite",
+            "always isomorphic to $\\mathbb{Z}$",
+            "finitely generated: $\\mathbb{Z}^r \\oplus E(\\mathbb{Q})_{\\text{tors}}$",
+            "always uncountable"
+          ],
+          "answer": 2,
+          "explain": "The theorem gives a decomposition $E(\\mathbb{Q}) \\cong \\mathbb{Z}^r \\oplus T$ where $T$ is a finite torsion group and $r \\ge 0$ is the rank."
+        },
+        {
+          "type": "numeric",
+          "q": "By Mazur's theorem, how many isomorphism classes of torsion subgroups $E(\\mathbb{Q})_{\\text{tors}}$ are possible?",
+          "answer": 15,
+          "tol": 0.5,
+          "explain": "Mazur (1977): the torsion is one of $\\mathbb{Z}/n$ for $n\\in\\{1,\\ldots,10,12\\}$ (11 groups) or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\in\\{1,2,3,4\\}$ (4 groups), total 15."
+        },
+        {
+          "type": "mcq",
+          "q": "For the congruent-number curve $E: y^2 = x^3 - 25x$, the rank is $1$ and the torsion is $(\\mathbb{Z}/2)^2$. How many rational torsion points does $E(\\mathbb{Q})$ contain (including $O$)?",
+          "choices": ["1", "2", "4", "infinitely many"],
+          "answer": 2,
+          "explain": "$(\\mathbb{Z}/2)^2$ has order $4$; the non-identity $2$-torsion points are $(0,0), (5,0), (-5,0)$ plus the identity at infinity."
+        }
+      ]
+    },
+    "point-counting-heuristic": {
+      "title": "Point-counting heuristic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "BSD's original numerical heuristic predicts that $\\prod_{p \\le X} \\dfrac{N_p}{p}$ grows like:",
+          "choices": [
+            "$c \\cdot X^r$",
+            "$c \\cdot (\\log X)^r$",
+            "$c \\cdot e^{rX}$",
+            "it stays bounded"
+          ],
+          "answer": 1,
+          "explain": "Birch and Swinnerton-Dyer observed on EDSAC that the product grows like $c\\cdot(\\log X)^r$, where $r$ is the rank of $E(\\mathbb{Q})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Here $N_p = \\#E(\\mathbb{F}_p)$. Higher rank corresponds to curves having, on average:",
+          "choices": [
+            "fewer points modulo $p$ than expected",
+            "exactly $p$ points modulo $p$",
+            "more points modulo $p$ than expected",
+            "no points at all for most $p$"
+          ],
+          "answer": 2,
+          "explain": "Heuristically, lots of rational points forces many points modulo $p$. This bias in $a_p = p+1-N_p$ (systematically negative in some average sense) is the statistical shadow of positive rank."
+        },
+        {
+          "type": "numeric",
+          "q": "By Hasse's bound, $|a_p| \\le 2\\sqrt{p}$. For $p = 25$ this would give $|a_p| \\le ?$ (take $p$ as a real number here, ignoring that $25$ is not prime).",
+          "answer": 10,
+          "tol": 0.001,
+          "explain": "$2\\sqrt{25} = 10$. The Hasse bound controls each factor $N_p/p = 1 - a_p/p + 1/p$ so it lies in $[1 - 2/\\sqrt{p} + 1/p,\\ 1 + 2/\\sqrt{p} + 1/p]$."
+        }
+      ]
+    },
+    "bsd-rank-equality": {
+      "title": "BSD rank equality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The (weak) Birch\u2013Swinnerton-Dyer conjecture asserts:",
+          "choices": [
+            "$L(E,1) = \\text{rank}\\, E(\\mathbb{Q})$",
+            "$\\operatorname{ord}_{s=1} L(E, s) = \\text{rank}\\, E(\\mathbb{Q})$",
+            "$L(E,s)$ has no zeros",
+            "$E(\\mathbb{Q})$ is always infinite"
+          ],
+          "answer": 1,
+          "explain": "BSD equates the analytic rank (order of vanishing of $L(E,s)$ at $s=1$) with the algebraic rank of the Mordell\u2013Weil group."
+        },
+        {
+          "type": "numeric",
+          "q": "For a rank-$0$ elliptic curve, BSD predicts that $L(E, 1)$ equals zero ($\\to$ enter $0$) or is nonzero ($\\to$ enter $1$)?",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "Rank $0$ means $\\operatorname{ord}_{s=1} L(E,s) = 0$, i.e. $L(E,1) \\ne 0$. Kolyvagin's theorem proves the BSD implication in this direction for modular $E$."
+        },
+        {
+          "type": "mcq",
+          "q": "The full BSD conjecture expresses $\\lim_{s\\to 1} \\dfrac{L(E,s)}{(s-1)^r}$ in terms of which invariants?",
+          "choices": [
+            "just the rank $r$",
+            "regulator $R$, real period $\\Omega$, Tamagawa numbers $c_p$, $|\\Sha|$, $|E(\\mathbb{Q})_{\\text{tors}}|$",
+            "only the conductor $N$",
+            "the Euler characteristic of $E(\\mathbb{C})$"
+          ],
+          "answer": 1,
+          "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "topic": "etale-cohomology",
+  "title": "\u00c9tale cohomology",
+  "page": "etale-cohomology.html",
+  "concepts": [
+    {
+      "id": "etale-morphism",
+      "title": "\u00c9tale morphisms",
+      "anchor": "etale",
+      "prereqs": [
+        "schemes",
+        "sheaves"
+      ],
+      "blurb": "\u00c9tale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z\u21a6z^n are ramified; those like t\u21a6t^2 on G_m (char\u22602) are \u00e9tale."
+    },
+    {
+      "id": "l-adic-cohomology",
+      "title": "\u2113-adic cohomology",
+      "anchor": "ladic",
+      "prereqs": [
+        "etale-morphism",
+        "sheaf-cohomology"
+      ],
+      "blurb": "H^i_\u00e9t(X, \u2124/\u2113^n) and H^i_\u00e9t(X, \u211a_\u2113) as an inverse limit; works in characteristic p as long as \u2113\u2260p, and recovers classical Betti numbers for a smooth projective variety."
+    },
+    {
+      "id": "weil-frobenius-trace",
+      "title": "Weil conjectures and Frobenius trace",
+      "anchor": "weil",
+      "prereqs": [
+        "l-adic-cohomology",
+        "frobenius-trace"
+      ],
+      "blurb": "Point counts are an alternating sum of traces of Frobenius on \u2113-adic cohomology: #X(\ud835\udd3d_q) = \u03a3 (\u22121)^i Tr(Frob_q | H^i_\u00e9t). Eigenvalues of Frobenius lie on the circle |\u03b1|=q^{i/2} (Deligne)."
+    }
+  ]
+}

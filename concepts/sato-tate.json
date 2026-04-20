@@ -1,0 +1,39 @@
+{
+  "topic": "sato-tate",
+  "title": "Sato\u2013Tate",
+  "page": "sato-tate.html",
+  "concepts": [
+    {
+      "id": "hasse-bound-angle",
+      "title": "Hasse bound and the Frobenius angle",
+      "anchor": "angle",
+      "prereqs": [
+        "hasse-bound",
+        "frobenius-trace",
+        "complex-numbers"
+      ],
+      "blurb": "For E/Q with good reduction at p, write a_p = 2\u221ap \u00b7 cos \u03b8_p with \u03b8_p \u2208 [0, \u03c0]. The Frobenius eigenvalues are e^{\u00b1i\u03b8_p}\u221ap on the unit circle (after rescaling)."
+    },
+    {
+      "id": "sato-tate-measure",
+      "title": "The Sato\u2013Tate measure",
+      "anchor": "measure",
+      "prereqs": [
+        "hasse-bound-angle",
+        "equidistribution"
+      ],
+      "blurb": "For non-CM E, the angles \u03b8_p equidistribute on [0, \u03c0] with respect to the semicircular density (2/\u03c0) sin\u00b2\u03b8 d\u03b8."
+    },
+    {
+      "id": "symmetric-power-l-functions",
+      "title": "Symmetric-power L-functions",
+      "anchor": "symn",
+      "prereqs": [
+        "sato-tate-measure",
+        "euler-product",
+        "L-function-elliptic"
+      ],
+      "blurb": "Sato\u2013Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) \u2265 1 for every n \u2265 1."
+    }
+  ]
+}
