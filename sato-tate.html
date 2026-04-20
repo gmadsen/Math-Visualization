@@ -506,8 +506,8 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
     svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));
     svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'5 4'}));
     [['model F_ST','var(--yellow)'],['non-CM empirical','var(--blue)'],['CM empirical','var(--pink)']].forEach((x,i)=>{ const t=SVG('text',{x:W-12,y:20+i*14,'text-anchor':'end','font-size':11,fill:x[1]}); t.textContent=x[0]; svg.appendChild(t); });
-    out.textContent='Kolmogorov gap sup|F̂−F_ST|: non-CM '+dks.toFixed(3)+' · CM '+dksCm.toFixed(3)+'
-Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because of its π/2 atom.';
+    out.textContent=`Kolmogorov gap sup|F̂−F_ST|: non-CM ${dks.toFixed(3)} · CM ${dksCm.toFixed(3)}
+Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because of its π/2 atom.`;
   }
   nSl.addEventListener('input',render); run.addEventListener('click',render); render();
 })();
@@ -669,7 +669,7 @@ which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sy
     const means=[];
     for(let n=1;n<=nmax;n++){ let s=0; for(const t of th) s+=U(n,t); means.push(s/M); }
     svg.innerHTML=''; const W=640,H=250,pad={l:40,r:16,t:12,b:34},pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
-    const ymax=Math.max(0.15,...means.map(v=>Math.abs(v))*1.25);
+    const ymax=Math.max(0.15, ...means.map(v=>Math.abs(v)*1.25));
     const X=i=>pad.l+pw*(i+1)/(nmax+1), Y=v=>pad.t+ph*(1-(v+ymax)/(2*ymax));
     svg.appendChild(SVG('line',{x1:pad.l,y1:Y(0),x2:W-pad.r,y2:Y(0),stroke:'var(--line)'}));
     for(let i=0;i<nmax;i++){
@@ -678,9 +678,9 @@ which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sy
       const t=SVG('text',{x,y:y0+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(i+1); svg.appendChild(t);
     }
     const mmax=Math.max(...means.map(v=>Math.abs(v)));
-    out.textContent='Estimated moments m_n = (1/M) Σ U_n(cos θ_j), 1≤n≤'+nmax+':
-['+means.map(v=>v.toFixed(3)).join(', ')+']
-max |m_n| = '+mmax.toFixed(3)+' (ideal limit: 0 for all n≥1).';
+    out.textContent=`Estimated moments m_n = (1/M) Σ U_n(cos θ_j), 1≤n≤${nmax}:
+[${means.map(v=>v.toFixed(3)).join(', ')}]
+max |m_n| = ${mmax.toFixed(3)} (ideal limit: 0 for all n≥1).`;
   }
   nSl.addEventListener('input',render); mSl.addEventListener('input',render); render();
 })();

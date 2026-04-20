@@ -54,8 +54,8 @@
   .nodebox.locked rect{opacity:.6}
   .nodebox.goal rect{stroke-width:2.4}
   .nodebox:hover rect{fill:#242c3e}
-  .edge{fill:none;stroke:var(--line);stroke-width:1.3}
-  .edge.lit{stroke:var(--violet)}
+  .edge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.7;opacity:.95}
+  .edge.lit{stroke:var(--violet);stroke-width:2.2;opacity:1}
   .panel-right{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:1rem 1.1rem;margin-top:1rem}
   .panel-right h3{margin:.2rem 0 .6rem;color:var(--yellow);font-size:1rem}
@@ -250,17 +250,35 @@
     svg.setAttribute('height', Math.min(currentLayout.svgH, 900));
 
     // edges first
+    const outIdx = new Map();
+    const inIdx = new Map();
+    for(const [id] of currentLayout.nodesById){ outIdx.set(id, 0); inIdx.set(id, 0); }
+    const outTotals = new Map();
+    const inTotals = new Map();
+    for(const [id] of currentLayout.nodesById){
+      const deps = byId.get(id).prereqs.filter(p => currentLayout.nodesById.has(p));
+      inTotals.set(id, deps.length);
+      for(const p of deps) outTotals.set(p, (outTotals.get(p) || 0) + 1);
+    }
+    function slotOffset(i,total){
+      if(total <= 1) return 0;
+      const span = Math.min(24, (total - 1) * 7.5);
+      return -span/2 + (span * i / (total - 1));
+    }
     const edgeGroup = el('g', {});
     for(const [id,n] of currentLayout.nodesById){
       for(const p of byId.get(id).prereqs){
         const src = currentLayout.nodesById.get(p);
         if(!src) continue;
-        const x1 = src.x + src.w, y1 = src.y + src.h/2;
-        const x2 = n.x, y2 = n.y + n.h/2;
-        const mx = (x1+x2)/2;
+        const oI = outIdx.get(p) || 0, oT = outTotals.get(p) || 1;
+        const iI = inIdx.get(id) || 0, iT = inTotals.get(id) || 1;
+        outIdx.set(p, oI + 1); inIdx.set(id, iI + 1);
+        const x1 = src.x + src.w, y1 = src.y + src.h/2 + slotOffset(oI, oT);
+        const x2 = n.x, y2 = n.y + n.h/2 + slotOffset(iI, iT);
+        const bend = Math.max(46, (x2 - x1) * 0.34);
         const path = el('path', {
           class: 'edge',
-          d: `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
+          d: `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}`,
           'data-from': p, 'data-to': id
         });
         edgeGroup.appendChild(path);

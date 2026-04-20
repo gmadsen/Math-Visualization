@@ -1004,14 +1004,14 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "A completed $L$-function $\\Lambda(s)$ typically satisfies:",
+            "q": "For an elliptic curve over $\\mathbb{Q}$, the completed function $\\Lambda(E,s)$ satisfies:",
             "choices": [
               "$\\Lambda(s)=\\Lambda(-s)$",
-              "$\\Lambda(s)=w\\Lambda(1-s)$",
-              "$\\Lambda(s)=\\Lambda(s+1)$"
+              "$\\Lambda(E,s)=w\\Lambda(E,2-s)$",
+              "$\\Lambda(E,s)=\\Lambda(E,s+1)$"
             ],
             "answer": 1,
-            "explain": "The symmetry line is $\\Re(s)=1/2$ via $s\\leftrightarrow1-s$."
+            "explain": "In the elliptic-curve normalization, the involution is $s\\leftrightarrow 2-s$, centered at $s=1$."
           },
           {
             "type": "mcq",
@@ -1026,10 +1026,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "The central point of $s\\leftrightarrow1-s$ symmetry is $s=$ ?",
-            "answer": 0.5,
+            "q": "The central point of $s\\leftrightarrow 2-s$ symmetry is $s=$ ?",
+            "answer": 1,
             "tol": 1e-9,
-            "explain": "$s=1/2$ is fixed by the involution $s\\mapsto1-s$."
+            "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
           }
         ]
       }
@@ -1231,7 +1231,7 @@ window.MVQuizBank = {
             "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
           },
           {
-            "type": "complex",
+            "type": "numeric",
             "q": "Compute $\\left|\\,1-i\\,\\right|$.",
             "answer": 1.414213562,
             "tol": 0.001,

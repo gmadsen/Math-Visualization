@@ -88,14 +88,14 @@ Concept graph data lives under [`concepts/`](./concepts), with topic registratio
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches
 - [Bézout's theorem](./bezout.html) — intersection multiplicities and $de$ points for plane curves
-- [Schemes](./schemes.html) — $\text{Spec}$ of a ring, locally ringed spaces, generic points
+- [Schemes](./schemes.html) — $\mathrm{Spec}$ of a ring, locally ringed spaces, generic points
 - [Sheaves](./sheaves.html) — presheaves, gluing, stalks, sheafification, quasi-coherent sheaves
 - [Morphisms & fiber products](./morphisms-fiber-products.html) — base change and families with ramified fibers
 - [Functor of points](./functor-of-points.html) — $h_X = \mathrm{Hom}(-,X)$, Yoneda, representability
 - [Elliptic curves](./elliptic-curves.html) — Weierstrass cubics, chord–tangent law, $j$-invariant, uniformization
 - [Singular cubics & reduction](./singular-cubics-reduction.html) — nodal/cuspidal degenerations, Hasse counting
 - [Moduli spaces](./moduli-spaces.html) — $j$-line, stable curves, Deligne–Mumford compactification
-- [Sheaf cohomology](./sheaf-cohomology.html) — Čech cohomology, $H^i(\mathbb{P}^n,\mathcal{O}(d))$, $\operatorname{Pic}(\mathbb{P}^n)=\mathbb{Z}$
+- [Sheaf cohomology](./sheaf-cohomology.html) — Čech cohomology, $H^i(\mathbb{P}^n,\mathcal{O}(d))$, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$
 - [Stacks (Deligne–Mumford)](./stacks.html) — groupoid-valued functors, $BG$, $\mathcal{M}_{1,1}$
 - [Étale cohomology](./etale-cohomology.html) — étale morphisms, $\ell$-adic cohomology, the Weil conjectures
 
