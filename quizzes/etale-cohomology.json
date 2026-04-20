@@ -1,0 +1,110 @@
+{
+  "topic": "etale-cohomology",
+  "quizzes": {
+    "etale-morphism": {
+      "title": "\u00c9tale morphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is **not** part of the definition of an \u00e9tale morphism of schemes?",
+          "choices": [
+            "flat",
+            "unramified",
+            "smooth of relative dimension 0",
+            "proper"
+          ],
+          "answer": 3,
+          "explain": "\u00c9tale = flat + unramified (equivalently: smooth of relative dimension $0$). Properness is a separate condition; \u00e9tale morphisms are by definition of finite presentation but need not be proper."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the map $f\\colon \\mathbb{A}^1_{\\mathbb{C}}\\to \\mathbb{A}^1_{\\mathbb{C}}$, $z\\mapsto z^5$. Away from the origin it is \u00e9tale. Over a point $t\\neq 0$, how many geometric points does the fibre have?",
+          "answer": 5,
+          "tol": 0.0001,
+          "explain": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e. $5$ distinct fifth roots, so the \u00e9tale degree is $5$. Over $t=0$ the fibre collapses to a single ramified point $z=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The map $\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]\\to\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]$ sending $t\\mapsto t^n$ is \u00e9tale exactly when:",
+          "choices": [
+            "always",
+            "$n$ is coprime to $p$",
+            "$n$ is a power of $p$",
+            "never"
+          ],
+          "answer": 1,
+          "explain": "The derivative $nt^{n-1}$ must be invertible on $\\mathbb{G}_m$; over $\\mathbb{F}_p$ that holds iff $p\\nmid n$. Otherwise the map is inseparable (Frobenius-like) and ramified."
+        }
+      ]
+    },
+
+    "l-adic-cohomology": {
+      "title": "\u2113-adic cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why do we take the prime $\\ell$ distinct from the characteristic $p$ of the ground field?",
+          "choices": [
+            "Because $H^i_{\\text{\u00e9t}}(X,\\mathbb{Z}/p)$ sees only $p$-torsion and is badly behaved.",
+            "Because working with $\\ell = p$ collapses \u00e9tale cohomology to singular cohomology.",
+            "There is no such restriction; any prime works.",
+            "Because Frobenius has no action when $\\ell = p$."
+          ],
+          "answer": 0,
+          "explain": "In characteristic $p$, the \u00e9tale cohomology $H^i_{\\text{\u00e9t}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead). For $\\ell \\neq p$ the theory is well-behaved and gives the right Betti numbers."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $E$ be a smooth projective curve of genus $g$ over an algebraically closed field. What is $\\dim_{\\mathbb{Q}_\\ell} H^1_{\\text{\u00e9t}}(E, \\mathbb{Q}_\\ell)$ for $g = 3$?",
+          "answer": 6,
+          "tol": 0.0001,
+          "explain": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{\u00e9t}}(E,\\mathbb{Q}_\\ell) = 2g$. With $g=3$ this is $6$ \u2014 matching the classical Betti number $b_1 = 2g$ for a complex curve."
+        },
+        {
+          "type": "mcq",
+          "q": "The $\\ell$-adic cohomology $H^i_{\\text{\u00e9t}}(X, \\mathbb{Q}_\\ell)$ is constructed as:",
+          "choices": [
+            "$\\varinjlim_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n) \\otimes \\mathbb{Q}$",
+            "$(\\varprojlim_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n)) \\otimes_{\\mathbb{Z}_\\ell} \\mathbb{Q}_\\ell$",
+            "$H^i_{\\text{\u00e9t}}(X, \\mathbb{Q})$ directly",
+            "$\\bigoplus_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n)$"
+          ],
+          "answer": 1,
+          "explain": "One takes the inverse limit over torsion sheaves $\\mathbb{Z}/\\ell^n$ to land in $\\mathbb{Z}_\\ell$-modules, then tensors with $\\mathbb{Q}_\\ell$ to get a finite-dimensional $\\mathbb{Q}_\\ell$-vector space."
+        }
+      ]
+    },
+
+    "weil-frobenius-trace": {
+      "title": "Weil conjectures and Frobenius trace",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Let $E/\\mathbb{F}_q$ be an elliptic curve and write the Frobenius eigenvalues on $H^1_{\\text{\u00e9t}}$ as $\\alpha, \\beta$ with $\\alpha\\beta = q$. If $q = 5$ and $\\alpha + \\beta = 3$, compute $\\#E(\\mathbb{F}_5)$.",
+          "answer": 3,
+          "tol": 0.0001,
+          "explain": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$. The trace $\\alpha+\\beta$ is the standard $a_q$."
+        },
+        {
+          "type": "complex",
+          "q": "For a smooth projective variety $X$ over $\\mathbb{F}_q$, Deligne's theorem says each eigenvalue $\\alpha$ of Frobenius on $H^i_{\\text{\u00e9t}}$ has $|\\alpha| = q^{i/2}$. Give one allowed eigenvalue (as a complex number $a+bi$) on $H^1$ for $q = 4$, assuming the eigenvalue lies on the positive imaginary axis.",
+          "answer": [0, 2],
+          "tol": 0.001,
+          "explain": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$. On the positive imaginary axis that is $\\alpha = 2i$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement is part of the **Weil conjectures** for a smooth projective $X/\\mathbb{F}_q$ of dimension $d$?",
+          "choices": [
+            "The zeta function $Z(X,t)$ is a rational function of $t$.",
+            "$Z(X,t)$ has a functional equation relating $t$ and $1/(q^d t)$.",
+            "The zeros and poles of $Z(X,t)$ lie at $|t| = q^{-i/2}$ for $0\\leq i\\leq 2d$ (Riemann hypothesis).",
+            "All of the above."
+          ],
+          "answer": 3,
+          "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). \u00c9tale cohomology with its Frobenius action is what makes them provable."
+        }
+      ]
+    }
+  }
+}

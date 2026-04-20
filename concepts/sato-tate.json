@@ -25,16 +25,6 @@
       "blurb": "For non-CM E, the angles \u03b8_p equidistribute on [0, \u03c0] with respect to the semicircular density (2/\u03c0) sin\u00b2\u03b8 d\u03b8."
     },
     {
-      "id": "cm-exception",
-      "title": "The CM exception",
-      "anchor": "cm",
-      "prereqs": [
-        "hasse-bound-angle",
-        "complex-multiplication"
-      ],
-      "blurb": "For CM curves, \u03b8_p is uniformly distributed on [0, \u03c0] at ordinary primes, with an atom at \u03c0/2 coming from supersingular primes \u2014 a genuinely different statistic."
-    },
-    {
       "id": "symmetric-power-l-functions",
       "title": "Symmetric-power L-functions",
       "anchor": "symn",
@@ -44,17 +34,6 @@
         "L-function-elliptic"
       ],
       "blurb": "Sato\u2013Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) \u2265 1 for every n \u2265 1."
-    },
-    {
-      "id": "potential-automorphy",
-      "title": "Potential automorphy and the theorem",
-      "anchor": "potaut",
-      "prereqs": [
-        "symmetric-power-l-functions",
-        "modularity",
-        "galois-representation"
-      ],
-      "blurb": "Symmetric powers are potentially automorphic (Taylor et al., 2008\u20132010); this forces the needed analytic properties, proving Sato\u2013Tate for non-CM elliptic curves over totally real fields."
     }
   ]
 }

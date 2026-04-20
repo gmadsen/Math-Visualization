@@ -70,43 +70,6 @@
       ]
     },
 
-    "cm-exception": {
-      "title": "The CM exception",
-      "questions": [
-        {
-          "type": "mcq",
-          "q": "For a CM elliptic curve (say $E:\\;y^2 = x^3 + x$, with CM by $\\mathbb{Z}[i]$), the angles $\\theta_p$ at <em>ordinary</em> primes are distributed according to:",
-          "choices": [
-            "the Sato\u2013Tate measure $(2/\\pi)\\sin^2\\theta\\,d\\theta$",
-            "the uniform measure $d\\theta/\\pi$ on $[0,\\pi]$",
-            "a point mass at $\\theta = \\pi/2$",
-            "a point mass at $\\theta = 0$"
-          ],
-          "answer": 1,
-          "explain": "CM forces the Frobenius to lie in a fixed (commutative) torus; the Haar measure on that torus pushes forward to the uniform measure on $[0,\\pi]$."
-        },
-        {
-          "type": "numeric",
-          "q": "For $E:\\;y^2 = x^3 + x$ (CM by $\\mathbb{Z}[i]$), a prime $p > 2$ is supersingular iff $p \\equiv 3 \\pmod 4$. By Dirichlet, what is the natural density of supersingular primes for this curve?",
-          "answer": 0.5,
-          "tol": 0.01,
-          "explain": "Primes split 50\u201350 between residue classes $1$ and $3 \\bmod 4$ (Dirichlet). So half of all primes are supersingular \u2014 an atom of mass $1/2$ at $\\theta = \\pi/2$, vs. density $0$ there for non-CM."
-        },
-        {
-          "type": "mcq",
-          "q": "Why do CM curves violate the naive Sato\u2013Tate statistics?",
-          "choices": [
-            "Their $L$-functions fail the functional equation",
-            "Their Galois representation lands in a strictly smaller (commutative) subgroup of $\\mathrm{GL}_2$, so Frobenius conjugacy classes equidistribute in that smaller group",
-            "They have infinitely many bad primes",
-            "They are not modular"
-          ],
-          "answer": 1,
-          "explain": "Non-CM curves have open image in $\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ (Serre); CM curves do not. The equidistribution group shrinks from $\\mathrm{SU}(2)$ to a torus, hence the uniform rather than semicircular law."
-        }
-      ]
-    },
-
     "symmetric-power-l-functions": {
       "title": "Symmetric-power L-functions",
       "questions": [
@@ -140,43 +103,6 @@
           ],
           "answer": 1,
           "explain": "By a Tauberian / Wiener\u2013Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato\u2013Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
-        }
-      ]
-    },
-
-    "potential-automorphy": {
-      "title": "Potential automorphy and the theorem",
-      "questions": [
-        {
-          "type": "mcq",
-          "q": "\"Potential automorphy\" of $\\mathrm{Sym}^n E$ means:",
-          "choices": [
-            "$\\mathrm{Sym}^n E$ is automorphic over $\\mathbb{Q}$",
-            "$\\mathrm{Sym}^n E$ becomes automorphic after base change to some totally real finite extension $F/\\mathbb{Q}$",
-            "$L(\\mathrm{Sym}^n E, s)$ is potentially a polynomial",
-            "$\\mathrm{Sym}^n E$ has a potential complex multiplication"
-          ],
-          "answer": 1,
-          "explain": "Taylor\u2013Harris\u2013Shepherd-Barron\u2013Barnet-Lamb\u2013Geraghty proved $\\mathrm{Sym}^n$ of the Galois rep attached to $E$ is automorphic after some solvable totally real base change. This is enough to force the required analytic continuation and non-vanishing \u2014 analyticity is preserved under base change."
-        },
-        {
-          "type": "mcq",
-          "q": "Why does potential automorphy of every $\\mathrm{Sym}^n$ imply Sato\u2013Tate for $E$?",
-          "choices": [
-            "Potential automorphy gives an explicit formula for $a_p$",
-            "Potential automorphy yields analytic continuation and non-vanishing of $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$, which by a Tauberian argument implies equidistribution",
-            "Potential automorphy means $E$ has CM",
-            "It implies the Riemann hypothesis for $L(E, s)$"
-          ],
-          "answer": 1,
-          "explain": "The equivalence \"$\\mathrm{Sym}^n$ L-functions are nice for all $n$ \u2194 angles equidistribute Sato\u2013Tate\" is a Tauberian/Weyl-criterion argument. Potential automorphy supplies the \"nice\" side."
-        },
-        {
-          "type": "numeric",
-          "q": "In the dependency chain $\\text{modularity} \\Rightarrow \\text{Sym}^n\\text{ potential automorphy} \\Rightarrow \\text{Sato\u2013Tate}$, how many of the three arrows are currently known to be theorems (non-CM $E/\\mathbb{Q}$)?",
-          "answer": 2,
-          "tol": 0.0001,
-          "explain": "Both arrows are theorems. Modularity is Wiles\u2013Taylor\u2013BCDT (1995\u20132001); potential automorphy of $\\mathrm{Sym}^n$ is Clozel\u2013Harris\u2013Taylor\u2013Shepherd-Barron\u2013Barnet-Lamb\u2013Geraghty (2008\u20132010). Together they yield Sato\u2013Tate."
         }
       ]
     }
