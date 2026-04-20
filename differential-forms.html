@@ -104,6 +104,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -392,7 +419,8 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="hd"><span class="ttl">Widget · 2-form on a parallelogram</span><span class="hint">drag v (blue) and w (pink)</span></div>
 <div class="row">
   <label>2-form:</label>
-  <select id="w2-pick">
+  
+<select id="w2-pick">
     <option value="dxdy" selected>$\omega = dx\wedge dy$</option>
     <option value="2dxdy">$\omega = 2\,dx\wedge dy$</option>
     <option value="xdxdy">$\omega = x\,dx\wedge dy$ (at basepoint)</option>
@@ -404,6 +432,13 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="row"><div class="readout" id="w2-out" style="width:100%"></div></div>
 <div class="small" style="margin-top:.4rem">The parallelogram is filled with a color whose <em>sign</em> reflects $\omega(v,w)$: green if positive, pink if negative. The magnitude $|\omega(v,w)|$ is the scalar-multiple of the unsigned parallelogram area. Swapping $v\leftrightarrow w$ flips the sign.</div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#tangent">Tangent spaces</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="forms-and-wedge"></div>
 </section>
 
@@ -635,8 +670,44 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+<section id="integration">
+<h2>5. Integration of forms over chains</h2>
+<p>A smooth <strong>$k$-simplex</strong> in $M$ is a smooth map $\sigma\colon\Delta^k\to M$ from the standard $k$-simplex, and a <strong>smooth $k$-chain</strong> is a finite formal $\mathbb{Z}$-linear combination $c=\sum n_i\,\sigma_i$ of such. The integral of a $k$-form over a chain is defined by pullback to the standard simplex plus linearity:</p>
+<p style="text-align:center">$\displaystyle \int_\sigma \omega \;:=\; \int_{\Delta^k} \sigma^*\omega,\qquad \int_{\sum n_i\sigma_i}\omega \;:=\; \sum n_i \int_{\sigma_i}\omega.$</p>
+<p>Pullback-invariance is what makes this well-defined: reparametrizing $\sigma$ by an orientation-preserving diffeomorphism of $\Delta^k$ leaves the integral unchanged (Jacobian = $+1$ at the form level), while an orientation-reversing reparametrization flips the sign, matching the $\pm 1$ coefficient on $\sigma$ in the chain.</p>
+<p>This is the bridge between §4 and §5 below: integrating a $(k{-}1)$-form over the boundary chain $\partial M$ and integrating $d\omega$ over the bulk $k$-chain $M$ are both defined via the same pullback mechanism — the only question is whether they agree. They do, and that statement is Stokes.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="integration-on-chains"></div>
+</section>
+
+<section id="pullback">
+<h2>5.1. Pullback of forms (aside)</h2>
+<p>For a smooth map $f\colon N\to M$, the <strong>pullback</strong> $f^*\colon\Omega^k(M)\to\Omega^k(N)$ acts on $k$-forms contravariantly. On a decomposable form,</p>
+<p style="text-align:center">$f^*(\omega_1\wedge\cdots\wedge\omega_k)(v_1,\ldots,v_k) \;=\; \omega_1\wedge\cdots\wedge\omega_k\bigl(df(v_1),\ldots,df(v_k)\bigr).$</p>
+<p>Two identities make pullback the "right" operation:</p>
+<ul>
+<li>$f^*(d\omega) = d(f^*\omega)$ — pullback commutes with the exterior derivative.</li>
+<li>$f^*(\omega\wedge\eta) = (f^*\omega)\wedge(f^*\eta)$ — pullback is a ring map.</li>
+</ul>
+<p>Together they say $f^*\colon \Omega^\bullet(M)\to\Omega^\bullet(N)$ is a map of differential graded algebras. This is why integration of forms is <em>coordinate-invariant</em>: changing coordinates is a pullback, and pulling back a top form along a diffeomorphism picks up the Jacobian determinant exactly once, giving the usual change-of-variables formula for free.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#maps">Smooth maps and diffeomorphisms</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="pullback-of-forms"></div>
+</section>
+
 <section id="stokes">
-<h2>5. Stokes's theorem</h2>
+<h2>6. Stokes's theorem</h2>
 <p>Let $M$ be a compact oriented smooth $k$-manifold with boundary $\partial M$ (with induced orientation). For any $(k{-}1)$-form $\omega$ on an open neighborhood of $M$,</p>
 <p style="text-align:center">$$\int_{\partial M} \omega = \int_M d\omega.$$</p>
 
@@ -775,7 +846,7 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <section id="deRham">
-<h2>6. Closed vs exact — a first look at de Rham cohomology</h2>
+<h2>7. Closed vs exact — a first look at de Rham cohomology</h2>
 <p>The condition $d^2=0$ makes $(\Omega^\bullet(M), d)$ into a cochain complex:</p>
 <p style="text-align:center">$\Omega^0(M) \xrightarrow{d} \Omega^1(M) \xrightarrow{d} \Omega^2(M) \xrightarrow{d} \cdots.$</p>
 <p>Call $\omega$ <strong>closed</strong> if $d\omega=0$, and <strong>exact</strong> if $\omega=d\eta$ for some $\eta$. Exact forms are closed (because $d^2=0$); the converse is the interesting question.</p>
@@ -990,5 +1061,15 @@ function drawNode(svg, x, y, label, opts={}){
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

@@ -104,6 +104,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -295,6 +322,13 @@ const C = {
   <div class="readout">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>
 </div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="amplitwist"></div>
 <div class="quiz" data-concept="cauchy-riemann"></div>
 </section>
@@ -340,6 +374,14 @@ const C = {
   <svg id="ct-svg" viewBox="0 0 760 460" width="760" height="460"></svg>
   <div class="readout" id="ct-readout"></div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#paths">Paths and homotopy</a></li>
+    <li><a href="./algebraic-topology.html#simply-connected">Simply connected domains</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <section id="cons">
@@ -469,6 +511,13 @@ const C = {
   <svg id="cf-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
   <div class="readout" id="cf-readout"></div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#uniform-convergence">Uniform convergence</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <section id="coda">
@@ -1386,6 +1435,18 @@ const C = {
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-19</td><td>Audit Wave 4 prereqs, add page smoke test, register Wave 4 capstones</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+      <tr><td>2026-04-19</td><td>quiz widget + 5 complex-analysis quizzes; link operator algebras</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

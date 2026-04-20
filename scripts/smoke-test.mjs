@@ -105,7 +105,8 @@ if (existsSync(quizzesDir)) {
 // pathway.html turns into a `topic.html#anchor` deep-link; an anchor that
 // doesn't correspond to an `id="..."` in the topic HTML is a silent 404.
 const conceptsDir = join(repoRoot, 'concepts');
-const conceptGraphs = new Map(); // topic -> { page, concepts: [{ id, anchor }] }
+const conceptGraphs = new Map(); // topic -> { page, concepts: [{ id, anchor, prereqs }] }
+const conceptOwnerById = new Map(); // concept id -> owning topic (for cross-topic detection)
 if (existsSync(conceptsDir)) {
   for (const f of readdirSync(conceptsDir)) {
     if (!f.endsWith('.json')) continue;
@@ -116,8 +117,15 @@ if (existsSync(conceptsDir)) {
       const d = JSON.parse(raw);
       conceptGraphs.set(topic, {
         page: d.page || `${topic}.html`,
-        concepts: (d.concepts || []).map((c) => ({ id: c.id, anchor: c.anchor })),
+        concepts: (d.concepts || []).map((c) => ({
+          id: c.id,
+          anchor: c.anchor,
+          prereqs: Array.isArray(c.prereqs) ? c.prereqs.slice() : [],
+        })),
       });
+      for (const c of d.concepts || []) {
+        if (c.id && !conceptOwnerById.has(c.id)) conceptOwnerById.set(c.id, topic);
+      }
     } catch (e) {
       push(errors, `concepts/${f}`, `parse error: ${e.message}`);
     }
@@ -219,6 +227,34 @@ for (const file of htmlFiles) {
       warn(`quizzes/${topic}.json bank exists (${bank.size} quizzes) but page has no .quiz placeholders`);
     }
     if (initTopic) fail(`MVQuiz.init('${initTopic}') present but page has no .quiz placeholders`);
+  }
+
+  // Changelog footer guard — every topic page should have exactly one
+  // <details class="changelog"> block, seeded/rebuilt by
+  // scripts/insert-changelog-footer.mjs.
+  const changelogCount = (html.match(/<details\s+class=["']changelog["']/gi) || []).length;
+  if (changelogCount === 0) fail('missing <details class="changelog"> footer — run scripts/insert-changelog-footer.mjs');
+  if (changelogCount > 1) fail(`found ${changelogCount} <details class="changelog"> footers — expected exactly 1`);
+
+  // Callback guard — pages whose concepts have cross-topic prereqs should
+  // carry at least one <aside class="callback"> block. Specific anchor checks
+  // are done by scripts/audit-callbacks.mjs; here we just catch a fully-stripped
+  // page so the insertion pass can't silently rot.
+  if (graph) {
+    let hasCrossTopicPrereq = false;
+    for (const c of graph.concepts) {
+      for (const p of c.prereqs || []) {
+        const owner = conceptOwnerById.get(p);
+        if (owner && owner !== topic) { hasCrossTopicPrereq = true; break; }
+      }
+      if (hasCrossTopicPrereq) break;
+    }
+    if (hasCrossTopicPrereq) {
+      const callbackCount = (html.match(/<aside\s+class=["']callback["']/gi) || []).length;
+      if (callbackCount === 0) {
+        fail('has cross-topic prereqs but no <aside class="callback"> block — run scripts/audit-callbacks.mjs --fix');
+      }
+    }
   }
 
   perPage.set(file, { title, checks, svgs, widgets, placeholders: placeholders.length });

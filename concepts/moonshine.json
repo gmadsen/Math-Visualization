@@ -1,0 +1,55 @@
+{
+  "topic": "moonshine",
+  "title": "Monstrous moonshine",
+  "page": "moonshine.html",
+  "concepts": [
+    {
+      "id": "j-invariant-q-expansion",
+      "title": "The j-invariant's q-expansion",
+      "anchor": "j",
+      "prereqs": [
+        "modular-form-definition"
+      ],
+      "blurb": "The SL_2(Z)-invariant j(tau) has Fourier expansion q^{-1} + 744 + 196884 q + 21493760 q^2 + ... — a short list of large integers that turned out to hide a finite simple group."
+    },
+    {
+      "id": "monster-group-structure",
+      "title": "The Monster group and its irreducibles",
+      "anchor": "monster",
+      "prereqs": [
+        "group-representations"
+      ],
+      "blurb": "The Monster M is the largest sporadic finite simple group, of order ~8x10^53; its smallest faithful complex irreducibles have dimensions 1, 196883, 21296876, 842609326."
+    },
+    {
+      "id": "mckay-observation",
+      "title": "McKay's observation",
+      "anchor": "mckay",
+      "prereqs": [
+        "j-invariant-q-expansion",
+        "monster-group-structure"
+      ],
+      "blurb": "196884 = 196883 + 1 and 21493760 = 21296876 + 196883 + 1 — each j-coefficient is a non-negative integer combination of Monster irreducible dimensions, forcing a graded M-module V-natural with graded dim = j."
+    },
+    {
+      "id": "thompson-series",
+      "title": "Thompson series and Conway–Norton",
+      "anchor": "thompson",
+      "prereqs": [
+        "mckay-observation",
+        "eigenforms-and-euler-factors"
+      ],
+      "blurb": "For each g in M, T_g(tau) = sum tr(g | V^natural_n) q^n is conjectured (Conway–Norton) to be the Hauptmodul of a genus-zero subgroup of SL_2(R) commensurable with SL_2(Z)."
+    },
+    {
+      "id": "borcherds-proof-sketch",
+      "title": "Borcherds' proof — generalized Kac–Moody and replication",
+      "anchor": "borcherds",
+      "prereqs": [
+        "thompson-series",
+        "adjoint-roots"
+      ],
+      "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody algebra from the moonshine VOA via the Goddard–Thorn no-ghost theorem — whose Weyl–Kac denominator identity p^{-1} prod (1 - p^m q^n)^{c(mn)} = J(p) - J(q) yields replication recursions that pin each Thompson series to Conway–Norton's Hauptmodul."
+    }
+  ]
+}

@@ -13,11 +13,20 @@
       "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
     },
     {
+      "id": "gaussian-integer-splitting",
+      "title": "Gaussian integers and prime splitting",
+      "anchor": "gaussian",
+      "prereqs": [
+        "two-squares-theorem"
+      ],
+      "blurb": "Primes p≡1 mod 4 split in Z[i]; p≡3 mod 4 stay inert; p=2 ramifies — the structural reason behind Fermat's theorem."
+    },
+    {
       "id": "three-squares-theorem",
       "title": "Legendre three-square theorem",
       "anchor": "three",
       "prereqs": [
-        "two-squares-theorem"
+        "gaussian-integer-splitting"
       ],
       "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
     },
@@ -29,6 +38,15 @@
         "three-squares-theorem"
       ],
       "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+    },
+    {
+      "id": "waring-problem",
+      "title": "Waring's problem: g(k) and G(k)",
+      "anchor": "waring",
+      "prereqs": [
+        "four-squares-and-waring"
+      ],
+      "blurb": "Hilbert's theorem guarantees finitely many k-th powers suffice; g(k) and G(k) sharpen the count asymptotically."
     }
   ]
 }

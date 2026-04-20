@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Power sums, Bernoulli numbers, and Euler-Maclaurin</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  table.plain td.num{font-family:ui-monospace,monospace;color:var(--cyan)}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#faulhaber">1&nbsp;Faulhaber</a>
+  <a href="#bernoulli">2&nbsp;Bernoulli&nbsp;numbers</a>
+  <a href="#zeta">3&nbsp;Zeta&nbsp;values</a>
+  <a href="#em">4&nbsp;Euler-Maclaurin</a>
+  <a href="#func-eq">5&nbsp;Functional&nbsp;equation</a>
+  <a href="#app">6&nbsp;Accurate&nbsp;ζ(s)</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Power sums, Bernoulli numbers, and the shadow of $\zeta$</h1>
+  <p class="sub">From $1+2+\cdots+n=\tfrac{n(n+1)}{2}$ to $\zeta(2)=\pi^2/6$ to $1+2+3+\cdots=-\tfrac{1}{12}$ — one family of rational numbers, the Bernoulli numbers $B_n$, ties the three together and drives Euler-Maclaurin summation, the functional equation of $\zeta$, and the analytic continuation of every L-function in the notebook.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="faulhaber">
+<h2>1. Faulhaber: sums of $k^m$ as polynomials in $n$</h2>
+
+<p>Gauss's schoolboy trick tells you $1+2+\cdots+n=\tfrac{n(n+1)}{2}$ — a quadratic in $n$. Less well known, but equally elementary:</p>
+
+<p style="text-align:center">$\displaystyle\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6},\qquad \sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2.$</p>
+
+<p>Each sum is a polynomial in $n$. The pattern, discovered by <strong>Jacob Bernoulli</strong> (and earlier by Faulhaber in special cases), is that</p>
+
+<p style="text-align:center">$\displaystyle S_m(n):=\sum_{k=1}^{n} k^m = \frac{1}{m+1}\sum_{j=0}^{m}\binom{m+1}{j} B_j\, n^{m+1-j},$</p>
+
+<p>where $B_j$ are the <em>Bernoulli numbers</em> (§2). So $S_m$ is a polynomial of degree $m+1$ in $n$ with leading coefficient $\tfrac{1}{m+1}$ — unsurprising, since $S_m(n)$ is the Riemann sum for $\int_0^n x^m\,dx=\tfrac{n^{m+1}}{m+1}$, and the Bernoulli numbers are the discrete correction to the integral.</p>
+
+<div class="note"><strong>Why leading $\tfrac{1}{m+1}$?</strong> The largest term $k=n$ contributes $n^m$; summing $n$ such terms near the top gives roughly $\int_0^n x^m\,dx=n^{m+1}/(m+1)$. The remaining Bernoulli corrections all have lower degree in $n$.</div>
+
+<div class="widget" id="w-faul">
+  <div class="hd"><div class="ttl">Faulhaber polynomial generator</div><div class="hint">pick $m$, compare polynomial vs direct sum</div></div>
+  <div class="row">
+    <label>power $m$:</label>
+    <input type="range" id="f-m" min="1" max="8" step="1" value="3">
+    <span id="f-m-lbl" class="small"></span>
+    <label style="margin-left:1rem">evaluate at $n=$</label>
+    <input type="range" id="f-n" min="1" max="20" step="1" value="6">
+    <span id="f-n-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="f-out"></div>
+  <svg id="f-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="small" style="color:var(--mute)">Blue bars: direct sum $\sum_{k=1}^{n} k^m$ for each $n$. Yellow curve: Faulhaber polynomial evaluated as a continuous function. They coincide at integer $n$ to machine precision.</div>
+</div>
+
+<div class="quiz" data-concept="faulhaber-formula"></div>
+</section>
+
+<script>
+/* ========================= section 1 widget ========================= */
+(function(){
+  // rational arithmetic (BigInt numerator/denominator) for exact Bernoulli numbers
+  function gcd(a,b){ a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; }
+  function rat(n,d=1n){ if(typeof n==='number') n=BigInt(n); if(typeof d==='number') d=BigInt(d);
+    if(d<0n){ n=-n; d=-d; } const g=gcd(n<0n?-n:n,d); return [n/g,d/g]; }
+  function radd(a,b){ return rat(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+  function rsub(a,b){ return rat(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+  function rmul(a,b){ return rat(a[0]*b[0], a[1]*b[1]); }
+  function rdiv(a,b){ return rat(a[0]*b[1], a[1]*b[0]); }
+  function rneg(a){ return [-a[0], a[1]]; }
+  function rnum(a){ return Number(a[0])/Number(a[1]); }
+  function rstr(a){ if(a[1]===1n) return a[0].toString(); return a[0].toString()+'/'+a[1].toString(); }
+  function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
+  function binom(n,k){ return rat(fact(n)/(fact(k)*fact(n-k)), 1n); }
+
+  // Bernoulli via Akiyama–Tanigawa recurrence (convention B1 = -1/2)
+  const BCACHE = [rat(1n,1n)];
+  function B(n){
+    while(BCACHE.length <= n){
+      const m = BCACHE.length;
+      // row-by-row: A[0][j] = 1/(j+1); A[i][j] = (i)*(A[i-1][j] - A[i-1][j+1])
+      const N = m+1;
+      let A = Array.from({length:N},(_,j)=>rat(1n, BigInt(j+1)));
+      for(let i=1;i<=m;i++){
+        const next = [];
+        for(let j=0;j<N-i;j++){
+          next.push( rmul( rat(BigInt(i),1n), rsub(A[j], A[j+1]) ) );
+        }
+        A = next;
+      }
+      BCACHE.push(A[0]);
+    }
+    return BCACHE[n];
+  }
+
+  // Faulhaber coefficients: S_m(n) = sum_{j=0..m} c_j n^{m+1-j}
+  // with c_j = binom(m+1,j) B_j / (m+1). Convention: B_1 = -1/2 (the "modern" one)
+  // which is compatible with the standard formula.
+  function faulCoeffs(m){
+    const out = [];
+    const mp1 = rat(BigInt(m+1),1n);
+    for(let j=0;j<=m;j++){
+      const c = rdiv( rmul(binom(m+1,j), B(j)), mp1 );
+      out.push(c); // coefficient of n^{m+1-j}
+    }
+    return out;
+  }
+  // evaluate polynomial with rational coeffs (descending powers) at integer n (BigInt) -> rational
+  function evalPoly(coeffs, m, n){
+    let acc = rat(0n,1n);
+    for(let j=0;j<=m;j++){
+      const pw = rat( BigInt(n) ** BigInt(m+1-j), 1n );
+      acc = radd(acc, rmul(coeffs[j], pw));
+    }
+    return acc;
+  }
+  // float-valued evaluation for smooth curve drawing (no BigInt)
+  function evalPolyFloat(coeffs, m, x){
+    let acc = 0;
+    for(let j=0;j<=m;j++){
+      acc += rnum(coeffs[j]) * Math.pow(x, m+1-j);
+    }
+    return acc;
+  }
+  function directSum(m, n){
+    let s = 0n;
+    for(let k=1n;k<=BigInt(n);k++){
+      let p = 1n; for(let i=0;i<m;i++) p *= k;
+      s += p;
+    }
+    return rat(s,1n);
+  }
+  function formatPoly(coeffs, m){
+    // pretty-print in the variable n
+    let parts = [];
+    for(let j=0;j<=m;j++){
+      const c = coeffs[j];
+      if(c[0]===0n) continue;
+      const deg = m+1-j;
+      const sign = c[0] < 0n ? ' − ' : (parts.length? ' + ' : '');
+      const abs = [c[0]<0n?-c[0]:c[0], c[1]];
+      let coefStr = abs[1]===1n && abs[0]===1n ? '' : (abs[1]===1n? abs[0].toString() : abs[0].toString()+'/'+abs[1].toString());
+      if(coefStr && deg>0) coefStr += '·';
+      let nPart = '';
+      if(deg===0) nPart = (coefStr? '' : '1');
+      else if(deg===1) nPart = 'n';
+      else nPart = 'n^'+deg;
+      parts.push(sign + coefStr + nPart);
+    }
+    if(parts.length===0) return '0';
+    return parts.join('');
+  }
+
+  const mEl=$('#f-m'), nEl=$('#f-n'), mLbl=$('#f-m-lbl'), nLbl=$('#f-n-lbl'), out=$('#f-out'), svg=$('#f-svg');
+
+  function renderChart(m){
+    svg.innerHTML='';
+    const W=620, H=260, padL=50, padR=20, padT=14, padB=30;
+    const coeffs = faulCoeffs(m);
+    // evaluate S_m(n) on n=0..Nmax numerically
+    const Nmax = 12;
+    const xs = [];
+    const ys = [];
+    for(let n=0;n<=Nmax;n++){
+      const v = rnum(evalPoly(coeffs, m, n));
+      xs.push(n); ys.push(v);
+    }
+    const yMax = Math.max(1, ys[ys.length-1]);
+    const xToPix = n => padL + (n/Nmax)*(W-padL-padR);
+    const yToPix = y => (H-padB) - (y/yMax)*(H-padT-padB);
+    // axis
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    // ticks
+    for(let n=0;n<=Nmax;n+=2){
+      const x = xToPix(n);
+      svg.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:x,y:H-padB+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = n; svg.appendChild(t);
+    }
+    const xLabel = SVG('text',{x:(padL+(W-padR))/2, y:H-6, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    xLabel.textContent = 'n'; svg.appendChild(xLabel);
+    // bars for direct sum (integer n)
+    const bw = Math.max(4,(W-padL-padR)/Nmax * 0.35);
+    for(let n=1;n<=Nmax;n++){
+      const x = xToPix(n), y = yToPix(ys[n]);
+      svg.appendChild(SVG('rect',{x:x-bw/2,y:y,width:bw,height:(H-padB)-y, fill:'rgba(88,196,221,0.55)',stroke:'var(--blue)','stroke-width':1}));
+    }
+    // curve of polynomial
+    const curvePts = [];
+    const resolution = 200;
+    for(let i=0;i<=resolution;i++){
+      const t = i/resolution * Nmax;
+      const v = evalPolyFloat(coeffs, m, t);
+      curvePts.push([xToPix(t), yToPix(v)]);
+    }
+    const d = curvePts.map((p,i)=>(i===0?'M':'L')+p[0]+' '+p[1]).join(' ');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // highlight selected n
+    const nSel = parseInt(nEl.value,10);
+    if(nSel <= Nmax){
+      const xs2 = xToPix(nSel), ys2 = yToPix(ys[nSel]);
+      svg.appendChild(SVG('circle',{cx:xs2,cy:ys2,r:5,fill:'var(--pink)',stroke:'#fff','stroke-width':1.3}));
+    }
+  }
+
+  function update(){
+    const m = parseInt(mEl.value,10), n = parseInt(nEl.value,10);
+    mLbl.textContent = 'm = '+m;
+    nLbl.textContent = 'n = '+n;
+    const coeffs = faulCoeffs(m);
+    const polyVal = evalPoly(coeffs, m, n);
+    const directVal = directSum(m, n);
+    const match = polyVal[0]*directVal[1] === directVal[0]*polyVal[1];
+    out.textContent =
+      `S_${m}(n) = (1/${m+1})·Σ_{j=0..${m}} C(${m+1},j)·B_j·n^{${m+1}-j}\n\n`+
+      `S_${m}(n) = ${formatPoly(coeffs,m)}\n\n`+
+      `at n=${n}:\n`+
+      `  Faulhaber polynomial = ${rstr(polyVal)}  ≈ ${rnum(polyVal)}\n`+
+      `  direct Σ_{k=1..${n}} k^${m} = ${rstr(directVal)}\n`+
+      `  ${match ? '✓ exact agreement' : '✗ MISMATCH (bug!)'}`;
+    renderChart(m);
+  }
+  mEl.addEventListener('input', update);
+  nEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ================================================================== -->
+<section id="bernoulli">
+<h2>2. Bernoulli numbers and their generating function</h2>
+
+<p>The Bernoulli numbers $B_n$ are defined by the single generating-function identity</p>
+
+<p style="text-align:center">$\displaystyle \frac{t}{e^{t}-1} \;=\; \sum_{n\ge 0} B_n\, \frac{t^n}{n!}.$</p>
+
+<p>Expanding the left side as a power series in $t$ and comparing coefficients gives $B_0=1$, $B_1=-\tfrac12$, $B_2=\tfrac16$, $B_3=0$, $B_4=-\tfrac{1}{30}$, and so on. A key symmetry is visible by rewriting</p>
+
+<p style="text-align:center">$\displaystyle \frac{t}{e^{t}-1}+\frac{t}{2} \;=\; \frac{t}{2}\cdot\frac{e^{t}+1}{e^{t}-1} \;=\; \frac{t}{2}\coth(t/2),$</p>
+
+<p>which is an <em>even</em> function of $t$. Subtracting off the $B_1 t/1!=-t/2$ term, all odd powers must vanish: <strong>$B_{2k+1}=0$ for $k\ge 1$</strong>. The even values alternate in sign and grow faster than any geometric rate.</p>
+
+<div class="widget" id="w-bern">
+  <div class="hd"><div class="ttl">Bernoulli generating function</div><div class="hint">slide $t$, see partial sum vs $t/(e^t-1)$</div></div>
+  <div class="row">
+    <label>$t$:</label>
+    <input type="range" id="b-t" min="-4" max="4" step="0.05" value="1">
+    <span id="b-t-lbl" class="small"></span>
+    <label style="margin-left:1rem">truncation $N$:</label>
+    <input type="range" id="b-N" min="1" max="20" step="1" value="8">
+    <span id="b-N-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="b-out"></div>
+  <table class="plain" id="b-table">
+    <thead><tr><th>$n$</th><th>$B_n$</th><th>numeric</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="small" style="color:var(--mute)">Odd $B_n>1$ are zero. Even $|B_{2k}|$ grows like $2(2k)!/(2\pi)^{2k}$ — the seed of Euler's zeta formula (§3).</div>
+</div>
+</section>
+
+<script>
+/* ========================= section 2 widget ========================= */
+(function(){
+  // reuse rationals via a self-contained mini-lib (same spec as §1)
+  function gcd(a,b){ a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; }
+  function rat(n,d=1n){ if(typeof n==='number') n=BigInt(n); if(typeof d==='number') d=BigInt(d);
+    if(d<0n){ n=-n; d=-d; } const g=gcd(n<0n?-n:n,d); return [n/g,d/g]; }
+  function radd(a,b){ return rat(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+  function rsub(a,b){ return rat(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+  function rmul(a,b){ return rat(a[0]*b[0], a[1]*b[1]); }
+  function rnum(a){ return Number(a[0])/Number(a[1]); }
+  function rstr(a){ if(a[1]===1n) return a[0].toString(); return a[0].toString()+'/'+a[1].toString(); }
+  function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
+  const BCACHE=[rat(1n,1n)];
+  function B(n){
+    while(BCACHE.length <= n){
+      const m = BCACHE.length;
+      const N = m+1;
+      let A = Array.from({length:N},(_,j)=>rat(1n, BigInt(j+1)));
+      for(let i=1;i<=m;i++){
+        const next=[];
+        for(let j=0;j<N-i;j++){
+          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+        }
+        A = next;
+      }
+      BCACHE.push(A[0]);
+    }
+    return BCACHE[n];
+  }
+
+  const MAX_TABLE = 12;
+  const tbody = $('#b-table tbody');
+  for(let n=0;n<=MAX_TABLE;n++){
+    const tr = document.createElement('tr');
+    const b = B(n);
+    const num = rnum(b);
+    tr.innerHTML = `<td>${n}</td><td>${rstr(b)}</td><td class="num">${num.toExponential(4)}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  const tEl=$('#b-t'), tLbl=$('#b-t-lbl'), NEl=$('#b-N'), NLbl=$('#b-N-lbl'), out=$('#b-out');
+  function partial(t, N){
+    // sum_{n=0..N} B_n t^n / n!
+    let s = 0;
+    for(let n=0;n<=N;n++){
+      const bn = rnum(B(n));
+      s += bn * Math.pow(t,n) / Number(fact(n));
+    }
+    return s;
+  }
+  function trueVal(t){
+    if(Math.abs(t) < 1e-10) return 1;
+    return t / (Math.exp(t) - 1);
+  }
+  function update(){
+    const t = parseFloat(tEl.value), N = parseInt(NEl.value,10);
+    tLbl.textContent = 't = '+t.toFixed(2);
+    NLbl.textContent = 'N = '+N;
+    const p = partial(t, N);
+    const tr = trueVal(t);
+    const err = Math.abs(p - tr);
+    out.textContent =
+      `partial sum Σ_{n=0..${N}} B_n t^n/n! at t=${t.toFixed(3)}:\n`+
+      `  ≈ ${p.toFixed(10)}\n\n`+
+      `true value t/(e^t − 1):\n`+
+      `  = ${tr.toFixed(10)}\n\n`+
+      `|error| = ${err.toExponential(3)}\n`+
+      `(radius of convergence is 2π ≈ 6.28 — try |t| > 6.28 to see divergence)`;
+  }
+  tEl.addEventListener('input', update);
+  NEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<div class="quiz" data-concept="bernoulli-generating-function"></div>
+
+<!-- ================================================================== -->
+<section id="zeta">
+<h2>3. Euler's formula for $\zeta(2n)$</h2>
+
+<p>In 1734 Euler solved the <em>Basel problem</em> by proving $\zeta(2)=\pi^2/6$. The full even-integer result, in his later notation:</p>
+
+<p style="text-align:center">$\displaystyle \zeta(2n) \;=\; (-1)^{n+1}\frac{B_{2n}(2\pi)^{2n}}{2\,(2n)!}.$</p>
+
+<p>The modern derivation: start from the Weierstrass product $\sin(\pi z)=\pi z\prod_{k\ge 1}(1-z^2/k^2)$, take logarithmic derivative, compare with $\pi\cot(\pi z)=\tfrac1z - 2\sum_{n\ge 1}\zeta(2n) z^{2n-1}$, then use the cotangent-to-Bernoulli expansion</p>
+
+<p style="text-align:center">$\displaystyle \pi z\cot(\pi z) \;=\; \sum_{n\ge 0}\frac{(-1)^n B_{2n}(2\pi z)^{2n}}{(2n)!}.$</p>
+
+<p>The <em>negative-integer</em> values, by contrast, fall out of the functional equation (§5) as</p>
+
+<p style="text-align:center">$\displaystyle \zeta(-n) \;=\; -\frac{B_{n+1}}{n+1}.$</p>
+
+<p>Since $B_3=B_5=B_7=\cdots=0$, this gives $\zeta(-2)=\zeta(-4)=\cdots=0$ — the <strong>trivial zeros</strong>. And $\zeta(-1)=-B_2/2=-1/12$, the regularised value that makes the string theorist's $1+2+3+\cdots$ finite.</p>
+
+<div class="widget" id="w-zeta">
+  <div class="hd"><div class="ttl">$\zeta(2n)$ and $\zeta(-n)$ from Bernoulli</div><div class="hint">pick $n$, see both faces</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <input type="range" id="z-n" min="1" max="7" step="1" value="1">
+    <span id="z-n-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="z-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dirichlet-series-euler-products.html#series">Dirichlet series basics</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="zeta-special-values"></div>
+</section>
+
+<script>
+/* ========================= section 3 widget ========================= */
+(function(){
+  function gcd(a,b){ a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; }
+  function rat(n,d=1n){ if(typeof n==='number') n=BigInt(n); if(typeof d==='number') d=BigInt(d);
+    if(d<0n){ n=-n; d=-d; } const g=gcd(n<0n?-n:n,d); return [n/g,d/g]; }
+  function radd(a,b){ return rat(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+  function rsub(a,b){ return rat(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+  function rmul(a,b){ return rat(a[0]*b[0], a[1]*b[1]); }
+  function rdiv(a,b){ return rat(a[0]*b[1], a[1]*b[0]); }
+  function rneg(a){ return [-a[0],a[1]]; }
+  function rnum(a){ return Number(a[0])/Number(a[1]); }
+  function rstr(a){ if(a[1]===1n) return a[0].toString(); return a[0].toString()+'/'+a[1].toString(); }
+  function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
+  const BCACHE=[rat(1n,1n)];
+  function B(n){
+    while(BCACHE.length <= n){
+      const m = BCACHE.length;
+      const N = m+1;
+      let A = Array.from({length:N},(_,j)=>rat(1n, BigInt(j+1)));
+      for(let i=1;i<=m;i++){
+        const next=[];
+        for(let j=0;j<N-i;j++){
+          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+        }
+        A = next;
+      }
+      BCACHE.push(A[0]);
+    }
+    return BCACHE[n];
+  }
+
+  // direct numerical ζ(2n) via partial sum, as a truth check
+  function zetaPartial(s, N){
+    let s2 = 0;
+    for(let k=1;k<=N;k++) s2 += 1/Math.pow(k,s);
+    return s2;
+  }
+
+  const nEl=$('#z-n'), nLbl=$('#z-n-lbl'), out=$('#z-out');
+  function update(){
+    const n = parseInt(nEl.value,10);
+    nLbl.textContent = 'n = '+n;
+    // ζ(2n) via Euler
+    const b2n = B(2*n);
+    const sign = (n % 2 === 0 ? -1 : 1); // (-1)^{n+1}
+    const twoPiPow = Math.pow(2*Math.PI, 2*n);
+    const fact2n = Number(fact(2*n));
+    const euler = sign * rnum(b2n) * twoPiPow / (2 * fact2n);
+    // ζ(-n) via reflection (note: formula ζ(-n)=-B_{n+1}/(n+1) for n≥1)
+    const bn1 = B(n+1);
+    const zetaNeg = -rnum(bn1) / (n+1);
+    // sanity: partial sum comparison for 2n
+    const approx = zetaPartial(2*n, 20000);
+    // closed-form rational π-form: ζ(2n) = |B_{2n}| (2π)^{2n} / (2·(2n)!)
+    // produce "π^{2n}/C" string
+    const absB2n = rat(b2n[0]<0n?-b2n[0]:b2n[0], b2n[1]);
+    const twoPow = rat(2n**BigInt(2*n - 1), 1n); // 2^{2n-1} as BigInt via (2^{2n})/2
+    // C = (2n)! / (|B_{2n}| · 2^{2n-1})  — then ζ(2n) = π^{2n}/C (for n with right parity we drop sign)
+    const denom = rdiv( rat(fact(2*n),1n), rmul(absB2n, twoPow) );
+    const prettyPi = `π^${2*n} / ${rstr(denom)}`;
+    out.textContent =
+      `ζ(${2*n}) = (-1)^{${n+1}} · B_{${2*n}} · (2π)^{${2*n}} / (2·${2*n}!)\n`+
+      `        = ${prettyPi}\n`+
+      `        ≈ ${euler.toFixed(10)}\n`+
+      `partial Σ_{k=1..20000} 1/k^${2*n} ≈ ${approx.toFixed(10)}  (truth check)\n\n`+
+      `ζ(${-n}) = −B_{${n+1}}/${n+1}\n`+
+      `        = ${rstr(rneg(rdiv(bn1, rat(BigInt(n+1),1n))))}\n`+
+      `        ≈ ${zetaNeg.toFixed(10)}`;
+  }
+  nEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ================================================================== -->
+<section id="em">
+<h2>4. Euler-Maclaurin summation</h2>
+
+<p>The same Bernoulli numbers that solve $\sum k^m$ also bridge finite sums to integrals of arbitrary smooth functions. <strong>Euler-Maclaurin</strong>:</p>
+
+<p style="text-align:center">$\displaystyle \sum_{k=a}^{b} f(k) \;=\; \int_{a}^{b} f(x)\,dx \;+\; \frac{f(a)+f(b)}{2} \;+\; \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!}\,\bigl[f^{(2k-1)}(b)-f^{(2k-1)}(a)\bigr] \;+\; R_K,$</p>
+
+<p>where $R_K$ is a remainder bounded in terms of $\|f^{(2K+1)}\|_\infty$. Only the <em>even</em> Bernoulli numbers enter the main series (the odd ones, past $B_1$, vanish; $B_1$ is hidden inside the $(f(a)+f(b))/2$ trapezoidal term). Two ways to think about it:</p>
+
+<ul>
+  <li><strong>Operator calculus.</strong> Writing $\Delta=E-1$ where $Ef(x)=f(x+1)$, and $D=d/dx$, Taylor gives $E=e^D$. Then $\Delta=e^D-1$, so $\Delta^{-1}=D^{-1}\cdot\tfrac{D}{e^D-1}=\tfrac{1}{D}\sum B_n D^n/n!$. Applying this operator identity formally to $f$ produces Euler-Maclaurin.</li>
+  <li><strong>Repeated integration by parts.</strong> On each unit interval $[k,k+1]$, integrate $f$ against the periodic Bernoulli polynomials $\widetilde B_n(x)=B_n(\{x\})$; the resulting telescoping recovers the series.</li>
+</ul>
+
+<div class="note"><strong>It is an asymptotic series, not a convergent one.</strong> For most $f$, the error as $K\to\infty$ eventually <em>grows</em>. The trick is to stop near the smallest term; the accuracy is typically $e^{-c\,K}$ for well-chosen $K$.</div>
+
+<div class="widget" id="w-em">
+  <div class="hd"><div class="ttl">Harmonic partial sum $H_n$ via Euler-Maclaurin</div><div class="hint">$f(x)=1/x$, watch corrections kick in</div></div>
+  <div class="row">
+    <label>$n$:</label>
+    <input type="range" id="e-n" min="3" max="100" step="1" value="10">
+    <span id="e-n-lbl" class="small"></span>
+    <label style="margin-left:1rem">corrections up to $B_{2K}$:</label>
+    <input type="range" id="e-K" min="0" max="6" step="1" value="2">
+    <span id="e-K-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="e-out"></div>
+  <svg id="e-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="small" style="color:var(--mute)">Green = absolute error of the Euler-Maclaurin estimate for $H_n$; red = error of the naïve $\int_1^n dx/x = \ln n$. The gap is the power of Bernoulli corrections.</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#riemann-integral">Riemann integral</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="euler-maclaurin"></div>
+</section>
+
+<script>
+/* ========================= section 4 widget ========================= */
+(function(){
+  function gcd(a,b){ a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; }
+  function rat(n,d=1n){ if(typeof n==='number') n=BigInt(n); if(typeof d==='number') d=BigInt(d);
+    if(d<0n){ n=-n; d=-d; } const g=gcd(n<0n?-n:n,d); return [n/g,d/g]; }
+  function radd(a,b){ return rat(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+  function rsub(a,b){ return rat(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+  function rmul(a,b){ return rat(a[0]*b[0], a[1]*b[1]); }
+  function rnum(a){ return Number(a[0])/Number(a[1]); }
+  function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
+  const BCACHE=[rat(1n,1n)];
+  function B(n){
+    while(BCACHE.length <= n){
+      const m = BCACHE.length;
+      const N = m+1;
+      let A = Array.from({length:N},(_,j)=>rat(1n, BigInt(j+1)));
+      for(let i=1;i<=m;i++){
+        const next=[];
+        for(let j=0;j<N-i;j++){
+          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+        }
+        A = next;
+      }
+      BCACHE.push(A[0]);
+    }
+    return BCACHE[n];
+  }
+
+  // f(x) = 1/x; f^{(m)}(x) = (-1)^m m! / x^{m+1}
+  function dermx(m, x){
+    const s = (m%2===0)?1:-1;
+    return s * Number(fact(m)) / Math.pow(x, m+1);
+  }
+  function harmonicExact(n){ let s=0; for(let k=1;k<=n;k++) s+=1/k; return s; }
+  function eulerMaclaurinH(n, K){
+    // sum_{k=1..n} 1/k ≈ ∫_1^n dx/x + (1/2)(f(1)+f(n)) + sum_{k=1..K} B_{2k}/(2k)! * [f^{(2k-1)}(n) - f^{(2k-1)}(1)]
+    let s = Math.log(n) + 0.5*(1 + 1/n);
+    for(let k=1;k<=K;k++){
+      const b = rnum(B(2*k));
+      const fk = Number(fact(2*k));
+      const diff = dermx(2*k-1, n) - dermx(2*k-1, 1);
+      s += b / fk * diff;
+    }
+    return s;
+  }
+
+  const nEl=$('#e-n'), nLbl=$('#e-n-lbl'), KEl=$('#e-K'), KLbl=$('#e-K-lbl'), out=$('#e-out'), svg=$('#e-svg');
+
+  function chart(){
+    svg.innerHTML='';
+    const W=620, H=220, padL=50, padR=20, padT=14, padB=30;
+    const nMax=30;
+    const K = parseInt(KEl.value,10);
+    // error curves vs n
+    const emErr = [], logErr = [];
+    for(let n=3;n<=nMax;n++){
+      const hx = harmonicExact(n);
+      emErr.push([n, Math.max(1e-18, Math.abs(hx - eulerMaclaurinH(n,K)))]);
+      logErr.push([n, Math.max(1e-18, Math.abs(hx - Math.log(n)))]);
+    }
+    const yMin = -18, yMax = 2; // log10
+    const xToPix = n=>padL + ((n-3)/(nMax-3))*(W-padL-padR);
+    const yToPix = y=>(H-padB) - ((y - yMin)/(yMax-yMin))*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    // y ticks at 10^k
+    for(let k=yMin;k<=yMax;k+=4){
+      const y = yToPix(k);
+      svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent = '10^'+k; svg.appendChild(t);
+    }
+    // x ticks
+    for(let n=3;n<=nMax;n+=6){
+      const x = xToPix(n);
+      svg.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:x,y:H-padB+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = n; svg.appendChild(t);
+    }
+    const xL = SVG('text',{x:(padL+(W-padR))/2,y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    xL.textContent = 'n'; svg.appendChild(xL);
+    // curves
+    function plot(curve, color, dash){
+      const d = curve.map(([n,e],i)=>(i===0?'M':'L')+xToPix(n)+' '+yToPix(Math.log10(e))).join(' ');
+      const p = SVG('path',{d,fill:'none',stroke:color,'stroke-width':1.8});
+      if(dash) p.setAttribute('stroke-dasharray',dash);
+      svg.appendChild(p);
+    }
+    plot(logErr, 'var(--pink)', null);
+    plot(emErr, 'var(--green)', null);
+    // legend
+    const L = SVG('g',{});
+    const t1=SVG('text',{x:W-padR-180,y:padT+14,'font-size':11,fill:'var(--pink)'}); t1.textContent='|H_n − ln n|';
+    const t2=SVG('text',{x:W-padR-180,y:padT+30,'font-size':11,fill:'var(--green)'}); t2.textContent=`|H_n − EM(K=${K})|`;
+    L.appendChild(t1); L.appendChild(t2); svg.appendChild(L);
+  }
+
+  function update(){
+    const n = parseInt(nEl.value,10), K = parseInt(KEl.value,10);
+    nLbl.textContent = 'n = '+n; KLbl.textContent='K = '+K;
+    const hx = harmonicExact(n);
+    const em = eulerMaclaurinH(n, K);
+    const lne = Math.log(n);
+    out.textContent =
+      `H_${n} = Σ_{k=1..${n}} 1/k = ${hx.toFixed(12)}\n\n`+
+      `Euler-Maclaurin (K = ${K}):\n`+
+      `  ln(n) + ½(1 + 1/n) + Σ_{k=1..${K}} B_{2k}/(2k)!·[f^{(2k-1)}(n)-f^{(2k-1)}(1)]\n`+
+      `  = ${em.toFixed(12)}   |err| = ${Math.abs(em-hx).toExponential(3)}\n\n`+
+      `naïve integral-only ln(${n}) = ${lne.toFixed(12)}   |err| = ${Math.abs(lne-hx).toExponential(3)}`;
+    chart();
+  }
+  nEl.addEventListener('input', update);
+  KEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ================================================================== -->
+<section id="func-eq">
+<h2>5. Functional equation preview</h2>
+
+<p>The special values of §3 are not two unrelated facts — they are one fact seen from two sides of a <em>reflection</em>. Define the <strong>completed zeta function</strong>:</p>
+
+<p style="text-align:center">$\displaystyle \xi(s) \;=\; \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s).$</p>
+
+<p>Riemann's 1859 memoir proves</p>
+
+<p style="text-align:center">$\displaystyle \xi(s) \;=\; \xi(1-s),$</p>
+
+<p>so $\xi$ is symmetric across the critical line $\operatorname{Re}(s)=\tfrac12$. The proof goes via the <em>theta function</em> $\theta(y)=\sum_{n\in\mathbb Z} e^{-\pi n^2 y}$ and its Poisson-summation symmetry $\theta(1/y)=\sqrt{y}\,\theta(y)$ — that is why the Mellin transform (see <a href="./dirichlet-series-euler-products.html#mellin">dirichlet-series</a>) is the right bridge.</p>
+
+<p>Pulling $\xi(s)=\xi(1-s)$ apart gives the asymmetric form</p>
+
+<p style="text-align:center">$\displaystyle \zeta(1-s) \;=\; 2\,(2\pi)^{-s}\cos(\pi s/2)\,\Gamma(s)\,\zeta(s).$</p>
+
+<p>Plug in $s=2n$: the $\cos(\pi n)=(-1)^n$ factor, together with Euler's $\zeta(2n)=(-1)^{n+1}B_{2n}(2\pi)^{2n}/(2(2n)!)$ and $\Gamma(2n)=(2n-1)!$, collapses to</p>
+
+<p style="text-align:center">$\displaystyle \zeta(1-2n) \;=\; -\frac{B_{2n}}{2n}.$</p>
+
+<p>Combined with $\zeta(-2k)=0$ (trivial zeros, from odd $B=0$), this is exactly the reflection of §3 — the Bernoulli numbers are the <em>same numbers</em> on both sides of the mirror.</p>
+
+<div class="widget" id="w-fe">
+  <div class="hd"><div class="ttl">$\xi(s)=\xi(1-s)$ consistency check</div><div class="hint">slide $s$; both sides should match</div></div>
+  <div class="row">
+    <label>$s$:</label>
+    <input type="range" id="fe-s" min="2" max="20" step="1" value="2">
+    <span id="fe-s-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="fe-out"></div>
+  <svg id="fe-svg" viewBox="0 0 620 160" width="620" height="160"></svg>
+  <div class="small" style="color:var(--mute)">Both columns show $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$ evaluated at $s$ (right) and $1-s$ (left). They agree; the symmetry point is $s=1/2$ (off-screen, between integers).</div>
+</div>
+
+<div class="quiz" data-concept="zeta-functional-equation-preview"></div>
+</section>
+
+<script>
+/* ========================= section 5 widget ========================= */
+(function(){
+  // Lanczos approximation for Γ(s) on the real axis (good to ~1e-10)
+  const g=7;
+  const CC=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,
+    -176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  function gamma(z){
+    if(z < 0.5){ return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z)); }
+    z -= 1;
+    let x = CC[0];
+    for(let i=1;i<g+2;i++) x += CC[i]/(z+i);
+    const t = z + g + 0.5;
+    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;
+  }
+  function zetaNumeric(s){
+    // very hacky: high-N partial sum; fine for s ≥ 2 and s small-negative (via reflection)
+    if(s > 1.5){
+      let sum=0;
+      for(let k=1;k<=100000;k++) sum += 1/Math.pow(k,s);
+      return sum;
+    }
+    // reflection ζ(s) = 2(2π)^{s-1} sin(πs/2) Γ(1-s) ζ(1-s)
+    const u = 1-s;
+    let sumu=0;
+    for(let k=1;k<=100000;k++) sumu += 1/Math.pow(k,u);
+    return 2 * Math.pow(2*Math.PI, s-1) * Math.sin(Math.PI*s/2) * gamma(1-s) * sumu;
+  }
+  function xi(s){ return Math.pow(Math.PI, -s/2) * gamma(s/2) * zetaNumeric(s); }
+
+  const sEl=$('#fe-s'), sLbl=$('#fe-s-lbl'), out=$('#fe-out'), svg=$('#fe-svg');
+  function update(){
+    const s = parseFloat(sEl.value);
+    sLbl.textContent = 's = '+s;
+    const xs = xi(s), xb = xi(1-s);
+    const z_s = zetaNumeric(s), z_b = zetaNumeric(1-s);
+    out.textContent =
+      `ζ(${s}) ≈ ${z_s.toExponential(6)}\n`+
+      `ζ(${1-s}) ≈ ${z_b.toExponential(6)}\n\n`+
+      `ξ(${s}) = π^{-s/2} Γ(s/2) ζ(s) ≈ ${xs.toExponential(6)}\n`+
+      `ξ(${1-s}) = π^{-(1-s)/2} Γ((1-s)/2) ζ(1-s) ≈ ${xb.toExponential(6)}\n\n`+
+      `|ξ(s) − ξ(1−s)| = ${Math.abs(xs-xb).toExponential(3)}   (should be ≈ 0)`;
+    // bar chart of xi(s), xi(1-s) and difference
+    svg.innerHTML='';
+    const labs=['ξ(1−s)','ξ(s)','|Δ|'];
+    const vals=[Math.abs(xb), Math.abs(xs), Math.abs(xs-xb)];
+    const cols=['var(--blue)','var(--yellow)','var(--pink)'];
+    const logVals = vals.map(v=>Math.log10(Math.max(v,1e-30)));
+    const yMin=-30, yMax=2;
+    const H=160, pad=18, baseY=H-28;
+    const W=620;
+    for(let i=0;i<3;i++){
+      const x = 140 + i*140;
+      const h = Math.max(2, (logVals[i]-yMin)/(yMax-yMin) * (baseY-12));
+      svg.appendChild(SVG('rect',{x:x-36,y:baseY-h,width:72,height:h,fill:cols[i],opacity:0.8}));
+      const t1 = SVG('text',{x:x,y:baseY+14,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      t1.textContent = labs[i]; svg.appendChild(t1);
+      const t2 = SVG('text',{x:x,y:baseY-h-4,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t2.textContent = vals[i].toExponential(2); svg.appendChild(t2);
+    }
+    svg.appendChild(SVG('line',{x1:40,y1:baseY,x2:W-20,y2:baseY,stroke:'var(--line)'}));
+  }
+  sEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ================================================================== -->
+<section id="app">
+<h2>6. Application: accurate $\zeta(s)$ near $s=1$</h2>
+
+<p>The naïve series $\zeta(s)=\sum_{k\ge 1} k^{-s}$ converges absolutely for $\operatorname{Re}(s)>1$ but agonizingly slowly as $s\to 1^{+}$: the tail $\sum_{k>N} k^{-s}\approx N^{1-s}/(s-1)$. Applying Euler-Maclaurin to the tail gives</p>
+
+<p style="text-align:center">$\displaystyle \zeta(s) \;\approx\; \sum_{k=1}^{N-1}\frac{1}{k^{s}} \;+\; \frac{N^{1-s}}{s-1} \;+\; \frac{1}{2 N^{s}} \;+\; \sum_{k=1}^{K}\frac{B_{2k}}{(2k)!}\,\frac{s(s+1)\cdots(s+2k-2)}{N^{s+2k-1}}.$</p>
+
+<p>This is the Riemann-Siegel predecessor: a modest $N$ and $K$ already give 10-digit accuracy uniformly across a reasonable strip. The widget below compares the two strategies at any $s>1$; notice how the EM-corrected estimate blows past the naïve partial sum by many orders of magnitude for the same number of terms.</p>
+
+<div class="widget" id="w-app">
+  <div class="hd"><div class="ttl">Naïve vs Euler-Maclaurin ζ(s)</div><div class="hint">same $N$; EM wins by orders of magnitude</div></div>
+  <div class="row">
+    <label>$s$:</label>
+    <input type="range" id="a-s" min="1.1" max="6" step="0.05" value="1.5">
+    <span id="a-s-lbl" class="small"></span>
+    <label style="margin-left:1rem">$N$:</label>
+    <input type="range" id="a-N" min="2" max="50" step="1" value="10">
+    <span id="a-N-lbl" class="small"></span>
+    <label style="margin-left:1rem">EM correction depth $K$:</label>
+    <input type="range" id="a-K" min="0" max="6" step="1" value="3">
+    <span id="a-K-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="a-out"></div>
+</div>
+</section>
+
+<script>
+/* ========================= section 6 widget ========================= */
+(function(){
+  function gcd(a,b){ a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; }
+  function rat(n,d=1n){ if(typeof n==='number') n=BigInt(n); if(typeof d==='number') d=BigInt(d);
+    if(d<0n){ n=-n; d=-d; } const g=gcd(n<0n?-n:n,d); return [n/g,d/g]; }
+  function radd(a,b){ return rat(a[0]*b[1]+b[0]*a[1], a[1]*b[1]); }
+  function rsub(a,b){ return rat(a[0]*b[1]-b[0]*a[1], a[1]*b[1]); }
+  function rmul(a,b){ return rat(a[0]*b[0], a[1]*b[1]); }
+  function rnum(a){ return Number(a[0])/Number(a[1]); }
+  function fact(n){ let r=1n; for(let i=2n;i<=BigInt(n);i++) r*=i; return r; }
+  const BCACHE=[rat(1n,1n)];
+  function B(n){
+    while(BCACHE.length <= n){
+      const m = BCACHE.length;
+      const N2 = m+1;
+      let A = Array.from({length:N2},(_,j)=>rat(1n, BigInt(j+1)));
+      for(let i=1;i<=m;i++){
+        const next=[];
+        for(let j=0;j<N2-i;j++){
+          next.push( rmul(rat(BigInt(i),1n), rsub(A[j], A[j+1])) );
+        }
+        A = next;
+      }
+      BCACHE.push(A[0]);
+    }
+    return BCACHE[n];
+  }
+
+  function naivePartial(s, N){ let x=0; for(let k=1;k<=N;k++) x += 1/Math.pow(k,s); return x; }
+  // Euler-Maclaurin: split at N. Use partial 1..N-1 + tail via integral + endpoint + corrections
+  function emZeta(s, N, K){
+    let x = 0;
+    for(let k=1;k<=N-1;k++) x += 1/Math.pow(k,s);
+    x += Math.pow(N,1-s)/(s-1);
+    x += 0.5 / Math.pow(N,s);
+    // sum_{k=1..K} B_{2k}/(2k)! * product_{j=0..2k-2}(s+j) / N^{s+2k-1}
+    for(let k=1;k<=K;k++){
+      let prod = 1;
+      for(let j=0;j<=2*k-2;j++) prod *= (s + j);
+      const b = rnum(B(2*k));
+      const fk = Number(fact(2*k));
+      x += b / fk * prod / Math.pow(N, s+2*k-1);
+    }
+    return x;
+  }
+  // "true" value via huge partial sum
+  function zetaTrue(s){ let x=0; for(let k=1;k<=500000;k++) x += 1/Math.pow(k,s); return x; }
+
+  const sEl=$('#a-s'), sLbl=$('#a-s-lbl'), NEl=$('#a-N'), NLbl=$('#a-N-lbl'),
+        KEl=$('#a-K'), KLbl=$('#a-K-lbl'), out=$('#a-out');
+  function update(){
+    const s = parseFloat(sEl.value), N = parseInt(NEl.value,10), K = parseInt(KEl.value,10);
+    sLbl.textContent='s = '+s.toFixed(2); NLbl.textContent='N = '+N; KLbl.textContent='K = '+K;
+    const naive = naivePartial(s, N);
+    const em = emZeta(s, N, K);
+    const truth = zetaTrue(s);
+    out.textContent =
+      `s = ${s.toFixed(3)},  N = ${N},  K = ${K}\n\n`+
+      `naïve Σ_{k=1..N} k^{−s}   ≈ ${naive.toFixed(12)}   |err| = ${Math.abs(naive-truth).toExponential(3)}\n`+
+      `Euler-Maclaurin (depth K) ≈ ${em.toFixed(12)}   |err| = ${Math.abs(em-truth).toExponential(3)}\n\n`+
+      `reference (N=500000)      ≈ ${truth.toFixed(12)}\n\n`+
+      `advantage: ${(Math.abs(naive-truth)/Math.max(1e-20,Math.abs(em-truth))).toExponential(2)}× fewer terms would the naïve sum need?\n`+
+      `(For s=${s.toFixed(2)} near 1, naïve needs N ≈ 10^{${Math.ceil(1/(s-1)*3)}} for 6-digit accuracy — EM reaches the same with N = ${N}.)`;
+  }
+  sEl.addEventListener('input', update);
+  NEl.addEventListener('input', update);
+  KEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<div class="note"><strong>Where this goes next.</strong> The same Euler-Maclaurin machinery powers Riemann-Siegel, the sharpest elementary algorithm for $\zeta(s)$ on the critical line; the even-Bernoulli corrections become a trigonometric series in $t=\operatorname{Im}(s)$, and the asymptotic cutoff is chosen around $K\sim \sqrt{t/(2\pi)}$. That is the backbone of every numerical zero-verification ever computed.</div>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('power-sums-bernoulli'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

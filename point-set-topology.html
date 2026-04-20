@@ -103,6 +103,19 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -1146,5 +1159,14 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

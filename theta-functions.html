@@ -100,6 +100,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -199,6 +226,14 @@ The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect square
   </div>
   <div class="small">Plotted: the real value $\theta(iy) = 1 + 2\sum_{n\ge 1} e^{-\pi n^2 y}$. As $y\to\infty$ only $n=0$ survives and $\theta\to 1$. As $y\to 0^+$, $\theta \to \infty$ like $1/\sqrt{y}$ (this is the transformation law of §3).</div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="theta-series-lattice"></div>
 </section>
 
 <script>
@@ -309,7 +344,7 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
   <svg id="qexp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
   <div class="small">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>
 </div>
-<div class="quiz" data-concept="theta-series-lattice"></div>
+<div class="quiz" data-concept="theta-q-expansion"></div>
 </section>
 
 <script>
@@ -839,6 +874,7 @@ See <a href="./modular-forms.html">modular forms</a> for the construction of $\D
   <svg id="eta-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
   <div class="readout" id="eta-out" style="font-size:.85rem"></div>
 </div>
+<div class="quiz" data-concept="dedekind-eta-theta"></div>
 </section>
 
 <script>
@@ -1204,5 +1240,15 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

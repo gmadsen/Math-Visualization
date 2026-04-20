@@ -22,14 +22,33 @@
       "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes."
     },
     {
+      "id": "automorphisms-obstruction",
+      "title": "Automorphisms obstruct fine moduli",
+      "anchor": "whyfail",
+      "prereqs": [
+        "fine-vs-coarse-moduli"
+      ],
+      "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$."
+    },
+    {
       "id": "level-structures-moduli",
       "title": "Level structure and compactification ideas",
       "anchor": "level",
       "prereqs": [
-        "fine-vs-coarse-moduli",
+        "automorphisms-obstruction",
         "modular-form-definition"
       ],
       "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces."
+    },
+    {
+      "id": "higher-genus-moduli",
+      "title": "Higher-genus moduli and stable curves",
+      "anchor": "higher",
+      "prereqs": [
+        "fine-vs-coarse-moduli",
+        "riemann-roch"
+      ],
+      "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves."
     }
   ]
 }

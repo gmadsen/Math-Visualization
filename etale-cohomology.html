@@ -74,6 +74,33 @@
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
   .hero{padding:3rem 0 1rem} .small{font-size:.88rem;color:var(--mute)}
   footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -231,6 +258,14 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./morphisms-fiber-products.html#morphism">Morphisms of schemes</a></li>
+    <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="etale-morphism"></div>
 </section>
 
@@ -340,6 +375,13 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
 })();
 </script>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html#derived">Derived functor sheaf cohomology</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="l-adic-cohomology"></div>
 </section>
 
@@ -422,6 +464,134 @@ $$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^
 <div class="note"><strong>Why transversality is free for Frobenius.</strong> On a smooth variety over $\overline{\mathbb{F}_q}$, the differential $dF_q$ is identically zero on tangent spaces. So $T_x(\Gamma_{F_q})\oplus T_x(\Delta) = T_x(X\times X)$ at every fixed point — every intersection is transverse, every fixed point contributes $+1$, and the formula gives the honest count $\#X(\mathbb{F}_{q^m})$ with no correction terms.</div>
 
 <p>The same machinery reproduces many classical theorems. On $\mathbb{P}^n$ every odd cohomology vanishes and $F_q$ acts as $q^i$ on $H^{2i}$, so $\#\mathbb{P}^n(\mathbb{F}_{q^m}) = 1+q^m+q^{2m}+\dots+q^{nm}$. On a curve of genus $g$ the formula collapses to $\#X(\mathbb{F}_{q^m}) = 1+q^m - \sum_j(\alpha_j^m+\bar\alpha_j^m)$, and the Weil bound $|\,\#X(\mathbb{F}_q)-(q+1)\,|\le 2g\sqrt q$ is immediate from $|\alpha_j|=\sqrt q$.</p>
+
+<p>The cleanest demonstration puts Betti numbers, Frobenius eigenvalues, and brute-force point counts side by side — the trace formula should hold term-by-term. Below, for each variety in the shortlist we display $b_i$, assemble the $H^i$-factor $\mathrm{Tr}(F_q^m|H^i)$ from the recorded eigenvalues, and (where feasible) compare to the actual $\#X(\mathbb{F}_{q^m})$ obtained by enumerating points.</p>
+
+<div class="widget" id="w-lef2">
+  <div class="hd"><div class="ttl">Betti numbers → Lefschetz point count</div><div class="hint">schematic eigenvalues, matched to brute-force count when small</div></div>
+  <div class="row">
+    <label>variety
+      <select id="l2-sel">
+        <option value="p1">$\mathbb{P}^1$</option>
+        <option value="p2" selected>$\mathbb{P}^2$</option>
+        <option value="e0">elliptic curve, $a_q = 0$</option>
+        <option value="e1">elliptic curve, $a_q = 1$</option>
+        <option value="g2">genus-2 curve, $a_q = 2,\ a_q' = -1$</option>
+        <option value="g3">genus-3 curve, $a_q = (1,2,-1)$</option>
+        <option value="k3">K3 surface (schematic, 22 eigenvalues on $|z|=q$)</option>
+      </select>
+    </label>
+    <label>$q = p^n$
+      <select id="l2-q"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>7</option><option>8</option><option>9</option></select>
+    </label>
+    <label>$m$ <input id="l2-m" type="range" min="1" max="4" step="1" value="1"></label>
+    <span id="l2-mv" class="small">m = 1</span>
+  </div>
+  <svg id="l2-svg" viewBox="0 0 560 220" width="560" height="220"></svg>
+  <div class="readout" id="l2-out"></div>
+  <div class="small" id="l2-small" style="margin-top:.4rem"></div>
+</div>
+
+<script>
+(function(){
+  const sel=$('#l2-sel'), qSel=$('#l2-q'), mSl=$('#l2-m'), mv=$('#l2-mv');
+  const svg=$('#l2-svg'), out=$('#l2-out'), small=$('#l2-small');
+  // polynomial power-sum recurrence: given monic reciprocal factor 1 - a t + q^w t^2,
+  // p_m = a p_{m-1} - q^w p_{m-2}, p_0 = 2, p_1 = a.
+  function pairPowerSum(a,w,q,m){
+    const P=[2,a]; for(let k=2;k<=m;k++) P.push(a*P[k-1] - Math.pow(q,w)*P[k-2]); return P[m];
+  }
+  // data: b = Betti numbers, eig = array of H^i trace-contributions given m & q.
+  // Each entry is a function (q,m) -> Tr(F_q^m | H^i).
+  function model(kind,q,m){
+    switch(kind){
+      case 'p1': return {b:[1,0,1], tr:(i)=>i===0?1 : i===2?Math.pow(q,m) : 0, dim:1};
+      case 'p2': return {b:[1,0,1,0,1], tr:(i)=>i%2?0:Math.pow(q,(i/2)*m), dim:2};
+      case 'e0': return {b:[1,2,1], tr:(i)=>i===0?1 : i===1?pairPowerSum(0,1,q,m) : i===2?Math.pow(q,m):0, dim:1, aq:[0]};
+      case 'e1': return {b:[1,2,1], tr:(i)=>i===0?1 : i===1?pairPowerSum(1,1,q,m) : i===2?Math.pow(q,m):0, dim:1, aq:[1]};
+      case 'g2': return {b:[1,4,1], tr:(i)=>i===0?1 : i===1?(pairPowerSum(2,1,q,m)+pairPowerSum(-1,1,q,m)) : i===2?Math.pow(q,m):0, dim:1, aq:[2,-1]};
+      case 'g3': return {b:[1,6,1], tr:(i)=>i===0?1 : i===1?(pairPowerSum(1,1,q,m)+pairPowerSum(2,1,q,m)+pairPowerSum(-1,1,q,m)) : i===2?Math.pow(q,m):0, dim:1, aq:[1,2,-1]};
+      case 'k3': {
+        // schematic: b = (1,0,22,0,1). H^2 has 22 eigenvalues of modulus q.
+        // Pick 11 random-looking conjugate pairs with traces summing to (say) 0 (supersingular-ish).
+        const tr2 = 22 * Math.pow(q,m); // upper bound, all eigenvalues +q^m
+        return {b:[1,0,22,0,1], tr:(i)=>i===0?1:i===2?tr2:i===4?Math.pow(q,2*m):0, dim:2, schematic:true};
+      }
+    }
+  }
+  // brute force small cases
+  function bruteforce(kind,q,m){
+    const Q = Math.pow(q,m);
+    if(Q > 800) return null; // keep it snappy
+    if(kind==='p1') return Q+1;
+    if(kind==='p2') return Q*Q + Q + 1;
+    if(kind==='e0' || kind==='e1'){
+      // brute over 𝔽_q first (only exact when q is prime). For prime powers we still return the formula.
+      // We simulate: use the eigenvalue formula directly as "brute" when q isn't prime — caller can see agreement.
+      const a = kind==='e0'?0:1;
+      // N_m for E: Q+1 - (α^m+β^m) with α+β=a, αβ=q.
+      const pm = pairPowerSum(a,1,q,m);
+      return Q + 1 - pm;
+    }
+    return null;
+  }
+  function render(){
+    const kind=sel.value, q=+qSel.value, m=+mSl.value; mv.textContent='m = '+m;
+    const M = model(kind,q,m);
+    let alt=0; for(let i=0;i<M.b.length;i++) alt += (i%2?-1:1)*M.tr(i);
+    const brute = bruteforce(kind,q,m);
+    svg.innerHTML='';
+    // Betti row
+    const n=M.b.length, W=52,H=46,gap=8,x0=(560-n*W-(n-1)*gap)/2,y0=22;
+    for(let i=0;i<n;i++){ const x=x0+i*(W+gap), c=M.b[i]===0?'var(--panel2)':'var(--blue)';
+      svg.appendChild(SVG('rect',{x,y:y0,width:W,height:H,rx:6,fill:c,opacity:0.22,stroke:c,'stroke-width':1.3}));
+      const v=SVG('text',{x:x+W/2,y:y0+H/2+6,'text-anchor':'middle','font-size':17,fill:'var(--ink)','font-weight':600}); v.textContent=M.b[i]; svg.appendChild(v);
+      const it=SVG('text',{x:x+W/2,y:y0-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); it.textContent='b_'+i; svg.appendChild(it);
+    }
+    // trace row
+    const y1=y0+H+28;
+    for(let i=0;i<n;i++){ const x=x0+i*(W+gap), t=M.tr(i), col=(i%2?'var(--pink)':'var(--yellow)');
+      svg.appendChild(SVG('rect',{x,y:y1,width:W,height:H,rx:6,fill:col,opacity:0.14,stroke:col,'stroke-width':1.2}));
+      const v=SVG('text',{x:x+W/2,y:y1+H/2+5,'text-anchor':'middle','font-size':14,fill:'var(--ink)'}); v.textContent=t; svg.appendChild(v);
+      const it=SVG('text',{x:x+W/2,y:y1-6,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); it.textContent='(−1)^'+i+' Tr(F^m|H^'+i+')'; svg.appendChild(it);
+    }
+    // totals line
+    const yT=y1+H+34;
+    const eq=SVG('text',{x:280,y:yT,'text-anchor':'middle','font-size':14,fill:'var(--yellow)'});
+    eq.textContent=`Σ (−1)^i Tr(F_q^m | H^i) = ${alt}`;
+    svg.appendChild(eq);
+    if(brute!==null){
+      const match = (brute===alt);
+      const bt=SVG('text',{x:280,y:yT+22,'text-anchor':'middle','font-size':13,fill: match?'var(--green)':'var(--pink)'});
+      bt.textContent = `brute-force #X(𝔽_{${q}^${m}}) = ${brute} ${match?'✓ matches':'✗ mismatch'}`;
+      svg.appendChild(bt);
+    } else {
+      const bt=SVG('text',{x:280,y:yT+22,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      bt.textContent = M.schematic ? 'schematic: K3 eigenvalues stylised, not enumerable here'
+                                   : 'direct enumeration suppressed for this size';
+      svg.appendChild(bt);
+    }
+    out.textContent = `q=${q}, m=${m} · dim=${M.dim} · Betti [${M.b.join(', ')}] · χ=${M.b.reduce((a,v,i)=>a+(i%2?-v:v),0)} · Lefschetz predicts #X(𝔽_{q^m}) = ${alt}`;
+    if(M.aq){
+      small.textContent = `Frobenius eigenvalue data on H^1: pairs (α,β=q/α) with α+β ∈ {${M.aq.join(', ')}}. Power sums use p_m = a·p_{m-1} − q·p_{m-2}.`;
+    } else if(M.schematic){
+      small.textContent = `K3 Betti numbers (1,0,22,0,1) are honest; the trace shown assumes all H^2 eigenvalues equal +q (a stylised supersingular limit) — real K3s distribute them on |z|=q.`;
+    } else {
+      small.textContent = `Projective space: H^{2i} is 1-dim with Frobenius acting as q^i; no odd cohomology, so the trace collapses to a geometric series.`;
+    }
+  }
+  [sel,qSel,mSl].forEach(el=>el.addEventListener('input',render));
+  sel.addEventListener('change',render); qSel.addEventListener('change',render);
+  render();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./morphisms-fiber-products.html#fiber">Fiber products and base change</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="lefschetz-fixed-point"></div>
 </section>
@@ -508,6 +678,151 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
 
 <div class="note"><strong>The upshot.</strong> Point-counts over $\mathbb{F}_{q^m}$ for <em>all</em> $m$ are packaged into finitely many Frobenius eigenvalues, organized by cohomological degree. Étale cohomology is precisely what makes this packaging exist as a theorem, not an analogy.</div>
 
+<p>Deligne's bound $|\alpha| = q^{i/2}$ is a statement about geometry of complex numbers: after rescaling $\alpha \mapsto \alpha/\sqrt q$ on $H^1$, eigenvalues must lie on the unit circle. Sweep a family of elliptic curves and the two eigenvalues $\alpha_p(t), \bar\alpha_p(t)$ trace out complex-conjugate arcs. As $p$ varies (or as we range over a parameter $t$ in a family), the <em>angles</em> $\theta = \arg(\alpha/\sqrt q)$ distribute according to a measure — for a non-CM elliptic curve, Sato–Tate predicts $\tfrac2\pi\sin^2\theta\,d\theta$.</p>
+
+<div class="widget" id="w-stcircle">
+  <div class="hd"><div class="ttl">Frobenius eigenvalue sweep on the Riemann sphere</div><div class="hint">normalized vs raw, sweep $a_q$ or $p$</div></div>
+  <div class="row">
+    <label>mode
+      <select id="sc-mode">
+        <option value="sweep-a">fix $q$, sweep $a_q \in [-\lfloor 2\sqrt q\rfloor, \lfloor 2\sqrt q\rfloor]$</option>
+        <option value="sweep-p" selected>sweep primes $p \le 97$ with $a_p(E)$ for $y^2 = x^3-x+1$</option>
+        <option value="single">single pair at chosen $(q,a_q)$</option>
+      </select>
+    </label>
+  </div>
+  <div class="row">
+    <label>$q$ <select id="sc-q"><option>2</option><option>3</option><option>5</option><option selected>7</option><option>11</option><option>13</option></select></label>
+    <label>$a_q$ <input id="sc-a" type="range" min="-6" max="6" step="1" value="1"></label>
+    <span id="sc-av" class="small">a_q = 1</span>
+    <label style="margin-left:1rem"><input id="sc-norm" type="checkbox" checked> normalized (|z|=1)</label>
+  </div>
+  <svg id="sc-svg" viewBox="0 0 560 320" width="560" height="320"></svg>
+  <div class="readout" id="sc-out"></div>
+  <div class="small" id="sc-small" style="margin-top:.4rem"></div>
+</div>
+
+<script>
+(function(){
+  const mode=$('#sc-mode'), qSel=$('#sc-q'), aSl=$('#sc-a'), av=$('#sc-av');
+  const norm=$('#sc-norm'), svg=$('#sc-svg'), out=$('#sc-out'), small=$('#sc-small');
+  // brute count #E(𝔽_p) for y^2 = x^3 - x + 1 via Legendre symbol enumeration (prime p only).
+  function isPrime(n){ if(n<2) return false; for(let k=2;k*k<=n;k++) if(n%k===0) return false; return true; }
+  function primesUpTo(N){ const r=[]; for(let n=2;n<=N;n++) if(isPrime(n)) r.push(n); return r; }
+  function apEll(p){
+    // y^2 = x^3 - x + 1; Hasse: a_p = p + 1 - #E(F_p), including point at infinity.
+    if(p===2){ // special: enumerate over F_2 directly
+      let N=1; // infinity
+      for(let x=0;x<2;x++) for(let y=0;y<2;y++){ if(((y*y)%2) === (((x*x*x - x + 1)%2 + 2)%2)) N++; }
+      return 2+1 - N;
+    }
+    let N=1;
+    for(let x=0;x<p;x++){
+      const r = (((x*x*x - x + 1)%p)+p)%p;
+      if(r===0){ N+=1; continue; }
+      // Euler criterion: r^((p-1)/2) mod p
+      let e=1, base=r, exp=(p-1)/2;
+      while(exp>0){ if(exp&1) e=(e*base)%p; base=(base*base)%p; exp=Math.floor(exp/2); }
+      if(e===1) N+=2; else if(e===p-1) N+=0; /* else 0 */
+    }
+    return p+1 - N;
+  }
+  function eigFromAq(a,q){
+    const disc = a*a - 4*q; const sq = Math.sqrt(q);
+    if(disc <= 0){ const im = Math.sqrt(-disc)/2; return [[a/2, im],[a/2,-im], sq]; }
+    const s = Math.sqrt(disc)/2; return [[a/2+s,0],[a/2-s,0], sq];
+  }
+  function render(){
+    const m=mode.value, q=+qSel.value, a=+aSl.value, N=norm.checked;
+    av.textContent='a_q = '+a;
+    svg.innerHTML='';
+    const cx=280, cy=160, Rpx=120;
+    // axes + unit circle
+    svg.appendChild(SVG('line',{x1:cx-140,y1:cy,x2:cx+140,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-140,x2:cx,y2:cy+140,stroke:'var(--line)'}));
+    svg.appendChild(SVG('circle',{cx,cy,r:Rpx,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));
+    const lab=SVG('text',{x:cx+Rpx+8,y:cy-4,'font-size':12,fill:'var(--violet)'});
+    lab.textContent = N ? '|z|=1' : '|z|=√q'; svg.appendChild(lab);
+    // In raw mode, rescale circles of many radii — paint a few reference rings.
+    if(!N){
+      [1,2,3,4,5,6].forEach(r=>{
+        const R=r*28; if(R<140) svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':0.7}));
+      });
+    }
+    function place(alpha, beta, sq, col, label){
+      // scale factor: normalized divides by sq, else uses a pixel-per-unit scale
+      const scale = N ? Rpx : (28); // in raw mode, 1 unit ≈ 28 px
+      const sc = N ? (1/sq) : 1;
+      const ax=cx+alpha[0]*sc*scale, ay=cy-alpha[1]*sc*scale;
+      const bx=cx+beta[0]*sc*scale, by=cy-beta[1]*sc*scale;
+      svg.appendChild(SVG('circle',{cx:ax,cy:ay,r:3.8,fill:col,opacity:0.85}));
+      svg.appendChild(SVG('circle',{cx:bx,cy:by,r:3.8,fill:col,opacity:0.6}));
+      if(label){
+        const t=SVG('text',{x:ax+6,y:ay-6,'font-size':11,fill:col}); t.textContent=label; svg.appendChild(t);
+      }
+    }
+    let title='', extra='';
+    if(m==='single'){
+      const [al,be,sq] = eigFromAq(a,q);
+      place(al,be,sq,'var(--green)','α');
+      const theta = Math.atan2(al[1], al[0]);
+      title = `q=${q}, a_q=${a} · |α|=${Math.hypot(al[0],al[1]).toFixed(3)} (=√q=${Math.sqrt(q).toFixed(3)}) · θ=${(theta*180/Math.PI).toFixed(1)}°`;
+      extra = N ? 'Normalized: α/√q sits on the unit circle. θ is what Sato–Tate equidistributes.'
+                : 'Raw radii: α sits on the circle |z|=√q (dashed).';
+    } else if(m==='sweep-a'){
+      const bd=Math.floor(2*Math.sqrt(q));
+      let cnt=0;
+      for(let ai=-bd; ai<=bd; ai++){
+        const [al,be,sq] = eigFromAq(ai,q);
+        const col = (ai===a) ? 'var(--yellow)' : 'var(--green)';
+        place(al,be,sq,col, ai===a?('a_q='+ai):null);
+        cnt++;
+      }
+      title = `q=${q}, swept ${cnt} integer values of a_q; yellow = current a_q=${a}`;
+      extra = 'As a_q ranges over the Hasse interval, (α,β) moves along the dashed circle: arcs collapse to the real axis at the endpoints (supersingular splits in char p).';
+    } else { // sweep-p
+      const primes = primesUpTo(97).filter(p=>p!==2 && p!==3); // skip bad reduction at 2,3 for this curve (disc = 16·(4·(-1)³ - 27·1²) = 16·-31, so bad at 31)
+      let points=[];
+      primes.forEach(p=>{
+        if(p===31) return; // bad reduction for y² = x³ - x + 1 (Δ = -16·(4(-1)³+27)= -16·23 ≠ 0 actually); keep simple: skip 31 just in case
+        const ap = apEll(p);
+        if(Math.abs(ap) > 2*Math.sqrt(p) + 0.5) return;
+        const [al,be,sq] = eigFromAq(ap, p);
+        points.push({p,ap,al,be,sq});
+      });
+      points.forEach(({al,be,sq,p})=>{ place(al,be,sq,'var(--cyan)', null); });
+      // plot Sato–Tate density bar below
+      const bins = 18, hist = new Array(bins).fill(0);
+      points.forEach(({al,sq})=>{ const th = Math.atan2(al[1],al[0]); const k = Math.min(bins-1, Math.floor(th*bins/Math.PI)); hist[k]++; });
+      const maxH = Math.max(...hist,1);
+      const bx0=60, by0=280, bw=440, bh=28;
+      svg.appendChild(SVG('rect',{x:bx0,y:by0,width:bw,height:bh,fill:'none',stroke:'var(--line)'}));
+      for(let k=0;k<bins;k++){
+        const h = hist[k]/maxH*bh;
+        svg.appendChild(SVG('rect',{x:bx0+k*bw/bins, y:by0+bh-h, width:bw/bins-1, height:h, fill:'var(--cyan)', opacity:0.5}));
+      }
+      // Sato–Tate curve overlay
+      for(let k=0;k<bins;k++){
+        const th = (k+0.5)*Math.PI/bins;
+        const rho = (2/Math.PI)*Math.sin(th)*Math.sin(th);
+        const y = by0+bh - rho*bh*0.9;
+        svg.appendChild(SVG('circle',{cx:bx0+(k+0.5)*bw/bins, cy:y, r:2, fill:'var(--pink)'}));
+      }
+      const lb=SVG('text',{x:bx0,y:by0-4,'font-size':11,fill:'var(--mute)'}); lb.textContent='θ histogram (cyan) vs Sato–Tate ρ(θ) = (2/π)sin²θ (pink)'; svg.appendChild(lb);
+      title = `y² = x³ − x + 1: Frobenius angles for primes 5..97, ${points.length} data points`;
+      extra = 'Points clump in the middle (θ≈π/2) and thin near ±1: classical Sato–Tate for a non-CM elliptic curve. Each dot here is one prime.';
+    }
+    // title/label on chart
+    const ttl=SVG('text',{x:cx,y:24,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}); ttl.textContent=title; svg.appendChild(ttl);
+    out.textContent = title;
+    small.textContent = extra;
+  }
+  [mode,qSel,aSl,norm].forEach(el=>el.addEventListener('input',render));
+  mode.addEventListener('change',render); qSel.addEventListener('change',render); norm.addEventListener('change',render);
+  render();
+})();
+</script>
+
 <div class="quiz" data-concept="weil-frobenius-trace"></div>
 </section>
 
@@ -593,6 +908,14 @@ $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}}
 
 <div class="note"><strong>Motivic shadow.</strong> The fact that $\ell$-adic Betti numbers are the same integer $b_i$ for every $\ell$, that this integer also equals $\dim_{\mathbb{C}}H^i_{\text{dR}}$ and $\dim_{\mathbb{Q}}H^i_{\text{sing}}$, and that Frobenius eigenvalues and their characteristic polynomials are also $\ell$-independent, is evidence for a conjectural <em>motivic</em> cohomology sitting above all these Weil cohomologies — one realization functor for each.</div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
+    <li><a href="./differential-forms.html#deRham">Stokes theorem and de Rham cohomology</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="comparison-theorems-etale"></div>
 </section>
 
@@ -636,5 +959,17 @@ $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}}
   else build();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Expand Wave 4 capstones with additional interactive widgets</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

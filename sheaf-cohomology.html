@@ -110,6 +110,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -277,6 +304,13 @@ over open covers ordered by refinement. For paracompact Hausdorff $X$ this agree
 
 <h3>Functoriality</h3>
 <p>A morphism of sheaves $\mathcal{F} \to \mathcal{G}$ induces $\check{C}^p(\mathcal{U}, \mathcal{F}) \to \check{C}^p(\mathcal{U}, \mathcal{G})$ by postcomposing each section. This commutes with $d$ and descends to $\check{H}^p$. A refinement of covers $\mathcal{V} \prec \mathcal{U}$ and a choice of refinement map $\tau\colon \mathrm{Ind}(\mathcal{V}) \to \mathrm{Ind}(\mathcal{U})$ induces $\check{C}^p(\mathcal{U},\mathcal{F}) \to \check{C}^p(\mathcal{V},\mathcal{F})$ by restricting sections; different choices of $\tau$ are chain-homotopic, so the map on $\check{H}^p$ is canonical. These pieces assemble into a bifunctor $\check{H}^p(-, -)$ in the cover and the sheaf separately.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="cech-cohomology"></div>
 </section>
 
@@ -376,6 +410,13 @@ When $f$ is an affine morphism of schemes and $\mathcal{F}$ is quasi-coherent, $
   <li><strong>Soft/fine</strong> — for a paracompact Hausdorff $X$, any sheaf admits a fine resolution (tensor with smooth partitions of unity on manifolds); the de Rham complex of a smooth manifold is the canonical example. $H^p_{\mathrm{dR}}(X) = H^p(X, \underline{\mathbb{R}})$ follows from this with two lines of extra argument.</li>
   <li><strong>Čech / affine</strong> — for a scheme with an affine cover, apply Leray; the Čech complex <em>is</em> a resolution computed through the affines.</li>
 </ul>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#derived">Derived functors and resolutions</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="derived-functor-cohomology"></div>
 </section>
 
@@ -408,6 +449,8 @@ has three, three, and one term (because $\binom{3}{1} = 3, \binom{3}{2} = 3, \bi
 
 <h3>Counterexample: bad covers</h3>
 <p>If the cover is <em>not</em> Leray, Čech can still produce the wrong answer. Take $X = S^1$ with a 2-open cover by <em>disjoint</em> arcs (not overlapping): $U_0 = $ open upper half, $U_1 = $ open lower half, $U_{01} = \emptyset$. Then $\check{C}^0 = \mathbb{Z}^2$, $\check{C}^1 = 0$, so $\check{H}^0 = \mathbb{Z}^2$ and $\check{H}^1 = 0$ — both wrong (should be $\mathbb{Z}$ and $\mathbb{Z}$). But the cover is not a cover! The overlap is empty, which isn't a Leray condition but does tell you the cover fails to cover. A proper cover with nonempty overlaps and contractible pieces gives the correct Čech answer; passing to the colimit over refinements always does.</p>
+
+<div class="quiz" data-concept="leray-acyclic-covers"></div>
 </section>
 
 <section id="les">
@@ -461,6 +504,15 @@ Applications:</p>
   <li>When $H^1(\mathcal{F}') \neq 0$: measure of the obstruction to lifting global sections.</li>
   <li>When $\mathcal{F}' = \mathcal{F}'' = \mathcal{L}, \mathcal{F} = \mathcal{L}^{\otimes 2}$ via squaring... wait, this is multiplicative, not additive, so you can't do it with sheaves of abelian groups directly — but the Kummer sequence $0 \to \mu_n \to \mathbb{G}_m \xrightarrow{(\cdot)^n} \mathbb{G}_m \to 0$ (in étale topology!) is exactly this phenomenon.</li>
 </ul>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#les">Long exact sequence in homology</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="long-exact-sequence-cohomology"></div>
 </section>
 
 <section id="pn">
@@ -1378,6 +1430,16 @@ is an equalizer for every étale cover. The derived functors of $\Gamma$ on this
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

@@ -104,6 +104,33 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
   table.plain td.num{font-family:ui-monospace,monospace;color:#cbd5e1}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -375,6 +402,8 @@ The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean
     <span class="small" id="lat-info"></span>
   </div>
 </div>
+
+<div class="quiz" data-concept="gaussian-integer-splitting"></div>
 </section>
 
 <script>
@@ -462,6 +491,13 @@ where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$
   </div>
   <div class="readout" id="ts-out"></div>
 </div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./quadratic-reciprocity.html#reciprocity">Quadratic reciprocity law</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="two-squares-theorem"></div>
 </section>
@@ -753,6 +789,8 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
   </thead><tbody></tbody></table>
   <div class="readout" id="waring-out">click a row…</div>
 </div>
+
+<div class="quiz" data-concept="waring-problem"></div>
 </section>
 
 <script>
@@ -975,5 +1013,15 @@ So every question about $r_k(n)$ is a question about the $q$-expansion of $\thet
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

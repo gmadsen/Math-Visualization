@@ -30,6 +30,13 @@
       "anchor": "sl2z",
       "prereqs": ["geodesics-in-H", "mobius-transformations"],
       "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story."
+    },
+    {
+      "id": "isometry-group-psl2r",
+      "title": "PSL2(R) and the isometry trichotomy",
+      "anchor": "iso",
+      "prereqs": ["sl2r-action-on-H"],
+      "blurb": "PSL2(R) is the full orientation-preserving isometry group of H; its elements split by trace into elliptic, parabolic, and hyperbolic conjugacy classes."
     }
   ]
 }

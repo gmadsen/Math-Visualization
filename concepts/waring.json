@@ -1,0 +1,53 @@
+{
+  "topic": "waring",
+  "title": "Waring's problem and the circle method",
+  "page": "waring.html",
+  "concepts": [
+    {
+      "id": "waring-problem-statement",
+      "title": "Waring's problem: g(k)",
+      "anchor": "statement",
+      "prereqs": [
+        "four-squares-and-waring"
+      ],
+      "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+    },
+    {
+      "id": "g-k-vs-G-k",
+      "title": "g(k) versus G(k)",
+      "anchor": "gvsG",
+      "prereqs": [
+        "waring-problem-statement"
+      ],
+      "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+    },
+    {
+      "id": "hilbert-waring-theorem",
+      "title": "Hilbert–Waring theorem",
+      "anchor": "hilbert",
+      "prereqs": [
+        "waring-problem-statement"
+      ],
+      "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method."
+    },
+    {
+      "id": "circle-method-intro",
+      "title": "Circle method setup",
+      "anchor": "circle",
+      "prereqs": [
+        "hilbert-waring-theorem",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+    },
+    {
+      "id": "major-vs-minor-arcs",
+      "title": "Major arcs vs minor arcs",
+      "anchor": "arcs",
+      "prereqs": [
+        "circle-method-intro"
+      ],
+      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+    }
+  ]
+}

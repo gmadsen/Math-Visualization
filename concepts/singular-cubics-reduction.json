@@ -22,13 +22,33 @@
       "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
     },
     {
-      "id": "kodaira-néron-preview",
+      "id": "kodaira-néron-preview",
       "title": "Bad reduction taxonomy",
       "anchor": "badtypes",
       "prereqs": [
         "reduction-mod-p"
       ],
       "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity."
+    },
+    {
+      "id": "hasse-bound-point-counting",
+      "title": "Point counting and the Hasse bound",
+      "anchor": "counting",
+      "prereqs": [
+        "reduction-mod-p",
+        "kodaira-néron-preview"
+      ],
+      "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors."
+    },
+    {
+      "id": "minimal-weierstrass-model",
+      "title": "Minimal Weierstrass model and conductor",
+      "anchor": "minimal-model",
+      "prereqs": [
+        "kodaira-néron-preview",
+        "padic-norm-completion"
+      ],
+      "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement."
     }
   ]
 }

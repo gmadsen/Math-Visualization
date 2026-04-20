@@ -103,6 +103,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -153,6 +180,14 @@ function ensureArrow(svg, id, color){
 <p>As a subset of $\mathbb{C}$ this is nothing new — just the open upper half-plane, diffeomorphic to $\mathbb{R}^2$. The interesting move is to equip it with a <em>different</em> Riemannian metric, one in which distances near the real axis blow up and the axis itself is pushed off to infinity. What looks flat suddenly has constant curvature $-1$.</p>
 <p>The model goes back to Beltrami, Klein, and Poincaré: it is one of the standard incarnations of <em>hyperbolic geometry</em> — Lobachevsky's non-Euclidean plane, the geometry in which Euclid's parallel postulate fails and through a point not on a line there are infinitely many lines that don't meet it.</p>
 <div class="note"><strong>Preview.</strong> The modular group $\mathrm{SL}_2(\mathbb{Z})$ acts on $\mathbb{H}$ by Möbius transformations; holomorphic functions on $\mathbb{H}$ that transform nicely under this action are called <strong>modular forms</strong>. Everything on this page is the geometric substrate for that theory.</div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#sphere">Complex numbers</a></li>
+    <li><a href="./point-set-topology.html#continuity">Continuity & homeomorphism</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="upper-half-plane-model"></div>
 </section>
 
@@ -555,6 +590,7 @@ function ensureArrow(svg, id, color){
   <svg id="i-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
   <div class="readout" id="i-out"></div>
 </div>
+<div class="quiz" data-concept="isometry-group-psl2r"></div>
 </section>
 
 <script>
@@ -1000,6 +1036,13 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
 <p>Holomorphic functions on $\mathbb{H}$ that transform under $\mathrm{SL}_2(\mathbb{Z})$ by<br>
 $f\!\left(\tfrac{az+b}{cz+d}\right) = (cz+d)^k f(z)$<br>
 are called <strong>modular forms of weight $k$</strong>. They descend to sections of a line bundle on $F$ (with corners). The full theory picks up in <code>modular-forms.html</code> (forthcoming).</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#sphere">Möbius transformations</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="sl2r-action-on-H"></div>
 </section>
 
@@ -1202,5 +1245,15 @@ are called <strong>modular forms of weight $k$</strong>. They descend to section
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

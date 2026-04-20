@@ -33,6 +33,43 @@
       ]
     },
 
+    "equidistribution-weyl": {
+      "title": "Equidistribution and Weyl's criterion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Weyl's criterion says a sequence $(x_n)$ in $[0,1]$ equidistributes w.r.t. Lebesgue measure iff for every integer $k\\ne 0$:",
+          "choices": [
+            "$\\tfrac{1}{N}\\sum_{n\\le N} x_n^k \\to 0$",
+            "$\\tfrac{1}{N}\\sum_{n\\le N} e^{2\\pi i k x_n} \\to 0$",
+            "$\\tfrac{1}{N}\\sum_{n\\le N} \\mathbf{1}_{[0,1/2]}(x_n) \\to 1/2$",
+            "$(x_n)$ is dense in $[0,1]$"
+          ],
+          "answer": 1,
+          "explain": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to $0$. On $\\mathbb{R}/\\mathbb{Z}$ the non-trivial irreducibles are the characters $e^{2\\pi i k\\cdot}$ for $k\\ne 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "For Sato–Tate, the compact space is $\\mathrm{SU}(2)/\\mathrm{conj}\\cong[0,\\pi]$ and the 'characters' that must average to $0$ are:",
+          "choices": [
+            "traces of the symmetric-power representations $\\mathrm{Sym}^n$ for $n\\ge 1$",
+            "matrix coefficients of $\\mathrm{GL}_2$",
+            "Fourier coefficients of modular forms",
+            "Dirichlet characters"
+          ],
+          "answer": 0,
+          "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato–Tate."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_0^\\pi \\chi_1(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_1(\\theta)=\\sin(2\\theta)/\\sin\\theta=2\\cos\\theta$ and $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
+        }
+      ]
+    },
+
     "sato-tate-measure": {
       "title": "The Sato\u2013Tate measure",
       "questions": [
@@ -66,6 +103,43 @@
           ],
           "answer": 1,
           "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
+        }
+      ]
+    },
+
+    "cm-vs-non-cm-sato-tate": {
+      "title": "CM vs non-CM equidistribution",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a CM elliptic curve $E/\\mathbb{Q}$, the Frobenius angles $\\theta_p$ equidistribute against:",
+          "choices": [
+            "the full semicircle $(2/\\pi)\\sin^2\\theta\\,d\\theta$ on $[0,\\pi]$",
+            "a 50/50 mix: half the primes have $\\theta_p=\\pi/2$ (supersingular) and the other half distribute uniformly on $[0,\\pi]$",
+            "the uniform measure on $[0,\\pi]$",
+            "a delta mass at $\\theta=0$"
+          ],
+          "answer": 1,
+          "explain": "For CM curves, half the primes (those inert in the CM field $K$) are supersingular, giving $a_p=0$ and $\\theta_p=\\pi/2$. The other half (split in $K$) follow the Haar measure on the split torus of $\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$, which on $[0,\\pi]$ is the uniform measure $d\\theta/\\pi$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Sato–Tate group of a non-CM elliptic curve over $\\mathbb{Q}$ is:",
+          "choices": [
+            "$\\mathrm{SU}(2)$ itself",
+            "the normalizer $N(T)$ of a maximal torus in $\\mathrm{SU}(2)$",
+            "the torus $T=\\mathrm{U}(1)$ inside $\\mathrm{SU}(2)$",
+            "a finite subgroup"
+          ],
+          "answer": 0,
+          "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group. CM: the Galois image sits inside a non-split torus, so the Sato–Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
+        },
+        {
+          "type": "numeric",
+          "q": "For a CM curve, the density of supersingular primes is $1/2$. Given $\\pi(10^6)=78{,}498$, estimate how many of the first $\\pi(10^6)$ primes would be supersingular for a CM curve with good reduction everywhere.",
+          "answer": 39249,
+          "tol": 100,
+          "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
         }
       ]
     },

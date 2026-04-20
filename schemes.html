@@ -81,6 +81,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -152,6 +179,13 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>(ii) The set $V(I)=\{\mathfrak p : I\subseteq \mathfrak p\}$ behaves like a Zariski-closed set, so primes carry a natural topology.</p>
 <p>(iii) For an element $f\in R$, evaluating $f$ at a prime $\mathfrak p$ means reducing: look at the image of $f$ in the residue field $\kappa(\mathfrak p) = \operatorname{Frac}(R/\mathfrak p)$. The "value" of $f$ at different points may live in different fields — that's fine.</p>
 <p>The rest of this page turns that paragraph into pictures.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="spectrum-primes"></div>
 </section>
 
@@ -1240,6 +1274,13 @@ function mod(a,n){return ((a%n)+n)%n}
 <div class="note">
 <p style="margin:.2rem 0">Concretely, at the closed point $\mathfrak m=(x-a)\subset \mathbb{C}[x]$ we get $\kappa(\mathfrak m)=\mathbb{C}$ and $f\mapsto f(a)$ — the classical evaluation. Everything schemes do to enrich this picture is built on top.</p>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#localize">Localization and local algebra</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <section id="locally-ringed-space">
@@ -1318,6 +1359,16 @@ function mod(a,n){return ((a%n)+n)%n}
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

@@ -103,6 +103,19 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -161,8 +174,10 @@ function drawNode(svg, x, y, label, opts={}){
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#sets">1&nbsp;Sets&nbsp;and&nbsp;functions</a>
-  <a href="#equivalence">2&nbsp;Equivalence&nbsp;&amp;&nbsp;quotients</a>
-  <a href="#countable">3&nbsp;Countability</a>
+  <a href="#products">2&nbsp;Products&nbsp;&amp;&nbsp;power&nbsp;sets</a>
+  <a href="#equivalence">3&nbsp;Equivalence&nbsp;&amp;&nbsp;quotients</a>
+  <a href="#countable">4&nbsp;Countability</a>
+  <a href="#choice">5&nbsp;Axiom&nbsp;of&nbsp;choice</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -530,8 +545,37 @@ A function from a finite set to itself is injective iff surjective iff bijective
 <div class="quiz" data-concept="sets-functions"></div>
 </section>
 
+<section id="products">
+<h2>2. Cartesian products and power sets</h2>
+
+<p>Two simple constructions that recur in every part of mathematics: the <strong>Cartesian product</strong> $A\times B$ and the <strong>power set</strong> $\mathcal{P}(A)$. The first packages pairs; the second packages all possible subsets.</p>
+
+<div class="note"><strong>Cartesian product.</strong> Given sets $A$ and $B$, the product is
+$$A\times B \;=\; \{(a,b) \;:\; a\in A,\; b\in B\}.$$
+For finite sets, $|A\times B| = |A|\cdot|B|$ — the <em>product rule</em> of counting. Products extend to families: $A_1\times A_2\times\cdots\times A_n$ (finite) and $\prod_{i\in I} A_i$ (arbitrary index set) just as naturally.</div>
+
+<p>The product is characterised by its two projection maps $\pi_1\colon A\times B\to A$ and $\pi_2\colon A\times B\to B$. They satisfy a universal property: a function $f\colon X\to A\times B$ is the same data as a pair of functions $(f_1\colon X\to A,\, f_2\colon X\to B)$, via $f(x)=(f_1(x),f_2(x))$. Equivalently, $\operatorname{Hom}(X, A\times B) = \operatorname{Hom}(X,A)\times\operatorname{Hom}(X,B)$ canonically. This is your first glimpse of <em>limits</em>: products are limits in the category of sets. It shows up everywhere downstream — a continuous map $X\to A\times B$ is a pair of continuous maps, a group homomorphism $G\to A\times B$ is a pair of homomorphisms, and so on.</p>
+
+<p>Functions $A\to B$ themselves form a set, often written $B^A$ (the notation is deliberate: for finite $A$ and $B$, $|B^A| = |B|^{|A|}$). You can think of a function $f\colon A\to B$ as its <em>graph</em>, the subset $\Gamma_f = \{(a,f(a)) : a\in A\}\subseteq A\times B$. Graphs are exactly the subsets $G\subseteq A\times B$ such that for each $a\in A$ there is a unique $b\in B$ with $(a,b)\in G$. So "function" is syntactic sugar for a specific kind of relation.</p>
+
+<div class="note"><strong>Power set.</strong> The <em>power set</em> of $A$ is $\mathcal{P}(A) = \{S : S\subseteq A\}$. For finite $|A|=n$ we already saw $|\mathcal{P}(A)|=2^n$. The general relationship is a bijection
+$$\mathcal{P}(A) \;\longleftrightarrow\; \{0,1\}^A,\qquad S \;\longmapsto\; \mathbf{1}_S,$$
+where $\mathbf{1}_S\colon A\to\{0,1\}$ is the <em>indicator function</em> sending $a$ to $1$ if $a\in S$ and $0$ otherwise. This is why $|\mathcal{P}(A)|=2^{|A|}$ even for infinite $A$: each subset is a binary choice, element by element.</p>
+
+<p>Three examples worth internalising:</p>
+<ul>
+  <li><strong>Ordered $k$-tuples from $A$:</strong> $A^k = A\times A\times\cdots\times A$ ($k$ times), with $|A^k|=|A|^k$ when finite. These are the <em>words of length $k$</em> in the alphabet $A$.</li>
+  <li><strong>Graphs as relations:</strong> a directed graph on a vertex set $V$ is precisely a subset $E\subseteq V\times V$ — i.e. an element of $\mathcal{P}(V\times V)$. Undirected graphs are symmetric such subsets.</li>
+  <li><strong>Topologies and $\sigma$-algebras:</strong> a topology on $X$ is a specific subset of $\mathcal{P}(X)$ closed under finite intersections and arbitrary unions; a $\sigma$-algebra is one closed under countable unions and complements. The power set is the universal playground these live in.</li>
+</ul></div>
+
+<p>A small sanity check that uses both constructions: the set of functions from a two-element set $\{0,1\}$ to $A$ is in bijection with $A\times A$ (send $f$ to $(f(0),f(1))$). Equivalently $A^{\{0,1\}} \cong A^2$, matching the cardinal identity $|A|^2 = |A|\cdot|A|$. Cartesian powers <em>are</em> the function spaces on finite index sets.</p>
+
+<div class="quiz" data-concept="cartesian-product-powerset"></div>
+</section>
+
 <section id="equivalence">
-<h2>2. Equivalence relations and quotients</h2>
+<h2>3. Equivalence relations and quotients</h2>
 
 <p>"Equality" is one relation on a set; there are many others. A <strong>relation</strong> on $X$ is any subset $R\subseteq X\times X$; we write $x\sim y$ for $(x,y)\in R$. Three properties make a relation well-behaved:</p>
 
@@ -704,7 +748,7 @@ Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant func
 </section>
 
 <section id="countable">
-<h2>3. Countability</h2>
+<h2>4. Countability</h2>
 
 <p>Two sets have the same <strong>cardinality</strong>, written $|A|=|B|$, if there exists a bijection $A\to B$. This is an equivalence relation on sets. For finite sets it matches the usual count. For infinite sets it is subtler — and delivers Cantor's great surprise: there are <em>different sizes of infinity</em>.</p>
 
@@ -861,6 +905,38 @@ Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant func
 <div class="quiz" data-concept="countability"></div>
 </section>
 
+<section id="choice">
+<h2>5. The axiom of choice (intuition)</h2>
+
+<p>Every step up to here was in principle constructive — we listed elements, defined maps by formulas, and checked bijections by hand. As soon as we consider <em>infinite families of non-empty sets</em>, a subtle new question appears: can we pick one element from <em>each</em> set at once?</p>
+
+<div class="note"><strong>Axiom of choice (AC).</strong> For any family $\{A_i\}_{i\in I}$ of non-empty sets, the product $\prod_{i\in I} A_i$ is non-empty. Equivalently, there exists a <em>choice function</em> $f\colon I\to\bigcup_i A_i$ with $f(i)\in A_i$ for every $i$.</div>
+
+<p>For a <em>finite</em> $I$ this is obvious: one picks $a_1\in A_1$, then $a_2\in A_2$, and so on, $|I|$ many times. The difficulty arrives when $I$ is uncountable, because there may be no uniform rule that picks an element of each $A_i$. Bertrand Russell's cartoon: if you have infinitely many pairs of <em>shoes</em>, you can always pick the left one — no AC needed. But if you have infinitely many pairs of <em>socks</em>, indistinguishable within each pair, there is no rule. AC is the assertion that a choice function still exists.</p>
+
+<p>AC is <em>independent</em> of the other axioms of set theory (ZF): Gödel (1938) showed it is consistent with ZF, Cohen (1963) showed its negation is also consistent. So you can work with or without it, and the standard mathematical universe ZFC takes it on board. Almost all of analysis, algebra, and topology implicitly use it:</p>
+
+<div class="ok"><strong>Equivalents of AC.</strong> The following statements are all logically equivalent to AC over ZF:
+<ul style="margin:.3rem 0">
+  <li><strong>Zorn's lemma.</strong> Every non-empty partially ordered set in which every chain has an upper bound has a maximal element.</li>
+  <li><strong>Well-ordering theorem.</strong> Every set can be well-ordered (given a total order with no infinite descending chain).</li>
+  <li><strong>Tukey's lemma.</strong> Every non-empty family of finite character has a maximal element.</li>
+  <li><strong>Every vector space has a basis.</strong> (Even $\mathbb{R}$ as a $\mathbb{Q}$-vector space — a <em>Hamel basis</em>.)</li>
+</ul>
+These are the forms you meet in practice. Zorn's lemma in particular is the workhorse: maximal ideals in rings, prime filters in lattices, maximal orthonormal sets in Hilbert spaces, algebraic closures of fields — each existence proof is "apply Zorn to the poset of partial solutions."</div>
+
+<p>Consequences that are striking enough to be worth naming:</p>
+<ul>
+  <li><strong>Every vector space has a basis.</strong> For finite-dimensional spaces this is trivial; for $\mathbb{R}$ over $\mathbb{Q}$ no basis can be explicitly written down, yet AC guarantees one.</li>
+  <li><strong>Tychonoff's theorem.</strong> An arbitrary product of compact topological spaces is compact. Kelley proved this is equivalent to AC.</li>
+  <li><strong>Banach–Tarski paradox.</strong> The closed unit ball in $\mathbb{R}^3$ can be decomposed into finitely many pieces and reassembled, using rigid motions, into two closed unit balls. The "pieces" are non-measurable; AC is essential for their construction.</li>
+</ul>
+
+<p>Many mathematicians reserve the right to flag when a proof uses AC (or a weaker form like <em>countable choice</em>, which suffices for most of analysis). In this notebook we use AC freely — every time we pass to a maximal ideal, pick a basis, or invoke compactness of $[0,1]^{\mathbb{N}}$, we are spending AC. Knowing where it sits gives you a clean answer to "why can I do this?" when a proof seems to wave its hands over an infinite choice.</p>
+
+<div class="quiz" data-concept="axiom-of-choice-intuition"></div>
+</section>
+
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>
 
@@ -919,5 +995,14 @@ Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant func
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

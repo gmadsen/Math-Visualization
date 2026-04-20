@@ -112,6 +112,40 @@
           "explain": "Arithmetic information is encoded in Fourier coefficients."
         }
       ]
+    },
+    "petersson-inner-product": {
+      "title": "Petersson inner product",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Petersson inner product on $S_k$ is defined by which integrand against $dx\\,dy$?",
+          "choices": [
+            "$f(\\tau)\\,\\overline{g(\\tau)}$",
+            "$f(\\tau)\\,\\overline{g(\\tau)}\\, y^{k-2}$",
+            "$f(\\tau)\\,g(\\tau)\\, y^{k}$"
+          ],
+          "answer": 1,
+          "explain": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\langle f,g\\rangle$ converge for cusp forms but fail for general modular forms?",
+          "choices": [
+            "Cusp forms are real-valued",
+            "Cusp forms decay exponentially at $i\\infty$, beating the growth of $y^{k-2}$",
+            "The measure $y^{-2}dx\\,dy$ vanishes at the cusp"
+          ],
+          "answer": 1,
+          "explain": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f,g$ are two distinct normalized Hecke eigenforms in $S_k$ with different eigenvalue systems, what is $\\langle f,g\\rangle$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal."
+        }
+      ]
     }
   }
 }

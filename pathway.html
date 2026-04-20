@@ -39,6 +39,7 @@
   .sw.ready{background:var(--yellow)}
   .sw.mastered{background:var(--green)}
   .sw.locked{background:var(--panel2)}
+  .sw.hard{background:var(--violet)}
   .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:.6rem;overflow:auto}
   svg.dag{display:block;margin:0 auto;background:transparent}
@@ -51,9 +52,17 @@
   .nodebox.ready text{fill:var(--yellow)}
   .nodebox.mastered rect{fill:rgba(131,193,103,0.18);stroke:var(--green)}
   .nodebox.mastered text{fill:var(--green)}
+  .nodebox.hard rect{stroke:var(--violet);stroke-width:2}
+  .nodebox.hard.mastered rect{fill:rgba(179,157,219,0.18)}
   .nodebox.locked rect{opacity:.6}
   .nodebox.goal rect{stroke-width:2.4}
   .nodebox:hover rect{fill:#242c3e}
+  /* Two mastery rings on the right edge of each node: inner = v1 (green),
+     outer arc = hard (violet). Rendered as SVG circles inside .nodebox. */
+  .ring-v1{fill:none;stroke:var(--line);stroke-width:2}
+  .ring-v1.on{stroke:var(--green)}
+  .ring-hard{fill:none;stroke:var(--line);stroke-width:2;opacity:.55}
+  .ring-hard.on{stroke:var(--violet);opacity:1}
   .edge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.7;opacity:.95}
   .edge.lit{stroke:var(--violet);stroke-width:2.2;opacity:1}
   .panel-right{background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -83,6 +92,7 @@
       <span><i class="sw locked"></i>locked</span>
       <span><i class="sw ready"></i>ready</span>
       <span><i class="sw mastered"></i>mastered</span>
+      <span><i class="sw hard"></i>hard-tier</span>
     </div>
   </div>
 
@@ -308,7 +318,9 @@
     // nodes
     for(const [id,n] of currentLayout.nodesById){
       const g = el('g', {class: 'nodebox', transform: `translate(${n.x},${n.y})`, 'data-id': id});
-      g.classList.add(MVProgress.stateOf(id, conceptsMap));
+      const info = MVProgress.stateOf(id, conceptsMap);
+      g.classList.add(info.state);
+      if(info.hard) g.classList.add('hard');
       if(id === goalId) g.classList.add('goal');
       g.appendChild(el('rect', {width: n.w, height: n.h, rx: 8, ry: 8}));
       const t1 = el('text', {x: 12, y: 22});
@@ -318,9 +330,24 @@
       t2.setAttribute('class','sub');
       t2.textContent = '#' + id;
       g.appendChild(t2);
+      // Two mastery rings on the right edge: inner (v1) and outer (hard).
+      const cx = n.w - 16, cy = n.h/2;
+      const rV1 = 6, rHard = 11;
+      const ringV1 = el('circle', {class: 'ring-v1' + (info.v1 ? ' on' : ''),
+        cx: cx, cy: cy, r: rV1});
+      const ringHard = el('circle', {class: 'ring-hard' + (info.hard ? ' on' : ''),
+        cx: cx, cy: cy, r: rHard});
+      g.appendChild(ringHard);
+      g.appendChild(ringV1);
       g.addEventListener('click', (ev)=>{
         if(ev.metaKey || ev.ctrlKey){
-          MVProgress.setMastered(id, !MVProgress.isMastered(id));
+          // cmd/ctrl: toggle v1 mastery (primary gate).
+          // shift+cmd/ctrl: toggle hard-tier mastery.
+          if(ev.shiftKey){
+            MVProgress.setMastered(id, 'hard', !MVProgress.isMastered(id, 'hard'));
+          } else {
+            MVProgress.setMastered(id, 'v1', !MVProgress.isMastered(id, 'v1'));
+          }
           render(currentGoal);
           return;
         }
@@ -337,9 +364,11 @@
   function updateStats(){
     const ids = [...currentLayout.nodesById.keys()];
     const total = ids.length;
-    const mastered = ids.filter(id => MVProgress.isMastered(id)).length;
-    const ready = ids.filter(id => MVProgress.stateOf(id, conceptsMap) === 'ready').length;
+    const mastered = ids.filter(id => MVProgress.isMastered(id, 'v1')).length;
+    const hard     = ids.filter(id => MVProgress.isMastered(id, 'hard')).length;
+    const ready    = ids.filter(id => MVProgress.stateOf(id, conceptsMap).state === 'ready').length;
     statsEl.innerHTML = `<span><b>${mastered}</b> / ${total} mastered</span>` +
+                       `<span><b>${hard}</b> hard-tier</span>` +
                        `<span><b>${ready}</b> ready to learn</span>` +
                        `<span>${total - mastered - ready} locked</span>`;
   }
@@ -355,28 +384,36 @@
   function renderDetail(id){
     if(!id){ detail.innerHTML = '<div class="small">select a node to see prereqs</div>'; return; }
     const c = byId.get(id);
-    const state = MVProgress.stateOf(id, conceptsMap);
+    const info = MVProgress.stateOf(id, conceptsMap);
     const prereqList = c.prereqs.length
       ? c.prereqs.map(p => {
-          const done = MVProgress.isMastered(p) ? '✓' : '·';
+          const done = MVProgress.isMastered(p, 'v1') ? '✓' : '·';
           const pc = byId.get(p);
           return `<span class="pill">${done} ${pc ? pc.title : p}</span>`;
         }).join(' ')
       : '<span class="small">no prerequisites</span>';
     const anchor = c.anchor ? `${c.topicPage}#${c.anchor}` : c.topicPage;
+    const tierLabel = info.hard
+      ? '<span style="color:var(--violet)">v1 + hard</span>'
+      : (info.v1 ? '<span style="color:var(--green)">v1</span>' : '<span class="small">none</span>');
     detail.innerHTML = `
       <h3>${c.title}</h3>
       <div class="meta">${c.topicTitle} · <a href="${anchor}">open page →</a></div>
       <div class="blurb">${c.blurb || ''}</div>
       <div class="meta"><b>Prereqs:</b> ${prereqList}</div>
       <div class="row">
-        <button id="btn-mastered">${MVProgress.isMastered(id) ? 'mark unmastered' : 'mark mastered'}</button>
-        <span class="small">state: <b>${state}</b></span>
+        <button id="btn-mastered">${info.v1 ? 'mark v1 unmastered' : 'mark v1 mastered'}</button>
+        <button id="btn-hard">${info.hard ? 'mark hard unmastered' : 'mark hard mastered'}</button>
+        <span class="small">state: <b>${info.state}</b> · tiers: ${tierLabel}</span>
       </div>
     `;
     renderKatex(detail);
     document.getElementById('btn-mastered').addEventListener('click', ()=>{
-      MVProgress.setMastered(id, !MVProgress.isMastered(id));
+      MVProgress.setMastered(id, 'v1', !MVProgress.isMastered(id, 'v1'));
+      render(currentGoal);
+    });
+    document.getElementById('btn-hard').addEventListener('click', ()=>{
+      MVProgress.setMastered(id, 'hard', !MVProgress.isMastered(id, 'hard'));
       render(currentGoal);
     });
   }

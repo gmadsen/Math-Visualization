@@ -93,6 +93,68 @@
           "explain": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$. The positive solution is $1/\\sqrt{2}\\approx 0.7071$, purely real. Bézout's count $1\\cdot 2 = 2$ matches."
         }
       ]
+    },
+    "cayley-bacharach": {
+      "title": "Cayley–Bacharach and associativity",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Two smooth cubics in $\\mathbb{P}^2$ with no common component meet in how many points, counted with multiplicity?",
+          "answer": 9,
+          "tol": 1e-6,
+          "explain": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$. Cayley–Bacharach says those nine points are so rigid that any cubic through eight of them passes through the ninth."
+        },
+        {
+          "type": "numeric",
+          "q": "The projective space of plane cubics $\\{[F]\\ :\\ F \\text{ homogeneous degree }3\\}$ has projective dimension $\\binom{3+2}{2}-1$. Compute this number.",
+          "answer": 9,
+          "tol": 1e-6,
+          "explain": "$\\binom{5}{2}-1 = 10-1 = 9$. Eight points generically impose eight independent linear conditions, leaving a $\\mathbb{P}^1$-pencil of cubics through them — inside which the Bézout ninth point lies automatically."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does Cayley–Bacharach force the chord–tangent group law on a smooth cubic to be associative?",
+          "choices": [
+            "Because every plane cubic is abelian by construction",
+            "Because associativity $(P+Q)+R = P+(Q+R)$ can be phrased as the ninth point of a pair of cubic-triples containing eight common points",
+            "Because the identity element is always unique",
+            "Because projective space is compact"
+          ],
+          "answer": 1,
+          "explain": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$. Associativity becomes an equality of two points computable from two triples of lines — nine points total, eight already constrained, and Cayley–Bacharach supplies the ninth."
+        }
+      ]
+    },
+    "higher-dim-bezout": {
+      "title": "Bézout in $\\mathbb{P}^n$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Three generic quadric surfaces in $\\mathbb{P}^3_{\\mathbb{C}}$ meet in how many points, counted with multiplicity?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$."
+        },
+        {
+          "type": "numeric",
+          "q": "Four generic hypersurfaces of degrees $2,3,3,5$ in $\\mathbb{P}^4$ meet in how many points?",
+          "answer": 90,
+          "tol": 1e-6,
+          "explain": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$. The Chow-ring computation $(2H)(3H)(3H)(5H) = 90 H^4 = 90\\cdot[\\mathrm{pt}]$ in $A^{\\ast}(\\mathbb{P}^4)=\\mathbb{Z}[H]/(H^5)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which hypothesis in higher-dimensional Bézout is the one that most frequently fails (beyond the usual 'algebraically closed' and 'count multiplicities')?",
+          "choices": [
+            "the ambient space being projective",
+            "the intersection being zero-dimensional (equivalently, the hypersurfaces meeting properly)",
+            "the degrees being coprime",
+            "the hypersurfaces being smooth"
+          ],
+          "answer": 1,
+          "explain": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite. 'Proper intersection' / 'zero-dimensional intersection' is the substantive hypothesis in $\\mathbb{P}^n$ for $n\\ge 3$. Fulton–MacPherson intersection theory handles the non-proper case via excess intersection."
+        }
+      ]
     }
   }
 }

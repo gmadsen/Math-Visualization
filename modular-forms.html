@@ -103,6 +103,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -124,6 +151,7 @@ const SVG = (tag,attrs={})=>{
   <a href="#jinv">5&nbsp;Δ&nbsp;and&nbsp;j</a>
   <a href="#cusps">6&nbsp;Cusp&nbsp;forms</a>
   <a href="#qexp">7&nbsp;q-expansions&nbsp;&&nbsp;Hecke</a>
+  <a href="#petersson">8&nbsp;Petersson&nbsp;product</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -281,6 +309,13 @@ word:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identi
 </script>
 
 <p>The action is geometric: $T$ slides the whole half-plane horizontally, and $S$ is the "conformal flip" that interchanges the inside and outside of the unit circle, upper half preserved. Compose them and you can carry any point anywhere — but in an extremely constrained way, because determinant one and integer entries together force a Euclidean-algorithm rigidity.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./upper-half-plane-hyperbolic.html#sl2z">SL2(R) action and modular preview</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="sl2z-on-H"></div>
 </section>
@@ -963,6 +998,26 @@ These relations encode the arithmetic content of $\Delta$.</p>
 <div class="quiz" data-concept="q-expansions-mf"></div>
 </section>
 
+<section id="petersson">
+<h2>8. The Petersson inner product</h2>
+<p>The spaces $S_k$ of cusp forms are finite-dimensional, but so far we have no geometry on them — no notion of angle, length, or orthogonality. Petersson's observation is that the hyperbolic measure $d\mu = y^{-2}\,dx\,dy$ on the upper half-plane, combined with the weight-$k$ factor, produces a genuinely $\mathrm{SL}_2(\mathbb{Z})$-invariant pairing. For $f, g \in S_k$ define</p>
+$$\langle f, g\rangle \;=\; \int_{\Gamma\backslash \mathbb{H}} f(\tau)\,\overline{g(\tau)}\; y^{k-2}\,dx\,dy, \qquad \tau = x + iy.$$
+<p>The integrand is well-defined on the fundamental domain because under $\gamma = \begin{pmatrix}a&b\\c&d\end{pmatrix}\in\mathrm{SL}_2(\mathbb{Z})$ the ratio $|c\tau+d|^{-2k}$ in $|f|^2$ is exactly compensated by the transformation $y \mapsto y / |c\tau+d|^2$ of the imaginary part, leaving $|f|^2 y^{k}$ invariant and the measure $y^{-2}dx\,dy$ invariant on its own.</p>
+
+<h3>Why the product converges on $S_k$</h3>
+<p>Near the cusp $i\infty$, a cusp form $f$ decays like $|f(\tau)| \ll e^{-2\pi y}$, so $|f|^2 y^{k-2}$ is integrable even though $y^{k-2}$ blows up; the exponential wins. At the elliptic points $\rho, i$ of the fundamental domain the integrand is smooth. For non-cuspidal forms the integral diverges at $i\infty$ — orthogonality is a phenomenon of $S_k$, and this is exactly why the Eisenstein subspace $E_k$ appears as its orthogonal complement in</p>
+$$M_k \;=\; S_k \oplus E_k.$$
+
+<h3>Hecke eigenforms are orthogonal</h3>
+<p>Hecke operators $T_n$ with $(n, N)=1$ are <em>self-adjoint</em> for the Petersson product: $\langle T_n f, g\rangle = \langle f, T_n g\rangle$. Because the $T_n$ commute and are simultaneously diagonalizable, the spectral theorem gives an orthogonal basis of $S_k$ consisting of simultaneous Hecke eigenforms. If $f, g$ are two normalized eigenforms with distinct eigenvalue systems $\{a_p\}\ne\{b_p\}$, then</p>
+$$\langle f, g\rangle \;=\; 0.$$
+<p>This is the input that makes the Euler-product decomposition of $L(f,s)$ a <em>canonical</em> factorization: eigenforms are not just convenient, they are the orthonormal frame picked out by the geometry.</p>
+
+<div class="note"><strong>Looking forward.</strong> The Petersson norm $\langle f, f\rangle$ of a normalized eigenform appears in the completed $L$-function's functional equation constant and in period formulas; for a weight-$2$ newform attached to an elliptic curve $E/\mathbb{Q}$, it is a modular analogue of the real period. These "Petersson periods" are the bridge from the Hilbert-space picture to the arithmetic of $L$-values.</div>
+
+<div class="quiz" data-concept="petersson-inner-product"></div>
+</section>
+
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>
 
@@ -1021,5 +1076,15 @@ These relations encode the arithmetic content of $\Delta$.</p>
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

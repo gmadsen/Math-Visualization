@@ -128,6 +128,40 @@
           "explain": "This is the entry point to modular forms."
         }
       ]
+    },
+    "isometry-group-psl2r": {
+      "title": "PSL2(R) and the isometry trichotomy",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The kernel of the $SL_2(\\mathbb R)$ action on $\\mathbb H$ is:",
+          "choices": [
+            "the trivial subgroup $\\{I\\}$",
+            "$\\{\\pm I\\}$",
+            "the upper-triangular subgroup"
+          ],
+          "answer": 1,
+          "explain": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$."
+        },
+        {
+          "type": "mcq",
+          "q": "An element $g\\in PSL_2(\\mathbb R)$ with $|\\operatorname{tr} g|<2$ is:",
+          "choices": [
+            "hyperbolic (two fixed points on $\\partial\\mathbb H$)",
+            "parabolic (one fixed point at the boundary)",
+            "elliptic (a single fixed point inside $\\mathbb H$)"
+          ],
+          "answer": 2,
+          "explain": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$.",
+          "answer": 2,
+          "tol": 0.001,
+          "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
+        }
+      ]
     }
   }
 }

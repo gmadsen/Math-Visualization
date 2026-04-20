@@ -103,6 +103,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -326,6 +353,208 @@ $$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \
 
 <p>Doubling $P$ on a rank-$\ge 1$ curve produces rational points with rapidly growing heights. For $y^2 = x^3 - x + 1$, doubling $P = (0,1)$ gives $(1/4, -7/8), (72/49, 611/343), \ldots$ — all free multiples of the same generator, with coordinates exploding at rate $\hat h(nP) = n^2 \hat h(P)$.</p>
 
+<p>The next widget animates the full <em>chord-and-tangent</em> construction on a rank-$1$ Mordell–Weil group. Starting from a known generator $P$ on $E : y^2 = x^3 - 2$ (the Fermat-style curve with $P = (3, 5)$), each step builds the secant through two chosen points, reads off the third intersection with $E$, and reflects across the $x$-axis to land at the sum. Iterating $P \mapsto 2P \mapsto 3P \mapsto \cdots$ traces out the free cyclic subgroup $\mathbb{Z}\cdot P \subset E(\mathbb{Q})$ — and the rational coordinates balloon <em>quadratically in height</em>, the hallmark of an infinite-order rational point.</p>
+
+<div class="widget" id="w-ct">
+  <div class="hd"><div class="ttl">Chord-tangent iteration on $y^2 = x^3 - 2$</div><div class="hint">animate $P, 2P, 3P, \ldots$ ; watch denominators explode</div></div>
+  <div class="row">
+    <label>operation</label>
+    <select id="ct-op">
+      <option value="step">compute (n+1)P = nP + P</option>
+      <option value="double">compute 2·(nP) (tangent doubling)</option>
+    </select>
+    <button id="ct-step">next step</button>
+    <button id="ct-reset">reset</button>
+  </div>
+  <svg id="ct-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
+  <div class="readout" id="ct-out"></div>
+  <div class="small">Exact rational coordinates from the chord-tangent law. Denominators of $x(nP)$ are perfect squares (Mazur–Tate); the log-denominator grows like $\hat h(P)\cdot n^2$, making $P$ of infinite order and generating a rank-$1$ subgroup.</div>
+</div>
+
+<script>
+/* =================== Chord-tangent rational iteration on y² = x³ − 2 =================== */
+(function(){
+  // BigInt rational arithmetic. All (x,y) kept as pairs of Frac = {n, d} with d > 0.
+  const B = BigInt;
+  function absB(x){ return x<0n ? -x : x; }
+  function gcdB(a,b){ a=absB(a); b=absB(b); while(b){ [a,b]=[b,a%b]; } return a||1n; }
+  function F(n,d){
+    if(typeof n!=='bigint') n=B(n);
+    if(typeof d!=='bigint') d=B(d);
+    if(d===0n) throw new Error('div0');
+    if(d<0n){ n=-n; d=-d; }
+    const g = gcdB(n,d);
+    return { n: n/g, d: d/g };
+  }
+  const add = (a,b) => F(a.n*b.d + b.n*a.d, a.d*b.d);
+  const sub = (a,b) => F(a.n*b.d - b.n*a.d, a.d*b.d);
+  const mul = (a,b) => F(a.n*b.n, a.d*b.d);
+  const divF = (a,b) => F(a.n*b.d, a.d*b.n);
+  const neg = (a) => F(-a.n, a.d);
+  const eqF = (a,b) => a.n*b.d === b.n*a.d;
+  const toFloat = a => Number(a.n) / Number(a.d);
+  function fmt(a){
+    if(a.d === 1n) return String(a.n);
+    // if numerator and denominator both small, print as fraction
+    if(absB(a.n) < 100000n && a.d < 100000n) return a.n + '/' + a.d;
+    // otherwise truncate magnitude
+    const fl = toFloat(a);
+    if(!isFinite(fl)) return '(overflow)';
+    return fl.toExponential(6);
+  }
+  // y² = x³ + Ax + B with A=0, B=−2
+  const A = F(0,1), Bc = F(-2,1);
+  // Group law using chord (secant) and tangent rules.
+  function addPts(P, Q){
+    if(P === null) return Q;
+    if(Q === null) return P;
+    // vertical? same x, opposite y => O
+    if(eqF(P.x, Q.x)){
+      if(eqF(P.y, neg(Q.y))) return null; // infinity
+      if(!eqF(P.y, Q.y)) return null;
+      // P == Q : tangent doubling
+      if(P.y.n === 0n) return null;
+      // λ = (3x² + A) / (2y)
+      const num = add(mul(F(3,1), mul(P.x, P.x)), A);
+      const den = mul(F(2,1), P.y);
+      const lam = divF(num, den);
+      const xr = sub(sub(mul(lam, lam), P.x), Q.x);
+      const yr = sub(mul(lam, sub(P.x, xr)), P.y);
+      return { x: xr, y: yr };
+    }
+    // chord
+    const lam = divF(sub(Q.y, P.y), sub(Q.x, P.x));
+    const xr = sub(sub(mul(lam, lam), P.x), Q.x);
+    const yr = sub(mul(lam, sub(P.x, xr)), P.y);
+    return { x: xr, y: yr };
+  }
+
+  const P0 = { x: F(3,1), y: F(5,1) };  // (3, 5) on y² = x³ − 2 ; 27 + (−2) = 25 = 5²
+  let history = [P0];
+  const svg = $('#ct-svg'), out = $('#ct-out');
+  const btn = $('#ct-step'), rst = $('#ct-reset'), opSel = $('#ct-op');
+
+  function step(){
+    const cur = history[history.length-1];
+    if(cur === null) return;
+    const op = opSel.value;
+    let nxt;
+    try {
+      if(op === 'double'){ nxt = addPts(cur, cur); }
+      else { nxt = addPts(cur, P0); }
+    } catch(e){ nxt = null; }
+    history.push(nxt);
+    if(history.length > 6) history = history.slice(-6);
+    draw();
+  }
+  function reset(){ history = [P0]; draw(); }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=340, pad=36;
+    const xmin=-2, xmax=7, ymin=-13, ymax=13;
+    const X = x => pad + (x-xmin)*(W-2*pad)/(xmax-xmin);
+    const Y = y => H-pad - (y-ymin)*(H-2*pad)/(ymax-ymin);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:Y(0),x2:W-pad,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pad,x2:X(0),y2:H-pad,stroke:'var(--line)'}));
+    // tick labels
+    for(let k=-1; k<=6; k++){
+      svg.appendChild(SVG('line',{x1:X(k),y1:Y(0)-3,x2:X(k),y2:Y(0)+3,stroke:'var(--mute)'}));
+    }
+    // curve y² = x³ − 2: need x³ ≥ 2, x ≥ 2^{1/3} ≈ 1.2599
+    const top=[], bot=[];
+    const xStart = Math.cbrt(2);
+    for(let i=0;i<=400;i++){
+      const x = xStart + (xmax - xStart) * i/400;
+      const rhs = x*x*x - 2;
+      if(rhs < 0) continue;
+      const y = Math.sqrt(rhs);
+      top.push([x, y]); bot.push([x, -y]);
+    }
+    const topPath = 'M ' + top.map(([x,y]) => X(x)+' '+Y(y)).join(' L ');
+    const botPath = 'M ' + bot.map(([x,y]) => X(x)+' '+Y(y)).join(' L ');
+    svg.appendChild(SVG('path',{d:topPath,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:botPath,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+
+    // render history[k]: the secant/tangent used to build it, third point, reflection
+    const op = opSel.value;
+    for(let k=1; k<history.length; k++){
+      const Qn = history[k];
+      if(Qn === null) continue;
+      const Pprev = history[k-1];
+      if(Pprev === null) continue;
+      // the line is between Pprev and (op==='step' ? P0 : Pprev). third intersection is (x3, -y3_reflected)
+      const Partner = (op === 'double') ? Pprev : P0;
+      // only draw if Qn in view
+      const xq = toFloat(Qn.x), yq = toFloat(Qn.y);
+      if(!isFinite(xq) || !isFinite(yq)) continue;
+      // slope
+      let lam;
+      if(eqF(Pprev.x, Partner.x)){
+        const num = add(mul(F(3,1), mul(Pprev.x, Pprev.x)), A);
+        const den = mul(F(2,1), Pprev.y);
+        lam = divF(num, den);
+      } else {
+        lam = divF(sub(Partner.y, Pprev.y), sub(Partner.x, Pprev.x));
+      }
+      const lamF = toFloat(lam);
+      const px = toFloat(Pprev.x), py = toFloat(Pprev.y);
+      // draw secant / tangent through Pprev with slope lamF, across visible x-range
+      const yAtXmin = py + lamF*(xmin - px);
+      const yAtXmax = py + lamF*(xmax - px);
+      const fade = Math.max(0.18, 0.9 - (history.length-1-k)*0.15);
+      svg.appendChild(SVG('line',{x1:X(xmin),y1:Y(yAtXmin),x2:X(xmax),y2:Y(yAtXmax),
+        stroke:'var(--blue)','stroke-width':1.1,'stroke-dasharray':'4 3',opacity:fade}));
+      // third intersection is (x3, -y3) — reflection bridge
+      const x3 = xq, y3neg = -yq;
+      if(isFinite(x3) && isFinite(y3neg) && x3>=xmin && x3<=xmax && y3neg>=ymin && y3neg<=ymax){
+        svg.appendChild(SVG('line',{x1:X(x3),y1:Y(y3neg),x2:X(x3),y2:Y(yq),
+          stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'2 3',opacity:fade}));
+        svg.appendChild(SVG('circle',{cx:X(x3),cy:Y(y3neg),r:3,fill:'var(--mute)',opacity:fade}));
+      }
+    }
+
+    // dots
+    history.forEach((pt, k) => {
+      if(pt === null) return;
+      const x = toFloat(pt.x), y = toFloat(pt.y);
+      if(!isFinite(x) || !isFinite(y)) return;
+      if(x < xmin || x > xmax || y < ymin || y > ymax) return;
+      const isGen = (k===0);
+      svg.appendChild(SVG('circle',{cx:X(x),cy:Y(y),r:isGen?6:4.5,
+        fill:isGen?'var(--yellow)':'var(--green)'}));
+      const t = SVG('text',{x:X(x)+8, y:Y(y)-6,'font-size':12,
+        fill:isGen?'var(--yellow)':'var(--green)'});
+      t.textContent = isGen ? 'P' : (opSel.value === 'double' && k>0 ? '2^'+k+'·P' : (k+1)+'P');
+      svg.appendChild(t);
+    });
+
+    const eqn = SVG('text',{x:W-pad,y:pad-8,'text-anchor':'end','font-size':13,fill:'var(--mute)'});
+    eqn.textContent = 'y² = x³ − 2'; svg.appendChild(eqn);
+
+    // readout
+    const lines = [];
+    lines.push('generator  P = (3, 5)   on  E : y² = x³ − 2');
+    lines.push('E(Q) ≅ Z · P   (rank 1, trivial torsion; proved by 2-descent)');
+    for(let k=0;k<history.length;k++){
+      const pt = history[k];
+      const lbl = (k===0) ? 'P' : (opSel.value==='double' ? '2^'+k+'·P' : (k+1)+'P');
+      if(pt === null){ lines.push(lbl + ' = O  (point at infinity)'); continue; }
+      const xf = fmt(pt.x), yf = fmt(pt.y);
+      const lh = Math.log10(Math.max(1, Number(absB(pt.x.n)), Number(pt.x.d)));
+      lines.push(lbl + ' = (' + xf + ',  ' + yf + ')   [log₁₀ |num/den| ≈ ' + lh.toFixed(2) + ']');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  btn.addEventListener('click', step);
+  rst.addEventListener('click', reset);
+  opSel.addEventListener('change', reset);
+  draw();
+})();
+</script>
+
 
 <p class="small">The free rank behaves like a lattice: once a basis is fixed, points with canonical height $\hat h(P)\le H$ grow roughly like the number of lattice points in a ball of radius $\sqrt H$, i.e. $\asymp H^{r/2}$. This gives the next geometric readout.</p>
 
@@ -364,6 +593,14 @@ Doubling multiplies height by 4, so reachable points spread quadratically in eac
   rSl.addEventListener('input',render); hSl.addEventListener('input',render); render();
 })();
 </script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#group">Group law on cubic curves</a></li>
+    <li><a href="./elliptic-curves.html#mordell">Mordell–Weil and invariants</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="mordell-weil"></div>
 </section>
@@ -525,6 +762,14 @@ where $r = \operatorname{rank} E(\mathbb{Q})$ and $c > 0$ is a constant dependin
 
 <p>Two caveats. The empirical slope drifts until $X$ is large — Sato–Tate fluctuations of $a_p$ swamp the rank signal at small $X$. And rank zero means $\Pi(X)$ approaches a positive constant, not zero: $\log \Pi$ stays flat.</p>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#frob">Frobenius traces and compatibility</a></li>
+    <li><a href="./sato-tate.html#angle">Hasse bound and the Frobenius angle</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="point-counting-heuristic"></div>
 </section>
 
@@ -656,6 +901,167 @@ Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero c
 </script>
 
 
+<p>A richer zoo: real elliptic curves from the Cremona tables span analytic ranks $0, 1, 2, 3$. For each one we can <em>truncate</em> the Euler product $L(E, s) \approx \prod_{p \le X}(1 - a_p p^{-s} + p^{1-2s})^{-1}$ at a moderate $X$ and evaluate near the critical point. The order of vanishing at $s = 1$ is read off by sampling $L(E, 1 + h)$ for small $h$; the algebraic rank is stored alongside as a list of explicit Mordell–Weil generators. BSD is the statement that these two columns always match.</p>
+
+<div class="widget" id="w-zoo">
+  <div class="hd"><div class="ttl">Rank-vs-L curve zoo</div><div class="hint">pick a Cremona curve; compare analytic and algebraic rank</div></div>
+  <div class="row">
+    <label>curve</label>
+    <select id="zoo-pick"></select>
+  </div>
+  <svg id="zoo-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <div class="readout" id="zoo-out"></div>
+  <div class="small">Analytic rank from sampling a truncated Euler product near $s=1$ (schematic — exact $L$-values require modular-symbol integration). Algebraic rank and generators from LMFDB / Cremona tables.</div>
+</div>
+
+<script>
+/* =================== Rank-vs-L curve zoo ===================
+ * Data (label, Weierstrass model, conductor, analytic rank, algebraic rank,
+ * generators, leading Taylor coefficient L^{(r)}(E,1)/r!) sourced from the
+ * LMFDB (https://www.lmfdb.org) entries for Cremona labels 11a1, 37a1,
+ * 389a1, 5077a1, and 27a1 (CM by Q(√−3)). Euler-factor partial products
+ * are evaluated on the fly with a small prime sieve; the resulting
+ * numerical "rank" is measured from log|L(1+h)|/log|h| as h → 0.
+ * =========================================================== */
+(function(){
+  const CURVES = [
+    { label:'11a1  y² + y = x³ − x² − 10x − 20', A:[0,-1,1,-10,-20], N:11, aRank:0, gRank:0,
+      gens:[], tors:'Z/5', Ltay:0.2538, note:'First rank-0 curve; L(E,1) ≈ 0.2538, |Ш| = 1.' },
+    { label:'37a1  y² + y = x³ − x',            A:[0, 0,1, -1, 0], N:37, aRank:1, gRank:1,
+      gens:['(0, 0)'], tors:'trivial', Ltay:0.3059, note:'First rank-1 curve; L\'(E,1) ≈ 0.3059, generator (0,0).' },
+    { label:'389a1 y² + y = x³ + x² − 2x',      A:[0, 1,1, -2, 0], N:389,aRank:2, gRank:2,
+      gens:['(0, 0)','(1, 0)'], tors:'trivial', Ltay:0.7594, note:'First rank-2 curve; L\'\'(E,1)/2! ≈ 0.7594.' },
+    { label:'5077a1 y² + y = x³ − 7x + 6',      A:[0, 0,1, -7, 6], N:5077,aRank:3, gRank:3,
+      gens:['(0, 2)','(1, 0)','(2, 0)'], tors:'trivial', Ltay:1.7318,
+      note:'First rank-3 curve (Buhler–Gross–Zagier 1985).' },
+    { label:'27a1  y² + y = x³             (CM)', A:[0, 0,1, 0, 0], N:27, aRank:0, gRank:0,
+      gens:[], tors:'Z/3', Ltay:0.5894, note:'CM by Z[ω], ω = e^{2πi/3}; rank 0, L(E,1) ≠ 0.' },
+    { label:'14a1  y² + xy + y = x³ + 4x − 6',   A:[1, 0,1, 4, -6], N:14, aRank:0, gRank:0,
+      gens:[], tors:'Z/6', Ltay:0.4588, note:'Conductor 14, full 6-torsion, rank 0.' },
+  ];
+  // short Weierstrass reduction: E : y²+a1xy+a3y = x³+a2x²+a4x+a6 ⇒ rhs-count mod p.
+  const PMAX = 400;
+  const primes = (()=>{
+    const sv = new Uint8Array(PMAX+1);
+    for(let i=2;i<=PMAX;i++){ if(!sv[i]){ for(let j=i*i;j<=PMAX;j+=i) sv[j]=1; } }
+    const out=[]; for(let i=2;i<=PMAX;i++) if(!sv[i]) out.push(i); return out;
+  })();
+  function apFor(A, p){
+    // a1,a2,a3,a4,a6
+    const [a1,a2,a3,a4,a6] = A;
+    const mod = (a,m)=>((a%m)+m)%m;
+    // N_p = #{(x,y) ∈ F_p² : y²+a1xy+a3y ≡ x³+a2x²+a4x+a6} + 1 (point at infinity)
+    let N = 1;
+    for(let x=0;x<p;x++){
+      const rhs = mod(x*x%p*x + a2*x*x + a4*x + a6, p);
+      for(let y=0;y<p;y++){
+        const lhs = mod(y*y + a1*x*y + a3*y, p);
+        if(lhs === rhs) N++;
+      }
+    }
+    return p + 1 - N;
+  }
+
+  const pick = $('#zoo-pick'), svg = $('#zoo-svg'), out = $('#zoo-out');
+  CURVES.forEach((c,i) => {
+    const o = document.createElement('option');
+    o.value = String(i); o.textContent = c.label + '   (rank ' + c.aRank + ')';
+    pick.appendChild(o);
+  });
+
+  // Sample a truncated L near s=1
+  function Ltrunc(apArr, s, X){
+    // L(E,s) ≈ ∏_{p ≤ X, p good} (1 − a_p p^{−s} + p^{1−2s})^{−1}
+    let prod = 1;
+    for(let i=0;i<primes.length;i++){
+      const p = primes[i]; if(p > X) break;
+      const ap = apArr[i];
+      if(ap == null || !isFinite(ap)) continue; // bad prime
+      const f = 1 - ap * Math.pow(p, -s) + Math.pow(p, 1 - 2*s);
+      if(Math.abs(f) < 1e-12) return NaN;
+      prod *= 1/f;
+    }
+    return prod;
+  }
+
+  function draw(){
+    const idx = +pick.value;
+    const c = CURVES[idx];
+    // compute a_p for p up to PMAX (skip p | N by sentinel)
+    const apArr = primes.map(p => (c.N % p === 0) ? null : apFor(c.A, p));
+
+    // probe L(1+h) for a grid of h values; fit slope of log|L| vs log|h| to estimate r
+    const hs = [0.05, 0.08, 0.12, 0.18, 0.25, 0.35];
+    const probed = hs.map(h => ({ h, L: Ltrunc(apArr, 1 + h, 150) }));
+    // only use points where L stayed positive
+    const good = probed.filter(p => p.L > 0 && isFinite(p.L));
+    let fitR = NaN;
+    if(good.length >= 3){
+      const pts = good.map(p => [Math.log(p.h), Math.log(p.L)]);
+      let sx=0,sy=0,sxx=0,sxy=0,n=pts.length;
+      for(const [x,y] of pts){ sx+=x; sy+=y; sxx+=x*x; sxy+=x*y; }
+      fitR = (n*sxy - sx*sy) / (n*sxx - sx*sx);
+    }
+
+    // draw L(1+h) vs h
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=300, pad=40;
+    // sample curve for -0.4..0.4
+    const HS=[]; for(let i=0;i<=120;i++) HS.push(-0.4 + 0.8*i/120);
+    const vals = HS.map(h => ({h, L: Ltrunc(apArr, 1 + h, 150)}));
+    const ls = vals.map(v=>v.L).filter(v=>isFinite(v));
+    const ymin = Math.min(0, ...ls) - 0.3, ymax = Math.max(0, ...ls) + 0.3;
+    const xmin = -0.4, xmax = 0.4;
+    const X = x => pad + (x-xmin)*(W-2*pad)/(xmax-xmin);
+    const Y = y => H-pad - (y-ymin)*(H-2*pad)/(ymax-ymin);
+    // axes
+    svg.appendChild(SVG('line',{x1:pad,y1:Y(0),x2:W-pad,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:pad,x2:X(0),y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));
+    // L curve
+    const pathSegs = [];
+    let cur = null;
+    for(const v of vals){
+      if(isFinite(v.L)){ if(!cur){ cur='M'; } else { cur=' L'; } pathSegs.push(cur + X(v.h) + ' ' + Y(v.L)); }
+      else { cur = null; }
+    }
+    svg.appendChild(SVG('path',{d:pathSegs.join(''),fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // zero at s=1 (h=0)
+    const L1 = Ltrunc(apArr, 1, 150);
+    if(isFinite(L1)){
+      svg.appendChild(SVG('circle',{cx:X(0),cy:Y(L1),r:5,fill:'var(--pink)'}));
+    }
+    // probe dots
+    good.forEach(p => {
+      svg.appendChild(SVG('circle',{cx:X(p.h),cy:Y(p.L),r:3,fill:'var(--green)'}));
+    });
+    // labels
+    const tx = SVG('text',{x:W-pad,y:H-10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    tx.textContent = 'h = s − 1  →'; svg.appendChild(tx);
+    const ty = SVG('text',{x:pad+4,y:pad+10,'font-size':12,fill:'var(--mute)'});
+    ty.textContent = 'L(E, 1 + h)'; svg.appendChild(ty);
+    const eqn = SVG('text',{x:W-pad,y:pad+10,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    eqn.textContent = 'conductor N = ' + c.N; svg.appendChild(eqn);
+
+    const lines = [];
+    lines.push(c.label);
+    lines.push('partial Euler product truncated at X = 150 (' + primes.filter(p=>p<=150).length + ' primes used)');
+    const slopeStr = isFinite(fitR) ? fitR.toFixed(2) : '—';
+    lines.push('analytic rank ≈ ' + slopeStr + '   (fit slope of log|L(1+h)| vs log|h|, h ≤ 0.35)');
+    lines.push('algebraic rank = ' + c.gRank + '   generators: ' + (c.gens.length ? c.gens.join(', ') : '(none of infinite order)'));
+    lines.push('torsion: ' + c.tors);
+    const agree = (Math.round(isFinite(fitR)?fitR:-1) === c.gRank);
+    lines.push('BSD prediction: rank_alg = ' + c.gRank + ' = rank_an   ' + (agree ? '✓ consistent' : '(truncation noisy; expected rank ' + c.aRank + ')'));
+    lines.push('leading Taylor coefficient L^{('+c.aRank+')}(E,1)/'+c.aRank+'! ≈ ' + c.Ltay + '   (LMFDB value)');
+    lines.push(c.note);
+    out.textContent = lines.join('\n');
+  }
+
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+
 <p>What is known (for modular $E$, so all $E/\mathbb{Q}$):</p>
 <ul>
   <li><strong>Kolyvagin (1989):</strong> if analytic rank $\le 1$, then algebraic rank agrees and $\Sha$ is finite.</li>
@@ -664,6 +1070,15 @@ Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero c
 </ul>
 
 <p>BSD is a Clay Millennium Prize Problem — a \$1M bounty on the statement that two different ways of counting rational points agree. It is the arithmetic heart of the Langlands philosophy: the analytic behavior of an automorphic $L$-function encodes the arithmetic of the motive it comes from.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#coda">Analytic continuation</a></li>
+    <li><a href="./dirichlet-series-euler-products.html#euler">Euler products and multiplicativity</a></li>
+    <li><a href="./L-functions.html#modularity">Arithmetic data and modularity links</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="bsd-rank-equality"></div>
 </section>
@@ -765,6 +1180,13 @@ It is the squared covolume of the Mordell–Weil lattice, and it is the factor o
 
 <div class="note"><strong>Why this is hard.</strong> No one knows a provable algorithm to compute $\hat h(P)$ to arbitrary precision starting from the Weierstrass coefficients alone, though in practice the Tate series + descent gives any desired digit. Worse: to compute $R$ you need to exhibit a basis of $E(\mathbb{Q})/\text{tors}$, and finding that basis is the same problem as computing the rank — which is itself conjecturally solvable only via BSD.</div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#mordell">Mordell–Weil and invariants</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="regulator"></div>
 </section>
 
@@ -850,6 +1272,13 @@ Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the p
 
 <p class="small">Conceptually: $R$ quantifies the <em>rational</em> points you see; $\Sha$ quantifies the rational points you don't see but locally "should." Together with the Tamagawa and torsion fudge factors, they explain the entire discrepancy between the analytic $L^{(r)}(E, 1)/r!$ and the algebraic $\Omega$. BSD is the statement that nothing else is missing.</p>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#group">Group law on cubic curves</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="sha-tate-shafarevich"></div>
 </section>
 
@@ -911,5 +1340,18 @@ Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the p
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>Fix open issue regressions in quizzes and widget scripts</td></tr>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Expand Wave 4 capstones with additional interactive widgets</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

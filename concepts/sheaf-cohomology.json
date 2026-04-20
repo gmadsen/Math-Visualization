@@ -13,6 +13,25 @@
       "blurb": "Cover-based cocycles detect obstruction classes for global patching."
     },
     {
+      "id": "leray-acyclic-covers",
+      "title": "Leray acyclic covers and affine vanishing",
+      "anchor": "leray",
+      "prereqs": [
+        "cech-cohomology"
+      ],
+      "blurb": "When every finite intersection is $\\mathcal{F}$-acyclic, Čech cohomology on the cover equals the derived-functor cohomology. Affine covers of schemes are Leray for quasi-coherent sheaves by Serre's affine vanishing theorem."
+    },
+    {
+      "id": "long-exact-sequence-cohomology",
+      "title": "Long exact sequence in cohomology",
+      "anchor": "les",
+      "prereqs": [
+        "cech-cohomology",
+        "long-exact-sequence"
+      ],
+      "blurb": "A short exact sequence of sheaves induces a long exact sequence of cohomology groups, with a connecting homomorphism $\\delta$ that measures obstructions to lifting sections."
+    },
+    {
       "id": "derived-functor-cohomology",
       "title": "Derived functor sheaf cohomology",
       "anchor": "derived",

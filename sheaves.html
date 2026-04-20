@@ -103,6 +103,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -264,6 +291,14 @@ commutes. The restrictions $\rho^F, \rho^G$ are the presheaf restrictions. For p
 
 <h3>The functor of points, in passing</h3>
 <p>The functor-of-points perspective inverts the picture: a scheme $X$ is determined by its functor $h_X = \mathrm{Hom}(-, X)\colon \mathsf{Sch}^{\mathrm{op}} \to \mathsf{Set}$. A natural way to package geometric data on $X$ is then as a sheaf on the site of $X$-schemes (or on a small subcategory thereof). Sheaves on $\mathrm{Open}(X)$ are the special case of taking $\mathcal{C} = \mathrm{Open}(X)$ with covers = open covers.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+    <li><a href="./point-set-topology.html#open">Topological spaces</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <section id="sheaves">
@@ -754,6 +789,13 @@ $$0 \to \underline{2\pi i \mathbb{Z}} \to \mathcal{O}_X \xrightarrow{\exp} \math
 exact in $\mathsf{Sh}(X, \mathsf{Ab})$ — stalkwise, locally a logarithm exists. Taking global sections gives the long exact sequence
 $$0 \to \underline{2\pi i \mathbb{Z}}(X) \to \mathcal{O}_X(X) \to \mathcal{O}_X^\times(X) \to H^1(X, \underline{2\pi i \mathbb{Z}}) \to H^1(X, \mathcal{O}_X) \to \mathrm{Pic}(X) \to H^2(X, \underline{2\pi i \mathbb{Z}}) \to \cdots$$
 On $X = \mathbb{C}^\times$, the coboundary $\mathcal{O}_X^\times(X) \to H^1(X, \underline{\mathbb{Z}}) = \mathbb{Z}$ is the winding number, and sends the identity function $z$ to $1$ — manifesting its non-exponentialness.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#nat">Functors and natural transformations</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <script>
@@ -992,6 +1034,13 @@ commutes for $V \subseteq U$. The category $\mathsf{Mod}(\mathcal{O}_X)$ is abel
 
 <h3>Tensor product and $\mathcal{H}\!om$</h3>
 <p>For $\mathcal{F}, \mathcal{G}$ $\mathcal{O}_X$-modules: $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ is the sheafification of $U \mapsto \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)$, and its stalks are $\mathcal{F}_x \otimes_{\mathcal{O}_{X,x}} \mathcal{G}_x$. The internal hom $\mathcal{H}\!om_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ is the sheaf $U \mapsto \mathrm{Hom}_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$ — already a sheaf without sheafification. These satisfy the expected tensor-hom adjunction.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schemes.html#speckxy">Structure sheaf and affine schemes</a></li>
+  </ul>
+</aside>
+
 </section>
 
 <section id="qcoh">
@@ -1087,6 +1136,13 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   </div>
   <div class="readout" id="qc-out"></div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#localize">Localization and local algebra</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="sheafification-and-qcoh"></div>
 </section>
 
@@ -1285,6 +1341,16 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

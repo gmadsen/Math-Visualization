@@ -100,6 +100,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -124,6 +151,7 @@ const SVG = (tag,attrs={})=>{
   <a href="#gvb">5&nbsp;Good&nbsp;vs.&nbsp;bad</a>
   <a href="#badtypes">6&nbsp;Additive,&nbsp;split,&nbsp;non-split</a>
   <a href="#counting">7&nbsp;Counting&nbsp;and&nbsp;Hasse</a>
+  <a href="#minimal-model">8&nbsp;Minimal&nbsp;model&nbsp;&amp;&nbsp;conductor</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -325,6 +353,13 @@ Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a
 <div class="note"><b>Algebraic test.</b> A singular point $(x_0,y_0)$ of the affine curve $F(x,y)=0$ is a node iff the Hessian $F_{xx} F_{yy} - F_{xy}^2$ is nonzero there (two distinct tangent lines), and a cusp iff it vanishes (tangent lines collide). For $F = y^2 - x^3 - a x - b$ at a singular point, this reduces cleanly to whether $a \ne 0$ (node) or $a = 0$ (cusp) after translating the double root of $f(x)=x^3+ax+b$ to the origin.</div>
 
 <p>These two cases are exclusive and exhaustive for plane cubics: any singular Weierstrass cubic is, up to affine change of coordinates, either $y^2=x^3+x^2$ or $y^2=x^3$. Their global resolutions are both the projective line $\mathbb{P}^1$ — each singular cubic is a <em>nodal</em> or <em>cuspidal degeneration</em> of genus $1$ down to genus $0$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="singular-cubic-types"></div>
 </section>
@@ -548,6 +583,13 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
   render();
 })();
 </script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#group">Group law on cubic curves</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="reduction-mod-p"></div>
 </section>
@@ -951,6 +993,48 @@ whose analytic properties sit at the heart of modern number theory (modularity, 
 <p>Two nearby pages deepen this picture from complementary directions. Reduction mod $p$ is the "residue-field" operation on the arithmetic scheme $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$; the general machinery of closed fibers and generic fibers is the subject of <a href="./schemes.html">schemes</a> and <a href="./morphisms-fiber-products.html">fiber products of morphisms</a>. On the other side, the local field $\mathbb{Q}_p$ of <a href="./p-adic-numbers.html">$p$-adic numbers</a> provides the right universe to study reduction as a <em>specialization</em>: the minimal Weierstrass model over $\mathbb{Z}_p$, the Néron model, and the Tate uniformization of multiplicative-reduction curves $E(\mathbb{Q}_p) = \mathbb{Q}_p^{\times}/q^{\mathbb{Z}}$ all live there.</p>
 
 <div class="note"><b>Forward reference.</b> The classification above is the local piece of a much larger picture. Globally, the modularity theorem of Wiles–Breuil–Conrad–Diamond–Taylor says that for every elliptic curve $E/\mathbb{Q}$ there is a weight-$2$ cuspidal eigenform $f$ whose local Hecke eigenvalues $a_p(f)$ match the $a_p$'s computed here, prime by prime, including at bad primes. The four-case table of this section is exactly the local compatibility that modularity has to respect.</div>
+
+<div class="quiz" data-concept="hasse-bound-point-counting"></div>
+</section>
+
+<section id="minimal-model">
+<h2>8. Minimal Weierstrass models and the conductor</h2>
+
+<p>The reduction story so far was told over $\mathbb{F}_p$, but for a global elliptic curve $E/\mathbb{Q}$ we first have to pick <em>which</em> integer Weierstrass equation to reduce. Different models give different discriminants: replacing $(x,y) \mapsto (u^2 x, u^3 y)$ scales $\Delta$ by $u^{12}$, so an equation with $\Delta = 2^{12}\cdot 11$ describes the same curve as one with $\Delta = 11$. The first is <em>non-minimal</em>; it has a spurious bad prime at $2$ that can be cleared.</p>
+
+<div class="note"><strong>Minimal Weierstrass model.</strong> Over a discrete valuation ring $R$ with maximal ideal $\mathfrak p$ (e.g. $R = \mathbb{Z}_p$), a Weierstrass equation for $E$ with integer coefficients is <em>minimal at $\mathfrak p$</em> if $v_{\mathfrak p}(\Delta)$ is as small as possible among integer models. Over $\mathbb{Z}$, a <em>global minimal</em> model is one that is simultaneously minimal at every prime. For $E/\mathbb{Q}$ such a global minimal model always exists (Néron), and its discriminant $\Delta_{\min}(E)$ is an invariant of the curve.</div>
+
+<p>Tate's algorithm is the explicit procedure: given any Weierstrass equation over $\mathbb{Z}_p$, it either outputs a minimal model directly or detects a change of variables that reduces $v_p(\Delta)$ by $12$. Iterate and you converge. Once you have the minimal model, the reduction type at $p$ (good, split/non-split multiplicative, or additive) is an invariant of the curve — not of the chosen equation.</p>
+
+<p>Attached to each bad prime is a non-negative integer $f_p$, the <strong>conductor exponent</strong>, defined so that</p>
+<p style="text-align:center">$N(E) \;=\; \prod_{p \text{ bad}} p^{f_p}$</p>
+<p>is the <em>conductor</em> of $E$. The exponent encodes <em>how bad</em> the reduction is, and is bounded by:</p>
+
+<div class="ok"><strong>Conductor exponents.</strong>
+<ul style="margin:.3rem 0">
+  <li>$f_p = 1$ if the reduction is multiplicative (split or non-split) — a node.</li>
+  <li>$f_p = 2$ if the reduction is additive and $p \ne 2, 3$ — a cusp.</li>
+  <li>$f_p \le 2 + \delta_p$ at $p = 2, 3$, where $\delta_p$ is the additional "wild" part coming from ramification in the $\ell$-adic Galois representation. Tate's algorithm computes $f_p$ case by case.</li>
+</ul>
+This is Ogg's formula and the classification on Néron's list. The conductor $N(E)$ is the data that appears in every $L$-function formula for $E$.</div>
+
+<p>Worked example: take $E\colon y^2 = x^3 + 1$ with (minimal) discriminant $\Delta = -432 = -2^4\cdot 3^3$. The curve has $j$-invariant $0$, and an analysis at each bad prime shows:</p>
+<ul>
+  <li>At $p = 2$: additive reduction, with $f_2 = 4$ (wild ramification contributes extra).</li>
+  <li>At $p = 3$: additive reduction, with $f_3 = 3$ (wild at $3$).</li>
+</ul>
+<p>So the conductor is $N(E) = 2^4 \cdot 3^3 = 432$, which coincides (coincidentally, in this easy case) with $|\Delta|$. A general smooth curve with multiplicative reduction at $p = 11$ and good reduction elsewhere has $N = 11$, matching the famous "smallest-conductor" curve $y^2 + y = x^3 - x^2$ of Cremona label 11a1.</p>
+
+<p>The conductor is the single most important arithmetic invariant of $E/\mathbb{Q}$ after its $L$-function — modular forms of weight $2$ and level $N$ are (by modularity) in bijection with elliptic curves of conductor $N$, so the minimal model and its conductor are exactly the bridge between the geometric page above and the analytic picture on <a href="./modular-forms.html">modular-forms.html</a>.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./p-adic-numbers.html#abs">p-adic norm and completion</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="minimal-weierstrass-model"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -1010,5 +1094,15 @@ whose analytic properties sit at the heart of modern number theory (modularity, 
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

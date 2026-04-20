@@ -104,6 +104,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -216,7 +243,8 @@ to $y^2 = x^3 + ax + b$ are not invertible. In those characteristics one retains
 <div class="widget">
 <div class="hd"><span class="ttl">Discriminant watch</span><span class="hint">slide to see smoothness boundary</span></div>
 <div class="row">
-  <label>$a$ <input type="range" id="disc-a" min="-4" max="4" step="0.05" value="-3"></label>
+  <label>$a$ 
+<input type="range" id="disc-a" min="-4" max="4" step="0.05" value="-3"></label>
   <span id="disc-aval" class="small">-3</span>
 </div>
 <div class="row">
@@ -251,6 +279,13 @@ to $y^2 = x^3 + ax + b$ are not invertible. In those characteristics one retains
 </script>
 
 <p>When $\Delta > 0$ the real points of $E$ form two connected components: an oval near the leftmost real root of $x^3 + ax + b$ and an unbounded arm. When $\Delta < 0$ only the unbounded arm exists. The distinction is visible but not intrinsic â€” the complex-analytic or algebraic structure is the same in both cases.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html#defn">Projective points and lines</a></li>
+  </ul>
+</aside>
 
 </section>
 
@@ -960,7 +995,8 @@ has coefficients that are the dimensions of irreducibles of the Monster group â€
 <div class="row" style="gap:1rem;justify-content:center">
   <div style="text-align:center">
     <div class="small">lattice $\mathbb{Z} + \mathbb{Z}\tau$</div>
-    <svg id="lat-svg" viewBox="0 0 300 300" width="300" height="300" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:grab"></svg>
+    
+<svg id="lat-svg" viewBox="0 0 300 300" width="300" height="300" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px;cursor:grab"></svg>
   </div>
   <div style="text-align:center">
     <div class="small">real points of $y^2 = x^3 + a x + b$</div>
@@ -1123,6 +1159,13 @@ has coefficients that are the dimensions of irreducibles of the Monster group â€
 <p>The 1-form $\omega = dx / y$ is a basis of $H^0(E, \Omega^1)$, and its integrals over $H_1(E(\mathbb{C}), \mathbb{Z}) \cong \mathbb{Z}^2$ give the <em>periods</em> $\omega_1, \omega_2$ which recover the lattice. The comparison isomorphism
 $$H^1_{\text{dR}}(E/\mathbb{C}) \cong H^1_{\text{Betti}}(E(\mathbb{C}), \mathbb{C})$$
 is implemented by integration of forms along cycles; the period matrix $(\omega_1 \ \omega_2)$ is the essential invariant of a polarized complex torus. One sees here, in miniature, the Hodge theory of complex manifolds.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemann-surfaces.html#intro">Riemann surfaces as 1D complex manifolds</a></li>
+  </ul>
+</aside>
 
 </section>
 
@@ -1310,5 +1353,17 @@ a number whose denominator is already $21$ digits. There is no descent-free way 
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

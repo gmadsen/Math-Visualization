@@ -117,6 +117,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -225,6 +252,13 @@ function cfmt(a){
 <p>Why complex numbers? Two reasons. First, $\mathbb{C}$ is algebraically closed, which makes eigenvalues and diagonalizations tractable. Second, for a finite group $G$ the characteristic of $\mathbb{C}$ does not divide $|G|$, so the averaging trick at the heart of Maschke's theorem works. Representation theory over $\overline{\mathbb{F}_p}$ with $p\mid|G|$ (<em>modular representation theory</em>) is a separate world with its own beautiful pathology.</p>
 
 <div class="note">Throughout this page: "rep" means finite-dimensional complex representation of a finite group $G$, unless stated otherwise. Most statements hold with $\mathbb{C}$ replaced by any algebraically closed field of characteristic coprime to $|G|$.</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#cayley">Cayley tables and subgroups</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="group-representations"></div>
 
@@ -652,6 +686,13 @@ function cfmt(a){
 <div class="ok">
 <strong>Takeaway.</strong> Everything you've learned in this page — characters, orthogonality, multiplicities, induced reps, Young diagrams — is a template for infinite-dimensional objects. Replace "conjugacy class" with "orbit under Weyl group", replace "character" with "Weyl character", replace "Schur orthogonality" with the Weyl integration formula, and you are at the gate of modern representation theory: compact Lie groups, affine Lie algebras, quantum groups, geometric Langlands.
 </div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#algebra">Lie algebra as tangent space at the identity</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="sl2-weight-decomposition"></div>
 
@@ -1525,6 +1566,16 @@ function innerProd(group, chiA, chiB){
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

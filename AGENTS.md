@@ -40,6 +40,8 @@ When parallelizing: every agent spawned to draft or edit a page must read `categ
   6. **Modular forms & L-functions** (cyan/pink) — upper half-plane, modular forms, theta functions, Hecke operators, Dirichlet series, L-functions, Galois representations.
   7. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms & fiber products, functor of points, elliptic curves, singular cubics, moduli spaces, sheaf cohomology, stacks.
 - **Card color palette**: each card uses one of the six accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine.
+- **Cross-page callbacks**: when a concept's `prereqs` reference an id owned by another topic, the section ends with an `<aside class="callback">` listing "See also" links to the target anchors. Insertions are mechanical — run `node scripts/audit-callbacks.mjs --fix` after editing any `concepts/*.json` prereqs. The companion audit (`node scripts/audit-callbacks.mjs`, no flag) and a light smoke-test guard both enforce coverage.
+- **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/insert-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
 
 ## Helper tools (in every page's top `<script>`)
 
@@ -114,7 +116,7 @@ Every new topic page should ship with quizzes for its concepts.
    <div class="quiz" data-concept="<concept-id>"></div>
    ```
    The `data-concept` must match an `id` in `concepts/<topic>.json`.
-3. **Quiz bank** — `quizzes/<topic>.json`:
+3. **Quiz bank** — `quizzes/<topic>.json`. Each concept entry carries a **v1 tier** (`questions`, required) and an optional **hard tier** (`hard`, unlocked only after v1 is mastered):
    ```json
    {
      "topic": "<topic-id>",
@@ -125,13 +127,37 @@ Every new topic page should ship with quizzes for its concepts.
            { "type": "mcq",     "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "..." },
            { "type": "numeric", "q": "...", "answer": 5,     "tol": 1e-6,  "explain": "..." },
            { "type": "complex", "q": "...", "answer": [3,1], "tol": 1e-3,  "explain": "..." }
+         ],
+         "hard": [
+           { "type": "mcq", "q": "...", "choices": [...], "answer": 2, "explain": "..." }
          ]
        }
      }
    }
    ```
-   Aim for 3 questions per concept, mixing types, with KaTeX in `q` and `explain`.
-4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. On all-correct, the quiz widget calls `setMastered(conceptId, true)`; `pathway.html` reads the same store to compute locked/ready/mastered.
+   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**. Authoring the Section-A hard-tier banks (A1–A48) is tracked in `TODO.md`.
+
+   **Schema compatibility**: banks without a `hard` key keep behaving as before — nothing changes in the UI except the badge text.
+4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at two tiers per concept: `'v1'` and `'hard'`.
+
+   ```js
+   MVProgress.setMastered(conceptId, tier, value)   // tier ∈ {'v1','hard'}
+   MVProgress.setMastered(conceptId, value)         // legacy 2-arg form; tier defaults to 'v1'
+   MVProgress.isMastered(conceptId)                 // true ⇔ v1 mastered
+   MVProgress.isMastered(conceptId, 'hard')         // true ⇔ hard mastered
+   MVProgress.stateOf(conceptId, conceptsMap)
+     // → { state: 'locked'|'ready'|'mastered', v1: bool, hard: bool }
+   MVProgress.clearAll()                            // wipe storage
+   ```
+
+   Rules the store enforces:
+   - Setting `v1 = false` also clears `hard` (can't have hard without v1).
+   - Setting `hard = true` implies `v1 = true`.
+   - Only v1 mastery gates downstream concepts in `pathway.html` (locked/ready/mastered). Hard mastery is a separate visual ring — it doesn't unlock anything else.
+
+   **Storage migration**: legacy entries (bare booleans or the old `{at: ts}` form) are coerced transparently on first read to `{v1: true, hard: false}`; no user action needed. The storage key (`mvnb.progress.v1`) is unchanged.
+
+   On v1 all-correct, the quiz widget calls `setMastered(conceptId, 'v1', true)` and exposes a "Harder tier unlocked" button if the bank has a `hard` array. Clicking it renders the hard tier; on all-correct there, the widget calls `setMastered(conceptId, 'hard', true)`. `pathway.html` draws two rings per node: an inner green ring for v1 mastery and an outer violet ring for hard-tier mastery.
 
 ## Concept graph
 

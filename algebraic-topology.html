@@ -105,6 +105,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -182,6 +209,13 @@ function matMul(A,B){
 
 <h3 id="paths">Paths and homotopy</h3>
 <p>A path in $X$ is a continuous map $\gamma:[0,1]\to X$, and a homotopy between paths is a continuous deformation through paths. Passing to homotopy classes turns geometric motion into algebraic data, first for loops (yielding $\pi_1$), then for chains (yielding $H_n$).</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./point-set-topology.html#continuity">Continuity & homeomorphism</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="paths"></div>
 
@@ -1325,6 +1359,21 @@ The left side is a local analytic invariant (curvature integrated); the right si
   else build();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Fix TOC anchor targets for measure and algebraic topology pages</td></tr>
+      <tr><td>2026-04-19</td><td>Add missing quiz banks and wire quizzes for measure theory and algebraic topology</td></tr>
+      <tr><td>2026-04-19</td><td>Fix pathway KaTeX rendering and index operator text issue</td></tr>
+      <tr><td>2026-04-19</td><td>Fix missing concept anchors for measure and algebraic topology</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

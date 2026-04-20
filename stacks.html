@@ -103,6 +103,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -173,10 +200,12 @@ function drawLoop(svg, cx, cy, label, color, markerId){
   <a href="#fib">3&nbsp;Fibered&nbsp;categories</a>
   <a href="#descent">4&nbsp;Descent</a>
   <a href="#bg">5&nbsp;$BG$</a>
-  <a href="#dm">6&nbsp;DM&nbsp;stacks</a>
-  <a href="#m11">7&nbsp;$\mathcal{M}_{1,1}$</a>
-  <a href="#coarse">8&nbsp;Coarse&nbsp;moduli</a>
-  <a href="#take">9&nbsp;Takeaways</a>
+  <a href="#quotient">6&nbsp;$[X/G]$</a>
+  <a href="#dm">7&nbsp;DM&nbsp;stacks</a>
+  <a href="#artin">8&nbsp;DM&nbsp;vs&nbsp;Artin</a>
+  <a href="#m11">9&nbsp;$\mathcal{M}_{1,1}$</a>
+  <a href="#coarse">10&nbsp;Coarse&nbsp;moduli</a>
+  <a href="#take">11&nbsp;Takeaways</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -307,6 +336,14 @@ Cartesian squares upstairs project to commuting squares downstairs — "pullback
 </script>
 
 <p>Either way, a moduli problem is now a functor (or fibered category) valued in groupoids. That is still not a stack — we need one more condition.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functor-of-points.html#stacks">When functors require stacks</a></li>
+    <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="groupoids-and-descent"></div>
 </section>
@@ -476,8 +513,24 @@ $$ BG(R) \;=\; \text{groupoid of } G\text{-torsors on } \mathrm{Spec}\,R. $$
 <div class="quiz" data-concept="classifying-stacks"></div>
 </section>
 
+<section id="quotient">
+<h2>6. Quotient stacks $[X/G]$</h2>
+<p>Generalise $BG$ by letting a group $G$ act on a scheme $X$ (not just a point). The <strong>quotient stack</strong> $[X/G]$ is defined, like $BG$, through its groupoid of families:</p>
+$$ [X/G](T) \;=\; \Bigl\{ \text{pairs } (P \to T,\ P \xrightarrow{\phi} X) \;:\; P \to T \text{ is a } G\text{-torsor},\ \phi \text{ is } G\text{-equivariant}\Bigr\}. $$
+<p>When $X=\mathrm{Spec}\,k$ is a point, the $G$-equivariant map $\phi$ carries no information and we recover $BG(T)=\{G\text{-torsors on }T\}$. When $G$ is the trivial group, a $\{e\}$-torsor is just a map $T\to T$, the equivariant map to $X$ is any morphism $T\to X$, so $[X/\{e\}]=X$ (the stack of maps to $X$). The quotient stack interpolates between these two extremes.</p>
+<div class="note"><strong>Two concrete facts.</strong>
+<ul>
+  <li>If $G$ acts <em>freely</em> on $X$, the quotient stack $[X/G]$ is equivalent to the quotient scheme $X/G$ — no stacky enhancement is needed. Stabilisers only appear when the action has fixed points.</li>
+  <li>The geometric point corresponding to $x\in X(\overline{k})$ sits above the image $\overline{x}\in (X/G)(\overline{k})$ with automorphism group equal to the <em>stabiliser</em> $\mathrm{Stab}_G(x)$. So $[X/G]$ is "$X/G$ with stabiliser groups re-attached at every orbit".</li>
+</ul></div>
+<p>A universal-property reading: $X\to [X/G]$ is itself a $G$-torsor, so $[X/G]$ is the universal target classifying $G$-torsors equipped with an equivariant map to $X$. In particular $[X/G]$ has an atlas given by $X$ itself, and the groupoid presentation is the action groupoid</p>
+$$ G\times X \;\rightrightarrows\; X, \qquad (g,x)\mapsto x \text{ and } (g,x)\mapsto g\cdot x. $$
+<p>Every DM (or Artin) stack is <em>locally</em> of this form: étale-locally on the atlas, a stack looks like $[U/\Gamma]$ for a finite group $\Gamma$. So quotient stacks are the building blocks — understand these and you can reason by pulling back to charts. Example: the coarse shape of $\mathcal{M}_{1,1}$ near $j=0$ is $[\mathbb{A}^1/\mu_3]$, and near $j=1728$ it is $[\mathbb{A}^1/\mu_2]$.</p>
+<div class="quiz" data-concept="quotient-stack"></div>
+</section>
+
 <section id="dm">
-<h2>6. Deligne–Mumford stacks</h2>
+<h2>7. Deligne–Mumford stacks</h2>
 <p>Not every stack is geometrically tractable. The <strong>Deligne–Mumford</strong> condition isolates the ones that behave like schemes with finite automorphism groups.</p>
 
 <div class="note"><strong>Operational definition.</strong> A stack $\mathcal{X}$ (over $\mathrm{Sch}/S$, say) is a <strong>Deligne–Mumford stack</strong> if
@@ -540,8 +593,28 @@ $$ X \times_{\mathcal{X}} X \;\rightrightarrows\; X, $$
 <p>Because the cover is étale, geometric points of $\mathcal{X}$ have étale-locally trivial automorphism action, i.e. finite automorphism groups. This is exactly the tractability you want.</p>
 </section>
 
+<section id="artin">
+<h2>8. Deligne–Mumford vs. Artin</h2>
+<p>What changes if we only insist on a <em>smooth</em> atlas rather than an étale one? We get the broader class of <strong>Artin</strong> (a.k.a. <strong>algebraic</strong>) <strong>stacks</strong>. Every DM stack is Artin; the converse fails precisely when automorphism groups are positive-dimensional.</p>
+<div class="note"><strong>Definitions side by side.</strong>
+<ul>
+  <li><strong>Artin stack.</strong> Diagonal $\Delta:\mathcal{X}\to\mathcal{X}\times\mathcal{X}$ is representable and quasi-compact; there exists a scheme $X$ with a <em>smooth surjection</em> $X\to\mathcal{X}$.</li>
+  <li><strong>Deligne–Mumford stack.</strong> Additionally, the diagonal is <em>unramified</em>; equivalently, one can find an <em>étale surjection</em> $X\to\mathcal{X}$. This forces automorphism schemes to be <em>finite and unramified</em>, hence $0$-dimensional.</li>
+</ul>
+A one-line slogan: DM ⇔ Artin with $\dim \mathrm{Aut}(x) = 0$ at every geometric point $x$.</div>
+<p>Examples clarify the gap.</p>
+<ul>
+  <li>$B\mu_n$ (finite cyclic group) is DM: the automorphism group $\mu_n$ is finite.</li>
+  <li>$B\mathbb{G}_m$ is Artin but not DM: the automorphism group is $\mathbb{G}_m$, which is one-dimensional. Its coarse space is a point, but its stacky structure encodes every line bundle on the base.</li>
+  <li>The stack of vector bundles $\mathrm{Bun}_n(C)$ on a smooth projective curve $C$ is Artin (smooth, of dimension $n^2(g-1)$) but not DM: every vector bundle has at least the scalar automorphisms $\mathbb{G}_m$.</li>
+</ul>
+<p>Formally, Artin stacks sit one rung above DM stacks in a tower that continues upward — $\infty$-stacks, derived stacks — each step admitting richer automorphism phenomena and more relaxed smoothness data. For this page the takeaway is operational:</p>
+<div class="ok"><strong>When to pick which.</strong> If your moduli problem has finite automorphism groups (stable curves, elliptic curves away from char $2,3$, finite group torsors), aim for DM — you inherit étale-local machinery, coarse moduli spaces, and clean intersection theory. If automorphisms are positive-dimensional (vector bundles, $G$-bundles, quotients by non-free actions of reductive groups), you must be Artin, and you must work with smooth (not étale) atlases throughout.</div>
+<div class="quiz" data-concept="deligne-mumford-vs-artin"></div>
+</section>
+
 <section id="m11">
-<h2>7. $\mathcal{M}_{1,1}$ as a DM stack</h2>
+<h2>9. $\mathcal{M}_{1,1}$ as a DM stack</h2>
 <p>Finally we can describe the moduli of elliptic curves honestly. $\mathcal{M}_{1,1}$ is the stack whose $R$-points are the groupoid of elliptic curves $E\to\mathrm{Spec}\,R$ with their isomorphisms. It is a DM stack.</p>
 
 <p>An atlas: fix $N\ge 3$ prime to the characteristics in sight. The functor "elliptic curve with full level-$N$ structure" $\mathcal{M}_{1,1}(N)$ is already representable by a scheme $Y(N)$ because level-$N$ structure rigidifies (no non-trivial automorphism fixes a level-3 structure). The forgetful map</p>
@@ -600,7 +673,7 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
 </section>
 
 <section id="coarse">
-<h2>8. Coarse moduli map</h2>
+<h2>10. Coarse moduli map</h2>
 <p>Even though $\mathcal{M}_{1,1}$ is not a scheme, it has a best-possible scheme approximation. This is a general fact:</p>
 
 <div class="note"><strong>Keel–Mori (for DM stacks of finite type).</strong> For a DM stack $\mathcal{X}$ of finite type with finite inertia over a locally Noetherian base $S$, there is a scheme $X$ (the <strong>coarse moduli space</strong>) and a morphism $\pi:\mathcal{X}\to X$ such that:
@@ -663,7 +736,7 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
 </section>
 
 <section id="take">
-<h2>9. Takeaways</h2>
+<h2>11. Takeaways</h2>
 <ul>
   <li><strong>Slogan.</strong> Schemes : Sets :: Stacks : Groupoids. A stack is a sheaf of groupoids on the étale (or fppf) site.</li>
   <li><strong>Why they exist.</strong> Moduli problems with non-trivial automorphisms cannot have fine moduli schemes; stacks are the smallest enlargement of $\mathrm{Sch}$ that admits them.</li>
@@ -733,5 +806,15 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

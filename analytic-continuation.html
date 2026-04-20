@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Analytic continuation — germs, monodromy, and the functional equation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  @media(max-width:640px){.twocol{grid-template-columns:1fr}}
+
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 0, pad2 = opts.pad2 ?? 4;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  if(label!=null){
+    const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#germs">1&nbsp;Germs</a>
+  <a href="#path">2&nbsp;Along&nbsp;a&nbsp;path</a>
+  <a href="#mono">3&nbsp;Monodromy</a>
+  <a href="#schwarz">4&nbsp;Schwarz&nbsp;reflection</a>
+  <a href="#natural">5&nbsp;Natural&nbsp;boundaries</a>
+  <a href="#zeta">6&nbsp;ζ&nbsp;functional&nbsp;equation</a>
+  <a href="#coda">7&nbsp;Coda</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Analytic continuation — germs, monodromy, and the functional equation</h1>
+  <p class="sub">A holomorphic function is a local recipe, but its global life is often richer than any one formula. Tracking a germ from disk to disk, we meet branch points, natural boundaries, and — as the flagship example — Riemann's trick that promotes $\zeta(s)$ from a half-plane series to a meromorphic function satisfying $\xi(s) = \xi(1-s)$.</p>
+</section>
+
+<section id="germs">
+<h2>1. Germs and the identity theorem</h2>
+
+<p>The local object of complex analysis is the <strong>germ</strong>: a convergent power series $\sum c_n (z-a)^n$ centered at some point $a$. Its disk of convergence has radius
+$$R \;=\; \frac{1}{\limsup_{n\to\infty}|c_n|^{1/n}}.$$
+Inside $D(a,R)$ the germ defines a holomorphic function; on the boundary anything can happen; outside, the series diverges but the function it represents may still extend.</p>
+
+<p>The <strong>identity theorem</strong> is the single algebraic fact that makes analytic continuation well-defined:</p>
+
+<div class="note"><strong>Identity theorem.</strong> If $f,g$ are holomorphic on a connected open set $U$ and agree on a subset of $U$ with an accumulation point <em>inside</em> $U$, then $f\equiv g$ on all of $U$.</div>
+
+<p>Equivalently: a holomorphic function is rigid. Two overlapping germs that agree on any open subset of the overlap must agree wherever both are defined. In particular, if $f$ admits a holomorphic extension from an open set to a larger connected open set, the extension is <em>unique</em>. "The" analytic continuation is unambiguous — when it exists.</p>
+
+<h3>Example: the geometric germ</h3>
+
+<p>The germ at $0$,
+$$f(z) \;=\; \sum_{n\ge 0} z^n,$$
+has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around any point $a\in D(0,1)$:</p>
+
+<p>$$f(z) \;=\; \frac{1}{1-z} \;=\; \frac{1}{(1-a)-(z-a)} \;=\; \frac{1}{1-a}\sum_{n\ge 0}\left(\frac{z-a}{1-a}\right)^{\!n},$$</p>
+
+<p>a new germ centered at $a$ with radius $|1-a|$. As $a$ moves toward the boundary point $z=1$ the radius shrinks to zero; as $a$ moves away from $1$, the new disk can escape the original $D(0,1)$. Chaining these re-expansions covers all of $\mathbb{C}\setminus\{1\}$ with local power series — and by the identity theorem every such chain recovers the same function $1/(1-z)$.</p>
+
+<div class="widget" id="w-germ">
+  <div class="hd"><div class="ttl">Re-expansion widget</div><div class="hint">move $a$ inside $|z|<1$; watch the new disk escape</div></div>
+  <svg id="germ-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <label>$a$ (drag center):</label>
+    <input type="range" id="germ-ax" min="-0.95" max="0.95" step="0.01" value="0.5">
+    <span class="small" id="germ-ax-out">Re a = 0.50</span>
+  </div>
+  <div class="row">
+    <label>Im $a$:</label>
+    <input type="range" id="germ-ay" min="-0.95" max="0.95" step="0.01" value="0">
+    <span class="small" id="germ-ay-out">Im a = 0.00</span>
+  </div>
+  <div class="readout" id="germ-out">&nbsp;</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#cons">Analyticity = holomorphy</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="power-series-radius-analytic"></div>
+</section>
+
+<script>
+/* ========== Section 1: re-expansion disk widget ========== */
+(function(){
+  const svg=$('#germ-svg'), out=$('#germ-out');
+  const axs=$('#germ-ax'), ays=$('#germ-ay'), axo=$('#germ-ax-out'), ayo=$('#germ-ay-out');
+  const W=620, H=360;
+  const cx=310, cy=180, sc=150;  // scale: 1 unit -> 150px
+  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }
+  function draw(){
+    svg.innerHTML='';
+    // axes
+    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));
+    // original disk D(0,1)
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:sc*1,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4,4',opacity:0.7}));
+    // original center
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--violet)'}));
+    const t0 = SVG('text',{x:cx+6,y:cy-6,'font-size':12,fill:'var(--violet)'}); t0.textContent='0'; svg.appendChild(t0);
+    // singularity at 1
+    const p1 = toPx([1,0]);
+    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:4,fill:'var(--pink)'}));
+    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);
+    // center a
+    const ax=parseFloat(axs.value), ay=parseFloat(ays.value);
+    const a=[ax,ay];
+    const pa=toPx(a);
+    // New radius = |1 - a|
+    const R = Math.hypot(1-ax, -ay);
+    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:sc*R,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:4,fill:'var(--yellow)'}));
+    const ta = SVG('text',{x:pa[0]+6,y:pa[1]-8,'font-size':12,fill:'var(--yellow)'}); ta.textContent='a'; svg.appendChild(ta);
+    // legend
+    axo.textContent = 'Re a = ' + ax.toFixed(2);
+    ayo.textContent = 'Im a = ' + ay.toFixed(2);
+    // Does new disk cover points outside |z|=1?
+    const reachesOut = R > (1 - Math.hypot(ax,ay)) + 0.01;
+    const excess = Math.max(0, R - (1 - Math.hypot(ax,ay)));
+    out.textContent =
+      'Re-expansion of 1/(1-z) at a gives a series with radius R = |1-a| = ' + R.toFixed(3) + '.\n' +
+      'Distance from a to ∂D(0,1): ' + (1 - Math.hypot(ax,ay)).toFixed(3) + '.\n' +
+      (reachesOut
+        ? 'The new disk ESCAPES the original — continuation reaches points outside |z|<1, excess radius ≈ ' + excess.toFixed(3) + '.'
+        : 'The new disk lies inside the original — no new ground covered yet.');
+  }
+  axs.addEventListener('input',draw);
+  ays.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="path">
+<h2>2. Continuation along a path — disk-chaining</h2>
+
+<p>Given a holomorphic germ at $a$ and a path $\gamma\colon [0,1]\to\mathbb{C}$ with $\gamma(0)=a$, Weierstrass's procedure produces a continuation along $\gamma$ — whenever one exists — by <em>disk-chaining</em>:</p>
+
+<ol>
+  <li>Start with the germ $(f_0, D_0=D(a,R_0))$.</li>
+  <li>Pick $t_1 > 0$ so that $\gamma(t_1)\in D_0$. Re-expand $f_0$ at $\gamma(t_1)$ to get $(f_1, D_1)$, where $D_1=D(\gamma(t_1), R_1)$ with $R_1 \ge R_0 - |\gamma(t_1)-a|$.</li>
+  <li>Iterate, choosing $t_2 < t_3 < \dots$ so each $\gamma(t_k)\in D_{k-1}$.</li>
+  <li>Stop when $\gamma$ is covered, or the radii shrink to $0$ (obstruction — typically a singularity on the path).</li>
+</ol>
+
+<p>The key point from the identity theorem: on the overlap $D_{k-1}\cap D_k$, the functions $f_{k-1}$ and $f_k$ agree (they come from the same function). The chain defines one coherent function along $\gamma$.</p>
+
+<p>Two different subdivisions of the same path produce the same final germ — but two different <em>paths</em> with the same endpoints may not. That's the subtlety Section 3 resolves.</p>
+
+<div class="widget" id="w-chain">
+  <div class="hd"><div class="ttl">Chain of disks along a path</div><div class="hint">drag the slider to sweep the path; watch the radius shrink near $z=1$</div></div>
+  <svg id="chain-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <label>path parameter $t$:</label>
+    <input type="range" id="chain-t" min="0" max="1" step="0.005" value="0.5">
+    <span class="small" id="chain-tout">t = 0.50</span>
+  </div>
+  <div class="readout" id="chain-out">&nbsp;</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#paths">Paths and homotopy</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="continuation-along-path"></div>
+</section>
+
+<script>
+/* ========== Section 2: chain of disks widget ========== */
+(function(){
+  const svg=$('#chain-svg'), out=$('#chain-out'), tin=$('#chain-t'), tout=$('#chain-tout');
+  const W=620, H=360, cx=310, cy=180, sc=130;
+  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }
+  // path goes from z = -0.7 to z = +0.9, straight line, aiming toward the pole at z=1
+  function pathAt(t){ return [-0.7 + t*1.6, 0.2]; }
+  function draw(){
+    svg.innerHTML='';
+    // axes
+    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));
+    // pole at z=1
+    const p1 = toPx([1,0]);
+    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:5,fill:'var(--pink)'}));
+    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);
+    // full path
+    const P0=toPx(pathAt(0)), P1=toPx(pathAt(1));
+    svg.appendChild(SVG('line',{x1:P0[0],y1:P0[1],x2:P1[0],y2:P1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));
+    // chain of disks: greedy — always jump to the boundary of the current disk
+    const t = parseFloat(tin.value);
+    const maxT = t;
+    const centers = [];
+    let cur = 0;
+    centers.push(pathAt(0));
+    let safety = 0;
+    while(cur < maxT && safety < 200){
+      safety++;
+      const c = pathAt(cur);
+      const R = Math.hypot(1-c[0], -c[1]);  // radius of convergence when expanded at c
+      // step length along path in world units: path speed is 1.6 per unit t
+      // step in t such that distance = 0.85 R
+      const stepDist = 0.85 * R;
+      const step = Math.min(maxT - cur, stepDist / 1.6);
+      cur += step;
+      if(step < 1e-4) break;
+      centers.push(pathAt(cur));
+    }
+    // draw disks
+    centers.forEach((c, k) => {
+      const pc = toPx(c);
+      const R = Math.hypot(1-c[0], -c[1]);
+      const color = k === centers.length-1 ? 'var(--yellow)' : 'var(--blue)';
+      const op = k === centers.length-1 ? 0.28 : 0.12;
+      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:sc*R,fill:color,'fill-opacity':op,stroke:color,'stroke-width':1,opacity:0.8}));
+      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:3,fill:color}));
+    });
+    // current position marker
+    const ct = pathAt(t), pct = toPx(ct);
+    svg.appendChild(SVG('circle',{cx:pct[0],cy:pct[1],r:5,fill:'var(--green)',stroke:'#000','stroke-width':1}));
+    const tx = SVG('text',{x:pct[0]+8,y:pct[1]+16,'font-size':12,fill:'var(--green)'}); tx.textContent='γ(t)'; svg.appendChild(tx);
+    // readout
+    tout.textContent = 't = ' + t.toFixed(2);
+    const lastC = centers[centers.length-1];
+    const lastR = Math.hypot(1-lastC[0], -lastC[1]);
+    out.textContent =
+      'Chain length: ' + centers.length + ' disks.\n' +
+      'Current radius at γ(t): R = |1 − γ(t)| = ' + lastR.toFixed(3) + '.\n' +
+      (t > 0.95
+        ? 'Near the pole z=1 the radii shrink — but the chain still continues f = 1/(1−z).'
+        : 'Each re-expansion step jumps ≈ 0.85·R along the path; the chain advances.');
+  }
+  tin.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="mono">
+<h2>3. Monodromy around a branch point</h2>
+
+<p>Two paths from $p$ to $q$ through a region where continuation works may produce <em>different</em> germs at $q$ if the region is not simply connected. This is the phenomenon of <strong>monodromy</strong>. The obstructing singularities are called <em>branch points</em>.</p>
+
+<p>The basic example is $\log z$ on $\mathbb{C}^*$. Start at $z_0=1$ with the principal value $\log 1 = 0$. Along any path $\gamma\colon[0,1]\to\mathbb{C}^*$, continuation gives
+$$\log\gamma(t) \;=\; \int_0^t \frac{\gamma'(s)}{\gamma(s)}\,ds,$$
+which is the argument variation plus a real part. Around a loop that winds $n$ times around $0$, the imaginary part picks up $2\pi i n$. The "branches" of $\log$ differ by this additive constant.</p>
+
+<div class="note"><strong>Monodromy theorem.</strong> Let $U$ be a <em>simply connected</em> open set, $p\in U$. If a holomorphic germ at $p$ continues along every path in $U$, then the continuation is independent of the path and defines a single-valued holomorphic function on $U$. <br><br> Proof sketch: two paths with the same endpoints are homotopic through paths; continuation is locally constant in the path (a standard compactness argument), hence constant on homotopy classes; in a simply connected space there is only one class.</div>
+
+<p>On a non-simply-connected $U$, the continuations are indexed by $\pi_1(U)$: each homotopy class of loops acts on the stalk at $p$ by a <em>monodromy representation</em>. For $U=\mathbb{C}^*$, $\pi_1=\mathbb{Z}$, and $\log$'s monodromy is $\mathbb{Z}\to(\mathbb{C},+)$, $n\mapsto 2\pi i n$. For $\sqrt z$ it's $\mathbb{Z}\to\{\pm 1\}$ with generator $\mapsto -1$, a two-sheeted cover.</p>
+
+<div class="widget" id="w-mono">
+  <div class="hd"><div class="ttl">Monodromy of log around 0</div><div class="hint">drag the slider to walk a loop; watch $\operatorname{Im}\log z$ climb by $2\pi$</div></div>
+  <svg id="mono-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <label>path (fraction of loop):</label>
+    <input type="range" id="mono-t" min="0" max="2" step="0.005" value="0.5">
+    <span class="small" id="mono-tout">t = 0.50 turns</span>
+  </div>
+  <div class="readout" id="mono-out">&nbsp;</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#pi1">Fundamental group</a></li>
+    <li><a href="./algebraic-topology.html#simply-connected">Simply connected domains</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="monodromy-theorem"></div>
+</section>
+
+<script>
+/* ========== Section 3: monodromy of log ========== */
+(function(){
+  const svg=$('#mono-svg'), out=$('#mono-out'), tin=$('#mono-t'), tout=$('#mono-tout');
+  const W=620, H=360;
+  // LEFT: z-plane with loop | RIGHT: Im log plot
+  const L = {cx:170, cy:180, sc:110};
+  const R = {x0:360, y0:330, xw:230, yh:280};  // plot area
+  function toL(z){ return [L.cx + L.sc*z[0], L.cy - L.sc*z[1]]; }
+  function draw(){
+    svg.innerHTML='';
+    const tmax = parseFloat(tin.value);  // number of turns (0..2)
+    // --- left: z plane ---
+    // axes
+    svg.appendChild(SVG('line',{x1:40,y1:L.cy,x2:320,y2:L.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:L.cx,y1:50,x2:L.cx,y2:310,stroke:'var(--line)'}));
+    // branch point at 0
+    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:5,fill:'var(--pink)'}));
+    const t0 = SVG('text',{x:L.cx+8,y:L.cy-8,'font-size':12,fill:'var(--pink)'}); t0.textContent='0'; svg.appendChild(t0);
+    // unit circle dashed
+    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));
+    // the traced arc
+    const arcPts = [];
+    const N = Math.max(6, Math.round(200 * tmax));
+    for(let k=0;k<=N;k++){
+      const tt = tmax * k / N;
+      const theta = 2*Math.PI * tt;
+      arcPts.push(toL([Math.cos(theta), Math.sin(theta)]));
+    }
+    let dpath = 'M ' + arcPts[0][0] + ' ' + arcPts[0][1];
+    for(let k=1;k<arcPts.length;k++) dpath += ' L ' + arcPts[k][0] + ' ' + arcPts[k][1];
+    svg.appendChild(SVG('path',{d:dpath, stroke:'var(--yellow)','stroke-width':2,fill:'none'}));
+    // endpoint marker
+    const ep = arcPts[arcPts.length-1];
+    svg.appendChild(SVG('circle',{cx:ep[0],cy:ep[1],r:5,fill:'var(--yellow)',stroke:'#000'}));
+    // starting point
+    const sp = toL([1,0]);
+    svg.appendChild(SVG('circle',{cx:sp[0],cy:sp[1],r:4,fill:'var(--blue)'}));
+    const ts = SVG('text',{x:sp[0]+6,y:sp[1]+16,'font-size':11,fill:'var(--blue)'}); ts.textContent='z₀=1'; svg.appendChild(ts);
+    const tl = SVG('text',{x:80,y:70,'font-size':12,fill:'var(--mute)'}); tl.textContent='z-plane'; svg.appendChild(tl);
+
+    // --- right: Im log(z) vs t ---
+    // axes
+    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0+R.xw,y2:R.y0,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0,y2:R.y0-R.yh,stroke:'var(--line)'}));
+    // y-axis ticks at 0, 2pi, 4pi
+    const ymax = 4*Math.PI + 1;
+    function ty(y){ return R.y0 - (y/ymax)*R.yh; }
+    [0, 2*Math.PI, 4*Math.PI].forEach(yv => {
+      const yy = ty(yv);
+      svg.appendChild(SVG('line',{x1:R.x0-4,y1:yy,x2:R.x0,y2:yy,stroke:'var(--line)'}));
+      const tx = SVG('text',{x:R.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});
+      tx.textContent = (yv===0?'0': (yv/Math.PI).toFixed(0) + 'π');
+      svg.appendChild(tx);
+    });
+    // x-axis ticks at 0, 1, 2 turns
+    [0,1,2].forEach(xv => {
+      const xx = R.x0 + (xv/2)*R.xw;
+      svg.appendChild(SVG('line',{x1:xx,y1:R.y0,x2:xx,y2:R.y0+4,stroke:'var(--line)'}));
+      const tx = SVG('text',{x:xx,y:R.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      tx.textContent = xv + ' turn' + (xv===1?'':'s');
+      svg.appendChild(tx);
+    });
+    // curve: Im log(z(t)) = 2π t as a straight line
+    const Nc = Math.max(6, Math.round(200 * tmax));
+    let cd = '';
+    for(let k=0;k<=Nc;k++){
+      const tt = tmax * k / Nc;
+      const yv = 2*Math.PI*tt;
+      const xx = R.x0 + (tt/2)*R.xw;
+      const yy = ty(yv);
+      cd += (k===0?'M':'L') + xx + ' ' + yy + ' ';
+    }
+    svg.appendChild(SVG('path',{d:cd,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));
+    // mark 2π level
+    const y2pi = ty(2*Math.PI);
+    svg.appendChild(SVG('line',{x1:R.x0,y1:y2pi,x2:R.x0+R.xw,y2:y2pi,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));
+    const lbl = SVG('text',{x:R.x0+R.xw-2,y:y2pi-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'});
+    lbl.textContent = 'one full loop → +2πi';
+    svg.appendChild(lbl);
+    const tr = SVG('text',{x:R.x0+10,y:R.y0-R.yh+8,'font-size':12,fill:'var(--mute)'}); tr.textContent='Im log z(t)'; svg.appendChild(tr);
+
+    tout.textContent = 't = ' + tmax.toFixed(2) + ' turn' + (tmax===1?'':'s');
+    const total = 2*Math.PI*tmax;
+    out.textContent =
+      'After ' + tmax.toFixed(2) + ' loops around 0:\n' +
+      '  continued value of log(1) = 0 + i·(' + total.toFixed(3) + ') = i·' + (total/Math.PI).toFixed(3) + 'π.\n' +
+      'Monodromy generator: +2πi per loop. On C\\{0} we have π₁=ℤ; log is ℤ-sheeted.';
+  }
+  tin.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="schwarz">
+<h2>4. Schwarz reflection principle</h2>
+
+<p>Schwarz reflection is a targeted analytic continuation across a real-analytic boundary. Its prototype:</p>
+
+<div class="note"><strong>Schwarz reflection (real-axis case).</strong> Let $U^+$ be an open subset of the upper half plane whose boundary contains an open interval $I\subset\mathbb{R}$. Suppose $f\colon U^+\to\mathbb{C}$ is holomorphic, extends continuously to $U^+\cup I$, and takes <em>real</em> values on $I$. Then the formula
+$$\tilde f(z) \;=\; \overline{f(\bar z)},\qquad z\in U^- := \{\bar z : z\in U^+\},$$
+defines a holomorphic extension of $f$ to $U^+\cup I\cup U^-$.</div>
+
+<p>The formula is forced: on $I$ both sides equal $f$ (because $f$ is real there); the map $z\mapsto \overline{f(\bar z)}$ is holomorphic because $z\mapsto\bar z$ and $w\mapsto\bar w$ are each antiholomorphic, and two antiholomorphic maps compose to a holomorphic one. Morera plus continuity across $I$ does the gluing.</p>
+
+<p>Variants replace the straight boundary arc with any real-analytic arc (line, circle, more generally a real-analytic curve) — and replace "real values" with "values on another real-analytic arc." The reflection is through the unique antiholomorphic involution that fixes the boundary arc.</p>
+
+<h3>An application: boundary regularity</h3>
+
+<p>Reflection turns boundary regularity into interior regularity. If $f$ is a conformal map of $D$ onto a Jordan domain $\Omega$ and the boundary of $\Omega$ is real-analytic, then $f$ extends holomorphically across $\partial D$. Riemann surfaces are often glued out of half-disks by precisely this move.</p>
+
+<div class="widget" id="w-schwarz">
+  <div class="hd"><div class="ttl">Schwarz reflection across the real axis</div><div class="hint">move $z$ in upper half plane; watch $\bar z$ track, and $f,\tilde f$ values pair by conjugation</div></div>
+  <svg id="sch-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <label>Re $z$:</label>
+    <input type="range" id="sch-x" min="-1.4" max="1.4" step="0.01" value="0.5">
+    <span class="small" id="sch-xo">Re z = 0.50</span>
+  </div>
+  <div class="row">
+    <label>Im $z$ (&gt;0):</label>
+    <input type="range" id="sch-y" min="0.05" max="1.3" step="0.01" value="0.8">
+    <span class="small" id="sch-yo">Im z = 0.80</span>
+  </div>
+  <div class="readout" id="sch-out">&nbsp;</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#coda">Harmonic functions</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="schwarz-reflection"></div>
+</section>
+
+<script>
+/* ========== Section 4: Schwarz reflection widget ========== */
+(function(){
+  const svg=$('#sch-svg'), out=$('#sch-out');
+  const xs=$('#sch-x'), ys=$('#sch-y'), xo=$('#sch-xo'), yo=$('#sch-yo');
+  const W=620, H=360;
+  // left = z-plane, right = w-plane
+  const Lp = {cx:170, cy:180, sc:100};
+  const Rp = {cx:450, cy:180, sc:90};
+  function toL(z){ return [Lp.cx + Lp.sc*z[0], Lp.cy - Lp.sc*z[1]]; }
+  function toR(w){ return [Rp.cx + Rp.sc*w[0], Rp.cy - Rp.sc*w[1]]; }
+  // f(z) = z^3 + 0.3 z  — real on real axis (real coefficients)
+  function f(z){ const [x,y]=z;
+    // z^3 = (x+iy)^3 = x^3 - 3xy^2 + i(3x^2 y - y^3)
+    const re = x*x*x - 3*x*y*y + 0.3*x;
+    const im = 3*x*x*y - y*y*y + 0.3*y;
+    return [re, im];
+  }
+  function draw(){
+    svg.innerHTML='';
+    // left axes
+    svg.appendChild(SVG('line',{x1:40,y1:Lp.cy,x2:300,y2:Lp.cy,stroke:'var(--cyan)','stroke-width':1.5}));  // real axis highlighted
+    svg.appendChild(SVG('line',{x1:Lp.cx,y1:50,x2:Lp.cx,y2:310,stroke:'var(--line)'}));
+    const llab = SVG('text',{x:50,y:Lp.cy-8,'font-size':11,fill:'var(--cyan)'}); llab.textContent='real axis (boundary I)'; svg.appendChild(llab);
+    // right axes
+    svg.appendChild(SVG('line',{x1:340,y1:Rp.cy,x2:600,y2:Rp.cy,stroke:'var(--cyan)','stroke-width':1.5}));
+    svg.appendChild(SVG('line',{x1:Rp.cx,y1:50,x2:Rp.cx,y2:310,stroke:'var(--line)'}));
+    // upper-half tint on left
+    svg.appendChild(SVG('rect',{x:40,y:50,width:260,height:130,fill:'var(--blue)','fill-opacity':0.06}));
+    svg.appendChild(SVG('rect',{x:40,y:180,width:260,height:130,fill:'var(--yellow)','fill-opacity':0.06}));
+    const tU = SVG('text',{x:45,y:65,'font-size':11,fill:'var(--blue)'}); tU.textContent='U⁺ (original f)'; svg.appendChild(tU);
+    const tD = SVG('text',{x:45,y:300,'font-size':11,fill:'var(--yellow)'}); tD.textContent='U⁻ (extension f̃(z)=f(z̄))'; svg.appendChild(tD);
+
+    const x=parseFloat(xs.value), y=parseFloat(ys.value);
+    const z=[x,y], zb=[x,-y];
+    const pz = toL(z), pzb = toL(zb);
+    // vertical dashed line connecting z and zbar
+    svg.appendChild(SVG('line',{x1:pz[0],y1:pz[1],x2:pzb[0],y2:pzb[1],stroke:'var(--violet)','stroke-dasharray':'3,3','stroke-width':1}));
+    svg.appendChild(SVG('circle',{cx:pz[0],cy:pz[1],r:5,fill:'var(--blue)',stroke:'#000'}));
+    svg.appendChild(SVG('circle',{cx:pzb[0],cy:pzb[1],r:5,fill:'var(--yellow)',stroke:'#000'}));
+    const tzt = SVG('text',{x:pz[0]+8,y:pz[1]-4,'font-size':11,fill:'var(--blue)'}); tzt.textContent='z'; svg.appendChild(tzt);
+    const tzbt = SVG('text',{x:pzb[0]+8,y:pzb[1]+14,'font-size':11,fill:'var(--yellow)'}); tzbt.textContent='z̄'; svg.appendChild(tzbt);
+
+    // right side: images
+    const w = f(z), wc = [w[0], -w[1]];  // f̃(z̄) = conj f(z)
+    const pw = toR(w), pwc = toR(wc);
+    svg.appendChild(SVG('line',{x1:pw[0],y1:pw[1],x2:pwc[0],y2:pwc[1],stroke:'var(--violet)','stroke-dasharray':'3,3','stroke-width':1}));
+    svg.appendChild(SVG('circle',{cx:pw[0],cy:pw[1],r:5,fill:'var(--blue)',stroke:'#000'}));
+    svg.appendChild(SVG('circle',{cx:pwc[0],cy:pwc[1],r:5,fill:'var(--yellow)',stroke:'#000'}));
+    const tw = SVG('text',{x:pw[0]+8,y:pw[1]-4,'font-size':11,fill:'var(--blue)'}); tw.textContent='f(z)'; svg.appendChild(tw);
+    const twc = SVG('text',{x:pwc[0]+8,y:pwc[1]+14,'font-size':11,fill:'var(--yellow)'}); twc.textContent='f(z̄) = f(z)‾'; svg.appendChild(twc);
+
+    // labels
+    const tl = SVG('text',{x:170,y:40,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); tl.textContent='z-plane'; svg.appendChild(tl);
+    const tr = SVG('text',{x:450,y:40,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); tr.textContent='w-plane,  f(z) = z³ + 0.3 z'; svg.appendChild(tr);
+
+    xo.textContent = 'Re z = ' + x.toFixed(2);
+    yo.textContent = 'Im z = ' + y.toFixed(2);
+    out.textContent =
+      'z  = ' + x.toFixed(3) + ' + ' + y.toFixed(3) + 'i\n' +
+      'f(z) = ' + w[0].toFixed(3) + ' + ' + w[1].toFixed(3) + 'i\n' +
+      'f̃(z̄) = conj f(z) = ' + wc[0].toFixed(3) + ' + ' + wc[1].toFixed(3) + 'i\n' +
+      'Because f has real coefficients, f(ℝ)⊂ℝ; reflection extends f to lower half plane by conjugation.';
+  }
+  xs.addEventListener('input',draw); ys.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="natural">
+<h2>5. Natural boundaries — lacunary series</h2>
+
+<p>Not every holomorphic function on a domain can be continued beyond it. Sometimes the boundary is <strong>natural</strong>: every boundary point is a singularity, and no germ on the inside extends through any arc of the boundary.</p>
+
+<div class="note"><strong>Ostrowski's gap theorem (flavor).</strong> If a power series $\sum c_n z^n$ has radius $1$ and its nonzero coefficients occur only on indices $n_k$ with $n_{k+1}/n_k \ge 1+\delta > 1$, the unit circle is a natural boundary.</div>
+
+<p>The cleanest example is the <em>theta-like</em> lacunary series
+$$F(z) \;=\; \sum_{n=0}^\infty z^{n^2} \;=\; 1+z+z^4+z^9+z^{16}+\cdots$$</p>
+
+<p>On $|z|<1$ the series converges absolutely, defining a holomorphic $F$. Near any root of unity $\zeta = e^{2\pi i p/q}$ on the boundary, one shows $|F(r\zeta)|\to\infty$ as $r\to 1^-$ (using the identity $F(z)^2 \approx $ number-theoretic counting of $n_1^2+n_2^2$). Roots of unity are <em>dense</em> in the unit circle, so $F$ cannot be continued across <em>any</em> boundary arc — each would contain infinitely many singular points.</p>
+
+<p>This is typical: lacunary series produce functions with the unit disk as a "private universe." Another famous example: $\eta(\tau) = q^{1/24}\prod(1-q^n)$ as a function of $q=e^{2\pi i\tau}$ has the unit circle as a natural boundary (from the $q$-side).</p>
+
+<div class="widget" id="w-lac">
+  <div class="hd"><div class="ttl">Lacunary series $\sum z^{n^2}$ near the unit circle</div><div class="hint">move $r$ toward $1$ and rotate $\theta$; partial sums blow up at any rational angle</div></div>
+  <svg id="lac-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <label>radius $r$:</label>
+    <input type="range" id="lac-r" min="0.5" max="0.995" step="0.005" value="0.9">
+    <span class="small" id="lac-ro">r = 0.900</span>
+  </div>
+  <div class="row">
+    <label>$\theta/(2\pi)$:</label>
+    <input type="range" id="lac-t" min="0" max="1" step="0.001" value="0.25">
+    <span class="small" id="lac-to">θ = π/2</span>
+  </div>
+  <div class="row">
+    <label>truncation $N$:</label>
+    <input type="range" id="lac-n" min="20" max="500" step="1" value="150">
+    <span class="small" id="lac-no">N = 150</span>
+  </div>
+  <div class="readout" id="lac-out">&nbsp;</div>
+</div>
+
+<p class="small">Try $\theta = 0$ (corresponding to $z=r$ real): the partial sums grow like $1/\sqrt{1-r}$, diverging at $r=1$. Try a rational angle $\theta = 2\pi\cdot p/q$: same growth, after pulling out a root-of-unity phase. Try a "generic" irrational angle: partial sums oscillate wildly but individual values are small — yet no neighborhood of the angle is free of singularities.</p>
+</section>
+
+<script>
+/* ========== Section 5: lacunary sum widget ========== */
+(function(){
+  const svg=$('#lac-svg'), out=$('#lac-out');
+  const rs=$('#lac-r'), ts=$('#lac-t'), ns=$('#lac-n');
+  const ro=$('#lac-ro'), to=$('#lac-to'), no=$('#lac-no');
+  const W=620, H=360;
+  // LEFT: z-plane with point and unit circle
+  const Lp={cx:170, cy:180, sc:110};
+  // RIGHT: magnitude plot |F(z)| vs r for fixed theta
+  const Rp={x0:360, y0:320, xw:230, yh:260};
+  function toL(z){ return [Lp.cx + Lp.sc*z[0], Lp.cy - Lp.sc*z[1]]; }
+  function partial(r, theta, N){
+    let re=0, im=0;
+    for(let n=0;n<=N;n++){
+      const k = n*n;
+      const rho = Math.pow(r, k);
+      const ang = k*theta;
+      re += rho*Math.cos(ang);
+      im += rho*Math.sin(ang);
+    }
+    return [re,im];
+  }
+  function draw(){
+    svg.innerHTML='';
+    // left axes
+    svg.appendChild(SVG('line',{x1:40,y1:Lp.cy,x2:300,y2:Lp.cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:Lp.cx,y1:50,x2:Lp.cx,y2:310,stroke:'var(--line)'}));
+    // unit circle
+    svg.appendChild(SVG('circle',{cx:Lp.cx,cy:Lp.cy,r:Lp.sc,fill:'none',stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'3,3'}));
+    // mark some roots of unity
+    for(const q of [2,3,4,5,6,7,8,12]){
+      for(let p=0;p<q;p++){
+        const ang = 2*Math.PI*p/q;
+        const pp = toL([Math.cos(ang), Math.sin(ang)]);
+        svg.appendChild(SVG('circle',{cx:pp[0],cy:pp[1],r:2,fill:'var(--pink)',opacity:0.7}));
+      }
+    }
+    const r=parseFloat(rs.value), tval=parseFloat(ts.value), N=parseInt(ns.value);
+    const theta = 2*Math.PI*tval;
+    const z = [r*Math.cos(theta), r*Math.sin(theta)];
+    const pz = toL(z);
+    svg.appendChild(SVG('circle',{cx:pz[0],cy:pz[1],r:5,fill:'var(--yellow)',stroke:'#000'}));
+    const tl = SVG('text',{x:90,y:65,'font-size':11,fill:'var(--mute)'}); tl.textContent='z-plane (singularities dense on unit circle)'; svg.appendChild(tl);
+
+    // right: |F_N(r e^{iθ})| vs r for current θ
+    // axes
+    svg.appendChild(SVG('line',{x1:Rp.x0,y1:Rp.y0,x2:Rp.x0+Rp.xw,y2:Rp.y0,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:Rp.x0,y1:Rp.y0,x2:Rp.x0,y2:Rp.y0-Rp.yh,stroke:'var(--line)'}));
+    // compute curve |F(r' e^{iθ})| for r' in [0,0.995], fixed θ
+    const samples = 120;
+    let maxVal = 1;
+    const pts = [];
+    for(let k=0;k<=samples;k++){
+      const rp = 0.995 * k/samples;
+      const v = partial(rp, theta, N);
+      const mag = Math.hypot(v[0], v[1]);
+      pts.push([rp, mag]);
+      if(mag>maxVal) maxVal = mag;
+    }
+    // cap to reasonable
+    const cap = Math.min(maxVal, 60);
+    function px(rp){ return Rp.x0 + (rp/1.0)*Rp.xw; }
+    function py(m){ return Rp.y0 - Math.min(m,cap)/cap * Rp.yh; }
+    let d='';
+    pts.forEach((pt,k)=>{ d += (k===0?'M':'L') + px(pt[0]) + ' ' + py(pt[1]) + ' '; });
+    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':1.8,fill:'none'}));
+    // current r marker
+    const cv = partial(r, theta, N);
+    const cmag = Math.hypot(cv[0],cv[1]);
+    const mx = px(r), my = py(cmag);
+    svg.appendChild(SVG('circle',{cx:mx,cy:my,r:4,fill:'var(--yellow)',stroke:'#000'}));
+    // axis labels
+    [0,0.5,1].forEach(xv=>{
+      const xx=px(xv);
+      svg.appendChild(SVG('line',{x1:xx,y1:Rp.y0,x2:xx,y2:Rp.y0+4,stroke:'var(--line)'}));
+      const t = SVG('text',{x:xx,y:Rp.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});
+      t.textContent = xv.toFixed(xv===0?0:1); svg.appendChild(t);
+    });
+    const tr = SVG('text',{x:Rp.x0+Rp.xw/2,y:Rp.y0+30,'font-size':11,fill:'var(--mute)','text-anchor':'middle'}); tr.textContent='radius r′'; svg.appendChild(tr);
+    const tl2 = SVG('text',{x:Rp.x0+6,y:Rp.y0-Rp.yh+10,'font-size':11,fill:'var(--mute)'}); tl2.textContent='|F_N(r′e^{iθ})|, capped at '+cap.toFixed(0); svg.appendChild(tl2);
+
+    // readouts
+    ro.textContent = 'r = ' + r.toFixed(3);
+    // detect rational-ish angle
+    let nearRat = '';
+    for(const q of [2,3,4,5,6,7,8,10,12]){
+      for(let p=0;p<q;p++){
+        if(Math.abs(tval - p/q) < 0.003){ nearRat = ' (near p/q = '+p+'/'+q+')'; }
+      }
+    }
+    to.textContent = 'θ = ' + (tval===0?'0':(tval*2).toFixed(3)+'π') + nearRat;
+    no.textContent = 'N = ' + N;
+    out.textContent =
+      '|F_N(z)| ≈ ' + cmag.toFixed(3) + '  at z = ' + r.toFixed(3) + '·exp(i·' + (tval*2).toFixed(3) + 'π), N=' + N + '\n' +
+      (r>0.985 ? 'Near the boundary the partial sums start to blow up. Try nudging θ to a rational multiple of π — the blow-up is present there too.' :
+       nearRat ? 'At roots of unity the partial sums grow like 1/√(1−r); the boundary point is singular.' :
+                 'Inside the disk F(z) is perfectly holomorphic, but the unit circle is a natural boundary.');
+  }
+  rs.addEventListener('input',draw);
+  ts.addEventListener('input',draw);
+  ns.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="zeta">
+<h2>6. The Riemann zeta functional equation</h2>
+
+<p>The flagship example of analytic continuation is Riemann's 1859 memoir, where he produces a meromorphic extension of
+$$\zeta(s) \;=\; \sum_{n=1}^\infty \frac{1}{n^s}\quad(\operatorname{Re}s>1)$$
+to all of $\mathbb{C}\setminus\{1\}$ and discovers its symmetry $s\leftrightarrow 1-s$. The mechanism is a Mellin transform against the <strong>Jacobi theta function</strong>
+$$\theta(x) \;=\; \sum_{n\in\mathbb{Z}} e^{-\pi n^2 x} \;=\; 1 + 2\sum_{n\ge 1}e^{-\pi n^2 x}\quad(x>0).$$</p>
+
+<h3>Step 1 — from Dirichlet series to Mellin integral</h3>
+
+<p>Start with the gamma integral: for $\operatorname{Re}s>0$,
+$$\Gamma(s/2)\,n^{-s}\pi^{-s/2} \;=\; \int_0^\infty e^{-\pi n^2 x}\,x^{s/2 - 1}\,dx.$$
+Summing over $n\ge 1$ and interchanging (justified for $\operatorname{Re}s>1$),
+$$\pi^{-s/2}\Gamma(s/2)\zeta(s) \;=\; \int_0^\infty \bigl(\tfrac{\theta(x)-1}{2}\bigr)\,x^{s/2 - 1}\,dx.$$
+This is the Mellin transform of the "nontrivial" part $\tfrac{\theta(x)-1}{2} = \sum_{n\ge 1}e^{-\pi n^2 x}$.</p>
+
+<h3>Step 2 — split at $x=1$ and apply theta's functional equation</h3>
+
+<p>Poisson summation gives the <em>theta transformation law</em>:
+$$\theta(1/x) \;=\; \sqrt{x}\,\theta(x).$$
+Split the integral at $x=1$: $\int_0^\infty = \int_0^1 + \int_1^\infty$. On $\int_0^1$, change variables $x\mapsto 1/x$ and apply the transformation. After the dust settles (an exercise in careful bookkeeping),
+$$\pi^{-s/2}\Gamma(s/2)\zeta(s) \;=\; -\frac{1}{s(1-s)} + \int_1^\infty \bigl(\tfrac{\theta(x)-1}{2}\bigr)\bigl(x^{s/2 - 1} + x^{(1-s)/2 - 1}\bigr)\,dx.$$</p>
+
+<h3>Step 3 — the completed zeta is symmetric</h3>
+
+<p>The integral on the right converges for <em>all</em> $s\in\mathbb{C}$ (because $\theta(x)-1 = 2e^{-\pi x}+\cdots$ decays super-exponentially at $\infty$), and it is manifestly invariant under $s\mapsto 1-s$. Defining
+$$\xi(s) \;:=\; \tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s),$$
+the $1/s(1-s)$ pole is cancelled and we obtain Riemann's functional equation:</p>
+
+<div class="ok"><strong>Riemann's functional equation.</strong> $\xi$ extends to an entire function of $s$, and
+$$\boxed{\;\xi(s) \;=\; \xi(1-s)\;}$$
+for all $s\in\mathbb{C}$. Equivalently,
+$$\zeta(s) \;=\; 2^s\pi^{s-1}\sin\!\tfrac{\pi s}{2}\,\Gamma(1-s)\,\zeta(1-s).$$
+Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" zeros at $s=-2,-4,-6,\dots$ (from $\sin(\pi s/2)$), and a <em>critical strip</em> $0<\operatorname{Re}s<1$ symmetric about $\operatorname{Re}s=1/2$ containing all nontrivial zeros.</div>
+
+<p>The two pillars — Mellin continuation and theta's modularity — are exactly the two cross-links on this page: the Mellin transform ships in from <a href="./dirichlet-series-euler-products.html#mellin">Dirichlet series</a>, and the theta transformation from <a href="./theta-functions.html#trans">theta functions</a>. Analytic continuation is the glue that turns a divergent-looking series into a global, symmetric object.</p>
+
+<div class="widget" id="w-zeta">
+  <div class="hd"><div class="ttl">Walk through Riemann's derivation</div><div class="hint">step through the four moves; the readout shows the current integrand and its symmetry status</div></div>
+  <svg id="zeta-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <div class="row">
+    <button data-step="0" class="z-step active">0. series</button>
+    <button data-step="1" class="z-step">1. gamma → Mellin</button>
+    <button data-step="2" class="z-step">2. split at x=1</button>
+    <button data-step="3" class="z-step">3. θ(1/x) = √x · θ(x)</button>
+    <button data-step="4" class="z-step">4. ξ(s) = ξ(1−s)</button>
+  </div>
+  <div class="row">
+    <label>s = </label>
+    <input type="range" id="zeta-s" min="-3" max="4" step="0.05" value="2.0">
+    <span class="small" id="zeta-so">s = 2.00</span>
+  </div>
+  <div class="readout" id="zeta-out">&nbsp;</div>
+</div>
+
+<div class="quiz" data-concept="zeta-functional-equation"></div>
+</section>
+
+<script>
+/* ========== Section 6: zeta derivation stepper ========== */
+(function(){
+  const svg=$('#zeta-svg'), out=$('#zeta-out');
+  const sin=$('#zeta-s'), sout=$('#zeta-so');
+  const buttons=$$('.z-step');
+  let step = 0;
+  const W=620, H=360;
+  // plot area
+  const P={x0:80, y0:300, xw:490, yh:240};
+  // theta function approx
+  function theta(x){
+    // sum_{n in Z} exp(-pi n^2 x). Use |n|<=8 for x>0.1; use transform for x<0.1
+    if(x<0.1){
+      return theta(1/x) / Math.sqrt(x);
+    }
+    let s=1;
+    for(let n=1;n<=15;n++){
+      const t = Math.exp(-Math.PI*n*n*x);
+      if(t<1e-16) break;
+      s += 2*t;
+    }
+    return s;
+  }
+  function integrand(x, s, variant){
+    // variant: 0 = (θ(x)-1)/2 * x^{s/2-1} (original)
+    //         1 = same, split show [0,1]∪[1,∞)
+    //         2 = (θ(x)-1)/2 * x^{s/2-1} (orig) over [1,∞)
+    //         3 = symmetric: (θ(x)-1)/2 * (x^{s/2-1} + x^{(1-s)/2-1}) on [1,∞)
+    const th = (theta(x) - 1)/2;
+    if(variant===3) return th * (Math.pow(x, s/2-1) + Math.pow(x, (1-s)/2-1));
+    return th * Math.pow(x, s/2-1);
+  }
+  function draw(){
+    svg.innerHTML='';
+    sin.disabled = false;
+    // axes
+    svg.appendChild(SVG('line',{x1:P.x0,y1:P.y0,x2:P.x0+P.xw,y2:P.y0,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:P.x0,y1:P.y0,x2:P.x0,y2:P.y0-P.yh,stroke:'var(--line)'}));
+    // x-axis label
+    const lx = SVG('text',{x:P.x0+P.xw/2,y:P.y0+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});
+    lx.textContent = 'x';  svg.appendChild(lx);
+
+    const s = parseFloat(sin.value);
+    sout.textContent = 's = ' + s.toFixed(2);
+
+    // x range: log-ish from 0.03 to 5
+    const xmin=0.03, xmax=5;
+    function xtoPx(x){ return P.x0 + ((x-xmin)/(xmax-xmin))*P.xw; }
+    // draw x=1 vertical guide
+    const x1p = xtoPx(1);
+    svg.appendChild(SVG('line',{x1:x1p,y1:P.y0,x2:x1p,y2:P.y0-P.yh,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));
+    const lab1 = SVG('text',{x:x1p+4,y:P.y0-P.yh+12,'font-size':11,fill:'var(--pink)'}); lab1.textContent='x=1'; svg.appendChild(lab1);
+
+    // sample integrand
+    const N=200;
+    let vals=[]; let maxV=0;
+    for(let k=0;k<=N;k++){
+      const x = xmin + (xmax-xmin)*k/N;
+      const v = (step<=2)
+        ? integrand(x, s, 0)
+        : (step===3 || step===4)
+          ? (x>=1 ? integrand(x, s, 3) : 0)
+          : integrand(x, s, 0);
+      vals.push([x,v]);
+      if(Math.abs(v)>maxV && isFinite(v)) maxV = Math.abs(v);
+    }
+    if(maxV<0.1) maxV = 0.1;
+    function ytoPx(y){ return P.y0 - (y/maxV)*P.yh*0.9; }
+
+    // y-axis ticks
+    [0, maxV/2, maxV].forEach(yv=>{
+      const yy = ytoPx(yv);
+      svg.appendChild(SVG('line',{x1:P.x0-4,y1:yy,x2:P.x0,y2:yy,stroke:'var(--line)'}));
+      const tt = SVG('text',{x:P.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});
+      tt.textContent = yv.toFixed(2); svg.appendChild(tt);
+    });
+
+    // shaded region
+    if(step>=2){
+      // shade x<1 differently from x>=1
+      let d1 = 'M ' + xtoPx(vals[0][0]) + ' ' + P.y0;
+      let d2 = null;
+      for(let k=0;k<vals.length;k++){
+        const [x,v] = vals[k];
+        if(x<=1){
+          d1 += ' L ' + xtoPx(x) + ' ' + ytoPx(v);
+        } else {
+          if(d2===null){ d2 = 'M ' + xtoPx(x) + ' ' + P.y0 + ' L ' + xtoPx(x) + ' ' + ytoPx(v); }
+          else { d2 += ' L ' + xtoPx(x) + ' ' + ytoPx(v); }
+        }
+      }
+      d1 += ' L ' + xtoPx(1) + ' ' + P.y0 + ' Z';
+      d2 += ' L ' + xtoPx(xmax) + ' ' + P.y0 + ' Z';
+      if(step===2){
+        svg.appendChild(SVG('path',{d:d1,fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-width':1}));
+        svg.appendChild(SVG('path',{d:d2,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1}));
+      } else {
+        // step 3, 4: [0,1) piece folded away, only [1,∞) shown symmetric
+        svg.appendChild(SVG('path',{d:d2,fill:'var(--green)','fill-opacity':0.25,stroke:'var(--green)','stroke-width':1.2}));
+      }
+    } else {
+      // single shaded region
+      let d = 'M ' + xtoPx(vals[0][0]) + ' ' + P.y0;
+      for(const [x,v] of vals) d += ' L ' + xtoPx(x) + ' ' + ytoPx(v);
+      d += ' L ' + xtoPx(xmax) + ' ' + P.y0 + ' Z';
+      svg.appendChild(SVG('path',{d, fill:'var(--yellow)','fill-opacity':0.22,stroke:'var(--yellow)','stroke-width':1.2}));
+    }
+
+    // step-specific caption
+    let cap = '';
+    if(step===0){
+      cap = 'ζ(s) = Σ 1/n^s,  converges only for Re s > 1.';
+    } else if(step===1){
+      cap = 'Gamma trick: π^{−s/2} Γ(s/2) ζ(s) = ∫₀^∞ (θ(x)−1)/2 · x^{s/2−1} dx.   Shaded = integrand over (0,∞).';
+    } else if(step===2){
+      cap = 'Split at x=1:  (0,1) violet,  [1,∞) cyan.  The (0,1) piece is the troublesome one for small Re s.';
+    } else if(step===3){
+      cap = 'Under x→1/x on (0,1) and θ(1/x)=√x·θ(x), the violet piece re-expresses as an integral on [1,∞), producing −1/(s(1−s)) + symmetric integrand on [1,∞).';
+    } else if(step===4){
+      cap = 'Completed ξ(s) = ½ s(s−1) π^{−s/2} Γ(s/2) ζ(s) is entire, and ξ(s)=ξ(1−s).  Slider changes s; integrand on [1,∞) is MANIFESTLY symmetric under s↦1−s.';
+    }
+    out.textContent = cap;
+
+    // header text
+    const ttl = SVG('text',{x:P.x0, y:40, 'font-size':13, fill:'var(--ink)','font-weight':600});
+    ttl.textContent = ['0. ζ(s)=Σ n^{−s}',
+                       '1. Mellin via gamma',
+                       '2. split at x=1',
+                       '3. use θ(1/x)=√x·θ(x)',
+                       '4. ξ(s)=ξ(1−s)'][step];
+    svg.appendChild(ttl);
+  }
+  buttons.forEach(b => b.addEventListener('click', ()=>{
+    step = parseInt(b.dataset.step);
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    draw();
+  }));
+  sin.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<section id="coda">
+<h2>7. Coda — where to next</h2>
+
+<p>Analytic continuation is the organizing principle behind three different halves of this notebook:</p>
+
+<ul>
+  <li><strong>Complex analysis</strong> — the identity theorem, Laurent series, and branch points set the stage. Read <a href="./complex-analysis.html">complex-analysis</a> for the machinery of amplitwists, contour integrals, and residues that makes everything on this page rigorous.</li>
+  <li><strong>Riemann surfaces</strong> — the correct universe for multi-valued functions. The universal cover of $\mathbb{C}^*$ resolves $\log$ into a single-valued function on a spiral; $\sqrt z$ lives on a two-sheeted cover. Monodromy becomes deck-transformation on the cover. See <a href="./riemann-surfaces.html">riemann-surfaces</a>.</li>
+  <li><strong>Dirichlet series &amp; $L$-functions</strong> — $\zeta$ is the first example; the same Mellin/theta trick continues Dirichlet $L$-functions, Hecke $L$-functions, and modular $L$-functions. Each has its own functional equation relating $s$ to $k-s$ for a <em>completion level</em> $k$. See <a href="./dirichlet-series-euler-products.html">Dirichlet series</a> and <a href="./L-functions.html">L-functions</a>.</li>
+</ul>
+
+<p>The $\xi(s)=\xi(1-s)$ symmetry is the prototype for a wall of conjectural and proven functional equations covering every <em>automorphic</em> $L$-function. Langlands' program asserts that they all arise the same way: from a Mellin pairing with an automorphic form, whose transformation law is the grandchild of Poisson summation. Analytic continuation is not a trick — it is the organizing mechanism of modern number theory.</p>
+
+<div class="note"><strong>Cross-links.</strong> <a href="./complex-analysis.html#coda">complex-analysis</a> · <a href="./riemann-surfaces.html">riemann-surfaces</a> · <a href="./dirichlet-series-euler-products.html#mellin">dirichlet-series-euler-products</a> · <a href="./theta-functions.html#trans">theta-functions</a> · <a href="./L-functions.html">L-functions</a> · <a href="./algebraic-topology.html#pi1">algebraic-topology (π₁)</a>.</div>
+
+</section>
+
+<footer>
+  analytic continuation — from a germ to a global symmetric object · part of the Math Visualization notebook
+</footer>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('analytic-continuation'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

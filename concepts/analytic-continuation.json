@@ -1,0 +1,58 @@
+{
+  "topic": "analytic-continuation",
+  "title": "Analytic continuation",
+  "page": "analytic-continuation.html",
+  "concepts": [
+    {
+      "id": "power-series-radius-analytic",
+      "title": "Germs and disks of convergence",
+      "anchor": "germs",
+      "prereqs": [
+        "analyticity"
+      ],
+      "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
+    },
+    {
+      "id": "continuation-along-path",
+      "title": "Continuation along a path",
+      "anchor": "path",
+      "prereqs": [
+        "power-series-radius-analytic",
+        "paths"
+      ],
+      "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits."
+    },
+    {
+      "id": "monodromy-theorem",
+      "title": "Monodromy theorem",
+      "anchor": "mono",
+      "prereqs": [
+        "continuation-along-path",
+        "simply-connected",
+        "fundamental-group"
+      ],
+      "blurb": "If $U$ is simply connected and a germ continues along every path in $U$, the continuation is single-valued; on non-simply-connected domains, looping around a branch point produces monodromy (e.g. $\\log$ shifts by $2\\pi i$)."
+    },
+    {
+      "id": "schwarz-reflection",
+      "title": "Schwarz reflection principle",
+      "anchor": "schwarz",
+      "prereqs": [
+        "continuation-along-path",
+        "harmonic-functions"
+      ],
+      "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc."
+    },
+    {
+      "id": "zeta-functional-equation",
+      "title": "Riemann\u2019s functional equation for $\\zeta$",
+      "anchor": "zeta",
+      "prereqs": [
+        "continuation-along-path",
+        "mellin-transform-dirichlet",
+        "theta-transformation-law"
+      ],
+      "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function."
+    }
+  ]
+}

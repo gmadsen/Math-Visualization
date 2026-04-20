@@ -30,6 +30,13 @@
       "anchor": "qexp",
       "prereqs": ["modular-form-definition", "eisenstein-series-mf"],
       "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+    },
+    {
+      "id": "petersson-inner-product",
+      "title": "Petersson inner product",
+      "anchor": "petersson",
+      "prereqs": ["q-expansions-mf"],
+      "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal."
     }
   ]
 }

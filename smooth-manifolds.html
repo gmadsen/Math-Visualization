@@ -112,6 +112,33 @@
     font-size:.78rem;border:1px solid var(--line);color:var(--mute);margin-right:4px}
   .tag.good{color:#c6e6b3;border-color:#34502a;background:#1a2418}
   .tag.bad{color:#f0c7ba;border-color:#5a2e25;background:#2a1a18}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -234,6 +261,13 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 </ul>
 
 <p class="small">Exotic smooth structures exist — $\mathbb{R}^4$ alone admits uncountably many inequivalent smooth structures, whereas $\mathbb{R}^n$ for $n\neq 4$ admits only one. We will not touch such wonders.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#inverse-function-theorem">Inverse & implicit function theorems</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="smooth-manifold-definition"></div>
 </section>
@@ -1179,5 +1213,15 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

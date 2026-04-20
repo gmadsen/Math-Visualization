@@ -525,6 +525,212 @@ window.MVQuizBank = {
             "tol": 0.000001,
             "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
           }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A continuous map $f:X\\to Y$ induces $f_*:H_n(X)\\to H_n(Y)$. If $f$ is homotopic to a constant map, which is true for all $n\\ge 1$?",
+            "choices": [
+              "$f_*$ is an isomorphism",
+              "$f_*$ is injective but not surjective",
+              "$f_*=0$ (the zero map)",
+              "$f_*$ is the identity on $H_n(X)$"
+            ],
+            "answer": 2,
+            "explain": "Homotopy invariance: homotopic maps induce the same map on $H_n$. A constant map factors through a point, whose reduced homology vanishes in degree $\\ge 1$, so $f_*=0$ there."
+          },
+          {
+            "type": "numeric",
+            "q": "Use Mayer–Vietoris on $S^2=U\\cup V$ with $U,V$ contractible open sets and $U\\cap V\\simeq S^1$ to compute $\\chi(S^2)$ from $\\chi(U)+\\chi(V)-\\chi(U\\cap V)$. Recall $\\chi(\\mathrm{pt})=1$ and $\\chi(S^1)=0$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Inclusion–exclusion for Euler characteristic: $\\chi(S^2)=\\chi(U)+\\chi(V)-\\chi(U\\cap V)=1+1-0=2$, matching $\\beta_0-\\beta_1+\\beta_2=1-0+1$."
+          }
+        ]
+      }
+    }
+  },
+  "analytic-continuation": {
+    "topic": "analytic-continuation",
+    "quizzes": {
+      "power-series-radius-analytic": {
+        "title": "Germs and disks of convergence",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the radius of convergence of $\\sum_{n\\ge 0} z^n/(2^n\\,n)$? (Hint: root test or ratio test.)",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Two holomorphic functions $f, g$ on a connected open set $U$ agree on the sequence $z_n = 1/n$ (which accumulates at $0 \\in U$). What can you conclude?",
+            "choices": [
+              "they agree at the $z_n$ but may differ elsewhere",
+              "they agree on a neighborhood of $0$ only",
+              "$f \\equiv g$ on all of $U$",
+              "nothing; countable agreement is not enough"
+            ],
+            "answer": 2,
+            "explain": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically. Apply to $f-g$."
+          },
+          {
+            "type": "mcq",
+            "q": "The geometric series $\\sum z^n$ defines $1/(1-z)$ for $|z|<1$. Why is $1/(1-z)$, defined on $\\mathbb{C}\\setminus\\{1\\}$, called ‘the’ analytic continuation?",
+            "choices": [
+              "it happens to be the simplest formula",
+              "because $\\mathbb{C}\\setminus\\{1\\}$ is connected and extensions are unique by the identity theorem",
+              "because the series converges everywhere on $\\mathbb{C}\\setminus\\{1\\}$",
+              "a matter of convention only"
+            ],
+            "answer": 1,
+            "explain": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem—hence uniqueness."
+          }
+        ]
+      },
+      "continuation-along-path": {
+        "title": "Continuation along a path",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "You continue the principal branch of $\\log z$ along the semicircle from $1$ around $0$ to $-1$ in the upper half plane. What value do you arrive at?",
+            "choices": [
+              "$0$",
+              "$i\\pi$",
+              "$-i\\pi$",
+              "$2\\pi i$"
+            ],
+            "answer": 1,
+            "explain": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$. So you arrive at $\\ln 1 + i\\pi = i\\pi$."
+          },
+          {
+            "type": "mcq",
+            "q": "Weierstrass disk-chaining: if $f$ has germ at $a$ with radius $r$, and the next center $b$ lies at distance $d < r$, which of the following guarantees a valid continuation step?",
+            "choices": [
+              "the next germ's radius is at least $d$",
+              "the new germ agrees with $f$ on the overlap $D(a,r)\\cap D(b,?)$",
+              "the new series is obtained by re-expanding $f$ at $b$, and its radius of convergence is at least $r-d$",
+              "nothing beyond continuity is required"
+            ],
+            "answer": 2,
+            "explain": "Re-expanding $f$ in powers of $(z-b)$ gives a series with radius of convergence at least $r-d$ (the distance from $b$ to the boundary of $D(a,r)$); the germs agree on the nonempty intersection, so the chain step is legitimate."
+          },
+          {
+            "type": "numeric",
+            "q": "Starting from the principal branch of $\\sqrt{z}$ near $z=1$, continue along the circle $|z|=1$ once counter-clockwise back to $z=1$. The new value at $1$ is $(-1)^k$ for $k = $?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$."
+          }
+        ]
+      },
+      "monodromy-theorem": {
+        "title": "Monodromy theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The monodromy theorem says: if $U$ is simply connected and a germ at $p\\in U$ continues along every path in $U$, then…",
+            "choices": [
+              "the continuation depends only on endpoints (path-independent)",
+              "$U$ must equal $\\mathbb{C}$",
+              "the continuation is bounded",
+              "$U$ has trivial homology in every degree"
+            ],
+            "answer": 0,
+            "explain": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path."
+          },
+          {
+            "type": "numeric",
+            "q": "Continue the principal branch of $\\log z$ along the loop $\\gamma(t)=e^{2\\pi i t}$, $t\\in[0,1]$. By how much does $\\log z$ change after one loop? Enter the imaginary part divided by $\\pi$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$. This is the monodromy generator of $\\pi_1(\\mathbb{C}^*)\\cong\\mathbb{Z}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\sqrt{z}$ become single-valued on $\\mathbb{C}\\setminus(-\\infty, 0]$ but not on $\\mathbb{C}\\setminus\\{0\\}$?",
+            "choices": [
+              "because removing the negative real axis makes the domain simply connected",
+              "because $\\sqrt{z}$ happens to have no pole there",
+              "because $\\sqrt{z}$ is analytic only on slit planes",
+              "because of analytic continuation around $z=-1$"
+            ],
+            "answer": 0,
+            "explain": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued. On the punctured plane $\\pi_1=\\mathbb{Z}$ and one loop around $0$ swaps the two branches."
+          }
+        ]
+      },
+      "schwarz-reflection": {
+        "title": "Schwarz reflection principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $f$ be holomorphic on the upper half disk $D^+=\\{|z|<1,\\,\\operatorname{Im}z>0\\}$, extend continuously to the diameter $(-1,1)$, and take real values on that diameter. The Schwarz extension to $D^-$ is given by…",
+            "choices": [
+              "$f(\\bar z)$",
+              "$\\overline{f(\\bar z)}$",
+              "$\\overline{f(z)}$",
+              "$-f(\\bar z)$"
+            ],
+            "answer": 1,
+            "explain": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$. This is holomorphic there (the composition of two antiholomorphic maps is holomorphic) and matches $f$ on the real boundary because $f$ is real there."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these boundary-value situations does the Schwarz reflection principle NOT apply to directly?",
+            "choices": [
+              "$f$ real-valued on a real segment",
+              "$f$ sending a circular arc to another circular arc (with a Möbius pre/post-composition)",
+              "$f$ with essential singularity on the boundary arc",
+              "$f$ purely imaginary on a real segment"
+            ],
+            "answer": 2,
+            "explain": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a Möbius twist). Essential singularities do not extend continuously to the boundary, so the principle fails."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f$ is holomorphic on $D^+$, continuous on its closure, and takes real values on $(-1,1)$, and $f(i/2)=3+4i$, then the extension satisfies $\\tilde f(-i/2) = a+bi$ with $b = $?",
+            "answer": -4,
+            "tol": 0.000001,
+            "explain": "$\\tilde f(z) = \\overline{f(\\bar z)}$. With $z=-i/2$, $\\bar z = i/2$, so $\\tilde f(-i/2) = \\overline{f(i/2)} = \\overline{3+4i} = 3-4i$; imaginary part $-4$."
+          }
+        ]
+      },
+      "zeta-functional-equation": {
+        "title": "Zeta functional equation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Riemann's integral representation $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty (\\theta(x)-1)\\,x^{s/2-1}dx$ converges for $\\operatorname{Re}(s)>1$. What step turns this into an entire-minus-poles meromorphic formula on all of $\\mathbb{C}$?",
+            "choices": [
+              "differentiating under the integral",
+              "splitting at $x=1$ and using the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ on $(0,1)$",
+              "replacing $\\theta(x)$ by its $q$-expansion",
+              "applying the residue theorem to the Mellin kernel"
+            ],
+            "answer": 1,
+            "explain": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. The $\\int_1^\\infty$ piece converges for ALL $s$, and the explicit $1/s(s-1)$ poles show up as boundary terms."
+          },
+          {
+            "type": "mcq",
+            "q": "The completed zeta function is $\\xi(s) = \\tfrac12 s(s-1)\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. What is the functional equation?",
+            "choices": [
+              "$\\xi(s) = -\\xi(1-s)$",
+              "$\\xi(s) = \\xi(1-s)$",
+              "$\\xi(s) = \\xi(-s)$",
+              "$\\xi(s)\\xi(1-s) = 1$"
+            ],
+            "answer": 1,
+            "explain": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles. Result: $\\xi(s)=\\xi(1-s)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Use $\\xi(s)=\\xi(1-s)$ and $\\zeta(2)=\\pi^2/6$ to compute $\\zeta(-1)$. (Hint: $\\Gamma(1/2)=\\sqrt\\pi$, $\\Gamma(-1/2)=-2\\sqrt\\pi$.) Enter a decimal.",
+            "answer": -0.0833333333,
+            "tol": 0.0001,
+            "explain": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$. Plugging in, $\\pi^{-1}\\cdot\\pi^2/6 = \\pi^{1/2}\\cdot(-2\\sqrt\\pi)\\zeta(-1) = -2\\pi\\,\\zeta(-1)$, so $\\zeta(-1) = -\\pi/(6)\\cdot 1/(2\\pi) = -1/12$."
+          }
         ]
       }
     }
@@ -625,6 +831,68 @@ window.MVQuizBank = {
             ],
             "tol": 0.001,
             "explain": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$. The positive solution is $1/\\sqrt{2}\\approx 0.7071$, purely real. Bézout's count $1\\cdot 2 = 2$ matches."
+          }
+        ]
+      },
+      "cayley-bacharach": {
+        "title": "Cayley–Bacharach and associativity",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Two smooth cubics in $\\mathbb{P}^2$ with no common component meet in how many points, counted with multiplicity?",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$. Cayley–Bacharach says those nine points are so rigid that any cubic through eight of them passes through the ninth."
+          },
+          {
+            "type": "numeric",
+            "q": "The projective space of plane cubics $\\{[F]\\ :\\ F \\text{ homogeneous degree }3\\}$ has projective dimension $\\binom{3+2}{2}-1$. Compute this number.",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "$\\binom{5}{2}-1 = 10-1 = 9$. Eight points generically impose eight independent linear conditions, leaving a $\\mathbb{P}^1$-pencil of cubics through them — inside which the Bézout ninth point lies automatically."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Cayley–Bacharach force the chord–tangent group law on a smooth cubic to be associative?",
+            "choices": [
+              "Because every plane cubic is abelian by construction",
+              "Because associativity $(P+Q)+R = P+(Q+R)$ can be phrased as the ninth point of a pair of cubic-triples containing eight common points",
+              "Because the identity element is always unique",
+              "Because projective space is compact"
+            ],
+            "answer": 1,
+            "explain": "The chord–tangent construction builds $P+Q$ as the third intersection of line $\\overline{PQ}$ with $E$, reflected through $O$. Associativity becomes an equality of two points computable from two triples of lines — nine points total, eight already constrained, and Cayley–Bacharach supplies the ninth."
+          }
+        ]
+      },
+      "higher-dim-bezout": {
+        "title": "Bézout in $\\mathbb{P}^n$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Three generic quadric surfaces in $\\mathbb{P}^3_{\\mathbb{C}}$ meet in how many points, counted with multiplicity?",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$."
+          },
+          {
+            "type": "numeric",
+            "q": "Four generic hypersurfaces of degrees $2,3,3,5$ in $\\mathbb{P}^4$ meet in how many points?",
+            "answer": 90,
+            "tol": 0.000001,
+            "explain": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$. The Chow-ring computation $(2H)(3H)(3H)(5H) = 90 H^4 = 90\\cdot[\\mathrm{pt}]$ in $A^{\\ast}(\\mathbb{P}^4)=\\mathbb{Z}[H]/(H^5)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which hypothesis in higher-dimensional Bézout is the one that most frequently fails (beyond the usual 'algebraically closed' and 'count multiplicities')?",
+            "choices": [
+              "the ambient space being projective",
+              "the intersection being zero-dimensional (equivalently, the hypersurfaces meeting properly)",
+              "the degrees being coprime",
+              "the hypersurfaces being smooth"
+            ],
+            "answer": 1,
+            "explain": "If any two hypersurfaces share a positive-dimensional component, $\\sum \\mathrm{length}$ is infinite. 'Proper intersection' / 'zero-dimensional intersection' is the substantive hypothesis in $\\mathbb{P}^n$ for $n\\ge 3$. Fulton–MacPherson intersection theory handles the non-proper case via excess intersection."
           }
         ]
       }
@@ -738,6 +1006,78 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
+          }
+        ]
+      },
+      "regulator": {
+        "title": "Regulator and canonical height",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Néron–Tate canonical height $\\hat h$ satisfies which scaling law?",
+            "choices": [
+              "$\\hat h(nP) = n\\,\\hat h(P)$",
+              "$\\hat h(nP) = n^2\\,\\hat h(P)$",
+              "$\\hat h(nP) = 2^n\\,\\hat h(P)$",
+              "$\\hat h(nP) = \\hat h(P)$"
+            ],
+            "answer": 1,
+            "explain": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$. Equivalently, $\\langle P,Q\\rangle = \\tfrac12(\\hat h(P+Q)-\\hat h(P)-\\hat h(Q))$ is bilinear."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $E(\\mathbb{Q})$ have rank $2$ with height-pairing Gram matrix $\\begin{pmatrix}2 & 1\\\\ 1 & 3\\end{pmatrix}$ on a basis. Compute the regulator $R=\\det G$.",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$. Positive-definiteness (so the pairing is a genuine inner product) requires $\\det G > 0$, which holds here."
+          },
+          {
+            "type": "mcq",
+            "q": "By convention, the regulator of a rank-$0$ elliptic curve is:",
+            "choices": [
+              "$0$",
+              "$\\infty$",
+              "$1$ (empty determinant)",
+              "undefined"
+            ],
+            "answer": 2,
+            "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
+          }
+        ]
+      },
+      "sha-tate-shafarevich": {
+        "title": "Tate–Shafarevich group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An element of $\\Sha(E/\\mathbb{Q})$ corresponds geometrically to:",
+            "choices": [
+              "a rational point on $E$",
+              "a Galois extension of $\\mathbb{Q}$",
+              "a torsor $C/\\mathbb{Q}$ for $E$ with points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$ but no point over $\\mathbb{Q}$",
+              "a prime of bad reduction"
+            ],
+            "answer": 2,
+            "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, Cassels–Tate forces its order to be a perfect square. Which of $\\{1, 2, 4, 6, 9\\}$ is NOT a possible value of $|\\Sha|$? Enter the value.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$6$ is not a perfect square, so it is forbidden by the Cassels–Tate pairing (which gives $\\Sha$ an alternating non-degenerate pairing, hence square order). $1, 4, 9$ are squares; $2$ can occur as $|\\Sha[2]|$ but not as $|\\Sha|$ — however the question only asks about non-square obstruction, making $6$ the cleanest answer."
+          },
+          {
+            "type": "mcq",
+            "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\Sha(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\Sha(E)[2]|$ is:",
+            "choices": [
+              "$4$",
+              "$24$",
+              "$40$",
+              "cannot be determined"
+            ],
+            "answer": 0,
+            "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
           }
         ]
       }
@@ -1607,6 +1947,78 @@ window.MVQuizBank = {
           }
         ]
       },
+      "pullback-of-forms": {
+        "title": "Pullback of forms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which compatibility does the pullback $f^*$ satisfy for a smooth $f:M\\to N$?",
+            "choices": [
+              "$f^*(\\alpha\\wedge\\beta) = f^*\\alpha\\wedge f^*\\beta$ and $f^*(d\\omega) = d(f^*\\omega)$",
+              "$f^*(d\\omega) = -d(f^*\\omega)$",
+              "$f^*(\\alpha\\wedge\\beta) = \\alpha\\wedge\\beta$",
+              "$f^*$ is only defined on $0$-forms"
+            ],
+            "answer": 0,
+            "explain": "Pullback is an algebra homomorphism that commutes with $d$: $f^*(\\alpha\\wedge\\beta)=f^*\\alpha\\wedge f^*\\beta$ and $f^*\\circ d = d\\circ f^*$. These two facts are what make differential forms natural."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f(u,v) = (u+v,\\ uv)$ from $\\mathbb{R}^2$ to $\\mathbb{R}^2$ with target coordinates $(x,y)$. Compute the coefficient of $du\\wedge dv$ in $f^*(dx\\wedge dy)$ at $(u,v)=(3,1)$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$. At $(3,1)$ the coefficient is $3-1=2$. (Equivalently, the Jacobian determinant $\\det Df = u-v$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Let $\\iota:S^1\\hookrightarrow\\mathbb{R}^2\\setminus\\{0\\}$ parametrized by $\\theta\\mapsto(\\cos\\theta,\\sin\\theta)$. Compute $\\iota^*\\bigl((-y\\,dx+x\\,dy)/(x^2+y^2)\\bigr)$.",
+            "choices": [
+              "$0$",
+              "$d\\theta$",
+              "$\\sin\\theta\\,d\\theta$",
+              "$\\cos\\theta\\,d\\theta$"
+            ],
+            "answer": 1,
+            "explain": "On $S^1$, $x=\\cos\\theta$, $y=\\sin\\theta$, $x^2+y^2=1$, $dx=-\\sin\\theta\\,d\\theta$, $dy=\\cos\\theta\\,d\\theta$. Then $-y\\,dx+x\\,dy=\\sin^2\\theta\\,d\\theta+\\cos^2\\theta\\,d\\theta=d\\theta$. The pullback of the angle form is literally $d\\theta$."
+          }
+        ]
+      },
+      "integration-on-chains": {
+        "title": "Integration of forms over chains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth $k$-simplex $\\sigma:\\Delta^k\\to M$ and $\\omega\\in\\Omega^k(M)$, the integral $\\int_\\sigma \\omega$ is defined as:",
+            "choices": [
+              "$\\int_{\\Delta^k}\\omega$ (with no pullback)",
+              "$\\int_{\\Delta^k}\\sigma^*\\omega$ using the pullback to the standard simplex",
+              "$\\sigma(\\omega)$ evaluated at a point",
+              "the supremum of $\\omega$ on the image"
+            ],
+            "answer": 1,
+            "explain": "Integration over a smooth simplex is $\\int_\\sigma\\omega := \\int_{\\Delta^k}\\sigma^*\\omega$. This is well-defined because $\\sigma^*\\omega$ is a $k$-form on $\\Delta^k\\subset\\mathbb{R}^k$, which integrates via the standard Lebesgue integral of its $du^1\\wedge\\cdots\\wedge du^k$ coefficient."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\int_\\sigma\\omega$ independent of the parametrization $\\sigma$ (up to orientation-preserving reparametrization)?",
+            "choices": [
+              "Because forms are constant",
+              "Because $d\\omega=0$",
+              "Because the change-of-variables Jacobian is exactly the pullback determinant: $\\phi^*(\\sigma^*\\omega)$ agrees with $\\sigma^*\\omega$ up to $\\det D\\phi$",
+              "Because $M$ is compact"
+            ],
+            "answer": 2,
+            "explain": "For an orientation-preserving diffeomorphism $\\phi$, change of variables gives $\\int\\phi^*\\eta = \\int\\eta$. Since forms pull back with a Jacobian determinant, the antisymmetry of $\\wedge$ is exactly what makes integration of forms reparametrization-invariant."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\sigma:[0,1]\\to\\mathbb{R}^2$, $\\sigma(t)=(t,t^2)$, and $\\omega = dy$. Compute $\\int_\\sigma\\omega$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$. Then $\\int_\\sigma\\omega = \\int_0^1 2t\\,dt = 1$. Geometrically, $\\int_\\sigma dy$ is just the net vertical displacement of $\\sigma$, $y(1)-y(0)=1-0=1$."
+          }
+        ]
+      },
       "stokes-derham": {
         "title": "Stokes theorem and de Rham cohomology",
         "questions": [
@@ -1708,6 +2120,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "gauss-map": {
+        "title": "Gauss map and shape operator",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The shape operator $S_p = -dN_p$ on $T_pS$ is:",
+            "choices": [
+              "skew-adjoint with respect to $I$, hence has purely imaginary eigenvalues",
+              "self-adjoint with respect to $I$, hence diagonalizable with real eigenvalues (the principal curvatures)",
+              "always a scalar multiple of the identity",
+              "nilpotent when $K\\neq 0$"
+            ],
+            "answer": 1,
+            "explain": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal curvatures) along orthogonal principal directions."
+          },
+          {
+            "type": "numeric",
+            "q": "On the round sphere of radius $R$ the Gauss map is $\\mathbf{n}(p)=p/R$, so $S_p=(1/R)\\,\\mathrm{id}$. Give the Gaussian curvature $K=\\det S_p$ when $R=3$.",
+            "answer": 0.1111111111111111,
+            "tol": 0.000001,
+            "explain": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$. For $R=3$, $K=1/9\\approx 0.1111$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a cylinder of radius $1$, the image of the Gauss map $\\mathbf{n}:S\\to S^2$ is:",
+            "choices": [
+              "a single point (the cylinder is flat-looking)",
+              "the whole sphere $S^2$",
+              "a great circle on $S^2$ (the equator)",
+              "two antipodal points"
+            ],
+            "answer": 2,
+            "explain": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle. The image has measure zero on $S^2$, consistent with $K\\equiv 0$."
+          }
+        ]
+      },
       "gauss-curvature-geodesics": {
         "title": "Gaussian curvature and geodesics",
         "questions": [
@@ -1736,6 +2184,37 @@ window.MVQuizBank = {
             "answer": 1.5707963267948966,
             "tol": 0.000001,
             "explain": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$. On the unit sphere $K=1$, so area $=\\int K\\,dA=\\pi/2\\approx 1.5708$."
+          }
+        ]
+      },
+      "gauss-bonnet": {
+        "title": "Gauss–Bonnet theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The global Gauss–Bonnet theorem states that for a compact oriented surface $S$ without boundary:",
+            "choices": [
+              "$\\int_S K\\,dA = 0$ always",
+              "$\\int_S K\\,dA = 2\\pi\\chi(S)$",
+              "$\\int_S K\\,dA = 4\\pi g$, where $g$ is the genus",
+              "$\\int_S H\\,dA = 2\\pi\\chi(S)$ (mean curvature, not Gaussian)"
+            ],
+            "answer": 1,
+            "explain": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$. It couples differential geometry ($K$) to topology ($\\chi$)."
+          },
+          {
+            "type": "numeric",
+            "q": "For a closed genus-$3$ orientable surface, compute $\\int_S K\\,dA$.",
+            "answer": -25.132741228718345,
+            "tol": 0.00001,
+            "explain": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$."
+          },
+          {
+            "type": "numeric",
+            "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
+            "answer": 2.0943951023931953,
+            "tol": 0.000001,
+            "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
           }
         ]
       }
@@ -1843,6 +2322,78 @@ window.MVQuizBank = {
             "answer": 4,
             "tol": 1e-9,
             "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
+          }
+        ]
+      },
+      "mellin-transform-dirichlet": {
+        "title": "Mellin transform and $\\Gamma$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Mellin transform of a function $f\\colon(0,\\infty)\\to\\mathbb{C}$ is:",
+            "choices": [
+              "$\\int_0^\\infty f(x)\\,e^{-sx}\\,dx$",
+              "$\\int_0^\\infty f(x)\\,x^{s-1}\\,dx$",
+              "$\\sum_{n\\ge 1} f(n)\\,n^{-s}$",
+              "$\\int_{-\\infty}^\\infty f(x)\\,e^{-isx}\\,dx$"
+            ],
+            "answer": 1,
+            "explain": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable."
+          },
+          {
+            "type": "numeric",
+            "q": "The Mellin transform of $e^{-x}$ on $(0,\\infty)$ equals $\\Gamma(s)$. Evaluate $\\Gamma(5)$.",
+            "answer": 24,
+            "tol": 0.000001,
+            "explain": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Mellin + theta summation give analytic continuation of $\\zeta(s)$?",
+            "choices": [
+              "Because $\\zeta(s)\\,\\Gamma(s/2)\\,\\pi^{-s/2}$ is the Mellin of $\\tfrac12(\\theta(x)-1)$, and the $x\\mapsto 1/x$ symmetry of $\\theta$ splits the integral into two convergent pieces on all of $\\mathbb{C}$",
+              "Because $\\Gamma(s)$ has poles that cancel the poles of $\\zeta(s)$",
+              "Because the Mellin transform is always entire",
+              "Because $\\zeta(s)$ equals its own Mellin transform"
+            ],
+            "answer": 0,
+            "explain": "Riemann's 1859 trick: the completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is the Mellin of $\\tfrac12(\\theta(x)-1)$; the Jacobi theta functional equation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ splits the integral $\\int_0^\\infty = \\int_0^1 + \\int_1^\\infty$ into two convergent pieces, manifesting $\\xi(s)=\\xi(1-s)$."
+          }
+        ]
+      },
+      "perron-formula": {
+        "title": "Perron's formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Perron's formula recovers the summatory function $A(x)=\\sum_{n\\le x} a_n$ from the Dirichlet series $D(s)=\\sum a_n n^{-s}$ as:",
+            "choices": [
+              "$A(x)=\\tfrac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty} D(s)\\,\\tfrac{x^s}{s}\\,ds$ for $c>\\sigma_a$",
+              "$A(x)=\\int_0^\\infty D(s)\\,x^s\\,ds$",
+              "$A(x)=\\sum_{\\rho} \\mathrm{Res}_{s=\\rho} D(s)$",
+              "$A(x)=D(1)\\cdot x$"
+            ],
+            "answer": 0,
+            "explain": "Perron: shift a vertical contour past the pole of $1/s$ at $s=0$; the $x^s/s$ kernel acts as a smoothed indicator of $n\\le x$, and residues of $D(s)x^s/s$ at poles (including the main term pole of $D$) give the leading-order asymptotic."
+          },
+          {
+            "type": "mcq",
+            "q": "In the PNT-style application with $D(s)=-\\zeta'(s)/\\zeta(s)$, the main term for $\\psi(x)=\\sum_{n\\le x}\\Lambda(n)$ comes from:",
+            "choices": [
+              "the pole of $\\zeta(s)$ at $s=1$",
+              "the trivial zeros at $s=-2,-4,\\ldots$",
+              "the zeros on $\\Re(s)=1/2$",
+              "the Euler factor at $p=2$"
+            ],
+            "answer": 0,
+            "explain": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem). The zeros of $\\zeta$ contribute lower-order oscillations."
+          },
+          {
+            "type": "numeric",
+            "q": "At a simple pole of $D(s)$ at $s=s_0$ with residue $\\rho$, the residue of $D(s)\\,x^s/s$ at $s=s_0$ (for $s_0\\ne 0$) is $\\rho\\cdot x^{s_0}/s_0$. For $D(s)=\\zeta(s)$, $s_0=1$, $\\rho=1$, and $x=e$, what is this residue to 4 decimals?",
+            "answer": 2.7183,
+            "tol": 0.001,
+            "explain": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$. This is exactly the leading term in Perron for $\\sum_{n\\le e}1 = $ counting function, with correction terms from the other poles/zeros."
           }
         ]
       }
@@ -2102,6 +2653,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "lefschetz-fixed-point": {
+        "title": "Grothendieck–Lefschetz fixed-point formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an endomorphism $f\\colon X\\to X$ of a smooth projective variety with $\\Gamma_f$ transverse to the diagonal, the Grothendieck–Lefschetz trace formula says $\\#\\mathrm{Fix}(f)$ equals:",
+            "choices": [
+              "$\\sum_i \\mathrm{Tr}(f^*\\mid H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$",
+              "$\\sum_i (-1)^i \\mathrm{Tr}(f^*\\mid H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$",
+              "$\\sum_i \\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$",
+              "$\\det(f^* \\mid H^*_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$"
+            ],
+            "answer": 1,
+            "explain": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Apply the trace formula to $X = \\mathbb{P}^2_{\\mathbb{F}_q}$ with $q=3$ and $f = F_q$ (geometric Frobenius), so $F^*$ acts as $q^i$ on $H^{2i}$ and odd cohomology vanishes. Compute $\\#\\mathbb{P}^2(\\mathbb{F}_3)$.",
+            "answer": 13,
+            "tol": 0.0001,
+            "explain": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is transversality between $\\Gamma_{F_q}$ and the diagonal automatic in characteristic $p$?",
+            "choices": [
+              "Because Frobenius is finite étale.",
+              "Because $dF_q = 0$ on tangent spaces, so $T_x(\\Gamma_{F_q})$ and $T_x(\\Delta)$ span $T_x(X\\times X)$.",
+              "Because $\\mathbb{F}_q$ is a perfect field.",
+              "Transversality is never automatic; it has to be imposed."
+            ],
+            "answer": 1,
+            "explain": "The derivative of $x\\mapsto x^q$ is identically zero, so the tangent space of the graph at a fixed point is just $T_x(\\Delta)$'s complement inside $T_x(X\\times X)$ — the two subspaces are transverse, and every fixed point contributes $+1$ to the intersection."
+          }
+        ]
+      },
       "weil-frobenius-trace": {
         "title": "Weil conjectures and Frobenius trace",
         "questions": [
@@ -2133,6 +2720,42 @@ window.MVQuizBank = {
             ],
             "answer": 3,
             "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). Étale cohomology with its Frobenius action is what makes them provable."
+          }
+        ]
+      },
+      "comparison-theorems-etale": {
+        "title": "Comparison theorems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Artin's comparison theorem states that for a smooth projective variety $X$ over $\\mathbb{C}$ and any prime $\\ell$:",
+            "choices": [
+              "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) \\cong H^i_{\\text{sing}}(X(\\mathbb{C}),\\mathbb{Q})\\otimes\\mathbb{Q}_\\ell$",
+              "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) \\cong H^i_{\\text{dR}}(X/\\mathbb{C})$",
+              "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) = 0$ for $i>0$",
+              "$H^i_{\\text{ét}}$ depends nontrivially on $\\ell$"
+            ],
+            "answer": 0,
+            "explain": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$. In particular $\\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ is the classical Betti number $b_i$, independent of $\\ell$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using the comparison theorem, compute the $\\ell$-adic Betti number $b_2 = \\dim_{\\mathbb{Q}_\\ell} H^2_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ for $X = \\mathbb{P}^1 \\times \\mathbb{P}^1$ over $\\mathbb{C}$.",
+            "answer": 2,
+            "tol": 0.0001,
+            "explain": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$. The two classes are the pullbacks of the hyperplane class from each factor."
+          },
+          {
+            "type": "mcq",
+            "q": "Over $\\overline{\\mathbb{F}_p}$, why can we NOT use $\\ell = p$ in $\\ell$-adic cohomology, and what replaces it?",
+            "choices": [
+              "Nothing is wrong; $\\ell=p$ works fine.",
+              "$H^i_{\\text{ét}}(X,\\mathbb{Q}_p)$ is pathological; crystalline cohomology $H^i_{\\text{cris}}(X/W(k))$ is the correct $p$-adic Weil cohomology.",
+              "One uses singular cohomology of $X(\\mathbb{C})$ instead.",
+              "One uses de Rham cohomology of the generic fiber."
+            ],
+            "answer": 1,
+            "explain": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$. Crystalline cohomology (Berthelot–Grothendieck) replaces it, producing a $W(k)$-module with semi-linear Frobenius whose characteristic polynomial matches the $\\ell$-adic ones for $\\ell\\neq p$."
           }
         ]
       }
@@ -2174,6 +2797,78 @@ window.MVQuizBank = {
             "answer": 2,
             "tol": 0.000001,
             "explain": "A transposition in $S_3$ has order $2$: applying it twice returns the identity."
+          }
+        ]
+      },
+      "splitting-types": {
+        "title": "Splitting types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $K/\\mathbb{Q}$ be Galois of degree $n$ and let $p$ be an unramified rational prime with $p\\mathcal{O}_K=\\mathfrak{P}_1\\cdots\\mathfrak{P}_r$ and common residue degree $f$. Which relation must hold?",
+            "choices": [
+              "$r+f=n$",
+              "$rf=n$",
+              "$r=f$ always",
+              "$r$ and $f$ can depend on the chosen prime $\\mathfrak{P}_i$"
+            ],
+            "answer": 1,
+            "explain": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $K=\\mathbb{Q}(\\zeta_7)$, $[K:\\mathbb{Q}]=6$, a prime $p$ that is inert in $K$ has splitting type $(r,f)=(1,6)$. If instead $p$ splits into $r=3$ primes, what is the common residue degree $f$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$rf=n$ with $n=6$, $r=3$ forces $f=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $f(x)=x^3-x-1$ with Galois group $S_3$ (degree $6$ splitting field), which Frobenius cycle shape on the roots corresponds to $p$ splitting completely in the splitting field?",
+            "choices": [
+              "$(3)$",
+              "$(2,1)$",
+              "$(1,1,1)$",
+              "$(6)$"
+            ],
+            "answer": 2,
+            "explain": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$."
+          }
+        ]
+      },
+      "decomposition-group": {
+        "title": "Decomposition and inertia groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a prime $\\mathfrak{P}$ above $p$ in a Galois extension $K/\\mathbb{Q}$ with group $G$, the decomposition group $D(\\mathfrak{P})$ is defined as:",
+            "choices": [
+              "the centraliser of $\\mathrm{Frob}_\\mathfrak{P}$ in $G$",
+              "the stabiliser $\\{\\sigma\\in G:\\sigma(\\mathfrak{P})=\\mathfrak{P}\\}$",
+              "the image of Galois in $\\mathrm{GL}_n(\\mathbb{F}_p)$",
+              "the kernel of the reduction map $\\mathcal{O}_K\\to\\mathcal{O}_K/\\mathfrak{P}$"
+            ],
+            "answer": 1,
+            "explain": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$."
+          },
+          {
+            "type": "numeric",
+            "q": "In a Galois extension of degree $n=12$ where a prime $p$ has $r=3$ primes above it with ramification index $e=2$ and residue degree $f=2$, what is $|D(\\mathfrak{P})|$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about inertia is TRUE?",
+            "choices": [
+              "$I(\\mathfrak{P})=D(\\mathfrak{P})$ always",
+              "$I(\\mathfrak{P})$ is the kernel of $D(\\mathfrak{P})\\to\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$, and is trivial exactly when $p$ is unramified",
+              "$I(\\mathfrak{P})$ is generated by the Frobenius element",
+              "$I(\\mathfrak{P})$ has order $f$"
+            ],
+            "answer": 1,
+            "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
           }
         ]
       },
@@ -2544,6 +3239,78 @@ window.MVQuizBank = {
             "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
           }
         ]
+      },
+      "yoneda-embedding-ag": {
+        "title": "The Yoneda embedding for schemes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Yoneda embedding $h_{(-)}:\\mathsf{Sch} \\hookrightarrow \\mathrm{Fun}(\\mathsf{Sch}^{\\mathrm{op}},\\mathsf{Set})$ is:",
+            "choices": [
+              "faithful but not full",
+              "full but not faithful",
+              "fully faithful",
+              "neither full nor faithful"
+            ],
+            "answer": 2,
+            "explain": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from a unique scheme map."
+          },
+          {
+            "type": "mcq",
+            "q": "Under Yoneda, the universal element of $h_X(X) = \\mathrm{Hom}(X,X)$ that witnesses representability is:",
+            "choices": [
+              "the zero map",
+              "the identity $\\mathrm{id}_X$",
+              "the structure map $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$",
+              "any closed immersion"
+            ],
+            "answer": 1,
+            "explain": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$. So the identity is the universal $X$-point, and every natural transformation is recovered by pushing $\\mathrm{id}_X$ forward."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
+          }
+        ]
+      },
+      "base-change-interpretation": {
+        "title": "Base change as pullback of functors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$ is a scheme and $S = \\mathrm{Spec}\\,k$, then for a $k$-algebra $R$ the base-changed scheme $X_k$ satisfies:",
+            "choices": [
+              "$X_k(R) = X(R)$ as a set",
+              "$X_k(R) = X(R)$ viewed only via its $k$-algebra structure on $R$",
+              "$X_k(R) = \\mathrm{Hom}_k(R, k)$",
+              "$X_k(R)$ is always empty when $k$ has characteristic $p$"
+            ],
+            "answer": 1,
+            "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\mathrm{Spec}\\,R \\to \\mathrm{Spec}\\,k \\to \\mathrm{Spec}\\,\\mathbb{Z}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The functor-of-points identity $(X \\times_S Y)(T) = X(T) \\times_{S(T)} Y(T)$ says that the fiber product of schemes:",
+            "choices": [
+              "is computed by taking pointwise fiber products of sets",
+              "requires a cofibrant replacement",
+              "only works when $S = \\mathrm{Spec}\\,\\mathbb{Z}$",
+              "agrees with the disjoint union $X(T) \\sqcup Y(T)$"
+            ],
+            "answer": 0,
+            "explain": "Representable functors preserve limits. So the representable functor of $X \\times_S Y$ is the pointwise fiber product of the representable functors of $X, S, Y$ — this is exactly what lets you compute base changes by solving equations over each test ring."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
+          }
+        ]
       }
     }
   },
@@ -2614,6 +3381,78 @@ window.MVQuizBank = {
             "answer": 12,
             "tol": 0.000001,
             "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
+          }
+        ]
+      },
+      "semisimple-decomposition": {
+        "title": "Irreducibility and semisimplification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_2(\\bar{\\mathbb{Q}}_\\ell)$ be reducible but not semisimple, with an invariant line on which $G_\\mathbb{Q}$ acts by $\\chi_1$ and quotient $\\chi_2$. What is $\\rho^{\\mathrm{ss}}$?",
+            "choices": [
+              "the zero representation",
+              "$\\chi_1\\oplus\\chi_2$",
+              "$\\chi_1\\otimes\\chi_2$",
+              "$\\chi_1$ alone"
+            ],
+            "answer": 1,
+            "explain": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why do Frobenius traces fail to distinguish $\\rho$ from $\\rho^{\\mathrm{ss}}$?",
+            "choices": [
+              "because $\\rho$ and $\\rho^{\\mathrm{ss}}$ have the same determinant",
+              "because trace is additive on short exact sequences, so $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_p)$",
+              "because Frobenius is unipotent",
+              "because $G_\\mathbb{Q}$ is abelian"
+            ],
+            "answer": 1,
+            "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
+          }
+        ]
+      },
+      "ramification-galois-rep": {
+        "title": "Inertia, ramification, and the conductor",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Galois representation $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_n(K)$ is unramified at a prime $p$ when:",
+            "choices": [
+              "$\\rho(\\mathrm{Frob}_p)=I$",
+              "the inertia subgroup $I_p$ is in the kernel of $\\rho$",
+              "$p$ does not divide $n$",
+              "$\\rho$ is irreducible"
+            ],
+            "answer": 1,
+            "explain": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image."
+          },
+          {
+            "type": "mcq",
+            "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p$, the conductor exponent $f_p$ of $\\rho_{E,\\ell}$ is:",
+            "choices": [
+              "$f_p=0$",
+              "$f_p=1$",
+              "$f_p\\ge 2$",
+              "$f_p=p$"
+            ],
+            "answer": 1,
+            "explain": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes."
+          },
+          {
+            "type": "numeric",
+            "q": "A representation $\\rho$ has $\\dim V=3$, $\\dim V^{I_p}=2$, and trivial wild ramification at $p$. What is the Artin conductor exponent $f_p(\\rho)$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
           }
         ]
       },
@@ -2974,6 +3813,40 @@ window.MVQuizBank = {
             "answer": -6,
             "tol": 0.001,
             "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+          }
+        ]
+      },
+      "hecke-self-adjointness": {
+        "title": "Self-adjointness of $T_p$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Petersson inner product on $S_k$ integrates against which measure?",
+            "choices": [
+              "$dx\\,dy$ on the fundamental domain $\\mathcal{F}$",
+              "$y^{k-2}\\,dx\\,dy$ on $\\mathcal{F}$",
+              "$y^{-k}\\,dx\\,dy$ on all of $\\mathcal{H}$"
+            ],
+            "answer": 1,
+            "explain": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does self-adjointness of the $T_p$ (for $p\\nmid N$) matter?",
+            "choices": [
+              "It makes $T_p$ invertible on $S_k$",
+              "It guarantees real eigenvalues and, with commutativity, a joint orthonormal eigenbasis",
+              "It forces every modular form to be a cusp form"
+            ],
+            "answer": 1,
+            "explain": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis."
+          },
+          {
+            "type": "numeric",
+            "q": "On $S_k(\\Gamma_0(N))$, the standard Hecke operator $T_p$ is self-adjoint for primes $p$ satisfying $\\gcd(p,N)=1$. For $N=15$, how many of the primes $p\\in\\{2,3,5,7,11\\}$ give a self-adjoint $T_p$?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes. At $p=3,5$ one gets Atkin–Lehner involutions instead."
           }
         ]
       }
@@ -3811,6 +4684,40 @@ window.MVQuizBank = {
             "explain": "Arithmetic information is encoded in Fourier coefficients."
           }
         ]
+      },
+      "petersson-inner-product": {
+        "title": "Petersson inner product",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Petersson inner product on $S_k$ is defined by which integrand against $dx\\,dy$?",
+            "choices": [
+              "$f(\\tau)\\,\\overline{g(\\tau)}$",
+              "$f(\\tau)\\,\\overline{g(\\tau)}\\, y^{k-2}$",
+              "$f(\\tau)\\,g(\\tau)\\, y^{k}$"
+            ],
+            "answer": 1,
+            "explain": "The factor $y^{k-2}$ combines the weight-$k$ transformation with the hyperbolic measure $y^{-2}dx\\,dy$ so the whole thing is $\\Gamma$-invariant."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\langle f,g\\rangle$ converge for cusp forms but fail for general modular forms?",
+            "choices": [
+              "Cusp forms are real-valued",
+              "Cusp forms decay exponentially at $i\\infty$, beating the growth of $y^{k-2}$",
+              "The measure $y^{-2}dx\\,dy$ vanishes at the cusp"
+            ],
+            "answer": 1,
+            "explain": "Near $i\\infty$, $|f|\\ll e^{-2\\pi y}$, so $|f|^2 y^{k-2}$ is integrable; Eisenstein series lack this decay and the integral diverges."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f,g$ are two distinct normalized Hecke eigenforms in $S_k$ with different eigenvalue systems, what is $\\langle f,g\\rangle$?",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal."
+          }
+        ]
       }
     }
   },
@@ -3924,6 +4831,83 @@ window.MVQuizBank = {
             "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists — contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
           }
         ]
+      },
+      "deformation-rings": {
+        "title": "Deformation rings",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mazur's universal deformation ring $R^{\\mathrm{univ}}$ of an absolutely irreducible residual representation $\\overline\\rho : G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ represents which functor?",
+            "choices": [
+              "$A \\mapsto \\mathrm{Hom}(G_\\mathbb{Q}, A^\\times)$",
+              "$A \\mapsto \\{\\text{continuous lifts } \\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A) \\text{ of } \\overline\\rho\\}/\\!\\sim$ on complete Noetherian local $\\mathbb{Z}_p$-algebras with residue field $\\mathbb{F}_p$",
+              "$A \\mapsto \\mathrm{GL}_2(A)$",
+              "$A \\mapsto A \\otimes_{\\mathbb{Z}_p} \\mathbb{Q}_p$"
+            ],
+            "answer": 1,
+            "explain": "A deformation of $\\overline\\rho$ to $A$ is a continuous lift to $\\mathrm{GL}_2(A)$ reducing to $\\overline\\rho$ mod $\\mathfrak{m}_A$, up to conjugation by the kernel of $\\mathrm{GL}_2(A) \\twoheadrightarrow \\mathrm{GL}_2(\\mathbb{F}_p)$. Mazur proved this functor is representable when $\\overline\\rho$ is absolutely irreducible."
+          },
+          {
+            "type": "mcq",
+            "q": "The mod-$\\mathfrak{m}^2$ tangent space of the deformation ring $R_\\Sigma$ is computed by which cohomology group?",
+            "choices": [
+              "$H^0(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
+              "$H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$, the Selmer group with local conditions at $\\Sigma$",
+              "$H^2(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
+              "$\\pi_1^{\\text{ét}}(\\mathrm{Spec}\\,\\mathbb{Z}[1/\\Sigma])$"
+            ],
+            "answer": 1,
+            "explain": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint cocycles satisfying the chosen local conditions."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $R_\\Sigma$ is a quotient of the power series ring $\\mathbb{Z}_p[[x_1, x_2, x_3]]$ by a regular sequence of length $1$. What is the Krull dimension of $R_\\Sigma$?",
+            "answer": 3,
+            "tol": 0.01,
+            "explain": "$\\dim \\mathbb{Z}_p[[x_1,x_2,x_3]] = 1 + 3 = 4$ (the $1$ for $\\mathbb{Z}_p$); killing a regular element drops the dimension by $1$, giving $\\dim R_\\Sigma = 3$."
+          }
+        ]
+      },
+      "r-equals-t": {
+        "title": "The R = T theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Wiles' modularity-lifting setup, what are the two rings in the identity $R_\\Sigma = \\mathbb{T}_\\Sigma$?",
+            "choices": [
+              "$R_\\Sigma$ = endomorphism ring of $E$;   $\\mathbb{T}_\\Sigma$ = Tate module",
+              "$R_\\Sigma$ = universal deformation ring of $\\overline\\rho$ with ramification data $\\Sigma$;   $\\mathbb{T}_\\Sigma$ = localized Hecke algebra acting on $S_2(\\Gamma_0(N_\\Sigma))$",
+              "$R_\\Sigma$ = ring of integers of a number field;   $\\mathbb{T}_\\Sigma$ = its Galois closure",
+              "$R_\\Sigma$ = étale fundamental group;   $\\mathbb{T}_\\Sigma$ = de Rham cohomology"
+            ],
+            "answer": 1,
+            "explain": "$R_\\Sigma$ is the Galois-deformation side: all $p$-adic lifts of $\\overline\\rho$ with prescribed ramification. $\\mathbb{T}_\\Sigma$ is the automorphic side: Hecke operators on weight-2 cusp forms, localized at the maximal ideal matching $\\overline\\rho$. R = T says the two moduli spaces coincide."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ automatic, and what technique upgrades it to an isomorphism?",
+            "choices": [
+              "Surjectivity is automatic because Hecke eigensystems give modular Galois lifts of $\\overline\\rho$; the Taylor–Wiles patching argument over auxiliary prime sets $Q_n$ forces injectivity.",
+              "Both come from the Riemann–Roch theorem on $X_0(N)$.",
+              "One uses the Weil conjectures; the other uses Hodge theory.",
+              "Ribet's level-lowering theorem gives the isomorphism directly."
+            ],
+            "answer": 0,
+            "explain": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$. Taylor–Wiles patching chooses auxiliary 'nice' primes $Q_n$, matches dimensions on both sides level by level, and takes a compatible limit to collapse the surjection into an isomorphism."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the arithmetic consequence of $R_\\Sigma = \\mathbb{T}_\\Sigma$ for a given residual representation $\\overline\\rho$?",
+            "choices": [
+              "Every elliptic curve over $\\mathbb{Q}$ has rank $0$.",
+              "Every deformation of $\\overline\\rho$ with ramification data $\\Sigma$ is modular.",
+              "The Birch and Swinnerton-Dyer conjecture holds.",
+              "$\\overline\\rho$ has finite image."
+            ],
+            "answer": 1,
+            "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift — the whole point of modularity lifting."
+          }
+        ]
       }
     }
   },
@@ -4000,6 +4984,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "automorphisms-obstruction": {
+        "title": "Automorphisms obstruct fine moduli",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does the existence of nontrivial automorphisms prevent $\\mathcal{M}_{1,1}$ from being representable?",
+            "choices": [
+              "Because automorphisms make the moduli functor empty",
+              "Because one can twist a trivial family by a nontrivial class in $H^1(S, \\underline{\\mathrm{Aut}}(E))$ to get a non-isomorphic family whose fibres are still all isomorphic, invisible to any representable functor",
+              "Because automorphisms force the moduli space to be zero-dimensional",
+              "Because they make the $j$-invariant ill-defined"
+            ],
+            "answer": 1,
+            "explain": "A representable functor $h_M$ can only see families that pull back from a single classifying map. Twisting by a nontrivial cocycle in $H^1(S,\\underline{\\mathrm{Aut}})$ produces genuinely different families with identical classifying maps, which $h_M$ cannot distinguish."
+          },
+          {
+            "type": "numeric",
+            "q": "The curve $y^2=x^3+1$ has $j=0$. Its automorphism group over $\\bar{\\mathbb{Q}}$ is cyclic of what order? (Hint: it is generated by $(x,y)\\mapsto(\\zeta_3 x, -y)$.)",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "At $j=0$ the automorphism group is $\\mathbb{Z}/6$, generated by the order-6 map $(x,y)\\mapsto(\\zeta_3 x,-y)$ where $\\zeta_3$ is a primitive cube root of unity. This is the maximum automorphism group for an elliptic curve in characteristic $\\ne 2,3$."
+          },
+          {
+            "type": "mcq",
+            "q": "The family $E_2: y^2=x^3+t^6$ over $\\mathbb{A}^1_{\\mathbb{Q}}\\setminus\\{0\\}$ is a nontrivial twist of $E_1: y^2=x^3+1$. The obstruction class lives in:",
+            "choices": [
+              "$H^0(\\mathbb{A}^1\\setminus\\{0\\},\\mathcal{O})$",
+              "$H^1(\\mathbb{A}^1\\setminus\\{0\\},\\underline{\\mathrm{Aut}}(E_1))$",
+              "$H^2(\\mathbb{A}^1\\setminus\\{0\\},\\mathbb{Z}/2)$",
+              "$\\pi_0(\\mathbb{A}^1\\setminus\\{0\\})$"
+            ],
+            "answer": 1,
+            "explain": "Twists of a fixed family are classified by first Čech cohomology with coefficients in the automorphism sheaf. The nontriviality of this $H^1$ is exactly the obstruction to representability."
+          }
+        ]
+      },
       "level-structures-moduli": {
         "title": "Level structure and compactification ideas",
         "questions": [
@@ -4028,6 +5048,227 @@ window.MVQuizBank = {
             "answer": 6,
             "tol": 0.000001,
             "explain": "$3(2)-3+3=3+3=6$."
+          }
+        ]
+      },
+      "higher-genus-moduli": {
+        "title": "Higher-genus moduli and stable curves",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim M_g$ for $g=6$ using the Riemann–Roch formula $\\dim M_g=3g-3$.",
+            "answer": 15,
+            "tol": 0.000001,
+            "explain": "$3(6)-3=15$. This matches $\\dim H^1(C,T_C)$, the first-order deformation space of a smooth genus-$6$ curve."
+          },
+          {
+            "type": "mcq",
+            "q": "A stable $n$-pointed curve $(C, p_1,\\dots,p_n)$ of genus $g$ is required to have at-worst-nodal singularities, be proper and connected, and satisfy which finiteness condition?",
+            "choices": [
+              "$\\operatorname{Aut}(C, p_1,\\dots,p_n)$ is trivial",
+              "$\\operatorname{Aut}(C, p_1,\\dots,p_n)$ is finite",
+              "every component is rational",
+              "$C$ is smooth"
+            ],
+            "answer": 1,
+            "explain": "Stability is exactly finiteness of the automorphism group. Equivalent combinatorial conditions: every smooth rational component has $\\ge 3$ special points, every genus-$1$ component has $\\ge 1$. This is what cuts out a Deligne–Mumford stack."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a stable curve of genus $2$?",
+            "choices": [
+              "a smooth genus-$2$ curve",
+              "two smooth elliptic curves joined at a node",
+              "a smooth rational curve $\\mathbb{P}^1$ with no markings or nodes",
+              "a genus-$1$ curve with a node attached to a $\\mathbb{P}^1$ carrying three marked points"
+            ],
+            "answer": 2,
+            "explain": "A smooth $\\mathbb{P}^1$ alone has arithmetic genus $0$, not $2$, and also has infinite automorphism group $\\mathrm{PGL}_2$ — it fails stability on every count. The other options are standard boundary strata of $\\overline{M}_2$ and $\\overline{M}_{2,3}$."
+          }
+        ]
+      }
+    }
+  },
+  "moonshine": {
+    "topic": "moonshine",
+    "quizzes": {
+      "j-invariant-q-expansion": {
+        "title": "The j-invariant's q-expansion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The $j$-invariant is the unique $\\mathrm{SL}_2(\\mathbb{Z})$-invariant holomorphic function on $\\mathcal{H}$ whose Fourier expansion begins:",
+            "choices": [
+              "$q + 744 + 196884 q^{-1} + \\cdots$",
+              "$q^{-1} + 744 + 196884\\, q + 21493760\\, q^2 + \\cdots$",
+              "$q^{-1} + 1 + 196884\\, q + \\cdots$",
+              "$1 + 196884\\, q + 21493760\\, q^2 + \\cdots$"
+            ],
+            "answer": 1,
+            "explain": "$j(\\tau) = q^{-1} + 744 + 196884\\,q + 21493760\\,q^2 + \\cdots$ with $q = e^{2\\pi i\\tau}$. The pole is at the cusp $q=0$; the constant term $744$ is a normalization; the higher coefficients are the McKay–Thompson data."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the coefficient of $q$ (i.e., $c_1$) in the Fourier expansion of $j(\\tau)$?",
+            "answer": 196884,
+            "tol": 0,
+            "explain": "$c_1 = 196884$. Numerically one unit more than the dimension $196883$ of the smallest non-trivial irreducible representation of the Monster — McKay's starting observation."
+          },
+          {
+            "type": "mcq",
+            "q": "The shifted $j$-function $J(\\tau) = j(\\tau) - 744$ has:",
+            "choices": [
+              "a different pole at the cusp",
+              "vanishing constant term and otherwise the same coefficients",
+              "different coefficients of $q$ and $q^2$",
+              "different pole order at $i\\infty$"
+            ],
+            "answer": 1,
+            "explain": "Subtracting $744$ only changes the constant term; the pole $q^{-1}$ and every $c_n$ for $n \\ge 1$ are unchanged. $J$ is the version whose graded-dimension statement, $J = \\sum_{n} (\\dim V^\\natural_n) q^n$, is cleanest."
+          }
+        ]
+      },
+      "monster-group-structure": {
+        "title": "The Monster group and its irreducibles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Monster $\\mathbb{M}$ is:",
+            "choices": [
+              "the largest alternating group",
+              "a Lie group of type $E_8$",
+              "the largest sporadic finite simple group",
+              "an infinite-dimensional Lie algebra"
+            ],
+            "answer": 2,
+            "explain": "$\\mathbb{M}$ is the largest of the $26$ sporadic finite simple groups, of order $\\approx 8\\times 10^{53}$. The other finite simple groups sit in infinite families (cyclic of prime order, alternating, Lie type); $\\mathbb{M}$ does not."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the dimension of the smallest faithful (i.e., non-trivial) complex irreducible representation of the Monster?",
+            "answer": 196883,
+            "tol": 0,
+            "explain": "$\\dim V_2 = 196883$. The Griess algebra on which $\\mathbb{M}$ was originally constructed is $196883$-dimensional (its identity element adds one more, giving the $196884$-dimensional 'Griess algebra plus identity' often quoted)."
+          },
+          {
+            "type": "mcq",
+            "q": "The primes dividing $|\\mathbb{M}|$ are:",
+            "choices": [
+              "all primes up to $71$",
+              "exactly $\\{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 47, 59, 71\\}$",
+              "exactly the Fermat primes",
+              "exactly the Mersenne primes"
+            ],
+            "answer": 1,
+            "explain": "These $15$ primes — the 'supersingular primes' in the sense of Ogg — are exactly the primes $p$ for which $\\Gamma_0(p)+$ has genus $0$. Ogg conjectured this coincidence before moonshine existed, and Conway–Norton's conjecture explained it."
+          }
+        ]
+      },
+      "mckay-observation": {
+        "title": "McKay's observation",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $196883 + 1$.",
+            "answer": 196884,
+            "tol": 0,
+            "explain": "$196884 = 196883 + 1 = \\dim V_2 + \\dim V_1$. McKay's original line: the $q$-coefficient of $j$ equals the sum of the two smallest irreducible dimensions of the Monster — numerically trivial, mathematically a miracle."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $21296876 + 196883 + 1$ and compare to the $q^2$-coefficient of $j(\\tau)$.",
+            "answer": 21493760,
+            "tol": 0,
+            "explain": "$21493760 = 21296876 + 196883 + 1 = \\dim V_3 + \\dim V_2 + \\dim V_1 = c_2$. McKay's list continues: every $c_n$ decomposes as a non-negative integer combination of Monster irreducible dimensions."
+          },
+          {
+            "type": "mcq",
+            "q": "Under McKay's conjectural interpretation, the $q^n$-coefficient $c_n$ of $j(\\tau)$ equals the graded dimension of:",
+            "choices": [
+              "the $n$-th symmetric power of a Monster representation",
+              "the weight-$n$ piece $V^\\natural_n$ of a graded Monster module $V^\\natural$",
+              "a direct summand of the regular representation of $\\mathbb{M}$",
+              "a Hecke eigenform space"
+            ],
+            "answer": 1,
+            "explain": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$. Its graded character (replacing dimension by $\\mathrm{tr}\\,g$) gives Thompson series; Frenkel–Lepowsky–Meurman built $V^\\natural$ explicitly as a vertex operator algebra."
+          }
+        ]
+      },
+      "thompson-series": {
+        "title": "Thompson series and Conway–Norton",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Conway–Norton conjecture states that for each conjugacy class $[g]$ of $\\mathbb{M}$, the Thompson series $T_g(\\tau)$ is:",
+            "choices": [
+              "a Hecke eigenform of weight $0$ for $\\mathrm{SL}_2(\\mathbb{Z})$",
+              "the Hauptmodul of a genus-zero discrete subgroup of $\\mathrm{SL}_2(\\mathbb{R})$",
+              "a polynomial in the $j$-invariant",
+              "identically equal to $j(\\tau) - 744$"
+            ],
+            "answer": 1,
+            "explain": "Hauptmodul = generator of the function field of a genus-zero modular curve $\\Gamma_g\\backslash\\mathcal{H}^*$, normalized by its pole at the cusp. The full list of possible $\\Gamma_g$ is a specific set of $171$ commensurable-with-$\\mathrm{SL}_2(\\mathbb{Z})$ groups."
+          },
+          {
+            "type": "mcq",
+            "q": "For the identity element $e \\in \\mathbb{M}$, the Thompson series $T_e(\\tau)$ equals:",
+            "choices": [
+              "$j(\\tau)$",
+              "$J(\\tau) = j(\\tau) - 744$",
+              "$\\Delta(\\tau)$",
+              "$E_4(\\tau)$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{tr}(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$. The constant term vanishes because $V^\\natural_0 = 0$ (the 'vacuum' lives in degree $-1$)."
+          },
+          {
+            "type": "numeric",
+            "q": "For the class 2A in $\\mathbb{M}$, the character values are $\\chi_1(g) = 1$ and $\\chi_2(g) = 4371$. Compute the coefficient of $q$ in $T_{2A}(\\tau)$.",
+            "answer": 4372,
+            "tol": 0,
+            "explain": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\mathrm{tr}(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$. This is the $q$-coefficient of the Hauptmodul of $\\Gamma_0(2)+$."
+          }
+        ]
+      },
+      "borcherds-proof-sketch": {
+        "title": "Borcherds' proof — generalized Kac–Moody and replication",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Borcherds proved Conway–Norton by constructing:",
+            "choices": [
+              "a $196884$-dimensional Lie group",
+              "a generalized Kac–Moody algebra (the Monster Lie algebra) with root multiplicities $c(mn)$",
+              "a new infinite family of sporadic simple groups",
+              "a modular form of weight $\\tfrac{1}{2}$ attached to each Thompson series"
+            ],
+            "answer": 1,
+            "explain": "The Monster Lie algebra $\\mathfrak{m}$ is a generalized Kac–Moody algebra whose root $(m,n)$ (for $m > 0, n \\in \\mathbb{Z}$) has multiplicity $c(mn)$, the $j$-coefficient at $mn$. This is the object whose existence is forced by the Goddard–Thorn no-ghost theorem applied to $V^\\natural$ plus lattice bosons."
+          },
+          {
+            "type": "mcq",
+            "q": "The Weyl–Kac denominator identity for the Monster Lie algebra reads:",
+            "choices": [
+              "$p^{-1}\\prod_{m > 0,\\, n \\in \\mathbb{Z}}(1 - p^m q^n)^{c(mn)} = J(p) - J(q)$",
+              "$\\sum c(n) q^n = \\eta(\\tau)^{24}$",
+              "$L(\\mathbb{M}, s) = \\prod_p (1 - p^{-s})^{-1}$",
+              "$\\mathrm{tr}(g | V^\\natural) = j(\\tau)$"
+            ],
+            "answer": 0,
+            "explain": "This infinite product, viewed as a formal power series in $p$ and $q$, equals $J(p) - J(q)$. Equating coefficients of $p^m q^n$ produces 'replication' recursions; each Thompson series satisfies the same recursion with character values in place of dimensions, forcing it to be a Hauptmodul."
+          },
+          {
+            "type": "mcq",
+            "q": "The Goddard–Thorn no-ghost theorem enters the proof by:",
+            "choices": [
+              "proving the Riemann hypothesis for $L$-functions of Thompson series",
+              "identifying the physical state space of a bosonic string with a Lie algebra whose root-space dimensions match $c(mn)$",
+              "constructing the Monster as a Galois group",
+              "showing $V^\\natural$ is a finite-dimensional representation"
+            ],
+            "answer": 1,
+            "explain": "Goddard–Thorn (1972, from string theory) identifies the BRST-cohomological physical states of a bosonic string on a certain background with a Lie algebra carrying an explicit root decomposition. Applied to $V^\\natural \\otimes V_{1,1}$ (Leech-lattice-like bosons), the output is the Monster Lie algebra."
           }
         ]
       }
@@ -4069,6 +5310,42 @@ window.MVQuizBank = {
             "answer": 2,
             "tol": 0.000001,
             "explain": "Such a ring map is determined by the image of $x$, which must satisfy $x^2=1$ in $\\mathbb{F}_5$. The solutions are $x=\\pm 1$, so there are $2$ morphisms."
+          }
+        ]
+      },
+      "immersions-schemes": {
+        "title": "Immersions in $\\mathsf{Sch}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A morphism $i\\colon Z\\to X$ is a closed immersion iff:",
+            "choices": [
+              "$i$ is injective on points",
+              "$i$ is a homeomorphism onto a closed subset of $X$ and $i^{\\#}\\colon \\mathcal{O}_X\\to i_{*}\\mathcal{O}_Z$ is surjective",
+              "$i$ is open and injective",
+              "$i$ is proper and finite"
+            ],
+            "answer": 1,
+            "explain": "Closed immersion = topological closed inclusion + surjective map of structure sheaves. The kernel of $i^{\\#}$ is the ideal sheaf cutting out $Z$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which ring map corresponds to the open immersion $D(f)\\hookrightarrow \\operatorname{Spec} A$?",
+            "choices": [
+              "$A\\twoheadrightarrow A/(f)$ (quotient)",
+              "$A\\to A_f$ (localization at $f$)",
+              "$A\\hookrightarrow A[x]$ (polynomial ring)",
+              "$A\\to A\\otimes_{\\mathbb{Z}} A$ (tensor square)"
+            ],
+            "answer": 1,
+            "explain": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$."
+          },
+          {
+            "type": "numeric",
+            "q": "The closed subscheme $V((x^2))\\hookrightarrow \\operatorname{Spec} k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$. This is the 'fat point' / tangent direction attached to the origin — a non-reduced closed subscheme."
           }
         ]
       },
@@ -4138,6 +5415,47 @@ window.MVQuizBank = {
             "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
           }
         ]
+      },
+      "separated-proper-morphisms": {
+        "title": "Separated and proper morphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A morphism $f\\colon X\\to S$ is separated iff the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is:",
+            "choices": [
+              "an open immersion",
+              "a closed immersion",
+              "surjective",
+              "an isomorphism"
+            ],
+            "answer": 1,
+            "explain": "Separatedness = closed diagonal. This is the scheme-theoretic analog of Hausdorff, where in topology the diagonal is closed iff limits are unique."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following schemes over $\\operatorname{Spec} k$ fails to be separated?",
+            "choices": [
+              "$\\mathbb{A}^1_k$",
+              "$\\mathbb{P}^1_k$",
+              "the affine line with doubled origin (two copies of $\\mathbb{A}^1_k$ glued along $\\mathbb{A}^1_k\\setminus\\{0\\}$)",
+              "$\\operatorname{Spec} k[x,y]/(xy)$"
+            ],
+            "answer": 2,
+            "explain": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed. All other options are separated."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these morphisms is proper?",
+            "choices": [
+              "$\\mathbb{A}^n_k\\to \\operatorname{Spec} k$",
+              "$\\mathbb{P}^n_k\\to \\operatorname{Spec} k$",
+              "$\\mathbb{G}_m = \\operatorname{Spec} k[x,x^{-1}]\\to \\operatorname{Spec} k$",
+              "a non-closed open immersion"
+            ],
+            "answer": 1,
+            "explain": "Projective space is the prototype proper morphism over a field. Affine space fails the valuative criterion (a $K$-point like $1/t\\in\\mathbb{A}^1_K$ does not extend to the DVR), as does $\\mathbb{G}_m$."
+          }
+        ]
       }
     }
   },
@@ -4172,6 +5490,37 @@ window.MVQuizBank = {
             "answer": 64,
             "tol": 0,
             "explain": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$."
+          }
+        ]
+      },
+      "cartesian-product-powerset": {
+        "title": "Cartesian products and power sets",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "If $|A| = 5$ and $|B| = 4$, how many functions are there from $A$ to $B$? (That is, compute $|B^A|$.)",
+            "answer": 1024,
+            "tol": 0,
+            "explain": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $A$ be a set. Under which bijection is $\\mathcal{P}(A) \\cong \\{0,1\\}^A$?",
+            "choices": [
+              "$S \\mapsto $ its characteristic polynomial",
+              "$S \\mapsto $ the indicator function $\\mathbf{1}_S$, with $\\mathbf{1}_S(a)=1$ iff $a\\in S$",
+              "$S \\mapsto |S|$",
+              "$S \\mapsto A \\setminus S$ (which is not a bijection to $\\{0,1\\}^A$)"
+            ],
+            "answer": 1,
+            "explain": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$. This bijection is also why $|\\mathcal{P}(A)|=2^{|A|}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $|A|=3$ and $|B|=2$. How many elements are in $\\mathcal{P}(A\\times B)$?",
+            "answer": 64,
+            "tol": 0,
+            "explain": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$."
           }
         ]
       },
@@ -4246,6 +5595,47 @@ window.MVQuizBank = {
             "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
           }
         ]
+      },
+      "axiom-of-choice-intuition": {
+        "title": "Axiom of choice",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is <em>equivalent</em> to the axiom of choice over ZF?",
+            "choices": [
+              "The continuum hypothesis: there is no cardinal strictly between $\\aleph_0$ and $\\mathfrak{c}$.",
+              "Zorn's lemma: every non-empty poset in which every chain has an upper bound has a maximal element.",
+              "Cantor's theorem: $|\\mathcal{P}(A)| > |A|$ for every set $A$.",
+              "Russell's paradox: there is no set of all sets."
+            ],
+            "answer": 1,
+            "explain": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma. The other choices are theorems of ZF or ZFC but are not equivalent to AC — the continuum hypothesis is independent of ZFC, and Cantor's theorem is provable in ZF with no choice at all."
+          },
+          {
+            "type": "mcq",
+            "q": "Russell's distinction between shoes and socks illustrates which point?",
+            "choices": [
+              "For finite families of non-empty sets, AC is already provable from the other axioms of ZF.",
+              "For infinite families of non-empty sets, a uniform rule for picking one element may fail to exist even though AC asserts a choice function still does.",
+              "AC is false whenever the sets are indistinguishable.",
+              "The axiom of choice is equivalent to the well-ordering of $\\mathbb{R}$ only for ordered pairs."
+            ],
+            "answer": 1,
+            "explain": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed. With socks there is no such rule, yet AC still asserts the product $\\prod_i A_i$ is non-empty. The point is that for infinite families we can always produce a choice function under AC, even when we cannot write down an explicit one."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these standard results is <em>not</em> known to require (some form of) the axiom of choice?",
+            "choices": [
+              "Every vector space has a basis.",
+              "An arbitrary product of compact topological spaces is compact (Tychonoff).",
+              "Every commutative ring with $1\\ne 0$ has a maximal ideal.",
+              "A countable union of countable sets is countable."
+            ],
+            "answer": 3,
+            "explain": "The first three all use full AC (or Zorn's lemma, which is equivalent). The countable-union-of-countable-sets statement only needs the weaker <em>countable choice</em>, and over ZF plus <em>countable</em> choice it is provable — but in ZF alone it is not. The question asks for the statement that is 'not known to require <em>AC</em>' (i.e. full choice)."
+          }
+        ]
       }
     }
   },
@@ -4285,6 +5675,78 @@ window.MVQuizBank = {
             "answer": 4,
             "tol": 0.000001,
             "explain": "For a self-adjoint operator the norm equals the spectral radius: $\\|a\\|=\\max|\\lambda_i|=\\max(|3|,|-4|)=4$."
+          }
+        ]
+      },
+      "spectrum-of-element": {
+        "title": "Spectrum and functional calculus",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an element $a$ in a unital $C^*$-algebra, the spectrum $\\sigma(a)$ is:",
+            "choices": [
+              "always a finite set",
+              "a non-empty compact subset of $\\mathbb{C}$",
+              "always a subset of $\\mathbb{R}$",
+              "an open subset of $\\mathbb{C}$"
+            ],
+            "answer": 1,
+            "explain": "Compactness follows from $\\sigma(a)\\subseteq\\overline{B(0,\\|a\\|)}$ closed; non-emptiness uses holomorphy of the resolvent $(\\lambda-a)^{-1}$ combined with Liouville. Reality $\\sigma(a)\\subseteq\\mathbb{R}$ only holds for self-adjoint $a$."
+          },
+          {
+            "type": "numeric",
+            "q": "The spectral radius formula says $r(a)=\\lim_n \\|a^n\\|^{1/n}$. For a self-adjoint $a$ with $\\|a\\|=5$, compute $r(a)$.",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "For self-adjoint (hence normal) $a$ the $C^*$-identity gives $\\|a^n\\|=\\|a\\|^n$, so $r(a)=\\|a\\|=5$. Equivalently, the continuous functional calculus sends $a\\mapsto\\mathrm{id}$ on $\\sigma(a)$, and $\\|a\\|=\\sup_{\\sigma(a)}|\\lambda|=r(a)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The continuous functional calculus for a normal element $a$ gives a $*$-isomorphism:",
+            "choices": [
+              "$C(\\sigma(a))\\cong C^*(a,1)$, sending $z\\mapsto a$",
+              "$C(\\sigma(a))\\cong$ the full ambient $C^*$-algebra",
+              "$C(\\mathbb{C})\\cong C^*(a,1)$",
+              "$L^2(\\sigma(a))\\cong C^*(a,1)$"
+            ],
+            "answer": 0,
+            "explain": "Gelfand–Naimark applied to the commutative $C^*$-algebra $C^*(a,1)$ generated by $a$ and the unit: its spectrum is $\\sigma(a)$ and $f(a)$ is well-defined for any continuous $f$ on $\\sigma(a)$. This is how one defines square roots, logarithms, spectral projections, etc."
+          }
+        ]
+      },
+      "positive-elements": {
+        "title": "Positive elements and states",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An element $a$ of a unital $C^*$-algebra is <em>positive</em> iff:",
+            "choices": [
+              "$a$ is self-adjoint and $\\sigma(a)\\subseteq[0,\\infty)$",
+              "$a=a^*$ and $\\|a\\|\\le 1$",
+              "$a=a^*$ and every entry is real",
+              "$a$ has a square root"
+            ],
+            "answer": 0,
+            "explain": "Equivalent characterizations: $a=b^*b$ for some $b$, or $a=a^*$ with non-negative spectrum. The set of positive elements $A_+$ is a closed convex cone generating the self-adjoint part."
+          },
+          {
+            "type": "mcq",
+            "q": "A <em>state</em> on a unital $C^*$-algebra $A$ is a linear functional $\\phi\\colon A\\to\\mathbb{C}$ satisfying:",
+            "choices": [
+              "$\\phi(1)=1$ and $\\phi(a^*a)\\ge 0$ for all $a$",
+              "$\\phi$ is a $*$-homomorphism",
+              "$\\|\\phi\\|\\le 1$ and $\\phi(1)=0$",
+              "$\\phi$ is multiplicative"
+            ],
+            "answer": 0,
+            "explain": "Positivity $\\phi(a^*a)\\ge 0$ plus normalization $\\phi(1)=1$ forces $\\|\\phi\\|=1$. States generalize probability measures: on commutative $A=C(X)$ they are exactly Borel probability measures by Riesz representation."
+          },
+          {
+            "type": "numeric",
+            "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\mathrm{tr}(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
           }
         ]
       },
@@ -4404,6 +5866,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "ultrametric-topology": {
+        "title": "Ultrametric topology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In an ultrametric space, which statement is true about any two closed balls $B_1, B_2$?",
+            "choices": [
+              "They always intersect",
+              "They are either disjoint or one contains the other",
+              "They always have equal radius",
+              "Their union is always a ball"
+            ],
+            "answer": 1,
+            "explain": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested."
+          },
+          {
+            "type": "mcq",
+            "q": "If $|x|_p = 3$ and $|y|_p = 5$ (hypothetical values), what is $|x+y|_p$?",
+            "choices": [
+              "$8$, by the triangle inequality",
+              "$5$, by the ultrametric equality when norms differ",
+              "$\\max(3,5)=5$ only as an upper bound; could be anything in $[0,5]$",
+              "Cannot be determined without more data"
+            ],
+            "answer": 1,
+            "explain": "When $|x|_p \\ne |y|_p$, the ultrametric inequality becomes an equality: $|x+y|_p = \\max(|x|_p,|y|_p)$. This is the 'isoceles triangle' principle."
+          },
+          {
+            "type": "numeric",
+            "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected — here give the size of the connected component of any fixed point.)",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons. So each point is its own connected component, of size $1$."
+          }
+        ]
+      },
       "padic-expansions": {
         "title": "p-adic expansions and topology",
         "questions": [
@@ -4473,6 +5971,222 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Take $f(x)=x^2+1$. Then $f(2)=5\\equiv 0\\pmod 5$ and $f'(2)=4\\not\\equiv 0\\pmod 5$. Hensel produces a unique $i\\in\\mathbb{Z}_5$ with $i\\equiv 2\\pmod 5$."
+          }
+        ]
+      },
+      "local-global-principle": {
+        "title": "Local-global (Hasse) principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hasse-Minkowski theorem says that a quadratic form $Q$ over $\\mathbb{Q}$ represents zero nontrivially over $\\mathbb{Q}$ iff:",
+            "choices": [
+              "it does so over $\\mathbb{R}$",
+              "it does so over some $\\mathbb{Q}_p$",
+              "it does so over $\\mathbb{R}$ and over every $\\mathbb{Q}_p$",
+              "its discriminant is a perfect square"
+            ],
+            "answer": 2,
+            "explain": "Hasse-Minkowski: for quadratic forms, local solvability at all places (the real place plus every $p$-adic place) is equivalent to global solvability over $\\mathbb{Q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider $x^2 + y^2 = 3$ over $\\mathbb{Q}$. Using Hasse-Minkowski, which obstruction rules out rational solutions?",
+            "choices": [
+              "Real obstruction: the left side is non-negative so cannot equal $3$",
+              "Local obstruction at $p=3$: the equation has no primitive solutions mod $9$",
+              "There is no obstruction; rational solutions exist",
+              "Local obstruction at $p=2$: $x,y$ must both be even, forcing a contradiction"
+            ],
+            "answer": 1,
+            "explain": "$x^2+y^2=3$ is clearly solvable in $\\mathbb{R}$. The $3$-adic obstruction: mod $3$, squares are $\\{0,1\\}$, so $x^2+y^2\\in\\{0,1,2\\}\\bmod 3$, never $3\\equiv 0$ with $(x,y)$ primitive. This local failure forces no rational solution."
+          },
+          {
+            "type": "mcq",
+            "q": "The local-global principle FAILS for some cubic forms. What kind of object typically measures this failure for elliptic curves over $\\mathbb{Q}$?",
+            "choices": [
+              "The discriminant",
+              "The conductor",
+              "The Tate-Shafarevich group $\\Sha(E/\\mathbb{Q})$",
+              "The j-invariant"
+            ],
+            "answer": 2,
+            "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
+          }
+        ]
+      }
+    }
+  },
+  "partitions-generating-functions": {
+    "topic": "partitions-generating-functions",
+    "quizzes": {
+      "partition-function-pn": {
+        "title": "The partition function p(n)",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many partitions of $5$ are there? (List them in your head: $5,\\ 4{+}1,\\ 3{+}2,\\ 3{+}1{+}1,\\ 2{+}2{+}1,\\ 2{+}1{+}1{+}1,\\ 1{+}1{+}1{+}1{+}1$.)",
+            "answer": 7,
+            "tol": 1e-9,
+            "explain": "$p(5)=7$. The seven partitions are exactly the ones listed."
+          },
+          {
+            "type": "mcq",
+            "q": "Which sequence starts $p(1),p(2),p(3),p(4),p(5),p(6),p(7)$?",
+            "choices": [
+              "$1,2,3,5,7,11,15$",
+              "$1,1,2,3,5,8,13$",
+              "$1,2,4,8,16,32,64$",
+              "$1,3,6,10,15,21,28$"
+            ],
+            "answer": 0,
+            "explain": "$p(n)$ begins $1,2,3,5,7,11,15,22,30,42,\\ldots$. The second sequence is Fibonacci; the third is powers of two; the fourth is triangular numbers."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $p(10)$ — the number of partitions of $10$.",
+            "answer": 42,
+            "tol": 1e-9,
+            "explain": "$p(10)=42$. It is the last entry of the classical small-$n$ table $1,2,3,5,7,11,15,22,30,42$."
+          }
+        ]
+      },
+      "euler-partition-product": {
+        "title": "Euler's partition product",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Euler's identity states that the generating function $\\sum_{n\\ge 0} p(n) q^n$ equals which of the following?",
+            "choices": [
+              "$\\prod_{n\\ge 1} (1 - q^n)$",
+              "$\\prod_{n\\ge 1} \\dfrac{1}{1 - q^n}$",
+              "$\\prod_{n\\ge 1} (1 + q^n)$",
+              "$\\sum_{n\\ge 1} \\dfrac{q^n}{1-q^n}$"
+            ],
+            "answer": 1,
+            "explain": "Each factor $\\tfrac{1}{1-q^n}=1+q^n+q^{2n}+\\cdots$ records 'how many copies of the part $n$'. Multiplying over $n\\ge 1$ sums over all partitions, with $q$-weight equal to the total."
+          },
+          {
+            "type": "mcq",
+            "q": "Glaisher's theorem says the number of partitions of $n$ into <em>odd</em> parts equals the number of partitions of $n$ into <em>distinct</em> parts. Which product identity is the generating-function form of that?",
+            "choices": [
+              "$\\prod_{k\\ge 1}\\dfrac{1}{1-q^{2k-1}} = \\prod_{n\\ge 1}(1+q^n)$",
+              "$\\prod_{n\\ge 1}(1-q^n) = \\prod_{n\\ge 1}(1-q^{2n-1})$",
+              "$\\sum p(n) q^n = \\prod(1+q^n)$",
+              "$\\prod(1-q^n)=\\sum(-1)^n q^{n(3n-1)/2}$"
+            ],
+            "answer": 0,
+            "explain": "Both sides equal $\\prod_{n\\ge 1}\\tfrac{1-q^{2n}}{1-q^n}$; the left counts odd-part partitions, the right counts distinct-part partitions. This is the baby case of a long string of Rogers–Ramanujan-style identities."
+          },
+          {
+            "type": "numeric",
+            "q": "Expand $\\prod_{n=1}^{3} \\dfrac{1}{1-q^n}$ as a power series and read off the coefficient of $q^4$. (This counts partitions of $4$ with all parts $\\le 3$.)",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$. The partition $4$ itself is excluded, so this is $p(4)-1=4$."
+          }
+        ]
+      },
+      "pentagonal-number-theorem": {
+        "title": "Euler's pentagonal number theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Euler's pentagonal number theorem states that $\\prod_{n\\ge 1}(1-q^n) = \\sum_{k\\in\\mathbb{Z}} (-1)^k q^{g_k}$, where the exponents $g_k$ are:",
+            "choices": [
+              "the triangular numbers $k(k+1)/2$",
+              "the squares $k^2$",
+              "the generalized pentagonal numbers $k(3k-1)/2$",
+              "the primes"
+            ],
+            "answer": 2,
+            "explain": "The nonzero exponents are the generalized pentagonal numbers $1,2,5,7,12,15,22,26,\\ldots$, from $k=\\pm 1,\\pm 2,\\pm 3,\\ldots$ in $k(3k-1)/2$."
+          },
+          {
+            "type": "numeric",
+            "q": "Use Euler's recurrence $p(n) = p(n{-}1) + p(n{-}2) - p(n{-}5) - p(n{-}7) + p(n{-}12) + \\cdots$ (with $p(0)=1$, $p(m)=0$ for $m<0$) to compute $p(7)$ given $p(6)=11$, $p(5)=7$, $p(2)=2$, $p(0)=1$.",
+            "answer": 15,
+            "tol": 1e-9,
+            "explain": "The pentagonal shifts up to $7$ are $1,2,5,7$ with signs $+,+,-,-$. Hence $p(7)=p(6)+p(5)-p(2)-p(0)=11+7-2-1=15$, matching the table entry."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the pentagonal-number recurrence so efficient compared to enumerating partitions of $n$?",
+            "choices": [
+              "because it uses only $O(\\sqrt{n})$ previous values (the pentagonal numbers up to $n$ thin out like $k^2$)",
+              "because it uses a closed form with no previous values",
+              "because $p(n)$ grows linearly",
+              "because most partitions are pentagonal"
+            ],
+            "answer": 0,
+            "explain": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value. Total work to table $p(1),\\ldots,p(N)$ is $O(N^{3/2})$, dramatically better than enumerating $p(N)\\sim e^{\\pi\\sqrt{2N/3}}$ partitions."
+          }
+        ]
+      },
+      "ramanujan-congruences": {
+        "title": "Ramanujan congruences",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is one of Ramanujan's three famous partition congruences?",
+            "choices": [
+              "$p(2n) \\equiv 0 \\pmod{2}$ for all $n$",
+              "$p(5n+4) \\equiv 0 \\pmod{5}$ for all $n\\ge 0$",
+              "$p(3n+1) \\equiv 0 \\pmod{3}$ for all $n$",
+              "$p(n) \\equiv n \\pmod{7}$"
+            ],
+            "answer": 1,
+            "explain": "Ramanujan's three congruences are $p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$. The moduli $5,7,11$ are the only primes for which such a simple arithmetic progression congruence holds for $p$."
+          },
+          {
+            "type": "numeric",
+            "q": "Verify Ramanujan's mod-5 congruence by computing $p(9) \\bmod 5$ (note $9 = 5\\cdot 1 + 4$, so this falls in the progression).",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "$p(9)=30$, and $30 = 6\\cdot 5$, so $p(9)\\equiv 0\\pmod{5}$. The pattern continues: $p(4)=5,\\ p(9)=30,\\ p(14)=135,\\ p(19)=490,\\ \\ldots$ — all divisible by $5$."
+          },
+          {
+            "type": "numeric",
+            "q": "Verify Ramanujan's mod-7 congruence at the first case $n=5$ (so $7n+5=5$). Compute $p(5)\\bmod 7$.",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "$p(5)=7\\equiv 0\\pmod 7$. The next cases are $p(12)=77=11\\cdot 7$ and $p(19)=490=70\\cdot 7$, all clean multiples of $7$."
+          }
+        ]
+      },
+      "dedekind-eta-modular": {
+        "title": "Dedekind eta as a modular form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Dedekind eta function $\\eta(\\tau)=q^{1/24}\\prod_{n\\ge 1}(1-q^n)$ bridges partitions and modular forms because:",
+            "choices": [
+              "$\\eta$ is rational in $q$",
+              "the product $\\prod(1-q^n)$ is the reciprocal of the partition generating function, and the $q^{1/24}$ prefactor makes $\\eta$ transform modularly",
+              "$\\eta$ is a polynomial",
+              "$\\eta=\\sum p(n) q^n$"
+            ],
+            "answer": 1,
+            "explain": "$\\prod(1-q^n)^{-1}=\\sum p(n)q^n$, so the partition generating function is essentially $q^{1/24}/\\eta$. The fractional prefactor $q^{1/24}$ is exactly what makes $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$ — a weight-$1/2$ modular transformation."
+          },
+          {
+            "type": "mcq",
+            "q": "Raising $\\eta$ to the 24th power gives the discriminant modular form $\\Delta(\\tau)=\\eta(\\tau)^{24}$. Its weight on $\\mathrm{SL}_2(\\mathbb{Z})$ is:",
+            "choices": [
+              "$1$",
+              "$12$",
+              "$24$",
+              "$1/2$"
+            ],
+            "answer": 1,
+            "explain": "Each factor of $\\eta$ contributes weight $1/2$, so $\\eta^{24}$ has weight $12$. $\\Delta$ is the first nonzero cusp form on $\\mathrm{SL}_2(\\mathbb{Z})$; its Fourier coefficients are Ramanujan's $\\tau(n)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using Hardy–Ramanujan's asymptotic $p(n)\\sim \\dfrac{1}{4n\\sqrt{3}}\\exp\\!\\bigl(\\pi\\sqrt{2n/3}\\bigr)$, compute the exponent $\\pi\\sqrt{2n/3}$ at $n=6$. (Round to two decimals.)",
+            "answer": 6.28,
+            "tol": 0.02,
+            "explain": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$. Exponentiating and dividing by $4\\cdot 6\\cdot\\sqrt{3}\\approx 41.57$ gives $p(6)\\approx 13.0$; the true value is $11$, so the leading asymptotic is already within a factor of $1.2$ at $n=6$."
           }
         ]
       }
@@ -4719,6 +6433,166 @@ window.MVQuizBank = {
       }
     }
   },
+  "power-sums-bernoulli": {
+    "topic": "power-sums-bernoulli",
+    "quizzes": {
+      "faulhaber-formula": {
+        "title": "Faulhaber's formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $S_m(n)=\\sum_{k=1}^{n} k^m$, what is the degree of $S_m$ as a polynomial in $n$?",
+            "choices": [
+              "$m-1$",
+              "$m$",
+              "$m+1$",
+              "$2m$"
+            ],
+            "answer": 2,
+            "explain": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial of degree $m+1$ in $n$, with leading term $n^{m+1}/(m+1)$ (think of it as a discrete analogue of $\\int_0^n x^m\\,dx=n^{m+1}/(m+1)$)."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\sum_{k=1}^{10} k^2 = \\tfrac{n(n+1)(2n+1)}{6}$ at $n=10$.",
+            "answer": 385,
+            "tol": 0.000001,
+            "explain": "$\\tfrac{10\\cdot 11\\cdot 21}{6}=\\tfrac{2310}{6}=385$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using Faulhaber, $\\sum_{k=1}^{n} k^3 = \\left(\\tfrac{n(n+1)}{2}\\right)^2$. What is its value at $n=5$?",
+            "answer": 225,
+            "tol": 0.000001,
+            "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
+          }
+        ]
+      },
+      "bernoulli-generating-function": {
+        "title": "Bernoulli numbers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which statement is true for Bernoulli numbers $B_n$ defined by $\\tfrac{t}{e^t-1}=\\sum_{n\\ge 0} B_n \\tfrac{t^n}{n!}$?",
+            "choices": [
+              "$B_n=0$ for every even $n\\ge 2$",
+              "$B_n=0$ for every odd $n\\ge 3$",
+              "$B_n>0$ for every $n\\ge 1$",
+              "$B_n$ is always an integer"
+            ],
+            "answer": 1,
+            "explain": "After $B_1=-\\tfrac12$, all odd-index Bernoulli numbers vanish because $\\tfrac{t}{e^t-1}+\\tfrac{t}{2}$ is an even function of $t$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $B_2$ in the convention $B_1=-\\tfrac12$?",
+            "answer": 0.16666666666666666,
+            "tol": 0.0001,
+            "explain": "$B_2=1/6$. The low table is $B_0=1$, $B_1=-1/2$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $B_4$?",
+            "answer": -0.03333333333333333,
+            "tol": 0.0001,
+            "explain": "$B_4=-1/30\\approx -0.0333$. Even Bernoulli numbers alternate in sign."
+          }
+        ]
+      },
+      "zeta-special-values": {
+        "title": "Euler's zeta values",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Euler's formula gives $\\zeta(2n)=(-1)^{n+1}\\dfrac{B_{2n}(2\\pi)^{2n}}{2\\,(2n)!}$. With $B_2=1/6$, what does this give for $\\zeta(2)$?",
+            "choices": [
+              "$\\pi/2$",
+              "$\\pi^2/6$",
+              "$\\pi^2/12$",
+              "$\\pi^2/90$"
+            ],
+            "answer": 1,
+            "explain": "$\\zeta(2)=\\tfrac{(1/6)(2\\pi)^2}{2\\cdot 2!}=\\tfrac{4\\pi^2/6}{4}=\\pi^2/6$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, compute $\\zeta(-1)$.",
+            "answer": -0.08333333333333333,
+            "tol": 0.0001,
+            "explain": "$\\zeta(-1)=-B_2/2=-1/12\\approx -0.0833$. This is the regularised value behind the infamous $1+2+3+\\cdots\\mapsto -1/12$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\zeta(4)=\\pi^4/90$ to four decimals.",
+            "answer": 1.0823,
+            "tol": 0.0005,
+            "explain": "$\\pi^4/90\\approx 97.409/90\\approx 1.0823$; note $B_4=-1/30$ gives $\\zeta(4)=(-1)\\cdot(-1/30)(2\\pi)^4/(2\\cdot 24)=\\pi^4/90$."
+          }
+        ]
+      },
+      "euler-maclaurin": {
+        "title": "Euler-Maclaurin summation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Euler-Maclaurin formula $\\sum_{k=a}^{b} f(k)=\\int_a^b f + \\tfrac12\\bigl(f(a)+f(b)\\bigr)+\\sum_{k\\ge 1}\\tfrac{B_{2k}}{(2k)!}\\bigl[f^{(2k-1)}(b)-f^{(2k-1)}(a)\\bigr]+R$, which coefficients appear?",
+            "choices": [
+              "Bernoulli numbers of all indices",
+              "Only the even-index Bernoulli numbers $B_{2k}$",
+              "Only $B_0$ and $B_1$",
+              "Factorials only"
+            ],
+            "answer": 1,
+            "explain": "Only the even Bernoulli numbers appear in the correction sum; the odd-index $B_{2k+1}$ vanish (for $k\\ge 1$) and are already absorbed by the $\\tfrac12(f(a)+f(b))$ endpoint term."
+          },
+          {
+            "type": "numeric",
+            "q": "Apply Euler-Maclaurin with $f(x)=x$, $a=1$, $b=n$. The integral gives $\\tfrac{n^2-1}{2}$ and the endpoint term gives $\\tfrac{n+1}{2}$, so $\\sum_{k=1}^{n} k=\\tfrac{n(n+1)}{2}$. Compute this at $n=20$.",
+            "answer": 210,
+            "tol": 0.000001,
+            "explain": "$\\tfrac{20\\cdot 21}{2}=210$; Euler-Maclaurin recovers Faulhaber exactly because all $f^{(2k-1)}$ vanish for linear $f$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the harmonic partial sum $H_n=\\sum_{k=1}^{n}\\tfrac1k$, the Euler-Maclaurin expansion gives $H_n\\approx \\ln n + \\gamma + \\tfrac{1}{2n}-\\tfrac{1}{12 n^2}+\\cdots$. With $\\gamma\\approx 0.5772$, estimate $H_{10}$ to three decimals.",
+            "answer": 2.929,
+            "tol": 0.005,
+            "explain": "$\\ln 10+\\gamma+\\tfrac1{20}-\\tfrac1{1200}\\approx 2.3026+0.5772+0.0500-0.0008\\approx 2.929$, matching $H_{10}=2.9289\\ldots$."
+          }
+        ]
+      },
+      "zeta-functional-equation-preview": {
+        "title": "Functional equation preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The completed zeta function is $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. Which relation does it satisfy?",
+            "choices": [
+              "$\\xi(s)=\\xi(s+1)$",
+              "$\\xi(s)=\\xi(1-s)$",
+              "$\\xi(s)=-\\xi(s)$",
+              "$\\xi(s)=\\zeta(s)$"
+            ],
+            "answer": 1,
+            "explain": "Riemann's functional equation reads $\\xi(s)=\\xi(1-s)$, reflecting values across the critical line $\\operatorname{Re}(s)=1/2$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using $\\zeta(-1)=-B_2/2=-1/12$ and the reflection $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$, confirm the left-hand side. What is $-1/12$ as a decimal (4 dp)?",
+            "answer": -0.0833,
+            "tol": 0.0005,
+            "explain": "$-1/12\\approx -0.0833$. Plugging $s=2$ on the right gives $2(2\\pi)^{-2}\\cos(\\pi)\\Gamma(2)\\zeta(2)=-\\pi^2/(2\\pi^2)\\cdot \\pi^2/6\\cdot (6/\\pi^2)\\cdot(-1)$... the Bernoulli book-keeping collapses to $-1/12$."
+          },
+          {
+            "type": "numeric",
+            "q": "At the trivial zero $s=-2$, $\\zeta(-2)=-B_3/3$. Since $B_3=0$, what value do you get?",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "All odd Bernoulli numbers past $B_1$ vanish, so $\\zeta(-2)=\\zeta(-4)=\\cdots=0$. These are the *trivial* zeros on the real axis."
+          }
+        ]
+      }
+    }
+  },
   "projective-plane": {
     "topic": "projective-plane",
     "quizzes": {
@@ -4822,6 +6696,73 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Over an algebraically closed field any smooth plane conic can be brought into $X^2+Y^2=Z^2$ (or equivalently $XY=Z^2$) by an element of $\\mathrm{PGL}_3$, so there is a unique projective equivalence class."
+          }
+        ]
+      },
+      "projective-duality": {
+        "title": "Projective duality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The dual projective plane $(\\mathbb{P}^2)^*$ is naturally identified with:",
+            "choices": [
+              "the set of points of $\\mathbb{P}^2$",
+              "the set of lines in $\\mathbb{P}^2$",
+              "the set of smooth conics in $\\mathbb{P}^2$",
+              "the affine plane $\\mathbb{A}^2$"
+            ],
+            "answer": 1,
+            "explain": "A line $aX+bY+cZ=0$ is determined by $[a:b:c]\\in\\mathbb{P}^2$, so lines in $\\mathbb{P}^2$ form another copy of $\\mathbb{P}^2$, the dual plane $(\\mathbb{P}^2)^*$."
+          },
+          {
+            "type": "mcq",
+            "q": "Under projective duality, the dual statement of \"any two distinct points determine a unique line\" is:",
+            "choices": [
+              "any two distinct points determine a unique point",
+              "any two distinct lines meet in a unique point",
+              "three points are always collinear",
+              "every conic passes through three points"
+            ],
+            "answer": 1,
+            "explain": "Swapping \"point\" $\\leftrightarrow$ \"line\" and \"lies on\" $\\leftrightarrow$ \"passes through\" turns \"two points span one line\" into \"two lines meet in one point\" — exactly the statement that $\\mathbb{P}^2$ has no parallels."
+          },
+          {
+            "type": "numeric",
+            "q": "Over $\\mathbb{F}_q$, the number of lines in $\\mathbb{P}^2(\\mathbb{F}_q)$ equals $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=q^2+q+1$. How many lines does $\\mathbb{P}^2(\\mathbb{F}_2)$ contain?",
+            "answer": 7,
+            "tol": 0.000001,
+            "explain": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=2$: $4+2+1=7$ — the Fano plane has $7$ points and $7$ lines, beautifully self-dual."
+          }
+        ]
+      },
+      "cross-ratio": {
+        "title": "The cross-ratio",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the cross-ratio $[0,1;2,3]=\\dfrac{(0-2)(1-3)}{(0-3)(1-2)}$.",
+            "answer": 1.3333333333,
+            "tol": 0.001,
+            "explain": "$[0,1;2,3]=\\dfrac{(-2)(-2)}{(-3)(-1)}=\\dfrac{4}{3}\\approx 1.333$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about the cross-ratio of four distinct collinear points is TRUE?",
+            "choices": [
+              "It depends on the choice of affine chart",
+              "It is invariant under every element of $\\mathrm{PGL}_2(K)$ acting on the line",
+              "It is always an integer",
+              "It equals the sum of the four coordinates"
+            ],
+            "answer": 1,
+            "explain": "The cross-ratio is the unique (up to functional relation) projective invariant of four points on a line: any $g\\in\\mathrm{PGL}_2(K)$ acts by Möbius transformations, which preserve $[a,b;c,d]$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many distinct values does the cross-ratio take as the four input points are permuted by $S_4$? (Equivalently: $|S_4|/|V_4|$ where $V_4$ is the Klein four-group of permutations that fix the cross-ratio.)",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$. The remaining $24/4=6$ cosets give the six values $\\{\\lambda,\\ 1-\\lambda,\\ 1/\\lambda,\\ 1/(1-\\lambda),\\ \\lambda/(\\lambda-1),\\ (\\lambda-1)/\\lambda\\}$."
           }
         ]
       }
@@ -4959,6 +6900,40 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case."
+          }
+        ]
+      },
+      "jacobi-symbol-generalization": {
+        "title": "The Jacobi symbol",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Jacobi symbol $\\left(\\frac{a}{n}\\right)$ for odd $n=\\prod p_i^{e_i}$ is defined as:",
+            "choices": [
+              "$1$ iff $a$ is a square mod $n$",
+              "$\\prod_i \\left(\\frac{a}{p_i}\\right)^{e_i}$ using Legendre factors",
+              "$a^{(n-1)/2} \\bmod n$ for arbitrary odd $n$"
+            ],
+            "answer": 1,
+            "explain": "It extends the Legendre symbol multiplicatively in the bottom entry; the squareness interpretation fails for composite $n$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\left(\\frac{2}{15}\\right)=\\left(\\frac{2}{3}\\right)\\left(\\frac{2}{5}\\right)$.",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$(2/3)=-1$ and $(2/5)=-1$, so the product is $+1$ — yet $2$ is not a square mod $15$, illustrating the caveat."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Jacobi-style reduction algorithm run in $O(\\log n)$ without factoring $n$?",
+            "choices": [
+              "Because it guesses the factorization heuristically",
+              "Because reciprocity and the supplements work for all odd coprime $m,n$, so the Euclidean-style swap only needs the bottom to be odd",
+              "Because the Jacobi symbol equals $a^{(n-1)/2}\\bmod n$ which is cheap"
+            ],
+            "answer": 1,
+            "explain": "Multiplicativity plus the mod-2 identity $\\tfrac{mn-1}{2}\\equiv\\tfrac{m-1}{2}+\\tfrac{n-1}{2}$ lifts every step to odd integers, so no primality test is ever needed."
           }
         ]
       }
@@ -5539,6 +7514,68 @@ window.MVQuizBank = {
             "explain": "Riemann-Hurwitz gives $2g_X-2=2(-2)+8=4$, so $g_X=3$. (Equivalently $g_X=b/2-1$.)"
           }
         ]
+      },
+      "genus-invariant": {
+        "title": "Genus as the universal invariant",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT pinned down by the genus $g$ of a compact Riemann surface $X$?",
+            "choices": [
+              "$\\chi(X)$",
+              "$\\dim H^0(X,\\Omega^1)$",
+              "the first Betti number $b_1(X)$",
+              "the specific complex structure (choice of biholomorphism class)"
+            ],
+            "answer": 3,
+            "explain": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by $g$ alone."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the first Betti number $b_1(X)$ of a compact Riemann surface of genus $g=5$?",
+            "answer": 10,
+            "tol": 0.000001,
+            "explain": "$H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, so $b_1=2g=10$."
+          },
+          {
+            "type": "numeric",
+            "q": "On a compact Riemann surface of genus $g=7$, compute $\\deg K_X = 2g-2$ (the degree of the canonical divisor).",
+            "answer": 12,
+            "tol": 0.000001,
+            "explain": "$\\deg K_X=2\\cdot 7-2=12$. This is the $1$-forms count cashed out as a divisor degree."
+          }
+        ]
+      },
+      "riemann-roch": {
+        "title": "Divisors and Riemann-Roch",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Riemann-Roch theorem on a compact Riemann surface of genus $g$ states:",
+            "choices": [
+              "$\\ell(D) = \\deg D + 1$",
+              "$\\ell(D) - \\ell(K-D) = \\deg D - g + 1$",
+              "$\\ell(D) + \\ell(K-D) = \\deg D + g$",
+              "$\\ell(D) \\cdot \\ell(K-D) = \\deg D \\cdot g$"
+            ],
+            "answer": 1,
+            "explain": "The identity $\\ell(D)-\\ell(K-D)=\\deg D-g+1$ is Riemann-Roch; equivalently $\\chi(\\mathcal{O}(D))=\\deg D-g+1$, and the correction $\\ell(K-D)$ is Serre dual to $h^1$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{CP}^1$ (genus $0$), for $D=5\\cdot\\infty$, compute $\\ell(D)$. (Hint: Riemann-Roch with $K=-2\\cdot\\infty$ and $\\ell(K-D)=0$ for $\\deg(K-D)<0$.)",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$\\deg(K-D)=-2-5=-7<0$ so $\\ell(K-D)=0$. Then $\\ell(D)=\\deg D-g+1=5-0+1=6$ — polynomials of degree $\\le 5$."
+          },
+          {
+            "type": "numeric",
+            "q": "On an elliptic curve $E$ (genus $1$) with $\\deg K=0$, take $D=4\\cdot O$ with $O$ the origin. Compute $\\ell(D)$. (For $\\deg D>0$ on genus $1$, $\\ell(K-D)=0$.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Since $\\deg(K-D)=-4<0$, $\\ell(K-D)=0$ and $\\ell(D)=\\deg D-g+1=4-1+1=4$. A basis is $\\{1,\\wp,\\wp',\\wp^2\\}$."
+          }
+        ]
       }
     }
   },
@@ -5647,6 +7684,78 @@ window.MVQuizBank = {
             "explain": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$."
           }
         ]
+      },
+      "ricci-curvature": {
+        "title": "Ricci curvature and Einstein manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Ricci tensor $\\operatorname{Ric}(v,v)$ on an $n$-manifold equals:",
+            "choices": [
+              "the sectional curvature of a specific $2$-plane through $v$",
+              "$(n-1)$ times the average sectional curvature over $2$-planes containing $v$",
+              "the scalar curvature $S$ at $p$",
+              "the determinant of the Riemann tensor in normal coordinates"
+            ],
+            "answer": 1,
+            "explain": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of planes through $v$ gives exactly $(n-1)$ times their average."
+          },
+          {
+            "type": "numeric",
+            "q": "On the round $n$-sphere of radius $1$, every sectional curvature equals $1$. What is the scalar curvature $S$ for $n=3$? (Use $S = n(n-1)\\,\\overline{K}$ with $\\overline{K}$ the average sectional curvature.)",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$."
+          },
+          {
+            "type": "mcq",
+            "q": "An Einstein manifold is a Riemannian manifold satisfying:",
+            "choices": [
+              "$R_{ijk\\ell}=0$ identically",
+              "$\\operatorname{Ric} = \\lambda\\, g$ for some constant $\\lambda$",
+              "$\\nabla R = 0$",
+              "$\\operatorname{diam}(M)\\le \\pi$"
+            ],
+            "answer": 1,
+            "explain": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric. Spheres, hyperbolic spaces, and complex projective spaces with their symmetric metrics are all Einstein."
+          }
+        ]
+      },
+      "volume-form-rg": {
+        "title": "Riemannian volume form and divergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On an oriented Riemannian $n$-manifold $(M,g)$, the Riemannian volume form in local coordinates is:",
+            "choices": [
+              "$dx^1\\wedge\\cdots\\wedge dx^n$",
+              "$\\sqrt{\\det g_{ij}}\\; dx^1\\wedge\\cdots\\wedge dx^n$",
+              "$\\det(g_{ij})\\; dx^1\\wedge\\cdots\\wedge dx^n$",
+              "$(\\det g_{ij})^{-1/2}\\; dx^1\\wedge\\cdots\\wedge dx^n$"
+            ],
+            "answer": 1,
+            "explain": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$. The factor $\\sqrt{\\det g}$ is exactly the volume of the parallelepiped spanned by the coordinate vectors in the metric $g$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the round metric $ds^2 = d\\theta^2 + \\sin^2\\theta\\, d\\varphi^2$ on $S^2$ with $\\theta\\in[0,\\pi],\\,\\varphi\\in[0,2\\pi)$, what is the total surface area $\\int_{S^2} d\\mathrm{vol}_g$?",
+            "answer": 12.566370614359172,
+            "tol": 0.000001,
+            "explain": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Laplace-Beltrami operator on $(M,g)$ acts on a smooth function $f$ as:",
+            "choices": [
+              "$\\Delta_g f = \\sum_i \\partial_i^2 f$",
+              "$\\Delta_g f = \\frac{1}{\\sqrt{\\det g}}\\,\\partial_i\\!\\left(\\sqrt{\\det g}\\,g^{ij}\\partial_j f\\right)$",
+              "$\\Delta_g f = g^{ij}\\partial_i\\partial_j f$",
+              "$\\Delta_g f = \\operatorname{Ric}^{ij}\\partial_i\\partial_j f$"
+            ],
+            "answer": 1,
+            "explain": "The metric divergence of $\\operatorname{grad}_g f = g^{ij}\\partial_j f\\,\\partial_i$ computed against the volume form $\\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n$ gives exactly $\\Delta_g f = \\tfrac{1}{\\sqrt{\\det g}}\\partial_i(\\sqrt{\\det g}\\,g^{ij}\\partial_j f)$. On Euclidean space ($g_{ij}=\\delta_{ij}$) this collapses to the usual Laplacian."
+          }
+        ]
       }
     }
   },
@@ -5684,6 +7793,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "equidistribution-weyl": {
+        "title": "Equidistribution and Weyl's criterion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Weyl's criterion says a sequence $(x_n)$ in $[0,1]$ equidistributes w.r.t. Lebesgue measure iff for every integer $k\\ne 0$:",
+            "choices": [
+              "$\\tfrac{1}{N}\\sum_{n\\le N} x_n^k \\to 0$",
+              "$\\tfrac{1}{N}\\sum_{n\\le N} e^{2\\pi i k x_n} \\to 0$",
+              "$\\tfrac{1}{N}\\sum_{n\\le N} \\mathbf{1}_{[0,1/2]}(x_n) \\to 1/2$",
+              "$(x_n)$ is dense in $[0,1]$"
+            ],
+            "answer": 1,
+            "explain": "Weyl's criterion: equidistribution with respect to a measure $\\mu$ on a compact space is equivalent to prime-averaged matrix coefficients of every non-trivial irreducible representation tending to $0$. On $\\mathbb{R}/\\mathbb{Z}$ the non-trivial irreducibles are the characters $e^{2\\pi i k\\cdot}$ for $k\\ne 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "For Sato–Tate, the compact space is $\\mathrm{SU}(2)/\\mathrm{conj}\\cong[0,\\pi]$ and the 'characters' that must average to $0$ are:",
+            "choices": [
+              "traces of the symmetric-power representations $\\mathrm{Sym}^n$ for $n\\ge 1$",
+              "matrix coefficients of $\\mathrm{GL}_2$",
+              "Fourier coefficients of modular forms",
+              "Dirichlet characters"
+            ],
+            "answer": 0,
+            "explain": "Non-trivial irreducibles of $\\mathrm{SU}(2)$ are exactly $\\mathrm{Sym}^n$ for $n\\ge 1$, with character $\\chi_n(\\theta)=\\sin((n+1)\\theta)/\\sin\\theta$. Equidistribution of $\\theta_p$ is equivalent to $\\tfrac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$, the content of Sato–Tate."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\int_0^\\pi \\chi_1(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_1(\\theta)=\\sin(2\\theta)/\\sin\\theta=2\\cos\\theta$ and $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
+          }
+        ]
+      },
       "sato-tate-measure": {
         "title": "The Sato–Tate measure",
         "questions": [
@@ -5717,6 +7862,42 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
+          }
+        ]
+      },
+      "cm-vs-non-cm-sato-tate": {
+        "title": "CM vs non-CM equidistribution",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a CM elliptic curve $E/\\mathbb{Q}$, the Frobenius angles $\\theta_p$ equidistribute against:",
+            "choices": [
+              "the full semicircle $(2/\\pi)\\sin^2\\theta\\,d\\theta$ on $[0,\\pi]$",
+              "a 50/50 mix: half the primes have $\\theta_p=\\pi/2$ (supersingular) and the other half distribute uniformly on $[0,\\pi]$",
+              "the uniform measure on $[0,\\pi]$",
+              "a delta mass at $\\theta=0$"
+            ],
+            "answer": 1,
+            "explain": "For CM curves, half the primes (those inert in the CM field $K$) are supersingular, giving $a_p=0$ and $\\theta_p=\\pi/2$. The other half (split in $K$) follow the Haar measure on the split torus of $\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$, which on $[0,\\pi]$ is the uniform measure $d\\theta/\\pi$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Sato–Tate group of a non-CM elliptic curve over $\\mathbb{Q}$ is:",
+            "choices": [
+              "$\\mathrm{SU}(2)$ itself",
+              "the normalizer $N(T)$ of a maximal torus in $\\mathrm{SU}(2)$",
+              "the torus $T=\\mathrm{U}(1)$ inside $\\mathrm{SU}(2)$",
+              "a finite subgroup"
+            ],
+            "answer": 0,
+            "explain": "Non-CM: the image of Galois in $\\mathrm{GL}_2(\\mathbb{Z}_\\ell)$ is open (Serre), which after normalization gives the full compact group $\\mathrm{SU}(2)$ as Sato–Tate group. CM: the Galois image sits inside a non-split torus, so the Sato–Tate group is the normalizer $N(T)$; the two cosets of $T$ in $N(T)$ are the split and non-split (supersingular) primes."
+          },
+          {
+            "type": "numeric",
+            "q": "For a CM curve, the density of supersingular primes is $1/2$. Given $\\pi(10^6)=78{,}498$, estimate how many of the first $\\pi(10^6)$ primes would be supersingular for a CM curve with good reduction everywhere.",
+            "answer": 39249,
+            "tol": 100,
+            "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
           }
         ]
       },
@@ -5907,6 +8088,78 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 0.000001,
             "explain": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional."
+          }
+        ]
+      },
+      "leray-acyclic-covers": {
+        "title": "Leray acyclic covers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A cover $\\mathcal{U} = \\{U_\\alpha\\}$ of $X$ is <em>Leray</em> for a sheaf $\\mathcal{F}$ when:",
+            "choices": [
+              "every $U_\\alpha$ is contractible",
+              "$H^i(U_{\\alpha_0\\cdots\\alpha_p},\\mathcal{F}) = 0$ for all $i > 0$ and every finite intersection",
+              "the overlaps $U_{\\alpha\\beta}$ are empty",
+              "$\\mathcal{F}$ is a constant sheaf"
+            ],
+            "answer": 1,
+            "explain": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover. When satisfied, the canonical map $\\check{H}^p(\\mathcal{U},\\mathcal{F}) \\to H^p(X,\\mathcal{F})$ is an isomorphism for every $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following guarantees that an affine open cover of a scheme is Leray for any quasi-coherent sheaf?",
+            "choices": [
+              "Kodaira vanishing",
+              "Serre's theorem: $H^i(\\mathrm{Spec}\\,R, \\widetilde M) = 0$ for $i > 0$ and every $R$-module $M$",
+              "Hartshorne's criterion on $\\mathbb{P}^n$",
+              "The projection formula"
+            ],
+            "answer": 1,
+            "explain": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic. Hence an affine open cover is Leray."
+          },
+          {
+            "type": "numeric",
+            "q": "The standard affine cover of $\\mathbb{P}^2$ has three charts $U_0,U_1,U_2$. How many terms does the resulting Čech complex $\\check C^0 \\to \\check C^1 \\to \\check C^2$ have in $\\check C^1$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$. (Triple intersections contribute $\\binom{3}{3}=1$ term in $\\check C^2$.)"
+          }
+        ]
+      },
+      "long-exact-sequence-cohomology": {
+        "title": "Long exact sequence in cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A short exact sequence of sheaves $0\\to\\mathcal{F}'\\to\\mathcal{F}\\to\\mathcal{F}''\\to 0$ produces a long exact sequence whose connecting homomorphism $\\delta$ goes in which direction?",
+            "choices": [
+              "$\\delta\\colon H^p(X,\\mathcal{F}') \\to H^p(X,\\mathcal{F}'')$",
+              "$\\delta\\colon H^p(X,\\mathcal{F}'') \\to H^{p+1}(X,\\mathcal{F}')$",
+              "$\\delta\\colon H^{p+1}(X,\\mathcal{F}') \\to H^p(X,\\mathcal{F}'')$",
+              "$\\delta$ goes between $\\mathcal{F}$ and $\\mathcal{F}''$ at the same degree"
+            ],
+            "answer": 1,
+            "explain": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$. In Čech language it lifts a local section of $\\mathcal{F}''$ to one of $\\mathcal{F}$; the failure of the lifts to glue is a class in $H^{p+1}(\\mathcal{F}')$."
+          },
+          {
+            "type": "mcq",
+            "q": "In the exponential sequence $0 \\to \\underline{\\mathbb{Z}} \\to \\mathcal{O} \\to \\mathcal{O}^\\times \\to 0$ on $\\mathbb{C}^\\times$, what does $\\delta\\colon H^0(\\mathcal{O}^\\times) \\to H^1(\\underline{\\mathbb{Z}})$ send the global section $z$ to?",
+            "choices": [
+              "$0$",
+              "the winding number class, which generates $H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$",
+              "the constant $1$ in $H^0(\\mathcal{O}^\\times)$",
+              "$2\\pi i$ as an element of $H^0(\\mathcal{O})$"
+            ],
+            "answer": 1,
+            "explain": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial. Concretely the class is $1\\in H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$, the winding-number generator."
+          },
+          {
+            "type": "numeric",
+            "q": "From $0\\to\\mathcal{O}_{\\mathbb{P}^1}(-1)\\to\\mathcal{O}_{\\mathbb{P}^1}\\to\\mathcal{O}_p\\to 0$ (skyscraper at a point) and the vanishing $H^i(\\mathbb{P}^1,\\mathcal{O}_{\\mathbb{P}^1}(-1))=0$ for all $i$, deduce $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}_p)$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$. Since $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}) = 1$, we get $\\dim H^0(\\mathcal{O}_p) = 1$ — the stalk at $p$."
           }
         ]
       },
@@ -6202,6 +8455,78 @@ window.MVQuizBank = {
             "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
           }
         ]
+      },
+      "hasse-bound-point-counting": {
+        "title": "Point counting and the Hasse bound",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For an elliptic curve $E/\\mathbb{F}_p$ with good reduction, Hasse's theorem bounds $a_p := p + 1 - |E(\\mathbb{F}_p)|$ by:",
+            "choices": [
+              "$|a_p| \\le p$",
+              "$|a_p| \\le 2\\sqrt p$",
+              "$|a_p| \\le \\sqrt{p}$",
+              "$|a_p| \\le p + 1$"
+            ],
+            "answer": 1,
+            "explain": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$. Equivalently $|E(\\mathbb{F}_p)|$ lies in the interval $[p + 1 - 2\\sqrt p,\\; p + 1 + 2\\sqrt p]$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $E\\colon y^2 = x^3 - x$ over $\\mathbb{F}_5$, direct count gives $|E(\\mathbb{F}_5)| = 8$ (including $O$). Compute $a_5$.",
+            "answer": -2,
+            "tol": 0,
+            "explain": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$. This satisfies $|a_5| = 2 \\le 2\\sqrt 5 \\approx 4.47$, so Hasse is happy."
+          },
+          {
+            "type": "mcq",
+            "q": "At a split multiplicative prime (a node with $\\mathbb{F}_p$-rational tangent slopes), the local $a_p$ is:",
+            "choices": [
+              "$0$",
+              "$+1$",
+              "$-1$",
+              "$\\pm 2\\sqrt p$"
+            ],
+            "answer": 1,
+            "explain": "Split multiplicative reduction contributes $a_p = +1$: the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p)$ of order $p-1$, plus the singular point gives $|\\tilde E(\\mathbb{F}_p)| = p$, so $a_p = p + 1 - p = 1$. Non-split gives $a_p = -1$; additive gives $a_p = 0$."
+          }
+        ]
+      },
+      "minimal-weierstrass-model": {
+        "title": "Minimal Weierstrass model and conductor",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the substitution $(x,y) \\mapsto (u^2 x,\\, u^3 y)$ on a Weierstrass equation, the discriminant transforms as:",
+            "choices": [
+              "$\\Delta \\mapsto u^2\\,\\Delta$",
+              "$\\Delta \\mapsto u^6\\,\\Delta$",
+              "$\\Delta \\mapsto u^{12}\\,\\Delta$",
+              "$\\Delta \\mapsto \\Delta$ (discriminant is invariant)"
+            ],
+            "answer": 2,
+            "explain": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by $u^{12}$. This is exactly why minimality asks for the smallest achievable $v_p(\\Delta)$ at each prime."
+          },
+          {
+            "type": "numeric",
+            "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
+            "answer": 11,
+            "tol": 0,
+            "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "At a prime $p \\ne 2, 3$ of additive reduction, Ogg's formula gives a conductor exponent of:",
+            "choices": [
+              "$f_p = 0$",
+              "$f_p = 1$",
+              "$f_p = 2$",
+              "$f_p = 12$"
+            ],
+            "answer": 2,
+            "explain": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$. At $p = 2, 3$ wild ramification in the Galois representation can add a non-negative correction."
+          }
+        ]
       }
     }
   },
@@ -6383,6 +8708,78 @@ window.MVQuizBank = {
           }
         ]
       },
+      "quotient-stack": {
+        "title": "Quotient stack [X/G]",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A $T$-point of the quotient stack $[X/G]$ is:",
+            "choices": [
+              "a morphism $T\\to X/G$ to the quotient scheme",
+              "a pair $(P\\to T,\\ \\phi:P\\to X)$ consisting of a $G$-torsor on $T$ and a $G$-equivariant map $\\phi$ to $X$",
+              "a $G$-invariant function $T\\to X$",
+              "a free $G$-action on $T$"
+            ],
+            "answer": 1,
+            "explain": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. Setting $X=\\mathrm{pt}$ recovers $BG$; setting $G=\\{e\\}$ recovers $X$ itself."
+          },
+          {
+            "type": "mcq",
+            "q": "When does $[X/G]$ coincide (as stacks) with the quotient scheme $X/G$?",
+            "choices": [
+              "always, since stacks are just schemes in disguise",
+              "precisely when the action of $G$ on $X$ is free (trivial stabilisers at every geometric point)",
+              "only when $G$ is abelian",
+              "never, unless $G$ is trivial"
+            ],
+            "answer": 1,
+            "explain": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$. Non-free actions create non-trivial stabilisers and force stacky structure."
+          },
+          {
+            "type": "numeric",
+            "q": "For $G=\\mu_3$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x = \\zeta x$, the stabiliser at $x=0$ is all of $\\mu_3$ and is trivial elsewhere. What is the order of the automorphism group of the origin in $[\\mathbb{A}^1/\\mu_3]$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
+          }
+        ]
+      },
+      "deligne-mumford-vs-artin": {
+        "title": "Deligne-Mumford vs. Artin",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which condition distinguishes a Deligne-Mumford stack from a general Artin stack?",
+            "choices": [
+              "the diagonal is representable",
+              "there exists an étale surjection $X\\to\\mathcal{X}$ from a scheme (equivalently, automorphism schemes are finite and unramified, i.e. $0$-dimensional)",
+              "the coarse moduli space exists",
+              "the stack is quasi-compact"
+            ],
+            "answer": 1,
+            "explain": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified. This forces automorphism schemes to be $0$-dimensional (finite and unramified)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following stacks is Artin but NOT Deligne-Mumford?",
+            "choices": [
+              "$B\\mu_n$ for $n\\ge 1$",
+              "$\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$",
+              "$B\\mathbb{G}_m$",
+              "$[\\mathbb{A}^1/\\mu_3]$"
+            ],
+            "answer": 2,
+            "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM. $B\\mu_n$ and $[\\mathbb{A}^1/\\mu_3]$ have finite automorphism groups, and $\\mathcal{M}_{1,1}$ has finite automorphisms away from char $2,3$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the dimension of the automorphism group at the generic geometric point of $B\\mathbb{G}_m$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
+          }
+        ]
+      },
       "dm-stacks-coarse-space": {
         "title": "Deligne-Mumford stacks and coarse spaces",
         "questions": [
@@ -6458,6 +8855,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "gaussian-integer-splitting": {
+        "title": "Gaussian integers and prime splitting",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A rational prime $p$ splits in the Gaussian integers $\\mathbb{Z}[i]$ as $(p)=\\mathfrak{p}\\bar{\\mathfrak{p}}$ iff:",
+            "choices": [
+              "$p=2$",
+              "$p\\equiv 3\\pmod 4$",
+              "$p\\equiv 1\\pmod 4$",
+              "$p$ is odd"
+            ],
+            "answer": 2,
+            "explain": "Odd primes $p$ split in $\\mathbb{Z}[i]$ exactly when $p\\equiv 1\\pmod 4$ (controlled by the Legendre symbol $(-1/p)$). The prime $p=2$ ramifies, and $p\\equiv 3\\pmod 4$ stays inert."
+          },
+          {
+            "type": "numeric",
+            "q": "How many Gaussian integers $a+bi$ satisfy $a^2+b^2=13$ (i.e. how many lattice points lie on the circle $|\\alpha|^2=13$)? This counts signed ordered pairs.",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "$13=2^2+3^2=3^2+2^2$, giving the $8$ signed ordered pairs $(\\pm 2,\\pm 3),(\\pm 3,\\pm 2)$. This is $r_2(13)=8$, consistent with Jacobi's formula $4(d_1-d_3)=4(2-0)=8$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $p=2$ play a special role in the two-squares theory?",
+            "choices": [
+              "because $2$ is not a prime",
+              "because $2$ ramifies in $\\mathbb{Z}[i]$: $(2)=(1+i)^2\\cdot(\\text{unit})$",
+              "because $2$ is inert",
+              "because $2$ is a sum of two distinct squares"
+            ],
+            "answer": 1,
+            "explain": "The prime $2$ ramifies: $(1+i)(1-i)=2$ and $1-i=-i(1+i)$, so $(2)=(1+i)^2\\cdot(-i)$. The Gaussian prime $1+i$ lies above $2$ with ramification index $2$."
+          }
+        ]
+      },
       "three-squares-theorem": {
         "title": "Legendre three-square theorem",
         "questions": [
@@ -6524,6 +8957,42 @@ window.MVQuizBank = {
             "explain": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g. $n=7$ needs four)."
           }
         ]
+      },
+      "waring-problem": {
+        "title": "Waring's problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hilbert's 1909 theorem asserts:",
+            "choices": [
+              "every integer is a sum of four squares",
+              "for every $k\\ge 1$ there is a finite $g(k)$ such that every positive integer is a sum of at most $g(k)$ $k$-th powers",
+              "the $j$-line classifies elliptic curves",
+              "every modular form is a sum of Eisenstein series"
+            ],
+            "answer": 1,
+            "explain": "Hilbert proved that $g(k)$ is finite for every $k\\ge 1$; Lagrange's $g(2)=4$ is the $k=2$ special case. The sharper constants $g(k)$ and $G(k)$ have been pinned down for many $k$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $g(3)$, the smallest $s$ such that every positive integer is a sum of at most $s$ cubes (including $0^3$)?",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "$g(3)=9$: the integer $n=23$ requires nine cubes (for example $23=2\\cdot 2^3+7\\cdot 1^3$). Every other $n$ needs at most nine as well."
+          },
+          {
+            "type": "mcq",
+            "q": "Which relation between Waring's constants is always true?",
+            "choices": [
+              "$g(k)=G(k)$ for every $k$",
+              "$G(k)\\le g(k)$ for every $k$ (with strict inequality common — e.g. $G(4)=16<19=g(4)$)",
+              "$G(k)\\ge g(k)$",
+              "$g(k)$ is finite only for $k\\le 4$"
+            ],
+            "answer": 1,
+            "explain": "$G(k)$ counts the asymptotic number of powers needed (sufficiently large $n$), while $g(k)$ accounts for a few small exceptional integers. Hence $G(k)\\le g(k)$; e.g. $G(4)=16$ but $g(4)=19$ because $79$ needs $19$ fourth powers."
+          }
+        ]
       }
     }
   },
@@ -6561,6 +9030,42 @@ window.MVQuizBank = {
           }
         ]
       },
+      "theta-q-expansion": {
+        "title": "q-expansion and convergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}}q^{n^2/2}$ converge absolutely on the upper half-plane $\\mathcal{H}$?",
+            "choices": [
+              "because the series is alternating",
+              "because $|q^{n^2/2}|=e^{-\\pi n^2 \\operatorname{Im}\\tau}$ decays like a Gaussian in $n$ on any $\\operatorname{Im}\\tau\\ge\\varepsilon>0$",
+              "because $q$ is purely imaginary",
+              "because the terms eventually vanish"
+            ],
+            "answer": 1,
+            "explain": "On $\\mathcal{H}$, $|q|=e^{-2\\pi\\operatorname{Im}\\tau}<1$, so $|q^{n^2/2}|=e^{-\\pi n^2\\operatorname{Im}\\tau}$ decays faster than any geometric rate. The resulting sum is absolutely and uniformly convergent on horizontal strips $\\operatorname{Im}\\tau\\ge\\varepsilon$."
+          },
+          {
+            "type": "numeric",
+            "q": "In the $q$-expansion $\\theta(\\tau)=\\sum_{m\\ge 0}r_1^*(m) q^{m/2}$, compute the coefficient $r_1^*(4)$, i.e. $\\#\\{n\\in\\mathbb{Z}:n^2=4\\}$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The equation $n^2=4$ is solved by $n=\\pm 2$, giving $r_1^*(4)=2$. The integer $m=4$ is a perfect square, so the coefficient is $2$; non-squares contribute $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which periodicity does $\\theta(\\tau)$ satisfy under the real translation $\\tau\\mapsto \\tau+a$?",
+            "choices": [
+              "$\\theta(\\tau+1)=\\theta(\\tau)$",
+              "$\\theta(\\tau+2)=\\theta(\\tau)$, but $\\theta(\\tau+1)\\ne\\theta(\\tau)$ in general",
+              "$\\theta$ is invariant under every real translation",
+              "$\\theta(\\tau+\\pi)=\\theta(\\tau)$"
+            ],
+            "answer": 1,
+            "explain": "$\\theta(\\tau+2)=\\theta(\\tau)$ because $e^{\\pi i n^2\\cdot 2}=1$ for every $n$. Under $\\tau\\mapsto\\tau+1$ the $n=1$ term picks up $e^{\\pi i}=-1$, so the period is $2$, not $1$."
+          }
+        ]
+      },
       "theta-transformation-law": {
         "title": "Theta transformation law",
         "questions": [
@@ -6594,6 +9099,37 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 0.000001,
             "explain": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point."
+          }
+        ]
+      },
+      "dedekind-eta-theta": {
+        "title": "Dedekind eta and theta",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Dedekind eta function is defined by $\\eta(\\tau)=q^{1/24}\\prod_{n\\ge 1}(1-q^n)$ with $q=e^{2\\pi i\\tau}$. Which identity relates $\\eta$ to the discriminant modular form $\\Delta$?",
+            "choices": [
+              "$\\Delta=\\eta^{12}$",
+              "$\\Delta=\\eta^{24}$",
+              "$\\Delta=\\eta$",
+              "$\\Delta=\\eta^{48}$"
+            ],
+            "answer": 1,
+            "explain": "$\\Delta(\\tau)=\\eta(\\tau)^{24}=q\\prod_{n\\ge 1}(1-q^n)^{24}$ is the first cusp form of weight $12$ on $\\mathrm{SL}_2(\\mathbb{Z})$. Its Fourier coefficients are Ramanujan's $\\tau(n)$."
+          },
+          {
+            "type": "numeric",
+            "q": "The eta function satisfies the modular transformation $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$. On the imaginary axis $\\tau=iy$, the multiplier $\\sqrt{-i(iy)}=\\sqrt{y}$ at $y=4$ equals what?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\sqrt{y}=\\sqrt{4}=2$ at $y=4$, so $\\eta(i/4)=2\\,\\eta(4i)$. This is the eta version of the Jacobi transformation law; the same Poisson-summation argument drives both."
+          },
+          {
+            "type": "numeric",
+            "q": "Expanding $\\Delta(\\tau)=\\eta(\\tau)^{24}=\\sum_{n\\ge 1}\\tau(n)\\,q^n$, what is Ramanujan's $\\tau(2)$?",
+            "answer": -24,
+            "tol": 0.000001,
+            "explain": "Ramanujan's tau function begins $\\tau(1)=1,\\ \\tau(2)=-24,\\ \\tau(3)=252,\\ \\tau(4)=-1472,\\ldots$ The $-24$ comes from the constant $-24$ in the expansion of $(1-q)^{24}=1-24q+\\ldots$"
           }
         ]
       },
@@ -6766,6 +9302,225 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "This is the entry point to modular forms."
+          }
+        ]
+      },
+      "isometry-group-psl2r": {
+        "title": "PSL2(R) and the isometry trichotomy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The kernel of the $SL_2(\\mathbb R)$ action on $\\mathbb H$ is:",
+            "choices": [
+              "the trivial subgroup $\\{I\\}$",
+              "$\\{\\pm I\\}$",
+              "the upper-triangular subgroup"
+            ],
+            "answer": 1,
+            "explain": "Both $g$ and $-g$ give the same Möbius map, so the effective group is $PSL_2(\\mathbb R)=SL_2(\\mathbb R)/\\{\\pm I\\}$."
+          },
+          {
+            "type": "mcq",
+            "q": "An element $g\\in PSL_2(\\mathbb R)$ with $|\\operatorname{tr} g|<2$ is:",
+            "choices": [
+              "hyperbolic (two fixed points on $\\partial\\mathbb H$)",
+              "parabolic (one fixed point at the boundary)",
+              "elliptic (a single fixed point inside $\\mathbb H$)"
+            ],
+            "answer": 2,
+            "explain": "Trace-squared minus 4 is the discriminant of the fixed-point quadratic; negative discriminant puts the fixed point inside $\\mathbb H$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $g=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$.",
+            "answer": 2,
+            "tol": 0.001,
+            "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
+          }
+        ]
+      }
+    }
+  },
+  "waring": {
+    "topic": "waring",
+    "quizzes": {
+      "waring-problem-statement": {
+        "title": "Waring's problem and g(k)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Waring (1770) conjectured that for every $k\\ge 1$ there exists a finite constant $g(k)$ such that:",
+            "choices": [
+              "every positive integer is a product of at most $g(k)$ $k$-th powers",
+              "every positive integer is a sum of at most $g(k)$ $k$-th powers of non-negative integers",
+              "every prime is a sum of exactly $g(k)$ $k$-th powers",
+              "every $k$-th power is a sum of $g(k)$ primes"
+            ],
+            "answer": 1,
+            "explain": "Waring's problem: $g(k)$ is the least $s$ such that every positive integer can be written as $n = x_1^k + \\cdots + x_s^k$ with $x_i\\ge 0$. Hilbert (1909) proved $g(k)<\\infty$ for every $k$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $g(2)$? (Lagrange's theorem.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$g(2)=4$: every non-negative integer is a sum of four squares (Lagrange, 1770), and three do not suffice since e.g. $7$ is not a sum of three squares."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $g(3)$? (The integer $n=23$ requires nine cubes: $23=2\\cdot 2^3+7\\cdot 1^3$.)",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "$g(3)=9$ (Wieferich/Kempner). The extremal integers are $23$ and $239$, which both require nine cubes; every other $n$ needs at most nine."
+          }
+        ]
+      },
+      "g-k-vs-G-k": {
+        "title": "g(k) versus G(k)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which inequality between Waring's constants is always valid?",
+            "choices": [
+              "$g(k)\\le G(k)$",
+              "$G(k)\\le g(k)$, sometimes strict (e.g. $G(4)=16<19=g(4)$)",
+              "$g(k)=G(k)$ for all $k$",
+              "$G(k)\\le \\log k$"
+            ],
+            "answer": 1,
+            "explain": "$G(k)$ is the least $s$ such that every sufficiently large $n$ is a sum of $s$ $k$-th powers, while $g(k)$ covers all $n\\ge 1$. A handful of small exceptional integers push $g(k)$ above $G(k)$; e.g. $79=4\\cdot 2^4+15\\cdot 1^4$ forces $g(4)=19$ but $G(4)=16$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $G(2)$? (Hint: the three-squares theorem excludes $4^a(8b+7)$ for every $a$, so three do not suffice even asymptotically.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$G(2)=4$: the excluded set $\\{4^a(8b+7)\\}$ is infinite, so even for large $n$ four squares are sometimes necessary. Hence $G(2)=g(2)=4$ is one of the rare cases with equality."
+          },
+          {
+            "type": "mcq",
+            "q": "The sharpest known asymptotic upper bound for $G(k)$ (Wooley, Vinogradov-style) is:",
+            "choices": [
+              "$G(k) = O(k^2)$",
+              "$G(k) = O(e^k)$",
+              "$G(k) \\le k\\log k + O(k\\log\\log k)$",
+              "$G(k) \\le k^{3/2}$"
+            ],
+            "answer": 2,
+            "explain": "Vinogradov's mean-value method (refined by Wooley) gives $G(k)\\le k\\log k + k\\log\\log k + O(k)$ — linear up to a log factor. This is believed to be close to the truth: one expects $G(k)\\asymp k$."
+          }
+        ]
+      },
+      "hilbert-waring-theorem": {
+        "title": "Hilbert–Waring theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hilbert's 1909 proof of the finiteness of $g(k)$ proceeds by:",
+            "choices": [
+              "the circle method",
+              "a combinatorial identity expressing $(x_1^2+\\cdots+x_n^2)^k$ as a positive sum of $(2k)$-th powers of integer linear forms",
+              "modular forms of half-integer weight",
+              "the Weil conjectures"
+            ],
+            "answer": 1,
+            "explain": "Hilbert found an identity writing $(\\sum x_i^2)^k$ as a positive rational combination of $(2k)$-th powers of linear forms $L_j(x)$. Combined with Lagrange's four-square theorem, this yields the finiteness of $g(k)$ — but gives no explicit bound. Hardy–Littlewood later recovered an asymptotic count via the circle method."
+          },
+          {
+            "type": "numeric",
+            "q": "For $k=2$, Hilbert's construction degenerates into Lagrange plus a trivial identity. What is $g(2)$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$g(2)=4$ — the base case. Hilbert's induction bootstraps higher $k$ from the fact that four squares suffice."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about Hilbert's proof is accurate?",
+            "choices": [
+              "it gives an explicit, sharp value of $g(k)$",
+              "it proves finiteness but yields no effective bound",
+              "it only works for even $k$",
+              "it requires the Riemann hypothesis"
+            ],
+            "answer": 1,
+            "explain": "Hilbert's argument is non-constructive in the sense that the bound it produces is astronomical and far from the true $g(k)$. Sharpening $g(k)$ for specific $k$ (e.g. $g(3)=9$, $g(4)=19$) took decades of further work."
+          }
+        ]
+      },
+      "circle-method-intro": {
+        "title": "The circle method",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hardy–Littlewood generating function for Waring's problem is:",
+            "choices": [
+              "$f(\\alpha)=\\sum_{p\\le N} e(\\alpha p)$",
+              "$f(\\alpha)=\\sum_{n\\le N^{1/k}} e(\\alpha n^k)$, where $e(x)=e^{2\\pi i x}$",
+              "$f(\\alpha)=\\prod_p (1-p^{-\\alpha})^{-1}$",
+              "$f(\\alpha)=\\sum_n \\Lambda(n) n^{-\\alpha}$"
+            ],
+            "answer": 1,
+            "explain": "Write $f(\\alpha)=\\sum_{n=1}^{\\lfloor N^{1/k}\\rfloor} e(\\alpha n^k)$. Then $f(\\alpha)^s = \\sum_{m} r(m) e(\\alpha m)$ where $r(m)$ counts ordered reps of $m$ as a sum of $s$ $k$-th powers; extracting the coefficient of $e(\\alpha N)$ is an integral over the unit interval."
+          },
+          {
+            "type": "mcq",
+            "q": "The count $r_{s,k}(N)$ of representations of $N$ as an ordered sum of $s$ $k$-th powers equals:",
+            "choices": [
+              "$\\sum_{n\\le N} f(n)^s$",
+              "$\\int_0^1 f(\\alpha)^s\\, e(-\\alpha N)\\, d\\alpha$",
+              "$\\operatorname{Res}_{s=1} \\zeta(s)^k$",
+              "$\\prod_p (1 + p^{-s})$"
+            ],
+            "answer": 1,
+            "explain": "By Fourier orthogonality on $\\mathbb{Z}$: $\\int_0^1 e(\\alpha m)\\,d\\alpha = [m=0]$. So $\\int_0^1 f(\\alpha)^s e(-\\alpha N)\\,d\\alpha$ picks out precisely the coefficient of $e(\\alpha N)$ in $f(\\alpha)^s$, which is $r_{s,k}(N)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $k=2$, $s=4$, the circle method recovers Jacobi's formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d} d$ (for $N$ odd). What is $r_4(3)$? (Divisors of $3$: $1,3$.)",
+            "answer": 32,
+            "tol": 0.000001,
+            "explain": "$r_4(3)=8(1+3)=32$ — matching the circle-method asymptotic with singular series $8\\sigma^*(N)$. In the Lagrange/Jacobi case the asymptotic is exact, because the minor arcs vanish."
+          }
+        ]
+      },
+      "major-vs-minor-arcs": {
+        "title": "Major arcs vs minor arcs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A major arc $\\mathfrak{M}(a,q)$ for Waring's problem is a small interval around:",
+            "choices": [
+              "an integer $\\alpha = m$",
+              "a rational $\\alpha = a/q$ with $q$ small (say $q\\le N^{1/k-\\varepsilon}$)",
+              "an irrational with bad Diophantine approximation",
+              "$\\alpha = 0$ only"
+            ],
+            "answer": 1,
+            "explain": "On a major arc $|\\alpha - a/q|\\le \\delta$ with $\\gcd(a,q)=1$ and $q$ small, the sum $f(\\alpha)$ is well approximated by a Gauss-sum-weighted main term: $f(\\alpha)\\approx q^{-1} S(a,q)\\cdot v(\\alpha-a/q)$, where $S(a,q)=\\sum_{r=1}^q e(a r^k/q)$ and $v$ is a smooth transform."
+          },
+          {
+            "type": "mcq",
+            "q": "On the minor arcs $\\mathfrak{m}$, Weyl's inequality gives:",
+            "choices": [
+              "$f(\\alpha) = 0$ exactly",
+              "$|f(\\alpha)| \\ll N^{1/k} \\cdot q^{1/2}$, a lower bound",
+              "$|f(\\alpha)| \\ll N^{1/k-\\sigma_k+\\varepsilon}$ for some $\\sigma_k>0$ (power saving over trivial $N^{1/k}$)",
+              "$|f(\\alpha)| = N^{1/k}$ for all $\\alpha$"
+            ],
+            "answer": 2,
+            "explain": "Weyl's inequality: if $\\alpha$ has rational approximation $a/q$ with $N^{1/k}<q<N^{k-1/k}$, then $|f(\\alpha)|\\ll N^{1/k}\\cdot N^{-\\sigma_k+\\varepsilon}$ with $\\sigma_k = 2^{1-k}$. This is a nontrivial saving — enough to absorb the minor-arc integral once $s$ is large enough."
+          },
+          {
+            "type": "mcq",
+            "q": "The singular series $\\mathfrak{S}(N) = \\sum_{q\\ge 1} q^{-s}\\sum_{a\\ \\bmod q}^* S(a,q)^s e(-aN/q)$ that emerges from the major arcs encodes:",
+            "choices": [
+              "topological invariants of the unit circle",
+              "the density of solutions at every prime $p$ and at infinity — a Hasse-style local-to-global product",
+              "the class number of $\\mathbb{Q}(\\sqrt{-N})$",
+              "the trivial constant $1$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathfrak{S}(N)$ factors as an Euler product $\\prod_p \\sigma_p(N)$ where $\\sigma_p(N)$ is the $p$-adic density of solutions to $n = x_1^k+\\cdots+x_s^k$. Together with the singular integral (the real/archimedean density), Waring is solvable iff every local factor is positive — a Hasse principle for sums of $k$-th powers (for $s$ large enough)."
           }
         ]
       }

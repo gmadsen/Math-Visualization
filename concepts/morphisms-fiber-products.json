@@ -13,6 +13,15 @@
       "blurb": "Scheme maps are local ring maps glued globally and tested on affines."
     },
     {
+      "id": "immersions-schemes",
+      "title": "Open, closed, and locally closed immersions",
+      "anchor": "imm",
+      "prereqs": [
+        "scheme-morphisms"
+      ],
+      "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\operatorname{Spec}(A_f)\\hookrightarrow\\operatorname{Spec} A$ (open) and $\\operatorname{Spec}(A/I)\\hookrightarrow\\operatorname{Spec} A$ (closed)."
+    },
+    {
       "id": "fiber-products",
       "title": "Fiber products and base change",
       "anchor": "fiber",
@@ -29,6 +38,16 @@
         "fiber-products"
       ],
       "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+    },
+    {
+      "id": "separated-proper-morphisms",
+      "title": "Separated and proper morphisms",
+      "anchor": "sepproper",
+      "prereqs": [
+        "fiber-products",
+        "immersions-schemes"
+      ],
+      "blurb": "Separated means the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is a closed immersion (Hausdorff-like); proper means separated, of finite type, and universally closed — the valuative criterion makes this the scheme version of compact."
     }
   ]
 }

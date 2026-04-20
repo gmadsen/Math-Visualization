@@ -104,6 +104,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -349,6 +376,14 @@ Lebesgue's idea: <em>slice the range, not the domain.</em> Instead of summing $f
 <p>A <strong>measure</strong> on $(X,\mathcal{A})$ is a function $\mu\colon\mathcal{A}\to[0,\infty]$ with $\mu(\emptyset)=0$ and <em>countable additivity</em>: for pairwise disjoint $(A_n)\subset\mathcal{A}$,
 $$ \mu\!\left(\bigsqcup_n A_n\right) = \sum_n \mu(A_n). $$
 This single property — that the measure of a disjoint countable union is the sum of the measures — is the engine of the entire theory.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./point-set-topology.html#open">Topological spaces</a></li>
+    <li><a href="./real-analysis.html#riemann-integral">Riemann integral</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="sigma-algebras"></div>
 
@@ -996,5 +1031,20 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx 
   else build();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Fix TOC anchor targets for measure and algebraic topology pages</td></tr>
+      <tr><td>2026-04-19</td><td>Add missing quiz banks and wire quizzes for measure theory and algebraic topology</td></tr>
+      <tr><td>2026-04-19</td><td>Fix pathway KaTeX rendering and index operator text issue</td></tr>
+      <tr><td>2026-04-19</td><td>Fix missing concept anchors for measure and algebraic topology</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

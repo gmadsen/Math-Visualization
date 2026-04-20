@@ -104,6 +104,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -388,6 +415,13 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
   </div>
   <div class="readout" id="proj-out"></div>
 </div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="banach-hilbert-spaces"></div>
 </section>
@@ -1238,6 +1272,13 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 
 <div class="note"><strong>Why completeness matters.</strong> The representation $\ell(x)=\langle x,y\rangle$ is constructed via $M=\ker\ell$ and the 1-dimensional orthogonal complement $M^\perp$. Without the splitting $H=M\oplus M^\perp$ — which requires $M$ closed and $H$ complete — no such $y$ need exist. On an incomplete inner-product space the theorem fails.</div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="riesz-representation"></div>
 </section>
 
@@ -1247,6 +1288,13 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 <p>In infinite dimensions, norm-compactness is rare — the closed unit ball of an infinite-dimensional Banach space is never compact (Riesz's lemma). The fix is to weaken the topology. The <strong>weak topology</strong> on a Banach space $X$ is the coarsest topology making every $\ell\in X^*$ continuous: $x_n\rightharpoonup x$ means $\ell(x_n)\to\ell(x)$ for every $\ell\in X^*$. The <strong>weak-* topology</strong> on the dual $X^*$ is the coarsest making evaluation-at-$x$ continuous for every $x\in X$: $\ell_n\xrightarrow{w*}\ell$ means $\ell_n(x)\to\ell(x)$ pointwise in $x$.</p>
 
 <p>The miracle is <strong>Banach–Alaoglu</strong>: the closed unit ball $B_{X^*}=\{\ell\in X^*:\|\ell\|\le 1\}$ is <em>weak-* compact</em>. The proof embeds $B_{X^*}$ inside $\prod_{x\in X}\overline{D(0,\|x\|)}\subset\mathbb{C}^X$ and quotes Tychonoff. Combined with the Eberlein–Šmulian theorem (on reflexive spaces weak sequential compactness holds), this is the compactness tool behind existence of minimizers for convex variational problems, weak solutions to PDE, and invariant measures for dynamical systems. In short: give up on strong compactness and you inherit weak compactness for free on the dual ball.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./point-set-topology.html#compact">Compactness</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="weak-topology"></div>
 </section>
@@ -1338,5 +1386,15 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

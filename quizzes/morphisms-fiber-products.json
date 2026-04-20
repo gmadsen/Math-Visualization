@@ -37,6 +37,42 @@
         }
       ]
     },
+    "immersions-schemes": {
+      "title": "Immersions in $\\mathsf{Sch}$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A morphism $i\\colon Z\\to X$ is a closed immersion iff:",
+          "choices": [
+            "$i$ is injective on points",
+            "$i$ is a homeomorphism onto a closed subset of $X$ and $i^{\\#}\\colon \\mathcal{O}_X\\to i_{*}\\mathcal{O}_Z$ is surjective",
+            "$i$ is open and injective",
+            "$i$ is proper and finite"
+          ],
+          "answer": 1,
+          "explain": "Closed immersion = topological closed inclusion + surjective map of structure sheaves. The kernel of $i^{\\#}$ is the ideal sheaf cutting out $Z$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which ring map corresponds to the open immersion $D(f)\\hookrightarrow \\operatorname{Spec} A$?",
+          "choices": [
+            "$A\\twoheadrightarrow A/(f)$ (quotient)",
+            "$A\\to A_f$ (localization at $f$)",
+            "$A\\hookrightarrow A[x]$ (polynomial ring)",
+            "$A\\to A\\otimes_{\\mathbb{Z}} A$ (tensor square)"
+          ],
+          "answer": 1,
+          "explain": "Open immersions onto a basic open come from localization: $A\\to A_f = A[1/f]$ inverts $f$, and primes of $A_f$ correspond exactly to primes of $A$ not containing $f$."
+        },
+        {
+          "type": "numeric",
+          "q": "The closed subscheme $V((x^2))\\hookrightarrow \\operatorname{Spec} k[x]$ has the same underlying topological space as $V((x))$ (just the origin), but a different structure sheaf. What is $\\dim_k \\Gamma(V((x^2)),\\mathcal{O}) = \\dim_k k[x]/(x^2)$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$k[x]/(x^2)$ has $k$-basis $\\{1,x\\}$, so dimension $2$. This is the 'fat point' / tangent direction attached to the origin — a non-reduced closed subscheme."
+        }
+      ]
+    },
     "fiber-products": {
       "title": "Fiber products and base change",
       "questions": [
@@ -101,6 +137,47 @@
           "answer": 2,
           "tol": 1e-6,
           "explain": "Since $5\\equiv 4^2\\pmod{11}$, the polynomial $x^2-5$ factors as $(x-4)(x+4)$ over $\\mathbb{F}_{11}$, so the fiber is $\\operatorname{Spec}\\mathbb{F}_{11}[x]/(x-4)(x+4)$, which has $2$ reduced points. The prime $11$ splits in $\\mathbb{Z}[\\sqrt 5]$."
+        }
+      ]
+    },
+    "separated-proper-morphisms": {
+      "title": "Separated and proper morphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A morphism $f\\colon X\\to S$ is separated iff the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is:",
+          "choices": [
+            "an open immersion",
+            "a closed immersion",
+            "surjective",
+            "an isomorphism"
+          ],
+          "answer": 1,
+          "explain": "Separatedness = closed diagonal. This is the scheme-theoretic analog of Hausdorff, where in topology the diagonal is closed iff limits are unique."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following schemes over $\\operatorname{Spec} k$ fails to be separated?",
+          "choices": [
+            "$\\mathbb{A}^1_k$",
+            "$\\mathbb{P}^1_k$",
+            "the affine line with doubled origin (two copies of $\\mathbb{A}^1_k$ glued along $\\mathbb{A}^1_k\\setminus\\{0\\}$)",
+            "$\\operatorname{Spec} k[x,y]/(xy)$"
+          ],
+          "answer": 2,
+          "explain": "The line with doubled origin is the canonical non-separated scheme: both origins are limits of the same punctured line, so the diagonal of the structure map is not closed. All other options are separated."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these morphisms is proper?",
+          "choices": [
+            "$\\mathbb{A}^n_k\\to \\operatorname{Spec} k$",
+            "$\\mathbb{P}^n_k\\to \\operatorname{Spec} k$",
+            "$\\mathbb{G}_m = \\operatorname{Spec} k[x,x^{-1}]\\to \\operatorname{Spec} k$",
+            "a non-closed open immersion"
+          ],
+          "answer": 1,
+          "explain": "Projective space is the prototype proper morphism over a field. Affine space fails the valuative criterion (a $K$-point like $1/t\\in\\mathbb{A}^1_K$ does not extend to the DVR), as does $\\mathbb{G}_m$."
         }
       ]
     }

@@ -101,6 +101,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -132,7 +159,9 @@ function ensureArrow(svg, id, color){
   <a href="#resultant">4&nbsp;Resultants</a>
   <a href="#statement">5&nbsp;The&nbsp;theorem</a>
   <a href="#examples">6&nbsp;Worked&nbsp;examples</a>
-  <a href="#applications">7&nbsp;Applications</a>
+  <a href="#cayleybach">7&nbsp;Cayley–Bacharach</a>
+  <a href="#higherdim">8&nbsp;Higher&nbsp;dimensions</a>
+  <a href="#applications">9&nbsp;Applications</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -337,6 +366,13 @@ $$I_P(f,g) \;=\; \dim_k \bigl(\mathcal{O}_{\mathbb{A}^2,P} \,/\, (f,g)\bigr).$$
   <svg id="mc-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
   <div class="readout" id="mc-out"></div>
 </div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html#defn">Projective points and lines</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="intersection-multiplicity"></div>
 </section>
@@ -922,8 +958,57 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 <p>Applied to a single smooth cubic $E$ (an <a href="./elliptic-curves.html">elliptic curve</a>), this gives the <em>associativity</em> of the chord–tangent group law: $(P+Q)+R = P+(Q+R)$ is a statement about three cubics (each a union of three lines) sharing nine points. The proof of associativity is an elegant Bézout argument, and nothing less would work.</p>
 </section>
 
+<section id="cayleybach">
+<h2>7. Cayley–Bacharach and the associativity miracle</h2>
+
+<p>The cubic-meets-cubic count of §6 hides a surprisingly rigid combinatorial phenomenon: given any nine points that appear as the common zeros of two cubics, almost every cubic that contains eight of them automatically contains the ninth. Made precise, this is the Cayley–Bacharach theorem, and it is the engine behind associativity of the elliptic-curve group law.</p>
+
+<div class="ok"><strong>Cayley–Bacharach (classical form).</strong> Let $C_1, C_2\subset \mathbb{P}^2$ be plane cubics meeting transversely in nine distinct points $\{P_1,\dots,P_9\}$. Then every cubic $C_3$ passing through $P_1,\dots,P_8$ also passes through $P_9$.</div>
+
+<p>The dimension count that proves this is itself a Bézout bookkeeping exercise. The space of cubics in $\mathbb{P}^2$ has projective dimension $\binom{3+2}{2}-1=9$. Passing through one prescribed point is one linear condition, so eight points impose eight linear conditions — yielding at least a $\mathbb{P}^1$-family of cubics. The pencil $\lambda C_1 + \mu C_2$ (with $[\lambda:\mu]\in\mathbb{P}^1$) sits inside that family. Any ninth linear condition on the pencil is either identically satisfied or cuts out a unique cubic; Bézout's $3\cdot 3=9$ count ensures that $P_9$ is already in the base locus, so the condition is tautological.</p>
+
+<p>The miracle pays off on any smooth cubic $E\subset \mathbb{P}^2$. Define the chord–tangent addition by choosing a point $O\in E$ and setting
+$$P + Q \;=\; O \ast (P\ast Q),$$
+where $X\ast Y$ is the "third intersection of line $\overline{XY}$ with $E$." Commutativity is obvious and the existence of identities and inverses is a short chase. Associativity — which in any other construction would be a nightmare — pops out of Cayley–Bacharach by applying it to three line-triples assembled from $P,Q,R$ and their partial sums. Nine points, eight of which force the ninth: the associativity identity $(P+Q)+R = P+(Q+R)$ falls out as "the ninth point."</p>
+
+<p>A less geometric but equally useful corollary: if a plane cubic passes through eight of the nine flexes of a smooth cubic, it passes through the ninth. The nine flex points form a $(\mathbb{Z}/3)^2$-subgroup of $E$, and Cayley–Bacharach is the statement that this subgroup is determined by any eight of its nine points — a rigidity one does not expect from the linear algebra alone.</p>
+
+<div class="note"><strong>Generalizations.</strong> Cayley–Bacharach extends to curves of degrees $d, d$ meeting in $d^2$ points: any curve of degree $2d-3$ through $d^2-1$ of them passes through the last one. It is the first instance of a much larger pattern — "residual intersection" in modern intersection theory — and one of the reasons $de$ is not just a count but a robust algebraic constraint.</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="cayley-bacharach"></div>
+</section>
+
+<section id="higherdim">
+<h2>8. Bézout in higher dimensions</h2>
+
+<p>Bézout's $\mathbb{P}^2$ theorem is the shadow of a more general intersection-theoretic statement in $\mathbb{P}^n$. The cleanest formulation:</p>
+
+<div class="ok"><strong>Theorem (Bézout in $\mathbb{P}^n$).</strong> Let $H_1,\dots,H_n\subset \mathbb{P}^n_k$ be hypersurfaces of degrees $d_1,\dots,d_n$, defined over an algebraically closed field $k$, meeting in a zero-dimensional set $Z$. Then
+$$\sum_{P\in Z} \mathrm{length}_{\mathcal{O}_{\mathbb{P}^n,P}}\!\bigl(\mathcal{O}_{\mathbb{P}^n,P}/(f_1,\dots,f_n)\bigr) \;=\; d_1 d_2 \cdots d_n.$$
+</div>
+
+<p>The $\mathbb{P}^2$ theorem is the case $n=2$, where "length" collapses to $\dim_k$. For $n=3$, three surfaces of degrees $d_1,d_2,d_3$ meet in $d_1 d_2 d_3$ points counted with multiplicity — e.g., three generic quadrics in $\mathbb{P}^3$ meet in $2\cdot 2\cdot 2=8$ points. The key hypotheses are the same as in $\mathbb{P}^2$: algebraically closed field, projective ambient, and count with multiplicity; and the same hypothesis needs stating anew — the intersection must be <em>zero-dimensional</em>, i.e. the $H_i$ must meet <em>properly</em>. If any two hypersurfaces share a positive-dimensional component, the total count is infinite.</p>
+
+<p>The modern formulation recasts this as a computation in the Chow ring $A^{\ast}(\mathbb{P}^n) = \mathbb{Z}[H]/(H^{n+1})$, where $H$ is the hyperplane class. A hypersurface of degree $d_i$ has class $d_i H$, so
+$$[H_1]\cdot [H_2]\cdots [H_n] \;=\; d_1 d_2 \cdots d_n \cdot H^n \;=\; d_1 d_2 \cdots d_n\cdot [\text{pt}].$$
+The intersection pairing on Chow classes reproduces Bézout without mentioning polynomials.</p>
+
+<p>Two variations are useful. First, if the subvarieties have complementary codimensions summing to $n$ but are not cut out by single equations, the Chow-theoretic count still works via degrees of the subvarieties. Second, for positive-dimensional intersections, the right generalization is Fulton–MacPherson intersection theory, which attaches a well-defined <em>excess intersection class</em> supported on the intersection.</p>
+
+<div class="note"><strong>Why the passage to $\mathbb{P}^n$ is gentle.</strong> None of the three refinements from §2 change meaning: projectivize, take $\bar k$, count length. What gets genuinely more subtle is the <em>proper intersection</em> hypothesis — in higher dimensions it is much easier for two subvarieties to share an excess component, and the naïve sum of local lengths can be infinite even when the degrees are small. A typical fix is to perturb (move one of the cycles to a rationally equivalent one in general position), which is what the Chow ring formalizes.</div>
+
+<div class="quiz" data-concept="higher-dim-bezout"></div>
+</section>
+
 <section id="applications">
-<h2>7. Applications and forward references</h2>
+<h2>9. Applications and forward references</h2>
 
 <h3>Why Bézout enables elliptic-curve arithmetic</h3>
 <p>The three numerical miracles Bézout makes possible:</p>
@@ -1012,5 +1097,15 @@ is the local length of an intersection, and the Bézout theorem says the <em>glo
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

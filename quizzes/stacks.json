@@ -68,6 +68,78 @@
         }
       ]
     },
+    "quotient-stack": {
+      "title": "Quotient stack [X/G]",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A $T$-point of the quotient stack $[X/G]$ is:",
+          "choices": [
+            "a morphism $T\\to X/G$ to the quotient scheme",
+            "a pair $(P\\to T,\\ \\phi:P\\to X)$ consisting of a $G$-torsor on $T$ and a $G$-equivariant map $\\phi$ to $X$",
+            "a $G$-invariant function $T\\to X$",
+            "a free $G$-action on $T$"
+          ],
+          "answer": 1,
+          "explain": "By definition $[X/G](T)$ is the groupoid of pairs $(P\\to T,\\ \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. Setting $X=\\mathrm{pt}$ recovers $BG$; setting $G=\\{e\\}$ recovers $X$ itself."
+        },
+        {
+          "type": "mcq",
+          "q": "When does $[X/G]$ coincide (as stacks) with the quotient scheme $X/G$?",
+          "choices": [
+            "always, since stacks are just schemes in disguise",
+            "precisely when the action of $G$ on $X$ is free (trivial stabilisers at every geometric point)",
+            "only when $G$ is abelian",
+            "never, unless $G$ is trivial"
+          ],
+          "answer": 1,
+          "explain": "If the action is free, every stabiliser is trivial and no automorphism data needs to be remembered, so $[X/G]$ is the ordinary quotient $X/G$. Non-free actions create non-trivial stabilisers and force stacky structure."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G=\\mu_3$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x = \\zeta x$, the stabiliser at $x=0$ is all of $\\mu_3$ and is trivial elsewhere. What is the order of the automorphism group of the origin in $[\\mathbb{A}^1/\\mu_3]$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
+        }
+      ]
+    },
+    "deligne-mumford-vs-artin": {
+      "title": "Deligne-Mumford vs. Artin",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which condition distinguishes a Deligne-Mumford stack from a general Artin stack?",
+          "choices": [
+            "the diagonal is representable",
+            "there exists an étale surjection $X\\to\\mathcal{X}$ from a scheme (equivalently, automorphism schemes are finite and unramified, i.e. $0$-dimensional)",
+            "the coarse moduli space exists",
+            "the stack is quasi-compact"
+          ],
+          "answer": 1,
+          "explain": "Artin requires a smooth atlas and a representable diagonal; DM additionally requires the atlas to be étale, equivalently the diagonal to be unramified. This forces automorphism schemes to be $0$-dimensional (finite and unramified)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following stacks is Artin but NOT Deligne-Mumford?",
+          "choices": [
+            "$B\\mu_n$ for $n\\ge 1$",
+            "$\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$",
+            "$B\\mathbb{G}_m$",
+            "$[\\mathbb{A}^1/\\mu_3]$"
+          ],
+          "answer": 2,
+          "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$, which is $1$-dimensional — so it is Artin but not DM. $B\\mu_n$ and $[\\mathbb{A}^1/\\mu_3]$ have finite automorphism groups, and $\\mathcal{M}_{1,1}$ has finite automorphisms away from char $2,3$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the dimension of the automorphism group at the generic geometric point of $B\\mathbb{G}_m$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
+        }
+      ]
+    },
     "dm-stacks-coarse-space": {
       "title": "Deligne-Mumford stacks and coarse spaces",
       "questions": [

@@ -30,6 +30,13 @@
       "anchor": "eigen",
       "prereqs": ["hecke-algebra-commuting"],
       "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions."
+    },
+    {
+      "id": "hecke-self-adjointness",
+      "title": "Self-adjointness of $T_p$",
+      "anchor": "petersson",
+      "prereqs": ["hecke-algebra-commuting", "petersson-inner-product"],
+      "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$."
     }
   ]
 }

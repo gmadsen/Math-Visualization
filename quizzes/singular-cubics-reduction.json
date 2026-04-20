@@ -108,6 +108,78 @@
           "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
         }
       ]
+    },
+    "hasse-bound-point-counting": {
+      "title": "Point counting and the Hasse bound",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E/\\mathbb{F}_p$ with good reduction, Hasse's theorem bounds $a_p := p + 1 - |E(\\mathbb{F}_p)|$ by:",
+          "choices": [
+            "$|a_p| \\le p$",
+            "$|a_p| \\le 2\\sqrt p$",
+            "$|a_p| \\le \\sqrt{p}$",
+            "$|a_p| \\le p + 1$"
+          ],
+          "answer": 1,
+          "explain": "Hasse's theorem (a Riemann-hypothesis analogue for $E/\\mathbb{F}_p$) gives $|a_p| \\le 2\\sqrt p$. Equivalently $|E(\\mathbb{F}_p)|$ lies in the interval $[p + 1 - 2\\sqrt p,\\; p + 1 + 2\\sqrt p]$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $E\\colon y^2 = x^3 - x$ over $\\mathbb{F}_5$, direct count gives $|E(\\mathbb{F}_5)| = 8$ (including $O$). Compute $a_5$.",
+          "answer": -2,
+          "tol": 0,
+          "explain": "$a_5 = p + 1 - |E(\\mathbb{F}_p)| = 5 + 1 - 8 = -2$. This satisfies $|a_5| = 2 \\le 2\\sqrt 5 \\approx 4.47$, so Hasse is happy."
+        },
+        {
+          "type": "mcq",
+          "q": "At a split multiplicative prime (a node with $\\mathbb{F}_p$-rational tangent slopes), the local $a_p$ is:",
+          "choices": [
+            "$0$",
+            "$+1$",
+            "$-1$",
+            "$\\pm 2\\sqrt p$"
+          ],
+          "answer": 1,
+          "explain": "Split multiplicative reduction contributes $a_p = +1$: the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p)$ of order $p-1$, plus the singular point gives $|\\tilde E(\\mathbb{F}_p)| = p$, so $a_p = p + 1 - p = 1$. Non-split gives $a_p = -1$; additive gives $a_p = 0$."
+        }
+      ]
+    },
+    "minimal-weierstrass-model": {
+      "title": "Minimal Weierstrass model and conductor",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Under the substitution $(x,y) \\mapsto (u^2 x,\\, u^3 y)$ on a Weierstrass equation, the discriminant transforms as:",
+          "choices": [
+            "$\\Delta \\mapsto u^2\\,\\Delta$",
+            "$\\Delta \\mapsto u^6\\,\\Delta$",
+            "$\\Delta \\mapsto u^{12}\\,\\Delta$",
+            "$\\Delta \\mapsto \\Delta$ (discriminant is invariant)"
+          ],
+          "answer": 2,
+          "explain": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by $u^{12}$. This is exactly why minimality asks for the smallest achievable $v_p(\\Delta)$ at each prime."
+        },
+        {
+          "type": "numeric",
+          "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p = 11$ and good reduction at every other prime, the conductor exponent at $11$ is $f_{11} = 1$. Compute the conductor $N(E)$.",
+          "answer": 11,
+          "tol": 0,
+          "explain": "$N(E) = \\prod_{p\\ \\text{bad}} p^{f_p} = 11^1 = 11$. This is the conductor of the curve $y^2 + y = x^3 - x^2$ (Cremona 11a1), the smallest-conductor elliptic curve over $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "At a prime $p \\ne 2, 3$ of additive reduction, Ogg's formula gives a conductor exponent of:",
+          "choices": [
+            "$f_p = 0$",
+            "$f_p = 1$",
+            "$f_p = 2$",
+            "$f_p = 12$"
+          ],
+          "answer": 2,
+          "explain": "For $p \\ne 2, 3$ (tame reduction), additive reduction contributes $f_p = 2$ and multiplicative reduction contributes $f_p = 1$. At $p = 2, 3$ wild ramification in the Galois representation can add a non-negative correction."
+        }
+      ]
     }
   }
 }

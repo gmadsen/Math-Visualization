@@ -104,6 +104,33 @@
   table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -256,6 +283,14 @@ $$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
   <div class="readout" id="rep-text"></div>
 </div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois.html#galois">Field extensions and automorphisms</a></li>
+    <li><a href="./representation-theory.html#def">Group representations</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="galois-rep-definition"></div>
 </section>
 
@@ -390,6 +425,13 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
   <div class="readout" id="hs-text"></div>
 </div>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./frobenius-and-reciprocity.html#frobenius">Frobenius elements</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="frobenius-traces"></div>
 </section>
 
@@ -451,6 +493,13 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 <h3>What comes next</h3>
 <p>Everything downstream — the Langlands program, modularity, $R=T$ theorems, deformation theory of Galois representations — assumes this framework. The next layers of the Notebook explore $L$-functions explicitly (see <a href="./dirichlet-series-euler-products.html">Dirichlet series and Euler products</a>) and the arithmetic of specific representations (see <a href="./modular-forms.html">modular forms</a>).</p>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modularity-and-flt.html#modularity">Modularity theorem</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="modularity-and-deformations"></div>
 </section>
 
@@ -459,6 +508,13 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 <p>A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>irreducible</strong> if $K^n$ has no proper non-zero $G_\mathbb{Q}$-stable subspace, and <strong>semisimple</strong> if it decomposes as a direct sum of irreducibles. As with finite-group representations, not every representation is semisimple — an upper-triangular $\rho = \begin{pmatrix}\chi_1 & *\\ 0 & \chi_2\end{pmatrix}$ with non-zero extension class is reducible but not a direct sum. The <strong>semisimplification</strong> $\rho^{\mathrm{ss}} = \chi_1 \oplus \chi_2$ is obtained by throwing away the off-diagonal cocycle.</p>
 <p>Because traces are additive on short exact sequences, $\operatorname{tr}\rho(\mathrm{Frob}_p) = \operatorname{tr}\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\ell$-adic representations of $G_\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\rho_{E,\ell}$ from an elliptic curve, a theorem of Serre guarantees irreducibility for all but finitely many $\ell$, so the semisimplification is just $\rho_{E,\ell}$ itself.</p>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./representation-theory.html#schur">Schur's lemma</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="semisimple-decomposition"></div>
 </section>
 
@@ -466,6 +522,13 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 <h2>9. Inertia, ramification, and the conductor</h2>
 <p>Fix a prime $p$ and an embedding $\bar{\mathbb{Q}} \hookrightarrow \bar{\mathbb{Q}}_p$. Inside the decomposition group $D_p \subset G_\mathbb{Q}$ sits the <strong>inertia subgroup</strong> $I_p$, the kernel of $D_p \twoheadrightarrow \mathrm{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p)$. A representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>unramified at $p$</strong> when $\rho(I_p) = 1$; only in that case does $\rho(\mathrm{Frob}_p)$ make sense as a well-defined conjugacy class, so the Frobenius machinery of §5 only applies at unramified primes.</p>
 <p>For the bad primes, the <strong>Artin conductor exponent</strong> $f_p(\rho) = \dim(V) - \dim(V^{I_p}) + \text{(wild term)}$ quantifies how badly $\rho$ is ramified at $p$: the first piece counts missing inertia invariants (the tame drop), the wild term measures higher ramification. The global <strong>conductor</strong> is the product $N(\rho) = \prod_p p^{f_p(\rho)}$, supported on the finitely many ramified primes. For an elliptic curve $E/\mathbb{Q}$ the conductor $N_E$ satisfies $f_p = 1$ at primes of multiplicative reduction and $f_p \ge 2$ at primes of additive reduction, matching the conductor that appears in the $L$-function of $E$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./p-adic-numbers.html#abs">p-adic norm and completion</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="ramification-galois-rep"></div>
 </section>
@@ -1298,5 +1361,15 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

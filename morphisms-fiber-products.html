@@ -99,6 +99,33 @@
   aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -186,7 +213,8 @@ function sqrtModP(a, p){
   <a href="#base">5&nbsp;Base&nbsp;change</a>
   <a href="#fibers">6&nbsp;Fibers</a>
   <a href="#capstone">7&nbsp;$x^2-a$&nbsp;family</a>
-  <a href="#coda">8&nbsp;Coda</a>
+  <a href="#sepproper">8&nbsp;Separated&nbsp;&amp;&nbsp;proper</a>
+  <a href="#coda">9&nbsp;Coda</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -232,6 +260,13 @@ must be a <strong>local ring homomorphism</strong>: it sends the maximal ideal $
 <div class="note"><strong>Why "locally ringed"?</strong> A <em>ringed space</em> is just a space equipped with a sheaf of rings. A <em>locally ringed space</em> is a ringed space in which every stalk is a local ring. Schemes are locally ringed spaces whose opens are covered by affines. Morphisms of locally ringed spaces are precisely what we described: continuous maps plus sheaf maps that are local on stalks. The entire category of schemes is a full subcategory of locally ringed spaces — a fact that is very useful for extending structural results from topology or differential geometry.</div>
 
 <p>One more piece of intuition before we dive into affines. The slogan "points of $X$ correspond to maps into $X$" has a useful partial refinement: for any scheme $X$ and any field $k$, the <em>$k$-rational points</em> of $X$ are the morphisms $\operatorname{Spec} k\to X$. These form a set $X(k) = \operatorname{Hom}_{\mathsf{Sch}}(\operatorname{Spec} k, X)$. The functor $k\mapsto X(k)$ (valued in sets) is called the <em>functor of points</em> of $X$, and by Yoneda's lemma it determines $X$ up to unique isomorphism. Whenever we specialize the capstone family to a specific value of $a_0\in k$ and ask for roots $x$ of $x^2 = a_0$ in $k$, we're computing $X(k)$ at that specialization.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schemes.html#gluing">Gluing affine schemes</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="scheme-morphisms"></div>
 </section>
@@ -625,6 +660,8 @@ a homeomorphism onto $V(I)=\{\mathfrak{p}\supseteq I\}$.</p>
   redraw('open-basic');
 })();
 </script>
+
+<div class="quiz" data-concept="immersions-schemes"></div>
 </section>
 
 <section id="fiber">
@@ -1389,8 +1426,52 @@ $$\operatorname{Spec}\bigl(\mathbb{F}_p[x]/(x^2-a_0)\bigr).$$</p>
 <p>For $n\in\mathbb{Z}$ squarefree and $\neq 1\pmod 4$, the ring of integers of $\mathbb{Q}(\sqrt{n})$ is $\mathbb{Z}[\sqrt{n}] = \mathbb{Z}[x]/(x^2-n)$. The fiber of $\operatorname{Spec}\mathbb{Z}[\sqrt{n}]\to\operatorname{Spec}\mathbb{Z}$ over a prime $p$ is exactly $\operatorname{Spec}\mathbb{F}_p[x]/(x^2-n)$ — a special case of the capstone with $a_0 = n$ fixed. So Dedekind's "splitting theorem" for quadratic extensions — $p$ splits iff $n$ is a nonzero QR mod $p$, is inert iff a non-residue, ramifies iff $p\mid n$ (or $p = 2$ with $n \equiv 2,3\pmod 4$) — is a statement about fibers of this morphism. The capstone visualizes this splitting law on a slider.</p>
 </section>
 
+<section id="sepproper">
+<h2>8. Separated and proper morphisms</h2>
+
+<p>Once one has fiber products, most of the useful adjectives of scheme theory are defined by pulling some condition back through a diagonal or base-change square. The two adjectives every algebraic geometer meets first — and the two that the coda below pointed to as gaps — are <em>separated</em> and <em>proper</em>.</p>
+
+<h3>The diagonal and separatedness</h3>
+
+<p>For a morphism $f\colon X\to S$ there is a canonical <strong>diagonal</strong>
+$$\Delta_{f}\colon X \;\longrightarrow\; X\times_S X, \qquad x\mapsto (x,x).$$
+It is always a locally closed immersion. The morphism $f$ is <strong>separated</strong> iff $\Delta_f$ is a <em>closed</em> immersion. Equivalently, the image of $\Delta_f$ is Zariski-closed inside $X\times_S X$.</p>
+
+<p>This is the scheme-theoretic analog of the Hausdorff condition: in a Hausdorff space, the diagonal is closed inside the product. The prototype non-separated scheme is the <strong>line with doubled origin</strong>, obtained by gluing two copies of $\mathbb{A}^1_k$ along the open $\mathbb{A}^1_k\setminus\{0\}$. The two origins converge to each other, just like two limits of the same sequence in a non-Hausdorff topological space. Its diagonal fails to be closed at the pair "(left origin, right origin)."</p>
+
+<p>All affine morphisms are separated: the diagonal map $A\otimes_R A\twoheadrightarrow A,\ a\otimes b\mapsto ab$ is surjective, so $\operatorname{Spec}(A)\to\operatorname{Spec}(A)\times_{\operatorname{Spec}(R)}\operatorname{Spec}(A)$ is a closed immersion. In practice, almost every scheme you meet — affine varieties, projective space, any quasi-projective scheme — is separated. The doubled-origin line is a useful warning, not a real obstacle.</p>
+
+<h3>Properness: compactness relative to a base</h3>
+
+<p>A morphism $f\colon X\to S$ is <strong>proper</strong> if it is separated, of finite type, and <em>universally closed</em> — meaning for every base change $S'\to S$, the induced map $X\times_S S'\to S'$ sends closed sets to closed sets. Universal closedness is the scheme-theoretic cousin of properness in topology: preimages of compact sets are compact after arbitrary base change.</p>
+
+<p>The universal closure condition is equivalent (for Noetherian targets) to the <strong>valuative criterion of properness</strong>: for every discrete valuation ring $R$ with fraction field $K$, every diagram
+$$\begin{array}{ccc}\operatorname{Spec} K & \longrightarrow & X \\ \downarrow & & \downarrow f \\ \operatorname{Spec} R & \longrightarrow & S\end{array}$$
+admits a <em>unique</em> lift $\operatorname{Spec} R\to X$. "Points defined generically extend uniquely across a boundary point" — exactly what compactness should mean for schemes.</p>
+
+<p>The canonical example is projective space: $\mathbb{P}^n_k\to\operatorname{Spec} k$ is proper. Affine space $\mathbb{A}^n_k\to\operatorname{Spec} k$ is <em>not</em> proper, since the valuative criterion fails: a $K$-point like $1/t\in\mathbb{A}^1_K$ does not extend to a $R$-point of $\mathbb{A}^1$. You have to projectivize before properness kicks in.</p>
+
+<h3>Stability properties</h3>
+
+<p>Both properties are well-behaved under the natural operations of scheme theory:</p>
+
+<table class="plain">
+<thead><tr><th>property</th><th>composition</th><th>base change</th><th>fiber</th></tr></thead>
+<tbody>
+<tr><td>separated</td><td>yes</td><td>yes</td><td>yes</td></tr>
+<tr><td>proper</td><td>yes</td><td>yes</td><td>yes</td></tr>
+</tbody>
+</table>
+
+<p>In particular, "proper over a field" is stable under all the constructions of the preceding sections. Moduli spaces want to be proper (so that limits of families exist), and modern algebraic geometry is largely about finding the right proper compactification of a given open moduli problem — e.g., $\overline{M}_{g,n}$ is the properification of $M_{g,n}$ by adding stable nodal curves, exactly so that the <a href="./moduli-spaces.html">moduli functor</a> extends across the boundary.</p>
+
+<div class="note"><strong>Slogan.</strong> Separated replaces Hausdorff; proper replaces compact-plus-Hausdorff. The valuative criterion is the scheme-theoretic incarnation of "a sequence has at most one limit, and always has one." Together they pin down what "a family without escape routes to infinity" means for schemes.</div>
+
+<div class="quiz" data-concept="separated-proper-morphisms"></div>
+</section>
+
 <section id="coda">
-<h2>8. Coda</h2>
+<h2>9. Coda</h2>
 
 <p>Morphisms and fiber products form the verbs-and-grammar of scheme theory. With them, one can talk about:</p>
 
@@ -1488,6 +1569,16 @@ Part of an interactive mathematics notebook · <a href="./index.html">back to in
   else start();
 })();
 </script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-18</td><td>interactive pages</td></tr>
+    </tbody>
+  </table>
+</details>
 
 </body>
 </html>

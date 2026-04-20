@@ -139,6 +139,27 @@
           "tol": 1e-6,
           "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A continuous map $f:X\\to Y$ induces $f_*:H_n(X)\\to H_n(Y)$. If $f$ is homotopic to a constant map, which is true for all $n\\ge 1$?",
+          "choices": [
+            "$f_*$ is an isomorphism",
+            "$f_*$ is injective but not surjective",
+            "$f_*=0$ (the zero map)",
+            "$f_*$ is the identity on $H_n(X)$"
+          ],
+          "answer": 2,
+          "explain": "Homotopy invariance: homotopic maps induce the same map on $H_n$. A constant map factors through a point, whose reduced homology vanishes in degree $\\ge 1$, so $f_*=0$ there."
+        },
+        {
+          "type": "numeric",
+          "q": "Use Mayer–Vietoris on $S^2=U\\cup V$ with $U,V$ contractible open sets and $U\\cap V\\simeq S^1$ to compute $\\chi(S^2)$ from $\\chi(U)+\\chi(V)-\\chi(U\\cap V)$. Recall $\\chi(\\mathrm{pt})=1$ and $\\chi(S^1)=0$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Inclusion–exclusion for Euler characteristic: $\\chi(S^2)=\\chi(U)+\\chi(V)-\\chi(U\\cap V)=1+1-0=2$, matching $\\beta_0-\\beta_1+\\beta_2=1-0+1$."
+        }
       ]
     }
   }

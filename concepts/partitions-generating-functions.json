@@ -1,0 +1,42 @@
+{
+  "topic": "partitions-generating-functions",
+  "title": "Partitions and generating functions",
+  "page": "partitions-generating-functions.html",
+  "concepts": [
+    {
+      "id": "partition-function-pn",
+      "title": "The partition function p(n)",
+      "anchor": "pn",
+      "prereqs": [],
+      "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
+    },
+    {
+      "id": "euler-partition-product",
+      "title": "Euler's partition product",
+      "anchor": "euler",
+      "prereqs": ["partition-function-pn"],
+      "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once."
+    },
+    {
+      "id": "pentagonal-number-theorem",
+      "title": "Euler's pentagonal number theorem",
+      "anchor": "pent",
+      "prereqs": ["euler-partition-product"],
+      "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n)."
+    },
+    {
+      "id": "ramanujan-congruences",
+      "title": "Ramanujan congruences",
+      "anchor": "ram",
+      "prereqs": ["pentagonal-number-theorem"],
+      "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
+    },
+    {
+      "id": "dedekind-eta-modular",
+      "title": "Dedekind eta as a modular form",
+      "anchor": "eta",
+      "prereqs": ["pentagonal-number-theorem", "modular-form-definition", "jacobi-triple-product"],
+      "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world."
+    }
+  ]
+}

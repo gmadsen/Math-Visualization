@@ -30,6 +30,13 @@
       "anchor": "reciprocity",
       "prereqs": ["supplementary-laws-qr", "gauss-lemma-qr"],
       "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+    },
+    {
+      "id": "jacobi-symbol-generalization",
+      "title": "The Jacobi symbol",
+      "anchor": "jacobi",
+      "prereqs": ["quadratic-reciprocity-law"],
+      "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required."
     }
   ]
 }

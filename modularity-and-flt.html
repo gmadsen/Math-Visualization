@@ -104,6 +104,33 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
   table.plain td.match{color:var(--green)}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -283,6 +310,152 @@ $$\Delta \ =\ \frac{(abc)^{2p}}{2^{8}}.$$</p>
 })();
 </script>
 
+<p class="small">The discriminant $\Delta = (abc)^{2p}/2^{8}$ stores the <em>arithmetic</em> of the hypothetical triple. Each odd prime $\ell \mid abc$ appears in $\Delta$ with exponent $2p$: a perfect square (even, so multiplicative reduction) and a perfect $p$-th power (hence invisible to $\overline\rho_{E,p}$ away from its $\ell$-adic inertia). These two facts together are what makes the Frey curve a fixed point of Ribet's knife: each odd bad prime is both <strong>present in the conductor</strong> and <strong>removable in the level</strong>. The calculator below makes the bookkeeping explicit.</p>
+
+<div class="widget" id="w-cond">
+  <div class="hd"><div class="ttl">Widget 1b · Frey conductor calculator</div><div class="hint">enter $a, b$; read off $N_E$, bad primes, and the level-lowering target</div></div>
+  <div class="row">
+    <label>$a$</label><input id="cd-a" type="number" min="1" max="999" step="1" value="5" style="width:5.5rem">
+    <label>$b$</label><input id="cd-b" type="number" min="1" max="999" step="1" value="12" style="width:5.5rem">
+    <label>$p$</label>
+    <select id="cd-p"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>
+    <label>preset</label>
+    <select id="cd-preset">
+      <option value="">(custom)</option>
+      <option value="3,5">a=3, b=5 (Euler-style near-miss)</option>
+      <option value="7,9">a=7, b=9</option>
+      <option value="12,35">a=12, b=35 (mostly-coprime, many bad primes)</option>
+      <option value="27,84">a=27, b=84 (not coprime — flag)</option>
+      <option value="5,12">a=5, b=12 (two odd bad primes: 3, 5)</option>
+    </select>
+  </div>
+  <svg id="cd-svg" viewBox="0 0 640 200" width="640" height="200"></svg>
+  <div class="readout" id="cd-out">…</div>
+  <p class="small">$N_E$ is computed as $2 \cdot \prod_{\ell \mid abc,\ \ell\text{ odd}} \ell$ (the semistable-squarefree-outside-2 rule). The ramification at $2$ can grow to $\mathrm{ord}_2(N_E) \le 8$ in the worst cases; here we cap it at the semistable value.</p>
+</div>
+
+<script>
+(function(){
+  const aI=$('#cd-a'), bI=$('#cd-b'), pSel=$('#cd-p'), pre=$('#cd-preset');
+  const svg=$('#cd-svg'), out=$('#cd-out');
+  // small-prime sieve
+  const PRIMES = (()=>{ const lim=2000, ok=new Array(lim+1).fill(true); ok[0]=ok[1]=false;
+    for(let i=2;i*i<=lim;i++) if(ok[i]) for(let j=i*i;j<=lim;j+=i) ok[j]=false;
+    return ok.map((v,i)=>v?i:-1).filter(i=>i>0);
+  })();
+  function factor(n){
+    n = Math.abs(n|0);
+    const f = {};
+    if(n<=1) return f;
+    for(const q of PRIMES){
+      if(q*q>n) break;
+      while(n%q===0){ f[q]=(f[q]||0)+1; n=n/q; }
+    }
+    if(n>1) f[n]=(f[n]||0)+1;
+    return f;
+  }
+  function gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }
+  function fmtFact(f){
+    const ks = Object.keys(f).map(k=>+k).sort((x,y)=>x-y);
+    if(!ks.length) return '1';
+    return ks.map(k => f[k]===1 ? String(k) : `${k}^${f[k]}`).join(' · ');
+  }
+  pre.addEventListener('change', ()=>{
+    const v = pre.value; if(!v) return;
+    const [x,y] = v.split(',').map(s=>+s);
+    aI.value = x; bI.value = y; draw();
+  });
+  function draw(){
+    const a=Math.max(1,Math.min(999,+aI.value||1));
+    const b=Math.max(1,Math.min(999,+bI.value||1));
+    const p=+pSel.value;
+    const g = gcd(a,b);
+    const c = a+b;                              // integer stand-in for c = (a^p+b^p)^{1/p}; we only need primes dividing abc
+    const fa = factor(a), fb = factor(b), fc = factor(c);
+    // odd primes dividing abc:
+    const oddSupport = new Set();
+    for(const f of [fa,fb,fc]) for(const q of Object.keys(f)){ const Q=+q; if(Q!==2) oddSupport.add(Q); }
+    const oddList = [...oddSupport].sort((x,y)=>x-y);
+    // conductor (semistable model): N_E = 2 * prod(odd bad primes)
+    const N = 2 * oddList.reduce((s,q)=>s*q, 1);
+
+    // draw a linear "factor tower": primes as boxes along a number line, with exponent 2p shown
+    svg.innerHTML='';
+    const W=640, H=200, pad=40;
+    // headline: Δ = (abc)^{2p}/2^8, conductor below
+    const hd = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});
+    hd.textContent = `Δ = (abc)^{2p}/2^{8}    with abc = ${a}·${b}·${c} = ${a*b*c}`;
+    svg.appendChild(hd);
+
+    // top row: the primes from factor(abc) with combined exponents (scaled by 2p for odd, and the raw exponent − 8/p-ish shown schematically for 2)
+    const abcF = {};
+    for(const f of [fa,fb,fc]) for(const [q,e] of Object.entries(f)){ abcF[q]=(abcF[q]||0)+e; }
+    const qs = Object.keys(abcF).map(k=>+k).sort((x,y)=>x-y);
+    const box = 72, gap = 14;
+    const total = qs.length*box + Math.max(qs.length-1,0)*gap;
+    let x0 = (W-total)/2;
+    qs.forEach((q,i)=>{
+      const ex = abcF[q];
+      const isTwo = (q===2);
+      const cx = x0 + i*(box+gap) + box/2;
+      const color = isTwo ? 'var(--pink)' : 'var(--cyan)';
+      svg.appendChild(SVG('rect',{x:cx-box/2, y:50, width:box, height:52, rx:6,
+        fill:'var(--panel2)', stroke:color, 'stroke-width':1.5}));
+      const t1 = SVG('text',{x:cx, y:72, 'text-anchor':'middle','font-size':14, fill:color,'font-weight':600});
+      t1.textContent = 'ℓ = '+q;
+      svg.appendChild(t1);
+      const t2 = SVG('text',{x:cx, y:92, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t2.textContent = isTwo ? `v_2(abc)=${ex}` : `v_ℓ(Δ)=${2*p*ex}`;
+      svg.appendChild(t2);
+      // exponent decoration: odd primes carry an exponent that is a multiple of 2p → double circle
+      if(!isTwo){
+        svg.appendChild(SVG('circle',{cx, cy:50-6, r:6, fill:'var(--cyan)','opacity':0.35}));
+        svg.appendChild(SVG('circle',{cx, cy:50-6, r:3, fill:'var(--cyan)'}));
+      }
+    });
+
+    // bottom: conductor formula
+    const cond = SVG('text',{x:W/2, y:135, 'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-weight':600});
+    cond.textContent = `N_E  =  2 · ${oddList.length?oddList.join(' · '):'1'}  =  ${N}`;
+    svg.appendChild(cond);
+
+    const ribetTarget = SVG('text',{x:W/2, y:160, 'text-anchor':'middle','font-size':12, fill:'var(--green)'});
+    ribetTarget.textContent = oddList.length
+      ? `Ribet strips ${oddList.length} odd prime${oddList.length>1?'s':''} → target level = 2`
+      : `Already at level 2 — nothing to strip.`;
+    svg.appendChild(ribetTarget);
+
+    const flt = SVG('text',{x:W/2, y:184, 'text-anchor':'middle','font-size':12, fill:'var(--pink)','font-style':'italic'});
+    flt.textContent = 'dim S_2(Γ_0(2)) = 0 → no such newform exists → no (a,b,c,p) triple exists';
+    svg.appendChild(flt);
+
+    // readout
+    const notCo = (g!==1);
+    const parts = [];
+    parts.push(`a = ${a}   =  ${fmtFact(fa)||'1'}`);
+    parts.push(`b = ${b}   =  ${fmtFact(fb)||'1'}`);
+    parts.push(`c = a+b = ${c}   =  ${fmtFact(fc)||'1'}     (primes dividing c shown as proxy for c^p)`);
+    parts.push(`gcd(a,b) = ${g}${notCo?'  ⚠ a,b not coprime — FLT reduces to the coprime case, so the widget warns but still computes':''}`);
+    parts.push(`odd primes dividing abc : ${oddList.length?oddList.join(', '):'(none)'}`);
+    parts.push(`bad reduction primes of E_{a,b,c}: { 2, ${oddList.join(', ')} }`);
+    parts.push(`Δ prime factorization (symbolic):  2^{v_2(abc)·2p − 8} · ${oddList.map(q=>`${q}^{${2*p*(abcF[q]||0)}}`).join(' · ')||'1'}`);
+    parts.push(`conductor N_E = 2 · ∏(odd ℓ | abc) ℓ = ${N}`);
+    parts.push(`Ribet goal: level ${N} → … → 2.  Target space S_2(Γ_0(2)) is empty, so the chain cannot terminate.`);
+    parts.push(`VERDICT: the hypothetical Frey curve for (a,b,p) = (${a},${b},${p}) would be modular (Wiles §2) yet force level-lowering to the empty space S_2(Γ_0(2)) — contradiction.`);
+    out.textContent = parts.join('\n');
+  }
+  aI.addEventListener('input',draw); bI.addEventListener('input',draw); pSel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#intro">Elliptic curves and Weierstrass models</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="frey-curve"></div>
 </section>
 
@@ -415,6 +588,15 @@ Mismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;
 })();
 </script>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#rep">Galois representations and examples</a></li>
+    <li><a href="./hecke-operators.html#eigen">Eigenforms and Euler factors</a></li>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="modularity-theorem"></div>
 </section>
 
@@ -529,6 +711,144 @@ Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`
 })();
 </script>
 
+<p>Textual bookkeeping is fine, but the level-lowering process is fundamentally geometric — a chain of Hecke-algebra quotients, with an arrow at each step labelled by the prime being removed. The diagram stepper below stages that descent. At each click you watch the level drop, the residual representation $\overline\rho$ hold fixed, and the list of "still ramified" primes shrink.  The chain terminates either at the target level $N_\infty = 2$ (contradiction) or, in the toy settings that are not FLT-flavored, at some bigger floor.</p>
+
+<div class="widget" id="w-step">
+  <div class="hd"><div class="ttl">Widget 3b · Ribet level-lowering stepper</div><div class="hint">pick an initial conductor, click "next step" to peel a prime</div></div>
+  <div class="row">
+    <label>start conductor $N_E$</label>
+    <select id="st-pick">
+      <option value="30" selected>N = 2·3·5 = 30</option>
+      <option value="42">N = 2·3·7 = 42</option>
+      <option value="2310">N = 2·3·5·7·11 = 2310</option>
+      <option value="6">N = 2·3 = 6</option>
+    </select>
+    <button id="st-next">next step →</button>
+    <button id="st-auto">auto-run</button>
+    <button id="st-reset">reset</button>
+  </div>
+  <svg id="st-svg" viewBox="0 0 700 260" width="700" height="260"></svg>
+  <div class="readout" id="st-out">…</div>
+  <p class="small">Arrows are labelled by the prime $\ell$ being removed. Each step requires that $\overline\rho_{E,p}$ be unramified mod $p$ at $\ell$ — always true for the Frey curve because $v_\ell(\Delta) = 2p$ is a perfect $p$-th power. The terminal box is flagged red when level $2$ is reached, because $\dim S_2(\Gamma_0(2)) = 0$ makes that box uninhabitable.</p>
+</div>
+
+<script>
+(function(){
+  const pick=$('#st-pick'), next=$('#st-next'), auto=$('#st-auto'), reset=$('#st-reset');
+  const svg=$('#st-svg'), out=$('#st-out');
+  let chain = []; // array of {level, odds, removed}  where odds=[odd primes still present], removed=the prime just stripped
+  let autoTimer = null;
+  function factorOdd(N){
+    const out = []; let n = Math.abs(N|0); if(n%2===0) n=n/2; // strip the 2
+    for(let q=3; q*q<=n; q+=2){ while(n%q===0){ out.push(q); n=n/q; } }
+    if(n>1) out.push(n);
+    // dedupe (semistable → squarefree)
+    return [...new Set(out)].sort((a,b)=>a-b);
+  }
+  function start(){
+    const N = +pick.value;
+    const odds = factorOdd(N);
+    chain = [{ level:N, odds, removed:null }];
+  }
+  function stepOnce(){
+    const last = chain[chain.length-1];
+    if(!last.odds.length) return; // already at level 2 (or no more odd primes)
+    // strip the largest odd prime (cosmetic — Ribet works one prime at a time; order matters for bookkeeping but not the result)
+    const odds = last.odds.slice();
+    const removed = odds.pop();
+    const level = last.level / removed;
+    chain.push({ level, odds, removed });
+  }
+  function draw(){
+    svg.innerHTML='';
+    const W=700, H=260;
+    const n = chain.length;
+    // layout: horizontal chain of boxes
+    const boxW=120, boxH=66;
+    const totalW = n*boxW + (n-1)*60;
+    const x0 = (W-totalW)/2;
+    const y = 90;
+    // arrows (behind boxes)
+    for(let i=0;i<n-1;i++){
+      const ax = x0 + i*(boxW+60) + boxW;
+      const bx = x0 + (i+1)*(boxW+60);
+      const midx = (ax+bx)/2;
+      drawArrow(svg, [ax, y+boxH/2], [bx, y+boxH/2],
+        {color:'var(--violet)', markerId:'st-arr', pad1:4, pad2:8, width:1.5, label:'drop ℓ='+chain[i+1].removed, labelSide:1});
+    }
+    // boxes
+    for(let i=0;i<n;i++){
+      const node = chain[i];
+      const bx = x0 + i*(boxW+60);
+      const atTwo = (node.level===2);
+      const stroke = atTwo ? 'var(--pink)' : (i===n-1 ? 'var(--yellow)' : 'var(--blue)');
+      svg.appendChild(SVG('rect',{x:bx, y, width:boxW, height:boxH, rx:8,
+        fill:'var(--panel2)', stroke, 'stroke-width':1.8}));
+      const t1 = SVG('text',{x:bx+boxW/2, y:y+22, 'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});
+      t1.textContent = 'level '+node.level;
+      svg.appendChild(t1);
+      const t2 = SVG('text',{x:bx+boxW/2, y:y+40, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t2.textContent = node.odds.length ? 'odd: '+node.odds.join(',') : 'odd: (none)';
+      svg.appendChild(t2);
+      const t3 = SVG('text',{x:bx+boxW/2, y:y+56, 'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});
+      t3.textContent = 'ρ̄ modular';
+      svg.appendChild(t3);
+    }
+    // legend line
+    const lg = SVG('text',{x:W/2, y:30, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});
+    lg.textContent = 'ρ̄ = mod-p Galois representation of the Frey curve — fixed across the chain; only the newform level changes';
+    svg.appendChild(lg);
+
+    // termination flag
+    const last = chain[chain.length-1];
+    if(last.level===2){
+      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-weight':600});
+      flag.textContent = 'Landed at level 2 — but dim S_2(Γ_0(2)) = 0. No newform here. ✗';
+      svg.appendChild(flag);
+      const flt = SVG('text',{x:W/2, y:y+boxH+56, 'text-anchor':'middle','font-size':12,fill:'var(--green)','font-style':'italic'});
+      flt.textContent = 'Contradiction ⇒ Fermat\u2019s last theorem.';
+      svg.appendChild(flt);
+    } else if(!last.odds.length){
+      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});
+      flag.textContent = 'No more odd primes to strip; level stabilizes at '+last.level+'.';
+      svg.appendChild(flag);
+    }
+
+    // readout
+    const lines = chain.map((c,i)=>{
+      const arrow = (i===0) ? 'start' : `via ℓ=${c.removed}`;
+      return `[step ${i}]  level=${c.level}  odd support=${c.odds.length?c.odds.join('·'):'(none)'}   (${arrow})`;
+    });
+    lines.push('');
+    if(last.level===2) lines.push('→ Ribet chain terminates in the empty space S_2(Γ_0(2)). FLT closed.');
+    else if(!last.odds.length) lines.push('→ Chain stops: no odd prime remains to strip.');
+    else lines.push('→ Click "next step" to remove ℓ = '+last.odds[last.odds.length-1]+' from the level.');
+    out.textContent = lines.join('\n');
+  }
+  function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; auto.classList.remove('active'); auto.textContent='auto-run'; } }
+  pick.addEventListener('change', ()=>{ stopAuto(); start(); draw(); });
+  next.addEventListener('click', ()=>{ stopAuto(); stepOnce(); draw(); });
+  reset.addEventListener('click', ()=>{ stopAuto(); start(); draw(); });
+  auto.addEventListener('click', ()=>{
+    if(autoTimer){ stopAuto(); return; }
+    auto.classList.add('active'); auto.textContent='pause';
+    autoTimer = setInterval(()=>{
+      const last = chain[chain.length-1];
+      if(!last.odds.length){ stopAuto(); return; }
+      stepOnce(); draw();
+    }, 750);
+  });
+  start(); draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#mod">Residual reps, deformations, modularity</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="ribet-level-lowering"></div>
 
 <h3>Coda — beyond semistable, toward Langlands</h3>
@@ -599,6 +919,14 @@ Selmer groups are the bookkeeping device: they count the infinitesimal direction
 </script>
 
 <p>Why is $R_\Sigma$ the right object? Because modularity is, at its core, the assertion that this formal moduli space of Galois lifts is <em>not bigger than</em> the space of lifts coming from modular forms. The modular side of the equation is a <strong>Hecke algebra</strong> — and §5 forces the two rings to coincide.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#frob">Frobenius traces and compatibility</a></li>
+    <li><a href="./galois-representations.html#rep">Galois representations and examples</a></li>
+  </ul>
+</aside>
 
 <div class="quiz" data-concept="deformation-rings"></div>
 </section>
@@ -671,6 +999,13 @@ Surjectivity is easy (the modular Galois representations visibly land in $R_\Sig
 
 <p>R = T closes the circle. The Frey curve's mod-$p$ representation $\overline\rho_{E,p}$ lands inside some $\mathbb{T}_\Sigma$ because $E$ is modular (§2); $R = T$ says all its $p$-adic deformations — the whole formal family around $\overline\rho_{E,p}$ — must also be modular; and Ribet's level lowering (§3) then forces that modular source down to a space known to be empty. The three ideas interlock, and Fermat's 350-year equation has nowhere left to hide.</p>
 
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hecke-operators.html#algebra">Commuting Hecke algebra</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="r-equals-t"></div>
 </section>
 
@@ -732,5 +1067,18 @@ Surjectivity is easy (the modular Galois representations visibly land in $R_\Sig
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>Fix open issue regressions in quizzes and widget scripts</td></tr>
+      <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
+      <tr><td>2026-04-19</td><td>Expand Wave 4 capstones with additional interactive widgets</td></tr>
+      <tr><td>2026-04-19</td><td>main topics added</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

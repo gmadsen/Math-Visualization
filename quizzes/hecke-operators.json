@@ -124,6 +124,40 @@
           "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
         }
       ]
+    },
+    "hecke-self-adjointness": {
+      "title": "Self-adjointness of $T_p$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Petersson inner product on $S_k$ integrates against which measure?",
+          "choices": [
+            "$dx\\,dy$ on the fundamental domain $\\mathcal{F}$",
+            "$y^{k-2}\\,dx\\,dy$ on $\\mathcal{F}$",
+            "$y^{-k}\\,dx\\,dy$ on all of $\\mathcal{H}$"
+          ],
+          "answer": 1,
+          "explain": "The weighting $y^{k-2}\\,dx\\,dy$ makes $f(\\tau)\\overline{g(\\tau)}\\,y^k \\cdot y^{-2}\\,dx\\,dy$ an $\\mathrm{SL}_2(\\mathbb{Z})$-invariant integrand on the hyperbolic quotient."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does self-adjointness of the $T_p$ (for $p\\nmid N$) matter?",
+          "choices": [
+            "It makes $T_p$ invertible on $S_k$",
+            "It guarantees real eigenvalues and, with commutativity, a joint orthonormal eigenbasis",
+            "It forces every modular form to be a cusp form"
+          ],
+          "answer": 1,
+          "explain": "Self-adjoint + commuting operators are simultaneously diagonalizable with real eigenvalues — that is exactly the spectral theorem producing the eigenform basis."
+        },
+        {
+          "type": "numeric",
+          "q": "On $S_k(\\Gamma_0(N))$, the standard Hecke operator $T_p$ is self-adjoint for primes $p$ satisfying $\\gcd(p,N)=1$. For $N=15$, how many of the primes $p\\in\\{2,3,5,7,11\\}$ give a self-adjoint $T_p$?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes. At $p=3,5$ one gets Atkin–Lehner involutions instead."
+        }
+      ]
     }
   }
 }

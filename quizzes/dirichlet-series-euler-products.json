@@ -102,6 +102,78 @@
           "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
         }
       ]
+    },
+    "mellin-transform-dirichlet": {
+      "title": "Mellin transform and $\\Gamma$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Mellin transform of a function $f\\colon(0,\\infty)\\to\\mathbb{C}$ is:",
+          "choices": [
+            "$\\int_0^\\infty f(x)\\,e^{-sx}\\,dx$",
+            "$\\int_0^\\infty f(x)\\,x^{s-1}\\,dx$",
+            "$\\sum_{n\\ge 1} f(n)\\,n^{-s}$",
+            "$\\int_{-\\infty}^\\infty f(x)\\,e^{-isx}\\,dx$"
+          ],
+          "answer": 1,
+          "explain": "Mellin is the multiplicative Fourier transform on $(0,\\infty)$ with kernel $x^{s-1}\\,dx$; it turns dilation into translation in the $s$-variable."
+        },
+        {
+          "type": "numeric",
+          "q": "The Mellin transform of $e^{-x}$ on $(0,\\infty)$ equals $\\Gamma(s)$. Evaluate $\\Gamma(5)$.",
+          "answer": 24,
+          "tol": 1e-6,
+          "explain": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does Mellin + theta summation give analytic continuation of $\\zeta(s)$?",
+          "choices": [
+            "Because $\\zeta(s)\\,\\Gamma(s/2)\\,\\pi^{-s/2}$ is the Mellin of $\\tfrac12(\\theta(x)-1)$, and the $x\\mapsto 1/x$ symmetry of $\\theta$ splits the integral into two convergent pieces on all of $\\mathbb{C}$",
+            "Because $\\Gamma(s)$ has poles that cancel the poles of $\\zeta(s)$",
+            "Because the Mellin transform is always entire",
+            "Because $\\zeta(s)$ equals its own Mellin transform"
+          ],
+          "answer": 0,
+          "explain": "Riemann's 1859 trick: the completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is the Mellin of $\\tfrac12(\\theta(x)-1)$; the Jacobi theta functional equation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ splits the integral $\\int_0^\\infty = \\int_0^1 + \\int_1^\\infty$ into two convergent pieces, manifesting $\\xi(s)=\\xi(1-s)$."
+        }
+      ]
+    },
+    "perron-formula": {
+      "title": "Perron's formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Perron's formula recovers the summatory function $A(x)=\\sum_{n\\le x} a_n$ from the Dirichlet series $D(s)=\\sum a_n n^{-s}$ as:",
+          "choices": [
+            "$A(x)=\\tfrac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty} D(s)\\,\\tfrac{x^s}{s}\\,ds$ for $c>\\sigma_a$",
+            "$A(x)=\\int_0^\\infty D(s)\\,x^s\\,ds$",
+            "$A(x)=\\sum_{\\rho} \\mathrm{Res}_{s=\\rho} D(s)$",
+            "$A(x)=D(1)\\cdot x$"
+          ],
+          "answer": 0,
+          "explain": "Perron: shift a vertical contour past the pole of $1/s$ at $s=0$; the $x^s/s$ kernel acts as a smoothed indicator of $n\\le x$, and residues of $D(s)x^s/s$ at poles (including the main term pole of $D$) give the leading-order asymptotic."
+        },
+        {
+          "type": "mcq",
+          "q": "In the PNT-style application with $D(s)=-\\zeta'(s)/\\zeta(s)$, the main term for $\\psi(x)=\\sum_{n\\le x}\\Lambda(n)$ comes from:",
+          "choices": [
+            "the pole of $\\zeta(s)$ at $s=1$",
+            "the trivial zeros at $s=-2,-4,\\ldots$",
+            "the zeros on $\\Re(s)=1/2$",
+            "the Euler factor at $p=2$"
+          ],
+          "answer": 0,
+          "explain": "The pole of $\\zeta(s)$ at $s=1$ becomes a simple pole of $-\\zeta'/\\zeta$ at $s=1$ with residue $+1$; its contribution in the Perron contour is $x$, giving $\\psi(x)\\sim x$ (the prime-number theorem). The zeros of $\\zeta$ contribute lower-order oscillations."
+        },
+        {
+          "type": "numeric",
+          "q": "At a simple pole of $D(s)$ at $s=s_0$ with residue $\\rho$, the residue of $D(s)\\,x^s/s$ at $s=s_0$ (for $s_0\\ne 0$) is $\\rho\\cdot x^{s_0}/s_0$. For $D(s)=\\zeta(s)$, $s_0=1$, $\\rho=1$, and $x=e$, what is this residue to 4 decimals?",
+          "answer": 2.7183,
+          "tol": 0.001,
+          "explain": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$. This is exactly the leading term in Perron for $\\sum_{n\\le e}1 = $ counting function, with correction terms from the other poles/zeros."
+        }
+      ]
     }
   }
 }

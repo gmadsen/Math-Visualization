@@ -1,0 +1,189 @@
+{
+  "topic": "moonshine",
+  "quizzes": {
+    "j-invariant-q-expansion": {
+      "title": "The j-invariant's q-expansion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The $j$-invariant is the unique $\\mathrm{SL}_2(\\mathbb{Z})$-invariant holomorphic function on $\\mathcal{H}$ whose Fourier expansion begins:",
+          "choices": [
+            "$q + 744 + 196884 q^{-1} + \\cdots$",
+            "$q^{-1} + 744 + 196884\\, q + 21493760\\, q^2 + \\cdots$",
+            "$q^{-1} + 1 + 196884\\, q + \\cdots$",
+            "$1 + 196884\\, q + 21493760\\, q^2 + \\cdots$"
+          ],
+          "answer": 1,
+          "explain": "$j(\\tau) = q^{-1} + 744 + 196884\\,q + 21493760\\,q^2 + \\cdots$ with $q = e^{2\\pi i\\tau}$. The pole is at the cusp $q=0$; the constant term $744$ is a normalization; the higher coefficients are the McKay–Thompson data."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the coefficient of $q$ (i.e., $c_1$) in the Fourier expansion of $j(\\tau)$?",
+          "answer": 196884,
+          "tol": 0,
+          "explain": "$c_1 = 196884$. Numerically one unit more than the dimension $196883$ of the smallest non-trivial irreducible representation of the Monster — McKay's starting observation."
+        },
+        {
+          "type": "mcq",
+          "q": "The shifted $j$-function $J(\\tau) = j(\\tau) - 744$ has:",
+          "choices": [
+            "a different pole at the cusp",
+            "vanishing constant term and otherwise the same coefficients",
+            "different coefficients of $q$ and $q^2$",
+            "different pole order at $i\\infty$"
+          ],
+          "answer": 1,
+          "explain": "Subtracting $744$ only changes the constant term; the pole $q^{-1}$ and every $c_n$ for $n \\ge 1$ are unchanged. $J$ is the version whose graded-dimension statement, $J = \\sum_{n} (\\dim V^\\natural_n) q^n$, is cleanest."
+        }
+      ]
+    },
+
+    "monster-group-structure": {
+      "title": "The Monster group and its irreducibles",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Monster $\\mathbb{M}$ is:",
+          "choices": [
+            "the largest alternating group",
+            "a Lie group of type $E_8$",
+            "the largest sporadic finite simple group",
+            "an infinite-dimensional Lie algebra"
+          ],
+          "answer": 2,
+          "explain": "$\\mathbb{M}$ is the largest of the $26$ sporadic finite simple groups, of order $\\approx 8\\times 10^{53}$. The other finite simple groups sit in infinite families (cyclic of prime order, alternating, Lie type); $\\mathbb{M}$ does not."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the dimension of the smallest faithful (i.e., non-trivial) complex irreducible representation of the Monster?",
+          "answer": 196883,
+          "tol": 0,
+          "explain": "$\\dim V_2 = 196883$. The Griess algebra on which $\\mathbb{M}$ was originally constructed is $196883$-dimensional (its identity element adds one more, giving the $196884$-dimensional 'Griess algebra plus identity' often quoted)."
+        },
+        {
+          "type": "mcq",
+          "q": "The primes dividing $|\\mathbb{M}|$ are:",
+          "choices": [
+            "all primes up to $71$",
+            "exactly $\\{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 47, 59, 71\\}$",
+            "exactly the Fermat primes",
+            "exactly the Mersenne primes"
+          ],
+          "answer": 1,
+          "explain": "These $15$ primes — the 'supersingular primes' in the sense of Ogg — are exactly the primes $p$ for which $\\Gamma_0(p)+$ has genus $0$. Ogg conjectured this coincidence before moonshine existed, and Conway–Norton's conjecture explained it."
+        }
+      ]
+    },
+
+    "mckay-observation": {
+      "title": "McKay's observation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $196883 + 1$.",
+          "answer": 196884,
+          "tol": 0,
+          "explain": "$196884 = 196883 + 1 = \\dim V_2 + \\dim V_1$. McKay's original line: the $q$-coefficient of $j$ equals the sum of the two smallest irreducible dimensions of the Monster — numerically trivial, mathematically a miracle."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $21296876 + 196883 + 1$ and compare to the $q^2$-coefficient of $j(\\tau)$.",
+          "answer": 21493760,
+          "tol": 0,
+          "explain": "$21493760 = 21296876 + 196883 + 1 = \\dim V_3 + \\dim V_2 + \\dim V_1 = c_2$. McKay's list continues: every $c_n$ decomposes as a non-negative integer combination of Monster irreducible dimensions."
+        },
+        {
+          "type": "mcq",
+          "q": "Under McKay's conjectural interpretation, the $q^n$-coefficient $c_n$ of $j(\\tau)$ equals the graded dimension of:",
+          "choices": [
+            "the $n$-th symmetric power of a Monster representation",
+            "the weight-$n$ piece $V^\\natural_n$ of a graded Monster module $V^\\natural$",
+            "a direct summand of the regular representation of $\\mathbb{M}$",
+            "a Hecke eigenform space"
+          ],
+          "answer": 1,
+          "explain": "The conjecture: there is a graded $\\mathbb{M}$-module $V^\\natural = \\bigoplus_n V^\\natural_n$ with $\\dim V^\\natural_n = c_n$. Its graded character (replacing dimension by $\\mathrm{tr}\\,g$) gives Thompson series; Frenkel–Lepowsky–Meurman built $V^\\natural$ explicitly as a vertex operator algebra."
+        }
+      ]
+    },
+
+    "thompson-series": {
+      "title": "Thompson series and Conway–Norton",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Conway–Norton conjecture states that for each conjugacy class $[g]$ of $\\mathbb{M}$, the Thompson series $T_g(\\tau)$ is:",
+          "choices": [
+            "a Hecke eigenform of weight $0$ for $\\mathrm{SL}_2(\\mathbb{Z})$",
+            "the Hauptmodul of a genus-zero discrete subgroup of $\\mathrm{SL}_2(\\mathbb{R})$",
+            "a polynomial in the $j$-invariant",
+            "identically equal to $j(\\tau) - 744$"
+          ],
+          "answer": 1,
+          "explain": "Hauptmodul = generator of the function field of a genus-zero modular curve $\\Gamma_g\\backslash\\mathcal{H}^*$, normalized by its pole at the cusp. The full list of possible $\\Gamma_g$ is a specific set of $171$ commensurable-with-$\\mathrm{SL}_2(\\mathbb{Z})$ groups."
+        },
+        {
+          "type": "mcq",
+          "q": "For the identity element $e \\in \\mathbb{M}$, the Thompson series $T_e(\\tau)$ equals:",
+          "choices": [
+            "$j(\\tau)$",
+            "$J(\\tau) = j(\\tau) - 744$",
+            "$\\Delta(\\tau)$",
+            "$E_4(\\tau)$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{tr}(e | V^\\natural_n) = \\dim V^\\natural_n = c_n$, the $q^n$-coefficient of $J = j - 744$. The constant term vanishes because $V^\\natural_0 = 0$ (the 'vacuum' lives in degree $-1$)."
+        },
+        {
+          "type": "numeric",
+          "q": "For the class 2A in $\\mathbb{M}$, the character values are $\\chi_1(g) = 1$ and $\\chi_2(g) = 4371$. Compute the coefficient of $q$ in $T_{2A}(\\tau)$.",
+          "answer": 4372,
+          "tol": 0,
+          "explain": "$V^\\natural_1 = V_1 \\oplus V_2$ (McKay's decomposition), so $\\mathrm{tr}(g | V^\\natural_1) = \\chi_1(g) + \\chi_2(g) = 1 + 4371 = 4372$. This is the $q$-coefficient of the Hauptmodul of $\\Gamma_0(2)+$."
+        }
+      ]
+    },
+
+    "borcherds-proof-sketch": {
+      "title": "Borcherds' proof — generalized Kac–Moody and replication",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Borcherds proved Conway–Norton by constructing:",
+          "choices": [
+            "a $196884$-dimensional Lie group",
+            "a generalized Kac–Moody algebra (the Monster Lie algebra) with root multiplicities $c(mn)$",
+            "a new infinite family of sporadic simple groups",
+            "a modular form of weight $\\tfrac{1}{2}$ attached to each Thompson series"
+          ],
+          "answer": 1,
+          "explain": "The Monster Lie algebra $\\mathfrak{m}$ is a generalized Kac–Moody algebra whose root $(m,n)$ (for $m > 0, n \\in \\mathbb{Z}$) has multiplicity $c(mn)$, the $j$-coefficient at $mn$. This is the object whose existence is forced by the Goddard–Thorn no-ghost theorem applied to $V^\\natural$ plus lattice bosons."
+        },
+        {
+          "type": "mcq",
+          "q": "The Weyl–Kac denominator identity for the Monster Lie algebra reads:",
+          "choices": [
+            "$p^{-1}\\prod_{m > 0,\\, n \\in \\mathbb{Z}}(1 - p^m q^n)^{c(mn)} = J(p) - J(q)$",
+            "$\\sum c(n) q^n = \\eta(\\tau)^{24}$",
+            "$L(\\mathbb{M}, s) = \\prod_p (1 - p^{-s})^{-1}$",
+            "$\\mathrm{tr}(g | V^\\natural) = j(\\tau)$"
+          ],
+          "answer": 0,
+          "explain": "This infinite product, viewed as a formal power series in $p$ and $q$, equals $J(p) - J(q)$. Equating coefficients of $p^m q^n$ produces 'replication' recursions; each Thompson series satisfies the same recursion with character values in place of dimensions, forcing it to be a Hauptmodul."
+        },
+        {
+          "type": "mcq",
+          "q": "The Goddard–Thorn no-ghost theorem enters the proof by:",
+          "choices": [
+            "proving the Riemann hypothesis for $L$-functions of Thompson series",
+            "identifying the physical state space of a bosonic string with a Lie algebra whose root-space dimensions match $c(mn)$",
+            "constructing the Monster as a Galois group",
+            "showing $V^\\natural$ is a finite-dimensional representation"
+          ],
+          "answer": 1,
+          "explain": "Goddard–Thorn (1972, from string theory) identifies the BRST-cohomological physical states of a bosonic string on a certain background with a Lie algebra carrying an explicit root decomposition. Applied to $V^\\natural \\otimes V_{1,1}$ (Leech-lattice-like bosons), the output is the Monster Lie algebra."
+        }
+      ]
+    }
+  }
+}

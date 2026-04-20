@@ -13,20 +13,38 @@
       "blurb": "Theta series encode lattice counts and often produce modular forms."
     },
     {
+      "id": "theta-q-expansion",
+      "title": "q-expansion and convergence",
+      "anchor": "conv",
+      "prereqs": [
+        "theta-series-lattice"
+      ],
+      "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function."
+    },
+    {
       "id": "theta-transformation-law",
       "title": "Theta transformation law",
       "anchor": "trans",
       "prereqs": [
-        "theta-series-lattice"
+        "theta-q-expansion"
       ],
       "blurb": "Poisson summation drives modular transformation formulas for theta functions."
+    },
+    {
+      "id": "dedekind-eta-theta",
+      "title": "Dedekind eta and theta",
+      "anchor": "eta",
+      "prereqs": [
+        "theta-transformation-law"
+      ],
+      "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world."
     },
     {
       "id": "jacobi-triple-product",
       "title": "Jacobi triple product and q-identities",
       "anchor": "jtp",
       "prereqs": [
-        "theta-transformation-law"
+        "dedekind-eta-theta"
       ],
       "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena."
     }

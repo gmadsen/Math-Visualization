@@ -1,0 +1,184 @@
+{
+  "topic": "analytic-continuation",
+  "quizzes": {
+    "power-series-radius-analytic": {
+      "title": "Germs and disks of convergence",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the radius of convergence of $\\sum_{n\\ge 0} z^n/(2^n\\,n)$? (Hint: root test or ratio test.)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$|c_n|^{1/n} = (1/(2^n n))^{1/n} = (1/2)\\cdot n^{-1/n} \\to 1/2$, so $R = 1/\\limsup|c_n|^{1/n} = 2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two holomorphic functions $f, g$ on a connected open set $U$ agree on the sequence $z_n = 1/n$ (which accumulates at $0 \\in U$). What can you conclude?",
+          "choices": [
+            "they agree at the $z_n$ but may differ elsewhere",
+            "they agree on a neighborhood of $0$ only",
+            "$f \\equiv g$ on all of $U$",
+            "nothing; countable agreement is not enough"
+          ],
+          "answer": 2,
+          "explain": "The identity theorem: if a holomorphic function on a connected open set vanishes on a set with an accumulation point in $U$, it vanishes identically. Apply to $f-g$."
+        },
+        {
+          "type": "mcq",
+          "q": "The geometric series $\\sum z^n$ defines $1/(1-z)$ for $|z|<1$. Why is $1/(1-z)$, defined on $\\mathbb{C}\\setminus\\{1\\}$, called \u2018the\u2019 analytic continuation?",
+          "choices": [
+            "it happens to be the simplest formula",
+            "because $\\mathbb{C}\\setminus\\{1\\}$ is connected and extensions are unique by the identity theorem",
+            "because the series converges everywhere on $\\mathbb{C}\\setminus\\{1\\}$",
+            "a matter of convention only"
+          ],
+          "answer": 1,
+          "explain": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem\u2014hence uniqueness."
+        }
+      ]
+    },
+
+    "continuation-along-path": {
+      "title": "Continuation along a path",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "You continue the principal branch of $\\log z$ along the semicircle from $1$ around $0$ to $-1$ in the upper half plane. What value do you arrive at?",
+          "choices": ["$0$", "$i\\pi$", "$-i\\pi$", "$2\\pi i$"],
+          "answer": 1,
+          "explain": "$\\log z = \\ln|z| + i\\arg z$; along the upper arc $\\arg$ moves continuously from $0$ to $\\pi$. So you arrive at $\\ln 1 + i\\pi = i\\pi$."
+        },
+        {
+          "type": "mcq",
+          "q": "Weierstrass disk-chaining: if $f$ has germ at $a$ with radius $r$, and the next center $b$ lies at distance $d < r$, which of the following guarantees a valid continuation step?",
+          "choices": [
+            "the next germ's radius is at least $d$",
+            "the new germ agrees with $f$ on the overlap $D(a,r)\\cap D(b,?)$",
+            "the new series is obtained by re-expanding $f$ at $b$, and its radius of convergence is at least $r-d$",
+            "nothing beyond continuity is required"
+          ],
+          "answer": 2,
+          "explain": "Re-expanding $f$ in powers of $(z-b)$ gives a series with radius of convergence at least $r-d$ (the distance from $b$ to the boundary of $D(a,r)$); the germs agree on the nonempty intersection, so the chain step is legitimate."
+        },
+        {
+          "type": "numeric",
+          "q": "Starting from the principal branch of $\\sqrt{z}$ near $z=1$, continue along the circle $|z|=1$ once counter-clockwise back to $z=1$. The new value at $1$ is $(-1)^k$ for $k = $?",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$."
+        }
+      ]
+    },
+
+    "monodromy-theorem": {
+      "title": "Monodromy theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The monodromy theorem says: if $U$ is simply connected and a germ at $p\\in U$ continues along every path in $U$, then\u2026",
+          "choices": [
+            "the continuation depends only on endpoints (path-independent)",
+            "$U$ must equal $\\mathbb{C}$",
+            "the continuation is bounded",
+            "$U$ has trivial homology in every degree"
+          ],
+          "answer": 0,
+          "explain": "Simply connected means any two paths with the same endpoints are homotopic; the continuation is a locally constant function of the homotopy class of the path."
+        },
+        {
+          "type": "numeric",
+          "q": "Continue the principal branch of $\\log z$ along the loop $\\gamma(t)=e^{2\\pi i t}$, $t\\in[0,1]$. By how much does $\\log z$ change after one loop? Enter the imaginary part divided by $\\pi$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\log$ picks up $2\\pi i$ per full loop around $0$; imaginary part / $\\pi = 2$. This is the monodromy generator of $\\pi_1(\\mathbb{C}^*)\\cong\\mathbb{Z}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\sqrt{z}$ become single-valued on $\\mathbb{C}\\setminus(-\\infty, 0]$ but not on $\\mathbb{C}\\setminus\\{0\\}$?",
+          "choices": [
+            "because removing the negative real axis makes the domain simply connected",
+            "because $\\sqrt{z}$ happens to have no pole there",
+            "because $\\sqrt{z}$ is analytic only on slit planes",
+            "because of analytic continuation around $z=-1$"
+          ],
+          "answer": 0,
+          "explain": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued. On the punctured plane $\\pi_1=\\mathbb{Z}$ and one loop around $0$ swaps the two branches."
+        }
+      ]
+    },
+
+    "schwarz-reflection": {
+      "title": "Schwarz reflection principle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $f$ be holomorphic on the upper half disk $D^+=\\{|z|<1,\\,\\operatorname{Im}z>0\\}$, extend continuously to the diameter $(-1,1)$, and take real values on that diameter. The Schwarz extension to $D^-$ is given by\u2026",
+          "choices": [
+            "$f(\\bar z)$",
+            "$\\overline{f(\\bar z)}$",
+            "$\\overline{f(z)}$",
+            "$-f(\\bar z)$"
+          ],
+          "answer": 1,
+          "explain": "Define $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$. This is holomorphic there (the composition of two antiholomorphic maps is holomorphic) and matches $f$ on the real boundary because $f$ is real there."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these boundary-value situations does the Schwarz reflection principle NOT apply to directly?",
+          "choices": [
+            "$f$ real-valued on a real segment",
+            "$f$ sending a circular arc to another circular arc (with a M\u00f6bius pre/post-composition)",
+            "$f$ with essential singularity on the boundary arc",
+            "$f$ purely imaginary on a real segment"
+          ],
+          "answer": 2,
+          "explain": "Schwarz reflection needs continuous boundary values mapping onto a real-analytic arc (line, circle, or general analytic curve after a M\u00f6bius twist). Essential singularities do not extend continuously to the boundary, so the principle fails."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f$ is holomorphic on $D^+$, continuous on its closure, and takes real values on $(-1,1)$, and $f(i/2)=3+4i$, then the extension satisfies $\\tilde f(-i/2) = a+bi$ with $b = $?",
+          "answer": -4,
+          "tol": 1e-6,
+          "explain": "$\\tilde f(z) = \\overline{f(\\bar z)}$. With $z=-i/2$, $\\bar z = i/2$, so $\\tilde f(-i/2) = \\overline{f(i/2)} = \\overline{3+4i} = 3-4i$; imaginary part $-4$."
+        }
+      ]
+    },
+
+    "zeta-functional-equation": {
+      "title": "Zeta functional equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Riemann's integral representation $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty (\\theta(x)-1)\\,x^{s/2-1}dx$ converges for $\\operatorname{Re}(s)>1$. What step turns this into an entire-minus-poles meromorphic formula on all of $\\mathbb{C}$?",
+          "choices": [
+            "differentiating under the integral",
+            "splitting at $x=1$ and using the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ on $(0,1)$",
+            "replacing $\\theta(x)$ by its $q$-expansion",
+            "applying the residue theorem to the Mellin kernel"
+          ],
+          "answer": 1,
+          "explain": "Split $\\int_0^1 + \\int_1^\\infty$, change variable $x\\to 1/x$ on $(0,1)$, and use $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. The $\\int_1^\\infty$ piece converges for ALL $s$, and the explicit $1/s(s-1)$ poles show up as boundary terms."
+        },
+        {
+          "type": "mcq",
+          "q": "The completed zeta function is $\\xi(s) = \\tfrac12 s(s-1)\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. What is the functional equation?",
+          "choices": [
+            "$\\xi(s) = -\\xi(1-s)$",
+            "$\\xi(s) = \\xi(1-s)$",
+            "$\\xi(s) = \\xi(-s)$",
+            "$\\xi(s)\\xi(1-s) = 1$"
+          ],
+          "answer": 1,
+          "explain": "The Riemann integral is visibly symmetric under $s\\mapsto 1-s$ after the theta-transformation step; the factor $s(s-1)$ clears the two poles. Result: $\\xi(s)=\\xi(1-s)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Use $\\xi(s)=\\xi(1-s)$ and $\\zeta(2)=\\pi^2/6$ to compute $\\zeta(-1)$. (Hint: $\\Gamma(1/2)=\\sqrt\\pi$, $\\Gamma(-1/2)=-2\\sqrt\\pi$.) Enter a decimal.",
+          "answer": -0.0833333333,
+          "tol": 1e-4,
+          "explain": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$. Plugging in, $\\pi^{-1}\\cdot\\pi^2/6 = \\pi^{1/2}\\cdot(-2\\sqrt\\pi)\\zeta(-1) = -2\\pi\\,\\zeta(-1)$, so $\\zeta(-1) = -\\pi/(6)\\cdot 1/(2\\pi) = -1/12$."
+        }
+      ]
+    }
+  }
+}

@@ -26,6 +26,8 @@ window.__MVConcepts = {
       "galois",
       "quadratic-reciprocity",
       "sums-of-squares",
+      "power-sums-bernoulli",
+      "waring",
       "algebraic-number-theory",
       "p-adic-numbers",
       "frobenius-and-reciprocity",
@@ -33,10 +35,13 @@ window.__MVConcepts = {
       "upper-half-plane-hyperbolic",
       "modular-forms",
       "theta-functions",
+      "partitions-generating-functions",
       "hecke-operators",
       "dirichlet-series-euler-products",
+      "analytic-continuation",
       "L-functions",
       "galois-representations",
+      "moonshine",
       "projective-plane",
       "bezout",
       "schemes",
@@ -68,6 +73,15 @@ window.__MVConcepts = {
           "blurb": "Sets, membership, subsets, unions/intersections, functions as single-valued relations, injections and surjections."
         },
         {
+          "id": "cartesian-product-powerset",
+          "title": "Cartesian products and power sets",
+          "anchor": "products",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "Products $A\\times B$, function spaces $B^A$, and the power set $\\mathcal{P}(A)\\cong\\{0,1\\}^A$ — the basic constructions behind tuples, graphs of functions, and indicator functions."
+        },
+        {
           "id": "equivalence-relations",
           "title": "Equivalence relations and quotients",
           "anchor": "equivalence",
@@ -84,6 +98,16 @@ window.__MVConcepts = {
             "sets-functions"
           ],
           "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
+        },
+        {
+          "id": "axiom-of-choice-intuition",
+          "title": "Axiom of choice",
+          "anchor": "choice",
+          "prereqs": [
+            "cartesian-product-powerset",
+            "countability"
+          ],
+          "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
         }
       ]
     },
@@ -837,20 +861,41 @@ window.__MVConcepts = {
           "blurb": "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control."
         },
         {
+          "id": "spectrum-of-element",
+          "title": "Spectrum and functional calculus",
+          "anchor": "spec",
+          "prereqs": [
+            "cstar-basics",
+            "bounded-operators-fa"
+          ],
+          "blurb": "The spectrum σ(a) is a non-empty compact subset of ℂ; the spectral-radius formula r(a)=lim‖aⁿ‖^{1/n} and a continuous functional calculus on normal elements make C*-algebras analytically tractable."
+        },
+        {
           "id": "gelfand-duality-oa",
           "title": "Commutative duality and spectra",
           "anchor": "duality",
           "prereqs": [
-            "cstar-basics"
+            "cstar-basics",
+            "spectrum-of-element"
           ],
           "blurb": "Commutative C*-algebras correspond to compact spaces via Gelfand duality."
+        },
+        {
+          "id": "positive-elements",
+          "title": "Positive elements and states",
+          "anchor": "positive",
+          "prereqs": [
+            "spectrum-of-element"
+          ],
+          "blurb": "Positive elements a = b*b form a closed cone detected by σ(a) ⊆ [0,∞); positive linear functionals of norm 1 are states, generalizing Borel probability measures to noncommutative C*-algebras."
         },
         {
           "id": "von-neumann-and-nc",
           "title": "Von Neumann algebras and noncommutative geometry",
           "anchor": "ncg",
           "prereqs": [
-            "cstar-basics"
+            "cstar-basics",
+            "positive-elements"
           ],
           "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
         }
@@ -1061,11 +1106,32 @@ window.__MVConcepts = {
           "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0."
         },
         {
+          "id": "pullback-of-forms",
+          "title": "Pullback of forms",
+          "anchor": "pullback",
+          "prereqs": [
+            "forms-and-wedge",
+            "smooth-map"
+          ],
+          "blurb": "A smooth map f:M→N contravariantly transports k-forms back, commuting with d and ∧ — this is why integration of forms is coordinate-invariant."
+        },
+        {
+          "id": "integration-on-chains",
+          "title": "Integration of forms over chains",
+          "anchor": "integration",
+          "prereqs": [
+            "pullback-of-forms",
+            "singular-homology"
+          ],
+          "blurb": "A smooth k-chain is a formal sum of smooth simplices; integrating a k-form over a chain is defined via pullback to the standard simplex and extends by linearity."
+        },
+        {
           "id": "stokes-derham",
           "title": "Stokes theorem and de Rham cohomology",
           "anchor": "deRham",
           "prereqs": [
-            "exterior-derivative"
+            "exterior-derivative",
+            "integration-on-chains"
           ],
           "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms."
         }
@@ -1095,6 +1161,15 @@ window.__MVConcepts = {
           "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
         },
         {
+          "id": "gauss-map",
+          "title": "Gauss map and shape operator",
+          "anchor": "gauss",
+          "prereqs": [
+            "first-second-fundamental"
+          ],
+          "blurb": "The unit-normal map n: S → S^2 has differential dN_p = −S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature."
+        },
+        {
           "id": "gauss-curvature-geodesics",
           "title": "Gaussian curvature and geodesics",
           "anchor": "geodesics",
@@ -1102,6 +1177,16 @@ window.__MVConcepts = {
             "first-second-fundamental"
           ],
           "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+        },
+        {
+          "id": "gauss-bonnet",
+          "title": "Gauss–Bonnet theorem",
+          "anchor": "gaussbonnet",
+          "prereqs": [
+            "gauss-curvature-geodesics",
+            "gauss-map"
+          ],
+          "blurb": "Total Gaussian curvature of a closed oriented surface is 2πχ(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2π."
         }
       ]
     },
@@ -1136,6 +1221,25 @@ window.__MVConcepts = {
             "levi-civita-connection"
           ],
           "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+        },
+        {
+          "id": "ricci-curvature",
+          "title": "Ricci curvature and Einstein manifolds",
+          "anchor": "ricci",
+          "prereqs": [
+            "riemann-curvature-tensor"
+          ],
+          "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations."
+        },
+        {
+          "id": "volume-form-rg",
+          "title": "Riemannian volume form and divergence",
+          "anchor": "volume",
+          "prereqs": [
+            "riemannian-metrics",
+            "forms-and-wedge"
+          ],
+          "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g)."
         }
       ]
     },
@@ -1244,6 +1348,27 @@ window.__MVConcepts = {
             "branched-covers-rs"
           ],
           "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces."
+        },
+        {
+          "id": "genus-invariant",
+          "title": "Genus as the universal invariant",
+          "anchor": "rh",
+          "prereqs": [
+            "riemann-surface-definition",
+            "branched-covers-rs",
+            "fundamental-group"
+          ],
+          "blurb": "The genus g of a compact Riemann surface controls Euler characteristic χ=2−2g, Betti numbers, and — via Riemann–Hurwitz — the only way branched covers can fit together."
+        },
+        {
+          "id": "riemann-roch",
+          "title": "Divisors and the Riemann–Roch theorem",
+          "anchor": "divisors",
+          "prereqs": [
+            "riemann-hurwitz-uniformization",
+            "holomorphic-function"
+          ],
+          "blurb": "Riemann–Roch computes ℓ(D)−ℓ(K−D)=deg D−g+1, turning topology into dimensions of spaces of meromorphic functions and linking divisors to line bundles."
         }
       ]
     },
@@ -1341,6 +1466,15 @@ window.__MVConcepts = {
             "gauss-lemma-qr"
           ],
           "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+        },
+        {
+          "id": "jacobi-symbol-generalization",
+          "title": "The Jacobi symbol",
+          "anchor": "jacobi",
+          "prereqs": [
+            "quadratic-reciprocity-law"
+          ],
+          "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required."
         }
       ]
     },
@@ -1359,11 +1493,20 @@ window.__MVConcepts = {
           "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
         },
         {
+          "id": "gaussian-integer-splitting",
+          "title": "Gaussian integers and prime splitting",
+          "anchor": "gaussian",
+          "prereqs": [
+            "two-squares-theorem"
+          ],
+          "blurb": "Primes p≡1 mod 4 split in Z[i]; p≡3 mod 4 stay inert; p=2 ramifies — the structural reason behind Fermat's theorem."
+        },
+        {
           "id": "three-squares-theorem",
           "title": "Legendre three-square theorem",
           "anchor": "three",
           "prereqs": [
-            "two-squares-theorem"
+            "gaussian-integer-splitting"
           ],
           "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
         },
@@ -1375,6 +1518,121 @@ window.__MVConcepts = {
             "three-squares-theorem"
           ],
           "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+        },
+        {
+          "id": "waring-problem",
+          "title": "Waring's problem: g(k) and G(k)",
+          "anchor": "waring",
+          "prereqs": [
+            "four-squares-and-waring"
+          ],
+          "blurb": "Hilbert's theorem guarantees finitely many k-th powers suffice; g(k) and G(k) sharpen the count asymptotically."
+        }
+      ]
+    },
+    "power-sums-bernoulli": {
+      "topic": "power-sums-bernoulli",
+      "title": "Power sums, Bernoulli numbers, and Euler-Maclaurin",
+      "page": "power-sums-bernoulli.html",
+      "concepts": [
+        {
+          "id": "faulhaber-formula",
+          "title": "Faulhaber's formula for power sums",
+          "anchor": "faulhaber",
+          "prereqs": [],
+          "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers."
+        },
+        {
+          "id": "bernoulli-generating-function",
+          "title": "Bernoulli numbers and their generating function",
+          "anchor": "bernoulli",
+          "prereqs": [
+            "faulhaber-formula"
+          ],
+          "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign."
+        },
+        {
+          "id": "zeta-special-values",
+          "title": "Euler's formula for $\\zeta(2n)$",
+          "anchor": "zeta",
+          "prereqs": [
+            "bernoulli-generating-function",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Euler expressed $\\zeta(2n)$ in closed form using Bernoulli numbers; the negative-integer values $\\zeta(-n)=-B_{n+1}/(n+1)$ are the shadow seen through the functional equation."
+        },
+        {
+          "id": "euler-maclaurin",
+          "title": "Euler-Maclaurin summation",
+          "anchor": "em",
+          "prereqs": [
+            "bernoulli-generating-function",
+            "riemann-integral"
+          ],
+          "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible."
+        },
+        {
+          "id": "zeta-functional-equation-preview",
+          "title": "Functional equation preview via Mellin",
+          "anchor": "func-eq",
+          "prereqs": [
+            "zeta-special-values",
+            "mellin-transform-dirichlet"
+          ],
+          "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$; the Bernoulli-number values on both sides are the first consistency check of the reflection."
+        }
+      ]
+    },
+    "waring": {
+      "topic": "waring",
+      "title": "Waring's problem and the circle method",
+      "page": "waring.html",
+      "concepts": [
+        {
+          "id": "waring-problem-statement",
+          "title": "Waring's problem: g(k)",
+          "anchor": "statement",
+          "prereqs": [
+            "four-squares-and-waring"
+          ],
+          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+        },
+        {
+          "id": "g-k-vs-G-k",
+          "title": "g(k) versus G(k)",
+          "anchor": "gvsG",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+        },
+        {
+          "id": "hilbert-waring-theorem",
+          "title": "Hilbert–Waring theorem",
+          "anchor": "hilbert",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method."
+        },
+        {
+          "id": "circle-method-intro",
+          "title": "Circle method setup",
+          "anchor": "circle",
+          "prereqs": [
+            "hilbert-waring-theorem",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+        },
+        {
+          "id": "major-vs-minor-arcs",
+          "title": "Major arcs vs minor arcs",
+          "anchor": "arcs",
+          "prereqs": [
+            "circle-method-intro"
+          ],
+          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
         }
       ]
     },
@@ -1448,6 +1706,16 @@ window.__MVConcepts = {
           "blurb": "The p-adic absolute value yields an ultrametric completion Q_p."
         },
         {
+          "id": "ultrametric-topology",
+          "title": "Ultrametric topology",
+          "anchor": "ultra",
+          "prereqs": [
+            "padic-norm-completion",
+            "metric-spaces"
+          ],
+          "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p."
+        },
+        {
           "id": "padic-expansions",
           "title": "p-adic expansions and topology",
           "anchor": "expand",
@@ -1464,6 +1732,16 @@ window.__MVConcepts = {
             "padic-expansions"
           ],
           "blurb": "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions."
+        },
+        {
+          "id": "local-global-principle",
+          "title": "Local-global (Hasse) principle",
+          "anchor": "localglobal",
+          "prereqs": [
+            "hensel-lemma",
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "A Diophantine problem over Q is studied by solving it over R and every Q_p; for quadratic forms this local data is sufficient, while failures for higher-degree forms are measured by Brauer and Tate-Shafarevich groups."
         }
       ]
     },
@@ -1480,6 +1758,27 @@ window.__MVConcepts = {
             "prime-ideals-factorization-ant"
           ],
           "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action."
+        },
+        {
+          "id": "splitting-types",
+          "title": "Splitting types: split, inert, ramified",
+          "anchor": "splitting",
+          "prereqs": [
+            "frobenius-element",
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "Unramified primes in a Galois extension come in a small zoo of splitting behaviours — completely split, inert, or partially split — each recorded by a cycle shape of Frobenius."
+        },
+        {
+          "id": "decomposition-group",
+          "title": "Decomposition and inertia groups",
+          "anchor": "decomposition",
+          "prereqs": [
+            "frobenius-element",
+            "prime-ideals-factorization-ant",
+            "fundamental-theorem-galois"
+          ],
+          "blurb": "The stabiliser of a prime above p is its decomposition group; its kernel onto the residue-field Galois group is the inertia subgroup, and Frobenius is the generator of the quotient."
         },
         {
           "id": "chebotarev-density",
@@ -1607,6 +1906,15 @@ window.__MVConcepts = {
             "mobius-transformations"
           ],
           "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story."
+        },
+        {
+          "id": "isometry-group-psl2r",
+          "title": "PSL2(R) and the isometry trichotomy",
+          "anchor": "iso",
+          "prereqs": [
+            "sl2r-action-on-H"
+          ],
+          "blurb": "PSL2(R) is the full orientation-preserving isometry group of H; its elements split by trace into elliptic, parabolic, and hyperbolic conjugacy classes."
         }
       ]
     },
@@ -1651,6 +1959,15 @@ window.__MVConcepts = {
             "eisenstein-series-mf"
           ],
           "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+        },
+        {
+          "id": "petersson-inner-product",
+          "title": "Petersson inner product",
+          "anchor": "petersson",
+          "prereqs": [
+            "q-expansions-mf"
+          ],
+          "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal."
         }
       ]
     },
@@ -1669,22 +1986,92 @@ window.__MVConcepts = {
           "blurb": "Theta series encode lattice counts and often produce modular forms."
         },
         {
+          "id": "theta-q-expansion",
+          "title": "q-expansion and convergence",
+          "anchor": "conv",
+          "prereqs": [
+            "theta-series-lattice"
+          ],
+          "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function."
+        },
+        {
           "id": "theta-transformation-law",
           "title": "Theta transformation law",
           "anchor": "trans",
           "prereqs": [
-            "theta-series-lattice"
+            "theta-q-expansion"
           ],
           "blurb": "Poisson summation drives modular transformation formulas for theta functions."
+        },
+        {
+          "id": "dedekind-eta-theta",
+          "title": "Dedekind eta and theta",
+          "anchor": "eta",
+          "prereqs": [
+            "theta-transformation-law"
+          ],
+          "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world."
         },
         {
           "id": "jacobi-triple-product",
           "title": "Jacobi triple product and q-identities",
           "anchor": "jtp",
           "prereqs": [
-            "theta-transformation-law"
+            "dedekind-eta-theta"
           ],
           "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena."
+        }
+      ]
+    },
+    "partitions-generating-functions": {
+      "topic": "partitions-generating-functions",
+      "title": "Partitions and generating functions",
+      "page": "partitions-generating-functions.html",
+      "concepts": [
+        {
+          "id": "partition-function-pn",
+          "title": "The partition function p(n)",
+          "anchor": "pn",
+          "prereqs": [],
+          "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
+        },
+        {
+          "id": "euler-partition-product",
+          "title": "Euler's partition product",
+          "anchor": "euler",
+          "prereqs": [
+            "partition-function-pn"
+          ],
+          "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once."
+        },
+        {
+          "id": "pentagonal-number-theorem",
+          "title": "Euler's pentagonal number theorem",
+          "anchor": "pent",
+          "prereqs": [
+            "euler-partition-product"
+          ],
+          "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n)."
+        },
+        {
+          "id": "ramanujan-congruences",
+          "title": "Ramanujan congruences",
+          "anchor": "ram",
+          "prereqs": [
+            "pentagonal-number-theorem"
+          ],
+          "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
+        },
+        {
+          "id": "dedekind-eta-modular",
+          "title": "Dedekind eta as a modular form",
+          "anchor": "eta",
+          "prereqs": [
+            "pentagonal-number-theorem",
+            "modular-form-definition",
+            "jacobi-triple-product"
+          ],
+          "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world."
         }
       ]
     },
@@ -1728,6 +2115,16 @@ window.__MVConcepts = {
             "hecke-algebra-commuting"
           ],
           "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions."
+        },
+        {
+          "id": "hecke-self-adjointness",
+          "title": "Self-adjointness of $T_p$",
+          "anchor": "petersson",
+          "prereqs": [
+            "hecke-algebra-commuting",
+            "petersson-inner-product"
+          ],
+          "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$."
         }
       ]
     },
@@ -1763,6 +2160,84 @@ window.__MVConcepts = {
             "legendre-symbol"
           ],
           "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+        },
+        {
+          "id": "mellin-transform-dirichlet",
+          "title": "Mellin transform and the gamma integral",
+          "anchor": "mellin",
+          "prereqs": [
+            "dirichlet-series-basics",
+            "contour-integral"
+          ],
+          "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation."
+        },
+        {
+          "id": "perron-formula",
+          "title": "Perron's formula",
+          "anchor": "perron",
+          "prereqs": [
+            "mellin-transform-dirichlet",
+            "residue-theorem"
+          ],
+          "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations."
+        }
+      ]
+    },
+    "analytic-continuation": {
+      "topic": "analytic-continuation",
+      "title": "Analytic continuation",
+      "page": "analytic-continuation.html",
+      "concepts": [
+        {
+          "id": "power-series-radius-analytic",
+          "title": "Germs and disks of convergence",
+          "anchor": "germs",
+          "prereqs": [
+            "analyticity"
+          ],
+          "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
+        },
+        {
+          "id": "continuation-along-path",
+          "title": "Continuation along a path",
+          "anchor": "path",
+          "prereqs": [
+            "power-series-radius-analytic",
+            "paths"
+          ],
+          "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits."
+        },
+        {
+          "id": "monodromy-theorem",
+          "title": "Monodromy theorem",
+          "anchor": "mono",
+          "prereqs": [
+            "continuation-along-path",
+            "simply-connected",
+            "fundamental-group"
+          ],
+          "blurb": "If $U$ is simply connected and a germ continues along every path in $U$, the continuation is single-valued; on non-simply-connected domains, looping around a branch point produces monodromy (e.g. $\\log$ shifts by $2\\pi i$)."
+        },
+        {
+          "id": "schwarz-reflection",
+          "title": "Schwarz reflection principle",
+          "anchor": "schwarz",
+          "prereqs": [
+            "continuation-along-path",
+            "harmonic-functions"
+          ],
+          "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc."
+        },
+        {
+          "id": "zeta-functional-equation",
+          "title": "Riemann’s functional equation for $\\zeta$",
+          "anchor": "zeta",
+          "prereqs": [
+            "continuation-along-path",
+            "mellin-transform-dirichlet",
+            "theta-transformation-law"
+          ],
+          "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function."
         }
       ]
     },
@@ -1837,6 +2312,16 @@ window.__MVConcepts = {
           "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
         },
         {
+          "id": "semisimple-decomposition",
+          "title": "Irreducibility and semisimplification",
+          "anchor": "ss",
+          "prereqs": [
+            "galois-rep-definition",
+            "schurs-lemma"
+          ],
+          "blurb": "Frobenius traces only see the semisimplification ρ^{ss}, the direct sum of Jordan–Hölder factors; irreducibility is the generic case."
+        },
+        {
           "id": "frobenius-traces",
           "title": "Frobenius traces and compatibility",
           "anchor": "frob",
@@ -1847,6 +2332,16 @@ window.__MVConcepts = {
           "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data."
         },
         {
+          "id": "ramification-galois-rep",
+          "title": "Inertia, ramification, and the conductor",
+          "anchor": "ram",
+          "prereqs": [
+            "frobenius-traces",
+            "padic-norm-completion"
+          ],
+          "blurb": "Ramified primes are those where inertia acts nontrivially; the conductor exponent records the size of the inertia invariants."
+        },
+        {
           "id": "modularity-and-deformations",
           "title": "Residual reps, deformations, modularity",
           "anchor": "mod",
@@ -1855,6 +2350,61 @@ window.__MVConcepts = {
             "modularity-theorem"
           ],
           "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds."
+        }
+      ]
+    },
+    "moonshine": {
+      "topic": "moonshine",
+      "title": "Monstrous moonshine",
+      "page": "moonshine.html",
+      "concepts": [
+        {
+          "id": "j-invariant-q-expansion",
+          "title": "The j-invariant's q-expansion",
+          "anchor": "j",
+          "prereqs": [
+            "modular-form-definition"
+          ],
+          "blurb": "The SL_2(Z)-invariant j(tau) has Fourier expansion q^{-1} + 744 + 196884 q + 21493760 q^2 + ... — a short list of large integers that turned out to hide a finite simple group."
+        },
+        {
+          "id": "monster-group-structure",
+          "title": "The Monster group and its irreducibles",
+          "anchor": "monster",
+          "prereqs": [
+            "group-representations"
+          ],
+          "blurb": "The Monster M is the largest sporadic finite simple group, of order ~8x10^53; its smallest faithful complex irreducibles have dimensions 1, 196883, 21296876, 842609326."
+        },
+        {
+          "id": "mckay-observation",
+          "title": "McKay's observation",
+          "anchor": "mckay",
+          "prereqs": [
+            "j-invariant-q-expansion",
+            "monster-group-structure"
+          ],
+          "blurb": "196884 = 196883 + 1 and 21493760 = 21296876 + 196883 + 1 — each j-coefficient is a non-negative integer combination of Monster irreducible dimensions, forcing a graded M-module V-natural with graded dim = j."
+        },
+        {
+          "id": "thompson-series",
+          "title": "Thompson series and Conway–Norton",
+          "anchor": "thompson",
+          "prereqs": [
+            "mckay-observation",
+            "eigenforms-and-euler-factors"
+          ],
+          "blurb": "For each g in M, T_g(tau) = sum tr(g | V^natural_n) q^n is conjectured (Conway–Norton) to be the Hauptmodul of a genus-zero subgroup of SL_2(R) commensurable with SL_2(Z)."
+        },
+        {
+          "id": "borcherds-proof-sketch",
+          "title": "Borcherds' proof — generalized Kac–Moody and replication",
+          "anchor": "borcherds",
+          "prereqs": [
+            "thompson-series",
+            "adjoint-roots"
+          ],
+          "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody algebra from the moonshine VOA via the Goddard–Thorn no-ghost theorem — whose Weyl–Kac denominator identity p^{-1} prod (1 - p^m q^n)^{c(mn)} = J(p) - J(q) yields replication recursions that pin each Thompson series to Conway–Norton's Hauptmodul."
         }
       ]
     },
@@ -1889,6 +2439,26 @@ window.__MVConcepts = {
             "homogeneous-coordinates"
           ],
           "blurb": "PGL actions describe coordinate changes preserving incidence."
+        },
+        {
+          "id": "projective-duality",
+          "title": "Projective duality",
+          "anchor": "duality",
+          "prereqs": [
+            "projective-points-lines",
+            "homogeneous-coordinates"
+          ],
+          "blurb": "Points and lines of P^2 swap roles under the canonical isomorphism P^2 ≅ (P^2)*, turning every incidence theorem into its dual."
+        },
+        {
+          "id": "cross-ratio",
+          "title": "The cross-ratio",
+          "anchor": "cross-ratio",
+          "prereqs": [
+            "projective-transformations",
+            "field-extensions-basics"
+          ],
+          "blurb": "The cross-ratio of four collinear points is the unique PGL-invariant of their configuration and classifies quadruples up to projective equivalence."
         }
       ]
     },
@@ -1922,7 +2492,26 @@ window.__MVConcepts = {
           "prereqs": [
             "resultants-elimination"
           ],
-          "blurb": "Plane curves of degrees m,n meet in mn points counting multiplicity over algebraic closure."
+          "blurb": "Plane curves of degrees $m,n$ meet in $mn$ points counting multiplicity over algebraic closure."
+        },
+        {
+          "id": "cayley-bacharach",
+          "title": "Cayley–Bacharach and associativity",
+          "anchor": "cayleybach",
+          "prereqs": [
+            "bezout-theorem-core",
+            "elliptic-curve-definition"
+          ],
+          "blurb": "Nine points of $C_1\\cap C_2$ are so rigid that any cubic through eight passes through the ninth — the combinatorial identity that makes the chord–tangent group law associative."
+        },
+        {
+          "id": "higher-dim-bezout",
+          "title": "Bézout in higher dimensions",
+          "anchor": "higherdim",
+          "prereqs": [
+            "bezout-theorem-core"
+          ],
+          "blurb": "For hypersurfaces of degrees $d_i$ meeting properly in $\\mathbb{P}^n$, the total intersection length is $d_1\\cdots d_n$, formalized as the Chow-ring product $[H_1]\\cdots[H_n]=d_1\\cdots d_n\\cdot[\\mathrm{pt}]$."
         }
       ]
     },
@@ -2087,6 +2676,15 @@ window.__MVConcepts = {
           "blurb": "Scheme maps are local ring maps glued globally and tested on affines."
         },
         {
+          "id": "immersions-schemes",
+          "title": "Open, closed, and locally closed immersions",
+          "anchor": "imm",
+          "prereqs": [
+            "scheme-morphisms"
+          ],
+          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\operatorname{Spec}(A_f)\\hookrightarrow\\operatorname{Spec} A$ (open) and $\\operatorname{Spec}(A/I)\\hookrightarrow\\operatorname{Spec} A$ (closed)."
+        },
+        {
           "id": "fiber-products",
           "title": "Fiber products and base change",
           "anchor": "fiber",
@@ -2103,6 +2701,16 @@ window.__MVConcepts = {
             "fiber-products"
           ],
           "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+        },
+        {
+          "id": "separated-proper-morphisms",
+          "title": "Separated and proper morphisms",
+          "anchor": "sepproper",
+          "prereqs": [
+            "fiber-products",
+            "immersions-schemes"
+          ],
+          "blurb": "Separated means the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is a closed immersion (Hausdorff-like); proper means separated, of finite type, and universally closed — the valuative criterion makes this the scheme version of compact."
         }
       ]
     },
@@ -2138,6 +2746,26 @@ window.__MVConcepts = {
             "representability-criteria"
           ],
           "blurb": "Automorphisms obstruct representability by schemes and motivate stack language."
+        },
+        {
+          "id": "yoneda-embedding-ag",
+          "title": "The Yoneda embedding for schemes",
+          "anchor": "yoneda-embedding",
+          "prereqs": [
+            "yoneda-functor-points",
+            "universal-properties"
+          ],
+          "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points."
+        },
+        {
+          "id": "base-change-interpretation",
+          "title": "Base change as pullback of functors",
+          "anchor": "base-change",
+          "prereqs": [
+            "yoneda-functor-points",
+            "fiber-products"
+          ],
+          "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent."
         }
       ]
     },
@@ -2218,13 +2846,33 @@ window.__MVConcepts = {
           "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
         },
         {
-          "id": "kodaira-néron-preview",
+          "id": "kodaira-néron-preview",
           "title": "Bad reduction taxonomy",
           "anchor": "badtypes",
           "prereqs": [
             "reduction-mod-p"
           ],
           "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity."
+        },
+        {
+          "id": "hasse-bound-point-counting",
+          "title": "Point counting and the Hasse bound",
+          "anchor": "counting",
+          "prereqs": [
+            "reduction-mod-p",
+            "kodaira-néron-preview"
+          ],
+          "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors."
+        },
+        {
+          "id": "minimal-weierstrass-model",
+          "title": "Minimal Weierstrass model and conductor",
+          "anchor": "minimal-model",
+          "prereqs": [
+            "kodaira-néron-preview",
+            "padic-norm-completion"
+          ],
+          "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement."
         }
       ]
     },
@@ -2252,14 +2900,33 @@ window.__MVConcepts = {
           "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes."
         },
         {
+          "id": "automorphisms-obstruction",
+          "title": "Automorphisms obstruct fine moduli",
+          "anchor": "whyfail",
+          "prereqs": [
+            "fine-vs-coarse-moduli"
+          ],
+          "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$."
+        },
+        {
           "id": "level-structures-moduli",
           "title": "Level structure and compactification ideas",
           "anchor": "level",
           "prereqs": [
-            "fine-vs-coarse-moduli",
+            "automorphisms-obstruction",
             "modular-form-definition"
           ],
           "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces."
+        },
+        {
+          "id": "higher-genus-moduli",
+          "title": "Higher-genus moduli and stable curves",
+          "anchor": "higher",
+          "prereqs": [
+            "fine-vs-coarse-moduli",
+            "riemann-roch"
+          ],
+          "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves."
         }
       ]
     },
@@ -2276,6 +2943,25 @@ window.__MVConcepts = {
             "presheaf-sheaf-axioms"
           ],
           "blurb": "Cover-based cocycles detect obstruction classes for global patching."
+        },
+        {
+          "id": "leray-acyclic-covers",
+          "title": "Leray acyclic covers and affine vanishing",
+          "anchor": "leray",
+          "prereqs": [
+            "cech-cohomology"
+          ],
+          "blurb": "When every finite intersection is $\\mathcal{F}$-acyclic, Čech cohomology on the cover equals the derived-functor cohomology. Affine covers of schemes are Leray for quasi-coherent sheaves by Serre's affine vanishing theorem."
+        },
+        {
+          "id": "long-exact-sequence-cohomology",
+          "title": "Long exact sequence in cohomology",
+          "anchor": "les",
+          "prereqs": [
+            "cech-cohomology",
+            "long-exact-sequence"
+          ],
+          "blurb": "A short exact sequence of sheaves induces a long exact sequence of cohomology groups, with a connecting homomorphism $\\delta$ that measures obstructions to lifting sections."
         },
         {
           "id": "derived-functor-cohomology",
@@ -2323,11 +3009,29 @@ window.__MVConcepts = {
           "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object."
         },
         {
+          "id": "quotient-stack",
+          "title": "Quotient stack [X/G]",
+          "anchor": "quotient",
+          "prereqs": [
+            "classifying-stacks"
+          ],
+          "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point."
+        },
+        {
+          "id": "deligne-mumford-vs-artin",
+          "title": "Deligne–Mumford vs. Artin stacks",
+          "anchor": "artin",
+          "prereqs": [
+            "quotient-stack"
+          ],
+          "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms."
+        },
+        {
           "id": "dm-stacks-coarse-space",
           "title": "Deligne–Mumford stacks and coarse spaces",
           "anchor": "coarse",
           "prereqs": [
-            "classifying-stacks"
+            "deligne-mumford-vs-artin"
           ],
           "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
         }
@@ -2349,14 +3053,35 @@ window.__MVConcepts = {
           "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
         },
         {
+          "id": "equidistribution-weyl",
+          "title": "Equidistribution and Weyl's criterion",
+          "anchor": "weyl",
+          "prereqs": [
+            "hasse-bound-angle",
+            "chebotarev-density"
+          ],
+          "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into."
+        },
+        {
           "id": "sato-tate-measure",
           "title": "The Sato–Tate measure",
           "anchor": "measure",
           "prereqs": [
             "hasse-bound-angle",
-            "chebotarev-density"
+            "chebotarev-density",
+            "equidistribution-weyl"
           ],
           "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
+        },
+        {
+          "id": "cm-vs-non-cm-sato-tate",
+          "title": "CM vs. non-CM: two equidistribution laws",
+          "anchor": "cm",
+          "prereqs": [
+            "sato-tate-measure",
+            "complex-multiplication"
+          ],
+          "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law."
         },
         {
           "id": "symmetric-power-l-functions",
@@ -2366,7 +3091,8 @@ window.__MVConcepts = {
             "sato-tate-measure",
             "arithmetic-data-lfunctions",
             "euler-product-structure",
-            "modular-form-definition"
+            "modular-form-definition",
+            "equidistribution-weyl"
           ],
           "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
         }
@@ -2409,6 +3135,26 @@ window.__MVConcepts = {
             "euler-product-structure"
           ],
           "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."
+        },
+        {
+          "id": "regulator",
+          "title": "Néron–Tate height and the regulator",
+          "anchor": "regulator",
+          "prereqs": [
+            "mordell-weil",
+            "mordell-weil-ec"
+          ],
+          "blurb": "The canonical height ĥ is a positive-definite quadratic form on E(Q)/tors; its Gram determinant on a basis is the regulator R, the volume of the Mordell–Weil lattice that enters the refined BSD formula."
+        },
+        {
+          "id": "sha-tate-shafarevich",
+          "title": "The Tate–Shafarevich group Ш",
+          "anchor": "sha-tate-shafarevich",
+          "prereqs": [
+            "bsd-rank-equality",
+            "elliptic-group-law"
+          ],
+          "blurb": "Ш(E/Q) measures the failure of the local-to-global principle for torsors under E. Conjecturally finite, its order enters the refined BSD formula as a multiplicative fudge factor."
         }
       ]
     },
@@ -2447,6 +3193,27 @@ window.__MVConcepts = {
             "modularity-and-deformations"
           ],
           "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
+        },
+        {
+          "id": "deformation-rings",
+          "title": "Deformation rings",
+          "anchor": "deformation",
+          "prereqs": [
+            "galois-rep-definition",
+            "frobenius-traces"
+          ],
+          "blurb": "Given a residual representation $\\overline\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ parametrizes all lifts $\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A)$ to complete Noetherian local rings $A$ with prescribed ramification data $\\Sigma$. It is the formal moduli space of Galois deformations and the algebraic side of modularity lifting."
+        },
+        {
+          "id": "r-equals-t",
+          "title": "The R = T theorem",
+          "anchor": "rt",
+          "prereqs": [
+            "deformation-rings",
+            "modularity-theorem",
+            "hecke-algebra-commuting"
+          ],
+          "blurb": "Wiles' modularity-lifting engine identifies the universal deformation ring $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ acting on weight-2 cusp forms. The surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ is forced to be an isomorphism via the Taylor–Wiles patching argument, so every deformation of $\\overline\\rho$ is modular."
         }
       ]
     },
@@ -2476,14 +3243,34 @@ window.__MVConcepts = {
           "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
         },
         {
+          "id": "lefschetz-fixed-point",
+          "title": "Grothendieck–Lefschetz fixed-point formula",
+          "anchor": "lefschetz",
+          "prereqs": [
+            "l-adic-cohomology",
+            "fiber-products"
+          ],
+          "blurb": "For an endomorphism f whose graph meets the diagonal transversally, #Fix(f) = Σ(−1)^i Tr(f* | H^i_ét). Applied to q-power Frobenius it counts 𝔽_{q^m}-points — the engine behind rationality and the functional equation."
+        },
+        {
           "id": "weil-frobenius-trace",
           "title": "Weil conjectures and Frobenius trace",
           "anchor": "weil",
           "prereqs": [
-            "l-adic-cohomology",
-            "frobenius-traces"
+            "lefschetz-fixed-point"
           ],
           "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
+        },
+        {
+          "id": "comparison-theorems-etale",
+          "title": "Comparison theorems: étale vs. singular, de Rham, crystalline",
+          "anchor": "comparison",
+          "prereqs": [
+            "l-adic-cohomology",
+            "singular-homology",
+            "stokes-derham"
+          ],
+          "blurb": "Artin's theorem identifies H^i_ét(X_ℂ, ℚ_ℓ) with H^i_sing(X(ℂ), ℚ)⊗ℚ_ℓ; crystalline and p-adic Hodge theory (B_dR, B_cris) fill the ℓ=p gap, so étale, singular, de Rham, and crystalline are facets of one Weil cohomology."
         }
       ]
     }

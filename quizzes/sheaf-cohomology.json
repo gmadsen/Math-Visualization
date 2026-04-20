@@ -37,6 +37,78 @@
         }
       ]
     },
+    "leray-acyclic-covers": {
+      "title": "Leray acyclic covers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A cover $\\mathcal{U} = \\{U_\\alpha\\}$ of $X$ is <em>Leray</em> for a sheaf $\\mathcal{F}$ when:",
+          "choices": [
+            "every $U_\\alpha$ is contractible",
+            "$H^i(U_{\\alpha_0\\cdots\\alpha_p},\\mathcal{F}) = 0$ for all $i > 0$ and every finite intersection",
+            "the overlaps $U_{\\alpha\\beta}$ are empty",
+            "$\\mathcal{F}$ is a constant sheaf"
+          ],
+          "answer": 1,
+          "explain": "The Leray condition asks that $\\mathcal{F}$ be acyclic on every finite intersection of the cover. When satisfied, the canonical map $\\check{H}^p(\\mathcal{U},\\mathcal{F}) \\to H^p(X,\\mathcal{F})$ is an isomorphism for every $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following guarantees that an affine open cover of a scheme is Leray for any quasi-coherent sheaf?",
+          "choices": [
+            "Kodaira vanishing",
+            "Serre's theorem: $H^i(\\mathrm{Spec}\\,R, \\widetilde M) = 0$ for $i > 0$ and every $R$-module $M$",
+            "Hartshorne's criterion on $\\mathbb{P}^n$",
+            "The projection formula"
+          ],
+          "answer": 1,
+          "explain": "Serre proved that affine schemes have no higher quasi-coherent cohomology, so every finite intersection of affine opens (also affine when the scheme is separated) is $\\mathcal{F}$-acyclic. Hence an affine open cover is Leray."
+        },
+        {
+          "type": "numeric",
+          "q": "The standard affine cover of $\\mathbb{P}^2$ has three charts $U_0,U_1,U_2$. How many terms does the resulting Čech complex $\\check C^0 \\to \\check C^1 \\to \\check C^2$ have in $\\check C^1$?",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$. (Triple intersections contribute $\\binom{3}{3}=1$ term in $\\check C^2$.)"
+        }
+      ]
+    },
+    "long-exact-sequence-cohomology": {
+      "title": "Long exact sequence in cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A short exact sequence of sheaves $0\\to\\mathcal{F}'\\to\\mathcal{F}\\to\\mathcal{F}''\\to 0$ produces a long exact sequence whose connecting homomorphism $\\delta$ goes in which direction?",
+          "choices": [
+            "$\\delta\\colon H^p(X,\\mathcal{F}') \\to H^p(X,\\mathcal{F}'')$",
+            "$\\delta\\colon H^p(X,\\mathcal{F}'') \\to H^{p+1}(X,\\mathcal{F}')$",
+            "$\\delta\\colon H^{p+1}(X,\\mathcal{F}') \\to H^p(X,\\mathcal{F}'')$",
+            "$\\delta$ goes between $\\mathcal{F}$ and $\\mathcal{F}''$ at the same degree"
+          ],
+          "answer": 1,
+          "explain": "The connecting map raises degree by one and jumps from the quotient sheaf back to the subsheaf: $\\delta\\colon H^p(\\mathcal{F}'') \\to H^{p+1}(\\mathcal{F}')$. In Čech language it lifts a local section of $\\mathcal{F}''$ to one of $\\mathcal{F}$; the failure of the lifts to glue is a class in $H^{p+1}(\\mathcal{F}')$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the exponential sequence $0 \\to \\underline{\\mathbb{Z}} \\to \\mathcal{O} \\to \\mathcal{O}^\\times \\to 0$ on $\\mathbb{C}^\\times$, what does $\\delta\\colon H^0(\\mathcal{O}^\\times) \\to H^1(\\underline{\\mathbb{Z}})$ send the global section $z$ to?",
+          "choices": [
+            "$0$",
+            "the winding number class, which generates $H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$",
+            "the constant $1$ in $H^0(\\mathcal{O}^\\times)$",
+            "$2\\pi i$ as an element of $H^0(\\mathcal{O})$"
+          ],
+          "answer": 1,
+          "explain": "On $\\mathbb{C}^\\times$ the global section $z$ has no single-valued logarithm, so its image under $\\delta$ is non-trivial. Concretely the class is $1\\in H^1(\\mathbb{C}^\\times,\\underline{\\mathbb{Z}}) = \\mathbb{Z}$, the winding-number generator."
+        },
+        {
+          "type": "numeric",
+          "q": "From $0\\to\\mathcal{O}_{\\mathbb{P}^1}(-1)\\to\\mathcal{O}_{\\mathbb{P}^1}\\to\\mathcal{O}_p\\to 0$ (skyscraper at a point) and the vanishing $H^i(\\mathbb{P}^1,\\mathcal{O}_{\\mathbb{P}^1}(-1))=0$ for all $i$, deduce $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}_p)$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$. Since $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}) = 1$, we get $\\dim H^0(\\mathcal{O}_p) = 1$ — the stalk at $p$."
+        }
+      ]
+    },
     "derived-functor-cohomology": {
       "title": "Derived functor sheaf cohomology",
       "questions": [

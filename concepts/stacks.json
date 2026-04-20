@@ -23,11 +23,29 @@
       "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object."
     },
     {
+      "id": "quotient-stack",
+      "title": "Quotient stack [X/G]",
+      "anchor": "quotient",
+      "prereqs": [
+        "classifying-stacks"
+      ],
+      "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point."
+    },
+    {
+      "id": "deligne-mumford-vs-artin",
+      "title": "Deligne–Mumford vs. Artin stacks",
+      "anchor": "artin",
+      "prereqs": [
+        "quotient-stack"
+      ],
+      "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms."
+    },
+    {
       "id": "dm-stacks-coarse-space",
       "title": "Deligne–Mumford stacks and coarse spaces",
       "anchor": "coarse",
       "prereqs": [
-        "classifying-stacks"
+        "deligne-mumford-vs-artin"
       ],
       "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
     }

@@ -33,6 +33,38 @@
       ]
     },
 
+    "cartesian-product-powerset": {
+      "title": "Cartesian products and power sets",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "If $|A| = 5$ and $|B| = 4$, how many functions are there from $A$ to $B$? (That is, compute $|B^A|$.)",
+          "answer": 1024,
+          "tol": 0,
+          "explain": "Each of the $|A|=5$ elements picks a value in $B$ independently, so $|B^A| = |B|^{|A|} = 4^5 = 1024$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $A$ be a set. Under which bijection is $\\mathcal{P}(A) \\cong \\{0,1\\}^A$?",
+          "choices": [
+            "$S \\mapsto $ its characteristic polynomial",
+            "$S \\mapsto $ the indicator function $\\mathbf{1}_S$, with $\\mathbf{1}_S(a)=1$ iff $a\\in S$",
+            "$S \\mapsto |S|$",
+            "$S \\mapsto A \\setminus S$ (which is not a bijection to $\\{0,1\\}^A$)"
+          ],
+          "answer": 1,
+          "explain": "A subset $S\\subseteq A$ is determined by, and determines, its indicator function $\\mathbf{1}_S\\colon A\\to\\{0,1\\}$. This bijection is also why $|\\mathcal{P}(A)|=2^{|A|}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $|A|=3$ and $|B|=2$. How many elements are in $\\mathcal{P}(A\\times B)$?",
+          "answer": 64,
+          "tol": 0,
+          "explain": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$."
+        }
+      ]
+    },
+
     "equivalence-relations": {
       "title": "Equivalence relations and quotients",
       "questions": [
@@ -98,6 +130,48 @@
           "answer": 8,
           "tol": 0,
           "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
+        }
+      ]
+    },
+
+    "axiom-of-choice-intuition": {
+      "title": "Axiom of choice",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is <em>equivalent</em> to the axiom of choice over ZF?",
+          "choices": [
+            "The continuum hypothesis: there is no cardinal strictly between $\\aleph_0$ and $\\mathfrak{c}$.",
+            "Zorn's lemma: every non-empty poset in which every chain has an upper bound has a maximal element.",
+            "Cantor's theorem: $|\\mathcal{P}(A)| > |A|$ for every set $A$.",
+            "Russell's paradox: there is no set of all sets."
+          ],
+          "answer": 1,
+          "explain": "Zorn's lemma is one of the standard equivalents of AC, alongside the well-ordering theorem and Tukey's lemma. The other choices are theorems of ZF or ZFC but are not equivalent to AC — the continuum hypothesis is independent of ZFC, and Cantor's theorem is provable in ZF with no choice at all."
+        },
+        {
+          "type": "mcq",
+          "q": "Russell's distinction between shoes and socks illustrates which point?",
+          "choices": [
+            "For finite families of non-empty sets, AC is already provable from the other axioms of ZF.",
+            "For infinite families of non-empty sets, a uniform rule for picking one element may fail to exist even though AC asserts a choice function still does.",
+            "AC is false whenever the sets are indistinguishable.",
+            "The axiom of choice is equivalent to the well-ordering of $\\mathbb{R}$ only for ordered pairs."
+          ],
+          "answer": 1,
+          "explain": "With shoes there is a uniform rule ('pick the left one'), so no AC is needed. With socks there is no such rule, yet AC still asserts the product $\\prod_i A_i$ is non-empty. The point is that for infinite families we can always produce a choice function under AC, even when we cannot write down an explicit one."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these standard results is <em>not</em> known to require (some form of) the axiom of choice?",
+          "choices": [
+            "Every vector space has a basis.",
+            "An arbitrary product of compact topological spaces is compact (Tychonoff).",
+            "Every commutative ring with $1\\ne 0$ has a maximal ideal.",
+            "A countable union of countable sets is countable."
+          ],
+          "answer": 3,
+          "explain": "The first three all use full AC (or Zorn's lemma, which is equivalent). The countable-union-of-countable-sets statement only needs the weaker <em>countable choice</em>, and over ZF plus <em>countable</em> choice it is provable — but in ZF alone it is not. The question asks for the statement that is 'not known to require <em>AC</em>' (i.e. full choice)."
         }
       ]
     }

@@ -106,6 +106,33 @@
     transition:border-color 120ms ease}
   .chartbox.sel{border-color:var(--yellow)}
   .chartbox .lbl{font-size:.78rem;color:var(--mute);text-align:center;margin-bottom:.2rem;letter-spacing:.05em;text-transform:uppercase}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -304,6 +331,13 @@ A "point" of $\mathbb{P}^2$ is a 1-dimensional linear subspace of $K^3$. A "line
     <label>Z</label><input type="range" id="defn-z" min="-100" max="100" value="80">
   </div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="projective-points-lines"></div>
 </section>
 
@@ -793,6 +827,13 @@ and this pairing is perfectly symmetric in the two variables. Fixing a point cut
 $$[A,B;C,D] \;=\; \frac{(a-c)(b-d)}{(a-d)(b-c)} \;\in\; K \cup\{\infty\}.$$
 For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-ratio is independent of the choice of affine chart on the line and, crucially, <strong>invariant under $\mathrm{PGL}_2(K)$</strong>: a Möbius transformation $t\mapsto(\alpha t+\beta)/(\gamma t+\delta)$ preserves it. It is, up to functional identities, the <em>unique</em> projective invariant of four points on a line — so two quadruples on two different lines are projectively equivalent iff their cross-ratios match.</p>
 <p>Permuting the four points changes the cross-ratio: only the Klein four-group $V_4\subset S_4$ of double-transpositions fixes $\lambda=[A,B;C,D]$. The remaining six cosets give the orbit $\{\lambda,\,1-\lambda,\,1/\lambda,\,1/(1-\lambda),\,\lambda/(\lambda-1),\,(\lambda-1)/\lambda\}$, and the rational function $j(\lambda) = \dfrac{256(\lambda^2-\lambda+1)^3}{\lambda^2(\lambda-1)^2}$ is $S_4$-invariant — this is the same $j$ that will reappear as the $j$-invariant of an elliptic curve on <a href="./elliptic-curves.html">elliptic-curves.html</a>, via the four ramification points of a hyperelliptic map. The cross-ratio is classical projective geometry's most portable computation: it lets you detect equivalence, construct harmonic conjugates ($\lambda=-1$), and — on a conic — recover the conic's own parameter from four marked points.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#extensions">Field extensions and minimal polynomials</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="cross-ratio"></div>
 </section>
 
@@ -990,5 +1031,15 @@ with $(X_0,\dots,X_n) \sim (\lambda X_0,\dots,\lambda X_n)$. As a topological sp
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

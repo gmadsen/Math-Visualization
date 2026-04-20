@@ -113,6 +113,33 @@
     width:2.4em;height:2.4em;margin:1px;border-radius:4px;
     font-family:ui-monospace,monospace;font-size:.85rem;border:1px solid var(--line)}
   .grid-wrap{overflow-x:auto;padding:.4rem 0}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -213,7 +240,8 @@ function jacobi(a,n){
   <a href="#gauss-lemma">4&nbsp;Gauss's&nbsp;lemma</a>
   <a href="#reciprocity">5&nbsp;Reciprocity</a>
   <a href="#engine">6&nbsp;Computation&nbsp;engine</a>
-  <a href="#why">7&nbsp;Why&nbsp;it&nbsp;matters</a>
+  <a href="#jacobi">7&nbsp;Jacobi&nbsp;symbol</a>
+  <a href="#why">8&nbsp;Why&nbsp;it&nbsp;matters</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -372,6 +400,13 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
   run();
 })();
 </script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
+  </ul>
+</aside>
+
 <div class="quiz" data-concept="legendre-symbol"></div>
 </section>
 
@@ -763,8 +798,27 @@ ${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;
 </script>
 </section>
 
+<section id="jacobi">
+<h2>7. The Jacobi symbol</h2>
+<p>The Legendre symbol $\left(\tfrac{a}{p}\right)$ needs $p$ prime. But the computation engine above was perfectly happy to push the "bottom" $p$ through non-prime intermediate values once reciprocity flipped the arguments. That is no accident: the natural home for reciprocity is a <em>multiplicative extension</em> of the Legendre symbol to all positive odd integers.</p>
+
+<p>For odd $n = p_1^{e_1}\cdots p_k^{e_k} > 1$ and any integer $a$, define the <strong>Jacobi symbol</strong> by factoring the bottom:
+$$ \left(\frac{a}{n}\right) = \prod_{i=1}^{k}\left(\frac{a}{p_i}\right)^{\!e_i}. $$
+When $n$ is prime this is just the Legendre symbol, so no ambiguity arises. The symbol is multiplicative in <em>both</em> entries, vanishes iff $\gcd(a,n)>1$, and otherwise equals $\pm 1$.</p>
+
+<div class="note"><strong>Caveat.</strong> $\left(\tfrac{a}{n}\right)=+1$ <em>does not</em> imply $a$ is a square mod $n$. E.g. $\left(\tfrac{2}{15}\right)=\left(\tfrac{2}{3}\right)\left(\tfrac{2}{5}\right)=(-1)(-1)=+1$, but $2$ is not a square mod $15$. Jacobi only tracks the parity of the number of prime factors where $a$ is a nonsquare. What survives is the <em>reciprocity identity</em>, not the squareness interpretation.</div>
+
+<p>The miracle is that reciprocity and both supplements extend verbatim. For odd positive coprime $m,n$:
+$$ \left(\frac{m}{n}\right)\left(\frac{n}{m}\right) = (-1)^{\tfrac{m-1}{2}\cdot\tfrac{n-1}{2}}, \qquad \left(\frac{-1}{n}\right) = (-1)^{\tfrac{n-1}{2}}, \qquad \left(\frac{2}{n}\right) = (-1)^{\tfrac{n^2-1}{8}}. $$
+Each follows from the Legendre version by multiplicativity together with the identity $\tfrac{mn-1}{2}\equiv \tfrac{m-1}{2}+\tfrac{n-1}{2}\pmod 2$ for odd $m,n$ (and its mod-8 cousin for the $(2/n)$ law). So the computation engine on section 6 <em>was</em> running the Jacobi algorithm — it never needed the intermediate bottoms to be prime. Dropping the primality test gives a Euclidean-style algorithm that runs in $O(\log n)$ steps without ever factoring $n$.</p>
+
+<p>This matters for cryptography: Solovay–Strassen primality testing compares $\left(\tfrac{a}{n}\right)$ with $a^{(n-1)/2}\pmod n$, and the Jacobi symbol is the fast-to-compute side. More philosophically, the Jacobi symbol is the first glimpse of <em>characters of ray class groups</em>: the map $n\mapsto \left(\tfrac{a}{n}\right)$ is a Dirichlet character modulo $4|a|$, which is exactly the class-field-theory picture the next page develops.</p>
+
+<div class="quiz" data-concept="jacobi-symbol-generalization"></div>
+</section>
+
 <section id="why">
-<h2>7. Why it matters</h2>
+<h2>8. Why it matters</h2>
 <p>Quadratic reciprocity is the first and simplest in a tower of <em>reciprocity laws</em>, each saying that some subtle arithmetic invariant attached to a prime can be read off a congruence. The grand generalisation, <strong>Artin reciprocity</strong>, is the main theorem of class field theory; the <strong>Langlands program</strong> posits still deeper nonabelian analogues.</p>
 
 <h3>The bridge: Frobenius</h3>
@@ -842,5 +896,15 @@ ${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;
   else start();
 })();
 </script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
+      <tr><td>2026-04-19</td><td>more pages</td></tr>
+    </tbody>
+  </table>
+</details>
+
 </body>
 </html>

@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Partitions and generating functions — pentagonal miracles and Ramanujan congruences</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid rgba(88,196,221,0.55);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#pn">1&nbsp;The&nbsp;partition&nbsp;function</a>
+  <a href="#euler">2&nbsp;Euler's&nbsp;product</a>
+  <a href="#pent">3&nbsp;Pentagonal&nbsp;theorem</a>
+  <a href="#jtp">4&nbsp;Jacobi&nbsp;triple&nbsp;product</a>
+  <a href="#ram">5&nbsp;Ramanujan&nbsp;congruences</a>
+  <a href="#eta">6&nbsp;Dedekind&nbsp;$\eta$</a>
+  <a href="#hr">7&nbsp;Hardy–Ramanujan</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Partitions and generating functions</h1>
+  <p class="sub">How many ways can you break $n$ into a sum of positive integers, ignoring order? The answers $p(1)=1,\ p(2)=2,\ p(3)=3,\ p(4)=5,\ p(5)=7$ start out gentle, then $p(100)$ explodes to roughly $1.9\times 10^8$. One infinite product $\prod 1/(1{-}q^n)$ encodes every value at once; its reciprocal collapses to a sparse signed sum over pentagonal numbers; raising the product to the $24$th power lands us in the world of modular forms where Ramanujan's miraculous congruences live.</p>
+</section>
+
+<section id="pn">
+<h2>1. The partition function $p(n)$</h2>
+<p>A <strong>partition</strong> of a positive integer $n$ is an unordered multiset $\{\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_k\}$ of positive integers summing to $n$. We do not distinguish the order of the parts — $3+1$ and $1+3$ are the same partition — and we write
+$$p(n) = \#\{\text{partitions of }n\}.$$
+By convention $p(0) = 1$ (the empty partition). A compact picture: each partition is a <strong>Young diagram</strong>, a left-justified row-arrangement of boxes whose row lengths are the parts. The partition $4 = 2+1+1$ becomes two boxes above one box above one box.</p>
+
+<h3>The first ten values</h3>
+<table class="plain">
+  <tr><th>$n$</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+  <tr><td>$p(n)$</td><td>1</td><td>2</td><td>3</td><td>5</td><td>7</td><td>11</td><td>15</td><td>22</td><td>30</td><td>42</td></tr>
+</table>
+
+<p>The seven partitions of $5$: $\;5,\ 4{+}1,\ 3{+}2,\ 3{+}1{+}1,\ 2{+}2{+}1,\ 2{+}1{+}1{+}1,\ 1{+}1{+}1{+}1{+}1.$ The eleven partitions of $6$ include a new partition type $6$ itself plus mixtures like $3{+}3$ and $2{+}2{+}2$. No pattern is obvious — that is precisely what makes the generating function so dramatic.</p>
+
+<div class="note"><strong>Sanity check vs. naive enumeration.</strong> Counting by hand is fine for $n\le 10$. By $n=20$ we have $p(20) = 627$, still enumerable but already painful; by $n=100$, $p(100) = 190\,569\,292$. The <em>combinatorial explosion</em> is tamed below by Euler's product and then by the pentagonal-number recurrence, which computes $p(1),\ldots,p(N)$ in only $O(N^{3/2})$ arithmetic operations.</p></div>
+
+<div class="widget" id="w-pn">
+  <div class="hd"><div class="ttl">Partition explorer</div><div class="hint">pick $n \le 12$; see every partition as a Young diagram</div></div>
+  <div class="row">
+    <label for="pn-n">$n$</label>
+    <input type="range" id="pn-n" min="1" max="12" step="1" value="5">
+    <span id="pn-nv" class="readout" style="min-width:140px;flex:0 0 auto">n = 5,  p(5) = 7</span>
+  </div>
+  <svg id="pn-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <div class="small">Each tile is one box; each row of tiles is one part. The partitions are sorted by lex order on their part sequences (largest part first, then ties broken by the next, etc.).</div>
+</div>
+<div class="quiz" data-concept="partition-function-pn"></div>
+</section>
+
+<script>
+/* ============================ widget 1: partition explorer ========================= */
+(function(){
+  const svg = $('#pn-svg'), slider = $('#pn-n'), out = $('#pn-nv');
+  // Enumerate partitions of n as arrays, parts in non-increasing order.
+  function partitionsOf(n){
+    const res = [];
+    function go(rem, max, cur){
+      if(rem===0){ res.push(cur.slice()); return; }
+      const lim = Math.min(rem, max);
+      for(let k=lim; k>=1; k--){
+        cur.push(k);
+        go(rem-k, k, cur);
+        cur.pop();
+      }
+    }
+    go(n, n, []);
+    return res;
+  }
+
+  function render(){
+    svg.innerHTML = '';
+    const n = parseInt(slider.value,10);
+    const parts = partitionsOf(n);
+    out.textContent = `n = ${n},  p(${n}) = ${parts.length}`;
+    const W = 620, H = 320;
+    const pad = 16;
+    // Determine grid: we have parts.length partitions; want grid of columns × rows.
+    // Each cell sized to fit the widest partition (largest part) × max rows.
+    const maxPart = n; // widest any diagram gets
+    const maxRows = n; // tallest any diagram gets
+    const cellW = maxPart * 10 + 12; // +gutter
+    const cellH = maxRows * 10 + 22;
+    const cols = Math.max(1, Math.floor((W - 2*pad) / cellW));
+    const rows = Math.ceil(parts.length / cols);
+    const totalH = rows * cellH + 2*pad;
+    // rescale vertically if too tall
+    let scale = 1;
+    if(totalH > H){ scale = (H - 2*pad) / (rows * cellH); }
+    const box = Math.round(10*scale);
+    for(let i=0;i<parts.length;i++){
+      const col = i % cols;
+      const row = Math.floor(i/cols);
+      const cx = pad + col*cellW*scale;
+      const cy = pad + row*cellH*scale;
+      const p = parts[i];
+      for(let r=0;r<p.length;r++){
+        for(let c=0;c<p[r];c++){
+          svg.appendChild(SVG('rect',{
+            x: cx + c*box, y: cy + r*box,
+            width: box-1, height: box-1,
+            fill:'var(--cyan)', opacity: 0.85
+          }));
+        }
+      }
+      // label: part list
+      const lbl = SVG('text',{
+        x: cx, y: cy + p.length*box + 11,
+        'font-size': Math.max(9, 10*scale), fill:'var(--mute)'
+      });
+      lbl.textContent = p.join('+');
+      svg.appendChild(lbl);
+    }
+    // If rows exceed the box, add a hint
+    if(scale < 1){
+      const t = SVG('text',{x:W-pad, y:H-4, 'text-anchor':'end','font-size':11, fill:'var(--mute)'});
+      t.textContent = `grid scaled ×${scale.toFixed(2)}`;
+      svg.appendChild(t);
+    }
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="euler">
+<h2>2. Euler's product formula</h2>
+<p>The magic. Consider the formal product
+$$\prod_{n=1}^{\infty} \frac{1}{1 - q^n} \;=\; \prod_{n=1}^{\infty}\bigl(1 + q^n + q^{2n} + q^{3n} + \cdots\bigr).$$
+Pick one term from each factor. The $n$th factor contributes $q^{k_n \cdot n}$ where $k_n \ge 0$ records "how many copies of the part $n$ we include". The total contribution is
+$$q^{k_1\cdot 1 + k_2\cdot 2 + k_3\cdot 3 + \cdots} \;=\; q^{\,\text{total}},$$
+and the total equals a given integer $m$ in exactly $p(m)$ ways — one per partition of $m$, where the multiplicity of part $n$ is $k_n$. Collecting:
+$$\boxed{\;\sum_{n=0}^{\infty} p(n)\,q^n \;=\; \prod_{n=1}^{\infty} \frac{1}{1 - q^n}\;}$$
+This is <strong>Euler's partition product identity</strong>. One line of formal-series manipulation turns an apparently intractable counting problem into an infinite product.</p>
+
+<h3>Bijective consequences</h3>
+<p>The product form is a licensing stamp for combinatorial identities.</p>
+<ul>
+<li><strong>Glaisher's theorem.</strong> Partitions of $n$ into <em>odd</em> parts are equinumerous with partitions into <em>distinct</em> parts, because
+$$\prod_{k\ge 1}\frac{1}{1-q^{2k-1}} \;=\; \prod_{n\ge 1}\frac{1-q^{2n}}{1-q^n} \;=\; \prod_{n\ge 1}(1+q^n).$$
+The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$.</li>
+<li><strong>Odd$\to$distinct mapping.</strong> Given a partition into odd parts, split each part as a sum of distinct powers of $2$ times the odd — binary-decomposing the multiplicity of each odd. That map is Glaisher's bijection.</li>
+</ul>
+
+<div class="widget" id="w-euler">
+  <div class="hd"><div class="ttl">Expanding $\prod_{n=1}^{N} \frac{1}{1-q^n}$</div><div class="hint">first coefficients stabilize to $p(m)$ as $N$ grows</div></div>
+  <div class="row">
+    <label for="euler-N">truncation $N$</label>
+    <input type="range" id="euler-N" min="1" max="14" step="1" value="6">
+    <span id="euler-Nv" class="readout" style="min-width:80px;flex:0 0 auto">N = 6</span>
+  </div>
+  <svg id="euler-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="readout" id="euler-out" style="font-size:.85rem"></div>
+  <div class="small">Blue bars: coefficients of the truncated product $\prod_{n=1}^{N}\tfrac{1}{1-q^n}$. Yellow bars: the true partition counts $p(m)$. The first $N{+}1$ coefficients coincide — truncating at $N$ corrupts only the coefficients of $q^{N+1}$ and higher, where "parts $>N$" start to matter.</div>
+</div>
+<div class="quiz" data-concept="euler-partition-product"></div>
+</section>
+
+<script>
+/* =========================== widget 2: Euler product expansion ==================== */
+(function(){
+  const svg = $('#euler-svg'), Nin = $('#euler-N'), Nv = $('#euler-Nv'), out = $('#euler-out');
+  const D = 20; // show up to q^20
+
+  // true partition numbers
+  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627];
+
+  // (1 - q^n)^{-1} up to q^D
+  function invOneMinus(n){
+    const p = new Array(D+1).fill(0);
+    for(let k=0; k*n<=D; k++) p[k*n] = 1;
+    return p;
+  }
+  function mul(A,B){
+    const C = new Array(D+1).fill(0);
+    for(let i=0;i<=D;i++){
+      if(!A[i]) continue;
+      for(let j=0;i+j<=D;j++){
+        if(!B[j]) continue;
+        C[i+j] += A[i]*B[j];
+      }
+    }
+    return C;
+  }
+
+  function truncatedProduct(N){
+    let P = new Array(D+1).fill(0); P[0] = 1;
+    for(let n=1;n<=N;n++) P = mul(P, invOneMinus(n));
+    return P;
+  }
+
+  function render(){
+    const N = parseInt(Nin.value,10);
+    Nv.textContent = `N = ${N}`;
+    const P = truncatedProduct(N);
+    svg.innerHTML = '';
+    const W = 620, H = 240, pad = {l:50,r:14,t:24,b:36};
+    const maxV = Math.max(1, ...Ptrue.slice(0,D+1));
+    const scale = v => Math.log(1+v)/Math.log(1+maxV);
+    const cw = (W - pad.l - pad.r)/(D+1);
+
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+    for(let m=0;m<=D;m++){
+      const a = P[m], b = Ptrue[m];
+      const x = pad.l + m*cw;
+      const ha = a>0 ? scale(a)*(H-pad.t-pad.b) : 0;
+      const hb = b>0 ? scale(b)*(H-pad.t-pad.b) : 0;
+      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--blue)',opacity:0.85}));
+      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.75}));
+      if(m%2===0){
+        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent = m; svg.appendChild(t);
+      }
+    }
+    // legend
+    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));
+    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='truncated product'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));
+    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(m)'; svg.appendChild(t2);
+
+    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    ax.textContent = 'exponent m (coefficient of q^m)';
+    svg.appendChild(ax);
+
+    // textual summary of first disagreement
+    const diffs = [];
+    for(let m=0;m<=D;m++) if(P[m]!==Ptrue[m]) diffs.push(m);
+    const rows = [];
+    rows.push(`truncated prod matches p(m) for m = 0, 1, ..., ${N}`);
+    if(diffs.length){
+      rows.push(`first disagreement at m = ${diffs[0]}:  truncated=${P[diffs[0]]}, true=${Ptrue[diffs[0]]}`);
+    } else {
+      rows.push('coefficients shown all agree (N ≥ D).');
+    }
+    rows.push('first few true values: ' + Ptrue.slice(0,11).map((v,i)=>`p(${i})=${v}`).join(', '));
+    out.textContent = rows.join('\n');
+  }
+  Nin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="pent">
+<h2>3. Euler's pentagonal number theorem</h2>
+<p>Here is the surprise of surprises. Invert Euler's product — the series with $p(n)$ coefficients becomes $\prod(1-q^n)$, a product of signs and differences. Expanding this you might expect coefficients growing like $p(n)$ in magnitude with chaotic signs. Instead, the expansion is <em>almost entirely zero</em>:
+$$\prod_{n=1}^{\infty} (1 - q^n) \;=\; 1 - q - q^2 + q^5 + q^7 - q^{12} - q^{15} + q^{22} + q^{26} - \cdots$$
+Only a sparse set of exponents survive, and each has coefficient $\pm 1$. The exponents are the <strong>generalized pentagonal numbers</strong>
+$$g_k \;=\; \frac{k(3k-1)}{2}, \qquad k = 1,\ -1,\ 2,\ -2,\ 3,\ -3,\ \ldots$$
+yielding $1,\ 2,\ 5,\ 7,\ 12,\ 15,\ 22,\ 26,\ 35,\ 40,\ldots$ and the identity
+$$\boxed{\;\prod_{n \ge 1}(1-q^n) \;=\; \sum_{k \in \mathbb{Z}} (-1)^k\, q^{k(3k-1)/2}.\;}$$
+This is <strong>Euler's pentagonal number theorem</strong>, proved by Euler after a decade of numerical experiments.</p>
+
+<h3>Why "pentagonal"?</h3>
+<p>The ordinary pentagonal numbers $1,5,12,22,35,\ldots$ count dots in successive nested pentagons. The formula $P_k = k(3k-1)/2$ gives $k=1,2,3,\ldots \to 1,5,12,22,\ldots$. Plugging negative $k$ yields $2,7,15,26,\ldots$ — the "generalized" pentagonals that fill in between. Franklin's famous bijective proof (1881) exhibits a signed involution on partitions into distinct parts whose fixed points correspond exactly to these pentagonal exponents.</p>
+
+<h3>The Euler recurrence for $p(n)$</h3>
+<p>Multiplying $\sum p(n)q^n$ by $\prod(1-q^n) = \sum_k(-1)^k q^{g_k}$ must give $1$ (that is the very point of the reciprocal). Matching coefficients of $q^n$ for $n \ge 1$:
+$$0 \;=\; p(n) - p(n-1) - p(n-2) + p(n-5) + p(n-7) - p(n-12) - p(n-15) + \cdots$$
+Solving for $p(n)$:
+$$p(n) \;=\; \sum_{k\ge 1} (-1)^{k+1}\,\bigl[\,p(n - g_k) + p(n - g_{-k})\,\bigr], \qquad p(0)=1,\ p(m)=0\text{ for }m<0.$$
+Only $O(\sqrt{n})$ pentagonal numbers fit below $n$, so computing $p(n)$ takes $O(\sqrt{n})$ additions given the earlier values. Tabulating $p(1),\ldots,p(N)$ is $O(N^{3/2})$. This recurrence is how computer algebra systems actually evaluate $p(n)$ for large $n$.</p>
+
+<div class="widget" id="w-pent">
+  <div class="hd"><div class="ttl">Pentagonal recurrence engine</div><div class="hint">drag $N$ to compute the full table $p(0),\ldots,p(N)$</div></div>
+  <div class="row">
+    <label for="pent-N">$N$</label>
+    <input type="range" id="pent-N" min="5" max="60" step="1" value="20">
+    <span id="pent-Nv" class="readout" style="min-width:110px;flex:0 0 auto">N = 20</span>
+  </div>
+  <svg id="pent-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="readout" id="pent-out" style="font-size:.85rem"></div>
+  <div class="small">The bar plot shows the values on a log scale to accommodate the rapid growth. The readout traces one step of the recurrence so you can watch the pentagonal shifts in action.</div>
+</div>
+<div class="quiz" data-concept="pentagonal-number-theorem"></div>
+</section>
+
+<script>
+/* ======================== widget 3: pentagonal recurrence ========================= */
+(function(){
+  const svg = $('#pent-svg'), Nin = $('#pent-N'), Nv = $('#pent-Nv'), out = $('#pent-out');
+
+  // Generate generalized pentagonal numbers and their signs
+  // Sequence: g_1=1 (k=1), g_{-1}=2 (k=-1), g_2=5 (k=2), g_{-2}=7, ...
+  // Sign = (-1)^{k+1} for k=1, -1 meaning same sign as k=1's group; actually:
+  // recurrence: p(n) = sum over k=1,2,... of (-1)^{k+1} [p(n-g_k) + p(n-g_{-k})]
+  // where g_k = k(3k-1)/2, g_{-k} = k(3k+1)/2.
+  function pentList(maxN){
+    const out = [];
+    for(let k=1; k*(3*k-1)/2 <= maxN; k++){
+      const s = (k%2===1) ? +1 : -1;
+      out.push([k*(3*k-1)/2, s]);
+      if(k*(3*k+1)/2 <= maxN) out.push([k*(3*k+1)/2, s]);
+    }
+    return out;
+  }
+
+  function computeP(N){
+    const P = new Array(N+1).fill(0);
+    P[0] = 1;
+    const pent = pentList(N);
+    for(let n=1;n<=N;n++){
+      let s = 0;
+      for(const [g,sign] of pent){
+        if(g>n) break;
+        s += sign * P[n-g];
+      }
+      P[n] = s;
+    }
+    return { P, pent };
+  }
+
+  function render(){
+    const N = parseInt(Nin.value,10);
+    Nv.textContent = `N = ${N}`;
+    const { P, pent } = computeP(N);
+    svg.innerHTML = '';
+    const W=620, H=240, pad={l:50,r:14,t:22,b:36};
+    const maxV = Math.max(1, ...P);
+    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;
+    const cw = (W-pad.l-pad.r)/(N+1);
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+    for(let n=0;n<=N;n++){
+      const v = P[n], x = pad.l + n*cw;
+      const h = scale(v)*(H-pad.t-pad.b);
+      if(h>0){
+        svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-h,width:Math.max(1,cw-2),height:h,
+          fill:'var(--green)',opacity:0.85}));
+      }
+      if(n%5===0){
+        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent = n; svg.appendChild(t);
+      }
+    }
+    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    ax.textContent = 'n  (log bar height ∝ p(n))';
+    svg.appendChild(ax);
+    const tt = SVG('text',{x:W-pad.r, y:pad.t+4, 'text-anchor':'end','font-size':11, fill:'var(--blue)','font-style':'italic'});
+    tt.textContent = `p(${N}) = ${P[N].toLocaleString()}`;
+    svg.appendChild(tt);
+
+    // readout: trace the recurrence for n=N
+    const used = [];
+    let acc = 0;
+    for(const [g,sign] of pent){
+      if(g>N) break;
+      const contribution = sign * P[N-g];
+      used.push(`  ${sign>0?'+':'-'} p(${N-g}) = ${sign>0?'+':'-'}${P[N-g]}`);
+      acc += contribution;
+    }
+    const rows = [];
+    rows.push(`p(${N}) via pentagonal recurrence:`);
+    rows.push(used.join('\n'));
+    rows.push(`  = ${acc} = p(${N})  ✓`);
+    rows.push('');
+    rows.push('pentagonal numbers used: ' + pent.map(([g,s])=> (s>0?'+':'-')+g).slice(0, Math.min(10,pent.length)).join(', ') + (pent.length>10?', …':''));
+    out.textContent = rows.join('\n');
+  }
+  Nin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="jtp">
+<h2>4. The Jacobi triple product</h2>
+<p>Euler's identity sits inside a two-variable master identity — the <strong>Jacobi triple product</strong>:
+$$\sum_{n \in \mathbb{Z}} z^n\, q^{n^2} \;=\; \prod_{n=1}^{\infty} \bigl(1 - q^{2n}\bigr)\bigl(1 + z\, q^{2n-1}\bigr)\bigl(1 + z^{-1}\, q^{2n-1}\bigr).$$
+This converts a bilateral sum over the integers into a product of three infinite factors. See <a href="./theta-functions.html">theta functions</a> for the analytic side of this identity — both sides are $q$-expansions of the Jacobi theta function $\vartheta(z,\tau)$, and the equality says that one function has two completely different closed forms.</p>
+
+<h3>Specializations — where pentagonal numbers hide</h3>
+<p>Substituting $z = -q$ and replacing $q^2 \mapsto q^3$ (a reindexing of the sum):
+$$\prod_{n \ge 1}(1 - q^n) \;=\; \sum_{n \in \mathbb{Z}} (-1)^n\, q^{n(3n-1)/2}.$$
+That is Euler's pentagonal number theorem falling out of the triple product as one specialization. The other famous specialization, $z = -1$, gives
+$$\prod_{n \ge 1}(1 - q^{2n})(1 - q^{2n-1})^2 \;=\; \sum_{n \in \mathbb{Z}} (-1)^n\, q^{n^2},$$
+a sister identity used in the proof of <strong>Jacobi's two-square theorem</strong> $r_2(n) = 4(d_1(n) - d_3(n))$.</p>
+
+<div class="note"><strong>Why a product equals a sum.</strong> Both sides are holomorphic in $(q,z)$ on $|q|<1$, $z\ne 0$, and both satisfy the same first-order functional equation $F(z q^2) = z^{-1} q^{-1} F(z)$. A normalization pins down the constant. Combinatorially, one sees a sign-reversing involution on partitions into distinct parts whose fixed points correspond to pentagonal exponents — Franklin's 1881 bijection is the combinatorial soul of the analytic identity.</div>
+
+<div class="widget" id="w-jtp">
+  <div class="hd"><div class="ttl">Triple product at $z = -q$, recovering Euler</div><div class="hint">two parallel expansions stay in lockstep</div></div>
+  <div class="row">
+    <label for="jtp-N">truncation $N$</label>
+    <input type="range" id="jtp-N" min="3" max="20" step="1" value="10">
+    <span id="jtp-Nv" class="readout" style="min-width:80px;flex:0 0 auto">N = 10</span>
+  </div>
+  <svg id="jtp-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
+  <div class="small">Blue: sum side $\sum_{|k|\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 4: triple product ========================== */
+(function(){
+  const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');
+  const D = 30;
+  function zeros(){ return new Array(D+1).fill(0); }
+  function mul(A,B){
+    const C = zeros();
+    for(let i=0;i<=D;i++){
+      if(!A[i]) continue;
+      for(let j=0;i+j<=D;j++){
+        if(!B[j]) continue;
+        C[i+j] += A[i]*B[j];
+      }
+    }
+    return C;
+  }
+  function pentSum(N){
+    const S = zeros();
+    for(let k=-N;k<=N;k++){
+      const g = k*(3*k-1)/2;
+      if(g>=0 && g<=D) S[g] += (k%2===0)?1:-1;
+    }
+    return S;
+  }
+  function eulerProduct(N){
+    let P = zeros(); P[0] = 1;
+    for(let n=1;n<=N;n++){
+      const q = zeros(); q[0] = 1;
+      if(n<=D) q[n] = -1;
+      P = mul(P, q);
+    }
+    return P;
+  }
+  function render(){
+    const N = parseInt(Nin.value,10);
+    Nv.textContent = `N = ${N}`;
+    const S = pentSum(N), P = eulerProduct(N);
+    svg.innerHTML = '';
+    const W=620,H=240,pad={l:40,r:12,t:22,b:36};
+    const cw = (W-pad.l-pad.r)/(D+1);
+    const allV = [...S, ...P].map(Math.abs);
+    const maxV = Math.max(1, ...allV);
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+    for(let m=0;m<=D;m++){
+      const a = S[m], b = P[m];
+      const x = pad.l + m*cw;
+      const midY = H - pad.b;
+      const ha = Math.abs(a)/maxV * (H-pad.t-pad.b);
+      const hb = Math.abs(b)/maxV * (H-pad.t-pad.b);
+      if(a!==0){
+        const top = a>0 ? midY-ha : midY;
+        svg.appendChild(SVG('rect',{x:x+1,y:top,width:Math.max(1,cw/2-1),height:ha,
+          fill: a>0?'var(--blue)':'var(--pink)', opacity:0.85}));
+      }
+      if(b!==0){
+        const top = b>0 ? midY-hb : midY;
+        svg.appendChild(SVG('rect',{x:x+cw/2,y:top,width:Math.max(1,cw/2-1),height:hb,
+          fill: b>0?'var(--yellow)':'var(--pink)', opacity:0.85}));
+      }
+      if(m%5===0){
+        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent = m; svg.appendChild(t);
+      }
+    }
+    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));
+    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='pentagonal sum'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));
+    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='Euler product'; svg.appendChild(t2);
+
+    const rows = [];
+    rows.push(`first coefficients (sum | product):`);
+    for(let m=0;m<=Math.min(15,D);m++){
+      rows.push(`  [q^${String(m).padStart(2,' ')}]  ${String(S[m]).padStart(3,' ')}  |  ${String(P[m]).padStart(3,' ')}${S[m]===P[m]?' ✓':' ≠'}`);
+    }
+    out.textContent = rows.join('\n');
+  }
+  Nin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="ram">
+<h2>5. Ramanujan's congruences</h2>
+<p>Look again at the table:
+$$p(4)=5,\ p(9)=30,\ p(14)=135,\ p(19)=490,\ p(24)=1575,\ p(29)=4565,\ \ldots$$
+Every single value is divisible by $5$. The indices are $4,9,14,19,24,29$ — the arithmetic progression $5n+4$. Ramanujan noticed this in 1919 and proved:
+$$\boxed{\;p(5n+4)\equiv 0 \pmod 5,\quad p(7n+5)\equiv 0 \pmod 7,\quad p(11n+6)\equiv 0 \pmod{11}\;}$$
+for all $n \ge 0$. Three primes, three arithmetic progressions, three clean divisibility statements. He wrote: "<em>It appears that there are no equally simple properties for any moduli involving primes other than these three.</em>" That intuition was spectacular; the next such congruence occurs only for prime power moduli like $p(25n+24)\equiv 0\pmod{25}$ and $p(49n+47)\equiv 0\pmod{49}$.</p>
+
+<h3>Why $5$, $7$, and $11$?</h3>
+<p>The deep reason is modular. Each congruence can be rephrased as a statement about the $q$-expansion of $\eta(\tau)^{-1}$ at a particular cusp of $\Gamma_0(N)$ for $N = 5, 7, 11$. Ramanujan's own proof for mod $5$ went through the identity
+$$\sum_{n\ge 0} p(5n+4)\, q^n \;=\; 5\, \frac{\prod_{n\ge 1}(1-q^{5n})^5}{\prod_{n\ge 1}(1-q^n)^6},$$
+which makes the factor of $5$ explicit. The deeper explanation — why no other prime $\ell$ admits a congruence $p(\ell n + a) \equiv 0 \pmod\ell$ for an entire progression — is part of the theory of <strong>mock modular forms</strong> and Ramanujan's famous letter from the sanatorium to Hardy about the mock theta functions.</p>
+
+<div class="note"><strong>Ono's theorem.</strong> In 2000 Ken Ono proved that for <em>every</em> prime $\ell \ge 5$ and every $k \ge 1$, there exist infinitely many arithmetic progressions $An + B$ with $p(An + B) \equiv 0 \pmod{\ell^k}$. The simple progressions $5n{+}4,\ 7n{+}5,\ 11n{+}6$ are just the beginning — partition congruences are everywhere, but only for those three primes can one be written down with a one-digit modulus.</div>
+
+<div class="widget" id="w-ram">
+  <div class="hd"><div class="ttl">Ramanujan congruence checker</div><div class="hint">pick $n$; watch the three residues</div></div>
+  <div class="row">
+    <label for="ram-n">$n$</label>
+    <input type="number" id="ram-n" min="0" max="80" step="1" value="14">
+    <span class="small">try $4, 9, 14, 19$ (mod 5); $5, 12, 19, 26$ (mod 7); $6, 17, 28$ (mod 11)</span>
+  </div>
+  <svg id="ram-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <div class="readout" id="ram-out" style="font-size:.88rem"></div>
+</div>
+<div class="quiz" data-concept="ramanujan-congruences"></div>
+</section>
+
+<script>
+/* ============================== widget 5: Ramanujan check ========================= */
+(function(){
+  const svg = $('#ram-svg'), input = $('#ram-n'), out = $('#ram-out');
+  // table of p(n) up to 80 using pentagonal recurrence
+  function buildTable(N){
+    const P = new Array(N+1).fill(0); P[0] = 1;
+    const pent = [];
+    for(let k=1; k*(3*k-1)/2 <= N; k++){
+      const s = (k%2===1) ? +1 : -1;
+      pent.push([k*(3*k-1)/2, s]);
+      if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);
+    }
+    for(let n=1;n<=N;n++){
+      let s = 0;
+      for(const [g,sign] of pent){
+        if(g>n) break;
+        s += sign * P[n-g];
+      }
+      P[n] = s;
+    }
+    return P;
+  }
+  const Ptable = buildTable(80);
+
+  function render(){
+    let n = parseInt(input.value, 10);
+    if(!Number.isFinite(n)) n = 0;
+    n = Math.max(0, Math.min(80, n));
+    input.value = n;
+
+    const pn = Ptable[n];
+    const mods = [
+      { mod:5,  r:4, name:'5n+4' },
+      { mod:7,  r:5, name:'7n+5' },
+      { mod:11, r:6, name:'11n+6' }
+    ];
+
+    svg.innerHTML = '';
+    const W=620,H=200;
+    const labelRow = 36;
+    // Three badges
+    for(let i=0;i<mods.length;i++){
+      const { mod, r, name } = mods[i];
+      const res = ((pn % mod) + mod) % mod;
+      const inProg = (n % mod) === r;
+      const predicted = inProg ? 0 : null;
+      const passes = inProg && res === 0;
+
+      const cx = 120 + i*180;
+      const cy = 85;
+      let color = 'var(--mute)';
+      if(inProg){
+        color = res === 0 ? 'var(--green)' : 'var(--pink)';
+      } else {
+        color = 'var(--cyan)';
+      }
+      svg.appendChild(SVG('rect',{x:cx-80,y:cy-44,width:160,height:88,rx:8,
+        fill:'var(--panel2)',stroke:color,'stroke-width':2}));
+      const t1 = SVG('text',{x:cx,y:cy-24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+      t1.textContent = `mod ${mod}`; svg.appendChild(t1);
+      const t2 = SVG('text',{x:cx,y:cy-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+      t2.textContent = `p(${n}) = ${pn.toLocaleString()}`; svg.appendChild(t2);
+      const t3 = SVG('text',{x:cx,y:cy+14,'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});
+      t3.textContent = `≡ ${res} (mod ${mod})`; svg.appendChild(t3);
+      const t4 = SVG('text',{x:cx,y:cy+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      if(inProg){
+        t4.textContent = passes ? `✓ ${name} form: matches` : `✗ ${name}: expected 0!`;
+      } else {
+        t4.textContent = `n not in ${name}`;
+      }
+      svg.appendChild(t4);
+    }
+    // small note
+    const note = SVG('text',{x:W/2,y:H-14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    note.textContent = `n = ${n}.  ramanujan's congruences hold iff n ∈ {5k+4, 7k+5, 11k+6} in the corresponding column.`;
+    svg.appendChild(note);
+
+    // readout
+    const rows = [];
+    rows.push(`n = ${n},  p(n) = ${pn.toLocaleString()}`);
+    for(const { mod, r, name } of mods){
+      const inProg = (n % mod) === r;
+      const res = ((pn % mod) + mod) % mod;
+      rows.push(`  p(n) mod ${mod} = ${res}  ${inProg? (res===0?`   ← n=${n} is of form ${name}, divisible ✓` : `   ← n of form ${name}, expected 0, got ${res} (CHECK)`): ''}`);
+    }
+    out.textContent = rows.join('\n');
+  }
+  input.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="eta">
+<h2>6. The Dedekind eta function</h2>
+<p>All of this lives upstairs on the upper half-plane. Set $q = e^{2\pi i \tau}$ and define the <strong>Dedekind eta function</strong>
+$$\eta(\tau) \;=\; q^{1/24}\, \prod_{n \ge 1}\bigl(1 - q^n\bigr), \qquad \tau \in \mathcal{H}.$$
+The factor $q^{1/24}$ is not cosmetic. Without it, $\prod(1-q^n)$ is a power series with no transformation law. With it, $\eta$ becomes a holomorphic function on $\mathcal{H}$ satisfying
+$$\eta(\tau + 1) \;=\; e^{\pi i / 12}\, \eta(\tau), \qquad \eta\bigl(-1/\tau\bigr) \;=\; \sqrt{-i\tau}\,\eta(\tau).$$
+The first identity is a direct read-off of the $q^{1/24}$ prefactor; the second is equivalent, via the Jacobi triple product, to the Jacobi theta transformation law. Together they make $\eta$ a modular form of weight $\tfrac 12$ with a multiplier system — see <a href="./modular-forms.html">modular forms</a> for the framework and <a href="./theta-functions.html">theta functions</a> for the companion object.</p>
+
+<h3>Partition generating function as $1/\eta$</h3>
+<p>The identity we proved in §2 can now be rewritten modularly:
+$$\sum_{n \ge 0} p(n) q^n \;=\; \prod_{n \ge 1}\frac{1}{1 - q^n} \;=\; \frac{q^{1/24}}{\eta(\tau)}.$$
+The partition generating function is essentially $\eta(\tau)^{-1}$. The modular transformation of $\eta$ therefore induces one for the partition generating function — and this is how Rademacher in 1937 obtained his exact infinite-series formula
+$$p(n) \;=\; \frac{1}{\pi\sqrt{2}} \sum_{k=1}^{\infty} \sqrt{k}\, A_k(n) \frac{d}{dn}\! \left[\frac{\sinh\!\bigl(\tfrac{\pi}{k}\sqrt{\tfrac{2}{3}(n - \tfrac{1}{24})}\bigr)}{\sqrt{n - \tfrac{1}{24}}}\right],$$
+where $A_k(n)$ is a certain Kloosterman sum. The leading $k=1$ term is the Hardy–Ramanujan asymptotic of §7.</p>
+
+<h3>The discriminant $\Delta = \eta^{24}$</h3>
+<p>Raising $\eta$ to the $24$th power kills the multiplier phase $e^{\pi i/12}$ (because $(e^{\pi i/12})^{24} = e^{2\pi i} = 1$) and gives a true modular form of weight $12$ on $\mathrm{SL}_2(\mathbb{Z})$:
+$$\Delta(\tau) \;=\; \eta(\tau)^{24} \;=\; q \prod_{n \ge 1}(1-q^n)^{24} \;=\; \sum_{n \ge 1} \tau(n)\, q^n,$$
+the first nonzero cusp form of weight $12$. Its coefficients $\tau(1), \tau(2), \tau(3), \ldots = 1, -24, 252, \ldots$ are Ramanujan's famous $\tau$-function. The jump from partitions ($\eta^{-1}$) to the discriminant ($\eta^{24}$) is a $25$th-power of $\eta$ in disguise — the whole story lives inside a single modular object.</p>
+
+<div class="widget" id="w-eta">
+  <div class="hd"><div class="ttl">$\eta$ as the partition engine</div><div class="hint">compare $\sum p(n) q^n$ with $q^{1/24}/\eta(\tau)$ coefficient-by-coefficient</div></div>
+  <div class="row">
+    <label for="eta-K">product truncation $K$</label>
+    <input type="range" id="eta-K" min="4" max="25" step="1" value="12">
+    <span id="eta-Kv" class="readout" style="min-width:80px;flex:0 0 auto">K = 12</span>
+  </div>
+  <svg id="eta-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="readout" id="eta-out" style="font-size:.85rem"></div>
+</div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
+    <li><a href="./theta-functions.html#jtp">Jacobi triple product and q-identities</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="dedekind-eta-modular"></div>
+</section>
+
+<script>
+/* ============================== widget 6: 1/eta expansion ========================= */
+(function(){
+  const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');
+  const D = 16;
+  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231];
+  function zeros(){ return new Array(D+1).fill(0); }
+  function mul(A,B){
+    const C = zeros();
+    for(let i=0;i<=D;i++){
+      if(!A[i]) continue;
+      for(let j=0;i+j<=D;j++){
+        if(!B[j]) continue;
+        C[i+j] += A[i]*B[j];
+      }
+    }
+    return C;
+  }
+  function invOneMinus(n){
+    const p = zeros();
+    for(let k=0;k*n<=D;k++) p[k*n] = 1;
+    return p;
+  }
+  function truncRecip(K){
+    let P = zeros(); P[0] = 1;
+    for(let n=1;n<=K;n++) P = mul(P, invOneMinus(n));
+    return P;
+  }
+  function render(){
+    const K = parseInt(Kin.value,10);
+    Kv.textContent = `K = ${K}`;
+    const P = truncRecip(K);
+    svg.innerHTML='';
+    const W=620, H=220, pad={l:50,r:14,t:22,b:34};
+    const cw = (W-pad.l-pad.r)/(D+1);
+    const maxV = Math.max(1, ...Ptrue);
+    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;
+    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+    for(let m=0;m<=D;m++){
+      const a = P[m], b = Ptrue[m]||0;
+      const x = pad.l + m*cw;
+      const ha = scale(a)*(H-pad.t-pad.b);
+      const hb = scale(b)*(H-pad.t-pad.b);
+      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--violet)',opacity:0.85}));
+      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.8}));
+      const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = m; svg.appendChild(t);
+    }
+    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t,width:10,height:10,fill:'var(--violet)'}));
+    const t1 = SVG('text',{x:W-pad.r-174,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='q^{1/24}/η  (truncated)'; svg.appendChild(t1);
+    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));
+    const t2 = SVG('text',{x:W-pad.r-174,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(n)'; svg.appendChild(t2);
+
+    const rows = [];
+    rows.push(`coefficient of q^n in q^{1/24}/η(τ) vs. p(n):`);
+    for(let m=0;m<=Math.min(12,D);m++){
+      const ok = (P[m]===Ptrue[m]) ? '✓' : '(trunc)';
+      rows.push(`  n=${String(m).padStart(2,' ')}:  ${String(P[m]).padStart(5,' ')}  vs  p(n)=${String(Ptrue[m]).padStart(5,' ')}  ${ok}`);
+    }
+    out.textContent = rows.join('\n');
+  }
+  Kin.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="hr">
+<h2>7. Hardy–Ramanujan asymptotics</h2>
+<p>How fast does $p(n)$ grow? In 1918 Hardy and Ramanujan proved the celebrated asymptotic
+$$\boxed{\;p(n) \;\sim\; \frac{1}{4n\sqrt{3}}\, \exp\!\Bigl(\pi\sqrt{\tfrac{2n}{3}}\Bigr) \qquad (n \to \infty).\;}$$
+The exponent $\pi\sqrt{2n/3}$ grows as $\sqrt{n}$, so $p(n)$ is super-polynomial but sub-exponential. Numerically the formula is excellent almost immediately: at $n = 100$ the asymptotic gives $1.993\times 10^8$ while $p(100) = 1.906\times 10^8$, a $4\%$ relative error.</p>
+
+<h3>Why $\pi\sqrt{2n/3}$?</h3>
+<p>The saddle-point calculation on the modular transformation $\eta(-1/\tau) = \sqrt{-i\tau}\, \eta(\tau)$ pins down the constants. The partition generating function has a pole at $\tau = 0$ (equivalently $q = 1$); its behavior there, through modularity, is controlled by the $q^{1/24}$ prefactor and yields precisely
+$$\sum p(n) q^n \;\sim\; \frac{1}{(2\pi)^{1/2}}\, (\tau/i)^{1/2}\, \exp\!\Bigl(\frac{\pi i}{12\tau}\Bigr) \qquad (\tau \to 0, \operatorname{Im}\tau > 0).$$
+A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i}\oint \tau^{-n-1}\sum p(m) q^m\, dq$ lands at $\tau \sim i/\sqrt{24n}$, giving the $\pi\sqrt{2n/3}$ exponent. Rademacher's exact formula (end of §6) sums the contributions of <em>all</em> cusps $\tau = a/c$ of $\mathrm{SL}_2(\mathbb{Z})$ and converges, remarkably, to the integer $p(n)$ on the nose.</p>
+
+<div class="widget" id="w-hr">
+  <div class="hd"><div class="ttl">Hardy–Ramanujan vs. exact $p(n)$</div><div class="hint">relative error shrinks like $1/\sqrt{n}$</div></div>
+  <svg id="hr-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="readout" id="hr-out" style="font-size:.85rem"></div>
+</div>
+</section>
+
+<script>
+/* ============================== widget 7: HR asymptotic ========================== */
+(function(){
+  const svg = $('#hr-svg'), out = $('#hr-out');
+  // precompute p up to 200
+  const N = 200;
+  const P = new Array(N+1).fill(0); P[0] = 1;
+  const pent = [];
+  for(let k=1; k*(3*k-1)/2 <= N; k++){
+    const s = (k%2===1) ? +1 : -1;
+    pent.push([k*(3*k-1)/2, s]);
+    if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);
+  }
+  for(let n=1;n<=N;n++){
+    let s = 0;
+    for(const [g,sign] of pent){
+      if(g>n) break;
+      s += sign * P[n-g];
+    }
+    P[n] = s;
+  }
+  function HR(n){
+    if(n<=0) return 1;
+    return Math.exp(Math.PI*Math.sqrt(2*n/3)) / (4*n*Math.sqrt(3));
+  }
+  svg.innerHTML = '';
+  const W=620, H=260, pad={l:60,r:20,t:24,b:40};
+  // plot log10(p(n)) and log10(HR(n)) vs n
+  const minN = 5;
+  const maxN = N;
+  const pts1=[], pts2=[];
+  for(let n=minN;n<=maxN;n++){
+    pts1.push([n, Math.log10(P[n])]);
+    pts2.push([n, Math.log10(HR(n))]);
+  }
+  const yMax = Math.log10(P[N])+1;
+  const X = x => pad.l + (x-minN)/(maxN-minN)*(W-pad.l-pad.r);
+  const Y = v => H - pad.b - (v/yMax)*(H-pad.t-pad.b);
+  svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));
+  svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));
+
+  for(let v=2; v<=Math.floor(yMax); v+=2){
+    const y = Y(v);
+    svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));
+    const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    t.textContent = '10^'+v; svg.appendChild(t);
+  }
+  for(const xv of [10,50,100,150,200]){
+    const x = X(xv);
+    svg.appendChild(SVG('line',{x1:x,y1:H-pad.b,x2:x,y2:H-pad.b+4,stroke:'var(--mute)'}));
+    const t = SVG('text',{x,y:H-pad.b+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent = xv; svg.appendChild(t);
+  }
+  const pathOf = (pts, color, dash) => {
+    const d = pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+    const pth = SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2});
+    if(dash) pth.setAttribute('stroke-dasharray', dash);
+    svg.appendChild(pth);
+  };
+  pathOf(pts1, 'var(--blue)');
+  pathOf(pts2, 'var(--yellow)', '5 3');
+  // legend
+  const lg = SVG('g',{}); svg.appendChild(lg);
+  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+12,x2:W-pad.r-170,y2:pad.t+12,stroke:'var(--blue)','stroke-width':2.2}));
+  const t1 = SVG('text',{x:W-pad.r-166,y:pad.t+16,'font-size':12,fill:'var(--ink)'}); t1.textContent='log₁₀ p(n)'; lg.appendChild(t1);
+  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+30,x2:W-pad.r-170,y2:pad.t+30,stroke:'var(--yellow)','stroke-width':2.2,'stroke-dasharray':'5 3'}));
+  const t2 = SVG('text',{x:W-pad.r-166,y:pad.t+34,'font-size':12,fill:'var(--ink)'}); t2.textContent='log₁₀ HR(n)'; lg.appendChild(t2);
+  // axis labels
+  const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+  xl.textContent = 'n'; svg.appendChild(xl);
+
+  const rows = [];
+  rows.push('   n      p(n)            HR(n)           rel. err');
+  for(const n of [10, 20, 50, 100, 150, 200]){
+    const ex = P[n], ap = HR(n);
+    const err = ((ap-ex)/ex)*100;
+    rows.push(`  ${String(n).padStart(3,' ')}  ${String(ex).padStart(14,' ')}  ${ap.toExponential(4).padStart(12,' ')}   ${err.toFixed(2).padStart(7,' ')}%`);
+  }
+  out.textContent = rows.join('\n');
+})();
+</script>
+
+<section id="forward">
+<h2>Where this goes next</h2>
+<p>Every strand widens downstream.</p>
+<ul>
+  <li><a href="./theta-functions.html">Theta functions</a>: the Jacobi triple product is the combinatorial soul of the Jacobi $\vartheta$ function; the pentagonal theorem is one of its many specializations.</li>
+  <li><a href="./modular-forms.html">Modular forms</a>: $\eta^{24} = \Delta$ is the first cusp form of weight $12$; Ramanujan's congruences for $p(n)$ are shadows of congruences for $\tau(n)$ and for mod-$\ell$ Galois representations attached to $\Delta$.</li>
+  <li><a href="./dirichlet-series-euler-products.html">Dirichlet series &amp; Euler products</a>: the analytic continuation of $\sum \tau(n)/n^s$ and its functional equation mirror the analytic machinery Rademacher used to derive the exact formula for $p(n)$.</li>
+  <li><a href="./sums-of-squares.html">Sums of squares</a>: the $z=-1$ specialization of the triple product gives Jacobi's two-square theorem; the pattern "product-sum identity $\Rightarrow$ arithmetic closed form" repeats throughout.</li>
+  <li><a href="./hecke-operators.html">Hecke operators</a>: the modular interpretation of partition congruences mod $\ell$ is that certain Hecke eigenvalues vanish mod $\ell$ — the beginning of Deligne–Serre and Ono's theorem on infinite families of partition congruences.</li>
+</ul>
+
+<p class="small">Further afield: <em>mock modular forms</em> explain Ramanujan's mysterious mock theta functions as "holomorphic parts" of harmonic Maass forms; their $q$-expansions encode yet another layer of partition-theoretic phenomena.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('partitions-generating-functions'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
