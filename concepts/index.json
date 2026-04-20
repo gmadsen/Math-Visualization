@@ -1,16 +1,19 @@
 {
   "topics": [
     "naive-set-theory",
+
     "algebra",
     "category-theory",
     "representation-theory",
     "commutative-algebra",
     "homological",
+
     "real-analysis",
     "measure-theory",
     "complex-analysis",
     "functional-analysis",
     "operator-algebras",
+
     "point-set-topology",
     "algebraic-topology",
     "smooth-manifolds",
@@ -19,6 +22,7 @@
     "riemannian-geometry",
     "lie-groups",
     "riemann-surfaces",
+
     "galois",
     "quadratic-reciprocity",
     "sums-of-squares",
@@ -26,6 +30,7 @@
     "p-adic-numbers",
     "frobenius-and-reciprocity",
     "class-field-theory",
+
     "upper-half-plane-hyperbolic",
     "modular-forms",
     "theta-functions",
@@ -33,9 +38,7 @@
     "dirichlet-series-euler-products",
     "L-functions",
     "galois-representations",
-    "sato-tate",
-    "bsd",
-    "modularity-and-flt",
+
     "projective-plane",
     "bezout",
     "schemes",
@@ -47,6 +50,10 @@
     "moduli-spaces",
     "sheaf-cohomology",
     "stacks",
+
+    "sato-tate",
+    "bsd",
+    "modularity-and-flt",
     "etale-cohomology"
   ]
 }

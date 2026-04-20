@@ -29,7 +29,7 @@
       "anchor": "weil",
       "prereqs": [
         "l-adic-cohomology",
-        "frobenius-traces-grep"
+        "frobenius-traces"
       ],
       "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
     }

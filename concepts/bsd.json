@@ -20,7 +20,7 @@
       "prereqs": [
         "mordell-weil",
         "hasse-bound-angle",
-        "frobenius-traces-grep"
+        "frobenius-traces"
       ],
       "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
     },

@@ -14,7 +14,7 @@
       "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
     },
     {
-      "id": "frobenius-traces-grep",
+      "id": "frobenius-traces",
       "title": "Frobenius traces and compatibility",
       "anchor": "frob",
       "prereqs": [
@@ -28,7 +28,7 @@
       "title": "Residual reps, deformations, modularity",
       "anchor": "mod",
       "prereqs": [
-        "frobenius-traces-grep",
+        "frobenius-traces",
         "modularity-theorem"
       ],
       "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds."

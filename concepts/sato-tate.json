@@ -30,6 +30,7 @@
       "prereqs": [
         "sato-tate-measure",
         "arithmetic-data-lfunctions",
+        "euler-product-structure",
         "modular-form-definition"
       ],
       "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
