@@ -398,6 +398,288 @@ window.MVQuizBank = {
       }
     }
   },
+  "hecke-operators": {
+    "topic": "hecke-operators",
+    "quizzes": {
+      "hecke-operator-tp": {
+        "title": "The Hecke operator T_p",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$T_p$ is best viewed as:",
+            "choices": [
+              "a derivative in $q$",
+              "an averaging operator over index-$p$ correspondences",
+              "a projection to cusp forms only"
+            ],
+            "answer": 1,
+            "explain": "Geometrically it averages over degree-$p$ isogeny/lattice data."
+          },
+          {
+            "type": "numeric",
+            "q": "$T_p$ depends on a prime parameter. For $T_5$, what is $p$?",
+            "answer": 5,
+            "tol": 0.001,
+            "explain": "By notation, the subscript is the prime."
+          },
+          {
+            "type": "mcq",
+            "q": "Applying $T_p$ to modular forms keeps you in:",
+            "choices": [
+              "the same finite-dimensional space",
+              "a larger weight",
+              "non-holomorphic space only"
+            ],
+            "answer": 0,
+            "explain": "Hecke operators act endomorphically on standard modular-form spaces."
+          }
+        ]
+      },
+      "hecke-q-expansion-action": {
+        "title": "Action on q-expansions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For weight $k$, the coefficient rule includes the term:",
+            "choices": [
+              "$p^{k-1}a_{n/p}$",
+              "$p^k a_n$",
+              "$a_{n+p}$ only"
+            ],
+            "answer": 0,
+            "explain": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$."
+          },
+          {
+            "type": "numeric",
+            "q": "In weight $k=2$, what is $p^{k-1}$ when $p=3$?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "$p^{k-1}=3^1=3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is this coefficient formula useful?",
+            "choices": [
+              "It gives an explicit computable recurrence on coefficients",
+              "It avoids Fourier series",
+              "It only applies to Eisenstein series"
+            ],
+            "answer": 0,
+            "explain": "It makes Hecke action algorithmic on q-series data."
+          }
+        ]
+      },
+      "hecke-algebra-commuting": {
+        "title": "Commuting Hecke algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A key structural fact is:",
+            "choices": [
+              "$T_mT_n=T_nT_m$",
+              "$T_mT_n=-T_nT_m$",
+              "$T_n^2=0$ always"
+            ],
+            "answer": 0,
+            "explain": "Hecke operators form a commutative algebra in this setting."
+          },
+          {
+            "type": "mcq",
+            "q": "Commutativity allows one to:",
+            "choices": [
+              "simultaneously diagonalize on suitable spaces",
+              "force all eigenvalues equal",
+              "eliminate cusp forms"
+            ],
+            "answer": 0,
+            "explain": "Commuting normal/self-adjoint operators admit joint eigenbases."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f$ is an eigenvector for $T_2,T_3$ with eigenvalues 5 and -1, what is $(T_2+T_3)f$ eigenvalue?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "Linearity gives $(5+(-1))f=4f$."
+          }
+        ]
+      },
+      "eigenforms-and-euler-factors": {
+        "title": "Eigenforms and Euler factors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a normalized eigenform, the first coefficient $a_1$ is:",
+            "choices": [
+              "0",
+              "1",
+              "p"
+            ],
+            "answer": 1,
+            "explain": "Normalization sets $a_1=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Eigenforms are central because they provide:",
+            "choices": [
+              "Euler products with arithmetic coefficients",
+              "finite support q-series",
+              "only geometric intersection numbers"
+            ],
+            "answer": 0,
+            "explain": "Their coefficients satisfy multiplicative relations giving Euler factors."
+          },
+          {
+            "type": "numeric",
+            "q": "If multiplicativity gives $a_{mn}=a_ma_n$ for $(m,n)=1$, and $a_2=3,a_3=-2$, compute $a_6$.",
+            "answer": -6,
+            "tol": 0.001,
+            "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+          }
+        ]
+      }
+    }
+  },
+  "modular-forms": {
+    "topic": "modular-forms",
+    "quizzes": {
+      "sl2z-on-H": {
+        "title": "SL2(Z) on H",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which matrices generate $SL_2(\\mathbb Z)$ in the page's setup?",
+            "choices": [
+              "$T$ and $S$",
+              "$R$ and $U$",
+              "$I$ only"
+            ],
+            "answer": 0,
+            "explain": "Standard generators are $T: \\tau\\mapsto \\tau+1$ and $S: \\tau\\mapsto -1/\\tau$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $S(i)=-1/i$.",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$-1/i=i$."
+          },
+          {
+            "type": "mcq",
+            "q": "Points in the same $SL_2(\\mathbb Z)$ orbit represent:",
+            "choices": [
+              "the same modular data",
+              "different weights",
+              "different q-variables"
+            ],
+            "answer": 0,
+            "explain": "Modular invariance identifies orbit-equivalent points."
+          }
+        ]
+      },
+      "modular-form-definition": {
+        "title": "Definition of modular forms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A weight-$k$ modular form satisfies:",
+            "choices": [
+              "$f(\\gamma\\tau)=f(\\tau)$",
+              "$f(\\gamma\\tau)=(c\\tau+d)^k f(\\tau)$",
+              "$f(\\gamma\\tau)=(a\\tau+b)^k f(\\tau)$"
+            ],
+            "answer": 1,
+            "explain": "This is the transformation law for $\\gamma=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$."
+          },
+          {
+            "type": "mcq",
+            "q": "\"Holomorphic at infinity\" is tested using which variable?",
+            "choices": [
+              "$q=e^{2\\pi i\\tau}$",
+              "$x=\\Re\\tau$",
+              "$y=\\Im\\tau$"
+            ],
+            "answer": 0,
+            "explain": "One checks regularity of the Fourier expansion in $q$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f$ is a cusp form, what is its constant $q^0$ coefficient?",
+            "answer": 0,
+            "tol": 0.001,
+            "explain": "Cusp forms vanish at the cusp."
+          }
+        ]
+      },
+      "eisenstein-series-mf": {
+        "title": "Eisenstein series",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "At level 1, which pair is emphasized as basic generators?",
+            "choices": [
+              "$E_2,E_4$",
+              "$E_4,E_6$",
+              "$E_6,E_8$"
+            ],
+            "answer": 1,
+            "explain": "The graded ring is generated by $E_4$ and $E_6$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the constant term of normalized $E_4(q)$?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Normalized Eisenstein series start with 1."
+          },
+          {
+            "type": "mcq",
+            "q": "Eisenstein series are examples of:",
+            "choices": [
+              "meromorphic-only forms",
+              "explicit modular forms",
+              "non-holomorphic Maass forms"
+            ],
+            "answer": 1,
+            "explain": "They are concrete holomorphic modular forms."
+          }
+        ]
+      },
+      "q-expansions-mf": {
+        "title": "q-expansions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The symbol $q$ stands for:",
+            "choices": [
+              "$e^{\\pi i\\tau}$",
+              "$e^{2\\pi i\\tau}$",
+              "$\\tau^2$"
+            ],
+            "answer": 1,
+            "explain": "By convention $q=e^{2\\pi i\\tau}$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\tau=i$, compute $|q|=|e^{2\\pi i\\tau}|$ to 3 decimals.",
+            "answer": 0.001867,
+            "tol": 0.0005,
+            "explain": "$|q|=e^{-2\\pi}\\approx 0.001867$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are q-expansions central in arithmetic applications?",
+            "choices": [
+              "They remove all group actions",
+              "They package modular forms into coefficient sequences used by Hecke and L-functions",
+              "They only work for weight 0"
+            ],
+            "answer": 1,
+            "explain": "Arithmetic information is encoded in Fourier coefficients."
+          }
+        ]
+      }
+    }
+  },
   "modularity-and-flt": {
     "topic": "modularity-and-flt",
     "quizzes": {
@@ -860,6 +1142,143 @@ window.MVQuizBank = {
       }
     }
   },
+  "quadratic-reciprocity": {
+    "topic": "quadratic-reciprocity",
+    "quizzes": {
+      "legendre-symbol": {
+        "title": "Legendre symbol basics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For odd prime $p$, what does $\\left(\\frac{a}{p}\\right)=1$ mean?",
+            "choices": [
+              "$a \\equiv 0 \\pmod p$",
+              "$a$ is a quadratic residue mod $p$",
+              "$a$ is a primitive root mod $p$"
+            ],
+            "answer": 1,
+            "explain": "By definition, $\\left(\\frac{a}{p}\\right)=1$ exactly when $x^2\\equiv a\\pmod p$ is solvable."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\left(\\frac{4}{7}\\right)$.",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$2^2\\equiv 4\\pmod 7$, so 4 is a square mod 7."
+          },
+          {
+            "type": "mcq",
+            "q": "If $p\\nmid a$, then $\\left(\\frac{a}{p}\\right)$ can be:",
+            "choices": [
+              "only 0",
+              "only 1",
+              "either 1 or -1"
+            ],
+            "answer": 2,
+            "explain": "Away from multiples of $p$, residues split into squares (1) and nonsquares (-1)."
+          }
+        ]
+      },
+      "supplementary-laws-qr": {
+        "title": "Supplementary laws",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For odd prime $p$, $\\left(\\frac{-1}{p}\\right)=1$ exactly when:",
+            "choices": [
+              "$p\\equiv 1 \\pmod 4$",
+              "$p\\equiv 3 \\pmod 4$",
+              "$p\\equiv 1 \\pmod 8$"
+            ],
+            "answer": 0,
+            "explain": "The first supplementary law gives $(-1/p)=(-1)^{(p-1)/2}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\left(\\frac{2}{17}\\right)$.",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Since $17\\equiv 1\\pmod 8$, the second supplementary law gives $(2/17)=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which congruence class gives $\\left(\\frac{2}{p}\\right)=-1$?",
+            "choices": [
+              "$p\\equiv 1,7\\pmod 8$",
+              "$p\\equiv 3,5\\pmod 8$",
+              "$p\\equiv 1,3\\pmod 8$"
+            ],
+            "answer": 1,
+            "explain": "$(2/p)=(-1)^{(p^2-1)/8}$ is negative for classes 3 and 5 mod 8."
+          }
+        ]
+      },
+      "gauss-lemma-qr": {
+        "title": "Gauss's lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Gauss's lemma computes $\\left(\\frac{a}{p}\\right)$ using:",
+            "choices": [
+              "number of carries in base $p$",
+              "parity of a counting number of sign changes",
+              "prime factorization of $a$"
+            ],
+            "answer": 1,
+            "explain": "It is $(-1)^n$ where $n$ counts how many reduced multiples of $a$ fall in $(p/2,p)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $p=11,a=2$, the reduced list from $2,4,6,8,10$ has how many terms $>11/2$?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "The terms are $2,4,6,8,10$; those above 5.5 are 6,8,10."
+          },
+          {
+            "type": "numeric",
+            "q": "Using the previous count, compute $\\left(\\frac{2}{11}\\right)=(-1)^n$.",
+            "answer": -1,
+            "tol": 0.001,
+            "explain": "$n=3$ is odd, so $(-1)^n=-1$."
+          }
+        ]
+      },
+      "quadratic-reciprocity-law": {
+        "title": "Quadratic reciprocity law",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For odd primes $p,q$, quadratic reciprocity states:",
+            "choices": [
+              "$\\left(\\frac{p}{q}\\right)=\\left(\\frac{q}{p}\\right)$ always",
+              "$\\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right)=(-1)^{\\frac{(p-1)(q-1)}{4}}$",
+              "$\\left(\\frac{p}{q}\\right)+\\left(\\frac{q}{p}\\right)=0$"
+            ],
+            "answer": 1,
+            "explain": "This is the classical reciprocity identity."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $(-1)^{\\frac{(3-1)(11-1)}{4}}$.",
+            "answer": -1,
+            "tol": 0.001,
+            "explain": "Exponent is $(2\\cdot 10)/4=5$, so the sign is -1."
+          },
+          {
+            "type": "mcq",
+            "q": "If both $p\\equiv q\\equiv 3\\pmod 4$, then:",
+            "choices": [
+              "$\\left(\\frac{p}{q}\\right)=\\left(\\frac{q}{p}\\right)$",
+              "$\\left(\\frac{p}{q}\\right)=-\\left(\\frac{q}{p}\\right)$",
+              "both symbols are always 1"
+            ],
+            "answer": 1,
+            "explain": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case."
+          }
+        ]
+      }
+    }
+  },
   "real-analysis": {
     "topic": "real-analysis",
     "quizzes": {
@@ -1241,6 +1660,147 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
+          }
+        ]
+      }
+    }
+  },
+  "upper-half-plane-hyperbolic": {
+    "topic": "upper-half-plane-hyperbolic",
+    "quizzes": {
+      "upper-half-plane-model": {
+        "title": "The upper half-plane",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which set is the upper half-plane $\\mathbb H$?",
+            "choices": [
+              "$\\{x+iy:y\\ge 0\\}$",
+              "$\\{x+iy:y>0\\}$",
+              "$\\{x+iy:x>0\\}$"
+            ],
+            "answer": 1,
+            "explain": "The boundary $y=0$ is excluded."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $\\operatorname{Im}(3+4i)$?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "Imaginary part is 4."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the real axis special in the model?",
+            "choices": [
+              "It is the ideal boundary at infinity",
+              "It is a geodesic inside $\\mathbb H$",
+              "It is the set of elliptic fixed points"
+            ],
+            "answer": 0,
+            "explain": "The boundary is not in the space but appears as ideal points."
+          }
+        ]
+      },
+      "hyperbolic-metric": {
+        "title": "Hyperbolic metric",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The line element in $\\mathbb H$ is:",
+            "choices": [
+              "$ds^2=dx^2+dy^2$",
+              "$ds^2=(dx^2+dy^2)/y^2$",
+              "$ds^2=y^2(dx^2+dy^2)$"
+            ],
+            "answer": 1,
+            "explain": "Hyperbolic length scales Euclidean length by 1/y."
+          },
+          {
+            "type": "numeric",
+            "q": "At height $y=2$, what is the scaling factor on Euclidean length?",
+            "answer": 0.5,
+            "tol": 0.001,
+            "explain": "Factor is $1/y=1/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "As $y\\to 0^+$, short Euclidean segments have hyperbolic length:",
+            "choices": [
+              "going to 0",
+              "staying bounded",
+              "blowing up"
+            ],
+            "answer": 2,
+            "explain": "Division by $y$ makes lengths diverge near boundary."
+          }
+        ]
+      },
+      "geodesics-in-H": {
+        "title": "Geodesics in H",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which curves are geodesics in $\\mathbb H$?",
+            "choices": [
+              "Only horizontal lines",
+              "Vertical lines and semicircles orthogonal to the real axis",
+              "All circles"
+            ],
+            "answer": 1,
+            "explain": "This is the defining geometric picture of the model."
+          },
+          {
+            "type": "mcq",
+            "q": "The vertical ray $x=1,y>0$ is:",
+            "choices": [
+              "not geodesic",
+              "a geodesic",
+              "a horocycle"
+            ],
+            "answer": 1,
+            "explain": "Every vertical line in H is geodesic."
+          },
+          {
+            "type": "numeric",
+            "q": "How many intersection points can two distinct geodesics in H have inside H?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Like Euclidean lines, distinct geodesics intersect at most once in the interior."
+          }
+        ]
+      },
+      "sl2r-action-on-H": {
+        "title": "SL2 action and modular preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The action of $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$ on $\\tau$ is:",
+            "choices": [
+              "$a\\tau+b$",
+              "$(a\\tau+b)/(c\\tau+d)$",
+              "$a/(c\\tau+d)$"
+            ],
+            "answer": 1,
+            "explain": "This is the Möbius (fractional linear) action."
+          },
+          {
+            "type": "numeric",
+            "q": "For $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $\\tau=i$, compute $T\\cdot\\tau$ imaginary part.",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$T\\cdot i=i+1$, whose imaginary part is 1."
+          },
+          {
+            "type": "mcq",
+            "q": "Restricting to $SL_2(\\mathbb Z)$ gives:",
+            "choices": [
+              "Euclidean tilings of the plane",
+              "the modular tessellation/fundamental-domain story",
+              "only finite orbits"
+            ],
+            "answer": 1,
+            "explain": "This is the entry point to modular forms."
           }
         ]
       }

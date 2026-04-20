@@ -10,6 +10,10 @@ window.__MVConcepts = {
       "algebraic-topology",
       "measure-theory",
       "complex-analysis",
+      "quadratic-reciprocity",
+      "upper-half-plane-hyperbolic",
+      "modular-forms",
+      "hecke-operators",
       "sato-tate",
       "bsd",
       "etale-cohomology",
@@ -548,6 +552,182 @@ window.__MVConcepts = {
             "analyticity"
           ],
           "blurb": "Uniqueness of extension along paths; monodromy around branch points."
+        }
+      ]
+    },
+    "quadratic-reciprocity": {
+      "topic": "quadratic-reciprocity",
+      "title": "Quadratic reciprocity",
+      "page": "quadratic-reciprocity.html",
+      "concepts": [
+        {
+          "id": "legendre-symbol",
+          "title": "The Legendre symbol",
+          "anchor": "legendre",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0."
+        },
+        {
+          "id": "supplementary-laws-qr",
+          "title": "Supplementary laws",
+          "anchor": "supplementary",
+          "prereqs": [
+            "legendre-symbol"
+          ],
+          "blurb": "Explicit formulas for (-1/p) and (2/p) via p mod 4 and p mod 8 reduce many residue checks to parity facts."
+        },
+        {
+          "id": "gauss-lemma-qr",
+          "title": "Gauss's lemma",
+          "anchor": "gauss-lemma",
+          "prereqs": [
+            "legendre-symbol"
+          ],
+          "blurb": "The sign in (a/p) can be computed by counting how many multiples a,2a,...,(p-1)a/2 land past p/2."
+        },
+        {
+          "id": "quadratic-reciprocity-law",
+          "title": "Quadratic reciprocity law",
+          "anchor": "reciprocity",
+          "prereqs": [
+            "supplementary-laws-qr",
+            "gauss-lemma-qr"
+          ],
+          "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+        }
+      ]
+    },
+    "upper-half-plane-hyperbolic": {
+      "topic": "upper-half-plane-hyperbolic",
+      "title": "Upper half-plane and hyperbolic geometry",
+      "page": "upper-half-plane-hyperbolic.html",
+      "concepts": [
+        {
+          "id": "upper-half-plane-model",
+          "title": "The upper half-plane model",
+          "anchor": "H",
+          "prereqs": [
+            "complex-numbers",
+            "continuity-topology"
+          ],
+          "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
+        },
+        {
+          "id": "hyperbolic-metric",
+          "title": "The hyperbolic metric",
+          "anchor": "metric",
+          "prereqs": [
+            "upper-half-plane-model"
+          ],
+          "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away."
+        },
+        {
+          "id": "geodesics-in-H",
+          "title": "Geodesics in H",
+          "anchor": "geod",
+          "prereqs": [
+            "hyperbolic-metric"
+          ],
+          "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance."
+        },
+        {
+          "id": "sl2r-action-on-H",
+          "title": "SL2(R) action and modular preview",
+          "anchor": "sl2z",
+          "prereqs": [
+            "geodesics-in-H",
+            "mobius-transformations"
+          ],
+          "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story."
+        }
+      ]
+    },
+    "modular-forms": {
+      "topic": "modular-forms",
+      "title": "Modular forms",
+      "page": "modular-forms.html",
+      "concepts": [
+        {
+          "id": "sl2z-on-H",
+          "title": "SL2(Z) action on the upper half-plane",
+          "anchor": "sl2z",
+          "prereqs": [
+            "sl2r-action-on-H"
+          ],
+          "blurb": "Matrices in SL2(Z) act by Möbius transformations and generate the modular equivalence relation on H."
+        },
+        {
+          "id": "modular-form-definition",
+          "title": "Definition of modular forms",
+          "anchor": "forms",
+          "prereqs": [
+            "sl2z-on-H"
+          ],
+          "blurb": "A weight-k modular form is holomorphic on H, transforms by (cτ+d)^k under SL2(Z), and is holomorphic at infinity."
+        },
+        {
+          "id": "eisenstein-series-mf",
+          "title": "Eisenstein series",
+          "anchor": "eisen",
+          "prereqs": [
+            "modular-form-definition"
+          ],
+          "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure."
+        },
+        {
+          "id": "q-expansions-mf",
+          "title": "q-expansions and arithmetic data",
+          "anchor": "qexp",
+          "prereqs": [
+            "modular-form-definition",
+            "eisenstein-series-mf"
+          ],
+          "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+        }
+      ]
+    },
+    "hecke-operators": {
+      "topic": "hecke-operators",
+      "title": "Hecke operators",
+      "page": "hecke-operators.html",
+      "concepts": [
+        {
+          "id": "hecke-operator-tp",
+          "title": "The operator T_p",
+          "anchor": "tp",
+          "prereqs": [
+            "q-expansions-mf"
+          ],
+          "blurb": "T_p averages index-p sublattices (or cosets) and acts linearly on spaces of modular forms."
+        },
+        {
+          "id": "hecke-q-expansion-action",
+          "title": "Action on q-expansions",
+          "anchor": "qexp",
+          "prereqs": [
+            "hecke-operator-tp"
+          ],
+          "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule."
+        },
+        {
+          "id": "hecke-algebra-commuting",
+          "title": "Commuting Hecke algebra",
+          "anchor": "algebra",
+          "prereqs": [
+            "hecke-q-expansion-action"
+          ],
+          "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
+        },
+        {
+          "id": "eigenforms-and-euler-factors",
+          "title": "Eigenforms and Euler factors",
+          "anchor": "eigen",
+          "prereqs": [
+            "hecke-algebra-commuting"
+          ],
+          "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions."
         }
       ]
     },

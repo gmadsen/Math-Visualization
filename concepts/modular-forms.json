@@ -1,0 +1,35 @@
+{
+  "topic": "modular-forms",
+  "title": "Modular forms",
+  "page": "modular-forms.html",
+  "concepts": [
+    {
+      "id": "sl2z-on-H",
+      "title": "SL2(Z) action on the upper half-plane",
+      "anchor": "sl2z",
+      "prereqs": ["sl2r-action-on-H"],
+      "blurb": "Matrices in SL2(Z) act by Möbius transformations and generate the modular equivalence relation on H."
+    },
+    {
+      "id": "modular-form-definition",
+      "title": "Definition of modular forms",
+      "anchor": "forms",
+      "prereqs": ["sl2z-on-H"],
+      "blurb": "A weight-k modular form is holomorphic on H, transforms by (cτ+d)^k under SL2(Z), and is holomorphic at infinity."
+    },
+    {
+      "id": "eisenstein-series-mf",
+      "title": "Eisenstein series",
+      "anchor": "eisen",
+      "prereqs": ["modular-form-definition"],
+      "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure."
+    },
+    {
+      "id": "q-expansions-mf",
+      "title": "q-expansions and arithmetic data",
+      "anchor": "qexp",
+      "prereqs": ["modular-form-definition", "eisenstein-series-mf"],
+      "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+    }
+  ]
+}
