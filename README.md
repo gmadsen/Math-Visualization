@@ -37,7 +37,7 @@ Concept graph data lives under [`concepts/`](./concepts), with topic registratio
 ## Contents
 
 ### Algebra
-- [Algebra refresher](./algebra.html) — groups, rings, fields
+- [Abstract algebra](./algebra.html) — groups, rings, fields
 - [Category theory](./category-theory.html) — objects, arrows, functors, Yoneda, adjunctions
 - [Representation theory](./representation-theory.html) — characters, orthogonality, $\mathfrak{sl}_2$
 - [Commutative algebra](./commutative-algebra.html) — ideals, localization, tensor, flatness
