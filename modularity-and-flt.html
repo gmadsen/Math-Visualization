@@ -405,9 +405,9 @@ whose $q$-expansion we can match term-by-term with Frobenius traces computed by 
       const t=SVG('text',{x,y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(P[i]); svg.appendChild(t);
     }
     const mism=D.filter(x=>x!==0).length;
-    out.textContent='Displayed primes: '+P.join(', ')+'
-Residuals a_p(E)-a_p(f): ['+D.join(', ')+']
-Mismatches: '+mism+' (should be 0 at good primes for the matched modular pair).';
+    out.textContent=`Displayed primes: ${P.join(', ')}
+Residuals a_p(E)-a_p(f): [${D.join(', ')}]
+Mismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;
   }
   maxSl.addEventListener('input',draw); pick.addEventListener('change',draw); draw();
 })();
@@ -517,9 +517,9 @@ There is no weight-2 newform of level 2 for $\overline\rho$ to come from. The ch
   const adds=$$('.lv-add'), step=$('#lv-step'), reset=$('#lv-reset'), out=$('#lv-out');
   let S=[];
   function level(){ return 2*S.reduce((a,v)=>a*v,1); }
-  function draw(){ out.textContent='Current odd support: '+(S.length?S.join('·'):'(none)')+'
-Conductor model N_E = 2·∏ℓ = '+level()+'
-Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.'; }
+  function draw(){ out.textContent=`Current odd support: ${S.length?S.join('·'):'(none)'}
+Conductor model N_E = 2·∏ℓ = ${level()}
+Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`; }
   adds.forEach(b=>b.addEventListener('click',()=>{ const q=+b.dataset.q; if(!S.includes(q)) S.push(q); S.sort((a,b)=>a-b); draw(); }));
   step.addEventListener('click',()=>{ if(S.length) S.pop(); draw(); });
   reset.addEventListener('click',()=>{ S=[]; draw(); });

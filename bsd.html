@@ -356,8 +356,8 @@ $$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \
     svg.appendChild(SVG('line',{x1:X(H),y1:Hh-pad,x2:X(H),y2:Hh-pad-yNow,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4 3'}));
     svg.appendChild(SVG('circle',{cx:X(H),cy:Hh-pad-yNow,r:5,fill:'var(--yellow)'}));
     const est = r===0? (H>0?1:0) : Math.pow(H,r/2);
-    out.textContent='Heuristic count #{P : ĥ(P) ≤ H} ≈ C·H^{r/2}. For r='+r+', H='+H+', raw exponent term H^{r/2} = '+est.toFixed(2)+'.
-Doubling multiplies height by 4, so reachable points spread quadratically in each free direction.';
+    out.textContent=`Heuristic count #{P : ĥ(P) ≤ H} ≈ C·H^{r/2}. For r=${r}, H=${H}, raw exponent term H^{r/2} = ${est.toFixed(2)}.
+Doubling multiplies height by 4, so reachable points spread quadratically in each free direction.`;
   }
   rSl.addEventListener('input',render); hSl.addEventListener('input',render); render();
 })();
@@ -645,9 +645,9 @@ where $\Omega$ is the real period, $R$ the regulator (determinant of the Néron�
     const lead=R*O*0.75;
     const vals=[];
     for(const h of [-0.2,-0.1,0.1,0.2]) vals.push((lead*Math.pow(h,r)).toFixed(4));
-    out.textContent='Model near s=1: L(E,s) ≈ C_r·(s−1)^r with C_r proportional to Ω·R·|Sha|·∏c_p / |E_tors|².
-Here C_r≈'+lead.toFixed(3)+' from Ω·R scaling; sample values at h=s−1=[−0.2,−0.1,0.1,0.2]: ['+vals.join(', ')+']
-Order r='+r+' controls zero multiplicity; Ω,R mostly rescale the first nonzero coefficient.';
+    out.textContent=`Model near s=1: L(E,s) ≈ C_r·(s−1)^r with C_r proportional to Ω·R·|Sha|·∏c_p / |E_tors|².
+Here C_r≈${lead.toFixed(3)} from Ω·R scaling; sample values at h=s−1=[−0.2,−0.1,0.1,0.2]: [${vals.join(', ')}]
+Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero coefficient.`;
   }
   rSel.addEventListener('change',render); rSl.addEventListener('input',render); oSl.addEventListener('input',render); render();
 })();
