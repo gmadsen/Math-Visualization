@@ -7,7 +7,9 @@
       "id": "frey-curve",
       "title": "The Frey curve",
       "anchor": "frey",
-      "prereqs": [],
+      "prereqs": [
+        "elliptic-curve-definition"
+      ],
       "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification."
     },
     {
@@ -15,7 +17,10 @@
       "title": "Modularity theorem",
       "anchor": "modularity",
       "prereqs": [
-        "frey-curve"
+        "frey-curve",
+        "modular-form-definition",
+        "eigenforms-and-euler-factors",
+        "galois-rep-definition"
       ],
       "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) proved the semistable case; Breuil–Conrad–Diamond–Taylor (2001) extended it to all elliptic curves over $\\mathbb{Q}$."
     },
@@ -24,7 +29,8 @@
       "title": "Ribet's level lowering",
       "anchor": "ribet",
       "prereqs": [
-        "modularity-theorem"
+        "modularity-theorem",
+        "modularity-and-deformations"
       ],
       "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
     }

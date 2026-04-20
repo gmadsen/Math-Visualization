@@ -1562,7 +1562,8 @@ window.__MVConcepts = {
           "title": "Hasse bound and the Frobenius angle",
           "anchor": "angle",
           "prereqs": [
-            "complex-numbers"
+            "complex-numbers",
+            "elliptic-curve-definition"
           ],
           "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
         },
@@ -1571,7 +1572,8 @@ window.__MVConcepts = {
           "title": "The Sato–Tate measure",
           "anchor": "measure",
           "prereqs": [
-            "hasse-bound-angle"
+            "hasse-bound-angle",
+            "chebotarev-density"
           ],
           "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
         },
@@ -1580,7 +1582,9 @@ window.__MVConcepts = {
           "title": "Symmetric-power L-functions",
           "anchor": "symn",
           "prereqs": [
-            "sato-tate-measure"
+            "sato-tate-measure",
+            "arithmetic-data-lfunctions",
+            "modular-form-definition"
           ],
           "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
         }
@@ -1595,7 +1599,10 @@ window.__MVConcepts = {
           "id": "mordell-weil",
           "title": "Mordell–Weil theorem",
           "anchor": "mordell-weil",
-          "prereqs": [],
+          "prereqs": [
+            "elliptic-group-law",
+            "mordell-weil-ec"
+          ],
           "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur)."
         },
         {
@@ -1603,7 +1610,9 @@ window.__MVConcepts = {
           "title": "Birch–Swinnerton-Dyer heuristic",
           "anchor": "point-counting-heuristic",
           "prereqs": [
-            "mordell-weil"
+            "mordell-weil",
+            "hasse-bound-angle",
+            "frobenius-traces-grep"
           ],
           "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
         },
@@ -1613,7 +1622,9 @@ window.__MVConcepts = {
           "anchor": "bsd-rank-equality",
           "prereqs": [
             "point-counting-heuristic",
-            "analytic-continuation"
+            "analytic-continuation",
+            "arithmetic-data-lfunctions",
+            "euler-product-structure"
           ],
           "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."
         }
@@ -1628,7 +1639,9 @@ window.__MVConcepts = {
           "id": "frey-curve",
           "title": "The Frey curve",
           "anchor": "frey",
-          "prereqs": [],
+          "prereqs": [
+            "elliptic-curve-definition"
+          ],
           "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification."
         },
         {
@@ -1636,7 +1649,10 @@ window.__MVConcepts = {
           "title": "Modularity theorem",
           "anchor": "modularity",
           "prereqs": [
-            "frey-curve"
+            "frey-curve",
+            "modular-form-definition",
+            "eigenforms-and-euler-factors",
+            "galois-rep-definition"
           ],
           "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) proved the semistable case; Breuil–Conrad–Diamond–Taylor (2001) extended it to all elliptic curves over $\\mathbb{Q}$."
         },
@@ -1645,7 +1661,8 @@ window.__MVConcepts = {
           "title": "Ribet's level lowering",
           "anchor": "ribet",
           "prereqs": [
-            "modularity-theorem"
+            "modularity-theorem",
+            "modularity-and-deformations"
           ],
           "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
         }
@@ -2039,7 +2056,10 @@ window.__MVConcepts = {
           "id": "etale-morphism",
           "title": "Étale morphisms",
           "anchor": "etale",
-          "prereqs": [],
+          "prereqs": [
+            "scheme-morphisms",
+            "presheaf-sheaf-axioms"
+          ],
           "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale."
         },
         {
@@ -2047,7 +2067,8 @@ window.__MVConcepts = {
           "title": "ℓ-adic cohomology",
           "anchor": "ladic",
           "prereqs": [
-            "etale-morphism"
+            "etale-morphism",
+            "derived-functor-cohomology"
           ],
           "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
         },
@@ -2056,7 +2077,8 @@ window.__MVConcepts = {
           "title": "Weil conjectures and Frobenius trace",
           "anchor": "weil",
           "prereqs": [
-            "l-adic-cohomology"
+            "l-adic-cohomology",
+            "frobenius-traces-grep"
           ],
           "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
         }
