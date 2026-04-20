@@ -19,6 +19,20 @@ This roadmap tracks the arithmetic / automorphic expansion of the Interactive Ma
   - [`concepts/complex-analysis.json`](./concepts/complex-analysis.json)
   - [`concepts/real-analysis.json`](./concepts/real-analysis.json)
   - [`concepts/topology.json`](./concepts/topology.json)
+- A concept-graph validator lives at [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) (run via `node scripts/validate-concepts.mjs`; exit 0 clean, exit 1 on errors).
+
+## Page status and refinement
+
+Pages ship as iteratively-improvable v1 drafts. Each page is a candidate for later passes that sharpen exposition, add widgets, or expand quizzes. Treat "published" as "reachable from the index and passing basic verification" — not "final."
+
+Known gaps to close over time:
+
+- **Concept graphs**: only 3 of 41 topics (`complex-analysis`, `real-analysis`, `topology`) have `concepts/<topic>.json` registered in [`concepts/index.json`](./concepts/index.json). The remaining 38 pages have no pathway metadata. Partial artifacts exist for `sato-tate` (JSON written, HTML pending).
+- **Quizzes**: only `quizzes/complex-analysis.json` exists; most pages ship without the Brilliant-style mastery loop wired up.
+- **Validator findings (as of 2026-04-20)**: `concepts/real-analysis.json` and `concepts/topology.json` are missing `anchor` and `blurb` on all 9 of their concepts. No duplicate ids, no broken prereqs, no cycles.
+- **Wave 4 capstones**: listed in the Wave 4 section below — not yet drafted. Drafting a full capstone page (5 widgets, ~30KB HTML) in a single parallel agent has repeatedly tripped the stream-idle timeout; next attempts should chunk per-section or narrow scope.
+
+Per-page refinement is tracked ad hoc: open an issue or a follow-up task rather than listing every page's wishlist here.
 
 ## Progress by wave
 
@@ -71,6 +85,7 @@ These are organizational dependencies for narrative flow and cross-linking, not 
 
 ## Next priorities
 
-1. Build the Wave 4 capstone pages.
-2. Add concept maps for capstone topics so pathways can include them directly.
-3. Add lightweight validation scripts for concept-graph integrity (ID resolution + cycle detection) to keep pathway metadata reliable.
+1. Draft the Wave 4 capstone pages, chunked to fit agent time budgets (one section per pass, or narrower 3-widget v1s that later waves expand).
+2. Backfill concept maps across the existing 41 pages so [`pathway.html`](./pathway.html) reflects the full notebook, not just analysis/topology.
+3. Fill in the `anchor` and `blurb` fields flagged by `scripts/validate-concepts.mjs` in `real-analysis.json` and `topology.json`, then keep the validator green in CI-equivalent checks.
+4. Refine published pages iteratively: quiz coverage, widget polish, cross-page callbacks.
