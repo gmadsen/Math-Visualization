@@ -454,6 +454,65 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
 })();
 </script>
 
+
+<p class="small">A second diagnostic is cumulative: instead of looking at bars, compare empirical CDF $\hat F(\theta)$ against the model $F_{ST}(\theta)=\theta/\pi-\sin(2\theta)/(2\pi)$. Uniformly tiny gaps are exactly what equidistribution means.</p>
+
+<div class="widget" id="w-cdf">
+  <div class="hd"><div class="ttl">CDF gap tester</div><div class="hint">change sample size · compare non-CM and CM against the Sato–Tate CDF</div></div>
+  <svg id="cdf-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <div class="row">
+    <label>samples <input id="cdf-n" type="range" min="500" max="6000" step="100" value="2000"></label>
+    <span id="cdf-nv" class="small">N = 2000</span>
+    <button id="cdf-run">resample</button>
+  </div>
+  <div class="readout" id="cdf-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#cdf-svg'), nSl=$('#cdf-n'), nv=$('#cdf-nv'), run=$('#cdf-run'), out=$('#cdf-out');
+  function stSample(){
+    const u=Math.random(); let t=Math.PI*u;
+    for(let i=0;i<20;i++){
+      const F=t/Math.PI - Math.sin(2*t)/(2*Math.PI);
+      const Fp=(2/Math.PI)*Math.sin(t)*Math.sin(t);
+      if(Fp<1e-10) break;
+      const d=(F-u)/Fp; t-=d; if(Math.abs(d)<1e-9) break;
+    }
+    return Math.max(0,Math.min(Math.PI,t));
+  }
+  function cmSample(){ return Math.random()<0.5 ? Math.PI/2 : Math.random()*Math.PI; }
+  function cdfST(t){ return t/Math.PI - Math.sin(2*t)/(2*Math.PI); }
+  function ecdf(arr,t){ let k=0; while(k<arr.length && arr[k]<=t) k++; return k/arr.length; }
+  function render(){
+    const N=+nSl.value; nv.textContent='N = '+N;
+    const A=[...Array(N)].map(stSample).sort((a,b)=>a-b);
+    const B=[...Array(N)].map(cmSample).sort((a,b)=>a-b);
+    svg.innerHTML='';
+    const W=640,H=260,pad={l:44,r:14,t:14,b:32}, pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+    const X=t=>pad.l+pw*t/Math.PI, Y=v=>pad.t+ph*(1-v);
+    svg.appendChild(SVG('line',{x1:pad.l,y1:Y(0),x2:W-pad.r,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:Y(0),stroke:'var(--line)'}));
+    let d0='',d1='',d2='';
+    let dks=0,dksCm=0;
+    for(let i=0;i<=180;i++){
+      const t=Math.PI*i/180, f=cdfST(t), e=ecdf(A,t), e2=ecdf(B,t);
+      d0+=(i?' L':'M')+X(t).toFixed(2)+' '+Y(f).toFixed(2);
+      d1+=(i?' L':'M')+X(t).toFixed(2)+' '+Y(e).toFixed(2);
+      d2+=(i?' L':'M')+X(t).toFixed(2)+' '+Y(e2).toFixed(2);
+      dks=Math.max(dks,Math.abs(e-f)); dksCm=Math.max(dksCm,Math.abs(e2-f));
+    }
+    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'5 4'}));
+    [['model F_ST','var(--yellow)'],['non-CM empirical','var(--blue)'],['CM empirical','var(--pink)']].forEach((x,i)=>{ const t=SVG('text',{x:W-12,y:20+i*14,'text-anchor':'end','font-size':11,fill:x[1]}); t.textContent=x[0]; svg.appendChild(t); });
+    out.textContent='Kolmogorov gap sup|F̂−F_ST|: non-CM '+dks.toFixed(3)+' · CM '+dksCm.toFixed(3)+'
+Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because of its π/2 atom.';
+  }
+  nSl.addEventListener('input',render); run.addEventListener('click',render); render();
+})();
+</script>
+
 <div class="quiz" data-concept="sato-tate-measure"></div>
 </section>
 
@@ -581,6 +640,49 @@ which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sy
   nSl.addEventListener('input', render);
   tSl.addEventListener('input', render);
   render();
+})();
+</script>
+
+
+<p>Characters also let us inspect prime data directly. If Sato–Tate holds, the prime average of $U_n(\cos\theta_p)$ should trend to $0$ for $n\ge1$. The next toy uses synthetic angles so you can see convergence rates and variance across $n$.</p>
+
+<div class="widget" id="w-moments">
+  <div class="hd"><div class="ttl">Symmetric-power moment tracker</div><div class="hint">choose max n and sample size · observe averages approaching 0</div></div>
+  <svg id="mom-svg" viewBox="0 0 640 250" width="640" height="250"></svg>
+  <div class="row">
+    <label>$n_{max}$ <input id="mom-n" type="range" min="2" max="10" step="1" value="6"></label>
+    <span id="mom-nv" class="small">n_max = 6</span>
+    <label>samples <input id="mom-m" type="range" min="200" max="5000" step="100" value="1400"></label>
+    <span id="mom-mv" class="small">M = 1400</span>
+  </div>
+  <div class="readout" id="mom-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#mom-svg'), nSl=$('#mom-n'), mSl=$('#mom-m'), nv=$('#mom-nv'), mv=$('#mom-mv'), out=$('#mom-out');
+  function sampleST(){ const u=Math.random(); let t=Math.PI*u; for(let i=0;i<20;i++){ const F=t/Math.PI-Math.sin(2*t)/(2*Math.PI), Fp=(2/Math.PI)*Math.sin(t)**2; if(Fp<1e-10) break; const d=(F-u)/Fp; t-=d; if(Math.abs(d)<1e-8) break;} return Math.max(0,Math.min(Math.PI,t)); }
+  function U(n,t){ const s=Math.sin(t); if(Math.abs(s)<1e-7) return (Math.cos(t)>=0?1:(-1)**n)*(n+1); return Math.sin((n+1)*t)/s; }
+  function render(){
+    const nmax=+nSl.value,M=+mSl.value; nv.textContent='n_max = '+nmax; mv.textContent='M = '+M;
+    const th=[...Array(M)].map(sampleST);
+    const means=[];
+    for(let n=1;n<=nmax;n++){ let s=0; for(const t of th) s+=U(n,t); means.push(s/M); }
+    svg.innerHTML=''; const W=640,H=250,pad={l:40,r:16,t:12,b:34},pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+    const ymax=Math.max(0.15,...means.map(v=>Math.abs(v))*1.25);
+    const X=i=>pad.l+pw*(i+1)/(nmax+1), Y=v=>pad.t+ph*(1-(v+ymax)/(2*ymax));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:Y(0),x2:W-pad.r,y2:Y(0),stroke:'var(--line)'}));
+    for(let i=0;i<nmax;i++){
+      const x=X(i), y=Y(means[i]), y0=Y(0), col=Math.abs(means[i])<0.05?'var(--green)':'var(--blue)';
+      svg.appendChild(SVG('rect',{x:x-12,y:Math.min(y,y0),width:24,height:Math.abs(y-y0),fill:col,opacity:0.75}));
+      const t=SVG('text',{x,y:y0+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(i+1); svg.appendChild(t);
+    }
+    const mmax=Math.max(...means.map(v=>Math.abs(v)));
+    out.textContent='Estimated moments m_n = (1/M) Σ U_n(cos θ_j), 1≤n≤'+nmax+':
+['+means.map(v=>v.toFixed(3)).join(', ')+']
+max |m_n| = '+mmax.toFixed(3)+' (ideal limit: 0 for all n≥1).';
+  }
+  nSl.addEventListener('input',render); mSl.addEventListener('input',render); render();
 })();
 </script>
 
