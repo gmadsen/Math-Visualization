@@ -1,0 +1,128 @@
+{
+  "topic": "galois",
+  "quizzes": {
+    "field-extensions-galois": {
+      "title": "Field extensions and automorphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Field extensions and automorphisms\"?",
+          "choices": [
+            "Field extensions and automorphisms",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Field extensions and automorphisms\" (id: field-extensions-galois)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "field-extensions-galois",
+            "galois",
+            "algebraic-structures",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"field-extensions-galois\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Field extensions and automorphisms\" at this stage?",
+          "choices": [
+            "Splitting fields and automorphism groups link polynomial equations to symmetry.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "fundamental-theorem-galois": {
+      "title": "Fundamental theorem of Galois theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Fundamental theorem of Galois theory\"?",
+          "choices": [
+            "Fundamental theorem of Galois theory",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Fundamental theorem of Galois theory\" (id: fundamental-theorem-galois)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "fundamental-theorem-galois",
+            "solvable",
+            "field-extensions-galois",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"fundamental-theorem-galois\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Fundamental theorem of Galois theory\" at this stage?",
+          "choices": [
+            "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "solvability-by-radicals": {
+      "title": "Solvability by radicals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Solvability by radicals\"?",
+          "choices": [
+            "Solvability by radicals",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Solvability by radicals\" (id: solvability-by-radicals)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "solvability-by-radicals",
+            "quintic",
+            "fundamental-theorem-galois",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"solvability-by-radicals\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Solvability by radicals\" at this stage?",
+          "choices": [
+            "Group-theoretic solvability explains why general quintics resist radical formulas.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

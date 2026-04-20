@@ -1,0 +1,128 @@
+{
+  "topic": "morphisms-fiber-products",
+  "quizzes": {
+    "scheme-morphisms": {
+      "title": "Morphisms of schemes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Morphisms of schemes\"?",
+          "choices": [
+            "Morphisms of schemes",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Morphisms of schemes\" (id: scheme-morphisms)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "scheme-morphisms",
+            "morphism",
+            "gluing-affines",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"scheme-morphisms\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Morphisms of schemes\" at this stage?",
+          "choices": [
+            "Scheme maps are local ring maps glued globally and tested on affines.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "fiber-products": {
+      "title": "Fiber products and base change",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Fiber products and base change\"?",
+          "choices": [
+            "Fiber products and base change",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Fiber products and base change\" (id: fiber-products)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "fiber-products",
+            "fiber",
+            "scheme-morphisms",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"fiber-products\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Fiber products and base change\" at this stage?",
+          "choices": [
+            "Fiber products represent pullback problems and define base-change geometry.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "geometric-fibers": {
+      "title": "Geometric fibers and smoothness intuition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Geometric fibers and smoothness intuition\"?",
+          "choices": [
+            "Geometric fibers and smoothness intuition",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Geometric fibers and smoothness intuition\" (id: geometric-fibers)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "geometric-fibers",
+            "fibers",
+            "fiber-products",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"geometric-fibers\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Geometric fibers and smoothness intuition\" at this stage?",
+          "choices": [
+            "Fibers over points reveal dimension, singularities, and arithmetic variation in families.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

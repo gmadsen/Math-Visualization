@@ -1,0 +1,128 @@
+{
+  "topic": "frobenius-and-reciprocity",
+  "quizzes": {
+    "frobenius-element": {
+      "title": "Frobenius elements",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Frobenius elements\"?",
+          "choices": [
+            "Frobenius elements",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Frobenius elements\" (id: frobenius-element)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "frobenius-element",
+            "frobenius",
+            "prime-ideals-factorization-ant",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"frobenius-element\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Frobenius elements\" at this stage?",
+          "choices": [
+            "Unramified primes define conjugacy classes in Galois groups via Frobenius action.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "chebotarev-density": {
+      "title": "Chebotarev density",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Chebotarev density\"?",
+          "choices": [
+            "Chebotarev density",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Chebotarev density\" (id: chebotarev-density)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "chebotarev-density",
+            "chebotarev",
+            "frobenius-element",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"chebotarev-density\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Chebotarev density\" at this stage?",
+          "choices": [
+            "Primes equidistribute across Frobenius conjugacy classes with predicted densities.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "artin-reciprocity-preview": {
+      "title": "Reciprocity toward Artin maps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Reciprocity toward Artin maps\"?",
+          "choices": [
+            "Reciprocity toward Artin maps",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Reciprocity toward Artin maps\" (id: artin-reciprocity-preview)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "artin-reciprocity-preview",
+            "strong",
+            "chebotarev-density",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"artin-reciprocity-preview\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Reciprocity toward Artin maps\" at this stage?",
+          "choices": [
+            "Global reciprocity reframes splitting laws as characters of idèle-like class groups.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

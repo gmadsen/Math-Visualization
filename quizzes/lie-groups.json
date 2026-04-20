@@ -1,0 +1,128 @@
+{
+  "topic": "lie-groups",
+  "quizzes": {
+    "lie-group-definition": {
+      "title": "Lie groups and matrix examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Lie groups and matrix examples\"?",
+          "choices": [
+            "Lie groups and matrix examples",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Lie groups and matrix examples\" (id: lie-group-definition)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "lie-group-definition",
+            "intro",
+            "smooth-manifold-definition",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"lie-group-definition\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Lie groups and matrix examples\" at this stage?",
+          "choices": [
+            "Lie groups combine smooth manifolds with group multiplication.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "lie-algebra-and-exp": {
+      "title": "Lie algebra and exponential map",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Lie algebra and exponential map\"?",
+          "choices": [
+            "Lie algebra and exponential map",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Lie algebra and exponential map\" (id: lie-algebra-and-exp)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "lie-algebra-and-exp",
+            "exp",
+            "lie-group-definition",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"lie-algebra-and-exp\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Lie algebra and exponential map\" at this stage?",
+          "choices": [
+            "The tangent space at identity with bracket linearizes local group structure.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "adjoint-roots": {
+      "title": "Adjoint action and root data",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Adjoint action and root data\"?",
+          "choices": [
+            "Adjoint action and root data",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Adjoint action and root data\" (id: adjoint-roots)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "adjoint-roots",
+            "roots",
+            "lie-algebra-and-exp",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"adjoint-roots\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Adjoint action and root data\" at this stage?",
+          "choices": [
+            "Adjoint representations and root systems classify semisimple behavior.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

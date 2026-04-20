@@ -1,0 +1,128 @@
+{
+  "topic": "sheaf-cohomology",
+  "quizzes": {
+    "cech-cohomology": {
+      "title": "Čech cocycles and cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Čech cocycles and cohomology\"?",
+          "choices": [
+            "Čech cocycles and cohomology",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Čech cocycles and cohomology\" (id: cech-cohomology)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "cech-cohomology",
+            "cech",
+            "presheaf-sheaf-axioms",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"cech-cohomology\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Čech cocycles and cohomology\" at this stage?",
+          "choices": [
+            "Cover-based cocycles detect obstruction classes for global patching.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "derived-functor-cohomology": {
+      "title": "Derived functor sheaf cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Derived functor sheaf cohomology\"?",
+          "choices": [
+            "Derived functor sheaf cohomology",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Derived functor sheaf cohomology\" (id: derived-functor-cohomology)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "derived-functor-cohomology",
+            "derived",
+            "cech-cohomology",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"derived-functor-cohomology\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Derived functor sheaf cohomology\" at this stage?",
+          "choices": [
+            "Right derived functors of global sections define H^i(X,F) abstractly.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "applications-picard-serre": {
+      "title": "Picard groups and Serre duality signals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Picard groups and Serre duality signals\"?",
+          "choices": [
+            "Picard groups and Serre duality signals",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Picard groups and Serre duality signals\" (id: applications-picard-serre)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "applications-picard-serre",
+            "serre",
+            "derived-functor-cohomology",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"applications-picard-serre\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Picard groups and Serre duality signals\" at this stage?",
+          "choices": [
+            "Line bundles, extensions, and duality theorems are naturally cohomological.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

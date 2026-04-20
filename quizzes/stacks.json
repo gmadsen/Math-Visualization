@@ -1,0 +1,128 @@
+{
+  "topic": "stacks",
+  "quizzes": {
+    "groupoids-and-descent": {
+      "title": "Groupoids, fibered categories, descent",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Groupoids, fibered categories, descent\"?",
+          "choices": [
+            "Groupoids, fibered categories, descent",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Groupoids, fibered categories, descent\" (id: groupoids-and-descent)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "groupoids-and-descent",
+            "fib",
+            "stacky-obstructions",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"groupoids-and-descent\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Groupoids, fibered categories, descent\" at this stage?",
+          "choices": [
+            "Stacks encode objects with automorphisms while preserving gluing across covers.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "classifying-stacks": {
+      "title": "Classifying stacks BG",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Classifying stacks BG\"?",
+          "choices": [
+            "Classifying stacks BG",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Classifying stacks BG\" (id: classifying-stacks)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "classifying-stacks",
+            "bg",
+            "groupoids-and-descent",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"classifying-stacks\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Classifying stacks BG\" at this stage?",
+          "choices": [
+            "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "dm-stacks-coarse-space": {
+      "title": "Deligne–Mumford stacks and coarse spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Deligne–Mumford stacks and coarse spaces\"?",
+          "choices": [
+            "Deligne–Mumford stacks and coarse spaces",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Deligne–Mumford stacks and coarse spaces\" (id: dm-stacks-coarse-space)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "dm-stacks-coarse-space",
+            "coarse",
+            "classifying-stacks",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"dm-stacks-coarse-space\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Deligne–Mumford stacks and coarse spaces\" at this stage?",
+          "choices": [
+            "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

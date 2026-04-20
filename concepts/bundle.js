@@ -1490,7 +1490,9 @@ window.__MVConcepts = {
           "title": "Prototype L-functions",
           "anchor": "unified",
           "prereqs": [
-            "dirichlet-characters-lseries"
+            "dirichlet-characters-lseries",
+            "modular-form-definition",
+            "elliptic-curve-definition"
           ],
           "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
         },

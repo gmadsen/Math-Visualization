@@ -1,0 +1,128 @@
+{
+  "topic": "homological",
+  "quizzes": {
+    "chain-complexes": {
+      "title": "Chain complexes and homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Chain complexes and homology\"?",
+          "choices": [
+            "Chain complexes and homology",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Chain complexes and homology\" (id: chain-complexes)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "chain-complexes",
+            "complexes",
+            "ideals-quotients-ca",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"chain-complexes\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Chain complexes and homology\" at this stage?",
+          "choices": [
+            "Complexes encode algebraic data with differentials, and homology measures failure of exactness.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "derived-functors": {
+      "title": "Derived functors and resolutions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Derived functors and resolutions\"?",
+          "choices": [
+            "Derived functors and resolutions",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Derived functors and resolutions\" (id: derived-functors)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "derived-functors",
+            "derived",
+            "chain-complexes",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"derived-functors\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Derived functors and resolutions\" at this stage?",
+          "choices": [
+            "Projective or injective resolutions define Ext and Tor as computable invariants.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "spectral-sequences-ha": {
+      "title": "Spectral sequences",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Spectral sequences\"?",
+          "choices": [
+            "Spectral sequences",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Spectral sequences\" (id: spectral-sequences-ha)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "spectral-sequences-ha",
+            "spectral",
+            "derived-functors",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"spectral-sequences-ha\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Spectral sequences\" at this stage?",
+          "choices": [
+            "Spectral sequences stage difficult computations into successive approximation pages.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

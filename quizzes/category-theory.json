@@ -1,0 +1,128 @@
+{
+  "topic": "category-theory",
+  "quizzes": {
+    "categories-morphisms": {
+      "title": "Categories and morphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Categories and morphisms\"?",
+          "choices": [
+            "Categories and morphisms",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Categories and morphisms\" (id: categories-morphisms)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "categories-morphisms",
+            "cat",
+            "sets-functions",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"categories-morphisms\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Categories and morphisms\" at this stage?",
+          "choices": [
+            "A category organizes objects and arrows with associative composition and identities.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "functors-natural-transformations": {
+      "title": "Functors and natural transformations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Functors and natural transformations\"?",
+          "choices": [
+            "Functors and natural transformations",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Functors and natural transformations\" (id: functors-natural-transformations)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "functors-natural-transformations",
+            "nat",
+            "categories-morphisms",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"functors-natural-transformations\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Functors and natural transformations\" at this stage?",
+          "choices": [
+            "Functors map structure between categories, and natural transformations compare functors componentwise.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "yoneda-limits-adjunctions": {
+      "title": "Yoneda, limits, and adjunctions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Yoneda, limits, and adjunctions\"?",
+          "choices": [
+            "Yoneda, limits, and adjunctions",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Yoneda, limits, and adjunctions\" (id: yoneda-limits-adjunctions)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "yoneda-limits-adjunctions",
+            "adj",
+            "functors-natural-transformations",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"yoneda-limits-adjunctions\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Yoneda, limits, and adjunctions\" at this stage?",
+          "choices": [
+            "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

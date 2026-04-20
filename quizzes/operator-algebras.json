@@ -1,0 +1,128 @@
+{
+  "topic": "operator-algebras",
+  "quizzes": {
+    "cstar-basics": {
+      "title": "C*-algebras and examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"C*-algebras and examples\"?",
+          "choices": [
+            "C*-algebras and examples",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"C*-algebras and examples\" (id: cstar-basics)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "cstar-basics",
+            "cstar",
+            "bounded-operators-fa",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"cstar-basics\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"C*-algebras and examples\" at this stage?",
+          "choices": [
+            "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "gelfand-duality-oa": {
+      "title": "Commutative duality and spectra",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Commutative duality and spectra\"?",
+          "choices": [
+            "Commutative duality and spectra",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Commutative duality and spectra\" (id: gelfand-duality-oa)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "gelfand-duality-oa",
+            "duality",
+            "cstar-basics",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"gelfand-duality-oa\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Commutative duality and spectra\" at this stage?",
+          "choices": [
+            "Commutative C*-algebras correspond to compact spaces via Gelfand duality.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "von-neumann-and-nc": {
+      "title": "Von Neumann algebras and noncommutative geometry",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Von Neumann algebras and noncommutative geometry\"?",
+          "choices": [
+            "Von Neumann algebras and noncommutative geometry",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Von Neumann algebras and noncommutative geometry\" (id: von-neumann-and-nc)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "von-neumann-and-nc",
+            "ncg",
+            "cstar-basics",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"von-neumann-and-nc\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Von Neumann algebras and noncommutative geometry\" at this stage?",
+          "choices": [
+            "Weak closures, states, and noncommutative spaces extend geometry to operator settings.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

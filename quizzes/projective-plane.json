@@ -1,0 +1,128 @@
+{
+  "topic": "projective-plane",
+  "quizzes": {
+    "projective-points-lines": {
+      "title": "Projective points and lines",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Projective points and lines\"?",
+          "choices": [
+            "Projective points and lines",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Projective points and lines\" (id: projective-points-lines)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "projective-points-lines",
+            "defn",
+            "sets-functions",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"projective-points-lines\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Projective points and lines\" at this stage?",
+          "choices": [
+            "P^2 extends affine geometry by homogeneous coordinates and points at infinity.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "homogeneous-coordinates": {
+      "title": "Homogeneous equations and charts",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Homogeneous equations and charts\"?",
+          "choices": [
+            "Homogeneous equations and charts",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Homogeneous equations and charts\" (id: homogeneous-coordinates)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "homogeneous-coordinates",
+            "homog",
+            "projective-points-lines",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"homogeneous-coordinates\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Homogeneous equations and charts\" at this stage?",
+          "choices": [
+            "Polynomial equations homogenize naturally and are studied chartwise.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "projective-transformations": {
+      "title": "Projective automorphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Projective automorphisms\"?",
+          "choices": [
+            "Projective automorphisms",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Projective automorphisms\" (id: projective-transformations)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "projective-transformations",
+            "pgl",
+            "homogeneous-coordinates",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"projective-transformations\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Projective automorphisms\" at this stage?",
+          "choices": [
+            "PGL actions describe coordinate changes preserving incidence.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

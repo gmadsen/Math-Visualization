@@ -1,0 +1,128 @@
+{
+  "topic": "bezout",
+  "quizzes": {
+    "intersection-multiplicity": {
+      "title": "Intersection multiplicity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Intersection multiplicity\"?",
+          "choices": [
+            "Intersection multiplicity",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Intersection multiplicity\" (id: intersection-multiplicity)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "intersection-multiplicity",
+            "mult",
+            "projective-points-lines",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"intersection-multiplicity\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Intersection multiplicity\" at this stage?",
+          "choices": [
+            "Counting intersections correctly requires multiplicity at each point.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "resultants-elimination": {
+      "title": "Resultants and elimination",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Resultants and elimination\"?",
+          "choices": [
+            "Resultants and elimination",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Resultants and elimination\" (id: resultants-elimination)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "resultants-elimination",
+            "resultant",
+            "intersection-multiplicity",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"resultants-elimination\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Resultants and elimination\" at this stage?",
+          "choices": [
+            "Resultants detect common roots and compute projected elimination conditions.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "bezout-theorem-core": {
+      "title": "Bézout theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Bézout theorem\"?",
+          "choices": [
+            "Bézout theorem",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Bézout theorem\" (id: bezout-theorem-core)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "bezout-theorem-core",
+            "statement",
+            "resultants-elimination",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"bezout-theorem-core\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Bézout theorem\" at this stage?",
+          "choices": [
+            "Plane curves of degrees m,n meet in mn points counting multiplicity over algebraic closure.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

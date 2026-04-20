@@ -1,0 +1,128 @@
+{
+  "topic": "galois-representations",
+  "quizzes": {
+    "galois-rep-definition": {
+      "title": "Galois representations and examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Galois representations and examples\"?",
+          "choices": [
+            "Galois representations and examples",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Galois representations and examples\" (id: galois-rep-definition)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "galois-rep-definition",
+            "rep",
+            "field-extensions-galois",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"galois-rep-definition\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Galois representations and examples\" at this stage?",
+          "choices": [
+            "Continuous homomorphisms to linear groups encode arithmetic symmetries.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "frobenius-traces-grep": {
+      "title": "Frobenius traces and compatibility",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Frobenius traces and compatibility\"?",
+          "choices": [
+            "Frobenius traces and compatibility",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Frobenius traces and compatibility\" (id: frobenius-traces-grep)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "frobenius-traces-grep",
+            "frob",
+            "galois-rep-definition",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"frobenius-traces-grep\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Frobenius traces and compatibility\" at this stage?",
+          "choices": [
+            "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "modularity-and-deformations": {
+      "title": "Residual reps, deformations, modularity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Residual reps, deformations, modularity\"?",
+          "choices": [
+            "Residual reps, deformations, modularity",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Residual reps, deformations, modularity\" (id: modularity-and-deformations)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "modularity-and-deformations",
+            "mod",
+            "frobenius-traces-grep",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"modularity-and-deformations\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Residual reps, deformations, modularity\" at this stage?",
+          "choices": [
+            "Deformation theory and modularity transfer results connect Galois and automorphic worlds.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

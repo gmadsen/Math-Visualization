@@ -5,7 +5,7 @@
 - **48 topic pages** linked from [`index.html`](./index.html), grouped into 7 sections: Foundations · Algebra · Analysis · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry.
 - **48 concept graphs** registered in [`concepts/index.json`](./concepts/index.json) feeding [`pathway.html`](./pathway.html).
 - **8 capstones** in [`concepts/capstones.json`](./concepts/capstones.json), grouped by section for the pathway `<optgroup>`.
-- **18 quiz banks** under [`quizzes/`](./quizzes/) wired via the mastery loop in [`js/quiz.js`](./js/quiz.js) + [`js/progress.js`](./js/progress.js).
+- **48 quiz banks** under [`quizzes/`](./quizzes/) (one per topic page), all wired via the mastery loop in [`js/quiz.js`](./js/quiz.js) + [`js/progress.js`](./js/progress.js).
 - Bundles ([`concepts/bundle.js`](./concepts/bundle.js), [`quizzes/bundle.js`](./quizzes/bundle.js)) make everything work from `file://` without a dev server. Regenerate after edits with `node scripts/build-concepts-bundle.mjs` and `node scripts/build-quizzes-bundle.mjs`.
 - Validator ([`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs)) is clean: 0 errors, 0 warnings.
 
@@ -13,9 +13,12 @@ Pages ship as iteratively-improvable v1 drafts. "Published" means reachable from
 
 ## Outstanding
 
-1. **Quiz banks for 30 remaining pages.** 18 of 48 pages now ship with the Brilliant-style mastery loop wired.
-2. **Re-attach stripped prereqs (in progress).** On **April 20, 2026**, canonical cross-topic prerequisites were restored in `bsd`, `sato-tate`, `modularity-and-flt`, and `etale-cohomology` concept graphs. Remaining pass: audit the rest of the arithmetic/geometric downstream pages for any still-missing aliases (notably placeholders like `newform`, `conductor`, `fermat-last-theorem`, `equidistribution`, `rational-points`) and map each to canonical concept ids.
-3. **Wave 4 expansion.** The four capstones shipped as tight 3-widget v1s; a future pass can expand each to ~5 widgets with richer exposition.
+1. **Wave 4 expansion.** The four capstones shipped as tight 3-widget v1s; a future pass can expand each to ~5 widgets with richer exposition.
+
+Completed on **April 20, 2026**:
+
+- Quiz coverage backfilled to all 48 pages (30 new quiz banks added).
+- Arithmetic/geometric prereq alias audit completed; placeholder aliases (e.g. `newform`, `conductor`, `fermat-last-theorem`, `equidistribution`, `rational-points`) are now mapped via canonical concept ids across the current graph.
 
 ## Proposed improvements
 

@@ -1,0 +1,128 @@
+{
+  "topic": "algebraic-number-theory",
+  "quizzes": {
+    "number-fields-integers": {
+      "title": "Number fields and rings of integers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Number fields and rings of integers\"?",
+          "choices": [
+            "Number fields and rings of integers",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Number fields and rings of integers\" (id: number-fields-integers)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "number-fields-integers",
+            "examples",
+            "field-extensions-galois",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"number-fields-integers\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Number fields and rings of integers\" at this stage?",
+          "choices": [
+            "Finite extensions of Q carry arithmetic via algebraic integers.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "prime-ideals-factorization-ant": {
+      "title": "Ideal factorization and ramification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Ideal factorization and ramification\"?",
+          "choices": [
+            "Ideal factorization and ramification",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Ideal factorization and ramification\" (id: prime-ideals-factorization-ant)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "prime-ideals-factorization-ant",
+            "ramification",
+            "number-fields-integers",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"prime-ideals-factorization-ant\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Ideal factorization and ramification\" at this stage?",
+          "choices": [
+            "Dedekind domains restore unique factorization at ideal level and track ramification.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "class-group-units-ant": {
+      "title": "Class group and units",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Class group and units\"?",
+          "choices": [
+            "Class group and units",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Class group and units\" (id: class-group-units-ant)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "class-group-units-ant",
+            "units",
+            "prime-ideals-factorization-ant",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"class-group-units-ant\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Class group and units\" at this stage?",
+          "choices": [
+            "Class group and unit rank measure arithmetic failure and structure.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

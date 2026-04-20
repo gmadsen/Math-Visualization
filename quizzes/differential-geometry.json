@@ -1,0 +1,128 @@
+{
+  "topic": "differential-geometry",
+  "quizzes": {
+    "curves-surfaces-dg": {
+      "title": "Curves and surfaces in R^3",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Curves and surfaces in R^3\"?",
+          "choices": [
+            "Curves and surfaces in R^3",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Curves and surfaces in R^3\" (id: curves-surfaces-dg)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "curves-surfaces-dg",
+            "surfaces",
+            "submanifolds-immersions",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"curves-surfaces-dg\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Curves and surfaces in R^3\" at this stage?",
+          "choices": [
+            "Embedded geometry starts with curvature, normals, and local parametrizations.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "first-second-fundamental": {
+      "title": "First/second fundamental forms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"First/second fundamental forms\"?",
+          "choices": [
+            "First/second fundamental forms",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"First/second fundamental forms\" (id: first-second-fundamental)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "first-second-fundamental",
+            "first",
+            "curves-surfaces-dg",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"first-second-fundamental\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"First/second fundamental forms\" at this stage?",
+          "choices": [
+            "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "gauss-curvature-geodesics": {
+      "title": "Gaussian curvature and geodesics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Gaussian curvature and geodesics\"?",
+          "choices": [
+            "Gaussian curvature and geodesics",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Gaussian curvature and geodesics\" (id: gauss-curvature-geodesics)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "gauss-curvature-geodesics",
+            "geodesics",
+            "first-second-fundamental",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"gauss-curvature-geodesics\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Gaussian curvature and geodesics\" at this stage?",
+          "choices": [
+            "Curvature and geodesic flow govern local shape and shortest paths.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

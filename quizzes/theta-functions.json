@@ -1,0 +1,128 @@
+{
+  "topic": "theta-functions",
+  "quizzes": {
+    "theta-series-lattice": {
+      "title": "Theta series from lattices",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Theta series from lattices\"?",
+          "choices": [
+            "Theta series from lattices",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Theta series from lattices\" (id: theta-series-lattice)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "theta-series-lattice",
+            "def",
+            "modular-form-definition",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"theta-series-lattice\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Theta series from lattices\" at this stage?",
+          "choices": [
+            "Theta series encode lattice counts and often produce modular forms.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "theta-transformation-law": {
+      "title": "Theta transformation law",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Theta transformation law\"?",
+          "choices": [
+            "Theta transformation law",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Theta transformation law\" (id: theta-transformation-law)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "theta-transformation-law",
+            "trans",
+            "theta-series-lattice",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"theta-transformation-law\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Theta transformation law\" at this stage?",
+          "choices": [
+            "Poisson summation drives modular transformation formulas for theta functions.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "jacobi-triple-product": {
+      "title": "Jacobi triple product and q-identities",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Jacobi triple product and q-identities\"?",
+          "choices": [
+            "Jacobi triple product and q-identities",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Jacobi triple product and q-identities\" (id: jacobi-triple-product)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "jacobi-triple-product",
+            "jtp",
+            "theta-transformation-law",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"jacobi-triple-product\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Jacobi triple product and q-identities\" at this stage?",
+          "choices": [
+            "Product-sum identities connect partitions, q-series, and modular phenomena.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

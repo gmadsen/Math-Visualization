@@ -1,0 +1,128 @@
+{
+  "topic": "sheaves",
+  "quizzes": {
+    "presheaf-sheaf-axioms": {
+      "title": "Presheaves and sheaf condition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Presheaves and sheaf condition\"?",
+          "choices": [
+            "Presheaves and sheaf condition",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Presheaves and sheaf condition\" (id: presheaf-sheaf-axioms)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "presheaf-sheaf-axioms",
+            "sheaves",
+            "open-sets",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"presheaf-sheaf-axioms\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Presheaves and sheaf condition\" at this stage?",
+          "choices": [
+            "Sheaf axioms encode local-to-global compatibility for sections over open covers.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "stalks-local-data": {
+      "title": "Stalks and local behavior",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Stalks and local behavior\"?",
+          "choices": [
+            "Stalks and local behavior",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Stalks and local behavior\" (id: stalks-local-data)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "stalks-local-data",
+            "stalks",
+            "presheaf-sheaf-axioms",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"stalks-local-data\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Stalks and local behavior\" at this stage?",
+          "choices": [
+            "Stalks isolate infinitesimal data at points and detect local properties.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "sheafification-and-qcoh": {
+      "title": "Sheafification and quasi-coherent sheaves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Sheafification and quasi-coherent sheaves\"?",
+          "choices": [
+            "Sheafification and quasi-coherent sheaves",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Sheafification and quasi-coherent sheaves\" (id: sheafification-and-qcoh)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "sheafification-and-qcoh",
+            "qcoh",
+            "stalks-local-data",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"sheafification-and-qcoh\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Sheafification and quasi-coherent sheaves\" at this stage?",
+          "choices": [
+            "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

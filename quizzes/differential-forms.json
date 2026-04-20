@@ -1,0 +1,128 @@
+{
+  "topic": "differential-forms",
+  "quizzes": {
+    "forms-and-wedge": {
+      "title": "Differential forms and wedge product",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Differential forms and wedge product\"?",
+          "choices": [
+            "Differential forms and wedge product",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Differential forms and wedge product\" (id: forms-and-wedge)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "forms-and-wedge",
+            "wedge",
+            "tangent-space-manifolds",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"forms-and-wedge\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Differential forms and wedge product\" at this stage?",
+          "choices": [
+            "Alternating multilinear forms package oriented area and volume data.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "exterior-derivative": {
+      "title": "Exterior derivative",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Exterior derivative\"?",
+          "choices": [
+            "Exterior derivative",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Exterior derivative\" (id: exterior-derivative)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "exterior-derivative",
+            "d",
+            "forms-and-wedge",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"exterior-derivative\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Exterior derivative\" at this stage?",
+          "choices": [
+            "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "stokes-derham": {
+      "title": "Stokes theorem and de Rham cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Stokes theorem and de Rham cohomology\"?",
+          "choices": [
+            "Stokes theorem and de Rham cohomology",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Stokes theorem and de Rham cohomology\" (id: stokes-derham)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "stokes-derham",
+            "deRham",
+            "exterior-derivative",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"stokes-derham\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Stokes theorem and de Rham cohomology\" at this stage?",
+          "choices": [
+            "Stokes unifies integration theorems and identifies topology via closed/exact forms.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

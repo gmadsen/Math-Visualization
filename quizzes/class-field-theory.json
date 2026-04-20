@@ -1,0 +1,128 @@
+{
+  "topic": "class-field-theory",
+  "quizzes": {
+    "idele-class-groups": {
+      "title": "Idèles and class formations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Idèles and class formations\"?",
+          "choices": [
+            "Idèles and class formations",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Idèles and class formations\" (id: idele-class-groups)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "idele-class-groups",
+            "cls",
+            "artin-reciprocity-preview",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"idele-class-groups\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Idèles and class formations\" at this stage?",
+          "choices": [
+            "Idèle class groups package global and local arithmetic data in one object.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "artin-map-cft": {
+      "title": "Artin reciprocity map",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Artin reciprocity map\"?",
+          "choices": [
+            "Artin reciprocity map",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Artin reciprocity map\" (id: artin-map-cft)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "artin-map-cft",
+            "artin",
+            "idele-class-groups",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"artin-map-cft\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Artin reciprocity map\" at this stage?",
+          "choices": [
+            "The Artin map identifies abelianized Galois groups with arithmetic quotient groups.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "local-global-cft": {
+      "title": "Local and global class field theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Local and global class field theory\"?",
+          "choices": [
+            "Local and global class field theory",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Local and global class field theory\" (id: local-global-cft)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "local-global-cft",
+            "ray",
+            "artin-map-cft",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"local-global-cft\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Local and global class field theory\" at this stage?",
+          "choices": [
+            "Ray class fields and local reciprocity provide explicit control of abelian extensions.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

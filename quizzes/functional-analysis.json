@@ -1,0 +1,128 @@
+{
+  "topic": "functional-analysis",
+  "quizzes": {
+    "banach-hilbert-spaces": {
+      "title": "Banach and Hilbert spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Banach and Hilbert spaces\"?",
+          "choices": [
+            "Banach and Hilbert spaces",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Banach and Hilbert spaces\" (id: banach-hilbert-spaces)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "banach-hilbert-spaces",
+            "hilbert",
+            "lp-spaces",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"banach-hilbert-spaces\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Banach and Hilbert spaces\" at this stage?",
+          "choices": [
+            "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "bounded-operators-fa": {
+      "title": "Bounded operators and adjoints",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Bounded operators and adjoints\"?",
+          "choices": [
+            "Bounded operators and adjoints",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Bounded operators and adjoints\" (id: bounded-operators-fa)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "bounded-operators-fa",
+            "bounded",
+            "banach-hilbert-spaces",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"bounded-operators-fa\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Bounded operators and adjoints\" at this stage?",
+          "choices": [
+            "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "spectral-theorem-fa": {
+      "title": "Spectral theorem viewpoint",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Spectral theorem viewpoint\"?",
+          "choices": [
+            "Spectral theorem viewpoint",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Spectral theorem viewpoint\" (id: spectral-theorem-fa)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "spectral-theorem-fa",
+            "spectral",
+            "bounded-operators-fa",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"spectral-theorem-fa\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Spectral theorem viewpoint\" at this stage?",
+          "choices": [
+            "Self-adjoint and normal operators are analyzed through spectral decompositions.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

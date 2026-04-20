@@ -1,0 +1,128 @@
+{
+  "topic": "p-adic-numbers",
+  "quizzes": {
+    "padic-norm-completion": {
+      "title": "p-adic norm and completion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"p-adic norm and completion\"?",
+          "choices": [
+            "p-adic norm and completion",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"p-adic norm and completion\" (id: padic-norm-completion)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "padic-norm-completion",
+            "abs",
+            "metric-spaces",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"padic-norm-completion\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"p-adic norm and completion\" at this stage?",
+          "choices": [
+            "The p-adic absolute value yields an ultrametric completion Q_p.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "padic-expansions": {
+      "title": "p-adic expansions and topology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"p-adic expansions and topology\"?",
+          "choices": [
+            "p-adic expansions and topology",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"p-adic expansions and topology\" (id: padic-expansions)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "padic-expansions",
+            "expand",
+            "padic-norm-completion",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"padic-expansions\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"p-adic expansions and topology\" at this stage?",
+          "choices": [
+            "Series expansions encode arithmetic with non-Archimedean convergence.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    },
+    "hensel-lemma": {
+      "title": "Hensel lifting",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which concept is the focus of this section: \"Hensel lifting\"?",
+          "choices": [
+            "Hensel lifting",
+            "A preliminary definition from set theory",
+            "A theorem unrelated to this topic",
+            "A historical note only"
+          ],
+          "answer": 0,
+          "explain": "This quiz block is tied to the concept \"Hensel lifting\" (id: hensel-lemma)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key is used for mastery tracking in MVProgress for this block?",
+          "choices": [
+            "hensel-lemma",
+            "hensel",
+            "padic-expansions",
+            "title-only label"
+          ],
+          "answer": 0,
+          "explain": "MVProgress marks mastery by concept id, and this concept id is \"hensel-lemma\"."
+        },
+        {
+          "type": "mcq",
+          "q": "How should you think about \"Hensel lifting\" at this stage?",
+          "choices": [
+            "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions.",
+            "As a disconnected fact with no prerequisites",
+            "As a purely computational trick with no meaning",
+            "As optional notation not used elsewhere"
+          ],
+          "answer": 0,
+          "explain": "The concept blurb summarizes the intended mental model for this section."
+        }
+      ]
+    }
+  }
+}

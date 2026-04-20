@@ -114,6 +114,134 @@ window.MVQuizBank = {
       }
     }
   },
+  "algebraic-number-theory": {
+    "topic": "algebraic-number-theory",
+    "quizzes": {
+      "number-fields-integers": {
+        "title": "Number fields and rings of integers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Number fields and rings of integers\"?",
+            "choices": [
+              "Number fields and rings of integers",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Number fields and rings of integers\" (id: number-fields-integers)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "number-fields-integers",
+              "examples",
+              "field-extensions-galois",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"number-fields-integers\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Number fields and rings of integers\" at this stage?",
+            "choices": [
+              "Finite extensions of Q carry arithmetic via algebraic integers.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "prime-ideals-factorization-ant": {
+        "title": "Ideal factorization and ramification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Ideal factorization and ramification\"?",
+            "choices": [
+              "Ideal factorization and ramification",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Ideal factorization and ramification\" (id: prime-ideals-factorization-ant)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "prime-ideals-factorization-ant",
+              "ramification",
+              "number-fields-integers",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"prime-ideals-factorization-ant\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Ideal factorization and ramification\" at this stage?",
+            "choices": [
+              "Dedekind domains restore unique factorization at ideal level and track ramification.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "class-group-units-ant": {
+        "title": "Class group and units",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Class group and units\"?",
+            "choices": [
+              "Class group and units",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Class group and units\" (id: class-group-units-ant)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "class-group-units-ant",
+              "units",
+              "prime-ideals-factorization-ant",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"class-group-units-ant\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Class group and units\" at this stage?",
+            "choices": [
+              "Class group and unit rank measure arithmetic failure and structure.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-topology": {
     "topic": "algebraic-topology",
     "quizzes": {
@@ -289,6 +417,134 @@ window.MVQuizBank = {
       }
     }
   },
+  "bezout": {
+    "topic": "bezout",
+    "quizzes": {
+      "intersection-multiplicity": {
+        "title": "Intersection multiplicity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Intersection multiplicity\"?",
+            "choices": [
+              "Intersection multiplicity",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Intersection multiplicity\" (id: intersection-multiplicity)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "intersection-multiplicity",
+              "mult",
+              "projective-points-lines",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"intersection-multiplicity\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Intersection multiplicity\" at this stage?",
+            "choices": [
+              "Counting intersections correctly requires multiplicity at each point.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "resultants-elimination": {
+        "title": "Resultants and elimination",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Resultants and elimination\"?",
+            "choices": [
+              "Resultants and elimination",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Resultants and elimination\" (id: resultants-elimination)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "resultants-elimination",
+              "resultant",
+              "intersection-multiplicity",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"resultants-elimination\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Resultants and elimination\" at this stage?",
+            "choices": [
+              "Resultants detect common roots and compute projected elimination conditions.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "bezout-theorem-core": {
+        "title": "Bézout theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Bézout theorem\"?",
+            "choices": [
+              "Bézout theorem",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Bézout theorem\" (id: bezout-theorem-core)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "bezout-theorem-core",
+              "statement",
+              "resultants-elimination",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"bezout-theorem-core\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Bézout theorem\" at this stage?",
+            "choices": [
+              "Plane curves of degrees m,n meet in mn points counting multiplicity over algebraic closure.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "bsd": {
     "topic": "bsd",
     "quizzes": {
@@ -397,6 +653,390 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
+          }
+        ]
+      }
+    }
+  },
+  "category-theory": {
+    "topic": "category-theory",
+    "quizzes": {
+      "categories-morphisms": {
+        "title": "Categories and morphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Categories and morphisms\"?",
+            "choices": [
+              "Categories and morphisms",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Categories and morphisms\" (id: categories-morphisms)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "categories-morphisms",
+              "cat",
+              "sets-functions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"categories-morphisms\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Categories and morphisms\" at this stage?",
+            "choices": [
+              "A category organizes objects and arrows with associative composition and identities.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "functors-natural-transformations": {
+        "title": "Functors and natural transformations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Functors and natural transformations\"?",
+            "choices": [
+              "Functors and natural transformations",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Functors and natural transformations\" (id: functors-natural-transformations)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "functors-natural-transformations",
+              "nat",
+              "categories-morphisms",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"functors-natural-transformations\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Functors and natural transformations\" at this stage?",
+            "choices": [
+              "Functors map structure between categories, and natural transformations compare functors componentwise.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "yoneda-limits-adjunctions": {
+        "title": "Yoneda, limits, and adjunctions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Yoneda, limits, and adjunctions\"?",
+            "choices": [
+              "Yoneda, limits, and adjunctions",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Yoneda, limits, and adjunctions\" (id: yoneda-limits-adjunctions)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "yoneda-limits-adjunctions",
+              "adj",
+              "functors-natural-transformations",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"yoneda-limits-adjunctions\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Yoneda, limits, and adjunctions\" at this stage?",
+            "choices": [
+              "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "class-field-theory": {
+    "topic": "class-field-theory",
+    "quizzes": {
+      "idele-class-groups": {
+        "title": "Idèles and class formations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Idèles and class formations\"?",
+            "choices": [
+              "Idèles and class formations",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Idèles and class formations\" (id: idele-class-groups)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "idele-class-groups",
+              "cls",
+              "artin-reciprocity-preview",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"idele-class-groups\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Idèles and class formations\" at this stage?",
+            "choices": [
+              "Idèle class groups package global and local arithmetic data in one object.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "artin-map-cft": {
+        "title": "Artin reciprocity map",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Artin reciprocity map\"?",
+            "choices": [
+              "Artin reciprocity map",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Artin reciprocity map\" (id: artin-map-cft)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "artin-map-cft",
+              "artin",
+              "idele-class-groups",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"artin-map-cft\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Artin reciprocity map\" at this stage?",
+            "choices": [
+              "The Artin map identifies abelianized Galois groups with arithmetic quotient groups.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "local-global-cft": {
+        "title": "Local and global class field theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Local and global class field theory\"?",
+            "choices": [
+              "Local and global class field theory",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Local and global class field theory\" (id: local-global-cft)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "local-global-cft",
+              "ray",
+              "artin-map-cft",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"local-global-cft\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Local and global class field theory\" at this stage?",
+            "choices": [
+              "Ray class fields and local reciprocity provide explicit control of abelian extensions.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "commutative-algebra": {
+    "topic": "commutative-algebra",
+    "quizzes": {
+      "ideals-quotients-ca": {
+        "title": "Ideals and quotient rings",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Ideals and quotient rings\"?",
+            "choices": [
+              "Ideals and quotient rings",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Ideals and quotient rings\" (id: ideals-quotients-ca)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "ideals-quotients-ca",
+              "ideals",
+              "algebraic-structures",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"ideals-quotients-ca\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Ideals and quotient rings\" at this stage?",
+            "choices": [
+              "Ideals control quotient constructions and algebraic geometry dictionaries.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "localization-ca": {
+        "title": "Localization and local algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Localization and local algebra\"?",
+            "choices": [
+              "Localization and local algebra",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Localization and local algebra\" (id: localization-ca)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "localization-ca",
+              "localize",
+              "ideals-quotients-ca",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"localization-ca\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Localization and local algebra\" at this stage?",
+            "choices": [
+              "Localization zooms to behavior near primes and isolates local properties.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "krull-dimension-ca": {
+        "title": "Krull dimension and depth heuristics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Krull dimension and depth heuristics\"?",
+            "choices": [
+              "Krull dimension and depth heuristics",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Krull dimension and depth heuristics\" (id: krull-dimension-ca)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "krull-dimension-ca",
+              "dim",
+              "localization-ca",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"krull-dimension-ca\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Krull dimension and depth heuristics\" at this stage?",
+            "choices": [
+              "Dimension via prime chains measures geometric size and complexity of rings.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
@@ -569,6 +1209,262 @@ window.MVQuizBank = {
             "answer": -1,
             "tol": 0.001,
             "explain": "Pole of order 2 at $0$. $\\operatorname{Res}(f;0) = \\lim_{z\\to 0}\\frac{d}{dz}\\!\\left[z^2 f(z)\\right] = \\frac{d}{dz}\\!\\left[\\frac{1}{z-1}\\right]_{z=0} = -\\frac{1}{(0-1)^2} = -1$."
+          }
+        ]
+      }
+    }
+  },
+  "differential-forms": {
+    "topic": "differential-forms",
+    "quizzes": {
+      "forms-and-wedge": {
+        "title": "Differential forms and wedge product",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Differential forms and wedge product\"?",
+            "choices": [
+              "Differential forms and wedge product",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Differential forms and wedge product\" (id: forms-and-wedge)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "forms-and-wedge",
+              "wedge",
+              "tangent-space-manifolds",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"forms-and-wedge\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Differential forms and wedge product\" at this stage?",
+            "choices": [
+              "Alternating multilinear forms package oriented area and volume data.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "exterior-derivative": {
+        "title": "Exterior derivative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Exterior derivative\"?",
+            "choices": [
+              "Exterior derivative",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Exterior derivative\" (id: exterior-derivative)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "exterior-derivative",
+              "d",
+              "forms-and-wedge",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"exterior-derivative\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Exterior derivative\" at this stage?",
+            "choices": [
+              "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "stokes-derham": {
+        "title": "Stokes theorem and de Rham cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Stokes theorem and de Rham cohomology\"?",
+            "choices": [
+              "Stokes theorem and de Rham cohomology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Stokes theorem and de Rham cohomology\" (id: stokes-derham)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "stokes-derham",
+              "deRham",
+              "exterior-derivative",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"stokes-derham\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Stokes theorem and de Rham cohomology\" at this stage?",
+            "choices": [
+              "Stokes unifies integration theorems and identifies topology via closed/exact forms.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "differential-geometry": {
+    "topic": "differential-geometry",
+    "quizzes": {
+      "curves-surfaces-dg": {
+        "title": "Curves and surfaces in R^3",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Curves and surfaces in R^3\"?",
+            "choices": [
+              "Curves and surfaces in R^3",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Curves and surfaces in R^3\" (id: curves-surfaces-dg)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "curves-surfaces-dg",
+              "surfaces",
+              "submanifolds-immersions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"curves-surfaces-dg\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Curves and surfaces in R^3\" at this stage?",
+            "choices": [
+              "Embedded geometry starts with curvature, normals, and local parametrizations.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "first-second-fundamental": {
+        "title": "First/second fundamental forms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"First/second fundamental forms\"?",
+            "choices": [
+              "First/second fundamental forms",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"First/second fundamental forms\" (id: first-second-fundamental)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "first-second-fundamental",
+              "first",
+              "curves-surfaces-dg",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"first-second-fundamental\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"First/second fundamental forms\" at this stage?",
+            "choices": [
+              "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "gauss-curvature-geodesics": {
+        "title": "Gaussian curvature and geodesics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Gaussian curvature and geodesics\"?",
+            "choices": [
+              "Gaussian curvature and geodesics",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Gaussian curvature and geodesics\" (id: gauss-curvature-geodesics)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "gauss-curvature-geodesics",
+              "geodesics",
+              "first-second-fundamental",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"gauss-curvature-geodesics\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Gaussian curvature and geodesics\" at this stage?",
+            "choices": [
+              "Curvature and geodesic flow govern local shape and shortest paths.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
@@ -899,6 +1795,646 @@ window.MVQuizBank = {
       }
     }
   },
+  "frobenius-and-reciprocity": {
+    "topic": "frobenius-and-reciprocity",
+    "quizzes": {
+      "frobenius-element": {
+        "title": "Frobenius elements",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Frobenius elements\"?",
+            "choices": [
+              "Frobenius elements",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Frobenius elements\" (id: frobenius-element)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "frobenius-element",
+              "frobenius",
+              "prime-ideals-factorization-ant",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"frobenius-element\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Frobenius elements\" at this stage?",
+            "choices": [
+              "Unramified primes define conjugacy classes in Galois groups via Frobenius action.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "chebotarev-density": {
+        "title": "Chebotarev density",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Chebotarev density\"?",
+            "choices": [
+              "Chebotarev density",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Chebotarev density\" (id: chebotarev-density)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "chebotarev-density",
+              "chebotarev",
+              "frobenius-element",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"chebotarev-density\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Chebotarev density\" at this stage?",
+            "choices": [
+              "Primes equidistribute across Frobenius conjugacy classes with predicted densities.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "artin-reciprocity-preview": {
+        "title": "Reciprocity toward Artin maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Reciprocity toward Artin maps\"?",
+            "choices": [
+              "Reciprocity toward Artin maps",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Reciprocity toward Artin maps\" (id: artin-reciprocity-preview)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "artin-reciprocity-preview",
+              "strong",
+              "chebotarev-density",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"artin-reciprocity-preview\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Reciprocity toward Artin maps\" at this stage?",
+            "choices": [
+              "Global reciprocity reframes splitting laws as characters of idèle-like class groups.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "functional-analysis": {
+    "topic": "functional-analysis",
+    "quizzes": {
+      "banach-hilbert-spaces": {
+        "title": "Banach and Hilbert spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Banach and Hilbert spaces\"?",
+            "choices": [
+              "Banach and Hilbert spaces",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Banach and Hilbert spaces\" (id: banach-hilbert-spaces)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "banach-hilbert-spaces",
+              "hilbert",
+              "lp-spaces",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"banach-hilbert-spaces\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Banach and Hilbert spaces\" at this stage?",
+            "choices": [
+              "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "bounded-operators-fa": {
+        "title": "Bounded operators and adjoints",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Bounded operators and adjoints\"?",
+            "choices": [
+              "Bounded operators and adjoints",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Bounded operators and adjoints\" (id: bounded-operators-fa)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "bounded-operators-fa",
+              "bounded",
+              "banach-hilbert-spaces",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"bounded-operators-fa\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Bounded operators and adjoints\" at this stage?",
+            "choices": [
+              "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "spectral-theorem-fa": {
+        "title": "Spectral theorem viewpoint",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Spectral theorem viewpoint\"?",
+            "choices": [
+              "Spectral theorem viewpoint",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Spectral theorem viewpoint\" (id: spectral-theorem-fa)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "spectral-theorem-fa",
+              "spectral",
+              "bounded-operators-fa",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"spectral-theorem-fa\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Spectral theorem viewpoint\" at this stage?",
+            "choices": [
+              "Self-adjoint and normal operators are analyzed through spectral decompositions.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "functor-of-points": {
+    "topic": "functor-of-points",
+    "quizzes": {
+      "yoneda-functor-points": {
+        "title": "Functor-of-points viewpoint",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Functor-of-points viewpoint\"?",
+            "choices": [
+              "Functor-of-points viewpoint",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Functor-of-points viewpoint\" (id: yoneda-functor-points)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "yoneda-functor-points",
+              "reframe",
+              "yoneda-limits-adjunctions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"yoneda-functor-points\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Functor-of-points viewpoint\" at this stage?",
+            "choices": [
+              "A space is studied through all maps into it, turning geometry into a representable functor problem.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "representability-criteria": {
+        "title": "Representability and moduli functors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Representability and moduli functors\"?",
+            "choices": [
+              "Representability and moduli functors",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Representability and moduli functors\" (id: representability-criteria)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "representability-criteria",
+              "repr",
+              "yoneda-functor-points",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"representability-criteria\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Representability and moduli functors\" at this stage?",
+            "choices": [
+              "Representable functors correspond to genuine geometric objects.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "stacky-obstructions": {
+        "title": "When functors require stacks",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"When functors require stacks\"?",
+            "choices": [
+              "When functors require stacks",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"When functors require stacks\" (id: stacky-obstructions)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "stacky-obstructions",
+              "stacks",
+              "representability-criteria",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"stacky-obstructions\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"When functors require stacks\" at this stage?",
+            "choices": [
+              "Automorphisms obstruct representability by schemes and motivate stack language.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "galois-representations": {
+    "topic": "galois-representations",
+    "quizzes": {
+      "galois-rep-definition": {
+        "title": "Galois representations and examples",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Galois representations and examples\"?",
+            "choices": [
+              "Galois representations and examples",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Galois representations and examples\" (id: galois-rep-definition)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "galois-rep-definition",
+              "rep",
+              "field-extensions-galois",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"galois-rep-definition\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Galois representations and examples\" at this stage?",
+            "choices": [
+              "Continuous homomorphisms to linear groups encode arithmetic symmetries.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "frobenius-traces-grep": {
+        "title": "Frobenius traces and compatibility",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Frobenius traces and compatibility\"?",
+            "choices": [
+              "Frobenius traces and compatibility",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Frobenius traces and compatibility\" (id: frobenius-traces-grep)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "frobenius-traces-grep",
+              "frob",
+              "galois-rep-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"frobenius-traces-grep\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Frobenius traces and compatibility\" at this stage?",
+            "choices": [
+              "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "modularity-and-deformations": {
+        "title": "Residual reps, deformations, modularity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Residual reps, deformations, modularity\"?",
+            "choices": [
+              "Residual reps, deformations, modularity",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Residual reps, deformations, modularity\" (id: modularity-and-deformations)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "modularity-and-deformations",
+              "mod",
+              "frobenius-traces-grep",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"modularity-and-deformations\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Residual reps, deformations, modularity\" at this stage?",
+            "choices": [
+              "Deformation theory and modularity transfer results connect Galois and automorphic worlds.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "galois": {
+    "topic": "galois",
+    "quizzes": {
+      "field-extensions-galois": {
+        "title": "Field extensions and automorphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Field extensions and automorphisms\"?",
+            "choices": [
+              "Field extensions and automorphisms",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Field extensions and automorphisms\" (id: field-extensions-galois)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "field-extensions-galois",
+              "galois",
+              "algebraic-structures",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"field-extensions-galois\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Field extensions and automorphisms\" at this stage?",
+            "choices": [
+              "Splitting fields and automorphism groups link polynomial equations to symmetry.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "fundamental-theorem-galois": {
+        "title": "Fundamental theorem of Galois theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Fundamental theorem of Galois theory\"?",
+            "choices": [
+              "Fundamental theorem of Galois theory",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Fundamental theorem of Galois theory\" (id: fundamental-theorem-galois)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "fundamental-theorem-galois",
+              "solvable",
+              "field-extensions-galois",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"fundamental-theorem-galois\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Fundamental theorem of Galois theory\" at this stage?",
+            "choices": [
+              "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "solvability-by-radicals": {
+        "title": "Solvability by radicals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Solvability by radicals\"?",
+            "choices": [
+              "Solvability by radicals",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Solvability by radicals\" (id: solvability-by-radicals)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "solvability-by-radicals",
+              "quintic",
+              "fundamental-theorem-galois",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"solvability-by-radicals\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Solvability by radicals\" at this stage?",
+            "choices": [
+              "Group-theoretic solvability explains why general quintics resist radical formulas.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "hecke-operators": {
     "topic": "hecke-operators",
     "quizzes": {
@@ -1040,6 +2576,134 @@ window.MVQuizBank = {
       }
     }
   },
+  "homological": {
+    "topic": "homological",
+    "quizzes": {
+      "chain-complexes": {
+        "title": "Chain complexes and homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Chain complexes and homology\"?",
+            "choices": [
+              "Chain complexes and homology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Chain complexes and homology\" (id: chain-complexes)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "chain-complexes",
+              "complexes",
+              "ideals-quotients-ca",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"chain-complexes\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Chain complexes and homology\" at this stage?",
+            "choices": [
+              "Complexes encode algebraic data with differentials, and homology measures failure of exactness.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "derived-functors": {
+        "title": "Derived functors and resolutions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Derived functors and resolutions\"?",
+            "choices": [
+              "Derived functors and resolutions",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Derived functors and resolutions\" (id: derived-functors)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "derived-functors",
+              "derived",
+              "chain-complexes",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"derived-functors\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Derived functors and resolutions\" at this stage?",
+            "choices": [
+              "Projective or injective resolutions define Ext and Tor as computable invariants.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "spectral-sequences-ha": {
+        "title": "Spectral sequences",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Spectral sequences\"?",
+            "choices": [
+              "Spectral sequences",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Spectral sequences\" (id: spectral-sequences-ha)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "spectral-sequences-ha",
+              "spectral",
+              "derived-functors",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"spectral-sequences-ha\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Spectral sequences\" at this stage?",
+            "choices": [
+              "Spectral sequences stage difficult computations into successive approximation pages.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "L-functions": {
     "topic": "L-functions",
     "quizzes": {
@@ -1142,6 +2806,134 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 1e-9,
             "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
+          }
+        ]
+      }
+    }
+  },
+  "lie-groups": {
+    "topic": "lie-groups",
+    "quizzes": {
+      "lie-group-definition": {
+        "title": "Lie groups and matrix examples",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Lie groups and matrix examples\"?",
+            "choices": [
+              "Lie groups and matrix examples",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Lie groups and matrix examples\" (id: lie-group-definition)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "lie-group-definition",
+              "intro",
+              "smooth-manifold-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"lie-group-definition\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Lie groups and matrix examples\" at this stage?",
+            "choices": [
+              "Lie groups combine smooth manifolds with group multiplication.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "lie-algebra-and-exp": {
+        "title": "Lie algebra and exponential map",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Lie algebra and exponential map\"?",
+            "choices": [
+              "Lie algebra and exponential map",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Lie algebra and exponential map\" (id: lie-algebra-and-exp)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "lie-algebra-and-exp",
+              "exp",
+              "lie-group-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"lie-algebra-and-exp\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Lie algebra and exponential map\" at this stage?",
+            "choices": [
+              "The tangent space at identity with bracket linearizes local group structure.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "adjoint-roots": {
+        "title": "Adjoint action and root data",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Adjoint action and root data\"?",
+            "choices": [
+              "Adjoint action and root data",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Adjoint action and root data\" (id: adjoint-roots)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "adjoint-roots",
+              "roots",
+              "lie-algebra-and-exp",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"adjoint-roots\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Adjoint action and root data\" at this stage?",
+            "choices": [
+              "Adjoint representations and root systems classify semisimple behavior.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
@@ -1607,6 +3399,262 @@ window.MVQuizBank = {
       }
     }
   },
+  "moduli-spaces": {
+    "topic": "moduli-spaces",
+    "quizzes": {
+      "moduli-problem": {
+        "title": "Moduli problems and parameters",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Moduli problems and parameters\"?",
+            "choices": [
+              "Moduli problems and parameters",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Moduli problems and parameters\" (id: moduli-problem)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "moduli-problem",
+              "what",
+              "representability-criteria",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"moduli-problem\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Moduli problems and parameters\" at this stage?",
+            "choices": [
+              "A moduli problem asks for a geometric space classifying objects in families.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "fine-vs-coarse-moduli": {
+        "title": "Fine versus coarse moduli",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Fine versus coarse moduli\"?",
+            "choices": [
+              "Fine versus coarse moduli",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Fine versus coarse moduli\" (id: fine-vs-coarse-moduli)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "fine-vs-coarse-moduli",
+              "finecoarse",
+              "moduli-problem",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"fine-vs-coarse-moduli\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Fine versus coarse moduli\" at this stage?",
+            "choices": [
+              "Universal families may fail; coarse moduli still classify isomorphism classes.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "level-structures-moduli": {
+        "title": "Level structure and compactification ideas",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Level structure and compactification ideas\"?",
+            "choices": [
+              "Level structure and compactification ideas",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Level structure and compactification ideas\" (id: level-structures-moduli)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "level-structures-moduli",
+              "level",
+              "fine-vs-coarse-moduli",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"level-structures-moduli\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Level structure and compactification ideas\" at this stage?",
+            "choices": [
+              "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "morphisms-fiber-products": {
+    "topic": "morphisms-fiber-products",
+    "quizzes": {
+      "scheme-morphisms": {
+        "title": "Morphisms of schemes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Morphisms of schemes\"?",
+            "choices": [
+              "Morphisms of schemes",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Morphisms of schemes\" (id: scheme-morphisms)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "scheme-morphisms",
+              "morphism",
+              "gluing-affines",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"scheme-morphisms\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Morphisms of schemes\" at this stage?",
+            "choices": [
+              "Scheme maps are local ring maps glued globally and tested on affines.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "fiber-products": {
+        "title": "Fiber products and base change",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Fiber products and base change\"?",
+            "choices": [
+              "Fiber products and base change",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Fiber products and base change\" (id: fiber-products)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "fiber-products",
+              "fiber",
+              "scheme-morphisms",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"fiber-products\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Fiber products and base change\" at this stage?",
+            "choices": [
+              "Fiber products represent pullback problems and define base-change geometry.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "geometric-fibers": {
+        "title": "Geometric fibers and smoothness intuition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Geometric fibers and smoothness intuition\"?",
+            "choices": [
+              "Geometric fibers and smoothness intuition",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Geometric fibers and smoothness intuition\" (id: geometric-fibers)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "geometric-fibers",
+              "fibers",
+              "fiber-products",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"geometric-fibers\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Geometric fibers and smoothness intuition\" at this stage?",
+            "choices": [
+              "Fibers over points reveal dimension, singularities, and arithmetic variation in families.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "naive-set-theory": {
     "topic": "naive-set-theory",
     "quizzes": {
@@ -1710,6 +3758,262 @@ window.MVQuizBank = {
             "answer": 8,
             "tol": 0,
             "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
+          }
+        ]
+      }
+    }
+  },
+  "operator-algebras": {
+    "topic": "operator-algebras",
+    "quizzes": {
+      "cstar-basics": {
+        "title": "C*-algebras and examples",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"C*-algebras and examples\"?",
+            "choices": [
+              "C*-algebras and examples",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"C*-algebras and examples\" (id: cstar-basics)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "cstar-basics",
+              "cstar",
+              "bounded-operators-fa",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"cstar-basics\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"C*-algebras and examples\" at this stage?",
+            "choices": [
+              "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "gelfand-duality-oa": {
+        "title": "Commutative duality and spectra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Commutative duality and spectra\"?",
+            "choices": [
+              "Commutative duality and spectra",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Commutative duality and spectra\" (id: gelfand-duality-oa)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "gelfand-duality-oa",
+              "duality",
+              "cstar-basics",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"gelfand-duality-oa\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Commutative duality and spectra\" at this stage?",
+            "choices": [
+              "Commutative C*-algebras correspond to compact spaces via Gelfand duality.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "von-neumann-and-nc": {
+        "title": "Von Neumann algebras and noncommutative geometry",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Von Neumann algebras and noncommutative geometry\"?",
+            "choices": [
+              "Von Neumann algebras and noncommutative geometry",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Von Neumann algebras and noncommutative geometry\" (id: von-neumann-and-nc)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "von-neumann-and-nc",
+              "ncg",
+              "cstar-basics",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"von-neumann-and-nc\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Von Neumann algebras and noncommutative geometry\" at this stage?",
+            "choices": [
+              "Weak closures, states, and noncommutative spaces extend geometry to operator settings.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "p-adic-numbers": {
+    "topic": "p-adic-numbers",
+    "quizzes": {
+      "padic-norm-completion": {
+        "title": "p-adic norm and completion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"p-adic norm and completion\"?",
+            "choices": [
+              "p-adic norm and completion",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"p-adic norm and completion\" (id: padic-norm-completion)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "padic-norm-completion",
+              "abs",
+              "metric-spaces",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"padic-norm-completion\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"p-adic norm and completion\" at this stage?",
+            "choices": [
+              "The p-adic absolute value yields an ultrametric completion Q_p.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "padic-expansions": {
+        "title": "p-adic expansions and topology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"p-adic expansions and topology\"?",
+            "choices": [
+              "p-adic expansions and topology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"p-adic expansions and topology\" (id: padic-expansions)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "padic-expansions",
+              "expand",
+              "padic-norm-completion",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"padic-expansions\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"p-adic expansions and topology\" at this stage?",
+            "choices": [
+              "Series expansions encode arithmetic with non-Archimedean convergence.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "hensel-lemma": {
+        "title": "Hensel lifting",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Hensel lifting\"?",
+            "choices": [
+              "Hensel lifting",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Hensel lifting\" (id: hensel-lemma)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "hensel-lemma",
+              "hensel",
+              "padic-expansions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"hensel-lemma\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Hensel lifting\" at this stage?",
+            "choices": [
+              "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
@@ -1951,6 +4255,134 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
+          }
+        ]
+      }
+    }
+  },
+  "projective-plane": {
+    "topic": "projective-plane",
+    "quizzes": {
+      "projective-points-lines": {
+        "title": "Projective points and lines",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Projective points and lines\"?",
+            "choices": [
+              "Projective points and lines",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Projective points and lines\" (id: projective-points-lines)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "projective-points-lines",
+              "defn",
+              "sets-functions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"projective-points-lines\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Projective points and lines\" at this stage?",
+            "choices": [
+              "P^2 extends affine geometry by homogeneous coordinates and points at infinity.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "homogeneous-coordinates": {
+        "title": "Homogeneous equations and charts",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Homogeneous equations and charts\"?",
+            "choices": [
+              "Homogeneous equations and charts",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Homogeneous equations and charts\" (id: homogeneous-coordinates)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "homogeneous-coordinates",
+              "homog",
+              "projective-points-lines",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"homogeneous-coordinates\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Homogeneous equations and charts\" at this stage?",
+            "choices": [
+              "Polynomial equations homogenize naturally and are studied chartwise.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "projective-transformations": {
+        "title": "Projective automorphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Projective automorphisms\"?",
+            "choices": [
+              "Projective automorphisms",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Projective automorphisms\" (id: projective-transformations)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "projective-transformations",
+              "pgl",
+              "homogeneous-coordinates",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"projective-transformations\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Projective automorphisms\" at this stage?",
+            "choices": [
+              "PGL actions describe coordinate changes preserving incidence.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
@@ -2371,6 +4803,390 @@ window.MVQuizBank = {
       }
     }
   },
+  "representation-theory": {
+    "topic": "representation-theory",
+    "quizzes": {
+      "group-representations": {
+        "title": "Group representations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Group representations\"?",
+            "choices": [
+              "Group representations",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Group representations\" (id: group-representations)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "group-representations",
+              "def",
+              "cayley-tables",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"group-representations\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Group representations\" at this stage?",
+            "choices": [
+              "A representation realizes group elements as linear operators, translating group questions into linear algebra.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "characters-orthogonality": {
+        "title": "Characters and orthogonality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Characters and orthogonality\"?",
+            "choices": [
+              "Characters and orthogonality",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Characters and orthogonality\" (id: characters-orthogonality)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "characters-orthogonality",
+              "characters",
+              "group-representations",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"characters-orthogonality\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Characters and orthogonality\" at this stage?",
+            "choices": [
+              "Character theory packages traces of representations and gives powerful decomposition formulas.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "induction-and-young": {
+        "title": "Induction and symmetric-group combinatorics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Induction and symmetric-group combinatorics\"?",
+            "choices": [
+              "Induction and symmetric-group combinatorics",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Induction and symmetric-group combinatorics\" (id: induction-and-young)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "induction-and-young",
+              "young",
+              "characters-orthogonality",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"induction-and-young\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Induction and symmetric-group combinatorics\" at this stage?",
+            "choices": [
+              "Induction, restriction, and Young diagrams organize families of representations and branching laws.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "riemann-surfaces": {
+    "topic": "riemann-surfaces",
+    "quizzes": {
+      "riemann-surface-definition": {
+        "title": "Riemann surfaces as 1D complex manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Riemann surfaces as 1D complex manifolds\"?",
+            "choices": [
+              "Riemann surfaces as 1D complex manifolds",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Riemann surfaces as 1D complex manifolds\" (id: riemann-surface-definition)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "riemann-surface-definition",
+              "intro",
+              "holomorphic-function",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"riemann-surface-definition\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Riemann surfaces as 1D complex manifolds\" at this stage?",
+            "choices": [
+              "Complex one-manifolds support holomorphic charts and conformal geometry.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "branched-covers-rs": {
+        "title": "Branched covers and maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Branched covers and maps\"?",
+            "choices": [
+              "Branched covers and maps",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Branched covers and maps\" (id: branched-covers-rs)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "branched-covers-rs",
+              "branched",
+              "riemann-surface-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"branched-covers-rs\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Branched covers and maps\" at this stage?",
+            "choices": [
+              "Holomorphic maps behave like branched coverings with controlled ramification.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "riemann-hurwitz-uniformization": {
+        "title": "Riemann–Hurwitz and uniformization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Riemann–Hurwitz and uniformization\"?",
+            "choices": [
+              "Riemann–Hurwitz and uniformization",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Riemann–Hurwitz and uniformization\" (id: riemann-hurwitz-uniformization)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "riemann-hurwitz-uniformization",
+              "uniform",
+              "branched-covers-rs",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"riemann-hurwitz-uniformization\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Riemann–Hurwitz and uniformization\" at this stage?",
+            "choices": [
+              "Genus, ramification, and universal covering classify compact Riemann surfaces.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "riemannian-geometry": {
+    "topic": "riemannian-geometry",
+    "quizzes": {
+      "riemannian-metrics": {
+        "title": "Riemannian metrics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Riemannian metrics\"?",
+            "choices": [
+              "Riemannian metrics",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Riemannian metrics\" (id: riemannian-metrics)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "riemannian-metrics",
+              "metric",
+              "smooth-manifold-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"riemannian-metrics\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Riemannian metrics\" at this stage?",
+            "choices": [
+              "A smoothly varying inner product on tangent spaces defines length, angle, and volume.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "levi-civita-connection": {
+        "title": "Levi-Civita connection and geodesics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Levi-Civita connection and geodesics\"?",
+            "choices": [
+              "Levi-Civita connection and geodesics",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Levi-Civita connection and geodesics\" (id: levi-civita-connection)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "levi-civita-connection",
+              "geodesics",
+              "riemannian-metrics",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"levi-civita-connection\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Levi-Civita connection and geodesics\" at this stage?",
+            "choices": [
+              "The unique torsion-free metric connection defines covariant differentiation and geodesic equations.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "riemann-curvature-tensor": {
+        "title": "Curvature tensor and comparison",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Curvature tensor and comparison\"?",
+            "choices": [
+              "Curvature tensor and comparison",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Curvature tensor and comparison\" (id: riemann-curvature-tensor)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "riemann-curvature-tensor",
+              "comparison",
+              "levi-civita-connection",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"riemann-curvature-tensor\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Curvature tensor and comparison\" at this stage?",
+            "choices": [
+              "Sectional curvature controls topology and global metric behavior through comparison theorems.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
   "sato-tate": {
     "topic": "sato-tate",
     "quizzes": {
@@ -2474,6 +5290,1030 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "By a Tauberian / Wiener–Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato–Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
+          }
+        ]
+      }
+    }
+  },
+  "schemes": {
+    "topic": "schemes",
+    "quizzes": {
+      "spectrum-primes": {
+        "title": "Prime spectrum and Zariski topology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Prime spectrum and Zariski topology\"?",
+            "choices": [
+              "Prime spectrum and Zariski topology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Prime spectrum and Zariski topology\" (id: spectrum-primes)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "spectrum-primes",
+              "intro",
+              "ideals-quotients-ca",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"spectrum-primes\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Prime spectrum and Zariski topology\" at this stage?",
+            "choices": [
+              "Spec R turns commutative rings into geometric spaces with generic points.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "structure-sheaf-schemes": {
+        "title": "Structure sheaf and affine schemes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Structure sheaf and affine schemes\"?",
+            "choices": [
+              "Structure sheaf and affine schemes",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Structure sheaf and affine schemes\" (id: structure-sheaf-schemes)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "structure-sheaf-schemes",
+              "speckxy",
+              "spectrum-primes",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"structure-sheaf-schemes\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Structure sheaf and affine schemes\" at this stage?",
+            "choices": [
+              "Attaching local rings to opens upgrades topological spaces to locally ringed spaces.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "gluing-affines": {
+        "title": "Gluing affine schemes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Gluing affine schemes\"?",
+            "choices": [
+              "Gluing affine schemes",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Gluing affine schemes\" (id: gluing-affines)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "gluing-affines",
+              "gluing",
+              "structure-sheaf-schemes",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"gluing-affines\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Gluing affine schemes\" at this stage?",
+            "choices": [
+              "General schemes are built by gluing affine pieces along compatible overlaps.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "sheaf-cohomology": {
+    "topic": "sheaf-cohomology",
+    "quizzes": {
+      "cech-cohomology": {
+        "title": "Čech cocycles and cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Čech cocycles and cohomology\"?",
+            "choices": [
+              "Čech cocycles and cohomology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Čech cocycles and cohomology\" (id: cech-cohomology)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "cech-cohomology",
+              "cech",
+              "presheaf-sheaf-axioms",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"cech-cohomology\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Čech cocycles and cohomology\" at this stage?",
+            "choices": [
+              "Cover-based cocycles detect obstruction classes for global patching.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "derived-functor-cohomology": {
+        "title": "Derived functor sheaf cohomology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Derived functor sheaf cohomology\"?",
+            "choices": [
+              "Derived functor sheaf cohomology",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Derived functor sheaf cohomology\" (id: derived-functor-cohomology)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "derived-functor-cohomology",
+              "derived",
+              "cech-cohomology",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"derived-functor-cohomology\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Derived functor sheaf cohomology\" at this stage?",
+            "choices": [
+              "Right derived functors of global sections define H^i(X,F) abstractly.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "applications-picard-serre": {
+        "title": "Picard groups and Serre duality signals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Picard groups and Serre duality signals\"?",
+            "choices": [
+              "Picard groups and Serre duality signals",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Picard groups and Serre duality signals\" (id: applications-picard-serre)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "applications-picard-serre",
+              "serre",
+              "derived-functor-cohomology",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"applications-picard-serre\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Picard groups and Serre duality signals\" at this stage?",
+            "choices": [
+              "Line bundles, extensions, and duality theorems are naturally cohomological.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "sheaves": {
+    "topic": "sheaves",
+    "quizzes": {
+      "presheaf-sheaf-axioms": {
+        "title": "Presheaves and sheaf condition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Presheaves and sheaf condition\"?",
+            "choices": [
+              "Presheaves and sheaf condition",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Presheaves and sheaf condition\" (id: presheaf-sheaf-axioms)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "presheaf-sheaf-axioms",
+              "sheaves",
+              "open-sets",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"presheaf-sheaf-axioms\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Presheaves and sheaf condition\" at this stage?",
+            "choices": [
+              "Sheaf axioms encode local-to-global compatibility for sections over open covers.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "stalks-local-data": {
+        "title": "Stalks and local behavior",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Stalks and local behavior\"?",
+            "choices": [
+              "Stalks and local behavior",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Stalks and local behavior\" (id: stalks-local-data)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "stalks-local-data",
+              "stalks",
+              "presheaf-sheaf-axioms",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"stalks-local-data\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Stalks and local behavior\" at this stage?",
+            "choices": [
+              "Stalks isolate infinitesimal data at points and detect local properties.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "sheafification-and-qcoh": {
+        "title": "Sheafification and quasi-coherent sheaves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Sheafification and quasi-coherent sheaves\"?",
+            "choices": [
+              "Sheafification and quasi-coherent sheaves",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Sheafification and quasi-coherent sheaves\" (id: sheafification-and-qcoh)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "sheafification-and-qcoh",
+              "qcoh",
+              "stalks-local-data",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"sheafification-and-qcoh\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Sheafification and quasi-coherent sheaves\" at this stage?",
+            "choices": [
+              "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "singular-cubics-reduction": {
+    "topic": "singular-cubics-reduction",
+    "quizzes": {
+      "singular-cubic-types": {
+        "title": "Singular cubic types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Singular cubic types\"?",
+            "choices": [
+              "Singular cubic types",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Singular cubic types\" (id: singular-cubic-types)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "singular-cubic-types",
+              "sing",
+              "elliptic-curve-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"singular-cubic-types\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Singular cubic types\" at this stage?",
+            "choices": [
+              "Nodal and cuspidal degenerations control failures of smooth group laws.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "reduction-mod-p": {
+        "title": "Reduction modulo p",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Reduction modulo p\"?",
+            "choices": [
+              "Reduction modulo p",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Reduction modulo p\" (id: reduction-mod-p)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "reduction-mod-p",
+              "reduction",
+              "elliptic-group-law",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"reduction-mod-p\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Reduction modulo p\" at this stage?",
+            "choices": [
+              "Reducing Weierstrass models modulo p tracks good and bad fibers.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "kodaira-néron-preview": {
+        "title": "Bad reduction taxonomy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Bad reduction taxonomy\"?",
+            "choices": [
+              "Bad reduction taxonomy",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Bad reduction taxonomy\" (id: kodaira-néron-preview)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "kodaira-néron-preview",
+              "badtypes",
+              "reduction-mod-p",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"kodaira-néron-preview\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Bad reduction taxonomy\" at this stage?",
+            "choices": [
+              "Local reduction types forecast conductor exponents and arithmetic complexity.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "smooth-manifolds": {
+    "topic": "smooth-manifolds",
+    "quizzes": {
+      "smooth-manifold-definition": {
+        "title": "Smooth manifolds and atlases",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Smooth manifolds and atlases\"?",
+            "choices": [
+              "Smooth manifolds and atlases",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Smooth manifolds and atlases\" (id: smooth-manifold-definition)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "smooth-manifold-definition",
+              "intro",
+              "inverse-function-theorem",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"smooth-manifold-definition\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Smooth manifolds and atlases\" at this stage?",
+            "choices": [
+              "Smooth manifolds glue Euclidean charts by smooth transition maps.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "tangent-space-manifolds": {
+        "title": "Tangent spaces and bundles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Tangent spaces and bundles\"?",
+            "choices": [
+              "Tangent spaces and bundles",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Tangent spaces and bundles\" (id: tangent-space-manifolds)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "tangent-space-manifolds",
+              "tangent",
+              "smooth-manifold-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"tangent-space-manifolds\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Tangent spaces and bundles\" at this stage?",
+            "choices": [
+              "Tangent vectors form bundles supporting differential equations and geometry.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "submanifolds-immersions": {
+        "title": "Immersions, submersions, and submanifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Immersions, submersions, and submanifolds\"?",
+            "choices": [
+              "Immersions, submersions, and submanifolds",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Immersions, submersions, and submanifolds\" (id: submanifolds-immersions)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "submanifolds-immersions",
+              "sub",
+              "tangent-space-manifolds",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"submanifolds-immersions\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Immersions, submersions, and submanifolds\" at this stage?",
+            "choices": [
+              "Rank conditions control local models for embedded and immersed manifolds.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "stacks": {
+    "topic": "stacks",
+    "quizzes": {
+      "groupoids-and-descent": {
+        "title": "Groupoids, fibered categories, descent",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Groupoids, fibered categories, descent\"?",
+            "choices": [
+              "Groupoids, fibered categories, descent",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Groupoids, fibered categories, descent\" (id: groupoids-and-descent)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "groupoids-and-descent",
+              "fib",
+              "stacky-obstructions",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"groupoids-and-descent\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Groupoids, fibered categories, descent\" at this stage?",
+            "choices": [
+              "Stacks encode objects with automorphisms while preserving gluing across covers.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "classifying-stacks": {
+        "title": "Classifying stacks BG",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Classifying stacks BG\"?",
+            "choices": [
+              "Classifying stacks BG",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Classifying stacks BG\" (id: classifying-stacks)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "classifying-stacks",
+              "bg",
+              "groupoids-and-descent",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"classifying-stacks\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Classifying stacks BG\" at this stage?",
+            "choices": [
+              "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "dm-stacks-coarse-space": {
+        "title": "Deligne–Mumford stacks and coarse spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Deligne–Mumford stacks and coarse spaces\"?",
+            "choices": [
+              "Deligne–Mumford stacks and coarse spaces",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Deligne–Mumford stacks and coarse spaces\" (id: dm-stacks-coarse-space)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "dm-stacks-coarse-space",
+              "coarse",
+              "classifying-stacks",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"dm-stacks-coarse-space\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Deligne–Mumford stacks and coarse spaces\" at this stage?",
+            "choices": [
+              "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "sums-of-squares": {
+    "topic": "sums-of-squares",
+    "quizzes": {
+      "two-squares-theorem": {
+        "title": "Sum of two squares",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Sum of two squares\"?",
+            "choices": [
+              "Sum of two squares",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Sum of two squares\" (id: two-squares-theorem)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "two-squares-theorem",
+              "twosq",
+              "quadratic-reciprocity-law",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"two-squares-theorem\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Sum of two squares\" at this stage?",
+            "choices": [
+              "Prime splitting in Gaussian integers characterizes n=x^2+y^2.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "three-squares-theorem": {
+        "title": "Legendre three-square theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Legendre three-square theorem\"?",
+            "choices": [
+              "Legendre three-square theorem",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Legendre three-square theorem\" (id: three-squares-theorem)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "three-squares-theorem",
+              "three",
+              "two-squares-theorem",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"three-squares-theorem\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Legendre three-square theorem\" at this stage?",
+            "choices": [
+              "Integers not of form 4^a(8b+7) are sums of three squares.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "four-squares-and-waring": {
+        "title": "Four squares and Waring perspective",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Four squares and Waring perspective\"?",
+            "choices": [
+              "Four squares and Waring perspective",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Four squares and Waring perspective\" (id: four-squares-and-waring)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "four-squares-and-waring",
+              "four",
+              "three-squares-theorem",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"four-squares-and-waring\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Four squares and Waring perspective\" at this stage?",
+            "choices": [
+              "Lagrange and Waring-type refinements show universal additive quadratic behavior.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      }
+    }
+  },
+  "theta-functions": {
+    "topic": "theta-functions",
+    "quizzes": {
+      "theta-series-lattice": {
+        "title": "Theta series from lattices",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Theta series from lattices\"?",
+            "choices": [
+              "Theta series from lattices",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Theta series from lattices\" (id: theta-series-lattice)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "theta-series-lattice",
+              "def",
+              "modular-form-definition",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"theta-series-lattice\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Theta series from lattices\" at this stage?",
+            "choices": [
+              "Theta series encode lattice counts and often produce modular forms.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "theta-transformation-law": {
+        "title": "Theta transformation law",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Theta transformation law\"?",
+            "choices": [
+              "Theta transformation law",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Theta transformation law\" (id: theta-transformation-law)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "theta-transformation-law",
+              "trans",
+              "theta-series-lattice",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"theta-transformation-law\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Theta transformation law\" at this stage?",
+            "choices": [
+              "Poisson summation drives modular transformation formulas for theta functions.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
+          }
+        ]
+      },
+      "jacobi-triple-product": {
+        "title": "Jacobi triple product and q-identities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which concept is the focus of this section: \"Jacobi triple product and q-identities\"?",
+            "choices": [
+              "Jacobi triple product and q-identities",
+              "A preliminary definition from set theory",
+              "A theorem unrelated to this topic",
+              "A historical note only"
+            ],
+            "answer": 0,
+            "explain": "This quiz block is tied to the concept \"Jacobi triple product and q-identities\" (id: jacobi-triple-product)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which key is used for mastery tracking in MVProgress for this block?",
+            "choices": [
+              "jacobi-triple-product",
+              "jtp",
+              "theta-transformation-law",
+              "title-only label"
+            ],
+            "answer": 0,
+            "explain": "MVProgress marks mastery by concept id, and this concept id is \"jacobi-triple-product\"."
+          },
+          {
+            "type": "mcq",
+            "q": "How should you think about \"Jacobi triple product and q-identities\" at this stage?",
+            "choices": [
+              "Product-sum identities connect partitions, q-series, and modular phenomena.",
+              "As a disconnected fact with no prerequisites",
+              "As a purely computational trick with no meaning",
+              "As optional notation not used elsewhere"
+            ],
+            "answer": 0,
+            "explain": "The concept blurb summarizes the intended mental model for this section."
           }
         ]
       }
