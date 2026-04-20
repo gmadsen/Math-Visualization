@@ -1,6 +1,75 @@
 {
   "topic": "sheaves",
   "quizzes": {
+    "presheaf-functor": {
+      "title": "Presheaves on Open(X)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A presheaf of sets on $X$ is, by definition:",
+          "choices": [
+            "a covariant functor $\\mathrm{Open}(X) \\to \\mathsf{Set}$",
+            "a contravariant functor $\\mathrm{Open}(X) \\to \\mathsf{Set}$, i.e. a functor $\\mathrm{Open}(X)^{\\mathrm{op}} \\to \\mathsf{Set}$",
+            "a sheaf on $X$ satisfying the equalizer condition",
+            "a presheaf on the one-point compactification of $X$"
+          ],
+          "answer": 1,
+          "explain": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance. Equivalently, a presheaf is a functor out of $\\mathrm{Open}(X)^{\\mathrm{op}}$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a presheaf $F$ and opens $W \\subseteq V \\subseteq U$, functoriality demands:",
+          "choices": [
+            "$\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$",
+            "$\\rho^U_W = \\rho^U_V \\circ \\rho^V_W$",
+            "$\\rho^U_W = \\rho^U_V + \\rho^V_W$",
+            "$\\rho^U_W$ depends only on $U$, not on $V$ or $W$"
+          ],
+          "answer": 0,
+          "explain": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$. This is the composition law of the contravariant functor, $\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many morphisms are there in $\\mathrm{Open}(X)$ from $V$ to $U$ when $V \\subseteq U$ and $V \\ne U$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Morphisms of presheaves $\\varphi\\colon F \\to G$ are exactly:",
+          "choices": [
+            "maps $\\varphi_X\\colon F(X) \\to G(X)$ on global sections",
+            "maps on stalks $\\varphi_x\\colon F_x \\to G_x$ for every $x \\in X$",
+            "natural transformations of the underlying functors $\\mathrm{Open}(X)^{\\mathrm{op}} \\to \\mathsf{Set}$, i.e. families $\\varphi_U\\colon F(U) \\to G(U)$ commuting with restriction",
+            "continuous maps of étalé spaces"
+          ],
+          "answer": 2,
+          "explain": "Presheaves are functors, so their morphisms are natural transformations: one map per open, with squares $F(U) \\to G(U) \\to G(V)$ equal to $F(U) \\to F(V) \\to G(V)$. Stalk maps are induced, not defining."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a presheaf on $\\mathbb{R}$ (with its usual topology)?",
+          "choices": [
+            "$U \\mapsto C^0(U, \\mathbb{R})$, continuous real-valued functions",
+            "$U \\mapsto \\{\\text{bounded continuous } f\\colon U \\to \\mathbb{R}\\}$",
+            "$U \\mapsto \\mathbb{Z}$ for every nonempty $U$, with all restrictions the identity",
+            "$U \\mapsto \\pi_0(U)$, the set of connected components, with inclusion-induced maps $\\pi_0(U) \\to \\pi_0(V)$ for $V \\subseteq U$"
+          ],
+          "answer": 3,
+          "explain": "An inclusion $V \\hookrightarrow U$ induces a map $\\pi_0(V) \\to \\pi_0(U)$ (send a component of $V$ to the component of $U$ containing it), going the WRONG way for a presheaf. So $U \\mapsto \\pi_0(U)$ is naturally a covariant functor on $\\mathrm{Open}(X)$, not a presheaf. The other three are presheaves (the bounded one fails to be a sheaf, but is still a presheaf)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X$ be a space with $|\\mathrm{Open}(X)| = 3$ (e.g. $X = \\{a,b\\}$ with topology $\\{\\emptyset, \\{a\\}, X\\}$). A presheaf of sets picks a set $F(U)$ for each open and a restriction for each inclusion. How many non-identity inclusions $V \\subsetneq U$ are there in this $\\mathrm{Open}(X)$? (These are the non-trivial restrictions you must specify.)",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "The three opens are $\\emptyset \\subsetneq \\{a\\} \\subsetneq X$. Strict inclusions: $\\emptyset \\subsetneq \\{a\\}$, $\\emptyset \\subsetneq X$, and $\\{a\\} \\subsetneq X$ — three in total."
+        }
+      ]
+    },
     "presheaf-sheaf-axioms": {
       "title": "Presheaves and the sheaf condition",
       "questions": [
@@ -136,6 +205,213 @@
           ],
           "answer": 1,
           "explain": "The étalé (or étale) space is $\\acute{E}t(F)=\\bigsqcup_{x\\in X}F_x$ topologized so that $F(U)\\cong\\{$continuous sections of $\\pi$ over $U\\}$. This is the sheaf-of-sections construction and underpins the equivalence between sheaves and étalé bundles."
+        }
+      ]
+    },
+    "sheaf-morphisms-stalks": {
+      "title": "Morphisms of sheaves and stalk criteria",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a morphism $\\varphi\\colon F \\to G$ of sheaves on $X$, which stalk criterion is correct?",
+          "choices": [
+            "$\\varphi$ is injective $\\iff$ $\\varphi_U\\colon F(U) \\to G(U)$ is injective for every open $U$, which is equivalent to $\\varphi_x\\colon F_x \\to G_x$ being injective for every $x$",
+            "$\\varphi$ is surjective $\\iff$ $\\varphi_U\\colon F(U) \\to G(U)$ is surjective for every open $U$",
+            "$\\varphi$ is a monomorphism $\\iff$ there exists some open $U$ with $\\varphi_U$ injective",
+            "stalk maps carry no information about $\\varphi$"
+          ],
+          "answer": 0,
+          "explain": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective. Epimorphisms are stalkwise surjective but NOT sectionwise surjective in general — that asymmetry is the seed of sheaf cohomology."
+        },
+        {
+          "type": "mcq",
+          "q": "On $X = \\mathbb{C}^\\times$, consider $\\exp\\colon \\mathcal{O}_X \\to \\mathcal{O}_X^\\times$ sending $f \\mapsto e^f$. This map is:",
+          "choices": [
+            "stalkwise surjective but not globally surjective; the global section $z \\in \\mathcal{O}_X^\\times(X)$ is not in the image of $\\exp_X$",
+            "stalkwise surjective and globally surjective",
+            "neither stalkwise nor globally surjective",
+            "globally surjective but not stalkwise surjective"
+          ],
+          "answer": 0,
+          "explain": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk. But no global holomorphic logarithm of $z$ exists on $\\mathbb{C}^\\times$ (the branch cut obstructs it), so $z \\not\\in \\exp(\\mathcal{O}(\\mathbb{C}^\\times))$."
+        },
+        {
+          "type": "numeric",
+          "q": "A short exact sequence $0 \\to F' \\to F \\to F'' \\to 0$ of sheaves of abelian groups on $X$ yields a long exact sequence in sheaf cohomology. The cohomology degree where the first new obstruction to global surjectivity appears is $H^i(X, F')$ for $i = ?$",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$. The connecting map lands in $H^1$, which measures exactly the failure of $\\Gamma F \\to \\Gamma F''$ to be surjective."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For a morphism $\\varphi\\colon F \\to G$ of sheaves of abelian groups, how is the image sheaf $\\mathrm{im}\\,\\varphi$ defined, and why?",
+          "choices": [
+            "as the presheaf $U \\mapsto \\varphi_U(F(U)) \\subseteq G(U)$, because presheaf images are already sheaves",
+            "as the sheafification of $U \\mapsto \\varphi_U(F(U))$, because the presheaf image need not satisfy gluing — sections that are locally in the image may not come from a global preimage",
+            "as the kernel of the cokernel map $G \\to \\mathrm{coker}\\,\\varphi$, which by definition is the presheaf image",
+            "as $\\ker(\\varphi)^\\perp$ inside $G$"
+          ],
+          "answer": 1,
+          "explain": "The presheaf image $U \\mapsto \\varphi_U F(U)$ captures 'sections of $G$ actually coming from $F$ on $U$', but a section of $G$ that is locally of this form need not lift to a global preimage — exactly the exponential example. Sheafifying fixes this, and on stalks one still has $(\\mathrm{im}\\,\\varphi)_x = \\mathrm{im}(\\varphi_x)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $\\varphi\\colon F \\to G$ be a morphism of sheaves of sets with $\\varphi_x\\colon F_x \\to G_x$ a bijection for every $x \\in X$. Then:",
+          "choices": [
+            "$\\varphi$ is an isomorphism of sheaves",
+            "$\\varphi_U\\colon F(U) \\to G(U)$ is a bijection for every $U$, but $\\varphi$ need not be an iso in $\\mathsf{Sh}(X)$",
+            "only $\\varphi_X$ is a bijection; smaller opens may fail",
+            "nothing can be concluded without global information"
+          ],
+          "answer": 0,
+          "explain": "For sheaves, stalkwise iso $\\iff$ iso. Sectionwise bijectivity is actually a consequence: stalkwise injective gives sectionwise injective (using locality), and stalkwise surjective + locality + gluing of $F$ gives sectionwise surjective. Together: $\\varphi_U$ is a bijection for every $U$, hence $\\varphi$ is an iso in $\\mathsf{Sh}(X)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X = \\mathbb{C}^\\times$. The cokernel sheaf of $\\exp\\colon \\mathcal{O}_X \\to \\mathcal{O}_X^\\times$ (stalkwise surjective) is the zero sheaf, yet the presheaf cokernel $U \\mapsto \\mathcal{O}^\\times(U)/\\exp \\mathcal{O}(U)$ evaluated at $U = X$ is a nontrivial group isomorphic to $H^1(\\mathbb{C}^\\times, \\underline{2\\pi i\\mathbb{Z}})$. What is the rank of this $\\mathbb{Z}$-module?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$H^1(\\mathbb{C}^\\times, \\underline{\\mathbb{Z}}) \\cong \\mathbb{Z}$ (generated by the winding-number cocycle), so the $\\mathbb{Z}$-rank is $1$. This is why the presheaf cokernel disagrees with the sheaf cokernel: sheafification wipes out the obstruction, which reappears as $H^1$."
+        }
+      ]
+    },
+    "sheafification-functor": {
+      "title": "Sheafification as a left adjoint",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The sheafification functor $(-)^\\#\\colon \\mathsf{PSh}(X) \\to \\mathsf{Sh}(X)$ is:",
+          "choices": [
+            "right adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$",
+            "left adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$, so $\\mathrm{Hom}_{\\mathsf{Sh}}(F^\\#, G) \\cong \\mathrm{Hom}_{\\mathsf{PSh}}(F, \\iota G)$",
+            "an equivalence of categories $\\mathsf{PSh}(X) \\simeq \\mathsf{Sh}(X)$",
+            "not a functor in general"
+          ],
+          "answer": 1,
+          "explain": "Sheafification is the left adjoint to $\\iota$. The universal property: any presheaf map $F \\to \\iota G$ into a sheaf factors uniquely through the unit $\\eta\\colon F \\to F^\\#$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which invariant of a presheaf $F$ is preserved by sheafification?",
+          "choices": [
+            "the global sections $F(X)$",
+            "the sections $F(U)$ for every open $U$",
+            "the stalks $F_x$ at every point",
+            "nothing — sheafification changes everything"
+          ],
+          "answer": 2,
+          "explain": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk. Global and sectional data CAN change — e.g. the constant presheaf on a disconnected space has $F(X) = S$ but $F^\\#(X) = S^{\\#(\\mathrm{components})}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X = U_1 \\sqcup U_2 \\sqcup U_3$ be a disjoint union of three nonempty opens, and let $F = \\underline{\\mathbb{Z}/2}^{\\mathrm{pre}}$ be the constant presheaf with value $\\mathbb{Z}/2$. How many elements does the sheafified global-sections set $F^\\#(X)$ have?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$. With three components, this is $(\\mathbb{Z}/2)^3$, which has $2^3 = 8$ elements. The unsheafified presheaf $F(X)$ has only $2$ elements, so sheafification has multiplied the global sections from $2$ to $8$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A reflective subcategory $\\mathcal{C} \\subseteq \\mathcal{D}$ is one where the inclusion has a left adjoint $L\\colon \\mathcal{D} \\to \\mathcal{C}$. Why is $\\mathsf{Sh}(X) \\subseteq \\mathsf{PSh}(X)$ with reflector $(-)^\\#$ a good thing for computing in sheaves?",
+          "choices": [
+            "colimits in $\\mathsf{Sh}(X)$ are computed by taking the presheaf colimit and sheafifying — one can work pointwise and fix up gluing only at the end",
+            "limits in $\\mathsf{Sh}(X)$ require sheafifying",
+            "every sheaf morphism extends non-uniquely to a presheaf morphism",
+            "sheaves are closed under arbitrary set-theoretic operations in presheaves"
+          ],
+          "answer": 0,
+          "explain": "Left adjoints preserve colimits. So colimits in $\\mathsf{Sh}(X)$ are the reflection of presheaf colimits: compute pointwise, then sheafify. Limits, by contrast, are computed pointwise directly and do not need sheafification — the inclusion $\\iota$ preserves limits as a right adjoint."
+        },
+        {
+          "type": "mcq",
+          "q": "Sheafification of abelian presheaves $(-)^\\#\\colon \\mathsf{PSh}(X, \\mathsf{Ab}) \\to \\mathsf{Sh}(X, \\mathsf{Ab})$ is exact. Which combination of facts is essential to this exactness?",
+          "choices": [
+            "sheafification preserves stalks, and a sequence of sheaves of abelian groups is exact iff exact on every stalk",
+            "sheafification is a right adjoint",
+            "the sheaf condition is a finite-limit condition, and every functor preserves finite limits",
+            "exactness in $\\mathsf{Sh}(X, \\mathsf{Ab})$ means sectionwise exactness"
+          ],
+          "answer": 0,
+          "explain": "Two ingredients: (1) sheafification preserves stalks (it's the universal gluing fix that leaves germs alone), (2) exactness of sheaves of abelian groups is stalk-local. Combined: $(F^\\#)_x = F_x$, so stalk-exact in presheaves $\\implies$ stalk-exact in sheaves $\\iff$ exact in $\\mathsf{Sh}(X, \\mathsf{Ab})$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $F$ be any presheaf on a space $X$. The 'plus construction' $F^+$ applied once yields a separated presheaf; applied twice yields a sheaf. How many applications of $(-)^+$ are required in general to land in $\\mathsf{Sh}(X)$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Grothendieck's theorem: $F^{++} = F^\\#$ is always a sheaf, so two applications suffice. One application is not enough: $F^+$ is separated (locality holds) but may still fail gluing."
+        }
+      ]
+    },
+    "ox-modules": {
+      "title": "Ringed spaces and $\\mathcal{O}_X$-modules",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A ringed space is a pair $(X, \\mathcal{O}_X)$ where:",
+          "choices": [
+            "$X$ is a ring and $\\mathcal{O}_X$ is its spectrum",
+            "$X$ is a topological space and $\\mathcal{O}_X$ is a sheaf of (commutative, unital) rings on $X$",
+            "$X$ is a set and $\\mathcal{O}_X$ is a ring acting on it",
+            "$X$ is a topological space and $\\mathcal{O}_X$ is just a ring — the same ring on every open"
+          ],
+          "answer": 1,
+          "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\mathrm{Spec}\\,R, \\widetilde{R})$ for an affine scheme."
+        },
+        {
+          "type": "mcq",
+          "q": "A ringed space $(X, \\mathcal{O}_X)$ is called LOCALLY ringed when:",
+          "choices": [
+            "the sheaf $\\mathcal{O}_X$ is defined only locally on an open cover",
+            "every stalk $\\mathcal{O}_{X,x}$ is a local ring (has a unique maximal ideal)",
+            "$X$ is locally compact",
+            "$\\mathcal{O}_X(U)$ is a local ring for every open $U$"
+          ],
+          "answer": 1,
+          "explain": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring. The maximal ideal is 'functions vanishing at $x$', and the residue field $\\kappa(x) = \\mathcal{O}_{X,x}/\\mathfrak{m}_x$ is the field of values at $x$. Smooth manifolds, complex manifolds, and schemes are all locally ringed; general ringed spaces need not be."
+        },
+        {
+          "type": "numeric",
+          "q": "For a smooth manifold $M$, the sheaf of sections of the trivial rank-$5$ bundle $M \\times \\mathbb{R}^5 \\to M$ is a locally free $C^\\infty_M$-module of rank equal to what integer?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module. A rank-$n$ bundle corresponds to a locally free $\\mathcal{O}_M$-module of rank $n$; the trivial rank-$5$ bundle gives $(C^\\infty_M)^5$, a free (hence locally free) module of rank $5$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A morphism of locally ringed spaces $(f, f^\\#)\\colon (X, \\mathcal{O}_X) \\to (Y, \\mathcal{O}_Y)$ includes a data piece beyond a continuous map + sheaf-of-rings map. What is the extra condition?",
+          "choices": [
+            "the induced stalk map $f^\\#_x\\colon \\mathcal{O}_{Y, f(x)} \\to \\mathcal{O}_{X, x}$ is a local ring homomorphism: it sends the maximal ideal of $\\mathcal{O}_{Y, f(x)}$ INTO the maximal ideal of $\\mathcal{O}_{X, x}$",
+            "$f$ is a homeomorphism",
+            "$f^\\#$ is an isomorphism of sheaves of rings",
+            "every stalk of $\\mathcal{O}_X$ is a field"
+          ],
+          "answer": 0,
+          "explain": "Without the local-ring condition on stalks, one gets 'ring-valued' morphisms that don't correspond to anything geometric — e.g. between schemes one could otherwise construct a map $\\mathrm{Spec}\\,k(t) \\to \\mathrm{Spec}\\,k[t]_{(t)}$ that inverts the inclusion, which is not a scheme morphism. Locality of the stalk map is exactly what pins down 'the point goes to the point it should.'"
+        },
+        {
+          "type": "mcq",
+          "q": "For an $\\mathcal{O}_X$-module $\\mathcal{F}$ on a ringed space, which statement about tensor product is correct?",
+          "choices": [
+            "$(\\mathcal{F} \\otimes_{\\mathcal{O}_X} \\mathcal{G})(U) = \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$ for every open $U$, with no sheafification needed",
+            "$\\mathcal{F} \\otimes_{\\mathcal{O}_X} \\mathcal{G}$ is defined as the sheafification of $U \\mapsto \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$, and its stalks are $\\mathcal{F}_x \\otimes_{\\mathcal{O}_{X,x}} \\mathcal{G}_x$",
+            "internal $\\mathcal{H}\\!om_{\\mathcal{O}_X}(\\mathcal{F}, \\mathcal{G})$ requires sheafification, but $\\otimes$ does not",
+            "$\\otimes$ is computed stalkwise and glued — no formula on open sets"
+          ],
+          "answer": 1,
+          "explain": "The presheaf $U \\mapsto \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$ generally fails the gluing axiom, so tensor product of $\\mathcal{O}_X$-modules is defined by sheafifying. By contrast, $\\mathcal{H}\\!om_{\\mathcal{O}_X}(\\mathcal{F}, \\mathcal{G})$ is already a sheaf (hom satisfies gluing because morphisms glue)."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathrm{Spec}\\,\\mathbb{Z}$ with structure sheaf $\\mathcal{O}_X$, the stalk at the prime $(0)$ is $\\mathbb{Q}$. What is the residue field $\\kappa((0)) = \\mathcal{O}_{X,(0)}/\\mathfrak{m}_{(0)}$? (Enter $0$ if it is zero, or the characteristic of the residue field otherwise.)",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{Q}$ is already a field, so its maximal ideal is $(0)$ and the residue field is $\\mathbb{Q}/(0) = \\mathbb{Q}$, which has characteristic $0$. At closed points $(p)$ the residue field is $\\mathbb{F}_p$; at the generic point $(0)$ the residue field is $\\mathbb{Q}$."
         }
       ]
     },

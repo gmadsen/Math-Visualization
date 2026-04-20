@@ -1085,6 +1085,33 @@ window.__MVConcepts = {
             "tangent-space-manifolds"
           ],
           "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}."
+        },
+        {
+          "id": "vector-field-flows",
+          "title": "Integral curves and flows",
+          "anchor": "flows",
+          "prereqs": [
+            "tangent-bundle"
+          ],
+          "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact."
+        },
+        {
+          "id": "partition-of-unity",
+          "title": "Partitions of unity",
+          "anchor": "partition",
+          "prereqs": [
+            "smooth-manifold-definition"
+          ],
+          "blurb": "Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones."
+        },
+        {
+          "id": "orientation",
+          "title": "Orientation of manifolds",
+          "anchor": "orientation",
+          "prereqs": [
+            "tangent-bundle"
+          ],
+          "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian."
         }
       ]
     },
@@ -1298,7 +1325,8 @@ window.__MVConcepts = {
           "anchor": "so3su2",
           "prereqs": [
             "lie-algebra-and-exp",
-            "fundamental-group"
+            "fundamental-group",
+            "covering-spaces"
           ],
           "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons."
         },
@@ -1307,7 +1335,8 @@ window.__MVConcepts = {
           "title": "Adjoint representation and Killing form",
           "anchor": "adjoint",
           "prereqs": [
-            "lie-bracket-bch"
+            "lie-bracket-bch",
+            "group-representations"
           ],
           "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity."
         },
@@ -2761,6 +2790,36 @@ window.__MVConcepts = {
             "gluing-affines"
           ],
           "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties."
+        },
+        {
+          "id": "closed-subscheme",
+          "title": "Closed subschemes, reducedness, and irreducibility",
+          "anchor": "closed-subscheme",
+          "prereqs": [
+            "structure-sheaf-schemes",
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Closed subschemes of $\\operatorname{Spec} R$ are $\\operatorname{Spec}(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+        },
+        {
+          "id": "dimension-scheme",
+          "title": "Dimension of a scheme",
+          "anchor": "dimension",
+          "prereqs": [
+            "spectrum-primes",
+            "krull-dimension-ca"
+          ],
+          "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart."
+        },
+        {
+          "id": "fiber-over-point",
+          "title": "Fibers of a morphism over a point",
+          "anchor": "fiber-over-point",
+          "prereqs": [
+            "residue-field-at-prime",
+            "gluing-affines"
+          ],
+          "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once."
         }
       ]
     },

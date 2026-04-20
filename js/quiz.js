@@ -14,6 +14,9 @@
 //   { type: "mcq",     q: "...", choices: ["a","b","c"], answer: 1, explain: "..." }
 //   { type: "numeric", q: "...", answer: 5,        tol: 1e-6,  explain: "..." }
 //   { type: "complex", q: "...", answer: [re, im], tol: 1e-3,  explain: "..." }
+//
+// Optional per-question: `hint` (short text revealed on the ? button; falls
+// back to the first sentence of `explain` when absent).
 (function(global){
   function num(s){ return parseFloat(String(s).trim()); }
 
@@ -30,6 +33,80 @@
         && Math.abs(im - q.answer[1]) <= tol;
     }
     return false;
+  }
+
+  // First-sentence heuristic: split on `.`, `?`, `!`, keep the trailing
+  // punctuation. Returns '' if the explain field is missing or too short to
+  // be useful as a hint on its own.
+  function firstSentence(explain){
+    const s = String(explain || '').trim();
+    if(!s) return '';
+    const m = s.match(/^([\s\S]*?[.?!])(\s|$)/);
+    const chunk = (m ? m[1] : s).trim();
+    if(chunk.length < 20) return '';
+    return chunk;
+  }
+
+  // Does this question have something we can reveal as a hint?
+  function hintTextOf(q){
+    if(q.hint && String(q.hint).trim()) return String(q.hint).trim();
+    return firstSentence(q.explain);
+  }
+
+  // Directional feedback for a wrong numeric answer. `v` is the parsed
+  // submission, `a` is the correct answer, `tol` is the absolute tolerance
+  // the bank specifies. Messages are short and never reveal the answer.
+  function numericFeedback(v, a, tol){
+    if(!Number.isFinite(v)) return '✗ enter a number';
+    const diff = v - a;
+    const absDiff = Math.abs(diff);
+    // Sign flip: roughly opposite sign, magnitudes comparable.
+    if(a !== 0 && v !== 0 && Math.sign(v) !== Math.sign(a)){
+      const r = Math.abs(v) / Math.abs(a);
+      if(r > 0.5 && r < 2) return '✗ sign flipped?';
+    }
+    // Order-of-magnitude error (relative ratio check, only if a ≠ 0).
+    if(a !== 0){
+      const r = Math.abs(v) / Math.abs(a);
+      if(r >= 5 && r <= 20)      return '✗ off by roughly a factor of 10';
+      if(r >= 20)                return '✗ magnitude way too large';
+      if(r > 0 && r <= 1/5 && r >= 1/20) return '✗ off by roughly a factor of 10';
+      if(r > 0 && r < 1/20)      return '✗ magnitude way too small';
+      if(r > 2 && r < 5)         return '✗ within a factor of a few — recheck arithmetic';
+      if(r < 0.5 && r > 1/5)     return '✗ within a factor of a few — recheck arithmetic';
+    }
+    // Close: within ~2× tolerance.
+    if(absDiff <= 2 * tol){
+      return diff > 0 ? '✗ slightly too large' : '✗ slightly too small';
+    }
+    return '✗ not close — re-check approach';
+  }
+
+  // Directional feedback for a wrong complex answer.
+  function complexFeedback(vre, vim, ans, tol){
+    if(!Number.isFinite(vre) || !Number.isFinite(vim)) return '✗ enter two numbers';
+    const [are, aim] = ans;
+    const reOk = Math.abs(vre - are) <= tol;
+    const imOk = Math.abs(vim - aim) <= tol;
+    if(reOk && !imOk) return '✗ real part ✓, imaginary part off';
+    if(!reOk && imOk) return '✗ imaginary part ✓, real part off';
+    // Swap check: did they enter (aim, are)?
+    if(Math.abs(vre - aim) <= tol && Math.abs(vim - are) <= tol){
+      return '✗ did you swap real and imaginary?';
+    }
+    // Magnitude/phase heuristic.
+    const vmag = Math.hypot(vre, vim);
+    const amag = Math.hypot(are, aim);
+    if(amag > 0 && vmag > 0){
+      const magRatio = vmag / amag;
+      const magClose = magRatio > 0.9 && magRatio < 1.1;
+      const dot = vre*are + vim*aim;
+      const phaseCos = dot / (vmag * amag);
+      const phaseClose = phaseCos > 0.98;
+      if(magClose && !phaseClose) return '✗ magnitude ✓, angle off';
+      if(!magClose && phaseClose) return '✗ direction ✓, magnitude off';
+    }
+    return '✗ not close — re-check approach';
   }
 
   function typeset(el){
@@ -71,8 +148,22 @@
                      <span style="color:var(--mute)">i</span>`;
       }
 
+      const hint = hintTextOf(q);
+      const hintBtnHTML = hint
+        ? `<button data-role="hint-btn" aria-label="show hint" title="show hint"
+             style="background:var(--panel2);color:var(--yellow);border:1px solid var(--line);
+             border-radius:6px;padding:.2rem .55rem;font:inherit;font-size:.9rem;cursor:pointer">?</button>`
+        : '';
+
       qDiv.innerHTML = `
-        <div style="margin-bottom:.5rem"><b>Q${i+1}.</b> ${q.q}</div>
+        <div style="margin-bottom:.5rem">
+          <b>Q${i+1}.</b> ${q.q}
+          ${hintBtnHTML}
+        </div>
+        <div data-role="hint-box" class="quiz-hint" style="display:none;margin:.35rem 0 .5rem;
+          padding:.3rem .7rem;color:var(--mute);border-left:2px solid var(--yellow);
+          background:color-mix(in srgb, var(--yellow) 6%, transparent);border-radius:0 4px 4px 0;
+          font-size:.92rem"></div>
         <div>${inputHTML}</div>
         <div class="row" style="margin-top:.5rem">
           <button data-role="check">check</button>
@@ -84,6 +175,17 @@
 
       const fb = qDiv.querySelector('[data-role="fb"]');
       const explainEl = qDiv.querySelector('[data-role="explain"]');
+      const hintBox = qDiv.querySelector('[data-role="hint-box"]');
+      const hintBtn = qDiv.querySelector('[data-role="hint-btn"]');
+      if(hintBtn && hintBox){
+        hintBox.textContent = hint;
+        hintBtn.addEventListener('click', () => {
+          const showing = hintBox.style.display !== 'none';
+          hintBox.style.display = showing ? 'none' : 'block';
+          hintBtn.setAttribute('aria-expanded', showing ? 'false' : 'true');
+          if(!showing) typeset(hintBox);
+        });
+      }
       qDiv.querySelector('[data-role="check"]').addEventListener('click', () => {
         let raw;
         if(q.type === 'mcq'){
@@ -97,8 +199,21 @@
                   im: qDiv.querySelector('[data-role="im"]').value };
         }
         const ok = grade(q, raw);
-        fb.textContent = ok ? '✓ correct' : '✗ try again';
-        fb.style.color = ok ? 'var(--green)' : 'var(--pink)';
+        if(ok){
+          fb.textContent = '✓ correct';
+          fb.style.color = 'var(--green)';
+        } else if(q.type === 'numeric'){
+          const tol = q.tol ?? 1e-6;
+          fb.textContent = numericFeedback(num(raw), q.answer, tol);
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'complex'){
+          const tol = q.tol ?? 1e-3;
+          fb.textContent = complexFeedback(num(raw.re), num(raw.im), q.answer, tol);
+          fb.style.color = 'var(--pink)';
+        } else {
+          fb.textContent = '✗ try again';
+          fb.style.color = 'var(--pink)';
+        }
         if(ok){
           passed.add(i);
           explainEl.style.display = 'block';
@@ -228,5 +343,10 @@
     });
   }
 
-  global.MVQuiz = { init, grade };
+  global.MVQuiz = { init, grade,
+    // Exposed for tests/inspection; not part of the stable page API.
+    _numericFeedback: numericFeedback,
+    _complexFeedback: complexFeedback,
+    _firstSentence: firstSentence,
+    _hintTextOf: hintTextOf };
 })(window);

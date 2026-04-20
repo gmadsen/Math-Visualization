@@ -602,7 +602,7 @@ $$r_k(m) \;=\; \#\{(n_1,\ldots,n_k) \in \mathbb{Z}^k : n_1^2+\cdots+n_k^2 = m\}$
 is the number of ways to write $m$ as an ordered sum of $k$ signed squares. See <a href="./sums-of-squares.html">sums of squares</a> for the elementary half of the story. The theta side is the Fourier-analytic half.</p>
 
 <h3>Two classical consequences</h3>
-<p><strong>Two squares.</strong> $\theta^2$ turns out to be (up to normalization) the Eisenstein series that counts divisors of $n$ with residues mod $4$:
+<p><strong>Two squares.</strong> $\theta^2$ turns out to be (up to normalization) the <a href="./modular-forms.html#eisen" data-auto-inline-link="1">Eisenstein series</a> that counts divisors of $n$ with residues mod $4$:
 $$r_2(n) \;=\; 4\bigl(d_1(n) - d_3(n)\bigr),$$
 where $d_j(n)$ counts divisors of $n$ congruent to $j \bmod 4$. The factor of $4$ is the unit group $\{\pm 1, \pm i\}$ of the Gaussian integers $\mathbb{Z}[i]$ — the deep reason is that a representation $n = a^2 + b^2$ is essentially a factorization $n = (a+bi)(a-bi)$ in $\mathbb{Z}[i]$.</p>
 
@@ -769,7 +769,7 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
 <div class="note">
 <p><strong>$z = 1$</strong>: $\sum_{n\in\mathbb{Z}} q^{n^2/2} = \theta(\tau) = \prod_{n\ge 1}(1-q^n)(1+q^{n-1/2})^2.$</p>
 <p><strong>$z = -1$</strong>: $\sum_{n\in\mathbb{Z}} (-1)^n q^{n^2/2} = \prod_{n\ge 1}(1-q^n)(1-q^{n-1/2})^2 = \frac{\eta(\tau/2)^2}{\eta(\tau)}.$</p>
-<p><strong>$z = q^{1/2}$</strong>: gives Euler's pentagonal number theorem $\prod(1-q^n) = \sum_{k\in\mathbb{Z}} (-1)^k q^{k(3k-1)/2}.$</p>
+<p><strong>$z = q^{1/2}$</strong>: gives <a href="./partitions-generating-functions.html#pent" data-auto-inline-link="1">Euler's pentagonal number theorem</a> $\prod(1-q^n) = \sum_{k\in\mathbb{Z}} (-1)^k q^{k(3k-1)/2}.$</p>
 </div>
 
 <div class="widget" id="w-jtp">
@@ -918,7 +918,7 @@ The first identity is immediate from $q^{1/24}$; the second is equivalent, by a 
 $$\Delta(\tau) \;=\; \eta(\tau)^{24} \;=\; q \prod_{n \ge 1}(1-q^n)^{24} \;=\; \sum_{n \ge 1} \tau(n)\, q^n.$$
 This is the <strong>discriminant modular form</strong> — the first cusp form of weight $12$ — and its Fourier coefficients $\tau(n)$ are Ramanujan's celebrated tau function:
 $$\tau(1) = 1,\ \tau(2) = -24,\ \tau(3) = 252,\ \tau(4) = -1472,\ \tau(5) = 4830,\ \ldots$$
-See <a href="./modular-forms.html">modular forms</a> for the construction of $\Delta$ from Eisenstein series and the conjectures of Ramanujan about $\tau$.</p>
+See <a href="./modular-forms.html">modular forms</a> for the construction of $\Delta$ from <a href="./modular-forms.html#eisen" data-auto-inline-link="1">Eisenstein series</a> and the conjectures of Ramanujan about $\tau$.</p>
 
 <div class="widget" id="w-eta">
   <div class="hd"><div class="ttl">$\eta^{24}$ via the product vs. Ramanujan's $\tau(n)$</div><div class="hint">expand $\prod(1-q^n)^{24}$ and compare</div></div>

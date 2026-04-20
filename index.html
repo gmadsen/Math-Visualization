@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./concepts/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -81,6 +83,30 @@
   .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
   .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
   .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  /* mastery chip: small pill that sits in the bottom row of .body next to .tag.
+     Shows v1/total on the left (green), hard/total on the right (violet).
+     Zero-progress renders muted so the card doesn't feel empty. Injected by the
+     script block at the bottom of <body>; the script also wraps .tag + .mastery
+     in a row container so they share one horizontal line. */
+  .mrow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .mrow .tag{align-self:auto}
+  .mastery{display:inline-flex;align-items:center;gap:6px;
+    font-size:0.7rem;font-family:ui-monospace,Menlo,monospace;
+    padding:1px 8px;border-radius:999px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--mute);letter-spacing:0.02em;
+    white-space:nowrap}
+  .mastery .m-v1{color:var(--green)}
+  .mastery .m-hard{color:var(--violet)}
+  .mastery .m-sep{color:var(--mute);opacity:0.55}
+  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
+  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
+  .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
+  .mastery .m-check{color:var(--green);font-weight:600}
+  @media (max-width:420px){
+    .mastery{font-size:0.66rem;padding:1px 6px}
+    .mrow{gap:6px}
+  }
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
     border-top:1px solid var(--line);padding-top:1.4rem}
 </style>
@@ -1404,5 +1430,75 @@
     Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.
   </footer>
 </main>
+<script>
+// Mastery indicators on index cards.
+// Reads MVProgress (js/progress.js) + __MVConcepts (concepts/bundle.js), and for
+// each <a class="card" href="./<topic>.html"> decorates its .body with a small
+// chip showing v1 and hard mastery counts. Guarded with typeof checks so that
+// if either global is missing the page still renders cleanly.
+(function(){
+  function init(){
+    if(typeof window.MVProgress === 'undefined') return;
+    if(!window.__MVConcepts || !window.__MVConcepts.topics) return;
+    var topics = window.__MVConcepts.topics;
+    var cards = document.querySelectorAll('a.card[href]');
+    for(var i=0;i<cards.length;i++){
+      var card = cards[i];
+      var href = card.getAttribute('href') || '';
+      // strip leading './' and trailing '.html' — e.g. './category-theory.html' -> 'category-theory'
+      var m = href.match(/^(?:\.\/)?([^\/?#]+)\.html(?:[?#].*)?$/);
+      if(!m) continue;
+      var id = m[1];
+      var topic = topics[id];
+      if(!topic || !topic.concepts || !topic.concepts.length) continue;
+      var total = topic.concepts.length;
+      var v1 = 0, hard = 0;
+      for(var j=0;j<total;j++){
+        var cid = topic.concepts[j].id;
+        try {
+          if(window.MVProgress.isMastered(cid)) v1++;
+          if(window.MVProgress.isMastered(cid, 'hard')) hard++;
+        } catch(_){}
+      }
+      var body = card.querySelector('.body');
+      if(!body) continue;
+      var tag = body.querySelector('.tag');
+      // Build chip
+      var chip = document.createElement('span');
+      chip.className = 'mastery';
+      if(v1 === 0 && hard === 0) chip.className += ' m-zero';
+      if(v1 === total && total > 0) chip.className += ' m-full-v1';
+      if(hard === total && total > 0) chip.className += ' m-full-hard';
+      chip.title = 'v1 mastered: ' + v1 + '/' + total + '  ·  hard: ' + hard + '/' + total;
+      chip.setAttribute('aria-label', v1 + ' of ' + total + ' v1 concepts mastered, ' + hard + ' of ' + total + ' hard tier');
+      var v1Span = document.createElement('span');
+      v1Span.className = 'm-v1';
+      v1Span.textContent = (v1 === total && total > 0 ? '✓ ' : '') + v1 + '/' + total;
+      chip.appendChild(v1Span);
+      var sep = document.createElement('span');
+      sep.className = 'm-sep';
+      sep.textContent = '·';
+      chip.appendChild(sep);
+      var hardSpan = document.createElement('span');
+      hardSpan.className = 'm-hard';
+      hardSpan.textContent = hard + '/' + total;
+      chip.appendChild(hardSpan);
+      // Wrap .tag (if present) and chip in a row so they share a line.
+      if(tag && tag.parentNode === body){
+        var row = document.createElement('div');
+        row.className = 'mrow';
+        body.insertBefore(row, tag);
+        row.appendChild(tag);
+        row.appendChild(chip);
+      } else {
+        // Fallback: tag missing — append chip at the end of body.
+        body.appendChild(chip);
+      }
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </body>
 </html>

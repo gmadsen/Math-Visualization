@@ -167,6 +167,9 @@ function mod(a,n){return ((a%n)+n)%n}
   <a href="#residue-field">9&nbsp;Residue&nbsp;fields</a>
   <a href="#locally-ringed-space">10&nbsp;Locally&nbsp;ringed&nbsp;spaces</a>
   <a href="#projective-scheme">11&nbsp;Proj</a>
+  <a href="#closed-subscheme">12&nbsp;Closed&nbsp;subschemes</a>
+  <a href="#dimension">13&nbsp;Dimension</a>
+  <a href="#fiber-over-point">14&nbsp;Fibers</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -202,6 +205,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./schemes.html#dimension">Schemes</a> · Dimension of a scheme</div>
     <div><a href="./schemes.html#generic-point">Schemes</a> · Generic points and specialization</div>
     <div><a href="./schemes.html#residue-field">Schemes</a> · Residue fields and evaluation at points</div>
     <div><a href="./schemes.html#speckxy">Schemes</a> · Structure sheaf and affine schemes</div>
@@ -642,6 +646,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./schemes.html#closed-subscheme">Schemes</a> · Closed subschemes, reducedness, and irreducibility</div>
     <div><a href="./schemes.html#gluing">Schemes</a> · Gluing affine schemes</div>
     <div><a href="./schemes.html#locally-ringed-space">Schemes</a> · Locally ringed spaces</div>
     <div><a href="./sheaves.html#omod">Sheaves</a> · Ringed spaces and $\mathcal{O}_X$-modules</div>
@@ -1128,6 +1133,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./morphisms-fiber-products.html#morphism">Morphisms and fiber products</a> · Morphisms of schemes</div>
+    <div><a href="./schemes.html#fiber-over-point">Schemes</a> · Fibers of a morphism over a point</div>
     <div><a href="./schemes.html#projective-scheme">Schemes</a> · Projective schemes and Proj</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -1313,6 +1319,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>So in $\operatorname{Spec}\mathbb{Z}[x]$ the prime $(x)$ is <em>one point</em> that, when you take its closure, spreads out to cover the whole "$x=0$" axis. The zero ideal $(0)$ is an even more generic point: its closure is <em>all of</em> $\operatorname{Spec}\mathbb{Z}[x]$.</p>
 <p>The partial order "$\mathfrak p\leadsto \mathfrak q$ iff $\mathfrak p\subseteq \mathfrak q$" is <strong>specialization</strong>: the smaller (more generic) prime <em>specializes to</em> the larger (more special) one. Think of it as taking a limit — a generic point "flows into" every closed point of its closure. Properties that hold at a generic point (being smooth, being reduced, being irreducible) typically hold on an open dense neighborhood; properties at closed points are local tests of what happens "at one spot".</p>
 <p>This is what lets algebraic geometers say things like "the generic fiber of a family is smooth, and only finitely many special fibers degenerate" — the generic fiber is <em>literally</em> the fiber over the generic point of the base.</p>
+<div class="quiz" data-concept="generic-point"></div>
 </section>
 
 <section id="residue-field">
@@ -1329,6 +1336,14 @@ function mod(a,n){return ((a%n)+n)%n}
     <li><a href="./commutative-algebra.html#localize">Localization and local algebra</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./schemes.html#fiber-over-point">Schemes</a> · Fibers of a morphism over a point</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="residue-field-at-prime"></div>
 
 </section>
 
@@ -1338,6 +1353,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>Every scheme is a locally ringed space: on $\operatorname{Spec}R$ the stalk at the prime $\mathfrak p$ is the localization $R_{\mathfrak p}$, which is local by construction, with maximal ideal $\mathfrak p R_{\mathfrak p}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\operatorname{Spec}$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>
 <p>The "locally ringed" part is doing real work. A morphism of ringed spaces $f\colon (X,\mathcal O_X)\to (Y,\mathcal O_Y)$ is a continuous map plus a pullback $f^\sharp\colon \mathcal O_Y \to f_*\mathcal O_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\mathcal O_{Y,f(x)}\to \mathcal O_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\operatorname{Spec}$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>
 <p>In short: "sheaf of rings whose stalks detect a unique point of vanishing" is precisely the structure needed to glue $\operatorname{Spec}$'s into a category of honest geometric objects.</p>
+<div class="quiz" data-concept="locally-ringed-space"></div>
 </section>
 
 <section id="projective-scheme">
@@ -1346,7 +1362,191 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>Define $\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\mathfrak p\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\operatorname{Spec}(S_f)_0$, the degree-zero part of the localization.</p>
 <p>For $S=k[x_0,\dots,x_n]$ this reproduces classical $\mathbb P^n_k$: the opens $D_+(x_i)\cong \operatorname{Spec}k[x_0/x_i,\dots,x_n/x_i]\cong \mathbb A^n_k$ patch together exactly by "divide by $x_i$" transitions. For $S=k[x_0,\dots,x_n]/I$ with $I$ a homogeneous ideal, $\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>
 <p>The payoff: every projective scheme is of the form $\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\operatorname{Spec}$ converted affine geometry into the algebra of commutative rings.</p>
+<div class="quiz" data-concept="projective-scheme"></div>
 </section>
+
+<section id="closed-subscheme">
+<h2>12. Closed subschemes, reducedness, and irreducibility</h2>
+<p>A Zariski-closed subset of $\operatorname{Spec}R$ is $V(I)$ for some ideal $I$. But as a <em>scheme</em>, "the closed set $V(I)$" has extra structure: it is $\operatorname{Spec}(R/I)$, and different ideals with the same radical give different subschemes. So a <strong>closed subscheme</strong> of $\operatorname{Spec}R$ is a choice of ideal $I\subseteq R$; the underlying space is $V(I)=V(\sqrt I)$ but the ring of functions remembers $I$ exactly.</p>
+<p>Two complementary simplifications are often useful:</p>
+<p><span class="pill">reduced</span> Replace $I$ by its radical $\sqrt I=\{f\in R : f^n\in I\text{ some }n\}$. The subscheme $\operatorname{Spec}(R/\sqrt I)$ is called the <strong>reduced subscheme</strong> underlying $V(I)$: it has no nilpotents, matching the classical vanishing locus on the nose.</p>
+<p><span class="pill">irreducible</span> $\operatorname{Spec}R$ is <strong>irreducible</strong> iff its nilradical $\operatorname{nil}(R)$ is prime, equivalently iff $R$ has a unique minimal prime. In general, the minimal primes $\mathfrak p_1,\dots,\mathfrak p_r$ of $R$ are in bijection with the <strong>irreducible components</strong>: each $V(\mathfrak p_i)$ is a maximal irreducible closed subset, and $\operatorname{Spec}R = \bigcup_i V(\mathfrak p_i)$.</p>
+<p>For $R=k[x,y]/(xy)$ the minimal primes are $(x)$ and $(y)$, so the two coordinate axes are the two irreducible components, meeting at the closed point $(x,y)$. For $R=k[x,y]/(x^2,y)$ the radical is $(x,y)$: a <em>single</em> reduced point, but $R$ itself is a length-2 non-reduced ring — the "length-2 fat point in the $x$-direction" seen in §6.</p>
+
+<div class="widget" id="w-closed-sub">
+  <div class="hd"><div class="ttl">Ideal → closed subscheme of Spec k[x,y]</div><div class="hint">static example</div></div>
+  <svg id="closed-sub-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <div class="readout" id="closed-sub-readout">Four ideals of $k[x,y]$ cutting out increasingly refined structure on the same underlying set $\{(0,0)\}$ or pair of axes.</div>
+</div>
+<p>The scheme-theoretic distinction is what lets you write "the tangent space of $X$ at $p$ is $\operatorname{Hom}_k(\mathfrak m/\mathfrak m^2, k)$" or "this curve meets this line with multiplicity 3": both record information invisible to the underlying set.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="closed-subscheme"></div>
+</section>
+
+<script>
+/* =============================== SECTION 12: Closed subschemes (static) =============================== */
+(function(){
+  const svg = $('#closed-sub-svg');
+  if(!svg) return;
+  const W=820, H=300;
+  // Four panels, showing the same underlying set with different scheme structure.
+  const panels = [
+    {x:20,  ttl:'I = (x,y)',        sub:'reduced origin',        draw:p=>{
+      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));
+      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});
+      t.textContent='length 1 · reduced'; p.appendChild(t);
+    }},
+    {x:220, ttl:'I = (x²,y)',       sub:'arrow in x-direction', draw:p=>{
+      p.appendChild(SVG('line',{x1:-14,y1:0,x2:14,y2:0,stroke:'var(--yellow)','stroke-width':3,'stroke-linecap':'round'}));
+      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));
+      const t = SVG('text',{x:0,y:26,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});
+      t.textContent='length 2 · non-reduced'; p.appendChild(t);
+    }},
+    {x:420, ttl:'I = (x²,xy,y²)',   sub:'full 2-jet at origin', draw:p=>{
+      p.appendChild(SVG('circle',{cx:0,cy:0,r:14,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'2 3'}));
+      p.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--yellow)'}));
+      const t = SVG('text',{x:0,y:30,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});
+      t.textContent='length 3 · non-reduced'; p.appendChild(t);
+    }},
+    {x:620, ttl:'I = (xy)',         sub:'two axes, reduced',    draw:p=>{
+      p.appendChild(SVG('line',{x1:-40,y1:0,x2:40,y2:0,stroke:'var(--cyan)','stroke-width':2.5}));
+      p.appendChild(SVG('line',{x1:0,y1:-40,x2:0,y2:40,stroke:'var(--pink)','stroke-width':2.5}));
+      p.appendChild(SVG('circle',{cx:0,cy:0,r:4,fill:'var(--violet)'}));
+      const t = SVG('text',{x:0,y:62,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});
+      t.textContent='2 components · reduced'; p.appendChild(t);
+    }},
+  ];
+  // header row
+  for(const pl of panels){
+    const g = SVG('g',{transform:`translate(${pl.x+90},30)`});
+    const th = SVG('text',{x:0,y:0,'font-size':13,'text-anchor':'middle',fill:'var(--ink)','font-weight':600});
+    th.textContent = pl.ttl;
+    g.appendChild(th);
+    const ts = SVG('text',{x:0,y:16,'font-size':11,'text-anchor':'middle',fill:'var(--mute)'});
+    ts.textContent = pl.sub;
+    g.appendChild(ts);
+    svg.appendChild(g);
+    const gp = SVG('g',{transform:`translate(${pl.x+90},160)`});
+    // small axes
+    gp.appendChild(SVG('line',{x1:-60,y1:0,x2:60,y2:0,stroke:'var(--line)','stroke-width':1}));
+    gp.appendChild(SVG('line',{x1:0,y1:-60,x2:0,y2:60,stroke:'var(--line)','stroke-width':1}));
+    pl.draw(gp);
+    svg.appendChild(gp);
+  }
+  // bracket legend
+  const leg = SVG('text',{x:W/2,y:H-20,'font-size':12,'text-anchor':'middle',fill:'var(--mute)'});
+  leg.textContent = 'all four share the same classical vanishing set, but differ as schemes';
+  svg.appendChild(leg);
+})();
+</script>
+
+<section id="dimension">
+<h2>13. Dimension of a scheme</h2>
+<p>The specialization picture from §5 already hints at a natural notion of dimension: chains of primes $\mathfrak p_0\subsetneq \mathfrak p_1\subsetneq\cdots\subsetneq \mathfrak p_d$ in $R$ correspond to chains of specializations $\mathfrak p_0\leadsto \mathfrak p_1\leadsto\cdots\leadsto \mathfrak p_d$ in $\operatorname{Spec}R$. The <strong>dimension</strong> of $\operatorname{Spec}R$ is the length of the longest such chain — by definition the <strong>Krull dimension</strong> of $R$.</p>
+<p>For a general scheme $X$, $\dim X$ is the supremum of chain lengths of irreducible closed subsets, and it is a local property: $\dim X = \sup_{x\in X}\dim \mathcal O_{X,x}$ when $X$ is finite-dimensional. On each affine chart $\operatorname{Spec}R\subseteq X$, this recovers the Krull dimension of $R$.</p>
+<p>Some examples that are good to keep in your head:</p>
+<ul>
+  <li>$\dim \operatorname{Spec} k = 0$ (only the zero ideal).</li>
+  <li>$\dim \operatorname{Spec}\mathbb Z = 1$: chain $(0)\subsetneq (p)$.</li>
+  <li>$\dim \operatorname{Spec} k[x_1,\dots,x_n] = n$: chain $(0)\subsetneq (x_1)\subsetneq (x_1,x_2)\subsetneq\cdots\subsetneq (x_1,\dots,x_n)$.</li>
+  <li>$\dim \operatorname{Spec}\mathbb Z[x_1,\dots,x_n] = n+1$: one extra step for the $\mathbb Z$ direction.</li>
+  <li>$\dim \mathbb P^n_k = n$ — gluing together $n+1$ copies of $\mathbb A^n$ preserves dimension.</li>
+</ul>
+<p>Dimension is the scheme-theoretic version of "how many independent coordinates do I need". Height-one primes cut out codimension-one subschemes (divisors); height-$n$ primes in a regular local ring of dimension $n$ are closed points. The Krull dimension of the local ring $\mathcal O_{X,x}$ — an <strong>invariant of the point</strong> — is the <em>local</em> dimension of $X$ at $x$.</p>
+<div class="note">
+<p style="margin:.2rem 0">Dimension can behave badly for pathological rings, but for finite-type schemes over a field (or $\mathbb Z$) it is well-behaved and matches the geometric intuition. A variety is <em>equidimensional</em> if all irreducible components have the same dimension.</p>
+</div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#dim">Krull dimension and depth heuristics</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="dimension-scheme"></div>
+</section>
+
+<section id="fiber-over-point">
+<h2>14. Fibers of a morphism over a point</h2>
+<p>A morphism of schemes $f\colon X\to Y$ breaks $X$ into <em>fibers</em>, one over each point $y\in Y$. Just as a morphism of varieties over $\mathbb{C}$ has fibers $f^{-1}(y)$, a scheme morphism has a scheme-theoretic fiber.</p>
+<p>The <strong>fiber over $y\in Y$</strong> is the scheme $$X_y \;=\; X\times_Y \operatorname{Spec}\kappa(y),$$ the fiber product with the residue field at $y$. Concretely, if $X=\operatorname{Spec}B$ and $Y=\operatorname{Spec}A$ with $f$ induced by $A\to B$, then $X_y = \operatorname{Spec}(B\otimes_A \kappa(y))$. The underlying set of $X_y$ is exactly the preimage $f^{-1}(y)\subseteq X$, with scheme structure that records multiplicities and residue-field extensions.</p>
+<p>The most arresting example is the structural morphism $f\colon \operatorname{Spec}\mathbb Z[x]\to \operatorname{Spec}\mathbb Z$. Its fibers depend on which point of the base we sit over:</p>
+<p><span class="pill">over $(p)$</span> the fiber is $\operatorname{Spec}(\mathbb Z[x]\otimes_{\mathbb Z}\mathbb F_p)=\operatorname{Spec}\mathbb F_p[x]$ — the affine line over $\mathbb F_p$. One for each prime $p$.</p>
+<p><span class="pill">over $(0)$</span> the <em>generic fiber</em> is $\operatorname{Spec}(\mathbb Z[x]\otimes_{\mathbb Z}\mathbb Q)=\operatorname{Spec}\mathbb Q[x]$ — the affine line over $\mathbb Q$.</p>
+<p>So $\operatorname{Spec}\mathbb Z[x]$ is a "family of affine lines parametrized by primes". This is the single picture that explains why number theorists and geometers can share a vocabulary: a Diophantine equation is a scheme over $\mathbb Z$, and reducing mod $p$ is just "looking at the fiber over $p$".</p>
+
+<div class="widget" id="w-fiber">
+  <div class="hd"><div class="ttl">Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers</div><div class="hint">static schematic</div></div>
+  <svg id="fiber-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <div class="readout" id="fiber-readout">Each column is one fiber of $\operatorname{Spec}\mathbb Z[x]\to\operatorname{Spec}\mathbb Z$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$.</div>
+</div>
+
+<p>The fiber $X_y$ can collapse, extend, or gain nilpotents depending on $y$ — that's precisely what "the family degenerates" means geometrically. Studying a morphism <em>is</em> studying how its fibers vary, and the dedicated page on <a href="./morphisms-fiber-products.html#fiber">morphisms and fiber products</a> develops this into the general theory of base change.</p>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./morphisms-fiber-products.html#fiber">Fiber products and base change</a></li>
+  </ul>
+</aside>
+<div class="quiz" data-concept="fiber-over-point"></div>
+</section>
+
+<script>
+/* =============================== SECTION 14: Arithmetic surface fibers (static) =============================== */
+(function(){
+  const svg = $('#fiber-svg');
+  if(!svg) return;
+  const W=820, H=300;
+  // Base line at the bottom, labelled by primes and the generic point.
+  const baseY = H-44;
+  svg.appendChild(SVG('line',{x1:40,y1:baseY,x2:W-40,y2:baseY,stroke:'var(--line)','stroke-width':1.5}));
+  const baseLabel = SVG('text',{x:W-40,y:baseY+22,'font-size':12,'text-anchor':'end',fill:'var(--mute)'});
+  baseLabel.textContent = 'Spec ℤ  (base)';
+  svg.appendChild(baseLabel);
+  // columns: primes 2,3,5,7,11, and a rightmost generic column
+  const cols = [
+    {x:120, label:'(2)',  col:'var(--cyan)',   fiber:'𝔸¹_{𝔽₂}'},
+    {x:220, label:'(3)',  col:'var(--green)',  fiber:'𝔸¹_{𝔽₃}'},
+    {x:320, label:'(5)',  col:'var(--yellow)', fiber:'𝔸¹_{𝔽₅}'},
+    {x:420, label:'(7)',  col:'var(--pink)',   fiber:'𝔸¹_{𝔽₇}'},
+    {x:520, label:'(11)', col:'var(--violet)', fiber:'𝔸¹_{𝔽₁₁}'},
+    {x:700, label:'(0)',  col:'var(--blue)',   fiber:'𝔸¹_{ℚ}  (generic fiber)'},
+  ];
+  for(const c of cols){
+    // vertical fiber line
+    svg.appendChild(SVG('line',{x1:c.x,y1:40,x2:c.x,y2:baseY-4,stroke:c.col,'stroke-width':1.5,'stroke-opacity':0.8}));
+    // base point
+    svg.appendChild(SVG('circle',{cx:c.x,cy:baseY,r:4,fill:c.col,stroke:'#fff','stroke-width':1}));
+    // base label
+    const lb = SVG('text',{x:c.x,y:baseY+22,'font-size':12,'text-anchor':'middle',fill:c.col});
+    lb.textContent = c.label;
+    svg.appendChild(lb);
+    // fiber label (top)
+    const lf = SVG('text',{x:c.x,y:32,'font-size':12,'text-anchor':'middle',fill:c.col});
+    lf.textContent = c.fiber;
+    svg.appendChild(lf);
+    // a few closed points along the fiber
+    for(let k=0;k<5;k++){
+      const y = 60 + k*32;
+      if(y > baseY-16) break;
+      svg.appendChild(SVG('circle',{cx:c.x,cy:y,r:3,fill:c.col,opacity:0.85}));
+    }
+  }
+  // total-space label
+  const ts = SVG('text',{x:40,y:24,'font-size':13,fill:'var(--ink)','font-weight':600});
+  ts.textContent = 'Spec ℤ[x]  (total space)';
+  svg.appendChild(ts);
+  const ar = SVG('text',{x:40,y:baseY-8,'font-size':11,fill:'var(--mute)'});
+  ar.textContent = '↓  f : fiber over each point of the base';
+  svg.appendChild(ar);
+})();
+</script>
 
 <div id="sections-end"></div>
 

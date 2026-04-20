@@ -65,6 +65,70 @@
         }
       ]
     },
+    "lie-algebra-tangent": {
+      "title": "Lie algebra as tangent space at the identity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a closed matrix Lie group $G\\subset\\mathrm{GL}_n(\\mathbb{R})$, its Lie algebra $\\mathfrak{g}=T_eG$ is computed as:",
+          "choices": [
+            "the set of all $n\\times n$ real matrices",
+            "the set of $X\\in M_n(\\mathbb{R})$ arising as $A'(0)$ for some smooth curve $A(t)\\subset G$ with $A(0)=I$",
+            "the set of invertible matrices in $G$",
+            "the quotient $\\mathrm{GL}_n(\\mathbb{R})/G$"
+          ],
+          "answer": 1,
+          "explain": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity. Concretely, differentiate a curve through $I$ lying in $G$ and collect all such tangent vectors. This recovers $\\mathfrak{sl}_n$ (trace zero), $\\mathfrak{so}(n)$ (skew-symmetric), etc."
+        },
+        {
+          "type": "numeric",
+          "q": "Differentiating $A(t)^\\top A(t)=I$ at $t=0$ with $A(0)=I$ gives which equation on $X=A'(0)$? Enter the answer as the value of $(X^\\top+X)_{1,1}$ when $X$ satisfies this equation.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "Differentiation yields $X^\\top+X=0$, i.e. $X$ is skew-symmetric, so every diagonal entry vanishes. In particular $(X^\\top+X)_{1,1}=2X_{1,1}=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the real dimension of $\\mathfrak{sl}_3(\\mathbb{R})$ (the traceless $3\\times 3$ real matrices)?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A Lie algebra $\\mathfrak{g}$ is an abstract vector space with a bracket $[\\,,\\,]$. Which list of axioms characterises it?",
+          "choices": [
+            "bilinear, symmetric, Jacobi identity",
+            "bilinear, antisymmetric, associative",
+            "bilinear, antisymmetric ($[X,X]=0$), Jacobi identity $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$",
+            "bilinear, commutes with scalar multiplication, has a unit element"
+          ],
+          "answer": 2,
+          "explain": "A Lie algebra is a vector space with a bilinear bracket satisfying $[X,X]=0$ (antisymmetry in characteristic $\\ne 2$) and the Jacobi identity. Lie brackets are never associative; Jacobi is the \"weak\" associativity replacement."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathfrak{g}=\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$ (the cross product). Compute the second component of $[E_1,E_2]+[E_2,E_3]+[E_3,E_1]$ in the $E_1,E_2,E_3$ basis.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$[E_1,E_2]=E_3$, $[E_2,E_3]=E_1$, $[E_3,E_1]=E_2$. Sum is $E_1+E_2+E_3$, whose second component (coefficient of $E_2$) is $1$. Notice this is NOT zero — Jacobi $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ applies to triple brackets, not iterated pairwise brackets."
+        },
+        {
+          "type": "mcq",
+          "q": "Lie's correspondence associates to each real Lie algebra $\\mathfrak{g}$ exactly one simply-connected Lie group $\\widetilde G$. Which pair illustrates that the non-simply-connected $G$ is NOT uniquely determined by $\\mathfrak{g}$?",
+          "choices": [
+            "$\\mathfrak{u}(1)$ corresponds both to $\\mathbb{R}$ (simply connected) and $S^1=\\mathbb{R}/\\mathbb{Z}$ (a quotient by a discrete subgroup)",
+            "$\\mathfrak{sl}_2(\\mathbb{R})$ corresponds uniquely to $\\mathrm{SL}_2(\\mathbb{R})$",
+            "$\\mathfrak{su}(2)$ corresponds uniquely to $\\mathrm{SU}(2)=S^3$",
+            "The zero Lie algebra corresponds to every finite group"
+          ],
+          "answer": 0,
+          "explain": "Both $\\mathbb{R}$ and $S^1$ have Lie algebra $\\mathfrak{u}(1)\\cong\\mathbb{R}$ (abelian, 1-dim). The simply-connected representative is $\\mathbb{R}$; the quotient $\\mathbb{R}/\\mathbb{Z}=S^1$ has the same algebra. In general a Lie algebra determines a Lie group only up to its universal cover and discrete central quotients."
+        }
+      ]
+    },
     "lie-algebra-and-exp": {
       "title": "Lie algebra and exponential map",
       "questions": [
@@ -126,6 +190,209 @@
           ],
           "answer": 1,
           "explain": "For compact connected Lie groups, every element lies on a one-parameter subgroup, so $\\exp$ is surjective. Injectivity fails: e.g., in $\\mathrm{SU}(2)\\cong S^3$, the matrices $\\exp(0)=I$ and $\\exp(2\\pi iH)=I$ for suitable $H$ show different algebra elements mapping to the same group element."
+        }
+      ]
+    },
+    "lie-bracket-bch": {
+      "title": "Bracket, commutators, and BCH",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The group-commutator/bracket identity $\\exp(tX)\\exp(tY)\\exp(-tX)\\exp(-tY)=\\exp\\!\\big(t^2[X,Y]+O(t^3)\\big)$ tells us the leading nonzero order is $t^2$ because:",
+          "choices": [
+            "the first-order term $X+Y-X-Y$ already vanishes, so the next surviving contribution is the antisymmetric piece $XY-YX$",
+            "the exponential series has no linear term",
+            "$\\exp(tX)\\exp(tY)$ always equals $\\exp(t(X+Y))$",
+            "BCH converges only at order $t^2$"
+          ],
+          "answer": 0,
+          "explain": "Expanding each exponential to second order and collecting: the $O(t)$ piece is $X+Y-X-Y=0$ and the symmetric $O(t^2)$ piece ($\\tfrac12 X^2$ etc.) cancels in the four-fold product; what survives is $t^2(XY-YX)=t^2[X,Y]$.",
+          "hint": "Expand each exp to second order, then look at what the four-fold product keeps vs. cancels."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$, compute the coefficient of $E_2$ in $[E_1,[E_2,E_3]]+[E_2,[E_3,E_1]]+[E_3,[E_1,E_2]]$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes. Concretely: $[E_2,E_3]=E_1$ so $[E_1,E_1]=0$; $[E_3,E_1]=E_2$ so $[E_2,E_2]=0$; $[E_1,E_2]=E_3$ so $[E_3,E_3]=0$. Sum $=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ and $Y=\\begin{pmatrix}0&0\\\\1&0\\end{pmatrix}$ in $\\mathfrak{sl}_2$. Compute the $(1,1)$ entry of $[X,Y]$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$. The $(1,1)$ entry is $1$ — this recovers the $\\mathfrak{sl}_2$ relation $[e,f]=h$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Jacobi identity $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ is equivalent to the assertion that:",
+          "choices": [
+            "the bracket is associative",
+            "$\\operatorname{ad}_X=[X,\\cdot]$ is a derivation of the bracket: $\\operatorname{ad}_X[Y,Z]=[\\operatorname{ad}_X Y,Z]+[Y,\\operatorname{ad}_X Z]$",
+            "every bracket $[X,Y]$ equals zero",
+            "$\\mathfrak{g}$ is commutative"
+          ],
+          "answer": 1,
+          "explain": "Rearranging Jacobi: $[X,[Y,Z]]=[[X,Y],Z]+[Y,[X,Z]]$, which is exactly the Leibniz rule stating $\\operatorname{ad}_X$ differentiates the bracket. This is the conceptual content of Jacobi — it is the 'weak associativity' replacement that makes $\\operatorname{ad}$ a Lie algebra homomorphism into $\\operatorname{Der}(\\mathfrak{g})$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathfrak{sl}_2$ with standard basis $h,e,f$ and relations $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute the coefficient of $e$ in the BCH term $\\tfrac{1}{12}\\big([X,[X,Y]]+[Y,[Y,X]]\\big)$ when $X=h$ and $Y=e$.",
+          "answer": 0.3333333333333333,
+          "tol": 1e-4,
+          "explain": "$[h,e]=2e$, so $[h,[h,e]]=[h,2e]=4e$. $[e,[e,h]]=[e,-2e]=0$. Sum is $4e+0=4e$. Multiplying by $\\tfrac{1}{12}$: $\\tfrac{4}{12}e=\\tfrac{1}{3}e$. Coefficient $=1/3\\approx0.3333$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two smooth vector fields $V,W$ on a Lie group $G$ that are left-invariant are determined by their values at $e$, giving $\\mathfrak{g}=T_eG$. How does the Lie bracket of vector fields recover the matrix commutator for $G\\subset\\mathrm{GL}_n$?",
+          "choices": [
+            "they are unrelated — vector-field brackets and matrix commutators are distinct structures",
+            "the Lie bracket $[V,W]$ of left-invariant vector fields is again left-invariant, and its value at $e$ equals $XY-YX$ where $X=V_e,Y=W_e$; this defines the abstract bracket on $\\mathfrak{g}$",
+            "the bracket is the Poisson bracket of Hamiltonians on $T^*G$",
+            "one must first complexify $\\mathfrak{g}$ before the two agree"
+          ],
+          "answer": 1,
+          "explain": "Left-invariant vector fields form a Lie subalgebra of $\\mathfrak{X}(G)$ under the vector-field bracket, canonically identified with $T_eG$ via $V\\mapsto V_e$. Computing in local coordinates on a matrix group, the vector-field bracket at $e$ reduces to the matrix commutator $XY-YX$, unifying the manifold-theoretic and matrix-theoretic definitions of the Lie bracket."
+        }
+      ]
+    },
+    "so3-su2-double-cover": {
+      "title": "SO(3), SU(2), and the double cover",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The covering homomorphism $\\pi:\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$ has kernel:",
+          "choices": [
+            "trivial: $\\pi$ is an isomorphism",
+            "$\\{\\pm I\\}\\subset\\mathrm{SU}(2)$",
+            "the full centre $\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$",
+            "$\\mathbb{Z}/4$"
+          ],
+          "answer": 1,
+          "explain": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation. Hence $\\ker\\pi=\\{\\pm I\\}\\cong\\mathbb{Z}/2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $q=\\cos(\\theta/2)+\\sin(\\theta/2)\\,\\mathbf{i}$ be the unit quaternion implementing rotation by $\\theta$ about the $x$-axis. At what value of $\\theta$ (in radians) does $q$ first equal $-1$?",
+          "answer": 6.283185307179586,
+          "tol": 1e-5,
+          "explain": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e. $\\theta=2\\pi$. A single $360°$ rotation in $\\mathrm{SO}(3)$ lifts to the path $I\\to -I$ in $\\mathrm{SU}(2)$ — the spinor sign."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these statements about the pair $(\\mathrm{SU}(2),\\mathrm{SO}(3))$ is TRUE?",
+          "choices": [
+            "$\\mathrm{SO}(3)$ is simply connected; $\\mathrm{SU}(2)$ is not",
+            "$\\mathrm{SU}(2)$ is simply connected ($\\pi_1=0$); $\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$",
+            "Both groups have the same fundamental group $\\mathbb{Z}$",
+            "Both groups are simply connected"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected. The antipodal quotient $S^3/\\{\\pm1\\}=\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$; this non-trivial loop is the famous \"belt trick.\""
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Two Lie groups share the Lie algebra $\\mathfrak{su}(2)\\cong\\mathfrak{so}(3)$ (both 3-dim with cross-product bracket). Which conclusion follows?",
+          "choices": [
+            "$\\mathrm{SU}(2)$ and $\\mathrm{SO}(3)$ are isomorphic as Lie groups",
+            "$\\mathrm{SU}(2)$ is the simply-connected cover; $\\mathrm{SO}(3)$ is a quotient by a discrete central subgroup, and Lie's correspondence places both in the same germ at the identity",
+            "The exponential maps $\\exp:\\mathfrak{su}(2)\\to\\mathrm{SU}(2)$ and $\\exp:\\mathfrak{so}(3)\\to\\mathrm{SO}(3)$ are equal as set maps",
+            "$\\mathfrak{so}(3)$ must be abelian since $\\mathrm{SO}(3)$ has finite fundamental group"
+          ],
+          "answer": 1,
+          "explain": "Lie's third theorem gives a unique simply-connected group per Lie algebra ($\\mathrm{SU}(2)$ here); other connected Lie groups with the same algebra are quotients by discrete central subgroups. $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ realises this."
+        },
+        {
+          "type": "numeric",
+          "q": "A spin-$\\tfrac12$ representation of $\\mathrm{SU}(2)$ does not descend to $\\mathrm{SO}(3)$ because $-I\\in\\ker\\pi$ acts by what scalar on the spin-$\\tfrac12$ space?",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "The spin-$\\tfrac12$ rep is the defining rep on $\\mathbb{C}^2$: $-I\\cdot v=-v$. For descent to $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ we would need $-I$ to act trivially (scalar $+1$), but it acts by $-1$. Only integer-spin reps descend; half-integer spin lives on $\\mathrm{SU}(2)$ only — this is the spinor/fermion distinction."
+        },
+        {
+          "type": "mcq",
+          "q": "The map $q\\mapsto (\\vec v\\mapsto q\\vec v q^{-1})$ sends a unit quaternion $q\\in S^3$ to a rotation in $\\mathrm{SO}(3)$. Which sequence of steps shows this is a 2:1 covering homomorphism?",
+          "choices": [
+            "(i) Verify $q\\vec v q^{-1}\\in\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathbb{R}^3$; (ii) check it preserves the norm; (iii) compute $\\det=+1$; (iv) identify the kernel $\\{q:q\\vec v q^{-1}=\\vec v\\;\\forall\\vec v\\}=\\{\\pm 1\\}$",
+            "(i) Whitney embed $S^3$ into $\\mathbb{R}^7$; (ii) apply Sard's theorem; (iii) project",
+            "(i) Diagonalise every $q$; (ii) read off rotation angle; (iii) assert 2:1 by character theory",
+            "(i) Restrict $q$ to the equator $S^2\\subset S^3$; (ii) note this is a 2:1 map to $\\mathbb{RP}^2$"
+          ],
+          "answer": 0,
+          "explain": "The standard verification: show conjugation preserves imaginary quaternions (identified with $\\mathbb{R}^3$), preserves the quadratic form (norm), has determinant $+1$ (by connectedness of $S^3$), and identify the kernel. The centre of the quaternion algebra acting trivially by conjugation is exactly $\\{\\pm 1\\}$."
+        }
+      ]
+    },
+    "adjoint-representation-killing": {
+      "title": "Adjoint representation and Killing form",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The adjoint representation of a Lie group $G$ on its Lie algebra $\\mathfrak{g}$ is:",
+          "choices": [
+            "left multiplication: $L_g(X)=gX$",
+            "conjugation: $\\mathrm{Ad}_g(X)=gXg^{-1}$",
+            "the exponential: $\\mathrm{Ad}_g(X)=\\exp(X)$",
+            "the commutator: $\\mathrm{Ad}_g(X)=gX-Xg$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups. It is a homomorphism because $\\mathrm{Ad}_{gh}=\\mathrm{Ad}_g\\mathrm{Ad}_h$."
+        },
+        {
+          "type": "mcq",
+          "q": "Differentiating $\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ at the identity yields the map $\\operatorname{ad}:\\mathfrak{g}\\to\\mathrm{End}(\\mathfrak{g})$ given by:",
+          "choices": [
+            "$\\operatorname{ad}_X(Y)=XY$",
+            "$\\operatorname{ad}_X(Y)=[X,Y]$",
+            "$\\operatorname{ad}_X(Y)=\\exp(X)Y\\exp(-X)$",
+            "$\\operatorname{ad}_X(Y)=X+Y$"
+          ],
+          "answer": 1,
+          "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\operatorname{ad}_X=[X,\\cdot]$ on the algebra."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\operatorname{tr}(\\operatorname{ad}_h\\circ\\operatorname{ad}_h)$ (the Killing form value).",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\operatorname{ad}_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Cartan's criterion characterises semisimplicity via the Killing form. Which statement is correct?",
+          "choices": [
+            "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is positive definite",
+            "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is non-degenerate",
+            "$\\mathfrak{g}$ is semisimple $\\iff$ $B\\equiv 0$",
+            "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is symmetric"
+          ],
+          "answer": 1,
+          "explain": "Cartan's criterion: a finite-dimensional Lie algebra over a field of characteristic $0$ is semisimple iff its Killing form is non-degenerate. For compact real forms $B$ is negative definite (stronger than non-degenerate)."
+        },
+        {
+          "type": "mcq",
+          "q": "On $\\mathfrak{so}(3)$ the Killing form $B$ turns out to be a negative multiple of the Euclidean inner product on $\\mathbb{R}^3$. Which conclusion about the corresponding group $\\mathrm{SO}(3)$ follows?",
+          "choices": [
+            "$\\mathrm{SO}(3)$ is non-compact because $B$ is not positive",
+            "$\\mathrm{SO}(3)$ is compact because the negative-definite $-B$ gives a bi-invariant Riemannian metric with bounded volume",
+            "$\\mathfrak{so}(3)$ is solvable",
+            "$\\mathrm{SO}(3)$ admits no invariant metric"
+          ],
+          "answer": 1,
+          "explain": "Negative-definite Killing form $\\Leftrightarrow$ the real Lie group is compact (among connected semisimple groups, this is Weyl's criterion). $-B$ is a bi-invariant positive-definite inner product on $\\mathfrak{so}(3)$, extending to a bi-invariant Riemannian metric on $\\mathrm{SO}(3)$; compactness follows."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathfrak{g}=\\mathfrak{sl}_2$ with basis $h,e,f$ as above. The adjoint orbit of $h$ under $\\mathrm{SL}_2$ consists of all matrices with the same Jordan type as $h$. What is the dimension of this orbit?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The stabiliser of $h$ is the diagonal torus $\\{\\operatorname{diag}(a,a^{-1})\\}$, which is $1$-dimensional. Hence $\\dim(\\mathrm{Ad}\\text{-orbit})=\\dim\\mathrm{SL}_2-\\dim\\mathrm{stab}=3-1=2$. Geometrically it is the one-sheeted hyperboloid $\\{X\\in\\mathfrak{sl}_2:\\det X=-1\\}$."
         }
       ]
     },

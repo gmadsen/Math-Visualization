@@ -8458,6 +8458,70 @@ window.MVQuizBank = {
           }
         ]
       },
+      "lie-algebra-tangent": {
+        "title": "Lie algebra as tangent space at the identity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a closed matrix Lie group $G\\subset\\mathrm{GL}_n(\\mathbb{R})$, its Lie algebra $\\mathfrak{g}=T_eG$ is computed as:",
+            "choices": [
+              "the set of all $n\\times n$ real matrices",
+              "the set of $X\\in M_n(\\mathbb{R})$ arising as $A'(0)$ for some smooth curve $A(t)\\subset G$ with $A(0)=I$",
+              "the set of invertible matrices in $G$",
+              "the quotient $\\mathrm{GL}_n(\\mathbb{R})/G$"
+            ],
+            "answer": 1,
+            "explain": "By definition $\\mathfrak{g}=T_eG$ is the space of velocity vectors at the identity. Concretely, differentiate a curve through $I$ lying in $G$ and collect all such tangent vectors. This recovers $\\mathfrak{sl}_n$ (trace zero), $\\mathfrak{so}(n)$ (skew-symmetric), etc."
+          },
+          {
+            "type": "numeric",
+            "q": "Differentiating $A(t)^\\top A(t)=I$ at $t=0$ with $A(0)=I$ gives which equation on $X=A'(0)$? Enter the answer as the value of $(X^\\top+X)_{1,1}$ when $X$ satisfies this equation.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "Differentiation yields $X^\\top+X=0$, i.e. $X$ is skew-symmetric, so every diagonal entry vanishes. In particular $(X^\\top+X)_{1,1}=2X_{1,1}=0$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the real dimension of $\\mathfrak{sl}_3(\\mathbb{R})$ (the traceless $3\\times 3$ real matrices)?",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "$\\mathfrak{sl}_n$ is cut out of $M_n\\cong\\mathbb{R}^{n^2}$ by the single linear condition $\\operatorname{tr}X=0$, so $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$: $9-1=8$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A Lie algebra $\\mathfrak{g}$ is an abstract vector space with a bracket $[\\,,\\,]$. Which list of axioms characterises it?",
+            "choices": [
+              "bilinear, symmetric, Jacobi identity",
+              "bilinear, antisymmetric, associative",
+              "bilinear, antisymmetric ($[X,X]=0$), Jacobi identity $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$",
+              "bilinear, commutes with scalar multiplication, has a unit element"
+            ],
+            "answer": 2,
+            "explain": "A Lie algebra is a vector space with a bilinear bracket satisfying $[X,X]=0$ (antisymmetry in characteristic $\\ne 2$) and the Jacobi identity. Lie brackets are never associative; Jacobi is the \"weak\" associativity replacement."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mathfrak{g}=\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$ (the cross product). Compute the second component of $[E_1,E_2]+[E_2,E_3]+[E_3,E_1]$ in the $E_1,E_2,E_3$ basis.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$[E_1,E_2]=E_3$, $[E_2,E_3]=E_1$, $[E_3,E_1]=E_2$. Sum is $E_1+E_2+E_3$, whose second component (coefficient of $E_2$) is $1$. Notice this is NOT zero — Jacobi $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ applies to triple brackets, not iterated pairwise brackets."
+          },
+          {
+            "type": "mcq",
+            "q": "Lie's correspondence associates to each real Lie algebra $\\mathfrak{g}$ exactly one simply-connected Lie group $\\widetilde G$. Which pair illustrates that the non-simply-connected $G$ is NOT uniquely determined by $\\mathfrak{g}$?",
+            "choices": [
+              "$\\mathfrak{u}(1)$ corresponds both to $\\mathbb{R}$ (simply connected) and $S^1=\\mathbb{R}/\\mathbb{Z}$ (a quotient by a discrete subgroup)",
+              "$\\mathfrak{sl}_2(\\mathbb{R})$ corresponds uniquely to $\\mathrm{SL}_2(\\mathbb{R})$",
+              "$\\mathfrak{su}(2)$ corresponds uniquely to $\\mathrm{SU}(2)=S^3$",
+              "The zero Lie algebra corresponds to every finite group"
+            ],
+            "answer": 0,
+            "explain": "Both $\\mathbb{R}$ and $S^1$ have Lie algebra $\\mathfrak{u}(1)\\cong\\mathbb{R}$ (abelian, 1-dim). The simply-connected representative is $\\mathbb{R}$; the quotient $\\mathbb{R}/\\mathbb{Z}=S^1$ has the same algebra. In general a Lie algebra determines a Lie group only up to its universal cover and discrete central quotients."
+          }
+        ]
+      },
       "lie-algebra-and-exp": {
         "title": "Lie algebra and exponential map",
         "questions": [
@@ -8519,6 +8583,209 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "For compact connected Lie groups, every element lies on a one-parameter subgroup, so $\\exp$ is surjective. Injectivity fails: e.g., in $\\mathrm{SU}(2)\\cong S^3$, the matrices $\\exp(0)=I$ and $\\exp(2\\pi iH)=I$ for suitable $H$ show different algebra elements mapping to the same group element."
+          }
+        ]
+      },
+      "lie-bracket-bch": {
+        "title": "Bracket, commutators, and BCH",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The group-commutator/bracket identity $\\exp(tX)\\exp(tY)\\exp(-tX)\\exp(-tY)=\\exp\\!\\big(t^2[X,Y]+O(t^3)\\big)$ tells us the leading nonzero order is $t^2$ because:",
+            "choices": [
+              "the first-order term $X+Y-X-Y$ already vanishes, so the next surviving contribution is the antisymmetric piece $XY-YX$",
+              "the exponential series has no linear term",
+              "$\\exp(tX)\\exp(tY)$ always equals $\\exp(t(X+Y))$",
+              "BCH converges only at order $t^2$"
+            ],
+            "answer": 0,
+            "explain": "Expanding each exponential to second order and collecting: the $O(t)$ piece is $X+Y-X-Y=0$ and the symmetric $O(t^2)$ piece ($\\tfrac12 X^2$ etc.) cancels in the four-fold product; what survives is $t^2(XY-YX)=t^2[X,Y]$.",
+            "hint": "Expand each exp to second order, then look at what the four-fold product keeps vs. cancels."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$, compute the coefficient of $E_2$ in $[E_1,[E_2,E_3]]+[E_2,[E_3,E_1]]+[E_3,[E_1,E_2]]$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "The Jacobi identity forces this sum to be zero, so every coefficient — including that of $E_2$ — vanishes. Concretely: $[E_2,E_3]=E_1$ so $[E_1,E_1]=0$; $[E_3,E_1]=E_2$ so $[E_2,E_2]=0$; $[E_1,E_2]=E_3$ so $[E_3,E_3]=0$. Sum $=0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ and $Y=\\begin{pmatrix}0&0\\\\1&0\\end{pmatrix}$ in $\\mathfrak{sl}_2$. Compute the $(1,1)$ entry of $[X,Y]$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$XY=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $YX=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$, so $[X,Y]=XY-YX=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=h$. The $(1,1)$ entry is $1$ — this recovers the $\\mathfrak{sl}_2$ relation $[e,f]=h$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Jacobi identity $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ is equivalent to the assertion that:",
+            "choices": [
+              "the bracket is associative",
+              "$\\operatorname{ad}_X=[X,\\cdot]$ is a derivation of the bracket: $\\operatorname{ad}_X[Y,Z]=[\\operatorname{ad}_X Y,Z]+[Y,\\operatorname{ad}_X Z]$",
+              "every bracket $[X,Y]$ equals zero",
+              "$\\mathfrak{g}$ is commutative"
+            ],
+            "answer": 1,
+            "explain": "Rearranging Jacobi: $[X,[Y,Z]]=[[X,Y],Z]+[Y,[X,Z]]$, which is exactly the Leibniz rule stating $\\operatorname{ad}_X$ differentiates the bracket. This is the conceptual content of Jacobi — it is the 'weak associativity' replacement that makes $\\operatorname{ad}$ a Lie algebra homomorphism into $\\operatorname{Der}(\\mathfrak{g})$."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathfrak{sl}_2$ with standard basis $h,e,f$ and relations $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute the coefficient of $e$ in the BCH term $\\tfrac{1}{12}\\big([X,[X,Y]]+[Y,[Y,X]]\\big)$ when $X=h$ and $Y=e$.",
+            "answer": 0.3333333333333333,
+            "tol": 0.0001,
+            "explain": "$[h,e]=2e$, so $[h,[h,e]]=[h,2e]=4e$. $[e,[e,h]]=[e,-2e]=0$. Sum is $4e+0=4e$. Multiplying by $\\tfrac{1}{12}$: $\\tfrac{4}{12}e=\\tfrac{1}{3}e$. Coefficient $=1/3\\approx0.3333$."
+          },
+          {
+            "type": "mcq",
+            "q": "Two smooth vector fields $V,W$ on a Lie group $G$ that are left-invariant are determined by their values at $e$, giving $\\mathfrak{g}=T_eG$. How does the Lie bracket of vector fields recover the matrix commutator for $G\\subset\\mathrm{GL}_n$?",
+            "choices": [
+              "they are unrelated — vector-field brackets and matrix commutators are distinct structures",
+              "the Lie bracket $[V,W]$ of left-invariant vector fields is again left-invariant, and its value at $e$ equals $XY-YX$ where $X=V_e,Y=W_e$; this defines the abstract bracket on $\\mathfrak{g}$",
+              "the bracket is the Poisson bracket of Hamiltonians on $T^*G$",
+              "one must first complexify $\\mathfrak{g}$ before the two agree"
+            ],
+            "answer": 1,
+            "explain": "Left-invariant vector fields form a Lie subalgebra of $\\mathfrak{X}(G)$ under the vector-field bracket, canonically identified with $T_eG$ via $V\\mapsto V_e$. Computing in local coordinates on a matrix group, the vector-field bracket at $e$ reduces to the matrix commutator $XY-YX$, unifying the manifold-theoretic and matrix-theoretic definitions of the Lie bracket."
+          }
+        ]
+      },
+      "so3-su2-double-cover": {
+        "title": "SO(3), SU(2), and the double cover",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The covering homomorphism $\\pi:\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$ has kernel:",
+            "choices": [
+              "trivial: $\\pi$ is an isomorphism",
+              "$\\{\\pm I\\}\\subset\\mathrm{SU}(2)$",
+              "the full centre $\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$",
+              "$\\mathbb{Z}/4$"
+            ],
+            "answer": 1,
+            "explain": "The quaternion action $q\\cdot\\vec v=q\\vec v q^{-1}$ on imaginary quaternions is an element of $\\mathrm{SO}(3)$, and $\\pm q$ act identically because the action is conjugation. Hence $\\ker\\pi=\\{\\pm I\\}\\cong\\mathbb{Z}/2$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $q=\\cos(\\theta/2)+\\sin(\\theta/2)\\,\\mathbf{i}$ be the unit quaternion implementing rotation by $\\theta$ about the $x$-axis. At what value of $\\theta$ (in radians) does $q$ first equal $-1$?",
+            "answer": 6.283185307179586,
+            "tol": 0.00001,
+            "explain": "Set $\\cos(\\theta/2)=-1$: minimal solution is $\\theta/2=\\pi$, i.e. $\\theta=2\\pi$. A single $360°$ rotation in $\\mathrm{SO}(3)$ lifts to the path $I\\to -I$ in $\\mathrm{SU}(2)$ — the spinor sign."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these statements about the pair $(\\mathrm{SU}(2),\\mathrm{SO}(3))$ is TRUE?",
+            "choices": [
+              "$\\mathrm{SO}(3)$ is simply connected; $\\mathrm{SU}(2)$ is not",
+              "$\\mathrm{SU}(2)$ is simply connected ($\\pi_1=0$); $\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$",
+              "Both groups have the same fundamental group $\\mathbb{Z}$",
+              "Both groups are simply connected"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{SU}(2)\\cong S^3$ is simply connected. The antipodal quotient $S^3/\\{\\pm1\\}=\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ has $\\pi_1=\\mathbb{Z}/2$; this non-trivial loop is the famous \"belt trick.\""
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Two Lie groups share the Lie algebra $\\mathfrak{su}(2)\\cong\\mathfrak{so}(3)$ (both 3-dim with cross-product bracket). Which conclusion follows?",
+            "choices": [
+              "$\\mathrm{SU}(2)$ and $\\mathrm{SO}(3)$ are isomorphic as Lie groups",
+              "$\\mathrm{SU}(2)$ is the simply-connected cover; $\\mathrm{SO}(3)$ is a quotient by a discrete central subgroup, and Lie's correspondence places both in the same germ at the identity",
+              "The exponential maps $\\exp:\\mathfrak{su}(2)\\to\\mathrm{SU}(2)$ and $\\exp:\\mathfrak{so}(3)\\to\\mathrm{SO}(3)$ are equal as set maps",
+              "$\\mathfrak{so}(3)$ must be abelian since $\\mathrm{SO}(3)$ has finite fundamental group"
+            ],
+            "answer": 1,
+            "explain": "Lie's third theorem gives a unique simply-connected group per Lie algebra ($\\mathrm{SU}(2)$ here); other connected Lie groups with the same algebra are quotients by discrete central subgroups. $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ realises this."
+          },
+          {
+            "type": "numeric",
+            "q": "A spin-$\\tfrac12$ representation of $\\mathrm{SU}(2)$ does not descend to $\\mathrm{SO}(3)$ because $-I\\in\\ker\\pi$ acts by what scalar on the spin-$\\tfrac12$ space?",
+            "answer": -1,
+            "tol": 0.000001,
+            "explain": "The spin-$\\tfrac12$ rep is the defining rep on $\\mathbb{C}^2$: $-I\\cdot v=-v$. For descent to $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ we would need $-I$ to act trivially (scalar $+1$), but it acts by $-1$. Only integer-spin reps descend; half-integer spin lives on $\\mathrm{SU}(2)$ only — this is the spinor/fermion distinction."
+          },
+          {
+            "type": "mcq",
+            "q": "The map $q\\mapsto (\\vec v\\mapsto q\\vec v q^{-1})$ sends a unit quaternion $q\\in S^3$ to a rotation in $\\mathrm{SO}(3)$. Which sequence of steps shows this is a 2:1 covering homomorphism?",
+            "choices": [
+              "(i) Verify $q\\vec v q^{-1}\\in\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathbb{R}^3$; (ii) check it preserves the norm; (iii) compute $\\det=+1$; (iv) identify the kernel $\\{q:q\\vec v q^{-1}=\\vec v\\;\\forall\\vec v\\}=\\{\\pm 1\\}$",
+              "(i) Whitney embed $S^3$ into $\\mathbb{R}^7$; (ii) apply Sard's theorem; (iii) project",
+              "(i) Diagonalise every $q$; (ii) read off rotation angle; (iii) assert 2:1 by character theory",
+              "(i) Restrict $q$ to the equator $S^2\\subset S^3$; (ii) note this is a 2:1 map to $\\mathbb{RP}^2$"
+            ],
+            "answer": 0,
+            "explain": "The standard verification: show conjugation preserves imaginary quaternions (identified with $\\mathbb{R}^3$), preserves the quadratic form (norm), has determinant $+1$ (by connectedness of $S^3$), and identify the kernel. The centre of the quaternion algebra acting trivially by conjugation is exactly $\\{\\pm 1\\}$."
+          }
+        ]
+      },
+      "adjoint-representation-killing": {
+        "title": "Adjoint representation and Killing form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The adjoint representation of a Lie group $G$ on its Lie algebra $\\mathfrak{g}$ is:",
+            "choices": [
+              "left multiplication: $L_g(X)=gX$",
+              "conjugation: $\\mathrm{Ad}_g(X)=gXg^{-1}$",
+              "the exponential: $\\mathrm{Ad}_g(X)=\\exp(X)$",
+              "the commutator: $\\mathrm{Ad}_g(X)=gX-Xg$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is conjugation, $\\mathrm{Ad}_g(X)=gXg^{-1}$ for matrix groups. It is a homomorphism because $\\mathrm{Ad}_{gh}=\\mathrm{Ad}_g\\mathrm{Ad}_h$."
+          },
+          {
+            "type": "mcq",
+            "q": "Differentiating $\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ at the identity yields the map $\\operatorname{ad}:\\mathfrak{g}\\to\\mathrm{End}(\\mathfrak{g})$ given by:",
+            "choices": [
+              "$\\operatorname{ad}_X(Y)=XY$",
+              "$\\operatorname{ad}_X(Y)=[X,Y]$",
+              "$\\operatorname{ad}_X(Y)=\\exp(X)Y\\exp(-X)$",
+              "$\\operatorname{ad}_X(Y)=X+Y$"
+            ],
+            "answer": 1,
+            "explain": "Chain rule: $\\frac{d}{dt}\\big|_0 e^{tX}Ye^{-tX}=XY-YX=[X,Y]$. So the differential of $\\mathrm{Ad}$ at $e$ is the adjoint action $\\operatorname{ad}_X=[X,\\cdot]$ on the algebra."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute $B(h,h)=\\operatorname{tr}(\\operatorname{ad}_h\\circ\\operatorname{ad}_h)$ (the Killing form value).",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "$\\operatorname{ad}_h$ acts on $h,e,f$ with eigenvalues $0,2,-2$. Hence $\\operatorname{ad}_h^2$ has eigenvalues $0,4,4$, and the trace is $0+4+4=8$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Cartan's criterion characterises semisimplicity via the Killing form. Which statement is correct?",
+            "choices": [
+              "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is positive definite",
+              "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is non-degenerate",
+              "$\\mathfrak{g}$ is semisimple $\\iff$ $B\\equiv 0$",
+              "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is symmetric"
+            ],
+            "answer": 1,
+            "explain": "Cartan's criterion: a finite-dimensional Lie algebra over a field of characteristic $0$ is semisimple iff its Killing form is non-degenerate. For compact real forms $B$ is negative definite (stronger than non-degenerate)."
+          },
+          {
+            "type": "mcq",
+            "q": "On $\\mathfrak{so}(3)$ the Killing form $B$ turns out to be a negative multiple of the Euclidean inner product on $\\mathbb{R}^3$. Which conclusion about the corresponding group $\\mathrm{SO}(3)$ follows?",
+            "choices": [
+              "$\\mathrm{SO}(3)$ is non-compact because $B$ is not positive",
+              "$\\mathrm{SO}(3)$ is compact because the negative-definite $-B$ gives a bi-invariant Riemannian metric with bounded volume",
+              "$\\mathfrak{so}(3)$ is solvable",
+              "$\\mathrm{SO}(3)$ admits no invariant metric"
+            ],
+            "answer": 1,
+            "explain": "Negative-definite Killing form $\\Leftrightarrow$ the real Lie group is compact (among connected semisimple groups, this is Weyl's criterion). $-B$ is a bi-invariant positive-definite inner product on $\\mathfrak{so}(3)$, extending to a bi-invariant Riemannian metric on $\\mathrm{SO}(3)$; compactness follows."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mathfrak{g}=\\mathfrak{sl}_2$ with basis $h,e,f$ as above. The adjoint orbit of $h$ under $\\mathrm{SL}_2$ consists of all matrices with the same Jordan type as $h$. What is the dimension of this orbit?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The stabiliser of $h$ is the diagonal torus $\\{\\operatorname{diag}(a,a^{-1})\\}$, which is $1$-dimensional. Hence $\\dim(\\mathrm{Ad}\\text{-orbit})=\\dim\\mathrm{SL}_2-\\dim\\mathrm{stab}=3-1=2$. Geometrically it is the one-sheeted hyperboloid $\\{X\\in\\mathfrak{sl}_2:\\det X=-1\\}$."
           }
         ]
       },
@@ -15976,6 +16243,501 @@ window.MVQuizBank = {
             "explain": "The line with doubled origin is the standard non-separated scheme: two copies of $\\mathbb{A}^1_k$ glued on the complement of the origin. The two origins cannot be separated by open sets, and the diagonal is not closed in the product, violating separatedness."
           }
         ]
+      },
+      "closed-subscheme": {
+        "title": "Closed subschemes, reducedness, and irreducibility",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Closed subschemes of $\\operatorname{Spec} R$ correspond bijectively to:",
+            "choices": [
+              "prime ideals of $R$",
+              "arbitrary ideals $I\\subseteq R$",
+              "maximal ideals of $R$",
+              "radical ideals of $R$ only"
+            ],
+            "answer": 1,
+            "explain": "Each ideal $I\\subseteq R$ gives a closed subscheme $\\operatorname{Spec}(R/I)\\hookrightarrow\\operatorname{Spec}R$, and distinct ideals give distinct subschemes (even when their radicals — hence underlying sets — agree). Radical ideals pick out only the reduced closed subschemes.",
+            "hint": "Different ideals with the same $\\sqrt{I}$ can still define different subschemes."
+          },
+          {
+            "type": "mcq",
+            "q": "The ring $R=k[x,y]/(xy)$ has how many irreducible components when viewed as $\\operatorname{Spec}R$?",
+            "choices": [
+              "0",
+              "1",
+              "2",
+              "infinitely many"
+            ],
+            "answer": 2,
+            "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
+          },
+          {
+            "type": "numeric",
+            "q": "The ideal $I=(x^2,xy,y^2)\\subset k[x,y]$ has radical $\\sqrt I = (x,y)$. As a $k$-vector space the quotient $k[x,y]/I$ has what dimension (the length of the fat point)?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$. The reduced point has length $1$, so this is a non-reduced length-$3$ scheme concentrated at the origin."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $R = k[x,y]/(x^2-y^3)$ (cuspidal cubic). Which statement is TRUE?",
+            "choices": [
+              "$R$ is reduced and $\\operatorname{Spec}R$ is irreducible",
+              "$R$ has nilpotents, so $\\operatorname{Spec}R$ is non-reduced",
+              "$\\operatorname{Spec}R$ is reducible with two components",
+              "$R$ is a field, so $\\operatorname{Spec}R$ is a single reduced point"
+            ],
+            "answer": 0,
+            "explain": "$x^2-y^3$ is irreducible in $k[x,y]$ (it is a prime, since $k[x,y]$ is a UFD and the polynomial is irreducible), so $R=k[x,y]/(x^2-y^3)$ is an integral domain — reduced, and $\\operatorname{Spec}R$ is irreducible with generic point $(0)$. The cusp at the origin is a singular point, but singular $\\ne$ non-reduced."
+          },
+          {
+            "type": "mcq",
+            "q": "The reduced subscheme underlying the closed subscheme $V(I)\\subset\\operatorname{Spec}R$ is:",
+            "choices": [
+              "$\\operatorname{Spec}(R/I)$",
+              "$\\operatorname{Spec}(R/\\sqrt{I})$",
+              "$\\operatorname{Spec}(R_{I})$ (localization at $I$)",
+              "$\\operatorname{Spec}(R/I^2)$"
+            ],
+            "answer": 1,
+            "explain": "Passing to the radical $\\sqrt I$ kills all nilpotents in the quotient. The reduced subscheme with the same underlying set $V(I)$ is $\\operatorname{Spec}(R/\\sqrt I)$; the inclusion $\\sqrt I\\supseteq I$ induces a natural closed immersion $\\operatorname{Spec}(R/\\sqrt I)\\hookrightarrow\\operatorname{Spec}(R/I)$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many minimal primes does $R=\\mathbb Z[x]/(6x) = \\mathbb Z[x]/(2\\cdot 3\\cdot x)$ have? (Equivalently, how many irreducible components does $\\operatorname{Spec}R$ have?)",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "In $\\mathbb Z[x]$, the prime $(6x)=(2)\\cap(3)\\cap(x)$ factors as a meet of three minimal primes over $(6x)$: $(2)$, $(3)$, and $(x)$. In $\\mathbb Z[x]/(6x)$ these become the three minimal primes, so $\\operatorname{Spec}R$ has $3$ irreducible components."
+          }
+        ]
+      },
+      "dimension-scheme": {
+        "title": "Dimension of a scheme",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
+          },
+          {
+            "type": "mcq",
+            "q": "For a finite-type scheme $X$ over a field $k$, the dimension of $X$ at a closed point $x\\in X$ is:",
+            "choices": [
+              "always $0$ because $x$ is a point",
+              "the Krull dimension of the local ring $\\mathcal O_{X,x}$",
+              "the $k$-vector space dimension of $\\mathcal O_{X,x}$",
+              "the number of generators of the maximal ideal $\\mathfrak m_x$"
+            ],
+            "answer": 1,
+            "explain": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$. The global $\\dim X$ is the supremum over closed points (on a finite-type scheme over a field)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z[x_1,x_2]$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "For a Noetherian ring $A$, $\\dim A[x]=\\dim A + 1$. Starting from $\\dim\\mathbb Z = 1$: $\\dim\\mathbb Z[x_1]=2$, $\\dim\\mathbb Z[x_1,x_2]=3$. A maximal chain is $(0)\\subsetneq(p)\\subsetneq(p,x_1)\\subsetneq(p,x_1,x_2)$ for any prime $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X=\\operatorname{Spec}(k[x,y]/(xy))$ be the union of two coordinate axes. Which statement is TRUE?",
+            "choices": [
+              "$\\dim X=2$ because $X\\subset\\mathbb A^2_k$",
+              "$\\dim X=1$, and $X$ is equidimensional",
+              "$\\dim X=0$ because $X$ is reducible",
+              "$\\dim X$ is undefined because $X$ is not irreducible"
+            ],
+            "answer": 1,
+            "explain": "The two irreducible components are the axes $V(x)$ and $V(y)$, each a copy of $\\mathbb A^1_k$ of dimension $1$. So $\\dim X=\\max=1$, and since both components have the same dimension, $X$ is equidimensional."
+          },
+          {
+            "type": "mcq",
+            "q": "For the projective space $\\mathbb P^n_k$, which assertion is correct?",
+            "choices": [
+              "$\\dim\\mathbb P^n_k=n+1$ because of the extra point at infinity",
+              "$\\dim\\mathbb P^n_k=n$; each affine chart $D_+(x_i)\\cong\\mathbb A^n_k$ has dimension $n$ and gluing preserves local dimension",
+              "$\\dim\\mathbb P^n_k=0$ because $\\mathcal O(\\mathbb P^n_k)=k$",
+              "$\\dim\\mathbb P^n_k$ depends on the choice of homogeneous coordinates"
+            ],
+            "answer": 1,
+            "explain": "Dimension is a local notion. $\\mathbb P^n_k$ is covered by $n+1$ open affine charts each isomorphic to $\\mathbb A^n_k$, so $\\dim\\mathbb P^n_k=n$. The fact that global sections are just $k$ is irrelevant to dimension (and is what distinguishes projective from affine)."
+          }
+        ]
+      },
+      "generic-point": {
+        "title": "Generic points and specialization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, the closure of the prime $(x)$ equals:",
+            "choices": [
+              "the single point $(x)$ itself",
+              "the 'axis' $V(x) = \\{\\mathfrak p : x\\in\\mathfrak p\\}$, e.g. all primes of the form $(x,p)$ or $(x)$",
+              "all of $\\operatorname{Spec}\\mathbb Z[x]$",
+              "the empty set"
+            ],
+            "answer": 1,
+            "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
+          },
+          {
+            "type": "mcq",
+            "q": "A generic point of an irreducible closed subset $Z\\subseteq\\operatorname{Spec}R$ is:",
+            "choices": [
+              "any closed point of $Z$",
+              "the unique point $\\eta\\in Z$ whose closure is all of $Z$",
+              "the set of all maximal ideals in $Z$",
+              "the complement of $Z$ in $\\operatorname{Spec}R$"
+            ],
+            "answer": 1,
+            "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
+          },
+          {
+            "type": "numeric",
+            "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $\\mathfrak p\\leadsto\\mathfrak q$ denote specialization (i.e. $\\mathfrak p\\subseteq\\mathfrak q$). Which statement about specialization in $\\operatorname{Spec}\\mathbb Z[x]$ is correct?",
+            "choices": [
+              "$(0)\\leadsto(p)\\leadsto(p,x-a)$ for every prime $p$ and integer $a$",
+              "Specialization is symmetric: $\\mathfrak p\\leadsto\\mathfrak q$ implies $\\mathfrak q\\leadsto\\mathfrak p$",
+              "Closed points can specialize to generic points",
+              "$(p,x)\\leadsto(0)$ because the zero ideal is the smallest prime"
+            ],
+            "answer": 0,
+            "explain": "Specialization flows from smaller (more generic) to larger (more special): $(0)\\subsetneq(p)\\subsetneq(p,x-a)$ gives a chain of specializations from the generic point of the whole spectrum, through the height-$1$ prime $(p)$, down to a closed point. Specialization is antisymmetric, not symmetric; closed points are terminal."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, what is the maximum length of a specialization chain $\\mathfrak p_0\\subsetneq\\mathfrak p_1\\subsetneq\\cdots\\subsetneq\\mathfrak p_n$? (Give $n$, the number of strict inclusions.)",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\dim\\mathbb Z[x]=2$, achieved by e.g. $(0)\\subsetneq(p)\\subsetneq(p,x-a)$: three primes, two strict inclusions. So the longest specialization chain has length $n=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which claim about generic points and open dense subsets is TRUE in a Noetherian irreducible scheme $X$ with generic point $\\eta$?",
+            "choices": [
+              "An open subset $U\\subseteq X$ is dense iff $\\eta\\in U$",
+              "Every non-empty open subset misses $\\eta$",
+              "$\\eta$ lies in every closed subset of $X$",
+              "$\\eta$ is isolated in the Zariski topology"
+            ],
+            "answer": 0,
+            "explain": "Since $\\overline{\\{\\eta\\}}=X$, a closed set $Z\\subsetneq X$ cannot contain $\\eta$. Equivalently, an open $U$ is dense (its complement is a proper closed set) iff $\\eta\\in U$. This is why 'generic' properties — those that hold on a dense open — are exactly the ones that hold at $\\eta$."
+          }
+        ]
+      },
+      "residue-field-at-prime": {
+        "title": "Residue fields and evaluation at points",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The residue field $\\kappa(\\mathfrak p)$ at a prime $\\mathfrak p\\subset R$ is defined as:",
+            "choices": [
+              "$R/\\mathfrak p$",
+              "$\\operatorname{Frac}(R/\\mathfrak p)$, equivalently $R_{\\mathfrak p}/\\mathfrak p R_{\\mathfrak p}$",
+              "$R_{\\mathfrak p}$",
+              "$\\mathfrak p$ itself as an $R$-module"
+            ],
+            "answer": 1,
+            "explain": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal. For a maximal $\\mathfrak p$, $R/\\mathfrak p$ is already a field, but at non-maximal primes you need the fraction field."
+          },
+          {
+            "type": "mcq",
+            "q": "At the generic point $(0)\\in\\operatorname{Spec}\\mathbb Z[x]$, the residue field is:",
+            "choices": [
+              "$\\mathbb F_p$ for some $p$",
+              "$\\mathbb Q$",
+              "$\\mathbb Q(x)$",
+              "$\\mathbb Z[x]$ itself"
+            ],
+            "answer": 2,
+            "explain": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$."
+          },
+          {
+            "type": "numeric",
+            "q": "At the maximal ideal $\\mathfrak m=(2,x^2+x+1)\\subset\\mathbb Z[x]$, the residue field is $\\mathbb Z[x]/(2,x^2+x+1)\\cong\\mathbb F_2[x]/(x^2+x+1)$. How many elements does $\\kappa(\\mathfrak m)$ have?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible. Hence $\\kappa(\\mathfrak m)=\\mathbb F_2[x]/(x^2+x+1)=\\mathbb F_4$, a field of $4$ elements."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider $f=x^2+1\\in\\mathbb Z[x]$, regarded as a 'function' on $\\operatorname{Spec}\\mathbb Z[x]$. At which of the following points does $f$ vanish, in the sense $f\\in\\mathfrak p$?",
+            "choices": [
+              "The closed point $\\mathfrak m=(3,x-1)$ (since $1^2+1=2\\not\\equiv 0\\pmod 3$)",
+              "The closed point $\\mathfrak m=(5,x-2)$ (since $2^2+1=5\\equiv 0\\pmod 5$)",
+              "The generic point $(0)$",
+              "Every prime of $\\mathbb Z[x]$, because $f$ is monic"
+            ],
+            "answer": 1,
+            "explain": "'$f$ vanishes at $\\mathfrak p$' means $f\\in\\mathfrak p$, equivalently $f\\equiv 0$ in $\\kappa(\\mathfrak p)$. At $\\mathfrak m=(5,x-2)$: $\\kappa(\\mathfrak m)=\\mathbb F_5$ and $f\\mapsto 2^2+1=5\\equiv 0$, so yes. At $(3,x-1)$: $f\\mapsto 2\\not\\equiv 0$. At $(0)$: $\\kappa((0))=\\mathbb Q(x)$ and $f=x^2+1\\ne 0$, so $f\\notin(0)$."
+          },
+          {
+            "type": "mcq",
+            "q": "A $k$-point of a $k$-scheme $X$ — a morphism $\\operatorname{Spec}k\\to X$ — corresponds to:",
+            "choices": [
+              "any closed point $x\\in X$",
+              "a closed point $x$ together with an embedding $\\kappa(x)\\hookrightarrow k$",
+              "a generic point of $X$",
+              "an open subscheme of $X$"
+            ],
+            "answer": 1,
+            "explain": "A morphism $\\operatorname{Spec}k\\to X$ picks out a point $x\\in X$ and, since its image lies in the residue field, a $k$-algebra map $\\kappa(x)\\to k$, i.e. an embedding $\\kappa(x)\\hookrightarrow k$. When $k$ is algebraically closed and $\\kappa(x)=k$ this recovers 'classical points', but in general the extra choice of embedding matters (Galois conjugate points)."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathbb Z[x]$, consider the maximal ideal $\\mathfrak m=(p)$ of the height-$1$ prime $(p)\\subset\\mathbb Z[x]$ — i.e. the prime $(p)$ itself, height $1$, not a closed point. The residue field $\\kappa((p))=\\mathbb F_p(x)$. What is its transcendence degree over $\\mathbb F_p$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\kappa((p))=\\operatorname{Frac}(\\mathbb Z[x]/(p))=\\operatorname{Frac}(\\mathbb F_p[x])=\\mathbb F_p(x)$. The transcendence degree of $\\mathbb F_p(x)$ over $\\mathbb F_p$ is $1$ — one transcendental generator $x$. (This matches the intuition that $(p)$ is a 'curve' in $\\operatorname{Spec}\\mathbb Z[x]$.)"
+          }
+        ]
+      },
+      "locally-ringed-space": {
+        "title": "Locally ringed spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A locally ringed space is a pair $(X,\\mathcal O_X)$ where $\\mathcal O_X$ is a sheaf of rings such that:",
+            "choices": [
+              "$\\mathcal O_X$ is a constant sheaf",
+              "every stalk $\\mathcal O_{X,x}$ is a local ring",
+              "every stalk $\\mathcal O_{X,x}$ is a field",
+              "$\\mathcal O_X$ has global sections equal to $\\mathbb Z$"
+            ],
+            "answer": 1,
+            "explain": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal). Stalks being fields is the much stronger condition that defines a 'sheaf of fields', not the right notion for schemes."
+          },
+          {
+            "type": "mcq",
+            "q": "A morphism of locally ringed spaces $(f, f^\\sharp)\\colon(X,\\mathcal O_X)\\to(Y,\\mathcal O_Y)$ must satisfy, in addition to being a morphism of ringed spaces, that for each $x\\in X$ the induced stalk map:",
+            "choices": [
+              "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ is an isomorphism",
+              "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ sends the maximal ideal into the maximal ideal (is a local homomorphism)",
+              "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ is surjective",
+              "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
+            ],
+            "answer": 1,
+            "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
+          },
+          {
+            "type": "mcq",
+            "q": "A scheme is a locally ringed space that is:",
+            "choices": [
+              "compact and Hausdorff",
+              "locally isomorphic (as a locally ringed space) to $\\operatorname{Spec}R$ for some commutative ring $R$",
+              "globally isomorphic to $\\operatorname{Spec}R$ for a single $R$",
+              "a topological manifold"
+            ],
+            "answer": 1,
+            "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\operatorname{Spec}R$ is the stronger 'affine' condition."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider the ring map $\\iota\\colon k\\hookrightarrow k[x]_{(x)}$ (inclusion of $k$ into the localization at $(x)$). The induced map on spectra sends the unique point of $\\operatorname{Spec}k[x]_{(x)}\\cong\\{(0),(x)\\}$ to a point of $\\operatorname{Spec}k=\\{*\\}$. Which stalk map fails to be local if we mistakenly use a non-local ring homomorphism here?",
+            "choices": [
+              "Any $k$-algebra map $k\\to k[x]_{(x)}$ is automatically local",
+              "The map $k\\to k[x]_{(x)}$ is local (the zero ideal of $k$ maps into $(x)k[x]_{(x)}$); the locality condition is automatic because $k$ is a field",
+              "The map is never local because $k$ is smaller than $k[x]_{(x)}$",
+              "Locality fails whenever the target has more than one prime"
+            ],
+            "answer": 1,
+            "explain": "For a ring map $\\phi\\colon A\\to B$ with $A$ local (maximal ideal $\\mathfrak m_A$) and $B$ local (maximal ideal $\\mathfrak m_B$), $\\phi$ is local iff $\\phi(\\mathfrak m_A)\\subseteq\\mathfrak m_B$. When $A=k$ is a field, $\\mathfrak m_A=(0)$ and $\\phi(0)=0\\in\\mathfrak m_B$ automatically — locality is free. The subtlety only appears when $A$ has a non-zero maximal ideal that could map to a unit."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X$ be the topological space $\\{\\eta,s\\}$ with $\\{s\\}$ closed (so $\\eta$ is generic). Equip it with a sheaf $\\mathcal O$ such that $\\mathcal O(X)=R$, $\\mathcal O(\\{\\eta\\})=K$ where $R$ is a DVR with fraction field $K$, and restriction is the localization. Is $(X,\\mathcal O)$ a scheme?",
+            "choices": [
+              "Yes — it is canonically isomorphic to $\\operatorname{Spec}R$",
+              "No — the stalk at $s$ is not local",
+              "Yes, but only if $R=K$",
+              "No — a DVR has $3$ primes, not $2$"
+            ],
+            "answer": 0,
+            "explain": "A DVR $R$ has exactly two primes: $(0)$ and the unique maximal $\\mathfrak m$. So $\\operatorname{Spec}R=\\{(0),\\mathfrak m\\}$ with $\\{\\mathfrak m\\}$ closed and $\\{(0)\\}$ generic, and $\\mathcal O(X)=R$, $\\mathcal O(\\{(0)\\})=\\operatorname{Frac}R=K$. The described $(X,\\mathcal O)$ matches $\\operatorname{Spec}R$ exactly, and the stalks are $R_{\\mathfrak m}=R$ and $R_{(0)}=K$, both local."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is an example of a ringed space that is NOT a locally ringed space?",
+            "choices": [
+              "$(\\operatorname{Spec}\\mathbb Z,\\mathcal O)$ with its usual structure sheaf",
+              "A point $\\{*\\}$ equipped with the ring $\\mathbb Z\\times\\mathbb Z$ (so the unique stalk is $\\mathbb Z\\times\\mathbb Z$, which has two maximal ideals)",
+              "An affine line over $k$ with its usual structure sheaf",
+              "A projective line over $k$ with its usual structure sheaf"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb Z\\times\\mathbb Z$ is a product ring with two maximal ideals $\\mathbb Z\\times 0$ and $0\\times\\mathbb Z$ — it is not local. So the ringed space $(\\{*\\},\\mathbb Z\\times\\mathbb Z)$ fails to be locally ringed. All the other examples are schemes, hence locally ringed."
+          }
+        ]
+      },
+      "projective-scheme": {
+        "title": "Projective schemes and Proj",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a graded ring $S=\\bigoplus_{d\\ge 0}S_d$, the underlying set of $\\operatorname{Proj}S$ consists of:",
+            "choices": [
+              "all prime ideals of $S$",
+              "all homogeneous prime ideals $\\mathfrak p\\subset S$ not containing the irrelevant ideal $S_+=\\bigoplus_{d>0}S_d$",
+              "all maximal ideals of $S_0$",
+              "all ideals of $S$ containing $S_+$"
+            ],
+            "answer": 1,
+            "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
+          },
+          {
+            "type": "mcq",
+            "q": "For $S=k[x_0,x_1,\\dots,x_n]$, the basic open $D_+(x_i)\\subset\\operatorname{Proj}S$ is canonically isomorphic to:",
+            "choices": [
+              "$\\operatorname{Spec}k$",
+              "$\\mathbb A^{n+1}_k=\\operatorname{Spec}k[x_0,\\dots,x_n]$",
+              "$\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (omitting $x_i/x_i=1$)",
+              "$\\operatorname{Proj}k$"
+            ],
+            "answer": 2,
+            "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many standard affine charts cover $\\mathbb P^5_k=\\operatorname{Proj}k[x_0,\\dots,x_5]$?",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$. For $n=5$, that is $6$ charts."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider the twisted cubic $C=\\operatorname{Proj}k[s^3,s^2t,st^2,t^3]\\subset\\mathbb P^3_k$, the image of $\\mathbb P^1_k\\hookrightarrow\\mathbb P^3_k$ via $[s:t]\\mapsto[s^3:s^2t:st^2:t^3]$. Which description is correct?",
+            "choices": [
+              "$C\\cong\\mathbb P^1_k$ via the parametrization, so $\\dim C=1$",
+              "$\\dim C=3$ since $C\\subset\\mathbb P^3_k$",
+              "$C$ is a single point",
+              "$C$ is empty because the ring is not a polynomial ring"
+            ],
+            "answer": 0,
+            "explain": "The graded ring $k[s^3,s^2t,st^2,t^3]\\subset k[s,t]$ is the Veronese subalgebra. Its Proj is the image of $\\mathbb P^1_k\\to\\mathbb P^3_k$, which is an embedded copy of $\\mathbb P^1_k$ — the twisted cubic. So $\\dim C=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $S=k[x_0,x_1,x_2]$ and $I=(x_0^2+x_1^2-x_2^2)$. Then $\\operatorname{Proj}(S/I)$ is:",
+            "choices": [
+              "$\\mathbb P^2_k$ itself",
+              "a smooth conic in $\\mathbb P^2_k$ (over an algebraically closed $k$ of characteristic $\\ne 2$), isomorphic to $\\mathbb P^1_k$",
+              "empty because $I$ contains a non-zero element",
+              "$\\operatorname{Spec}S/I$, an affine conic"
+            ],
+            "answer": 1,
+            "explain": "$x_0^2+x_1^2-x_2^2$ is a non-degenerate homogeneous quadratic form; over algebraically closed $k$ with $\\operatorname{char}k\\ne 2$ it defines a smooth conic in $\\mathbb P^2_k$. All smooth plane conics are isomorphic to $\\mathbb P^1_k$ (e.g. via stereographic projection from any rational point)."
+          },
+          {
+            "type": "numeric",
+            "q": "The global sections $H^0(\\mathbb P^n_k,\\mathcal O(d))$ for $d\\ge 0$ is the degree-$d$ part of $k[x_0,\\dots,x_n]$. What is $\\dim_k H^0(\\mathbb P^2_k,\\mathcal O(3))$? (Number of degree-$3$ monomials in $3$ variables.)",
+            "answer": 10,
+            "tol": 0.000001,
+            "explain": "The number of degree-$d$ monomials in $n+1$ variables is $\\binom{n+d}{d}$. For $n=2$, $d=3$: $\\binom{5}{3}=10$. The ten monomials are $x_0^3,x_0^2x_1,x_0^2x_2,x_0x_1^2,x_0x_1x_2,x_0x_2^2,x_1^3,x_1^2x_2,x_1x_2^2,x_2^3$."
+          }
+        ]
+      },
+      "fiber-over-point": {
+        "title": "Fibers of a morphism over a point",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a morphism $f\\colon X\\to Y$ and $y\\in Y$, the scheme-theoretic fiber $X_y$ is defined as:",
+            "choices": [
+              "$f^{-1}(y)$ with the subspace topology, no extra structure",
+              "the fiber product $X\\times_Y \\operatorname{Spec}\\kappa(y)$",
+              "the affine scheme $\\operatorname{Spec}\\mathcal O_{Y,y}$",
+              "the image of $f$ restricted to a neighborhood of $y$"
+            ],
+            "answer": 1,
+            "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider the structural morphism $\\operatorname{Spec}\\mathbb Z[x]\\to\\operatorname{Spec}\\mathbb Z$. The fiber over the closed point $(5)\\in\\operatorname{Spec}\\mathbb Z$ is:",
+            "choices": [
+              "$\\operatorname{Spec}\\mathbb Z$",
+              "$\\operatorname{Spec}\\mathbb F_5$",
+              "$\\operatorname{Spec}\\mathbb F_5[x]=\\mathbb A^1_{\\mathbb F_5}$",
+              "$\\operatorname{Spec}\\mathbb Q[x]$"
+            ],
+            "answer": 2,
+            "explain": "The fiber over $(p)$ is $\\operatorname{Spec}(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb F_p)=\\operatorname{Spec}\\mathbb F_p[x]=\\mathbb A^1_{\\mathbb F_p}$. For $p=5$ this is the affine line over $\\mathbb F_5$.",
+            "hint": "Tensor $\\mathbb Z[x]$ with the residue field $\\kappa((5))=\\mathbb F_5$."
+          },
+          {
+            "type": "mcq",
+            "q": "The <em>generic fiber</em> of a morphism $X\\to Y$ (with $Y$ integral) is the fiber over:",
+            "choices": [
+              "the generic point $\\eta\\in Y$, i.e. $X\\times_Y\\operatorname{Spec}K(Y)$ where $K(Y)$ is the function field",
+              "every closed point simultaneously",
+              "a random chosen closed point",
+              "the empty subset of $Y$"
+            ],
+            "answer": 0,
+            "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "Consider $f\\colon\\operatorname{Spec}\\mathbb Z[i]\\to\\operatorname{Spec}\\mathbb Z$. How many closed points does the fiber over $(5)\\in\\operatorname{Spec}\\mathbb Z$ have?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Fiber over $(5)$ is $\\operatorname{Spec}(\\mathbb Z[i]\\otimes_{\\mathbb Z}\\mathbb F_5)=\\operatorname{Spec}\\mathbb F_5[x]/(x^2+1)$. Over $\\mathbb F_5$, $x^2+1=(x-2)(x+2)$ (since $2^2=4\\equiv-1$), so the fiber is $\\operatorname{Spec}(\\mathbb F_5\\times\\mathbb F_5)$: two closed points. ($5$ splits in $\\mathbb Z[i]$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "For the family $X=\\operatorname{Spec}k[t,x]/(x^2-t)\\to Y=\\operatorname{Spec}k[t]$ (with $k$ algebraically closed of characteristic $\\ne 2$), which statement correctly compares the fibers?",
+            "choices": [
+              "All fibers are two reduced points",
+              "The fiber over $t=a\\ne 0$ is two reduced closed points ($x=\\pm\\sqrt a$); the fiber over $t=0$ is a single non-reduced point $\\operatorname{Spec}k[x]/(x^2)$",
+              "All fibers are empty",
+              "The generic fiber is two reduced points, but every closed-point fiber is empty"
+            ],
+            "answer": 1,
+            "explain": "Over $t=a\\ne 0$: $k[x]/(x^2-a)\\cong k\\times k$, giving two reduced closed points. Over $t=0$: $k[x]/(x^2)$, a single non-reduced length-$2$ fat point. This is the standard example of a family with a degenerate special fiber — the double cover of $\\mathbb A^1$ ramified at $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $f\\colon\\mathbb P^1_{\\mathbb Z}\\to\\operatorname{Spec}\\mathbb Z$. Which statement about the fibers is TRUE?",
+            "choices": [
+              "The fiber over $(p)$ is $\\mathbb P^1_{\\mathbb F_p}$; the generic fiber is $\\mathbb P^1_{\\mathbb Q}$",
+              "All fibers are $\\operatorname{Spec}\\mathbb Z$",
+              "The generic fiber is empty because $(0)$ is not a closed point",
+              "The fiber over $(p)$ is $\\mathbb A^1_{\\mathbb F_p}$, not $\\mathbb P^1_{\\mathbb F_p}$"
+            ],
+            "answer": 0,
+            "explain": "Base change commutes with Proj: $\\mathbb P^1_{\\mathbb Z}\\times_{\\operatorname{Spec}\\mathbb Z}\\operatorname{Spec}\\kappa((p))=\\mathbb P^1_{\\mathbb F_p}$, and similarly the generic fiber is $\\mathbb P^1_{\\mathbb Q}$. The fibers are genuine $\\mathbb P^1$'s over each residue field — the 'arithmetic surface' $\\mathbb P^1_{\\mathbb Z}$ is a family of projective lines parametrized by $\\operatorname{Spec}\\mathbb Z$."
+          }
+        ]
       }
     }
   },
@@ -16327,6 +17089,75 @@ window.MVQuizBank = {
   "sheaves": {
     "topic": "sheaves",
     "quizzes": {
+      "presheaf-functor": {
+        "title": "Presheaves on Open(X)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A presheaf of sets on $X$ is, by definition:",
+            "choices": [
+              "a covariant functor $\\mathrm{Open}(X) \\to \\mathsf{Set}$",
+              "a contravariant functor $\\mathrm{Open}(X) \\to \\mathsf{Set}$, i.e. a functor $\\mathrm{Open}(X)^{\\mathrm{op}} \\to \\mathsf{Set}$",
+              "a sheaf on $X$ satisfying the equalizer condition",
+              "a presheaf on the one-point compactification of $X$"
+            ],
+            "answer": 1,
+            "explain": "Restriction $F(U) \\to F(V)$ for $V \\subseteq U$ reverses the inclusion arrow $V \\hookrightarrow U$, which is exactly contravariance. Equivalently, a presheaf is a functor out of $\\mathrm{Open}(X)^{\\mathrm{op}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a presheaf $F$ and opens $W \\subseteq V \\subseteq U$, functoriality demands:",
+            "choices": [
+              "$\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$",
+              "$\\rho^U_W = \\rho^U_V \\circ \\rho^V_W$",
+              "$\\rho^U_W = \\rho^U_V + \\rho^V_W$",
+              "$\\rho^U_W$ depends only on $U$, not on $V$ or $W$"
+            ],
+            "answer": 0,
+            "explain": "Restricting to $W$ in one shot must equal: restrict to $V$ first, then to $W$. This is the composition law of the contravariant functor, $\\rho^U_W = \\rho^V_W \\circ \\rho^U_V$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many morphisms are there in $\\mathrm{Open}(X)$ from $V$ to $U$ when $V \\subseteq U$ and $V \\ne U$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Morphisms of presheaves $\\varphi\\colon F \\to G$ are exactly:",
+            "choices": [
+              "maps $\\varphi_X\\colon F(X) \\to G(X)$ on global sections",
+              "maps on stalks $\\varphi_x\\colon F_x \\to G_x$ for every $x \\in X$",
+              "natural transformations of the underlying functors $\\mathrm{Open}(X)^{\\mathrm{op}} \\to \\mathsf{Set}$, i.e. families $\\varphi_U\\colon F(U) \\to G(U)$ commuting with restriction",
+              "continuous maps of étalé spaces"
+            ],
+            "answer": 2,
+            "explain": "Presheaves are functors, so their morphisms are natural transformations: one map per open, with squares $F(U) \\to G(U) \\to G(V)$ equal to $F(U) \\to F(V) \\to G(V)$. Stalk maps are induced, not defining."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a presheaf on $\\mathbb{R}$ (with its usual topology)?",
+            "choices": [
+              "$U \\mapsto C^0(U, \\mathbb{R})$, continuous real-valued functions",
+              "$U \\mapsto \\{\\text{bounded continuous } f\\colon U \\to \\mathbb{R}\\}$",
+              "$U \\mapsto \\mathbb{Z}$ for every nonempty $U$, with all restrictions the identity",
+              "$U \\mapsto \\pi_0(U)$, the set of connected components, with inclusion-induced maps $\\pi_0(U) \\to \\pi_0(V)$ for $V \\subseteq U$"
+            ],
+            "answer": 3,
+            "explain": "An inclusion $V \\hookrightarrow U$ induces a map $\\pi_0(V) \\to \\pi_0(U)$ (send a component of $V$ to the component of $U$ containing it), going the WRONG way for a presheaf. So $U \\mapsto \\pi_0(U)$ is naturally a covariant functor on $\\mathrm{Open}(X)$, not a presheaf. The other three are presheaves (the bounded one fails to be a sheaf, but is still a presheaf)."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X$ be a space with $|\\mathrm{Open}(X)| = 3$ (e.g. $X = \\{a,b\\}$ with topology $\\{\\emptyset, \\{a\\}, X\\}$). A presheaf of sets picks a set $F(U)$ for each open and a restriction for each inclusion. How many non-identity inclusions $V \\subsetneq U$ are there in this $\\mathrm{Open}(X)$? (These are the non-trivial restrictions you must specify.)",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "The three opens are $\\emptyset \\subsetneq \\{a\\} \\subsetneq X$. Strict inclusions: $\\emptyset \\subsetneq \\{a\\}$, $\\emptyset \\subsetneq X$, and $\\{a\\} \\subsetneq X$ — three in total."
+          }
+        ]
+      },
       "presheaf-sheaf-axioms": {
         "title": "Presheaves and the sheaf condition",
         "questions": [
@@ -16462,6 +17293,213 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "The étalé (or étale) space is $\\acute{E}t(F)=\\bigsqcup_{x\\in X}F_x$ topologized so that $F(U)\\cong\\{$continuous sections of $\\pi$ over $U\\}$. This is the sheaf-of-sections construction and underpins the equivalence between sheaves and étalé bundles."
+          }
+        ]
+      },
+      "sheaf-morphisms-stalks": {
+        "title": "Morphisms of sheaves and stalk criteria",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a morphism $\\varphi\\colon F \\to G$ of sheaves on $X$, which stalk criterion is correct?",
+            "choices": [
+              "$\\varphi$ is injective $\\iff$ $\\varphi_U\\colon F(U) \\to G(U)$ is injective for every open $U$, which is equivalent to $\\varphi_x\\colon F_x \\to G_x$ being injective for every $x$",
+              "$\\varphi$ is surjective $\\iff$ $\\varphi_U\\colon F(U) \\to G(U)$ is surjective for every open $U$",
+              "$\\varphi$ is a monomorphism $\\iff$ there exists some open $U$ with $\\varphi_U$ injective",
+              "stalk maps carry no information about $\\varphi$"
+            ],
+            "answer": 0,
+            "explain": "Monomorphisms in $\\mathsf{Sh}(X)$ coincide with sectionwise injective, equivalently stalkwise injective. Epimorphisms are stalkwise surjective but NOT sectionwise surjective in general — that asymmetry is the seed of sheaf cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X = \\mathbb{C}^\\times$, consider $\\exp\\colon \\mathcal{O}_X \\to \\mathcal{O}_X^\\times$ sending $f \\mapsto e^f$. This map is:",
+            "choices": [
+              "stalkwise surjective but not globally surjective; the global section $z \\in \\mathcal{O}_X^\\times(X)$ is not in the image of $\\exp_X$",
+              "stalkwise surjective and globally surjective",
+              "neither stalkwise nor globally surjective",
+              "globally surjective but not stalkwise surjective"
+            ],
+            "answer": 0,
+            "explain": "Locally on a small disc a holomorphic logarithm exists, so $\\exp_x$ is surjective on every stalk. But no global holomorphic logarithm of $z$ exists on $\\mathbb{C}^\\times$ (the branch cut obstructs it), so $z \\not\\in \\exp(\\mathcal{O}(\\mathbb{C}^\\times))$."
+          },
+          {
+            "type": "numeric",
+            "q": "A short exact sequence $0 \\to F' \\to F \\to F'' \\to 0$ of sheaves of abelian groups on $X$ yields a long exact sequence in sheaf cohomology. The cohomology degree where the first new obstruction to global surjectivity appears is $H^i(X, F')$ for $i = ?$",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$. The connecting map lands in $H^1$, which measures exactly the failure of $\\Gamma F \\to \\Gamma F''$ to be surjective."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For a morphism $\\varphi\\colon F \\to G$ of sheaves of abelian groups, how is the image sheaf $\\mathrm{im}\\,\\varphi$ defined, and why?",
+            "choices": [
+              "as the presheaf $U \\mapsto \\varphi_U(F(U)) \\subseteq G(U)$, because presheaf images are already sheaves",
+              "as the sheafification of $U \\mapsto \\varphi_U(F(U))$, because the presheaf image need not satisfy gluing — sections that are locally in the image may not come from a global preimage",
+              "as the kernel of the cokernel map $G \\to \\mathrm{coker}\\,\\varphi$, which by definition is the presheaf image",
+              "as $\\ker(\\varphi)^\\perp$ inside $G$"
+            ],
+            "answer": 1,
+            "explain": "The presheaf image $U \\mapsto \\varphi_U F(U)$ captures 'sections of $G$ actually coming from $F$ on $U$', but a section of $G$ that is locally of this form need not lift to a global preimage — exactly the exponential example. Sheafifying fixes this, and on stalks one still has $(\\mathrm{im}\\,\\varphi)_x = \\mathrm{im}(\\varphi_x)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $\\varphi\\colon F \\to G$ be a morphism of sheaves of sets with $\\varphi_x\\colon F_x \\to G_x$ a bijection for every $x \\in X$. Then:",
+            "choices": [
+              "$\\varphi$ is an isomorphism of sheaves",
+              "$\\varphi_U\\colon F(U) \\to G(U)$ is a bijection for every $U$, but $\\varphi$ need not be an iso in $\\mathsf{Sh}(X)$",
+              "only $\\varphi_X$ is a bijection; smaller opens may fail",
+              "nothing can be concluded without global information"
+            ],
+            "answer": 0,
+            "explain": "For sheaves, stalkwise iso $\\iff$ iso. Sectionwise bijectivity is actually a consequence: stalkwise injective gives sectionwise injective (using locality), and stalkwise surjective + locality + gluing of $F$ gives sectionwise surjective. Together: $\\varphi_U$ is a bijection for every $U$, hence $\\varphi$ is an iso in $\\mathsf{Sh}(X)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X = \\mathbb{C}^\\times$. The cokernel sheaf of $\\exp\\colon \\mathcal{O}_X \\to \\mathcal{O}_X^\\times$ (stalkwise surjective) is the zero sheaf, yet the presheaf cokernel $U \\mapsto \\mathcal{O}^\\times(U)/\\exp \\mathcal{O}(U)$ evaluated at $U = X$ is a nontrivial group isomorphic to $H^1(\\mathbb{C}^\\times, \\underline{2\\pi i\\mathbb{Z}})$. What is the rank of this $\\mathbb{Z}$-module?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$H^1(\\mathbb{C}^\\times, \\underline{\\mathbb{Z}}) \\cong \\mathbb{Z}$ (generated by the winding-number cocycle), so the $\\mathbb{Z}$-rank is $1$. This is why the presheaf cokernel disagrees with the sheaf cokernel: sheafification wipes out the obstruction, which reappears as $H^1$."
+          }
+        ]
+      },
+      "sheafification-functor": {
+        "title": "Sheafification as a left adjoint",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The sheafification functor $(-)^\\#\\colon \\mathsf{PSh}(X) \\to \\mathsf{Sh}(X)$ is:",
+            "choices": [
+              "right adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$",
+              "left adjoint to the inclusion $\\iota\\colon \\mathsf{Sh}(X) \\hookrightarrow \\mathsf{PSh}(X)$, so $\\mathrm{Hom}_{\\mathsf{Sh}}(F^\\#, G) \\cong \\mathrm{Hom}_{\\mathsf{PSh}}(F, \\iota G)$",
+              "an equivalence of categories $\\mathsf{PSh}(X) \\simeq \\mathsf{Sh}(X)$",
+              "not a functor in general"
+            ],
+            "answer": 1,
+            "explain": "Sheafification is the left adjoint to $\\iota$. The universal property: any presheaf map $F \\to \\iota G$ into a sheaf factors uniquely through the unit $\\eta\\colon F \\to F^\\#$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which invariant of a presheaf $F$ is preserved by sheafification?",
+            "choices": [
+              "the global sections $F(X)$",
+              "the sections $F(U)$ for every open $U$",
+              "the stalks $F_x$ at every point",
+              "nothing — sheafification changes everything"
+            ],
+            "answer": 2,
+            "explain": "The unit $\\eta\\colon F \\to F^\\#$ induces an isomorphism $F_x \\xrightarrow{\\sim} (F^\\#)_x$ on every stalk. Global and sectional data CAN change — e.g. the constant presheaf on a disconnected space has $F(X) = S$ but $F^\\#(X) = S^{\\#(\\mathrm{components})}$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X = U_1 \\sqcup U_2 \\sqcup U_3$ be a disjoint union of three nonempty opens, and let $F = \\underline{\\mathbb{Z}/2}^{\\mathrm{pre}}$ be the constant presheaf with value $\\mathbb{Z}/2$. How many elements does the sheafified global-sections set $F^\\#(X)$ have?",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$. With three components, this is $(\\mathbb{Z}/2)^3$, which has $2^3 = 8$ elements. The unsheafified presheaf $F(X)$ has only $2$ elements, so sheafification has multiplied the global sections from $2$ to $8$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A reflective subcategory $\\mathcal{C} \\subseteq \\mathcal{D}$ is one where the inclusion has a left adjoint $L\\colon \\mathcal{D} \\to \\mathcal{C}$. Why is $\\mathsf{Sh}(X) \\subseteq \\mathsf{PSh}(X)$ with reflector $(-)^\\#$ a good thing for computing in sheaves?",
+            "choices": [
+              "colimits in $\\mathsf{Sh}(X)$ are computed by taking the presheaf colimit and sheafifying — one can work pointwise and fix up gluing only at the end",
+              "limits in $\\mathsf{Sh}(X)$ require sheafifying",
+              "every sheaf morphism extends non-uniquely to a presheaf morphism",
+              "sheaves are closed under arbitrary set-theoretic operations in presheaves"
+            ],
+            "answer": 0,
+            "explain": "Left adjoints preserve colimits. So colimits in $\\mathsf{Sh}(X)$ are the reflection of presheaf colimits: compute pointwise, then sheafify. Limits, by contrast, are computed pointwise directly and do not need sheafification — the inclusion $\\iota$ preserves limits as a right adjoint."
+          },
+          {
+            "type": "mcq",
+            "q": "Sheafification of abelian presheaves $(-)^\\#\\colon \\mathsf{PSh}(X, \\mathsf{Ab}) \\to \\mathsf{Sh}(X, \\mathsf{Ab})$ is exact. Which combination of facts is essential to this exactness?",
+            "choices": [
+              "sheafification preserves stalks, and a sequence of sheaves of abelian groups is exact iff exact on every stalk",
+              "sheafification is a right adjoint",
+              "the sheaf condition is a finite-limit condition, and every functor preserves finite limits",
+              "exactness in $\\mathsf{Sh}(X, \\mathsf{Ab})$ means sectionwise exactness"
+            ],
+            "answer": 0,
+            "explain": "Two ingredients: (1) sheafification preserves stalks (it's the universal gluing fix that leaves germs alone), (2) exactness of sheaves of abelian groups is stalk-local. Combined: $(F^\\#)_x = F_x$, so stalk-exact in presheaves $\\implies$ stalk-exact in sheaves $\\iff$ exact in $\\mathsf{Sh}(X, \\mathsf{Ab})$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $F$ be any presheaf on a space $X$. The 'plus construction' $F^+$ applied once yields a separated presheaf; applied twice yields a sheaf. How many applications of $(-)^+$ are required in general to land in $\\mathsf{Sh}(X)$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Grothendieck's theorem: $F^{++} = F^\\#$ is always a sheaf, so two applications suffice. One application is not enough: $F^+$ is separated (locality holds) but may still fail gluing."
+          }
+        ]
+      },
+      "ox-modules": {
+        "title": "Ringed spaces and $\\mathcal{O}_X$-modules",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A ringed space is a pair $(X, \\mathcal{O}_X)$ where:",
+            "choices": [
+              "$X$ is a ring and $\\mathcal{O}_X$ is its spectrum",
+              "$X$ is a topological space and $\\mathcal{O}_X$ is a sheaf of (commutative, unital) rings on $X$",
+              "$X$ is a set and $\\mathcal{O}_X$ is a ring acting on it",
+              "$X$ is a topological space and $\\mathcal{O}_X$ is just a ring — the same ring on every open"
+            ],
+            "answer": 1,
+            "explain": "A ringed space packages 'geometry' ($X$, a topological space) with 'functions' ($\\mathcal{O}_X$, a sheaf of rings). Examples: $(M, C^\\infty_M)$ for a smooth manifold; $(\\mathrm{Spec}\\,R, \\widetilde{R})$ for an affine scheme."
+          },
+          {
+            "type": "mcq",
+            "q": "A ringed space $(X, \\mathcal{O}_X)$ is called LOCALLY ringed when:",
+            "choices": [
+              "the sheaf $\\mathcal{O}_X$ is defined only locally on an open cover",
+              "every stalk $\\mathcal{O}_{X,x}$ is a local ring (has a unique maximal ideal)",
+              "$X$ is locally compact",
+              "$\\mathcal{O}_X(U)$ is a local ring for every open $U$"
+            ],
+            "answer": 1,
+            "explain": "Local ringedness is the stalk-level condition: every $\\mathcal{O}_{X,x}$ is a local ring. The maximal ideal is 'functions vanishing at $x$', and the residue field $\\kappa(x) = \\mathcal{O}_{X,x}/\\mathfrak{m}_x$ is the field of values at $x$. Smooth manifolds, complex manifolds, and schemes are all locally ringed; general ringed spaces need not be."
+          },
+          {
+            "type": "numeric",
+            "q": "For a smooth manifold $M$, the sheaf of sections of the trivial rank-$5$ bundle $M \\times \\mathbb{R}^5 \\to M$ is a locally free $C^\\infty_M$-module of rank equal to what integer?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module. A rank-$n$ bundle corresponds to a locally free $\\mathcal{O}_M$-module of rank $n$; the trivial rank-$5$ bundle gives $(C^\\infty_M)^5$, a free (hence locally free) module of rank $5$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A morphism of locally ringed spaces $(f, f^\\#)\\colon (X, \\mathcal{O}_X) \\to (Y, \\mathcal{O}_Y)$ includes a data piece beyond a continuous map + sheaf-of-rings map. What is the extra condition?",
+            "choices": [
+              "the induced stalk map $f^\\#_x\\colon \\mathcal{O}_{Y, f(x)} \\to \\mathcal{O}_{X, x}$ is a local ring homomorphism: it sends the maximal ideal of $\\mathcal{O}_{Y, f(x)}$ INTO the maximal ideal of $\\mathcal{O}_{X, x}$",
+              "$f$ is a homeomorphism",
+              "$f^\\#$ is an isomorphism of sheaves of rings",
+              "every stalk of $\\mathcal{O}_X$ is a field"
+            ],
+            "answer": 0,
+            "explain": "Without the local-ring condition on stalks, one gets 'ring-valued' morphisms that don't correspond to anything geometric — e.g. between schemes one could otherwise construct a map $\\mathrm{Spec}\\,k(t) \\to \\mathrm{Spec}\\,k[t]_{(t)}$ that inverts the inclusion, which is not a scheme morphism. Locality of the stalk map is exactly what pins down 'the point goes to the point it should.'"
+          },
+          {
+            "type": "mcq",
+            "q": "For an $\\mathcal{O}_X$-module $\\mathcal{F}$ on a ringed space, which statement about tensor product is correct?",
+            "choices": [
+              "$(\\mathcal{F} \\otimes_{\\mathcal{O}_X} \\mathcal{G})(U) = \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$ for every open $U$, with no sheafification needed",
+              "$\\mathcal{F} \\otimes_{\\mathcal{O}_X} \\mathcal{G}$ is defined as the sheafification of $U \\mapsto \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$, and its stalks are $\\mathcal{F}_x \\otimes_{\\mathcal{O}_{X,x}} \\mathcal{G}_x$",
+              "internal $\\mathcal{H}\\!om_{\\mathcal{O}_X}(\\mathcal{F}, \\mathcal{G})$ requires sheafification, but $\\otimes$ does not",
+              "$\\otimes$ is computed stalkwise and glued — no formula on open sets"
+            ],
+            "answer": 1,
+            "explain": "The presheaf $U \\mapsto \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$ generally fails the gluing axiom, so tensor product of $\\mathcal{O}_X$-modules is defined by sheafifying. By contrast, $\\mathcal{H}\\!om_{\\mathcal{O}_X}(\\mathcal{F}, \\mathcal{G})$ is already a sheaf (hom satisfies gluing because morphisms glue)."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathrm{Spec}\\,\\mathbb{Z}$ with structure sheaf $\\mathcal{O}_X$, the stalk at the prime $(0)$ is $\\mathbb{Q}$. What is the residue field $\\kappa((0)) = \\mathcal{O}_{X,(0)}/\\mathfrak{m}_{(0)}$? (Enter $0$ if it is zero, or the characteristic of the residue field otherwise.)",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\mathbb{Q}$ is already a field, so its maximal ideal is $(0)$ and the residue field is $\\mathbb{Q}/(0) = \\mathbb{Q}$, which has characteristic $0$. At closed points $(p)$ the residue field is $\\mathbb{F}_p$; at the generic point $(0)$ the residue field is $\\mathbb{Q}$."
           }
         ]
       },
@@ -16958,6 +17996,139 @@ window.MVQuizBank = {
           }
         ]
       },
+      "smooth-manifold-examples": {
+        "title": "Examples: spheres, projective spaces, matrix groups",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the dimension of the matrix Lie group $\\mathrm{SO}(n)$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles."
+          },
+          {
+            "type": "mcq",
+            "q": "Real projective space $\\mathbb{RP}^n$ can be described as:",
+            "choices": [
+              "the $n$-sphere $S^n$ with a distinguished basepoint",
+              "the quotient $S^n/\\{\\pm 1\\}$ by the antipodal identification, an $n$-manifold",
+              "the complement of the origin in $\\mathbb{R}^{n+1}$",
+              "a compact $(n+1)$-manifold"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Grassmannian $\\mathrm{Gr}(k,n)$ of $k$-planes in $\\mathbb{R}^n$ has dimension $k(n-k)$. What is $\\dim\\mathrm{Gr}(2,5)$?",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$. The charts are graphs of linear maps $W_0\\to W_0^\\perp$, giving $k(n-k)$ parameters."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "The unitary group $\\mathrm{U}(n)$ is cut out of $\\mathrm{GL}_n(\\mathbb{C})$ by $A^*A=I$. What is its real dimension for $n=2$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=2$ this gives $4$. (Concretely: $\\mathrm{U}(2)\\cong \\mathrm{U}(1)\\times\\mathrm{SU}(2)/\\mathbb{Z}_2$, with $\\dim\\mathrm{U}(1)=1$ and $\\dim\\mathrm{SU}(2)=3$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the cone $C=\\{(x,y,z):z^2=x^2+y^2\\}\\subset\\mathbb{R}^3$ NOT a smooth manifold near the apex $(0,0,0)$?",
+            "choices": [
+              "The cone is not connected near the apex",
+              "Any neighbourhood of the apex in $C$ is not homeomorphic to an open subset of $\\mathbb{R}^2$ — removing the apex disconnects it into two components, while removing a point from a $2$-disk leaves one component",
+              "The cone fails to be Hausdorff at the apex",
+              "Smoothness requires an analytic parametrization, which the cone does not admit"
+            ],
+            "answer": 1,
+            "explain": "Take any small neighbourhood $U$ of the apex in $C$. Then $U\\setminus\\{0\\}$ has two connected components (the two half-cones). But for any point in a smooth $2$-manifold, removing it leaves a connected punctured disk. So no such neighbourhood is homeomorphic to $\\mathbb{R}^2$, and $C$ fails even to be a topological manifold at the apex — smoothness is not the issue, the topology is."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a smooth manifold structure on the complex projective line $\\mathbb{CP}^1$?",
+            "choices": [
+              "$\\mathbb{CP}^1\\cong S^2$ as smooth manifolds, with two charts from the affine pieces $\\{z_0\\ne 0\\}$ and $\\{z_1\\ne 0\\}$ glued by $w=1/z$",
+              "$\\mathbb{CP}^1\\cong\\mathbb{R}^2$ as smooth manifolds; a single global chart suffices",
+              "$\\mathbb{CP}^1\\cong T^2$ as smooth manifolds",
+              "$\\mathbb{CP}^1$ is not a smooth manifold; it has a singular point at infinity"
+            ],
+            "answer": 0,
+            "explain": "$\\mathbb{CP}^1$ has two affine charts $U_0=\\{[z_0:z_1]:z_0\\ne 0\\}$ with coordinate $z=z_1/z_0$ and $U_1=\\{z_1\\ne 0\\}$ with coordinate $w=z_0/z_1$; on the overlap $w=1/z$, smooth (in fact holomorphic). Topologically the result is $S^2$ — the Riemann sphere — and one can check the smooth structures match the standard stereographic atlas."
+          }
+        ]
+      },
+      "smooth-map": {
+        "title": "Smooth maps and diffeomorphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A map $f\\colon M\\to N$ between smooth manifolds is smooth iff:",
+            "choices": [
+              "$f$ is continuous",
+              "for every chart $(U,\\varphi)$ on $M$ and $(V,\\psi)$ on $N$ with $f(U)\\subseteq V$, the coordinate representative $\\psi\\circ f\\circ\\varphi^{-1}$ is $C^\\infty$",
+              "$f$ is a homeomorphism onto its image",
+              "$f$ is linear in some chart"
+            ],
+            "answer": 1,
+            "explain": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space. Chart compatibility makes this property independent of chart choice."
+          },
+          {
+            "type": "mcq",
+            "q": "A diffeomorphism $f\\colon M\\to N$ is:",
+            "choices": [
+              "a smooth map",
+              "a smooth bijection whose inverse is also smooth",
+              "any homeomorphism",
+              "a linear bijection"
+            ],
+            "answer": 1,
+            "explain": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse. A smooth bijection need not be a diffeomorphism — consider $x\\mapsto x^3$ on $\\mathbb{R}$, whose inverse is not smooth at $0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(x+y,\\,xy)$. At $p=(1,2)$ the Jacobian is $\\begin{pmatrix}1&1\\\\ y&x\\end{pmatrix}_{(1,2)} = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$. What is the rank of $df_p$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The map $f\\colon\\mathbb{R}\\to\\mathbb{R}$, $f(x)=x^3$, is a smooth bijection. Why is it NOT a diffeomorphism?",
+            "choices": [
+              "$f$ is not surjective",
+              "$f$ is not injective",
+              "$f^{-1}(y)=y^{1/3}$ is not differentiable at $y=0$ (its derivative blows up), so $f^{-1}$ is not smooth there",
+              "$f$ is not continuous"
+            ],
+            "answer": 2,
+            "explain": "$f$ is a smooth bijection, but $df_0 = 3x^2|_{x=0} = 0$ is non-invertible, and $f^{-1}(y)=y^{1/3}$ has $(f^{-1})'(y)=\\tfrac{1}{3}y^{-2/3}$, which diverges as $y\\to 0$. So $f^{-1}$ fails to be smooth (in fact even $C^1$) at $0$, and $f$ is not a diffeomorphism. The inverse function theorem obstruction: $df_p$ must be an isomorphism at every $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which condition on a smooth map $f\\colon M\\to N$ is necessary AND sufficient for $f$ to be a local diffeomorphism at $p\\in M$?",
+            "choices": [
+              "$f$ is injective near $p$",
+              "$df_p\\colon T_pM\\to T_{f(p)}N$ is an isomorphism (in particular, $\\dim M = \\dim N$)",
+              "$f$ is surjective onto $N$",
+              "$f$ pulls back smooth functions to smooth functions"
+            ],
+            "answer": 1,
+            "explain": "The inverse function theorem: $f$ is a local diffeomorphism at $p$ iff $df_p$ is a linear isomorphism, which forces $\\dim M=\\dim N$. Injectivity near $p$ is implied but not sufficient (think $x\\mapsto x^3$). Every smooth map pulls back smooth functions."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(e^x\\cos y,\\,e^x\\sin y)$ (complex exponential). What is $|\\det(df_p)|$ at the point $p=(0,0)$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$df_p = \\begin{pmatrix} e^x\\cos y & -e^x\\sin y \\\\ e^x\\sin y & e^x\\cos y\\end{pmatrix}$, with determinant $e^{2x}$. At $(0,0)$ this is $1$. So $f$ is a local diffeomorphism everywhere, though not globally injective — $f$ is $2\\pi$-periodic in $y$."
+          }
+        ]
+      },
       "tangent-space-manifolds": {
         "title": "Tangent spaces and bundles",
         "questions": [
@@ -17019,6 +18190,75 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "A trivial rank-$n$ bundle admits $n$ everywhere-linearly-independent global sections, i.e., a global frame. The hairy ball theorem asserts every tangent vector field on $S^2$ vanishes somewhere, so no non-vanishing global section exists, let alone a full frame. Hence $TS^2$ is non-trivial."
+          }
+        ]
+      },
+      "tangent-bundle": {
+        "title": "Tangent bundle and vector fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The tangent bundle $TM$ of a smooth $n$-manifold $M$ is:",
+            "choices": [
+              "a rank-$n$ real vector bundle over $M$; its total space is a smooth $2n$-manifold whose fibre over $p$ is $T_pM$",
+              "a subset of $M\\times\\mathbb{R}^n$ isomorphic to $M\\times\\mathbb{R}^n$ for every $M$",
+              "a rank-$2n$ vector bundle over $M$",
+              "the dual of the cotangent bundle only when $M$ is orientable"
+            ],
+            "answer": 0,
+            "explain": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$. $TM$ is trivial ($\\cong M\\times\\mathbb{R}^n$) iff $M$ is parallelizable — false in general (e.g. $S^2$)."
+          },
+          {
+            "type": "mcq",
+            "q": "A smooth vector field on $M$ is:",
+            "choices": [
+              "any continuous map $M\\to M$",
+              "a smooth section of $TM$, i.e. a smooth map $X\\colon M\\to TM$ with $\\pi\\circ X=\\mathrm{id}_M$",
+              "a smooth function $M\\to\\mathbb{R}$",
+              "a path $\\gamma\\colon\\mathbb{R}\\to M$"
+            ],
+            "answer": 1,
+            "explain": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e. a smooth section of the projection $\\pi\\colon TM\\to M$. Equivalently, a derivation on $C^\\infty(M)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^2$, the vector field $X = x\\,\\partial_x + y\\,\\partial_y$ acts on the function $f(x,y)=x^2+y^2$ as $Xf$. What is $(Xf)(1,2)$?",
+            "answer": 10,
+            "tol": 0.000001,
+            "explain": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$. At $(1,2)$: $2(1+4) = 10$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A smooth manifold $M$ is called parallelizable if $TM$ is trivial (isomorphic to $M\\times\\mathbb{R}^n$). Which list is correct?",
+            "choices": [
+              "Every sphere $S^n$ is parallelizable",
+              "$S^1$, $S^3$, and $S^7$ are the only parallelizable spheres (a theorem of Adams / Bott–Milnor / Kervaire)",
+              "No sphere is parallelizable",
+              "$S^n$ is parallelizable iff $n$ is even"
+            ],
+            "answer": 1,
+            "explain": "A classical theorem: $S^n$ is parallelizable iff $n\\in\\{1,3,7\\}$, corresponding to the multiplicative structures on $\\mathbb{C},\\mathbb{H},\\mathbb{O}$. The hairy-ball theorem handles $S^2$; more is needed for higher dimensions."
+          },
+          {
+            "type": "numeric",
+            "q": "For a smooth $n$-manifold $M$, what is the dimension of the total space $TM$ of its tangent bundle when $n=5$?",
+            "answer": 10,
+            "tol": 0.000001,
+            "explain": "$\\dim TM = 2n$. For $n=5$ this is $10$: a chart $(U,\\varphi)$ on $M$ gives a chart on $TM$ with coordinates $(x^1,\\dots,x^n,\\dot x^1,\\dots,\\dot x^n)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $X\\in\\mathfrak{X}(M)$ act on $C^\\infty(M)$ as a derivation. Which property is NOT required?",
+            "choices": [
+              "$\\mathbb{R}$-linearity: $X(af+bg)=aXf+bXg$",
+              "Leibniz: $X(fg)=fX(g)+gX(f)$",
+              "Multiplicativity: $X(fg)=X(f)X(g)$",
+              "$X$ is local: if $f=g$ near $p$ then $(Xf)(p)=(Xg)(p)$"
+            ],
+            "answer": 2,
+            "explain": "Derivations are $\\mathbb{R}$-linear Leibniz operators, automatically local (locality follows from Leibniz applied to bump functions). Multiplicativity $X(fg)=X(f)X(g)$ is the defining property of a ring homomorphism, not a derivation; derivations detect infinitesimal deformations, homomorphisms detect point evaluations."
           }
         ]
       },
@@ -17088,6 +18328,275 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "The constant-rank theorem (local form): choosing adapted charts around $p$ and $f(p)$, $f$ looks like the standard projection–injection $(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^r,0,\\dots,0)\\in\\mathbb{R}^n$. The first $r$ coordinates are kept; the rest are sent to zero."
+          }
+        ]
+      },
+      "vector-field-flows": {
+        "title": "Integral curves and flows",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An integral curve of a smooth vector field $X\\in\\mathfrak{X}(M)$ through $p$ is a smooth curve $\\gamma\\colon I\\to M$ with $\\gamma(0)=p$ satisfying:",
+            "choices": [
+              "$\\gamma'(t)=0$ for all $t$",
+              "$\\gamma'(t)=X_{\\gamma(t)}$ for all $t\\in I$",
+              "$X_{\\gamma(t)}=0$ for all $t\\in I$",
+              "$\\gamma(t)\\in\\operatorname{supp}(X)$ for all $t$"
+            ],
+            "answer": 1,
+            "explain": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e. $\\gamma'(t)=X_{\\gamma(t)}$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}$, the vector field $X=x\\,\\partial_x$ has integral curve through $x_0=1$ given by $\\gamma(t)=e^t$. What is $\\gamma(\\ln 3)$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$. Then $\\gamma(\\ln 3)=e^{\\ln 3}=3$."
+          },
+          {
+            "type": "mcq",
+            "q": "On a compact smooth manifold $M$, every smooth vector field is:",
+            "choices": [
+              "identically zero",
+              "complete — its flow $\\Phi^X_t$ is defined for all $t\\in\\mathbb{R}$",
+              "nowhere vanishing",
+              "the gradient of some function"
+            ],
+            "answer": 1,
+            "explain": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$. Equivalently, the flow $\\Phi^X_t$ is defined for every real $t$ — $X$ is complete."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which is a correct counterexample to the claim 'every smooth vector field on a non-compact manifold is complete'?",
+            "choices": [
+              "$X=\\partial_x$ on $\\mathbb{R}$ — its integral curves are straight lines and escape to infinity",
+              "$X=x^2\\,\\partial_x$ on $\\mathbb{R}$ — the integral curve through $x_0=1$ is $\\gamma(t)=1/(1-t)$, which blows up at $t=1$",
+              "$X=0$ on $\\mathbb{R}$ — the zero field has no flow",
+              "$X=\\partial_x+\\partial_y$ on $\\mathbb{R}^2$ — its integral curves leave every compact set"
+            ],
+            "answer": 1,
+            "explain": "The ODE $\\dot x=x^2$, $x(0)=1$ has solution $x(t)=1/(1-t)$, which escapes to $+\\infty$ as $t\\to 1^-$. So the maximal interval of existence is $(-\\infty,1)$ — strictly less than $\\mathbb{R}$ — and $X=x^2\\partial_x$ on $\\mathbb{R}$ is incomplete. Leaving compact sets in finite time per se is fine (A, D) as long as the curve stays in $M$; only blow-up in finite time breaks completeness."
+          },
+          {
+            "type": "mcq",
+            "q": "The flow $\\Phi^X_t$ of a complete vector field $X$ satisfies which identity?",
+            "choices": [
+              "$\\Phi^X_s\\circ\\Phi^X_t=\\Phi^X_{s+t}$, i.e. the flow is a one-parameter group of diffeomorphisms",
+              "$\\Phi^X_s\\circ\\Phi^X_t=\\Phi^X_{st}$",
+              "$\\Phi^X_{-t}=-\\Phi^X_t$",
+              "$\\Phi^X_t$ is a linear map for every $t$"
+            ],
+            "answer": 0,
+            "explain": "Uniqueness of ODE solutions, together with time-translation invariance, forces $\\Phi^X_{s+t}=\\Phi^X_s\\circ\\Phi^X_t$ wherever both sides are defined; when $X$ is complete this holds on all of $M\\times\\mathbb{R}^2$, making $\\{\\Phi^X_t\\}_{t\\in\\mathbb{R}}$ a one-parameter group of diffeomorphisms of $M$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X=-y\\,\\partial_x+x\\,\\partial_y$ on $\\mathbb{R}^2$ (rotation generator). Starting at $(1,0)$, the integral curve is $\\gamma(t)=(\\cos t,\\sin t)$. What is the $y$-coordinate of $\\Phi^X_{\\pi/2}(1,0)$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\Phi^X_{\\pi/2}(1,0)=(\\cos(\\pi/2),\\sin(\\pi/2))=(0,1)$, so the $y$-coordinate is $1$."
+          }
+        ]
+      },
+      "lie-bracket-fields": {
+        "title": "Lie bracket of vector fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Lie bracket of two smooth vector fields $X,Y\\in\\mathfrak{X}(M)$ is defined on functions by:",
+            "choices": [
+              "$[X,Y]f = X(Y(f))$",
+              "$[X,Y]f = X(Y(f)) - Y(X(f))$",
+              "$[X,Y]f = X(f)\\cdot Y(f)$",
+              "$[X,Y]f = X(f) + Y(f)$"
+            ],
+            "answer": 1,
+            "explain": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$. The second-order terms cancel and the commutator is again a derivation, hence a vector field."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^2$ with $X=\\partial_x$ and $Y=x\\,\\partial_y$, the Lie bracket is $[X,Y]=\\partial_y$. Applying $[X,Y]$ to $f(x,y)=y^2$ at the point $(3,4)$ gives what number?",
+            "answer": 8,
+            "tol": 0.000001,
+            "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which identity does the Lie bracket satisfy, making $\\mathfrak{X}(M)$ a Lie algebra?",
+            "choices": [
+              "$[X,Y] = [Y,X]$ (symmetry)",
+              "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity) and $[X,Y]=-[Y,X]$ (antisymmetry)",
+              "$[X,Y]\\cdot[Y,Z] = [X,Z]$",
+              "$[X,X] = X$"
+            ],
+            "answer": 1,
+            "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Lie bracket satisfies the Leibniz-like identity $[X,fY] = f[X,Y] + (Xf)Y$ for $f\\in C^\\infty(M)$. Which statement follows?",
+            "choices": [
+              "The bracket is $C^\\infty(M)$-bilinear",
+              "The bracket is $\\mathbb{R}$-bilinear but not $C^\\infty(M)$-bilinear — the extra $(Xf)Y$ term obstructs $C^\\infty$-linearity in the second slot",
+              "The bracket is zero for all $f$",
+              "The bracket depends on a choice of connection"
+            ],
+            "answer": 1,
+            "explain": "The formula $[X,fY]=f[X,Y]+(Xf)Y$ shows a derivation-of-scalars correction term. Over $\\mathbb{R}$ the bracket is bilinear, but over $C^\\infty(M)$ it fails — unlike the pointwise operations of a vector bundle. The bracket is a genuinely differential (not tensorial) operation."
+          },
+          {
+            "type": "mcq",
+            "q": "Two smooth vector fields $X,Y$ on $M$ have flows that commute, $\\Phi^X_s\\circ\\Phi^Y_t=\\Phi^Y_t\\circ\\Phi^X_s$ for all small $s,t$, iff:",
+            "choices": [
+              "$X = Y$",
+              "$[X,Y] = 0$ identically",
+              "$X$ and $Y$ are both complete",
+              "$X$ and $Y$ are parallel at one point"
+            ],
+            "answer": 1,
+            "explain": "This is the flow-commutativity theorem: the flows commute (on overlapping domains) iff the bracket $[X,Y]$ vanishes identically. The infinitesimal obstruction to flow commutativity is exactly the bracket, consistent with $\\Phi^{-Y}_t\\Phi^{-X}_t\\Phi^Y_t\\Phi^X_t(p)=p+t^2[X,Y]_p+O(t^3)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^2$ with $X = \\partial_x$ and $Y = x\\,\\partial_y + y\\,\\partial_x$, compute the $\\partial_y$-component of $[X,Y]$ evaluated at any point.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "For vector fields written as $X=X^i\\partial_i$, $Y=Y^j\\partial_j$, the bracket components are $[X,Y]^k = X^i\\partial_i Y^k - Y^i\\partial_i X^k$. Here $X=(1,0)$ and $Y=(y,x)$, with $X$ having constant coefficients. $[X,Y]^y = X^i\\partial_i Y^y - Y^i\\partial_i X^y = \\partial_x(x) - 0 = 1$. So $[X,Y]^y = 1$ is constant (independent of position)."
+          }
+        ]
+      },
+      "partition-of-unity": {
+        "title": "Partitions of unity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of $M$ is a family $\\{\\rho_\\alpha\\colon M\\to[0,1]\\}$ such that:",
+            "choices": [
+              "$\\operatorname{supp}\\rho_\\alpha\\subseteq U_\\alpha$, the family is locally finite, and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$",
+              "each $\\rho_\\alpha$ is a constant function summing to $1$",
+              "exactly one $\\rho_\\alpha$ is $1$ at each point, the others $0$",
+              "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
+            ],
+            "answer": 0,
+            "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
+          },
+          {
+            "type": "mcq",
+            "q": "On which class of smooth manifolds is the existence of smooth partitions of unity guaranteed?",
+            "choices": [
+              "only compact manifolds",
+              "only orientable manifolds",
+              "every paracompact smooth manifold (in particular, every second-countable Hausdorff smooth manifold)",
+              "only submanifolds of $\\mathbb{R}^n$"
+            ],
+            "answer": 2,
+            "explain": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this notebook admits them. Compactness and orientability are irrelevant."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $\\{\\rho_1,\\rho_2,\\rho_3\\}$ is a partition of unity on $M$ and at a point $p$, $\\rho_1(p)=0.2$, $\\rho_2(p)=0.5$. What is $\\rho_3(p)$?",
+            "answer": 0.3,
+            "tol": 0.000001,
+            "explain": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which is the standard use of a partition of unity in the proof that every smooth manifold admits a Riemannian metric?",
+            "choices": [
+              "Choose local Riemannian metrics $g_\\alpha$ in each chart; glue via $g=\\sum_\\alpha\\rho_\\alpha g_\\alpha$, which is a positive-definite tensor because a convex combination of positive-definite forms is positive-definite",
+              "Use $\\rho_\\alpha$ to extend a single chart's Euclidean metric to all of $M$",
+              "Deduce existence from Whitney embedding, bypassing partitions of unity entirely",
+              "Average the metric over the Lie group of diffeomorphisms of $M$"
+            ],
+            "answer": 0,
+            "explain": "On each chart domain $U_\\alpha$ pull back the Euclidean metric to get a local Riemannian metric $g_\\alpha$. A convex combination $\\sum_\\alpha\\rho_\\alpha g_\\alpha$ of positive-definite symmetric forms with non-negative weights summing to $1$ is itself positive-definite wherever the sum is non-empty, which is everywhere because $\\sum\\rho_\\alpha=1$. Smoothness follows from local finiteness."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the analogous gluing fail for holomorphic (complex-analytic) structures — i.e. why is there no holomorphic partition of unity on a complex manifold?",
+            "choices": [
+              "Because holomorphic functions satisfy the maximum principle and so a non-constant compactly supported holomorphic function cannot exist on a connected open set",
+              "Because complex manifolds are never paracompact",
+              "Because bump functions do exist holomorphically but their sum need not equal $1$",
+              "Because complex manifolds fail to be Hausdorff"
+            ],
+            "answer": 0,
+            "explain": "Smooth bumps exist because $C^\\infty$ is extremely flexible — non-analytic functions like $e^{-1/x^2}$ can vanish on open sets. Holomorphic functions obey the identity theorem / maximum principle, so a non-zero holomorphic function with compact support would have to be zero on an open set and hence identically zero. This rigidity kills holomorphic partitions of unity and is why sheaf cohomology and \\v{C}ech methods replace them on complex manifolds."
+          }
+        ]
+      },
+      "orientation": {
+        "title": "Orientation of manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A smooth manifold $M$ is orientable iff:",
+            "choices": [
+              "$M$ is compact",
+              "$M$ admits a smooth atlas whose every transition map has positive Jacobian determinant",
+              "$M$ is simply connected",
+              "$M$ embeds into $\\mathbb{R}^n$ for some $n$"
+            ],
+            "answer": 1,
+            "explain": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its domain. Equivalently, $M$ admits a nowhere-vanishing top-degree form."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following manifolds is NOT orientable?",
+            "choices": [
+              "the 2-sphere $S^2$",
+              "the 2-torus $T^2$",
+              "the Möbius band",
+              "real projective 3-space $\\mathbb{RP}^3$"
+            ],
+            "answer": 2,
+            "explain": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists. $S^2$, $T^2$, and $\\mathbb{RP}^3$ are orientable ($\\mathbb{RP}^n$ is orientable iff $n$ is odd)."
+          },
+          {
+            "type": "numeric",
+            "q": "How many orientations does a connected orientable smooth manifold admit?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "An orientation is a choice of sign on the top exterior power at each point, varying continuously. On a connected manifold there are exactly two global choices, differing by an overall sign flip."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which statement correctly identifies $\\mathbb{RP}^n$'s orientability pattern?",
+            "choices": [
+              "$\\mathbb{RP}^n$ is orientable for all $n\\ge 1$",
+              "$\\mathbb{RP}^n$ is orientable iff $n$ is odd",
+              "$\\mathbb{RP}^n$ is orientable iff $n$ is even",
+              "$\\mathbb{RP}^n$ is never orientable"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$. The antipodal map $a\\colon S^n\\to S^n$ is orientation-preserving iff its degree $(-1)^{n+1}$ is $+1$, i.e. iff $n$ is odd. So the quotient is orientable precisely when $n$ is odd. In particular $\\mathbb{RP}^1\\cong S^1$ and $\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ are orientable; $\\mathbb{RP}^2$ and $\\mathbb{RP}^4$ are not."
+          },
+          {
+            "type": "numeric",
+            "q": "On the 2-sphere $S^2$ with the usual orientation, consider the two stereographic charts from $N$ and $S$. On their overlap $S^2\\setminus\\{N,S\\}$, the transition is $\\varphi_S\\circ\\varphi_N^{-1}(u,v)=(u,v)/(u^2+v^2)$. What is the sign of the Jacobian determinant of this transition at $(u,v)=(1,0)$? Enter $+1$ or $-1$.",
+            "answer": -1,
+            "tol": 0.000001,
+            "explain": "Write the transition as $(u,v)\\mapsto(u/r^2,v/r^2)$ with $r^2=u^2+v^2$. Its Jacobian at $(1,0)$ has determinant $-1/r^4=-1$. So these two stereographic charts are oppositely oriented; to get a positively oriented atlas one composes $\\varphi_S$ with a reflection. This is why the two-chart stereographic atlas is a smooth atlas but not an oriented atlas as stated — an adjustment is needed."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is equivalent to the manifold $M$ being orientable?",
+            "choices": [
+              "$M$ admits a nowhere-vanishing smooth $n$-form (where $n=\\dim M$)",
+              "$M$ admits a Riemannian metric",
+              "$M$ is connected",
+              "the tangent bundle $TM$ is trivial"
+            ],
+            "answer": 0,
+            "explain": "The standard equivalence: $M$ is orientable iff $\\Lambda^n T^*M$ has a nowhere-zero smooth section, i.e. there is a volume form. Every smooth manifold admits a Riemannian metric (via partitions of unity), so (B) is not equivalent. Trivial $TM$ (parallelizability) is strictly stronger than orientability — e.g. $S^2$ is orientable but not parallelizable."
           }
         ]
       }

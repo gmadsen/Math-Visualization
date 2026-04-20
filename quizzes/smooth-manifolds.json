@@ -70,6 +70,139 @@
         }
       ]
     },
+    "smooth-manifold-examples": {
+      "title": "Examples: spheres, projective spaces, matrix groups",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the dimension of the matrix Lie group $\\mathrm{SO}(n)$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles."
+        },
+        {
+          "type": "mcq",
+          "q": "Real projective space $\\mathbb{RP}^n$ can be described as:",
+          "choices": [
+            "the $n$-sphere $S^n$ with a distinguished basepoint",
+            "the quotient $S^n/\\{\\pm 1\\}$ by the antipodal identification, an $n$-manifold",
+            "the complement of the origin in $\\mathbb{R}^{n+1}$",
+            "a compact $(n+1)$-manifold"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$ identifies antipodal points; the resulting space is a compact smooth $n$-manifold, with standard affine charts $\\{x_i\\ne 0\\}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The Grassmannian $\\mathrm{Gr}(k,n)$ of $k$-planes in $\\mathbb{R}^n$ has dimension $k(n-k)$. What is $\\dim\\mathrm{Gr}(2,5)$?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$. The charts are graphs of linear maps $W_0\\to W_0^\\perp$, giving $k(n-k)$ parameters."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The unitary group $\\mathrm{U}(n)$ is cut out of $\\mathrm{GL}_n(\\mathbb{C})$ by $A^*A=I$. What is its real dimension for $n=2$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=2$ this gives $4$. (Concretely: $\\mathrm{U}(2)\\cong \\mathrm{U}(1)\\times\\mathrm{SU}(2)/\\mathbb{Z}_2$, with $\\dim\\mathrm{U}(1)=1$ and $\\dim\\mathrm{SU}(2)=3$.)"
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the cone $C=\\{(x,y,z):z^2=x^2+y^2\\}\\subset\\mathbb{R}^3$ NOT a smooth manifold near the apex $(0,0,0)$?",
+          "choices": [
+            "The cone is not connected near the apex",
+            "Any neighbourhood of the apex in $C$ is not homeomorphic to an open subset of $\\mathbb{R}^2$ — removing the apex disconnects it into two components, while removing a point from a $2$-disk leaves one component",
+            "The cone fails to be Hausdorff at the apex",
+            "Smoothness requires an analytic parametrization, which the cone does not admit"
+          ],
+          "answer": 1,
+          "explain": "Take any small neighbourhood $U$ of the apex in $C$. Then $U\\setminus\\{0\\}$ has two connected components (the two half-cones). But for any point in a smooth $2$-manifold, removing it leaves a connected punctured disk. So no such neighbourhood is homeomorphic to $\\mathbb{R}^2$, and $C$ fails even to be a topological manifold at the apex — smoothness is not the issue, the topology is."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a smooth manifold structure on the complex projective line $\\mathbb{CP}^1$?",
+          "choices": [
+            "$\\mathbb{CP}^1\\cong S^2$ as smooth manifolds, with two charts from the affine pieces $\\{z_0\\ne 0\\}$ and $\\{z_1\\ne 0\\}$ glued by $w=1/z$",
+            "$\\mathbb{CP}^1\\cong\\mathbb{R}^2$ as smooth manifolds; a single global chart suffices",
+            "$\\mathbb{CP}^1\\cong T^2$ as smooth manifolds",
+            "$\\mathbb{CP}^1$ is not a smooth manifold; it has a singular point at infinity"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{CP}^1$ has two affine charts $U_0=\\{[z_0:z_1]:z_0\\ne 0\\}$ with coordinate $z=z_1/z_0$ and $U_1=\\{z_1\\ne 0\\}$ with coordinate $w=z_0/z_1$; on the overlap $w=1/z$, smooth (in fact holomorphic). Topologically the result is $S^2$ — the Riemann sphere — and one can check the smooth structures match the standard stereographic atlas."
+        }
+      ]
+    },
+    "smooth-map": {
+      "title": "Smooth maps and diffeomorphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A map $f\\colon M\\to N$ between smooth manifolds is smooth iff:",
+          "choices": [
+            "$f$ is continuous",
+            "for every chart $(U,\\varphi)$ on $M$ and $(V,\\psi)$ on $N$ with $f(U)\\subseteq V$, the coordinate representative $\\psi\\circ f\\circ\\varphi^{-1}$ is $C^\\infty$",
+            "$f$ is a homeomorphism onto its image",
+            "$f$ is linear in some chart"
+          ],
+          "answer": 1,
+          "explain": "Smoothness of $f$ is smoothness of every coordinate representative $\\hat f = \\psi\\circ f\\circ\\varphi^{-1}$, which is a map between open subsets of Euclidean space. Chart compatibility makes this property independent of chart choice."
+        },
+        {
+          "type": "mcq",
+          "q": "A diffeomorphism $f\\colon M\\to N$ is:",
+          "choices": [
+            "a smooth map",
+            "a smooth bijection whose inverse is also smooth",
+            "any homeomorphism",
+            "a linear bijection"
+          ],
+          "answer": 1,
+          "explain": "Diffeomorphisms are the isomorphisms of the smooth category: smooth, bijective, with smooth inverse. A smooth bijection need not be a diffeomorphism — consider $x\\mapsto x^3$ on $\\mathbb{R}$, whose inverse is not smooth at $0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(x+y,\\,xy)$. At $p=(1,2)$ the Jacobian is $\\begin{pmatrix}1&1\\\\ y&x\\end{pmatrix}_{(1,2)} = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$. What is the rank of $df_p$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The map $f\\colon\\mathbb{R}\\to\\mathbb{R}$, $f(x)=x^3$, is a smooth bijection. Why is it NOT a diffeomorphism?",
+          "choices": [
+            "$f$ is not surjective",
+            "$f$ is not injective",
+            "$f^{-1}(y)=y^{1/3}$ is not differentiable at $y=0$ (its derivative blows up), so $f^{-1}$ is not smooth there",
+            "$f$ is not continuous"
+          ],
+          "answer": 2,
+          "explain": "$f$ is a smooth bijection, but $df_0 = 3x^2|_{x=0} = 0$ is non-invertible, and $f^{-1}(y)=y^{1/3}$ has $(f^{-1})'(y)=\\tfrac{1}{3}y^{-2/3}$, which diverges as $y\\to 0$. So $f^{-1}$ fails to be smooth (in fact even $C^1$) at $0$, and $f$ is not a diffeomorphism. The inverse function theorem obstruction: $df_p$ must be an isomorphism at every $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which condition on a smooth map $f\\colon M\\to N$ is necessary AND sufficient for $f$ to be a local diffeomorphism at $p\\in M$?",
+          "choices": [
+            "$f$ is injective near $p$",
+            "$df_p\\colon T_pM\\to T_{f(p)}N$ is an isomorphism (in particular, $\\dim M = \\dim N$)",
+            "$f$ is surjective onto $N$",
+            "$f$ pulls back smooth functions to smooth functions"
+          ],
+          "answer": 1,
+          "explain": "The inverse function theorem: $f$ is a local diffeomorphism at $p$ iff $df_p$ is a linear isomorphism, which forces $\\dim M=\\dim N$. Injectivity near $p$ is implied but not sufficient (think $x\\mapsto x^3$). Every smooth map pulls back smooth functions."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(e^x\\cos y,\\,e^x\\sin y)$ (complex exponential). What is $|\\det(df_p)|$ at the point $p=(0,0)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$df_p = \\begin{pmatrix} e^x\\cos y & -e^x\\sin y \\\\ e^x\\sin y & e^x\\cos y\\end{pmatrix}$, with determinant $e^{2x}$. At $(0,0)$ this is $1$. So $f$ is a local diffeomorphism everywhere, though not globally injective — $f$ is $2\\pi$-periodic in $y$."
+        }
+      ]
+    },
     "tangent-space-manifolds": {
       "title": "Tangent spaces and bundles",
       "questions": [
@@ -131,6 +264,75 @@
           ],
           "answer": 0,
           "explain": "A trivial rank-$n$ bundle admits $n$ everywhere-linearly-independent global sections, i.e., a global frame. The hairy ball theorem asserts every tangent vector field on $S^2$ vanishes somewhere, so no non-vanishing global section exists, let alone a full frame. Hence $TS^2$ is non-trivial."
+        }
+      ]
+    },
+    "tangent-bundle": {
+      "title": "Tangent bundle and vector fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The tangent bundle $TM$ of a smooth $n$-manifold $M$ is:",
+          "choices": [
+            "a rank-$n$ real vector bundle over $M$; its total space is a smooth $2n$-manifold whose fibre over $p$ is $T_pM$",
+            "a subset of $M\\times\\mathbb{R}^n$ isomorphic to $M\\times\\mathbb{R}^n$ for every $M$",
+            "a rank-$2n$ vector bundle over $M$",
+            "the dual of the cotangent bundle only when $M$ is orientable"
+          ],
+          "answer": 0,
+          "explain": "$TM=\\bigsqcup_{p\\in M}T_pM$ is a rank-$n$ vector bundle over $M$; each fibre is an $n$-plane, and the total space is a smooth manifold of dimension $2n$. $TM$ is trivial ($\\cong M\\times\\mathbb{R}^n$) iff $M$ is parallelizable — false in general (e.g. $S^2$)."
+        },
+        {
+          "type": "mcq",
+          "q": "A smooth vector field on $M$ is:",
+          "choices": [
+            "any continuous map $M\\to M$",
+            "a smooth section of $TM$, i.e. a smooth map $X\\colon M\\to TM$ with $\\pi\\circ X=\\mathrm{id}_M$",
+            "a smooth function $M\\to\\mathbb{R}$",
+            "a path $\\gamma\\colon\\mathbb{R}\\to M$"
+          ],
+          "answer": 1,
+          "explain": "A vector field assigns to each point $p\\in M$ a vector $X_p\\in T_pM$ smoothly, i.e. a smooth section of the projection $\\pi\\colon TM\\to M$. Equivalently, a derivation on $C^\\infty(M)$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}^2$, the vector field $X = x\\,\\partial_x + y\\,\\partial_y$ acts on the function $f(x,y)=x^2+y^2$ as $Xf$. What is $(Xf)(1,2)$?",
+          "answer": 10,
+          "tol": 1e-6,
+          "explain": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$. At $(1,2)$: $2(1+4) = 10$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A smooth manifold $M$ is called parallelizable if $TM$ is trivial (isomorphic to $M\\times\\mathbb{R}^n$). Which list is correct?",
+          "choices": [
+            "Every sphere $S^n$ is parallelizable",
+            "$S^1$, $S^3$, and $S^7$ are the only parallelizable spheres (a theorem of Adams / Bott–Milnor / Kervaire)",
+            "No sphere is parallelizable",
+            "$S^n$ is parallelizable iff $n$ is even"
+          ],
+          "answer": 1,
+          "explain": "A classical theorem: $S^n$ is parallelizable iff $n\\in\\{1,3,7\\}$, corresponding to the multiplicative structures on $\\mathbb{C},\\mathbb{H},\\mathbb{O}$. The hairy-ball theorem handles $S^2$; more is needed for higher dimensions."
+        },
+        {
+          "type": "numeric",
+          "q": "For a smooth $n$-manifold $M$, what is the dimension of the total space $TM$ of its tangent bundle when $n=5$?",
+          "answer": 10,
+          "tol": 1e-6,
+          "explain": "$\\dim TM = 2n$. For $n=5$ this is $10$: a chart $(U,\\varphi)$ on $M$ gives a chart on $TM$ with coordinates $(x^1,\\dots,x^n,\\dot x^1,\\dots,\\dot x^n)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X\\in\\mathfrak{X}(M)$ act on $C^\\infty(M)$ as a derivation. Which property is NOT required?",
+          "choices": [
+            "$\\mathbb{R}$-linearity: $X(af+bg)=aXf+bXg$",
+            "Leibniz: $X(fg)=fX(g)+gX(f)$",
+            "Multiplicativity: $X(fg)=X(f)X(g)$",
+            "$X$ is local: if $f=g$ near $p$ then $(Xf)(p)=(Xg)(p)$"
+          ],
+          "answer": 2,
+          "explain": "Derivations are $\\mathbb{R}$-linear Leibniz operators, automatically local (locality follows from Leibniz applied to bump functions). Multiplicativity $X(fg)=X(f)X(g)$ is the defining property of a ring homomorphism, not a derivation; derivations detect infinitesimal deformations, homomorphisms detect point evaluations."
         }
       ]
     },
@@ -200,6 +402,275 @@
           ],
           "answer": 1,
           "explain": "The constant-rank theorem (local form): choosing adapted charts around $p$ and $f(p)$, $f$ looks like the standard projection–injection $(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^r,0,\\dots,0)\\in\\mathbb{R}^n$. The first $r$ coordinates are kept; the rest are sent to zero."
+        }
+      ]
+    },
+    "vector-field-flows": {
+      "title": "Integral curves and flows",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An integral curve of a smooth vector field $X\\in\\mathfrak{X}(M)$ through $p$ is a smooth curve $\\gamma\\colon I\\to M$ with $\\gamma(0)=p$ satisfying:",
+          "choices": [
+            "$\\gamma'(t)=0$ for all $t$",
+            "$\\gamma'(t)=X_{\\gamma(t)}$ for all $t\\in I$",
+            "$X_{\\gamma(t)}=0$ for all $t\\in I$",
+            "$\\gamma(t)\\in\\operatorname{supp}(X)$ for all $t$"
+          ],
+          "answer": 1,
+          "explain": "An integral curve is a trajectory that follows the vector field: its velocity at every time equals the value of $X$ at the current position, i.e. $\\gamma'(t)=X_{\\gamma(t)}$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}$, the vector field $X=x\\,\\partial_x$ has integral curve through $x_0=1$ given by $\\gamma(t)=e^t$. What is $\\gamma(\\ln 3)$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$. Then $\\gamma(\\ln 3)=e^{\\ln 3}=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "On a compact smooth manifold $M$, every smooth vector field is:",
+          "choices": [
+            "identically zero",
+            "complete — its flow $\\Phi^X_t$ is defined for all $t\\in\\mathbb{R}$",
+            "nowhere vanishing",
+            "the gradient of some function"
+          ],
+          "answer": 1,
+          "explain": "On a compact manifold integral curves cannot escape to infinity in finite time, so the maximal domain of each integral curve is all of $\\mathbb{R}$. Equivalently, the flow $\\Phi^X_t$ is defined for every real $t$ — $X$ is complete."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample to the claim 'every smooth vector field on a non-compact manifold is complete'?",
+          "choices": [
+            "$X=\\partial_x$ on $\\mathbb{R}$ — its integral curves are straight lines and escape to infinity",
+            "$X=x^2\\,\\partial_x$ on $\\mathbb{R}$ — the integral curve through $x_0=1$ is $\\gamma(t)=1/(1-t)$, which blows up at $t=1$",
+            "$X=0$ on $\\mathbb{R}$ — the zero field has no flow",
+            "$X=\\partial_x+\\partial_y$ on $\\mathbb{R}^2$ — its integral curves leave every compact set"
+          ],
+          "answer": 1,
+          "explain": "The ODE $\\dot x=x^2$, $x(0)=1$ has solution $x(t)=1/(1-t)$, which escapes to $+\\infty$ as $t\\to 1^-$. So the maximal interval of existence is $(-\\infty,1)$ — strictly less than $\\mathbb{R}$ — and $X=x^2\\partial_x$ on $\\mathbb{R}$ is incomplete. Leaving compact sets in finite time per se is fine (A, D) as long as the curve stays in $M$; only blow-up in finite time breaks completeness."
+        },
+        {
+          "type": "mcq",
+          "q": "The flow $\\Phi^X_t$ of a complete vector field $X$ satisfies which identity?",
+          "choices": [
+            "$\\Phi^X_s\\circ\\Phi^X_t=\\Phi^X_{s+t}$, i.e. the flow is a one-parameter group of diffeomorphisms",
+            "$\\Phi^X_s\\circ\\Phi^X_t=\\Phi^X_{st}$",
+            "$\\Phi^X_{-t}=-\\Phi^X_t$",
+            "$\\Phi^X_t$ is a linear map for every $t$"
+          ],
+          "answer": 0,
+          "explain": "Uniqueness of ODE solutions, together with time-translation invariance, forces $\\Phi^X_{s+t}=\\Phi^X_s\\circ\\Phi^X_t$ wherever both sides are defined; when $X$ is complete this holds on all of $M\\times\\mathbb{R}^2$, making $\\{\\Phi^X_t\\}_{t\\in\\mathbb{R}}$ a one-parameter group of diffeomorphisms of $M$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=-y\\,\\partial_x+x\\,\\partial_y$ on $\\mathbb{R}^2$ (rotation generator). Starting at $(1,0)$, the integral curve is $\\gamma(t)=(\\cos t,\\sin t)$. What is the $y$-coordinate of $\\Phi^X_{\\pi/2}(1,0)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\Phi^X_{\\pi/2}(1,0)=(\\cos(\\pi/2),\\sin(\\pi/2))=(0,1)$, so the $y$-coordinate is $1$."
+        }
+      ]
+    },
+    "lie-bracket-fields": {
+      "title": "Lie bracket of vector fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Lie bracket of two smooth vector fields $X,Y\\in\\mathfrak{X}(M)$ is defined on functions by:",
+          "choices": [
+            "$[X,Y]f = X(Y(f))$",
+            "$[X,Y]f = X(Y(f)) - Y(X(f))$",
+            "$[X,Y]f = X(f)\\cdot Y(f)$",
+            "$[X,Y]f = X(f) + Y(f)$"
+          ],
+          "answer": 1,
+          "explain": "$[X,Y] = XY - YX$ as operators on $C^\\infty(M)$. The second-order terms cancel and the commutator is again a derivation, hence a vector field."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}^2$ with $X=\\partial_x$ and $Y=x\\,\\partial_y$, the Lie bracket is $[X,Y]=\\partial_y$. Applying $[X,Y]$ to $f(x,y)=y^2$ at the point $(3,4)$ gives what number?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which identity does the Lie bracket satisfy, making $\\mathfrak{X}(M)$ a Lie algebra?",
+          "choices": [
+            "$[X,Y] = [Y,X]$ (symmetry)",
+            "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity) and $[X,Y]=-[Y,X]$ (antisymmetry)",
+            "$[X,Y]\\cdot[Y,Z] = [X,Z]$",
+            "$[X,X] = X$"
+          ],
+          "answer": 1,
+          "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Lie bracket satisfies the Leibniz-like identity $[X,fY] = f[X,Y] + (Xf)Y$ for $f\\in C^\\infty(M)$. Which statement follows?",
+          "choices": [
+            "The bracket is $C^\\infty(M)$-bilinear",
+            "The bracket is $\\mathbb{R}$-bilinear but not $C^\\infty(M)$-bilinear — the extra $(Xf)Y$ term obstructs $C^\\infty$-linearity in the second slot",
+            "The bracket is zero for all $f$",
+            "The bracket depends on a choice of connection"
+          ],
+          "answer": 1,
+          "explain": "The formula $[X,fY]=f[X,Y]+(Xf)Y$ shows a derivation-of-scalars correction term. Over $\\mathbb{R}$ the bracket is bilinear, but over $C^\\infty(M)$ it fails — unlike the pointwise operations of a vector bundle. The bracket is a genuinely differential (not tensorial) operation."
+        },
+        {
+          "type": "mcq",
+          "q": "Two smooth vector fields $X,Y$ on $M$ have flows that commute, $\\Phi^X_s\\circ\\Phi^Y_t=\\Phi^Y_t\\circ\\Phi^X_s$ for all small $s,t$, iff:",
+          "choices": [
+            "$X = Y$",
+            "$[X,Y] = 0$ identically",
+            "$X$ and $Y$ are both complete",
+            "$X$ and $Y$ are parallel at one point"
+          ],
+          "answer": 1,
+          "explain": "This is the flow-commutativity theorem: the flows commute (on overlapping domains) iff the bracket $[X,Y]$ vanishes identically. The infinitesimal obstruction to flow commutativity is exactly the bracket, consistent with $\\Phi^{-Y}_t\\Phi^{-X}_t\\Phi^Y_t\\Phi^X_t(p)=p+t^2[X,Y]_p+O(t^3)$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}^2$ with $X = \\partial_x$ and $Y = x\\,\\partial_y + y\\,\\partial_x$, compute the $\\partial_y$-component of $[X,Y]$ evaluated at any point.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "For vector fields written as $X=X^i\\partial_i$, $Y=Y^j\\partial_j$, the bracket components are $[X,Y]^k = X^i\\partial_i Y^k - Y^i\\partial_i X^k$. Here $X=(1,0)$ and $Y=(y,x)$, with $X$ having constant coefficients. $[X,Y]^y = X^i\\partial_i Y^y - Y^i\\partial_i X^y = \\partial_x(x) - 0 = 1$. So $[X,Y]^y = 1$ is constant (independent of position)."
+        }
+      ]
+    },
+    "partition-of-unity": {
+      "title": "Partitions of unity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of $M$ is a family $\\{\\rho_\\alpha\\colon M\\to[0,1]\\}$ such that:",
+          "choices": [
+            "$\\operatorname{supp}\\rho_\\alpha\\subseteq U_\\alpha$, the family is locally finite, and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$",
+            "each $\\rho_\\alpha$ is a constant function summing to $1$",
+            "exactly one $\\rho_\\alpha$ is $1$ at each point, the others $0$",
+            "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
+          ],
+          "answer": 0,
+          "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
+        },
+        {
+          "type": "mcq",
+          "q": "On which class of smooth manifolds is the existence of smooth partitions of unity guaranteed?",
+          "choices": [
+            "only compact manifolds",
+            "only orientable manifolds",
+            "every paracompact smooth manifold (in particular, every second-countable Hausdorff smooth manifold)",
+            "only submanifolds of $\\mathbb{R}^n$"
+          ],
+          "answer": 2,
+          "explain": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this notebook admits them. Compactness and orientability are irrelevant."
+        },
+        {
+          "type": "numeric",
+          "q": "Suppose $\\{\\rho_1,\\rho_2,\\rho_3\\}$ is a partition of unity on $M$ and at a point $p$, $\\rho_1(p)=0.2$, $\\rho_2(p)=0.5$. What is $\\rho_3(p)$?",
+          "answer": 0.3,
+          "tol": 1e-6,
+          "explain": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the standard use of a partition of unity in the proof that every smooth manifold admits a Riemannian metric?",
+          "choices": [
+            "Choose local Riemannian metrics $g_\\alpha$ in each chart; glue via $g=\\sum_\\alpha\\rho_\\alpha g_\\alpha$, which is a positive-definite tensor because a convex combination of positive-definite forms is positive-definite",
+            "Use $\\rho_\\alpha$ to extend a single chart's Euclidean metric to all of $M$",
+            "Deduce existence from Whitney embedding, bypassing partitions of unity entirely",
+            "Average the metric over the Lie group of diffeomorphisms of $M$"
+          ],
+          "answer": 0,
+          "explain": "On each chart domain $U_\\alpha$ pull back the Euclidean metric to get a local Riemannian metric $g_\\alpha$. A convex combination $\\sum_\\alpha\\rho_\\alpha g_\\alpha$ of positive-definite symmetric forms with non-negative weights summing to $1$ is itself positive-definite wherever the sum is non-empty, which is everywhere because $\\sum\\rho_\\alpha=1$. Smoothness follows from local finiteness."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the analogous gluing fail for holomorphic (complex-analytic) structures — i.e. why is there no holomorphic partition of unity on a complex manifold?",
+          "choices": [
+            "Because holomorphic functions satisfy the maximum principle and so a non-constant compactly supported holomorphic function cannot exist on a connected open set",
+            "Because complex manifolds are never paracompact",
+            "Because bump functions do exist holomorphically but their sum need not equal $1$",
+            "Because complex manifolds fail to be Hausdorff"
+          ],
+          "answer": 0,
+          "explain": "Smooth bumps exist because $C^\\infty$ is extremely flexible — non-analytic functions like $e^{-1/x^2}$ can vanish on open sets. Holomorphic functions obey the identity theorem / maximum principle, so a non-zero holomorphic function with compact support would have to be zero on an open set and hence identically zero. This rigidity kills holomorphic partitions of unity and is why sheaf cohomology and \\v{C}ech methods replace them on complex manifolds."
+        }
+      ]
+    },
+    "orientation": {
+      "title": "Orientation of manifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A smooth manifold $M$ is orientable iff:",
+          "choices": [
+            "$M$ is compact",
+            "$M$ admits a smooth atlas whose every transition map has positive Jacobian determinant",
+            "$M$ is simply connected",
+            "$M$ embeds into $\\mathbb{R}^n$ for some $n$"
+          ],
+          "answer": 1,
+          "explain": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its domain. Equivalently, $M$ admits a nowhere-vanishing top-degree form."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following manifolds is NOT orientable?",
+          "choices": [
+            "the 2-sphere $S^2$",
+            "the 2-torus $T^2$",
+            "the Möbius band",
+            "real projective 3-space $\\mathbb{RP}^3$"
+          ],
+          "answer": 2,
+          "explain": "The Möbius band has a single side: going once around the core circle and returning flips a local frame's handedness, so no consistent orientation exists. $S^2$, $T^2$, and $\\mathbb{RP}^3$ are orientable ($\\mathbb{RP}^n$ is orientable iff $n$ is odd)."
+        },
+        {
+          "type": "numeric",
+          "q": "How many orientations does a connected orientable smooth manifold admit?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "An orientation is a choice of sign on the top exterior power at each point, varying continuously. On a connected manifold there are exactly two global choices, differing by an overall sign flip."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which statement correctly identifies $\\mathbb{RP}^n$'s orientability pattern?",
+          "choices": [
+            "$\\mathbb{RP}^n$ is orientable for all $n\\ge 1$",
+            "$\\mathbb{RP}^n$ is orientable iff $n$ is odd",
+            "$\\mathbb{RP}^n$ is orientable iff $n$ is even",
+            "$\\mathbb{RP}^n$ is never orientable"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{RP}^n = S^n/\\{\\pm 1\\}$. The antipodal map $a\\colon S^n\\to S^n$ is orientation-preserving iff its degree $(-1)^{n+1}$ is $+1$, i.e. iff $n$ is odd. So the quotient is orientable precisely when $n$ is odd. In particular $\\mathbb{RP}^1\\cong S^1$ and $\\mathbb{RP}^3\\cong\\mathrm{SO}(3)$ are orientable; $\\mathbb{RP}^2$ and $\\mathbb{RP}^4$ are not."
+        },
+        {
+          "type": "numeric",
+          "q": "On the 2-sphere $S^2$ with the usual orientation, consider the two stereographic charts from $N$ and $S$. On their overlap $S^2\\setminus\\{N,S\\}$, the transition is $\\varphi_S\\circ\\varphi_N^{-1}(u,v)=(u,v)/(u^2+v^2)$. What is the sign of the Jacobian determinant of this transition at $(u,v)=(1,0)$? Enter $+1$ or $-1$.",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "Write the transition as $(u,v)\\mapsto(u/r^2,v/r^2)$ with $r^2=u^2+v^2$. Its Jacobian at $(1,0)$ has determinant $-1/r^4=-1$. So these two stereographic charts are oppositely oriented; to get a positively oriented atlas one composes $\\varphi_S$ with a reflection. This is why the two-chart stereographic atlas is a smooth atlas but not an oriented atlas as stated — an adjustment is needed."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is equivalent to the manifold $M$ being orientable?",
+          "choices": [
+            "$M$ admits a nowhere-vanishing smooth $n$-form (where $n=\\dim M$)",
+            "$M$ admits a Riemannian metric",
+            "$M$ is connected",
+            "the tangent bundle $TM$ is trivial"
+          ],
+          "answer": 0,
+          "explain": "The standard equivalence: $M$ is orientable iff $\\Lambda^n T^*M$ has a nowhere-zero smooth section, i.e. there is a volume form. Every smooth manifold admits a Riemannian metric (via partitions of unity), so (B) is not equivalent. Trivial $TM$ (parallelizability) is strictly stronger than orientability — e.g. $S^2$ is orientable but not parallelizable."
         }
       ]
     }

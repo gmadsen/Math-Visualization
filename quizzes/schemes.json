@@ -207,6 +207,496 @@
           "explain": "The line with doubled origin is the standard non-separated scheme: two copies of $\\mathbb{A}^1_k$ glued on the complement of the origin. The two origins cannot be separated by open sets, and the diagonal is not closed in the product, violating separatedness."
         }
       ]
+    },
+    "closed-subscheme": {
+      "title": "Closed subschemes, reducedness, and irreducibility",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Closed subschemes of $\\operatorname{Spec} R$ correspond bijectively to:",
+          "choices": [
+            "prime ideals of $R$",
+            "arbitrary ideals $I\\subseteq R$",
+            "maximal ideals of $R$",
+            "radical ideals of $R$ only"
+          ],
+          "answer": 1,
+          "explain": "Each ideal $I\\subseteq R$ gives a closed subscheme $\\operatorname{Spec}(R/I)\\hookrightarrow\\operatorname{Spec}R$, and distinct ideals give distinct subschemes (even when their radicals — hence underlying sets — agree). Radical ideals pick out only the reduced closed subschemes.",
+          "hint": "Different ideals with the same $\\sqrt{I}$ can still define different subschemes."
+        },
+        {
+          "type": "mcq",
+          "q": "The ring $R=k[x,y]/(xy)$ has how many irreducible components when viewed as $\\operatorname{Spec}R$?",
+          "choices": ["0", "1", "2", "infinitely many"],
+          "answer": 2,
+          "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, corresponding to the two coordinate axes. So $\\operatorname{Spec}R$ is the union of two irreducible components meeting at the origin."
+        },
+        {
+          "type": "numeric",
+          "q": "The ideal $I=(x^2,xy,y^2)\\subset k[x,y]$ has radical $\\sqrt I = (x,y)$. As a $k$-vector space the quotient $k[x,y]/I$ has what dimension (the length of the fat point)?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "A $k$-basis of $k[x,y]/(x^2,xy,y^2)$ is $\\{1,x,y\\}$, so the quotient has $k$-dimension $3$. The reduced point has length $1$, so this is a non-reduced length-$3$ scheme concentrated at the origin."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $R = k[x,y]/(x^2-y^3)$ (cuspidal cubic). Which statement is TRUE?",
+          "choices": [
+            "$R$ is reduced and $\\operatorname{Spec}R$ is irreducible",
+            "$R$ has nilpotents, so $\\operatorname{Spec}R$ is non-reduced",
+            "$\\operatorname{Spec}R$ is reducible with two components",
+            "$R$ is a field, so $\\operatorname{Spec}R$ is a single reduced point"
+          ],
+          "answer": 0,
+          "explain": "$x^2-y^3$ is irreducible in $k[x,y]$ (it is a prime, since $k[x,y]$ is a UFD and the polynomial is irreducible), so $R=k[x,y]/(x^2-y^3)$ is an integral domain — reduced, and $\\operatorname{Spec}R$ is irreducible with generic point $(0)$. The cusp at the origin is a singular point, but singular $\\ne$ non-reduced."
+        },
+        {
+          "type": "mcq",
+          "q": "The reduced subscheme underlying the closed subscheme $V(I)\\subset\\operatorname{Spec}R$ is:",
+          "choices": [
+            "$\\operatorname{Spec}(R/I)$",
+            "$\\operatorname{Spec}(R/\\sqrt{I})$",
+            "$\\operatorname{Spec}(R_{I})$ (localization at $I$)",
+            "$\\operatorname{Spec}(R/I^2)$"
+          ],
+          "answer": 1,
+          "explain": "Passing to the radical $\\sqrt I$ kills all nilpotents in the quotient. The reduced subscheme with the same underlying set $V(I)$ is $\\operatorname{Spec}(R/\\sqrt I)$; the inclusion $\\sqrt I\\supseteq I$ induces a natural closed immersion $\\operatorname{Spec}(R/\\sqrt I)\\hookrightarrow\\operatorname{Spec}(R/I)$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many minimal primes does $R=\\mathbb Z[x]/(6x) = \\mathbb Z[x]/(2\\cdot 3\\cdot x)$ have? (Equivalently, how many irreducible components does $\\operatorname{Spec}R$ have?)",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "In $\\mathbb Z[x]$, the prime $(6x)=(2)\\cap(3)\\cap(x)$ factors as a meet of three minimal primes over $(6x)$: $(2)$, $(3)$, and $(x)$. In $\\mathbb Z[x]/(6x)$ these become the three minimal primes, so $\\operatorname{Spec}R$ has $3$ irreducible components."
+        }
+      ]
+    },
+    "dimension-scheme": {
+      "title": "Dimension of a scheme",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the Krull dimension of $\\operatorname{Spec} k[x_1,x_2,x_3,x_4]$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\dim k[x_1,\\dots,x_n]=n$, realised by the chain $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$. For $n=4$ this gives dimension $4$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The longest chain of primes in $\\mathbb Z$ is $(0)\\subsetneq(p)$ for any prime $p$ — length $1$. So $\\dim\\operatorname{Spec}\\mathbb Z=1$; geometrically it is a 'curve' indexed by primes plus a generic point."
+        },
+        {
+          "type": "mcq",
+          "q": "For a finite-type scheme $X$ over a field $k$, the dimension of $X$ at a closed point $x\\in X$ is:",
+          "choices": [
+            "always $0$ because $x$ is a point",
+            "the Krull dimension of the local ring $\\mathcal O_{X,x}$",
+            "the $k$-vector space dimension of $\\mathcal O_{X,x}$",
+            "the number of generators of the maximal ideal $\\mathfrak m_x$"
+          ],
+          "answer": 1,
+          "explain": "Dimension is a local invariant: $\\dim_x X = \\dim \\mathcal O_{X,x}$, the Krull dimension of the local ring at $x$. The global $\\dim X$ is the supremum over closed points (on a finite-type scheme over a field)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "What is $\\dim\\operatorname{Spec}\\mathbb Z[x_1,x_2]$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "For a Noetherian ring $A$, $\\dim A[x]=\\dim A + 1$. Starting from $\\dim\\mathbb Z = 1$: $\\dim\\mathbb Z[x_1]=2$, $\\dim\\mathbb Z[x_1,x_2]=3$. A maximal chain is $(0)\\subsetneq(p)\\subsetneq(p,x_1)\\subsetneq(p,x_1,x_2)$ for any prime $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X=\\operatorname{Spec}(k[x,y]/(xy))$ be the union of two coordinate axes. Which statement is TRUE?",
+          "choices": [
+            "$\\dim X=2$ because $X\\subset\\mathbb A^2_k$",
+            "$\\dim X=1$, and $X$ is equidimensional",
+            "$\\dim X=0$ because $X$ is reducible",
+            "$\\dim X$ is undefined because $X$ is not irreducible"
+          ],
+          "answer": 1,
+          "explain": "The two irreducible components are the axes $V(x)$ and $V(y)$, each a copy of $\\mathbb A^1_k$ of dimension $1$. So $\\dim X=\\max=1$, and since both components have the same dimension, $X$ is equidimensional."
+        },
+        {
+          "type": "mcq",
+          "q": "For the projective space $\\mathbb P^n_k$, which assertion is correct?",
+          "choices": [
+            "$\\dim\\mathbb P^n_k=n+1$ because of the extra point at infinity",
+            "$\\dim\\mathbb P^n_k=n$; each affine chart $D_+(x_i)\\cong\\mathbb A^n_k$ has dimension $n$ and gluing preserves local dimension",
+            "$\\dim\\mathbb P^n_k=0$ because $\\mathcal O(\\mathbb P^n_k)=k$",
+            "$\\dim\\mathbb P^n_k$ depends on the choice of homogeneous coordinates"
+          ],
+          "answer": 1,
+          "explain": "Dimension is a local notion. $\\mathbb P^n_k$ is covered by $n+1$ open affine charts each isomorphic to $\\mathbb A^n_k$, so $\\dim\\mathbb P^n_k=n$. The fact that global sections are just $k$ is irrelevant to dimension (and is what distinguishes projective from affine)."
+        }
+      ]
+    },
+    "generic-point": {
+      "title": "Generic points and specialization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, the closure of the prime $(x)$ equals:",
+          "choices": [
+            "the single point $(x)$ itself",
+            "the 'axis' $V(x) = \\{\\mathfrak p : x\\in\\mathfrak p\\}$, e.g. all primes of the form $(x,p)$ or $(x)$",
+            "all of $\\operatorname{Spec}\\mathbb Z[x]$",
+            "the empty set"
+          ],
+          "answer": 1,
+          "explain": "The closure of a prime $\\mathfrak p$ is $V(\\mathfrak p)=\\{\\mathfrak q\\supseteq\\mathfrak p\\}$. For $\\mathfrak p=(x)$, these are all primes containing $x$, which are exactly $(x)$ itself together with all $(x,p)$ for $p$ prime — the entire 'vertical axis' of $\\operatorname{Spec}\\mathbb Z[x]$."
+        },
+        {
+          "type": "mcq",
+          "q": "A generic point of an irreducible closed subset $Z\\subseteq\\operatorname{Spec}R$ is:",
+          "choices": [
+            "any closed point of $Z$",
+            "the unique point $\\eta\\in Z$ whose closure is all of $Z$",
+            "the set of all maximal ideals in $Z$",
+            "the complement of $Z$ in $\\operatorname{Spec}R$"
+          ],
+          "answer": 1,
+          "explain": "Every irreducible closed subset $Z$ of a scheme has a unique generic point $\\eta$ with $\\overline{\\{\\eta\\}}=Z$. For $Z=V(\\mathfrak p)$ with $\\mathfrak p$ prime minimal with that property, the generic point is exactly $\\mathfrak p$ itself."
+        },
+        {
+          "type": "numeric",
+          "q": "How many generic points does the scheme $\\operatorname{Spec}(k[x,y]/(xy))$ have? (Count minimal primes.)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The minimal primes of $k[x,y]/(xy)$ are $(x)$ and $(y)$, one per irreducible component (the two coordinate axes). Each is the generic point of its component, so the scheme has $2$ generic points."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $\\mathfrak p\\leadsto\\mathfrak q$ denote specialization (i.e. $\\mathfrak p\\subseteq\\mathfrak q$). Which statement about specialization in $\\operatorname{Spec}\\mathbb Z[x]$ is correct?",
+          "choices": [
+            "$(0)\\leadsto(p)\\leadsto(p,x-a)$ for every prime $p$ and integer $a$",
+            "Specialization is symmetric: $\\mathfrak p\\leadsto\\mathfrak q$ implies $\\mathfrak q\\leadsto\\mathfrak p$",
+            "Closed points can specialize to generic points",
+            "$(p,x)\\leadsto(0)$ because the zero ideal is the smallest prime"
+          ],
+          "answer": 0,
+          "explain": "Specialization flows from smaller (more generic) to larger (more special): $(0)\\subsetneq(p)\\subsetneq(p,x-a)$ gives a chain of specializations from the generic point of the whole spectrum, through the height-$1$ prime $(p)$, down to a closed point. Specialization is antisymmetric, not symmetric; closed points are terminal."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\operatorname{Spec}\\mathbb Z[x]$, what is the maximum length of a specialization chain $\\mathfrak p_0\\subsetneq\\mathfrak p_1\\subsetneq\\cdots\\subsetneq\\mathfrak p_n$? (Give $n$, the number of strict inclusions.)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\dim\\mathbb Z[x]=2$, achieved by e.g. $(0)\\subsetneq(p)\\subsetneq(p,x-a)$: three primes, two strict inclusions. So the longest specialization chain has length $n=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which claim about generic points and open dense subsets is TRUE in a Noetherian irreducible scheme $X$ with generic point $\\eta$?",
+          "choices": [
+            "An open subset $U\\subseteq X$ is dense iff $\\eta\\in U$",
+            "Every non-empty open subset misses $\\eta$",
+            "$\\eta$ lies in every closed subset of $X$",
+            "$\\eta$ is isolated in the Zariski topology"
+          ],
+          "answer": 0,
+          "explain": "Since $\\overline{\\{\\eta\\}}=X$, a closed set $Z\\subsetneq X$ cannot contain $\\eta$. Equivalently, an open $U$ is dense (its complement is a proper closed set) iff $\\eta\\in U$. This is why 'generic' properties — those that hold on a dense open — are exactly the ones that hold at $\\eta$."
+        }
+      ]
+    },
+    "residue-field-at-prime": {
+      "title": "Residue fields and evaluation at points",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The residue field $\\kappa(\\mathfrak p)$ at a prime $\\mathfrak p\\subset R$ is defined as:",
+          "choices": [
+            "$R/\\mathfrak p$",
+            "$\\operatorname{Frac}(R/\\mathfrak p)$, equivalently $R_{\\mathfrak p}/\\mathfrak p R_{\\mathfrak p}$",
+            "$R_{\\mathfrak p}$",
+            "$\\mathfrak p$ itself as an $R$-module"
+          ],
+          "answer": 1,
+          "explain": "$\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$, or equivalently the quotient of the local ring $R_{\\mathfrak p}$ by its maximal ideal. For a maximal $\\mathfrak p$, $R/\\mathfrak p$ is already a field, but at non-maximal primes you need the fraction field."
+        },
+        {
+          "type": "mcq",
+          "q": "At the generic point $(0)\\in\\operatorname{Spec}\\mathbb Z[x]$, the residue field is:",
+          "choices": [
+            "$\\mathbb F_p$ for some $p$",
+            "$\\mathbb Q$",
+            "$\\mathbb Q(x)$",
+            "$\\mathbb Z[x]$ itself"
+          ],
+          "answer": 2,
+          "explain": "$\\kappa((0))=\\operatorname{Frac}(\\mathbb Z[x]/(0))=\\operatorname{Frac}(\\mathbb Z[x])=\\mathbb Q(x)$, the field of rational functions in one variable over $\\mathbb Q$."
+        },
+        {
+          "type": "numeric",
+          "q": "At the maximal ideal $\\mathfrak m=(2,x^2+x+1)\\subset\\mathbb Z[x]$, the residue field is $\\mathbb Z[x]/(2,x^2+x+1)\\cong\\mathbb F_2[x]/(x^2+x+1)$. How many elements does $\\kappa(\\mathfrak m)$ have?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$x^2+x+1$ has no root in $\\mathbb F_2$ (check $x=0,1$ both give $1$), so it is irreducible. Hence $\\kappa(\\mathfrak m)=\\mathbb F_2[x]/(x^2+x+1)=\\mathbb F_4$, a field of $4$ elements."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider $f=x^2+1\\in\\mathbb Z[x]$, regarded as a 'function' on $\\operatorname{Spec}\\mathbb Z[x]$. At which of the following points does $f$ vanish, in the sense $f\\in\\mathfrak p$?",
+          "choices": [
+            "The closed point $\\mathfrak m=(3,x-1)$ (since $1^2+1=2\\not\\equiv 0\\pmod 3$)",
+            "The closed point $\\mathfrak m=(5,x-2)$ (since $2^2+1=5\\equiv 0\\pmod 5$)",
+            "The generic point $(0)$",
+            "Every prime of $\\mathbb Z[x]$, because $f$ is monic"
+          ],
+          "answer": 1,
+          "explain": "'$f$ vanishes at $\\mathfrak p$' means $f\\in\\mathfrak p$, equivalently $f\\equiv 0$ in $\\kappa(\\mathfrak p)$. At $\\mathfrak m=(5,x-2)$: $\\kappa(\\mathfrak m)=\\mathbb F_5$ and $f\\mapsto 2^2+1=5\\equiv 0$, so yes. At $(3,x-1)$: $f\\mapsto 2\\not\\equiv 0$. At $(0)$: $\\kappa((0))=\\mathbb Q(x)$ and $f=x^2+1\\ne 0$, so $f\\notin(0)$."
+        },
+        {
+          "type": "mcq",
+          "q": "A $k$-point of a $k$-scheme $X$ — a morphism $\\operatorname{Spec}k\\to X$ — corresponds to:",
+          "choices": [
+            "any closed point $x\\in X$",
+            "a closed point $x$ together with an embedding $\\kappa(x)\\hookrightarrow k$",
+            "a generic point of $X$",
+            "an open subscheme of $X$"
+          ],
+          "answer": 1,
+          "explain": "A morphism $\\operatorname{Spec}k\\to X$ picks out a point $x\\in X$ and, since its image lies in the residue field, a $k$-algebra map $\\kappa(x)\\to k$, i.e. an embedding $\\kappa(x)\\hookrightarrow k$. When $k$ is algebraically closed and $\\kappa(x)=k$ this recovers 'classical points', but in general the extra choice of embedding matters (Galois conjugate points)."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathbb Z[x]$, consider the maximal ideal $\\mathfrak m=(p)$ of the height-$1$ prime $(p)\\subset\\mathbb Z[x]$ — i.e. the prime $(p)$ itself, height $1$, not a closed point. The residue field $\\kappa((p))=\\mathbb F_p(x)$. What is its transcendence degree over $\\mathbb F_p$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\kappa((p))=\\operatorname{Frac}(\\mathbb Z[x]/(p))=\\operatorname{Frac}(\\mathbb F_p[x])=\\mathbb F_p(x)$. The transcendence degree of $\\mathbb F_p(x)$ over $\\mathbb F_p$ is $1$ — one transcendental generator $x$. (This matches the intuition that $(p)$ is a 'curve' in $\\operatorname{Spec}\\mathbb Z[x]$.)"
+        }
+      ]
+    },
+    "locally-ringed-space": {
+      "title": "Locally ringed spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A locally ringed space is a pair $(X,\\mathcal O_X)$ where $\\mathcal O_X$ is a sheaf of rings such that:",
+          "choices": [
+            "$\\mathcal O_X$ is a constant sheaf",
+            "every stalk $\\mathcal O_{X,x}$ is a local ring",
+            "every stalk $\\mathcal O_{X,x}$ is a field",
+            "$\\mathcal O_X$ has global sections equal to $\\mathbb Z$"
+          ],
+          "answer": 1,
+          "explain": "By definition, 'locally ringed' means every stalk is a local ring (a commutative ring with a unique maximal ideal). Stalks being fields is the much stronger condition that defines a 'sheaf of fields', not the right notion for schemes."
+        },
+        {
+          "type": "mcq",
+          "q": "A morphism of locally ringed spaces $(f, f^\\sharp)\\colon(X,\\mathcal O_X)\\to(Y,\\mathcal O_Y)$ must satisfy, in addition to being a morphism of ringed spaces, that for each $x\\in X$ the induced stalk map:",
+          "choices": [
+            "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ is an isomorphism",
+            "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ sends the maximal ideal into the maximal ideal (is a local homomorphism)",
+            "$\\mathcal O_{Y,f(x)}\\to\\mathcal O_{X,x}$ is surjective",
+            "$\\mathcal O_{X,x}\\to\\mathcal O_{Y,f(x)}$ is injective"
+          ],
+          "answer": 1,
+          "explain": "The extra condition is that each induced stalk map is a local ring homomorphism: $f^\\sharp_x(\\mathfrak m_{f(x)})\\subseteq\\mathfrak m_x$. Without this, maps between $\\operatorname{Spec}$s would not correspond to ring homomorphisms in the right direction."
+        },
+        {
+          "type": "mcq",
+          "q": "A scheme is a locally ringed space that is:",
+          "choices": [
+            "compact and Hausdorff",
+            "locally isomorphic (as a locally ringed space) to $\\operatorname{Spec}R$ for some commutative ring $R$",
+            "globally isomorphic to $\\operatorname{Spec}R$ for a single $R$",
+            "a topological manifold"
+          ],
+          "answer": 1,
+          "explain": "A scheme $X$ is a locally ringed space such that every point has an open neighborhood $U$ with $(U,\\mathcal O_X|_U)\\cong(\\operatorname{Spec}R,\\mathcal O_{\\operatorname{Spec}R})$ for some ring $R$ (depending on $U$). Globally isomorphic to a single $\\operatorname{Spec}R$ is the stronger 'affine' condition."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider the ring map $\\iota\\colon k\\hookrightarrow k[x]_{(x)}$ (inclusion of $k$ into the localization at $(x)$). The induced map on spectra sends the unique point of $\\operatorname{Spec}k[x]_{(x)}\\cong\\{(0),(x)\\}$ to a point of $\\operatorname{Spec}k=\\{*\\}$. Which stalk map fails to be local if we mistakenly use a non-local ring homomorphism here?",
+          "choices": [
+            "Any $k$-algebra map $k\\to k[x]_{(x)}$ is automatically local",
+            "The map $k\\to k[x]_{(x)}$ is local (the zero ideal of $k$ maps into $(x)k[x]_{(x)}$); the locality condition is automatic because $k$ is a field",
+            "The map is never local because $k$ is smaller than $k[x]_{(x)}$",
+            "Locality fails whenever the target has more than one prime"
+          ],
+          "answer": 1,
+          "explain": "For a ring map $\\phi\\colon A\\to B$ with $A$ local (maximal ideal $\\mathfrak m_A$) and $B$ local (maximal ideal $\\mathfrak m_B$), $\\phi$ is local iff $\\phi(\\mathfrak m_A)\\subseteq\\mathfrak m_B$. When $A=k$ is a field, $\\mathfrak m_A=(0)$ and $\\phi(0)=0\\in\\mathfrak m_B$ automatically — locality is free. The subtlety only appears when $A$ has a non-zero maximal ideal that could map to a unit."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X$ be the topological space $\\{\\eta,s\\}$ with $\\{s\\}$ closed (so $\\eta$ is generic). Equip it with a sheaf $\\mathcal O$ such that $\\mathcal O(X)=R$, $\\mathcal O(\\{\\eta\\})=K$ where $R$ is a DVR with fraction field $K$, and restriction is the localization. Is $(X,\\mathcal O)$ a scheme?",
+          "choices": [
+            "Yes — it is canonically isomorphic to $\\operatorname{Spec}R$",
+            "No — the stalk at $s$ is not local",
+            "Yes, but only if $R=K$",
+            "No — a DVR has $3$ primes, not $2$"
+          ],
+          "answer": 0,
+          "explain": "A DVR $R$ has exactly two primes: $(0)$ and the unique maximal $\\mathfrak m$. So $\\operatorname{Spec}R=\\{(0),\\mathfrak m\\}$ with $\\{\\mathfrak m\\}$ closed and $\\{(0)\\}$ generic, and $\\mathcal O(X)=R$, $\\mathcal O(\\{(0)\\})=\\operatorname{Frac}R=K$. The described $(X,\\mathcal O)$ matches $\\operatorname{Spec}R$ exactly, and the stalks are $R_{\\mathfrak m}=R$ and $R_{(0)}=K$, both local."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is an example of a ringed space that is NOT a locally ringed space?",
+          "choices": [
+            "$(\\operatorname{Spec}\\mathbb Z,\\mathcal O)$ with its usual structure sheaf",
+            "A point $\\{*\\}$ equipped with the ring $\\mathbb Z\\times\\mathbb Z$ (so the unique stalk is $\\mathbb Z\\times\\mathbb Z$, which has two maximal ideals)",
+            "An affine line over $k$ with its usual structure sheaf",
+            "A projective line over $k$ with its usual structure sheaf"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb Z\\times\\mathbb Z$ is a product ring with two maximal ideals $\\mathbb Z\\times 0$ and $0\\times\\mathbb Z$ — it is not local. So the ringed space $(\\{*\\},\\mathbb Z\\times\\mathbb Z)$ fails to be locally ringed. All the other examples are schemes, hence locally ringed."
+        }
+      ]
+    },
+    "projective-scheme": {
+      "title": "Projective schemes and Proj",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a graded ring $S=\\bigoplus_{d\\ge 0}S_d$, the underlying set of $\\operatorname{Proj}S$ consists of:",
+          "choices": [
+            "all prime ideals of $S$",
+            "all homogeneous prime ideals $\\mathfrak p\\subset S$ not containing the irrelevant ideal $S_+=\\bigoplus_{d>0}S_d$",
+            "all maximal ideals of $S_0$",
+            "all ideals of $S$ containing $S_+$"
+          ],
+          "answer": 1,
+          "explain": "$\\operatorname{Proj}S=\\{\\mathfrak p\\subset S\\text{ homogeneous prime}:\\mathfrak p\\not\\supseteq S_+\\}$. Excluding those containing $S_+$ kills the 'irrelevant' locus that would otherwise give a cone point."
+        },
+        {
+          "type": "mcq",
+          "q": "For $S=k[x_0,x_1,\\dots,x_n]$, the basic open $D_+(x_i)\\subset\\operatorname{Proj}S$ is canonically isomorphic to:",
+          "choices": [
+            "$\\operatorname{Spec}k$",
+            "$\\mathbb A^{n+1}_k=\\operatorname{Spec}k[x_0,\\dots,x_n]$",
+            "$\\mathbb A^n_k=\\operatorname{Spec}k[x_0/x_i,\\dots,x_n/x_i]$ (omitting $x_i/x_i=1$)",
+            "$\\operatorname{Proj}k$"
+          ],
+          "answer": 2,
+          "explain": "On $D_+(x_i)$ we may 'dehomogenize' by setting $x_i=1$. Formally $D_+(x_i)=\\operatorname{Spec}((S_{x_i})_0)$ and the degree-$0$ part of $S_{x_i}$ is generated by $x_j/x_i$ for $j\\ne i$, giving $\\mathbb A^n_k$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many standard affine charts cover $\\mathbb P^5_k=\\operatorname{Proj}k[x_0,\\dots,x_5]$?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\mathbb P^n_k$ is covered by $n+1$ charts $D_+(x_i)$ for $i=0,\\dots,n$. For $n=5$, that is $6$ charts."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider the twisted cubic $C=\\operatorname{Proj}k[s^3,s^2t,st^2,t^3]\\subset\\mathbb P^3_k$, the image of $\\mathbb P^1_k\\hookrightarrow\\mathbb P^3_k$ via $[s:t]\\mapsto[s^3:s^2t:st^2:t^3]$. Which description is correct?",
+          "choices": [
+            "$C\\cong\\mathbb P^1_k$ via the parametrization, so $\\dim C=1$",
+            "$\\dim C=3$ since $C\\subset\\mathbb P^3_k$",
+            "$C$ is a single point",
+            "$C$ is empty because the ring is not a polynomial ring"
+          ],
+          "answer": 0,
+          "explain": "The graded ring $k[s^3,s^2t,st^2,t^3]\\subset k[s,t]$ is the Veronese subalgebra. Its Proj is the image of $\\mathbb P^1_k\\to\\mathbb P^3_k$, which is an embedded copy of $\\mathbb P^1_k$ — the twisted cubic. So $\\dim C=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $S=k[x_0,x_1,x_2]$ and $I=(x_0^2+x_1^2-x_2^2)$. Then $\\operatorname{Proj}(S/I)$ is:",
+          "choices": [
+            "$\\mathbb P^2_k$ itself",
+            "a smooth conic in $\\mathbb P^2_k$ (over an algebraically closed $k$ of characteristic $\\ne 2$), isomorphic to $\\mathbb P^1_k$",
+            "empty because $I$ contains a non-zero element",
+            "$\\operatorname{Spec}S/I$, an affine conic"
+          ],
+          "answer": 1,
+          "explain": "$x_0^2+x_1^2-x_2^2$ is a non-degenerate homogeneous quadratic form; over algebraically closed $k$ with $\\operatorname{char}k\\ne 2$ it defines a smooth conic in $\\mathbb P^2_k$. All smooth plane conics are isomorphic to $\\mathbb P^1_k$ (e.g. via stereographic projection from any rational point)."
+        },
+        {
+          "type": "numeric",
+          "q": "The global sections $H^0(\\mathbb P^n_k,\\mathcal O(d))$ for $d\\ge 0$ is the degree-$d$ part of $k[x_0,\\dots,x_n]$. What is $\\dim_k H^0(\\mathbb P^2_k,\\mathcal O(3))$? (Number of degree-$3$ monomials in $3$ variables.)",
+          "answer": 10,
+          "tol": 1e-6,
+          "explain": "The number of degree-$d$ monomials in $n+1$ variables is $\\binom{n+d}{d}$. For $n=2$, $d=3$: $\\binom{5}{3}=10$. The ten monomials are $x_0^3,x_0^2x_1,x_0^2x_2,x_0x_1^2,x_0x_1x_2,x_0x_2^2,x_1^3,x_1^2x_2,x_1x_2^2,x_2^3$."
+        }
+      ]
+    },
+    "fiber-over-point": {
+      "title": "Fibers of a morphism over a point",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a morphism $f\\colon X\\to Y$ and $y\\in Y$, the scheme-theoretic fiber $X_y$ is defined as:",
+          "choices": [
+            "$f^{-1}(y)$ with the subspace topology, no extra structure",
+            "the fiber product $X\\times_Y \\operatorname{Spec}\\kappa(y)$",
+            "the affine scheme $\\operatorname{Spec}\\mathcal O_{Y,y}$",
+            "the image of $f$ restricted to a neighborhood of $y$"
+          ],
+          "answer": 1,
+          "explain": "The fiber over $y$ is $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$, the base change of $X$ along the inclusion of the residue field at $y$. Its underlying set is $f^{-1}(y)$, but the fiber-product definition records scheme structure, multiplicities, and residue-field extensions."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the structural morphism $\\operatorname{Spec}\\mathbb Z[x]\\to\\operatorname{Spec}\\mathbb Z$. The fiber over the closed point $(5)\\in\\operatorname{Spec}\\mathbb Z$ is:",
+          "choices": [
+            "$\\operatorname{Spec}\\mathbb Z$",
+            "$\\operatorname{Spec}\\mathbb F_5$",
+            "$\\operatorname{Spec}\\mathbb F_5[x]=\\mathbb A^1_{\\mathbb F_5}$",
+            "$\\operatorname{Spec}\\mathbb Q[x]$"
+          ],
+          "answer": 2,
+          "explain": "The fiber over $(p)$ is $\\operatorname{Spec}(\\mathbb Z[x]\\otimes_{\\mathbb Z}\\mathbb F_p)=\\operatorname{Spec}\\mathbb F_p[x]=\\mathbb A^1_{\\mathbb F_p}$. For $p=5$ this is the affine line over $\\mathbb F_5$.",
+          "hint": "Tensor $\\mathbb Z[x]$ with the residue field $\\kappa((5))=\\mathbb F_5$."
+        },
+        {
+          "type": "mcq",
+          "q": "The <em>generic fiber</em> of a morphism $X\\to Y$ (with $Y$ integral) is the fiber over:",
+          "choices": [
+            "the generic point $\\eta\\in Y$, i.e. $X\\times_Y\\operatorname{Spec}K(Y)$ where $K(Y)$ is the function field",
+            "every closed point simultaneously",
+            "a random chosen closed point",
+            "the empty subset of $Y$"
+          ],
+          "answer": 0,
+          "explain": "The generic fiber is $X_\\eta = X\\times_Y \\operatorname{Spec}K(Y)$, the fiber over the generic point of $Y$. It carries all properties that hold on a dense open subset of $Y$; 'special fibers' are the fibers over closed points."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Consider $f\\colon\\operatorname{Spec}\\mathbb Z[i]\\to\\operatorname{Spec}\\mathbb Z$. How many closed points does the fiber over $(5)\\in\\operatorname{Spec}\\mathbb Z$ have?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Fiber over $(5)$ is $\\operatorname{Spec}(\\mathbb Z[i]\\otimes_{\\mathbb Z}\\mathbb F_5)=\\operatorname{Spec}\\mathbb F_5[x]/(x^2+1)$. Over $\\mathbb F_5$, $x^2+1=(x-2)(x+2)$ (since $2^2=4\\equiv-1$), so the fiber is $\\operatorname{Spec}(\\mathbb F_5\\times\\mathbb F_5)$: two closed points. ($5$ splits in $\\mathbb Z[i]$.)"
+        },
+        {
+          "type": "mcq",
+          "q": "For the family $X=\\operatorname{Spec}k[t,x]/(x^2-t)\\to Y=\\operatorname{Spec}k[t]$ (with $k$ algebraically closed of characteristic $\\ne 2$), which statement correctly compares the fibers?",
+          "choices": [
+            "All fibers are two reduced points",
+            "The fiber over $t=a\\ne 0$ is two reduced closed points ($x=\\pm\\sqrt a$); the fiber over $t=0$ is a single non-reduced point $\\operatorname{Spec}k[x]/(x^2)$",
+            "All fibers are empty",
+            "The generic fiber is two reduced points, but every closed-point fiber is empty"
+          ],
+          "answer": 1,
+          "explain": "Over $t=a\\ne 0$: $k[x]/(x^2-a)\\cong k\\times k$, giving two reduced closed points. Over $t=0$: $k[x]/(x^2)$, a single non-reduced length-$2$ fat point. This is the standard example of a family with a degenerate special fiber — the double cover of $\\mathbb A^1$ ramified at $0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $f\\colon\\mathbb P^1_{\\mathbb Z}\\to\\operatorname{Spec}\\mathbb Z$. Which statement about the fibers is TRUE?",
+          "choices": [
+            "The fiber over $(p)$ is $\\mathbb P^1_{\\mathbb F_p}$; the generic fiber is $\\mathbb P^1_{\\mathbb Q}$",
+            "All fibers are $\\operatorname{Spec}\\mathbb Z$",
+            "The generic fiber is empty because $(0)$ is not a closed point",
+            "The fiber over $(p)$ is $\\mathbb A^1_{\\mathbb F_p}$, not $\\mathbb P^1_{\\mathbb F_p}$"
+          ],
+          "answer": 0,
+          "explain": "Base change commutes with Proj: $\\mathbb P^1_{\\mathbb Z}\\times_{\\operatorname{Spec}\\mathbb Z}\\operatorname{Spec}\\kappa((p))=\\mathbb P^1_{\\mathbb F_p}$, and similarly the generic fiber is $\\mathbb P^1_{\\mathbb Q}$. The fibers are genuine $\\mathbb P^1$'s over each residue field — the 'arithmetic surface' $\\mathbb P^1_{\\mathbb Z}$ is a family of projective lines parametrized by $\\operatorname{Spec}\\mathbb Z$."
+        }
+      ]
     }
   }
 }

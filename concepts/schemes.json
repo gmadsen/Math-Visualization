@@ -66,6 +66,36 @@
         "gluing-affines"
       ],
       "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties."
+    },
+    {
+      "id": "closed-subscheme",
+      "title": "Closed subschemes, reducedness, and irreducibility",
+      "anchor": "closed-subscheme",
+      "prereqs": [
+        "structure-sheaf-schemes",
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Closed subschemes of $\\operatorname{Spec} R$ are $\\operatorname{Spec}(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+    },
+    {
+      "id": "dimension-scheme",
+      "title": "Dimension of a scheme",
+      "anchor": "dimension",
+      "prereqs": [
+        "spectrum-primes",
+        "krull-dimension-ca"
+      ],
+      "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart."
+    },
+    {
+      "id": "fiber-over-point",
+      "title": "Fibers of a morphism over a point",
+      "anchor": "fiber-over-point",
+      "prereqs": [
+        "residue-field-at-prime",
+        "gluing-affines"
+      ],
+      "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once."
     }
   ]
 }

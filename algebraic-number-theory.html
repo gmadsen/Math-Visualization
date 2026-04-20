@@ -240,7 +240,7 @@ function legendre(a,p){
 
 <section id="intro">
 <h2>1. Number fields and rings of integers</h2>
-<p>A <strong>number field</strong> is a finite extension $K/\mathbb{Q}$; its dimension $n=[K:\mathbb{Q}]$ is the <em>degree</em>. By the primitive element theorem, $K=\mathbb{Q}(\alpha)$ for some algebraic $\alpha\in K$ whose minimal polynomial $m_\alpha\in\mathbb{Q}[x]$ has degree $n$. The Galois-theoretic reflex of $K$ is recorded by the $n$ embeddings $\sigma\colon K\hookrightarrow\mathbb{C}$; we split them into $r_1$ real embeddings and $r_2$ conjugate pairs of complex embeddings, with $n=r_1+2r_2$.</p>
+<p>A <strong>number field</strong> is a finite extension $K/\mathbb{Q}$; its dimension $n=[K:\mathbb{Q}]$ is the <em>degree</em>. By the <a href="./galois.html#primitive" data-auto-inline-link="1">primitive element theorem</a>, $K=\mathbb{Q}(\alpha)$ for some algebraic $\alpha\in K$ whose minimal polynomial $m_\alpha\in\mathbb{Q}[x]$ has degree $n$. The Galois-theoretic reflex of $K$ is recorded by the $n$ embeddings $\sigma\colon K\hookrightarrow\mathbb{C}$; we split them into $r_1$ real embeddings and $r_2$ conjugate pairs of complex embeddings, with $n=r_1+2r_2$.</p>
 
 <p>Inside $K$ sits a distinguished subring, the <strong>ring of integers</strong></p>
 <p style="text-align:center">$\mathcal{O}_K = \{\alpha\in K : \alpha \text{ is a root of a monic polynomial in } \mathbb{Z}[x]\}$.</p>
@@ -510,7 +510,7 @@ function legendre(a,p){
 </ul>
 </div>
 
-<p>For quadratic $K=\mathbb{Q}(\sqrt{d})$ (with $d$ squarefree) and an odd prime $p\nmid d$, the trichotomy is controlled by the Legendre symbol $(d/p)$:</p>
+<p>For quadratic $K=\mathbb{Q}(\sqrt{d})$ (with $d$ squarefree) and an odd prime $p\nmid d$, the trichotomy is controlled by <a href="./quadratic-reciprocity.html#legendre" data-auto-inline-link="1">the Legendre symbol</a> $(d/p)$:</p>
 <table class="plain">
 <thead><tr><th>condition</th><th>behavior</th><th>factorization in $\mathcal{O}_K$</th></tr></thead>
 <tbody>
@@ -1307,7 +1307,7 @@ then $S$ contains a nonzero lattice point.</div>
 <p>The scheme $\mathrm{Spec}\,\mathcal{O}_K$ is a Dedekind scheme of Krull dimension $1$: an "arithmetic curve". Its closed points are the nonzero primes $\mathfrak{p}$ of $\mathcal{O}_K$, each with residue field $\mathcal{O}_K/\mathfrak{p}$ of characteristic some rational prime $p$. The map $\mathrm{Spec}\,\mathcal{O}_K\to\mathrm{Spec}\,\mathbb{Z}$ is a finite flat cover; above each prime $p\in\mathrm{Spec}\,\mathbb{Z}$ the fibre is $\mathrm{Spec}(\mathcal{O}_K/p\mathcal{O}_K)$, whose structure is precisely the factorization data $(e_i,f_i)$. Ramified primes are the points where the cover is not étale. See <a href="./schemes.html">Schemes</a>.</p>
 
 <h3>Elliptic curves over number fields</h3>
-<p>The Mordell–Weil theorem says $E(K)$ is a finitely generated abelian group for an elliptic curve $E/K$: a higher-dimensional avatar of Dirichlet's unit theorem. Constructively, you lift heights using the Néron–Tate pairing; abstractly, you use the finiteness of $\mathrm{Sel}(E/K)$ which relies on finiteness of the class group (and of $\mathcal{O}_K^\times$ mod $n$-th powers). See <a href="./elliptic-curves.html">Elliptic curves</a>.</p>
+<p>The <a href="./bsd.html#mordell-weil" data-auto-inline-link="1">Mordell–Weil theorem</a> says $E(K)$ is a finitely generated abelian group for an elliptic curve $E/K$: a higher-dimensional avatar of Dirichlet's unit theorem. Constructively, you lift heights using the Néron–Tate pairing; abstractly, you use the finiteness of $\mathrm{Sel}(E/K)$ which relies on finiteness of the class group (and of $\mathcal{O}_K^\times$ mod $n$-th powers). See <a href="./elliptic-curves.html">Elliptic curves</a>.</p>
 
 <h3>Beyond</h3>
 <p>Next stops: $L$-functions $L(s,\chi)$ attached to Dirichlet characters and their number-field analogues $\zeta_K(s)$; the analytic class-number formula that ties $h_K\cdot R_K$ (class number times regulator) to the residue of $\zeta_K$ at $s=1$; local fields $K_\mathfrak{p}$ (completions at a prime); adeles and ideles; class field theory.</p>

@@ -65,6 +65,33 @@
         "tangent-space-manifolds"
       ],
       "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}."
+    },
+    {
+      "id": "vector-field-flows",
+      "title": "Integral curves and flows",
+      "anchor": "flows",
+      "prereqs": [
+        "tangent-bundle"
+      ],
+      "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact."
+    },
+    {
+      "id": "partition-of-unity",
+      "title": "Partitions of unity",
+      "anchor": "partition",
+      "prereqs": [
+        "smooth-manifold-definition"
+      ],
+      "blurb": "Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones."
+    },
+    {
+      "id": "orientation",
+      "title": "Orientation of manifolds",
+      "anchor": "orientation",
+      "prereqs": [
+        "tangent-bundle"
+      ],
+      "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian."
     }
   ]
 }

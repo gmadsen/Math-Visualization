@@ -47,7 +47,8 @@
       "anchor": "so3su2",
       "prereqs": [
         "lie-algebra-and-exp",
-        "fundamental-group"
+        "fundamental-group",
+        "covering-spaces"
       ],
       "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons."
     },
@@ -56,7 +57,8 @@
       "title": "Adjoint representation and Killing form",
       "anchor": "adjoint",
       "prereqs": [
-        "lie-bracket-bch"
+        "lie-bracket-bch",
+        "group-representations"
       ],
       "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity."
     },

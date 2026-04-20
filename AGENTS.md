@@ -11,6 +11,34 @@ A single-file, interactive graduate-mathematics notebook in the spirit of 3Blue1
 - Every page ends concepts with a short quiz. Passing the quiz marks the concept *mastered*.
 - Mastery is tracked locally and gates downstream concepts on [`pathway.html`](./pathway.html) (locked → ready → mastered), exactly like Brilliant's progression.
 
+## Architecture at a glance
+
+```
+index.html                    landing page with section grid
+pathway.html                  capstone prerequisite explorer
+<topic>.html                  one self-contained page per topic
+concepts/                     concept graph JSONs + index.json + capstones.json + bundle.js
+quizzes/                      quiz bank JSONs + bundle.js
+js/progress.js                mastery store (localStorage)
+js/quiz.js                    quiz widget
+js/katex-select.js            LaTeX-in-<option> shim
+scripts/                      validators, audits, bundle builders, packaging
+.github/workflows/verify.yml  CI entry point
+AGENTS.md                     this file
+PLAN.md                       forward priorities and next tasks
+```
+
+Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small node scripts that (a) flatten `concepts/*.json` and `quizzes/*.json` into `*/bundle.js` so `file://` double-click opens still work (browsers block `fetch()` of local JSON), (b) idempotently insert forward/reverse cross-reference asides into topic pages, or (c) validate the concept graph. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs the whole chain on every push.
+
+Quality gates — all exit non-zero on failure and gate CI:
+
+- [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) — duplicate ids, broken prereqs, cycles, missing anchors/blurbs.
+- [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) — every page has sidebar, top-nav backlink, quiz wiring, ≥1 widget; anchors resolve.
+- [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs) — cross-topic prereqs have a forward "See also" aside.
+- [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
+
+Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip.
+
 ## Style reference — always read first
 
 Before drafting a new page or editing widget code, **read [`category-theory.html`](./category-theory.html)** end-to-end. It is the canonical style template:
@@ -142,7 +170,7 @@ Every new topic page should ship with quizzes for its concepts.
        "<concept-id>": {
          "title": "Readable title",
          "questions": [
-           { "type": "mcq",     "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "..." },
+           { "type": "mcq",     "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "...", "hint": "optional short nudge" },
            { "type": "numeric", "q": "...", "answer": 5,     "tol": 1e-6,  "explain": "..." },
            { "type": "complex", "q": "...", "answer": [3,1], "tol": 1e-3,  "explain": "..." }
          ],
@@ -154,6 +182,8 @@ Every new topic page should ship with quizzes for its concepts.
    }
    ```
    Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**.
+
+   **Optional `hint` field** (per question, any type): a short nudge the learner can reveal via the `?` button rendered next to the question. If `hint` is absent, the quiz widget falls back to the first sentence of `explain` (when that is a usable sentence of ≥ 20 chars). Revealing a hint does not affect mastery — it's purely a pedagogical aid.
 
    **Schema compatibility**: banks without a `hard` key keep behaving as before — nothing changes in the UI except the badge text.
 4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at two tiers per concept: `'v1'` and `'hard'`.
@@ -230,6 +260,8 @@ Skipping any of these is a silent break — quizzes appear but do nothing, or th
 
 ## Registering a new page
 
+Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 3–4 and step 7 below (creates the stub topic HTML, `concepts/<slug>.json`, `quizzes/<slug>.json`, and registers the slug in `concepts/index.json` under the given section). Steps 1–2 (index card, README bullet) and step 5 (capstones) remain manual.
+
 When you publish `new-topic.html`:
 
 1. Add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`). Put it under the appropriate section header from the 7-section list above.
@@ -244,6 +276,7 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs both bundle builds plus `validate-concepts`, `audit-callbacks --fix`, `insert-used-in-backlinks --fix`, and `smoke-test` in the correct order, bailing on the first non-zero exit. Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step (`concepts`, `quizzes`, `validate`, `callbacks`, `backlinks`, `smoke`).
 
 ## Verification (required before claiming done)
 

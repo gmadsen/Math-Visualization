@@ -5,13 +5,10 @@ Forward-looking priorities and concrete next tasks for the notebook. For archite
 After any change, run:
 
 ```bash
-node scripts/validate-concepts.mjs
-node scripts/audit-callbacks.mjs
-node scripts/insert-used-in-backlinks.mjs
-node scripts/smoke-test.mjs
-node scripts/build-concepts-bundle.mjs   # if concepts/*.json changed
-node scripts/build-quizzes-bundle.mjs    # if quizzes/*.json changed
+node scripts/rebuild.mjs
 ```
+
+This orchestrates the full 6-step chain — `build-concepts-bundle`, `build-quizzes-bundle`, `validate-concepts`, `audit-callbacks --fix`, `insert-used-in-backlinks --fix`, `smoke-test` — and bails on the first non-zero exit. Pass `--no-fix` for audit-only mode (mirrors CI), or `--only <step>` to run a single step (`concepts`, `quizzes`, `validate`, `callbacks`, `backlinks`, `smoke`). See `scripts/rebuild.mjs` for the exact commands it dispatches.
 
 ## Near-term tasks
 

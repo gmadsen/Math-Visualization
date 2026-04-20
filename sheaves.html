@@ -306,6 +306,7 @@ commutes. The restrictions $\rho^F, \rho^G$ are the presheaf restrictions. For p
 
 <h3>The functor of points, in passing</h3>
 <p>The functor-of-points perspective inverts the picture: a scheme $X$ is determined by its functor $h_X = \mathrm{Hom}(-, X)\colon \mathsf{Sch}^{\mathrm{op}} \to \mathsf{Set}$. A natural way to package geometric data on $X$ is then as a sheaf on the site of $X$-schemes (or on a small subcategory thereof). Sheaves on $\mathrm{Open}(X)$ are the special case of taking $\mathcal{C} = \mathrm{Open}(X)$ with covers = open covers.</p>
+<div class="quiz" data-concept="presheaf-functor"></div>
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -838,6 +839,7 @@ $$0 \to \underline{2\pi i \mathbb{Z}} \to \mathcal{O}_X \xrightarrow{\exp} \math
 exact in $\mathsf{Sh}(X, \mathsf{Ab})$ — stalkwise, locally a logarithm exists. Taking global sections gives the long exact sequence
 $$0 \to \underline{2\pi i \mathbb{Z}}(X) \to \mathcal{O}_X(X) \to \mathcal{O}_X^\times(X) \to H^1(X, \underline{2\pi i \mathbb{Z}}) \to H^1(X, \mathcal{O}_X) \to \mathrm{Pic}(X) \to H^2(X, \underline{2\pi i \mathbb{Z}}) \to \cdots$$
 On $X = \mathbb{C}^\times$, the coboundary $\mathcal{O}_X^\times(X) \to H^1(X, \underline{\mathbb{Z}}) = \mathbb{Z}$ is the winding number, and sends the identity function $z$ to $1$ — manifesting its non-exponentialness.</p>
+<div class="quiz" data-concept="sheaf-morphisms-stalks"></div>
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -972,14 +974,14 @@ A section over $U$ is a choice of germ at each point that is locally represented
 </div>
 
 
-
-
+<div class="quiz" data-concept="sheafification-functor"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./sheaves.html#qcoh">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>
 </aside>
 <!-- backlinks-auto-end -->
+
 </section>
 
 <script>
@@ -1104,6 +1106,9 @@ commutes for $V \subseteq U$. The category $\mathsf{Mod}(\mathcal{O}_X)$ is abel
 
 <h3>Tensor product and $\mathcal{H}\!om$</h3>
 <p>For $\mathcal{F}, \mathcal{G}$ $\mathcal{O}_X$-modules: $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ is the sheafification of $U \mapsto \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)$, and its stalks are $\mathcal{F}_x \otimes_{\mathcal{O}_{X,x}} \mathcal{G}_x$. The internal hom $\mathcal{H}\!om_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ is the sheaf $U \mapsto \mathrm{Hom}_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$ — already a sheaf without sheafification. These satisfy the expected tensor-hom adjunction.</p>
+
+<div class="quiz" data-concept="ox-modules"></div>
+
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -1342,7 +1347,7 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
 </table>
 
 <h3>A small epilogue on "locality"</h3>
-<p>The thread connecting every topic on this page is "locality": every operation we cared about was either manifestly local (computed stalk-by-stalk) or recovered from local data by gluing. That observation is the actual content of sheaf theory. When Grothendieck reorganized algebraic geometry, the first move was to replace varieties with locally ringed spaces; all of the rest — quasi-coherence, cohomology, the étale site, derived categories — is a progressively-richer recording of what "locally ringed" means and how it globalizes.</p>
+<p>The thread connecting every topic on this page is "locality": every operation we cared about was either manifestly local (computed stalk-by-stalk) or recovered from local data by gluing. That observation is the actual content of sheaf theory. When Grothendieck reorganized algebraic geometry, the first move was to replace varieties with <a href="./schemes.html#locally-ringed-space" data-auto-inline-link="1">locally ringed spaces</a>; all of the rest — quasi-coherence, cohomology, the étale site, derived categories — is a progressively-richer recording of what "locally ringed" means and how it globalizes.</p>
 
 <p>The second thread is <em>adjoint functors</em>. Sheafification is a left adjoint (§7). Pushforward is a right adjoint to inverse image (§4). Tensor product is left adjoint to $\mathcal{H}\!om$ (§8). The $(\iota, (-)^\#)$ and $(f^{-1}, f_*)$ and $(\otimes, \mathcal{H}\!om)$ adjunctions between them produce most of the formal tools of the subject; the remaining tools are the derived versions of these adjunctions.</p>
 

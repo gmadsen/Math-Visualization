@@ -4,6 +4,8 @@ A library of single-page, interactive explainers for graduate-level mathematics.
 
 Topics are grouped into seven sections: Foundations · Algebra · Analysis · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
 
+Vanilla HTML/CSS/JS — no build step, no framework, no install.
+
 ## How to use
 
 Open the files in a browser — either by double-clicking `index.html` or serving the folder locally:
@@ -13,25 +15,9 @@ python3 -m http.server 8000      # Python 3
 npx serve .                      # Node
 ```
 
-## How the notebook is organized
-
-Vanilla HTML/CSS/JS — no build step, no framework, no external JS beyond KaTeX. Every topic is a single self-contained file you can open by double-clicking.
-
-**Topic pages.** Each `<topic>.html` follows the template of [`category-theory.html`](./category-theory.html): sticky sidebar TOC, numbered sections, each section with a worked SVG widget, KaTeX for math. Pages end with a concept-by-concept quiz and a `git log`-seeded changelog footer.
-
-**Concepts and the pathway DAG.** Each topic has a concept graph in `concepts/<topic>.json` — a handful of concept entries, each with an anchor linking into the page and a `prereqs` list that may reach into other topics. The aggregate graph powers [`pathway.html`](./pathway.html): select a capstone (see [`concepts/capstones.json`](./concepts/capstones.json)), see the full prerequisite tree, and watch concepts light up `locked → ready → mastered` as you pass quizzes.
-
-**Quizzes and mastery.** Each concept carries two optional tiers: `questions` (v1, required to pass) and `hard` (unlocked after v1). Mastery is tracked per-tier in `localStorage` via [`js/progress.js`](./js/progress.js); `pathway.html` draws dual mastery rings. Only v1 mastery gates downstream concepts; hard-tier is for the completionist.
-
-**Cross-references.** Two directions. Forward `<aside class="callback">` ("See also → prereq") blocks are inserted by [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs). Reverse `<aside class="related">` ("Used in → consumer") blocks are inserted by [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs). Both are idempotent.
-
-**Offline-first.** Browsers block `fetch()` of local JSON over `file://`, so the concept-graph and quiz-bank data are flattened into two bundle files ([`concepts/bundle.js`](./concepts/bundle.js), [`quizzes/bundle.js`](./quizzes/bundle.js)) that load as `<script>` tags. Pages work identically under `file://` double-click and under a local dev server. [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip for workshops.
-
-**Quality gates.** [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) catches duplicate ids, broken prereqs, cycles, and missing anchors. [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) verifies every page has a sidebar, top-nav backlink, quiz wiring, and at least one widget. Forward/reverse callback audits enforce cross-reference coverage. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs the whole chain on every push.
-
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals. Topic cards on the index can carry a level badge: `prereq` (foundational), `advanced` (specialized), or `capstone` (synthesis).
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals. Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v1). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
 ## Contents
 
@@ -113,25 +99,6 @@ Clear all mastery from the browser devtools console:
 MVProgress.clearAll()
 ```
 
-## Repo layout
-
-```
-index.html                    landing page with section grid
-pathway.html                  capstone prerequisite explorer
-<topic>.html                  one self-contained page per topic
-concepts/                     concept graph JSONs + index.json + capstones.json + bundle.js
-quizzes/                      quiz bank JSONs + bundle.js
-js/progress.js                mastery store (localStorage)
-js/quiz.js                    quiz widget
-scripts/                      validators, audits, bundle builders, packaging
-AGENTS.md                     authoring conventions for contributors (human or agent)
-PLAN.md                       forward-looking priorities and concrete next tasks
-```
-
-## Contributing
-
-If you're working on this notebook (or directing an agent to), start with [`AGENTS.md`](./AGENTS.md). It covers the canonical template ([`category-theory.html`](./category-theory.html)), house conventions, helper scripts, the quiz/progression wiring, and verification. [`PLAN.md`](./PLAN.md) tracks what's prioritized next.
-
 ## References
 
 The arithmetic / automorphic arc of the notebook draws primarily on:
@@ -142,3 +109,7 @@ The arithmetic / automorphic arc of the notebook draws primarily on:
 - **The Rising Sea: Foundations of Algebraic Geometry** — Ravi Vakil. Schemes, sheaves, cohomology; long-form companion to the algebraic-geometry section.
 - **The [Stacks Project](https://stacks.math.columbia.edu/)** — community-maintained open reference for schemes, sheaves, descent, algebraic spaces, and stacks.
 - **EGA / SGA** — Alexander Grothendieck. The original sources for schemes, étale cohomology, and the Weil-conjecture program that underlies `etale-cohomology.html`.
+
+---
+
+Contributing, or directing an agent on this repo? See [`AGENTS.md`](./AGENTS.md) for authoring conventions, helper scripts, and the quiz/progression wiring. Forward priorities live in [`PLAN.md`](./PLAN.md).

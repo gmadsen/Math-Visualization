@@ -221,9 +221,12 @@ function fmt(x, p=3){
   <a href="#maps">3&nbsp;Smooth&nbsp;maps</a>
   <a href="#tangent">4&nbsp;Tangent&nbsp;space</a>
   <a href="#bundle">5&nbsp;Tangent&nbsp;bundle</a>
-  <a href="#bracket">6&nbsp;Lie&nbsp;bracket</a>
-  <a href="#sub">7&nbsp;Immersions</a>
-  <a href="#outro">8&nbsp;Connections</a>
+  <a href="#flows">6&nbsp;Flows</a>
+  <a href="#bracket">7&nbsp;Lie&nbsp;bracket</a>
+  <a href="#sub">8&nbsp;Immersions</a>
+  <a href="#partition">9&nbsp;Partitions&nbsp;of&nbsp;unity</a>
+  <a href="#orientation">10&nbsp;Orientation</a>
+  <a href="#outro">11&nbsp;Connections</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -289,6 +292,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
     <div><a href="./riemann-surfaces.html#intro">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>
     <div><a href="./riemannian-geometry.html#metric">Riemannian geometry</a> · Riemannian metrics</div>
     <div><a href="./smooth-manifolds.html#examples">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>
+    <div><a href="./smooth-manifolds.html#partition">Smooth manifolds</a> · Partitions of unity</div>
     <div><a href="./smooth-manifolds.html#maps">Smooth manifolds</a> · Smooth maps and diffeomorphisms</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -435,6 +439,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 
 <p class="note">Every smooth manifold appearing in physics or geometry is built, usually, from these examples plus products, quotients, and preimages. There is no need to manufacture exotic cases to practise calculus — $S^2$, $T^2$, $\mathrm{SO}(3)$, and $\mathrm{SU}(2)$ already generate enough tangent planes for a career.</p>
 
+<div class="quiz" data-concept="smooth-manifold-examples"></div>
 </section>
 
 <section id="maps">
@@ -478,6 +483,7 @@ $$df_p\colon T_pM\longrightarrow T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed th
 
 
 
+<div class="quiz" data-concept="smooth-map"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
@@ -485,6 +491,7 @@ $$df_p\colon T_pM\longrightarrow T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed th
     <div><a href="./smooth-manifolds.html#tangent">Smooth manifolds</a> · Tangent spaces</div>
 </aside>
 <!-- backlinks-auto-end -->
+
 </section>
 
 <script>
@@ -803,12 +810,16 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
 
 
 
+<div class="quiz" data-concept="tangent-bundle"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./smooth-manifolds.html#flows">Smooth manifolds</a> · Integral curves and flows</div>
     <div><a href="./smooth-manifolds.html#bracket">Smooth manifolds</a> · Lie bracket of vector fields</div>
+    <div><a href="./smooth-manifolds.html#orientation">Smooth manifolds</a> · Orientation of manifolds</div>
 </aside>
 <!-- backlinks-auto-end -->
+
 </section>
 
 <script>
@@ -948,8 +959,186 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
 })();
 </script>
 
+<section id="flows">
+<h2>6. Integral curves and flows</h2>
+
+<p>A smooth vector field $X\in\mathfrak{X}(M)$ defines a first-order ODE on $M$. An <strong>integral curve</strong> of $X$ through $p\in M$ is a smooth curve $\gamma\colon I\to M$, $0\in I$, with</p>
+$$\gamma(0) = p,\qquad \gamma'(t) = X_{\gamma(t)}\ \ \text{for all}\ t\in I.$$
+<p>In any chart where $X = X^i(x)\,\partial_i$, this reads $\dot x^i(t) = X^i(x(t))$ — a system of ODEs to which the Picard–Lindelöf theorem applies locally.</p>
+
+<p class="ok"><strong>Fundamental theorem of flows.</strong> For each $p\in M$ there is a unique <em>maximal</em> integral curve $\gamma_p\colon I_p\to M$ with $\gamma_p(0)=p$. The <strong>flow</strong> of $X$ is the map</p>
+$$\Phi^X\colon \mathcal{D}\subseteq \mathbb{R}\times M\longrightarrow M,\qquad \Phi^X(t,p) = \gamma_p(t),$$
+<p>defined on an open set $\mathcal{D}$ containing $\{0\}\times M$. Where defined, $\Phi^X_t$ is a diffeomorphism of one open set of $M$ onto another, and the <strong>one-parameter group law</strong></p>
+$$\Phi^X_{s+t} = \Phi^X_s \circ \Phi^X_t$$
+<p>holds whenever both sides make sense.</p>
+
+<p>A vector field is <strong>complete</strong> if every integral curve extends to all of $\mathbb{R}$, i.e. $\mathcal{D} = \mathbb{R}\times M$. Then $\{\Phi^X_t\}_{t\in\mathbb{R}}$ is a one-parameter group of diffeomorphisms of $M$.</p>
+
+<div class="widget" id="w-flow">
+  <div class="hd"><span class="ttl">Widget · integral curves of three fields</span>
+    <span class="hint">click the plane to reset the starting point; drag the $t$ slider</span></div>
+  <div class="row">
+    <button class="active" data-fl="rot">X = −y∂ₓ + x∂_y (rotation — complete)</button>
+    <button data-fl="blow">X = x²∂ₓ (blows up — incomplete)</button>
+    <button data-fl="saddle">X = x∂ₓ − y∂_y (hyperbolic)</button>
+  </div>
+  <div class="row">
+    <label>time $t$</label>
+    <input type="range" id="fl-t" min="-100" max="100" value="60" step="1">
+    <span class="small" id="fl-tv" style="color:var(--mute)"></span>
+  </div>
+  <svg id="fl-svg" viewBox="0 0 820 360" width="100%"></svg>
+  <div class="readout" id="fl-out"></div>
+  <p class="small">Blue arrows show the vector field. The yellow curve is the integral curve starting at the chosen $p$; the dot tracks $\Phi^X_t(p)$. For the rotation field, trajectories are circles closed for all $t$ — the flow is complete. For $X=x^2\partial_x$ on $\mathbb{R}$ (visualised on a horizontal slice), the trajectory through $x_0=1$ is $x(t)=1/(1-t)$ and escapes to $+\infty$ at $t=1$: the maximal interval is $(-\infty,1)$, so $X$ is incomplete.</p>
+</div>
+
+<h3>Infinitesimal generator</h3>
+<p>Conversely, any smooth one-parameter group of diffeomorphisms $\{\Phi_t\}$ of $M$ arises this way: its <strong>infinitesimal generator</strong> is the vector field</p>
+$$X_p = \frac{d}{dt}\bigg|_{t=0}\Phi_t(p) \in T_pM.$$
+<p>So "vector fields" and "one-parameter groups of diffeomorphisms" are two faces of the same object on a compact manifold.</p>
+
+<p class="note">Two vector fields $X,Y$ commute as derivations iff their flows commute: $\Phi^X_s\circ\Phi^Y_t = \Phi^Y_t\circ\Phi^X_s$. The precise local measure of non-commutativity is the Lie bracket $[X,Y]$ — the subject of §7.</p>
+
+<div class="quiz" data-concept="vector-field-flows"></div>
+</section>
+
+<script>
+/* § flows widget */
+(function(){
+  const svg = document.getElementById('fl-svg');
+  const out = document.getElementById('fl-out');
+  const tSl = document.getElementById('fl-t');
+  const tLbl = document.getElementById('fl-tv');
+  const btns = [...document.querySelectorAll('#w-flow button[data-fl]')];
+  let current = 'rot';
+  let p0 = [1.0, 0.0];
+  btns.forEach(b => b.addEventListener('click', ()=>{
+    btns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    current = b.getAttribute('data-fl');
+    // sensible default starting point per field
+    if(current==='rot') p0 = [1.0, 0.0];
+    if(current==='blow') p0 = [0.8, 0.0];
+    if(current==='saddle') p0 = [0.6, 0.6];
+    draw();
+  }));
+  const FIELDS = {
+    rot: {
+      v:(x,y)=>[-y, x],
+      // closed-form flow: rotation
+      phi:(t,x,y)=>[Math.cos(t)*x - Math.sin(t)*y, Math.sin(t)*x + Math.cos(t)*y],
+      maxT:(x,y)=> null,
+      info: 'X = (−y, x). Integral curves are circles. The flow Φ_t(x,y)=(x cos t − y sin t, x sin t + y cos t) exists for all t ⇒ complete.'
+    },
+    blow: {
+      v:(x,y)=>[x*x, 0],
+      phi:(t,x,y)=>{
+        // dot x = x^2 ⇒ x(t) = x0/(1 − x0 t); y constant
+        const denom = 1 - x*t;
+        if(x>0 && t >= 1/x - 1e-6) return [NaN, y];
+        if(x<0 && t <= 1/x + 1e-6) return [NaN, y];
+        if(Math.abs(denom) < 1e-6) return [NaN, y];
+        return [x/denom, y];
+      },
+      maxT:(x,y)=> x>0 ? 1/x : (x<0 ? 1/x : Infinity),
+      info: 'X = (x², 0). Solving ẋ=x², x(0)=x₀>0 gives x(t)=x₀/(1−x₀t), blowing up at t=1/x₀. Max interval: (−∞, 1/x₀) ⇒ incomplete.'
+    },
+    saddle: {
+      v:(x,y)=>[x, -y],
+      phi:(t,x,y)=>[x*Math.exp(t), y*Math.exp(-t)],
+      maxT:(x,y)=> null,
+      info: 'X = (x, −y). Hyperbolic flow: Φ_t(x,y)=(e^t x, e^{-t} y). Complete on ℝ²; integral curves on hyperbolas xy = const.'
+    }
+  };
+  function draw(){
+    svg.innerHTML = '';
+    const t = +tSl.value / 50; // [−2, 2]
+    tLbl.textContent = `t = ${fmt(t)}`;
+    const dx=40, dy=30, dw=440, dh=300;
+    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    const cx=dx+dw/2, cy=dy+dh/2, S=70;
+    svg.appendChild(SVG('line',{x1:dx,y1:cy,x2:dx+dw,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:dy,x2:cx,y2:dy+dh,stroke:'var(--line)'}));
+    const F = FIELDS[current];
+    // Draw background vector field
+    for(let xg=-2.6; xg<=2.61; xg+=0.4){
+      for(let yg=-1.8; yg<=1.81; yg+=0.3){
+        const [vx,vy] = F.v(xg,yg);
+        const mag = Math.hypot(vx,vy);
+        if(mag < 0.01) continue;
+        const sc = 0.2 / Math.max(mag, 0.2);
+        const a = [cx + xg*S, cy - yg*S];
+        const b = [a[0] + vx*S*sc, a[1] - vy*S*sc];
+        if(a[0] < dx+4 || a[0] > dx+dw-4 || a[1] < dy+4 || a[1] > dy+dh-4) continue;
+        drawArrow(svg, a, b, {color:'rgba(88,196,221,0.55)',markerId:'fl-bg',width:0.9,pad1:0,pad2:3});
+      }
+    }
+    // Integrate trajectory: sample closed form over many t values
+    const N = 120;
+    const tmin = Math.min(0, t), tmax = Math.max(0, t);
+    const maxLim = F.maxT(p0[0], p0[1]);
+    const pts = [];
+    for(let i=0;i<=N;i++){
+      const tt = tmin + (tmax-tmin)*i/N;
+      if(maxLim !== null && maxLim !== Infinity){
+        if(maxLim>0 && tt >= maxLim - 1e-3) break;
+        if(maxLim<0 && tt <= maxLim + 1e-3) break;
+      }
+      const [u,v] = F.phi(tt, p0[0], p0[1]);
+      if(!isFinite(u) || !isFinite(v)) break;
+      const px = cx + u*S, py = cy - v*S;
+      if(px < dx-5 || px > dx+dw+5 || py < dy-5 || py > dy+dh+5) break;
+      pts.push([px,py]);
+    }
+    if(pts.length > 1){
+      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));
+    }
+    // Start point p0 and current Φ_t(p0)
+    const pStart = [cx + p0[0]*S, cy - p0[1]*S];
+    svg.appendChild(SVG('circle',{cx:pStart[0], cy:pStart[1], r:5, fill:'var(--green)', stroke:'#111','stroke-width':1}));
+    const ts = SVG('text',{x:pStart[0]+8, y:pStart[1]-8, 'font-size':12, fill:'var(--green)'}); ts.textContent='p = γ(0)'; svg.appendChild(ts);
+    const [ux, uy] = F.phi(t, p0[0], p0[1]);
+    if(isFinite(ux) && isFinite(uy)){
+      const pNow = [cx + ux*S, cy - uy*S];
+      svg.appendChild(SVG('circle',{cx:pNow[0], cy:pNow[1], r:5.5, fill:'var(--pink)', stroke:'#111','stroke-width':1}));
+      const tn = SVG('text',{x:pNow[0]+8, y:pNow[1]+4, 'font-size':12, fill:'var(--pink)'}); tn.textContent='Φₜ(p)'; svg.appendChild(tn);
+    }
+    // side text
+    const rx = 540;
+    const infoLines = F.info.split('. ');
+    infoLines.forEach((s,i)=>{
+      const tt = SVG('text',{x:rx, y:40+i*20, 'font-size':12, fill:'var(--mute)'});
+      tt.textContent = s.trim() + (i<infoLines.length-1 ? '.' : '');
+      svg.appendChild(tt);
+    });
+    out.textContent =
+      `field: ${current}\n`+
+      `p = (${fmt(p0[0])}, ${fmt(p0[1])})\n`+
+      `t = ${fmt(t)}\n`+
+      (isFinite(ux) && isFinite(uy)
+        ? `Φₜ(p) = (${fmt(ux)}, ${fmt(uy)})`
+        : `Φₜ(p) = undefined (integral curve blew up before t=${fmt(t)})`);
+  }
+  // click to reset starting point
+  svg.addEventListener('click', (e)=>{
+    const rect = svg.getBoundingClientRect();
+    const vb = svg.viewBox.baseVal;
+    const mx = (e.clientX - rect.left) * (vb.width / rect.width);
+    const my = (e.clientY - rect.top)  * (vb.height / rect.height);
+    const dx=40, dy=30, dw=440, dh=300;
+    if(mx<dx || mx>dx+dw || my<dy || my>dy+dh) return;
+    const cx=dx+dw/2, cy=dy+dh/2, S=70;
+    p0 = [(mx-cx)/S, (cy-my)/S];
+    draw();
+  });
+  tSl.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <section id="bracket">
-<h2>6. The Lie bracket</h2>
+<h2>7. The Lie bracket</h2>
 
 <p>Given vector fields $X, Y\in\mathfrak{X}(M)$, each acts on $C^\infty(M)$ as a derivation. Consider the commutator:</p>
 $$[X,Y]f \;=\; X(Yf) - Y(Xf).$$
@@ -983,6 +1172,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 
 <p class="note">Commuting vector fields ($[X,Y] = 0$) are the exception. When they commute on an open set, one can find coordinates in which $X = \partial_1$ and $Y = \partial_2$ simultaneously (Frobenius). Non-commuting fields generate higher-dimensional foliations — the bracket detects obstructions to integrability.</p>
 
+<div class="quiz" data-concept="lie-bracket-fields"></div>
 </section>
 
 <script>
@@ -1091,7 +1281,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 </script>
 
 <section id="sub">
-<h2>7. Immersions, submersions, embeddings</h2>
+<h2>8. Immersions, submersions, embeddings</h2>
 
 <p>A smooth map $f\colon M\to N$ has pointwise-defined differentials $df_p\colon T_pM\to T_{f(p)}N$. The <strong>rank</strong> of $f$ at $p$ is $\operatorname{rank}(df_p)$. Three distinguished classes:</p>
 
@@ -1211,8 +1401,280 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 })();
 </script>
 
+<section id="partition">
+<h2>9. Partitions of unity</h2>
+
+<p>Smooth manifolds support a remarkable luxury that complex manifolds and algebraic varieties do not: <em>smooth bump functions</em>. From bumps one builds <strong>partitions of unity</strong>, the single most important device for passing from local constructions to global ones.</p>
+
+<p>A <strong>smooth partition of unity</strong> on $M$ subordinate to an open cover $\{U_\alpha\}_{\alpha\in A}$ is a family $\{\rho_\alpha\colon M\to[0,1]\}_{\alpha\in A}$ of smooth functions such that:</p>
+<ul>
+  <li>$\operatorname{supp}(\rho_\alpha)\subseteq U_\alpha$ for every $\alpha$;</li>
+  <li>the family $\{\operatorname{supp}(\rho_\alpha)\}$ is <em>locally finite</em> (each $p\in M$ has a neighbourhood meeting only finitely many supports);</li>
+  <li>$\sum_\alpha \rho_\alpha(p) = 1$ for every $p\in M$.</li>
+</ul>
+
+<p class="ok"><strong>Theorem.</strong> Every smooth manifold (being paracompact) admits a smooth partition of unity subordinate to any given open cover.</p>
+
+<div class="widget" id="w-pou">
+  <div class="hd"><span class="ttl">Widget · three bumps summing to 1</span>
+    <span class="hint">drag the peak sliders; the green line is Σρᵢ</span></div>
+  <div class="row">
+    <label>$c_1$</label>
+    <input type="range" id="pu-c1" min="-180" max="-20" value="-90" step="1">
+    <label>$c_2$</label>
+    <input type="range" id="pu-c2" min="-80" max="80" value="0" step="1">
+    <label>$c_3$</label>
+    <input type="range" id="pu-c3" min="20" max="180" value="90" step="1">
+  </div>
+  <svg id="pu-svg" viewBox="0 0 820 280" width="100%"></svg>
+  <div class="readout" id="pu-out"></div>
+  <p class="small">Three smooth bumps $\tilde\rho_i$ centred at $c_1, c_2, c_3$, then renormalised $\rho_i = \tilde\rho_i/(\tilde\rho_1+\tilde\rho_2+\tilde\rho_3)$ so that $\sum\rho_i\equiv 1$. Each $\tilde\rho_i$ is a $C^\infty$ bump (built from $e^{-1/(1-x^2)}$) supported in a small interval around $c_i$; renormalisation preserves smoothness because the denominator never vanishes when the supports cover the interval.</p>
+</div>
+
+<h3>Existence sketch</h3>
+<p>On $\mathbb{R}^n$ the canonical bump is</p>
+$$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases}$$
+<p>which is $C^\infty$ everywhere (every derivative vanishes on $\|x\|=1$). Composing with chart maps produces bumps on any coordinate neighbourhood. Paracompactness gives a locally finite refinement of the cover; summing translated bumps and renormalising gives the partition.</p>
+
+<h3>Canonical uses</h3>
+<ul>
+  <li><strong>Existence of Riemannian metrics</strong>: pick Euclidean metrics $g_\alpha$ on each chart, then $g = \sum_\alpha \rho_\alpha\,g_\alpha$ is a global Riemannian metric (a convex combination of positive-definite forms is positive-definite).</li>
+  <li><strong>Whitney embedding (easy version)</strong>: assemble finitely many charts weighted by bumps into a smooth map $M\to\mathbb{R}^N$, and check that it is an embedding.</li>
+  <li><strong>Extension of smooth functions</strong>: extend functions defined on a closed subset (or a submanifold) to all of $M$.</li>
+  <li><strong>Integration</strong>: define $\int_M\omega$ by $\sum_\alpha \int_M \rho_\alpha\,\omega$, reducing to compactly supported integrals in charts.</li>
+</ul>
+
+<p class="note">Holomorphic bump functions do not exist — a non-zero holomorphic function has discrete zero set by the identity theorem, so it cannot be compactly supported. This is why sheaf cohomology and Čech theory replace partitions of unity on complex manifolds.</p>
+
+<div class="quiz" data-concept="partition-of-unity"></div>
+</section>
+
+<script>
+/* § partitions of unity widget */
+(function(){
+  const svg = document.getElementById('pu-svg');
+  const out = document.getElementById('pu-out');
+  const c1 = document.getElementById('pu-c1');
+  const c2 = document.getElementById('pu-c2');
+  const c3 = document.getElementById('pu-c3');
+  // compactly supported bump on (c-w, c+w): exp(-1/(1-((x-c)/w)^2))
+  function bump(x, c, w){
+    const u = (x - c)/w;
+    if(Math.abs(u) >= 1) return 0;
+    return Math.exp(-1/(1 - u*u));
+  }
+  function draw(){
+    svg.innerHTML = '';
+    const dx=40, dy=20, dw=740, dh=240;
+    svg.appendChild(SVG('rect',{x:dx, y:dy, width:dw, height:dh, fill:'#0b0f16', stroke:'var(--line)', rx:6}));
+    // axes: x ∈ [-2, 2], y ∈ [0, 1.2]
+    const xmin=-2, xmax=2, ymin=0, ymax=1.25;
+    const X = x => dx + (x - xmin)/(xmax - xmin) * dw;
+    const Y = y => dy + dh - (y - ymin)/(ymax - ymin) * dh;
+    // baseline y=1
+    svg.appendChild(SVG('line',{x1:X(xmin), y1:Y(1), x2:X(xmax), y2:Y(1),
+      stroke:'var(--line)', 'stroke-dasharray':'3 5'}));
+    const lblOne = SVG('text',{x:X(xmin)-6, y:Y(1)+4, 'font-size':11, fill:'var(--mute)', 'text-anchor':'end'}); lblOne.textContent='1'; svg.appendChild(lblOne);
+    // x-axis
+    svg.appendChild(SVG('line',{x1:X(xmin), y1:Y(0), x2:X(xmax), y2:Y(0), stroke:'var(--line)'}));
+    // centres
+    const cs = [ +c1.value/50, +c2.value/50, +c3.value/50 ]; // each ∈ [-3.6, 3.6]
+    const w = 1.2; // support half-width
+    const cols = ['var(--cyan)','var(--yellow)','var(--pink)'];
+    // sample
+    const N = 400;
+    const xs = [];
+    for(let i=0;i<=N;i++) xs.push(xmin + (xmax-xmin)*i/N);
+    const raw = cs.map((c,idx)=> xs.map(x => bump(x, c, w)));
+    const sumR = xs.map((_,i)=> raw[0][i] + raw[1][i] + raw[2][i]);
+    // If sum vanishes at some x, the renormalisation is undefined; guard with a tiny floor.
+    const rho = raw.map(rs => rs.map((r,i)=> sumR[i] > 1e-9 ? r/sumR[i] : 0));
+    const sumRho = xs.map((_,i)=> rho[0][i] + rho[1][i] + rho[2][i]);
+    // Draw each ρ_i
+    for(let k=0;k<3;k++){
+      const d = xs.map((x,i)=> (i?'L':'M')+X(x)+' '+Y(rho[k][i])).join(' ');
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:cols[k], 'stroke-width':1.8, opacity:0.9}));
+      // tick at centre
+      svg.appendChild(SVG('line',{x1:X(cs[k]), y1:Y(0)+3, x2:X(cs[k]), y2:Y(0)-3, stroke:cols[k], 'stroke-width':2}));
+    }
+    // Draw sum
+    const dsum = xs.map((x,i)=> (i?'L':'M')+X(x)+' '+Y(sumRho[i])).join(' ');
+    svg.appendChild(SVG('path',{d:dsum, fill:'none', stroke:'var(--green)', 'stroke-width':2.4, opacity:0.95}));
+    // legend
+    const leg = [
+      ['ρ₁','var(--cyan)'],
+      ['ρ₂','var(--yellow)'],
+      ['ρ₃','var(--pink)'],
+      ['Σρᵢ','var(--green)']
+    ];
+    leg.forEach(([t,c],i)=>{
+      svg.appendChild(SVG('line',{x1:dx+dw-90, y1:dy+16+i*18, x2:dx+dw-70, y2:dy+16+i*18, stroke:c, 'stroke-width':2}));
+      const tt = SVG('text',{x:dx+dw-64, y:dy+20+i*18, 'font-size':11, fill:'var(--mute)'}); tt.textContent=t; svg.appendChild(tt);
+    });
+    // Check support separation
+    const sepOK = (cs[1]-cs[0] < 2*w) && (cs[2]-cs[1] < 2*w) && (cs[0]+w > xmin-0.01) && (cs[2]-w < xmax+0.01);
+    out.textContent =
+      `centres: c₁=${fmt(cs[0])}, c₂=${fmt(cs[1])}, c₃=${fmt(cs[2])}\n`+
+      `support half-width w=${fmt(w)}\n`+
+      `covers [−2, 2]?  ${sepOK ? 'yes — supports overlap and Σρᵢ ≡ 1' : 'no — gaps where Σ=0; renormalisation fails there'}\n`+
+      `Σρᵢ sample values: ρ(−1)=${fmt(sumRho[Math.round(0.25*N)])}, ρ(0)=${fmt(sumRho[Math.round(0.5*N)])}, ρ(1)=${fmt(sumRho[Math.round(0.75*N)])}`;
+  }
+  [c1,c2,c3].forEach(s => s.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+<section id="orientation">
+<h2>10. Orientation</h2>
+
+<p>At a single point $p\in M$, the $n$-dimensional vector space $T_pM$ has exactly two ordered-basis equivalence classes — two orientations — distinguished by the sign of the determinant of the change-of-basis matrix. An <strong>orientation of $M$</strong> is a coherent choice, one at every point, varying continuously.</p>
+
+<h3>Three equivalent formulations</h3>
+<ul>
+  <li><strong>Oriented atlas</strong>: an atlas $\{(U_\alpha,\varphi_\alpha)\}$ with every transition $\varphi_\beta\circ\varphi_\alpha^{-1}$ having positive Jacobian determinant on its domain.</li>
+  <li><strong>Nowhere-vanishing top form</strong>: a smooth section $\omega\in\Omega^n(M)$ with $\omega_p\neq 0$ for every $p$. Two such forms differ by a positive smooth function, giving the same orientation.</li>
+  <li><strong>Continuous frame-of-reference</strong>: a smooth section of the $\mathrm{GL}^+(n,\mathbb{R})$-bundle of oriented frames, i.e. a reduction of the frame bundle to $\mathrm{GL}^+$.</li>
+</ul>
+
+<p>A connected manifold admits either $0$ or $2$ orientations. When it admits any, we say $M$ is <strong>orientable</strong>; the two orientations are related by an overall sign flip.</p>
+
+<div class="widget" id="w-or">
+  <div class="hd"><span class="ttl">Widget · cylinder vs Möbius band</span>
+    <span class="hint">transport a frame around the core circle</span></div>
+  <div class="row">
+    <label>angle $\theta$</label>
+    <input type="range" id="or-th" min="0" max="360" value="0" step="2">
+    <span class="small" id="or-lbl" style="color:var(--mute)"></span>
+  </div>
+  <div class="panels2">
+    <div>
+      <div class="small" style="text-align:center;color:var(--green)">cylinder $S^1\times[-1,1]$</div>
+      <svg id="or-cyl" viewBox="0 0 380 260" width="100%"></svg>
+      <div class="small" style="text-align:center"><span class="tag good">orientable</span></div>
+    </div>
+    <div>
+      <div class="small" style="text-align:center;color:var(--pink)">Möbius band</div>
+      <svg id="or-mob" viewBox="0 0 380 260" width="100%"></svg>
+      <div class="small" style="text-align:center"><span class="tag bad">non-orientable</span></div>
+    </div>
+  </div>
+  <div class="readout" id="or-out"></div>
+  <p class="small">Two strips with their core circle traversed: the cylinder identifies $(\theta,s)\sim(\theta+2\pi,s)$; the Möbius band identifies $(\theta,s)\sim(\theta+2\pi,-s)$. A frame (green + violet arrows) is parallel-transported once around. On the cylinder it returns unchanged; on the Möbius band it returns reflected — the only way to maintain continuity is to flip one arrow, so no consistent global orientation exists.</p>
+</div>
+
+<h3>Examples</h3>
+<table class="plain">
+<thead><tr><th>manifold</th><th>orientable?</th><th>reason</th></tr></thead>
+<tbody>
+<tr><td>$\mathbb{R}^n$, $\mathbb{C}^n$, balls, half-spaces</td><td>yes</td><td>single chart — trivially an oriented atlas</td></tr>
+<tr><td>$S^n$ for $n\ge 1$</td><td>yes</td><td>the volume form restricted from $\mathbb{R}^{n+1}$ is nowhere-zero</td></tr>
+<tr><td>$T^n = \mathbb{R}^n/\mathbb{Z}^n$</td><td>yes</td><td>$dx^1\wedge\cdots\wedge dx^n$ descends</td></tr>
+<tr><td>every Lie group $G$</td><td>yes</td><td>a left-invariant top form gives a volume form</td></tr>
+<tr><td>$\mathbb{RP}^n$</td><td>iff $n$ odd</td><td>antipodal map has degree $(-1)^{n+1}$; orientable iff $+1$</td></tr>
+<tr><td>Möbius band, Klein bottle</td><td>no</td><td>a loop whose transport flips the frame</td></tr>
+</tbody>
+</table>
+
+<h3>Double cover</h3>
+<p>Every smooth manifold $M$ has a connected <strong>oriented double cover</strong> $\tilde M\to M$: $\tilde M$ is the set of pairs $(p, o_p)$ where $o_p$ is an orientation of $T_pM$. If $M$ is orientable, $\tilde M$ consists of two disjoint copies of $M$. If not, $\tilde M$ is connected. For example, the oriented double cover of $\mathbb{RP}^2$ is $S^2$; of the Möbius band is the cylinder; of the Klein bottle is the torus.</p>
+
+<p class="note">Orientation is the prerequisite for integrating top-degree forms: $\int_M\omega$ is defined up to a sign that is fixed only after an orientation is chosen. On a non-orientable manifold, integration of forms still makes sense on <em>densities</em> — see the differential-forms page.</p>
+
+<div class="quiz" data-concept="orientation"></div>
+</section>
+
+<script>
+/* § orientation widget: cylinder vs Möbius parallel transport */
+(function(){
+  const svgC = document.getElementById('or-cyl');
+  const svgM = document.getElementById('or-mob');
+  const out = document.getElementById('or-out');
+  const th = document.getElementById('or-th');
+  const lbl = document.getElementById('or-lbl');
+
+  // Cylinder: core circle of radius R in xz-plane at y=0; section = straight up.
+  // Parameterise (θ, s) ↦ ((R + s·0)·cos θ, s, (R + 0)·sin θ) with frame (e_θ, e_s)=(tangent to circle, vertical).
+  // Möbius: section rotates by θ/2 as θ goes around.
+  // We draw a 2D projection.
+  function drawStrip(svg, mobius){
+    svg.innerHTML = '';
+    const w=380, h=260, cx=w/2, cy=h/2, R=80;
+    // background
+    svg.appendChild(SVG('rect',{x:4, y:4, width:w-8, height:h-8, fill:'#0b0f16', stroke:'var(--line)', rx:6}));
+    // core circle (isometric ellipse)
+    svg.appendChild(SVG('ellipse',{cx, cy, rx:R, ry:R*0.38, fill:'none', stroke:'var(--line)', 'stroke-dasharray':'3 5'}));
+    // strip outline: two curves at s=+1 and s=-1 (for cylinder); for möbius, s=+1 and s=-1 swap over a twist
+    const Npts = 60;
+    // helper to compute frame+point at angle t (radians)
+    function framePt(t, s){
+      // core circle point (unrotated frame has tangent along dθ, normal along "vertical")
+      const cxs = cx + R*Math.cos(t);
+      const cys = cy + R*0.38*Math.sin(t);
+      // tangent to circle (unit, 2D)
+      const tx = -Math.sin(t), ty = Math.cos(t)*0.38;
+      const tlen = Math.hypot(tx,ty); const tux = tx/tlen, tuy = ty/tlen;
+      // "outward vertical" in 2D: basically up then rotating if möbius
+      // base vertical vector (pointing up on screen) = (0, -1). We rotate by α = (mobius? t/2 : 0)
+      const alpha = mobius ? t/2 : 0;
+      const bx = Math.sin(alpha)*tux + Math.cos(alpha)*0; // tangent component
+      const by = Math.sin(alpha)*tuy + Math.cos(alpha)*(-1);
+      // scale by s (section length)
+      const sc = 40;
+      return {
+        base: [cxs, cys],
+        point:[cxs + bx*s*sc, cys + by*s*sc],
+        tangent:[tux, tuy],
+        normal:[bx, by]
+      };
+    }
+    // Two edges
+    for(const sSide of [-1, +1]){
+      const pts = [];
+      for(let i=0;i<=Npts;i++){
+        const t = 2*Math.PI*i/Npts;
+        const F = framePt(t, sSide);
+        pts.push(F.point);
+      }
+      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+      svg.appendChild(SVG('path',{d, fill:'none', stroke: (sSide>0 ? 'var(--cyan)' : 'var(--yellow)'), 'stroke-width':1.5, opacity:0.85}));
+    }
+    // Frame at angle θ_user
+    const tUser = (+th.value) * Math.PI/180;
+    const F = framePt(tUser, 0);
+    // tangent arrow (green), normal arrow (violet)
+    const [bx,by] = F.base;
+    const [tux,tuy] = F.tangent;
+    const [nx,ny] = F.normal;
+    const L = 30;
+    svg.appendChild(SVG('circle',{cx:bx, cy:by, r:4, fill:'var(--yellow)', stroke:'#111', 'stroke-width':1}));
+    drawArrow(svg, [bx,by], [bx+tux*L, by+tuy*L], {color:'var(--green)', markerId:'or-t'+(mobius?'m':'c'), width:2, pad1:0, pad2:6});
+    drawArrow(svg, [bx,by], [bx+nx*L,  by+ny*L ], {color:'var(--violet)',markerId:'or-n'+(mobius?'m':'c'), width:2, pad1:0, pad2:6});
+    const lblT = SVG('text',{x:bx+tux*L+6, y:by+tuy*L+4, 'font-size':11, fill:'var(--green)'}); lblT.textContent='e₁'; svg.appendChild(lblT);
+    const lblN = SVG('text',{x:bx+nx*L+6,  y:by+ny*L+4,  'font-size':11, fill:'var(--violet)'}); lblN.textContent='e₂'; svg.appendChild(lblN);
+    // basepoint label
+    const lblB = SVG('text',{x:cx, y:h-14, 'font-size':12, fill:'var(--mute)', 'text-anchor':'middle'});
+    lblB.textContent = mobius ? 'Möbius: frame rotates by θ/2 around the strip' : 'Cylinder: frame stays level';
+    svg.appendChild(lblB);
+  }
+  function draw(){
+    drawStrip(svgC, false);
+    drawStrip(svgM, true);
+    const tDeg = +th.value;
+    lbl.textContent = `θ = ${tDeg}°`;
+    const closed = tDeg === 360 || tDeg === 0;
+    out.textContent =
+      `θ = ${tDeg}°\n`+
+      `cylinder: e₂ returns to its starting direction at θ=360° ⇒ frame preserved ⇒ orientable.\n`+
+      `Möbius:  e₂ rotates by θ/2; at θ=360° it has rotated by 180° ⇒ reflected ⇒ no consistent orientation exists.\n`+
+      (closed ? 'loop complete — compare the two frames.' : 'advance the slider to 360° to close the loop.');
+  }
+  th.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <section id="outro">
-<h2>8. Connections to the rest of the notebook</h2>
+<h2>11. Connections to the rest of the notebook</h2>
 
 <p>Smooth manifolds are the soil in which every other page's differential geometry grows.</p>
 
