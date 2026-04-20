@@ -2,113 +2,6 @@
 // Regenerate with:  node scripts/build-quizzes-bundle.mjs
 // Source of truth: quizzes/*.json (one per topic).
 window.MVQuizBank = {
-  "L-functions": {
-    "topic": "L-functions",
-    "quizzes": {
-      "lfunction-prototype": {
-        "title": "Elliptic $L(E,s)$",
-        "questions": [
-          {
-            "type": "mcq",
-            "q": "For good primes $p$, $a_p(E)$ is computed from point counts as:",
-            "choices": [
-              "$a_p=p-\\#E(\\mathbb{F}_p)$",
-              "$a_p=p+1-\\#E(\\mathbb{F}_p)$",
-              "$a_p=\\#E(\\mathbb{F}_p)-p-1$ only when $p=2$"
-            ],
-            "answer": 1,
-            "explain": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$."
-          },
-          {
-            "type": "numeric",
-            "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
-            "answer": -3,
-            "tol": 1e-9,
-            "explain": "$a_5=5+1-9=-3$."
-          },
-          {
-            "type": "mcq",
-            "q": "The Euler product for $L(E,s)$ is built from:",
-            "choices": [
-              "Local factors at each prime",
-              "Only archimedean factors",
-              "Only bad primes"
-            ],
-            "answer": 0,
-            "explain": "An $L$-function is assembled from local data prime-by-prime."
-          }
-        ]
-      },
-      "functional-equation-completion": {
-        "title": "Modular-form $L(f,s)$",
-        "questions": [
-          {
-            "type": "mcq",
-            "q": "For a normalized eigenform $f(q)=\\sum a_n q^n$, its $L$-series is:",
-            "choices": [
-              "$L(f,s)=\\sum a_n n^{-s}$",
-              "$L(f,s)=\\sum a_n q^n$",
-              "$L(f,s)=\\prod_n (1-a_nn^{-s})$"
-            ],
-            "answer": 0,
-            "explain": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$."
-          },
-          {
-            "type": "mcq",
-            "q": "Hecke eigenform coefficients satisfy multiplicative relations, which enable:",
-            "choices": [
-              "Euler product factorization",
-              "Automatic convergence for all $s$",
-              "Trivial functional equation"
-            ],
-            "answer": 0,
-            "explain": "Multiplicativity is exactly what supports an Euler product."
-          },
-          {
-            "type": "numeric",
-            "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
-            "answer": 1,
-            "tol": 1e-9,
-            "explain": "Normalization sets the first coefficient to 1."
-          }
-        ]
-      },
-      "arithmetic-data-lfunctions": {
-        "title": "Completed $L$-function",
-        "questions": [
-          {
-            "type": "mcq",
-            "q": "A completed $L$-function $\\Lambda(s)$ typically satisfies:",
-            "choices": [
-              "$\\Lambda(s)=\\Lambda(-s)$",
-              "$\\Lambda(s)=w\\Lambda(1-s)$",
-              "$\\Lambda(s)=\\Lambda(s+1)$"
-            ],
-            "answer": 1,
-            "explain": "The symmetry line is $\\Re(s)=1/2$ via $s\\leftrightarrow1-s$."
-          },
-          {
-            "type": "mcq",
-            "q": "The sign $w\\in\\{\\pm1\\}$ in the functional equation is called the:",
-            "choices": [
-              "Hasse invariant",
-              "root number",
-              "class number"
-            ],
-            "answer": 1,
-            "explain": "The root number controls parity phenomena at the center."
-          },
-          {
-            "type": "numeric",
-            "q": "The central point of $s\\leftrightarrow1-s$ symmetry is $s=$ ?",
-            "answer": 0.5,
-            "tol": 1e-9,
-            "explain": "$s=1/2$ is fixed by the involution $s\\mapsto1-s$."
-          }
-        ]
-      }
-    }
-  },
   "algebraic-topology": {
     "topic": "algebraic-topology",
     "quizzes": {
@@ -1030,6 +923,113 @@ window.MVQuizBank = {
             "answer": -6,
             "tol": 0.001,
             "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+          }
+        ]
+      }
+    }
+  },
+  "L-functions": {
+    "topic": "L-functions",
+    "quizzes": {
+      "lfunction-prototype": {
+        "title": "Elliptic $L(E,s)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For good primes $p$, $a_p(E)$ is computed from point counts as:",
+            "choices": [
+              "$a_p=p-\\#E(\\mathbb{F}_p)$",
+              "$a_p=p+1-\\#E(\\mathbb{F}_p)$",
+              "$a_p=\\#E(\\mathbb{F}_p)-p-1$ only when $p=2$"
+            ],
+            "answer": 1,
+            "explain": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
+            "answer": -3,
+            "tol": 1e-9,
+            "explain": "$a_5=5+1-9=-3$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Euler product for $L(E,s)$ is built from:",
+            "choices": [
+              "Local factors at each prime",
+              "Only archimedean factors",
+              "Only bad primes"
+            ],
+            "answer": 0,
+            "explain": "An $L$-function is assembled from local data prime-by-prime."
+          }
+        ]
+      },
+      "functional-equation-completion": {
+        "title": "Modular-form $L(f,s)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a normalized eigenform $f(q)=\\sum a_n q^n$, its $L$-series is:",
+            "choices": [
+              "$L(f,s)=\\sum a_n n^{-s}$",
+              "$L(f,s)=\\sum a_n q^n$",
+              "$L(f,s)=\\prod_n (1-a_nn^{-s})$"
+            ],
+            "answer": 0,
+            "explain": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hecke eigenform coefficients satisfy multiplicative relations, which enable:",
+            "choices": [
+              "Euler product factorization",
+              "Automatic convergence for all $s$",
+              "Trivial functional equation"
+            ],
+            "answer": 0,
+            "explain": "Multiplicativity is exactly what supports an Euler product."
+          },
+          {
+            "type": "numeric",
+            "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "Normalization sets the first coefficient to 1."
+          }
+        ]
+      },
+      "arithmetic-data-lfunctions": {
+        "title": "Completed $L$-function",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A completed $L$-function $\\Lambda(s)$ typically satisfies:",
+            "choices": [
+              "$\\Lambda(s)=\\Lambda(-s)$",
+              "$\\Lambda(s)=w\\Lambda(1-s)$",
+              "$\\Lambda(s)=\\Lambda(s+1)$"
+            ],
+            "answer": 1,
+            "explain": "The symmetry line is $\\Re(s)=1/2$ via $s\\leftrightarrow1-s$."
+          },
+          {
+            "type": "mcq",
+            "q": "The sign $w\\in\\{\\pm1\\}$ in the functional equation is called the:",
+            "choices": [
+              "Hasse invariant",
+              "root number",
+              "class number"
+            ],
+            "answer": 1,
+            "explain": "The root number controls parity phenomena at the center."
+          },
+          {
+            "type": "numeric",
+            "q": "The central point of $s\\leftrightarrow1-s$ symmetry is $s=$ ?",
+            "answer": 0.5,
+            "tol": 1e-9,
+            "explain": "$s=1/2$ is fixed by the involution $s\\mapsto1-s$."
           }
         ]
       }

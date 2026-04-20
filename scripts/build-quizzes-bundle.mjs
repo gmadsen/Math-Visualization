@@ -22,8 +22,11 @@ const quizzesDir = join(repoRoot, 'quizzes');
 
 const bank = {};
 let count = 0, questions = 0;
-for (const entry of readdirSync(quizzesDir)) {
-  if (extname(entry) !== '.json') continue;
+const quizEntries = readdirSync(quizzesDir)
+  .filter((entry) => extname(entry) === '.json')
+  .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+
+for (const entry of quizEntries) {
   const full = join(quizzesDir, entry);
   if (!statSync(full).isFile()) continue;
   const topic = basename(entry, '.json');
