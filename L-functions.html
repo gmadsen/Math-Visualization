@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -611,6 +614,8 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
 })();
 </script>
 
+<div class="quiz" data-concept="L-function-elliptic"></div>
+
 <section id="modular">
 <h2>4. $L(f,s)$ of a cusp form eigenform</h2>
 <p>Let $f = \sum_{n\ge 1} a_n q^n \in S_k(\Gamma_0(N))$ be a weight-$k$ cusp form that is also a simultaneous eigenform for all the <a href="./modular-forms.html">Hecke operators</a> $T_p$. Then its Dirichlet series
@@ -696,6 +701,8 @@ $$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\
   run();
 })();
 </script>
+
+<div class="quiz" data-concept="modular-form-lfunction"></div>
 
 <section id="completed">
 <h2>5. The completed $L$-function and the functional equation</h2>
@@ -888,6 +895,8 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
   draw();
 })();
 </script>
+
+<div class="quiz" data-concept="completed-L-functional-equation"></div>
 
 <section id="mellin">
 <h2>6. The Mellin transform: from $f$ to $L(f,s)$</h2>
@@ -1097,6 +1106,14 @@ Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('L-functions'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

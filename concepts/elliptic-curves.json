@@ -1,0 +1,33 @@
+{
+  "topic": "elliptic-curves",
+  "title": "Elliptic curves",
+  "page": "elliptic-curves.html",
+  "concepts": [
+    {
+      "id": "elliptic-curve-nonsingular",
+      "title": "Nonsingular cubic models",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "A Weierstrass equation $y^2=x^3+ax+b$ defines an elliptic curve when $\\Delta=-16(4a^3+27b^2)\\neq0$. Nonsingularity is exactly what lets geometry and arithmetic interact cleanly."
+    },
+    {
+      "id": "rational-points",
+      "title": "Rational points and the group law",
+      "anchor": "group",
+      "prereqs": [
+        "elliptic-curve-nonsingular"
+      ],
+      "blurb": "Secant–tangent addition makes $E(\\mathbb{Q})$ an abelian group with identity at infinity. Arithmetic questions become structural questions about this group of rational points."
+    },
+    {
+      "id": "mordell-weil-ec",
+      "title": "Mordell–Weil finiteness",
+      "anchor": "mordell",
+      "prereqs": [
+        "rational-points",
+        "mordell-weil"
+      ],
+      "blurb": "Mordell–Weil says $E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\mathrm{tors}}\\oplus\\mathbb{Z}^r$. The finite rank $r$ is the key invariant linked conjecturally to $L(E,s)$ at $s=1$."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "topic": "L-functions",
+  "title": "L-functions",
+  "page": "L-functions.html",
+  "concepts": [
+    {
+      "id": "L-function-elliptic",
+      "title": "Elliptic-curve L-series",
+      "anchor": "elliptic",
+      "prereqs": [
+        "euler-product",
+        "rational-points"
+      ],
+      "blurb": "For an elliptic curve, local point counts produce coefficients $a_p$ and an Euler product defining $L(E,s)$. This packages Frobenius trace data into one analytic object."
+    },
+    {
+      "id": "modular-form-lfunction",
+      "title": "Modular-form L-series",
+      "anchor": "modular",
+      "prereqs": [
+        "modular-form-definition",
+        "hecke-operator-tp",
+        "euler-product"
+      ],
+      "blurb": "A normalized Hecke eigenform $f$ has coefficients with multiplicative relations, giving $L(f,s)=\\sum a_n n^{-s}=\\prod_p(1-a_pp^{-s}+\\cdots)^{-1}$."
+    },
+    {
+      "id": "completed-L-functional-equation",
+      "title": "Completed L-function and symmetry",
+      "anchor": "completed",
+      "prereqs": [
+        "L-function-elliptic",
+        "modular-form-lfunction"
+      ],
+      "blurb": "Adding Gamma-factors and conductor yields a completed function $\\Lambda(s)$ with functional equation $\\Lambda(s)=w\\Lambda(1-s)$, exposing central-point symmetry and arithmetic parity effects."
+    }
+  ]
+}

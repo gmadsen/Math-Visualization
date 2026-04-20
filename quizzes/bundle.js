@@ -2,6 +2,113 @@
 // Regenerate with:  node scripts/build-quizzes-bundle.mjs
 // Source of truth: quizzes/*.json (one per topic).
 window.MVQuizBank = {
+  "L-functions": {
+    "topic": "L-functions",
+    "quizzes": {
+      "L-function-elliptic": {
+        "title": "Elliptic $L(E,s)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For good primes $p$, $a_p(E)$ is computed from point counts as:",
+            "choices": [
+              "$a_p=p-\\#E(\\mathbb{F}_p)$",
+              "$a_p=p+1-\\#E(\\mathbb{F}_p)$",
+              "$a_p=\\#E(\\mathbb{F}_p)-p-1$ only when $p=2$"
+            ],
+            "answer": 1,
+            "explain": "The trace is $a_p=p+1-\\#E(\\mathbb{F}_p)$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
+            "answer": -3,
+            "tol": 1e-9,
+            "explain": "$a_5=5+1-9=-3$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Euler product for $L(E,s)$ is built from:",
+            "choices": [
+              "Local factors at each prime",
+              "Only archimedean factors",
+              "Only bad primes"
+            ],
+            "answer": 0,
+            "explain": "An $L$-function is assembled from local data prime-by-prime."
+          }
+        ]
+      },
+      "modular-form-lfunction": {
+        "title": "Modular-form $L(f,s)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a normalized eigenform $f(q)=\\sum a_n q^n$, its $L$-series is:",
+            "choices": [
+              "$L(f,s)=\\sum a_n n^{-s}$",
+              "$L(f,s)=\\sum a_n q^n$",
+              "$L(f,s)=\\prod_n (1-a_nn^{-s})$"
+            ],
+            "answer": 0,
+            "explain": "The Mellin/Dirichlet form is $\\sum a_n n^{-s}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hecke eigenform coefficients satisfy multiplicative relations, which enable:",
+            "choices": [
+              "Euler product factorization",
+              "Automatic convergence for all $s$",
+              "Trivial functional equation"
+            ],
+            "answer": 0,
+            "explain": "Multiplicativity is exactly what supports an Euler product."
+          },
+          {
+            "type": "numeric",
+            "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "Normalization sets the first coefficient to 1."
+          }
+        ]
+      },
+      "completed-L-functional-equation": {
+        "title": "Completed $L$-function",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A completed $L$-function $\\Lambda(s)$ typically satisfies:",
+            "choices": [
+              "$\\Lambda(s)=\\Lambda(-s)$",
+              "$\\Lambda(s)=w\\Lambda(1-s)$",
+              "$\\Lambda(s)=\\Lambda(s+1)$"
+            ],
+            "answer": 1,
+            "explain": "The symmetry line is $\\Re(s)=1/2$ via $s\\leftrightarrow1-s$."
+          },
+          {
+            "type": "mcq",
+            "q": "The sign $w\\in\\{\\pm1\\}$ in the functional equation is called the:",
+            "choices": [
+              "Hasse invariant",
+              "root number",
+              "class number"
+            ],
+            "answer": 1,
+            "explain": "The root number controls parity phenomena at the center."
+          },
+          {
+            "type": "numeric",
+            "q": "The central point of $s\\leftrightarrow1-s$ symmetry is $s=$ ?",
+            "answer": 0.5,
+            "tol": 1e-9,
+            "explain": "$s=1/2$ is fixed by the involution $s\\mapsto1-s$."
+          }
+        ]
+      }
+    }
+  },
   "bsd": {
     "topic": "bsd",
     "quizzes": {
@@ -282,6 +389,220 @@ window.MVQuizBank = {
             "answer": -1,
             "tol": 0.001,
             "explain": "Pole of order 2 at $0$. $\\operatorname{Res}(f;0) = \\lim_{z\\to 0}\\frac{d}{dz}\\!\\left[z^2 f(z)\\right] = \\frac{d}{dz}\\!\\left[\\frac{1}{z-1}\\right]_{z=0} = -\\frac{1}{(0-1)^2} = -1$."
+          }
+        ]
+      }
+    }
+  },
+  "dirichlet-series-euler-products": {
+    "topic": "dirichlet-series-euler-products",
+    "quizzes": {
+      "dirichlet-series-convergence": {
+        "title": "Abscissa of convergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Dirichlet series $\\sum a_n n^{-s}$ converges absolutely in which region (for some threshold $\\sigma_a$)?",
+            "choices": [
+              "$\\Re(s) < \\sigma_a$",
+              "$\\Re(s) > \\sigma_a$",
+              "$\\Re(s)=\\sigma_a$ only"
+            ],
+            "answer": 1,
+            "explain": "Absolute convergence occurs in a right half-plane $\\Re(s)>\\sigma_a$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\zeta(s)=\\sum n^{-s}$, the abscissa of absolute convergence is $\\sigma_a=$ ?",
+            "answer": 1,
+            "tol": 1e-9,
+            "explain": "The $p$-series test gives convergence for $\\Re(s)>1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Moving from $\\Re(s)=2$ to $\\Re(s)=1.2$ generally makes partial sums behave how?",
+            "choices": [
+              "They converge faster",
+              "No change",
+              "They converge more slowly / become less stable"
+            ],
+            "answer": 2,
+            "explain": "Near the boundary of convergence, tails decay more slowly."
+          }
+        ]
+      },
+      "euler-product": {
+        "title": "Euler products",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The identity $\\zeta(s)=\\prod_p (1-p^{-s})^{-1}$ reflects which arithmetic fact?",
+            "choices": [
+              "Unique factorization into primes",
+              "Prime number theorem",
+              "Quadratic reciprocity"
+            ],
+            "answer": 0,
+            "explain": "Expanding the product picks one prime power term per prime, encoding unique factorization."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $(1-2^{-2})^{-1}$.",
+            "answer": 1.3333333333,
+            "tol": 0.000001,
+            "explain": "$(1-1/4)^{-1}=4/3$."
+          },
+          {
+            "type": "mcq",
+            "q": "If coefficients are multiplicative, $\\sum a_n n^{-s}$ is expected to factor into:",
+            "choices": [
+              "A finite product over $n$",
+              "An infinite product over primes",
+              "A product over zeros only"
+            ],
+            "answer": 1,
+            "explain": "Multiplicativity organizes terms by prime powers, giving an Euler product."
+          }
+        ]
+      },
+      "dirichlet-theorem-ap": {
+        "title": "Dirichlet theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Dirichlet's theorem says for $\\gcd(a,q)=1$, primes $p\\equiv a\\pmod q$ are:",
+            "choices": [
+              "Finite in number",
+              "Infinite in number",
+              "Always composite"
+            ],
+            "answer": 1,
+            "explain": "Each reduced residue class contains infinitely many primes."
+          },
+          {
+            "type": "mcq",
+            "q": "Which objects decompose residue-class sums in Dirichlet's proof?",
+            "choices": [
+              "Bernoulli numbers",
+              "Dirichlet characters",
+              "Continued fractions"
+            ],
+            "answer": 1,
+            "explain": "Characters diagonalize class functions modulo $q$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many reduced residue classes are modulo $8$?",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
+          }
+        ]
+      }
+    }
+  },
+  "elliptic-curves": {
+    "topic": "elliptic-curves",
+    "quizzes": {
+      "elliptic-curve-nonsingular": {
+        "title": "Nonsingularity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $y^2=x^3+ax+b$, nonsingularity is equivalent to:",
+            "choices": [
+              "$a=b=0$",
+              "$\\Delta=-16(4a^3+27b^2)\\neq0$",
+              "$a^2+b^2=1$"
+            ],
+            "answer": 1,
+            "explain": "A nonzero discriminant means no cusp or node."
+          },
+          {
+            "type": "numeric",
+            "q": "If $a=-1,b=0$, compute $4a^3+27b^2$.",
+            "answer": -4,
+            "tol": 1e-9,
+            "explain": "$4(-1)^3+27(0)^2=-4$."
+          },
+          {
+            "type": "mcq",
+            "q": "A singular cubic typically has what local defect?",
+            "choices": [
+              "Node or cusp",
+              "Extra connected component at infinity",
+              "No rational points"
+            ],
+            "answer": 0,
+            "explain": "Singularity appears as node/cusp where derivatives vanish simultaneously."
+          }
+        ]
+      },
+      "rational-points": {
+        "title": "Group law",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On an elliptic curve, $P+Q+R=\\mathcal O$ when:",
+            "choices": [
+              "$P,Q,R$ are collinear",
+              "$P=Q=R$ only",
+              "$P$ and $Q$ are torsion"
+            ],
+            "answer": 0,
+            "explain": "The secant line meets the cubic in three points summing to zero."
+          },
+          {
+            "type": "mcq",
+            "q": "The identity element for the elliptic-curve group law is:",
+            "choices": [
+              "$(0,0)$",
+              "A chosen rational basepoint",
+              "The point at infinity $\\mathcal O$"
+            ],
+            "answer": 2,
+            "explain": "Projectively, the neutral element is the point at infinity."
+          },
+          {
+            "type": "numeric",
+            "q": "If a point has order $5$, the smallest positive $n$ with $nP=\\mathcal O$ is:",
+            "answer": 5,
+            "tol": 1e-9,
+            "explain": "That is the definition of order."
+          }
+        ]
+      },
+      "mordell-weil-ec": {
+        "title": "Mordell–Weil",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mordell–Weil states $E(\\mathbb{Q})$ is:",
+            "choices": [
+              "Always finite",
+              "Finitely generated abelian",
+              "Always rank 0"
+            ],
+            "answer": 1,
+            "explain": "$E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\text{tors}}\\oplus\\mathbb{Z}^r$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $E(\\mathbb{Q})\\cong (\\mathbb{Z}/2\\mathbb{Z})\\oplus\\mathbb{Z}^3$, the rank is:",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "Rank is the exponent of the free part."
+          },
+          {
+            "type": "mcq",
+            "q": "The torsion subgroup in Mordell–Weil is:",
+            "choices": [
+              "Always trivial",
+              "Finite",
+              "Infinite cyclic"
+            ],
+            "answer": 1,
+            "explain": "Over $\\mathbb{Q}$, torsion is finite (Mazur classifies possibilities)."
           }
         ]
       }

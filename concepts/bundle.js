@@ -17,7 +17,10 @@ window.__MVConcepts = {
       "sato-tate",
       "bsd",
       "etale-cohomology",
-      "modularity-and-flt"
+      "modularity-and-flt",
+      "dirichlet-series-euler-products",
+      "elliptic-curves",
+      "L-functions"
     ]
   },
   "topics": {
@@ -859,6 +862,111 @@ window.__MVConcepts = {
             "modularity-theorem"
           ],
           "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
+        }
+      ]
+    },
+    "dirichlet-series-euler-products": {
+      "topic": "dirichlet-series-euler-products",
+      "title": "Dirichlet series and Euler products",
+      "page": "dirichlet-series-euler-products.html",
+      "concepts": [
+        {
+          "id": "dirichlet-series-convergence",
+          "title": "Abscissa of convergence",
+          "anchor": "series",
+          "prereqs": [
+            "analytic-continuation"
+          ],
+          "blurb": "A Dirichlet series $\\sum a_n n^{-s}$ converges in a right half-plane $\\Re(s)>\\sigma_a$. The boundary $\\sigma_a$ captures growth of partial sums and controls where Euler-product manipulations are justified."
+        },
+        {
+          "id": "euler-product",
+          "title": "Euler product factorization",
+          "anchor": "euler",
+          "prereqs": [
+            "dirichlet-series-convergence"
+          ],
+          "blurb": "When coefficients are multiplicative, a Dirichlet series factors as an infinite product over primes. This analytic encoding of unique factorization is the bridge from arithmetic data to complex-analytic behavior."
+        },
+        {
+          "id": "dirichlet-theorem-ap",
+          "title": "Primes in arithmetic progressions",
+          "anchor": "dir",
+          "prereqs": [
+            "euler-product"
+          ],
+          "blurb": "Dirichlet characters split residue classes, and nonvanishing of $L(1,\\chi)$ for nontrivial $\\chi$ forces infinitely many primes in each reduced class $a \\bmod q$."
+        }
+      ]
+    },
+    "elliptic-curves": {
+      "topic": "elliptic-curves",
+      "title": "Elliptic curves",
+      "page": "elliptic-curves.html",
+      "concepts": [
+        {
+          "id": "elliptic-curve-nonsingular",
+          "title": "Nonsingular cubic models",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "A Weierstrass equation $y^2=x^3+ax+b$ defines an elliptic curve when $\\Delta=-16(4a^3+27b^2)\\neq0$. Nonsingularity is exactly what lets geometry and arithmetic interact cleanly."
+        },
+        {
+          "id": "rational-points",
+          "title": "Rational points and the group law",
+          "anchor": "group",
+          "prereqs": [
+            "elliptic-curve-nonsingular"
+          ],
+          "blurb": "Secant–tangent addition makes $E(\\mathbb{Q})$ an abelian group with identity at infinity. Arithmetic questions become structural questions about this group of rational points."
+        },
+        {
+          "id": "mordell-weil-ec",
+          "title": "Mordell–Weil finiteness",
+          "anchor": "mordell",
+          "prereqs": [
+            "rational-points",
+            "mordell-weil"
+          ],
+          "blurb": "Mordell–Weil says $E(\\mathbb{Q})\\cong E(\\mathbb{Q})_{\\mathrm{tors}}\\oplus\\mathbb{Z}^r$. The finite rank $r$ is the key invariant linked conjecturally to $L(E,s)$ at $s=1$."
+        }
+      ]
+    },
+    "L-functions": {
+      "topic": "L-functions",
+      "title": "L-functions",
+      "page": "L-functions.html",
+      "concepts": [
+        {
+          "id": "L-function-elliptic",
+          "title": "Elliptic-curve L-series",
+          "anchor": "elliptic",
+          "prereqs": [
+            "euler-product",
+            "rational-points"
+          ],
+          "blurb": "For an elliptic curve, local point counts produce coefficients $a_p$ and an Euler product defining $L(E,s)$. This packages Frobenius trace data into one analytic object."
+        },
+        {
+          "id": "modular-form-lfunction",
+          "title": "Modular-form L-series",
+          "anchor": "modular",
+          "prereqs": [
+            "modular-form-definition",
+            "hecke-operator-tp",
+            "euler-product"
+          ],
+          "blurb": "A normalized Hecke eigenform $f$ has coefficients with multiplicative relations, giving $L(f,s)=\\sum a_n n^{-s}=\\prod_p(1-a_pp^{-s}+\\cdots)^{-1}$."
+        },
+        {
+          "id": "completed-L-functional-equation",
+          "title": "Completed L-function and symmetry",
+          "anchor": "completed",
+          "prereqs": [
+            "L-function-elliptic",
+            "modular-form-lfunction"
+          ],
+          "blurb": "Adding Gamma-factors and conductor yields a completed function $\\Lambda(s)$ with functional equation $\\Lambda(s)=w\\Lambda(1-s)$, exposing central-point symmetry and arithmetic parity effects."
         }
       ]
     }

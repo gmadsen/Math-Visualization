@@ -13,6 +13,9 @@
     "sato-tate",
     "bsd",
     "etale-cohomology",
-    "modularity-and-flt"
+    "modularity-and-flt",
+    "dirichlet-series-euler-products",
+    "elliptic-curves",
+    "L-functions"
   ]
 }
