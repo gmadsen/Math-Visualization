@@ -1,0 +1,98 @@
+{
+  "topic": "sums-of-squares",
+  "quizzes": {
+    "two-squares-theorem": {
+      "title": "Sum of two squares",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "By Fermat's theorem, an odd prime $p$ is a sum of two squares iff:",
+          "choices": [
+            "$p\\equiv 3\\pmod 4$",
+            "$p\\equiv 1\\pmod 4$",
+            "$p$ is a twin prime",
+            "$p\\equiv 1\\pmod 3$"
+          ],
+          "answer": 1,
+          "explain": "Odd primes that are sums of two squares are exactly those with $p\\equiv 1\\pmod 4$. Equivalently, $(-1/p)=+1$, so $p$ splits in $\\mathbb{Z}[i]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ for $n=5$ (divisors $1,5$, both $\\equiv 1\\pmod 4$), what is $r_2(5)$?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$d_1(5)=2$, $d_3(5)=0$, so $r_2(5)=4(2-0)=8$. The reps are the $8$ signed ordered pairs $(\\pm 1,\\pm 2),(\\pm 2,\\pm 1)$."
+        },
+        {
+          "type": "complex",
+          "q": "In $\\mathbb{Z}[i]$, the prime $5$ splits as $5=(2+i)(2-i)$. Compute the product $(2+i)(2-i)$ as $a+bi$.",
+          "answer": [5, 0],
+          "tol": 1e-6,
+          "explain": "$(2+i)(2-i)=4-i^2=4+1=5$, i.e. $5+0i$. This is the norm $N(2+i)=2^2+1^2=5$."
+        }
+      ]
+    },
+    "three-squares-theorem": {
+      "title": "Legendre three-square theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A non-negative integer $n$ fails to be a sum of three squares iff:",
+          "choices": [
+            "$n$ is prime",
+            "$n\\equiv 3\\pmod 4$",
+            "$n$ has the form $4^a(8b+7)$",
+            "$n$ is a perfect square"
+          ],
+          "answer": 2,
+          "explain": "Legendre–Gauss: $n$ is a sum of three squares iff $n$ is NOT of the form $4^a(8b+7)$. Mod $8$, squares are $\\{0,1,4\\}$, so three of them cannot sum to $7$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $r_3(7)$, the number of ordered signed representations of $7$ as a sum of three squares?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$7=4^0(8\\cdot 0+7)$ is excluded by Legendre–Gauss, so $r_3(7)=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Is $n=28$ excluded from being a sum of three squares? Strip factors of $4$: $28=4\\cdot 7$. Enter $1$ if excluded, $0$ if not.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$28=4^1\\cdot(8\\cdot 0+7)$, matching $4^a(8b+7)$ with $a=1, b=0$. So $28$ is excluded and $r_3(28)=0$."
+        }
+      ]
+    },
+    "four-squares-and-waring": {
+      "title": "Four squares and Waring",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Lagrange's four-square theorem asserts:",
+          "choices": [
+            "only primes are sums of four squares",
+            "every non-negative integer is a sum of four integer squares",
+            "every integer is a sum of four distinct squares",
+            "only integers $n\\not\\equiv 7\\pmod 8$ are sums of four squares"
+          ],
+          "answer": 1,
+          "explain": "Lagrange (1770): every non-negative integer $n$ can be written as $a^2+b^2+c^2+d^2$. The proof uses multiplicativity (Euler's four-square identity) and descent."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Jacobi's formula $r_4(n)=8\\sigma(n)$ for odd $n$, compute $r_4(3)$. (Divisors of $3$: $1,3$; $\\sigma(3)=4$.)",
+          "answer": 32,
+          "tol": 1e-6,
+          "explain": "For odd $n$, $r_4(n)=8\\sigma(n)$. With $\\sigma(3)=1+3=4$, we get $r_4(3)=8\\cdot 4=32$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which value of $g(k)$ (Waring's constant — smallest $s$ such that every $n\\ge 1$ is a sum of $s$ $k$-th powers) corresponds to $k=2$?",
+          "choices": ["$g(2)=2$", "$g(2)=3$", "$g(2)=4$", "$g(2)=5$"],
+          "answer": 2,
+          "explain": "$g(2)=4$ by Lagrange: four squares always suffice, and three do not (e.g. $n=7$ needs four)."
+        }
+      ]
+    }
+  }
+}

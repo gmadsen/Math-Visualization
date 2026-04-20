@@ -1,0 +1,180 @@
+{
+  "topic": "galois-representations",
+  "quizzes": {
+    "galois-rep-definition": {
+      "title": "Galois representations and examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Galois representation of $G_\\mathbb{Q}$ is a:",
+          "choices": [
+            "any homomorphism $G_\\mathbb{Q}\\to\\mathrm{GL}_n(K)$, no topology required",
+            "continuous homomorphism $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_n(K)$ for $K\\in\\{\\mathbb{C},\\bar{\\mathbb{Q}}_\\ell,\\bar{\\mathbb{F}}_\\ell\\}$",
+            "finite-index subgroup of $\\mathrm{GL}_n(\\mathbb{Z})$",
+            "automorphism of $\\bar{\\mathbb{Q}}$ that fixes $\\mathbb{Q}$"
+          ],
+          "answer": 1,
+          "explain": "By definition $\\rho$ is a continuous homomorphism from the profinite group $G_\\mathbb{Q}$ to a linear group; continuity against the target's topology (complex, $\\ell$-adic, or mod-$\\ell$) is what distinguishes Artin, $\\ell$-adic, and residual representations."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about Artin representations (coefficients in $\\mathbb{C}$) is correct?",
+          "choices": [
+            "they can have infinite image",
+            "they must be 1-dimensional",
+            "they factor through $\\mathrm{Gal}(L/\\mathbb{Q})$ for some finite Galois $L/\\mathbb{Q}$",
+            "they cannot be irreducible"
+          ],
+          "answer": 2,
+          "explain": "Continuity $G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ with the discrete image topology (any compact subgroup of $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group with no small profinite subgroups) forces finite image, i.e. factorisation through some finite $\\mathrm{Gal}(L/\\mathbb{Q})$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the $\\ell$-adic cyclotomic character $\\chi:G_\\mathbb{Q}\\to\\mathbb{Z}_\\ell^\\times$, what is $\\chi(\\mathrm{Frob}_p)$ when $p\\ne\\ell$ is unramified? (Take $p=7$.)",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$. For $p=7$ the value is $7$."
+        }
+      ]
+    },
+    "frobenius-traces": {
+      "title": "Frobenius traces and compatibility",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E/\\mathbb{Q}$ with good reduction at $p$, the characteristic polynomial of $\\rho_{E,\\ell}(\\mathrm{Frob}_p)$ on the Tate module is:",
+          "choices": [
+            "$t^2 - p\\,t + a_p$",
+            "$t^2 - a_p\\,t + p$",
+            "$t^2 + a_p\\,t - p$",
+            "$t - a_p$"
+          ],
+          "answer": 1,
+          "explain": "The determinant is the cyclotomic character, so $\\det=p$, and the trace is the Frobenius trace $a_p$: $\\det(tI-\\rho(\\mathrm{Frob}_p))=t^2-a_p t+p$."
+        },
+        {
+          "type": "numeric",
+          "q": "An elliptic curve $E/\\mathbb{Q}$ has good reduction at $p=11$ and $|\\tilde E(\\mathbb{F}_{11})|=10$. Compute $a_{11}=p+1-|\\tilde E(\\mathbb{F}_p)|$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$a_{11}=11+1-10=2$. This is the trace of $\\mathrm{Frob}_{11}$ on $V_\\ell E$."
+        },
+        {
+          "type": "numeric",
+          "q": "By Hasse, $|a_p|\\le 2\\sqrt{p}$. What is the largest integer $a_p$ can be for $p=37$?",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
+        }
+      ]
+    },
+    "semisimple-decomposition": {
+      "title": "Irreducibility and semisimplification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_2(\\bar{\\mathbb{Q}}_\\ell)$ be reducible but not semisimple, with an invariant line on which $G_\\mathbb{Q}$ acts by $\\chi_1$ and quotient $\\chi_2$. What is $\\rho^{\\mathrm{ss}}$?",
+          "choices": [
+            "the zero representation",
+            "$\\chi_1\\oplus\\chi_2$",
+            "$\\chi_1\\otimes\\chi_2$",
+            "$\\chi_1$ alone"
+          ],
+          "answer": 1,
+          "explain": "Semisimplification replaces a Jordan\u2013H\u00f6lder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why do Frobenius traces fail to distinguish $\\rho$ from $\\rho^{\\mathrm{ss}}$?",
+          "choices": [
+            "because $\\rho$ and $\\rho^{\\mathrm{ss}}$ have the same determinant",
+            "because trace is additive on short exact sequences, so $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_p)$",
+            "because Frobenius is unipotent",
+            "because $G_\\mathbb{Q}$ is abelian"
+          ],
+          "answer": 1,
+          "explain": "For any filtration $0\\subset V_1\\subset V$ by $G$-stable subspaces, $\\operatorname{tr}(g\\mid V)=\\operatorname{tr}(g\\mid V_1)+\\operatorname{tr}(g\\mid V/V_1)=\\operatorname{tr}(g\\mid\\mathrm{gr}\\,V)$. So the trace only depends on $\\rho^{\\mathrm{ss}}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
+        }
+      ]
+    },
+    "ramification-galois-rep": {
+      "title": "Inertia, ramification, and the conductor",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Galois representation $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_n(K)$ is unramified at a prime $p$ when:",
+          "choices": [
+            "$\\rho(\\mathrm{Frob}_p)=I$",
+            "the inertia subgroup $I_p$ is in the kernel of $\\rho$",
+            "$p$ does not divide $n$",
+            "$\\rho$ is irreducible"
+          ],
+          "answer": 1,
+          "explain": "Unramified at $p$ means $\\rho(I_p)=1$; only then does $\\rho$ factor through $D_p/I_p$ and $\\mathrm{Frob}_p$ gets a well-defined image."
+        },
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E/\\mathbb{Q}$ with multiplicative reduction at $p$, the conductor exponent $f_p$ of $\\rho_{E,\\ell}$ is:",
+          "choices": [
+            "$f_p=0$",
+            "$f_p=1$",
+            "$f_p\\ge 2$",
+            "$f_p=p$"
+          ],
+          "answer": 1,
+          "explain": "Multiplicative reduction is tame: inertia has a 1-dimensional invariant subspace on $V_\\ell E$, so $f_p=\\dim V-\\dim V^{I_p}=2-1=1$ and the wild term vanishes."
+        },
+        {
+          "type": "numeric",
+          "q": "A representation $\\rho$ has $\\dim V=3$, $\\dim V^{I_p}=2$, and trivial wild ramification at $p$. What is the Artin conductor exponent $f_p(\\rho)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
+        }
+      ]
+    },
+    "modularity-and-deformations": {
+      "title": "Residual reps, deformations, modularity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Deligne attaches to a weight-$k$ cuspidal eigenform $f$ with character $\\varepsilon$ a 2-dim $\\ell$-adic $\\rho_{f,\\lambda}$ satisfying, for $p\\nmid N\\ell$:",
+          "choices": [
+            "$\\operatorname{tr}\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=a_p(f)$ and $\\det\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=\\varepsilon(p)\\,p^{k-1}$",
+            "$\\operatorname{tr}\\rho_{f,\\lambda}(\\mathrm{Frob}_p)=p$ and $\\det=a_p(f)$",
+            "$\\rho_{f,\\lambda}$ has finite image",
+            "$\\rho_{f,\\lambda}$ is always reducible"
+          ],
+          "answer": 0,
+          "explain": "Eichler–Shimura/Deligne: Fourier coefficients at unramified primes are traces of Frobenius, and the determinant is $\\varepsilon\\cdot\\chi^{k-1}$ (the cyclotomic character raised to the $k-1$ power, times the nebentypus)."
+        },
+        {
+          "type": "mcq",
+          "q": "A residual representation $\\bar\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_2(\\bar{\\mathbb{F}}_\\ell)$ is called modular if:",
+          "choices": [
+            "it has trivial determinant",
+            "it arises as the reduction mod $\\ell$ of some $\\rho_{f,\\lambda}$ for a cuspidal eigenform $f$",
+            "it factors through $\\mathrm{Gal}(\\mathbb{Q}(\\mu_\\ell)/\\mathbb{Q})$",
+            "it is reducible"
+          ],
+          "answer": 1,
+          "explain": "Modularity of a residual (mod-$\\ell$) representation means it comes from a cuspidal eigenform $f$ via $\\bar\\rho\\cong\\bar\\rho_{f,\\lambda}$. Modularity lifting theorems ($R=T$) propagate modularity from $\\bar\\rho$ to its $\\ell$-adic lifts."
+        },
+        {
+          "type": "numeric",
+          "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
+          "answer": -24,
+          "tol": 1e-6,
+          "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "topic": "galois",
+  "quizzes": {
+    "field-extensions-galois": {
+      "title": "Field extensions and automorphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)$ be the splitting field of $x^3-2$ over $\\mathbb{Q}$, where $\\omega=e^{2\\pi i/3}$. What is $[L:\\mathbb{Q}]$?",
+          "choices": ["$3$", "$4$", "$6$", "$9$"],
+          "answer": 2,
+          "explain": "The minimal polynomial of $\\sqrt[3]{2}$ has degree $3$ and that of $\\omega$ has degree $2$, so $[L:\\mathbb{Q}]=3\\cdot 2=6$ by the tower law."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the order of $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_5)/\\mathbb{Q})$, where $\\zeta_5=e^{2\\pi i/5}$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "The fifth cyclotomic polynomial $\\Phi_5$ has degree $\\varphi(5)=4$, so the Galois group has order $4$ (it is cyclic, isomorphic to $(\\mathbb{Z}/5)^\\times$)."
+        },
+        {
+          "type": "complex",
+          "q": "The nontrivial automorphism of $\\mathbb{Q}(i)/\\mathbb{Q}$ sends $i\\mapsto -i$. What is its image on $2+3i$, written as $a+bi$?",
+          "answer": [2, -3],
+          "tol": 1e-6,
+          "explain": "Complex conjugation fixes $\\mathbb{Q}$ and sends $i\\mapsto -i$, so $2+3i\\mapsto 2-3i$."
+        }
+      ]
+    },
+    "fundamental-theorem-galois": {
+      "title": "Fundamental theorem of Galois theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Galois correspondence for a Galois extension $L/K$ matches intermediate fields $K\\subseteq F\\subseteq L$ with:",
+          "choices": [
+            "subgroups of $\\operatorname{Gal}(L/K)$, order-preserving",
+            "subgroups of $\\operatorname{Gal}(L/K)$, order-reversing",
+            "quotients of $\\operatorname{Gal}(L/K)$ only",
+            "elements of $L$ fixed by conjugation"
+          ],
+          "answer": 1,
+          "explain": "The correspondence $F\\leftrightarrow \\operatorname{Gal}(L/F)$ is an inclusion-reversing bijection: bigger fields correspond to smaller subgroups."
+        },
+        {
+          "type": "numeric",
+          "q": "$L=\\mathbb{Q}(\\sqrt{2},\\sqrt{3})$ has $\\operatorname{Gal}(L/\\mathbb{Q})\\cong(\\mathbb{Z}/2)^2$ of order $4$. How many intermediate fields strictly between $\\mathbb{Q}$ and $L$ are there?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "The Klein four-group has three proper nontrivial subgroups, each of order $2$, corresponding to the three quadratic subfields $\\mathbb{Q}(\\sqrt{2}),\\mathbb{Q}(\\sqrt{3}),\\mathbb{Q}(\\sqrt{6})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Under the Galois correspondence, an intermediate field $F$ is a <em>normal</em> extension of the base $K$ iff:",
+          "choices": [
+            "$\\operatorname{Gal}(L/F)$ is cyclic",
+            "$\\operatorname{Gal}(L/F)$ is abelian",
+            "$\\operatorname{Gal}(L/F)$ is a normal subgroup of $\\operatorname{Gal}(L/K)$",
+            "$F=L$"
+          ],
+          "answer": 2,
+          "explain": "Normality in the tower matches normal subgroups in the group: $F/K$ is Galois iff $\\operatorname{Gal}(L/F)\\trianglelefteq \\operatorname{Gal}(L/K)$, and then $\\operatorname{Gal}(F/K)\\cong \\operatorname{Gal}(L/K)/\\operatorname{Gal}(L/F)$."
+        }
+      ]
+    },
+    "solvability-by-radicals": {
+      "title": "Solvability by radicals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A polynomial $f\\in\\mathbb{Q}[x]$ is solvable by radicals iff:",
+          "choices": [
+            "its Galois group is abelian",
+            "its Galois group is cyclic",
+            "its Galois group is solvable (has an abelian tower)",
+            "it has a real root"
+          ],
+          "answer": 2,
+          "explain": "Galois' theorem: $f$ is solvable by radicals iff $\\operatorname{Gal}(f/\\mathbb{Q})$ is a solvable group — i.e., admits a subnormal series with abelian quotients."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $|A_5|$, the order of the alternating group that obstructs solving the general quintic?",
+          "answer": 60,
+          "tol": 1e-6,
+          "explain": "$|A_5|=5!/2=60$. Since $A_5$ is simple and non-abelian, $S_5$ is not solvable, so the general quintic has no radical formula."
+        },
+        {
+          "type": "mcq",
+          "q": "Which polynomial's Galois group over $\\mathbb{Q}$ is all of $S_5$, preventing a radical solution?",
+          "choices": [
+            "$x^5-1$",
+            "$x^5-x-1$",
+            "$x^5-2$",
+            "$(x^2-2)(x^3-2)$"
+          ],
+          "answer": 1,
+          "explain": "$x^5-x-1$ is irreducible over $\\mathbb{Q}$, has exactly two non-real roots (so complex conjugation is a transposition), and a $5$-cycle from transitivity — these generate $S_5$."
+        }
+      ]
+    },
+    "normal-separable-extensions": {
+      "title": "Normal and separable extensions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which extension of $\\mathbb{Q}$ is <em>not</em> normal?",
+          "choices": [
+            "$\\mathbb{Q}(\\sqrt{2})$",
+            "$\\mathbb{Q}(i)$",
+            "$\\mathbb{Q}(\\sqrt[3]{2})$",
+            "$\\mathbb{Q}(\\zeta_7)$"
+          ],
+          "answer": 2,
+          "explain": "$\\mathbb{Q}(\\sqrt[3]{2})$ contains only one root of $x^3-2$; the other two roots $\\omega\\sqrt[3]{2},\\omega^2\\sqrt[3]{2}$ are complex. A normal extension must contain all roots of the minimal polynomial of any element."
+        },
+        {
+          "type": "numeric",
+          "q": "For a finite Galois extension $L/K$ one has $|\\operatorname{Gal}(L/K)|=[L:K]$. If $[L:K]=12$, what is $|\\operatorname{Gal}(L/K)|$?",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "Galois is exactly the equality $|\\operatorname{Gal}(L/K)|=[L:K]$. If either side is $12$, so is the other."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement characterizes separability of $\\alpha$ over $K$?",
+          "choices": [
+            "the minimal polynomial $m_\\alpha$ has integer coefficients",
+            "the minimal polynomial $m_\\alpha$ has distinct roots in an algebraic closure",
+            "$\\alpha$ has finite order in the multiplicative group $L^\\times$",
+            "$\\alpha$ lies in a tower of quadratic extensions"
+          ],
+          "answer": 1,
+          "explain": "By definition $\\alpha$ is separable over $K$ iff its minimal polynomial over $K$ has no repeated roots in any extension. In characteristic zero this is automatic."
+        }
+      ]
+    },
+    "primitive-element-theorem": {
+      "title": "Primitive element theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The primitive element theorem says that every finite separable extension $L/K$ is:",
+          "choices": [
+            "abelian",
+            "normal",
+            "simple — generated by a single element $\\theta$ with $L=K(\\theta)$",
+            "of prime degree"
+          ],
+          "answer": 2,
+          "explain": "A finite separable extension admits a primitive element: $L=K(\\theta)$ for some $\\theta\\in L$. Such an extension is called simple."
+        },
+        {
+          "type": "numeric",
+          "q": "The element $\\theta=\\sqrt{2}+\\sqrt{3}$ is primitive for $\\mathbb{Q}(\\sqrt{2},\\sqrt{3})/\\mathbb{Q}$. What is the degree of its minimal polynomial over $\\mathbb{Q}$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$[\\mathbb{Q}(\\sqrt{2},\\sqrt{3}):\\mathbb{Q}]=4$, and if $\\theta$ is primitive then $[\\mathbb{Q}(\\theta):\\mathbb{Q}]=4$, so $m_\\theta$ has degree $4$ (explicitly $x^4-10x^2+1$)."
+        },
+        {
+          "type": "mcq",
+          "q": "Where can the primitive element theorem <em>fail</em>?",
+          "choices": [
+            "for finite separable extensions of $\\mathbb{Q}$",
+            "for finite extensions of $\\mathbb{C}$",
+            "for inseparable extensions in positive characteristic, e.g. $\\mathbb{F}_p(x,y)/\\mathbb{F}_p(x^p,y^p)$",
+            "for extensions of degree $2$"
+          ],
+          "answer": 2,
+          "explain": "Separability is essential. $\\mathbb{F}_p(x,y)/\\mathbb{F}_p(x^p,y^p)$ has degree $p^2$ but every element generates a subfield of degree at most $p$, so it is not simple."
+        }
+      ]
+    }
+  }
+}

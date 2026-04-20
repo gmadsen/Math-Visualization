@@ -102,6 +102,9 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -334,6 +337,8 @@ $$I_P(f,g) \;=\; \dim_k \bigl(\mathcal{O}_{\mathbb{A}^2,P} \,/\, (f,g)\bigr).$$
   <svg id="mc-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
   <div class="readout" id="mc-out"></div>
 </div>
+
+<div class="quiz" data-concept="intersection-multiplicity"></div>
 </section>
 
 <script>
@@ -552,6 +557,8 @@ $$\deg\bigl(\mathrm{Res}_Y(F,G)(X,Z)\bigr) \;=\; \deg f\cdot \deg g \;=\; de.$$
 <p>The resultant is a form of degree $de$ in $(X,Z)$, hence has $de$ zeros in $\mathbb{P}^1$ counted with multiplicity — and each zero corresponds (via its fibre over $Y$) to a set of intersection points whose combined $I_P$'s add up to the resultant's multiplicity. That gives the resultant-based proof of Bézout.</p>
 
 <div class="note"><strong>Parallels with commutative algebra.</strong> The resultant lives inside the eliminant ideal $(f,g)\cap k[x]$; computing it is the classical form of <em>elimination theory</em>, which in modern language becomes Gröbner bases or pushforward along projection — see <a href="./commutative-algebra.html">commutative algebra</a> and <a href="./schemes.html">schemes</a>.</div>
+
+<div class="quiz" data-concept="resultants-elimination"></div>
 </section>
 
 <section id="statement">
@@ -591,6 +598,8 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 <tr><td>finite iff isolated</td><td>$I_P(f,g)<\infty$ iff $P$ is an isolated point of $V(f)\cap V(g)$</td></tr>
 </tbody>
 </table>
+
+<div class="quiz" data-concept="bezout-theorem-core"></div>
 </section>
 
 <section id="examples">
@@ -993,6 +1002,14 @@ is the local length of an intersection, and the Bézout theorem says the <em>glo
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('bezout'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

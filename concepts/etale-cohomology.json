@@ -24,14 +24,34 @@
       "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
     },
     {
+      "id": "lefschetz-fixed-point",
+      "title": "Grothendieck–Lefschetz fixed-point formula",
+      "anchor": "lefschetz",
+      "prereqs": [
+        "l-adic-cohomology",
+        "fiber-products"
+      ],
+      "blurb": "For an endomorphism f whose graph meets the diagonal transversally, #Fix(f) = Σ(−1)^i Tr(f* | H^i_ét). Applied to q-power Frobenius it counts 𝔽_{q^m}-points — the engine behind rationality and the functional equation."
+    },
+    {
       "id": "weil-frobenius-trace",
       "title": "Weil conjectures and Frobenius trace",
       "anchor": "weil",
       "prereqs": [
-        "l-adic-cohomology",
-        "frobenius-traces"
+        "lefschetz-fixed-point"
       ],
       "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
+    },
+    {
+      "id": "comparison-theorems-etale",
+      "title": "Comparison theorems: étale vs. singular, de Rham, crystalline",
+      "anchor": "comparison",
+      "prereqs": [
+        "l-adic-cohomology",
+        "singular-homology",
+        "stokes-derham"
+      ],
+      "blurb": "Artin's theorem identifies H^i_ét(X_ℂ, ℚ_ℓ) with H^i_sing(X(ℂ), ℚ)⊗ℚ_ℓ; crystalline and p-adic Hodge theory (B_dR, B_cris) fill the ℓ=p gap, so étale, singular, de Rham, and crystalline are facets of one Weil cohomology."
     }
   ]
 }

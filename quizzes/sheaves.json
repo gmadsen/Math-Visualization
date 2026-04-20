@@ -1,0 +1,113 @@
+{
+  "topic": "sheaves",
+  "quizzes": {
+    "presheaf-sheaf-axioms": {
+      "title": "Presheaves and the sheaf condition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A presheaf $F$ on $X$ is a sheaf iff, for every open $U \\subseteq X$ and every open cover $U = \\bigcup_i U_i$:",
+          "choices": [
+            "the restriction maps $F(U)\\to F(U_i)$ are all surjective",
+            "the diagram $F(U)\\to \\prod_i F(U_i)\\rightrightarrows \\prod_{i,j} F(U_i\\cap U_j)$ is an equalizer",
+            "$F(U) = \\bigoplus_i F(U_i)$",
+            "the stalks $F_x$ all agree for $x\\in U$"
+          ],
+          "answer": 1,
+          "explain": "The sheaf axiom packages locality (injectivity on $F(U)\\to\\prod F(U_i)$) and gluing (compatible families lift) as the equalizer condition."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $B$ be the presheaf on $\\mathbb{R}$ with $B(U) = \\{$bounded continuous $f\\colon U\\to\\mathbb{R}\\}$. Which sheaf axiom does $B$ fail?",
+          "choices": [
+            "locality (separation)",
+            "gluing (existence)",
+            "functoriality of restriction",
+            "$B(\\emptyset)$ is not terminal"
+          ],
+          "answer": 1,
+          "explain": "Bounded functions glue to an unbounded function: on $\\mathbb{R} = \\bigcup_n (-n,n)$ the compatible family $f_n(x)=x$ has no bounded global lift, so gluing fails."
+        },
+        {
+          "type": "numeric",
+          "q": "For a sheaf of abelian groups $F$, what is $|F(\\emptyset)|$? (Enter the size of the underlying set.)",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element."
+        }
+      ]
+    },
+    "stalks-local-data": {
+      "title": "Stalks and germs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The stalk $F_x$ of a sheaf at $x\\in X$ is defined as:",
+          "choices": [
+            "$F(\\{x\\})$",
+            "$\\bigoplus_{x\\in U} F(U)$",
+            "$\\varinjlim_{x\\in U} F(U)$, filtered over open neighborhoods of $x$",
+            "$\\varprojlim_{x\\in U} F(U)$"
+          ],
+          "answer": 2,
+          "explain": "A germ at $x$ is an equivalence class $[(U,s)]$ of a section on some open neighborhood, modulo agreement on smaller neighborhoods — exactly the filtered colimit $\\varinjlim_{x\\in U} F(U)$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a sheaf $F$ and sections $s,t\\in F(U)$ with $s_x = t_x$ for every $x\\in U$, which conclusion holds?",
+          "choices": [
+            "$s = t$",
+            "$s$ and $t$ need not agree, only their germs do",
+            "$s = t$ only if $U$ is connected",
+            "$s = t$ only if $F$ is a sheaf of abelian groups"
+          ],
+          "answer": 0,
+          "explain": "Agreement on all stalks produces an open cover on which $s$ and $t$ coincide; the sheaf's locality axiom then forces $s = t$ on $U$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a scheme $X = \\mathrm{Spec}\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
+        }
+      ]
+    },
+    "sheafification-and-qcoh": {
+      "title": "Sheafification and quasi-coherent sheaves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The sheafification $F^+$ of a presheaf $F$ is characterized by:",
+          "choices": [
+            "$F^+(U) = F(U)$ for all $U$",
+            "$F^+$ is the initial sheaf receiving a map from $F$ (universal property): any $F\\to G$ with $G$ a sheaf factors uniquely through $F\\to F^+$",
+            "$F^+(U) = \\prod_{x\\in U} F_x$",
+            "$F^+ = F$ whenever $F$ is separated"
+          ],
+          "answer": 1,
+          "explain": "Sheafification is left-adjoint to the inclusion $\\mathsf{Sh}(X)\\hookrightarrow\\mathsf{PSh}(X)$: it enforces gluing while preserving stalks $(F^+)_x = F_x$."
+        },
+        {
+          "type": "mcq",
+          "q": "On $X = \\mathrm{Spec}\\,R$, the functor $M\\mapsto \\widetilde{M}$ taking an $R$-module to its associated quasi-coherent sheaf:",
+          "choices": [
+            "is fully faithful but not essentially surjective",
+            "is an equivalence $R\\text{-}\\mathsf{Mod} \\xrightarrow{\\sim} \\mathsf{QCoh}(\\mathrm{Spec}\\,R)$",
+            "is only defined for Noetherian $R$",
+            "always lands in coherent sheaves"
+          ],
+          "answer": 1,
+          "explain": "The key theorem: $M\\mapsto\\widetilde{M}$ is an equivalence of categories with inverse $\\mathcal{F}\\mapsto\\Gamma(X,\\mathcal{F})$. This reduces quasi-coherent sheaf theory on an affine scheme to module theory."
+        },
+        {
+          "type": "numeric",
+          "q": "For $R=\\mathbb{Z}$, $M = \\mathbb{Z}/6$, and $f = 2$, the section $\\widetilde{M}(D(2)) = M_2 = M[\\tfrac{1}{2}]$ has how many elements?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements."
+        }
+      ]
+    }
+  }
+}

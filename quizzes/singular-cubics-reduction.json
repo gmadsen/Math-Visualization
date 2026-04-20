@@ -1,0 +1,113 @@
+{
+  "topic": "singular-cubics-reduction",
+  "quizzes": {
+    "singular-cubic-types": {
+      "title": "Singular cubic types",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How many distinct tangent lines does the nodal cubic $y^2 = x^3 + x^2$ have at its singular point $(0,0)$?",
+          "choices": [
+            "$0$",
+            "$1$ (with multiplicity $2$)",
+            "$2$ distinct lines",
+            "$3$ distinct lines"
+          ],
+          "answer": 2,
+          "explain": "The degree-$2$ part at the origin is $y^2 - x^2 = (y-x)(y+x)$, which factors into two distinct linear forms. So the tangent cone is two lines $y = \\pm x$, exactly the node picture."
+        },
+        {
+          "type": "mcq",
+          "q": "At the cusp of $y^2 = x^3$, the degree-$2$ part of the defining polynomial is:",
+          "choices": [
+            "$y^2 - x^2$ (two distinct lines)",
+            "$y^2$ (one line $y=0$ with multiplicity $2$)",
+            "$x^2 + y^2$ (irreducible over $\\mathbb{R}$)",
+            "identically zero"
+          ],
+          "answer": 1,
+          "explain": "The lowest-order terms of $y^2 - x^3$ at the origin are just $y^2$, a single repeated factor. That single tangent direction with multiplicity $2$ is what distinguishes a cusp from a node."
+        },
+        {
+          "type": "numeric",
+          "q": "For the cuspidal parametrization $(x,y) = (t^2, t^3)$, evaluate $y$ at $t = 3$.",
+          "answer": 27,
+          "tol": 1e-6,
+          "explain": "$y = t^3 = 3^3 = 27$. The cusp $y^2 = x^3$ is parametrized by $t \\mapsto (t^2,t^3)$, with $t=0$ mapping to the singular point."
+        }
+      ]
+    },
+    "reduction-mod-p": {
+      "title": "Reduction modulo $p$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $E : y^2 = x^3 + ax + b$ with $a,b\\in\\mathbb{Z}$ and discriminant $\\Delta = -16(4a^3 + 27 b^2)$. The reduction $\\tilde E_p$ is singular (bad reduction) iff:",
+          "choices": [
+            "$p \\mid a$",
+            "$p \\mid b$",
+            "$p \\mid \\Delta$",
+            "$p \\nmid \\Delta$"
+          ],
+          "answer": 2,
+          "explain": "A Weierstrass cubic is smooth over $\\mathbb{F}_p$ exactly when its discriminant is nonzero mod $p$. So bad reduction at $p$ is the condition $p \\mid \\Delta$; good reduction is $p \\nmid \\Delta$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $E : y^2 = x^3 + 1$ (so $a = 0, b = 1$), compute $\\Delta = -16(4a^3 + 27 b^2)$.",
+          "answer": -432,
+          "tol": 1e-6,
+          "explain": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $E : y^2 = x^3 + 1$ with $\\Delta = -432 = -2^4\\cdot 3^3$, at which prime below is the reduction good?",
+          "choices": [
+            "$p = 2$",
+            "$p = 3$",
+            "$p = 5$",
+            "every prime is bad"
+          ],
+          "answer": 2,
+          "explain": "Bad primes are those dividing $\\Delta = -432$, namely $p = 2$ and $p = 3$. Every other prime, including $p = 5$, is a prime of good reduction."
+        }
+      ]
+    },
+    "kodaira-néron-preview": {
+      "title": "Bad reduction taxonomy",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Kodaira–Néron preview, the smooth locus of a cuspidal reduction $\\tilde E_p$ is isomorphic to:",
+          "choices": [
+            "$\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^{\\times}$ (order $p-1$)",
+            "$\\mathbb{G}_a(\\mathbb{F}_p) \\cong \\mathbb{F}_p$ (order $p$)",
+            "a non-split torus (order $p+1$)",
+            "an elliptic curve over $\\mathbb{F}_p$"
+          ],
+          "answer": 1,
+          "explain": "Cuspidal reduction is called <i>additive</i> precisely because the smooth locus is the additive group $\\mathbb{G}_a(\\mathbb{F}_p) = \\mathbb{F}_p$, which has order $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "A node over $\\mathbb{F}_p$ is called <i>split</i> multiplicative when:",
+          "choices": [
+            "the two tangent slopes are defined over $\\mathbb{F}_p$",
+            "the two tangent slopes are conjugate over $\\mathbb{F}_{p^2}$ but not in $\\mathbb{F}_p$",
+            "the two tangent lines coincide",
+            "the singularity is a cusp"
+          ],
+          "answer": 0,
+          "explain": "Split means the tangent slopes $\\pm s$ lie in $\\mathbb{F}_p$, so the smooth locus is $\\mathbb{G}_m(\\mathbb{F}_p) \\cong \\mathbb{F}_p^\\times$ of order $p-1$. Non-split means the slopes live in $\\mathbb{F}_{p^2} \\setminus \\mathbb{F}_p$, giving a non-split torus of order $p+1$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a non-split multiplicative reduction at $p = 7$, the smooth part of $\\tilde E_p$ has order $p+1$. Compute this order.",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
+        }
+      ]
+    }
+  }
+}

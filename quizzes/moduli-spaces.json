@@ -1,0 +1,103 @@
+{
+  "topic": "moduli-spaces",
+  "quizzes": {
+    "moduli-problem": {
+      "title": "Moduli problems and parameters",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A moduli problem for elliptic curves over $\\mathbb{C}$ is encoded by a functor $\\mathcal{M}\\colon\\mathrm{Sch}^{\\mathrm{op}}\\to\\mathrm{Set}$. What does $\\mathcal{M}(S)$ contain?",
+          "choices": [
+            "the set of closed points of $S$",
+            "isomorphism classes of families $E\\to S$ whose geometric fibres are elliptic curves",
+            "the set of line bundles on $S$",
+            "the category of all schemes over $S$"
+          ],
+          "answer": 1,
+          "explain": "The moduli functor sends a base $S$ to iso classes of families $E\\to S$ of the objects of interest — here, flat proper families of elliptic curves."
+        },
+        {
+          "type": "numeric",
+          "q": "Over $\\mathbb{C}$, the $j$-invariant induces a bijection between iso classes of elliptic curves and $\\mathbb{A}^1(\\mathbb{C})=\\mathbb{C}$. What is the (complex) dimension of this parameter space?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{A}^1(\\mathbb{C})=\\mathbb{C}$ has complex dimension $1$, matching $\\dim M_{1,1}=1$."
+        },
+        {
+          "type": "complex",
+          "q": "For the curve $y^2=x^3+1$ (so $a=0$, $b=1$), compute the discriminant $\\Delta=-16(4a^3+27b^2)$ as $a+bi$.",
+          "answer": [-432, 0],
+          "tol": 1e-6,
+          "explain": "$\\Delta=-16(0+27)=-16\\cdot 27=-432$, which is nonzero, confirming the curve is smooth (hence an elliptic curve)."
+        }
+      ]
+    },
+    "fine-vs-coarse-moduli": {
+      "title": "Fine versus coarse moduli",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which statement characterises a fine moduli space $M$ for $\\mathcal{M}$?",
+          "choices": [
+            "$\\mathcal{M}(\\mathrm{Spec}\\,\\bar k)\\to M(\\bar k)$ is a bijection for every algebraically closed $k$",
+            "$\\mathcal{M}$ is naturally isomorphic to $h_M=\\operatorname{Hom}(-,M)$, so there exists a universal family $\\mathcal{E}\\to M$",
+            "$M$ is proper and smooth",
+            "$M$ is the quotient of a scheme by a finite group"
+          ],
+          "answer": 1,
+          "explain": "Fine moduli is exactly representability: $\\mathcal{M}\\cong h_M$. The identity $\\mathrm{id}_M\\in h_M(M)$ corresponds to the universal family $\\mathcal{E}\\to M$."
+        },
+        {
+          "type": "mcq",
+          "q": "The $j$-line $\\mathbb{A}^1_j$ is a moduli space for elliptic curves. Which type?",
+          "choices": [
+            "fine moduli",
+            "coarse moduli (no universal family)",
+            "it is not a moduli space in any sense",
+            "it is a compact moduli space"
+          ],
+          "answer": 1,
+          "explain": "The $j$-line is the coarse moduli space of $\\mathcal{M}_{1,1}$: geometric points match iso classes bijectively, but no universal family exists because of automorphisms."
+        },
+        {
+          "type": "numeric",
+          "q": "The obstruction to fine moduli for $\\mathcal{M}_{1,1}$ is the presence of nontrivial automorphisms. Every elliptic curve has at least the $[-1]$ involution. What is the order of the automorphism group of a generic elliptic curve (with $j\\ne 0,1728$)?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "For generic $j$, the only nontrivial automorphism is $[-1]:(x,y)\\mapsto(x,-y)$, so $|\\mathrm{Aut}(E)|=2$."
+        }
+      ]
+    },
+    "level-structures-moduli": {
+      "title": "Level structure and compactification ideas",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is a level-$N$ structure required to satisfy $N\\ge 3$ to rigidify $\\mathcal{M}_{1,1}$ into a fine moduli space?",
+          "choices": [
+            "For $N=2$, $E[2]$ is not a group",
+            "For $N=2$, $[-1]$ acts as the identity on $E[2]$ (since $-P=P$ for $2$-torsion), so it still fixes every level-$2$ basis",
+            "For $N=2$, the curve $Y(2)$ does not exist",
+            "Because $\\mathrm{GL}_2(\\mathbb{Z}/2)$ is trivial"
+          ],
+          "answer": 1,
+          "explain": "On $E[2]$, multiplication by $-1$ is the identity because $2P=0$ implies $-P=P$. So $[-1]$ fixes any basis of $E[2]$, i.e. level-$2$ is not rigid enough. For $N\\ge 3$, $[-1]\\ne 1$ on $E[N]$."
+        },
+        {
+          "type": "numeric",
+          "q": "For smooth projective curves of genus $g\\ge 2$, $\\dim M_g=3g-3$. Compute $\\dim M_4$.",
+          "answer": 9,
+          "tol": 1e-6,
+          "explain": "$3(4)-3=9$. This is the deformation-theoretic count $\\dim H^1(C,T_C)$."
+        },
+        {
+          "type": "numeric",
+          "q": "The Deligne–Mumford compactification $\\overline{M}_{g,n}$ adds stable curves. Using $\\dim M_{g,n}=3g-3+n$ for $g\\ge 2$, compute $\\dim M_{2,3}$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$3(2)-3+3=3+3=6$."
+        }
+      ]
+    }
+  }
+}

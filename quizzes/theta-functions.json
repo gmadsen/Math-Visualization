@@ -1,0 +1,103 @@
+{
+  "topic": "theta-functions",
+  "quizzes": {
+    "theta-series-lattice": {
+      "title": "Theta series from lattices",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Jacobi theta series $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}} q^{n^2/2}$ with $q=e^{2\\pi i\\tau}$ can be read as a generating function for:",
+          "choices": [
+            "the number of primes $\\le n$",
+            "the count of lattice points on the rank-1 lattice $\\mathbb{Z}$ of squared norm $n^2$",
+            "the coefficients of $E_4$",
+            "partition numbers $p(n)$"
+          ],
+          "answer": 1,
+          "explain": "Each term $q^{n^2/2}$ comes from the vector $n\\in\\mathbb{Z}$ with squared norm $n^2$, so $\\theta$ counts lattice points by squared norm."
+        },
+        {
+          "type": "numeric",
+          "q": "Evaluate the number $r_1(4)$ of ways to write $4=n^2$ with $n\\in\\mathbb{Z}$ (signs counted).",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Only $n=\\pm 2$ gives $n^2=4$, so $r_1(4)=2$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\theta^2(\\tau)=\\sum_m r_2(m) q^{m/2}$, compute $r_2(1)$, the number of integer pairs $(a,b)$ with $a^2+b^2=1$.",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "The solutions are $(\\pm 1,0)$ and $(0,\\pm 1)$, giving $r_2(1)=4$."
+        }
+      ]
+    },
+    "theta-transformation-law": {
+      "title": "Theta transformation law",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The modular transformation law for $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}} e^{\\pi i n^2 \\tau}$ reads:",
+          "choices": [
+            "$\\theta(-1/\\tau)=\\theta(\\tau)$",
+            "$\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$",
+            "$\\theta(-1/\\tau)=-\\theta(\\tau)$",
+            "$\\theta(-1/\\tau)=\\tau\\,\\theta(\\tau)$"
+          ],
+          "answer": 1,
+          "explain": "Poisson summation applied to the Gaussian $e^{\\pi i n^2\\tau}$ yields $\\theta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\theta(\\tau)$, with the principal branch of the square root."
+        },
+        {
+          "type": "mcq",
+          "q": "Which identity is the analytic engine behind the theta transformation law?",
+          "choices": [
+            "the residue theorem",
+            "the Poisson summation formula",
+            "the Cauchy–Riemann equations",
+            "Stirling's approximation"
+          ],
+          "answer": 1,
+          "explain": "Poisson summation turns $\\sum_n f(n)$ into $\\sum_k\\hat f(k)$; applied to the Gaussian $f(x)=e^{\\pi i x^2\\tau}$ it exchanges $\\tau$ with $-1/\\tau$."
+        },
+        {
+          "type": "numeric",
+          "q": "On the imaginary axis $\\tau=iy$, the identity becomes $\\theta(i/y)=\\sqrt{y}\\,\\theta(iy)$. Taking $y=1$, evaluate the multiplier $\\sqrt{y}$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "At $y=1$ the multiplier is $\\sqrt{1}=1$, and indeed $\\theta(i)=\\theta(i)$ is a consistent fixed point."
+        }
+      ]
+    },
+    "jacobi-triple-product": {
+      "title": "Jacobi triple product and q-identities",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Jacobi triple product identity states that $\\sum_{n\\in\\mathbb{Z}} z^n q^{n^2/2}$ equals:",
+          "choices": [
+            "$\\prod_{n\\ge 1}(1-q^n)$",
+            "$\\prod_{n\\ge 1}(1-q^n)(1+zq^{n-1/2})(1+z^{-1}q^{n-1/2})$",
+            "$\\prod_{n\\ge 1}(1-q^{n^2})$",
+            "$\\sum_{n\\ge 0}(-1)^n q^{n(3n-1)/2}$"
+          ],
+          "answer": 1,
+          "explain": "This is the classical Jacobi triple product, turning the bilateral sum into a product over three factors per $n$."
+        },
+        {
+          "type": "numeric",
+          "q": "In the $q$-expansion $\\prod_{n\\ge 1}(1-q^n) = \\sum_{k\\in\\mathbb{Z}}(-1)^k q^{k(3k-1)/2}$ (Euler's pentagonal number theorem), compute the coefficient of $q^1$.",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "The pentagonal numbers begin $0,1,2,5,7,\\ldots$, and $k=1$ contributes $(-1)^1 q^{1}=-q$, so $[q^1]=-1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Setting $z=1$ in Jacobi's triple product gives $\\theta_3(\\tau)=\\sum_{n\\in\\mathbb{Z}} q^{n^2/2}$. Compute the coefficient of $q^{0}$ on the sum side.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Only $n=0$ contributes to the $q^0$ term in $\\sum_n q^{n^2/2}$, giving coefficient $1$."
+        }
+      ]
+    }
+  }
+}

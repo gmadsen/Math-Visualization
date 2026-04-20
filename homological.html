@@ -101,6 +101,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -283,9 +286,10 @@ function zmoduleFromSmith(invariants, extraFree){
   <a href="#complexes">1&nbsp;Chain&nbsp;complexes</a>
   <a href="#exact">2&nbsp;Exact&nbsp;sequences</a>
   <a href="#snake">3&nbsp;Snake&nbsp;lemma</a>
-  <a href="#derived">4&nbsp;Ext&nbsp;&amp;&nbsp;Tor</a>
-  <a href="#resolutions">5&nbsp;Resolutions</a>
-  <a href="#spectral">6&nbsp;Spectral&nbsp;sequences</a>
+  <a href="#les">4&nbsp;Long&nbsp;exact&nbsp;sequence</a>
+  <a href="#derived">5&nbsp;Ext&nbsp;&amp;&nbsp;Tor</a>
+  <a href="#resolutions">6&nbsp;Resolutions</a>
+  <a href="#spectral">7&nbsp;Spectral&nbsp;sequences</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -336,6 +340,8 @@ function zmoduleFromSmith(invariants, extraFree){
 </div>
 
 <p>Try the sphere: it has $H_0=\mathbb{Q}$ (connected), $H_1=0$ (no 1-dimensional holes), $H_2=\mathbb{Q}$ (one enclosed void). The torus famously has $H_0=\mathbb{Q},\ H_1=\mathbb{Q}^2,\ H_2=\mathbb{Q}$ — two independent $1$-cycles (the two generating loops) and one $2$-cycle (the whole surface). Ranks of homology are topological invariants; they do not depend on the triangulation.</p>
+
+<div class="quiz" data-concept="chain-complexes"></div>
 </section>
 
 <script>
@@ -541,6 +547,8 @@ Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokerne
   <div id="ex-diagram" style="text-align:center;margin:.8rem 0;font-size:1.05rem"></div>
   <div class="readout" id="ex-out"></div>
 </div>
+
+<div class="quiz" data-concept="exact-sequences"></div>
 </section>
 
 <script>
@@ -693,6 +701,8 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </div>
 
 <p class="small">In the snake lemma's diagram, the rows are the SES at homological degree $n$ (top) and degree $n-1$ (bottom); the vertical maps are the differentials. Then $\ker\gamma/\operatorname{im}\alpha$ pieces are precisely $H_n(C)$-parts, and $\delta$ becomes the boundary in the long exact sequence in homology.</p>
+
+<div class="quiz" data-concept="snake-lemma"></div>
 </section>
 
 <script>
@@ -857,8 +867,20 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 })();
 </script>
 
+<section id="les">
+<h2>4. The long exact sequence in homology</h2>
+<p>Suppose $0 \to A_\bullet \xrightarrow{f} B_\bullet \xrightarrow{g} C_\bullet \to 0$ is a short exact sequence of chain complexes — a triple of complexes with a chain map of each, so that in every degree $n$ the rows $0\to A_n \to B_n \to C_n\to 0$ are exact and all squares commute with the differentials. Applying the snake lemma to two consecutive degrees extracts a <strong>connecting homomorphism</strong> $\partial : H_n(C) \to H_{n-1}(A)$, and iterating over every $n$ splices the pieces into one infinite exact sequence:</p>
+<p style="text-align:center">$\cdots \to H_n(A) \xrightarrow{f_*} H_n(B) \xrightarrow{g_*} H_n(C) \xrightarrow{\;\partial\;} H_{n-1}(A) \to \cdots$</p>
+
+<p>This is the tool you reach for first. For a pair $(X,Y)\hookrightarrow X$ of spaces the short exact sequence of singular-chain complexes $0\to C_\bullet(Y)\to C_\bullet(X)\to C_\bullet(X,Y)\to 0$ produces the relative homology long exact sequence; for $\mathrm{Hom}(-,N)$ applied to a short exact sequence $0\to A\to B\to C\to 0$ the analogous long exact sequence threads $\mathrm{Ext}^i$ together. Every time you see $\operatorname{Ext}^1$ measuring the failure of some $\operatorname{Hom}$ to be surjective, a long exact sequence is doing the bookkeeping.</p>
+
+<div class="note">Mayer–Vietoris is the long exact sequence attached to the SES $0\to C_\bullet(U\cap V)\to C_\bullet(U)\oplus C_\bullet(V)\to C_\bullet(U\cup V)\to 0$. It computes $H_*(S^n)$ in one line: gluing two $n$-disks along an equatorial $S^{n-1}$ gives $H_n(S^n)\cong H_{n-1}(S^{n-1})$, hence inductively $H_n(S^n)\cong\mathbb{Z}$.</div>
+
+<div class="quiz" data-concept="long-exact-sequence"></div>
+</section>
+
 <section id="derived">
-<h2>4. Derived functors, Ext and Tor</h2>
+<h2>5. Derived functors, Ext and Tor</h2>
 <p>Many constructions in algebra are <em>left</em> or <em>right exact</em> but fail to be exact on both sides. $\operatorname{Hom}(M,-)$ is left exact; $-\otimes_A N$ is right exact; $(-)^G$ (invariants under a group action) is left exact; $\Gamma$ (global sections of a sheaf) is left exact. <strong>Derived functors</strong> package the failure into a sequence of functors $R^iF$ or $L_iF$ forming, for each short exact sequence in the source, a long exact sequence of derived values.</p>
 
 <p>The recipe: to compute $R^iF(M)$ (for $F$ left exact) choose an <em>injective resolution</em> $0\to M\to I^0\to I^1\to\cdots$, apply $F$, and take cohomology of the resulting complex $F(I^\bullet)$. Dually, for $L_iF$ (with $F$ right exact), use a <em>projective resolution</em>. The miracle: the answer is independent of the resolution.</p>
@@ -897,6 +919,8 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
   </div>
   <div class="readout" id="et-out"></div>
 </div>
+
+<div class="quiz" data-concept="derived-functors"></div>
 </section>
 
 <script>
@@ -1138,7 +1162,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </script>
 
 <section id="resolutions">
-<h2>5. Resolutions: projective, injective, flat</h2>
+<h2>6. Resolutions: projective, injective, flat</h2>
 <p>A <strong>projective resolution</strong> of an $A$-module $M$ is an exact sequence</p>
 <p style="text-align:center">$\cdots \to P_2 \to P_1 \to P_0 \twoheadrightarrow M \to 0$</p>
 <p>in which every $P_i$ is projective (a direct summand of a free module). An <strong>injective resolution</strong> dually has $M \hookrightarrow I^0 \to I^1 \to \cdots$ exact with each $I^i$ injective. <strong>Flat resolutions</strong> use modules that are flat (tensor product with them preserves exact sequences). Free ⇒ projective ⇒ flat; over nice rings all three are distinct.</p>
@@ -1242,7 +1266,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </script>
 
 <section id="spectral">
-<h2>6. Spectral sequences (a gentle taste)</h2>
+<h2>7. Spectral sequences (a gentle taste)</h2>
 <p>A <strong>spectral sequence</strong> is a sequence of "pages" $E_0, E_1, E_2, \dots$ where each page is a bigraded abelian group with a differential $d_r: E_r^{p,q} \to E_r^{p-r, q+r-1}$ (or with indices reversed, depending on convention) satisfying $d_r^2 = 0$, and the next page is the homology of the current one: $E_{r+1}^{p,q} = H(E_r^{p,q}, d_r)$. Under reasonable finiteness conditions, the differentials eventually vanish and the pages stabilize at an $E_\infty$ page, which is (up to a filtration) the answer you were after.</p>
 
 <p>Two canonical examples:</p>
@@ -1265,6 +1289,8 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </div>
 
 <p class="small">The spectral sequence of a double complex is an essential bookkeeping device, but its computational power is modest: it tells you that the totalization's homology is <em>some</em> extension of the limit entries by each other, not exactly what that extension is. Extension problems are the frustration tax of the subject.</p>
+
+<div class="quiz" data-concept="spectral-sequences-ha"></div>
 </section>
 
 <script>
@@ -1490,6 +1516,14 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('homological'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

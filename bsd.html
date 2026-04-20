@@ -161,6 +161,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#mordell-weil">1&nbsp;Mordell–Weil</a>
   <a href="#point-counting-heuristic">2&nbsp;Point&nbsp;counts</a>
   <a href="#bsd-rank-equality">3&nbsp;BSD&nbsp;rank</a>
+  <a href="#regulator">4&nbsp;Regulator</a>
+  <a href="#sha-tate-shafarevich">5&nbsp;Ш</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -664,6 +666,191 @@ Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero c
 <p>BSD is a Clay Millennium Prize Problem — a \$1M bounty on the statement that two different ways of counting rational points agree. It is the arithmetic heart of the Langlands philosophy: the analytic behavior of an automorphic $L$-function encodes the arithmetic of the motive it comes from.</p>
 
 <div class="quiz" data-concept="bsd-rank-equality"></div>
+</section>
+
+<section id="regulator">
+<h2>4. The Néron–Tate height and the regulator</h2>
+
+<p>The free part of $E(\mathbb{Q})$ is a lattice, but it needs a <em>metric</em> before anyone can measure its covolume. The <strong>canonical (Néron–Tate) height</strong> $\hat h : E(\mathbb{Q}) \to \mathbb{R}_{\ge 0}$ fixes this. Starting from the naive Weil height of $x(P)$, Tate's averaging trick
+$$\hat h(P) \;=\; \lim_{n \to \infty} \frac{h(x(2^n P))}{4^n}$$
+produces a function that is exactly quadratic: $\hat h(nP) = n^2 \hat h(P)$ and $\hat h(P) = 0$ iff $P \in E(\mathbb{Q})_{\text{tors}}$.</p>
+
+<p>Polarizing gives the <strong>Néron–Tate pairing</strong> $\langle P, Q \rangle = \tfrac12(\hat h(P+Q) - \hat h(P) - \hat h(Q))$, a positive-definite inner product on the $\mathbb{R}$-vector space $E(\mathbb{Q})/\text{tors} \otimes \mathbb{R} \cong \mathbb{R}^r$. The <strong>regulator</strong> is the Gram determinant on any $\mathbb{Z}$-basis $P_1, \ldots, P_r$:
+$$R(E/\mathbb{Q}) \;=\; \det\bigl(\langle P_i, P_j \rangle\bigr)_{1 \le i,j \le r}.$$
+It is the squared covolume of the Mordell–Weil lattice, and it is the factor of refined BSD that "measures how big the infinite part of $E(\mathbb{Q})$ is."</p>
+
+<p>For rank $r = 0$ we declare $R = 1$ (empty determinant). For rank $1$ the regulator reduces to $\hat h(P_1)$ for any generator. Congruent-number curves $y^2 = x^3 - n^2 x$ of rank $1$ famously have tiny heights — of order $0.1$–$0.3$ — which is why their $L'(E, 1)$ values stay small even when the analytic rank is simple.</p>
+
+<div class="widget" id="w-reg">
+  <div class="hd"><div class="ttl">Regulator from a basis</div><div class="hint">edit a 2×2 height-pairing Gram matrix</div></div>
+  <div class="row">
+    <label>ĥ(P₁) <input id="reg-h1" type="range" min="0.1" max="3" step="0.05" value="0.8"></label>
+    <span id="reg-h1v" class="small">0.80</span>
+    <label>ĥ(P₂) <input id="reg-h2" type="range" min="0.1" max="3" step="0.05" value="1.2"></label>
+    <span id="reg-h2v" class="small">1.20</span>
+  </div>
+  <div class="row">
+    <label>⟨P₁,P₂⟩ <input id="reg-c" type="range" min="-1" max="1" step="0.01" value="0.2"></label>
+    <span id="reg-cv" class="small">0.20</span>
+  </div>
+  <svg id="reg-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="readout" id="reg-out"></div>
+</div>
+
+<script>
+/* =================== SECTION 4: Regulator widget =================== */
+(function(){
+  const h1=$('#reg-h1'), h2=$('#reg-h2'), c=$('#reg-c');
+  const h1v=$('#reg-h1v'), h2v=$('#reg-h2v'), cv=$('#reg-cv');
+  const svg=$('#reg-svg'), out=$('#reg-out');
+
+  function draw(){
+    const a=+h1.value, b=+h2.value, x=+c.value;
+    h1v.textContent=a.toFixed(2); h2v.textContent=b.toFixed(2); cv.textContent=x.toFixed(2);
+    const det = a*b - x*x;
+    // constraint: Gram must be positive-definite: a>0, det>0
+    const pd = det > 0 && a > 0;
+
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=260, cx=W/2, cy=H/2;
+    // draw the lattice spanned by v1=(√a,0), v2=(x/√a, √(det/a)) if pd
+    const scale = 45;
+    const v1=[Math.sqrt(a)*scale, 0];
+    let v2;
+    if(pd){ v2=[x/Math.sqrt(a)*scale, Math.sqrt(det/a)*scale]; }
+    else  { v2=[x/Math.sqrt(Math.max(a,1e-3))*scale, 0]; }
+    // grid of lattice points
+    for(let i=-3;i<=3;i++){
+      for(let j=-3;j<=3;j++){
+        const px = cx + i*v1[0] + j*v2[0];
+        const py = cy - (i*v1[1] + j*v2[1]);
+        if(px<10||px>W-10||py<10||py>H-10) continue;
+        const isOrigin = (i===0 && j===0);
+        svg.appendChild(SVG('circle',{cx:px,cy:py,r:isOrigin?4:2.5,
+          fill: isOrigin?'var(--yellow)':'var(--mute)'}));
+      }
+    }
+    // fundamental parallelogram
+    if(pd){
+      const p0=[cx,cy], p1=[cx+v1[0],cy-v1[1]], p2=[cx+v1[0]+v2[0],cy-v1[1]-v2[1]], p3=[cx+v2[0],cy-v2[1]];
+      const poly = [p0,p1,p2,p3].map(p=>p.join(',')).join(' ');
+      svg.appendChild(SVG('polygon',{points:poly,fill:'rgba(255,216,102,0.15)',stroke:'var(--yellow)','stroke-width':1.5}));
+    }
+    // axis
+    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
+    // legend
+    const t = SVG('text',{x:W-16,y:H-10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    t.textContent = pd ? ('covolume √det = '+Math.sqrt(det).toFixed(3)) : 'not positive-definite';
+    svg.appendChild(t);
+
+    const lines=[];
+    lines.push('Gram matrix  G = [[ '+a.toFixed(2)+', '+x.toFixed(2)+' ], [ '+x.toFixed(2)+', '+b.toFixed(2)+' ]]');
+    lines.push('regulator R = det G = '+det.toFixed(4));
+    if(pd){
+      lines.push('lattice covolume = √R ≈ '+Math.sqrt(det).toFixed(4));
+      lines.push('contribution to refined BSD: L^{(r)}(E,1)/r! ∝ Ω·R·|Ш|·∏c_p / |E_tors|²');
+    } else {
+      lines.push('⚠ pairing is not positive-definite (|⟨P₁,P₂⟩| too large) — pick smaller off-diagonal');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  h1.addEventListener('input',draw); h2.addEventListener('input',draw); c.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<p>Two sanity checks the widget surfaces. First, the Cauchy–Schwarz constraint $\langle P_1, P_2 \rangle^2 \le \hat h(P_1)\hat h(P_2)$ holds automatically for the real pairing; violating it on a slider collapses the lattice onto a line. Second, shrinking the off-diagonal entry increases $\det G$: the more <em>independent</em> the generators, the bigger the regulator, and the smaller the $L$-value has to be to satisfy refined BSD.</p>
+
+<div class="note"><strong>Why this is hard.</strong> No one knows a provable algorithm to compute $\hat h(P)$ to arbitrary precision starting from the Weierstrass coefficients alone, though in practice the Tate series + descent gives any desired digit. Worse: to compute $R$ you need to exhibit a basis of $E(\mathbb{Q})/\text{tors}$, and finding that basis is the same problem as computing the rank — which is itself conjecturally solvable only via BSD.</div>
+
+<div class="quiz" data-concept="regulator"></div>
+</section>
+
+<section id="sha-tate-shafarevich">
+<h2>5. The Tate–Shafarevich group Ш</h2>
+
+<p>The last mysterious factor in refined BSD is $|\Sha(E/\mathbb{Q})|$. To see where it lives, consider the <strong>$n$-descent exact sequence</strong> coming from $0 \to E[n] \to E \xrightarrow{[n]} E \to 0$ and Galois cohomology:
+$$0 \to E(\mathbb{Q})/nE(\mathbb{Q}) \to H^1(\mathbb{Q}, E[n]) \to H^1(\mathbb{Q}, E)[n] \to 0.$$
+Weak Mordell–Weil says the left term is finite, but $H^1(\mathbb{Q}, E[n])$ itself is enormous. The <strong>Selmer group</strong> $\mathrm{Sel}_n(E)$ is the subgroup of cohomology classes that become trivial everywhere <em>locally</em> — at every $\mathbb{Q}_p$ and at $\mathbb{R}$. It is computable, finite, and contains $E(\mathbb{Q})/nE$.</p>
+
+<p>The quotient is exactly the Tate–Shafarevich group:
+$$\Sha(E/\mathbb{Q})[n] \;=\; \mathrm{Sel}_n(E) \,/\, \bigl(E(\mathbb{Q})/nE(\mathbb{Q})\bigr).$$
+Equivalently, $\Sha$ classifies <strong>principal homogeneous spaces</strong> (torsors) $C/\mathbb{Q}$ for $E$ that have a $\mathbb{Q}_p$-point for every $p$ and an $\mathbb{R}$-point, yet have no $\mathbb{Q}$-point. Every element of $\Sha$ is a failure of the Hasse principle, genuinely global, invisible to any single local obstruction.</p>
+
+<div class="ok"><strong>Folklore conjecture.</strong> $\Sha(E/\mathbb{Q})$ is always finite. In the refined BSD formula its order appears as a positive integer factor:
+$$\lim_{s \to 1} \frac{L(E,s)}{(s-1)^r} \;=\; \frac{\Omega \cdot R \cdot |\Sha| \cdot \prod_p c_p}{|E(\mathbb{Q})_{\text{tors}}|^2}.$$
+Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the plausible values are $1, 4, 9, 16, 25, \ldots$</div>
+
+<p>Known for modular $E$ with analytic rank $\le 1$: $\Sha$ is finite (Kolyvagin 1989). In small conductor tables most curves satisfy $|\Sha| = 1$, but $|\Sha| = 4, 9, 16, 25$ show up readily, and curves with $|\Sha| = 7^2, 11^2$ are tabulated. Computing $|\Sha|$ even heuristically requires descent by 2, 3, and higher, hence "$n$-descent" machinery; a rigorous unconditional $|\Sha|$ exists only in very special cases.</p>
+
+<div class="widget" id="w-sha">
+  <div class="hd"><div class="ttl">Selmer / Ш bookkeeping</div><div class="hint">pick cohomology-group sizes; read off |Ш[n]|</div></div>
+  <div class="row">
+    <label>|Sel_n| <input id="sha-sel" type="range" min="1" max="128" step="1" value="16"></label>
+    <span id="sha-selv" class="small">16</span>
+    <label>|E(Q)/nE| <input id="sha-mw" type="range" min="1" max="64" step="1" value="4"></label>
+    <span id="sha-mwv" class="small">4</span>
+    <label>n <select id="sha-n"><option>2</option><option>3</option><option>5</option><option>7</option></select></label>
+  </div>
+  <svg id="sha-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="readout" id="sha-out"></div>
+</div>
+
+<script>
+/* =================== SECTION 5: Sha widget =================== */
+(function(){
+  const sel=$('#sha-sel'), mw=$('#sha-mw'), nSel=$('#sha-n');
+  const selv=$('#sha-selv'), mwv=$('#sha-mwv');
+  const svg=$('#sha-svg'), out=$('#sha-out');
+
+  function draw(){
+    const S=+sel.value, M=+mw.value, n=+nSel.value;
+    selv.textContent=S; mwv.textContent=M;
+    const divides = (S%M===0);
+    const shaN = divides ? Math.round(S/M) : NaN;
+
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=620, H=220;
+    // bar A = Sel, bar B = MW part, bar C = Sha[n]
+    const scale = 0.9 * (W-120) / Math.max(S, 8);
+    const rows = [
+      {y:40,  w:S*scale, label:'|Sel_n(E)| = '+S, col:'var(--cyan)'},
+      {y:100, w:M*scale, label:'|E(Q)/nE| = '+M, col:'var(--yellow)'},
+      {y:160, w:(divides?shaN*scale:0), label:divides?('|Ш(E/Q)[n]| = '+shaN):'size not consistent (|Sel_n| must be a multiple of |E(Q)/nE|)', col:'var(--pink)'},
+    ];
+    for(const r of rows){
+      svg.appendChild(SVG('rect',{x:30,y:r.y,width:Math.max(r.w,1),height:28,
+        fill:r.col,opacity:0.7,stroke:r.col,rx:4}));
+      const t=SVG('text',{x:40, y:r.y+19,'font-size':13,fill:'#111','font-weight':600});
+      t.textContent=r.label; svg.appendChild(t);
+    }
+
+    const lines=[];
+    lines.push('0 → E(Q)/nE → Sel_n(E) → Ш(E/Q)[n] → 0');
+    lines.push('so  |Ш[n]| = |Sel_n| / |E(Q)/nE|  when the quotient is an integer');
+    if(divides){
+      lines.push('here  |Ш['+n+']| = '+S+' / '+M+' = '+shaN);
+      const sq = Math.sqrt(shaN);
+      if(Number.isInteger(sq)) lines.push('  ('+shaN+' is a perfect square — consistent with Cassels–Tate)');
+      else if(shaN>1) lines.push('  (⚠ '+shaN+' is not a perfect square — for full |Ш| Cassels–Tate forbids this, though |Ш[n]| alone need not be square)');
+    } else {
+      lines.push('⚠ inconsistent input: Sel_n must contain E(Q)/nE as a subgroup, so |Sel_n| must be divisible by |E(Q)/nE|.');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  sel.addEventListener('input',draw); mw.addEventListener('input',draw); nSel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<p>The <em>Tamagawa</em> numbers $c_p$ appearing alongside $|\Sha|$ are much tamer: $c_p = [E(\mathbb{Q}_p) : E_0(\mathbb{Q}_p)]$ is the component group of the Néron model at a bad prime, and vanishes for $p$ of good reduction. For the modular congruent-number curve $y^2 = x^3 - 25x$, $N = 32$, one has $c_2 = 2$ and all other $c_p = 1$; $|\Sha|$ is believed to be $1$, $\Omega \approx 2.621$, $R = \hat h(P_1) \approx 0.2529$, and the refined BSD formula gives $L'(E, 1) \approx 0.331$, agreeing with numerical computation of the modular form.</p>
+
+<p class="small">Conceptually: $R$ quantifies the <em>rational</em> points you see; $\Sha$ quantifies the rational points you don't see but locally "should." Together with the Tamagawa and torsion fudge factors, they explain the entire discrepancy between the analytic $L^{(r)}(E, 1)/r!$ and the algebraic $\Omega$. BSD is the statement that nothing else is missing.</p>
+
+<div class="quiz" data-concept="sha-tate-shafarevich"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>

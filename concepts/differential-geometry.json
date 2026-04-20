@@ -22,6 +22,15 @@
       "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
     },
     {
+      "id": "gauss-map",
+      "title": "Gauss map and shape operator",
+      "anchor": "gauss",
+      "prereqs": [
+        "first-second-fundamental"
+      ],
+      "blurb": "The unit-normal map n: S \u2192 S^2 has differential dN_p = \u2212S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature."
+    },
+    {
       "id": "gauss-curvature-geodesics",
       "title": "Gaussian curvature and geodesics",
       "anchor": "geodesics",
@@ -29,6 +38,16 @@
         "first-second-fundamental"
       ],
       "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+    },
+    {
+      "id": "gauss-bonnet",
+      "title": "Gauss\u2013Bonnet theorem",
+      "anchor": "gaussbonnet",
+      "prereqs": [
+        "gauss-curvature-geodesics",
+        "gauss-map"
+      ],
+      "blurb": "Total Gaussian curvature of a closed oriented surface is 2\u03c0\u03c7(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2\u03c0."
     }
   ]
 }

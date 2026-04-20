@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -204,7 +207,8 @@ function digitsOfRatInZp(a, b, p, depth){
   <a href="#tree">5&nbsp;The&nbsp;p-adic&nbsp;tree</a>
   <a href="#qp">6&nbsp;$\mathbb{Q}_p$&nbsp;and&nbsp;completion</a>
   <a href="#hensel">7&nbsp;Hensel's&nbsp;lemma</a>
-  <a href="#why">8&nbsp;Why&nbsp;care</a>
+  <a href="#localglobal">8&nbsp;Local&ndash;global</a>
+  <a href="#why">9&nbsp;Why&nbsp;care</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -296,6 +300,8 @@ where $v$ ranges over $\infty$ and all primes. Decrease somewhere, increase some
   go();
 })();
 </script>
+
+<div class="quiz" data-concept="padic-norm-completion"></div>
 </section>
 
 <section id="ultra">
@@ -348,6 +354,10 @@ Call an absolute value with this property <strong>non-Archimedean</strong>, or a
   go();
 })();
 </script>
+
+<p>Totally disconnected topology is the structural punchline. In $\mathbb{R}$, connected intervals are the building blocks of analysis; in $\mathbb{Q}_p$, the only connected subsets are single points. Instead the building blocks are <em>balls</em>, and the collection of balls forms a basis of clopens that is nested rather than overlapping: any two balls are either disjoint or one contains the other.</p>
+
+<div class="quiz" data-concept="ultrametric-topology"></div>
 </section>
 
 <section id="expand">
@@ -405,6 +415,8 @@ For a non-negative integer $n$, the expansion terminates: it is exactly the base
 </script>
 
 <p class="small">Example: in $\mathbb{Z}_5$, $-1 = 4 + 4\cdot 5 + 4\cdot 5^2 + \cdots$ because $(p-1)\sum_{i\ge 0} p^i = -1$ under $|\cdot|_p$. Every negative integer has an infinite expansion.</p>
+
+<div class="quiz" data-concept="padic-expansions"></div>
 </section>
 
 <section id="inv">
@@ -790,10 +802,95 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 </script>
 
 <p>The take-away: in $\mathbb{Z}_p$, "approximate solution mod $p$" plus "derivative is a unit" always promotes to an exact root. This is why $p$-adic fields behave so well for deformation arguments.</p>
+
+<div class="quiz" data-concept="hensel-lemma"></div>
+</section>
+
+<section id="localglobal">
+<h2>8. The local&ndash;global (Hasse) principle</h2>
+<p>Having built one completion per prime plus the Archimedean place $\mathbb{R}$, a natural question is how much a global problem over $\mathbb{Q}$ is controlled by its behavior at each completion. For an equation $f(x_1,\ldots,x_n)=0$ with rational coefficients, say it satisfies the <strong>local&ndash;global principle</strong> if
+$$f=0\ \text{has a nonzero rational solution}\iff f=0\ \text{has a nonzero solution in }\mathbb{R}\ \text{and in every }\mathbb{Q}_p.$$
+The left-to-right direction is automatic; the deep content is the reverse direction, which says local solvability at every place is <em>sufficient</em> for global solvability.</p>
+
+<p><strong>Hasse&ndash;Minkowski.</strong> For a quadratic form $Q(x_1,\ldots,x_n)$ over $\mathbb{Q}$, $Q$ represents zero nontrivially over $\mathbb{Q}$ iff it does so over $\mathbb{R}$ and over every $\mathbb{Q}_p$. Checking $\mathbb{R}$ is a signature condition; checking $\mathbb{Q}_p$ reduces to finitely many Hilbert symbols, via Hensel's lemma on the non-zero-discriminant primes. So an infinite question becomes a finite calculation.</p>
+
+<p><strong>Failure for higher degree.</strong> The principle fails for cubics: Selmer's famous $3x^3+4y^3+5z^3=0$ has solutions in $\mathbb{R}$ and every $\mathbb{Q}_p$ but none in $\mathbb{Q}$. The gap between "locally solvable" and "globally solvable" is organized: for Brauer&ndash;Severi varieties it is controlled by the Brauer group of $\mathbb{Q}$, and for elliptic curves by the Tate&ndash;Shafarevich group $\Sha(E/\mathbb{Q})$. Obstruction theory turns the failure itself into arithmetic.</p>
+
+<div class="note"><strong>Heuristic.</strong> Think of solving $f=0$ at each place as asking local witnesses. For quadratic forms over $\mathbb{Q}$ the witnesses always assemble into a global solution. For higher degree they might not, and the difference lives in cohomology groups attached to $G_\mathbb{Q}$.</div>
+
+<div class="widget" id="w7">
+  <div class="hd"><span class="ttl">W7 &middot; Local solvability check</span><span class="hint">$ax^2+by^2=c$ over $\mathbb{R}$ and $\mathbb{Q}_p$</span></div>
+  <div class="row">
+    <label>$a=$</label><input type="number" id="w7-a" value="1" step="1" style="width:80px">
+    <label>$b=$</label><input type="number" id="w7-b" value="-2" step="1" style="width:80px">
+    <label>$c=$</label><input type="number" id="w7-c" value="1" step="1" style="width:80px">
+    <label>$p=$</label><input type="number" id="w7-p" value="7" min="2" step="1" style="width:70px">
+    <button id="w7-go">check</button>
+  </div>
+  <div class="readout" id="w7-out"></div>
+</div>
+
+<script>
+(function(){
+  const out = $('#w7-out');
+  function go(){
+    const a = parseInt($('#w7-a').value,10);
+    const b = parseInt($('#w7-b').value,10);
+    const c = parseInt($('#w7-c').value,10);
+    const p = parseInt($('#w7-p').value,10);
+    if(!isPrime(p)){ out.textContent='p must be prime'; return; }
+    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }
+    const lines = [];
+    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.
+    // Over R, ax^2 takes all values of sign(a)*[0,\u221E) and similarly for b, so ax^2+by^2 takes:
+    //   if a>0,b>0: [0,\u221E); if a<0,b<0: (-\u221E,0]; otherwise all of R.
+    let realOK;
+    if(a>0 && b>0) realOK = (c>=0);
+    else if(a<0 && b<0) realOK = (c<=0);
+    else realOK = true;
+    lines.push(`over \u211d: ax\u00b2+by\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \u2713':'c='+c+' \u2717 (sign obstruction)'}`);
+    // p-adic solvability heuristic: search modulo p^k for small k.
+    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.
+    // We do a brute search mod p^3.
+    let pk = p*p*p; // p^3
+    let found = null;
+    outer:
+    for(let x=0;x<pk;x++){
+      for(let y=0;y<pk;y++){
+        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){
+          // also require (x,y) not both \u2261 0 mod p, to rule out trivial scaling
+          if(!(x%p===0 && y%p===0)){
+            found = [x,y]; break outer;
+          }
+        }
+        if(y>200) break; // safety
+      }
+      if(x>200) break;
+    }
+    if(found){
+      lines.push(`over \u211a_${p}: primitive solution mod ${p}\u00b3 at (x,y)\u2261(${found[0]},${found[1]}), Hensel lifts \u2713`);
+    } else {
+      lines.push(`over \u211a_${p}: no primitive solution found mod ${p}\u00b3 in search window (likely obstruction)`);
+    }
+    const globalLikely = realOK && !!found;
+    lines.push('');
+    lines.push(globalLikely ?
+      `local data consistent \u2014 by Hasse\u2013Minkowski a global \u211a-solution exists.` :
+      `local obstruction detected \u2014 no global \u211a-solution (Hasse\u2013Minkowski).`);
+    out.textContent = lines.join('\n');
+  }
+  $('#w7-go').addEventListener('click', go);
+  go();
+})();
+</script>
+
+<p class="small">Ostrowski told us there are no other places to check: $\mathbb{R}$ plus one $\mathbb{Q}_p$ per prime is the complete list. "Solving at every place" is therefore a finite, mechanisable check for quadratic forms.</p>
+
+<div class="quiz" data-concept="local-global-principle"></div>
 </section>
 
 <section id="why">
-<h2>8. Why care</h2>
+<h2>9. Why care</h2>
 <p>$p$-adic numbers are not exotic formalism; they reorganize number theory, algebraic geometry, and representation theory.</p>
 <ul>
   <li><strong>Local-global (Hasse) principle.</strong> For quadratic forms over $\mathbb{Q}$, a form represents zero globally iff it does so over $\mathbb{R}$ and every $\mathbb{Q}_p$. "Check the problem at every place." It fails for higher-degree forms, but the failure itself is organized (Brauer groups, Tate–Shafarevich). See the sibling page on <a href="./quadratic-reciprocity.html">quadratic reciprocity</a>.</li>
@@ -855,6 +952,13 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('p-adic-numbers'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

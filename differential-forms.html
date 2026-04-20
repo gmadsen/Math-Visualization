@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -401,6 +404,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="row"><div class="readout" id="w2-out" style="width:100%"></div></div>
 <div class="small" style="margin-top:.4rem">The parallelogram is filled with a color whose <em>sign</em> reflects $\omega(v,w)$: green if positive, pink if negative. The magnitude $|\omega(v,w)|$ is the scalar-multiple of the unsigned parallelogram area. Swapping $v\leftrightarrow w$ flips the sign.</div>
 </div>
+<div class="quiz" data-concept="forms-and-wedge"></div>
 </section>
 
 <script>
@@ -547,6 +551,7 @@ function drawNode(svg, x, y, label, opts={}){
 <svg id="w3-svg" viewBox="0 0 520 260" style="background:#0b0f16;border-radius:8px;margin-top:.6rem"></svg>
 <div class="small" style="margin-top:.4rem">Grid of the plane (centered at origin, minus the puncture at $(0,0)$ for the angle form). Each cell is colored by the sign and magnitude of the coefficient of $d\omega$ there, normalized. Green = positive, pink = negative, dark = near zero.</div>
 </div>
+<div class="quiz" data-concept="exterior-derivative"></div>
 </section>
 
 <script>
@@ -816,6 +821,7 @@ function drawNode(svg, x, y, label, opts={}){
 </tbody>
 </table>
 <p class="small">Each $H^0 = \mathbb{R}^{\#\text{components}}$; that is just "locally constant functions." The first interesting data is in $H^1$, which counts $1$-dimensional holes.</p>
+<div class="quiz" data-concept="stokes-derham"></div>
 </section>
 
 <script>
@@ -975,6 +981,13 @@ function drawNode(svg, x, y, label, opts={}){
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('differential-forms'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

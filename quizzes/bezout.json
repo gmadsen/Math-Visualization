@@ -1,0 +1,98 @@
+{
+  "topic": "bezout",
+  "quizzes": {
+    "intersection-multiplicity": {
+      "title": "Intersection multiplicity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The intersection multiplicity $I_P(f,g)$ at a point $P$ is defined as:",
+          "choices": [
+            "the number of real solutions of $f=g=0$ near $P$",
+            "$\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$",
+            "$\\deg f \\cdot \\deg g$",
+            "the order of vanishing of $f$ at $P$"
+          ],
+          "answer": 1,
+          "explain": "The algebraic definition is $I_P(f,g)=\\dim_k\\bigl(\\mathcal{O}_{P,\\mathbb{A}^2}/(f,g)\\bigr)$ — the $k$-vector space dimension of the local-ring quotient. It captures fatness of the intersection, not just its set-theoretic size."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $I_{(0,0)}(x, y)$ for the two coordinate axes meeting transversely at the origin.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$. Transverse smooth crossings always contribute multiplicity $1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $I_{(0,0)}(y, y-x^2)$ — the $x$-axis and a parabola tangent to it at the origin.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$. A simple tangency contributes multiplicity $2$."
+        }
+      ]
+    },
+    "resultants-elimination": {
+      "title": "Resultants and elimination",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For two polynomials $f,g\\in k[Y]$ of degrees $m,n$, the resultant $\\mathrm{Res}_Y(f,g)$ vanishes iff:",
+          "choices": [
+            "$f$ and $g$ are equal up to scalar",
+            "$f$ and $g$ share a common root (in $\\overline{k}$), or both leading coefficients vanish",
+            "$\\deg f = \\deg g$",
+            "$f$ or $g$ is identically zero"
+          ],
+          "answer": 1,
+          "explain": "The resultant vanishes exactly when $f,g$ have a common root over the algebraic closure, or when their leading coefficients both vanish (roots at infinity). This is the core fact underlying elimination."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\mathrm{Res}_Y(Y-1, Y-2)$ for the two linear polynomials $f=Y-1, g=Y-2$.",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$. Here $\\alpha=1,\\beta=2$, so $\\mathrm{Res}=1-2=-1$. It is nonzero because $1\\neq 2$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $C$ and $D$ are projective plane curves of degrees $d=3$ and $e=4$ with no common component, what is $\\deg \\mathrm{Res}_Y(F,G)(X,Z)$ as a form in $(X,Z)$?",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections."
+        }
+      ]
+    },
+    "bezout-theorem-core": {
+      "title": "Bézout's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Bézout's theorem states that for projective plane curves $C,D$ of degrees $d,e$ with no common component over an algebraically closed field:",
+          "choices": [
+            "$|C\\cap D| = d+e$",
+            "$\\sum_{P\\in C\\cap D} I_P(C,D) = de$",
+            "$|C\\cap D|\\le \\max(d,e)$",
+            "$C\\cap D$ is always empty"
+          ],
+          "answer": 1,
+          "explain": "The theorem: $\\sum_{P\\in C\\cap D} I_P(C,D) = de$. The three essential ingredients are working in $\\mathbb{P}^2$, over $\\overline{k}$, and counting with multiplicity."
+        },
+        {
+          "type": "numeric",
+          "q": "Two smooth conics in $\\mathbb{P}^2_{\\mathbb{C}}$ with no common component meet in how many points, counted with multiplicity?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$d=e=2$, so Bézout gives $de=4$. Real pictures can show 0, 1, 2, 3, or 4 real points, but over $\\mathbb{C}$ and with multiplicity the count is always $4$."
+        },
+        {
+          "type": "complex",
+          "q": "The line $L: y=x$ (i.e. $x-y=0$) meets the circle $C: x^2+y^2=1$ in two points over $\\mathbb{C}$. Give the one with $x>0$ as $a+bi$ (here $b=0$ because both intersection points are real).",
+          "answer": [0.7071067811865476, 0],
+          "tol": 1e-3,
+          "explain": "Substituting $y=x$ into $x^2+y^2=1$ gives $2x^2=1$, so $x=\\pm 1/\\sqrt{2}$. The positive solution is $1/\\sqrt{2}\\approx 0.7071$, purely real. Bézout's count $1\\cdot 2 = 2$ matches."
+        }
+      ]
+    }
+  }
+}

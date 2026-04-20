@@ -104,6 +104,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -339,6 +342,7 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
   <li><strong>Gluing of sheaves.</strong> Sheaves on $X$ themselves satisfy a gluing principle: given an open cover $\{U_i\}$, sheaves $F_i$ on $U_i$, and isomorphisms $\varphi_{ij}\colon F_i|_{U_i \cap U_j} \xrightarrow{\sim} F_j|_{U_i \cap U_j}$ satisfying the cocycle condition $\varphi_{jk} \circ \varphi_{ij} = \varphi_{ik}$ on triple overlaps, there is a (unique up to canonical isomorphism) sheaf $F$ on $U = \bigcup U_i$ restricting to each $F_i$ with the prescribed transition data. This is descent for sheaves.</li>
   <li><strong>$F(\emptyset)$ is the terminal object.</strong> The empty cover of the empty open set forces $F(\emptyset)$ to be the equalizer of the empty diagram, i.e. the terminal object of the target category. So $F(\emptyset) = \{\ast\}$ for sheaves of sets, $\{0\}$ for sheaves of abelian groups, the zero ring for sheaves of rings, etc.</li>
 </ul>
+<div class="quiz" data-concept="presheaf-sheaf-axioms"></div>
 </section>
 
 <script>
@@ -597,6 +601,7 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
   <svg id="g2-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
   <div class="readout" id="g2-out"></div>
 </div>
+<div class="quiz" data-concept="stalks-local-data"></div>
 </section>
 
 <script>
@@ -1082,6 +1087,7 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   </div>
   <div class="readout" id="qc-out"></div>
 </div>
+<div class="quiz" data-concept="sheafification-and-qcoh"></div>
 </section>
 
 <script>
@@ -1269,6 +1275,14 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('sheaves'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

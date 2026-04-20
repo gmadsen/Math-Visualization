@@ -14,6 +14,16 @@
       "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
     },
     {
+      "id": "semisimple-decomposition",
+      "title": "Irreducibility and semisimplification",
+      "anchor": "ss",
+      "prereqs": [
+        "galois-rep-definition",
+        "schurs-lemma"
+      ],
+      "blurb": "Frobenius traces only see the semisimplification \u03c1^{ss}, the direct sum of Jordan\u2013H\u00f6lder factors; irreducibility is the generic case."
+    },
+    {
       "id": "frobenius-traces",
       "title": "Frobenius traces and compatibility",
       "anchor": "frob",
@@ -22,6 +32,16 @@
         "frobenius-element"
       ],
       "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data."
+    },
+    {
+      "id": "ramification-galois-rep",
+      "title": "Inertia, ramification, and the conductor",
+      "anchor": "ram",
+      "prereqs": [
+        "frobenius-traces",
+        "padic-norm-completion"
+      ],
+      "blurb": "Ramified primes are those where inertia acts nontrivially; the conductor exponent records the size of the inertia invariants."
     },
     {
       "id": "modularity-and-deformations",

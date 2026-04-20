@@ -29,6 +29,26 @@
         "bounded-operators-fa"
       ],
       "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions."
+    },
+    {
+      "id": "riesz-representation",
+      "title": "Riesz representation theorem",
+      "anchor": "riesz",
+      "prereqs": [
+        "banach-hilbert-spaces",
+        "lp-spaces"
+      ],
+      "blurb": "Every bounded linear functional on a Hilbert space is inner product with a unique vector; on Lᵖ it is integration against an Lᵩ density."
+    },
+    {
+      "id": "weak-topology",
+      "title": "Weak and weak-* topologies",
+      "anchor": "weak",
+      "prereqs": [
+        "bounded-operators-fa",
+        "compactness"
+      ],
+      "blurb": "Coarsen the topology so dual pairings become continuous; Banach–Alaoglu then makes the unit ball of the dual weak-* compact."
     }
   ]
 }

@@ -1,0 +1,175 @@
+{
+  "topic": "projective-plane",
+  "quizzes": {
+    "projective-points-lines": {
+      "title": "Projective points and lines",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A point of $\\mathbb{P}^2(K)$ is best described as:",
+          "choices": [
+            "an ordered triple $(X,Y,Z)\\in K^3$",
+            "a line through the origin in $K^3$",
+            "a plane through the origin in $K^3$",
+            "a point of $K^2$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{P}^2(K)=(K^3\\setminus\\{0\\})/\\sim$ where $(X,Y,Z)\\sim(\\lambda X,\\lambda Y,\\lambda Z)$ for $\\lambda\\in K^\\times$. Each equivalence class is exactly a 1-dimensional linear subspace — a line through the origin in $K^3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which homogeneous triple represents the SAME point of $\\mathbb{P}^2$ as $[2:4:6]$?",
+          "choices": [
+            "$[1:2:4]$",
+            "$[3:6:9]$",
+            "$[2:4:3]$",
+            "$[1:1:1]$"
+          ],
+          "answer": 1,
+          "explain": "Two triples represent the same projective point iff one is a non-zero scalar multiple of the other. $[3:6:9]=\\tfrac{3}{2}\\cdot[2:4:6]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Over the finite field $\\mathbb{F}_q$, the number of points of $\\mathbb{P}^2$ is $q^2+q+1$. How many points does $\\mathbb{P}^2(\\mathbb{F}_3)$ have?",
+          "answer": 13,
+          "tol": 1e-6,
+          "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=3$: $9+3+1=13$."
+        }
+      ]
+    },
+    "homogeneous-coordinates": {
+      "title": "Homogeneous equations and charts",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the homogenization of the affine cubic $f(x,y)=y^2-x^3-1$?",
+          "choices": [
+            "$Y^2-X^3-1$",
+            "$Y^2Z-X^3-Z^3$",
+            "$Y^2Z^2-X^3Z-Z^4$",
+            "$Y^2-X^3-Z$"
+          ],
+          "answer": 1,
+          "explain": "For degree $d=3$, $F(X,Y,Z)=Z^3 f(X/Z,Y/Z)=Y^2Z-X^3-Z^3$. Each monomial ends at total degree $3$."
+        },
+        {
+          "type": "numeric",
+          "q": "The affine conic $f(x,y)=x^2+y^2-1$ homogenizes to $F(X,Y,Z)=X^2+Y^2-Z^2$. How many points at infinity ($Z=0$) does it have over $\\mathbb{R}$?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "Setting $Z=0$ gives $X^2+Y^2=0$, which over $\\mathbb{R}$ forces $X=Y=0$ — not a valid projective point. So there are $0$ real points at infinity. (Over $\\mathbb{C}$ there are two: $[1:\\pm i:0]$.)"
+        },
+        {
+          "type": "numeric",
+          "q": "The parabola $y-x^2=0$ homogenizes to $YZ-X^2=0$. How many points at infinity does it have?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Setting $Z=0$ in $YZ-X^2=0$ gives $X^2=0$, hence $X=0$ and $[0:1:0]$ is the unique projective solution. The parabola has exactly one point at infinity."
+        }
+      ]
+    },
+    "projective-transformations": {
+      "title": "Projective automorphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The automorphism group of $\\mathbb{P}^2(K)$ acting by homogeneous coordinate changes is:",
+          "choices": [
+            "$\\mathrm{GL}_3(K)$",
+            "$\\mathrm{PGL}_3(K)=\\mathrm{GL}_3(K)/K^\\times$",
+            "$\\mathrm{SL}_2(K)$",
+            "$\\mathrm{PGL}_2(K)$"
+          ],
+          "answer": 1,
+          "explain": "Invertible $3\\times3$ matrices act on $\\mathbb{P}^2$, but two matrices give the same map iff they differ by a nonzero scalar. The quotient is $\\mathrm{PGL}_3(K)=\\mathrm{GL}_3(K)/K^\\times$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the dimension of $\\mathrm{PGL}_3(K)$ as an algebraic group over $K$?",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$\\dim\\mathrm{GL}_3=9$ and we quotient by the $1$-dimensional center $K^\\times$, giving $\\dim\\mathrm{PGL}_3=9-1=8$."
+        },
+        {
+          "type": "mcq",
+          "q": "A smooth projective plane conic over $\\bar K$ is classified up to projective equivalence by:",
+          "choices": [
+            "infinitely many moduli",
+            "exactly one class — every smooth conic is projectively equivalent",
+            "two classes: ellipse vs hyperbola",
+            "a single integer invariant, its degree"
+          ],
+          "answer": 1,
+          "explain": "Over an algebraically closed field any smooth plane conic can be brought into $X^2+Y^2=Z^2$ (or equivalently $XY=Z^2$) by an element of $\\mathrm{PGL}_3$, so there is a unique projective equivalence class."
+        }
+      ]
+    },
+    "projective-duality": {
+      "title": "Projective duality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The dual projective plane $(\\mathbb{P}^2)^*$ is naturally identified with:",
+          "choices": [
+            "the set of points of $\\mathbb{P}^2$",
+            "the set of lines in $\\mathbb{P}^2$",
+            "the set of smooth conics in $\\mathbb{P}^2$",
+            "the affine plane $\\mathbb{A}^2$"
+          ],
+          "answer": 1,
+          "explain": "A line $aX+bY+cZ=0$ is determined by $[a:b:c]\\in\\mathbb{P}^2$, so lines in $\\mathbb{P}^2$ form another copy of $\\mathbb{P}^2$, the dual plane $(\\mathbb{P}^2)^*$."
+        },
+        {
+          "type": "mcq",
+          "q": "Under projective duality, the dual statement of \"any two distinct points determine a unique line\" is:",
+          "choices": [
+            "any two distinct points determine a unique point",
+            "any two distinct lines meet in a unique point",
+            "three points are always collinear",
+            "every conic passes through three points"
+          ],
+          "answer": 1,
+          "explain": "Swapping \"point\" $\\leftrightarrow$ \"line\" and \"lies on\" $\\leftrightarrow$ \"passes through\" turns \"two points span one line\" into \"two lines meet in one point\" — exactly the statement that $\\mathbb{P}^2$ has no parallels."
+        },
+        {
+          "type": "numeric",
+          "q": "Over $\\mathbb{F}_q$, the number of lines in $\\mathbb{P}^2(\\mathbb{F}_q)$ equals $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=q^2+q+1$. How many lines does $\\mathbb{P}^2(\\mathbb{F}_2)$ contain?",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=2$: $4+2+1=7$ — the Fano plane has $7$ points and $7$ lines, beautifully self-dual."
+        }
+      ]
+    },
+    "cross-ratio": {
+      "title": "The cross-ratio",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the cross-ratio $[0,1;2,3]=\\dfrac{(0-2)(1-3)}{(0-3)(1-2)}$.",
+          "answer": 1.3333333333,
+          "tol": 1e-3,
+          "explain": "$[0,1;2,3]=\\dfrac{(-2)(-2)}{(-3)(-1)}=\\dfrac{4}{3}\\approx 1.333$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about the cross-ratio of four distinct collinear points is TRUE?",
+          "choices": [
+            "It depends on the choice of affine chart",
+            "It is invariant under every element of $\\mathrm{PGL}_2(K)$ acting on the line",
+            "It is always an integer",
+            "It equals the sum of the four coordinates"
+          ],
+          "answer": 1,
+          "explain": "The cross-ratio is the unique (up to functional relation) projective invariant of four points on a line: any $g\\in\\mathrm{PGL}_2(K)$ acts by Möbius transformations, which preserve $[a,b;c,d]$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct values does the cross-ratio take as the four input points are permuted by $S_4$? (Equivalently: $|S_4|/|V_4|$ where $V_4$ is the Klein four-group of permutations that fix the cross-ratio.)",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$. The remaining $24/4=6$ cosets give the six values $\\{\\lambda,\\ 1-\\lambda,\\ 1/\\lambda,\\ 1/(1-\\lambda),\\ \\lambda/(\\lambda-1),\\ (\\lambda-1)/\\lambda\\}$."
+        }
+      ]
+    }
+  }
+}

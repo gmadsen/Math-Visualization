@@ -1,0 +1,185 @@
+{
+  "topic": "category-theory",
+  "quizzes": {
+    "categories-morphisms": {
+      "title": "Categories and morphisms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which equation is NOT part of the definition of a category?",
+          "choices": [
+            "$h\\circ(g\\circ f)=(h\\circ g)\\circ f$ whenever composable",
+            "$\\mathrm{id}_B\\circ f = f$ for $f\\colon A\\to B$",
+            "$f\\circ \\mathrm{id}_A = f$ for $f\\colon A\\to B$",
+            "$g\\circ f = f\\circ g$ whenever both composites are defined"
+          ],
+          "answer": 3,
+          "explain": "Composition in a category is associative and unital, but not commutative. In $\\mathsf{Set}$ already, $g\\circ f\\ne f\\circ g$ in general."
+        },
+        {
+          "type": "mcq",
+          "q": "In a category $\\mathcal{C}$, an isomorphism $f\\colon A\\to B$ is a morphism such that:",
+          "choices": [
+            "$f$ is a bijection on underlying sets",
+            "there exists $g\\colon B\\to A$ with $g\\circ f=\\mathrm{id}_A$ and $f\\circ g=\\mathrm{id}_B$",
+            "$f$ is surjective",
+            "$f$ has a left inverse in $\\mathcal{C}$"
+          ],
+          "answer": 1,
+          "explain": "Isomorphism is a categorical notion: a morphism with a two-sided inverse. Only in $\\mathsf{Set}$ does this specialize to bijection."
+        },
+        {
+          "type": "numeric",
+          "q": "How many morphisms does the category $\\mathbf{2}=(\\bullet\\xrightarrow{f}\\bullet)$ with two objects and one non-identity arrow have in total (including identities)?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms."
+        }
+      ]
+    },
+    "functors-natural-transformations": {
+      "title": "Functors and natural transformations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A functor $F\\colon\\mathcal{C}\\to\\mathcal{D}$ must satisfy which property on composition?",
+          "choices": [
+            "$F(g\\circ f) = F(f)\\circ F(g)$",
+            "$F(g\\circ f) = F(g)\\circ F(f)$",
+            "$F(g\\circ f) = F(g)+F(f)$",
+            "$F$ need not respect composition — only objects"
+          ],
+          "answer": 1,
+          "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it — those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
+        },
+        {
+          "type": "mcq",
+          "q": "A natural transformation $\\eta\\colon F\\Rightarrow G$ between $F,G\\colon\\mathcal{C}\\to\\mathcal{D}$ consists of components $\\eta_A\\colon F(A)\\to G(A)$ satisfying, for every $f\\colon A\\to B$ in $\\mathcal{C}$:",
+          "choices": [
+            "$\\eta_B = \\eta_A$",
+            "$G(f)\\circ\\eta_A = \\eta_B\\circ F(f)$",
+            "$F(f)\\circ\\eta_B = \\eta_A\\circ G(f)$",
+            "$\\eta_A\\circ F(f) = F(f)\\circ\\eta_A$"
+          ],
+          "answer": 1,
+          "explain": "The naturality square: $G(f)\\circ\\eta_A=\\eta_B\\circ F(f)$. The transformation commutes with the action of $f$ on both sides."
+        },
+        {
+          "type": "numeric",
+          "q": "How many functors are there from the terminal category $\\mathbf{1}$ (one object, only identity) to a category $\\mathcal{C}$ with exactly $5$ objects?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$."
+        }
+      ]
+    },
+    "yoneda-limits-adjunctions": {
+      "title": "Yoneda, limits, and adjunctions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Yoneda lemma states that for a locally small category $\\mathcal{C}$, a functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$, and $X\\in\\mathcal{C}$, the natural transformations $h_X\\Rightarrow F$ are in bijection with:",
+          "choices": [
+            "elements of $F(X)$",
+            "morphisms $X\\to F(X)$",
+            "natural transformations $F\\Rightarrow h_X$",
+            "isomorphism classes of objects of $\\mathcal{C}$"
+          ],
+          "answer": 0,
+          "explain": "Yoneda: $\\mathrm{Nat}(h_X,F)\\cong F(X)$ naturally in $X$ and $F$. Evaluating at $\\mathrm{id}_X$ recovers the element, and any $x\\in F(X)$ determines the transformation $f\\mapsto F(f)(x)$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $F\\colon\\mathcal{C}\\to\\mathcal{D}$ is left adjoint to $G\\colon\\mathcal{D}\\to\\mathcal{C}$, which is true?",
+          "choices": [
+            "$F$ preserves limits and $G$ preserves colimits",
+            "$F$ preserves colimits and $G$ preserves limits",
+            "Both $F$ and $G$ preserve limits",
+            "Neither preserves limits or colimits"
+          ],
+          "answer": 1,
+          "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\operatorname{Hom}(F(-),-)\\cong\\operatorname{Hom}(-,G(-))$ together with Yoneda makes this immediate."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathsf{Set}$, the product (= categorical limit of the discrete two-object diagram) of $\\{a,b,c\\}$ and $\\{0,1\\}$ has how many elements?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$."
+        }
+      ]
+    },
+    "universal-properties": {
+      "title": "Universal properties and representability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ is called representable if:",
+          "choices": [
+            "$F$ is naturally isomorphic to $\\operatorname{Hom}_{\\mathcal{C}}(-,X)$ for some $X\\in\\mathcal{C}$",
+            "$F$ is surjective on objects",
+            "$F$ factors through the inclusion $\\mathsf{FinSet}\\hookrightarrow\\mathsf{Set}$",
+            "$F$ has a left adjoint"
+          ],
+          "answer": 0,
+          "explain": "Representability means $F\\cong h_X$ for some object $X$; by Yoneda this $X$ is unique up to unique iso."
+        },
+        {
+          "type": "mcq",
+          "q": "The tensor product $M\\otimes_R N$ of two $R$-modules represents which functor (on $R$-modules $P$)?",
+          "choices": [
+            "$P\\mapsto \\operatorname{Hom}_R(M,P)\\times\\operatorname{Hom}_R(N,P)$",
+            "$P\\mapsto \\operatorname{Bilin}_R(M\\times N, P)$",
+            "$P\\mapsto \\operatorname{Hom}_R(M\\oplus N, P)$",
+            "$P\\mapsto M\\otimes_R P\\otimes_R N$"
+          ],
+          "answer": 1,
+          "explain": "By definition, $M\\otimes_R N$ represents $P\\mapsto\\operatorname{Bilin}_R(M\\times N, P)$: every $R$-bilinear map $M\\times N\\to P$ factors uniquely through the canonical $\\otimes\\colon M\\times N\\to M\\otimes N$."
+        },
+        {
+          "type": "numeric",
+          "q": "By Yoneda, how many objects (up to isomorphism) satisfy the universal property of the product $A\\times B$ in a given category (assuming at least one exists)?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class."
+        }
+      ]
+    },
+    "monoidal-categories": {
+      "title": "Monoidal categories",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A monoid object in the monoidal category $(\\mathsf{Ab},\\otimes_{\\mathbb Z},\\mathbb Z)$ is:",
+          "choices": [
+            "a group",
+            "a ring (with $1$, not necessarily commutative)",
+            "an abelian group",
+            "a module"
+          ],
+          "answer": 1,
+          "explain": "An abelian group $R$ together with a $\\mathbb Z$-bilinear multiplication $R\\otimes_{\\mathbb Z} R\\to R$ (associative) and a unit $\\mathbb Z\\to R$ is exactly the data of a unital ring."
+        },
+        {
+          "type": "mcq",
+          "q": "Which coherence diagram must commute in every monoidal category?",
+          "choices": [
+            "the naturality square of $\\sigma$",
+            "Mac Lane's pentagon relating the two associators on a fourfold tensor",
+            "the Yang–Baxter hexagon",
+            "the pushout square"
+          ],
+          "answer": 1,
+          "explain": "Mac Lane's pentagon is one of the two required coherence diagrams (the other is the triangle). The hexagon/naturality of $\\sigma$ are extra data for braided/symmetric monoidal categories."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct bracketings of a fourfold tensor product $A\\otimes B\\otimes C\\otimes D$ are there (Catalan number $C_3$)?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
+        }
+      ]
+    }
+  }
+}

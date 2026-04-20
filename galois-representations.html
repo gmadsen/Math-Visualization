@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -177,6 +180,8 @@ function mod(a,n){ return ((a%n)+n)%n; }
   <a href="#frob">5&nbsp;Frobenius&nbsp;and&nbsp;traces</a>
   <a href="#lfac">6&nbsp;Local&nbsp;$L$-factors</a>
   <a href="#mod">7&nbsp;Modular&nbsp;forms&nbsp;and&nbsp;Deligne</a>
+  <a href="#ss">8&nbsp;Semisimplification</a>
+  <a href="#ram">9&nbsp;Ramification&nbsp;and&nbsp;conductor</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -250,6 +255,8 @@ $$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
   </div>
   <div class="readout" id="rep-text"></div>
 </div>
+
+<div class="quiz" data-concept="galois-rep-definition"></div>
 </section>
 
 <section id="ex">
@@ -382,6 +389,8 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
   </div>
   <div class="readout" id="hs-text"></div>
 </div>
+
+<div class="quiz" data-concept="frobenius-traces"></div>
 </section>
 
 <section id="lfac">
@@ -441,6 +450,24 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 
 <h3>What comes next</h3>
 <p>Everything downstream — the Langlands program, modularity, $R=T$ theorems, deformation theory of Galois representations — assumes this framework. The next layers of the Notebook explore $L$-functions explicitly (see <a href="./dirichlet-series-euler-products.html">Dirichlet series and Euler products</a>) and the arithmetic of specific representations (see <a href="./modular-forms.html">modular forms</a>).</p>
+
+<div class="quiz" data-concept="modularity-and-deformations"></div>
+</section>
+
+<section id="ss">
+<h2>8. Irreducibility and semisimplification</h2>
+<p>A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>irreducible</strong> if $K^n$ has no proper non-zero $G_\mathbb{Q}$-stable subspace, and <strong>semisimple</strong> if it decomposes as a direct sum of irreducibles. As with finite-group representations, not every representation is semisimple — an upper-triangular $\rho = \begin{pmatrix}\chi_1 & *\\ 0 & \chi_2\end{pmatrix}$ with non-zero extension class is reducible but not a direct sum. The <strong>semisimplification</strong> $\rho^{\mathrm{ss}} = \chi_1 \oplus \chi_2$ is obtained by throwing away the off-diagonal cocycle.</p>
+<p>Because traces are additive on short exact sequences, $\operatorname{tr}\rho(\mathrm{Frob}_p) = \operatorname{tr}\rho^{\mathrm{ss}}(\mathrm{Frob}_p)$ at every unramified prime. So <em>Frobenius traces only ever see the semisimplification</em>. By the <strong>Brauer–Nesbitt / Chebotarev</strong> combination, two semisimple $\ell$-adic representations of $G_\mathbb{Q}$ are isomorphic iff their traces of Frobenius agree at a density-one set of primes — a dramatic rigidity statement. For $\rho_{E,\ell}$ from an elliptic curve, a theorem of Serre guarantees irreducibility for all but finitely many $\ell$, so the semisimplification is just $\rho_{E,\ell}$ itself.</p>
+
+<div class="quiz" data-concept="semisimple-decomposition"></div>
+</section>
+
+<section id="ram">
+<h2>9. Inertia, ramification, and the conductor</h2>
+<p>Fix a prime $p$ and an embedding $\bar{\mathbb{Q}} \hookrightarrow \bar{\mathbb{Q}}_p$. Inside the decomposition group $D_p \subset G_\mathbb{Q}$ sits the <strong>inertia subgroup</strong> $I_p$, the kernel of $D_p \twoheadrightarrow \mathrm{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p)$. A representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n(K)$ is <strong>unramified at $p$</strong> when $\rho(I_p) = 1$; only in that case does $\rho(\mathrm{Frob}_p)$ make sense as a well-defined conjugacy class, so the Frobenius machinery of §5 only applies at unramified primes.</p>
+<p>For the bad primes, the <strong>Artin conductor exponent</strong> $f_p(\rho) = \dim(V) - \dim(V^{I_p}) + \text{(wild term)}$ quantifies how badly $\rho$ is ramified at $p$: the first piece counts missing inertia invariants (the tame drop), the wild term measures higher ramification. The global <strong>conductor</strong> is the product $N(\rho) = \prod_p p^{f_p(\rho)}$, supported on the finitely many ramified primes. For an elliptic curve $E/\mathbb{Q}$ the conductor $N_E$ satisfies $f_p = 1$ at primes of multiplicative reduction and $f_p \ge 2$ at primes of additive reduction, matching the conductor that appears in the $L$-function of $E$.</p>
+
+<div class="quiz" data-concept="ramification-galois-rep"></div>
 </section>
 
 <script>
@@ -1261,6 +1288,14 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('galois-representations'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

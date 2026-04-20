@@ -1,0 +1,180 @@
+{
+  "topic": "frobenius-and-reciprocity",
+  "quizzes": {
+    "frobenius-element": {
+      "title": "Frobenius elements",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $K/\\mathbb{Q}$ be Galois with group $G$, and let $\\mathfrak{P}\\subset\\mathcal{O}_K$ be an unramified prime above a rational prime $p$. The Frobenius element $\\mathrm{Frob}_\\mathfrak{P}\\in G$ is characterised by:",
+          "choices": [
+            "$\\mathrm{Frob}_\\mathfrak{P}(x)=px$ for all $x\\in\\mathcal{O}_K$",
+            "$\\mathrm{Frob}_\\mathfrak{P}(x)\\equiv x^p\\pmod{\\mathfrak{P}}$ for all $x\\in\\mathcal{O}_K$",
+            "$\\mathrm{Frob}_\\mathfrak{P}$ is the identity in $G$ for every unramified $\\mathfrak{P}$",
+            "$\\mathrm{Frob}_\\mathfrak{P}(x)=x+p$ for all $x\\in\\mathcal{O}_K$"
+          ],
+          "answer": 1,
+          "explain": "The Frobenius is the unique element of the decomposition group whose image in the residue-field Galois group is the $p$-power map $x\\mapsto x^p$; equivalently $\\mathrm{Frob}_\\mathfrak{P}(x)\\equiv x^p\\pmod{\\mathfrak{P}}$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\mathfrak{P}$ and $\\mathfrak{P}'$ are two unramified primes of $\\mathcal{O}_K$ lying over the same rational prime $p$, the Frobenius elements $\\mathrm{Frob}_\\mathfrak{P}$ and $\\mathrm{Frob}_{\\mathfrak{P}'}$ are:",
+          "choices": [
+            "equal in $G$",
+            "inverses of each other",
+            "conjugate in $G$",
+            "unrelated in general"
+          ],
+          "answer": 2,
+          "explain": "Any two primes above $p$ are related by an element of $G$ (Galois acts transitively on primes above $p$), and conjugating the prime conjugates the Frobenius. So $\\mathrm{Frob}_p$ is a well-defined conjugacy class in $G$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), a prime $p$ with factorisation $\\bar f(x)\\bmod p=(\\deg 2)\\cdot(\\deg 1)$ has Frobenius of cycle shape a single transposition. What is the order of $\\mathrm{Frob}_p$ in $S_3$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "A transposition in $S_3$ has order $2$: applying it twice returns the identity."
+        }
+      ]
+    },
+    "splitting-types": {
+      "title": "Splitting types",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $K/\\mathbb{Q}$ be Galois of degree $n$ and let $p$ be an unramified rational prime with $p\\mathcal{O}_K=\\mathfrak{P}_1\\cdots\\mathfrak{P}_r$ and common residue degree $f$. Which relation must hold?",
+          "choices": [
+            "$r+f=n$",
+            "$rf=n$",
+            "$r=f$ always",
+            "$r$ and $f$ can depend on the chosen prime $\\mathfrak{P}_i$"
+          ],
+          "answer": 1,
+          "explain": "In a Galois extension $G$ acts transitively on primes above $p$, so $r$ and $f$ are the same for every $\\mathfrak{P}_i$, and the degree formula $\\sum e_i f_i = n$ collapses (with $e_i=1$) to $rf=n$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $K=\\mathbb{Q}(\\zeta_7)$, $[K:\\mathbb{Q}]=6$, a prime $p$ that is inert in $K$ has splitting type $(r,f)=(1,6)$. If instead $p$ splits into $r=3$ primes, what is the common residue degree $f$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$rf=n$ with $n=6$, $r=3$ forces $f=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $f(x)=x^3-x-1$ with Galois group $S_3$ (degree $6$ splitting field), which Frobenius cycle shape on the roots corresponds to $p$ splitting completely in the splitting field?",
+          "choices": [
+            "$(3)$",
+            "$(2,1)$",
+            "$(1,1,1)$",
+            "$(6)$"
+          ],
+          "answer": 2,
+          "explain": "Completely split means Frobenius is the identity, which acts on the three roots with cycle shape $(1,1,1)$."
+        }
+      ]
+    },
+    "decomposition-group": {
+      "title": "Decomposition and inertia groups",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a prime $\\mathfrak{P}$ above $p$ in a Galois extension $K/\\mathbb{Q}$ with group $G$, the decomposition group $D(\\mathfrak{P})$ is defined as:",
+          "choices": [
+            "the centraliser of $\\mathrm{Frob}_\\mathfrak{P}$ in $G$",
+            "the stabiliser $\\{\\sigma\\in G:\\sigma(\\mathfrak{P})=\\mathfrak{P}\\}$",
+            "the image of Galois in $\\mathrm{GL}_n(\\mathbb{F}_p)$",
+            "the kernel of the reduction map $\\mathcal{O}_K\\to\\mathcal{O}_K/\\mathfrak{P}$"
+          ],
+          "answer": 1,
+          "explain": "By definition $D(\\mathfrak{P})$ is the stabiliser of $\\mathfrak{P}$ under the $G$-action on primes above $p$; its order is $ef=|G|/r$."
+        },
+        {
+          "type": "numeric",
+          "q": "In a Galois extension of degree $n=12$ where a prime $p$ has $r=3$ primes above it with ramification index $e=2$ and residue degree $f=2$, what is $|D(\\mathfrak{P})|$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$|D(\\mathfrak{P})|=ef=2\\cdot 2=4$; equivalently $n/r=12/3=4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about inertia is TRUE?",
+          "choices": [
+            "$I(\\mathfrak{P})=D(\\mathfrak{P})$ always",
+            "$I(\\mathfrak{P})$ is the kernel of $D(\\mathfrak{P})\\to\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$, and is trivial exactly when $p$ is unramified",
+            "$I(\\mathfrak{P})$ is generated by the Frobenius element",
+            "$I(\\mathfrak{P})$ has order $f$"
+          ],
+          "answer": 1,
+          "explain": "Inertia is by definition the kernel of reduction to the residue-field Galois group, has order $e$, and vanishes precisely at unramified primes; when it does, $D/I\\cong\\mathrm{Gal}(\\mathbb{F}_{p^f}/\\mathbb{F}_p)$ is generated by Frobenius."
+        }
+      ]
+    },
+    "chebotarev-density": {
+      "title": "Chebotarev density",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Chebotarev's density theorem says that for a Galois extension $K/\\mathbb{Q}$ with group $G$ and a conjugacy class $C\\subseteq G$, the density of primes $p$ with $\\mathrm{Frob}_p\\subset C$ equals:",
+          "choices": [
+            "$1/|G|$",
+            "$|C|/|G|$",
+            "$|C|$",
+            "$1/|C|$"
+          ],
+          "answer": 1,
+          "explain": "The natural density of unramified primes whose Frobenius class is $C$ is exactly $|C|/|G|$; every conjugacy class is hit by a positive fraction determined by its size."
+        },
+        {
+          "type": "numeric",
+          "q": "For $f(x)=x^3-x-1$ with $G=S_3$, Chebotarev predicts the density of primes $p$ that split completely (Frobenius = identity). Express this density as a decimal (to $4$ places).",
+          "answer": 0.16666666666666666,
+          "tol": 1e-3,
+          "explain": "The identity is one conjugacy class of size $1$ in $|S_3|=6$, giving density $1/6\\approx 0.1667$."
+        },
+        {
+          "type": "numeric",
+          "q": "Same $f$, same $G=S_3$: what fraction of primes have $\\mathrm{Frob}_p$ a transposition (cycle shape $(2,1)$)?",
+          "answer": 0.5,
+          "tol": 1e-6,
+          "explain": "Transpositions form a conjugacy class of size $3$ in $S_3$, so density $3/6=1/2$."
+        }
+      ]
+    },
+    "artin-reciprocity-preview": {
+      "title": "Reciprocity toward Artin maps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Weak (abelian) reciprocity says that if $K/\\mathbb{Q}$ is abelian, the map $p\\mapsto\\mathrm{Frob}_p$ factors through which group, for some conductor $N$?",
+          "choices": [
+            "$\\mathbb{Z}/N$",
+            "$(\\mathbb{Z}/N)^\\times$",
+            "$\\mathbb{Z}$",
+            "the trivial group"
+          ],
+          "answer": 1,
+          "explain": "The Kronecker–Weber theorem embeds every abelian $K$ into a cyclotomic field $\\mathbb{Q}(\\zeta_N)$, whose Galois group is $(\\mathbb{Z}/N)^\\times$. So Frobenius depends only on $p\\bmod N$."
+        },
+        {
+          "type": "mcq",
+          "q": "Strong (Langlands-style) reciprocity attaches to a Galois representation $\\rho:G\\to\\mathrm{GL}_n(\\mathbb{C})$ an automorphic object $\\pi_\\rho$ matching Frobenius traces. The identity is:",
+          "choices": [
+            "$\\det\\rho(\\mathrm{Frob}_p)=a_p(\\pi_\\rho)$",
+            "$\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p(\\pi_\\rho)$ for unramified $p$",
+            "$\\rho(\\mathrm{Frob}_p)=\\pi_\\rho$",
+            "$a_p(\\pi_\\rho)=p$ for all unramified $p$"
+          ],
+          "answer": 1,
+          "explain": "The slogan is: the Frobenius trace on the Galois side equals the $p$-th Fourier coefficient of an automorphic form on the other side, at every unramified prime."
+        },
+        {
+          "type": "numeric",
+          "q": "For $f(x)=x^3-x-1$ (Galois group $S_3$), the associated weight-1 cusp form $\\eta(z)\\eta(23z)=\\sum a_n q^n$ has $a_p=2$ exactly when $p$ splits completely. For such a splitting prime $p$, what is $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$ where $\\rho$ is the standard $2$-dim representation of $S_3$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "If $\\mathrm{Frob}_p=e$ (identity), $\\rho(\\mathrm{Frob}_p)=I_2$ has trace $2$. This matches $a_p=2$ for the modular form, illustrating $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=a_p$."
+        }
+      ]
+    }
+  }
+}

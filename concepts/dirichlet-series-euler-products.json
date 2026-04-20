@@ -30,6 +30,26 @@
         "legendre-symbol"
       ],
       "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+    },
+    {
+      "id": "mellin-transform-dirichlet",
+      "title": "Mellin transform and the gamma integral",
+      "anchor": "mellin",
+      "prereqs": [
+        "dirichlet-series-basics",
+        "contour-integral"
+      ],
+      "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation."
+    },
+    {
+      "id": "perron-formula",
+      "title": "Perron's formula",
+      "anchor": "perron",
+      "prereqs": [
+        "mellin-transform-dirichlet",
+        "residue-theorem"
+      ],
+      "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations."
     }
   ]
 }

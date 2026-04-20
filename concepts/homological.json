@@ -13,6 +13,34 @@
       "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness."
     },
     {
+      "id": "exact-sequences",
+      "title": "Exact sequences",
+      "anchor": "exact",
+      "prereqs": [
+        "chain-complexes"
+      ],
+      "blurb": "Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra."
+    },
+    {
+      "id": "snake-lemma",
+      "title": "The snake lemma",
+      "anchor": "snake",
+      "prereqs": [
+        "exact-sequences"
+      ],
+      "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels."
+    },
+    {
+      "id": "long-exact-sequence",
+      "title": "Long exact sequence in homology",
+      "anchor": "les",
+      "prereqs": [
+        "snake-lemma",
+        "singular-homology"
+      ],
+      "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree."
+    },
+    {
       "id": "derived-functors",
       "title": "Derived functors and resolutions",
       "anchor": "derived",

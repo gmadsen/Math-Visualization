@@ -14,20 +14,58 @@
       "blurb": "Lie groups combine smooth manifolds with group multiplication."
     },
     {
+      "id": "lie-algebra-tangent",
+      "title": "Lie algebra as tangent space at the identity",
+      "anchor": "algebra",
+      "prereqs": [
+        "lie-group-definition",
+        "tangent-space-manifolds"
+      ],
+      "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
+    },
+    {
       "id": "lie-algebra-and-exp",
       "title": "Lie algebra and exponential map",
       "anchor": "exp",
       "prereqs": [
-        "lie-group-definition"
+        "lie-algebra-tangent"
       ],
-      "blurb": "The tangent space at identity with bracket linearizes local group structure."
+      "blurb": "The exponential map $\\exp:\\mathfrak{g}\\to G$ integrates each $X\\in\\mathfrak g$ to the one-parameter subgroup $t\\mapsto\\exp(tX)$, turning infinitesimal data into group elements."
+    },
+    {
+      "id": "lie-bracket-bch",
+      "title": "Bracket, commutators, and BCH",
+      "anchor": "bracket",
+      "prereqs": [
+        "lie-algebra-and-exp"
+      ],
+      "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series."
+    },
+    {
+      "id": "so3-su2-double-cover",
+      "title": "SO(3), SU(2), and the double cover",
+      "anchor": "so3su2",
+      "prereqs": [
+        "lie-algebra-and-exp",
+        "fundamental-group"
+      ],
+      "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons."
+    },
+    {
+      "id": "adjoint-representation-killing",
+      "title": "Adjoint representation and Killing form",
+      "anchor": "adjoint",
+      "prereqs": [
+        "lie-bracket-bch"
+      ],
+      "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity."
     },
     {
       "id": "adjoint-roots",
       "title": "Adjoint action and root data",
       "anchor": "roots",
       "prereqs": [
-        "lie-algebra-and-exp"
+        "adjoint-representation-killing"
       ],
       "blurb": "Adjoint representations and root systems classify semisimple behavior."
     }

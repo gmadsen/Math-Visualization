@@ -110,6 +110,85 @@
           "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists \u2014 contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
         }
       ]
+    },
+
+    "deformation-rings": {
+      "title": "Deformation rings",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Mazur's universal deformation ring $R^{\\mathrm{univ}}$ of an absolutely irreducible residual representation $\\overline\\rho : G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ represents which functor?",
+          "choices": [
+            "$A \\mapsto \\mathrm{Hom}(G_\\mathbb{Q}, A^\\times)$",
+            "$A \\mapsto \\{\\text{continuous lifts } \\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A) \\text{ of } \\overline\\rho\\}/\\!\\sim$ on complete Noetherian local $\\mathbb{Z}_p$-algebras with residue field $\\mathbb{F}_p$",
+            "$A \\mapsto \\mathrm{GL}_2(A)$",
+            "$A \\mapsto A \\otimes_{\\mathbb{Z}_p} \\mathbb{Q}_p$"
+          ],
+          "answer": 1,
+          "explain": "A deformation of $\\overline\\rho$ to $A$ is a continuous lift to $\\mathrm{GL}_2(A)$ reducing to $\\overline\\rho$ mod $\\mathfrak{m}_A$, up to conjugation by the kernel of $\\mathrm{GL}_2(A) \\twoheadrightarrow \\mathrm{GL}_2(\\mathbb{F}_p)$. Mazur proved this functor is representable when $\\overline\\rho$ is absolutely irreducible."
+        },
+        {
+          "type": "mcq",
+          "q": "The mod-$\\mathfrak{m}^2$ tangent space of the deformation ring $R_\\Sigma$ is computed by which cohomology group?",
+          "choices": [
+            "$H^0(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
+            "$H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$, the Selmer group with local conditions at $\\Sigma$",
+            "$H^2(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
+            "$\\pi_1^{\\text{ét}}(\\mathrm{Spec}\\,\\mathbb{Z}[1/\\Sigma])$"
+          ],
+          "answer": 1,
+          "explain": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint cocycles satisfying the chosen local conditions."
+        },
+        {
+          "type": "numeric",
+          "q": "Suppose $R_\\Sigma$ is a quotient of the power series ring $\\mathbb{Z}_p[[x_1, x_2, x_3]]$ by a regular sequence of length $1$. What is the Krull dimension of $R_\\Sigma$?",
+          "answer": 3,
+          "tol": 0.01,
+          "explain": "$\\dim \\mathbb{Z}_p[[x_1,x_2,x_3]] = 1 + 3 = 4$ (the $1$ for $\\mathbb{Z}_p$); killing a regular element drops the dimension by $1$, giving $\\dim R_\\Sigma = 3$."
+        }
+      ]
+    },
+
+    "r-equals-t": {
+      "title": "The R = T theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Wiles' modularity-lifting setup, what are the two rings in the identity $R_\\Sigma = \\mathbb{T}_\\Sigma$?",
+          "choices": [
+            "$R_\\Sigma$ = endomorphism ring of $E$;   $\\mathbb{T}_\\Sigma$ = Tate module",
+            "$R_\\Sigma$ = universal deformation ring of $\\overline\\rho$ with ramification data $\\Sigma$;   $\\mathbb{T}_\\Sigma$ = localized Hecke algebra acting on $S_2(\\Gamma_0(N_\\Sigma))$",
+            "$R_\\Sigma$ = ring of integers of a number field;   $\\mathbb{T}_\\Sigma$ = its Galois closure",
+            "$R_\\Sigma$ = étale fundamental group;   $\\mathbb{T}_\\Sigma$ = de Rham cohomology"
+          ],
+          "answer": 1,
+          "explain": "$R_\\Sigma$ is the Galois-deformation side: all $p$-adic lifts of $\\overline\\rho$ with prescribed ramification. $\\mathbb{T}_\\Sigma$ is the automorphic side: Hecke operators on weight-2 cusp forms, localized at the maximal ideal matching $\\overline\\rho$. R = T says the two moduli spaces coincide."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ automatic, and what technique upgrades it to an isomorphism?",
+          "choices": [
+            "Surjectivity is automatic because Hecke eigensystems give modular Galois lifts of $\\overline\\rho$; the Taylor–Wiles patching argument over auxiliary prime sets $Q_n$ forces injectivity.",
+            "Both come from the Riemann–Roch theorem on $X_0(N)$.",
+            "One uses the Weil conjectures; the other uses Hodge theory.",
+            "Ribet's level-lowering theorem gives the isomorphism directly."
+          ],
+          "answer": 0,
+          "explain": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$. Taylor–Wiles patching chooses auxiliary 'nice' primes $Q_n$, matches dimensions on both sides level by level, and takes a compatible limit to collapse the surjection into an isomorphism."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the arithmetic consequence of $R_\\Sigma = \\mathbb{T}_\\Sigma$ for a given residual representation $\\overline\\rho$?",
+          "choices": [
+            "Every elliptic curve over $\\mathbb{Q}$ has rank $0$.",
+            "Every deformation of $\\overline\\rho$ with ramification data $\\Sigma$ is modular.",
+            "The Birch and Swinnerton-Dyer conjecture holds.",
+            "$\\overline\\rho$ has finite image."
+          ],
+          "answer": 1,
+          "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift — the whole point of modularity lifting."
+        }
+      ]
     }
   }
 }

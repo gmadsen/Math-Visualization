@@ -100,6 +100,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -229,6 +232,8 @@ must be a <strong>local ring homomorphism</strong>: it sends the maximal ideal $
 <div class="note"><strong>Why "locally ringed"?</strong> A <em>ringed space</em> is just a space equipped with a sheaf of rings. A <em>locally ringed space</em> is a ringed space in which every stalk is a local ring. Schemes are locally ringed spaces whose opens are covered by affines. Morphisms of locally ringed spaces are precisely what we described: continuous maps plus sheaf maps that are local on stalks. The entire category of schemes is a full subcategory of locally ringed spaces — a fact that is very useful for extending structural results from topology or differential geometry.</div>
 
 <p>One more piece of intuition before we dive into affines. The slogan "points of $X$ correspond to maps into $X$" has a useful partial refinement: for any scheme $X$ and any field $k$, the <em>$k$-rational points</em> of $X$ are the morphisms $\operatorname{Spec} k\to X$. These form a set $X(k) = \operatorname{Hom}_{\mathsf{Sch}}(\operatorname{Spec} k, X)$. The functor $k\mapsto X(k)$ (valued in sets) is called the <em>functor of points</em> of $X$, and by Yoneda's lemma it determines $X$ up to unique isomorphism. Whenever we specialize the capstone family to a specific value of $a_0\in k$ and ask for roots $x$ of $x^2 = a_0$ in $k$, we're computing $X(k)$ at that specialization.</p>
+
+<div class="quiz" data-concept="scheme-morphisms"></div>
 </section>
 
 <section id="affine">
@@ -784,6 +789,8 @@ where $A$ and $B$ are viewed as $R$-algebras via the maps $R\to A$ and $R\to B$ 
   redraw();
 })();
 </script>
+
+<div class="quiz" data-concept="fiber-products"></div>
 </section>
 
 <section id="base">
@@ -1007,6 +1014,8 @@ It's a scheme over the field $\kappa(\mathfrak{p})$ — possibly with non-reduce
   drawFiber(CFG[pick.value], 0);
 })();
 </script>
+
+<div class="quiz" data-concept="geometric-fibers"></div>
 </section>
 
 <section id="capstone">
@@ -1469,6 +1478,14 @@ Part of an interactive mathematics notebook · <a href="./index.html">back to in
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('morphisms-fiber-products'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

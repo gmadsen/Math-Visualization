@@ -4,6 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Quadratic reciprocity — the first deep symmetry of the primes</title>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -369,6 +372,7 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
   run();
 })();
 </script>
+<div class="quiz" data-concept="legendre-symbol"></div>
 </section>
 
 <section id="supplementary">
@@ -388,6 +392,7 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
 <p>This one is proved by Gauss's lemma (next section) applied to $a=2$: count how many of $\{2,4,6,\ldots,p-1\}$ reduce to the "upper half" $\{(p+1)/2,\ldots,p-1\}$ mod $p$, and read off the sign. The count turns out to be $\lfloor p/4 \rfloor$, giving the displayed parity.</p>
 
 <p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \bmod 8$.</p>
+<div class="quiz" data-concept="supplementary-laws-qr"></div>
 </section>
 
 <section id="gauss-lemma">
@@ -499,6 +504,7 @@ upper-half residues:
   run();
 })();
 </script>
+<div class="quiz" data-concept="gauss-lemma-qr"></div>
 </section>
 
 <section id="reciprocity">
@@ -574,6 +580,7 @@ is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$
   grid.appendChild(tbl);
 })();
 </script>
+<div class="quiz" data-concept="quadratic-reciprocity-law"></div>
 </section>
 
 <section id="engine">
@@ -826,6 +833,13 @@ ${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('quadratic-reciprocity'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

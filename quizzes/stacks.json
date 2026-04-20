@@ -1,0 +1,108 @@
+{
+  "topic": "stacks",
+  "quizzes": {
+    "groupoids-and-descent": {
+      "title": "Groupoids, fibered categories, descent",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why must a moduli functor $\\mathcal{M}:\\mathrm{Sch}^{\\mathrm{op}}\\to\\mathrm{Set}$ for elliptic curves fail to be representable?",
+          "choices": [
+            "because elliptic curves are not projective",
+            "because the functor lands in $\\mathrm{Grpd}$, not $\\mathrm{Set}$, so representability is impossible by definition",
+            "because elliptic curves have non-trivial automorphisms (at least $[-1]$), so twisting families along covers produces distinct families with the same classifying map",
+            "because the $j$-line is not a scheme"
+          ],
+          "answer": 2,
+          "explain": "Every elliptic curve has the automorphism $[-1]$; twisting a family by this automorphism along a cover produces a non-isomorphic family with the same classifying map to any putative fine moduli scheme. Passing to groupoid-valued functors is precisely what records this data."
+        },
+        {
+          "type": "mcq",
+          "q": "A fibered category $\\mathcal{X}\\to\\mathrm{Sch}$ is a <em>stack</em> (in the étale topology) iff for every cover $\\{U_i\\to U\\}$:",
+          "choices": [
+            "the presheaf $V\\mapsto \\mathrm{Iso}(x|_V, y|_V)$ is a sheaf, <em>and</em> descent data $(x_i,\\varphi_{ij})$ satisfying the cocycle glue to a unique (up to unique iso) object on $U$",
+            "every object of $\\mathcal{X}(U)$ is isomorphic to an object pulled back from a single $U_i$",
+            "the category $\\mathcal{X}(U)$ is discrete (has no non-identity isomorphisms)",
+            "$\\mathcal{X}(U) \\to \\prod_i \\mathcal{X}(U_i)$ is an equivalence of categories with no compatibility conditions"
+          ],
+          "answer": 0,
+          "explain": "The stack axiom has two layers: isomorphism sheaves must glue locally, and objects given by compatible local data (a descent datum satisfying the cocycle on triple overlaps) must glue to a global object unique up to unique isomorphism."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $G$ be a groupoid with three objects, each having automorphism group $\\mathbb{Z}/2$, all connected by isomorphisms. How many isomorphism classes does $\\pi_0(G)$ have?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element. The three $\\mathbb{Z}/2$ automorphism groups are what is lost when one collapses to $\\pi_0$."
+        }
+      ]
+    },
+    "classifying-stacks": {
+      "title": "Classifying stacks BG",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The classifying stack $BG$ is defined by $BG(R)=$ groupoid of $G$-torsors on $\\mathrm{Spec}\\,R$. Why can $BG$ not be a scheme?",
+          "choices": [
+            "because torsors are not quasi-coherent sheaves",
+            "because $G$-torsors form a set, not a groupoid",
+            "because the unique geometric point $\\mathrm{Spec}\\,\\overline{k}\\to BG$ (the trivial torsor) has automorphism group $G$, and schemes cannot have non-trivial automorphisms at a geometric point",
+            "because $BG$ is never finite type"
+          ],
+          "answer": 2,
+          "explain": "A scheme's functor of points lands in sets, so its geometric points have trivial automorphism groups. $BG$ has automorphism group $G$ at its trivial torsor, which records pure automorphism data and prevents representability by any scheme."
+        },
+        {
+          "type": "numeric",
+          "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\mathrm{Spec}\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\mathrm{Spec}\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\mathrm{Hom}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\mathrm{Spec}\\,\\mathbb{R}$).",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
+        }
+      ]
+    },
+    "dm-stacks-coarse-space": {
+      "title": "Deligne-Mumford stacks and coarse spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which condition separates a Deligne-Mumford stack from a general Artin (algebraic) stack?",
+          "choices": [
+            "DM stacks are required to be proper; Artin stacks need not be",
+            "DM stacks admit an <em>étale</em> surjection $X\\to\\mathcal{X}$ from a scheme (equivalently, unramified diagonal / finite automorphism groups); Artin stacks need only a <em>smooth</em> surjection",
+            "DM stacks have trivial automorphism groups everywhere",
+            "Artin stacks are not fibered categories"
+          ],
+          "answer": 1,
+          "explain": "The defining upgrade from Artin to DM is the étale (versus merely smooth) atlas, which forces automorphism schemes to be finite and unramified. $BG$ for $G$ finite is DM; $BG$ for $G$ positive-dimensional (e.g. $B\\mathbb{G}_m$) is Artin but not DM."
+        },
+        {
+          "type": "mcq",
+          "q": "Keel-Mori produces a coarse moduli map $\\pi:\\mathcal{X}\\to X$ for a finite-type DM stack with finite inertia. Which statement about $\\pi$ is true?",
+          "choices": [
+            "$\\pi$ is an isomorphism of stacks",
+            "$\\pi$ is a bijection on geometric points and is initial among maps from $\\mathcal{X}$ to a scheme, but it is generally lossy about automorphisms",
+            "$\\pi$ preserves Chow rings integrally",
+            "$\\pi$ has no universal property"
+          ],
+          "answer": 1,
+          "explain": "$\\pi$ is a bijection on geometric points and any scheme-valued map from $\\mathcal{X}$ factors uniquely through $\\pi$. But the fiber of $\\pi$ over a stacky point is a classifying stack $B\\mathrm{Aut}$, so automorphism data is discarded; e.g. $\\mathrm{CH}^*(\\mathcal{M}_{1,1})_{\\mathbb{Z}}=\\mathbb{Z}[t]/(12t)\\ne \\mathrm{CH}^*(\\mathbb{A}^1)$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."
+        }
+      ]
+    }
+  }
+}

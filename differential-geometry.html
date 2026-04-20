@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -717,6 +720,8 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 
 <p>Most of what follows applies to any surface; we'll use these explicit parametrizations in the widgets so the formulas compute in closed form.</p>
 
+<div class="quiz" data-concept="curves-surfaces-dg"></div>
+
 </section>
 
 <section id="first">
@@ -745,6 +750,8 @@ It is a positive-definite symmetric bilinear form on each tangent plane. It dete
 </ul>
 
 <p>Whenever you compute something on $S$ from $(E,F,G)$ alone, without referring to the embedding, that quantity is <strong>intrinsic</strong>. Length, angle, area, and (surprise!) Gaussian curvature are intrinsic. Mean curvature, principal curvatures, and the second fundamental form are not — they depend on how $S$ sits in $\mathbb{R}^3$.</p>
+
+<div class="quiz" data-concept="first-second-fundamental"></div>
 
 </section>
 
@@ -822,6 +829,8 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
   <svg id="kh-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
   <div class="readout" id="kh-out"></div>
 </div>
+
+<div class="quiz" data-concept="gauss-map"></div>
 
 </section>
 
@@ -1373,6 +1382,8 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
   <div class="readout" id="ge-out"></div>
 </div>
 
+<div class="quiz" data-concept="gauss-curvature-geodesics"></div>
+
 </section>
 
 <script>
@@ -1648,6 +1659,8 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
   <svg id="gb-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;height:auto"></svg>
   <div class="readout" id="gb-out"></div>
 </div>
+
+<div class="quiz" data-concept="gauss-bonnet"></div>
 
 </section>
 
@@ -2244,6 +2257,14 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('differential-geometry'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

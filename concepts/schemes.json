@@ -29,6 +29,43 @@
         "structure-sheaf-schemes"
       ],
       "blurb": "General schemes are built by gluing affine pieces along compatible overlaps."
+    },
+    {
+      "id": "generic-point",
+      "title": "Generic points and specialization",
+      "anchor": "generic-point",
+      "prereqs": [
+        "spectrum-primes"
+      ],
+      "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed."
+    },
+    {
+      "id": "residue-field-at-prime",
+      "title": "Residue fields and evaluation at points",
+      "anchor": "residue-field",
+      "prereqs": [
+        "spectrum-primes",
+        "localization-ca"
+      ],
+      "blurb": "Each prime carries a residue field $\\kappa(\\mathfrak p)$; an element of $R$ takes values in these fields, recovering evaluation without a fixed ground field."
+    },
+    {
+      "id": "locally-ringed-space",
+      "title": "Locally ringed spaces",
+      "anchor": "locally-ringed-space",
+      "prereqs": [
+        "structure-sheaf-schemes"
+      ],
+      "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
+    },
+    {
+      "id": "projective-scheme",
+      "title": "Projective schemes and Proj",
+      "anchor": "projective-scheme",
+      "prereqs": [
+        "gluing-affines"
+      ],
+      "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties."
     }
   ]
 }

@@ -116,6 +116,24 @@ window.__MVConcepts = {
             "cayley-tables"
           ],
           "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+        },
+        {
+          "id": "ring-ideals",
+          "title": "Ideals and quotient rings",
+          "anchor": "ideals",
+          "prereqs": [
+            "quotients-homomorphisms"
+          ],
+          "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
+        },
+        {
+          "id": "field-extensions-basics",
+          "title": "Field extensions and minimal polynomials",
+          "anchor": "extensions",
+          "prereqs": [
+            "ring-ideals"
+          ],
+          "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
         }
       ]
     },
@@ -150,6 +168,24 @@ window.__MVConcepts = {
             "functors-natural-transformations"
           ],
           "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
+        },
+        {
+          "id": "universal-properties",
+          "title": "Universal properties and representability",
+          "anchor": "univ",
+          "prereqs": [
+            "yoneda-limits-adjunctions"
+          ],
+          "blurb": "A universal property pins an object down as the representing object of a Hom-functor; every standard construction (product, free group, limit, adjoint) is a universal property in disguise."
+        },
+        {
+          "id": "monoidal-categories",
+          "title": "Monoidal categories",
+          "anchor": "mon",
+          "prereqs": [
+            "functors-natural-transformations"
+          ],
+          "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category."
         }
       ]
     },
@@ -168,11 +204,29 @@ window.__MVConcepts = {
           "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
         },
         {
+          "id": "maschke-theorem",
+          "title": "Maschke's theorem",
+          "anchor": "maschke",
+          "prereqs": [
+            "group-representations"
+          ],
+          "blurb": "Over a field whose characteristic does not divide |G|, every finite-dimensional rep of a finite group is a direct sum of irreducibles; the averaging trick furnishes a G-stable complement to any subrep."
+        },
+        {
+          "id": "schurs-lemma",
+          "title": "Schur's lemma",
+          "anchor": "schur",
+          "prereqs": [
+            "maschke-theorem"
+          ],
+          "blurb": "An intertwiner between irreducibles over an algebraically closed field is either zero or a scalar; this one line forces endomorphism algebras, commutants, and central characters to take their standard forms."
+        },
+        {
           "id": "characters-orthogonality",
           "title": "Characters and orthogonality",
           "anchor": "characters",
           "prereqs": [
-            "group-representations"
+            "schurs-lemma"
           ],
           "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
         },
@@ -184,6 +238,16 @@ window.__MVConcepts = {
             "characters-orthogonality"
           ],
           "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+        },
+        {
+          "id": "sl2-weight-decomposition",
+          "title": "Weight decomposition for 𝔰𝔩₂",
+          "anchor": "sl2",
+          "prereqs": [
+            "characters-orthogonality",
+            "lie-algebra-tangent"
+          ],
+          "blurb": "Every finite-dimensional irrep of 𝔰𝔩₂(ℂ) is determined by a highest weight n ≥ 0 and realized as Sym^n of the standard rep, with weights n, n−2, …, −n and Clebsch–Gordan decomposition V_m ⊗ V_n = ⊕ V_{m+n−2k}."
         }
       ]
     },
@@ -211,11 +275,41 @@ window.__MVConcepts = {
           "blurb": "Localization zooms to behavior near primes and isolates local properties."
         },
         {
+          "id": "flatness-ca",
+          "title": "Flatness and Tor",
+          "anchor": "flat",
+          "prereqs": [
+            "localization-ca",
+            "chain-complexes"
+          ],
+          "blurb": "A module is flat when tensoring with it preserves injections; the obstruction is measured by Tor, which detects torsion and controls base change in families."
+        },
+        {
+          "id": "nakayama-lemma-ca",
+          "title": "Nakayama's lemma and Zariski tangent spaces",
+          "anchor": "nakayama",
+          "prereqs": [
+            "localization-ca"
+          ],
+          "blurb": "Over a local ring, Nakayama reduces minimal generation of a finitely generated module to a vector-space count over the residue field; applied to the maximal ideal it produces the Zariski tangent space $\\mathfrak{m}/\\mathfrak{m}^2$."
+        },
+        {
+          "id": "integral-extensions-ca",
+          "title": "Integral extensions and Noether normalization",
+          "anchor": "integral",
+          "prereqs": [
+            "ideals-quotients-ca",
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "An element is integral over $A$ when it satisfies a monic polynomial with coefficients in $A$; integral extensions enjoy lying-over, going-up, and incomparability, and Noether normalization exhibits every finitely generated $k$-algebra as a finite extension of a polynomial subring."
+        },
+        {
           "id": "krull-dimension-ca",
           "title": "Krull dimension and depth heuristics",
           "anchor": "dim",
           "prereqs": [
-            "localization-ca"
+            "localization-ca",
+            "integral-extensions-ca"
           ],
           "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
         }
@@ -234,6 +328,34 @@ window.__MVConcepts = {
             "ideals-quotients-ca"
           ],
           "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness."
+        },
+        {
+          "id": "exact-sequences",
+          "title": "Exact sequences",
+          "anchor": "exact",
+          "prereqs": [
+            "chain-complexes"
+          ],
+          "blurb": "Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra."
+        },
+        {
+          "id": "snake-lemma",
+          "title": "The snake lemma",
+          "anchor": "snake",
+          "prereqs": [
+            "exact-sequences"
+          ],
+          "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels."
+        },
+        {
+          "id": "long-exact-sequence",
+          "title": "Long exact sequence in homology",
+          "anchor": "les",
+          "prereqs": [
+            "snake-lemma",
+            "singular-homology"
+          ],
+          "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree."
         },
         {
           "id": "derived-functors",
@@ -677,6 +799,26 @@ window.__MVConcepts = {
             "bounded-operators-fa"
           ],
           "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions."
+        },
+        {
+          "id": "riesz-representation",
+          "title": "Riesz representation theorem",
+          "anchor": "riesz",
+          "prereqs": [
+            "banach-hilbert-spaces",
+            "lp-spaces"
+          ],
+          "blurb": "Every bounded linear functional on a Hilbert space is inner product with a unique vector; on Lᵖ it is integration against an Lᵩ density."
+        },
+        {
+          "id": "weak-topology",
+          "title": "Weak and weak-* topologies",
+          "anchor": "weak",
+          "prereqs": [
+            "bounded-operators-fa",
+            "compactness"
+          ],
+          "blurb": "Coarsen the topology so dual pairings become continuous; Banach–Alaoglu then makes the unit ball of the dual weak-* compact."
         }
       ]
     },
@@ -840,13 +982,49 @@ window.__MVConcepts = {
           "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps."
         },
         {
-          "id": "tangent-space-manifolds",
-          "title": "Tangent spaces and bundles",
-          "anchor": "tangent",
+          "id": "smooth-manifold-examples",
+          "title": "Examples: spheres, projective spaces, matrix groups",
+          "anchor": "examples",
           "prereqs": [
             "smooth-manifold-definition"
           ],
-          "blurb": "Tangent vectors form bundles supporting differential equations and geometry."
+          "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic."
+        },
+        {
+          "id": "smooth-map",
+          "title": "Smooth maps and diffeomorphisms",
+          "anchor": "maps",
+          "prereqs": [
+            "smooth-manifold-definition"
+          ],
+          "blurb": "A map is smooth when every chart representative is C^∞; diffeomorphisms are the isomorphisms of the smooth category."
+        },
+        {
+          "id": "tangent-space-manifolds",
+          "title": "Tangent spaces",
+          "anchor": "tangent",
+          "prereqs": [
+            "smooth-map"
+          ],
+          "blurb": "T_pM has three equivalent definitions — equivalence classes of curves, chart velocities, and derivations of C^∞(M) — all naturally isomorphic."
+        },
+        {
+          "id": "tangent-bundle",
+          "title": "Tangent bundle and vector fields",
+          "anchor": "bundle",
+          "prereqs": [
+            "tangent-space-manifolds"
+          ],
+          "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^∞(M)."
+        },
+        {
+          "id": "lie-bracket-fields",
+          "title": "Lie bracket of vector fields",
+          "anchor": "bracket",
+          "prereqs": [
+            "tangent-bundle"
+          ],
+          "blurb": "[X,Y] = XY−YX is a vector field; it measures the failure of flows to commute and gives 𝔛(M) a Lie algebra structure."
         },
         {
           "id": "submanifolds-immersions",
@@ -855,7 +1033,7 @@ window.__MVConcepts = {
           "prereqs": [
             "tangent-space-manifolds"
           ],
-          "blurb": "Rank conditions control local models for embedded and immersed manifolds."
+          "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}."
         }
       ]
     },
@@ -977,20 +1155,58 @@ window.__MVConcepts = {
           "blurb": "Lie groups combine smooth manifolds with group multiplication."
         },
         {
+          "id": "lie-algebra-tangent",
+          "title": "Lie algebra as tangent space at the identity",
+          "anchor": "algebra",
+          "prereqs": [
+            "lie-group-definition",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
+        },
+        {
           "id": "lie-algebra-and-exp",
           "title": "Lie algebra and exponential map",
           "anchor": "exp",
           "prereqs": [
-            "lie-group-definition"
+            "lie-algebra-tangent"
           ],
-          "blurb": "The tangent space at identity with bracket linearizes local group structure."
+          "blurb": "The exponential map $\\exp:\\mathfrak{g}\\to G$ integrates each $X\\in\\mathfrak g$ to the one-parameter subgroup $t\\mapsto\\exp(tX)$, turning infinitesimal data into group elements."
+        },
+        {
+          "id": "lie-bracket-bch",
+          "title": "Bracket, commutators, and BCH",
+          "anchor": "bracket",
+          "prereqs": [
+            "lie-algebra-and-exp"
+          ],
+          "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series."
+        },
+        {
+          "id": "so3-su2-double-cover",
+          "title": "SO(3), SU(2), and the double cover",
+          "anchor": "so3su2",
+          "prereqs": [
+            "lie-algebra-and-exp",
+            "fundamental-group"
+          ],
+          "blurb": "The simply-connected $\\mathrm{SU}(2)=S^3$ is the universal cover of $\\mathrm{SO}(3)=\\mathbb{RP}^3$ with kernel $\\{\\pm I\\}$ — the spinor sign that distinguishes fermions from bosons."
+        },
+        {
+          "id": "adjoint-representation-killing",
+          "title": "Adjoint representation and Killing form",
+          "anchor": "adjoint",
+          "prereqs": [
+            "lie-bracket-bch"
+          ],
+          "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity."
         },
         {
           "id": "adjoint-roots",
           "title": "Adjoint action and root data",
           "anchor": "roots",
           "prereqs": [
-            "lie-algebra-and-exp"
+            "adjoint-representation-killing"
           ],
           "blurb": "Adjoint representations and root systems classify semisimple behavior."
         }
@@ -1062,6 +1278,25 @@ window.__MVConcepts = {
             "fundamental-theorem-galois"
           ],
           "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
+        },
+        {
+          "id": "normal-separable-extensions",
+          "title": "Normal and separable extensions",
+          "anchor": "normal-separable",
+          "prereqs": [
+            "field-extensions-galois",
+            "quotients-homomorphisms"
+          ],
+          "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic."
+        },
+        {
+          "id": "primitive-element-theorem",
+          "title": "Primitive element theorem",
+          "anchor": "primitive",
+          "prereqs": [
+            "normal-separable-extensions"
+          ],
+          "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial."
         }
       ]
     },
@@ -1158,20 +1393,41 @@ window.__MVConcepts = {
           "blurb": "Finite extensions of Q carry arithmetic via algebraic integers."
         },
         {
+          "id": "discriminant-ant",
+          "title": "Discriminant of a number field",
+          "anchor": "discriminant",
+          "prereqs": [
+            "number-fields-integers"
+          ],
+          "blurb": "The discriminant $\\Delta_K$ is the squared determinant of an integral basis under the embeddings; it records exactly which rational primes ramify."
+        },
+        {
           "id": "prime-ideals-factorization-ant",
           "title": "Ideal factorization and ramification",
           "anchor": "ramification",
           "prereqs": [
-            "number-fields-integers"
+            "number-fields-integers",
+            "discriminant-ant"
           ],
           "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification."
+        },
+        {
+          "id": "minkowski-bound",
+          "title": "Minkowski bound and geometry of numbers",
+          "anchor": "minkowski",
+          "prereqs": [
+            "prime-ideals-factorization-ant",
+            "discriminant-ant"
+          ],
+          "blurb": "Every ideal class has a representative of norm at most $M_K=(4/\\pi)^{r_2}(n!/n^n)\\sqrt{|\\Delta_K|}$, via Minkowski's convex-body theorem; this is what forces the class group to be finite."
         },
         {
           "id": "class-group-units-ant",
           "title": "Class group and units",
           "anchor": "units",
           "prereqs": [
-            "prime-ideals-factorization-ant"
+            "prime-ideals-factorization-ant",
+            "minkowski-bound"
           ],
           "blurb": "Class group and unit rank measure arithmetic failure and structure."
         }
@@ -1260,6 +1516,16 @@ window.__MVConcepts = {
           "blurb": "Idèle class groups package global and local arithmetic data in one object."
         },
         {
+          "id": "hilbert-class-field",
+          "title": "Hilbert class field",
+          "anchor": "hcf",
+          "prereqs": [
+            "idele-class-groups",
+            "class-group-units-ant"
+          ],
+          "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$."
+        },
+        {
           "id": "artin-map-cft",
           "title": "Artin reciprocity map",
           "anchor": "artin",
@@ -1276,6 +1542,26 @@ window.__MVConcepts = {
             "artin-map-cft"
           ],
           "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
+        },
+        {
+          "id": "existence-theorem-cft",
+          "title": "Takagi existence theorem",
+          "anchor": "existence",
+          "prereqs": [
+            "local-global-cft",
+            "artin-reciprocity-preview"
+          ],
+          "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection."
+        },
+        {
+          "id": "conductor-discriminant",
+          "title": "Conductor-discriminant formula",
+          "anchor": "cond-disc",
+          "prereqs": [
+            "artin-map-cft",
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor."
         }
       ]
     },
@@ -1512,6 +1798,26 @@ window.__MVConcepts = {
             "eigenforms-and-euler-factors"
           ],
           "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+        },
+        {
+          "id": "analytic-continuation-lfunc",
+          "title": "Analytic continuation of $L$-functions",
+          "anchor": "continuation",
+          "prereqs": [
+            "functional-equation-completion",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$."
+        },
+        {
+          "id": "special-values-lfunc",
+          "title": "Special values and arithmetic",
+          "anchor": "special-values",
+          "prereqs": [
+            "functional-equation-completion",
+            "arithmetic-data-lfunctions"
+          ],
+          "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD)."
         }
       ]
     },
@@ -1651,6 +1957,43 @@ window.__MVConcepts = {
             "structure-sheaf-schemes"
           ],
           "blurb": "General schemes are built by gluing affine pieces along compatible overlaps."
+        },
+        {
+          "id": "generic-point",
+          "title": "Generic points and specialization",
+          "anchor": "generic-point",
+          "prereqs": [
+            "spectrum-primes"
+          ],
+          "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed."
+        },
+        {
+          "id": "residue-field-at-prime",
+          "title": "Residue fields and evaluation at points",
+          "anchor": "residue-field",
+          "prereqs": [
+            "spectrum-primes",
+            "localization-ca"
+          ],
+          "blurb": "Each prime carries a residue field $\\kappa(\\mathfrak p)$; an element of $R$ takes values in these fields, recovering evaluation without a fixed ground field."
+        },
+        {
+          "id": "locally-ringed-space",
+          "title": "Locally ringed spaces",
+          "anchor": "locally-ringed-space",
+          "prereqs": [
+            "structure-sheaf-schemes"
+          ],
+          "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
+        },
+        {
+          "id": "projective-scheme",
+          "title": "Projective schemes and Proj",
+          "anchor": "projective-scheme",
+          "prereqs": [
+            "gluing-affines"
+          ],
+          "blurb": "The Proj construction glues standard affine pieces of a graded ring into a projective scheme, the scheme-theoretic home of projective varieties."
         }
       ]
     },
@@ -1660,32 +2003,72 @@ window.__MVConcepts = {
       "page": "sheaves.html",
       "concepts": [
         {
+          "id": "presheaf-functor",
+          "title": "Presheaves on Open(X)",
+          "anchor": "presheaves",
+          "prereqs": [
+            "open-sets",
+            "categories-morphisms"
+          ],
+          "blurb": "A presheaf is a contravariant functor from the poset of open sets to Set, packaging restriction maps into the functor's action on inclusions."
+        },
+        {
           "id": "presheaf-sheaf-axioms",
           "title": "Presheaves and sheaf condition",
           "anchor": "sheaves",
           "prereqs": [
-            "open-sets"
+            "presheaf-functor"
           ],
-          "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers."
+          "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers: locality pins sections by their restrictions, gluing assembles compatible families."
         },
         {
           "id": "stalks-local-data",
-          "title": "Stalks and local behavior",
+          "title": "Stalks and germs",
           "anchor": "stalks",
           "prereqs": [
             "presheaf-sheaf-axioms"
           ],
-          "blurb": "Stalks isolate infinitesimal data at points and detect local properties."
+          "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves."
+        },
+        {
+          "id": "sheaf-morphisms-stalks",
+          "title": "Morphisms of sheaves and stalk criteria",
+          "anchor": "morphisms",
+          "prereqs": [
+            "stalks-local-data",
+            "functors-natural-transformations"
+          ],
+          "blurb": "Sheaf morphisms are natural transformations; injectivity and isomorphism are checkable on stalks, while stalkwise surjectivity is strictly weaker than global surjectivity — the seed of sheaf cohomology."
+        },
+        {
+          "id": "sheafification-functor",
+          "title": "Sheafification as a left adjoint",
+          "anchor": "sheafify",
+          "prereqs": [
+            "sheaf-morphisms-stalks"
+          ],
+          "blurb": "Sheafification is the left adjoint to the inclusion Sh(X) into PSh(X); it preserves stalks and turns every presheaf into its universal sheaf approximation."
+        },
+        {
+          "id": "ox-modules",
+          "title": "Ringed spaces and $\\mathcal{O}_X$-modules",
+          "anchor": "omod",
+          "prereqs": [
+            "sheaf-morphisms-stalks",
+            "structure-sheaf-schemes"
+          ],
+          "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
         },
         {
           "id": "sheafification-and-qcoh",
-          "title": "Sheafification and quasi-coherent sheaves",
+          "title": "Quasi-coherent sheaves on affine schemes",
           "anchor": "qcoh",
           "prereqs": [
-            "stalks-local-data",
-            "structure-sheaf-schemes"
+            "sheafification-functor",
+            "ox-modules",
+            "localization-ca"
           ],
-          "blurb": "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes."
+          "blurb": "The tilde functor $M \\mapsto \\widetilde{M}$ is an equivalence between $R$-modules and quasi-coherent sheaves on Spec R, globalizing module theory into algebraic geometry."
         }
       ]
     },
@@ -1780,6 +2163,25 @@ window.__MVConcepts = {
             "elliptic-curve-definition"
           ],
           "blurb": "Chord-tangent constructions define an abelian group on rational points."
+        },
+        {
+          "id": "j-invariant-classification",
+          "title": "The j-invariant and isomorphism classes",
+          "anchor": "j",
+          "prereqs": [
+            "elliptic-curve-definition"
+          ],
+          "blurb": "The j-invariant is a single number that classifies elliptic curves over an algebraically closed field up to isomorphism, and witnesses the coarse moduli space M_{1,1}."
+        },
+        {
+          "id": "complex-multiplication",
+          "title": "Complex uniformization and CM",
+          "anchor": "complex",
+          "prereqs": [
+            "elliptic-curve-definition",
+            "riemann-surface-definition"
+          ],
+          "blurb": "Over C every elliptic curve is a torus C/Λ; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field."
         },
         {
           "id": "mordell-weil-ec",

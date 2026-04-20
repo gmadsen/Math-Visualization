@@ -110,6 +110,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <a href="#clock">4&nbsp;ℤ/nℤ</a>
   <a href="#polyeuclid">5&nbsp;Polynomial&nbsp;gcd</a>
   <a href="#finite">6&nbsp;Finite&nbsp;fields</a>
+  <a href="#ideals">7&nbsp;Ideals&nbsp;&amp;&nbsp;quotient&nbsp;rings</a>
+  <a href="#extensions">8&nbsp;Field&nbsp;extensions</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -1274,6 +1276,22 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   draw();
 })();
 </script>
+
+<section id="ideals">
+<h2>7. Ideals and quotient rings</h2>
+<p>For commutative rings, the analogue of a normal subgroup is an <strong>ideal</strong>: a subset $I\subseteq R$ closed under addition and under multiplication by <em>any</em> ring element, i.e. $rI\subseteq I$ for every $r\in R$. Ideals are exactly the kernels of ring homomorphisms, and the quotient ring $R/I$ is well-defined with the usual coset arithmetic $(r+I)+(s+I)=r+s+I,\ (r+I)(s+I)=rs+I$.</p>
+<p>Two sub-species matter most. A <strong>prime ideal</strong> $\mathfrak{p}$ satisfies $ab\in\mathfrak{p}\Rightarrow a\in\mathfrak{p}$ or $b\in\mathfrak{p}$, equivalently $R/\mathfrak{p}$ is an integral domain. A <strong>maximal ideal</strong> $\mathfrak{m}$ is a proper ideal with no proper ideal strictly containing it, equivalently $R/\mathfrak{m}$ is a field. Concretely in $\mathbb{Z}$ the prime ideals are $(0)$ and $(p)$ for $p$ prime, and the maximal ideals are exactly $(p)$; this is why $\mathbb{Z}/(p)=\mathbb{F}_p$ is a field while $\mathbb{Z}/(6)$ is not even a domain (since $2\cdot 3\equiv 0$).</p>
+<p>The Third Isomorphism Theorem for rings, $R/I \big/ (J/I)\cong R/J$ whenever $I\subseteq J$, shows that passing to a quotient just collapses ideals above $I$ onto the corresponding ideals of $R/I$. This is the algebraic counterpart of restricting to a closed subscheme in algebraic geometry.</p>
+<div class="quiz" data-concept="ring-ideals"></div>
+</section>
+
+<section id="extensions">
+<h2>8. Field extensions and minimal polynomials</h2>
+<p>A <strong>field extension</strong> $F\subseteq K$ turns $K$ into an $F$-vector space; its dimension $[K:F]$ is the <em>degree</em> of the extension. An element $\alpha\in K$ is <em>algebraic</em> over $F$ if $p(\alpha)=0$ for some nonzero $p\in F[x]$, and <em>transcendental</em> otherwise. For algebraic $\alpha$, the set of polynomials killing $\alpha$ is an ideal of $F[x]$ — and since $F[x]$ is a principal ideal domain, that ideal is $(m_\alpha)$ for a unique monic irreducible $m_\alpha$, the <strong>minimal polynomial</strong>.</p>
+<p>Adjoining $\alpha$ gives $F(\alpha)\cong F[x]/(m_\alpha)$ by the evaluation map $x\mapsto \alpha$ and the First Isomorphism Theorem: the kernel is exactly $(m_\alpha)$, so the image — a subring of $K$ — is isomorphic to the quotient, which is a field because $(m_\alpha)$ is maximal whenever $m_\alpha$ is irreducible. Its dimension over $F$ is $\deg m_\alpha$, so $[F(\alpha):F]=\deg m_\alpha$. The Tower Law $[L:F]=[L:K]\cdot[K:F]$ then multiplies degrees through a chain $F\subseteq K\subseteq L$, e.g. $[\mathbb{Q}(\sqrt{2},\sqrt{3}):\mathbb{Q}]=2\cdot 2=4$.</p>
+<p>A polynomial $f\in F[x]$ of degree $n$ <em>splits</em> in an extension $K/F$ if $f=c\prod_{i=1}^n(x-\alpha_i)$ with each $\alpha_i\in K$; the smallest such $K$ is the <strong>splitting field</strong> of $f$, always algebraic and of finite degree $\le n!$. Splitting fields are the springboard for Galois theory, where automorphisms of $K$ fixing $F$ permute the roots of $f$.</p>
+<div class="quiz" data-concept="field-extensions-basics"></div>
+</section>
 
 <div id="sections-end"></div>
 

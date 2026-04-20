@@ -111,6 +111,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -274,6 +277,7 @@ over open covers ordered by refinement. For paracompact Hausdorff $X$ this agree
 
 <h3>Functoriality</h3>
 <p>A morphism of sheaves $\mathcal{F} \to \mathcal{G}$ induces $\check{C}^p(\mathcal{U}, \mathcal{F}) \to \check{C}^p(\mathcal{U}, \mathcal{G})$ by postcomposing each section. This commutes with $d$ and descends to $\check{H}^p$. A refinement of covers $\mathcal{V} \prec \mathcal{U}$ and a choice of refinement map $\tau\colon \mathrm{Ind}(\mathcal{V}) \to \mathrm{Ind}(\mathcal{U})$ induces $\check{C}^p(\mathcal{U},\mathcal{F}) \to \check{C}^p(\mathcal{V},\mathcal{F})$ by restricting sections; different choices of $\tau$ are chain-homotopic, so the map on $\check{H}^p$ is canonical. These pieces assemble into a bifunctor $\check{H}^p(-, -)$ in the cover and the sheaf separately.</p>
+<div class="quiz" data-concept="cech-cohomology"></div>
 </section>
 
 <section id="simple">
@@ -372,6 +376,7 @@ When $f$ is an affine morphism of schemes and $\mathcal{F}$ is quasi-coherent, $
   <li><strong>Soft/fine</strong> — for a paracompact Hausdorff $X$, any sheaf admits a fine resolution (tensor with smooth partitions of unity on manifolds); the de Rham complex of a smooth manifold is the canonical example. $H^p_{\mathrm{dR}}(X) = H^p(X, \underline{\mathbb{R}})$ follows from this with two lines of extra argument.</li>
   <li><strong>Čech / affine</strong> — for a scheme with an affine cover, apply Leray; the Čech complex <em>is</em> a resolution computed through the affines.</li>
 </ul>
+<div class="quiz" data-concept="derived-functor-cohomology"></div>
 </section>
 
 <section id="leray">
@@ -632,6 +637,7 @@ Combine with Serre duality ($H^1(L) \cong H^0(\omega_C \otimes L^{-1})^\vee$, $\
   <li>$d \leq -2$: $h^0 = 0$, $h^1 = -d - 1$. RR: $0 - (-d-1) = d + 1$. ✓</li>
 </ul>
 <p>The two sides match exactly the §3 and §7 computations.</p>
+<div class="quiz" data-concept="applications-picard-serre"></div>
 </section>
 
 <section id="coda">
@@ -1362,6 +1368,14 @@ is an equalizer for every étale cover. The derived functors of $\Gamma$ on this
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('sheaf-cohomology'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

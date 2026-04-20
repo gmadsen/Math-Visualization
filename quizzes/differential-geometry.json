@@ -1,0 +1,165 @@
+{
+  "topic": "differential-geometry",
+  "quizzes": {
+    "curves-surfaces-dg": {
+      "title": "Curves and surfaces in R^3",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A local parametrization $\\mathbf{x}\\colon U\\subseteq\\mathbb{R}^2\\to S$ is regular at $q\\in U$ exactly when:",
+          "choices": [
+            "$\\mathbf{x}(q)$ is the origin",
+            "$\\mathbf{x}_u(q)$ and $\\mathbf{x}_v(q)$ are linearly independent (equivalently $\\mathbf{x}_u\\times\\mathbf{x}_v\\neq 0$)",
+            "$\\mathbf{x}$ is linear",
+            "$\\mathbf{x}_u(q)=\\mathbf{x}_v(q)$"
+          ],
+          "answer": 1,
+          "explain": "Regularity means $d\\mathbf{x}_q$ is injective, i.e. the two partial derivatives span a 2-plane; equivalently their cross product is nonzero."
+        },
+        {
+          "type": "numeric",
+          "q": "For the unit-speed circle $\\gamma(t)=(\\cos t,\\sin t)$ in the plane, what is the curvature $\\kappa$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "A unit circle has $\\kappa=1/R=1$. In general $\\kappa=|\\ddot\\gamma|$ for a unit-speed planar curve, and here $|\\ddot\\gamma|=1$."
+        },
+        {
+          "type": "complex",
+          "q": "Let $\\mathbf{x}(u,v)=(u,v,u^2-v^2)$ (the saddle). At $(u,v)=(0,0)$, $\\mathbf{x}_u\\times\\mathbf{x}_v=(a,b,c)$. Give $a+bi$.",
+          "answer": [0, 0],
+          "tol": 1e-6,
+          "explain": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$. At $(0,0)$ the cross product is $(0,0,1)$, so $a=0,b=0$."
+        }
+      ]
+    },
+    "first-second-fundamental": {
+      "title": "First and second fundamental forms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The first fundamental form $I=E\\,du^2+2F\\,du\\,dv+G\\,dv^2$ encodes:",
+          "choices": [
+            "the way $S$ bends in $\\mathbb{R}^3$",
+            "intrinsic lengths, angles, and areas on $S$",
+            "the Euler characteristic of $S$",
+            "only the orientation of $S$"
+          ],
+          "answer": 1,
+          "explain": "$I$ is the restricted Euclidean inner product on each tangent plane — it determines intrinsic length, angle, and area. Bending information lives in the second fundamental form."
+        },
+        {
+          "type": "numeric",
+          "q": "For the cylinder $\\mathbf{x}(u,v)=(\\cos u,\\sin u,v)$, compute $E\\cdot G-F^2$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the sphere of radius $R$ with $\\mathbf{x}(u,v)=(R\\sin u\\cos v,R\\sin u\\sin v,R\\cos u)$, compute $E$ at any $(u,v)$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$. For general $R$, $E=R^2$; taking $R=1$ gives $1$."
+        }
+      ]
+    },
+    "gauss-map": {
+      "title": "Gauss map and shape operator",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The shape operator $S_p = -dN_p$ on $T_pS$ is:",
+          "choices": [
+            "skew-adjoint with respect to $I$, hence has purely imaginary eigenvalues",
+            "self-adjoint with respect to $I$, hence diagonalizable with real eigenvalues (the principal curvatures)",
+            "always a scalar multiple of the identity",
+            "nilpotent when $K\\neq 0$"
+          ],
+          "answer": 1,
+          "explain": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal curvatures) along orthogonal principal directions."
+        },
+        {
+          "type": "numeric",
+          "q": "On the round sphere of radius $R$ the Gauss map is $\\mathbf{n}(p)=p/R$, so $S_p=(1/R)\\,\\mathrm{id}$. Give the Gaussian curvature $K=\\det S_p$ when $R=3$.",
+          "answer": 0.1111111111111111,
+          "tol": 1e-6,
+          "explain": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$. For $R=3$, $K=1/9\\approx 0.1111$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a cylinder of radius $1$, the image of the Gauss map $\\mathbf{n}:S\\to S^2$ is:",
+          "choices": [
+            "a single point (the cylinder is flat-looking)",
+            "the whole sphere $S^2$",
+            "a great circle on $S^2$ (the equator)",
+            "two antipodal points"
+          ],
+          "answer": 2,
+          "explain": "On a cylinder the unit normal always lies in the horizontal plane, so $\\mathbf{n}$ traces out a great circle. The image has measure zero on $S^2$, consistent with $K\\equiv 0$."
+        }
+      ]
+    },
+    "gauss-curvature-geodesics": {
+      "title": "Gaussian curvature and geodesics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Theorema Egregium says Gaussian curvature $K$ is:",
+          "choices": [
+            "always zero on a compact surface",
+            "determined by the first fundamental form alone (an intrinsic invariant)",
+            "equal to the mean curvature",
+            "determined by the embedding in $\\mathbb{R}^3$ only"
+          ],
+          "answer": 1,
+          "explain": "Gauss's remarkable theorem: $K$ is computable from $(E,F,G)$ and their derivatives alone, so it is an isometric invariant — intrinsic."
+        },
+        {
+          "type": "numeric",
+          "q": "On the sphere of radius $R$, the Gaussian curvature is constant. Compute $K$ when $R=2$.",
+          "answer": 0.25,
+          "tol": 1e-6,
+          "explain": "For a round sphere of radius $R$, $K=1/R^2$. With $R=2$ that is $1/4=0.25$."
+        },
+        {
+          "type": "numeric",
+          "q": "A geodesic triangle on the unit sphere has interior angles $\\pi/2,\\pi/2,\\pi/2$. By Gauss–Bonnet, its area equals the angle excess. What is the area?",
+          "answer": 1.5707963267948966,
+          "tol": 1e-6,
+          "explain": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$. On the unit sphere $K=1$, so area $=\\int K\\,dA=\\pi/2\\approx 1.5708$."
+        }
+      ]
+    },
+    "gauss-bonnet": {
+      "title": "Gauss–Bonnet theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The global Gauss–Bonnet theorem states that for a compact oriented surface $S$ without boundary:",
+          "choices": [
+            "$\\int_S K\\,dA = 0$ always",
+            "$\\int_S K\\,dA = 2\\pi\\chi(S)$",
+            "$\\int_S K\\,dA = 4\\pi g$, where $g$ is the genus",
+            "$\\int_S H\\,dA = 2\\pi\\chi(S)$ (mean curvature, not Gaussian)"
+          ],
+          "answer": 1,
+          "explain": "Total Gaussian curvature equals $2\\pi$ times the Euler characteristic $\\chi(S)=V-E+F=2-2g$. It couples differential geometry ($K$) to topology ($\\chi$)."
+        },
+        {
+          "type": "numeric",
+          "q": "For a closed genus-$3$ orientable surface, compute $\\int_S K\\,dA$.",
+          "answer": -25.132741228718345,
+          "tol": 1e-5,
+          "explain": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$."
+        },
+        {
+          "type": "numeric",
+          "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
+          "answer": 2.0943951023931953,
+          "tol": 1e-6,
+          "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
+        }
+      ]
+    }
+  }
+}

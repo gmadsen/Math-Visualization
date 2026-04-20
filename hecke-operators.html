@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -424,6 +427,7 @@ $$(T_p f)(\tau) \;=\; p^{\,k-1}\, f(p\tau) \;+\; \frac{1}{p} \sum_{b=0}^{p-1} f\
 </script>
 
 <p>The weight factor $p^{k-1}$ is there for exactly one reason: to make $(T_p f)(\tau)$ a modular form of the <em>same</em> weight $k$ — not of weight $k$ shifted by anything. Checking that $(T_p f)|_k \gamma = T_p f$ for every $\gamma \in \mathrm{SL}_2(\mathbb{Z})$ is a short calculation using the right coset decomposition of $\mathrm{SL}_2(\mathbb{Z})\, \mathrm{diag}(1,p)\, \mathrm{SL}_2(\mathbb{Z})$.</p>
+<div class="quiz" data-concept="hecke-operator-tp"></div>
 </section>
 
 <section id="qexp">
@@ -560,6 +564,7 @@ $$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},
   draw();
 })();
 </script>
+<div class="quiz" data-concept="hecke-q-expansion-action"></div>
 </section>
 
 <section id="algebra">
@@ -629,6 +634,7 @@ For $n = p$ prime this specializes to the formula above. The crucial structural 
 
 <h3>Why does $T_m T_n = T_n T_m$?</h3>
 <p>The slick proof goes through the <em>double coset algebra</em>. The operators $T_p$ correspond to the double coset $\mathrm{SL}_2(\mathbb{Z})\, \mathrm{diag}(1,p)\, \mathrm{SL}_2(\mathbb{Z})$ in $\mathrm{GL}_2^+(\mathbb{Q})$, and the product of two double cosets is commutative by the Satake isomorphism (abstractly: because $\mathrm{GL}_2$ modulo its center is "almost" a symmetric space). A direct coefficient computation also works — expand $T_m T_n$ on $q$-expansions using the formula above and check the divisor sum collapses symmetrically in $m,n$.</p>
+<div class="quiz" data-concept="hecke-algebra-commuting"></div>
 </section>
 
 <section id="eigen">
@@ -799,6 +805,7 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
   check();
 })();
 </script>
+<div class="quiz" data-concept="eigenforms-and-euler-factors"></div>
 </section>
 
 <section id="petersson">
@@ -1090,6 +1097,13 @@ $$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('hecke-operators'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

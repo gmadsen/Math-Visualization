@@ -13,6 +13,27 @@
       "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action."
     },
     {
+      "id": "splitting-types",
+      "title": "Splitting types: split, inert, ramified",
+      "anchor": "splitting",
+      "prereqs": [
+        "frobenius-element",
+        "prime-ideals-factorization-ant"
+      ],
+      "blurb": "Unramified primes in a Galois extension come in a small zoo of splitting behaviours — completely split, inert, or partially split — each recorded by a cycle shape of Frobenius."
+    },
+    {
+      "id": "decomposition-group",
+      "title": "Decomposition and inertia groups",
+      "anchor": "decomposition",
+      "prereqs": [
+        "frobenius-element",
+        "prime-ideals-factorization-ant",
+        "fundamental-theorem-galois"
+      ],
+      "blurb": "The stabiliser of a prime above p is its decomposition group; its kernel onto the residue-field Galois group is the inertia subgroup, and Frobenius is the generator of the quotient."
+    },
+    {
       "id": "chebotarev-density",
       "title": "Chebotarev density",
       "anchor": "chebotarev",

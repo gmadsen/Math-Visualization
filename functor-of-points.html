@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -164,6 +167,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#moduli">5&nbsp;Moduli</a>
   <a href="#fail">6&nbsp;Why&nbsp;it&nbsp;fails</a>
   <a href="#stacks">7&nbsp;Preview:&nbsp;stacks</a>
+  <a href="#yoneda-embedding">8&nbsp;Yoneda&nbsp;embedding</a>
+  <a href="#base-change">9&nbsp;Base&nbsp;change</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -276,6 +281,8 @@ $$X \ \leftrightarrow\  h_X\big|_{\mathrm{CRing}} : \mathrm{CRing} \to \mathsf{S
   render();
 })();
 </script>
+
+<div class="quiz" data-concept="yoneda-functor-points"></div>
 </section>
 
 <section id="affine">
@@ -575,6 +582,8 @@ $$F \text{ representable by } \operatorname{Spec} A \quad\Longleftrightarrow\qua
 <p>Representability is a <em>theorem</em>, not a definition: you exhibit the pair $(A, \xi)$ where $\xi \in F(A)$ is universal, and then verify that "map out of $A$" is really the same as "element of $F(R)$."</p>
 
 <div class="ok"><strong>Yoneda uniqueness.</strong> If both $X$ and $Y$ represent $F$, then $h_X \cong h_Y$, hence $X \cong Y$ in $\mathsf{Sch}$ by Yoneda. The representing scheme is unique up to unique isomorphism.</div>
+
+<div class="quiz" data-concept="representability-criteria"></div>
 </section>
 
 <section id="gln">
@@ -965,6 +974,46 @@ $$\mathrm{CRing} \longrightarrow \mathsf{Grpd},$$
 
 <p>The functor-of-points perspective is then the base camp from which stacks become a modest and natural extension — not a new abstraction, but the same game played in a 2-category.</p>
 
+<div class="quiz" data-concept="stacky-obstructions"></div>
+
+</section>
+
+<section id="yoneda-embedding">
+<h2>8. The Yoneda embedding for schemes</h2>
+
+<p>The functor-of-points reframe of §1 is justified by a single theorem: the assignment</p>
+
+$$h_{(-)}: \mathsf{Sch} \longrightarrow \mathrm{Fun}(\mathsf{Sch}^{\mathrm{op}}, \mathsf{Set}), \qquad X \longmapsto h_X = \mathrm{Hom}_{\mathsf{Sch}}(-, X)$$
+
+<p>is <strong>fully faithful</strong>. This is the Yoneda lemma in its representable form: for any presheaf $F$ on $\mathsf{Sch}$, $\mathrm{Nat}(h_X, F) \cong F(X)$ naturally in $X$, with the isomorphism sending a natural transformation $\eta$ to $\eta_X(\mathrm{id}_X) \in F(X)$. Taking $F = h_Y$ yields $\mathrm{Nat}(h_X, h_Y) \cong \mathrm{Hom}_{\mathsf{Sch}}(X,Y)$, so a natural transformation between representable functors is the same data as a scheme morphism — no more, no less.</p>
+
+<p>Two consequences make this workhorse. First, to define a morphism $X \to Y$ you may equivalently give a rule that to each test ring $R$ assigns a function $X(R) \to Y(R)$ natural in $R$; second, to define a scheme at all it is sometimes cleaner to write down the functor $R \mapsto X(R)$ directly and then <em>prove</em> representability by exhibiting a representing scheme. The identity $\mathrm{id}_X \in h_X(X)$ is the universal element: every $R$-point $x \in X(R)$ is the pushforward of $\mathrm{id}_X$ along the classifying map $\mathrm{Spec}\,R \to X$, and every natural transformation out of $h_X$ is determined by its value there.</p>
+
+<div class="note">
+<strong>Why "embedding".</strong> Full faithfulness means $\mathsf{Sch}$ sits inside presheaves on rings as a reflective subcategory. Presheaves that land in that subcategory are exactly the representable ones — equivalently, those satisfying Zariski (or fppf, fpqc, …) descent plus a local representability condition. Objects that satisfy descent but are not representable are precisely the <em>algebraic spaces</em> and <em>stacks</em> from §7: the embedding picture tells you where the generalization lives.
+</div>
+
+<div class="quiz" data-concept="yoneda-embedding-ag"></div>
+
+</section>
+
+<section id="base-change">
+<h2>9. Base change as pullback of functors</h2>
+
+<p>Representable functors preserve limits, so fiber products of schemes are computed pointwise on their functors of points:</p>
+
+$$(X \times_S Y)(T) \;=\; X(T) \times_{S(T)} Y(T).$$
+
+<p>Nothing about this equality is subtle — both sides are sets and it is an identity of sets, natural in the test scheme $T$. But the consequences for <strong>base change</strong> are immediate. Given $X \to S$ and a morphism $S' \to S$, the base-changed scheme $X_{S'} = X \times_S S'$ has functor of points $X_{S'}(T) = X(T) \times_{S(T)} S'(T)$; for affine $T = \mathrm{Spec}\,R$ and $S = \mathrm{Spec}\,k$ this simplifies to $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure. Extending scalars is literally restricting the functor to a slice category.</p>
+
+<p>Three practical payoffs. (i) <em>Computing fibers.</em> The fiber $X_s$ of $X \to S$ over a point $s: \mathrm{Spec}\,\kappa(s) \to S$ has $X_s(R) = \{x \in X(R) : x \text{ maps to } s\}$ — exactly solving the original equations over the residue field. (ii) <em>Weil restriction.</em> If $L/k$ is a finite extension and $X$ is an $L$-scheme, the Weil restriction $\mathrm{Res}_{L/k} X$ represents the functor $R \mapsto X(R \otimes_k L)$; the functor of points makes this <em>definition</em>, not a theorem. (iii) <em>Twists and descent.</em> Base-change agreement between two schemes over $L$ that become isomorphic over $\bar k$ is exactly equality of their functors restricted to $\bar k$-algebras, with Galois descent controlling when the common functor descends to a $k$-scheme.</p>
+
+<div class="note">
+<strong>Worked fiber.</strong> Let $X = \mathrm{Spec}\,\mathbb{Z}[x]/(x^2 - p)$ with the obvious map to $\mathrm{Spec}\,\mathbb{Z}$. For a prime $\ell \ne p$ with $p$ a square mod $\ell$, the fiber $X_{\mathbb{F}_\ell}$ has $X_{\mathbb{F}_\ell}(\mathbb{F}_\ell) = \{\pm\sqrt{p}\} \subset \mathbb{F}_\ell$, two points; for $\ell = p$ it has the single fat point $\mathrm{Spec}\,\mathbb{F}_p[x]/(x^2)$. The functor of points reads these off without setting up any sheaves.
+</div>
+
+<div class="quiz" data-concept="base-change-interpretation"></div>
+
 <div class="row" style="justify-content:space-between;margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem">
   <div><a href="./elliptic-curves.html" style="color:var(--mute)">← elliptic curves</a></div>
   <div><a href="./schemes.html" style="color:var(--mute)">schemes</a></div>
@@ -1022,6 +1071,14 @@ $$\mathrm{CRing} \longrightarrow \mathsf{Grpd},$$
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('functor-of-points'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

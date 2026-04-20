@@ -163,8 +163,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#euler">3&nbsp;Euler&nbsp;products</a>
   <a href="#chars">4&nbsp;Characters&nbsp;&amp;&nbsp;L</a>
   <a href="#cont">5&nbsp;Continuation</a>
-  <a href="#dir">6&nbsp;Primes&nbsp;in&nbsp;APs</a>
-  <a href="#forward">7&nbsp;What&nbsp;comes&nbsp;next</a>
+  <a href="#mellin">6&nbsp;Mellin&nbsp;transform</a>
+  <a href="#perron">7&nbsp;Perron's&nbsp;formula</a>
+  <a href="#dir">8&nbsp;Primes&nbsp;in&nbsp;APs</a>
+  <a href="#forward">9&nbsp;What&nbsp;comes&nbsp;next</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -809,8 +811,278 @@ $$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p>
 })();
 </script>
 
+<section id="mellin">
+<h2>6. The Mellin transform: turning series into integrals</h2>
+<p>Every identity of the form "a Dirichlet series equals an integral against a theta-like kernel" is an instance of the <strong>Mellin transform</strong>. For a function $f\colon (0,\infty)\to\mathbb{C}$ decaying fast enough at both ends, define
+$$\mathcal{M}[f](s) \;=\; \int_0^\infty f(x)\,x^{s-1}\,dx.$$
+This is the multiplicative analogue of the Fourier transform: substituting $x=e^u$ converts it into $\int_{-\infty}^\infty f(e^u) e^{us}\,du$, a Laplace/Fourier transform on the line. Its inverse is a vertical contour integral,
+$$f(x) \;=\; \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} \mathcal{M}[f](s)\,x^{-s}\,ds,$$
+taken along any line $\mathrm{Re}\,s = c$ inside the strip of absolute convergence.</p>
+
+<p>The key computation that links Mellin to Dirichlet series is the gamma integral $\int_0^\infty e^{-nx} x^{s-1}\,dx = \Gamma(s)\,n^{-s}$. Summing over $n$ and interchanging,
+$$\Gamma(s)\,\sum_{n\ge 1}\frac{a_n}{n^s} \;=\; \int_0^\infty \Bigl(\sum_{n\ge 1} a_n e^{-nx}\Bigr) x^{s-1}\,dx \;=\; \mathcal{M}\!\bigl[\textstyle\sum_n a_n e^{-nx}\bigr](s).$$
+A Dirichlet series has become the Mellin transform of a generating function on the positive real axis. For $a_n=1$ the generating function is $1/(e^x-1)$, giving $\Gamma(s)\zeta(s) = \int_0^\infty x^{s-1}/(e^x-1)\,dx$. For $a_n=1$ on squares (via $\theta(x)$), the same recipe produces Riemann's integral representation of $\Lambda(s)$ from <a href="#cont">section 5</a>. <a href="./complex-analysis.html">Complex analysis</a> takes over from here: the integral is an <em>analytic</em> object, so continuation is automatic once you control the kernel.</p>
+
+<div class="widget" id="w-mellin">
+  <div class="hd"><div class="ttl">Gamma integral $\int_0^\infty x^{s-1} e^{-nx}\,dx = \Gamma(s)\,n^{-s}$</div><div class="hint">drag $s$ and $n$</div></div>
+  <svg id="ml-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <div class="row">
+    <label>$s$</label>
+    <input type="range" id="ml-s" min="0.3" max="4" step="0.02" value="2">
+    <span id="ml-sv" class="small">s = 2.00</span>
+  </div>
+  <div class="row">
+    <label>$n$</label>
+    <input type="range" id="ml-n" min="1" max="6" step="1" value="2">
+    <span id="ml-nv" class="small">n = 2</span>
+  </div>
+  <div class="readout" id="ml-out"></div>
+  <div class="small">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\Gamma(s)\,n^{-s}$ — exact equality up to sampling error.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 6 widget: gamma/Mellin integral =============================== */
+(function(){
+  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');
+  const W = 620, H = 260, pad = 40;
+
+  // Lanczos approximation for Gamma
+  function gamma(z){
+    const g = 7;
+    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+               771.32342877765313, -176.61502916214059, 12.507343278686905,
+               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));
+    z -= 1;
+    let x = c[0];
+    for(let i=1;i<g+2;i++) x += c[i]/(z+i);
+    const t = z + g + 0.5;
+    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;
+  }
+
+  function integrand(x, s, n){
+    // x^{s-1} * e^{-n x}
+    return Math.pow(x, s-1) * Math.exp(-n*x);
+  }
+
+  function integrate(s, n){
+    // trapezoidal rule on [eps, X] with adaptive upper bound
+    const eps = 1e-4;
+    const X = 60 / n;           // e^{-nx} is negligible past ~60/n
+    const N = 4000;
+    const dx = (X - eps) / N;
+    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));
+    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);
+    return S * dx;
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const s = parseFloat(sR.value), n = parseInt(nR.value,10);
+    sv.textContent = 's = ' + s.toFixed(2);
+    nv.textContent = 'n = ' + n;
+
+    // plot integrand on x ∈ [0, 10/n]
+    const xmin = 0, xmax = 10/n;
+    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+    // find ymax from sampling
+    let ymax = 0;
+    const samples = [];
+    const steps = 300;
+    for(let i=0;i<=steps;i++){
+      const x = xmin + (xmax-xmin)*i/steps;
+      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);
+      samples.push({x, y});
+      if(isFinite(y) && y > ymax) ymax = y;
+    }
+    ymax *= 1.1;
+    if(!isFinite(ymax) || ymax <= 0) ymax = 1;
+    const toY = y => H - pad - (y/ymax)*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));
+
+    // shaded area under curve (the integral)
+    let area = `M${toX(xmin)} ${toY(0)} `;
+    for(const {x,y} of samples){
+      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;
+      area += `L${toX(x)} ${toY(yy)} `;
+    }
+    area += `L${toX(xmax)} ${toY(0)} Z`;
+    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));
+
+    // curve
+    let d = '';
+    let first = true;
+    for(const {x,y} of samples){
+      if(!isFinite(y)) continue;
+      const yy = Math.min(y, ymax);
+      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';
+      first = false;
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));
+
+    // x ticks
+    for(let k=0;k<=5;k++){
+      const xv = xmin + (xmax-xmin)*k/5;
+      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+      t.textContent = xv.toFixed(2); svg.appendChild(t);
+    }
+
+    // numeric check
+    const numerical = integrate(s, n);
+    const theoretical = gamma(s) * Math.pow(n, -s);
+    out.textContent =
+      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\n` +
+      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\n` +
+      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;
+  }
+  sR.addEventListener('input', draw);
+  nR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="mellin-transform-dirichlet"></div>
+
+<section id="perron">
+<h2>7. Perron's formula: recovering coefficients from the series</h2>
+<p>A Dirichlet series $D(s) = \sum_{n\ge 1} a_n/n^s$ encodes the sequence $(a_n)$ as an analytic function. How do we run the encoding backwards? The answer is <strong>Perron's formula</strong>: for any $c > \sigma_a$ and $x > 0$ not an integer,
+$$A(x) \;=\; \sum_{n < x} a_n \;=\; \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} D(s)\,\frac{x^s}{s}\,ds.$$
+It is a Mellin-inversion identity dressed up with the kernel $x^s/s$, whose discontinuous step function $\mathbf{1}[n<x]$ at every integer is precisely what picks out the summatory function on the left. Proof in one line: plug in $D(s)=\sum a_n n^{-s}$, interchange, and use the standard contour integral $\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}(x/n)^s\,ds/s = \mathbf{1}[n<x]$ (shift the line left when $n<x$, right when $n>x$, picking up the residue at $s=0$ in the first case).</p>
+
+<p>The payoff is asymptotic analysis by <em>residue bookkeeping</em>. Shift the contour $\mathrm{Re}\,s=c$ to the left past the poles of $D(s)x^s/s$; each pole contributes a residue that becomes a main term in $A(x)$. For $D = \zeta$, the pole of $\zeta(s)$ at $s=1$ contributes residue $x$, and the simple pole of $1/s$ at $s=0$ contributes $\zeta(0) = -1/2$:
+$$\sum_{n<x} 1 \;=\; x - \tfrac12 + \frac{1}{2\pi i}\!\int_{(c')} \zeta(s)\frac{x^s}{s}\,ds,\qquad c' < 0.$$
+The remaining integral is $O(1)$ — i.e. the floor function is $x-1/2+O(1)$, which we could have seen directly. The real power of Perron is with $D(s) = \zeta'(s)/\zeta(s) = -\sum \Lambda(n) n^{-s}$, where the pole at $s=1$ yields the prime number theorem $\sum_{n<x}\Lambda(n)\sim x$ and the zeros of $\zeta$ become oscillatory error terms — each non-trivial zero $\rho=\beta+i\gamma$ contributes $-x^\rho/\rho$. The <a href="./complex-analysis.html">residue theorem</a> does the accounting.</p>
+
+<div class="widget" id="w-perron">
+  <div class="hd"><div class="ttl">Perron inversion for $\zeta(s)$: step function $\lfloor x\rfloor$</div><div class="hint">truncate integral at height $T$</div></div>
+  <svg id="pr-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <div class="row">
+    <label>cutoff $T$</label>
+    <input type="range" id="pr-T" min="5" max="80" step="1" value="25">
+    <span id="pr-Tv" class="small">T = 25</span>
+  </div>
+  <div class="readout" id="pr-out"></div>
+  <div class="small">Truncated Perron approximation to $\sum_{n<x} 1 = \lfloor x\rfloor$ from $\frac{1}{2\pi i}\int_{c-iT}^{c+iT}\zeta(s)x^s/s\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\to\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>
+</div>
+</section>
+
+<script>
+/* =============================== SECTION 7 widget: truncated Perron =============================== */
+(function(){
+  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');
+  const W = 620, H = 280, pad = 40;
+  const xmin = 0.2, xmax = 8;
+
+  // partial zeta on vertical line
+  function zetaComplex(sigma, t, N){
+    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))
+    let re=0, im=0;
+    for(let n=1;n<=N;n++){
+      const nps = Math.pow(n, -sigma);
+      const arg = t * Math.log(n);
+      re += nps * Math.cos(arg);
+      im -= nps * Math.sin(arg);
+    }
+    return {re, im};
+  }
+
+  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt
+  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)
+  function truncatedPerron(x, T, c, M){
+    const N = 30;        // truncate ζ series
+    const Ntheta = 2*M;  // number of sample points in t
+    let Sre=0, Sim=0;
+    const dt = (2*T)/Ntheta;
+    for(let k=0;k<=Ntheta;k++){
+      const t = -T + k*dt;
+      // ζ(c+it) approx
+      const z = zetaComplex(c, t, N);
+      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))
+      const xc = Math.pow(x, c);
+      const lnx = Math.log(x);
+      const xre = xc * Math.cos(t*lnx);
+      const xim = xc * Math.sin(t*lnx);
+      // product z * x^s
+      const pre = z.re*xre - z.im*xim;
+      const pim = z.re*xim + z.im*xre;
+      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)
+      const denom = c*c + t*t;
+      const dre = c/denom, dim = -t/denom;
+      const qre = pre*dre - pim*dim;
+      const qim = pre*dim + pim*dre;
+      const w = (k===0 || k===Ntheta) ? 0.5 : 1;
+      Sre += w*qre;
+      Sim += w*qim;
+    }
+    Sre *= dt / (2*Math.PI);
+    Sim *= dt / (2*Math.PI);
+    return Sre;  // real part is the answer
+  }
+
+  function draw(){
+    svg.innerHTML = '';
+    const T = parseInt(TR.value,10);
+    Tv.textContent = 'T = ' + T;
+    const c = 2;
+    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T
+
+    const ymax = Math.floor(xmax) + 1.5;
+    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);
+    const toY = y => H - pad - y/ymax*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));
+
+    // exact floor function
+    let fd = '';
+    for(let k=0;k<=Math.floor(xmax);k++){
+      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);
+      if(x2 <= x1) continue;
+      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;
+    }
+    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));
+
+    // truncated Perron curve
+    const steps = 60;
+    let d = '';
+    for(let i=0;i<=steps;i++){
+      const x = xmin + (xmax-xmin)*i/steps;
+      const y = truncatedPerron(x, T, c, M);
+      const yc = Math.min(Math.max(y, -0.5), ymax);
+      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+
+    // ticks
+    for(let k=0;k<=Math.floor(xmax);k++){
+      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = k; svg.appendChild(t);
+    }
+
+    // legend
+    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});
+    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);
+    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});
+    L2.textContent = '— truncated Perron'; svg.appendChild(L2);
+
+    const xTest = 3.5;
+    const yTest = truncatedPerron(xTest, T, c, M);
+    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;
+  }
+  TR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="perron-formula"></div>
+
 <section id="dir">
-<h2>6. Dirichlet's theorem: primes in arithmetic progressions</h2>
+<h2>8. Dirichlet's theorem: primes in arithmetic progressions</h2>
 <p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\gcd(a,N) = 1$, then there are infinitely many primes $p$ with $p \equiv a \pmod N$.</em></p>
 
 <p>Euclid showed infinitely many primes by evaluating $\zeta(s)$ at $s=1$ and watching it blow up. Dirichlet's theorem refines this: not just "infinitely many primes" but "infinitely many primes in <em>each</em> residue class coprime to $N$." The proof runs on $L$-functions.</p>

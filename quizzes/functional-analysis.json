@@ -1,0 +1,185 @@
+{
+  "topic": "functional-analysis",
+  "quizzes": {
+    "banach-hilbert-spaces": {
+      "title": "Banach and Hilbert spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which condition distinguishes a Banach space from an arbitrary normed space?",
+          "choices": [
+            "the norm is induced by an inner product",
+            "the space is finite-dimensional",
+            "the space is complete in the metric $d(x,y)=\\|x-y\\|$",
+            "the unit ball is compact"
+          ],
+          "answer": 2,
+          "explain": "A Banach space is a normed vector space in which every Cauchy sequence converges. Inner products give Hilbert spaces; compact unit balls characterize finite-dimensional normed spaces."
+        },
+        {
+          "type": "mcq",
+          "q": "A norm $\\|\\cdot\\|$ on a real vector space arises from an inner product if and only if it satisfies:",
+          "choices": [
+            "the triangle inequality",
+            "the parallelogram law $\\|x+y\\|^2+\\|x-y\\|^2=2\\|x\\|^2+2\\|y\\|^2$",
+            "the Cauchy–Schwarz inequality",
+            "$\\|\\alpha x\\|=|\\alpha|\\|x\\|$"
+          ],
+          "answer": 1,
+          "explain": "The Jordan–von Neumann theorem: a norm comes from an inner product iff it obeys the parallelogram law. The inner product is then recovered by polarization."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\ell^2$, compute $\\|x\\|_2$ for $x=(1,2,2,0,0,\\ldots)$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$."
+        }
+      ]
+    },
+    "bounded-operators-fa": {
+      "title": "Bounded operators and adjoints",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a linear map $T\\colon X\\to Y$ between normed spaces, which of the following is NOT equivalent to the others?",
+          "choices": [
+            "$T$ is continuous at $0$",
+            "$T$ is continuous everywhere",
+            "$\\sup_{\\|x\\|\\le 1}\\|Tx\\|<\\infty$",
+            "$T$ is injective"
+          ],
+          "answer": 3,
+          "explain": "Continuity at a point, continuity everywhere, and boundedness are equivalent for linear maps. Injectivity is unrelated: the zero map is bounded and continuous but not injective."
+        },
+        {
+          "type": "mcq",
+          "q": "The adjoint $T^*$ of a bounded operator on a Hilbert space satisfies the $C^*$-identity:",
+          "choices": [
+            "$\\|T^*T\\|=\\|T\\|$",
+            "$\\|T^*T\\|=\\|T\\|^2$",
+            "$T^*T=I$ for every $T$",
+            "$\\|T^*\\|=2\\|T\\|$"
+          ],
+          "answer": 1,
+          "explain": "The defining $C^*$-identity is $\\|T^*T\\|=\\|T\\|^2$. Combined with $\\|T^*\\|=\\|T\\|$, it pins down the Hilbert-space operator norm."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\ell^2$, let $S$ be the unilateral (right) shift $S(x_1,x_2,\\ldots)=(0,x_1,x_2,\\ldots)$. What is the operator norm $\\|S\\|$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$."
+        }
+      ]
+    },
+    "spectral-theorem-fa": {
+      "title": "Spectral theorem viewpoint",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The spectrum of a self-adjoint bounded operator $T$ on a Hilbert space is always:",
+          "choices": [
+            "a subset of $\\mathbb{R}$",
+            "a subset of the unit circle $\\{|z|=1\\}$",
+            "a single point",
+            "empty"
+          ],
+          "answer": 0,
+          "explain": "Self-adjoint operators have real spectrum. Unitary operators have spectrum on the unit circle; bounded operator spectra on complex Hilbert spaces are always nonempty and compact."
+        },
+        {
+          "type": "mcq",
+          "q": "The multiplication form of the spectral theorem says every bounded self-adjoint $T$ on a separable Hilbert space is unitarily equivalent to:",
+          "choices": [
+            "the identity operator",
+            "a compact operator",
+            "multiplication by a real $g\\in L^\\infty(X,\\mu)$ on $L^2(X,\\mu)$",
+            "a finite-rank projection"
+          ],
+          "answer": 2,
+          "explain": "After a unitary change of coordinates, every bounded self-adjoint operator becomes multiplication by a bounded real-valued function on an $L^2$ space."
+        },
+        {
+          "type": "complex",
+          "q": "Let $T=\\begin{pmatrix}0&-i\\\\ i&0\\end{pmatrix}=\\sigma_y$ acting on $\\mathbb{C}^2$. Its spectrum is $\\{-1,+1\\}$. Give the product of its two eigenvalues as $a+bi$.",
+          "answer": [-1, 0],
+          "tol": 1e-6,
+          "explain": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$."
+        }
+      ]
+    },
+    "riesz-representation": {
+      "title": "Riesz representation theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Riesz representation theorem on a Hilbert space $H$ says every $\\ell\\in H^*$ has the form $\\ell(x)=\\langle x,y\\rangle$ for a unique $y\\in H$. The map $y\\mapsto\\ell$ is:",
+          "choices": [
+            "a linear isometric isomorphism $H\\to H^*$",
+            "a conjugate-linear isometric bijection $H\\to H^*$",
+            "linear but never surjective",
+            "a non-isometric homeomorphism"
+          ],
+          "answer": 1,
+          "explain": "Over $\\mathbb{C}$, the map is conjugate-linear because $\\langle x,\\alpha y\\rangle=\\bar\\alpha\\langle x,y\\rangle$; it is an isometric bijection, giving the canonical antilinear identification $H\\cong H^*$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $1<p<\\infty$ and $\\tfrac1p+\\tfrac1q=1$ on a $\\sigma$-finite measure space, the dual $(L^p)^*$ is isometrically identified with:",
+          "choices": [
+            "$L^p$ itself",
+            "$L^q$ via $g\\mapsto\\bigl(f\\mapsto\\int fg\\,d\\mu\\bigr)$",
+            "the space of finite signed measures",
+            "$L^\\infty$ for every $p$"
+          ],
+          "answer": 1,
+          "explain": "The pairing $\\langle f,g\\rangle=\\int fg\\,d\\mu$ is bounded by Hölder with constant $\\|g\\|_q$, and every bounded functional on $L^p$ arises this way — this is the content of the Riesz representation for $L^p$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\ell^2$ let $\\ell(x)=2x_1+x_2-2x_3$ for $x=(x_1,x_2,x_3,0,\\ldots)$. By Riesz, $\\ell(x)=\\langle x,y\\rangle$ for some $y\\in\\ell^2$. Compute $\\|\\ell\\|=\\|y\\|_2$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$. Riesz makes $\\|\\ell\\|_{H^*}=\\|y\\|_H$."
+        }
+      ]
+    },
+    "weak-topology": {
+      "title": "Weak and weak-* topologies",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A sequence $(x_n)$ in a Banach space $X$ converges weakly to $x$ when:",
+          "choices": [
+            "$\\|x_n-x\\|\\to 0$",
+            "$\\ell(x_n)\\to\\ell(x)$ for every $\\ell\\in X^*$",
+            "$x_n\\to x$ in some $L^p$ norm",
+            "$x_n=x$ eventually"
+          ],
+          "answer": 1,
+          "explain": "Weak convergence $x_n\\rightharpoonup x$ means $\\ell(x_n)\\to\\ell(x)$ for every bounded linear functional $\\ell$. Norm convergence is strictly stronger."
+        },
+        {
+          "type": "mcq",
+          "q": "The Banach–Alaoglu theorem states that the closed unit ball of $X^*$ is:",
+          "choices": [
+            "norm-compact",
+            "weak-* compact",
+            "always finite-dimensional",
+            "dense in $X^{**}$"
+          ],
+          "answer": 1,
+          "explain": "Banach–Alaoglu: $B_{X^*}$ is compact in the weak-* topology, proved by embedding it in the product $\\prod_{x\\in X}\\overline{D(0,\\|x\\|)}$ and applying Tychonoff. Norm-compactness of the unit ball fails in every infinite-dimensional Banach space."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\ell^2$, let $e_n$ be the $n$-th standard basis vector. The sequence $(e_n)$ does NOT converge in norm, but does converge weakly to a unique limit $w\\in\\ell^2$. Compute $\\|w\\|_2$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$. Yet $\\|e_n-0\\|_2=1$, so there is no norm convergence — a textbook illustration that weak limit $\\ne$ strong limit."
+        }
+      ]
+    }
+  }
+}

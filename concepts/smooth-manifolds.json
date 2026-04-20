@@ -13,13 +13,49 @@
       "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps."
     },
     {
-      "id": "tangent-space-manifolds",
-      "title": "Tangent spaces and bundles",
-      "anchor": "tangent",
+      "id": "smooth-manifold-examples",
+      "title": "Examples: spheres, projective spaces, matrix groups",
+      "anchor": "examples",
       "prereqs": [
         "smooth-manifold-definition"
       ],
-      "blurb": "Tangent vectors form bundles supporting differential equations and geometry."
+      "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic."
+    },
+    {
+      "id": "smooth-map",
+      "title": "Smooth maps and diffeomorphisms",
+      "anchor": "maps",
+      "prereqs": [
+        "smooth-manifold-definition"
+      ],
+      "blurb": "A map is smooth when every chart representative is C^\u221e; diffeomorphisms are the isomorphisms of the smooth category."
+    },
+    {
+      "id": "tangent-space-manifolds",
+      "title": "Tangent spaces",
+      "anchor": "tangent",
+      "prereqs": [
+        "smooth-map"
+      ],
+      "blurb": "T_pM has three equivalent definitions \u2014 equivalence classes of curves, chart velocities, and derivations of C^\u221e(M) \u2014 all naturally isomorphic."
+    },
+    {
+      "id": "tangent-bundle",
+      "title": "Tangent bundle and vector fields",
+      "anchor": "bundle",
+      "prereqs": [
+        "tangent-space-manifolds"
+      ],
+      "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^\u221e(M)."
+    },
+    {
+      "id": "lie-bracket-fields",
+      "title": "Lie bracket of vector fields",
+      "anchor": "bracket",
+      "prereqs": [
+        "tangent-bundle"
+      ],
+      "blurb": "[X,Y] = XY\u2212YX is a vector field; it measures the failure of flows to commute and gives \ud835\udd1b(M) a Lie algebra structure."
     },
     {
       "id": "submanifolds-immersions",
@@ -28,7 +64,7 @@
       "prereqs": [
         "tangent-space-manifolds"
       ],
-      "blurb": "Rank conditions control local models for embedded and immersed manifolds."
+      "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}."
     }
   ]
 }

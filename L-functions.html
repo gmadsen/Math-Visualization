@@ -165,6 +165,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#completed">5&nbsp;Completed&nbsp;$\Lambda$</a>
   <a href="#mellin">6&nbsp;Mellin&nbsp;transform</a>
   <a href="#modularity">7&nbsp;Why&nbsp;modularity&nbsp;matters</a>
+  <a href="#continuation">8&nbsp;Analytic&nbsp;continuation</a>
+  <a href="#special-values">9&nbsp;Special&nbsp;values</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -1057,6 +1059,38 @@ Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ 
   drawArrow(svg, [140, 75], [500, 75], {color:'var(--yellow)', curve:-18, markerId:'arr-md3', dash:'5 4'});
 })();
 </script>
+
+<section id="continuation">
+<h2>8. Analytic continuation of $L$-functions</h2>
+<p>A Dirichlet series $L(s) = \sum a_n n^{-s}$ only defines a holomorphic function where it converges: for an elliptic curve the Hasse bound $|a_p|\le 2\sqrt p$ pins convergence to $\mathrm{Re}\,s > 3/2$; for $\zeta(s)$ to $\mathrm{Re}\,s > 1$. The content of saying "$L$ is an $L$-function" is that this half-plane restriction is an artifact — the true object extends to a meromorphic function on all of $\mathbb{C}$, with at most a simple pole at $s=1$ (and no poles at all for cusp-form $L$-functions).</p>
+
+<p>The standard mechanism is the Mellin transform. Writing $\Lambda(f,s) = (2\pi)^{-s}\Gamma(s)\,L(f,s) = \int_0^\infty f(iy)\,y^{s-1}\,dy$ for a cusp form $f$, we split the integral at $y=1$:
+$$\Lambda(f,s) \;=\; \int_0^1 f(iy)\,y^{s-1}\,dy \;+\; \int_1^\infty f(iy)\,y^{s-1}\,dy.$$
+Exponential decay of $f(iy)$ as $y\to\infty$ makes the second integral entire in $s$. The modular relation $f(i/y)=\varepsilon\,y^k f(iy)$ converts the first integral, via $y\mapsto 1/y$, into a tail integral with $s$ replaced by $k-s$ — also entire. So $\Lambda(f,s)$ is entire, and because $(2\pi)^{-s}\Gamma(s)$ has well-understood poles at $s=0,-1,-2,\dots$, we can read off the meromorphic continuation of $L(f,s)$ itself.</p>
+
+<p>For $\zeta(s)$ the Riemann–Jacobi argument is the same shape with the theta function $\theta(y) = \sum_{n\in\mathbb{Z}} e^{-\pi n^2 y}$ playing the role of $f(iy)$; its modular transformation $\theta(1/y) = \sqrt{y}\,\theta(y)$ produces $\xi(s) = \tfrac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ as an entire function. In every case the <em>modularity of the underlying object</em> (theta, cusp form, automorphic form) is exactly what powers the continuation.</p>
+
+<div class="note"><strong>No modularity, no continuation.</strong> The analytic continuation of $L(E,s)$ to all of $\mathbb{C}$ is not free from the Dirichlet series definition — a priori the series only knows about $\mathrm{Re}\,s>3/2$. Modularity ($L(E,s)=L(f,s)$) imports the continuation from $f$. This is one of the practical payoffs of the Modularity Theorem: it lets us talk about $L(E,1)$ at all.</div>
+
+<div class="quiz" data-concept="analytic-continuation-lfunc"></div>
+</section>
+
+<section id="special-values">
+<h2>9. Special values and arithmetic</h2>
+<p>Once an $L$-function is continued to $\mathbb{C}$, its values at specific points in the critical strip become legitimate objects — and they carry startling amounts of arithmetic. Euler already knew that $\zeta(2)=\pi^2/6$ and more generally
+$$\zeta(2k) \;=\; (-1)^{k+1}\,\frac{(2\pi)^{2k}\,B_{2k}}{2\,(2k)!},$$
+where $B_{2k}$ are Bernoulli numbers. The transcendentals are packaged into $\pi^{2k}$; the arithmetic is in the rational number $B_{2k}$. At negative integers $\zeta(1-n) = -B_n/n$ — pure rationals. This is the shape the theory is after: a special value is a product of a "period" (transcendental) with an arithmetic invariant (rational, class number, regulator, etc.).</p>
+
+<p>For Dirichlet $L$-functions the analogue is the <strong>class number formula</strong>: for a nontrivial character $\chi$ of conductor $q$,
+$$L(1,\chi) \;=\; \text{(elementary factor)}\cdot\frac{2\pi\,h\,R}{w\sqrt{|d|}},$$
+where $h$, $R$, $w$, $d$ are the class number, regulator, number of roots of unity, and discriminant of the abelian extension cut out by $\chi$. The <em>central value</em> $L(1,\chi)$ literally counts how far the ring of integers of that extension is from being a PID.</p>
+
+<p>For elliptic curves the center of the functional equation is $s=1$, and <strong>Birch–Swinnerton-Dyer</strong> predicts
+$$\mathrm{ord}_{s=1} L(E,s) \;=\; \mathrm{rank}\,E(\mathbb{Q}),$$
+with the leading Taylor coefficient at $s=1$ equal to an explicit product of the real period, the regulator, torsion, local Tamagawa numbers, and the order of Sha. In every case the slogan is the same: <em>special values of $L$-functions are where analysis sees arithmetic directly</em>. The existence of the continuation (previous section) is the prerequisite; the special-value identities are the payoff.</p>
+
+<div class="quiz" data-concept="special-values-lfunc"></div>
+</section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>

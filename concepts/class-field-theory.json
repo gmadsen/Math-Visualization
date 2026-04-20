@@ -13,6 +13,16 @@
       "blurb": "Idèle class groups package global and local arithmetic data in one object."
     },
     {
+      "id": "hilbert-class-field",
+      "title": "Hilbert class field",
+      "anchor": "hcf",
+      "prereqs": [
+        "idele-class-groups",
+        "class-group-units-ant"
+      ],
+      "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$."
+    },
+    {
       "id": "artin-map-cft",
       "title": "Artin reciprocity map",
       "anchor": "artin",
@@ -29,6 +39,26 @@
         "artin-map-cft"
       ],
       "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
+    },
+    {
+      "id": "existence-theorem-cft",
+      "title": "Takagi existence theorem",
+      "anchor": "existence",
+      "prereqs": [
+        "local-global-cft",
+        "artin-reciprocity-preview"
+      ],
+      "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection."
+    },
+    {
+      "id": "conductor-discriminant",
+      "title": "Conductor-discriminant formula",
+      "anchor": "cond-disc",
+      "prereqs": [
+        "artin-map-cft",
+        "prime-ideals-factorization-ant"
+      ],
+      "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor."
     }
   ]
 }

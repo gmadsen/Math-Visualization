@@ -1,0 +1,160 @@
+{
+  "topic": "riemann-surfaces",
+  "quizzes": {
+    "riemann-surface-definition": {
+      "title": "Riemann surfaces as 1D complex manifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Riemann surface is a connected Hausdorff space with an atlas $\\{\\varphi_\\alpha:U_\\alpha\\to V_\\alpha\\subset\\mathbb{C}\\}$ such that:",
+          "choices": [
+            "transition maps $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ are smooth",
+            "transition maps are biholomorphic where defined",
+            "each chart is a global homeomorphism onto $\\mathbb{C}$",
+            "the atlas is finite"
+          ],
+          "answer": 1,
+          "explain": "The defining requirement is that overlaps are biholomorphic; smoothness alone gives a smooth 2-manifold, not a Riemann surface."
+        },
+        {
+          "type": "numeric",
+          "q": "For a compact Riemann surface of genus $g=3$, compute $\\chi(X)=2-2g$.",
+          "answer": -4,
+          "tol": 1e-6,
+          "explain": "$\\chi=2-2\\cdot 3=-4$. Genus and Euler characteristic are interchangeable topological data for orientable surfaces."
+        },
+        {
+          "type": "numeric",
+          "q": "On a compact Riemann surface of genus $g=4$, what is $\\dim H^0(X,\\Omega^1)$ (the space of holomorphic 1-forms)?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "Hodge theory gives $\\dim H^0(X,\\Omega^1)=g$; here $g=4$."
+        }
+      ]
+    },
+    "branched-covers-rs": {
+      "title": "Branched covers and maps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Near a point $p\\in X$ a non-constant holomorphic map $f:X\\to Y$ has which normal form in suitable local coordinates?",
+          "choices": [
+            "$z\\mapsto e^z$",
+            "$z\\mapsto z+c$",
+            "$z\\mapsto z^{e_p}$ for some integer $e_p\\ge 1$",
+            "$z\\mapsto \\overline{z}$"
+          ],
+          "answer": 2,
+          "explain": "Locally every non-constant holomorphic map looks like $z\\mapsto z^{e_p}$; $e_p$ is the ramification index, equal to $1$ at unramified points."
+        },
+        {
+          "type": "numeric",
+          "q": "For the hyperelliptic curve $w^2=P(z)$ with $\\deg P=6$ (even), how many branch points does the projection $(z,w)\\mapsto z$ have on $\\mathbb{CP}^1$?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "The branch locus is the zero set of $P$ (size $d=6$); since $d$ is even, $\\infty$ is not a branch point."
+        },
+        {
+          "type": "complex",
+          "q": "For the double cover $w^2=z$, monodromy around the branch point $z=0$ swaps the two sheets $w=\\pm\\sqrt{z}$. Starting at $z=1$ on the sheet $w=+1$, analytically continue once around $0$: what is the value of $w$ when you return to $z=1$, as $a+bi$?",
+          "answer": [-1, 0],
+          "tol": 1e-6,
+          "explain": "A loop around $0$ sends $\\sqrt{z}\\mapsto -\\sqrt{z}$; so $w=+1$ returns as $w=-1=-1+0i$."
+        }
+      ]
+    },
+    "riemann-hurwitz-uniformization": {
+      "title": "Riemann-Hurwitz and uniformization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a compact Riemann surface $X$, the uniformization theorem says the universal cover is:",
+          "choices": [
+            "always $\\mathbb{C}$",
+            "always $\\mathbb{H}$ (the upper half plane)",
+            "one of $\\mathbb{CP}^1$, $\\mathbb{C}$, or $\\mathbb{H}$, depending on genus $0$, $1$, or $\\ge 2$",
+            "always $\\mathbb{CP}^1$"
+          ],
+          "answer": 2,
+          "explain": "The trichotomy: $g=0\\Rightarrow\\mathbb{CP}^1$ (spherical), $g=1\\Rightarrow\\mathbb{C}$ (flat), $g\\ge 2\\Rightarrow\\mathbb{H}$ (hyperbolic)."
+        },
+        {
+          "type": "numeric",
+          "q": "A degree-$3$ map $f:X\\to\\mathbb{CP}^1$ is totally ramified over $4$ points (each with a single preimage of ramification index $3$) and unramified elsewhere. Use Riemann-Hurwitz $2g_X-2 = n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Total ramification contribution is $4\\cdot(3-1)=8$; so $2g_X-2=3(-2)+8=2$, giving $g_X=2$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a double cover $f:X\\to\\mathbb{CP}^1$ branched at exactly $b=8$ points, what is $g_X$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Riemann-Hurwitz gives $2g_X-2=2(-2)+8=4$, so $g_X=3$. (Equivalently $g_X=b/2-1$.)"
+        }
+      ]
+    },
+    "genus-invariant": {
+      "title": "Genus as the universal invariant",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT pinned down by the genus $g$ of a compact Riemann surface $X$?",
+          "choices": [
+            "$\\chi(X)$",
+            "$\\dim H^0(X,\\Omega^1)$",
+            "the first Betti number $b_1(X)$",
+            "the specific complex structure (choice of biholomorphism class)"
+          ],
+          "answer": 3,
+          "explain": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by $g$ alone."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the first Betti number $b_1(X)$ of a compact Riemann surface of genus $g=5$?",
+          "answer": 10,
+          "tol": 1e-6,
+          "explain": "$H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, so $b_1=2g=10$."
+        },
+        {
+          "type": "numeric",
+          "q": "On a compact Riemann surface of genus $g=7$, compute $\\deg K_X = 2g-2$ (the degree of the canonical divisor).",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "$\\deg K_X=2\\cdot 7-2=12$. This is the $1$-forms count cashed out as a divisor degree."
+        }
+      ]
+    },
+    "riemann-roch": {
+      "title": "Divisors and Riemann-Roch",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Riemann-Roch theorem on a compact Riemann surface of genus $g$ states:",
+          "choices": [
+            "$\\ell(D) = \\deg D + 1$",
+            "$\\ell(D) - \\ell(K-D) = \\deg D - g + 1$",
+            "$\\ell(D) + \\ell(K-D) = \\deg D + g$",
+            "$\\ell(D) \\cdot \\ell(K-D) = \\deg D \\cdot g$"
+          ],
+          "answer": 1,
+          "explain": "The identity $\\ell(D)-\\ell(K-D)=\\deg D-g+1$ is Riemann-Roch; equivalently $\\chi(\\mathcal{O}(D))=\\deg D-g+1$, and the correction $\\ell(K-D)$ is Serre dual to $h^1$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{CP}^1$ (genus $0$), for $D=5\\cdot\\infty$, compute $\\ell(D)$. (Hint: Riemann-Roch with $K=-2\\cdot\\infty$ and $\\ell(K-D)=0$ for $\\deg(K-D)<0$.)",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\deg(K-D)=-2-5=-7<0$ so $\\ell(K-D)=0$. Then $\\ell(D)=\\deg D-g+1=5-0+1=6$ — polynomials of degree $\\le 5$."
+        },
+        {
+          "type": "numeric",
+          "q": "On an elliptic curve $E$ (genus $1$) with $\\deg K=0$, take $D=4\\cdot O$ with $O$ the origin. Compute $\\ell(D)$. (For $\\deg D>0$ on genus $1$, $\\ell(K-D)=0$.)",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "Since $\\deg(K-D)=-4<0$, $\\ell(K-D)=0$ and $\\ell(D)=\\deg D-g+1=4-1+1=4$. A basis is $\\{1,\\wp,\\wp',\\wp^2\\}$."
+        }
+      ]
+    }
+  }
+}

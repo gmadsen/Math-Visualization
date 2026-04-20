@@ -14,14 +14,35 @@
       "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
     },
     {
+      "id": "equidistribution-weyl",
+      "title": "Equidistribution and Weyl's criterion",
+      "anchor": "weyl",
+      "prereqs": [
+        "hasse-bound-angle",
+        "chebotarev-density"
+      ],
+      "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into."
+    },
+    {
       "id": "sato-tate-measure",
       "title": "The Sato–Tate measure",
       "anchor": "measure",
       "prereqs": [
         "hasse-bound-angle",
-        "chebotarev-density"
+        "chebotarev-density",
+        "equidistribution-weyl"
       ],
       "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
+    },
+    {
+      "id": "cm-vs-non-cm-sato-tate",
+      "title": "CM vs. non-CM: two equidistribution laws",
+      "anchor": "cm",
+      "prereqs": [
+        "sato-tate-measure",
+        "complex-multiplication"
+      ],
+      "blurb": "CM curves equidistribute against the Haar measure of the normalizer of a torus in SU(2) — half the primes are supersingular and the rest fill [0,π] uniformly — while non-CM curves follow the full semicircle law."
     },
     {
       "id": "symmetric-power-l-functions",
@@ -31,7 +52,8 @@
         "sato-tate-measure",
         "arithmetic-data-lfunctions",
         "euler-product-structure",
-        "modular-form-definition"
+        "modular-form-definition",
+        "equidistribution-weyl"
       ],
       "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
     }

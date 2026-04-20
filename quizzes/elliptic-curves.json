@@ -69,12 +69,84 @@
         }
       ]
     },
-    "mordell-weil-ec": {
-      "title": "Mordell–Weil",
+    "j-invariant-classification": {
+      "title": "The j-invariant",
       "questions": [
         {
           "type": "mcq",
-          "q": "Mordell–Weil states $E(\\mathbb{Q})$ is:",
+          "q": "Two short Weierstrass curves over $\\bar k$ are isomorphic iff:",
+          "choices": [
+            "they have the same discriminant $\\Delta$",
+            "they have the same $j$-invariant",
+            "they have the same number of rational points over every finite field",
+            "the coefficients $(a,b)$ agree up to sign"
+          ],
+          "answer": 1,
+          "explain": "$j(E)=1728\\cdot 4a^3/(4a^3+27b^2)$ is a complete isomorphism invariant over $\\bar k$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $j(E)$ for $E: y^2=x^3-x$ (i.e. $a=-1, b=0$).",
+          "answer": 1728,
+          "tol": 1e-6,
+          "explain": "With $b=0$, $j=1728\\cdot 4a^3/(4a^3)=1728$. This is the CM-by-$\\mathbb{Z}[i]$ curve."
+        },
+        {
+          "type": "mcq",
+          "q": "Which $j$-values correspond to curves with $|\\operatorname{Aut}(E)|>2$?",
+          "choices": [
+            "$j=0$ and $j=1728$",
+            "every $j\\in\\mathbb{Z}$",
+            "only $j=\\infty$",
+            "$j=-3375$ and $j=-32768$"
+          ],
+          "answer": 0,
+          "explain": "At $j=0$ the curve has an order-$6$ automorphism (via $\\omega$); at $j=1728$ it has an order-$4$ automorphism (via $i$). Generic $j$ gives $\\operatorname{Aut}(E)=\\{\\pm1\\}$."
+        }
+      ]
+    },
+    "complex-multiplication": {
+      "title": "Complex uniformization and CM",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Over $\\mathbb{C}$, every elliptic curve is analytically isomorphic to:",
+          "choices": [
+            "the Riemann sphere $\\mathbb{CP}^1$",
+            "a quotient $\\mathbb{C}/\\Lambda$ by a rank-$2$ lattice",
+            "an open disk in $\\mathbb{C}$",
+            "the upper half-plane $\\mathbb{H}$"
+          ],
+          "answer": 1,
+          "explain": "The Weierstrass $\\wp$-function embeds $\\mathbb{C}/\\Lambda$ as a cubic $y^2=4x^3-g_2 x-g_3$ in $\\mathbb{CP}^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "An elliptic curve $E/\\mathbb{C}$ has complex multiplication when:",
+          "choices": [
+            "$\\operatorname{End}(E)$ is strictly larger than $\\mathbb{Z}$",
+            "$E$ has rational points",
+            "$j(E)\\in\\mathbb{Q}$",
+            "the lattice $\\Lambda$ is rectangular"
+          ],
+          "answer": 0,
+          "explain": "CM means $\\operatorname{End}(E)$ is an order in an imaginary quadratic field $K$; generically $\\operatorname{End}(E)=\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the CM lattice $\\Lambda=\\mathbb{Z}[i]$, the endomorphism 'multiplication by $i$' has degree (i.e. number of sheets as an isogeny) equal to $|i|^2=$?",
+          "answer": 1,
+          "tol": 1e-9,
+          "explain": "$|i|^2=1$, so multiplication by $i$ is an automorphism (degree $1$), consistent with $j=1728$ having $\\operatorname{Aut}(E)\\supset\\{\\pm1,\\pm i\\}$."
+        }
+      ]
+    },
+    "mordell-weil-ec": {
+      "title": "Mordell\u2013Weil",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Mordell\u2013Weil states $E(\\mathbb{Q})$ is:",
           "choices": [
             "Always finite",
             "Finitely generated abelian",
@@ -92,7 +164,7 @@
         },
         {
           "type": "mcq",
-          "q": "The torsion subgroup in Mordell–Weil is:",
+          "q": "The torsion subgroup in Mordell\u2013Weil is:",
           "choices": [
             "Always trivial",
             "Finite",

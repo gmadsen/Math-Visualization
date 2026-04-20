@@ -1,0 +1,113 @@
+{
+  "topic": "schemes",
+  "quizzes": {
+    "spectrum-primes": {
+      "title": "Prime spectrum and Zariski topology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a commutative ring $R$, the underlying set of $\\operatorname{Spec}(R)$ consists of:",
+          "choices": [
+            "all ideals of $R$",
+            "all maximal ideals of $R$",
+            "all prime ideals of $R$",
+            "all elements of $R$"
+          ],
+          "answer": 2,
+          "explain": "By definition $\\operatorname{Spec}(R)=\\{\\mathfrak p\\subset R : \\mathfrak p\\text{ prime}\\}$. Maximal ideals are closed points, but non-maximal primes (like $(0)$ in $\\mathbb Z$) give generic points."
+        },
+        {
+          "type": "numeric",
+          "q": "How many points does $\\operatorname{Spec}\\mathbb{Z}/12\\mathbb{Z}$ have? (Count prime ideals of $\\mathbb Z/12\\mathbb Z$.)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Prime ideals of $\\mathbb Z/12$ correspond to primes $p$ with $p\\mid 12$, namely $p=2$ and $p=3$. So there are $2$ points."
+        },
+        {
+          "type": "mcq",
+          "q": "The Zariski-closed sets of $\\operatorname{Spec}(R)$ are:",
+          "choices": [
+            "$V(I)=\\{\\mathfrak p : I\\subseteq \\mathfrak p\\}$ for ideals $I\\subseteq R$",
+            "finite subsets only",
+            "complements of maximal ideals",
+            "singletons $\\{\\mathfrak p\\}$ for each prime"
+          ],
+          "answer": 0,
+          "explain": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology. They are closed under arbitrary intersection and finite union."
+        }
+      ]
+    },
+    "structure-sheaf-schemes": {
+      "title": "Structure sheaf and affine schemes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On an affine scheme $\\operatorname{Spec}(R)$, the stalk of the structure sheaf $\\mathcal O$ at a prime $\\mathfrak p$ is:",
+          "choices": [
+            "the quotient $R/\\mathfrak p$",
+            "the localization $R_{\\mathfrak p}$",
+            "the residue field $\\kappa(\\mathfrak p)$",
+            "the ring $R$ itself"
+          ],
+          "answer": 1,
+          "explain": "By construction the stalk $\\mathcal O_{\\mathfrak p}$ is the localization $R_{\\mathfrak p}$, a local ring with maximal ideal $\\mathfrak p R_{\\mathfrak p}$ and residue field $\\kappa(\\mathfrak p)=\\operatorname{Frac}(R/\\mathfrak p)$."
+        },
+        {
+          "type": "mcq",
+          "q": "For the distinguished open $D(f)=\\{\\mathfrak p : f\\notin \\mathfrak p\\}\\subset \\operatorname{Spec}(R)$, the ring of sections is:",
+          "choices": [
+            "$R/(f)$",
+            "$R[f]$",
+            "the localization $R_f = R[f^{-1}]$",
+            "the quotient field of $R$"
+          ],
+          "answer": 2,
+          "explain": "$\\mathcal O(D(f))=R_f$: inverting $f$ allows $1/f$ as a regular function exactly on the locus where $f$ does not vanish."
+        },
+        {
+          "type": "numeric",
+          "q": "The residue field $\\kappa(\\mathfrak p)$ at the generic point $\\mathfrak p=(0)$ of $\\operatorname{Spec}\\mathbb{Z}$ is $\\mathbb Q$. What is its characteristic?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
+        }
+      ]
+    },
+    "gluing-affines": {
+      "title": "Gluing affine schemes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The projective line $\\mathbb P^1_k$ is built by gluing two copies of $\\mathbb A^1_k=\\operatorname{Spec}k[x]$ and $\\operatorname{Spec}k[y]$ along the overlap $\\{x\\ne 0\\}\\cong\\{y\\ne 0\\}$ via:",
+          "choices": [
+            "$y=x$",
+            "$y=-x$",
+            "$y=1/x$",
+            "$y=x^2$"
+          ],
+          "answer": 2,
+          "explain": "The transition is $y=1/x$: on the overlap $\\operatorname{Spec}k[x,x^{-1}]=\\operatorname{Spec}k[y,y^{-1}]$ with $y$ inverse to $x$. The two origins become $0$ and $\\infty$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many closed points does $\\mathbb P^1_{\\mathbb F_q}$ have over a finite field $\\mathbb F_q$? Give the answer for $q=5$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$|\\mathbb P^1(\\mathbb F_q)|=q+1$. For $q=5$ that is $5+1=6$ closed points: the $5$ values of $x\\in\\mathbb F_5$ plus the point at infinity."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about $\\mathbb P^1_k$ is TRUE?",
+          "choices": [
+            "$\\mathbb P^1_k$ is affine",
+            "$\\mathbb P^1_k$ is not affine but is covered by two affine opens",
+            "$\\mathbb P^1_k$ has no affine open subsets",
+            "$\\mathbb P^1_k$ is disconnected"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb P^1_k$ is the classic non-affine scheme. Global sections of $\\mathcal O$ are just $k$ (too few for an affine of positive dimension), yet it is covered by two affine charts $\\mathbb A^1_k$."
+        }
+      ]
+    }
+  }
+}

@@ -30,6 +30,26 @@
         "representability-criteria"
       ],
       "blurb": "Automorphisms obstruct representability by schemes and motivate stack language."
+    },
+    {
+      "id": "yoneda-embedding-ag",
+      "title": "The Yoneda embedding for schemes",
+      "anchor": "yoneda-embedding",
+      "prereqs": [
+        "yoneda-functor-points",
+        "universal-properties"
+      ],
+      "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points."
+    },
+    {
+      "id": "base-change-interpretation",
+      "title": "Base change as pullback of functors",
+      "anchor": "base-change",
+      "prereqs": [
+        "yoneda-functor-points",
+        "fiber-products"
+      ],
+      "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent."
     }
   ]
 }

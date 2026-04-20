@@ -1,0 +1,98 @@
+{
+  "topic": "lie-groups",
+  "quizzes": {
+    "lie-group-definition": {
+      "title": "Lie groups and matrix examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Lie group is best described as:",
+          "choices": [
+            "a finite group together with a topology",
+            "a smooth manifold that is also a group, with multiplication and inversion smooth",
+            "any topological space with a continuous group law",
+            "a vector space equipped with a bilinear bracket"
+          ],
+          "answer": 1,
+          "explain": "A Lie group is simultaneously a smooth manifold and a group, where the multiplication $\\mu:G\\times G\\to G$ and inversion $\\iota:G\\to G$ are smooth maps."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the real dimension of $\\mathrm{SU}(2)$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{SU}(n)$ has real dimension $n^2-1$. For $n=2$ this gives $3$, consistent with $\\mathrm{SU}(2)\\cong S^3$."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the real dimension of $\\mathrm{SO}(n)$ for $n=4$?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$. For $n=4$: $\\binom{4}{2}=6$."
+        }
+      ]
+    },
+    "lie-algebra-and-exp": {
+      "title": "Lie algebra and exponential map",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a matrix Lie group $G$, the Lie algebra $\\mathfrak{g}=T_eG$ carries a bracket given by:",
+          "choices": [
+            "the ordinary matrix product $XY$",
+            "the commutator $[X,Y]=XY-YX$",
+            "the anticommutator $XY+YX$",
+            "the Frobenius inner product $\\mathrm{tr}(X^\\top Y)$"
+          ],
+          "answer": 1,
+          "explain": "For matrix groups the Lie bracket on $\\mathfrak{g}$ is the matrix commutator $[X,Y]=XY-YX$, which is automatically antisymmetric and satisfies the Jacobi identity."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}\\in\\mathfrak{so}(2)$ with $\\theta=\\pi$. Compute the $(1,1)$ entry of $\\exp(X)$.",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "$\\exp\\begin{pmatrix}0&-\\theta\\\\\\theta&0\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. At $\\theta=\\pi$ the $(1,1)$ entry is $\\cos\\pi=-1$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $X\\in\\mathfrak{sl}_n(\\mathbb{R})$ has $\\operatorname{tr}(X)=0$, what is $\\det(\\exp X)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix. With $\\operatorname{tr} X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
+        }
+      ]
+    },
+    "adjoint-roots": {
+      "title": "Adjoint action and root data",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The adjoint action $\\mathrm{Ad}:G\\to\\mathrm{GL}(\\mathfrak{g})$ is defined by:",
+          "choices": [
+            "$\\mathrm{Ad}(g)X=gX$ (left multiplication on the algebra)",
+            "$\\mathrm{Ad}(g)X=gXg^{-1}$ (conjugation extended to $\\mathfrak{g}$)",
+            "$\\mathrm{Ad}(g)X=[g,X]$ (commutator with a group element)",
+            "$\\mathrm{Ad}(g)X=\\exp(X)g$"
+          ],
+          "answer": 1,
+          "explain": "The adjoint representation is conjugation: $\\mathrm{Ad}(g)X=gXg^{-1}$ for matrix groups. Its differential at $e$ is $\\operatorname{ad}_X(Y)=[X,Y]$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many roots does the root system $A_2$ (that is, $\\mathfrak{sl}_3(\\mathbb{C})$) have?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "The roots of $A_n$ are $\\varepsilon_i-\\varepsilon_j$ for $i\\ne j$ in $\\{1,\\dots,n+1\\}$, giving $(n+1)n$ roots. For $A_2$: $3\\cdot 2=6$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathfrak{sl}_2$ with basis $h,e,f$ satisfying $[h,e]=2e$, what is the eigenvalue of $\\operatorname{ad}_h$ on $e$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
+        }
+      ]
+    }
+  }
+}

@@ -29,6 +29,26 @@
         "homogeneous-coordinates"
       ],
       "blurb": "PGL actions describe coordinate changes preserving incidence."
+    },
+    {
+      "id": "projective-duality",
+      "title": "Projective duality",
+      "anchor": "duality",
+      "prereqs": [
+        "projective-points-lines",
+        "homogeneous-coordinates"
+      ],
+      "blurb": "Points and lines of P^2 swap roles under the canonical isomorphism P^2 ≅ (P^2)*, turning every incidence theorem into its dual."
+    },
+    {
+      "id": "cross-ratio",
+      "title": "The cross-ratio",
+      "anchor": "cross-ratio",
+      "prereqs": [
+        "projective-transformations",
+        "field-extensions-basics"
+      ],
+      "blurb": "The cross-ratio of four collinear points is the unique PGL-invariant of their configuration and classifies quadruples up to projective equivalence."
     }
   ]
 }

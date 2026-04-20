@@ -101,6 +101,9 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -306,6 +309,7 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
   <svg id="qexp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
   <div class="small">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>
 </div>
+<div class="quiz" data-concept="theta-series-lattice"></div>
 </section>
 
 <script>
@@ -419,6 +423,7 @@ Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight 
   <div class="readout" id="trans-out" style="font-size:.88rem"></div>
   <div class="small">On the imaginary axis $\tau = iy$ we have $-1/iy = i/y$, and $\sqrt{-i\cdot iy} = \sqrt{y}$ is real. The graphs of $\theta(i/y)$ (blue) and $\sqrt{y}\,\theta(iy)$ (yellow) coincide point-by-point — that is the identity.</div>
 </div>
+<div class="quiz" data-concept="theta-transformation-law"></div>
 </section>
 
 <script>
@@ -698,6 +703,7 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
   <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
   <div class="small">At the specialization $z=1$: blue bars are the truncated sum $\sum_{|n|\le N} q^{n^2/2}$, yellow bars are the truncated product $\prod_{n=1}^N (1-q^n)(1+q^{n-1/2})^2$. Once $N$ is big enough the leading coefficients lock in and never change.</div>
 </div>
+<div class="quiz" data-concept="jacobi-triple-product"></div>
 </section>
 
 <script>
@@ -1189,6 +1195,13 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('theta-functions'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

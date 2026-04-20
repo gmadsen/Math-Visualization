@@ -82,6 +82,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -119,6 +122,10 @@ function mod(a,n){return ((a%n)+n)%n}
   <a href="#specialization">5&nbsp;Specialization</a>
   <a href="#fat">6&nbsp;Fat&nbsp;points</a>
   <a href="#gluing">7&nbsp;Gluing&nbsp;→&nbsp;P¹</a>
+  <a href="#generic-point">8&nbsp;Generic&nbsp;points</a>
+  <a href="#residue-field">9&nbsp;Residue&nbsp;fields</a>
+  <a href="#locally-ringed-space">10&nbsp;Locally&nbsp;ringed&nbsp;spaces</a>
+  <a href="#projective-scheme">11&nbsp;Proj</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -145,6 +152,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <p>(ii) The set $V(I)=\{\mathfrak p : I\subseteq \mathfrak p\}$ behaves like a Zariski-closed set, so primes carry a natural topology.</p>
 <p>(iii) For an element $f\in R$, evaluating $f$ at a prime $\mathfrak p$ means reducing: look at the image of $f$ in the residue field $\kappa(\mathfrak p) = \operatorname{Frac}(R/\mathfrak p)$. The "value" of $f$ at different points may live in different fields — that's fine.</p>
 <p>The rest of this page turns that paragraph into pictures.</p>
+<div class="quiz" data-concept="spectrum-primes"></div>
 </section>
 
 <section id="specz">
@@ -570,6 +578,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <div class="note">
 <p style="margin:.2rem 0"><strong>The generic point is not a dot.</strong> Every nonempty open set of $\operatorname{Spec}k[x,y]$ contains the generic point $(0)$. It "lives everywhere" — it isn't drawable as a location. Instead think of it as a perspective: statements true at the generic point hold on a dense open set.</p>
 </div>
+<div class="quiz" data-concept="structure-sheaf-schemes"></div>
 </section>
 
 <script>
@@ -1042,6 +1051,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <div class="note">
 <p style="margin:.2rem 0"><strong>Where next?</strong> Sheaves (local-to-global functions), morphisms of schemes, base change, fiber products, projective schemes, coherent sheaves, and cohomology. From the scheme foundation, category theory (the language of functors, adjunctions, Yoneda) takes over, and stacks extend schemes to handle moduli problems where "points have automorphisms" — another page for another day.</p>
 </div>
+<div class="quiz" data-concept="gluing-affines"></div>
 </section>
 
 <script>
@@ -1213,6 +1223,41 @@ function mod(a,n){return ((a%n)+n)%n}
 </script>
 
 <!-- SECTIONS TO BE APPENDED BELOW -->
+
+<section id="generic-point">
+<h2>8. Generic points and specialization</h2>
+<p>Classical geometry only sees <em>closed</em> points — maximal ideals. Scheme theory adds one extra point for every non-maximal prime, and those extra points are surprisingly useful. A prime $\mathfrak p\subsetneq R$ that is not maximal is called a <strong>generic point</strong>. Its closure in $\operatorname{Spec}R$ is exactly $V(\mathfrak p) = \{\mathfrak q : \mathfrak p\subseteq \mathfrak q\}$, an <em>entire irreducible subvariety</em> — not just a point.</p>
+<p>So in $\operatorname{Spec}\mathbb{Z}[x]$ the prime $(x)$ is <em>one point</em> that, when you take its closure, spreads out to cover the whole "$x=0$" axis. The zero ideal $(0)$ is an even more generic point: its closure is <em>all of</em> $\operatorname{Spec}\mathbb{Z}[x]$.</p>
+<p>The partial order "$\mathfrak p\leadsto \mathfrak q$ iff $\mathfrak p\subseteq \mathfrak q$" is <strong>specialization</strong>: the smaller (more generic) prime <em>specializes to</em> the larger (more special) one. Think of it as taking a limit — a generic point "flows into" every closed point of its closure. Properties that hold at a generic point (being smooth, being reduced, being irreducible) typically hold on an open dense neighborhood; properties at closed points are local tests of what happens "at one spot".</p>
+<p>This is what lets algebraic geometers say things like "the generic fiber of a family is smooth, and only finitely many special fibers degenerate" — the generic fiber is <em>literally</em> the fiber over the generic point of the base.</p>
+</section>
+
+<section id="residue-field">
+<h2>9. Residue fields: evaluating at a point</h2>
+<p>A function on a classical variety over $k$ takes values in $k$. On $\operatorname{Spec}R$ the ring $R$ is not a priori an algebra over any one field, so "evaluating $f\in R$ at a point $\mathfrak p$" needs care. The answer is the <strong>residue field</strong> $$\kappa(\mathfrak p) \;=\; \operatorname{Frac}(R/\mathfrak p) \;=\; R_{\mathfrak p}/\mathfrak p R_{\mathfrak p},$$ the fraction field of the integral domain $R/\mathfrak p$, equivalently the residue of the local ring $R_{\mathfrak p}$.</p>
+<p>An element $f\in R$ has a well-defined image $f(\mathfrak p)\in \kappa(\mathfrak p)$ — but the target field depends on the point. A single $f\in\mathbb{Z}[x]$ takes values in $\mathbb{F}_p$ at the maximal ideal $(p,x-a)$, in $\mathbb{Q}(x)$ at the generic point $(0)$, and in $\mathbb{F}_p(x)$ at the height-one prime $(p)$. "Vanishing at $\mathfrak p$" just means $f\in \mathfrak p$, i.e. $f(\mathfrak p)=0$ in $\kappa(\mathfrak p)$.</p>
+<p>The residue field is exactly what makes the slogan "elements of $R$ are functions on $\operatorname{Spec}R$" honest. A $k$-point of an $R$-scheme — a homomorphism $R\to k$ — factors uniquely through the residue field of its kernel, so geometric points over an algebraically closed field correspond to maximal ideals with residue field $k$.</p>
+<div class="note">
+<p style="margin:.2rem 0">Concretely, at the closed point $\mathfrak m=(x-a)\subset \mathbb{C}[x]$ we get $\kappa(\mathfrak m)=\mathbb{C}$ and $f\mapsto f(a)$ — the classical evaluation. Everything schemes do to enrich this picture is built on top.</p>
+</div>
+</section>
+
+<section id="locally-ringed-space">
+<h2>10. Locally ringed spaces</h2>
+<p>A <strong>ringed space</strong> is a topological space $X$ together with a sheaf of rings $\mathcal O_X$. A ringed space is <strong>locally ringed</strong> if for every point $x\in X$ the stalk $\mathcal O_{X,x}$ is a local ring — a ring with exactly one maximal ideal $\mathfrak m_x$. Its residue field is $\kappa(x) = \mathcal O_{X,x}/\mathfrak m_x$.</p>
+<p>Every scheme is a locally ringed space: on $\operatorname{Spec}R$ the stalk at the prime $\mathfrak p$ is the localization $R_{\mathfrak p}$, which is local by construction, with maximal ideal $\mathfrak p R_{\mathfrak p}$. Conversely, a <strong>scheme</strong> is defined as a locally ringed space that is locally isomorphic to $\operatorname{Spec}$ of a ring — this is the invariant definition that doesn't depend on a choice of open cover.</p>
+<p>The "locally ringed" part is doing real work. A morphism of ringed spaces $f\colon (X,\mathcal O_X)\to (Y,\mathcal O_Y)$ is a continuous map plus a pullback $f^\sharp\colon \mathcal O_Y \to f_*\mathcal O_X$. A morphism of <em>locally ringed</em> spaces also requires that the induced map on stalks $\mathcal O_{Y,f(x)}\to \mathcal O_{X,x}$ is <em>local</em>: it sends the maximal ideal into the maximal ideal. Without that condition, maps between schemes would not correspond to ring homomorphisms; with it, $\operatorname{Spec}$ becomes a fully faithful contravariant functor from commutative rings to locally ringed spaces.</p>
+<p>In short: "sheaf of rings whose stalks detect a unique point of vanishing" is precisely the structure needed to glue $\operatorname{Spec}$'s into a category of honest geometric objects.</p>
+</section>
+
+<section id="projective-scheme">
+<h2>11. Projective schemes and Proj</h2>
+<p>The gluing of $\mathbb{P}^1$ in §7 was ad hoc — two copies of $\mathbb A^1$ along the overlap $y=1/x$. For higher-dimensional and more intricate projective geometry the <strong>Proj</strong> construction gives the uniform recipe. Start with a graded ring $S = \bigoplus_{d\geq 0} S_d$ — for example $S = k[x_0,\dots,x_n]$ with the usual grading by total degree.</p>
+<p>Define $\operatorname{Proj}S$ as the set of <em>homogeneous</em> prime ideals $\mathfrak p\subset S$ not containing the <strong>irrelevant ideal</strong> $S_+ = \bigoplus_{d>0} S_d$. The topology is the Zariski topology inherited from homogeneous ideals, and the structure sheaf is built from localizations at homogeneous elements: for each homogeneous $f\in S_d$ with $d>0$, the basic open $D_+(f)$ is canonically identified with $\operatorname{Spec}(S_f)_0$, the degree-zero part of the localization.</p>
+<p>For $S=k[x_0,\dots,x_n]$ this reproduces classical $\mathbb P^n_k$: the opens $D_+(x_i)\cong \operatorname{Spec}k[x_0/x_i,\dots,x_n/x_i]\cong \mathbb A^n_k$ patch together exactly by "divide by $x_i$" transitions. For $S=k[x_0,\dots,x_n]/I$ with $I$ a homogeneous ideal, $\operatorname{Proj}S$ is the projective subscheme cut out by $I$ — hypersurfaces, complete intersections, projective varieties, and more.</p>
+<p>The payoff: every projective scheme is of the form $\operatorname{Proj}S$ for some graded ring, and conversely any finitely generated graded algebra over a field produces a projective scheme. This converts projective geometry into the algebra of graded rings, the same way $\operatorname{Spec}$ converted affine geometry into the algebra of commutative rings.</p>
+</section>
+
 <div id="sections-end"></div>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -1263,6 +1308,14 @@ function mod(a,n){return ((a%n)+n)%n}
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('schemes'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

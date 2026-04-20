@@ -30,6 +30,27 @@
         "branched-covers-rs"
       ],
       "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces."
+    },
+    {
+      "id": "genus-invariant",
+      "title": "Genus as the universal invariant",
+      "anchor": "rh",
+      "prereqs": [
+        "riemann-surface-definition",
+        "branched-covers-rs",
+        "fundamental-group"
+      ],
+      "blurb": "The genus g of a compact Riemann surface controls Euler characteristic χ=2−2g, Betti numbers, and — via Riemann–Hurwitz — the only way branched covers can fit together."
+    },
+    {
+      "id": "riemann-roch",
+      "title": "Divisors and the Riemann–Roch theorem",
+      "anchor": "divisors",
+      "prereqs": [
+        "riemann-hurwitz-uniformization",
+        "holomorphic-function"
+      ],
+      "blurb": "Riemann–Roch computes ℓ(D)−ℓ(K−D)=deg D−g+1, turning topology into dimensions of spaces of meromorphic functions and linking divisors to line bundles."
     }
   ]
 }

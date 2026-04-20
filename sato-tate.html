@@ -156,8 +156,10 @@ function drawNode(svg, x, y, label, opts={}){
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#angle">1&nbsp;Frobenius&nbsp;angle</a>
-  <a href="#measure">2&nbsp;Sato–Tate&nbsp;measure</a>
-  <a href="#symn">3&nbsp;Symmetric&nbsp;powers</a>
+  <a href="#weyl">2&nbsp;Weyl&nbsp;criterion</a>
+  <a href="#measure">3&nbsp;Sato–Tate&nbsp;measure</a>
+  <a href="#cm">4&nbsp;CM&nbsp;vs&nbsp;non-CM</a>
+  <a href="#symn">5&nbsp;Symmetric&nbsp;powers</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -289,8 +291,141 @@ After rescaling, Frobenius is a conjugacy class in $\mathrm{SU}(2)$.</p>
 <div class="quiz" data-concept="hasse-bound-angle"></div>
 </section>
 
+<section id="weyl">
+<h2>2. Equidistribution and Weyl's criterion</h2>
+
+<p>Before specializing to $\mathrm{SU}(2)$, remember what <em>equidistribution</em> means on a compact space $K$ equipped with a probability measure $\mu$. A sequence $(x_n)\subset K$ equidistributes with respect to $\mu$ if
+$$\lim_{N\to\infty}\frac{1}{N}\sum_{n\le N} f(x_n) = \int_K f\,d\mu\qquad\text{for every } f\in C(K).$$
+By Stone–Weierstrass, a dense subset of $C(K)$ is enough. When $K$ is a compact Lie group (or a space of conjugacy classes in one), the Peter–Weyl theorem hands us a preferred dense family: the characters of irreducible unitary representations.</p>
+
+<div class="note"><b>Weyl's criterion (group form).</b> Let $K$ be a compact Hausdorff group with normalized Haar measure $\mu$. A sequence $(x_n)$ equidistributes with respect to $\mu$ iff for every non-trivial irreducible character $\chi$ of $K$,
+$$\lim_{N\to\infty}\frac{1}{N}\sum_{n\le N}\chi(x_n)=0.$$</div>
+
+<p>For Sato–Tate the "sequence" is indexed by primes, not integers, so the relevant statistic is a <em>prime average</em> $\pi(X)^{-1}\sum_{p\le X}\chi(\operatorname{Frob}_p)$. This is the same flavor of statement as <a href="./frobenius-and-reciprocity.html#chebotarev">Chebotarev's density theorem</a> — for a finite Galois extension, Frobenius classes equidistribute in $\mathrm{Gal}(L/K)$ against counting measure. Sato–Tate lifts this from a finite group to a compact Lie group via the $\ell$-adic <a href="./galois-representations.html">Galois representation</a> of $E$.</p>
+
+<p>The semicircle density $(2/\pi)\sin^2\theta\,d\theta$ is not chosen by hand: it is the pushforward of Haar on $\mathrm{SU}(2)$ to conjugacy classes. The irreducible characters of $\mathrm{SU}(2)$ are the Chebyshev polynomials $U_n(\cos\theta)$; Weyl's criterion for Frobenius angles is
+$$\lim_{X\to\infty}\frac{1}{\pi(X)}\sum_{p\le X}U_n(\cos\theta_p)=\delta_{n,0}\qquad(n\ge 0),$$
+the exact input to the symmetric-power $L$-function argument of §5.</p>
+
+<p>Below, sample points from two competing distributions — a target $\mu$ (semicircle, uniform, or a supersingular-biased mix) and an "observed" sequence — and watch the partial averages of a fixed test function converge (or fail to converge) to $\int f\,d\mu$.</p>
+
+<div class="widget" id="w-weyl">
+  <div class="hd"><div class="ttl">Weyl test function tracker</div><div class="hint">pick a target · a test function · watch the running average</div></div>
+  <svg id="weyl-svg" viewBox="0 0 640 270" width="640" height="270"></svg>
+  <div class="row">
+    <label>target</label>
+    <select id="weyl-target">
+      <option value="st" selected>semicircle (2/π)sin²θ</option>
+      <option value="unif">uniform 1/π</option>
+      <option value="mix">½·δ_{π/2} + ½·uniform  (CM-like)</option>
+    </select>
+    <label>test $f$</label>
+    <select id="weyl-f">
+      <option value="u1" selected>U_1(cos θ) = 2 cos θ</option>
+      <option value="u2">U_2(cos θ)</option>
+      <option value="u3">U_3(cos θ)</option>
+      <option value="cos2">cos(2θ)</option>
+    </select>
+    <label>N <input id="weyl-n" type="range" min="100" max="6000" step="100" value="1500"></label>
+    <span id="weyl-nv" class="small">N = 1500</span>
+  </div>
+  <div class="readout" id="weyl-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#weyl-svg'), tgt=$('#weyl-target'), fSel=$('#weyl-f'),
+        nSl=$('#weyl-n'), nv=$('#weyl-nv'), out=$('#weyl-out');
+  function stSample(){
+    const u=Math.random(); let t=Math.PI*u;
+    for(let i=0;i<20;i++){
+      const F=t/Math.PI - Math.sin(2*t)/(2*Math.PI);
+      const Fp=(2/Math.PI)*Math.sin(t)*Math.sin(t);
+      if(Fp<1e-10) break;
+      const d=(F-u)/Fp; t-=d; if(Math.abs(d)<1e-9) break;
+    }
+    return Math.max(0,Math.min(Math.PI,t));
+  }
+  function unifSample(){ return Math.random()*Math.PI; }
+  function mixSample(){ return Math.random()<0.5 ? Math.PI/2 : Math.random()*Math.PI; }
+  function U(n,θ){ const s=Math.sin(θ); if(Math.abs(s)<1e-7) return (Math.cos(θ)>=0?1:(-1)**n)*(n+1); return Math.sin((n+1)*θ)/s; }
+  function testEval(key,θ){
+    if(key==='u1') return U(1,θ);
+    if(key==='u2') return U(2,θ);
+    if(key==='u3') return U(3,θ);
+    if(key==='cos2') return Math.cos(2*θ);
+    return 0;
+  }
+  function exactMean(tgtKey,fKey){
+    // numerical: ∫ f(θ) dμ_target
+    const K=4000; let s=0;
+    for(let i=0;i<=K;i++){
+      const θ=Math.PI*i/K, w=(i===0||i===K)?0.5:1;
+      let dens;
+      if(tgtKey==='st') dens=(2/Math.PI)*Math.sin(θ)*Math.sin(θ);
+      else if(tgtKey==='unif') dens=1/Math.PI;
+      else dens=0.5*(1/Math.PI); // mix: continuous part only
+      s += w*testEval(fKey,θ)*dens;
+    }
+    let I = s*(Math.PI/K);
+    if(tgtKey==='mix') I += 0.5*testEval(fKey,Math.PI/2); // atom
+    return I;
+  }
+  function render(){
+    const tgtKey=tgt.value, fKey=fSel.value, N=+nSl.value;
+    nv.textContent='N = '+N;
+    const S = tgtKey==='st' ? stSample : tgtKey==='unif' ? unifSample : mixSample;
+    const run=[]; let acc=0;
+    for(let i=1;i<=N;i++){ acc += testEval(fKey, S()); run.push(acc/i); }
+    svg.innerHTML='';
+    const W=640,H=270,pad={l:48,r:16,t:14,b:34},pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+    const target=exactMean(tgtKey,fKey);
+    const vmax=Math.max(1.2, Math.abs(target)*1.3, ...run.slice(20).map(v=>Math.abs(v)*1.15));
+    const X=i=>pad.l+pw*i/N, Y=v=>pad.t+ph*(1-(v+vmax)/(2*vmax));
+    // zero line
+    svg.appendChild(SVG('line',{x1:pad.l,y1:Y(0),x2:pad.l+pw,y2:Y(0),stroke:'var(--line)'}));
+    // target line
+    svg.appendChild(SVG('line',{x1:pad.l,y1:Y(target),x2:pad.l+pw,y2:Y(target),stroke:'var(--violet)','stroke-dasharray':'5 5','stroke-width':1.2}));
+    // running average
+    let d='';
+    for(let i=0;i<N;i++){ d += (i===0?'M':' L') + X(i+1).toFixed(2) + ' ' + Y(run[i]).toFixed(2); }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+    // axes
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:pad.t+ph,stroke:'var(--line)'}));
+    // labels
+    let t=SVG('text',{x:pad.l+pw-4,y:Y(target)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+    t.textContent='∫ f dμ ≈ '+target.toFixed(3); svg.appendChild(t);
+    t=SVG('text',{x:pad.l+8,y:pad.t+14,'font-size':11,fill:'var(--yellow)'});
+    t.textContent='(1/N) Σ f(x_n)'; svg.appendChild(t);
+    t=SVG('text',{x:W/2,y:H-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent='N'; svg.appendChild(t);
+    for(const vv of [-Math.round(vmax*10)/10, 0, Math.round(vmax*10)/10]){
+      const y=Y(vv);
+      svg.appendChild(SVG('line',{x1:pad.l-5,y1:y,x2:pad.l,y2:y,stroke:'var(--line)'}));
+      const tt=SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      tt.textContent=vv.toFixed(1); svg.appendChild(tt);
+    }
+    const final=run[N-1], gap=Math.abs(final-target);
+    out.textContent =
+      'target μ: '+(tgtKey==='st'?'semicircle':tgtKey==='unif'?'uniform':'½·δ_{π/2} + ½·uniform')+'\n'+
+      'test f: '+fKey+'\n'+
+      '∫ f dμ = '+target.toFixed(4)+'   running avg = '+final.toFixed(4)+'   |gap| = '+gap.toFixed(4)+'\n'+
+      (Math.abs(target)<1e-6
+        ? '  Weyl: for this f the exact integral is 0 → running avg must drift to 0.'
+        : '  Running average should track the violet target line, not 0.');
+  }
+  [tgt,fSel,nSl].forEach(e=>e.addEventListener('input',render));
+  render();
+})();
+</script>
+
+<p class="small">The semicircle target keeps $\int U_n\,d\mu = \delta_{n,0}$, so a non-CM elliptic curve's $U_n$ averages should vanish — exactly the symmetric-power moments we track in §5. The "CM-like" mix puts a $\delta$ at $\pi/2$, so $\int U_n\,d\mu = \tfrac12 U_n(0) + \tfrac12\cdot 0 \ne 0$ for even $n$, and a running average converging to a non-zero limit would flag Weyl failure for Sato–Tate on that curve.</p>
+
+<div class="quiz" data-concept="equidistribution-weyl"></div>
+</section>
+
 <section id="measure">
-<h2>2. The Sato–Tate measure</h2>
+<h2>3. The Sato–Tate measure</h2>
 
 <p>Every prime $p$ of good reduction hands us an angle $\theta_p\in[0,\pi]$. The <strong>Sato–Tate conjecture</strong> — proved for non-CM elliptic curves over totally real fields by Clozel, Harris, Shepherd-Barron, Taylor, Barnet-Lamb and Geraghty (2008–11) — specifies how they distribute.</p>
 
@@ -516,8 +651,164 @@ Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because o
 <div class="quiz" data-concept="sato-tate-measure"></div>
 </section>
 
+<section id="cm">
+<h2>4. CM vs. non-CM: two equidistribution laws</h2>
+
+<p>The semicircle density governs only the <em>non-CM</em> case. When $E$ has <a href="./elliptic-curves.html#cm">complex multiplication</a> by an order in an imaginary quadratic field $K$, the Frobenius $\alpha_p$ is a Hecke Grössencharacter value, and the $\ell$-adic Galois representation lands in the normalizer $N(T)\subset\mathrm{SU}(2)$ of a maximal torus $T$ instead of being Zariski-dense. Sato–Tate still holds — but against Haar measure on $N(T)$, not on all of $\mathrm{SU}(2)$.</p>
+
+<div class="note"><b>CM Sato–Tate (Hecke, Deuring, 1950s).</b> Let $E/\mathbb{Q}$ have CM by an order in $K=\mathbb{Q}(\sqrt{-d})$. Then:
+<br>• for primes $p$ <em>inert</em> in $K$ (density $\tfrac12$), $a_p=0$ — $p$ is supersingular, $\theta_p=\pi/2$;
+<br>• for primes $p$ <em>split</em> in $K$ (density $\tfrac12$), the angles $\theta_p$ equidistribute <em>uniformly</em> on $[0,\pi]$ with density $1/\pi$.
+<br>The combined Frobenius distribution is therefore $\tfrac12\delta_{\pi/2} + \tfrac12\cdot\frac{1}{\pi}\,d\theta$, i.e. Haar measure on $N(T)/T$-conjugacy classes.</div>
+
+<p>The split-prime story is genuinely different: for $p=\mathfrak{p}\bar{\mathfrak{p}}$ with $\mathfrak{p}\in K$ above $p$, the Grössencharacter $\psi$ satisfies $\psi(\mathfrak{p})\bar\psi(\mathfrak{p})=p$, and $a_p=\psi(\mathfrak{p})+\bar\psi(\mathfrak{p})$. Equidistribution of the arguments $\arg\psi(\mathfrak{p})$ in $\mathbb{R}/2\pi\mathbb{Z}$ is classical — it follows from equidistribution of the arguments of ideals in an ideal class via Hecke $L$-functions, and predates the full Sato–Tate conjecture by half a century.</p>
+
+<p>The inert-prime story is algebraic. For $p$ inert, reducing $E\bmod p$ lands in the supersingular locus; Frobenius has trace $0$ because $\mathrm{End}(E_{\overline{\mathbb{F}_p}})$ is a quaternion order and the CM embedding forces $a_p=0$. There is no distribution to speak of: every such prime contributes the atom at $\pi/2$.</p>
+
+<p>This is why the <em>Sato–Tate group</em> of $E$ is the right invariant: it is $\mathrm{SU}(2)$ for non-CM, and $N(T)\cong U(1)\rtimes\mathbb{Z}/2$ for CM. Both project to the "conjugacy space" with a measure that matches the observed Frobenius angles.</p>
+
+<div class="widget" id="w-cm">
+  <div class="hd"><div class="ttl">Four curves on the same histogram axes</div><div class="hint">compare $E:y^2=x^3+1$, $y^2=x^3-x$, $y^2=x^3+x$, $y^2=x^3-2$ on $p\le P_{\max}$</div></div>
+  <svg id="cm-svg" viewBox="0 0 640 300" width="640" height="300"></svg>
+  <div class="row">
+    <label>curve</label>
+    <select id="cm-curve">
+      <option value="0" selected>$y^2=x^3+1$  (CM by $\mathbb{Z}[\zeta_3]$)</option>
+      <option value="1">$y^2=x^3-x$  (CM by $\mathbb{Z}[i]$)</option>
+      <option value="2">$y^2=x^3+x$  (CM by $\mathbb{Z}[i]$)</option>
+      <option value="3">$y^2=x^3-2$  (non-CM)</option>
+    </select>
+    <label>$P_{\max}$ <input id="cm-pmax" type="range" min="200" max="3000" step="100" value="1500"></label>
+    <span id="cm-pv" class="small">P = 1500</span>
+  </div>
+  <div class="readout" id="cm-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#cm-svg'), sel=$('#cm-curve'), pSl=$('#cm-pmax'), pv=$('#cm-pv'), out=$('#cm-out');
+  // sieve primes up to N
+  function primes(N){
+    const s=new Uint8Array(N+1); const P=[];
+    for(let i=2;i<=N;i++){ if(!s[i]){ P.push(i); for(let j=i*i;j<=N;j+=i) s[j]=1; } }
+    return P;
+  }
+  // count points on y² = x³ + A x + B over F_p by Legendre formula: N = p + 1 + Σ_x (f(x)/p).
+  // So a_p = -Σ_{x=0..p-1} legendre(x³+Ax+B, p).
+  function legendre(a,p){
+    a=((a%p)+p)%p; if(a===0) return 0;
+    // compute a^((p-1)/2) mod p
+    let r=1,b=a,e=(p-1)>>1;
+    while(e>0){ if(e&1) r=(r*b)%p; b=(b*b)%p; e>>=1; }
+    return r===1?1:-1;
+  }
+  function ap(A,B,p){
+    if(p<=3) return NaN;
+    // skip primes of bad reduction: 4A³+27B² ≡ 0 mod p
+    const disc=((4*A*A*A + 27*B*B) % p + p) % p;
+    if(disc===0) return NaN;
+    let s=0;
+    for(let x=0;x<p;x++){
+      const y=((x*x%p)*x + A*x + B)%p;
+      s += legendre(((y%p)+p)%p, p);
+    }
+    return -s;
+  }
+  const CURVES=[
+    {A:0,B:1,lbl:'y²=x³+1 (CM)',cm:true},
+    {A:-1,B:0,lbl:'y²=x³-x (CM)',cm:true},
+    {A:1,B:0,lbl:'y²=x³+x (CM)',cm:true},
+    {A:0,B:-2,lbl:'y²=x³-2 (non-CM)',cm:false}
+  ];
+  function render(){
+    const ci=+sel.value, P=+pSl.value; pv.textContent='P = '+P;
+    const C=CURVES[ci];
+    const pr=primes(P);
+    const angles=[]; let nSup=0, nGood=0;
+    for(const p of pr){
+      if(p<=3) continue;
+      const a=ap(C.A,C.B,p);
+      if(!Number.isFinite(a)) continue;
+      nGood++;
+      const c=Math.max(-1,Math.min(1,a/(2*Math.sqrt(p))));
+      const θ=Math.acos(c);
+      angles.push(θ);
+      if(a===0) nSup++;
+    }
+    const B=20, h=Math.PI/B;
+    const counts=new Array(B).fill(0);
+    for(const θ of angles){ let k=Math.floor(θ/h); if(k>=B) k=B-1; if(k<0) k=0; counts[k]++; }
+    const dens=counts.map(c=>c/(angles.length*h));
+    svg.innerHTML='';
+    const W=640,H=300,pad={l:46,r:16,t:14,b:38},pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+    const yMax=Math.max(0.9, ...dens.map(v=>Math.min(v,2)))*1.05;
+    const X=θ=>pad.l+pw*θ/Math.PI, Y=v=>pad.t+ph*(1-Math.min(v,yMax)/yMax);
+    // bars
+    for(let k=0;k<B;k++){
+      const x0=X(k*h), x1=X((k+1)*h), y=Y(dens[k]);
+      svg.appendChild(SVG('rect',{x:x0+1,y,width:(x1-x0-2),height:(Y(0)-y),
+        fill: C.cm?'var(--pink)':'var(--blue)',opacity:0.55}));
+    }
+    // semicircle
+    let ds='';
+    for(let k=0;k<=120;k++){ const θ=Math.PI*k/120, v=(2/Math.PI)*Math.sin(θ)*Math.sin(θ); ds+=(k===0?'M':' L')+X(θ).toFixed(2)+' '+Y(v).toFixed(2); }
+    svg.appendChild(SVG('path',{d:ds,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // CM uniform flat at 1/(2π) on continuous part
+    if(C.cm){
+      let df='';
+      for(let k=0;k<=30;k++){ const θ=Math.PI*k/30, v=1/(2*Math.PI); df+=(k===0?'M':' L')+X(θ).toFixed(2)+' '+Y(v).toFixed(2); }
+      svg.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--violet)','stroke-width':1.8,'stroke-dasharray':'5 4'}));
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:pad.l,y1:Y(0),x2:pad.l+pw,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:Y(0),stroke:'var(--line)'}));
+    const xticks=[0,Math.PI/4,Math.PI/2,3*Math.PI/4,Math.PI];
+    const xlabs=['0','π/4','π/2','3π/4','π'];
+    for(let i=0;i<xticks.length;i++){
+      const x=X(xticks[i]);
+      svg.appendChild(SVG('line',{x1:x,y1:Y(0),x2:x,y2:Y(0)+5,stroke:'var(--line)'}));
+      const tt=SVG('text',{x,y:Y(0)+19,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tt.textContent=xlabs[i]; svg.appendChild(tt);
+    }
+    for(const v of [0,0.3,0.6,0.9]){
+      const y=Y(v);
+      svg.appendChild(SVG('line',{x1:pad.l-5,y1:y,x2:pad.l,y2:y,stroke:'var(--line)'}));
+      const tt=SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      tt.textContent=v.toFixed(1); svg.appendChild(tt);
+    }
+    // legend
+    let t=SVG('text',{x:pad.l+pw-8,y:pad.t+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    t.textContent='(2/π) sin²θ  (non-CM)'; svg.appendChild(t);
+    if(C.cm){
+      t=SVG('text',{x:pad.l+pw-8,y:pad.t+30,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+      t.textContent='1/(2π)  (CM continuous part)'; svg.appendChild(t);
+    }
+    t=SVG('text',{x:W/2,y:H-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    t.textContent='θ'; svg.appendChild(t);
+
+    const ssFrac = nGood>0 ? nSup/nGood : 0;
+    out.textContent =
+      'curve: '+C.lbl+'\n'+
+      'good primes 5 ≤ p ≤ '+P+': '+nGood+'\n'+
+      'supersingular (a_p = 0): '+nSup+'   → fraction ≈ '+ssFrac.toFixed(3)+
+        '   (expected: 0.5 CM · 0 non-CM)\n'+
+      (C.cm
+        ? 'CM prediction: ½·δ_{π/2} + ½·(1/π)dθ   — bars should match violet line on [0,π] minus a spike at π/2.'
+        : 'non-CM prediction: (2/π)sin²θ dθ   — bars should track the yellow curve.');
+  }
+  sel.addEventListener('change',render);
+  pSl.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<p class="small">The supersingular-prime fraction is the cleanest diagnostic: CM curves converge to $\tfrac12$ as $P\to\infty$, non-CM curves to $0$ (Elkies proved infinitely many supersingular primes exist for every $E$, but their density is $0$ in the non-CM case). Try $y^2=x^3-2$ and confirm the bars lean toward the yellow semicircle with almost no spike.</p>
+
+<div class="quiz" data-concept="cm-vs-non-cm-sato-tate"></div>
+</section>
+
 <section id="symn">
-<h2>3. Symmetric powers and the $L$-function strategy</h2>
+<h2>5. Symmetric powers and the $L$-function strategy</h2>
 
 <p>Proof of equidistribution flows through harmonic analysis on $\mathrm{SU}(2)$. Its irreducibles are the symmetric powers $\mathrm{Sym}^n\mathbb{C}^2$ ($n\ge 0$), with characters
 $$\chi_n(\theta)=U_n(\cos\theta)=\sum_{k=0}^{n}e^{i(n-2k)\theta}=\frac{\sin((n+1)\theta)}{\sin\theta},$$

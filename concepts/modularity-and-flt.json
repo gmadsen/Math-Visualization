@@ -33,6 +33,27 @@
         "modularity-and-deformations"
       ],
       "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
+    },
+    {
+      "id": "deformation-rings",
+      "title": "Deformation rings",
+      "anchor": "deformation",
+      "prereqs": [
+        "galois-rep-definition",
+        "frobenius-traces"
+      ],
+      "blurb": "Given a residual representation $\\overline\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ parametrizes all lifts $\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A)$ to complete Noetherian local rings $A$ with prescribed ramification data $\\Sigma$. It is the formal moduli space of Galois deformations and the algebraic side of modularity lifting."
+    },
+    {
+      "id": "r-equals-t",
+      "title": "The R = T theorem",
+      "anchor": "rt",
+      "prereqs": [
+        "deformation-rings",
+        "modularity-theorem",
+        "hecke-algebra-commuting"
+      ],
+      "blurb": "Wiles' modularity-lifting engine identifies the universal deformation ring $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ acting on weight-2 cusp forms. The surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ is forced to be an isomorphism via the Taylor–Wiles patching argument, so every deformation of $\\overline\\rho$ is modular."
     }
   ]
 }

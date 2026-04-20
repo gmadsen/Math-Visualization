@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -372,11 +375,13 @@ function polyPretty(coeffs, varname='x'){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#setup">1&nbsp;Setup</a>
   <a href="#factoring">2&nbsp;Factoring&nbsp;mod&nbsp;p</a>
-  <a href="#frobenius">3&nbsp;Frobenius&nbsp;element</a>
-  <a href="#chebotarev">4&nbsp;Chebotarev</a>
-  <a href="#weak">5&nbsp;Weak&nbsp;reciprocity</a>
-  <a href="#strong">6&nbsp;Strong&nbsp;reciprocity</a>
-  <a href="#ahead">7&nbsp;Where&nbsp;this&nbsp;leads</a>
+  <a href="#splitting">3&nbsp;Splitting&nbsp;types</a>
+  <a href="#frobenius">4&nbsp;Frobenius&nbsp;element</a>
+  <a href="#decomposition">5&nbsp;Decomposition&nbsp;&amp;&nbsp;inertia</a>
+  <a href="#chebotarev">6&nbsp;Chebotarev</a>
+  <a href="#weak">7&nbsp;Weak&nbsp;reciprocity</a>
+  <a href="#strong">8&nbsp;Strong&nbsp;reciprocity</a>
+  <a href="#ahead">9&nbsp;Where&nbsp;this&nbsp;leads</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -527,8 +532,27 @@ The multiset of degrees $(d_1,d_2,\dots,d_r)$ is the <strong>cycle shape</strong
 </script>
 </section>
 
+<section id="splitting">
+<h2>3. Splitting types: completely split, inert, partially split</h2>
+<p>Before we name the group-theoretic reason, let us name the patterns. For an unramified rational prime $p$ in a Galois extension $K/\mathbb{Q}$ of degree $n=[K:\mathbb{Q}]$, the factorisation
+$$ p\,\mathcal{O}_K \;=\; \mathfrak{P}_1\,\mathfrak{P}_2\cdots \mathfrak{P}_r, \qquad f := [\mathcal{O}_K/\mathfrak{P}_i : \mathbb{F}_p], \qquad r f = n $$
+has every prime sharing the same residue degree $f$: in a Galois extension the Galois group $G$ permutes the primes above $p$ transitively, so $r$ and $f$ are the same for all $i$. The pair $(r,f)$ with $rf=n$ is the <strong>splitting type</strong> of $p$ in $K$.</p>
+
+<p>Three qualitative cases, each with its own name and flavour:</p>
+<ul>
+  <li><strong>Completely split:</strong> $r=n,\ f=1$. The polynomial $\bar f(x)$ factors into $n$ distinct linear factors over $\mathbb{F}_p$; cycle shape $(1,1,\dots,1)$. Frobenius is the identity.</li>
+  <li><strong>Inert:</strong> $r=1,\ f=n$. The prime $p$ stays prime in $\mathcal{O}_K$; $\bar f(x)$ is irreducible of degree $n$; cycle shape $(n)$. Frobenius is an $n$-cycle, of order $n$ in $G$.</li>
+  <li><strong>Partially split:</strong> $1 < r < n$, any intermediate shape compatible with $rf=n$.</li>
+  <li><strong>Ramified:</strong> one or more $e_i>1$, i.e. $p\mid\operatorname{disc}(f)$. The cycle-shape dictionary breaks; a finite set of exceptional primes.</li>
+</ul>
+
+<div class="note">A useful mnemonic: completely split primes are the "visible" primes — they carry no Galois twist, so the field $K$ looks, at those primes, just like copies of $\mathbb{F}_p$. Inert primes are the most "twisted" — the full Galois action at $p$ is realised by a single Frobenius generator of order $n$.</div>
+
+<div class="quiz" data-concept="splitting-types"></div>
+</section>
+
 <section id="frobenius">
-<h2>3. The Frobenius element</h2>
+<h2>4. The Frobenius element</h2>
 <p>Cycle shapes look combinatorial, but they are group-theoretic. Here is the bridge. Inside the ring of integers $\mathcal{O}_K$ of the splitting field, the rational prime $p$ factors as a product of prime ideals:
 $$ p\,\mathcal{O}_K \;=\; \mathfrak{P}_1 \mathfrak{P}_2 \cdots \mathfrak{P}_r^{e}, $$
 and at each unramified prime $\mathfrak{P}$ the residue field $\mathcal{O}_K/\mathfrak{P}$ is a finite extension of $\mathbb{F}_p$. The <strong>Frobenius</strong> at $\mathfrak{P}$ is the unique element $\mathrm{Frob}_\mathfrak{P} \in G$ satisfying
@@ -615,10 +639,28 @@ $$ \mathrm{Frob}_p \;\subset\; G. $$
   render();
 })();
 </script>
+<div class="quiz" data-concept="frobenius-element"></div>
+</section>
+
+<section id="decomposition">
+<h2>5. Decomposition and inertia groups</h2>
+<p>Frobenius did not fall out of the sky — it came from a subgroup. Fix a prime $\mathfrak{P}\subset\mathcal{O}_K$ above $p$. Its <strong>decomposition group</strong> is the stabiliser
+$$ D(\mathfrak{P}) \;=\; \{\, \sigma \in G : \sigma(\mathfrak{P}) = \mathfrak{P}\,\} \;\le\; G. $$
+By the orbit–stabiliser theorem, $|D(\mathfrak{P})| = |G|/r = ef$, where $r$ is the number of primes above $p$, $e$ is the ramification index, and $f$ is the residue degree. Every $\sigma\in D(\mathfrak{P})$ descends to an automorphism of the residue field $\mathcal{O}_K/\mathfrak{P}$ over $\mathbb{F}_p$, giving a natural map
+$$ \pi_\mathfrak{P}:\ D(\mathfrak{P}) \;\longrightarrow\; \mathrm{Gal}\!\left((\mathcal{O}_K/\mathfrak{P})/\mathbb{F}_p\right) \;\cong\; \mathbb{Z}/f. $$
+The kernel $I(\mathfrak{P}) = \ker \pi_\mathfrak{P}$ is the <strong>inertia subgroup</strong> at $\mathfrak{P}$, of order $e$.</p>
+
+<p>Putting the two together yields a short exact sequence
+$$ 1 \longrightarrow I(\mathfrak{P}) \longrightarrow D(\mathfrak{P}) \xrightarrow{\ \pi_\mathfrak{P}\ } \mathrm{Gal}(\mathbb{F}_{p^f}/\mathbb{F}_p) \longrightarrow 1. $$
+At an <em>unramified</em> prime $I(\mathfrak{P})$ is trivial and $\pi_\mathfrak{P}$ is an isomorphism, so $D(\mathfrak{P})$ is cyclic of order $f$. The <strong>Frobenius element</strong> $\mathrm{Frob}_\mathfrak{P}$ is exactly the preimage under $\pi_\mathfrak{P}$ of the $p$-power map $x\mapsto x^p$ — the canonical generator of the residue-field Galois group. Conjugating by $g\in G$ sends $\mathfrak{P}$ to $g\mathfrak{P}$ and carries $D(\mathfrak{P})\to D(g\mathfrak{P})$, so changing the prime above $p$ conjugates both $D$ and Frobenius; only the conjugacy class $\mathrm{Frob}_p\subset G$ is canonical.</p>
+
+<div class="ok">Summary: $D(\mathfrak{P})$ is the local Galois group at $\mathfrak{P}$, $I(\mathfrak{P})$ measures ramification, and the quotient $D/I$ is the place where Frobenius lives. Cycle shapes, residue degrees, and decomposition subgroups are three views of the same data.</div>
+
+<div class="quiz" data-concept="decomposition-group"></div>
 </section>
 
 <section id="chebotarev">
-<h2>4. Chebotarev density</h2>
+<h2>6. Chebotarev density</h2>
 <p>One Frobenius is a single data point. But the cycle shapes form a <em>statistical</em> pattern across primes. Let $C \subset G$ be a conjugacy class, and let
 $$ \pi_C(N) \;=\; \#\{\, p \le N : p \text{ unramified},\ \mathrm{Frob}_p \subset C \,\}. $$
 <strong>Chebotarev's density theorem</strong> says:
@@ -714,10 +756,11 @@ Every conjugacy class, from every Galois group, gets hit by a positive, explicit
   run();
 })();
 </script>
+<div class="quiz" data-concept="chebotarev-density"></div>
 </section>
 
 <section id="weak">
-<h2>5. Weak reciprocity: the abelian miracle</h2>
+<h2>7. Weak reciprocity: the abelian miracle</h2>
 <p>When $G$ is abelian, every conjugacy class is a singleton, so $\mathrm{Frob}_p$ is an honest element of $G$. The abelian reciprocity law is then a stunning statement:</p>
 
 <div class="ok"><strong>Weak reciprocity (abelian case).</strong> If $K/\mathbb{Q}$ is abelian, there is an integer $N$ (the <em>conductor</em>) such that the map
@@ -888,7 +931,7 @@ factors through $(\mathbb{Z}/N)^\times$. That is, the cycle shape of $f$ mod $p$
 </section>
 
 <section id="strong">
-<h2>6. Strong reciprocity: the non-abelian case</h2>
+<h2>8. Strong reciprocity: the non-abelian case</h2>
 <p>For $G$ non-abelian, no congruence condition on $p$ can detect the conjugacy class of $\mathrm{Frob}_p$ — because the number of conjugacy classes is finite but the field $K$ does <em>not</em> embed into any cyclotomic field. (A theorem of Kronecker–Weber says cyclotomic fields give <em>exactly</em> the abelian extensions.) So weak reciprocity <em>fails</em> outside the abelian world.</p>
 
 <p>The Langlands program replaces the missing congruence condition with an <strong>automorphic object</strong>. The slogan:</p>
@@ -1024,10 +1067,11 @@ The coefficients of $\pi_\rho$ are the Frobenius traces.</div>
   svg.appendChild(cap);
 })();
 </script>
+<div class="quiz" data-concept="artin-reciprocity-preview"></div>
 </section>
 
 <section id="ahead">
-<h2>7. Where this leads</h2>
+<h2>9. Where this leads</h2>
 <p>The reciprocity dictionary is the organising principle of 20th and 21st century number theory. Three directions to look:</p>
 
 <ul>
@@ -1097,6 +1141,13 @@ The coefficients of $\pi_\rho$ are the Frobenius traces.</div>
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('frobenius-and-reciprocity'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

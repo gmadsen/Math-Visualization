@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -304,6 +307,8 @@ Cartesian squares upstairs project to commuting squares downstairs — "pullback
 </script>
 
 <p>Either way, a moduli problem is now a functor (or fibered category) valued in groupoids. That is still not a stack — we need one more condition.</p>
+
+<div class="quiz" data-concept="groupoids-and-descent"></div>
 </section>
 
 <section id="descent">
@@ -467,6 +472,8 @@ $$ BG(R) \;=\; \text{groupoid of } G\text{-torsors on } \mathrm{Spec}\,R. $$
 </script>
 
 <p>$BG$ has a universal property: maps $T\to BG$ from a scheme $T$ correspond to $G$-torsors on $T$. In particular $\mathrm{Spec}\,k\to BG$ classifies the trivial torsor and is itself a <strong>smooth surjection</strong> — this will be our model for "atlas" in a moment.</p>
+
+<div class="quiz" data-concept="classifying-stacks"></div>
 </section>
 
 <section id="dm">
@@ -651,6 +658,8 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
 </script>
 
 <p>Two cautions. First, the map $\pi$ is <em>not</em> a gerbe quotient in general — the fiber of $\pi$ over a stacky point is a classifying stack $B\mathrm{Aut}$, so the coarse space really does forget structure. Second, Chow groups, cohomology, and intersection theory of $\mathcal{X}$ and of its coarse space $X$ differ in a controlled way: for $\mathcal{M}_{1,1}$ the integer Chow ring is $\mathbb{Z}[t]/(12t)$, not the Chow ring of $\mathbb{A}^1$.</p>
+
+<div class="quiz" data-concept="dm-stacks-coarse-space"></div>
 </section>
 
 <section id="take">
@@ -715,6 +724,13 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('stacks'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

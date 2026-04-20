@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -167,7 +170,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#models">6&nbsp;Model&nbsp;spaces</a>
   <a href="#jacobi">7&nbsp;Jacobi&nbsp;fields</a>
   <a href="#comparison">8&nbsp;Comparison&nbsp;theorems</a>
-  <a href="#outro">9&nbsp;Connections</a>
+  <a href="#ricci">9&nbsp;Ricci&nbsp;&amp;&nbsp;Einstein</a>
+  <a href="#volume">10&nbsp;Volume&nbsp;form</a>
+  <a href="#outro">11&nbsp;Connections</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -247,6 +252,8 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
   <svg id="met-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
   <div class="readout" id="met-out"></div>
 </div>
+
+<div class="quiz" data-concept="riemannian-metrics"></div>
 </section>
 
 <script>
@@ -703,6 +710,8 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
   </div>
   <div class="readout" id="geo-out"></div>
 </div>
+
+<div class="quiz" data-concept="levi-civita-connection"></div>
 </section>
 
 <script>
@@ -1701,6 +1710,8 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
   <div class="hd"><div class="ttl">Comparison theorems at a glance</div></div>
   <svg id="comp-svg" viewBox="0 0 660 260" width="660" height="260"></svg>
 </div>
+
+<div class="quiz" data-concept="riemann-curvature-tensor"></div>
 </section>
 
 <script>
@@ -1763,8 +1774,50 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
 })();
 </script>
 
+<section id="ricci">
+<h2>9. Ricci curvature and Einstein manifolds</h2>
+
+<p>Section 5 introduced the Ricci tensor $\operatorname{Ric}_{ij} = g^{k\ell} R_{kij\ell}$ as a trace of the Riemann tensor. This section treats it on its own. Fix $p\in M$ and let $\{e_1,\ldots,e_n\}$ be an orthonormal basis of $T_pM$ with $e_1 = v/\|v\|$. Then
+$$\operatorname{Ric}(v,v) = \|v\|^2 \sum_{i=2}^{n} K(\mathrm{span}\{v,e_i\}) = (n-1)\,\|v\|^2\,\overline{K}(v),$$
+where $\overline{K}(v)$ is the <strong>average sectional curvature</strong> over $2$-planes containing $v$. Ricci thus loses the fine directional information of the full Riemann tensor but retains the directional average relevant for volume comparison.</p>
+
+<div class="note"><strong>Geometric meaning.</strong> In geodesic normal coordinates centred at $p$,
+$$\sqrt{\det g}(x) = 1 - \tfrac{1}{6}\operatorname{Ric}_{ij}(p)\,x^i x^j + O(|x|^3).$$
+So positive Ricci in the direction $v$ means small geodesic balls are <em>smaller</em> than Euclidean balls along $v$; negative Ricci means larger. This is what drives Bishop&ndash;Gromov volume comparison (§8), and it is why the Ricci tensor &mdash; not the full Riemann tensor &mdash; is the right gadget for Bonnet&ndash;Myers.</div>
+
+<p>The further contraction $S = g^{ij}\operatorname{Ric}_{ij}$ gives the <strong>scalar curvature</strong>, and in dimension $n\ge 2$ equals $n(n-1)$ times the average of $K$ over <em>all</em> tangent $2$-planes at $p$. On the round $n$-sphere of radius $1$ with $K\equiv 1$, this reads $S = n(n-1)$.</p>
+
+<div class="ok"><strong>Einstein manifolds.</strong> $(M,g)$ is <em>Einstein</em> if
+$$\operatorname{Ric} = \lambda\, g$$
+for some constant $\lambda\in\mathbb{R}$. Taking traces gives $\lambda = S/n$. Every constant-sectional-curvature space is Einstein; on closed manifolds of dimension $n\ge 3$, Einstein metrics are the critical points of the normalized total scalar curvature $g\mapsto \operatorname{Vol}(M,g)^{(2-n)/n}\int_M S\,d\mathrm{vol}_g$. In Lorentzian signature, the vacuum Einstein field equation $\operatorname{Ric} - \tfrac12 S\,g = 0$ (equivalently $\operatorname{Ric}=0$, i.e. <em>Ricci-flat</em>) is the geometric content of general relativity without sources.</div>
+
+<p>Two recurring examples beyond constant curvature: the Fubini&ndash;Study metric on $\mathbb{CP}^n$ is Einstein with positive scalar curvature; Calabi&ndash;Yau manifolds are compact K&auml;hler manifolds with $\operatorname{Ric}=0$.</p>
+
+<div class="quiz" data-concept="ricci-curvature"></div>
+</section>
+
+<section id="volume">
+<h2>10. Riemannian volume form and divergence</h2>
+
+<p>A Riemannian metric on an oriented $n$-manifold distinguishes a canonical top-degree form &mdash; the volume form &mdash; and with it, a notion of integration, divergence, and a Laplacian. In local oriented coordinates $(x^1,\ldots,x^n)$ with metric components $g_{ij}$:
+$$d\mathrm{vol}_g \;=\; \sqrt{\det g_{ij}}\;\, dx^1\wedge\cdots\wedge dx^n.$$
+The factor $\sqrt{\det g}$ is precisely the volume of the parallelepiped spanned by the coordinate basis $\partial_1,\ldots,\partial_n$ measured by $g$, so changes of chart multiply $\sqrt{\det g}$ by the absolute Jacobian and $dx^1\wedge\cdots\wedge dx^n$ by the signed Jacobian &mdash; their product is a well-defined global $n$-form, nowhere vanishing.</p>
+
+<p>Integration of functions is then $\int_M f\, d\mathrm{vol}_g$; on the round sphere $ds^2 = d\theta^2+\sin^2\theta\,d\varphi^2$, $\sqrt{\det g}=\sin\theta$, and $\int_{S^2} d\mathrm{vol}_g = \int_0^{2\pi}\!\!\int_0^\pi \sin\theta\,d\theta\,d\varphi = 4\pi$. This recovers the familiar area.</p>
+
+<div class="note"><strong>Divergence and Laplace&ndash;Beltrami.</strong> For a vector field $X = X^i\partial_i$, the <em>divergence</em> of $X$ is defined by $\mathcal{L}_X d\mathrm{vol}_g = (\operatorname{div}_g X)\, d\mathrm{vol}_g$, equivalently
+$$\operatorname{div}_g X \;=\; \frac{1}{\sqrt{\det g}}\,\partial_i\bigl(\sqrt{\det g}\,X^i\bigr).$$
+Combined with the gradient $\operatorname{grad}_g f = g^{ij}\partial_j f\,\partial_i$, this yields the <strong>Laplace&ndash;Beltrami operator</strong>
+$$\Delta_g f \;=\; \operatorname{div}_g\operatorname{grad}_g f \;=\; \frac{1}{\sqrt{\det g}}\,\partial_i\!\Bigl(\sqrt{\det g}\,g^{ij}\partial_j f\Bigr).$$
+On Euclidean space ($g_{ij}=\delta_{ij}$) it collapses to the usual Laplacian $\sum_i \partial_i^2 f$. On a closed Riemannian manifold, $\Delta_g$ is symmetric and non-positive for $\int_M (\cdot)(\cdot)\,d\mathrm{vol}_g$; its eigenvalues encode spectral geometry (can you hear the shape of a drum?).</div>
+
+<p>Hodge duality for the metric identifies $k$-forms with $(n-k)$-forms via the Hodge star $\star$, uniquely determined by $\alpha\wedge\star\beta = g(\alpha,\beta)\,d\mathrm{vol}_g$. This packages $\operatorname{grad},\operatorname{div},\operatorname{curl}$ on $\mathbb{R}^3$ and more generally gives the adjoint of $d$, the codifferential $\delta = \pm\star d\star$, and the Hodge Laplacian $\Delta = d\delta + \delta d$ on forms &mdash; the starting point for Hodge theory on Riemannian manifolds.</p>
+
+<div class="quiz" data-concept="volume-form-rg"></div>
+</section>
+
 <section id="outro">
-<h2>9. Connections to the rest of the notebook</h2>
+<h2>11. Connections to the rest of the notebook</h2>
 
 <p>Riemannian geometry sits at a crossroads of the notebook. Three threads worth following:</p>
 
@@ -1833,6 +1886,14 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('riemannian-geometry'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

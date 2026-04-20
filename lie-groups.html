@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -381,6 +384,8 @@ function renderMat(container, M, p=3){
   <li>$\mathrm{SL}_n$ preserves the top exterior form $e_1\wedge\cdots\wedge e_n$ (i.e., volume).</li>
 </ul>
 <p>The $S$-prefixes isolate the identity component by imposing $\det = 1$. On the physics side, each group governs a different kind of symmetry: rotations ($\mathrm{SO}(3)$), phases ($\mathrm{U}(1)$), internal spin ($\mathrm{SU}(2)$), the Standard Model gauge group ($\mathrm{U}(1)\times\mathrm{SU}(2)\times\mathrm{SU}(3)$), and symplectic evolution in classical mechanics ($\mathrm{Sp}(2n)$).</p>
+
+<div class="quiz" data-concept="lie-group-definition"></div>
 </section>
 
 <section id="algebra">
@@ -668,6 +673,8 @@ $$T_k = -\tfrac{i}{2}\sigma_k, \qquad \sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatr
 </script>
 
 <p>Two things stand out. First, the trajectory is closed: $\exp(tX)$ comes back to $I$ at $t = 4\pi/\rho$ (not $2\pi/\rho$ — this is the "spinor sign" that distinguishes $\mathrm{SU}(2)$ from $\mathrm{SO}(3)$). Second, the projection sometimes "escapes to infinity": that is the moment the trajectory passes through the north pole $q_0=1$, the antipode of the origin in $S^3$, the place where stereographic projection is undefined.</p>
+
+<div class="quiz" data-concept="lie-algebra-and-exp"></div>
 </section>
 
 <section id="bracket">
@@ -1085,6 +1092,8 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
 </table>
 
 <div class="note"><strong>Killing–Cartan classification.</strong> The complex simple Lie algebras are exactly those with root system in the four infinite families $A_n, B_n, C_n, D_n$ and the five exceptionals $G_2, F_4, E_6, E_7, E_8$. This is one of the deepest classification results in mathematics — and the proof is essentially combinatorial, working entirely with root systems and Dynkin diagrams.</div>
+
+<div class="quiz" data-concept="adjoint-roots"></div>
 </section>
 
 <section id="outro">
@@ -1153,6 +1162,14 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('lie-groups'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

@@ -29,6 +29,25 @@
         "fundamental-theorem-galois"
       ],
       "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
+    },
+    {
+      "id": "normal-separable-extensions",
+      "title": "Normal and separable extensions",
+      "anchor": "normal-separable",
+      "prereqs": [
+        "field-extensions-galois",
+        "quotients-homomorphisms"
+      ],
+      "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic."
+    },
+    {
+      "id": "primitive-element-theorem",
+      "title": "Primitive element theorem",
+      "anchor": "primitive",
+      "prereqs": [
+        "normal-separable-extensions"
+      ],
+      "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial."
     }
   ]
 }

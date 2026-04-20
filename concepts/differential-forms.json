@@ -22,11 +22,32 @@
       "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0."
     },
     {
+      "id": "pullback-of-forms",
+      "title": "Pullback of forms",
+      "anchor": "pullback",
+      "prereqs": [
+        "forms-and-wedge",
+        "smooth-map"
+      ],
+      "blurb": "A smooth map f:M→N contravariantly transports k-forms back, commuting with d and ∧ — this is why integration of forms is coordinate-invariant."
+    },
+    {
+      "id": "integration-on-chains",
+      "title": "Integration of forms over chains",
+      "anchor": "integration",
+      "prereqs": [
+        "pullback-of-forms",
+        "singular-homology"
+      ],
+      "blurb": "A smooth k-chain is a formal sum of smooth simplices; integrating a k-form over a chain is defined via pullback to the standard simplex and extends by linearity."
+    },
+    {
       "id": "stokes-derham",
       "title": "Stokes theorem and de Rham cohomology",
       "anchor": "deRham",
       "prereqs": [
-        "exterior-derivative"
+        "exterior-derivative",
+        "integration-on-chains"
       ],
       "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms."
     }

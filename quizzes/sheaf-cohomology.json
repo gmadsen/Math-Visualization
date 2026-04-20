@@ -1,0 +1,108 @@
+{
+  "topic": "sheaf-cohomology",
+  "quizzes": {
+    "cech-cohomology": {
+      "title": "Čech cocycles and cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given a cover $\\mathcal{U}=\\{U_\\alpha\\}$ of $X$ and a sheaf $\\mathcal{F}$, a $1$-cocycle is a family $\\{t_{\\alpha\\beta}\\in\\mathcal{F}(U_{\\alpha\\beta})\\}$ satisfying which identity on $U_{\\alpha\\beta\\gamma}$?",
+          "choices": [
+            "$t_{\\alpha\\beta}+t_{\\beta\\gamma}+t_{\\gamma\\alpha}=0$",
+            "$t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}=0$",
+            "$t_{\\alpha\\beta}\\cdot t_{\\beta\\gamma}\\cdot t_{\\gamma\\alpha}=1$",
+            "$t_{\\alpha\\beta}+t_{\\alpha\\gamma}+t_{\\beta\\gamma}=0$"
+          ],
+          "answer": 1,
+          "explain": "The alternating Čech differential gives $(d t)_{\\alpha\\beta\\gamma}=t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}$; setting it to zero is the cocycle condition on triple overlaps."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\check{H}^0(\\mathcal{U},\\mathcal{F})=\\mathcal{F}(X)$?",
+          "choices": [
+            "Because $\\mathcal{F}$ is a constant sheaf on $X$.",
+            "Because a $0$-cocycle is a family of local sections agreeing on overlaps, which is a global section of $\\mathcal{F}$.",
+            "Because $0$-cochains vanish by definition.",
+            "Because injective sheaves have trivial $H^0$."
+          ],
+          "answer": 1,
+          "explain": "A $0$-cochain is $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$; $(ds)_{\\alpha\\beta}=s_\\beta-s_\\alpha=0$ forces the $s_\\alpha$ to glue by the sheaf axiom, yielding exactly a global section."
+        },
+        {
+          "type": "numeric",
+          "q": "For the circle $S^1$ with the constant sheaf $\\underline{\\mathbb{Z}}$ and a standard good cover by two overlapping arcs whose intersection has two connected components, compute $\\dim_{\\mathbb{Q}} (\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\otimes\\mathbb{Q})$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional."
+        }
+      ]
+    },
+    "derived-functor-cohomology": {
+      "title": "Derived functor sheaf cohomology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property of the global-sections functor $\\Gamma(X,-)$ is measured by the derived functors $R^i\\Gamma$?",
+          "choices": [
+            "Failure of injectivity of $\\Gamma$",
+            "Failure of left exactness",
+            "Failure of right exactness",
+            "Failure of additivity"
+          ],
+          "answer": 2,
+          "explain": "$\\Gamma(X,-)$ is left exact but not right exact; $R^i\\Gamma$ measures exactly the right-exactness defect via a long exact sequence."
+        },
+        {
+          "type": "mcq",
+          "q": "Which class of sheaves is NOT automatically $\\Gamma$-acyclic?",
+          "choices": [
+            "injective sheaves",
+            "flabby (flasque) sheaves",
+            "soft sheaves on a paracompact Hausdorff space",
+            "arbitrary locally constant sheaves"
+          ],
+          "answer": 3,
+          "explain": "Injective, flabby, and soft (on paracompact Hausdorff) sheaves are all $\\Gamma$-acyclic. A locally constant sheaf like $\\underline{\\mathbb{Z}}$ on $S^1$ has nonzero $H^1$, so it is not acyclic in general."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{P}^1_k$ the line bundle $\\mathcal{O}(-5)$ has $h^0=0$. Using $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(n))=\\max(-n-1,0)$, compute $\\dim_k H^1(\\mathbb{P}^1,\\mathcal{O}(-5))$.",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\max(-(-5)-1,0)=\\max(4,0)=4$."
+        }
+      ]
+    },
+    "applications-picard-serre": {
+      "title": "Picard groups and Serre duality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Picard group of a ringed space $(X,\\mathcal{O}_X)$ is canonically isomorphic to which Čech cohomology group?",
+          "choices": [
+            "$\\check{H}^0(X,\\mathcal{O}_X)$",
+            "$\\check{H}^1(X,\\mathcal{O}_X)$",
+            "$\\check{H}^1(X,\\mathcal{O}_X^\\times)$",
+            "$\\check{H}^2(X,\\mathcal{O}_X^\\times)$"
+          ],
+          "answer": 2,
+          "explain": "Line bundles are classified by their transition cocycles in $\\mathcal{O}_X^\\times$ modulo coboundaries: $\\mathrm{Pic}(X)\\cong\\check{H}^1(X,\\mathcal{O}_X^\\times)$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{P}^1$ with $\\omega_{\\mathbb{P}^1}=\\mathcal{O}(-2)$, Serre duality gives $\\dim H^1(\\mathcal{O}(-7))=\\dim H^0(\\mathcal{O}(7-2))$. Compute this common dimension.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(5))=5+1=6$, and $\\max(-(-7)-1,0)=6$, so the duality check holds."
+        },
+        {
+          "type": "numeric",
+          "q": "Use Riemann–Roch on a smooth projective curve of genus $g=4$ together with Serre duality to compute $\\dim H^0(C,L)-\\dim H^0(C,\\omega_C\\otimes L^{-1})$ for a line bundle $L$ of degree $d=10$.",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$."
+        }
+      ]
+    }
+  }
+}

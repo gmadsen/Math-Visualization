@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -223,6 +226,8 @@ function cfmt(a){
 
 <div class="note">Throughout this page: "rep" means finite-dimensional complex representation of a finite group $G$, unless stated otherwise. Most statements hold with $\mathbb{C}$ replaced by any algebraically closed field of characteristic coprime to $|G|$.</div>
 
+<div class="quiz" data-concept="group-representations"></div>
+
 </section>
 
 <section id="examples">
@@ -285,6 +290,8 @@ function cfmt(a){
 
 <p>Consequence for infinite groups: Maschke fails in general (e.g.\ the above rep of $\mathbb{Z}$ over $\mathbb{C}$ is indecomposable but reducible). However, for <em>compact</em> groups — using Haar measure to replace $\tfrac{1}{|G|}\sum$ — semisimplicity is restored, and nearly the entire theory below generalizes.</p>
 
+<div class="quiz" data-concept="maschke-theorem"></div>
+
 </section>
 
 <section id="schur">
@@ -311,6 +318,8 @@ function cfmt(a){
 <p><strong>Projector formula.</strong> For an irrep $V_\lambda$ appearing inside any rep $V$, the projector onto the $V_\lambda$-isotypic component is</p>
 <p style="text-align:center">$\displaystyle P_\lambda \;=\; \frac{\dim V_\lambda}{|G|}\sum_{g\in G} \overline{\chi_\lambda(g)}\,\rho(g)$,</p>
 <p>a formula we will derive below from the orthogonality relations. This is the workhorse of computational rep theory.</p>
+
+<div class="quiz" data-concept="schurs-lemma"></div>
 
 </section>
 
@@ -351,6 +360,8 @@ function cfmt(a){
 </ul>
 
 <p>Built-in redundancies: the character is real-valued on real classes; $\chi_{V^*}(g) = \overline{\chi_V(g)} = \chi_V(g^{-1})$; $\chi_V(g^k)$ is a sum of $k$th powers of eigenvalues of $\rho(g)$, which ties $\rho(g^k)$ to $\rho(g)$ via power-sum $\to$ elementary-symmetric-function identities (Newton's identities).</p>
+
+<div class="quiz" data-concept="characters-orthogonality"></div>
 
 </section>
 
@@ -559,6 +570,8 @@ function cfmt(a){
 <p style="text-align:center">$c_T \;=\; \Big(\sum_{p\in R_T} p\Big)\Big(\sum_{q\in C_T}\mathrm{sgn}(q)\,q\Big) \;\in\;\mathbb{C}[S_n]$.</p>
 <p>Then $V_\lambda \;=\; \mathbb{C}[S_n]\cdot c_T$. Choosing $T$ differently gives isomorphic modules; up to scalar, $c_T^2 = \tfrac{n!}{f^\lambda}\,c_T$ — a beautiful near-idempotent.</p>
 
+<div class="quiz" data-concept="induction-and-young"></div>
+
 </section>
 
 <section id="sl2">
@@ -639,6 +652,8 @@ function cfmt(a){
 <div class="ok">
 <strong>Takeaway.</strong> Everything you've learned in this page — characters, orthogonality, multiplicities, induced reps, Young diagrams — is a template for infinite-dimensional objects. Replace "conjugacy class" with "orbit under Weyl group", replace "character" with "Weyl character", replace "Schur orthogonality" with the Weyl integration formula, and you are at the gate of modern representation theory: compact Lie groups, affine Lie algebras, quantum groups, geometric Langlands.
 </div>
+
+<div class="quiz" data-concept="sl2-weight-decomposition"></div>
 
 </section>
 
@@ -1500,6 +1515,14 @@ function innerProd(group, chiA, chiB){
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('representation-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

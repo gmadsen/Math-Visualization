@@ -22,8 +22,27 @@
       "blurb": "Chord-tangent constructions define an abelian group on rational points."
     },
     {
+      "id": "j-invariant-classification",
+      "title": "The j-invariant and isomorphism classes",
+      "anchor": "j",
+      "prereqs": [
+        "elliptic-curve-definition"
+      ],
+      "blurb": "The j-invariant is a single number that classifies elliptic curves over an algebraically closed field up to isomorphism, and witnesses the coarse moduli space M_{1,1}."
+    },
+    {
+      "id": "complex-multiplication",
+      "title": "Complex uniformization and CM",
+      "anchor": "complex",
+      "prereqs": [
+        "elliptic-curve-definition",
+        "riemann-surface-definition"
+      ],
+      "blurb": "Over C every elliptic curve is a torus C/\u039b; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field."
+    },
+    {
       "id": "mordell-weil-ec",
-      "title": "Mordell–Weil and invariants",
+      "title": "Mordell\u2013Weil and invariants",
       "anchor": "mordell",
       "prereqs": [
         "elliptic-group-law"

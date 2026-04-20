@@ -2,11 +2,11 @@
   "topic": "etale-cohomology",
   "quizzes": {
     "etale-morphism": {
-      "title": "\u00c9tale morphisms",
+      "title": "Étale morphisms",
       "questions": [
         {
           "type": "mcq",
-          "q": "Which of the following is **not** part of the definition of an \u00e9tale morphism of schemes?",
+          "q": "Which of the following is **not** part of the definition of an étale morphism of schemes?",
           "choices": [
             "flat",
             "unramified",
@@ -14,18 +14,18 @@
             "proper"
           ],
           "answer": 3,
-          "explain": "\u00c9tale = flat + unramified (equivalently: smooth of relative dimension $0$). Properness is a separate condition; \u00e9tale morphisms are by definition of finite presentation but need not be proper."
+          "explain": "Étale = flat + unramified (equivalently: smooth of relative dimension $0$). Properness is a separate condition; étale morphisms are by definition of finite presentation but need not be proper."
         },
         {
           "type": "numeric",
-          "q": "Consider the map $f\\colon \\mathbb{A}^1_{\\mathbb{C}}\\to \\mathbb{A}^1_{\\mathbb{C}}$, $z\\mapsto z^5$. Away from the origin it is \u00e9tale. Over a point $t\\neq 0$, how many geometric points does the fibre have?",
+          "q": "Consider the map $f\\colon \\mathbb{A}^1_{\\mathbb{C}}\\to \\mathbb{A}^1_{\\mathbb{C}}$, $z\\mapsto z^5$. Away from the origin it is étale. Over a point $t\\neq 0$, how many geometric points does the fibre have?",
           "answer": 5,
           "tol": 0.0001,
-          "explain": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e. $5$ distinct fifth roots, so the \u00e9tale degree is $5$. Over $t=0$ the fibre collapses to a single ramified point $z=0$."
+          "explain": "The fibre over $t\\neq 0$ is $\\{z : z^5 = t\\}$, i.e. $5$ distinct fifth roots, so the étale degree is $5$. Over $t=0$ the fibre collapses to a single ramified point $z=0$."
         },
         {
           "type": "mcq",
-          "q": "The map $\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]\\to\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]$ sending $t\\mapsto t^n$ is \u00e9tale exactly when:",
+          "q": "The map $\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]\\to\\operatorname{Spec}\\mathbb{F}_p[t,t^{-1}]$ sending $t\\mapsto t^n$ is étale exactly when:",
           "choices": [
             "always",
             "$n$ is coprime to $p$",
@@ -39,38 +39,75 @@
     },
 
     "l-adic-cohomology": {
-      "title": "\u2113-adic cohomology",
+      "title": "ℓ-adic cohomology",
       "questions": [
         {
           "type": "mcq",
           "q": "Why do we take the prime $\\ell$ distinct from the characteristic $p$ of the ground field?",
           "choices": [
-            "Because $H^i_{\\text{\u00e9t}}(X,\\mathbb{Z}/p)$ sees only $p$-torsion and is badly behaved.",
-            "Because working with $\\ell = p$ collapses \u00e9tale cohomology to singular cohomology.",
+            "Because $H^i_{\\text{ét}}(X,\\mathbb{Z}/p)$ sees only $p$-torsion and is badly behaved.",
+            "Because working with $\\ell = p$ collapses étale cohomology to singular cohomology.",
             "There is no such restriction; any prime works.",
             "Because Frobenius has no action when $\\ell = p$."
           ],
           "answer": 0,
-          "explain": "In characteristic $p$, the \u00e9tale cohomology $H^i_{\\text{\u00e9t}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead). For $\\ell \\neq p$ the theory is well-behaved and gives the right Betti numbers."
+          "explain": "In characteristic $p$, the étale cohomology $H^i_{\\text{ét}}(X,\\mathbb{Z}/p^n)$ is pathological (one uses crystalline cohomology instead). For $\\ell \\neq p$ the theory is well-behaved and gives the right Betti numbers."
         },
         {
           "type": "numeric",
-          "q": "Let $E$ be a smooth projective curve of genus $g$ over an algebraically closed field. What is $\\dim_{\\mathbb{Q}_\\ell} H^1_{\\text{\u00e9t}}(E, \\mathbb{Q}_\\ell)$ for $g = 3$?",
+          "q": "Let $E$ be a smooth projective curve of genus $g$ over an algebraically closed field. What is $\\dim_{\\mathbb{Q}_\\ell} H^1_{\\text{ét}}(E, \\mathbb{Q}_\\ell)$ for $g = 3$?",
           "answer": 6,
           "tol": 0.0001,
-          "explain": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{\u00e9t}}(E,\\mathbb{Q}_\\ell) = 2g$. With $g=3$ this is $6$ \u2014 matching the classical Betti number $b_1 = 2g$ for a complex curve."
+          "explain": "For a smooth projective curve of genus $g$, $\\dim H^1_{\\text{ét}}(E,\\mathbb{Q}_\\ell) = 2g$. With $g=3$ this is $6$ — matching the classical Betti number $b_1 = 2g$ for a complex curve."
         },
         {
           "type": "mcq",
-          "q": "The $\\ell$-adic cohomology $H^i_{\\text{\u00e9t}}(X, \\mathbb{Q}_\\ell)$ is constructed as:",
+          "q": "The $\\ell$-adic cohomology $H^i_{\\text{ét}}(X, \\mathbb{Q}_\\ell)$ is constructed as:",
           "choices": [
-            "$\\varinjlim_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n) \\otimes \\mathbb{Q}$",
-            "$(\\varprojlim_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n)) \\otimes_{\\mathbb{Z}_\\ell} \\mathbb{Q}_\\ell$",
-            "$H^i_{\\text{\u00e9t}}(X, \\mathbb{Q})$ directly",
-            "$\\bigoplus_n H^i_{\\text{\u00e9t}}(X, \\mathbb{Z}/\\ell^n)$"
+            "$\\varinjlim_n H^i_{\\text{ét}}(X, \\mathbb{Z}/\\ell^n) \\otimes \\mathbb{Q}$",
+            "$(\\varprojlim_n H^i_{\\text{ét}}(X, \\mathbb{Z}/\\ell^n)) \\otimes_{\\mathbb{Z}_\\ell} \\mathbb{Q}_\\ell$",
+            "$H^i_{\\text{ét}}(X, \\mathbb{Q})$ directly",
+            "$\\bigoplus_n H^i_{\\text{ét}}(X, \\mathbb{Z}/\\ell^n)$"
           ],
           "answer": 1,
           "explain": "One takes the inverse limit over torsion sheaves $\\mathbb{Z}/\\ell^n$ to land in $\\mathbb{Z}_\\ell$-modules, then tensors with $\\mathbb{Q}_\\ell$ to get a finite-dimensional $\\mathbb{Q}_\\ell$-vector space."
+        }
+      ]
+    },
+
+    "lefschetz-fixed-point": {
+      "title": "Grothendieck–Lefschetz fixed-point formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For an endomorphism $f\\colon X\\to X$ of a smooth projective variety with $\\Gamma_f$ transverse to the diagonal, the Grothendieck–Lefschetz trace formula says $\\#\\mathrm{Fix}(f)$ equals:",
+          "choices": [
+            "$\\sum_i \\mathrm{Tr}(f^*\\mid H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$",
+            "$\\sum_i (-1)^i \\mathrm{Tr}(f^*\\mid H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$",
+            "$\\sum_i \\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$",
+            "$\\det(f^* \\mid H^*_{\\text{ét}}(X,\\mathbb{Q}_\\ell))$"
+          ],
+          "answer": 1,
+          "explain": "The count is an **alternating** sum of traces: odd-degree cohomology contributes with a minus sign, matching the classical topological Lefschetz formula $L(f) = \\sum (-1)^i \\mathrm{Tr}(f^*\\mid H^i)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Apply the trace formula to $X = \\mathbb{P}^2_{\\mathbb{F}_q}$ with $q=3$ and $f = F_q$ (geometric Frobenius), so $F^*$ acts as $q^i$ on $H^{2i}$ and odd cohomology vanishes. Compute $\\#\\mathbb{P}^2(\\mathbb{F}_3)$.",
+          "answer": 13,
+          "tol": 0.0001,
+          "explain": "$\\sum_i (-1)^i \\mathrm{Tr}(F^*\\mid H^i) = 1 + q + q^2 = 1+3+9 = 13$, matching $\\#\\mathbb{P}^2(\\mathbb{F}_3) = (3^3-1)/(3-1) = 13$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is transversality between $\\Gamma_{F_q}$ and the diagonal automatic in characteristic $p$?",
+          "choices": [
+            "Because Frobenius is finite étale.",
+            "Because $dF_q = 0$ on tangent spaces, so $T_x(\\Gamma_{F_q})$ and $T_x(\\Delta)$ span $T_x(X\\times X)$.",
+            "Because $\\mathbb{F}_q$ is a perfect field.",
+            "Transversality is never automatic; it has to be imposed."
+          ],
+          "answer": 1,
+          "explain": "The derivative of $x\\mapsto x^q$ is identically zero, so the tangent space of the graph at a fixed point is just $T_x(\\Delta)$'s complement inside $T_x(X\\times X)$ — the two subspaces are transverse, and every fixed point contributes $+1$ to the intersection."
         }
       ]
     },
@@ -80,14 +117,14 @@
       "questions": [
         {
           "type": "numeric",
-          "q": "Let $E/\\mathbb{F}_q$ be an elliptic curve and write the Frobenius eigenvalues on $H^1_{\\text{\u00e9t}}$ as $\\alpha, \\beta$ with $\\alpha\\beta = q$. If $q = 5$ and $\\alpha + \\beta = 3$, compute $\\#E(\\mathbb{F}_5)$.",
+          "q": "Let $E/\\mathbb{F}_q$ be an elliptic curve and write the Frobenius eigenvalues on $H^1_{\\text{ét}}$ as $\\alpha, \\beta$ with $\\alpha\\beta = q$. If $q = 5$ and $\\alpha + \\beta = 3$, compute $\\#E(\\mathbb{F}_5)$.",
           "answer": 3,
           "tol": 0.0001,
           "explain": "$\\#E(\\mathbb{F}_q) = q + 1 - (\\alpha+\\beta) = 5 + 1 - 3 = 3$. The trace $\\alpha+\\beta$ is the standard $a_q$."
         },
         {
           "type": "complex",
-          "q": "For a smooth projective variety $X$ over $\\mathbb{F}_q$, Deligne's theorem says each eigenvalue $\\alpha$ of Frobenius on $H^i_{\\text{\u00e9t}}$ has $|\\alpha| = q^{i/2}$. Give one allowed eigenvalue (as a complex number $a+bi$) on $H^1$ for $q = 4$, assuming the eigenvalue lies on the positive imaginary axis.",
+          "q": "For a smooth projective variety $X$ over $\\mathbb{F}_q$, Deligne's theorem says each eigenvalue $\\alpha$ of Frobenius on $H^i_{\\text{ét}}$ has $|\\alpha| = q^{i/2}$. Give one allowed eigenvalue (as a complex number $a+bi$) on $H^1$ for $q = 4$, assuming the eigenvalue lies on the positive imaginary axis.",
           "answer": [0, 2],
           "tol": 0.001,
           "explain": "On $H^1$ with $q=4$ we need $|\\alpha| = \\sqrt{4} = 2$. On the positive imaginary axis that is $\\alpha = 2i$."
@@ -102,7 +139,44 @@
             "All of the above."
           ],
           "answer": 3,
-          "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). \u00c9tale cohomology with its Frobenius action is what makes them provable."
+          "explain": "Rationality, functional equation, and the analog of the Riemann hypothesis are the three Weil conjectures (with Betti numbers matching topology a fourth). Étale cohomology with its Frobenius action is what makes them provable."
+        }
+      ]
+    },
+
+    "comparison-theorems-etale": {
+      "title": "Comparison theorems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Artin's comparison theorem states that for a smooth projective variety $X$ over $\\mathbb{C}$ and any prime $\\ell$:",
+          "choices": [
+            "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) \\cong H^i_{\\text{sing}}(X(\\mathbb{C}),\\mathbb{Q})\\otimes\\mathbb{Q}_\\ell$",
+            "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) \\cong H^i_{\\text{dR}}(X/\\mathbb{C})$",
+            "$H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell) = 0$ for $i>0$",
+            "$H^i_{\\text{ét}}$ depends nontrivially on $\\ell$"
+          ],
+          "answer": 0,
+          "explain": "Artin's theorem: étale cohomology of a complex variety agrees with topological singular cohomology after tensoring to $\\mathbb{Q}_\\ell$. In particular $\\dim H^i_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ is the classical Betti number $b_i$, independent of $\\ell$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the comparison theorem, compute the $\\ell$-adic Betti number $b_2 = \\dim_{\\mathbb{Q}_\\ell} H^2_{\\text{ét}}(X,\\mathbb{Q}_\\ell)$ for $X = \\mathbb{P}^1 \\times \\mathbb{P}^1$ over $\\mathbb{C}$.",
+          "answer": 2,
+          "tol": 0.0001,
+          "explain": "By Künneth and comparison, $H^2(\\mathbb{P}^1\\times\\mathbb{P}^1) = H^2(\\mathbb{P}^1)\\otimes H^0(\\mathbb{P}^1) \\oplus H^0\\otimes H^2$, giving $b_2 = 1+1 = 2$. The two classes are the pullbacks of the hyperplane class from each factor."
+        },
+        {
+          "type": "mcq",
+          "q": "Over $\\overline{\\mathbb{F}_p}$, why can we NOT use $\\ell = p$ in $\\ell$-adic cohomology, and what replaces it?",
+          "choices": [
+            "Nothing is wrong; $\\ell=p$ works fine.",
+            "$H^i_{\\text{ét}}(X,\\mathbb{Q}_p)$ is pathological; crystalline cohomology $H^i_{\\text{cris}}(X/W(k))$ is the correct $p$-adic Weil cohomology.",
+            "One uses singular cohomology of $X(\\mathbb{C})$ instead.",
+            "One uses de Rham cohomology of the generic fiber."
+          ],
+          "answer": 1,
+          "explain": "Étale cohomology with $\\mathbb{Z}/p^n$ coefficients sees Frobenius-kernel pathology in characteristic $p$. Crystalline cohomology (Berthelot–Grothendieck) replaces it, producing a $W(k)$-module with semi-linear Frobenius whose characteristic polynomial matches the $\\ell$-adic ones for $\\ell\\neq p$."
         }
       ]
     }

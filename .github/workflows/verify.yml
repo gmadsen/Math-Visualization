@@ -1,0 +1,24 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build concepts bundle
+        run: node scripts/build-concepts-bundle.mjs
+      - name: Build quizzes bundle
+        run: node scripts/build-quizzes-bundle.mjs
+      - name: Validate concepts
+        run: node scripts/validate-concepts.mjs
+      - name: Smoke test pages
+        run: node scripts/smoke-test.mjs

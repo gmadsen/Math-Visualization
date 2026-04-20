@@ -1,0 +1,185 @@
+{
+  "topic": "functor-of-points",
+  "quizzes": {
+    "yoneda-functor-points": {
+      "title": "The functor-of-points viewpoint",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the functor-of-points picture, a scheme $X$ is encoded by which assignment?",
+          "choices": [
+            "a single set $X(k)$ of $k$-rational points for a fixed field $k$",
+            "the functor $R \\mapsto X(R) := \\mathrm{Hom}_{\\mathsf{Sch}}(\\mathrm{Spec}\\,R, X)$ on $\\mathrm{CRing}$",
+            "the underlying topological space $|X|$ alone",
+            "the global sections $\\Gamma(X,\\mathcal{O}_X)$"
+          ],
+          "answer": 1,
+          "explain": "Yoneda says $X$ is determined by $h_X$. Restricting along $\\mathrm{Spec}\\dashv\\Gamma$ gives the functor $R\\mapsto X(R)=\\mathrm{Hom}(\\mathrm{Spec}\\,R,X)$ on commutative rings, which captures $X$ up to unique isomorphism."
+        },
+        {
+          "type": "mcq",
+          "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, what is $X(R)$?",
+          "choices": [
+            "$\\{(a,b)\\in R^2 : b^2 = a^3+1\\}$",
+            "the set of maximal ideals of $R$",
+            "the set of prime ideals of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$",
+            "always a group of order $|R|$"
+          ],
+          "answer": 0,
+          "explain": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$. A ring hom out of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$ is exactly a choice of $(a,b)\\in R^2$ satisfying the relation."
+        },
+        {
+          "type": "numeric",
+          "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ \u2713; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ \u2713; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
+        }
+      ]
+    },
+    "representability-criteria": {
+      "title": "Representability and moduli functors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A functor $F:\\mathrm{CRing}\\to\\mathsf{Set}$ is representable by an affine scheme $\\mathrm{Spec}\\,A$ iff:",
+          "choices": [
+            "$F(R)$ is finite for every $R$",
+            "there is a natural isomorphism $F(R)\\cong\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$",
+            "$F$ preserves all colimits",
+            "$F$ sends fields to groups"
+          ],
+          "answer": 1,
+          "explain": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e. $F(R)\\cong\\mathrm{Hom}(A,R)$ naturally in $R$. The universal element is the image of $\\mathrm{id}_A$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which ring represents the multiplicative group functor $\\mathbb{G}_m$ with $\\mathbb{G}_m(R)=R^\\times$?",
+          "choices": [
+            "$\\mathbb{Z}[t]$",
+            "$\\mathbb{Z}[t]/(t^2-1)$",
+            "$\\mathbb{Z}[t,t^{-1}]$",
+            "$\\mathbb{Z}[[t]]$"
+          ],
+          "answer": 2,
+          "explain": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible). So $\\mathbb{G}_m=\\mathrm{Spec}\\,\\mathbb{Z}[t,t^{-1}]$."
+        },
+        {
+          "type": "numeric",
+          "q": "The functor $\\mathrm{GL}_n$ is represented by $\\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible. For $n=2$: $4+1=5$ generators."
+        }
+      ]
+    },
+    "stacky-obstructions": {
+      "title": "When functors require stacks",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The moduli functor $\\mathcal{M}_{1,1}:R\\mapsto\\{\\text{elliptic curves over }R\\}/\\cong$ fails to be representable primarily because:",
+          "choices": [
+            "there are too few elliptic curves over finite fields",
+            "elliptic curves have nontrivial automorphisms, so the set-valued functor cannot distinguish twisted families from products",
+            "elliptic curves are not algebraic varieties",
+            "the functor is not covariant"
+          ],
+          "answer": 1,
+          "explain": "The automorphism $[-1]$ (and extra ones at $j=0,1728$) lets you build nontrivial families that are pointwise isomorphic to the trivial family but globally distinct. Passing to isomorphism classes forgets this gluing data, breaking the sheaf condition."
+        },
+        {
+          "type": "mcq",
+          "q": "The fix promoted by stacks is to replace the target category $\\mathsf{Set}$ by:",
+          "choices": [
+            "the category $\\mathsf{Top}$ of topological spaces",
+            "the category $\\mathsf{Grpd}$ of groupoids",
+            "the category $\\mathsf{Ab}$ of abelian groups",
+            "the category $\\mathsf{Ring}$ of rings"
+          ],
+          "answer": 1,
+          "explain": "An algebraic stack is (essentially) a sheaf of groupoids $\\mathrm{CRing}\\to\\mathsf{Grpd}$. Remembering automorphisms as 2-arrows restores descent, which taking isomorphism classes destroyed."
+        },
+        {
+          "type": "numeric",
+          "q": "For an elliptic curve $E$ over a field of characteristic $0$ with generic $j$-invariant, what is $|\\mathrm{Aut}(E)|$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
+        }
+      ]
+    },
+    "yoneda-embedding-ag": {
+      "title": "The Yoneda embedding for schemes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Yoneda embedding $h_{(-)}:\\mathsf{Sch} \\hookrightarrow \\mathrm{Fun}(\\mathsf{Sch}^{\\mathrm{op}},\\mathsf{Set})$ is:",
+          "choices": [
+            "faithful but not full",
+            "full but not faithful",
+            "fully faithful",
+            "neither full nor faithful"
+          ],
+          "answer": 2,
+          "explain": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from a unique scheme map."
+        },
+        {
+          "type": "mcq",
+          "q": "Under Yoneda, the universal element of $h_X(X) = \\mathrm{Hom}(X,X)$ that witnesses representability is:",
+          "choices": [
+            "the zero map",
+            "the identity $\\mathrm{id}_X$",
+            "the structure map $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$",
+            "any closed immersion"
+          ],
+          "answer": 1,
+          "explain": "The Yoneda lemma identifies $\\mathrm{Nat}(h_X,F) \\cong F(X)$ by evaluating on $\\mathrm{id}_X$. So the identity is the universal $X$-point, and every natural transformation is recovered by pushing $\\mathrm{id}_X$ forward."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
+        }
+      ]
+    },
+    "base-change-interpretation": {
+      "title": "Base change as pullback of functors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$ is a scheme and $S = \\mathrm{Spec}\\,k$, then for a $k$-algebra $R$ the base-changed scheme $X_k$ satisfies:",
+          "choices": [
+            "$X_k(R) = X(R)$ as a set",
+            "$X_k(R) = X(R)$ viewed only via its $k$-algebra structure on $R$",
+            "$X_k(R) = \\mathrm{Hom}_k(R, k)$",
+            "$X_k(R)$ is always empty when $k$ has characteristic $p$"
+          ],
+          "answer": 1,
+          "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\mathrm{Spec}\\,R \\to \\mathrm{Spec}\\,k \\to \\mathrm{Spec}\\,\\mathbb{Z}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The functor-of-points identity $(X \\times_S Y)(T) = X(T) \\times_{S(T)} Y(T)$ says that the fiber product of schemes:",
+          "choices": [
+            "is computed by taking pointwise fiber products of sets",
+            "requires a cofibrant replacement",
+            "only works when $S = \\mathrm{Spec}\\,\\mathbb{Z}$",
+            "agrees with the disjoint union $X(T) \\sqcup Y(T)$"
+          ],
+          "answer": 0,
+          "explain": "Representable functors preserve limits. So the representable functor of $X \\times_S Y$ is the pointwise fiber product of the representable functors of $X, S, Y$ — this is exactly what lets you compute base changes by solving equations over each test ring."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
+        }
+      ]
+    }
+  }
+}

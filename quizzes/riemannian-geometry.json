@@ -1,0 +1,175 @@
+{
+  "topic": "riemannian-geometry",
+  "quizzes": {
+    "riemannian-metrics": {
+      "title": "Riemannian metrics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Riemannian metric $g$ on a smooth manifold $M$ is:",
+          "choices": [
+            "a smooth assignment $p\\mapsto g_p$ of a symmetric bilinear form on $T_pM$",
+            "a smooth assignment $p\\mapsto g_p$ of a symmetric, positive-definite inner product on $T_pM$",
+            "any smoothly varying skew-symmetric 2-form on $M$",
+            "a choice of global chart on $M$"
+          ],
+          "answer": 1,
+          "explain": "A Riemannian metric is a smooth, symmetric, positive-definite inner product on each tangent space. Symmetry alone is not enough; positive-definiteness is what gives lengths and angles."
+        },
+        {
+          "type": "numeric",
+          "q": "On the round sphere with $ds^2 = d\\theta^2 + \\sin^2\\theta\\,d\\varphi^2$, compute the squared length of the vector $v = \\partial_\\varphi$ at the equator $\\theta=\\pi/2$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The metric assigns $g(\\partial_\\varphi,\\partial_\\varphi) = \\sin^2\\theta$. At $\\theta=\\pi/2$, $\\sin^2(\\pi/2)=1$."
+        },
+        {
+          "type": "numeric",
+          "q": "The hyperbolic half-plane metric is $ds^2 = (du^2+dv^2)/v^2$. What is the hyperbolic length of the vertical segment from $(0,1)$ to $(0,e)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$."
+        }
+      ]
+    },
+    "levi-civita-connection": {
+      "title": "Levi-Civita connection and geodesics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Levi-Civita connection is characterized as the unique affine connection that is:",
+          "choices": [
+            "flat and torsion-free",
+            "torsion-free and compatible with the metric ($\\nabla g = 0$)",
+            "compatible with the metric and has constant Christoffel symbols",
+            "symmetric and has vanishing curvature"
+          ],
+          "answer": 1,
+          "explain": "The fundamental theorem of Riemannian geometry: there is a unique torsion-free connection with $\\nabla g = 0$. Flatness is not required — curvature can be nonzero."
+        },
+        {
+          "type": "mcq",
+          "q": "The geodesic equation in local coordinates reads:",
+          "choices": [
+            "$\\ddot{x}^k = 0$",
+            "$\\ddot{x}^k + \\Gamma^k_{ij}\\dot{x}^i \\dot{x}^j = 0$",
+            "$\\dot{x}^k + \\Gamma^k_{ij} x^i x^j = 0$",
+            "$\\ddot{x}^k = R^k_{\\ ij\\ell}\\dot{x}^i\\dot{x}^j\\dot{x}^\\ell$"
+          ],
+          "answer": 1,
+          "explain": "A geodesic satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma = 0$, which in coordinates is $\\ddot x^k + \\Gamma^k_{ij}\\dot x^i \\dot x^j = 0$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the Euclidean metric $g_{ij}=\\delta_{ij}$ on $\\mathbb{R}^n$, how many of the Christoffel symbols $\\Gamma^k_{ij}$ are nonzero?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$. With $g_{ij}$ constant, every partial vanishes, so all Christoffels are zero."
+        }
+      ]
+    },
+    "riemann-curvature-tensor": {
+      "title": "Curvature tensor and comparison",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Bonnet–Myers theorem states that a complete Riemannian $n$-manifold with $\\operatorname{Ric}\\ge (n-1)\\kappa g$ (for $\\kappa>0$) is:",
+          "choices": [
+            "non-compact with infinite fundamental group",
+            "compact with $\\operatorname{diam}(M)\\le \\pi/\\sqrt{\\kappa}$ and finite fundamental group",
+            "simply-connected and flat",
+            "diffeomorphic to $\\mathbb{R}^n$ via the exponential map"
+          ],
+          "answer": 1,
+          "explain": "Uniformly positive Ricci forces geodesics to refocus within distance $\\pi/\\sqrt{\\kappa}$, which makes $M$ compact with bounded diameter and finite $\\pi_1$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the round 2-sphere of radius $1$, the sectional curvature is:",
+          "choices": ["$-1$", "$0$", "$+1$", "undefined"],
+          "answer": 2,
+          "explain": "The unit sphere has constant Gaussian (sectional) curvature $K=+1$."
+        },
+        {
+          "type": "numeric",
+          "q": "For a geodesic triangle on the round unit 2-sphere enclosing area $A$, the Gauss–Bonnet formula gives the angle excess $(\\alpha+\\beta+\\gamma)-\\pi = \\int K\\,dA$. If $K=1$ and $A=\\pi/2$, what is $(\\alpha+\\beta+\\gamma)-\\pi$?",
+          "answer": 1.5707963267948966,
+          "tol": 1e-6,
+          "explain": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$."
+        }
+      ]
+    },
+    "ricci-curvature": {
+      "title": "Ricci curvature and Einstein manifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Ricci tensor $\\operatorname{Ric}(v,v)$ on an $n$-manifold equals:",
+          "choices": [
+            "the sectional curvature of a specific $2$-plane through $v$",
+            "$(n-1)$ times the average sectional curvature over $2$-planes containing $v$",
+            "the scalar curvature $S$ at $p$",
+            "the determinant of the Riemann tensor in normal coordinates"
+          ],
+          "answer": 1,
+          "explain": "Contracting the Riemann tensor yields $\\operatorname{Ric}(v,v)=\\sum_i \\langle R(v,e_i)e_i,v\\rangle$ for an orthonormal basis $\\{e_i\\}$ with $e_1=v/\\|v\\|$; summing the $(n-1)$ sectional curvatures of planes through $v$ gives exactly $(n-1)$ times their average."
+        },
+        {
+          "type": "numeric",
+          "q": "On the round $n$-sphere of radius $1$, every sectional curvature equals $1$. What is the scalar curvature $S$ for $n=3$? (Use $S = n(n-1)\\,\\overline{K}$ with $\\overline{K}$ the average sectional curvature.)",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "With $K\\equiv 1$ we have $\\overline{K}=1$, so $S = n(n-1) = 3\\cdot 2 = 6$."
+        },
+        {
+          "type": "mcq",
+          "q": "An Einstein manifold is a Riemannian manifold satisfying:",
+          "choices": [
+            "$R_{ijk\\ell}=0$ identically",
+            "$\\operatorname{Ric} = \\lambda\\, g$ for some constant $\\lambda$",
+            "$\\nabla R = 0$",
+            "$\\operatorname{diam}(M)\\le \\pi$"
+          ],
+          "answer": 1,
+          "explain": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric. Spheres, hyperbolic spaces, and complex projective spaces with their symmetric metrics are all Einstein."
+        }
+      ]
+    },
+    "volume-form-rg": {
+      "title": "Riemannian volume form and divergence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On an oriented Riemannian $n$-manifold $(M,g)$, the Riemannian volume form in local coordinates is:",
+          "choices": [
+            "$dx^1\\wedge\\cdots\\wedge dx^n$",
+            "$\\sqrt{\\det g_{ij}}\\; dx^1\\wedge\\cdots\\wedge dx^n$",
+            "$\\det(g_{ij})\\; dx^1\\wedge\\cdots\\wedge dx^n$",
+            "$(\\det g_{ij})^{-1/2}\\; dx^1\\wedge\\cdots\\wedge dx^n$"
+          ],
+          "answer": 1,
+          "explain": "The metric-compatible, orientation-compatible top form is $d\\mathrm{vol}_g=\\sqrt{\\det g_{ij}}\\,dx^1\\wedge\\cdots\\wedge dx^n$. The factor $\\sqrt{\\det g}$ is exactly the volume of the parallelepiped spanned by the coordinate vectors in the metric $g$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the round metric $ds^2 = d\\theta^2 + \\sin^2\\theta\\, d\\varphi^2$ on $S^2$ with $\\theta\\in[0,\\pi],\\,\\varphi\\in[0,2\\pi)$, what is the total surface area $\\int_{S^2} d\\mathrm{vol}_g$?",
+          "answer": 12.566370614359172,
+          "tol": 1e-6,
+          "explain": "$\\sqrt{\\det g}=\\sin\\theta$, so $\\mathrm{Area}=\\int_0^{2\\pi}\\!\\!\\int_0^\\pi \\sin\\theta\\,d\\theta\\,d\\varphi = 2\\pi\\cdot 2 = 4\\pi\\approx 12.566$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Laplace-Beltrami operator on $(M,g)$ acts on a smooth function $f$ as:",
+          "choices": [
+            "$\\Delta_g f = \\sum_i \\partial_i^2 f$",
+            "$\\Delta_g f = \\frac{1}{\\sqrt{\\det g}}\\,\\partial_i\\!\\left(\\sqrt{\\det g}\\,g^{ij}\\partial_j f\\right)$",
+            "$\\Delta_g f = g^{ij}\\partial_i\\partial_j f$",
+            "$\\Delta_g f = \\operatorname{Ric}^{ij}\\partial_i\\partial_j f$"
+          ],
+          "answer": 1,
+          "explain": "The metric divergence of $\\operatorname{grad}_g f = g^{ij}\\partial_j f\\,\\partial_i$ computed against the volume form $\\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n$ gives exactly $\\Delta_g f = \\tfrac{1}{\\sqrt{\\det g}}\\partial_i(\\sqrt{\\det g}\\,g^{ij}\\partial_j f)$. On Euclidean space ($g_{ij}=\\delta_{ij}$) this collapses to the usual Laplacian."
+        }
+      ]
+    }
+  }
+}

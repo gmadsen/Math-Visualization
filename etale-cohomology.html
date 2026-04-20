@@ -131,7 +131,9 @@ function drawNode(svg, x, y, label, opts={}){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#etale">1&nbsp;Étale&nbsp;morphisms</a>
   <a href="#ladic">2&nbsp;ℓ-adic&nbsp;cohomology</a>
-  <a href="#weil">3&nbsp;Weil&nbsp;&amp;&nbsp;Frobenius</a>
+  <a href="#lefschetz">3&nbsp;Lefschetz&nbsp;trace</a>
+  <a href="#weil">4&nbsp;Weil&nbsp;&amp;&nbsp;Frobenius</a>
+  <a href="#comparison">5&nbsp;Comparison&nbsp;theorems</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -341,14 +343,93 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
 <div class="quiz" data-concept="l-adic-cohomology"></div>
 </section>
 
+<section id="lefschetz">
+<h2>3. Grothendieck–Lefschetz fixed-point formula</h2>
+
+<p>The classical Lefschetz fixed-point theorem says: for a continuous self-map $f\colon X\to X$ of a nice compact space whose graph meets the diagonal transversally, the signed count of fixed points equals the alternating trace of $f$ on cohomology,</p>
+
+$$\#\mathrm{Fix}(f) \;=\; \sum_i (-1)^i \,\mathrm{Tr}\big(f^*\,\big|\,H^i(X,\mathbb{Q})\big).$$
+
+<p>Grothendieck translates this to the étale setting. For $X$ smooth proper over $\overline{\mathbb{F}_q}$ and an endomorphism $f\colon X\to X$ with graph $\Gamma_f$ transverse to the diagonal $\Delta\subset X\times X$, the intersection number $\Gamma_f\cdot\Delta$ can be computed by pulling back the class of $\Delta$ through $f$ on $H^*_{\text{ét}}(X,\mathbb{Q}_\ell)$. The algebraic version reads</p>
+
+$$(\Gamma_f\cdot\Delta)_{X\times X} \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(f^*\,\big|\,H^i_{\text{ét}}(X,\mathbb{Q}_\ell)\big).$$
+
+<p>Apply this to the geometric $q$-power Frobenius $F_q$. A fixed point of $F_q^{\,m}$ on $X(\overline{\mathbb{F}_q})$ is exactly an $\mathbb{F}_{q^m}$-rational point, and transversality holds automatically (the derivative of Frobenius is zero, so graph and diagonal meet cleanly). Out falls the identity driving the Weil conjectures:</p>
+
+$$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^{\,m}\,\big|\,H^i_{\text{ét}}\big).$$
+
+<div class="widget" id="w-lef">
+  <div class="hd"><div class="ttl">Trace formula sanity check</div><div class="hint">alternating trace vs. point count</div></div>
+  <div class="row">
+    <label>variety
+      <select id="lf-sel">
+        <option value="pn">$\mathbb{P}^n$ (no $H^{\text{odd}}$, eigenvalues $1,q,q^2,\dots,q^n$)</option>
+        <option value="curve">genus-$g$ curve, $H^1$ eigenvalues $\alpha_j,\bar\alpha_j$</option>
+      </select>
+    </label>
+  </div>
+  <div class="row">
+    <label>$q$ <select id="lf-q"><option>2</option><option selected>3</option><option>5</option><option>7</option></select></label>
+    <label id="lf-n-wrap">$n$ (dim) <input id="lf-n" type="range" min="1" max="4" step="1" value="2"></label>
+    <span id="lf-n-val" class="small">n = 2</span>
+    <label id="lf-g-wrap" style="display:none">$g$ <input id="lf-g" type="range" min="0" max="3" step="1" value="1"></label>
+    <span id="lf-g-val" class="small" style="display:none">g = 1</span>
+    <label id="lf-a-wrap" style="display:none">$a_q$ <input id="lf-a" type="range" min="-4" max="4" step="1" value="1"></label>
+    <span id="lf-a-val" class="small" style="display:none">a_q = 1</span>
+    <label>$m$ <input id="lf-m" type="range" min="1" max="5" step="1" value="2"></label>
+    <span id="lf-m-val" class="small">m = 2</span>
+  </div>
+  <div class="readout" id="lf-out"></div>
+</div>
+
+<script>
+(function(){
+  const sel=$('#lf-sel'), qSel=$('#lf-q'), nSl=$('#lf-n'), nv=$('#lf-n-val');
+  const gSl=$('#lf-g'), gv=$('#lf-g-val'), aSl=$('#lf-a'), av=$('#lf-a-val');
+  const mSl=$('#lf-m'), mv=$('#lf-m-val'), out=$('#lf-out');
+  const nW=$('#lf-n-wrap'), gW=$('#lf-g-wrap'), aW=$('#lf-a-wrap');
+  function render(){
+    const kind=sel.value, q=+qSel.value, m=+mSl.value;
+    nv.textContent='n = '+nSl.value; gv.textContent='g = '+gSl.value; av.textContent='a_q = '+aSl.value; mv.textContent='m = '+m;
+    nW.style.display = (kind==='pn')?'':'none';
+    gW.style.display = (kind==='curve')?'':'none'; gv.style.display = (kind==='curve')?'':'none';
+    aW.style.display = (kind==='curve')?'':'none'; av.style.display = (kind==='curve')?'':'none';
+    if(kind==='pn'){
+      const n=+nSl.value;
+      // H^{2i}(ℙ^n) one-dimensional, Frobenius acts as q^i. All odd cohomology vanishes.
+      let trace=0, parts=[];
+      for(let i=0;i<=n;i++){ const t=Math.pow(q,i*m); trace += t; parts.push('q^{'+(i*m)+'}'); }
+      // point count: (q^{m(n+1)}-1)/(q^m-1)
+      const Nm = (Math.pow(q,m*(n+1))-1)/(Math.pow(q,m)-1);
+      out.textContent = `ℙ^${n} / 𝔽_${q}: Σ (−1)^i Tr(F^${m} | H^i) = ${parts.join(' + ')} = ${trace}; #ℙ^${n}(𝔽_{${q}^${m}}) = ${Nm} ✓`;
+    } else {
+      const g=+gSl.value, a=+aSl.value;
+      // one pair (α, β=q/α) with α+β=a, take g copies for simplicity (same eigenvalue pair repeated g times → trace ×g)
+      // use recurrence p_m = a p_{m-1} - q p_{m-2}, p_0=2, p_1=a, then Tr(F^m | H^1) = g * p_m
+      const P=[2,a]; for(let k=2;k<=m;k++) P.push(a*P[k-1]-q*P[k-2]);
+      const trH0 = 1, trH2 = Math.pow(q,m), trH1 = g*P[m];
+      const alt = trH0 - trH1 + trH2;
+      const qm = Math.pow(q,m);
+      out.textContent = `curve g=${g}, a_q=${a}, q=${q}: Tr(F^${m} | H^0)=1, Tr(F^${m} | H^1)=${g}·${P[m]}=${trH1}, Tr(F^${m} | H^2)=${trH2}. #X(𝔽_{${q}^${m}}) = 1 − ${trH1} + ${qm} = ${alt}.`;
+    }
+  }
+  [sel,qSel,nSl,gSl,aSl,mSl].forEach(el=>el.addEventListener('input',render));
+  sel.addEventListener('change',render); qSel.addEventListener('change',render);
+  render();
+})();
+</script>
+
+<div class="note"><strong>Why transversality is free for Frobenius.</strong> On a smooth variety over $\overline{\mathbb{F}_q}$, the differential $dF_q$ is identically zero on tangent spaces. So $T_x(\Gamma_{F_q})\oplus T_x(\Delta) = T_x(X\times X)$ at every fixed point — every intersection is transverse, every fixed point contributes $+1$, and the formula gives the honest count $\#X(\mathbb{F}_{q^m})$ with no correction terms.</div>
+
+<p>The same machinery reproduces many classical theorems. On $\mathbb{P}^n$ every odd cohomology vanishes and $F_q$ acts as $q^i$ on $H^{2i}$, so $\#\mathbb{P}^n(\mathbb{F}_{q^m}) = 1+q^m+q^{2m}+\dots+q^{nm}$. On a curve of genus $g$ the formula collapses to $\#X(\mathbb{F}_{q^m}) = 1+q^m - \sum_j(\alpha_j^m+\bar\alpha_j^m)$, and the Weil bound $|\,\#X(\mathbb{F}_q)-(q+1)\,|\le 2g\sqrt q$ is immediate from $|\alpha_j|=\sqrt q$.</p>
+
+<div class="quiz" data-concept="lefschetz-fixed-point"></div>
+</section>
+
 <section id="weil">
-<h2>3. Weil conjectures and the Frobenius trace</h2>
+<h2>4. Weil conjectures and the Frobenius trace</h2>
 
-<p>The point of constructing $H^i_{\text{ét}}$ was to count. For $X/\mathbb{F}_q$ smooth projective, $q$-power Frobenius $\operatorname{Frob}_q$ acts on $H^i_{\text{ét}}(\bar X,\mathbb{Q}_\ell)$, and the <strong>Grothendieck–Lefschetz trace formula</strong> reads</p>
-
-$$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i \operatorname{Tr}\!\big(\operatorname{Frob}_q^{\,m}\,\big|\,H^i_{\text{ét}}\big).$$
-
-<p>Packaging over all $m$ gives the zeta function $Z(X,t) = \exp\big(\sum_m \#X(\mathbb{F}_{q^m})\,t^m/m\big)$; the trace formula plus $\exp(-\operatorname{Tr}\log(1-tA)) = \det(1-tA)^{-1}$ yields</p>
+<p>With the trace formula from §3 in hand, the payoff is the zeta function. Packaging point counts over all $m$ gives $Z(X,t) = \exp\big(\sum_m \#X(\mathbb{F}_{q^m})\,t^m/m\big)$; the Lefschetz trace plus the identity $\exp(-\operatorname{Tr}\log(1-tA)) = \det(1-tA)^{-1}$ yields</p>
 
 $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\big|\,H^i_{\text{ét}}\big)^{(-1)^{i+1}}.$$
 
@@ -427,13 +508,92 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
 
 <div class="note"><strong>The upshot.</strong> Point-counts over $\mathbb{F}_{q^m}$ for <em>all</em> $m$ are packaged into finitely many Frobenius eigenvalues, organized by cohomological degree. Étale cohomology is precisely what makes this packaging exist as a theorem, not an analogy.</div>
 
-<h3>Beyond ℓ-adic: other cohomologies</h3>
-
-<p>The $\ell\neq p$ gap is filled by two complementary theories. <strong>Crystalline cohomology</strong> (Berthelot, Grothendieck) produces $H^i_{\text{cris}}(X/W)$, a module over the Witt vectors $W(k)$ with a semi-linear Frobenius — the correct $p$-adic Betti theory in char $p$. <strong>p-adic Hodge theory</strong> (Fontaine, Faltings, Scholze) compares $H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)$ for $X/K$ with $H^i_{\text{dR}}(X/K)$ via period rings $B_{\text{dR}}, B_{\text{cris}}, B_{\text{st}}$, and is the gateway to Galois representations of $\operatorname{Gal}(\bar{\mathbb{Q}}_p/\mathbb{Q}_p)$ arising from geometry.</p>
-
-<p>Étale, crystalline, and de Rham cohomology are facets of a single Weil cohomology theory — conjecturally factoring through motivic cohomology.</p>
-
 <div class="quiz" data-concept="weil-frobenius-trace"></div>
+</section>
+
+<section id="comparison">
+<h2>5. Comparison theorems: étale, singular, de Rham, crystalline</h2>
+
+<p>Étale cohomology earns its keep only if it reproduces what we already know when we already know it — and plugs the gap smoothly when we don't. The comparison theorems are the bridge.</p>
+
+<p><strong>Artin's comparison</strong> (Artin, Grothendieck, SGA 4). For $X$ a smooth projective variety over $\mathbb{C}$ and any prime $\ell$,</p>
+
+$$H^i_{\text{ét}}(X,\mathbb{Z}/\ell^n) \;\cong\; H^i_{\text{sing}}(X(\mathbb{C}),\mathbb{Z}/\ell^n), \qquad H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;\cong\; H^i_{\text{sing}}(X(\mathbb{C}),\mathbb{Q})\otimes\mathbb{Q}_\ell.$$
+
+<p>So the $\ell$-adic Betti numbers agree with the classical topological Betti numbers — the same integers, for every $\ell$, computed from totally different data. That independence from $\ell$ is itself a nontrivial consequence.</p>
+
+<p><strong>de Rham comparison</strong> (Grothendieck). Over a field $k$ of characteristic zero, smooth varieties carry algebraic de Rham cohomology $H^i_{\text{dR}}(X/k)$ computed from the Koszul complex of Kähler differentials. For $k=\mathbb{C}$,</p>
+
+$$H^i_{\text{dR}}(X/\mathbb{C}) \;\cong\; H^i_{\text{sing}}(X(\mathbb{C}),\mathbb{C}),$$
+
+<p>so étale (after tensoring with $\mathbb{C}$ via a chosen embedding $\mathbb{Q}_\ell\hookrightarrow\mathbb{C}$), singular, and de Rham all agree in char $0$. Hodge theory refines the singular side with the $(p,q)$-decomposition.</p>
+
+<p><strong>Crystalline &amp; p-adic Hodge</strong>. When the ground field has characteristic $p$ and we try $\ell=p$, étale cohomology breaks down. <em>Crystalline cohomology</em> (Berthelot, Grothendieck) $H^i_{\text{cris}}(X/W)$ is a module over the Witt vectors $W(k)$ with a semi-linear Frobenius — the right $p$-adic Betti theory. In mixed characteristic, <em>p-adic Hodge theory</em> (Fontaine, Faltings, Tsuji, Scholze) supplies a family of period rings $B_{\text{dR}}, B_{\text{cris}}, B_{\text{st}}$ that relate $H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)$ to $H^i_{\text{dR}}(X/K)$ and $H^i_{\text{cris}}$ after tensoring:</p>
+
+$$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}} \;\cong\; H^i_{\text{cris}}(X_k/W)\otimes_{W}B_{\text{cris}}.$$
+
+<div class="widget" id="w-cmp">
+  <div class="hd"><div class="ttl">Pick a geometry, watch the cohomologies line up</div><div class="hint">base field, characteristic, and which theories are available</div></div>
+  <div class="row">
+    <label>geometry
+      <select id="cm-sel">
+        <option value="cplx">smooth projective / $\mathbb{C}$</option>
+        <option value="qbar">smooth projective / $\overline{\mathbb{Q}}$</option>
+        <option value="fqbar">smooth projective / $\overline{\mathbb{F}_p}$</option>
+        <option value="qp">smooth proper / $K$, $[K:\mathbb{Q}_p]&lt;\infty$</option>
+      </select>
+    </label>
+  </div>
+  <svg id="cm-svg" viewBox="0 0 560 200" width="560" height="200"></svg>
+  <div class="readout" id="cm-out"></div>
+</div>
+
+<script>
+(function(){
+  const sel=$('#cm-sel'), svg=$('#cm-svg'), out=$('#cm-out');
+  const data={
+    cplx: {title:'smooth proj / ℂ', theories:[
+      {name:'H^i_sing(X(ℂ),ℚ)', col:'var(--blue)'},
+      {name:'H^i_dR(X/ℂ)', col:'var(--green)'},
+      {name:'H^i_ét(X, ℚ_ℓ), any ℓ', col:'var(--yellow)'}
+    ], note:'All three agree after tensoring to a common field. Betti numbers independent of ℓ.'},
+    qbar: {title:'smooth proj / 𝐐̄', theories:[
+      {name:'H^i_sing(X_σ(ℂ),ℚ) via σ: 𝐐̄→ℂ', col:'var(--blue)'},
+      {name:'H^i_dR(X/𝐐̄)', col:'var(--green)'},
+      {name:'H^i_ét(X, ℚ_ℓ), any ℓ', col:'var(--yellow)'}
+    ], note:'Same as ℂ case after choosing an embedding σ. Gal(𝐐̄/ℚ) acts on the étale side — the source of Galois representations.'},
+    fqbar:{title:'smooth proj / 𝐅̄_p', theories:[
+      {name:'H^i_ét(X, ℚ_ℓ), ℓ ≠ p', col:'var(--yellow)'},
+      {name:'H^i_cris(X/W(𝐅̄_p)) ⊗ ℚ', col:'var(--violet)'},
+      {name:'(no singular or de Rham / ℂ)', col:'var(--mute)'}
+    ], note:'No topology available. ℓ-adic and crystalline are the two Weil cohomologies; both have Frobenius, and their char-polys agree.'},
+    qp:   {title:'smooth proper / K, K/𝐐_p finite', theories:[
+      {name:'H^i_ét(X_K̄, ℚ_p)', col:'var(--yellow)'},
+      {name:'H^i_dR(X/K)', col:'var(--green)'},
+      {name:'H^i_cris(X_k/W(k)) ⊗ K_0', col:'var(--violet)'}
+    ], note:'p-adic Hodge theory: H^i_ét ⊗ B_cris ≅ H^i_cris ⊗ B_cris, and filtration recovers de Rham. B_dR, B_cris, B_st are the period rings.'}
+  };
+  function render(){
+    const d=data[sel.value]; svg.innerHTML='';
+    const W=170,H=60,gap=18,y=60;
+    d.theories.forEach((t,i)=>{ const x=30+i*(W+gap);
+      svg.appendChild(SVG('rect',{x,y,width:W,height:H,rx:8,fill:t.col,opacity:0.18,stroke:t.col,'stroke-width':1.4}));
+      const tx=SVG('text',{x:x+W/2,y:y+H/2+5,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}); tx.textContent=t.name; svg.appendChild(tx);
+      if(i<d.theories.length-1){
+        svg.appendChild(SVG('text',{x:x+W+gap/2,y:y+H/2+5,'text-anchor':'middle','font-size':18,fill:'var(--mute)'})).textContent='≅*';
+      }
+    });
+    const hd=SVG('text',{x:280,y:30,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600}); hd.textContent=d.title; svg.appendChild(hd);
+    const ft=SVG('text',{x:280,y:160,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); ft.textContent='≅* = after tensoring to a common coefficient field'; svg.appendChild(ft);
+    out.textContent = d.note;
+  }
+  sel.addEventListener('change',render); render();
+})();
+</script>
+
+<div class="note"><strong>Motivic shadow.</strong> The fact that $\ell$-adic Betti numbers are the same integer $b_i$ for every $\ell$, that this integer also equals $\dim_{\mathbb{C}}H^i_{\text{dR}}$ and $\dim_{\mathbb{Q}}H^i_{\text{sing}}$, and that Frobenius eigenvalues and their characteristic polynomials are also $\ell$-independent, is evidence for a conjectural <em>motivic</em> cohomology sitting above all these Weil cohomologies — one realization functor for each.</div>
+
+<div class="quiz" data-concept="comparison-theorems-etale"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>

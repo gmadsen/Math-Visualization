@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -187,6 +190,8 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Formally, we attach to the moduli problem a <em>functor</em>
 $$\mathcal{M}\colon \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad \mathcal{M}(S) = \{\text{families of objects of type } X \text{ over } S\} / \cong_S.$$
 A <em>family over $S$</em> is a flat, proper morphism $E \to S$ whose geometric fibres are objects of type $X$. The moduli problem is <strong>representable</strong> if there is a scheme $M$ with $\mathcal{M}(-) \cong h_M(-) = \operatorname{Hom}(-,M)$. This is the gold standard; we call $M$ a <em>fine</em> moduli space.</p>
+
+<div class="quiz" data-concept="moduli-problem"></div>
 </section>
 
 <section id="jline">
@@ -254,6 +259,8 @@ is a complete invariant over an algebraically closed field: two curves are $\mat
   </div>
   <div class="readout" id="w3-out"></div>
 </div>
+
+<div class="quiz" data-concept="fine-vs-coarse-moduli"></div>
 </section>
 
 <section id="whyfail">
@@ -301,6 +308,8 @@ is a complete invariant over an algebraically closed field: two curves are $\mat
 </div>
 
 <div class="note"><strong>Why $N \ge 3$?</strong> For $N = 2$, every elliptic curve has automorphism $[-1]$, and $[-1]$ acts as the identity on $E[2]$ (because $-P = P$ for $2$-torsion). So a level-$2$ structure is <em>not</em> rigid enough — $[-1]$ still fixes every level-$2$ basis. For $N = 3$, $[-1]$ acts as $-1 \ne 1$ on $E[3]$, so it is detected.</div>
+
+<div class="quiz" data-concept="level-structures-moduli"></div>
 </section>
 
 <section id="higher">
@@ -902,6 +911,13 @@ The question "does $\mathcal{F}$ come from a scheme?" has three graded answers.<
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('moduli-spaces'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

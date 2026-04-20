@@ -13,20 +13,41 @@
       "blurb": "Finite extensions of Q carry arithmetic via algebraic integers."
     },
     {
+      "id": "discriminant-ant",
+      "title": "Discriminant of a number field",
+      "anchor": "discriminant",
+      "prereqs": [
+        "number-fields-integers"
+      ],
+      "blurb": "The discriminant $\\Delta_K$ is the squared determinant of an integral basis under the embeddings; it records exactly which rational primes ramify."
+    },
+    {
       "id": "prime-ideals-factorization-ant",
       "title": "Ideal factorization and ramification",
       "anchor": "ramification",
       "prereqs": [
-        "number-fields-integers"
+        "number-fields-integers",
+        "discriminant-ant"
       ],
       "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification."
+    },
+    {
+      "id": "minkowski-bound",
+      "title": "Minkowski bound and geometry of numbers",
+      "anchor": "minkowski",
+      "prereqs": [
+        "prime-ideals-factorization-ant",
+        "discriminant-ant"
+      ],
+      "blurb": "Every ideal class has a representative of norm at most $M_K=(4/\\pi)^{r_2}(n!/n^n)\\sqrt{|\\Delta_K|}$, via Minkowski's convex-body theorem; this is what forces the class group to be finite."
     },
     {
       "id": "class-group-units-ant",
       "title": "Class group and units",
       "anchor": "units",
       "prereqs": [
-        "prime-ideals-factorization-ant"
+        "prime-ideals-factorization-ant",
+        "minkowski-bound"
       ],
       "blurb": "Class group and unit rank measure arithmetic failure and structure."
     }

@@ -29,6 +29,24 @@
         "functors-natural-transformations"
       ],
       "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
+    },
+    {
+      "id": "universal-properties",
+      "title": "Universal properties and representability",
+      "anchor": "univ",
+      "prereqs": [
+        "yoneda-limits-adjunctions"
+      ],
+      "blurb": "A universal property pins an object down as the representing object of a Hom-functor; every standard construction (product, free group, limit, adjoint) is a universal property in disguise."
+    },
+    {
+      "id": "monoidal-categories",
+      "title": "Monoidal categories",
+      "anchor": "mon",
+      "prereqs": [
+        "functors-natural-transformations"
+      ],
+      "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category."
     }
   ]
 }

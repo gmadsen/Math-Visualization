@@ -102,6 +102,78 @@
           "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
         }
       ]
+    },
+    "analytic-continuation-lfunc": {
+      "title": "Analytic continuation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Dirichlet series $L(E,s)=\\sum a_n n^{-s}$ for an elliptic curve converges absolutely on:",
+          "choices": [
+            "$\\mathrm{Re}\\,s > 1/2$",
+            "$\\mathrm{Re}\\,s > 3/2$",
+            "all of $\\mathbb{C}$",
+            "only at integers"
+          ],
+          "answer": 1,
+          "explain": "The Hasse bound $|a_p|\\le 2\\sqrt{p}$ gives absolute convergence on $\\mathrm{Re}\\,s > 3/2$; continuation past that needs modularity."
+        },
+        {
+          "type": "mcq",
+          "q": "What analytic input is the standard route to continuing $L(f,s)$ of a cusp form $f$ to all of $\\mathbb{C}$?",
+          "choices": [
+            "Writing it as a contour integral around $s=1$",
+            "Its Mellin transform expression $(2\\pi)^{-s}\\Gamma(s)L(f,s)=\\int_0^\\infty f(iy)\\,y^{s-1}\\,dy$",
+            "Differentiating the series term by term",
+            "Applying the Cauchy residue theorem at integers"
+          ],
+          "answer": 1,
+          "explain": "Split the Mellin integral at $y=1$, apply $y\\mapsto 1/y$, and the modular transformation of $f$ makes the integral entire in $s$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many poles does the completed $\\Lambda(f,s)$ of a weight-$k$ cusp form have in $\\mathbb{C}$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$."
+        }
+      ]
+    },
+    "special-values-lfunc": {
+      "title": "Special values",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Euler's evaluation gives $\\zeta(2)=\\pi^2/k$ for which integer $k$?",
+          "answer": 6,
+          "tol": 1e-9,
+          "explain": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant."
+        },
+        {
+          "type": "mcq",
+          "q": "The Birch–Swinnerton-Dyer conjecture predicts that for an elliptic curve $E/\\mathbb{Q}$,",
+          "choices": [
+            "$L(E,1)$ equals the discriminant of $E$",
+            "$\\mathrm{ord}_{s=1}L(E,s)=\\mathrm{rank}\\,E(\\mathbb{Q})$",
+            "$L(E,s)$ has a pole at $s=1$",
+            "$L(E,2)$ is always zero"
+          ],
+          "answer": 1,
+          "explain": "BSD ties the order of vanishing of $L(E,s)$ at the center $s=1$ of the functional equation to the Mordell–Weil rank."
+        },
+        {
+          "type": "mcq",
+          "q": "Dirichlet's class number formula expresses $L(1,\\chi)$ for a nontrivial Dirichlet character in terms of:",
+          "choices": [
+            "a regulator and class number of the associated number field",
+            "the Riemann zeta function at $s=2$",
+            "a purely archimedean gamma factor",
+            "the discriminant alone, with no arithmetic invariant"
+          ],
+          "answer": 0,
+          "explain": "Special values of $L(s,\\chi)$ at $s=1$ encode class numbers, regulators, and unit information of the corresponding abelian extension of $\\mathbb{Q}$."
+        }
+      ]
     }
   }
 }

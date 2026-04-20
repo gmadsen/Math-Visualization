@@ -13,20 +13,41 @@
       "blurb": "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control."
     },
     {
+      "id": "spectrum-of-element",
+      "title": "Spectrum and functional calculus",
+      "anchor": "spec",
+      "prereqs": [
+        "cstar-basics",
+        "bounded-operators-fa"
+      ],
+      "blurb": "The spectrum σ(a) is a non-empty compact subset of ℂ; the spectral-radius formula r(a)=lim‖aⁿ‖^{1/n} and a continuous functional calculus on normal elements make C*-algebras analytically tractable."
+    },
+    {
       "id": "gelfand-duality-oa",
       "title": "Commutative duality and spectra",
       "anchor": "duality",
       "prereqs": [
-        "cstar-basics"
+        "cstar-basics",
+        "spectrum-of-element"
       ],
       "blurb": "Commutative C*-algebras correspond to compact spaces via Gelfand duality."
+    },
+    {
+      "id": "positive-elements",
+      "title": "Positive elements and states",
+      "anchor": "positive",
+      "prereqs": [
+        "spectrum-of-element"
+      ],
+      "blurb": "Positive elements a = b*b form a closed cone detected by σ(a) ⊆ [0,∞); positive linear functionals of norm 1 are states, generalizing Borel probability measures to noncommutative C*-algebras."
     },
     {
       "id": "von-neumann-and-nc",
       "title": "Von Neumann algebras and noncommutative geometry",
       "anchor": "ncg",
       "prereqs": [
-        "cstar-basics"
+        "cstar-basics",
+        "positive-elements"
       ],
       "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
     }

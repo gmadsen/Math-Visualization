@@ -13,6 +13,16 @@
       "blurb": "The p-adic absolute value yields an ultrametric completion Q_p."
     },
     {
+      "id": "ultrametric-topology",
+      "title": "Ultrametric topology",
+      "anchor": "ultra",
+      "prereqs": [
+        "padic-norm-completion",
+        "metric-spaces"
+      ],
+      "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p."
+    },
+    {
       "id": "padic-expansions",
       "title": "p-adic expansions and topology",
       "anchor": "expand",
@@ -29,6 +39,16 @@
         "padic-expansions"
       ],
       "blurb": "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions."
+    },
+    {
+      "id": "local-global-principle",
+      "title": "Local-global (Hasse) principle",
+      "anchor": "localglobal",
+      "prereqs": [
+        "hensel-lemma",
+        "prime-ideals-factorization-ant"
+      ],
+      "blurb": "A Diophantine problem over Q is studied by solving it over R and every Q_p; for quadratic forms this local data is sufficient, while failures for higher-degree forms are measured by Brauer and Tate-Shafarevich groups."
     }
   ]
 }

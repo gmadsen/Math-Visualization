@@ -107,6 +107,9 @@
   .chartbox.sel{border-color:var(--yellow)}
   .chartbox .lbl{font-size:.78rem;color:var(--mute);text-align:center;margin-bottom:.2rem;letter-spacing:.05em;text-transform:uppercase}
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -167,8 +170,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#infty">4&nbsp;Line&nbsp;at&nbsp;infinity</a>
   <a href="#homog">5&nbsp;Homogenization</a>
   <a href="#pgl">6&nbsp;Projective&nbsp;transformations</a>
-  <a href="#why">7&nbsp;Why&nbsp;projective?</a>
-  <a href="#higher">8&nbsp;RP²&nbsp;and&nbsp;CP²</a>
+  <a href="#duality">7&nbsp;Projective&nbsp;duality</a>
+  <a href="#cross-ratio">8&nbsp;Cross-ratio</a>
+  <a href="#why">9&nbsp;Why&nbsp;projective?</a>
+  <a href="#higher">10&nbsp;RP²&nbsp;and&nbsp;CP²</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -299,6 +304,7 @@ A "point" of $\mathbb{P}^2$ is a 1-dimensional linear subspace of $K^3$. A "line
     <label>Z</label><input type="range" id="defn-z" min="-100" max="100" value="80">
   </div>
 </div>
+<div class="quiz" data-concept="projective-points-lines"></div>
 </section>
 
 <script>
@@ -574,6 +580,7 @@ Each monomial $x^iy^j$ with $i+j\le d$ becomes $X^iY^jZ^{d-i-j}$, restoring tota
   </div>
   <div class="readout" id="hom-out"></div>
 </div>
+<div class="quiz" data-concept="homogeneous-coordinates"></div>
 </section>
 
 <script>
@@ -702,6 +709,7 @@ This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
   </div>
   <div class="readout" id="cn-out"></div>
 </div>
+<div class="quiz" data-concept="projective-transformations"></div>
 </section>
 
 <script>
@@ -770,8 +778,26 @@ This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
 })();
 </script>
 
+<section id="duality">
+<h2>7. Projective duality</h2>
+<p>The equation $aX+bY+cZ=0$ that defines a line in $\mathbb{P}^2$ is itself determined by a triple $[a:b:c]$ up to non-zero scalar. So <strong>lines in $\mathbb{P}^2$ are parametrized by another copy of $\mathbb{P}^2$</strong>, called the <em>dual projective plane</em> $(\mathbb{P}^2)^*$. A point $[X_0:Y_0:Z_0]\in\mathbb{P}^2$ lies on the line $[a:b:c]\in(\mathbb{P}^2)^*$ exactly when
+$$a X_0 + b Y_0 + c Z_0 \;=\; 0,$$
+and this pairing is perfectly symmetric in the two variables. Fixing a point cuts out a line's worth of lines through it; fixing a line cuts out a line's worth of points on it. The resulting involution $\mathbb{P}^2 \leftrightarrow (\mathbb{P}^2)^*$ is <strong>projective duality</strong>.</p>
+<p>Because the pairing is symmetric, every incidence theorem has a <strong>dual</strong> obtained by swapping "point" with "line" and "lies on" with "passes through". The most basic example is the axiom pair: "any two distinct points determine a unique line" dualizes to "any two distinct lines meet in a unique point" — the projective replacement for parallelism. A deeper example is <strong>Pascal</strong> (six points on a conic $\Rightarrow$ three collinear points) dualizing to <strong>Brianchon</strong> (six tangents to a conic $\Rightarrow$ three concurrent lines). Over $\mathbb{F}_q$ the duality is visible at the level of counts: $|\mathbb{P}^2(\mathbb{F}_q)| = |(\mathbb{P}^2)^*(\mathbb{F}_q)| = q^2+q+1$, and for $q=2$ both sides equal $7$ — the Fano plane, self-dual with seven points and seven lines.</p>
+<div class="quiz" data-concept="projective-duality"></div>
+</section>
+
+<section id="cross-ratio">
+<h2>8. The cross-ratio</h2>
+<p>Given four distinct collinear points $A,B,C,D$ on a projective line with affine coordinates $a,b,c,d$, their <strong>cross-ratio</strong> is
+$$[A,B;C,D] \;=\; \frac{(a-c)(b-d)}{(a-d)(b-c)} \;\in\; K \cup\{\infty\}.$$
+For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-ratio is independent of the choice of affine chart on the line and, crucially, <strong>invariant under $\mathrm{PGL}_2(K)$</strong>: a Möbius transformation $t\mapsto(\alpha t+\beta)/(\gamma t+\delta)$ preserves it. It is, up to functional identities, the <em>unique</em> projective invariant of four points on a line — so two quadruples on two different lines are projectively equivalent iff their cross-ratios match.</p>
+<p>Permuting the four points changes the cross-ratio: only the Klein four-group $V_4\subset S_4$ of double-transpositions fixes $\lambda=[A,B;C,D]$. The remaining six cosets give the orbit $\{\lambda,\,1-\lambda,\,1/\lambda,\,1/(1-\lambda),\,\lambda/(\lambda-1),\,(\lambda-1)/\lambda\}$, and the rational function $j(\lambda) = \dfrac{256(\lambda^2-\lambda+1)^3}{\lambda^2(\lambda-1)^2}$ is $S_4$-invariant — this is the same $j$ that will reappear as the $j$-invariant of an elliptic curve on <a href="./elliptic-curves.html">elliptic-curves.html</a>, via the four ramification points of a hyperelliptic map. The cross-ratio is classical projective geometry's most portable computation: it lets you detect equivalence, construct harmonic conjugates ($\lambda=-1$), and — on a conic — recover the conic's own parameter from four marked points.</p>
+<div class="quiz" data-concept="cross-ratio"></div>
+</section>
+
 <section id="why">
-<h2>7. Why projective?</h2>
+<h2>9. Why projective?</h2>
 <p>Three answers, in order of how often they will save your life.</p>
 
 <h3>(a) Bézout</h3>
@@ -884,7 +910,7 @@ The chosen point $O = [0:1:0]$ is the identity of the group law on $C$. The full
 </script>
 
 <section id="higher">
-<h2>8. Higher dimensions, and a note on $\mathbb{RP}^2$ vs $\mathbb{CP}^2$</h2>
+<h2>10. Higher dimensions, and a note on $\mathbb{RP}^2$ vs $\mathbb{CP}^2$</h2>
 <p>The construction generalizes verbatim. The <strong>projective $n$-space over $K$</strong> is
 $$\mathbb{P}^n(K) \;=\; (K^{n+1} \setminus 0)/\sim$$
 with $(X_0,\dots,X_n) \sim (\lambda X_0,\dots,\lambda X_n)$. As a topological space (when $K = \mathbb{R}$ or $\mathbb{C}$) it has dimension $n$ over $\mathbb{R}$ in the real case and $n$ over $\mathbb{C}$ (so $2n$ over $\mathbb{R}$) in the complex case.</p>
@@ -955,6 +981,13 @@ with $(X_0,\dots,X_n) \sim (\lambda X_0,\dots,\lambda X_n)$. As a topological sp
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('projective-plane'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

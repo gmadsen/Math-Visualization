@@ -27,6 +27,24 @@
         "cayley-tables"
       ],
       "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+    },
+    {
+      "id": "ring-ideals",
+      "title": "Ideals and quotient rings",
+      "anchor": "ideals",
+      "prereqs": [
+        "quotients-homomorphisms"
+      ],
+      "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
+    },
+    {
+      "id": "field-extensions-basics",
+      "title": "Field extensions and minimal polynomials",
+      "anchor": "extensions",
+      "prereqs": [
+        "ring-ideals"
+      ],
+      "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
     }
   ]
 }

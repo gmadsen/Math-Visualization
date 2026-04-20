@@ -102,6 +102,9 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -166,6 +169,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#lim">5&nbsp;(Co)limits</a>
   <a href="#adj">6&nbsp;Adjoints</a>
   <a href="#play">7&nbsp;Proof&nbsp;play</a>
+  <a href="#univ">8&nbsp;Universal&nbsp;properties</a>
+  <a href="#mon">9&nbsp;Monoidal&nbsp;categories</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -347,6 +352,8 @@ function drawNode(svg, x, y, label, opts={}){
 <p>An <strong>isomorphism</strong> is a morphism $f\colon A\to B$ with a two-sided inverse. In $\mathsf{Set}$: bijections. In $\mathsf{Top}$: homeomorphisms. In $\mathsf{Grp}$: group isomorphisms. The point is that "isomorphism" is a notion purely of the category — you never unpack it into elements.</p>
 
 <div class="note"><strong>Opposite category.</strong> $\mathcal{C}^{\mathrm{op}}$ has the same objects as $\mathcal{C}$ but $\operatorname{Hom}_{\mathcal{C}^{\mathrm{op}}}(A,B)=\operatorname{Hom}_{\mathcal{C}}(B,A)$; composition is reversed. Every definition about $\mathcal{C}$ has a <em>dual</em> got by flipping all arrows.</div>
+
+<div class="quiz" data-concept="categories-morphisms"></div>
 </section>
 
 <section id="fun">
@@ -726,6 +733,8 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 <p>Natural transformations organize functors into a category: $[\mathcal{C},\mathcal{D}]$ or $\mathsf{Fun}(\mathcal{C},\mathcal{D})$. This is where the <em>Yoneda</em> magic happens.</p>
+
+<div class="quiz" data-concept="functors-natural-transformations"></div>
 </section>
 
 <section id="yoneda">
@@ -1369,6 +1378,8 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 
 <p class="small">Categories, functors, and natural transformations were invented by Eilenberg and Mac Lane in 1945 — originally as the language in which to state the naturality of the double-dual, and to separate honest "canonical" isomorphisms from artifacts of basis choice. The Yoneda lemma was first stated in a paper by Saunders Mac Lane attributing it to a private communication from Nobuo Yoneda; Yoneda himself never wrote it down. It took another fifteen years for it to be recognized as the beating heart of the subject.</p>
 
+<div class="quiz" data-concept="yoneda-limits-adjunctions"></div>
+
 </section>
 
 <section id="play">
@@ -1622,6 +1633,143 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 })();
 </script>
 
+<section id="univ">
+<h2>8. Universal properties and representability</h2>
+<p>A recurring miracle of category theory is that almost every construction worth naming — products, coproducts, kernels, free groups, tensor products, localizations, completions, Stone–Čech compactifications — can be characterized by the same four-word formula: "initial (or terminal) object in an appropriate comma category." That characterization is called a <strong>universal property</strong>, and Yoneda turns it into a computational tool.</p>
+
+<p>Fix a functor $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$. We say $F$ is <em>representable</em> if there exist $X\in\mathcal{C}$ and a natural iso $F\cong h_X=\operatorname{Hom}_{\mathcal{C}}(-,X)$. By Yoneda, the pair $(X,\,\text{iso})$ is unique up to unique isomorphism whenever it exists. So to say "$X$ satisfies the universal property defined by $F$" means exactly $F\cong h_X$, and the "uniqueness up to unique iso" everyone quotes is just Yoneda.</p>
+
+<div class="note"><strong>Universal elements.</strong> A representation $F\cong h_X$ corresponds, by Yoneda, to a single element $u\in F(X)$ — the <em>universal element</em> — such that every $y\in F(C)$ is of the form $F(\varphi)(u)$ for a unique $\varphi\colon C\to X$. For the product $A\times B$, $u$ is the pair of projections $(\pi_A,\pi_B)\in\operatorname{Hom}(A\times B,A)\times\operatorname{Hom}(A\times B,B)$, and "every pair factors uniquely through $(\pi_A,\pi_B)$" is the usual universal property of the product.</div>
+
+<p>Three concrete instances to pin down the pattern. The <strong>free group</strong> $F(S)$ on a set $S$ represents $\operatorname{Hom}_{\mathsf{Grp}}(-,\,-)\circ(\text{underlying set})$ restricted along $S$: precisely, $\operatorname{Hom}_{\mathsf{Set}}(S, U(G))\cong\operatorname{Hom}_{\mathsf{Grp}}(F(S), G)$, which is the $F\dashv U$ adjunction of §6. The <strong>tensor product</strong> $M\otimes_R N$ represents the functor $P\mapsto\operatorname{Bilin}_R(M\times N, P)$. The <strong>sheafification</strong> $a(\mathcal{F})$ of a presheaf $\mathcal{F}$ represents $\mathcal{G}\mapsto\operatorname{Hom}_{\mathsf{PSh}}(\mathcal{F},\iota\mathcal{G})$ on sheaves $\mathcal{G}$. In each case, the construction's defining property is "we represent this Hom-set-valued functor."</p>
+
+<div class="widget" id="w-univ">
+  <div class="hd"><div class="ttl">Universal property explorer</div><div class="hint">pick a construction · read off its representing functor</div></div>
+  <div class="row">
+    <label>construction:</label>
+    <select id="univ-pick">
+      <option value="product">product $A\times B$ in $\mathsf{Set}$</option>
+      <option value="coproduct">coproduct $A\sqcup B$ in $\mathsf{Set}$</option>
+      <option value="free">free group $F(S)$</option>
+      <option value="tensor">tensor product $M\otimes_R N$</option>
+      <option value="abelian">abelianization $G^{\mathrm{ab}}$</option>
+    </select>
+  </div>
+  <div class="readout" id="univ-out"></div>
+</div>
+
+<p>Notice the shape: every line of the table reads "$X$ represents the functor $C\mapsto(\text{data on }C)$, with universal element $u$ recovering the defining map." Once you see a universal property you already know the object is unique up to unique iso, that it preserves the operations you'd expect (right adjoints preserve limits!), and how to compute with it (factor through the universal map). The discipline of category theory is to replace ad-hoc constructions with their universal properties whenever possible — then Yoneda and the adjoint functor theorem do the work.</p>
+
+<div class="quiz" data-concept="universal-properties"></div>
+
+</section>
+
+<script>
+(function(){
+  const pick = $('#univ-pick'), out = $('#univ-out');
+  if(!pick || !out) return;
+  const DATA = {
+    product: {
+      X: 'A × B',
+      functor: 'C  ↦  Hom(C,A) × Hom(C,B)',
+      u: 'the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)',
+      factoring: 'given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g'
+    },
+    coproduct: {
+      X: 'A ⊔ B',
+      functor: 'C  ↦  Hom(A,C) × Hom(B,C)',
+      u: 'the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)',
+      factoring: 'given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g'
+    },
+    free: {
+      X: 'F(S)  (free group on S)',
+      functor: 'G  ↦  Hom_Set(S, U(G))',
+      u: 'the inclusion η_S: S → U(F(S)) sending each generator to itself',
+      factoring: 'each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction'
+    },
+    tensor: {
+      X: 'M ⊗_R N',
+      functor: 'P  ↦  Bilin_R(M × N, P)',
+      u: 'the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n',
+      factoring: 'every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear'
+    },
+    abelian: {
+      X: 'G^ab = G/[G,G]',
+      functor: 'A  ↦  Hom_Grp(G, A)   (A abelian)',
+      u: 'the quotient q: G → G^ab',
+      factoring: 'every homomorphism G → A to an abelian group factors uniquely through q'
+    }
+  };
+  function render(){
+    const d = DATA[pick.value];
+    out.textContent =
+      `representing object X:\n  ${d.X}\n\n` +
+      `represents the functor:\n  ${d.functor}\n\n` +
+      `universal element u ∈ F(X):\n  ${d.u}\n\n` +
+      `factoring property:\n  ${d.factoring}\n\n` +
+      `(Yoneda: since F ≅ h_X, X is unique up to unique iso.)`;
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="mon">
+<h2>9. Monoidal categories</h2>
+<p>A <strong>monoidal category</strong> $(\mathcal{C}, \otimes, I, \alpha, \lambda, \rho)$ has a bifunctor $\otimes\colon\mathcal{C}\times\mathcal{C}\to\mathcal{C}$, a unit object $I\in\mathcal{C}$, and natural isomorphisms
+$$\alpha_{A,B,C}\colon (A\otimes B)\otimes C \xrightarrow{\sim} A\otimes(B\otimes C),\qquad \lambda_A\colon I\otimes A\xrightarrow{\sim} A,\qquad \rho_A\colon A\otimes I\xrightarrow{\sim} A$$
+satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\alpha$ and the <em>triangle</em> relating $\alpha$ to $\lambda,\rho$. The pentagon says the two ways of re-associating $((A\otimes B)\otimes C)\otimes D$ to $A\otimes(B\otimes(C\otimes D))$ agree, and <em>Mac&nbsp;Lane's coherence theorem</em> promotes this to: every diagram built from $\alpha,\lambda,\rho$ and identities commutes.</p>
+
+<p>You have met dozens of examples: $(\mathsf{Set},\times,\{\ast\})$; $(\mathsf{Vect}_k,\otimes_k, k)$; $(R\mathsf{-Mod},\otimes_R, R)$; $(\mathsf{Top},\times,\ast)$; $(\mathsf{Ch}(R), \otimes, R[0])$; the endomorphism category $(\operatorname{End}(\mathcal{C}),\circ,\mathrm{id})$ of any category. A monoidal category is <strong>symmetric</strong> if it additionally carries a natural iso $\sigma_{A,B}\colon A\otimes B\xrightarrow{\sim} B\otimes A$ with $\sigma_{B,A}\circ\sigma_{A,B}=\mathrm{id}$ (and a hexagon coherence). It is <strong>braided</strong> if $\sigma$ satisfies only the hexagons — $\sigma^2\ne\mathrm{id}$ in general, which is how the category of representations of a quantum group gets its knot invariants.</p>
+
+<div class="note"><strong>Why monoidal matters.</strong> A monoidal category is the ambient setting for "algebraic structures internal to a category." A <em>monoid</em> in $(\mathcal{C},\otimes,I)$ is an object $M$ with $\mu\colon M\otimes M\to M$ and $\eta\colon I\to M$ satisfying associativity and unit axioms stated as commuting diagrams. A monoid in $(\mathsf{Set},\times)$ is an ordinary monoid; in $(\mathsf{Ab},\otimes_{\mathbb Z})$ it is a ring; in $(\mathsf{Vect}_k,\otimes_k)$ it is a $k$-algebra; in $(\operatorname{End}(\mathcal{C}),\circ)$ it is a monad. Monoidal structure is the syntax, and "monoid object" is the semantics.</div>
+
+<div class="widget" id="w-mon">
+  <div class="hd"><div class="ttl">Monoid-in-a-monoidal-category dictionary</div><div class="hint">pick the ambient $(\mathcal{C},\otimes)$ · read off what a monoid object <em>is</em></div></div>
+  <div class="row">
+    <label>ambient category:</label>
+    <select id="mon-pick">
+      <option value="set">$(\mathsf{Set},\times,\{\ast\})$</option>
+      <option value="ab">$(\mathsf{Ab},\otimes_{\mathbb Z},\mathbb Z)$</option>
+      <option value="vect">$(\mathsf{Vect}_k,\otimes_k,k)$</option>
+      <option value="rmod">$(R\text{-}\mathsf{Mod},\otimes_R,R)$</option>
+      <option value="top">$(\mathsf{Top},\times,\ast)$</option>
+      <option value="end">$(\operatorname{End}(\mathcal{C}),\circ,\mathrm{id})$</option>
+    </select>
+  </div>
+  <div class="readout" id="mon-out"></div>
+</div>
+
+<p class="small">Mac&nbsp;Lane's coherence theorem often licenses mathematicians to pretend $\otimes$ is strictly associative. That is legitimate — one can always replace a monoidal category by a <em>strict</em> monoidal one that is monoidally equivalent — but the non-trivial coherence data becomes essential in the braided and higher-categorical settings, where an elided $\alpha$ quietly encodes a piece of the braid group. The categorified version of monoidal categories — <em>tricategories</em>, <em>$(\infty,1)$-categories with tensor product</em> — are the setting for topological quantum field theory, Lurie's formalization of the cobordism hypothesis, and modern derived algebraic geometry.</p>
+
+<div class="quiz" data-concept="monoidal-categories"></div>
+
+</section>
+
+<script>
+(function(){
+  const pick = $('#mon-pick'), out = $('#mon-out');
+  if(!pick || !out) return;
+  const DATA = {
+    set:  { name:'(Set, ×, {∗})',          monoid:'an ordinary monoid — a set with associative multiplication and a unit' },
+    ab:   { name:'(Ab, ⊗_Z, Z)',           monoid:'a ring (not necessarily commutative)' },
+    vect: { name:'(Vect_k, ⊗_k, k)',       monoid:'a k-algebra (associative unital)' },
+    rmod: { name:'(R-Mod, ⊗_R, R)',        monoid:'an R-algebra' },
+    top:  { name:'(Top, ×, ∗)',            monoid:'a topological monoid (e.g. a topological group forgetting inverses)' },
+    end:  { name:'(End(𝒞), ∘, id)',        monoid:'a monad on 𝒞' }
+  };
+  function render(){
+    const d = DATA[pick.value];
+    out.textContent =
+      `ambient monoidal category:\n  ${d.name}\n\n` +
+      `a monoid object (M, μ: M⊗M → M, η: I → M) here is:\n  ${d.monoid}\n\n` +
+      `data:    μ satisfies associativity\n         η satisfies left/right unit\n(both drawn as commuting squares in 𝒞)`;
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>
 
@@ -1670,6 +1818,13 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('category-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

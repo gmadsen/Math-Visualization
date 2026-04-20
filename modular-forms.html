@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -278,6 +281,8 @@ word:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identi
 </script>
 
 <p>The action is geometric: $T$ slides the whole half-plane horizontally, and $S$ is the "conformal flip" that interchanges the inside and outside of the unit circle, upper half preserved. Compose them and you can carry any point anywhere — but in an extremely constrained way, because determinant one and integer entries together force a Euclidean-algorithm rigidity.</p>
+
+<div class="quiz" data-concept="sl2z-on-H"></div>
 </section>
 
 <section id="fund">
@@ -518,6 +523,8 @@ f is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;
 </script>
 
 <div class="note"><strong>Geometric reading.</strong> The symbol $d\tau$ transforms by $d(\gamma\tau) = (c\tau+d)^{-2}\,d\tau$. A modular form of weight $k$ is therefore — morally — a section of $(T^*\mathcal{H})^{\otimes k/2}$ that descends to the quotient. That is why only <em>even</em> $k$ can have nonzero invariants: odd powers of the cotangent bundle pick up a sign under $-I$.</div>
+
+<div class="quiz" data-concept="modular-form-definition"></div>
 </section>
 
 <section id="eisen">
@@ -640,6 +647,8 @@ a_3 = ${arr[3]}`;
 </script>
 
 <p>Two features of this picture are hard to overstate. First: a single transcendentally-defined function on a complex domain is really a sequence of integers — in the $E_4$ case, the integers $240\,\sigma_3(n)$ counting divisor sums. Second: the same integers arise from counting lattice points on spheres (the theta functions used in <a href="./sums-of-squares.html">sums of squares</a>), which is why modular forms encode arithmetic.</p>
+
+<div class="quiz" data-concept="eisenstein-series-mf"></div>
 </section>
 
 <section id="jinv">
@@ -950,6 +959,8 @@ These relations encode the arithmetic content of $\Delta$.</p>
   <li>tie these $L$-functions to Galois representations and to the $L$-functions of elliptic curves.</li>
 </ul>
 <p>But the engine is already in place: a finite-dimensional space, a canonical basis of Hecke eigenforms, and a $q$-expansion that turns a transcendental function into an arithmetic sequence.</p>
+
+<div class="quiz" data-concept="q-expansions-mf"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -1000,6 +1011,14 @@ These relations encode the arithmetic content of $\Delta$.</p>
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('modular-forms'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

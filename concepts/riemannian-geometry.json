@@ -29,6 +29,25 @@
         "levi-civita-connection"
       ],
       "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+    },
+    {
+      "id": "ricci-curvature",
+      "title": "Ricci curvature and Einstein manifolds",
+      "anchor": "ricci",
+      "prereqs": [
+        "riemann-curvature-tensor"
+      ],
+      "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations."
+    },
+    {
+      "id": "volume-form-rg",
+      "title": "Riemannian volume form and divergence",
+      "anchor": "volume",
+      "prereqs": [
+        "riemannian-metrics",
+        "forms-and-wedge"
+      ],
+      "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g)."
     }
   ]
 }

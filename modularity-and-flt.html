@@ -162,6 +162,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#frey">1&nbsp;Frey&nbsp;curve</a>
   <a href="#modularity">2&nbsp;Modularity</a>
   <a href="#ribet">3&nbsp;Ribet&nbsp;and&nbsp;FLT</a>
+  <a href="#deformation">4&nbsp;Deformation&nbsp;rings</a>
+  <a href="#rt">5&nbsp;R&nbsp;=&nbsp;T</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -541,6 +543,135 @@ Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`
 
 <p>Each of these is, at heart, a tiny echo of the same bet Wiles and Ribet won: that an arithmetic object's Galois representation is controlled by an automorphic form, and that <em>that single identification</em> is powerful enough to settle Diophantine questions that integer-by-integer chase cannot touch.</p>
 
+</section>
+
+<section id="deformation">
+<h2>4. Deformation rings</h2>
+
+<p>The engine that drives modularity lifting is Mazur's theory of <strong>deformations of Galois representations</strong>. Fix a residual representation
+$$\overline\rho : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(\mathbb{F}_p)$$
+(thought of as the mod-$p$ reduction of some unknown $p$-adic lift). A <em>deformation</em> of $\overline\rho$ to a complete Noetherian local $\mathbb{Z}_p$-algebra $(A, \mathfrak{m}_A)$ with residue field $\mathbb{F}_p$ is a continuous lift
+$$\rho : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(A), \qquad \rho \bmod \mathfrak{m}_A \ =\ \overline\rho,$$
+taken up to conjugation by $\ker(\mathrm{GL}_2(A) \to \mathrm{GL}_2(\mathbb{F}_p))$.</p>
+
+<p>Mazur (1989) proved that — assuming $\overline\rho$ is absolutely irreducible — this functor $A \mapsto \{\text{deformations of }\overline\rho\text{ to }A\}$ is <em>representable</em>. There is a universal complete Noetherian local ring $R^{\mathrm{univ}}$ and a universal deformation
+$$\rho^{\mathrm{univ}} : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(R^{\mathrm{univ}})$$
+from which every other deformation arises by unique base change along a ring map $R^{\mathrm{univ}} \to A$. The ring $R^{\mathrm{univ}}$ is the <em>formal moduli space</em> of $p$-adic lifts of $\overline\rho$.</p>
+
+<div class="note"><strong>Cutting down by ramification data.</strong> In practice one fixes a finite set of primes $\Sigma$ (containing $p$ and the ramification primes of $\overline\rho$) and imposes local conditions at each $\ell \in \Sigma$: unramified outside $\Sigma$, ordinary at $p$, Steinberg at a Steinberg prime, etc. These cut out a quotient $R_\Sigma$ of $R^{\mathrm{univ}}$ — still a complete Noetherian local ring, but now with tangent space computed by a <em>Selmer group</em>
+$$\dim_{\mathbb{F}_p} \mathfrak{m}_{R_\Sigma}/(\mathfrak{m}_{R_\Sigma}^2, p) \ =\ \dim_{\mathbb{F}_p} H^1_\Sigma(G_\mathbb{Q}, \mathrm{Ad}\,\overline\rho).$$
+Selmer groups are the bookkeeping device: they count the infinitesimal directions $\overline\rho$ can deform subject to the chosen local conditions.</div>
+
+<div class="widget" id="w-def">
+  <div class="hd"><div class="ttl">Widget 4 · Deformation ring dimension counter</div><div class="hint">toggle local conditions; track the Selmer dimension</div></div>
+  <div class="row">
+    <label>allow ramification at $\ell=3$?</label>
+    <button class="df-tog" data-k="ram3">off</button>
+    <label>allow ramification at $\ell=5$?</label>
+    <button class="df-tog" data-k="ram5">off</button>
+    <label>ordinary at $p$?</label>
+    <button class="df-tog" data-k="ord">on</button>
+  </div>
+  <div class="readout" id="df-out">…</div>
+</div>
+
+<script>
+(function(){
+  const state = { ram3:false, ram5:false, ord:true };
+  const btns = $$('.df-tog'), out = $('#df-out');
+  function render(){
+    // toy model: dim = base 0 + 1 per extra ramification prime + 1 if non-ordinary (irregular local condition)
+    let dim = 0;
+    let narr = [];
+    narr.push('Residual $\\overline\\rho$ ramified at $\\{2, p\\}$; start with trivial Selmer.');
+    if(state.ram3){ dim++; narr.push('allow ramification at 3 → +1 local tangent direction'); }
+    if(state.ram5){ dim++; narr.push('allow ramification at 5 → +1 local tangent direction'); }
+    if(!state.ord){ dim++; narr.push('drop ordinary condition at p → +1 Selmer dimension'); }
+    btns.forEach(b=>{ const k=b.dataset.k; b.textContent = state[k] ? 'on' : 'off'; b.classList.toggle('active', state[k]); });
+    out.textContent =
+      narr.map(s=>'• '+s.replace(/\\\$/g,'').replace(/\\\\/g,'')).join('\n') + '\n' +
+      `Relative Selmer dim (toy count): ${dim}\n`+
+      `R_Σ is a quotient of Z_p[[x_1,…,x_${Math.max(dim,1)}]] (dim ≤ ${dim}).`;
+  }
+  btns.forEach(b=>b.addEventListener('click',()=>{ state[b.dataset.k] = !state[b.dataset.k]; render(); }));
+  render();
+})();
+</script>
+
+<p>Why is $R_\Sigma$ the right object? Because modularity is, at its core, the assertion that this formal moduli space of Galois lifts is <em>not bigger than</em> the space of lifts coming from modular forms. The modular side of the equation is a <strong>Hecke algebra</strong> — and §5 forces the two rings to coincide.</p>
+
+<div class="quiz" data-concept="deformation-rings"></div>
+</section>
+
+<section id="rt">
+<h2>5. The R = T theorem</h2>
+
+<p>Fix the same $\Sigma$ as in §4, and consider the <strong>Hecke algebra</strong>
+$$\mathbb{T}_\Sigma \ \subseteq\ \mathrm{End}_{\mathbb{Z}_p}\!\big( S_2(\Gamma_0(N_\Sigma); \mathbb{Z}_p)_\mathfrak{m} \big)$$
+generated by the operators $T_\ell$ for $\ell \notin \Sigma$ acting on the localization at a maximal ideal $\mathfrak{m}$ corresponding to $\overline\rho$. Each system of Hecke eigenvalues in $\mathbb{T}_\Sigma$ gives, via Eichler–Shimura and Deligne, a Galois lift of $\overline\rho$ — so modular lifts of $\overline\rho$ are parametrized by $\mathbb{T}_\Sigma$.</p>
+
+<p>The universal property of $R_\Sigma$ then produces a canonical surjection of complete Noetherian local rings
+$$\varphi : R_\Sigma \ \twoheadrightarrow\ \mathbb{T}_\Sigma.$$
+Surjectivity is easy (the modular Galois representations visibly land in $R_\Sigma$). The miracle is:</p>
+
+<div class="ok"><strong>Modularity lifting (Wiles 1995, Taylor–Wiles 1995).</strong> Under mild hypotheses on $\overline\rho$ (irreducible, modular, odd), the map $\varphi: R_\Sigma \twoheadrightarrow \mathbb{T}_\Sigma$ is an <em>isomorphism</em>. Equivalently, <strong>every</strong> deformation of $\overline\rho$ with ramification data $\Sigma$ is modular.</div>
+
+<p>This is the celebrated "$R = T$" theorem. It is proved by the <strong>Taylor–Wiles patching argument</strong>: one chooses an infinite system of auxiliary sets of "Taylor–Wiles primes" $Q_n$ where, at each level, the augmented rings $R_{\Sigma \cup Q_n}$ and $\mathbb{T}_{\Sigma \cup Q_n}$ acquire enough room to be isomorphic to a power series ring over $\mathbb{Z}_p$ modulo a regular sequence of the same length. Passing to a compatible limit collapses the auxiliary primes and forces $R_\Sigma \cong \mathbb{T}_\Sigma$.</p>
+
+<div class="widget" id="w-rt">
+  <div class="hd"><div class="ttl">Widget 5 · Taylor–Wiles patching</div><div class="hint">grow the auxiliary prime set and watch $R_n, T_n$ equalize</div></div>
+  <div class="row">
+    <label>patching level $n$</label>
+    <input id="rt-n" type="range" min="0" max="6" step="1" value="0">
+    <span id="rt-nv" class="pill">n=0</span>
+  </div>
+  <svg id="rt-svg" viewBox="0 0 640 200" width="640" height="200"></svg>
+  <div class="readout" id="rt-out">…</div>
+</div>
+
+<script>
+(function(){
+  const sl=$('#rt-n'), sv=$('#rt-nv'), svg=$('#rt-svg'), out=$('#rt-out');
+  function draw(){
+    const n=+sl.value; sv.textContent='n='+n;
+    svg.innerHTML='';
+    const W=640,H=200,pad=30;
+    // two stacks of boxes: R on left, T on right; each grows with n
+    const boxH = 22, gap = 4;
+    function stack(x, label, count, color){
+      const t = SVG('text',{x, y:30, 'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});
+      t.textContent = label; svg.appendChild(t);
+      for(let i=0;i<count;i++){
+        svg.appendChild(SVG('rect',{x:x-60, y:50+i*(boxH+gap), width:120, height:boxH,
+          fill:'var(--panel2)', stroke:color, 'stroke-width':1.5, rx:4}));
+        const tt = SVG('text',{x, y:50+i*(boxH+gap)+boxH*0.7, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+        tt.textContent = (label==='R_n' ? 'x_'+(i+1) : 'T_{ℓ_'+(i+1)+'}');
+        svg.appendChild(tt);
+      }
+    }
+    stack(180, 'R_n', n+1, 'var(--violet)');
+    stack(460, 'T_n', n+1, 'var(--cyan)');
+    // equal sign when n≥6 (limit reached in this toy)
+    const eq = SVG('text',{x:320, y:120, 'text-anchor':'middle','font-size':28,
+      fill: n>=6 ? 'var(--green)' : 'var(--mute)', 'font-weight':700});
+    eq.textContent = (n>=6 ? 'R = T' : 'R ↠ T');
+    svg.appendChild(eq);
+
+    out.textContent =
+      `Patching level n = ${n}\n`+
+      `Auxiliary Taylor–Wiles primes Q_n: |Q_n| = ${n}.\n`+
+      `R_n := R_{Σ∪Q_n},   T_n := T_{Σ∪Q_n}.\n`+
+      `At each finite n, R_n ≅ Z_p[[x_1,…,x_${n+1}]]/I_n and T_n has the same form.\n`+
+      (n<6 ? 'Surjection R_n ↠ T_n; equality not yet forced.' :
+             'Limit: R_Σ ≅ T_Σ. Every Σ-ramified deformation of ρ̄ is modular.');
+  }
+  sl.oninput = draw; draw();
+})();
+</script>
+
+<p>R = T closes the circle. The Frey curve's mod-$p$ representation $\overline\rho_{E,p}$ lands inside some $\mathbb{T}_\Sigma$ because $E$ is modular (§2); $R = T$ says all its $p$-adic deformations — the whole formal family around $\overline\rho_{E,p}$ — must also be modular; and Ribet's level lowering (§3) then forces that modular source down to a space known to be empty. The three ideas interlock, and Fermat's 350-year equation has nowhere left to hide.</p>
+
+<div class="quiz" data-concept="r-equals-t"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>

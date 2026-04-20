@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -174,6 +177,7 @@ function legendre(a,p){
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <a href="#intro">1&nbsp;Number&nbsp;fields</a>
+  <a href="#discriminant">1a&nbsp;Discriminant</a>
   <a href="#examples">2&nbsp;Quadratic&nbsp;integers</a>
   <a href="#dedekind">3&nbsp;Dedekind&nbsp;domains</a>
   <a href="#ramification">4&nbsp;Ramification</a>
@@ -203,6 +207,13 @@ function legendre(a,p){
 <div class="note"><strong>Structure theorem.</strong> $\mathcal{O}_K$ is a <em>free</em> $\mathbb{Z}$-module of rank $n$. A $\mathbb{Z}$-basis $\omega_1,\dots,\omega_n$ is called an <em>integral basis</em>. The determinant of $(\sigma_i(\omega_j))$ is well-defined up to sign and its square is the <strong>discriminant</strong> $\Delta_K\in\mathbb{Z}$.</div>
 
 <p>The discriminant is the single most important invariant of $K$. It measures (among other things) which rational primes ramify: $p$ ramifies in $K$ iff $p\mid \Delta_K$. And Minkowski showed $|\Delta_K|>1$ whenever $n\ge 2$ — there is no nontrivial unramified extension of $\mathbb{Q}$.</p>
+
+<h3 id="discriminant">The discriminant in one paragraph</h3>
+<p>Fix an integral basis $\omega_1,\dots,\omega_n$ of $\mathcal{O}_K$ and label the $n$ embeddings $\sigma_1,\dots,\sigma_n\colon K\hookrightarrow\mathbb{C}$. The <strong>discriminant</strong> is the integer</p>
+<p style="text-align:center">$\Delta_K \;=\; \det\bigl(\sigma_i(\omega_j)\bigr)^2 \;=\; \det\bigl(\mathrm{Tr}_{K/\mathbb{Q}}(\omega_i\omega_j)\bigr)\;\in\;\mathbb{Z}$,</p>
+<p>independent of the choice of basis (different bases change the matrix by $\mathrm{GL}_n(\mathbb{Z})$, whose determinant squares to $1$). Concretely: $\Delta_{\mathbb{Q}(\sqrt{d})}=d$ when $d\equiv 1\pmod 4$ and $4d$ otherwise; $\Delta_{\mathbb{Q}(\zeta_p)}=(-1)^{(p-1)/2}p^{p-2}$ for an odd prime $p$.</p>
+<p>The discriminant is an <em>arithmetic</em> invariant that sees ramification: <strong>a rational prime $p$ ramifies in $K$ iff $p\mid\Delta_K$</strong>. And it is an <em>analytic</em> invariant — it governs the Minkowski bound $M_K\propto\sqrt{|\Delta_K|}$ and the leading term of $\zeta_K(s)$ at $s=1$. The Hermite–Minkowski theorem $|\Delta_K|\ge\bigl(\tfrac{n^n}{n!}\bigr)^2\bigl(\tfrac{\pi}{4}\bigr)^{n}$ in particular forces $|\Delta_K|\to\infty$ as $n\to\infty$ and rules out any unramified extension of $\mathbb{Q}$.</p>
+<div class="quiz" data-concept="discriminant-ant"></div>
 
 <p>Two features distinguish number fields from $\mathbb{Q}$ itself:</p>
 <ul>
@@ -239,6 +250,7 @@ function legendre(a,p){
   <svg id="ring-svg" viewBox="0 0 720 360" width="720" height="360"></svg>
   <div class="readout" id="ring-out"></div>
 </div>
+<div class="quiz" data-concept="number-fields-integers"></div>
 </section>
 
 <script>
@@ -464,6 +476,7 @@ function legendre(a,p){
   <svg id="ram-svg" viewBox="0 0 720 220" width="720" height="220"></svg>
   <div class="readout" id="ram-out"></div>
 </div>
+<div class="quiz" data-concept="prime-ideals-factorization-ant"></div>
 </section>
 
 <script>
@@ -766,6 +779,7 @@ then $S$ contains a nonzero lattice point.</div>
   <svg id="mink-svg" viewBox="0 0 720 460" width="720" height="460"></svg>
   <div class="readout" id="mink-out"></div>
 </div>
+<div class="quiz" data-concept="minkowski-bound"></div>
 </section>
 
 <script>
@@ -951,6 +965,7 @@ then $S$ contains a nonzero lattice point.</div>
   <svg id="iunit-svg" viewBox="0 0 720 360" width="720" height="360"></svg>
   <div class="readout" id="iunit-out"></div>
 </div>
+<div class="quiz" data-concept="class-group-units-ant"></div>
 </section>
 
 <script>
@@ -1242,6 +1257,13 @@ then $S$ contains a nonzero lattice point.</div>
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('algebraic-number-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

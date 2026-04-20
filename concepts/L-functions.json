@@ -30,6 +30,26 @@
         "eigenforms-and-euler-factors"
       ],
       "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+    },
+    {
+      "id": "analytic-continuation-lfunc",
+      "title": "Analytic continuation of $L$-functions",
+      "anchor": "continuation",
+      "prereqs": [
+        "functional-equation-completion",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$."
+    },
+    {
+      "id": "special-values-lfunc",
+      "title": "Special values and arithmetic",
+      "anchor": "special-values",
+      "prereqs": [
+        "functional-equation-completion",
+        "arithmetic-data-lfunctions"
+      ],
+      "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD)."
     }
   ]
 }

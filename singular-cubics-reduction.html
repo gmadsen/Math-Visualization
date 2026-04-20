@@ -101,6 +101,9 @@
   table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
   table.plain th{color:var(--mute);font-weight:500}
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -322,6 +325,8 @@ Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a
 <div class="note"><b>Algebraic test.</b> A singular point $(x_0,y_0)$ of the affine curve $F(x,y)=0$ is a node iff the Hessian $F_{xx} F_{yy} - F_{xy}^2$ is nonzero there (two distinct tangent lines), and a cusp iff it vanishes (tangent lines collide). For $F = y^2 - x^3 - a x - b$ at a singular point, this reduces cleanly to whether $a \ne 0$ (node) or $a = 0$ (cusp) after translating the double root of $f(x)=x^3+ax+b$ to the origin.</div>
 
 <p>These two cases are exclusive and exhaustive for plane cubics: any singular Weierstrass cubic is, up to affine change of coordinates, either $y^2=x^3+x^2$ or $y^2=x^3$. Their global resolutions are both the projective line $\mathbb{P}^1$ — each singular cubic is a <em>nodal</em> or <em>cuspidal degeneration</em> of genus $1$ down to genus $0$.</p>
+
+<div class="quiz" data-concept="singular-cubic-types"></div>
 </section>
 
 <section id="grouplaw">
@@ -543,6 +548,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
   render();
 })();
 </script>
+
+<div class="quiz" data-concept="reduction-mod-p"></div>
 </section>
 
 <section id="gvb">
@@ -728,6 +735,7 @@ whenever $\alpha \ne \beta$ — giving two tangent lines and hence a node. When 
 $$L_p(E,s) \;=\; \begin{cases} (1 - a_p p^{-s} + p^{1-2s})^{-1} & p \text{ good} \\ (1 - p^{-s})^{-1} & p \text{ split multiplicative} \\ (1 + p^{-s})^{-1} & p \text{ non-split multiplicative} \\ 1 & p \text{ additive} \end{cases}$$
 with $a_p = p + 1 - |\tilde E(\mathbb{F}_p)|$ in the good case. Read top to bottom: good primes contribute an order-$2$ Euler factor; bad primes degrade that factor to order $1$ (multiplicative) or kill it entirely (additive).</div>
 
+<div class="quiz" data-concept="kodaira-néron-preview"></div>
 </section>
 
 <section id="counting">
@@ -993,6 +1001,13 @@ whose analytic properties sit at the heart of modern number theory (modularity, 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('singular-cubics-reduction'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

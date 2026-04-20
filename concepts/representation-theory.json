@@ -13,11 +13,29 @@
       "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
     },
     {
+      "id": "maschke-theorem",
+      "title": "Maschke's theorem",
+      "anchor": "maschke",
+      "prereqs": [
+        "group-representations"
+      ],
+      "blurb": "Over a field whose characteristic does not divide |G|, every finite-dimensional rep of a finite group is a direct sum of irreducibles; the averaging trick furnishes a G-stable complement to any subrep."
+    },
+    {
+      "id": "schurs-lemma",
+      "title": "Schur's lemma",
+      "anchor": "schur",
+      "prereqs": [
+        "maschke-theorem"
+      ],
+      "blurb": "An intertwiner between irreducibles over an algebraically closed field is either zero or a scalar; this one line forces endomorphism algebras, commutants, and central characters to take their standard forms."
+    },
+    {
       "id": "characters-orthogonality",
       "title": "Characters and orthogonality",
       "anchor": "characters",
       "prereqs": [
-        "group-representations"
+        "schurs-lemma"
       ],
       "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
     },
@@ -29,6 +47,16 @@
         "characters-orthogonality"
       ],
       "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+    },
+    {
+      "id": "sl2-weight-decomposition",
+      "title": "Weight decomposition for 𝔰𝔩₂",
+      "anchor": "sl2",
+      "prereqs": [
+        "characters-orthogonality",
+        "lie-algebra-tangent"
+      ],
+      "blurb": "Every finite-dimensional irrep of 𝔰𝔩₂(ℂ) is determined by a highest weight n ≥ 0 and realized as Sym^n of the standard rep, with weights n, n−2, …, −n and Clebsch–Gordan decomposition V_m ⊗ V_n = ⊕ V_{m+n−2k}."
     }
   ]
 }

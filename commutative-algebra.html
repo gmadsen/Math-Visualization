@@ -100,6 +100,9 @@
   @media (max-width:1180px){ aside.sidetoc{display:none} }
   @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
 </style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 </head>
 <body>
 <script>
@@ -251,7 +254,8 @@ function allMonicPolysUpToDeg(d,p){
   <a href="#localize">3&nbsp;Localization</a>
   <a href="#flat">4&nbsp;Flatness</a>
   <a href="#nakayama">5&nbsp;Nakayama</a>
-  <a href="#dim">6&nbsp;Dimension</a>
+  <a href="#integral">6&nbsp;Integral&nbsp;extensions</a>
+  <a href="#dim">7&nbsp;Dimension</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -301,6 +305,7 @@ function allMonicPolysUpToDeg(d,p){
   </div>
 </div>
 <p class="small">In $\mathbb{Z}/n$, the ideals correspond to divisors of $n$: $(d)$ for $d|n$. The prime ideals are $(p)$ for primes $p|n$, and in $\mathbb{Z}/n$ every prime is maximal (Artinian). The nilradical $\mathrm{Nil}(A)=\bigcap\mathfrak{p}$ is the intersection of all primes.</p>
+<div class="quiz" data-concept="ideals-quotients-ca"></div>
 </section>
 
 <script>
@@ -855,6 +860,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 </div>
 
 <p>A clean example worth carrying around: $\mathbb{Z}_{(p)}$ = rationals with denominator coprime to $p$. It's local, its maximal ideal is $(p)$, its residue field is $\mathbb{F}_p$. Inverting $p$ instead gives $\mathbb{Z}[1/p]$, whose Spec is $\mathrm{Spec}(\mathbb{Z})\setminus\{(p)\}$.</p>
+<div class="quiz" data-concept="localization-ca"></div>
 </section>
 
 <script>
@@ -999,6 +1005,8 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 </div>
 
 <p class="small">Recipe: tensoring with $M$ is a functor, so it turns $0\to A\xrightarrow{n}B\to C\to 0$ into $A\otimes M\xrightarrow{n}B\otimes M\to C\otimes M\to 0$ (the tail is exact; the head might not be). Injectivity of "multiplication by $n$" on $A\otimes M$ is what flatness of $M$ buys you. Whenever $M$ has $n$-torsion, you lose it.</p>
+<p>Two facts organize the rest of the theory. <strong>Local criterion.</strong> For $A$ Noetherian and $M$ finitely generated, $M$ is flat iff $M_\mathfrak{p}$ is free over $A_\mathfrak{p}$ for every prime $\mathfrak{p}$; equivalently $\mathrm{Tor}_1^A(A/\mathfrak{m},M)=0$ at every maximal ideal. <strong>Flat = geometric fibres nice.</strong> A morphism $f\colon X\to Y$ is flat iff $\mathcal{O}_{X,x}$ is flat over $\mathcal{O}_{Y,f(x)}$ everywhere; in a flat family the Hilbert polynomial of the fibre is locally constant, which is the right notion of "continuously varying scheme".</p>
+<div class="quiz" data-concept="flatness-ca"></div>
 </section>
 
 <script>
@@ -1176,6 +1184,8 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
     <div class="readout" id="tan-out"></div>
   </div>
 </div>
+<p>The proof of Nakayama is a one-line determinant trick: if $m_1,\dots,m_n$ generate $M$ and $\mathfrak{m}M=M$, write each $m_i=\sum_j a_{ij}m_j$ with $a_{ij}\in\mathfrak{m}$; Cayley–Hamilton applied to the matrix $a=(a_{ij})$ yields $\det(I-a)\cdot m_i = 0$ for all $i$. Since $\det(I-a)\equiv 1\pmod{\mathfrak{m}}$ it is a unit, forcing $M=0$. The same trick gives the determinantal form: if $\phi\colon M\to M$ satisfies $\phi(M)\subset\mathfrak{a}M$ for an ideal $\mathfrak{a}$, then $\phi$ satisfies a monic polynomial with non-leading coefficients in $\mathfrak{a}$.</p>
+<div class="quiz" data-concept="nakayama-lemma-ca"></div>
 </section>
 
 <script>
@@ -1346,8 +1356,24 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 })();
 </script>
 
+<section id="integral">
+<h2>6. Integral extensions and Noether normalization</h2>
+<p>Fix a ring extension $A\subseteq B$. An element $b\in B$ is <strong>integral over $A$</strong> if it satisfies a monic polynomial</p>
+<p style="text-align:center">$b^n + a_{n-1}b^{n-1} + \cdots + a_1 b + a_0 = 0,\qquad a_i\in A.$</p>
+<p>Equivalently, $A[b]\subseteq B$ is a finitely generated $A$-module. The set of integral elements is a subring — the <strong>integral closure</strong> of $A$ in $B$ — and $B$ is an <em>integral extension</em> when every element is integral. This generalizes "algebraic number" from $\mathbb{Z}\subseteq\overline{\mathbb{Q}}$ to arbitrary rings; $\mathcal{O}_K$ is the integral closure of $\mathbb{Z}$ in the number field $K$.</p>
+<div class="note"><strong>Three foundational theorems.</strong>
+<ul style="margin:.4rem 0 .2rem 1.1rem;padding:0">
+<li><strong>Lying over.</strong> For $A\subseteq B$ integral and $\mathfrak{p}\subset A$ prime, there exists a prime $\mathfrak{q}\subset B$ with $\mathfrak{q}\cap A=\mathfrak{p}$; the induced map $\mathrm{Spec}(B)\to\mathrm{Spec}(A)$ is surjective.</li>
+<li><strong>Going up.</strong> A chain $\mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\cdots$ in $A$ lifts to a chain $\mathfrak{q}_0\subsetneq\mathfrak{q}_1\subsetneq\cdots$ in $B$ above it; hence $\dim A=\dim B$ for integral extensions.</li>
+<li><strong>Incomparability.</strong> If $\mathfrak{q}\subsetneq\mathfrak{q}'$ are primes of $B$ with $\mathfrak{q}\cap A=\mathfrak{q}'\cap A$, then $\mathfrak{q}=\mathfrak{q}'$ — fibers are zero-dimensional.</li>
+</ul></div>
+<p><strong>Noether normalization.</strong> If $B$ is a finitely generated $k$-algebra of Krull dimension $d$, there exist algebraically independent $y_1,\dots,y_d\in B$ with $k[y_1,\dots,y_d]\hookrightarrow B$ a finite (in particular integral) extension. Geometrically: every affine variety admits a finite surjection to some $\mathbb{A}^d_k$, projecting it onto a polynomial coordinate system. This is the engine behind Hilbert's Nullstellensatz: maximal ideals of $k[x_1,\dots,x_n]$ with $k=\overline k$ are exactly $(x_1-a_1,\dots,x_n-a_n)$, proved by showing any residue field $k[x_1,\dots,x_n]/\mathfrak{m}$ is finite over $k$ via normalization, hence equals $k$.</p>
+<p class="small">Concretely: for $B=k[x,y]/(y^2-x^3-x)$ one can take $y_1=x$; then $B$ is a degree-2 extension of $k[x]$, realized by the covering map $(x,y)\mapsto x$ that exhibits the elliptic curve as a double cover of the line branched at the roots of $x^3+x$. Going-up is why this projection is surjective on points.</p>
+<div class="quiz" data-concept="integral-extensions-ca"></div>
+</section>
+
 <section id="dim">
-<h2>6. Dimension and primary decomposition</h2>
+<h2>7. Dimension and primary decomposition</h2>
 <p>The <strong>Krull dimension</strong> of a ring $A$ is the supremum of lengths $n$ of chains</p>
 <p style="text-align:center">$\mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\cdots\subsetneq\mathfrak{p}_n$</p>
 <p>of prime ideals. It's the algebraic shadow of "dimension of a variety". The basic table:</p>
@@ -1382,6 +1408,7 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 
 <h3>Primary decomposition preview</h3>
 <p>For $I=(xy)\subset k[x,y]$ the decomposition is $I=(x)\cap(y)$, recovering the two irreducible components. For $I=(x^2, xy)=(x)\cap(x,y)^2$ in $k[x,y]$ — two components, one <em>embedded</em> in the other — primary decomposition is how scheme-theoretic multiplicity makes its appearance.</p>
+<div class="quiz" data-concept="krull-dimension-ca"></div>
 </section>
 
 <script>
@@ -1617,6 +1644,14 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('commutative-algebra'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

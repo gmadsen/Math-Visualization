@@ -8,6 +8,9 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false},{left:'\\\\[',right:'\\\\]',display:true}]});"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <style>
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
@@ -116,6 +119,8 @@ function factorizeInt(n){
   <a href="#galois">4&nbsp;Galois&nbsp;groups</a>
   <a href="#solvable">5&nbsp;Solvable&nbsp;groups</a>
   <a href="#quintic">6&nbsp;The&nbsp;quintic</a>
+  <a href="#normal-separable">7&nbsp;Normal&nbsp;&amp;&nbsp;separable</a>
+  <a href="#primitive">8&nbsp;Primitive&nbsp;element</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -639,6 +644,8 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
 </div>
 
 <p>Notice the pattern: <em>more rational relations between the roots ⇒ smaller Galois group</em>. For $\Phi_5$ the roots are powers of a single $\zeta$; the group is cyclic $\mathbb{Z}/4$. For $x^4-2$ the roots come in $\pm$ pairs <em>and</em> conjugate pairs but are otherwise free — the group is the dihedral $D_4$ of order $8$. For $x^5-x-1$ the roots satisfy no non-trivial rational relations and the group is all of $S_5$ (order $120$).</p>
+
+<div class="quiz" data-concept="field-extensions-galois"></div>
 </section>
 
 <script>
@@ -944,6 +951,8 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
   <svg id="sv-svg" viewBox="0 0 620 220" width="100%" style="max-width:620px"></svg>
   <div class="readout" id="sv-out"></div>
 </div>
+
+<div class="quiz" data-concept="fundamental-theorem-galois"></div>
 </section>
 
 <script>
@@ -1170,6 +1179,8 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 <div class="note"><strong>Big picture.</strong> The polynomial's roots live in the complex numbers, a continuum. But the question "can I write these roots using radicals?" is, secretly, a question about a finite object — the Galois group. Galois turned a question about continuous, analytic objects into a question about combinatorial ones. That's the philosophical payoff: a <em>discrete</em> symmetry obstruction controls an <em>analytic</em> soluability phenomenon.</div>
 
 <p class="small">Abel proved the non-existence of a quintic formula in 1824 without the Galois correspondence. Galois' framework appeared in unsent letters written the night before his duel in 1832; he was twenty. The modern form of the theorem took another forty years to stabilize, largely through the work of Jordan.</p>
+
+<div class="quiz" data-concept="solvability-by-radicals"></div>
 </section>
 
 <script>
@@ -1228,6 +1239,28 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 })();
 </script>
 
+<section id="normal-separable">
+<h2>7. Normal and separable extensions</h2>
+<p>Why did §4 quietly require <em>splitting fields</em>? Because an extension $L/K$ deserves to be called <strong>Galois</strong> only when two conditions are met. First, $L/K$ is <strong>normal</strong>: every irreducible polynomial in $K[x]$ that has one root in $L$ factors completely over $L$ — equivalently, $L$ is the splitting field of some polynomial. Second, $L/K$ is <strong>separable</strong>: every $\alpha\in L$ has a minimal polynomial over $K$ with distinct roots in an algebraic closure. In characteristic zero (and for finite fields) separability is free, so a normal finite extension <em>is</em> Galois; in characteristic $p$ the inseparable extension $\mathbb{F}_p(t)/\mathbb{F}_p(t^p)$ shows things can go wrong — its only automorphism is the identity, yet $[L:K]=p$.</p>
+
+<p>Concretely: $\mathbb{Q}(\sqrt[3]{2})/\mathbb{Q}$ is <em>not</em> normal — the minimal polynomial $x^3-2$ has one real root in $\mathbb{Q}(\sqrt[3]{2})$ but the other two are complex. Adjoining $\omega=e^{2\pi i/3}$ to form $\mathbb{Q}(\sqrt[3]{2},\omega)$ restores normality and gives $|\!\operatorname{Gal}|=6=[L:\mathbb{Q}]$. The general slogan: $|\!\operatorname{Gal}(L/K)|\le [L:K]$ always, with equality iff $L/K$ is Galois.</p>
+
+<div class="note"><strong>Criterion.</strong> A finite extension $L/K$ is Galois iff $L^{\operatorname{Gal}(L/K)}=K$, iff $L/K$ is both normal and separable, iff $|\!\operatorname{Gal}(L/K)|=[L:K]$. Any of the three conditions implies the other two.</div>
+
+<div class="quiz" data-concept="normal-separable-extensions"></div>
+</section>
+
+<section id="primitive">
+<h2>8. Primitive element theorem</h2>
+<p>Once separability is in hand, a striking simplification appears: <strong>every finite separable extension is simple</strong>. That is, if $L/K$ is finite and separable, there exists a single $\theta\in L$ — a <em>primitive element</em> — such that $L=K(\theta)$. So the seemingly multi-generator extension $\mathbb{Q}(\sqrt{2},\sqrt{3})$ collapses to $\mathbb{Q}(\sqrt{2}+\sqrt{3})$: one checks that $\theta=\sqrt{2}+\sqrt{3}$ satisfies the degree-$4$ polynomial $\theta^4-10\theta^2+1=0$, whose splitting field is exactly $\mathbb{Q}(\sqrt{2},\sqrt{3})$.</p>
+
+<p>The proof sketch (for infinite $K$): given generators $\alpha,\beta$, almost every $K$-linear combination $\theta=\alpha+c\beta$ works — only finitely many values of $c$ can fail, because a failure forces two conjugates of $\theta$ to coincide, and there are only finitely many pairs of conjugates. Computationally, this means Galois theory for characteristic-zero fields reduces to the study of a single irreducible polynomial $m_\theta(x)\in K[x]$ of degree $[L:K]$: the $\operatorname{Gal}(L/K)$-action is just the permutation action on the roots of $m_\theta$.</p>
+
+<div class="note"><strong>Primitive element theorem (Steinitz).</strong> If $L/K$ is a finite separable extension then $L=K(\theta)$ for some $\theta\in L$. In particular every finite extension of $\mathbb{Q}$ (or of any characteristic-zero field) is simple.</div>
+
+<div class="quiz" data-concept="primitive-element-theorem"></div>
+</section>
+
 <!-- INSERT MORE SECTIONS -->
 <div id="sections-end"></div>
 
@@ -1279,6 +1312,14 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('galois'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 

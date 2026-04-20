@@ -103,6 +103,68 @@
           "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
         }
       ]
+    },
+    "regulator": {
+      "title": "Regulator and canonical height",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Néron–Tate canonical height $\\hat h$ satisfies which scaling law?",
+          "choices": [
+            "$\\hat h(nP) = n\\,\\hat h(P)$",
+            "$\\hat h(nP) = n^2\\,\\hat h(P)$",
+            "$\\hat h(nP) = 2^n\\,\\hat h(P)$",
+            "$\\hat h(nP) = \\hat h(P)$"
+          ],
+          "answer": 1,
+          "explain": "Tate's limiting construction makes $\\hat h$ exactly quadratic, so $\\hat h(nP)=n^2\\hat h(P)$. Equivalently, $\\langle P,Q\\rangle = \\tfrac12(\\hat h(P+Q)-\\hat h(P)-\\hat h(Q))$ is bilinear."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $E(\\mathbb{Q})$ have rank $2$ with height-pairing Gram matrix $\\begin{pmatrix}2 & 1\\\\ 1 & 3\\end{pmatrix}$ on a basis. Compute the regulator $R=\\det G$.",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "$R = 2\\cdot 3 - 1\\cdot 1 = 5$. Positive-definiteness (so the pairing is a genuine inner product) requires $\\det G > 0$, which holds here."
+        },
+        {
+          "type": "mcq",
+          "q": "By convention, the regulator of a rank-$0$ elliptic curve is:",
+          "choices": ["$0$", "$\\infty$", "$1$ (empty determinant)", "undefined"],
+          "answer": 2,
+          "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
+        }
+      ]
+    },
+    "sha-tate-shafarevich": {
+      "title": "Tate–Shafarevich group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An element of $\\Sha(E/\\mathbb{Q})$ corresponds geometrically to:",
+          "choices": [
+            "a rational point on $E$",
+            "a Galois extension of $\\mathbb{Q}$",
+            "a torsor $C/\\mathbb{Q}$ for $E$ with points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$ but no point over $\\mathbb{Q}$",
+            "a prime of bad reduction"
+          ],
+          "answer": 2,
+          "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, Cassels–Tate forces its order to be a perfect square. Which of $\\{1, 2, 4, 6, 9\\}$ is NOT a possible value of $|\\Sha|$? Enter the value.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$6$ is not a perfect square, so it is forbidden by the Cassels–Tate pairing (which gives $\\Sha$ an alternating non-degenerate pairing, hence square order). $1, 4, 9$ are squares; $2$ can occur as $|\\Sha[2]|$ but not as $|\\Sha|$ — however the question only asks about non-square obstruction, making $6$ the cleanest answer."
+        },
+        {
+          "type": "mcq",
+          "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\Sha(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\Sha(E)[2]|$ is:",
+          "choices": ["$4$", "$24$", "$40$", "cannot be determined"],
+          "answer": 0,
+          "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
+        }
+      ]
     }
   }
 }

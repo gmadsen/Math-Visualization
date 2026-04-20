@@ -4,32 +4,72 @@
   "page": "sheaves.html",
   "concepts": [
     {
+      "id": "presheaf-functor",
+      "title": "Presheaves on Open(X)",
+      "anchor": "presheaves",
+      "prereqs": [
+        "open-sets",
+        "categories-morphisms"
+      ],
+      "blurb": "A presheaf is a contravariant functor from the poset of open sets to Set, packaging restriction maps into the functor's action on inclusions."
+    },
+    {
       "id": "presheaf-sheaf-axioms",
       "title": "Presheaves and sheaf condition",
       "anchor": "sheaves",
       "prereqs": [
-        "open-sets"
+        "presheaf-functor"
       ],
-      "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers."
+      "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers: locality pins sections by their restrictions, gluing assembles compatible families."
     },
     {
       "id": "stalks-local-data",
-      "title": "Stalks and local behavior",
+      "title": "Stalks and germs",
       "anchor": "stalks",
       "prereqs": [
         "presheaf-sheaf-axioms"
       ],
-      "blurb": "Stalks isolate infinitesimal data at points and detect local properties."
+      "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves."
+    },
+    {
+      "id": "sheaf-morphisms-stalks",
+      "title": "Morphisms of sheaves and stalk criteria",
+      "anchor": "morphisms",
+      "prereqs": [
+        "stalks-local-data",
+        "functors-natural-transformations"
+      ],
+      "blurb": "Sheaf morphisms are natural transformations; injectivity and isomorphism are checkable on stalks, while stalkwise surjectivity is strictly weaker than global surjectivity — the seed of sheaf cohomology."
+    },
+    {
+      "id": "sheafification-functor",
+      "title": "Sheafification as a left adjoint",
+      "anchor": "sheafify",
+      "prereqs": [
+        "sheaf-morphisms-stalks"
+      ],
+      "blurb": "Sheafification is the left adjoint to the inclusion Sh(X) into PSh(X); it preserves stalks and turns every presheaf into its universal sheaf approximation."
+    },
+    {
+      "id": "ox-modules",
+      "title": "Ringed spaces and $\\mathcal{O}_X$-modules",
+      "anchor": "omod",
+      "prereqs": [
+        "sheaf-morphisms-stalks",
+        "structure-sheaf-schemes"
+      ],
+      "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
     },
     {
       "id": "sheafification-and-qcoh",
-      "title": "Sheafification and quasi-coherent sheaves",
+      "title": "Quasi-coherent sheaves on affine schemes",
       "anchor": "qcoh",
       "prereqs": [
-        "stalks-local-data",
-        "structure-sheaf-schemes"
+        "sheafification-functor",
+        "ox-modules",
+        "localization-ca"
       ],
-      "blurb": "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes."
+      "blurb": "The tilde functor $M \\mapsto \\widetilde{M}$ is an equivalence between $R$-modules and quasi-coherent sheaves on Spec R, globalizing module theory into algebraic geometry."
     }
   ]
 }

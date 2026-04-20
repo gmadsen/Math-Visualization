@@ -25,6 +25,9 @@
   else renderAll();
 })();
 </script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <style>
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
@@ -163,7 +166,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#compact">5&nbsp;Compact&nbsp;&amp;&nbsp;spectrum</a>
   <a href="#spectral">6&nbsp;Spectral&nbsp;theorem</a>
   <a href="#duality">7&nbsp;Duality&nbsp;&amp;&nbsp;Riesz</a>
-  <a href="#outro">8&nbsp;Connections</a>
+  <a href="#riesz">8&nbsp;Riesz&nbsp;representation</a>
+  <a href="#weak">9&nbsp;Weak&nbsp;topologies</a>
+  <a href="#outro">10&nbsp;Connections</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -383,6 +388,8 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
   </div>
   <div class="readout" id="proj-out"></div>
 </div>
+
+<div class="quiz" data-concept="banach-hilbert-spaces"></div>
 </section>
 
 <script>
@@ -664,6 +671,8 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
 \sigma_y=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\quad
 \sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$
 <p>are self-adjoint, unitary, and traceless. Each has spectrum $\{-1,+1\}$ and the two spectral projections are $(I\pm\sigma_k)/2$. This is the simplest nontrivial illustration of the spectral theorem in finite dimensions: each $\sigma_k = (+1)\cdot P_+^{(k)} + (-1)\cdot P_-^{(k)}$, and the three bases are mutually unbiased.</p>
+
+<div class="quiz" data-concept="bounded-operators-fa"></div>
 </section>
 
 <section id="bigfour">
@@ -915,6 +924,8 @@ $$C(\sigma(T))\hookrightarrow B(H),\qquad f\mapsto f(T)=\int_{\sigma(T)} f(\lamb
 
 <h3>Unbounded self-adjoint operators</h3>
 <p>Most interesting operators (differential operators on $L^2$) are <em>unbounded</em>: they are defined only on a dense domain $D(T)\subset H$, and bookkeeping about domains becomes essential. The right notion is that $T$ is <strong>self-adjoint</strong> if $T=T^*$ as unbounded operators (domains included). The spectral theorem, Stone's theorem on one-parameter unitary groups, and the Schrödinger equation all live in this setting — but the price is that "self-adjoint" is genuinely stronger than "symmetric" ($\langle Tx,y\rangle=\langle x,Ty\rangle$ on $D(T)$), and von Neumann's deficiency-index theory is the tool for deciding when a symmetric operator extends to a self-adjoint one.</p>
+
+<div class="quiz" data-concept="spectral-theorem-fa"></div>
 </section>
 
 <script>
@@ -1218,8 +1229,30 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 })();
 </script>
 
+<section id="riesz">
+<h2>8. The Riesz representation theorem</h2>
+
+<p>The Riesz representation theorem is the statement that makes a Hilbert space into its own dual. Given a Hilbert space $H$, every bounded linear functional $\ell\in H^*$ is of the form $\ell(x)=\langle x,y\rangle$ for a <em>unique</em> $y\in H$, and the correspondence $y\leftrightarrow\ell$ is an isometric (conjugate-linear) bijection $H\cong H^*$. Concretely: to probe a Hilbert vector with a continuous linear test, you take an inner product with another Hilbert vector — nothing else is available.</p>
+
+<p>Two extensions of the Hilbert case are indispensable in analysis. On $L^p$-spaces with $1<p<\infty$, the pairing $\Lambda_g(f)=\int fg\,d\mu$ gives $(L^p)^*\cong L^q$ via Hölder's inequality $\bigl|\int fg\,d\mu\bigr|\le\|f\|_p\|g\|_q$ with $\tfrac1p+\tfrac1q=1$. On locally compact Hausdorff spaces, the <strong>Riesz–Markov–Kakutani theorem</strong> identifies $C_0(X)^*$ with the space $M(X)$ of finite regular Borel measures via $\mu\mapsto\int\cdot\,d\mu$. The single slogan is: <em>every continuous linear functional is integration against something</em>. Which "something" — a vector, a function, a measure — depends on the space.</p>
+
+<div class="note"><strong>Why completeness matters.</strong> The representation $\ell(x)=\langle x,y\rangle$ is constructed via $M=\ker\ell$ and the 1-dimensional orthogonal complement $M^\perp$. Without the splitting $H=M\oplus M^\perp$ — which requires $M$ closed and $H$ complete — no such $y$ need exist. On an incomplete inner-product space the theorem fails.</div>
+
+<div class="quiz" data-concept="riesz-representation"></div>
+</section>
+
+<section id="weak">
+<h2>9. Weak and weak-* topologies</h2>
+
+<p>In infinite dimensions, norm-compactness is rare — the closed unit ball of an infinite-dimensional Banach space is never compact (Riesz's lemma). The fix is to weaken the topology. The <strong>weak topology</strong> on a Banach space $X$ is the coarsest topology making every $\ell\in X^*$ continuous: $x_n\rightharpoonup x$ means $\ell(x_n)\to\ell(x)$ for every $\ell\in X^*$. The <strong>weak-* topology</strong> on the dual $X^*$ is the coarsest making evaluation-at-$x$ continuous for every $x\in X$: $\ell_n\xrightarrow{w*}\ell$ means $\ell_n(x)\to\ell(x)$ pointwise in $x$.</p>
+
+<p>The miracle is <strong>Banach–Alaoglu</strong>: the closed unit ball $B_{X^*}=\{\ell\in X^*:\|\ell\|\le 1\}$ is <em>weak-* compact</em>. The proof embeds $B_{X^*}$ inside $\prod_{x\in X}\overline{D(0,\|x\|)}\subset\mathbb{C}^X$ and quotes Tychonoff. Combined with the Eberlein–Šmulian theorem (on reflexive spaces weak sequential compactness holds), this is the compactness tool behind existence of minimizers for convex variational problems, weak solutions to PDE, and invariant measures for dynamical systems. In short: give up on strong compactness and you inherit weak compactness for free on the dual ball.</p>
+
+<div class="quiz" data-concept="weak-topology"></div>
+</section>
+
 <section id="outro">
-<h2>8. Connections</h2>
+<h2>10. Connections</h2>
 
 <p>Functional analysis is the grammar of modern mathematical analysis. Some of the neighbors:</p>
 
@@ -1296,6 +1329,13 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('functional-analysis'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>
