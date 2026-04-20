@@ -8,7 +8,8 @@
       "title": "Riemannian metrics",
       "anchor": "metric",
       "prereqs": [
-        "smooth-manifold-definition"
+        "smooth-manifold-definition",
+        "tangent-space-manifolds"
       ],
       "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
     },

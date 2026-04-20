@@ -927,7 +927,8 @@ window.__MVConcepts = {
           "title": "Topological spaces",
           "anchor": "open",
           "prereqs": [
-            "metric-spaces"
+            "metric-spaces",
+            "axiom-of-choice-intuition"
           ],
           "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
         },
@@ -1236,7 +1237,8 @@ window.__MVConcepts = {
           "title": "Riemannian metrics",
           "anchor": "metric",
           "prereqs": [
-            "smooth-manifold-definition"
+            "smooth-manifold-definition",
+            "tangent-space-manifolds"
           ],
           "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
         },
