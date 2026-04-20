@@ -263,14 +263,14 @@ window.__MVConcepts = {
         {
           "id": "real-numbers",
           "title": "Real numbers",
-          "anchor": "reals",
+          "anchor": "real-numbers",
           "prereqs": [],
           "blurb": "The complete ordered field: least-upper-bound property, sequences and Cauchy completeness, and why Q isn't enough."
         },
         {
           "id": "real-continuity",
           "title": "Continuity on R",
-          "anchor": "continuity",
+          "anchor": "real-continuity",
           "prereqs": [
             "real-numbers"
           ],
@@ -279,7 +279,7 @@ window.__MVConcepts = {
         {
           "id": "real-differentiation",
           "title": "Differentiation",
-          "anchor": "differentiation",
+          "anchor": "real-differentiation",
           "prereqs": [
             "real-continuity"
           ],
@@ -288,7 +288,7 @@ window.__MVConcepts = {
         {
           "id": "uniform-convergence",
           "title": "Uniform convergence",
-          "anchor": "uniform",
+          "anchor": "uniform-convergence",
           "prereqs": [
             "real-continuity"
           ],
@@ -297,7 +297,7 @@ window.__MVConcepts = {
         {
           "id": "riemann-integral",
           "title": "Riemann integral",
-          "anchor": "riemann",
+          "anchor": "riemann-integral",
           "prereqs": [
             "real-continuity"
           ],
@@ -306,7 +306,7 @@ window.__MVConcepts = {
         {
           "id": "multivariable-differentiation",
           "title": "Multivariable differentiation",
-          "anchor": "multi-diff",
+          "anchor": "multivariable-differentiation",
           "prereqs": [
             "real-differentiation"
           ],
@@ -315,7 +315,7 @@ window.__MVConcepts = {
         {
           "id": "multivariable-integration",
           "title": "Multivariable integration",
-          "anchor": "multi-int",
+          "anchor": "multivariable-integration",
           "prereqs": [
             "riemann-integral",
             "multivariable-differentiation"
@@ -325,7 +325,7 @@ window.__MVConcepts = {
         {
           "id": "inverse-function-theorem",
           "title": "Inverse & implicit function theorems",
-          "anchor": "ift",
+          "anchor": "inverse-function-theorem",
           "prereqs": [
             "multivariable-differentiation"
           ],
