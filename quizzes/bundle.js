@@ -2,6 +2,118 @@
 // Regenerate with:  node scripts/build-quizzes-bundle.mjs
 // Source of truth: quizzes/*.json (one per topic).
 window.MVQuizBank = {
+  "algebra": {
+    "topic": "algebra",
+    "quizzes": {
+      "algebraic-structures": {
+        "title": "Groups, rings, and fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which statement is true in any field $F$?",
+            "choices": [
+              "Every nonzero element has a multiplicative inverse.",
+              "Multiplication must be noncommutative.",
+              "Zero has a multiplicative inverse.",
+              "Additive inverses are optional."
+            ],
+            "answer": 0,
+            "explain": "A field requires that $F^{\\times}=F\\setminus\\{0\\}$ is a group under multiplication, so each nonzero element is invertible."
+          },
+          {
+            "type": "numeric",
+            "q": "In the additive group $(\\mathbb{Z}/12\\mathbb{Z},+)$, what is the order of the element $4$?",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "The order is $12/\\gcd(12,4)=3$, since $3\\cdot4\\equiv0\\pmod{12}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which structure models symmetry most directly?",
+            "choices": [
+              "Group",
+              "Ring",
+              "Field"
+            ],
+            "answer": 0,
+            "explain": "Symmetries compose and invert, exactly the group axioms."
+          }
+        ]
+      },
+      "cayley-tables": {
+        "title": "Cayley tables and subgroups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In a Cayley table for a finite group $G$, each row is a permutation of $G$ primarily because of:",
+            "choices": [
+              "Left cancellation (equivalently, left multiplication is bijective)",
+              "Commutativity",
+              "Associativity alone",
+              "Having prime order"
+            ],
+            "answer": 0,
+            "explain": "For fixed $g$, the map $h\\mapsto gh$ is bijective with inverse $h\\mapsto g^{-1}h$, so each row lists each element once."
+          },
+          {
+            "type": "numeric",
+            "q": "If $|G|=24$ and $|H|=6$, how many left cosets does $H$ have in $G$?",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "By Lagrange, the index is $[G:H]=|G|/|H|=24/6=4$."
+          },
+          {
+            "type": "mcq",
+            "q": "A subgroup $H\\le G$ is normal exactly when:",
+            "choices": [
+              "$gH=Hg$ for all $g\\in G$",
+              "$H$ has prime order",
+              "$H$ is cyclic",
+              "$H$ contains every involution in $G$"
+            ],
+            "answer": 0,
+            "explain": "Normality means left and right cosets coincide for every group element."
+          }
+        ]
+      },
+      "quotients-homomorphisms": {
+        "title": "Quotients and finite fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The First Isomorphism Theorem says for a homomorphism $\\varphi:G\\to H$:",
+            "choices": [
+              "$G/\\ker\\varphi \\cong \\operatorname{im}\\varphi$",
+              "$G/\\operatorname{im}\\varphi \\cong \\ker\\varphi$",
+              "$\\ker\\varphi \\cong H/G$",
+              "$G\\cong H$ always"
+            ],
+            "answer": 0,
+            "explain": "Quotienting by the kernel identifies exactly elements with equal image."
+          },
+          {
+            "type": "numeric",
+            "q": "How many elements does $\\mathbb{F}_{3^2}$ have?",
+            "answer": 9,
+            "tol": 1e-9,
+            "explain": "A finite field $\\mathbb{F}_{p^n}$ has exactly $p^n$ elements."
+          },
+          {
+            "type": "mcq",
+            "q": "In characteristic $p$, the Frobenius map on $\\mathbb{F}_{p^n}$ is:",
+            "choices": [
+              "$x\\mapsto x^p$",
+              "$x\\mapsto px$",
+              "$x\\mapsto x+p$",
+              "$x\\mapsto x^{-1}$"
+            ],
+            "answer": 0,
+            "explain": "The Frobenius endomorphism raises each element to the $p$th power."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-topology": {
     "topic": "algebraic-topology",
     "quizzes": {

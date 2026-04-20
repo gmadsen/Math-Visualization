@@ -8,6 +8,9 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false},{left:'\\\\[',right:'\\\\]',display:true}]});"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <style>
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
@@ -124,6 +127,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <p><span class="pill">ring</span> two operations — addition (abelian group) and multiplication (associative, distributive). Models <em>arithmetic</em> like $\mathbb{Z}$, $\mathbb{Z}[x]$, matrices.</p>
 <p><span class="pill">field</span> a ring where multiplication is also a group on nonzero elements. Models <em>numbers</em> — places you can solve linear equations. $\mathbb{Q},\mathbb{R},\mathbb{C}$, and, crucially, the finite fields $\mathbb{F}_{p^n}$.</p>
 <p>Everything below is a tour through examples where you can actually <em>poke</em> the axioms.</p>
+<div class="quiz" data-concept="algebraic-structures"></div>
 </section>
 
 <section id="cayley">
@@ -155,6 +159,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <div class="note">
 <p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\trianglelefteq G$ you can form the quotient $G/H$.</p>
 </div>
+<div class="quiz" data-concept="cayley-tables"></div>
 </section>
 
 <script>
@@ -983,6 +988,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </div>
 
 <p class="small">Frobenius orbits partition $\mathbb{F}_{p^n}$ into Galois-conjugate classes; each orbit of size $d\mid n$ is the roots of some irreducible $m_d\in\mathbb{F}_p[x]$ of degree $d$. Summing orbit sizes gives the classical identity $p^n = \sum_{d\mid n} d\cdot N_d$ where $N_d$ is the number of monic irreducibles of degree $d$ in $\mathbb{F}_p[x]$.</p>
+<div class="quiz" data-concept="quotients-homomorphisms"></div>
 </section>
 
 <script>
@@ -1319,6 +1325,14 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('algebra'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 
