@@ -1,0 +1,145 @@
+{
+  "topic": "algebraic-topology",
+  "quizzes": {
+    "paths": {
+      "title": "Paths and homotopy",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two paths $\\gamma_0,\\gamma_1:[0,1]\\to X$ with the same endpoints are homotopic rel endpoints if:",
+          "choices": [
+            "they have the same length",
+            "there exists a continuous $H:[0,1]^2\\to X$ fixing endpoints with $H(t,0)=\\gamma_0(t),\\ H(t,1)=\\gamma_1(t)$",
+            "they are both piecewise linear",
+            "they have equal winding number in every space"
+          ],
+          "answer": 1,
+          "explain": "Homotopy rel endpoints is exactly a continuous deformation $H$ through paths with endpoints fixed for all deformation times."
+        },
+        {
+          "type": "numeric",
+          "q": "How many boundary points does the interval $[0,1]$ have?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points."
+        },
+        {
+          "type": "complex",
+          "q": "On the loop $\\gamma(t)=e^{2\\pi i t}$, compute $\\gamma(1/4)$ as $a+bi$.",
+          "answer": [0, 1],
+          "tol": 1e-6,
+          "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
+        }
+      ]
+    },
+    "simply-connected": {
+      "title": "Simply connected domains",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which space is simply connected?",
+          "choices": ["$S^1$", "$\\mathbb{R}^2\\setminus\\{0\\}$", "$\\mathbb{R}^2$", "the torus $T^2$"],
+          "answer": 2,
+          "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the rank of $\\pi_1(\\mathbb{R}^2)$ as an abelian group?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $e^{2\\pi i}$.",
+          "answer": [1, 0],
+          "tol": 1e-6,
+          "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
+        }
+      ]
+    },
+    "fundamental-group": {
+      "title": "Fundamental group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which is true about $\\pi_1(S^1)$?",
+          "choices": [
+            "$\\pi_1(S^1)=0$",
+            "$\\pi_1(S^1)\\cong \\mathbb{Z}$",
+            "$\\pi_1(S^1)\\cong \\mathbb{Z}/2\\mathbb{Z}$",
+            "$\\pi_1(S^1)$ is not a group"
+          ],
+          "answer": 1,
+          "explain": "Loops on $S^1$ are classified by winding number, giving an isomorphism with $\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "If a loop winds $-3$ times around $S^1$, what integer does it represent in $\\pi_1(S^1)\\cong\\mathbb{Z}$?",
+          "answer": -3,
+          "tol": 1e-6,
+          "explain": "The winding number itself is the class in $\\mathbb{Z}$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $(e^{i\\pi/3})^3$ as $a+bi$.",
+          "answer": [-1, 0],
+          "tol": 1e-6,
+          "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
+        }
+      ]
+    },
+    "covering-spaces": {
+      "title": "Covering spaces",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the covering map $p:\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, the fiber over $1\\in S^1$ is:",
+          "choices": ["$\\{0\\}$", "$\\mathbb{Z}$", "$\\mathbb{R}$", "empty"],
+          "answer": 1,
+          "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $p_n:S^1\\to S^1$, $p_n(z)=z^n$, how many points lie over a generic point of the target circle when $n=5$?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points."
+        },
+        {
+          "type": "complex",
+          "q": "Under $p_2(z)=z^2$, one preimage of $-1$ is $i$. Give the other preimage as $a+bi$.",
+          "answer": [0, -1],
+          "tol": 1e-6,
+          "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
+        }
+      ]
+    },
+    "singular-homology": {
+      "title": "Singular homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which equality encodes the chain-complex condition?",
+          "choices": ["$\\partial_n\\partial_n=0$", "$\\partial_{n-1}\\circ\\partial_n=0$", "$\\partial_n=\\mathrm{id}$", "$\\partial_n$ is invertible"],
+          "answer": 1,
+          "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using reduced homology ranks for a torus $T^2$ ($\\beta_0,\\beta_1,\\beta_2)=(1,2,1)$, compute $\\chi(T^2)=\\beta_0-\\beta_1+\\beta_2$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\chi(T^2)=1-2+1=0$."
+        },
+        {
+          "type": "complex",
+          "q": "Compute $\\dfrac{1+i}{1-i}$ as $a+bi$.",
+          "answer": [0, 1],
+          "tol": 1e-6,
+          "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
+        }
+      ]
+    }
+  }
+}
