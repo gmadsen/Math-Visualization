@@ -100,6 +100,40 @@ if (existsSync(quizzesDir)) {
   }
 }
 
+// Load concept graphs. These live under concepts/<topic>.json (excluding
+// index.json / capstones.json). Each concept carries an `anchor` field that
+// pathway.html turns into a `topic.html#anchor` deep-link; an anchor that
+// doesn't correspond to an `id="..."` in the topic HTML is a silent 404.
+const conceptsDir = join(repoRoot, 'concepts');
+const conceptGraphs = new Map(); // topic -> { page, concepts: [{ id, anchor }] }
+if (existsSync(conceptsDir)) {
+  for (const f of readdirSync(conceptsDir)) {
+    if (!f.endsWith('.json')) continue;
+    if (f === 'index.json' || f === 'capstones.json') continue;
+    const topic = f.replace(/\.json$/, '');
+    try {
+      const raw = readFileSync(join(conceptsDir, f), 'utf8');
+      const d = JSON.parse(raw);
+      conceptGraphs.set(topic, {
+        page: d.page || `${topic}.html`,
+        concepts: (d.concepts || []).map((c) => ({ id: c.id, anchor: c.anchor })),
+      });
+    } catch (e) {
+      push(errors, `concepts/${f}`, `parse error: ${e.message}`);
+    }
+  }
+}
+
+// Cross-cutting: any file that renders in-browser or in GitHub's markdown viewer
+// can be silently broken by NUL-byte padding. Scan the non-topic files up front.
+const allRenderedFiles = readdirSync(repoRoot)
+  .filter((f) => f.endsWith('.html') || f.endsWith('.md'));
+for (const f of allRenderedFiles) {
+  const raw = readFileSync(join(repoRoot, f));
+  const nuls = raw.reduce((n, b) => (b === 0 ? n + 1 : n), 0);
+  if (nuls > 0) push(errors, f, `file contains ${nuls} NUL byte(s) — breaks rendering`);
+}
+
 // List .html files in repo root, excluding SPECIAL.
 const htmlFiles = readdirSync(repoRoot)
   .filter((f) => f.endsWith('.html') && !SPECIAL.has(f))
@@ -143,6 +177,22 @@ for (const file of htmlFiles) {
   // Widgets
   const { svgs, widgets } = countWidgets(html);
   if (svgs === 0 && widgets === 0) warn('no <svg> or .widget elements found');
+
+  // Concept anchors — pathway.html deep-links to `${page}#${anchor}`; a missing
+  // id="..." silently breaks that jump.
+  const graph = conceptGraphs.get(topic);
+  if (graph) {
+    for (const c of graph.concepts) {
+      if (!c.anchor) {
+        fail(`concept '${c.id}' in concepts/${topic}.json has no anchor field`);
+        continue;
+      }
+      const re = new RegExp(`id="${c.anchor.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}"`);
+      if (!re.test(html)) {
+        fail(`concept '${c.id}' anchor "#${c.anchor}" has no matching id="..." on ${file}`);
+      }
+    }
+  }
 
   // Quiz wiring
   const placeholders = quizPlaceholders(html);
