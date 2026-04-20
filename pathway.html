@@ -99,6 +99,19 @@
 
 <script>
 (async function(){
+  function renderKatex(root){
+    if(typeof renderMathInElement !== 'function' || !root) return;
+    renderMathInElement(root, {
+      delimiters: [
+        {left:'$$', right:'$$', display:true},
+        {left:'\\[', right:'\\]', display:true},
+        {left:'$', right:'$', display:false},
+        {left:'\\(', right:'\\)', display:false}
+      ],
+      throwOnError: false
+    });
+  }
+
   // ---------- data loading ----------
   // Prefer the pre-built bundle (loaded via <script src>), which works from
   // file:// — browsers block fetch() of local JSON there. Fall back to fetch
@@ -324,6 +337,7 @@
         <span class="small">state: <b>${state}</b></span>
       </div>
     `;
+    renderKatex(detail);
     document.getElementById('btn-mastered').addEventListener('click', ()=>{
       MVProgress.setMastered(id, !MVProgress.isMastered(id));
       render(currentGoal);
@@ -370,6 +384,7 @@
   });
 
   render(initial);
+  renderKatex(document.body);
 })();
 </script>
 </body>
