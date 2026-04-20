@@ -178,6 +178,13 @@
   // ---------- layered layout ----------
   function layout(ids){
     const nodes = [...ids].map(id => ({id, node: byId.get(id)}));
+    const dependents = new Map();
+    for(const id of ids) dependents.set(id, []);
+    for(const id of ids){
+      for(const p of byId.get(id).prereqs){
+        if(dependents.has(p)) dependents.get(p).push(id);
+      }
+    }
     // layer = 1 + max(layer(prereq)) intersected with ids
     const layer = new Map();
     function lyr(id){
@@ -195,8 +202,8 @@
       (layers[L] = layers[L] || []).push(n);
     }
 
-    // One barycenter pass per layer to reduce crossings.
-    for(let pass=0; pass<3; pass++){
+    // Two-way barycenter sweeps reduce crossings more than a single forward pass.
+    for(let pass=0; pass<4; pass++){
       for(let L=1; L<layers.length; L++){
         const prevOrder = new Map();
         layers[L-1].forEach((n,i)=>prevOrder.set(n.id, i));
@@ -206,21 +213,31 @@
         }
         layers[L].sort((a,b)=>a._bary-b._bary);
       }
+      for(let L=layers.length-2; L>=0; L--){
+        const nextOrder = new Map();
+        layers[L+1].forEach((n,i)=>nextOrder.set(n.id, i));
+        for(const n of layers[L]){
+          const kids = (dependents.get(n.id) || []).filter(id => nextOrder.has(id));
+          n._bary = kids.length ? kids.reduce((s,k)=>s+nextOrder.get(k),0)/kids.length : 0;
+        }
+        layers[L].sort((a,b)=>a._bary-b._bary);
+      }
     }
 
     // Assign coordinates.
-    const colW = 240, rowH = 84, padX = 40, padY = 40;
-    const maxRows = Math.max(...layers.map(l => l.length));
-    const svgH = padY*2 + maxRows*rowH;
-    const svgW = padX*2 + layers.length*colW;
+    const nodeW = 210, nodeH = 64;
+    const colW = 280, rowGap = 96, padX = 44, padY = 48;
+    const maxRows = Math.max(...layers.map(l => l.length), 1);
+    const svgH = padY*2 + (maxRows - 1) * rowGap + nodeH;
+    const svgW = padX*2 + (layers.length - 1) * colW + nodeW;
     for(let L=0; L<layers.length; L++){
       const col = layers[L];
-      const yStart = padY + (maxRows - col.length) * rowH / 2;
+      const yStart = padY + (maxRows - col.length) * rowGap / 2;
       col.forEach((n,i)=>{
         n.x = padX + L*colW;
-        n.y = yStart + i*rowH;
-        n.w = 200;
-        n.h = 56;
+        n.y = yStart + i*rowGap;
+        n.w = nodeW;
+        n.h = nodeH;
       });
     }
     return {layers, svgW, svgH, nodesById: new Map(nodes.map(n=>[n.id,n]))};
@@ -275,7 +292,9 @@
         outIdx.set(p, oI + 1); inIdx.set(id, iI + 1);
         const x1 = src.x + src.w, y1 = src.y + src.h/2 + slotOffset(oI, oT);
         const x2 = n.x, y2 = n.y + n.h/2 + slotOffset(iI, iT);
-        const bend = Math.max(46, (x2 - x1) * 0.34);
+        const dx = x2 - x1;
+        const bendCap = Math.max(8, dx/2 - 6);
+        const bend = Math.max(24, Math.min(dx * 0.34, bendCap));
         const path = el('path', {
           class: 'edge',
           d: `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}`,
