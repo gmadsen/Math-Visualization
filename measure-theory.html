@@ -347,7 +347,7 @@ Lebesgue's idea: <em>slice the range, not the domain.</em> Instead of summing $f
 $$ \mu\!\left(\bigsqcup_n A_n\right) = \sum_n \mu(A_n). $$
 This single property — that the measure of a disjoint countable union is the sum of the measures — is the engine of the entire theory.</p>
 
-<h3>Outer measure and Carathéodory</h3>
+<h3 id="lebesgue">Outer measure and Carathéodory</h3>
 
 <p>Lebesgue measure on $\mathbb{R}$ is constructed in two stages. First define the <strong>outer measure</strong>
 $$ m^*(E) = \inf\!\Bigl\{\,\sum_n (b_n-a_n) : E\subseteq \bigcup_n (a_n,b_n)\,\Bigr\},$$
@@ -360,6 +360,12 @@ The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction o
 <div class="note"><strong>Why the Carathéodory condition?</strong> It forces the test set $A$ to be split additively by $E$. A set that the outer measure <em>already</em> splits additively against every test set cannot fail additivity in any combination: this closure gives a $\sigma$-algebra essentially by bookkeeping. Once you see the proof that measurable sets form an algebra (direct verification), the jump to $\sigma$-algebra is a standard truncation argument.</div>
 
 <p>Borel sets are measurable ($\mathcal{B}(\mathbb{R})\subsetneq\mathcal{M}$, strictly), and every subset of a Lebesgue null set is Lebesgue measurable with measure zero — i.e., Lebesgue measure is <em>complete</em>.</p>
+
+<h3 id="measurable">Measurable functions</h3>
+
+<p>A function $f:(X,\mathcal A)\to(\mathbb R,\mathcal B)$ is measurable when $f^{-1}(B)\in\mathcal A$ for every Borel set $B$. Equivalent tests use half-lines:
+$$ f \text{ measurable } \Longleftrightarrow \{x\in X:f(x)>t\}\in\mathcal A \ \text{for all } t\in\mathbb R. $$
+Simple functions are measurable by definition, and every nonnegative measurable function is an increasing limit of simple functions.</p>
 
 <h3>The Cantor set: uncountable, measure zero</h3>
 
@@ -580,7 +586,7 @@ Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int 
 })();
 </script>
 
-<section id="conv">
+<section id="convergence">
 <h2>4. Convergence theorems</h2>
 
 <p>The appeal of Lebesgue integration is that it plays well with limits. Three theorems — each a step weaker in hypothesis, each a direct consequence of the last — cover the main cases.</p>

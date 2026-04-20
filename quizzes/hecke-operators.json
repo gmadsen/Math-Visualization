@@ -1,0 +1,129 @@
+{
+  "topic": "hecke-operators",
+  "quizzes": {
+    "hecke-operator-tp": {
+      "title": "The Hecke operator T_p",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$T_p$ is best viewed as:",
+          "choices": [
+            "a derivative in $q$",
+            "an averaging operator over index-$p$ correspondences",
+            "a projection to cusp forms only"
+          ],
+          "answer": 1,
+          "explain": "Geometrically it averages over degree-$p$ isogeny/lattice data."
+        },
+        {
+          "type": "numeric",
+          "q": "$T_p$ depends on a prime parameter. For $T_5$, what is $p$?",
+          "answer": 5,
+          "tol": 0.001,
+          "explain": "By notation, the subscript is the prime."
+        },
+        {
+          "type": "mcq",
+          "q": "Applying $T_p$ to modular forms keeps you in:",
+          "choices": ["the same finite-dimensional space", "a larger weight", "non-holomorphic space only"],
+          "answer": 0,
+          "explain": "Hecke operators act endomorphically on standard modular-form spaces."
+        }
+      ]
+    },
+    "hecke-q-expansion-action": {
+      "title": "Action on q-expansions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For weight $k$, the coefficient rule includes the term:",
+          "choices": [
+            "$p^{k-1}a_{n/p}$",
+            "$p^k a_n$",
+            "$a_{n+p}$ only"
+          ],
+          "answer": 0,
+          "explain": "The standard formula is $a'_n=a_{pn}+p^{k-1}a_{n/p}$."
+        },
+        {
+          "type": "numeric",
+          "q": "In weight $k=2$, what is $p^{k-1}$ when $p=3$?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "$p^{k-1}=3^1=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is this coefficient formula useful?",
+          "choices": [
+            "It gives an explicit computable recurrence on coefficients",
+            "It avoids Fourier series",
+            "It only applies to Eisenstein series"
+          ],
+          "answer": 0,
+          "explain": "It makes Hecke action algorithmic on q-series data."
+        }
+      ]
+    },
+    "hecke-algebra-commuting": {
+      "title": "Commuting Hecke algebra",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A key structural fact is:",
+          "choices": ["$T_mT_n=T_nT_m$", "$T_mT_n=-T_nT_m$", "$T_n^2=0$ always"],
+          "answer": 0,
+          "explain": "Hecke operators form a commutative algebra in this setting."
+        },
+        {
+          "type": "mcq",
+          "q": "Commutativity allows one to:",
+          "choices": [
+            "simultaneously diagonalize on suitable spaces",
+            "force all eigenvalues equal",
+            "eliminate cusp forms"
+          ],
+          "answer": 0,
+          "explain": "Commuting normal/self-adjoint operators admit joint eigenbases."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f$ is an eigenvector for $T_2,T_3$ with eigenvalues 5 and -1, what is $(T_2+T_3)f$ eigenvalue?",
+          "answer": 4,
+          "tol": 0.001,
+          "explain": "Linearity gives $(5+(-1))f=4f$."
+        }
+      ]
+    },
+    "eigenforms-and-euler-factors": {
+      "title": "Eigenforms and Euler factors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a normalized eigenform, the first coefficient $a_1$ is:",
+          "choices": ["0", "1", "p"],
+          "answer": 1,
+          "explain": "Normalization sets $a_1=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Eigenforms are central because they provide:",
+          "choices": [
+            "Euler products with arithmetic coefficients",
+            "finite support q-series",
+            "only geometric intersection numbers"
+          ],
+          "answer": 0,
+          "explain": "Their coefficients satisfy multiplicative relations giving Euler factors."
+        },
+        {
+          "type": "numeric",
+          "q": "If multiplicativity gives $a_{mn}=a_ma_n$ for $(m,n)=1$, and $a_2=3,a_3=-2$, compute $a_6$.",
+          "answer": -6,
+          "tol": 0.001,
+          "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+        }
+      ]
+    }
+  }
+}

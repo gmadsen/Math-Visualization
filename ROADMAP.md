@@ -3,9 +3,9 @@
 ## Current state
 
 - **48 topic pages** linked from [`index.html`](./index.html), grouped into 7 sections: Foundations · Algebra · Analysis · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry.
-- **10 concept graphs** registered in [`concepts/index.json`](./concepts/index.json) feeding [`pathway.html`](./pathway.html).
+- **14 concept graphs** registered in [`concepts/index.json`](./concepts/index.json) feeding [`pathway.html`](./pathway.html).
 - **8 capstones** in [`concepts/capstones.json`](./concepts/capstones.json), grouped by section for the pathway `<optgroup>`.
-- **8 quiz banks** under [`quizzes/`](./quizzes/) wired via the mastery loop in [`js/quiz.js`](./js/quiz.js) + [`js/progress.js`](./js/progress.js).
+- **12 quiz banks** under [`quizzes/`](./quizzes/) wired via the mastery loop in [`js/quiz.js`](./js/quiz.js) + [`js/progress.js`](./js/progress.js).
 - Bundles ([`concepts/bundle.js`](./concepts/bundle.js), [`quizzes/bundle.js`](./quizzes/bundle.js)) make everything work from `file://` without a dev server. Regenerate after edits with `node scripts/build-concepts-bundle.mjs` and `node scripts/build-quizzes-bundle.mjs`.
 - Validator ([`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs)) is clean: 0 errors, 0 warnings.
 
@@ -13,8 +13,8 @@ Pages ship as iteratively-improvable v1 drafts. "Published" means reachable from
 
 ## Outstanding
 
-1. **Concept graphs for 38 remaining pages.** Only 10 of 48 topics have concept metadata; [`pathway.html`](./pathway.html) can't reflect the full notebook until the rest are graphed. Priority order is the dependency spine below.
-2. **Quiz banks for 40 remaining pages.** Only 8 pages ship with the Brilliant-style mastery loop wired.
+1. **Concept graphs for 34 remaining pages.** Only 14 of 48 topics have concept metadata; [`pathway.html`](./pathway.html) can't reflect the full notebook until the rest are graphed. Priority order is the dependency spine below.
+2. **Quiz banks for 36 remaining pages.** Only 12 pages ship with the Brilliant-style mastery loop wired.
 3. **Re-attach stripped prereqs.** Wave 4 graphs dropped 19 external prereqs (`elliptic-curve`, `schemes`, `sheaves`, `frobenius-trace`, `hasse-bound`, `L-function-elliptic`, `modular-form`, `galois-representation`, `newform`, `conductor`, `fermat-last-theorem`, `equidistribution`, `euler-product`, `rational-points`, `sheaf-cohomology`) that reference not-yet-graphed topics. Restore them as each source topic gets a concept graph.
 4. **Backfill concept anchors** inside [`measure-theory.html`](./measure-theory.html) and [`algebraic-topology.html`](./algebraic-topology.html) so their `concepts/*.json` entries land on valid in-page `id="…"` targets.
 5. **Wave 4 expansion.** The four capstones shipped as tight 3-widget v1s; a future pass can expand each to ~5 widgets with richer exposition.

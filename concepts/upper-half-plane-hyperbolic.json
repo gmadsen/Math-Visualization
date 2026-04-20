@@ -1,0 +1,35 @@
+{
+  "topic": "upper-half-plane-hyperbolic",
+  "title": "Upper half-plane and hyperbolic geometry",
+  "page": "upper-half-plane-hyperbolic.html",
+  "concepts": [
+    {
+      "id": "upper-half-plane-model",
+      "title": "The upper half-plane model",
+      "anchor": "H",
+      "prereqs": ["complex-numbers", "continuity-topology"],
+      "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
+    },
+    {
+      "id": "hyperbolic-metric",
+      "title": "The hyperbolic metric",
+      "anchor": "metric",
+      "prereqs": ["upper-half-plane-model"],
+      "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away."
+    },
+    {
+      "id": "geodesics-in-H",
+      "title": "Geodesics in H",
+      "anchor": "geod",
+      "prereqs": ["hyperbolic-metric"],
+      "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance."
+    },
+    {
+      "id": "sl2r-action-on-H",
+      "title": "SL2(R) action and modular preview",
+      "anchor": "sl2z",
+      "prereqs": ["geodesics-in-H", "mobius-transformations"],
+      "blurb": "Fractional linear maps preserve H and its metric; restricting to SL2(Z) gives the modular tessellation story."
+    }
+  ]
+}

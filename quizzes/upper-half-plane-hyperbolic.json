@@ -1,0 +1,133 @@
+{
+  "topic": "upper-half-plane-hyperbolic",
+  "quizzes": {
+    "upper-half-plane-model": {
+      "title": "The upper half-plane",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which set is the upper half-plane $\\mathbb H$?",
+          "choices": [
+            "$\\{x+iy:y\\ge 0\\}$",
+            "$\\{x+iy:y>0\\}$",
+            "$\\{x+iy:x>0\\}$"
+          ],
+          "answer": 1,
+          "explain": "The boundary $y=0$ is excluded."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $\\operatorname{Im}(3+4i)$?",
+          "answer": 4,
+          "tol": 0.001,
+          "explain": "Imaginary part is 4."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the real axis special in the model?",
+          "choices": [
+            "It is the ideal boundary at infinity",
+            "It is a geodesic inside $\\mathbb H$",
+            "It is the set of elliptic fixed points"
+          ],
+          "answer": 0,
+          "explain": "The boundary is not in the space but appears as ideal points."
+        }
+      ]
+    },
+    "hyperbolic-metric": {
+      "title": "Hyperbolic metric",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The line element in $\\mathbb H$ is:",
+          "choices": [
+            "$ds^2=dx^2+dy^2$",
+            "$ds^2=(dx^2+dy^2)/y^2$",
+            "$ds^2=y^2(dx^2+dy^2)$"
+          ],
+          "answer": 1,
+          "explain": "Hyperbolic length scales Euclidean length by 1/y."
+        },
+        {
+          "type": "numeric",
+          "q": "At height $y=2$, what is the scaling factor on Euclidean length?",
+          "answer": 0.5,
+          "tol": 0.001,
+          "explain": "Factor is $1/y=1/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "As $y\\to 0^+$, short Euclidean segments have hyperbolic length:",
+          "choices": ["going to 0", "staying bounded", "blowing up"],
+          "answer": 2,
+          "explain": "Division by $y$ makes lengths diverge near boundary."
+        }
+      ]
+    },
+    "geodesics-in-H": {
+      "title": "Geodesics in H",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which curves are geodesics in $\\mathbb H$?",
+          "choices": [
+            "Only horizontal lines",
+            "Vertical lines and semicircles orthogonal to the real axis",
+            "All circles"
+          ],
+          "answer": 1,
+          "explain": "This is the defining geometric picture of the model."
+        },
+        {
+          "type": "mcq",
+          "q": "The vertical ray $x=1,y>0$ is:",
+          "choices": ["not geodesic", "a geodesic", "a horocycle"],
+          "answer": 1,
+          "explain": "Every vertical line in H is geodesic."
+        },
+        {
+          "type": "numeric",
+          "q": "How many intersection points can two distinct geodesics in H have inside H?",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "Like Euclidean lines, distinct geodesics intersect at most once in the interior."
+        }
+      ]
+    },
+    "sl2r-action-on-H": {
+      "title": "SL2 action and modular preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The action of $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$ on $\\tau$ is:",
+          "choices": [
+            "$a\\tau+b$",
+            "$(a\\tau+b)/(c\\tau+d)$",
+            "$a/(c\\tau+d)$"
+          ],
+          "answer": 1,
+          "explain": "This is the Möbius (fractional linear) action."
+        },
+        {
+          "type": "numeric",
+          "q": "For $T=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ and $\\tau=i$, compute $T\\cdot\\tau$ imaginary part.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$T\\cdot i=i+1$, whose imaginary part is 1."
+        },
+        {
+          "type": "mcq",
+          "q": "Restricting to $SL_2(\\mathbb Z)$ gives:",
+          "choices": [
+            "Euclidean tilings of the plane",
+            "the modular tessellation/fundamental-domain story",
+            "only finite orbits"
+          ],
+          "answer": 1,
+          "explain": "This is the entry point to modular forms."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "topic": "quadratic-reciprocity",
+  "quizzes": {
+    "legendre-symbol": {
+      "title": "Legendre symbol basics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For odd prime $p$, what does $\\left(\\frac{a}{p}\\right)=1$ mean?",
+          "choices": [
+            "$a \\equiv 0 \\pmod p$",
+            "$a$ is a quadratic residue mod $p$",
+            "$a$ is a primitive root mod $p$"
+          ],
+          "answer": 1,
+          "explain": "By definition, $\\left(\\frac{a}{p}\\right)=1$ exactly when $x^2\\equiv a\\pmod p$ is solvable."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\left(\\frac{4}{7}\\right)$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$2^2\\equiv 4\\pmod 7$, so 4 is a square mod 7."
+        },
+        {
+          "type": "mcq",
+          "q": "If $p\\nmid a$, then $\\left(\\frac{a}{p}\\right)$ can be:",
+          "choices": ["only 0", "only 1", "either 1 or -1"],
+          "answer": 2,
+          "explain": "Away from multiples of $p$, residues split into squares (1) and nonsquares (-1)."
+        }
+      ]
+    },
+    "supplementary-laws-qr": {
+      "title": "Supplementary laws",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For odd prime $p$, $\\left(\\frac{-1}{p}\\right)=1$ exactly when:",
+          "choices": [
+            "$p\\equiv 1 \\pmod 4$",
+            "$p\\equiv 3 \\pmod 4$",
+            "$p\\equiv 1 \\pmod 8$"
+          ],
+          "answer": 0,
+          "explain": "The first supplementary law gives $(-1/p)=(-1)^{(p-1)/2}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\left(\\frac{2}{17}\\right)$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "Since $17\\equiv 1\\pmod 8$, the second supplementary law gives $(2/17)=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which congruence class gives $\\left(\\frac{2}{p}\\right)=-1$?",
+          "choices": [
+            "$p\\equiv 1,7\\pmod 8$",
+            "$p\\equiv 3,5\\pmod 8$",
+            "$p\\equiv 1,3\\pmod 8$"
+          ],
+          "answer": 1,
+          "explain": "$(2/p)=(-1)^{(p^2-1)/8}$ is negative for classes 3 and 5 mod 8."
+        }
+      ]
+    },
+    "gauss-lemma-qr": {
+      "title": "Gauss's lemma",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Gauss's lemma computes $\\left(\\frac{a}{p}\\right)$ using:",
+          "choices": [
+            "number of carries in base $p$",
+            "parity of a counting number of sign changes",
+            "prime factorization of $a$"
+          ],
+          "answer": 1,
+          "explain": "It is $(-1)^n$ where $n$ counts how many reduced multiples of $a$ fall in $(p/2,p)$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $p=11,a=2$, the reduced list from $2,4,6,8,10$ has how many terms $>11/2$?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "The terms are $2,4,6,8,10$; those above 5.5 are 6,8,10."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the previous count, compute $\\left(\\frac{2}{11}\\right)=(-1)^n$.",
+          "answer": -1,
+          "tol": 0.001,
+          "explain": "$n=3$ is odd, so $(-1)^n=-1$."
+        }
+      ]
+    },
+    "quadratic-reciprocity-law": {
+      "title": "Quadratic reciprocity law",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For odd primes $p,q$, quadratic reciprocity states:",
+          "choices": [
+            "$\\left(\\frac{p}{q}\\right)=\\left(\\frac{q}{p}\\right)$ always",
+            "$\\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right)=(-1)^{\\frac{(p-1)(q-1)}{4}}$",
+            "$\\left(\\frac{p}{q}\\right)+\\left(\\frac{q}{p}\\right)=0$"
+          ],
+          "answer": 1,
+          "explain": "This is the classical reciprocity identity."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $(-1)^{\\frac{(3-1)(11-1)}{4}}$.",
+          "answer": -1,
+          "tol": 0.001,
+          "explain": "Exponent is $(2\\cdot 10)/4=5$, so the sign is -1."
+        },
+        {
+          "type": "mcq",
+          "q": "If both $p\\equiv q\\equiv 3\\pmod 4$, then:",
+          "choices": [
+            "$\\left(\\frac{p}{q}\\right)=\\left(\\frac{q}{p}\\right)$",
+            "$\\left(\\frac{p}{q}\\right)=-\\left(\\frac{q}{p}\\right)$",
+            "both symbols are always 1"
+          ],
+          "answer": 1,
+          "explain": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case."
+        }
+      ]
+    }
+  }
+}
