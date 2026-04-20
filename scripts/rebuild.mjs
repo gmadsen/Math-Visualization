@@ -7,6 +7,7 @@
 //   node scripts/validate-katex.mjs
 //   node scripts/audit-callbacks.mjs --fix
 //   node scripts/insert-used-in-backlinks.mjs --fix
+//   node scripts/inject-breadcrumb.mjs --fix
 //   node scripts/smoke-test.mjs
 //
 // Streams each child's stdout/stderr through, prints a banner per step, and
@@ -16,7 +17,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, validate, katex, callbacks, backlinks, smoke
+//                       concepts, quizzes, validate, katex, callbacks, backlinks, breadcrumb, smoke
 //
 // Zero dependencies.
 
@@ -50,6 +51,7 @@ const STEPS = [
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
   { name: 'backlinks',  script: 'insert-used-in-backlinks.mjs', fix: true  },
+  { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
 ];
 

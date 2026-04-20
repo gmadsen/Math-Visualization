@@ -427,6 +427,7 @@ window.MVQuizBank = {
             "q": "Let $G$ be a group of order $35$. By Lagrange's theorem, every element's order divides $|G|=35$. If no element has order $35$, the possible nontrivial orders are $5$ and $7$. How many elements of order $5$ must exist if there is exactly one subgroup of order $7$?",
             "answer": 28,
             "tol": 1e-9,
+            "hint": "Count which elements are used up by the order-$7$ subgroup; the rest must have order $5$.",
             "explain": "The unique subgroup of order $7$ contributes $6$ elements of order $7$ plus the identity. The remaining $35-7=28$ non-identity elements all have order $5$ (since their order must divide $35$ and cannot be $7$ or $35$). So there are $28$ elements of order $5$."
           },
           {
@@ -440,6 +441,23 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "$\\mathbb{Z}$ is a subring of the field $\\mathbb{Q}$ but fails to be a field because, for instance, $2\\in\\mathbb{Z}$ has no multiplicative inverse in $\\mathbb{Z}$. The other options either involve two fields or are not counterexamples."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select <em>all</em> of the following groups that are abelian.",
+            "choices": [
+              "$(\\mathbb{Z}/6\\mathbb{Z},+)$",
+              "$S_3$, the symmetric group on $3$ letters",
+              "$(\\mathbb{Z}/4\\mathbb{Z})^{\\times}$, the unit group mod $4$",
+              "$D_4$, the dihedral group of order $8$",
+              "$GL_2(\\mathbb{R})$, $2\\!\\times\\!2$ invertible real matrices under multiplication"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "hint": "Additive groups of $\\mathbb{Z}/n$ and their unit groups are always abelian; nonabelian examples usually involve permutations or matrices.",
+            "explain": "$(\\mathbb{Z}/6\\mathbb{Z},+)$ and $(\\mathbb{Z}/4\\mathbb{Z})^{\\times}=\\{1,3\\}$ are both abelian (additive/cyclic and order-$2$ respectively). $S_3$ is the smallest nonabelian group (e.g. $(12)(13)\\neq(13)(12)$); $D_4$ contains a rotation and a reflection that don't commute; and matrix multiplication in $GL_2(\\mathbb{R})$ is famously noncommutative."
           }
         ]
       },
@@ -627,6 +645,7 @@ window.MVQuizBank = {
               "$\\mathbb{Z}[x]/(2,x)\\cong\\mathbb{Z}[x]$"
             ],
             "answer": 0,
+            "hint": "Quotient by one generator at a time; the order doesn't matter.",
             "explain": "Quotienting by $(x)$ first gives $\\mathbb{Z}[x]/(x)\\cong\\mathbb{Z}$; then quotienting by the image of $(2)$ gives $\\mathbb{Z}/2\\mathbb{Z}\\cong\\mathbb{F}_2$. Since $\\mathbb{F}_2$ is a field, $(2,x)$ is maximal. This chains ideal/quotient ring reasoning with the maximal $\\Leftrightarrow$ field criterion."
           },
           {
@@ -698,6 +717,7 @@ window.MVQuizBank = {
               "Degree is $5$ because $2$ and $5$ are distinct primes"
             ],
             "answer": 0,
+            "hint": "A degree-3 polynomial stays irreducible over a degree-2 extension when $\\gcd(2,3)=1$.",
             "explain": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$. Since $\\sqrt[3]{5}$ has minimal polynomial $x^3-5$ over $\\mathbb{Q}$ and $[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ is coprime to $3$, the polynomial $x^3-5$ remains irreducible over $\\mathbb{Q}(\\sqrt{2})$, giving degree-$3$ second step. Tower Law: $2\\times 3=6$."
           },
           {
@@ -2061,6 +2081,7 @@ window.MVQuizBank = {
               "Minkowski’s geometry of numbers applied to $E(\\mathbb{C})$"
             ],
             "answer": 1,
+            "hint": "You need a size function that behaves predictably under doubling.",
             "explain": "Tate’s canonical height $\\hat h$ is quadratic: $\\hat h(nP)=n^2\\hat h(P)$. Finiteness of $E(\\mathbb{Q})/nE(\\mathbb{Q})$ plus the fact that $\\{P : \\hat h(P)\\le B\\}$ is finite for every $B$ lets one descend an arbitrary point to a coset representative, proving finite generation."
           },
           {
@@ -2223,6 +2244,7 @@ window.MVQuizBank = {
               "C, B, A"
             ],
             "answer": 1,
+            "hint": "Analytic data comes first; then convert it to a non-torsion point; then use Euler systems.",
             "explain": "First establish the analytic data $L(E,1)=0$, $L'(E,1)\\ne 0$ (step C). Then Gross–Zagier converts $L'(E,1)\\ne 0$ into $\\hat h(y_K)\\ne 0$, so the Heegner point is non-torsion (step A). Finally Kolyvagin’s machinery propagates this to algebraic rank exactly $1$ (step B)."
           }
         ],
@@ -2337,6 +2359,7 @@ window.MVQuizBank = {
               "Perfect squares are the only integers appearing as orders of abelian groups"
             ],
             "answer": 0,
+            "hint": "An alternating form pairs every element with itself to zero — what does that force on the group?",
             "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\Sha| = |B|^2$."
           },
           {
@@ -2513,6 +2536,7 @@ window.MVQuizBank = {
               "Infinite-dimensional spaces have no dual"
             ],
             "answer": 1,
+            "hint": "What direction does $(-)^*$ send a linear map $f\\colon V\\to W$?",
             "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
           },
           {
@@ -2594,6 +2618,7 @@ window.MVQuizBank = {
               "It is the inclusion $G\\hookrightarrow FU(G)$"
             ],
             "answer": 1,
+            "hint": "Apply the universal property of the free group to the identity function on $U(G)$.",
             "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ — i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
           },
           {
@@ -2663,6 +2688,7 @@ window.MVQuizBank = {
               "The inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$ reflects all limits"
             ],
             "answer": 0,
+            "hint": "Which direction (limits vs colimits) does a LEFT adjoint preserve?",
             "explain": "Left adjoints preserve colimits but need not preserve — or reflect — limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
           },
           {
@@ -3618,6 +3644,7 @@ window.MVQuizBank = {
               0
             ],
             "tol": 0.001,
+            "hint": "The roots lie at the vertices of a regular polygon centered at the origin.",
             "explain": "The 4th roots of $-16 = 16 e^{i\\pi}$ are $2e^{i(\\pi + 2\\pi k)/4}$ for $k=0,1,2,3$. Their sum equals $2(e^{i\\pi/4}+e^{3i\\pi/4}+e^{5i\\pi/4}+e^{7i\\pi/4}) = 0$, since the roots of any $z^n = c$ sum to $0$ when $n \\ge 2$."
           },
           {
@@ -3840,6 +3867,7 @@ window.MVQuizBank = {
             "q": "Use the residue theorem to evaluate $\\displaystyle\\int_0^{\\infty} \\frac{dx}{1+x^4}$. Enter the exact value as a decimal to three places.",
             "answer": 1.1107,
             "tol": 0.001,
+            "hint": "Close the contour in the upper half-plane and use evenness to halve the real-line integral.",
             "explain": "The integrand $1/(1+z^4)$ has poles at $z_k = e^{i\\pi(2k+1)/4}$, $k=0,1,2,3$. For the upper half-plane contour, the poles inside are $z_0 = e^{i\\pi/4}$ and $z_1 = e^{3i\\pi/4}$. Computing: $\\operatorname{Res}(f;z_k) = 1/(4z_k^3) = -z_k/4$. The two residues sum to $-(e^{i\\pi/4}+e^{3i\\pi/4})/4 = -(i\\sqrt{2}/2) \\cdot (1/2)$... The standard result is $\\int_0^\\infty dx/(1+x^4) = \\pi/(2\\sqrt{2}) \\approx 1.1107$."
           },
           {
@@ -3852,7 +3880,28 @@ window.MVQuizBank = {
               "Essential singularity; residue undefined"
             ],
             "answer": 2,
+            "hint": "Write the Taylor series of $\\sin z$ and divide term by term.",
             "explain": "Laurent expand: $\\sin z/z^3 = (z - z^3/6 + z^5/120 - \\cdots)/z^3 = z^{-2} - 1/6 + z^2/120 - \\cdots$. The principal part has lowest term $z^{-2}$, so this is a pole of order 2. The residue is the coefficient of $z^{-1}$, which is $0$ (no $z^{-1}$ term appears in the expansion)."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of a standard residue-theorem contour-integral proof into the order they appear in the argument.",
+            "items": [
+              "Verify that the integrand is meromorphic in the relevant region and identify which poles lie inside the contour.",
+              "Close the real-line integral with a large semicircular arc in the upper half-plane to form a closed contour.",
+              "Show the contribution of the semicircular arc vanishes as its radius tends to infinity.",
+              "Apply the residue theorem: the closed-contour integral equals $2\\pi i$ times the sum of residues inside.",
+              "Equate the limiting closed-contour integral with the real-line integral to read off the desired value."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "hint": "Think of the workflow: classify singularities first, build the contour, estimate the arc, invoke the theorem, then extract the real answer.",
+            "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
           }
         ]
       }
@@ -4969,6 +5018,7 @@ window.MVQuizBank = {
               "Associativity of polynomial multiplication in $k[x,y]$"
             ],
             "answer": 1,
+            "hint": "Transport the group structure from a place where associativity is obvious.",
             "explain": "One identifies $E$ with $\\operatorname{Pic}^0(E)$ via $P\\mapsto[P]-[O]$; since $\\operatorname{Pic}^0$ is a group by construction, associativity is automatic and one avoids all coordinate computation."
           },
           {
@@ -5038,6 +5088,7 @@ window.MVQuizBank = {
               "Isomorphic iff both have the same rank"
             ],
             "answer": 1,
+            "hint": "Find the scalar $u$ needed to match coefficients, then check if it lives in $\\mathbb{Q}$.",
             "explain": "Same $j$ over $\\bar k$ means isomorphic over $\\bar k$, but the twist parameter $u^4 a'=a$ requires $u^4=4$, so $u=\\sqrt{2}\\notin\\mathbb{Q}$. They are $\\mathbb{Q}(\\sqrt{2})$-twists of each other, not isomorphic over $\\mathbb{Q}$."
           },
           {
@@ -5198,6 +5249,7 @@ window.MVQuizBank = {
               "The Mayer–Vietoris sequence for $E$ decomposed into two affine patches"
             ],
             "answer": 1,
+            "hint": "You need a sequence that turns $E(K)/nE(K)$ into something cohomological.",
             "explain": "Applying Galois cohomology to $0\\to E[n]\\to E\\xrightarrow{[n]}E\\to 0$ gives the Kummer map $E(K)/nE(K)\\hookrightarrow H^1(G_K,E[n])$. Since $E[n]$ is defined over a finite extension and the cocycles satisfy local conditions, the image (the Selmer group) is finite, proving $E(K)/nE(K)$ is finite."
           }
         ]
@@ -9325,6 +9377,7 @@ window.MVQuizBank = {
               "The reduction works only for $\\tau$ with $\\Im\\tau>1$"
             ],
             "answer": 1,
+            "hint": "Use $T$ to control $\\Re\\tau$ and $S$ to push $\\Im\\tau$ upward.",
             "explain": "The standard reduction algorithm: (1) translate by $T^n$ to put $\\Re\\tau\\in[-1/2,1/2]$; (2) if $|\\tau|<1$, apply $S$ — this strictly increases $\\Im\\tau$ since $\\Im(S\\tau)=\\Im\\tau/|\\tau|^2>\\Im\\tau$; (3) repeat. The imaginary part is bounded above in each $SL_2(\\mathbb{Z})$-orbit, so the algorithm terminates."
           }
         ]
@@ -9440,6 +9493,7 @@ window.MVQuizBank = {
               "$E_2$ diverges at the cusp, so no transformation law exists"
             ],
             "answer": 1,
+            "hint": "The defining sum isn't absolutely convergent, so some cocycle term survives.",
             "explain": "$E_2$ transforms with the anomalous correction $-(6ic/\\pi)(c\\tau+d)$. This makes $E_2$ a quasi-modular form. The combination $E_2^*(\\tau)=E_2(\\tau)-3/(\\pi\\Im\\tau)$ is non-holomorphic but transforms correctly; $E_2$ itself is the holomorphic shadow."
           },
           {
@@ -9526,6 +9580,7 @@ window.MVQuizBank = {
               "All weight-$k$ forms have multiplicative coefficients by definition"
             ],
             "answer": 0,
+            "hint": "The $a_n$ are eigenvalues of $T_n$ acting on a common eigenvector.",
             "explain": "For $\\gcd(m,n)=1$ the Hecke operators satisfy $T_m T_n=T_{mn}$. A newform is a simultaneous eigenfunction: $T_n f=a_n f$. Applying $T_m T_n=T_{mn}$ to $f$ gives $a_m a_n f=a_{mn}f$, so $a_{mn}=a_m a_n$. This is the source of the Euler product for the associated $L$-function."
           }
         ]
@@ -9648,6 +9703,7 @@ window.MVQuizBank = {
               "Multiplicative reduction at $\\ell$ is equivalent to $\\ell^2 \\mid \\Delta$"
             ],
             "answer": 1,
+            "hint": "Think about the reduction type when $v_\\ell(\\Delta)$ is a multiple of $p$.",
             "explain": "Tate's algorithm: if $v_\\ell(\\Delta) > 0$ but the curve has a node (not a cusp) after minimal change of variables, reduction is multiplicative, contributing $\\ell^1$ to the conductor. The $2p$-th power structure in $\\Delta$ at odd primes ensures exactly nodal reduction, giving squarefree conductor at those primes."
           },
           {
@@ -9798,6 +9854,7 @@ window.MVQuizBank = {
               "All primes dividing $N_E$ are automatically unramified in $\\overline{\\rho}_{E,p}$"
             ],
             "answer": 1,
+            "hint": "When $p \\mid v_q(\\Delta)$, the Galois action on $E[p]$ at $q$ acts through a quotient that doesn't see ramification.",
             "explain": "The key: $v_q(\\Delta_E)$ is divisible by $p$ for every odd prime $q \\mid abc$. This means $E$ has multiplicative reduction at $q$, and the Galois representation on $E[p]$ is unramified at $q$ (it looks like an unramified twist). Ribet's machinery then removes $q$ from the level."
           },
           {
@@ -9941,6 +9998,7 @@ window.MVQuizBank = {
               "W2 → W1 → W3 → W4 → W5"
             ],
             "answer": 2,
+            "hint": "Semistability enables the modularity engine, which gives modularity, which Ribet then reduces.",
             "explain": "Logical flow: W1 (Frey semistable) feeds into proving W4 (modular) via W3 (R = T, which is the technical heart proving modularity lifting). Then W2 (Ribet level-lowers $\\overline{\\rho}_{E,p}$ to level 2), and W5 closes the contradiction. W3 is the engine that makes W4 possible."
           },
           {
@@ -14279,6 +14337,7 @@ window.MVQuizBank = {
               "$f(x)=x\\sin(1/x)$ extended by $f(0)=0$"
             ],
             "answer": 1,
+            "hint": "You need a function whose \"spikes\" shrink as denominators grow.",
             "explain": "Thomae's function is continuous at every irrational (the set $\\{x : f(x)\\ge 1/n\\}$ is finite for each $n$, so rationals with large $q$ are 'sparse near any irrational') and discontinuous at every rational (every neighborhood of $p/q$ contains irrationals where $f=0\\ne 1/q$). This shows discontinuity sets need not be closed."
           },
           {
@@ -14497,6 +14556,7 @@ window.MVQuizBank = {
               "$f(x,y)=|x|+|y|$ at the origin"
             ],
             "answer": 1,
+            "hint": "Straight lines see zero; try a parabolic path into the origin instead.",
             "explain": "Along any ray $(t\\cos\\theta, t\\sin\\theta)$, the function $f$ tends to $0$ as $t\\to 0$, so all directional derivatives exist and equal $0$. But along the parabolic curve $y=x^2$, $f(x,x^2)=1/2\\not\\to 0$. Thus $f$ is not continuous (let alone differentiable) at the origin."
           },
           {
@@ -14549,6 +14609,7 @@ window.MVQuizBank = {
               "$f(x,y)=\\sin(xy)$ on $[0,1]^2$"
             ],
             "answer": 1,
+            "hint": "Look for an integrand where $\\iint|f|$ diverges near the origin.",
             "explain": "Fubini requires $\\iint|f|<\\infty$. For $f=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ the double integral of $|f|$ diverges, so Tonelli's condition fails and the two iterated integrals differ by a sign, giving $\\pi/4$ vs $-\\pi/4$."
           },
           {
@@ -15802,6 +15863,7 @@ window.MVQuizBank = {
               "The $L$-function $L(\\mathrm{Sym}^1 E,s)=L(E,s)$ is entire, but nothing about higher symmetric powers"
             ],
             "answer": 2,
+            "hint": "Each $n$ is an independent moment condition.",
             "explain": "Each $n$ in Weyl's criterion is an independent condition. Knowing $n=1$ controls only the first trigonometric moment $\\langle\\cos\\theta\\rangle$. Full equidistribution requires all $n\\ge 1$, corresponding to holomorphy and non-vanishing of every $L(\\mathrm{Sym}^n E,s)$ on $\\operatorname{Re}s\\ge 1$."
           },
           {
@@ -15940,6 +16002,7 @@ window.MVQuizBank = {
               "Chebotarev density theorem applied to the 2-division field $\\Rightarrow$ all torsion primes equidistribute"
             ],
             "answer": 0,
+            "hint": "For split primes in a CM curve, Frobenius comes from a Grossencharacter, not from $\\mathrm{SU}(2)$.",
             "explain": "For split primes $p$ in a CM curve, $a_p=\\psi(\\mathfrak{p})+\\overline{\\psi(\\mathfrak{p})}$ for a Hecke Grössencharacter $\\psi$. The associated Hecke $L$-function is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$, so the split angles equidistribute uniformly on $[0,\\pi]$ (the Haar measure on $\\mathrm{U}(1)$ pushed to $[0,\\pi]$)."
           },
           {
@@ -16016,6 +16079,7 @@ window.MVQuizBank = {
               "Applying the trace formula for $\\mathrm{GL}_n$ directly to the symmetric-power $L$-function"
             ],
             "answer": 1,
+            "hint": "Prove what you want over a solvable base change, then descend.",
             "explain": "BLGHT uses the 'potential automorphy' method of Taylor: one shows that $\\mathrm{Sym}^n(\\rho_{E,\\ell})$ becomes automorphic over some totally real field $F$ (a solvable base change), establishes the required analytic properties there, and then uses automorphic induction / descent to get non-vanishing on $\\operatorname{Re}s\\ge 1$ over $\\mathbb{Q}$."
           },
           {
@@ -16240,6 +16304,7 @@ window.MVQuizBank = {
               "$\\mathbb{A}^2_k$ — it fails the valuative criterion of separatedness"
             ],
             "answer": 1,
+            "hint": "Think of a classic Hausdorff-failure analogue in point-set topology.",
             "explain": "The line with doubled origin is the standard non-separated scheme: two copies of $\\mathbb{A}^1_k$ glued on the complement of the origin. The two origins cannot be separated by open sets, and the diagonal is not closed in the product, violating separatedness."
           }
         ]
@@ -16723,6 +16788,7 @@ window.MVQuizBank = {
               "The generic fiber is two reduced points, but every closed-point fiber is empty"
             ],
             "answer": 1,
+            "hint": "What happens to the two roots $\\pm\\sqrt{t}$ as $t\\to 0$?",
             "explain": "Over $t=a\\ne 0$: $k[x]/(x^2-a)\\cong k\\times k$, giving two reduced closed points. Over $t=0$: $k[x]/(x^2)$, a single non-reduced length-$2$ fat point. This is the standard example of a family with a degenerate special fiber — the double cover of $\\mathbb A^1$ ramified at $0$."
           },
           {

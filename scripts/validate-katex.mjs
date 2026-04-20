@@ -14,6 +14,13 @@
 //     Warnings only.
 //   - Heuristics for a couple of very common typos (stray `&` outside an
 //     aligned env; `\sqrt` with no argument).
+//   - Macro-aware warning pass: tokenizes each math span for `\<letters>`
+//     usages, classifies them against a large whitelist of KaTeX built-ins
+//     (plus any user-project macros declared in the KaTeX loader of
+//     `category-theory.html`), and emits WARNINGS for unknown macros. These
+//     warnings do NOT gate the exit code — they're advisory only, meant to
+//     surface typos (`\foozlez`) or macros KaTeX doesn't ship without a
+//     matching `macros:` config.
 //
 // This is NOT a KaTeX parser — that would pull in the `katex` npm package
 // and break the project's "runs from stock node, zero deps" rule. Instead
@@ -280,6 +287,224 @@ function checkTypoHeuristics(body) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
+// Macro-aware warning pass.
+//
+// Tokenizes each math span for `\<letters>` uses and emits a warning for any
+// macro name that is neither a KaTeX built-in nor a user-project macro
+// declared in `category-theory.html`'s KaTeX loader `macros:` block.
+//
+// The whitelist is deliberately generous. False negatives (letting a real
+// typo through) are cheap; false positives (nagging about legitimate KaTeX
+// macros) train authors to ignore the warnings. When in doubt, include.
+//
+// User-project macros: grep the canonical style template for a `macros:`
+// entry in the KaTeX loader. There is none today, so this set is empty;
+// keeping the hook in place so adding `\N`, `\Z`, `\defeq`, etc. to the
+// loader automatically propagates to the validator.
+//
+// The whitelist draws from KaTeX's documented "Supported Functions" list
+// (https://katex.org/docs/supported), de-duplicated and normalized.
+
+const USER_MACROS = new Set([
+  // If `category-theory.html` grows a `macros:` block, mirror its keys here.
+]);
+
+const KATEX_MACROS = new Set([
+  // Greek lowercase
+  'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'varepsilon', 'zeta', 'eta',
+  'theta', 'vartheta', 'iota', 'kappa', 'varkappa', 'lambda', 'mu', 'nu',
+  'xi', 'omicron', 'pi', 'varpi', 'rho', 'varrho', 'sigma', 'varsigma',
+  'tau', 'upsilon', 'phi', 'varphi', 'chi', 'psi', 'omega', 'digamma',
+  // Greek uppercase
+  'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta',
+  'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho',
+  'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega',
+  'varGamma', 'varDelta', 'varTheta', 'varLambda', 'varXi', 'varPi',
+  'varSigma', 'varUpsilon', 'varPhi', 'varPsi', 'varOmega',
+  // Font and style
+  'mathbb', 'mathbf', 'mathbfit', 'mathcal', 'mathfrak', 'mathit',
+  'mathnormal', 'mathrm', 'mathscr', 'mathsf', 'mathsfit', 'mathtt',
+  'boldsymbol', 'bm', 'pmb', 'bold', 'Bbb', 'bbFont', 'frak',
+  'textbf', 'textit', 'textmd', 'textnormal', 'textrm', 'textsf',
+  'texttt', 'textup', 'emph', 'text', 'textsc', 'textcolor',
+  'color', 'colorbox', 'fcolorbox',
+  // Fractions and binoms
+  'frac', 'dfrac', 'tfrac', 'cfrac', 'binom', 'dbinom', 'tbinom',
+  'genfrac', 'over', 'atop', 'above', 'choose', 'brack', 'brace',
+  // Roots
+  'sqrt', 'surd',
+  // Operators (large + functional-looking)
+  'sum', 'prod', 'coprod', 'int', 'iint', 'iiint', 'iiiint', 'idotsint',
+  'oint', 'oiint', 'oiiint', 'intop', 'smallint',
+  'bigcap', 'bigcup', 'bigsqcup', 'bigsqcap', 'biguplus', 'bigvee',
+  'bigwedge', 'bigoplus', 'bigotimes', 'bigodot',
+  'lim', 'limsup', 'liminf', 'varliminf', 'varlimsup', 'varinjlim',
+  'varprojlim', 'injlim', 'projlim',
+  'sup', 'inf', 'max', 'min', 'arg', 'det', 'dim', 'ker', 'gcd', 'lcm',
+  'exp', 'log', 'ln', 'lg', 'sin', 'cos', 'tan', 'cot', 'sec', 'csc',
+  'sinh', 'cosh', 'tanh', 'coth', 'arcsin', 'arccos', 'arctan', 'arccot',
+  'arcsec', 'arccsc', 'arsinh', 'arcosh', 'artanh',
+  'deg', 'hom', 'Pr', 'mod', 'pmod', 'bmod', 'pod',
+  'operatorname', 'operatornamewithlimits', 'DeclareMathOperator',
+  // Accents (single-char)
+  'hat', 'widehat', 'tilde', 'widetilde', 'bar', 'overline', 'underline',
+  'vec', 'dot', 'ddot', 'dddot', 'ddddot', 'breve', 'check', 'grave',
+  'acute', 'mathring', 'overrightarrow', 'overleftarrow', 'overleftrightarrow',
+  'underrightarrow', 'underleftarrow', 'underleftrightarrow',
+  'overbrace', 'underbrace', 'overgroup', 'undergroup',
+  'overbracket', 'underbracket', 'overparen', 'underparen',
+  'overlinesegment', 'underlinesegment', 'utilde', 'widecheck',
+  'overrightharpoon', 'overleftharpoon',
+  // Arrows
+  'to', 'gets', 'mapsto', 'longmapsto', 'hookrightarrow', 'hookleftarrow',
+  'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leftrightarrow',
+  'rightarrow', 'leftarrow', 'longrightarrow', 'longleftarrow',
+  'longleftrightarrow', 'Longrightarrow', 'Longleftarrow', 'Longleftrightarrow',
+  'twoheadrightarrow', 'twoheadleftarrow', 'leftharpoonup', 'leftharpoondown',
+  'rightharpoonup', 'rightharpoondown', 'leftrightharpoons', 'rightleftharpoons',
+  'nearrow', 'searrow', 'swarrow', 'nwarrow', 'uparrow', 'downarrow',
+  'updownarrow', 'Uparrow', 'Downarrow', 'Updownarrow',
+  'rightrightarrows', 'leftleftarrows', 'upuparrows', 'downdownarrows',
+  'rightleftarrows', 'leftrightarrows', 'Lleftarrow', 'Rrightarrow',
+  'rightarrowtail', 'leftarrowtail', 'looparrowright', 'looparrowleft',
+  'curvearrowright', 'curvearrowleft', 'circlearrowright', 'circlearrowleft',
+  'Lsh', 'Rsh', 'upharpoonright', 'upharpoonleft', 'downharpoonright',
+  'downharpoonleft', 'rightsquigarrow', 'leadsto', 'restriction',
+  'xrightarrow', 'xleftarrow', 'xRightarrow', 'xLeftarrow',
+  'xleftrightarrow', 'xLeftrightarrow', 'xhookrightarrow', 'xhookleftarrow',
+  'xmapsto', 'xtofrom', 'xrightharpoonup', 'xrightharpoondown',
+  'xleftharpoonup', 'xleftharpoondown', 'xrightleftharpoons',
+  'xleftrightharpoons', 'xlongequal', 'xtwoheadrightarrow', 'xtwoheadleftarrow',
+  'implies', 'impliedby', 'iff',
+  // Binary operators
+  'pm', 'mp', 'times', 'div', 'cdot', 'ast', 'star', 'circ', 'bullet',
+  'oplus', 'ominus', 'otimes', 'oslash', 'odot', 'boxplus', 'boxminus',
+  'boxtimes', 'boxdot', 'diamond', 'Diamond', 'triangle', 'bigtriangleup',
+  'bigtriangledown', 'triangleleft', 'triangleright', 'lhd', 'rhd',
+  'unlhd', 'unrhd', 'oslash', 'intercal', 'wedge', 'vee', 'barwedge',
+  'veebar', 'doublebarwedge', 'curlyvee', 'curlywedge', 'sqcap', 'sqcup',
+  'amalg', 'ddagger', 'dagger', 'setminus', 'smallsetminus', 'wr', 'Cap',
+  'Cup', 'doublecap', 'doublecup', 'leftthreetimes', 'rightthreetimes',
+  'divideontimes',
+  // Relations
+  'leq', 'le', 'geq', 'ge', 'neq', 'ne', 'equiv', 'sim', 'simeq', 'approx',
+  'cong', 'doteq', 'propto', 'asymp', 'bowtie', 'dashv', 'vdash', 'models',
+  'perp', 'mid', 'nmid', 'parallel', 'nparallel', 'smile', 'frown',
+  'sqsubset', 'sqsupset', 'sqsubseteq', 'sqsupseteq', 'subset', 'supset',
+  'subseteq', 'supseteq', 'subsetneq', 'supsetneq', 'subseteqq',
+  'supseteqq', 'subsetneqq', 'supsetneqq', 'nsubseteq', 'nsupseteq',
+  'nsubseteqq', 'nsupseteqq', 'Subset', 'Supset', 'in', 'ni', 'notin',
+  'owns', 'll', 'gg', 'lll', 'ggg', 'lessless', 'greatergreater',
+  'prec', 'succ', 'preceq', 'succeq', 'precsim', 'succsim', 'precapprox',
+  'succapprox', 'precneqq', 'succneqq', 'lesssim', 'gtrsim', 'lessapprox',
+  'gtrapprox', 'lessgtr', 'gtrless', 'lesseqgtr', 'gtreqless',
+  'lesseqqgtr', 'gtreqqless', 'lneq', 'gneq', 'lneqq', 'gneqq',
+  'lnsim', 'gnsim', 'lnapprox', 'gnapprox', 'doteqdot', 'risingdotseq',
+  'fallingdotseq', 'circeq', 'triangleq', 'eqcirc', 'bumpeq', 'Bumpeq',
+  'thickapprox', 'thicksim', 'approxeq', 'backsim', 'backsimeq',
+  'ncong', 'nsim', 'nvdash', 'nvDash', 'nVdash', 'nVDash', 'vDash',
+  'Vdash', 'Vvdash', 'nless', 'ngtr', 'nleq', 'ngeq', 'nleqq', 'ngeqq',
+  'nleqslant', 'ngeqslant', 'lneqq', 'gneqq', 'nprec', 'nsucc',
+  'npreceq', 'nsucceq', 'precnsim', 'succnsim', 'precnapprox',
+  'succnapprox', 'shortmid', 'shortparallel', 'nshortmid', 'nshortparallel',
+  'varpropto', 'between', 'pitchfork', 'because', 'therefore',
+  'trianglelefteq', 'trianglerighteq', 'ntriangleleft', 'ntriangleright',
+  'ntrianglelefteq', 'ntrianglerighteq', 'leqslant', 'geqslant',
+  'eqslantless', 'eqslantgtr', 'leftarrowtriangle', 'rightarrowtriangle',
+  'multimap', 'multimapdot', 'multimapdotboth', 'leftrightarrowtriangle',
+  'sqsubset', 'sqsupset',
+  // Set / logic
+  'cup', 'cap', 'emptyset', 'varnothing', 'forall', 'exists', 'nexists',
+  'neg', 'not', 'lnot', 'land', 'lor', 'top', 'bot', 'aleph', 'beth', 'gimel',
+  'daleth', 'infty', 'partial', 'nabla', 'hbar', 'hslash', 'imath',
+  'jmath', 'ell', 'wp', 'Re', 'Im', 'Finv', 'Game', 'eth', 'mho', 'Bbbk',
+  'flat', 'natural', 'sharp', 'S', 'P', 'copyright', 'circledR',
+  'circledS', 'pounds', 'yen', 'checkmark', 'diagup', 'diagdown',
+  'surd', 'spadesuit', 'clubsuit', 'heartsuit', 'diamondsuit',
+  'angle', 'measuredangle', 'sphericalangle',
+  // Dots and spacing
+  'cdots', 'ldots', 'dots', 'dotsb', 'dotsc', 'dotsi', 'dotsm', 'dotso',
+  'vdots', 'ddots', 'iddots',
+  'quad', 'qquad', 'thinspace', 'medspace', 'thickspace', 'negthinspace',
+  'negmedspace', 'negthickspace', 'enspace', 'kern', 'mkern', 'hskip',
+  'mskip', 'hspace', 'mspace', 'nobreakspace', 'space', 'vphantom',
+  'hphantom', 'phantom', 'strut', 'mathstrut', 'smash',
+  // Delimiters / sizes
+  'left', 'right', 'middle', 'big', 'bigl', 'bigr', 'bigm',
+  'Big', 'Bigl', 'Bigr', 'Bigm', 'bigg', 'biggl', 'biggr', 'biggm',
+  'Bigg', 'Biggl', 'Biggr', 'Biggm',
+  'langle', 'rangle', 'lvert', 'rvert', 'lVert', 'rVert', 'lfloor',
+  'rfloor', 'lceil', 'rceil', 'lbrace', 'rbrace', 'lbrack', 'rbrack',
+  'lmoustache', 'rmoustache', 'lgroup', 'rgroup', 'llbracket', 'rrbracket',
+  'llcorner', 'lrcorner', 'ulcorner', 'urcorner', 'vert', 'Vert',
+  'backslash', 'lBrace', 'rBrace', 'lang', 'rang',
+  // Stacking / layout / math style
+  'underset', 'overset', 'stackrel', 'stackbin', 'substack',
+  'sideset', 'prescript', 'displaystyle', 'textstyle', 'scriptstyle',
+  'scriptscriptstyle', 'limits', 'nolimits',
+  'atop', 'above', 'abovewithdelims', 'atopwithdelims',
+  'overwithdelims',
+  // Math environments (used via \begin{...})
+  'begin', 'end',
+  // Matrix / alignment (names used inside \begin{...})
+  // (These are listed for completeness; the env-check handles \begin{...}.)
+  'array', 'matrix', 'pmatrix', 'bmatrix', 'Bmatrix', 'vmatrix', 'Vmatrix',
+  'smallmatrix', 'cases', 'aligned', 'align', 'alignat', 'gathered',
+  'split', 'gather', 'multline', 'eqnarray', 'equation', 'subarray',
+  // Raising / lowering / boxes
+  'raisebox', 'lower', 'raise', 'rlap', 'llap', 'mathclap', 'mathllap',
+  'mathrlap', 'mathrlap', 'hbox', 'mbox', 'fbox', 'framebox', 'boxed',
+  'enclose', 'cancel', 'bcancel', 'xcancel', 'sout', 'ulem',
+  // Misc structural
+  'tag', 'notag', 'nonumber', 'label', 'ref', 'eqref',
+  'intertext', 'shortintertext', 'hline', 'cline', 'hdashline',
+  'toprule', 'midrule', 'bottomrule',
+  'char', 'mathchoice', 'relax', 'expandafter', 'noexpand',
+  // Number systems shortcut
+  'colon', 'semicolon',
+  // Specific non-standard but KaTeX-supported
+  'Sha', 'Sha',
+  // Escaped specials treated as "macros" when followed by letters via lookbehind.
+  // (These are accents when a letter follows; they're harmless in the whitelist.)
+  'H', 'c', 'v', 'u', 'r', 'b', 'd', 't', 'l', 'o', 'O', 'AA', 'aa',
+  'ss', 'L', 'i', 'j', 'aA',
+  // Mods / display variants
+  'mod', 'pmod', 'pod', 'bmod',
+  // Typed TeX primitives occasionally appearing in this repo
+  'def', 'newcommand', 'renewcommand', 'providecommand',
+  'string', 'message', 'global',
+  // Explicit escapes
+  'lq', 'rq',
+  // KaTeX environment names (again safe)
+  'equation',
+]);
+
+// Match `\<letters>` macros. Excludes `\<non-letter>` which are typically
+// escaped delimiters or punctuation (e.g. `\{`, `\,`, `\\`, `\$`).
+const MACRO_RE = /\\([a-zA-Z]+)\*?/g;
+
+function isKnownMacro(name) {
+  return KATEX_MACROS.has(name) || USER_MACROS.has(name);
+}
+
+function checkUnknownMacros(body, span, file, path, macroCounts) {
+  let m;
+  MACRO_RE.lastIndex = 0;
+  while ((m = MACRO_RE.exec(body))) {
+    const name = m[1];
+    if (isKnownMacro(name)) continue;
+    warnings.push({
+      file,
+      path,
+      msg: `${span.open}…${span.close}: unknown macro "\\${name}"`,
+    });
+    if (macroCounts) macroCounts.set(name, (macroCounts.get(name) || 0) + 1);
+  }
+}
+
+const unknownMacroCounts = new Map();
+
+// ─────────────────────────────────────────────────────────────────────────
 // Validate one string value, annotating errors with the JSON field path.
 
 function validateString(s, file, path) {
@@ -306,6 +531,7 @@ function validateString(s, file, path) {
     if (typoMsg) {
       warnings.push({ file, path, msg: `${span.open}…${span.close}: ${typoMsg}` });
     }
+    checkUnknownMacros(span.body, span, file, path, unknownMacroCounts);
   }
 }
 
@@ -419,6 +645,15 @@ if (errors.length) {
 if (warnings.length) {
   console.log(`WARNINGS (${warnings.length}):`);
   for (const { file, path, msg } of warnings) console.log(`  - ${file}:${path} → ${msg}`);
+  console.log('');
+}
+
+if (unknownMacroCounts.size > 0) {
+  const top = [...unknownMacroCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+  console.log(`Top unknown macros (${unknownMacroCounts.size} distinct):`);
+  for (const [name, n] of top) console.log(`  ${n}\t\\${name}`);
   console.log('');
 }
 

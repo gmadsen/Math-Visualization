@@ -56,6 +56,7 @@
             "The reduction works only for $\\tau$ with $\\Im\\tau>1$"
           ],
           "answer": 1,
+          "hint": "Use $T$ to control $\\Re\\tau$ and $S$ to push $\\Im\\tau$ upward.",
           "explain": "The standard reduction algorithm: (1) translate by $T^n$ to put $\\Re\\tau\\in[-1/2,1/2]$; (2) if $|\\tau|<1$, apply $S$ — this strictly increases $\\Im\\tau$ since $\\Im(S\\tau)=\\Im\\tau/|\\tau|^2>\\Im\\tau$; (3) repeat. The imaginary part is bounded above in each $SL_2(\\mathbb{Z})$-orbit, so the algorithm terminates."
         }
       ]
@@ -159,6 +160,7 @@
             "$E_2$ diverges at the cusp, so no transformation law exists"
           ],
           "answer": 1,
+          "hint": "The defining sum isn't absolutely convergent, so some cocycle term survives.",
           "explain": "$E_2$ transforms with the anomalous correction $-(6ic/\\pi)(c\\tau+d)$. This makes $E_2$ a quasi-modular form. The combination $E_2^*(\\tau)=E_2(\\tau)-3/(\\pi\\Im\\tau)$ is non-holomorphic but transforms correctly; $E_2$ itself is the holomorphic shadow."
         },
         {
@@ -241,6 +243,7 @@
             "All weight-$k$ forms have multiplicative coefficients by definition"
           ],
           "answer": 0,
+          "hint": "The $a_n$ are eigenvalues of $T_n$ acting on a common eigenvector.",
           "explain": "For $\\gcd(m,n)=1$ the Hecke operators satisfy $T_m T_n=T_{mn}$. A newform is a simultaneous eigenfunction: $T_n f=a_n f$. Applying $T_m T_n=T_{mn}$ to $f$ gives $a_m a_n f=a_{mn}f$, so $a_{mn}=a_m a_n$. This is the source of the Euler product for the associated $L$-function."
         }
       ]

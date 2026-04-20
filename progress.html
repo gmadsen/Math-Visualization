@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your progress — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.danger{border-color:color-mix(in srgb, var(--pink) 55%, transparent);color:#f4d2c7}
+  button.danger:hover{background:#2a1a18}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* Progress-specific styles */
+
+  /* Overall totals — three big readout tiles with rings */
+  .totals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:1rem 0}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1.1rem 1.2rem;display:flex;align-items:center;gap:14px}
+  .tile .ring{flex-shrink:0}
+  .tile .tbody{display:flex;flex-direction:column;min-width:0}
+  .tile .tnum{font-size:1.6rem;font-weight:600;color:#fff;line-height:1.1}
+  .tile .tden{color:var(--mute);font-size:0.9rem}
+  .tile .tlbl{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+  .tile.t-total .tnum{color:var(--ink)}
+  .tile.t-v1 .tnum{color:var(--green)}
+  .tile.t-hard .tnum{color:var(--violet)}
+
+  /* Section bars */
+  .sec-table{display:flex;flex-direction:column;gap:10px;margin:1rem 0}
+  .sec-row{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:0.7rem 0.9rem;display:grid;
+    grid-template-columns:minmax(140px,1fr) 2fr auto;gap:12px;align-items:center}
+  .sec-row .sec-name{font-weight:600;color:#fff;font-size:0.95rem}
+  .sec-row .sec-bar{position:relative;height:14px;background:var(--panel2);
+    border:1px solid var(--line);border-radius:999px;overflow:hidden;
+    display:flex}
+  .sec-row .sec-bar .seg-v1{background:var(--green);height:100%}
+  .sec-row .sec-bar .seg-hard{background:var(--violet);height:100%}
+  .sec-row .sec-nums{font-family:ui-monospace,Menlo,monospace;font-size:0.82rem;
+    color:var(--mute);white-space:nowrap;text-align:right;min-width:11em}
+  .sec-row .sec-nums .n-v1{color:var(--green)}
+  .sec-row .sec-nums .n-hard{color:var(--violet)}
+  .sec-row .sec-nums .n-sep{color:var(--mute);opacity:0.55;padding:0 4px}
+  @media (max-width:640px){
+    .sec-row{grid-template-columns:1fr;gap:6px}
+    .sec-row .sec-nums{text-align:left}
+  }
+
+  /* Ready/recent concept list */
+  .next-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:6px}
+  .next-list li{background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:0.55rem 0.8rem;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .next-list .nl-title{font-weight:600;color:#fff;flex:1;min-width:0}
+  .next-list .nl-topic{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;font-family:ui-monospace,Menlo,monospace;flex-shrink:0;white-space:nowrap}
+  .next-list .nl-state{font-size:0.7rem;font-family:ui-monospace,Menlo,monospace;color:var(--cyan);flex-shrink:0}
+  .next-list a{color:inherit;text-decoration:none}
+  .next-list a:hover .nl-title{color:var(--yellow)}
+  .empty{color:var(--mute);font-style:italic;padding:0.6rem 0.2rem}
+
+  /* Ring */
+  .ring svg{width:64px;height:64px;margin:0}
+  .ring .r-bg{fill:none;stroke:var(--line);stroke-width:6}
+  .ring .r-v1{fill:none;stroke:var(--green);stroke-width:6;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 300ms ease}
+  .ring .r-hard{fill:none;stroke:var(--violet);stroke-width:3;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 300ms ease;opacity:0.9}
+  .ring text{fill:var(--ink);font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+<script src="./js/progress.js"></script>
+<script src="./concepts/bundle.js"></script>
+</head>
+<body>
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#totals">1&nbsp;Totals</a>
+  <a href="#by-section">2&nbsp;By&nbsp;section</a>
+  <a href="#next">3&nbsp;What's&nbsp;next</a>
+  <a href="#reset">4&nbsp;Reset</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Your progress</h1>
+  <p class="sub">A snapshot of everything you've mastered so far — by tier, by section, and what's unlocked to learn next. Stats read live from the same <code>MVProgress</code> store that powers quiz ticks and the pathway page.</p>
+</section>
+
+<section id="totals">
+<h2>1. Overall totals</h2>
+<p>Every concept has two independent tiers: <strong class="n-v1" style="color:var(--green)">v1</strong> is the base quiz bank, <strong class="n-hard" style="color:var(--violet)">hard</strong> is the layered harder tier unlocked after v1. Hard mastery implies v1; clearing v1 clears hard.</p>
+
+<div class="widget" id="w-totals">
+  <div class="hd"><div class="ttl">Totals</div><div class="hint">live from localStorage</div></div>
+  <div class="totals-grid" id="totals-grid">
+    <!-- populated by script -->
+  </div>
+  <div class="readout" id="totals-readout">loading…</div>
+</div>
+</section>
+
+<section id="by-section">
+<h2>2. By section</h2>
+<p>Each row spans the concepts in one of the seven index sections. The green segment is v1 mastery; the violet segment is the additional hard-tier layer on top; the muted tail is what's left.</p>
+
+<div class="widget" id="w-sections">
+  <div class="hd"><div class="ttl">Mastery by section</div><div class="hint">v1 · hard · remaining</div></div>
+  <div class="sec-table" id="sec-table">
+    <!-- populated by script -->
+  </div>
+</div>
+</section>
+
+<section id="next">
+<h2>3. What's next</h2>
+<p><code>MVProgress</code> doesn't persist per-quiz timestamps, so "recent activity" isn't recoverable from the store. Instead: concepts currently in the <strong style="color:var(--cyan)">ready</strong> state — all prerequisites mastered, quiz not yet passed. These are your shortest next hops.</p>
+
+<div class="widget" id="w-next">
+  <div class="hd"><div class="ttl">Ready to learn</div><div class="hint">prereqs cleared, quiz pending — up to 10 shown</div></div>
+  <ol class="next-list" id="next-list">
+    <!-- populated by script -->
+  </ol>
+</div>
+</section>
+
+<section id="reset">
+<h2>4. Reset progress</h2>
+<p>Wipes every v1 and hard mastery across all concepts. This only touches <code>localStorage</code> in your browser — nothing leaves the page. There is no undo.</p>
+
+<div class="widget" id="w-reset">
+  <div class="hd"><div class="ttl">Danger zone</div><div class="hint">confirms before wiping</div></div>
+  <div class="row">
+    <button id="btn-reset" class="danger">Reset all progress</button>
+    <span class="small" id="reset-status"></span>
+  </div>
+</div>
+</section>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</main>
+
+<script>
+(function(){
+  const $ = (s,r=document)=>r.querySelector(s);
+  const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+  const SVG = (tag,attrs={})=>{
+    const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+    for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+    return e;
+  };
+
+  // --------------------------------------------------------------------
+  // Section map — which index section each topic belongs to.
+  // Derived from the 7 section headers in index.html (2026-04-20).
+  // --------------------------------------------------------------------
+  const SECTIONS = [
+    { name: 'Foundations', topics: ['naive-set-theory'] },
+    { name: 'Algebra', topics: [
+      'algebra','category-theory','representation-theory','commutative-algebra','homological'
+    ] },
+    { name: 'Analysis', topics: [
+      'real-analysis','measure-theory','complex-analysis','functional-analysis','operator-algebras'
+    ] },
+    { name: 'Geometry & topology', topics: [
+      'point-set-topology','algebraic-topology','smooth-manifolds','differential-forms',
+      'differential-geometry','riemannian-geometry','lie-groups','riemann-surfaces'
+    ] },
+    { name: 'Number theory', topics: [
+      'galois','quadratic-reciprocity','quadratic-forms-genus-theory','sums-of-squares',
+      'power-sums-bernoulli','waring','algebraic-number-theory','p-adic-numbers',
+      'adeles-and-ideles','frobenius-and-reciprocity','class-field-theory'
+    ] },
+    { name: 'Modular forms & L-functions', topics: [
+      'upper-half-plane-hyperbolic','modular-forms','theta-functions',
+      'partitions-generating-functions','hecke-operators','dirichlet-series-euler-products',
+      'analytic-continuation','zeta-values','L-functions','galois-representations','moonshine'
+    ] },
+    { name: 'Algebraic geometry', topics: [
+      'projective-plane','bezout','schemes','sheaves','morphisms-fiber-products',
+      'functor-of-points','elliptic-curves','singular-cubics-reduction','moduli-spaces',
+      'sheaf-cohomology','stacks','sato-tate','bsd','modularity-and-flt','etale-cohomology'
+    ] },
+  ];
+  // Precompute topic → section
+  const TOPIC_SECTION = new Map();
+  for(const s of SECTIONS){
+    for(const t of s.topics) TOPIC_SECTION.set(t, s.name);
+  }
+
+  // --------------------------------------------------------------------
+  // Load concept graph. Prefer bundle (file:// works); fall back to empty.
+  // --------------------------------------------------------------------
+  const MVC = window.__MVConcepts || null;
+  const totalsReadout = $('#totals-readout');
+
+  if(!MVC || !MVC.topics){
+    totalsReadout.textContent =
+      'Could not load concepts/bundle.js.\nRun `node scripts/build-concepts-bundle.mjs` and reload.';
+    return;
+  }
+
+  // Flatten all concepts across all topics into a list carrying topic + section.
+  // Each entry: { id, title, anchor, prereqs, blurb, topic, topicTitle, page, section }
+  const ALL = [];
+  const CONCEPT_BY_ID = new Map();
+  for(const topicKey of Object.keys(MVC.topics)){
+    const t = MVC.topics[topicKey];
+    const section = TOPIC_SECTION.get(topicKey) || 'Other';
+    for(const c of (t.concepts || [])){
+      const entry = {
+        id: c.id,
+        title: c.title,
+        anchor: c.anchor,
+        prereqs: Array.isArray(c.prereqs) ? c.prereqs.slice() : [],
+        blurb: c.blurb || '',
+        topic: topicKey,
+        topicTitle: t.title || topicKey,
+        page: t.page || (topicKey + '.html'),
+        section
+      };
+      ALL.push(entry);
+      CONCEPT_BY_ID.set(c.id, entry);
+    }
+  }
+
+  // --------------------------------------------------------------------
+  // Walk mastery state for every concept.
+  // --------------------------------------------------------------------
+  function computeStats(){
+    let v1 = 0, hard = 0;
+    const bySection = new Map();
+    for(const s of SECTIONS) bySection.set(s.name, { total: 0, v1: 0, hard: 0 });
+    for(const c of ALL){
+      const m = bySection.get(c.section);
+      if(m) m.total++;
+      const v1m = MVProgress.isMastered(c.id, 'v1');
+      const hm  = MVProgress.isMastered(c.id, 'hard');
+      if(v1m){ v1++; if(m) m.v1++; }
+      if(hm) { hard++; if(m) m.hard++; }
+    }
+    return { total: ALL.length, v1, hard, bySection };
+  }
+
+  // --------------------------------------------------------------------
+  // Ring widget: concentric arcs for v1 (inner) and hard (outer).
+  // --------------------------------------------------------------------
+  function makeRing(v1frac, hardFrac, label){
+    // Two arcs: outer r=28 (hard), inner r=22 (v1).
+    const svg = SVG('svg',{viewBox:'0 0 64 64'});
+    // backgrounds
+    svg.appendChild(SVG('circle',{cx:32,cy:32,r:22,class:'r-bg'}));
+    // v1 arc
+    const cV1 = 2*Math.PI*22;
+    const v1 = SVG('circle',{cx:32,cy:32,r:22,class:'r-v1',
+      'stroke-dasharray':cV1, 'stroke-dashoffset': cV1*(1-v1frac)});
+    svg.appendChild(v1);
+    // hard arc
+    const cHard = 2*Math.PI*28;
+    svg.appendChild(SVG('circle',{cx:32,cy:32,r:28,class:'r-bg','stroke-width':3}));
+    const hard = SVG('circle',{cx:32,cy:32,r:28,class:'r-hard',
+      'stroke-dasharray':cHard, 'stroke-dashoffset': cHard*(1-hardFrac)});
+    svg.appendChild(hard);
+    // label
+    const t = SVG('text',{x:32,y:32});
+    t.textContent = label;
+    svg.appendChild(t);
+    const wrap = document.createElement('div');
+    wrap.className = 'ring';
+    wrap.appendChild(svg);
+    return wrap;
+  }
+
+  // --------------------------------------------------------------------
+  // Render — called on load and again after reset.
+  // --------------------------------------------------------------------
+  function render(){
+    const st = computeStats();
+    const pct = (n,d)=> d===0 ? 0 : Math.round(100*n/d);
+
+    // 1. Totals tiles
+    const tgrid = $('#totals-grid');
+    tgrid.innerHTML = '';
+    const tiles = [
+      { cls:'t-total', label:'Concepts',      num: st.total, den: null,     ring:[1,0], ringLabel: String(st.total) },
+      { cls:'t-v1',    label:'v1 mastered',   num: st.v1,    den: st.total, ring:[st.v1/Math.max(1,st.total), 0], ringLabel: pct(st.v1,st.total)+'%' },
+      { cls:'t-hard',  label:'Hard mastered', num: st.hard,  den: st.total, ring:[st.v1/Math.max(1,st.total), st.hard/Math.max(1,st.total)], ringLabel: pct(st.hard,st.total)+'%' },
+    ];
+    for(const t of tiles){
+      const tile = document.createElement('div');
+      tile.className = 'tile ' + t.cls;
+      tile.appendChild(makeRing(t.ring[0], t.ring[1], t.ringLabel));
+      const body = document.createElement('div');
+      body.className = 'tbody';
+      const lbl = document.createElement('div');
+      lbl.className = 'tlbl';
+      lbl.textContent = t.label;
+      body.appendChild(lbl);
+      const num = document.createElement('div');
+      num.className = 'tnum';
+      num.textContent = t.num;
+      if(t.den !== null){
+        const den = document.createElement('span');
+        den.className = 'tden';
+        den.textContent = ' / ' + t.den;
+        num.appendChild(den);
+      }
+      body.appendChild(num);
+      tile.appendChild(body);
+      tgrid.appendChild(tile);
+    }
+
+    $('#totals-readout').textContent =
+      `${st.v1}/${st.total} v1 (${pct(st.v1,st.total)}%)  ·  ` +
+      `${st.hard}/${st.total} hard (${pct(st.hard,st.total)}%)  ·  ` +
+      `${st.total - st.v1} remaining`;
+
+    // 2. Section rows
+    const tbl = $('#sec-table');
+    tbl.innerHTML = '';
+    for(const s of SECTIONS){
+      const m = st.bySection.get(s.name) || { total:0, v1:0, hard:0 };
+      const row = document.createElement('div');
+      row.className = 'sec-row';
+
+      const name = document.createElement('div');
+      name.className = 'sec-name';
+      name.textContent = s.name;
+      row.appendChild(name);
+
+      const bar = document.createElement('div');
+      bar.className = 'sec-bar';
+      // v1 fraction occupies the full v1/total portion; hard is a sub-portion.
+      // Layout: green (v1 minus hard), then violet (hard), then muted remainder.
+      // The green+violet concatenation visually covers the full v1 width.
+      const v1Only = Math.max(0, m.v1 - m.hard);
+      const widthV1 = m.total === 0 ? 0 : (v1Only / m.total) * 100;
+      const widthHard = m.total === 0 ? 0 : (m.hard / m.total) * 100;
+      if(widthV1 > 0){
+        const seg = document.createElement('div');
+        seg.className = 'seg-v1';
+        seg.style.width = widthV1 + '%';
+        bar.appendChild(seg);
+      }
+      if(widthHard > 0){
+        const seg = document.createElement('div');
+        seg.className = 'seg-hard';
+        seg.style.width = widthHard + '%';
+        bar.appendChild(seg);
+      }
+      row.appendChild(bar);
+
+      const nums = document.createElement('div');
+      nums.className = 'sec-nums';
+      nums.innerHTML =
+        `<span class="n-v1">${m.v1}/${m.total} v1</span>` +
+        `<span class="n-sep">·</span>` +
+        `<span class="n-hard">${m.hard}/${m.total} hard</span>`;
+      row.appendChild(nums);
+
+      tbl.appendChild(row);
+    }
+
+    // 3. Ready list — up to 10 concepts whose state is 'ready'.
+    const readyList = [];
+    for(const c of ALL){
+      if(MVProgress.isMastered(c.id, 'v1')) continue;
+      // ready iff every prereq is v1-mastered (and concept has prereqs OR no prereqs)
+      let ready = true;
+      for(const p of c.prereqs){
+        if(!MVProgress.isMastered(p, 'v1')){ ready = false; break; }
+      }
+      if(ready) readyList.push(c);
+    }
+    // Sort: prereq-count ascending (shortest leafs first), then topic order, then title.
+    readyList.sort((a,b)=>{
+      if(a.prereqs.length !== b.prereqs.length) return a.prereqs.length - b.prereqs.length;
+      if(a.topic !== b.topic) return a.topic.localeCompare(b.topic);
+      return a.title.localeCompare(b.title);
+    });
+    const ol = $('#next-list');
+    ol.innerHTML = '';
+    if(readyList.length === 0){
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'Nothing unlocked yet — open any root concept from the index to get started.';
+      ol.appendChild(li);
+    } else {
+      for(const c of readyList.slice(0, 10)){
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = './' + c.page + '#' + (c.anchor || '');
+        const title = document.createElement('span');
+        title.className = 'nl-title';
+        title.textContent = c.title;
+        a.appendChild(title);
+        const topic = document.createElement('span');
+        topic.className = 'nl-topic';
+        topic.textContent = c.topicTitle;
+        a.appendChild(topic);
+        const state = document.createElement('span');
+        state.className = 'nl-state';
+        state.textContent = 'ready';
+        a.appendChild(state);
+        li.appendChild(a);
+        ol.appendChild(li);
+      }
+    }
+  }
+
+  render();
+
+  // --------------------------------------------------------------------
+  // Reset button — confirm, then MVProgress.clearAll() and re-render.
+  // --------------------------------------------------------------------
+  const btn = $('#btn-reset');
+  const status = $('#reset-status');
+  btn.addEventListener('click', ()=>{
+    const ok = window.confirm(
+      'Reset all progress?\n\nThis wipes every v1 and hard mastery tick across all concepts. ' +
+      'There is no undo.'
+    );
+    if(!ok){ status.textContent = 'cancelled.'; return; }
+    MVProgress.clearAll();
+    status.textContent = 'progress cleared.';
+    render();
+  });
+
+  // --------------------------------------------------------------------
+  // Sidetoc population — mirrors the pattern used across topic pages.
+  // --------------------------------------------------------------------
+  (function populateSidetoc(){
+    const aside = $('aside.sidetoc');
+    if(!aside) return;
+    const sections = $$('main > section[id]');
+    if(sections.length === 0) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    for(const s of sections){
+      const h = s.querySelector('h1, h2');
+      if(!h) continue;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#' + s.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      ol.appendChild(li);
+    }
+    aside.appendChild(ol);
+    // Active-section highlighting on scroll
+    const links = $$('a', aside);
+    function update(){
+      let active = null;
+      for(const s of sections){
+        const rect = s.getBoundingClientRect();
+        if(rect.top < window.innerHeight * 0.35) active = s.id;
+      }
+      for(const a of links){
+        if(active && a.getAttribute('href') === '#' + active) a.classList.add('active');
+        else a.classList.remove('active');
+      }
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+})();
+</script>
+
+</body>
+</html>

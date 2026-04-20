@@ -105,6 +105,7 @@
             "$f(x)=x\\sin(1/x)$ extended by $f(0)=0$"
           ],
           "answer": 1,
+          "hint": "You need a function whose \"spikes\" shrink as denominators grow.",
           "explain": "Thomae's function is continuous at every irrational (the set $\\{x : f(x)\\ge 1/n\\}$ is finite for each $n$, so rationals with large $q$ are 'sparse near any irrational') and discontinuous at every rational (every neighborhood of $p/q$ contains irrationals where $f=0\\ne 1/q$). This shows discontinuity sets need not be closed."
         },
         {
@@ -327,6 +328,7 @@
             "$f(x,y)=|x|+|y|$ at the origin"
           ],
           "answer": 1,
+          "hint": "Straight lines see zero; try a parabolic path into the origin instead.",
           "explain": "Along any ray $(t\\cos\\theta, t\\sin\\theta)$, the function $f$ tends to $0$ as $t\\to 0$, so all directional derivatives exist and equal $0$. But along the parabolic curve $y=x^2$, $f(x,x^2)=1/2\\not\\to 0$. Thus $f$ is not continuous (let alone differentiable) at the origin."
         },
         {
@@ -380,6 +382,7 @@
             "$f(x,y)=\\sin(xy)$ on $[0,1]^2$"
           ],
           "answer": 1,
+          "hint": "Look for an integrand where $\\iint|f|$ diverges near the origin.",
           "explain": "Fubini requires $\\iint|f|<\\infty$. For $f=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ the double integral of $|f|$ diverges, so Tonelli's condition fails and the two iterated integrals differ by a sign, giving $\\pi/4$ vs $-\\pi/4$."
         },
         {

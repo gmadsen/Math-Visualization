@@ -107,12 +107,51 @@
     .mastery{font-size:0.66rem;padding:1px 6px}
     .mrow{gap:6px}
   }
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
+     The #recently-updated container is hidden by default and only revealed once the
+     script successfully fetches and parses at least one topic's changelog footer.
+     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  #recently-updated{display:none;margin:0 0 0.4rem}
+  #recently-updated.ready{display:block}
+  #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line);
+    font-weight:400}
+  .ru-strip{display:flex;flex-direction:column;gap:8px}
+  .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:0.55rem 0.8rem;display:flex;align-items:center;gap:12px;
+    text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .ru-card:hover{transform:translateY(-1px);background:var(--panel2)}
+  .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
+    min-width:6.2em}
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;font-family:ui-monospace,Menlo,monospace;flex-shrink:0;
+    overflow:hidden;text-overflow:ellipsis;max-width:14em;white-space:nowrap}
+  .ru-card.y .ru-title{color:var(--yellow)} .ru-card.y:hover{border-color:var(--yellow)}
+  .ru-card.b .ru-title{color:var(--blue)}   .ru-card.b:hover{border-color:var(--blue)}
+  .ru-card.g .ru-title{color:var(--green)}  .ru-card.g:hover{border-color:var(--green)}
+  .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
+  .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
+  .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  @media (max-width:520px){
+    .ru-card{padding:0.5rem 0.65rem;gap:8px}
+    .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
+    .ru-card .ru-title{font-size:0.88rem}
+    .ru-card .ru-tag{display:none}
+  }
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
     border-top:1px solid var(--line);padding-top:1.4rem}
 </style>
 </head>
 <body>
 <main>
+  <div style="text-align:right;font-size:0.88rem;margin:-0.8rem 0 0.4rem">
+    <a href="./progress.html" style="color:var(--mute);text-decoration:none">Your progress →</a>
+  </div>
   <section class="hero">
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples.</p>
@@ -126,6 +165,11 @@
     </div>
     <div class="pb-arrow">→</div>
   </a>
+
+  <section id="recently-updated" aria-label="Recently updated topics">
+    <h2 class="ru-head">Recently updated</h2>
+    <div class="ru-strip"></div>
+  </section>
 
   <div class="sec">Foundations</div>
   <div class="grid">
@@ -1495,6 +1539,122 @@
         body.appendChild(chip);
       }
     }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<script>
+// "Recently updated" strip.
+// For each topic card on this page, fetches the topic HTML and scrapes the latest
+// date from its <details class="changelog"> footer. Sorts descending, renders the
+// top N as compact cards into #recently-updated .ru-strip, then reveals the
+// section via the .ready class.
+//
+// Gracefully degrades under file://: fetch() of a sibling HTML file is blocked
+// by most browsers, so the whole feature is suppressed and the strip stays
+// hidden. Network errors and missing changelogs are ignored per-topic; as long
+// as at least one topic resolves, the strip renders.
+(function(){
+  var MAX_CARDS = 7;
+  var DATE_RE_G = /<tr>\s*<td>\s*(\d{4}-\d{2}-\d{2})\s*<\/td>\s*<td>([^<]*)<\/td>\s*<\/tr>/gi;
+  var CHANGELOG_RE = /<details\s+class=["']changelog["'][\s\S]*?<\/details>/i;
+
+  function init(){
+    // Under file:// the browser refuses cross-file fetch(). Bail quietly.
+    if(location.protocol === 'file:') return;
+
+    var container = document.getElementById('recently-updated');
+    if(!container) return;
+    var strip = container.querySelector('.ru-strip');
+    if(!strip) return;
+
+    // Collect topic cards on the main grid (skip section-links block and coming-soon).
+    var cards = document.querySelectorAll('main > .grid > a.card[href]');
+    var jobs = [];
+    for(var i=0;i<cards.length;i++){
+      var card = cards[i];
+      if(card.classList.contains('coming')) continue;
+      var href = card.getAttribute('href') || '';
+      if(!/^\.\/[^\/?#]+\.html/.test(href)) continue;
+      // Preserve card metadata we need for rendering.
+      var colorCls = '';
+      var clsList = card.classList;
+      for(var k=0;k<clsList.length;k++){
+        if(['y','b','g','p','v','c'].indexOf(clsList[k]) !== -1){ colorCls = clsList[k]; break; }
+      }
+      var ttEl = card.querySelector('.tt');
+      // Strip any level badge text from the title.
+      var title = '';
+      if(ttEl){
+        var clone = ttEl.cloneNode(true);
+        var badges = clone.querySelectorAll('.level');
+        for(var b=0;b<badges.length;b++) badges[b].remove();
+        title = (clone.textContent || '').trim();
+      }
+      var tagEl = card.querySelector('.tag');
+      var tag = tagEl ? (tagEl.textContent || '').trim() : '';
+      jobs.push({ href: href, title: title, tag: tag, color: colorCls });
+    }
+    if(!jobs.length) return;
+
+    Promise.all(jobs.map(function(j){
+      return fetch(j.href, { credentials: 'omit' }).then(function(res){
+        if(!res.ok) return null;
+        return res.text();
+      }).then(function(html){
+        if(!html) return null;
+        var m = CHANGELOG_RE.exec(html);
+        if(!m) return null;
+        var dates = [], message = '';
+        var block = m[0], row;
+        DATE_RE_G.lastIndex = 0;
+        while((row = DATE_RE_G.exec(block)) !== null){
+          dates.push(row[1]);
+          if(!message) message = (row[2] || '').trim();
+          if(dates.length >= 5) break;
+        }
+        if(!dates.length) return null;
+        return { href: j.href, title: j.title, tag: j.tag, color: j.color,
+                 date: dates[0], dates: dates, message: message };
+      }).catch(function(){ return null; });
+    })).then(function(results){
+      var hits = results.filter(function(r){ return r && r.date; });
+      if(!hits.length) return;
+      hits.sort(function(a, b){
+        // Compare top-N dates lexicographically, desc. Pages tied on most-recent
+        // date but with an earlier second-most-recent commit sort lower, so "very
+        // active" pages bubble up. Final tiebreak: title asc for stable output.
+        var n = Math.max(a.dates.length, b.dates.length);
+        for(var k=0;k<n;k++){
+          var da = a.dates[k] || '', db = b.dates[k] || '';
+          if(da !== db) return da < db ? 1 : -1;
+        }
+        return a.title < b.title ? -1 : 1;
+      });
+      var top = hits.slice(0, MAX_CARDS);
+      for(var i=0;i<top.length;i++){
+        var r = top[i];
+        var a = document.createElement('a');
+        a.className = 'ru-card' + (r.color ? ' ' + r.color : '');
+        a.href = r.href;
+        a.title = r.message ? (r.date + ' — ' + r.message) : r.date;
+        var date = document.createElement('span');
+        date.className = 'ru-date';
+        date.textContent = r.date;
+        var title = document.createElement('span');
+        title.className = 'ru-title';
+        title.textContent = r.title;
+        var tag = document.createElement('span');
+        tag.className = 'ru-tag';
+        tag.textContent = r.tag;
+        a.appendChild(date);
+        a.appendChild(title);
+        if(r.tag) a.appendChild(tag);
+        strip.appendChild(a);
+      }
+      container.classList.add('ready');
+    }).catch(function(){ /* swallow: keep strip hidden */ });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

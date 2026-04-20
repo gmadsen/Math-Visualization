@@ -213,7 +213,8 @@
       "anchor": "conf",
       "prereqs": [
         "analyticity",
-        "uniform-convergence"
+        "uniform-convergence",
+        "compactness"
       ],
       "blurb": "Locally bounded \u21d2 normal; compactness in the space of holomorphic functions."
     },

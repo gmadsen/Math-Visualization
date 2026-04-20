@@ -55,7 +55,7 @@ When parallelizing: every agent spawned to draft or edit a page must read `categ
 
 Recurring gotchas collected from real fan-outs. Skim this list before editing; revisit after a test failure. Each item has a section below that goes deeper, but this is the pre-flight checklist.
 
-- **Two-tier quiz schema** — each concept entry in `quizzes/<topic>.json` carries a `questions` array (v1 tier) and may carry a `hard` sibling array. `MVProgress` tracks `v1` and `hard` independently; `js/quiz.js` unlocks the hard tier after v1 mastery. When authoring a hard-tier bank, drop it under the same concept key, not a separate file.
+- **Three-tier quiz schema** — each concept entry in `quizzes/<topic>.json` carries a `questions` array (v1 tier) and may carry a `hard` sibling array and/or an `expert` sibling array. `MVProgress` tracks `v1`, `hard`, and `expert` independently; `js/quiz.js` unlocks `hard` after v1 mastery and `expert` after hard mastery. When authoring any higher-tier bank, drop it under the same concept key, not a separate file.
 - **Anchor contract (silent 404)** — every `concepts/<topic>.json` concept's `anchor` must match an `id="…"` on the corresponding `<section>` in the topic HTML. Mismatches don't throw; the deep-link just doesn't jump. `scripts/smoke-test.mjs` refuses to exit 0 if any anchor drifts.
 - **Quiz bundle order** — after editing `quizzes/*.json` or `concepts/*.json`, **always** run both `node scripts/build-quizzes-bundle.mjs` and `node scripts/build-concepts-bundle.mjs`. Browsers block `fetch()` of local JSON over `file://` (the double-click flow); without a fresh bundle, double-click opens "could not load" silently and pathway state desyncs.
 - **Callback idempotency** — `scripts/audit-callbacks.mjs --fix` inserts `<aside class="callback">` blocks bounded by `<!-- callback-auto-begin -->` / `<!-- callback-auto-end -->` fences. Re-run the script after editing any `prereqs`; it strips and re-inserts so duplicate asides never accumulate. Same fence trick for `scripts/insert-used-in-backlinks.mjs` (`aside.related`, `backlinks-auto-*` fences) and `scripts/insert-changelog-footer.mjs` (`<details class="changelog">`).
@@ -162,7 +162,7 @@ Every new topic page should ship with quizzes for its concepts.
    <div class="quiz" data-concept="<concept-id>"></div>
    ```
    The `data-concept` must match an `id` in `concepts/<topic>.json`.
-3. **Quiz bank** — `quizzes/<topic>.json`. Each concept entry carries a **v1 tier** (`questions`, required) and an optional **hard tier** (`hard`, unlocked only after v1 is mastered):
+3. **Quiz bank** — `quizzes/<topic>.json`. Each concept entry carries a **v1 tier** (`questions`, required), an optional **hard tier** (`hard`, unlocked after v1 is mastered), and an optional **expert tier** (`expert`, unlocked after hard is mastered):
    ```json
    {
      "topic": "<topic-id>",
@@ -170,42 +170,59 @@ Every new topic page should ship with quizzes for its concepts.
        "<concept-id>": {
          "title": "Readable title",
          "questions": [
-           { "type": "mcq",     "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "...", "hint": "optional short nudge" },
-           { "type": "numeric", "q": "...", "answer": 5,     "tol": 1e-6,  "explain": "..." },
-           { "type": "complex", "q": "...", "answer": [3,1], "tol": 1e-3,  "explain": "..." }
+           { "type": "mcq",          "q": "...", "choices": ["a","b","c"], "answer": 1, "explain": "...", "hint": "optional short nudge" },
+           { "type": "numeric",      "q": "...", "answer": 5,     "tol": 1e-6,  "explain": "..." },
+           { "type": "complex",      "q": "...", "answer": [3,1], "tol": 1e-3,  "explain": "..." },
+           { "type": "multi-select", "q": "Select all abelian groups.", "choices": ["$\\mathbb{Z}$","$S_3$","$\\mathbb{Z}/4$"], "answer": [0,2], "explain": "..." },
+           { "type": "ordering",     "q": "Arrange the proof steps.",    "items": ["step A","step B","step C"],               "answer": [1,0,2], "explain": "..." }
          ],
          "hard": [
            { "type": "mcq", "q": "...", "choices": [...], "answer": 2, "explain": "..." }
+         ],
+         "expert": [
+           { "type": "mcq", "q": "...", "choices": [...], "answer": 0, "explain": "..." }
          ]
        }
      }
    }
    ```
-   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**.
+   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**. The `expert` array is optional on top of `hard`; when present, aim for 2–3 questions that synthesize across multiple concepts or reach for the deepest non-obvious consequences — reserve this tier for the hardest problems.
+
+   **Question types**:
+   - `mcq` — single-correct multiple choice.
+   - `numeric` — scalar answer within absolute tolerance `tol`.
+   - `complex` — answer `[re, im]` within absolute tolerance `tol` on each component.
+   - `multi-select` — checkboxes; `answer` is the array of correct indices. Graded as a set (order-insensitive). Wrong-answer feedback distinguishes "too few", "too many", and "partially wrong".
+   - `ordering` — learner reorders `items` via ↑ / ↓ buttons on each row (click-to-promote; works on touch without drag-and-drop flakiness). `answer` is the correct permutation of indices (e.g. `[1,0,2]` means the item at original position 1 should come first). Wrong-answer feedback reports how many items are out of place without revealing which.
 
    **Optional `hint` field** (per question, any type): a short nudge the learner can reveal via the `?` button rendered next to the question. If `hint` is absent, the quiz widget falls back to the first sentence of `explain` (when that is a usable sentence of ≥ 20 chars). Revealing a hint does not affect mastery — it's purely a pedagogical aid.
 
-   **Schema compatibility**: banks without a `hard` key keep behaving as before — nothing changes in the UI except the badge text.
-4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at two tiers per concept: `'v1'` and `'hard'`.
+   **Schema compatibility**: banks without `hard` or `expert` keys keep behaving as before — nothing changes in the UI except the badge text.
+
+   **"Next up" panel**: after v1 mastery on a concept, the quiz widget renders a small "Next up" block listing up to 3 concepts that just became `ready` (their prereqs include the just-mastered concept and all other prereqs are also v1-mastered). Computed via `window.__MVConcepts` (from `concepts/bundle.js`); skipped silently on pages that don't load the bundle.
+4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at three tiers per concept: `'v1'`, `'hard'`, and `'expert'`.
 
    ```js
-   MVProgress.setMastered(conceptId, tier, value)   // tier ∈ {'v1','hard'}
+   MVProgress.setMastered(conceptId, tier, value)   // tier ∈ {'v1','hard','expert'}
    MVProgress.setMastered(conceptId, value)         // legacy 2-arg form; tier defaults to 'v1'
    MVProgress.isMastered(conceptId)                 // true ⇔ v1 mastered
    MVProgress.isMastered(conceptId, 'hard')         // true ⇔ hard mastered
+   MVProgress.isMastered(conceptId, 'expert')       // true ⇔ expert mastered
    MVProgress.stateOf(conceptId, conceptsMap)
-     // → { state: 'locked'|'ready'|'mastered', v1: bool, hard: bool }
+     // → { state: 'locked'|'ready'|'mastered', v1: bool, hard: bool, expert: bool }
    MVProgress.clearAll()                            // wipe storage
    ```
 
    Rules the store enforces:
-   - Setting `v1 = false` also clears `hard` (can't have hard without v1).
+   - Setting `v1 = false` also clears `hard` and `expert` (can't have higher tiers without v1).
+   - Setting `hard = false` also clears `expert` (can't have expert without hard).
    - Setting `hard = true` implies `v1 = true`.
-   - Only v1 mastery gates downstream concepts in `pathway.html` (locked/ready/mastered). Hard mastery is a separate visual ring — it doesn't unlock anything else.
+   - Setting `expert = true` implies `hard = true` and `v1 = true`.
+   - Only v1 mastery gates downstream concepts in `pathway.html` (locked/ready/mastered). Hard and expert mastery are separate visual rings — they don't unlock anything else.
 
-   **Storage migration**: legacy entries (bare booleans or the old `{at: ts}` form) are coerced transparently on first read to `{v1: true, hard: false}`; no user action needed. The storage key (`mvnb.progress.v1`) is unchanged.
+   **Storage migration**: legacy entries (bare booleans, the old `{at: ts}` form, or the two-tier `{v1, hard}` form) are coerced transparently on first read; missing fields default to `false`. The storage key (`mvnb.progress.v1`) is unchanged.
 
-   On v1 all-correct, the quiz widget calls `setMastered(conceptId, 'v1', true)` and exposes a "Harder tier unlocked" button if the bank has a `hard` array. Clicking it renders the hard tier; on all-correct there, the widget calls `setMastered(conceptId, 'hard', true)`. `pathway.html` draws two rings per node: an inner green ring for v1 mastery and an outer violet ring for hard-tier mastery.
+   On v1 all-correct, the quiz widget calls `setMastered(conceptId, 'v1', true)` and exposes a "Harder tier unlocked" button if the bank has a `hard` array. Clicking it renders the hard tier; on all-correct there, the widget calls `setMastered(conceptId, 'hard', true)` and surfaces an "Expert tier unlocked" button if the bank has an `expert` array. On expert all-correct, the widget calls `setMastered(conceptId, 'expert', true)`. `pathway.html` currently draws two rings per node — an inner green ring for v1 mastery and an outer violet ring for hard-tier mastery; the expert tier is tracked in storage and readable via `isMastered(id, 'expert')` but not yet visualized on the pathway.
 
 ## Concept graph
 
@@ -260,11 +277,11 @@ Skipping any of these is a silent break — quizzes appear but do nothing, or th
 
 ## Registering a new page
 
-Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 3–4 and step 7 below (creates the stub topic HTML, `concepts/<slug>.json`, `quizzes/<slug>.json`, and registers the slug in `concepts/index.json` under the given section). Steps 1–2 (index card, README bullet) and step 5 (capstones) remain manual.
+Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 1, 3–4, and step 7 below (creates the stub topic HTML, `concepts/<slug>.json`, `quizzes/<slug>.json`, registers the slug in `concepts/index.json` under the given section, and inserts a placeholder `<a class="card">` block into the matching section of `index.html`). Step 2 (README bullet) and step 5 (capstones) remain manual.
 
 When you publish `new-topic.html`:
 
-1. Add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`). Put it under the appropriate section header from the 7-section list above.
+1. **Handled by `scripts/new-topic.mjs` automatically** — the scaffolder inserts an `<a class="card">` draft into the right section of [`index.html`](./index.html) using a neighbor-matching shape (colored thumb SVG placeholder, `.tt`, `.desc`, `.tag`). Drop it in as a placeholder and refine the copy and thumb motif later. **Manual fallback** (if the scaffolder skipped with a warning, or you want to hand-tune): add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`). Put it under the appropriate section header from the 7-section list above. The scaffolder is idempotent and will refuse to duplicate an existing card.
 2. Add a bullet to [`README.md`](./README.md) under the matching `###` section.
 3. Create `concepts/new-topic.json` and register it in `concepts/index.json`.
 4. Create `quizzes/new-topic.json` with one quiz per concept id.

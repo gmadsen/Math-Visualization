@@ -112,6 +112,7 @@
             "Associativity of polynomial multiplication in $k[x,y]$"
           ],
           "answer": 1,
+          "hint": "Transport the group structure from a place where associativity is obvious.",
           "explain": "One identifies $E$ with $\\operatorname{Pic}^0(E)$ via $P\\mapsto[P]-[O]$; since $\\operatorname{Pic}^0$ is a group by construction, associativity is automatic and one avoids all coordinate computation."
         },
         {
@@ -181,6 +182,7 @@
             "Isomorphic iff both have the same rank"
           ],
           "answer": 1,
+          "hint": "Find the scalar $u$ needed to match coefficients, then check if it lives in $\\mathbb{Q}$.",
           "explain": "Same $j$ over $\\bar k$ means isomorphic over $\\bar k$, but the twist parameter $u^4 a'=a$ requires $u^4=4$, so $u=\\sqrt{2}\\notin\\mathbb{Q}$. They are $\\mathbb{Q}(\\sqrt{2})$-twists of each other, not isomorphic over $\\mathbb{Q}$."
         },
         {
@@ -341,6 +343,7 @@
             "The Mayer\u2013Vietoris sequence for $E$ decomposed into two affine patches"
           ],
           "answer": 1,
+          "hint": "You need a sequence that turns $E(K)/nE(K)$ into something cohomological.",
           "explain": "Applying Galois cohomology to $0\\to E[n]\\to E\\xrightarrow{[n]}E\\to 0$ gives the Kummer map $E(K)/nE(K)\\hookrightarrow H^1(G_K,E[n])$. Since $E[n]$ is defined over a finite extension and the cocycles satisfy local conditions, the image (the Selmer group) is finite, proving $E(K)/nE(K)$ is finite."
         }
       ]

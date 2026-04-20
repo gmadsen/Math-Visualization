@@ -116,6 +116,7 @@
             "Infinite-dimensional spaces have no dual"
           ],
           "answer": 1,
+          "hint": "What direction does $(-)^*$ send a linear map $f\\colon V\\to W$?",
           "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
         },
         {
@@ -197,6 +198,7 @@
             "It is the inclusion $G\\hookrightarrow FU(G)$"
           ],
           "answer": 1,
+          "hint": "Apply the universal property of the free group to the identity function on $U(G)$.",
           "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ — i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
         },
         {
@@ -266,6 +268,7 @@
             "The inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$ reflects all limits"
           ],
           "answer": 0,
+          "hint": "Which direction (limits vs colimits) does a LEFT adjoint preserve?",
           "explain": "Left adjoints preserve colimits but need not preserve — or reflect — limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
         },
         {

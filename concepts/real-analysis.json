@@ -14,7 +14,7 @@
       "id": "real-continuity",
       "title": "Continuity on R",
       "anchor": "real-continuity",
-      "prereqs": ["real-numbers"],
+      "prereqs": ["real-numbers", "compactness"],
       "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals."
     },
     {

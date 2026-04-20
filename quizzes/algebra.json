@@ -53,6 +53,7 @@
           "q": "Let $G$ be a group of order $35$. By Lagrange's theorem, every element's order divides $|G|=35$. If no element has order $35$, the possible nontrivial orders are $5$ and $7$. How many elements of order $5$ must exist if there is exactly one subgroup of order $7$?",
           "answer": 28,
           "tol": 1e-9,
+          "hint": "Count which elements are used up by the order-$7$ subgroup; the rest must have order $5$.",
           "explain": "The unique subgroup of order $7$ contributes $6$ elements of order $7$ plus the identity. The remaining $35-7=28$ non-identity elements all have order $5$ (since their order must divide $35$ and cannot be $7$ or $35$). So there are $28$ elements of order $5$."
         },
         {
@@ -66,6 +67,20 @@
           ],
           "answer": 1,
           "explain": "$\\mathbb{Z}$ is a subring of the field $\\mathbb{Q}$ but fails to be a field because, for instance, $2\\in\\mathbb{Z}$ has no multiplicative inverse in $\\mathbb{Z}$. The other options either involve two fields or are not counterexamples."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select <em>all</em> of the following groups that are abelian.",
+          "choices": [
+            "$(\\mathbb{Z}/6\\mathbb{Z},+)$",
+            "$S_3$, the symmetric group on $3$ letters",
+            "$(\\mathbb{Z}/4\\mathbb{Z})^{\\times}$, the unit group mod $4$",
+            "$D_4$, the dihedral group of order $8$",
+            "$GL_2(\\mathbb{R})$, $2\\!\\times\\!2$ invertible real matrices under multiplication"
+          ],
+          "answer": [0, 2],
+          "hint": "Additive groups of $\\mathbb{Z}/n$ and their unit groups are always abelian; nonabelian examples usually involve permutations or matrices.",
+          "explain": "$(\\mathbb{Z}/6\\mathbb{Z},+)$ and $(\\mathbb{Z}/4\\mathbb{Z})^{\\times}=\\{1,3\\}$ are both abelian (additive/cyclic and order-$2$ respectively). $S_3$ is the smallest nonabelian group (e.g. $(12)(13)\\neq(13)(12)$); $D_4$ contains a rotation and a reflection that don't commute; and matrix multiplication in $GL_2(\\mathbb{R})$ is famously noncommutative."
         }
       ]
     },
@@ -253,6 +268,7 @@
             "$\\mathbb{Z}[x]/(2,x)\\cong\\mathbb{Z}[x]$"
           ],
           "answer": 0,
+          "hint": "Quotient by one generator at a time; the order doesn't matter.",
           "explain": "Quotienting by $(x)$ first gives $\\mathbb{Z}[x]/(x)\\cong\\mathbb{Z}$; then quotienting by the image of $(2)$ gives $\\mathbb{Z}/2\\mathbb{Z}\\cong\\mathbb{F}_2$. Since $\\mathbb{F}_2$ is a field, $(2,x)$ is maximal. This chains ideal/quotient ring reasoning with the maximal $\\Leftrightarrow$ field criterion."
         },
         {
@@ -324,6 +340,7 @@
             "Degree is $5$ because $2$ and $5$ are distinct primes"
           ],
           "answer": 0,
+          "hint": "A degree-3 polynomial stays irreducible over a degree-2 extension when $\\gcd(2,3)=1$.",
           "explain": "$[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$. Since $\\sqrt[3]{5}$ has minimal polynomial $x^3-5$ over $\\mathbb{Q}$ and $[\\mathbb{Q}(\\sqrt{2}):\\mathbb{Q}]=2$ is coprime to $3$, the polynomial $x^3-5$ remains irreducible over $\\mathbb{Q}(\\sqrt{2})$, giving degree-$3$ second step. Tower Law: $2\\times 3=6$."
         },
         {

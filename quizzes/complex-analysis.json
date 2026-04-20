@@ -32,6 +32,7 @@
           "q": "Compute the sum of all 4th roots of $-16$ as a single complex number $a + bi$.",
           "answer": [0, 0],
           "tol": 0.001,
+          "hint": "The roots lie at the vertices of a regular polygon centered at the origin.",
           "explain": "The 4th roots of $-16 = 16 e^{i\\pi}$ are $2e^{i(\\pi + 2\\pi k)/4}$ for $k=0,1,2,3$. Their sum equals $2(e^{i\\pi/4}+e^{3i\\pi/4}+e^{5i\\pi/4}+e^{7i\\pi/4}) = 0$, since the roots of any $z^n = c$ sum to $0$ when $n \\ge 2$."
         },
         {
@@ -229,6 +230,7 @@
           "q": "Use the residue theorem to evaluate $\\displaystyle\\int_0^{\\infty} \\frac{dx}{1+x^4}$. Enter the exact value as a decimal to three places.",
           "answer": 1.1107,
           "tol": 0.001,
+          "hint": "Close the contour in the upper half-plane and use evenness to halve the real-line integral.",
           "explain": "The integrand $1/(1+z^4)$ has poles at $z_k = e^{i\\pi(2k+1)/4}$, $k=0,1,2,3$. For the upper half-plane contour, the poles inside are $z_0 = e^{i\\pi/4}$ and $z_1 = e^{3i\\pi/4}$. Computing: $\\operatorname{Res}(f;z_k) = 1/(4z_k^3) = -z_k/4$. The two residues sum to $-(e^{i\\pi/4}+e^{3i\\pi/4})/4 = -(i\\sqrt{2}/2) \\cdot (1/2)$... The standard result is $\\int_0^\\infty dx/(1+x^4) = \\pi/(2\\sqrt{2}) \\approx 1.1107$."
         },
         {
@@ -241,7 +243,22 @@
             "Essential singularity; residue undefined"
           ],
           "answer": 2,
+          "hint": "Write the Taylor series of $\\sin z$ and divide term by term.",
           "explain": "Laurent expand: $\\sin z/z^3 = (z - z^3/6 + z^5/120 - \\cdots)/z^3 = z^{-2} - 1/6 + z^2/120 - \\cdots$. The principal part has lowest term $z^{-2}$, so this is a pole of order 2. The residue is the coefficient of $z^{-1}$, which is $0$ (no $z^{-1}$ term appears in the expansion)."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of a standard residue-theorem contour-integral proof into the order they appear in the argument.",
+          "items": [
+            "Verify that the integrand is meromorphic in the relevant region and identify which poles lie inside the contour.",
+            "Close the real-line integral with a large semicircular arc in the upper half-plane to form a closed contour.",
+            "Show the contribution of the semicircular arc vanishes as its radius tends to infinity.",
+            "Apply the residue theorem: the closed-contour integral equals $2\\pi i$ times the sum of residues inside.",
+            "Equate the limiting closed-contour integral with the real-line integral to read off the desired value."
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "hint": "Think of the workflow: classify singularities first, build the contour, estimate the arc, invoke the theorem, then extract the real answer.",
+          "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
         }
       ]
     }

@@ -63,7 +63,7 @@
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
     padding:.8rem 1rem;min-width:260px;box-shadow:0 8px 24px rgba(0,0,0,.5);
     font-size:.86rem;color:var(--ink)}
-  .help-panel h4{margin:0 0 .4rem;color:var(--yellow);font-size:.9rem}
+  .help-panel h2{margin:0 0 .4rem;color:var(--yellow);font-size:.9rem;font-weight:600;letter-spacing:normal}
   .help-panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .6rem}
   .help-panel dt{color:var(--mute);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
     font-size:.82rem;white-space:nowrap}
@@ -106,6 +106,10 @@
   .ring-v1.on{stroke:var(--green)}
   .ring-hard{fill:none;stroke:var(--line);stroke-width:2;opacity:.55}
   .ring-hard.on{stroke:var(--violet);opacity:1}
+  /* Outer expert-tier ring (third tier). Drawn only when MVProgress.isMastered
+     (id, 'expert') returns true; gracefully skipped when the API doesn't know
+     about the 'expert' tier yet. */
+  .ring-expert{fill:none;stroke:var(--yellow);stroke-width:2;opacity:.95}
   /* Section accent stripe on the inside-left edge of each node. */
   .section-stripe{stroke:none}
   .edge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.7;opacity:.95}
@@ -140,6 +144,39 @@
     #search{min-width:0;flex:1}
     .search-wrap{flex:1 1 100%}
   }
+  /* Mobile drawer: detail panel becomes a bottom sheet on narrow viewports.
+     Desktop layout is untouched (the panel-right rules above still apply). */
+  .drawer-handle{display:none}
+  #detail-backdrop{display:none}
+  @media (max-width: 720px){
+    main{padding-bottom:5.5rem}
+    .panel-right{
+      position:fixed;left:0;right:0;bottom:0;
+      margin:0;border-radius:12px 12px 0 0;
+      border:1px solid var(--line);border-bottom:none;
+      max-height:70vh;overflow-y:auto;
+      transform:translateY(calc(100% - 3rem));
+      transition:transform 260ms ease;
+      z-index:50;box-shadow:0 -8px 24px rgba(0,0,0,.45);
+    }
+    .panel-right.open{transform:translateY(0)}
+    .drawer-handle{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:.6rem;cursor:pointer;margin:-1rem -1.1rem .7rem;padding:.7rem 1.1rem;
+      border-bottom:1px solid var(--line);
+      background:var(--panel);position:sticky;top:0;z-index:1;
+      -webkit-user-select:none;user-select:none;
+    }
+    .drawer-handle .drawer-title{color:var(--yellow);font-weight:600;font-size:.95rem}
+    .drawer-handle .drawer-chevron{color:var(--mute);font-size:1rem;transition:transform 200ms ease}
+    .panel-right.open .drawer-handle .drawer-chevron{transform:rotate(180deg)}
+    #detail-backdrop{
+      display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);
+      opacity:0;pointer-events:none;transition:opacity 200ms ease;z-index:40;
+    }
+    .panel-right.open ~ #detail-backdrop,
+    #detail-backdrop.show{opacity:1;pointer-events:auto}
+  }
 </style>
 </head>
 <body>
@@ -171,7 +208,7 @@
     </div>
     <div class="section-legend" id="section-legend"></div>
     <div class="help-panel" id="help-panel" role="dialog" aria-label="Keyboard shortcuts" hidden>
-      <h4>Keyboard &amp; mouse</h4>
+      <h2>Keyboard &amp; mouse</h2>
       <dl id="help-list"></dl>
     </div>
   </div>
@@ -183,14 +220,25 @@
   </details>
 
   <div class="stage" id="stage">
-    <svg class="dag" id="dag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+    <svg class="dag" id="dag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet"
+         role="img" aria-labelledby="dag-title dag-desc">
+      <title id="dag-title">Concept prerequisite graph</title>
+      <desc id="dag-desc">Interactive DAG of concepts with mastery state, layered by prerequisite depth. Click a node to see details; ctrl/cmd-click to toggle mastery; drag to pan; wheel to zoom.</desc>
       <g id="zoom-root"></g>
     </svg>
   </div>
 
-  <div class="panel-right" id="detail">
-    <div class="small">select a node to see prereqs</div>
+  <div class="panel-right" id="detail" aria-label="Concept details">
+    <div class="drawer-handle" id="drawer-handle" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="detail-body" aria-label="Toggle details drawer">
+      <span class="drawer-title" id="drawer-title">details</span>
+      <span class="drawer-chevron" aria-hidden="true">▲</span>
+    </div>
+    <div id="detail-body">
+      <div class="small">select a node to see prereqs</div>
+    </div>
   </div>
+  <div id="detail-backdrop" aria-hidden="true"></div>
 </main>
 
 <script>
@@ -415,8 +463,48 @@
   const zoomRoot = document.getElementById('zoom-root');
   const stage = document.getElementById('stage');
   const detail = document.getElementById('detail');
+  const detailBody = document.getElementById('detail-body');
+  const drawerHandle = document.getElementById('drawer-handle');
+  const drawerTitle = document.getElementById('drawer-title');
+  const detailBackdrop = document.getElementById('detail-backdrop');
   const statsEl = document.getElementById('stats');
   const bytopicBody = document.getElementById('bytopic-body');
+
+  // ---------- expert-tier (third-ring) graceful check ----------
+  // Forward-compatible: if MVProgress later learns about 'expert', we pick it
+  // up; if not, isExpert() returns false silently so no ring is drawn.
+  function isExpert(id){
+    try {
+      const v = MVProgress.isMastered(id, 'expert');
+      return v === true;
+    } catch(_) { return false; }
+  }
+
+  // ---------- mobile drawer ----------
+  // Only meaningful when CSS media query (<720px) activates. On desktop the
+  // panel is always visible inline and toggling does nothing visible.
+  function isNarrow(){ return window.matchMedia('(max-width: 720px)').matches; }
+  function setDrawer(open){
+    if(open){
+      detail.classList.add('open');
+      drawerHandle.setAttribute('aria-expanded', 'true');
+      detailBackdrop.classList.add('show');
+    } else {
+      detail.classList.remove('open');
+      drawerHandle.setAttribute('aria-expanded', 'false');
+      detailBackdrop.classList.remove('show');
+    }
+  }
+  drawerHandle.addEventListener('click', ()=>{
+    setDrawer(!detail.classList.contains('open'));
+  });
+  drawerHandle.addEventListener('keydown', (ev)=>{
+    if(ev.key === 'Enter' || ev.key === ' '){
+      ev.preventDefault();
+      setDrawer(!detail.classList.contains('open'));
+    }
+  });
+  detailBackdrop.addEventListener('click', ()=>setDrawer(false));
   function el(tag, attrs){
     const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
     for(const [k,v] of Object.entries(attrs||{})) e.setAttribute(k, v);
@@ -514,13 +602,22 @@
       t2.setAttribute('class','sub');
       t2.textContent = '#' + id;
       g.appendChild(t2);
-      // Two mastery rings on the right edge: inner (v1) and outer (hard).
+      // Three mastery rings on the right edge:
+      //   inner  — v1   (green)
+      //   middle — hard (violet)
+      //   outer  — expert (yellow) — only rendered when MVProgress supports it.
       const cx = n.w - 16, cy = n.h/2;
-      const rV1 = 6, rHard = 11;
+      const rV1 = 6, rHard = 11, rExpert = 16;
       const ringV1 = el('circle', {class: 'ring-v1' + (info.v1 ? ' on' : ''),
         cx: cx, cy: cy, r: rV1});
       const ringHard = el('circle', {class: 'ring-hard' + (info.hard ? ' on' : ''),
         cx: cx, cy: cy, r: rHard});
+      const expertOn = isExpert(id);
+      if(expertOn){
+        const ringExpert = el('circle', {class: 'ring-expert on',
+          cx: cx, cy: cy, r: rExpert});
+        g.appendChild(ringExpert);
+      }
       g.appendChild(ringHard);
       g.appendChild(ringV1);
       g.addEventListener('click', (ev)=>{
@@ -853,10 +950,16 @@
     zoomRoot.querySelectorAll('.edge').forEach(e => e.classList.remove('lit'));
     zoomRoot.querySelectorAll(`.edge[data-to="${cssEscape(id)}"]`).forEach(e => e.classList.add('lit'));
     renderDetail(id);
+    // On narrow viewports, open the drawer so the user sees the detail.
+    if(isNarrow()) setDrawer(true);
   }
 
   function renderDetail(id){
-    if(!id){ detail.innerHTML = '<div class="small">select a node to see prereqs</div>'; return; }
+    if(!id){
+      detailBody.innerHTML = '<div class="small">select a node to see prereqs</div>';
+      if(drawerTitle) drawerTitle.textContent = 'details';
+      return;
+    }
     const c = byId.get(id);
     const info = MVProgress.stateOf(id, conceptsMap);
     const prereqList = c.prereqs.length
@@ -867,23 +970,34 @@
         }).join(' ')
       : '<span class="small">no prerequisites</span>';
     const anchor = c.anchor ? `${c.topicPage}#${c.anchor}` : c.topicPage;
-    const tierLabel = info.hard
-      ? '<span style="color:var(--violet)">v1 + hard</span>'
-      : (info.v1 ? '<span style="color:var(--green)">v1</span>' : '<span class="small">none</span>');
+    const expertOn = isExpert(id);
+    const tierLabel = expertOn
+      ? '<span style="color:var(--yellow)">v1 + hard + expert</span>'
+      : (info.hard
+          ? '<span style="color:var(--violet)">v1 + hard</span>'
+          : (info.v1 ? '<span style="color:var(--green)">v1</span>' : '<span class="small">none</span>'));
     const section = sectionFor(id);
     const sColor = SECTION_COLOR[section] || 'var(--mute)';
-    detail.innerHTML = `
-      <h3>${c.title}</h3>
-      <div class="meta">${c.topicTitle} · <span class="pill" style="border-color:${sColor};color:${sColor}">${section}</span> · <a href="${anchor}">open page →</a></div>
+    // "Copy as study plan" is meaningful for any node, but especially so for
+    // capstones — it emits a topologically-sorted Markdown reading list of
+    // the full prerequisite closure.
+    const isCapstoneNode = capstones.some(cap => cap.goal === id);
+    const copyLabel = isCapstoneNode ? 'copy as study plan' : 'copy prereq study plan';
+    detailBody.innerHTML = `
+      <h3>${escapeHtml(c.title)}</h3>
+      <div class="meta">${escapeHtml(c.topicTitle)} · <span class="pill" style="border-color:${sColor};color:${sColor}">${escapeHtml(section)}</span> · <a href="${anchor}">open page →</a></div>
       <div class="blurb">${c.blurb || ''}</div>
       <div class="meta"><b>Prereqs:</b> ${prereqList}</div>
       <div class="row">
         <button id="btn-mastered">${info.v1 ? 'mark v1 unmastered' : 'mark v1 mastered'}</button>
         <button id="btn-hard">${info.hard ? 'mark hard unmastered' : 'mark hard mastered'}</button>
+        <button id="btn-copy-plan" aria-label="Copy prerequisite reading list as Markdown">${copyLabel}</button>
         <span class="small">state: <b>${info.state}</b> · tiers: ${tierLabel}</span>
+        <span class="small" id="copy-plan-confirm" role="status" aria-live="polite" style="color:var(--green)"></span>
       </div>
     `;
-    renderKatex(detail);
+    if(drawerTitle) drawerTitle.textContent = c.title;
+    renderKatex(detailBody);
     document.getElementById('btn-mastered').addEventListener('click', ()=>{
       MVProgress.setMastered(id, 'v1', !MVProgress.isMastered(id, 'v1'));
       render(currentGoal);
@@ -892,6 +1006,122 @@
       MVProgress.setMastered(id, 'hard', !MVProgress.isMastered(id, 'hard'));
       render(currentGoal);
     });
+    document.getElementById('btn-copy-plan').addEventListener('click', ()=>{
+      copyStudyPlan(id);
+    });
+  }
+
+  // ---------- copy-as-study-plan ----------
+  // Given a concept id, build the full ancestor closure (prerequisites,
+  // transitively), topologically sort it leaves-first (so earlier concepts
+  // come first in the output), group by topic, and emit Markdown.
+  function buildStudyPlan(goalId){
+    const ids = ancestors(goalId);            // Set<id>, includes goalId
+    // Kahn's algorithm restricted to the ancestor set — leaves first.
+    const indeg = new Map();
+    for(const id of ids){
+      const ps = byId.get(id).prereqs.filter(p => ids.has(p));
+      indeg.set(id, ps.length);
+    }
+    const queue = [];
+    for(const id of ids) if(indeg.get(id) === 0) queue.push(id);
+    // Stable ordering within a tier: sort queued ids by section order, then
+    // topic title, then concept title, so the output reads predictably.
+    function rank(id){
+      const c = byId.get(id);
+      const s = sectionFor(id);
+      const sIdx = SECTION_ORDER.indexOf(s);
+      return [sIdx < 0 ? 99 : sIdx, c.topicTitle || '', c.title || '', id];
+    }
+    function cmp(a, b){
+      const ra = rank(a), rb = rank(b);
+      for(let i=0; i<ra.length; i++){
+        if(ra[i] < rb[i]) return -1;
+        if(ra[i] > rb[i]) return 1;
+      }
+      return 0;
+    }
+    queue.sort(cmp);
+    const topo = [];
+    // Reverse dependents within the ancestor set so we can decrement indeg.
+    const dependents = new Map();
+    for(const id of ids) dependents.set(id, []);
+    for(const id of ids){
+      for(const p of byId.get(id).prereqs){
+        if(ids.has(p)) dependents.get(p).push(id);
+      }
+    }
+    while(queue.length){
+      const id = queue.shift();
+      topo.push(id);
+      const newlyReady = [];
+      for(const d of dependents.get(id) || []){
+        const next = indeg.get(d) - 1;
+        indeg.set(d, next);
+        if(next === 0) newlyReady.push(d);
+      }
+      if(newlyReady.length){
+        // Insert in sorted order to keep output stable.
+        queue.push(...newlyReady);
+        queue.sort(cmp);
+      }
+    }
+    // Group consecutive entries by topic while preserving topo order. A topic
+    // can recur if its concepts are interleaved with other topics' concepts.
+    const groups = [];
+    let cur = null;
+    for(const id of topo){
+      const c = byId.get(id);
+      const key = c.topicId;
+      if(!cur || cur.topicId !== key){
+        cur = { topicId: key, topicTitle: c.topicTitle || key,
+                topicPage: c.topicPage, items: [] };
+        groups.push(cur);
+      }
+      cur.items.push(c);
+    }
+    const goal = byId.get(goalId);
+    const header = `# Study plan — ${goal.title}\n\n` +
+      `_Topologically sorted prerequisite closure (${topo.length} concepts)._\n\n`;
+    const body = groups.map(g => {
+      const lines = g.items.map(c => {
+        const href = c.anchor ? `${c.topicPage}#${c.anchor}` : c.topicPage;
+        return `- [${c.title}](${href})`;
+      });
+      return `## ${g.topicTitle}\n\n${lines.join('\n')}\n`;
+    }).join('\n');
+    return header + body;
+  }
+
+  async function copyStudyPlan(goalId){
+    const md = buildStudyPlan(goalId);
+    let ok = false;
+    try {
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(md);
+        ok = true;
+      }
+    } catch(_) { /* fall through to textarea fallback */ }
+    if(!ok){
+      // Fallback for file:// / older browsers: transient textarea + execCommand.
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = md;
+        ta.setAttribute('readonly','');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        ok = document.execCommand && document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch(_) { ok = false; }
+    }
+    const confirm = document.getElementById('copy-plan-confirm');
+    if(confirm){
+      confirm.textContent = ok ? '✓ copied' : '⚠ copy failed';
+      confirm.style.color = ok ? 'var(--green)' : 'var(--pink)';
+      setTimeout(()=>{ if(confirm) confirm.textContent = ''; }, 2200);
+    }
   }
 
   // ---------- capstone picker ----------

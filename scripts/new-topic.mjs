@@ -22,9 +22,18 @@
 //   4. concepts/index.json    — append <slug> under the matching section, in
 //                               the existing formatted layout. Idempotent:
 //                               bails non-zero if <slug> is already listed.
+//   5. index.html             — append a draft <a class="card"> block under
+//                               the matching <div class="sec"> header, in
+//                               the trailing <div class="grid"> of that
+//                               section. Idempotent: if a card with the same
+//                               href already exists, or the section header
+//                               can't be located, the scaffolder skips this
+//                               step with a warning and does NOT abort the
+//                               overall scaffold — the other four artifacts
+//                               are still written.
 //
-// Refuses to overwrite any of 1–3 if present. Does NOT touch index.html —
-// that's a manual authoring step.
+// Refuses to overwrite any of 1–3 if present. Safely skips step 5 on
+// unrecognized-section / malformed-markup; the user can hand-author the card.
 //
 // Zero dependencies.
 
@@ -49,6 +58,22 @@ const SECTIONS = [
   'Modular forms & L-functions',
   'Algebraic geometry',
 ];
+
+// Per-section default card color palette for the placeholder thumb. The
+// authoring agent is free to swap to a different accent later; we just need a
+// harmonious-by-default choice (see AGENTS.md § "Index sections" for the color
+// hints in parentheses after each section name). Values are the one-letter
+// suffix on `<a class="card X">` (y/b/g/p/v/c) and the matching CSS variable
+// used inside the inline SVG.
+const SECTION_PALETTE = new Map([
+  ['Foundations',                  { klass: 'b', cssVar: '--blue'   }],
+  ['Algebra',                      { klass: 'y', cssVar: '--yellow' }],
+  ['Analysis',                     { klass: 'p', cssVar: '--pink'   }],
+  ['Geometry & topology',          { klass: 'v', cssVar: '--violet' }],
+  ['Number theory',                { klass: 'y', cssVar: '--yellow' }],
+  ['Modular forms & L-functions',  { klass: 'c', cssVar: '--cyan'   }],
+  ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
+]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
 const SECTION_ALIASES = new Map([
@@ -112,6 +137,7 @@ const htmlPath = join(repoRoot, `${slug}.html`);
 const conceptPath = join(repoRoot, 'concepts', `${slug}.json`);
 const quizPath = join(repoRoot, 'quizzes', `${slug}.json`);
 const indexPath = join(repoRoot, 'concepts', 'index.json');
+const indexHtmlPath = join(repoRoot, 'index.html');
 const templatePath = join(repoRoot, 'category-theory.html');
 
 // ----- Preflight: refuse to overwrite -----
@@ -308,6 +334,176 @@ try {
   process.exit(1);
 }
 
+// ----- Insert a draft <a class="card"> into index.html under the target
+// section. Soft-fails: on any structural surprise, logs a warning and returns
+// the original text so the overall scaffold still succeeds. Idempotent: if a
+// card with the same href already exists in the section, returns the text
+// unchanged with an explanatory note.
+//
+// The section headers in index.html look like:
+//
+//     <div class="sec">Algebra</div>
+//     <div class="grid">
+//
+//       <a class="card y" href="./algebra.html">
+//         ...
+//       </a>
+//
+//       ... more cards ...
+//
+//     </div>
+//
+// We locate the matching `<div class="sec">`, then the *next* `<div class="grid">`
+// after it, then scan forward counting <div>/</div> depth to find the grid's
+// closing `</div>`. The new card goes just before that closing tag.
+//
+// Returns { text, status, message } where status is one of:
+//   'inserted'   — new card appended; `text` is the updated document.
+//   'duplicate'  — card with this href already present; `text` === original.
+//   'skipped'    — section header not found or markup unexpected; `text` === original.
+function insertCardIntoIndexHtml(raw, sectionName, newSlug, title, blurb) {
+  const palette = SECTION_PALETTE.get(sectionName);
+  if (!palette) {
+    return { text: raw, status: 'skipped',
+             message: `no palette mapping for section "${sectionName}"` };
+  }
+
+  // Section headers in index.html HTML-escape '&' → '&amp;'. Build the exact
+  // literal to search for.
+  const sectionLabelHtml = sectionName.replace(/&/g, '&amp;');
+  const secMarker = `<div class="sec">${sectionLabelHtml}</div>`;
+  const secIdx = raw.indexOf(secMarker);
+  if (secIdx === -1) {
+    return { text: raw, status: 'skipped',
+             message: `could not find <div class="sec">${sectionLabelHtml}</div> in index.html` };
+  }
+
+  // Find the next `<div class="grid">` after the section header.
+  const gridOpenMarker = '<div class="grid">';
+  const gridOpenIdx = raw.indexOf(gridOpenMarker, secIdx);
+  if (gridOpenIdx === -1) {
+    return { text: raw, status: 'skipped',
+             message: `could not find <div class="grid"> after section "${sectionName}"` };
+  }
+  // Sanity-check the grid really belongs to this section: nothing between the
+  // two other than whitespace/newlines/comments should contain another `<div class="sec">`.
+  const preamble = raw.slice(secIdx + secMarker.length, gridOpenIdx);
+  if (/<div class="sec">/.test(preamble)) {
+    return { text: raw, status: 'skipped',
+             message: `no grid immediately follows section "${sectionName}"` };
+  }
+
+  // Walk forward from gridOpenIdx counting <div>/</div> to find the matching
+  // closing `</div>` of the grid container. Only raw `<div` and `</div>` tokens
+  // count — SVG self-closing tags never look like `<div`. We start at depth 1
+  // (the grid's opening <div> itself).
+  const divRe = /<div\b|<\/div>/g;
+  divRe.lastIndex = gridOpenIdx + gridOpenMarker.length;
+  let depth = 1;
+  let gridCloseIdx = -1;
+  let m;
+  while ((m = divRe.exec(raw)) !== null) {
+    if (m[0] === '</div>') {
+      depth--;
+      if (depth === 0) {
+        gridCloseIdx = m.index;
+        break;
+      }
+    } else {
+      depth++;
+    }
+  }
+  if (gridCloseIdx === -1) {
+    return { text: raw, status: 'skipped',
+             message: `unbalanced <div> in grid under section "${sectionName}"` };
+  }
+
+  const gridInner = raw.slice(gridOpenIdx + gridOpenMarker.length, gridCloseIdx);
+
+  // Idempotency: if a card with this href already exists in the grid, skip.
+  if (gridInner.includes(`href="./${newSlug}.html"`)) {
+    return { text: raw, status: 'duplicate',
+             message: `a card with href="./${newSlug}.html" already exists under "${sectionName}"` };
+  }
+
+  // Build the new card. Match neighbor indentation: cards live at 4-space
+  // indent inside the grid, with inner content at 6-space indent. Use a
+  // placeholder thumb (a simple outlined rounded rectangle with the section
+  // color) — the authoring agent will replace it with something evocative.
+  const safeTitle = escapeHtml(title);
+  const safeBlurb = escapeHtml(blurb);
+  const safeSection = escapeHtml(sectionName);
+  const card =
+`    <a class="card ${palette.klass}" href="./${newSlug}.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(${palette.cssVar})" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(${palette.cssVar})" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">${safeTitle}</div>
+        <div class="desc">${safeBlurb}</div>
+        <span class="tag">${safeSection}</span>
+      </div>
+    </a>
+`;
+
+  // The grid's trailing-whitespace convention is: final card's `</a>` line,
+  // one blank line, then the grid's closing `  </div>` at 2-space indent. We
+  // want to insert our new card *before* that trailing blank/close, preserving
+  // the convention. Strip the existing trailing whitespace from gridInner, add
+  // the two-blank-line separator used between cards, append our card, and put
+  // back a single trailing blank line.
+  const trailWsMatch = gridInner.match(/[ \t]*\n?\s*$/); // everything from last non-whitespace to end
+  const trail = trailWsMatch ? trailWsMatch[0] : '';
+  const body = gridInner.slice(0, gridInner.length - trail.length);
+
+  // If `body` is empty, the grid has no cards yet — emit a leading blank line
+  // to match the open-grid convention and then the card.
+  let newInner;
+  if (body.trim() === '') {
+    newInner = '\n\n' + card + '\n  ';
+  } else {
+    newInner = body + '\n\n\n' + card + '\n  ';
+  }
+
+  const newRaw =
+    raw.slice(0, gridOpenIdx + gridOpenMarker.length) +
+    newInner +
+    raw.slice(gridCloseIdx);
+
+  return { text: newRaw, status: 'inserted',
+           message: `card inserted under section "${sectionName}"` };
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// Attempt the index.html insertion. Any surprise → warn and continue; never
+// abort the overall scaffold on this step.
+let indexHtmlResult = { status: 'skipped', message: 'index.html not present' };
+let newIndexHtmlRaw = null;
+if (existsSync(indexHtmlPath)) {
+  try {
+    const origIndexHtml = readFileSync(indexHtmlPath, 'utf8');
+    const placeholderBlurb = 'Draft — fill in once the page has real content.';
+    indexHtmlResult = insertCardIntoIndexHtml(
+      origIndexHtml, sectionName, slug, humanTitle, placeholderBlurb
+    );
+    if (indexHtmlResult.status === 'inserted') {
+      newIndexHtmlRaw = indexHtmlResult.text;
+    }
+  } catch (e) {
+    indexHtmlResult = { status: 'skipped',
+                        message: `unexpected error: ${e.message}` };
+  }
+}
+
 // Parse-check the result so we never leave a broken index.json behind.
 try {
   const parsed = JSON.parse(newIndexRaw);
@@ -324,6 +520,9 @@ writeFileSync(htmlPath, html);
 writeFileSync(conceptPath, JSON.stringify(conceptStub, null, 2) + '\n');
 writeFileSync(quizPath, JSON.stringify(quizStub, null, 2) + '\n');
 writeFileSync(indexPath, newIndexRaw);
+if (newIndexHtmlRaw !== null) {
+  writeFileSync(indexHtmlPath, newIndexHtmlRaw);
+}
 
 // ----- Report -----
 console.log(`new-topic: scaffolded "${slug}" in section "${sectionName}".`);
@@ -332,10 +531,21 @@ console.log(`    ${htmlPath.replace(repoRoot + '/', '')}`);
 console.log(`    concepts/${slug}.json`);
 console.log(`    quizzes/${slug}.json`);
 console.log(`    concepts/index.json  (appended "${slug}" under ${sectionName})`);
+if (indexHtmlResult.status === 'inserted') {
+  console.log(`    index.html           (card inserted under ${sectionName})`);
+} else if (indexHtmlResult.status === 'duplicate') {
+  console.log(`    index.html           (skipped — ${indexHtmlResult.message})`);
+} else {
+  console.log(`    index.html           (skipped — ${indexHtmlResult.message})`);
+}
 console.log('');
 console.log('Next steps:');
-console.log(`  1. Add a card to index.html under the "${sectionName}" section header`);
-console.log(`     (match the <a class="card"> shape of a neighbor).`);
+if (indexHtmlResult.status === 'inserted') {
+  console.log(`  1. Refine the draft card in index.html (thumb SVG, .desc copy).`);
+} else {
+  console.log(`  1. Add a card to index.html under the "${sectionName}" section header`);
+  console.log(`     (match the <a class="card"> shape of a neighbor).`);
+}
 console.log(`  2. Draft concept sections in ${slug}.html — replace the "TODO" markers`);
 console.log('     with numbered sections, widgets, and quiz placeholders:');
 console.log('       <div class="quiz" data-concept="<concept-id>"></div>');
@@ -345,3 +555,9 @@ console.log('     with the matching quiz banks.');
 console.log('  4. If this is a capstone, add an entry (with "section") to concepts/capstones.json.');
 console.log('  5. Run:  node scripts/rebuild.mjs');
 console.log('     (bundles + validates + audits + smoke-tests everything.)');
+
+// Non-fatal warning prefix on stderr for the skip case so it's visible in CI
+// logs even when stdout is muted. The script still exits 0 in this case.
+if (indexHtmlResult.status === 'skipped' && indexHtmlResult.message !== 'index.html not present') {
+  console.warn(`new-topic: warning — index.html card insertion skipped (${indexHtmlResult.message}); add the card by hand.`);
+}

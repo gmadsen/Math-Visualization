@@ -17,7 +17,8 @@
       "title": "Structure sheaf and affine schemes",
       "anchor": "speckxy",
       "prereqs": [
-        "spectrum-primes"
+        "spectrum-primes",
+        "open-sets"
       ],
       "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces."
     },

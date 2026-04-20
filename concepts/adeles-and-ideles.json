@@ -46,7 +46,8 @@
       "anchor": "tate",
       "prereqs": [
         "idele-class-group",
-        "dirichlet-series-basics"
+        "dirichlet-series-basics",
+        "analytic-continuation"
       ],
       "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
     }

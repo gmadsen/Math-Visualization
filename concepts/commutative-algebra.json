@@ -27,7 +27,8 @@
       "anchor": "flat",
       "prereqs": [
         "localization-ca",
-        "chain-complexes"
+        "chain-complexes",
+        "exact-sequences"
       ],
       "blurb": "A module is flat when tensoring with it preserves injections; the obstruction is measured by Tor, which detects torsion and controls base change in families."
     },

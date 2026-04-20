@@ -204,6 +204,7 @@
             "$\\mathbb{A}^2_k$ — it fails the valuative criterion of separatedness"
           ],
           "answer": 1,
+          "hint": "Think of a classic Hausdorff-failure analogue in point-set topology.",
           "explain": "The line with doubled origin is the standard non-separated scheme: two copies of $\\mathbb{A}^1_k$ glued on the complement of the origin. The two origins cannot be separated by open sets, and the diagonal is not closed in the product, violating separatedness."
         }
       ]
@@ -682,6 +683,7 @@
             "The generic fiber is two reduced points, but every closed-point fiber is empty"
           ],
           "answer": 1,
+          "hint": "What happens to the two roots $\\pm\\sqrt{t}$ as $t\\to 0$?",
           "explain": "Over $t=a\\ne 0$: $k[x]/(x^2-a)\\cong k\\times k$, giving two reduced closed points. Over $t=0$: $k[x]/(x^2)$, a single non-reduced length-$2$ fat point. This is the standard example of a family with a degenerate special fiber — the double cover of $\\mathbb A^1$ ramified at $0$."
         },
         {

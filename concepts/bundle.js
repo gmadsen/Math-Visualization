@@ -310,7 +310,8 @@ window.__MVConcepts = {
           "anchor": "flat",
           "prereqs": [
             "localization-ca",
-            "chain-complexes"
+            "chain-complexes",
+            "exact-sequences"
           ],
           "blurb": "A module is flat when tensoring with it preserves injections; the obstruction is measured by Tor, which detects torsion and controls base change in families."
         },
@@ -424,7 +425,8 @@ window.__MVConcepts = {
           "title": "Continuity on R",
           "anchor": "real-continuity",
           "prereqs": [
-            "real-numbers"
+            "real-numbers",
+            "compactness"
           ],
           "blurb": "ε–δ continuity, IVT, EVT, and the interaction between continuity and compactness on intervals."
         },
@@ -763,7 +765,8 @@ window.__MVConcepts = {
           "anchor": "conf",
           "prereqs": [
             "analyticity",
-            "uniform-convergence"
+            "uniform-convergence",
+            "compactness"
           ],
           "blurb": "Locally bounded ⇒ normal; compactness in the space of holomorphic functions."
         },
@@ -1888,7 +1891,8 @@ window.__MVConcepts = {
           "anchor": "tate",
           "prereqs": [
             "idele-class-group",
-            "dirichlet-series-basics"
+            "dirichlet-series-basics",
+            "analytic-continuation"
           ],
           "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
         }
@@ -2290,7 +2294,8 @@ window.__MVConcepts = {
           "title": "Dirichlet series basics",
           "anchor": "series",
           "prereqs": [
-            "riemann-integral"
+            "riemann-integral",
+            "analytic-continuation"
           ],
           "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions."
         },
@@ -2319,7 +2324,8 @@ window.__MVConcepts = {
           "anchor": "mellin",
           "prereqs": [
             "dirichlet-series-basics",
-            "contour-integral"
+            "contour-integral",
+            "analytic-continuation"
           ],
           "blurb": "The Mellin transform $\\int_0^\\infty f(x) x^{s-1}\\,dx$ turns a Dirichlet series into an integral against a theta-like kernel, the bridge Riemann uses for analytic continuation."
         },
@@ -2432,7 +2438,8 @@ window.__MVConcepts = {
           "anchor": "negative-integer-values",
           "prereqs": [
             "zeta-special-values",
-            "bernoulli-generating-function"
+            "bernoulli-generating-function",
+            "analytic-continuation"
           ],
           "blurb": "Analytic continuation gives $\\zeta(-n)=-B_{n+1}/(n+1)$ for $n\\ge 0$; in particular $\\zeta(-2k)=0$ for $k\\ge 1$ — these are the trivial zeros. The values $\\zeta(-n)$ encode the renormalised sums familiar from physics."
         },
@@ -2741,7 +2748,8 @@ window.__MVConcepts = {
           "title": "Structure sheaf and affine schemes",
           "anchor": "speckxy",
           "prereqs": [
-            "spectrum-primes"
+            "spectrum-primes",
+            "open-sets"
           ],
           "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces."
         },

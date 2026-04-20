@@ -171,7 +171,8 @@ for (const [id, entries] of conceptsById) {
   }
 }
 
-// 7. Cycle detection via Kahn's algorithm; then for each leftover SCC print a concrete cycle.
+// 7. Cycle detection: Kahn's identifies the cyclic residue; DFS with back-edge
+// tracking enumerates every distinct cycle (canonicalized to dedup rotations).
 function findCycles() {
   const indeg = new Map();
   for (const n of adj.keys()) indeg.set(n, 0);
@@ -192,31 +193,47 @@ function findCycles() {
   }
   const leftover = [...adj.keys()].filter((n) => !removed.has(n));
   if (leftover.length === 0) return [];
-
-  // Walk from any leftover node following edges that stay in the leftover set
-  // until we revisit a node; slice the cycle out.
   const leftSet = new Set(leftover);
+
   const cycles = [];
-  const seenStart = new Set();
-  for (const start of leftover) {
-    if (seenStart.has(start)) continue;
-    const stack = [];
-    const pos = new Map();
-    let cur = start;
-    while (cur && !pos.has(cur)) {
-      pos.set(cur, stack.length);
-      stack.push(cur);
-      const next = (adj.get(cur) || []).find((n) => leftSet.has(n));
-      cur = next;
+  const cycleSigs = new Set();
+  const WHITE = 0, GRAY = 1, BLACK = 2;
+  const color = new Map();
+  for (const n of leftover) color.set(n, WHITE);
+  const pathIdx = new Map();
+  const path = [];
+
+  function canonical(cyc) {
+    let minIdx = 0;
+    for (let i = 1; i < cyc.length; i++) if (cyc[i] < cyc[minIdx]) minIdx = i;
+    return cyc.slice(minIdx).concat(cyc.slice(0, minIdx)).join('|');
+  }
+
+  function dfs(u) {
+    color.set(u, GRAY);
+    pathIdx.set(u, path.length);
+    path.push(u);
+    for (const v of adj.get(u) || []) {
+      if (!leftSet.has(v)) continue;
+      if (color.get(v) === GRAY) {
+        const startIdx = pathIdx.get(v);
+        const cyc = path.slice(startIdx);
+        const sig = canonical(cyc);
+        if (!cycleSigs.has(sig)) {
+          cycleSigs.add(sig);
+          cycles.push([...cyc, v]);
+        }
+      } else if (color.get(v) === WHITE) {
+        dfs(v);
+      }
     }
-    if (cur && pos.has(cur)) {
-      const cycle = stack.slice(pos.get(cur));
-      cycle.push(cur);
-      cycles.push(cycle);
-      for (const n of cycle) seenStart.add(n);
-    } else {
-      for (const n of stack) seenStart.add(n);
-    }
+    color.set(u, BLACK);
+    pathIdx.delete(u);
+    path.pop();
+  }
+
+  for (const n of leftover) {
+    if (color.get(n) === WHITE) dfs(n);
   }
   return cycles;
 }
