@@ -7,7 +7,10 @@
       "id": "mordell-weil",
       "title": "Mordell–Weil theorem",
       "anchor": "mordell-weil",
-      "prereqs": [],
+      "prereqs": [
+        "elliptic-group-law",
+        "mordell-weil-ec"
+      ],
       "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur)."
     },
     {
@@ -15,7 +18,9 @@
       "title": "Birch–Swinnerton-Dyer heuristic",
       "anchor": "point-counting-heuristic",
       "prereqs": [
-        "mordell-weil"
+        "mordell-weil",
+        "hasse-bound-angle",
+        "frobenius-traces-grep"
       ],
       "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
     },
@@ -25,7 +30,9 @@
       "anchor": "bsd-rank-equality",
       "prereqs": [
         "point-counting-heuristic",
-        "analytic-continuation"
+        "analytic-continuation",
+        "arithmetic-data-lfunctions",
+        "euler-product-structure"
       ],
       "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."
     }

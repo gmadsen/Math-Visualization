@@ -7,7 +7,10 @@
       "id": "etale-morphism",
       "title": "Étale morphisms",
       "anchor": "etale",
-      "prereqs": [],
+      "prereqs": [
+        "scheme-morphisms",
+        "presheaf-sheaf-axioms"
+      ],
       "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale."
     },
     {
@@ -15,7 +18,8 @@
       "title": "ℓ-adic cohomology",
       "anchor": "ladic",
       "prereqs": [
-        "etale-morphism"
+        "etale-morphism",
+        "derived-functor-cohomology"
       ],
       "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
     },
@@ -24,7 +28,8 @@
       "title": "Weil conjectures and Frobenius trace",
       "anchor": "weil",
       "prereqs": [
-        "l-adic-cohomology"
+        "l-adic-cohomology",
+        "frobenius-traces-grep"
       ],
       "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
     }

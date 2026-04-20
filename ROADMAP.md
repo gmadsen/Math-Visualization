@@ -14,7 +14,7 @@ Pages ship as iteratively-improvable v1 drafts. "Published" means reachable from
 ## Outstanding
 
 1. **Quiz banks for 30 remaining pages.** 18 of 48 pages now ship with the Brilliant-style mastery loop wired.
-2. **Re-attach stripped prereqs.** Several external prereqs are still absent in downstream graphs (`elliptic-curve`, `schemes`, `sheaves`, `frobenius-trace`, `hasse-bound`, `L-function-elliptic`, `modular-form`, `galois-representation`, `newform`, `conductor`, `fermat-last-theorem`, `equidistribution`, `euler-product`, `rational-points`, `sheaf-cohomology`). Restore them with canonical ids from the now-published source topic graphs.
+2. **Re-attach stripped prereqs (in progress).** On **April 20, 2026**, canonical cross-topic prerequisites were restored in `bsd`, `sato-tate`, `modularity-and-flt`, and `etale-cohomology` concept graphs. Remaining pass: audit the rest of the arithmetic/geometric downstream pages for any still-missing aliases (notably placeholders like `newform`, `conductor`, `fermat-last-theorem`, `equidistribution`, `rational-points`) and map each to canonical concept ids.
 3. **Wave 4 expansion.** The four capstones shipped as tight 3-widget v1s; a future pass can expand each to ~5 widgets with richer exposition.
 
 ## Proposed improvements

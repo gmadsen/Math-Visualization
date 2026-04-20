@@ -8,7 +8,8 @@
       "title": "Hasse bound and the Frobenius angle",
       "anchor": "angle",
       "prereqs": [
-        "complex-numbers"
+        "complex-numbers",
+        "elliptic-curve-definition"
       ],
       "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
     },
@@ -17,7 +18,8 @@
       "title": "The Sato–Tate measure",
       "anchor": "measure",
       "prereqs": [
-        "hasse-bound-angle"
+        "hasse-bound-angle",
+        "chebotarev-density"
       ],
       "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
     },
@@ -26,7 +28,9 @@
       "title": "Symmetric-power L-functions",
       "anchor": "symn",
       "prereqs": [
-        "sato-tate-measure"
+        "sato-tate-measure",
+        "arithmetic-data-lfunctions",
+        "modular-form-definition"
       ],
       "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
     }
