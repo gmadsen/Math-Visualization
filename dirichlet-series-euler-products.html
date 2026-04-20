@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -251,6 +254,8 @@ As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by mult
   draw();
 })();
 </script>
+
+<div class="quiz" data-concept="dirichlet-series-basics"></div>
 
 <section id="zeta">
 <h2>2. The prototype: Riemann's $\zeta(s)$</h2>
@@ -520,6 +525,8 @@ Watch the partial sieve converge to $1$.</p>
   draw();
 })();
 </script>
+
+<div class="quiz" data-concept="euler-product-structure"></div>
 
 <section id="chars">
 <h2>4. Dirichlet characters and $L$-functions</h2>
@@ -911,6 +918,8 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
 })();
 </script>
 
+<div class="quiz" data-concept="dirichlet-characters-lseries"></div>
+
 <section id="forward">
 <h2>7. What comes next</h2>
 <p>Once you believe a Dirichlet series encodes arithmetic into analysis, and an Euler product encodes unique factorization into geometry, you can ask the same questions of other arithmetic objects.</p>
@@ -980,6 +989,14 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('dirichlet-series-euler-products'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>

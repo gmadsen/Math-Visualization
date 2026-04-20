@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -250,6 +253,8 @@ to $y^2 = x^3 + ax + b$ are not invertible. In those characteristics one retains
 <p>When $\Delta > 0$ the real points of $E$ form two connected components: an oval near the leftmost real root of $x^3 + ax + b$ and an unbounded arm. When $\Delta < 0$ only the unbounded arm exists. The distinction is visible but not intrinsic — the complex-analytic or algebraic structure is the same in both cases.</p>
 
 </section>
+
+<div class="quiz" data-concept="elliptic-curve-definition"></div>
 
 <section id="group">
 <h2>2. The group law</h2>
@@ -647,6 +652,8 @@ giving $P + Q = (x_3, y_3)$.</p>
 <p>Looking at the trajectory $P, 2P, 3P, \ldots$ on a real elliptic curve, one sees no visible pattern — the points bounce around the oval and the unbounded arm in an apparently chaotic way. This is a shadow of the deep fact that generic $P$ over $\mathbb{Q}$ has <em>infinite order</em>, and its multiples are equidistributed with respect to a natural measure related to the Néron–Tate height pairing.</p>
 
 </section>
+
+<div class="quiz" data-concept="elliptic-group-law"></div>
 
 <section id="torsion">
 <h2>3. Torsion over finite fields</h2>
@@ -1204,6 +1211,8 @@ a number whose denominator is already $21$ digits. There is no descent-free way 
 
 </section>
 
+<div class="quiz" data-concept="mordell-weil-ec"></div>
+
 <section id="outro">
 <h2>7. Connections</h2>
 
@@ -1287,6 +1296,14 @@ a number whose denominator is already $21$ digits. There is no descent-free way 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('elliptic-curves'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 </body>
