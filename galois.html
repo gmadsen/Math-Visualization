@@ -209,7 +209,7 @@ function factorizeInt(n){
     <button id="cs-reset">reset</button>
     <span class="small" id="cs-counter"></span>
   </div>
-  <svg id="cs-svg" viewBox="0 0 820 440" width="820" height="440"></svg>
+  <svg id="cs-svg" viewBox="0 0 820 440" width="820" height="440"><title>Compass &amp;amp; straightedge stepper</title></svg>
   <div class="readout" id="cs-readout"></div>
 </div>
 </section>
@@ -555,13 +555,13 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
 <div class="widget" id="w-ngon">
   <div class="hd"><div class="ttl">n-gon constructibility checker</div><div class="hint">try 7, 17, 9, 60, 257 ·</div></div>
   <div class="row">
-    <label>n =</label>
+    <label for="ng-n">n =</label>
     <input type="number" id="ng-n" value="17" min="3" max="10000" step="1" style="width:100px">
     <button id="ng-go">check</button>
     <span class="small" id="ng-hint">press check</span>
   </div>
   <div class="row"><div class="readout" id="ng-out" style="flex:1"></div></div>
-  <svg id="ng-svg" viewBox="-130 -130 260 260" width="360" height="360"></svg>
+  <svg id="ng-svg" viewBox="-130 -130 260 260" width="360" height="360"><title>n-gon constructibility checker</title></svg>
 </div>
 
 <p class="small">Gauss was sixteen when he discovered the construction of the regular 17-gon. He asked that it be engraved on his tombstone; the stonemason refused, reportedly saying that so many sides would look like a circle. The <em>65537</em>-gon — the largest $n$-gon known to be constructible from a single odd prime — was carried out explicitly by Hermes over a ten-year span; the manuscript sits in the attic of the mathematics department in Göttingen.</p>
@@ -678,7 +678,7 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
     </select>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start">
-    <svg id="g-svg" viewBox="-130 -130 260 260" width="100%" style="max-width:360px"></svg>
+    <svg id="g-svg" viewBox="-130 -130 260 260" width="100%" style="max-width:360px"><title>Galois group explorer</title></svg>
     <div>
       <div style="color:var(--mute);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem">splitting field / Galois group</div>
       <div class="readout" id="g-info"></div>
@@ -1014,7 +1014,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
       <option value="S5">S₅</option>
     </select>
   </div>
-  <svg id="sv-svg" viewBox="0 0 620 220" width="100%" style="max-width:620px"></svg>
+  <svg id="sv-svg" viewBox="0 0 620 220" width="100%" style="max-width:620px"><title>Derived series</title></svg>
   <div class="readout" id="sv-out"></div>
 </div>
 

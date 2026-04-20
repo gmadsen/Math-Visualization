@@ -250,14 +250,14 @@ has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around an
 
 <div class="widget" id="w-germ">
   <div class="hd"><div class="ttl">Re-expansion widget</div><div class="hint">move $a$ inside $|z|<1$; watch the new disk escape</div></div>
-  <svg id="germ-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="germ-svg" viewBox="0 0 620 360" width="620" height="360"><title>Re-expansion widget</title></svg>
   <div class="row">
-    <label>$a$ (drag center):</label>
+    <label for="germ-ax">$a$ (drag center):</label>
     <input type="range" id="germ-ax" min="-0.95" max="0.95" step="0.01" value="0.5">
     <span class="small" id="germ-ax-out">Re a = 0.50</span>
   </div>
   <div class="row">
-    <label>Im $a$:</label>
+    <label for="germ-ay">Im $a$:</label>
     <input type="range" id="germ-ay" min="-0.95" max="0.95" step="0.01" value="0">
     <span class="small" id="germ-ay-out">Im a = 0.00</span>
   </div>
@@ -352,9 +352,9 @@ has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around an
 
 <div class="widget" id="w-chain">
   <div class="hd"><div class="ttl">Chain of disks along a path</div><div class="hint">drag the slider to sweep the path; watch the radius shrink near $z=1$</div></div>
-  <svg id="chain-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="chain-svg" viewBox="0 0 620 360" width="620" height="360"><title>Chain of disks along a path</title></svg>
   <div class="row">
-    <label>path parameter $t$:</label>
+    <label for="chain-t">path parameter $t$:</label>
     <input type="range" id="chain-t" min="0" max="1" step="0.005" value="0.5">
     <span class="small" id="chain-tout">t = 0.50</span>
   </div>
@@ -466,9 +466,9 @@ which is the argument variation plus a real part. Around a loop that winds $n$ t
 
 <div class="widget" id="w-mono">
   <div class="hd"><div class="ttl">Monodromy of log around 0</div><div class="hint">drag the slider to walk a loop; watch $\operatorname{Im}\log z$ climb by $2\pi$</div></div>
-  <svg id="mono-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="mono-svg" viewBox="0 0 620 360" width="620" height="360"><title>Monodromy of log around 0</title></svg>
   <div class="row">
-    <label>path (fraction of loop):</label>
+    <label for="mono-t">path (fraction of loop):</label>
     <input type="range" id="mono-t" min="0" max="2" step="0.005" value="0.5">
     <span class="small" id="mono-tout">t = 0.50 turns</span>
   </div>
@@ -599,14 +599,14 @@ defines a holomorphic extension of $f$ to $U^+\cup I\cup U^-$.</div>
 
 <div class="widget" id="w-schwarz">
   <div class="hd"><div class="ttl">Schwarz reflection across the real axis</div><div class="hint">move $z$ in upper half plane; watch $\bar z$ track, and $f,\tilde f$ values pair by conjugation</div></div>
-  <svg id="sch-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="sch-svg" viewBox="0 0 620 360" width="620" height="360"><title>Schwarz reflection across the real axis</title></svg>
   <div class="row">
-    <label>Re $z$:</label>
+    <label for="sch-x">Re $z$:</label>
     <input type="range" id="sch-x" min="-1.4" max="1.4" step="0.01" value="0.5">
     <span class="small" id="sch-xo">Re z = 0.50</span>
   </div>
   <div class="row">
-    <label>Im $z$ (&gt;0):</label>
+    <label for="sch-y">Im $z$ (&gt;0):</label>
     <input type="range" id="sch-y" min="0.05" max="1.3" step="0.01" value="0.8">
     <span class="small" id="sch-yo">Im z = 0.80</span>
   </div>
@@ -708,19 +708,19 @@ $$F(z) \;=\; \sum_{n=0}^\infty z^{n^2} \;=\; 1+z+z^4+z^9+z^{16}+\cdots$$</p>
 
 <div class="widget" id="w-lac">
   <div class="hd"><div class="ttl">Lacunary series $\sum z^{n^2}$ near the unit circle</div><div class="hint">move $r$ toward $1$ and rotate $\theta$; partial sums blow up at any rational angle</div></div>
-  <svg id="lac-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="lac-svg" viewBox="0 0 620 360" width="620" height="360"><title>Lacunary series $\sum z^{n^2}$ near the unit circle</title></svg>
   <div class="row">
-    <label>radius $r$:</label>
+    <label for="lac-r">radius $r$:</label>
     <input type="range" id="lac-r" min="0.5" max="0.995" step="0.005" value="0.9">
     <span class="small" id="lac-ro">r = 0.900</span>
   </div>
   <div class="row">
-    <label>$\theta/(2\pi)$:</label>
+    <label for="lac-t">$\theta/(2\pi)$:</label>
     <input type="range" id="lac-t" min="0" max="1" step="0.001" value="0.25">
     <span class="small" id="lac-to">θ = π/2</span>
   </div>
   <div class="row">
-    <label>truncation $N$:</label>
+    <label for="lac-n">truncation $N$:</label>
     <input type="range" id="lac-n" min="20" max="500" step="1" value="150">
     <span class="small" id="lac-no">N = 150</span>
   </div>
@@ -875,7 +875,7 @@ Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" z
 
 <div class="widget" id="w-zeta">
   <div class="hd"><div class="ttl">Walk through Riemann's derivation</div><div class="hint">step through the four moves; the readout shows the current integrand and its symmetry status</div></div>
-  <svg id="zeta-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="zeta-svg" viewBox="0 0 620 360" width="620" height="360"><title>Walk through Riemann&#39;s derivation</title></svg>
   <div class="row">
     <button data-step="0" class="z-step active">0. series</button>
     <button data-step="1" class="z-step">1. gamma → Mellin</button>
@@ -884,7 +884,7 @@ Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" z
     <button data-step="4" class="z-step">4. ξ(s) = ξ(1−s)</button>
   </div>
   <div class="row">
-    <label>s = </label>
+    <label for="zeta-s">s = </label>
     <input type="range" id="zeta-s" min="-3" max="4" step="0.05" value="2.0">
     <span class="small" id="zeta-so">s = 2.00</span>
   </div>

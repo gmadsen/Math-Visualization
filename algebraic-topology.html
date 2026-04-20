@@ -299,7 +299,7 @@ function matMul(A,B){
 
 <div class="widget" id="w-wind">
   <div class="hd"><div class="ttl">Loops on the circle</div><div class="hint">drag inside the box to draw · winding number updates live</div></div>
-  <svg id="wind-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <svg id="wind-svg" viewBox="0 0 820 360" width="820" height="360"><title>Loops on the circle</title></svg>
   <div class="row">
     <button id="wind-clear">clear</button>
     <button id="wind-ex1">preset: wind once</button>
@@ -525,10 +525,10 @@ function matMul(A,B){
       <option value="R">ℝ → S¹  (helix)</option>
       <option value="tree">tree → S¹ ∨ S¹  (figure-eight)</option>
     </select>
-    <label>basepoint lift <span id="cov-lab" style="color:var(--yellow)">t = 0</span>:</label>
+    <label for="cov-slide">basepoint lift <span id="cov-lab" style="color:var(--yellow)">t = 0</span>:</label>
     <input type="range" id="cov-slide" min="-3" max="3" step="0.01" value="0">
   </div>
-  <svg id="cov-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <svg id="cov-svg" viewBox="0 0 820 420" width="820" height="420"><title>Universal covers</title></svg>
   <div class="readout" id="cov-readout"></div>
 </div>
 
@@ -734,7 +734,7 @@ function matMul(A,B){
     <button id="sp-mode-e">edge</button>
     <button id="sp-mode-f">face</button>
   </div>
-  <svg id="sp-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <svg id="sp-svg" viewBox="0 0 820 360" width="820" height="360"><title>Simplicial complex builder</title></svg>
   <div class="row"><div class="readout" id="sp-out" style="flex:1;min-width:340px"></div></div>
 </div>
 
@@ -1025,7 +1025,7 @@ for $n\ge 1$. The base case $n=1$ is just $H_*(S^1)=\{\mathbb{Z},\mathbb{Z},0,\d
       <option value="4">4</option>
     </select>
   </div>
-  <svg id="mv-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <svg id="mv-svg" viewBox="0 0 820 420" width="820" height="420"><title>Mayer–Vietoris for Sⁿ</title></svg>
   <div class="readout" id="mv-out"></div>
 </div>
 
@@ -1163,7 +1163,7 @@ for $n\ge 1$. The base case $n=1$ is just $H_*(S^1)=\{\mathbb{Z},\mathbb{Z},0,\d
       <option value="rp2">ℝP²  (6-triangle triangulation)</option>
     </select>
   </div>
-  <svg id="chi-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <svg id="chi-svg" viewBox="0 0 820 300" width="820" height="300"><title>Euler characteristic calculator</title></svg>
   <div class="readout" id="chi-out"></div>
 </div>
 

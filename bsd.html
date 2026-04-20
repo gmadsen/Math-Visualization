@@ -244,7 +244,7 @@ $$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \
     <button id="mw-double">compute 2P</button>
     <button id="mw-reset">reset</button>
   </div>
-  <svg id="mw-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="mw-svg" viewBox="0 0 620 320" width="620" height="320"><title>Mordell–Weil explorer</title></svg>
   <div class="readout" id="mw-out">pick a curve…</div>
 </div>
 
@@ -385,7 +385,7 @@ $$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \
     <button id="ct-step">next step</button>
     <button id="ct-reset">reset</button>
   </div>
-  <svg id="ct-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
+  <svg id="ct-svg" viewBox="0 0 620 340" width="620" height="340"><title>Chord-tangent iteration on $y^2 = x^3 - 2$</title></svg>
   <div class="readout" id="ct-out"></div>
   <div class="small">Exact rational coordinates from the chord-tangent law. Denominators of $x(nP)$ are perfect squares (Mazur–Tate); the log-denominator grows like $\hat h(P)\cdot n^2$, making $P$ of infinite order and generating a rank-$1$ subgroup.</div>
 </div>
@@ -583,7 +583,7 @@ $$\lambda = \frac{3x^2 + A}{2y}, \quad x_{2P} = \lambda^2 - 2x, \quad y_{2P} = \
     <label>rank r <input id="ht-r" type="range" min="0" max="4" step="1" value="2"></label><span id="ht-rv" class="small">r = 2</span>
     <label>H cutoff <input id="ht-h" type="range" min="1" max="80" step="1" value="25"></label><span id="ht-hv" class="small">H = 25</span>
   </div>
-  <svg id="ht-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="ht-svg" viewBox="0 0 620 220" width="620" height="220"><title>Height-growth heuristic</title></svg>
   <div class="readout" id="ht-out"></div>
 </div>
 
@@ -664,11 +664,11 @@ where $r = \operatorname{rank} E(\mathbb{Q})$ and $c > 0$ is a constant dependin
       <option value="2">y² = x³ − x + 1 (rank 1)</option>
       <option value="3">y² = x³ + 17   (rank 2)</option>
     </select>
-    <label>X</label>
+    <label for="pc-X">X</label>
     <input type="range" id="pc-X" min="10" max="2000" value="500" step="10">
     <span class="readout" id="pc-xval" style="min-width:100px">X = 500</span>
   </div>
-  <svg id="pc-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="pc-svg" viewBox="0 0 620 300" width="620" height="300"><title>Point-counting product</title></svg>
   <div class="readout" id="pc-out">computing…</div>
 </div>
 
@@ -838,7 +838,7 @@ where $\Omega$ is the real period, $R$ the regulator (determinant of the Néron�
     <button class="rk active" data-r="1">rank 1</button>
     <button class="rk" data-r="2">rank 2</button>
   </div>
-  <svg id="Lz-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="Lz-svg" viewBox="0 0 620 280" width="620" height="280"><title>BSD L-function zero</title></svg>
   <div class="readout" id="Lz-out"></div>
 </div>
 
@@ -949,7 +949,7 @@ Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero c
     <label>curve</label>
     <select id="zoo-pick"></select>
   </div>
-  <svg id="zoo-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="zoo-svg" viewBox="0 0 620 300" width="620" height="300"><title>Rank-vs-L curve zoo</title></svg>
   <div class="readout" id="zoo-out"></div>
   <div class="small">Analytic rank from sampling a truncated Euler product near $s=1$ (schematic — exact $L$-values require modular-symbol integration). Algebraic rank and generators from LMFDB / Cremona tables.</div>
 </div>
@@ -1158,7 +1158,7 @@ It is the squared covolume of the Mordell–Weil lattice, and it is the factor o
     <label>⟨P₁,P₂⟩ <input id="reg-c" type="range" min="-1" max="1" step="0.01" value="0.2"></label>
     <span id="reg-cv" class="small">0.20</span>
   </div>
-  <svg id="reg-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="reg-svg" viewBox="0 0 620 260" width="620" height="260"><title>Regulator from a basis</title></svg>
   <div class="readout" id="reg-out"></div>
 </div>
 
@@ -1266,7 +1266,7 @@ Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the p
     <span id="sha-mwv" class="small">4</span>
     <label>n <select id="sha-n"><option>2</option><option>3</option><option>5</option><option>7</option></select></label>
   </div>
-  <svg id="sha-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="sha-svg" viewBox="0 0 620 220" width="620" height="220"><title>Selmer / Ш bookkeeping</title></svg>
   <div class="readout" id="sha-out"></div>
 </div>
 

@@ -200,9 +200,9 @@ function ensureArrow(svg, id, color){
 
 <div class="widget" id="w-linecircle">
   <div class="hd"><div class="ttl">Line meets circle</div><div class="hint">slide $t$; watch intersection points merge at tangency</div></div>
-  <svg id="lc-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="lc-svg" viewBox="0 0 620 320" width="620" height="320"><title>Line meets circle</title></svg>
   <div class="row">
-    <label>height $t$ =</label>
+    <label for="lc-t">height $t$ =</label>
     <input id="lc-t" type="range" min="-1.4" max="1.4" step="0.01" value="0.3">
     <span id="lc-tval" class="small"></span>
   </div>
@@ -382,7 +382,7 @@ $$I_P(f,g) \;=\; \dim_k \bigl(\mathcal{O}_{\mathbb{A}^2,P} \,/\, (f,g)\bigr).$$
       <option value="x2-y3">x^2 - y^3</option>
     </select>
   </div>
-  <svg id="mc-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="mc-svg" viewBox="0 0 620 320" width="620" height="320"><title>Intersection multiplicity at the origin</title></svg>
   <div class="readout" id="mc-out"></div>
 </div>
 
@@ -539,7 +539,7 @@ b_e & b_{e-1} & \cdots & b_0 &        &        \\
       <option value="D">$f = y^3 - x,\ g = y - x^2$</option>
     </select>
   </div>
-  <svg id="rs-svg" viewBox="0 0 620 250" width="620" height="250"></svg>
+  <svg id="rs-svg" viewBox="0 0 620 250" width="620" height="250"><title>Resultant explorer (in $y$, with $x$ fixed parameter)</title></svg>
   <div class="readout" id="rs-out"></div>
 </div>
 
@@ -699,20 +699,20 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 
 <div class="widget" id="w-twoconics">
   <div class="hd"><div class="ttl">Two conics in $\mathbb{P}^2$</div><div class="hint">dial parameters; intersection count is always 4</div></div>
-  <svg id="tc-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="tc-svg" viewBox="0 0 620 360" width="620" height="360"><title>Two conics in $\mathbb{P}^2$</title></svg>
   <div class="row">
-    <label>ellipse $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$:   $a=$</label>
+    <label for="tc-a">ellipse $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$:   $a=$</label>
     <input id="tc-a" type="range" min="0.6" max="2.0" step="0.02" value="1.4">
     <span id="tc-aval" class="small"></span>
-    <label>$b=$</label>
+    <label for="tc-b">$b=$</label>
     <input id="tc-b" type="range" min="0.6" max="2.0" step="0.02" value="1.0">
     <span id="tc-bval" class="small"></span>
   </div>
   <div class="row">
-    <label>circle $(x-h)^2+y^2=r^2$:   $h=$</label>
+    <label for="tc-h">circle $(x-h)^2+y^2=r^2$:   $h=$</label>
     <input id="tc-h" type="range" min="-1.5" max="1.5" step="0.02" value="0.3">
     <span id="tc-hval" class="small"></span>
-    <label>$r=$</label>
+    <label for="tc-r">$r=$</label>
     <input id="tc-r" type="range" min="0.4" max="1.6" step="0.02" value="0.9">
     <span id="tc-rval" class="small"></span>
   </div>
@@ -792,9 +792,9 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 
 <div class="widget" id="w-pascal">
   <div class="hd"><div class="ttl">Pascal's theorem</div><div class="hint">drag the angles; the three red points stay collinear</div></div>
-  <svg id="pa-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <svg id="pa-svg" viewBox="0 0 620 380" width="620" height="380"><title>Pascal&#39;s theorem</title></svg>
   <div class="row">
-    <label>hexagon rotation =</label>
+    <label for="pa-th">hexagon rotation =</label>
     <input id="pa-th" type="range" min="0" max="360" step="1" value="40">
     <button id="pa-shuffle">randomize</button>
   </div>
@@ -893,12 +893,12 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
 
 <div class="widget" id="w-cubic">
   <div class="hd"><div class="ttl">Chord–tangent on a cubic</div><div class="hint">move the two points; Bezout forces the third</div></div>
-  <svg id="cu-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="cu-svg" viewBox="0 0 620 360" width="620" height="360"><title>Chord–tangent on a cubic</title></svg>
   <div class="row">
-    <label>$x_P =$</label>
+    <label for="cu-xp">$x_P =$</label>
     <input id="cu-xp" type="range" min="-1.5" max="2.5" step="0.02" value="-0.8">
     <span id="cu-xpv" class="small"></span>
-    <label>$x_Q =$</label>
+    <label for="cu-xq">$x_Q =$</label>
     <input id="cu-xq" type="range" min="-1.5" max="2.5" step="0.02" value="1.2">
     <span id="cu-xqv" class="small"></span>
     <label>branch $P$:</label>

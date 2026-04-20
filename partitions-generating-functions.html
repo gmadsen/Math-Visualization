@@ -244,7 +244,7 @@ By convention $p(0) = 1$ (the empty partition). A compact picture: each partitio
     <input type="range" id="pn-n" min="1" max="12" step="1" value="5">
     <span id="pn-nv" class="readout" style="min-width:140px;flex:0 0 auto">n = 5,  p(5) = 7</span>
   </div>
-  <svg id="pn-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="pn-svg" viewBox="0 0 620 320" width="620" height="320"><title>Partition explorer</title></svg>
   <div class="small">Each tile is one box; each row of tiles is one part. The partitions are sorted by lex order on their part sequences (largest part first, then ties broken by the next, etc.).</div>
 </div>
 <div class="quiz" data-concept="partition-function-pn"></div>
@@ -361,7 +361,7 @@ The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$.</li>
     <input type="range" id="euler-N" min="1" max="14" step="1" value="6">
     <span id="euler-Nv" class="readout" style="min-width:80px;flex:0 0 auto">N = 6</span>
   </div>
-  <svg id="euler-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="euler-svg" viewBox="0 0 620 240" width="620" height="240"><title>Expanding $\prod_{n=1}^{N} \frac{1}{1-q^n}$</title></svg>
   <div class="readout" id="euler-out" style="font-size:.85rem"></div>
   <div class="small">Blue bars: coefficients of the truncated product $\prod_{n=1}^{N}\tfrac{1}{1-q^n}$. Yellow bars: the true partition counts $p(m)$. The first $N{+}1$ coefficients coincide — truncating at $N$ corrupts only the coefficients of $q^{N+1}$ and higher, where "parts $>N$" start to matter.</div>
 </div>
@@ -491,7 +491,7 @@ Only $O(\sqrt{n})$ pentagonal numbers fit below $n$, so computing $p(n)$ takes $
     <input type="range" id="pent-N" min="5" max="60" step="1" value="20">
     <span id="pent-Nv" class="readout" style="min-width:110px;flex:0 0 auto">N = 20</span>
   </div>
-  <svg id="pent-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="pent-svg" viewBox="0 0 620 240" width="620" height="240"><title>Pentagonal recurrence engine</title></svg>
   <div class="readout" id="pent-out" style="font-size:.85rem"></div>
   <div class="small">The bar plot shows the values on a log scale to accommodate the rapid growth. The readout traces one step of the recurrence so you can watch the pentagonal shifts in action.</div>
 </div>
@@ -618,7 +618,7 @@ a sister identity used in the proof of <strong>Jacobi's two-square theorem</stro
     <input type="range" id="jtp-N" min="3" max="20" step="1" value="10">
     <span id="jtp-Nv" class="readout" style="min-width:80px;flex:0 0 auto">N = 10</span>
   </div>
-  <svg id="jtp-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="jtp-svg" viewBox="0 0 620 240" width="620" height="240"><title>Triple product at $z = -q$, recovering Euler</title></svg>
   <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
   <div class="small">Blue: sum side $\sum_{|k|\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>
 </div>
@@ -729,7 +729,7 @@ which makes the factor of $5$ explicit. The deeper explanation — why no other 
     <input type="number" id="ram-n" min="0" max="80" step="1" value="14">
     <span class="small">try $4, 9, 14, 19$ (mod 5); $5, 12, 19, 26$ (mod 7); $6, 17, 28$ (mod 11)</span>
   </div>
-  <svg id="ram-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <svg id="ram-svg" viewBox="0 0 620 200" width="620" height="200"><title>Ramanujan congruence checker</title></svg>
   <div class="readout" id="ram-out" style="font-size:.88rem"></div>
 </div>
 <aside class="callback">
@@ -863,7 +863,7 @@ the first nonzero cusp form of weight $12$. Its coefficients $\tau(1), \tau(2), 
     <input type="range" id="eta-K" min="4" max="25" step="1" value="12">
     <span id="eta-Kv" class="readout" style="min-width:80px;flex:0 0 auto">K = 12</span>
   </div>
-  <svg id="eta-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="eta-svg" viewBox="0 0 620 220" width="620" height="220"><title>$\eta$ as the partition engine</title></svg>
   <div class="readout" id="eta-out" style="font-size:.85rem"></div>
 </div>
 <aside class="callback">
@@ -967,7 +967,7 @@ A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i
 
 <div class="widget" id="w-hr">
   <div class="hd"><div class="ttl">Hardy–Ramanujan vs. exact $p(n)$</div><div class="hint">relative error shrinks like $1/\sqrt{n}$</div></div>
-  <svg id="hr-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="hr-svg" viewBox="0 0 620 260" width="620" height="260"><title>Hardy–Ramanujan vs. exact $p(n)$</title></svg>
   <div class="readout" id="hr-out" style="font-size:.85rem"></div>
 </div>
 </section>

@@ -266,7 +266,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-cat">
   <div class="hd"><div class="ttl">Composition explorer</div><div class="hint">click arrow 1 then arrow 2 to compose</div></div>
-  <svg id="cat-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="cat-svg" viewBox="0 0 620 280" width="620" height="280"><title>Composition explorer</title></svg>
   <div class="readout" id="cat-out">click an arrow to start…</div>
   <div class="row">
     <button id="cat-reset">reset</button>
@@ -457,7 +457,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="fn-rand">randomize function</button>
   </div>
   <div class="row" id="fn-assign"></div>
-  <svg id="fn-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="fn-svg" viewBox="0 0 620 260" width="620" height="260"><title>Functor $\mathbf{2}\to\mathsf{Set}$</title></svg>
   <div class="readout" id="fn-out"></div>
 </div>
 </section>
@@ -575,17 +575,17 @@ function drawNode(svg, x, y, label, opts={}){
     <text x="290" y="160" text-anchor="middle" font-size="16" fill="#fff">G(B)</text>
     <defs>
       <marker id="nat-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-        <path d="M0,0 L10,5 L0,10 z" fill="#ffd866"/>
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/>
       </marker>
     </defs>
-    <line x1="105" y1="34" x2="255" y2="34" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
-    <line x1="105" y1="154" x2="255" y2="154" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
-    <line x1="70" y1="55" x2="70" y2="140" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
-    <line x1="290" y1="55" x2="290" y2="140" stroke="#ffd866" stroke-width="1.4" marker-end="url(#nat-arr)"/>
-    <text x="180" y="28" text-anchor="middle" font-size="13" fill="#ffd866" font-style="italic">F(f)</text>
-    <text x="180" y="175" text-anchor="middle" font-size="13" fill="#ffd866" font-style="italic">G(f)</text>
-    <text x="55" y="100" text-anchor="end" font-size="13" fill="#ffd866" font-style="italic">η_A</text>
-    <text x="305" y="100" text-anchor="start" font-size="13" fill="#ffd866" font-style="italic">η_B</text>
+    <line x1="105" y1="34" x2="255" y2="34" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="105" y1="154" x2="255" y2="154" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="70" y1="55" x2="70" y2="140" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <line x1="290" y1="55" x2="290" y2="140" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#nat-arr)"/>
+    <text x="180" y="28" text-anchor="middle" font-size="13" fill="var(--yellow)" font-style="italic">F(f)</text>
+    <text x="180" y="175" text-anchor="middle" font-size="13" fill="var(--yellow)" font-style="italic">G(f)</text>
+    <text x="55" y="100" text-anchor="end" font-size="13" fill="var(--yellow)" font-style="italic">η_A</text>
+    <text x="305" y="100" text-anchor="start" font-size="13" fill="var(--yellow)" font-style="italic">η_B</text>
   </svg>
 </div>
 
@@ -612,18 +612,18 @@ function drawNode(svg, x, y, label, opts={}){
   </p>
 
   <div class="row">
-    <label>$f\colon A\to B$:</label>
+    <label for="nt-f">$f\colon A\to B$:</label>
     <input type="range" id="nt-f" min="0" max="7" step="1" value="3">
     <span class="small" id="nt-f-lbl"></span>
     <button id="nt-play">play</button>
   </div>
   <div class="row">
-    <label>$\varphi\in\text{Hom}(X,A)$:</label>
+    <label for="nt-phi">$\varphi\in\text{Hom}(X,A)$:</label>
     <input type="range" id="nt-phi" min="0" max="8" step="1" value="1">
     <span class="small" id="nt-phi-lbl"></span>
   </div>
 
-  <svg id="nt-svg" viewBox="0 0 720 440" width="720" height="440"></svg>
+  <svg id="nt-svg" viewBox="0 0 720 440" width="720" height="440"><title>Naturality square — element trace</title></svg>
   <div class="readout" id="nt-out"></div>
 </div>
 
@@ -846,7 +846,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     </select>
     <button id="yo-reroll">re-roll F</button>
   </div>
-  <svg id="yo-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="yo-svg" viewBox="0 0 620 300" width="620" height="300"><title>Yoneda tester</title></svg>
   <div class="readout" id="yo-out"></div>
 </div>
 </section>
@@ -1006,14 +1006,14 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     </select>
   </div>
   <div class="row">
-    <label>|X|</label><input type="number" id="pb-nX" min="1" max="5" value="3" style="width:60px">
-    <label>|Y|</label><input type="number" id="pb-nY" min="1" max="5" value="3" style="width:60px">
-    <label>|Z|</label><input type="number" id="pb-nZ" min="1" max="5" value="2" style="width:60px">
+    <label for="pb-nX">|X|</label><input type="number" id="pb-nX" min="1" max="5" value="3" style="width:60px">
+    <label for="pb-nY">|Y|</label><input type="number" id="pb-nY" min="1" max="5" value="3" style="width:60px">
+    <label for="pb-nZ">|Z|</label><input type="number" id="pb-nZ" min="1" max="5" value="2" style="width:60px">
     <button id="pb-apply">apply sizes</button>
   </div>
   <div class="row" id="pb-frow"></div>
   <div class="row" id="pb-grow"></div>
-  <svg id="pb-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <svg id="pb-svg" viewBox="0 0 620 380" width="620" height="380"><title>Pullback in Set</title></svg>
   <div class="readout" id="pb-out"></div>
 </div>
 </section>
@@ -1259,7 +1259,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     </select>
   </div>
   <div class="row" id="aj-assign"></div>
-  <svg id="aj-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <svg id="aj-svg" viewBox="0 0 620 200" width="620" height="200"><title>Free group explorer</title></svg>
   <div class="readout" id="aj-out"></div>
 </div>
 <aside class="callback">
@@ -1496,7 +1496,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     <button id="pf-reset">reset</button>
     <span class="small" id="pf-counter" style="margin-left:.4rem"></span>
   </div>
-  <svg id="pf-svg" viewBox="0 0 560 320" width="100%" style="max-width:560px"></svg>
+  <svg id="pf-svg" viewBox="0 0 560 320" width="100%" style="max-width:560px"><title>Proof stepper</title></svg>
   <div class="readout" id="pf-text"></div>
   <div class="readout" id="pf-log" style="margin-top:.4rem;min-height:1.6em"></div>
 </div>

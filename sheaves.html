@@ -373,7 +373,7 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
     <label>$U_3$:</label>
     <select id="g-s3"><option>0</option><option>1</option><option>2</option></select>
   </div>
-  <svg id="g-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="g-svg" viewBox="0 0 620 320" width="620" height="320"><title>Gluing diagnostic</title></svg>
   <div class="readout" id="g-out"></div>
 </div>
 
@@ -389,7 +389,7 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
     <button id="eq-p-disj">disjoint</button>
     <button id="eq-shift">shift $g$ →</button>
   </div>
-  <svg id="eq-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="eq-svg" viewBox="0 0 620 260" width="620" height="260"><title>Equalizer of $f, g \colon X \to Y$</title></svg>
   <div class="readout" id="eq-out"></div>
 </div>
 
@@ -818,7 +818,7 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
 <div class="widget" id="w-esp">
   <div class="hd"><div class="ttl">Espace étalé</div><div class="hint">slide $x$ along $X$ · see the stalk $F_x$ lifted, with each section picking one germ per point</div></div>
   <div class="row">
-    <label>$x$ along $X$:</label>
+    <label for="esp-x">$x$ along $X$:</label>
     <input type="range" id="esp-x" min="0" max="1000" value="500">
     <span class="small" id="esp-xv"></span>
   </div>
@@ -828,18 +828,18 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
     <button id="esp-s-pink">$t$ (pink)</button>
     <button id="esp-s-both">both</button>
   </div>
-  <svg id="esp-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="esp-svg" viewBox="0 0 620 260" width="620" height="260"><title>Espace étalé</title></svg>
   <div class="readout" id="esp-out"></div>
 </div>
 
 <div class="widget" id="w-germ">
   <div class="hd"><div class="ttl">Germ agreement</div><div class="hint">stalk = germ class at $x$ — slide to see where two functions agree</div></div>
   <div class="row">
-    <label>$x$:</label>
+    <label for="g2-x">$x$:</label>
     <input type="range" id="g2-x" min="0" max="1000" value="500">
     <span class="small" id="g2-xv"></span>
   </div>
-  <svg id="g2-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="g2-svg" viewBox="0 0 620 280" width="620" height="280"><title>Germ agreement</title></svg>
   <div class="readout" id="g2-out"></div>
 </div>
 <div class="quiz" data-concept="stalks-local-data"></div>
@@ -1155,7 +1155,7 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
 
 <div class="widget" id="w-mor">
   <div class="hd"><div class="ttl">Stalk-wise vs. globally</div><div class="hint">a stalkwise surjection that is not globally surjective</div></div>
-  <svg id="m-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="m-svg" viewBox="0 0 620 240" width="620" height="240"><title>Stalk-wise vs. globally</title></svg>
   <div class="readout" id="m-out"></div>
 </div>
 
@@ -1317,7 +1317,7 @@ A section over $U$ is a choice of germ at each point that is locally represented
     <button id="sf-pre" class="active">presheaf $\underline{S}^{\mathrm{pre}}$</button>
     <button id="sf-sh">sheaf $\underline{S}$</button>
   </div>
-  <svg id="sf-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="sf-svg" viewBox="0 0 620 240" width="620" height="240"><title>Sheafify the constant presheaf</title></svg>
   <div class="readout" id="sf-out"></div>
 </div>
 
@@ -1564,7 +1564,7 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
       <option value="Z2">ℤ²</option>
       <option value="Z12">ℤ/12</option>
     </select>
-    <label>$f$:</label>
+    <label for="qc-f">$f$:</label>
     <input type="number" id="qc-f" value="2" min="1" max="60" step="1">
   </div>
   <div class="readout" id="qc-out"></div>

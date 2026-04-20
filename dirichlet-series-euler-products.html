@@ -240,7 +240,7 @@ As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by mult
 
 <div class="widget" id="w-halfplane">
   <div class="hd"><div class="ttl">Half-plane of convergence</div><div class="hint">drag the abscissa $\sigma_a$</div></div>
-  <svg id="hp-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="hp-svg" viewBox="0 0 620 260" width="620" height="260"><title>Half-plane of convergence</title></svg>
   <div class="row">
     <label for="hp-sig">abscissa $\sigma_a$</label>
     <input type="range" id="hp-sig" min="-2" max="3" step="0.05" value="1">
@@ -340,7 +340,7 @@ where $\gamma = \lim_{N\to\infty}\!\bigl(\sum_{n\le N} 1/n - \log N\bigr) \appro
 
 <div class="widget" id="w-zeta">
   <div class="hd"><div class="ttl">$\zeta(\sigma)$ on the real axis</div><div class="hint">drag $\sigma$ on $(1,\infty)$</div></div>
-  <svg id="z-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="z-svg" viewBox="0 0 620 280" width="620" height="280"><title>$\zeta(\sigma)$ on the real axis</title></svg>
   <div class="row">
     <label for="z-sig">$\sigma$</label>
     <input type="range" id="z-sig" min="1.01" max="5" step="0.01" value="2">
@@ -432,9 +432,9 @@ Watch the partial sieve converge to $1$.</p>
 
 <div class="widget" id="w-sieve">
   <div class="hd"><div class="ttl">Sieve: $\zeta(s)\cdot(1-2^{-s})\cdot(1-3^{-s})\cdots \to 1$</div><div class="hint">toggle primes, pick $s$</div></div>
-  <svg id="sv-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="sv-svg" viewBox="0 0 620 240" width="620" height="240"><title>Sieve: $\zeta(s)\cdot(1-2^{-s})\cdot(1-3^{-s})\cdots \to 1$</title></svg>
   <div class="row">
-    <label>$s$</label>
+    <label for="sv-s">$s$</label>
     <input type="range" id="sv-s" min="1.1" max="3" step="0.05" value="2">
     <span id="sv-s-val" class="small">s = 2.00</span>
   </div>
@@ -447,14 +447,14 @@ Watch the partial sieve converge to $1$.</p>
 
 <div class="widget" id="w-euler">
   <div class="hd"><div class="ttl">Euler product vs. partial sum for $\zeta(s)$</div><div class="hint">drag $N$ or $s$</div></div>
-  <svg id="ep-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="ep-svg" viewBox="0 0 620 260" width="620" height="260"><title>Euler product vs. partial sum for $\zeta(s)$</title></svg>
   <div class="row">
-    <label>cutoff $N$</label>
+    <label for="ep-N">cutoff $N$</label>
     <input type="range" id="ep-N" min="2" max="60" step="1" value="20">
     <span id="ep-Nv" class="small">N = 20</span>
   </div>
   <div class="row">
-    <label>$s$</label>
+    <label for="ep-s">$s$</label>
     <input type="range" id="ep-s" min="1.2" max="4" step="0.05" value="2">
     <span id="ep-sv" class="small">s = 2.00</span>
   </div>
@@ -646,9 +646,9 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
 
 <div class="widget" id="w-lchi">
   <div class="hd"><div class="ttl">$L(s,\chi_3)$ — non-trivial character mod 4</div><div class="hint">drag $s$</div></div>
-  <svg id="lc-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="lc-svg" viewBox="0 0 620 260" width="620" height="260"><title>$L(s,\chi_3)$ — non-trivial character mod 4</title></svg>
   <div class="row">
-    <label>$s$</label>
+    <label for="lc-s">$s$</label>
     <input type="range" id="lc-s" min="0.2" max="4" step="0.02" value="1">
     <span id="lc-val" class="readout" style="min-width:280px;flex:0 0 auto"></span>
   </div>
@@ -826,9 +826,9 @@ $$\theta(1/x) \;=\; \sqrt{x}\,\theta(x)$$
 
 <div class="widget" id="w-funceq">
   <div class="hd"><div class="ttl">Reflection $s \leftrightarrow 1-s$</div><div class="hint">drag $s$ on the critical line's axis</div></div>
-  <svg id="fe-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="fe-svg" viewBox="0 0 620 240" width="620" height="240"><title>Reflection $s \leftrightarrow 1-s$</title></svg>
   <div class="row">
-    <label>$s$ (real part)</label>
+    <label for="fe-s">$s$ (real part)</label>
     <input type="range" id="fe-s" min="-3" max="4" step="0.05" value="2.5">
     <span id="fe-sv" class="readout" style="min-width:280px;flex:0 0 auto"></span>
   </div>
@@ -906,14 +906,14 @@ A Dirichlet series has become the Mellin transform of a generating function on t
 
 <div class="widget" id="w-mellin">
   <div class="hd"><div class="ttl">Gamma integral $\int_0^\infty x^{s-1} e^{-nx}\,dx = \Gamma(s)\,n^{-s}$</div><div class="hint">drag $s$ and $n$</div></div>
-  <svg id="ml-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="ml-svg" viewBox="0 0 620 260" width="620" height="260"><title>Gamma integral $\int_0^\infty x^{s-1} e^{-nx}\,dx = \Gamma(s)\,n^{-s}$</title></svg>
   <div class="row">
-    <label>$s$</label>
+    <label for="ml-s">$s$</label>
     <input type="range" id="ml-s" min="0.3" max="4" step="0.02" value="2">
     <span id="ml-sv" class="small">s = 2.00</span>
   </div>
   <div class="row">
-    <label>$n$</label>
+    <label for="ml-n">$n$</label>
     <input type="range" id="ml-n" min="1" max="6" step="1" value="2">
     <span id="ml-nv" class="small">n = 2</span>
   </div>
@@ -1060,9 +1060,9 @@ The remaining integral is $O(1)$ — i.e. the floor function is $x-1/2+O(1)$, wh
 
 <div class="widget" id="w-perron">
   <div class="hd"><div class="ttl">Perron inversion for $\zeta(s)$: step function $\lfloor x\rfloor$</div><div class="hint">truncate integral at height $T$</div></div>
-  <svg id="pr-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="pr-svg" viewBox="0 0 620 280" width="620" height="280"><title>Perron inversion for $\zeta(s)$: step function $\lfloor x\rfloor$</title></svg>
   <div class="row">
-    <label>cutoff $T$</label>
+    <label for="pr-T">cutoff $T$</label>
     <input type="range" id="pr-T" min="5" max="80" step="1" value="25">
     <span id="pr-Tv" class="small">T = 25</span>
   </div>
@@ -1211,9 +1211,9 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
 
 <div class="widget" id="w-apprimes">
   <div class="hd"><div class="ttl">$\pi(x;4,1)$ vs. $\pi(x;4,3)$</div><div class="hint">primes $\equiv 1$ vs. $\equiv 3 \pmod 4$</div></div>
-  <svg id="ap-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="ap-svg" viewBox="0 0 620 300" width="620" height="300"><title>$\pi(x;4,1)$ vs. $\pi(x;4,3)$</title></svg>
   <div class="row">
-    <label>$x$</label>
+    <label for="ap-x">$x$</label>
     <input type="range" id="ap-x" min="20" max="2000" step="20" value="500">
     <span id="ap-xv" class="small">x = 500</span>
   </div>

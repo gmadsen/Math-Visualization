@@ -232,11 +232,11 @@ function mod(a,n){return ((a%n)+n)%n}
 <div class="widget" id="w-specz">
   <div class="hd"><div class="ttl">Spec ℤ — evaluate an integer at every prime</div><div class="hint">type an integer · hover a prime</div></div>
   <div class="row">
-    <label>n =</label>
+    <label for="specz-n">n =</label>
     <input type="number" id="specz-n" value="60" step="1" style="width:110px">
     <span class="small" id="specz-fact"></span>
   </div>
-  <svg id="specz-svg" viewBox="0 0 820 210" width="820" height="210"></svg>
+  <svg id="specz-svg" viewBox="0 0 820 210" width="820" height="210"><title>Spec ℤ — evaluate an integer at every prime</title></svg>
   <div class="readout" id="specz-readout">Hover a dot to see $n \bmod p$; the orange glow encodes multiplicity of $p$ in $n$.</div>
 </div>
 
@@ -380,7 +380,7 @@ function mod(a,n){return ((a%n)+n)%n}
     <button class="fbtn" data-f="F7">𝔽₇</button>
   </div>
   <div class="row">
-    <label>p(x) =</label>
+    <label for="c3">p(x) =</label>
     <input type="number" id="c3" value="1" style="width:60px">·x³ +
     <input type="number" id="c2" value="0" style="width:60px">·x² +
     <input type="number" id="c1" value="-1" style="width:60px">·x +
@@ -395,7 +395,7 @@ function mod(a,n){return ((a%n)+n)%n}
     <button class="pbtn" data-c="2,-3,1,0">x²−3x+2</button>
     <button class="pbtn" data-c="-6,11,-6,1">(x-1)(x-2)(x-3)</button>
   </div>
-  <svg id="speckx-svg" viewBox="0 0 820 320" width="820" height="320"></svg>
+  <svg id="speckx-svg" viewBox="0 0 820 320" width="820" height="320"><title>Spec k[x] — roots of p(x) as closed points</title></svg>
   <div class="readout" id="speckx-readout">Pick a field and polynomial. Hover a dot for its prime ideal.</div>
 </div>
 
@@ -639,7 +639,7 @@ function mod(a,n){return ((a%n)+n)%n}
     <button class="cbtn" data-c="xy">xy</button>
     <button class="cbtn" data-c="y-x">y−x</button>
   </div>
-  <svg id="speckxy-svg" viewBox="0 0 820 520" width="820" height="520" style="cursor:crosshair"></svg>
+  <svg id="speckxy-svg" viewBox="0 0 820 520" width="820" height="520" style="cursor:crosshair"><title>Spec k[x,y] — closed points &amp; curves</title></svg>
   <div class="readout" id="speckxy-readout">Move the mouse over the plane. Curves glow when the crosshair is on (or near) them.</div>
 </div>
 
@@ -831,7 +831,7 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <div class="widget" id="w-spec">
   <div class="hd"><div class="ttl">Specialization poset</div><div class="hint">click a node to highlight its closure</div></div>
-  <svg id="spec-svg" viewBox="0 0 820 400" width="820" height="400"></svg>
+  <svg id="spec-svg" viewBox="0 0 820 400" width="820" height="400"><title>Specialization poset</title></svg>
   <div class="readout" id="spec-readout">Click a node: the <span style="color:var(--yellow)">closure</span> is the node plus everything below. The <span style="color:var(--blue)">"generization"</span> is everything above.</div>
 </div>
 
@@ -978,13 +978,13 @@ function mod(a,n){return ((a%n)+n)%n}
 <div class="widget" id="w-fat">
   <div class="hd"><div class="ttl">Spec k[x]/(xⁿ) — the fat origin</div><div class="hint">drag the slider, change p(x)</div></div>
   <div class="row">
-    <label>n =</label>
+    <label for="fat-n">n =</label>
     <input type="range" id="fat-n" min="1" max="8" value="3">
     <span id="fat-nval" style="color:var(--yellow);min-width:2ch"></span>
-    <label style="margin-left:1.5rem">p(x) =</label>
+    <label style="margin-left:1.5rem" for="fat-p">p(x) =</label>
     <input type="text" id="fat-p" value="1 + 2x + 3x^2 + x^3 + 0.5x^4" style="width:260px">
   </div>
-  <svg id="fat-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <svg id="fat-svg" viewBox="0 0 820 300" width="820" height="300"><title>Spec k[x]/(xⁿ) — the fat origin</title></svg>
   <div class="readout" id="fat-readout"></div>
 </div>
 
@@ -1130,7 +1130,7 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <div class="widget" id="w-glue">
   <div class="hd"><div class="ttl">ℙ¹ from two affine charts</div><div class="hint">drag the point</div></div>
-  <svg id="glue-svg" viewBox="0 0 820 440" width="820" height="440"></svg>
+  <svg id="glue-svg" viewBox="0 0 820 440" width="820" height="440"><title>ℙ¹ from two affine charts</title></svg>
   <div class="readout" id="glue-readout"></div>
 </div>
 
@@ -1386,7 +1386,7 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <div class="widget" id="w-closed-sub">
   <div class="hd"><div class="ttl">Ideal → closed subscheme of Spec k[x,y]</div><div class="hint">static example</div></div>
-  <svg id="closed-sub-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <svg id="closed-sub-svg" viewBox="0 0 820 300" width="820" height="300"><title>Ideal → closed subscheme of Spec k[x,y]</title></svg>
   <div class="readout" id="closed-sub-readout">Four ideals of $k[x,y]$ cutting out increasingly refined structure on the same underlying set $\{(0,0)\}$ or pair of axes.</div>
 </div>
 <p>The scheme-theoretic distinction is what lets you write "the tangent space of $X$ at $p$ is $\operatorname{Hom}_k(\mathfrak m/\mathfrak m^2, k)$" or "this curve meets this line with multiplicity 3": both record information invisible to the underlying set.</p>
@@ -1494,7 +1494,7 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <div class="widget" id="w-fiber">
   <div class="hd"><div class="ttl">Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers</div><div class="hint">static schematic</div></div>
-  <svg id="fiber-svg" viewBox="0 0 820 300" width="820" height="300"></svg>
+  <svg id="fiber-svg" viewBox="0 0 820 300" width="820" height="300"><title>Spec ℤ[x] → Spec ℤ — arithmetic surface by fibers</title></svg>
   <div class="readout" id="fiber-readout">Each column is one fiber of $\operatorname{Spec}\mathbb Z[x]\to\operatorname{Spec}\mathbb Z$. The rightmost column is the generic fiber over $(0)$, of characteristic $0$.</div>
 </div>
 

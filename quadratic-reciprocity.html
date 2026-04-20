@@ -374,8 +374,8 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
 <div class="widget" id="w-euler">
   <div class="hd"><div class="ttl">Euler's criterion by fast exponentiation</div><div class="hint">compute $a^{(p-1)/2} \bmod p$</div></div>
   <div class="row">
-    <label>$a =$</label><input id="eu-a" type="number" value="5" style="width:5em">
-    <label>$p =$</label><input id="eu-p" type="number" value="41" style="width:6em">
+    <label for="eu-a">$a =$</label><input id="eu-a" type="number" value="5" style="width:5em">
+    <label for="eu-p">$p =$</label><input id="eu-p" type="number" value="41" style="width:6em">
     <button id="eu-go">compute</button>
   </div>
   <div class="readout" id="eu-out"></div>
@@ -490,11 +490,11 @@ which after cancelling factorials gives $a^{(p-1)/2} \equiv (-1)^\mu \pmod p$, a
   <div class="row">
     <label>$p =$</label>
     <select id="gl-p"></select>
-    <label>$a =$</label>
+    <label for="gl-a">$a =$</label>
     <input id="gl-a" type="number" value="3" style="width:5em">
     <button id="gl-go">draw</button>
   </div>
-  <svg id="gl-svg" viewBox="0 0 820 190" width="820" height="190"></svg>
+  <svg id="gl-svg" viewBox="0 0 820 190" width="820" height="190"><title>Gauss&#39;s lemma visualizer</title></svg>
   <div class="readout" id="gl-out"></div>
 </div>
 
@@ -702,8 +702,8 @@ is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$
 <div class="widget" id="w-calc">
   <div class="hd"><div class="ttl">Legendre symbol calculator</div><div class="hint">step-by-step reduction</div></div>
   <div class="row">
-    <label>$a =$</label><input id="lc-a" type="number" value="30" style="width:6em">
-    <label>$p =$</label><input id="lc-p" type="number" value="37" style="width:6em">
+    <label for="lc-a">$a =$</label><input id="lc-a" type="number" value="30" style="width:6em">
+    <label for="lc-p">$p =$</label><input id="lc-p" type="number" value="37" style="width:6em">
     <button id="lc-go">compute</button>
   </div>
   <div class="readout" id="lc-out"></div>

@@ -258,7 +258,7 @@ $$ \mathrm{Frob}_p \in \mathrm{Gal}(K/\mathbb{Q}) \big/ I_p, \qquad \mathrm{Frob
 <div class="widget" id="w-profinite">
   <div class="hd"><span class="ttl">Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</span>
     <span class="hint">finite quotients fan out; $G_\mathbb{Q}$ sits at the top</span></div>
-  <svg viewBox="0 0 820 340" width="100%"></svg>
+  <svg viewBox="0 0 820 340" width="100%"><title>Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</title></svg>
   <div class="row">
     <label>zoom to:</label>
     <button data-pf="all" class="active">all levels</button>
@@ -292,7 +292,7 @@ $$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
 <div class="widget" id="w-diagram">
   <div class="hd"><span class="ttl">Widget 2 · The representation map</span>
     <span class="hint">pick a coefficient field</span></div>
-  <svg viewBox="0 0 720 240" width="100%"></svg>
+  <svg viewBox="0 0 720 240" width="100%"><title>Widget 2 · The representation map</title></svg>
   <div class="row">
     <label>ℓ-adic target:</label>
     <button data-field="C">$\mathrm{GL}_n(\mathbb{C})$ (Artin)</button>
@@ -339,16 +339,16 @@ $$ \chi \colon G_\mathbb{Q} \;\longrightarrow\; \varprojlim_n\, (\mathbb{Z}/\ell
 <div class="widget" id="w-cyclo">
   <div class="hd"><span class="ttl">Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</span>
     <span class="hint">slide $n$; Galois elements act by multiplication in $(\mathbb{Z}/\ell^n)^\times$</span></div>
-  <svg viewBox="0 0 720 300" width="100%"></svg>
+  <svg viewBox="0 0 720 300" width="100%"><title>Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</title></svg>
   <div class="row">
     <label>$\ell$ =</label>
     <select id="cy-ell"><option>2</option><option selected>3</option><option>5</option></select>
-    <label>$n$ =</label>
+    <label for="cy-n">$n$ =</label>
     <input type="range" id="cy-n" min="1" max="3" step="1" value="2">
     <span id="cy-nlab" class="small">n=2</span>
   </div>
   <div class="row">
-    <label>$\chi(\sigma)$ =</label>
+    <label for="cy-a">$\chi(\sigma)$ =</label>
     <input type="number" id="cy-a" min="1" value="2" style="width:70px">
     <span class="small" id="cy-ahint"></span>
   </div>
@@ -384,7 +384,7 @@ $$ \rho_{E,\ell} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(\mathbb{Z
 <div class="widget" id="w-tate">
   <div class="hd"><span class="ttl">Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</span>
     <span class="hint">click a level to see the $(\mathbb{Z}/\ell^n)^2$ lattice it represents</span></div>
-  <svg viewBox="0 0 780 340" width="100%"></svg>
+  <svg viewBox="0 0 780 340" width="100%"><title>Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</title></svg>
   <div class="row">
     <label>$\ell$ =</label>
     <select id="tt-ell"><option>2</option><option selected>3</option><option>5</option></select>
@@ -415,11 +415,11 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 <div class="widget" id="w-matrix">
   <div class="hd"><span class="ttl">Widget 5 · The Frobenius matrix dial</span>
     <span class="hint">slide $a_p$ within $[-2\sqrt{p},\,2\sqrt{p}]$; eigenvalues move on a circle of radius $\sqrt{p}$</span></div>
-  <svg viewBox="0 0 760 340" width="100%"></svg>
+  <svg viewBox="0 0 760 340" width="100%"><title>Widget 5 · The Frobenius matrix dial</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="mx-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
-    <label>$a_p$ =</label>
+    <label for="mx-a">$a_p$ =</label>
     <input type="range" id="mx-a" min="-14" max="14" step="1" value="-2">
     <span id="mx-alab" class="small">a=-2</span>
   </div>
@@ -429,7 +429,7 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 <div class="widget" id="w-apbar">
   <div class="hd"><span class="ttl">Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</span>
     <span class="hint">bars obey the Hasse bound; half are zero (the CM symmetry)</span></div>
-  <svg viewBox="0 0 820 300" width="100%"></svg>
+  <svg viewBox="0 0 820 300" width="100%"><title>Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</title></svg>
   <div class="row">
     <label>curve:</label>
     <select id="ap-curve">
@@ -437,7 +437,7 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
       <option value="B" selected>$y^2 + y = x^3 - x^2$ (conductor 11)</option>
       <option value="C">$y^2 = x^3 - 43x + 166$ (conductor 26)</option>
     </select>
-    <label>show Hasse envelope:</label>
+    <label for="ap-env">show Hasse envelope:</label>
     <input type="checkbox" id="ap-env" checked>
   </div>
   <div class="readout" id="ap-text"></div>
@@ -446,11 +446,11 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 <div class="widget" id="w-hasse">
   <div class="hd"><span class="ttl">Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</span>
     <span class="hint">the $\sqrt{p}$-circle; conjugate eigenvalues as two dots</span></div>
-  <svg viewBox="0 0 640 340" width="100%"></svg>
+  <svg viewBox="0 0 640 340" width="100%"><title>Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="hs-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
-    <label>$a_p$ =</label>
+    <label for="hs-a">$a_p$ =</label>
     <input type="range" id="hs-a" min="-14" max="14" step="1" value="-2">
     <span id="hs-alab" class="small">a=-2</span>
   </div>
@@ -494,11 +494,11 @@ $$ L(E,s) \;=\; \prod_p L_p(E,s). $$
 <div class="widget" id="w-lfac">
   <div class="hd"><span class="ttl">Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</span>
     <span class="hint">for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$</span></div>
-  <svg viewBox="0 0 720 260" width="100%"></svg>
+  <svg viewBox="0 0 720 260" width="100%"><title>Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="lf-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>
-    <label>$a_p$ =</label>
+    <label for="lf-a">$a_p$ =</label>
     <input type="range" id="lf-a" min="-12" max="12" step="1" value="-2">
     <span id="lf-alab" class="small">a=-2</span>
   </div>
@@ -521,7 +521,7 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 <div class="widget" id="w-deligne">
   <div class="hd"><span class="ttl">Widget 9 · Eigenform $\to$ Galois representation</span>
     <span class="hint">three prototypical examples; $a_p$ becomes $\operatorname{tr}\rho(\mathrm{Frob}_p)$</span></div>
-  <svg viewBox="0 0 820 320" width="100%"></svg>
+  <svg viewBox="0 0 820 320" width="100%"><title>Widget 9 · Eigenform $\to$ Galois representation</title></svg>
   <div class="row">
     <label>eigenform:</label>
     <select id="de-f">

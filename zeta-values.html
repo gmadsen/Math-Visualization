@@ -249,12 +249,12 @@ $$\boxed{\zeta(2) = \sum_{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}.}$$
 <div class="widget" id="w-partial">
   <div class="hd"><div class="ttl">Basel partial sums vs $\pi^2/6$</div><div class="hint">drag slider to add more terms</div></div>
   <div class="row">
-    <label>terms $N=$</label>
+    <label for="bp-n">terms $N=$</label>
     <input type="range" id="bp-n" min="1" max="200" step="1" value="10">
     <span id="bp-n-lbl" class="small"></span>
   </div>
   <div class="readout" id="bp-out"></div>
-  <svg id="bp-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <svg id="bp-svg" viewBox="0 0 620 200" width="620" height="200"><title>Basel partial sums vs $\pi^2/6$</title></svg>
   <div class="small" style="color:var(--mute)">Cyan: partial sum $S_N=\sum_{k=1}^{N}1/k^2$. Yellow dashed: $\pi^2/6\approx 1.6449$. The series converges, but slowly — a reminder that the exact value $\pi^2/6$ is non-trivial.</div>
 </div>
 
@@ -348,15 +348,15 @@ $$\boxed{\zeta(2n) = (-1)^{n+1}\frac{B_{2n}\,(2\pi)^{2n}}{2\,(2n)!}, \qquad n=1,
 <div class="widget" id="w-even">
   <div class="hd"><div class="ttl">Even zeta values: formula vs numerical sum</div><div class="hint">pick $n$, compare closed form to partial sum</div></div>
   <div class="row">
-    <label>$n=$</label>
+    <label for="ev-n">$n=$</label>
     <input type="range" id="ev-n" min="1" max="8" step="1" value="2">
     <span id="ev-n-lbl" class="small"></span>
-    <label style="margin-left:1rem">terms $N=$</label>
+    <label style="margin-left:1rem" for="ev-N">terms $N=$</label>
     <input type="range" id="ev-N" min="10" max="2000" step="10" value="200">
     <span id="ev-N-lbl" class="small"></span>
   </div>
   <div class="readout" id="ev-out"></div>
-  <svg id="ev-svg" viewBox="0 0 620 180" width="620" height="180"></svg>
+  <svg id="ev-svg" viewBox="0 0 620 180" width="620" height="180"><title>Even zeta values: formula vs numerical sum</title></svg>
   <div class="small" style="color:var(--mute)">Bar chart: $k^{-2n}$ for $k=1\ldots 30$. Notice how terms decay faster for larger $n$ — the series converges much faster than $\zeta(2)$.</div>
 </div>
 
@@ -465,12 +465,12 @@ $$\zeta(3) = \frac{5}{2}\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n^3\binom{2n}{n}}.$
 <div class="widget" id="w-apery">
   <div class="hd"><div class="ttl">Apéry series convergence</div><div class="hint">watch rational approximants approach ζ(3)</div></div>
   <div class="row">
-    <label>terms $N=$</label>
+    <label for="ap-n">terms $N=$</label>
     <input type="range" id="ap-n" min="1" max="40" step="1" value="8">
     <span id="ap-n-lbl" class="small"></span>
   </div>
   <div class="readout" id="ap-out"></div>
-  <svg id="ap-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="ap-svg" viewBox="0 0 620 220" width="620" height="220"><title>Apéry series convergence</title></svg>
   <div class="small" style="color:var(--mute)">Pink dots: partial sums of the Apéry series $\tfrac{5}{2}\sum_{k=1}^{N}\tfrac{(-1)^{k+1}}{k^3\binom{2k}{k}}$. Yellow dashed: $\zeta(3)\approx 1.20206$. The series converges much faster than $\sum k^{-3}$.</div>
 </div>
 
@@ -559,12 +559,12 @@ $$\zeta(-n) = -\frac{B_{n+1}}{n+1}, \qquad n=0,1,2,3,\ldots$$
 <div class="widget" id="w-neg">
   <div class="hd"><div class="ttl">$\zeta(-n)$ table viewer</div><div class="hint">select $n$ to see formula and value</div></div>
   <div class="row">
-    <label>$n=$</label>
+    <label for="neg-n">$n=$</label>
     <input type="range" id="neg-n" min="0" max="12" step="1" value="1">
     <span id="neg-n-lbl" class="small"></span>
   </div>
   <div class="readout" id="neg-out"></div>
-  <svg id="neg-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="neg-svg" viewBox="0 0 620 240" width="620" height="240"><title>$\zeta(-n)$ table viewer</title></svg>
   <div class="small" style="color:var(--mute)">Bars show $\zeta(-n)$ for $n=0,1,\ldots,12$. Values at even $n\ge 2$ are exactly zero (trivial zeros). Note the rapid growth of $|\zeta(-n)|$ for odd $n$.</div>
 </div>
 
@@ -689,12 +689,12 @@ $$\zeta(1-s) = 2\,(2\pi)^{-s}\cos\!\left(\tfrac{\pi s}{2}\right)\Gamma(s)\,\zeta
 <div class="widget" id="w-feq">
   <div class="hd"><div class="ttl">Functional equation: value pairing $\zeta(s)\leftrightarrow\zeta(1-s)$</div><div class="hint">move slider to see how $s$ maps to $1-s$</div></div>
   <div class="row">
-    <label>$\operatorname{Re}(s)=$</label>
+    <label for="fe-s">$\operatorname{Re}(s)=$</label>
     <input type="range" id="fe-s" min="-3" max="4" step="0.05" value="2">
     <span id="fe-s-lbl" class="small"></span>
   </div>
   <div class="readout" id="fe-out"></div>
-  <svg id="fe-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <svg id="fe-svg" viewBox="0 0 620 200" width="620" height="200"><title>Functional equation: value pairing $\zeta(s)\leftrightarrow\zeta(1-s)$</title></svg>
   <div class="small" style="color:var(--mute)">Number line showing the real axis. Yellow dot: $s$. Pink dot: $1-s$. The midpoint $s=1/2$ (the critical line) is always at the center of the reflection.</div>
 </div>
 

@@ -344,11 +344,11 @@ Iterating until $k=1$ produces $p=a^2+b^2$.</p>
 <div class="widget" id="w-desc">
   <div class="hd"><div class="ttl">Brahmagupta–Fibonacci multiplier</div><div class="hint">multiply two sums of two squares</div></div>
   <div class="row">
-    <label>$a^2+b^2$:</label>
+    <label for="bf-a">$a^2+b^2$:</label>
     <input type="number" id="bf-a" value="2" style="width:4em">
     <input type="number" id="bf-b" value="3" style="width:4em">
-    <label>×</label>
-    <label>$c^2+d^2$:</label>
+    <label for="bf-b">×</label>
+    <label for="bf-c">$c^2+d^2$:</label>
     <input type="number" id="bf-c" value="1" style="width:4em">
     <input type="number" id="bf-d" value="4" style="width:4em">
     <button id="bf-go">multiply</button>
@@ -404,7 +404,7 @@ The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean
 
 <div class="widget" id="w-lattice">
   <div class="hd"><div class="ttl">Gaussian integer lattice</div><div class="hint">circles $|\alpha|^2 = p$ for small primes</div></div>
-  <svg id="lat-svg" viewBox="0 0 620 460" width="620" height="460"></svg>
+  <svg id="lat-svg" viewBox="0 0 620 460" width="620" height="460"><title>Gaussian integer lattice</title></svg>
   <div class="row">
     <label>highlight $p=$</label>
     <select id="lat-p">
@@ -513,7 +513,7 @@ where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$
 <div class="widget" id="w-twosq">
   <div class="hd"><div class="ttl">Two-squares checker</div><div class="hint">enter $n\le 10\,000$</div></div>
   <div class="row">
-    <label>$n =$</label>
+    <label for="ts-n">$n =$</label>
     <input type="number" id="ts-n" value="325" min="1" max="10000" style="width:7em">
     <button id="ts-go">check</button>
   </div>
@@ -622,9 +622,9 @@ where $h(D)$ is the class number of discriminant $D$. This is the first appearan
 
 <div class="widget" id="w-three">
   <div class="hd"><div class="ttl">Three-squares: excluded integers</div><div class="hint">red = $4^a(8b+7)$, not a sum of three squares</div></div>
-  <svg id="three-svg" viewBox="0 0 620 160" width="620" height="160"></svg>
+  <svg id="three-svg" viewBox="0 0 620 160" width="620" height="160"><title>Three-squares: excluded integers</title></svg>
   <div class="row">
-    <label>check $n =$</label>
+    <label for="th-n">check $n =$</label>
     <input type="number" id="th-n" value="28" min="0" max="2000" style="width:7em">
     <button id="th-go">check</button>
   </div>
@@ -747,7 +747,7 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
 <div class="widget" id="w-four">
   <div class="hd"><div class="ttl">Four-squares decomposer</div><div class="hint">enter $n\le 2000$</div></div>
   <div class="row">
-    <label>$n =$</label>
+    <label for="fs-n">$n =$</label>
     <input type="number" id="fs-n" value="103" min="0" max="2000" style="width:7em">
     <button id="fs-go">decompose</button>
   </div>
@@ -926,7 +926,7 @@ So every question about $r_k(n)$ is a question about the $q$-expansion of $\thet
 
 <div class="widget" id="w-hist">
   <div class="hd"><div class="ttl">$r_2(n)$ for $n=1..100$</div><div class="hint">hover a bar to see a decomposition</div></div>
-  <svg id="hist-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="hist-svg" viewBox="0 0 620 240" width="620" height="240"><title>$r_2(n)$ for $n=1..100$</title></svg>
   <div class="readout" id="hist-out">hover a bar…</div>
 </div>
 

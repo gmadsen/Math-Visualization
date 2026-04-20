@@ -229,7 +229,7 @@ function ensureArrow(svg, id, color){
 
 <div class="widget" id="w-metric">
   <div class="hd"><div class="ttl">W1 · Hyperbolic ruler</div><div class="hint">hover to see the $1/y$ scaling</div></div>
-  <svg id="m-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="m-svg" viewBox="0 0 620 360" width="620" height="360"><title>W1 · Hyperbolic ruler</title></svg>
   <div class="readout" id="m-out">hover inside the shaded region…</div>
   <div class="small">The bar drawn at the cursor has Euclidean length 40 px; its hyperbolic length is $40/y$ (in the units where one pixel of the $y$-axis is one coordinate unit).</div>
 </div>
@@ -348,7 +348,7 @@ function ensureArrow(svg, id, color){
 
 <div class="widget" id="w-geod">
   <div class="hd"><div class="ttl">W2 · Geodesic drawer</div><div class="hint">drag the two points · unique hyperbolic geodesic</div></div>
-  <svg id="g-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="g-svg" viewBox="0 0 620 360" width="620" height="360"><title>W2 · Geodesic drawer</title></svg>
   <div class="readout" id="g-out"></div>
 </div>
 <div class="quiz" data-concept="geodesics-in-H"></div>
@@ -490,19 +490,19 @@ function ensureArrow(svg, id, color){
 <div class="widget" id="w-sl2r">
   <div class="hd"><div class="ttl">W3 · $g \cdot z$ action</div><div class="hint">tweak $a,b,c,d$ (constrained to $\det=1$) · drag $z$</div></div>
   <div class="row">
-    <label>$a$</label><input type="range" id="p-a" min="-3" max="3" step="0.01" value="1.2">
+    <label for="p-a">$a$</label><input type="range" id="p-a" min="-3" max="3" step="0.01" value="1.2">
     <span id="sa" class="small"></span>
-    <label>$b$</label><input type="range" id="p-b" min="-3" max="3" step="0.01" value="0.5">
+    <label for="p-b">$b$</label><input type="range" id="p-b" min="-3" max="3" step="0.01" value="0.5">
     <span id="sb" class="small"></span>
   </div>
   <div class="row">
-    <label>$c$</label><input type="range" id="p-c" min="-3" max="3" step="0.01" value="0.3">
+    <label for="p-c">$c$</label><input type="range" id="p-c" min="-3" max="3" step="0.01" value="0.3">
     <span id="sc" class="small"></span>
     <label>$d$ (forced)</label>
     <span id="sd" class="small" style="color:var(--yellow)"></span>
     <span class="small">(adjusted so $ad-bc=1$)</span>
   </div>
-  <svg id="s-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="s-svg" viewBox="0 0 620 360" width="620" height="360"><title>W3 · $g \cdot z$ action</title></svg>
   <div class="readout" id="s-out"></div>
 </div>
 </section>
@@ -632,10 +632,10 @@ function ensureArrow(svg, id, color){
     <button data-t="h">hyperbolic (axis translation)</button>
   </div>
   <div class="row">
-    <label>parameter <span id="i-lab"></span></label>
+    <label for="i-par">parameter <span id="i-lab"></span></label>
     <input type="range" id="i-par" min="0.05" max="1.5" step="0.01" value="0.5">
   </div>
-  <svg id="i-svg" viewBox="0 0 620 340" width="620" height="340"></svg>
+  <svg id="i-svg" viewBox="0 0 620 340" width="620" height="340"><title>W4 · Isometry classifier</title></svg>
   <div class="readout" id="i-out"></div>
 </div>
 <div class="quiz" data-concept="isometry-group-psl2r"></div>
@@ -772,7 +772,7 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
 
 <div class="widget" id="w-tri">
   <div class="hd"><div class="ttl">W5 · Hyperbolic triangle</div><div class="hint">drag the three vertices</div></div>
-  <svg id="t-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <svg id="t-svg" viewBox="0 0 620 380" width="620" height="380"><title>W5 · Hyperbolic triangle</title></svg>
   <div class="readout" id="t-out"></div>
 </div>
 </section>
@@ -936,11 +936,11 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
 <div class="widget" id="w-disk">
   <div class="hd"><div class="ttl">W6 · Half-plane ↔ Disk</div><div class="hint">slide the Cayley interpolation</div></div>
   <div class="row">
-    <label>t (0 = $\mathbb{H}$, 1 = $\mathbb{D}$)</label>
+    <label for="d-t">t (0 = $\mathbb{H}$, 1 = $\mathbb{D}$)</label>
     <input type="range" id="d-t" min="0" max="1" step="0.01" value="0">
     <span id="d-tlab" class="small"></span>
   </div>
-  <svg id="d-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="d-svg" viewBox="0 0 620 360" width="620" height="360"><title>W6 · Half-plane ↔ Disk</title></svg>
   <div class="readout" id="d-out">The same set of geodesics shown in both models. Vertical lines become diameters; semicircles become arcs perpendicular to the unit circle.</div>
 </div>
 </section>
@@ -1077,7 +1077,7 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
     <button id="tl-deeper">add deeper tiles</button>
     <button id="tl-reset">reset</button>
   </div>
-  <svg id="tl-svg" viewBox="0 0 680 380" width="680" height="380"></svg>
+  <svg id="tl-svg" viewBox="0 0 680 380" width="680" height="380"><title>W7 · $\mathrm{SL}_2(\mathbb{Z})$ fundamental domain</title></svg>
   <div class="readout" id="tl-out"></div>
 </div>
 

@@ -291,13 +291,13 @@ The sign of $D$ determines the character of $f$: if $D < 0$ and $a > 0$ then $f(
 <div class="widget" id="w-discriminant">
   <div class="hd"><div class="ttl">Discriminant explorer</div><div class="hint">enter coefficients to see $D = b^2-4ac$</div></div>
   <div class="row">
-    <label>$a$:</label><input type="number" id="da" value="1" style="width:60px">
-    <label>$b$:</label><input type="number" id="db" value="1" style="width:60px">
-    <label>$c$:</label><input type="number" id="dc" value="1" style="width:60px">
+    <label for="da">$a$:</label><input type="number" id="da" value="1" style="width:60px">
+    <label for="db">$b$:</label><input type="number" id="db" value="1" style="width:60px">
+    <label for="dc">$c$:</label><input type="number" id="dc" value="1" style="width:60px">
     <button id="disc-btn">Compute</button>
   </div>
   <div class="readout" id="disc-out"></div>
-  <svg id="disc-svg" viewBox="0 0 460 200" style="height:200px;margin-top:.5rem"></svg>
+  <svg id="disc-svg" viewBox="0 0 460 200" style="height:200px;margin-top:.5rem"><title>Discriminant explorer</title></svg>
 </div>
 <script>
 (function(){
@@ -390,9 +390,9 @@ This turns the set of equivalence classes into a finite, computable list. The nu
 <div class="widget" id="w-reduce">
   <div class="hd"><div class="ttl">Form reducer</div><div class="hint">enter $a,b,c$ with $b^2-4ac&lt;0$, $a&gt;0$</div></div>
   <div class="row">
-    <label>$a$:</label><input type="number" id="ra" value="3" style="width:60px">
-    <label>$b$:</label><input type="number" id="rb" value="4" style="width:60px">
-    <label>$c$:</label><input type="number" id="rc" value="5" style="width:60px">
+    <label for="ra">$a$:</label><input type="number" id="ra" value="3" style="width:60px">
+    <label for="rb">$b$:</label><input type="number" id="rb" value="4" style="width:60px">
+    <label for="rc">$c$:</label><input type="number" id="rc" value="5" style="width:60px">
     <button id="red-btn">Reduce</button>
   </div>
   <div class="readout" id="red-out"></div>
@@ -502,7 +502,7 @@ The <strong>inverse</strong> of the class of $(a,b,c)$ is the class of $(a,-b,c)
 
 <div class="widget" id="w-classgroup">
   <div class="hd"><div class="ttl">Class group of $D = -23$</div><div class="hint">see how composition cycles through the three classes</div></div>
-  <svg id="cg-svg" viewBox="0 0 460 220" style="height:220px"></svg>
+  <svg id="cg-svg" viewBox="0 0 460 220" style="height:220px"><title>Class group of $D = -23$</title></svg>
   <div class="readout" id="cg-out" style="margin-top:.5rem">Click a node to see composition table</div>
 </div>
 <script>
@@ -742,7 +742,7 @@ $$ \mathrm{Cl}(D) \xrightarrow{\;\sim\;} \mathrm{Cl}(K). $$</p>
     <select id="split-sel"></select>
   </div>
   <div class="readout" id="split-out" style="margin-top:.5rem"></div>
-  <svg id="split-svg" viewBox="0 0 460 110" style="height:110px;margin-top:.4rem"></svg>
+  <svg id="split-svg" viewBox="0 0 460 110" style="height:110px;margin-top:.4rem"><title>Which primes are represented?</title></svg>
 </div>
 <script>
 (function(){

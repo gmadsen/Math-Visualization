@@ -283,9 +283,9 @@ where $v$ ranges over $\infty$ and all primes. Decrease somewhere, increase some
 <div class="widget" id="w1">
   <div class="hd"><span class="ttl">W1 · $v_p$ and $|\cdot|_p$ calculator</span><span class="hint">enter $p$ prime and $a/b$</span></div>
   <div class="row">
-    <label>$p=$</label><input type="number" id="w1-p" value="7" min="2" step="1" style="width:70px">
-    <label>$a=$</label><input type="number" id="w1-a" value="98" step="1" style="width:110px">
-    <label>$b=$</label><input type="number" id="w1-b" value="3" step="1" style="width:110px">
+    <label for="w1-p">$p=$</label><input type="number" id="w1-p" value="7" min="2" step="1" style="width:70px">
+    <label for="w1-a">$a=$</label><input type="number" id="w1-a" value="98" step="1" style="width:110px">
+    <label for="w1-b">$b=$</label><input type="number" id="w1-b" value="3" step="1" style="width:110px">
     <button id="w1-go">compute</button>
   </div>
   <div class="readout" id="w1-out"></div>
@@ -387,10 +387,10 @@ Call an absolute value with this property <strong>non-Archimedean</strong>, or a
 <div class="widget" id="w4">
   <div class="hd"><span class="ttl">W4 · Ultrametric triangle</span><span class="hint">three integers in $\mathbb{Z}_p$</span></div>
   <div class="row">
-    <label>$p=$</label><input type="number" id="w4-p" value="2" min="2" step="1" style="width:70px">
-    <label>$a=$</label><input type="number" id="w4-a" value="17" step="1" style="width:90px">
-    <label>$b=$</label><input type="number" id="w4-b" value="5" step="1" style="width:90px">
-    <label>$c=$</label><input type="number" id="w4-c" value="6" step="1" style="width:90px">
+    <label for="w4-p">$p=$</label><input type="number" id="w4-p" value="2" min="2" step="1" style="width:70px">
+    <label for="w4-a">$a=$</label><input type="number" id="w4-a" value="17" step="1" style="width:90px">
+    <label for="w4-b">$b=$</label><input type="number" id="w4-b" value="5" step="1" style="width:90px">
+    <label for="w4-c">$c=$</label><input type="number" id="w4-c" value="6" step="1" style="width:90px">
     <button id="w4-go">check</button>
   </div>
   <div class="readout" id="w4-out"></div>
@@ -444,10 +444,10 @@ For a non-negative integer $n$, the expansion terminates: it is exactly the base
 <div class="widget" id="w2">
   <div class="hd"><span class="ttl">W2 · p-adic expansion</span><span class="hint">integer or rational $a/b$ with $\gcd(b,p)=1$</span></div>
   <div class="row">
-    <label>$p=$</label><input type="number" id="w2-p" value="5" min="2" step="1" style="width:70px">
-    <label>$a=$</label><input type="number" id="w2-a" value="-1" step="1" style="width:110px">
-    <label>$b=$</label><input type="number" id="w2-b" value="1" step="1" style="width:110px">
-    <label>digits</label><input type="number" id="w2-d" value="10" min="1" max="14" step="1" style="width:70px">
+    <label for="w2-p">$p=$</label><input type="number" id="w2-p" value="5" min="2" step="1" style="width:70px">
+    <label for="w2-a">$a=$</label><input type="number" id="w2-a" value="-1" step="1" style="width:110px">
+    <label for="w2-b">$b=$</label><input type="number" id="w2-b" value="1" step="1" style="width:110px">
+    <label for="w2-d">digits</label><input type="number" id="w2-d" value="10" min="1" max="14" step="1" style="width:70px">
     <button id="w2-go">expand</button>
   </div>
   <div class="readout" id="w2-out"></div>
@@ -694,8 +694,8 @@ $$x = \sum_{i=N}^{\infty} a_i p^i, \qquad a_i \in \{0,\ldots,p-1\},\ N\in\mathbb
       <option value="fact">$\sum n!$</option>
       <option value="invn">$\sum 1/n$</option>
     </select>
-    <label>$p=$</label><input type="number" id="w6-p" value="3" min="2" step="1" style="width:70px">
-    <label>terms</label><input type="number" id="w6-N" value="12" min="2" max="24" step="1" style="width:80px">
+    <label for="w6-p">$p=$</label><input type="number" id="w6-p" value="3" min="2" step="1" style="width:70px">
+    <label for="w6-N">terms</label><input type="number" id="w6-N" value="12" min="2" max="24" step="1" style="width:80px">
     <button id="w6-go">plot</button>
   </div>
   <svg id="w6-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="dual convergence"></svg>
@@ -832,10 +832,10 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 <div class="widget" id="w5">
   <div class="hd"><span class="ttl">W5 · Hensel lift step-by-step</span><span class="hint">$f(x)=x^2-k$, solve $x^2=k$ in $\mathbb{Z}_p$</span></div>
   <div class="row">
-    <label>$p=$</label><input type="number" id="w5-p" value="7" min="2" step="1" style="width:70px">
-    <label>$k=$</label><input type="number" id="w5-k" value="2" step="1" style="width:80px">
-    <label>$x_0=$</label><input type="number" id="w5-x0" value="3" step="1" style="width:80px">
-    <label>steps</label><input type="number" id="w5-n" value="6" min="1" max="12" step="1" style="width:70px">
+    <label for="w5-p">$p=$</label><input type="number" id="w5-p" value="7" min="2" step="1" style="width:70px">
+    <label for="w5-k">$k=$</label><input type="number" id="w5-k" value="2" step="1" style="width:80px">
+    <label for="w5-x0">$x_0=$</label><input type="number" id="w5-x0" value="3" step="1" style="width:80px">
+    <label for="w5-n">steps</label><input type="number" id="w5-n" value="6" min="1" max="12" step="1" style="width:70px">
     <button id="w5-go">lift</button>
   </div>
   <div class="readout" id="w5-out"></div>
@@ -915,10 +915,10 @@ The left-to-right direction is automatic; the deep content is the reverse direct
 <div class="widget" id="w7">
   <div class="hd"><span class="ttl">W7 &middot; Local solvability check</span><span class="hint">$ax^2+by^2=c$ over $\mathbb{R}$ and $\mathbb{Q}_p$</span></div>
   <div class="row">
-    <label>$a=$</label><input type="number" id="w7-a" value="1" step="1" style="width:80px">
-    <label>$b=$</label><input type="number" id="w7-b" value="-2" step="1" style="width:80px">
-    <label>$c=$</label><input type="number" id="w7-c" value="1" step="1" style="width:80px">
-    <label>$p=$</label><input type="number" id="w7-p" value="7" min="2" step="1" style="width:70px">
+    <label for="w7-a">$a=$</label><input type="number" id="w7-a" value="1" step="1" style="width:80px">
+    <label for="w7-b">$b=$</label><input type="number" id="w7-b" value="-2" step="1" style="width:80px">
+    <label for="w7-c">$c=$</label><input type="number" id="w7-c" value="1" step="1" style="width:80px">
+    <label for="w7-p">$p=$</label><input type="number" id="w7-p" value="7" min="2" step="1" style="width:70px">
     <button id="w7-go">check</button>
   </div>
   <div class="readout" id="w7-out"></div>

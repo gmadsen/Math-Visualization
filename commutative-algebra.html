@@ -344,7 +344,7 @@ function allMonicPolysUpToDeg(d,p){
     </span>
   </div>
   <div style="display:grid;grid-template-columns:1fr 260px;gap:1rem;align-items:start">
-    <svg id="lat-svg" viewBox="0 0 560 420" width="100%" style="max-width:560px"></svg>
+    <svg id="lat-svg" viewBox="0 0 560 420" width="100%" style="max-width:560px"><title>Ideal lattice explorer</title></svg>
     <div>
       <div class="readout" id="lat-info" style="min-height:8em"></div>
     </div>
@@ -757,9 +757,9 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 <div class="widget" id="w-tens">
   <div class="hd"><div class="ttl">Tensor product over ℤ</div><div class="hint">enter M and N as products of cyclic groups</div></div>
   <div class="row">
-    <label>M =</label>
+    <label for="t-m">M =</label>
     <input type="text" id="t-m" value="Z + Z/6" style="width:160px">
-    <label>N =</label>
+    <label for="t-n">N =</label>
     <input type="text" id="t-n" value="Z/4 + Z/10" style="width:160px">
     <button id="t-go">compute</button>
     <span class="small">syntax: <code>Z + Z/4 + Z/6</code></span>
@@ -920,7 +920,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
       <option value="f">single element A_f</option>
       <option value="p">complement of prime A_𝔭</option>
     </select>
-    <label>element:</label>
+    <label for="loc-elt">element:</label>
     <input type="number" id="loc-elt" value="2" style="width:90px">
   </div>
   <div class="readout" id="loc-out"></div>
@@ -1070,7 +1070,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
     <label>→ ? → 0</label>
   </div>
   <div class="row">
-    <label>injection multiplies by n =</label>
+    <label for="fl-n">injection multiplies by n =</label>
     <input type="number" id="fl-n" value="2" min="1" style="width:70px">
     <label style="margin-left:1rem">tensor with M =</label>
     <select id="fl-m">
@@ -1260,15 +1260,15 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
     </select>
   </div>
   <div class="row">
-    <label>point (a,b) — a:</label>
+    <label for="tan-a">point (a,b) — a:</label>
     <input type="number" id="tan-a" value="0" step="0.5" style="width:80px">
-    <label>b:</label>
+    <label for="tan-b">b:</label>
     <input type="number" id="tan-b" value="0" step="0.5" style="width:80px">
     <button id="tan-go">compute tangent</button>
     <span class="small" id="tan-verdict"></span>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start">
-    <svg id="tan-svg" viewBox="-140 -140 280 280" width="100%" style="max-width:320px"></svg>
+    <svg id="tan-svg" viewBox="-140 -140 280 280" width="100%" style="max-width:320px"><title>Zariski tangent space</title></svg>
     <div class="readout" id="tan-out"></div>
   </div>
 </div>
@@ -1505,7 +1505,7 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
       <option value="Z/12">ℤ/12</option>
     </select>
   </div>
-  <svg id="dim-svg" viewBox="0 0 640 340" width="100%" style="max-width:640px"></svg>
+  <svg id="dim-svg" viewBox="0 0 640 340" width="100%" style="max-width:640px"><title>Krull dimension chain explorer</title></svg>
   <div class="readout" id="dim-out"></div>
 </div>
 

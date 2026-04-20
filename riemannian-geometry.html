@@ -295,7 +295,7 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
       <option value="hyp">Hyperbolic half-plane: $(du^2+dv^2)/v^2$</option>
     </select>
   </div>
-  <svg id="met-svg" viewBox="0 0 620 360" width="620" height="360"></svg>
+  <svg id="met-svg" viewBox="0 0 620 360" width="620" height="360"><title>Metric visualizer</title></svg>
   <div class="readout" id="met-out"></div>
 </div>
 
@@ -454,7 +454,7 @@ This is a linear first-order ODE in the components of $V$; given $V(0)\in T_{\ga
 
 <div class="widget" id="w-ptrans">
   <div class="hd"><div class="ttl">Parallel transport on the sphere</div><div class="hint">drag triangle vertices; watch holonomy rotation</div></div>
-  <svg id="pt-svg" viewBox="0 0 620 400" width="620" height="400"></svg>
+  <svg id="pt-svg" viewBox="0 0 620 400" width="620" height="400"><title>Parallel transport on the sphere</title></svg>
   <div class="row">
     <button id="pt-play">animate transport</button>
     <button id="pt-reset">reset vertices</button>
@@ -765,9 +765,9 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
     <button data-tab="hyp">Hyperbolic half-plane</button>
     <button data-tab="torus">Flat torus</button>
   </div>
-  <svg id="geo-svg" viewBox="0 0 620 380" width="620" height="380"></svg>
+  <svg id="geo-svg" viewBox="0 0 620 380" width="620" height="380"><title>Geodesic shooter</title></svg>
   <div class="row">
-    <label>speed T:</label>
+    <label for="geo-T">speed T:</label>
     <input type="range" id="geo-T" min="0.5" max="8" step="0.1" value="3"/>
     <span id="geo-Tv" class="small"></span>
     <button id="geo-clear">clear</button>
@@ -1173,12 +1173,12 @@ This depends only on $\Pi$, not the chosen basis. In dimension $2$, $K$ equals t
     </select>
   </div>
   <div class="row">
-    <label>u angle:</label>
+    <label for="sec-ua">u angle:</label>
     <input type="range" id="sec-ua" min="0" max="360" step="1" value="0"/>
-    <label>v angle:</label>
+    <label for="sec-va">v angle:</label>
     <input type="range" id="sec-va" min="0" max="360" step="1" value="90"/>
   </div>
-  <svg id="sec-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="sec-svg" viewBox="0 0 620 220" width="620" height="220"><title>Sectional curvature calculator</title></svg>
   <div class="readout" id="sec-out"></div>
   <p class="small">For a $2$-manifold there is only one plane at each point: the sectional curvature <em>is</em> $K$. For constant-curvature spaces, $R(u,v)w = K\bigl(g(v,w)u - g(u,w)v\bigr)$, so $K(\Pi) = K$ for every plane.</p>
 </div>
@@ -1280,7 +1280,7 @@ In particular, on a constant-curvature surface with $K = \kappa$, the <em>excess
 
 <div class="widget" id="w-tri">
   <div class="hd"><div class="ttl">Geodesic triangles: angle sum</div><div class="hint">drag vertices; sphere / flat / hyperbolic side-by-side</div></div>
-  <svg id="tri-svg" viewBox="0 0 660 280" width="660" height="280"></svg>
+  <svg id="tri-svg" viewBox="0 0 660 280" width="660" height="280"><title>Geodesic triangles: angle sum</title></svg>
   <div class="readout" id="tri-out"></div>
 </div>
 </section>
@@ -1613,11 +1613,11 @@ Positive curvature gives sinusoidal behaviour &mdash; neighbours <em>refocus</em
 <div class="widget" id="w-jac">
   <div class="hd"><div class="ttl">Jacobi field on the sphere</div><div class="hint">two nearby geodesics from the north pole</div></div>
   <div class="row">
-    <label>δ (initial angular spread):</label>
+    <label for="jac-d">δ (initial angular spread):</label>
     <input type="range" id="jac-d" min="0.05" max="0.6" step="0.01" value="0.25"/>
     <span id="jac-dv" class="small"></span>
   </div>
-  <svg id="jac-svg" viewBox="0 0 660 320" width="660" height="320"></svg>
+  <svg id="jac-svg" viewBox="0 0 660 320" width="660" height="320"><title>Jacobi field on the sphere</title></svg>
   <div class="readout" id="jac-out"></div>
   <p class="small">Left: two geodesics from $N$ on the unit sphere. Right: separation $|J|(t) = \delta \cdot \sin t$ plotted as a function of $t$. Max at equator $(t=\pi/2)$; conjugate point at south pole $(t=\pi)$.</p>
 </div>
@@ -1782,7 +1782,7 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
 
 <div class="widget" id="w-comp">
   <div class="hd"><div class="ttl">Comparison theorems at a glance</div></div>
-  <svg id="comp-svg" viewBox="0 0 660 260" width="660" height="260"></svg>
+  <svg id="comp-svg" viewBox="0 0 660 260" width="660" height="260"><title>Comparison theorems at a glance</title></svg>
 </div>
 
 <div class="quiz" data-concept="riemann-curvature-tensor"></div>

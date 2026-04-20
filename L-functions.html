@@ -239,7 +239,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-schema">
   <div class="hd"><div class="ttl">Anatomy of an $L$-function</div><div class="hint">four costumes, one object</div></div>
-  <svg id="sch-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <svg id="sch-svg" viewBox="0 0 640 280" width="640" height="280"><title>Anatomy of an $L$-function</title></svg>
   <div class="small">The same $L$ looks like a sum (left), a product over primes (top), a meromorphic function on $\mathbb{C}$ (right), and a symmetric completion $\Lambda$ (bottom).</div>
 </div>
 <aside class="callback">
@@ -323,7 +323,7 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
 
 <div class="widget" id="w-ap">
   <div class="hd"><div class="ttl">$a_p$ for $E:\ y^2 = x^3 - x$</div><div class="hint">primes up to 60 (good reduction at $p \ne 2$)</div></div>
-  <svg id="ap-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <svg id="ap-svg" viewBox="0 0 640 240" width="640" height="240"><title>$a_p$ for $E:\ y^2 = x^3 - x$</title></svg>
   <div class="small">Negative bars: $a_p &lt; 0$; positive bars: $a_p &gt; 0$; zero bars (supersingular) are the tall "$a_p = 0$" events. This curve has CM by $\mathbb{Z}[i]$: $a_p = 0$ whenever $p \equiv 3 \pmod 4$.</div>
 </div>
 
@@ -344,7 +344,7 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
 
 <div class="widget" id="w-eulerconv">
   <div class="hd"><div class="ttl">Partial Euler product vs partial sum</div><div class="hint">watch both approach $L(E,s)$ as we take more primes</div></div>
-  <svg id="ec-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <svg id="ec-svg" viewBox="0 0 640 240" width="640" height="240"><title>Partial Euler product vs partial sum</title></svg>
   <div class="row">
     <label for="ec-s">$s$</label>
     <input type="range" id="ec-s" min="1.55" max="3.0" step="0.02" value="2.0">
@@ -696,7 +696,7 @@ $$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\
 
 <div class="widget" id="w-hecke">
   <div class="hd"><div class="ttl">Hecke multiplicativity at $p$</div><div class="hint">scroll the prime power</div></div>
-  <svg id="hk-svg" viewBox="0 0 640 220" width="640" height="220"></svg>
+  <svg id="hk-svg" viewBox="0 0 640 220" width="640" height="220"><title>Hecke multiplicativity at $p$</title></svg>
   <div class="row">
     <label for="hk-k">weight $k$</label>
     <select id="hk-k">
@@ -783,7 +783,7 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
 
 <div class="widget" id="w-fe">
   <div class="hd"><div class="ttl">Completed vs bare $L$-function</div><div class="hint">watch the reflection symmetry</div></div>
-  <svg id="fe-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <svg id="fe-svg" viewBox="0 0 640 260" width="640" height="260"><title>Completed vs bare $L$-function</title></svg>
   <div class="row">
     <label for="fe-N">conductor $N$</label>
     <select id="fe-N">
@@ -802,7 +802,7 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
 
 <div class="widget" id="w-sign">
   <div class="hd"><div class="ttl">Sign of the functional equation</div><div class="hint">$w = +1$ forces even vanishing at $s=1$; $w = −1$ forces odd vanishing</div></div>
-  <svg id="sg-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <svg id="sg-svg" viewBox="0 0 640 240" width="640" height="240"><title>Sign of the functional equation</title></svg>
   <div class="row">
     <button id="sg-plus" class="active">w = +1</button>
     <button id="sg-minus">w = −1</button>
@@ -988,7 +988,7 @@ The functional equation $\Lambda(f,s) = \varepsilon\,\Lambda(f, k-s)$ is then a 
 
 <div class="widget" id="w-mellin">
   <div class="hd"><div class="ttl">Mellin transform visual</div><div class="hint">$f(iy)$ as $y$ runs along the vertical ray</div></div>
-  <svg id="mel-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <svg id="mel-svg" viewBox="0 0 640 260" width="640" height="260"><title>Mellin transform visual</title></svg>
   <div class="small">Left: the upper half plane with the imaginary ray $\tau = iy$ highlighted. Right: the real-valued function $y \mapsto f(iy)$ decays exponentially at $\infty$ and (after the modular symmetry $y \mapsto 1/y$) at $0$. The Mellin integral $\int_0^\infty f(iy) y^{s-1}\,dy$ packages this two-sided decay into $\Lambda(f,s)$.</div>
 </div>
 </section>
@@ -1094,7 +1094,7 @@ Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ 
 
 <div class="widget" id="w-mod">
   <div class="hd"><div class="ttl">The modularity dictionary</div><div class="hint">two worlds, same $L$-function</div></div>
-  <svg id="md-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <svg id="md-svg" viewBox="0 0 640 260" width="640" height="260"><title>The modularity dictionary</title></svg>
   <div class="small">The identity $L(E,s) = L(f,s)$ is two different manufacturing processes producing the same Dirichlet series.</div>
 </div>
 

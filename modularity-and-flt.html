@@ -245,12 +245,12 @@ $$\Delta \ =\ \frac{(abc)^{2p}}{2^{8}}.$$</p>
 <div class="widget" id="w-frey">
   <div class="hd"><div class="ttl">Widget 1 · Frey curve explorer</div><div class="hint">sliders for $a, b$; dropdown for exponent $p$</div></div>
   <div class="row">
-    <label>$a$</label><input id="fr-a" type="range" min="1" max="10" step="1" value="3"><span id="fr-aVal" class="pill">3</span>
-    <label>$b$</label><input id="fr-b" type="range" min="1" max="10" step="1" value="4"><span id="fr-bVal" class="pill">4</span>
+    <label for="fr-a">$a$</label><input id="fr-a" type="range" min="1" max="10" step="1" value="3"><span id="fr-aVal" class="pill">3</span>
+    <label for="fr-b">$b$</label><input id="fr-b" type="range" min="1" max="10" step="1" value="4"><span id="fr-bVal" class="pill">4</span>
     <label>$p$</label>
     <select id="fr-p"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>
   </div>
-  <svg id="fr-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <svg id="fr-svg" viewBox="0 0 640 260" width="640" height="260"><title>Widget 1 · Frey curve explorer</title></svg>
   <div class="readout" id="fr-out">…</div>
 </div>
 
@@ -334,8 +334,8 @@ $$\Delta \ =\ \frac{(abc)^{2p}}{2^{8}}.$$</p>
 <div class="widget" id="w-cond">
   <div class="hd"><div class="ttl">Widget 1b · Frey conductor calculator</div><div class="hint">enter $a, b$; read off $N_E$, bad primes, and the level-lowering target</div></div>
   <div class="row">
-    <label>$a$</label><input id="cd-a" type="number" min="1" max="999" step="1" value="5" style="width:5.5rem">
-    <label>$b$</label><input id="cd-b" type="number" min="1" max="999" step="1" value="12" style="width:5.5rem">
+    <label for="cd-a">$a$</label><input id="cd-a" type="number" min="1" max="999" step="1" value="5" style="width:5.5rem">
+    <label for="cd-b">$b$</label><input id="cd-b" type="number" min="1" max="999" step="1" value="12" style="width:5.5rem">
     <label>$p$</label>
     <select id="cd-p"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>
     <label>preset</label>
@@ -348,7 +348,7 @@ $$\Delta \ =\ \frac{(abc)^{2p}}{2^{8}}.$$</p>
       <option value="5,12">a=5, b=12 (two odd bad primes: 3, 5)</option>
     </select>
   </div>
-  <svg id="cd-svg" viewBox="0 0 640 200" width="640" height="200"></svg>
+  <svg id="cd-svg" viewBox="0 0 640 200" width="640" height="200"><title>Widget 1b · Frey conductor calculator</title></svg>
   <div class="readout" id="cd-out">…</div>
   <p class="small">$N_E$ is computed as $2 \cdot \prod_{\ell \mid abc,\ \ell\text{ odd}} \ell$ (the semistable-squarefree-outside-2 rule). The ramification at $2$ can grow to $\mathrm{ord}_2(N_E) \le 8$ in the worst cases; here we cap it at the semistable value.</p>
 </div>
@@ -587,7 +587,7 @@ whose $q$-expansion we can match term-by-term with Frobenius traces computed by 
     <label>up to prime <input id="rs-max" type="range" min="7" max="19" step="2" value="19"></label>
     <span id="rs-v" class="small">p ≤ 19</span>
   </div>
-  <svg id="rs-svg" viewBox="0 0 640 180" width="640" height="180"></svg>
+  <svg id="rs-svg" viewBox="0 0 640 180" width="640" height="180"><title>Trace mismatch meter</title></svg>
   <div class="readout" id="rs-out"></div>
 </div>
 
@@ -660,7 +660,7 @@ There is no weight-2 newform of level 2 for $\overline\rho$ to come from. The ch
 
 <div class="widget" id="w-chain">
   <div class="hd"><div class="ttl">Widget 3 · The contradiction chain</div><div class="hint">click a node for the reasoning at that step</div></div>
-  <svg id="ch-svg" viewBox="0 0 700 380" width="700" height="380"></svg>
+  <svg id="ch-svg" viewBox="0 0 700 380" width="700" height="380"><title>Widget 3 · The contradiction chain</title></svg>
   <div class="readout" id="ch-out">Click any node to expand the step.</div>
 </div>
 
@@ -768,7 +768,7 @@ Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`
     <button id="st-auto">auto-run</button>
     <button id="st-reset">reset</button>
   </div>
-  <svg id="st-svg" viewBox="0 0 700 260" width="700" height="260"></svg>
+  <svg id="st-svg" viewBox="0 0 700 260" width="700" height="260"><title>Widget 3b · Ribet level-lowering stepper</title></svg>
   <div class="readout" id="st-out">…</div>
   <p class="small">Arrows are labelled by the prime $\ell$ being removed. Each step requires that $\overline\rho_{E,p}$ be unramified mod $p$ at $\ell$ — always true for the Frey curve because $v_\ell(\Delta) = 2p$ is a perfect $p$-th power. The terminal box is flagged red when level $2$ is reached, because $\dim S_2(\Gamma_0(2)) = 0$ makes that box uninhabitable.</p>
 </div>
@@ -1000,11 +1000,11 @@ Surjectivity is easy (the modular Galois representations visibly land in $R_\Sig
 <div class="widget" id="w-rt">
   <div class="hd"><div class="ttl">Widget 5 · Taylor–Wiles patching</div><div class="hint">grow the auxiliary prime set and watch $R_n, T_n$ equalize</div></div>
   <div class="row">
-    <label>patching level $n$</label>
+    <label for="rt-n">patching level $n$</label>
     <input id="rt-n" type="range" min="0" max="6" step="1" value="0">
     <span id="rt-nv" class="pill">n=0</span>
   </div>
-  <svg id="rt-svg" viewBox="0 0 640 200" width="640" height="200"></svg>
+  <svg id="rt-svg" viewBox="0 0 640 200" width="640" height="200"><title>Widget 5 · Taylor–Wiles patching</title></svg>
   <div class="readout" id="rt-out">…</div>
 </div>
 

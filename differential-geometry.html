@@ -346,11 +346,11 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
       <option value="lemniscate">lemniscate r² = cos(2θ)</option>
       <option value="cycloid">cycloid</option>
     </select>
-    <label>t:</label>
+    <label for="pc-t">t:</label>
     <input type="range" id="pc-t" min="0" max="1000" value="300" step="1">
     <span class="small" id="pc-tval"></span>
   </div>
-  <svg id="pc-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="pc-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:640px;height:auto"><title>Plane curve: tangent, normal, osculating circle</title></svg>
   <div class="readout" id="pc-out"></div>
 </div>
 
@@ -376,10 +376,10 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
       <option value="helcyc">helical cycloid</option>
       <option value="ellcon">elliptical conic helix</option>
     </select>
-    <label>t:</label>
+    <label for="sc-t">t:</label>
     <input type="range" id="sc-t" min="0" max="1000" value="250" step="1">
   </div>
-  <svg id="sc-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="sc-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Space curve: the Frenet frame $T,N,B$</title></svg>
   <div class="readout" id="sc-out"></div>
 </div>
 
@@ -872,12 +872,12 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
       <option value="hyp">hyperboloid (1-sheet)</option>
       <option value="pseudo">pseudosphere</option>
     </select>
-    <label>u:</label>
+    <label for="gm-u">u:</label>
     <input type="range" id="gm-u" min="0" max="1000" value="500" step="1">
-    <label>v:</label>
+    <label for="gm-v">v:</label>
     <input type="range" id="gm-v" min="0" max="1000" value="500" step="1">
   </div>
-  <svg id="gm-svg" viewBox="-340 -200 680 400" width="100%" style="max-width:720px;height:auto"></svg>
+  <svg id="gm-svg" viewBox="-340 -200 680 400" width="100%" style="max-width:720px;height:auto"><title>The Gauss map</title></svg>
   <div class="readout" id="gm-out"></div>
 </div>
 
@@ -900,7 +900,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
       <option value="ellipsoid">ellipsoid</option>
     </select>
   </div>
-  <svg id="kh-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="kh-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Gaussian curvature heatmap</title></svg>
   <div class="readout" id="kh-out"></div>
 </div>
 
@@ -1282,12 +1282,12 @@ Only $(E,G)$ and their derivatives appear on the right — no $(e,f,g)$.</div>
 <div class="widget" id="w-defect">
   <div class="hd"><div class="ttl">Angular defect on the unit sphere</div><div class="hint">two sliders shape a geodesic triangle · drag canvas to rotate · excess = area</div></div>
   <div class="row">
-    <label>latitude of B, C:</label>
+    <label for="df-lat">latitude of B, C:</label>
     <input type="range" id="df-lat" min="50" max="1500" value="700" step="5">
-    <label>longitude spread Δ:</label>
+    <label for="df-del">longitude spread Δ:</label>
     <input type="range" id="df-del" min="20" max="625" value="310" step="5">
   </div>
-  <svg id="df-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="df-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Angular defect on the unit sphere</title></svg>
   <div class="readout" id="df-out"></div>
 </div>
 
@@ -1453,16 +1453,16 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
       <option value="cone">cone (unroll to straight line)</option>
       <option value="saddle">saddle</option>
     </select>
-    <label>u₀:</label>
+    <label for="ge-u0">u₀:</label>
     <input type="range" id="ge-u0" min="0" max="1000" value="500" step="1">
-    <label>v₀:</label>
+    <label for="ge-v0">v₀:</label>
     <input type="range" id="ge-v0" min="0" max="1000" value="500" step="1">
-    <label>angle:</label>
+    <label for="ge-ang">angle:</label>
     <input type="range" id="ge-ang" min="0" max="628" value="180" step="1">
-    <label>length:</label>
+    <label for="ge-len">length:</label>
     <input type="range" id="ge-len" min="50" max="1500" value="600" step="10">
   </div>
-  <svg id="ge-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="ge-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Geodesic flow on a surface</title></svg>
   <div class="readout" id="ge-out"></div>
 </div>
 
@@ -1750,7 +1750,7 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
       <option value="ellipsoid">ellipsoid (dented sphere)</option>
     </select>
   </div>
-  <svg id="gb-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;height:auto"></svg>
+  <svg id="gb-svg" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;height:auto"><title>Gauss–Bonnet calculator</title></svg>
   <div class="readout" id="gb-out"></div>
 </div>
 
@@ -1924,7 +1924,7 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
       <option value="ico">icosahedron (V=12, F=20, χ=2)</option>
     </select>
   </div>
-  <svg id="pb-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="pb-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Polyhedral Gauss–Bonnet</title></svg>
   <div class="readout" id="pb-out"></div>
 </div>
 
@@ -2064,10 +2064,10 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
       <option value="latitude">latitude circle at θ₀</option>
       <option value="small">small geodesic triangle</option>
     </select>
-    <label>θ₀:</label>
+    <label for="hl-theta">θ₀:</label>
     <input type="range" id="hl-theta" min="100" max="1400" value="700" step="5">
   </div>
-  <svg id="hl-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"></svg>
+  <svg id="hl-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Parallel transport and holonomy on the sphere</title></svg>
   <div class="readout" id="hl-out"></div>
 </div>
 

@@ -510,14 +510,14 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <div class="widget" id="w-dih">
   <div class="hd"><div class="ttl">D<sub>n</sub> — apply r and s</div><div class="hint">build words · watch the polygon</div></div>
   <div class="row">
-    <label>n =</label>
+    <label for="dih-n">n =</label>
     <input type="range" id="dih-n" min="3" max="8" value="5">
     <span id="dih-nval" style="color:var(--yellow);min-width:2ch">5</span>
     <button id="dih-r">apply r</button>
     <button id="dih-s">apply s</button>
     <button id="dih-reset">reset</button>
   </div>
-  <svg id="dih-svg" viewBox="0 0 820 340" width="820" height="340"></svg>
+  <svg id="dih-svg" viewBox="0 0 820 340" width="820" height="340"><title>Dn — apply r and s</title></svg>
   <div class="readout" id="dih-readout"></div>
 </div>
 
@@ -681,18 +681,18 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <div class="widget" id="w-clock">
   <div class="hd"><div class="ttl">ℤ/nℤ clock</div><div class="hint">green = unit · red = zero divisor</div></div>
   <div class="row">
-    <label>n =</label>
+    <label for="clk-n">n =</label>
     <input type="range" id="clk-n" min="2" max="18" value="12">
     <span id="clk-nval" style="color:var(--yellow);min-width:2ch">12</span>
     <span class="small" id="clk-info"></span>
   </div>
   <div class="row">
-    <label>a =</label>
+    <label for="clk-a">a =</label>
     <input type="range" id="clk-a" min="0" max="17" value="3"><span id="clk-aval" style="color:var(--blue);min-width:2ch">3</span>
-    <label style="margin-left:1rem">b =</label>
+    <label style="margin-left:1rem" for="clk-b">b =</label>
     <input type="range" id="clk-b" min="0" max="17" value="4"><span id="clk-bval" style="color:var(--green);min-width:2ch">4</span>
   </div>
-  <svg id="clk-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <svg id="clk-svg" viewBox="0 0 820 360" width="820" height="360"><title>ℤ/nℤ clock</title></svg>
   <div class="readout" id="clk-readout"></div>
 </div>
 </section>
@@ -833,9 +833,9 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       <option value="F5">𝔽₅</option>
       <option value="F7">𝔽₇</option>
     </select>
-    <label style="margin-left:1rem">f(x) =</label>
+    <label style="margin-left:1rem" for="eu-f">f(x) =</label>
     <input type="text" id="eu-f" value="x^4 - 1" style="width:200px">
-    <label style="margin-left:1rem">g(x) =</label>
+    <label style="margin-left:1rem" for="eu-g">g(x) =</label>
     <input type="text" id="eu-g" value="x^3 - x^2 + x - 1" style="width:200px">
   </div>
   <div class="row">
@@ -1042,7 +1042,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <select id="ff-n"><option selected>2</option><option>3</option><option>4</option></select>
     <span class="small" id="ff-info"></span>
   </div>
-  <svg id="ff-svg" viewBox="0 0 820 420" width="820" height="420"></svg>
+  <svg id="ff-svg" viewBox="0 0 820 420" width="820" height="420"><title>Explore 𝔽pⁿ</title></svg>
   <div class="readout" id="ff-readout"></div>
 </div>
 

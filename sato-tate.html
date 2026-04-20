@@ -236,7 +236,7 @@ After rescaling, Frobenius is a conjugacy class in $\mathrm{SU}(2)$.</p>
 
 <div class="widget" id="w-angle">
   <div class="hd"><div class="ttl">Frobenius eigenvalues on the Hasse circle</div><div class="hint">drag $a_p$ · pick a prime</div></div>
-  <svg id="ang-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="ang-svg" viewBox="0 0 620 320" width="620" height="320"><title>Frobenius eigenvalues on the Hasse circle</title></svg>
   <div class="row">
     <label>prime $p$</label>
     <select id="ang-p">
@@ -245,7 +245,7 @@ After rescaling, Frobenius is a conjugacy class in $\mathrm{SU}(2)$.</p>
       <option value="23">23</option><option value="37">37</option>
       <option value="101">101</option>
     </select>
-    <label>$a_p$</label>
+    <label for="ang-a">$a_p$</label>
     <input id="ang-a" type="range" step="0.01">
     <span id="ang-aval" class="small"></span>
   </div>
@@ -377,7 +377,7 @@ the exact input to the symmetric-power $L$-function argument of §5.</p>
 
 <div class="widget" id="w-weyl">
   <div class="hd"><div class="ttl">Weyl test function tracker</div><div class="hint">pick a target · a test function · watch the running average</div></div>
-  <svg id="weyl-svg" viewBox="0 0 640 270" width="640" height="270"></svg>
+  <svg id="weyl-svg" viewBox="0 0 640 270" width="640" height="270"><title>Weyl test function tracker</title></svg>
   <div class="row">
     <label>target</label>
     <select id="weyl-target">
@@ -521,7 +521,7 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
 
 <div class="widget" id="w-hist">
   <div class="hd"><div class="ttl">Sato–Tate histogram (4000 samples)</div><div class="hint">resample · toggle CM / non-CM</div></div>
-  <svg id="hist-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <svg id="hist-svg" viewBox="0 0 640 280" width="640" height="280"><title>Sato–Tate histogram (4000 samples)</title></svg>
   <div class="row">
     <button id="hist-resample">resample</button>
     <button id="hist-mode" class="active" data-mode="nonCM">non-CM · $y^2=x^3+1$</button>
@@ -671,7 +671,7 @@ bin into 24 bins, and overlay the exact density. Toggle "CM mode" for the degene
 
 <div class="widget" id="w-cdf">
   <div class="hd"><div class="ttl">CDF gap tester</div><div class="hint">change sample size · compare non-CM and CM against the Sato–Tate CDF</div></div>
-  <svg id="cdf-svg" viewBox="0 0 640 260" width="640" height="260"></svg>
+  <svg id="cdf-svg" viewBox="0 0 640 260" width="640" height="260"><title>CDF gap tester</title></svg>
   <div class="row">
     <label>samples <input id="cdf-n" type="range" min="500" max="6000" step="100" value="2000"></label>
     <span id="cdf-nv" class="small">N = 2000</span>
@@ -730,7 +730,7 @@ Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because o
 
 <div class="widget" id="w-frob">
   <div class="hd"><div class="ttl">Frobenius-angle histogram from actual primes</div><div class="hint">pick a curve · raise $N$ · read $\chi^2$ distance to $\mu_{ST}$</div></div>
-  <svg id="frob-svg" viewBox="0 0 640 300" width="640" height="300"></svg>
+  <svg id="frob-svg" viewBox="0 0 640 300" width="640" height="300"><title>Frobenius-angle histogram from actual primes</title></svg>
   <div class="row">
     <label>curve</label>
     <select id="frob-curve">
@@ -928,7 +928,7 @@ Small gap indicates genuine Sato–Tate behavior; CM stays visibly off because o
 
 <div class="widget" id="w-cm">
   <div class="hd"><div class="ttl">Four curves on the same histogram axes</div><div class="hint">compare $E:y^2=x^3+1$, $y^2=x^3-x$, $y^2=x^3+x$, $y^2=x^3-2$ on $p\le P_{\max}$</div></div>
-  <svg id="cm-svg" viewBox="0 0 640 300" width="640" height="300"></svg>
+  <svg id="cm-svg" viewBox="0 0 640 300" width="640" height="300"><title>Four curves on the same histogram axes</title></svg>
   <div class="row">
     <label>curve</label>
     <select id="cm-curve">
@@ -1095,12 +1095,12 @@ which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sy
 
 <div class="widget" id="w-symn">
   <div class="hd"><div class="ttl">Chebyshev $U_n$ and $\mathrm{SU}(2)$ characters</div><div class="hint">slide $n$ and $\theta$</div></div>
-  <svg id="symn-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <svg id="symn-svg" viewBox="0 0 640 280" width="640" height="280"><title>Chebyshev $U_n$ and $\mathrm{SU}(2)$ characters</title></svg>
   <div class="row">
-    <label>$n$</label>
+    <label for="symn-n">$n$</label>
     <input id="symn-n" type="range" min="1" max="8" step="1" value="2">
     <span id="symn-nv" class="small"></span>
-    <label>$\theta$</label>
+    <label for="symn-t">$\theta$</label>
     <input id="symn-t" type="range" min="0" max="3.14159" step="0.001" value="1.047">
     <span id="symn-tv" class="small"></span>
   </div>
@@ -1205,7 +1205,7 @@ which follows from analytic continuation and non-vanishing of each $L(\mathrm{Sy
 
 <div class="widget" id="w-moments">
   <div class="hd"><div class="ttl">Symmetric-power moment tracker</div><div class="hint">choose max n and sample size · observe averages approaching 0</div></div>
-  <svg id="mom-svg" viewBox="0 0 640 250" width="640" height="250"></svg>
+  <svg id="mom-svg" viewBox="0 0 640 250" width="640" height="250"><title>Symmetric-power moment tracker</title></svg>
   <div class="row">
     <label>$n_{max}$ <input id="mom-n" type="range" min="2" max="10" step="1" value="6"></label>
     <span id="mom-nv" class="small">n_max = 6</span>
@@ -1251,7 +1251,7 @@ Sato–Tate for $E$ is equivalent to $L(\mathrm{Sym}^n E,s)$ being holomorphic a
 
 <div class="widget" id="w-symstrip">
   <div class="hd"><div class="ttl">Sym$^n$ Euler-factor strip visualizer</div><div class="hint">slide $n$ · imaginary height $\tau$ · prime cap $P$</div></div>
-  <svg id="strip-svg" viewBox="0 0 640 300" width="640" height="300"></svg>
+  <svg id="strip-svg" viewBox="0 0 640 300" width="640" height="300"><title>Sym$^n$ Euler-factor strip visualizer</title></svg>
   <div class="row">
     <label>$n$ <input id="strip-n" type="range" min="1" max="5" step="1" value="1"></label>
     <span id="strip-nv" class="small">n = 1</span>

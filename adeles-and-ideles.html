@@ -252,11 +252,11 @@ where the product runs over all places $v$ (the archimedean place and all $v_p$)
     <div class="hint">enter an integer; see its valuation and absolute value at each small prime</div>
   </div>
   <div class="row">
-    <label>$n$ =</label>
+    <label for="padic-n">$n$ =</label>
     <input type="number" id="padic-n" value="360" style="width:120px">
     <button id="padic-go">Compute</button>
   </div>
-  <svg id="padic-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="padic-svg" viewBox="0 0 620 260" width="620" height="260"><title>$p$-adic absolute value explorer</title></svg>
   <div class="readout" id="padic-out">&nbsp;</div>
 </div>
 
@@ -393,7 +393,7 @@ the localisation of $\hat{\mathbb{Z}}$ at all primes simultaneously.</p>
     <div class="ttl">Adèle lattice diagram</div>
     <div class="hint">click a prime node to highlight the local factor</div>
   </div>
-  <svg id="adele-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="adele-svg" viewBox="0 0 620 320" width="620" height="320"><title>Adèle lattice diagram</title></svg>
   <div class="readout" id="adele-out">Click a prime node to see its local component.</div>
 </div>
 
@@ -536,7 +536,7 @@ It is a locally compact abelian group. Its connected component $C_\mathbb{Q}^0$ 
     <div class="hint">enter a rational number; verify the product formula</div>
   </div>
   <div class="row">
-    <label>$q$ = (rational, e.g. 2/15)</label>
+    <label for="idele-q">$q$ = (rational, e.g. 2/15)</label>
     <input type="text" id="idele-q" value="2/15" style="width:120px">
     <button id="idele-go">Compute</button>
   </div>
@@ -654,7 +654,7 @@ It is a locally compact abelian group. Its connected component $C_\mathbb{Q}^0$ 
     <select id="crt-r5"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
     <button id="crt-go" style="margin-left:.8rem">Solve</button>
   </div>
-  <svg id="crt-svg" viewBox="0 0 620 180" width="620" height="180"></svg>
+  <svg id="crt-svg" viewBox="0 0 620 180" width="620" height="180"><title>CRT / strong approximation toy</title></svg>
   <div class="readout" id="crt-out">&nbsp;</div>
 </div>
 
@@ -748,11 +748,11 @@ which is exactly the functional equation $\xi(s) = \xi(1-s)$. The same argument 
     <div class="hint">slider controls $\sigma = \mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\zeta(\sigma)|$</div>
   </div>
   <div class="row">
-    <label>$\sigma = \mathrm{Re}(s)$:</label>
+    <label for="tate-sigma">$\sigma = \mathrm{Re}(s)$:</label>
     <input type="range" id="tate-sigma" min="1.05" max="4" step="0.05" value="2">
     <span class="small" id="tate-sigma-out">σ = 2.00</span>
   </div>
-  <svg id="tate-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="tate-svg" viewBox="0 0 620 280" width="620" height="280"><title>Local Euler factor visualizer</title></svg>
   <div class="readout" id="tate-out">&nbsp;</div>
 </div>
 

@@ -465,7 +465,7 @@ acts by permuting the roots, so there is an embedding $G \hookrightarrow S_n$. T
 
 <div class="widget">
   <div class="hd"><div class="ttl">The Galois tower</div><div class="hint">finite Galois extension inside the algebraic closure</div></div>
-  <svg id="tower-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="tower-svg" viewBox="0 0 620 260" width="620" height="260"><title>The Galois tower</title></svg>
 </div>
 
 <script>
@@ -638,7 +638,7 @@ $$ \mathrm{Frob}_p \;\subset\; G. $$
     <button data-key="b">(2,1) — transposition, deg 2 × deg 1</button>
     <button data-key="c">(1,1,1) — identity, fully split</button>
   </div>
-  <svg id="frob-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="frob-svg" viewBox="0 0 620 240" width="620" height="240"><title>Frobenius as a permutation</title></svg>
   <div class="readout" id="frob-out"></div>
 </div>
 
@@ -765,11 +765,11 @@ Every conjugacy class, from every Galois group, gets hit by a positive, explicit
   <div class="row">
     <label>polynomial:</label>
     <select id="cheb-poly"></select>
-    <label>limit $N$:</label>
+    <label for="cheb-N">limit $N$:</label>
     <input type="range" id="cheb-N" min="200" max="5000" step="100" value="2000">
     <span id="cheb-Nval" class="small"></span>
   </div>
-  <svg id="cheb-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="cheb-svg" viewBox="0 0 620 260" width="620" height="260"><title>Chebotarev experiment</title></svg>
   <div class="readout" id="cheb-out"></div>
 </div>
 
@@ -975,10 +975,10 @@ factors through $(\mathbb{Z}/N)^\times$. That is, the cycle shape of $f$ mod $p$
   <div class="row">
     <label>$N$:</label>
     <select id="cy-N"></select>
-    <label>highlight prime $p$:</label>
+    <label for="cy-p">highlight prime $p$:</label>
     <input type="number" id="cy-p" value="11" min="2" max="200" style="width:5em">
   </div>
-  <svg id="cy-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="cy-svg" viewBox="0 0 620 260" width="620" height="260"><title>$(\mathbb{Z}/N)^\times$ — the cyclotomic Galois group</title></svg>
   <div class="readout" id="cy-out"></div>
 </div>
 
@@ -1054,7 +1054,7 @@ The coefficients of $\pi_\rho$ are the Frobenius traces.</div>
 
 <div class="widget" id="w-s3">
   <div class="hd"><div class="ttl">$S_3$ cycle shape for $x^3-x-1$</div><div class="hint">primes $\le 100$, coloured by class</div></div>
-  <svg id="s3-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="s3-svg" viewBox="0 0 620 260" width="620" height="260"><title>$S_3$ cycle shape for $x^3-x-1$</title></svg>
   <div class="readout" id="s3-out"></div>
 </div>
 
@@ -1120,7 +1120,7 @@ The coefficients of $\pi_\rho$ are the Frobenius traces.</div>
 <h3>The full dictionary, schematically</h3>
 <div class="widget">
   <div class="hd"><div class="ttl">Reciprocity dictionary</div></div>
-  <svg id="dict-svg" viewBox="0 0 640 240" width="640" height="240"></svg>
+  <svg id="dict-svg" viewBox="0 0 640 240" width="640" height="240"><title>Reciprocity dictionary</title></svg>
 </div>
 
 <script>

@@ -298,13 +298,13 @@ function legendre(a,p){
 <div class="widget" id="w-ring">
   <div class="hd"><div class="ttl">Ring of integers for $\mathbb{Q}(\sqrt{d})$</div><div class="hint">squarefree $d$, $-10\le d\le 10$, $d\ne 0,1$</div></div>
   <div class="row">
-    <label>d:</label>
+    <label for="ring-d">d:</label>
     <input id="ring-d" type="range" min="-10" max="10" step="1" value="-5" />
     <span class="small" id="ring-d-val"></span>
     <button id="ring-d-prev">◀</button>
     <button id="ring-d-next">▶</button>
   </div>
-  <svg id="ring-svg" viewBox="0 0 720 360" width="720" height="360"></svg>
+  <svg id="ring-svg" viewBox="0 0 720 360" width="720" height="360"><title>Ring of integers for $\mathbb{Q}(\sqrt{d})$</title></svg>
   <div class="readout" id="ring-out"></div>
 </div>
 <aside class="callback">
@@ -549,7 +549,7 @@ function legendre(a,p){
       <option selected>7</option><option>11</option><option>13</option>
     </select>
   </div>
-  <svg id="ram-svg" viewBox="0 0 720 220" width="720" height="220"></svg>
+  <svg id="ram-svg" viewBox="0 0 720 220" width="720" height="220"><title>Prime factorization in $\mathcal{O}_K$</title></svg>
   <div class="readout" id="ram-out"></div>
 </div>
 <div class="quiz" data-concept="prime-ideals-factorization-ant"></div>
@@ -717,7 +717,7 @@ function legendre(a,p){
     <button id="class-showideal">sub-lattice of $\mathfrak{p}=(2,1+\sqrt{-5})$</button>
     <button id="class-showsquare">$\mathfrak{p}^2=(2)$</button>
   </div>
-  <svg id="class-svg" viewBox="0 0 720 360" width="720" height="360"></svg>
+  <svg id="class-svg" viewBox="0 0 720 360" width="720" height="360"><title>Nonprincipal ideal in $\mathbb{Z}[\sqrt{-5}]$</title></svg>
   <div class="readout" id="class-out"></div>
 </div>
 </section>
@@ -853,22 +853,22 @@ then $S$ contains a nonzero lattice point.</div>
 <div class="widget" id="w-mink">
   <div class="hd"><div class="ttl">Minkowski lattice-body visualizer</div><div class="hint">basis · radius · $\ell^p$ ball</div></div>
   <div class="row">
-    <label>v₁ = (a₁,b₁):</label>
+    <label for="mink-a1">v₁ = (a₁,b₁):</label>
     <input id="mink-a1" type="number" value="1" step="0.5" style="width:4.2em">
     <input id="mink-b1" type="number" value="0" step="0.5" style="width:4.2em">
-    <label>v₂ = (a₂,b₂):</label>
+    <label for="mink-b1">v₂ = (a₂,b₂):</label>
     <input id="mink-a2" type="number" value="0.5" step="0.5" style="width:4.2em">
     <input id="mink-b2" type="number" value="1.5" step="0.5" style="width:4.2em">
   </div>
   <div class="row">
-    <label>radius r:</label>
+    <label for="mink-b2">radius r:</label>
     <input id="mink-r" type="range" min="0.4" max="4" step="0.05" value="1.6">
     <span class="small" id="mink-rv"></span>
-    <label>ℓ^p norm, p:</label>
+    <label for="mink-r">ℓ^p norm, p:</label>
     <input id="mink-p" type="range" min="1" max="8" step="0.1" value="2">
     <span class="small" id="mink-pv"></span>
   </div>
-  <svg id="mink-svg" viewBox="0 0 720 460" width="720" height="460"></svg>
+  <svg id="mink-svg" viewBox="0 0 720 460" width="720" height="460"><title>Minkowski lattice-body visualizer</title></svg>
   <div class="readout" id="mink-out"></div>
 </div>
 <div class="quiz" data-concept="minkowski-bound"></div>
@@ -1043,7 +1043,7 @@ then $S$ contains a nonzero lattice point.</div>
       <option>11</option><option>13</option>
     </select>
   </div>
-  <svg id="funit-svg" viewBox="0 0 720 170" width="720" height="170"></svg>
+  <svg id="funit-svg" viewBox="0 0 720 170" width="720" height="170"><title>Fundamental unit of $\mathbb{Z}[\sqrt{d}]$ ($d&gt;0$)</title></svg>
   <div class="readout" id="funit-out"></div>
 </div>
 
@@ -1064,7 +1064,7 @@ then $S$ contains a nonzero lattice point.</div>
       <option>-7</option><option>-11</option>
     </select>
   </div>
-  <svg id="iunit-svg" viewBox="0 0 720 360" width="720" height="360"></svg>
+  <svg id="iunit-svg" viewBox="0 0 720 360" width="720" height="360"><title>Imaginary-quadratic units</title></svg>
   <div class="readout" id="iunit-out"></div>
 </div>
 <div class="quiz" data-concept="class-group-units-ant"></div>

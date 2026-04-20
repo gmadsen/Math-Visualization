@@ -362,15 +362,15 @@ The generator of $H^1$ is the cocycle $(+1, 0)$: "mismatch by $+1$ on the right 
 <div class="widget" id="w-circle">
   <div class="hd"><div class="ttl">Čech cohomology of $S^1$ (constant sheaf $\underline{\mathbb{Z}}$)</div><div class="hint">Drag the twist to see the $H^1$ generator</div></div>
   <div class="row">
-    <label>twist on right overlap:</label>
+    <label for="c1-k">twist on right overlap:</label>
     <input type="range" id="c1-k" min="-3" max="3" step="1" value="1">
     <span id="c1-k-val" class="small"></span>
-    <label>twist on left overlap:</label>
+    <label for="c1-l">twist on left overlap:</label>
     <input type="range" id="c1-l" min="-3" max="3" step="1" value="0">
     <span id="c1-l-val" class="small"></span>
     <button id="c1-coboundary">try as coboundary</button>
   </div>
-  <svg id="c1-svg" viewBox="0 0 820 360" width="820" height="360"></svg>
+  <svg id="c1-svg" viewBox="0 0 820 360" width="820" height="360"><title>Čech cohomology of $S^1$ (constant sheaf $\underline{\mathbb{Z}}$)</title></svg>
   <div class="readout" id="c1-ro"></div>
 </div>
 
@@ -528,7 +528,7 @@ This is the $\delta$-functor property of $H^\bullet(X, -)$.</div>
     <button id="les-all">show all</button>
     <button id="les-reset">reset</button>
   </div>
-  <svg id="les-svg" viewBox="0 0 860 300" width="860" height="300"></svg>
+  <svg id="les-svg" viewBox="0 0 860 300" width="860" height="300"><title>Long exact sequence stepper</title></svg>
   <div class="readout" id="les-ro"></div>
 </div>
 
@@ -585,11 +585,11 @@ For $n = 2$: $\check{C}^0 = k[x] \oplus \{x^2 k + x \cdot k + k\} = k[x] \oplus 
 <div class="widget" id="w-cech-p1">
   <div class="hd"><div class="ttl">Čech cochain explorer on $\mathbb{P}^1$</div><div class="hint">Pick $n$ — see $\check{C}^0 \to \check{C}^1$ and the computed $H^0, H^1$</div></div>
   <div class="row">
-    <label>$n$ for $\mathcal{O}(n)$:</label>
+    <label for="p1-n">$n$ for $\mathcal{O}(n)$:</label>
     <input type="range" id="p1-n" min="-4" max="4" step="1" value="2">
     <span id="p1-n-val" class="small"></span>
   </div>
-  <svg id="p1-svg" viewBox="0 0 820 260" width="820" height="260"></svg>
+  <svg id="p1-svg" viewBox="0 0 820 260" width="820" height="260"><title>Čech cochain explorer on $\mathbb{P}^1$</title></svg>
   <div class="readout" id="p1-ro"></div>
 </div>
 
@@ -602,10 +602,10 @@ $$\chi(\mathcal{O}_{\mathbb{P}^n}(d)) = \binom{n + d}{n}$$
 <div class="widget" id="w-table">
   <div class="hd"><div class="ttl">Dimensions $\dim_k H^i(\mathbb{P}^n, \mathcal{O}(d))$</div><div class="hint">Rows $d$, columns $i$ — see the Serre-duality reflection</div></div>
   <div class="row">
-    <label>$n$:</label>
+    <label for="tab-n">$n$:</label>
     <input type="range" id="tab-n" min="1" max="4" step="1" value="2">
     <span id="tab-n-val" class="small"></span>
-    <label>$d$ range:</label>
+    <label for="tab-r">$d$ range:</label>
     <input type="range" id="tab-r" min="3" max="8" step="1" value="5">
     <span id="tab-r-val" class="small"></span>
   </div>
@@ -646,14 +646,14 @@ The map $c_1$ is the <em>first Chern class</em>. For a line bundle $\mathcal{L}$
 <div class="widget" id="w-pic">
   <div class="hd"><div class="ttl">$\mathrm{Pic}(\mathbb{P}^n)$ as a number line</div><div class="hint">Slide $d$ — see $\mathcal{O}(d)$'s invariants and duality partner</div></div>
   <div class="row">
-    <label>$n$:</label>
+    <label for="pic-n">$n$:</label>
     <input type="range" id="pic-n" min="1" max="3" step="1" value="2">
     <span id="pic-n-val" class="small"></span>
-    <label>$d$:</label>
+    <label for="pic-d">$d$:</label>
     <input type="range" id="pic-d" min="-8" max="8" step="1" value="1">
     <span id="pic-d-val" class="small"></span>
   </div>
-  <svg id="pic-svg" viewBox="0 0 820 220" width="820" height="220"></svg>
+  <svg id="pic-svg" viewBox="0 0 820 220" width="820" height="220"><title>$\mathrm{Pic}(\mathbb{P}^n)$ as a number line</title></svg>
   <div class="readout" id="pic-ro"></div>
 </div>
 
@@ -670,11 +670,11 @@ with $H \cong \mathbb{P}^{n-1}$ and $\mathcal{O}_H(d) = \mathcal{O}(d)|_H$ the i
   <div class="row">
     <label>$n$:</label>
     <select id="mon-n"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
-    <label>$d$:</label>
+    <label for="mon-d">$d$:</label>
     <input type="range" id="mon-d" min="0" max="6" step="1" value="3">
     <span id="mon-d-val" class="small"></span>
   </div>
-  <svg id="mon-svg" viewBox="0 0 820 320" width="820" height="320"></svg>
+  <svg id="mon-svg" viewBox="0 0 820 320" width="820" height="320"><title>Sections of $\mathcal{O}_{\mathbb{P}^n}(d)$ — monomial enumeration</title></svg>
   <div class="readout" id="mon-ro"></div>
 </div>
 </section>

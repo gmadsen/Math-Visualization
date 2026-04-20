@@ -243,7 +243,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-venn">
   <div class="hd"><div class="ttl">Venn-diagram explorer</div><div class="hint">click an element to cycle: out → $A$ → $B$ → $A\cap B$ → out</div></div>
-  <svg id="venn-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="venn-svg" viewBox="0 0 620 320" width="620" height="320"><title>Venn-diagram explorer</title></svg>
   <div class="row">
     <button id="venn-clear">clear</button>
     <button id="venn-rand">randomize</button>
@@ -433,7 +433,7 @@ A function from a finite set to itself is injective iff surjective iff bijective
     <button id="fn-id">identity</button>
   </div>
   <div class="row" id="fn-picker"></div>
-  <svg id="fn-svg" viewBox="0 0 620 280" width="620" height="280"></svg>
+  <svg id="fn-svg" viewBox="0 0 620 280" width="620" height="280"><title>Function classifier</title></svg>
   <div class="readout" id="fn-out"></div>
 </div>
 </section>
@@ -652,7 +652,7 @@ Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant func
 
 <div class="widget" id="w-eq">
   <div class="hd"><div class="ttl">Partition builder (quotient of $\{1,\dots,12\}$)</div><div class="hint">click two cells to merge their classes</div></div>
-  <svg id="eq-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="eq-svg" viewBox="0 0 620 220" width="620" height="220"><title>Partition builder (quotient of $\{1,\dots,12\}$)</title></svg>
   <div class="row">
     <button id="eq-reset">reset to discrete ($\sim$ = equality)</button>
     <button id="eq-mod3">preset: mod 3</button>
@@ -814,7 +814,7 @@ Conversely, every function $g\colon X/{\sim}\to Y$ gives a $\sim$-invariant func
 
 <div class="widget" id="w-diag">
   <div class="hd"><div class="ttl">Cantor's diagonal — step through</div><div class="hint">any "complete list" of binary sequences misses at least one</div></div>
-  <svg id="diag-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="diag-svg" viewBox="0 0 620 320" width="620" height="320"><title>Cantor&#39;s diagonal — step through</title></svg>
   <div class="row">
     <button id="diag-prev">← back</button>
     <button id="diag-next">next →</button>

@@ -319,7 +319,7 @@ $$(T_p f)(\tau) \;=\; p^{\,k-1}\, f(p\tau) \;+\; \frac{1}{p} \sum_{b=0}^{p-1} f\
     <button data-p="2" class="pbtn active">2</button>
     <button data-p="3" class="pbtn">3</button>
     <button data-p="5" class="pbtn">5</button>
-    <label style="margin-left:1rem">lattice point $\tau$</label>
+    <label style="margin-left:1rem" for="sub-re">lattice point $\tau$</label>
     <input type="range" id="sub-re" min="-0.5" max="0.5" step="0.02" value="0.2">
     <input type="range" id="sub-im" min="0.6" max="2.0" step="0.02" value="1.0">
     <span id="sub-tau" class="pill">τ</span>
@@ -810,9 +810,9 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
 <div class="widget" id="w-mult">
   <div class="hd"><div class="ttl">Multiplicative relation check: $a_m a_n \stackrel{?}{=} a_{mn}$ when $\gcd(m,n)=1$</div><div class="hint">for $\Delta$ / Ramanujan $\tau$</div></div>
   <div class="row">
-    <label>$m$</label>
+    <label for="mult-m">$m$</label>
     <input type="number" id="mult-m" min="1" max="20" value="2" style="width:5em">
-    <label>$n$</label>
+    <label for="mult-n">$n$</label>
     <input type="number" id="mult-n" min="1" max="20" value="3" style="width:5em">
     <button id="mult-go">check</button>
   </div>

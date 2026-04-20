@@ -571,7 +571,7 @@ function cfmt(a){
       <option value="s4-pairs">$S_4$ on $2$-element subsets of $\{1,2,3,4\}$</option>
     </select>
   </div>
-  <svg id="ob-svg" viewBox="0 0 820 380" width="820" height="380"></svg>
+  <svg id="ob-svg" viewBox="0 0 820 380" width="820" height="380"><title>orbit–stabilizer visualizer</title></svg>
   <div class="readout" id="ob-out"></div>
 </div>
 
@@ -588,7 +588,7 @@ function cfmt(a){
     <label>group:</label>
     <select id="rg-pick"></select>
   </div>
-  <svg id="rg-svg" viewBox="0 0 820 260" width="820" height="260"></svg>
+  <svg id="rg-svg" viewBox="0 0 820 260" width="820" height="260"><title>regular representation decomposition</title></svg>
   <div class="readout" id="rg-out"></div>
 </div>
 
@@ -725,25 +725,25 @@ function cfmt(a){
 <div class="widget" id="w-sl2">
   <div class="hd"><div class="ttl">$\mathfrak{sl}_2$ weight diagram</div><div class="hint">adjust $n$ · inspect the ladder</div></div>
   <div class="row">
-    <label>$n$:</label>
+    <label for="sl-n">$n$:</label>
     <input id="sl-n" type="range" min="0" max="8" value="3" step="1">
     <span id="sl-nval" class="small"></span>
   </div>
-  <svg id="sl-svg" viewBox="0 0 820 240" width="820" height="240"></svg>
+  <svg id="sl-svg" viewBox="0 0 820 240" width="820" height="240"><title>$\mathfrak{sl}_2$ weight diagram</title></svg>
   <div class="readout" id="sl-out"></div>
 </div>
 
 <div class="widget" id="w-sl2t">
   <div class="hd"><div class="ttl">$\mathfrak{sl}_2$ tensor decomposer</div><div class="hint">$V_m\otimes V_n = V_{m+n}\oplus V_{m+n-2}\oplus\cdots$</div></div>
   <div class="row">
-    <label>$m$:</label>
+    <label for="slt-m">$m$:</label>
     <input id="slt-m" type="range" min="0" max="6" value="1" step="1">
     <span id="slt-mval" class="small"></span>
-    <label style="margin-left:.6rem">$n$:</label>
+    <label style="margin-left:.6rem" for="slt-n">$n$:</label>
     <input id="slt-n" type="range" min="0" max="6" value="1" step="1">
     <span id="slt-nval" class="small"></span>
   </div>
-  <svg id="slt-svg" viewBox="0 0 820 240" width="820" height="240"></svg>
+  <svg id="slt-svg" viewBox="0 0 820 240" width="820" height="240"><title>$\mathfrak{sl}_2$ tensor decomposer</title></svg>
   <div class="readout" id="slt-out"></div>
 </div>
 

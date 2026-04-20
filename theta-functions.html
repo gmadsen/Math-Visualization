@@ -236,7 +236,7 @@ The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect square
 
 <div class="widget" id="w-defplot">
   <div class="hd"><div class="ttl">$\theta(iy)$ along the imaginary axis</div><div class="hint">drag $y$; watch the series collapse to $1$</div></div>
-  <svg id="def-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="def-svg" viewBox="0 0 620 260" width="620" height="260"><title>$\theta(iy)$ along the imaginary axis</title></svg>
   <div class="row">
     <label for="def-y">$y = \operatorname{Im}\tau$</label>
     <input type="range" id="def-y" min="0.05" max="2" step="0.01" value="0.3">
@@ -369,7 +369,7 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
     <button data-k="4">$\theta^4$</button>
     <button data-k="8">$\theta^8$</button>
   </div>
-  <svg id="qexp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
+  <svg id="qexp-svg" viewBox="0 0 620 270" width="620" height="270"><title>$q$-expansion of $\theta^k$</title></svg>
   <div class="small">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>
 </div>
 <div class="quiz" data-concept="theta-q-expansion"></div>
@@ -492,7 +492,7 @@ Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight 
 
 <div class="widget" id="w-trans">
   <div class="hd"><div class="ttl">Verifying $\theta(-1/iy) = \sqrt{y}\, \theta(iy)$</div><div class="hint">both sides, plotted vs. $y$</div></div>
-  <svg id="trans-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="trans-svg" viewBox="0 0 620 260" width="620" height="260"><title>Verifying $\theta(-1/iy) = \sqrt{y}\, \theta(iy)$</title></svg>
   <div class="readout" id="trans-out" style="font-size:.88rem"></div>
   <div class="small">On the imaginary axis $\tau = iy$ we have $-1/iy = i/y$, and $\sqrt{-i\cdot iy} = \sqrt{y}$ is real. The graphs of $\theta(i/y)$ (blue) and $\sqrt{y}\,\theta(iy)$ (yellow) coincide point-by-point — that is the identity.</div>
 </div>
@@ -621,7 +621,7 @@ where $\sigma(n) = \sum_{d\mid n} d$ is the sum-of-divisors function and $\sigma
     <input type="number" id="rk-n" min="0" max="50" step="1" value="25">
     <span class="small" id="rk-hint"></span>
   </div>
-  <svg id="rk-svg" viewBox="0 0 620 180" width="620" height="180"></svg>
+  <svg id="rk-svg" viewBox="0 0 620 180" width="620" height="180"><title>$r_k(n)$ calculator</title></svg>
   <div class="readout" id="rk-out" style="font-family:ui-monospace,monospace;font-size:.88rem"></div>
   <div class="small">The bars show $r_k(n)$ for the chosen $n$ at $k = 1,2,3,4,8$. Below: the divisor formulas $r_2(n) = 4(d_1 - d_3)$ and $r_4(n) = 8\sigma(n) - 32\sigma(n/4)$ are cross-checked.</div>
 </div>
@@ -783,7 +783,7 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
     <input type="range" id="jtp-N" min="1" max="18" step="1" value="6">
     <span id="jtp-Nv" class="readout" style="min-width:90px;flex:0 0 auto">N = 6</span>
   </div>
-  <svg id="jtp-svg" viewBox="0 0 620 270" width="620" height="270"></svg>
+  <svg id="jtp-svg" viewBox="0 0 620 270" width="620" height="270"><title>Triple-product partial sums vs. partial products</title></svg>
   <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
   <div class="small">At the specialization $z=1$: blue bars are the truncated sum $\sum_{|n|\le N} q^{n^2/2}$, yellow bars are the truncated product $\prod_{n=1}^N (1-q^n)(1+q^{n-1/2})^2$. Once $N$ is big enough the leading coefficients lock in and never change.</div>
 </div>
@@ -931,7 +931,7 @@ See <a href="./modular-forms.html">modular forms</a> for the construction of $\D
     <input type="range" id="eta-K" min="4" max="24" step="1" value="12">
     <span id="eta-Kv" class="readout" style="min-width:90px;flex:0 0 auto">K = 12</span>
   </div>
-  <svg id="eta-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <svg id="eta-svg" viewBox="0 0 620 240" width="620" height="240"><title>$\eta^{24}$ via the product vs. Ramanujan&#39;s $\tau(n)$</title></svg>
   <div class="readout" id="eta-out" style="font-size:.85rem"></div>
 </div>
 <div class="quiz" data-concept="dedekind-eta-theta"></div>
@@ -1080,7 +1080,7 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
     <button data-lat="A2">hexagonal $A_2$</button>
     <button data-lat="D4">$D_4$</button>
   </div>
-  <svg id="lat-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="lat-svg" viewBox="0 0 620 320" width="620" height="320"><title>Theta series of 2D lattices</title></svg>
   <div class="readout" id="lat-out" style="font-size:.85rem"></div>
   <div class="small">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\Theta_L(\tau) = \sum N_L(m)\, q^{m/2}$, first several coefficients.</div>
 </div>

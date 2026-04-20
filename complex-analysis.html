@@ -273,7 +273,7 @@ const C = {
     </select>
     <label><input type="checkbox" id="mob-sphere"> stereographic view</label>
   </div>
-  <svg id="mob-svg" viewBox="0 0 760 360" width="760" height="360"></svg>
+  <svg id="mob-svg" viewBox="0 0 760 360" width="760" height="360"><title>Möbius transformation playground</title></svg>
   <div class="readout" id="mob-readout"></div>
 </div>
 
@@ -327,7 +327,7 @@ const C = {
       <option value="conj">conj (NOT holomorphic)</option>
     </select>
   </div>
-  <svg id="amp-svg" viewBox="0 0 760 360" width="760" height="360"></svg>
+  <svg id="amp-svg" viewBox="0 0 760 360" width="760" height="360"><title>Amplitwist visualizer</title></svg>
   <div class="readout" id="amp-readout"></div>
 </div>
 
@@ -352,11 +352,11 @@ const C = {
       <option value="rat1">(z²−1)/(z²+1)</option>
       <option value="cubic">z³ − z</option>
     </select>
-    <label>view radius:</label>
+    <label for="dc-radius">view radius:</label>
     <input id="dc-radius" type="range" min="1" max="6" step="0.5" value="2.5">
     <span class="small" id="dc-rlabel">2.5</span>
   </div>
-  <svg id="dc-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
+  <svg id="dc-svg" viewBox="0 0 480 480" width="480" height="480"><title>Domain coloring of $f(z)$</title></svg>
   <div class="readout">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>
 </div>
 
@@ -430,7 +430,7 @@ const C = {
     </select>
     <button id="ct-reset">reset</button>
   </div>
-  <svg id="ct-svg" viewBox="0 0 760 460" width="760" height="460"></svg>
+  <svg id="ct-svg" viewBox="0 0 760 460" width="760" height="460"><title>Contour integral $\oint f\,dz$</title></svg>
   <div class="readout" id="ct-readout"></div>
 </div>
 <aside class="callback">
@@ -494,7 +494,7 @@ const C = {
       <option value="tan">tan z</option>
     </select>
   </div>
-  <svg id="tay-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
+  <svg id="tay-svg" viewBox="0 0 480 480" width="480" height="480"><title>Taylor series convergence</title></svg>
   <div class="readout" id="tay-readout"></div>
 </div>
 
@@ -584,15 +584,15 @@ const C = {
       <option value="cube3">(z−1)(z−i)(z+1)</option>
       <option value="rat">(z−0.3)/(z+0.6i)</option>
     </select>
-    <label>radius:</label>
+    <label for="ag-r">radius:</label>
     <input id="ag-r" type="range" min="0.2" max="2" step="0.05" value="1.2">
     <span class="small" id="ag-rlabel">1.20</span>
-    <label>centre x:</label>
+    <label for="ag-cx">centre x:</label>
     <input id="ag-cx" type="range" min="-1.5" max="1.5" step="0.05" value="0">
-    <label>centre y:</label>
+    <label for="ag-cy">centre y:</label>
     <input id="ag-cy" type="range" min="-1.5" max="1.5" step="0.05" value="0">
   </div>
-  <svg id="ag-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
+  <svg id="ag-svg" viewBox="0 0 760 380" width="760" height="380"><title>Argument principle</title></svg>
   <div class="readout" id="ag-readout"></div>
 </div>
 
@@ -639,7 +639,7 @@ const C = {
       <option value="sc3">Schwarz–Christoffel triangle</option>
     </select>
   </div>
-  <svg id="cf-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
+  <svg id="cf-svg" viewBox="0 0 760 380" width="760" height="380"><title>Conformal map gallery</title></svg>
   <div class="readout" id="cf-readout"></div>
 </div>
 <aside class="callback">

@@ -238,9 +238,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-meet">
   <div class="hd"><div class="ttl">Two parallel lines meeting at infinity</div><div class="hint">drag the slider — zoom out toward the horizon</div></div>
-  <svg id="meet-svg" viewBox="0 0 760 320" width="760" height="320"></svg>
+  <svg id="meet-svg" viewBox="0 0 760 320" width="760" height="320"><title>Two parallel lines meeting at infinity</title></svg>
   <div class="row">
-    <label>zoom out</label>
+    <label for="meet-z">zoom out</label>
     <input type="range" id="meet-z" min="0" max="100" value="0">
     <span class="small" id="meet-info"></span>
   </div>
@@ -341,12 +341,12 @@ A "point" of $\mathbb{P}^2$ is a 1-dimensional linear subspace of $K^3$. A "line
 
 <div class="widget" id="w-defn">
   <div class="hd"><div class="ttl">A line through the origin = a point of P²</div><div class="hint">drag the line direction</div></div>
-  <svg id="defn-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="defn-svg" viewBox="0 0 620 300" width="620" height="300"><title>A line through the origin = a point of P²</title></svg>
   <div class="readout" id="defn-out"></div>
   <div class="row">
-    <label>X</label><input type="range" id="defn-x" min="-100" max="100" value="60">
-    <label>Y</label><input type="range" id="defn-y" min="-100" max="100" value="40">
-    <label>Z</label><input type="range" id="defn-z" min="-100" max="100" value="80">
+    <label for="defn-x">X</label><input type="range" id="defn-x" min="-100" max="100" value="60">
+    <label for="defn-y">Y</label><input type="range" id="defn-y" min="-100" max="100" value="40">
+    <label for="defn-z">Z</label><input type="range" id="defn-z" min="-100" max="100" value="80">
   </div>
 </div>
 <aside class="callback">
@@ -446,9 +446,9 @@ where $(u,w) = (X/Y, Z/Y)$ on the $Y$-chart and $(x,y) = (X/Z, Y/Z) = (u/w, 1/w)
 <div class="widget" id="w-charts">
   <div class="hd"><div class="ttl">Three-chart viewer · the projective conic X² + Y² = Z²</div><div class="hint">click a chart to highlight</div></div>
   <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
-    <div class="chartbox" data-c="Z"><div class="lbl">U_Z chart  (Z=1)</div><svg id="ch-z" viewBox="0 0 220 200" width="220" height="200"></svg></div>
-    <div class="chartbox" data-c="Y"><div class="lbl">U_Y chart  (Y=1)</div><svg id="ch-y" viewBox="0 0 220 200" width="220" height="200"></svg></div>
-    <div class="chartbox" data-c="X"><div class="lbl">U_X chart  (X=1)</div><svg id="ch-x" viewBox="0 0 220 200" width="220" height="200"></svg></div>
+    <div class="chartbox" data-c="Z"><div class="lbl">U_Z chart  (Z=1)</div><svg id="ch-z" viewBox="0 0 220 200" width="220" height="200"><title>Three-chart viewer · the projective conic X² + Y² = Z²</title></svg></div>
+    <div class="chartbox" data-c="Y"><div class="lbl">U_Y chart  (Y=1)</div><svg id="ch-y" viewBox="0 0 220 200" width="220" height="200"><title>Three-chart viewer · the projective conic X² + Y² = Z²</title></svg></div>
+    <div class="chartbox" data-c="X"><div class="lbl">U_X chart  (X=1)</div><svg id="ch-x" viewBox="0 0 220 200" width="220" height="200"><title>Three-chart viewer · the projective conic X² + Y² = Z²</title></svg></div>
   </div>
   <div class="readout" id="ch-out" style="margin-top:.6rem">click a chart for its dehomogenized equation and the points "at infinity" relative to that chart.</div>
 </div>
@@ -539,7 +539,7 @@ So <em>every line of direction $(a,b)$ passes through the point $[a:b:0]\in\ell_
 
 <div class="widget" id="w-dir">
   <div class="hd"><div class="ttl">Direction in A² ↔ point on ℓ∞</div><div class="hint">drag the arrow</div></div>
-  <svg id="dir-svg" viewBox="0 0 720 300" width="720" height="300"></svg>
+  <svg id="dir-svg" viewBox="0 0 720 300" width="720" height="300"><title>Direction in A² ↔ point on ℓ∞</title></svg>
   <div class="readout" id="dir-out"></div>
 </div>
 </section>
@@ -639,7 +639,7 @@ Each monomial $x^iy^j$ with $i+j\le d$ becomes $X^iY^jZ^{d-i-j}$, restoring tota
 <div class="widget" id="w-hom">
   <div class="hd"><div class="ttl">Homogenize an affine polynomial</div><div class="hint">use ^2, +, −, *, x, y</div></div>
   <div class="row">
-    <label>f(x,y) =</label>
+    <label for="hom-in">f(x,y) =</label>
     <input type="text" id="hom-in" value="y^2 - x^3 - 1" style="width:280px">
     <button id="hom-go">homogenize</button>
   </div>
@@ -776,12 +776,12 @@ This is an algebraic group of dimension $9 - 1 = 8$ over $K$.</p>
 <div class="widget" id="w-conic">
   <div class="hd"><div class="ttl">Projective conic classifier</div><div class="hint">set coefficients of  AX² + BXY + CY² + DXZ + EYZ + FZ²</div></div>
   <div class="row">
-    <label>A</label><input type="number" id="cn-A" value="1" step="1" style="width:60px">
-    <label>B</label><input type="number" id="cn-B" value="0" step="1" style="width:60px">
-    <label>C</label><input type="number" id="cn-C" value="1" step="1" style="width:60px">
-    <label>D</label><input type="number" id="cn-D" value="0" step="1" style="width:60px">
-    <label>E</label><input type="number" id="cn-E" value="0" step="1" style="width:60px">
-    <label>F</label><input type="number" id="cn-F" value="-1" step="1" style="width:60px">
+    <label for="cn-A">A</label><input type="number" id="cn-A" value="1" step="1" style="width:60px">
+    <label for="cn-B">B</label><input type="number" id="cn-B" value="0" step="1" style="width:60px">
+    <label for="cn-C">C</label><input type="number" id="cn-C" value="1" step="1" style="width:60px">
+    <label for="cn-D">D</label><input type="number" id="cn-D" value="0" step="1" style="width:60px">
+    <label for="cn-E">E</label><input type="number" id="cn-E" value="0" step="1" style="width:60px">
+    <label for="cn-F">F</label><input type="number" id="cn-F" value="-1" step="1" style="width:60px">
   </div>
   <div class="readout" id="cn-out"></div>
 </div>
@@ -914,11 +914,11 @@ The chosen point $O = [0:1:0]$ is the identity of the group law on $C$. The full
   <div class="grid2">
     <div>
       <div class="lbl small" style="text-align:center;color:var(--mute);text-transform:uppercase;letter-spacing:.05em">U_Z chart  (affine xy-plane)</div>
-      <svg id="we-z" viewBox="0 0 320 280" width="320" height="280"></svg>
+      <svg id="we-z" viewBox="0 0 320 280" width="320" height="280"><title>Weierstrass curve, two charts</title></svg>
     </div>
     <div>
       <div class="lbl small" style="text-align:center;color:var(--mute);text-transform:uppercase;letter-spacing:.05em">U_Y chart  (Y=1; ∞ becomes finite)</div>
-      <svg id="we-y" viewBox="0 0 320 280" width="320" height="280"></svg>
+      <svg id="we-y" viewBox="0 0 320 280" width="320" height="280"><title>Weierstrass curve, two charts</title></svg>
     </div>
   </div>
   <div class="readout" id="we-out">in U_Z: the two affine branches running to infinity. in U_Y: those branches return to the finite point [0:1:0], which is the group identity O for the elliptic curve.</div>

@@ -213,7 +213,7 @@ function drawNode(svg, x, y, label, opts={}){
       <select id="et-p"><option value="0">0</option><option value="2">2</option><option value="3">3</option><option value="5">5</option><option value="7">7</option></select>
     </label>
   </div>
-  <svg id="et-svg" viewBox="0 0 560 360" width="560" height="360"></svg>
+  <svg id="et-svg" viewBox="0 0 560 360" width="560" height="360"><title>Étale cover explorer: $t\mapsto t^n$ on $\mathbb{G}_m$</title></svg>
   <div class="readout" id="et-out"></div>
 </div>
 
@@ -333,7 +333,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
     <label>degree $d$ <input type="range" id="la-d" min="2" max="5" value="4"></label>
     <span id="la-d-val" class="small">d = 4</span>
   </div>
-  <svg id="la-svg" viewBox="0 0 560 160" width="560" height="160"></svg>
+  <svg id="la-svg" viewBox="0 0 560 160" width="560" height="160"><title>ℓ-adic Betti table</title></svg>
   <div class="readout" id="la-out"></div>
 </div>
 
@@ -382,7 +382,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
     <label>depth n <input id="tw-n" type="range" min="1" max="8" step="1" value="4"></label>
     <span id="tw-nv" class="small">n = 4</span>
   </div>
-  <svg id="tw-svg" viewBox="0 0 560 180" width="560" height="180"></svg>
+  <svg id="tw-svg" viewBox="0 0 560 180" width="560" height="180"><title>Inverse-limit tower sampler</title></svg>
   <div class="readout" id="tw-out"></div>
 </div>
 
@@ -527,7 +527,7 @@ $$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^
     <label>$m$ <input id="l2-m" type="range" min="1" max="4" step="1" value="1"></label>
     <span id="l2-mv" class="small">m = 1</span>
   </div>
-  <svg id="l2-svg" viewBox="0 0 560 220" width="560" height="220"></svg>
+  <svg id="l2-svg" viewBox="0 0 560 220" width="560" height="220"><title>Betti numbers → Lefschetz point count</title></svg>
   <div class="readout" id="l2-out"></div>
   <div class="small" id="l2-small" style="margin-top:.4rem"></div>
 </div>
@@ -678,7 +678,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
     <label>$a_q$ <input type="range" id="we-a" min="-6" max="6" step="1" value="1"></label>
     <span id="we-a-val" class="small">a_q = 1</span>
   </div>
-  <svg id="we-svg" viewBox="0 0 560 300" width="560" height="300"></svg>
+  <svg id="we-svg" viewBox="0 0 560 300" width="560" height="300"><title>Zeta-function factoring for $E/\mathbb{F}_q$</title></svg>
   <div class="readout" id="we-out"></div>
 </div>
 
@@ -747,7 +747,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
     <span id="sc-av" class="small">a_q = 1</span>
     <label style="margin-left:1rem"><input id="sc-norm" type="checkbox" checked> normalized (|z|=1)</label>
   </div>
-  <svg id="sc-svg" viewBox="0 0 560 320" width="560" height="320"></svg>
+  <svg id="sc-svg" viewBox="0 0 560 320" width="560" height="320"><title>Frobenius eigenvalue sweep on the Riemann sphere</title></svg>
   <div class="readout" id="sc-out"></div>
   <div class="small" id="sc-small" style="margin-top:.4rem"></div>
 </div>
@@ -909,7 +909,7 @@ $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}}
       </select>
     </label>
   </div>
-  <svg id="cm-svg" viewBox="0 0 560 200" width="560" height="200"></svg>
+  <svg id="cm-svg" viewBox="0 0 560 200" width="560" height="200"><title>Pick a geometry, watch the cohomologies line up</title></svg>
   <div class="readout" id="cm-out"></div>
 </div>
 

@@ -322,15 +322,15 @@ function renderMat(container, M, p=3){
 
 <div class="widget" id="w-so3rot">
 <div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
-<div class="row"><label>azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
-<div class="row"><label>elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
-<div class="row"><label>angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
+<div class="row"><label for="so3-az">azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
+<div class="row"><label for="so3-el">elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
+<div class="row"><label for="so3-th">angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
 <div class="row" style="align-items:flex-start;gap:1.2rem">
   <div>
     <div class="small" style="margin-bottom:.3rem">$R(\hat n,\theta)\in\mathrm{SO}(3)$</div>
     <div class="matgrid" id="so3-mat"></div>
   </div>
-  <svg id="so3-svg" viewBox="0 0 320 260" width="320" height="260"></svg>
+  <svg id="so3-svg" viewBox="0 0 320 260" width="320" height="260"><title>SO(3) rotation visualizer</title></svg>
 </div>
 <div class="small" id="so3-info"></div>
 </div>
@@ -541,10 +541,10 @@ $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
 
 <div class="widget" id="w-expso3">
 <div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
-<div class="row"><label>$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
-<div class="row"><label>$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
-<div class="row"><label>$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
-<div class="row"><label>parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
+<div class="row"><label for="ex-x1">$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
+<div class="row"><label for="ex-x2">$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
+<div class="row"><label for="ex-x3">$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
+<div class="row"><label for="ex-t">parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
 <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$ (skew-symmetric)</div>
@@ -554,7 +554,7 @@ $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
     <div class="small" style="margin-bottom:.3rem">$\exp(tX)\in\mathrm{SO}(3)$</div>
     <div class="matgrid" id="ex-eX"></div>
   </div>
-  <svg id="ex-svg" viewBox="0 0 320 240" width="320" height="240"></svg>
+  <svg id="ex-svg" viewBox="0 0 320 240" width="320" height="240"><title>Exponential map for $\mathfrak{so}(3)$</title></svg>
 </div>
 <div class="small" id="ex-info"></div>
 </div>
@@ -642,12 +642,12 @@ $$T_k = -\tfrac{i}{2}\sigma_k, \qquad \sigma_1=\begin{pmatrix}0&1\\1&0\end{pmatr
 
 <div class="widget" id="w-su2path">
 <div class="hd"><span class="ttl">One-parameter subgroup on $\mathrm{SU}(2)\cong S^3$</span><span class="hint">stereographic projection from the north pole</span></div>
-<div class="row"><label>$a$ (σ₁)</label><input type="range" id="su-a" min="-2" max="2" step="0.01" value="1.0"><span class="readout" id="su-a-r" style="min-width:55px"></span></div>
-<div class="row"><label>$b$ (σ₂)</label><input type="range" id="su-b" min="-2" max="2" step="0.01" value="0.4"><span class="readout" id="su-b-r" style="min-width:55px"></span></div>
-<div class="row"><label>$c$ (σ₃)</label><input type="range" id="su-c" min="-2" max="2" step="0.01" value="0.6"><span class="readout" id="su-c-r" style="min-width:55px"></span></div>
-<div class="row"><label>parameter $t$</label><input type="range" id="su-t" min="0" max="12.56" step="0.02" value="2.5"><span class="readout" id="su-t-r" style="min-width:55px"></span></div>
+<div class="row"><label for="su-a">$a$ (σ₁)</label><input type="range" id="su-a" min="-2" max="2" step="0.01" value="1.0"><span class="readout" id="su-a-r" style="min-width:55px"></span></div>
+<div class="row"><label for="su-b">$b$ (σ₂)</label><input type="range" id="su-b" min="-2" max="2" step="0.01" value="0.4"><span class="readout" id="su-b-r" style="min-width:55px"></span></div>
+<div class="row"><label for="su-c">$c$ (σ₃)</label><input type="range" id="su-c" min="-2" max="2" step="0.01" value="0.6"><span class="readout" id="su-c-r" style="min-width:55px"></span></div>
+<div class="row"><label for="su-t">parameter $t$</label><input type="range" id="su-t" min="0" max="12.56" step="0.02" value="2.5"><span class="readout" id="su-t-r" style="min-width:55px"></span></div>
 <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
-  <svg id="su-svg" viewBox="-150 -150 300 300" width="320" height="320"></svg>
+  <svg id="su-svg" viewBox="-150 -150 300 300" width="320" height="320"><title>One-parameter subgroup on $\mathrm{SU}(2)\cong S^3$</title></svg>
   <div>
     <div class="small" style="margin-bottom:.3rem">current $\exp(tX)\in\mathrm{SU}(2)$</div>
     <div class="readout" id="su-mat" style="min-width:280px"></div>
@@ -796,7 +796,7 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
   <label style="margin-left:1rem">$X$:</label><select id="cm-X"></select>
   <label>$Y$:</label><select id="cm-Y"></select>
 </div>
-<div class="row"><label>parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
+<div class="row"><label for="cm-t">parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
 <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$</div>
@@ -929,10 +929,10 @@ a^2+b^2-c^2-d^2 & 2(bc-ad) & 2(bd+ac) \\
 
 <div class="widget" id="w-cover">
 <div class="hd"><span class="ttl">SU(2) → SO(3) double cover</span><span class="hint">$q\mapsto R(q) = R(-q)$</span></div>
-<div class="row"><label>$a$</label><input type="range" id="qv-a" min="-1" max="1" step="0.005" value="0.7"><span class="readout" id="qv-ar" style="min-width:55px"></span></div>
-<div class="row"><label>$b$</label><input type="range" id="qv-b" min="-1" max="1" step="0.005" value="0.4"><span class="readout" id="qv-br" style="min-width:55px"></span></div>
-<div class="row"><label>$c$</label><input type="range" id="qv-c" min="-1" max="1" step="0.005" value="0.3"><span class="readout" id="qv-cr" style="min-width:55px"></span></div>
-<div class="row"><label>$d$</label><input type="range" id="qv-d" min="-1" max="1" step="0.005" value="0.5"><span class="readout" id="qv-dr" style="min-width:55px"></span></div>
+<div class="row"><label for="qv-a">$a$</label><input type="range" id="qv-a" min="-1" max="1" step="0.005" value="0.7"><span class="readout" id="qv-ar" style="min-width:55px"></span></div>
+<div class="row"><label for="qv-b">$b$</label><input type="range" id="qv-b" min="-1" max="1" step="0.005" value="0.4"><span class="readout" id="qv-br" style="min-width:55px"></span></div>
+<div class="row"><label for="qv-c">$c$</label><input type="range" id="qv-c" min="-1" max="1" step="0.005" value="0.3"><span class="readout" id="qv-cr" style="min-width:55px"></span></div>
+<div class="row"><label for="qv-d">$d$</label><input type="range" id="qv-d" min="-1" max="1" step="0.005" value="0.5"><span class="readout" id="qv-dr" style="min-width:55px"></span></div>
 <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">normalised quaternion $q$</div>
@@ -1073,7 +1073,7 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
   <button id="rt-a1" class="active">$A_1$ (𝔰𝔩₂)</button>
   <button id="rt-a2">$A_2$ (𝔰𝔩₃)</button>
 </div>
-<svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"></svg>
+<svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"><title>Root systems $A_1$ and $A_2$</title></svg>
 <div class="small" id="rt-info"></div>
 </div>
 <script>

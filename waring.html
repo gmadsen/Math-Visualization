@@ -253,7 +253,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
       <option value="3" selected>3 (cubes)</option>
       <option value="4">4 (fourth powers)</option>
     </select>
-    <label>$n =$</label>
+    <label for="w-n">$n =$</label>
     <input type="number" id="w-n" value="23" min="1" max="2000" style="width:6em">
     <button id="w-go">decompose</button>
   </div>
@@ -367,7 +367,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 
 <div class="widget" id="w-table">
   <div class="hd"><div class="ttl">$g(k)$ and $G(k)$ lookup</div><div class="hint">bar heights compare the two constants; hover for values</div></div>
-  <svg id="gg-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="gg-svg" viewBox="0 0 620 260" width="620" height="260"><title>$g(k)$ and $G(k)$ lookup</title></svg>
   <div class="readout small" id="gg-out">bars: $g(k)$ (yellow) vs $G(k)$ (green, midpoint when an interval is known). Gap shows the "exceptional" penalty.</div>
 </div>
 
@@ -506,7 +506,7 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
 
 <div class="widget" id="w-circle">
   <div class="hd"><div class="ttl">$|f(\alpha)|$ on $[0,1]$ — the fingerprint</div><div class="hint">slide $N$ or $k$; vertical rails mark rationals $a/q$ with $q\le 6$ (major arcs)</div></div>
-  <svg id="c-svg" viewBox="0 0 620 300" width="620" height="300"></svg>
+  <svg id="c-svg" viewBox="0 0 620 300" width="620" height="300"><title>$|f(\alpha)|$ on $[0,1]$ — the fingerprint</title></svg>
   <div class="row">
     <label>$k =$</label>
     <select id="c-k">
@@ -514,7 +514,7 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
       <option value="3" selected>3</option>
       <option value="4">4</option>
     </select>
-    <label>$N^{1/k}=$</label>
+    <label for="c-M">$N^{1/k}=$</label>
     <input type="range" id="c-M" min="8" max="40" value="20">
     <span class="small" id="c-mlab"></span>
   </div>
@@ -692,9 +692,9 @@ The leading term $N^{s/k-1}$ is the geometric expectation: the volume of the box
       <option value="3">3</option>
       <option value="4">4</option>
     </select>
-    <label>$q =$</label>
+    <label for="gs-q">$q =$</label>
     <input type="number" id="gs-q" value="5" min="1" max="40" style="width:5em">
-    <label>$a =$</label>
+    <label for="gs-a">$a =$</label>
     <input type="number" id="gs-a" value="1" min="0" max="40" style="width:5em">
   </div>
   <div class="readout" id="gs-out"></div>

@@ -204,10 +204,10 @@ On the upper half-plane $S$ is the inversion $\tau \mapsto -1/\tau$, and $T$ is 
     <button data-g="Ti">apply $T^{-1}$</button>
     <button data-g="clear" style="margin-left:auto">reset</button>
   </div>
-  <div class="row"><label>starting $\tau$:</label>
+  <div class="row"><label for="w-gen-re">starting $\tau$:</label>
     <input id="w-gen-re" type="number" value="0.3" step="0.05" style="width:6em">
     <input id="w-gen-im" type="number" value="1.1" step="0.05" style="width:6em">
-    <label class="small" style="margin-left:1rem">word length</label>
+    <label class="small" style="margin-left:1rem" for="w-gen-im">word length</label>
     <span id="w-gen-len" class="pill">0</span>
   </div>
   <div class="readout" id="w-gen-out"></div>
@@ -494,7 +494,7 @@ Almost every proof about modular forms is, at heart, a clever use of these two i
 <div class="widget" id="w-wk">
   <div class="hd"><span class="ttl">Widget 3 · The weight-$k$ factor $(c\tau+d)^k$</span><span class="hint">watch the automorphy factor blow up or collapse as $k$ changes</span></div>
   <div class="row">
-    <label>weight $k$:</label>
+    <label for="w-wk-k">weight $k$:</label>
     <input id="w-wk-k" type="range" min="2" max="14" step="2" value="4">
     <span id="w-wk-kv" class="pill">k=4</span>
     <label style="margin-left:1rem">matrix choice:</label>
@@ -638,7 +638,7 @@ where $B_k$ is the $k$-th Bernoulli number and $\sigma_{s}(n) = \sum_{d \mid n} 
     <button data-f="E6">$E_6$</button>
     <button data-f="Delta">$\Delta$</button>
     <button data-f="E8">$E_8$</button>
-    <label style="margin-left:auto">log scale</label>
+    <label style="margin-left:auto" for="w-qbar-log">log scale</label>
     <input id="w-qbar-log" type="checkbox" checked>
   </div>
   <svg id="w-qbar-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="q-expansion bar chart"></svg>
@@ -758,10 +758,10 @@ well-defined and holomorphic on all of $\mathcal{H}$, with a simple pole at the 
 <div class="widget" id="w-j">
   <div class="hd"><span class="ttl">Widget 5 · The $j$-function on a vertical strip</span><span class="hint">$j(\tau)$ along $\mathrm{Re}\,\tau=x_0$, as $\mathrm{Im}\,\tau$ varies: a pole at $i\infty$, regular on $\mathcal{H}$</span></div>
   <div class="row">
-    <label>$\mathrm{Re}\,\tau$:</label>
+    <label for="w-j-x">$\mathrm{Re}\,\tau$:</label>
     <input id="w-j-x" type="range" min="-0.5" max="0.5" step="0.01" value="0">
     <span id="w-j-xv" class="pill">x=0</span>
-    <label style="margin-left:1rem">Im range:</label>
+    <label style="margin-left:1rem" for="w-j-y">Im range:</label>
     <input id="w-j-y" type="range" min="0.3" max="3" step="0.02" value="1.3">
     <span id="w-j-yv" class="pill">y=1.30</span>
   </div>
@@ -881,7 +881,7 @@ well-defined and holomorphic on all of $\mathcal{H}$, with a simple pole at the 
 <div class="widget" id="w-dim">
   <div class="hd"><span class="ttl">Widget 6 · Dimensions of $M_k$ and $S_k$</span><span class="hint">$\dim M_k = \lfloor k/12 \rfloor + \epsilon_k$ with a single correction at $k \equiv 2 \pmod{12}$</span></div>
   <div class="row">
-    <label>max weight:</label>
+    <label for="w-dim-kmax">max weight:</label>
     <input id="w-dim-kmax" type="range" min="12" max="36" step="2" value="24">
     <span id="w-dim-kv" class="pill">k ≤ 24</span>
   </div>
@@ -979,7 +979,7 @@ well-defined and holomorphic on all of $\mathcal{H}$, with a simple pole at the 
 <div class="widget" id="w-id">
   <div class="hd"><span class="ttl">Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\,\Delta$</span><span class="hint">truncate $q$-expansions; check the identity coefficient-by-coefficient</span></div>
   <div class="row">
-    <label>compare up to $q^N$ with $N$ =</label>
+    <label for="w-id-N">compare up to $q^N$ with $N$ =</label>
     <input id="w-id-N" type="range" min="2" max="15" step="1" value="6">
     <span id="w-id-Nv" class="pill">N=6</span>
   </div>

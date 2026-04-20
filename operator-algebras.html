@@ -403,7 +403,7 @@ $$\Phi_a\colon C(\sigma(a)) \;\longrightarrow\; A,\qquad f\mapsto f(a),$$
     <button id="spec-shift">nilpotent</button>
   </div>
   <div id="spec-mat" class="row" style="align-items:flex-start"></div>
-  <svg id="spec-svg" viewBox="0 0 520 360" width="520" height="360"></svg>
+  <svg id="spec-svg" viewBox="0 0 520 360" width="520" height="360"><title>Spectrum in $\mathbb{C}$</title></svg>
   <div class="readout" id="spec-out">eigenvalues:</div>
 </div>
 
@@ -640,12 +640,12 @@ $$\hat A \;=\; \{\,\varphi\colon A\to\mathbb{C}\ \text{nonzero algebra hom}\,\} 
     <button id="evx-circ">circle 𝕋</button>
   </div>
   <div class="row" id="evx-N-row">
-    <label>N</label>
+    <label for="evx-N">N</label>
     <input type="range" id="evx-N" min="3" max="12" step="1" value="6">
     <span class="readout" id="evx-N-out" style="min-width:48px;flex:0 0 auto">6</span>
   </div>
   <div class="row">
-    <label>point index / angle</label>
+    <label for="evx-t">point index / angle</label>
     <input type="range" id="evx-t" min="0" max="100" step="1" value="0">
     <span class="readout" id="evx-t-out" style="min-width:80px;flex:0 0 auto">x = 1</span>
   </div>
@@ -658,7 +658,7 @@ $$\hat A \;=\; \{\,\varphi\colon A\to\mathbb{C}\ \text{nonzero algebra hom}\,\} 
       <option value="exp">f(z) = z  (complex; on 𝕋 just Re iθ)</option>
     </select>
   </div>
-  <svg id="evx-svg" viewBox="0 0 520 280" width="520" height="280"></svg>
+  <svg id="evx-svg" viewBox="0 0 520 280" width="520" height="280"><title>Sample a character $\mathrm{ev}_x$</title></svg>
   <div class="readout" id="evx-out"></div>
 </div>
 </section>
@@ -828,11 +828,11 @@ $$\Gamma\colon A \;\longrightarrow\; C(\hat A),\qquad \Gamma(a)(\varphi) = \varp
     </select>
   </div>
   <div class="row" id="gt-element-row">
-    <label>element a</label>
+    <label for="gt-a">element a</label>
     <input type="text" id="gt-a" value="x+1" style="min-width:200px">
     <span class="small" id="gt-a-hint">format depends on algebra</span>
   </div>
-  <svg id="gt-svg" viewBox="0 0 560 280" width="560" height="280"></svg>
+  <svg id="gt-svg" viewBox="0 0 560 280" width="560" height="280"><title>$\Gamma(a)$ as a function on $\hat A$</title></svg>
   <div class="readout" id="gt-out"></div>
 </div>
 </section>
@@ -1028,7 +1028,7 @@ $$\mathsf{CHaus}\;\xrightleftharpoons[\,\hat{(-)}\,]{\,C(-)\,}\;\mathsf{cCAlg}_1
     <button id="dual-incl">inclusion {1,2}↪{1,2,3}</button>
     <button id="dual-double">double cover 𝕋 → 𝕋</button>
   </div>
-  <svg id="dual-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="dual-svg" viewBox="0 0 620 320" width="620" height="320"><title>A map $X\to Y$ becomes $C(Y)\to C(X)$</title></svg>
   <div class="readout" id="dual-out"></div>
 </div>
 
@@ -1192,11 +1192,11 @@ $$v\,u \;=\; e^{2\pi i \theta}\, u\, v.$$
 <div class="widget" id="w-nct">
   <div class="hd"><div class="ttl">$A_\theta$ — a knob with no spectrum</div><div class="hint">drag $\theta$; the classical points vanish for $\theta$ irrational</div></div>
   <div class="row">
-    <label>θ</label>
+    <label for="nct-th">θ</label>
     <input type="range" id="nct-th" min="0" max="100" step="0.1" value="61.8">
     <span class="readout" id="nct-th-out" style="min-width:90px;flex:0 0 auto">θ = 0.618</span>
   </div>
-  <svg id="nct-svg" viewBox="0 0 540 280" width="540" height="280"></svg>
+  <svg id="nct-svg" viewBox="0 0 540 280" width="540" height="280"><title>$A_\theta$ — a knob with no spectrum</title></svg>
   <div class="readout" id="nct-out"></div>
 </div>
 
@@ -1324,7 +1324,7 @@ $$v\,u \;=\; e^{2\pi i \theta}\, u\, v.$$
     <button id="cmp-Z" class="active">A = C({1,2,3}) vs R = ℤ</button>
     <button id="cmp-Cx">A = C(𝕋) vs R = ℂ[x]</button>
   </div>
-  <svg id="cmp-svg" viewBox="0 0 620 320" width="620" height="320"></svg>
+  <svg id="cmp-svg" viewBox="0 0 620 320" width="620" height="320"><title>Spectra compared</title></svg>
   <div class="readout" id="cmp-out"></div>
 </div>
 

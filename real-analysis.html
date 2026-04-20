@@ -247,9 +247,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-sqrt2">
   <div class="hd"><div class="ttl">Rational approximations to $\sqrt 2$</div><div class="hint">drag the slider — every rational leaves a gap</div></div>
-  <svg id="sqrt2-svg" viewBox="0 0 760 210" width="760" height="210"></svg>
+  <svg id="sqrt2-svg" viewBox="0 0 760 210" width="760" height="210"><title>Rational approximations to $\sqrt 2$</title></svg>
   <div class="row">
-    <label>rational $p/q$ with $q\le$</label>
+    <label for="sqrt2-q">rational $p/q$ with $q\le$</label>
     <input type="range" id="sqrt2-q" min="1" max="200" value="1" step="1">
     <span class="pill" id="sqrt2-qval">q ≤ 1</span>
   </div>
@@ -346,12 +346,12 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
 
 <div class="widget" id="w-eps">
   <div class="hd"><div class="ttl">$\varepsilon$–$\delta$ on $f(x)=x^2$ at $a=1$</div><div class="hint">shrink $\delta$ until the $x$-box lands inside the $\varepsilon$-box</div></div>
-  <svg id="eps-svg" viewBox="0 0 560 340" width="560" height="340"></svg>
+  <svg id="eps-svg" viewBox="0 0 560 340" width="560" height="340"><title>$\varepsilon$–$\delta$ on $f(x)=x^2$ at $a=1$</title></svg>
   <div class="row">
-    <label>$\varepsilon$</label>
+    <label for="eps-e">$\varepsilon$</label>
     <input type="range" id="eps-e" min="0.1" max="1.2" value="0.4" step="0.02">
     <span class="pill" id="eps-eval">ε = 0.40</span>
-    <label>$\delta$</label>
+    <label for="eps-d">$\delta$</label>
     <input type="range" id="eps-d" min="0.02" max="0.8" value="0.3" step="0.01">
     <span class="pill" id="eps-dval">δ = 0.30</span>
   </div>
@@ -456,9 +456,9 @@ $$ f(a+h) = f(a) + L(h) + r(h),\quad \text{with}\quad \frac{|r(h)|}{|h|}\longrig
 
 <div class="widget" id="w-mvt">
   <div class="hd"><div class="ttl">Best linear approximation & mean value theorem</div><div class="hint">drag $a$; compare tangent slope to secant slope</div></div>
-  <svg id="mvt-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <svg id="mvt-svg" viewBox="0 0 640 340" width="640" height="340"><title>Best linear approximation &amp; mean value theorem</title></svg>
   <div class="row">
-    <label>$a$</label>
+    <label for="mvt-a">$a$</label>
     <input type="range" id="mvt-a" min="0.1" max="2.9" value="1.2" step="0.01">
     <span class="pill" id="mvt-aval">a = 1.20</span>
     <label>function</label>
@@ -591,7 +591,7 @@ $$ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \;+\; \frac{f^{(n+1)}(\xi)}{(
 
 <div class="widget" id="w-unif">
   <div class="hd"><div class="ttl">Pointwise vs uniform convergence</div><div class="hint">x^n on [0,1] is pointwise but not uniform</div></div>
-  <svg id="unif-svg" viewBox="0 0 640 320" width="640" height="320"></svg>
+  <svg id="unif-svg" viewBox="0 0 640 320" width="640" height="320"><title>Pointwise vs uniform convergence</title></svg>
   <div class="row">
     <label>family</label>
     <select id="unif-fam">
@@ -599,7 +599,7 @@ $$ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \;+\; \frac{f^{(n+1)}(\xi)}{(
       <option value="sinn">f_n(x) = sin(nx)/n on [0,π]</option>
       <option value="bump">f_n(x) = n x (1-x)ⁿ on [0,1]  (spike)</option>
     </select>
-    <label>$n$</label>
+    <label for="unif-n">$n$</label>
     <input type="range" id="unif-n" min="1" max="60" value="4" step="1">
     <span class="pill" id="unif-nval">n = 4</span>
   </div>
@@ -707,7 +707,7 @@ $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,
 
 <div class="widget" id="w-riem">
   <div class="hd"><div class="ttl">Riemann upper/lower sums</div><div class="hint">increase the partition size and watch the gap shrink</div></div>
-  <svg id="riem-svg" viewBox="0 0 640 320" width="640" height="320"></svg>
+  <svg id="riem-svg" viewBox="0 0 640 320" width="640" height="320"><title>Riemann upper/lower sums</title></svg>
   <div class="row">
     <label>function</label>
     <select id="riem-fn">
@@ -715,7 +715,7 @@ $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,
       <option value="step">f(x) = ⌊3x⌋/3 + 0.1  (discontinuous)</option>
       <option value="dirichlet">Dirichlet-like (f(q)=1 if q∈ℚ with small denom)</option>
     </select>
-    <label>$n$ partitions</label>
+    <label for="riem-n">$n$ partitions</label>
     <input type="range" id="riem-n" min="2" max="60" value="8" step="1">
     <span class="pill" id="riem-nval">n = 8</span>
   </div>
@@ -858,7 +858,7 @@ $$ D_v f(a) = \lim_{t\to 0}\frac{f(a+tv)-f(a)}{t} = \nabla f(a)\cdot v. $$
 
 <div class="widget" id="w-grad">
   <div class="hd"><div class="ttl">Gradient field of $f(x,y)$</div><div class="hint">click the heatmap to place the probe</div></div>
-  <svg id="grad-svg" viewBox="0 0 640 360" width="640" height="360"></svg>
+  <svg id="grad-svg" viewBox="0 0 640 360" width="640" height="360"><title>Gradient field of $f(x,y)$</title></svg>
   <div class="row">
     <label>function</label>
     <select id="grad-fn">
@@ -993,7 +993,7 @@ $$ \int_V f(y)\,dy = \int_U f(\varphi(x))\,|\det J_\varphi(x)|\,dx. $$
 
 <div class="widget" id="w-jac">
   <div class="hd"><div class="ttl">Area scaling by $|\det J_\varphi|$</div><div class="hint">drag $u_0, v_0$; watch the rectangle deform</div></div>
-  <svg id="jac-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <svg id="jac-svg" viewBox="0 0 640 340" width="640" height="340"><title>Area scaling by $|\det J_\varphi|$</title></svg>
   <div class="row">
     <label>map</label>
     <select id="jac-fn">
@@ -1001,9 +1001,9 @@ $$ \int_V f(y)\,dy = \int_U f(\varphi(x))\,|\det J_\varphi(x)|\,dx. $$
       <option value="scale">scale: (u, v) ↦ (2u, 3v)</option>
       <option value="shear">nonlinear: (u, v) ↦ (u+v², v)</option>
     </select>
-    <label>$u_0$</label>
+    <label for="jac-u">$u_0$</label>
     <input type="range" id="jac-u" min="0.3" max="1.8" value="1.0" step="0.01">
-    <label>$v_0$</label>
+    <label for="jac-v">$v_0$</label>
     <input type="range" id="jac-v" min="0.0" max="1.3" value="0.6" step="0.01">
   </div>
   <div class="readout" id="jac-out"></div>
@@ -1101,7 +1101,7 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
 
 <div class="widget" id="w-ift">
   <div class="hd"><div class="ttl">Solving $F(x,y)=0$ locally</div><div class="hint">drag $x_0$; the widget solves for $y=g(x_0)$ when possible</div></div>
-  <svg id="ift-svg" viewBox="0 0 640 340" width="640" height="340"></svg>
+  <svg id="ift-svg" viewBox="0 0 640 340" width="640" height="340"><title>Solving $F(x,y)=0$ locally</title></svg>
   <div class="row">
     <label>$F(x,y) = 0$</label>
     <select id="ift-fn">
@@ -1109,7 +1109,7 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
       <option value="cubic">y³ + y − x = 0</option>
       <option value="folium">x³ + y³ − 3xy = 0  (folium)</option>
     </select>
-    <label>$x_0$</label>
+    <label for="ift-x">$x_0$</label>
     <input type="range" id="ift-x" min="-1.4" max="1.4" value="0.5" step="0.01">
     <label>branch</label>
     <select id="ift-branch">

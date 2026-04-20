@@ -295,7 +295,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-sphere">
   <div class="hd"><span class="ttl">Stereographic chart · sphere vs plane</span>
     <span class="hint">drag the point in the plane</span></div>
-  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-sphere"></svg>
+  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-sphere"><title>Stereographic chart · sphere vs plane</title></svg>
   <div class="readout" id="out-sphere"></div>
 </div>
 
@@ -424,7 +424,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-torus">
   <div class="hd"><span class="ttl">Lattice, parallelogram, and τ</span>
     <span class="hint">drag the tips of ω₁ (yellow) and ω₂ (blue)</span></div>
-  <svg viewBox="0 0 760 320" width="760" height="320" id="svg-torus"></svg>
+  <svg viewBox="0 0 760 320" width="760" height="320" id="svg-torus"><title>Lattice, parallelogram, and τ</title></svg>
   <div class="readout" id="out-torus"></div>
 </div>
 
@@ -618,12 +618,12 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="legendre">w² = z(z−1)(z−λ)  (elliptic)</option>
     </select>
     <span id="branch-lam-wrap" style="display:none">
-      <label>λ</label>
+      <label for="branch-lam">λ</label>
       <input type="range" id="branch-lam" min="-1.8" max="1.8" step="0.02" value="0.6" />
       <span id="branch-lam-val" class="small">0.60</span>
     </span>
   </div>
-  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-branch"></svg>
+  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-branch"><title>Two-sheet cover and monodromy</title></svg>
   <div class="readout" id="out-branch"></div>
 </div>
 
@@ -815,9 +815,9 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
   <div class="hd"><span class="ttl">Riemann–Hurwitz calculator</span>
     <span class="hint">enter degree, base genus, ramification indices</span></div>
   <div class="row">
-    <label>deg n</label> <input type="number" id="rh-n" value="2" min="1" max="20" style="width:4em"/>
-    <label>g(Y)</label>  <input type="number" id="rh-gy" value="0" min="0" max="20" style="width:4em"/>
-    <label>ramification indices (comma-sep)</label>
+    <label for="rh-n">deg n</label> <input type="number" id="rh-n" value="2" min="1" max="20" style="width:4em"/>
+    <label for="rh-gy">g(Y)</label>  <input type="number" id="rh-gy" value="0" min="0" max="20" style="width:4em"/>
+    <label for="rh-eps">ramification indices (comma-sep)</label>
     <input type="text" id="rh-eps" value="2,2,2,2" style="flex:1;min-width:12em"/>
     <button id="rh-go">compute</button>
   </div>
@@ -938,19 +938,19 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
     <div class="card">
       <div class="tag">positive curvature · genus 0</div>
       <h3>$\mathbb{CP}^1$ only</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un1"></svg>
+      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un1"><title>The trichotomy</title></svg>
       <div class="small">One point: only $\mathbb{CP}^1$ itself covers $\mathbb{CP}^1$. Automorphism group $\mathrm{PGL}_2(\mathbb{C})$.</div>
     </div>
     <div class="card">
       <div class="tag">flat · genus 1</div>
       <h3>$\mathbb{C}/\Lambda$</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un2"></svg>
+      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un2"><title>The trichotomy</title></svg>
       <div class="small">Every torus. Moduli space $\mathbb{H}/\mathrm{SL}_2(\mathbb{Z})$.</div>
     </div>
     <div class="card">
       <div class="tag">negative curvature · g ≥ 2</div>
       <h3>$\mathbb{H}/\Gamma$</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un3"></svg>
+      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un3"><title>The trichotomy</title></svg>
       <div class="small">The "most surfaces" case. For genus $g\ge 2$, Teichmüller dim $= 6g-6$.</div>
     </div>
   </div>
@@ -1074,7 +1074,7 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
 <div class="widget" id="w-div">
   <div class="hd"><span class="ttl">Place points, build a divisor</span>
     <span class="hint">left-click adds +1, right-click (or shift-click) adds −1</span></div>
-  <svg viewBox="0 0 760 240" width="760" height="240" id="svg-div"></svg>
+  <svg viewBox="0 0 760 240" width="760" height="240" id="svg-div"><title>Place points, build a divisor</title></svg>
   <div class="row">
     <button id="div-clear">clear</button>
     <span class="small" style="color:var(--mute)">click on the torus cross-section to add points with multiplicity</span>

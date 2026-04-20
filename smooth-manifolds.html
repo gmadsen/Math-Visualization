@@ -262,12 +262,12 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
   <div class="hd"><span class="ttl">Widget · chart transition on $S^2$</span>
     <span class="hint">drag the point; watch both stereographic images</span></div>
   <div class="row">
-    <label>longitude $\lambda$</label>
+    <label for="ch-lam">longitude $\lambda$</label>
     <input type="range" id="ch-lam" min="-180" max="180" value="40" step="1">
-    <label>latitude $\phi$</label>
+    <label for="ch-phi">latitude $\phi$</label>
     <input type="range" id="ch-phi" min="-85" max="85" value="30" step="1">
   </div>
-  <svg id="ch-svg" viewBox="0 0 820 320" width="100%"></svg>
+  <svg id="ch-svg" viewBox="0 0 820 320" width="100%"><title>Widget · chart transition on $S^2$</title></svg>
   <div class="readout" id="ch-out"></div>
   <p class="small">Left: $S^2$ drawn axonometrically. Middle: stereographic chart $\varphi_N$ from the north pole (domain $S^2\setminus\{N\}$). Right: stereographic chart $\varphi_S$ from the south pole (domain $S^2\setminus\{S\}$). The overlap is $S^2\setminus\{N,S\}$; the transition map reads $\varphi_S\circ\varphi_N^{-1}(u,v) = (u,v)/(u^2+v^2)$ — inversion in the unit circle, a $C^\infty$ diffeomorphism of $\mathbb{R}^2\setminus\{0\}$.</p>
 </div>
@@ -476,7 +476,7 @@ $$df_p\colon T_pM\longrightarrow T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed th
       <option value="sq">(x, y) ↦ (x², y²)  — drops at axes</option>
     </select>
   </div>
-  <svg id="rk-svg" viewBox="0 0 820 360" width="100%"></svg>
+  <svg id="rk-svg" viewBox="0 0 820 360" width="100%"><title>Widget · rank of the differential</title></svg>
   <div class="readout" id="rk-out"></div>
   <p class="small">Left panel: domain grid, coloured by $\operatorname{rank}(df_{(x,y)})$. Right panel: the image under $f$. The rank is the number of linearly independent rows of the Jacobian $Df = \begin{pmatrix}\partial f^1/\partial x & \partial f^1/\partial y \\ \partial f^2/\partial x & \partial f^2/\partial y\end{pmatrix}$.</p>
 </div>
@@ -611,10 +611,10 @@ $$T_pM \;\cong\; \{[\gamma]\} \;\cong\; \{(v^1,\ldots,v^n)\} \;\cong\; \left\{\,
     <button class="active" data-c="2">γ₃(t) = (tan t, 0, tan²t)</button>
   </div>
   <div class="row">
-    <label>parameter $t$</label>
+    <label for="tg-t">parameter $t$</label>
     <input type="range" id="tg-t" min="-80" max="80" value="50" step="1">
   </div>
-  <svg id="tg-svg" viewBox="0 0 820 360" width="100%"></svg>
+  <svg id="tg-svg" viewBox="0 0 820 360" width="100%"><title>Widget · three curves, one tangent vector</title></svg>
   <div class="readout" id="tg-out"></div>
   <p class="small">The paraboloid $z = x^2 + y^2$ has tangent plane $z = 0$ at $p = (0,0,0)$. All three curves pass through $p$ at $t=0$ and have the <em>same</em> velocity vector $(1,0,0)$ there — that $1\cdot\partial_x|_p$ is their common tangent vector. Their second-order behaviour differs, but tangent vectors are a first-order notion.</p>
 </div>
@@ -803,7 +803,7 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
     <button data-vf="rot">rotation about z-axis</button>
     <button data-vf="grad">∇f for f = z</button>
   </div>
-  <svg id="vf-svg" viewBox="0 0 800 380" width="100%"></svg>
+  <svg id="vf-svg" viewBox="0 0 800 380" width="100%"><title>Widget · vector fields on $S^2$</title></svg>
   <div class="readout" id="vf-out"></div>
   <p class="small">Each field is drawn as arrows on a hemispheric projection. Zeros (where the arrow vanishes) are marked. The hairy-ball theorem says no continuous tangent vector field on $S^2$ is everywhere nonzero — every option above has at least one zero.</p>
 </div>
@@ -987,11 +987,11 @@ $$\Phi^X_{s+t} = \Phi^X_s \circ \Phi^X_t$$
     <button data-fl="saddle">X = x∂ₓ − y∂_y (hyperbolic)</button>
   </div>
   <div class="row">
-    <label>time $t$</label>
+    <label for="fl-t">time $t$</label>
     <input type="range" id="fl-t" min="-100" max="100" value="60" step="1">
     <span class="small" id="fl-tv" style="color:var(--mute)"></span>
   </div>
-  <svg id="fl-svg" viewBox="0 0 820 360" width="100%"></svg>
+  <svg id="fl-svg" viewBox="0 0 820 360" width="100%"><title>Widget · integral curves of three fields</title></svg>
   <div class="readout" id="fl-out"></div>
   <p class="small">Blue arrows show the vector field. The yellow curve is the integral curve starting at the chosen $p$; the dot tracks $\Phi^X_t(p)$. For the rotation field, trajectories are circles closed for all $t$ — the flow is complete. For $X=x^2\partial_x$ on $\mathbb{R}$ (visualised on a horizontal slice), the trajectory through $x_0=1$ is $x(t)=1/(1-t)$ and escapes to $+\infty$ at $t=1$: the maximal interval is $(-\infty,1)$, so $X$ is incomplete.</p>
 </div>
@@ -1164,10 +1164,10 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
   <div class="hd"><span class="ttl">Widget · Lie bracket via flows</span>
     <span class="hint">$X = \partial_x$, $Y = x\,\partial_y$ — so $[X,Y] = \partial_y$</span></div>
   <div class="row">
-    <label>$t$</label>
+    <label for="br-t">$t$</label>
     <input type="range" id="br-t" min="5" max="95" value="50" step="1">
   </div>
-  <svg id="br-svg" viewBox="0 0 820 360" width="100%"></svg>
+  <svg id="br-svg" viewBox="0 0 820 360" width="100%"><title>Widget · Lie bracket via flows</title></svg>
   <div class="readout" id="br-out"></div>
   <p class="small">Start at $p = (0, 0.3)$. Flow $X$ for time $t$, then $Y$ for $t$, then $-X$, then $-Y$. Because $[X,Y] = \partial_y \neq 0$, the loop does not close: the endpoint misses $p$ by approximately $t^2\,\partial_y = (0, t^2)$. The dashed red arrow shows the actual displacement; compare with the predicted $t^2[X,Y]_p$.</p>
 </div>
@@ -1306,17 +1306,17 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
   <div class="panels3">
     <div>
       <div class="small" style="text-align:center;color:var(--yellow)">figure-eight</div>
-      <svg id="imm-a" viewBox="0 0 240 200" width="100%"></svg>
+      <svg id="imm-a" viewBox="0 0 240 200" width="100%"><title>Widget · immersion vs embedding</title></svg>
       <div class="small" style="text-align:center"><span class="tag good">immersion</span><span class="tag bad">not embedding</span></div>
     </div>
     <div>
       <div class="small" style="text-align:center;color:var(--yellow)">lemniscate traced twice</div>
-      <svg id="imm-b" viewBox="0 0 240 200" width="100%"></svg>
+      <svg id="imm-b" viewBox="0 0 240 200" width="100%"><title>Widget · immersion vs embedding</title></svg>
       <div class="small" style="text-align:center"><span class="tag good">immersion</span><span class="tag bad">not injective</span></div>
     </div>
     <div>
       <div class="small" style="text-align:center;color:var(--yellow)">unit circle</div>
-      <svg id="imm-c" viewBox="0 0 240 200" width="100%"></svg>
+      <svg id="imm-c" viewBox="0 0 240 200" width="100%"><title>Widget · immersion vs embedding</title></svg>
       <div class="small" style="text-align:center"><span class="tag good">embedding</span></div>
     </div>
   </div>
@@ -1423,14 +1423,14 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
   <div class="hd"><span class="ttl">Widget · three bumps summing to 1</span>
     <span class="hint">drag the peak sliders; the green line is Σρᵢ</span></div>
   <div class="row">
-    <label>$c_1$</label>
+    <label for="pu-c1">$c_1$</label>
     <input type="range" id="pu-c1" min="-180" max="-20" value="-90" step="1">
-    <label>$c_2$</label>
+    <label for="pu-c2">$c_2$</label>
     <input type="range" id="pu-c2" min="-80" max="80" value="0" step="1">
-    <label>$c_3$</label>
+    <label for="pu-c3">$c_3$</label>
     <input type="range" id="pu-c3" min="20" max="180" value="90" step="1">
   </div>
-  <svg id="pu-svg" viewBox="0 0 820 280" width="100%"></svg>
+  <svg id="pu-svg" viewBox="0 0 820 280" width="100%"><title>Widget · three bumps summing to 1</title></svg>
   <div class="readout" id="pu-out"></div>
   <p class="small">Three smooth bumps $\tilde\rho_i$ centred at $c_1, c_2, c_3$, then renormalised $\rho_i = \tilde\rho_i/(\tilde\rho_1+\tilde\rho_2+\tilde\rho_3)$ so that $\sum\rho_i\equiv 1$. Each $\tilde\rho_i$ is a $C^\infty$ bump (built from $e^{-1/(1-x^2)}$) supported in a small interval around $c_i$; renormalisation preserves smoothness because the denominator never vanishes when the supports cover the interval.</p>
 </div>
@@ -1546,19 +1546,19 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
   <div class="hd"><span class="ttl">Widget · cylinder vs Möbius band</span>
     <span class="hint">transport a frame around the core circle</span></div>
   <div class="row">
-    <label>angle $\theta$</label>
+    <label for="or-th">angle $\theta$</label>
     <input type="range" id="or-th" min="0" max="360" value="0" step="2">
     <span class="small" id="or-lbl" style="color:var(--mute)"></span>
   </div>
   <div class="panels2">
     <div>
       <div class="small" style="text-align:center;color:var(--green)">cylinder $S^1\times[-1,1]$</div>
-      <svg id="or-cyl" viewBox="0 0 380 260" width="100%"></svg>
+      <svg id="or-cyl" viewBox="0 0 380 260" width="100%"><title>Widget · cylinder vs Möbius band</title></svg>
       <div class="small" style="text-align:center"><span class="tag good">orientable</span></div>
     </div>
     <div>
       <div class="small" style="text-align:center;color:var(--pink)">Möbius band</div>
-      <svg id="or-mob" viewBox="0 0 380 260" width="100%"></svg>
+      <svg id="or-mob" viewBox="0 0 380 260" width="100%"><title>Widget · cylinder vs Möbius band</title></svg>
       <div class="small" style="text-align:center"><span class="tag bad">non-orientable</span></div>
     </div>
   </div>

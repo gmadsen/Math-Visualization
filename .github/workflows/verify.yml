@@ -40,6 +40,8 @@ jobs:
         run: node scripts/audit-color-vars.mjs
       - name: Audit accessibility
         run: node scripts/audit-accessibility.mjs
+      - name: Audit a11y fix
+        run: node scripts/fix-a11y.mjs
       - name: Audit responsive breakpoints
         run: node scripts/audit-responsive.mjs
       - name: Audit widget interactivity

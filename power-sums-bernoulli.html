@@ -240,15 +240,15 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-faul">
   <div class="hd"><div class="ttl">Faulhaber polynomial generator</div><div class="hint">pick $m$, compare polynomial vs direct sum</div></div>
   <div class="row">
-    <label>power $m$:</label>
+    <label for="f-m">power $m$:</label>
     <input type="range" id="f-m" min="1" max="8" step="1" value="3">
     <span id="f-m-lbl" class="small"></span>
-    <label style="margin-left:1rem">evaluate at $n=$</label>
+    <label style="margin-left:1rem" for="f-n">evaluate at $n=$</label>
     <input type="range" id="f-n" min="1" max="20" step="1" value="6">
     <span id="f-n-lbl" class="small"></span>
   </div>
   <div class="readout" id="f-out"></div>
-  <svg id="f-svg" viewBox="0 0 620 260" width="620" height="260"></svg>
+  <svg id="f-svg" viewBox="0 0 620 260" width="620" height="260"><title>Faulhaber polynomial generator</title></svg>
   <div class="small" style="color:var(--mute)">Blue bars: direct sum $\sum_{k=1}^{n} k^m$ for each $n$. Yellow curve: Faulhaber polynomial evaluated as a continuous function. They coincide at integer $n$ to machine precision.</div>
 </div>
 
@@ -453,10 +453,10 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-bern">
   <div class="hd"><div class="ttl">Bernoulli generating function</div><div class="hint">slide $t$, see partial sum vs $t/(e^t-1)$</div></div>
   <div class="row">
-    <label>$t$:</label>
+    <label for="b-t">$t$:</label>
     <input type="range" id="b-t" min="-4" max="4" step="0.05" value="1">
     <span id="b-t-lbl" class="small"></span>
-    <label style="margin-left:1rem">truncation $N$:</label>
+    <label style="margin-left:1rem" for="b-N">truncation $N$:</label>
     <input type="range" id="b-N" min="1" max="20" step="1" value="8">
     <span id="b-N-lbl" class="small"></span>
   </div>
@@ -581,7 +581,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-zeta">
   <div class="hd"><div class="ttl">$\zeta(2n)$ and $\zeta(-n)$ from Bernoulli</div><div class="hint">pick $n$, see both faces</div></div>
   <div class="row">
-    <label>$n$:</label>
+    <label for="z-n">$n$:</label>
     <input type="range" id="z-n" min="1" max="7" step="1" value="1">
     <span id="z-n-lbl" class="small"></span>
   </div>
@@ -704,15 +704,15 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-em">
   <div class="hd"><div class="ttl">Harmonic partial sum $H_n$ via Euler-Maclaurin</div><div class="hint">$f(x)=1/x$, watch corrections kick in</div></div>
   <div class="row">
-    <label>$n$:</label>
+    <label for="e-n">$n$:</label>
     <input type="range" id="e-n" min="3" max="100" step="1" value="10">
     <span id="e-n-lbl" class="small"></span>
-    <label style="margin-left:1rem">corrections up to $B_{2K}$:</label>
+    <label style="margin-left:1rem" for="e-K">corrections up to $B_{2K}$:</label>
     <input type="range" id="e-K" min="0" max="6" step="1" value="2">
     <span id="e-K-lbl" class="small"></span>
   </div>
   <div class="readout" id="e-out"></div>
-  <svg id="e-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <svg id="e-svg" viewBox="0 0 620 220" width="620" height="220"><title>Harmonic partial sum $H_n$ via Euler-Maclaurin</title></svg>
   <div class="small" style="color:var(--mute)">Green = absolute error of the Euler-Maclaurin estimate for $H_n$; red = error of the naïve $\int_1^n dx/x = \ln n$. The gap is the power of Bernoulli corrections.</div>
 </div>
 
@@ -872,12 +872,12 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-fe">
   <div class="hd"><div class="ttl">$\xi(s)=\xi(1-s)$ consistency check</div><div class="hint">slide $s$; both sides should match</div></div>
   <div class="row">
-    <label>$s$:</label>
+    <label for="fe-s">$s$:</label>
     <input type="range" id="fe-s" min="2" max="20" step="1" value="2">
     <span id="fe-s-lbl" class="small"></span>
   </div>
   <div class="readout" id="fe-out"></div>
-  <svg id="fe-svg" viewBox="0 0 620 160" width="620" height="160"></svg>
+  <svg id="fe-svg" viewBox="0 0 620 160" width="620" height="160"><title>$\xi(s)=\xi(1-s)$ consistency check</title></svg>
   <div class="small" style="color:var(--mute)">Both columns show $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$ evaluated at $s$ (right) and $1-s$ (left). They agree; the symmetry point is $s=1/2$ (off-screen, between integers).</div>
 </div>
 
@@ -974,13 +974,13 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget" id="w-app">
   <div class="hd"><div class="ttl">Naïve vs Euler-Maclaurin ζ(s)</div><div class="hint">same $N$; EM wins by orders of magnitude</div></div>
   <div class="row">
-    <label>$s$:</label>
+    <label for="a-s">$s$:</label>
     <input type="range" id="a-s" min="1.1" max="6" step="0.05" value="1.5">
     <span id="a-s-lbl" class="small"></span>
-    <label style="margin-left:1rem">$N$:</label>
+    <label style="margin-left:1rem" for="a-N">$N$:</label>
     <input type="range" id="a-N" min="2" max="50" step="1" value="10">
     <span id="a-N-lbl" class="small"></span>
-    <label style="margin-left:1rem">EM correction depth $K$:</label>
+    <label style="margin-left:1rem" for="a-K">EM correction depth $K$:</label>
     <input type="range" id="a-K" min="0" max="6" step="1" value="3">
     <span id="a-K-lbl" class="small"></span>
   </div>
