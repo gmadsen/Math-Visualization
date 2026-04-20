@@ -1,0 +1,34 @@
+{
+  "topic": "p-adic-numbers",
+  "title": "p-adic numbers",
+  "page": "p-adic-numbers.html",
+  "concepts": [
+    {
+      "id": "padic-norm-completion",
+      "title": "p-adic norm and completion",
+      "anchor": "abs",
+      "prereqs": [
+        "metric-spaces"
+      ],
+      "blurb": "The p-adic absolute value yields an ultrametric completion Q_p."
+    },
+    {
+      "id": "padic-expansions",
+      "title": "p-adic expansions and topology",
+      "anchor": "expand",
+      "prereqs": [
+        "padic-norm-completion"
+      ],
+      "blurb": "Series expansions encode arithmetic with non-Archimedean convergence."
+    },
+    {
+      "id": "hensel-lemma",
+      "title": "Hensel lifting",
+      "anchor": "hensel",
+      "prereqs": [
+        "padic-expansions"
+      ],
+      "blurb": "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions."
+    }
+  ]
+}

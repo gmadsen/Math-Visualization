@@ -1,0 +1,35 @@
+{
+  "topic": "sheaves",
+  "title": "Sheaves",
+  "page": "sheaves.html",
+  "concepts": [
+    {
+      "id": "presheaf-sheaf-axioms",
+      "title": "Presheaves and sheaf condition",
+      "anchor": "sheaves",
+      "prereqs": [
+        "open-sets"
+      ],
+      "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers."
+    },
+    {
+      "id": "stalks-local-data",
+      "title": "Stalks and local behavior",
+      "anchor": "stalks",
+      "prereqs": [
+        "presheaf-sheaf-axioms"
+      ],
+      "blurb": "Stalks isolate infinitesimal data at points and detect local properties."
+    },
+    {
+      "id": "sheafification-and-qcoh",
+      "title": "Sheafification and quasi-coherent sheaves",
+      "anchor": "qcoh",
+      "prereqs": [
+        "stalks-local-data",
+        "structure-sheaf-schemes"
+      ],
+      "blurb": "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes."
+    }
+  ]
+}

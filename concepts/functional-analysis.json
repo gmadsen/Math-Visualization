@@ -1,0 +1,34 @@
+{
+  "topic": "functional-analysis",
+  "title": "Functional analysis",
+  "page": "functional-analysis.html",
+  "concepts": [
+    {
+      "id": "banach-hilbert-spaces",
+      "title": "Banach and Hilbert spaces",
+      "anchor": "hilbert",
+      "prereqs": [
+        "lp-spaces"
+      ],
+      "blurb": "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs."
+    },
+    {
+      "id": "bounded-operators-fa",
+      "title": "Bounded operators and adjoints",
+      "anchor": "bounded",
+      "prereqs": [
+        "banach-hilbert-spaces"
+      ],
+      "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
+    },
+    {
+      "id": "spectral-theorem-fa",
+      "title": "Spectral theorem viewpoint",
+      "anchor": "spectral",
+      "prereqs": [
+        "bounded-operators-fa"
+      ],
+      "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions."
+    }
+  ]
+}

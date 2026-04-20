@@ -1,0 +1,35 @@
+{
+  "topic": "L-functions",
+  "title": "L-functions",
+  "page": "L-functions.html",
+  "concepts": [
+    {
+      "id": "lfunction-prototype",
+      "title": "Prototype L-functions",
+      "anchor": "unified",
+      "prereqs": [
+        "dirichlet-characters-lseries"
+      ],
+      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
+    },
+    {
+      "id": "functional-equation-completion",
+      "title": "Completion and functional equations",
+      "anchor": "completed",
+      "prereqs": [
+        "lfunction-prototype"
+      ],
+      "blurb": "Gamma factors and conductor normalization yield symmetric functional equations."
+    },
+    {
+      "id": "arithmetic-data-lfunctions",
+      "title": "Arithmetic data and modularity links",
+      "anchor": "modularity",
+      "prereqs": [
+        "functional-equation-completion",
+        "eigenforms-and-euler-factors"
+      ],
+      "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+    }
+  ]
+}

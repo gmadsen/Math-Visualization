@@ -1,0 +1,34 @@
+{
+  "topic": "projective-plane",
+  "title": "Projective plane",
+  "page": "projective-plane.html",
+  "concepts": [
+    {
+      "id": "projective-points-lines",
+      "title": "Projective points and lines",
+      "anchor": "defn",
+      "prereqs": [
+        "sets-functions"
+      ],
+      "blurb": "P^2 extends affine geometry by homogeneous coordinates and points at infinity."
+    },
+    {
+      "id": "homogeneous-coordinates",
+      "title": "Homogeneous equations and charts",
+      "anchor": "homog",
+      "prereqs": [
+        "projective-points-lines"
+      ],
+      "blurb": "Polynomial equations homogenize naturally and are studied chartwise."
+    },
+    {
+      "id": "projective-transformations",
+      "title": "Projective automorphisms",
+      "anchor": "pgl",
+      "prereqs": [
+        "homogeneous-coordinates"
+      ],
+      "blurb": "PGL actions describe coordinate changes preserving incidence."
+    }
+  ]
+}

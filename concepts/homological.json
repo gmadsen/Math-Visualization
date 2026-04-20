@@ -1,0 +1,34 @@
+{
+  "topic": "homological",
+  "title": "Homological algebra",
+  "page": "homological.html",
+  "concepts": [
+    {
+      "id": "chain-complexes",
+      "title": "Chain complexes and homology",
+      "anchor": "complexes",
+      "prereqs": [
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness."
+    },
+    {
+      "id": "derived-functors",
+      "title": "Derived functors and resolutions",
+      "anchor": "derived",
+      "prereqs": [
+        "chain-complexes"
+      ],
+      "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants."
+    },
+    {
+      "id": "spectral-sequences-ha",
+      "title": "Spectral sequences",
+      "anchor": "spectral",
+      "prereqs": [
+        "derived-functors"
+      ],
+      "blurb": "Spectral sequences stage difficult computations into successive approximation pages."
+    }
+  ]
+}

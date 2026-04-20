@@ -1,0 +1,34 @@
+{
+  "topic": "differential-geometry",
+  "title": "Differential geometry",
+  "page": "differential-geometry.html",
+  "concepts": [
+    {
+      "id": "curves-surfaces-dg",
+      "title": "Curves and surfaces in R^3",
+      "anchor": "surfaces",
+      "prereqs": [
+        "submanifolds-immersions"
+      ],
+      "blurb": "Embedded geometry starts with curvature, normals, and local parametrizations."
+    },
+    {
+      "id": "first-second-fundamental",
+      "title": "First/second fundamental forms",
+      "anchor": "first",
+      "prereqs": [
+        "curves-surfaces-dg"
+      ],
+      "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
+    },
+    {
+      "id": "gauss-curvature-geodesics",
+      "title": "Gaussian curvature and geodesics",
+      "anchor": "geodesics",
+      "prereqs": [
+        "first-second-fundamental"
+      ],
+      "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+    }
+  ]
+}

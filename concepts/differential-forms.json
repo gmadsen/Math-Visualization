@@ -1,0 +1,34 @@
+{
+  "topic": "differential-forms",
+  "title": "Differential forms",
+  "page": "differential-forms.html",
+  "concepts": [
+    {
+      "id": "forms-and-wedge",
+      "title": "Differential forms and wedge product",
+      "anchor": "wedge",
+      "prereqs": [
+        "tangent-space-manifolds"
+      ],
+      "blurb": "Alternating multilinear forms package oriented area and volume data."
+    },
+    {
+      "id": "exterior-derivative",
+      "title": "Exterior derivative",
+      "anchor": "d",
+      "prereqs": [
+        "forms-and-wedge"
+      ],
+      "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0."
+    },
+    {
+      "id": "stokes-derham",
+      "title": "Stokes theorem and de Rham cohomology",
+      "anchor": "deRham",
+      "prereqs": [
+        "exterior-derivative"
+      ],
+      "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "topic": "operator-algebras",
+  "title": "Operator algebras",
+  "page": "operator-algebras.html",
+  "concepts": [
+    {
+      "id": "cstar-basics",
+      "title": "C*-algebras and examples",
+      "anchor": "cstar",
+      "prereqs": [
+        "bounded-operators-fa"
+      ],
+      "blurb": "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control."
+    },
+    {
+      "id": "gelfand-duality-oa",
+      "title": "Commutative duality and spectra",
+      "anchor": "duality",
+      "prereqs": [
+        "cstar-basics"
+      ],
+      "blurb": "Commutative C*-algebras correspond to compact spaces via Gelfand duality."
+    },
+    {
+      "id": "von-neumann-and-nc",
+      "title": "Von Neumann algebras and noncommutative geometry",
+      "anchor": "ncg",
+      "prereqs": [
+        "cstar-basics"
+      ],
+      "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
+    }
+  ]
+}

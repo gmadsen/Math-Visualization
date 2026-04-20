@@ -5,19 +5,53 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "naive-set-theory",
+      "algebra",
+      "category-theory",
+      "representation-theory",
+      "commutative-algebra",
+      "homological",
       "real-analysis",
-      "point-set-topology",
-      "algebraic-topology",
       "measure-theory",
       "complex-analysis",
+      "functional-analysis",
+      "operator-algebras",
+      "point-set-topology",
+      "algebraic-topology",
+      "smooth-manifolds",
+      "differential-forms",
+      "differential-geometry",
+      "riemannian-geometry",
+      "lie-groups",
+      "riemann-surfaces",
+      "galois",
       "quadratic-reciprocity",
+      "sums-of-squares",
+      "algebraic-number-theory",
+      "p-adic-numbers",
+      "frobenius-and-reciprocity",
+      "class-field-theory",
       "upper-half-plane-hyperbolic",
       "modular-forms",
+      "theta-functions",
       "hecke-operators",
+      "dirichlet-series-euler-products",
+      "L-functions",
+      "galois-representations",
       "sato-tate",
       "bsd",
-      "etale-cohomology",
-      "modularity-and-flt"
+      "modularity-and-flt",
+      "projective-plane",
+      "bezout",
+      "schemes",
+      "sheaves",
+      "morphisms-fiber-products",
+      "functor-of-points",
+      "elliptic-curves",
+      "singular-cubics-reduction",
+      "moduli-spaces",
+      "sheaf-cohomology",
+      "stacks",
+      "etale-cohomology"
     ]
   },
   "topics": {
@@ -50,6 +84,174 @@ window.__MVConcepts = {
             "sets-functions"
           ],
           "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
+        }
+      ]
+    },
+    "algebra": {
+      "topic": "algebra",
+      "title": "Abstract algebra",
+      "page": "algebra.html",
+      "concepts": [
+        {
+          "id": "algebraic-structures",
+          "title": "Groups, rings, and fields",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Core algebraic structures package operations with axioms and examples from symmetries to polynomial arithmetic."
+        },
+        {
+          "id": "cayley-tables",
+          "title": "Cayley tables and subgroups",
+          "anchor": "cayley",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Finite groups can be read off from their multiplication table, with subgroup and normality patterns visible combinatorially."
+        },
+        {
+          "id": "quotients-homomorphisms",
+          "title": "Quotients and finite fields",
+          "anchor": "finite",
+          "prereqs": [
+            "cayley-tables"
+          ],
+          "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+        }
+      ]
+    },
+    "category-theory": {
+      "topic": "category-theory",
+      "title": "Category theory",
+      "page": "category-theory.html",
+      "concepts": [
+        {
+          "id": "categories-morphisms",
+          "title": "Categories and morphisms",
+          "anchor": "cat",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "A category organizes objects and arrows with associative composition and identities."
+        },
+        {
+          "id": "functors-natural-transformations",
+          "title": "Functors and natural transformations",
+          "anchor": "nat",
+          "prereqs": [
+            "categories-morphisms"
+          ],
+          "blurb": "Functors map structure between categories, and natural transformations compare functors componentwise."
+        },
+        {
+          "id": "yoneda-limits-adjunctions",
+          "title": "Yoneda, limits, and adjunctions",
+          "anchor": "adj",
+          "prereqs": [
+            "functors-natural-transformations"
+          ],
+          "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
+        }
+      ]
+    },
+    "representation-theory": {
+      "topic": "representation-theory",
+      "title": "Representation theory",
+      "page": "representation-theory.html",
+      "concepts": [
+        {
+          "id": "group-representations",
+          "title": "Group representations",
+          "anchor": "def",
+          "prereqs": [
+            "cayley-tables"
+          ],
+          "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
+        },
+        {
+          "id": "characters-orthogonality",
+          "title": "Characters and orthogonality",
+          "anchor": "characters",
+          "prereqs": [
+            "group-representations"
+          ],
+          "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
+        },
+        {
+          "id": "induction-and-young",
+          "title": "Induction and symmetric-group combinatorics",
+          "anchor": "young",
+          "prereqs": [
+            "characters-orthogonality"
+          ],
+          "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+        }
+      ]
+    },
+    "commutative-algebra": {
+      "topic": "commutative-algebra",
+      "title": "Commutative algebra",
+      "page": "commutative-algebra.html",
+      "concepts": [
+        {
+          "id": "ideals-quotients-ca",
+          "title": "Ideals and quotient rings",
+          "anchor": "ideals",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries."
+        },
+        {
+          "id": "localization-ca",
+          "title": "Localization and local algebra",
+          "anchor": "localize",
+          "prereqs": [
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Localization zooms to behavior near primes and isolates local properties."
+        },
+        {
+          "id": "krull-dimension-ca",
+          "title": "Krull dimension and depth heuristics",
+          "anchor": "dim",
+          "prereqs": [
+            "localization-ca"
+          ],
+          "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
+        }
+      ]
+    },
+    "homological": {
+      "topic": "homological",
+      "title": "Homological algebra",
+      "page": "homological.html",
+      "concepts": [
+        {
+          "id": "chain-complexes",
+          "title": "Chain complexes and homology",
+          "anchor": "complexes",
+          "prereqs": [
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Complexes encode algebraic data with differentials, and homology measures failure of exactness."
+        },
+        {
+          "id": "derived-functors",
+          "title": "Derived functors and resolutions",
+          "anchor": "derived",
+          "prereqs": [
+            "chain-complexes"
+          ],
+          "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants."
+        },
+        {
+          "id": "spectral-sequences-ha",
+          "title": "Spectral sequences",
+          "anchor": "spectral",
+          "prereqs": [
+            "derived-functors"
+          ],
+          "blurb": "Spectral sequences stage difficult computations into successive approximation pages."
         }
       ]
     },
@@ -128,117 +330,6 @@ window.__MVConcepts = {
             "multivariable-differentiation"
           ],
           "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds."
-        }
-      ]
-    },
-    "point-set-topology": {
-      "topic": "point-set-topology",
-      "title": "Point-set topology",
-      "page": "point-set-topology.html",
-      "concepts": [
-        {
-          "id": "metric-spaces",
-          "title": "Metric spaces",
-          "anchor": "metric",
-          "prereqs": [],
-          "blurb": "Distance axioms, open balls, ε-continuity, Cauchy sequences and completeness — the ε–δ archetype before topology gets abstracted."
-        },
-        {
-          "id": "open-sets",
-          "title": "Topological spaces",
-          "anchor": "open",
-          "prereqs": [
-            "metric-spaces"
-          ],
-          "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
-        },
-        {
-          "id": "continuity-topology",
-          "title": "Continuity & homeomorphism",
-          "anchor": "continuity",
-          "prereqs": [
-            "open-sets"
-          ],
-          "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
-        },
-        {
-          "id": "compactness",
-          "title": "Compactness",
-          "anchor": "compact",
-          "prereqs": [
-            "open-sets"
-          ],
-          "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category."
-        },
-        {
-          "id": "connectedness",
-          "title": "Connectedness",
-          "anchor": "connected",
-          "prereqs": [
-            "open-sets"
-          ],
-          "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space."
-        },
-        {
-          "id": "separation-axioms",
-          "title": "Separation & countability",
-          "anchor": "separation",
-          "prereqs": [
-            "open-sets"
-          ],
-          "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff."
-        }
-      ]
-    },
-    "algebraic-topology": {
-      "topic": "algebraic-topology",
-      "title": "Algebraic topology",
-      "page": "algebraic-topology.html",
-      "concepts": [
-        {
-          "id": "paths",
-          "title": "Paths and homotopy",
-          "anchor": "paths",
-          "prereqs": [
-            "continuity-topology"
-          ],
-          "blurb": "Continuous paths I→X, homotopy rel endpoints, and the concatenation that makes loop classes a group."
-        },
-        {
-          "id": "simply-connected",
-          "title": "Simply connected domains",
-          "anchor": "simply-connected",
-          "prereqs": [
-            "paths"
-          ],
-          "blurb": "Path-connected + trivial fundamental group. The hypothesis Cauchy's theorem and the Riemann mapping theorem rely on."
-        },
-        {
-          "id": "fundamental-group",
-          "title": "Fundamental group",
-          "anchor": "pi1",
-          "prereqs": [
-            "paths"
-          ],
-          "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
-        },
-        {
-          "id": "covering-spaces",
-          "title": "Covering spaces",
-          "anchor": "covers",
-          "prereqs": [
-            "fundamental-group"
-          ],
-          "blurb": "Locally trivial surjections p:E→B with discrete fibers; the Galois correspondence between covers of B and subgroups of π₁(B)."
-        },
-        {
-          "id": "singular-homology",
-          "title": "Singular homology",
-          "anchor": "homology",
-          "prereqs": [
-            "fundamental-group"
-          ],
-          "blurb": "Chains, boundaries, Hₙ(X) as a homotopy invariant; Mayer–Vietoris and the Euler characteristic."
         }
       ]
     },
@@ -555,6 +646,425 @@ window.__MVConcepts = {
         }
       ]
     },
+    "functional-analysis": {
+      "topic": "functional-analysis",
+      "title": "Functional analysis",
+      "page": "functional-analysis.html",
+      "concepts": [
+        {
+          "id": "banach-hilbert-spaces",
+          "title": "Banach and Hilbert spaces",
+          "anchor": "hilbert",
+          "prereqs": [
+            "lp-spaces"
+          ],
+          "blurb": "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs."
+        },
+        {
+          "id": "bounded-operators-fa",
+          "title": "Bounded operators and adjoints",
+          "anchor": "bounded",
+          "prereqs": [
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
+        },
+        {
+          "id": "spectral-theorem-fa",
+          "title": "Spectral theorem viewpoint",
+          "anchor": "spectral",
+          "prereqs": [
+            "bounded-operators-fa"
+          ],
+          "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions."
+        }
+      ]
+    },
+    "operator-algebras": {
+      "topic": "operator-algebras",
+      "title": "Operator algebras",
+      "page": "operator-algebras.html",
+      "concepts": [
+        {
+          "id": "cstar-basics",
+          "title": "C*-algebras and examples",
+          "anchor": "cstar",
+          "prereqs": [
+            "bounded-operators-fa"
+          ],
+          "blurb": "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control."
+        },
+        {
+          "id": "gelfand-duality-oa",
+          "title": "Commutative duality and spectra",
+          "anchor": "duality",
+          "prereqs": [
+            "cstar-basics"
+          ],
+          "blurb": "Commutative C*-algebras correspond to compact spaces via Gelfand duality."
+        },
+        {
+          "id": "von-neumann-and-nc",
+          "title": "Von Neumann algebras and noncommutative geometry",
+          "anchor": "ncg",
+          "prereqs": [
+            "cstar-basics"
+          ],
+          "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
+        }
+      ]
+    },
+    "point-set-topology": {
+      "topic": "point-set-topology",
+      "title": "Point-set topology",
+      "page": "point-set-topology.html",
+      "concepts": [
+        {
+          "id": "metric-spaces",
+          "title": "Metric spaces",
+          "anchor": "metric",
+          "prereqs": [],
+          "blurb": "Distance axioms, open balls, ε-continuity, Cauchy sequences and completeness — the ε–δ archetype before topology gets abstracted."
+        },
+        {
+          "id": "open-sets",
+          "title": "Topological spaces",
+          "anchor": "open",
+          "prereqs": [
+            "metric-spaces"
+          ],
+          "blurb": "A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, and the axiom of choice of closure."
+        },
+        {
+          "id": "continuity-topology",
+          "title": "Continuity & homeomorphism",
+          "anchor": "continuity",
+          "prereqs": [
+            "open-sets"
+          ],
+          "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
+        },
+        {
+          "id": "compactness",
+          "title": "Compactness",
+          "anchor": "compact",
+          "prereqs": [
+            "open-sets"
+          ],
+          "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category."
+        },
+        {
+          "id": "connectedness",
+          "title": "Connectedness",
+          "anchor": "connected",
+          "prereqs": [
+            "open-sets"
+          ],
+          "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space."
+        },
+        {
+          "id": "separation-axioms",
+          "title": "Separation & countability",
+          "anchor": "separation",
+          "prereqs": [
+            "open-sets"
+          ],
+          "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff."
+        }
+      ]
+    },
+    "algebraic-topology": {
+      "topic": "algebraic-topology",
+      "title": "Algebraic topology",
+      "page": "algebraic-topology.html",
+      "concepts": [
+        {
+          "id": "paths",
+          "title": "Paths and homotopy",
+          "anchor": "paths",
+          "prereqs": [
+            "continuity-topology"
+          ],
+          "blurb": "Continuous paths I→X, homotopy rel endpoints, and the concatenation that makes loop classes a group."
+        },
+        {
+          "id": "simply-connected",
+          "title": "Simply connected domains",
+          "anchor": "simply-connected",
+          "prereqs": [
+            "paths"
+          ],
+          "blurb": "Path-connected + trivial fundamental group. The hypothesis Cauchy's theorem and the Riemann mapping theorem rely on."
+        },
+        {
+          "id": "fundamental-group",
+          "title": "Fundamental group",
+          "anchor": "pi1",
+          "prereqs": [
+            "paths"
+          ],
+          "blurb": "π₁(X,x₀): loop classes under concatenation. π₁(S¹)=ℤ, basepoint-change, functoriality."
+        },
+        {
+          "id": "covering-spaces",
+          "title": "Covering spaces",
+          "anchor": "covers",
+          "prereqs": [
+            "fundamental-group"
+          ],
+          "blurb": "Locally trivial surjections p:E→B with discrete fibers; the Galois correspondence between covers of B and subgroups of π₁(B)."
+        },
+        {
+          "id": "singular-homology",
+          "title": "Singular homology",
+          "anchor": "homology",
+          "prereqs": [
+            "fundamental-group"
+          ],
+          "blurb": "Chains, boundaries, Hₙ(X) as a homotopy invariant; Mayer–Vietoris and the Euler characteristic."
+        }
+      ]
+    },
+    "smooth-manifolds": {
+      "topic": "smooth-manifolds",
+      "title": "Smooth manifolds",
+      "page": "smooth-manifolds.html",
+      "concepts": [
+        {
+          "id": "smooth-manifold-definition",
+          "title": "Smooth manifolds and atlases",
+          "anchor": "intro",
+          "prereqs": [
+            "inverse-function-theorem"
+          ],
+          "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps."
+        },
+        {
+          "id": "tangent-space-manifolds",
+          "title": "Tangent spaces and bundles",
+          "anchor": "tangent",
+          "prereqs": [
+            "smooth-manifold-definition"
+          ],
+          "blurb": "Tangent vectors form bundles supporting differential equations and geometry."
+        },
+        {
+          "id": "submanifolds-immersions",
+          "title": "Immersions, submersions, and submanifolds",
+          "anchor": "sub",
+          "prereqs": [
+            "tangent-space-manifolds"
+          ],
+          "blurb": "Rank conditions control local models for embedded and immersed manifolds."
+        }
+      ]
+    },
+    "differential-forms": {
+      "topic": "differential-forms",
+      "title": "Differential forms",
+      "page": "differential-forms.html",
+      "concepts": [
+        {
+          "id": "forms-and-wedge",
+          "title": "Differential forms and wedge product",
+          "anchor": "wedge",
+          "prereqs": [
+            "tangent-space-manifolds"
+          ],
+          "blurb": "Alternating multilinear forms package oriented area and volume data."
+        },
+        {
+          "id": "exterior-derivative",
+          "title": "Exterior derivative",
+          "anchor": "d",
+          "prereqs": [
+            "forms-and-wedge"
+          ],
+          "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0."
+        },
+        {
+          "id": "stokes-derham",
+          "title": "Stokes theorem and de Rham cohomology",
+          "anchor": "deRham",
+          "prereqs": [
+            "exterior-derivative"
+          ],
+          "blurb": "Stokes unifies integration theorems and identifies topology via closed/exact forms."
+        }
+      ]
+    },
+    "differential-geometry": {
+      "topic": "differential-geometry",
+      "title": "Differential geometry",
+      "page": "differential-geometry.html",
+      "concepts": [
+        {
+          "id": "curves-surfaces-dg",
+          "title": "Curves and surfaces in R^3",
+          "anchor": "surfaces",
+          "prereqs": [
+            "submanifolds-immersions"
+          ],
+          "blurb": "Embedded geometry starts with curvature, normals, and local parametrizations."
+        },
+        {
+          "id": "first-second-fundamental",
+          "title": "First/second fundamental forms",
+          "anchor": "first",
+          "prereqs": [
+            "curves-surfaces-dg"
+          ],
+          "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
+        },
+        {
+          "id": "gauss-curvature-geodesics",
+          "title": "Gaussian curvature and geodesics",
+          "anchor": "geodesics",
+          "prereqs": [
+            "first-second-fundamental"
+          ],
+          "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+        }
+      ]
+    },
+    "riemannian-geometry": {
+      "topic": "riemannian-geometry",
+      "title": "Riemannian geometry",
+      "page": "riemannian-geometry.html",
+      "concepts": [
+        {
+          "id": "riemannian-metrics",
+          "title": "Riemannian metrics",
+          "anchor": "metric",
+          "prereqs": [
+            "smooth-manifold-definition"
+          ],
+          "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
+        },
+        {
+          "id": "levi-civita-connection",
+          "title": "Levi-Civita connection and geodesics",
+          "anchor": "geodesics",
+          "prereqs": [
+            "riemannian-metrics"
+          ],
+          "blurb": "The unique torsion-free metric connection defines covariant differentiation and geodesic equations."
+        },
+        {
+          "id": "riemann-curvature-tensor",
+          "title": "Curvature tensor and comparison",
+          "anchor": "comparison",
+          "prereqs": [
+            "levi-civita-connection"
+          ],
+          "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+        }
+      ]
+    },
+    "lie-groups": {
+      "topic": "lie-groups",
+      "title": "Lie groups",
+      "page": "lie-groups.html",
+      "concepts": [
+        {
+          "id": "lie-group-definition",
+          "title": "Lie groups and matrix examples",
+          "anchor": "intro",
+          "prereqs": [
+            "smooth-manifold-definition",
+            "algebraic-structures"
+          ],
+          "blurb": "Lie groups combine smooth manifolds with group multiplication."
+        },
+        {
+          "id": "lie-algebra-and-exp",
+          "title": "Lie algebra and exponential map",
+          "anchor": "exp",
+          "prereqs": [
+            "lie-group-definition"
+          ],
+          "blurb": "The tangent space at identity with bracket linearizes local group structure."
+        },
+        {
+          "id": "adjoint-roots",
+          "title": "Adjoint action and root data",
+          "anchor": "roots",
+          "prereqs": [
+            "lie-algebra-and-exp"
+          ],
+          "blurb": "Adjoint representations and root systems classify semisimple behavior."
+        }
+      ]
+    },
+    "riemann-surfaces": {
+      "topic": "riemann-surfaces",
+      "title": "Riemann surfaces",
+      "page": "riemann-surfaces.html",
+      "concepts": [
+        {
+          "id": "riemann-surface-definition",
+          "title": "Riemann surfaces as 1D complex manifolds",
+          "anchor": "intro",
+          "prereqs": [
+            "holomorphic-function",
+            "smooth-manifold-definition"
+          ],
+          "blurb": "Complex one-manifolds support holomorphic charts and conformal geometry."
+        },
+        {
+          "id": "branched-covers-rs",
+          "title": "Branched covers and maps",
+          "anchor": "branched",
+          "prereqs": [
+            "riemann-surface-definition"
+          ],
+          "blurb": "Holomorphic maps behave like branched coverings with controlled ramification."
+        },
+        {
+          "id": "riemann-hurwitz-uniformization",
+          "title": "Riemann–Hurwitz and uniformization",
+          "anchor": "uniform",
+          "prereqs": [
+            "branched-covers-rs"
+          ],
+          "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces."
+        }
+      ]
+    },
+    "galois": {
+      "topic": "galois",
+      "title": "Galois theory",
+      "page": "galois.html",
+      "concepts": [
+        {
+          "id": "field-extensions-galois",
+          "title": "Field extensions and automorphisms",
+          "anchor": "galois",
+          "prereqs": [
+            "algebraic-structures"
+          ],
+          "blurb": "Splitting fields and automorphism groups link polynomial equations to symmetry."
+        },
+        {
+          "id": "fundamental-theorem-galois",
+          "title": "Fundamental theorem of Galois theory",
+          "anchor": "solvable",
+          "prereqs": [
+            "field-extensions-galois"
+          ],
+          "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group."
+        },
+        {
+          "id": "solvability-by-radicals",
+          "title": "Solvability by radicals",
+          "anchor": "quintic",
+          "prereqs": [
+            "fundamental-theorem-galois"
+          ],
+          "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
+        }
+      ]
+    },
     "quadratic-reciprocity": {
       "topic": "quadratic-reciprocity",
       "title": "Quadratic reciprocity",
@@ -596,6 +1106,176 @@ window.__MVConcepts = {
             "gauss-lemma-qr"
           ],
           "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
+        }
+      ]
+    },
+    "sums-of-squares": {
+      "topic": "sums-of-squares",
+      "title": "Sums of squares",
+      "page": "sums-of-squares.html",
+      "concepts": [
+        {
+          "id": "two-squares-theorem",
+          "title": "Sum of two squares",
+          "anchor": "twosq",
+          "prereqs": [
+            "quadratic-reciprocity-law"
+          ],
+          "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
+        },
+        {
+          "id": "three-squares-theorem",
+          "title": "Legendre three-square theorem",
+          "anchor": "three",
+          "prereqs": [
+            "two-squares-theorem"
+          ],
+          "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
+        },
+        {
+          "id": "four-squares-and-waring",
+          "title": "Four squares and Waring perspective",
+          "anchor": "four",
+          "prereqs": [
+            "three-squares-theorem"
+          ],
+          "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+        }
+      ]
+    },
+    "algebraic-number-theory": {
+      "topic": "algebraic-number-theory",
+      "title": "Algebraic number theory",
+      "page": "algebraic-number-theory.html",
+      "concepts": [
+        {
+          "id": "number-fields-integers",
+          "title": "Number fields and rings of integers",
+          "anchor": "examples",
+          "prereqs": [
+            "field-extensions-galois"
+          ],
+          "blurb": "Finite extensions of Q carry arithmetic via algebraic integers."
+        },
+        {
+          "id": "prime-ideals-factorization-ant",
+          "title": "Ideal factorization and ramification",
+          "anchor": "ramification",
+          "prereqs": [
+            "number-fields-integers"
+          ],
+          "blurb": "Dedekind domains restore unique factorization at ideal level and track ramification."
+        },
+        {
+          "id": "class-group-units-ant",
+          "title": "Class group and units",
+          "anchor": "units",
+          "prereqs": [
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "Class group and unit rank measure arithmetic failure and structure."
+        }
+      ]
+    },
+    "p-adic-numbers": {
+      "topic": "p-adic-numbers",
+      "title": "p-adic numbers",
+      "page": "p-adic-numbers.html",
+      "concepts": [
+        {
+          "id": "padic-norm-completion",
+          "title": "p-adic norm and completion",
+          "anchor": "abs",
+          "prereqs": [
+            "metric-spaces"
+          ],
+          "blurb": "The p-adic absolute value yields an ultrametric completion Q_p."
+        },
+        {
+          "id": "padic-expansions",
+          "title": "p-adic expansions and topology",
+          "anchor": "expand",
+          "prereqs": [
+            "padic-norm-completion"
+          ],
+          "blurb": "Series expansions encode arithmetic with non-Archimedean convergence."
+        },
+        {
+          "id": "hensel-lemma",
+          "title": "Hensel lifting",
+          "anchor": "hensel",
+          "prereqs": [
+            "padic-expansions"
+          ],
+          "blurb": "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions."
+        }
+      ]
+    },
+    "frobenius-and-reciprocity": {
+      "topic": "frobenius-and-reciprocity",
+      "title": "Frobenius and reciprocity",
+      "page": "frobenius-and-reciprocity.html",
+      "concepts": [
+        {
+          "id": "frobenius-element",
+          "title": "Frobenius elements",
+          "anchor": "frobenius",
+          "prereqs": [
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action."
+        },
+        {
+          "id": "chebotarev-density",
+          "title": "Chebotarev density",
+          "anchor": "chebotarev",
+          "prereqs": [
+            "frobenius-element"
+          ],
+          "blurb": "Primes equidistribute across Frobenius conjugacy classes with predicted densities."
+        },
+        {
+          "id": "artin-reciprocity-preview",
+          "title": "Reciprocity toward Artin maps",
+          "anchor": "strong",
+          "prereqs": [
+            "chebotarev-density"
+          ],
+          "blurb": "Global reciprocity reframes splitting laws as characters of idèle-like class groups."
+        }
+      ]
+    },
+    "class-field-theory": {
+      "topic": "class-field-theory",
+      "title": "Class field theory",
+      "page": "class-field-theory.html",
+      "concepts": [
+        {
+          "id": "idele-class-groups",
+          "title": "Idèles and class formations",
+          "anchor": "cls",
+          "prereqs": [
+            "artin-reciprocity-preview"
+          ],
+          "blurb": "Idèle class groups package global and local arithmetic data in one object."
+        },
+        {
+          "id": "artin-map-cft",
+          "title": "Artin reciprocity map",
+          "anchor": "artin",
+          "prereqs": [
+            "idele-class-groups"
+          ],
+          "blurb": "The Artin map identifies abelianized Galois groups with arithmetic quotient groups."
+        },
+        {
+          "id": "local-global-cft",
+          "title": "Local and global class field theory",
+          "anchor": "ray",
+          "prereqs": [
+            "artin-map-cft"
+          ],
+          "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
         }
       ]
     },
@@ -688,6 +1368,40 @@ window.__MVConcepts = {
         }
       ]
     },
+    "theta-functions": {
+      "topic": "theta-functions",
+      "title": "Theta functions",
+      "page": "theta-functions.html",
+      "concepts": [
+        {
+          "id": "theta-series-lattice",
+          "title": "Theta series from lattices",
+          "anchor": "def",
+          "prereqs": [
+            "modular-form-definition"
+          ],
+          "blurb": "Theta series encode lattice counts and often produce modular forms."
+        },
+        {
+          "id": "theta-transformation-law",
+          "title": "Theta transformation law",
+          "anchor": "trans",
+          "prereqs": [
+            "theta-series-lattice"
+          ],
+          "blurb": "Poisson summation drives modular transformation formulas for theta functions."
+        },
+        {
+          "id": "jacobi-triple-product",
+          "title": "Jacobi triple product and q-identities",
+          "anchor": "jtp",
+          "prereqs": [
+            "theta-transformation-law"
+          ],
+          "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena."
+        }
+      ]
+    },
     "hecke-operators": {
       "topic": "hecke-operators",
       "title": "Hecke operators",
@@ -728,6 +1442,113 @@ window.__MVConcepts = {
             "hecke-algebra-commuting"
           ],
           "blurb": "Normalized eigenforms have multiplicative coefficients and Euler products, linking modular forms to Galois and L-functions."
+        }
+      ]
+    },
+    "dirichlet-series-euler-products": {
+      "topic": "dirichlet-series-euler-products",
+      "title": "Dirichlet series and Euler products",
+      "page": "dirichlet-series-euler-products.html",
+      "concepts": [
+        {
+          "id": "dirichlet-series-basics",
+          "title": "Dirichlet series basics",
+          "anchor": "series",
+          "prereqs": [
+            "riemann-integral"
+          ],
+          "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions."
+        },
+        {
+          "id": "euler-product-structure",
+          "title": "Euler products and multiplicativity",
+          "anchor": "euler",
+          "prereqs": [
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence."
+        },
+        {
+          "id": "dirichlet-characters-lseries",
+          "title": "Dirichlet characters and L-series",
+          "anchor": "dir",
+          "prereqs": [
+            "euler-product-structure",
+            "legendre-symbol"
+          ],
+          "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+        }
+      ]
+    },
+    "L-functions": {
+      "topic": "L-functions",
+      "title": "L-functions",
+      "page": "L-functions.html",
+      "concepts": [
+        {
+          "id": "lfunction-prototype",
+          "title": "Prototype L-functions",
+          "anchor": "unified",
+          "prereqs": [
+            "dirichlet-characters-lseries"
+          ],
+          "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
+        },
+        {
+          "id": "functional-equation-completion",
+          "title": "Completion and functional equations",
+          "anchor": "completed",
+          "prereqs": [
+            "lfunction-prototype"
+          ],
+          "blurb": "Gamma factors and conductor normalization yield symmetric functional equations."
+        },
+        {
+          "id": "arithmetic-data-lfunctions",
+          "title": "Arithmetic data and modularity links",
+          "anchor": "modularity",
+          "prereqs": [
+            "functional-equation-completion",
+            "eigenforms-and-euler-factors"
+          ],
+          "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+        }
+      ]
+    },
+    "galois-representations": {
+      "topic": "galois-representations",
+      "title": "Galois representations",
+      "page": "galois-representations.html",
+      "concepts": [
+        {
+          "id": "galois-rep-definition",
+          "title": "Galois representations and examples",
+          "anchor": "rep",
+          "prereqs": [
+            "field-extensions-galois",
+            "group-representations"
+          ],
+          "blurb": "Continuous homomorphisms to linear groups encode arithmetic symmetries."
+        },
+        {
+          "id": "frobenius-traces-grep",
+          "title": "Frobenius traces and compatibility",
+          "anchor": "frob",
+          "prereqs": [
+            "galois-rep-definition",
+            "frobenius-element"
+          ],
+          "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data."
+        },
+        {
+          "id": "modularity-and-deformations",
+          "title": "Residual reps, deformations, modularity",
+          "anchor": "mod",
+          "prereqs": [
+            "frobenius-traces-grep",
+            "modularity-theorem"
+          ],
+          "blurb": "Deformation theory and modularity transfer results connect Galois and automorphic worlds."
         }
       ]
     },
@@ -798,38 +1619,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "etale-cohomology": {
-      "topic": "etale-cohomology",
-      "title": "Étale cohomology",
-      "page": "etale-cohomology.html",
-      "concepts": [
-        {
-          "id": "etale-morphism",
-          "title": "Étale morphisms",
-          "anchor": "etale",
-          "prereqs": [],
-          "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale."
-        },
-        {
-          "id": "l-adic-cohomology",
-          "title": "ℓ-adic cohomology",
-          "anchor": "ladic",
-          "prereqs": [
-            "etale-morphism"
-          ],
-          "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
-        },
-        {
-          "id": "weil-frobenius-trace",
-          "title": "Weil conjectures and Frobenius trace",
-          "anchor": "weil",
-          "prereqs": [
-            "l-adic-cohomology"
-          ],
-          "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
-        }
-      ]
-    },
     "modularity-and-flt": {
       "topic": "modularity-and-flt",
       "title": "Modularity and FLT",
@@ -859,6 +1648,417 @@ window.__MVConcepts = {
             "modularity-theorem"
           ],
           "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
+        }
+      ]
+    },
+    "projective-plane": {
+      "topic": "projective-plane",
+      "title": "Projective plane",
+      "page": "projective-plane.html",
+      "concepts": [
+        {
+          "id": "projective-points-lines",
+          "title": "Projective points and lines",
+          "anchor": "defn",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "P^2 extends affine geometry by homogeneous coordinates and points at infinity."
+        },
+        {
+          "id": "homogeneous-coordinates",
+          "title": "Homogeneous equations and charts",
+          "anchor": "homog",
+          "prereqs": [
+            "projective-points-lines"
+          ],
+          "blurb": "Polynomial equations homogenize naturally and are studied chartwise."
+        },
+        {
+          "id": "projective-transformations",
+          "title": "Projective automorphisms",
+          "anchor": "pgl",
+          "prereqs": [
+            "homogeneous-coordinates"
+          ],
+          "blurb": "PGL actions describe coordinate changes preserving incidence."
+        }
+      ]
+    },
+    "bezout": {
+      "topic": "bezout",
+      "title": "Bézout theorem",
+      "page": "bezout.html",
+      "concepts": [
+        {
+          "id": "intersection-multiplicity",
+          "title": "Intersection multiplicity",
+          "anchor": "mult",
+          "prereqs": [
+            "projective-points-lines"
+          ],
+          "blurb": "Counting intersections correctly requires multiplicity at each point."
+        },
+        {
+          "id": "resultants-elimination",
+          "title": "Resultants and elimination",
+          "anchor": "resultant",
+          "prereqs": [
+            "intersection-multiplicity"
+          ],
+          "blurb": "Resultants detect common roots and compute projected elimination conditions."
+        },
+        {
+          "id": "bezout-theorem-core",
+          "title": "Bézout theorem",
+          "anchor": "statement",
+          "prereqs": [
+            "resultants-elimination"
+          ],
+          "blurb": "Plane curves of degrees m,n meet in mn points counting multiplicity over algebraic closure."
+        }
+      ]
+    },
+    "schemes": {
+      "topic": "schemes",
+      "title": "Schemes",
+      "page": "schemes.html",
+      "concepts": [
+        {
+          "id": "spectrum-primes",
+          "title": "Prime spectrum and Zariski topology",
+          "anchor": "intro",
+          "prereqs": [
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Spec R turns commutative rings into geometric spaces with generic points."
+        },
+        {
+          "id": "structure-sheaf-schemes",
+          "title": "Structure sheaf and affine schemes",
+          "anchor": "speckxy",
+          "prereqs": [
+            "spectrum-primes"
+          ],
+          "blurb": "Attaching local rings to opens upgrades topological spaces to locally ringed spaces."
+        },
+        {
+          "id": "gluing-affines",
+          "title": "Gluing affine schemes",
+          "anchor": "gluing",
+          "prereqs": [
+            "structure-sheaf-schemes"
+          ],
+          "blurb": "General schemes are built by gluing affine pieces along compatible overlaps."
+        }
+      ]
+    },
+    "sheaves": {
+      "topic": "sheaves",
+      "title": "Sheaves",
+      "page": "sheaves.html",
+      "concepts": [
+        {
+          "id": "presheaf-sheaf-axioms",
+          "title": "Presheaves and sheaf condition",
+          "anchor": "sheaves",
+          "prereqs": [
+            "open-sets"
+          ],
+          "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers."
+        },
+        {
+          "id": "stalks-local-data",
+          "title": "Stalks and local behavior",
+          "anchor": "stalks",
+          "prereqs": [
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Stalks isolate infinitesimal data at points and detect local properties."
+        },
+        {
+          "id": "sheafification-and-qcoh",
+          "title": "Sheafification and quasi-coherent sheaves",
+          "anchor": "qcoh",
+          "prereqs": [
+            "stalks-local-data",
+            "structure-sheaf-schemes"
+          ],
+          "blurb": "Sheafification enforces gluing; quasi-coherent sheaves globalize module theory on schemes."
+        }
+      ]
+    },
+    "morphisms-fiber-products": {
+      "topic": "morphisms-fiber-products",
+      "title": "Morphisms and fiber products",
+      "page": "morphisms-fiber-products.html",
+      "concepts": [
+        {
+          "id": "scheme-morphisms",
+          "title": "Morphisms of schemes",
+          "anchor": "morphism",
+          "prereqs": [
+            "gluing-affines"
+          ],
+          "blurb": "Scheme maps are local ring maps glued globally and tested on affines."
+        },
+        {
+          "id": "fiber-products",
+          "title": "Fiber products and base change",
+          "anchor": "fiber",
+          "prereqs": [
+            "scheme-morphisms"
+          ],
+          "blurb": "Fiber products represent pullback problems and define base-change geometry."
+        },
+        {
+          "id": "geometric-fibers",
+          "title": "Geometric fibers and smoothness intuition",
+          "anchor": "fibers",
+          "prereqs": [
+            "fiber-products"
+          ],
+          "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+        }
+      ]
+    },
+    "functor-of-points": {
+      "topic": "functor-of-points",
+      "title": "Functor of points",
+      "page": "functor-of-points.html",
+      "concepts": [
+        {
+          "id": "yoneda-functor-points",
+          "title": "Functor-of-points viewpoint",
+          "anchor": "reframe",
+          "prereqs": [
+            "yoneda-limits-adjunctions",
+            "scheme-morphisms"
+          ],
+          "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem."
+        },
+        {
+          "id": "representability-criteria",
+          "title": "Representability and moduli functors",
+          "anchor": "repr",
+          "prereqs": [
+            "yoneda-functor-points"
+          ],
+          "blurb": "Representable functors correspond to genuine geometric objects."
+        },
+        {
+          "id": "stacky-obstructions",
+          "title": "When functors require stacks",
+          "anchor": "stacks",
+          "prereqs": [
+            "representability-criteria"
+          ],
+          "blurb": "Automorphisms obstruct representability by schemes and motivate stack language."
+        }
+      ]
+    },
+    "elliptic-curves": {
+      "topic": "elliptic-curves",
+      "title": "Elliptic curves",
+      "page": "elliptic-curves.html",
+      "concepts": [
+        {
+          "id": "elliptic-curve-definition",
+          "title": "Elliptic curves and Weierstrass models",
+          "anchor": "intro",
+          "prereqs": [
+            "projective-points-lines"
+          ],
+          "blurb": "A smooth genus-1 curve with basepoint admits Weierstrass equations and rich arithmetic."
+        },
+        {
+          "id": "elliptic-group-law",
+          "title": "Group law on cubic curves",
+          "anchor": "group",
+          "prereqs": [
+            "elliptic-curve-definition"
+          ],
+          "blurb": "Chord-tangent constructions define an abelian group on rational points."
+        },
+        {
+          "id": "mordell-weil-ec",
+          "title": "Mordell–Weil and invariants",
+          "anchor": "mordell",
+          "prereqs": [
+            "elliptic-group-law"
+          ],
+          "blurb": "Rational points form a finitely generated group with rank and torsion invariants."
+        }
+      ]
+    },
+    "singular-cubics-reduction": {
+      "topic": "singular-cubics-reduction",
+      "title": "Singular cubics and reduction",
+      "page": "singular-cubics-reduction.html",
+      "concepts": [
+        {
+          "id": "singular-cubic-types",
+          "title": "Singular cubic types",
+          "anchor": "sing",
+          "prereqs": [
+            "elliptic-curve-definition"
+          ],
+          "blurb": "Nodal and cuspidal degenerations control failures of smooth group laws."
+        },
+        {
+          "id": "reduction-mod-p",
+          "title": "Reduction modulo p",
+          "anchor": "reduction",
+          "prereqs": [
+            "elliptic-group-law"
+          ],
+          "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
+        },
+        {
+          "id": "kodaira-néron-preview",
+          "title": "Bad reduction taxonomy",
+          "anchor": "badtypes",
+          "prereqs": [
+            "reduction-mod-p"
+          ],
+          "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity."
+        }
+      ]
+    },
+    "moduli-spaces": {
+      "topic": "moduli-spaces",
+      "title": "Moduli spaces",
+      "page": "moduli-spaces.html",
+      "concepts": [
+        {
+          "id": "moduli-problem",
+          "title": "Moduli problems and parameters",
+          "anchor": "what",
+          "prereqs": [
+            "representability-criteria"
+          ],
+          "blurb": "A moduli problem asks for a geometric space classifying objects in families."
+        },
+        {
+          "id": "fine-vs-coarse-moduli",
+          "title": "Fine versus coarse moduli",
+          "anchor": "finecoarse",
+          "prereqs": [
+            "moduli-problem"
+          ],
+          "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes."
+        },
+        {
+          "id": "level-structures-moduli",
+          "title": "Level structure and compactification ideas",
+          "anchor": "level",
+          "prereqs": [
+            "fine-vs-coarse-moduli",
+            "modular-form-definition"
+          ],
+          "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces."
+        }
+      ]
+    },
+    "sheaf-cohomology": {
+      "topic": "sheaf-cohomology",
+      "title": "Sheaf cohomology",
+      "page": "sheaf-cohomology.html",
+      "concepts": [
+        {
+          "id": "cech-cohomology",
+          "title": "Čech cocycles and cohomology",
+          "anchor": "cech",
+          "prereqs": [
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Cover-based cocycles detect obstruction classes for global patching."
+        },
+        {
+          "id": "derived-functor-cohomology",
+          "title": "Derived functor sheaf cohomology",
+          "anchor": "derived",
+          "prereqs": [
+            "cech-cohomology",
+            "derived-functors"
+          ],
+          "blurb": "Right derived functors of global sections define H^i(X,F) abstractly."
+        },
+        {
+          "id": "applications-picard-serre",
+          "title": "Picard groups and Serre duality signals",
+          "anchor": "serre",
+          "prereqs": [
+            "derived-functor-cohomology"
+          ],
+          "blurb": "Line bundles, extensions, and duality theorems are naturally cohomological."
+        }
+      ]
+    },
+    "stacks": {
+      "topic": "stacks",
+      "title": "Stacks",
+      "page": "stacks.html",
+      "concepts": [
+        {
+          "id": "groupoids-and-descent",
+          "title": "Groupoids, fibered categories, descent",
+          "anchor": "fib",
+          "prereqs": [
+            "stacky-obstructions",
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers."
+        },
+        {
+          "id": "classifying-stacks",
+          "title": "Classifying stacks BG",
+          "anchor": "bg",
+          "prereqs": [
+            "groupoids-and-descent"
+          ],
+          "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object."
+        },
+        {
+          "id": "dm-stacks-coarse-space",
+          "title": "Deligne–Mumford stacks and coarse spaces",
+          "anchor": "coarse",
+          "prereqs": [
+            "classifying-stacks"
+          ],
+          "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
+        }
+      ]
+    },
+    "etale-cohomology": {
+      "topic": "etale-cohomology",
+      "title": "Étale cohomology",
+      "page": "etale-cohomology.html",
+      "concepts": [
+        {
+          "id": "etale-morphism",
+          "title": "Étale morphisms",
+          "anchor": "etale",
+          "prereqs": [],
+          "blurb": "Étale = smooth + unramified + flat; the algebraic analog of a local homeomorphism. Covers like z↦z^n are ramified; those like t↦t^2 on G_m (char≠2) are étale."
+        },
+        {
+          "id": "l-adic-cohomology",
+          "title": "ℓ-adic cohomology",
+          "anchor": "ladic",
+          "prereqs": [
+            "etale-morphism"
+          ],
+          "blurb": "H^i_ét(X, ℤ/ℓ^n) and H^i_ét(X, ℚ_ℓ) as an inverse limit; works in characteristic p as long as ℓ≠p, and recovers classical Betti numbers for a smooth projective variety."
+        },
+        {
+          "id": "weil-frobenius-trace",
+          "title": "Weil conjectures and Frobenius trace",
+          "anchor": "weil",
+          "prereqs": [
+            "l-adic-cohomology"
+          ],
+          "blurb": "Point counts are an alternating sum of traces of Frobenius on ℓ-adic cohomology: #X(𝔽_q) = Σ (−1)^i Tr(Frob_q | H^i_ét). Eigenvalues of Frobenius lie on the circle |α|=q^{i/2} (Deligne)."
         }
       ]
     }

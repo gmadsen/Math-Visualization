@@ -1,0 +1,35 @@
+{
+  "topic": "stacks",
+  "title": "Stacks",
+  "page": "stacks.html",
+  "concepts": [
+    {
+      "id": "groupoids-and-descent",
+      "title": "Groupoids, fibered categories, descent",
+      "anchor": "fib",
+      "prereqs": [
+        "stacky-obstructions",
+        "presheaf-sheaf-axioms"
+      ],
+      "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers."
+    },
+    {
+      "id": "classifying-stacks",
+      "title": "Classifying stacks BG",
+      "anchor": "bg",
+      "prereqs": [
+        "groupoids-and-descent"
+      ],
+      "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object."
+    },
+    {
+      "id": "dm-stacks-coarse-space",
+      "title": "Deligne–Mumford stacks and coarse spaces",
+      "anchor": "coarse",
+      "prereqs": [
+        "classifying-stacks"
+      ],
+      "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps."
+    }
+  ]
+}

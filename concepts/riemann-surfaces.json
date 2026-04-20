@@ -1,0 +1,35 @@
+{
+  "topic": "riemann-surfaces",
+  "title": "Riemann surfaces",
+  "page": "riemann-surfaces.html",
+  "concepts": [
+    {
+      "id": "riemann-surface-definition",
+      "title": "Riemann surfaces as 1D complex manifolds",
+      "anchor": "intro",
+      "prereqs": [
+        "holomorphic-function",
+        "smooth-manifold-definition"
+      ],
+      "blurb": "Complex one-manifolds support holomorphic charts and conformal geometry."
+    },
+    {
+      "id": "branched-covers-rs",
+      "title": "Branched covers and maps",
+      "anchor": "branched",
+      "prereqs": [
+        "riemann-surface-definition"
+      ],
+      "blurb": "Holomorphic maps behave like branched coverings with controlled ramification."
+    },
+    {
+      "id": "riemann-hurwitz-uniformization",
+      "title": "Riemann–Hurwitz and uniformization",
+      "anchor": "uniform",
+      "prereqs": [
+        "branched-covers-rs"
+      ],
+      "blurb": "Genus, ramification, and universal covering classify compact Riemann surfaces."
+    }
+  ]
+}

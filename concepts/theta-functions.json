@@ -1,0 +1,34 @@
+{
+  "topic": "theta-functions",
+  "title": "Theta functions",
+  "page": "theta-functions.html",
+  "concepts": [
+    {
+      "id": "theta-series-lattice",
+      "title": "Theta series from lattices",
+      "anchor": "def",
+      "prereqs": [
+        "modular-form-definition"
+      ],
+      "blurb": "Theta series encode lattice counts and often produce modular forms."
+    },
+    {
+      "id": "theta-transformation-law",
+      "title": "Theta transformation law",
+      "anchor": "trans",
+      "prereqs": [
+        "theta-series-lattice"
+      ],
+      "blurb": "Poisson summation drives modular transformation formulas for theta functions."
+    },
+    {
+      "id": "jacobi-triple-product",
+      "title": "Jacobi triple product and q-identities",
+      "anchor": "jtp",
+      "prereqs": [
+        "theta-transformation-law"
+      ],
+      "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena."
+    }
+  ]
+}

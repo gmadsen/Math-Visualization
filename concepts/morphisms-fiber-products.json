@@ -1,0 +1,34 @@
+{
+  "topic": "morphisms-fiber-products",
+  "title": "Morphisms and fiber products",
+  "page": "morphisms-fiber-products.html",
+  "concepts": [
+    {
+      "id": "scheme-morphisms",
+      "title": "Morphisms of schemes",
+      "anchor": "morphism",
+      "prereqs": [
+        "gluing-affines"
+      ],
+      "blurb": "Scheme maps are local ring maps glued globally and tested on affines."
+    },
+    {
+      "id": "fiber-products",
+      "title": "Fiber products and base change",
+      "anchor": "fiber",
+      "prereqs": [
+        "scheme-morphisms"
+      ],
+      "blurb": "Fiber products represent pullback problems and define base-change geometry."
+    },
+    {
+      "id": "geometric-fibers",
+      "title": "Geometric fibers and smoothness intuition",
+      "anchor": "fibers",
+      "prereqs": [
+        "fiber-products"
+      ],
+      "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+    }
+  ]
+}

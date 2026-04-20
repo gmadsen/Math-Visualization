@@ -1,0 +1,35 @@
+{
+  "topic": "sheaf-cohomology",
+  "title": "Sheaf cohomology",
+  "page": "sheaf-cohomology.html",
+  "concepts": [
+    {
+      "id": "cech-cohomology",
+      "title": "Čech cocycles and cohomology",
+      "anchor": "cech",
+      "prereqs": [
+        "presheaf-sheaf-axioms"
+      ],
+      "blurb": "Cover-based cocycles detect obstruction classes for global patching."
+    },
+    {
+      "id": "derived-functor-cohomology",
+      "title": "Derived functor sheaf cohomology",
+      "anchor": "derived",
+      "prereqs": [
+        "cech-cohomology",
+        "derived-functors"
+      ],
+      "blurb": "Right derived functors of global sections define H^i(X,F) abstractly."
+    },
+    {
+      "id": "applications-picard-serre",
+      "title": "Picard groups and Serre duality signals",
+      "anchor": "serre",
+      "prereqs": [
+        "derived-functor-cohomology"
+      ],
+      "blurb": "Line bundles, extensions, and duality theorems are naturally cohomological."
+    }
+  ]
+}

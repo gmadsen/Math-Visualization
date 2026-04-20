@@ -1,0 +1,34 @@
+{
+  "topic": "frobenius-and-reciprocity",
+  "title": "Frobenius and reciprocity",
+  "page": "frobenius-and-reciprocity.html",
+  "concepts": [
+    {
+      "id": "frobenius-element",
+      "title": "Frobenius elements",
+      "anchor": "frobenius",
+      "prereqs": [
+        "prime-ideals-factorization-ant"
+      ],
+      "blurb": "Unramified primes define conjugacy classes in Galois groups via Frobenius action."
+    },
+    {
+      "id": "chebotarev-density",
+      "title": "Chebotarev density",
+      "anchor": "chebotarev",
+      "prereqs": [
+        "frobenius-element"
+      ],
+      "blurb": "Primes equidistribute across Frobenius conjugacy classes with predicted densities."
+    },
+    {
+      "id": "artin-reciprocity-preview",
+      "title": "Reciprocity toward Artin maps",
+      "anchor": "strong",
+      "prereqs": [
+        "chebotarev-density"
+      ],
+      "blurb": "Global reciprocity reframes splitting laws as characters of idèle-like class groups."
+    }
+  ]
+}
