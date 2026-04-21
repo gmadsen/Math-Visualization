@@ -48,3 +48,13 @@ jobs:
         run: node scripts/audit-widget-interactivity.mjs
       - name: Audit backlink quality
         run: node scripts/audit-backlink-quality.mjs
+      - name: Audit backlink strength
+        run: node scripts/audit-backlink-strength.mjs
+      - name: Audit concept-graph health
+        run: node scripts/audit-concept-graph-health.mjs
+      - name: Audit doc drift
+        run: node scripts/audit-doc-drift.mjs
+      - name: Audit color vars in style blocks
+        run: node scripts/fix-color-vars-style.mjs
+      - name: Test offline bundle
+        run: node scripts/test-offline-bundle.mjs

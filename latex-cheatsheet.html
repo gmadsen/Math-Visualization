@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LaTeX cheatsheet — KaTeX macro reference</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* macro-table specific styling */
+  table.macros{table-layout:fixed}
+  table.macros col.c-src{width:42%}
+  table.macros col.c-rend{width:30%}
+  table.macros col.c-note{width:28%}
+  table.macros td.src code{display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+  table.macros td.rend{color:var(--ink);font-size:1.02em}
+  table.macros td.note{color:var(--mute);font-size:.85rem}
+  table.macros tr.hidden{display:none}
+  /* search + chip controls */
+  .cheat-controls{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0 0}
+  .cheat-controls .srow{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+  .cheat-controls input.search{flex:1;min-width:200px;max-width:420px}
+  .cheat-controls .chips{display:flex;gap:.4rem;flex-wrap:wrap}
+  .cheat-controls .chip{font-size:.82rem;padding:.2rem .65rem;border-radius:999px;
+    border:1px solid var(--line);background:var(--panel2);color:var(--mute);cursor:pointer;
+    user-select:none;transition:color 120ms ease, border-color 120ms ease, background 120ms ease}
+  .cheat-controls .chip.on{color:#111;background:var(--yellow);border-color:var(--yellow)}
+  .cheat-controls .chip:hover{color:var(--ink)}
+  .cheat-controls .chip.on:hover{color:#111}
+  .cheat-controls .count{color:var(--mute);font-size:.85rem;margin-left:.4rem}
+  section.cat.hidden{display:none}
+  section.cat .empty{color:var(--mute);font-style:italic;padding:.6rem .2rem;display:none}
+  section.cat.no-matches .empty{display:block}
+  section.cat.no-matches table.macros{display:none}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+<script src="./js/progress.js"></script>
+</head>
+<body data-section="reference" data-level="reference">
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#greek">1&nbsp;Greek</a>
+  <a href="#relations">2&nbsp;Relations</a>
+  <a href="#arrows">3&nbsp;Arrows</a>
+  <a href="#setlogic">4&nbsp;Set&nbsp;&amp;&nbsp;logic</a>
+  <a href="#calculus">5&nbsp;Calculus</a>
+  <a href="#brackets">6&nbsp;Brackets</a>
+  <a href="#fonts">7&nbsp;Fonts</a>
+  <a href="#accents">8&nbsp;Accents</a>
+  <a href="#envs">9&nbsp;Environments</a>
+  <a href="#misc">10&nbsp;Misc</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>LaTeX / KaTeX macro cheatsheet</h1>
+  <p class="sub">Every macro the project's validator recognizes, grouped by category. Use the <em>live search</em> to filter by source or rendered form, and the <em>category chips</em> to toggle sections on and off.</p>
+
+  <div class="widget" id="w-controls">
+    <div class="hd"><div class="ttl">filter the cheatsheet</div><div class="hint">live search + category chips</div></div>
+    <div class="cheat-controls">
+      <div class="srow">
+        <input type="text" class="search" id="cheat-search" placeholder="type to filter (e.g. alpha, arrow, mathbb)…" autocomplete="off" aria-label="Filter macros">
+        <button type="button" id="cheat-reset">reset</button>
+        <span class="count" id="cheat-count"></span>
+      </div>
+      <div class="srow">
+        <div class="chips" id="cheat-chips" role="group" aria-label="Category filters"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat" id="greek" data-cat="greek" data-label="Greek">
+<h2>1. Greek letters</h2>
+<p>Lower- and upper-case Greek plus the italic "var-" variants KaTeX ships. Macro names follow the expected pattern: lowercase = lowercase Greek; capitalized = uppercase Greek.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Greek</div><div class="hint">lowercase · uppercase · var- variants</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\alpha</code></td><td class="rend">$\alpha$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\beta</code></td><td class="rend">$\beta$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\gamma</code></td><td class="rend">$\gamma$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\delta</code></td><td class="rend">$\delta$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\epsilon</code></td><td class="rend">$\epsilon$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varepsilon</code></td><td class="rend">$\varepsilon$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\zeta</code></td><td class="rend">$\zeta$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\eta</code></td><td class="rend">$\eta$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\theta</code></td><td class="rend">$\theta$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\vartheta</code></td><td class="rend">$\vartheta$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\iota</code></td><td class="rend">$\iota$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\kappa</code></td><td class="rend">$\kappa$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varkappa</code></td><td class="rend">$\varkappa$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\lambda</code></td><td class="rend">$\lambda$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\mu</code></td><td class="rend">$\mu$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\nu</code></td><td class="rend">$\nu$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\xi</code></td><td class="rend">$\xi$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\omicron</code></td><td class="rend">$\omicron$</td><td class="note">lowercase (looks like o)</td></tr>
+      <tr><td class="src"><code>\pi</code></td><td class="rend">$\pi$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varpi</code></td><td class="rend">$\varpi$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\rho</code></td><td class="rend">$\rho$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varrho</code></td><td class="rend">$\varrho$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\sigma</code></td><td class="rend">$\sigma$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varsigma</code></td><td class="rend">$\varsigma$</td><td class="note">final-sigma variant</td></tr>
+      <tr><td class="src"><code>\tau</code></td><td class="rend">$\tau$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\upsilon</code></td><td class="rend">$\upsilon$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\phi</code></td><td class="rend">$\phi$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\varphi</code></td><td class="rend">$\varphi$</td><td class="note">italic variant</td></tr>
+      <tr><td class="src"><code>\chi</code></td><td class="rend">$\chi$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\psi</code></td><td class="rend">$\psi$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\omega</code></td><td class="rend">$\omega$</td><td class="note">lowercase</td></tr>
+      <tr><td class="src"><code>\digamma</code></td><td class="rend">$\digamma$</td><td class="note">archaic</td></tr>
+      <tr><td class="src"><code>\Alpha</code></td><td class="rend">$\Alpha$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Beta</code></td><td class="rend">$\Beta$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Gamma</code></td><td class="rend">$\Gamma$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Delta</code></td><td class="rend">$\Delta$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Epsilon</code></td><td class="rend">$\Epsilon$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Zeta</code></td><td class="rend">$\Zeta$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Eta</code></td><td class="rend">$\Eta$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Theta</code></td><td class="rend">$\Theta$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Iota</code></td><td class="rend">$\Iota$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Kappa</code></td><td class="rend">$\Kappa$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Lambda</code></td><td class="rend">$\Lambda$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Mu</code></td><td class="rend">$\Mu$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Nu</code></td><td class="rend">$\Nu$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Xi</code></td><td class="rend">$\Xi$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Omicron</code></td><td class="rend">$\Omicron$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Pi</code></td><td class="rend">$\Pi$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Rho</code></td><td class="rend">$\Rho$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Sigma</code></td><td class="rend">$\Sigma$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Tau</code></td><td class="rend">$\Tau$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Upsilon</code></td><td class="rend">$\Upsilon$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Phi</code></td><td class="rend">$\Phi$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Chi</code></td><td class="rend">$\Chi$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Psi</code></td><td class="rend">$\Psi$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\Omega</code></td><td class="rend">$\Omega$</td><td class="note">uppercase</td></tr>
+      <tr><td class="src"><code>\varGamma</code></td><td class="rend">$\varGamma$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varDelta</code></td><td class="rend">$\varDelta$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varTheta</code></td><td class="rend">$\varTheta$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varLambda</code></td><td class="rend">$\varLambda$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varXi</code></td><td class="rend">$\varXi$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varPi</code></td><td class="rend">$\varPi$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varSigma</code></td><td class="rend">$\varSigma$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varUpsilon</code></td><td class="rend">$\varUpsilon$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varPhi</code></td><td class="rend">$\varPhi$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varPsi</code></td><td class="rend">$\varPsi$</td><td class="note">italic uppercase</td></tr>
+      <tr><td class="src"><code>\varOmega</code></td><td class="rend">$\varOmega$</td><td class="note">italic uppercase</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="relations" data-cat="relations" data-label="Relations">
+<h2>2. Relations</h2>
+<p>Binary relations — equalities, orderings, inclusions, negated forms, and variants. Most take two operands, e.g. <code>a \leq b</code>.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Relations</div><div class="hint">equalities · orderings · inclusions · negations</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\leq</code> / <code>\le</code></td><td class="rend">$\leq$</td><td class="note">less or equal</td></tr>
+      <tr><td class="src"><code>\geq</code> / <code>\ge</code></td><td class="rend">$\geq$</td><td class="note">greater or equal</td></tr>
+      <tr><td class="src"><code>\neq</code> / <code>\ne</code></td><td class="rend">$\neq$</td><td class="note">not equal</td></tr>
+      <tr><td class="src"><code>\equiv</code></td><td class="rend">$\equiv$</td><td class="note">equivalent / congruent</td></tr>
+      <tr><td class="src"><code>\sim</code></td><td class="rend">$\sim$</td><td class="note">similar / related</td></tr>
+      <tr><td class="src"><code>\simeq</code></td><td class="rend">$\simeq$</td><td class="note">homotopy / weak equiv.</td></tr>
+      <tr><td class="src"><code>\approx</code></td><td class="rend">$\approx$</td><td class="note">approximately</td></tr>
+      <tr><td class="src"><code>\cong</code></td><td class="rend">$\cong$</td><td class="note">isomorphic</td></tr>
+      <tr><td class="src"><code>\doteq</code></td><td class="rend">$\doteq$</td><td class="note">definitionally equal</td></tr>
+      <tr><td class="src"><code>\propto</code></td><td class="rend">$\propto$</td><td class="note">proportional to</td></tr>
+      <tr><td class="src"><code>\asymp</code></td><td class="rend">$\asymp$</td><td class="note">asymptotic</td></tr>
+      <tr><td class="src"><code>\bowtie</code></td><td class="rend">$\bowtie$</td><td class="note">join</td></tr>
+      <tr><td class="src"><code>\dashv</code></td><td class="rend">$\dashv$</td><td class="note">adjoint (right)</td></tr>
+      <tr><td class="src"><code>\vdash</code></td><td class="rend">$\vdash$</td><td class="note">proves / adjoint (left)</td></tr>
+      <tr><td class="src"><code>\models</code></td><td class="rend">$\models$</td><td class="note">models (logic)</td></tr>
+      <tr><td class="src"><code>\perp</code></td><td class="rend">$\perp$</td><td class="note">perpendicular / orthogonal</td></tr>
+      <tr><td class="src"><code>\mid</code></td><td class="rend">$\mid$</td><td class="note">divides / "such that"</td></tr>
+      <tr><td class="src"><code>\nmid</code></td><td class="rend">$\nmid$</td><td class="note">does not divide</td></tr>
+      <tr><td class="src"><code>\parallel</code></td><td class="rend">$\parallel$</td><td class="note">parallel</td></tr>
+      <tr><td class="src"><code>\nparallel</code></td><td class="rend">$\nparallel$</td><td class="note">not parallel</td></tr>
+      <tr><td class="src"><code>\smile</code></td><td class="rend">$\smile$</td><td class="note">cup-like</td></tr>
+      <tr><td class="src"><code>\frown</code></td><td class="rend">$\frown$</td><td class="note">cap-like</td></tr>
+      <tr><td class="src"><code>\sqsubset</code></td><td class="rend">$\sqsubset$</td><td class="note">square proper subset</td></tr>
+      <tr><td class="src"><code>\sqsupset</code></td><td class="rend">$\sqsupset$</td><td class="note">square proper superset</td></tr>
+      <tr><td class="src"><code>\sqsubseteq</code></td><td class="rend">$\sqsubseteq$</td><td class="note">square subset-eq</td></tr>
+      <tr><td class="src"><code>\sqsupseteq</code></td><td class="rend">$\sqsupseteq$</td><td class="note">square superset-eq</td></tr>
+      <tr><td class="src"><code>\subset</code></td><td class="rend">$\subset$</td><td class="note">proper subset</td></tr>
+      <tr><td class="src"><code>\supset</code></td><td class="rend">$\supset$</td><td class="note">proper superset</td></tr>
+      <tr><td class="src"><code>\subseteq</code></td><td class="rend">$\subseteq$</td><td class="note">subset or equal</td></tr>
+      <tr><td class="src"><code>\supseteq</code></td><td class="rend">$\supseteq$</td><td class="note">superset or equal</td></tr>
+      <tr><td class="src"><code>\subsetneq</code></td><td class="rend">$\subsetneq$</td><td class="note">proper subset</td></tr>
+      <tr><td class="src"><code>\supsetneq</code></td><td class="rend">$\supsetneq$</td><td class="note">proper superset</td></tr>
+      <tr><td class="src"><code>\subseteqq</code></td><td class="rend">$\subseteqq$</td><td class="note">subset-eq (double bar)</td></tr>
+      <tr><td class="src"><code>\supseteqq</code></td><td class="rend">$\supseteqq$</td><td class="note">superset-eq (double bar)</td></tr>
+      <tr><td class="src"><code>\subsetneqq</code></td><td class="rend">$\subsetneqq$</td><td class="note">proper subset (double)</td></tr>
+      <tr><td class="src"><code>\supsetneqq</code></td><td class="rend">$\supsetneqq$</td><td class="note">proper superset (double)</td></tr>
+      <tr><td class="src"><code>\nsubseteq</code></td><td class="rend">$\nsubseteq$</td><td class="note">not subset-eq</td></tr>
+      <tr><td class="src"><code>\nsupseteq</code></td><td class="rend">$\nsupseteq$</td><td class="note">not superset-eq</td></tr>
+      <tr><td class="src"><code>\nsubseteqq</code></td><td class="rend">$\nsubseteqq$</td><td class="note">not subset-eq (double)</td></tr>
+      <tr><td class="src"><code>\nsupseteqq</code></td><td class="rend">$\nsupseteqq$</td><td class="note">not superset-eq (double)</td></tr>
+      <tr><td class="src"><code>\Subset</code></td><td class="rend">$\Subset$</td><td class="note">compactly contained</td></tr>
+      <tr><td class="src"><code>\Supset</code></td><td class="rend">$\Supset$</td><td class="note">compactly contains</td></tr>
+      <tr><td class="src"><code>\ll</code></td><td class="rend">$\ll$</td><td class="note">much less than</td></tr>
+      <tr><td class="src"><code>\gg</code></td><td class="rend">$\gg$</td><td class="note">much greater than</td></tr>
+      <tr><td class="src"><code>\lll</code></td><td class="rend">$\lll$</td><td class="note">triple-less</td></tr>
+      <tr><td class="src"><code>\ggg</code></td><td class="rend">$\ggg$</td><td class="note">triple-greater</td></tr>
+      <tr><td class="src"><code>\prec</code></td><td class="rend">$\prec$</td><td class="note">precedes</td></tr>
+      <tr><td class="src"><code>\succ</code></td><td class="rend">$\succ$</td><td class="note">succeeds</td></tr>
+      <tr><td class="src"><code>\preceq</code></td><td class="rend">$\preceq$</td><td class="note">precedes or equal</td></tr>
+      <tr><td class="src"><code>\succeq</code></td><td class="rend">$\succeq$</td><td class="note">succeeds or equal</td></tr>
+      <tr><td class="src"><code>\precsim</code></td><td class="rend">$\precsim$</td><td class="note">precedes similar</td></tr>
+      <tr><td class="src"><code>\succsim</code></td><td class="rend">$\succsim$</td><td class="note">succeeds similar</td></tr>
+      <tr><td class="src"><code>\precapprox</code></td><td class="rend">$\precapprox$</td><td class="note">precedes approx.</td></tr>
+      <tr><td class="src"><code>\succapprox</code></td><td class="rend">$\succapprox$</td><td class="note">succeeds approx.</td></tr>
+      <tr><td class="src"><code>\precneqq</code></td><td class="rend">$\precneqq$</td><td class="note">precedes, not equal</td></tr>
+      <tr><td class="src"><code>\succneqq</code></td><td class="rend">$\succneqq$</td><td class="note">succeeds, not equal</td></tr>
+      <tr><td class="src"><code>\lesssim</code></td><td class="rend">$\lesssim$</td><td class="note">less or similar</td></tr>
+      <tr><td class="src"><code>\gtrsim</code></td><td class="rend">$\gtrsim$</td><td class="note">greater or similar</td></tr>
+      <tr><td class="src"><code>\lessapprox</code></td><td class="rend">$\lessapprox$</td><td class="note">less or approx.</td></tr>
+      <tr><td class="src"><code>\gtrapprox</code></td><td class="rend">$\gtrapprox$</td><td class="note">greater or approx.</td></tr>
+      <tr><td class="src"><code>\lessgtr</code></td><td class="rend">$\lessgtr$</td><td class="note">less-or-greater</td></tr>
+      <tr><td class="src"><code>\gtrless</code></td><td class="rend">$\gtrless$</td><td class="note">greater-or-less</td></tr>
+      <tr><td class="src"><code>\lesseqgtr</code></td><td class="rend">$\lesseqgtr$</td><td class="note">less-eq-or-greater</td></tr>
+      <tr><td class="src"><code>\gtreqless</code></td><td class="rend">$\gtreqless$</td><td class="note">greater-eq-or-less</td></tr>
+      <tr><td class="src"><code>\lesseqqgtr</code></td><td class="rend">$\lesseqqgtr$</td><td class="note">strict variant</td></tr>
+      <tr><td class="src"><code>\gtreqqless</code></td><td class="rend">$\gtreqqless$</td><td class="note">strict variant</td></tr>
+      <tr><td class="src"><code>\lneq</code></td><td class="rend">$\lneq$</td><td class="note">less, not equal</td></tr>
+      <tr><td class="src"><code>\gneq</code></td><td class="rend">$\gneq$</td><td class="note">greater, not equal</td></tr>
+      <tr><td class="src"><code>\lneqq</code></td><td class="rend">$\lneqq$</td><td class="note">less, not equal (double)</td></tr>
+      <tr><td class="src"><code>\gneqq</code></td><td class="rend">$\gneqq$</td><td class="note">greater, not equal (double)</td></tr>
+      <tr><td class="src"><code>\lnsim</code></td><td class="rend">$\lnsim$</td><td class="note">less, not similar</td></tr>
+      <tr><td class="src"><code>\gnsim</code></td><td class="rend">$\gnsim$</td><td class="note">greater, not similar</td></tr>
+      <tr><td class="src"><code>\lnapprox</code></td><td class="rend">$\lnapprox$</td><td class="note">less, not approx.</td></tr>
+      <tr><td class="src"><code>\gnapprox</code></td><td class="rend">$\gnapprox$</td><td class="note">greater, not approx.</td></tr>
+      <tr><td class="src"><code>\doteqdot</code></td><td class="rend">$\doteqdot$</td><td class="note">doubly-dotted equal</td></tr>
+      <tr><td class="src"><code>\risingdotseq</code></td><td class="rend">$\risingdotseq$</td><td class="note">rising-dot equal</td></tr>
+      <tr><td class="src"><code>\fallingdotseq</code></td><td class="rend">$\fallingdotseq$</td><td class="note">falling-dot equal</td></tr>
+      <tr><td class="src"><code>\circeq</code></td><td class="rend">$\circeq$</td><td class="note">circle-equal</td></tr>
+      <tr><td class="src"><code>\triangleq</code></td><td class="rend">$\triangleq$</td><td class="note">def. equal (triangle)</td></tr>
+      <tr><td class="src"><code>\eqcirc</code></td><td class="rend">$\eqcirc$</td><td class="note">equal-circle</td></tr>
+      <tr><td class="src"><code>\bumpeq</code></td><td class="rend">$\bumpeq$</td><td class="note">bump-equal</td></tr>
+      <tr><td class="src"><code>\Bumpeq</code></td><td class="rend">$\Bumpeq$</td><td class="note">big bump-equal</td></tr>
+      <tr><td class="src"><code>\thickapprox</code></td><td class="rend">$\thickapprox$</td><td class="note">thick approx.</td></tr>
+      <tr><td class="src"><code>\thicksim</code></td><td class="rend">$\thicksim$</td><td class="note">thick similar</td></tr>
+      <tr><td class="src"><code>\approxeq</code></td><td class="rend">$\approxeq$</td><td class="note">approx.-equal</td></tr>
+      <tr><td class="src"><code>\backsim</code></td><td class="rend">$\backsim$</td><td class="note">back-similar</td></tr>
+      <tr><td class="src"><code>\backsimeq</code></td><td class="rend">$\backsimeq$</td><td class="note">back-simeq</td></tr>
+      <tr><td class="src"><code>\ncong</code></td><td class="rend">$\ncong$</td><td class="note">not isomorphic</td></tr>
+      <tr><td class="src"><code>\nsim</code></td><td class="rend">$\nsim$</td><td class="note">not similar</td></tr>
+      <tr><td class="src"><code>\nvdash</code></td><td class="rend">$\nvdash$</td><td class="note">does not prove</td></tr>
+      <tr><td class="src"><code>\nvDash</code></td><td class="rend">$\nvDash$</td><td class="note">does not model</td></tr>
+      <tr><td class="src"><code>\nVdash</code></td><td class="rend">$\nVdash$</td><td class="note">negated Vdash</td></tr>
+      <tr><td class="src"><code>\nVDash</code></td><td class="rend">$\nVDash$</td><td class="note">negated VDash</td></tr>
+      <tr><td class="src"><code>\vDash</code></td><td class="rend">$\vDash$</td><td class="note">models (double bar)</td></tr>
+      <tr><td class="src"><code>\Vdash</code></td><td class="rend">$\Vdash$</td><td class="note">forces</td></tr>
+      <tr><td class="src"><code>\Vvdash</code></td><td class="rend">$\Vvdash$</td><td class="note">triple turnstile</td></tr>
+      <tr><td class="src"><code>\nless</code></td><td class="rend">$\nless$</td><td class="note">not less</td></tr>
+      <tr><td class="src"><code>\ngtr</code></td><td class="rend">$\ngtr$</td><td class="note">not greater</td></tr>
+      <tr><td class="src"><code>\nleq</code></td><td class="rend">$\nleq$</td><td class="note">not less-eq</td></tr>
+      <tr><td class="src"><code>\ngeq</code></td><td class="rend">$\ngeq$</td><td class="note">not greater-eq</td></tr>
+      <tr><td class="src"><code>\nleqq</code></td><td class="rend">$\nleqq$</td><td class="note">not less-eq (double)</td></tr>
+      <tr><td class="src"><code>\ngeqq</code></td><td class="rend">$\ngeqq$</td><td class="note">not greater-eq (double)</td></tr>
+      <tr><td class="src"><code>\nleqslant</code></td><td class="rend">$\nleqslant$</td><td class="note">not less-slant</td></tr>
+      <tr><td class="src"><code>\ngeqslant</code></td><td class="rend">$\ngeqslant$</td><td class="note">not greater-slant</td></tr>
+      <tr><td class="src"><code>\leqslant</code></td><td class="rend">$\leqslant$</td><td class="note">less-or-eq (slanted)</td></tr>
+      <tr><td class="src"><code>\geqslant</code></td><td class="rend">$\geqslant$</td><td class="note">greater-or-eq (slanted)</td></tr>
+      <tr><td class="src"><code>\eqslantless</code></td><td class="rend">$\eqslantless$</td><td class="note">eq-slant-less</td></tr>
+      <tr><td class="src"><code>\eqslantgtr</code></td><td class="rend">$\eqslantgtr$</td><td class="note">eq-slant-greater</td></tr>
+      <tr><td class="src"><code>\nprec</code></td><td class="rend">$\nprec$</td><td class="note">not precedes</td></tr>
+      <tr><td class="src"><code>\nsucc</code></td><td class="rend">$\nsucc$</td><td class="note">not succeeds</td></tr>
+      <tr><td class="src"><code>\npreceq</code></td><td class="rend">$\npreceq$</td><td class="note">not precedes-eq</td></tr>
+      <tr><td class="src"><code>\nsucceq</code></td><td class="rend">$\nsucceq$</td><td class="note">not succeeds-eq</td></tr>
+      <tr><td class="src"><code>\precnsim</code></td><td class="rend">$\precnsim$</td><td class="note">precedes not similar</td></tr>
+      <tr><td class="src"><code>\succnsim</code></td><td class="rend">$\succnsim$</td><td class="note">succeeds not similar</td></tr>
+      <tr><td class="src"><code>\precnapprox</code></td><td class="rend">$\precnapprox$</td><td class="note">precedes not approx.</td></tr>
+      <tr><td class="src"><code>\succnapprox</code></td><td class="rend">$\succnapprox$</td><td class="note">succeeds not approx.</td></tr>
+      <tr><td class="src"><code>\shortmid</code></td><td class="rend">$\shortmid$</td><td class="note">short divides</td></tr>
+      <tr><td class="src"><code>\shortparallel</code></td><td class="rend">$\shortparallel$</td><td class="note">short parallel</td></tr>
+      <tr><td class="src"><code>\nshortmid</code></td><td class="rend">$\nshortmid$</td><td class="note">short not-mid</td></tr>
+      <tr><td class="src"><code>\nshortparallel</code></td><td class="rend">$\nshortparallel$</td><td class="note">short not-parallel</td></tr>
+      <tr><td class="src"><code>\varpropto</code></td><td class="rend">$\varpropto$</td><td class="note">variant proportional</td></tr>
+      <tr><td class="src"><code>\between</code></td><td class="rend">$\between$</td><td class="note">between</td></tr>
+      <tr><td class="src"><code>\pitchfork</code></td><td class="rend">$\pitchfork$</td><td class="note">transverse</td></tr>
+      <tr><td class="src"><code>\because</code></td><td class="rend">$\because$</td><td class="note">because</td></tr>
+      <tr><td class="src"><code>\therefore</code></td><td class="rend">$\therefore$</td><td class="note">therefore</td></tr>
+      <tr><td class="src"><code>\trianglelefteq</code></td><td class="rend">$\trianglelefteq$</td><td class="note">normal subgroup</td></tr>
+      <tr><td class="src"><code>\trianglerighteq</code></td><td class="rend">$\trianglerighteq$</td><td class="note">contains as normal</td></tr>
+      <tr><td class="src"><code>\ntriangleleft</code></td><td class="rend">$\ntriangleleft$</td><td class="note">not normal-left</td></tr>
+      <tr><td class="src"><code>\ntriangleright</code></td><td class="rend">$\ntriangleright$</td><td class="note">not normal-right</td></tr>
+      <tr><td class="src"><code>\ntrianglelefteq</code></td><td class="rend">$\ntrianglelefteq$</td><td class="note">not normal-lefteq</td></tr>
+      <tr><td class="src"><code>\ntrianglerighteq</code></td><td class="rend">$\ntrianglerighteq$</td><td class="note">not normal-righteq</td></tr>
+      <tr><td class="src"><code>\in</code></td><td class="rend">$\in$</td><td class="note">element of</td></tr>
+      <tr><td class="src"><code>\ni</code> / <code>\owns</code></td><td class="rend">$\ni$</td><td class="note">contains element</td></tr>
+      <tr><td class="src"><code>\notin</code></td><td class="rend">$\notin$</td><td class="note">not an element</td></tr>
+      <tr><td class="src"><code>\multimap</code></td><td class="rend">$\multimap$</td><td class="note">linear implication</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="arrows" data-cat="arrows" data-label="Arrows">
+<h2>3. Arrows</h2>
+<p>Directional arrows — maps, implications, hooks, and labeled "extensible" arrows. Use <code>\to</code> for most function arrows; <code>\Rightarrow</code> for logical implication; <code>\mapsto</code> for element-to-element.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Arrows</div><div class="hint">single · double · hook · extensible</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\to</code></td><td class="rend">$\to$</td><td class="note">function / map</td></tr>
+      <tr><td class="src"><code>\gets</code></td><td class="rend">$\gets$</td><td class="note">reverse map</td></tr>
+      <tr><td class="src"><code>\mapsto</code></td><td class="rend">$\mapsto$</td><td class="note">elementwise map</td></tr>
+      <tr><td class="src"><code>\longmapsto</code></td><td class="rend">$\longmapsto$</td><td class="note">long mapsto</td></tr>
+      <tr><td class="src"><code>\rightarrow</code></td><td class="rend">$\rightarrow$</td><td class="note">same as \to</td></tr>
+      <tr><td class="src"><code>\leftarrow</code></td><td class="rend">$\leftarrow$</td><td class="note">same as \gets</td></tr>
+      <tr><td class="src"><code>\leftrightarrow</code></td><td class="rend">$\leftrightarrow$</td><td class="note">bidirectional</td></tr>
+      <tr><td class="src"><code>\longrightarrow</code></td><td class="rend">$\longrightarrow$</td><td class="note">long arrow</td></tr>
+      <tr><td class="src"><code>\longleftarrow</code></td><td class="rend">$\longleftarrow$</td><td class="note">long left</td></tr>
+      <tr><td class="src"><code>\longleftrightarrow</code></td><td class="rend">$\longleftrightarrow$</td><td class="note">long bidirect.</td></tr>
+      <tr><td class="src"><code>\Rightarrow</code></td><td class="rend">$\Rightarrow$</td><td class="note">implication</td></tr>
+      <tr><td class="src"><code>\Leftarrow</code></td><td class="rend">$\Leftarrow$</td><td class="note">reverse implication</td></tr>
+      <tr><td class="src"><code>\Leftrightarrow</code></td><td class="rend">$\Leftrightarrow$</td><td class="note">iff</td></tr>
+      <tr><td class="src"><code>\Longrightarrow</code></td><td class="rend">$\Longrightarrow$</td><td class="note">long implies</td></tr>
+      <tr><td class="src"><code>\Longleftarrow</code></td><td class="rend">$\Longleftarrow$</td><td class="note">long reverse</td></tr>
+      <tr><td class="src"><code>\Longleftrightarrow</code></td><td class="rend">$\Longleftrightarrow$</td><td class="note">long iff</td></tr>
+      <tr><td class="src"><code>\implies</code></td><td class="rend">$\implies$</td><td class="note">logical implies</td></tr>
+      <tr><td class="src"><code>\impliedby</code></td><td class="rend">$\impliedby$</td><td class="note">logical reverse</td></tr>
+      <tr><td class="src"><code>\iff</code></td><td class="rend">$\iff$</td><td class="note">logical iff</td></tr>
+      <tr><td class="src"><code>\hookrightarrow</code></td><td class="rend">$\hookrightarrow$</td><td class="note">injection</td></tr>
+      <tr><td class="src"><code>\hookleftarrow</code></td><td class="rend">$\hookleftarrow$</td><td class="note">left hook</td></tr>
+      <tr><td class="src"><code>\twoheadrightarrow</code></td><td class="rend">$\twoheadrightarrow$</td><td class="note">surjection</td></tr>
+      <tr><td class="src"><code>\twoheadleftarrow</code></td><td class="rend">$\twoheadleftarrow$</td><td class="note">two-head left</td></tr>
+      <tr><td class="src"><code>\rightarrowtail</code></td><td class="rend">$\rightarrowtail$</td><td class="note">mono (tail)</td></tr>
+      <tr><td class="src"><code>\leftarrowtail</code></td><td class="rend">$\leftarrowtail$</td><td class="note">mono left</td></tr>
+      <tr><td class="src"><code>\leftharpoonup</code></td><td class="rend">$\leftharpoonup$</td><td class="note">harpoon up</td></tr>
+      <tr><td class="src"><code>\leftharpoondown</code></td><td class="rend">$\leftharpoondown$</td><td class="note">harpoon down</td></tr>
+      <tr><td class="src"><code>\rightharpoonup</code></td><td class="rend">$\rightharpoonup$</td><td class="note">weak convergence</td></tr>
+      <tr><td class="src"><code>\rightharpoondown</code></td><td class="rend">$\rightharpoondown$</td><td class="note">harpoon down-right</td></tr>
+      <tr><td class="src"><code>\leftrightharpoons</code></td><td class="rend">$\leftrightharpoons$</td><td class="note">equilibrium</td></tr>
+      <tr><td class="src"><code>\rightleftharpoons</code></td><td class="rend">$\rightleftharpoons$</td><td class="note">equilibrium</td></tr>
+      <tr><td class="src"><code>\nearrow</code></td><td class="rend">$\nearrow$</td><td class="note">NE arrow</td></tr>
+      <tr><td class="src"><code>\searrow</code></td><td class="rend">$\searrow$</td><td class="note">SE arrow</td></tr>
+      <tr><td class="src"><code>\swarrow</code></td><td class="rend">$\swarrow$</td><td class="note">SW arrow</td></tr>
+      <tr><td class="src"><code>\nwarrow</code></td><td class="rend">$\nwarrow$</td><td class="note">NW arrow</td></tr>
+      <tr><td class="src"><code>\uparrow</code></td><td class="rend">$\uparrow$</td><td class="note">up</td></tr>
+      <tr><td class="src"><code>\downarrow</code></td><td class="rend">$\downarrow$</td><td class="note">down</td></tr>
+      <tr><td class="src"><code>\updownarrow</code></td><td class="rend">$\updownarrow$</td><td class="note">vertical bidir.</td></tr>
+      <tr><td class="src"><code>\Uparrow</code></td><td class="rend">$\Uparrow$</td><td class="note">double up</td></tr>
+      <tr><td class="src"><code>\Downarrow</code></td><td class="rend">$\Downarrow$</td><td class="note">double down</td></tr>
+      <tr><td class="src"><code>\Updownarrow</code></td><td class="rend">$\Updownarrow$</td><td class="note">double vertical</td></tr>
+      <tr><td class="src"><code>\rightrightarrows</code></td><td class="rend">$\rightrightarrows$</td><td class="note">parallel pair</td></tr>
+      <tr><td class="src"><code>\leftleftarrows</code></td><td class="rend">$\leftleftarrows$</td><td class="note">parallel pair left</td></tr>
+      <tr><td class="src"><code>\upuparrows</code></td><td class="rend">$\upuparrows$</td><td class="note">parallel up</td></tr>
+      <tr><td class="src"><code>\downdownarrows</code></td><td class="rend">$\downdownarrows$</td><td class="note">parallel down</td></tr>
+      <tr><td class="src"><code>\rightleftarrows</code></td><td class="rend">$\rightleftarrows$</td><td class="note">antiparallel</td></tr>
+      <tr><td class="src"><code>\leftrightarrows</code></td><td class="rend">$\leftrightarrows$</td><td class="note">antiparallel</td></tr>
+      <tr><td class="src"><code>\Lleftarrow</code></td><td class="rend">$\Lleftarrow$</td><td class="note">triple left</td></tr>
+      <tr><td class="src"><code>\Rrightarrow</code></td><td class="rend">$\Rrightarrow$</td><td class="note">triple right</td></tr>
+      <tr><td class="src"><code>\looparrowright</code></td><td class="rend">$\looparrowright$</td><td class="note">loop right</td></tr>
+      <tr><td class="src"><code>\looparrowleft</code></td><td class="rend">$\looparrowleft$</td><td class="note">loop left</td></tr>
+      <tr><td class="src"><code>\curvearrowright</code></td><td class="rend">$\curvearrowright$</td><td class="note">curve right</td></tr>
+      <tr><td class="src"><code>\curvearrowleft</code></td><td class="rend">$\curvearrowleft$</td><td class="note">curve left</td></tr>
+      <tr><td class="src"><code>\circlearrowright</code></td><td class="rend">$\circlearrowright$</td><td class="note">circle CW</td></tr>
+      <tr><td class="src"><code>\circlearrowleft</code></td><td class="rend">$\circlearrowleft$</td><td class="note">circle CCW</td></tr>
+      <tr><td class="src"><code>\Lsh</code></td><td class="rend">$\Lsh$</td><td class="note">L-shift</td></tr>
+      <tr><td class="src"><code>\Rsh</code></td><td class="rend">$\Rsh$</td><td class="note">R-shift</td></tr>
+      <tr><td class="src"><code>\upharpoonright</code></td><td class="rend">$\upharpoonright$</td><td class="note">up-harpoon R</td></tr>
+      <tr><td class="src"><code>\upharpoonleft</code></td><td class="rend">$\upharpoonleft$</td><td class="note">up-harpoon L</td></tr>
+      <tr><td class="src"><code>\downharpoonright</code></td><td class="rend">$\downharpoonright$</td><td class="note">down-harpoon R</td></tr>
+      <tr><td class="src"><code>\downharpoonleft</code></td><td class="rend">$\downharpoonleft$</td><td class="note">down-harpoon L</td></tr>
+      <tr><td class="src"><code>\rightsquigarrow</code></td><td class="rend">$\rightsquigarrow$</td><td class="note">wavy arrow</td></tr>
+      <tr><td class="src"><code>\leadsto</code></td><td class="rend">$\leadsto$</td><td class="note">rewrite / leads to</td></tr>
+      <tr><td class="src"><code>\restriction</code></td><td class="rend">$\restriction$</td><td class="note">restriction</td></tr>
+      <tr><td class="src"><code>\leftarrowtriangle</code></td><td class="rend">$\leftarrowtriangle$</td><td class="note">open triangle L</td></tr>
+      <tr><td class="src"><code>\rightarrowtriangle</code></td><td class="rend">$\rightarrowtriangle$</td><td class="note">open triangle R</td></tr>
+      <tr><td class="src"><code>\leftrightarrowtriangle</code></td><td class="rend">$\leftrightarrowtriangle$</td><td class="note">open triangle bidir.</td></tr>
+      <tr><td class="src"><code>\multimapdot</code></td><td class="rend">$\multimapdot$</td><td class="note">multimap-dot</td></tr>
+      <tr><td class="src"><code>\multimapdotboth</code></td><td class="rend">$\multimapdotboth$</td><td class="note">multimap-dot both</td></tr>
+      <tr><td class="src"><code>\xrightarrow{f}</code></td><td class="rend">$\xrightarrow{f}$</td><td class="note">labeled arrow</td></tr>
+      <tr><td class="src"><code>\xleftarrow{g}</code></td><td class="rend">$\xleftarrow{g}$</td><td class="note">labeled left</td></tr>
+      <tr><td class="src"><code>\xRightarrow{}</code></td><td class="rend">$\xRightarrow{\phi}$</td><td class="note">labeled double</td></tr>
+      <tr><td class="src"><code>\xLeftarrow{}</code></td><td class="rend">$\xLeftarrow{\psi}$</td><td class="note">labeled double L</td></tr>
+      <tr><td class="src"><code>\xleftrightarrow{}</code></td><td class="rend">$\xleftrightarrow{h}$</td><td class="note">labeled bidir.</td></tr>
+      <tr><td class="src"><code>\xLeftrightarrow{}</code></td><td class="rend">$\xLeftrightarrow{h}$</td><td class="note">labeled double bidir.</td></tr>
+      <tr><td class="src"><code>\xhookrightarrow{}</code></td><td class="rend">$\xhookrightarrow{\iota}$</td><td class="note">labeled injection</td></tr>
+      <tr><td class="src"><code>\xhookleftarrow{}</code></td><td class="rend">$\xhookleftarrow{}$</td><td class="note">labeled left hook</td></tr>
+      <tr><td class="src"><code>\xmapsto{}</code></td><td class="rend">$\xmapsto{f}$</td><td class="note">labeled mapsto</td></tr>
+      <tr><td class="src"><code>\xtofrom{}</code></td><td class="rend">$\xtofrom{}$</td><td class="note">labeled to-from</td></tr>
+      <tr><td class="src"><code>\xrightharpoonup{}</code></td><td class="rend">$\xrightharpoonup{}$</td><td class="note">labeled harpoon</td></tr>
+      <tr><td class="src"><code>\xrightharpoondown{}</code></td><td class="rend">$\xrightharpoondown{}$</td><td class="note">labeled harpoon dn</td></tr>
+      <tr><td class="src"><code>\xleftharpoonup{}</code></td><td class="rend">$\xleftharpoonup{}$</td><td class="note">labeled harpoon L</td></tr>
+      <tr><td class="src"><code>\xleftharpoondown{}</code></td><td class="rend">$\xleftharpoondown{}$</td><td class="note">labeled harpoon L dn</td></tr>
+      <tr><td class="src"><code>\xrightleftharpoons{}</code></td><td class="rend">$\xrightleftharpoons{}$</td><td class="note">labeled equilib.</td></tr>
+      <tr><td class="src"><code>\xleftrightharpoons{}</code></td><td class="rend">$\xleftrightharpoons{}$</td><td class="note">labeled equilib. L</td></tr>
+      <tr><td class="src"><code>\xlongequal{}</code></td><td class="rend">$\xlongequal{=}$</td><td class="note">labeled equal</td></tr>
+      <tr><td class="src"><code>\xtwoheadrightarrow{}</code></td><td class="rend">$\xtwoheadrightarrow{}$</td><td class="note">labeled surjection</td></tr>
+      <tr><td class="src"><code>\xtwoheadleftarrow{}</code></td><td class="rend">$\xtwoheadleftarrow{}$</td><td class="note">labeled two-head L</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="setlogic" data-cat="setlogic" data-label="Set &amp; logic">
+<h2>4. Set theory &amp; logic</h2>
+<p>Set operations, quantifiers, Boolean connectives, and Hebrew-letter cardinals. Most are symbols, not functions — just drop them in math mode.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Sets &amp; logic</div><div class="hint">ops · quantifiers · connectives</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\cup</code></td><td class="rend">$\cup$</td><td class="note">union</td></tr>
+      <tr><td class="src"><code>\cap</code></td><td class="rend">$\cap$</td><td class="note">intersection</td></tr>
+      <tr><td class="src"><code>\Cup</code></td><td class="rend">$\Cup$</td><td class="note">double union</td></tr>
+      <tr><td class="src"><code>\Cap</code></td><td class="rend">$\Cap$</td><td class="note">double intersection</td></tr>
+      <tr><td class="src"><code>\doublecup</code></td><td class="rend">$\doublecup$</td><td class="note">alias for \Cup</td></tr>
+      <tr><td class="src"><code>\doublecap</code></td><td class="rend">$\doublecap$</td><td class="note">alias for \Cap</td></tr>
+      <tr><td class="src"><code>\sqcap</code></td><td class="rend">$\sqcap$</td><td class="note">meet (square)</td></tr>
+      <tr><td class="src"><code>\sqcup</code></td><td class="rend">$\sqcup$</td><td class="note">join (square)</td></tr>
+      <tr><td class="src"><code>\setminus</code></td><td class="rend">$\setminus$</td><td class="note">set difference</td></tr>
+      <tr><td class="src"><code>\smallsetminus</code></td><td class="rend">$\smallsetminus$</td><td class="note">small variant</td></tr>
+      <tr><td class="src"><code>\emptyset</code></td><td class="rend">$\emptyset$</td><td class="note">empty set</td></tr>
+      <tr><td class="src"><code>\varnothing</code></td><td class="rend">$\varnothing$</td><td class="note">empty set (slashed)</td></tr>
+      <tr><td class="src"><code>\forall</code></td><td class="rend">$\forall$</td><td class="note">universal</td></tr>
+      <tr><td class="src"><code>\exists</code></td><td class="rend">$\exists$</td><td class="note">existential</td></tr>
+      <tr><td class="src"><code>\nexists</code></td><td class="rend">$\nexists$</td><td class="note">no such</td></tr>
+      <tr><td class="src"><code>\neg</code> / <code>\lnot</code> / <code>\not</code></td><td class="rend">$\neg P$</td><td class="note">logical negation</td></tr>
+      <tr><td class="src"><code>\land</code></td><td class="rend">$\land$</td><td class="note">logical and</td></tr>
+      <tr><td class="src"><code>\lor</code></td><td class="rend">$\lor$</td><td class="note">logical or</td></tr>
+      <tr><td class="src"><code>\wedge</code></td><td class="rend">$\wedge$</td><td class="note">and / wedge product</td></tr>
+      <tr><td class="src"><code>\vee</code></td><td class="rend">$\vee$</td><td class="note">or / join</td></tr>
+      <tr><td class="src"><code>\barwedge</code></td><td class="rend">$\barwedge$</td><td class="note">nand</td></tr>
+      <tr><td class="src"><code>\veebar</code></td><td class="rend">$\veebar$</td><td class="note">xor</td></tr>
+      <tr><td class="src"><code>\doublebarwedge</code></td><td class="rend">$\doublebarwedge$</td><td class="note">double-bar wedge</td></tr>
+      <tr><td class="src"><code>\curlyvee</code></td><td class="rend">$\curlyvee$</td><td class="note">curly or</td></tr>
+      <tr><td class="src"><code>\curlywedge</code></td><td class="rend">$\curlywedge$</td><td class="note">curly and</td></tr>
+      <tr><td class="src"><code>\top</code></td><td class="rend">$\top$</td><td class="note">truth / terminal</td></tr>
+      <tr><td class="src"><code>\bot</code></td><td class="rend">$\bot$</td><td class="note">false / initial</td></tr>
+      <tr><td class="src"><code>\aleph</code></td><td class="rend">$\aleph$</td><td class="note">Hebrew aleph</td></tr>
+      <tr><td class="src"><code>\beth</code></td><td class="rend">$\beth$</td><td class="note">Hebrew beth</td></tr>
+      <tr><td class="src"><code>\gimel</code></td><td class="rend">$\gimel$</td><td class="note">Hebrew gimel</td></tr>
+      <tr><td class="src"><code>\daleth</code></td><td class="rend">$\daleth$</td><td class="note">Hebrew daleth</td></tr>
+      <tr><td class="src"><code>\bigcap</code></td><td class="rend">$\bigcap$</td><td class="note">big intersection</td></tr>
+      <tr><td class="src"><code>\bigcup</code></td><td class="rend">$\bigcup$</td><td class="note">big union</td></tr>
+      <tr><td class="src"><code>\bigsqcup</code></td><td class="rend">$\bigsqcup$</td><td class="note">big disjoint union</td></tr>
+      <tr><td class="src"><code>\bigsqcap</code></td><td class="rend">$\bigsqcap$</td><td class="note">big meet</td></tr>
+      <tr><td class="src"><code>\biguplus</code></td><td class="rend">$\biguplus$</td><td class="note">big multiset union</td></tr>
+      <tr><td class="src"><code>\bigvee</code></td><td class="rend">$\bigvee$</td><td class="note">big or</td></tr>
+      <tr><td class="src"><code>\bigwedge</code></td><td class="rend">$\bigwedge$</td><td class="note">big and</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="calculus" data-cat="calculus" data-label="Calculus">
+<h2>5. Calculus &amp; analysis</h2>
+<p>The built-in named operators (<code>\lim</code>, <code>\sup</code>, <code>\sin</code>, …), the big-operator symbols (<code>\sum</code>, <code>\int</code>, <code>\prod</code>), fractions, roots, plus the usual calculus glyphs (<code>\infty</code>, <code>\partial</code>, <code>\nabla</code>).</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Calculus &amp; analysis</div><div class="hint">fractions · operators · functional names</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\frac{a}{b}</code></td><td class="rend">$\frac{a}{b}$</td><td class="note">fraction</td></tr>
+      <tr><td class="src"><code>\dfrac{a}{b}</code></td><td class="rend">$\dfrac{a}{b}$</td><td class="note">display-style</td></tr>
+      <tr><td class="src"><code>\tfrac{a}{b}</code></td><td class="rend">$\tfrac{a}{b}$</td><td class="note">text-style</td></tr>
+      <tr><td class="src"><code>\cfrac{a}{b}</code></td><td class="rend">$\cfrac{a}{b}$</td><td class="note">continued fraction</td></tr>
+      <tr><td class="src"><code>\binom{n}{k}</code></td><td class="rend">$\binom{n}{k}$</td><td class="note">binomial</td></tr>
+      <tr><td class="src"><code>\dbinom{n}{k}</code></td><td class="rend">$\dbinom{n}{k}$</td><td class="note">display binomial</td></tr>
+      <tr><td class="src"><code>\tbinom{n}{k}</code></td><td class="rend">$\tbinom{n}{k}$</td><td class="note">text binomial</td></tr>
+      <tr><td class="src"><code>\genfrac{(}{)}{0}{}{a}{b}</code></td><td class="rend">$\genfrac{(}{)}{0pt}{}{a}{b}$</td><td class="note">general fraction</td></tr>
+      <tr><td class="src"><code>a \over b</code></td><td class="rend">${a \over b}$</td><td class="note">TeX-style fraction</td></tr>
+      <tr><td class="src"><code>a \atop b</code></td><td class="rend">${a \atop b}$</td><td class="note">stack without bar</td></tr>
+      <tr><td class="src"><code>a \above 1pt b</code></td><td class="rend">${a \above 1pt b}$</td><td class="note">custom bar</td></tr>
+      <tr><td class="src"><code>n \choose k</code></td><td class="rend">${n \choose k}$</td><td class="note">TeX binomial</td></tr>
+      <tr><td class="src"><code>\brack</code></td><td class="rend">${n \brack k}$</td><td class="note">[ bracket pair</td></tr>
+      <tr><td class="src"><code>\brace</code></td><td class="rend">${n \brace k}$</td><td class="note">{ brace pair</td></tr>
+      <tr><td class="src"><code>\sqrt{x}</code></td><td class="rend">$\sqrt{x}$</td><td class="note">square root</td></tr>
+      <tr><td class="src"><code>\sqrt[n]{x}</code></td><td class="rend">$\sqrt[n]{x}$</td><td class="note">nth root</td></tr>
+      <tr><td class="src"><code>\surd</code></td><td class="rend">$\surd$</td><td class="note">surd glyph</td></tr>
+      <tr><td class="src"><code>\sum</code></td><td class="rend">$\sum$</td><td class="note">summation</td></tr>
+      <tr><td class="src"><code>\prod</code></td><td class="rend">$\prod$</td><td class="note">product</td></tr>
+      <tr><td class="src"><code>\coprod</code></td><td class="rend">$\coprod$</td><td class="note">coproduct</td></tr>
+      <tr><td class="src"><code>\int</code></td><td class="rend">$\int$</td><td class="note">integral</td></tr>
+      <tr><td class="src"><code>\iint</code></td><td class="rend">$\iint$</td><td class="note">double integral</td></tr>
+      <tr><td class="src"><code>\iiint</code></td><td class="rend">$\iiint$</td><td class="note">triple integral</td></tr>
+      <tr><td class="src"><code>\iiiint</code></td><td class="rend">$\iiiint$</td><td class="note">quadruple</td></tr>
+      <tr><td class="src"><code>\idotsint</code></td><td class="rend">$\idotsint$</td><td class="note">n-fold</td></tr>
+      <tr><td class="src"><code>\oint</code></td><td class="rend">$\oint$</td><td class="note">contour integral</td></tr>
+      <tr><td class="src"><code>\oiint</code></td><td class="rend">$\oiint$</td><td class="note">surface integral</td></tr>
+      <tr><td class="src"><code>\oiiint</code></td><td class="rend">$\oiiint$</td><td class="note">volume integral</td></tr>
+      <tr><td class="src"><code>\intop</code></td><td class="rend">$\intop$</td><td class="note">integral w/ limits</td></tr>
+      <tr><td class="src"><code>\smallint</code></td><td class="rend">$\smallint$</td><td class="note">small integral</td></tr>
+      <tr><td class="src"><code>\bigoplus</code></td><td class="rend">$\bigoplus$</td><td class="note">big ⊕</td></tr>
+      <tr><td class="src"><code>\bigotimes</code></td><td class="rend">$\bigotimes$</td><td class="note">big ⊗</td></tr>
+      <tr><td class="src"><code>\bigodot</code></td><td class="rend">$\bigodot$</td><td class="note">big ⊙</td></tr>
+      <tr><td class="src"><code>\lim</code></td><td class="rend">$\lim$</td><td class="note">limit</td></tr>
+      <tr><td class="src"><code>\limsup</code></td><td class="rend">$\limsup$</td><td class="note">lim sup</td></tr>
+      <tr><td class="src"><code>\liminf</code></td><td class="rend">$\liminf$</td><td class="note">lim inf</td></tr>
+      <tr><td class="src"><code>\varliminf</code></td><td class="rend">$\varliminf$</td><td class="note">variant lim inf</td></tr>
+      <tr><td class="src"><code>\varlimsup</code></td><td class="rend">$\varlimsup$</td><td class="note">variant lim sup</td></tr>
+      <tr><td class="src"><code>\varinjlim</code></td><td class="rend">$\varinjlim$</td><td class="note">direct lim</td></tr>
+      <tr><td class="src"><code>\varprojlim</code></td><td class="rend">$\varprojlim$</td><td class="note">inverse lim</td></tr>
+      <tr><td class="src"><code>\injlim</code></td><td class="rend">$\injlim$</td><td class="note">direct lim (word)</td></tr>
+      <tr><td class="src"><code>\projlim</code></td><td class="rend">$\projlim$</td><td class="note">inverse lim (word)</td></tr>
+      <tr><td class="src"><code>\sup</code></td><td class="rend">$\sup$</td><td class="note">supremum</td></tr>
+      <tr><td class="src"><code>\inf</code></td><td class="rend">$\inf$</td><td class="note">infimum</td></tr>
+      <tr><td class="src"><code>\max</code></td><td class="rend">$\max$</td><td class="note">maximum</td></tr>
+      <tr><td class="src"><code>\min</code></td><td class="rend">$\min$</td><td class="note">minimum</td></tr>
+      <tr><td class="src"><code>\arg</code></td><td class="rend">$\arg$</td><td class="note">argument (complex)</td></tr>
+      <tr><td class="src"><code>\det</code></td><td class="rend">$\det$</td><td class="note">determinant</td></tr>
+      <tr><td class="src"><code>\dim</code></td><td class="rend">$\dim$</td><td class="note">dimension</td></tr>
+      <tr><td class="src"><code>\ker</code></td><td class="rend">$\ker$</td><td class="note">kernel</td></tr>
+      <tr><td class="src"><code>\hom</code></td><td class="rend">$\hom$</td><td class="note">hom</td></tr>
+      <tr><td class="src"><code>\gcd</code></td><td class="rend">$\gcd$</td><td class="note">gcd</td></tr>
+      <tr><td class="src"><code>\lcm</code></td><td class="rend">$\lcm$</td><td class="note">lcm</td></tr>
+      <tr><td class="src"><code>\deg</code></td><td class="rend">$\deg$</td><td class="note">degree</td></tr>
+      <tr><td class="src"><code>\Pr</code></td><td class="rend">$\Pr$</td><td class="note">probability</td></tr>
+      <tr><td class="src"><code>\exp</code></td><td class="rend">$\exp$</td><td class="note">exponential</td></tr>
+      <tr><td class="src"><code>\log</code></td><td class="rend">$\log$</td><td class="note">logarithm</td></tr>
+      <tr><td class="src"><code>\ln</code></td><td class="rend">$\ln$</td><td class="note">natural log</td></tr>
+      <tr><td class="src"><code>\lg</code></td><td class="rend">$\lg$</td><td class="note">log base 2</td></tr>
+      <tr><td class="src"><code>\sin</code></td><td class="rend">$\sin$</td><td class="note">sine</td></tr>
+      <tr><td class="src"><code>\cos</code></td><td class="rend">$\cos$</td><td class="note">cosine</td></tr>
+      <tr><td class="src"><code>\tan</code></td><td class="rend">$\tan$</td><td class="note">tangent</td></tr>
+      <tr><td class="src"><code>\cot</code></td><td class="rend">$\cot$</td><td class="note">cotangent</td></tr>
+      <tr><td class="src"><code>\sec</code></td><td class="rend">$\sec$</td><td class="note">secant</td></tr>
+      <tr><td class="src"><code>\csc</code></td><td class="rend">$\csc$</td><td class="note">cosecant</td></tr>
+      <tr><td class="src"><code>\sinh</code></td><td class="rend">$\sinh$</td><td class="note">hyperbolic sine</td></tr>
+      <tr><td class="src"><code>\cosh</code></td><td class="rend">$\cosh$</td><td class="note">hyperbolic cosine</td></tr>
+      <tr><td class="src"><code>\tanh</code></td><td class="rend">$\tanh$</td><td class="note">hyperbolic tan</td></tr>
+      <tr><td class="src"><code>\coth</code></td><td class="rend">$\coth$</td><td class="note">hyperbolic cot</td></tr>
+      <tr><td class="src"><code>\arcsin</code></td><td class="rend">$\arcsin$</td><td class="note">inverse sine</td></tr>
+      <tr><td class="src"><code>\arccos</code></td><td class="rend">$\arccos$</td><td class="note">inverse cosine</td></tr>
+      <tr><td class="src"><code>\arctan</code></td><td class="rend">$\arctan$</td><td class="note">inverse tan</td></tr>
+      <tr><td class="src"><code>\arccot</code></td><td class="rend">$\arccot$</td><td class="note">inverse cot</td></tr>
+      <tr><td class="src"><code>\arcsec</code></td><td class="rend">$\arcsec$</td><td class="note">inverse sec</td></tr>
+      <tr><td class="src"><code>\arccsc</code></td><td class="rend">$\arccsc$</td><td class="note">inverse csc</td></tr>
+      <tr><td class="src"><code>\arsinh</code></td><td class="rend">$\arsinh$</td><td class="note">inverse sinh</td></tr>
+      <tr><td class="src"><code>\arcosh</code></td><td class="rend">$\arcosh$</td><td class="note">inverse cosh</td></tr>
+      <tr><td class="src"><code>\artanh</code></td><td class="rend">$\artanh$</td><td class="note">inverse tanh</td></tr>
+      <tr><td class="src"><code>\mod</code></td><td class="rend">$a \mod n$</td><td class="note">modulo (infix)</td></tr>
+      <tr><td class="src"><code>\pmod{n}</code></td><td class="rend">$a \pmod{n}$</td><td class="note">parenthesized mod</td></tr>
+      <tr><td class="src"><code>\bmod</code></td><td class="rend">$a \bmod n$</td><td class="note">binary mod</td></tr>
+      <tr><td class="src"><code>\pod{n}</code></td><td class="rend">$a \pod{n}$</td><td class="note">pod-style mod</td></tr>
+      <tr><td class="src"><code>\operatorname{rank}</code></td><td class="rend">$\operatorname{rank}(A)$</td><td class="note">ad-hoc operator</td></tr>
+      <tr><td class="src"><code>\operatornamewithlimits{arg\,max}</code></td><td class="rend">$\operatornamewithlimits{arg\,max}_{x}$</td><td class="note">operator w/ limits</td></tr>
+      <tr><td class="src"><code>\DeclareMathOperator{\Tr}{Tr}</code></td><td class="rend"><em>declares</em> $\operatorname{Tr}$</td><td class="note">declare operator</td></tr>
+      <tr><td class="src"><code>\infty</code></td><td class="rend">$\infty$</td><td class="note">infinity</td></tr>
+      <tr><td class="src"><code>\partial</code></td><td class="rend">$\partial$</td><td class="note">partial derivative</td></tr>
+      <tr><td class="src"><code>\nabla</code></td><td class="rend">$\nabla$</td><td class="note">del / gradient</td></tr>
+      <tr><td class="src"><code>\hbar</code></td><td class="rend">$\hbar$</td><td class="note">reduced Planck</td></tr>
+      <tr><td class="src"><code>\hslash</code></td><td class="rend">$\hslash$</td><td class="note">alt Planck</td></tr>
+      <tr><td class="src"><code>\ell</code></td><td class="rend">$\ell$</td><td class="note">script ℓ</td></tr>
+      <tr><td class="src"><code>\wp</code></td><td class="rend">$\wp$</td><td class="note">Weierstrass p</td></tr>
+      <tr><td class="src"><code>\Re</code></td><td class="rend">$\Re$</td><td class="note">real part</td></tr>
+      <tr><td class="src"><code>\Im</code></td><td class="rend">$\Im$</td><td class="note">imaginary part</td></tr>
+      <tr><td class="src"><code>\imath</code></td><td class="rend">$\imath$</td><td class="note">dotless i</td></tr>
+      <tr><td class="src"><code>\jmath</code></td><td class="rend">$\jmath$</td><td class="note">dotless j</td></tr>
+      <tr><td class="src"><code>\pm</code></td><td class="rend">$\pm$</td><td class="note">plus or minus</td></tr>
+      <tr><td class="src"><code>\mp</code></td><td class="rend">$\mp$</td><td class="note">minus or plus</td></tr>
+      <tr><td class="src"><code>\times</code></td><td class="rend">$\times$</td><td class="note">product</td></tr>
+      <tr><td class="src"><code>\div</code></td><td class="rend">$\div$</td><td class="note">division</td></tr>
+      <tr><td class="src"><code>\cdot</code></td><td class="rend">$a \cdot b$</td><td class="note">center dot</td></tr>
+      <tr><td class="src"><code>\ast</code></td><td class="rend">$\ast$</td><td class="note">asterisk</td></tr>
+      <tr><td class="src"><code>\star</code></td><td class="rend">$\star$</td><td class="note">5-pt star</td></tr>
+      <tr><td class="src"><code>\circ</code></td><td class="rend">$f \circ g$</td><td class="note">composition</td></tr>
+      <tr><td class="src"><code>\bullet</code></td><td class="rend">$\bullet$</td><td class="note">bullet</td></tr>
+      <tr><td class="src"><code>\oplus</code></td><td class="rend">$\oplus$</td><td class="note">direct sum</td></tr>
+      <tr><td class="src"><code>\ominus</code></td><td class="rend">$\ominus$</td><td class="note">circled minus</td></tr>
+      <tr><td class="src"><code>\otimes</code></td><td class="rend">$\otimes$</td><td class="note">tensor product</td></tr>
+      <tr><td class="src"><code>\oslash</code></td><td class="rend">$\oslash$</td><td class="note">circled slash</td></tr>
+      <tr><td class="src"><code>\odot</code></td><td class="rend">$\odot$</td><td class="note">circled dot</td></tr>
+      <tr><td class="src"><code>\boxplus</code></td><td class="rend">$\boxplus$</td><td class="note">boxed plus</td></tr>
+      <tr><td class="src"><code>\boxminus</code></td><td class="rend">$\boxminus$</td><td class="note">boxed minus</td></tr>
+      <tr><td class="src"><code>\boxtimes</code></td><td class="rend">$\boxtimes$</td><td class="note">boxed times</td></tr>
+      <tr><td class="src"><code>\boxdot</code></td><td class="rend">$\boxdot$</td><td class="note">boxed dot</td></tr>
+      <tr><td class="src"><code>\dagger</code></td><td class="rend">$\dagger$</td><td class="note">dagger / adjoint</td></tr>
+      <tr><td class="src"><code>\ddagger</code></td><td class="rend">$\ddagger$</td><td class="note">double dagger</td></tr>
+      <tr><td class="src"><code>\amalg</code></td><td class="rend">$\amalg$</td><td class="note">coproduct glyph</td></tr>
+      <tr><td class="src"><code>\intercal</code></td><td class="rend">$A^{\intercal}$</td><td class="note">transpose</td></tr>
+      <tr><td class="src"><code>\wr</code></td><td class="rend">$\wr$</td><td class="note">wreath product</td></tr>
+      <tr><td class="src"><code>\leftthreetimes</code></td><td class="rend">$\leftthreetimes$</td><td class="note">left-three</td></tr>
+      <tr><td class="src"><code>\rightthreetimes</code></td><td class="rend">$\rightthreetimes$</td><td class="note">right-three</td></tr>
+      <tr><td class="src"><code>\divideontimes</code></td><td class="rend">$\divideontimes$</td><td class="note">divide-on-times</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="brackets" data-cat="brackets" data-label="Brackets">
+<h2>6. Brackets &amp; delimiters</h2>
+<p>Auto-sized delimiters via <code>\left</code> … <code>\right</code>, plus the fixed-size shapes. Mixed pairs are fine: <code>\left\langle x,y \right\rangle</code>.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Brackets &amp; delimiters</div><div class="hint">\left · \right · fixed sizes</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\left( x \right)</code></td><td class="rend">$\left( x \right)$</td><td class="note">auto-sized pair</td></tr>
+      <tr><td class="src"><code>\left[ x \right]</code></td><td class="rend">$\left[ x \right]$</td><td class="note">bracket pair</td></tr>
+      <tr><td class="src"><code>\left\{ x \right\}</code></td><td class="rend">$\left\{ x \right\}$</td><td class="note">brace pair</td></tr>
+      <tr><td class="src"><code>\left| x \right|</code></td><td class="rend">$\left| x \right|$</td><td class="note">abs. value</td></tr>
+      <tr><td class="src"><code>\left\| x \right\|</code></td><td class="rend">$\left\| x \right\|$</td><td class="note">norm</td></tr>
+      <tr><td class="src"><code>\middle|</code></td><td class="rend">$\left\{ x \middle| y \right\}$</td><td class="note">middle divider</td></tr>
+      <tr><td class="src"><code>\langle x \rangle</code></td><td class="rend">$\langle x \rangle$</td><td class="note">angle</td></tr>
+      <tr><td class="src"><code>\lvert x \rvert</code></td><td class="rend">$\lvert x \rvert$</td><td class="note">absolute value</td></tr>
+      <tr><td class="src"><code>\lVert x \rVert</code></td><td class="rend">$\lVert x \rVert$</td><td class="note">norm (doubled)</td></tr>
+      <tr><td class="src"><code>\lfloor x \rfloor</code></td><td class="rend">$\lfloor x \rfloor$</td><td class="note">floor</td></tr>
+      <tr><td class="src"><code>\lceil x \rceil</code></td><td class="rend">$\lceil x \rceil$</td><td class="note">ceiling</td></tr>
+      <tr><td class="src"><code>\lbrace x \rbrace</code></td><td class="rend">$\lbrace x \rbrace$</td><td class="note">brace (fixed)</td></tr>
+      <tr><td class="src"><code>\lbrack x \rbrack</code></td><td class="rend">$\lbrack x \rbrack$</td><td class="note">bracket (fixed)</td></tr>
+      <tr><td class="src"><code>\lBrace x \rBrace</code></td><td class="rend">$\lBrace x \rBrace$</td><td class="note">double brace</td></tr>
+      <tr><td class="src"><code>\llbracket x \rrbracket</code></td><td class="rend">$\llbracket x \rrbracket$</td><td class="note">semantic brackets</td></tr>
+      <tr><td class="src"><code>\lmoustache \rmoustache</code></td><td class="rend">$\lmoustache x \rmoustache$</td><td class="note">moustache</td></tr>
+      <tr><td class="src"><code>\lgroup \rgroup</code></td><td class="rend">$\lgroup x \rgroup$</td><td class="note">group brackets</td></tr>
+      <tr><td class="src"><code>\ulcorner \urcorner</code></td><td class="rend">$\ulcorner x \urcorner$</td><td class="note">upper corners</td></tr>
+      <tr><td class="src"><code>\llcorner \lrcorner</code></td><td class="rend">$\llcorner x \lrcorner$</td><td class="note">lower corners</td></tr>
+      <tr><td class="src"><code>\lang x \rang</code></td><td class="rend">$\lang x \rang$</td><td class="note">alt angle</td></tr>
+      <tr><td class="src"><code>\vert</code></td><td class="rend">$\vert$</td><td class="note">vertical bar</td></tr>
+      <tr><td class="src"><code>\Vert</code></td><td class="rend">$\Vert$</td><td class="note">double bar</td></tr>
+      <tr><td class="src"><code>\backslash</code></td><td class="rend">$\backslash$</td><td class="note">literal \</td></tr>
+      <tr><td class="src"><code>\bigl( \bigr)</code></td><td class="rend">$\bigl( x \bigr)$</td><td class="note">size: big</td></tr>
+      <tr><td class="src"><code>\Bigl( \Bigr)</code></td><td class="rend">$\Bigl( x \Bigr)$</td><td class="note">size: Big</td></tr>
+      <tr><td class="src"><code>\biggl( \biggr)</code></td><td class="rend">$\biggl( x \biggr)$</td><td class="note">size: bigg</td></tr>
+      <tr><td class="src"><code>\Biggl( \Biggr)</code></td><td class="rend">$\Biggl( x \Biggr)$</td><td class="note">size: Bigg</td></tr>
+      <tr><td class="src"><code>\big \Big \bigg \Bigg</code></td><td class="rend">$\big(\ \Big(\ \bigg(\ \Bigg($</td><td class="note">variants: bare</td></tr>
+      <tr><td class="src"><code>\bigm \Bigm \biggm \Biggm</code></td><td class="rend">$\bigm| \Bigm| \biggm| \Biggm|$</td><td class="note">variants: middle</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="fonts" data-cat="fonts" data-label="Fonts">
+<h2>7. Fonts &amp; styles</h2>
+<p>Font switches apply to their argument: <code>\mathbb{Z}</code> produces blackboard bold Z. For text inside math, use <code>\text{…}</code>.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Fonts &amp; styles</div><div class="hint">blackboard · calligraphic · fraktur · text</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\mathbb{R}</code></td><td class="rend">$\mathbb{R}$</td><td class="note">blackboard bold</td></tr>
+      <tr><td class="src"><code>\Bbb{R}</code></td><td class="rend">$\Bbb{R}$</td><td class="note">alias of \mathbb</td></tr>
+      <tr><td class="src"><code>\mathbf{v}</code></td><td class="rend">$\mathbf{v}$</td><td class="note">bold upright</td></tr>
+      <tr><td class="src"><code>\mathbfit{v}</code></td><td class="rend">$\mathbfit{v}$</td><td class="note">bold italic</td></tr>
+      <tr><td class="src"><code>\mathcal{F}</code></td><td class="rend">$\mathcal{F}$</td><td class="note">calligraphic</td></tr>
+      <tr><td class="src"><code>\mathscr{F}</code></td><td class="rend">$\mathscr{F}$</td><td class="note">script</td></tr>
+      <tr><td class="src"><code>\mathfrak{g}</code></td><td class="rend">$\mathfrak{g}$</td><td class="note">fraktur</td></tr>
+      <tr><td class="src"><code>\frak{g}</code></td><td class="rend">$\frak{g}$</td><td class="note">alias of \mathfrak</td></tr>
+      <tr><td class="src"><code>\mathit{variable}</code></td><td class="rend">$\mathit{variable}$</td><td class="note">math italic</td></tr>
+      <tr><td class="src"><code>\mathrm{d}x</code></td><td class="rend">$\mathrm{d}x$</td><td class="note">roman upright</td></tr>
+      <tr><td class="src"><code>\mathsf{T}</code></td><td class="rend">$\mathsf{T}$</td><td class="note">sans-serif</td></tr>
+      <tr><td class="src"><code>\mathsfit{T}</code></td><td class="rend">$\mathsfit{T}$</td><td class="note">sans-serif italic</td></tr>
+      <tr><td class="src"><code>\mathtt{code}</code></td><td class="rend">$\mathtt{code}$</td><td class="note">monospace</td></tr>
+      <tr><td class="src"><code>\mathnormal{xyz}</code></td><td class="rend">$\mathnormal{xyz}$</td><td class="note">default math</td></tr>
+      <tr><td class="src"><code>\boldsymbol{\alpha}</code></td><td class="rend">$\boldsymbol{\alpha}$</td><td class="note">bold symbol</td></tr>
+      <tr><td class="src"><code>\bm{\beta}</code></td><td class="rend">$\bm{\beta}$</td><td class="note">alias</td></tr>
+      <tr><td class="src"><code>\pmb{\gamma}</code></td><td class="rend">$\pmb{\gamma}$</td><td class="note">poor-man's bold</td></tr>
+      <tr><td class="src"><code>\bold{word}</code></td><td class="rend">$\bold{word}$</td><td class="note">bold text-ish</td></tr>
+      <tr><td class="src"><code>\operatorname{rank}</code></td><td class="rend">$\operatorname{rank}$</td><td class="note">define operator</td></tr>
+      <tr><td class="src"><code>\text{text in math}</code></td><td class="rend">$\text{text in math}$</td><td class="note">text escape</td></tr>
+      <tr><td class="src"><code>\textbf{bold}</code></td><td class="rend">$\textbf{bold}$</td><td class="note">text bold</td></tr>
+      <tr><td class="src"><code>\textit{italic}</code></td><td class="rend">$\textit{italic}$</td><td class="note">text italic</td></tr>
+      <tr><td class="src"><code>\textmd{medium}</code></td><td class="rend">$\textmd{medium}$</td><td class="note">text medium</td></tr>
+      <tr><td class="src"><code>\textnormal{reg}</code></td><td class="rend">$\textnormal{reg}$</td><td class="note">text normal</td></tr>
+      <tr><td class="src"><code>\textrm{roman}</code></td><td class="rend">$\textrm{roman}$</td><td class="note">text roman</td></tr>
+      <tr><td class="src"><code>\textsf{sans}</code></td><td class="rend">$\textsf{sans}$</td><td class="note">text sans</td></tr>
+      <tr><td class="src"><code>\texttt{mono}</code></td><td class="rend">$\texttt{mono}$</td><td class="note">text mono</td></tr>
+      <tr><td class="src"><code>\textup{upright}</code></td><td class="rend">$\textup{upright}$</td><td class="note">text upright</td></tr>
+      <tr><td class="src"><code>\textsc{SmallCaps}</code></td><td class="rend">$\textsc{SmallCaps}$</td><td class="note">small caps</td></tr>
+      <tr><td class="src"><code>\emph{em}</code></td><td class="rend">$\emph{em}$</td><td class="note">emphasis</td></tr>
+      <tr><td class="src"><code>\textcolor{red}{R}</code></td><td class="rend">$\textcolor{red}{R}$</td><td class="note">colored text</td></tr>
+      <tr><td class="src"><code>\color{blue} X</code></td><td class="rend">${\color{blue} X}$</td><td class="note">switch color</td></tr>
+      <tr><td class="src"><code>\colorbox{gray}{X}</code></td><td class="rend">$\colorbox{gray}{X}$</td><td class="note">box + color</td></tr>
+      <tr><td class="src"><code>\fcolorbox{red}{gray}{X}</code></td><td class="rend">$\fcolorbox{red}{gray}{X}$</td><td class="note">framed colorbox</td></tr>
+      <tr><td class="src"><code>\displaystyle</code></td><td class="rend">${\displaystyle \sum}$</td><td class="note">force display</td></tr>
+      <tr><td class="src"><code>\textstyle</code></td><td class="rend">${\textstyle \sum}$</td><td class="note">force inline</td></tr>
+      <tr><td class="src"><code>\scriptstyle</code></td><td class="rend">${\scriptstyle \sum}$</td><td class="note">smaller</td></tr>
+      <tr><td class="src"><code>\scriptscriptstyle</code></td><td class="rend">${\scriptscriptstyle \sum}$</td><td class="note">smallest</td></tr>
+      <tr><td class="src"><code>\limits</code></td><td class="rend">$\int\limits_0^1$</td><td class="note">force above/below</td></tr>
+      <tr><td class="src"><code>\nolimits</code></td><td class="rend">$\sum\nolimits_k$</td><td class="note">force side</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="accents" data-cat="accents" data-label="Accents">
+<h2>8. Accents &amp; decorations</h2>
+<p>Hats, tildes, bars, and vector arrows go over a single variable; the <code>\wide…</code> versions stretch to cover an argument of any width.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Accents &amp; decorations</div><div class="hint">single-char · wide · over/under</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\hat{x}</code></td><td class="rend">$\hat{x}$</td><td class="note">hat</td></tr>
+      <tr><td class="src"><code>\widehat{xyz}</code></td><td class="rend">$\widehat{xyz}$</td><td class="note">wide hat</td></tr>
+      <tr><td class="src"><code>\tilde{x}</code></td><td class="rend">$\tilde{x}$</td><td class="note">tilde</td></tr>
+      <tr><td class="src"><code>\widetilde{xyz}</code></td><td class="rend">$\widetilde{xyz}$</td><td class="note">wide tilde</td></tr>
+      <tr><td class="src"><code>\widecheck{xyz}</code></td><td class="rend">$\widecheck{xyz}$</td><td class="note">wide check</td></tr>
+      <tr><td class="src"><code>\utilde{xyz}</code></td><td class="rend">$\utilde{xyz}$</td><td class="note">under-tilde</td></tr>
+      <tr><td class="src"><code>\bar{x}</code></td><td class="rend">$\bar{x}$</td><td class="note">bar</td></tr>
+      <tr><td class="src"><code>\overline{xyz}</code></td><td class="rend">$\overline{xyz}$</td><td class="note">wide bar</td></tr>
+      <tr><td class="src"><code>\underline{xyz}</code></td><td class="rend">$\underline{xyz}$</td><td class="note">underline</td></tr>
+      <tr><td class="src"><code>\vec{v}</code></td><td class="rend">$\vec{v}$</td><td class="note">vector arrow</td></tr>
+      <tr><td class="src"><code>\dot{x}</code></td><td class="rend">$\dot{x}$</td><td class="note">dot (1st deriv.)</td></tr>
+      <tr><td class="src"><code>\ddot{x}</code></td><td class="rend">$\ddot{x}$</td><td class="note">double dot</td></tr>
+      <tr><td class="src"><code>\dddot{x}</code></td><td class="rend">$\dddot{x}$</td><td class="note">triple dot</td></tr>
+      <tr><td class="src"><code>\ddddot{x}</code></td><td class="rend">$\ddddot{x}$</td><td class="note">quadruple dot</td></tr>
+      <tr><td class="src"><code>\breve{x}</code></td><td class="rend">$\breve{x}$</td><td class="note">breve</td></tr>
+      <tr><td class="src"><code>\check{x}</code></td><td class="rend">$\check{x}$</td><td class="note">caron</td></tr>
+      <tr><td class="src"><code>\grave{x}</code></td><td class="rend">$\grave{x}$</td><td class="note">grave accent</td></tr>
+      <tr><td class="src"><code>\acute{x}</code></td><td class="rend">$\acute{x}$</td><td class="note">acute accent</td></tr>
+      <tr><td class="src"><code>\mathring{x}</code></td><td class="rend">$\mathring{x}$</td><td class="note">ring accent</td></tr>
+      <tr><td class="src"><code>\overrightarrow{AB}</code></td><td class="rend">$\overrightarrow{AB}$</td><td class="note">vector arrow</td></tr>
+      <tr><td class="src"><code>\overleftarrow{AB}</code></td><td class="rend">$\overleftarrow{AB}$</td><td class="note">reverse vector</td></tr>
+      <tr><td class="src"><code>\overleftrightarrow{AB}</code></td><td class="rend">$\overleftrightarrow{AB}$</td><td class="note">segment</td></tr>
+      <tr><td class="src"><code>\underrightarrow{AB}</code></td><td class="rend">$\underrightarrow{AB}$</td><td class="note">under-arrow</td></tr>
+      <tr><td class="src"><code>\underleftarrow{AB}</code></td><td class="rend">$\underleftarrow{AB}$</td><td class="note">under-arrow left</td></tr>
+      <tr><td class="src"><code>\underleftrightarrow{AB}</code></td><td class="rend">$\underleftrightarrow{AB}$</td><td class="note">under-bidir.</td></tr>
+      <tr><td class="src"><code>\overrightharpoon{AB}</code></td><td class="rend">$\overrightharpoon{AB}$</td><td class="note">harpoon accent</td></tr>
+      <tr><td class="src"><code>\overleftharpoon{AB}</code></td><td class="rend">$\overleftharpoon{AB}$</td><td class="note">left harpoon accent</td></tr>
+      <tr><td class="src"><code>\overbrace{1{+}\cdots{+}n}</code></td><td class="rend">$\overbrace{1+\cdots+n}$</td><td class="note">over-brace</td></tr>
+      <tr><td class="src"><code>\underbrace{x_1,\ldots,x_n}</code></td><td class="rend">$\underbrace{x_1,\ldots,x_n}$</td><td class="note">under-brace</td></tr>
+      <tr><td class="src"><code>\overgroup{x}</code></td><td class="rend">$\overgroup{xyz}$</td><td class="note">over-group</td></tr>
+      <tr><td class="src"><code>\undergroup{x}</code></td><td class="rend">$\undergroup{xyz}$</td><td class="note">under-group</td></tr>
+      <tr><td class="src"><code>\overbracket{x}</code></td><td class="rend">$\overbracket{xyz}$</td><td class="note">over-bracket</td></tr>
+      <tr><td class="src"><code>\underbracket{x}</code></td><td class="rend">$\underbracket{xyz}$</td><td class="note">under-bracket</td></tr>
+      <tr><td class="src"><code>\overparen{x}</code></td><td class="rend">$\overparen{xyz}$</td><td class="note">over-paren</td></tr>
+      <tr><td class="src"><code>\underparen{x}</code></td><td class="rend">$\underparen{xyz}$</td><td class="note">under-paren</td></tr>
+      <tr><td class="src"><code>\overlinesegment{x}</code></td><td class="rend">$\overlinesegment{xyz}$</td><td class="note">over-segment</td></tr>
+      <tr><td class="src"><code>\underlinesegment{x}</code></td><td class="rend">$\underlinesegment{xyz}$</td><td class="note">under-segment</td></tr>
+      <tr><td class="src"><code>\cancel{x}</code></td><td class="rend">$\cancel{x}$</td><td class="note">strike through</td></tr>
+      <tr><td class="src"><code>\bcancel{x}</code></td><td class="rend">$\bcancel{x}$</td><td class="note">back cancel</td></tr>
+      <tr><td class="src"><code>\xcancel{x}</code></td><td class="rend">$\xcancel{x}$</td><td class="note">X cancel</td></tr>
+      <tr><td class="src"><code>\sout{gone}</code></td><td class="rend">$\sout{gone}$</td><td class="note">strike-out</td></tr>
+      <tr><td class="src"><code>\ulem{y}</code></td><td class="rend">$\ulem{y}$</td><td class="note">underline (ulem)</td></tr>
+      <tr><td class="src"><code>\boxed{x}</code></td><td class="rend">$\boxed{x}$</td><td class="note">framed box</td></tr>
+      <tr><td class="src"><code>\fbox{x}</code></td><td class="rend">$\fbox{x}$</td><td class="note">box (\fbox)</td></tr>
+      <tr><td class="src"><code>\framebox[1em]{x}</code></td><td class="rend">$\framebox[1em]{x}$</td><td class="note">sized framebox</td></tr>
+      <tr><td class="src"><code>\enclose{updiagonalstrike}{x}</code></td><td class="rend">$\enclose{updiagonalstrike}{x}$</td><td class="note">MathML enclose</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="envs" data-cat="envs" data-label="Environments">
+<h2>9. Environments</h2>
+<p>Multi-line and matrix-shaped constructs go inside <code>\begin{…}</code>/<code>\end{…}</code>. Use <code>&amp;</code> for column separators and <code>\\</code> for row breaks.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Environments</div><div class="hint">matrices · alignment · cases</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\begin{aligned} a &amp;= b \\ c &amp;= d \end{aligned}</code></td><td class="rend">$\begin{aligned} a &amp;= b \\ c &amp;= d \end{aligned}$</td><td class="note">aligned equations</td></tr>
+      <tr><td class="src"><code>\begin{align} a &amp;= b \end{align}</code></td><td class="rend">$\begin{aligned} a &amp;= b \end{aligned}$</td><td class="note">numbered align</td></tr>
+      <tr><td class="src"><code>\begin{alignat}{2} … \end{alignat}</code></td><td class="rend">$\begin{aligned} a &amp;= b &amp; c &amp;= d \end{aligned}$</td><td class="note">n-column align</td></tr>
+      <tr><td class="src"><code>\begin{gather} a \\ b \end{gather}</code></td><td class="rend">$\begin{gathered} a \\ b \end{gathered}$</td><td class="note">centered stack</td></tr>
+      <tr><td class="src"><code>\begin{gathered} a \\ b \end{gathered}</code></td><td class="rend">$\begin{gathered} a \\ b \end{gathered}$</td><td class="note">gathered inline</td></tr>
+      <tr><td class="src"><code>\begin{multline} \cdots \end{multline}</code></td><td class="rend">$\begin{gathered} a + b = \\ c + d \end{gathered}$</td><td class="note">multi-line</td></tr>
+      <tr><td class="src"><code>\begin{split} a &amp;= b \end{split}</code></td><td class="rend">$\begin{aligned} a &amp;= b \end{aligned}$</td><td class="note">single split eqn</td></tr>
+      <tr><td class="src"><code>\begin{equation} x=y \end{equation}</code></td><td class="rend">$x=y$</td><td class="note">display equation</td></tr>
+      <tr><td class="src"><code>\begin{eqnarray} a &amp;=&amp; b \end{eqnarray}</code></td><td class="rend">$\begin{aligned} a &amp;=&amp; b \end{aligned}$</td><td class="note">legacy align</td></tr>
+      <tr><td class="src"><code>\begin{array}{cc} 1 &amp; 2 \\ 3 &amp; 4 \end{array}</code></td><td class="rend">$\begin{array}{cc} 1 &amp; 2 \\ 3 &amp; 4 \end{array}$</td><td class="note">generic array</td></tr>
+      <tr><td class="src"><code>\begin{matrix} a &amp; b \\ c &amp; d \end{matrix}</code></td><td class="rend">$\begin{matrix} a &amp; b \\ c &amp; d \end{matrix}$</td><td class="note">bare matrix</td></tr>
+      <tr><td class="src"><code>\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}</code></td><td class="rend">$\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}$</td><td class="note">( ) matrix</td></tr>
+      <tr><td class="src"><code>\begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}</code></td><td class="rend">$\begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}$</td><td class="note">[ ] matrix</td></tr>
+      <tr><td class="src"><code>\begin{Bmatrix} … \end{Bmatrix}</code></td><td class="rend">$\begin{Bmatrix} a &amp; b \\ c &amp; d \end{Bmatrix}$</td><td class="note">{ } matrix</td></tr>
+      <tr><td class="src"><code>\begin{vmatrix} … \end{vmatrix}</code></td><td class="rend">$\begin{vmatrix} a &amp; b \\ c &amp; d \end{vmatrix}$</td><td class="note">| | determinant</td></tr>
+      <tr><td class="src"><code>\begin{Vmatrix} … \end{Vmatrix}</code></td><td class="rend">$\begin{Vmatrix} a &amp; b \\ c &amp; d \end{Vmatrix}$</td><td class="note">‖ ‖ matrix</td></tr>
+      <tr><td class="src"><code>\begin{smallmatrix} … \end{smallmatrix}</code></td><td class="rend">$\bigl(\begin{smallmatrix} a &amp; b \\ c &amp; d \end{smallmatrix}\bigr)$</td><td class="note">inline matrix</td></tr>
+      <tr><td class="src"><code>\begin{cases} x &amp; \text{if } a \\ y &amp; \text{else} \end{cases}</code></td><td class="rend">$\begin{cases} x &amp; \text{if } a \\ y &amp; \text{else} \end{cases}$</td><td class="note">piecewise</td></tr>
+      <tr><td class="src"><code>\begin{subarray}{l} i &lt; n \\ j &gt; 0 \end{subarray}</code></td><td class="rend">$\sum_{\begin{subarray}{l} i &lt; n \\ j &gt; 0 \end{subarray}}$</td><td class="note">subscript stack</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<section class="cat" id="misc" data-cat="misc" data-label="Misc">
+<h2>10. Miscellaneous</h2>
+<p>Dots, spacing, stacking, boxes, tagging, and TeX primitives that don't fit neatly above. The <em>spacing</em> commands are invaluable for tuning math typography — prefer <code>\,</code> / <code>\;</code> / <code>\quad</code> over literal whitespace.</p>
+<div class="widget">
+  <div class="hd"><div class="ttl">Miscellaneous</div><div class="hint">dots · spacing · stacking · misc symbols</div></div>
+  <table class="macros"><colgroup><col class="c-src"><col class="c-rend"><col class="c-note"></colgroup>
+    <thead><tr><th>source</th><th>renders</th><th>notes</th></tr></thead>
+    <tbody>
+      <tr><td class="src"><code>\cdots</code></td><td class="rend">$a \cdots z$</td><td class="note">centered dots</td></tr>
+      <tr><td class="src"><code>\ldots</code></td><td class="rend">$a, \ldots, z$</td><td class="note">baseline dots</td></tr>
+      <tr><td class="src"><code>\dots</code></td><td class="rend">$a, \dots, z$</td><td class="note">smart dots</td></tr>
+      <tr><td class="src"><code>\dotsb</code></td><td class="rend">$a \dotsb z$</td><td class="note">dots with binop</td></tr>
+      <tr><td class="src"><code>\dotsc</code></td><td class="rend">$a, \dotsc, z$</td><td class="note">dots with comma</td></tr>
+      <tr><td class="src"><code>\dotsi</code></td><td class="rend">$\int \dotsi \int$</td><td class="note">dots with integral</td></tr>
+      <tr><td class="src"><code>\dotsm</code></td><td class="rend">$a \dotsm z$</td><td class="note">dots with multiply</td></tr>
+      <tr><td class="src"><code>\dotso</code></td><td class="rend">$a \dotso z$</td><td class="note">dots (other)</td></tr>
+      <tr><td class="src"><code>\vdots</code></td><td class="rend">$\vdots$</td><td class="note">vertical dots</td></tr>
+      <tr><td class="src"><code>\ddots</code></td><td class="rend">$\ddots$</td><td class="note">diagonal dots</td></tr>
+      <tr><td class="src"><code>\iddots</code></td><td class="rend">$\iddots$</td><td class="note">anti-diagonal dots</td></tr>
+      <tr><td class="src"><code>\quad</code></td><td class="rend">$a \quad b$</td><td class="note">1 em space</td></tr>
+      <tr><td class="src"><code>\qquad</code></td><td class="rend">$a \qquad b$</td><td class="note">2 em space</td></tr>
+      <tr><td class="src"><code>\,</code> / <code>\thinspace</code></td><td class="rend">$a \, b$</td><td class="note">thin space</td></tr>
+      <tr><td class="src"><code>\:</code> / <code>\medspace</code></td><td class="rend">$a \: b$</td><td class="note">medium space</td></tr>
+      <tr><td class="src"><code>\;</code> / <code>\thickspace</code></td><td class="rend">$a \; b$</td><td class="note">thick space</td></tr>
+      <tr><td class="src"><code>\!</code> / <code>\negthinspace</code></td><td class="rend">$a \! b$</td><td class="note">neg. thin space</td></tr>
+      <tr><td class="src"><code>\negmedspace</code></td><td class="rend">$a \negmedspace b$</td><td class="note">neg. medium</td></tr>
+      <tr><td class="src"><code>\negthickspace</code></td><td class="rend">$a \negthickspace b$</td><td class="note">neg. thick</td></tr>
+      <tr><td class="src"><code>\enspace</code></td><td class="rend">$a \enspace b$</td><td class="note">en-space</td></tr>
+      <tr><td class="src"><code>\nobreakspace</code></td><td class="rend">$a \nobreakspace b$</td><td class="note">non-breaking</td></tr>
+      <tr><td class="src"><code>\space</code></td><td class="rend">$a \space b$</td><td class="note">ordinary space</td></tr>
+      <tr><td class="src"><code>\kern 10pt</code></td><td class="rend">$a\kern10pt b$</td><td class="note">horizontal kern</td></tr>
+      <tr><td class="src"><code>\mkern 10mu</code></td><td class="rend">$a\mkern10mu b$</td><td class="note">math-unit kern</td></tr>
+      <tr><td class="src"><code>\hskip 10pt</code></td><td class="rend">$a\hskip10pt b$</td><td class="note">horizontal skip</td></tr>
+      <tr><td class="src"><code>\mskip 10mu</code></td><td class="rend">$a\mskip10mu b$</td><td class="note">math skip</td></tr>
+      <tr><td class="src"><code>\hspace{1em}</code></td><td class="rend">$a\hspace{1em} b$</td><td class="note">measured hspace</td></tr>
+      <tr><td class="src"><code>\mspace{4mu}</code></td><td class="rend">$a\mspace{4mu} b$</td><td class="note">math mspace</td></tr>
+      <tr><td class="src"><code>\vphantom{x}</code></td><td class="rend">$[\vphantom{y} a]$</td><td class="note">vertical phantom</td></tr>
+      <tr><td class="src"><code>\hphantom{xyz}</code></td><td class="rend">$[\hphantom{xyz}]$</td><td class="note">horizontal phantom</td></tr>
+      <tr><td class="src"><code>\phantom{xyz}</code></td><td class="rend">$[\phantom{xyz}]$</td><td class="note">full phantom</td></tr>
+      <tr><td class="src"><code>\strut</code></td><td class="rend">$\strut a$</td><td class="note">vertical strut</td></tr>
+      <tr><td class="src"><code>\mathstrut</code></td><td class="rend">$\mathstrut a$</td><td class="note">math strut</td></tr>
+      <tr><td class="src"><code>\smash{y}</code></td><td class="rend">$\smash{y}$</td><td class="note">zero-height</td></tr>
+      <tr><td class="src"><code>\underset{*}{=}</code></td><td class="rend">$\underset{*}{=}$</td><td class="note">annotate below</td></tr>
+      <tr><td class="src"><code>\overset{\mathrm{def}}{=}</code></td><td class="rend">$\overset{\mathrm{def}}{=}$</td><td class="note">annotate above</td></tr>
+      <tr><td class="src"><code>\stackrel{f}{\to}</code></td><td class="rend">$\stackrel{f}{\to}$</td><td class="note">label on relation</td></tr>
+      <tr><td class="src"><code>\stackbin{\oplus}{=}</code></td><td class="rend">$\stackbin{\oplus}{=}$</td><td class="note">label on binop</td></tr>
+      <tr><td class="src"><code>\substack{i=1 \\ j=2}</code></td><td class="rend">$\sum_{\substack{i=1 \\ j=2}}$</td><td class="note">stacked subscript</td></tr>
+      <tr><td class="src"><code>\sideset{_a^b}{_c^d}\sum</code></td><td class="rend">$\sideset{_a^b}{_c^d}\sum$</td><td class="note">side-decorate sum</td></tr>
+      <tr><td class="src"><code>\prescript{a}{b}{X}</code></td><td class="rend">$\prescript{a}{b}{X}$</td><td class="note">pre-subscript</td></tr>
+      <tr><td class="src"><code>\rlap{x}</code></td><td class="rend">$\rlap{xx}y$</td><td class="note">zero-width right</td></tr>
+      <tr><td class="src"><code>\llap{x}</code></td><td class="rend">$y\llap{xx}$</td><td class="note">zero-width left</td></tr>
+      <tr><td class="src"><code>\mathclap{x}</code></td><td class="rend">$\sum_{\mathclap{n=0}}^{N}$</td><td class="note">math clap</td></tr>
+      <tr><td class="src"><code>\mathllap{x}</code></td><td class="rend">$A \mathllap{-}$</td><td class="note">math llap</td></tr>
+      <tr><td class="src"><code>\mathrlap{x}</code></td><td class="rend">$A \mathrlap{=}$</td><td class="note">math rlap</td></tr>
+      <tr><td class="src"><code>\raisebox{2pt}{y}</code></td><td class="rend">$\raisebox{2pt}{y}$</td><td class="note">raise text</td></tr>
+      <tr><td class="src"><code>\tag{*}</code></td><td class="rend">$x = y \tag{*}$</td><td class="note">equation tag</td></tr>
+      <tr><td class="src"><code>\notag</code></td><td class="rend">(suppresses label)</td><td class="note">no numbering</td></tr>
+      <tr><td class="src"><code>\label{eq:1}</code></td><td class="rend">(names eq.)</td><td class="note">label for \ref</td></tr>
+      <tr><td class="src"><code>\ref{eq:1}</code></td><td class="rend">(prints label)</td><td class="note">reference</td></tr>
+      <tr><td class="src"><code>\eqref{eq:1}</code></td><td class="rend">(1)</td><td class="note">parenthesized ref</td></tr>
+      <tr><td class="src"><code>\hline</code></td><td class="rend">(row rule)</td><td class="note">horizontal rule</td></tr>
+      <tr><td class="src"><code>\cline{1-2}</code></td><td class="rend">(span rule)</td><td class="note">partial rule</td></tr>
+      <tr><td class="src"><code>\hdashline</code></td><td class="rend">(dashed rule)</td><td class="note">dashed rule</td></tr>
+      <tr><td class="src"><code>\toprule \midrule \bottomrule</code></td><td class="rend">(booktabs rules)</td><td class="note">table rules</td></tr>
+      <tr><td class="src"><code>\intertext{\bf note}</code></td><td class="rend">(interleave text)</td><td class="note">interrupt align</td></tr>
+      <tr><td class="src"><code>\shortintertext{…}</code></td><td class="rend">(short intertext)</td><td class="note">short variant</td></tr>
+      <tr><td class="src"><code>\abovewithdelims</code></td><td class="rend">${a\abovewithdelims()1pt b}$</td><td class="note">above + delims</td></tr>
+      <tr><td class="src"><code>\atopwithdelims</code></td><td class="rend">${a\atopwithdelims()b}$</td><td class="note">atop + delims</td></tr>
+      <tr><td class="src"><code>\overwithdelims</code></td><td class="rend">${a\overwithdelims[]b}$</td><td class="note">over + delims</td></tr>
+      <tr><td class="src"><code>\mathchoice{D}{T}{S}{SS}</code></td><td class="rend">$\mathchoice{D}{T}{S}{SS}$</td><td class="note">style-dispatch</td></tr>
+      <tr><td class="src"><code>\char`A</code></td><td class="rend">$\char`A$</td><td class="note">char by code</td></tr>
+      <tr><td class="src"><code>\relax</code></td><td class="rend">(no-op)</td><td class="note">stop expansion</td></tr>
+      <tr><td class="src"><code>\expandafter</code></td><td class="rend">(macro control)</td><td class="note">expand-after</td></tr>
+      <tr><td class="src"><code>\noexpand</code></td><td class="rend">(macro control)</td><td class="note">suppress expand</td></tr>
+      <tr><td class="src"><code>\def \newcommand \renewcommand \providecommand</code></td><td class="rend">(define macros)</td><td class="note">user macros</td></tr>
+      <tr><td class="src"><code>\string</code></td><td class="rend">(macro control)</td><td class="note">stringify macro</td></tr>
+      <tr><td class="src"><code>\message{hi}</code></td><td class="rend">(log-only)</td><td class="note">log message</td></tr>
+      <tr><td class="src"><code>\global</code></td><td class="rend">(scope prefix)</td><td class="note">global prefix</td></tr>
+      <tr><td class="src"><code>\colon</code></td><td class="rend">$f \colon A \to B$</td><td class="note">colon (map style)</td></tr>
+      <tr><td class="src"><code>\semicolon</code></td><td class="rend">$x \semicolon y$</td><td class="note">semicolon</td></tr>
+      <tr><td class="src"><code>\lq \rq</code></td><td class="rend">$\lq x \rq$</td><td class="note">left/right quote</td></tr>
+      <tr><td class="src"><code>\diamond</code></td><td class="rend">$\diamond$</td><td class="note">diamond binop</td></tr>
+      <tr><td class="src"><code>\Diamond</code></td><td class="rend">$\Diamond$</td><td class="note">open diamond</td></tr>
+      <tr><td class="src"><code>\triangle</code></td><td class="rend">$\triangle$</td><td class="note">open triangle</td></tr>
+      <tr><td class="src"><code>\bigtriangleup</code></td><td class="rend">$\bigtriangleup$</td><td class="note">big triangle up</td></tr>
+      <tr><td class="src"><code>\bigtriangledown</code></td><td class="rend">$\bigtriangledown$</td><td class="note">big triangle dn</td></tr>
+      <tr><td class="src"><code>\triangleleft</code></td><td class="rend">$\triangleleft$</td><td class="note">normal subgroup</td></tr>
+      <tr><td class="src"><code>\triangleright</code></td><td class="rend">$\triangleright$</td><td class="note">reverse normal</td></tr>
+      <tr><td class="src"><code>\lhd \rhd \unlhd \unrhd</code></td><td class="rend">$\lhd\ \rhd\ \unlhd\ \unrhd$</td><td class="note">hd relations</td></tr>
+      <tr><td class="src"><code>\spadesuit \clubsuit \heartsuit \diamondsuit</code></td><td class="rend">$\spadesuit \clubsuit \heartsuit \diamondsuit$</td><td class="note">card suits</td></tr>
+      <tr><td class="src"><code>\angle \measuredangle \sphericalangle</code></td><td class="rend">$\angle\ \measuredangle\ \sphericalangle$</td><td class="note">angles</td></tr>
+      <tr><td class="src"><code>\flat \natural \sharp</code></td><td class="rend">$\flat \natural \sharp$</td><td class="note">music accidentals</td></tr>
+      <tr><td class="src"><code>\S \P</code></td><td class="rend">$\S\ \P$</td><td class="note">section · paragraph</td></tr>
+      <tr><td class="src"><code>\pounds \yen</code></td><td class="rend">$\pounds\ \yen$</td><td class="note">currency</td></tr>
+      <tr><td class="src"><code>\checkmark</code></td><td class="rend">$\checkmark$</td><td class="note">check mark</td></tr>
+      <tr><td class="src"><code>\diagup \diagdown</code></td><td class="rend">$\diagup\ \diagdown$</td><td class="note">diagonals</td></tr>
+      <tr><td class="src"><code>\copyright \circledR \circledS</code></td><td class="rend">$\copyright\ \circledR\ \circledS$</td><td class="note">circled letters</td></tr>
+      <tr><td class="src"><code>\Finv \Game</code></td><td class="rend">$\Finv\ \Game$</td><td class="note">misc symbols</td></tr>
+      <tr><td class="src"><code>\eth \mho</code></td><td class="rend">$\eth\ \mho$</td><td class="note">misc letters</td></tr>
+      <tr><td class="src"><code>\Bbbk</code></td><td class="rend">$\Bbbk$</td><td class="note">bb lowercase k</td></tr>
+      <tr><td class="src"><code>\Sha</code></td><td class="rend">$\Sha$</td><td class="note">Tate–Shafarevich</td></tr>
+      <tr><td class="src"><code>\H{o} \c{c} \v{e} \u{a} \r{o} \b{x} \d{x} \t{ae} \l \o \O \aa \AA \ss</code></td><td class="rend"><span style="font-family:serif">Ö ç ě ă o̊ x̱ ẋ a͡e ł ø Ø å Å ß</span></td><td class="note">text accents &amp; ligatures</td></tr>
+    </tbody>
+  </table>
+  <div class="empty">No matches in this category.</div>
+</div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* Cheatsheet filter: live text search + category chip toggles. */
+(function(){
+  const $ = (s,r=document)=>r.querySelector(s);
+  const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+
+  const sections = $$('section.cat');
+  const search = $('#cheat-search');
+  const resetBtn = $('#cheat-reset');
+  const countEl = $('#cheat-count');
+  const chipsEl = $('#cheat-chips');
+
+  // Build chips from the sections' data-label / data-cat. Chips start "on".
+  const active = new Set(sections.map(s => s.dataset.cat));
+  sections.forEach(s => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip on';
+    btn.dataset.cat = s.dataset.cat;
+    btn.textContent = s.dataset.label;
+    btn.addEventListener('click', () => {
+      if (active.has(s.dataset.cat)) active.delete(s.dataset.cat);
+      else active.add(s.dataset.cat);
+      btn.classList.toggle('on');
+      apply();
+    });
+    chipsEl.appendChild(btn);
+  });
+
+  // Precompute a plain-text search key per row: concat source (code) and the
+  // rendered-target text (pre-KaTeX since KaTeX may not have run yet). The
+  // latter includes macro names inside `$…$` spans, so partial matches still
+  // fire on the raw tokens before render.
+  const rows = [];
+  sections.forEach(sec => {
+    $$('table.macros tbody tr', sec).forEach(tr => {
+      const srcText = (tr.querySelector('td.src')?.textContent || '').toLowerCase();
+      const rendText = (tr.querySelector('td.rend')?.textContent || '').toLowerCase();
+      const noteText = (tr.querySelector('td.note')?.textContent || '').toLowerCase();
+      rows.push({ tr, sec, key: srcText + '  ' + rendText + '  ' + noteText });
+    });
+  });
+
+  function apply(){
+    const q = (search.value || '').trim().toLowerCase();
+    let shown = 0, total = 0;
+    // Reset section counters
+    const perSecShown = new Map();
+    sections.forEach(s => perSecShown.set(s, 0));
+    // Toggle rows
+    for (const r of rows) {
+      total++;
+      const catOn = active.has(r.sec.dataset.cat);
+      const matches = !q || r.key.indexOf(q) !== -1;
+      const visible = catOn && matches;
+      r.tr.classList.toggle('hidden', !visible);
+      if (visible) {
+        shown++;
+        perSecShown.set(r.sec, (perSecShown.get(r.sec) || 0) + 1);
+      }
+    }
+    // Toggle sections themselves: hide entirely if chip is off; mark "no-matches" if chip on but zero matches.
+    sections.forEach(sec => {
+      const catOn = active.has(sec.dataset.cat);
+      sec.classList.toggle('hidden', !catOn);
+      sec.classList.toggle('no-matches', catOn && perSecShown.get(sec) === 0 && !!q);
+    });
+    countEl.textContent = q || active.size !== sections.length
+      ? `${shown} / ${total} macros · ${active.size} / ${sections.length} categories`
+      : `${total} macros across ${sections.length} categories`;
+  }
+
+  search.addEventListener('input', apply);
+  resetBtn.addEventListener('click', () => {
+    search.value = '';
+    active.clear();
+    sections.forEach(s => active.add(s.dataset.cat));
+    $$('.chip', chipsEl).forEach(c => c.classList.add('on'));
+    apply();
+  });
+
+  apply();
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting (copied from topic-page template) */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
