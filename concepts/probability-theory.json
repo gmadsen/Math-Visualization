@@ -1,0 +1,91 @@
+{
+  "topic": "probability-theory",
+  "title": "Probability theory",
+  "page": "probability-theory.html",
+  "concepts": [
+    {
+      "id": "sample-spaces-events",
+      "title": "Sample spaces, events, and probability measures",
+      "anchor": "sample",
+      "prereqs": ["sigma-algebras", "lebesgue-measure"],
+      "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$."
+    },
+    {
+      "id": "conditional-bayes",
+      "title": "Conditional probability and Bayes' rule",
+      "anchor": "bayes",
+      "prereqs": ["sample-spaces-events"],
+      "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
+    },
+    {
+      "id": "random-variables",
+      "title": "Random variables",
+      "anchor": "rv",
+      "prereqs": ["sample-spaces-events", "measurable-functions"],
+      "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
+    },
+    {
+      "id": "supports-distributions",
+      "title": "Supports, distributions, and densities",
+      "anchor": "supports",
+      "prereqs": ["random-variables"],
+      "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo."
+    },
+    {
+      "id": "expectation-moments",
+      "title": "Expectation, variance, and moments",
+      "anchor": "expectation",
+      "prereqs": ["random-variables", "lebesgue-integral", "lp-spaces"],
+      "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
+    },
+    {
+      "id": "generating-functions",
+      "title": "Moment and characteristic functions",
+      "anchor": "gen-fun",
+      "prereqs": ["expectation-moments"],
+      "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents."
+    },
+    {
+      "id": "convergence-rv",
+      "title": "Modes of convergence",
+      "anchor": "conv",
+      "prereqs": ["random-variables", "convergence-theorems"],
+      "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob."
+    },
+    {
+      "id": "law-of-large-numbers",
+      "title": "Law of large numbers",
+      "anchor": "lln",
+      "prereqs": ["convergence-rv", "expectation-moments"],
+      "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
+    },
+    {
+      "id": "central-limit-theorem",
+      "title": "Central limit theorem",
+      "anchor": "clt",
+      "prereqs": ["convergence-rv", "generating-functions"],
+      "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
+    },
+    {
+      "id": "markov-chains",
+      "title": "Markov chains",
+      "anchor": "markov",
+      "prereqs": ["conditional-bayes", "algebraic-structures"],
+      "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
+    },
+    {
+      "id": "martingales",
+      "title": "Martingales",
+      "anchor": "martingales",
+      "prereqs": ["conditional-bayes", "convergence-rv"],
+      "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
+    },
+    {
+      "id": "brownian-motion",
+      "title": "Brownian motion",
+      "anchor": "brownian",
+      "prereqs": ["central-limit-theorem", "martingales"],
+      "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
+    }
+  ]
+}

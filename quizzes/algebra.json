@@ -356,6 +356,494 @@
           "explain": "$[\\mathbb{F}_{2^3}:\\mathbb{F}_2]=3$, so the minimal polynomial of any primitive element must have degree exactly $3$. The polynomial $x^3+x+1$ is irreducible over $\\mathbb{F}_2$ (no roots in $\\mathbb{F}_2$) and serves as a minimal polynomial for a generator. Degree-$7$ would make no sense as a minimal poly; degree $2$ gives $\\mathbb{F}_4\\neq\\mathbb{F}_8$."
         }
       ]
+    },
+    "subgroups-cosets-lagrange": {
+      "title": "Subgroups, cosets, and Lagrange",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "If $|G|=60$ and $H\\le G$ with $|H|=12$, how many left cosets $gH$ does $H$ have in $G$?",
+          "answer": 5,
+          "tol": 1e-9,
+          "explain": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $H\\le G$ and $g\\in G$. Which statement about the left coset $gH$ is always true?",
+          "choices": [
+            "$|gH|=|H|$ because $h\\mapsto gh$ is a bijection $H\\to gH$",
+            "$gH$ is itself a subgroup of $G$",
+            "$gH=Hg$ for every $g\\in G$",
+            "$gH$ contains the identity $e$"
+          ],
+          "answer": 0,
+          "explain": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality. Cosets are not subgroups unless $g\\in H$ (then $gH=H$ contains $e$); left and right cosets coincide only when $H$ is normal."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select <em>all</em> statements equivalent to $H\\trianglelefteq G$ (i.e., $H$ is normal in $G$).",
+          "choices": [
+            "$gH=Hg$ for every $g\\in G$",
+            "$gHg^{-1}\\subseteq H$ for every $g\\in G$",
+            "$H$ has prime index $[G:H]=p$",
+            "$H$ is the kernel of some homomorphism $\\varphi: G\\to K$",
+            "$H$ is abelian"
+          ],
+          "answer": [0, 1, 3],
+          "hint": "Normality is intrinsic to the $H\\hookrightarrow G$ embedding; it doesn't depend on internal structure of $H$.",
+          "explain": "Coset equality $gH=Hg$, closure under conjugation $gHg^{-1}\\subseteq H$, and being the kernel of a homomorphism are the three standard equivalent definitions of normality. Prime index and abelianness can occur with non-normal or with normal subgroups; neither implies normality in general (though index $2$ always does)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $H,K\\le G$ be finite subgroups with $\\gcd(|H|,|K|)=1$. What is $|H\\cap K|$?",
+          "choices": [
+            "$|H\\cap K|=1$ (trivial)",
+            "$|H\\cap K|=\\gcd(|H|,|K|)=1$ vacuously, so it could be any divisor of $1$ — namely $1$",
+            "$|H\\cap K|=\\min(|H|,|K|)$",
+            "$|H\\cap K|$ depends on $G$ and cannot be determined"
+          ],
+          "answer": 0,
+          "hint": "$H\\cap K$ is a subgroup of both $H$ and $K$; apply Lagrange twice.",
+          "explain": "Because $H\\cap K\\le H$, $|H\\cap K|$ divides $|H|$; similarly it divides $|K|$. So $|H\\cap K|\\mid\\gcd(|H|,|K|)=1$, forcing $|H\\cap K|=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider $H=\\langle (12)\\rangle\\le S_3$, of order $2$. Is $H$ normal in $S_3$?",
+          "choices": [
+            "No: conjugating $(12)$ by $(13)$ gives $(23)\\notin H$, so $gHg^{-1}\\ne H$",
+            "Yes, because $H$ has prime order",
+            "Yes, because $H$ is cyclic",
+            "Yes, because $[S_3:H]=3$ is prime"
+          ],
+          "answer": 0,
+          "hint": "Normal subgroups must be closed under conjugation by every group element.",
+          "explain": "$(13)(12)(13)^{-1}=(13)(12)(13)=(23)$, which lies outside $H=\\{e,(12)\\}$. Hence $H$ is not normal. Only index-$2$ subgroups are automatically normal; prime index alone is not enough when the index is $>2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $G$ be a finite group and suppose $H\\le G$ with $[G:H]=3$. The left cosets partition $G$ into $3$ blocks each of size $|H|$. If additionally $|G|=12$, what is $|H|$?",
+          "answer": 4,
+          "tol": 1e-9,
+          "explain": "$|H|=|G|/[G:H]=12/3=4$."
+        }
+      ]
+    },
+    "quotient-groups-iso-theorems": {
+      "title": "Quotient groups and isomorphism theorems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "When is the coset multiplication $(aN)(bN)=(ab)N$ well-defined on $G/N$?",
+          "choices": [
+            "Exactly when $N$ is a normal subgroup of $G$",
+            "Always, for any subgroup $N\\le G$",
+            "Only when $G$ is abelian",
+            "Only when $N$ is the trivial subgroup"
+          ],
+          "answer": 0,
+          "explain": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup."
+        },
+        {
+          "type": "numeric",
+          "q": "What is $|G/N|$ when $|G|=24$ and $|N|=6$ (with $N\\trianglelefteq G$)?",
+          "answer": 4,
+          "tol": 1e-9,
+          "explain": "$|G/N|=[G:N]=|G|/|N|=24/6=4$."
+        },
+        {
+          "type": "mcq",
+          "q": "The first isomorphism theorem says that for a surjective homomorphism $\\varphi:G\\twoheadrightarrow H$,",
+          "choices": [
+            "$G/\\ker\\varphi\\cong H$",
+            "$G/H\\cong\\ker\\varphi$",
+            "$\\ker\\varphi\\cong H$",
+            "$G\\cong H\\oplus\\ker\\varphi$"
+          ],
+          "answer": 0,
+          "explain": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $H\\le G$ and $N\\trianglelefteq G$. The <em>second</em> isomorphism theorem gives an isomorphism involving the subgroup $HN$ and the quotient $H/(H\\cap N)$. Which is it?",
+          "choices": [
+            "$HN/N\\cong H/(H\\cap N)$",
+            "$HN/H\\cong N/(H\\cap N)$",
+            "$H/N\\cong HN/(H\\cap N)$",
+            "$G/(HN)\\cong H/(H\\cap N)$"
+          ],
+          "answer": 0,
+          "hint": "The inclusion $H\\hookrightarrow HN$ composed with the projection $HN\\twoheadrightarrow HN/N$ has kernel $H\\cap N$.",
+          "explain": "Consider $\\varphi:H\\to HN/N$, $h\\mapsto hN$. It is surjective (every coset of $N$ in $HN$ has an $H$-representative) and $\\ker\\varphi=H\\cap N$. The first iso theorem gives $H/(H\\cap N)\\cong HN/N$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the third isomorphism theorem with $G=\\mathbb{Z}$, $N=6\\mathbb{Z}$, $M=2\\mathbb{Z}\\supseteq N$, we have $(G/N)/(M/N)\\cong G/M$. What is $|(G/N)/(M/N)|$?",
+          "answer": 2,
+          "tol": 1e-9,
+          "hint": "$G/M=\\mathbb{Z}/2\\mathbb{Z}$.",
+          "explain": "$G/M=\\mathbb{Z}/2\\mathbb{Z}$, of order $2$. The third isomorphism theorem matches $|(G/N)/(M/N)|=|G/M|=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the alternating group $A_n$ (for $n\\ge 5$) a witness to failure of the converse of Lagrange for quotients?",
+          "choices": [
+            "$A_n$ is simple for $n\\ge 5$, so it has no nontrivial normal subgroups — hence no nontrivial quotient groups, even though it has plenty of subgroups with proper divisor orders",
+            "$A_n$ is abelian for $n\\ge 5$",
+            "$A_n$ has trivial center",
+            "$A_n$ contains $\\mathbb{Z}/n\\mathbb{Z}$"
+          ],
+          "answer": 0,
+          "explain": "For $n\\ge 5$, $A_n$ is simple, so its only normal subgroups are $\\{e\\}$ and $A_n$ itself. It still contains subgroups of many orders dividing $|A_n|$, but none of them are normal, so none can be used to form a nontrivial proper quotient."
+        }
+      ]
+    },
+    "group-actions-burnside": {
+      "title": "Group actions, orbits, and Burnside",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Let $G=S_4$ act on the set $X=\\{1,2,3,4\\}$ by permutation. The orbit of $1\\in X$ has size $4$, so by orbit-stabilizer, $|\\mathrm{Stab}(1)|=|G|/4=?$",
+          "answer": 6,
+          "tol": 1e-9,
+          "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
+        },
+        {
+          "type": "mcq",
+          "q": "Burnside's lemma says the number of orbits of $G$ on $X$ equals",
+          "choices": [
+            "$\\frac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$",
+            "$\\frac{1}{|X|}\\sum_{x\\in X}|\\mathrm{Stab}(x)|$",
+            "$|G|\\cdot|X|$",
+            "$\\max_{g\\in G}|\\mathrm{Fix}(g)|$"
+          ],
+          "answer": 0,
+          "explain": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements."
+        },
+        {
+          "type": "numeric",
+          "q": "Apply Burnside to $G=\\mathbb{Z}/3\\mathbb{Z}$ acting on $2$-colorings of a $3$-bead necklace by rotation. There are $2^3=8$ colorings. The identity fixes all $8$; each nontrivial rotation fixes $2$ (constant colorings). The orbit count is $(8+2+2)/3=?$",
+          "answer": 4,
+          "tol": 1e-9,
+          "explain": "$(8+2+2)/3=12/3=4$. The four orbits correspond to distinct necklaces up to rotation."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Count the distinct $2$-colorings of the $4$ vertices of a square under the full dihedral group $D_4$ ($|D_4|=8$). Fixed counts: $e{:}16$, $r{:}2$, $r^2{:}4$, $r^3{:}2$, two diagonal reflections each fix $2^3=8$, two edge-midpoint reflections each fix $2^2=4$. Apply Burnside:",
+          "answer": 6,
+          "tol": 1e-9,
+          "hint": "Sum the fixed counts, then divide by $|D_4|=8$.",
+          "explain": "Sum: $16+2+4+2+8+8+4+4=48$. By Burnside, the number of orbits is $48/8=6$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why can Burnside's lemma fail for an infinite group $G$ acting on a finite set $X$?",
+          "choices": [
+            "The sum $\\sum_{g\\in G}|\\mathrm{Fix}(g)|$ is infinite, and $|G|$ is infinite, so the ratio is undefined",
+            "Infinite groups cannot act on finite sets",
+            "Orbits of infinite groups are always infinite",
+            "Burnside requires $G$ to be abelian"
+          ],
+          "answer": 0,
+          "hint": "Burnside is an averaging argument; averaging over an infinite group needs the group to be (at least) locally finite or measure-preserving.",
+          "explain": "Burnside's lemma relies on averaging fixed-point counts over a finite group. For infinite $G$, both numerator and denominator can be infinite. Infinite groups certainly can act on finite sets — e.g. $\\mathbb{Z}$ acts on $\\{0,1\\}$ via $n\\mapsto n\\bmod 2$."
+        },
+        {
+          "type": "numeric",
+          "q": "By orbit-stabilizer, if $G$ acts on $X$ and $|G|=30$, $|\\mathrm{orbit}(x)|=10$, what is $|\\mathrm{Stab}(x)|$?",
+          "answer": 3,
+          "tol": 1e-9,
+          "explain": "$|\\mathrm{Stab}(x)|=|G|/|\\mathrm{orbit}(x)|=30/10=3$."
+        }
+      ]
+    },
+    "sylow-theorems": {
+      "title": "Sylow theorems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a group of order $|G|=15=3\\cdot 5$, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$. What must $n_3$ be?",
+          "choices": [
+            "$n_3=1$",
+            "$n_3=5$",
+            "$n_3=3$",
+            "$n_3=15$"
+          ],
+          "answer": 0,
+          "explain": "Divisors of $5$ are $1,5$. Only $1\\equiv 1\\pmod 3$, so $n_3=1$ — a unique Sylow $3$-subgroup, hence normal. Similarly $n_5=1$, and $G\\cong\\mathbb{Z}/15\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $|G|=56=2^3\\cdot 7$, what is the maximal possible order of a Sylow $2$-subgroup?",
+          "answer": 8,
+          "tol": 1e-9,
+          "explain": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$. Here $p=2$, $k=3$, so order $2^3=8$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are true about Sylow $p$-subgroups of a finite group $G$ (with $|G|=p^k m$, $\\gcd(p,m)=1$)?",
+          "choices": [
+            "They all have the same order $p^k$",
+            "They are all conjugate in $G$",
+            "The number $n_p$ divides $m$",
+            "$n_p\\equiv 1\\pmod p$",
+            "If $n_p=1$ the unique Sylow $p$-subgroup is normal in $G$"
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "explain": "All five are part of the Sylow theorems. Existence gives order $p^k$; Sylow II gives conjugacy; Sylow III gives the divisibility and congruence on $n_p$; a unique Sylow subgroup is necessarily closed under conjugation, hence normal."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $|G|=30=2\\cdot 3\\cdot 5$. Which argument shows that $G$ cannot be simple?",
+          "choices": [
+            "A counting argument on elements of order $3$ and $5$ shows at least one of $n_3$ or $n_5$ must equal $1$",
+            "Every group of order $30$ is abelian",
+            "$30$ is squarefree, so all Sylow subgroups commute",
+            "$G$ contains $A_5$ as a subgroup"
+          ],
+          "answer": 0,
+          "hint": "If $n_3=10$ and $n_5=6$, count the elements of order $3$ and $5$: there would be more than $30$ total.",
+          "explain": "$n_3\\in\\{1,10\\}$ and $n_5\\in\\{1,6\\}$. If $n_3=10$ and $n_5=6$, that's $10\\cdot 2=20$ elements of order $3$ plus $6\\cdot 4=24$ elements of order $5$, for $44>30$ elements — contradiction. So at least one Sylow subgroup is unique, hence normal, and $G$ isn't simple."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $p<q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
+          "choices": [
+            "$G$ is cyclic of order $pq$",
+            "$G$ is nonabelian and unique up to isomorphism",
+            "$G$ is always isomorphic to $S_3$",
+            "$n_p$ could be either $1$ or $q$, so $G$ may not be abelian"
+          ],
+          "answer": 0,
+          "hint": "Show $n_p=1$ by combining Sylow's divisibility and congruence with the hypothesis $p\\nmid(q-1)$.",
+          "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p<q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $|G|=56=2^3\\cdot 7$, list the divisors of $8$ congruent to $1\\pmod 7$; this tells you the possible values of $n_7$. The count of such divisors is:",
+          "answer": 2,
+          "tol": 1e-9,
+          "hint": "Divisors of $8$: $1,2,4,8$. Which are $\\equiv 1\\pmod 7$?",
+          "explain": "Among $\\{1,2,4,8\\}$, the ones $\\equiv 1\\pmod 7$ are $1$ and $8$, so $n_7\\in\\{1,8\\}$ — two possibilities. (A classical counting argument then forces $n_7=1$, but the raw Sylow constraint allows two.)"
+        }
+      ]
+    },
+    "finite-abelian-classification": {
+      "title": "Finite abelian groups",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many abelian groups of order $8$ are there, up to isomorphism?",
+          "answer": 3,
+          "tol": 1e-9,
+          "explain": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups."
+        },
+        {
+          "type": "numeric",
+          "q": "How many abelian groups of order $12$ are there?",
+          "answer": 2,
+          "tol": 1e-9,
+          "explain": "$12=2^2\\cdot 3$. Partitions of $2$ (for $p=2$): $2$ or $1+1$; partitions of $1$ (for $p=3$): $1$. Product: $2\\cdot 1=2$ groups — $\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$ and $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the invariant-factor form of $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6$?",
+          "choices": [
+            "$\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$",
+            "$\\mathbb{Z}/24$",
+            "$\\mathbb{Z}/4\\oplus\\mathbb{Z}/6$ is already in invariant-factor form",
+            "$\\mathbb{Z}/3\\oplus\\mathbb{Z}/8$"
+          ],
+          "answer": 0,
+          "explain": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$. Recombine as invariant factors $d_1\\mid d_2$: pair smaller prime powers into $\\mathbb{Z}/2$, and larger into $\\mathbb{Z}/4\\oplus\\mathbb{Z}/3\\cong\\mathbb{Z}/12$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "How many abelian groups of order $72=2^3\\cdot 3^2$ are there up to isomorphism?",
+          "answer": 6,
+          "tol": 1e-9,
+          "hint": "Multiply the number of partitions of $3$ by the number of partitions of $2$.",
+          "explain": "Partitions of $3$: $3,\\,2+1,\\,1+1+1$ — three of them. Partitions of $2$: $2,\\,1+1$ — two. Product: $3\\cdot 2=6$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which abelian group has invariant factors $(2,4,12)$ (i.e., is isomorphic to $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/12$)?",
+          "choices": [
+            "An abelian group of order $96$ with elementary-divisor form $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$",
+            "$\\mathbb{Z}/96$, cyclic",
+            "An abelian group of order $18$",
+            "It is not a valid invariant-factor tuple because $2\\nmid 4$"
+          ],
+          "answer": 0,
+          "hint": "Decompose each $\\mathbb{Z}/d_i$ into prime-power cyclic factors and combine.",
+          "explain": "$\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/12\\cong\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$. The order is $2\\cdot 4\\cdot 12=96$. The invariant-factor tuple $(2,4,12)$ is valid because $2\\mid 4\\mid 12$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the classification uniquely determined by the elementary divisors (i.e., the multiset of prime-power cyclic summands)?",
+          "choices": [
+            "Every finitely generated abelian group has a unique decomposition into cyclic groups of prime-power order, up to reordering — this is the structure theorem for PIDs applied to $\\mathbb{Z}$",
+            "$\\mathbb{Z}$ is an algebraically closed field",
+            "Only cyclic groups are abelian",
+            "The decomposition is unique because $\\mathbb{Z}$ is finite"
+          ],
+          "answer": 0,
+          "explain": "The structure theorem for finitely generated modules over a PID, specialized to $R=\\mathbb{Z}$, gives a canonical decomposition; the multisets of elementary divisors (or equivalently invariant factors) are invariants of the isomorphism class."
+        }
+      ]
+    },
+    "polynomial-rings-irreducibility": {
+      "title": "Polynomial rings and irreducibility",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Apply Eisenstein's criterion at $p=3$ to $f(x)=x^3+3x+3\\in\\mathbb{Z}[x]$. Which conditions hold, showing irreducibility?",
+          "choices": [
+            "$3\\nmid 1$ (leading), $3\\mid 3$ (lower coefficients), $9\\nmid 3$ (constant term not divisible by $p^2$) — so $f$ is irreducible over $\\mathbb{Q}$",
+            "$f$ has a rational root at $x=1$",
+            "Eisenstein fails because $3\\mid 1$",
+            "$f$ factors as $(x+1)(x^2-x+3)$"
+          ],
+          "answer": 0,
+          "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
+        },
+        {
+          "type": "mcq",
+          "q": "What are the rational-root candidates for $f(x)=2x^2+3x+1$ from the rational-root test?",
+          "choices": [
+            "$\\pm 1, \\pm\\tfrac{1}{2}$",
+            "$\\pm 1, \\pm 2$",
+            "$\\pm 3$",
+            "Only irrational roots"
+          ],
+          "answer": 0,
+          "explain": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$. Testing: $f(-1)=0$ and $f(-\\tfrac{1}{2})=0$, so $f=(2x+1)(x+1)$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f\\in k[x]$ has degree $5$ and $g\\in k[x]$ has degree $3$, what is $\\deg(fg)$?",
+          "answer": 8,
+          "tol": 1e-9,
+          "explain": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider $f(x)=x^4+1\\in\\mathbb{Q}[x]$. Which of the following is correct?",
+          "choices": [
+            "$f$ is irreducible over $\\mathbb{Q}$ (no rational roots, no real quadratic factorization over $\\mathbb{Q}$)",
+            "$f$ factors as $(x^2+1)^2$",
+            "$f$ factors as $(x^2-\\sqrt{2}x+1)(x^2+\\sqrt{2}x+1)$ over $\\mathbb{Q}$",
+            "$f=(x-1)(x+1)(x^2+1)$ over $\\mathbb{Q}$"
+          ],
+          "answer": 0,
+          "hint": "Use Eisenstein after the shift $x\\mapsto x+1$.",
+          "explain": "$f(x+1)=(x+1)^4+1=x^4+4x^3+6x^2+4x+2$. Eisenstein at $p=2$: $2\\nmid 1$, $2\\mid 4,6,4,2$, $4\\nmid 2$. So $f(x+1)$ is irreducible over $\\mathbb{Q}$, hence so is $f(x)$. The factorization into $(x^2\\pm\\sqrt{2}x+1)$ exists only over $\\mathbb{Q}(\\sqrt{2})$, not $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Gauss's lemma states: if $f\\in\\mathbb{Z}[x]$ is primitive (gcd of coefficients is $1$) and factors as $f=gh$ in $\\mathbb{Q}[x]$, then ...",
+          "choices": [
+            "$f$ factors as $f=g'h'$ in $\\mathbb{Z}[x]$ with $g'$, $h'$ primitive and scalar multiples (rationally) of $g$, $h$ — i.e., a $\\mathbb{Q}[x]$ factorization of a primitive integer polynomial lifts to $\\mathbb{Z}[x]$",
+            "$f$ must be irreducible",
+            "$f$ has rational roots",
+            "$\\mathbb{Z}[x]$ is a Euclidean domain"
+          ],
+          "answer": 0,
+          "hint": "The point is that primitivity is stable under multiplication.",
+          "explain": "Gauss's lemma: the product of primitive polynomials is primitive, and consequently a factorization in $\\mathbb{Q}[x]$ of a primitive integer polynomial can be rescaled to a factorization in $\\mathbb{Z}[x]$. This is why irreducibility in $\\mathbb{Q}[x]$ and in $\\mathbb{Z}[x]$ agree for primitive polynomials."
+        },
+        {
+          "type": "numeric",
+          "q": "Reduce $f(x)=x^3+x+1$ mod $2$. How many roots does it have in $\\mathbb{F}_2=\\{0,1\\}$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "hint": "Evaluate at $0$ and at $1$ in $\\mathbb{F}_2$.",
+          "explain": "$f(0)=1$, $f(1)=1+1+1=1$ in $\\mathbb{F}_2$. No roots, so $\\bar{f}\\in\\mathbb{F}_2[x]$ has no linear factors, and since it's degree $3$, it is irreducible over $\\mathbb{F}_2$. This lifts to show $f$ is irreducible over $\\mathbb{Z}$ (and $\\mathbb{Q}$) too."
+        }
+      ]
+    },
+    "semidirect-products-ses": {
+      "title": "Semidirect products and short exact sequences",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For a semidirect product $G=N\\rtimes_\\varphi H$ with $|N|=8$ and $|H|=3$, what is $|G|$?",
+          "answer": 24,
+          "tol": 1e-9,
+          "explain": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which group is $\\mathbb{Z}/n\\rtimes_\\varphi\\mathbb{Z}/2$ when $\\varphi$ sends the generator of $\\mathbb{Z}/2$ to the inversion automorphism $a\\mapsto -a$ of $\\mathbb{Z}/n$?",
+          "choices": [
+            "The dihedral group $D_n$ of order $2n$",
+            "$\\mathbb{Z}/(2n)$, cyclic of order $2n$",
+            "$\\mathbb{Z}/n\\times\\mathbb{Z}/2$, the direct product",
+            "$S_n$, the symmetric group"
+          ],
+          "answer": 0,
+          "explain": "By construction $D_n=\\langle r,s\\mid r^n=s^2=e,\\,srs=r^{-1}\\rangle$; with $N=\\langle r\\rangle\\cong\\mathbb{Z}/n$ and $H=\\langle s\\rangle\\cong\\mathbb{Z}/2$ and $\\varphi(s)=$ inversion, the twisted product reproduces the dihedral relations exactly."
+        },
+        {
+          "type": "mcq",
+          "q": "A short exact sequence $1\\to N\\to G\\to H\\to 1$ <em>splits</em> when",
+          "choices": [
+            "There is a homomorphism $s:H\\to G$ with $\\pi\\circ s=\\mathrm{id}_H$, where $\\pi:G\\twoheadrightarrow H$ is the quotient map",
+            "$G$ is abelian",
+            "$N$ is cyclic",
+            "$|H|$ divides $|N|$"
+          ],
+          "answer": 0,
+          "explain": "Splitting means the quotient map has a homomorphism section. Equivalently, $G$ is isomorphic to a semidirect product $N\\rtimes H$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $|G|=2p$ with $p$ an odd prime. Classify $G$ up to isomorphism.",
+          "choices": [
+            "$G\\cong\\mathbb{Z}/(2p)$ or $G\\cong D_p$; the choice depends on whether the semidirect-product twist is trivial or the inversion automorphism",
+            "$G$ is always abelian",
+            "$G$ is always nonabelian",
+            "$G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/2$ uniquely"
+          ],
+          "answer": 0,
+          "hint": "Sylow gives a unique normal Sylow $p$-subgroup $N$; then $G=N\\rtimes\\mathbb{Z}/2$, and $\\mathrm{Aut}(\\mathbb{Z}/p)\\cong\\mathbb{Z}/(p-1)$ has a unique order-$2$ element (inversion).",
+          "explain": "$n_p\\mid 2$ and $n_p\\equiv 1\\pmod p$, so $n_p=1$ (since $p>2$ implies $2\\not\\equiv 1\\pmod p$). So $N$ is normal; complement $\\mathbb{Z}/2$ exists (Schur-Zassenhaus or Sylow argument). The only homomorphisms $\\mathbb{Z}/2\\to\\mathrm{Aut}(\\mathbb{Z}/p)\\cong\\mathbb{Z}/(p-1)$ send the generator to either the identity (giving $\\mathbb{Z}/p\\times\\mathbb{Z}/2=\\mathbb{Z}/(2p)$) or to inversion (giving $D_p$)."
+        },
+        {
+          "type": "mcq",
+          "q": "When is an internal semidirect product $G=N\\rtimes H$ actually a direct product $N\\times H$?",
+          "choices": [
+            "Exactly when the action $\\varphi:H\\to\\mathrm{Aut}(N)$ is trivial, i.e. every element of $H$ commutes with every element of $N$",
+            "Whenever both $N$ and $H$ are abelian",
+            "Whenever $|N|$ and $|H|$ are coprime",
+            "Whenever $N$ is cyclic"
+          ],
+          "answer": 0,
+          "hint": "The multiplication in $N\\rtimes_\\varphi H$ reduces to that of $N\\times H$ precisely when $\\varphi$ is trivial.",
+          "explain": "By definition $(n_1,h_1)(n_2,h_2)=(n_1\\varphi_{h_1}(n_2),h_1 h_2)$; this collapses to componentwise multiplication iff $\\varphi_{h}$ is the identity for all $h$, i.e. $\\varphi$ is trivial. Coprimality and abelianness are red herrings."
+        },
+        {
+          "type": "numeric",
+          "q": "How many nonisomorphic semidirect products $\\mathbb{Z}/7\\rtimes_\\varphi\\mathbb{Z}/3$ are there (counting both trivial and nontrivial $\\varphi$)?",
+          "answer": 2,
+          "tol": 1e-9,
+          "hint": "$\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$. How many subgroups of order dividing $3$?",
+          "explain": "Homomorphisms $\\mathbb{Z}/3\\to\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$ correspond to elements of order dividing $3$ in $\\mathbb{Z}/6$, which form the unique subgroup of order $3$. So there are $3$ homomorphisms, but two of the nontrivial ones give isomorphic semidirect products (they differ by an automorphism of $\\mathbb{Z}/3$). Thus there are $2$ isomorphism classes: the trivial one ($\\mathbb{Z}/21$) and the nonabelian one (order $21$)."
+        }
+      ]
     }
   }
 }

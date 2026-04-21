@@ -469,6 +469,393 @@
           "explain": "$J_F=\\begin{pmatrix}2x & -2y \\\\ 2y & 2x\\end{pmatrix}$. At $(1,1)$: $J_F=\\begin{pmatrix}2&-2\\\\2&2\\end{pmatrix}$. $\\det J_F = (2)(2)-(-2)(2)=4+4=8$. Since $8\\ne 0$, IFT guarantees $F$ is a local diffeomorphism near $(1,1)$."
         }
       ]
+    },
+
+    "numeric-series": {
+      "title": "Numeric series & convergence tests",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which test most cleanly shows that $\\sum_{n\\ge 0} 1/n!$ converges?",
+          "choices": [
+            "Comparison test against $\\sum 1/n$",
+            "Integral test against $\\int 1/x\\,dx$",
+            "Ratio test: $|a_{n+1}/a_n| = 1/(n+1) \\to 0 < 1$",
+            "Divergence test: $a_n \\not\\to 0$"
+          ],
+          "answer": 2,
+          "explain": "The ratio $a_{n+1}/a_n = (1/(n+1)!)/(1/n!) = 1/(n+1) \\to 0$. Since $L=0<1$, the ratio test gives absolute convergence (here to $e$). Comparison against $1/n$ fails in the wrong direction, and the integral test needs a nice integrable function on $[1,\\infty)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $a_n = 3^n/n!$. Compute $L = \\lim_{n\\to\\infty} |a_{n+1}/a_n|$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$. So $L=0<1$ — the series converges absolutely (in fact to $e^3$)."
+        },
+        {
+          "type": "mcq",
+          "q": "The alternating harmonic series $\\sum (-1)^{n+1}/n$ is:",
+          "choices": [
+            "Absolutely convergent",
+            "Conditionally convergent",
+            "Divergent",
+            "A Cauchy sequence but not convergent"
+          ],
+          "answer": 1,
+          "explain": "By the alternating series test the series converges (to $\\ln 2$). But $\\sum |(-1)^{n+1}/n| = \\sum 1/n$ is the harmonic series, which diverges. So the convergence is conditional, not absolute."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which example shows the root test can succeed when the ratio test is inconclusive?",
+          "choices": [
+            "$\\sum 1/n^2$ (both succeed)",
+            "$a_n = 2^{-n}$ if $n$ even, $a_n = 2^{-n+1}$ if $n$ odd: ratios oscillate (limit does not exist) but $\\limsup |a_n|^{1/n} = 1/2 < 1$",
+            "$\\sum 1/n$ (both fail)",
+            "$\\sum n!$"
+          ],
+          "answer": 1,
+          "hint": "Pick $a_n$ where the ratio oscillates but $|a_n|^{1/n}$ has a clean limsup.",
+          "explain": "For the oscillating sequence, consecutive ratios toggle between $1$ and $1/4$, so $\\lim |a_{n+1}/a_n|$ does not exist and the ratio test is inconclusive. But $|a_n|^{1/n} \\to 1/2 < 1$, so the root test certifies convergence. In general $\\limsup |a_n|^{1/n} \\le \\limsup |a_{n+1}/a_n|$, so root is at least as powerful as ratio."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of Abel's summation by parts for $\\sum a_n b_n$ with $B_n = \\sum_{k\\le n} b_k$:",
+          "items": [
+            "Write $b_n = B_n - B_{n-1}$ (with $B_0 = 0$).",
+            "Substitute into $\\sum_{n=1}^N a_n b_n = \\sum_{n=1}^N a_n (B_n - B_{n-1})$.",
+            "Reindex the second sum and group: $\\sum_{n=1}^N a_n b_n = a_N B_N - \\sum_{n=1}^{N-1} (a_{n+1}-a_n) B_n$.",
+            "Conclude convergence of $\\sum a_n b_n$ from boundedness of $B_n$ and monotonicity of $a_n\\to 0$ (Dirichlet test)."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Abel/Dirichlet summation replaces $b_n$ by differences of its partial sums; the telescoping reindexing moves monotonicity from $(a_n)$ onto a single boundary term plus a sum against $a_{n+1}-a_n$. If $(B_n)$ is bounded and $a_n\\downarrow 0$, the rearranged sum converges."
+        }
+      ]
+    },
+
+    "power-series-real": {
+      "title": "Power series & radius of convergence",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the radius of convergence of $\\sum_{n\\ge 1} x^n/n$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$. By Cauchy–Hadamard $1/R = 1$, hence $R = 1$. (The series is $-\\ln(1-x)$ on $(-1,1)$.)"
+        },
+        {
+          "type": "mcq",
+          "q": "Which power series has radius of convergence $R = \\infty$?",
+          "choices": [
+            "$\\sum x^n$",
+            "$\\sum x^n/n$",
+            "$\\sum x^n/n!$",
+            "$\\sum n!\\,x^n$"
+          ],
+          "answer": 2,
+          "explain": "For $\\sum x^n/n!$, the ratio $|a_{n+1}/a_n| = 1/(n+1) \\to 0$, so $1/R = 0$ and $R = \\infty$. This is the exponential series. By contrast $\\sum n!\\,x^n$ has $R=0$, and $\\sum x^n$, $\\sum x^n/n$ both have $R=1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\limsup_{n\\to\\infty} n^{1/n}$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$. Hence $\\limsup n^{1/n} = 1$. This is why Cauchy–Hadamard gives $R=1$ for any series $\\sum a_n x^n$ with $a_n = n^{\\pm k}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On the boundary of the disk of convergence, behavior can differ. Which description is correct for $\\sum x^n/n$ at $x = \\pm 1$?",
+          "choices": [
+            "Converges at both $x=1$ and $x=-1$",
+            "Converges at $x=-1$ (alternating harmonic), diverges at $x=1$ (harmonic)",
+            "Diverges at both endpoints",
+            "The series is not defined at $\\pm 1$"
+          ],
+          "answer": 1,
+          "hint": "Plug in each endpoint and recognize the resulting numeric series.",
+          "explain": "At $x=1$ the series becomes $\\sum 1/n$ (harmonic, divergent). At $x=-1$ it becomes $\\sum (-1)^n/n$ (alternating harmonic, conditionally convergent). The radius $R=1$ alone does not determine boundary behavior; Abel's theorem handles the convergent endpoint."
+        },
+        {
+          "type": "proof-completion",
+          "q": "You are proving Cauchy–Hadamard. Given $\\sum a_n x^n$ with $1/R = \\limsup |a_n|^{1/n}$ (possibly $0$ or $\\infty$), the steps so far:",
+          "steps": [
+            "Fix $|x| < R$. Pick $\\rho$ with $|x| < \\rho < R$.",
+            "By definition of limsup, for all but finitely many $n$ we have $|a_n|^{1/n} < 1/\\rho$."
+          ],
+          "choices": [
+            "Conclude $|a_n x^n| < (|x|/\\rho)^n$ for large $n$; since $|x|/\\rho < 1$, the geometric series dominates, so $\\sum a_n x^n$ converges absolutely.",
+            "Differentiate term by term and apply Fubini.",
+            "Use the root test at $x = R$ itself, concluding convergence on the closed disk.",
+            "Note $a_n$ is bounded, so the series converges by comparison with $\\sum 1/n^2$."
+          ],
+          "answer": 0,
+          "hint": "You need a geometric bound on $|a_n x^n|$.",
+          "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|<R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
+        }
+      ]
+    },
+
+    "metric-completeness-baire": {
+      "title": "Metric completeness & Baire category",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A subset $A$ of a metric space $X$ is \"nowhere dense\" iff:",
+          "choices": [
+            "$A$ is finite",
+            "The closure $\\overline{A}$ has empty interior",
+            "$A$ is disjoint from every open set",
+            "$A$ is both open and closed"
+          ],
+          "answer": 1,
+          "explain": "Nowhere dense means $\\mathrm{int}(\\overline{A}) = \\varnothing$: the closure contains no open ball. Equivalently, every nonempty open set has a nonempty open subset disjoint from $A$. Finite sets in $\\mathbb{R}$ qualify, but so do Cantor-like sets, which are uncountable."
+        },
+        {
+          "type": "mcq",
+          "q": "Baire's theorem on a complete metric space $X$ says:",
+          "choices": [
+            "Every compact subset is finite",
+            "$X$ is not a countable union of nowhere-dense sets",
+            "Every closed subset of $X$ is open",
+            "$X$ is second countable"
+          ],
+          "answer": 1,
+          "explain": "Baire category theorem: a complete metric space (or a locally compact Hausdorff space) cannot be written as $\\bigcup_n F_n$ where each $F_n$ is nowhere dense. Equivalently, a countable intersection of open dense sets is dense. This powers uniform boundedness, open mapping, and closed graph theorems."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathbb{Q}\\cap[0,1]$ be enumerated as $\\{q_1, q_2, \\dots\\}$. Each singleton $\\{q_k\\}$ is nowhere dense in $[0,1]$ (with the usual metric). How many such singletons are there in the enumeration?",
+          "answer": 0,
+          "tol": 0.5,
+          "explain": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded as \"not finite\". The meager-in-$[0,1]$ point: $\\mathbb{Q}\\cap[0,1]$ is a countable union of nowhere-dense sets, yet $[0,1]$ itself is complete and non-meager (Baire). The numeric $0$ captures \"no finite upper bound\" in this grading."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why doesn't Baire's theorem give a contradiction when applied to $\\mathbb{Q}$ (with the subspace metric from $\\mathbb{R}$)?",
+          "choices": [
+            "$\\mathbb{Q}$ is not a metric space",
+            "$\\mathbb{Q}$ is complete under the subspace metric",
+            "$\\mathbb{Q}$ is not complete, so Baire does not apply",
+            "Singletons in $\\mathbb{Q}$ are not nowhere dense"
+          ],
+          "answer": 2,
+          "hint": "What goes wrong with Cauchy sequences of rationals?",
+          "explain": "$\\mathbb{Q}$ is a countable union of singletons, each of which is nowhere dense (in $\\mathbb{Q}$, because between any two rationals lies another). If Baire applied, $\\mathbb{Q}$ would be non-meager in itself — contradiction. The resolution: $\\mathbb{Q}$ is not complete ($(1, 1.4, 1.41, 1.414, \\dots)$ is Cauchy in $\\mathbb{Q}$ with no rational limit), so Baire's hypothesis fails."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "An attempted application of the Uniform Boundedness Principle (UBP):",
+          "steps": [
+            "Let $(T_n)$ be a sequence of bounded linear operators on a Banach space $X$.",
+            "Assume for each $x\\in X$, $\\sup_n \\|T_n x\\| < \\infty$ (pointwise bounded).",
+            "By UBP, $\\sup_n \\|T_n\\| < \\infty$ — so $T_n$ is uniformly bounded in operator norm.",
+            "If each $T_n$ is also surjective, then $T := \\lim T_n$ is surjective.",
+            "Conclude $T$ is surjective by the Open Mapping Theorem."
+          ],
+          "answer": 3,
+          "explain": "Steps 1–3 are UBP correctly applied. Step 5 (Open Mapping) is fine in isolation. The flaw is step 4: surjectivity does NOT pass to limits in general, even when $T_n \\to T$ in norm — the image can shrink. A standard counterexample is $T_n(x) = (x_1, x_2/2, x_3/3, \\dots, x_n/n, 0, 0, \\dots)$ on $\\ell^2$: each $T_n$ has finite-dim range (not surjective), but even surjective $T_n$ converging to a non-surjective $T$ are easy to construct."
+        }
+      ]
+    },
+
+    "ftc-both-parts": {
+      "title": "Fundamental theorem of calculus",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Using FTC, compute $\\int_1^e (1/x)\\,dx$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$F(x) = \\ln x$ is an antiderivative of $1/x$ on $(0,\\infty)$. By FTC Part II, $\\int_1^e 1/x\\,dx = \\ln e - \\ln 1 = 1 - 0 = 1$."
+        },
+        {
+          "type": "mcq",
+          "q": "To compute $\\int_0^2 3x^2\\,dx = 8$ in one line, which part of FTC applies?",
+          "choices": [
+            "Part I: $F(x) = \\int_0^x 3t^2\\,dt$ satisfies $F'(x) = 3x^2$",
+            "Part II: $\\int_a^b F'(x)\\,dx = F(b) - F(a)$ with $F(x)=x^3$",
+            "Neither — use a Riemann sum directly",
+            "Both parts simultaneously, in that order"
+          ],
+          "answer": 1,
+          "explain": "Part II (the \"evaluation\" part) says: if $F$ is differentiable with $F'$ integrable, then $\\int_a^b F' = F(b)-F(a)$. Here $F(x)=x^3$ has $F'(x)=3x^2$, and $F(2)-F(0)=8$. Part I would instead construct $F$ from the integral, not evaluate a known integral."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $F(x) = \\int_0^x 3t^2\\,dt$. By FTC Part I, $F'(x) = 3x^2$. Compute $F'(2)$.",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "FTC Part I says $F'(x) = f(x)$ when $f$ is continuous. So $F'(2) = 3(2)^2 = 12$. Note $F(x) = x^3$ (Part II), and indeed $F'(x) = 3x^2$ agrees."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Cantor function (devil's staircase) $c\\colon[0,1]\\to[0,1]$ is continuous, nondecreasing, with $c(0)=0$ and $c(1)=1$, and $c'(x) = 0$ almost everywhere (on the complement of the Cantor set). What does this imply?",
+          "choices": [
+            "FTC Part II fails for $c$: $\\int_0^1 c'(x)\\,dx = 0 \\ne 1 = c(1) - c(0)$",
+            "FTC Part II still holds because $c$ is continuous",
+            "$c$ is not Riemann-integrable",
+            "$c$ has no derivative anywhere"
+          ],
+          "answer": 0,
+          "hint": "Check whether $\\int c' = c(1) - c(0)$.",
+          "explain": "$c'=0$ a.e. gives $\\int_0^1 c'=0$ in Lebesgue, yet $c(1)-c(0)=1$. FTC Part II fails because $c$ is continuous but not absolutely continuous. The class where FTC Part II holds in Lebesgue theory is AC: $F$ absolutely continuous on $[a,b]$ iff $F'$ exists a.e., is integrable, and $\\int_a^x F' = F(x) - F(a)$."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of the proof of FTC Part I: if $f$ is continuous on $[a,b]$, then $F(x) = \\int_a^x f$ satisfies $F'(x) = f(x)$:",
+          "items": [
+            "Form the difference quotient $(F(x+h) - F(x))/h = (1/h)\\int_x^{x+h} f(t)\\,dt$.",
+            "Apply the mean-value theorem for integrals: there exists $c_h$ between $x$ and $x+h$ with $(1/h)\\int_x^{x+h} f(t)\\,dt = f(c_h)$.",
+            "Let $h \\to 0$; since $c_h \\to x$ and $f$ is continuous, $f(c_h) \\to f(x)$.",
+            "Conclude $F'(x) = \\lim_{h\\to 0} (F(x+h) - F(x))/h = f(x)$."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Write the difference quotient as an average over $[x,x+h]$, invoke the integral MVT to pick one sample $c_h$, then use continuity of $f$ to let $c_h\\to x$ collapse to $f(x)$. No Riemann-sum manipulation is needed once MVT-for-integrals is in hand."
+        }
+      ]
+    },
+
+    "bump-functions": {
+      "title": "Bump functions & mollification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why can a nonzero polynomial never be compactly supported?",
+          "choices": [
+            "Polynomials are always bounded",
+            "A polynomial vanishing on an open interval is identically zero (identity theorem)",
+            "Polynomials have no derivatives",
+            "Polynomials are discontinuous"
+          ],
+          "answer": 1,
+          "explain": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval — in particular, on an open half-line. A polynomial vanishing on an infinite set is the zero polynomial (or more strongly, vanishing on an open set). Smooth bumps like $\\exp(-1/(1-x^2))$ dodge this by being non-analytic at $x=\\pm 1$."
+        },
+        {
+          "type": "numeric",
+          "q": "The standard bump $\\psi(x) = \\exp(-1/(1-x^2))$ on $|x|<1$ (extended by $0$ outside) attains its maximum at $x=0$. Compute $\\psi(0)$ to four decimal places.",
+          "answer": 0.3679,
+          "tol": 0.001,
+          "explain": "$\\psi(0) = \\exp(-1/(1-0)) = \\exp(-1) = 1/e \\approx 0.3679$."
+        },
+        {
+          "type": "mcq",
+          "q": "$C^\\infty_c(\\mathbb{R})$ (smooth compactly supported functions) is dense in which space?",
+          "choices": [
+            "Only in $C^\\infty(\\mathbb{R})$",
+            "In $L^p(\\mathbb{R})$ for every $1 \\le p < \\infty$",
+            "In $L^\\infty(\\mathbb{R})$ with the sup norm",
+            "In nowhere — it is a strict subspace"
+          ],
+          "answer": 1,
+          "explain": "$C^\\infty_c$ is dense in $L^p$ for $1 \\le p < \\infty$, via mollification plus truncation. It is NOT dense in $L^\\infty$ (the sup-norm closure of compactly supported functions is $C_0$, functions vanishing at infinity). This density is why distributional derivatives and Sobolev approximations work."
+        }
+      ],
+      "hard": [
+        {
+          "type": "proof-completion",
+          "q": "Borel's theorem: for any sequence $(a_n)_{n\\ge 0}$ of reals, there exists a smooth function $f\\colon\\mathbb{R}\\to\\mathbb{R}$ with $f^{(n)}(0) = a_n$ for every $n$. The construction uses bump functions as follows:",
+          "steps": [
+            "Let $\\chi$ be a bump with $\\chi(x) = 1$ for $|x|\\le 1/2$ and $\\chi(x)=0$ for $|x|\\ge 1$.",
+            "Define $f_n(x) = (a_n/n!)\\,x^n\\,\\chi(\\lambda_n x)$ for a scaling $\\lambda_n$ to be chosen.",
+            "Each $f_n$ is smooth with $f_n^{(n)}(0) = a_n$ and $f_n^{(k)}(0) = 0$ for $k < n$."
+          ],
+          "choices": [
+            "Choose $\\lambda_n$ large enough so that $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k < n$; then $f = \\sum f_n$ converges in $C^\\infty$ and $f^{(n)}(0) = a_n$.",
+            "Set $\\lambda_n = 1$ and apply the closed graph theorem.",
+            "Let $f = \\sum a_n x^n / n!$ (the Taylor series) and invoke uniform convergence on compact sets.",
+            "Use the inverse function theorem to produce $f$ directly from the sequence."
+          ],
+          "answer": 0,
+          "hint": "The key issue is making the tail sum's $k$-th derivatives converge.",
+          "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k<n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k<n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "A student argues: \"Mollifying $f \\in L^1(\\mathbb{R})$ by $\\eta_\\varepsilon$ gives $f_\\varepsilon \\to f$ in $L^1$, so $f_\\varepsilon(x) \\to f(x)$ pointwise for every $x$.\" Where does this reasoning go wrong?",
+          "choices": [
+            "Mollification does not converge in $L^1$",
+            "$L^1$ convergence does NOT imply pointwise convergence; only pointwise a.e. convergence along a subsequence",
+            "Mollifiers are not integrable",
+            "$f_\\varepsilon$ is never smooth"
+          ],
+          "answer": 1,
+          "hint": "$L^1$ convergence and pointwise convergence disagree.",
+          "explain": "$L^1$ convergence controls $\\int |f_\\varepsilon - f|$, not $|f_\\varepsilon(x) - f(x)|$ at any individual $x$. The classic sliding-bump example in $L^1$ converges to $0$ without converging pointwise anywhere. One can pass to a subsequence for a.e. pointwise convergence, but not everywhere, and not without subsequencing. For continuous $f$, however, $f_\\varepsilon \\to f$ uniformly on compacts."
+        }
+      ]
+    },
+
+    "c-space-arzela": {
+      "title": "C[a,b] & Arzelà–Ascoli",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A family $\\mathcal{F}\\subseteq C[a,b]$ is equicontinuous iff:",
+          "choices": [
+            "Each $f\\in\\mathcal{F}$ is continuous",
+            "For every $\\varepsilon>0$ there is $\\delta>0$ (independent of $f$) with $|x-y|<\\delta \\Rightarrow |f(x)-f(y)|<\\varepsilon$ for all $f\\in\\mathcal{F}$",
+            "The family is finite",
+            "$\\sup_{f\\in\\mathcal{F}} \\|f\\|_\\infty < \\infty$"
+          ],
+          "answer": 1,
+          "explain": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family. Merely being continuous (even uniformly continuous individually) is not enough — the $\\delta$ must not depend on which $f\\in\\mathcal{F}$ you picked. Pointwise boundedness (choice 4) is the second Arzelà–Ascoli hypothesis, not equicontinuity."
+        },
+        {
+          "type": "mcq",
+          "q": "$C[a,b]$ with the sup norm $\\|f\\|_\\infty = \\sup_{x\\in[a,b]} |f(x)|$ is:",
+          "choices": [
+            "A Banach space (complete normed)",
+            "A Hilbert space",
+            "A non-complete normed space",
+            "Not a vector space"
+          ],
+          "answer": 0,
+          "explain": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (§4). So it is a Banach space. It is NOT a Hilbert space in general — the sup norm is not induced by an inner product (the parallelogram law fails)."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\|x - x^2\\|_\\infty$ on $[0,1]$ (the supremum of $x - x^2$).",
+          "answer": 0.25,
+          "tol": 1e-6,
+          "explain": "$f(x) = x - x^2$, $f'(x) = 1 - 2x = 0$ at $x = 1/2$. $f(1/2) = 1/2 - 1/4 = 1/4 = 0.25$. Endpoints give $f(0) = f(1) = 0$. So $\\|f\\|_\\infty = 1/4$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "spot-the-error",
+          "q": "An attempted application of Arzelà–Ascoli:",
+          "steps": [
+            "Let $f_n(x) = x^n$ on $[0,1]$ for $n=1,2,3,\\dots$",
+            "Each $f_n$ is continuous, so $f_n \\in C[0,1]$.",
+            "The family $\\{f_n\\}$ is equicontinuous (each is $n$-Lipschitz, so they share a common modulus of continuity).",
+            "By Arzelà–Ascoli, some subsequence $f_{n_k}$ converges uniformly.",
+            "Hence the pointwise limit (the discontinuous step at $x=1$) is continuous."
+          ],
+          "answer": 2,
+          "explain": "Step 3 is wrong: $\\{x^n\\}$ is NOT equicontinuous on $[0,1]$. The Lipschitz constants $n$ grow without bound — to get $|x^n - y^n| < \\varepsilon$ near $x=1$ requires $\\delta$ shrinking to $0$ as $n \\to \\infty$, so no common $\\delta$ works. Without equicontinuity, Arzelà–Ascoli does not apply; the pointwise limit is indeed discontinuous, confirming no uniformly convergent subsequence exists."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps of the proof that \"continuous image of compact is compact\" (key ingredient in C[a,b]-related theorems):",
+          "items": [
+            "Let $f\\colon K \\to Y$ be continuous with $K$ compact.",
+            "Take an open cover $\\{V_\\alpha\\}$ of $f(K)$ in $Y$.",
+            "By continuity, $\\{f^{-1}(V_\\alpha)\\}$ is an open cover of $K$.",
+            "By compactness of $K$, extract a finite subcover $f^{-1}(V_{\\alpha_1}), \\dots, f^{-1}(V_{\\alpha_n})$.",
+            "Then $V_{\\alpha_1}, \\dots, V_{\\alpha_n}$ cover $f(K)$, exhibiting a finite subcover."
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets — so the proof is forced by the definitions."
+        }
+      ]
     }
   }
 }

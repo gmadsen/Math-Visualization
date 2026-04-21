@@ -1,0 +1,922 @@
+{
+  "topic": "dynamical-systems",
+  "quizzes": {
+    "dyn-orbits-flows": {
+      "title": "Orbits, flows, and vector fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The flow $\\Phi_t$ of a complete vector field $X$ on $M$ satisfies:",
+          "choices": [
+            "$\\Phi_t(\\Phi_s(p))=\\Phi_{t-s}(p)$ and $\\Phi_0=\\mathrm{id}$",
+            "$\\Phi_t(\\Phi_s(p))=\\Phi_{t+s}(p)$ and $\\Phi_0=\\mathrm{id}$",
+            "$\\Phi_t$ is linear in $p$",
+            "$\\Phi_t$ is orthogonal for every $t$"
+          ],
+          "answer": 1,
+          "explain": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$. Linearity and orthogonality are special properties of particular vector fields."
+        },
+        {
+          "type": "numeric",
+          "q": "For the linear system $\\dot x = -x$ on $\\mathbb{R}$ with $x(0)=4$, compute $x(\\ln 2)$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each 1D vector field to its long-time behaviour from $x_0>0$.",
+          "left": [
+            "converges to $0$",
+            "blows up in finite time",
+            "converges to $+\\infty$ monotonically"
+          ],
+          "right": [
+            "$\\dot x = -x$",
+            "$\\dot x = x^2$",
+            "$\\dot x = x$"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "$\\dot x=-x$: exponential decay to 0. $\\dot x=x^2$: $x(t)=x_0/(1-x_0 t)$ blows up at $t=1/x_0$. $\\dot x=x$: exponential growth."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which condition fails for $\\dot x = x^2$, $x(0)=1$ to be a globally defined flow on $\\mathbb{R}$?",
+          "choices": [
+            "Smoothness of the right-hand side",
+            "Existence of a local solution",
+            "Completeness: the solution is defined for all $t\\in\\mathbb{R}$",
+            "Uniqueness of the solution"
+          ],
+          "answer": 2,
+          "hint": "The solution blows up at $t=1$.",
+          "explain": "$x(t)=1/(1-t)$ has a finite-time singularity at $t=1$; the maximal interval is $(-\\infty,1)$, so $X(x)=x^2$ is not complete on $\\mathbb{R}$."
+        },
+        {
+          "type": "proof-completion",
+          "q": "Fix $p$ with $X(p)=0$. To show $\\Phi_t(p)=p$ for all $t$, the next step after \"the constant curve $\\gamma(t)\\equiv p$ satisfies $\\dot\\gamma=0=X(\\gamma(t))$\" is:",
+          "steps": [
+            "Set $\\gamma(t)\\equiv p$; verify $\\dot\\gamma=0=X(\\gamma(t))$, so $\\gamma$ is an integral curve through $p$."
+          ],
+          "choices": [
+            "Differentiate once more to get $\\ddot\\gamma=0$, hence $\\gamma$ is linear.",
+            "Invoke uniqueness of integral curves: the flow line through $p$ is unique, so $\\Phi_t(p)=\\gamma(t)=p$.",
+            "Conclude by Hartman–Grobman that $\\Phi_t$ is conjugate to its linearization.",
+            "Apply Poincaré–Bendixson to the forward orbit."
+          ],
+          "answer": 1,
+          "explain": "The ODE theorem gives a unique integral curve through each point; since the constant curve works, it is the flow. Hartman–Grobman and Poincaré–Bendixson are downstream theorems."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X(x,y)=(-y,x)$ on $\\mathbb{R}^2$. How far from the origin is $\\Phi_{\\pi/2}(1,0)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "hint": "This is rotation; the flow preserves $x^2+y^2$.",
+          "explain": "$X=(-y,x)$ is rigid rotation: $\\Phi_t(x,y)=(\\cos t\\,x-\\sin t\\,y,\\sin t\\,x+\\cos t\\,y)$. Distance to origin is preserved; the answer is $1$."
+        }
+      ]
+    },
+    "dyn-fixed-linearization": {
+      "title": "Fixed points and linearization",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A fixed point $p^*$ of $\\dot x = X(x)$ is called hyperbolic when:",
+          "choices": [
+            "$X$ is linear near $p^*$",
+            "Every eigenvalue of $DX(p^*)$ has nonzero real part",
+            "Every eigenvalue of $DX(p^*)$ is real",
+            "Every eigenvalue of $DX(p^*)$ has modulus $1$"
+          ],
+          "answer": 1,
+          "explain": "Hyperbolic = no eigenvalue lies on the imaginary axis. Hartman–Grobman then conjugates the flow to its linearization on a neighbourhood."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\dot x = \\sin x$, the fixed point at $x=0$ has Jacobian $\\cos 0$. What is its value?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point."
+        },
+        {
+          "type": "mcq",
+          "q": "For the 2D linear system with matrix $A=\\begin{pmatrix}1 & 0 \\\\ 0 & -2\\end{pmatrix}$, the origin is a:",
+          "choices": [
+            "stable node (sink)",
+            "unstable node (source)",
+            "saddle",
+            "center"
+          ],
+          "answer": 2,
+          "explain": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which statement about $\\dot x=-x^3$ at the origin is correct?",
+          "choices": [
+            "Hartman–Grobman implies the flow is topologically conjugate to $\\dot y=0$.",
+            "The origin is asymptotically stable even though the linearization is degenerate.",
+            "The origin is unstable because $DX(0)=0$.",
+            "$x=0$ is not a fixed point."
+          ],
+          "answer": 1,
+          "hint": "Lyapunov function $V(x)=x^2$ works here; Hartman–Grobman needs hyperbolicity.",
+          "explain": "$DX(0)=-3\\cdot 0^2=0$, so the origin is non-hyperbolic and Hartman–Grobman does NOT apply. But $V(x)=x^2$ has $\\dot V=-2x^4\\le 0$, so the origin is Lyapunov (even asymptotically) stable."
+        },
+        {
+          "type": "complex",
+          "q": "For $A=\\begin{pmatrix}0 & -1 \\\\ 1 & 0\\end{pmatrix}$, give one eigenvalue as $a+bi$.",
+          "answer": [0, 1],
+          "tol": 1e-6,
+          "hint": "$\\det(A-\\lambda I)=\\lambda^2+1$.",
+          "explain": "Characteristic polynomial $\\lambda^2+1=0$ gives $\\lambda=\\pm i$; $(0,1)$ or $(0,-1)$ both qualify as answers."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Someone 'proves' that every fixed point of $\\dot x=X(x)$ is stable. Find the flawed step.",
+          "steps": [
+            "Let $p^*$ be a fixed point, so $X(p^*)=0$.",
+            "By Taylor expansion, $X(x)\\approx DX(p^*)(x-p^*)$ near $p^*$.",
+            "Since $X(p^*)=0$, the linearized system $\\dot y = DX(p^*)y$ has $0$ as a fixed point.",
+            "Therefore every trajectory starting near $p^*$ converges to $p^*$."
+          ],
+          "answer": 3,
+          "explain": "Step 4 is wrong: nothing in steps 1–3 forces the eigenvalues of $DX(p^*)$ to have negative real parts. Saddles and unstable nodes are fixed points that are NOT attracting."
+        }
+      ]
+    },
+    "dyn-phase-portraits": {
+      "title": "Phase portraits in 2D",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a 2×2 matrix $A$ with $\\operatorname{tr}A=-3,\\ \\det A=2$, the origin is a:",
+          "choices": [
+            "saddle",
+            "stable node",
+            "unstable spiral",
+            "center"
+          ],
+          "answer": 1,
+          "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select ALL systems whose origin is a saddle.",
+          "choices": [
+            "$\\dot x=x,\\ \\dot y=-y$",
+            "$\\dot x=-x,\\ \\dot y=-2y$",
+            "$\\dot x=2x+y,\\ \\dot y=x+2y$",
+            "$\\dot x=y,\\ \\dot y=x$"
+          ],
+          "answer": [0, 3],
+          "explain": "Saddle requires $\\det A<0$. (a) $\\det=-1$: saddle. (b) $\\det=2$: stable node. (c) $\\det=3$: node. (d) $\\det=-1$: saddle."
+        },
+        {
+          "type": "mcq",
+          "q": "A nullcline of a 2D system $\\dot x=f(x,y),\\ \\dot y=g(x,y)$ is:",
+          "choices": [
+            "a trajectory of the system",
+            "the set where $f=0$ (the $x$-nullcline) or $g=0$ (the $y$-nullcline)",
+            "a fixed point",
+            "a symmetry axis"
+          ],
+          "answer": 1,
+          "explain": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "matching",
+          "q": "Match $(\\operatorname{tr},\\det)$ to the portrait type.",
+          "left": [
+            "stable spiral",
+            "saddle",
+            "center",
+            "stable node"
+          ],
+          "right": [
+            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$",
+            "$\\det<0$",
+            "$\\operatorname{tr}=0,\\ \\det>0$",
+            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Spirals have complex eigenvalues (negative discriminant).",
+          "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\operatorname{tr}$ separates stable/unstable. Discriminant $\\operatorname{tr}^2-4\\det$ separates node (positive) from spiral (negative)."
+        },
+        {
+          "type": "mcq",
+          "q": "The Van der Pol system $\\dot x=y,\\ \\dot y=\\mu(1-x^2)y-x$ with $\\mu>0$ has a single fixed point at the origin. What is its type?",
+          "choices": [
+            "stable node",
+            "saddle",
+            "unstable spiral for small $\\mu$",
+            "center"
+          ],
+          "answer": 2,
+          "hint": "Linearize at the origin: $A=\\begin{pmatrix}0&1\\\\-1&\\mu\\end{pmatrix}$.",
+          "explain": "Jacobian at origin has $\\operatorname{tr}=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\operatorname{tr}^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
+        },
+        {
+          "type": "ordering",
+          "q": "Put the steps of sketching a 2D phase portrait in the logical order.",
+          "items": [
+            "Find all fixed points by solving $f=g=0$.",
+            "Draw the $x$- and $y$-nullclines and a few sample arrows in each region.",
+            "Classify each fixed point via the Jacobian.",
+            "Sketch representative trajectories consistent with the local classifications.",
+            "Identify any invariant lines or conserved quantities."
+          ],
+          "answer": [0, 2, 4, 1, 3],
+          "hint": "Fixed points first; nullclines scaffold the trajectories.",
+          "explain": "Standard recipe: (1) fixed points, (2) classify them, (3) invariants / symmetries, (4) nullclines, (5) trajectories glued from local pictures."
+        }
+      ]
+    },
+    "dyn-limit-cycles": {
+      "title": "Periodic orbits and limit cycles",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Poincaré–Bendixson asserts that a non-empty compact $\\omega$-limit set of a smooth planar flow that contains NO fixed point must be:",
+          "choices": [
+            "a fixed point",
+            "a homoclinic loop",
+            "a periodic orbit",
+            "empty"
+          ],
+          "answer": 2,
+          "explain": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections. No fixed point leaves only a periodic orbit."
+        },
+        {
+          "type": "mcq",
+          "q": "Bendixson–Dulac rules out closed orbits in a simply connected region when:",
+          "choices": [
+            "$\\operatorname{div}(\\phi X)$ has constant sign and is not identically zero on the region, for some smooth $\\phi>0$",
+            "$\\operatorname{div}X = 0$ everywhere",
+            "there are no fixed points",
+            "the flow is conservative"
+          ],
+          "answer": 0,
+          "explain": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\dot r = r(1-r^2),\\ \\dot\\theta = 1$ in polar coordinates, the unique stable limit cycle is the circle $r = ?$",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle). Near $r=1$ the radial flow contracts ($\\dot r=r(1-r^2)$ changes sign), so $r=1$ is the stable limit cycle."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which system is GUARANTEED to have a periodic orbit by the Poincaré–Bendixson theorem?",
+          "choices": [
+            "$\\dot x=-x,\\ \\dot y=-y$ (sink at origin, no fixed points elsewhere)",
+            "A smooth planar system with a compact, forward-invariant annular region $R$ containing no fixed points",
+            "Any 3D flow whose vector field is bounded",
+            "Any Hamiltonian system on $\\mathbb{R}^2$"
+          ],
+          "answer": 1,
+          "hint": "The theorem is two-dimensional and needs a fixed-point-free trapping region.",
+          "explain": "A trapping annulus with no fixed point forces the $\\omega$-limit set to be a periodic orbit. The theorem fails in 3D, and Hamiltonian systems may have only saddles and centers, not limit cycles."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the flawed step in this attempt to show $\\dot x=y,\\ \\dot y=-x+y^3$ has no periodic orbit.",
+          "steps": [
+            "Compute $\\operatorname{div}X = \\partial(y)/\\partial x + \\partial(-x+y^3)/\\partial y = 0 + 3y^2 = 3y^2$.",
+            "Note $\\operatorname{div}X = 3y^2 \\ge 0$ everywhere.",
+            "By Bendixson's criterion, since $\\operatorname{div}X\\ge 0$, no closed orbit exists.",
+            "Conclude: the system has no periodic orbit in $\\mathbb{R}^2$."
+          ],
+          "answer": 2,
+          "explain": "Bendixson requires $\\operatorname{div}X$ to have STRICTLY one sign on the region (not identically zero). $3y^2$ vanishes on the $x$-axis, so the hypothesis is not satisfied; the argument is invalid."
+        },
+        {
+          "type": "numeric",
+          "q": "The Van der Pol oscillator has a unique stable limit cycle for all $\\mu>0$. For $\\mu=0$, what is the amplitude of the (degenerate) circular orbit through $(2,0)$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "hint": "$\\mu=0$ gives $\\ddot x+x=0$: a harmonic oscillator.",
+          "explain": "At $\\mu=0$ the system is $\\ddot x+x=0$ (center); every circle is a periodic orbit. Through $(2,0)$ the amplitude is $2$. For $\\mu\\to 0^+$ the unique limit cycle approaches amplitude $2$."
+        }
+      ]
+    },
+    "dyn-iterated-maps": {
+      "title": "Iterated maps and the logistic family",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For the logistic map $f_r(x)=rx(1-x)$ with $r=2.5$, compute the non-zero fixed point $x^*\\in(0,1)$.",
+          "answer": 0.6,
+          "tol": 1e-6,
+          "explain": "$x^*=1-1/r=1-0.4=0.6$."
+        },
+        {
+          "type": "mcq",
+          "q": "A fixed point $x^*$ of a smooth 1D map $f$ is attracting when:",
+          "choices": [
+            "$f'(x^*)=0$",
+            "$|f'(x^*)|<1$",
+            "$|f'(x^*)|>1$",
+            "$f''(x^*)>0$"
+          ],
+          "answer": 1,
+          "explain": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$. Stability needs $|f'(x^*)|<1$."
+        },
+        {
+          "type": "guess-my-rule",
+          "q": "Here are inputs and outputs of an unknown one-parameter logistic map $f_r(x)=rx(1-x)$. Figure out $r$ and compute the requested outputs.",
+          "examples": [[0.5, 0.75], [0.25, 0.5625], [0.1, 0.27]],
+          "testCases": [[0.2, 0.48], [0.6, 0.72]],
+          "inputKind": "number in [0,1]",
+          "outputKind": "number in [0,1]",
+          "tol": 1e-2,
+          "hint": "From $f_r(0.5)=0.75$ solve for $r$.",
+          "explain": "$f_r(0.5)=r/4=0.75$ gives $r=3$. Then $f_3(0.2)=3\\cdot 0.2\\cdot 0.8=0.48$ and $f_3(0.6)=3\\cdot 0.6\\cdot 0.4=0.72$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The logistic map's non-zero fixed point $x^*=1-1/r$ becomes unstable when $|f_r'(x^*)|=1$. At what $r$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "hint": "$f_r'(x)=r-2rx$.",
+          "explain": "$f_r'(x^*)=r-2r(1-1/r)=r-2r+2=2-r$. $|2-r|=1$ with $r>0$ gives $r=1$ (emerging) or $r=3$ (period-doubling)."
+        },
+        {
+          "type": "mcq",
+          "q": "After the first period-doubling at $r=3$, the logistic map has a stable 2-cycle $\\{p,q\\}$. Which equation do $p,q$ satisfy?",
+          "choices": [
+            "$f_r(p)=p$",
+            "$f_r(p)=q$ and $f_r(q)=p$, with $p\\neq q$",
+            "$p+q=1/r$",
+            "$pq=(1-1/r)^2$"
+          ],
+          "answer": 1,
+          "hint": "A 2-cycle is a pair of points mapped to each other.",
+          "explain": "A genuine 2-cycle is two distinct points that swap under $f_r$; both are fixed points of $f_r\\circ f_r$ but not of $f_r$."
+        },
+        {
+          "type": "complex",
+          "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p<q$.",
+          "answer": [0.3333333333333333, 0.6666666666666667],
+          "tol": 1e-6,
+          "hint": "$f^2(x)=4x\\bmod 1$; solve $4p\\bmod 1=p$ away from fixed points.",
+          "explain": "Fixed points of $f^2$: $4x-x\\in\\mathbb{Z}$ with $x\\in[0,1)$ gives $x\\in\\{0,1/3,2/3\\}$. Excluding the fixed point $x=0$, the 2-cycle is $\\{1/3,2/3\\}$: $f(1/3)=2/3$, $f(2/3)=1/3$."
+        }
+      ]
+    },
+    "dyn-bifurcations": {
+      "title": "Bifurcations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The normal form $\\dot x = \\mu - x^2$ undergoes a:",
+          "choices": [
+            "pitchfork bifurcation at $\\mu=0$",
+            "transcritical bifurcation at $\\mu=0$",
+            "saddle-node bifurcation at $\\mu=0$",
+            "Hopf bifurcation at $\\mu=0$"
+          ],
+          "answer": 2,
+          "explain": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points. That is a saddle-node."
+        },
+        {
+          "type": "matching",
+          "q": "Match each normal form to its bifurcation name.",
+          "left": [
+            "saddle-node",
+            "transcritical",
+            "pitchfork (supercritical)",
+            "Hopf"
+          ],
+          "right": [
+            "$\\dot x=\\mu-x^2$",
+            "$\\dot x=\\mu x-x^2$",
+            "$\\dot x=\\mu x-x^3$",
+            "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a limit cycle from a spiral."
+        },
+        {
+          "type": "mcq",
+          "q": "The first period-doubling of the logistic map happens at $r=3$. Which statement is correct about the 2-cycle born there?",
+          "choices": [
+            "It is born unstable.",
+            "It is born stable and replaces the now-unstable fixed point.",
+            "It exists only at the single value $r=3$.",
+            "It is a continuous limit cycle."
+          ],
+          "answer": 1,
+          "explain": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multi-select",
+          "q": "Select ALL true statements about the supercritical pitchfork $\\dot x=\\mu x-x^3$.",
+          "choices": [
+            "For $\\mu<0$, the only fixed point is $x=0$, which is stable.",
+            "For $\\mu>0$, $x=0$ is unstable and two new stable fixed points $\\pm\\sqrt\\mu$ appear.",
+            "The bifurcation preserves the $x\\mapsto -x$ symmetry.",
+            "The bifurcation is NOT generic: it requires an $x\\mapsto -x$ symmetry to stay robust under perturbation."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "All four statements are standard textbook facts about the supercritical pitchfork.",
+          "explain": "Each statement is the classical lore: symmetry is essential (break it and you get a saddle-node plus a transcritical)."
+        },
+        {
+          "type": "mcq",
+          "q": "A supercritical Hopf bifurcation at $\\mu=0$ produces, for $\\mu$ slightly positive:",
+          "choices": [
+            "a pair of new fixed points",
+            "a saddle connection",
+            "a small-amplitude stable limit cycle of amplitude $\\sim\\sqrt\\mu$",
+            "a chaotic attractor"
+          ],
+          "answer": 2,
+          "hint": "The normal form is $\\dot r=\\mu r-r^3$.",
+          "explain": "Solving $\\dot r=0$ gives $r=\\sqrt\\mu$; a stable limit cycle of amplitude $\\sqrt\\mu$ emerges as the spiral loses stability."
+        },
+        {
+          "type": "numeric",
+          "q": "Feigenbaum's constant $\\delta$, the universal ratio $\\lim_{n\\to\\infty}(r_{n-1}-r_{n-2})/(r_n-r_{n-1})$ for period-doubling cascades, equals (to 3 decimal places):",
+          "answer": 4.669,
+          "tol": 0.01,
+          "hint": "Famous constant; starts $4.669\\ldots$",
+          "explain": "Feigenbaum's first constant is $\\delta\\approx 4.6692016\\ldots$, universal across all smooth unimodal maps with quadratic maximum."
+        }
+      ]
+    },
+    "dyn-chaos": {
+      "title": "Chaos and Lyapunov exponents",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the Lyapunov exponent of the doubling map $f(x)=2x\\bmod 1$ on $[0,1)$.",
+          "answer": 0.6931471805599453,
+          "tol": 1e-4,
+          "explain": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$."
+        },
+        {
+          "type": "mcq",
+          "q": "Sensitive dependence on initial conditions means:",
+          "choices": [
+            "every orbit is periodic",
+            "there exists $\\delta>0$ such that for every $x$ and every neighbourhood $U\\ni x$, some $y\\in U$ and $n\\ge 0$ give $|f^n(x)-f^n(y)|\\ge\\delta$",
+            "orbits converge to a fixed point",
+            "the system is measure preserving"
+          ],
+          "answer": 1,
+          "explain": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration."
+        },
+        {
+          "type": "ordering",
+          "q": "Devaney's definition of chaos requires three conditions. Order them from easiest to verify to hardest.",
+          "items": [
+            "periodic points are dense",
+            "the map is topologically transitive",
+            "sensitive dependence on initial conditions"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC. Banks–Brooks–Cairns–Davis–Stacey later showed (iii) is implied by (i)+(ii) on infinite metric spaces."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For the fully-chaotic logistic map $f_4(x)=4x(1-x)$, the invariant density is $\\rho(x)=\\tfrac{1}{\\pi\\sqrt{x(1-x)}}$. The Lyapunov exponent is $\\int_0^1 \\log|f_4'(x)|\\,\\rho(x)\\,dx$. Evaluate.",
+          "answer": 0.6931471805599453,
+          "tol": 1e-3,
+          "hint": "Conjugate to the tent map via $x=\\sin^2(\\pi y/2)$; both give $\\log 2$.",
+          "explain": "$f_4$ is semiconjugate to the doubling (or tent) map; the conjugacy preserves Lyapunov exponents, so $\\lambda=\\log 2$."
+        },
+        {
+          "type": "mcq",
+          "q": "For the Lorenz system with classical parameters $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, how many Lyapunov exponents are there and what are their signs?",
+          "choices": [
+            "One, positive.",
+            "Three: $+, 0, -$.",
+            "Three, all positive.",
+            "Two: $+, -$."
+          ],
+          "answer": 1,
+          "hint": "Number of exponents equals the dimension; flows always have a zero exponent along the flow direction.",
+          "explain": "A 3D flow has three Lyapunov exponents. One is always zero (flow direction, for non-fixed points). For Lorenz with classical parameters, they are approximately $+0.906, 0, -14.57$ — a signature of chaotic attractors in 3D dissipative flows."
+        },
+        {
+          "type": "proof-completion",
+          "q": "To compute the Lyapunov exponent of the tent map $T(x)=1-|1-2x|$ on $[0,1]$: the next step after \"$|T'(x)|=2$ almost everywhere in $[0,1]$\" is:",
+          "steps": [
+            "Compute $T'(x)$ piecewise: $T'(x)=2$ for $x\\in(0,1/2)$ and $T'(x)=-2$ for $x\\in(1/2,1)$.",
+            "Conclude $|T'(x)|=2$ almost everywhere in $[0,1]$."
+          ],
+          "choices": [
+            "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i<N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
+            "Apply Birkhoff's ergodic theorem with Lebesgue-invariant measure: $\\lambda=\\int_0^1 \\log 2\\,dx=\\log 2$.",
+            "Use Hartman–Grobman to linearize the map at each point.",
+            "Apply Poincaré–Bendixson."
+          ],
+          "answer": 1,
+          "explain": "Lebesgue measure is invariant and ergodic for the tent map; Birkhoff converts the time average into the space average, giving $\\lambda=\\log 2$. (The naive 'every orbit' version of (a) is almost-everywhere but not pointwise-everywhere true.)"
+        }
+      ]
+    },
+    "dyn-conservative-dissipative": {
+      "title": "Conservative vs dissipative flows",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Liouville's theorem states that the flow of $\\dot x=X(x)$ preserves phase-space volume if and only if:",
+          "choices": [
+            "$\\operatorname{div}X=0$ everywhere",
+            "$X$ has no fixed points",
+            "$X$ is linear",
+            "$X$ is bounded"
+          ],
+          "answer": 0,
+          "explain": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=\\rho x-y-xz,\\ \\dot z=xy-\\beta z$, compute $\\operatorname{div}X$ with $\\sigma=10,\\beta=8/3$.",
+          "answer": -13.666666666666666,
+          "tol": 1e-3,
+          "explain": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$. Strictly negative, so Lorenz is dissipative."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select ALL systems that are conservative (volume preserving).",
+          "choices": [
+            "Hamilton's equations $\\dot q=\\partial H/\\partial p,\\ \\dot p=-\\partial H/\\partial q$",
+            "$\\dot x=-x$ on $\\mathbb{R}$",
+            "$\\dot x=y,\\ \\dot y=-\\sin x$ (pendulum)",
+            "$\\dot x=y,\\ \\dot y=-x-\\mu y$ with $\\mu>0$"
+          ],
+          "answer": [0, 2],
+          "explain": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$. (b) $\\operatorname{div}=-1<0$: dissipative. (c) Pendulum is Hamiltonian with $H=y^2/2-\\cos x$. (d) Damped oscillator: $\\operatorname{div}=-\\mu<0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A 3D dissipative flow with $\\operatorname{div}X<0$ everywhere CANNOT have:",
+          "choices": [
+            "a strange attractor",
+            "a stable limit cycle",
+            "a phase-space-filling invariant torus of positive 3-volume",
+            "chaotic trajectories"
+          ],
+          "answer": 2,
+          "hint": "What happens to a 3-volume under a contracting flow as $t\\to\\infty$?",
+          "explain": "Volume contracts to zero, so no 3D invariant set of positive volume survives; attractors must have Lebesgue measure zero. They can still be strange (Lorenz), and limit cycles and chaos are both compatible with dissipation."
+        },
+        {
+          "type": "proof-completion",
+          "q": "To prove a Hamiltonian vector field $X_H$ satisfies $\\operatorname{div}X_H=0$ on $\\mathbb{R}^{2n}$, the next step after \"write $X_H=(\\partial H/\\partial p_1,\\ldots,\\partial H/\\partial p_n,-\\partial H/\\partial q_1,\\ldots,-\\partial H/\\partial q_n)$\" is:",
+          "steps": [
+            "Identify coordinates $(q_1,\\ldots,q_n,p_1,\\ldots,p_n)$.",
+            "Write $X_H=(\\partial H/\\partial p_1,\\ldots,\\partial H/\\partial p_n,-\\partial H/\\partial q_1,\\ldots,-\\partial H/\\partial q_n)$."
+          ],
+          "choices": [
+            "Apply Stokes to the boundary of the phase space.",
+            "Compute $\\operatorname{div}X_H=\\sum_i \\partial^2 H/\\partial q_i\\partial p_i - \\sum_i \\partial^2 H/\\partial p_i\\partial q_i=0$ by equality of mixed partials.",
+            "Invoke Birkhoff's theorem.",
+            "Use Hartman–Grobman to linearize."
+          ],
+          "answer": 1,
+          "explain": "Compute $\\operatorname{div}X_H$ directly: the two sums cancel by Clairaut's theorem. This is Liouville's theorem for Hamiltonian systems."
+        },
+        {
+          "type": "numeric",
+          "q": "Under a flow with constant $\\operatorname{div}X=-0.5$, a phase-space ball of volume $1$ shrinks to what volume after $t=10$ seconds?",
+          "answer": 0.006737946999085467,
+          "tol": 1e-3,
+          "hint": "Volume evolves as $\\mathrm{vol}(t)=\\mathrm{vol}(0)e^{\\int_0^t \\operatorname{div}X\\,ds}$.",
+          "explain": "With constant divergence $c=-0.5$, $\\mathrm{vol}(t)=e^{ct}=e^{-5}\\approx 0.00674$."
+        }
+      ]
+    },
+    "dyn-poincare-section": {
+      "title": "Poincaré sections and return maps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Poincaré section $\\Sigma$ for a flow $\\Phi_t$ is:",
+          "choices": [
+            "a fixed point of the flow",
+            "a codimension-1 submanifold transverse to the flow, used to define a first-return map",
+            "a periodic orbit",
+            "the Lyapunov exponent"
+          ],
+          "answer": 1,
+          "explain": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map."
+        },
+        {
+          "type": "mcq",
+          "q": "A periodic orbit of the flow corresponds, under the Poincaré map, to:",
+          "choices": [
+            "a fixed point of $P$",
+            "an orbit of period $2$ of $P$",
+            "a limit point at infinity",
+            "nothing: periodic orbits are invisible to $P$"
+          ],
+          "answer": 0,
+          "explain": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$. Its stability as a cycle = stability of $x^*$ as a fixed point of $P$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the rigid rotation $\\dot r=0,\\ \\dot\\theta=1$ with section $\\Sigma=\\{\\theta=0\\}$, the first-return map $P\\colon \\Sigma\\to\\Sigma$ has return time equal to:",
+          "answer": 6.283185307179586,
+          "tol": 1e-6,
+          "explain": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why does the Poincaré section trick REDUCE the dimension of the problem?",
+          "choices": [
+            "Because $\\Sigma$ is $(n-1)$-dimensional when the flow is in $n$-dimensional space, turning an $n$-D flow into an $(n-1)$-D discrete map.",
+            "Because the flow becomes linear on $\\Sigma$.",
+            "Because fixed points become eliminated.",
+            "Because the Lyapunov exponent doubles."
+          ],
+          "answer": 0,
+          "explain": "A 3D flow restricted to a 2D section is a 2D discrete map; a 2D flow on a 1D section is a 1D map. Each reduction lets you apply lower-dimensional techniques (e.g. 1D maps for analyzing 2D limit cycles)."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps in constructing the Poincaré map for a limit cycle.",
+          "items": [
+            "Pick a point $x^*$ on the closed orbit.",
+            "Take a small disk $\\Sigma\\ni x^*$ transverse to the flow.",
+            "Solve $\\Phi_{\\tau(x)}(x)\\in\\Sigma$ for a return time $\\tau(x)$ near $x^*$.",
+            "Define $P(x)=\\Phi_{\\tau(x)}(x)$.",
+            "Compute the Floquet multipliers as eigenvalues of $dP(x^*)$."
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "hint": "Geometric construction, then analytic definition, then linearization.",
+          "explain": "Standard recipe: pick the cycle and a section, produce the return time, define the map, linearize for stability."
+        },
+        {
+          "type": "proof-completion",
+          "q": "To show the Poincaré map $P$ is smooth near a fixed point $x^*$, the next step after \"the return time $\\tau(x)$ is defined by $\\Phi_{\\tau(x)}(x)\\in\\Sigma$\" is:",
+          "steps": [
+            "Pick $x^*\\in\\Sigma$ with $\\Phi_T(x^*)=x^*$.",
+            "The return time $\\tau(x)$ is defined by the condition $\\Phi_{\\tau(x)}(x)\\in\\Sigma$."
+          ],
+          "choices": [
+            "Apply the Inverse Function Theorem to $(x,t)\\mapsto\\Phi_t(x)$ directly.",
+            "Apply the Implicit Function Theorem to the defining equation, using that $X(x^*)$ is transverse to $\\Sigma$, to obtain a smooth $\\tau(x)$; then $P(x)=\\Phi_{\\tau(x)}(x)$ is smooth as a composition.",
+            "Use the Stone–Weierstrass theorem to approximate $P$ by polynomials.",
+            "Invoke Banach's fixed point theorem on $P$."
+          ],
+          "answer": 1,
+          "explain": "Transversality $X(x^*)\\notin T_{x^*}\\Sigma$ is exactly the non-degeneracy needed for IFT to give $\\tau(x)$ smoothly; then smoothness of $P$ follows from smoothness of $\\Phi$."
+        }
+      ]
+    },
+    "dyn-symbolic-dynamics": {
+      "title": "Symbolic dynamics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The doubling map $f(x)=2x\\bmod 1$ is topologically conjugate to:",
+          "choices": [
+            "the identity map on $[0,1]$",
+            "the shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$",
+            "rotation by $1/2$ on $S^1$",
+            "the rotation $R_\\alpha$ with $\\alpha$ irrational"
+          ],
+          "answer": 1,
+          "explain": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e. the left-shift on binary sequences."
+        },
+        {
+          "type": "matching",
+          "q": "Match the symbolic feature to its dynamical meaning (for the doubling map via binary expansion).",
+          "left": [
+            "eventually periodic sequence",
+            "periodic sequence",
+            "sequence containing every finite word"
+          ],
+          "right": [
+            "eventually periodic orbit",
+            "periodic orbit",
+            "dense orbit"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding."
+        },
+        {
+          "type": "numeric",
+          "q": "Count the number of 2-periodic points of the full 2-shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$ (including fixed points).",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why does the itinerary map for the logistic map $f_4(x)=4x(1-x)$ fail to be a homeomorphism onto $\\{0,1\\}^{\\mathbb{N}}$?",
+          "choices": [
+            "Because $f_4$ is not continuous.",
+            "Because the two intervals $I_0,I_1$ meet at the critical point $1/2$, so some points have two itineraries (like dyadic rationals having two binary expansions).",
+            "Because $f_4$ is not measure-preserving.",
+            "Because $\\{0,1\\}^{\\mathbb{N}}$ is uncountable."
+          ],
+          "answer": 1,
+          "hint": "The critical point $x=1/2$ sits on the boundary between $I_0=[0,1/2]$ and $I_1=[1/2,1]$.",
+          "explain": "Ambiguity at the critical point gives a finite-to-one map rather than a homeomorphism; after identifying pairs like $0\\overline{1}=1\\overline{0}$ (countably many points), it becomes a semiconjugacy."
+        },
+        {
+          "type": "numeric",
+          "q": "How many period-$n$ points does the full 2-shift have? For $n=5$, give the count.",
+          "answer": 32,
+          "tol": 1e-6,
+          "hint": "Period-$n$ here means fixed under $\\sigma^n$ (including lower periods).",
+          "explain": "Fixed points of $\\sigma^n$ correspond to length-$n$ binary words: $2^n$. For $n=5$, $2^5=32$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select ALL properties that the full 2-shift $\\sigma\\colon \\{0,1\\}^{\\mathbb{N}}\\to\\{0,1\\}^{\\mathbb{N}}$ has.",
+          "choices": [
+            "topological transitivity",
+            "dense periodic points",
+            "sensitive dependence on initial conditions",
+            "every orbit is periodic"
+          ],
+          "answer": [0, 1, 2],
+          "hint": "Three of these are Devaney-chaos; the fourth is false for any infinite system with dense periodic + transitive points.",
+          "explain": "The 2-shift is a model example of Devaney chaos: transitive (a sequence containing every word generates a dense orbit), periodic points are dense (periodic binary strings), SDIC (flip the $n$-th digit to separate orbits after $n$ shifts). Not every orbit is periodic — most are aperiodic."
+        }
+      ]
+    },
+    "dyn-ergodicity": {
+      "title": "Ergodicity and invariant measures",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A measure-preserving transformation $T$ of $(X,\\mu)$ is ergodic when:",
+          "choices": [
+            "it is continuous",
+            "every measurable set $A$ with $T^{-1}A=A$ has $\\mu(A)=0$ or $\\mu(A)=1$",
+            "it is one-to-one",
+            "it is volume-doubling"
+          ],
+          "answer": 1,
+          "explain": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones."
+        },
+        {
+          "type": "mcq",
+          "q": "Birkhoff's ergodic theorem says that for an ergodic $T$ and $f\\in L^1$:",
+          "choices": [
+            "$\\lim_{N\\to\\infty}\\tfrac{1}{N}\\sum_{k=0}^{N-1}f(T^k x)=\\int f\\,d\\mu$ for $\\mu$-a.e. $x$",
+            "$f(T^k x)\\to 0$ for every $x$",
+            "$T$ has a dense orbit",
+            "$T$ has zero Lyapunov exponent"
+          ],
+          "answer": 0,
+          "explain": "Time average = space average almost everywhere, when $T$ is ergodic. This is why statistical mechanics works."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select ALL transformations of $[0,1)$ that are ergodic with respect to Lebesgue measure.",
+          "choices": [
+            "$T(x)=x+\\alpha\\bmod 1$ with $\\alpha$ irrational",
+            "$T(x)=x+1/3\\bmod 1$",
+            "$T(x)=2x\\bmod 1$",
+            "$T(x)=x$ (identity)"
+          ],
+          "answer": [0, 2],
+          "explain": "Irrational rotations are uniquely ergodic (Weyl). The doubling map is ergodic (even mixing). Rational rotations split $[0,1)$ into finitely many cycles — not ergodic. The identity preserves every set — far from ergodic."
+        }
+      ],
+      "hard": [
+        {
+          "type": "complex",
+          "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k<N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
+          "answer": [0.5, 0],
+          "tol": 1e-6,
+          "hint": "$T$ preserves Lebesgue; $\\int_0^1 x\\,dx=?$",
+          "explain": "The doubling map is ergodic w.r.t. Lebesgue, so time averages equal the space average $\\int_0^1 x\\,dx=1/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "A Bernoulli shift on $\\{0,1\\}^{\\mathbb{N}}$ with $(p,1-p)$ measure is:",
+          "choices": [
+            "always ergodic, and even mixing",
+            "ergodic only when $p=1/2$",
+            "never ergodic",
+            "ergodic only when $p\\in\\mathbb{Q}$"
+          ],
+          "answer": 0,
+          "hint": "Bernoulli measures are mixing (hence ergodic) for every $p\\in(0,1)$.",
+          "explain": "Independence of cylinders under the shift gives mixing: $\\mu(A\\cap T^{-n}B)\\to \\mu(A)\\mu(B)$. Mixing implies ergodicity for all $p\\in(0,1)$."
+        },
+        {
+          "type": "numeric",
+          "q": "By Birkhoff, for almost every $x\\in[0,1)$, the asymptotic frequency of digit $1$ in the binary expansion of $x$ equals what number?",
+          "answer": 0.5,
+          "tol": 1e-6,
+          "hint": "Apply Birkhoff to $\\mathbf{1}_{[1/2,1)}$ under the doubling map.",
+          "explain": "This is the Borel normal-numbers theorem. The indicator of $\\{x\\in[0,1):b_1=1\\}=[1/2,1)$ has $\\int=1/2$; ergodicity of $T(x)=2x\\bmod 1$ delivers the claim for a.e. $x$."
+        }
+      ]
+    },
+    "dyn-strange-attractors": {
+      "title": "Strange attractors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A strange attractor is invariant, attracting a positive-volume basin, AND:",
+          "choices": [
+            "has integer dimension",
+            "has sensitive dependence on initial conditions (and typically fractal dimension)",
+            "consists of fixed points",
+            "is a single periodic orbit"
+          ],
+          "answer": 1,
+          "explain": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension. Regular attractors (fixed points, limit cycles, tori) are NOT strange."
+        },
+        {
+          "type": "mcq",
+          "q": "The Lorenz attractor uses the classical parameters:",
+          "choices": [
+            "$(\\sigma,\\beta,\\rho)=(10,\\,8/3,\\,28)$",
+            "$(\\sigma,\\beta,\\rho)=(1,1,1)$",
+            "$(\\sigma,\\beta,\\rho)=(2.5,\\,4,\\,13)$",
+            "$(\\sigma,\\beta,\\rho)=(10,\\,10,\\,10)$"
+          ],
+          "answer": 0,
+          "explain": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered."
+        },
+        {
+          "type": "numeric",
+          "q": "Estimate of the box-counting dimension of the Lorenz attractor (classical parameters), to 2 decimals.",
+          "answer": 2.06,
+          "tol": 0.05,
+          "explain": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why must the Lorenz attractor have zero Lebesgue 3-volume despite being an attractor?",
+          "choices": [
+            "Because it is a fixed point.",
+            "Because $\\operatorname{div}X=-\\sigma-1-\\beta<0$: the flow contracts volume, so any attractor has zero 3-volume.",
+            "Because Lorenz is Hamiltonian.",
+            "Because $\\rho>1$."
+          ],
+          "answer": 1,
+          "hint": "Recall the constant divergence of the Lorenz vector field.",
+          "explain": "Strictly negative divergence contracts 3-volumes exponentially; an attractor, being the intersection of shrinking forward images, must have zero Lebesgue measure."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select ALL true statements about the Lorenz system at classical parameters.",
+          "choices": [
+            "It has three fixed points: the origin and two symmetric non-trivial points.",
+            "The origin is a saddle.",
+            "The non-trivial fixed points are stable.",
+            "It exhibits sensitive dependence on initial conditions on the attractor."
+          ],
+          "answer": [0, 1, 3],
+          "hint": "At $\\rho=28$, the non-trivial fixed points are UNSTABLE (past the Hopf bifurcation at $\\rho\\approx 24.74$).",
+          "explain": "Lorenz has 3 fixed points for $\\rho>1$; at $\\rho=28$ the origin is a saddle, the two symmetric points have already become unstable spirals (subcritical Hopf at $\\rho\\approx 24.74$), and the attractor exhibits SDIC."
+        },
+        {
+          "type": "matching",
+          "q": "Match the attractor to its best description.",
+          "left": [
+            "fixed point",
+            "limit cycle",
+            "invariant torus",
+            "strange attractor"
+          ],
+          "right": [
+            "single equilibrium, dimension 0",
+            "closed periodic orbit, dimension 1",
+            "quasi-periodic orbit on $T^2$, dimension 2",
+            "fractal set with chaotic dynamics"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "The four standard asymptotic behaviours of dissipative flows: equilibrium, periodic, quasi-periodic, chaotic. Dimension climbs from 0 to a fractal value."
+        }
+      ]
+    }
+  }
+}

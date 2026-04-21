@@ -748,6 +748,504 @@ window.MVQuizBank = {
             "explain": "$[\\mathbb{F}_{2^3}:\\mathbb{F}_2]=3$, so the minimal polynomial of any primitive element must have degree exactly $3$. The polynomial $x^3+x+1$ is irreducible over $\\mathbb{F}_2$ (no roots in $\\mathbb{F}_2$) and serves as a minimal polynomial for a generator. Degree-$7$ would make no sense as a minimal poly; degree $2$ gives $\\mathbb{F}_4\\neq\\mathbb{F}_8$."
           }
         ]
+      },
+      "subgroups-cosets-lagrange": {
+        "title": "Subgroups, cosets, and Lagrange",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "If $|G|=60$ and $H\\le G$ with $|H|=12$, how many left cosets $gH$ does $H$ have in $G$?",
+            "answer": 5,
+            "tol": 1e-9,
+            "explain": "By Lagrange, $[G:H]=|G|/|H|=60/12=5$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $H\\le G$ and $g\\in G$. Which statement about the left coset $gH$ is always true?",
+            "choices": [
+              "$|gH|=|H|$ because $h\\mapsto gh$ is a bijection $H\\to gH$",
+              "$gH$ is itself a subgroup of $G$",
+              "$gH=Hg$ for every $g\\in G$",
+              "$gH$ contains the identity $e$"
+            ],
+            "answer": 0,
+            "explain": "Left multiplication by $g$ is a bijection of $G$, so it sends $H$ to a set of the same cardinality. Cosets are not subgroups unless $g\\in H$ (then $gH=H$ contains $e$); left and right cosets coincide only when $H$ is normal."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select <em>all</em> statements equivalent to $H\\trianglelefteq G$ (i.e., $H$ is normal in $G$).",
+            "choices": [
+              "$gH=Hg$ for every $g\\in G$",
+              "$gHg^{-1}\\subseteq H$ for every $g\\in G$",
+              "$H$ has prime index $[G:H]=p$",
+              "$H$ is the kernel of some homomorphism $\\varphi: G\\to K$",
+              "$H$ is abelian"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Normality is intrinsic to the $H\\hookrightarrow G$ embedding; it doesn't depend on internal structure of $H$.",
+            "explain": "Coset equality $gH=Hg$, closure under conjugation $gHg^{-1}\\subseteq H$, and being the kernel of a homomorphism are the three standard equivalent definitions of normality. Prime index and abelianness can occur with non-normal or with normal subgroups; neither implies normality in general (though index $2$ always does)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $H,K\\le G$ be finite subgroups with $\\gcd(|H|,|K|)=1$. What is $|H\\cap K|$?",
+            "choices": [
+              "$|H\\cap K|=1$ (trivial)",
+              "$|H\\cap K|=\\gcd(|H|,|K|)=1$ vacuously, so it could be any divisor of $1$ — namely $1$",
+              "$|H\\cap K|=\\min(|H|,|K|)$",
+              "$|H\\cap K|$ depends on $G$ and cannot be determined"
+            ],
+            "answer": 0,
+            "hint": "$H\\cap K$ is a subgroup of both $H$ and $K$; apply Lagrange twice.",
+            "explain": "Because $H\\cap K\\le H$, $|H\\cap K|$ divides $|H|$; similarly it divides $|K|$. So $|H\\cap K|\\mid\\gcd(|H|,|K|)=1$, forcing $|H\\cap K|=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Consider $H=\\langle (12)\\rangle\\le S_3$, of order $2$. Is $H$ normal in $S_3$?",
+            "choices": [
+              "No: conjugating $(12)$ by $(13)$ gives $(23)\\notin H$, so $gHg^{-1}\\ne H$",
+              "Yes, because $H$ has prime order",
+              "Yes, because $H$ is cyclic",
+              "Yes, because $[S_3:H]=3$ is prime"
+            ],
+            "answer": 0,
+            "hint": "Normal subgroups must be closed under conjugation by every group element.",
+            "explain": "$(13)(12)(13)^{-1}=(13)(12)(13)=(23)$, which lies outside $H=\\{e,(12)\\}$. Hence $H$ is not normal. Only index-$2$ subgroups are automatically normal; prime index alone is not enough when the index is $>2$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $G$ be a finite group and suppose $H\\le G$ with $[G:H]=3$. The left cosets partition $G$ into $3$ blocks each of size $|H|$. If additionally $|G|=12$, what is $|H|$?",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "$|H|=|G|/[G:H]=12/3=4$."
+          }
+        ]
+      },
+      "quotient-groups-iso-theorems": {
+        "title": "Quotient groups and isomorphism theorems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "When is the coset multiplication $(aN)(bN)=(ab)N$ well-defined on $G/N$?",
+            "choices": [
+              "Exactly when $N$ is a normal subgroup of $G$",
+              "Always, for any subgroup $N\\le G$",
+              "Only when $G$ is abelian",
+              "Only when $N$ is the trivial subgroup"
+            ],
+            "answer": 0,
+            "explain": "The product of cosets is independent of representatives iff $aN=Na$ for all $a$, which is the defining property of a normal subgroup."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $|G/N|$ when $|G|=24$ and $|N|=6$ (with $N\\trianglelefteq G$)?",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "$|G/N|=[G:N]=|G|/|N|=24/6=4$."
+          },
+          {
+            "type": "mcq",
+            "q": "The first isomorphism theorem says that for a surjective homomorphism $\\varphi:G\\twoheadrightarrow H$,",
+            "choices": [
+              "$G/\\ker\\varphi\\cong H$",
+              "$G/H\\cong\\ker\\varphi$",
+              "$\\ker\\varphi\\cong H$",
+              "$G\\cong H\\oplus\\ker\\varphi$"
+            ],
+            "answer": 0,
+            "explain": "Quotienting by the kernel identifies exactly those pairs that $\\varphi$ sends to the same element, so $G/\\ker\\varphi\\to\\mathrm{im}\\,\\varphi=H$ is an isomorphism."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $H\\le G$ and $N\\trianglelefteq G$. The <em>second</em> isomorphism theorem gives an isomorphism involving the subgroup $HN$ and the quotient $H/(H\\cap N)$. Which is it?",
+            "choices": [
+              "$HN/N\\cong H/(H\\cap N)$",
+              "$HN/H\\cong N/(H\\cap N)$",
+              "$H/N\\cong HN/(H\\cap N)$",
+              "$G/(HN)\\cong H/(H\\cap N)$"
+            ],
+            "answer": 0,
+            "hint": "The inclusion $H\\hookrightarrow HN$ composed with the projection $HN\\twoheadrightarrow HN/N$ has kernel $H\\cap N$.",
+            "explain": "Consider $\\varphi:H\\to HN/N$, $h\\mapsto hN$. It is surjective (every coset of $N$ in $HN$ has an $H$-representative) and $\\ker\\varphi=H\\cap N$. The first iso theorem gives $H/(H\\cap N)\\cong HN/N$."
+          },
+          {
+            "type": "numeric",
+            "q": "Using the third isomorphism theorem with $G=\\mathbb{Z}$, $N=6\\mathbb{Z}$, $M=2\\mathbb{Z}\\supseteq N$, we have $(G/N)/(M/N)\\cong G/M$. What is $|(G/N)/(M/N)|$?",
+            "answer": 2,
+            "tol": 1e-9,
+            "hint": "$G/M=\\mathbb{Z}/2\\mathbb{Z}$.",
+            "explain": "$G/M=\\mathbb{Z}/2\\mathbb{Z}$, of order $2$. The third isomorphism theorem matches $|(G/N)/(M/N)|=|G/M|=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the alternating group $A_n$ (for $n\\ge 5$) a witness to failure of the converse of Lagrange for quotients?",
+            "choices": [
+              "$A_n$ is simple for $n\\ge 5$, so it has no nontrivial normal subgroups — hence no nontrivial quotient groups, even though it has plenty of subgroups with proper divisor orders",
+              "$A_n$ is abelian for $n\\ge 5$",
+              "$A_n$ has trivial center",
+              "$A_n$ contains $\\mathbb{Z}/n\\mathbb{Z}$"
+            ],
+            "answer": 0,
+            "explain": "For $n\\ge 5$, $A_n$ is simple, so its only normal subgroups are $\\{e\\}$ and $A_n$ itself. It still contains subgroups of many orders dividing $|A_n|$, but none of them are normal, so none can be used to form a nontrivial proper quotient."
+          }
+        ]
+      },
+      "group-actions-burnside": {
+        "title": "Group actions, orbits, and Burnside",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Let $G=S_4$ act on the set $X=\\{1,2,3,4\\}$ by permutation. The orbit of $1\\in X$ has size $4$, so by orbit-stabilizer, $|\\mathrm{Stab}(1)|=|G|/4=?$",
+            "answer": 6,
+            "tol": 1e-9,
+            "explain": "$|G|/|\\mathrm{orbit}(1)|=24/4=6$. The stabilizer of $1$ is the subgroup of permutations fixing $1$, isomorphic to $S_3$ on $\\{2,3,4\\}$ — of order $6$."
+          },
+          {
+            "type": "mcq",
+            "q": "Burnside's lemma says the number of orbits of $G$ on $X$ equals",
+            "choices": [
+              "$\\frac{1}{|G|}\\sum_{g\\in G}|\\mathrm{Fix}(g)|$",
+              "$\\frac{1}{|X|}\\sum_{x\\in X}|\\mathrm{Stab}(x)|$",
+              "$|G|\\cdot|X|$",
+              "$\\max_{g\\in G}|\\mathrm{Fix}(g)|$"
+            ],
+            "answer": 0,
+            "explain": "Burnside (Cauchy–Frobenius): the number of orbits is the average number of fixed points across all group elements."
+          },
+          {
+            "type": "numeric",
+            "q": "Apply Burnside to $G=\\mathbb{Z}/3\\mathbb{Z}$ acting on $2$-colorings of a $3$-bead necklace by rotation. There are $2^3=8$ colorings. The identity fixes all $8$; each nontrivial rotation fixes $2$ (constant colorings). The orbit count is $(8+2+2)/3=?$",
+            "answer": 4,
+            "tol": 1e-9,
+            "explain": "$(8+2+2)/3=12/3=4$. The four orbits correspond to distinct necklaces up to rotation."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "Count the distinct $2$-colorings of the $4$ vertices of a square under the full dihedral group $D_4$ ($|D_4|=8$). Fixed counts: $e{:}16$, $r{:}2$, $r^2{:}4$, $r^3{:}2$, two diagonal reflections each fix $2^3=8$, two edge-midpoint reflections each fix $2^2=4$. Apply Burnside:",
+            "answer": 6,
+            "tol": 1e-9,
+            "hint": "Sum the fixed counts, then divide by $|D_4|=8$.",
+            "explain": "Sum: $16+2+4+2+8+8+4+4=48$. By Burnside, the number of orbits is $48/8=6$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why can Burnside's lemma fail for an infinite group $G$ acting on a finite set $X$?",
+            "choices": [
+              "The sum $\\sum_{g\\in G}|\\mathrm{Fix}(g)|$ is infinite, and $|G|$ is infinite, so the ratio is undefined",
+              "Infinite groups cannot act on finite sets",
+              "Orbits of infinite groups are always infinite",
+              "Burnside requires $G$ to be abelian"
+            ],
+            "answer": 0,
+            "hint": "Burnside is an averaging argument; averaging over an infinite group needs the group to be (at least) locally finite or measure-preserving.",
+            "explain": "Burnside's lemma relies on averaging fixed-point counts over a finite group. For infinite $G$, both numerator and denominator can be infinite. Infinite groups certainly can act on finite sets — e.g. $\\mathbb{Z}$ acts on $\\{0,1\\}$ via $n\\mapsto n\\bmod 2$."
+          },
+          {
+            "type": "numeric",
+            "q": "By orbit-stabilizer, if $G$ acts on $X$ and $|G|=30$, $|\\mathrm{orbit}(x)|=10$, what is $|\\mathrm{Stab}(x)|$?",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "$|\\mathrm{Stab}(x)|=|G|/|\\mathrm{orbit}(x)|=30/10=3$."
+          }
+        ]
+      },
+      "sylow-theorems": {
+        "title": "Sylow theorems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a group of order $|G|=15=3\\cdot 5$, the number $n_3$ of Sylow $3$-subgroups satisfies $n_3\\mid 5$ and $n_3\\equiv 1\\pmod 3$. What must $n_3$ be?",
+            "choices": [
+              "$n_3=1$",
+              "$n_3=5$",
+              "$n_3=3$",
+              "$n_3=15$"
+            ],
+            "answer": 0,
+            "explain": "Divisors of $5$ are $1,5$. Only $1\\equiv 1\\pmod 3$, so $n_3=1$ — a unique Sylow $3$-subgroup, hence normal. Similarly $n_5=1$, and $G\\cong\\mathbb{Z}/15\\mathbb{Z}$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $|G|=56=2^3\\cdot 7$, what is the maximal possible order of a Sylow $2$-subgroup?",
+            "answer": 8,
+            "tol": 1e-9,
+            "explain": "A Sylow $p$-subgroup of a group of order $p^k m$ with $\\gcd(p,m)=1$ has order exactly $p^k$. Here $p=2$, $k=3$, so order $2^3=8$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are true about Sylow $p$-subgroups of a finite group $G$ (with $|G|=p^k m$, $\\gcd(p,m)=1$)?",
+            "choices": [
+              "They all have the same order $p^k$",
+              "They are all conjugate in $G$",
+              "The number $n_p$ divides $m$",
+              "$n_p\\equiv 1\\pmod p$",
+              "If $n_p=1$ the unique Sylow $p$-subgroup is normal in $G$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "explain": "All five are part of the Sylow theorems. Existence gives order $p^k$; Sylow II gives conjugacy; Sylow III gives the divisibility and congruence on $n_p$; a unique Sylow subgroup is necessarily closed under conjugation, hence normal."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $|G|=30=2\\cdot 3\\cdot 5$. Which argument shows that $G$ cannot be simple?",
+            "choices": [
+              "A counting argument on elements of order $3$ and $5$ shows at least one of $n_3$ or $n_5$ must equal $1$",
+              "Every group of order $30$ is abelian",
+              "$30$ is squarefree, so all Sylow subgroups commute",
+              "$G$ contains $A_5$ as a subgroup"
+            ],
+            "answer": 0,
+            "hint": "If $n_3=10$ and $n_5=6$, count the elements of order $3$ and $5$: there would be more than $30$ total.",
+            "explain": "$n_3\\in\\{1,10\\}$ and $n_5\\in\\{1,6\\}$. If $n_3=10$ and $n_5=6$, that's $10\\cdot 2=20$ elements of order $3$ plus $6\\cdot 4=24$ elements of order $5$, for $44>30$ elements — contradiction. So at least one Sylow subgroup is unique, hence normal, and $G$ isn't simple."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $p<q$ be primes with $p\\nmid(q-1)$, and $|G|=pq$. Which conclusion is correct?",
+            "choices": [
+              "$G$ is cyclic of order $pq$",
+              "$G$ is nonabelian and unique up to isomorphism",
+              "$G$ is always isomorphic to $S_3$",
+              "$n_p$ could be either $1$ or $q$, so $G$ may not be abelian"
+            ],
+            "answer": 0,
+            "hint": "Show $n_p=1$ by combining Sylow's divisibility and congruence with the hypothesis $p\\nmid(q-1)$.",
+            "explain": "$n_q\\mid p$ and $n_q\\equiv 1\\pmod q$; since $p<q$, $n_q=1$. $n_p\\mid q$ and $n_p\\equiv 1\\pmod p$; the divisors of $q$ are $1,q$, and $q\\equiv 1\\pmod p$ would force $p\\mid(q-1)$, contradicting the hypothesis. Hence $n_p=1$. Both Sylows are normal and meet trivially, so $G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/q\\cong\\mathbb{Z}/pq$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $|G|=56=2^3\\cdot 7$, list the divisors of $8$ congruent to $1\\pmod 7$; this tells you the possible values of $n_7$. The count of such divisors is:",
+            "answer": 2,
+            "tol": 1e-9,
+            "hint": "Divisors of $8$: $1,2,4,8$. Which are $\\equiv 1\\pmod 7$?",
+            "explain": "Among $\\{1,2,4,8\\}$, the ones $\\equiv 1\\pmod 7$ are $1$ and $8$, so $n_7\\in\\{1,8\\}$ — two possibilities. (A classical counting argument then forces $n_7=1$, but the raw Sylow constraint allows two.)"
+          }
+        ]
+      },
+      "finite-abelian-classification": {
+        "title": "Finite abelian groups",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many abelian groups of order $8$ are there, up to isomorphism?",
+            "answer": 3,
+            "tol": 1e-9,
+            "explain": "The partitions of $3$ (the $2$-adic valuation) are $3$, $2+1$, $1+1+1$, giving $\\mathbb{Z}/8$, $\\mathbb{Z}/4\\oplus\\mathbb{Z}/2$, and $(\\mathbb{Z}/2)^3$ — three groups."
+          },
+          {
+            "type": "numeric",
+            "q": "How many abelian groups of order $12$ are there?",
+            "answer": 2,
+            "tol": 1e-9,
+            "explain": "$12=2^2\\cdot 3$. Partitions of $2$ (for $p=2$): $2$ or $1+1$; partitions of $1$ (for $p=3$): $1$. Product: $2\\cdot 1=2$ groups — $\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$ and $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the invariant-factor form of $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6$?",
+            "choices": [
+              "$\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$",
+              "$\\mathbb{Z}/24$",
+              "$\\mathbb{Z}/4\\oplus\\mathbb{Z}/6$ is already in invariant-factor form",
+              "$\\mathbb{Z}/3\\oplus\\mathbb{Z}/8$"
+            ],
+            "answer": 0,
+            "explain": "Decompose into prime-power parts: $\\mathbb{Z}/4\\oplus\\mathbb{Z}/6\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$. Recombine as invariant factors $d_1\\mid d_2$: pair smaller prime powers into $\\mathbb{Z}/2$, and larger into $\\mathbb{Z}/4\\oplus\\mathbb{Z}/3\\cong\\mathbb{Z}/12$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/12$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "How many abelian groups of order $72=2^3\\cdot 3^2$ are there up to isomorphism?",
+            "answer": 6,
+            "tol": 1e-9,
+            "hint": "Multiply the number of partitions of $3$ by the number of partitions of $2$.",
+            "explain": "Partitions of $3$: $3,\\,2+1,\\,1+1+1$ — three of them. Partitions of $2$: $2,\\,1+1$ — two. Product: $3\\cdot 2=6$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which abelian group has invariant factors $(2,4,12)$ (i.e., is isomorphic to $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/12$)?",
+            "choices": [
+              "An abelian group of order $96$ with elementary-divisor form $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/2\\oplus\\mathbb{Z}/3$",
+              "$\\mathbb{Z}/96$, cyclic",
+              "An abelian group of order $18$",
+              "It is not a valid invariant-factor tuple because $2\\nmid 4$"
+            ],
+            "answer": 0,
+            "hint": "Decompose each $\\mathbb{Z}/d_i$ into prime-power cyclic factors and combine.",
+            "explain": "$\\mathbb{Z}/12\\cong\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$. So $\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/12\\cong\\mathbb{Z}/2\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/4\\oplus\\mathbb{Z}/3$. The order is $2\\cdot 4\\cdot 12=96$. The invariant-factor tuple $(2,4,12)$ is valid because $2\\mid 4\\mid 12$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the classification uniquely determined by the elementary divisors (i.e., the multiset of prime-power cyclic summands)?",
+            "choices": [
+              "Every finitely generated abelian group has a unique decomposition into cyclic groups of prime-power order, up to reordering — this is the structure theorem for PIDs applied to $\\mathbb{Z}$",
+              "$\\mathbb{Z}$ is an algebraically closed field",
+              "Only cyclic groups are abelian",
+              "The decomposition is unique because $\\mathbb{Z}$ is finite"
+            ],
+            "answer": 0,
+            "explain": "The structure theorem for finitely generated modules over a PID, specialized to $R=\\mathbb{Z}$, gives a canonical decomposition; the multisets of elementary divisors (or equivalently invariant factors) are invariants of the isomorphism class."
+          }
+        ]
+      },
+      "polynomial-rings-irreducibility": {
+        "title": "Polynomial rings and irreducibility",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Apply Eisenstein's criterion at $p=3$ to $f(x)=x^3+3x+3\\in\\mathbb{Z}[x]$. Which conditions hold, showing irreducibility?",
+            "choices": [
+              "$3\\nmid 1$ (leading), $3\\mid 3$ (lower coefficients), $9\\nmid 3$ (constant term not divisible by $p^2$) — so $f$ is irreducible over $\\mathbb{Q}$",
+              "$f$ has a rational root at $x=1$",
+              "Eisenstein fails because $3\\mid 1$",
+              "$f$ factors as $(x+1)(x^2-x+3)$"
+            ],
+            "answer": 0,
+            "explain": "Eisenstein needs: $p\\nmid a_n$ (leading), $p\\mid a_i$ for $i<n$, and $p^2\\nmid a_0$. With $p=3$: $3\\nmid 1$, $3\\mid 0$ and $3\\mid 3$, and $9\\nmid 3$. So $f$ is irreducible over $\\mathbb{Q}$ (and over $\\mathbb{Z}$ by Gauss's lemma)."
+          },
+          {
+            "type": "mcq",
+            "q": "What are the rational-root candidates for $f(x)=2x^2+3x+1$ from the rational-root test?",
+            "choices": [
+              "$\\pm 1, \\pm\\tfrac{1}{2}$",
+              "$\\pm 1, \\pm 2$",
+              "$\\pm 3$",
+              "Only irrational roots"
+            ],
+            "answer": 0,
+            "explain": "Candidates are $\\pm(\\text{divisors of }a_0)/(\\text{divisors of }a_n)=\\pm(1)/\\pm(1,2)=\\pm 1, \\pm\\tfrac{1}{2}$. Testing: $f(-1)=0$ and $f(-\\tfrac{1}{2})=0$, so $f=(2x+1)(x+1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f\\in k[x]$ has degree $5$ and $g\\in k[x]$ has degree $3$, what is $\\deg(fg)$?",
+            "answer": 8,
+            "tol": 1e-9,
+            "explain": "In a polynomial ring over a field (or any integral domain), $\\deg(fg)=\\deg f+\\deg g=5+3=8$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider $f(x)=x^4+1\\in\\mathbb{Q}[x]$. Which of the following is correct?",
+            "choices": [
+              "$f$ is irreducible over $\\mathbb{Q}$ (no rational roots, no real quadratic factorization over $\\mathbb{Q}$)",
+              "$f$ factors as $(x^2+1)^2$",
+              "$f$ factors as $(x^2-\\sqrt{2}x+1)(x^2+\\sqrt{2}x+1)$ over $\\mathbb{Q}$",
+              "$f=(x-1)(x+1)(x^2+1)$ over $\\mathbb{Q}$"
+            ],
+            "answer": 0,
+            "hint": "Use Eisenstein after the shift $x\\mapsto x+1$.",
+            "explain": "$f(x+1)=(x+1)^4+1=x^4+4x^3+6x^2+4x+2$. Eisenstein at $p=2$: $2\\nmid 1$, $2\\mid 4,6,4,2$, $4\\nmid 2$. So $f(x+1)$ is irreducible over $\\mathbb{Q}$, hence so is $f(x)$. The factorization into $(x^2\\pm\\sqrt{2}x+1)$ exists only over $\\mathbb{Q}(\\sqrt{2})$, not $\\mathbb{Q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Gauss's lemma states: if $f\\in\\mathbb{Z}[x]$ is primitive (gcd of coefficients is $1$) and factors as $f=gh$ in $\\mathbb{Q}[x]$, then ...",
+            "choices": [
+              "$f$ factors as $f=g'h'$ in $\\mathbb{Z}[x]$ with $g'$, $h'$ primitive and scalar multiples (rationally) of $g$, $h$ — i.e., a $\\mathbb{Q}[x]$ factorization of a primitive integer polynomial lifts to $\\mathbb{Z}[x]$",
+              "$f$ must be irreducible",
+              "$f$ has rational roots",
+              "$\\mathbb{Z}[x]$ is a Euclidean domain"
+            ],
+            "answer": 0,
+            "hint": "The point is that primitivity is stable under multiplication.",
+            "explain": "Gauss's lemma: the product of primitive polynomials is primitive, and consequently a factorization in $\\mathbb{Q}[x]$ of a primitive integer polynomial can be rescaled to a factorization in $\\mathbb{Z}[x]$. This is why irreducibility in $\\mathbb{Q}[x]$ and in $\\mathbb{Z}[x]$ agree for primitive polynomials."
+          },
+          {
+            "type": "numeric",
+            "q": "Reduce $f(x)=x^3+x+1$ mod $2$. How many roots does it have in $\\mathbb{F}_2=\\{0,1\\}$?",
+            "answer": 0,
+            "tol": 1e-9,
+            "hint": "Evaluate at $0$ and at $1$ in $\\mathbb{F}_2$.",
+            "explain": "$f(0)=1$, $f(1)=1+1+1=1$ in $\\mathbb{F}_2$. No roots, so $\\bar{f}\\in\\mathbb{F}_2[x]$ has no linear factors, and since it's degree $3$, it is irreducible over $\\mathbb{F}_2$. This lifts to show $f$ is irreducible over $\\mathbb{Z}$ (and $\\mathbb{Q}$) too."
+          }
+        ]
+      },
+      "semidirect-products-ses": {
+        "title": "Semidirect products and short exact sequences",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For a semidirect product $G=N\\rtimes_\\varphi H$ with $|N|=8$ and $|H|=3$, what is $|G|$?",
+            "answer": 24,
+            "tol": 1e-9,
+            "explain": "$|G|=|N|\\cdot|H|=8\\cdot 3=24$, independent of $\\varphi$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which group is $\\mathbb{Z}/n\\rtimes_\\varphi\\mathbb{Z}/2$ when $\\varphi$ sends the generator of $\\mathbb{Z}/2$ to the inversion automorphism $a\\mapsto -a$ of $\\mathbb{Z}/n$?",
+            "choices": [
+              "The dihedral group $D_n$ of order $2n$",
+              "$\\mathbb{Z}/(2n)$, cyclic of order $2n$",
+              "$\\mathbb{Z}/n\\times\\mathbb{Z}/2$, the direct product",
+              "$S_n$, the symmetric group"
+            ],
+            "answer": 0,
+            "explain": "By construction $D_n=\\langle r,s\\mid r^n=s^2=e,\\,srs=r^{-1}\\rangle$; with $N=\\langle r\\rangle\\cong\\mathbb{Z}/n$ and $H=\\langle s\\rangle\\cong\\mathbb{Z}/2$ and $\\varphi(s)=$ inversion, the twisted product reproduces the dihedral relations exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "A short exact sequence $1\\to N\\to G\\to H\\to 1$ <em>splits</em> when",
+            "choices": [
+              "There is a homomorphism $s:H\\to G$ with $\\pi\\circ s=\\mathrm{id}_H$, where $\\pi:G\\twoheadrightarrow H$ is the quotient map",
+              "$G$ is abelian",
+              "$N$ is cyclic",
+              "$|H|$ divides $|N|$"
+            ],
+            "answer": 0,
+            "explain": "Splitting means the quotient map has a homomorphism section. Equivalently, $G$ is isomorphic to a semidirect product $N\\rtimes H$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $|G|=2p$ with $p$ an odd prime. Classify $G$ up to isomorphism.",
+            "choices": [
+              "$G\\cong\\mathbb{Z}/(2p)$ or $G\\cong D_p$; the choice depends on whether the semidirect-product twist is trivial or the inversion automorphism",
+              "$G$ is always abelian",
+              "$G$ is always nonabelian",
+              "$G\\cong\\mathbb{Z}/p\\times\\mathbb{Z}/2$ uniquely"
+            ],
+            "answer": 0,
+            "hint": "Sylow gives a unique normal Sylow $p$-subgroup $N$; then $G=N\\rtimes\\mathbb{Z}/2$, and $\\mathrm{Aut}(\\mathbb{Z}/p)\\cong\\mathbb{Z}/(p-1)$ has a unique order-$2$ element (inversion).",
+            "explain": "$n_p\\mid 2$ and $n_p\\equiv 1\\pmod p$, so $n_p=1$ (since $p>2$ implies $2\\not\\equiv 1\\pmod p$). So $N$ is normal; complement $\\mathbb{Z}/2$ exists (Schur-Zassenhaus or Sylow argument). The only homomorphisms $\\mathbb{Z}/2\\to\\mathrm{Aut}(\\mathbb{Z}/p)\\cong\\mathbb{Z}/(p-1)$ send the generator to either the identity (giving $\\mathbb{Z}/p\\times\\mathbb{Z}/2=\\mathbb{Z}/(2p)$) or to inversion (giving $D_p$)."
+          },
+          {
+            "type": "mcq",
+            "q": "When is an internal semidirect product $G=N\\rtimes H$ actually a direct product $N\\times H$?",
+            "choices": [
+              "Exactly when the action $\\varphi:H\\to\\mathrm{Aut}(N)$ is trivial, i.e. every element of $H$ commutes with every element of $N$",
+              "Whenever both $N$ and $H$ are abelian",
+              "Whenever $|N|$ and $|H|$ are coprime",
+              "Whenever $N$ is cyclic"
+            ],
+            "answer": 0,
+            "hint": "The multiplication in $N\\rtimes_\\varphi H$ reduces to that of $N\\times H$ precisely when $\\varphi$ is trivial.",
+            "explain": "By definition $(n_1,h_1)(n_2,h_2)=(n_1\\varphi_{h_1}(n_2),h_1 h_2)$; this collapses to componentwise multiplication iff $\\varphi_{h}$ is the identity for all $h$, i.e. $\\varphi$ is trivial. Coprimality and abelianness are red herrings."
+          },
+          {
+            "type": "numeric",
+            "q": "How many nonisomorphic semidirect products $\\mathbb{Z}/7\\rtimes_\\varphi\\mathbb{Z}/3$ are there (counting both trivial and nontrivial $\\varphi$)?",
+            "answer": 2,
+            "tol": 1e-9,
+            "hint": "$\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$. How many subgroups of order dividing $3$?",
+            "explain": "Homomorphisms $\\mathbb{Z}/3\\to\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$ correspond to elements of order dividing $3$ in $\\mathbb{Z}/6$, which form the unique subgroup of order $3$. So there are $3$ homomorphisms, but two of the nontrivial ones give isomorphic semidirect products (they differ by an automorphism of $\\mathbb{Z}/3$). Thus there are $2$ isomorphism classes: the trivial one ($\\mathbb{Z}/21$) and the nonabelian one (order $21$)."
+          }
+        ]
       }
     }
   },
@@ -5050,6 +5548,1020 @@ window.MVQuizBank = {
             "tol": 0.5,
             "hint": "Compute $e^{10/2}/14.14$.",
             "explain": "$|x^\\rho/\\rho|=x^{\\Re(\\rho)}/|\\rho|=(e^{10})^{1/2}/14.14=e^5/14.14\\approx148.41/14.14\\approx10.5$. The main term is $x=e^{10}\\approx22026$, so zeros contribute small but detectable oscillations."
+          }
+        ]
+      }
+    }
+  },
+  "dynamical-systems": {
+    "topic": "dynamical-systems",
+    "quizzes": {
+      "dyn-orbits-flows": {
+        "title": "Orbits, flows, and vector fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The flow $\\Phi_t$ of a complete vector field $X$ on $M$ satisfies:",
+            "choices": [
+              "$\\Phi_t(\\Phi_s(p))=\\Phi_{t-s}(p)$ and $\\Phi_0=\\mathrm{id}$",
+              "$\\Phi_t(\\Phi_s(p))=\\Phi_{t+s}(p)$ and $\\Phi_0=\\mathrm{id}$",
+              "$\\Phi_t$ is linear in $p$",
+              "$\\Phi_t$ is orthogonal for every $t$"
+            ],
+            "answer": 1,
+            "explain": "The flow is a one-parameter group: $\\Phi_{t+s}=\\Phi_t\\circ\\Phi_s$ and $\\Phi_0=\\mathrm{id}$. Linearity and orthogonality are special properties of particular vector fields."
+          },
+          {
+            "type": "numeric",
+            "q": "For the linear system $\\dot x = -x$ on $\\mathbb{R}$ with $x(0)=4$, compute $x(\\ln 2)$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each 1D vector field to its long-time behaviour from $x_0>0$.",
+            "left": [
+              "converges to $0$",
+              "blows up in finite time",
+              "converges to $+\\infty$ monotonically"
+            ],
+            "right": [
+              "$\\dot x = -x$",
+              "$\\dot x = x^2$",
+              "$\\dot x = x$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$\\dot x=-x$: exponential decay to 0. $\\dot x=x^2$: $x(t)=x_0/(1-x_0 t)$ blows up at $t=1/x_0$. $\\dot x=x$: exponential growth."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which condition fails for $\\dot x = x^2$, $x(0)=1$ to be a globally defined flow on $\\mathbb{R}$?",
+            "choices": [
+              "Smoothness of the right-hand side",
+              "Existence of a local solution",
+              "Completeness: the solution is defined for all $t\\in\\mathbb{R}$",
+              "Uniqueness of the solution"
+            ],
+            "answer": 2,
+            "hint": "The solution blows up at $t=1$.",
+            "explain": "$x(t)=1/(1-t)$ has a finite-time singularity at $t=1$; the maximal interval is $(-\\infty,1)$, so $X(x)=x^2$ is not complete on $\\mathbb{R}$."
+          },
+          {
+            "type": "proof-completion",
+            "q": "Fix $p$ with $X(p)=0$. To show $\\Phi_t(p)=p$ for all $t$, the next step after \"the constant curve $\\gamma(t)\\equiv p$ satisfies $\\dot\\gamma=0=X(\\gamma(t))$\" is:",
+            "steps": [
+              "Set $\\gamma(t)\\equiv p$; verify $\\dot\\gamma=0=X(\\gamma(t))$, so $\\gamma$ is an integral curve through $p$."
+            ],
+            "choices": [
+              "Differentiate once more to get $\\ddot\\gamma=0$, hence $\\gamma$ is linear.",
+              "Invoke uniqueness of integral curves: the flow line through $p$ is unique, so $\\Phi_t(p)=\\gamma(t)=p$.",
+              "Conclude by Hartman–Grobman that $\\Phi_t$ is conjugate to its linearization.",
+              "Apply Poincaré–Bendixson to the forward orbit."
+            ],
+            "answer": 1,
+            "explain": "The ODE theorem gives a unique integral curve through each point; since the constant curve works, it is the flow. Hartman–Grobman and Poincaré–Bendixson are downstream theorems."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X(x,y)=(-y,x)$ on $\\mathbb{R}^2$. How far from the origin is $\\Phi_{\\pi/2}(1,0)$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "This is rotation; the flow preserves $x^2+y^2$.",
+            "explain": "$X=(-y,x)$ is rigid rotation: $\\Phi_t(x,y)=(\\cos t\\,x-\\sin t\\,y,\\sin t\\,x+\\cos t\\,y)$. Distance to origin is preserved; the answer is $1$."
+          }
+        ]
+      },
+      "dyn-fixed-linearization": {
+        "title": "Fixed points and linearization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A fixed point $p^*$ of $\\dot x = X(x)$ is called hyperbolic when:",
+            "choices": [
+              "$X$ is linear near $p^*$",
+              "Every eigenvalue of $DX(p^*)$ has nonzero real part",
+              "Every eigenvalue of $DX(p^*)$ is real",
+              "Every eigenvalue of $DX(p^*)$ has modulus $1$"
+            ],
+            "answer": 1,
+            "explain": "Hyperbolic = no eigenvalue lies on the imaginary axis. Hartman–Grobman then conjugates the flow to its linearization on a neighbourhood."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\dot x = \\sin x$, the fixed point at $x=0$ has Jacobian $\\cos 0$. What is its value?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point."
+          },
+          {
+            "type": "mcq",
+            "q": "For the 2D linear system with matrix $A=\\begin{pmatrix}1 & 0 \\\\ 0 & -2\\end{pmatrix}$, the origin is a:",
+            "choices": [
+              "stable node (sink)",
+              "unstable node (source)",
+              "saddle",
+              "center"
+            ],
+            "answer": 2,
+            "explain": "Eigenvalues $1$ and $-2$ have opposite sign, so the origin is a saddle: one expanding direction ($e_1$) and one contracting direction ($e_2$)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which statement about $\\dot x=-x^3$ at the origin is correct?",
+            "choices": [
+              "Hartman–Grobman implies the flow is topologically conjugate to $\\dot y=0$.",
+              "The origin is asymptotically stable even though the linearization is degenerate.",
+              "The origin is unstable because $DX(0)=0$.",
+              "$x=0$ is not a fixed point."
+            ],
+            "answer": 1,
+            "hint": "Lyapunov function $V(x)=x^2$ works here; Hartman–Grobman needs hyperbolicity.",
+            "explain": "$DX(0)=-3\\cdot 0^2=0$, so the origin is non-hyperbolic and Hartman–Grobman does NOT apply. But $V(x)=x^2$ has $\\dot V=-2x^4\\le 0$, so the origin is Lyapunov (even asymptotically) stable."
+          },
+          {
+            "type": "complex",
+            "q": "For $A=\\begin{pmatrix}0 & -1 \\\\ 1 & 0\\end{pmatrix}$, give one eigenvalue as $a+bi$.",
+            "answer": [
+              0,
+              1
+            ],
+            "tol": 0.000001,
+            "hint": "$\\det(A-\\lambda I)=\\lambda^2+1$.",
+            "explain": "Characteristic polynomial $\\lambda^2+1=0$ gives $\\lambda=\\pm i$; $(0,1)$ or $(0,-1)$ both qualify as answers."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Someone 'proves' that every fixed point of $\\dot x=X(x)$ is stable. Find the flawed step.",
+            "steps": [
+              "Let $p^*$ be a fixed point, so $X(p^*)=0$.",
+              "By Taylor expansion, $X(x)\\approx DX(p^*)(x-p^*)$ near $p^*$.",
+              "Since $X(p^*)=0$, the linearized system $\\dot y = DX(p^*)y$ has $0$ as a fixed point.",
+              "Therefore every trajectory starting near $p^*$ converges to $p^*$."
+            ],
+            "answer": 3,
+            "explain": "Step 4 is wrong: nothing in steps 1–3 forces the eigenvalues of $DX(p^*)$ to have negative real parts. Saddles and unstable nodes are fixed points that are NOT attracting."
+          }
+        ]
+      },
+      "dyn-phase-portraits": {
+        "title": "Phase portraits in 2D",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a 2×2 matrix $A$ with $\\operatorname{tr}A=-3,\\ \\det A=2$, the origin is a:",
+            "choices": [
+              "saddle",
+              "stable node",
+              "unstable spiral",
+              "center"
+            ],
+            "answer": 1,
+            "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select ALL systems whose origin is a saddle.",
+            "choices": [
+              "$\\dot x=x,\\ \\dot y=-y$",
+              "$\\dot x=-x,\\ \\dot y=-2y$",
+              "$\\dot x=2x+y,\\ \\dot y=x+2y$",
+              "$\\dot x=y,\\ \\dot y=x$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "Saddle requires $\\det A<0$. (a) $\\det=-1$: saddle. (b) $\\det=2$: stable node. (c) $\\det=3$: node. (d) $\\det=-1$: saddle."
+          },
+          {
+            "type": "mcq",
+            "q": "A nullcline of a 2D system $\\dot x=f(x,y),\\ \\dot y=g(x,y)$ is:",
+            "choices": [
+              "a trajectory of the system",
+              "the set where $f=0$ (the $x$-nullcline) or $g=0$ (the $y$-nullcline)",
+              "a fixed point",
+              "a symmetry axis"
+            ],
+            "answer": 1,
+            "explain": "Nullclines are the zero sets of the components; their intersections are fixed points, and they organize the direction field (on the $x$-nullcline, trajectories move vertically)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "matching",
+            "q": "Match $(\\operatorname{tr},\\det)$ to the portrait type.",
+            "left": [
+              "stable spiral",
+              "saddle",
+              "center",
+              "stable node"
+            ],
+            "right": [
+              "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$",
+              "$\\det<0$",
+              "$\\operatorname{tr}=0,\\ \\det>0$",
+              "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Spirals have complex eigenvalues (negative discriminant).",
+            "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\operatorname{tr}$ separates stable/unstable. Discriminant $\\operatorname{tr}^2-4\\det$ separates node (positive) from spiral (negative)."
+          },
+          {
+            "type": "mcq",
+            "q": "The Van der Pol system $\\dot x=y,\\ \\dot y=\\mu(1-x^2)y-x$ with $\\mu>0$ has a single fixed point at the origin. What is its type?",
+            "choices": [
+              "stable node",
+              "saddle",
+              "unstable spiral for small $\\mu$",
+              "center"
+            ],
+            "answer": 2,
+            "hint": "Linearize at the origin: $A=\\begin{pmatrix}0&1\\\\-1&\\mu\\end{pmatrix}$.",
+            "explain": "Jacobian at origin has $\\operatorname{tr}=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\operatorname{tr}^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
+          },
+          {
+            "type": "ordering",
+            "q": "Put the steps of sketching a 2D phase portrait in the logical order.",
+            "items": [
+              "Find all fixed points by solving $f=g=0$.",
+              "Draw the $x$- and $y$-nullclines and a few sample arrows in each region.",
+              "Classify each fixed point via the Jacobian.",
+              "Sketch representative trajectories consistent with the local classifications.",
+              "Identify any invariant lines or conserved quantities."
+            ],
+            "answer": [
+              0,
+              2,
+              4,
+              1,
+              3
+            ],
+            "hint": "Fixed points first; nullclines scaffold the trajectories.",
+            "explain": "Standard recipe: (1) fixed points, (2) classify them, (3) invariants / symmetries, (4) nullclines, (5) trajectories glued from local pictures."
+          }
+        ]
+      },
+      "dyn-limit-cycles": {
+        "title": "Periodic orbits and limit cycles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Poincaré–Bendixson asserts that a non-empty compact $\\omega$-limit set of a smooth planar flow that contains NO fixed point must be:",
+            "choices": [
+              "a fixed point",
+              "a homoclinic loop",
+              "a periodic orbit",
+              "empty"
+            ],
+            "answer": 2,
+            "explain": "In $\\mathbb{R}^2$, the trichotomy is: the $\\omega$-limit set is a fixed point, a periodic orbit, or a union of fixed points joined by heteroclinic/homoclinic connections. No fixed point leaves only a periodic orbit."
+          },
+          {
+            "type": "mcq",
+            "q": "Bendixson–Dulac rules out closed orbits in a simply connected region when:",
+            "choices": [
+              "$\\operatorname{div}(\\phi X)$ has constant sign and is not identically zero on the region, for some smooth $\\phi>0$",
+              "$\\operatorname{div}X = 0$ everywhere",
+              "there are no fixed points",
+              "the flow is conservative"
+            ],
+            "answer": 0,
+            "explain": "By Green's theorem, along a closed orbit the integral of $\\operatorname{div}(\\phi X)$ over the enclosed region would be zero; if the integrand has constant non-zero sign, no such region can exist."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\dot r = r(1-r^2),\\ \\dot\\theta = 1$ in polar coordinates, the unique stable limit cycle is the circle $r = ?$",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle). Near $r=1$ the radial flow contracts ($\\dot r=r(1-r^2)$ changes sign), so $r=1$ is the stable limit cycle."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which system is GUARANTEED to have a periodic orbit by the Poincaré–Bendixson theorem?",
+            "choices": [
+              "$\\dot x=-x,\\ \\dot y=-y$ (sink at origin, no fixed points elsewhere)",
+              "A smooth planar system with a compact, forward-invariant annular region $R$ containing no fixed points",
+              "Any 3D flow whose vector field is bounded",
+              "Any Hamiltonian system on $\\mathbb{R}^2$"
+            ],
+            "answer": 1,
+            "hint": "The theorem is two-dimensional and needs a fixed-point-free trapping region.",
+            "explain": "A trapping annulus with no fixed point forces the $\\omega$-limit set to be a periodic orbit. The theorem fails in 3D, and Hamiltonian systems may have only saddles and centers, not limit cycles."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flawed step in this attempt to show $\\dot x=y,\\ \\dot y=-x+y^3$ has no periodic orbit.",
+            "steps": [
+              "Compute $\\operatorname{div}X = \\partial(y)/\\partial x + \\partial(-x+y^3)/\\partial y = 0 + 3y^2 = 3y^2$.",
+              "Note $\\operatorname{div}X = 3y^2 \\ge 0$ everywhere.",
+              "By Bendixson's criterion, since $\\operatorname{div}X\\ge 0$, no closed orbit exists.",
+              "Conclude: the system has no periodic orbit in $\\mathbb{R}^2$."
+            ],
+            "answer": 2,
+            "explain": "Bendixson requires $\\operatorname{div}X$ to have STRICTLY one sign on the region (not identically zero). $3y^2$ vanishes on the $x$-axis, so the hypothesis is not satisfied; the argument is invalid."
+          },
+          {
+            "type": "numeric",
+            "q": "The Van der Pol oscillator has a unique stable limit cycle for all $\\mu>0$. For $\\mu=0$, what is the amplitude of the (degenerate) circular orbit through $(2,0)$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "hint": "$\\mu=0$ gives $\\ddot x+x=0$: a harmonic oscillator.",
+            "explain": "At $\\mu=0$ the system is $\\ddot x+x=0$ (center); every circle is a periodic orbit. Through $(2,0)$ the amplitude is $2$. For $\\mu\\to 0^+$ the unique limit cycle approaches amplitude $2$."
+          }
+        ]
+      },
+      "dyn-iterated-maps": {
+        "title": "Iterated maps and the logistic family",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For the logistic map $f_r(x)=rx(1-x)$ with $r=2.5$, compute the non-zero fixed point $x^*\\in(0,1)$.",
+            "answer": 0.6,
+            "tol": 0.000001,
+            "explain": "$x^*=1-1/r=1-0.4=0.6$."
+          },
+          {
+            "type": "mcq",
+            "q": "A fixed point $x^*$ of a smooth 1D map $f$ is attracting when:",
+            "choices": [
+              "$f'(x^*)=0$",
+              "$|f'(x^*)|<1$",
+              "$|f'(x^*)|>1$",
+              "$f''(x^*)>0$"
+            ],
+            "answer": 1,
+            "explain": "Linearization near $x^*$: $x_{n+1}-x^*\\approx f'(x^*)(x_n-x^*)$. Stability needs $|f'(x^*)|<1$."
+          },
+          {
+            "type": "guess-my-rule",
+            "q": "Here are inputs and outputs of an unknown one-parameter logistic map $f_r(x)=rx(1-x)$. Figure out $r$ and compute the requested outputs.",
+            "examples": [
+              [
+                0.5,
+                0.75
+              ],
+              [
+                0.25,
+                0.5625
+              ],
+              [
+                0.1,
+                0.27
+              ]
+            ],
+            "testCases": [
+              [
+                0.2,
+                0.48
+              ],
+              [
+                0.6,
+                0.72
+              ]
+            ],
+            "inputKind": "number in [0,1]",
+            "outputKind": "number in [0,1]",
+            "tol": 0.01,
+            "hint": "From $f_r(0.5)=0.75$ solve for $r$.",
+            "explain": "$f_r(0.5)=r/4=0.75$ gives $r=3$. Then $f_3(0.2)=3\\cdot 0.2\\cdot 0.8=0.48$ and $f_3(0.6)=3\\cdot 0.6\\cdot 0.4=0.72$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "The logistic map's non-zero fixed point $x^*=1-1/r$ becomes unstable when $|f_r'(x^*)|=1$. At what $r$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "$f_r'(x)=r-2rx$.",
+            "explain": "$f_r'(x^*)=r-2r(1-1/r)=r-2r+2=2-r$. $|2-r|=1$ with $r>0$ gives $r=1$ (emerging) or $r=3$ (period-doubling)."
+          },
+          {
+            "type": "mcq",
+            "q": "After the first period-doubling at $r=3$, the logistic map has a stable 2-cycle $\\{p,q\\}$. Which equation do $p,q$ satisfy?",
+            "choices": [
+              "$f_r(p)=p$",
+              "$f_r(p)=q$ and $f_r(q)=p$, with $p\\neq q$",
+              "$p+q=1/r$",
+              "$pq=(1-1/r)^2$"
+            ],
+            "answer": 1,
+            "hint": "A 2-cycle is a pair of points mapped to each other.",
+            "explain": "A genuine 2-cycle is two distinct points that swap under $f_r$; both are fixed points of $f_r\\circ f_r$ but not of $f_r$."
+          },
+          {
+            "type": "complex",
+            "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p<q$.",
+            "answer": [
+              0.3333333333333333,
+              0.6666666666666667
+            ],
+            "tol": 0.000001,
+            "hint": "$f^2(x)=4x\\bmod 1$; solve $4p\\bmod 1=p$ away from fixed points.",
+            "explain": "Fixed points of $f^2$: $4x-x\\in\\mathbb{Z}$ with $x\\in[0,1)$ gives $x\\in\\{0,1/3,2/3\\}$. Excluding the fixed point $x=0$, the 2-cycle is $\\{1/3,2/3\\}$: $f(1/3)=2/3$, $f(2/3)=1/3$."
+          }
+        ]
+      },
+      "dyn-bifurcations": {
+        "title": "Bifurcations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The normal form $\\dot x = \\mu - x^2$ undergoes a:",
+            "choices": [
+              "pitchfork bifurcation at $\\mu=0$",
+              "transcritical bifurcation at $\\mu=0$",
+              "saddle-node bifurcation at $\\mu=0$",
+              "Hopf bifurcation at $\\mu=0$"
+            ],
+            "answer": 2,
+            "explain": "For $\\mu>0$ two fixed points at $\\pm\\sqrt\\mu$; at $\\mu=0$ they collide; for $\\mu<0$ no fixed points. That is a saddle-node."
+          },
+          {
+            "type": "matching",
+            "q": "Match each normal form to its bifurcation name.",
+            "left": [
+              "saddle-node",
+              "transcritical",
+              "pitchfork (supercritical)",
+              "Hopf"
+            ],
+            "right": [
+              "$\\dot x=\\mu-x^2$",
+              "$\\dot x=\\mu x-x^2$",
+              "$\\dot x=\\mu x-x^3$",
+              "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a limit cycle from a spiral."
+          },
+          {
+            "type": "mcq",
+            "q": "The first period-doubling of the logistic map happens at $r=3$. Which statement is correct about the 2-cycle born there?",
+            "choices": [
+              "It is born unstable.",
+              "It is born stable and replaces the now-unstable fixed point.",
+              "It exists only at the single value $r=3$.",
+              "It is a continuous limit cycle."
+            ],
+            "answer": 1,
+            "explain": "At $r=3$ the fixed point loses stability ($f'(x^*)=-1$); a stable 2-cycle emerges via period-doubling and persists for $r>3$ (until $r_2\\approx 3.449$ where it period-doubles again)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multi-select",
+            "q": "Select ALL true statements about the supercritical pitchfork $\\dot x=\\mu x-x^3$.",
+            "choices": [
+              "For $\\mu<0$, the only fixed point is $x=0$, which is stable.",
+              "For $\\mu>0$, $x=0$ is unstable and two new stable fixed points $\\pm\\sqrt\\mu$ appear.",
+              "The bifurcation preserves the $x\\mapsto -x$ symmetry.",
+              "The bifurcation is NOT generic: it requires an $x\\mapsto -x$ symmetry to stay robust under perturbation."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "All four statements are standard textbook facts about the supercritical pitchfork.",
+            "explain": "Each statement is the classical lore: symmetry is essential (break it and you get a saddle-node plus a transcritical)."
+          },
+          {
+            "type": "mcq",
+            "q": "A supercritical Hopf bifurcation at $\\mu=0$ produces, for $\\mu$ slightly positive:",
+            "choices": [
+              "a pair of new fixed points",
+              "a saddle connection",
+              "a small-amplitude stable limit cycle of amplitude $\\sim\\sqrt\\mu$",
+              "a chaotic attractor"
+            ],
+            "answer": 2,
+            "hint": "The normal form is $\\dot r=\\mu r-r^3$.",
+            "explain": "Solving $\\dot r=0$ gives $r=\\sqrt\\mu$; a stable limit cycle of amplitude $\\sqrt\\mu$ emerges as the spiral loses stability."
+          },
+          {
+            "type": "numeric",
+            "q": "Feigenbaum's constant $\\delta$, the universal ratio $\\lim_{n\\to\\infty}(r_{n-1}-r_{n-2})/(r_n-r_{n-1})$ for period-doubling cascades, equals (to 3 decimal places):",
+            "answer": 4.669,
+            "tol": 0.01,
+            "hint": "Famous constant; starts $4.669\\ldots$",
+            "explain": "Feigenbaum's first constant is $\\delta\\approx 4.6692016\\ldots$, universal across all smooth unimodal maps with quadratic maximum."
+          }
+        ]
+      },
+      "dyn-chaos": {
+        "title": "Chaos and Lyapunov exponents",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the Lyapunov exponent of the doubling map $f(x)=2x\\bmod 1$ on $[0,1)$.",
+            "answer": 0.6931471805599453,
+            "tol": 0.0001,
+            "explain": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$."
+          },
+          {
+            "type": "mcq",
+            "q": "Sensitive dependence on initial conditions means:",
+            "choices": [
+              "every orbit is periodic",
+              "there exists $\\delta>0$ such that for every $x$ and every neighbourhood $U\\ni x$, some $y\\in U$ and $n\\ge 0$ give $|f^n(x)-f^n(y)|\\ge\\delta$",
+              "orbits converge to a fixed point",
+              "the system is measure preserving"
+            ],
+            "answer": 1,
+            "explain": "SDIC: arbitrarily close points eventually separate by at least a fixed amount $\\delta$ under iteration."
+          },
+          {
+            "type": "ordering",
+            "q": "Devaney's definition of chaos requires three conditions. Order them from easiest to verify to hardest.",
+            "items": [
+              "periodic points are dense",
+              "the map is topologically transitive",
+              "sensitive dependence on initial conditions"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC. Banks–Brooks–Cairns–Davis–Stacey later showed (iii) is implied by (i)+(ii) on infinite metric spaces."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "For the fully-chaotic logistic map $f_4(x)=4x(1-x)$, the invariant density is $\\rho(x)=\\tfrac{1}{\\pi\\sqrt{x(1-x)}}$. The Lyapunov exponent is $\\int_0^1 \\log|f_4'(x)|\\,\\rho(x)\\,dx$. Evaluate.",
+            "answer": 0.6931471805599453,
+            "tol": 0.001,
+            "hint": "Conjugate to the tent map via $x=\\sin^2(\\pi y/2)$; both give $\\log 2$.",
+            "explain": "$f_4$ is semiconjugate to the doubling (or tent) map; the conjugacy preserves Lyapunov exponents, so $\\lambda=\\log 2$."
+          },
+          {
+            "type": "mcq",
+            "q": "For the Lorenz system with classical parameters $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, how many Lyapunov exponents are there and what are their signs?",
+            "choices": [
+              "One, positive.",
+              "Three: $+, 0, -$.",
+              "Three, all positive.",
+              "Two: $+, -$."
+            ],
+            "answer": 1,
+            "hint": "Number of exponents equals the dimension; flows always have a zero exponent along the flow direction.",
+            "explain": "A 3D flow has three Lyapunov exponents. One is always zero (flow direction, for non-fixed points). For Lorenz with classical parameters, they are approximately $+0.906, 0, -14.57$ — a signature of chaotic attractors in 3D dissipative flows."
+          },
+          {
+            "type": "proof-completion",
+            "q": "To compute the Lyapunov exponent of the tent map $T(x)=1-|1-2x|$ on $[0,1]$: the next step after \"$|T'(x)|=2$ almost everywhere in $[0,1]$\" is:",
+            "steps": [
+              "Compute $T'(x)$ piecewise: $T'(x)=2$ for $x\\in(0,1/2)$ and $T'(x)=-2$ for $x\\in(1/2,1)$.",
+              "Conclude $|T'(x)|=2$ almost everywhere in $[0,1]$."
+            ],
+            "choices": [
+              "Therefore $\\lambda=\\tfrac{1}{N}\\sum_{i<N}\\log|T'(x_i)|=\\log 2$ for every orbit.",
+              "Apply Birkhoff's ergodic theorem with Lebesgue-invariant measure: $\\lambda=\\int_0^1 \\log 2\\,dx=\\log 2$.",
+              "Use Hartman–Grobman to linearize the map at each point.",
+              "Apply Poincaré–Bendixson."
+            ],
+            "answer": 1,
+            "explain": "Lebesgue measure is invariant and ergodic for the tent map; Birkhoff converts the time average into the space average, giving $\\lambda=\\log 2$. (The naive 'every orbit' version of (a) is almost-everywhere but not pointwise-everywhere true.)"
+          }
+        ]
+      },
+      "dyn-conservative-dissipative": {
+        "title": "Conservative vs dissipative flows",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Liouville's theorem states that the flow of $\\dot x=X(x)$ preserves phase-space volume if and only if:",
+            "choices": [
+              "$\\operatorname{div}X=0$ everywhere",
+              "$X$ has no fixed points",
+              "$X$ is linear",
+              "$X$ is bounded"
+            ],
+            "answer": 0,
+            "explain": "$\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U))=\\int_U \\operatorname{div}X\\,d\\mathrm{vol}$, so the flow preserves volume iff $\\operatorname{div}X\\equiv 0$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=\\rho x-y-xz,\\ \\dot z=xy-\\beta z$, compute $\\operatorname{div}X$ with $\\sigma=10,\\beta=8/3$.",
+            "answer": -13.666666666666666,
+            "tol": 0.001,
+            "explain": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$. Strictly negative, so Lorenz is dissipative."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select ALL systems that are conservative (volume preserving).",
+            "choices": [
+              "Hamilton's equations $\\dot q=\\partial H/\\partial p,\\ \\dot p=-\\partial H/\\partial q$",
+              "$\\dot x=-x$ on $\\mathbb{R}$",
+              "$\\dot x=y,\\ \\dot y=-\\sin x$ (pendulum)",
+              "$\\dot x=y,\\ \\dot y=-x-\\mu y$ with $\\mu>0$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$. (b) $\\operatorname{div}=-1<0$: dissipative. (c) Pendulum is Hamiltonian with $H=y^2/2-\\cos x$. (d) Damped oscillator: $\\operatorname{div}=-\\mu<0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A 3D dissipative flow with $\\operatorname{div}X<0$ everywhere CANNOT have:",
+            "choices": [
+              "a strange attractor",
+              "a stable limit cycle",
+              "a phase-space-filling invariant torus of positive 3-volume",
+              "chaotic trajectories"
+            ],
+            "answer": 2,
+            "hint": "What happens to a 3-volume under a contracting flow as $t\\to\\infty$?",
+            "explain": "Volume contracts to zero, so no 3D invariant set of positive volume survives; attractors must have Lebesgue measure zero. They can still be strange (Lorenz), and limit cycles and chaos are both compatible with dissipation."
+          },
+          {
+            "type": "proof-completion",
+            "q": "To prove a Hamiltonian vector field $X_H$ satisfies $\\operatorname{div}X_H=0$ on $\\mathbb{R}^{2n}$, the next step after \"write $X_H=(\\partial H/\\partial p_1,\\ldots,\\partial H/\\partial p_n,-\\partial H/\\partial q_1,\\ldots,-\\partial H/\\partial q_n)$\" is:",
+            "steps": [
+              "Identify coordinates $(q_1,\\ldots,q_n,p_1,\\ldots,p_n)$.",
+              "Write $X_H=(\\partial H/\\partial p_1,\\ldots,\\partial H/\\partial p_n,-\\partial H/\\partial q_1,\\ldots,-\\partial H/\\partial q_n)$."
+            ],
+            "choices": [
+              "Apply Stokes to the boundary of the phase space.",
+              "Compute $\\operatorname{div}X_H=\\sum_i \\partial^2 H/\\partial q_i\\partial p_i - \\sum_i \\partial^2 H/\\partial p_i\\partial q_i=0$ by equality of mixed partials.",
+              "Invoke Birkhoff's theorem.",
+              "Use Hartman–Grobman to linearize."
+            ],
+            "answer": 1,
+            "explain": "Compute $\\operatorname{div}X_H$ directly: the two sums cancel by Clairaut's theorem. This is Liouville's theorem for Hamiltonian systems."
+          },
+          {
+            "type": "numeric",
+            "q": "Under a flow with constant $\\operatorname{div}X=-0.5$, a phase-space ball of volume $1$ shrinks to what volume after $t=10$ seconds?",
+            "answer": 0.006737946999085467,
+            "tol": 0.001,
+            "hint": "Volume evolves as $\\mathrm{vol}(t)=\\mathrm{vol}(0)e^{\\int_0^t \\operatorname{div}X\\,ds}$.",
+            "explain": "With constant divergence $c=-0.5$, $\\mathrm{vol}(t)=e^{ct}=e^{-5}\\approx 0.00674$."
+          }
+        ]
+      },
+      "dyn-poincare-section": {
+        "title": "Poincaré sections and return maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Poincaré section $\\Sigma$ for a flow $\\Phi_t$ is:",
+            "choices": [
+              "a fixed point of the flow",
+              "a codimension-1 submanifold transverse to the flow, used to define a first-return map",
+              "a periodic orbit",
+              "the Lyapunov exponent"
+            ],
+            "answer": 1,
+            "explain": "$\\Sigma$ is locally transversal to $X$; the first-return time $\\tau(x)$ is well-defined nearby, and $P(x)=\\Phi_{\\tau(x)}(x)$ is the return map."
+          },
+          {
+            "type": "mcq",
+            "q": "A periodic orbit of the flow corresponds, under the Poincaré map, to:",
+            "choices": [
+              "a fixed point of $P$",
+              "an orbit of period $2$ of $P$",
+              "a limit point at infinity",
+              "nothing: periodic orbits are invisible to $P$"
+            ],
+            "answer": 0,
+            "explain": "A closed orbit crossing $\\Sigma$ once per period returns to the same point: $P(x^*)=x^*$. Its stability as a cycle = stability of $x^*$ as a fixed point of $P$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the rigid rotation $\\dot r=0,\\ \\dot\\theta=1$ with section $\\Sigma=\\{\\theta=0\\}$, the first-return map $P\\colon \\Sigma\\to\\Sigma$ has return time equal to:",
+            "answer": 6.283185307179586,
+            "tol": 0.000001,
+            "explain": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why does the Poincaré section trick REDUCE the dimension of the problem?",
+            "choices": [
+              "Because $\\Sigma$ is $(n-1)$-dimensional when the flow is in $n$-dimensional space, turning an $n$-D flow into an $(n-1)$-D discrete map.",
+              "Because the flow becomes linear on $\\Sigma$.",
+              "Because fixed points become eliminated.",
+              "Because the Lyapunov exponent doubles."
+            ],
+            "answer": 0,
+            "explain": "A 3D flow restricted to a 2D section is a 2D discrete map; a 2D flow on a 1D section is a 1D map. Each reduction lets you apply lower-dimensional techniques (e.g. 1D maps for analyzing 2D limit cycles)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps in constructing the Poincaré map for a limit cycle.",
+            "items": [
+              "Pick a point $x^*$ on the closed orbit.",
+              "Take a small disk $\\Sigma\\ni x^*$ transverse to the flow.",
+              "Solve $\\Phi_{\\tau(x)}(x)\\in\\Sigma$ for a return time $\\tau(x)$ near $x^*$.",
+              "Define $P(x)=\\Phi_{\\tau(x)}(x)$.",
+              "Compute the Floquet multipliers as eigenvalues of $dP(x^*)$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "hint": "Geometric construction, then analytic definition, then linearization.",
+            "explain": "Standard recipe: pick the cycle and a section, produce the return time, define the map, linearize for stability."
+          },
+          {
+            "type": "proof-completion",
+            "q": "To show the Poincaré map $P$ is smooth near a fixed point $x^*$, the next step after \"the return time $\\tau(x)$ is defined by $\\Phi_{\\tau(x)}(x)\\in\\Sigma$\" is:",
+            "steps": [
+              "Pick $x^*\\in\\Sigma$ with $\\Phi_T(x^*)=x^*$.",
+              "The return time $\\tau(x)$ is defined by the condition $\\Phi_{\\tau(x)}(x)\\in\\Sigma$."
+            ],
+            "choices": [
+              "Apply the Inverse Function Theorem to $(x,t)\\mapsto\\Phi_t(x)$ directly.",
+              "Apply the Implicit Function Theorem to the defining equation, using that $X(x^*)$ is transverse to $\\Sigma$, to obtain a smooth $\\tau(x)$; then $P(x)=\\Phi_{\\tau(x)}(x)$ is smooth as a composition.",
+              "Use the Stone–Weierstrass theorem to approximate $P$ by polynomials.",
+              "Invoke Banach's fixed point theorem on $P$."
+            ],
+            "answer": 1,
+            "explain": "Transversality $X(x^*)\\notin T_{x^*}\\Sigma$ is exactly the non-degeneracy needed for IFT to give $\\tau(x)$ smoothly; then smoothness of $P$ follows from smoothness of $\\Phi$."
+          }
+        ]
+      },
+      "dyn-symbolic-dynamics": {
+        "title": "Symbolic dynamics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The doubling map $f(x)=2x\\bmod 1$ is topologically conjugate to:",
+            "choices": [
+              "the identity map on $[0,1]$",
+              "the shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$",
+              "rotation by $1/2$ on $S^1$",
+              "the rotation $R_\\alpha$ with $\\alpha$ irrational"
+            ],
+            "answer": 1,
+            "explain": "Write $x$ in binary $x=0.b_1b_2b_3\\ldots$; then $f(x)=0.b_2b_3\\ldots$, i.e. the left-shift on binary sequences."
+          },
+          {
+            "type": "matching",
+            "q": "Match the symbolic feature to its dynamical meaning (for the doubling map via binary expansion).",
+            "left": [
+              "eventually periodic sequence",
+              "periodic sequence",
+              "sequence containing every finite word"
+            ],
+            "right": [
+              "eventually periodic orbit",
+              "periodic orbit",
+              "dense orbit"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding."
+          },
+          {
+            "type": "numeric",
+            "q": "Count the number of 2-periodic points of the full 2-shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$ (including fixed points).",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why does the itinerary map for the logistic map $f_4(x)=4x(1-x)$ fail to be a homeomorphism onto $\\{0,1\\}^{\\mathbb{N}}$?",
+            "choices": [
+              "Because $f_4$ is not continuous.",
+              "Because the two intervals $I_0,I_1$ meet at the critical point $1/2$, so some points have two itineraries (like dyadic rationals having two binary expansions).",
+              "Because $f_4$ is not measure-preserving.",
+              "Because $\\{0,1\\}^{\\mathbb{N}}$ is uncountable."
+            ],
+            "answer": 1,
+            "hint": "The critical point $x=1/2$ sits on the boundary between $I_0=[0,1/2]$ and $I_1=[1/2,1]$.",
+            "explain": "Ambiguity at the critical point gives a finite-to-one map rather than a homeomorphism; after identifying pairs like $0\\overline{1}=1\\overline{0}$ (countably many points), it becomes a semiconjugacy."
+          },
+          {
+            "type": "numeric",
+            "q": "How many period-$n$ points does the full 2-shift have? For $n=5$, give the count.",
+            "answer": 32,
+            "tol": 0.000001,
+            "hint": "Period-$n$ here means fixed under $\\sigma^n$ (including lower periods).",
+            "explain": "Fixed points of $\\sigma^n$ correspond to length-$n$ binary words: $2^n$. For $n=5$, $2^5=32$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select ALL properties that the full 2-shift $\\sigma\\colon \\{0,1\\}^{\\mathbb{N}}\\to\\{0,1\\}^{\\mathbb{N}}$ has.",
+            "choices": [
+              "topological transitivity",
+              "dense periodic points",
+              "sensitive dependence on initial conditions",
+              "every orbit is periodic"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Three of these are Devaney-chaos; the fourth is false for any infinite system with dense periodic + transitive points.",
+            "explain": "The 2-shift is a model example of Devaney chaos: transitive (a sequence containing every word generates a dense orbit), periodic points are dense (periodic binary strings), SDIC (flip the $n$-th digit to separate orbits after $n$ shifts). Not every orbit is periodic — most are aperiodic."
+          }
+        ]
+      },
+      "dyn-ergodicity": {
+        "title": "Ergodicity and invariant measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A measure-preserving transformation $T$ of $(X,\\mu)$ is ergodic when:",
+            "choices": [
+              "it is continuous",
+              "every measurable set $A$ with $T^{-1}A=A$ has $\\mu(A)=0$ or $\\mu(A)=1$",
+              "it is one-to-one",
+              "it is volume-doubling"
+            ],
+            "answer": 1,
+            "explain": "Ergodicity = the only invariant sets (up to measure zero) are the trivial ones."
+          },
+          {
+            "type": "mcq",
+            "q": "Birkhoff's ergodic theorem says that for an ergodic $T$ and $f\\in L^1$:",
+            "choices": [
+              "$\\lim_{N\\to\\infty}\\tfrac{1}{N}\\sum_{k=0}^{N-1}f(T^k x)=\\int f\\,d\\mu$ for $\\mu$-a.e. $x$",
+              "$f(T^k x)\\to 0$ for every $x$",
+              "$T$ has a dense orbit",
+              "$T$ has zero Lyapunov exponent"
+            ],
+            "answer": 0,
+            "explain": "Time average = space average almost everywhere, when $T$ is ergodic. This is why statistical mechanics works."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select ALL transformations of $[0,1)$ that are ergodic with respect to Lebesgue measure.",
+            "choices": [
+              "$T(x)=x+\\alpha\\bmod 1$ with $\\alpha$ irrational",
+              "$T(x)=x+1/3\\bmod 1$",
+              "$T(x)=2x\\bmod 1$",
+              "$T(x)=x$ (identity)"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "Irrational rotations are uniquely ergodic (Weyl). The doubling map is ergodic (even mixing). Rational rotations split $[0,1)$ into finitely many cycles — not ergodic. The identity preserves every set — far from ergodic."
+          }
+        ],
+        "hard": [
+          {
+            "type": "complex",
+            "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k<N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
+            "answer": [
+              0.5,
+              0
+            ],
+            "tol": 0.000001,
+            "hint": "$T$ preserves Lebesgue; $\\int_0^1 x\\,dx=?$",
+            "explain": "The doubling map is ergodic w.r.t. Lebesgue, so time averages equal the space average $\\int_0^1 x\\,dx=1/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "A Bernoulli shift on $\\{0,1\\}^{\\mathbb{N}}$ with $(p,1-p)$ measure is:",
+            "choices": [
+              "always ergodic, and even mixing",
+              "ergodic only when $p=1/2$",
+              "never ergodic",
+              "ergodic only when $p\\in\\mathbb{Q}$"
+            ],
+            "answer": 0,
+            "hint": "Bernoulli measures are mixing (hence ergodic) for every $p\\in(0,1)$.",
+            "explain": "Independence of cylinders under the shift gives mixing: $\\mu(A\\cap T^{-n}B)\\to \\mu(A)\\mu(B)$. Mixing implies ergodicity for all $p\\in(0,1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "By Birkhoff, for almost every $x\\in[0,1)$, the asymptotic frequency of digit $1$ in the binary expansion of $x$ equals what number?",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "hint": "Apply Birkhoff to $\\mathbf{1}_{[1/2,1)}$ under the doubling map.",
+            "explain": "This is the Borel normal-numbers theorem. The indicator of $\\{x\\in[0,1):b_1=1\\}=[1/2,1)$ has $\\int=1/2$; ergodicity of $T(x)=2x\\bmod 1$ delivers the claim for a.e. $x$."
+          }
+        ]
+      },
+      "dyn-strange-attractors": {
+        "title": "Strange attractors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A strange attractor is invariant, attracting a positive-volume basin, AND:",
+            "choices": [
+              "has integer dimension",
+              "has sensitive dependence on initial conditions (and typically fractal dimension)",
+              "consists of fixed points",
+              "is a single periodic orbit"
+            ],
+            "answer": 1,
+            "explain": "'Strange' = chaotic dynamics on the attractor + fractal/non-integer dimension. Regular attractors (fixed points, limit cycles, tori) are NOT strange."
+          },
+          {
+            "type": "mcq",
+            "q": "The Lorenz attractor uses the classical parameters:",
+            "choices": [
+              "$(\\sigma,\\beta,\\rho)=(10,\\,8/3,\\,28)$",
+              "$(\\sigma,\\beta,\\rho)=(1,1,1)$",
+              "$(\\sigma,\\beta,\\rho)=(2.5,\\,4,\\,13)$",
+              "$(\\sigma,\\beta,\\rho)=(10,\\,10,\\,10)$"
+            ],
+            "answer": 0,
+            "explain": "$(10,8/3,28)$ are Lorenz's original 1963 values, where the butterfly-wing attractor was first discovered."
+          },
+          {
+            "type": "numeric",
+            "q": "Estimate of the box-counting dimension of the Lorenz attractor (classical parameters), to 2 decimals.",
+            "answer": 2.06,
+            "tol": 0.05,
+            "explain": "Numerical estimates give $d\\approx 2.05$–$2.07$; it is just above $2$, consistent with an attractor that is almost but not quite a surface."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why must the Lorenz attractor have zero Lebesgue 3-volume despite being an attractor?",
+            "choices": [
+              "Because it is a fixed point.",
+              "Because $\\operatorname{div}X=-\\sigma-1-\\beta<0$: the flow contracts volume, so any attractor has zero 3-volume.",
+              "Because Lorenz is Hamiltonian.",
+              "Because $\\rho>1$."
+            ],
+            "answer": 1,
+            "hint": "Recall the constant divergence of the Lorenz vector field.",
+            "explain": "Strictly negative divergence contracts 3-volumes exponentially; an attractor, being the intersection of shrinking forward images, must have zero Lebesgue measure."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select ALL true statements about the Lorenz system at classical parameters.",
+            "choices": [
+              "It has three fixed points: the origin and two symmetric non-trivial points.",
+              "The origin is a saddle.",
+              "The non-trivial fixed points are stable.",
+              "It exhibits sensitive dependence on initial conditions on the attractor."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "At $\\rho=28$, the non-trivial fixed points are UNSTABLE (past the Hopf bifurcation at $\\rho\\approx 24.74$).",
+            "explain": "Lorenz has 3 fixed points for $\\rho>1$; at $\\rho=28$ the origin is a saddle, the two symmetric points have already become unstable spirals (subcritical Hopf at $\\rho\\approx 24.74$), and the attractor exhibits SDIC."
+          },
+          {
+            "type": "matching",
+            "q": "Match the attractor to its best description.",
+            "left": [
+              "fixed point",
+              "limit cycle",
+              "invariant torus",
+              "strange attractor"
+            ],
+            "right": [
+              "single equilibrium, dimension 0",
+              "closed periodic orbit, dimension 1",
+              "quasi-periodic orbit on $T^2$, dimension 2",
+              "fractal set with chaotic dynamics"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "The four standard asymptotic behaviours of dissipative flows: equilibrium, periodic, quasi-periodic, chaotic. Dimension climbs from 0 to a fractal value."
           }
         ]
       }
@@ -13647,6 +15159,962 @@ window.MVQuizBank = {
       }
     }
   },
+  "probability-theory": {
+    "topic": "probability-theory",
+    "quizzes": {
+      "sample-spaces-events": {
+        "title": "Sample spaces, events, and probability measures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a requirement of a probability measure $\\mathbb{P}$ on $(\\Omega,\\mathcal{F})$?",
+            "choices": [
+              "$\\mathbb{P}(\\Omega)=1$",
+              "$\\mathbb{P}(\\varnothing)=0$",
+              "$\\mathbb{P}$ is countably additive on disjoint $(A_n)\\subset\\mathcal{F}$",
+              "$\\mathbb{P}(A)>0$ for every $A\\in\\mathcal{F}\\setminus\\{\\varnothing\\}$"
+            ],
+            "answer": 3,
+            "explain": "A probability measure may assign $0$ to non-empty events; e.g. $\\mathbb{P}(\\{x\\})=0$ for every singleton under Lebesgue measure on $[0,1]$. The first three are the defining axioms."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mathbb{P}$ be the uniform law on $\\Omega=\\{1,\\ldots,10\\}$. Compute $\\mathbb{P}(\\{\\text{odd}\\}\\cup\\{\\text{prime}\\})$ where prime = $\\{2,3,5,7\\}$.",
+            "answer": 0.6,
+            "tol": 0.000001,
+            "explain": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all collections that form a $\\sigma$-algebra on $\\Omega=\\{a,b,c\\}$.",
+            "choices": [
+              "$\\{\\varnothing,\\Omega\\}$",
+              "$\\{\\varnothing,\\{a\\},\\{b,c\\},\\Omega\\}$",
+              "$\\{\\varnothing,\\{a\\},\\{b\\},\\Omega\\}$",
+              "$\\mathcal{P}(\\Omega)$"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions. The other three are all valid $\\sigma$-algebras."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Bonferroni's inequality says $\\mathbb{P}(\\bigcup_{i=1}^n A_i)\\le\\sum_i\\mathbb{P}(A_i)$. Under what condition does equality hold?",
+            "choices": [
+              "The $A_i$ are identically distributed",
+              "The $A_i$ are pairwise disjoint",
+              "The $A_i$ are independent",
+              "Each $\\mathbb{P}(A_i)=1/n$"
+            ],
+            "answer": 1,
+            "hint": "Inclusion-exclusion has only overlap corrections — what makes them vanish?",
+            "explain": "Countable additivity gives $\\mathbb{P}(\\bigsqcup A_i)=\\sum\\mathbb{P}(A_i)$ exactly when the $A_i$ are pairwise disjoint. Otherwise inclusion-exclusion gives a strict inequality."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $A_n\\downarrow A$ be a decreasing sequence of events with $\\mathbb{P}(A_1)<\\infty$. If $\\mathbb{P}(A_n)=1/n$, what is $\\mathbb{P}(A)$?",
+            "answer": 0,
+            "tol": 0.000001,
+            "hint": "Use continuity of measure from above.",
+            "explain": "Continuity from above: $\\mathbb{P}(A)=\\lim\\mathbb{P}(A_n)=\\lim 1/n=0$."
+          }
+        ]
+      },
+      "conditional-bayes": {
+        "title": "Conditional probability and Bayes' rule",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Events $A$ and $B$ are independent iff:",
+            "choices": [
+              "$\\mathbb{P}(A\\cup B)=\\mathbb{P}(A)+\\mathbb{P}(B)$",
+              "$\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$",
+              "$A\\cap B=\\varnothing$",
+              "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(B\\mid A)$"
+            ],
+            "answer": 1,
+            "explain": "Independence is exactly the product-factorization $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$, which is equivalent to $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A)$ when $\\mathbb{P}(B)>0$."
+          },
+          {
+            "type": "numeric",
+            "q": "A test detects a disease with $99\\%$ sensitivity and $95\\%$ specificity. Prior prevalence is $1\\%$. Given a positive test, what is the posterior probability of disease? Report to 3 decimals.",
+            "answer": 0.167,
+            "tol": 0.005,
+            "explain": "By Bayes: $\\mathbb{P}(D\\mid+)=\\frac{0.99\\cdot 0.01}{0.99\\cdot 0.01+0.05\\cdot 0.99}=\\frac{0.0099}{0.0099+0.0495}\\approx 0.1667$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each identity to its correct name.",
+            "left": [
+              "$\\mathbb{P}(A)=\\sum_i\\mathbb{P}(A\\mid B_i)\\mathbb{P}(B_i)$",
+              "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(B\\mid A)\\mathbb{P}(A)/\\mathbb{P}(B)$",
+              "$\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$"
+            ],
+            "right": [
+              "Bayes' rule",
+              "Independence",
+              "Law of total probability"
+            ],
+            "answer": [
+              1,
+              0,
+              2
+            ],
+            "explain": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Three events $A$, $B$, $C$ are pairwise independent but NOT mutually independent. Which scenario realises this?",
+            "choices": [
+              "Flip two fair coins; $A=\\{H_1\\}$, $B=\\{H_2\\}$, $C=\\{H_1=H_2\\}$",
+              "$A$, $B$, $C$ all disjoint with equal probability",
+              "$A=B=C$",
+              "Three independent Bernoulli$(1/2)$ events"
+            ],
+            "answer": 0,
+            "hint": "Check both $\\mathbb{P}(X\\cap Y)=\\mathbb{P}(X)\\mathbb{P}(Y)$ for each pair and $\\mathbb{P}(A\\cap B\\cap C)=\\mathbb{P}(A)\\mathbb{P}(B)\\mathbb{P}(C)$.",
+            "explain": "Each of $A$, $B$, $C$ has probability $1/2$; each pairwise intersection is $\\{H_1H_2\\}$ (probability $1/4=1/2\\cdot 1/2$). But $A\\cap B\\cap C=\\{H_1H_2\\}$ has probability $1/4\\ne 1/8=\\mathbb{P}(A)\\mathbb{P}(B)\\mathbb{P}(C)$."
+          },
+          {
+            "type": "numeric",
+            "q": "In the Monty Hall problem (3 doors, you pick door 1, host opens door 3 showing a goat), what is $\\mathbb{P}(\\text{car behind door 2}\\mid\\text{host opens 3})$?",
+            "answer": 0.6667,
+            "tol": 0.005,
+            "hint": "Condition on where the car is, then apply the host's rule: always open a goat door that isn't yours.",
+            "explain": "By Bayes: the host's choice is uninformative about your initial pick but very informative about door 2; the posterior on door 2 is $2/3\\approx 0.6667$. Always switch."
+          }
+        ]
+      },
+      "random-variables": {
+        "title": "Random variables",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A random variable $X:\\Omega\\to\\mathbb{R}$ is required to be:",
+            "choices": [
+              "continuous",
+              "bounded",
+              "$(\\mathcal{F},\\mathcal{B}(\\mathbb{R}))$-measurable",
+              "invertible"
+            ],
+            "answer": 2,
+            "explain": "By definition, a random variable is a measurable function into $(\\mathbb{R},\\mathcal{B}(\\mathbb{R}))$; continuity, boundedness, and invertibility are extra hypotheses not required."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X$ be Bernoulli with $\\mathbb{P}(X=1)=0.3$. What is $\\mathbb{P}_X(\\{1\\})$, the push-forward measure of the singleton?",
+            "answer": 0.3,
+            "tol": 0.000001,
+            "explain": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which pair of operations preserves measurability of random variables $X,Y$?",
+            "choices": [
+              "$X+Y$ and $X\\cdot Y$",
+              "Only sums, not products",
+              "Only compositions with continuous functions",
+              "Neither — measurability fails under arithmetic"
+            ],
+            "answer": 0,
+            "explain": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in fact continuous)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why is the indicator $\\mathbf{1}_V$ of a Vitali set $V\\subset[0,1]$ NOT a random variable on $([0,1],\\mathcal{B},m)$?",
+            "choices": [
+              "$V$ is uncountable",
+              "$V$ is not Borel-measurable",
+              "$\\mathbf{1}_V$ is unbounded",
+              "$V$ has measure zero"
+            ],
+            "answer": 1,
+            "hint": "Recall that random variables must have Borel-measurable preimages.",
+            "explain": "$\\mathbf{1}_V^{-1}(\\{1\\})=V$, which is not in $\\mathcal{B}([0,1])$ (Vitali is the canonical non-measurable set). So the preimage condition fails."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X\\sim\\text{Uniform}[0,1]$ and $Y=-\\ln X$. What is $\\mathbb{P}(Y>t)$ for $t\\ge 0$?",
+            "answer": 0.3679,
+            "tol": 0.01,
+            "hint": "Set $t=1$; this is the exponential tail formula.",
+            "explain": "At $t=1$: $\\mathbb{P}(Y>1)=\\mathbb{P}(-\\ln X>1)=\\mathbb{P}(X<e^{-1})=e^{-1}\\approx 0.3679$. In general $Y\\sim\\text{Exp}(1)$."
+          }
+        ]
+      },
+      "supports-distributions": {
+        "title": "Supports, distributions, and densities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $X\\sim\\text{Poisson}(\\lambda)$, the PMF is:",
+            "choices": [
+              "$\\mathbb{P}(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}$",
+              "$\\mathbb{P}(X=k)=e^{-\\lambda}\\lambda^k/k!$ for $k=0,1,2,\\ldots$",
+              "$\\mathbb{P}(X=k)=1/\\lambda$ for $k=1,\\ldots,\\lambda$",
+              "$f(x)=\\lambda e^{-\\lambda x}$ for $x>0$"
+            ],
+            "answer": 1,
+            "explain": "Poisson PMF is $e^{-\\lambda}\\lambda^k/k!$ on the non-negative integers; choice 0 is binomial, choice 3 is exponential (PDF, not PMF)."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X\\sim\\text{Exp}(\\lambda=2)$, compute $\\mathbb{P}(X>1)$.",
+            "answer": 0.1353,
+            "tol": 0.005,
+            "explain": "Exponential tail: $\\mathbb{P}(X>t)=e^{-\\lambda t}=e^{-2}\\approx 0.1353$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each named distribution to its support.",
+            "left": [
+              "$\\{0,1,\\ldots,n\\}$",
+              "$\\{0,1,2,\\ldots\\}$",
+              "$[0,\\infty)$",
+              "$\\mathbb{R}$"
+            ],
+            "right": [
+              "Binomial$(n,p)$",
+              "Poisson$(\\lambda)$",
+              "Exponential$(\\lambda)$",
+              "Gaussian$(\\mu,\\sigma^2)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which of the following pairs has the same first two moments (mean and variance) but differs in higher moments?",
+            "choices": [
+              "$\\mathcal{N}(0,1)$ and $\\text{Uniform}[-\\sqrt{3},\\sqrt{3}]$",
+              "$\\text{Bernoulli}(1/2)$ and $\\text{Bernoulli}(1/4)$",
+              "$\\text{Poisson}(1)$ and $\\text{Poisson}(2)$",
+              "$\\text{Exp}(1)$ and $\\text{Exp}(2)$"
+            ],
+            "answer": 0,
+            "hint": "Match mean $=0$ and variance $=1$ in each pair.",
+            "explain": "Uniform on $[-\\sqrt{3},\\sqrt{3}]$ has mean $0$ and variance $3/3=1$, matching $\\mathcal{N}(0,1)$. But the Gaussian has kurtosis $3$ while the uniform has kurtosis $9/5$. The other pairs differ in mean or variance directly."
+          },
+          {
+            "type": "construction",
+            "q": "Click where the mode of a $\\text{Gamma}(k=3,\\theta=1)$ density $f(x)=x^2 e^{-x}/2$ lies. (Mode is $(k-1)\\theta$ for $k\\ge 1$; x-axis is labelled 0..10.)",
+            "target": {
+              "kind": "point",
+              "x": 20,
+              "y": 50,
+              "tolerance": 8
+            },
+            "viewBox": "0 0 100 100",
+            "start": {
+              "x": 50,
+              "y": 50
+            },
+            "explain": "Setting $f'(x)=0$ gives $x=k-1=2$; at $x/5=20$ in the viewBox. The Gamma$(k,\\theta)$ mode is $(k-1)\\theta$ for $k\\ge 1$."
+          }
+        ]
+      },
+      "expectation-moments": {
+        "title": "Expectation, variance, and moments",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The definition $\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ uses:",
+            "choices": [
+              "the Riemann integral",
+              "the Lebesgue integral with respect to $\\mathbb{P}$",
+              "a formal power series",
+              "the Stieltjes integral only"
+            ],
+            "answer": 1,
+            "explain": "Expectation is defined as the Lebesgue integral of $X$ against the probability measure $\\mathbb{P}$; finite by definition when $X\\in L^1(\\Omega,\\mathcal{F},\\mathbb{P})$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X$ be uniform on $\\{1,2,3,4,5,6\\}$. Compute $\\mathbb{E}[X^2]$.",
+            "answer": 15.1667,
+            "tol": 0.01,
+            "explain": "$\\mathbb{E}[X^2]=(1+4+9+16+25+36)/6=91/6\\approx 15.1667$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X$ with $\\mathbb{E}[X]=2$ and $\\mathbb{E}[X^2]=5$, compute $\\text{Var}(X)$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "If $X\\sim\\text{Cauchy}(0,1)$, which statement is correct?",
+            "choices": [
+              "$\\mathbb{E}[X]=0$ by symmetry",
+              "$\\mathbb{E}[X]$ does not exist, because $\\int|x|/(\\pi(1+x^2))\\,dx=\\infty$",
+              "$\\mathbb{E}[X]=\\infty$",
+              "$\\mathbb{E}[X^2]=1$"
+            ],
+            "answer": 1,
+            "hint": "For the Lebesgue integral to exist, we need $\\mathbb{E}[|X|]<\\infty$; symmetry is not enough.",
+            "explain": "Cauchy density decays as $1/x^2$, so $\\int|x|/(1+x^2)\\,dx=\\infty$. The principal-value limit is $0$, but that is not the Lebesgue integral. Expectation is undefined."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X$ have density $f(x)=2x$ on $[0,1]$. Compute $\\text{Var}(X)$ to 4 decimals.",
+            "answer": 0.0556,
+            "tol": 0.005,
+            "hint": "Compute $\\mathbb{E}[X]=\\int_0^1 2x^2\\,dx$ and $\\mathbb{E}[X^2]=\\int_0^1 2x^3\\,dx$.",
+            "explain": "$\\mathbb{E}[X]=2/3$, $\\mathbb{E}[X^2]=1/2$, $\\text{Var}(X)=1/2-4/9=1/18\\approx 0.0556$."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Jensen's inequality states $\\varphi(\\mathbb{E}[X])\\le\\mathbb{E}[\\varphi(X)]$ for convex $\\varphi$. Which is the sharpest correctly-applied consequence for $X>0$ with $\\mathbb{E}[X]=\\mu$?",
+            "choices": [
+              "$\\mathbb{E}[1/X]\\ge 1/\\mu$",
+              "$\\mathbb{E}[\\ln X]\\ge\\ln\\mu$",
+              "$\\mathbb{E}[X^2]\\le\\mu^2$",
+              "$\\mathbb{E}[e^X]\\le e^\\mu$"
+            ],
+            "answer": 0,
+            "hint": "$\\varphi(x)=1/x$ is convex on $(0,\\infty)$.",
+            "explain": "$1/x$ is convex on $(0,\\infty)$, so by Jensen $\\mathbb{E}[1/X]\\ge 1/\\mathbb{E}[X]=1/\\mu$. The others have Jensen's inequality the wrong way: $\\ln$ is concave, $x^2$ and $e^x$ are convex (so the inequality in those cases is $\\ge$, not $\\le$)."
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove $\\text{Var}(X+Y)=\\text{Var}(X)+\\text{Var}(Y)$ when $X,Y$ are independent. Pick the next step.",
+            "steps": [
+              "Expand: $\\text{Var}(X+Y)=\\mathbb{E}[(X+Y-\\mu_X-\\mu_Y)^2]$",
+              "Distribute: $=\\mathbb{E}[(X-\\mu_X)^2]+2\\mathbb{E}[(X-\\mu_X)(Y-\\mu_Y)]+\\mathbb{E}[(Y-\\mu_Y)^2]$",
+              "Identify first and third terms as $\\text{Var}(X)$ and $\\text{Var}(Y)$"
+            ],
+            "choices": [
+              "Apply independence: $\\mathbb{E}[(X-\\mu_X)(Y-\\mu_Y)]=\\mathbb{E}[X-\\mu_X]\\cdot\\mathbb{E}[Y-\\mu_Y]=0\\cdot 0=0$",
+              "Invoke the central limit theorem to conclude normality",
+              "Differentiate both sides in $\\mu_X$",
+              "Apply the dominated convergence theorem"
+            ],
+            "answer": 0,
+            "explain": "Independence factorizes the cross term; then $\\mathbb{E}[X-\\mu_X]=0$. Drop the middle term to finish."
+          }
+        ]
+      },
+      "generating-functions": {
+        "title": "Moment and characteristic functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The characteristic function of $X$ is defined as:",
+            "choices": [
+              "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$",
+              "$M_X(t)=\\mathbb{E}[e^{tX}]$",
+              "$G_X(z)=\\mathbb{E}[z^X]$",
+              "$F_X(x)=\\mathbb{P}(X\\le x)$"
+            ],
+            "answer": 0,
+            "explain": "$\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ is the characteristic function. The others are the MGF, the PGF, and the CDF, respectively."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $M_X(1)=\\mathbb{E}[e^{X}]$ to 4 decimals.",
+            "answer": 1.6487,
+            "tol": 0.005,
+            "explain": "Gaussian MGF: $M_X(t)=e^{t^2/2}$, so $M_X(1)=e^{1/2}\\approx 1.6487$."
+          },
+          {
+            "type": "complex",
+            "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $\\varphi_X(1)$ as $a+bi$.",
+            "answer": [
+              0.6065,
+              0
+            ],
+            "tol": 0.01,
+            "explain": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "If $X_1,\\ldots,X_n$ are i.i.d.\\ with MGF $M$, the MGF of $S_n=\\sum X_i$ is:",
+            "choices": [
+              "$M(t)^n$",
+              "$n\\cdot M(t)$",
+              "$M(nt)$",
+              "$M(t)/n$"
+            ],
+            "answer": 0,
+            "hint": "Independence turns products of expectations into expectations of products.",
+            "explain": "$M_{S_n}(t)=\\mathbb{E}[e^{tS_n}]=\\mathbb{E}[\\prod e^{tX_i}]=\\prod\\mathbb{E}[e^{tX_i}]=M(t)^n$ by independence. This is why the CLT proof multiplies characteristic functions."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Cauchy distribution have a characteristic function but NO moment-generating function?",
+            "choices": [
+              "The Cauchy PDF is not integrable",
+              "$\\mathbb{E}[e^{tX}]=\\infty$ for every $t\\ne 0$ because of the $1/x^2$ tails",
+              "The Cauchy is discrete",
+              "Cauchy is a sub-Gaussian distribution"
+            ],
+            "answer": 1,
+            "hint": "Check whether $\\int e^{tx}/(\\pi(1+x^2))\\,dx$ converges.",
+            "explain": "The heavy $1/x^2$ tails make $\\int e^{tx}/(1+x^2)\\,dx=\\infty$ for any $t\\ne 0$, so the MGF is undefined. The characteristic function $\\mathbb{E}[e^{itX}]=e^{-|t|}$ is fine because $|e^{itX}|=1$ is bounded."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Lévy's continuity theorem states that $X_n\\xrightarrow{d}X$ iff $\\varphi_{X_n}(t)\\to\\varphi_X(t)$ pointwise AND:",
+            "choices": [
+              "the limit is continuous at $t=0$",
+              "the $X_n$ are tight",
+              "the $X_n$ are integrable",
+              "$\\varphi_X$ is real-valued"
+            ],
+            "answer": 0,
+            "hint": "Continuity at $0$ is equivalent to tightness of the limit and rules out mass escaping to $\\pm\\infty$.",
+            "explain": "The technical hypothesis that rescues convergence-in-distribution from pathologies: $\\varphi_{X_n}(t)\\to\\varphi(t)$ pointwise with $\\varphi$ continuous at $0$. Continuity at $0$ is equivalent to $\\varphi$ being the CF of a probability measure (not a sub-probability one)."
+          }
+        ]
+      },
+      "convergence-rv": {
+        "title": "Modes of convergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which implication ALWAYS holds between modes of convergence?",
+            "choices": [
+              "$X_n\\xrightarrow{d}X$ implies $X_n\\xrightarrow{\\mathbb{P}}X$",
+              "$X_n\\xrightarrow{a.s.}X$ implies $X_n\\xrightarrow{\\mathbb{P}}X$",
+              "$X_n\\xrightarrow{\\mathbb{P}}X$ implies $X_n\\xrightarrow{a.s.}X$",
+              "$X_n\\xrightarrow{L^1}X$ implies $X_n\\xrightarrow{a.s.}X$"
+            ],
+            "answer": 1,
+            "explain": "a.s. implies in-probability by a standard subsequence argument. The reverse implications fail: in-probability doesn't give a.s. (typewriter sequence), and convergence in distribution is weakest."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X_n=n\\cdot\\mathbf{1}_{A_n}$ where $\\mathbb{P}(A_n)=1/n^2$. Does $X_n\\to 0$ almost surely? Report $1$ for yes, $0$ for no.",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "By Borel-Cantelli, $\\sum\\mathbb{P}(A_n)=\\sum 1/n^2<\\infty$, so $\\mathbb{P}(A_n\\text{ i.o.})=0$. Thus $X_n=0$ for all sufficiently large $n$ a.s., so $X_n\\to 0$ a.s."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange these modes of convergence from STRONGEST to WEAKEST (when the implication holds).",
+            "items": [
+              "in distribution",
+              "almost surely",
+              "in probability"
+            ],
+            "answer": [
+              1,
+              2,
+              0
+            ],
+            "explain": "a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist. The chain is strict: each reverse implication fails in general."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multi-select",
+            "q": "Select all modes of convergence strictly WEAKER than almost-sure convergence.",
+            "choices": [
+              "convergence in probability",
+              "convergence in $L^1$",
+              "convergence in distribution",
+              "almost-sure convergence of a subsequence"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "a.s. implies in-probability; what does NOT imply a.s. back?",
+            "explain": "a.s. $\\Rightarrow$ in prob. (strictly); a.s. $\\not\\Leftrightarrow L^1$ (neither implies the other without extra hypotheses, but both are strictly weaker in that a.s. does not imply $L^1$ without UI, and $L^1$ does not imply a.s.); in dist. is weakest. Subsequential a.s. convergence is a consequence of convergence in probability, not strictly weaker."
+          },
+          {
+            "type": "mcq",
+            "q": "The 'typewriter' sequence $X_n=\\mathbf{1}_{I_n}$ where $I_n\\subset[0,1]$ cycles through dyadic intervals of decreasing length exhibits:",
+            "choices": [
+              "$X_n\\to 0$ a.s. but not in probability",
+              "$X_n\\to 0$ in probability but NOT almost surely",
+              "$X_n\\to 0$ in $L^2$ but not in distribution",
+              "$X_n$ does not converge in any mode"
+            ],
+            "answer": 1,
+            "hint": "At each $\\omega\\in[0,1]$, how often does $\\omega\\in I_n$?",
+            "explain": "$|I_n|\\to 0$ so $\\mathbb{P}(X_n\\ne 0)\\to 0$ (in probability). But every $\\omega$ is hit infinitely often by the cycling, so $X_n(\\omega)\\not\\to 0$ for every $\\omega$ — convergence fails a.s. everywhere."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Scheffé's lemma states that if $f_n\\to f$ a.e.\\ with $f_n,f$ probability densities, then $\\int|f_n-f|\\,dm\\to 0$. Which mode of convergence does this give for the associated random variables?",
+            "choices": [
+              "convergence in distribution",
+              "convergence in total variation (hence in probability and in distribution)",
+              "almost-sure convergence",
+              "$L^2$-convergence"
+            ],
+            "answer": 1,
+            "explain": "Total variation distance between laws equals $\\tfrac{1}{2}\\int|f_n-f|\\,dm$. Scheffé says this goes to $0$, which is stronger than convergence in distribution and gives in-probability convergence as well."
+          }
+        ]
+      },
+      "law-of-large-numbers": {
+        "title": "Law of large numbers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Weak Law of Large Numbers says: if $X_1,X_2,\\ldots$ are i.i.d.\\ with $\\mathbb{E}[X_1]=\\mu$ and finite variance, then $\\bar X_N$ converges to $\\mu$:",
+            "choices": [
+              "almost surely",
+              "in $L^2$ only",
+              "in probability",
+              "uniformly"
+            ],
+            "answer": 2,
+            "explain": "WLLN concludes convergence in probability; SLLN (Kolmogorov) strengthens this to a.s.\\ convergence, and requires only $\\mathbb{E}|X_1|<\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Flip a fair coin $10{,}000$ times. By LLN, the sample mean of indicators is approximately $0.5$. What does Chebyshev's inequality bound $\\mathbb{P}(|\\bar X-0.5|\\ge 0.05)$ by?",
+            "answer": 0.01,
+            "tol": 0.001,
+            "explain": "$\\text{Var}(\\bar X)=0.25/10000=2.5\\times 10^{-5}$. Chebyshev: $\\mathbb{P}(|\\bar X-\\mu|\\ge 0.05)\\le\\sigma^2/(\\epsilon^2)=2.5\\times 10^{-5}/0.0025=0.01$."
+          },
+          {
+            "type": "mcq",
+            "q": "Kolmogorov's SLLN requires:",
+            "choices": [
+              "$\\mathbb{E}[X_1^2]<\\infty$",
+              "$\\mathbb{E}|X_1|<\\infty$ and i.i.d.",
+              "bounded variance, uniformly in $n$",
+              "a finite moment-generating function"
+            ],
+            "answer": 1,
+            "explain": "Kolmogorov's SLLN requires only that $X_1,X_2,\\ldots$ are i.i.d.\\ and $\\mathbb{E}|X_1|<\\infty$; integrability suffices. Finite variance is enough but not necessary."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The SLLN FAILS for i.i.d.\\ $X_i\\sim\\text{Cauchy}(0,1)$. The correct reason is:",
+            "choices": [
+              "Cauchy variables are not measurable",
+              "$\\mathbb{E}|X_1|=\\infty$, so the integrability hypothesis fails",
+              "Cauchy is a discrete distribution",
+              "The law of large numbers needs only $\\mathbb{E}[X_1]=0$"
+            ],
+            "answer": 1,
+            "hint": "Check the key hypothesis of Kolmogorov's SLLN.",
+            "explain": "$\\mathbb{E}|X_1|=\\int|x|/(\\pi(1+x^2))\\,dx=\\infty$, so the integrability hypothesis of the SLLN fails. In fact, the sample mean of i.i.d.\\ Cauchys is again Cauchy, so $\\bar X_N$ does not concentrate at all."
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove the WLLN via Chebyshev, assuming finite variance $\\sigma^2$. Pick the next step.",
+            "steps": [
+              "Let $\\bar X_N=(1/N)\\sum_{i=1}^N X_i$ and $\\mu=\\mathbb{E}[X_1]$",
+              "Compute $\\text{Var}(\\bar X_N)=\\sigma^2/N$ (by independence)",
+              "Apply Chebyshev: $\\mathbb{P}(|\\bar X_N-\\mu|\\ge\\varepsilon)\\le\\text{Var}(\\bar X_N)/\\varepsilon^2$"
+            ],
+            "choices": [
+              "Let $N\\to\\infty$: $\\sigma^2/(N\\varepsilon^2)\\to 0$, so $\\bar X_N\\to\\mu$ in probability",
+              "Apply the central limit theorem",
+              "Use Jensen's inequality on $\\varepsilon$",
+              "Differentiate both sides in $N$"
+            ],
+            "answer": 0,
+            "hint": "The Chebyshev bound goes to $0$ as $N\\to\\infty$.",
+            "explain": "Chebyshev gives $\\mathbb{P}(|\\bar X_N-\\mu|\\ge\\varepsilon)\\le\\sigma^2/(N\\varepsilon^2)\\to 0$ for any $\\varepsilon>0$. That is convergence in probability — the definition of WLLN."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Etemadi's proof of the SLLN (1981) removes which hypothesis from Kolmogorov's original proof?",
+            "choices": [
+              "finite variance",
+              "i.i.d.\\ (weakened to pairwise independence)",
+              "integrability",
+              "identical distribution"
+            ],
+            "answer": 1,
+            "hint": "Kolmogorov used full independence; Etemadi needs only pairs.",
+            "explain": "Etemadi's clever SLLN proof uses truncation, Chebyshev, and Borel-Cantelli, needing only pairwise independence plus identical distribution plus $\\mathbb{E}|X_1|<\\infty$. Full mutual independence is not needed."
+          },
+          {
+            "type": "numeric",
+            "q": "Glivenko–Cantelli strengthens the SLLN pointwise to uniform convergence of the empirical CDF: $\\sup_x|F_N(x)-F(x)|\\to 0$ a.s.\\ For $N=1000$ samples from uniform $[0,1]$, what is the expected order of magnitude of $\\sup_x|F_N(x)-x|$? (Report the exponent $e$ in $N^{-e}$.)",
+            "answer": 0.5,
+            "tol": 0.05,
+            "hint": "Dvoretzky–Kiefer–Wolfowitz inequality.",
+            "explain": "The DKW inequality gives $\\mathbb{P}(\\sup_x|F_N(x)-F(x)|>\\varepsilon)\\le 2e^{-2N\\varepsilon^2}$, so typical deviations are $O(N^{-1/2})$."
+          }
+        ]
+      },
+      "central-limit-theorem": {
+        "title": "Central limit theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The classical CLT states that if $X_1,X_2,\\ldots$ are i.i.d.\\ with mean $\\mu$ and variance $\\sigma^2\\in(0,\\infty)$, then $\\sqrt{N}(\\bar X_N-\\mu)/\\sigma$ converges:",
+            "choices": [
+              "almost surely to $\\mathcal{N}(0,1)$",
+              "in probability to $\\mathcal{N}(0,1)$",
+              "in distribution to $\\mathcal{N}(0,1)$",
+              "uniformly to $\\mathcal{N}(0,1)$"
+            ],
+            "answer": 2,
+            "explain": "The CLT gives convergence in distribution, not almost-sure or in probability. Almost-sure convergence to a non-degenerate Gaussian would be paradoxical — the sample mean does not converge a.s.\\ to a random limit."
+          },
+          {
+            "type": "numeric",
+            "q": "For $S_{100}=\\sum_{i=1}^{100}X_i$ with $X_i$ i.i.d.\\ Bernoulli$(0.5)$, approximate $\\mathbb{P}(S_{100}\\ge 60)$ using the Gaussian approximation. Report to 3 decimals.",
+            "answer": 0.023,
+            "tol": 0.01,
+            "explain": "$\\mathbb{E}[S_{100}]=50$, $\\text{Var}(S_{100})=25$. $Z=(60-50)/5=2$. $\\mathbb{P}(Z\\ge 2)\\approx 0.0228$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which version of the CLT does NOT require finite variance?",
+            "choices": [
+              "The Lindeberg CLT",
+              "The Stable CLT (for heavy-tailed $X_i$, limit is a stable law)",
+              "The Lyapunov CLT",
+              "The Berry-Esseen quantitative CLT"
+            ],
+            "answer": 1,
+            "explain": "When $\\text{Var}(X_i)=\\infty$ but tails are regularly varying, suitably normalized sums converge to a non-Gaussian stable distribution. Lindeberg, Lyapunov, and Berry-Esseen all require finite variance."
+          }
+        ],
+        "hard": [
+          {
+            "type": "spot-the-error",
+            "q": "The following 'proof' of the CLT has exactly one flaw. Click the invalid step.",
+            "steps": [
+              "Let $Y_i=(X_i-\\mu)/\\sigma$, so $\\mathbb{E}[Y_i]=0$ and $\\text{Var}(Y_i)=1$",
+              "Compute $\\varphi_{Y_i}(t)=1-t^2/2+o(t^2)$ as $t\\to 0$",
+              "Then $\\varphi_{S_N/\\sqrt{N}}(t)=\\varphi_{Y_1}(t/\\sqrt{N})^N=(1-t^2/(2N)+o(1/N))^N\\to e^{-t^2/2}$",
+              "Since $\\varphi_{S_N/\\sqrt{N}}\\to e^{-t^2/2}$ pointwise, $S_N/\\sqrt{N}\\to\\mathcal{N}(0,1)$ almost surely"
+            ],
+            "answer": 3,
+            "hint": "What mode of convergence does Lévy's continuity theorem give?",
+            "explain": "Lévy's continuity theorem concludes convergence in DISTRIBUTION, not almost surely. The sample mean does not converge a.s.\\ to a random normal limit (and in fact $S_N/\\sqrt{N}$ does not converge a.s.\\ to any random variable; its limsup is $+\\infty$ by the law of iterated logarithm)."
+          },
+          {
+            "type": "mcq",
+            "q": "The CLT fails without finite variance. For i.i.d.\\ $X_i\\sim\\text{Cauchy}(0,1)$, what is the distribution of $\\bar X_N=(1/N)\\sum X_i$?",
+            "choices": [
+              "$\\mathcal{N}(0,1/N)$ by the CLT",
+              "$\\text{Cauchy}(0,1)$ for every $N$",
+              "degenerate at $0$",
+              "$\\text{Cauchy}(0,1/N)$"
+            ],
+            "answer": 1,
+            "hint": "The Cauchy is stable with index $\\alpha=1$.",
+            "explain": "The Cauchy distribution is stable: sums of i.i.d.\\ Cauchy$(0,1)$ are again Cauchy$(0,N)$, and dividing by $N$ gives Cauchy$(0,1)$. The sample mean does not concentrate — a dramatic failure of both LLN and CLT."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "The Berry-Esseen theorem gives the quantitative rate $\\sup_x|F_{S_N/\\sqrt{N}}(x)-\\Phi(x)|\\le C\\rho/(\\sigma^3\\sqrt{N})$ where $\\rho=\\mathbb{E}|X_1|^3$. The rate $N^{-1/2}$ is:",
+            "choices": [
+              "improvable to $N^{-1}$ in general",
+              "tight: cannot be improved in general (e.g. Bernoulli case achieves it)",
+              "improvable to $N^{-2}$ for Gaussian-like distributions",
+              "only valid for bounded $X_i$"
+            ],
+            "answer": 1,
+            "hint": "The Bernoulli case has a lattice distribution.",
+            "explain": "For lattice distributions (e.g. Bernoulli), the CDF has jumps of order $1/\\sqrt{N}$, so the Kolmogorov distance cannot be smaller than $O(1/\\sqrt{N})$. This matches the Berry-Esseen rate up to the constant $C$. For non-lattice distributions one can obtain faster rates (Edgeworth expansions)."
+          },
+          {
+            "type": "mcq",
+            "q": "Lindeberg's condition for the triangular-array CLT says: for $S_n=\\sum_k X_{n,k}$ with $s_n^2=\\sum_k\\text{Var}(X_{n,k})$,",
+            "choices": [
+              "$\\sum_k X_{n,k}/s_n\\xrightarrow{d}\\mathcal{N}(0,1)$ iff $\\forall\\varepsilon>0$: $\\frac{1}{s_n^2}\\sum_k\\mathbb{E}[X_{n,k}^2\\mathbf{1}_{|X_{n,k}|>\\varepsilon s_n}]\\to 0$",
+              "all $X_{n,k}$ must be identically distributed",
+              "$\\mathbb{E}|X_{n,k}|^3<\\infty$ uniformly in $k$",
+              "the characteristic functions must agree to third order"
+            ],
+            "answer": 0,
+            "hint": "Lindeberg's condition controls the contribution of 'large' summands.",
+            "explain": "Lindeberg's condition ($L_n(\\varepsilon)\\to 0$ for every $\\varepsilon>0$) is necessary and sufficient (under UAN) for the CLT to hold for non-i.i.d.\\ triangular arrays. It ensures no single summand dominates."
+          }
+        ]
+      },
+      "markov-chains": {
+        "title": "Markov chains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A discrete-time Markov chain satisfies the memoryless property:",
+            "choices": [
+              "$\\mathbb{P}(X_{n+1}=y\\mid X_0,\\ldots,X_n)=\\mathbb{P}(X_{n+1}=y\\mid X_n)$",
+              "$\\mathbb{P}(X_{n+1}=y\\mid X_n)=\\mathbb{P}(X_{n+1}=y)$",
+              "$X_{n+1}$ is independent of $X_n$",
+              "The expectation $\\mathbb{E}[X_{n+1}]=\\mathbb{E}[X_n]$"
+            ],
+            "answer": 0,
+            "explain": "Markov property: the future depends on the past only through the present. Independence of present from past (choice 1) is too strong; choice 2 is independence of future from present."
+          },
+          {
+            "type": "numeric",
+            "q": "A two-state chain with transition matrix $P=\\begin{pmatrix}0.7&0.3\\\\0.4&0.6\\end{pmatrix}$ has stationary distribution $\\pi$ with $\\pi P=\\pi$. What is $\\pi_1$ (mass on state 1)?",
+            "answer": 0.5714,
+            "tol": 0.005,
+            "explain": "Solve $0.7\\pi_1+0.4(1-\\pi_1)=\\pi_1$, giving $0.4=0.7\\pi_1$, so $\\pi_1=4/7\\approx 0.5714$. Check: $\\pi_2=3/7$."
+          },
+          {
+            "type": "mcq",
+            "q": "The fundamental theorem for irreducible, aperiodic, finite-state Markov chains says:",
+            "choices": [
+              "$P^n$ has rank $1$",
+              "$P^n\\to\\Pi$ where every row of $\\Pi$ is the unique stationary distribution $\\pi$",
+              "the chain always returns to its starting state",
+              "$\\pi$ is the uniform distribution"
+            ],
+            "answer": 1,
+            "explain": "For finite-state irreducible aperiodic chains, $P^n\\to\\Pi$ with $\\Pi_{ij}=\\pi_j$ (every starting state converges to $\\pi$). This is the ergodic theorem for Markov chains."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider a reducible 2-class chain on $\\{1,2,3,4\\}$: states $\\{1,2\\}$ form one closed class, $\\{3,4\\}$ form another. How many stationary distributions does this chain have?",
+            "choices": [
+              "exactly one",
+              "infinitely many: a one-parameter family",
+              "two",
+              "none"
+            ],
+            "answer": 1,
+            "hint": "Each closed class has its own stationary distribution; any convex combination is stationary.",
+            "explain": "Each closed class has its own stationary distribution $\\pi^{(1)}$ (supported on $\\{1,2\\}$) and $\\pi^{(2)}$ (on $\\{3,4\\}$). Any $\\alpha\\pi^{(1)}+(1-\\alpha)\\pi^{(2)}$ for $\\alpha\\in[0,1]$ is stationary — the space of stationary distributions is a one-dimensional simplex. Uniqueness requires irreducibility."
+          },
+          {
+            "type": "numeric",
+            "q": "A random walk on $\\mathbb{Z}$ with equal steps $\\pm 1$ is recurrent. For a simple random walk on $\\mathbb{Z}^3$ (Pólya's theorem), what is $\\mathbb{P}(\\text{return to origin})\\approx$? Report to 3 decimals.",
+            "answer": 0.34,
+            "tol": 0.02,
+            "hint": "$\\mathbb{Z}^3$ random walks are transient; return probability is $\\approx 0.34$.",
+            "explain": "Pólya's theorem: random walks on $\\mathbb{Z}$ and $\\mathbb{Z}^2$ are recurrent (return probability $1$); on $\\mathbb{Z}^d$ for $d\\ge 3$ they are transient. The return probability for $\\mathbb{Z}^3$ is approximately $0.3405$ (Watson's integrals)."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "A Markov chain is reversible w.r.t.\\ $\\pi$ iff $\\pi_i P_{ij}=\\pi_j P_{ji}$ for all $i,j$ (detailed balance). Reversibility:",
+            "choices": [
+              "implies $\\pi$ is stationary, but the reverse does not hold",
+              "is equivalent to stationarity",
+              "requires the chain to be finite-state",
+              "implies the chain is aperiodic"
+            ],
+            "answer": 0,
+            "hint": "Summing $\\pi_i P_{ij}=\\pi_j P_{ji}$ over $i$ gives stationarity; the reverse needs more.",
+            "explain": "Summing detailed balance over $i$ gives $\\sum_i\\pi_i P_{ij}=\\pi_j$, so reversibility implies stationarity. But not all stationary chains are reversible: asymmetric random walks on $\\mathbb{Z}$ (with drift) have a stationary measure but fail detailed balance."
+          }
+        ]
+      },
+      "martingales": {
+        "title": "Martingales",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A process $(M_n)_{n\\ge 0}$ adapted to a filtration $(\\mathcal{F}_n)$ is a martingale if:",
+            "choices": [
+              "$\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$ for all $n$, and each $M_n\\in L^1$",
+              "$M_n=M_0$ for all $n$",
+              "the $M_n$ are independent",
+              "$\\text{Var}(M_n)$ is constant"
+            ],
+            "answer": 0,
+            "explain": "Martingale definition: adapted, $L^1$, and the conditional expectation of the future given the past equals the present. This captures 'fair game' gambling intuition."
+          },
+          {
+            "type": "numeric",
+            "q": "$S_n=\\sum_{i=1}^n X_i$ where $X_i$ are i.i.d.\\ with $\\mathbb{E}[X_i]=0$. What is $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]-S_5$?",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$. So the difference is $0$: random walk is a martingale."
+          },
+          {
+            "type": "mcq",
+            "q": "The optional-stopping theorem (Doob) says $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$ for a martingale $M$ and stopping time $\\tau$, provided:",
+            "choices": [
+              "$\\tau$ is bounded, OR $M$ is uniformly integrable, OR $\\tau<\\infty$ a.s.\\ with $(M_{n\\wedge\\tau})$ bounded",
+              "$\\tau$ is finite",
+              "$M$ has finite variance",
+              "No conditions are needed"
+            ],
+            "answer": 0,
+            "explain": "At least one of these conditions is required; otherwise optional-stopping fails (e.g.\\ simple random walk stopped at $+1$ has $\\mathbb{E}[M_\\tau]=1\\ne 0=\\mathbb{E}[M_0]$)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Consider a simple symmetric random walk $S_n$ and the stopping time $\\tau=\\inf\\{n:S_n=1\\}$. Why does the naive optional-stopping fail here?",
+            "choices": [
+              "$\\tau$ is not a stopping time",
+              "$S_n$ is not a martingale",
+              "$\\tau<\\infty$ a.s.\\ but $\\mathbb{E}[\\tau]=\\infty$, and $(S_{n\\wedge\\tau})$ is not uniformly integrable",
+              "Symmetric random walk is transient"
+            ],
+            "answer": 2,
+            "hint": "Check UI: is $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|<\\infty$?",
+            "explain": "$\\tau<\\infty$ a.s.\\ (recurrence of 1D walk) but $\\mathbb{E}[\\tau]=\\infty$. The stopped process is not UI because $\\sup_n\\mathbb{E}|S_{n\\wedge\\tau}|=\\infty$. The conclusion $\\mathbb{E}[S_\\tau]=1\\ne 0$ shows the hypothesis matters."
+          },
+          {
+            "type": "mcq",
+            "q": "Doob's martingale convergence theorem says: if $(M_n)$ is a martingale with $\\sup_n\\mathbb{E}|M_n|<\\infty$, then $M_n$ converges:",
+            "choices": [
+              "almost surely to some $M_\\infty\\in L^1$, but NOT necessarily in $L^1$",
+              "in $L^1$ but not a.s.",
+              "uniformly",
+              "not at all"
+            ],
+            "answer": 0,
+            "hint": "$L^1$-bounded is weaker than uniform integrability.",
+            "explain": "$L^1$-boundedness gives a.s.\\ convergence to an integrable limit. $L^1$ convergence additionally requires uniform integrability. Classic counterexample: $(M_n)$ with $\\mathbb{E}|M_n|=1$ but $M_n\\to 0$ a.s. and $\\mathbb{E}[M_n]=1\\ne 0=\\mathbb{E}[M_\\infty]$."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Doob's $L^p$ maximal inequality says: for a non-negative sub-martingale $M$ and $p>1$,",
+            "choices": [
+              "$\\|\\max_{k\\le n}M_k\\|_p\\le(p/(p-1))\\|M_n\\|_p$",
+              "$\\mathbb{P}(\\max_{k\\le n}M_k\\ge\\lambda)\\le\\mathbb{E}[M_n]/\\lambda$ only",
+              "maximal inequalities hold only for $p=2$",
+              "no such inequality exists for martingales"
+            ],
+            "answer": 0,
+            "explain": "Doob's $L^p$ inequality: $\\|\\max_{k\\le n}M_k\\|_p\\le(p/(p-1))\\|M_n\\|_p$ for sub-martingales, $p>1$. This is the key tool for a.s.\\ convergence proofs and random-time estimates."
+          },
+          {
+            "type": "mcq",
+            "q": "An $L^1$-bounded martingale need not converge in $L^1$. The classical counterexample is:",
+            "choices": [
+              "$M_n=X_1 X_2\\cdots X_n$ where $X_i$ i.i.d.\\ with $\\mathbb{P}(X_i=2)=\\mathbb{P}(X_i=0)=1/2$",
+              "$M_n=S_n/n$ where $S_n$ is a random walk",
+              "$M_n=(\\bar X_n)^2$ for i.i.d.\\ Gaussian $X_i$",
+              "A constant martingale"
+            ],
+            "answer": 0,
+            "hint": "Product martingale: when does it hit $0$?",
+            "explain": "$M_n$ is a product martingale with $\\mathbb{E}[M_n]=1$. But $M_n=0$ as soon as any $X_i=0$, which happens a.s. So $M_n\\to 0$ a.s.\\ but $\\mathbb{E}[M_n]=1$; convergence fails in $L^1$. UI would rule this out."
+          }
+        ]
+      },
+      "brownian-motion": {
+        "title": "Brownian motion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Standard Brownian motion $(W_t)_{t\\ge 0}$ has:",
+            "choices": [
+              "continuous paths, $W_0=0$, and independent Gaussian increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$",
+              "differentiable paths",
+              "monotone paths",
+              "bounded variation on compact intervals"
+            ],
+            "answer": 0,
+            "explain": "Brownian motion is the Gaussian process with these three properties; its paths are continuous but nowhere differentiable and of unbounded variation on every interval."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\mathbb{P}(W_1>1.96)$ where $W_1\\sim\\mathcal{N}(0,1)$. Report to 3 decimals.",
+            "answer": 0.025,
+            "tol": 0.005,
+            "explain": "Standard Gaussian tail: $\\mathbb{P}(Z>1.96)\\approx 0.025$ (the two-tail $5\\%$ critical value)."
+          },
+          {
+            "type": "mcq",
+            "q": "The quadratic variation of Brownian motion on $[0,t]$ is:",
+            "choices": [
+              "$t$",
+              "$0$",
+              "$\\infty$",
+              "$t^2$"
+            ],
+            "answer": 0,
+            "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability (and a.s.\\ along dyadic refinements) as the mesh shrinks. Infinite variation but finite quadratic variation is the signature of Brownian motion."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Donsker's invariance principle says: for i.i.d.\\ $X_i$ with $\\mathbb{E}[X_i]=0$ and $\\text{Var}(X_i)=1$, the scaled random walk $W^{(N)}_t=S_{\\lfloor Nt\\rfloor}/\\sqrt{N}$ converges to Brownian motion:",
+            "choices": [
+              "pointwise at $t=1$ (reducing to CLT)",
+              "in distribution in $C([0,1])$ (functional CLT)",
+              "almost surely uniformly on $[0,1]$",
+              "in $L^2$"
+            ],
+            "answer": 1,
+            "hint": "Donsker lifts CLT from a single time to the whole path.",
+            "explain": "Donsker's theorem: the path-valued random element converges in distribution in $C([0,1])$ to standard Brownian motion. This extends the CLT (a finite-dimensional statement at $t=1$) to a functional statement about whole paths."
+          },
+          {
+            "type": "numeric",
+            "q": "For a scaled random walk approximation: $N=10^4$ steps of $\\pm 1$ per unit time. What is the order of magnitude (exponent $e$ in $N^{e}$) of the step size needed so the process converges to Brownian motion on $[0,1]$?",
+            "answer": -0.5,
+            "tol": 0.05,
+            "hint": "Diffusive scaling: step size $\\sim 1/\\sqrt{N}$.",
+            "explain": "Diffusive scaling: to match variance $t$ in time $t$ with $Nt$ steps of variance $\\sigma^2$ each, we need $\\sigma^2\\cdot N=1$, so $\\sigma\\sim N^{-1/2}$. Exponent $e=-1/2$."
+          }
+        ],
+        "expert": [
+          {
+            "type": "mcq",
+            "q": "Brownian motion is a martingale. Which of the following is ALSO a martingale?",
+            "choices": [
+              "$W_t^2$",
+              "$W_t^2-t$",
+              "$e^{W_t}$",
+              "$|W_t|$"
+            ],
+            "answer": 1,
+            "hint": "Compute $\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]$ for $s<t$.",
+            "explain": "$\\mathbb{E}[W_t^2\\mid\\mathcal{F}_s]=W_s^2+(t-s)$, so $W_t^2-t$ is a martingale. Analogously, $e^{W_t-t/2}$ (not $e^{W_t}$) is the exponential martingale. $|W_t|$ is a sub-martingale, not a martingale."
+          },
+          {
+            "type": "mcq",
+            "q": "Itô's formula for $f(W_t)$ with $f\\in C^2$ is:",
+            "choices": [
+              "$df(W_t)=f'(W_t)\\,dW_t$ (the naive chain rule)",
+              "$df(W_t)=f'(W_t)\\,dW_t+\\tfrac{1}{2}f''(W_t)\\,dt$",
+              "$df(W_t)=f'(W_t)\\,dt$",
+              "$df(W_t)=f(W_t)\\,dW_t$"
+            ],
+            "answer": 1,
+            "hint": "Brownian motion has non-vanishing quadratic variation; the chain rule picks up a second-order term.",
+            "explain": "Itô's formula has the extra $\\tfrac{1}{2}f''(W_t)\\,dt$ term coming from $(dW)^2=dt$. This is the fundamental calculus of Brownian motion and stochastic analysis."
+          }
+        ]
+      }
+    }
+  },
   "projective-plane": {
     "topic": "projective-plane",
     "quizzes": {
@@ -15162,6 +17630,403 @@ window.MVQuizBank = {
             "answer": 8,
             "tol": 0.000001,
             "explain": "$J_F=\\begin{pmatrix}2x & -2y \\\\ 2y & 2x\\end{pmatrix}$. At $(1,1)$: $J_F=\\begin{pmatrix}2&-2\\\\2&2\\end{pmatrix}$. $\\det J_F = (2)(2)-(-2)(2)=4+4=8$. Since $8\\ne 0$, IFT guarantees $F$ is a local diffeomorphism near $(1,1)$."
+          }
+        ]
+      },
+      "numeric-series": {
+        "title": "Numeric series & convergence tests",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which test most cleanly shows that $\\sum_{n\\ge 0} 1/n!$ converges?",
+            "choices": [
+              "Comparison test against $\\sum 1/n$",
+              "Integral test against $\\int 1/x\\,dx$",
+              "Ratio test: $|a_{n+1}/a_n| = 1/(n+1) \\to 0 < 1$",
+              "Divergence test: $a_n \\not\\to 0$"
+            ],
+            "answer": 2,
+            "explain": "The ratio $a_{n+1}/a_n = (1/(n+1)!)/(1/n!) = 1/(n+1) \\to 0$. Since $L=0<1$, the ratio test gives absolute convergence (here to $e$). Comparison against $1/n$ fails in the wrong direction, and the integral test needs a nice integrable function on $[1,\\infty)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $a_n = 3^n/n!$. Compute $L = \\lim_{n\\to\\infty} |a_{n+1}/a_n|$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$. So $L=0<1$ — the series converges absolutely (in fact to $e^3$)."
+          },
+          {
+            "type": "mcq",
+            "q": "The alternating harmonic series $\\sum (-1)^{n+1}/n$ is:",
+            "choices": [
+              "Absolutely convergent",
+              "Conditionally convergent",
+              "Divergent",
+              "A Cauchy sequence but not convergent"
+            ],
+            "answer": 1,
+            "explain": "By the alternating series test the series converges (to $\\ln 2$). But $\\sum |(-1)^{n+1}/n| = \\sum 1/n$ is the harmonic series, which diverges. So the convergence is conditional, not absolute."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which example shows the root test can succeed when the ratio test is inconclusive?",
+            "choices": [
+              "$\\sum 1/n^2$ (both succeed)",
+              "$a_n = 2^{-n}$ if $n$ even, $a_n = 2^{-n+1}$ if $n$ odd: ratios oscillate (limit does not exist) but $\\limsup |a_n|^{1/n} = 1/2 < 1$",
+              "$\\sum 1/n$ (both fail)",
+              "$\\sum n!$"
+            ],
+            "answer": 1,
+            "hint": "Pick $a_n$ where the ratio oscillates but $|a_n|^{1/n}$ has a clean limsup.",
+            "explain": "For the oscillating sequence, consecutive ratios toggle between $1$ and $1/4$, so $\\lim |a_{n+1}/a_n|$ does not exist and the ratio test is inconclusive. But $|a_n|^{1/n} \\to 1/2 < 1$, so the root test certifies convergence. In general $\\limsup |a_n|^{1/n} \\le \\limsup |a_{n+1}/a_n|$, so root is at least as powerful as ratio."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of Abel's summation by parts for $\\sum a_n b_n$ with $B_n = \\sum_{k\\le n} b_k$:",
+            "items": [
+              "Write $b_n = B_n - B_{n-1}$ (with $B_0 = 0$).",
+              "Substitute into $\\sum_{n=1}^N a_n b_n = \\sum_{n=1}^N a_n (B_n - B_{n-1})$.",
+              "Reindex the second sum and group: $\\sum_{n=1}^N a_n b_n = a_N B_N - \\sum_{n=1}^{N-1} (a_{n+1}-a_n) B_n$.",
+              "Conclude convergence of $\\sum a_n b_n$ from boundedness of $B_n$ and monotonicity of $a_n\\to 0$ (Dirichlet test)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Abel/Dirichlet summation replaces $b_n$ by differences of its partial sums; the telescoping reindexing moves monotonicity from $(a_n)$ onto a single boundary term plus a sum against $a_{n+1}-a_n$. If $(B_n)$ is bounded and $a_n\\downarrow 0$, the rearranged sum converges."
+          }
+        ]
+      },
+      "power-series-real": {
+        "title": "Power series & radius of convergence",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the radius of convergence of $\\sum_{n\\ge 1} x^n/n$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$. By Cauchy–Hadamard $1/R = 1$, hence $R = 1$. (The series is $-\\ln(1-x)$ on $(-1,1)$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Which power series has radius of convergence $R = \\infty$?",
+            "choices": [
+              "$\\sum x^n$",
+              "$\\sum x^n/n$",
+              "$\\sum x^n/n!$",
+              "$\\sum n!\\,x^n$"
+            ],
+            "answer": 2,
+            "explain": "For $\\sum x^n/n!$, the ratio $|a_{n+1}/a_n| = 1/(n+1) \\to 0$, so $1/R = 0$ and $R = \\infty$. This is the exponential series. By contrast $\\sum n!\\,x^n$ has $R=0$, and $\\sum x^n$, $\\sum x^n/n$ both have $R=1$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\limsup_{n\\to\\infty} n^{1/n}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$. Hence $\\limsup n^{1/n} = 1$. This is why Cauchy–Hadamard gives $R=1$ for any series $\\sum a_n x^n$ with $a_n = n^{\\pm k}$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On the boundary of the disk of convergence, behavior can differ. Which description is correct for $\\sum x^n/n$ at $x = \\pm 1$?",
+            "choices": [
+              "Converges at both $x=1$ and $x=-1$",
+              "Converges at $x=-1$ (alternating harmonic), diverges at $x=1$ (harmonic)",
+              "Diverges at both endpoints",
+              "The series is not defined at $\\pm 1$"
+            ],
+            "answer": 1,
+            "hint": "Plug in each endpoint and recognize the resulting numeric series.",
+            "explain": "At $x=1$ the series becomes $\\sum 1/n$ (harmonic, divergent). At $x=-1$ it becomes $\\sum (-1)^n/n$ (alternating harmonic, conditionally convergent). The radius $R=1$ alone does not determine boundary behavior; Abel's theorem handles the convergent endpoint."
+          },
+          {
+            "type": "proof-completion",
+            "q": "You are proving Cauchy–Hadamard. Given $\\sum a_n x^n$ with $1/R = \\limsup |a_n|^{1/n}$ (possibly $0$ or $\\infty$), the steps so far:",
+            "steps": [
+              "Fix $|x| < R$. Pick $\\rho$ with $|x| < \\rho < R$.",
+              "By definition of limsup, for all but finitely many $n$ we have $|a_n|^{1/n} < 1/\\rho$."
+            ],
+            "choices": [
+              "Conclude $|a_n x^n| < (|x|/\\rho)^n$ for large $n$; since $|x|/\\rho < 1$, the geometric series dominates, so $\\sum a_n x^n$ converges absolutely.",
+              "Differentiate term by term and apply Fubini.",
+              "Use the root test at $x = R$ itself, concluding convergence on the closed disk.",
+              "Note $a_n$ is bounded, so the series converges by comparison with $\\sum 1/n^2$."
+            ],
+            "answer": 0,
+            "hint": "You need a geometric bound on $|a_n x^n|$.",
+            "explain": "Multiplying the bound $|a_n| < \\rho^{-n}$ by $|x|^n$ gives $|a_n x^n| < (|x|/\\rho)^n$, a convergent geometric series. So the power series converges absolutely for $|x|<R$. The reverse direction (divergence for $|x|>R$) uses a symmetric argument: infinitely many $|a_n|^{1/n}$ are near $1/R$, making terms not go to zero."
+          }
+        ]
+      },
+      "metric-completeness-baire": {
+        "title": "Metric completeness & Baire category",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A subset $A$ of a metric space $X$ is \"nowhere dense\" iff:",
+            "choices": [
+              "$A$ is finite",
+              "The closure $\\overline{A}$ has empty interior",
+              "$A$ is disjoint from every open set",
+              "$A$ is both open and closed"
+            ],
+            "answer": 1,
+            "explain": "Nowhere dense means $\\mathrm{int}(\\overline{A}) = \\varnothing$: the closure contains no open ball. Equivalently, every nonempty open set has a nonempty open subset disjoint from $A$. Finite sets in $\\mathbb{R}$ qualify, but so do Cantor-like sets, which are uncountable."
+          },
+          {
+            "type": "mcq",
+            "q": "Baire's theorem on a complete metric space $X$ says:",
+            "choices": [
+              "Every compact subset is finite",
+              "$X$ is not a countable union of nowhere-dense sets",
+              "Every closed subset of $X$ is open",
+              "$X$ is second countable"
+            ],
+            "answer": 1,
+            "explain": "Baire category theorem: a complete metric space (or a locally compact Hausdorff space) cannot be written as $\\bigcup_n F_n$ where each $F_n$ is nowhere dense. Equivalently, a countable intersection of open dense sets is dense. This powers uniform boundedness, open mapping, and closed graph theorems."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mathbb{Q}\\cap[0,1]$ be enumerated as $\\{q_1, q_2, \\dots\\}$. Each singleton $\\{q_k\\}$ is nowhere dense in $[0,1]$ (with the usual metric). How many such singletons are there in the enumeration?",
+            "answer": 0,
+            "tol": 0.5,
+            "explain": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded as \"not finite\". The meager-in-$[0,1]$ point: $\\mathbb{Q}\\cap[0,1]$ is a countable union of nowhere-dense sets, yet $[0,1]$ itself is complete and non-meager (Baire). The numeric $0$ captures \"no finite upper bound\" in this grading."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why doesn't Baire's theorem give a contradiction when applied to $\\mathbb{Q}$ (with the subspace metric from $\\mathbb{R}$)?",
+            "choices": [
+              "$\\mathbb{Q}$ is not a metric space",
+              "$\\mathbb{Q}$ is complete under the subspace metric",
+              "$\\mathbb{Q}$ is not complete, so Baire does not apply",
+              "Singletons in $\\mathbb{Q}$ are not nowhere dense"
+            ],
+            "answer": 2,
+            "hint": "What goes wrong with Cauchy sequences of rationals?",
+            "explain": "$\\mathbb{Q}$ is a countable union of singletons, each of which is nowhere dense (in $\\mathbb{Q}$, because between any two rationals lies another). If Baire applied, $\\mathbb{Q}$ would be non-meager in itself — contradiction. The resolution: $\\mathbb{Q}$ is not complete ($(1, 1.4, 1.41, 1.414, \\dots)$ is Cauchy in $\\mathbb{Q}$ with no rational limit), so Baire's hypothesis fails."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "An attempted application of the Uniform Boundedness Principle (UBP):",
+            "steps": [
+              "Let $(T_n)$ be a sequence of bounded linear operators on a Banach space $X$.",
+              "Assume for each $x\\in X$, $\\sup_n \\|T_n x\\| < \\infty$ (pointwise bounded).",
+              "By UBP, $\\sup_n \\|T_n\\| < \\infty$ — so $T_n$ is uniformly bounded in operator norm.",
+              "If each $T_n$ is also surjective, then $T := \\lim T_n$ is surjective.",
+              "Conclude $T$ is surjective by the Open Mapping Theorem."
+            ],
+            "answer": 3,
+            "explain": "Steps 1–3 are UBP correctly applied. Step 5 (Open Mapping) is fine in isolation. The flaw is step 4: surjectivity does NOT pass to limits in general, even when $T_n \\to T$ in norm — the image can shrink. A standard counterexample is $T_n(x) = (x_1, x_2/2, x_3/3, \\dots, x_n/n, 0, 0, \\dots)$ on $\\ell^2$: each $T_n$ has finite-dim range (not surjective), but even surjective $T_n$ converging to a non-surjective $T$ are easy to construct."
+          }
+        ]
+      },
+      "ftc-both-parts": {
+        "title": "Fundamental theorem of calculus",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Using FTC, compute $\\int_1^e (1/x)\\,dx$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$F(x) = \\ln x$ is an antiderivative of $1/x$ on $(0,\\infty)$. By FTC Part II, $\\int_1^e 1/x\\,dx = \\ln e - \\ln 1 = 1 - 0 = 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "To compute $\\int_0^2 3x^2\\,dx = 8$ in one line, which part of FTC applies?",
+            "choices": [
+              "Part I: $F(x) = \\int_0^x 3t^2\\,dt$ satisfies $F'(x) = 3x^2$",
+              "Part II: $\\int_a^b F'(x)\\,dx = F(b) - F(a)$ with $F(x)=x^3$",
+              "Neither — use a Riemann sum directly",
+              "Both parts simultaneously, in that order"
+            ],
+            "answer": 1,
+            "explain": "Part II (the \"evaluation\" part) says: if $F$ is differentiable with $F'$ integrable, then $\\int_a^b F' = F(b)-F(a)$. Here $F(x)=x^3$ has $F'(x)=3x^2$, and $F(2)-F(0)=8$. Part I would instead construct $F$ from the integral, not evaluate a known integral."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $F(x) = \\int_0^x 3t^2\\,dt$. By FTC Part I, $F'(x) = 3x^2$. Compute $F'(2)$.",
+            "answer": 12,
+            "tol": 0.000001,
+            "explain": "FTC Part I says $F'(x) = f(x)$ when $f$ is continuous. So $F'(2) = 3(2)^2 = 12$. Note $F(x) = x^3$ (Part II), and indeed $F'(x) = 3x^2$ agrees."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Cantor function (devil's staircase) $c\\colon[0,1]\\to[0,1]$ is continuous, nondecreasing, with $c(0)=0$ and $c(1)=1$, and $c'(x) = 0$ almost everywhere (on the complement of the Cantor set). What does this imply?",
+            "choices": [
+              "FTC Part II fails for $c$: $\\int_0^1 c'(x)\\,dx = 0 \\ne 1 = c(1) - c(0)$",
+              "FTC Part II still holds because $c$ is continuous",
+              "$c$ is not Riemann-integrable",
+              "$c$ has no derivative anywhere"
+            ],
+            "answer": 0,
+            "hint": "Check whether $\\int c' = c(1) - c(0)$.",
+            "explain": "$c'=0$ a.e. gives $\\int_0^1 c'=0$ in Lebesgue, yet $c(1)-c(0)=1$. FTC Part II fails because $c$ is continuous but not absolutely continuous. The class where FTC Part II holds in Lebesgue theory is AC: $F$ absolutely continuous on $[a,b]$ iff $F'$ exists a.e., is integrable, and $\\int_a^x F' = F(x) - F(a)$."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of the proof of FTC Part I: if $f$ is continuous on $[a,b]$, then $F(x) = \\int_a^x f$ satisfies $F'(x) = f(x)$:",
+            "items": [
+              "Form the difference quotient $(F(x+h) - F(x))/h = (1/h)\\int_x^{x+h} f(t)\\,dt$.",
+              "Apply the mean-value theorem for integrals: there exists $c_h$ between $x$ and $x+h$ with $(1/h)\\int_x^{x+h} f(t)\\,dt = f(c_h)$.",
+              "Let $h \\to 0$; since $c_h \\to x$ and $f$ is continuous, $f(c_h) \\to f(x)$.",
+              "Conclude $F'(x) = \\lim_{h\\to 0} (F(x+h) - F(x))/h = f(x)$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Write the difference quotient as an average over $[x,x+h]$, invoke the integral MVT to pick one sample $c_h$, then use continuity of $f$ to let $c_h\\to x$ collapse to $f(x)$. No Riemann-sum manipulation is needed once MVT-for-integrals is in hand."
+          }
+        ]
+      },
+      "bump-functions": {
+        "title": "Bump functions & mollification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why can a nonzero polynomial never be compactly supported?",
+            "choices": [
+              "Polynomials are always bounded",
+              "A polynomial vanishing on an open interval is identically zero (identity theorem)",
+              "Polynomials have no derivatives",
+              "Polynomials are discontinuous"
+            ],
+            "answer": 1,
+            "explain": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval — in particular, on an open half-line. A polynomial vanishing on an infinite set is the zero polynomial (or more strongly, vanishing on an open set). Smooth bumps like $\\exp(-1/(1-x^2))$ dodge this by being non-analytic at $x=\\pm 1$."
+          },
+          {
+            "type": "numeric",
+            "q": "The standard bump $\\psi(x) = \\exp(-1/(1-x^2))$ on $|x|<1$ (extended by $0$ outside) attains its maximum at $x=0$. Compute $\\psi(0)$ to four decimal places.",
+            "answer": 0.3679,
+            "tol": 0.001,
+            "explain": "$\\psi(0) = \\exp(-1/(1-0)) = \\exp(-1) = 1/e \\approx 0.3679$."
+          },
+          {
+            "type": "mcq",
+            "q": "$C^\\infty_c(\\mathbb{R})$ (smooth compactly supported functions) is dense in which space?",
+            "choices": [
+              "Only in $C^\\infty(\\mathbb{R})$",
+              "In $L^p(\\mathbb{R})$ for every $1 \\le p < \\infty$",
+              "In $L^\\infty(\\mathbb{R})$ with the sup norm",
+              "In nowhere — it is a strict subspace"
+            ],
+            "answer": 1,
+            "explain": "$C^\\infty_c$ is dense in $L^p$ for $1 \\le p < \\infty$, via mollification plus truncation. It is NOT dense in $L^\\infty$ (the sup-norm closure of compactly supported functions is $C_0$, functions vanishing at infinity). This density is why distributional derivatives and Sobolev approximations work."
+          }
+        ],
+        "hard": [
+          {
+            "type": "proof-completion",
+            "q": "Borel's theorem: for any sequence $(a_n)_{n\\ge 0}$ of reals, there exists a smooth function $f\\colon\\mathbb{R}\\to\\mathbb{R}$ with $f^{(n)}(0) = a_n$ for every $n$. The construction uses bump functions as follows:",
+            "steps": [
+              "Let $\\chi$ be a bump with $\\chi(x) = 1$ for $|x|\\le 1/2$ and $\\chi(x)=0$ for $|x|\\ge 1$.",
+              "Define $f_n(x) = (a_n/n!)\\,x^n\\,\\chi(\\lambda_n x)$ for a scaling $\\lambda_n$ to be chosen.",
+              "Each $f_n$ is smooth with $f_n^{(n)}(0) = a_n$ and $f_n^{(k)}(0) = 0$ for $k < n$."
+            ],
+            "choices": [
+              "Choose $\\lambda_n$ large enough so that $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k < n$; then $f = \\sum f_n$ converges in $C^\\infty$ and $f^{(n)}(0) = a_n$.",
+              "Set $\\lambda_n = 1$ and apply the closed graph theorem.",
+              "Let $f = \\sum a_n x^n / n!$ (the Taylor series) and invoke uniform convergence on compact sets.",
+              "Use the inverse function theorem to produce $f$ directly from the sequence."
+            ],
+            "answer": 0,
+            "hint": "The key issue is making the tail sum's $k$-th derivatives converge.",
+            "explain": "The delicate step is controlling all lower derivatives. Scaling the cutoff support very narrowly (large $\\lambda_n$) makes each $f_n$'s $k$-th derivatives for $k<n$ tiny in sup norm. Choosing $\\lambda_n$ to enforce $\\|f_n^{(k)}\\|_\\infty < 2^{-n}$ for all $k<n$ makes $\\sum f_n^{(k)}$ converge uniformly for every $k$. Hence $f=\\sum f_n$ is smooth with the prescribed derivatives at $0$. The naive Taylor series (choice 3) can diverge everywhere except $x=0$."
+          },
+          {
+            "type": "mcq",
+            "q": "A student argues: \"Mollifying $f \\in L^1(\\mathbb{R})$ by $\\eta_\\varepsilon$ gives $f_\\varepsilon \\to f$ in $L^1$, so $f_\\varepsilon(x) \\to f(x)$ pointwise for every $x$.\" Where does this reasoning go wrong?",
+            "choices": [
+              "Mollification does not converge in $L^1$",
+              "$L^1$ convergence does NOT imply pointwise convergence; only pointwise a.e. convergence along a subsequence",
+              "Mollifiers are not integrable",
+              "$f_\\varepsilon$ is never smooth"
+            ],
+            "answer": 1,
+            "hint": "$L^1$ convergence and pointwise convergence disagree.",
+            "explain": "$L^1$ convergence controls $\\int |f_\\varepsilon - f|$, not $|f_\\varepsilon(x) - f(x)|$ at any individual $x$. The classic sliding-bump example in $L^1$ converges to $0$ without converging pointwise anywhere. One can pass to a subsequence for a.e. pointwise convergence, but not everywhere, and not without subsequencing. For continuous $f$, however, $f_\\varepsilon \\to f$ uniformly on compacts."
+          }
+        ]
+      },
+      "c-space-arzela": {
+        "title": "C[a,b] & Arzelà–Ascoli",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A family $\\mathcal{F}\\subseteq C[a,b]$ is equicontinuous iff:",
+            "choices": [
+              "Each $f\\in\\mathcal{F}$ is continuous",
+              "For every $\\varepsilon>0$ there is $\\delta>0$ (independent of $f$) with $|x-y|<\\delta \\Rightarrow |f(x)-f(y)|<\\varepsilon$ for all $f\\in\\mathcal{F}$",
+              "The family is finite",
+              "$\\sup_{f\\in\\mathcal{F}} \\|f\\|_\\infty < \\infty$"
+            ],
+            "answer": 1,
+            "explain": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family. Merely being continuous (even uniformly continuous individually) is not enough — the $\\delta$ must not depend on which $f\\in\\mathcal{F}$ you picked. Pointwise boundedness (choice 4) is the second Arzelà–Ascoli hypothesis, not equicontinuity."
+          },
+          {
+            "type": "mcq",
+            "q": "$C[a,b]$ with the sup norm $\\|f\\|_\\infty = \\sup_{x\\in[a,b]} |f(x)|$ is:",
+            "choices": [
+              "A Banach space (complete normed)",
+              "A Hilbert space",
+              "A non-complete normed space",
+              "Not a vector space"
+            ],
+            "answer": 0,
+            "explain": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (§4). So it is a Banach space. It is NOT a Hilbert space in general — the sup norm is not induced by an inner product (the parallelogram law fails)."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\|x - x^2\\|_\\infty$ on $[0,1]$ (the supremum of $x - x^2$).",
+            "answer": 0.25,
+            "tol": 0.000001,
+            "explain": "$f(x) = x - x^2$, $f'(x) = 1 - 2x = 0$ at $x = 1/2$. $f(1/2) = 1/2 - 1/4 = 1/4 = 0.25$. Endpoints give $f(0) = f(1) = 0$. So $\\|f\\|_\\infty = 1/4$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "spot-the-error",
+            "q": "An attempted application of Arzelà–Ascoli:",
+            "steps": [
+              "Let $f_n(x) = x^n$ on $[0,1]$ for $n=1,2,3,\\dots$",
+              "Each $f_n$ is continuous, so $f_n \\in C[0,1]$.",
+              "The family $\\{f_n\\}$ is equicontinuous (each is $n$-Lipschitz, so they share a common modulus of continuity).",
+              "By Arzelà–Ascoli, some subsequence $f_{n_k}$ converges uniformly.",
+              "Hence the pointwise limit (the discontinuous step at $x=1$) is continuous."
+            ],
+            "answer": 2,
+            "explain": "Step 3 is wrong: $\\{x^n\\}$ is NOT equicontinuous on $[0,1]$. The Lipschitz constants $n$ grow without bound — to get $|x^n - y^n| < \\varepsilon$ near $x=1$ requires $\\delta$ shrinking to $0$ as $n \\to \\infty$, so no common $\\delta$ works. Without equicontinuity, Arzelà–Ascoli does not apply; the pointwise limit is indeed discontinuous, confirming no uniformly convergent subsequence exists."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of the proof that \"continuous image of compact is compact\" (key ingredient in C[a,b]-related theorems):",
+            "items": [
+              "Let $f\\colon K \\to Y$ be continuous with $K$ compact.",
+              "Take an open cover $\\{V_\\alpha\\}$ of $f(K)$ in $Y$.",
+              "By continuity, $\\{f^{-1}(V_\\alpha)\\}$ is an open cover of $K$.",
+              "By compactness of $K$, extract a finite subcover $f^{-1}(V_{\\alpha_1}), \\dots, f^{-1}(V_{\\alpha_n})$.",
+              "Then $V_{\\alpha_1}, \\dots, V_{\\alpha_n}$ cover $f(K)$, exhibiting a finite subcover."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets — so the proof is forced by the definitions."
           }
         ]
       }

@@ -45,6 +45,71 @@
         "ring-ideals"
       ],
       "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
+    },
+    {
+      "id": "subgroups-cosets-lagrange",
+      "title": "Subgroups, cosets, and Lagrange",
+      "anchor": "cosets",
+      "prereqs": [
+        "cayley-tables"
+      ],
+      "blurb": "Left cosets gH partition G into blocks all of size |H|, so |H| divides |G| and the index [G:H] counts how many cosets there are; normality is the equality of left and right coset partitions."
+    },
+    {
+      "id": "quotient-groups-iso-theorems",
+      "title": "Quotient groups and isomorphism theorems",
+      "anchor": "quotients-iso",
+      "prereqs": [
+        "subgroups-cosets-lagrange"
+      ],
+      "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients."
+    },
+    {
+      "id": "group-actions-burnside",
+      "title": "Group actions, orbits, and Burnside",
+      "anchor": "orbits",
+      "prereqs": [
+        "subgroups-cosets-lagrange"
+      ],
+      "blurb": "A group action splits a set into orbits whose sizes are indices of stabilizers (orbit-stabilizer); Burnside's lemma then counts orbits as the average number of fixed points across all group elements."
+    },
+    {
+      "id": "sylow-theorems",
+      "title": "Sylow theorems",
+      "anchor": "sylow",
+      "prereqs": [
+        "group-actions-burnside",
+        "subgroups-cosets-lagrange"
+      ],
+      "blurb": "For |G| = p^k m with p prime and gcd(p,m)=1, Sylow p-subgroups of order p^k always exist, are all conjugate, and their count n_p divides m and is congruent to 1 mod p — frequently forcing normality."
+    },
+    {
+      "id": "finite-abelian-classification",
+      "title": "Finite abelian groups",
+      "anchor": "abelian",
+      "prereqs": [
+        "quotient-groups-iso-theorems"
+      ],
+      "blurb": "Every finite abelian group is uniquely a direct sum of cyclic groups of prime-power order; the count of abelian groups of order n is a product over primes p | n of the number of partitions of v_p(n)."
+    },
+    {
+      "id": "polynomial-rings-irreducibility",
+      "title": "Polynomial rings and irreducibility",
+      "anchor": "polyrings",
+      "prereqs": [
+        "ring-ideals"
+      ],
+      "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility."
+    },
+    {
+      "id": "semidirect-products-ses",
+      "title": "Semidirect products and short exact sequences",
+      "anchor": "semidirect",
+      "prereqs": [
+        "quotient-groups-iso-theorems",
+        "group-actions-burnside"
+      ],
+      "blurb": "A split short exact sequence 1 → N → G → H → 1 reconstructs G as a semidirect product N ⋊_φ H, with the homomorphism φ: H → Aut(N) controlling how H twists N; φ trivial recovers the direct product."
     }
   ]
 }

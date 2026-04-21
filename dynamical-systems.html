@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dynamical systems — flows, chaos, and strange attractors</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":null,"prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"homological":{"next":null,"prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+</style>
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+/* ============================ shared helpers ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 0, pad2 = opts.pad2 ?? 8;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+/* --- small vector helpers --- */
+function vsub(a,b){return a.map((_,i)=>a[i]-b[i])}
+function vadd(a,b){return a.map((_,i)=>a[i]+b[i])}
+function vscl(a,s){return a.map(x=>x*s)}
+function vdot(a,b){let s=0; for(let i=0;i<a.length;i++) s+=a[i]*b[i]; return s}
+function vlen(a){return Math.sqrt(vdot(a,a))}
+function vnorm(a){const L=vlen(a)||1; return a.map(x=>x/L)}
+function vcross(a,b){return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]}
+function proj3(p, yaw=0.6, pitch=0.45){
+  const [x,y,z]=p;
+  const c1=Math.cos(yaw), s1=Math.sin(yaw);
+  const x1 = c1*x - s1*y;
+  const y1 = s1*x + c1*y;
+  const z1 = z;
+  const c2=Math.cos(pitch), s2=Math.sin(pitch);
+  const y2 = c2*y1 - s2*z1;
+  const z2 = s2*y1 + c2*z1;
+  return [x1, y2, z2];
+}
+function make3DDraggable(svg, draw, opts={}){
+  const state = { yaw: opts.yaw ?? 0.75, pitch: opts.pitch ?? 0.55, dragging: false };
+  const sens = opts.sensitivity ?? 0.01;
+  const pitchMin = opts.pitchMin ?? -Math.PI/2 + 0.05;
+  const pitchMax = opts.pitchMax ??  Math.PI/2 - 0.05;
+  let start = null, pending = false;
+  const schedule = () => {
+    if(pending) return;
+    pending = true;
+    requestAnimationFrame(() => { pending = false; draw(); });
+  };
+  svg.style.cursor = 'grab';
+  svg.style.touchAction = 'none';
+  svg.addEventListener('pointerdown', e => {
+    start = { x: e.clientX, y: e.clientY, yaw: state.yaw, pitch: state.pitch };
+    state.dragging = true;
+    svg.style.cursor = 'grabbing';
+    try { svg.setPointerCapture(e.pointerId); } catch(_) {}
+    e.preventDefault();
+  });
+  svg.addEventListener('pointermove', e => {
+    if(!state.dragging || !start) return;
+    state.yaw   = start.yaw   + (e.clientX - start.x) * sens;
+    let p = start.pitch + (e.clientY - start.y) * sens;
+    state.pitch = Math.max(pitchMin, Math.min(pitchMax, p));
+    schedule();
+  });
+  const end = e => {
+    if(!state.dragging) return;
+    state.dragging = false;
+    svg.style.cursor = 'grab';
+    try { svg.releasePointerCapture(e.pointerId); } catch(_) {}
+    schedule();
+  };
+  svg.addEventListener('pointerup', end);
+  svg.addEventListener('pointercancel', end);
+  return state;
+}
+/* RK4 integrator for a vector field f: (t,y)->ydot */
+function rk4Step(f, t, y, h){
+  const k1 = f(t, y);
+  const k2 = f(t+h/2, y.map((v,i)=>v+h*k1[i]/2));
+  const k3 = f(t+h/2, y.map((v,i)=>v+h*k2[i]/2));
+  const k4 = f(t+h,   y.map((v,i)=>v+h*k3[i]));
+  return y.map((v,i)=>v + h*(k1[i]+2*k2[i]+2*k3[i]+k4[i])/6);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+  <a href="#orbits">1&nbsp;Orbits</a>
+  <a href="#fixed">2&nbsp;Fixed&nbsp;points</a>
+  <a href="#phase">3&nbsp;Phase&nbsp;portraits</a>
+  <a href="#limit-cycles">4&nbsp;Limit&nbsp;cycles</a>
+  <a href="#maps">5&nbsp;Iterated&nbsp;maps</a>
+  <a href="#bifurcation">6&nbsp;Bifurcations</a>
+  <a href="#chaos">7&nbsp;Chaos</a>
+  <a href="#conservative">8&nbsp;Conservative</a>
+  <a href="#poincare">9&nbsp;Poincaré</a>
+  <a href="#symbolic">10&nbsp;Symbolic</a>
+  <a href="#ergodic">11&nbsp;Ergodicity</a>
+  <a href="#attractors">12&nbsp;Strange&nbsp;attractors</a>
+</nav>
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Dynamical systems — flows, chaos, and strange attractors</h1>
+  <p class="sub">Classical dynamics: how the laws of change weave a geometry out of time. From a vector field on the plane to the Lorenz butterfly, we trace the short arc from "orbit of a point" to "fractal attractor" and meet the tools — linearization, Lyapunov exponents, Poincaré sections, ergodic averages — that make chaos intelligible.</p>
+</section>
+
+<section id="orbits">
+<h2>1. Orbits, flows, and vector fields</h2>
+<p>A <strong>continuous dynamical system</strong> on a smooth manifold $M$ is a smooth vector field $X\colon M\to TM$. The <em>initial-value problem</em> $\dot\gamma(t)=X(\gamma(t)),\ \gamma(0)=p$ has, for each starting point $p$, a unique maximal integral curve $\gamma_p$; when every such curve is defined for all $t\in\mathbb{R}$ we get a <strong>flow</strong>, a one-parameter group of diffeomorphisms</p>
+<p style="text-align:center">$\Phi\colon \mathbb{R}\times M \to M,\qquad \Phi_{t+s}=\Phi_t\circ\Phi_s,\qquad \Phi_0=\mathrm{id}_M.$</p>
+<p>The <strong>orbit</strong> of $p$ is the image $\{\Phi_t(p):t\in\mathbb{R}\}\subset M$; the <strong>forward orbit</strong> keeps $t\ge 0$. A single orbit is either a fixed point ($X(p)=0$), a closed curve (periodic orbit), or a non-self-intersecting path that runs forever.</p>
+
+<div class="note"><strong>Existence/uniqueness (Picard–Lindelöf).</strong> If $X$ is $C^1$ (Lipschitz suffices), then for each $p$ there is an $\varepsilon>0$ and a unique smooth $\gamma\colon(-\varepsilon,\varepsilon)\to M$ with $\gamma(0)=p$ and $\dot\gamma=X(\gamma)$. The flow $\Phi_t$ is smooth in $(t,p)$ wherever it is defined.</div>
+
+<p>Not every flow is complete. The planar field $X(x)=x^2$ on $\mathbb{R}$ starting at $x=1$ gives $x(t)=1/(1-t)$, which blows up at $t=1$. Completeness fails unless $X$ is bounded or $M$ is compact. The next sections assume all flows are complete; when in doubt, restrict to a forward-invariant compact region.</p>
+
+<p>Two vector fields, same phase space — very different stories. The widget sweeps through three classics: a linear sink, the undamped pendulum, and a predator–prey system. Click anywhere in the box to drop an initial condition; the orbit plays forward.</p>
+
+<div class="widget" id="w-flow">
+  <div class="hd"><div class="ttl">Flow of a 2D vector field</div><div class="hint">click to drop a starting point · orbit integrates with RK4</div></div>
+  <div class="row">
+    <label for="fl-pick">field:</label>
+    <select id="fl-pick">
+      <option value="linear" selected>linear sink (−x, −y/2)</option>
+      <option value="pendulum">undamped pendulum (y, −sin x)</option>
+      <option value="predator">predator–prey (x(1−y), y(x−1))</option>
+    </select>
+    <label for="fl-T">T:</label>
+    <input type="range" id="fl-T" min="2" max="40" value="20" step="1">
+    <span class="small" id="fl-Tval">T=20</span>
+  </div>
+  <svg id="fl-svg" viewBox="-10 -10 20 20" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Flow of a 2D vector field with sample orbits</title></svg>
+  <div class="readout" id="fl-out">click the field to drop an initial condition…</div>
+</div>
+
+<p>Things to notice:</p>
+<ul>
+  <li>The <em>linear sink</em> pulls every orbit toward the origin along the slow direction.</li>
+  <li>The <em>pendulum</em> is conservative: orbits are level sets of the energy $H=\tfrac{1}{2}y^2 -\cos x$. Small-amplitude orbits are ellipses; large-amplitude ones whip over the top.</li>
+  <li>The <em>predator–prey</em> Lotka–Volterra system has closed orbits around $(1,1)$: both populations cycle.</li>
+</ul>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#flows">Integral curves and flows on a smooth manifold</a></li>
+    <li><a href="./real-analysis.html#differentiation">Real differentiation (Picard–Lindelöf requires $C^1$)</a></li>
+      <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#conservative">Dynamical systems</a> · Conservative vs dissipative flows</div>
+    <div><a href="./dynamical-systems.html#fixed">Dynamical systems</a> · Fixed points and linearization</div>
+    <div><a href="./dynamical-systems.html#maps">Dynamical systems</a> · Iterated maps and the logistic family</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+<div class="quiz" data-concept="dyn-orbits-flows"></div>
+</section>
+
+<script>
+/* ============================= SECTION 1: flow widget ============================= */
+(function(){
+  const svg = $('#fl-svg'), pick = $('#fl-pick'), Tslider=$('#fl-T'), Tval=$('#fl-Tval'), out=$('#fl-out');
+  const FIELDS = {
+    linear:   { f:(t,[x,y])=>[-x, -0.5*y],                   label:'linear sink', box:10 },
+    pendulum: { f:(t,[x,y])=>[y, -Math.sin(x)],              label:'pendulum',   box:7 },
+    predator: { f:(t,[x,y])=>[x*(1-y), y*(x-1)],             label:'predator–prey', box:4 }
+  };
+  const mk = { linear:[], pendulum:[], predator:[] };
+  let starts = [[2, 3]]; // default starting points
+  function render(){
+    const key = pick.value; const F = FIELDS[key];
+    const box = F.box;
+    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // arrow grid
+    const N = 17, step = 2*box/N;
+    ensureArrow(svg, 'arr-field', 'var(--mute)');
+    for(let i=0;i<N;i++){
+      for(let j=0;j<N;j++){
+        const x = -box + (i+0.5)*step, y = -box + (j+0.5)*step;
+        const [vx,vy] = F.f(0,[x,y]);
+        const L = Math.hypot(vx,vy) || 1;
+        const s = step*0.35 / L;
+        const x2 = x + vx*s, y2 = y + vy*s;
+        const line = SVG('line',{x1:x,y1:-y,x2:x2,y2:-y2,stroke:'var(--mute)','stroke-width':0.04,'marker-end':'url(#arr-field)','opacity':0.55});
+        svg.appendChild(line);
+      }
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.03}));
+    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.03}));
+    // orbits
+    const T = Number(Tslider.value); const h = 0.01;
+    for(const s of starts){
+      const pts=[s]; let y=s.slice();
+      for(let t=0;t<T;t+=h){
+        y = rk4Step(F.f, t, y, h);
+        if(Math.abs(y[0])>2*box || Math.abs(y[1])>2*box) break;
+        if(pts.length && Math.hypot(y[0]-pts[pts.length-1][0], y[1]-pts[pts.length-1][1])>0.04) pts.push(y.slice());
+      }
+      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.08}));
+      svg.appendChild(SVG('circle',{cx:s[0], cy:-s[1], r:0.14, fill:'var(--yellow)'}));
+    }
+    out.textContent = `${F.label} · T=${T}\nclick the field to drop an orbit — orbits integrate with RK4.`;
+  }
+  function pointerToWorld(e){
+    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const m = svg.getScreenCTM(); if(!m) return null;
+    const inv = m.inverse(); const w = pt.matrixTransform(inv);
+    return [w.x, -w.y];
+  }
+  svg.addEventListener('click', e=>{
+    const w = pointerToWorld(e); if(!w) return;
+    starts.push(w); if(starts.length>6) starts.shift();
+    render();
+  });
+  pick.addEventListener('change', ()=>{starts = []; render();});
+  Tslider.addEventListener('input', ()=>{ Tval.textContent = `T=${Tslider.value}`; render(); });
+  render();
+})();
+</script>
+
+<section id="fixed">
+<h2>2. Fixed points and linearization</h2>
+<p>A <strong>fixed point</strong> $p^*$ is a zero of $X$: $X(p^*)=0$. Near $p^*$ the vector field looks like its linearization $DX(p^*)$, and the local dynamics is usually faithfully captured by this linear picture.</p>
+
+<div class="note"><strong>Hartman–Grobman.</strong> If $DX(p^*)$ has no eigenvalue on the imaginary axis (the fixed point is <em>hyperbolic</em>), then there is a homeomorphism from a neighbourhood of $p^*$ in $M$ to a neighbourhood of $0$ in $\mathbb{R}^n$ conjugating $\Phi_t^X$ to the linear flow $e^{tDX(p^*)}$.</div>
+
+<p>Hyperbolicity is what makes the linearization honest. Saddles, sinks (all eigenvalues with negative real part), and sources (positive real parts) are hyperbolic and topologically pinned down by their eigenvalues. Centers ($\pm i\omega$) and degenerate fixed points ($0$ eigenvalue) are <em>not</em> — a vanishing linear part leaves the nonlinear terms in charge. The borderline example is $\dot x=-x^3$: the linearization vanishes, but $V(x)=x^2$ decreases along orbits, so the origin is asymptotically stable despite the degenerate Jacobian.</p>
+
+<p>Stability classification in $\mathbb{R}^n$ is a tale of eigenvalues:</p>
+<ul>
+  <li><strong>Sink</strong>: all $\operatorname{Re}\lambda_i<0$ — every nearby orbit converges to $p^*$.</li>
+  <li><strong>Source</strong>: all $\operatorname{Re}\lambda_i>0$ — every nearby orbit runs away.</li>
+  <li><strong>Saddle</strong>: some positive, some negative real parts — stable and unstable manifolds of complementary dimensions.</li>
+  <li><strong>Center</strong>: $\operatorname{Re}\lambda_i=0$ in 2D — orbits near $p^*$ close up (in the linear system; the nonlinear fate depends on higher-order terms).</li>
+</ul>
+
+<div class="widget" id="w-lin">
+  <div class="hd"><div class="ttl">Linear 2D classifier</div><div class="hint">dial $a,b,c,d$; watch $(\operatorname{tr},\det)$ and the portrait type</div></div>
+  <div class="row">
+    <label for="li-a">a:</label><input type="range" id="li-a" min="-2" max="2" step="0.05" value="-1"><span class="small" id="li-aval">a=-1</span>
+    <label for="li-b">b:</label><input type="range" id="li-b" min="-2" max="2" step="0.05" value="1"><span class="small" id="li-bval">b=1</span>
+  </div>
+  <div class="row">
+    <label for="li-c">c:</label><input type="range" id="li-c" min="-2" max="2" step="0.05" value="-1"><span class="small" id="li-cval">c=-1</span>
+    <label for="li-d">d:</label><input type="range" id="li-d" min="-2" max="2" step="0.05" value="-1"><span class="small" id="li-dval">d=-1</span>
+  </div>
+  <svg id="li-svg" viewBox="-5 -5 10 10" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Linear 2D classifier: eigenvalues and portrait type</title></svg>
+  <div class="readout" id="li-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-fixed-linearization"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#bifurcation">Dynamical systems</a> · Bifurcations</div>
+    <div><a href="./dynamical-systems.html#phase">Dynamical systems</a> · Phase portraits in 2D</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#li-svg'), out=$('#li-out');
+  const sa=$('#li-a'), sb=$('#li-b'), sc=$('#li-c'), sd=$('#li-d');
+  const la=$('#li-aval'), lb=$('#li-bval'), lc=$('#li-cval'), ld=$('#li-dval');
+  function render(){
+    const a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;
+    la.textContent=`a=${a.toFixed(2)}`; lb.textContent=`b=${b.toFixed(2)}`;
+    lc.textContent=`c=${c.toFixed(2)}`; ld.textContent=`d=${d.toFixed(2)}`;
+    const tr=a+d, det=a*d-b*c, disc=tr*tr-4*det;
+    let type;
+    if(Math.abs(det)<1e-9) type='degenerate (zero eigenvalue)';
+    else if(det<0) type='saddle';
+    else if(Math.abs(tr)<1e-9) type='center (linear) — nonlinear fate needs higher-order';
+    else if(disc>=0){
+      if(tr<0) type='stable node (real negative eigenvalues)';
+      else type='unstable node (real positive eigenvalues)';
+    } else {
+      if(tr<0) type='stable spiral';
+      else type='unstable spiral';
+    }
+    const f=(t,[x,y])=>[a*x+b*y, c*x+d*y];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-5,y1:0,x2:5,y2:0,stroke:'var(--line)','stroke-width':0.02}));
+    svg.appendChild(SVG('line',{x1:0,y1:-5,x2:0,y2:5,stroke:'var(--line)','stroke-width':0.02}));
+    // tiny orbits from a ring of ICs
+    const NIC=12, R=4;
+    for(let k=0;k<NIC;k++){
+      const ang = 2*Math.PI*k/NIC;
+      let y=[R*Math.cos(ang), R*Math.sin(ang)];
+      const pts=[y.slice()];
+      // integrate forward
+      for(let t=0;t<6;t+=0.01){
+        y = rk4Step(f,t,y,0.01);
+        if(Math.abs(y[0])>8 || Math.abs(y[1])>8) break;
+        pts.push(y.slice());
+      }
+      const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');
+      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.04, opacity:0.85}));
+    }
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--yellow)'}));
+    // eigenvalues
+    let eig;
+    if(disc>=0){
+      const s=Math.sqrt(disc);
+      eig = [(tr+s)/2, (tr-s)/2].map(v=>v.toFixed(3));
+    } else {
+      const im = Math.sqrt(-disc)/2;
+      eig = [`${(tr/2).toFixed(3)}+${im.toFixed(3)}i`, `${(tr/2).toFixed(3)}-${im.toFixed(3)}i`];
+    }
+    out.textContent = `A = [[${a.toFixed(2)}, ${b.toFixed(2)}], [${c.toFixed(2)}, ${d.toFixed(2)}]]\n`
+      + `tr=${tr.toFixed(3)} · det=${det.toFixed(3)} · disc=${disc.toFixed(3)}\n`
+      + `eigenvalues: ${eig.join(', ')}\n`
+      + `classification: ${type}`;
+  }
+  [sa,sb,sc,sd].forEach(s=>s.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<section id="phase">
+<h2>3. Phase portraits in 2D</h2>
+<p>In two dimensions, a full phase portrait is within reach. Start with the <em>linear</em> systems: the 2×2 Jacobian $A=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}$ is classified by its <em>trace</em> $\operatorname{tr}A=a+d$ and <em>determinant</em> $\det A=ad-bc$. The $(\operatorname{tr},\det)$-plane is the atlas of 2D linear dynamics:</p>
+
+<table class="plain">
+  <thead><tr><th>region</th><th>condition</th><th>type</th></tr></thead>
+  <tbody>
+    <tr><td>below axis</td><td>$\det&lt;0$</td><td>saddle</td></tr>
+    <tr><td>parabola below</td><td>$\det&gt;0,\ \operatorname{tr}^2&gt;4\det$</td><td>node (stable iff $\operatorname{tr}&lt;0$)</td></tr>
+    <tr><td>parabola above</td><td>$\det&gt;0,\ \operatorname{tr}^2&lt;4\det$</td><td>spiral (stable iff $\operatorname{tr}&lt;0$)</td></tr>
+    <tr><td>y-axis $&gt;0$</td><td>$\operatorname{tr}=0,\det&gt;0$</td><td>center</td></tr>
+  </tbody>
+</table>
+
+<p>For a <em>nonlinear</em> system, the recipe is mechanical: (1) find all fixed points; (2) classify each by its Jacobian; (3) draw nullclines (zero sets of $\dot x$ and $\dot y$); (4) sample the direction field; (5) glue local pictures into a global portrait, respecting invariant sets and conserved quantities. The widget below lets you sweep a parameter $\mu$ through a Hopf-like bifurcation in $\dot x=\mu x-y-x(x^2+y^2),\ \dot y=x+\mu y-y(x^2+y^2)$ and watch the origin transition from stable spiral (negative $\mu$) to unstable spiral enclosing a limit cycle (positive $\mu$).</p>
+
+<div class="widget" id="w-phase">
+  <div class="hd"><div class="ttl">Phase portrait explorer</div><div class="hint">preset · morph by μ · orbits seeded from a ring of ICs</div></div>
+  <div class="row">
+    <label for="ph-pick">system:</label>
+    <select id="ph-pick">
+      <option value="hopf" selected>Hopf normal form</option>
+      <option value="saddle">saddle</option>
+      <option value="node">stable node</option>
+      <option value="vanderpol">Van der Pol</option>
+      <option value="predator">predator–prey</option>
+    </select>
+    <label for="ph-mu">μ:</label>
+    <input type="range" id="ph-mu" min="-1" max="1" step="0.02" value="0.4">
+    <span class="small" id="ph-muval">μ=0.40</span>
+  </div>
+  <svg id="ph-svg" viewBox="-3 -3 6 6" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Phase portrait with fixed points, nullclines, and trajectories</title></svg>
+  <div class="readout" id="ph-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-phase-portraits"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#limit-cycles">Dynamical systems</a> · Periodic orbits and limit cycles</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#ph-svg'), pick=$('#ph-pick'), mu=$('#ph-mu'), muv=$('#ph-muval'), out=$('#ph-out');
+  function render(){
+    const m = +mu.value; muv.textContent = `μ=${m.toFixed(2)}`;
+    let f, box=3, name='';
+    switch(pick.value){
+      case 'hopf':
+        f = (t,[x,y]) => [m*x - y - x*(x*x+y*y), x + m*y - y*(x*x+y*y)];
+        name='Hopf normal form'; break;
+      case 'saddle':
+        f = (t,[x,y]) => [x, -y*(1+m*0.4)]; name='saddle'; break;
+      case 'node':
+        f = (t,[x,y]) => [-(1+m*0.5)*x, -(2+m*0.3)*y]; name='stable node'; break;
+      case 'vanderpol':
+        f = (t,[x,y]) => [y, (0.5+m)*(1-x*x)*y - x]; name='Van der Pol'; break;
+      case 'predator':
+        f = (t,[x,y]) => [x*(1-y), y*(x-1)]; name='Lotka–Volterra (μ ignored)'; box=2.5; break;
+    }
+    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // arrow field
+    const N=13;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      const x=-box+(i+0.5)*2*box/N, y=-box+(j+0.5)*2*box/N;
+      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;
+      const s=2*box/N*0.3/L;
+      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.015,opacity:0.6}));
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.015}));
+    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.015}));
+    // integrate a ring of ICs
+    const NIC=10, R=box*0.7, T=15, h=0.01;
+    for(let k=0;k<NIC;k++){
+      const a=2*Math.PI*k/NIC;
+      let y=[R*Math.cos(a), R*Math.sin(a)];
+      const pts=[y.slice()];
+      for(let t=0;t<T;t+=h){
+        y=rk4Step(f,t,y,h);
+        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;
+        pts.push(y.slice());
+      }
+      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.02,opacity:0.9}));
+    }
+    // another ring closer to origin
+    for(let k=0;k<NIC;k++){
+      const a=2*Math.PI*k/NIC + Math.PI/NIC;
+      let y=[R*0.3*Math.cos(a), R*0.3*Math.sin(a)];
+      const pts=[y.slice()];
+      for(let t=0;t<T;t+=h){
+        y=rk4Step(f,t,y,h);
+        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;
+        pts.push(y.slice());
+      }
+      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.02,opacity:0.85}));
+    }
+    // origin as fixed point (most presets)
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));
+    out.textContent = `${name} · μ=${m.toFixed(2)}\nyellow = orbits from outer ring · cyan = orbits from inner ring.`;
+  }
+  pick.addEventListener('change',render); mu.addEventListener('input',render); render();
+})();
+</script>
+
+<section id="limit-cycles">
+<h2>4. Periodic orbits and limit cycles</h2>
+<p>A <strong>periodic orbit</strong> is a closed curve in phase space traced out by a non-constant solution. A <strong>limit cycle</strong> is an isolated periodic orbit: there is a neighbourhood containing no other periodic orbit. Limit cycles are the attractors that do not collapse to a point — self-sustained oscillators live there.</p>
+
+<div class="note"><strong>Poincaré–Bendixson.</strong> Let $X$ be a smooth vector field on an open subset of $\mathbb{R}^2$ and let $\gamma(t)$ be a forward orbit whose closure is compact and contains only finitely many fixed points. Then the $\omega$-limit set $\omega(\gamma)$ is either (i) a fixed point, (ii) a periodic orbit, or (iii) a union of fixed points connected by heteroclinic/homoclinic orbits. In particular, if $\omega(\gamma)$ contains no fixed point, it IS a periodic orbit.</div>
+
+<p>The theorem is sharp to 2D: in three dimensions, orbits can wander forever without either converging or repeating, producing chaotic attractors. In the plane, orbits cannot cross (Picard–Lindelöf), and that topological constraint forces them to settle.</p>
+
+<div class="note"><strong>Bendixson–Dulac.</strong> If $D\subset\mathbb{R}^2$ is simply connected and there exists a smooth $\phi>0$ on $D$ with $\operatorname{div}(\phi X)$ of constant sign and not identically zero on $D$, then $D$ contains no closed orbit.</div>
+
+<p>The prototype limit cycle is in polar coordinates: $\dot r = r(1-r^2),\ \dot\theta=1$. The fixed point at the origin is unstable, and the circle $r=1$ is a stable limit cycle attracting everything off the origin. The less trivial example below is the <strong>Van der Pol oscillator</strong> $\ddot x +\mu(x^2-1)\dot x + x = 0$, equivalently $\dot x=y,\ \dot y=\mu(1-x^2)y-x$. Damping is <em>negative</em> when $|x|&lt;1$ (pushing outward) and <em>positive</em> when $|x|&gt;1$ (pulling inward). A stable limit cycle appears for every $\mu&gt;0$. As $\mu$ grows, the cycle becomes increasingly relaxation-like — a slow crawl along $y\approx \mu(x^3/3-x)$ punctuated by fast jumps.</p>
+
+<div class="widget" id="w-vdp">
+  <div class="hd"><div class="ttl">Van der Pol limit cycle</div><div class="hint">slide μ · watch the cycle morph from near-circular to relaxation</div></div>
+  <div class="row">
+    <label for="vd-mu">μ:</label><input type="range" id="vd-mu" min="0" max="5" step="0.05" value="1.2">
+    <span class="small" id="vd-muval">μ=1.20</span>
+  </div>
+  <svg id="vd-svg" viewBox="-4 -4 8 8" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Van der Pol oscillator phase portrait and limit cycle</title></svg>
+  <div class="readout" id="vd-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-limit-cycles"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#poincare">Dynamical systems</a> · Poincaré sections and return maps</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#vd-svg'), mu=$('#vd-mu'), muv=$('#vd-muval'), out=$('#vd-out');
+  function render(){
+    const m=+mu.value; muv.textContent=`μ=${m.toFixed(2)}`;
+    const f=(t,[x,y])=>[y, m*(1-x*x)*y - x];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));
+    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));
+    // arrow field
+    const N=14;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      const x=-4+(i+0.5)*8/N, y=-4+(j+0.5)*8/N;
+      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;
+      const s=8/N*0.3/L;
+      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.02,opacity:0.5}));
+    }
+    // multiple orbits
+    const starts = [[0.3,0.3],[3.5,0],[0,3.5],[-3.5,0],[0,-3.5]];
+    const colors = ['var(--yellow)','var(--cyan)','var(--cyan)','var(--cyan)','var(--cyan)'];
+    for(let k=0;k<starts.length;k++){
+      let y=starts[k].slice(); const pts=[y.slice()];
+      const T=30, h=0.005;
+      for(let t=0;t<T;t+=h){
+        y=rk4Step(f,t,y,h);
+        if(Math.abs(y[0])>6||Math.abs(y[1])>10) break;
+        pts.push(y.slice());
+      }
+      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:colors[k],'stroke-width':0.025,opacity:0.9}));
+    }
+    // origin
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));
+    out.textContent = `Van der Pol · μ=${m.toFixed(2)}\nyellow: inner start · cyan: outer starts. All spiral onto the unique stable limit cycle.`;
+  }
+  mu.addEventListener('input',render); render();
+})();
+</script>
+
+<section id="maps">
+<h2>5. Iterated maps and the logistic family</h2>
+<p>Discrete dynamics: pick a map $f\colon X\to X$ and iterate. The orbit of $x$ is the sequence $x,\,f(x),\,f^2(x),\,\ldots$ A <strong>fixed point</strong> satisfies $f(x^*)=x^*$; a <strong>period-$n$ point</strong> satisfies $f^n(x^*)=x^*$ with $n$ minimal. Linearization near a fixed point: $x_{k+1}-x^*\approx f'(x^*)(x_k-x^*)$, so stability is governed by the <strong>multiplier</strong> $f'(x^*)$ — attracting iff $|f'(x^*)|&lt;1$.</p>
+
+<p>The workhorse is the <strong>logistic family</strong> $f_r(x)=rx(1-x)$ on $[0,1]$, where $r\in[0,4]$. Fixed points: $x=0$ and $x^*=1-1/r$ (the nontrivial one, in $[0,1]$ for $r\ge 1$). Multipliers: $f_r'(0)=r$, $f_r'(x^*)=2-r$. So $0$ is attracting for $r&lt;1$, loses stability at $r=1$; $x^*$ is attracting for $1&lt;r&lt;3$, and at $r=3$ the multiplier crosses $-1$ — a <em>period-doubling</em> bifurcation.</p>
+
+<div class="note"><strong>Cobweb picture.</strong> Starting at $x_0$, step up to the curve $y=f(x)$, then across to the diagonal $y=x$ to locate $x_1$. Stability of a fixed point is "does the cobweb spiral in?" — it does iff the curve is <em>less steep than the diagonal</em> at the fixed point.</div>
+
+<div class="widget" id="w-cob">
+  <div class="hd"><div class="ttl">Cobweb of 1D maps</div><div class="hint">pick a map · drag $x_0$ · watch 80 iterates spiral</div></div>
+  <div class="row">
+    <label for="co-pick">map:</label>
+    <select id="co-pick">
+      <option value="logistic" selected>logistic $rx(1-x)$</option>
+      <option value="tent">tent map</option>
+      <option value="doubling">doubling $2x\bmod 1$</option>
+      <option value="sine">$r\sin(\pi x)$</option>
+    </select>
+    <label for="co-r">r:</label><input type="range" id="co-r" min="1" max="4" step="0.005" value="2.9"><span class="small" id="co-rval">r=2.90</span>
+    <label for="co-x0">x₀:</label><input type="range" id="co-x0" min="0.02" max="0.98" step="0.01" value="0.2"><span class="small" id="co-x0val">x₀=0.20</span>
+  </div>
+  <svg id="co-svg" viewBox="-0.12 -0.12 1.24 1.24" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Cobweb plot of a 1D map</title></svg>
+  <div class="readout" id="co-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-iterated-maps"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#bifurcation">Dynamical systems</a> · Bifurcations</div>
+    <div><a href="./dynamical-systems.html#chaos">Dynamical systems</a> · Chaos and Lyapunov exponents</div>
+    <div><a href="./dynamical-systems.html#poincare">Dynamical systems</a> · Poincaré sections and return maps</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#co-svg'), pick=$('#co-pick'), rs=$('#co-r'), xs=$('#co-x0');
+  const rv=$('#co-rval'), xv=$('#co-x0val'), out=$('#co-out');
+  function render(){
+    const r=+rs.value, x0=+xs.value;
+    rv.textContent=`r=${r.toFixed(3)}`; xv.textContent=`x₀=${x0.toFixed(2)}`;
+    let f; const p = pick.value;
+    switch(p){
+      case 'logistic': f = x=>r*x*(1-x); break;
+      case 'tent':     f = x=>(x<0.5 ? 2*x : 2*(1-x)); break;
+      case 'doubling': f = x=>(2*x)%1; break;
+      case 'sine':     f = x=>r/4*Math.sin(Math.PI*x); break;  // scale so max ≈ r/4
+    }
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // frame
+    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'none',stroke:'var(--line)','stroke-width':0.003}));
+    // diagonal
+    svg.appendChild(SVG('line',{x1:0,y1:0,x2:1,y2:-1,stroke:'var(--mute)','stroke-width':0.004}));
+    // curve
+    const M=300;
+    let d='';
+    for(let i=0;i<=M;i++){ const x=i/M, y=f(x); d += (i?'L':'M')+x+' '+(-y); }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.006}));
+    // cobweb
+    let x=x0; let d2=`M${x} 0`;
+    for(let i=0;i<80;i++){
+      const y=f(x);
+      d2 += ` L${x} ${-y}`;
+      d2 += ` L${y} ${-y}`;
+      x = y;
+      if(!isFinite(x)) break;
+    }
+    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':0.004,opacity:0.95}));
+    svg.appendChild(SVG('circle',{cx:x0,cy:0,r:0.012,fill:'var(--yellow)'}));
+    const xlast = x;
+    out.textContent = `${p} · r=${r.toFixed(3)} · x₀=${x0.toFixed(2)}\nafter 80 iterates, x ≈ ${xlast.toFixed(5)}`;
+  }
+  [pick, rs, xs].forEach(el=>el.addEventListener('input', render));
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<section id="bifurcation">
+<h2>6. Bifurcations</h2>
+<p>A <strong>bifurcation</strong> is a qualitative change in the phase portrait as a parameter crosses a critical value. Locally, every codimension-one bifurcation in a 1-parameter family looks (up to smooth change of coordinates) like one of a handful of <em>normal forms</em>:</p>
+
+<table class="plain">
+  <thead><tr><th>name</th><th>normal form</th><th>what happens</th></tr></thead>
+  <tbody>
+    <tr><td>saddle-node</td><td>$\dot x=\mu-x^2$</td><td>two fixed points collide and vanish</td></tr>
+    <tr><td>transcritical</td><td>$\dot x=\mu x-x^2$</td><td>two fixed points exchange stability</td></tr>
+    <tr><td>pitchfork (super)</td><td>$\dot x=\mu x-x^3$</td><td>one fixed point splits into three (needs $\mathbb{Z}/2$-symmetry)</td></tr>
+    <tr><td>Hopf (super)</td><td>$\dot r=\mu r-r^3,\ \dot\theta=1$</td><td>spiral loses stability; stable limit cycle is born</td></tr>
+    <tr><td>period-doubling</td><td>$x_{k+1}=-(1+\mu)x_k+x_k^3$</td><td>fixed point loses stability; 2-cycle is born</td></tr>
+  </tbody>
+</table>
+
+<p>For iterated maps, the most spectacular cascade is the <strong>period-doubling route to chaos</strong> of the logistic family. As $r$ grows past $3$, the attracting fixed point bifurcates to a 2-cycle; past $r_2\approx 3.449$ the 2-cycle bifurcates to a 4-cycle; then to an 8-cycle, and so on. The $r_n$ accumulate at $r_\infty\approx 3.5699\ldots$, beyond which the attractor becomes (generically) chaotic. The <strong>Feigenbaum constant</strong></p>
+<p style="text-align:center">$\delta = \lim_{n\to\infty}\dfrac{r_{n-1}-r_{n-2}}{r_n-r_{n-1}} \approx 4.66920\ldots$</p>
+<p>is universal: it appears in any smooth one-parameter family of unimodal maps with quadratic maximum.</p>
+
+<div class="widget" id="w-bif">
+  <div class="hd"><div class="ttl">Logistic bifurcation diagram</div><div class="hint">slide $r$ to pin a vertical line · watch the attractor change</div></div>
+  <div class="row">
+    <label for="bi-r">r:</label><input type="range" id="bi-r" min="2.8" max="4" step="0.002" value="3.56"><span class="small" id="bi-rval">r=3.560</span>
+  </div>
+  <svg id="bi-svg" viewBox="2.8 -1 1.2 1" width="100%" style="max-width:640px;aspect-ratio:1.2/1"><title>Logistic map bifurcation diagram over r in [2.8, 4]</title></svg>
+  <div class="readout" id="bi-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-bifurcations"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#chaos">Dynamical systems</a> · Chaos and Lyapunov exponents</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#bi-svg'), rs=$('#bi-r'), rv=$('#bi-rval'), out=$('#bi-out');
+  // Precompute the attractor as a set of (r, x) dots.
+  const pts = [];
+  const R0 = 2.8, R1 = 4.0, STEPS = 500;
+  for(let k=0;k<STEPS;k++){
+    const r = R0 + (R1-R0)*k/(STEPS-1);
+    let x = 0.4;
+    for(let i=0;i<300;i++) x = r*x*(1-x);  // transient
+    for(let i=0;i<100;i++){ x = r*x*(1-x); pts.push([r,x]); }
+  }
+  function render(){
+    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // frame
+    svg.appendChild(SVG('rect',{x:R0,y:-1,width:R1-R0,height:1,fill:'var(--panel2)',opacity:0.4}));
+    // build a single path of dots as tiny 'M x -y h 0.0001'
+    let d = '';
+    for(const [rr, xx] of pts) d += `M${rr} ${-xx}h0.001 `;
+    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':0.003,fill:'none',opacity:0.85}));
+    // vertical line at r
+    svg.appendChild(SVG('line',{x1:r,y1:-1,x2:r,y2:0,stroke:'var(--yellow)','stroke-width':0.006,opacity:0.9}));
+    // Compute the attractor sample at r for readout
+    let x = 0.4; for(let i=0;i<400;i++) x = r*x*(1-x);
+    const sample = [];
+    for(let i=0;i<50;i++){ x = r*x*(1-x); sample.push(x); }
+    const uniq = new Set(sample.map(v=>v.toFixed(3)));
+    out.textContent = `r=${r.toFixed(3)} · distinct attractor values (after transient) ≈ ${uniq.size}\n`
+      + `(1=fixed point · 2=2-cycle · 4=4-cycle · many=chaotic window)`;
+  }
+  rs.addEventListener('input', render); render();
+})();
+</script>
+
+<section id="chaos">
+<h2>7. Chaos and Lyapunov exponents</h2>
+<p>Chaos, as formalized by Devaney, requires three things of a map $f\colon X\to X$:</p>
+<ul>
+  <li><strong>Sensitive dependence on initial conditions</strong> (SDIC): there exists $\delta&gt;0$ such that for every $x\in X$ and every neighbourhood $U\ni x$, some $y\in U$ and $n\ge 0$ give $d(f^n(x),f^n(y))\ge\delta$.</li>
+  <li><strong>Topological transitivity</strong>: for every pair of non-empty open sets $U,V$, some $n$ gives $f^n(U)\cap V\neq\emptyset$ — equivalently, a dense orbit exists.</li>
+  <li><strong>Dense periodic points</strong>.</li>
+</ul>
+
+<p>The standard quantitative surrogate for SDIC is the <strong>Lyapunov exponent</strong>. For a 1D map,</p>
+<p style="text-align:center">$\lambda(x_0) = \lim_{N\to\infty}\dfrac{1}{N}\sum_{k=0}^{N-1}\log|f'(x_k)|.$</p>
+<p>When $\lambda&gt;0$, infinitesimal errors grow exponentially like $e^{\lambda N}$; when $\lambda&lt;0$, orbits contract onto a stable attractor. For the doubling map $f(x)=2x\bmod 1$, $|f'|\equiv 2$, so $\lambda=\log 2\approx 0.693$. For the tent map, also $\log 2$. For the logistic map at $r=4$, a semiconjugacy to the tent map gives $\lambda=\log 2$ again.</p>
+
+<div class="note"><strong>Higher dimensions.</strong> An $n$-D flow has $n$ Lyapunov exponents $\lambda_1\ge\lambda_2\ge\cdots\ge\lambda_n$. For a non-trivial orbit of a smooth flow one exponent is always zero (the flow direction). The signature $(+,0,-)$ on a 3D attractor is the fingerprint of low-dimensional chaos; the Lorenz attractor has approximately $(+0.906,\ 0,\ -14.57)$.</p>
+</div>
+
+<div class="widget" id="w-lya">
+  <div class="hd"><div class="ttl">Lyapunov exponent of the logistic map</div><div class="hint">$\lambda(r)$ across $r\in[2.8,4]$ · chaos windows are where $\lambda&gt;0$</div></div>
+  <div class="row">
+    <label for="ly-r">r:</label><input type="range" id="ly-r" min="2.8" max="4" step="0.002" value="3.8"><span class="small" id="ly-rval">r=3.800</span>
+  </div>
+  <svg id="ly-svg" viewBox="2.8 -1.2 1.2 2" width="100%" style="max-width:640px;aspect-ratio:1.2/1"><title>Lyapunov exponent of the logistic map across r</title></svg>
+  <div class="readout" id="ly-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-chaos"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#ergodic">Dynamical systems</a> · Ergodicity and invariant measures</div>
+    <div><a href="./dynamical-systems.html#attractors">Dynamical systems</a> · Strange attractors</div>
+    <div><a href="./dynamical-systems.html#symbolic">Dynamical systems</a> · Symbolic dynamics</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#ly-svg'), rs=$('#ly-r'), rv=$('#ly-rval'), out=$('#ly-out');
+  const R0=2.8, R1=4.0;
+  // precompute lambda(r)
+  const data = [];
+  const NR=600, BURN=400, N=1000;
+  for(let k=0;k<NR;k++){
+    const r = R0 + (R1-R0)*k/(NR-1);
+    let x=0.4;
+    for(let i=0;i<BURN;i++) x = r*x*(1-x);
+    let s=0, m=0;
+    for(let i=0;i<N;i++){
+      x = r*x*(1-x);
+      const d = Math.abs(r - 2*r*x);
+      if(d>0){ s += Math.log(d); m++; }
+    }
+    data.push([r, s/m]);
+  }
+  function render(){
+    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // frame
+    svg.appendChild(SVG('rect',{x:R0,y:-1.2,width:R1-R0,height:2,fill:'var(--panel2)',opacity:0.4}));
+    // zero line
+    svg.appendChild(SVG('line',{x1:R0,y1:0,x2:R1,y2:0,stroke:'var(--mute)','stroke-width':0.005}));
+    // lambda curve  (note: svg y-axis flipped; lambda>0 is up, so y=-lambda)
+    let d = '';
+    for(let i=0;i<data.length;i++){
+      const [rr,ll] = data[i];
+      const y = -Math.max(-1.2, Math.min(0.8, ll));
+      d += (i?'L':'M')+rr+' '+y;
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.006}));
+    // vertical line at r
+    svg.appendChild(SVG('line',{x1:r,y1:-1.2,x2:r,y2:0.8,stroke:'var(--pink)','stroke-width':0.006,opacity:0.9}));
+    // lookup value
+    const idx = Math.min(data.length-1, Math.max(0, Math.round((r-R0)/(R1-R0)*(data.length-1))));
+    const lamHere = data[idx][1];
+    out.textContent = `λ(${r.toFixed(3)}) ≈ ${lamHere.toFixed(3)}\n`
+      + `λ>0: chaotic (positive Lyapunov exponent) · λ<0: periodic attractor · windows of λ<0 inside chaos are periodic islands.`;
+  }
+  rs.addEventListener('input', render); render();
+})();
+</script>
+
+<section id="conservative">
+<h2>8. Conservative vs dissipative flows</h2>
+<p>How does a flow treat phase-space volume? The answer is contained in the divergence of the vector field and Liouville's theorem.</p>
+
+<div class="note"><strong>Liouville's theorem.</strong> For a smooth vector field $X$ on $\mathbb{R}^n$ (or a Riemannian manifold with volume form) and a bounded measurable set $U$,
+$$\dfrac{d}{dt}\,\mathrm{vol}(\Phi_t(U)) = \int_{\Phi_t(U)} \operatorname{div}X\,d\mathrm{vol}.$$
+Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conservative</em>). $\operatorname{div}X&lt;0$ everywhere ⇒ volumes shrink exponentially (<em>dissipative</em>).</div>
+
+<p>Hamiltonian systems are the canonical conservative example. With coordinates $(q,p)$ on $\mathbb{R}^{2n}$ and Hamiltonian $H$, the flow $\dot q=\partial H/\partial p,\ \dot p=-\partial H/\partial q$ has</p>
+<p style="text-align:center">$\operatorname{div}X = \sum_i \dfrac{\partial^2 H}{\partial q_i\partial p_i} - \sum_i \dfrac{\partial^2 H}{\partial p_i\partial q_i} = 0$</p>
+<p>by equality of mixed partials. In fact Hamiltonian flows preserve much more than volume: they preserve the symplectic form $\omega=\sum dq_i\wedge dp_i$.</p>
+
+<p>The Lorenz system is the poster child for dissipation: $\operatorname{div}X = -\sigma-1-\beta = -41/3\approx -13.67$ with classical parameters, so any 3-volume shrinks by a factor of $e^{-41/3}\approx 1.2\times 10^{-6}$ each unit time. The <em>attractor</em> (the $t\to\infty$ limit of forward images of a ball of initial conditions) therefore has Lebesgue 3-volume zero — yet it attracts a set of positive 3-volume. Reconciling these facts is exactly what "strange attractor" means.</p>
+
+<div class="widget" id="w-div">
+  <div class="hd"><div class="ttl">Volume evolution under a 2D flow</div><div class="hint">watch a blob of initial conditions deform · divergence $\operatorname{div}X$ at the centroid</div></div>
+  <div class="row">
+    <label for="dv-pick">field:</label>
+    <select id="dv-pick">
+      <option value="hamil">Hamiltonian $\dot x=y,\ \dot y=-x$</option>
+      <option value="damped">damped osc $\dot x=y,\ \dot y=-x-0.3y$</option>
+      <option value="expand">expanding $\dot x=x,\ \dot y=y$</option>
+    </select>
+    <label for="dv-T">T:</label><input type="range" id="dv-T" min="0" max="10" step="0.05" value="2"><span class="small" id="dv-Tval">T=2.00</span>
+  </div>
+  <svg id="dv-svg" viewBox="-4 -4 8 8" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Volume evolution of a blob of ICs under three 2D flows</title></svg>
+  <div class="readout" id="dv-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#forms">Differential forms and the volume form</a></li>
+      <li><a href="./differential-forms.html#wedge">Differential forms and wedge product</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="dyn-conservative-dissipative"></div>
+</section>
+
+<script>
+(function(){
+  const svg=$('#dv-svg'), pick=$('#dv-pick'), Ts=$('#dv-T'), Tv=$('#dv-Tval'), out=$('#dv-out');
+  const FIELDS = {
+    hamil:  { f:(t,[x,y])=>[y, -x],        div:'0 (conservative)' },
+    damped: { f:(t,[x,y])=>[y, -x - 0.3*y], div:'-0.3 (dissipative)' },
+    expand: { f:(t,[x,y])=>[x, y],          div:'+2 (expanding)' }
+  };
+  function render(){
+    const T=+Ts.value; Tv.textContent=`T=${T.toFixed(2)}`;
+    const F = FIELDS[pick.value];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));
+    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));
+    // initial blob: ring of points in a disc at (2, 0) radius 0.6
+    const NB = 80;
+    const pts0 = [];
+    for(let k=0;k<NB;k++){
+      const a = 2*Math.PI*k/NB;
+      pts0.push([2 + 0.6*Math.cos(a), 0.6*Math.sin(a)]);
+    }
+    // initial outline
+    const d0 = pts0.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';
+    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--mute)','stroke-width':0.03,'stroke-dasharray':'0.08 0.08'}));
+    // forward image
+    const h=0.01;
+    const pts = pts0.map(p=>{ let y=p.slice(); for(let t=0;t<T;t+=h) y=rk4Step(F.f,t,y,h); return y; });
+    const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';
+    svg.appendChild(SVG('path',{d:d1,fill:'var(--yellow)',fillOpacity:0.25,stroke:'var(--yellow)','stroke-width':0.03}));
+    // quick numerical volume (via shoelace)
+    function area(P){ let s=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; s += x1*y2-x2*y1; } return Math.abs(s)/2; }
+    const A0 = area(pts0), A1 = area(pts);
+    out.textContent = `${pick.options[pick.selectedIndex].textContent} · div X = ${F.div}\n`
+      + `vol(U) = ${A0.toFixed(3)} · vol(Φ_T(U)) = ${A1.toFixed(3)} · ratio = ${(A1/A0).toFixed(3)}`;
+  }
+  [pick,Ts].forEach(el=>el.addEventListener('input',render));
+  pick.addEventListener('change',render);
+  render();
+})();
+</script>
+
+<section id="poincare">
+<h2>9. Poincaré sections and return maps</h2>
+<p>How do you study a cycle without getting tangled in continuous time? Cut across it. Choose a codimension-1 submanifold $\Sigma\subset M$ transverse to the flow, and look at the sequence of <em>hits</em>.</p>
+
+<div class="note"><strong>Poincaré map.</strong> Let $\Sigma$ be smooth, codimension $1$, and transverse to $X$ at $p^*\in\Sigma$. For $x$ near $p^*$ there is a smooth first-return time $\tau(x)$ with $\Phi_{\tau(x)}(x)\in\Sigma$. The <em>first-return map</em> is $P\colon\Sigma\to\Sigma$, $P(x)=\Phi_{\tau(x)}(x)$. $P$ is a diffeomorphism of a neighbourhood of $p^*$ into $\Sigma$; $\tau$ is smooth by the implicit function theorem applied to the crossing condition.</div>
+
+<p>A periodic orbit crossing $\Sigma$ once per period becomes a <strong>fixed point</strong> of $P$. The stability of the cycle = the stability of that fixed point of $P$. Its derivative $dP(p^*)$ has eigenvalues called <em>Floquet multipliers</em>; the cycle is attracting iff all have modulus less than 1 (except for the trivial direction along the flow, which gets collapsed by working on $\Sigma$). A 3D flow → 2D map → limit cycle stability reduces to a 2×2 eigenvalue problem.</p>
+
+<p>Poincaré sections also turn chaos into something you can draw. For a forced pendulum or the Rössler system, taking $\Sigma=\{z=0,\dot z&gt;0\}$ produces a scatter plot of return points — typically a fractal curve or a thin twisted sheet — that lets you see the chaotic attractor one slice at a time. The widget below sections the Rössler system with the standard parameters.</p>
+
+<div class="widget" id="w-poin">
+  <div class="hd"><div class="ttl">Poincaré section of the Rössler flow</div><div class="hint">crossings of $z=0$ with $\dot z&gt;0$ · slide $c$ to watch the section morph</div></div>
+  <div class="row">
+    <label for="po-c">c:</label><input type="range" id="po-c" min="3" max="10" step="0.05" value="5.7"><span class="small" id="po-cval">c=5.70</span>
+  </div>
+  <svg id="po-svg" viewBox="-10 -10 20 20" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Poincaré section of the Rössler system at z=0</title></svg>
+  <div class="readout" id="po-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-poincare-section"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#attractors">Dynamical systems</a> · Strange attractors</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+(function(){
+  const svg=$('#po-svg'), cs=$('#po-c'), cv=$('#po-cval'), out=$('#po-out');
+  function render(){
+    const c=+cs.value; cv.textContent=`c=${c.toFixed(2)}`;
+    const a=0.2, b=0.2;
+    const f=(t,[x,y,z])=>[-y-z, x+a*y, b+z*(x-c)];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-10,y1:0,x2:10,y2:0,stroke:'var(--line)','stroke-width':0.02}));
+    svg.appendChild(SVG('line',{x1:0,y1:-10,x2:0,y2:10,stroke:'var(--line)','stroke-width':0.02}));
+    // integrate, collect crossings of z=0 with zdot>0
+    let y=[0.1, 0.0, 0.0];
+    const h=0.01;
+    // skip transient
+    for(let i=0;i<20000;i++) y = rk4Step(f,0,y,h);
+    const pts=[];
+    let prevZ = y[2];
+    for(let i=0;i<200000 && pts.length<500;i++){
+      const yprev = y.slice();
+      y = rk4Step(f,0,y,h);
+      if(prevZ<0 && y[2]>=0){
+        // linear interp
+        const r = -prevZ/(y[2]-prevZ);
+        const xi = yprev[0] + r*(y[0]-yprev[0]);
+        const yi = yprev[1] + r*(y[1]-yprev[1]);
+        pts.push([xi,yi]);
+      }
+      prevZ = y[2];
+    }
+    for(const [x,y2] of pts){
+      svg.appendChild(SVG('circle',{cx:x, cy:-y2, r:0.05, fill:'var(--yellow)', opacity:0.85}));
+    }
+    out.textContent = `Rössler (a=0.2, b=0.2, c=${c.toFixed(2)}) · ${pts.length} crossings of z=0, ż>0\nthin curve at small c (periodic) · fattens into a fractal as c grows (chaos).`;
+  }
+  cs.addEventListener('input', render); render();
+})();
+</script>
+
+<section id="symbolic">
+<h2>10. Symbolic dynamics</h2>
+<p>Symbolic dynamics translates a dynamical system into a language on an alphabet. Partition state space into finitely many labelled cells $A_0,\ldots,A_{k-1}$; the <strong>itinerary</strong> of $x$ is the sequence $\sigma(x)=(a_0,a_1,a_2,\ldots)$ where $a_n$ is the label of the cell containing $f^n(x)$. Under mild conditions the map $\sigma$ becomes a topological conjugacy — or at least a semiconjugacy — to the <strong>shift</strong> $\sigma_s\colon (s_0,s_1,\ldots)\mapsto (s_1,s_2,\ldots)$ on the sequence space $\Omega_k=\{0,\ldots,k-1\}^{\mathbb{N}}$.</p>
+
+<p>The cleanest example is the <strong>doubling map</strong> $f(x)=2x\bmod 1$ on $[0,1)$. Binary-expand $x=0.b_1b_2b_3\ldots_2$. Then $f(x)=0.b_2b_3b_4\ldots_2$ — the shift on binary sequences, word for word. The map is topologically conjugate to $(\sigma_s,\Omega_2)$ everywhere except at dyadic rationals (which have two binary expansions, a countable measure-zero set).</p>
+
+<p>Why bother? Because on $\Omega_k$ the dynamics is trivially transparent: a sequence is periodic of period $n$ iff it repeats after $n$ shifts; periodic points are <em>dense</em> (fix any prefix, repeat forever); transitivity is "a sequence containing every finite word generates a dense orbit." And every claim transports back to the original system via the conjugacy. Counting period-$n$ points of the full $k$-shift is elementary: there are $k^n$ length-$n$ words, so $k^n$ fixed points of $\sigma_s^n$.</p>
+
+<div class="widget" id="w-sym">
+  <div class="hd"><div class="ttl">Itinerary of the doubling map</div><div class="hint">pick $x_0$ · see the binary expansion shift one place at a time</div></div>
+  <div class="row">
+    <label for="sy-x">x₀:</label><input type="range" id="sy-x" min="0.01" max="0.99" step="0.001" value="0.37"><span class="small" id="sy-xval">x₀=0.370</span>
+  </div>
+  <svg id="sy-svg" viewBox="0 0 620 200" width="100%" style="max-width:640px;height:auto"><title>Itinerary of the doubling map: binary digits of successive iterates</title></svg>
+  <div class="readout" id="sy-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-symbolic-dynamics"></div>
+</section>
+
+<script>
+(function(){
+  const svg=$('#sy-svg'), xs=$('#sy-x'), xv=$('#sy-xval'), out=$('#sy-out');
+  function render(){
+    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // grid of digits: ROWS iterates, COLS=16 bits shown per iterate
+    const ROWS=10, COLS=16;
+    const cellW=30, cellH=16;
+    let x=x0;
+    for(let r=0;r<ROWS;r++){
+      // compute first COLS binary digits of x
+      let t=x;
+      for(let c=0;c<COLS;c++){
+        t = t*2;
+        const b = t>=1 ? 1 : 0;
+        if(b) t -= 1;
+        // cell
+        const cx = 10 + c*cellW, cy = 5 + r*cellH;
+        svg.appendChild(SVG('rect',{x:cx, y:cy, width:cellW-2, height:cellH-2,
+          fill: b ? 'var(--yellow)' : 'var(--panel2)',
+          stroke:'var(--line)','stroke-width':0.5}));
+        const tx = SVG('text',{x:cx+(cellW-2)/2, y:cy+cellH-5, 'text-anchor':'middle','font-size':11,
+          fill: b ? '#111' : 'var(--mute)'});
+        tx.textContent = b ? '1' : '0';
+        svg.appendChild(tx);
+      }
+      // label row
+      const lbl = SVG('text',{x:502, y:5+r*cellH+12, 'font-size':11, fill:'var(--mute)'});
+      lbl.textContent = `x_${r}≈${x.toFixed(4)}`;
+      svg.appendChild(lbl);
+      x = (2*x) % 1;
+    }
+    out.textContent = `iterate binary digits of $x$ under $f(x)=2x\\bmod 1$; each row is the shift of the row above it.\nitinerary = sequence of leading bits (read down the left column): gives $\\sigma(x)\\in\\{0,1\\}^{\\mathbb{N}}$.`;
+  }
+  xs.addEventListener('input', render); render();
+})();
+</script>
+
+<section id="ergodic">
+<h2>11. Ergodicity and invariant measures</h2>
+<p>Add a measure, and time averages turn into space averages. A measurable map $T\colon X\to X$ on a probability space $(X,\mathcal{B},\mu)$ is <strong>measure-preserving</strong> if $\mu(T^{-1}A)=\mu(A)$ for every $A\in\mathcal{B}$. It is <strong>ergodic</strong> if every $T$-invariant measurable set has measure $0$ or $1$.</p>
+
+<div class="note"><strong>Birkhoff ergodic theorem.</strong> Let $T$ be measure-preserving on $(X,\mathcal{B},\mu)$ with $\mu(X)=1$, and $f\in L^1(\mu)$. Then the time average
+$$A_N f(x)=\frac{1}{N}\sum_{k=0}^{N-1}f(T^k x)$$
+converges almost everywhere to a $T$-invariant function $\bar f\in L^1$. If $T$ is ergodic, then $\bar f = \int f\,d\mu$ a.e.: <strong>time average = space average</strong>.</div>
+
+<p>This is the mathematical statement of the ergodic hypothesis. On the doubling map, $\mu=$ Lebesgue is invariant and ergodic; applying Birkhoff to the indicator of $[1/2,1)$ recovers the <em>Borel normal-numbers theorem</em>: for a.e. $x\in[0,1)$, the asymptotic frequency of $1$'s in the binary expansion of $x$ equals $1/2$. Applying Birkhoff to $f(x)=x$ gives a.e. convergence of $\tfrac{1}{N}\sum T^k(x)$ to $\int_0^1 x\,dx=1/2$.</p>
+
+<p>Ergodicity is a <em>rigidity</em>: no non-trivial observable remains conserved under iteration. Irrational rotations $T(x)=x+\alpha\bmod 1$ are ergodic (in fact uniquely ergodic); rational rotations split $[0,1)$ into finitely many cycles and are NOT ergodic; the identity is maximally non-ergodic. Bernoulli shifts on $\{0,1\}^{\mathbb{N}}$ with product measure are mixing (hence ergodic) for every $p\in(0,1)$.</p>
+
+<div class="widget" id="w-erg">
+  <div class="hd"><div class="ttl">Time average of the doubling map</div><div class="hint">running $\tfrac{1}{N}\sum T^k(x_0)$ versus $N$ · pick $x_0$ and watch convergence to $1/2$</div></div>
+  <div class="row">
+    <label for="er-x">x₀:</label><input type="range" id="er-x" min="0.005" max="0.995" step="0.001" value="0.37"><span class="small" id="er-xval">x₀=0.370</span>
+  </div>
+  <svg id="er-svg" viewBox="0 -1.1 1 1.2" width="100%" style="max-width:640px;aspect-ratio:1/1.2"><title>Ergodic time average under the doubling map converging to 1/2</title></svg>
+  <div class="readout" id="er-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure on $[0,1)$</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="dyn-ergodicity"></div>
+</section>
+
+<script>
+(function(){
+  const svg=$('#er-svg'), xs=$('#er-x'), xv=$('#er-xval'), out=$('#er-out');
+  function render(){
+    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // frame: x-axis (N, plotted as fraction), y-axis 0..1
+    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'var(--panel2)',opacity:0.3}));
+    // horizontal line at 1/2
+    svg.appendChild(SVG('line',{x1:0,y1:-0.5,x2:1,y2:-0.5,stroke:'var(--green)','stroke-width':0.003,opacity:0.7}));
+    // label
+    const lbl = SVG('text',{x:0.01, y:-0.52, 'font-size':0.03, fill:'var(--green)'}); lbl.textContent='1/2';
+    svg.appendChild(lbl);
+    // compute running average
+    let x=x0, sum=0;
+    const N=2000;
+    let d='';
+    for(let k=1;k<=N;k++){
+      x = (2*x) % 1;
+      sum += x;
+      const avg = sum/k;
+      const X = k/N, Y = -avg;
+      d += (k===1?'M':'L')+X+' '+Y;
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.005}));
+    // last value
+    const xEnd = (function(){ let xx=x0, s=0; for(let i=0;i<N;i++){ xx=(2*xx)%1; s+=xx; } return s/N; })();
+    out.textContent = `x₀=${x0.toFixed(3)} · N=${N} · running mean ≈ ${xEnd.toFixed(4)} (space average = 0.5 by Birkhoff).`;
+  }
+  xs.addEventListener('input', render); render();
+})();
+</script>
+
+<section id="attractors">
+<h2>12. Strange attractors</h2>
+<p>A <strong>strange attractor</strong> is an invariant set $\Lambda$ that</p>
+<ul>
+  <li>attracts a neighbourhood of positive Lebesgue volume,</li>
+  <li>has sensitive dependence on initial conditions on $\Lambda$,</li>
+  <li>has a fractal (non-integer) dimension — and in a dissipative flow, necessarily Lebesgue-measure zero.</li>
+</ul>
+
+<p>The canonical 3D example is the <strong>Lorenz system</strong>:</p>
+<p style="text-align:center">$\dot x = \sigma(y-x),\quad \dot y = \rho x - y - xz,\quad \dot z = xy - \beta z,$</p>
+<p>with classical parameters $(\sigma,\beta,\rho)=(10,8/3,28)$. Three fixed points: the origin (a saddle), and two symmetric points $C_\pm=(\pm\sqrt{\beta(\rho-1)},\pm\sqrt{\beta(\rho-1)},\rho-1)$. For $\rho&gt;\rho_H\approx 24.74$, $C_\pm$ lose stability in a subcritical Hopf bifurcation; by $\rho=28$ all three equilibria are unstable, yet trajectories remain bounded — and they wrap around $C_\pm$ alternately on the famous butterfly-wing surface. Divergence is $-\sigma-1-\beta=-41/3$; the attractor therefore has zero 3-volume. Its box-counting dimension, computed numerically, is $\approx 2.06$.</p>
+
+<div class="note"><strong>Why "strange" is hard to prove.</strong> For the Lorenz system specifically, the existence of the strange attractor was conjectured by Lorenz in 1963 and only rigorously established by Warwick Tucker in 1999, using interval arithmetic and careful numerical analysis. The Rössler attractor $\dot x=-y-z,\ \dot y=x+ay,\ \dot z=b+z(x-c)$ is a simpler model whose chaos is easier to analyze; it inhabits a similar fractal folded sheet.</div>
+
+<div class="widget" id="w-lor">
+  <div class="hd"><div class="ttl">Lorenz attractor (3D, rotatable)</div><div class="hint">drag to rotate · σ, β, ρ sliders · defaults = classical (10, 8/3, 28)</div></div>
+  <div class="row">
+    <label for="lo-s">σ:</label><input type="range" id="lo-s" min="4" max="20" step="0.1" value="10"><span class="small" id="lo-sval">σ=10.0</span>
+    <label for="lo-b">β:</label><input type="range" id="lo-b" min="0.5" max="5" step="0.05" value="2.667"><span class="small" id="lo-bval">β=2.67</span>
+    <label for="lo-r">ρ:</label><input type="range" id="lo-r" min="1" max="50" step="0.1" value="28"><span class="small" id="lo-rval">ρ=28.0</span>
+  </div>
+  <svg id="lo-svg" viewBox="-260 -200 520 400" width="100%" style="max-width:620px;aspect-ratio:1.3/1"><title>Lorenz attractor, 3D draggable</title></svg>
+  <div class="readout" id="lo-out"></div>
+</div>
+
+<div class="quiz" data-concept="dyn-strange-attractors"></div>
+</section>
+
+<script>
+(function(){
+  const svg=$('#lo-svg');
+  const ss=$('#lo-s'), bs=$('#lo-b'), rs=$('#lo-r');
+  const sv=$('#lo-sval'), bv=$('#lo-bval'), rv=$('#lo-rval');
+  const out = svg.parentElement.querySelector('.readout');
+  // precomputed trajectory, recomputed when parameters change
+  let traj = [];
+  function integrate(sigma, beta, rho, N, h){
+    let y=[0.5, 0.5, 0.5]; const f=(t,[x,y2,z])=>[sigma*(y2-x), rho*x-y2-x*z, x*y2-beta*z];
+    // transient
+    for(let i=0;i<2000;i++) y = rk4Step(f,0,y,h);
+    const out=[];
+    for(let i=0;i<N;i++){ y = rk4Step(f,0,y,h); out.push(y.slice()); }
+    return out;
+  }
+  function recompute(){
+    const sigma=+ss.value, beta=+bs.value, rho=+rs.value;
+    sv.textContent=`σ=${sigma.toFixed(1)}`; bv.textContent=`β=${beta.toFixed(2)}`; rv.textContent=`ρ=${rho.toFixed(1)}`;
+    traj = integrate(sigma, beta, rho, 10000, 0.005);
+    draw();
+  }
+  function draw(){
+    const yaw = view.yaw, pitch = view.pitch;
+    const step = view.dragging ? 5 : 1; // decimate on drag
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // bounds: fixed viewBox, scale world coords
+    const scale = 6;
+    const cx = 0, cy = -50; // offset so the attractor sits near center
+    // project & build path
+    const pts = [];
+    for(let i=0;i<traj.length;i+=step){
+      const [x,y,z] = traj[i];
+      // center around (0,0,27)
+      const [X,Y,Z] = proj3([x*scale, y*scale, (z-27)*scale], yaw, pitch);
+      pts.push([X + cx, -Y + cy, Z]);  // SVG y flipped
+    }
+    // draw in segments colored by depth Z (front = brighter)
+    // simple single path for speed
+    let d = '';
+    for(let i=0;i<pts.length;i++){ d += (i?'L':'M')+pts[i][0]+' '+pts[i][1]; }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.7, opacity:0.9}));
+    // axes at origin (projected)
+    const O = proj3([0,0,-27*scale], yaw, pitch);
+    const Xax = proj3([5*scale,0,-27*scale], yaw, pitch);
+    const Yax = proj3([0,5*scale,-27*scale], yaw, pitch);
+    const Zax = proj3([0,0,-22*scale], yaw, pitch);
+    function vp(P){ return [P[0]+cx, -P[1]+cy]; }
+    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Xax)[0],y2:vp(Xax)[1],stroke:'var(--pink)','stroke-width':1,opacity:0.6}));
+    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Yax)[0],y2:vp(Yax)[1],stroke:'var(--green)','stroke-width':1,opacity:0.6}));
+    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Zax)[0],y2:vp(Zax)[1],stroke:'var(--violet)','stroke-width':1,opacity:0.6}));
+    // legend in viewport coords
+    const legend = SVG('g',{transform:'translate(-230, 170)'});
+    const lbl1 = SVG('text',{x:0,y:0,'font-size':11,fill:'var(--mute)'});
+    lbl1.textContent = `σ=${(+ss.value).toFixed(1)} · β=${(+bs.value).toFixed(2)} · ρ=${(+rs.value).toFixed(1)}`;
+    legend.appendChild(lbl1);
+    const lbl2 = SVG('text',{x:0,y:14,'font-size':11,fill:'var(--mute)'});
+    lbl2.textContent = `yaw=${yaw.toFixed(2)} · pitch=${pitch.toFixed(2)} — drag to rotate`;
+    legend.appendChild(lbl2);
+    svg.appendChild(legend);
+  }
+  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.4 });
+  [ss, bs, rs].forEach(s=>s.addEventListener('input', recompute));
+  recompute();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('dynamical-systems'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

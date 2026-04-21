@@ -15,6 +15,8 @@ window.__MVConcepts = {
       "complex-analysis",
       "functional-analysis",
       "operator-algebras",
+      "dynamical-systems",
+      "probability-theory",
       "point-set-topology",
       "algebraic-topology",
       "smooth-manifolds",
@@ -161,6 +163,71 @@ window.__MVConcepts = {
             "ring-ideals"
           ],
           "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
+        },
+        {
+          "id": "subgroups-cosets-lagrange",
+          "title": "Subgroups, cosets, and Lagrange",
+          "anchor": "cosets",
+          "prereqs": [
+            "cayley-tables"
+          ],
+          "blurb": "Left cosets gH partition G into blocks all of size |H|, so |H| divides |G| and the index [G:H] counts how many cosets there are; normality is the equality of left and right coset partitions."
+        },
+        {
+          "id": "quotient-groups-iso-theorems",
+          "title": "Quotient groups and isomorphism theorems",
+          "anchor": "quotients-iso",
+          "prereqs": [
+            "subgroups-cosets-lagrange"
+          ],
+          "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients."
+        },
+        {
+          "id": "group-actions-burnside",
+          "title": "Group actions, orbits, and Burnside",
+          "anchor": "orbits",
+          "prereqs": [
+            "subgroups-cosets-lagrange"
+          ],
+          "blurb": "A group action splits a set into orbits whose sizes are indices of stabilizers (orbit-stabilizer); Burnside's lemma then counts orbits as the average number of fixed points across all group elements."
+        },
+        {
+          "id": "sylow-theorems",
+          "title": "Sylow theorems",
+          "anchor": "sylow",
+          "prereqs": [
+            "group-actions-burnside",
+            "subgroups-cosets-lagrange"
+          ],
+          "blurb": "For |G| = p^k m with p prime and gcd(p,m)=1, Sylow p-subgroups of order p^k always exist, are all conjugate, and their count n_p divides m and is congruent to 1 mod p — frequently forcing normality."
+        },
+        {
+          "id": "finite-abelian-classification",
+          "title": "Finite abelian groups",
+          "anchor": "abelian",
+          "prereqs": [
+            "quotient-groups-iso-theorems"
+          ],
+          "blurb": "Every finite abelian group is uniquely a direct sum of cyclic groups of prime-power order; the count of abelian groups of order n is a product over primes p | n of the number of partitions of v_p(n)."
+        },
+        {
+          "id": "polynomial-rings-irreducibility",
+          "title": "Polynomial rings and irreducibility",
+          "anchor": "polyrings",
+          "prereqs": [
+            "ring-ideals"
+          ],
+          "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility."
+        },
+        {
+          "id": "semidirect-products-ses",
+          "title": "Semidirect products and short exact sequences",
+          "anchor": "semidirect",
+          "prereqs": [
+            "quotient-groups-iso-theorems",
+            "group-actions-burnside"
+          ],
+          "blurb": "A split short exact sequence 1 → N → G → H → 1 reconstructs G as a semidirect product N ⋊_φ H, with the homomorphism φ: H → Aut(N) controlling how H twists N; φ trivial recovers the direct product."
         }
       ]
     },
@@ -484,6 +551,63 @@ window.__MVConcepts = {
             "multivariable-differentiation"
           ],
           "blurb": "Local invertibility from invertible Jacobian; solving F(x,y)=0 for y locally when ∂F/∂y is invertible — the engine behind manifolds and submanifolds."
+        },
+        {
+          "id": "numeric-series",
+          "title": "Numeric series & convergence tests",
+          "anchor": "numeric-series",
+          "prereqs": [
+            "real-numbers"
+          ],
+          "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums."
+        },
+        {
+          "id": "power-series-real",
+          "title": "Power series & radius of convergence",
+          "anchor": "power-series-real",
+          "prereqs": [
+            "numeric-series",
+            "uniform-convergence"
+          ],
+          "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions."
+        },
+        {
+          "id": "metric-completeness-baire",
+          "title": "Metric completeness & Baire category",
+          "anchor": "metric-completeness-baire",
+          "prereqs": [
+            "real-numbers",
+            "metric-spaces"
+          ],
+          "blurb": "Cauchy-complete metric spaces, the unique completion, and Baire's theorem: a complete metric space is not a countable union of nowhere-dense sets."
+        },
+        {
+          "id": "ftc-both-parts",
+          "title": "Fundamental theorem of calculus (both parts)",
+          "anchor": "ftc-both-parts",
+          "prereqs": [
+            "riemann-integral",
+            "real-differentiation"
+          ],
+          "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue."
+        },
+        {
+          "id": "bump-functions",
+          "title": "Bump functions & mollification",
+          "anchor": "bump-functions",
+          "prereqs": [
+            "real-differentiation"
+          ],
+          "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity."
+        },
+        {
+          "id": "c-space-arzela",
+          "title": "C[a,b] & the Arzelà–Ascoli theorem",
+          "anchor": "c-space-arzela",
+          "prereqs": [
+            "uniform-convergence"
+          ],
+          "blurb": "C[a,b] with the uniform norm is Banach; a family has uniformly convergent subsequences iff it is pointwise bounded and equicontinuous (Arzelà–Ascoli)."
         }
       ]
     },
@@ -907,6 +1031,253 @@ window.__MVConcepts = {
             "positive-elements"
           ],
           "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
+        }
+      ]
+    },
+    "dynamical-systems": {
+      "topic": "dynamical-systems",
+      "title": "Dynamical systems",
+      "page": "dynamical-systems.html",
+      "concepts": [
+        {
+          "id": "dyn-orbits-flows",
+          "title": "Orbits, flows, and vector fields",
+          "anchor": "orbits",
+          "prereqs": [
+            "vector-field-flows",
+            "real-differentiation"
+          ],
+          "blurb": "A continuous dynamical system is a smooth vector field $X$ on $M$; its flow $\\Phi_t$ sends each $p$ along the unique integral curve $\\dot\\gamma = X(\\gamma)$. The forward orbit $\\{\\Phi_t(p):t\\ge 0\\}$ is what we study."
+        },
+        {
+          "id": "dyn-fixed-linearization",
+          "title": "Fixed points and linearization",
+          "anchor": "fixed",
+          "prereqs": [
+            "dyn-orbits-flows"
+          ],
+          "blurb": "At an equilibrium $X(p^*)=0$ the Jacobian $DX(p^*)$ controls local behaviour: by Hartman–Grobman, when $DX(p^*)$ is hyperbolic the flow near $p^*$ is topologically conjugate to its linearization."
+        },
+        {
+          "id": "dyn-phase-portraits",
+          "title": "Phase portraits in 2D",
+          "anchor": "phase",
+          "prereqs": [
+            "dyn-fixed-linearization"
+          ],
+          "blurb": "In the plane, $(\\operatorname{tr} A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait."
+        },
+        {
+          "id": "dyn-limit-cycles",
+          "title": "Periodic orbits and limit cycles",
+          "anchor": "limit-cycles",
+          "prereqs": [
+            "dyn-phase-portraits"
+          ],
+          "blurb": "A limit cycle is an isolated periodic orbit. Poincaré–Bendixson: a non-empty compact $\\omega$-limit set in a planar flow that contains no fixed point is a periodic orbit; Dulac rules out cycles via a divergence criterion."
+        },
+        {
+          "id": "dyn-iterated-maps",
+          "title": "Iterated maps and the logistic family",
+          "anchor": "maps",
+          "prereqs": [
+            "dyn-orbits-flows"
+          ],
+          "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
+        },
+        {
+          "id": "dyn-bifurcations",
+          "title": "Bifurcations",
+          "anchor": "bifurcation",
+          "prereqs": [
+            "dyn-fixed-linearization",
+            "dyn-iterated-maps"
+          ],
+          "blurb": "A bifurcation is a qualitative change of the phase portrait as a parameter crosses a critical value. Local codimension-one normal forms: saddle-node $\\dot x=\\mu-x^2$, transcritical $\\dot x=\\mu x-x^2$, pitchfork $\\dot x=\\mu x-x^3$, Hopf (birth of a cycle), period-doubling (for maps)."
+        },
+        {
+          "id": "dyn-chaos",
+          "title": "Chaos and Lyapunov exponents",
+          "anchor": "chaos",
+          "prereqs": [
+            "dyn-bifurcations",
+            "dyn-iterated-maps"
+          ],
+          "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature."
+        },
+        {
+          "id": "dyn-conservative-dissipative",
+          "title": "Conservative vs dissipative flows",
+          "anchor": "conservative",
+          "prereqs": [
+            "dyn-orbits-flows",
+            "forms-and-wedge"
+          ],
+          "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
+        },
+        {
+          "id": "dyn-poincare-section",
+          "title": "Poincaré sections and return maps",
+          "anchor": "poincare",
+          "prereqs": [
+            "dyn-limit-cycles",
+            "dyn-iterated-maps"
+          ],
+          "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$."
+        },
+        {
+          "id": "dyn-symbolic-dynamics",
+          "title": "Symbolic dynamics",
+          "anchor": "symbolic",
+          "prereqs": [
+            "dyn-chaos"
+          ],
+          "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift."
+        },
+        {
+          "id": "dyn-ergodicity",
+          "title": "Ergodicity and invariant measures",
+          "anchor": "ergodic",
+          "prereqs": [
+            "dyn-chaos",
+            "lebesgue-measure"
+          ],
+          "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k<N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$."
+        },
+        {
+          "id": "dyn-strange-attractors",
+          "title": "Strange attractors",
+          "anchor": "attractors",
+          "prereqs": [
+            "dyn-chaos",
+            "dyn-poincare-section"
+          ],
+          "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example."
+        }
+      ]
+    },
+    "probability-theory": {
+      "topic": "probability-theory",
+      "title": "Probability theory",
+      "page": "probability-theory.html",
+      "concepts": [
+        {
+          "id": "sample-spaces-events",
+          "title": "Sample spaces, events, and probability measures",
+          "anchor": "sample",
+          "prereqs": [
+            "sigma-algebras",
+            "lebesgue-measure"
+          ],
+          "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$."
+        },
+        {
+          "id": "conditional-bayes",
+          "title": "Conditional probability and Bayes' rule",
+          "anchor": "bayes",
+          "prereqs": [
+            "sample-spaces-events"
+          ],
+          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
+        },
+        {
+          "id": "random-variables",
+          "title": "Random variables",
+          "anchor": "rv",
+          "prereqs": [
+            "sample-spaces-events",
+            "measurable-functions"
+          ],
+          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
+        },
+        {
+          "id": "supports-distributions",
+          "title": "Supports, distributions, and densities",
+          "anchor": "supports",
+          "prereqs": [
+            "random-variables"
+          ],
+          "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo."
+        },
+        {
+          "id": "expectation-moments",
+          "title": "Expectation, variance, and moments",
+          "anchor": "expectation",
+          "prereqs": [
+            "random-variables",
+            "lebesgue-integral",
+            "lp-spaces"
+          ],
+          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
+        },
+        {
+          "id": "generating-functions",
+          "title": "Moment and characteristic functions",
+          "anchor": "gen-fun",
+          "prereqs": [
+            "expectation-moments"
+          ],
+          "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents."
+        },
+        {
+          "id": "convergence-rv",
+          "title": "Modes of convergence",
+          "anchor": "conv",
+          "prereqs": [
+            "random-variables",
+            "convergence-theorems"
+          ],
+          "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob."
+        },
+        {
+          "id": "law-of-large-numbers",
+          "title": "Law of large numbers",
+          "anchor": "lln",
+          "prereqs": [
+            "convergence-rv",
+            "expectation-moments"
+          ],
+          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
+        },
+        {
+          "id": "central-limit-theorem",
+          "title": "Central limit theorem",
+          "anchor": "clt",
+          "prereqs": [
+            "convergence-rv",
+            "generating-functions"
+          ],
+          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
+        },
+        {
+          "id": "markov-chains",
+          "title": "Markov chains",
+          "anchor": "markov",
+          "prereqs": [
+            "conditional-bayes",
+            "algebraic-structures"
+          ],
+          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
+        },
+        {
+          "id": "martingales",
+          "title": "Martingales",
+          "anchor": "martingales",
+          "prereqs": [
+            "conditional-bayes",
+            "convergence-rv"
+          ],
+          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
+        },
+        {
+          "id": "brownian-motion",
+          "title": "Brownian motion",
+          "anchor": "brownian",
+          "prereqs": [
+            "central-limit-theorem",
+            "martingales"
+          ],
+          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
         }
       ]
     },

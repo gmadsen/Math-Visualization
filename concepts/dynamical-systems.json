@@ -1,0 +1,122 @@
+{
+  "topic": "dynamical-systems",
+  "title": "Dynamical systems",
+  "page": "dynamical-systems.html",
+  "concepts": [
+    {
+      "id": "dyn-orbits-flows",
+      "title": "Orbits, flows, and vector fields",
+      "anchor": "orbits",
+      "prereqs": [
+        "vector-field-flows",
+        "real-differentiation"
+      ],
+      "blurb": "A continuous dynamical system is a smooth vector field $X$ on $M$; its flow $\\Phi_t$ sends each $p$ along the unique integral curve $\\dot\\gamma = X(\\gamma)$. The forward orbit $\\{\\Phi_t(p):t\\ge 0\\}$ is what we study."
+    },
+    {
+      "id": "dyn-fixed-linearization",
+      "title": "Fixed points and linearization",
+      "anchor": "fixed",
+      "prereqs": [
+        "dyn-orbits-flows"
+      ],
+      "blurb": "At an equilibrium $X(p^*)=0$ the Jacobian $DX(p^*)$ controls local behaviour: by Hartman–Grobman, when $DX(p^*)$ is hyperbolic the flow near $p^*$ is topologically conjugate to its linearization."
+    },
+    {
+      "id": "dyn-phase-portraits",
+      "title": "Phase portraits in 2D",
+      "anchor": "phase",
+      "prereqs": [
+        "dyn-fixed-linearization"
+      ],
+      "blurb": "In the plane, $(\\operatorname{tr} A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait."
+    },
+    {
+      "id": "dyn-limit-cycles",
+      "title": "Periodic orbits and limit cycles",
+      "anchor": "limit-cycles",
+      "prereqs": [
+        "dyn-phase-portraits"
+      ],
+      "blurb": "A limit cycle is an isolated periodic orbit. Poincaré–Bendixson: a non-empty compact $\\omega$-limit set in a planar flow that contains no fixed point is a periodic orbit; Dulac rules out cycles via a divergence criterion."
+    },
+    {
+      "id": "dyn-iterated-maps",
+      "title": "Iterated maps and the logistic family",
+      "anchor": "maps",
+      "prereqs": [
+        "dyn-orbits-flows"
+      ],
+      "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
+    },
+    {
+      "id": "dyn-bifurcations",
+      "title": "Bifurcations",
+      "anchor": "bifurcation",
+      "prereqs": [
+        "dyn-fixed-linearization",
+        "dyn-iterated-maps"
+      ],
+      "blurb": "A bifurcation is a qualitative change of the phase portrait as a parameter crosses a critical value. Local codimension-one normal forms: saddle-node $\\dot x=\\mu-x^2$, transcritical $\\dot x=\\mu x-x^2$, pitchfork $\\dot x=\\mu x-x^3$, Hopf (birth of a cycle), period-doubling (for maps)."
+    },
+    {
+      "id": "dyn-chaos",
+      "title": "Chaos and Lyapunov exponents",
+      "anchor": "chaos",
+      "prereqs": [
+        "dyn-bifurcations",
+        "dyn-iterated-maps"
+      ],
+      "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature."
+    },
+    {
+      "id": "dyn-conservative-dissipative",
+      "title": "Conservative vs dissipative flows",
+      "anchor": "conservative",
+      "prereqs": [
+        "dyn-orbits-flows",
+        "forms-and-wedge"
+      ],
+      "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
+    },
+    {
+      "id": "dyn-poincare-section",
+      "title": "Poincaré sections and return maps",
+      "anchor": "poincare",
+      "prereqs": [
+        "dyn-limit-cycles",
+        "dyn-iterated-maps"
+      ],
+      "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$."
+    },
+    {
+      "id": "dyn-symbolic-dynamics",
+      "title": "Symbolic dynamics",
+      "anchor": "symbolic",
+      "prereqs": [
+        "dyn-chaos"
+      ],
+      "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift."
+    },
+    {
+      "id": "dyn-ergodicity",
+      "title": "Ergodicity and invariant measures",
+      "anchor": "ergodic",
+      "prereqs": [
+        "dyn-chaos",
+        "lebesgue-measure"
+      ],
+      "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k<N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$."
+    },
+    {
+      "id": "dyn-strange-attractors",
+      "title": "Strange attractors",
+      "anchor": "attractors",
+      "prereqs": [
+        "dyn-chaos",
+        "dyn-poincare-section"
+      ],
+      "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example."
+    }
+  ]
+}

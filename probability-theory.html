@@ -1,0 +1,1823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Probability theory — from sample spaces to Brownian motion</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles &amp; idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":null,"prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series &amp; Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":null,"prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius &amp; reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory &amp; the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"homological":{"next":null,"prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups &amp; algebras"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms &amp; fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions &amp; generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums &amp; Bernoulli"},"probability-theory":{"next":null,"prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms &amp; genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics &amp; reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+// standard-normal helpers (used in several widgets)
+function randn(){
+  // Box-Muller
+  let u=0,v=0;
+  while(u===0) u=Math.random();
+  while(v===0) v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
+function phi(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+  <a href="#sample">1&nbsp;Sample&nbsp;spaces</a>
+  <a href="#bayes">2&nbsp;Conditional&nbsp;&amp;&nbsp;Bayes</a>
+  <a href="#rv">3&nbsp;Random&nbsp;variables</a>
+  <a href="#supports">4&nbsp;Distributions</a>
+  <a href="#expectation">5&nbsp;Expectation</a>
+  <a href="#gen-fun">6&nbsp;Generating&nbsp;functions</a>
+  <a href="#conv">7&nbsp;Convergence</a>
+  <a href="#lln">8&nbsp;LLN</a>
+  <a href="#clt">9&nbsp;CLT</a>
+  <a href="#markov">10&nbsp;Markov&nbsp;chains</a>
+  <a href="#martingales">11&nbsp;Martingales</a>
+  <a href="#brownian">12&nbsp;Brownian&nbsp;motion</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Probability theory</h1>
+  <p class="sub">Measure-theoretic probability from sample spaces to Brownian motion: random variables as push-forwards, expectation as a Lebesgue integral, the law of large numbers and central limit theorem as convergence theorems, and Markov chains, martingales, and Brownian motion as the principal stochastic processes. Every concept comes with a toy to poke.</p>
+</section>
+
+<section id="sample">
+<h2>1. Sample spaces, events, and probability measures</h2>
+
+<p>A <strong>probability space</strong> is a measure space $(\Omega,\mathcal{F},\mathbb{P})$ where $\mathbb{P}(\Omega)=1$. Points $\omega\in\Omega$ are <em>outcomes</em>; measurable subsets $A\in\mathcal{F}$ are <em>events</em>; and the <em>probability measure</em> $\mathbb{P}\colon\mathcal{F}\to[0,1]$ is countably additive with $\mathbb{P}(\varnothing)=0$ and $\mathbb{P}(\Omega)=1$.</p>
+
+<p>Everything in probability lives on top of this single triple. The $\sigma$-algebra $\mathcal{F}$ encodes what is "observable"; events are the questions we can legitimately ask; and $\mathbb{P}$ assigns numerical weights to those questions.</p>
+
+<div class="note"><strong>Why $\sigma$-algebras?</strong> Finite additivity — $\mathbb{P}(A\sqcup B)=\mathbb{P}(A)+\mathbb{P}(B)$ — is trivial. The leap from finite to countable is exactly what makes probability agree with limits: if $A_n\uparrow A$, then $\mathbb{P}(A_n)\uparrow\mathbb{P}(A)$. This continuity of measure is the engine behind every convergence theorem below.</div>
+
+<p><strong>Worked example: rolling two dice.</strong> Take $\Omega=\{1,\ldots,6\}^2$, $\mathcal{F}=\mathcal{P}(\Omega)$ (finite sample space — every subset is measurable), and $\mathbb{P}=\tfrac{1}{36}\#$. Then the event "sum $\ge 10$" is $\{(4,6),(5,5),(5,6),(6,4),(6,5),(6,6)\}$ with probability $6/36=1/6$. Countable additivity degenerates to finite, and the entire apparatus is elementary — but the structure generalises to uncountable $\Omega$ without change.</p>
+
+<p><strong>Continuity of measure.</strong> For increasing $A_n\uparrow A$, countable additivity gives $\mathbb{P}(A)=\lim_n\mathbb{P}(A_n)$. Dually, for $A_n\downarrow A$ with $\mathbb{P}(A_1)<\infty$, $\mathbb{P}(A)=\lim\mathbb{P}(A_n)$. These are the set-theoretic twin of MCT/DCT.</p>
+
+<div class="widget" id="w-events">
+  <div class="hd"><div class="ttl">Events on a finite sample space</div><div class="hint">two dice, click events</div></div>
+  <svg id="events-svg" viewBox="0 0 760 260" width="760" height="260"><title>Probability of events on rolling two dice</title></svg>
+  <div class="row">
+    <button id="ev-sum10">sum $\ge 10$</button>
+    <button id="ev-double">doubles</button>
+    <button id="ev-even">sum even</button>
+    <button id="ev-both">sum $\ge 10$ AND doubles</button>
+    <button id="ev-either">sum $\ge 10$ OR doubles</button>
+    <button id="ev-reset">clear</button>
+  </div>
+  <div class="readout" id="events-out">Pick an event to highlight its outcomes in the 6×6 grid.</div>
+</div>
+
+<div class="quiz" data-concept="sample-spaces-events"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#sigma">σ-algebras and measures</a></li>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#bayes">Probability theory</a> · Conditional probability and Bayes' rule</div>
+    <div><a href="./probability-theory.html#rv">Probability theory</a> · Random variables</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §1 Events on two dice =============================== */
+(function(){
+  const svg = $('#events-svg'), out = $('#events-out');
+  const W=760, H=260, pad=40;
+  const cell = 28;
+  const ox = (W - 6*cell)/2;
+  const oy = 40;
+  function drawGrid(highlight){
+    svg.innerHTML = '';
+    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));
+    // axis labels
+    for(let i=1;i<=6;i++){
+      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent=i; svg.appendChild(tx);
+      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      ty.textContent=i; svg.appendChild(ty);
+    }
+    // cells
+    for(let a=1;a<=6;a++){
+      for(let b=1;b<=6;b++){
+        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;
+        const on = hl.has(a+','+b);
+        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,
+          fill: on ? 'var(--yellow)' : 'var(--panel2)',
+          stroke:'var(--line)'}));
+        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,
+          fill: on ? '#111' : 'var(--mute)'});
+        t.textContent=a+b;
+        svg.appendChild(t);
+      }
+    }
+    // axis titles
+    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xt.textContent='die 1'; svg.appendChild(xt);
+    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});
+    yt.textContent='die 2'; svg.appendChild(yt);
+  }
+  function outcomes(pred){
+    const res=[];
+    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);
+    return res;
+  }
+  function show(label, pred){
+    const es = outcomes(pred);
+    drawGrid(es);
+    out.textContent = `${label}\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;
+  }
+  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));
+  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));
+  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));
+  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));
+  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));
+  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });
+  drawGrid([]);
+})();
+</script>
+
+<section id="bayes">
+<h2>2. Conditional probability and Bayes' rule</h2>
+
+<p>Given $\mathbb{P}(B)>0$, the <strong>conditional probability</strong> of $A$ given $B$ is
+$$\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.$$
+Two events are <strong>independent</strong> when $\mathbb{P}(A\cap B)=\mathbb{P}(A)\mathbb{P}(B)$; equivalently $\mathbb{P}(A\mid B)=\mathbb{P}(A)$.</p>
+
+<p>Combining the product rule with itself flipped gives <strong>Bayes' rule</strong>:
+$$\mathbb{P}(A\mid B)=\frac{\mathbb{P}(B\mid A)\,\mathbb{P}(A)}{\mathbb{P}(B)}.$$
+Here $\mathbb{P}(A)$ is the <em>prior</em>, $\mathbb{P}(B\mid A)$ the <em>likelihood</em>, and $\mathbb{P}(A\mid B)$ the <em>posterior</em>.</p>
+
+<p>The <strong>law of total probability</strong>, for a partition $\{B_i\}$ of $\Omega$ with $\mathbb{P}(B_i)>0$:
+$$\mathbb{P}(A)=\sum_i\mathbb{P}(A\mid B_i)\,\mathbb{P}(B_i),$$
+gives the denominator $\mathbb{P}(B)$ in Bayes' rule a computable form.</p>
+
+<p><strong>Worked example: medical test.</strong> A disease has prevalence $1\%$. A test has sensitivity (true-positive rate) $99\%$ and specificity (true-negative rate) $95\%$ (so false-positive rate $5\%$). Given a positive test, what is the probability of disease?
+$$\mathbb{P}(D\mid +)=\frac{\mathbb{P}(+\mid D)\mathbb{P}(D)}{\mathbb{P}(+\mid D)\mathbb{P}(D)+\mathbb{P}(+\mid\neg D)\mathbb{P}(\neg D)}=\frac{0.99\cdot 0.01}{0.99\cdot 0.01+0.05\cdot 0.99}\approx 16.7\%.$$
+Posteriors on rare conditions are dominated by the false-positive rate — a $99\%$-accurate test produces mostly false positives when the disease is rare.</p>
+
+<div class="widget" id="w-bayes">
+  <div class="hd"><div class="ttl">Bayes flipper</div><div class="hint">posterior updates as you slide</div></div>
+  <svg id="bayes-svg" viewBox="0 0 760 260" width="760" height="260"><title>Bayes flipper: prior, likelihood, posterior</title></svg>
+  <div class="row">
+    <label for="b-prior">prior $\mathbb{P}(D)$</label>
+    <input id="b-prior" type="range" min="0.001" max="0.5" step="0.001" value="0.01">
+    <span id="b-prior-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="b-sens">sensitivity $\mathbb{P}(+\mid D)$</label>
+    <input id="b-sens" type="range" min="0.5" max="0.999" step="0.001" value="0.99">
+    <span id="b-sens-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="b-fpr">false-pos rate $\mathbb{P}(+\mid\neg D)$</label>
+    <input id="b-fpr" type="range" min="0.001" max="0.5" step="0.001" value="0.05">
+    <span id="b-fpr-v" class="small"></span>
+  </div>
+  <div class="readout" id="b-out"></div>
+</div>
+
+<div class="quiz" data-concept="conditional-bayes"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#markov">Probability theory</a> · Markov chains</div>
+    <div><a href="./probability-theory.html#martingales">Probability theory</a> · Martingales</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §2 Bayes flipper =============================== */
+(function(){
+  const svg = $('#bayes-svg'), out = $('#b-out');
+  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');
+  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');
+  const W=760, H=260;
+  function draw(){
+    const p = +prior.value, s = +sens.value, f = +fpr.value;
+    pv.textContent = p.toFixed(3);
+    sv.textContent = s.toFixed(3);
+    fv.textContent = f.toFixed(3);
+    // posterior
+    const num = s*p;
+    const den = s*p + f*(1-p);
+    const post = den>0 ? num/den : 0;
+    svg.innerHTML = '';
+    // 3 bars: prior, likelihood ratio, posterior
+    const barW = 180, barH = 160;
+    const y0 = 50, y1 = y0+barH;
+    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];
+    const vals = [p, den, post];
+    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];
+    for(let i=0;i<3;i++){
+      const cx = 80 + i*240;
+      // frame
+      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,
+        fill:'none',stroke:'var(--line)','stroke-width':1}));
+      // filled bar
+      const fh = Math.min(1,vals[i])*barH;
+      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,
+        fill:colors[i],opacity:0.85}));
+      // value
+      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});
+      t.textContent=vals[i].toFixed(4);
+      svg.appendChild(t);
+      // label
+      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lbl.textContent=labels[i];
+      svg.appendChild(lbl);
+    }
+    // arrow from prior to posterior
+    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});
+    out.textContent =
+      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\n`+
+      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\n`+
+      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\n`+
+      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;
+  }
+  prior.addEventListener('input',draw);
+  sens.addEventListener('input',draw);
+  fpr.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="rv">
+<h2>3. Random variables</h2>
+
+<p>A <strong>random variable</strong> on $(\Omega,\mathcal{F},\mathbb{P})$ is a measurable function $X\colon\Omega\to\mathbb{R}$. Measurable means: for every Borel $B\in\mathcal{B}(\mathbb{R})$, the preimage $X^{-1}(B)=\{\omega:X(\omega)\in B\}$ lies in $\mathcal{F}$ — i.e., "$X\in B$" is an event.</p>
+
+<p>The <strong>law</strong> (or <em>distribution</em>) of $X$ is the push-forward measure $\mathbb{P}_X$ on $(\mathbb{R},\mathcal{B}(\mathbb{R}))$:
+$$\mathbb{P}_X(B)=\mathbb{P}(X^{-1}(B))=\mathbb{P}(X\in B).$$
+Once we have $\mathbb{P}_X$, the original $(\Omega,\mathcal{F},\mathbb{P})$ recedes: everything we can say about $X$ alone lives on $(\mathbb{R},\mathcal{B})$.</p>
+
+<p>The <strong>cumulative distribution function</strong> is $F_X(x)=\mathbb{P}(X\le x)=\mathbb{P}_X((-\infty,x])$. It is non-decreasing, right-continuous, and determines $\mathbb{P}_X$ uniquely (by the $\pi$-$\lambda$ theorem applied to half-lines, which generate $\mathcal{B}$).</p>
+
+<div class="note"><strong>Independence of random variables.</strong> $X$ and $Y$ are independent iff $\mathbb{P}_{(X,Y)}=\mathbb{P}_X\otimes\mathbb{P}_Y$, i.e. the joint law factorises. Equivalently $\mathbb{P}(X\in A, Y\in B)=\mathbb{P}(X\in A)\mathbb{P}(Y\in B)$ for all Borel $A,B$.</div>
+
+<p><strong>Worked example: inverse CDF transform.</strong> Let $U\sim\text{Uniform}[0,1]$ and $F$ be a CDF with inverse $F^{-1}(u)=\inf\{x:F(x)\ge u\}$. Then $X=F^{-1}(U)$ has CDF $F$: indeed $\mathbb{P}(X\le x)=\mathbb{P}(F^{-1}(U)\le x)=\mathbb{P}(U\le F(x))=F(x)$. This is how every simulator generates non-uniform random variables from a uniform random source.</p>
+
+<div class="widget" id="w-rv">
+  <div class="hd"><div class="ttl">Push-forward: $\Omega\to\mathbb{R}$</div><div class="hint">hover samples to see the mapping</div></div>
+  <svg id="rv-svg" viewBox="0 0 760 260" width="760" height="260"><title>Random variable as a push-forward measure</title></svg>
+  <div class="row">
+    <button id="rv-resample">new sample (n=40)</button>
+    <label for="rv-pick">distribution</label>
+    <select id="rv-pick">
+      <option value="unif">X = 2U (uniform on [0,2])</option>
+      <option value="sq">X = U² (skewed)</option>
+      <option value="exp">X = -ln(U) (exponential)</option>
+    </select>
+  </div>
+  <div class="readout" id="rv-out"></div>
+</div>
+
+<div class="quiz" data-concept="random-variables"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#measurable">Measurable functions</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
+    <div><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</div>
+    <div><a href="./probability-theory.html#supports">Probability theory</a> · Supports, distributions, and densities</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §3 Push-forward visualization =============================== */
+(function(){
+  const svg = $('#rv-svg'), out = $('#rv-out');
+  const pick = $('#rv-pick');
+  const W=760, H=260;
+  let samples = [];
+  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }
+  function apply(u){
+    const m = pick.value;
+    if(m==='unif') return 2*u;
+    if(m==='sq') return u*u;
+    if(m==='exp') return -Math.log(Math.max(u,1e-9));
+    return u;
+  }
+  function draw(){
+    svg.innerHTML = '';
+    // top row: Omega = [0,1]
+    const y0 = 50, y1 = 170;
+    const x0 = 80, x1 = W-80;
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));
+    // labels
+    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);
+    // R range varies
+    const xs = samples.map(apply);
+    const xmax = Math.max(...xs.concat([1]));
+    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);
+    // tick labels
+    for(const v of [0,0.5,1]){
+      const xp = x0 + v*(x1-x0);
+      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=v; svg.appendChild(t);
+    }
+    for(const v of [0, xmax/2, xmax]){
+      const xp = x0 + (v/xmax)*(x1-x0);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=v.toFixed(2); svg.appendChild(t);
+    }
+    // draw samples: dot on top, dot on bottom, segment between
+    samples.forEach((u,i)=>{
+      const xu = x0 + u*(x1-x0);
+      const v = apply(u);
+      const xv = x0 + (v/xmax)*(x1-x0);
+      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,
+        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));
+      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));
+      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));
+    });
+    // title
+    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;
+    svg.appendChild(t1);
+    out.textContent =
+      `n = ${samples.length} samples\n` +
+      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\n` +
+      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;
+  }
+  $('#rv-resample').addEventListener('click',resample);
+  pick.addEventListener('change',draw);
+  resample();
+})();
+</script>
+
+<section id="supports">
+<h2>4. Supports, distributions, and densities</h2>
+
+<p>Named distributions come in two flavours:</p>
+<ul>
+  <li><strong>Discrete:</strong> supported on a countable set; described by a PMF $p_X(k)=\mathbb{P}(X=k)$ with $\sum_k p_X(k)=1$.</li>
+  <li><strong>Absolutely continuous:</strong> supported on an interval; described by a PDF $f_X\ge 0$ with $\int f_X\,dx=1$, and $\mathbb{P}(X\in B)=\int_B f_X\,dx$.</li>
+</ul>
+
+<p>A distribution need be neither, but these two cover most applications. Mixtures and pathologies (e.g.\ the Cantor distribution) arise in theory and show that a general $\mathbb{P}_X$ decomposes into absolutely-continuous + singular-continuous + discrete parts (Lebesgue decomposition).</p>
+
+<p><strong>Six distributions to know by heart.</strong></p>
+
+<table class="plain">
+  <thead><tr><th>name</th><th>PMF/PDF</th><th>support</th><th>mean</th><th>variance</th></tr></thead>
+  <tbody>
+    <tr><td>Bernoulli$(p)$</td><td>$p^k(1-p)^{1-k}$</td><td>$\{0,1\}$</td><td>$p$</td><td>$p(1-p)$</td></tr>
+    <tr><td>Binomial$(n,p)$</td><td>$\binom{n}{k}p^k(1-p)^{n-k}$</td><td>$\{0,\ldots,n\}$</td><td>$np$</td><td>$np(1-p)$</td></tr>
+    <tr><td>Poisson$(\lambda)$</td><td>$e^{-\lambda}\lambda^k/k!$</td><td>$\{0,1,\ldots\}$</td><td>$\lambda$</td><td>$\lambda$</td></tr>
+    <tr><td>Uniform$[a,b]$</td><td>$\frac{1}{b-a}\mathbf{1}_{[a,b]}$</td><td>$[a,b]$</td><td>$\tfrac{a+b}{2}$</td><td>$\tfrac{(b-a)^2}{12}$</td></tr>
+    <tr><td>Exponential$(\lambda)$</td><td>$\lambda e^{-\lambda x}\mathbf{1}_{x\ge 0}$</td><td>$[0,\infty)$</td><td>$1/\lambda$</td><td>$1/\lambda^2$</td></tr>
+    <tr><td>Gaussian$(\mu,\sigma^2)$</td><td>$\tfrac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$\mathbb{R}$</td><td>$\mu$</td><td>$\sigma^2$</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Worked example: $\text{Uniform}[0,1]\to\text{Exp}(1)$.</strong> If $U\sim\text{Uniform}[0,1]$ then $X=-\ln U\sim\text{Exp}(1)$. CDF calculation: $\mathbb{P}(X\le x)=\mathbb{P}(-\ln U\le x)=\mathbb{P}(U\ge e^{-x})=1-e^{-x}$, which is the Exp$(1)$ CDF. This is the inverse-CDF transform specialised to the exponential.</p>
+
+<div class="widget" id="w-dist">
+  <div class="hd"><div class="ttl">Distribution explorer</div><div class="hint">PMF/PDF + CDF + moments</div></div>
+  <svg id="dist-svg" viewBox="0 0 760 280" width="760" height="280"><title>Named distributions — PMF/PDF and CDF</title></svg>
+  <div class="row">
+    <label for="d-pick">family</label>
+    <select id="d-pick">
+      <option value="bern">$\text{Bernoulli}(p)$</option>
+      <option value="bin">$\text{Binomial}(n,p)$</option>
+      <option value="pois">$\text{Poisson}(\lambda)$</option>
+      <option value="unif">$\text{Uniform}[0,1]$</option>
+      <option value="exp">$\text{Exponential}(\lambda)$</option>
+      <option value="norm">$\mathcal{N}(\mu,\sigma^2)$</option>
+    </select>
+  </div>
+  <div class="row" id="d-params"></div>
+  <div class="readout" id="d-out"></div>
+</div>
+
+<div class="quiz" data-concept="supports-distributions"></div>
+</section>
+
+<script>
+/* =============================== §4 Distribution explorer =============================== */
+(function(){
+  const svg = $('#dist-svg'), out = $('#d-out');
+  const pick = $('#d-pick'), params = $('#d-params');
+  const W=760, H=280;
+  const x0=60, x1=W-40, y0=30, y1=H-40;
+  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }
+  function binomPMF(n,p,k){
+    if(k<0||k>n) return 0;
+    // compute C(n,k)
+    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);
+    return c*Math.pow(p,k)*Math.pow(1-p,n-k);
+  }
+  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }
+  function setParams(conf){
+    params.innerHTML = '';
+    conf.forEach(c=>{
+      const lbl = document.createElement('label');
+      lbl.setAttribute('for','dp-'+c.name);
+      lbl.textContent = c.label + ' ';
+      params.appendChild(lbl);
+      const inp = document.createElement('input');
+      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;
+      params.appendChild(inp);
+      const sp = document.createElement('span');
+      sp.className='small'; sp.id='dp-'+c.name+'-v';
+      params.appendChild(sp);
+      inp.addEventListener('input',draw);
+    });
+  }
+  function val(name){ return +document.getElementById('dp-'+name).value; }
+  function axes(xmin,xmax,ymax,discrete){
+    svg.innerHTML = '';
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // ticks
+    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];
+    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){
+      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);
+      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);
+      svg.appendChild(t);
+    }
+    const yticks = [0, ymax/2, ymax];
+    for(const v of yticks){
+      const yp = y1 - (v/ymax)*(y1-y0);
+      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent=v.toFixed(2); svg.appendChild(t);
+    }
+  }
+  function plotDiscrete(support, pmf){
+    let ymax = Math.max(...support.map(pmf));
+    if(ymax<=0) ymax = 1;
+    const xmin = support[0], xmax = support[support.length-1] + 1;
+    axes(xmin, xmax, ymax*1.1, true);
+    // PMF bars
+    for(const k of support){
+      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);
+      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;
+      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,
+        fill:'var(--cyan)', opacity:0.85}));
+    }
+    // CDF (step) overlaid, normalized to ymax*1.1
+    let cum = 0;
+    let prev = y1;
+    for(const k of support){
+      cum += pmf(k);
+      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);
+      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars
+      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,
+        stroke:'var(--yellow)','stroke-width':1.2}));
+      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,
+        stroke:'var(--yellow)','stroke-width':1.2}));
+      prev = yA;
+    }
+    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});
+    lbl.textContent='CDF'; svg.appendChild(lbl);
+    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});
+    lbl2.textContent='PMF'; svg.appendChild(lbl2);
+  }
+  function plotContinuous(xmin,xmax, pdf, N=200){
+    // ymax
+    let ymax = 0;
+    const xs = [];
+    for(let i=0;i<=N;i++){
+      const x = xmin + i*(xmax-xmin)/N;
+      xs.push([x,pdf(x)]);
+      if(pdf(x)>ymax) ymax = pdf(x);
+    }
+    if(ymax<=0) ymax=1;
+    axes(xmin,xmax,ymax*1.1,false);
+    // PDF curve
+    let d = '';
+    xs.forEach(([x,y],i)=>{
+      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);
+      const yp = y1 - (y/(ymax*1.1))*(y1-y0);
+      d += (i===0?'M':'L') + xp + ',' + yp + ' ';
+    });
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
+    // CDF via cumulative trapezoid
+    let c = 0;
+    let d2 = '';
+    xs.forEach(([x,y],i)=>{
+      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);
+    });
+    const total = c;
+    c = 0;
+    xs.forEach(([x,y],i)=>{
+      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);
+      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);
+      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;
+      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';
+    });
+    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));
+    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});
+    lbl.textContent='CDF'; svg.appendChild(lbl);
+    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});
+    lbl2.textContent='PDF'; svg.appendChild(lbl2);
+  }
+  function spanTxt(name,v){
+    const el = document.getElementById('dp-'+name+'-v');
+    if(el) el.textContent = v;
+  }
+  function draw(){
+    const kind = pick.value;
+    if(kind==='bern'){
+      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);
+      const p = val('p'); spanTxt('p',p.toFixed(2));
+      plotDiscrete([0,1], k => k===0?1-p : p);
+      out.textContent = `Bernoulli(p=${p.toFixed(2)})\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;
+    } else if(kind==='bin'){
+      if(!document.getElementById('dp-n')) setParams([
+        {name:'n',label:'n',min:1,max:30,step:1,value:10},
+        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}
+      ]);
+      const n = Math.round(val('n')), p = val('p');
+      spanTxt('n',n); spanTxt('p',p.toFixed(2));
+      const support = Array.from({length:n+1},(_,k)=>k);
+      plotDiscrete(support, k=>binomPMF(n,p,k));
+      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;
+    } else if(kind==='pois'){
+      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);
+      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));
+      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));
+      const support = Array.from({length:kmax+1},(_,k)=>k);
+      plotDiscrete(support, k=>poissonPMF(lam,k));
+      out.textContent = `Poisson(λ=${lam.toFixed(2)})\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;
+    } else if(kind==='unif'){
+      if(!document.getElementById('dp-a')) setParams([
+        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},
+        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}
+      ]);
+      let a = val('a'), b = val('b');
+      if(b<=a) b = a+0.01;
+      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));
+      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;
+      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);
+      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;
+    } else if(kind==='exp'){
+      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);
+      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));
+      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;
+      plotContinuous(0, 6/lam, pdf);
+      out.textContent = `Exponential(λ=${lam.toFixed(2)})\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;
+    } else if(kind==='norm'){
+      if(!document.getElementById('dp-mu')) setParams([
+        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},
+        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}
+      ]);
+      const mu=val('mu'), sigma=val('sigma');
+      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));
+      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));
+      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);
+      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\nmean = μ, var = σ², support = ℝ`;
+    }
+  }
+  pick.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<section id="expectation">
+<h2>5. Expectation, variance, and moments</h2>
+
+<p>The <strong>expectation</strong> (or <em>expected value</em>) of a random variable $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$ is the Lebesgue integral
+$$\mathbb{E}[X]=\int_\Omega X\,d\mathbb{P}.$$
+Equivalently, via the push-forward, $\mathbb{E}[X]=\int_\mathbb{R} x\,d\mathbb{P}_X(x)$. For a discrete variable with PMF $p_X$, this is $\sum_k k\,p_X(k)$; for an absolutely continuous one with PDF $f_X$, it is $\int_\mathbb{R} x\,f_X(x)\,dx$.</p>
+
+<p><strong>Linearity</strong>: $\mathbb{E}[aX+bY]=a\mathbb{E}[X]+b\mathbb{E}[Y]$, always (no independence needed). This is just linearity of the integral.</p>
+
+<p><strong>Variance</strong>: $\text{Var}(X)=\mathbb{E}[(X-\mathbb{E}[X])^2]=\mathbb{E}[X^2]-\mathbb{E}[X]^2$, defined when $X\in L^2$. Variance measures spread around the mean; $\sqrt{\text{Var}}$ is the <em>standard deviation</em>.</p>
+
+<p><strong>Covariance</strong>: $\text{Cov}(X,Y)=\mathbb{E}[(X-\mathbb{E}X)(Y-\mathbb{E}Y)]=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]$. For independent $X,Y$, $\text{Cov}(X,Y)=0$ (so $\text{Var}(X+Y)=\text{Var}(X)+\text{Var}(Y)$); the converse fails.</p>
+
+<p><strong>Markov inequality</strong>: for $X\ge 0$ and $a>0$,
+$$\mathbb{P}(X\ge a)\le\frac{\mathbb{E}[X]}{a}.$$
+Applied to $|X-\mu|^2$: <strong>Chebyshev</strong>: $\mathbb{P}(|X-\mu|\ge\varepsilon)\le\text{Var}(X)/\varepsilon^2$. These two inequalities do most of probability's quantitative work.</p>
+
+<p><strong>Worked example: expectation as centre of mass.</strong> Place a unit mass at $+1$ and a unit mass at $-1$ on the real line, each with weight $1/2$. The centre of mass is at $0$, which is exactly $\mathbb{E}[X]=\tfrac{1}{2}\cdot 1+\tfrac{1}{2}\cdot(-1)=0$. Now shift the masses and vary the weights: the balance point tracks the expectation. This geometric picture is exactly what the widget animates.</p>
+
+<div class="widget" id="w-scale">
+  <div class="hd"><div class="ttl">Expectation weighing scale</div><div class="hint">drag masses, watch $\mathbb{E}[X]$</div></div>
+  <svg id="scale-svg" viewBox="0 0 760 260" width="760" height="260"><title>Expectation as center of mass</title></svg>
+  <div class="readout" id="scale-out"></div>
+</div>
+
+<div class="quiz" data-concept="expectation-moments"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#integral">Lebesgue integral</a></li>
+    <li><a href="./measure-theory.html#lp">$L^p$ spaces</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#lln">Probability theory</a> · Law of large numbers</div>
+    <div><a href="./probability-theory.html#gen-fun">Probability theory</a> · Moment and characteristic functions</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §5 Expectation weighing scale =============================== */
+(function(){
+  const svg = $('#scale-svg'), out = $('#scale-out');
+  const W=760, H=260;
+  const cy = 160, padx = 70;
+  // point masses [x in [-5,5], weight >=0]
+  let masses = [
+    {x:-3, w:1},
+    {x: 0, w:1},
+    {x: 2, w:1.5},
+  ];
+  const xmin = -5, xmax = 5;
+  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }
+  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }
+  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }
+  function vr(){
+    const mu = ex();
+    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();
+  }
+  let dragIdx = -1;
+  function draw(){
+    svg.innerHTML = '';
+    const mu = ex(), sigma = Math.sqrt(vr());
+    // pivot
+    const pivotX = X(mu);
+    // beam tilted slightly to show balance visually
+    // beam always drawn horizontal for clarity; we show a "fulcrum" at mu.
+    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,
+      stroke:'var(--line)','stroke-width':2}));
+    // axis ticks
+    for(let v=xmin; v<=xmax; v++){
+      const xp = X(v);
+      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));
+      if(v%1===0){
+        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent=v; svg.appendChild(t);
+      }
+    }
+    // fulcrum triangle under mu
+    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,
+      fill:'var(--yellow)','stroke':'var(--yellow)'});
+    svg.appendChild(fTri);
+    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});
+    muT.textContent = 'E[X] = '+mu.toFixed(3);
+    svg.appendChild(muT);
+    // sigma bracket
+    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);
+    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));
+    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));
+    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));
+    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});
+    stxt.textContent='±σ = '+sigma.toFixed(3);
+    svg.appendChild(stxt);
+    // mass circles
+    masses.forEach((m,i)=>{
+      const r = 8 + 6*Math.min(m.w,3);
+      const xp = X(m.x);
+      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',
+        'data-idx':i, class:'mass'}));
+      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});
+      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;
+      svg.appendChild(lbl);
+    });
+    // instructions
+    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';
+    svg.appendChild(inst);
+    out.textContent =
+      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\n`+
+      `total weight = ${norm().toFixed(3)}\n`+
+      `E[X]  = ${mu.toFixed(4)}\n`+
+      `Var(X) = ${vr().toFixed(4)}\n`+
+      `σ = ${sigma.toFixed(4)}`;
+  }
+  svg.addEventListener('pointerdown',(ev)=>{
+    const pt = svg.createSVGPoint();
+    pt.x = ev.clientX; pt.y = ev.clientY;
+    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+    // find nearest mass
+    let best = -1, bd = 1e9;
+    masses.forEach((m,i)=>{
+      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);
+      if(d<bd){ bd = d; best = i; }
+    });
+    if(bd<30) dragIdx = best;
+  });
+  svg.addEventListener('pointermove',(ev)=>{
+    if(dragIdx<0) return;
+    const pt = svg.createSVGPoint();
+    pt.x = ev.clientX; pt.y = ev.clientY;
+    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+    // invert X
+    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);
+    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));
+    draw();
+  });
+  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });
+  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });
+  draw();
+})();
+</script>
+
+<section id="gen-fun">
+<h2>6. Moment and characteristic functions</h2>
+
+<p>Transforms of probability distributions are to probability what Fourier and Laplace are to analysis: they turn convolutions (sums of independents) into products, and they encode the entire distribution in one function of a real (or complex) parameter.</p>
+
+<p><strong>Moment-generating function</strong> (MGF): $M_X(t)=\mathbb{E}[e^{tX}]$, defined where the integral converges. If $M_X$ is finite on an open interval around $0$, then
+$$M_X(t)=\sum_{k=0}^\infty\mathbb{E}[X^k]\,t^k/k!,$$
+so the $k$-th derivative at $0$ is the $k$-th moment: $M_X^{(k)}(0)=\mathbb{E}[X^k]$. Hence "moment-generating".</p>
+
+<p><strong>Characteristic function</strong> (CF): $\varphi_X(t)=\mathbb{E}[e^{itX}]$, <em>always</em> defined on $\mathbb{R}$ because $|e^{itX}|=1$. The CF is the Fourier transform of the distribution. Two distributions are equal iff their CFs are equal (Lévy's uniqueness), and <em>pointwise convergence of CFs with continuity at $0$</em> is equivalent to convergence in distribution (Lévy's continuity theorem).</p>
+
+<p><strong>Transforms of independent sums.</strong> If $X,Y$ are independent,
+$$M_{X+Y}(t)=M_X(t)\,M_Y(t),\qquad\varphi_{X+Y}(t)=\varphi_X(t)\,\varphi_Y(t).$$
+This turns the CLT proof into a line of calculus and a Taylor expansion.</p>
+
+<p><strong>Worked example: Gaussian transforms.</strong> For $X\sim\mathcal{N}(\mu,\sigma^2)$:
+$$M_X(t)=\exp(\mu t+\sigma^2t^2/2),\qquad\varphi_X(t)=\exp(i\mu t-\sigma^2t^2/2).$$
+Check: $M_X'(0)=\mu=\mathbb{E}[X]$; $M_X''(0)=\mu^2+\sigma^2=\mathbb{E}[X^2]$; variance $\sigma^2$. The Gaussian is the unique distribution whose CF has compact-support-like decay $e^{-ct^2}$.</p>
+
+<p>Named distributions and their MGFs:</p>
+<ul>
+  <li>Bernoulli$(p)$: $M(t)=1-p+pe^t$.</li>
+  <li>Poisson$(\lambda)$: $M(t)=\exp(\lambda(e^t-1))$.</li>
+  <li>Exponential$(\lambda)$: $M(t)=\lambda/(\lambda-t)$ for $t<\lambda$.</li>
+  <li>Gaussian$(\mu,\sigma^2)$: $M(t)=\exp(\mu t+\sigma^2t^2/2)$.</li>
+</ul>
+
+<div class="widget" id="w-mgf">
+  <div class="hd"><div class="ttl">MGF / CF explorer</div><div class="hint">sum of IID ↦ $M(t)^n$</div></div>
+  <svg id="mgf-svg" viewBox="0 0 760 260" width="760" height="260"><title>MGF and characteristic function</title></svg>
+  <div class="row">
+    <label for="m-pick">$X$ is</label>
+    <select id="m-pick">
+      <option value="bern">Bernoulli(0.5)</option>
+      <option value="norm">𝒩(0,1)</option>
+      <option value="pois">Poisson(1)</option>
+    </select>
+    <label for="m-n">$n$ (sum of IID copies)</label>
+    <input id="m-n" type="range" min="1" max="30" step="1" value="1">
+    <span id="m-n-v" class="small"></span>
+  </div>
+  <div class="readout" id="m-out"></div>
+</div>
+
+<div class="quiz" data-concept="generating-functions"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#clt">Probability theory</a> · Central limit theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §6 MGF/CF plot =============================== */
+(function(){
+  const svg = $('#mgf-svg'), out = $('#m-out');
+  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');
+  const W=760, H=260;
+  const x0=60, x1=W-40, y0=30, y1=H-40;
+  function base(kind,t){
+    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5
+    if(kind==='norm') return Math.exp(t*t/2);
+    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1
+    return 1;
+  }
+  function draw(){
+    const kind = pick.value;
+    const n = +sl.value;
+    slv.textContent = 'n = '+n;
+    svg.innerHTML = '';
+    // plot M_X(t)^n on [-2,2]
+    const tmin=-2, tmax=2;
+    const ts = [];
+    for(let i=0;i<=200;i++){
+      const t = tmin + i*(tmax-tmin)/200;
+      ts.push([t, Math.pow(base(kind,t), n)]);
+    }
+    const ymax = Math.max(...ts.map(([,v])=>v), 5);
+    // axes
+    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);
+    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));
+    for(const tv of [-2,-1,0,1,2]){
+      const xp = X(tv);
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=tv; svg.appendChild(t);
+    }
+    // curve
+    let d='';
+    ts.forEach(([t,v],i)=>{
+      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';
+    });
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // 1 line
+    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));
+    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+    t1.textContent='1'; svg.appendChild(t1);
+    // title
+    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';
+    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;
+    svg.appendChild(lbl);
+    out.textContent =
+      `M_X(0)   = 1 always (normalization)\n`+
+      `M_X'(0)  = E[X]\n`+
+      `M_X''(0) = E[X²]\n`+
+      `M_{S_n}(t) = M_X(t)^n  (by independence)\n`+
+      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;
+  }
+  pick.addEventListener('change',draw);
+  sl.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="conv">
+<h2>7. Modes of convergence</h2>
+
+<p>A sequence of random variables $X_n$ can converge to a limit $X$ in several non-equivalent senses. From strongest to weakest (in the chain of implications):</p>
+
+<ul>
+  <li><strong>Almost surely</strong> ($X_n\xrightarrow{a.s.}X$): $\mathbb{P}(\{\omega:X_n(\omega)\to X(\omega)\})=1$. Pointwise convergence everywhere except on a null set.</li>
+  <li><strong>In $L^p$</strong>: $\mathbb{E}|X_n-X|^p\to 0$. Requires $X_n,X\in L^p$.</li>
+  <li><strong>In probability</strong>: $\mathbb{P}(|X_n-X|\ge\varepsilon)\to 0$ for every $\varepsilon>0$.</li>
+  <li><strong>In distribution</strong> ($X_n\xrightarrow{d}X$): $\mathbb{E}[f(X_n)]\to\mathbb{E}[f(X)]$ for every bounded continuous $f$; equivalently $F_{X_n}(x)\to F_X(x)$ at continuity points of $F_X$.</li>
+</ul>
+
+<div class="note"><strong>Implication diagram.</strong>
+$$X_n\xrightarrow{a.s.}X \implies X_n\xrightarrow{\mathbb{P}}X \implies X_n\xrightarrow{d}X$$
+$$X_n\xrightarrow{L^p}X \implies X_n\xrightarrow{\mathbb{P}}X$$
+All reverse implications fail without extra hypotheses.</div>
+
+<p><strong>Counterexamples.</strong> (i) The "typewriter sequence" $X_n=\mathbf{1}_{I_n}$ with $I_n$ cycling through dyadic intervals of shrinking length converges to $0$ in probability but NOT a.s. (ii) $X_n=n\cdot\mathbf{1}_{(0,1/n)}$ converges to $0$ a.s.\ but $\mathbb{E}[X_n]=1$, so NOT in $L^1$. (iii) The CLT gives convergence in distribution but NOT in probability — the sample mean itself does not converge (strongly).</p>
+
+<p><strong>Borel–Cantelli lemmata.</strong> For events $(A_n)$:
+<ul>
+  <li>If $\sum\mathbb{P}(A_n)<\infty$, then $\mathbb{P}(A_n\text{ i.o.})=0$.</li>
+  <li>If $(A_n)$ are independent and $\sum\mathbb{P}(A_n)=\infty$, then $\mathbb{P}(A_n\text{ i.o.})=1$.</li>
+</ul>
+These are the canonical tools for proving a.s.\ statements.</p>
+
+<p><strong>Worked example: $X_n\to 0$ a.s.\ via Borel–Cantelli.</strong> Let $X_n=n\cdot\mathbf{1}_{A_n}$ with $\mathbb{P}(A_n)=1/n^2$. Then $\sum\mathbb{P}(A_n)=\pi^2/6<\infty$, so by the first Borel-Cantelli lemma, $\mathbb{P}(A_n\text{ i.o.})=0$: a.s., $A_n$ occurs only finitely often. Hence $X_n=0$ eventually a.s., so $X_n\to 0$ a.s.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#convergence">Monotone and dominated convergence</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#clt">Probability theory</a> · Central limit theorem</div>
+    <div><a href="./probability-theory.html#lln">Probability theory</a> · Law of large numbers</div>
+    <div><a href="./probability-theory.html#martingales">Probability theory</a> · Martingales</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+<div class="quiz" data-concept="convergence-rv"></div>
+</section>
+
+<section id="lln">
+<h2>8. Law of large numbers</h2>
+
+<p>Let $X_1,X_2,\ldots$ be i.i.d.\ with $\mathbb{E}|X_1|<\infty$ and $\mathbb{E}[X_1]=\mu$. The <strong>sample mean</strong> $\bar X_N=\tfrac{1}{N}\sum_{i=1}^N X_i$ concentrates at $\mu$ as $N\to\infty$.</p>
+
+<p><strong>Weak law (WLLN).</strong> Under finite variance $\sigma^2$: $\bar X_N\xrightarrow{\mathbb{P}}\mu$. Proof is a line of Chebyshev: $\text{Var}(\bar X_N)=\sigma^2/N$, so
+$$\mathbb{P}(|\bar X_N-\mu|\ge\varepsilon)\le\sigma^2/(N\varepsilon^2)\to 0.$$</p>
+
+<p><strong>Strong law (SLLN — Kolmogorov).</strong> Under only $\mathbb{E}|X_1|<\infty$: $\bar X_N\xrightarrow{a.s.}\mu$. This is stronger: the set of $\omega$ for which $\bar X_N(\omega)\to\mu$ has probability $1$.</p>
+
+<p>The hypothesis $\mathbb{E}|X_1|<\infty$ is sharp. For the Cauchy distribution, $\mathbb{E}|X_1|=\infty$ and $\bar X_N$ does not converge — in fact, the sample mean of i.i.d.\ Cauchy is again Cauchy, so spread does not shrink with $N$.</p>
+
+<div class="note"><strong>Proof sketch (SLLN via Etemadi/truncation).</strong> Truncate: $Y_n=X_n\mathbf{1}_{|X_n|\le n}$. Show $\sum\text{Var}(Y_n)/n^2<\infty$ under $\mathbb{E}|X_1|<\infty$. Apply Chebyshev plus Borel-Cantelli on a subsequence, then fill in gaps by monotonicity. The elegance of the argument is due to Etemadi (1981) — pairwise independence suffices.</div>
+
+<p><strong>Worked example: Monte Carlo integration.</strong> To compute $\int_0^1 g(x)\,dx$ numerically, sample $U_1,\ldots,U_N$ i.i.d.\ $\text{Uniform}[0,1]$. By SLLN, $\tfrac{1}{N}\sum_i g(U_i)\to\int_0^1 g\,dx$ a.s. The error is $O(1/\sqrt{N})$ (CLT — next section), independent of dimension. This is why Monte Carlo beats deterministic quadrature in high dimensions.</p>
+
+<div class="widget" id="w-lln">
+  <div class="hd"><div class="ttl">LLN simulator</div><div class="hint">running mean converges to $\mu$</div></div>
+  <svg id="lln-svg" viewBox="0 0 760 280" width="760" height="280"><title>Law of large numbers simulator</title></svg>
+  <div class="row">
+    <button id="lln-run">draw 500 more samples</button>
+    <button id="lln-reset">reset</button>
+    <label for="lln-pick">base dist.</label>
+    <select id="lln-pick">
+      <option value="bern">Bernoulli(0.5) — μ=0.5</option>
+      <option value="unif">Uniform[0,1] — μ=0.5</option>
+      <option value="exp">Exp(1) — μ=1</option>
+      <option value="cauchy">Cauchy(0,1) — μ undefined!</option>
+    </select>
+  </div>
+  <div class="readout" id="lln-out"></div>
+</div>
+
+<div class="quiz" data-concept="law-of-large-numbers"></div>
+</section>
+
+<script>
+/* =============================== §8 LLN simulator =============================== */
+(function(){
+  const svg = $('#lln-svg'), out = $('#lln-out');
+  const pick = $('#lln-pick');
+  const W=760, H=280;
+  const x0=60, x1=W-40, y0=30, y1=H-40;
+  let samples = [];
+  let mu0 = 0.5;
+  function sampler(kind){
+    if(kind==='bern') return ()=>Math.random()<0.5?1:0;
+    if(kind==='unif') return ()=>Math.random();
+    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));
+    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));
+    return ()=>Math.random();
+  }
+  function targetMu(kind){
+    if(kind==='bern') return 0.5;
+    if(kind==='unif') return 0.5;
+    if(kind==='exp')  return 1;
+    return NaN;
+  }
+  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }
+  function run(){
+    const f = sampler(pick.value);
+    for(let i=0;i<500;i++) samples.push(f());
+    draw();
+  }
+  function draw(){
+    svg.innerHTML = '';
+    // running mean
+    const runs = [];
+    let s=0;
+    for(let i=0;i<samples.length;i++){
+      s += samples[i];
+      runs.push(s/(i+1));
+    }
+    const N = samples.length;
+    if(N===0){
+      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+      t.textContent = 'Hit "draw 500 more samples" to begin.';
+      svg.appendChild(t);
+      out.textContent = 'no samples yet';
+      return;
+    }
+    // y range
+    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;
+    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;
+    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);
+    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // mu line
+    if(isFinite(mu0)){
+      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),
+        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));
+      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+      lbl.textContent = `μ = ${mu0}`;
+      svg.appendChild(lbl);
+    }
+    // running mean polyline
+    let d='';
+    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+    // ticks
+    for(const v of [0, Math.round(N/2), N]){
+      const xp = X(v-1<0?0:v-1);
+      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=v; svg.appendChild(t);
+    }
+    // title
+    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    tl.textContent = 'running sample mean X̄_n vs n';
+    svg.appendChild(tl);
+    const tail = runs.slice(-1)[0];
+    out.textContent =
+      `samples so far: ${N}\n`+
+      `running mean X̄_N = ${tail.toFixed(5)}\n`+
+      (isFinite(mu0) ?
+        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\n`
+      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\n`) +
+      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;
+  }
+  $('#lln-run').addEventListener('click',run);
+  $('#lln-reset').addEventListener('click',reset);
+  pick.addEventListener('change',()=>{ reset(); });
+  reset();
+})();
+</script>
+
+<section id="clt">
+<h2>9. Central limit theorem</h2>
+
+<p>Let $X_1,X_2,\ldots$ be i.i.d.\ with mean $\mu$ and finite variance $\sigma^2>0$. The <strong>classical CLT</strong> says:
+$$\frac{\sqrt{N}\,(\bar X_N-\mu)}{\sigma}\xrightarrow{d}\mathcal{N}(0,1).$$
+Equivalently, $\bar X_N\approx\mathcal{N}(\mu,\sigma^2/N)$ for large $N$, with error $O(1/\sqrt{N})$ in Kolmogorov distance (Berry-Esseen).</p>
+
+<p><strong>Proof sketch (via characteristic functions).</strong> Let $Y_i=(X_i-\mu)/\sigma$, so $\mathbb{E}[Y_i]=0$, $\text{Var}(Y_i)=1$. Expand $\varphi_Y(t)=1-t^2/2+o(t^2)$ as $t\to 0$. Then
+$$\varphi_{(\sum Y_i)/\sqrt{N}}(t)=\varphi_Y(t/\sqrt{N})^N=\left(1-\tfrac{t^2}{2N}+o(1/N)\right)^N\to e^{-t^2/2},$$
+the characteristic function of $\mathcal{N}(0,1)$. Apply Lévy's continuity theorem (pointwise convergence of CFs + continuity of the limit at $0$) to conclude convergence in distribution.</p>
+
+<p><strong>What goes wrong without finite variance?</strong> The $\alpha$-stable distributions ($0<\alpha\le 2$) form the universal scaling-limit family. $\alpha=2$ is the Gaussian (CLT); $\alpha=1$ is the Cauchy; intermediate $\alpha$ give the heavy-tailed stable laws appearing in anomalous diffusion and Lévy flights.</p>
+
+<div class="note"><strong>Lindeberg's condition.</strong> For triangular arrays $X_{n,k}$ with $s_n^2=\sum_k\text{Var}(X_{n,k})$, the CLT holds iff for every $\varepsilon>0$, $\frac{1}{s_n^2}\sum_k\mathbb{E}[X_{n,k}^2\mathbf{1}_{|X_{n,k}|>\varepsilon s_n}]\to 0$. This "no single summand dominates" condition is necessary and sufficient under uniform asymptotic negligibility.</div>
+
+<p><strong>Worked example: sum of Bernoulli.</strong> $S_N=\sum_{i=1}^N X_i$ with $X_i$ i.i.d.\ Bernoulli$(1/2)$. Then $\mathbb{E}[S_N]=N/2$, $\text{Var}(S_N)=N/4$. The CLT says $(S_N-N/2)/\sqrt{N/4}\xrightarrow{d}\mathcal{N}(0,1)$. For $N=100$ and $S_{100}\ge 60$: the $Z$-score is $(60-50)/5=2$, so $\mathbb{P}(S_{100}\ge 60)\approx\mathbb{P}(Z\ge 2)\approx 0.0228$. Exact binomial: $0.0284$ — good agreement at $N=100$.</p>
+
+<div class="widget" id="w-clt">
+  <div class="hd"><div class="ttl">CLT simulator</div><div class="hint">$\bar X_N$ rescaled vs.\ $\mathcal{N}(0,1)$</div></div>
+  <svg id="clt-svg" viewBox="0 0 760 280" width="760" height="280"><title>Central limit theorem simulator</title></svg>
+  <div class="row">
+    <label for="clt-N">sample size $N$</label>
+    <input id="clt-N" type="range" min="1" max="200" step="1" value="30">
+    <span id="clt-N-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="clt-pick">base distribution</label>
+    <select id="clt-pick">
+      <option value="bern">Bernoulli(0.3) [skewed]</option>
+      <option value="unif">Uniform[0,1]</option>
+      <option value="bim">bimodal (mixture of ±1)</option>
+      <option value="exp">Exponential(1) [skew]</option>
+    </select>
+    <button id="clt-resample">resample 2000 trials</button>
+  </div>
+  <div class="readout" id="clt-out"></div>
+</div>
+
+<div class="quiz" data-concept="central-limit-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#brownian">Probability theory</a> · Brownian motion</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §9 CLT simulator =============================== */
+(function(){
+  const svg = $('#clt-svg'), out = $('#clt-out');
+  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');
+  const W=760, H=280;
+  const x0=60, x1=W-40, y0=30, y1=H-40;
+  function sampler(kind){
+    if(kind==='bern') return ()=>Math.random()<0.3?1:0;
+    if(kind==='unif') return ()=>Math.random();
+    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();
+    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));
+    return ()=>Math.random();
+  }
+  function stats(kind){
+    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};
+    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};
+    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};
+    if(kind==='exp')  return {mu:1,   sd:1};
+    return {mu:0, sd:1};
+  }
+  function draw(){
+    svg.innerHTML = '';
+    const kind = pick.value, N = +sl.value;
+    slv.textContent = 'N = '+N;
+    const {mu,sd} = stats(kind);
+    const f = sampler(kind);
+    // 2000 trials
+    const M = 2000;
+    const zs = [];
+    for(let t=0;t<M;t++){
+      let s=0;
+      for(let i=0;i<N;i++) s+=f();
+      const m = s/N;
+      const z = Math.sqrt(N)*(m - mu)/sd;
+      zs.push(z);
+    }
+    // histogram
+    const zmin=-4, zmax=4, bins=40;
+    const binW=(zmax-zmin)/bins;
+    const counts = new Array(bins).fill(0);
+    for(const z of zs){
+      if(z<zmin||z>=zmax) continue;
+      counts[Math.floor((z-zmin)/binW)]++;
+    }
+    const density = counts.map(c=>c/(M*binW));
+    const ymax = Math.max(...density, 0.5);
+    // axes
+    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);
+    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    for(const zv of [-4,-2,0,2,4]){
+      const xp = X(zv);
+      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=zv; svg.appendChild(t);
+    }
+    // histogram bars
+    for(let k=0;k<bins;k++){
+      const xa = X(zmin + k*binW);
+      const xb = X(zmin + (k+1)*binW);
+      const ya = Y(density[k]);
+      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,
+        fill:'var(--cyan)',opacity:0.55}));
+    }
+    // standard normal overlay
+    let d='';
+    for(let i=0;i<=200;i++){
+      const z = zmin + i*(zmax-zmin)/200;
+      const xp=X(z), yp=Y(phi(z));
+      d += (i===0?'M':'L')+xp+','+yp+' ';
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    // legend
+    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    lg.textContent='𝒩(0,1) PDF';
+    svg.appendChild(lg);
+    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});
+    lg2.textContent='histogram of √N(X̄ − μ)/σ';
+    svg.appendChild(lg2);
+    // stats
+    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;
+    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;
+    out.textContent =
+      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\n`+
+      `N = ${N}, trials = ${M}\n`+
+      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\n`+
+      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\n`+
+      `CLT gets sharper as N → ∞; skewed bases need larger N`;
+  }
+  pick.addEventListener('change',draw);
+  sl.addEventListener('input',draw);
+  $('#clt-resample').addEventListener('click',draw);
+  draw();
+})();
+</script>
+
+<section id="markov">
+<h2>10. Markov chains</h2>
+
+<p>A <strong>(homogeneous) Markov chain</strong> on a finite state space $S$ is a stochastic process $(X_n)_{n\ge 0}$ with the <em>memoryless</em> property:
+$$\mathbb{P}(X_{n+1}=y\mid X_0,\ldots,X_n)=\mathbb{P}(X_{n+1}=y\mid X_n)=P_{X_n,y},$$
+encoded by a <strong>transition matrix</strong> $P\in[0,1]^{S\times S}$ with row sums $1$. The $n$-step transitions are the entries of $P^n$.</p>
+
+<p>The space of transition matrices on $S$ is a semigroup under matrix multiplication, with identity $I$ (the trivial chain): semigroup composition $P^n=P\cdot P\cdots P$ encodes repeated application of the chain.</p>
+
+<p><strong>Stationary distributions.</strong> A row vector $\pi$ is <em>stationary</em> for $P$ if $\pi P=\pi$ and $\sum_i\pi_i=1$. Every finite-state chain has at least one stationary distribution (fixed-point theorem).</p>
+
+<p><strong>Fundamental ergodic theorem.</strong> If a finite-state chain is <em>irreducible</em> (every state is accessible from every other) and <em>aperiodic</em> (gcd of return times to each state is $1$), then:
+<ul>
+  <li>the stationary distribution $\pi$ is unique;</li>
+  <li>$P^n\to\Pi$ where every row of $\Pi$ is $\pi$ — the chain forgets its starting state.</li>
+</ul></p>
+
+<div class="note"><strong>Reversibility and detailed balance.</strong> A chain is <em>reversible</em> w.r.t.\ $\pi$ if $\pi_i P_{ij}=\pi_j P_{ji}$ for all $i,j$. Summing over $i$ gives stationarity, so reversibility implies $\pi$ is stationary (but not conversely). Reversible chains are important because they can be analysed spectrally — $P$ is self-adjoint w.r.t.\ the weighted inner product $\langle f,g\rangle_\pi=\sum\pi_i f_i g_i$.</div>
+
+<p><strong>Worked example: 3-state weather chain.</strong> States: $S,C,R$ (sunny/cloudy/rainy). Transition:
+$$P=\begin{pmatrix}0.7&0.2&0.1\\0.3&0.4&0.3\\0.2&0.3&0.5\end{pmatrix}.$$
+Solve $\pi P=\pi$ with $\sum\pi=1$: $\pi\approx(0.47,0.28,0.25)$. The widget below animates this chain; starting anywhere, the running frequency bars converge to $\pi$.</p>
+
+<p><strong>Counterexample: reducible chain, non-unique stationary.</strong> On $\{1,2,3,4\}$ with two disjoint 2-cycles, each component has its own stationary distribution, and any convex combination is stationary — the simplex of stationary distributions is one-dimensional.</p>
+
+<div class="widget" id="w-markov">
+  <div class="hd"><div class="ttl">Markov chain animator</div><div class="hint">edit $P$, run, watch frequencies</div></div>
+  <svg id="mk-svg" viewBox="0 0 760 260" width="760" height="260"><title>Markov chain animator</title></svg>
+  <div class="row" id="mk-matrix">
+    <label for="mk-p11">$P_{11}$</label>
+    <input id="mk-p11" type="number" min="0" max="1" step="0.05" value="0.7" style="width:5em">
+    <label for="mk-p12">$P_{12}$</label>
+    <input id="mk-p12" type="number" min="0" max="1" step="0.05" value="0.2" style="width:5em">
+    <label for="mk-p22">$P_{22}$</label>
+    <input id="mk-p22" type="number" min="0" max="1" step="0.05" value="0.4" style="width:5em">
+    <label for="mk-p23">$P_{23}$</label>
+    <input id="mk-p23" type="number" min="0" max="1" step="0.05" value="0.3" style="width:5em">
+    <label for="mk-p33">$P_{33}$</label>
+    <input id="mk-p33" type="number" min="0" max="1" step="0.05" value="0.5" style="width:5em">
+  </div>
+  <div class="row">
+    <button id="mk-step">step</button>
+    <button id="mk-run10">+100 steps</button>
+    <button id="mk-reset">reset</button>
+  </div>
+  <div class="readout" id="mk-out"></div>
+</div>
+
+<div class="quiz" data-concept="markov-chains"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Groups, rings, and fields</a> — transition matrices form a semigroup</li>
+  </ul>
+</aside>
+</section>
+
+<script>
+/* =============================== §10 Markov chain animator =============================== */
+(function(){
+  const svg = $('#mk-svg'), out = $('#mk-out');
+  const W=760, H=260;
+  let state = 0; // 0,1,2
+  let counts = [0,0,0];
+  function P(){
+    // build from 5 entries with row-sum constraint
+    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));
+    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));
+    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));
+    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));
+    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));
+    const p13 = Math.max(0, 1 - p11 - p12);
+    const p21 = Math.max(0, 1 - p22 - p23);
+    const p31 = Math.max(0, (1 - p33)*0.5);
+    const p32 = Math.max(0, 1 - p33 - p31);
+    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];
+  }
+  function stationary(M){
+    // solve πM = π, πᵀ1=1. Power method on Mᵀ.
+    let p = [1/3,1/3,1/3];
+    for(let k=0;k<2000;k++){
+      const np = [0,0,0];
+      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];
+      p = np;
+    }
+    const s = p.reduce((a,b)=>a+b,0);
+    return p.map(v=>v/s);
+  }
+  function step(){
+    const M = P();
+    const r = Math.random();
+    let c = 0;
+    for(let j=0;j<3;j++){
+      c += M[state][j];
+      if(r<c){ state = j; break; }
+    }
+    counts[state]++;
+    draw();
+  }
+  function draw(){
+    svg.innerHTML='';
+    const M = P();
+    const pi = stationary(M);
+    const total = counts.reduce((a,b)=>a+b,0);
+    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];
+    // 3 state nodes arranged in a triangle
+    const pts = [[200,180],[400,100],[600,180]];
+    const labels = ['S','C','R'];
+    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];
+    // arrows
+    for(let i=0;i<3;i++){
+      for(let j=0;j<3;j++){
+        if(i===j) continue;
+        const pr = M[i][j];
+        if(pr<0.01) continue;
+        drawArrow(svg, pts[i], pts[j], {
+          color:'var(--mute)',
+          curve: (j-i>0 ? 25 : -25),
+          label: pr.toFixed(2),
+          labelSide: (j-i>0 ? 1 : 0),
+          width: 0.8 + pr*2,
+          markerId:'mk-'+i+j
+        });
+      }
+    }
+    // self-loops indicated by readout only
+    // nodes
+    for(let i=0;i<3;i++){
+      const cur = state===i;
+      drawNode(svg, pts[i][0], pts[i][1], labels[i], {
+        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',
+        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14
+      });
+    }
+    // bars below: empirical frequencies vs stationary
+    const bx = 120, by = 230, bw = 520, bh = 12;
+    for(let i=0;i<3;i++){
+      const x0 = bx + i*180;
+      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));
+      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));
+      // stationary marker
+      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,
+        stroke:'var(--ink)','stroke-width':1.8}));
+      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});
+      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;
+      svg.appendChild(t);
+    }
+    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';
+    svg.appendChild(cap);
+    out.textContent =
+      `steps taken: ${total}, current state: ${labels[state]}\n`+
+      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\n`+
+      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\n`+
+      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;
+  }
+  $('#mk-step').addEventListener('click',step);
+  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });
+  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });
+  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){
+    $('#'+id).addEventListener('input',draw);
+  }
+  draw();
+})();
+</script>
+
+<section id="martingales">
+<h2>11. Martingales</h2>
+
+<p>A <strong>filtration</strong> $(\mathcal{F}_n)_{n\ge 0}$ is an increasing sequence of sub-$\sigma$-algebras of $\mathcal{F}$: $\mathcal{F}_0\subseteq\mathcal{F}_1\subseteq\cdots\subseteq\mathcal{F}$. Intuitively, $\mathcal{F}_n$ is the information available at time $n$.</p>
+
+<p>A stochastic process $(M_n)_{n\ge 0}$ is <strong>adapted</strong> to $(\mathcal{F}_n)$ if $M_n$ is $\mathcal{F}_n$-measurable for each $n$.</p>
+
+<p>An adapted, $L^1$ process $(M_n)$ is a <strong>martingale</strong> if
+$$\mathbb{E}[M_{n+1}\mid\mathcal{F}_n]=M_n\quad\forall n.$$
+Replace $=$ with $\ge$ for a <em>submartingale</em>, with $\le$ for a <em>supermartingale</em>. The defining identity is the formal expression of "fair game": the best predictor of the next value, given all past information, is the current value.</p>
+
+<p><strong>Stopping times.</strong> A random time $\tau\colon\Omega\to\{0,1,\ldots,\infty\}$ is a <em>stopping time</em> w.r.t.\ $(\mathcal{F}_n)$ if $\{\tau\le n\}\in\mathcal{F}_n$ for each $n$: at time $n$, we can decide from the data so far whether to stop.</p>
+
+<p><strong>Doob's optional-stopping theorem.</strong> If $M$ is a martingale and $\tau$ a stopping time, then $\mathbb{E}[M_\tau]=\mathbb{E}[M_0]$ provided <em>at least one</em> of the following holds:
+<ol>
+  <li>$\tau$ is bounded;</li>
+  <li>$M$ is uniformly integrable (UI); or</li>
+  <li>$\tau<\infty$ a.s.\ and $(M_{n\wedge\tau})$ is uniformly bounded.</li>
+</ol>
+Without such a hypothesis optional-stopping fails: simple symmetric random walk stopped at $\tau=\inf\{n:S_n=1\}$ satisfies $\tau<\infty$ a.s.\ but $\mathbb{E}[S_\tau]=1\ne 0=\mathbb{E}[S_0]$.</p>
+
+<p><strong>Doob's martingale convergence theorem.</strong> If $\sup_n\mathbb{E}|M_n|<\infty$, then $M_n\to M_\infty$ a.s.\ for some $M_\infty\in L^1$. If additionally $M$ is UI, then $M_n\to M_\infty$ in $L^1$ as well. <em>$L^1$-bounded without UI</em> is a genuinely weaker condition — e.g.\ the product martingale $M_n=\prod_{i=1}^n X_i$ with $\mathbb{P}(X_i=2)=\mathbb{P}(X_i=0)=1/2$ has $\mathbb{E}[M_n]=1$ for all $n$ but $M_n\to 0$ a.s.</p>
+
+<div class="note"><strong>Doob's maximal inequality.</strong> For a non-negative submartingale, $\mathbb{P}(\max_{k\le n}M_k\ge\lambda)\le\mathbb{E}[M_n]/\lambda$. The $L^p$ version: $\|\max_{k\le n}M_k\|_p\le(p/(p-1))\|M_n\|_p$ for $p>1$. These are the two most-used inequalities in the whole subject.</div>
+
+<p><strong>Worked example: random walk is a martingale.</strong> $S_n=\sum_{i=1}^n X_i$ with $X_i$ i.i.d., $\mathbb{E}[X_i]=0$, and $\mathcal{F}_n=\sigma(X_1,\ldots,X_n)$. Then
+$$\mathbb{E}[S_{n+1}\mid\mathcal{F}_n]=\mathbb{E}[S_n+X_{n+1}\mid\mathcal{F}_n]=S_n+\mathbb{E}[X_{n+1}]=S_n,$$
+using that $S_n$ is $\mathcal{F}_n$-measurable and $X_{n+1}$ is independent of $\mathcal{F}_n$. So $(S_n)$ is a martingale. Consequently, $\mathbb{E}[S_n]=\mathbb{E}[S_0]=0$ for all $n$ (a fact obvious by linearity, but here illustrating the machinery).</p>
+
+<div class="quiz" data-concept="martingales"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#brownian">Probability theory</a> · Brownian motion</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="brownian">
+<h2>12. Brownian motion</h2>
+
+<p><strong>Standard Brownian motion</strong> (Wiener process) is the continuous-time stochastic process $(W_t)_{t\ge 0}$ characterised by:
+<ul>
+  <li>$W_0=0$ a.s.;</li>
+  <li>$(W_t)$ has independent increments: $W_{t_1}-W_{t_0},\ldots,W_{t_n}-W_{t_{n-1}}$ are independent for $0\le t_0<t_1<\cdots<t_n$;</li>
+  <li>$W_t-W_s\sim\mathcal{N}(0,t-s)$ for $0\le s<t$ (stationary Gaussian increments);</li>
+  <li>paths $t\mapsto W_t$ are continuous a.s.</li>
+</ul>
+Existence is non-trivial — constructed e.g.\ via Kolmogorov's extension + continuity criterion, or Lévy's construction (dyadic interpolation), or as the scaling limit of random walks (Donsker's invariance principle).</p>
+
+<p><strong>Key properties.</strong></p>
+<ul>
+  <li><strong>Martingale</strong>: $W_t$ is a (continuous-time) martingale w.r.t.\ its natural filtration. So is $W_t^2-t$ (variance correction). The "exponential martingale" $e^{\theta W_t-\theta^2 t/2}$ is also a martingale — the engine of Girsanov's theorem.</li>
+  <li><strong>Quadratic variation</strong>: $\sum_k(W_{t_{k+1}}-W_{t_k})^2\to t$ in probability as the mesh shrinks, even though the total variation is $+\infty$. Unbounded variation + finite quadratic variation is the signature of Brownian paths.</li>
+  <li><strong>Scaling</strong>: $(W_{ct})_{t\ge 0}\overset{d}{=}(\sqrt{c}\,W_t)_{t\ge 0}$ for $c>0$. The process is self-similar with Hurst index $H=1/2$.</li>
+  <li><strong>Nowhere differentiable</strong>: a.s., the sample path $t\mapsto W_t$ fails to be differentiable at every $t$.</li>
+</ul>
+
+<p><strong>Donsker's invariance principle</strong> says that rescaled random walks converge to Brownian motion in $C([0,1])$: for i.i.d.\ $(X_i)$ with $\mathbb{E}[X_i]=0$ and $\text{Var}(X_i)=1$, the linearly-interpolated process
+$$W^{(N)}_t=\frac{1}{\sqrt{N}}S_{\lfloor Nt\rfloor}+\frac{Nt-\lfloor Nt\rfloor}{\sqrt{N}}X_{\lfloor Nt\rfloor+1}\xrightarrow{d}(W_t)_{t\in[0,1]}.$$
+This is the functional CLT: the CLT is the finite-dimensional projection at a single $t$.</p>
+
+<div class="note"><strong>Stays-a-preview.</strong> Brownian motion here is a first-glance tour, not a full theory. Kolmogorov's consistency, Lévy's construction, the Markov and strong Markov properties, Itô calculus, and the connection to PDEs (heat equation, harmonic measure) are full courses on their own.</div>
+
+<p><strong>Worked example: Black–Scholes option pricing.</strong> Model stock price $S_t=S_0\exp((\mu-\sigma^2/2)t+\sigma W_t)$ — geometric Brownian motion. Under the risk-neutral measure, the Black–Scholes formula expresses a European call price as
+$$C(S_0,T)=S_0\Phi(d_1)-Ke^{-rT}\Phi(d_2),$$
+with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T}$. Itô's formula applied to $e^{-rt}\ln S_t$ gives the computation; Brownian motion is the fundamental source of randomness in mathematical finance.</p>
+
+<div class="widget" id="w-bm">
+  <div class="hd"><div class="ttl">Brownian motion simulator</div><div class="hint">path $W_t$ on $[0,1]$, $\sqrt{N}$ scaling</div></div>
+  <svg id="bm-svg" viewBox="0 0 760 280" width="760" height="280"><title>Brownian motion path and √N scaling</title></svg>
+  <div class="row">
+    <button id="bm-new">new path</button>
+    <button id="bm-many">overlay 20 paths</button>
+    <button id="bm-reset">reset</button>
+    <label for="bm-N">steps $N$</label>
+    <input id="bm-N" type="range" min="50" max="2000" step="50" value="500">
+    <span id="bm-N-v" class="small"></span>
+  </div>
+  <div class="readout" id="bm-out"></div>
+</div>
+
+<div class="quiz" data-concept="brownian-motion"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#convergence">Convergence theorems</a></li>
+  </ul>
+</aside>
+</section>
+
+<script>
+/* =============================== §12 Brownian motion =============================== */
+(function(){
+  const svg = $('#bm-svg'), out = $('#bm-out');
+  const sl = $('#bm-N'), slv = $('#bm-N-v');
+  const W=760, H=280;
+  const x0=60, x1=W-40, y0=30, y1=H-40;
+  let paths = [];
+  function onePath(N){
+    const dt = 1/N;
+    const p = [0];
+    for(let i=1;i<=N;i++){
+      p.push(p[i-1] + Math.sqrt(dt)*randn());
+    }
+    return p;
+  }
+  function reset(){ paths = []; draw(); }
+  function newPath(){ paths = [onePath(+sl.value)]; draw(); }
+  function many(){
+    paths = [];
+    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));
+    draw();
+  }
+  function draw(){
+    svg.innerHTML='';
+    slv.textContent = 'N = '+sl.value;
+    const N = +sl.value;
+    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)
+    const ymin=-3.5, ymax=3.5;
+    const X = t => x0 + t*(x1-x0);
+    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));
+    // zero line
+    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));
+    // ±sqrt(t) envelopes (95% band ~ ±2√t)
+    let de='', du='';
+    for(let i=0;i<=100;i++){
+      const t = i/100;
+      const e = 2*Math.sqrt(t);
+      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';
+      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';
+    }
+    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));
+    // ticks
+    for(const tv of [0,0.5,1]){
+      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent=tv; svg.appendChild(t);
+    }
+    for(const vv of [-3,-2,-1,0,1,2,3]){
+      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent=vv; svg.appendChild(t);
+    }
+    // draw paths
+    paths.forEach((p,k)=>{
+      let d='';
+      p.forEach((v,i)=>{
+        const t = i/(p.length-1);
+        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';
+      });
+      svg.appendChild(SVG('path',{d,fill:'none',
+        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',
+        'stroke-width': paths.length>1?0.8:1.6,
+        opacity: paths.length>1?0.55:1
+      }));
+    });
+    // legend
+    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+    lg.textContent='±2√t (≈ 95% band)';
+    svg.appendChild(lg);
+    // title
+    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
+    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;
+    svg.appendChild(tl);
+    // out
+    if(paths.length===1){
+      const p = paths[0];
+      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);
+      out.textContent =
+        `single path with N=${N} steps\n`+
+        `W_1 sample  = ${p[p.length-1].toFixed(4)}\n`+
+        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\n`+
+        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;
+    } else if(paths.length>1){
+      const w1s = paths.map(p=>p[p.length-1]);
+      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;
+      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;
+      out.textContent =
+        `${paths.length} overlaid paths, N=${N} steps each\n`+
+        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\n`+
+        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;
+    } else {
+      out.textContent = 'Click "new path" to simulate.';
+    }
+  }
+  $('#bm-new').addEventListener('click',newPath);
+  $('#bm-many').addEventListener('click',many);
+  $('#bm-reset').addEventListener('click',reset);
+  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });
+  newPath();
+})();
+</script>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('probability-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
