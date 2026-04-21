@@ -147,12 +147,21 @@
     var st = document.createElement('style');
     st.id = 'mv-lineage-style';
     st.textContent = [
-      '.lineage-strip{margin:0.8rem 0 1.2rem;padding:0.7rem 0.85rem;',
+      '.lineage-strip{position:relative;margin:0.8rem 0 1.2rem;padding:0.7rem 0.85rem;',
       '  background:var(--panel);border:1px solid var(--line);',
       '  border-radius:8px;display:grid;',
       '  grid-template-columns:1fr auto 1fr auto 1fr;gap:0.6rem 0.9rem;',
       '  align-items:start;font-size:0.86rem;line-height:1.35}',
       '.lineage-strip[hidden]{display:none}',
+      '.lineage-strip .lineage-close{position:absolute;top:4px;right:6px;',
+      '  background:transparent;border:0;color:var(--mute);cursor:pointer;',
+      '  font-size:1rem;line-height:1;padding:4px 6px;border-radius:4px;',
+      '  transition:color 120ms ease, background 120ms ease}',
+      '.lineage-strip .lineage-close:hover{color:var(--ink);background:var(--panel2)}',
+      '.lineage-show{margin:0.4rem 0 1rem;font-size:0.78rem;color:var(--mute);',
+      '  background:transparent;border:0;padding:0;cursor:pointer;',
+      '  text-decoration:underline dotted;text-underline-offset:3px}',
+      '.lineage-show:hover{color:var(--ink)}',
       '.lineage-strip .col{min-width:0}',
       '.lineage-strip .col-head{color:var(--mute);font-size:0.78rem;',
       '  text-transform:uppercase;letter-spacing:0.06em;',
@@ -216,6 +225,37 @@
     return a;
   }
 
+  var HIDE_KEY = 'mvnb.lineage.hidden';
+
+  function isHidden() {
+    try { return window.localStorage && localStorage.getItem(HIDE_KEY) === '1'; }
+    catch (_) { return false; }
+  }
+  function setHidden(v) {
+    try {
+      if (!window.localStorage) return;
+      if (v) localStorage.setItem(HIDE_KEY, '1');
+      else localStorage.removeItem(HIDE_KEY);
+    } catch (_) {}
+  }
+
+  function renderShowLink(mount) {
+    ensureStyle();
+    while (mount.firstChild) mount.removeChild(mount.firstChild);
+    mount.className = '';
+    mount.hidden = false;
+    mount.removeAttribute('style');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lineage-show';
+    btn.textContent = 'show concept lineage';
+    btn.addEventListener('click', function () {
+      setHidden(false);
+      render();
+    });
+    mount.appendChild(btn);
+  }
+
   function render() {
     var mount = document.getElementById('mv-lineage-mount');
     if (!mount) return;
@@ -240,6 +280,11 @@
       return;
     }
 
+    if (isHidden()) {
+      renderShowLink(mount);
+      return;
+    }
+
     ensureStyle();
     mount.className = 'lineage-strip';
     mount.hidden = false;
@@ -251,6 +296,18 @@
     mount.appendChild(renderColumn('This topic', own, { inert: true }));
     mount.appendChild(arrowCell());
     mount.appendChild(renderColumn('Consumers', lineage.consumers));
+
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'lineage-close';
+    close.setAttribute('aria-label', 'hide concept lineage');
+    close.title = 'hide (restore from the link that appears in its place)';
+    close.textContent = '×';
+    close.addEventListener('click', function () {
+      setHidden(true);
+      renderShowLink(mount);
+    });
+    mount.appendChild(close);
   }
 
   if (document.readyState === 'loading') {
