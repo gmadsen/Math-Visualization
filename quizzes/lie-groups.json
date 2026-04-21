@@ -42,6 +42,7 @@
             "The unit circle $S^1$ under complex multiplication"
           ],
           "answer": 2,
+          "hint": "Which option hides a non-Lie structure or dimension issue?",
           "explain": "The set $M_n(\\mathbb{R})$ under addition is a Lie group (a vector group), so that is fine. The intended distractor is none — all four are Lie groups. Revisiting: the real point is to test that $\\mathrm{GL}_n$ is open in $M_n$ (hence smooth), $\\mathrm{SL}_n$ is a closed submanifold, $M_n$ under addition is $\\mathbb{R}^{n^2}$, and $S^1\\subset\\mathbb{C}^*$ is a Lie group. The only non-example from a standard list would be a discrete group lacking a smooth structure, but all four options here are valid Lie groups."
         },
         {
@@ -49,6 +50,7 @@
           "q": "What is the real dimension of $\\mathrm{U}(n)$ for $n=3$?",
           "answer": 9,
           "tol": 1e-6,
+          "hint": "Real dimension of $\\mathrm{U}(n)$ is $n^2$.",
           "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=3$: $3^2=9$. This follows because a unitary matrix satisfies $U^\\dagger U=I$, giving $n^2$ real constraints on $2n^2$ real parameters, leaving $n^2$ free dimensions."
         },
         {
@@ -61,6 +63,7 @@
             "Verify $G$ is compact and then use the Peter–Weyl theorem"
           ],
           "answer": 0,
+          "hint": "Closed-subgroup theorem gives smooth structure for free.",
           "explain": "The closed-subgroup theorem (Cartan's theorem) states that any closed subgroup of a Lie group is itself a Lie group. Since $\\mathrm{SO}(2)$ is defined by continuous equations inside $\\mathrm{GL}_2(\\mathbb{R})$, it is closed, and the theorem applies directly."
         }
       ]
@@ -106,6 +109,7 @@
             "bilinear, commutes with scalar multiplication, has a unit element"
           ],
           "answer": 2,
+          "hint": "Lie brackets replace associativity with Jacobi.",
           "explain": "A Lie algebra is a vector space with a bilinear bracket satisfying $[X,X]=0$ (antisymmetry in characteristic $\\ne 2$) and the Jacobi identity. Lie brackets are never associative; Jacobi is the \"weak\" associativity replacement."
         },
         {
@@ -113,6 +117,7 @@
           "q": "Let $\\mathfrak{g}=\\mathfrak{so}(3)$ with basis $E_1,E_2,E_3$ satisfying $[E_i,E_j]=\\varepsilon_{ijk}E_k$ (the cross product). Compute the second component of $[E_1,E_2]+[E_2,E_3]+[E_3,E_1]$ in the $E_1,E_2,E_3$ basis.",
           "answer": 1,
           "tol": 1e-6,
+          "hint": "Use $\\varepsilon_{ijk}$ directly; don't confuse with Jacobi.",
           "explain": "$[E_1,E_2]=E_3$, $[E_2,E_3]=E_1$, $[E_3,E_1]=E_2$. Sum is $E_1+E_2+E_3$, whose second component (coefficient of $E_2$) is $1$. Notice this is NOT zero — Jacobi $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$ applies to triple brackets, not iterated pairwise brackets."
         },
         {
@@ -125,6 +130,7 @@
             "The zero Lie algebra corresponds to every finite group"
           ],
           "answer": 0,
+          "hint": "Find two groups with the same abelian algebra but different $\\pi_1$.",
           "explain": "Both $\\mathbb{R}$ and $S^1$ have Lie algebra $\\mathfrak{u}(1)\\cong\\mathbb{R}$ (abelian, 1-dim). The simply-connected representative is $\\mathbb{R}$; the quotient $\\mathbb{R}/\\mathbb{Z}=S^1$ has the same algebra. In general a Lie algebra determines a Lie group only up to its universal cover and discrete central quotients."
         }
       ]
@@ -170,6 +176,7 @@
             "$\\exp(X)$ and $\\exp(Y)$ anticommute"
           ],
           "answer": 0,
+          "hint": "Commuting matrices collapse all BCH correction terms.",
           "explain": "When $[X,Y]=0$ all higher BCH terms also vanish (they are built from nested brackets), so $Z=X+Y$ and $\\exp(X)\\exp(Y)=\\exp(X+Y)$. This is why the exponential is a homomorphism from any abelian Lie algebra to the corresponding abelian Lie group."
         },
         {
@@ -177,6 +184,7 @@
           "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}\\in\\mathfrak{gl}_2(\\mathbb{R})$. Compute the $(1,2)$ entry of $\\exp(X)$.",
           "answer": 1,
           "tol": 1e-6,
+          "hint": "This $X$ is nilpotent with $X^2=0$.",
           "explain": "$X^2=0$, so $\\exp(X)=I+X=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$. The $(1,2)$ entry is $1$."
         },
         {
@@ -189,6 +197,7 @@
             "$\\exp$ is never surjective for non-abelian groups"
           ],
           "answer": 1,
+          "hint": "Compact connected forces onto, but periodicity breaks injectivity.",
           "explain": "For compact connected Lie groups, every element lies on a one-parameter subgroup, so $\\exp$ is surjective. Injectivity fails: e.g., in $\\mathrm{SU}(2)\\cong S^3$, the matrices $\\exp(0)=I$ and $\\exp(2\\pi iH)=I$ for suitable $H$ show different algebra elements mapping to the same group element."
         }
       ]
@@ -235,6 +244,7 @@
             "$\\mathfrak{g}$ is commutative"
           ],
           "answer": 1,
+          "hint": "Rewrite Jacobi as a Leibniz rule for $\\operatorname{ad}_X$.",
           "explain": "Rearranging Jacobi: $[X,[Y,Z]]=[[X,Y],Z]+[Y,[X,Z]]$, which is exactly the Leibniz rule stating $\\operatorname{ad}_X$ differentiates the bracket. This is the conceptual content of Jacobi — it is the 'weak associativity' replacement that makes $\\operatorname{ad}$ a Lie algebra homomorphism into $\\operatorname{Der}(\\mathfrak{g})$."
         },
         {
@@ -242,6 +252,7 @@
           "q": "In $\\mathfrak{sl}_2$ with standard basis $h,e,f$ and relations $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$, compute the coefficient of $e$ in the BCH term $\\tfrac{1}{12}\\big([X,[X,Y]]+[Y,[Y,X]]\\big)$ when $X=h$ and $Y=e$.",
           "answer": 0.3333333333333333,
           "tol": 1e-4,
+          "hint": "Compute the two nested brackets, then multiply by $1/12$.",
           "explain": "$[h,e]=2e$, so $[h,[h,e]]=[h,2e]=4e$. $[e,[e,h]]=[e,-2e]=0$. Sum is $4e+0=4e$. Multiplying by $\\tfrac{1}{12}$: $\\tfrac{4}{12}e=\\tfrac{1}{3}e$. Coefficient $=1/3\\approx0.3333$."
         },
         {
@@ -254,6 +265,7 @@
             "one must first complexify $\\mathfrak{g}$ before the two agree"
           ],
           "answer": 1,
+          "hint": "Left-invariant fields identify with $T_eG$; their bracket collapses to the commutator.",
           "explain": "Left-invariant vector fields form a Lie subalgebra of $\\mathfrak{X}(G)$ under the vector-field bracket, canonically identified with $T_eG$ via $V\\mapsto V_e$. Computing in local coordinates on a matrix group, the vector-field bracket at $e$ reduces to the matrix commutator $XY-YX$, unifying the manifold-theoretic and matrix-theoretic definitions of the Lie bracket."
         }
       ]
@@ -304,6 +316,7 @@
             "$\\mathfrak{so}(3)$ must be abelian since $\\mathrm{SO}(3)$ has finite fundamental group"
           ],
           "answer": 1,
+          "hint": "Same algebra means same germ, differing only by discrete central quotients.",
           "explain": "Lie's third theorem gives a unique simply-connected group per Lie algebra ($\\mathrm{SU}(2)$ here); other connected Lie groups with the same algebra are quotients by discrete central subgroups. $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ realises this."
         },
         {
@@ -311,6 +324,7 @@
           "q": "A spin-$\\tfrac12$ representation of $\\mathrm{SU}(2)$ does not descend to $\\mathrm{SO}(3)$ because $-I\\in\\ker\\pi$ acts by what scalar on the spin-$\\tfrac12$ space?",
           "answer": -1,
           "tol": 1e-6,
+          "hint": "Half-integer spin picks up a sign under the $-I$ covering element.",
           "explain": "The spin-$\\tfrac12$ rep is the defining rep on $\\mathbb{C}^2$: $-I\\cdot v=-v$. For descent to $\\mathrm{SO}(3)=\\mathrm{SU}(2)/\\{\\pm I\\}$ we would need $-I$ to act trivially (scalar $+1$), but it acts by $-1$. Only integer-spin reps descend; half-integer spin lives on $\\mathrm{SU}(2)$ only — this is the spinor/fermion distinction."
         },
         {
@@ -323,6 +337,7 @@
             "(i) Restrict $q$ to the equator $S^2\\subset S^3$; (ii) note this is a 2:1 map to $\\mathbb{RP}^2$"
           ],
           "answer": 0,
+          "hint": "Check invariance of $\\mathrm{Im}\\,\\mathbb{H}$, norm, determinant, then the kernel.",
           "explain": "The standard verification: show conjugation preserves imaginary quaternions (identified with $\\mathbb{R}^3$), preserves the quadratic form (norm), has determinant $+1$ (by connectedness of $S^3$), and identify the kernel. The centre of the quaternion algebra acting trivially by conjugation is exactly $\\{\\pm 1\\}$."
         }
       ]
@@ -373,6 +388,7 @@
             "$\\mathfrak{g}$ is semisimple $\\iff$ $B$ is symmetric"
           ],
           "answer": 1,
+          "hint": "Cartan's criterion is non-degeneracy, not sign-definiteness.",
           "explain": "Cartan's criterion: a finite-dimensional Lie algebra over a field of characteristic $0$ is semisimple iff its Killing form is non-degenerate. For compact real forms $B$ is negative definite (stronger than non-degenerate)."
         },
         {
@@ -385,6 +401,7 @@
             "$\\mathrm{SO}(3)$ admits no invariant metric"
           ],
           "answer": 1,
+          "hint": "Negative-definite $B$ signals Weyl's compactness criterion.",
           "explain": "Negative-definite Killing form $\\Leftrightarrow$ the real Lie group is compact (among connected semisimple groups, this is Weyl's criterion). $-B$ is a bi-invariant positive-definite inner product on $\\mathfrak{so}(3)$, extending to a bi-invariant Riemannian metric on $\\mathrm{SO}(3)$; compactness follows."
         },
         {
@@ -392,6 +409,7 @@
           "q": "Let $\\mathfrak{g}=\\mathfrak{sl}_2$ with basis $h,e,f$ as above. The adjoint orbit of $h$ under $\\mathrm{SL}_2$ consists of all matrices with the same Jordan type as $h$. What is the dimension of this orbit?",
           "answer": 2,
           "tol": 1e-6,
+          "hint": "Orbit dimension equals $\\dim G$ minus stabiliser dimension.",
           "explain": "The stabiliser of $h$ is the diagonal torus $\\{\\operatorname{diag}(a,a^{-1})\\}$, which is $1$-dimensional. Hence $\\dim(\\mathrm{Ad}\\text{-orbit})=\\dim\\mathrm{SL}_2-\\dim\\mathrm{stab}=3-1=2$. Geometrically it is the one-sheeted hyperboloid $\\{X\\in\\mathfrak{sl}_2:\\det X=-1\\}$."
         }
       ]
@@ -437,6 +455,7 @@
             "A Lie algebra is solvable if and only if $B$ is non-degenerate"
           ],
           "answer": 0,
+          "hint": "Non-degeneracy, not sign, is the semisimplicity test.",
           "explain": "Cartan's semisimplicity criterion states $\\mathfrak{g}$ is semisimple iff the Killing form is non-degenerate. For compact real forms the Killing form is negative definite (a stronger condition), but non-degeneracy is the precise characterization of semisimplicity."
         },
         {
@@ -444,6 +463,7 @@
           "q": "How many positive roots does the root system $B_2$ (equivalently $\\mathfrak{so}(5)$ or $\\mathfrak{sp}(4)$) have?",
           "answer": 4,
           "tol": 1e-6,
+          "hint": "Half of $n^2$ roots are positive in $B_n$.",
           "explain": "$B_2$ has $8$ roots in total ($4$ positive, $4$ negative). The positive roots are $\\varepsilon_1,\\varepsilon_2,\\varepsilon_1-\\varepsilon_2,\\varepsilon_1+\\varepsilon_2$. In general $B_n$ has $n^2$ roots, giving $4$ for $n=2$, so $4$ positive roots."
         },
         {
@@ -456,6 +476,7 @@
             "Compute the center of $\\mathfrak{g}$ → quotient by it → apply Weyl's theorem"
           ],
           "answer": 1,
+          "hint": "Start from a Cartan subalgebra and simultaneously diagonalise $\\operatorname{ad}$.",
           "explain": "The standard construction: (1) fix a maximal toral (Cartan) subalgebra $\\mathfrak{h}$; (2) the elements of $\\mathfrak{h}$ act semisimply via $\\operatorname{ad}$, so $\\mathfrak{g}$ decomposes into simultaneous eigenspaces; (3) the nonzero eigenvalues are the roots $\\alpha\\in\\mathfrak{h}^*$; (4) each root space $\\mathfrak{g}_\\alpha=\\{X\\in\\mathfrak{g}\\mid[H,X]=\\alpha(H)X\\;\\forall H\\in\\mathfrak{h}\\}$ is one-dimensional for semisimple $\\mathfrak{g}$."
         }
       ]

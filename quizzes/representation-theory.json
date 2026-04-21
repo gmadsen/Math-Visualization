@@ -111,6 +111,7 @@
             "$\\pi(v)=\\tfrac{1}{|G|}\\sum_{g\\in G}\\pi_0(v)$"
           ],
           "answer": 1,
+          "hint": "Conjugate a naive projector by $\\rho(g)$ and average — the $1/|G|$ is essential.",
           "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$. One checks $\\pi^2=\\pi$, $\\mathrm{im}\\,\\pi=W$, and $\\pi(\\rho(h)v)=\\rho(h)\\pi(v)$ for all $h$. Division by $|G|$ requires $\\mathrm{char}(k)\\nmid|G|$."
         },
         {

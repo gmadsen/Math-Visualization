@@ -185,6 +185,7 @@
             "Use the Hahn–Banach theorem to extend $\\phi$ to $B(H)$, then restrict."
           ],
           "answer": 0,
+          "hint": "Build an inner product from $\\phi$; quotient out the degenerate vectors; let $A$ act by left multiplication.",
           "explain": "GNS: (1) $\\langle a,b\\rangle=\\phi(b^*a)$ is a positive semi-definite sesquilinear form; (2) $N_\\phi=\\{a\\in A:\\phi(a^*a)=0\\}$ is a left ideal (positivity + Cauchy–Schwarz); (3) $A/N_\\phi$ carries a genuine inner product; (4) complete to $H_\\phi$; (5) $\\pi_\\phi(a)[b+N_\\phi]=[ab+N_\\phi]$ extends to a $*$-representation. The cyclic vector is $\\xi_\\phi=[1+N_\\phi]$ with $\\phi(a)=\\langle\\xi_\\phi,\\pi_\\phi(a)\\xi_\\phi\\rangle$."
         },
         {

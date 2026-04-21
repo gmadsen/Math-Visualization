@@ -30,7 +30,7 @@
         "chain-complexes",
         "exact-sequences"
       ],
-      "blurb": "A module is flat when tensoring with it preserves injections; the obstruction is measured by Tor, which detects torsion and controls base change in families."
+      "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families."
     },
     {
       "id": "nakayama-lemma-ca",
@@ -49,7 +49,7 @@
         "ideals-quotients-ca",
         "prime-ideals-factorization-ant"
       ],
-      "blurb": "An element is integral over $A$ when it satisfies a monic polynomial with coefficients in $A$; integral extensions enjoy lying-over, going-up, and incomparability, and Noether normalization exhibits every finitely generated $k$-algebra as a finite extension of a polynomial subring."
+      "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring."
     },
     {
       "id": "krull-dimension-ca",

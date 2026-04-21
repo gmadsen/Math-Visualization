@@ -313,7 +313,7 @@ window.__MVConcepts = {
             "chain-complexes",
             "exact-sequences"
           ],
-          "blurb": "A module is flat when tensoring with it preserves injections; the obstruction is measured by Tor, which detects torsion and controls base change in families."
+          "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families."
         },
         {
           "id": "nakayama-lemma-ca",
@@ -332,7 +332,7 @@ window.__MVConcepts = {
             "ideals-quotients-ca",
             "prime-ideals-factorization-ant"
           ],
-          "blurb": "An element is integral over $A$ when it satisfies a monic polynomial with coefficients in $A$; integral extensions enjoy lying-over, going-up, and incomparability, and Noether normalization exhibits every finitely generated $k$-algebra as a finite extension of a polynomial subring."
+          "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring."
         },
         {
           "id": "krull-dimension-ca",
@@ -563,7 +563,7 @@ window.__MVConcepts = {
           "tags": [
             "foundation"
           ],
-          "blurb": "Arithmetic, modulus, argument, polar form, roots of unity."
+          "blurb": "Arithmetic on $\\mathbb{C} = \\mathbb{R}^2$ with multiplication; polar form $z = re^{i\\theta}$ and the one-point compactification to the Riemann sphere $\\hat{\\mathbb{C}}$ via stereographic projection."
         },
         {
           "id": "riemann-sphere",
@@ -591,7 +591,7 @@ window.__MVConcepts = {
             "complex-numbers",
             "real-differentiation"
           ],
-          "blurb": "Local linear model: f′(z) as (rotate, scale)."
+          "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix."
         },
         {
           "id": "cauchy-riemann",
@@ -600,7 +600,7 @@ window.__MVConcepts = {
           "prereqs": [
             "amplitwist"
           ],
-          "blurb": "u_x = v_y, u_y = −v_x; ∂̄f = 0."
+          "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$."
         },
         {
           "id": "holomorphic-function",
@@ -618,7 +618,7 @@ window.__MVConcepts = {
           "prereqs": [
             "holomorphic-function"
           ],
-          "blurb": "Visualizing f: C→C by hue(arg) and lightness(modulus)."
+          "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity."
         },
         {
           "id": "contour-integral",
@@ -628,7 +628,7 @@ window.__MVConcepts = {
             "holomorphic-function",
             "paths"
           ],
-          "blurb": "∫_γ f dz along parametrized paths; ML inequality."
+          "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
         },
         {
           "id": "cauchy-theorem",
@@ -647,7 +647,7 @@ window.__MVConcepts = {
           "prereqs": [
             "cauchy-theorem"
           ],
-          "blurb": "f(a) = (1/2πi) ∮ f(z)/(z−a) dz; the reproducing kernel of holomorphy."
+          "blurb": "$f(a) = \\tfrac{1}{2\\pi i}\\oint f(z)/(z-a)\\,dz$: boundary values determine interior values on a closed disk, and differentiation under the integral makes holomorphic functions $C^\\infty$."
         },
         {
           "id": "analyticity",
@@ -674,7 +674,7 @@ window.__MVConcepts = {
           "prereqs": [
             "liouville"
           ],
-          "blurb": "Every non-constant polynomial over C has a root."
+          "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness."
         },
         {
           "id": "maximum-modulus",
@@ -692,7 +692,7 @@ window.__MVConcepts = {
           "prereqs": [
             "maximum-modulus"
           ],
-          "blurb": "f: D→D with f(0)=0 satisfies |f(z)| ≤ |z| and |f′(0)| ≤ 1."
+          "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle."
         },
         {
           "id": "laurent-series",
@@ -757,7 +757,7 @@ window.__MVConcepts = {
             "schwarz-lemma",
             "mobius-transformations"
           ],
-          "blurb": "Aut(D) = Blaschke factors e^{iθ}(z−a)/(1−ā z)."
+          "blurb": "$\\mathrm{Aut}(\\mathbb{D})$ consists of the Blaschke factors $e^{i\\theta}(z-a)/(1-\\bar a z)$; this is the isometry group $\\mathrm{PSU}(1,1)$ of the hyperbolic Poincaré metric on the disk."
         },
         {
           "id": "normal-families",
@@ -768,7 +768,7 @@ window.__MVConcepts = {
             "uniform-convergence",
             "compactness"
           ],
-          "blurb": "Locally bounded ⇒ normal; compactness in the space of holomorphic functions."
+          "blurb": "Montel: a locally bounded family of holomorphic functions is normal (every sequence has a locally uniformly convergent subsequence); compactness that powers the Riemann mapping theorem."
         },
         {
           "id": "riemann-mapping",
@@ -788,7 +788,7 @@ window.__MVConcepts = {
           "prereqs": [
             "cauchy-riemann"
           ],
-          "blurb": "Re(f) and Im(f) satisfy Δu = 0; mean-value and maximum principles."
+          "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
         },
         {
           "id": "analytic-continuation",
@@ -797,7 +797,7 @@ window.__MVConcepts = {
           "prereqs": [
             "analyticity"
           ],
-          "blurb": "Uniqueness of extension along paths; monodromy around branch points."
+          "blurb": "The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\\log z$ or $\\sqrt z$ live naturally on a Riemann surface rather than $\\mathbb{C}\\setminus\\{0\\}$."
         }
       ]
     },
@@ -1186,7 +1186,7 @@ window.__MVConcepts = {
           "prereqs": [
             "submanifolds-immersions"
           ],
-          "blurb": "Embedded geometry starts with curvature, normals, and local parametrizations."
+          "blurb": "A regular surface $S\\subset\\mathbb{R}^3$ carries local parametrizations $\\mathbf{x}(u,v)$ with linearly independent $\\mathbf{x}_u,\\mathbf{x}_v$, a tangent plane $T_pS$, and a unit normal $\\mathbf{n}$; orientability asks whether $\\mathbf{n}$ can be chosen globally."
         },
         {
           "id": "first-second-fundamental",
@@ -1195,7 +1195,7 @@ window.__MVConcepts = {
           "prereqs": [
             "curves-surfaces-dg"
           ],
-          "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
+          "blurb": "The first form $I = E\\,du^2 + 2F\\,du\\,dv + G\\,dv^2$ records intrinsic length and area; the second form $II$ and its self-adjoint shape operator $S_p = -dN_p$ record how $S$ curves extrinsically in $\\mathbb{R}^3$."
         },
         {
           "id": "gauss-map",
@@ -1213,7 +1213,7 @@ window.__MVConcepts = {
           "prereqs": [
             "first-second-fundamental"
           ],
-          "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+          "blurb": "Gaussian curvature $K = \\det S_p$ is intrinsic (Theorema Egregium); geodesics satisfy $\\ddot\\gamma^k + \\Gamma^k_{ij}\\dot\\gamma^i\\dot\\gamma^j = 0$ with Christoffel symbols built from $I$, modelling shortest paths on $S$."
         },
         {
           "id": "gauss-bonnet",
@@ -1867,7 +1867,7 @@ window.__MVConcepts = {
           "prereqs": [
             "places-and-local-fields"
           ],
-          "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times \\prod_p' \\mathbb{Q}_p$ is the restricted direct product: tuples $(x_v)$ over all places where $x_p \\in \\mathbb{Z}_p$ for all but finitely many $p$. This makes $\\mathbb{A}_\\mathbb{Q}$ a locally compact ring in which $\\mathbb{Q}$ embeds diagonally as a discrete cocompact subgroup."
+          "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times {\\prod_p}' \\mathbb{Q}_p$ is the restricted direct product over all places: tuples with $x_p \\in \\mathbb{Z}_p$ for almost all $p$. It is locally compact, and $\\mathbb{Q}$ embeds as a discrete cocompact subring."
         },
         {
           "id": "idele-class-group",
@@ -1876,7 +1876,7 @@ window.__MVConcepts = {
           "prereqs": [
             "adele-ring"
           ],
-          "blurb": "The idèle group $\\mathbb{A}_\\mathbb{Q}^\\times$ consists of invertible adèles with the restricted product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ is a locally compact abelian group whose connected component encodes the archimedean data."
+          "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally."
         },
         {
           "id": "strong-approximation",
@@ -1885,7 +1885,7 @@ window.__MVConcepts = {
           "prereqs": [
             "adele-ring"
           ],
-          "blurb": "Strong approximation for $\\mathbb{Q}$: the diagonal image of $\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}^\\infty = \\prod_p' \\mathbb{Q}_p$ (adèles with the archimedean place omitted). This packages the Chinese Remainder Theorem and simultaneous Diophantine approximation into a single topological statement."
+          "blurb": "Strong approximation: the diagonal image of $\\mathbb{Q}$ is dense in the finite adèles $\\mathbb{A}_\\mathbb{Q}^\\infty$, repackaging the Chinese Remainder Theorem and simultaneous Diophantine approximation as one topological density statement."
         },
         {
           "id": "tate-thesis-sketch",
@@ -1896,7 +1896,7 @@ window.__MVConcepts = {
             "dirichlet-series-basics",
             "analytic-continuation"
           ],
-          "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
+          "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry."
         }
       ]
     },
@@ -2620,7 +2620,7 @@ window.__MVConcepts = {
             "thompson-series",
             "adjoint-roots"
           ],
-          "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody algebra from the moonshine VOA via the Goddard–Thorn no-ghost theorem — whose Weyl–Kac denominator identity p^{-1} prod (1 - p^m q^n)^{c(mn)} = J(p) - J(q) yields replication recursions that pin each Thompson series to Conway–Norton's Hauptmodul."
+          "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
         }
       ]
     },
@@ -3429,7 +3429,7 @@ window.__MVConcepts = {
             "eigenforms-and-euler-factors",
             "galois-rep-definition"
           ],
-          "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) proved the semistable case; Breuil–Conrad–Diamond–Taylor (2001) extended it to all elliptic curves over $\\mathbb{Q}$."
+          "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\\mathbb{Q}$."
         },
         {
           "id": "ribet-level-lowering",
@@ -3439,7 +3439,7 @@ window.__MVConcepts = {
             "modularity-theorem",
             "modularity-and-deformations"
           ],
-          "blurb": "Ribet's $\\varepsilon$-conjecture (1990): if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, then it is modular of level $N$. Applied to the Frey curve, this lowers the level all the way down to $2$ — but $S_2(\\Gamma_0(2)) = 0$, contradicting the assumed Fermat solution."
+          "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution."
         },
         {
           "id": "deformation-rings",
@@ -3449,7 +3449,7 @@ window.__MVConcepts = {
             "galois-rep-definition",
             "frobenius-traces"
           ],
-          "blurb": "Given a residual representation $\\overline\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ parametrizes all lifts $\\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A)$ to complete Noetherian local rings $A$ with prescribed ramification data $\\Sigma$. It is the formal moduli space of Galois deformations and the algebraic side of modularity lifting."
+          "blurb": "Given a residual $\\overline\\rho\\colon G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ represents lifts to complete Noetherian local rings with prescribed ramification $\\Sigma$; it is the formal moduli of Galois deformations."
         },
         {
           "id": "r-equals-t",
@@ -3460,7 +3460,7 @@ window.__MVConcepts = {
             "modularity-theorem",
             "hecke-algebra-commuting"
           ],
-          "blurb": "Wiles' modularity-lifting engine identifies the universal deformation ring $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ acting on weight-2 cusp forms. The surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ is forced to be an isomorphism via the Taylor–Wiles patching argument, so every deformation of $\\overline\\rho$ is modular."
+          "blurb": "Wiles' lifting engine identifies $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ on weight-2 cusp forms; the Taylor–Wiles patching argument upgrades $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ to an isomorphism, so every deformation is modular."
         }
       ]
     },

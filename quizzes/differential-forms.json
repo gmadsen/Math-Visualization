@@ -317,6 +317,7 @@
             "$d(xy)$ on $\\mathbb{R}^2$: closed but not exact"
           ],
           "answer": 0,
+          "hint": "An exact form integrates to zero around any loop; find one that doesn't.",
           "explain": "If $d\\theta$ were exact, say $d\\theta=df$, then $\\oint_{S^1}d\\theta=\\oint_{S^1}df=f(2\\pi)-f(0)=0$. But the integral is $2\\pi\\ne 0$. So $d\\theta$ is a closed non-exact $1$-form, showing $H^1_{\\mathrm{dR}}(\\mathbb{R}^2\\setminus\\{0\\})\\ne 0$."
         }
       ]

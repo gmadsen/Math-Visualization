@@ -249,6 +249,7 @@
             "Use Zorn's lemma on the set of submodules of $N$ not equal to $N$"
           ],
           "answer": 0,
+          "hint": "Look for a polynomial relation whose constant term is a unit modulo $\\mathfrak{m}$.",
           "explain": "The standard proof: $\\mathfrak{m}N=N$ gives a matrix equation $Mn=n$ (Cayley–Hamilton trick), yielding $p(1)=0$ for a monic $p\\in 1+\\mathfrak{m}[t]$. Since $p(1)\\equiv 1\\pmod{\\mathfrak{m}}$, it is a unit in $A$, so $N=0$. Option C describes a corollary, not the root argument."
         },
         {

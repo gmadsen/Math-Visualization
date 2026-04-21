@@ -36,6 +36,7 @@
           "q": "Compute $\\left(\\frac{3}{13}\\right)$ using Euler's criterion: evaluate $3^{(13-1)/2}\\bmod 13$.",
           "answer": 1,
           "tol": 0.001,
+          "hint": "Raise to the $(p-1)/2$ power and reduce mod $p$.",
           "explain": "$3^6 = 729 = 56\\cdot 13 + 1$, so $3^6\\equiv 1\\pmod{13}$, giving $\\left(\\frac{3}{13}\\right)=1$. Indeed $4^2=16\\equiv 3\\pmod{13}$."
         },
         {
@@ -48,6 +49,7 @@
             "Take $a=2, b=8, p=7$: $(16/7)=1=(2/7)(8/7)=(1)(1)=1$, confirming multiplicativity holds regardless of $\\gcd(a,b)$"
           ],
           "answer": 3,
+          "hint": "Multiplicativity depends only on coprimality to $p$, not between $a,b$.",
           "explain": "$(2/7)=1$ since $3^2=9\\equiv 2\\pmod 7$, and $(8/7)=(1/7)=1$ since $8\\equiv 1$. So $(16/7)=(2/7)(8/7)=1$. Multiplicativity of the Legendre symbol holds for all integers $a,b$ coprime to $p$, regardless of $\\gcd(a,b)$."
         },
         {
@@ -55,6 +57,7 @@
           "q": "Among $\\{1,2,3,4,5,6\\}$, how many quadratic residues mod 7 are there?",
           "answer": 3,
           "tol": 0.001,
+          "hint": "Squares mod an odd prime $p$ count $(p-1)/2$.",
           "explain": "$1^2\\equiv 1$, $2^2\\equiv 4$, $3^2\\equiv 2\\pmod 7$; the remaining classes 3, 5, 6 are non-residues. So exactly 3 quadratic residues."
         }
       ]
@@ -103,6 +106,7 @@
             "The formula follows from Wilson's theorem alone without using Euler's criterion"
           ],
           "answer": 1,
+          "hint": "Congruence of $\\pm 1$ values modulo $p>2$ becomes equality in $\\mathbb{Z}$.",
           "explain": "Euler's criterion states $a^{(p-1)/2}\\equiv\\left(\\frac{a}{p}\\right)\\pmod p$ for $p\\nmid a$. Both $(-1)^{(p-1)/2}$ and $(\\frac{-1}{p})$ lie in $\\{1,-1\\}\\subset\\mathbb{Z}$, and $p>2$ means $1\\not\\equiv -1\\pmod p$, so the congruence forces equality in $\\mathbb{Z}$."
         },
         {
@@ -110,6 +114,7 @@
           "q": "For which odd prime $p<20$ does $\\left(\\frac{-1}{p}\\right)=-1$ AND $\\left(\\frac{2}{p}\\right)=-1$ simultaneously hold? Give the smallest such prime.",
           "answer": 3,
           "tol": 0.001,
+          "hint": "Intersect the mod-4 and mod-8 conditions.",
           "explain": "$(-1/p)=-1$ requires $p\\equiv 3\\pmod 4$; $(2/p)=-1$ requires $p\\equiv 3$ or $5\\pmod 8$. Intersection: $p\\equiv 3\\pmod 8$. Smallest such prime below 20 is $p=3$."
         },
         {
@@ -122,6 +127,7 @@
             "$\\left(\\frac{-2}{p}\\right)$ cannot be determined from the supplementary laws alone"
           ],
           "answer": 0,
+          "hint": "Split as $(-1/p)(2/p)$ using both supplementary laws.",
           "explain": "$p\\equiv 7\\pmod 8$ implies $p\\equiv 3\\pmod 4$, so $(-1/p)=(-1)^{(p-1)/2}=-1$. Also $p\\equiv 7\\pmod 8$ gives $(2/p)=1$. By multiplicativity, $(-2/p)=(-1/p)(2/p)=(-1)(1)=-1$."
         }
       ]
@@ -161,6 +167,7 @@
           "q": "Apply Gauss's lemma to compute $\\left(\\frac{3}{11}\\right)$. List the least positive residues of $3,6,9,12,15$ mod 11 and count how many exceed $11/2=5.5$.",
           "answer": 1,
           "tol": 0.001,
+          "hint": "Count reduced multiples of 3 above 5.5, then take $(-1)^n$.",
           "explain": "Reduced residues mod 11: $3\\cdot 1=3$, $3\\cdot 2=6$, $3\\cdot 3=9$, $3\\cdot 4\\equiv 1$, $3\\cdot 5\\equiv 4$. Those exceeding 5.5 are $6$ and $9$, so $n=2$. Then $(3/11)=(-1)^2=1$."
         },
         {
@@ -173,6 +180,7 @@
             "Apply Euler's criterion first to get the symbol, then verify $n$ by direct computation"
           ],
           "answer": 0,
+          "hint": "Multiply, reduce, flip signs above $p/2$, cancel the factorial.",
           "explain": "The standard proof multiplies $a, 2a,\\ldots,\\frac{p-1}{2}a$, reduces each mod $p$ to $\\{1,\\ldots,p-1\\}$, flips those above $p/2$ to get the full set $\\{1,\\ldots,\\frac{p-1}{2}\\}$ up to signs, then cancels $((p-1)/2)!$ from both sides leaving $a^{(p-1)/2}\\equiv(-1)^n$, which equals $(a/p)$ by Euler's criterion."
         },
         {
@@ -180,6 +188,7 @@
           "q": "For $p=13, a=5$, apply Gauss's lemma. The multiples $5,10,15,20,25,30$ reduce mod 13 to $5,10,2,7,12,4$. How many of these exceed $13/2=6.5$?",
           "answer": 3,
           "tol": 0.001,
+          "hint": "Count reduced residues above the midpoint.",
           "explain": "Reduced residues: $5,10,2,7,12,4$. Those exceeding 6.5 are $10,7,12$ — exactly 3. So $(5/13)=(-1)^3=-1$."
         }
       ]
@@ -228,6 +237,7 @@
             "$\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)=-\\left(\\frac{12}{11}\\right)$, and since $12\\equiv 1\\pmod{11}$, the answer is $-1$"
           ],
           "answer": 3,
+          "hint": "Flip with sign, reduce top mod bottom, recognise $1$.",
           "explain": "Both primes are $\\equiv 3\\pmod 4$, so $\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)$. Then $23\\equiv 1\\pmod{11}$, giving $\\left(\\frac{23}{11}\\right)=\\left(\\frac{1}{11}\\right)=1$. Hence $\\left(\\frac{11}{23}\\right)=-1$."
         },
         {
@@ -235,6 +245,7 @@
           "q": "Compute $\\left(\\frac{7}{11}\\right)$ using reciprocity. Since $7\\equiv 3\\pmod 4$ and $11\\equiv 3\\pmod 4$, we get $\\left(\\frac{7}{11}\\right)=-\\left(\\frac{11}{7}\\right)=-\\left(\\frac{4}{7}\\right)$. What is the final value?",
           "answer": -1,
           "tol": 0.001,
+          "hint": "Reduce 11 mod 7, recognise 4 as a square.",
           "explain": "$11\\equiv 4\\pmod 7$, so $\\left(\\frac{11}{7}\\right)=\\left(\\frac{4}{7}\\right)=1$ (since $4=2^2$). Therefore $\\left(\\frac{7}{11}\\right)=-1$."
         },
         {
@@ -247,6 +258,7 @@
             "Embed $\\mathbb{F}_p$ in $\\mathbb{F}_{pq}$ and use Frobenius automorphisms to relate the two symbols"
           ],
           "answer": 0,
+          "hint": "Gauss sum squared equals $p^*$; compare two ways mod $q$.",
           "explain": "The Gauss-sum proof: the Gauss sum $g$ satisfies $g^2=p^*=(-1)^{(p-1)/2}p$. Raising to the $(q-1)$-th power in $\\mathbb{Z}[\\zeta_p]$ and reducing mod $q$ in two ways yields $(p/q)=(q/p)\\cdot(-1)^{(p-1)(q-1)/4}$, i.e., the reciprocity law."
         }
       ]
@@ -295,6 +307,7 @@
             "$a=1, n=9$: $(1/9)=1$ but $1$ is trivially a square, so this is not a counterexample"
           ],
           "answer": 0,
+          "hint": "Two factors of $-1$ multiply to $+1$ even when neither factor is a square.",
           "explain": "$(2/15)=(2/3)(2/5)=(-1)(-1)=1$, but $x^2\\equiv 2\\pmod{15}$ requires $x^2\\equiv 2\\pmod 3$ (impossible, since $2$ is a non-residue mod $3$) and $x^2\\equiv 2\\pmod 5$ (impossible). So $2$ is a non-square mod $15$ despite having Jacobi symbol $1$."
         },
         {
@@ -302,6 +315,7 @@
           "q": "Evaluate $\\left(\\frac{30}{53}\\right)$ using multiplicativity: split as $\\left(\\frac{2}{53}\\right)\\left(\\frac{3}{53}\\right)\\left(\\frac{5}{53}\\right)$. Note $53\\equiv 5\\pmod 8$, $53\\equiv 2\\pmod 3$, $53\\equiv 3\\pmod 5$.",
           "answer": -1,
           "tol": 0.001,
+          "hint": "Factor 30 and evaluate three symbols, using reciprocity per prime.",
           "explain": "$(2/53)=-1$ since $53\\equiv 5\\pmod 8$. $(3/53)$: both $3\\equiv 3$ and $53\\equiv 1\\pmod 4$, so $(3/53)=(53/3)=(2/3)=-1$. $(5/53)$: $5\\equiv 1\\pmod 4$, so $(5/53)=(53/5)=(3/5)$; since $3\\equiv 3\\pmod 4$ and $5\\equiv 1\\pmod 4$, $(3/5)=(5/3)=(2/3)=-1$. Product: $(-1)(-1)(-1)=-1$."
         },
         {
@@ -314,6 +328,7 @@
             "$\\gcd(m,n)=1$ is required for the Legendre symbol but not the Jacobi symbol"
           ],
           "answer": 1,
+          "hint": "The Jacobi extension drops primality in exchange for coprimality.",
           "explain": "The Jacobi reciprocity law holds for any two odd coprime positive integers — neither needs to be prime. This is what powers the Euclidean reduction algorithm: one can swap and reduce without ever testing primality, since the law applies at every step."
         }
       ]

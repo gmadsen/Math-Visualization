@@ -116,6 +116,7 @@
             "$S^*S=SS^*=0$"
           ],
           "answer": 1,
+          "hint": "One composition recovers $x$; the other first drops then reinserts a coordinate.",
           "explain": "$S^*$ is the left shift: $S^*(x_1,x_2,\\ldots)=(x_2,x_3,\\ldots)$. Then $S^*S(x)=S^*(0,x_1,x_2,\\ldots)=(x_1,x_2,\\ldots)=x$, so $S^*S=I$. But $(SS^*)(x_1,x_2,\\ldots)=S(x_2,x_3,\\ldots)=(0,x_2,x_3,\\ldots)$, missing the first coordinate — so $SS^*=I-P_{e_1}$. $S$ is an isometry but not unitary: it is not surjective."
         },
         {

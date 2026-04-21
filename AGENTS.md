@@ -33,11 +33,32 @@ Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small node 
 Quality gates — all exit non-zero on failure and gate CI:
 
 - [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) — duplicate ids, broken prereqs, cycles, missing anchors/blurbs.
+- [`scripts/validate-katex.mjs`](./scripts/validate-katex.mjs) — structural + macro-aware KaTeX checks on JSON fields (blurbs, quiz questions, etc.).
 - [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) — every page has sidebar, top-nav backlink, quiz wiring, ≥1 widget; anchors resolve.
 - [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs) — cross-topic prereqs have a forward "See also" aside.
 - [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
 
-Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip.
+Non-gating audits (advisory reports, safe to run any time):
+
+- [`scripts/audit-accessibility.mjs`](./scripts/audit-accessibility.mjs) — a11y checks: heading order, SVG `<title>`/`aria-label`, `<label for=>` wiring, color-only prose, viewport meta, `<html lang>`.
+- [`scripts/audit-responsive.mjs`](./scripts/audit-responsive.mjs) — responsive-design issues: viewport meta, fixed pixel widths, missing SVG `viewBox`, horizontal-overflow hazards.
+- [`scripts/audit-color-vars.mjs`](./scripts/audit-color-vars.mjs) — hex literals in widget markup with palette-var suggestions.
+- [`scripts/audit-widget-interactivity.mjs`](./scripts/audit-widget-interactivity.mjs) — static vs. interactive widget classifier.
+- [`scripts/audit-backlink-quality.mjs`](./scripts/audit-backlink-quality.mjs) — "Used in" backlink distribution: dead-ends, hubs, orphaned hubs.
+- [`scripts/audit-backlink-strength.mjs`](./scripts/audit-backlink-strength.mjs) — weighted coupling-depth scoring (base edge + blurb + prose + quiz mentions).
+- [`scripts/audit-cross-topic-prereqs.mjs`](./scripts/audit-cross-topic-prereqs.mjs) — suggests missing cross-topic prereq edges from prose/quiz co-mentions.
+- [`scripts/audit-inline-links.mjs`](./scripts/audit-inline-links.mjs) — un-linked concept-title mentions in prose; `--fix` wraps the first occurrence per section.
+- [`scripts/audit-stale-blurbs.mjs`](./scripts/audit-stale-blurbs.mjs) — concept-blurb drift (LENGTH, MATCH, RECALL, OFFPAGE, DUP classes).
+- [`scripts/audit-concept-graph-health.mjs`](./scripts/audit-concept-graph-health.mjs) — per-topic 🟢/🟡/🔴 scorecard aggregating the other audits.
+- [`scripts/audit-doc-drift.mjs`](./scripts/audit-doc-drift.mjs) — `PLAN.md` / `AGENTS.md` / `scripts/README.md` vs. on-disk reality.
+
+Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip; [`scripts/test-offline-bundle.mjs`](./scripts/test-offline-bundle.mjs) is the smoke test for its output.
+
+Content-shared tooling (injectors and section-index generator, run via `rebuild.mjs` or manually):
+
+- [`scripts/inject-breadcrumb.mjs`](./scripts/inject-breadcrumb.mjs) — injects a breadcrumb + prev/next-in-section block into every topic page's top nav. Idempotent via fence comments.
+- [`scripts/inject-page-metadata.mjs`](./scripts/inject-page-metadata.mjs) — stamps `data-section` / `data-level` on each topic's `<body>` using data read from `index.html`.
+- [`scripts/build-section-indexes.mjs`](./scripts/build-section-indexes.mjs) — generates per-section mini-index pages under `sections/`.
 
 ## Style reference — always read first
 
@@ -64,7 +85,8 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Changelog re-seed is safe** — `scripts/insert-changelog-footer.mjs` rebuilds each footer from `git log --follow`, so re-running picks up new commits without duplicating rows. Pages with no git history yet retain a `YYYY-MM-DD · initial version` placeholder until the first commit lands.
 - **Cross-topic prereqs need callbacks** — adding a prereq that crosses topic boundaries is incomplete without the callback. Run `scripts/audit-callbacks.mjs --fix` after any `prereqs` edit; the audit mode (no flag) is a CI guard that fails if the forward-direction block is missing.
 - **"Used in" backlinks are the reverse direction** — `scripts/insert-used-in-backlinks.mjs --fix` emits a `<aside class="related">` on the prereq side (downstream consumers of this concept). Audit mode enforces presence; re-run after any `prereqs` edit so both directions stay in sync.
-- **Color tokens, never hex** — inside widget markup, reach for `var(--yellow)`, `var(--cyan)`, `var(--mute)`, etc. The `:root` declarations define the palette; inlining raw hex breaks theme swaps and the color-mix border rules on `.callback` / `.related` / `.changelog`.
+- **Color tokens, never hex** — inside widget markup, reach for `var(--yellow)`, `var(--cyan)`, `var(--mute)`, etc. The `:root` declarations define the palette; inlining raw hex breaks theme swaps and the color-mix border rules on `.callback` / `.related` / `.changelog`. Run `node scripts/audit-color-vars.mjs` to find offenders; `node scripts/fix-color-vars.mjs --fix` does a one-shot hex→`var()` rewrite in SVG paint attrs (exact-match palette hits only), and `node scripts/fix-color-vars-style.mjs` handles hex inside `<style>` blocks (audit-first; `--fix` requires an explicit `--pattern`).
+- **A11y backfill** — `node scripts/fix-a11y.mjs --fix` idempotently backfills SVG `<title>` elements and `<label for=>` wiring. Pair with `node scripts/audit-accessibility.mjs` to see what's still missing.
 - **No ad-hoc localStorage keys** — `MVProgress` owns `mvnb.progress.v1`. Anything else goes in memory for the session. The legacy 2-arg form `setMastered(id, bool)` silently defaults `tier='v1'` for backwards compat, but new code should pass the tier explicitly.
 - **Don't commit scratch verify scripts** — ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the repo (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public.
 - **LaTeX inside `<option>` requires `js/katex-select.js`** — native `<select>` popups are drawn by the OS and render `<option>` labels as plain text, so raw `$\omega = dx$` leaks into the dropdown. Any widget with LaTeX-containing options must load `js/katex-select.js` (a hidden-native + custom-popup shim). Run `node scripts/wire-katex-select.mjs` (audit) or `--fix` after adding such options; the script inserts the loader after the `quiz.js` tag idempotently.
@@ -293,7 +315,18 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
-8. **All-in-one verification**: `node scripts/rebuild.mjs` runs both bundle builds plus `validate-concepts`, `audit-callbacks --fix`, `insert-used-in-backlinks --fix`, and `smoke-test` in the correct order, bailing on the first non-zero exit. Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step (`concepts`, `quizzes`, `validate`, `callbacks`, `backlinks`, `smoke`).
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. Steps, in order:
+   1. `build-concepts-bundle.mjs`
+   2. `build-quizzes-bundle.mjs`
+   3. `validate-concepts.mjs`
+   4. `validate-katex.mjs`
+   5. `audit-callbacks.mjs --fix`
+   6. `insert-used-in-backlinks.mjs --fix`
+   7. `inject-breadcrumb.mjs --fix`
+   8. `fix-a11y.mjs --fix`
+   9. `smoke-test.mjs`
+
+   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `a11y`, `smoke`.
 
 ## Verification (required before claiming done)
 

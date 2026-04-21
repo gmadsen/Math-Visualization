@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "How many morphisms are there in $\\mathrm{Open}(X)$ from $V$ to $U$ when $V \\subseteq U$ and $V \\ne U$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathrm{Open}(X)$ is a poset viewed as a category: there is exactly one morphism $V \\to U$ when $V \\subseteq U$, and none otherwise."
         }
       ],
@@ -47,6 +47,7 @@
             "continuous maps of étalé spaces"
           ],
           "answer": 2,
+          "hint": "Natural transformations commute with every restriction map.",
           "explain": "Presheaves are functors, so their morphisms are natural transformations: one map per open, with squares $F(U) \\to G(U) \\to G(V)$ equal to $F(U) \\to F(V) \\to G(V)$. Stalk maps are induced, not defining."
         },
         {
@@ -59,13 +60,15 @@
             "$U \\mapsto \\pi_0(U)$, the set of connected components, with inclusion-induced maps $\\pi_0(U) \\to \\pi_0(V)$ for $V \\subseteq U$"
           ],
           "answer": 3,
+          "hint": "Look for an assignment not functorial under restriction.",
           "explain": "An inclusion $V \\hookrightarrow U$ induces a map $\\pi_0(V) \\to \\pi_0(U)$ (send a component of $V$ to the component of $U$ containing it), going the WRONG way for a presheaf. So $U \\mapsto \\pi_0(U)$ is naturally a covariant functor on $\\mathrm{Open}(X)$, not a presheaf. The other three are presheaves (the bounded one fails to be a sheaf, but is still a presheaf)."
         },
         {
           "type": "numeric",
           "q": "Let $X$ be a space with $|\\mathrm{Open}(X)| = 3$ (e.g. $X = \\{a,b\\}$ with topology $\\{\\emptyset, \\{a\\}, X\\}$). A presheaf of sets picks a set $F(U)$ for each open and a restriction for each inclusion. How many non-identity inclusions $V \\subsetneq U$ are there in this $\\mathrm{Open}(X)$? (These are the non-trivial restrictions you must specify.)",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "A presheaf of sets is just a functor into Set.",
           "explain": "The three opens are $\\emptyset \\subsetneq \\{a\\} \\subsetneq X$. Strict inclusions: $\\emptyset \\subsetneq \\{a\\}$, $\\emptyset \\subsetneq X$, and $\\{a\\} \\subsetneq X$ — three in total."
         }
       ]
@@ -101,7 +104,7 @@
           "type": "numeric",
           "q": "For a sheaf of abelian groups $F$, what is $|F(\\emptyset)|$? (Enter the size of the underlying set.)",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element."
         }
       ],
@@ -116,6 +119,7 @@
             "$\\mathbb{Z}[x]$"
           ],
           "answer": 1,
+          "hint": "Disconnected opens fail gluing for the constant presheaf.",
           "explain": "On $X = U_1 \\sqcup U_2$ the sheaf condition forces $F(X) \\cong F(U_1)\\times F(U_2)$ because $\\{U_1,U_2\\}$ is a cover with $U_1\\cap U_2=\\emptyset$. The constant presheaf assigned $\\mathbb{Z}$ to $X$, but its sheafification assigns $\\mathbb{Z}\\times\\mathbb{Z}$, showing constant presheaf $\\neq$ constant sheaf on disconnected spaces."
         },
         {
@@ -128,13 +132,15 @@
             "Gluing first, then Locality, then the empty-set check"
           ],
           "answer": 2,
+          "hint": "Verify equalizer: identity of sections on overlaps, then glue.",
           "explain": "The standard verification separates into two parts matching the two parts of the equalizer: first prove $e:F(U)\\to\\prod F(U_i)$ is injective (locality/separation), then prove every element of the equalizer is in the image (gluing/descent)."
         },
         {
           "type": "numeric",
           "q": "Let $F$ be the skyscraper sheaf at $x\\in X$ with stalk $\\mathbb{Z}/5\\mathbb{Z}$. For any open $U$ not containing $x$, $|F(U)|$ equals what?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Skyscraper sheaf assigns the singleton to any open missing $x$.",
           "explain": "A skyscraper sheaf assigns the trivial group (of size $1$) to every open set not containing the base point $x$, and the stalk group $\\mathbb{Z}/5\\mathbb{Z}$ to every open containing $x$."
         }
       ]
@@ -170,7 +176,7 @@
           "type": "numeric",
           "q": "On a scheme $X = \\mathrm{Spec}\\,R$, the stalk of $\\mathcal{O}_X$ at the prime $\\mathfrak{p}$ is $R_{\\mathfrak{p}}$. For $R = \\mathbb{Z}$ and $\\mathfrak{p} = (5)$, what is the residue field $R_{\\mathfrak{p}}/\\mathfrak{p}R_{\\mathfrak{p}}$'s characteristic?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
         }
       ],
@@ -185,13 +191,15 @@
             "$\\varphi(X):F(X)\\to G(X)$ is an isomorphism"
           ],
           "answer": 2,
+          "hint": "Stalk-wise isomorphism is equivalent to being a sheaf iso.",
           "explain": "For sheaves, a morphism is an isomorphism iff it is an isomorphism on all stalks. This fails for presheaves — the key point is that sheafification preserves stalks, so stalk-wise data is the correct local invariant."
         },
         {
           "type": "numeric",
           "q": "For $\\mathcal{O}_{\\mathbb{C},0}$ the stalk of holomorphic functions at $0\\in\\mathbb{C}$, the function $f(z)=z^3+2z$ has germ $[(U,f)]$ at $0$. What is the value of this germ evaluated at $z=0$, i.e., $f(0)$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "The germ of $z^3 + 2z$ at $0$ has value $0$.",
           "explain": "$f(0) = 0^3 + 2\\cdot 0 = 0$. The germ encodes all local data of $f$ near $0$, including $f(0)=0$."
         },
         {
@@ -204,6 +212,7 @@
             "locally constant maps $U\\to\\bigsqcup_{x\\in U}F_x$"
           ],
           "answer": 1,
+          "hint": "Etale space sections are continuous local sections over $U$.",
           "explain": "The étalé (or étale) space is $\\acute{E}t(F)=\\bigsqcup_{x\\in X}F_x$ topologized so that $F(U)\\cong\\{$continuous sections of $\\pi$ over $U\\}$. This is the sheaf-of-sections construction and underpins the equivalence between sheaves and étalé bundles."
         }
       ]
@@ -239,7 +248,7 @@
           "type": "numeric",
           "q": "A short exact sequence $0 \\to F' \\to F \\to F'' \\to 0$ of sheaves of abelian groups on $X$ yields a long exact sequence in sheaf cohomology. The cohomology degree where the first new obstruction to global surjectivity appears is $H^i(X, F')$ for $i = ?$",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Applying $\\Gamma(X,-)$ gives $0 \\to \\Gamma F' \\to \\Gamma F \\to \\Gamma F'' \\to H^1(X, F') \\to \\cdots$. The connecting map lands in $H^1$, which measures exactly the failure of $\\Gamma F \\to \\Gamma F''$ to be surjective."
         }
       ],
@@ -254,6 +263,7 @@
             "as $\\ker(\\varphi)^\\perp$ inside $G$"
           ],
           "answer": 1,
+          "hint": "Sheafify the naive presheaf image to define the image sheaf.",
           "explain": "The presheaf image $U \\mapsto \\varphi_U F(U)$ captures 'sections of $G$ actually coming from $F$ on $U$', but a section of $G$ that is locally of this form need not lift to a global preimage — exactly the exponential example. Sheafifying fixes this, and on stalks one still has $(\\mathrm{im}\\,\\varphi)_x = \\mathrm{im}(\\varphi_x)$."
         },
         {
@@ -266,13 +276,15 @@
             "nothing can be concluded without global information"
           ],
           "answer": 0,
+          "hint": "Stalkwise bijection may not force global bijection without exactness.",
           "explain": "For sheaves, stalkwise iso $\\iff$ iso. Sectionwise bijectivity is actually a consequence: stalkwise injective gives sectionwise injective (using locality), and stalkwise surjective + locality + gluing of $F$ gives sectionwise surjective. Together: $\\varphi_U$ is a bijection for every $U$, hence $\\varphi$ is an iso in $\\mathsf{Sh}(X)$."
         },
         {
           "type": "numeric",
           "q": "Let $X = \\mathbb{C}^\\times$. The cokernel sheaf of $\\exp\\colon \\mathcal{O}_X \\to \\mathcal{O}_X^\\times$ (stalkwise surjective) is the zero sheaf, yet the presheaf cokernel $U \\mapsto \\mathcal{O}^\\times(U)/\\exp \\mathcal{O}(U)$ evaluated at $U = X$ is a nontrivial group isomorphic to $H^1(\\mathbb{C}^\\times, \\underline{2\\pi i\\mathbb{Z}})$. What is the rank of this $\\mathbb{Z}$-module?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Cokernel on $\\mathbb{C}^\\times$ is trivial as a sheaf but non-trivial as a presheaf.",
           "explain": "$H^1(\\mathbb{C}^\\times, \\underline{\\mathbb{Z}}) \\cong \\mathbb{Z}$ (generated by the winding-number cocycle), so the $\\mathbb{Z}$-rank is $1$. This is why the presheaf cokernel disagrees with the sheaf cokernel: sheafification wipes out the obstruction, which reappears as $H^1$."
         }
       ]
@@ -308,7 +320,7 @@
           "type": "numeric",
           "q": "Let $X = U_1 \\sqcup U_2 \\sqcup U_3$ be a disjoint union of three nonempty opens, and let $F = \\underline{\\mathbb{Z}/2}^{\\mathrm{pre}}$ be the constant presheaf with value $\\mathbb{Z}/2$. How many elements does the sheafified global-sections set $F^\\#(X)$ have?",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The constant sheaf $\\underline{\\mathbb{Z}/2}$ assigns to $X$ the locally-constant functions $X \\to \\mathbb{Z}/2$. With three components, this is $(\\mathbb{Z}/2)^3$, which has $2^3 = 8$ elements. The unsheafified presheaf $F(X)$ has only $2$ elements, so sheafification has multiplied the global sections from $2$ to $8$."
         }
       ],
@@ -323,6 +335,7 @@
             "sheaves are closed under arbitrary set-theoretic operations in presheaves"
           ],
           "answer": 0,
+          "hint": "The reflection unit provides the universal sheafification map.",
           "explain": "Left adjoints preserve colimits. So colimits in $\\mathsf{Sh}(X)$ are the reflection of presheaf colimits: compute pointwise, then sheafify. Limits, by contrast, are computed pointwise directly and do not need sheafification — the inclusion $\\iota$ preserves limits as a right adjoint."
         },
         {
@@ -335,13 +348,15 @@
             "exactness in $\\mathsf{Sh}(X, \\mathsf{Ab})$ means sectionwise exactness"
           ],
           "answer": 0,
+          "hint": "Exactness comes from stalks being preserved.",
           "explain": "Two ingredients: (1) sheafification preserves stalks (it's the universal gluing fix that leaves germs alone), (2) exactness of sheaves of abelian groups is stalk-local. Combined: $(F^\\#)_x = F_x$, so stalk-exact in presheaves $\\implies$ stalk-exact in sheaves $\\iff$ exact in $\\mathsf{Sh}(X, \\mathsf{Ab})$."
         },
         {
           "type": "numeric",
           "q": "Let $F$ be any presheaf on a space $X$. The 'plus construction' $F^+$ applied once yields a separated presheaf; applied twice yields a sheaf. How many applications of $(-)^+$ are required in general to land in $\\mathsf{Sh}(X)$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "First plus-construction separates; second makes gluing work.",
           "explain": "Grothendieck's theorem: $F^{++} = F^\\#$ is always a sheaf, so two applications suffice. One application is not enough: $F^+$ is separated (locality holds) but may still fail gluing."
         }
       ]
@@ -377,7 +392,7 @@
           "type": "numeric",
           "q": "For a smooth manifold $M$, the sheaf of sections of the trivial rank-$5$ bundle $M \\times \\mathbb{R}^5 \\to M$ is a locally free $C^\\infty_M$-module of rank equal to what integer?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The locally-free-sheaf / vector-bundle dictionary: rank of the bundle = rank of the module. A rank-$n$ bundle corresponds to a locally free $\\mathcal{O}_M$-module of rank $n$; the trivial rank-$5$ bundle gives $(C^\\infty_M)^5$, a free (hence locally free) module of rank $5$."
         }
       ],
@@ -392,6 +407,7 @@
             "every stalk of $\\mathcal{O}_X$ is a field"
           ],
           "answer": 0,
+          "hint": "Local ring maps respect maximal ideals.",
           "explain": "Without the local-ring condition on stalks, one gets 'ring-valued' morphisms that don't correspond to anything geometric — e.g. between schemes one could otherwise construct a map $\\mathrm{Spec}\\,k(t) \\to \\mathrm{Spec}\\,k[t]_{(t)}$ that inverts the inclusion, which is not a scheme morphism. Locality of the stalk map is exactly what pins down 'the point goes to the point it should.'"
         },
         {
@@ -404,13 +420,15 @@
             "$\\otimes$ is computed stalkwise and glued — no formula on open sets"
           ],
           "answer": 1,
+          "hint": "Tensor with $\\mathcal{O}_X$ sheafifies locally.",
           "explain": "The presheaf $U \\mapsto \\mathcal{F}(U) \\otimes_{\\mathcal{O}_X(U)} \\mathcal{G}(U)$ generally fails the gluing axiom, so tensor product of $\\mathcal{O}_X$-modules is defined by sheafifying. By contrast, $\\mathcal{H}\\!om_{\\mathcal{O}_X}(\\mathcal{F}, \\mathcal{G})$ is already a sheaf (hom satisfies gluing because morphisms glue)."
         },
         {
           "type": "numeric",
           "q": "On $\\mathrm{Spec}\\,\\mathbb{Z}$ with structure sheaf $\\mathcal{O}_X$, the stalk at the prime $(0)$ is $\\mathbb{Q}$. What is the residue field $\\kappa((0)) = \\mathcal{O}_{X,(0)}/\\mathfrak{m}_{(0)}$? (Enter $0$ if it is zero, or the characteristic of the residue field otherwise.)",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "At the generic point the structure sheaf localizes to the field of fractions.",
           "explain": "$\\mathbb{Q}$ is already a field, so its maximal ideal is $(0)$ and the residue field is $\\mathbb{Q}/(0) = \\mathbb{Q}$, which has characteristic $0$. At closed points $(p)$ the residue field is $\\mathbb{F}_p$; at the generic point $(0)$ the residue field is $\\mathbb{Q}$."
         }
       ]
@@ -446,7 +464,7 @@
           "type": "numeric",
           "q": "For $R=\\mathbb{Z}$, $M = \\mathbb{Z}/6$, and $f = 2$, the section $\\widetilde{M}(D(2)) = M_2 = M[\\tfrac{1}{2}]$ has how many elements?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements."
         }
       ],
@@ -461,13 +479,15 @@
             "Take the colimit over all refinements of covers directly"
           ],
           "answer": 1,
+          "hint": "Start with the plus-construction twice.",
           "explain": "The plus-construction $F^+$ yields a separated presheaf from any presheaf. Applying it a second time to the separated presheaf yields the sheaf $(F^+)^+$. Grothendieck showed two applications always suffice."
         },
         {
           "type": "numeric",
           "q": "Let $R = k[x,y]/(xy)$ and $M = R/(x)\\cong k[y]$. The localization $M_x = M[1/x]$ has how many elements when $k = \\mathbb{F}_2$ and we count elements of $M_x$ that are annihilated by $x$? (Hint: $xM=0$.)",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Since $xy = 0$ forces $x$ invertible to kill $y$, the localization collapses.",
           "explain": "Since $x$ annihilates every element of $M = k[y]$ (as $x\\cdot k[y]=0$ in $R/(x)$), inverting $x$ forces $M_x = 0$. So every element of $M_x$ is $0$, and $0$ elements are annihilated by $x$ in a trivial group sense — $M_x$ itself has size $1$ (the zero module), so there are $0$ non-zero elements annihilated by $x$."
         },
         {
@@ -480,6 +500,7 @@
             "flat over $\\mathcal{O}_X$"
           ],
           "answer": 1,
+          "hint": "Coherent means finitely generated with finitely presented kernel on opens.",
           "explain": "Coherence requires local finite generation (and, for non-Noetherian rings, also that the kernel of any map from a free finite-rank sheaf is finitely generated). On a Noetherian scheme, local finite generation suffices."
         }
       ]

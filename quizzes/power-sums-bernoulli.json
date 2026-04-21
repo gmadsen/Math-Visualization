@@ -37,6 +37,7 @@
             "It equals $B_{m+1}$"
           ],
           "answer": 1,
+          "hint": "An empty sum equals zero — evaluate directly.",
           "explain": "$S_m(0)$ is an empty sum, hence $0$. In the formula, the $n^0$ term is $\\tfrac{1}{m+1}\\binom{m+1}{m+1}B_{m+1}\\cdot 1 = \\tfrac{B_{m+1}}{m+1}$, but the polynomial must satisfy $S_m(0)=0$, which forces the constant term to cancel — consistent with the convention $B_1=-1/2$ absorbing the asymmetry."
         },
         {
@@ -44,6 +45,7 @@
           "q": "Using the Faulhaber polynomial for $m=4$: $S_4(n)=\\tfrac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$, compute $\\sum_{k=1}^{5}k^4$.",
           "answer": 979,
           "tol": 1e-6,
+          "hint": "Substitute $n=5$ into the given closed form.",
           "explain": "$S_4(5)=\\tfrac{5\\cdot 6\\cdot 11\\cdot(75+15-1)}{30}=\\tfrac{5\\cdot 6\\cdot 11\\cdot 89}{30}=\\tfrac{29370}{30}=979$."
         },
         {
@@ -56,6 +58,7 @@
             "Apply Abel summation → integrate by parts $m$ times → read off Bernoulli coefficients"
           ],
           "answer": 0,
+          "hint": "Multiply the geometric series by Bernoulli's generating function.",
           "explain": "The slick derivation: $\\sum_{k=1}^{n}k^m = [t^{m+1}\\text{ coeff in }]\\,\\tfrac{m!\\,e^{(n+1)t}\\cdot t}{e^t-1}$ comes from noting $\\sum_{k=1}^n e^{kt}=\\tfrac{e^t(e^{nt}-1)}{e^t-1}$, multiplying by $\\tfrac{t}{e^t-1}$ (the Bernoulli g.f.), extracting the coefficient of $t^{m+1}$, and dividing by $(m+1)$."
         }
       ]
@@ -96,6 +99,7 @@
           "q": "The Bernoulli numbers satisfy the recurrence $\\sum_{k=0}^{n}\\binom{n+1}{k}B_k=0$ for $n\\ge 1$. Using this, which is the correct value of $B_6$?",
           "choices": ["$1/42$", "$-1/42$", "$1/30$", "$-1/30$"],
           "answer": 0,
+          "hint": "Apply the binomial recurrence at $n=6$ and solve.",
           "explain": "Applying the recurrence at $n=6$: $7B_6 + 21B_4 + 35B_2 + 21B_0=0$ gives $7B_6 = 21/30 - 35/6 - 21 = 7/10 - 35/6 - 21$. Careful arithmetic yields $B_6=1/42$."
         },
         {
@@ -103,6 +107,7 @@
           "q": "The von Staudt–Clausen theorem states $B_{2n}+\\sum_{(p-1)\\mid 2n}\\tfrac{1}{p}\\in\\mathbb{Z}$. For $n=1$ ($B_2=1/6$), which primes $p$ satisfy $(p-1)\\mid 2$, and what integer does $B_2+\\sum 1/p$ equal?",
           "answer": 1,
           "tol": 1e-9,
+          "hint": "Find primes with $p-1\\in\\{1,2\\}$, then add the fractions.",
           "explain": "$(p-1)\\mid 2$ iff $p-1\\in\\{1,2\\}$ iff $p\\in\\{2,3\\}$. So $B_2+1/2+1/3=1/6+1/2+1/3=1/6+3/6+2/6=1$."
         },
         {
@@ -115,6 +120,7 @@
             "$B_0=1>0$ is a counterexample because $B_1=-1/2<0$"
           ],
           "answer": 1,
+          "hint": "Even-index Bernoulli numbers alternate in sign.",
           "explain": "$B_4=-1/30$ is the first even Bernoulli number that is negative, disproving uniform positivity. The even-index $B_{2k}$ for $k\\ge 1$ alternate in sign: $+,-,+,-,\\ldots$ (i.e. $B_2>0$, $B_4<0$, $B_6>0$, etc.)."
         }
       ]
@@ -150,6 +156,7 @@
           "q": "Using $\\zeta(2n)=(-1)^{n+1}\\tfrac{B_{2n}(2\\pi)^{2n}}{2(2n)!}$ with $B_6=1/42$, compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
           "answer": 1.0173,
           "tol": 5e-4,
+          "hint": "Compute $\\pi^6/945$ numerically.",
           "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. Verify via the formula: $(-1)^4\\tfrac{(1/42)(2\\pi)^6}{2\\cdot 720}=\\tfrac{64\\pi^6/42}{1440}=\\tfrac{64\\pi^6}{60480}=\\tfrac{\\pi^6}{945}$."
         },
         {
@@ -162,6 +169,7 @@
             "$\\zeta(1)=\\pi/4$ by Leibniz's formula"
           ],
           "answer": 2,
+          "hint": "The harmonic series famously diverges.",
           "explain": "$s=1$ is the boundary of the half-plane of convergence and corresponds to the harmonic series $\\sum_{n=1}^\\infty 1/n$, which diverges. $\\zeta(s)$ has a simple pole at $s=1$ with residue $1$."
         },
         {
@@ -174,6 +182,7 @@
             "Integrate $\\ln(2\\sin\\theta)$ from $0$ to $\\pi$ and apply contour integration"
           ],
           "answer": 0,
+          "hint": "Match $x^2$ coefficients in the Weierstrass factorization of $\\sin$.",
           "explain": "The Weierstrass product route: $\\sin(\\pi x)=\\pi x\\prod_{n=1}^\\infty(1-x^2/n^2)$. The coefficient of $x^2$ in $\\sin(\\pi x)/\\pi x$ is $-\\pi^2/6$ (from Taylor), while expanding the product gives $-\\sum 1/n^2$. Equating yields $\\zeta(2)=\\pi^2/6$."
         }
       ]
@@ -219,6 +228,7 @@
             "The series terminates after finitely many non-zero terms for polynomial $f$"
           ],
           "answer": 1,
+          "hint": "Bernoulli numbers grow factorially; truncate for asymptotic accuracy.",
           "explain": "The Euler-Maclaurin series is typically divergent (asymptotic): the Bernoulli numbers grow like $(2n)!/(2\\pi)^{2n}$, so terms eventually blow up. However, truncating at the smallest term gives exponentially accurate estimates. For polynomial $f$, all high-order derivatives vanish and the series does terminate — making choice 3 partially true only for that special case."
         },
         {
@@ -226,6 +236,7 @@
           "q": "Using two Euler-Maclaurin correction terms for $\\sum_{k=1}^{\\infty}k^{-2}$: the integral from $1$ to $\\infty$ gives $1$, the endpoint $\\tfrac12 f(1)=\\tfrac12$, and the first correction $\\tfrac{B_2}{2!}f'(1)=\\tfrac{1/6}{2}\\cdot(-2)$. What does this two-term approximation give for $\\zeta(2)$?",
           "answer": 1.3333333333333333,
           "tol": 1e-4,
+          "hint": "Add integral, endpoint, and Bernoulli correction exactly as given.",
           "explain": "$1 + 1/2 + (1/12)\\cdot(-2) = 1 + 0.5 - 1/6 = 3/2 - 1/6 = 4/3\\approx 1.3333$. This overshoots $\\pi^2/6\\approx 1.6449$ because the tail $\\sum_{k=2}^\\infty k^{-2}$ is omitted; the formula applies to the tail starting at $N$ and one adds back the first $N-1$ terms."
         },
         {
@@ -238,6 +249,7 @@
             "Use the residue theorem on $\\tfrac{f(z)}{e^{2\\pi iz}-1}$ → sum residues at integers → compare with the integral"
           ],
           "answer": 0,
+          "hint": "Invert $(e^D-1)/D$ using Bernoulli's generating function.",
           "explain": "The operator approach: write $\\sum_{k=0}^{n-1}f(k)=\\tfrac{e^D-1}{D}\\int$ symbolically, invert to get the integral on the right, then expand $\\tfrac{D}{e^D-1}=\\sum B_k D^k/k!$ (the Bernoulli generating function) applied to $f$, converting each $D^k f$ to boundary evaluations via the fundamental theorem of calculus."
         }
       ]
@@ -283,6 +295,7 @@
             "Both A and B describe the same cancellation and are both correct"
           ],
           "answer": 3,
+          "hint": "All transcendental factors cancel, leaving Bernoulli arithmetic.",
           "explain": "Both A and B capture the same arithmetic: $(2\\pi)^{-2k}$ in the functional equation cancels $(2\\pi)^{2k}$ from $\\zeta(2k)=(-1)^{k+1}B_{2k}(2\\pi)^{2k}/(2(2k)!)$; $\\Gamma(2k)=(2k-1)!$; $\\cos(k\\pi)=(-1)^k$. All transcendental factors cancel and only $B_{2k}/(2k)!$ times rationals remains, giving $\\zeta(1-2k)=-B_{2k}/(2k)\\in\\mathbb{Q}$."
         },
         {
@@ -290,6 +303,7 @@
           "q": "Using $\\zeta(-3)=-B_4/4$ and $B_4=-1/30$, compute $\\zeta(-3)$ as a fraction. Enter the decimal value.",
           "answer": 0.008333333333333333,
           "tol": 1e-6,
+          "hint": "Plug $B_4=-1/30$ into $\\zeta(-3)=-B_4/4$.",
           "explain": "$\\zeta(-3)=-(-1/30)/4=1/120\\approx 0.008333$. This matches $\\zeta(1-s)$ at $s=4$: the formula gives $\\zeta(-3)=B_4/(-4)$ — careful with the sign convention $\\zeta(-n)=-B_{n+1}/(n+1)$, so $\\zeta(-3)=-B_4/4=-(-1/30)/4=1/120$."
         },
         {
@@ -302,6 +316,7 @@
             "The non-trivial zeros are all simple"
           ],
           "answer": 1,
+          "hint": "The reflection $s\\leftrightarrow 1-s$ pairs zeros symmetrically.",
           "explain": "The functional equation $\\xi(s)=\\xi(1-s)$ directly implies zeros come in pairs $\\{\\rho, 1-\\rho\\}$ (and also $\\{\\bar\\rho, 1-\\bar\\rho\\}$ by the reflection principle). The Riemann Hypothesis — that all non-trivial zeros satisfy $\\operatorname{Re}(\\rho)=1/2$ — is a much deeper conjecture not derivable from the functional equation alone."
         }
       ]

@@ -49,7 +49,7 @@
         "thompson-series",
         "adjoint-roots"
       ],
-      "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody algebra from the moonshine VOA via the Goddard–Thorn no-ghost theorem — whose Weyl–Kac denominator identity p^{-1} prod (1 - p^m q^n)^{c(mn)} = J(p) - J(q) yields replication recursions that pin each Thompson series to Conway–Norton's Hauptmodul."
+      "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
     }
   ]
 }

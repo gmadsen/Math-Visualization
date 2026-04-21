@@ -107,6 +107,76 @@
     .mastery{font-size:0.66rem;padding:1px 6px}
     .mrow{gap:6px}
   }
+  /* Per-topic progress drawer: a small activity-icon button (.progbtn) on each
+     topic card opens a shared slide-in drawer (.mvdrawer) that lists the
+     concepts of that topic with their mastery state. Main card click still
+     navigates to the topic; progbtn stops propagation so the drawer opens in
+     place. Reads MVProgress (never writes). */
+  .card{position:relative}
+  .progbtn{position:absolute;top:8px;right:8px;width:26px;height:26px;
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
+    color:var(--mute);cursor:pointer;line-height:0;z-index:2;
+    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+  .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
+    opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
+  .mv-backdrop.open{opacity:1;pointer-events:auto}
+  .mvdrawer{position:fixed;top:0;right:0;height:100vh;width:380px;max-width:100vw;
+    background:var(--panel);border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform 220ms ease;z-index:41;
+    display:flex;flex-direction:column;color:var(--ink);box-shadow:-12px 0 36px rgba(0,0,0,0.35)}
+  .mvdrawer.open{transform:translateX(0)}
+  .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
+    gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
+  .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
+    border-radius:6px;color:var(--mute);cursor:pointer;width:28px;height:28px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;
+    line-height:1;flex-shrink:0;padding:0;transition:color 150ms ease, border-color 150ms ease}
+  .mvdrawer .mvd-close:hover{color:var(--ink);border-color:var(--mute)}
+  .mvdrawer .mvd-open{display:inline-block;margin:0.9rem 1.2rem 0;
+    padding:0.5rem 0.85rem;border-radius:6px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:0.9rem;font-weight:500;
+    transition:border-color 150ms ease, background 150ms ease}
+  .mvdrawer .mvd-open:hover{border-color:var(--cyan);background:var(--panel)}
+  .mvdrawer .mvd-list{list-style:none;margin:1rem 0 0;padding:0 0.6rem;
+    overflow-y:auto;flex:1}
+  .mvdrawer .mvd-item{display:flex;align-items:flex-start;gap:10px;
+    padding:0.6rem 0.65rem;border-radius:6px;color:var(--ink);text-decoration:none;
+    font-size:0.92rem;line-height:1.35;
+    transition:background 150ms ease}
+  .mvdrawer .mvd-item:hover{background:var(--panel2)}
+  .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
+  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
+  .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
+  .mvd-pip{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;
+    background:transparent;border:1.6px solid var(--mute);box-sizing:border-box}
+  .mvd-pip.ready{background:var(--blue);border-color:var(--blue)}
+  .mvd-pip.v1{background:var(--green);border-color:var(--green)}
+  .mvd-pip.hard{background:var(--violet);border-color:var(--violet)}
+  .mvd-pip.expert{background:var(--yellow);border-color:var(--yellow)}
+  .mvd-pip.locked{background:transparent;border-color:var(--mute);opacity:0.55}
+  .mvdrawer .mvd-legend{padding:0.7rem 1.2rem 1rem;border-top:1px solid var(--line);
+    color:var(--mute);font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    letter-spacing:0.02em;display:flex;flex-wrap:wrap;gap:10px 14px}
+  .mvdrawer .mvd-legend span{display:inline-flex;align-items:center;gap:6px}
+  .mvdrawer .mvd-legend .mvd-pip{margin-top:0;width:10px;height:10px}
+  .mvdrawer .mvd-empty{padding:1rem 1.2rem;color:var(--mute);font-size:0.88rem}
+  @media (max-width:620px){
+    .mvdrawer{top:auto;bottom:0;right:0;left:0;height:78vh;width:100%;
+      border-left:none;border-top:1px solid var(--line);
+      border-top-left-radius:14px;border-top-right-radius:14px;
+      transform:translateY(100%)}
+    .mvdrawer.open{transform:translateY(0)}
+  }
   /* "Recently updated" strip: populated by the script block at the bottom of <body>.
      The #recently-updated container is hidden by default and only revealed once the
      script successfully fetches and parses at least one topic's changelog footer.
@@ -150,6 +220,7 @@
 <body>
 <main>
   <div style="text-align:right;font-size:0.88rem;margin:-0.8rem 0 0.4rem">
+    <a href="./latex-cheatsheet.html" style="color:var(--mute);text-decoration:none;margin-right:1.2rem">LaTeX cheatsheet →</a>
     <a href="./progress.html" style="color:var(--mute);text-decoration:none">Your progress →</a>
   </div>
   <section class="hero">
@@ -1655,6 +1726,225 @@
       }
       container.classList.add('ready');
     }).catch(function(){ /* swallow: keep strip hidden */ });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<div class="mv-backdrop" id="mv-backdrop" hidden></div>
+<aside class="mvdrawer" id="mv-drawer" role="dialog" aria-modal="true" aria-labelledby="mvd-title" aria-hidden="true" hidden>
+  <div class="mvd-head">
+    <div>
+      <h2 class="mvd-title" id="mvd-title">Topic progress</h2>
+      <div class="mvd-sub" id="mvd-subtitle"></div>
+    </div>
+    <button type="button" class="mvd-close" id="mvd-close" aria-label="Close progress drawer">×</button>
+  </div>
+  <a class="mvd-open" id="mvd-open" href="#">Open topic →</a>
+  <ul class="mvd-list" id="mvd-list"></ul>
+  <div class="mvd-legend" aria-hidden="true">
+    <span><span class="mvd-pip locked"></span>locked</span>
+    <span><span class="mvd-pip ready"></span>ready</span>
+    <span><span class="mvd-pip v1"></span>v1</span>
+    <span><span class="mvd-pip hard"></span>hard</span>
+    <span><span class="mvd-pip expert"></span>expert</span>
+  </div>
+</aside>
+<script>
+// Per-topic progress drawer.
+// - Injects a small "activity list" button (.progbtn) into each topic card whose
+//   href maps to a topic in __MVConcepts.topics.
+// - Clicking the progbtn (event.stopPropagation so the card link doesn't fire)
+//   populates and opens the shared aside#mv-drawer with the topic's concepts,
+//   each tagged locked / ready / v1 / hard / expert via a state pip.
+// - Dismiss: close button, Escape key, backdrop click. Drawer reads MVProgress;
+//   it never writes.
+(function(){
+  function init(){
+    var drawer = document.getElementById('mv-drawer');
+    var backdrop = document.getElementById('mv-backdrop');
+    var closeBtn = document.getElementById('mvd-close');
+    var titleEl = document.getElementById('mvd-title');
+    var subEl = document.getElementById('mvd-subtitle');
+    var openLink = document.getElementById('mvd-open');
+    var listEl = document.getElementById('mvd-list');
+    if(!drawer || !backdrop || !listEl) return;
+
+    var topics = (window.__MVConcepts && window.__MVConcepts.topics) || null;
+
+    var ICON_SVG =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"' +
+      ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+      '<circle cx="5" cy="6" r="1.2" fill="currentColor"/>' +
+      '<line x1="10" y1="6" x2="20" y2="6"/>' +
+      '<circle cx="5" cy="12" r="1.2" fill="currentColor"/>' +
+      '<line x1="10" y1="12" x2="20" y2="12"/>' +
+      '<circle cx="5" cy="18" r="1.2" fill="currentColor"/>' +
+      '<line x1="10" y1="18" x2="20" y2="18"/>' +
+      '</svg>';
+
+    // Build a Map<id, {prereqs}> for MVProgress.stateOf lookups.
+    var conceptsMap = null;
+    if(topics){
+      conceptsMap = new Map();
+      for(var t in topics){
+        if(!Object.prototype.hasOwnProperty.call(topics, t)) continue;
+        var arr = topics[t].concepts || [];
+        for(var i=0;i<arr.length;i++){
+          conceptsMap.set(arr[i].id, { prereqs: arr[i].prereqs || [] });
+        }
+      }
+    }
+
+    function stateFor(cid){
+      try {
+        if(window.MVProgress && typeof window.MVProgress.stateOf === 'function'){
+          return window.MVProgress.stateOf(cid, conceptsMap);
+        }
+      } catch(_){}
+      return { state:'locked', v1:false, hard:false, expert:false };
+    }
+
+    function pipClass(st){
+      if(st.expert) return 'expert';
+      if(st.hard)   return 'hard';
+      if(st.v1)     return 'v1';
+      if(st.state === 'ready') return 'ready';
+      return 'locked';
+    }
+
+    function pipLabel(st){
+      if(st.expert) return 'expert';
+      if(st.hard)   return 'hard';
+      if(st.v1)     return 'v1 mastered';
+      if(st.state === 'ready') return 'ready';
+      return 'locked';
+    }
+
+    function populate(topicId, title, page){
+      titleEl.textContent = title || topicId;
+      var topic = topics && topics[topicId];
+      var concepts = (topic && topic.concepts) || [];
+      var mastered = 0;
+      for(var i=0;i<concepts.length;i++){
+        if(stateFor(concepts[i].id).v1) mastered++;
+      }
+      subEl.textContent = concepts.length
+        ? (mastered + ' of ' + concepts.length + ' concepts mastered (v1)')
+        : 'no concepts registered yet';
+      openLink.setAttribute('href', './' + page);
+      listEl.innerHTML = '';
+      if(!concepts.length){
+        var empty = document.createElement('li');
+        empty.className = 'mvd-empty';
+        empty.textContent = 'No concepts are registered for this topic yet.';
+        listEl.appendChild(empty);
+        return;
+      }
+      for(var j=0;j<concepts.length;j++){
+        var c = concepts[j];
+        var st = stateFor(c.id);
+        var cls = pipClass(st);
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.className = 'mvd-item' + (cls === 'locked' ? ' locked' : '');
+        a.href = './' + page + '#' + (c.anchor || '');
+        var pip = document.createElement('span');
+        pip.className = 'mvd-pip ' + cls;
+        pip.setAttribute('aria-hidden', 'true');
+        var txt = document.createElement('span');
+        txt.className = 'mvd-t';
+        var lbl = document.createElement('span');
+        lbl.className = 'mvd-tlabel';
+        lbl.textContent = c.title || c.id;
+        var stEl = document.createElement('span');
+        stEl.className = 'mvd-state';
+        stEl.textContent = pipLabel(st);
+        txt.appendChild(lbl);
+        txt.appendChild(stEl);
+        a.appendChild(pip);
+        a.appendChild(txt);
+        li.appendChild(a);
+        listEl.appendChild(li);
+      }
+    }
+
+    var lastFocus = null;
+    function openDrawer(btn, topicId, title, page){
+      lastFocus = btn || null;
+      populate(topicId, title, page);
+      drawer.hidden = false;
+      backdrop.hidden = false;
+      // Force layout so the transform transition plays.
+      void drawer.offsetWidth;
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      setTimeout(function(){ try { closeBtn.focus(); } catch(_){} }, 40);
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      setTimeout(function(){
+        drawer.hidden = true;
+        backdrop.hidden = true;
+      }, 220);
+      if(lastFocus && typeof lastFocus.focus === 'function'){
+        try { lastFocus.focus(); } catch(_){}
+      }
+    }
+
+    closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    // Attach a progbtn to every mapped topic card.
+    var cards = document.querySelectorAll('a.card[href]');
+    for(var k=0;k<cards.length;k++){
+      var card = cards[k];
+      if(card.classList.contains('coming')) continue;
+      var href = card.getAttribute('href') || '';
+      var m = href.match(/^(?:\.\/)?([^\/?#]+)\.html(?:[?#].*)?$/);
+      if(!m) continue;
+      var id = m[1];
+      if(!topics || !topics[id]) continue;
+      var topic = topics[id];
+      var ttEl = card.querySelector('.tt');
+      var title = '';
+      if(ttEl){
+        var clone = ttEl.cloneNode(true);
+        var badges = clone.querySelectorAll('.level');
+        for(var b=0;b<badges.length;b++) badges[b].remove();
+        title = (clone.textContent || '').trim();
+      }
+      if(!title) title = topic.title || id;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'progbtn';
+      btn.setAttribute('aria-label', 'Show progress for ' + title);
+      btn.setAttribute('title', 'Topic progress');
+      btn.innerHTML = ICON_SVG;
+      (function(btn, id, title, page){
+        function stop(e){ e.stopPropagation(); e.preventDefault(); }
+        btn.addEventListener('click', function(e){
+          stop(e);
+          openDrawer(btn, id, title, page);
+        });
+        // Keep clicks/keys from navigating the parent anchor.
+        btn.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+        btn.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){
+            stop(e);
+            openDrawer(btn, id, title, page);
+          }
+        });
+      })(btn, id, title, topic.page || (id + '.html'));
+      card.appendChild(btn);
+    }
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

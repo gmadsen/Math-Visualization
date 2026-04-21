@@ -42,6 +42,7 @@
             "$\\sqrt{5}-1$"
           ],
           "answer": 1,
+          "hint": "Look for the $d\\equiv 1\\pmod 4$ half-integer representative.",
           "explain": "Since $5\\equiv 1\\pmod 4$, the ring of integers of $\\mathbb{Q}(\\sqrt{5})$ is $\\mathbb{Z}\\!\\left[\\tfrac{1+\\sqrt{5}}{2}\\right]$, which is strictly larger than $\\mathbb{Z}[\\sqrt{5}]$. The golden ratio $\\tfrac{1+\\sqrt{5}}{2}$ satisfies $x^2-x-1=0$, so it is an algebraic integer not in $\\mathbb{Z}[\\sqrt{5}]$."
         },
         {
@@ -49,6 +50,7 @@
           "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{1+\\sqrt{-3}}{2}$. Compute $\\omega^2+\\omega$ (as an integer).",
           "answer": -1,
           "tol": 1e-6,
+          "hint": "Use the cyclotomic relation $\\omega^2+\\omega+1=0$.",
           "explain": "$\\omega$ satisfies the minimal polynomial $x^2-x+1=0$, so $\\omega^2-\\omega+1=0$, giving $\\omega^2=\\omega-1$ and $\\omega^2+\\omega=2\\omega-1$. But $\\omega^2+\\omega+1=0$ is the cyclotomic relation for $\\omega=e^{2\\pi i/3}$; rearranging $x^2+x+1=0$ gives $\\omega^2+\\omega=-1$."
         },
         {
@@ -61,6 +63,7 @@
             "$p=2$, $p=5$, and $p=7$"
           ],
           "answer": 2,
+          "hint": "Primes dividing the discriminant are exactly the ramified ones.",
           "explain": "$\\Delta_K=-20=-4\\cdot 5=-(2^2\\cdot 5)$, so both $2$ and $5$ divide $\\Delta_K$. By the discriminant–ramification theorem, exactly $p=2$ and $p=5$ ramify."
         }
       ]
@@ -106,6 +109,7 @@
             "$5\\cdot 13\\cdot 65=4225$"
           ],
           "answer": 2,
+          "hint": "Each character contributes its conductor; multiply carefully.",
           "explain": "For a biquadratic field $\\mathbb{Q}(\\sqrt{d_1},\\sqrt{d_2})$ with $[K:\\mathbb{Q}]=4$, the conductor–discriminant formula gives $\\Delta_K=(\\Delta_1\\Delta_2\\Delta_3)^{?}$. More directly, $\\Delta_K=(d_1 d_2 d_3)$ where $d_3=d_1 d_2/\\gcd^2$; the precise formula yields $(5\\cdot 13)^2=4225$ since each quadratic character contributes its conductor once per degree."
         },
         {
@@ -113,6 +117,7 @@
           "q": "Let $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-\\alpha-1=0$. The discriminant of the polynomial $f=x^3-x-1$ is $\\Delta_f=-4(-1)^3-27(-1)^2=-23$. Compute $|\\Delta_f|$.",
           "answer": 23,
           "tol": 1e-6,
+          "hint": "Apply $\\Delta_f=-4p^3-27q^2$ for the depressed cubic.",
           "explain": "Using the formula $\\Delta_f=-4p^3-27q^2$ for $x^3+px+q$: here $p=-1$, $q=-1$, so $\\Delta_f=-4(-1)-27(1)=4-27=-23$, and $|\\Delta_f|=23$."
         },
         {
@@ -125,6 +130,7 @@
             "$K=\\mathbb{Q}(\\sqrt{3})$, $p=3$: here $3\\mid\\Delta_K=-12$ so $3$ ramifies"
           ],
           "answer": 1,
+          "hint": "Degree divisibility is separate from discriminant divisibility.",
           "explain": "For $K=\\mathbb{Q}(\\sqrt{5})$, $[K:\\mathbb{Q}]=2$ so $2\\mid[K:\\mathbb{Q}]$, but $\\Delta_K=5$ and $2\\nmid 5$, hence $2$ is unramified (in fact inert since $(5/2)=-1$). This refutes the claim that divisibility of the degree implies ramification."
         }
       ]
@@ -175,6 +181,7 @@
             "$e=2,\\ f=2,\\ g=1$; $\\sum ef=4\\neq 2$ ✗"
           ],
           "answer": 0,
+          "hint": "Ramified quadratic: one prime with $e=2,f=1,g=1$.",
           "explain": "Since $2$ ramifies, there is one prime above $2$ with $e=2$. The residue field $\\mathcal{O}_K/\\mathfrak{p}_2\\cong\\mathbb{F}_2$ has degree $f=1$ over $\\mathbb{F}_2$. Thus $g=1$ and $efg=2\\cdot 1\\cdot 1=2=[K:\\mathbb{Q}]$. ✓"
         },
         {
@@ -182,6 +189,7 @@
           "q": "In $K=\\mathbb{Q}(\\sqrt{-5})$, the prime $p=3$ satisfies $(3/5)=(-1/5)\\cdot$ ... in fact $-5\\equiv 1\\pmod 3$ and $(1/3)=1$, so $3$ splits as $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$. Each prime $\\mathfrak{p}_3$ has norm $N(\\mathfrak{p}_3)=3^f$. What is $f$?",
           "answer": 1,
           "tol": 1e-6,
+          "hint": "Split primes in quadratic fields have $e=f=1$.",
           "explain": "When $p$ splits ($g=2$, $e=1$, $f=1$), the fundamental equality gives $\\sum e_i f_i = 1\\cdot 1 + 1\\cdot 1 = 2 = n$. Each prime above $3$ has residue degree $f=1$, so $N(\\mathfrak{p}_3)=3^1=3$."
         },
         {
@@ -194,6 +202,7 @@
             "1 → 2 → 3 → 4"
           ],
           "answer": 0,
+          "hint": "Start with the quotient ring, then use irreducibility.",
           "explain": "First identify the quotient ring (step 2), then use the Legendre symbol to get irreducibility (step 3), then recognize the quotient as $\\mathbb{F}_{p^2}$ (step 4), and finally conclude $p\\mathcal{O}_K$ is prime (step 1)."
         }
       ]
@@ -239,6 +248,7 @@
           "q": "Compute the Minkowski bound for $K=\\mathbb{Q}(\\sqrt{-23})$ using $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}$. Since $-23\\equiv 1\\pmod 4$, $|\\Delta_K|=23$, $n=2$, $r_2=1$. Give your answer to 3 decimal places.",
           "answer": 3.056,
           "tol": 0.002,
+          "hint": "Plug the given factors into $M_K$.",
           "explain": "$M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}=\\tfrac{2\\sqrt{23}}{\\pi}\\approx\\tfrac{2\\times 4.796}{3.1416}\\approx\\tfrac{9.592}{3.1416}\\approx 3.052$. Primes of norm $\\le 3$ must be checked; $\\mathfrak{p}_2$ and $\\mathfrak{p}_3$ generate the class group, giving $h_K=3$."
         },
         {
@@ -251,6 +261,7 @@
             "$K=\\mathbb{Q}(\\sqrt{-6})$, $M_K\\approx 3.12$"
           ],
           "answer": 1,
+          "hint": "Check which candidate has $M_K<2$ — no non-trivial prime to inspect.",
           "explain": "For $K=\\mathbb{Q}(i)$, $\\Delta_K=-4$, $n=2$, $r_2=1$: $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot 2=\\tfrac{4}{\\pi}\\approx 1.27<2$. Since there are no primes of norm $\\le 1$, every ideal class is trivial, confirming $h_K=1$ and $\\mathbb{Z}[i]$ is a PID."
         },
         {
@@ -263,6 +274,7 @@
             "only $p=5$; $M_K\\approx 5$"
           ],
           "answer": 1,
+          "hint": "Compute $M_K\\approx 1.7$ to see only $p=2$ matters.",
           "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1<M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
         }
       ]
@@ -308,6 +320,7 @@
             "Because $\\sqrt{-5}$ is a unit in $\\mathcal{O}_K$"
           ],
           "answer": 1,
+          "hint": "Ideals factor uniquely even when elements do not.",
           "explain": "Dedekind's key insight: ideals in $\\mathcal{O}_K$ factor uniquely into prime ideals even when elements don't. Here $(2)=\\mathfrak{p}_2^2$, $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$, $(1+\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3$, $(1-\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3'$, and both factorizations of $(6)$ give $\\mathfrak{p}_2^2\\mathfrak{p}_3\\mathfrak{p}_3'$."
         },
         {
@@ -315,6 +328,7 @@
           "q": "For the totally real cubic field $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-3\\alpha-1=0$, the signature is $(r_1,r_2)=(3,0)$. Compute the unit rank $r=r_1+r_2-1$.",
           "answer": 2,
           "tol": 1e-6,
+          "hint": "Apply $r_1+r_2-1$ with the given signature.",
           "explain": "With $(r_1,r_2)=(3,0)$, the Dirichlet unit rank is $3+0-1=2$. So $\\mathcal{O}_K^\\times\\cong\\{\\pm 1\\}\\times\\mathbb{Z}^2$, generated by two independent fundamental units."
         },
         {
@@ -327,6 +341,7 @@
             "$h_K=1$ and unit rank $1$ together imply $K$ is imaginary quadratic"
           ],
           "answer": 1,
+          "hint": "Class number and unit rank are independent.",
           "explain": "Class number and unit rank are independent invariants. $h_K=1$ (PID) and unit rank $r_1+r_2-1=2+0-1=1$ (one fundamental unit) both hold for $\\mathbb{Q}(\\sqrt{5})$. Real quadratic fields always have unit rank $1$, regardless of $h_K$."
         }
       ]

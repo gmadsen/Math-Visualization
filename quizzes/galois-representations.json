@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "For the $\\ell$-adic cyclotomic character $\\chi:G_\\mathbb{Q}\\to\\mathbb{Z}_\\ell^\\times$, what is $\\chi(\\mathrm{Frob}_p)$ when $p\\ne\\ell$ is unramified? (Take $p=7$.)",
           "answer": 7,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$. For $p=7$ the value is $7$."
         }
       ],
@@ -47,6 +47,7 @@
             "$\\rho$ is a group homomorphism"
           ],
           "answer": 0,
+          "hint": "Continuity forces $\\rho$ to factor through a finite quotient in the complex case only via compactness.",
           "explain": "For Artin (complex) representations continuity forces finite image, but $\\ell$-adic representations can have infinite image — e.g., the cyclotomic character. An element $\\sigma$ of infinite order in $G_\\mathbb{Q}$ need not map to a matrix of finite order."
         },
         {
@@ -59,13 +60,15 @@
             "All representations of Galois groups have finite image by the Langlands program"
           ],
           "answer": 0,
+          "hint": "Compact image plus discreteness of $GL_n(\\mathbb{C})$ subgroup structure restricts the image.",
           "explain": "The key step: $G_\\mathbb{Q}$ is profinite (compact, totally disconnected), so any continuous image in $\\mathrm{GL}_n(\\mathbb{C})$ must be compact and totally disconnected. But $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group; its compact totally disconnected subgroups are finite (they have no small subgroups by a theorem on Lie groups)."
         },
         {
           "type": "numeric",
           "q": "The mod-$\\ell$ cyclotomic character $\\bar\\chi_\\ell:G_\\mathbb{Q}\\to(\\mathbb{Z}/\\ell\\mathbb{Z})^\\times$ satisfies $\\bar\\chi_\\ell(\\mathrm{Frob}_p)\\equiv p\\pmod{\\ell}$ for $p\\ne\\ell$. For $\\ell=5$ and $p=11$, what is $\\bar\\chi_5(\\mathrm{Frob}_{11})$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "The cyclotomic character acts by $\\ell$-th power on roots of unity.",
           "explain": "$11\\equiv 1\\pmod{5}$, so $\\bar\\chi_5(\\mathrm{Frob}_{11})=1$."
         }
       ]
@@ -89,14 +92,14 @@
           "type": "numeric",
           "q": "An elliptic curve $E/\\mathbb{Q}$ has good reduction at $p=11$ and $|\\tilde E(\\mathbb{F}_{11})|=10$. Compute $a_{11}=p+1-|\\tilde E(\\mathbb{F}_p)|$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$a_{11}=11+1-10=2$. This is the trace of $\\mathrm{Frob}_{11}$ on $V_\\ell E$."
         },
         {
           "type": "numeric",
           "q": "By Hasse, $|a_p|\\le 2\\sqrt{p}$. What is the largest integer $a_p$ can be for $p=37$?",
           "answer": 12,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
         }
       ],
@@ -111,13 +114,15 @@
             "Hasse bound implies the eigenvalues are real"
           ],
           "answer": 0,
+          "hint": "Weil II shows Frobenius eigenvalues are algebraic integers of bounded archimedean size.",
           "explain": "The Weil conjectures give $|\\alpha|=|\\beta|=\\sqrt{p}$; the triangle inequality then recovers Hasse's $|a_p|\\le 2\\sqrt{p}$. This is the correct logical chain: Weil conjectures are the deep statement, and the Hasse bound follows as a corollary."
         },
         {
           "type": "numeric",
           "q": "For the elliptic curve $E:y^2=x^3-x$ over $\\mathbb{F}_5$, the points are $(0,0),(1,0),(4,0),(2,1),(2,4),(3,2),(3,3)$ plus the point at infinity, giving $|E(\\mathbb{F}_5)|=8$. Compute $a_5$.",
           "answer": -2,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Use $a_5 = 5 + 1 - |E(\\mathbb{F}_5)|$.",
           "explain": "$a_5=5+1-|E(\\mathbb{F}_5)|=6-8=-2$. The characteristic polynomial of $\\mathrm{Frob}_5$ is $t^2+2t+5$."
         },
         {
@@ -130,6 +135,7 @@
             "They must both be reducible"
           ],
           "answer": 1,
+          "hint": "Chebotarev density plus traces match uniquely when semisimplifications agree.",
           "explain": "Chebotarev implies Frobenius elements are dense, so equal traces at almost all primes forces equal characteristic polynomials for all $g\\in G_\\mathbb{Q}$. By Brauer–Nesbitt, two semisimple representations with the same character are isomorphic; hence $\\rho_1^{\\mathrm{ss}}\\cong\\rho_2^{\\mathrm{ss}}$."
         }
       ]
@@ -147,7 +153,7 @@
             "$\\chi_1$ alone"
           ],
           "answer": 1,
-          "explain": "Semisimplification replaces a Jordan\u2013H\u00f6lder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
+          "explain": "Semisimplification replaces a Jordan–Hölder filtration by the direct sum of its graded pieces. The graded pieces here are $\\chi_1$ and $\\chi_2$, so $\\rho^{\\mathrm{ss}}=\\chi_1\\oplus\\chi_2$."
         },
         {
           "type": "mcq",
@@ -165,7 +171,7 @@
           "type": "numeric",
           "q": "Suppose $\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_5)$ at an unramified prime $p=5$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
         }
       ],
@@ -180,6 +186,7 @@
             "$\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=0$ for all unramified $p$"
           ],
           "answer": 0,
+          "hint": "Non-split extensions and split ones share the same semisimplification.",
           "explain": "Semisimplification of a non-split extension $0\\to\\chi\\to\\rho\\to\\mathbf{1}\\to 0$ is $\\chi\\oplus\\mathbf{1}$. Frobenius trace equals $\\chi(\\mathrm{Frob}_p)+1=p+1$ for unramified $p$. The extension itself is nontrivial (e.g., arises in the $\\ell$-adic rep associated to a CM elliptic curve at supersingular primes), so $\\rho\\ncong\\rho^{\\mathrm{ss}}$."
         },
         {
@@ -192,13 +199,15 @@
             "Any two representations of the same dimension are semisimplification-equivalent"
           ],
           "answer": 0,
+          "hint": "Find a reducible representation whose semisimplification equals an indecomposable one.",
           "explain": "Semisimplification loses information about extension classes. A non-split extension and the direct sum share the same semisimplification; this is the canonical counterexample. Extensions are classified by $H^1(G_\\mathbb{Q}, \\chi\\otimes\\mathbf{1}^\\vee)=H^1(G_\\mathbb{Q},\\chi)$, which can be nontrivial."
         },
         {
           "type": "numeric",
           "q": "Let $\\rho^{\\mathrm{ss}}=\\chi^2\\oplus\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_3)$ for the unramified prime $p=3$.",
           "answer": 13,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "The determinant multiplies character weights; here $2+1+0=3$.",
           "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_3)=\\chi(\\mathrm{Frob}_3)^2+\\chi(\\mathrm{Frob}_3)+1=9+3+1=13$."
         }
       ]
@@ -234,7 +243,7 @@
           "type": "numeric",
           "q": "A representation $\\rho$ has $\\dim V=3$, $\\dim V^{I_p}=2$, and trivial wild ramification at $p$. What is the Artin conductor exponent $f_p(\\rho)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
         }
       ],
@@ -249,13 +258,15 @@
             "$f_p=p$ by definition of additive reduction"
           ],
           "answer": 2,
+          "hint": "Additive reduction forces conductor exponent at least $2$.",
           "explain": "Additive reduction means $V_\\ell E$ has no inertia invariants ($\\dim V^{I_p}=0$), so the tame part contributes $\\dim V-\\dim V^{I_p}=2$. The wild part $\\delta_p\\ge 0$ (it vanishes only for $p\\ge 5$). Thus $f_p=2+\\delta_p\\ge 2$."
         },
         {
           "type": "numeric",
           "q": "A 4-dimensional representation $\\rho$ has $\\dim V^{I_p}=1$ and wild conductor exponent $\\delta_p=3$. Compute $f_p(\\rho)$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Tame plus wild: $(4 - 1) + 3 = 6$.",
           "explain": "$f_p=\\dim V-\\dim V^{I_p}+\\delta_p=4-1+3=6$."
         },
         {
@@ -268,6 +279,7 @@
             "(1) Wild ramification is always trivial; (2) $N=\\prod p^{\\dim V - \\dim V^{I_p}}$"
           ],
           "answer": 0,
+          "hint": "Well-definedness needs local-global compatibility across places.",
           "explain": "The key steps: $f_p=0$ for unramified primes by definition; for ramified primes the filtration of higher ramification groups eventually stabilizes (acting trivially) since $\\rho$ factors through a finite extension of the completion, making $f_p$ finite; the conductor $N$ is then a well-defined positive integer."
         }
       ]
@@ -303,7 +315,7 @@
           "type": "numeric",
           "q": "The weight-12 cusp form $\\Delta=\\sum\\tau(n)q^n$ has $\\tau(2)=-24$. By Deligne, what is $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_2)$ for $\\ell\\ne 2$?",
           "answer": -24,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
         }
       ],
@@ -318,13 +330,15 @@
             "It forces all deformations of $\\bar\\rho$ to have finite image"
           ],
           "answer": 1,
+          "hint": "Absolute irreducibility eliminates extra deformations from reducible subreps.",
           "explain": "Absolute irreducibility of $\\bar\\rho$ is needed for Mazur's deformation theory: it ensures the functor of lifts is representable by a pro-ring $R$. Without it, deformations may not be classified by a single universal object. The $R=T$ theorem then uses Taylor–Wiles patching to show $R\\cong T$, lifting modularity from $\\bar\\rho$ to the $\\ell$-adic representation."
         },
         {
           "type": "numeric",
           "q": "For $f=\\Delta$ of weight 12, the Weil conjectures give $|\\alpha|=|\\beta|=p^{(k-1)/2}$ for eigenvalues of $\\mathrm{Frob}_p$ on $V_\\ell\\Delta$. Compute $|\\alpha|$ at $p=4$ (i.e., $p=2^2$ — but use $p=2$, $k=12$): $2^{(12-1)/2}=2^{5.5}$. To the nearest integer, what is $\\lfloor 2^{5.5}\\rfloor$?",
           "answer": 45,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Use the Ramanujan bound $|a_p| \\le 2 p^{11/2}$ for weight $12$.",
           "explain": "$2^{5.5}=2^5\\cdot\\sqrt{2}=32\\sqrt{2}\\approx 45.254$, so $\\lfloor 2^{5.5}\\rfloor=45$."
         },
         {
@@ -337,6 +351,7 @@
             "(1) Assume $a^p+b^p=c^p$; (2) Show $E$ has good reduction everywhere; (3) Modularity gives a contradiction"
           ],
           "answer": 0,
+          "hint": "Frey curve, modularity, level-lowering, then Ribet plus Wiles.",
           "explain": "The Wiles–Taylor proof: (1) the Frey curve is semistable; (2) Serre's conjecture (Ribet's theorem) implies $\\bar\\rho_{E,p}$ descends to level 2; (3) there are no cuspidal eigenforms of weight 2 and level 2; (4) Wiles' modularity lifting gives $\\rho_{E,p}$ is modular, so $\\bar\\rho_{E,p}$ modular — contradiction."
         }
       ]

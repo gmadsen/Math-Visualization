@@ -66,6 +66,7 @@
             "Show each $F_n$ has empty interior; deduce $\\bigcup F_n=X$ is impossible because $X$ is open"
           ],
           "answer": 0,
+          "hint": "Nest shrinking closed balls dodging each $F_n$; completeness hands you the contradiction.",
           "explain": "The standard proof builds a nested sequence of closed balls avoiding each $F_n$, with radii shrinking to $0$. Completeness supplies a point in $\\bigcap \\overline{B}_n$, which lies in $U_0$ but in none of the $F_n$, contradicting $X=\\bigcup F_n$."
         }
       ]

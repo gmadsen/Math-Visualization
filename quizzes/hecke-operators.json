@@ -25,7 +25,11 @@
         {
           "type": "mcq",
           "q": "Applying $T_p$ to modular forms keeps you in:",
-          "choices": ["the same finite-dimensional space", "a larger weight", "non-holomorphic space only"],
+          "choices": [
+            "the same finite-dimensional space",
+            "a larger weight",
+            "non-holomorphic space only"
+          ],
           "answer": 0,
           "explain": "Hecke operators act endomorphically on standard modular-form spaces."
         }
@@ -41,6 +45,7 @@
             "$\\lambda_p$ is always an integer, but $a_p$ may be irrational"
           ],
           "answer": 0,
+          "hint": "For a normalized eigenform, $\\lambda_p$ equals the $p$-th Fourier coefficient.",
           "explain": "For a normalized eigenform ($a_1=1$), applying $T_p$ and reading the $n=1$ slot of the resulting $q$-expansion gives $a_p(T_p f)=\\lambda_p a_1=\\lambda_p$, so $\\lambda_p=a_p$ exactly."
         },
         {
@@ -48,6 +53,7 @@
           "q": "The $q$-expansion of the unique normalized cusp form $\\Delta\\in S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))$ begins $q-24q^2+252q^3-\\cdots$. Its Hecke eigenvalue $\\lambda_2$ equals $a_2$. What is $\\lambda_2$?",
           "answer": -24,
           "tol": 0.001,
+          "hint": "Apply the Hecke recursion with $a_1 = 1$, $a_2 = -24$.",
           "explain": "For a normalized eigenform, $\\lambda_p=a_p$. The Ramanujan tau function gives $\\tau(2)=a_2=-24$."
         },
         {
@@ -60,6 +66,7 @@
             "$T_p E_k=0$ because all coefficients vanish"
           ],
           "answer": 1,
+          "hint": "Eisenstein series are eigenforms; $T_p$ scales them instead of mapping to cusp forms.",
           "explain": "$E_k$ is itself an eigenform for every $T_p$: the eigenvalue is $\\sigma_{k-1}(p)=1+p^{k-1}$. So Eisenstein series are not sent to cusp forms — they remain Eisenstein series."
         }
       ]
@@ -103,6 +110,7 @@
           "q": "For $f\\in S_{12}$ with $q$-expansion $\\sum a_n q^n$ and $a_3=252$, use $T_3 f=a_3 f$ (normalized eigenform) to find the coefficient of $q^3$ in $T_3 f$.",
           "answer": 63504,
           "tol": 0.001,
+          "hint": "The eigenvalue $a_3$ applied to $a_1$ gives the coefficient $a_3 \\cdot a_1$.",
           "explain": "$T_3 f = 252 f$, so the $q^3$ coefficient of $T_3 f$ is $252 \\cdot a_3 = 252 \\times 252 = 63504$."
         },
         {
@@ -115,6 +123,7 @@
             "Neither term survives; $a'_1=0$"
           ],
           "answer": 0,
+          "hint": "At $n=1$ the term $a_{n/p}$ vanishes unless $n/p$ is a positive integer.",
           "explain": "$a_{n/p}$ is set to $0$ when $p\\nmid n$. For $n=1, p=2$, we have $2\\nmid 1$, so only $a_{pn}=a_2$ survives and $a'_1=a_2$. This matches $\\lambda_2=a_2$ for a normalized eigenform."
         },
         {
@@ -127,6 +136,7 @@
             "Eisenstein series and the constant term of the $q$-expansion"
           ],
           "answer": 0,
+          "hint": "This recursion says $a_{p^r}$ lives in a linear recurrence of order two.",
           "explain": "The recursion is derived by applying the $q$-expansion formula for $T_{p^r}$ and using multiplicativity of eigenform coefficients; it links the coefficient formula directly to the multiplicative structure."
         }
       ]
@@ -137,7 +147,11 @@
         {
           "type": "mcq",
           "q": "A key structural fact is:",
-          "choices": ["$T_mT_n=T_nT_m$", "$T_mT_n=-T_nT_m$", "$T_n^2=0$ always"],
+          "choices": [
+            "$T_mT_n=T_nT_m$",
+            "$T_mT_n=-T_nT_m$",
+            "$T_n^2=0$ always"
+          ],
           "answer": 0,
           "explain": "Hecke operators form a commutative algebra in this setting."
         },
@@ -171,6 +185,7 @@
             "$\\mathbb{T}\\otimes\\mathbb{C}$ has dimension larger than $\\dim S_k$"
           ],
           "answer": 0,
+          "hint": "Commutativity plus semisimplicity forces simultaneous diagonalizability.",
           "explain": "A commutative semisimple algebra over $\\mathbb{C}$ splits as a product of copies of $\\mathbb{C}$, one per algebra homomorphism $\\mathbb{T}\\to\\mathbb{C}$; these correspond exactly to normalized eigenforms, so the product has $d$ factors."
         },
         {
@@ -183,6 +198,7 @@
             "$T_m=m\\cdot\\mathrm{id}$ for composite $m$"
           ],
           "answer": 0,
+          "hint": "For coprime arguments, $T_{mn} = T_m T_n$ is the key identity.",
           "explain": "Multiplicativity $T_{mn}=T_m T_n$ for $\\gcd(m,n)=1$ is the main relation; since multiplication of integers is commutative, $T_mT_n=T_{mn}=T_nT_m$."
         },
         {
@@ -190,6 +206,7 @@
           "q": "If $f$ is a simultaneous eigenvector with $T_2 f=a_2 f$ and $T_3 f=a_3 f$, then $T_6 f = a_2 a_3 f$ by multiplicativity. Given $a_2=-24$ and $a_3=252$ (Ramanujan $\\Delta$ in $S_{12}$), compute the $T_6$ eigenvalue.",
           "answer": -6048,
           "tol": 0.001,
+          "hint": "Multiplicativity gives $a_6 = a_2 \\cdot a_3$.",
           "explain": "$T_6$ eigenvalue $= a_2 \\cdot a_3 = (-24)(252) = -6048$."
         }
       ]
@@ -200,7 +217,11 @@
         {
           "type": "mcq",
           "q": "For a normalized eigenform, the first coefficient $a_1$ is:",
-          "choices": ["0", "1", "p"],
+          "choices": [
+            "0",
+            "1",
+            "p"
+          ],
           "answer": 1,
           "explain": "Normalization sets $a_1=1$."
         },
@@ -234,6 +255,7 @@
             "It is only defined when $a_p=0$"
           ],
           "answer": 0,
+          "hint": "Multiplicativity of Fourier coefficients factorizes the Dirichlet series.",
           "explain": "The quadratic $1-a_p X+p^{k-1}X^2$ factors over $\\mathbb{C}$ with roots $1/\\alpha_p,1/\\beta_p$ satisfying $\\alpha_p+\\beta_p=a_p$ and $\\alpha_p\\beta_p=p^{k-1}$ (Hecke eigenvalue relations)."
         },
         {
@@ -241,6 +263,7 @@
           "q": "For $\\Delta\\in S_{12}$, the Euler factor at $p=2$ is $(1+24\\cdot 2^{-s}+2^{11-2s})^{-1}$. At $s=11$ this becomes $(1+24\\cdot 2^{-11}+2^{-11})^{-1}$. Compute the numerator (i.e., $1+24\\cdot 2^{-11}+2^{-11}$) as a fraction with denominator $2048$.",
           "answer": 2073,
           "tol": 0.5,
+          "hint": "Substitute $s = 11$ so $p^{11-2s} = p^{-11}$.",
           "explain": "$1+24/2048+1/2048 = (2048+24+1)/2048 = 2073/2048$, so the numerator is $2073$."
         },
         {
@@ -253,6 +276,7 @@
             "Atkin–Lehner theory, which forces distinct eigenvalues at the level"
           ],
           "answer": 1,
+          "hint": "Strong multiplicity one pins the form down by its eigenvalues almost everywhere.",
           "explain": "Strong multiplicity one (for $\\mathrm{GL}_1$ and $\\mathrm{GL}_2$) says if two newforms share $T_p$-eigenvalues for almost all $p$, they are identical. This ensures distinct eigenforms have distinct eigenvalue systems."
         }
       ]
@@ -301,6 +325,7 @@
             "The measure $y^{k-2}\\,dx\\,dy$ is only $\\mathrm{SL}_2(\\mathbb{Z})$-invariant when $k<2$"
           ],
           "answer": 0,
+          "hint": "The volume form $y^k d\\mu$ ensures $SL_2(\\mathbb{Z})$-invariance on the fundamental domain.",
           "explain": "Cusp forms decay exponentially at $\\infty$, making the integral convergent. Eisenstein series have polynomial growth at cusps, causing the Petersson integral to diverge. This is why self-adjointness is stated for $T_p$ on $S_k$, not on $M_k$."
         },
         {
@@ -313,6 +338,7 @@
             "The Ramanujan bound $|a_p|\\le 2p^{(k-1)/2}$ would be violated"
           ],
           "answer": 0,
+          "hint": "Spectral theorem on a commuting family of self-adjoint operators gives an orthogonal basis.",
           "explain": "Non-self-adjoint operators can have complex eigenvalues. Since $a_p\\in\\mathbb{R}$ for eigenforms of $\\mathrm{SL}_2(\\mathbb{Z})$ is a theorem, failure of self-adjointness would contradict this — it is a key ingredient in proving real eigenvalues."
         },
         {
@@ -320,6 +346,7 @@
           "q": "The adjoint of $T_p$ with respect to the Petersson inner product satisfies $T_p^* = \\langle p\\rangle^{-1}T_p$ where $\\langle p\\rangle$ is the diamond operator. For $\\Gamma_0(N)$ with $\\gcd(p,N)=1$, the diamond operator $\\langle p\\rangle$ acts on $S_k$ as multiplication by what integer (using that it acts trivially on $S_k(\\Gamma_0(N))$ since there is no nebentypus)?",
           "answer": 1,
           "tol": 0.001,
+          "hint": "Newforms have trivial character at good primes, simplifying the adjoint.",
           "explain": "On $S_k(\\Gamma_0(N))$ (trivial nebentypus), the diamond operator $\\langle p\\rangle$ acts as the identity ($\\times 1$), so $T_p^*=T_p$, confirming self-adjointness."
         }
       ]

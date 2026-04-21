@@ -11,7 +11,7 @@
       "tags": [
         "foundation"
       ],
-      "blurb": "Arithmetic, modulus, argument, polar form, roots of unity."
+      "blurb": "Arithmetic on $\\mathbb{C} = \\mathbb{R}^2$ with multiplication; polar form $z = re^{i\\theta}$ and the one-point compactification to the Riemann sphere $\\hat{\\mathbb{C}}$ via stereographic projection."
     },
     {
       "id": "riemann-sphere",
@@ -20,16 +20,16 @@
       "prereqs": [
         "complex-numbers"
       ],
-      "blurb": "Stereographic projection; \u221e as a point; circles/lines unified."
+      "blurb": "Stereographic projection; ∞ as a point; circles/lines unified."
     },
     {
       "id": "mobius-transformations",
-      "title": "M\u00f6bius transformations",
+      "title": "Möbius transformations",
       "anchor": "sphere",
       "prereqs": [
         "riemann-sphere"
       ],
-      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of \u0108."
+      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ."
     },
     {
       "id": "amplitwist",
@@ -39,16 +39,16 @@
         "complex-numbers",
         "real-differentiation"
       ],
-      "blurb": "Local linear model: f\u2032(z) as (rotate, scale)."
+      "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix."
     },
     {
       "id": "cauchy-riemann",
-      "title": "Cauchy\u2013Riemann equations",
+      "title": "Cauchy–Riemann equations",
       "anchor": "holo",
       "prereqs": [
         "amplitwist"
       ],
-      "blurb": "u_x = v_y, u_y = \u2212v_x; \u2202\u0304f = 0."
+      "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$."
     },
     {
       "id": "holomorphic-function",
@@ -66,7 +66,7 @@
       "prereqs": [
         "holomorphic-function"
       ],
-      "blurb": "Visualizing f: C\u2192C by hue(arg) and lightness(modulus)."
+      "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity."
     },
     {
       "id": "contour-integral",
@@ -76,7 +76,7 @@
         "holomorphic-function",
         "paths"
       ],
-      "blurb": "\u222b_\u03b3 f dz along parametrized paths; ML inequality."
+      "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
     },
     {
       "id": "cauchy-theorem",
@@ -86,7 +86,7 @@
         "contour-integral",
         "simply-connected"
       ],
-      "blurb": "\u222b_\u03b3 f dz = 0 on simply connected domains."
+      "blurb": "∫_γ f dz = 0 on simply connected domains."
     },
     {
       "id": "cauchy-integral-formula",
@@ -95,7 +95,7 @@
       "prereqs": [
         "cauchy-theorem"
       ],
-      "blurb": "f(a) = (1/2\u03c0i) \u222e f(z)/(z\u2212a) dz; the reproducing kernel of holomorphy."
+      "blurb": "$f(a) = \\tfrac{1}{2\\pi i}\\oint f(z)/(z-a)\\,dz$: boundary values determine interior values on a closed disk, and differentiation under the integral makes holomorphic functions $C^\\infty$."
     },
     {
       "id": "analyticity",
@@ -113,7 +113,7 @@
       "prereqs": [
         "cauchy-integral-formula"
       ],
-      "blurb": "Bounded entire \u21d2 constant."
+      "blurb": "Bounded entire ⇒ constant."
     },
     {
       "id": "fta",
@@ -122,7 +122,7 @@
       "prereqs": [
         "liouville"
       ],
-      "blurb": "Every non-constant polynomial over C has a root."
+      "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness."
     },
     {
       "id": "maximum-modulus",
@@ -140,7 +140,7 @@
       "prereqs": [
         "maximum-modulus"
       ],
-      "blurb": "f: D\u2192D with f(0)=0 satisfies |f(z)| \u2264 |z| and |f\u2032(0)| \u2264 1."
+      "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle."
     },
     {
       "id": "laurent-series",
@@ -158,7 +158,7 @@
       "prereqs": [
         "laurent-series"
       ],
-      "blurb": "Removable, pole of order n, essential (Casorati\u2013Weierstrass)."
+      "blurb": "Removable, pole of order n, essential (Casorati–Weierstrass)."
     },
     {
       "id": "residue-theorem",
@@ -168,7 +168,7 @@
         "singularity-classification",
         "cauchy-theorem"
       ],
-      "blurb": "\u222e f dz = 2\u03c0i \u00b7 \u03a3 Res(f; z_k). Computes real integrals, sums series."
+      "blurb": "∮ f dz = 2πi · Σ Res(f; z_k). Computes real integrals, sums series."
     },
     {
       "id": "argument-principle",
@@ -177,16 +177,16 @@
       "prereqs": [
         "residue-theorem"
       ],
-      "blurb": "(1/2\u03c0i) \u222e f\u2032/f = Z \u2212 P; winding of f(\u03b3) counts zeros minus poles."
+      "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles."
     },
     {
       "id": "rouche",
-      "title": "Rouch\u00e9's theorem",
+      "title": "Rouché's theorem",
       "anchor": "arg",
       "prereqs": [
         "argument-principle"
       ],
-      "blurb": "|g| < |f| on \u03b3 \u21d2 f and f+g have the same number of zeros inside."
+      "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside."
     },
     {
       "id": "conformal-map",
@@ -195,7 +195,7 @@
       "prereqs": [
         "amplitwist"
       ],
-      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f\u2032 \u2260 0."
+      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
     },
     {
       "id": "disk-automorphisms",
@@ -205,7 +205,7 @@
         "schwarz-lemma",
         "mobius-transformations"
       ],
-      "blurb": "Aut(D) = Blaschke factors e^{i\u03b8}(z\u2212a)/(1\u2212\u0101 z)."
+      "blurb": "$\\mathrm{Aut}(\\mathbb{D})$ consists of the Blaschke factors $e^{i\\theta}(z-a)/(1-\\bar a z)$; this is the isometry group $\\mathrm{PSU}(1,1)$ of the hyperbolic Poincaré metric on the disk."
     },
     {
       "id": "normal-families",
@@ -216,7 +216,7 @@
         "uniform-convergence",
         "compactness"
       ],
-      "blurb": "Locally bounded \u21d2 normal; compactness in the space of holomorphic functions."
+      "blurb": "Montel: a locally bounded family of holomorphic functions is normal (every sequence has a locally uniformly convergent subsequence); compactness that powers the Riemann mapping theorem."
     },
     {
       "id": "riemann-mapping",
@@ -227,7 +227,7 @@
         "normal-families",
         "schwarz-lemma"
       ],
-      "blurb": "Any simply connected proper open U \u2282 C is conformally equivalent to D."
+      "blurb": "Any simply connected proper open U ⊂ C is conformally equivalent to D."
     },
     {
       "id": "harmonic-functions",
@@ -236,7 +236,7 @@
       "prereqs": [
         "cauchy-riemann"
       ],
-      "blurb": "Re(f) and Im(f) satisfy \u0394u = 0; mean-value and maximum principles."
+      "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
     },
     {
       "id": "analytic-continuation",
@@ -245,7 +245,7 @@
       "prereqs": [
         "analyticity"
       ],
-      "blurb": "Uniqueness of extension along paths; monodromy around branch points."
+      "blurb": "The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\\log z$ or $\\sqrt z$ live naturally on a Riemann surface rather than $\\mathbb{C}\\setminus\\{0\\}$."
     }
   ]
 }

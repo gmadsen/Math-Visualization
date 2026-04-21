@@ -42,6 +42,7 @@
             "Define $\\tau=-B'\\cdot N$ by fiat without further justification"
           ],
           "answer": 2,
+          "hint": "Differentiate unit-length and orthogonality constraints to pin down the direction.",
           "explain": "The clean argument: $|B|=1 \\Rightarrow B\\cdot B'=0$ (so $B'\\perp B$). Differentiating $B\\cdot T=0$ gives $B'\\cdot T+B\\cdot T'=B'\\cdot T+\\kappa B\\cdot N=B'\\cdot T=0$. Hence $B'$ is perpendicular to both $B$ and $T$, so $B'\\parallel N$, and we define $\\tau$ by $B'=-\\tau N$."
         },
         {
@@ -49,6 +50,7 @@
           "q": "The helix $\\gamma(t)=(\\cos t,\\sin t,t)/\\sqrt{2}$ is unit-speed. Its curvature $\\kappa=|\\gamma''|$. Compute $\\kappa$ (give an exact decimal or fraction).",
           "answer": 0.7071067811865476,
           "tol": 1e-6,
+          "hint": "Differentiate twice and use the helix formula $\\kappa = a/(a^2+b^2)$.",
           "explain": "$\\gamma'(t)=(-\\sin t,\\cos t,1)/\\sqrt{2}$ has $|\\gamma'|=1$ (unit-speed). Differentiating: $\\gamma''(t)=(-\\cos t,-\\sin t,0)/\\sqrt{2}$. Then $|\\gamma''|=\\sqrt{\\cos^2t+\\sin^2t}/\\sqrt{2}=1/\\sqrt{2}\\approx 0.7071$. For a helix $(a\\cos t,a\\sin t,bt)$ the curvature formula is $\\kappa=a/(a^2+b^2)$; here after arc-length reparametrization $a=b=1/\\sqrt{2}$, giving $\\kappa=(1/\\sqrt{2})/(1/2+1/2)=1/\\sqrt{2}$."
         },
         {
@@ -61,6 +63,7 @@
             "An open hemisphere"
           ],
           "answer": 2,
+          "hint": "Look for a singular point where the tangent plane collapses.",
           "explain": "At the apex of the cone, any attempted parametrization $\\mathbf{x}$ has $\\mathbf{x}_u\\times\\mathbf{x}_v=0$, so the regularity condition fails. The cone with its apex removed is a smooth surface, but the full cone (apex included) is not."
         }
       ]
@@ -106,6 +109,7 @@
             "The Gauss–Bonnet integrals $\\int K\\,dA$ over corresponding compact regions are equal"
           ],
           "answer": 2,
+          "hint": "Separate intrinsic invariants from those that need the embedding.",
           "explain": "Theorema Egregium guarantees $K$ is intrinsic (determined by $I$ alone), and geodesics are also intrinsic. But the second fundamental form and mean curvature $H$ depend on the embedding — the classic example is a cylinder (locally isometric to a plane, $K=0$) yet $H=1/2\\neq 0$."
         },
         {
@@ -113,6 +117,7 @@
           "q": "For the torus $\\mathbf{x}(u,v)=((R+r\\cos u)\\cos v,(R+r\\cos u)\\sin v,r\\sin u)$ with $R=3,r=1$, compute $F=\\mathbf{x}_u\\cdot\\mathbf{x}_v$ at $(u,v)=(0,0)$.",
           "answer": 0,
           "tol": 1e-6,
+          "hint": "The torus parametrization yields orthogonal coordinate curves.",
           "explain": "$\\mathbf{x}_u=(-r\\sin u\\cos v,-r\\sin u\\sin v,r\\cos u)$ and $\\mathbf{x}_v=(-(R+r\\cos u)\\sin v,(R+r\\cos u)\\cos v,0)$. Their dot product is $r\\sin u(R+r\\cos u)\\sin v\\cos v - r\\sin u(R+r\\cos u)\\sin v\\cos v+0=0$ for all $(u,v)$, confirming $F=0$ everywhere on the torus."
         },
         {
@@ -120,6 +125,7 @@
           "q": "For the saddle $\\mathbf{x}(u,v)=(u,v,u^2-v^2)$, the second fundamental form coefficients at $(0,0)$ are $e=\\mathbf{x}_{uu}\\cdot\\mathbf{n}$, $f=\\mathbf{x}_{uv}\\cdot\\mathbf{n}$, $g=\\mathbf{x}_{vv}\\cdot\\mathbf{n}$. Compute $eg-f^2$ (which equals $K\\cdot(EG-F^2)$).",
           "answer": -4,
           "tol": 1e-6,
+          "hint": "Second derivatives of the saddle give opposite-sign principal curvatures.",
           "explain": "At $(0,0)$: $\\mathbf{n}=(0,0,1)$ (unit normal from $\\mathbf{x}_u\\times\\mathbf{x}_v=(0,0,1)$). $\\mathbf{x}_{uu}=(0,0,2)$, $\\mathbf{x}_{uv}=(0,0,0)$, $\\mathbf{x}_{vv}=(0,0,-2)$. So $e=2$, $f=0$, $g=-2$, giving $eg-f^2=2\\cdot(-2)-0=-4$. Since $EG-F^2=1$ here, $K=-4$."
         }
       ]
@@ -170,6 +176,7 @@
             "The mean curvature $H$ must equal $K$ everywhere"
           ],
           "answer": 1,
+          "hint": "Couple Gauss-map degree to Gauss–Bonnet on a convex genus-zero surface.",
           "explain": "For a convex closed surface ($K>0$), the Gauss map is a local diffeomorphism onto $S^2$. The total area counted with multiplicity is $\\int_S K\\,dA$. By Gauss–Bonnet this equals $2\\pi\\chi(S)=4\\pi$ for a genus-0 surface, matching the area of $S^2$ itself and confirming the Gauss map is degree 1."
         },
         {
@@ -177,6 +184,7 @@
           "q": "For a surface with principal curvatures $k_1=3$ and $k_2=-1$, compute the mean curvature $H=(k_1+k_2)/2$.",
           "answer": 1,
           "tol": 1e-6,
+          "hint": "Mean curvature is the average of principal curvatures.",
           "explain": "$H=(k_1+k_2)/2=(3+(-1))/2=2/2=1$."
         },
         {
@@ -189,6 +197,7 @@
             "Use Theorema Egregium to bypass the second fundamental form entirely"
           ],
           "answer": 0,
+          "hint": "Write the shape operator as metric-inverse times second fundamental form.",
           "explain": "The shape operator in coordinate basis satisfies $[S_p]=(g_{ij})^{-1}(h_{ij})$ where $h_{ij}$ are the second-fundamental-form coefficients. Its determinant is $\\det(g^{-1})\\det(h)=(eg-f^2)/(EG-F^2)$. For an orthonormal eigenbasis $K=k_1 k_2=\\det(S_p)$, confirming the formula."
         }
       ]
@@ -234,6 +243,7 @@
             "Both A and B are correct characterizations; A is the local definition and B is the symmetry argument"
           ],
           "answer": 3,
+          "hint": "Both the vanishing geodesic curvature and symmetry arguments work.",
           "explain": "Both are valid: locally, geodesics are characterized by $\\kappa_g=0$ (the acceleration $\\gamma''$ is normal to $S$), which holds for great circles. Globally, a reflection symmetry whose fixed-point set is a curve forces that curve to be a geodesic, since the geodesic from $p$ to $q$ must be mapped to itself."
         },
         {
@@ -241,6 +251,7 @@
           "q": "On the hyperbolic plane with $K\\equiv -1$, a geodesic triangle has angle sum $\\pi/6$. Compute its area using the Gauss–Bonnet formula $\\text{Area}=\\pi-(\\alpha+\\beta+\\gamma)$.",
           "answer": 2.617993877991494,
           "tol": 1e-6,
+          "hint": "Use the angle-defect area formula for $K=-1$.",
           "explain": "$\\text{Area}=\\pi-\\pi/6=5\\pi/6\\approx 2.6180$."
         },
         {
@@ -253,6 +264,7 @@
             "The catenoid and helicoid both have $K<0$ and are locally isometric, disproving the conjecture for negative $K$"
           ],
           "answer": 0,
+          "hint": "Minding only rescues local isometry when $K$ is constant.",
           "explain": "Minding's theorem says surfaces of the same CONSTANT $K$ are locally isometric. But a sphere ($K=1$ everywhere) and a (non-round) ellipsoid (variable $K$, all positive) have the same sign of $K$ but are not locally isometric. Choice C is actually true (Minding), and D gives a true isometry example (catenoid–helicoid); choice A correctly gives a counterexample for non-constant curvature."
         }
       ]
@@ -298,6 +310,7 @@
             "$\\int_S K\\,dA=4\\pi$ regardless of topology"
           ],
           "answer": 0,
+          "hint": "Positive integral of $K$ forces Euler characteristic positive.",
           "explain": "If $K>0$ everywhere then $\\int_S K\\,dA>0$, so $2\\pi\\chi(S)>0$, forcing $\\chi(S)>0$. For orientable surfaces $\\chi(S)=2-2g$, so $g=0$ (sphere). Non-orientable surfaces with $\\chi>0$ are $\\mathbb{R}P^2$ ($\\chi=1$). Thus $K>0$ rules out genus $\\ge 1$."
         },
         {
@@ -305,6 +318,7 @@
           "q": "Use the local Gauss–Bonnet formula for a geodesic polygon. A geodesic quadrilateral on the unit sphere ($K=1$) has interior angles $\\pi/2,\\pi/2,\\pi/2,\\pi/2+\\varepsilon$ with $\\varepsilon=\\pi/4$. Compute its area.",
           "answer": 0.7853981633974483,
           "tol": 1e-6,
+          "hint": "Area equals angle sum minus $(n-2)\\pi$ for a geodesic $n$-gon.",
           "explain": "For a geodesic $n$-gon: Area $= \\sum_i\\alpha_i - (n-2)\\pi$. Here $n=4$, $\\sum\\alpha_i = 3(\\pi/2)+(\\pi/2+\\pi/4)=2\\pi+\\pi/4$. Area $=2\\pi+\\pi/4-2\\pi=\\pi/4\\approx 0.7854$."
         },
         {
@@ -317,6 +331,7 @@
             "(1) Apply Stokes' theorem globally; (2) Identify the integrand as $K\\,dA$; (3) Obtain $\\chi$ without triangulation"
           ],
           "answer": 0,
+          "hint": "Triangulate, sum local angle defects, collapse to $V-E+F$.",
           "explain": "The standard proof: triangulate, apply local Gauss–Bonnet to each geodesic triangle ($\\sum\\alpha_i-\\pi=\\int_{\\triangle_i}K\\,dA$), sum over all triangles. The angle contributions at interior vertices telescope to $2\\pi V$, and the combinatorial identity $2E=3F$ for a triangulation gives $V-E+F=\\chi$, yielding $\\int_S K\\,dA=2\\pi\\chi$. Since $\\chi$ is a topological invariant (homotopy type), so is this integral."
         }
       ]

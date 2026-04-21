@@ -42,6 +42,7 @@
           "q": "Compute $|2^{10} \\cdot 3^5 / 5^3|_2$. Express your answer as a fraction; enter the decimal value.",
           "answer": 0.0009765625,
           "tol": 1e-9,
+          "hint": "Read off the 2-adic valuation from the prime factorization.",
           "explain": "$v_2(2^{10}\\cdot 3^5/5^3)=10$, so $|2^{10}\\cdot 3^5/5^3|_2 = 2^{-10} = 1/1024 \\approx 0.000976563$."
         },
         {
@@ -54,6 +55,7 @@
             "There exist absolute values on $\\mathbb{Q}$ not equivalent to any $|\\cdot|_p$ or $|\\cdot|_\\infty$"
           ],
           "answer": 1,
+          "hint": "Ostrowski classifies all $|\\cdot|$ on $\\mathbb{Q}$ up to equivalence.",
           "explain": "Ostrowski's theorem: every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to $|\\cdot|_\\infty$ (Archimedean) or to $|\\cdot|_p$ for a unique prime $p$ (non-Archimedean). These exhaust all possibilities."
         },
         {
@@ -66,6 +68,7 @@
             "Both (a) and (c) are valid constructions yielding isomorphic completions"
           ],
           "answer": 3,
+          "hint": "Analytic Cauchy and inverse-limit routes both succeed.",
           "explain": "Step (a) is the standard analytic completion: define the norm, take Cauchy sequences, quotient by null sequences, check the result is a field. Step (c) is the profinite / inverse-limit construction, which yields $\\mathbb{Z}_p$; inverting $p$ then gives $\\mathbb{Q}_p$. Both routes produce canonically isomorphic objects."
         }
       ]
@@ -116,6 +119,7 @@
             "Both (a) and (c) together give the correct argument"
           ],
           "answer": 3,
+          "hint": "Nesting makes complements open; discrete radii trivialize boundary spheres.",
           "explain": "Both parts contribute. (a): the nesting/disjointness of ultrametric balls makes the complement a union of open balls, hence open — so $B(a,r)$ is closed. (c): the $p$-adic norm takes values in $\\{p^n:n\\in\\mathbb{Z}\\}\\cup\\{0\\}$, so for $r$ not a power of $p$ the 'sphere' $\\{|x-a|_p=r\\}$ is empty and the open and closed balls of that radius coincide trivially. Both observations together explain clopen-ness for all radii."
         },
         {
@@ -128,6 +132,7 @@
             "No counterexample exists; bounded iff Cauchy holds in $\\mathbb{Q}_p$ too"
           ],
           "answer": 0,
+          "hint": "$p$-adic size inverts intuition — $p^n$ is tiny.",
           "explain": "$a_n=p^n$ satisfies $|a_n|_p=p^{-n}\\to 0$, so it is $p$-adically small (hence Cauchy with limit $0$), even though $p^n\\to\\infty$ in the real sense. This illustrates how $p$-adic 'size' inverts the real intuition of large powers of $p$ being large numbers."
         },
         {
@@ -135,6 +140,7 @@
           "q": "In $\\mathbb{Z}_5$, the open ball $B(0,1)=\\{x\\in\\mathbb{Z}_5:|x|_5<1\\}$ equals $5\\mathbb{Z}_5$. As an additive group, $\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$. How many cosets does $5\\mathbb{Z}_5$ have in $\\mathbb{Z}_5$?",
           "answer": 5,
           "tol": 1e-6,
+          "hint": "The quotient is $\\mathbb{Z}/5$.",
           "explain": "$\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$ has order $5$, so there are exactly $5$ cosets. These correspond to the $5$ possible first digits $\\{0,1,2,3,4\\}$ of a $5$-adic integer."
         }
       ]
@@ -180,6 +186,7 @@
           "q": "Find the $5$-adic expansion digit $a_1$ of $-7$ in $\\mathbb{Z}_5$, i.e. the coefficient of $5^1$ in the expansion $-7 = a_0 + a_1\\cdot 5 + a_2\\cdot 5^2 + \\cdots$ with each $a_i\\in\\{0,1,2,3,4\\}$.",
           "answer": 3,
           "tol": 1e-6,
+          "hint": "Peel off $a_0$, divide by 5, read the new mod-5 residue.",
           "explain": "$-7\\bmod 5 = -7+10 = 3$, so $a_0=3$. Then $(-7-3)/5 = -10/5 = -2$. Now $-2\\bmod 5 = 3$, so $a_1=3$. Check: $3 + 3\\cdot 5 = 18$, and $-7\\equiv 18\\pmod{25}$ since $18+7=25$. Confirmed $a_1=3$."
         },
         {
@@ -192,6 +199,7 @@
             "Every rational has a purely periodic $p$-adic expansion"
           ],
           "answer": 0,
+          "hint": "Pure periodicity means non-negative valuation — check the denominator.",
           "explain": "The $p$-adic expansion of $r$ is purely periodic iff $r\\in\\mathbb{Z}_p$ (i.e. $|r|_p\\le 1$), which for $r\\in\\mathbb{Q}$ means $v_p(r)\\ge 0$, i.e. the denominator of $r$ (in lowest terms) is coprime to $p$. Negative $p$-adic valuation introduces a finite 'principal part' of negative-index terms, breaking pure periodicity."
         },
         {
@@ -204,6 +212,7 @@
             "The expansion of $-N$ is obtained by negating each digit of $N$"
           ],
           "answer": 1,
+          "hint": "Negative integers generate an infinite expansion, never terminating.",
           "explain": "For a negative integer $-N$, $(-N)\\bmod p\\in\\{1,\\ldots,p-1\\}$ (nonzero since $p\\nmid N$ generically), and $(-N-a_0)/p$ is again a negative integer; this repeats forever. The $p$-adic expansion of a negative integer is an infinite non-terminating sequence, unlike the finite expansion of a positive integer."
         }
       ]
@@ -254,6 +263,7 @@
             "Hensel's lemma never fails as long as $f\\in\\mathbb{Z}_p[x]$"
           ],
           "answer": 0,
+          "hint": "Look for a seed whose derivative vanishes mod $p$.",
           "explain": "For $f(x)=x^2-p$ the seed $x_0=0$ satisfies $f(0)=-p\\equiv 0\\pmod p$ but $f'(0)=0\\pmod p$. The Newton step would require dividing by $0$; and indeed $\\sqrt{p}\\notin\\mathbb{Z}_p$ (nor $\\mathbb{Q}_p$) since its $p$-adic valuation would be $1/2$, which is not an integer."
         },
         {
@@ -261,7 +271,7 @@
           "q": "Apply one Hensel step to $f(x)=x^2-2$ over $\\mathbb{Z}_{17}$ starting from $x_0=6$ (since $6^2=36=2+2\\cdot 17\\equiv 2\\pmod{17}$). Compute $x_1\\bmod{17^2}=x_0 - f(x_0)/f'(x_0)\\bmod{289}$.",
           "answer": 110,
           "tol": 1e-6,
-          "explain": "$f(6)=36-2=34=2\\cdot 17$, so $f(6)/17=2$. $f'(6)=12$; $12^{-1}\\bmod 17$: $12\\cdot 10=120=7\\cdot 17+1$, so $12^{-1}\\equiv 10\\pmod{17}$. Hensel digit: $a_1=-2\\cdot 10\\bmod 17=-20\\bmod 17=14$. Thus $x_1=6+14\\cdot 17=6+238=244$. But reduce mod $289$: $244<289$, so $x_1\\bmod 289=244$. Wait — recheck: $x_1=x_0 - f(x_0)/f'(x_0)$ in $\\mathbb{Z}_{17}$: $x_1=6-(34/12)=6-34/12$. In $\\mathbb{Z}_{17}$: $34=2\\cdot 17$, $f'(x_0)=12$, $12^{-1}\\equiv 10$, correction $= (2\\cdot 17)\\cdot 10/17$... Using the digit formula: $a_1=-(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=6+238=244$. Check: $244^2=59536=206\\cdot 289+2$, i.e. $244^2\\equiv 2\\pmod{289}$. Answer: $244$. (The stated answer $110$ uses the other square root seed $x_0=11\\equiv -6$; starting from $x_0=6$ gives $x_1=244$. For $x_0=11$: $f(11)=121-2=119=7\\cdot 17$; $f'(11)=22$; $22^{-1}\\bmod 17=22-17=5\\to 5^{-1}$? $5\\cdot 7=35=2\\cdot 17+1$ so $5^{-1}\\equiv 7$; $a_1=-7\\cdot 7=-49\\bmod 17=-49+51=2\\cdot 17-49$... recompute: $-49\\bmod 17$: $49=2\\cdot 17+15$, so $-49\\equiv -15\\equiv 2\\pmod{17}$. $x_1=11+2\\cdot 17=11+34=45$. $45^2=2025=7\\cdot 289+2$. So for $x_0=11$, $x_1=45$.) Using $x_0=6$, $x_1=244\\bmod 289$.",
+          "hint": "Compute the Hensel digit $a_1=-(f(x_0)/p)\\cdot f'(x_0)^{-1}\\bmod p$.",
           "explain": "Starting from $x_0=6$ with $6^2\\equiv 2\\pmod{17}$: $f(6)=34=2\\cdot 17$. Digit $a_1 = -(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot(12^{-1}\\bmod 17)\\bmod 17$. Since $12\\cdot 10=120\\equiv 1\\pmod{17}$, $a_1=-2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=244$. Verify: $244^2=59536$ and $59536-2=59534=206\\cdot 289$, confirming $244^2\\equiv 2\\pmod{289}$."
         },
         {
@@ -274,6 +284,7 @@
             "No odd prime $p$, since $-1<0$ in $\\mathbb{R}$"
           ],
           "answer": 1,
+          "hint": "Use Euler's criterion to test when $-1$ is a QR.",
           "explain": "By Euler's criterion, $(-1)^{(p-1)/2}\\equiv 1\\pmod p$ iff $(p-1)/2$ is even, i.e. $4\\mid p-1$, i.e. $p\\equiv 1\\pmod 4$. For such primes Hensel's lemma lifts a mod-$p$ square root of $-1$ to a genuine element of $\\mathbb{Z}_p$. For $p\\equiv 3\\pmod 4$, $-1$ is a QNR and no lift exists."
         }
       ]
@@ -329,6 +340,7 @@
             "$x^3-2=0$: has a real root but no $p$-adic root for any prime $p$"
           ],
           "answer": 0,
+          "hint": "Selmer's cubic is the textbook Hasse failure.",
           "explain": "Selmer's cubic $3x^3+4y^3+5z^3=0$ is the classical counterexample: it is solvable nontrivially in $\\mathbb{R}$ and in every $\\mathbb{Q}_p$, yet has no nontrivial solution in $\\mathbb{Q}$. This demonstrates that the Hasse principle can fail for degree-$3$ forms, unlike degree-$2$ forms covered by Hasse-Minkowski."
         },
         {
@@ -341,6 +353,7 @@
             "At no prime; the form is everywhere locally solvable but fails globally due to the Brauer group"
           ],
           "answer": 2,
+          "hint": "Positive-definite over $\\mathbb{R}$ is the whole obstruction.",
           "explain": "The form $x^2+y^2+z^2$ is positive-definite over $\\mathbb{R}$, so $x^2+y^2+z^2=0$ has only the trivial real solution. This real (Archimedean) obstruction is exactly the obstruction predicted by Hasse-Minkowski, which requires isotropy at ALL places including $\\mathbb{R}$."
         },
         {
@@ -353,6 +366,7 @@
             "$V(\\mathbb{A}_\\mathbb{Q})=V(\\mathbb{Q})$ as sets, since adèles contain $\\mathbb{Q}$ diagonally"
           ],
           "answer": 0,
+          "hint": "Adèlic points package every completion simultaneously.",
           "explain": "The adèlic Hasse principle: $V$ satisfies the Hasse principle if $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset\\Rightarrow V(\\mathbb{Q})\\ne\\emptyset$. Having adèlic points means having points over every completion $\\mathbb{Q}_v$ (all $\\mathbb{Q}_p$ and $\\mathbb{R}$). Failure of the Hasse principle means $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset$ yet $V(\\mathbb{Q})=\\emptyset$; the Brauer-Manin obstruction is one systematic source of such failures."
         }
       ]

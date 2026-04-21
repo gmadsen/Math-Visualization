@@ -237,6 +237,7 @@
             "Applying the Schröder–Bernstein theorem to $A$ and $\\mathcal{P}(A)$"
           ],
           "answer": 1,
+          "hint": "Build a subset guaranteed to differ from every $f(a)$ on the element $a$ itself.",
           "explain": "Assume for contradiction $f\\colon A\\to\\mathcal{P}(A)$ is surjective. Form the diagonal set $D=\\{a\\in A\\mid a\\notin f(a)\\}$. Since $f$ is surjective, $D=f(d)$ for some $d$. Then $d\\in D\\iff d\\notin f(d)=D$, a contradiction. Hence no surjection $A\\to\\mathcal{P}(A)$ exists."
         },
         {

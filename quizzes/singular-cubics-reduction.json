@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "For the cuspidal parametrization $(x,y) = (t^2, t^3)$, evaluate $y$ at $t = 3$.",
           "answer": 27,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$y = t^3 = 3^3 = 27$. The cusp $y^2 = x^3$ is parametrized by $t \\mapsto (t^2,t^3)$, with $t=0$ mapping to the singular point."
         }
       ],
@@ -47,13 +47,15 @@
             "Evaluate $\\Delta$ → $\\Delta=0$ gives a cusp, $\\Delta\\ne 0$ gives a node"
           ],
           "answer": 0,
+          "hint": "Tangent cone factorization distinguishes nodes (two lines) from cusps (double line).",
           "explain": "The standard procedure: isolate the lowest-degree (degree-$2$) homogeneous part at the singular point, then factor it over $\\mathbb{R}$. For $y^2-x^3$ the degree-$2$ part is $y^2$ (one repeated factor) → cusp; for $y^2-x^3-x^2$ it is $y^2-x^2=(y-x)(y+x)$ (two distinct factors) → node."
         },
         {
           "type": "numeric",
           "q": "For the nodal cubic $C: y^2 = x^3 + x^2$, the parametrization $(x,y)=(t^2-1,\\, t(t^2-1))$ covers the smooth locus. Verify: compute $y^2 - x^3 - x^2$ at $t=2$ and give the answer.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Substitute the parametrization and simplify to the defining equation.",
           "explain": "At $t=2$: $x=4-1=3$, $y=2(4-1)=6$. Then $y^2-x^3-x^2=36-27-9=0$, confirming the point $(3,6)$ lies on the cubic."
         },
         {
@@ -66,6 +68,7 @@
             "The cusp has a disconnected smooth locus while the node does not"
           ],
           "answer": 1,
+          "hint": "Nodes have two distinct tangent directions; cusps only one.",
           "explain": "Both singularities give geometric genus $0$ curves, but the smooth part of the nodal cubic is $\\mathbb{G}_m \\cong \\mathbb{C}^*$ while the smooth part of the cuspidal cubic is $\\mathbb{G}_a \\cong \\mathbb{C}$. These are non-isomorphic algebraic groups, so the curves cannot be isomorphic."
         }
       ]
@@ -89,7 +92,7 @@
           "type": "numeric",
           "q": "For $E : y^2 = x^3 + 1$ (so $a = 0, b = 1$), compute $\\Delta = -16(4a^3 + 27 b^2)$.",
           "answer": -432,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$."
         },
         {
@@ -116,13 +119,15 @@
             "$p=5$: bad reduction, since $5\\mid(4a^3+27b^2)=4(-1)^3+0=-4$"
           ],
           "answer": 0,
+          "hint": "The discriminant is $64$, divisible only by $2$.",
           "explain": "$\\Delta=64=2^6$, so the only prime of bad reduction is $p=2$. Reducing $y^2=x^3-x$ mod $2$ gives $y^2=x^3+x=x(x^2+1)=x(x+1)^2$ mod $2$; the singular point is $(1,0)$ and the tangent factors split over $\\mathbb{F}_2$, indicating a node (multiplicative reduction)."
         },
         {
           "type": "numeric",
           "q": "For $E: y^2 = x^3 - 7$ (so $a=0$, $b=-7$), compute $\\Delta = -16(4\\cdot 0 + 27\\cdot 49)$.",
           "answer": -21168,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Compute $-16 \\cdot 27 \\cdot 49$.",
           "explain": "$\\Delta = -16 \\cdot 27 \\cdot 49 = -16 \\cdot 1323 = -21168$. The prime factorization is $-2^4\\cdot 3^3\\cdot 7^2$, so bad primes are $2, 3, 7$."
         },
         {
@@ -135,6 +140,7 @@
             "There are only finitely many primes of good reduction"
           ],
           "answer": 0,
+          "hint": "Good reduction corresponds to primes coprime to the discriminant.",
           "explain": "Bad primes are exactly those dividing $\\Delta = -64p^3 = -2^6 p^3$, namely $\\ell = 2$ and $\\ell = p$. Every other prime $\\ell\\ne 2,p$ satisfies $\\ell\\nmid\\Delta$ and thus gives good reduction."
         }
       ]
@@ -170,7 +176,7 @@
           "type": "numeric",
           "q": "For a non-split multiplicative reduction at $p = 7$, the smooth part of $\\tilde E_p$ has order $p+1$. Compute this order.",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
         }
       ],
@@ -185,6 +191,7 @@
             "$p^2$"
           ],
           "answer": 2,
+          "hint": "Count $|E^{\\mathrm{ns}}(\\mathbb{F}_p)| = p$.",
           "explain": "The smooth locus has $p$ points (isomorphic to $\\mathbb{G}_a$). The singular point is one additional $\\mathbb{F}_p$-rational point, giving $p+1$ total $\\mathbb{F}_p$-points on $\\tilde E_p$. However, the group law applies only on the smooth locus."
         },
         {
@@ -192,6 +199,7 @@
           "q": "A split multiplicative reduction at $p=13$ has smooth locus $\\mathbb{G}_m(\\mathbb{F}_{13})\\cong\\mathbb{F}_{13}^\\times$. Compute the order of this group.",
           "answer": 12,
           "tol": 0,
+          "hint": "Compute $13 - 1 = 12$.",
           "explain": "$|\\mathbb{F}_{13}^\\times| = 13-1 = 12$. For split multiplicative reduction the smooth locus order is always $p-1$."
         },
         {
@@ -204,6 +212,7 @@
             "All bad-reduction types have isomorphic smooth loci"
           ],
           "answer": 0,
+          "hint": "Additive has zero-dimensional growth $\\mathbb{G}_a$; multiplicative gives $\\mathbb{G}_m$.",
           "explain": "$\\mathbb{G}_a$ is the simplest (unipotent, no torsion structure), $\\mathbb{G}_m$ is rank-$1$ multiplicative, the non-split torus is a rank-$1$ non-trivial form of $\\mathbb{G}_m$ with a Galois twist, and an elliptic curve is an abelian variety of dimension $1$. This is the natural complexity ladder."
         }
       ]
@@ -249,6 +258,7 @@
           "q": "For $E: y^2 = x^3 - x$ over $\\mathbb{F}_7$, direct enumeration gives $|E(\\mathbb{F}_7)| = 8$ (including $O$). Compute $a_7$.",
           "answer": 0,
           "tol": 0,
+          "hint": "Use $a_7 = 7 + 1 - |E(\\mathbb{F}_7)|$.",
           "explain": "$a_7 = 7 + 1 - 8 = 0$. A curve with $a_p=0$ is called supersingular at $p$; here $E$ has CM by $\\mathbb{Z}[i]$ and $7\\equiv 3\\pmod{4}$ is inert, forcing $a_7=0$."
         },
         {
@@ -261,6 +271,7 @@
             "$[100, 102]$"
           ],
           "answer": 1,
+          "hint": "Interval is $[102 - 2\\sqrt{101},\\ 102 + 2\\sqrt{101}]$.",
           "explain": "$2\\sqrt{101}\\approx 20.1$, so $|E(\\mathbb{F}_{101})|\\in[101+1-20,\\,101+1+20]=[82,122]$. (Rounding down $2\\sqrt{101}<20.1$ confirms both endpoints.)"
         },
         {
@@ -273,6 +284,7 @@
             "Yes, but only for multiplicative bad reduction, not additive"
           ],
           "answer": 1,
+          "hint": "Bad reduction still gives $|a_p| \\le 1$ from the Neron model.",
           "explain": "Hasse's theorem is a statement about smooth elliptic curves over $\\mathbb{F}_p$. At a bad prime the reduction is singular (not an elliptic curve), so Hasse does not apply. Instead, $a_p$ takes the special values $+1$ (split mult.), $-1$ (non-split mult.), or $0$ (additive) by the explicit group-order formulas."
         }
       ]
@@ -323,6 +335,7 @@
             "$v_p(\\Delta)\\ge 12$"
           ],
           "answer": 0,
+          "hint": "Non-minimal means there is a scaling reducing the discriminant further.",
           "explain": "For short Weierstrass $y^2=x^3+ax+b$ and $p\\ne 2,3$, the model is non-minimal at $p$ iff we can perform $(x,y)\\mapsto(p^2 x, p^3 y)$ to reduce $v_p(\\Delta)$ by $12$; this requires $p^4\\mid a$ and $p^6\\mid b$. If either fails, the model is already minimal at $p$."
         },
         {
@@ -330,6 +343,7 @@
           "q": "For the non-minimal model $y^2 = x^3 + 16x + 64$ (where $a=16=2^4$, $b=64=2^6$), apply $(x,y)\\mapsto(4x,8y)$ to get a minimal model $y^2=x^3+Ax+B$. Compute $A$.",
           "answer": 1,
           "tol": 0,
+          "hint": "Scaling by $(u^2, u^3)$ changes coefficients by $u^4$ and $u^6$.",
           "explain": "Under $(x,y)=(u^2 X, u^3 Y)$ with $u=2$: $a\\mapsto u^{-4}a=a/16=1$ and $b\\mapsto u^{-6}b=b/64=1$, giving the minimal model $Y^2=X^3+X+1$ with $A=1$."
         },
         {
@@ -342,6 +356,7 @@
             "Apply Hasse's theorem at every prime → the number of primes with $|a_p|=2\\sqrt p$ is the conductor"
           ],
           "answer": 0,
+          "hint": "Ogg formula: $f_p = v_p(\\Delta) - m + 1$ where $m$ is the number of components.",
           "explain": "The standard algorithm: (1) put the curve in (minimal) Weierstrass form, (2) compute the discriminant $\\Delta$, (3) identify bad primes as prime divisors of $\\Delta$, (4) at each bad prime determine $f_p$ via Ogg's formula ($f_p=1$ for multiplicative, $f_p\\ge 2$ for additive), and (5) set $N=\\prod p^{f_p}$."
         }
       ]

@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "Let $G$ be a groupoid with three objects, each having automorphism group $\\mathbb{Z}/2$, all connected by isomorphisms. How many isomorphism classes does $\\pi_0(G)$ have?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element. The three $\\mathbb{Z}/2$ automorphism groups are what is lost when one collapses to $\\pi_0$."
         }
       ],
@@ -47,6 +47,7 @@
             "Representability of the diagonal"
           ],
           "answer": 1,
+          "hint": "Descent is effective only if isomorphism sheaves are actually sheaves.",
           "explain": "A stack requires two conditions: (1) $\\mathrm{Isom}(x,y)$ is a sheaf (morphism sheaf axiom) and (2) descent data for objects glue. Failure of the Isom sheaf condition violates the first axiom while leaving the second intact."
         },
         {
@@ -59,13 +60,15 @@
             "Étale covers do not exist for elliptic curves"
           ],
           "answer": 1,
+          "hint": "Automorphisms collapse objects with $j$-invariant $0$ or $1728$.",
           "explain": "Twisting a constant family by a non-trivial $\\mu_2$-torsor (via the $[-1]$ automorphism) over an étale cover produces an isotrivial but non-trivial family. The cocycle data exist, but they glue to different isomorphism-class representatives depending on the chosen descent isomorphisms — violating sheafness."
         },
         {
           "type": "numeric",
           "q": "Let $\\mathcal{C}$ be the groupoid with objects $\\{A,B,C\\}$, morphisms forming a single isomorphism class, and $\\mathrm{Aut}(A)=\\{e\\}$. After passing to $\\pi_0$, how many objects remain?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Automorphism groups give isotropy, not multiplicity.",
           "explain": "All three objects are isomorphic, so they represent a single isomorphism class. $|\\pi_0(\\mathcal{C})|=1$. The trivial automorphism groups are irrelevant to $\\pi_0$."
         }
       ]
@@ -89,14 +92,14 @@
           "type": "numeric",
           "q": "How many isomorphism classes of $\\mathbb{Z}/3$-torsors are there on $\\mathrm{Spec}\\,\\mathbb{F}_q$ for a finite field $\\mathbb{F}_q$? (Equivalently, $|H^1(\\mathrm{Spec}\\,\\mathbb{F}_q,\\mathbb{Z}/3)|$, using that the absolute Galois group of $\\mathbb{F}_q$ is $\\widehat{\\mathbb{Z}}$ and $\\mathrm{Hom}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)=\\mathbb{Z}/3$.)",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathrm{Hom}_{\\text{cont}}(\\widehat{\\mathbb{Z}},\\mathbb{Z}/3)\\cong \\mathbb{Z}/3$ has 3 elements, one for each element of $\\mathbb{Z}/3$. Hence $|\\pi_0(B(\\mathbb{Z}/3)(\\mathbb{F}_q))|=3$."
         },
         {
           "type": "numeric",
           "q": "For $G=\\mathbb{Z}/2$ over $\\mathbb{R}$: $\\mathrm{Gal}(\\mathbb{C}/\\mathbb{R})=\\mathbb{Z}/2$, so $|\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)|=?$ (this counts iso classes of $\\mathbb{Z}/2$-torsors over $\\mathrm{Spec}\\,\\mathbb{R}$).",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
         }
       ],
@@ -111,13 +114,15 @@
             "The quotient scheme $G/G$"
           ],
           "answer": 1,
+          "hint": "The inertia stack parameterizes objects with an automorphism.",
           "explain": "The inertia stack of $BG$ parametrises pairs (torsor, automorphism), which is the same data as a $G$-torsor together with a section of the associated group scheme — i.e., an element of $G$ up to conjugation. This is exactly $[G/G]$ for the conjugation action."
         },
         {
           "type": "numeric",
           "q": "For $G=\\mathbb{Z}/5$ over an algebraically closed field $k$ with $\\mathrm{char}(k)\\ne 5$, how many isomorphism classes of $G$-torsors are there over $\\mathrm{Spec}\\,k$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Use $|H^1(\\mathrm{Spec}\\,k, \\mathbb{Z}/5)| = 1$.",
           "explain": "Over an algebraically closed field, $H^1_{\\text{ét}}(\\mathrm{Spec}\\,k,G)=0$ for any finite group $G$ of order coprime to the characteristic. So there is exactly $1$ isomorphism class: the trivial torsor."
         },
         {
@@ -130,6 +135,7 @@
             "Algebraic space $\\Rightarrow$ Scheme $\\Rightarrow$ DM stack $\\Rightarrow$ Artin stack"
           ],
           "answer": 0,
+          "hint": "Separated implies quasi-separated; Artin is weaker than Deligne-Mumford.",
           "explain": "Every scheme is an algebraic space (trivial groupoid structure); every algebraic space is a DM stack (étale atlas, trivial automorphisms); every DM stack is an Artin stack (étale implies smooth). The reverse implications all fail: $B\\mathbb{G}_m$ is Artin but not DM; $[\\mathbb{A}^1/\\mu_2]$ is DM but not an algebraic space."
         }
       ]
@@ -165,7 +171,7 @@
           "type": "numeric",
           "q": "For $G=\\mu_3$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x = \\zeta x$, the stabiliser at $x=0$ is all of $\\mu_3$ and is trivial elsewhere. What is the order of the automorphism group of the origin in $[\\mathbb{A}^1/\\mu_3]$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
         }
       ],
@@ -180,6 +186,7 @@
             "The affine line $\\mathbb{A}^1$"
           ],
           "answer": 0,
+          "hint": "The scheme-theoretic quotient is $\\mathbb{P}^1$; stacky data is trivial here.",
           "explain": "$\\mathbb{G}_m$ acts freely on $\\mathbb{A}^2\\setminus\\{0\\}$ (no non-trivial stabilisers), so $[X/G]$ is an algebraic space and in fact coincides with the ordinary quotient scheme $\\mathbb{P}^1$."
         },
         {
@@ -192,13 +199,15 @@
             "$[\\mathrm{pt}/G]=BG$ only holds when $G$ is finite"
           ],
           "answer": 0,
+          "hint": "Unwind definitions: principal bundle over $T$ is a $G$-torsor.",
           "explain": "A $T$-point of $[X/G]$ is $(P\\to T, \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. For $X=\\mathrm{pt}$, $\\phi$ is forced to be the unique map $P\\to\\mathrm{pt}$, so the data reduces to just the $G$-torsor $P\\to T$. Hence $[\\mathrm{pt}/G](T)\\simeq BG(T)$ for all $T$."
         },
         {
           "type": "numeric",
           "q": "For $G=\\mu_2$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x=-x$, the coarse moduli space of $[\\mathbb{A}^1/\\mu_2]$ is $\\mathbb{A}^1$ (via $x\\mapsto x^2$). At the stacky point $x=0$, the automorphism group has order?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Inertia at the origin is $\\mu_2$; elsewhere trivial.",
           "explain": "The stabiliser of $0$ under the $\\mu_2$ action $x\\mapsto -x$ is all of $\\mu_2$, which has order $2$. Away from $0$ the stabiliser is trivial."
         }
       ]
@@ -234,7 +243,7 @@
           "type": "numeric",
           "q": "What is the dimension of the automorphism group at the generic geometric point of $B\\mathbb{G}_m$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
         }
       ],
@@ -249,6 +258,7 @@
             "Verify quasi-compactness → verify separatedness → verify finite type → conclude DM"
           ],
           "answer": 0,
+          "hint": "Find an atlas, then check fibers are etale.",
           "explain": "The standard proof: (1) representability of the diagonal is required for any Artin stack; (2) if the diagonal is also unramified, automorphism groups are finite and unramified (0-dimensional); (3) this is equivalent to the existence of an étale atlas, the defining condition of DM."
         },
         {
@@ -261,13 +271,15 @@
             "Line bundles do not form a groupoid"
           ],
           "answer": 1,
+          "hint": "The inertia group $\\mathbb{G}_m$ is positive-dimensional, failing DM.",
           "explain": "A stack is DM iff its diagonal is unramified (equivalently, automorphism schemes are 0-dimensional). Since $\\mathbb{G}_m$ is 1-dimensional, the inertia stack $I(B\\mathbb{G}_m)\\cong[\\mathbb{G}_m/\\mathbb{G}_m]$ has positive-dimensional fibers, so $B\\mathbb{G}_m$ is Artin but not DM."
         },
         {
           "type": "numeric",
           "q": "An Artin stack $\\mathcal{X}$ has a smooth atlas $U\\to\\mathcal{X}$ with $U$ a scheme of dimension $3$ and the fibers of the atlas map have dimension $1$. What is $\\dim(\\mathcal{X})$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Dimension of the stack is atlas dimension minus fiber dimension.",
           "explain": "For a smooth atlas $U\\to\\mathcal{X}$ of relative dimension $d$, $\\dim(\\mathcal{X})=\\dim(U)-d=3-1=2$. Here the fiber dimension $1$ corresponds to the $1$-dimensional automorphism group typical of an Artin (non-DM) stack."
         }
       ]
@@ -303,7 +315,7 @@
           "type": "numeric",
           "q": "For $\\mathcal{M}_{1,1}$ over $\\mathrm{Spec}\\,\\mathbb{Z}[1/6]$, what is the order of the automorphism group of the elliptic curve $E:y^2=x^3+1$ (the $j=0$ point)?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."
         }
       ],
@@ -318,6 +330,7 @@
             "Find a fine moduli space → quotient by automorphisms → apply GIT"
           ],
           "answer": 0,
+          "hint": "Construct the space, then check universal property.",
           "explain": "Keel-Mori: after checking finite inertia and finite type, one locally reduces to a $\\mu_n$-gerbe over an algebraic space, handles the tame case via étale-local arguments, then glues the local coarse spaces using the étale topology to produce a global algebraic space (or scheme in good cases)."
         },
         {
@@ -330,13 +343,15 @@
             "The Hodge bundle does not exist on $\\mathcal{M}_{1,1}$"
           ],
           "answer": 0,
+          "hint": "Coarse spaces have different integral classes at orbifold points.",
           "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ (reflecting the $\\mu_2$ automorphism at every point and the $\\mu_6$ at $j=0$), giving $\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
         },
         {
           "type": "numeric",
           "q": "For the DM stack $[\\mathbb{A}^1/\\mu_n]$ (with $\\mu_n$ acting by scaling), the coarse moduli map $\\pi:[\\mathbb{A}^1/\\mu_n]\\to\\mathbb{A}^1$ sends the stacky point $0$ to $0$. The local Picard group of the stack at $0$ is $\\mathbb{Z}/n\\mathbb{Z}$. For $n=4$, what is the order of this local Picard group?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "The coarse map is degree one but ramifies at the origin.",
           "explain": "The stacky point $0\\in[\\mathbb{A}^1/\\mu_n]$ has automorphism group $\\mu_n$, contributing a local $\\mathrm{Pic}\\cong\\widehat{\\mu_n}\\cong\\mathbb{Z}/n\\mathbb{Z}$. For $n=4$ this has order $4$."
         }
       ]

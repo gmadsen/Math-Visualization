@@ -42,6 +42,7 @@
             "Invoke uniformization to get the universal cover $\\mathbb{C}$, then deduce the charts"
           ],
           "answer": 0,
+          "hint": "Transition maps on a quotient are translations by lattice vectors.",
           "explain": "The standard proof: choose small open sets in $\\mathbb{C}$ mapping injectively to $\\mathbb{C}/\\Lambda$; their inverses are the charts. On overlaps the transition maps are translations $z\\mapsto z+\\lambda$, $\\lambda\\in\\Lambda$, which are biholomorphic. The Euler characteristic argument identifies the topological type but does not construct charts."
         },
         {
@@ -49,6 +50,7 @@
           "q": "A compact Riemann surface has a triangulation with $F=20$ faces, $E=30$ edges, and $V$ vertices. Compute its genus $g$ using $\\chi=V-E+F=2-2g$.",
           "answer": 3,
           "tol": 1e-6,
+          "hint": "Compute $\\chi=V-E+F$, then invert $\\chi=2-2g$.",
           "explain": "$\\chi=V-30+20$. For a closed orientable surface, $\\chi=2-2g$. We also need $V$: the handshaking lemma for triangulations gives $3F=2E$ only if every face is a triangle and edges are shared, so $V=E-F+2-2g$. Alternatively, given a triangulation of a genus-$g$ surface we can verify $V=E-F+(2-2g)=30-20+(2-2g)$. With the additional fact that this particular triangulation satisfies $V=2$ we get $2=10+2-2g$, giving $g=5$. For the intended problem take $V=12$: $\\chi=12-30+20=2$, so $g=0$. Re-reading with the classic data $V=10$: $\\chi=10-30+20=0$, $g=1$. With $V=8$: $\\chi=-2$, $g=2$. With $V=6$: $\\chi=-4$, $g=3$. Answer: $g=3$ for $V=6$, $E=30$, $F=20$, $\\chi=6-30+20=-4$."
         },
         {
@@ -61,6 +63,7 @@
             "An elliptic curve $\\mathbb{C}/\\Lambda$"
           ],
           "answer": 2,
+          "hint": "Look for a global-chart example that fails compactness.",
           "explain": "$\\mathbb{C}$ is a Riemann surface (one global chart $z$) but is non-compact: sequences like $n\\in\\mathbb{N}$ have no convergent subsequence. The other three options are compact. This is a counterexample showing 'Riemann surface' does not imply compactness."
         }
       ]
@@ -106,6 +109,7 @@
             "Only when $n$ is prime"
           ],
           "answer": 1,
+          "hint": "Branching happens where the fiber polynomial has repeated roots.",
           "explain": "In the affine chart $Z=1$ the fiber over $t=X/Z$ is the set of $Y$ with $t^n+Y^n=1$. A branch point occurs when the polynomial $Y^n=1-t^n$ has a repeated root, i.e., when $1-t^n=0$, so $t$ is an $n$-th root of unity. All $n$ branch points lie over these values; $(1:0)$ corresponds to $t\\to\\infty$ and is not a branch point."
         },
         {
@@ -113,6 +117,7 @@
           "q": "A degree-$4$ holomorphic map $f:X\\to\\mathbb{CP}^1$ has simple ramification only (each non-trivial $e_p=2$) with total ramification sum $\\sum(e_p-1)=14$. Use Riemann-Hurwitz $2g_X-2=n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
           "answer": 4,
           "tol": 1e-6,
+          "hint": "Plug the given data straight into Riemann-Hurwitz.",
           "explain": "With $n=4$, $g_Y=0$, $\\sum(e_p-1)=14$: $2g_X-2=4(-2)+14=6$, so $g_X=4$. Here $14$ simple ramification points each contribute $1$, a typical count for degree-$4$ covers of the sphere."
         },
         {
@@ -125,6 +130,7 @@
             "$\\pi_1(\\mathbb{CP}^1)\\to S_n$"
           ],
           "answer": 0,
+          "hint": "Monodromy comes from loops on the base, permuting sheets.",
           "explain": "Analytic continuation of the $n$ sheets above a basepoint $b_0\\in\\mathbb{CP}^1\\setminus B$ along each loop gives a permutation of the fiber, yielding a homomorphism $\\pi_1(\\mathbb{CP}^1\\setminus B,b_0)\\to S_n$. The image is the monodromy group, which encodes the branching data completely (Riemann's existence theorem)."
         }
       ]
@@ -170,6 +176,7 @@
             "Use the Gauss-Bonnet theorem on a metric of constant curvature on $Y$ → integrate curvature"
           ],
           "answer": 0,
+          "hint": "Lift a triangulation that places branch values at vertices.",
           "explain": "The combinatorial proof: triangulate $Y$ with $F$ faces, $E$ edges, $V$ vertices so branch values are vertices. The lifted triangulation on $X$ has $nF$ faces, $nE$ edges, but only $nV-\\sum(e_p-1)$ vertices (ramification reduces the vertex count). Then $\\chi(X)=nF-nE+(nV-\\sum(e_p-1))=n\\chi(Y)-\\sum(e_p-1)$."
         },
         {
@@ -177,6 +184,7 @@
           "q": "A compact Riemann surface $X$ of genus $g\\ge 2$ is uniformized as $X=\\mathbb{H}/\\Gamma$ for a Fuchsian group $\\Gamma$. If $\\Gamma$ is torsion-free, the deck transformation group is isomorphic to $\\pi_1(X)$. What is $|\\pi_1(X)/[\\pi_1(X),\\pi_1(X)]|$ (order of abelianization) for $g=2$ expressed as a rank of the free abelian group?",
           "answer": 4,
           "tol": 1e-6,
+          "hint": "The abelianization gives $H_1\\cong\\mathbb{Z}^{2g}$.",
           "explain": "The abelianization of $\\pi_1(X)$ for a genus-$g$ surface is $H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, a free abelian group of rank $2g$. For $g=2$ the rank is $4$."
         },
         {
@@ -189,6 +197,7 @@
             "The Klein bottle, which is not orientable"
           ],
           "answer": 1,
+          "hint": "Different $j$-invariants distinguish non-isomorphic tori.",
           "explain": "Elliptic curves $\\mathbb{C}/\\Lambda$ are classified up to biholomorphism by their $j$-invariant $j(\\tau)$, where $\\Lambda=\\mathbb{Z}+\\tau\\mathbb{Z}$. The lattice $\\mathbb{Z}+2i\\mathbb{Z}$ (with $\\tau=2i$) has a different $j$-invariant from $\\mathbb{Z}+i\\mathbb{Z}$ ($\\tau=i$, $j=1728$), so they are non-isomorphic genus-$1$ curves."
         }
       ]
@@ -234,6 +243,7 @@
             "By Riemann-Hurwitz applied to $X\\to\\mathbb{CP}^1$ with $6g-4$ branch points"
           ],
           "answer": 1,
+          "hint": "Count complex Teichmüller parameters from Fuchsian reps.",
           "explain": "Teichmüller theory: the Teichmüller space $\\mathcal{T}_g$ is a complex manifold of dimension $3g-3$ (equivalently real dimension $6g-6$). Heuristically, a hyperbolic pair-of-pants decomposition uses $3g-3$ curves, each carrying one length and one twist parameter."
         },
         {
@@ -241,6 +251,7 @@
           "q": "Two compact Riemann surfaces $X$ and $Y$ satisfy $\\chi(X)=-6$ and $\\chi(Y)=-10$. How many more generators does $H_1(Y;\\mathbb{Z})$ have than $H_1(X;\\mathbb{Z})$?",
           "answer": 4,
           "tol": 1e-6,
+          "hint": "Translate $\\chi$ to genus, then to $b_1=2g$.",
           "explain": "$\\chi=-6\\Rightarrow g_X=4$, $b_1(X)=2\\cdot4=8$. $\\chi=-10\\Rightarrow g_Y=6$, $b_1(Y)=2\\cdot6=12$. Difference: $12-8=4$."
         },
         {
@@ -253,6 +264,7 @@
             "Genus determines the Euler characteristic, which in turn fixes the complex structure"
           ],
           "answer": 0,
+          "hint": "Different tori with distinct $j$-invariants break uniqueness.",
           "explain": "Both $E_1$ and $E_2$ are genus-$1$ surfaces, but their $j$-invariants differ ($j(i)=1728$ vs $j(2i)\\ne 1728$), so they are non-isomorphic as Riemann surfaces. This shows the moduli space $\\mathcal{M}_1$ is one-dimensional, not a point."
         }
       ]
@@ -298,6 +310,7 @@
             "$3$"
           ],
           "answer": 1,
+          "hint": "Rearrange Riemann-Roch to isolate $\\ell(K-D)$.",
           "explain": "$\\ell(K-D)=\\ell(D)-\\deg D+g-1=3-4+3-1=1$. The correction term $\\ell(K-D)$ measures how many sections the Serre-dual line bundle $\\mathcal{O}(K-D)$ has; here it is $1$, indicating $K-D$ is effective."
         },
         {
@@ -305,6 +318,7 @@
           "q": "On a compact Riemann surface of genus $g=2$ with canonical divisor $K$ ($\\deg K=2$), compute $\\ell(K)$ using Riemann-Roch applied to $D=K$: $\\ell(K)-\\ell(0)=\\deg K-g+1$ and $\\ell(0)=1$.",
           "answer": 2,
           "tol": 1e-6,
+          "hint": "Apply Riemann-Roch with $D=K$ and use $\\ell(0)=1$.",
           "explain": "Riemann-Roch for $D=K$: $\\ell(K)-\\ell(K-K)=\\deg K-g+1=2-2+1=1$. Since $\\ell(0)=1$ (only constant functions), $\\ell(K)=1+1=2$. This equals $g=2$, consistent with $\\dim H^0(X,\\Omega^1)=g$."
         },
         {
@@ -317,6 +331,7 @@
             "Invoke Kodaira vanishing to force $h^1(D)=0$ for all $D$"
           ],
           "answer": 0,
+          "hint": "Serre duality pairs $H^1(D)$ with $H^0(K-D)$.",
           "explain": "Serre duality for a compact Riemann surface gives a perfect pairing $H^0(X,\\mathcal{O}(K-D))\\times H^1(X,\\mathcal{O}(D))\\to\\mathbb{C}$, so $h^1(D)=\\dim H^1(X,\\mathcal{O}(D))=\\dim H^0(X,\\mathcal{O}(K-D))=\\ell(K-D)$. This is the key identity that turns the index theorem into Riemann-Roch."
         }
       ]

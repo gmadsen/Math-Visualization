@@ -151,6 +151,39 @@
     transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 300ms ease;opacity:0.9}
   .ring text{fill:var(--ink);font-size:14px;font-weight:600;text-anchor:middle;dominant-baseline:central}
 
+  /* Achievements — gamified mastery ribbons */
+  .ach-group{margin:1.2rem 0 1.6rem}
+  .ach-group-title{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 0.55rem;padding-bottom:.3rem;
+    border-bottom:1px dashed var(--line)}
+  .ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+  .ribbon{position:relative;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:0.85rem 0.9rem 0.9rem;
+    display:flex;flex-direction:column;gap:0.45rem;min-height:130px;
+    transition:border-color 180ms ease, background 180ms ease, transform 180ms ease}
+  .ribbon .ic{width:42px;height:42px;flex-shrink:0}
+  .ribbon .ic svg{width:100%;height:100%;margin:0;display:block}
+  .ribbon .rtitle{font-weight:600;color:#fff;font-size:0.92rem;line-height:1.25}
+  .ribbon .rdesc{color:var(--mute);font-size:0.78rem;line-height:1.4;margin:0}
+  .ribbon .rprog{font-family:ui-monospace,Menlo,monospace;font-size:0.72rem;
+    color:var(--mute);margin-top:auto;padding-top:0.3rem;
+    border-top:1px dashed var(--line);letter-spacing:0.02em}
+  .ribbon.unearned{opacity:0.58}
+  .ribbon.unearned .ic svg{filter:saturate(0.25)}
+  .ribbon.earned{
+    border-color:color-mix(in srgb, var(--accent,var(--yellow)) 60%, var(--line));
+    background:color-mix(in srgb, var(--accent,var(--yellow)) 8%, var(--panel));
+  }
+  .ribbon.earned .rtitle{color:var(--accent,var(--yellow))}
+  .ribbon.earned .rprog{color:color-mix(in srgb, var(--accent,var(--yellow)) 78%, var(--mute));
+    border-top-color:color-mix(in srgb, var(--accent,var(--yellow)) 30%, var(--line))}
+  .ribbon .check{position:absolute;top:8px;right:10px;font-size:0.9rem;
+    color:var(--accent,var(--yellow));opacity:0;transition:opacity 200ms ease;
+    font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:0}
+  .ribbon.earned .check{opacity:1}
+  .ribbon-summary{color:var(--mute);font-size:0.88rem;margin:0.2rem 0 0.8rem}
+  .ribbon-summary strong{color:var(--yellow);font-variant-numeric:tabular-nums}
+
   details.changelog{
     margin:2rem 0 1rem;padding:.6rem .9rem;
     background:rgba(0,0,0,0.22);
@@ -173,7 +206,8 @@
   <a href="#totals">1&nbsp;Totals</a>
   <a href="#by-section">2&nbsp;By&nbsp;section</a>
   <a href="#next">3&nbsp;What's&nbsp;next</a>
-  <a href="#reset">4&nbsp;Reset</a>
+  <a href="#achievements">4&nbsp;Achievements</a>
+  <a href="#reset">5&nbsp;Reset</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -222,8 +256,21 @@
 </div>
 </section>
 
+<section id="achievements">
+<h2>4. Achievements</h2>
+<p>Badges that accrue as you work through the notebook. Four threshold milestones, one per section for both v1 and hard tiers, and one per capstone goal — earned when every prerequisite in its BFS closure is v1-mastered.</p>
+
+<div class="widget" id="w-achievements">
+  <div class="hd"><div class="ttl">Ribbons</div><div class="hint" id="ach-hint">—</div></div>
+  <p class="ribbon-summary" id="ach-summary">—</p>
+  <div id="ach-container">
+    <!-- populated by script -->
+  </div>
+</div>
+</section>
+
 <section id="reset">
-<h2>4. Reset progress</h2>
+<h2>5. Reset progress</h2>
 <p>Wipes every v1 and hard mastery across all concepts. This only touches <code>localStorage</code> in your browser — nothing leaves the page. There is no undo.</p>
 
 <div class="widget" id="w-reset">
@@ -378,6 +425,250 @@
   }
 
   // --------------------------------------------------------------------
+  // Section → palette-token mapping for ribbon accent colors.
+  // --------------------------------------------------------------------
+  const SECTION_COLOR = {
+    'Foundations':                'var(--blue)',
+    'Algebra':                    'var(--yellow)',
+    'Analysis':                   'var(--pink)',
+    'Geometry & topology':        'var(--violet)',
+    'Number theory':              'var(--yellow)',
+    'Modular forms & L-functions':'var(--cyan)',
+    'Algebraic geometry':         'var(--green)'
+  };
+  const MILESTONE_COLOR = 'var(--yellow)';
+  const CAPSTONE_COLOR  = 'var(--cyan)';
+
+  // --------------------------------------------------------------------
+  // Capstones — read from the concept bundle if present.
+  // --------------------------------------------------------------------
+  const CAPSTONES = (MVC.capstones && Array.isArray(MVC.capstones.capstones))
+    ? MVC.capstones.capstones
+    : [];
+
+  // Precompute BFS prereq closure for each capstone goal.
+  // Returns { goal: [prereqIds...] } excluding the goal itself.
+  function computePrereqClosure(goalId){
+    const seen = new Set();
+    const queue = [];
+    const start = CONCEPT_BY_ID.get(goalId);
+    if(start){
+      for(const p of start.prereqs){ if(!seen.has(p)){ seen.add(p); queue.push(p); } }
+    }
+    while(queue.length){
+      const id = queue.shift();
+      const node = CONCEPT_BY_ID.get(id);
+      if(!node) continue;
+      for(const p of node.prereqs){
+        if(!seen.has(p)){ seen.add(p); queue.push(p); }
+      }
+    }
+    return [...seen];
+  }
+  const CAPSTONE_CLOSURES = new Map();
+  for(const cap of CAPSTONES){
+    CAPSTONE_CLOSURES.set(cap.id, computePrereqClosure(cap.goal));
+  }
+
+  // --------------------------------------------------------------------
+  // Ribbon SVG icon factory. Each icon is a small stylized glyph drawn
+  // from palette tokens so theme changes propagate. No raw hex.
+  // Variants: 'milestone' (trophy/star), 'section' (filled bar), 'capstone' (flag).
+  // --------------------------------------------------------------------
+  function ribbonIcon(kind, color){
+    const svg = SVG('svg',{viewBox:'0 0 48 48','aria-hidden':'true'});
+    if(kind === 'milestone'){
+      // five-point star
+      const pts = [];
+      for(let i=0;i<10;i++){
+        const r = (i%2===0) ? 16 : 7;
+        const a = -Math.PI/2 + i*Math.PI/5;
+        pts.push((24 + r*Math.cos(a)).toFixed(2) + ',' + (24 + r*Math.sin(a)).toFixed(2));
+      }
+      svg.appendChild(SVG('polygon',{points:pts.join(' '),fill:color,
+        stroke:color,'stroke-width':'1.2','stroke-linejoin':'round',opacity:'0.92'}));
+      svg.appendChild(SVG('circle',{cx:24,cy:24,r:3,fill:'var(--panel)'}));
+    } else if(kind === 'section-v1' || kind === 'section-hard'){
+      // stacked ribbon/shield
+      svg.appendChild(SVG('path',{
+        d:'M24 4 L38 10 L38 26 Q38 36 24 44 Q10 36 10 26 L10 10 Z',
+        fill:color, opacity: kind === 'section-hard' ? '0.55' : '0.85',
+        stroke:color,'stroke-width':'1.4','stroke-linejoin':'round'}));
+      if(kind === 'section-hard'){
+        // inner accent stripe for hard tier
+        svg.appendChild(SVG('path',{
+          d:'M24 12 L32 16 L32 26 Q32 32 24 38 Q16 32 16 26 L16 16 Z',
+          fill:'none', stroke:color,'stroke-width':'1.8','stroke-linejoin':'round'}));
+      }
+      // checkmark
+      svg.appendChild(SVG('path',{
+        d:'M17 23 L22 28 L31 18',fill:'none',stroke:'var(--panel)',
+        'stroke-width':'2.8','stroke-linecap':'round','stroke-linejoin':'round'}));
+    } else if(kind === 'capstone'){
+      // flag on a pole
+      svg.appendChild(SVG('line',{x1:14,y1:6,x2:14,y2:42,
+        stroke:'var(--mute)','stroke-width':'2','stroke-linecap':'round'}));
+      svg.appendChild(SVG('path',{
+        d:'M14 8 L38 8 L32 16 L38 24 L14 24 Z',
+        fill:color,stroke:color,'stroke-width':'1.2','stroke-linejoin':'round',opacity:'0.9'}));
+      svg.appendChild(SVG('circle',{cx:14,cy:42,r:3,fill:'var(--mute)'}));
+    }
+    return svg;
+  }
+
+  // Build the ribbon DOM card.
+  function renderRibbon({kind, title, desc, color, earned, haveCount, needCount}){
+    const card = document.createElement('div');
+    card.className = 'ribbon ' + (earned ? 'earned' : 'unearned');
+    card.style.setProperty('--accent', color);
+    const remain = Math.max(0, needCount - haveCount);
+    const progText = earned
+      ? 'earned · ' + haveCount + '/' + needCount
+      : haveCount + '/' + needCount + ' · ' + remain + ' to go';
+    card.setAttribute('aria-label',
+      (earned ? 'Earned: ' : 'Not yet earned: ') + title + '. ' + desc + ' ' + progText + '.');
+    card.setAttribute('role','group');
+
+    const check = document.createElement('span');
+    check.className = 'check';
+    check.textContent = '★';
+    check.setAttribute('aria-hidden','true');
+    card.appendChild(check);
+
+    const ic = document.createElement('div');
+    ic.className = 'ic';
+    ic.appendChild(ribbonIcon(kind, color));
+    card.appendChild(ic);
+
+    const t = document.createElement('div');
+    t.className = 'rtitle';
+    t.textContent = title;
+    card.appendChild(t);
+
+    const d = document.createElement('p');
+    d.className = 'rdesc';
+    d.textContent = desc;
+    card.appendChild(d);
+
+    const p = document.createElement('div');
+    p.className = 'rprog';
+    p.textContent = progText;
+    card.appendChild(p);
+
+    return card;
+  }
+
+  // --------------------------------------------------------------------
+  // Assemble the full ribbon manifest for this render.
+  // Returns { groups: [{name, ribbons:[...]}], totalEarned, total }.
+  // --------------------------------------------------------------------
+  function buildRibbons(st){
+    const groups = [];
+
+    // 1. Milestones — thresholds on cumulative v1 count.
+    const thresholds = [
+      { n: 10,         title: 'Getting started',   desc: 'Master 10 concepts (v1).' },
+      { n: 50,         title: 'Half a hundred',    desc: 'Master 50 concepts (v1).' },
+      { n: 100,        title: 'Centurion',         desc: 'Master 100 concepts (v1).' },
+      { n: st.total,   title: 'The whole notebook',desc: 'Master every concept at v1.' }
+    ];
+    const milestoneRibbons = thresholds.map(t => ({
+      kind: 'milestone',
+      title: t.title,
+      desc: t.desc,
+      color: MILESTONE_COLOR,
+      earned: st.v1 >= t.n && t.n > 0,
+      haveCount: Math.min(st.v1, t.n),
+      needCount: t.n
+    }));
+    groups.push({ name: 'Milestones', ribbons: milestoneRibbons });
+
+    // 2. Section-complete v1 — every concept in section is v1-mastered.
+    const secV1 = SECTIONS.map(s => {
+      const m = st.bySection.get(s.name) || { total:0, v1:0, hard:0 };
+      return {
+        kind: 'section-v1',
+        title: s.name + ' · v1',
+        desc: 'Every concept in ' + s.name + ' cleared at v1.',
+        color: SECTION_COLOR[s.name] || MILESTONE_COLOR,
+        earned: m.total > 0 && m.v1 >= m.total,
+        haveCount: m.v1,
+        needCount: m.total
+      };
+    });
+    groups.push({ name: 'Section complete · v1', ribbons: secV1 });
+
+    // 3. Section-complete hard.
+    const secHard = SECTIONS.map(s => {
+      const m = st.bySection.get(s.name) || { total:0, v1:0, hard:0 };
+      return {
+        kind: 'section-hard',
+        title: s.name + ' · hard',
+        desc: 'Every concept in ' + s.name + ' cleared at the hard tier.',
+        color: SECTION_COLOR[s.name] || MILESTONE_COLOR,
+        earned: m.total > 0 && m.hard >= m.total,
+        haveCount: m.hard,
+        needCount: m.total
+      };
+    });
+    groups.push({ name: 'Section complete · hard', ribbons: secHard });
+
+    // 4. Capstone-ready — all prereqs in BFS closure v1-mastered.
+    const capRibbons = CAPSTONES.map(cap => {
+      const closure = CAPSTONE_CLOSURES.get(cap.id) || [];
+      let have = 0;
+      for(const id of closure){
+        if(MVProgress.isMastered(id, 'v1')) have++;
+      }
+      const need = closure.length;
+      return {
+        kind: 'capstone',
+        title: cap.title,
+        desc: 'All prerequisites of this capstone mastered (v1).',
+        color: SECTION_COLOR[cap.section] || CAPSTONE_COLOR,
+        earned: need > 0 && have >= need,
+        haveCount: have,
+        needCount: need
+      };
+    });
+    groups.push({ name: 'Capstone ready', ribbons: capRibbons });
+
+    let earned = 0, total = 0;
+    for(const g of groups){
+      for(const r of g.ribbons){ total++; if(r.earned) earned++; }
+    }
+    return { groups, earned, total };
+  }
+
+  function renderAchievements(st){
+    const cont = $('#ach-container');
+    if(!cont) return;
+    cont.innerHTML = '';
+    const { groups, earned, total } = buildRibbons(st);
+    for(const g of groups){
+      const block = document.createElement('div');
+      block.className = 'ach-group';
+      const h = document.createElement('div');
+      h.className = 'ach-group-title';
+      const gEarned = g.ribbons.filter(r=>r.earned).length;
+      h.textContent = g.name + '  ·  ' + gEarned + '/' + g.ribbons.length;
+      block.appendChild(h);
+      const grid = document.createElement('div');
+      grid.className = 'ach-grid';
+      for(const r of g.ribbons) grid.appendChild(renderRibbon(r));
+      block.appendChild(grid);
+      cont.appendChild(block);
+    }
+    const sum = $('#ach-summary');
+    if(sum){
+      sum.innerHTML = '<strong>' + earned + '</strong> of ' + total +
+        ' ribbons earned across milestones, section completions, and capstone prerequisites.';
+    }
+    const hint = $('#ach-hint');
+    if(hint) hint.textContent = earned + '/' + total + ' earned';
+  }
+
+  // --------------------------------------------------------------------
   // Render — called on load and again after reset.
   // --------------------------------------------------------------------
   function render(){
@@ -512,6 +803,9 @@
         ol.appendChild(li);
       }
     }
+
+    // 4. Achievement ribbons
+    renderAchievements(st);
   }
 
   render();

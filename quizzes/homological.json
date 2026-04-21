@@ -130,6 +130,7 @@
             "surjective but not necessarily injective"
           ],
           "answer": 1,
+          "hint": "Two diagram chases — injectivity then surjectivity — both ride on the outer isomorphisms.",
           "explain": "The five-lemma: with exact rows and the four outer verticals being isomorphisms, a standard diagram chase (injectivity first, then surjectivity) proves the middle map is also an isomorphism."
         }
       ]

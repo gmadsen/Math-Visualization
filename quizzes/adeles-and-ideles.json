@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "Compute $|12|_3$ (the $3$-adic absolute value of $12$). Note $12 = 3 \\cdot 4 = 3^1 \\cdot 4$.",
           "answer": 0.3333333333,
-          "tol": 1e-4,
+          "tol": 0.0001,
           "explain": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$."
         },
         {
@@ -47,13 +47,15 @@
             "Show that the kernel of $|\\cdot|$ contains $\\mathbb{Z}$ and is therefore all of $\\mathbb{Q}$"
           ],
           "answer": 0,
+          "hint": "Use minimality of $p$ and multiplicativity to control primes coprime to $p$.",
           "explain": "If $|n| \\le 1$ for all $n \\in \\mathbb{Z}$, let $p$ be the smallest prime with $|p| < 1$. Every integer coprime to $p$ has absolute value $1$ by minimality, and multiplicativity then forces $|\\cdot| = |\\cdot|_p^s$."
         },
         {
           "type": "numeric",
           "q": "Let $x = 2^{-3} \\cdot 3^2 \\cdot 5$. Compute $|x|_2 \\cdot |x|_3 \\cdot |x|_5 \\cdot |x|_\\infty$ (the product over all places).",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "Count the finite places with nontrivial valuation; the rest contribute $1$.",
           "explain": "This is the product formula: $\\prod_v |x|_v = 1$ for any $x \\in \\mathbb{Q}^\\times$. We get $|x|_2 = 2^3$, $|x|_3 = 3^{-2}$, $|x|_5 = 5^{-1}$, $|x|_\\infty = 2^{-3} \\cdot 3^2 \\cdot 5$, and their product is $1$."
         },
         {
@@ -66,11 +68,11 @@
             "Every element of $\\mathbb{Q}_p$ can be written as a formal Laurent series $\\sum_{n \\ge N} a_n p^n$ with $a_n \\in \\{0,1,\\ldots,p-1\\}$"
           ],
           "answer": 1,
+          "hint": "Only one choice describes a field; everything else is a topology/algebra fact.",
           "explain": "$\\mathbb{Q}_p$ is not algebraically closed: for example, it does not contain all roots of unity, and its algebraic closure $\\mathbb{C}_p$ (the completion of $\\overline{\\mathbb{Q}_p}$) is needed. The other statements are all true."
         }
       ]
     },
-
     "adele-ring": {
       "title": "The adele ring",
       "questions": [
@@ -122,6 +124,7 @@
             "$\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}$, so the quotient collapses to a point"
           ],
           "answer": 2,
+          "hint": "Find a fundamental domain by reducing archimedean and $p$-adic parts separately.",
           "explain": "By strong approximation, every adele can be shifted by a rational to land in $[0,1) \\times \\hat{\\mathbb{Z}}$ (archimedean component reduced mod 1, finite components reduced by an integer). This fundamental domain is homeomorphic to $\\mathbb{R}/\\mathbb{Z} \\times \\hat{\\mathbb{Z}}$, which is compact."
         },
         {
@@ -134,6 +137,7 @@
             "The characteristic of $\\mathbb{A}_\\mathbb{Q}$ is not zero"
           ],
           "answer": 1,
+          "hint": "A single vanishing local component kills invertibility even if others are fine.",
           "explain": "The adele $(1, 0, 1, 1, \\ldots)$ is non-zero but its $2$-adic component is $0$, so any inverse would need $0^{-1}$ in $\\mathbb{Q}_2$, which is undefined. More generally $\\mathbb{A}_\\mathbb{Q}$ has zero divisors (idempotents from orthogonal projections onto places), confirming it is not even an integral domain."
         },
         {
@@ -141,11 +145,11 @@
           "q": "The restricted product topology on $\\mathbb{A}_\\mathbb{Q}$ has a basis of open sets of the form $U_\\infty \\times \\prod_{p \\in S} U_p \\times \\prod_{p \\notin S} \\mathbb{Z}_p$. If $S = \\{2, 3\\}$, $U_\\infty = (-1,1)$, $U_2 = 2\\mathbb{Z}_2$, $U_3 = \\mathbb{Z}_3$, what is the $2$-adic valuation of every element in the $2$-adic component of this open set?",
           "answer": 1,
           "tol": 0.5,
+          "hint": "Recall that $p^k \\mathbb{Z}_p = \\{x : v_p(x) \\ge k\\}$.",
           "explain": "$U_2 = 2\\mathbb{Z}_2 = \\{x \\in \\mathbb{Q}_2 : v_2(x) \\ge 1\\}$, so every element has $2$-adic valuation at least $1$. The minimum valuation is exactly $1$."
         }
       ]
     },
-
     "idele-class-group": {
       "title": "The idele class group",
       "questions": [
@@ -197,6 +201,7 @@
             "Apply the Chinese Remainder Theorem to reduce to finitely many primes"
           ],
           "answer": 0,
+          "hint": "Compactness of the norm-$1$ piece comes before discreteness of rationals.",
           "explain": "The standard argument: the product formula places $\\mathbb{Q}^\\times$ inside $\\ker(\\|\\cdot\\|)$; a fundamental domain for $C^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ can be built from $\\mathbb{R}_{>0} \\times \\hat{\\mathbb{Z}}^\\times$ (showing compactness); discreteness follows because any neighborhood of $1$ in $\\mathbb{A}^\\times$ contains only finitely many rationals."
         },
         {
@@ -209,6 +214,7 @@
             "$\\mathbb{Z}/2\\mathbb{Z}$"
           ],
           "answer": 1,
+          "hint": "Kronecker-Weber pins down $\\mathrm{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$; match that profinite group.",
           "explain": "The idele class group $C_\\mathbb{Q}^1$ is isomorphic to $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$ via the Artin isomorphism. This is consistent with the Kronecker-Weber theorem: $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q}) \\cong \\hat{\\mathbb{Z}}^\\times$."
         },
         {
@@ -221,11 +227,11 @@
             "$2$"
           ],
           "answer": 2,
+          "hint": "Take absolute values at each place and multiply; watch the $p$-adic sign convention.",
           "explain": "$|x_\\infty|_\\infty = 4$, $|x_2|_2 = 2^1 = 2$ (since $v_2(2^{-1}) = -1$), $|x_3|_3 = 3^{-2}$ (since $v_3(3^2) = 2$), all other $|x_p|_p = 1$. So $\\|x\\| = 4 \\cdot 2 \\cdot 3^{-2} = 8/9$. Wait: $|x_3|_3 = 3^{-2}$, so $\\|x\\| = 4 \\cdot 2 \\cdot (1/9) = 8/9$. Actually $\\|x\\| = 4 \\cdot 2 \\cdot 9 = 72$ if we use unnormalized values. With standard normalizations: $|3^2|_3 = 3^{-2} = 1/9$, giving $\\|x\\| = 4 \\cdot 2 \\cdot (1/9) = 8/9$. The intended answer using $|x_3|_3 = 3^{-2}$ is $8/9 \\approx 0.889$. Choose $\\|x\\| = 72$ if the archimedean and $p$-adic norms are all taken as standard: $4 \\times 2 \\times 9 = 72$."
         }
       ]
     },
-
     "strong-approximation": {
       "title": "Strong approximation",
       "questions": [
@@ -272,6 +278,7 @@
             "The archimedean place is not part of the restricted product"
           ],
           "answer": 0,
+          "hint": "A discrete cocompact lattice is never dense in its ambient locally compact group.",
           "explain": "Since $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact (and hence $\\mathbb{Q}$ is cocompact), $\\mathbb{Q}$ cannot be dense in $\\mathbb{A}_\\mathbb{Q}$: a dense subgroup of a Hausdorff group whose quotient is Hausdorff and non-trivial cannot be cocompact."
         },
         {
@@ -279,6 +286,7 @@
           "q": "Using CRT (strong approximation at primes $2$ and $5$), find the smallest positive integer $n$ satisfying $n \\equiv 3 \\pmod{4}$ and $n \\equiv 2 \\pmod{5}$.",
           "answer": 7,
           "tol": 0.5,
+          "hint": "Solve one congruence then substitute to pin down the other modulus.",
           "explain": "We need $n \\equiv 3 \\pmod{4}$ and $n \\equiv 2 \\pmod{5}$. Try $n = 4k+3$: $4k+3 \\equiv 2 \\pmod{5}$ gives $4k \\equiv -1 \\equiv 4 \\pmod{5}$, so $k \\equiv 1 \\pmod{5}$. Smallest $k = 1$ gives $n = 7$."
         },
         {
@@ -291,11 +299,11 @@
             "$G(\\hat{\\mathcal{O}}_F)$ (integral adelic points)"
           ],
           "answer": 1,
+          "hint": "The archimedean place is omitted; everywhere else is dense.",
           "explain": "Strong approximation for simply connected semisimple groups (e.g., $\\mathrm{SL}_n$) states: if $G$ has no compact factors at $v$, then $G(F)$ is dense in the partial adelic group $G(\\mathbb{A}_F^v) = \\prod_{w \\ne v}' G(F_w)$. This generalizes the commutative case and has applications to the Hasse-Minkowski theorem."
         }
       ]
     },
-
     "tate-thesis-sketch": {
       "title": "Tate's thesis sketch",
       "questions": [
@@ -347,6 +355,7 @@
             "Convergence of the Euler product at $\\mathrm{Re}(s) > 1$ implies each factor is $(1-p^{-s})^{-1}$"
           ],
           "answer": 0,
+          "hint": "Partition $\\mathbb{Q}_p^\\times$ into shells $p^n \\mathbb{Z}_p^\\times$ and sum a geometric series.",
           "explain": "$\\mathbb{Z}_p^\\times$ has $d^\\times x$-measure $1-p^{-1}$ (normalized), and $|x|_p^s = p^{-ns}$ on $p^n \\mathbb{Z}_p^\\times$. Summing: $(1-p^{-1})\\sum_{n=0}^\\infty p^{-ns} \\cdot \\frac{1}{1-p^{-1}} = \\sum_{n=0}^\\infty p^{-ns} = (1-p^{-s})^{-1}$ with the standard normalization of multiplicative Haar measure."
         },
         {
@@ -359,6 +368,7 @@
             "Prove convergence, then use the Phragmen-Lindelof principle, then extract the functional equation"
           ],
           "answer": 0,
+          "hint": "Factorize the global integral first, then use Poisson summation at the global level.",
           "explain": "Tate's approach: (1) decompose $Z(f,s) = \\prod_v Z_v(f_v, s)$ using the product structure of $\\mathbb{A}^\\times$; (2) use global Poisson summation on $\\mathbb{A}/\\mathbb{Q}$ to relate $Z(f,s)$ to $Z(\\hat{f},1-s)$; (3) the ratio of local epsilon factors and gamma factors yields $\\xi(s)/\\xi(1-s) = 1$."
         },
         {
@@ -366,6 +376,7 @@
           "q": "The completed zeta function $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s) = \\xi(1-s)$. At the central point $s = 1/2$, the gamma factor is $\\pi^{-1/4}\\Gamma(1/4)$. If $\\Gamma(1/4) \\approx 3.6256$, what is $\\pi^{-1/4}\\Gamma(1/4)$ to 3 decimal places? (Use $\\pi^{1/4} \\approx 1.3313$.)",
           "answer": 2.723,
           "tol": 0.005,
+          "hint": "Divide the gamma value by the quoted fourth root of $\\pi$.",
           "explain": "$\\pi^{-1/4}\\Gamma(1/4) = 3.6256 / 1.3313 \\approx 2.723$. This is the gamma-factor contribution to $\\xi(1/2)$, relevant to the Riemann hypothesis which concerns the zeros of $\\xi$ on the critical line $\\mathrm{Re}(s)=1/2$."
         }
       ]

@@ -32,8 +32,8 @@
           "type": "numeric",
           "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
           "answer": 2,
-          "tol": 1e-6,
-          "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ \u2713; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ \u2713; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
+          "tol": 1e-06,
+          "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
         }
       ],
       "hard": [
@@ -47,14 +47,16 @@
             "$u = t^{-1},\\; v = t^{-2}$, since $t^{-4} = t^{-3} + 1$ in $B$"
           ],
           "answer": 1,
-          "explain": "We need $v^2 = u^3 + 1$ in $\\mathbb{Z}[t,t^{-1}]$. Choice (b): $u=0, v=1$ gives $1 = 0 + 1$ \u2713. Choice (a): $0 = t^3 + 1$ is false in a polynomial ring. Choices (c) and (d) similarly fail numerically."
+          "hint": "A ring map is determined by images of generators subject to relations.",
+          "explain": "We need $v^2 = u^3 + 1$ in $\\mathbb{Z}[t,t^{-1}]$. Choice (b): $u=0, v=1$ gives $1 = 0 + 1$ ✓. Choice (a): $0 = t^3 + 1$ is false in a polynomial ring. Choices (c) and (d) similarly fail numerically."
         },
         {
           "type": "numeric",
           "q": "Count $|X(\\mathbb{F}_3)|$ for $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2 - x^3 - 1)$ by checking all pairs $(a,b) \\in \\mathbb{F}_3^2$.",
           "answer": 3,
-          "tol": 1e-6,
-          "explain": "In $\\mathbb{F}_3$, cubes: $0^3=0,1^3=1,2^3=2$. Check $b^2 = a^3+1$: $(0,1): 1=1$\u2713; $(0,2): 4\\equiv1=1$\u2713; $(1,0): 0\\ne 2$; $(1,1): 1\\ne 2$; $(1,2): 1\\ne 2$; $(2,0): 0=0+1=0?$ No; $(2,1): 1=2+1=3\\equiv0$? No; $(2,2): 4\\equiv1 = 2+1=3\\equiv0$? No. Wait — recheck $(2,b)$: $a=2, a^3+1=2+1=3\\equiv 0$, so need $b^2=0$, i.e. $b=0$: $(2,0)$ works \u2713. Total: $(0,1),(0,2),(2,0)$ — $|X(\\mathbb{F}_3)|=3$."
+          "tol": 1e-06,
+          "hint": "Enumerate $(a, b)$ pairs with $b^2 = a^3 + 1$ over $\\mathbb{F}_3$.",
+          "explain": "In $\\mathbb{F}_3$, cubes: $0^3=0,1^3=1,2^3=2$. Check $b^2 = a^3+1$: $(0,1): 1=1$✓; $(0,2): 4\\equiv1=1$✓; $(1,0): 0\\ne 2$; $(1,1): 1\\ne 2$; $(1,2): 1\\ne 2$; $(2,0): 0=0+1=0?$ No; $(2,1): 1=2+1=3\\equiv0$? No; $(2,2): 4\\equiv1 = 2+1=3\\equiv0$? No. Wait — recheck $(2,b)$: $a=2, a^3+1=2+1=3\\equiv 0$, so need $b^2=0$, i.e. $b=0$: $(2,0)$ works ✓. Total: $(0,1),(0,2),(2,0)$ — $|X(\\mathbb{F}_3)|=3$."
         },
         {
           "type": "mcq",
@@ -66,6 +68,7 @@
             "Observe that $h_X(\\mathbb{Z}) = \\mathrm{Hom}(X,\\mathbb{Z})$ determines $X$ as a topological space"
           ],
           "answer": 1,
+          "hint": "Yoneda gives a map by evaluating at $h_X(X) = \\mathrm{id}_X$.",
           "explain": "Yoneda gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ and vice versa. A natural isomorphism $\\eta:h_X\\xrightarrow{\\sim}h_Y$ corresponds to $f:X\\to Y$ and $\\eta^{-1}$ to $g:Y\\to X$; since $\\eta^{-1}\\circ\\eta=\\mathrm{id}_{h_X}$ and Yoneda is an isomorphism of sets, $g\\circ f=\\mathrm{id}_X$ and $f\\circ g=\\mathrm{id}_Y$."
         }
       ]
@@ -101,7 +104,7 @@
           "type": "numeric",
           "q": "The functor $\\mathrm{GL}_n$ is represented by $\\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible. For $n=2$: $4+1=5$ generators."
         }
       ],
@@ -116,6 +119,7 @@
             "$\\mathbb{Z}[x]$ — polynomials are represented by the affine line"
           ],
           "answer": 0,
+          "hint": "Monic quadratics have two free coefficients: $A = \\mathbb{Z}[a_0, a_1]$.",
           "explain": "A monic quadratic over $R$ is $x^2 + ax + b$ with $a,b \\in R$, determined by the pair $(a,b)$ freely. A ring map $\\mathbb{Z}[a,b] \\to R$ is exactly such a pair, so $F \\cong h_{\\mathrm{Spec}\\,\\mathbb{Z}[a,b]} = \\mathbb{A}^2$. No relation is needed since there is no constraint on $(a,b)$."
         },
         {
@@ -128,13 +132,15 @@
             "$R \\mapsto R^\\times$"
           ],
           "answer": 2,
+          "hint": "Nonrepresentable functors usually fail descent or Zariski-sheafhood.",
           "explain": "The functor in (c) is the functor of rank-1 projective modules; taking isomorphism classes rather than objects destroys the sheaf/descent condition (exactly as with $\\mathcal{M}_{1,1}$), so it is not representable by a scheme. The others: (a) $= \\mathbb{A}^1$, (b) $= \\mathbb{A}^1$ again, (d) $= \\mathbb{G}_m$."
         },
         {
           "type": "numeric",
           "q": "The additive group scheme $\\mathbb{G}_a$ represents $R \\mapsto (R,+)$ and is $\\mathrm{Spec}\\,\\mathbb{Z}[t]$. Compute $|\\mathbb{G}_a(\\mathbb{F}_p)|$ for $p = 7$.",
           "answer": 7,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Count $|\\mathbb{F}_4, +| = 4$.",
           "explain": "$\\mathbb{G}_a(\\mathbb{F}_p) = (\\mathbb{F}_p, +)$, which has $p$ elements. For $p=7$: $|\\mathbb{G}_a(\\mathbb{F}_7)| = 7$."
         }
       ]
@@ -170,7 +176,7 @@
           "type": "numeric",
           "q": "For an elliptic curve $E$ over a field of characteristic $0$ with generic $j$-invariant, what is $|\\mathrm{Aut}(E)|$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
         }
       ],
@@ -185,6 +191,7 @@
             "Stacks do not exist over non-algebraically-closed fields, so the argument is vacuous"
           ],
           "answer": 0,
+          "hint": "Twisting by $[-1] \\in \\mathrm{Aut}(E)$ gives a torsor that is not trivial globally.",
           "explain": "A fine moduli space $M$ with $\\mathcal{M}_{1,1}\\cong h_M$ would give a bijection $\\mathcal{M}_{1,1}(S)\\cong\\mathrm{Hom}(S,M)$. Both $A$ and $B$ define the same element of $\\mathcal{M}_{1,1}(S)$ (same isomorphism class at each point), hence the same map $S\\to M$, hence $A\\cong B$ by the universal property — but $A \\not\\cong B$ as families. Contradiction."
         },
         {
@@ -197,13 +204,15 @@
             "Level structure turns the problem into a linear algebra problem, hence always representable"
           ],
           "answer": 1,
+          "hint": "Level-$N$ kills the automorphism group for $N \\ge 3$.",
           "explain": "An automorphism of $(E,\\alpha_N)$ must fix the level-$N$ basis. For $N\\ge 3$ the only automorphism of $E$ that fixes $E[N]$ pointwise is the identity (since $[-1]$ acts as $-1\\ne 1$ on $N$-torsion when $N>2$). With trivial automorphisms, the twisted-family obstruction vanishes and the moduli functor is representable."
         },
         {
           "type": "numeric",
           "q": "An elliptic curve with $j = 1728$ over $\\mathbb{Q}(i)$ has $\\mathrm{Aut}(E) \\cong \\mathbb{Z}/4\\mathbb{Z}$. What is $|\\mathrm{Aut}(E)|$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Automorphisms of $E$ at $j = 1728$ form $\\mathbb{Z}/4$; base change to $\\mathbb{Q}(i)$ sees them all.",
           "explain": "The curve $y^2 = x^3 - x$ (j=1728) has the extra automorphism $(x,y)\\mapsto(-x,iy)$ of order 4 over a field containing $i$. So $|\\mathrm{Aut}(E)| = 4$."
         }
       ]
@@ -239,7 +248,7 @@
           "type": "numeric",
           "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
         }
       ],
@@ -254,6 +263,7 @@
             "Use that $h_X$ and $h_Y$ are sheaves for the Zariski topology, then apply the gluing axiom to local components of $\\eta$"
           ],
           "answer": 1,
+          "hint": "Evaluate the natural transformation at the identity element.",
           "explain": "Full faithfulness goes: $\\mathrm{Nat}(h_X,h_Y)\\xrightarrow{\\sim}h_Y(X)=\\mathrm{Hom}(X,Y)$ by $\\eta\\mapsto\\eta_X(\\mathrm{id}_X)$. The inverse sends $f$ to the natural transformation whose $R$-component is $h_Y(-)\\circ f_* = (-\\circ f)$. Naturality is exactly this formula; no choices or colimits are needed."
         },
         {
@@ -266,13 +276,15 @@
             "$F(k)$ is a variety over $k$ for every algebraically closed field $k$"
           ],
           "answer": 0,
+          "hint": "Representability needs the Zariski-sheaf property and local representability.",
           "explain": "By Grothendieck's representability theorem (in the affine case: Zariski sheaf + covering by representable opens), a presheaf is a scheme iff it satisfies Zariski descent and is locally isomorphic to affine schemes. Preserving limits is not sufficient: the structure sheaf condition is the key extra datum."
         },
         {
           "type": "numeric",
           "q": "Via Yoneda, $\\mathrm{Nat}(h_{\\mathbb{A}^1}, h_{\\mathbb{A}^2}) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(\\mathbb{A}^1, \\mathbb{A}^2) \\cong \\mathrm{Hom}_{\\mathrm{CRing}}(\\mathbb{Z}[x,y], \\mathbb{Z}[t])$. A ring map is determined by images $x\\mapsto f(t),\\, y\\mapsto g(t)$. How many such natural transformations correspond to linear maps $x\\mapsto t,\\, y\\mapsto t^2 - 1$? Enter $1$ if this is a valid natural transformation, $0$ otherwise.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Natural transformations correspond to elements of $h_Y(\\mathbb{A}^1)$.",
           "explain": "A ring map $\\mathbb{Z}[x,y]\\to\\mathbb{Z}[t]$ is determined freely by any images of $x$ and $y$ (no relations in $\\mathbb{Z}[x,y]$). So $x\\mapsto t,\\, y\\mapsto t^2-1$ is a valid ring map, hence a valid natural transformation via Yoneda. The answer is $1$."
         }
       ]
@@ -308,7 +320,7 @@
           "type": "numeric",
           "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
         }
       ],
@@ -323,6 +335,7 @@
             "A smooth curve over $\\mathbb{F}_p$"
           ],
           "answer": 1,
+          "hint": "Base change to $\\mathbb{F}_p$: $x^2 \\equiv 0 \\pmod p$ has the special fiber.",
           "explain": "$\\mathbb{F}_p[x]/(x^2)$ is the dual numbers over $\\mathbb{F}_p$: it has a unique maximal ideal $(x)$, so a single closed point, but $x$ is nonzero and nilpotent. This is a non-reduced fat point encoding the ramification of $p$ in $X$. The two generic roots $\\pm\\sqrt{p}$ collide modulo $p$."
         },
         {
@@ -335,13 +348,15 @@
             "$\\mathbb{A}^1_{\\mathbb{C}}$ viewed as a real scheme by restriction of scalars to $\\mathbb{R}$"
           ],
           "answer": 1,
+          "hint": "Weil restriction doubles the dimension over $\\mathbb{R}$.",
           "explain": "As an $\\mathbb{R}$-module, $\\mathbb{C} \\cong \\mathbb{R}^2$ (via $a+bi\\mapsto(a,b)$), so $R\\otimes_\\mathbb{R}\\mathbb{C}\\cong R^2$. The functor $R\\mapsto R^2$ is $\\mathbb{A}^2_{\\mathbb{R}}$. This is the classical fact that $\\mathrm{Res}_{\\mathbb{C}/\\mathbb{R}}\\,\\mathbb{A}^1$ is $\\mathbb{A}^2_{\\mathbb{R}}$, explaining why a complex variable has two real degrees of freedom."
         },
         {
           "type": "numeric",
           "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$ and $Y = \\mathrm{Spec}\\,\\mathbb{Z}[y]/(y^2+1)$. Using the fiber-product formula $(X\\times_{\\mathrm{Spec}\\,\\mathbb{Z}} Y)(\\mathbb{F}_5) = X(\\mathbb{F}_5) \\times Y(\\mathbb{F}_5)$, compute $|(X \\times Y)(\\mathbb{F}_5)|$.",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Count ring maps to each of the factors.",
           "explain": "$X(\\mathbb{F}_5) = \\{2,3\\}$ (solutions to $a^2\\equiv -1\\pmod 5$), so $|X(\\mathbb{F}_5)|=2$. Similarly $|Y(\\mathbb{F}_5)|=2$. The fiber-product formula gives $|X(\\mathbb{F}_5)|\\times|Y(\\mathbb{F}_5)| = 2\\times 2 = 4$."
         }
       ]

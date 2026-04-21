@@ -101,6 +101,7 @@
             "Every map from a compact space to $S^2$ is null-homotopic"
           ],
           "answer": 0,
+          "hint": "Reduce to a plane by using that loops miss at least one point.",
           "explain": "A space-filling loop would require $\\gamma$ to be surjective; by a small transversality/smooth perturbation argument every smooth loop misses a point. Removing that point gives $\\mathbb{R}^2$, and any loop in $\\mathbb{R}^2$ contracts to a point via the straight-line homotopy, so $\\gamma$ was null-homotopic in $S^2$."
         },
         {

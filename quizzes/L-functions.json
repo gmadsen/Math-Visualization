@@ -19,7 +19,7 @@
           "type": "numeric",
           "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
           "answer": -3,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "$a_5=5+1-9=-3$."
         },
         {
@@ -45,13 +45,15 @@
             "The factor is set to $1$ and the prime is ignored"
           ],
           "answer": 1,
+          "hint": "Bad primes split into split/nonsplit multiplicative and additive types.",
           "explain": "At a prime of multiplicative reduction, $a_p=+1$ (split) or $a_p=-1$ (non-split), giving a single linear factor $(1-a_pp^{-s})^{-1}$. The quadratic good-reduction factor would erroneously imply smoothness there."
         },
         {
           "type": "numeric",
           "q": "For the curve $E:y^2=x^3-x$ over $\\mathbb{F}_3$, the points are $(0,0),(1,0),(2,0)$ plus the point at infinity. Compute $a_3$.",
           "answer": -1,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "Count affine points and apply $a_p = p + 1 - |E(\\mathbb{F}_p)|$.",
           "explain": "$\\#E(\\mathbb{F}_3)=4$ (three affine points plus $\\infty$). $a_3=3+1-4=0$. Wait — re-check: only the points satisfying $y^2=x^3-x$ mod $3$ count. $x=0$: $y^2=0$, so $(0,0)$; $x=1$: $y^2=0$, so $(1,0)$; $x=2$: $y^2=8-2=6\\equiv0$, so $(2,0)$. That gives $\\#E(\\mathbb{F}_3)=4$, so $a_3=3+1-4=0$."
         },
         {
@@ -64,6 +66,7 @@
             "Each local factor $(1-a_pp^{-s}+p^{1-2s})^{-1}$ has a pole on the line $\\mathrm{Re}\\,s=1$"
           ],
           "answer": 0,
+          "hint": "Multiplicativity of good Fourier coefficients forces the Euler product.",
           "explain": "The Hasse bound gives $|a_p|\\le2p^{1/2}$, so the logarithm of each local factor is $O(p^{1/2-\\sigma})$. Summing over primes gives absolute convergence of the product for $\\sigma=\\mathrm{Re}\\,s>3/2$. Continuation to $\\mathrm{Re}\\,s\\le3/2$ requires modularity (Wiles et al.)."
         }
       ]
@@ -97,7 +100,7 @@
           "type": "numeric",
           "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "Normalization sets the first coefficient to 1."
         }
       ],
@@ -112,6 +115,7 @@
             "The local factor has degree $k$ in $p^{-s}$"
           ],
           "answer": 1,
+          "hint": "The Hecke recursion relates $a_{p^2}$ to $a_p$ and $p^{k-1}$.",
           "explain": "Writing $1-a_pX+p^{k-1}X^2=(1-\\alpha_pX)(1-\\beta_pX)$, the relation $a_{p^2}=a_p^2-p^{k-1}$ follows from $\\alpha_p^2+\\beta_p^2=(\\alpha_p+\\beta_p)^2-2\\alpha_p\\beta_p$. The local factor is the reciprocal quadratic $(1-\\alpha_pp^{-s})^{-1}(1-\\beta_pp^{-s})^{-1}$."
         },
         {
@@ -124,13 +128,15 @@
             "The Euler product follows solely from the functional equation without any multiplicativity assumption"
           ],
           "answer": 1,
+          "hint": "Use Hecke recursion for $a_{p^r}$; match the two-variable generating function.",
           "explain": "The key input is that $f$ is a simultaneous eigenfunction of all Hecke operators $T_p$. This forces complete multiplicativity $a_{mn}=a_ma_n$ for coprime $m,n$ and the recursion $a_{p^{r+1}}=a_pa_{p^r}-p^{k-1}a_{p^{r-1}}$, which together allow the Dirichlet series to be written as $\\prod_p(\\text{local factor})^{-1}$."
         },
         {
           "type": "numeric",
           "q": "Let $f$ be a normalized eigenform of weight $12$ for $\\mathrm{SL}_2(\\mathbb{Z})$ (the Ramanujan $\\Delta$ function). If $a_2=\\tau(2)=-24$, use the Hecke relation $a_{p^2}=a_p^2-p^{k-1}$ with $p=2, k=12$ to compute $\\tau(4)$.",
           "answer": -1472,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "Tau of $4$ comes from the Hecke recursion at $p=2$.",
           "explain": "$\\tau(4)=a_2^2-2^{11}=(-24)^2-2048=576-2048=-1472$."
         }
       ]
@@ -164,7 +170,7 @@
           "type": "numeric",
           "q": "The central point of $s\\leftrightarrow 2-s$ symmetry is $s=$ ?",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
         }
       ],
@@ -179,6 +185,7 @@
             "It removes the zeros on the critical line"
           ],
           "answer": 1,
+          "hint": "The gamma factor is the archimedean Euler factor.",
           "explain": "The completed $L$-function $\\Lambda(E,s)$ includes local factors at every place of $\\mathbb{Q}$, including the archimedean place. The gamma factor $\\Gamma_\\mathbb{R}(s)^2$ (for weight-$2$ forms) is precisely the archimedean Euler factor, completing the picture and enabling the global functional equation $\\Lambda(E,s)=w\\,N^{1-s}\\Lambda(E,2-s)$."
         },
         {
@@ -191,13 +198,15 @@
             "Apply the Riemann Hypothesis for $E$ $\\Rightarrow$ deduce analytic continuation $\\Rightarrow$ read off the functional equation"
           ],
           "answer": 0,
+          "hint": "Analytic continuation first, then gamma factor, then functional equation.",
           "explain": "The standard proof: multiply $L(E,s)$ by the gamma factor to form $\\Lambda$, recognize it as a Mellin transform of the associated weight-$2$ newform $f_E$, split $\\int_0^\\infty=\\int_0^{1/\\sqrt{N}}+\\int_{1/\\sqrt{N}}^\\infty$, and apply the modular symmetry $f_E(-1/Niz)=wN z^2 f_E(iz)$ to the first piece to get the functional equation."
         },
         {
           "type": "numeric",
           "q": "Suppose $w=-1$ for an elliptic curve $E$. At the center $s=1$, the functional equation forces $\\Lambda(E,1)=w\\Lambda(E,1)=-\\Lambda(E,1)$. What value must $\\Lambda(E,1)$ take?",
           "answer": 0,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "When $w = -1$, forced vanishing gives odd-order behavior at the center.",
           "explain": "$\\Lambda(E,1)=-\\Lambda(E,1)$ implies $2\\Lambda(E,1)=0$, so $\\Lambda(E,1)=0$. Root number $w=-1$ forces an odd-order zero at the center, predicting an odd Mordell–Weil rank by BSD."
         }
       ]
@@ -233,7 +242,7 @@
           "type": "numeric",
           "q": "How many poles does the completed $\\Lambda(f,s)$ of a weight-$k$ cusp form have in $\\mathbb{C}$?",
           "answer": 0,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$."
         }
       ],
@@ -248,6 +257,7 @@
             "Expansion of $f$ in its Fourier series and term-by-term Mellin transform, valid for all $s$"
           ],
           "answer": 1,
+          "hint": "Modular symmetry lets you use the same Mellin transform on both halves.",
           "explain": "Substitute $y\\to 1/y$ in $\\int_0^1 f(iy)y^{s-1}dy$: you get $\\int_1^\\infty f(i/y)y^{-(s-1)}y^{-2}dy\\cdot (-1)$. The modular identity transforms $f(i/y)$ to $\\pm N^{?}y^k f(iy)$ (or $i^{-k}y^k f(iy)$ for $\\Gamma_0(1)$), yielding an integral over $(1,\\infty)$ against a well-decaying integrand, which is entire in $s$."
         },
         {
@@ -260,13 +270,15 @@
             "The pole of $\\Lambda(\\zeta,s)$ is removable; it is entire as well"
           ],
           "answer": 0,
+          "hint": "Subtract the pole contribution to make $\\Lambda$ entire.",
           "explain": "The source of analyticity is the behavior of $f$ at the cusp $i\\infty$. A cusp form vanishes there (exponential decay), so both pieces of the split Mellin integral converge absolutely for all $s$. The Eisenstein series (and the constant term) do not decay, giving a residue and a simple pole in $\\Lambda$."
         },
         {
           "type": "numeric",
           "q": "The Dirichlet series $\\sum_{n=1}^\\infty a_n n^{-s}$ for an elliptic curve $L$-function converges absolutely for $\\mathrm{Re}\\,s>3/2$. If $|a_p|\\le 2\\sqrt{p}$ (Hasse) and $|a_{p^r}|\\le (r+1)p^{r/2}$, which minimal half-integer $\\sigma_0=k/2$ (integer $k$) gives absolute convergence of the product $\\prod_p|\\text{local factor}|$ on $\\mathrm{Re}\\,s>\\sigma_0$?",
           "answer": 1.5,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "Deligne bounds $|a_p| \\le 2\\sqrt{p}$, pushing convergence past $\\mathrm{Re}\\,s > 3/2$.",
           "explain": "The dominant term in the local factor expansion is $|a_pp^{-s}|\\le 2p^{1/2-\\sigma}$. Summing $\\sum_p 2p^{1/2-\\sigma}$ over primes converges when $1/2-\\sigma<-1$, i.e., $\\sigma>3/2$. So $\\sigma_0=3/2$."
         }
       ]
@@ -278,7 +290,7 @@
           "type": "numeric",
           "q": "Euler's evaluation gives $\\zeta(2)=\\pi^2/k$ for which integer $k$?",
           "answer": 6,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant."
         },
         {
@@ -317,6 +329,7 @@
             "$L(E,s)$ is identically zero"
           ],
           "answer": 1,
+          "hint": "BSD relates the order of vanishing of $L(E,s)$ at $s=1$ to the Mordell-Weil rank.",
           "explain": "BSD predicts $\\mathrm{ord}_{s=1}L(E,s)=\\mathrm{rank}\\,E(\\mathbb{Q})$. Rank $2$ means $L$ vanishes to order exactly $2$ at $s=1$: the first non-zero Taylor coefficient is $L^{(2)}(E,1)/2!$, and BSD also predicts this leading coefficient explicitly in terms of the Shafarevich–Tate group, regulator, and other invariants."
         },
         {
@@ -329,13 +342,15 @@
             "$\\zeta(2k)$ is an integer multiple of $\\pi$ for all $k\\ge1$"
           ],
           "answer": 1,
+          "hint": "Euler used the sine factorization to compare coefficients.",
           "explain": "Euler factors $\\sin(\\pi x)=\\pi x\\prod_{n=1}^\\infty(1-x^2/n^2)$, takes logarithms, compares the Taylor expansion of $\\ln\\sin$, and reads off $\\zeta(2k)=(-1)^{k+1}(2\\pi)^{2k}B_{2k}/(2(2k)!)$ from the Bernoulli numbers. The key step is matching the Taylor coefficient of $x^{2k}$ on both sides."
         },
         {
           "type": "numeric",
           "q": "The leading Taylor coefficient of $L(E,s)$ near $s=1$ when $\\mathrm{rank}\\,E(\\mathbb{Q})=1$ is $L'(E,1)$. If BSD holds and the Shafarevich–Tate group is trivial, $L'(E,1)=\\frac{\\Omega\\cdot R}{\\#E(\\mathbb{Q})_{\\mathrm{tors}}^2}$ (schematically). How many rational points of infinite order appear in this formula directly?",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "The leading term mixes regulator, Sha, torsion, and Tamagawa numbers.",
           "explain": "When the rank is $1$, the Mordell–Weil group modulo torsion is generated by a single point $P$ of infinite order. The regulator $R=\\hat{h}(P)$ is the canonical height of that generator — one generator, one point of infinite order."
         }
       ]

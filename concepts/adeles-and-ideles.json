@@ -20,7 +20,7 @@
       "prereqs": [
         "places-and-local-fields"
       ],
-      "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times \\prod_p' \\mathbb{Q}_p$ is the restricted direct product: tuples $(x_v)$ over all places where $x_p \\in \\mathbb{Z}_p$ for all but finitely many $p$. This makes $\\mathbb{A}_\\mathbb{Q}$ a locally compact ring in which $\\mathbb{Q}$ embeds diagonally as a discrete cocompact subgroup."
+      "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times {\\prod_p}' \\mathbb{Q}_p$ is the restricted direct product over all places: tuples with $x_p \\in \\mathbb{Z}_p$ for almost all $p$. It is locally compact, and $\\mathbb{Q}$ embeds as a discrete cocompact subring."
     },
     {
       "id": "idele-class-group",
@@ -29,7 +29,7 @@
       "prereqs": [
         "adele-ring"
       ],
-      "blurb": "The idèle group $\\mathbb{A}_\\mathbb{Q}^\\times$ consists of invertible adèles with the restricted product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ is a locally compact abelian group whose connected component encodes the archimedean data."
+      "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally."
     },
     {
       "id": "strong-approximation",
@@ -38,7 +38,7 @@
       "prereqs": [
         "adele-ring"
       ],
-      "blurb": "Strong approximation for $\\mathbb{Q}$: the diagonal image of $\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}^\\infty = \\prod_p' \\mathbb{Q}_p$ (adèles with the archimedean place omitted). This packages the Chinese Remainder Theorem and simultaneous Diophantine approximation into a single topological statement."
+      "blurb": "Strong approximation: the diagonal image of $\\mathbb{Q}$ is dense in the finite adèles $\\mathbb{A}_\\mathbb{Q}^\\infty$, repackaging the Chinese Remainder Theorem and simultaneous Diophantine approximation as one topological density statement."
     },
     {
       "id": "tate-thesis-sketch",
@@ -49,7 +49,7 @@
         "dirichlet-series-basics",
         "analytic-continuation"
       ],
-      "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
+      "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry."
     }
   ]
 }

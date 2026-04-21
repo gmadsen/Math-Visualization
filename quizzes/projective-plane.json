@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "Over the finite field $\\mathbb{F}_q$, the number of points of $\\mathbb{P}^2$ is $q^2+q+1$. How many points does $\\mathbb{P}^2(\\mathbb{F}_3)$ have?",
           "answer": 13,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=3$: $9+3+1=13$."
         }
       ],
@@ -47,13 +47,15 @@
             "The relation is not an equivalence relation over finite fields"
           ],
           "answer": 1,
+          "hint": "Check reflexive, symmetric, and transitive for scaling equivalence.",
           "explain": "Reflexivity: $(X,Y,Z)\\sim(X,Y,Z)$ via $\\lambda=1\\in K^\\times$. Symmetry: if $(X,Y,Z)=\\lambda(X',Y',Z')$ then $(X',Y',Z')=\\lambda^{-1}(X,Y,Z)$ and $\\lambda^{-1}\\in K^\\times$. Transitivity: $\\lambda$ followed by $\\mu$ gives scalar $\\lambda\\mu\\in K^\\times$."
         },
         {
           "type": "numeric",
           "q": "How many points does $\\mathbb{P}^2(\\mathbb{F}_5)$ have?",
           "answer": 31,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Apply $|\\mathbb{P}^2(\\mathbb{F}_q)| = q^2 + q + 1$.",
           "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=5$: $25+5+1=31$."
         },
         {
@@ -66,6 +68,7 @@
             "The line at infinity is homeomorphic to $\\mathbb{R}$ because it parametrizes slopes"
           ],
           "answer": 0,
+          "hint": "Points at infinity form a copy of $\\mathbb{P}^1$, one dimension lower.",
           "explain": "The line at infinity in $\\mathbb{P}^2(\\mathbb{R})$ is $\\{[X:Y:0]\\mid (X,Y)\\ne(0,0)\\}\\cong\\mathbb{P}^1(\\mathbb{R})$, which is homeomorphic to $S^1$ (a compact space). Since $\\mathbb{R}$ is not compact, they cannot be homeomorphic — the \"line at infinity\" wraps around and identifies antipodal directions."
         }
       ]
@@ -89,14 +92,14 @@
           "type": "numeric",
           "q": "The affine conic $f(x,y)=x^2+y^2-1$ homogenizes to $F(X,Y,Z)=X^2+Y^2-Z^2$. How many points at infinity ($Z=0$) does it have over $\\mathbb{R}$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Setting $Z=0$ gives $X^2+Y^2=0$, which over $\\mathbb{R}$ forces $X=Y=0$ — not a valid projective point. So there are $0$ real points at infinity. (Over $\\mathbb{C}$ there are two: $[1:\\pm i:0]$.)"
         },
         {
           "type": "numeric",
           "q": "The parabola $y-x^2=0$ homogenizes to $YZ-X^2=0$. How many points at infinity does it have?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Setting $Z=0$ in $YZ-X^2=0$ gives $X^2=0$, hence $X=0$ and $[0:1:0]$ is the unique projective solution. The parabola has exactly one point at infinity."
         }
       ],
@@ -111,6 +114,7 @@
             "Infinitely many — every direction on the line at infinity works"
           ],
           "answer": 1,
+          "hint": "Set $Z=0$ and solve the linear form.",
           "explain": "Setting $Z=0$ in $2X-Y+Z=0$ gives $2X-Y=0$, so $Y=2X$, yielding the unique projective point $[1:2:0]$. Note $[-1:-2:0]=[1:2:0]$ in $\\mathbb{P}^2$, so there is exactly one point at infinity — the direction of the line."
         },
         {
@@ -123,13 +127,15 @@
             "$V(F)$ is only well-defined when $\\lambda=1$"
           ],
           "answer": 1,
+          "hint": "Homogeneity of degree $d$ gives the $\\lambda^d$ factor.",
           "explain": "For a degree-$d$ homogeneous polynomial: $F(\\lambda X,\\lambda Y,\\lambda Z)=\\lambda^d F(X,Y,Z)$. Since $\\lambda^d\\ne 0$, vanishing is preserved under scaling, so $F=0$ on the equivalence class $[X:Y:Z]$ is unambiguous."
         },
         {
           "type": "numeric",
           "q": "The homogeneous cubic $F(X,Y,Z)=X^3+Y^3+Z^3$. How many points at infinity ($Z=0$) does $V(F)$ have over $\\mathbb{R}$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Set $Z=0$ and factor $X^3 + Y^3$.",
           "explain": "Setting $Z=0$: $X^3+Y^3=0$, so $(X/Y)^3=-1$, giving $X/Y=-1$ over $\\mathbb{R}$, i.e., the unique real point $[1:-1:0]$. (Over $\\mathbb{C}$ there are three cube roots of $-1$.)"
         }
       ]
@@ -153,7 +159,7 @@
           "type": "numeric",
           "q": "What is the dimension of $\\mathrm{PGL}_3(K)$ as an algebraic group over $K$?",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\dim\\mathrm{GL}_3=9$ and we quotient by the $1$-dimensional center $K^\\times$, giving $\\dim\\mathrm{PGL}_3=9-1=8$."
         },
         {
@@ -180,13 +186,15 @@
             "Both B and C above"
           ],
           "answer": 3,
+          "hint": "The scalar matrices act trivially on $\\mathbb{P}^2$, giving $PGL_3$ not $GL_3$.",
           "explain": "Any $\\lambda A$ ($\\lambda\\in K^\\times$) induces the same map on $\\mathbb{P}^2$ because $\\lambda A\\mathbf{v}=\\lambda(A\\mathbf{v})$ and $[\\lambda\\mathbf{w}]=[\\mathbf{w}]$ in projective space. Both $-A$ (with $\\lambda=-1$) and $2A$ (with $\\lambda=2$) are specific instances of this non-uniqueness, so D captures the full picture."
         },
         {
           "type": "numeric",
           "q": "A projective transformation of $\\mathbb{P}^2$ is determined by the images of a projective frame (four points in general position). How many points in general position are needed to specify an element of $\\mathrm{PGL}_3(K)$ uniquely?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "A projective frame in $\\mathbb{P}^2$ is four points in general position.",
           "explain": "$\\mathrm{PGL}_3(K)$ has dimension $8$. A projective frame consists of $4$ points (no three collinear): specifying where each goes provides $3\\times 4=12$ coordinates minus $4$ normalization constraints, leaving $8$ degrees of freedom — exactly matching $\\dim\\mathrm{PGL}_3$. So $4$ points in general position uniquely fix a projective transformation."
         },
         {
@@ -199,6 +207,7 @@
             "The signature of the defining quadratic form is a projective invariant in all characteristics"
           ],
           "answer": 0,
+          "hint": "Over $\\mathbb{R}$, point-count signs of the form discriminate conics.",
           "explain": "Over $\\mathbb{R}$, the signature of the associated symmetric bilinear form is preserved by $\\mathrm{GL}_3(\\mathbb{R})$ (Sylvester's law of inertia). $X^2+Y^2-Z^2=0$ has signature $(2,1)$ and has real points (e.g., $[1:0:1]$), while $X^2+Y^2+Z^2=0$ has signature $(3,0)$ and no real solutions. They are inequivalent over $\\mathbb{R}$, though equivalent over $\\mathbb{C}$."
         }
       ]
@@ -234,7 +243,7 @@
           "type": "numeric",
           "q": "Over $\\mathbb{F}_q$, the number of lines in $\\mathbb{P}^2(\\mathbb{F}_q)$ equals $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=q^2+q+1$. How many lines does $\\mathbb{P}^2(\\mathbb{F}_2)$ contain?",
           "answer": 7,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=2$: $4+2+1=7$ — the Fano plane has $7$ points and $7$ lines, beautifully self-dual."
         }
       ],
@@ -249,6 +258,7 @@
             "Six points on a conic always determine a unique inscribed triangle"
           ],
           "answer": 0,
+          "hint": "Dualize the hexagon and collinearity becomes concurrence.",
           "explain": "Duality swaps 'point' with 'line' and 'collinear' with 'concurrent'. Pascal: six points on conic $\\Rightarrow$ three intersection points of opposite sides are collinear. Brianchon: six tangent lines to conic $\\Rightarrow$ three lines joining opposite vertices are concurrent."
         },
         {
@@ -261,13 +271,15 @@
             "Double duality holds only over algebraically closed fields"
           ],
           "answer": 0,
+          "hint": "Points and hyperplanes become dual, and incidence is preserved.",
           "explain": "The incidence pairing $aX+bY+cZ=0$ is symmetric in $(a,b,c)$ and $(X,Y,Z)$. Dualizing a point $P=[X_0:Y_0:Z_0]$ gives the line $X_0 a+Y_0 b+Z_0 c=0$ in $(\\mathbb{P}^2)^*$; dualizing that line in $(\\mathbb{P}^2)^{**}$ recovers $[X_0:Y_0:Z_0]\\in\\mathbb{P}^2$. The symmetry of the bilinear form is the key step."
         },
         {
           "type": "numeric",
           "q": "In $\\mathbb{P}^2(\\mathbb{F}_3)$, each line contains $q+1$ points. How many points lie on each line of $\\mathbb{P}^2(\\mathbb{F}_3)$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Compute $q + 1 = 4$.",
           "explain": "A projective line over $\\mathbb{F}_q$ is isomorphic to $\\mathbb{P}^1(\\mathbb{F}_q)$, which has $q+1$ points. For $q=3$: $3+1=4$ points per line."
         }
       ]
@@ -279,7 +291,7 @@
           "type": "numeric",
           "q": "Compute the cross-ratio $[0,1;2,3]=\\dfrac{(0-2)(1-3)}{(0-3)(1-2)}$.",
           "answer": 1.3333333333,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$[0,1;2,3]=\\dfrac{(-2)(-2)}{(-3)(-1)}=\\dfrac{4}{3}\\approx 1.333$."
         },
         {
@@ -298,7 +310,7 @@
           "type": "numeric",
           "q": "How many distinct values does the cross-ratio take as the four input points are permuted by $S_4$? (Equivalently: $|S_4|/|V_4|$ where $V_4$ is the Klein four-group of permutations that fix the cross-ratio.)",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$. The remaining $24/4=6$ cosets give the six values $\\{\\lambda,\\ 1-\\lambda,\\ 1/\\lambda,\\ 1/(1-\\lambda),\\ \\lambda/(\\lambda-1),\\ (\\lambda-1)/\\lambda\\}$."
         }
       ],
@@ -307,7 +319,8 @@
           "type": "numeric",
           "q": "Four collinear points have cross-ratio $\\lambda=2$. One permutation of the four points gives cross-ratio $1-\\lambda$. What is the value of $1-\\lambda$ for $\\lambda=2$?",
           "answer": -1,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "One permutation gives $1 - 2 = -1$.",
           "explain": "$1-\\lambda=1-2=-1$. A cross-ratio of $-1$ is special: it means the four points form a harmonic range — a classical construction in projective geometry."
         },
         {
@@ -320,6 +333,7 @@
             "Both A and C — they give the same result and are projectively equivalent descriptions"
           ],
           "answer": 3,
+          "hint": "The complete quadrilateral construction produces the harmonic conjugate.",
           "explain": "Both descriptions are correct and projectively related. The complete-quadrilateral construction is the projective definition: $D$ is the fourth harmonic. In the affine chart where $A=0$, $B=\\infty$, the midpoint $C=m$ gives harmonic conjugate $D=\\infty$; but with $A=0$, $B=1$, $C=m$ the harmonic conjugate is $D=m/(2m-1)$. When $C$ is the affine midpoint of $AB$, $D$ is the point at infinity — consistent with both descriptions."
         },
         {
@@ -332,6 +346,7 @@
             "The cross-ratios satisfy $[A,B;C,D]\\cdot[A',B';C',D']=1$"
           ],
           "answer": 1,
+          "hint": "Cross-ratio classifies orbits under projective equivalence on $\\mathbb{P}^1$.",
           "explain": "The cross-ratio is the complete projective invariant of four collinear points: two such quadruples are related by a projectivity (element of $\\mathrm{PGL}_2$) iff their cross-ratios are equal. This is the fundamental theorem of projective geometry restricted to the line."
         }
       ]

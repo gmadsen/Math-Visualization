@@ -451,6 +451,7 @@
             "$X=\\partial_x+\\partial_y$ on $\\mathbb{R}^2$ — its integral curves leave every compact set"
           ],
           "answer": 1,
+          "hint": "Escape to infinity is fine; incompleteness needs blow-up in finite time.",
           "explain": "The ODE $\\dot x=x^2$, $x(0)=1$ has solution $x(t)=1/(1-t)$, which escapes to $+\\infty$ as $t\\to 1^-$. So the maximal interval of existence is $(-\\infty,1)$ — strictly less than $\\mathbb{R}$ — and $X=x^2\\partial_x$ on $\\mathbb{R}$ is incomplete. Leaving compact sets in finite time per se is fine (A, D) as long as the curve stays in $M$; only blow-up in finite time breaks completeness."
         },
         {

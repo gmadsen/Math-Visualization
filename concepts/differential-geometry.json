@@ -10,7 +10,7 @@
       "prereqs": [
         "submanifolds-immersions"
       ],
-      "blurb": "Embedded geometry starts with curvature, normals, and local parametrizations."
+      "blurb": "A regular surface $S\\subset\\mathbb{R}^3$ carries local parametrizations $\\mathbf{x}(u,v)$ with linearly independent $\\mathbf{x}_u,\\mathbf{x}_v$, a tangent plane $T_pS$, and a unit normal $\\mathbf{n}$; orientability asks whether $\\mathbf{n}$ can be chosen globally."
     },
     {
       "id": "first-second-fundamental",
@@ -19,7 +19,7 @@
       "prereqs": [
         "curves-surfaces-dg"
       ],
-      "blurb": "Metric and shape operator encode intrinsic and extrinsic geometry of surfaces."
+      "blurb": "The first form $I = E\\,du^2 + 2F\\,du\\,dv + G\\,dv^2$ records intrinsic length and area; the second form $II$ and its self-adjoint shape operator $S_p = -dN_p$ record how $S$ curves extrinsically in $\\mathbb{R}^3$."
     },
     {
       "id": "gauss-map",
@@ -28,7 +28,7 @@
       "prereqs": [
         "first-second-fundamental"
       ],
-      "blurb": "The unit-normal map n: S \u2192 S^2 has differential dN_p = \u2212S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature."
+      "blurb": "The unit-normal map n: S → S^2 has differential dN_p = −S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature."
     },
     {
       "id": "gauss-curvature-geodesics",
@@ -37,17 +37,17 @@
       "prereqs": [
         "first-second-fundamental"
       ],
-      "blurb": "Curvature and geodesic flow govern local shape and shortest paths."
+      "blurb": "Gaussian curvature $K = \\det S_p$ is intrinsic (Theorema Egregium); geodesics satisfy $\\ddot\\gamma^k + \\Gamma^k_{ij}\\dot\\gamma^i\\dot\\gamma^j = 0$ with Christoffel symbols built from $I$, modelling shortest paths on $S$."
     },
     {
       "id": "gauss-bonnet",
-      "title": "Gauss\u2013Bonnet theorem",
+      "title": "Gauss–Bonnet theorem",
       "anchor": "gaussbonnet",
       "prereqs": [
         "gauss-curvature-geodesics",
         "gauss-map"
       ],
-      "blurb": "Total Gaussian curvature of a closed oriented surface is 2\u03c0\u03c7(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2\u03c0."
+      "blurb": "Total Gaussian curvature of a closed oriented surface is 2πχ(S): curvature is pinned to topology, with a local version tying K, geodesic curvature, and exterior angles to 2π."
     }
   ]
 }

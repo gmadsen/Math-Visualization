@@ -44,6 +44,7 @@
             "Any two forms of the same negative discriminant are equivalent over $\\mathbb{Q}$, so no counterexample exists"
           ],
           "answer": 0,
+          "hint": "Same discriminant can hide multiple classes; check represented values.",
           "explain": "$x^2+5y^2$ and $2x^2+2xy+3y^2$ both have $D=-20$ and are primitive, yet they belong to different classes: $x^2+5y^2$ represents $5$ (set $x=0,y=1$) but $2x^2+2xy+3y^2$ does not represent $5$, witnessing non-equivalence."
         },
         {
@@ -51,6 +52,7 @@
           "q": "The form $3x^2+2xy+5y^2$ has discriminant $D$. What is $D$?",
           "answer": -56,
           "tol": 0.001,
+          "hint": "Use $D=b^2-4ac$ with $a=3,b=2,c=5$.",
           "explain": "$D = b^2 - 4ac = 4 - 4(3)(5) = 4 - 60 = -56$."
         },
         {
@@ -62,6 +64,7 @@
             "$a > 0$ $\\Rightarrow$ $D < 0$ $\\Rightarrow$ $f$ is primitive"
           ],
           "answer": 0,
+          "hint": "Primitivity unlocks representation in coprime residue classes.",
           "explain": "A primitive form has $\\gcd(a,b,c)=1$, and by a lemma of Gauss any primitive form represents integers in every residue class coprime to any fixed $N$. The other chains break: positive-definite does not imply primitive (e.g. $2x^2+2y^2$), and $a>0, D<0$ alone says nothing about $\\gcd$."
         }
       ]
@@ -109,6 +112,7 @@
             "Subtract multiples of $b$ from $a$ until $a < c$, with no further steps needed"
           ],
           "answer": 0,
+          "hint": "Alternate between reducing $b$ mod $2a$ and swapping when $a>c$.",
           "explain": "The reduction loop: (1) replace $b$ by the representative of $b$ in $(-a,a]$ via the substitution $y\\mapsto y - \\lfloor(b+a)/(2a)\\rfloor x$; (2) if $a>c$ swap via $x\\mapsto -y, y\\mapsto x$ and flip sign of $b$; iterate to fixed point; finally enforce $b\\ge 0$ when $|b|=a$ or $a=c$."
         },
         {
@@ -116,6 +120,7 @@
           "q": "How many reduced primitive positive-definite forms of discriminant $D=-23$ are there? (Enter $h(-23)$.)",
           "answer": 3,
           "tol": 0.001,
+          "hint": "Enumerate reduced forms with $|b|\\le a\\le c$ and $b^2-4ac=-23$.",
           "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
         },
         {
@@ -127,6 +132,7 @@
             "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
           ],
           "answer": 1,
+          "hint": "Check whether $|b|\\le a$ holds in each option.",
           "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
         }
       ]
@@ -174,6 +180,7 @@
             "$[x^2+xy+6y^2]$, the principal class"
           ],
           "answer": 0,
+          "hint": "Negate $b$ to get the inverse class.",
           "explain": "The inverse of a form class $[ax^2+bxy+cy^2]$ is $[ax^2-bxy+cy^2]$ (negate $b$, i.e. the transpose/opposite form). For $f=2x^2+xy+3y^2$, the inverse class is $[2x^2-xy+3y^2]$. In a group of order 3 the inverse of a non-identity element $g$ is $g^2$, consistent with this: $[f]^2=[2x^2-xy+3y^2]$."
         },
         {
@@ -185,6 +192,7 @@
             "One must check that the composed form is always reduced in the sense of Gauss"
           ],
           "answer": 0,
+          "hint": "Well-defined operations must respect the equivalence relation.",
           "explain": "Well-definedness of a group operation on equivalence classes requires that the operation is compatible with the equivalence relation: replacing either input by an equivalent form must yield an equivalent output. The other properties are not required for well-definedness."
         },
         {
@@ -192,6 +200,7 @@
           "q": "For discriminant $D=-20$, the class group $\\mathrm{Cl}(-20)$ is isomorphic to $\\mathbb{Z}/2\\mathbb{Z}$. What is $h(-20)$?",
           "answer": 2,
           "tol": 0.001,
+          "hint": "Read off the order of $\\mathbb{Z}/2$.",
           "explain": "$|\\mathbb{Z}/2\\mathbb{Z}|=2$, so $h(-20)=2$. The two reduced forms are $x^2+5y^2$ (principal) and $2x^2+2xy+3y^2$."
         }
       ]
@@ -239,6 +248,7 @@
           "q": "The discriminant $D=-20$ has prime discriminant divisors $\\{-4, 5\\}$ so $t=2$. How many genera does $\\mathrm{Cl}(-20)$ have?",
           "answer": 2,
           "tol": 0.001,
+          "hint": "Apply $2^{t-1}$ with $t=2$.",
           "explain": "Number of genera $= 2^{t-1} = 2^{2-1} = 2$. Since $h(-20)=2$ and there are 2 genera, each genus contains exactly 1 class."
         },
         {
@@ -250,6 +260,7 @@
             "$f$ represents $6$ (take $x=1,y=1$); $\\left(\\frac{6}{5}\\right)=\\left(\\frac{1}{5}\\right)=+1$; both give $+1$ consistently"
           ],
           "answer": 0,
+          "hint": "Pick a represented value coprime to $D$ before plugging into Legendre.",
           "explain": "To evaluate $\\chi_5$ we need an $m$ represented by $f$ with $\\gcd(m,D)=\\gcd(m,-20)=1$. Taking $x=1,y=0$ gives $m=1$, which has $\\gcd(1,20)=1$; then $\\left(\\frac{1}{5}\\right)=1$. The second option uses $m=5$ which has $\\gcd(5,20)=5\\ne1$ and is inadmissible."
         },
         {
@@ -261,6 +272,7 @@
             "All genera are equal to the principal genus whenever $h(D)$ is odd"
           ],
           "answer": 0,
+          "hint": "Genera are cosets of $\\mathrm{Cl}(D)^2$; the index is $2^{t-1}$.",
           "explain": "Since the genera are cosets of the subgroup $\\mathrm{Cl}(D)^2$ of squares, the number of genera equals $[\\mathrm{Cl}(D):\\mathrm{Cl}(D)^2]=2^{t-1}$, which must divide $h(D)$. When $h(D)$ is odd, $\\mathrm{Cl}(D)^2=\\mathrm{Cl}(D)$ (every element is a square), so there is only 1 genus — but that requires $2^{t-1}=1$, i.e. $t=1$, not a general collapse."
         }
       ]
@@ -312,6 +324,7 @@
             "$N(\\mathfrak{a}) = 23$, the absolute value of the discriminant"
           ],
           "answer": 0,
+          "hint": "The leading coefficient of the form is exactly the ideal norm.",
           "explain": "The norm of the ideal $[a, \\frac{-b+\\sqrt{D}}{2}]$ corresponding to $ax^2+bxy+cy^2$ equals $a$, the leading coefficient. This is because $[\\mathcal{O}_K:\\mathfrak{a}]=a$."
         },
         {
@@ -323,6 +336,7 @@
             "$3$ is represented by the principal form $\\Leftrightarrow$ $\\left(\\frac{-23}{3}\\right)=+1$, which alone suffices"
           ],
           "answer": 0,
+          "hint": "Principal representation corresponds to splitting in the Hilbert class field.",
           "explain": "The full chain: $p$ represented by principal form $\\Leftrightarrow$ prime ideal above $p$ is principal $\\Leftrightarrow$ $p$ splits completely in the Hilbert class field $H/\\mathbb{Q}(\\sqrt{-23})$. The Legendre symbol condition $\\left(\\frac{D}{p}\\right)=+1$ only tells us $p$ splits in $\\mathbb{Q}(\\sqrt{-23})$, not that the split ideal is principal — that requires the Hilbert class field condition."
         },
         {
@@ -334,6 +348,7 @@
             "Proving that $K = \\mathbb{Q}(\\sqrt{D})$ has class number 1"
           ],
           "answer": 0,
+          "hint": "Check Dirichlet composition matches ideal multiplication explicitly.",
           "explain": "The key step is confirming that Dirichlet composition of forms corresponds precisely to ideal multiplication: if $f\\to\\mathfrak{a}$ and $g\\to\\mathfrak{b}$, then $f\\circ g\\to\\mathfrak{a}\\mathfrak{b}$. This requires tracing the explicit construction (finding $B$ with $B^2\\equiv D\\pmod{4a_1a_2}$ and writing the composed form). If $h(D)=1$ all ideals are principal, which would trivialize the class group, not help prove the homomorphism property."
         }
       ]

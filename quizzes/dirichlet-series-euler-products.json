@@ -19,7 +19,7 @@
           "type": "numeric",
           "q": "For $\\zeta(s)=\\sum n^{-s}$, the abscissa of absolute convergence is $\\sigma_a=$ ?",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "The $p$-series test gives convergence for $\\Re(s)>1$."
         },
         {
@@ -45,13 +45,15 @@
             "$\\sigma_a - \\sigma_c \\le 1/2$ always"
           ],
           "answer": 1,
+          "hint": "The gap $\\sigma_a - \\sigma_c$ can be as large as $1$ for bounded coefficients.",
           "explain": "For any Dirichlet series $0 \\le \\sigma_a - \\sigma_c \\le 1$. The bound is attained by $\\sum (-1)^{n+1}/n^s$ (the alternating zeta), where $\\sigma_c=0$ but $\\sigma_a=1$."
         },
         {
           "type": "numeric",
           "q": "For $D(s)=\\sum_{n=1}^\\infty (-1)^{n+1} n^{-s}$ (the Dirichlet eta function), the abscissa of conditional convergence $\\sigma_c$ equals?",
           "answer": 0,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "The alternating series converges conditionally for $\\mathrm{Re}(s) > 0$.",
           "explain": "By Dirichlet's alternating-series test applied uniformly in $t$, $\\eta(s)$ converges conditionally for $\\Re(s)>0$; at $\\sigma=0$ it diverges. Hence $\\sigma_c=0$."
         },
         {
@@ -64,6 +66,7 @@
             "Invoke the functional equation to reflect $D(s)$ to a half-plane where convergence is obvious"
           ],
           "answer": 0,
+          "hint": "Absolute convergence on a right half-plane is a geometric-series tail argument.",
           "explain": "The key inequality is $|a_n n^{-s}|=|a_n| n^{-\\Re(s)} \\le |a_n| n^{-\\Re(s_0)}$; summing and using absolute convergence at $s_0$ closes the argument by comparison."
         }
       ]
@@ -86,7 +89,7 @@
           "type": "numeric",
           "q": "Compute $(1-2^{-2})^{-1}$.",
           "answer": 1.3333333333,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$(1-1/4)^{-1}=4/3$."
         },
         {
@@ -112,13 +115,15 @@
             "Using Dirichlet's theorem on primes in arithmetic progressions"
           ],
           "answer": 1,
+          "hint": "Distributing the geometric series gives a sum over all positive integers via unique factorization.",
           "explain": "Each term $n^{-s}$ in $\\zeta(s)$ comes from choosing the $p_i^{-k_i s}$ term in exactly one Euler factor per prime $p_i$. Unique factorization guarantees every $n$ arises exactly once, making the product equal to the sum."
         },
         {
           "type": "numeric",
           "q": "Truncate the Euler product to the first two primes: $(1-2^{-2})^{-1}(1-3^{-2})^{-1}$. What is the exact value?",
           "answer": 1.5,
-          "tol": 1e-6,
+          "tol": 1e-06,
+          "hint": "Compute $(4/3)(9/8)$.",
           "explain": "$(1-2^{-2})^{-1}=4/3$ and $(1-3^{-2})^{-1}=9/8$; their product is $36/24=3/2=1.5$. The true $\\zeta(2)=\\pi^2/6\\approx1.6449$ — the missing primes contribute the rest."
         },
         {
@@ -131,6 +136,7 @@
             "$a_n = r(n)$ where $r(n)=1$ if $n$ is prime and $0$ otherwise — this is not multiplicative since $r(4)=0\\ne r(2)^2$"
           ],
           "answer": 3,
+          "hint": "Non-multiplicative coefficient sequences break the Euler product.",
           "explain": "The sequence $r(n)=\\mathbf{1}[n\\text{ prime}]$ is not multiplicative: $r(2\\cdot2)=r(4)=0$ but $r(2)\\cdot r(2)=1$. Non-multiplicative coefficients do not factorize into an Euler product."
         }
       ]
@@ -164,7 +170,7 @@
           "type": "numeric",
           "q": "How many reduced residue classes are modulo $8$?",
           "answer": 4,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
         }
       ],
@@ -179,6 +185,7 @@
             "Diagonalize the group ring of $(\\mathbb{Z}/N)^\\times$ over $\\mathbb{Q}$ → apply Chebotarev density"
           ],
           "answer": 0,
+          "hint": "Non-vanishing at $s=1$ is the final, nontrivial step separating from zeta.",
           "explain": "Dirichlet's argument: orthogonality $\\frac{1}{\\varphi(N)}\\sum_\\chi\\overline{\\chi(a)}\\chi(p)=\\mathbf{1}[p\\equiv a]$ isolates the class. Multiplying by $p^{-s}$ and summing gives $\\sum_{p\\equiv a}p^{-s}=\\frac{1}{\\varphi(N)}\\sum_\\chi\\overline{\\chi(a)}\\log L(s,\\chi)+O(1)$. The trivial character makes $\\log L(s,\\chi_0)\\to+\\infty$; non-vanishing $L(1,\\chi)\\ne0$ for non-trivial $\\chi$ keeps those terms bounded, so the whole expression diverges."
         },
         {
@@ -186,6 +193,7 @@
           "q": "The non-trivial character $\\chi_{-4}$ mod $4$ satisfies $\\chi_{-4}(n)=(-1)^{(n-1)/2}$ for odd $n$. Compute $L(1,\\chi_{-4})=1-1/3+1/5-1/7+\\cdots$ to 4 decimal places.",
           "answer": 0.7854,
           "tol": 0.0001,
+          "hint": "This alternating series sums to $\\pi/4$ (Leibniz).",
           "explain": "$L(1,\\chi_{-4})=\\pi/4\\approx0.78540$. This is the Leibniz formula for $\\pi$."
         },
         {
@@ -198,6 +206,7 @@
             "The Riemann hypothesis for function fields implies non-vanishing for all complex characters"
           ],
           "answer": 1,
+          "hint": "Complex characters pair with their conjugates, which simplifies $\\log L$ non-vanishing.",
           "explain": "For complex $\\chi$, $\\bar\\chi\\ne\\chi$, so a zero of $L(s,\\chi)$ at $s=1$ pairs with a zero of $L(s,\\bar\\chi)$. The product $\\prod_\\chi L(s,\\chi)$ would then have a zero of order $\\ge 2$ at $s=1$ cancelling the simple pole of $\\zeta(s)$, giving $\\prod_\\chi L(s,\\chi)\\to 0$. But this product can be shown to be $\\ge 1$ for real $s>1$, giving a contradiction."
         }
       ]
@@ -221,7 +230,7 @@
           "type": "numeric",
           "q": "The Mellin transform of $e^{-x}$ on $(0,\\infty)$ equals $\\Gamma(s)$. Evaluate $\\Gamma(5)$.",
           "answer": 24,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$\\Gamma(n)=(n-1)!$ for positive integers, so $\\Gamma(5)=4!=24$."
         },
         {
@@ -248,13 +257,15 @@
             "$u = x^s$, giving $\\Gamma(s)$ directly"
           ],
           "answer": 0,
+          "hint": "Substitute $u = x^2$ to reduce to $\\int u^{s/2-1} e^{-u} du$.",
           "explain": "Set $u=x^2$, $du=2x\\,dx$, so $dx=du/(2\\sqrt{u})$. Then $\\int_0^\\infty e^{-x^2}x^{s-1}dx = \\int_0^\\infty e^{-u}u^{(s-1)/2}\\frac{du}{2\\sqrt{u}}=\\frac{1}{2}\\int_0^\\infty e^{-u}u^{s/2-1}du=\\frac{1}{2}\\Gamma(s/2)$."
         },
         {
           "type": "numeric",
           "q": "The Jacobi theta function satisfies $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. Using this, the completed zeta satisfies $\\xi(s)=\\xi(1-s)$. At $s=1/2$, compute $\\xi(1/2)/\\xi(1/2)$ (i.e. verify the symmetry gives what ratio).",
           "answer": 1,
-          "tol": 1e-9,
+          "tol": 1e-09,
+          "hint": "The Jacobi theta functional equation splits into two halves symmetric in $s \\leftrightarrow 1-s$.",
           "explain": "$\\xi(1-s)=\\xi(s)$ evaluated at $s=1/2$ gives $\\xi(1/2)=\\xi(1/2)$, so the ratio is $1$. The symmetry point $s=1/2$ is the center of the functional equation."
         },
         {
@@ -267,6 +278,7 @@
             "Multiplication by $a$: $\\mathcal{M}[x^a f](s) = a\\,\\mathcal{M}[f](s)$"
           ],
           "answer": 2,
+          "hint": "Mellin turns scaling into translation in $s$.",
           "explain": "$\\mathcal{M}[x^a f](s)=\\int_0^\\infty x^a f(x) x^{s-1}dx=\\int_0^\\infty f(x)x^{(s+a)-1}dx=\\mathcal{M}[f](s+a)$. Dilation in $x$ becomes translation in $s$, the Mellin analogue of the shift theorem for Fourier transforms."
         }
       ]
@@ -317,6 +329,7 @@
             "Use the functional equation of $\\zeta$ to reflect the contour"
           ],
           "answer": 0,
+          "hint": "Shift the contour and pick up residues from $s=1$ and zeros.",
           "explain": "For $x>1$, $|x^s|=x^\\sigma\\to 0$ as $\\sigma\\to-\\infty$, so close the contour to the left; the only enclosed pole is $1/s$ at $s=0$ with residue $x^0=1$. For $x<1$, $|x^s|\\to 0$ as $\\sigma\\to+\\infty$, so close to the right; no poles are enclosed and the integral is $0$."
         },
         {
@@ -329,6 +342,7 @@
             "$O(\\log x)$ — logarithmically growing"
           ],
           "answer": 1,
+          "hint": "Zeros farther from $1/2$ contribute smaller residues.",
           "explain": "Each zero contributes $|x^\\rho/\\rho|=x^\\beta/|\\rho|\\le x^{1/2}/|\\gamma|$. Summing over zeros (with the $1/|\\gamma|$ decay) gives an error $O(x^{1/2}\\log^2 x)$, yielding the RH-conditional form of the PNT: $\\psi(x)=x+O(x^{1/2}\\log^2 x)$."
         },
         {
@@ -336,6 +350,7 @@
           "q": "Truncate the explicit formula to the single zero $\\rho=1/2+14.135i$ ($|\\rho|\\approx14.14$). Estimate $|x^\\rho/\\rho|$ at $x=e^{10}$ to 1 decimal place.",
           "answer": 10.5,
           "tol": 0.5,
+          "hint": "Compute $e^{10/2}/14.14$.",
           "explain": "$|x^\\rho/\\rho|=x^{\\Re(\\rho)}/|\\rho|=(e^{10})^{1/2}/14.14=e^5/14.14\\approx148.41/14.14\\approx10.5$. The main term is $x=e^{10}\\approx22026$, so zeros contribute small but detectable oscillations."
         }
       ]

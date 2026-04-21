@@ -288,6 +288,7 @@
             "$f_n=e^{-nx}$ on $[0,\\infty)$"
           ],
           "answer": 1,
+          "hint": "Look for fixed-mass bumps whose support slides off toward infinity.",
           "explain": "$f_n=\\mathbf{1}_{[n,n+1]}\\to 0$ pointwise, so $\\liminf f_n=0$ and $\\int\\liminf f_n=0$. But $\\int f_n=1$ for all $n$, so $\\liminf_n\\int f_n=1>0$. Strict inequality holds because mass escapes to infinity."
         },
         {
