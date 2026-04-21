@@ -1,36 +1,72 @@
 # Plan
 
-Forward-looking priorities and concrete next tasks for the notebook. For architecture and conventions, read [`AGENTS.md`](./AGENTS.md) first (especially § "Common pitfalls"); for project overview, see [`README.md`](./README.md) § "How the notebook is organized".
+Forward-looking priorities for the notebook. For architecture, conventions, and the full quiz/progression/callback story, read [`AGENTS.md`](./AGENTS.md) first — especially § "Common pitfalls". For the project overview, see [`README.md`](./README.md) § "How the notebook is organized".
 
-After any change, run:
-
-```bash
-node scripts/rebuild.mjs
-```
-
-This orchestrates the full 6-step chain — `build-concepts-bundle`, `build-quizzes-bundle`, `validate-concepts`, `audit-callbacks --fix`, `insert-used-in-backlinks --fix`, `smoke-test` — and bails on the first non-zero exit. Pass `--no-fix` for audit-only mode (mirrors CI), or `--only <step>` to run a single step (`concepts`, `quizzes`, `validate`, `callbacks`, `backlinks`, `smoke`). See `scripts/rebuild.mjs` for the exact commands it dispatches.
+After any change, run `node scripts/rebuild.mjs` (exits 0 on green, bails on the first non-zero child). `--no-fix` mirrors CI; `--only <step>` runs a single step. The full step list lives in `scripts/rebuild.mjs` — refer to it rather than duplicating step names here.
 
 ## Near-term tasks
 
-- [ ] **Third-tier quiz schema wiring.** Two tiers (v1 + hard) are live. Extend `MVProgress` and `js/quiz.js` to support an optional `expert` sibling array per concept; add a third mastery ring to `pathway.html`; document the shape in `AGENTS.md § Quiz + progression`. No authoring required — just make the schema and UI accept a third tier.
-- [ ] **Pathway study-plan export.** "Copy as study plan" button on `pathway.html` emitting a topologically-sorted Markdown reading list for the selected capstone's ancestors.
-- [ ] **Stale-blurb audit.** Walk every concept in `concepts/*.json`, compare its blurb against the owning `<section>` content on its topic page, flag or rewrite any that drift. Small surface-area pass that meaningfully improves pathway preview text.
-- [ ] **Color-var substitution audit.** Small script under `scripts/` that enumerates remaining hex literals in widget markup and flags matches against the palette vars. Prereq for a safe follow-up sweep past fan-out #4's substitutions.
+Grouped by theme. Each item is a short title plus one-line scope. No checkboxes — when something ships, delete its bullet.
 
-## Exploratory / longer-term
+### Content & pedagogy
 
-- **Recency strip on `index.html`.** A "recently updated" module driven by the per-page `<details class="changelog">` footers.
-- **Topic-page search.** Now that every page carries `data-section` / `data-level`, a small client-side filter on `index.html` becomes tractable.
-- **Capstone story pages.** Some capstones (BSD, FLT, Sato–Tate) could ship a companion long-form narrative page distinct from the concept page — more essay, less widget.
+- **Notation/terminology audit.** Advisory script flagging drift (`\mathbb{Z}` vs `\Z`, `\operatorname{Aut}` vs `\Aut`, ring-of-integers conventions, etc.) across topic HTML, concept blurbs, and quiz banks.
+- **Worked-example audit.** Flag concept sections missing a `**Worked example:**` block; turn the pedagogical expectation into a gate.
+- **Blurb / quiz-question alignment sweep.** Verify each question probes something actually named in its concept's blurb.
+- **Capstone story pages.** Long-form companion narratives for BSD, FLT, and Sato–Tate — essay tone, not widget-heavy.
+- **Topic splitting.** Complex analysis (26 concepts), real analysis, smooth manifolds, and differential geometry each read as mini-textbooks; split into 2–3 focused children once the audits above are in place.
 
-## Dependency spine (reference)
+### UX
 
-When backfilling arithmetic-arc concept graphs, this ordering avoids cycles:
+- **Topic-page hotkeys.** `q` to the next unanswered quiz, `n`/`p` to next/prev section, `?` for a help overlay.
+- **Widget-state URLs.** Encode slider/selector state in the URL hash so configurations are shareable.
+- **Print CSS per topic.** `@media print` so every page exports cleanly to PDF.
+- **Onboarding tour.** First-visit 4-step overlay explaining pathway + progress + quiz flow.
+- **Concept lineage strip.** Small top-of-page DAG showing this topic's direct prereqs and downstream consumers, driven by `concepts/bundle.js`.
+- **Spaced-repetition review page.** `review.html` surfaces concepts due for re-quiz, keyed off the timestamps `MVProgress` already stores.
+- **Light theme.** Toggle via CSS custom properties; persist in localStorage.
 
-1. `quadratic-reciprocity` → `frobenius-and-reciprocity`
-2. `upper-half-plane-hyperbolic` → `modular-forms` → `hecke-operators`
-3. `dirichlet-series-euler-products` + `modular-forms` + `elliptic-curves` → `L-functions`
-4. `frobenius-and-reciprocity` + `representation-theory` → `galois-representations`
-5. `algebraic-number-theory` + `galois` → `class-field-theory`
+### Novel widgets
 
-Organizational, not technical — the validator checks cycles either way.
+- **Proof/construction scrubber.** Timeline slider that replays a multi-step proof with synchronized narrative and diagram state.
+- **Constraint / bifurcation explorer.** Set equations or inequalities, watch the feasible region update; expose singularities.
+- **Pattern-induction workbench.** Show first N terms; learner proposes a rule; system validates against hidden tests.
+- **Counterexample generator.** UI for constructing pathological objects (non-continuous-but-integrable, non-Hausdorff) and checking which hypotheses fail.
+- **Interactive commutative-diagram editor.** Drag objects and morphisms; live-check naturality and compositionality.
+- **Inline code cells.** Tiny sandboxed cells (plain JS or Pyodide) for sieves, modular arithmetic, and other computational topics.
+- **Sonification.** Map parameter changes to audio for Fourier-adjacent topics (frequency, phase).
+
+### New quiz types
+
+- **Proof completion.** First N lines given, learner fills the middle.
+- **Matching (two-column).** Pair theorems ↔ consequences, objects ↔ categories.
+- **Spot-the-error.** Present a proof with a planted flaw; learner identifies it.
+- **Construction (draw-to-answer).** Canvas where the learner draws a curve/region; tolerance-based grading.
+- **Guess-my-rule (inductive).** System shows N examples; learner proposes a formula, checked against hidden cases.
+
+Quiz-type work serializes on `js/quiz.js` — schedule as one agent, not several.
+
+### Maintainability & tooling
+
+- **`.claude/agents/`.** Directory exists but is empty. Ship four: content-scaffolder, cross-topic-prereq recommender, quiz-difficulty calibrator, pedagogy/notation auditor.
+- **Markdown-first content pipeline.** Accept contributions as Markdown + `[WIDGET: slug]` placeholders; an agent compiles to HTML + concept JSON + quiz skeleton.
+- **Cross-page consistency audit.** Verify every topic page has identical `<head>` boilerplate, sidetoc scaffold, and `data-section`/`data-level` attributes.
+- **Mobile widget performance audit.** Use the Playwright MCP to measure FPS on 3D rotation and SVG drag at a mobile viewport; wire as a gate.
+- **Bundle-staleness guard.** Fast check that `concepts/bundle.js` and `quizzes/bundle.js` match their sources without running a full rebuild.
+
+### Stretch
+
+- **Global search.** Across concepts, blurbs, quiz questions, and section headings — new `search.html` with a pre-built index.
+- **Challenge mode.** Timed mixed-concept gauntlet; competitive-against-self.
+- **Learner profiles.** Multiple profiles per browser, each with its own `MVProgress` slice.
+- **Anki deck export** per topic.
+- **On-demand proof cards.** Per-theorem compile-down pulling from the concept graph and section prose.
+
+## Shipped recently
+
+Don't enumerate — see `git log --oneline -30`. If you're unsure whether an item is already done, `node scripts/audit-doc-drift.mjs` will cross-reference this file against recent commits.
+
+## Removed from prior plans
+
+- The previous "Dependency spine" section (ordering advice for backfilling arithmetic-arc concept graphs) is gone. Those graphs are all complete; the validator catches cycles regardless. If the advice resurfaces as needed authoring guidance, it belongs under AGENTS.md § "Parallelization protocol" as an authoring recipe, not here.
+- The stale step-count prose that claimed a six-item rebuild pipeline is gone. `scripts/rebuild.mjs` is the source of truth; refer to its STEPS array rather than restating the count here.

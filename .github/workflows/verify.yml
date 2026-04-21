@@ -58,3 +58,13 @@ jobs:
         run: node scripts/fix-color-vars-style.mjs
       - name: Test offline bundle
         run: node scripts/test-offline-bundle.mjs
+      - name: Audit notation consistency
+        run: node scripts/audit-notation.mjs
+      - name: Audit worked examples
+        run: node scripts/audit-worked-examples.mjs
+      - name: Audit blurb-question alignment
+        run: node scripts/audit-blurb-question-alignment.mjs
+      - name: Audit cross-page consistency
+        run: node scripts/audit-cross-page-consistency.mjs
+      - name: Audit bundle staleness
+        run: node scripts/audit-bundle-staleness.mjs
