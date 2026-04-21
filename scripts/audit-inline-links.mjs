@@ -29,6 +29,13 @@
 // content), then re-inserts from scratch. Re-running --fix is a no-op after
 // the first pass. Hand-authored anchors are never touched.
 //
+// Injected anchors carry two extra data attributes consumed by the client-side
+// glossary popover (js/glossary-popover.js):
+//   data-concept-id="<id>"   canonical concept id (for MVProgress lookups and
+//                             title lookup via window.__MVConcepts)
+//   data-blurb="<blurb>"     HTML-escaped 1–2 sentence summary, rendered
+//                             verbatim as text content in the popover body.
+//
 // CLI:
 //   node scripts/audit-inline-links.mjs
 //       Audit mode. Print candidates grouped by page/section. Exits 0
@@ -221,6 +228,7 @@ for (const topic of Object.keys(__MV.topics)) {
       topic,
       page,
       anchor: c.anchor,
+      blurb: typeof c.blurb === 'string' ? c.blurb : '',
     });
   }
 }
@@ -654,6 +662,18 @@ function stripAutoLinks(html) {
   return html.replace(re, (_m, inner) => inner);
 }
 
+// Escape a string for embedding inside an HTML double-quoted attribute value.
+// We cover &, <, >, " and ' for safety; blurbs come from concepts/*.json and
+// routinely contain e.g. "<", apostrophes, and ampersands.
+function escAttr(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function applyFixToHtml(html, pageTopic) {
   // Strip first so candidate detection sees "clean" prose.
   let working = stripAutoLinks(html);
@@ -667,7 +687,15 @@ function applyFixToHtml(html, pageTopic) {
   for (const ins of inserts) {
     const { concept, globalIdx, length, phrase } = ins;
     const href = `./${concept.page}#${concept.anchor}`;
-    const anchor = `<a href="${href}" data-auto-inline-link="1">${phrase}</a>`;
+    const idAttr = ` data-concept-id="${escAttr(concept.id)}"`;
+    const blurbAttr = concept.blurb
+      ? ` data-blurb="${escAttr(concept.blurb)}"`
+      : '';
+    const anchor =
+      `<a href="${href}" data-auto-inline-link="1"` +
+      idAttr +
+      blurbAttr +
+      `>${phrase}</a>`;
     working =
       working.slice(0, globalIdx) + anchor + working.slice(globalIdx + length);
   }

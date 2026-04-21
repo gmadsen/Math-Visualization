@@ -174,6 +174,7 @@ function buildHeadBlock() {
     HEAD_BEGIN + '\n' +
     '<script>window.__MV_SECTION_MAP = ' + sectionMapJson + ';</script>\n' +
     '<script src="./js/breadcrumb.js"></script>\n' +
+    '<script src="./js/glossary-popover.js" defer></script>\n' +
     HEAD_END
   );
 }

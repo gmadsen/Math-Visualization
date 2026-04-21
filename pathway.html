@@ -194,6 +194,87 @@
   }
   .lock-tip .lock-tip-list{color:var(--ink)}
   .lock-tip .lock-tip-more{color:var(--mute)}
+  /* F1: Filter bar — a collapsible row of section / state / level chips
+     below the main toolbar. Non-active-state chip toggles don't mutate the
+     DOM (avoid re-rendering); they only set CSS classes via applyFilters(). */
+  .filterbar{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.5rem .8rem;margin-bottom:1.2rem;position:relative}
+  .filterbar[hidden]{display:none}
+  .filterbar .fb-row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;
+    padding:.25rem 0}
+  .filterbar .fb-row + .fb-row{border-top:1px dashed var(--line);margin-top:.25rem;padding-top:.45rem}
+  .filterbar .fb-label{color:var(--mute);font-size:.78rem;min-width:68px;
+    text-transform:uppercase;letter-spacing:.04em}
+  .filterbar .fb-reset{margin-left:auto;background:transparent;border:none;
+    color:var(--mute);font-size:.82rem;cursor:pointer;padding:.2rem .4rem}
+  .filterbar .fb-reset:hover{color:var(--yellow)}
+  .filterbar .fb-reset[disabled]{opacity:.4;cursor:default}
+  .fchip{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:999px;padding:.18rem .6rem;font-size:.8rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:.3rem;user-select:none;
+    transition:border-color 150ms ease, background 150ms ease}
+  .fchip:hover{background:#242c3e}
+  .fchip.active{color:#0f1218;font-weight:600}
+  .fchip[data-kind="section"] i{width:8px;height:8px;border-radius:2px;
+    display:inline-block;background:var(--col,var(--mute))}
+  .fchip[data-kind="section"].active{background:var(--col,var(--yellow));
+    border-color:var(--col,var(--yellow))}
+  .fchip[data-kind="state"].active.all    { background:var(--ink);   border-color:var(--ink) }
+  .fchip[data-kind="state"].active.locked { background:var(--mute);  border-color:var(--mute) }
+  .fchip[data-kind="state"].active.ready  { background:var(--yellow);border-color:var(--yellow) }
+  .fchip[data-kind="state"].active.mastered{background:var(--green); border-color:var(--green) }
+  .fchip[data-kind="state"].active.hard   { background:var(--violet);border-color:var(--violet) }
+  .fchip[data-kind="state"].active.expert { background:var(--yellow);border-color:var(--yellow) }
+  .fchip[data-kind="level"].active{background:var(--blue);border-color:var(--blue)}
+  .filter-toggle{background:var(--panel2);border:1px solid var(--line);
+    color:var(--mute);border-radius:6px;padding:.35rem .6rem;font-size:.85rem;
+    cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}
+  .filter-toggle:hover{color:var(--ink);background:#242c3e}
+  .filter-toggle.has-active{color:var(--yellow);border-color:var(--yellow)}
+  .filter-toggle .fb-chev{transition:transform 150ms ease;font-size:.75rem}
+  .filter-toggle[aria-expanded="true"] .fb-chev{transform:rotate(90deg)}
+  /* F2: Per-section stacked mini-bar inside the stats panel. */
+  .secbars{margin-top:.4rem;background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:.5rem .8rem}
+  .secbars summary{cursor:pointer;padding:.1rem 0;color:var(--mute);font-size:.85rem}
+  .secbars[open] summary{color:var(--ink);margin-bottom:.35rem}
+  .secbar{display:grid;grid-template-columns:minmax(150px,1fr) 1fr auto;
+    gap:.6rem;align-items:center;padding:.2rem 0;font-size:.82rem}
+  .secbar .sbname{color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .secbar .sbname i{width:9px;height:9px;border-radius:2px;display:inline-block;
+    background:var(--col,var(--mute))}
+  .secbar .sbmeter{height:10px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:4px;overflow:hidden;display:flex}
+  .secbar .sbmeter .seg{height:100%;transition:width 200ms ease}
+  .secbar .sbmeter .seg.m{background:var(--green)}
+  .secbar .sbmeter .seg.r{background:var(--yellow)}
+  .secbar .sbmeter .seg.l{background:var(--panel2)}
+  .secbar .sbcount{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .cap-summary{color:var(--mute);font-size:.85rem;padding:.3rem 0 .1rem;
+    display:flex;gap:.9rem;flex-wrap:wrap}
+  .cap-summary b{color:var(--yellow)}
+  /* F4: Hover-card — extends the locked-node tooltip to every node. */
+  .hover-card{
+    position:fixed;z-index:60;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.55rem .7rem;max-width:290px;
+    color:var(--ink);font-size:.84rem;line-height:1.45;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);
+    pointer-events:none;
+  }
+  .hover-card .hc-title{color:var(--yellow);font-weight:600;font-size:.88rem;
+    margin-bottom:.25rem;display:block}
+  .hover-card .hc-meta{color:var(--mute);font-size:.78rem;margin-bottom:.35rem;
+    display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+  .hover-card .hc-pill{border:1px solid var(--line);border-radius:999px;
+    padding:0 6px;font-size:.72rem}
+  .hover-card .hc-pill.ready{color:var(--yellow);border-color:var(--yellow)}
+  .hover-card .hc-pill.mastered{color:var(--green);border-color:var(--green)}
+  .hover-card .hc-pill.locked{color:var(--mute)}
+  .hover-card .hc-blurb{color:var(--ink)}
+  .hover-card .hc-locked-hd{color:var(--yellow);font-size:.78rem;
+    margin-top:.4rem;font-weight:600}
+  .hover-card .hc-locked-list{color:var(--ink);font-size:.8rem}
   /* U4: Prominent "copy study plan" chip on the mobile drawer handle.
      Hidden on ≥720px since the inline copy-plan button is already visible. */
   .drawer-plan-chip{display:none}
@@ -218,7 +299,7 @@
 <main>
   <a class="back" href="./index.html">← Notebook</a>
   <h1>Concept pathways</h1>
-  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery.</p>
+  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery; hover a node for a quick blurb. Use <b>filters</b> to slice by section, state, or level, and <kbd>/</kbd> to search.</p>
 
   <div class="bar">
     <label>Goal:</label>
@@ -234,6 +315,10 @@
       <button id="btn-zoom-reset" aria-label="Reset zoom">0</button>
       <button id="btn-zoom-in" aria-label="Zoom in">+</button>
     </span>
+    <button id="btn-filter-toggle" class="filter-toggle" type="button"
+            aria-expanded="false" aria-controls="filterbar" aria-label="Toggle filters">
+      <span>filters</span><span class="fb-chev" aria-hidden="true">▸</span>
+    </button>
     <button id="btn-help" class="help-btn" aria-label="Keyboard shortcuts" aria-expanded="false">?</button>
     <div class="legend">
       <span><i class="sw locked"></i>locked</span>
@@ -248,7 +333,28 @@
     </div>
   </div>
 
+  <div class="filterbar" id="filterbar" role="group" aria-label="Filter concepts" hidden>
+    <div class="fb-row" id="fb-sections">
+      <span class="fb-label">Sections</span>
+      <!-- section chips injected at runtime -->
+    </div>
+    <div class="fb-row" id="fb-states">
+      <span class="fb-label">State</span>
+      <!-- state chips injected at runtime -->
+    </div>
+    <div class="fb-row" id="fb-levels">
+      <span class="fb-label">Level</span>
+      <!-- level chips injected at runtime -->
+      <button class="fb-reset" id="btn-filter-reset" type="button" disabled>reset filters</button>
+    </div>
+  </div>
+
   <div class="stats" id="stats"></div>
+  <div class="cap-summary" id="cap-summary" hidden></div>
+  <details class="secbars" id="secbars">
+    <summary>progress by section</summary>
+    <div id="secbars-body"></div>
+  </details>
   <details class="bytopic" id="bytopic">
     <summary>by topic</summary>
     <div id="bytopic-body"></div>
@@ -383,6 +489,37 @@
     const c = byId.get(id);
     if(!c) return 'Foundations';
     return TOPIC_SECTION[c.topicId] || 'Foundations';
+  }
+
+  // ---------- topic → level mapping (mirrors index.html card level badges) ----------
+  // Only 22 of 54 cards carry an explicit <span class="level ...">. The rest
+  // are "standard" — mid-difficulty topics without a badge. Level filtering is
+  // therefore a partial heuristic; we surface all four buckets so the filter
+  // is still useful, and let individual capstone concepts override their
+  // topic's level (see levelFor below) so capstone goals always register
+  // as "capstone" regardless of the enclosing topic's badge.
+  const TOPIC_LEVEL = {
+    'naive-set-theory':'prereq','algebra':'prereq','real-analysis':'prereq',
+    'complex-analysis':'prereq','point-set-topology':'prereq',
+    'algebraic-topology':'prereq','projective-plane':'prereq',
+    'operator-algebras':'advanced','class-field-theory':'advanced',
+    'theta-functions':'advanced','hecke-operators':'advanced',
+    'moonshine':'advanced','singular-cubics-reduction':'advanced',
+    'moduli-spaces':'advanced','sheaf-cohomology':'advanced',
+    'galois-representations':'capstone','sato-tate':'capstone',
+    'bsd':'capstone','modularity-and-flt':'capstone',
+    'stacks':'capstone','etale-cohomology':'capstone'
+    // everything else is 'standard' by default
+  };
+  const LEVEL_ORDER = ['prereq','standard','advanced','capstone'];
+  // Set of concept ids that are capstone goals — lets a concept override its
+  // topic's level with "capstone" when it's the actual goal of a capstone.
+  const CAPSTONE_GOAL_IDS = new Set(capstones.map(c => c.goal));
+  function levelFor(id){
+    if(CAPSTONE_GOAL_IDS.has(id)) return 'capstone';
+    const c = byId.get(id);
+    if(!c) return 'standard';
+    return TOPIC_LEVEL[c.topicId] || 'standard';
   }
 
   // Populate the section→color legend in the toolbar.
@@ -563,13 +700,17 @@
   });
   detailBackdrop.addEventListener('click', ()=>setDrawer(false));
 
-  // ---------- U3: "Why is this locked?" tooltip ----------
-  // Lists 1–3 still-unmastered direct prereqs for a locked node. Hover on
-  // desktop; first-tap on mobile (a second tap dismisses without navigating).
+  // ---------- U3 + F4: hover-card / "why locked" tooltip ----------
+  // Every node gets a hover-card showing title, topic, state pill, and blurb.
+  // Locked nodes additionally show a "Locked — master:" list of unmastered
+  // direct prereqs. Locked-node tap behavior on touch is preserved: first
+  // tap shows the tooltip, second tap navigates.
   // Auto-dismiss on outside pointerdown, scroll, resize.
   let lockTipEl = null;
   let lockTipFor = null;      // id of node currently showing tooltip
   let lockTipTapArmed = null; // id whose next tap should be treated as dismissal
+  let hoverTimer = null;      // F4 shorter hover delay
+  const HOVER_DELAY_MS = 100;
   function blockingPrereqs(id){
     const c = byId.get(id);
     if(!c) return [];
@@ -579,26 +720,75 @@
     });
   }
   function hideLockTip(){
+    clearTimeout(hoverTimer); hoverTimer = null;
     if(lockTipEl && lockTipEl.parentNode) lockTipEl.parentNode.removeChild(lockTipEl);
     lockTipEl = null;
     lockTipFor = null;
   }
-  function showLockTip(id, anchorRect){
+  // Show a hover-card or locked-tooltip anchored to `anchorRect`. `mode` is
+  // either 'hover' (richer card: title + topic + state pill + blurb, plus
+  // locked-prereqs section if applicable) or 'tap' (compact locked-only form
+  // used by the existing touch-tap handler).
+  function showLockTip(id, anchorRect, mode){
     hideLockTip();
+    const c = byId.get(id);
+    if(!c) return;
+    mode = mode || 'hover';
+    const info = MVProgress.stateOf(id, conceptsMap);
     const blocking = blockingPrereqs(id);
-    if(blocking.length === 0) return;
-    const shown = blocking.slice(0, 3).map(p => {
-      const pc = byId.get(p);
-      return pc ? pc.title : p;
-    });
-    const more = blocking.length - shown.length;
     const tip = document.createElement('div');
-    tip.className = 'lock-tip';
     tip.setAttribute('role', 'tooltip');
-    const listText = shown.join(', ') + (more > 0 ? `, +${more} more` : '');
-    tip.innerHTML =
-      '<div class="lock-tip-hd">Locked — master:</div>' +
-      `<div class="lock-tip-list">${escapeHtml(listText)}</div>`;
+    if(mode === 'tap'){
+      // Legacy compact form for locked-node touch taps — must have blocking
+      // prereqs to render anything.
+      if(blocking.length === 0) return;
+      const shown = blocking.slice(0, 3).map(p => {
+        const pc = byId.get(p);
+        return pc ? pc.title : p;
+      });
+      const more = blocking.length - shown.length;
+      const listText = shown.join(', ') + (more > 0 ? `, +${more} more` : '');
+      tip.className = 'lock-tip';
+      tip.innerHTML =
+        '<div class="lock-tip-hd">Locked — master:</div>' +
+        `<div class="lock-tip-list">${escapeHtml(listText)}</div>`;
+    } else {
+      // Rich hover-card for every node.
+      const section = sectionFor(id);
+      const sColor = SECTION_COLOR[section] || 'var(--mute)';
+      const pillClass = info.state; // 'locked' | 'ready' | 'mastered'
+      const pillExtras = [];
+      if(info.hard)       pillExtras.push('<span class="hc-pill" style="color:var(--violet);border-color:var(--violet)">hard</span>');
+      if(isExpert(id))    pillExtras.push('<span class="hc-pill" style="color:var(--yellow);border-color:var(--yellow)">expert</span>');
+      const blurb = (c.blurb || '').trim();
+      // Blurb may contain KaTeX delimiters; show raw text (KaTeX rendering
+      // would require async render + layout, and hover-cards are supposed to
+      // be quick). Strip $…$ pairs to a placeholder for readability.
+      const blurbTxt = blurb ? blurb.replace(/\$+[^$]*\$+/g, '…') : '';
+      let lockedBlock = '';
+      if(info.state === 'locked' && blocking.length > 0){
+        const shown = blocking.slice(0, 3).map(p => {
+          const pc = byId.get(p);
+          return pc ? pc.title : p;
+        });
+        const more = blocking.length - shown.length;
+        const listText = shown.join(', ') + (more > 0 ? `, +${more} more` : '');
+        lockedBlock =
+          '<div class="hc-locked-hd">Locked — master:</div>' +
+          `<div class="hc-locked-list">${escapeHtml(listText)}</div>`;
+      }
+      tip.className = 'hover-card';
+      tip.innerHTML =
+        `<span class="hc-title">${escapeHtml(c.title)}</span>` +
+        `<div class="hc-meta">` +
+          `<span class="hc-pill" style="color:${sColor};border-color:${sColor}">${escapeHtml(section)}</span>` +
+          `<span class="hc-pill ${pillClass}">${pillClass}</span>` +
+          pillExtras.join('') +
+          `<span>${escapeHtml(c.topicTitle || '')}</span>` +
+        `</div>` +
+        (blurbTxt ? `<div class="hc-blurb">${escapeHtml(blurbTxt)}</div>` : '') +
+        lockedBlock;
+    }
     document.body.appendChild(tip);
     // Position near the anchor; clamp to viewport.
     const pad = 8;
@@ -762,7 +952,7 @@
               (function(){ try { return window.matchMedia('(hover: none)').matches; } catch(_){ return false; } })());
           if(isTouch && lockTipTapArmed !== id){
             lockTipTapArmed = id;
-            showLockTip(id, g.getBoundingClientRect());
+            showLockTip(id, g.getBoundingClientRect(), 'tap');
             ev.preventDefault();
             ev.stopPropagation();
             return;
@@ -773,25 +963,30 @@
         }
         selectNode(id);
       });
-      // Desktop hover tooltip for locked nodes.
-      if(info.state === 'locked'){
-        g.addEventListener('pointerenter', (ev)=>{
-          if(ev.pointerType === 'touch') return;  // touch handled on click
-          if(blockingPrereqs(id).length === 0) return;
-          showLockTip(id, g.getBoundingClientRect());
-        });
-        g.addEventListener('pointerleave', (ev)=>{
-          if(ev.pointerType === 'touch') return;
-          if(lockTipFor === id) hideLockTip();
-        });
-      }
+      // F4: Hover-card on every node (desktop only — touch uses click-to-select).
+      // Uses a shorter delay than the locked-tap tooltip (100ms) since this is
+      // the primary mode of exploration.
+      g.addEventListener('pointerenter', (ev)=>{
+        if(ev.pointerType === 'touch') return;  // touch is handled via click
+        clearTimeout(hoverTimer);
+        const rect = g.getBoundingClientRect();
+        hoverTimer = setTimeout(()=>showLockTip(id, rect, 'hover'), HOVER_DELAY_MS);
+      });
+      g.addEventListener('pointerleave', (ev)=>{
+        if(ev.pointerType === 'touch') return;
+        clearTimeout(hoverTimer); hoverTimer = null;
+        if(lockTipFor === id) hideLockTip();
+      });
       zoomRoot.appendChild(g);
     }
 
     updateStats();
+    updateSectionBars();
+    updateCapstoneSummary();
     updateByTopic();
     updateNextUpChip();
     updateDrawerPlanChip();
+    onFiltersChanged();
     applySearch();
     if(currentSelection && ids.has(currentSelection)) selectNode(currentSelection);
     else renderDetail(null);
@@ -804,6 +999,13 @@
     const hard     = ids.filter(id => MVProgress.isMastered(id, 'hard')).length;
     const ready    = ids.filter(id => MVProgress.stateOf(id, conceptsMap).state === 'ready').length;
     const locked   = total - mastered - ready;
+    // Global (entire notebook) totals — a secondary line so the learner can
+    // see overall progress even when focused on one capstone's subgraph.
+    const allIds = [...byId.keys()];
+    const gTotal = allIds.length;
+    const gMast  = allIds.filter(id => MVProgress.isMastered(id, 'v1')).length;
+    const gReady = allIds.filter(id => MVProgress.stateOf(id, conceptsMap).state === 'ready').length;
+    const gLock  = gTotal - gMast - gReady;
     const chipBody = ready > 0
       ? `<b>${ready}</b> ready — next up →`
       : 'all caught up ✓';
@@ -813,7 +1015,11 @@
       `<span><b>${hard}</b> hard-tier</span>` +
       `<span><b>${ready}</b> ready to learn</span>` +
       `<span>${locked} locked</span>` +
-      `<button class="chip" id="chip-next" ${chipAttr} aria-label="cycle to next ready concept">${chipBody}</button>`;
+      `<button class="chip" id="chip-next" ${chipAttr} aria-label="cycle to next ready concept">${chipBody}</button>` +
+      `<span class="small" style="flex-basis:100%;margin-top:.2rem">` +
+        `global: <b>${gMast}</b> mastered · <b>${gReady}</b> ready · ${gLock} locked ` +
+        `(of ${gTotal})` +
+      `</span>`;
     const chip = document.getElementById('chip-next');
     if(chip && !chip.disabled){
       chip.addEventListener('click', cycleNextUp);
@@ -926,38 +1132,301 @@
     })[c]);
   }
 
-  // ---------- search ----------
+  // ---------- F2: per-section stacked mini-bars ----------
+  // For each section present in the current goal's ancestry, show a
+  // mastered/ready/locked stacked bar plus count. Scoped to the current
+  // goal's subgraph — the global total already appears in the stats line.
+  function updateSectionBars(){
+    const body = document.getElementById('secbars-body');
+    if(!body || !currentLayout) return;
+    const ids = [...currentLayout.nodesById.keys()];
+    const per = new Map(); // section -> {total, mastered, ready, locked}
+    for(const id of ids){
+      const sec = sectionFor(id);
+      if(!per.has(sec)) per.set(sec, {total:0, mastered:0, ready:0, locked:0});
+      const e = per.get(sec);
+      e.total++;
+      const st = MVProgress.stateOf(id, conceptsMap).state;
+      e[st] = (e[st] || 0) + 1;
+    }
+    // Render in canonical SECTION_ORDER; skip sections with no concepts.
+    const rows = SECTION_ORDER.filter(s => per.has(s)).map(s => [s, per.get(s)]);
+    if(rows.length === 0){
+      body.innerHTML = '<div class="small">no concepts in this goal</div>';
+      return;
+    }
+    body.innerHTML = rows.map(([sec, e]) => {
+      const mPct = e.total ? (100 * e.mastered / e.total).toFixed(1) : 0;
+      const rPct = e.total ? (100 * e.ready    / e.total).toFixed(1) : 0;
+      const lPct = e.total ? (100 * e.locked   / e.total).toFixed(1) : 0;
+      const col = SECTION_COLOR[sec] || 'var(--mute)';
+      return `<div class="secbar">
+        <span class="sbname" style="--col:${col}"><i></i>${escapeHtml(sec)}</span>
+        <span class="sbmeter" aria-label="${e.mastered} mastered, ${e.ready} ready, ${e.locked} locked">
+          <span class="seg m" style="width:${mPct}%"></span>
+          <span class="seg r" style="width:${rPct}%"></span>
+          <span class="seg l" style="width:${lPct}%"></span>
+        </span>
+        <span class="sbcount">${e.mastered}/${e.total}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // ---------- F2: capstone progress summary ----------
+  // Shown above the section bars whenever the current goal is a capstone.
+  // "X ready" — count of ready concepts in the ancestor set.
+  // "Y unlocked next" — concepts currently locked whose only remaining
+  // unmastered prereq is one of the currently ready concepts. (i.e. the
+  // cohort that the learner can unlock by mastering one more concept.)
+  function updateCapstoneSummary(){
+    const el = document.getElementById('cap-summary');
+    if(!el || !currentLayout) return;
+    const isCap = capstones.some(cap => cap.goal === currentGoal);
+    if(!isCap){ el.setAttribute('hidden',''); el.innerHTML=''; return; }
+    const ids = [...currentLayout.nodesById.keys()];
+    let ready = 0, locked = 0, mastered = 0;
+    const readySet = new Set();
+    for(const id of ids){
+      const st = MVProgress.stateOf(id, conceptsMap).state;
+      if(st === 'ready'){ ready++; readySet.add(id); }
+      else if(st === 'locked') locked++;
+      else if(st === 'mastered') mastered++;
+    }
+    // For each locked node, check whether all its still-unmastered prereqs
+    // lie inside readySet. If so, mastering any one of them doesn't yet
+    // unlock it — we need them all. A sharper signal: count locked nodes
+    // that would become ready if their single remaining unmastered prereq
+    // (if only one) gets mastered.
+    let unlockedNext = 0;
+    for(const id of ids){
+      const st = MVProgress.stateOf(id, conceptsMap).state;
+      if(st !== 'locked') continue;
+      const pending = byId.get(id).prereqs.filter(p =>
+        byId.has(p) && !MVProgress.isMastered(p, 'v1'));
+      if(pending.length === 1 && readySet.has(pending[0])) unlockedNext++;
+    }
+    const cap = capstones.find(c => c.goal === currentGoal);
+    const capTitle = cap ? cap.title : currentGoal;
+    el.removeAttribute('hidden');
+    el.innerHTML =
+      `<span>For <b>${escapeHtml(capTitle)}</b>:</span>` +
+      `<span><b>${ready}</b> ready now</span>` +
+      `<span><b>${unlockedNext}</b> unlock next</span>` +
+      `<span><b>${mastered}</b>/${ids.length} mastered</span>`;
+  }
+
+  // ---------- search + filters (F1/F3) ----------
+  // Filters and search interact as AND: a node is visible iff every active
+  // filter passes AND the search substring matches (or search is empty).
+  // When any filter or search is active, non-passing nodes are dimmed
+  // (opacity 0.25) rather than removed — spatial context preserved.
   const searchInput = document.getElementById('search');
   const matchCountEl = document.getElementById('match-count');
   let searchTimer = null;
+
+  // Active filter sets. Empty set means "no filter of this kind" — all pass.
+  const activeFilters = {
+    section: new Set(),   // subset of SECTION_ORDER
+    state:   new Set(),   // subset of {all, locked, ready, mastered, hard, expert}
+    level:   new Set()    // subset of LEVEL_ORDER
+  };
+  // Build chips once.
+  (function buildFilterChips(){
+    const secRow = document.getElementById('fb-sections');
+    for(const s of SECTION_ORDER){
+      const chip = document.createElement('button');
+      chip.className = 'fchip';
+      chip.type = 'button';
+      chip.dataset.kind = 'section';
+      chip.dataset.value = s;
+      chip.style.setProperty('--col', SECTION_COLOR[s] || 'var(--mute)');
+      chip.innerHTML = `<i></i>${escapeHtml(s)}`;
+      chip.setAttribute('aria-pressed', 'false');
+      chip.addEventListener('click', ()=>toggleFilter('section', s, chip));
+      secRow.appendChild(chip);
+    }
+    const stateRow = document.getElementById('fb-states');
+    const states = [
+      ['all',      'all'],
+      ['locked',   'locked'],
+      ['ready',    'ready'],
+      ['mastered', 'mastered'],
+      ['hard',     'hard'],
+      ['expert',   'expert']
+    ];
+    for(const [val,label] of states){
+      const chip = document.createElement('button');
+      chip.className = 'fchip ' + val;
+      chip.type = 'button';
+      chip.dataset.kind = 'state';
+      chip.dataset.value = val;
+      chip.textContent = label;
+      chip.setAttribute('aria-pressed', 'false');
+      chip.addEventListener('click', ()=>{
+        // "all" is mutually exclusive with the other state chips — selecting
+        // it clears the others; selecting another clears "all".
+        if(val === 'all'){
+          if(activeFilters.state.has('all')){
+            activeFilters.state.clear();
+          } else {
+            activeFilters.state.clear();
+            activeFilters.state.add('all');
+          }
+          syncStateChips();
+          onFiltersChanged();
+          return;
+        }
+        activeFilters.state.delete('all');
+        toggleFilter('state', val, chip);
+        syncStateChips();
+      });
+      stateRow.appendChild(chip);
+    }
+    const lvlRow = document.getElementById('fb-levels');
+    // Insert level chips before the existing "reset filters" button.
+    const resetBtn = document.getElementById('btn-filter-reset');
+    for(const lv of LEVEL_ORDER){
+      const chip = document.createElement('button');
+      chip.className = 'fchip';
+      chip.type = 'button';
+      chip.dataset.kind = 'level';
+      chip.dataset.value = lv;
+      chip.textContent = lv;
+      chip.setAttribute('aria-pressed', 'false');
+      chip.addEventListener('click', ()=>toggleFilter('level', lv, chip));
+      lvlRow.insertBefore(chip, resetBtn);
+    }
+    resetBtn.addEventListener('click', ()=>{
+      activeFilters.section.clear();
+      activeFilters.state.clear();
+      activeFilters.level.clear();
+      searchInput.value = '';
+      matchCountEl.textContent = '';
+      document.querySelectorAll('.filterbar .fchip.active').forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-pressed','false');
+      });
+      onFiltersChanged();
+    });
+  })();
+
+  function toggleFilter(kind, value, chip){
+    const set = activeFilters[kind];
+    if(set.has(value)){
+      set.delete(value);
+      chip.classList.remove('active');
+      chip.setAttribute('aria-pressed','false');
+    } else {
+      set.add(value);
+      chip.classList.add('active');
+      chip.setAttribute('aria-pressed','true');
+    }
+    onFiltersChanged();
+  }
+  function syncStateChips(){
+    document.querySelectorAll('.fchip[data-kind="state"]').forEach(chip => {
+      const v = chip.dataset.value;
+      const on = activeFilters.state.has(v);
+      chip.classList.toggle('active', on);
+      chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  function filterToggleBtn(){ return document.getElementById('btn-filter-toggle'); }
+  function anyFilterActive(){
+    return activeFilters.section.size > 0 || activeFilters.state.size > 0 ||
+      activeFilters.level.size > 0 || (searchInput.value||'').trim() !== '';
+  }
+  function onFiltersChanged(){
+    const btn = filterToggleBtn();
+    const anyChips = activeFilters.section.size > 0 || activeFilters.state.size > 0 ||
+      activeFilters.level.size > 0;
+    if(btn) btn.classList.toggle('has-active', anyChips);
+    document.getElementById('btn-filter-reset').disabled = !anyFilterActive();
+    applySearch();
+  }
+
+  function nodePasses(id){
+    const n = byId.get(id);
+    if(!n) return false;
+    // Section filter: if any section is active, node must be in one of them.
+    if(activeFilters.section.size > 0){
+      if(!activeFilters.section.has(sectionFor(id))) return false;
+    }
+    // State filter: a node can satisfy multiple state labels (e.g. mastered +
+    // hard). "all" forces everything to pass. Match if ANY selected state
+    // applies to the node.
+    if(activeFilters.state.size > 0 && !activeFilters.state.has('all')){
+      const info = MVProgress.stateOf(id, conceptsMap);
+      const isExp = isExpert(id);
+      let ok = false;
+      for(const s of activeFilters.state){
+        if(s === 'locked'   && info.state === 'locked')   { ok = true; break; }
+        if(s === 'ready'    && info.state === 'ready')    { ok = true; break; }
+        if(s === 'mastered' && info.state === 'mastered') { ok = true; break; }
+        if(s === 'hard'     && info.hard)                 { ok = true; break; }
+        if(s === 'expert'   && isExp)                     { ok = true; break; }
+      }
+      if(!ok) return false;
+    }
+    // Level filter.
+    if(activeFilters.level.size > 0){
+      if(!activeFilters.level.has(levelFor(id))) return false;
+    }
+    return true;
+  }
+
   function applySearch(){
     if(!currentLayout) return;
     const q = (searchInput.value || '').trim().toLowerCase();
+    const anyFilters = activeFilters.section.size > 0 || activeFilters.state.size > 0 ||
+      activeFilters.level.size > 0;
     let matches = 0;
+    let searchMatches = 0;
     for(const [id,n] of currentLayout.nodesById){
       const g = zoomRoot.querySelector(`.nodebox[data-id="${cssEscape(id)}"]`);
       if(!g) continue;
-      if(q === ''){
-        g.classList.remove('match');
-        g.classList.remove('dim');
-      } else {
+      // Search (substring over title + id).
+      let hitsSearch = true;
+      if(q !== ''){
         const hay = (n.node.title + ' ' + id).toLowerCase();
-        if(hay.includes(q)){
-          g.classList.add('match');
-          g.classList.remove('dim');
-          matches++;
-        } else {
-          g.classList.remove('match');
-          g.classList.add('dim');
-        }
+        hitsSearch = hay.includes(q);
+        if(hitsSearch) searchMatches++;
+      }
+      const passesFilters = nodePasses(id);
+      const visible = hitsSearch && passesFilters;
+      if(visible) matches++;
+      g.classList.toggle('dim', !visible && (q !== '' || anyFilters));
+      g.classList.toggle('match', q !== '' && hitsSearch);
+      if(q === '' && !anyFilters){
+        g.classList.remove('dim');
+        g.classList.remove('match');
       }
     }
-    matchCountEl.textContent = q === '' ? '' : (matches + ' match' + (matches===1?'':'es'));
+    if(q !== ''){
+      matchCountEl.textContent = searchMatches + ' match' + (searchMatches===1?'':'es');
+    } else if(anyFilters){
+      matchCountEl.textContent = matches + ' shown';
+    } else {
+      matchCountEl.textContent = '';
+    }
   }
   searchInput.addEventListener('input', ()=>{
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(applySearch, 120);
+    searchTimer = setTimeout(()=>{ applySearch(); onFiltersChanged(); }, 120);
   });
+
+  // Filter bar collapse/expand toggle.
+  (function wireFilterToggle(){
+    const btn = filterToggleBtn();
+    const bar = document.getElementById('filterbar');
+    if(!btn || !bar) return;
+    btn.addEventListener('click', ()=>{
+      const open = !bar.hasAttribute('hidden') ? false : true;
+      if(open){ bar.removeAttribute('hidden'); btn.setAttribute('aria-expanded','true'); }
+      else { bar.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); }
+    });
+  })();
 
   // ---------- help panel ----------
   const isMac = navigator.platform.includes('Mac');
@@ -968,9 +1437,11 @@
   const helpList = document.getElementById('help-list');
   helpList.innerHTML = [
     ['click',                    'select node / show details'],
+    ['hover',                    'quick-preview card (title, topic, blurb)'],
     [`${mod}-click`,             'toggle v1 mastery'],
     [`${shift}+${mod}-click`,    'toggle hard-tier mastery'],
     ['/',                         'focus search box'],
+    ['f',                         'toggle filter bar'],
     ['n',                         'cycle to next-up ready concept'],
     ['+ / − / 0',                 'zoom in / out / reset'],
     ['drag',                      'pan the DAG'],
@@ -1002,6 +1473,11 @@
     if(ev.metaKey || ev.ctrlKey || ev.altKey) return;
     if(ev.key === '/'){ ev.preventDefault(); searchInput.focus(); searchInput.select(); }
     else if(ev.key === 'n' || ev.key === 'N'){ ev.preventDefault(); cycleNextUp(); }
+    else if(ev.key === 'f' || ev.key === 'F'){
+      ev.preventDefault();
+      const btn = document.getElementById('btn-filter-toggle');
+      if(btn) btn.click();
+    }
   });
 
   // ---------- zoom + pan ----------

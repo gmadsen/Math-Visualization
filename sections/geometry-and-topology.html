@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../js/progress.js"></script>
+<script src="../concepts/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -35,8 +37,80 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.6}
   a{color:var(--blue)}
-  main{max-width:1000px;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  main{max-width:1000px;margin:0 auto;padding:1.6rem 1.5rem 6rem}
+  /* Top utility bar: replaces the old inline-styled right-aligned div. Four links
+     (Pathway · LaTeX cheatsheet · Your progress) aligned right, with a faint
+     brand wordmark on the left on wider viewports. Non-sticky — scrolls with
+     the page so the hero doesn't have to duck under a bar. */
+  .top-nav{display:flex;align-items:center;justify-content:space-between;
+    gap:0.8rem;padding:0.55rem 0 0.9rem;margin:0 0 1.8rem;
+    border-bottom:1px solid var(--line)}
+  .top-nav .brand{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+  .top-nav .brand strong{color:var(--ink);font-weight:600;letter-spacing:0.14em}
+  .top-nav .nav-links{display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;
+    justify-content:flex-end}
+  .top-nav a.nav-link{color:var(--mute);text-decoration:none;
+    padding:0.35rem 0.75rem;border-radius:6px;border:1px solid transparent;
+    font-size:0.88rem;font-weight:500;line-height:1.2;
+    transition:color 150ms ease, background 150ms ease, border-color 150ms ease}
+  .top-nav a.nav-link:hover{color:var(--ink);background:var(--panel2);
+    border-color:var(--line)}
+  .top-nav a.nav-link.accent{color:var(--cyan);
+    border-color:color-mix(in srgb, var(--cyan) 32%, transparent)}
+  .top-nav a.nav-link.accent:hover{color:var(--cyan);
+    background:color-mix(in srgb, var(--cyan) 10%, transparent);
+    border-color:var(--cyan)}
+  @media (max-width:520px){
+    .top-nav{flex-direction:column;align-items:stretch;gap:0.5rem}
+    .top-nav .brand{text-align:center}
+    .top-nav .nav-links{justify-content:center}
+    .top-nav a.nav-link{font-size:0.82rem;padding:0.3rem 0.6rem}
+  }
   .hero{text-align:center;margin-bottom:1.6rem}
+  .hero-tagline{margin:0.9rem auto 0;font-size:0.78rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;display:inline-flex;gap:0.55rem;
+    flex-wrap:wrap;justify-content:center;align-items:center}
+  .hero-tagline .dot{color:var(--line)}
+  .hero-tagline .tg-num{color:var(--cyan);font-weight:600}
+  /* In-page section jump row: a compact horizontal strip of pill-links that
+     scroll to the matching #section anchor on this same page. Sits between
+     the pathway banner and Recently Updated so the whole seven-section map
+     is visible without scrolling past a thousand lines of cards. */
+  .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+    padding:0.75rem 0.9rem;margin:0 0 2rem;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px}
+  .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
+    margin-right:0.5rem;white-space:nowrap}
+  .section-jump a.sj-link{display:inline-flex;align-items:center;gap:6px;
+    padding:0.3rem 0.7rem;border-radius:999px;text-decoration:none;
+    font-size:0.85rem;color:var(--ink);
+    background:var(--panel2);border:1px solid var(--line);
+    transition:border-color 150ms ease, background 150ms ease, color 150ms ease}
+  .section-jump a.sj-link:hover{border-color:var(--cyan);color:var(--cyan)}
+  .section-jump a.sj-link .sj-dot{width:8px;height:8px;border-radius:50%;
+    background:var(--mute);flex-shrink:0;
+    transition:transform 150ms ease}
+  .section-jump a.sj-link:hover .sj-dot{transform:scale(1.25)}
+  .section-jump a.sj-link.s-b .sj-dot{background:var(--blue)}
+  .section-jump a.sj-link.s-y .sj-dot{background:var(--yellow)}
+  .section-jump a.sj-link.s-p .sj-dot{background:var(--pink)}
+  .section-jump a.sj-link.s-v .sj-dot{background:var(--violet)}
+  .section-jump a.sj-link.s-g .sj-dot{background:var(--green)}
+  .section-jump a.sj-link.s-c .sj-dot{background:var(--cyan)}
+  .section-jump a.sj-link.s-b:hover{border-color:var(--blue);color:var(--blue)}
+  .section-jump a.sj-link.s-y:hover{border-color:var(--yellow);color:var(--yellow)}
+  .section-jump a.sj-link.s-p:hover{border-color:var(--pink);color:var(--pink)}
+  .section-jump a.sj-link.s-v:hover{border-color:var(--violet);color:var(--violet)}
+  .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
+  .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
+  @media (max-width:520px){
+    .section-jump{padding:0.65rem 0.7rem}
+    .section-jump .sj-label{display:none}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem}
+  }
   .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
     border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
@@ -51,8 +125,36 @@
   @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
-  .sec{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
-    color:var(--mute);margin:2.6rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line)}
+  /* Section header: was a tiny muted eyebrow label; now a distinctive title
+     row with a colored left-border marker, larger mixed-case type, and an
+     optional right-aligned concept count appended by the script block at the
+     bottom of body. NOTE: the raw class attribute is kept as exactly "sec"
+     (color goes on data-color, id goes separately) so the section-index
+     builder regex (scripts/build-section-indexes.mjs) keeps matching section
+     divs and picks up the title text cleanly. */
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+    border-left:3px solid var(--line);border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    text-transform:none;scroll-margin-top:1.2rem}
+  .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
+    white-space:nowrap}
+  /* Section accent via data-color attribute (not a class) so the class
+     attribute stays exactly "sec" and the section-index builder's regex
+     keeps matching. */
+  .sec[data-color="b"]{border-left-color:var(--blue);color:var(--blue)}
+  .sec[data-color="y"]{border-left-color:var(--yellow);color:var(--yellow)}
+  .sec[data-color="p"]{border-left-color:var(--pink);color:var(--pink)}
+  .sec[data-color="v"]{border-left-color:var(--violet);color:var(--violet)}
+  .sec[data-color="g"]{border-left-color:var(--green);color:var(--green)}
+  .sec[data-color="c"]{border-left-color:var(--cyan);color:var(--cyan)}
+  /* Legacy styling preserved for the auto-generated bottom "Sections" block
+     (kept as a plain eyebrow row, since it links to separate landing pages).
+     Keyed off data-legacy so the class stays exactly "sec" for the builder. */
+  .sec[data-legacy]{border-left:none;padding-left:0;display:block;
+    font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-weight:400}
   .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
@@ -81,6 +183,136 @@
   .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
   .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
   .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  /* mastery chip: small pill that sits in the bottom row of .body next to .tag.
+     Shows v1/total on the left (green), hard/total on the right (violet).
+     Zero-progress renders muted so the card doesn't feel empty. Injected by the
+     script block at the bottom of <body>; the script also wraps .tag + .mastery
+     in a row container so they share one horizontal line. */
+  .mrow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .mrow .tag{align-self:auto}
+  .mastery{display:inline-flex;align-items:center;gap:6px;
+    font-size:0.7rem;font-family:ui-monospace,Menlo,monospace;
+    padding:1px 8px;border-radius:999px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--mute);letter-spacing:0.02em;
+    white-space:nowrap}
+  .mastery .m-v1{color:var(--green)}
+  .mastery .m-hard{color:var(--violet)}
+  .mastery .m-sep{color:var(--mute);opacity:0.55}
+  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
+  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
+  .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
+  .mastery .m-check{color:var(--green);font-weight:600}
+  @media (max-width:420px){
+    .mastery{font-size:0.66rem;padding:1px 6px}
+    .mrow{gap:6px}
+  }
+  /* Per-topic progress drawer: a small activity-icon button (.progbtn) on each
+     topic card opens a shared slide-in drawer (.mvdrawer) that lists the
+     concepts of that topic with their mastery state. Main card click still
+     navigates to the topic; progbtn stops propagation so the drawer opens in
+     place. Reads MVProgress (never writes). */
+  .card{position:relative}
+  .progbtn{position:absolute;top:8px;right:8px;width:26px;height:26px;
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
+    color:var(--mute);cursor:pointer;line-height:0;z-index:2;
+    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+  .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
+    opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
+  .mv-backdrop.open{opacity:1;pointer-events:auto}
+  .mvdrawer{position:fixed;top:0;right:0;height:100vh;width:380px;max-width:100vw;
+    background:var(--panel);border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform 220ms ease;z-index:41;
+    display:flex;flex-direction:column;color:var(--ink);box-shadow:-12px 0 36px rgba(0,0,0,0.35)}
+  .mvdrawer.open{transform:translateX(0)}
+  .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
+    gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
+  .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
+    border-radius:6px;color:var(--mute);cursor:pointer;width:28px;height:28px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;
+    line-height:1;flex-shrink:0;padding:0;transition:color 150ms ease, border-color 150ms ease}
+  .mvdrawer .mvd-close:hover{color:var(--ink);border-color:var(--mute)}
+  .mvdrawer .mvd-open{display:inline-block;margin:0.9rem 1.2rem 0;
+    padding:0.5rem 0.85rem;border-radius:6px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:0.9rem;font-weight:500;
+    transition:border-color 150ms ease, background 150ms ease}
+  .mvdrawer .mvd-open:hover{border-color:var(--cyan);background:var(--panel)}
+  .mvdrawer .mvd-list{list-style:none;margin:1rem 0 0;padding:0 0.6rem;
+    overflow-y:auto;flex:1}
+  .mvdrawer .mvd-item{display:flex;align-items:flex-start;gap:10px;
+    padding:0.6rem 0.65rem;border-radius:6px;color:var(--ink);text-decoration:none;
+    font-size:0.92rem;line-height:1.35;
+    transition:background 150ms ease}
+  .mvdrawer .mvd-item:hover{background:var(--panel2)}
+  .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
+  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
+  .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
+  .mvd-pip{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;
+    background:transparent;border:1.6px solid var(--mute);box-sizing:border-box}
+  .mvd-pip.ready{background:var(--blue);border-color:var(--blue)}
+  .mvd-pip.v1{background:var(--green);border-color:var(--green)}
+  .mvd-pip.hard{background:var(--violet);border-color:var(--violet)}
+  .mvd-pip.expert{background:var(--yellow);border-color:var(--yellow)}
+  .mvd-pip.locked{background:transparent;border-color:var(--mute);opacity:0.55}
+  .mvdrawer .mvd-legend{padding:0.7rem 1.2rem 1rem;border-top:1px solid var(--line);
+    color:var(--mute);font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    letter-spacing:0.02em;display:flex;flex-wrap:wrap;gap:10px 14px}
+  .mvdrawer .mvd-legend span{display:inline-flex;align-items:center;gap:6px}
+  .mvdrawer .mvd-legend .mvd-pip{margin-top:0;width:10px;height:10px}
+  .mvdrawer .mvd-empty{padding:1rem 1.2rem;color:var(--mute);font-size:0.88rem}
+  @media (max-width:620px){
+    .mvdrawer{top:auto;bottom:0;right:0;left:0;height:78vh;width:100%;
+      border-left:none;border-top:1px solid var(--line);
+      border-top-left-radius:14px;border-top-right-radius:14px;
+      transform:translateY(100%)}
+    .mvdrawer.open{transform:translateY(0)}
+  }
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
+     The #recently-updated container is hidden by default and only revealed once the
+     script successfully fetches and parses at least one topic's changelog footer.
+     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  #recently-updated{display:none;margin:0 0 0.4rem}
+  #recently-updated.ready{display:block}
+  #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line);
+    font-weight:400}
+  .ru-strip{display:flex;flex-direction:column;gap:8px}
+  .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:0.55rem 0.8rem;display:flex;align-items:center;gap:12px;
+    text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .ru-card:hover{transform:translateY(-1px);background:var(--panel2)}
+  .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
+    min-width:6.2em}
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;font-family:ui-monospace,Menlo,monospace;flex-shrink:0;
+    overflow:hidden;text-overflow:ellipsis;max-width:14em;white-space:nowrap}
+  .ru-card.y .ru-title{color:var(--yellow)} .ru-card.y:hover{border-color:var(--yellow)}
+  .ru-card.b .ru-title{color:var(--blue)}   .ru-card.b:hover{border-color:var(--blue)}
+  .ru-card.g .ru-title{color:var(--green)}  .ru-card.g:hover{border-color:var(--green)}
+  .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
+  .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
+  .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  @media (max-width:520px){
+    .ru-card{padding:0.5rem 0.65rem;gap:8px}
+    .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
+    .ru-card .ru-title{font-size:0.88rem}
+    .ru-card .ru-tag{display:none}
+  }
   footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
     border-top:1px solid var(--line);padding-top:1.4rem}
 </style>
@@ -105,18 +337,18 @@
     <a class="card v" href="../point-set-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- nested open balls with a compact cover -->
-        <circle cx="35" cy="42" r="22" fill="none" stroke="#b39ddb" stroke-width="1.3" stroke-dasharray="3 3"/>
-        <circle cx="35" cy="42" r="14" fill="none" stroke="#b39ddb" stroke-width="1.2"/>
-        <circle cx="35" cy="42" r="7" fill="none" stroke="#b39ddb" stroke-width="1.1"/>
-        <circle cx="35" cy="42" r="2" fill="#b39ddb"/>
+        <circle cx="35" cy="42" r="22" fill="none" stroke="var(--violet)" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <circle cx="35" cy="42" r="14" fill="none" stroke="var(--violet)" stroke-width="1.2"/>
+        <circle cx="35" cy="42" r="7" fill="none" stroke="var(--violet)" stroke-width="1.1"/>
+        <circle cx="35" cy="42" r="2" fill="var(--violet)"/>
         <!-- a finite subcover of [0,1] on the right -->
-        <line x1="55" y1="58" x2="92" y2="58" stroke="#b39ddb" stroke-width="1.2"/>
-        <g stroke="#ffd866" stroke-width="2" stroke-linecap="round" opacity="0.9">
+        <line x1="55" y1="58" x2="92" y2="58" stroke="var(--violet)" stroke-width="1.2"/>
+        <g stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" opacity="0.9">
           <line x1="57" y1="50" x2="69" y2="50"/>
           <line x1="66" y1="44" x2="82" y2="44"/>
           <line x1="78" y1="38" x2="92" y2="38"/>
         </g>
-        <circle cx="55" cy="58" r="1.8" fill="#b39ddb"/><circle cx="92" cy="58" r="1.8" fill="#b39ddb"/>
+        <circle cx="55" cy="58" r="1.8" fill="var(--violet)"/><circle cx="92" cy="58" r="1.8" fill="var(--violet)"/>
       </svg></div>
       <div class="body">
         <div class="tt">Point-set topology <span class="level prereq">prereq</span></div>
@@ -128,10 +360,10 @@
 
     <a class="card c" href="../algebraic-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="#7de0d6" stroke-width="1.5"/>
-        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
-        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
-        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="#ffd866" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="var(--yellow)" stroke-width="1.2" stroke-dasharray="3 2"/>
       </svg></div>
       <div class="body">
         <div class="tt">Algebraic topology <span class="level prereq">prereq</span></div>
@@ -144,15 +376,15 @@
     <a class="card y" href="../smooth-manifolds.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sphere with two chart patches overlapping -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
         <!-- chart U_1 (north) -->
-        <path d="M 30 30 Q 50 18 70 30 Q 50 44 30 30 Z" fill="#ffd866" opacity="0.15" stroke="#ffd866" stroke-width="0.9"/>
+        <path d="M 30 30 Q 50 18 70 30 Q 50 44 30 30 Z" fill="var(--yellow)" opacity="0.15" stroke="var(--yellow)" stroke-width="0.9"/>
         <!-- chart U_2 (south) -->
-        <path d="M 30 50 Q 50 62 70 50 Q 50 36 30 50 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.9"/>
+        <path d="M 30 50 Q 50 62 70 50 Q 50 36 30 50 Z" fill="var(--blue)" opacity="0.15" stroke="var(--blue)" stroke-width="0.9"/>
         <!-- overlap region dashed -->
-        <ellipse cx="50" cy="40" rx="18" ry="5" fill="none" stroke="#e07a5f" stroke-width="0.9" stroke-dasharray="2 2"/>
-        <text x="30" y="22" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">φ₁</text>
-        <text x="70" y="62" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">φ₂</text>
+        <ellipse cx="50" cy="40" rx="18" ry="5" fill="none" stroke="var(--pink)" stroke-width="0.9" stroke-dasharray="2 2"/>
+        <text x="30" y="22" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">φ₁</text>
+        <text x="70" y="62" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">φ₂</text>
       </svg></div>
       <div class="body">
         <div class="tt">Smooth manifolds</div>
@@ -165,7 +397,7 @@
     <a class="card b" href="../differential-forms.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
-        <g stroke="#58c4dd" stroke-width="1.2" opacity="0.75">
+        <g stroke="var(--blue)" stroke-width="1.2" opacity="0.75">
           <line x1="14" y1="20" x2="86" y2="20"/>
           <line x1="14" y1="32" x2="86" y2="32"/>
           <line x1="14" y1="44" x2="86" y2="44"/>
@@ -173,12 +405,12 @@
           <line x1="14" y1="68" x2="86" y2="68"/>
         </g>
         <!-- a vector piercing the stack -->
-        <line x1="30" y1="62" x2="72" y2="22" stroke="#ffd866" stroke-width="1.6" marker-end="url(#df1)"/>
+        <line x1="30" y1="62" x2="72" y2="22" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#df1)"/>
         <!-- basepoint -->
         <circle cx="30" cy="62" r="2" fill="#fff"/>
-        <text x="78" y="14" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ω(v)</text>
+        <text x="78" y="14" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">ω(v)</text>
         <defs>
-          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
         </defs>
       </svg></div>
       <div class="body">
@@ -192,17 +424,17 @@
     <a class="card v" href="../differential-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- a curved surface patch with a normal vector -->
-        <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="#b39ddb" stroke-width="1.4"/>
-        <path d="M 12 64 Q 32 34 52 40 Q 72 46 88 28" fill="none" stroke="#b39ddb" stroke-width="1.1" opacity="0.6"/>
-        <path d="M 12 70 Q 32 40 52 46 Q 72 52 88 34" fill="none" stroke="#b39ddb" stroke-width="0.9" opacity="0.4"/>
+        <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
+        <path d="M 12 64 Q 32 34 52 40 Q 72 46 88 28" fill="none" stroke="var(--violet)" stroke-width="1.1" opacity="0.6"/>
+        <path d="M 12 70 Q 32 40 52 46 Q 72 52 88 34" fill="none" stroke="var(--violet)" stroke-width="0.9" opacity="0.4"/>
         <!-- normal vector at a point on the top curve -->
-        <circle cx="52" cy="34" r="2.2" fill="#ffd866"/>
-        <line x1="52" y1="34" x2="58" y2="16" stroke="#ffd866" stroke-width="1.3" marker-end="url(#dg1)"/>
+        <circle cx="52" cy="34" r="2.2" fill="var(--yellow)"/>
+        <line x1="52" y1="34" x2="58" y2="16" stroke="var(--yellow)" stroke-width="1.3" marker-end="url(#dg1)"/>
         <!-- tangent -->
-        <line x1="52" y1="34" x2="72" y2="37" stroke="#58c4dd" stroke-width="1.2" opacity="0.85" marker-end="url(#dg2)"/>
+        <line x1="52" y1="34" x2="72" y2="37" stroke="var(--blue)" stroke-width="1.2" opacity="0.85" marker-end="url(#dg2)"/>
         <defs>
-          <marker id="dg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
-          <marker id="dg2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+          <marker id="dg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
+          <marker id="dg2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--blue)"/></marker>
         </defs>
       </svg></div>
       <div class="body">
@@ -216,17 +448,17 @@
     <a class="card p" href="../riemannian-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sphere with a geodesic triangle on it -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="#e07a5f" stroke-width="1.3"/>
+        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
         <!-- inner latitude ellipse -->
-        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="#e07a5f" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="var(--pink)" stroke-width="0.8" opacity="0.45"/>
         <!-- geodesic triangle: north pole and two equator points -->
-        <g stroke="#ffd866" stroke-width="1.3" fill="none">
+        <g stroke="var(--yellow)" stroke-width="1.3" fill="none">
           <path d="M 50 14 Q 36 26 28 45"/>
           <path d="M 50 14 Q 64 26 72 45"/>
           <path d="M 28 45 Q 50 55 72 45"/>
         </g>
-        <g fill="#ffd866"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#e07a5f" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
+        <g fill="var(--yellow)"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--pink)" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
       </svg></div>
       <div class="body">
         <div class="tt">Riemannian geometry</div>
@@ -239,17 +471,17 @@
     <a class="card c" href="../lie-groups.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- great circle on S^3 / matrix group with tangent at identity -->
-        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
+        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
         <!-- identity point -->
-        <circle cx="80" cy="40" r="2.8" fill="#ffd866"/>
-        <text x="80" y="55" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">e</text>
+        <circle cx="80" cy="40" r="2.8" fill="var(--yellow)"/>
+        <text x="80" y="55" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">e</text>
         <!-- tangent vector at identity: T_e G = g -->
-        <line x1="80" y1="40" x2="94" y2="20" stroke="#ffd866" stroke-width="1.4" marker-end="url(#lg1)"/>
+        <line x1="80" y1="40" x2="94" y2="20" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#lg1)"/>
         <!-- one-parameter subgroup: a second point along the curve -->
-        <circle cx="66" cy="20" r="2.2" fill="#7de0d6"/>
-        <text x="66" y="14" text-anchor="middle" font-size="7" fill="#7de0d6" font-style="italic" font-family="serif">exp(tX)</text>
+        <circle cx="66" cy="20" r="2.2" fill="var(--cyan)"/>
+        <text x="66" y="14" text-anchor="middle" font-size="7" fill="var(--cyan)" font-style="italic" font-family="serif">exp(tX)</text>
         <defs>
-          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--yellow)"/></marker>
         </defs>
       </svg></div>
       <div class="body">
@@ -263,17 +495,17 @@
     <a class="card c" href="../riemann-surfaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- fundamental parallelogram with side identifications -->
-        <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
         <!-- single-arrow identification on top/bottom -->
-        <polygon points="35,60 40,57 40,63" fill="#ffd866"/>
-        <polygon points="60,20 65,17 65,23" fill="#ffd866"/>
+        <polygon points="35,60 40,57 40,63" fill="var(--yellow)"/>
+        <polygon points="60,20 65,17 65,23" fill="var(--yellow)"/>
         <!-- double-arrow identification on left/right -->
-        <g fill="#e07a5f">
+        <g fill="var(--pink)">
           <polygon points="30,42 34,39 34,45"/><polygon points="34,38 38,35 38,41"/>
           <polygon points="65,42 69,39 69,45"/><polygon points="69,38 73,35 73,41"/>
         </g>
         <!-- tau parameter hint -->
-        <text x="50" y="75" text-anchor="middle" font-size="8" fill="#7de0d6" font-style="italic" font-family="serif">ℂ/Λ</text>
+        <text x="50" y="75" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">ℂ/Λ</text>
       </svg></div>
       <div class="body">
         <div class="tt">Riemann surfaces</div>
