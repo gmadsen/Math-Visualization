@@ -149,6 +149,7 @@
 <!-- breadcrumb-head-auto-end -->
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
+<script src="./js/widget-sonify.js"></script>
 <script src="./quizzes/bundle.js"></script>
 </head>
 <body data-section="modular-forms-and-l-functions" data-level="advanced">
@@ -758,6 +759,103 @@ where $\sigma(n) = \sum_{d\mid n} d$ is the sum-of-divisors function and $\sigma
   }
   input.addEventListener('input', render);
   render();
+})();
+</script>
+
+<h3>Listen to the growth of $r_k(n)$</h3>
+<p>Numbers-on-a-page hide the qualitative fact that $r_4(n)$ grows linearly in $n$ (via $\sigma(n)$), while $r_2(n)$ meanders and $r_1(n)$ is mostly zero. Sweep the slider below: pitch tracks $\log(1 + r_k(n))$, so you hear the four-square density surge where $\theta^4$ explodes. Choose $k$ with the buttons.</p>
+
+<div id="w-sonify-rk"></div>
+
+<script>
+(function(){
+  if(!window.MVSonify) return;
+  // Minimal r_k table shared with widget 4 — recomputed here to keep
+  // this block self-contained.
+  function rk(k, n){
+    if(n < 0) return 0;
+    var N = n|0;
+    var r1 = new Array(N+1).fill(0);
+    r1[0] = 1;
+    for(var m=1; m*m<=N; m++) r1[m*m] = 2;
+    var cur = r1.slice();
+    for(var i=1; i<k; i++){
+      var nxt = new Array(N+1).fill(0);
+      for(var a=0; a<=N; a++){
+        if(!cur[a]) continue;
+        for(var b=0; a+b<=N; b++){
+          if(!r1[b]) continue;
+          nxt[a+b] += cur[a]*r1[b];
+        }
+      }
+      cur = nxt;
+    }
+    return cur[N] | 0;
+  }
+  // Memo by k; compute on demand.
+  var cache = {};
+  function rkM(k, n){
+    var key = k + ':' + n;
+    if(!(key in cache)) cache[key] = rk(k, n);
+    return cache[key];
+  }
+  var state = { k: 4 };
+  var host = document.getElementById('w-sonify-rk');
+  host.classList.add('widget');
+  host.innerHTML =
+    '<div class="hd">' +
+      '<div class="ttl">Sonify $r_k(n)$</div>' +
+      '<div class="hint">pitch ∝ log(1 + $r_k(n)$); slider is $n$</div>' +
+    '</div>' +
+    '<div class="row" id="sk-btns">' +
+      '<button data-k="1">θ</button>' +
+      '<button data-k="2">θ²</button>' +
+      '<button data-k="3">θ³</button>' +
+      '<button data-k="4" class="active">θ⁴</button>' +
+      '<button data-k="8">θ⁸</button>' +
+    '</div>' +
+    '<div id="sk-sonify"></div>';
+  function mkOpts(){
+    return {
+      title: 'r_' + state.k + '(n) as pitch',
+      hint: 'Slide n from 0 to 40. Silence where r_k(n)=0.',
+      paramRange: [0, 40],
+      step: 1,
+      initial: 16,
+      computePitch: function(n){
+        var v = rkM(state.k, n|0);
+        // 220 Hz → 1200 Hz over log scale 0..log(1+maxSeen).
+        var L = Math.log(1 + v);
+        return 220 + 160 * L;
+      },
+      computeGain: function(n){
+        var v = rkM(state.k, n|0);
+        if(v === 0) return 0;
+        return Math.min(0.35, 0.05 + 0.04 * Math.log(1 + v));
+      },
+      display: function(n){
+        var v = rkM(state.k, n|0);
+        return 'n = ' + (n|0) + '   r_' + state.k + '(n) = ' + v;
+      }
+    };
+  }
+  function mount(){
+    var slot = document.getElementById('sk-sonify');
+    slot.innerHTML = '';
+    var inner = document.createElement('div');
+    slot.appendChild(inner);
+    MVSonify.init(inner, mkOpts());
+  }
+  mount();
+  var btns = host.querySelectorAll('#sk-btns button');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      state.k = parseInt(b.dataset.k, 10);
+      mount();
+    });
+  });
 })();
 </script>
 

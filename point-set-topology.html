@@ -15,6 +15,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-counterexample-generator.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -1128,6 +1129,46 @@ Equivalently, $f^{-1}(B_Y(f(x_0),\varepsilon))\supseteq B_X(x_0,\delta)$. The $\
   </div>
   <div class="readout" id="sep-out">click an example to place it in the hierarchy</div>
 </div>
+
+<h3>Construct your own counterexamples</h3>
+<p>The hierarchy is easier to <em>feel</em> once you build the counterexamples yourself. Below, toggle subsets of the 4-point space $X=\{a,b,c,d\}$ to declare them open. The widget closes your selection under finite intersection and arbitrary union, then tests which separation axioms survive. The preset buttons load the classics — discrete, indiscrete, Sierpiński, particular-point, excluded-point — so you can poke at each and watch the axioms flip.</p>
+
+<div id="sep-counterex"></div>
+<script>
+(function(){
+  function start(){
+    if(!window.MVCounterexampleGenerator) return setTimeout(start, 50);
+    // Masks (see widget-counterexample-generator.js for the bit encoding):
+    // for space = ['a','b','c','d'] the bit i corresponds to element i.
+    // a=1, b=2, c=4, d=8; pairs are ORs of the two singleton bits.
+    MVCounterexampleGenerator.init('#sep-counterex', {
+      space: ['a','b','c','d'],
+      checks: ['T0','T1','T2','connected','compact','discrete'],
+      presets: [
+        // Discrete: every singleton open. Widget auto-closes to full power set.
+        { name: 'discrete',          opens: ['a','b','c','d'] },
+        // Indiscrete: only ∅ and X are open; widget auto-adds both.
+        { name: 'indiscrete',        opens: [] },
+        // Sierpiński-like: 'a' is a generic open point; τ = {∅, {a}, X}.
+        { name: 'Sierpiński-like',   opens: ['a'] },
+        // Particular-point on a: open iff empty or contains a.
+        // Every superset of {a} is forced in by unions/intersections;
+        // we seed the singleton and all pairs containing a.
+        { name: 'particular-point (p=a)', opens: ['a','ab','ac','ad'] },
+        // Excluded-point on d: open iff = X or does not contain d.
+        // Seed all subsets of {a,b,c}; closure adds the rest.
+        { name: 'excluded-point (p=d)',   opens: ['a','b','c','ab','ac','bc','abc'] },
+        // T₁ but disconnected: τ = {∅, {a,b}, {c,d}, X}. Built from the
+        // doubletons; closure gives the clopen partition.
+        { name: 'clopen partition',       opens: ['ab','cd'] }
+      ],
+      displayLimit: 10
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
 
 <div class="quiz" data-concept="separation-axioms"></div>
 </section>

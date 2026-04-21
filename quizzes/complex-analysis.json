@@ -24,6 +24,15 @@
           "choices": ["$\\pi/4$", "$3\\pi/4$", "$-\\pi/4$", "$-3\\pi/4$"],
           "answer": 3,
           "explain": "$-1-i$ lies in the third quadrant. Its modulus is $\\sqrt{2}$ and its angle from the positive real axis (measured in $(-\\pi,\\pi]$) is $-3\\pi/4$."
+        },
+        {
+          "type": "construction",
+          "q": "On the complex plane below, place a marker at the primitive sixth root of unity $\\zeta_6 = e^{i\\pi/3}$. Real axis runs left-right; imaginary axis runs up (note the SVG $y$-axis has been flipped so positive imaginary is up). Unit circle is shown.",
+          "viewBox": "-1.2 -1.2 2.4 2.4",
+          "start": { "x": 0, "y": 0 },
+          "target": { "kind": "point", "x": 0.5, "y": -0.8660254, "tolerance": 0.15 },
+          "hint": "$\\zeta_6 = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2$.",
+          "explain": "The primitive sixth root of unity is $\\zeta_6 = e^{i\\pi/3} = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2 \\approx 0.5 + 0.866 i$. In the SVG viewBox the $y$-axis points down, so the target coordinate is $(0.5, -\\sqrt{3}/2)$."
         }
       ],
       "hard": [
@@ -94,6 +103,24 @@
           ],
           "answer": 2,
           "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each Möbius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
+          "left": [
+            "rotation about the origin by angle $\\theta$",
+            "translation by $1$",
+            "inversion through the unit circle (followed by conjugation)",
+            "dilation by factor $r>0$"
+          ],
+          "right": [
+            "$T(z) = z + 1$",
+            "$T(z) = 1/z$",
+            "$T(z) = rz$",
+            "$T(z) = e^{i\\theta} z$"
+          ],
+          "answer": [1, 2, 3, 0],
+          "explain": "$T(z)=z+1$ is translation; $T(z)=1/z$ is the classical inversion $z\\mapsto 1/z$ (the map whose fixed points are $\\pm 1$ and which swaps $0$ and $\\infty$); $T(z)=rz$ is a dilation; $T(z)=e^{i\\theta}z$ is a rotation by $\\theta$."
         }
       ]
     },

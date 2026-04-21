@@ -16,6 +16,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-proof-scrubber.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <style>
   :root{
@@ -1228,6 +1229,233 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 <p>The quadratic, cubic, and quartic formulas exist because $S_2, S_3, S_4$ are solvable (their derived series bottom out at $\{e\}$ — you watched it happen in §5). The general quintic has Galois group $S_5$, and §5 showed that $S_5$ is <strong>not</strong> solvable. So there is no universal formula for the roots of a degree-$5$ polynomial in terms of its coefficients using $+,-,\cdot,\div,\sqrt[n]{\ }$.</p>
 
 <p>The real work is concentrated in <strong>$A_5$ is simple</strong> — it has no non-trivial normal subgroup. Hence $A_5$ is perfect: $[A_5,A_5]=A_5$. So the derived series of $A_5$ (and of $S_5$, after one step into $A_5$) stabilizes and never reaches $\{e\}$.</p>
+
+<div class="widget" id="w-quintic-scrub"></div>
+<script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  // Shared SVG helper — scoped to this widget.
+  const NS = 'http://www.w3.org/2000/svg';
+  function S(tag, attrs){ const e = document.createElementNS(NS, tag);
+    if(attrs) for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+  // A fixed subgroup-chain diagram we highlight differently per step:
+  //   S_5 ── A_5 ── {e}          (top row)
+  //   S_5' = A_5,  A_5' = A_5    (derived-series annotations, revealed later)
+  // Coordinates live inside a 520×180 viewBox.
+  const NODES = [
+    { key:'S5',  x: 80, y: 90, r: 26, label:'S₅',  sub:'order 120' },
+    { key:'A5',  x: 260, y: 90, r: 26, label:'A₅',  sub:'order 60' },
+    { key:'e',   x: 440, y: 90, r: 20, label:'{e}', sub:'order 1'  }
+  ];
+  const EDGES = [
+    { from:'S5', to:'A5', label:'index 2', kind:'inclusion' },
+    { from:'A5', to:'e',  label:'only possible drop',  kind:'inclusion' }
+  ];
+  function nodeOf(k){ return NODES.find(n => n.key === k); }
+
+  function drawFrame(svg, opts){
+    const active = new Set(opts.activeNodes || []);
+    const dim = new Set(opts.dimNodes || []);
+    const activeEdges = new Set(opts.activeEdges || []);
+    const crossEdges = new Set(opts.crossEdges || []);
+    const showDerived = !!opts.showDerived;
+    const caption = opts.caption || '';
+    const accent = opts.accent || 'var(--yellow)';
+
+    // Edges.
+    for(const e of EDGES){
+      const a = nodeOf(e.from), b = nodeOf(e.to);
+      const hi = activeEdges.has(e.from + '-' + e.to);
+      const cross = crossEdges.has(e.from + '-' + e.to);
+      const stroke = cross ? 'var(--pink)'
+                   : hi    ? accent
+                   :         'var(--line)';
+      const sw = hi || cross ? 2.2 : 1.4;
+      svg.appendChild(S('line', {
+        x1: a.x + a.r, y1: a.y,
+        x2: b.x - b.r, y2: b.y,
+        stroke, 'stroke-width': sw,
+        'stroke-dasharray': cross ? '6 4' : 'none'
+      }));
+      const midx = (a.x + b.x) / 2, midy = a.y - 14;
+      const t = S('text', {
+        x: midx, y: midy,
+        'text-anchor': 'middle',
+        'font-size': 12,
+        fill: cross ? 'var(--pink)' : hi ? accent : 'var(--mute)'
+      });
+      t.textContent = cross ? '✗ never' : e.label;
+      svg.appendChild(t);
+    }
+
+    // Derived-series annotation on the S_5 → A_5 edge.
+    if(showDerived){
+      const a = nodeOf('S5'), b = nodeOf('A5');
+      const midx = (a.x + b.x) / 2;
+      const t = S('text', {
+        x: midx, y: a.y + 26,
+        'text-anchor': 'middle',
+        'font-size': 11,
+        fill: 'var(--cyan)'
+      });
+      t.textContent = "[S₅,S₅] = A₅";
+      svg.appendChild(t);
+      // And the A_5 = [A_5,A_5] loop — drawn as a small arrow that returns to A_5.
+      const bx = b.x, by = b.y;
+      const path = S('path', {
+        d: `M ${bx} ${by - b.r} C ${bx + 50} ${by - 55}, ${bx - 50} ${by - 55}, ${bx} ${by - b.r}`,
+        fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.5
+      });
+      svg.appendChild(path);
+      const lp = S('text', {
+        x: bx, y: by - 58,
+        'text-anchor': 'middle',
+        'font-size': 11,
+        fill: 'var(--cyan)'
+      });
+      lp.textContent = "[A₅,A₅] = A₅";
+      svg.appendChild(lp);
+    }
+
+    // Nodes.
+    for(const n of NODES){
+      const isAct = active.has(n.key);
+      const isDim = dim.has(n.key);
+      const stroke = isAct ? accent : 'var(--line)';
+      const fill   = isAct ? 'color-mix(in srgb, var(--yellow) 15%, var(--panel2))'
+                           : 'var(--panel2)';
+      const opacity = isDim ? 0.35 : 1;
+      const g = S('g', { opacity: String(opacity) });
+      g.appendChild(S('circle', {
+        cx: n.x, cy: n.y, r: n.r,
+        fill, stroke, 'stroke-width': isAct ? 2.2 : 1.4
+      }));
+      const t = S('text', {
+        x: n.x, y: n.y + 4,
+        'text-anchor': 'middle',
+        'font-size': 16,
+        'font-weight': 600,
+        fill: isAct ? accent : 'var(--ink)'
+      });
+      t.textContent = n.label;
+      g.appendChild(t);
+      const sub = S('text', {
+        x: n.x, y: n.y + n.r + 14,
+        'text-anchor': 'middle',
+        'font-size': 10,
+        fill: 'var(--mute)'
+      });
+      sub.textContent = n.sub;
+      g.appendChild(sub);
+      svg.appendChild(g);
+    }
+
+    // Caption strip.
+    if(caption){
+      const c = S('text', {
+        x: 260, y: 168,
+        'text-anchor': 'middle',
+        'font-size': 12,
+        fill: 'var(--mute)'
+      });
+      c.textContent = caption;
+      svg.appendChild(c);
+    }
+  }
+
+  const mount = document.querySelector('#w-quintic-scrub');
+  if(!mount) return;
+  // Keyboard affordance: left/right arrows on the mounted widget step through.
+  mount.addEventListener('keydown', ev => {
+    if(!ctrl) return;
+    if(ev.key === 'ArrowRight'){ ctrl.setStep(ctrl.step + 1); ev.preventDefault(); }
+    else if(ev.key === 'ArrowLeft'){ ctrl.setStep(ctrl.step - 1); ev.preventDefault(); }
+  });
+  mount.setAttribute('tabindex','0');
+  const ctrl = MVProofScrubber.init(mount, {
+    title: 'The unsolvability argument, step by step',
+    hint: 'drag the slider · click a number · press play',
+    viewBox: '0 0 520 180',
+    autoplayMs: 2400,
+    steps: [
+      {
+        title: 'The claim',
+        body: 'There is no universal formula expressing the roots of a degree-$5$ polynomial in its coefficients using only $+,-,\\cdot,\\div$ and $n$-th roots. We prove this by showing a specific finite group — the Galois group of the general quintic — fails a discrete property.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['S5','A5','e'], activeEdges:[],
+            caption: 'three players: S₅, its commutator A₅, and the identity {e}'
+          });
+        }
+      },
+      {
+        title: 'Radicals ⇔ solvable Galois group',
+        body: 'Galois\' theorem: $f\\in\\mathbb{Q}[x]$ is solvable in radicals $\\iff$ $\\operatorname{Gal}(L/\\mathbb{Q})$ is a <em>solvable group</em> — i.e. its derived series $G \\supseteq G\' \\supseteq G\'\' \\supseteq \\dots$ reaches $\\{e\\}$ in finitely many steps.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['e'], dimNodes:['S5','A5'],
+            caption: 'goal: reach {e} by repeatedly taking commutators'
+          });
+        }
+      },
+      {
+        title: 'The general quintic has Galois group $S_5$',
+        body: 'For a "generic" degree-$5$ polynomial (coefficients treated as independent transcendentals, or concretely $x^5-x-1$ over $\\mathbb{Q}$), the Galois group is the full symmetric group $S_5$ on the five roots. So we must check: is $S_5$ solvable?',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['S5'], activeEdges:[],
+            caption: 'start: G = S₅ (order 120)'
+          });
+        }
+      },
+      {
+        title: 'First derivative: $S_5\' = A_5$',
+        body: 'The commutator subgroup $[S_5,S_5]$ is the alternating group $A_5$ (every commutator is an even permutation; conversely every 3-cycle is a commutator). So after one step the derived series has dropped from $S_5$ down to $A_5$.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['S5','A5'], activeEdges:['S5-A5'],
+            showDerived: false,
+            caption: '[S₅, S₅] = A₅ — one step down'
+          });
+        }
+      },
+      {
+        title: '$A_5$ is simple (§6 counting argument)',
+        body: 'A proper nontrivial normal subgroup of $A_5$ would be a union of conjugacy classes (including $\\{e\\}$) whose size divides $60$. Checking the class sizes $1,15,20,12,12$ rules every possibility out. So $A_5$ has <strong>no</strong> proper nontrivial normal subgroup.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['A5'],
+            caption: 'A₅ is simple: its only normal subgroups are {e} and A₅ itself'
+          });
+        }
+      },
+      {
+        title: 'So $A_5$ is perfect: $[A_5,A_5]=A_5$',
+        body: 'The commutator subgroup $[A_5,A_5]$ is normal in $A_5$ and, being generated by 3-cycles, is nontrivial. By the previous step it must equal <em>all of</em> $A_5$. The derived series of $A_5$ is the constant sequence $A_5, A_5, A_5, \\dots$ — it never shrinks.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['A5'], showDerived:true,
+            crossEdges:['A5-e'],
+            caption: 'the derived series stalls at A₅ forever'
+          });
+        }
+      },
+      {
+        title: 'Therefore the quintic has no radical formula',
+        body: 'The derived series of $S_5$ drops $S_5 \\to A_5$ once, then stabilizes at $A_5 \\neq \\{e\\}$. So $S_5$ is <strong>not</strong> solvable, and by step 2 the general quintic cannot be solved in radicals. Specific offender: $x^5 - x - 1$. Abel–Ruffini in one picture.',
+        render(svg){
+          drawFrame(svg, {
+            activeNodes:['S5','A5'], activeEdges:['S5-A5'],
+            showDerived:true, crossEdges:['A5-e'], accent:'var(--pink)',
+            caption: 'derived series: S₅ → A₅ → A₅ → A₅ → …  ✗ never reaches {e}'
+          });
+        }
+      }
+    ]
+  });
+})();
+</script>
 
 <h3>Why $A_5$ is simple — a counting argument</h3>
 <p>Any normal subgroup of $A_5$ must be a union of conjugacy classes (including the identity class) whose total order divides $60 = |A_5|$. The five conjugacy classes of $A_5$ have sizes:</p>

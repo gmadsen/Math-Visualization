@@ -150,6 +150,7 @@
 <!-- breadcrumb-head-auto-end -->
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
+<script src="./js/widget-pattern-induction.js"></script>
 <script src="./quizzes/bundle.js"></script>
 </head>
 <body data-section="number-theory" data-level="intermediate">
@@ -252,6 +253,39 @@ function drawNode(svg, x, y, label, opts={}){
   <svg id="f-svg" viewBox="0 0 620 260" width="620" height="260"><title>Faulhaber polynomial generator</title></svg>
   <div class="small" style="color:var(--mute)">Blue bars: direct sum $\sum_{k=1}^{n} k^m$ for each $n$. Yellow curve: Faulhaber polynomial evaluated as a continuous function. They coincide at integer $n$ to machine precision.</div>
 </div>
+
+<p>Before trusting the machinery, it pays to rediscover two of these sums from data alone — the fingerprint of a polynomial in $n$ is strong enough that a handful of samples pins it down.</p>
+
+<div class="widget" id="w-faul-triangular"></div>
+<div class="widget" id="w-faul-cubic"></div>
+
+<script>
+(function(){
+  if(!window.MVPatternInduction) return;
+  const tri  = document.querySelector('#w-faul-triangular');
+  const cube = document.querySelector('#w-faul-cubic');
+  MVPatternInduction.init(tri, {
+    title: 'Induce the rule: $1+2+\\cdots+n$',
+    hint: 'Five examples, two hidden. Formula uses the variable $n$.',
+    examples: [[1,1],[2,3],[3,6],[4,10],[5,15]],
+    testCases: [[6,21],[7,28],[10,55]],
+    inputKind: 'integer',
+    outputKind: 'integer',
+    canonicalLatex: 'S_1(n)=\\tfrac{n(n+1)}{2}'
+  });
+  MVPatternInduction.init(cube, {
+    title: 'Induce the rule: $1^3+2^3+\\cdots+n^3$',
+    hint: 'The numbers 1, 9, 36, 100 look familiar — they are the squares of something simpler.',
+    examples: [[1,1],[2,9],[3,36],[4,100],[5,225]],
+    testCases: [[6,441],[7,784],[10,3025]],
+    inputKind: 'integer',
+    outputKind: 'integer',
+    canonicalLatex: 'S_3(n)=\\left(\\tfrac{n(n+1)}{2}\\right)^2'
+  });
+  // ensure Enter-key listeners installed by the widget are live
+  document.addEventListener('keydown', function(){}, { passive: true });
+})();
+</script>
 
 <div class="quiz" data-concept="faulhaber-formula"></div>
 <!-- backlinks-auto-begin -->

@@ -216,6 +216,38 @@ Every new topic page should ship with quizzes for its concepts.
    - `complex` — answer `[re, im]` within absolute tolerance `tol` on each component.
    - `multi-select` — checkboxes; `answer` is the array of correct indices. Graded as a set (order-insensitive). Wrong-answer feedback distinguishes "too few", "too many", and "partially wrong".
    - `ordering` — learner reorders `items` via ↑ / ↓ buttons on each row (click-to-promote; works on touch without drag-and-drop flakiness). `answer` is the correct permutation of indices (e.g. `[1,0,2]` means the item at original position 1 should come first). Wrong-answer feedback reports how many items are out of place without revealing which.
+   - `proof-completion` — learner sees the first N proof `steps` (numbered list, read-only) and picks the correct continuation from `choices` (radio buttons). `answer` is the index of the correct next step. Wrong-answer feedback points back to the last given step (the gap the learner missed must use it).
+     ```json
+     { "type": "proof-completion", "q": "...", "steps": ["step1","step2"],
+       "choices": ["A","B","C"], "answer": 1, "explain": "..." }
+     ```
+   - `matching` — pair items from two columns. `left` and `right` are the two item arrays (they may differ in semantic role); the widget renders `left` labeled `A, B, C, …` and puts a dropdown next to each `right` row asking which letter pairs with it. `answer[i]` is the index into `left` that pairs with `right[i]`. Wrong-answer feedback reports `"N of M pairs correct"` (never reveals which pair is wrong). `left` and `right` must have the same length.
+     ```json
+     { "type": "matching", "q": "...",
+       "left": ["theorem A", "theorem B", "theorem C"],
+       "right": ["implication X", "implication Y", "implication Z"],
+       "answer": [2, 0, 1], "explain": "..." }
+     ```
+   - `spot-the-error` — a proof is shown as a clickable numbered list; exactly one step contains a planted flaw. `answer` is the 0-based index of the flawed step. Feedback: clicking the correct step → ✓; clicking any other step → `"step N is valid — try another"`.
+     ```json
+     { "type": "spot-the-error", "q": "...",
+       "steps": ["s1","s2 (bad)","s3"], "answer": 1, "explain": "..." }
+     ```
+   - `construction` — draw-to-answer on an SVG canvas. `viewBox` sets the coordinate system; learner drags a marker to place a point; `target.x`, `target.y`, and `target.tolerance` (in viewBox units) define the acceptance region. Optional `start` object sets the marker's initial position. Feedback is directional: `"too far left/right/up/down"` based on the dominant error axis (no magnitude revealed). v1 only supports `target.kind: "point"`; lines/curves/regions can be added later without schema breakage.
+     ```json
+     { "type": "construction", "q": "...",
+       "target": { "kind": "point", "x": 40, "y": 60, "tolerance": 6 },
+       "viewBox": "0 0 100 100", "start": { "x": 50, "y": 50 },
+       "explain": "..." }
+     ```
+   - `guess-my-rule` — inductive pattern. `examples` are `[input, output]` pairs shown to the learner; `testCases` are `[input, expected]` pairs where the learner fills in expected outputs in text inputs. `tol` is the per-case absolute tolerance (defaults to `1e-6`). `inputKind`/`outputKind` are advisory labels (e.g. `"integer"`). Grading checks all test cases within tolerance; wrong-answer feedback reports how many match. No client-side formula sandbox — the simpler "fill in each output" variant is used.
+     ```json
+     { "type": "guess-my-rule", "q": "...",
+       "examples": [[1,1],[2,4],[3,9]],
+       "testCases": [[4,16],[5,25]],
+       "inputKind": "integer", "outputKind": "integer",
+       "tol": 1e-6, "hint": "...", "explain": "..." }
+     ```
 
    **Optional `hint` field** (per question, any type): a short nudge the learner can reveal via the `?` button rendered next to the question. If `hint` is absent, the quiz widget falls back to the first sentence of `explain` (when that is a usable sentence of ≥ 20 chars). Revealing a hint does not affect mastery — it's purely a pedagogical aid.
 

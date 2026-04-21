@@ -24,6 +24,17 @@
           "answer": 225,
           "tol": 1e-6,
           "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
+        },
+        {
+          "type": "guess-my-rule",
+          "q": "The function below is $S_2(n) = \\sum_{k=1}^{n} k^2$. Given these examples, predict the value for each test input.",
+          "examples": [[1, 1], [2, 5], [3, 14], [4, 30]],
+          "testCases": [[5, 55], [6, 91]],
+          "inputKind": "integer",
+          "outputKind": "integer",
+          "tol": 1e-6,
+          "hint": "Each output adds the next square: $S_2(n) = S_2(n-1) + n^2$, or use $n(n+1)(2n+1)/6$.",
+          "explain": "$S_2(n) = \\tfrac{n(n+1)(2n+1)}{6}$. At $n=5$: $5\\cdot 6\\cdot 11/6=55$. At $n=6$: $6\\cdot 7\\cdot 13/6=91$. Equivalently, $S_2(5)=30+25=55$ and $S_2(6)=55+36=91$."
         }
       ],
       "hard": [

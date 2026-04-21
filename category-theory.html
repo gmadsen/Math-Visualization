@@ -151,6 +151,7 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
 <script src="./quizzes/bundle.js"></script>
 </head>
 <body data-section="algebra" data-level="intermediate">
@@ -1757,6 +1758,12 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 
 <p>Notice the shape: every line of the table reads "$X$ represents the functor $C\mapsto(\text{data on }C)$, with universal element $u$ recovering the defining map." Once you see a universal property you already know the object is unique up to unique iso, that it preserves the operations you'd expect (right adjoints preserve limits!), and how to compute with it (factor through the universal map). The discipline of category theory is to replace ad-hoc constructions with their universal properties whenever possible — then Yoneda and the adjoint functor theorem do the work.</p>
 
+<p>Here is the pullback-square diagram recast as a diagram you can nudge. The four objects are draggable; the arrows are labeled with their morphism names; clicking an arrow appends it to a composition. Click <em>check commutativity</em> to verify that the path you built is one of the two equal composites $\pi_A;f = \pi_B;g$ guaranteed by the universal property. Repositioning objects does not change the category — commutativity is semantic, not geometric.</p>
+
+<div class="widget" id="w-diagram-editor"></div>
+
+<p class="small">The widget is a generic commutative-diagram editor (<code>MVDiagramEditor</code>): give it a list of objects, morphisms, and declared commuting paths, and it will render, let the learner drag and click, and check the selected path against the declared equivalence class. Change the data on the call site to draw any commutative square, triangle, or Yoneda-style cone.</p>
+
 <div class="quiz" data-concept="universal-properties"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -1818,6 +1825,33 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   }
   pick.addEventListener('change', render);
   render();
+})();
+</script>
+
+<script>
+/* =============================== Commutative-diagram editor prototype =============================== */
+(function(){
+  if(!window.MVDiagramEditor) return;
+  window.MVDiagramEditor.init('#w-diagram-editor', {
+    title: 'Commutative-diagram editor — pullback square',
+    width: 560, height: 340,
+    objects: [
+      { id:'P', x:140, y: 90, label:'A\\times_Z B' },
+      { id:'A', x:420, y: 90, label:'A' },
+      { id:'B', x:140, y:250, label:'B' },
+      { id:'Z', x:420, y:250, label:'Z' },
+    ],
+    morphisms: [
+      { from:'P', to:'A', label:'\\pi_A' },
+      { from:'P', to:'B', label:'\\pi_B' },
+      { from:'A', to:'Z', label:'f' },
+      { from:'B', to:'Z', label:'g' },
+    ],
+    commutes: [
+      { paths: [ ['\\pi_A','f'], ['\\pi_B','g'] ],
+        description: 'the pullback square commutes: f\\,\\pi_A = g\\,\\pi_B' }
+    ]
+  });
 })();
 </script>
 

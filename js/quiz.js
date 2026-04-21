@@ -17,6 +17,19 @@
 //   { type: "complex",      q: "...", answer: [re, im], tol: 1e-3,    explain: "..." }
 //   { type: "multi-select", q: "...", choices: ["a","b","c","d"], answer: [0,2], explain: "..." }
 //   { type: "ordering",     q: "...", items: ["a","b","c"], answer: [2,0,1], explain: "..." }
+//   { type: "proof-completion", q: "...", steps: ["step1","step2"],
+//       choices: ["A","B","C"], answer: 1, explain: "..." }
+//   { type: "matching", q: "...", left: ["A","B","C"], right: ["x","y","z"],
+//       answer: [2,0,1], explain: "..." }   // answer[i] = index in `left` that pairs with right[i]
+//   { type: "spot-the-error", q: "...", steps: ["s1","s2 (bad)","s3"],
+//       answer: 1, explain: "..." }
+//   { type: "construction", q: "...",
+//       target: { kind: "point", x: 40, y: 60, tolerance: 6 },
+//       viewBox: "0 0 100 100", start: { x: 50, y: 50 }, explain: "..." }
+//   { type: "guess-my-rule", q: "...",
+//       examples: [[1,1],[2,4],[3,9]], testCases: [[4,16],[5,25]],
+//       inputKind: "integer", outputKind: "integer",
+//       tol: 1e-6, hint: "...", explain: "..." }
 //
 // Optional per-question: `hint` (short text revealed on the ? button; falls
 // back to the first sentence of `explain` when absent).
@@ -54,6 +67,32 @@
     }
     if(q.type === 'ordering'){
       return Array.isArray(raw) && Array.isArray(q.answer) && sameOrder(raw, q.answer);
+    }
+    if(q.type === 'proof-completion'){
+      return raw === q.answer;
+    }
+    if(q.type === 'matching'){
+      return Array.isArray(raw) && Array.isArray(q.answer) && sameOrder(raw, q.answer);
+    }
+    if(q.type === 'spot-the-error'){
+      return raw === q.answer;
+    }
+    if(q.type === 'construction'){
+      if(!raw || !q.target || q.target.kind !== 'point') return false;
+      const dx = raw.x - q.target.x, dy = raw.y - q.target.y;
+      return Math.hypot(dx, dy) <= (q.target.tolerance ?? 5);
+    }
+    if(q.type === 'guess-my-rule'){
+      if(!Array.isArray(raw) || !Array.isArray(q.testCases)) return false;
+      if(raw.length !== q.testCases.length) return false;
+      const tol = q.tol ?? 1e-6;
+      for(let i = 0; i < q.testCases.length; i++){
+        const expected = q.testCases[i][1];
+        const given = num(raw[i]);
+        if(!Number.isFinite(given)) return false;
+        if(Math.abs(given - expected) > tol) return false;
+      }
+      return true;
     }
     return false;
   }
@@ -161,6 +200,84 @@
     return `✗ ${outOfPlace} item${outOfPlace === 1 ? '' : 's'} out of place`;
   }
 
+  // Directional feedback for a wrong proof-completion answer. The question's
+  // `steps` array describes the first N steps; `answer` is the correct next
+  // step. On wrong answer we name the gap: the choice the learner picked
+  // presumably violates some earlier step in the chain, so we hint to
+  // re-read the last step.
+  function proofCompletionFeedback(selected, q){
+    if(!Number.isInteger(selected)) return '✗ pick a continuation';
+    const n = (q.steps || []).length;
+    if(n === 0) return '✗ try again';
+    return `✗ re-read step ${n} — the next move has to use it`;
+  }
+
+  // Directional feedback for a wrong matching answer. `submitted` and
+  // `answer` are same-length permutations; we just report how many right
+  // slots pair to the correct left item.
+  function matchingFeedback(submitted, answer){
+    if(!Array.isArray(submitted) || submitted.length !== answer.length){
+      return '✗ pair every row';
+    }
+    let correct = 0;
+    for(let i = 0; i < answer.length; i++){
+      if(submitted[i] === answer[i]) correct++;
+    }
+    return `✗ ${correct} of ${answer.length} pairs correct`;
+  }
+
+  // Directional feedback for a wrong spot-the-error answer. If the learner
+  // picked a valid step we tell them it's valid. If they haven't picked yet,
+  // nudge them.
+  function spotTheErrorFeedback(selected, q){
+    if(!Number.isInteger(selected) || selected < 0) return '✗ click the flawed step';
+    if(selected === q.answer) return '';
+    return `✗ step ${selected + 1} is valid — try another`;
+  }
+
+  // Directional feedback for a wrong construction answer. `raw = {x,y}` in
+  // viewBox coords; `target = {x,y,tolerance}`. We report direction only
+  // (left/right/up/down), not magnitude.
+  function constructionFeedback(raw, target){
+    if(!raw || !Number.isFinite(raw.x) || !Number.isFinite(raw.y)){
+      return '✗ drag the marker to place it';
+    }
+    const dx = raw.x - target.x;
+    const dy = raw.y - target.y;
+    const tol = target.tolerance ?? 5;
+    const dist = Math.hypot(dx, dy);
+    if(dist <= tol) return '';
+    // Dominant axis gets the hint.
+    const parts = [];
+    if(Math.abs(dx) > tol){
+      parts.push(dx > 0 ? 'too far right' : 'too far left');
+    }
+    if(Math.abs(dy) > tol){
+      // In SVG viewBox y grows down; describe it that way.
+      parts.push(dy > 0 ? 'too far down' : 'too far up');
+    }
+    if(parts.length === 0) return '✗ close — nudge a bit';
+    return '✗ ' + parts.join(', ');
+  }
+
+  // Directional feedback for a wrong guess-my-rule answer. `submitted` is an
+  // array of raw strings (or numbers), `q` is the question. We report how
+  // many test cases matched.
+  function guessMyRuleFeedback(submitted, q){
+    if(!Array.isArray(submitted) || submitted.length !== q.testCases.length){
+      return '✗ fill in every test case';
+    }
+    const tol = q.tol ?? 1e-6;
+    let matched = 0, blank = 0;
+    for(let i = 0; i < q.testCases.length; i++){
+      const v = num(submitted[i]);
+      if(!Number.isFinite(v)){ blank++; continue; }
+      if(Math.abs(v - q.testCases[i][1]) <= tol) matched++;
+    }
+    if(blank > 0) return `✗ ${blank} entr${blank === 1 ? 'y' : 'ies'} missing`;
+    return `✗ ${matched} of ${q.testCases.length} test cases match`;
+  }
+
   function typeset(el){
     if(typeof renderMathInElement === 'function'){
       renderMathInElement(el, {
@@ -251,6 +368,215 @@
     return { getOrder: () => order.slice() };
   }
 
+  // ---- Matching widget ------------------------------------------------------
+  // Renders two columns: `left` items labeled (A, B, C, ...) and `right` items
+  // each with a dropdown selecting which left item pairs with it. getSelection()
+  // returns an array of length right.length where entry i is the chosen left
+  // index (or -1 if unpicked).
+  function renderMatching(hostEl, q, nameKey){
+    const n = q.right.length;
+    const labels = Array.from({length: q.left.length}, (_, i) =>
+      String.fromCharCode(65 + i));   // A, B, C, ...
+    const leftHTML = q.left.map((item, i) =>
+      `<li style="margin:.25rem 0;list-style:none;display:flex;align-items:baseline;gap:.5rem">
+         <span style="color:var(--violet);font-weight:600;min-width:1.4em">${labels[i]}.</span>
+         <span>${item}</span>
+       </li>`
+    ).join('');
+    const rightRowsHTML = q.right.map((item, i) => {
+      const opts = ['<option value="-1">— pick —</option>']
+        .concat(q.left.map((_, j) => `<option value="${j}">${labels[j]}</option>`))
+        .join('');
+      return `<li style="margin:.25rem 0;list-style:none;display:flex;
+        align-items:center;gap:.5rem">
+        <select data-role="match-sel" data-right="${i}" name="${nameKey}-${i}"
+          style="background:var(--panel);color:var(--ink);border:1px solid var(--line);
+          border-radius:6px;padding:.1rem .3rem;font:inherit">${opts}</select>
+        <span style="flex:1">${item}</span>
+      </li>`;
+    }).join('');
+    hostEl.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.3rem">
+        <div>
+          <div style="color:var(--mute);font-size:.85rem;margin-bottom:.25rem">Items</div>
+          <ul style="padding:0;margin:0">${leftHTML}</ul>
+        </div>
+        <div>
+          <div style="color:var(--mute);font-size:.85rem;margin-bottom:.25rem">
+            Pair with (pick a letter)
+          </div>
+          <ul style="padding:0;margin:0">${rightRowsHTML}</ul>
+        </div>
+      </div>
+    `;
+    typeset(hostEl);
+    return {
+      getSelection(){
+        const sels = hostEl.querySelectorAll('select[data-role="match-sel"]');
+        return Array.from(sels).map(s => parseInt(s.value, 10));
+      }
+    };
+  }
+
+  // ---- Spot-the-error widget ------------------------------------------------
+  // Renders a numbered proof where each step is clickable. The learner's
+  // selection persists; getSelection() returns the 0-based index or -1.
+  function renderSpotTheError(hostEl, q, nameKey){
+    let selected = -1;
+    hostEl.innerHTML = `
+      <ol data-role="ste-list" style="list-style:none;padding:0;margin:.3rem 0;
+        border:1px solid var(--line);border-radius:8px;overflow:hidden;
+        background:var(--panel2)"></ol>
+      <div style="color:var(--mute);font-size:.85rem;margin-top:.2rem">
+        click the step that contains the error
+      </div>
+    `;
+    const ol = hostEl.querySelector('[data-role="ste-list"]');
+    function draw(){
+      ol.innerHTML = '';
+      q.steps.forEach((step, i) => {
+        const li = document.createElement('li');
+        const isSel = i === selected;
+        li.style.cssText = `display:flex;gap:.6rem;padding:.45rem .7rem;
+          border-top:1px solid var(--line);cursor:pointer;
+          background:${isSel ? 'color-mix(in srgb, var(--pink) 14%, transparent)' : 'transparent'}`;
+        if(i === 0) li.style.borderTop = '0';
+        li.innerHTML = `
+          <span style="display:inline-block;min-width:1.6em;color:var(--mute);
+            font-variant-numeric:tabular-nums;text-align:right">${i + 1}.</span>
+          <span style="flex:1">${step}</span>
+        `;
+        li.addEventListener('click', () => {
+          selected = i;
+          draw();
+        });
+        ol.appendChild(li);
+      });
+      typeset(ol);
+    }
+    draw();
+    return { getSelection: () => selected };
+  }
+
+  // ---- Construction widget (draggable point on an SVG canvas) ---------------
+  // The SVG uses the question's `viewBox`. A marker can be dragged anywhere
+  // inside; getSelection() returns { x, y } in viewBox coordinates.
+  function renderConstruction(hostEl, q, nameKey){
+    const vb = (q.viewBox || '0 0 100 100').split(/\s+/).map(Number);
+    const [vx, vy, vw, vh] = vb;
+    const startX = q.start?.x ?? (vx + vw / 2);
+    const startY = q.start?.y ?? (vy + vh / 2);
+    const state = { x: startX, y: startY };
+    hostEl.innerHTML = `
+      <div style="max-width:360px;margin:.3rem 0">
+        <svg data-role="cons-svg" viewBox="${q.viewBox || '0 0 100 100'}"
+          preserveAspectRatio="xMidYMid meet"
+          style="width:100%;height:auto;background:var(--panel2);
+          border:1px solid var(--line);border-radius:8px;touch-action:none">
+          <rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" fill="none" stroke="none"/>
+          <g data-role="cons-bg"></g>
+          <circle data-role="cons-marker" r="3.5"
+            fill="var(--yellow)" stroke="var(--ink)" stroke-width="0.6"
+            cx="${startX}" cy="${startY}" style="cursor:grab"/>
+        </svg>
+      </div>
+      <div style="color:var(--mute);font-size:.85rem">
+        drag the marker · position (<span data-role="cons-x">${startX.toFixed(1)}</span>,
+        <span data-role="cons-y">${startY.toFixed(1)}</span>)
+      </div>
+    `;
+    const svg = hostEl.querySelector('[data-role="cons-svg"]');
+    const marker = hostEl.querySelector('[data-role="cons-marker"]');
+    const xReadout = hostEl.querySelector('[data-role="cons-x"]');
+    const yReadout = hostEl.querySelector('[data-role="cons-y"]');
+    function clientToViewBox(clientX, clientY){
+      const rect = svg.getBoundingClientRect();
+      const scaleX = vw / rect.width;
+      const scaleY = vh / rect.height;
+      return {
+        x: vx + (clientX - rect.left) * scaleX,
+        y: vy + (clientY - rect.top) * scaleY
+      };
+    }
+    function setPos(x, y){
+      state.x = Math.max(vx, Math.min(vx + vw, x));
+      state.y = Math.max(vy, Math.min(vy + vh, y));
+      marker.setAttribute('cx', state.x);
+      marker.setAttribute('cy', state.y);
+      xReadout.textContent = state.x.toFixed(1);
+      yReadout.textContent = state.y.toFixed(1);
+    }
+    let dragging = false;
+    function onDown(ev){
+      dragging = true;
+      marker.style.cursor = 'grabbing';
+      if(svg.setPointerCapture && ev.pointerId !== undefined){
+        try { svg.setPointerCapture(ev.pointerId); } catch(_){}
+      }
+      const p = clientToViewBox(ev.clientX, ev.clientY);
+      setPos(p.x, p.y);
+      ev.preventDefault();
+    }
+    function onMove(ev){
+      if(!dragging) return;
+      const p = clientToViewBox(ev.clientX, ev.clientY);
+      setPos(p.x, p.y);
+    }
+    function onUp(){
+      dragging = false;
+      marker.style.cursor = 'grab';
+    }
+    svg.addEventListener('pointerdown', onDown);
+    svg.addEventListener('pointermove', onMove);
+    svg.addEventListener('pointerup',   onUp);
+    svg.addEventListener('pointercancel', onUp);
+    return {
+      getSelection: () => ({ x: state.x, y: state.y }),
+      setPosition: (x, y) => setPos(x, y)
+    };
+  }
+
+  // ---- Guess-my-rule widget -------------------------------------------------
+  // Shows the `examples` as (input, output) pairs, then for each test case
+  // shows the input and a blank for the output. getSelection() returns an
+  // array of raw strings from each blank.
+  function renderGuessMyRule(hostEl, q, nameKey){
+    const examplesHTML = q.examples.map(([a, b]) =>
+      `<code style="background:var(--panel2);padding:.1rem .4rem;border-radius:4px;
+        border:1px solid var(--line);margin:.15rem .15rem .15rem 0;display:inline-block">
+        $${a}$ → $${b}$
+      </code>`
+    ).join('');
+    const testRowsHTML = q.testCases.map(([a], i) =>
+      `<div style="display:flex;align-items:center;gap:.5rem;margin:.25rem 0">
+         <span>input $${a}$ →</span>
+         <input type="text" inputmode="decimal" data-role="gmr-in"
+           data-idx="${i}" placeholder="output"
+           style="width:110px;background:var(--panel);color:var(--ink);
+           border:1px solid var(--line);border-radius:6px;padding:.15rem .4rem;font:inherit"/>
+       </div>`
+    ).join('');
+    hostEl.innerHTML = `
+      <div style="margin:.3rem 0">
+        <div style="color:var(--mute);font-size:.85rem;margin-bottom:.2rem">Examples</div>
+        <div>${examplesHTML}</div>
+      </div>
+      <div style="margin:.3rem 0">
+        <div style="color:var(--mute);font-size:.85rem;margin-bottom:.2rem">
+          Apply your rule to predict each test output
+        </div>
+        ${testRowsHTML}
+      </div>
+    `;
+    typeset(hostEl);
+    return {
+      getSelection(){
+        const inputs = hostEl.querySelectorAll('[data-role="gmr-in"]');
+        return Array.from(inputs).map(el => el.value);
+      }
+    };
+  }
+
   // Render a single tier's questions into `container`. onAllCorrect fires
   // exactly once per render when every question in this tier is graded
   // correct. Inputs stay editable so retakes still refresh the explain text.
@@ -287,6 +613,33 @@
       } else if(q.type === 'ordering'){
         inputHTML = `<div data-role="order-host"></div>
           <div style="color:var(--mute);font-size:.85rem;margin-top:.2rem">use ↑ / ↓ to reorder</div>`;
+      } else if(q.type === 'proof-completion'){
+        const stepsHTML = (q.steps || []).map((step, si) =>
+          `<li style="margin:.2rem 0;display:flex;gap:.5rem">
+             <span style="color:var(--mute);min-width:1.6em;text-align:right;
+               font-variant-numeric:tabular-nums">${si + 1}.</span>
+             <span style="flex:1">${step}</span>
+           </li>`
+        ).join('');
+        const choicesHTML = (q.choices || []).map((c, j) =>
+          `<label style="display:block;margin:.25rem 0;cursor:pointer">
+             <input type="radio" name="${nameKey}" value="${j}" style="margin-right:.4rem"> ${c}
+           </label>`
+        ).join('');
+        inputHTML = `
+          <ol style="list-style:none;padding:0;margin:.3rem 0;border:1px solid var(--line);
+            border-radius:8px;background:var(--panel2);padding:.4rem .6rem">${stepsHTML}</ol>
+          <div style="margin-top:.4rem;color:var(--mute);font-size:.88rem">Next step:</div>
+          <div>${choicesHTML}</div>
+        `;
+      } else if(q.type === 'matching'){
+        inputHTML = `<div data-role="match-host"></div>`;
+      } else if(q.type === 'spot-the-error'){
+        inputHTML = `<div data-role="ste-host"></div>`;
+      } else if(q.type === 'construction'){
+        inputHTML = `<div data-role="cons-host"></div>`;
+      } else if(q.type === 'guess-my-rule'){
+        inputHTML = `<div data-role="gmr-host"></div>`;
       }
 
       const hint = hintTextOf(q);
@@ -317,9 +670,25 @@
       // Mount the ordering widget AFTER qDiv is in the DOM so its inner
       // innerHTML assignment doesn't wipe the nested button listeners.
       let orderingWidget = null;
+      let matchingWidget = null;
+      let spotTheErrorWidget = null;
+      let constructionWidget = null;
+      let guessMyRuleWidget = null;
       if(q.type === 'ordering'){
         const orderHost = qDiv.querySelector('[data-role="order-host"]');
         orderingWidget = renderOrdering(orderHost, q, nameKey);
+      } else if(q.type === 'matching'){
+        const host = qDiv.querySelector('[data-role="match-host"]');
+        matchingWidget = renderMatching(host, q, nameKey);
+      } else if(q.type === 'spot-the-error'){
+        const host = qDiv.querySelector('[data-role="ste-host"]');
+        spotTheErrorWidget = renderSpotTheError(host, q, nameKey);
+      } else if(q.type === 'construction'){
+        const host = qDiv.querySelector('[data-role="cons-host"]');
+        constructionWidget = renderConstruction(host, q, nameKey);
+      } else if(q.type === 'guess-my-rule'){
+        const host = qDiv.querySelector('[data-role="gmr-host"]');
+        guessMyRuleWidget = renderGuessMyRule(host, q, nameKey);
       }
 
       const fb = qDiv.querySelector('[data-role="fb"]');
@@ -351,6 +720,18 @@
           raw = Array.from(sels).map(el => parseInt(el.value, 10));
         } else if(q.type === 'ordering'){
           raw = orderingWidget ? orderingWidget.getOrder() : [];
+        } else if(q.type === 'proof-completion'){
+          const sel = qDiv.querySelector(`input[name="${nameKey}"]:checked`);
+          if(!sel){ fb.textContent = 'pick a continuation'; fb.style.color = 'var(--mute)'; return; }
+          raw = parseInt(sel.value, 10);
+        } else if(q.type === 'matching'){
+          raw = matchingWidget ? matchingWidget.getSelection() : [];
+        } else if(q.type === 'spot-the-error'){
+          raw = spotTheErrorWidget ? spotTheErrorWidget.getSelection() : -1;
+        } else if(q.type === 'construction'){
+          raw = constructionWidget ? constructionWidget.getSelection() : null;
+        } else if(q.type === 'guess-my-rule'){
+          raw = guessMyRuleWidget ? guessMyRuleWidget.getSelection() : [];
         }
         const ok = grade(q, raw);
         if(ok){
@@ -369,6 +750,21 @@
           fb.style.color = 'var(--pink)';
         } else if(q.type === 'ordering'){
           fb.textContent = orderingFeedback(raw, q.answer) || '✗ try again';
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'proof-completion'){
+          fb.textContent = proofCompletionFeedback(raw, q);
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'matching'){
+          fb.textContent = matchingFeedback(raw, q.answer);
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'spot-the-error'){
+          fb.textContent = spotTheErrorFeedback(raw, q) || '✗ try again';
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'construction'){
+          fb.textContent = constructionFeedback(raw, q.target);
+          fb.style.color = 'var(--pink)';
+        } else if(q.type === 'guess-my-rule'){
+          fb.textContent = guessMyRuleFeedback(raw, q);
           fb.style.color = 'var(--pink)';
         } else {
           fb.textContent = '✗ try again';
@@ -639,6 +1035,11 @@
     _complexFeedback: complexFeedback,
     _multiSelectFeedback: multiSelectFeedback,
     _orderingFeedback: orderingFeedback,
+    _proofCompletionFeedback: proofCompletionFeedback,
+    _matchingFeedback: matchingFeedback,
+    _spotTheErrorFeedback: spotTheErrorFeedback,
+    _constructionFeedback: constructionFeedback,
+    _guessMyRuleFeedback: guessMyRuleFeedback,
     _firstSentence: firstSentence,
     _hintTextOf: hintTextOf,
     _computeNextUp: computeNextUp };

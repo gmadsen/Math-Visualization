@@ -11,6 +11,7 @@
 <!-- breadcrumb-head-auto-end -->
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
+<script src="./js/widget-code-cell.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -869,6 +870,52 @@ ${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;
   run();
 })();
 </script>
+
+<h3>Try it yourself — live code cell</h3>
+<p>The two reductions above — peeling factors and applying reciprocity — are nine lines of JavaScript. Edit the snippet, click <strong>Run</strong> (or Ctrl-Enter), and the return value shows up below. The Sieve of Eratosthenes is a handy warm-up; swap in any Legendre-symbol probe you like.</p>
+
+<div id="w-codecell-legendre"></div>
+
+<script>
+(function(){
+  if(!window.MVCodeCell) return;
+  var source = [
+    '// Sieve of Eratosthenes + Legendre symbol by Euler\'s criterion.',
+    '// Edit freely; return whatever you want to inspect.',
+    'function sieve(N){',
+    '  var is = new Uint8Array(N+1); is.fill(1); is[0]=is[1]=0;',
+    '  for(var p=2; p*p<=N; p++) if(is[p])',
+    '    for(var k=p*p; k<=N; k+=p) is[k]=0;',
+    '  var out=[]; for(var i=2;i<=N;i++) if(is[i]) out.push(i); return out;',
+    '}',
+    '',
+    'function legendre(a, p){',
+    '  // Compute a^((p-1)/2) mod p; returns +1, -1, or 0.',
+    '  a = ((a % p) + p) % p;',
+    '  if(a === 0) return 0;',
+    '  var r = 1, e = (p-1) >> 1;',
+    '  while(e > 0){ if(e & 1) r = (r*a) % p; a = (a*a) % p; e >>= 1; }',
+    '  return r === 1 ? 1 : (r === p-1 ? -1 : 0);',
+    '}',
+    '',
+    'var primes = sieve(60);',
+    'console.log("primes ≤ 60:", primes.join(" "));',
+    'var p = 37;',
+    'var qrs = primes.filter(function(a){ return a < p && legendre(a, p) === 1; });',
+    'console.log("QRs among primes < 37:", qrs.join(" "));',
+    '',
+    'return legendre(5, 23);    // → 1,  since 5 ≡ 11^2 (mod 23)'
+  ].join('\n');
+  MVCodeCell.init('#w-codecell-legendre', {
+    title: 'Legendre symbol — live cell',
+    hint: 'Synchronous JS; 500 ms deadline; no async or network.',
+    initialCode: source,
+    maxLines: 16,
+    timeoutMs: 500
+  });
+})();
+</script>
+
 </section>
 
 <section id="jacobi">

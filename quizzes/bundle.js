@@ -3713,6 +3713,23 @@ window.MVQuizBank = {
             ],
             "answer": 3,
             "explain": "$-1-i$ lies in the third quadrant. Its modulus is $\\sqrt{2}$ and its angle from the positive real axis (measured in $(-\\pi,\\pi]$) is $-3\\pi/4$."
+          },
+          {
+            "type": "construction",
+            "q": "On the complex plane below, place a marker at the primitive sixth root of unity $\\zeta_6 = e^{i\\pi/3}$. Real axis runs left-right; imaginary axis runs up (note the SVG $y$-axis has been flipped so positive imaginary is up). Unit circle is shown.",
+            "viewBox": "-1.2 -1.2 2.4 2.4",
+            "start": {
+              "x": 0,
+              "y": 0
+            },
+            "target": {
+              "kind": "point",
+              "x": 0.5,
+              "y": -0.8660254,
+              "tolerance": 0.15
+            },
+            "hint": "$\\zeta_6 = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2$.",
+            "explain": "The primitive sixth root of unity is $\\zeta_6 = e^{i\\pi/3} = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2 \\approx 0.5 + 0.866 i$. In the SVG viewBox the $y$-axis points down, so the target coordinate is $(0.5, -\\sqrt{3}/2)$."
           }
         ],
         "hard": [
@@ -3798,6 +3815,29 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Möbius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
+            "left": [
+              "rotation about the origin by angle $\\theta$",
+              "translation by $1$",
+              "inversion through the unit circle (followed by conjugation)",
+              "dilation by factor $r>0$"
+            ],
+            "right": [
+              "$T(z) = z + 1$",
+              "$T(z) = 1/z$",
+              "$T(z) = rz$",
+              "$T(z) = e^{i\\theta} z$"
+            ],
+            "answer": [
+              1,
+              2,
+              3,
+              0
+            ],
+            "explain": "$T(z)=z+1$ is translation; $T(z)=1/z$ is the classical inversion $z\\mapsto 1/z$ (the map whose fixed points are $\\pm 1$ and which swaps $0$ and $\\infty$); $T(z)=rz$ is a dilation; $T(z)=e^{i\\theta}z$ is a rotation by $\\theta$."
           }
         ]
       },
@@ -8095,6 +8135,20 @@ window.MVQuizBank = {
             "answer": 4,
             "tol": 0.000001,
             "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "A student is building the connecting map $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$ in the snake lemma. Exactly one step contains a logical flaw — find it.",
+            "steps": [
+              "Pick $c\\in\\ker\\gamma\\subseteq C$.",
+              "Use surjectivity of $j\\colon B\\twoheadrightarrow C$ to lift $c$ to some $b\\in B$ with $j(b)=c$.",
+              "Compute $\\beta(b)\\in B'$; by commutativity of the diagram, $j'(\\beta(b))=\\gamma(j(b))=\\gamma(c)=0$.",
+              "By exactness at $B'$, $\\beta(b)\\in\\ker(j')=\\operatorname{im}(i')$, so $\\beta(b)=i'(a')$ for a unique $a'\\in A'$; define $\\delta(c) = a'$ as an element of $A'$ (not of $\\operatorname{coker}\\alpha$).",
+              "Independence of the lift $b$: a different lift $\\tilde b$ satisfies $b-\\tilde b\\in\\ker(j)=\\operatorname{im}(i)$, so $b-\\tilde b=i(a)$ and $\\beta(b-\\tilde b)=i'(\\alpha(a))$, i.e. the two choices of $a'$ differ by $\\alpha(a)\\in\\operatorname{im}\\alpha$."
+            ],
+            "answer": 3,
+            "hint": "Compare target spaces: $\\delta$ must land in a quotient, not in $A'$ itself.",
+            "explain": "Step 4 has the bug. Defining $\\delta(c)=a'$ in $A'$ itself is not well-defined because the lift $b$ was a choice, and $a'$ depends on that choice by an element of $\\operatorname{im}\\alpha$ (as step 5 correctly notes). The fix is exactly what step 5 sets up: define $\\delta(c)=[a']\\in A'/\\operatorname{im}\\alpha=\\operatorname{coker}\\alpha$, which then is well-defined."
           }
         ]
       },
@@ -13247,6 +13301,43 @@ window.MVQuizBank = {
             "answer": 225,
             "tol": 0.000001,
             "explain": "$\\left(\\tfrac{5\\cdot 6}{2}\\right)^2=15^2=225$, which also equals $(1+2+3+4+5)^2$."
+          },
+          {
+            "type": "guess-my-rule",
+            "q": "The function below is $S_2(n) = \\sum_{k=1}^{n} k^2$. Given these examples, predict the value for each test input.",
+            "examples": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                3,
+                14
+              ],
+              [
+                4,
+                30
+              ]
+            ],
+            "testCases": [
+              [
+                5,
+                55
+              ],
+              [
+                6,
+                91
+              ]
+            ],
+            "inputKind": "integer",
+            "outputKind": "integer",
+            "tol": 0.000001,
+            "hint": "Each output adds the next square: $S_2(n) = S_2(n-1) + n^2$, or use $n(n+1)(2n+1)/6$.",
+            "explain": "$S_2(n) = \\tfrac{n(n+1)(2n+1)}{6}$. At $n=5$: $5\\cdot 6\\cdot 11/6=55$. At $n=6$: $6\\cdot 7\\cdot 13/6=91$. Equivalently, $S_2(5)=30+25=55$ and $S_2(6)=55+36=91$."
           }
         ],
         "hard": [
@@ -14724,6 +14815,24 @@ window.MVQuizBank = {
             "answer": 0.01,
             "tol": 0.000001,
             "explain": "$|f(x)-0|=|x^2\\sin(1/x)|\\le x^2 < \\varepsilon$ whenever $|x|<\\sqrt{\\varepsilon}=\\sqrt{10^{-4}}=0.01$. So $\\delta=0.01$."
+          },
+          {
+            "type": "proof-completion",
+            "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0<f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
+            "steps": [
+              "Set $S = \\{x\\in[a,b] : f(x) < 0\\}$. Since $a\\in S$, $S$ is nonempty, and $S$ is bounded above by $b$.",
+              "Let $c = \\sup S \\in [a,b]$. By the least-upper-bound property of $\\mathbb{R}$, $c$ exists.",
+              "We want to rule out $f(c)<0$ and $f(c)>0$, which will force $f(c)=0$."
+            ],
+            "choices": [
+              "If $f(c)<0$ then $c<b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
+              "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine–Borel and conclude.",
+              "Apply Rolle's theorem on $[a,b]$ to produce the root directly.",
+              "Note that $f$ is uniformly continuous on $[a,b]$, so it extends to the one-point compactification."
+            ],
+            "answer": 0,
+            "hint": "The sup must be a root because each side of $f(c)\\ne 0$ pushes $c$ off the supremum.",
+            "explain": "The clean continuation uses continuity at $c$ to rule out $f(c)<0$: near such a $c$ the function stays negative, so points just past $c$ are also in $S$, contradicting that $c$ is an upper bound. A symmetric argument rules out $f(c)>0$ (points just before $c$ would be in $S$ with $f\\ge 0$, same contradiction). So $f(c)=0$."
           }
         ]
       },

@@ -114,6 +114,24 @@
           "answer": 0.01,
           "tol": 1e-6,
           "explain": "$|f(x)-0|=|x^2\\sin(1/x)|\\le x^2 < \\varepsilon$ whenever $|x|<\\sqrt{\\varepsilon}=\\sqrt{10^{-4}}=0.01$. So $\\delta=0.01$."
+        },
+        {
+          "type": "proof-completion",
+          "q": "You are proving the intermediate value theorem: if $f\\colon[a,b]\\to\\mathbb{R}$ is continuous with $f(a)<0<f(b)$, then some $c\\in(a,b)$ has $f(c)=0$. The steps so far use the nested-interval bisection idea.",
+          "steps": [
+            "Set $S = \\{x\\in[a,b] : f(x) < 0\\}$. Since $a\\in S$, $S$ is nonempty, and $S$ is bounded above by $b$.",
+            "Let $c = \\sup S \\in [a,b]$. By the least-upper-bound property of $\\mathbb{R}$, $c$ exists.",
+            "We want to rule out $f(c)<0$ and $f(c)>0$, which will force $f(c)=0$."
+          ],
+          "choices": [
+            "If $f(c)<0$ then $c<b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
+            "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine–Borel and conclude.",
+            "Apply Rolle's theorem on $[a,b]$ to produce the root directly.",
+            "Note that $f$ is uniformly continuous on $[a,b]$, so it extends to the one-point compactification."
+          ],
+          "answer": 0,
+          "hint": "The sup must be a root because each side of $f(c)\\ne 0$ pushes $c$ off the supremum.",
+          "explain": "The clean continuation uses continuity at $c$ to rule out $f(c)<0$: near such a $c$ the function stays negative, so points just past $c$ are also in $S$, contradicting that $c$ is an upper bound. A symmetric argument rules out $f(c)>0$ (points just before $c$ would be in $S$ with $f\\ge 0$, same contradiction). So $f(c)=0$."
         }
       ]
     },

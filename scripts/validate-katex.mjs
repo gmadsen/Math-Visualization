@@ -554,7 +554,7 @@ if (existsSync(quizzesDir)) {
     if (!data || typeof data.quizzes !== 'object' || !data.quizzes) continue;
     for (const [conceptId, quiz] of Object.entries(data.quizzes)) {
       if (!quiz || typeof quiz !== 'object') continue;
-      for (const tier of ['questions', 'hard']) {
+      for (const tier of ['questions', 'hard', 'expert']) {
         const arr = Array.isArray(quiz[tier]) ? quiz[tier] : null;
         if (!arr) continue;
         for (let i = 0; i < arr.length; i++) {
@@ -563,9 +563,34 @@ if (existsSync(quizzesDir)) {
           const base = `quizzes.${conceptId}.${tier}[${i}]`;
           validateString(q.q,       rel, `${base}.q`);
           validateString(q.explain, rel, `${base}.explain`);
-          if (q.type === 'mcq' && Array.isArray(q.choices)) {
+          validateString(q.hint,    rel, `${base}.hint`);
+          if ((q.type === 'mcq' || q.type === 'multi-select' || q.type === 'proof-completion')
+              && Array.isArray(q.choices)) {
             for (let j = 0; j < q.choices.length; j++) {
               validateString(q.choices[j], rel, `${base}.choices[${j}]`);
+            }
+          }
+          if ((q.type === 'ordering') && Array.isArray(q.items)) {
+            for (let j = 0; j < q.items.length; j++) {
+              validateString(q.items[j], rel, `${base}.items[${j}]`);
+            }
+          }
+          if ((q.type === 'proof-completion' || q.type === 'spot-the-error')
+              && Array.isArray(q.steps)) {
+            for (let j = 0; j < q.steps.length; j++) {
+              validateString(q.steps[j], rel, `${base}.steps[${j}]`);
+            }
+          }
+          if (q.type === 'matching') {
+            if (Array.isArray(q.left)) {
+              for (let j = 0; j < q.left.length; j++) {
+                validateString(q.left[j], rel, `${base}.left[${j}]`);
+              }
+            }
+            if (Array.isArray(q.right)) {
+              for (let j = 0; j < q.right.length; j++) {
+                validateString(q.right[j], rel, `${base}.right[${j}]`);
+              }
             }
           }
         }

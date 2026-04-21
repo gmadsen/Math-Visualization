@@ -201,6 +201,20 @@
           "answer": 4,
           "tol": 1e-6,
           "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "A student is building the connecting map $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$ in the snake lemma. Exactly one step contains a logical flaw — find it.",
+          "steps": [
+            "Pick $c\\in\\ker\\gamma\\subseteq C$.",
+            "Use surjectivity of $j\\colon B\\twoheadrightarrow C$ to lift $c$ to some $b\\in B$ with $j(b)=c$.",
+            "Compute $\\beta(b)\\in B'$; by commutativity of the diagram, $j'(\\beta(b))=\\gamma(j(b))=\\gamma(c)=0$.",
+            "By exactness at $B'$, $\\beta(b)\\in\\ker(j')=\\operatorname{im}(i')$, so $\\beta(b)=i'(a')$ for a unique $a'\\in A'$; define $\\delta(c) = a'$ as an element of $A'$ (not of $\\operatorname{coker}\\alpha$).",
+            "Independence of the lift $b$: a different lift $\\tilde b$ satisfies $b-\\tilde b\\in\\ker(j)=\\operatorname{im}(i)$, so $b-\\tilde b=i(a)$ and $\\beta(b-\\tilde b)=i'(\\alpha(a))$, i.e. the two choices of $a'$ differ by $\\alpha(a)\\in\\operatorname{im}\\alpha$."
+          ],
+          "answer": 3,
+          "hint": "Compare target spaces: $\\delta$ must land in a quotient, not in $A'$ itself.",
+          "explain": "Step 4 has the bug. Defining $\\delta(c)=a'$ in $A'$ itself is not well-defined because the lift $b$ was a choice, and $a'$ depends on that choice by an element of $\\operatorname{im}\\alpha$ (as step 5 correctly notes). The fix is exactly what step 5 sets up: define $\\delta(c)=[a']\\in A'/\\operatorname{im}\\alpha=\\operatorname{coker}\\alpha$, which then is well-defined."
         }
       ]
     },
