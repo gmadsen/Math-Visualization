@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Sato–Tate story — from a numerical pattern to automorphy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.7}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:760px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.5rem;letter-spacing:-0.01em;margin:0 0 0.5rem;line-height:1.18}
+  h2{font-size:1.55rem;margin:3.4rem 0 0.8rem;color:#fff;
+     border-bottom:1px solid var(--line);padding-bottom:.4rem;line-height:1.3}
+  h3{font-size:1.1rem;margin:1.8rem 0 .5rem;color:var(--yellow)}
+  p{margin:0.9rem 0}
+  p.lede{font-size:1.12rem;color:#d8dee6}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1rem;font-size:1.05rem}
+  .heroline{display:flex;gap:.8rem;align-items:baseline;flex-wrap:wrap;margin-top:.6rem}
+  .heroline .tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    padding:2px 10px;border-radius:999px}
+  .heroline .back{font-size:.92rem;color:var(--mute)}
+  .heroline .back a{color:var(--violet);text-decoration:none}
+  blockquote.epigraph{margin:1.4rem 0;padding:.2rem 1.2rem;
+    border-left:3px solid var(--violet);color:#d8d2ef;font-style:italic}
+  blockquote.epigraph cite{display:block;margin-top:.3rem;font-style:normal;
+    color:var(--mute);font-size:.88rem}
+  .note{border-left:3px solid var(--violet);padding:.4rem 1rem;color:#d8d2ef;background:#1a1828;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.4rem 1rem;color:#d5ebc8;background:#1a2418;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.4rem 1rem;color:#f4d2c7;background:#2a1a18;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  figure{margin:1.6rem 0;padding:0;text-align:center}
+  figure svg{display:block;margin:0 auto;max-width:100%}
+  figure figcaption{color:var(--mute);font-size:.88rem;margin-top:.5rem;
+    max-width:640px;margin-left:auto;margin-right:auto;line-height:1.5}
+  .fig-plate{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1rem .8rem}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 380px - 220px));
+    width:210px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  details.changelog{
+    margin:2.4rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .timeline{list-style:none;padding:0;margin:1.2rem 0;
+    border-left:2px solid var(--line);padding-left:1.1rem}
+  .timeline li{margin:.6rem 0;position:relative}
+  .timeline li::before{content:"";position:absolute;left:-1.38rem;top:.55rem;
+    width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+  .timeline .yr{color:var(--yellow);font-variant-numeric:tabular-nums;font-weight:600;margin-right:.5rem}
+</style>
+</head>
+<body>
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#observation">1&nbsp;Observation</a>
+  <a href="#semicircle">2&nbsp;Semicircle</a>
+  <a href="#symmetric">3&nbsp;Symmetric&nbsp;powers</a>
+  <a href="#automorphy">4&nbsp;Automorphy</a>
+  <a href="#proof">5&nbsp;Proof</a>
+  <a href="#generalizations">6&nbsp;Generalizations</a>
+  <a href="#meaning">7&nbsp;Meaning</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <div class="heroline">
+    <span class="tag">Capstone story</span>
+    <span class="back">companion to <a href="./sato-tate.html">Sato–Tate</a></span>
+  </div>
+  <h1>The Sato–Tate story</h1>
+  <p class="sub">How a numerical pattern in 1960s prime data became a theorem about the automorphy of symmetric powers.</p>
+  <p class="lede">The Frobenius angles of a non-CM elliptic curve distribute like the eigenvalue angles of a random matrix drawn from $\mathrm{SU}(2)$ with respect to Haar measure. Stated this way, the conjecture sounds almost quaint: arithmetic imitates a compact Lie group. But the only route to a proof goes through the automorphy of every symmetric power $L(\mathrm{Sym}^n E, s)$, $n\ge 1$, and took four decades and a program of residual deformation arguments to finish.</p>
+  <blockquote class="epigraph">
+    "The ultimate fine structure of prime numbers is controlled by eigenvalues of random matrices."
+    <cite>— The conjecture, paraphrased.</cite>
+  </blockquote>
+</section>
+
+<section id="observation">
+<h2>1. The experimental observation</h2>
+
+<p>In the early 1960s, Mikio Sato sat at a desk in Tokyo, pencil and worksheet in hand, working out the number of points on a fixed elliptic curve $E/\mathbb{Q}$ modulo each prime $p$. For every good prime he formed the trace
+$$a_p = p + 1 - \#E(\mathbb{F}_p),$$
+and, using <a href="./elliptic-curves.html">Hasse's bound</a> $|a_p|\le 2\sqrt{p}$, the rescaled angle
+$$\theta_p \in [0,\pi], \qquad a_p = 2\sqrt{p}\cos\theta_p.$$
+Plotted as a histogram over $p\le X$, the angles did not smear uniformly. They bulged toward $\theta=\pi/2$ — toward $a_p=0$ — with a density that matched $(2/\pi)\sin^2\theta$ within the computational noise. Sato conjectured that this would persist for every non-CM $E$.</p>
+
+<p>Around the same time, John Tate arrived at the same prediction from a different direction — he was thinking about $\ell$-adic Galois representations and what equidistribution would look like for their Frobenius conjugacy classes in $\mathrm{SU}(2)$. His version was not numerical but structural: <em>the Haar pushforward is the only thing it could be</em>. Sato published nothing. Tate, in a lecture at Woods Hole in 1965, sketched the conjecture and its motivation. The two names were stapled together by the community in the years that followed.</p>
+
+<figure>
+  <div class="fig-plate">
+    <svg viewBox="0 0 640 240" width="640" height="240" role="img" aria-label="Histogram of Frobenius angles with overlaid semicircle density">
+      <title>Sato's histogram: Frobenius angles versus the semicircle law</title>
+      <!-- axes -->
+      <line x1="60" y1="200" x2="600" y2="200" stroke="var(--line)" stroke-width="1"/>
+      <line x1="60" y1="30" x2="60" y2="200" stroke="var(--line)" stroke-width="1"/>
+      <!-- axis labels -->
+      <text x="60" y="220" font-size="11" fill="var(--mute)" text-anchor="middle">0</text>
+      <text x="330" y="220" font-size="11" fill="var(--mute)" text-anchor="middle">π/2</text>
+      <text x="600" y="220" font-size="11" fill="var(--mute)" text-anchor="middle">π</text>
+      <text x="330" y="235" font-size="12" fill="var(--mute)" text-anchor="middle">θ (Frobenius angle)</text>
+      <text x="30" y="115" font-size="12" fill="var(--mute)" text-anchor="middle" transform="rotate(-90 30 115)">density</text>
+      <!-- histogram bars (hand-tuned to hint at the sin^2 shape with noise) -->
+      <g fill="var(--yellow)" opacity="0.55">
+        <rect x="62"  y="192" width="26" height="8"/>
+        <rect x="90"  y="175" width="26" height="25"/>
+        <rect x="118" y="152" width="26" height="48"/>
+        <rect x="146" y="128" width="26" height="72"/>
+        <rect x="174" y="108" width="26" height="92"/>
+        <rect x="202" y="92"  width="26" height="108"/>
+        <rect x="230" y="78"  width="26" height="122"/>
+        <rect x="258" y="66"  width="26" height="134"/>
+        <rect x="286" y="58"  width="26" height="142"/>
+        <rect x="314" y="54"  width="26" height="146"/>
+        <rect x="342" y="60"  width="26" height="140"/>
+        <rect x="370" y="70"  width="26" height="130"/>
+        <rect x="398" y="84"  width="26" height="116"/>
+        <rect x="426" y="102" width="26" height="98"/>
+        <rect x="454" y="122" width="26" height="78"/>
+        <rect x="482" y="146" width="26" height="54"/>
+        <rect x="510" y="168" width="26" height="32"/>
+        <rect x="538" y="182" width="26" height="18"/>
+        <rect x="566" y="196" width="26" height="4"/>
+      </g>
+      <!-- semicircle density overlay y = 200 - 150 * (2/pi) * sin^2(theta) (sampled) -->
+      <path d="M60,200 Q 120,195 180,150 T 330,54 T 480,150 T 600,200"
+            fill="none" stroke="var(--cyan)" stroke-width="2.2"/>
+      <!-- legend -->
+      <rect x="420" y="36" width="16" height="10" fill="var(--yellow)" opacity="0.55"/>
+      <text x="442" y="45" font-size="11" fill="var(--mute)">observed frequencies</text>
+      <line x1="420" y1="58" x2="436" y2="58" stroke="var(--cyan)" stroke-width="2.2"/>
+      <text x="442" y="62" font-size="11" fill="var(--mute)">$(2/\pi)\sin^2\theta$</text>
+    </svg>
+  </div>
+  <figcaption>The target picture. Compute $\theta_p$ for good primes $p\le X$, bin the results, and the histogram matches the semicircle density $(2/\pi)\sin^2\theta$ — the Haar pushforward on $\mathrm{SU}(2)$ conjugacy classes.</figcaption>
+</figure>
+
+<p>A conjecture built on a histogram is a striking thing. No single prime tells you anything; the individual $\theta_p$ appear to be noise. The claim is that the noise is drawn, in a precise sense, from a specific probability measure — and that measure is dictated by a compact Lie group into which Frobenius naturally embeds.</p>
+</section>
+
+<section id="semicircle">
+<h2>2. The semicircular distribution</h2>
+
+<p>Why $(2/\pi)\sin^2\theta\,d\theta$? The Hasse bound $|\alpha_p|=\sqrt{p}$ on the Frobenius eigenvalues of the Tate module, rescaled, places Frobenius on the unit circle in $\mathrm{SU}(2)$: an element with eigenvalues $e^{\pm i\theta_p}$. On $\mathrm{SU}(2)$, conjugacy classes are parameterized by $\theta\in[0,\pi]$. The Haar measure — the unique two-sided invariant probability measure on the group — pushes forward to the class-function measure
+$$d\mu_{\mathrm{ST}}(\theta) = \tfrac{2}{\pi}\sin^2\theta\,d\theta.$$
+Geometrically this is the circle's arc length reweighted by the Weyl integration factor, $(1/2)|e^{i\theta}-e^{-i\theta}|^2 = 2\sin^2\theta$. Pure <a href="./lie-groups.html">Lie theory</a>, no arithmetic.</p>
+
+<figure>
+  <div class="fig-plate">
+    <svg viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="The semicircle density and its connection to SU(2) Weyl integration">
+      <title>From the SU(2) circle to the semicircle density</title>
+      <!-- left panel: unit circle with e^(±iθ) -->
+      <circle cx="140" cy="110" r="70" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+      <line x1="60" y1="110" x2="220" y2="110" stroke="var(--line)" stroke-width="1"/>
+      <line x1="140" y1="30" x2="140" y2="190" stroke="var(--line)" stroke-width="1"/>
+      <!-- eigenvalue dots -->
+      <circle cx="189.5" cy="60.4" r="4.5" fill="var(--yellow)"/>
+      <circle cx="189.5" cy="159.6" r="4.5" fill="var(--pink)"/>
+      <line x1="140" y1="110" x2="189.5" y2="60.4" stroke="var(--yellow)" stroke-width="1.2"/>
+      <line x1="140" y1="110" x2="189.5" y2="159.6" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="3 3"/>
+      <text x="198" y="56" font-size="11" fill="var(--yellow)">e^{iθ}</text>
+      <text x="198" y="170" font-size="11" fill="var(--pink)">e^{-iθ}</text>
+      <text x="140" y="205" font-size="11" fill="var(--mute)" text-anchor="middle">SU(2) conjugacy class</text>
+      <!-- arrow between panels -->
+      <path d="M240 110 L290 110" stroke="var(--mute)" stroke-width="1.3" fill="none" marker-end="url(#arrst)"/>
+      <defs>
+        <marker id="arrst" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--mute)"/>
+        </marker>
+      </defs>
+      <text x="265" y="100" font-size="10" fill="var(--mute)" text-anchor="middle">Weyl pushforward</text>
+      <!-- right panel: sin^2 density plot -->
+      <line x1="320" y1="180" x2="620" y2="180" stroke="var(--line)" stroke-width="1"/>
+      <line x1="320" y1="40" x2="320" y2="180" stroke="var(--line)" stroke-width="1"/>
+      <text x="320" y="195" font-size="10" fill="var(--mute)" text-anchor="middle">0</text>
+      <text x="470" y="195" font-size="10" fill="var(--mute)" text-anchor="middle">π/2</text>
+      <text x="620" y="195" font-size="10" fill="var(--mute)" text-anchor="middle">π</text>
+      <path d="M320,180 Q 395,178 470,40 T 620,180"
+            fill="none" stroke="var(--cyan)" stroke-width="2.2"/>
+      <text x="470" y="35" font-size="11" fill="var(--cyan)" text-anchor="middle">$(2/\pi)\sin^2\theta$</text>
+    </svg>
+  </div>
+  <figcaption>Left: a conjugacy class in $\mathrm{SU}(2)$, parameterized by the eigenvalue angle $\theta$. Right: the class-function pushforward of Haar measure, $(2/\pi)\sin^2\theta\,d\theta$. The zero at $\theta=0,\pi$ reflects the Weyl factor $|e^{i\theta}-e^{-i\theta}|^2/2$.</figcaption>
+</figure>
+
+<p>The connection to arithmetic is what Tate formalized. The $\ell$-adic Tate module $T_\ell E$ carries an action of $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$; for good primes $p\neq\ell$ the image of Frobenius is a semisimple conjugacy class in $\mathrm{GL}_2(\mathbb{Q}_\ell)$ with characteristic polynomial $T^2 - a_pT + p$. Rescaling by $\sqrt{p}$ places it in the compact group $\mathrm{SU}(2)$. Sato–Tate is the assertion that these Frobenius classes equidistribute against Haar measure as $p$ varies.</p>
+
+<p>By <a href="./sato-tate.html#weyl">Weyl's criterion</a>, equidistribution on the quotient $\mathrm{SU}(2)/\!\sim$ is equivalent to the vanishing of all non-trivial "Fourier coefficients" against irreducible characters. The irreducibles of $\mathrm{SU}(2)$ are indexed by non-negative integers $n$; the character of the $(n+1)$-dimensional irrep is
+$$\chi_n(\theta) = U_n(\cos\theta) = \frac{\sin((n+1)\theta)}{\sin\theta}$$
+— a <strong>Chebyshev polynomial</strong>. Equidistribution becomes
+$$\frac{1}{\pi(X)}\sum_{p\le X}\chi_n(\theta_p)\to 0\quad\text{for every } n\ge 1.$$
+That is an analytic number-theoretic statement — but about what? About each $\mathrm{Sym}^n$-twist of the original representation.</p>
+</section>
+
+<section id="symmetric">
+<h2>3. Symmetric power $L$-functions</h2>
+
+<p>The Tate module gives a 2-dimensional $\ell$-adic representation $\rho_E: G_\mathbb{Q}\to \mathrm{GL}_2(\mathbb{Q}_\ell)$. For each $n\ge 0$ its symmetric power $\mathrm{Sym}^n\rho_E$ is an $(n+1)$-dimensional representation, and the trace of Frobenius under $\mathrm{Sym}^n$ is the Chebyshev evaluation:
+$$\mathrm{tr}\,\mathrm{Sym}^n\rho_E(\mathrm{Frob}_p) = p^{n/2}\chi_n(\theta_p).$$
+The <a href="./L-functions.html">$L$-function</a> attached to $\mathrm{Sym}^n\rho_E$ has Euler factors
+$$L_p(\mathrm{Sym}^n E, s) = \prod_{j=0}^{n}\bigl(1 - \alpha_p^j\beta_p^{n-j}\, p^{-s}\bigr)^{-1}\!\!,\qquad \alpha_p=\sqrt{p}e^{i\theta_p},\ \beta_p=\sqrt{p}e^{-i\theta_p}.$$
+Call the whole thing $L(\mathrm{Sym}^n E, s)$.</p>
+
+<p>Serre distilled Tate's insight into a Tauberian-style principle that is the beating heart of the whole story:</p>
+
+<div class="note"><strong>Serre's reduction.</strong> If $L(\mathrm{Sym}^n E, s)$ admits meromorphic continuation to a neighborhood of $\mathrm{Re}(s)=1$ and is non-vanishing on that line, for every $n\ge 1$, then the Frobenius angles $\theta_p$ equidistribute with respect to the Sato–Tate measure.</div>
+
+<p>The logic: partial-summation identities turn bounds on prime averages of $\chi_n(\theta_p)$ into bounds on $\log L(\mathrm{Sym}^n E, s)$ near the edge $s=1$. Non-vanishing on $\mathrm{Re}(s)=1$ gives Weyl's criterion. Sato–Tate is thereby reduced to an <em>infinite list</em> of analytic continuations — one per symmetric power. Each is, on its face, a harder problem than the one before.</p>
+
+<p>What makes $L(\mathrm{Sym}^n E, s)$ tractable is a miracle that had been conjectured since Hasse and refined by <a href="./modularity-and-flt.html">Langlands</a>: such $L$-functions should <em>be</em> $L$-functions of automorphic forms. Concretely, there should exist a cuspidal automorphic representation $\pi_n$ of $\mathrm{GL}_{n+1}(\mathbb{A}_\mathbb{Q})$ — a generalization of a classical cusp form to the adelic world — whose standard $L$-function matches $L(\mathrm{Sym}^n E, s)$ at every place. <strong>Automorphy</strong>, if established, provides the analytic continuation and the non-vanishing on $\mathrm{Re}(s)=1$ for free, by the Rankin–Selberg method and the work of Jacquet–Shalika.</p>
+
+<p>Sato–Tate, reformulated: prove that $\mathrm{Sym}^n\rho_E$ is automorphic for every $n\ge 1$.</p>
+</section>
+
+<section id="automorphy">
+<h2>4. Potential automorphy</h2>
+
+<p>Automorphy is brutally hard. For $n=1$ it is the modularity theorem of Wiles–Taylor–Breuil–Conrad–Diamond, the engine that powered Fermat's Last Theorem. For $n=2$, Shimura had handled it by lifting $\mathrm{Sym}^2$ from $\mathrm{GL}_2$ to $\mathrm{GL}_3$. For $n=3,4$, Kim–Shahidi gave automorphic functorial lifts in the early 2000s. Beyond that, a case-by-case approach was dead: an infinite tower of liftings was out of reach.</p>
+
+<p>Richard Taylor's insight, developed with Michael Harris and several collaborators over 2003–2008, was to weaken the target. Rather than proving $\mathrm{Sym}^n\rho_E$ automorphic over $\mathbb{Q}$, prove it <em>potentially</em> automorphic — that is, automorphic after restriction to some (possibly huge) Galois extension $F/\mathbb{Q}$. For the Sato–Tate equidistribution what you actually need is meromorphic continuation and non-vanishing on $\mathrm{Re}(s)=1$, and <strong>potential automorphy is enough</strong>: Brauer's induction theorem writes the L-function over $\mathbb{Q}$ as a product of L-functions of Hecke characters over $F$ with signed exponents. Each Hecke L-function has the analytic properties you need; the product inherits meromorphic continuation and — with care — non-vanishing.</p>
+
+<div class="note"><strong>The residual potential modularity engine.</strong> Fix a Galois representation $\rho: G_F\to\mathrm{GL}_N(\overline{\mathbb{Q}}_\ell)$ coming from an algebraic variety. Its reduction mod $\ell$ is the residual representation $\bar\rho$. If one can establish:
+<ol style="margin-top:.3rem">
+  <li>$\bar\rho$ is automorphic (residual automorphy), often by switching primes $\ell\to\ell'$ and invoking a sufficient supply of known cases;</li>
+  <li>$\rho$ is a suitable deformation of $\bar\rho$ (residual deformation theory — "R = T" theorems);</li>
+</ol>
+then $\rho$ itself is automorphic. Passing to a large enough extension $F$ lets step 1 succeed. This is the lever.</div>
+
+<p>The two steps are each colossal. Step 1 relies on the <strong>Taylor–Wiles–Kisin</strong> modularity lifting technology, itself a refinement of the patching argument Wiles invented for $n=1$. Step 2 relies on Harris–Shepherd-Barron–Taylor's construction of large-dimensional Calabi–Yau varieties whose $\ell$-adic cohomology realizes $\mathrm{Sym}^n$ twists and whose moduli have enough rational points over suitable $F$ to seed residual automorphy.</p>
+</section>
+
+<section id="proof">
+<h2>5. The proof: Clozel–Harris–Shepherd-Barron–Taylor</h2>
+
+<p>Between 2006 and 2008 a sequence of four papers — Clozel–Harris–Taylor; Harris–Shepherd-Barron–Taylor; Taylor; and a synthesis by Barnet-Lamb–Geraghty–Harris–Taylor — assembled the full proof for non-CM elliptic curves over totally real fields. The sketch, stripped to its bones:</p>
+
+<ol>
+  <li><strong>Reduce to automorphy in symmetric-power families.</strong> Serre's argument from §3 reduces Sato–Tate to automorphy (or potential automorphy) of $\mathrm{Sym}^n\rho_E$ for every $n\ge 1$.</li>
+  <li><strong>Construct a moduli-theoretic source of $\mathrm{Sym}^n$ representations.</strong> HSBT build a family of smooth projective Calabi–Yau varieties whose cohomology, for a suitable piece, realizes $\mathrm{Sym}^n\rho_E\otimes \rho_\psi$ for an auxiliary Hecke character $\psi$ — close enough to the target that the rest of the machine applies.</li>
+  <li><strong>Find an automorphic fiber.</strong> Over a sufficiently large totally real extension $F/\mathbb{Q}$, at least one fiber of this family has CM or otherwise known automorphy. This "seed" fiber gives residual automorphy of $\bar\rho$ over $F$ for a suitable auxiliary prime $\ell$.</li>
+  <li><strong>Deform.</strong> An $R = T$-style modularity lifting theorem — the Taylor–Wiles patching argument refined by Kisin, and extended to higher dimensions by Clozel–Harris–Taylor — propagates residual automorphy to the full characteristic-zero $\rho$. That gives potential automorphy of $\mathrm{Sym}^n\rho_E$ over $F$.</li>
+  <li><strong>Descend by Brauer induction.</strong> Brauer's theorem expresses the induced representation from $F$ back to $\mathbb{Q}$ as a virtual sum of inductions from solvable subgroups. The L-function identity gives meromorphic continuation and non-vanishing on $\mathrm{Re}(s)=1$ for $L(\mathrm{Sym}^n E, s)$ — exactly what Serre's reduction demanded.</li>
+  <li><strong>Loop $n$.</strong> The argument is uniform in $n$. The Calabi–Yau family exists for every $n$; the modularity lifting is available in every dimension provided the residual representation satisfies certain "big image" and Taylor–Wiles hypotheses, which hold when $E$ is non-CM.</li>
+</ol>
+
+<p>The final assembly is attributed to the four-author team Clozel–Harris–Shepherd-Barron–Taylor (CHSBT), with the last remaining obstructions removed by the Barnet-Lamb–Geraghty–Harris–Taylor paper (2011) that extended the result from totally real to arbitrary number fields and to a wide class of Hilbert modular forms. After four decades, Sato–Tate for non-CM elliptic curves over $\mathbb{Q}$ became a theorem.</p>
+
+<figure>
+  <div class="fig-plate">
+    <svg viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="Proof architecture: from elliptic curve to Sato–Tate equidistribution">
+      <title>Proof architecture for Sato–Tate</title>
+      <!-- boxes -->
+      <g font-size="11" fill="var(--ink)">
+        <rect x="20"  y="80" width="110" height="50" rx="6" fill="var(--panel2)" stroke="var(--blue)" stroke-width="1.4"/>
+        <text x="75"  y="101" text-anchor="middle" fill="var(--blue)" font-weight="600">Elliptic E/ℚ</text>
+        <text x="75"  y="117" text-anchor="middle" fill="var(--mute)">a_p, θ_p</text>
+
+        <rect x="160" y="80" width="140" height="50" rx="6" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1.4"/>
+        <text x="230" y="101" text-anchor="middle" fill="var(--yellow)" font-weight="600">Sym^n ρ_E</text>
+        <text x="230" y="117" text-anchor="middle" fill="var(--mute)">n = 1, 2, 3, …</text>
+
+        <rect x="330" y="20" width="150" height="50" rx="6" fill="var(--panel2)" stroke="var(--pink)" stroke-width="1.4"/>
+        <text x="405" y="41" text-anchor="middle" fill="var(--pink)" font-weight="600">Calabi–Yau family</text>
+        <text x="405" y="57" text-anchor="middle" fill="var(--mute)">HSBT, 2006</text>
+
+        <rect x="330" y="140" width="150" height="50" rx="6" fill="var(--panel2)" stroke="var(--violet)" stroke-width="1.4"/>
+        <text x="405" y="161" text-anchor="middle" fill="var(--violet)" font-weight="600">Potential automorphy</text>
+        <text x="405" y="177" text-anchor="middle" fill="var(--mute)">R = T lifting</text>
+
+        <rect x="510" y="80" width="110" height="50" rx="6" fill="var(--panel2)" stroke="var(--cyan)" stroke-width="1.4"/>
+        <text x="565" y="101" text-anchor="middle" fill="var(--cyan)" font-weight="600">L(Sym^n, s)</text>
+        <text x="565" y="117" text-anchor="middle" fill="var(--mute)">continues, ≠0</text>
+      </g>
+      <!-- arrows -->
+      <defs>
+        <marker id="arr-proof" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--mute)"/>
+        </marker>
+      </defs>
+      <g stroke="var(--mute)" stroke-width="1.3" fill="none" marker-end="url(#arr-proof)">
+        <line x1="130" y1="105" x2="158" y2="105"/>
+        <path d="M280,88 Q 310,60 330,50"/>
+        <path d="M280,120 Q 310,150 330,165"/>
+        <path d="M480,50 Q 500,80 510,95"/>
+        <path d="M480,165 Q 500,135 510,115"/>
+      </g>
+      <text x="340" y="205" text-anchor="middle" font-size="11" fill="var(--mute)">Serre: reduce to automorphy of every Sym^n; deform from residual cases via a Calabi–Yau seed.</text>
+    </svg>
+  </div>
+  <figcaption>The architecture in five boxes: an elliptic curve feeds a tower of symmetric-power representations; a Calabi–Yau family realizes each in cohomology; a residual deformation (R = T) lifting gives potential automorphy; the resulting $L$-function satisfies Serre's non-vanishing hypothesis; Weyl's criterion closes the loop.</figcaption>
+</figure>
+
+<p class="small">Historical sequence:</p>
+<ul class="timeline">
+  <li><span class="yr">1960s</span>Sato's numerical histograms; Tate's $\mathrm{SU}(2)$-equidistribution formulation.</li>
+  <li><span class="yr">1968</span>Serre formalizes the reduction to non-vanishing of $L(\mathrm{Sym}^n E, s)$.</li>
+  <li><span class="yr">1970s</span>Shimura: automorphy of $\mathrm{Sym}^2$ for modular forms.</li>
+  <li><span class="yr">2002</span>Kim–Shahidi: functoriality of $\mathrm{Sym}^3$ and $\mathrm{Sym}^4$.</li>
+  <li><span class="yr">2006</span>Harris–Shepherd-Barron–Taylor: Calabi–Yau families realizing $\mathrm{Sym}^n$.</li>
+  <li><span class="yr">2008</span>Clozel–Harris–Taylor and Taylor: potential automorphy of every $\mathrm{Sym}^n\rho_E$ over totally real fields.</li>
+  <li><span class="yr">2011</span>Barnet-Lamb–Geraghty–Harris–Taylor: extension to arbitrary number fields; full Sato–Tate over totally real fields.</li>
+</ul>
+</section>
+
+<section id="generalizations">
+<h2>6. Generalizations</h2>
+
+<p>Once you have the machinery, a natural question arises: what does Sato–Tate become for curves of higher genus, or for other motives altogether? The answer, due in its definitive form to Serre and refined by Fité–Kedlaya–Rotger–Sutherland for genus 2, is governed by a <strong>Sato–Tate group</strong> $\mathrm{ST}(X)$ — a compact real Lie group $K\subset\mathrm{USp}(2g)$ determined by the motive $X$, such that Frobenius conjugacy classes equidistribute in $K$ against its Haar measure.</p>
+
+<p>For an elliptic curve $E$:</p>
+<ul>
+  <li>Non-CM: $\mathrm{ST}(E) = \mathrm{SU}(2)$. Semicircle law.</li>
+  <li>CM: $\mathrm{ST}(E) = N(U(1)) \subset \mathrm{SU}(2)$, the normalizer of a maximal torus. The angles split between the atom at $\theta=\pi/2$ (supersingular primes) and the continuous uniform measure on the torus.</li>
+</ul>
+
+<p>For a genus-2 abelian surface $A$, the Tate module is 4-dimensional and the Sato–Tate group lives inside $\mathrm{USp}(4)$. Fité–Kedlaya–Rotger–Sutherland (2012) classified the possibilities: exactly <strong>52 groups</strong> arise, ranging from the generic $\mathrm{USp}(4)$ (matching a random non-special abelian surface) down to torus-like subgroups for surfaces with quaternionic multiplication or CM factors. Each group dictates its own equidistribution law, and for each the theorem is now known in many cases thanks to extensions of the CHSBT machinery.</p>
+
+<div class="note"><strong>The Sato–Tate axioms.</strong> Serre's framework: a Sato–Tate group for a motive $M$ of weight $w$ over a number field is a compact real Lie subgroup $\mathrm{ST}(M)\subset\mathrm{USp}(\dim M)$ (or $\mathrm{O}(\dim M)$, depending on symmetries) such that (1) the $\ell$-adic Galois representation attached to $M$ factors through $\mathrm{ST}(M)(\mathbb{Q}_\ell)$ after rescaling, and (2) Frobenius conjugacy classes equidistribute in the space of conjugacy classes of $\mathrm{ST}(M)$ with respect to the Haar pushforward.</div>
+
+<p>Beyond genus 2, classification becomes its own research program. For K3 surfaces, Calabi–Yau threefolds, and general motives, the Sato–Tate group is conjecturally the Mumford–Tate group (more precisely its maximal compact form), and partial results — e.g. for pure Hodge structures of K3 type — are accumulating.</p>
+</section>
+
+<section id="meaning">
+<h2>7. What it means</h2>
+
+<p>Two threads meet in Sato–Tate. The first is the old dream, going back to Hilbert's twelfth problem and refined by Langlands, that arithmetic objects ought to be "random" in a specific sense: the apparent chaos of Frobenius should be governed by a compact Lie group, and the statistics should match Haar measure. Sato–Tate makes that dream precise for the simplest non-abelian case — the elliptic curve — and the answer is affirmative. Frobenius does its best to look like a Haar-random element of $\mathrm{SU}(2)$.</p>
+
+<p>The second thread is the automorphic program. The proof of Sato–Tate does not prove randomness directly; it detours through the claim that every symmetric power of the Galois representation is <em>automorphic</em>, meaning it arises from an analytic object on the adelic group. Each automorphic lift is a piece of the <a href="./modularity-and-flt.html">Langlands program</a>. The equidistribution is a corollary — a downstream consequence of a much deeper structure.</p>
+
+<p>This pattern — "numerical regularity in arithmetic ⇔ automorphy ⇔ pieces of the Langlands program" — is not specific to Sato–Tate. It shows up in:</p>
+<ul>
+  <li><strong>Chebotarev</strong> (finite Galois group version), proved a century earlier by classical means but fitting the same template.</li>
+  <li><strong>Sato–Tate for higher genus</strong>, as in §6.</li>
+  <li><strong>The <a href="./bsd.html">Birch–Swinnerton-Dyer conjecture</a></strong>, which predicts the rank of $E(\mathbb{Q})$ from the vanishing order of $L(E,s)$ at $s=1$ — a dual kind of fine structure.</li>
+  <li><strong>Random matrix statistics for $L$-function zeros</strong> (GUE / GOE conjectures à la Katz–Sarnak), where again a compact classical group dictates a statistic.</li>
+</ul>
+
+<p>Sato–Tate is a theorem about primes. But reading the proof, you learn less about primes and more about the reach of the automorphic program: once an $\ell$-adic representation is known to come from an automorphic form, everything you ever wanted to know about the analytic behavior of its $L$-function falls out. The randomness you see in Sato's histogram is the shadow of this.</p>
+
+<div class="ok"><strong>One sentence.</strong> Sato noticed the histogram; Tate explained what symmetry group it belongs to; Serre reduced the problem to an infinite family of $L$-functions; Langlands predicted these should all be automorphic; Taylor and collaborators, after four decades and the invention of an entire deformation-theoretic machine, proved enough automorphy to close the loop.</div>
+
+<p class="small">If you came here from the <a href="./sato-tate.html">concept page</a>, return there and hit the Weyl-criterion widget: with the story in mind, the tracker really is the heart of Serre's reduction — what it's computing is exactly the kind of Chebyshev-character average whose decay to zero, for every irreducible, is dictated by automorphy of the corresponding symmetric power.</p>
+</section>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</main>
+
+<script>
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    if(!aside) return;
+    const sections = [...document.querySelectorAll('main > section[id]')];
+    if(!sections.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    for(const s of sections){
+      const h = s.querySelector('h1, h2');
+      if(!h) continue;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#' + s.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      ol.appendChild(li);
+    }
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    function update(){
+      let active = null;
+      for(const s of sections){
+        const rect = s.getBoundingClientRect();
+        if(rect.top < window.innerHeight * 0.35) active = s.id;
+      }
+      for(const a of links){
+        if(active && a.getAttribute('href') === '#' + active) a.classList.add('active');
+        else a.classList.remove('active');
+      }
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+</body>
+</html>

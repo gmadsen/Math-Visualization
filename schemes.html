@@ -128,6 +128,8 @@
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
 <script src="./concepts/bundle.js" defer></script>
 <script src="./js/topic-hotkeys.js" defer></script>
 <script src="./js/topic-lineage.js" defer></script>
@@ -164,7 +166,7 @@ function factorize(n){
 function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
 function mod(a,n){return ((a%n)+n)%n}
 </script>
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Motivation</a>
   <a href="#specz">2&nbsp;Spec&nbsp;Z</a>
   <a href="#speckx">3&nbsp;Spec&nbsp;k[x]</a>

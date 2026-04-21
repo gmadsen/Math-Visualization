@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The BSD story — a million-dollar zero at s=1</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--yellow);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--yellow);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--violet);padding:.2rem 1rem;margin:1.2rem 0;color:#d8d2ef;
+    background:#1a1828;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--yellow);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--yellow);border:1px solid color-mix(in srgb, var(--yellow) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--violet);padding:.35rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+</head>
+<body data-level="capstone">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./bsd.html">BSD concept page</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on a Clay Millennium problem</div>
+  <h1>The million-dollar zero</h1>
+  <p class="sub">The Birch &amp; Swinnerton-Dyer conjecture predicts that the arithmetic of an elliptic curve is governed by the analytic behavior of its $L$-function at $s=1$ — a bridge across the Langlands divide that we can test, but not cross.</p>
+</section>
+
+<p class="lede">In the early 1960s Bryan Birch and Peter Swinnerton-Dyer sat down with the EDSAC computer at Cambridge and began counting. Not abstract counting: they counted solutions to Diophantine equations $y^2 = x^3 + ax + b$ modulo prime after prime, and watched what happened to the products. What they found has a weight wildly disproportionate to its setup. A coarse numerical pattern on paper tape hinted at a correspondence between how many rational solutions an elliptic curve has — a purely algebraic question — and how fast a certain analytic function shrinks to zero at a specific complex number. That hint is now, sixty years on, one of the seven Clay Millennium Problems, and we still can't prove it in general.</p>
+
+<p>This essay tells that story. It is a companion to the concept page <a href="./bsd.html">BSD: ranks, L-values, and a million-dollar zero</a>, which is where the widgets live; here we stay with the prose.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="counting-points">
+<h2><span class="num">§1.</span> Counting points</h2>
+
+<p>Pick an elliptic curve over the rationals, say the famous congruent-number curve $E\colon y^2 = x^3 - x$. For each prime $p$ not dividing the discriminant, reduce the equation modulo $p$ and count: how many pairs $(x,y) \in \mathbb{F}_p \times \mathbb{F}_p$ satisfy it, plus the point at infinity? Call that count $N_p$, and define
+$$a_p \;=\; p + 1 - N_p.$$
+On heuristic grounds — since $y^2$ is a square exactly half the time and $x^3-x$ runs through $\mathbb{F}_p$ roughly uniformly — you expect $N_p \approx p+1$, so $a_p$ is a small fluctuation. Hasse's theorem (1933) makes this precise: $|a_p| \le 2\sqrt p$. Each prime sees "about $p$ points, give or take $2\sqrt p$."</p>
+
+<p>So far, bookkeeping. The Birch and Swinnerton-Dyer leap was to form the product
+$$\Pi(X) \;=\; \prod_{p \le X} \frac{N_p}{p} \;=\; \prod_{p \le X} \frac{p + 1 - a_p}{p}$$
+and ask what $\Pi(X)$ does as $X \to \infty$. If the $a_p$ had no bias — if the local point-counts behaved like independent noise around $p$ — the product ought to oscillate around $1$. Instead, something startling: curves with <em>more</em> rational points (bigger Mordell–Weil rank $r$) seemed to give products $\Pi(X)$ that <em>grew</em>, and those with only torsion gave products that <em>decayed</em>. On a log-log plot, Birch and Swinnerton-Dyer saw
+$$\log \Pi(X) \;\sim\; r \, \log\log X + C,$$
+the slope being the rank. The analytic side of the curve was, somehow, feeling the rational solutions.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 260" width="560" height="260" role="img" aria-label="Heuristic plot: log Π(X) grows linearly with log log X, slope equals rank">
+    <title>log Π(X) vs. log log X, slopes labeled by rank</title>
+    <!-- axes -->
+    <line x1="60" y1="220" x2="540" y2="220" stroke="var(--line)" stroke-width="1.2"/>
+    <line x1="60" y1="220" x2="60" y2="20" stroke="var(--line)" stroke-width="1.2"/>
+    <!-- axis labels -->
+    <text x="300" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">log log X</text>
+    <text x="20"  y="125" font-size="13" fill="var(--mute)" transform="rotate(-90 20 125)">log Π(X)</text>
+    <!-- zero baseline -->
+    <line x1="60" y1="150" x2="540" y2="150" stroke="var(--mute)" stroke-width="0.6" stroke-dasharray="2 4"/>
+    <text x="545" y="154" font-size="11" fill="var(--mute)">0</text>
+    <!-- rank 0: slight downward drift -->
+    <path d="M 70 148 Q 250 156 530 168" fill="none" stroke="var(--blue)" stroke-width="2"/>
+    <text x="535" y="172" font-size="12" fill="var(--blue)">rank 0</text>
+    <!-- rank 1: linear up -->
+    <path d="M 70 148 Q 250 118 530 72" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+    <text x="535" y="70" font-size="12" fill="var(--yellow)">rank 1</text>
+    <!-- rank 2: steeper up -->
+    <path d="M 70 148 Q 230 80 530 32" fill="none" stroke="var(--pink)" stroke-width="2"/>
+    <text x="535" y="30" font-size="12" fill="var(--pink)">rank 2</text>
+    <!-- scatter dots to suggest noise -->
+    <g fill="var(--mute)" opacity="0.6">
+      <circle cx="120" cy="145" r="1.8"/><circle cx="170" cy="142" r="1.8"/>
+      <circle cx="220" cy="139" r="1.8"/><circle cx="260" cy="148" r="1.8"/>
+      <circle cx="310" cy="132" r="1.8"/><circle cx="360" cy="125" r="1.8"/>
+      <circle cx="410" cy="119" r="1.8"/><circle cx="460" cy="110" r="1.8"/>
+    </g>
+    <text x="300" y="18" text-anchor="middle" font-size="13" fill="var(--ink)" font-style="italic">
+      slope of log Π(X) vs log log X ≈ rank r
+    </text>
+  </svg>
+  <div class="caption">Figure 1. The EDSAC pattern: rank-$r$ curves show $\log \Pi(X) \sim r \log\log X$. The conjecture was read off printouts like these.</div>
+</div>
+
+<p>This pattern was not derived; it was <em>seen</em>. It is easy now, in an era of <code>PARI/GP</code> and SageMath, to reproduce their tables in under a minute. It is worth pausing to appreciate the inverse: they computed by hand and by vacuum tube, and had the aesthetic nerve to conjecture a relationship between two objects that have no business talking.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#point-counting-heuristic">Point-counting heuristic</a> (widget: watch $\Pi(X)$ evolve)</li>
+    <li><a href="./elliptic-curves.html#torsion">Reduction mod $p$ on elliptic curves</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="mordell-weil">
+<h2><span class="num">§2.</span> Mordell–Weil</h2>
+
+<p>To speak of "rank" we need a theorem. In 1922, Louis Mordell proved that the rational points on an elliptic curve over $\mathbb{Q}$, under the chord-and-tangent addition, form a <em>finitely generated</em> abelian group. André Weil generalized this to number fields in 1928. The structure theorem for finitely generated abelian groups then gives
+$$E(\mathbb{Q}) \;\cong\; \mathbb{Z}^r \,\oplus\, E(\mathbb{Q})_{\text{tors}},$$
+with $r \ge 0$ the <strong>rank</strong> and $E(\mathbb{Q})_{\text{tors}}$ finite. Torsion is utterly understood: in 1977 Barry Mazur classified the possible $E(\mathbb{Q})_{\text{tors}}$ as one of just 15 groups. Rank is another story entirely. We do not know whether rank is bounded; we do not have an algorithm that provably computes it. Curves with rank 28 are known (Elkies, 2006), and there is no theoretical obstruction to higher.</p>
+
+<p>The proof of Mordell–Weil has two moving parts. <em>Weak Mordell–Weil</em> uses Galois cohomology to show $E(\mathbb{Q})/nE(\mathbb{Q})$ is finite for any $n \ge 2$. A <em>height function</em> $\hat h$ (the Néron–Tate height) with the quadratic law $\hat h(nP) = n^2 \hat h(P)$ then makes infinite descent work: a system of coset representatives for $E(\mathbb{Q})/nE(\mathbb{Q})$ together with finitely many small-height points generate everything.</p>
+
+<p>What you should take away from this section, to read BSD: elliptic curves over $\mathbb{Q}$ carry two numerical invariants, $r$ and $|E(\mathbb{Q})_{\text{tors}}|$, plus a real number measuring the "volume" of the lattice $\mathbb{Z}^r$ inside the Mordell–Weil group — the <strong>regulator</strong> $\mathrm{Reg}(E/\mathbb{Q})$, defined as the determinant of the height pairing matrix on a $\mathbb{Z}$-basis of the free part. These are the arithmetic ingredients BSD will ask an analytic object to recover.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#mordell-weil">Mordell–Weil explorer</a> (widget: watch $2^k P$ wander)</li>
+    <li><a href="./elliptic-curves.html#group">The group law on $E$</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="l-function">
+<h2><span class="num">§3.</span> The $L$-function</h2>
+
+<p>The analytic object is built prime by prime. For each prime $p$ of good reduction, let $a_p = p + 1 - N_p$ as before. Assemble the local factors into a Dirichlet series:
+$$L(E, s) \;=\; \prod_{p \,\mid\, \Delta}\!(1 - a_p p^{-s})^{-1} \cdot \prod_{p \,\nmid\, \Delta}\!(1 - a_p p^{-s} + p^{1-2s})^{-1}.$$
+(The precise local factor at bad primes depends on reduction type; see <a href="./L-functions.html">the $L$-functions page</a>.) The Euler product converges absolutely for $\mathrm{Re}(s) > 3/2$, by Hasse. Expanding gives a Dirichlet series $\sum a_n n^{-s}$. Convergence is easy. <em>Everything else was hard.</em></p>
+
+<p>For $L(E,s)$ to be a function on the complex plane — in particular to be evaluable at $s=1$, which lies inside the region where the Euler product does <em>not</em> converge — it must be <strong>analytically continued</strong>. The continuation was conjectural for decades and is now a theorem, via a long chain: Hasse–Weil conjecture $\to$ modularity. The story is a detour worth taking.</p>
+
+<p>A <em>modular form</em> of weight 2 on $\Gamma_0(N)$ is a holomorphic function on the upper half-plane transforming lawfully under a congruence subgroup of $\mathrm{SL}_2(\mathbb{Z})$. To a cusp form $f = \sum b_n q^n$ one attaches an $L$-function $L(f, s) = \sum b_n n^{-s}$, and because $f$ is modular one can massage its integral against $y^{s-1}\,dy$ to get
+$$\Lambda(f, s) \;=\; N^{s/2}(2\pi)^{-s}\Gamma(s)\,L(f, s), \qquad \Lambda(f, s) \;=\; w\,\Lambda(f, 2 - s),$$
+a functional equation with sign $w \in \{\pm 1\}$. The takeaway: the $L$-function of a modular form continues to the entire plane and satisfies a symmetry about $s = 1$.</p>
+
+<p>The modularity theorem (Wiles 1995 for semistable $E$; Breuil–Conrad–Diamond–Taylor 2001 in full generality) says: every elliptic curve over $\mathbb{Q}$ <em>is</em> a modular form, in the sense that $a_p(E) = b_p(f)$ for some weight-2 newform $f$ of level $N$ = conductor of $E$. Consequence: $L(E,s) = L(f,s)$ has analytic continuation and functional equation. The million-dollar conjecture can now be <em>stated</em> without apology at $s = 1$.</p>
+
+<blockquote>Modularity is not a decoration on BSD; it is what makes BSD a meaningful sentence. Before 2001 the conjecture was conditional on a conjecture.</blockquote>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./L-functions.html">$L$-functions — Euler products, functional equations</a></li>
+    <li><a href="./modular-forms.html">Modular forms</a> and <a href="./modularity-and-flt.html">modularity &amp; FLT</a></li>
+    <li><a href="./dirichlet-series-euler-products.html">Dirichlet series &amp; Euler products</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="the-conjecture">
+<h2><span class="num">§4.</span> The conjecture</h2>
+
+<p>With the analytic continuation in hand, one can ask: how does $L(E,s)$ behave at $s=1$? Expand as a Taylor series,
+$$L(E, s) \;=\; c_r (s-1)^r \,+\, c_{r+1}(s-1)^{r+1} \,+\, \cdots, \qquad c_r \ne 0.$$
+The integer $r_{\mathrm{an}} = \mathrm{ord}_{s=1} L(E,s)$ — the order of vanishing — is called the <strong>analytic rank</strong>.</p>
+
+<div class="ok">
+  <strong>Birch and Swinnerton-Dyer, weak form.</strong>
+  $$r_{\mathrm{an}}(E) \;=\; \mathrm{rank}\, E(\mathbb{Q}).$$
+</div>
+
+<p>The analytic rank equals the algebraic rank. This is the arithmetic-governs-analysis assertion, and already in this weak form it is wide open in general.</p>
+
+<p>The strong form predicts not just the order but the <em>leading coefficient</em>. The Taylor coefficient $c_r$ is claimed to factor as a product of arithmetic invariants:</p>
+
+<div class="ok">
+  <strong>BSD, strong form.</strong>
+  $$\lim_{s \to 1} \frac{L(E,s)}{(s-1)^r} \;=\; \frac{\Omega_E \cdot \mathrm{Reg}(E/\mathbb{Q}) \cdot |\text{Ш}(E/\mathbb{Q})| \cdot \prod_p c_p}{|E(\mathbb{Q})_{\text{tors}}|^2}.$$
+</div>
+
+<p>Unpacking: $\Omega_E$ is the real period of a Néron differential; $\mathrm{Reg}$ is the Mordell–Weil regulator; $|\text{Ш}|$ is the order of the Tate–Shafarevich group (conjecturally finite, always; <em>this is part of what BSD asks</em>); $c_p$ are Tamagawa numbers at primes of bad reduction. Torsion squared in the denominator.</p>
+
+<p>The right-hand side is built entirely from <em>arithmetic</em> of $E$. The left-hand side is built from the <em>analytic</em> behavior of $L(E,s)$. BSD says these are the same number. That is the million-dollar claim.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 200" width="560" height="200" role="img" aria-label="L(E,s) near s=1: vanishing order matches Mordell-Weil rank">
+    <title>L(E,s) vanishing orders at s=1 by rank</title>
+    <!-- three L-function cartoons -->
+    <g transform="translate(0 0)">
+      <text x="90" y="24" text-anchor="middle" font-size="12" fill="var(--mute)">rank 0 curve</text>
+      <line x1="20" y1="120" x2="160" y2="120" stroke="var(--line)"/>
+      <line x1="90" y1="30"  x2="90"  y2="180" stroke="var(--line)" stroke-dasharray="2 3"/>
+      <text x="90" y="195" text-anchor="middle" font-size="11" fill="var(--mute)">s=1</text>
+      <path d="M 25 70 Q 90 100 155 80" fill="none" stroke="var(--blue)" stroke-width="2"/>
+      <circle cx="90" cy="110" r="3.2" fill="var(--blue)"/>
+      <text x="100" y="108" font-size="11" fill="var(--blue)">L(1)≠0</text>
+    </g>
+    <g transform="translate(200 0)">
+      <text x="90" y="24" text-anchor="middle" font-size="12" fill="var(--mute)">rank 1 curve</text>
+      <line x1="20" y1="120" x2="160" y2="120" stroke="var(--line)"/>
+      <line x1="90" y1="30"  x2="90"  y2="180" stroke="var(--line)" stroke-dasharray="2 3"/>
+      <text x="90" y="195" text-anchor="middle" font-size="11" fill="var(--mute)">s=1</text>
+      <path d="M 25 80 Q 90 120 155 60" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+      <circle cx="90" cy="120" r="3.2" fill="var(--yellow)"/>
+      <text x="100" y="108" font-size="11" fill="var(--yellow)">simple zero</text>
+    </g>
+    <g transform="translate(400 0)">
+      <text x="90" y="24" text-anchor="middle" font-size="12" fill="var(--mute)">rank 2 curve</text>
+      <line x1="20" y1="120" x2="160" y2="120" stroke="var(--line)"/>
+      <line x1="90" y1="30"  x2="90"  y2="180" stroke="var(--line)" stroke-dasharray="2 3"/>
+      <text x="90" y="195" text-anchor="middle" font-size="11" fill="var(--mute)">s=1</text>
+      <path d="M 25 60 Q 90 170 155 60" fill="none" stroke="var(--pink)" stroke-width="2"/>
+      <circle cx="90" cy="120" r="3.2" fill="var(--pink)"/>
+      <text x="100" y="108" font-size="11" fill="var(--pink)">double zero</text>
+    </g>
+  </svg>
+  <div class="caption">Figure 2. The weak BSD picture: $L(E,s)$ is non-zero / simple-zero / double-zero at $s=1$ exactly when $E(\mathbb{Q})$ has rank $0$ / $1$ / $2$.</div>
+</div>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="whats-known">
+<h2><span class="num">§5.</span> What's known</h2>
+
+<p>BSD is proven in some cases and open in most. Here is the honest scorecard.</p>
+
+<p><strong>Analytic rank 0.</strong> If $L(E,1) \ne 0$, then $\mathrm{rank}\, E(\mathbb{Q}) = 0$, and moreover $\text{Ш}(E/\mathbb{Q})$ is finite. This is a theorem of <em>Kolyvagin</em> (1988), using his theory of Euler systems built from Heegner points, combined with Gross–Zagier and Rubin. It is one direction of the weak conjecture for rank 0.</p>
+
+<p><strong>Analytic rank 1.</strong> If $\mathrm{ord}_{s=1} L(E,s) = 1$, then $\mathrm{rank}\, E(\mathbb{Q}) = 1$ and $\text{Ш}$ is finite. This combines two landmarks: the <em>Gross–Zagier formula</em> (1986), which expresses $L'(E, 1)$ as (a period times) the height of a Heegner point on $E$, and <em>Kolyvagin's</em> Euler system argument again. If the Heegner point is nontorsion, the Mordell–Weil group has a nontorsion element, so rank $\ge 1$; combined with an upper bound, one gets equality.</p>
+
+<p><strong>Analytic rank $\ge 2$.</strong> Essentially nothing is proven in general. There is no known individual elliptic curve over $\mathbb{Q}$ of analytic rank $\ge 2$ for which BSD is <em>proven</em> — one always believes it on the strength of numerical evidence and Heegner-height heuristics. Bhargava and Shankar have shown (2010s) that a positive proportion of elliptic curves, ordered by height, have rank 0 <em>and</em> satisfy BSD in that range, and that the average rank is bounded; but specific high-rank curves remain conjectural.</p>
+
+<p><strong>The $p$-part of BSD.</strong> For many curves, the $p$-part of the Tate–Shafarevich conjecture — the piece of the strong form at a single prime $p$ — is known via Iwasawa-theoretic methods (Skinner–Urban, Kato, Wan), often assuming rank $\le 1$ and avoiding a small set of bad primes. The pieces of the strong form that remain most stubborn are the full finiteness of $\text{Ш}$ in rank $\ge 2$ and the exact $p$-part at primes of supersingular reduction.</p>
+
+<div class="note">
+Hasse–Weil $\to$ modularity $\to$ Gross–Zagier $\to$ Kolyvagin is the backbone of everything we know. Each step alone took years and a generation of mathematicians. The conjecture in rank $\ge 2$ waits for new machinery.
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html#sha-tate-shafarevich">Tate–Shafarevich group Ш on the BSD page</a></li>
+    <li><a href="./modularity-and-flt.html">Modularity theorem</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="why-we-believe">
+<h2><span class="num">§6.</span> Why we believe it</h2>
+
+<p>Open problems do not generally sit in the folklore for sixty years unless there is a lot of evidence. For BSD the evidence is of several kinds, and they reinforce each other.</p>
+
+<p><strong>Direct numerical verification.</strong> For a given $E$, one can compute $L^{(r)}(E,1)/r!$ to high precision (via the approximate functional equation and modular-symbol algorithms) and compare with the conjectural right-hand side computed from $\Omega_E$, a numerical regulator, torsion, and Tamagawa numbers. The ratio is $|\text{Ш}|$, which had better be a perfect square (it is: $\text{Ш}$ carries a non-degenerate alternating pairing). Across all curves of conductor up to several hundred thousand, the predicted $|\text{Ш}|$ comes out to a perfect square and matches what descent-by-2-isogeny or 3-descent produces independently. This is a strong, independent cross-check.</p>
+
+<p><strong>Statistical evidence.</strong> Cohen–Lenstra-like heuristics for $\text{Ш}$ predict specific distributions of the $p$-part across families of curves; these predictions agree with large-scale computations. The conjectured average rank, likewise, matches the Bhargava–Shankar theorems on bounded average rank in families.</p>
+
+<p><strong>Compatibility with modularity.</strong> The Birch–Stevens conjecture, Mazur–Tate refinements, and $p$-adic $L$-functions give cohomological versions of BSD that fit cleanly into Iwasawa theory. Every partial theorem proven in one language translates into the others; nothing has ever been found that contradicts BSD.</p>
+
+<p><strong>Aesthetic evidence.</strong> This is not a proof, but it matters. BSD is part of a family of conjectures — Beilinson, Bloch–Kato, Deligne — that predict leading Taylor coefficients of $L$-functions in terms of periods, regulators, and torsion. Each is a deep statement about "motives have $L$-functions that know their arithmetic." BSD is the rank-one case. If it were wrong, the entire philosophy would be in trouble.</p>
+</section>
+
+<!-- ───────────────────────────────────────────── § 7 ──── -->
+<section id="connections">
+<h2><span class="num">§7.</span> Connections</h2>
+
+<p>BSD is not an island. The ideas needed to state and (partly) prove it are the scaffolding of much modern arithmetic geometry.</p>
+
+<p><strong>Selmer and descent.</strong> The classical tool for bounding rank is <em>$n$-descent</em>: an exact sequence
+$$0 \to E(\mathbb{Q})/nE(\mathbb{Q}) \to \mathrm{Sel}^{(n)}(E/\mathbb{Q}) \to \text{Ш}(E/\mathbb{Q})[n] \to 0$$
+bracketing the rank between things one can compute and things one cannot. The <em>Selmer group</em> $\mathrm{Sel}^{(n)}$ is computable in principle; $\text{Ш}[n]$ is the obstruction. BSD asserts $\text{Ш}$ is finite and tells you its size.</p>
+
+<p><strong>Iwasawa theory.</strong> Replacing $\mathbb{Q}$ by the cyclotomic $\mathbb{Z}_p$-extension $\mathbb{Q}_\infty / \mathbb{Q}$ and studying Selmer groups over the tower produces <em>$p$-adic $L$-functions</em> that interpolate values of $L(E,s)$ $p$-adically. Mazur's main conjecture (proven by Skinner–Urban in 2014 for many $E$) relates the characteristic ideal of a Selmer module to a $p$-adic $L$-function — a $p$-adic BSD that in favorable cases implies the $p$-part of BSD itself.</p>
+
+<p><strong>$\ell$-adic and étale methods.</strong> The $L$-function is built from the action of Frobenius on $H^1_{\text{ét}}(E, \mathbb{Q}_\ell)$; the Galois representation $\rho_{E,\ell}\colon G_\mathbb{Q} \to \mathrm{GL}_2(\mathbb{Q}_\ell)$ is the fundamental object. BSD is, in one slogan, a statement about the $L$-function of this Galois representation — one sliver of the Bloch–Kato conjecture, which predicts leading coefficients of <em>all</em> motivic $L$-functions.</p>
+
+<p><strong>Heegner points and Shimura curves.</strong> The concrete generators in rank 1 come from CM points on modular curves, lifted to $E$ via a modular parametrization. Their heights satisfy the Gross–Zagier formula. The entire story moves onto Shimura curves when one works over totally real fields.</p>
+
+<p>Each of these connections is a reason BSD has become a target for so much machinery: proving it even in a single new family would require technology that, once built, would rearrange the field.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html">Galois representations</a> and <a href="./L-functions.html">$L$-functions</a></li>
+    <li><a href="./bsd.html#regulator">The regulator on the BSD concept page</a></li>
+    <li><a href="./modular-forms.html">Modular forms</a> · <a href="./elliptic-curves.html">Elliptic curves</a></li>
+  </ul>
+</aside>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The EDSAC tapes of 1963 are still legible; the conjecture they gave rise to is still open. What Birch and Swinnerton-Dyer noticed was not "arithmetic equals analysis" but something stranger: that two entirely different calculations, done with entirely different tools, agree to a precision no finite computation could exhaust. That agreement has outlasted its discoverers, and is, arguably, the single cleanest statement of what number theorists mean when they say "everything is connected." The Clay Millennium committee priced it at a million dollars. The mathematics behind even the known cases is worth more.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>J. H. Silverman, <em>The Arithmetic of Elliptic Curves</em>, GTM 106. The canonical graduate introduction.</li>
+  <li>B. Birch and H. P. F. Swinnerton-Dyer, "Notes on elliptic curves I, II," <em>J. reine angew. Math.</em> 212 (1963), 218 (1965).</li>
+  <li>A. Wiles, "The Birch and Swinnerton-Dyer conjecture," Clay Millennium Problems essay.</li>
+  <li>B. Gross and D. Zagier, "Heegner points and derivatives of $L$-series," <em>Invent. Math.</em> 84 (1986).</li>
+  <li>V. Kolyvagin, "Euler systems," in <em>The Grothendieck Festschrift</em>, Vol. II (1990).</li>
+  <li>M. Bhargava and A. Shankar, "Binary quartic forms having bounded invariants, and the boundedness of the average rank of elliptic curves," <em>Ann. of Math.</em> (2015).</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

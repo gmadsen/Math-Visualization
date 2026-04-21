@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Search — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{margin:2.2rem 0 0.6rem;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);border-bottom:1px dashed var(--line);padding-bottom:.35rem}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.6rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:2.4rem 0 0.6rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* Search-specific */
+  input[type="search"],input.search-input{
+    width:100%;background:#0b0f16;color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;
+    padding:0.9rem 1.1rem;font-family:inherit;font-size:1.15rem;line-height:1.3;
+    outline:none;transition:border-color 140ms ease, box-shadow 140ms ease}
+  input.search-input:focus{border-color:var(--cyan);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--cyan) 22%, transparent)}
+  .meta-row{display:flex;gap:1rem;align-items:baseline;margin-top:.5rem;
+    color:var(--mute);font-size:.85rem;flex-wrap:wrap}
+  .meta-row .count{font-family:ui-monospace,Menlo,monospace;color:var(--mute)}
+  .meta-row .hint{color:var(--mute)}
+  .meta-row kbd{display:inline-block;padding:1px 6px;border:1px solid var(--line);
+    border-radius:4px;background:var(--panel2);color:var(--ink);
+    font-family:ui-monospace,Menlo,monospace;font-size:.75rem;line-height:1.4;
+    box-shadow:0 1px 0 var(--line)}
+
+  .recent{margin:.6rem 0 1rem}
+  .recent-title{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .4rem}
+  .recent-list{display:flex;gap:.4rem;flex-wrap:wrap}
+  .recent-chip{font-size:.88rem;padding:.2rem .7rem;border-radius:999px;
+    border:1px solid var(--line);background:var(--panel2);color:var(--ink);
+    cursor:pointer;user-select:none;font:inherit;
+    transition:color 120ms ease, border-color 120ms ease}
+  .recent-chip:hover{color:var(--yellow);border-color:var(--yellow)}
+  .recent-empty{color:var(--mute);font-style:italic;font-size:.9rem;padding:.2rem 0}
+
+  .results{margin-top:1rem}
+  .group{margin:1.4rem 0 0.2rem}
+  .group-header{display:flex;align-items:baseline;gap:.6rem;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);border-bottom:1px dashed var(--line);
+    padding-bottom:.35rem;margin-bottom:.4rem}
+  .group-header .g-name{color:var(--ink);letter-spacing:.1em}
+  .group-header .g-count{color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-size:.75rem}
+  ul.hits{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+  .hit{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.6rem .9rem;display:flex;gap:.75rem;align-items:baseline;
+    text-decoration:none;color:inherit;
+    transition:border-color 140ms ease, background 140ms ease}
+  .hit:hover{border-color:var(--cyan)}
+  .hit.active{border-color:var(--yellow);background:color-mix(in srgb, var(--yellow) 6%, var(--panel))}
+  .hit .label{font-size:0.65rem;letter-spacing:.12em;text-transform:uppercase;
+    font-family:ui-monospace,Menlo,monospace;
+    padding:2px 8px;border-radius:999px;border:1px solid var(--line);
+    flex-shrink:0;color:var(--mute);background:var(--panel2)}
+  .hit .label.topic{color:var(--blue);border-color:color-mix(in srgb, var(--blue) 50%, var(--line))}
+  .hit .label.section{color:var(--violet);border-color:color-mix(in srgb, var(--violet) 50%, var(--line))}
+  .hit .label.concept{color:var(--yellow);border-color:color-mix(in srgb, var(--yellow) 50%, var(--line))}
+  .hit .label.question{color:var(--green);border-color:color-mix(in srgb, var(--green) 50%, var(--line))}
+  .hit .hbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .hit .htitle{color:#fff;font-weight:500;line-height:1.35}
+  .hit .hblurb{color:var(--mute);font-size:.88rem;line-height:1.4;
+    overflow:hidden;text-overflow:ellipsis;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .hit mark{background:color-mix(in srgb, var(--yellow) 28%, transparent);
+    color:var(--yellow);padding:0 1px;border-radius:2px}
+  .hit .htopic{font-size:.72rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:.02em;flex-shrink:0}
+  .empty-state{color:var(--mute);padding:1.5rem .2rem;text-align:center;font-style:italic}
+  .load-more{margin:1rem 0;text-align:center}
+  .load-more button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.4rem 1rem;cursor:pointer;font:inherit}
+  .load-more button:hover{background:#242c3e}
+
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body data-section="reference" data-level="reference">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./pathway.html">Pathway</a>
+  <a href="./progress.html">Progress</a>
+  <a href="./review.html">Review</a>
+  <a href="./latex-cheatsheet.html">LaTeX</a>
+</nav>
+
+<main>
+
+<section class="hero">
+  <h1>Search</h1>
+  <p class="sub">One box over every topic, concept, section heading, and quiz question in the notebook. Substring + token scoring, all client-side, works under <code>file://</code>.</p>
+
+  <div class="widget" id="w-search">
+    <div class="hd"><div class="ttl">Query</div><div class="hint" id="status-hint">loading index…</div></div>
+    <input type="search" class="search-input" id="q" placeholder="e.g. group, prime, cohomology, fundamental…" autocomplete="off" spellcheck="false" aria-label="Search the notebook">
+    <div class="meta-row">
+      <span class="count" id="count"></span>
+      <span class="hint"><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>Enter</kbd> open · <kbd>Esc</kbd> clear</span>
+    </div>
+  </div>
+</section>
+
+<section id="recent" class="recent">
+  <div class="recent-title">Recent searches</div>
+  <div class="recent-list" id="recent-list"></div>
+</section>
+
+<section id="results" class="results" aria-live="polite">
+  <!-- populated by script -->
+</section>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</main>
+
+<script>
+(function(){
+  const $  = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+  const qEl        = $('#q');
+  const countEl    = $('#count');
+  const statusEl   = $('#status-hint');
+  const resultsEl  = $('#results');
+  const recentSec  = $('#recent');
+  const recentList = $('#recent-list');
+
+  const RECENT_KEY = 'mvnb.search.recent.v1';
+  const MAX_RECENT = 5;
+  const TOP_PER_GROUP = 12;
+  const DEBOUNCE_MS = 120;
+
+  // ── load the bundled index ────────────────────────────────────────────
+  let records = null;
+  let ready = false;
+
+  async function load(){
+    // Try fetch first (dev server), fall back to a <script> tag inject so
+    // file:// double-clicks keep working. The bundle path search-index.json is
+    // fetchable over localhost; for file:// we embed via XHR (works for JSON).
+    try {
+      const r = await fetch('./search-index.json', { cache: 'no-store' });
+      if(!r.ok) throw new Error('fetch failed: ' + r.status);
+      records = await r.json();
+      onReady();
+      return;
+    } catch (e) {
+      // fallback to XHR (Chrome & Firefox still allow local JSON via XHR on
+      // file:// with --allow-file-access-from-files; most users can't set that,
+      // so we show a friendly error and a mitigation hint)
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', './search-index.json', true);
+        xhr.onload = () => {
+          if(xhr.status === 0 || xhr.status === 200){
+            try { records = JSON.parse(xhr.responseText); onReady(); }
+            catch(err){ onError(err); }
+          } else onError(new Error('xhr status ' + xhr.status));
+        };
+        xhr.onerror = () => onError(new Error('xhr error'));
+        xhr.send();
+        return;
+      } catch (err) {
+        onError(err);
+      }
+    }
+  }
+
+  function onReady(){
+    ready = true;
+    statusEl.textContent = records.length.toLocaleString() + ' records indexed';
+    qEl.removeAttribute('disabled');
+    // Respect ?q= param for deep-linking / tests.
+    const params = new URLSearchParams(window.location.search);
+    const init = params.get('q');
+    if(init){ qEl.value = init; search(init); }
+    else { renderRecent(); }
+    qEl.focus();
+  }
+
+  function onError(err){
+    statusEl.textContent = 'index unavailable';
+    resultsEl.innerHTML =
+      '<div class="empty-state">Could not load <code>search-index.json</code>. ' +
+      'Run <code>node scripts/build-search-index.mjs</code> (or a local server: ' +
+      '<code>python3 -m http.server</code>) and reload.</div>';
+    console.error('search: ' + (err && err.message || err));
+  }
+
+  // ── recent searches in localStorage ───────────────────────────────────
+  function getRecent(){
+    try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function pushRecent(term){
+    if(!term || term.length < 2) return;
+    const list = getRecent().filter(t => t !== term);
+    list.unshift(term);
+    while(list.length > MAX_RECENT) list.pop();
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); }
+    catch(e){}
+  }
+  function renderRecent(){
+    const list = getRecent();
+    if(list.length === 0){
+      recentList.innerHTML = '<span class="recent-empty">' +
+        'no recent searches yet — try <code>group</code>, <code>prime</code>, <code>cohomology</code>, or <code>galois</code></span>';
+      return;
+    }
+    recentList.innerHTML = '';
+    for(const t of list){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'recent-chip';
+      b.textContent = t;
+      b.addEventListener('click', () => { qEl.value = t; search(t); qEl.focus(); });
+      recentList.appendChild(b);
+    }
+  }
+
+  // ── scoring ───────────────────────────────────────────────────────────
+  // Weights per record type + field. Matches in title dominate; blurb and
+  // question text are weaker. Exact substring > token-boundary > token-prefix.
+  const TYPE_WEIGHT = { topic: 2.0, concept: 1.6, section: 1.2, question: 0.9 };
+
+  function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  // Tokenize a query into lowercase words (drop empty, keep >1-char where possible).
+  function tokenize(q){
+    return q.toLowerCase().split(/[\s,;]+/).filter(Boolean);
+  }
+
+  // Score a single field for one query token.
+  //   +8  exact substring at token boundary (i.e. /\btok/ )
+  //   +5  exact substring anywhere
+  //   +0  no match
+  function scoreField(field, tok){
+    if(!field) return 0;
+    const f = field.toLowerCase();
+    const idx = f.indexOf(tok);
+    if(idx < 0) return 0;
+    const prev = idx === 0 ? ' ' : f[idx-1];
+    const boundary = /[^a-z0-9]/.test(prev);
+    return boundary ? 8 : 5;
+  }
+
+  // Score a record against every token in the query. ALL tokens must appear
+  // somewhere on the record (AND semantics) for it to count.
+  function scoreRecord(rec, tokens, rawLower){
+    // Per-record searchable fields, ranked high → low weight.
+    const fields = [
+      { text: rec.title || '',  w: 3.0 },
+      { text: rec.q     || '',  w: 2.2 },
+      { text: rec.blurb || '',  w: 1.6 },
+      { text: rec.text  || '',  w: 1.0 }
+    ];
+
+    let total = 0;
+    let anyExact = 0;
+
+    // First: full-phrase bonus — if the whole raw query appears in title, huge boost.
+    if(rawLower.length >= 2){
+      const t = (rec.title || '').toLowerCase();
+      if(t === rawLower) total += 40;
+      else if(t.indexOf(rawLower) !== -1) total += 14;
+      const q = (rec.q || '').toLowerCase();
+      if(q.indexOf(rawLower) !== -1) total += 6;
+    }
+
+    for(const tok of tokens){
+      let tokScore = 0;
+      for(const f of fields){
+        const s = scoreField(f.text, tok);
+        if(s > tokScore * (1 / Math.max(f.w, 0.1))) {
+          // keep the best field × weight product
+          const product = s * f.w;
+          if(product > tokScore) tokScore = product;
+        }
+      }
+      if(tokScore === 0) return 0;  // AND semantics: missing token → drop
+      anyExact++;
+      total += tokScore;
+    }
+    // Final multiplier by record-type weight.
+    total *= (TYPE_WEIGHT[rec.type] || 1.0);
+    return total;
+  }
+
+  // ── search ────────────────────────────────────────────────────────────
+  // Group labels: the order here is the rendering order.
+  const TYPE_LABELS = {
+    topic:    'Topics',
+    concept:  'Concepts',
+    section:  'Sections',
+    question: 'Questions'
+  };
+  const TYPE_ORDER = ['topic','concept','section','question'];
+
+  let activeIndex = -1;
+  let flatHits = [];
+  let currentQuery = '';
+
+  function search(raw){
+    currentQuery = raw;
+    const rawTrim = raw.trim();
+    if(!rawTrim){
+      resultsEl.innerHTML = '';
+      countEl.textContent = '';
+      recentSec.style.display = '';
+      renderRecent();
+      activeIndex = -1;
+      flatHits = [];
+      return;
+    }
+    recentSec.style.display = 'none';
+
+    if(!ready){
+      resultsEl.innerHTML = '<div class="empty-state">still loading index…</div>';
+      return;
+    }
+
+    const rawLower = rawTrim.toLowerCase();
+    const tokens = tokenize(rawTrim);
+    if(tokens.length === 0){
+      resultsEl.innerHTML = '';
+      countEl.textContent = '';
+      return;
+    }
+
+    // Score every record. (Brute force over ~2k records — fast enough.)
+    const scored = [];
+    for(const rec of records){
+      const s = scoreRecord(rec, tokens, rawLower);
+      if(s > 0) scored.push([s, rec]);
+    }
+    scored.sort((a,b) => b[0] - a[0]);
+
+    // Group by type.
+    const groups = { topic: [], concept: [], section: [], question: [] };
+    for(const [s, rec] of scored){
+      if(groups[rec.type]) groups[rec.type].push([s, rec]);
+    }
+
+    countEl.textContent = scored.length + ' result' + (scored.length === 1 ? '' : 's');
+
+    renderResults(groups, tokens);
+  }
+
+  function highlight(text, tokens){
+    if(!text) return '';
+    // Build a single regex that matches any token, case-insensitive. Wrap in
+    // <mark>. We escape once per token. Iterate tokens sorted by length desc
+    // so longer tokens win over their substrings.
+    const sorted = tokens.slice().sort((a,b) => b.length - a.length);
+    const pat = new RegExp('(' + sorted.map(escapeRe).join('|') + ')', 'gi');
+    // escape HTML first — text may include < or & from quiz strings. We keep
+    // dollar-sign math intact so KaTeX auto-render picks it up after insert.
+    const esc = text
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;');
+    return esc.replace(pat, '<mark>$1</mark>');
+  }
+
+  function renderResults(groups, tokens){
+    resultsEl.innerHTML = '';
+    flatHits = [];
+    activeIndex = -1;
+
+    let total = 0;
+    for(const t of TYPE_ORDER) total += groups[t].length;
+
+    if(total === 0){
+      resultsEl.innerHTML = '<div class="empty-state">No matches for <code>' +
+        currentQuery.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</code>.</div>';
+      return;
+    }
+
+    for(const t of TYPE_ORDER){
+      const hits = groups[t];
+      if(hits.length === 0) continue;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'group';
+      const head = document.createElement('div');
+      head.className = 'group-header';
+      head.innerHTML =
+        '<span class="g-name">' + TYPE_LABELS[t] + '</span>' +
+        '<span class="g-count">' + hits.length + (hits.length > TOP_PER_GROUP ? ' · top ' + TOP_PER_GROUP : '') + '</span>';
+      wrap.appendChild(head);
+
+      const ul = document.createElement('ul');
+      ul.className = 'hits';
+      const shown = hits.slice(0, TOP_PER_GROUP);
+      for(const [score, rec] of shown){
+        const a = document.createElement('a');
+        a.className = 'hit';
+        a.href = './' + rec.url;
+        a.dataset.score = score.toFixed(2);
+
+        const label = document.createElement('span');
+        label.className = 'label ' + rec.type;
+        label.textContent = rec.type;
+        a.appendChild(label);
+
+        const body = document.createElement('div');
+        body.className = 'hbody';
+        const title = document.createElement('div');
+        title.className = 'htitle';
+        title.innerHTML = highlight(rec.title || rec.q || '(untitled)', tokens);
+        body.appendChild(title);
+
+        let blurbText = '';
+        if(rec.type === 'concept' && rec.blurb) blurbText = rec.blurb;
+        else if(rec.type === 'question') blurbText = rec.q || rec.text || '';
+        if(blurbText){
+          const blurb = document.createElement('div');
+          blurb.className = 'hblurb';
+          blurb.innerHTML = highlight(blurbText, tokens);
+          body.appendChild(blurb);
+        }
+        a.appendChild(body);
+
+        const topic = document.createElement('span');
+        topic.className = 'htopic';
+        topic.textContent = rec.topic;
+        a.appendChild(topic);
+
+        a.addEventListener('mouseenter', () => setActive(flatHits.indexOf(a)));
+        a.addEventListener('click', () => { pushRecent(currentQuery); });
+
+        ul.appendChild(a);
+        flatHits.push(a);
+      }
+      wrap.appendChild(ul);
+
+      if(hits.length > TOP_PER_GROUP){
+        const more = document.createElement('div');
+        more.className = 'load-more';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = 'show ' + (hits.length - TOP_PER_GROUP) + ' more';
+        btn.addEventListener('click', () => {
+          more.remove();
+          for(const [score, rec] of hits.slice(TOP_PER_GROUP)){
+            const a = buildHit(rec, score, tokens);
+            ul.appendChild(a);
+            flatHits.push(a);
+          }
+        });
+        more.appendChild(btn);
+        wrap.appendChild(more);
+      }
+      resultsEl.appendChild(wrap);
+    }
+
+    // Re-render KaTeX inside the results (titles and blurbs can contain math).
+    if(typeof window.renderMathInElement === 'function'){
+      try {
+        window.renderMathInElement(resultsEl, {
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      } catch(e){ /* swallow */ }
+    }
+  }
+
+  // Helper to build a single hit element (used by "show N more" buttons).
+  function buildHit(rec, score, tokens){
+    const a = document.createElement('a');
+    a.className = 'hit';
+    a.href = './' + rec.url;
+    a.dataset.score = score.toFixed(2);
+
+    const label = document.createElement('span');
+    label.className = 'label ' + rec.type;
+    label.textContent = rec.type;
+    a.appendChild(label);
+
+    const body = document.createElement('div');
+    body.className = 'hbody';
+    const title = document.createElement('div');
+    title.className = 'htitle';
+    title.innerHTML = highlight(rec.title || rec.q || '(untitled)', tokens);
+    body.appendChild(title);
+
+    let blurbText = '';
+    if(rec.type === 'concept' && rec.blurb) blurbText = rec.blurb;
+    else if(rec.type === 'question') blurbText = rec.q || rec.text || '';
+    if(blurbText){
+      const blurb = document.createElement('div');
+      blurb.className = 'hblurb';
+      blurb.innerHTML = highlight(blurbText, tokens);
+      body.appendChild(blurb);
+    }
+    a.appendChild(body);
+
+    const topic = document.createElement('span');
+    topic.className = 'htopic';
+    topic.textContent = rec.topic;
+    a.appendChild(topic);
+
+    a.addEventListener('mouseenter', () => setActive(flatHits.indexOf(a)));
+    a.addEventListener('click', () => { pushRecent(currentQuery); });
+    return a;
+  }
+
+  // ── keyboard ──────────────────────────────────────────────────────────
+  function setActive(i){
+    if(flatHits.length === 0){ activeIndex = -1; return; }
+    if(i < 0) i = 0;
+    if(i >= flatHits.length) i = flatHits.length - 1;
+    if(activeIndex >= 0 && flatHits[activeIndex]) flatHits[activeIndex].classList.remove('active');
+    activeIndex = i;
+    flatHits[activeIndex].classList.add('active');
+    const el = flatHits[activeIndex];
+    try {
+      const r = el.getBoundingClientRect();
+      if((r.top < 80 || r.bottom > window.innerHeight - 20) &&
+         typeof el.scrollIntoView === 'function'){
+        el.scrollIntoView({ block: 'nearest' });
+      }
+    } catch(e){ /* jsdom / headless env */ }
+  }
+
+  qEl.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      setActive(activeIndex + 1);
+    } else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      setActive(activeIndex - 1);
+    } else if(e.key === 'Enter'){
+      if(activeIndex >= 0 && flatHits[activeIndex]){
+        e.preventDefault();
+        pushRecent(currentQuery);
+        flatHits[activeIndex].click();
+      } else if(flatHits.length > 0){
+        e.preventDefault();
+        pushRecent(currentQuery);
+        flatHits[0].click();
+      }
+    } else if(e.key === 'Escape'){
+      qEl.value = '';
+      search('');
+    }
+  });
+
+  // ── debounced input ───────────────────────────────────────────────────
+  let debounceId = null;
+  qEl.addEventListener('input', () => {
+    if(debounceId) clearTimeout(debounceId);
+    debounceId = setTimeout(() => search(qEl.value), DEBOUNCE_MS);
+  });
+
+  qEl.setAttribute('disabled', '');
+  load();
+})();
+</script>
+
+</body>
+</html>

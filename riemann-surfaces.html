@@ -12,6 +12,8 @@
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
 <script src="./concepts/bundle.js" defer></script>
 <script src="./js/topic-hotkeys.js" defer></script>
 <script src="./js/topic-lineage.js" defer></script>
@@ -216,7 +218,7 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;What&nbsp;is&nbsp;a&nbsp;Riemann&nbsp;surface?</a>
   <a href="#sphere">2&nbsp;Sphere&nbsp;and&nbsp;torus</a>
   <a href="#branched">3&nbsp;Branched&nbsp;covers</a>

@@ -12,6 +12,8 @@
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
 <script src="./concepts/bundle.js" defer></script>
 <script src="./js/topic-hotkeys.js" defer></script>
 <script src="./js/topic-lineage.js" defer></script>
@@ -209,7 +211,7 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#frey">1&nbsp;Frey&nbsp;curve</a>
   <a href="#modularity">2&nbsp;Modularity</a>
   <a href="#ribet">3&nbsp;Ribet&nbsp;and&nbsp;FLT</a>
@@ -223,7 +225,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Modularity and Fermat's Last Theorem</h1>
-  <p class="sub">Three ideas, one proof. A phantom solution $a^p + b^p = c^p$ conjures an elliptic curve so peculiar that modularity and level-lowering cannot both accommodate it. The contradiction that closes the tile is Wiles' theorem; the lever that flips the key is Ribet's.</p>
+  <p class="sub">Three ideas, one proof. A phantom solution $a^p + b^p = c^p$ conjures an elliptic curve so peculiar that modularity and level-lowering cannot both accommodate it. The contradiction that closes the tile is Wiles' theorem; the lever that flips the key is Ribet's. &nbsp;<a href="./capstone-flt-story.html" style="color:var(--yellow)">Story →</a></p>
   <p class="small">Prerequisites: <a href="./elliptic-curves.html">elliptic curves</a>, <a href="./modular-forms.html">modular forms</a>, <a href="./galois-representations.html">Galois representations</a>, <a href="./L-functions.html">$L$-functions</a>.</p>
 </section>
 

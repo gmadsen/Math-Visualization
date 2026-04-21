@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fermat's Last Theorem — the story</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.7}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:760px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.5rem;letter-spacing:-0.01em;margin:0 0 0.4rem;line-height:1.15}
+  h2{font-size:1.5rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem;line-height:1.25}
+  h3{font-size:1.1rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.9rem 0}
+  blockquote{margin:1.4rem 0;padding:.4rem 1.2rem;border-left:3px solid var(--yellow);
+    color:#e6dbb5;background:#231e12;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem;font-size:1.1rem;line-height:1.55}
+  .figure{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1rem;margin:1.6rem 0}
+  .figure .cap{color:var(--mute);font-size:.85rem;margin-top:.5rem;font-style:italic;text-align:center}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1.2rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 380px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  .kicker{display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--violet);margin-bottom:.4rem;font-weight:600}
+  .pullquote{font-size:1.05rem;color:#fff;margin:1.4rem 0;padding:.8rem 1.2rem;
+    border-left:3px solid var(--cyan);background:#131b21;border-radius:0 6px 6px 0}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body data-section="modular-forms-and-l-functions" data-level="capstone">
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./modularity-and-flt.html" style="color:var(--cyan)">concept page →</a>
+  <a href="#claim">1&nbsp;The&nbsp;claim</a>
+  <a href="#descent">2&nbsp;Descent</a>
+  <a href="#frey">3&nbsp;Frey</a>
+  <a href="#modularity">4&nbsp;Modularity</a>
+  <a href="#ribet">5&nbsp;Ribet</a>
+  <a href="#taylor-wiles">6&nbsp;Taylor–Wiles</a>
+  <a href="#bcdt">7&nbsp;BCDT</a>
+  <a href="#legacy">8&nbsp;Legacy</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <span class="kicker">Capstone · story</span>
+  <h1>Fermat's Last Theorem</h1>
+  <p class="sub">Fermat's marginal note became the 350-year challenge that ultimately forged a new kind of arithmetic. This is the story of how a cryptic boast about cubes and higher powers grew into a continent-sized theorem about elliptic curves, modular forms, and Galois representations — and of the machinery the proof left behind.</p>
+  <p class="small">Companion to the technical page: <a href="./modularity-and-flt.html">Modularity and Fermat's Last Theorem</a>.</p>
+</section>
+
+<section id="claim">
+<h2>1. The claim that nagged everyone</h2>
+
+<p>Around 1637, while reading Bachet's Latin edition of Diophantus' <em>Arithmetica</em>, the French jurist Pierre de Fermat drew a finger down the margin next to Problem II.8 — the decomposition of a square into two squares — and wrote, in crowded ink:</p>
+
+<blockquote>Cubum autem in duos cubos, aut quadratoquadratum in duos quadratoquadratos, et generaliter nullam in infinitum ultra quadratum potestatem in duos eiusdem nominis fas est dividere; cuius rei demonstrationem mirabilem sane detexi. Hanc marginis exiguitas non caperet.</blockquote>
+
+<p>Translated: it is impossible to split a cube into two cubes, a fourth power into two fourth powers, or in general any power above the second into two of the same name; I have discovered a truly marvelous proof, which this margin is too narrow to contain.</p>
+
+<p>The claim is arithmetic at its most naked: for every integer exponent $n \ge 3$, the equation</p>
+$$x^n + y^n \ =\ z^n$$
+<p>admits no solution in positive integers. There is nothing to parse. A ten-year-old can read the statement. A century of the sharpest minds in Europe failed to close it.</p>
+
+<p>What made the problem durable was not its difficulty in isolation — plenty of Diophantine claims are hopeless — but the <em>provocation</em>. Fermat's note was the only one of his marginalia that resisted every attempt at rediscovery. Euler eventually confirmed the $n=3$ case in 1770, a century after Fermat died; Dirichlet and Legendre handled $n=5$ in the 1820s; Lamé announced $n=7$ in 1839. Each victory required a new idea, and each new idea illuminated only one exponent at a time. The cumulative evidence that Fermat's "marvelous proof" had never existed grew overwhelming. The problem, shorn of its folklore, became a flare: a test of whether nineteenth-century mathematics had the concepts to survive contact with a ten-word sentence.</p>
+
+<p>It did not.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 640 200" width="640" height="200" role="img" aria-label="Timeline of FLT partial results from 1637 to 1995">
+    <title>FLT timeline 1637–1995</title>
+    <!-- axis -->
+    <line x1="40" y1="130" x2="600" y2="130" stroke="var(--line)" stroke-width="1.5" />
+    <!-- era ticks -->
+    <g font-size="11" fill="var(--mute)" text-anchor="middle">
+      <line x1="60"  y1="126" x2="60"  y2="134" stroke="var(--mute)" /><text x="60"  y="150">1637</text>
+      <line x1="160" y1="126" x2="160" y2="134" stroke="var(--mute)" /><text x="160" y="150">1770</text>
+      <line x1="260" y1="126" x2="260" y2="134" stroke="var(--mute)" /><text x="260" y="150">1825</text>
+      <line x1="340" y1="126" x2="340" y2="134" stroke="var(--mute)" /><text x="340" y="150">1847</text>
+      <line x1="430" y1="126" x2="430" y2="134" stroke="var(--mute)" /><text x="430" y="150">1985</text>
+      <line x1="500" y1="126" x2="500" y2="134" stroke="var(--mute)" /><text x="500" y="150">1990</text>
+      <line x1="580" y1="126" x2="580" y2="134" stroke="var(--mute)" /><text x="580" y="150">1995</text>
+    </g>
+    <!-- era labels -->
+    <g font-size="12" text-anchor="middle">
+      <text x="60"  y="110" fill="var(--yellow)">margin note</text>
+      <text x="160" y="110" fill="var(--cyan)">n = 3  (Euler)</text>
+      <text x="260" y="110" fill="var(--cyan)">n = 5, 7</text>
+      <text x="340" y="110" fill="var(--cyan)">Kummer</text>
+      <text x="430" y="110" fill="var(--pink)">Frey curve</text>
+      <text x="500" y="110" fill="var(--pink)">Ribet</text>
+      <text x="580" y="110" fill="var(--green)">Wiles–Taylor</text>
+    </g>
+    <!-- sub era labels -->
+    <g font-size="10" text-anchor="middle" fill="var(--mute)">
+      <text x="160" y="176">descent</text>
+      <text x="260" y="176">elementary</text>
+      <text x="340" y="176">ideal theory</text>
+      <text x="430" y="176">elliptic curve</text>
+      <text x="500" y="176">level lowering</text>
+      <text x="580" y="176">modularity</text>
+    </g>
+    <!-- title -->
+    <text x="320" y="30" text-anchor="middle" font-size="14" fill="var(--mute)" font-style="italic">350 years, four changes of paradigm</text>
+  </svg>
+  <div class="cap">Figure 1. The problem outlasted four generations of technique. Each era's best idea reduced the theorem to an unsolvable special case, until the 1980s shift out of elementary arithmetic entirely.</div>
+</div>
+</section>
+
+<section id="descent">
+<h2>2. Descent, special exponents, and the limits of elementary methods</h2>
+
+<p>The earliest progress was Fermat's own. He proved the case $n=4$ — which, because every exponent $\ge 3$ factors through either a prime or a 4 — reduces the theorem to the <em>prime</em> exponents $p \ge 3$. Fermat's method, <strong>infinite descent</strong>, is clean enough to describe in a sentence: from any purported solution he manufactured a strictly smaller one, and the natural numbers have no infinitely decreasing chain. Descent was his most fertile invention, and for two hundred years it was the only workable tool.</p>
+
+<p>Euler pushed descent into $n=3$ in 1770, but to do so he had to leave the rational numbers behind. His argument passed through the ring $\mathbb{Z}[\omega]$, where $\omega = e^{2\pi i/3}$ is a primitive cube root of unity. In that ring $x^3 + y^3$ factors as $(x+y)(x+\omega y)(x+\omega^2 y)$, and unique factorization — a property Euler tacitly assumed, and which $\mathbb{Z}[\omega]$ happens to possess — turns the descent crank. The solvability of $n=3$ thus depended on an <em>arithmetic of new numbers</em>, not just integers. This was the first sign that Fermat's problem was asking about something wider than $\mathbb{Z}$.</p>
+
+<p>Sophie Germain (1776–1831), working in the Parisian correspondence network under the pseudonym "M. Le Blanc," produced the first theorem that tackled infinitely many exponents in a single breath. Her idea: split the problem into <em>Case I</em>, where $p \nmid xyz$, and <em>Case II</em>, where $p$ divides one of $x, y, z$. For Case I, she showed that if there is an auxiliary prime $q = 2kp + 1$ with two specific congruence properties, then $p \nmid xyz$ is impossible. The primes for which such an auxiliary $q$ exists became known as <strong>Sophie Germain primes</strong>. She handled every $p < 100$, an extraordinary mileage for a single technique.</p>
+
+<p>Lamé's 1847 announcement of the full theorem, rapidly withdrawn after Liouville pointed out that Lamé's proof assumed unique factorization in $\mathbb{Z}[\zeta_p]$ — a property that <em>fails</em> for $p = 23$ and generically for larger $p$ — was the turning point. The failure of unique factorization in cyclotomic rings was not a technical annoyance. It was the structural obstacle. Ernst Kummer's response, between 1847 and 1859, was to <em>rebuild</em> unique factorization at a higher level: he decreed that every integer of $\mathbb{Z}[\zeta_p]$ factors uniquely not into ordinary numbers but into <strong>ideal numbers</strong>. Today we call them ideals. Kummer's ideal theory proved Fermat's Last Theorem for all <em>regular</em> primes — those $p$ for which the class number of $\mathbb{Z}[\zeta_p]$ is not divisible by $p$.</p>
+
+<p>Regular primes are the majority; irregular primes (37, 59, 67, 101, ...) are sparse but infinite, and each one resists Kummer's method. Ad hoc computations handled irregular primes up to roughly $p < 4 \times 10^6$ by the 1990s. But the technique was a wall. Every refinement of descent or ideal theory handled finitely many more cases and stopped. The theorem, as a statement about rings of integers in cyclotomic fields, had saturated what arithmetic alone could say.</p>
+
+<div class="note"><strong>The pattern.</strong> Euler, Germain, and Kummer were all, in retrospect, probing a single question: what is the right ambient arithmetic in which $x^p + y^p = z^p$ becomes transparent? The answer — supplied only a century later — was <em>no ring at all</em>. The right ambient object was an elliptic curve, and the right structure on it was geometric.</div>
+</section>
+
+<section id="frey">
+<h2>3. The Frey curve</h2>
+
+<p>Gerhard Frey, lecturing at Oberwolfach in 1984, proposed a rethinking of the problem that changed the landscape. Suppose, contrary to Fermat, that there exist pairwise coprime positive integers $a, b, c$ and a prime $p \ge 5$ with</p>
+$$a^p + b^p \ =\ c^p.$$
+<p>Attach to this hypothetical triple an elliptic curve:</p>
+$$E_{a,b,c}: \quad y^2 \ =\ x\,(x - a^p)\,(x + b^p).$$
+<p>The curve is perfectly concrete — given $a, b, c$ one could plot it — but its genome is impossible. Its three $2$-torsion points $(0, 0), (a^p, 0), (-b^p, 0)$ are rational. Its discriminant, up to a power of 2, is</p>
+$$\Delta(E_{a,b,c}) \ =\ \frac{(abc)^{2p}}{2^{8}}.$$
+<p>Every odd prime $\ell$ dividing $abc$ appears in $\Delta$ with exponent exactly $2p$. The exponent is even, so the reduction at $\ell$ is multiplicative (a nodal cubic, not a cusp); and it is a $p$-th power, so modulo $p$ it is invisible to the Galois representation. In the language of arithmetic geometry, the Frey curve is <em>semistable</em> away from 2 and its conductor $N_E$ is squarefree outside 2.</p>
+
+<p>That second property — the $p$-th-power exponent at every odd bad prime — is the crack Frey had exposed. It meant the mod-$p$ Galois representation attached to $E_{a,b,c}$ would be <em>unramified at every odd $\ell \mid abc$</em>, not merely tamely ramified there. An elliptic curve with so few ramified primes is a very rare creature. Frey conjectured, and Jean-Pierre Serre shortly made precise with his <strong>epsilon conjecture</strong>, that the Frey curve's existence would contradict an expected congruence property of modular forms — that its rarity was incompatible with modularity.</p>
+
+<p>The reframing was radical. Three hundred and fifty years of work on Fermat's equation had treated it as a question in number theory. Frey and Serre recast it as a question in the geometry of elliptic curves over $\mathbb{Q}$. To disprove Fermat became: to show that a certain exotic elliptic curve cannot exist. That, in turn, reduced to two independent conjectures nobody yet knew how to prove.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="Schematic: hypothetical FLT triple maps to Frey curve, which routes into modularity and level lowering">
+    <title>Frey's reduction chain</title>
+    <!-- four boxes: triple -> curve -> modular form -> empty space -->
+    <g>
+      <rect x="20"  y="70" width="140" height="80" rx="8" fill="var(--panel2)" stroke="var(--pink)" stroke-width="1.5"/>
+      <text x="90"  y="100" text-anchor="middle" font-size="12" fill="var(--pink)" font-weight="600">hypothetical triple</text>
+      <text x="90"  y="120" text-anchor="middle" font-size="13" fill="var(--ink)">a^p + b^p = c^p</text>
+      <text x="90"  y="138" text-anchor="middle" font-size="10" fill="var(--mute)">(p ≥ 5, coprime)</text>
+
+      <rect x="180" y="70" width="140" height="80" rx="8" fill="var(--panel2)" stroke="var(--cyan)" stroke-width="1.5"/>
+      <text x="250" y="100" text-anchor="middle" font-size="12" fill="var(--cyan)" font-weight="600">Frey curve E</text>
+      <text x="250" y="120" text-anchor="middle" font-size="12" fill="var(--ink)">y² = x(x−aᵖ)(x+bᵖ)</text>
+      <text x="250" y="138" text-anchor="middle" font-size="10" fill="var(--mute)">semistable, odd cond. sqfree</text>
+
+      <rect x="340" y="70" width="140" height="80" rx="8" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1.5"/>
+      <text x="410" y="100" text-anchor="middle" font-size="12" fill="var(--yellow)" font-weight="600">modular form</text>
+      <text x="410" y="120" text-anchor="middle" font-size="12" fill="var(--ink)">f ∈ S₂(Γ₀(N))</text>
+      <text x="410" y="138" text-anchor="middle" font-size="10" fill="var(--mute)">Wiles: E is modular</text>
+
+      <rect x="500" y="70" width="120" height="80" rx="8" fill="var(--panel2)" stroke="var(--green)" stroke-width="1.5"/>
+      <text x="560" y="100" text-anchor="middle" font-size="12" fill="var(--green)" font-weight="600">level 2</text>
+      <text x="560" y="120" text-anchor="middle" font-size="12" fill="var(--ink)">S₂(Γ₀(2)) = 0</text>
+      <text x="560" y="138" text-anchor="middle" font-size="10" fill="var(--mute)">Ribet: empty</text>
+    </g>
+    <!-- arrows -->
+    <g stroke="var(--mute)" stroke-width="1.5" fill="none">
+      <path d="M160 110 L180 110" marker-end="url(#arrA)"/>
+      <path d="M320 110 L340 110" marker-end="url(#arrA)"/>
+      <path d="M480 110 L500 110" marker-end="url(#arrA)"/>
+    </g>
+    <defs>
+      <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--mute)"/>
+      </marker>
+    </defs>
+    <!-- arrow labels -->
+    <g font-size="10" fill="var(--mute)" font-style="italic" text-anchor="middle">
+      <text x="170" y="100">Frey</text>
+      <text x="330" y="100">Wiles</text>
+      <text x="490" y="100">Ribet</text>
+    </g>
+    <text x="320" y="30" text-anchor="middle" font-size="14" fill="var(--mute)" font-style="italic">A hypothetical solution is routed to an impossibility.</text>
+    <text x="320" y="190" text-anchor="middle" font-size="11" fill="var(--mute)">the chain terminates in a space that provably contains nothing</text>
+  </svg>
+  <div class="cap">Figure 2. The reduction chain. If the first box is non-empty, the last must also be — but the last is known, by an elementary dimension formula, to be zero. Therefore the first is empty.</div>
+</div>
+</section>
+
+<section id="modularity">
+<h2>4. Modularity as gateway</h2>
+
+<p>The second ingredient was older than Frey's curve by three decades. In 1955, at a Tokyo-Nikkō conference, the Japanese mathematician Yutaka Taniyama asked a question that shocked his audience: was every elliptic curve over $\mathbb{Q}$, in some precise sense, a <em>modular form</em>? Goro Shimura refined the statement in the 1960s; André Weil gave it computational teeth by showing how modularity would imply a functional equation for the curve's $L$-function with prescribed conductor. The conjecture became the <strong>Taniyama–Shimura–Weil conjecture</strong>, and by the 1980s nearly every specialist thought it true, but nobody had a credible approach to it.</p>
+
+<p>The statement is remarkable. On one side is an elliptic curve $E$ over $\mathbb{Q}$ — a cubic equation and its solutions, an object of algebra. On the other side is a weight-2 cusp form $f_E \in S_2(\Gamma_0(N_E))$ on the upper half-plane — a holomorphic function with a very strong periodicity, an object of complex analysis. Modularity asserts that their Fourier-theoretic bookkeeping agrees:</p>
+$$a_p(E) \ =\ a_p(f_E) \qquad \text{for every prime } p \nmid N_E,$$
+<p>where $a_p(E) = p + 1 - \#E(\mathbb{F}_p)$ counts points on $E$ modulo $p$ and $a_p(f_E)$ is the $p$-th Fourier coefficient of $f_E$. Two utterly different theories, one set of numbers.</p>
+
+<p>The practical consequence of modularity is that elliptic curves inherit everything that is known about modular forms — and modular forms, being analytic objects with a vast classical theory, are far better understood. In particular, modular forms with prescribed level and weight live in <em>finite-dimensional</em> spaces. If you can force an elliptic curve's associated form into a space of dimension zero, the curve cannot exist. That is exactly the trap Frey set.</p>
+
+<p class="pullquote">Modularity is the bridge. On one side stand elliptic curves, stubborn and arithmetic; on the other stand modular forms, analytic and classifiable. The bridge had been conjectured for thirty years before anyone could cross it.</p>
+</section>
+
+<section id="ribet">
+<h2>5. Ribet's level lowering</h2>
+
+<p>Serre's epsilon conjecture — the missing piece between Frey's curve and a contradiction — was a sharp statement about modular Galois representations. Roughly: if a prime $\ell$ appears in the level of a modular form only as an <em>artifact</em> of the associated Galois representation, then there is a second modular form of lower level with the same mod-$p$ representation. In symbols, if $\overline\rho$ comes from a newform $f \in S_2(\Gamma_0(N\ell))$ and $\overline\rho$ is unramified at $\ell$, then $\overline\rho$ also comes from a newform $g \in S_2(\Gamma_0(N))$. The level $\ell$ can be <em>lowered</em>.</p>
+
+<p>Ken Ribet proved the epsilon conjecture in 1986. The proof used deep machinery — the geometry of modular curves $X_0(N)$, their Jacobians, and the Eichler–Shimura relation connecting Hecke operators to Frobenius endomorphisms on those Jacobians — but its consequence for Fermat was immediate and devastating.</p>
+
+<p>Suppose, <em>per impossibile</em>, that the Frey curve $E_{a,b,c}$ is modular. Then it corresponds to a newform of level $N_E = 2 \prod_{\ell \mid abc,\ \ell \text{ odd}} \ell$. Every odd prime in this product sits there because of the ramification that the $p$-th-power exponent in $\Delta$ makes invisible — exactly the situation Ribet lowered. Strip one odd prime. Lower the level. Strip the next. Lower again. Iterating, Ribet's theorem drags the level all the way down to</p>
+$$N \ =\ 2.$$
+<p>The Frey curve — if it existed — would have to correspond to a weight-2 newform on $\Gamma_0(2)$. But an elementary dimension count, the genus formula for the modular curve $X_0(2)$, gives</p>
+$$\dim S_2(\Gamma_0(2)) \ =\ 0.$$
+<p>There are no such newforms. So the Frey curve cannot be modular.</p>
+
+<div class="ok"><strong>Ribet's reduction.</strong> If the Taniyama–Shimura conjecture is true for the Frey curve $E_{a,b,c}$, then Fermat's Last Theorem is true. This was proved in 1986. Nine more years would be needed to remove the "if."</div>
+</section>
+
+<section id="taylor-wiles">
+<h2>6. Taylor–Wiles: R = T</h2>
+
+<p>Andrew Wiles heard Ribet's result in the spring of 1986. He went home to Princeton, into his attic, and for seven years spoke to almost no one about what he was doing. His target: prove the Taniyama–Shimura conjecture in the <em>semistable</em> case — enough for Ribet's reduction to bite. Semistable elliptic curves are exactly those with squarefree conductor, and in particular the Frey curve is semistable away from 2.</p>
+
+<p>The method Wiles developed, and later completed with his former student Richard Taylor in the crucial month of September 1994, is now called <strong>modularity lifting</strong>. Its heart is an equality of two rings.</p>
+
+<p>The first ring, $R$, is a <em>universal deformation ring</em>. Fix a residual mod-$p$ Galois representation $\overline\rho: G_{\mathbb{Q}} \to \mathrm{GL}_2(\mathbb{F}_p)$. A <em>deformation</em> of $\overline\rho$ is a lift to a representation with values in a complete local ring. Collect all deformations satisfying a chosen set of local conditions $\Sigma$; there is a universal one, and its coefficient ring $R_\Sigma$ classifies every such deformation. $R_\Sigma$ parameterizes <em>potential</em> lifts of $\overline\rho$, modular or not.</p>
+
+<p>The second ring, $T$, is a <em>Hecke algebra</em>. Among weight-2 modular forms whose mod-$p$ Galois representations are congruent to $\overline\rho$ and that satisfy the same local conditions $\Sigma$, take the ring of Hecke operators. The localized Hecke algebra $T_\Sigma$ parameterizes <em>modular</em> lifts of $\overline\rho$.</p>
+
+<p>There is always a natural surjection $R_\Sigma \twoheadrightarrow T_\Sigma$ — every modular lift is a lift. Wiles' insight was that if one could prove this surjection is an <em>isomorphism</em>,</p>
+$$R_\Sigma \ \xrightarrow{\ \sim\ } \ T_\Sigma,$$
+<p>then every deformation of $\overline\rho$ is modular, and in particular every elliptic curve whose mod-$p$ representation is $\overline\rho$ is modular. Modularity, for a whole family of curves at once.</p>
+
+<p>The 1993 Cambridge announcement contained a gap. The gap was in the construction of an <em>Euler system</em> Wiles had been using to compare the two rings numerically. For a year Wiles and Taylor labored in private; in September 1994 Taylor realized the gap could be closed not by fixing Wiles' Euler system but by <em>replacing</em> it with a cleaner construction — patching together auxiliary deformation rings across a tower of primes, then taking a limit. The Taylor–Wiles patching argument became one of the most influential techniques of the era.</p>
+
+<p>The semistable case of Taniyama–Shimura was announced, for real, in October 1994. Together with Ribet's theorem, this sufficed to prove Fermat's Last Theorem.</p>
+</section>
+
+<section id="bcdt">
+<h2>7. Full modularity</h2>
+
+<p>Wiles and Taylor had proved modularity for semistable elliptic curves over $\mathbb{Q}$. The full Taniyama–Shimura–Weil conjecture remained. Four younger mathematicians — Christophe Breuil, Brian Conrad, Fred Diamond, and Taylor — attacked the residual cases through the late 1990s, and in 2001 announced the full theorem: <em>every</em> elliptic curve over $\mathbb{Q}$ is modular. The paper's initials, <strong>BCDT</strong>, became shorthand for the completion.</p>
+
+<p>The technical heart of BCDT was local: semistability lets one read off a clean structure at every prime of bad reduction, while the general case requires a finer analysis of the Galois action at those primes. Each additional case demanded a new modularity-lifting theorem, each requiring its own deformation ring and its own patching argument. By the end of 2001, every elliptic curve over $\mathbb{Q}$ — semistable or not, of any conductor — was known to correspond to a modular form.</p>
+
+<p>Fermat's Last Theorem had been closed by Wiles–Taylor in 1995. Taniyama–Shimura was closed by BCDT in 2001. The two events were separated by six years; the second was, in a sense, the real prize the Wiles argument had opened the door to.</p>
+</section>
+
+<section id="legacy">
+<h2>8. What the proof taught us</h2>
+
+<p>The machinery Wiles and his successors built outlived the theorem it was built for. Three ideas in particular became permanent infrastructure.</p>
+
+<p><strong>Modularity lifting.</strong> Wiles' $R = T$ theorem is the template for a whole genre of results. Given a residual representation and a target property (modular, automorphic, potentially modular), one builds two rings — a deformation ring parameterizing all lifts, a Hecke-algebra-like ring parameterizing those with the target property — and tries to prove they are isomorphic. Taylor's patching argument and its many descendants have since been used to prove Sato–Tate (the equidistribution of Frobenius angles on non-CM elliptic curves), the potential automorphy of certain higher-dimensional Galois representations, modularity of abelian varieties over small number fields, and reciprocity laws in contexts Langlands had only conjectured.</p>
+
+<p><strong>The deformation-theoretic perspective.</strong> Before Wiles, a Galois representation was a static object. After Wiles, each residual representation $\overline\rho$ came with a <em>formal family</em> of lifts, and the natural question was how that family varies. Deformation rings are now as fundamental to arithmetic geometry as moduli spaces are to algebraic geometry, and the two perspectives increasingly merge — moduli of Galois representations, moduli of automorphic sheaves, and the <em>Langlands program</em> in its modern categorical form.</p>
+
+<p><strong>Automorphic methods for Diophantine problems.</strong> Fermat's equation is Diophantine: it asks about integer solutions of a polynomial. The proof is <em>automorphic</em>: it works by associating to the equation an analytic object — a modular form, hence an automorphic representation of $\mathrm{GL}_2(\mathbb{A}_\mathbb{Q})$ — and deducing the equation's insolubility from the automorphic object's non-existence. This template now drives attacks on other Diophantine problems: the Birch and Swinnerton-Dyer conjecture (via $L$-functions of elliptic curves, which modularity makes analytically tractable), the generalized Fermat equation $x^p + y^q = z^r$ with distinct exponents (via Frey–Darmon curves), and the full Langlands reciprocity for $\mathrm{GL}_n$.</p>
+
+<p>Fermat had written that his margin was too narrow. The margin, it turned out, was too narrow for an entirely different reason than he imagined. The proof he claimed to possess did not exist — not in his century, not in any century of elementary arithmetic. What the margin could not contain was the century of mathematics that the problem would require: the invention of <em>ideal numbers</em>, the recognition of elliptic curves as arithmetic objects, the modular-form bridge, the Galois-representation perspective, the deformation theory, the patching argument, the $R = T$ paradigm. A marvelous proof, sane detexi. Three and a half centuries of sainer hands to find it.</p>
+
+<p class="small" style="margin-top:2.5rem">To see the same story told technically — with the Frey curve widget, the modularity correspondence table, Ribet's level-lowering calculator, and the $R = T$ schematic — turn to <a href="./modularity-and-flt.html">Modularity and Fermat's Last Theorem</a>.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version — narrative capstone for FLT</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

@@ -12,6 +12,8 @@
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
 <script src="./concepts/bundle.js" defer></script>
 <script src="./js/topic-hotkeys.js" defer></script>
 <script src="./js/topic-lineage.js" defer></script>
@@ -208,7 +210,7 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#mordell-weil">1&nbsp;Mordell–Weil</a>
   <a href="#point-counting-heuristic">2&nbsp;Point&nbsp;counts</a>
   <a href="#bsd-rank-equality">3&nbsp;BSD&nbsp;rank</a>
@@ -222,7 +224,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Birch and Swinnerton-Dyer</h1>
-  <p class="sub">Count points on $E$ modulo each prime and multiply. Growth of order $(\log X)^r$ recovers the Mordell–Weil rank $r$. Transpose to the $s$-plane and BSD predicts $L(E, s)$ vanishes to order exactly $r$ at $s = 1$ — a million-dollar conjecture born on EDSAC printouts.</p>
+  <p class="sub">Count points on $E$ modulo each prime and multiply. Growth of order $(\log X)^r$ recovers the Mordell–Weil rank $r$. Transpose to the $s$-plane and BSD predicts $L(E, s)$ vanishes to order exactly $r$ at $s = 1$ — a million-dollar conjecture born on EDSAC printouts. <a href="./capstone-bsd-story.html" style="color:var(--yellow);text-decoration:none;border-bottom:1px dashed color-mix(in srgb, var(--yellow) 45%, transparent);white-space:nowrap">Read the story →</a></p>
 </section>
 
 <section id="mordell-weil">

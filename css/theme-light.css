@@ -1,0 +1,122 @@
+/*
+ * theme-light.css — optional light-mode palette overrides.
+ *
+ * Activated by <html data-theme="light">. js/theme-toggle.js sets that
+ * attribute on DOMContentLoaded (well, on script-run) based on localStorage
+ * key "mvnb.theme" ∈ {"dark","light"}; default is dark (no attribute set).
+ *
+ * Philosophy: the notebook's :root declarations (duplicated per page) define
+ * the dark palette via --bg, --panel, --panel2, --ink, --mute, --line, plus
+ * accents --yellow --blue --green --pink --violet --cyan. Pages use these
+ * tokens everywhere widgets render. Swapping these six structural variables
+ * plus the six accents — via a higher-specificity selector — reskins the
+ * entire notebook without editing any topic HTML.
+ *
+ * Higher specificity than :root: we use html[data-theme="light"] { ... } so
+ * it wins over the per-page :root block.
+ */
+
+html[data-theme="light"] {
+  /* Structural tokens — warm paper instead of inky navy. */
+  --bg: #fdfcfa;
+  --panel: #ffffff;
+  --panel2: #f4f1ec;
+  --ink: #1a2130;
+  --mute: #6b7686;
+  --line: #d8d3c9;
+
+  /* Accent colors — the dark-palette versions are tuned for luminosity on a
+   * near-black background and wash out on paper. These six replacements keep
+   * the same hue identity but crank saturation/darkness so they read on white
+   * without looking radioactive. */
+  --yellow: #c59300;
+  --blue:   #2b90b8;
+  --green:  #3ea74a;
+  --pink:   #d63a6a;
+  --violet: #7a4fc7;
+  --cyan:   #0a7794;
+}
+
+/* Smooth the swap so toggling doesn't strobe. Scoped to the containers whose
+ * backgrounds/text actually change color; global * transitions hurt perf on
+ * pages with heavy SVG widget re-renders. */
+html[data-theme="light"] body,
+html[data-theme="light"] .widget,
+html[data-theme="light"] .panel,
+html[data-theme="light"] nav.toc,
+html[data-theme="light"] aside.sidetoc,
+html[data-theme="light"] aside.callback,
+html[data-theme="light"] aside.related,
+html[data-theme="light"] details.changelog,
+html[data-theme="light"] .readout,
+html[data-theme="light"] .top-nav,
+html[data-theme="light"] .card,
+html[data-theme="light"] a.card {
+  transition: background-color 200ms ease,
+              color 200ms ease,
+              border-color 200ms ease;
+}
+
+/* A few widget-ish elements hard-code darker panel backgrounds (#0b0f16 /
+ * #161b24 / #1c2230 etc.) via inline style or per-page :root overrides that
+ * escape --panel2. Catch the most common inputs/readouts so code cells and
+ * value readouts don't stay dark against the light page. */
+html[data-theme="light"] .readout,
+html[data-theme="light"] pre.readout,
+html[data-theme="light"] input[type="text"],
+html[data-theme="light"] input[type="number"],
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  background-color: var(--panel2);
+  color: var(--ink);
+}
+
+/* `code` blocks often use a near-black inline background — tone it down. */
+html[data-theme="light"] code {
+  background-color: #efeae0;
+  color: #8a5a00;
+}
+
+/* Drawer / overlay chrome — dark theme assumes a dim backdrop, light theme
+ * needs a brighter panel + readable backdrop opacity. */
+html[data-theme="light"] .mvdrawer,
+html[data-theme="light"] .hotkey-overlay {
+  background-color: var(--panel);
+  color: var(--ink);
+  border-color: var(--line);
+}
+html[data-theme="light"] .mvdrawer-backdrop,
+html[data-theme="light"] .hotkey-overlay-backdrop {
+  background-color: rgba(20, 25, 35, 0.35);
+}
+
+/* Theme-toggle button rendered by js/theme-toggle.js — inherits nav font size,
+ * borrows the nav-link pill styling. Targets both dark and light so the button
+ * reads correctly in either mode. */
+.mv-theme-toggle {
+  background: var(--panel2);
+  color: var(--mute);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  line-height: 1.2;
+  transition: color 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+.mv-theme-toggle:hover {
+  color: var(--ink);
+  border-color: var(--mute);
+}
+.mv-theme-toggle:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+/* When sitting inside nav.toc (topic pages), nudge spacing so it aligns with
+ * the existing anchors. */
+nav.toc .mv-theme-toggle {
+  margin-left: 0.5rem;
+  vertical-align: baseline;
+}

@@ -176,6 +176,8 @@ function buildHeadBlock() {
     '<script src="./js/breadcrumb.js"></script>\n' +
     '<script src="./js/glossary-popover.js" defer></script>\n' +
     '<link rel="stylesheet" media="print" href="./css/print.css">\n' +
+    '<link rel="stylesheet" href="./css/theme-light.css">\n' +
+    '<script src="./js/theme-toggle.js"></script>\n' +
     '<script src="./concepts/bundle.js" defer></script>\n' +
     '<script src="./js/topic-hotkeys.js" defer></script>\n' +
     '<script src="./js/topic-lineage.js" defer></script>\n' +
@@ -187,6 +189,7 @@ function buildNavBlock() {
   return (
     NAV_BEGIN +
     '<div class="breadcrumb"></div>' +
+    '<span class="mv-theme-slot"></span>' +
     '<div id="mv-lineage-mount" class="lineage-strip" hidden></div>' +
     NAV_END
   );
