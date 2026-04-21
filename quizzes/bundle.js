@@ -798,6 +798,7 @@ window.MVQuizBank = {
               "$\\sqrt{5}-1$"
             ],
             "answer": 1,
+            "hint": "Look for the $d\\equiv 1\\pmod 4$ half-integer representative.",
             "explain": "Since $5\\equiv 1\\pmod 4$, the ring of integers of $\\mathbb{Q}(\\sqrt{5})$ is $\\mathbb{Z}\\!\\left[\\tfrac{1+\\sqrt{5}}{2}\\right]$, which is strictly larger than $\\mathbb{Z}[\\sqrt{5}]$. The golden ratio $\\tfrac{1+\\sqrt{5}}{2}$ satisfies $x^2-x-1=0$, so it is an algebraic integer not in $\\mathbb{Z}[\\sqrt{5}]$."
           },
           {
@@ -805,6 +806,7 @@ window.MVQuizBank = {
             "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{1+\\sqrt{-3}}{2}$. Compute $\\omega^2+\\omega$ (as an integer).",
             "answer": -1,
             "tol": 0.000001,
+            "hint": "Use the cyclotomic relation $\\omega^2+\\omega+1=0$.",
             "explain": "$\\omega$ satisfies the minimal polynomial $x^2-x+1=0$, so $\\omega^2-\\omega+1=0$, giving $\\omega^2=\\omega-1$ and $\\omega^2+\\omega=2\\omega-1$. But $\\omega^2+\\omega+1=0$ is the cyclotomic relation for $\\omega=e^{2\\pi i/3}$; rearranging $x^2+x+1=0$ gives $\\omega^2+\\omega=-1$."
           },
           {
@@ -817,6 +819,7 @@ window.MVQuizBank = {
               "$p=2$, $p=5$, and $p=7$"
             ],
             "answer": 2,
+            "hint": "Primes dividing the discriminant are exactly the ramified ones.",
             "explain": "$\\Delta_K=-20=-4\\cdot 5=-(2^2\\cdot 5)$, so both $2$ and $5$ divide $\\Delta_K$. By the discriminant–ramification theorem, exactly $p=2$ and $p=5$ ramify."
           }
         ]
@@ -862,6 +865,7 @@ window.MVQuizBank = {
               "$5\\cdot 13\\cdot 65=4225$"
             ],
             "answer": 2,
+            "hint": "Each character contributes its conductor; multiply carefully.",
             "explain": "For a biquadratic field $\\mathbb{Q}(\\sqrt{d_1},\\sqrt{d_2})$ with $[K:\\mathbb{Q}]=4$, the conductor–discriminant formula gives $\\Delta_K=(\\Delta_1\\Delta_2\\Delta_3)^{?}$. More directly, $\\Delta_K=(d_1 d_2 d_3)$ where $d_3=d_1 d_2/\\gcd^2$; the precise formula yields $(5\\cdot 13)^2=4225$ since each quadratic character contributes its conductor once per degree."
           },
           {
@@ -869,6 +873,7 @@ window.MVQuizBank = {
             "q": "Let $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-\\alpha-1=0$. The discriminant of the polynomial $f=x^3-x-1$ is $\\Delta_f=-4(-1)^3-27(-1)^2=-23$. Compute $|\\Delta_f|$.",
             "answer": 23,
             "tol": 0.000001,
+            "hint": "Apply $\\Delta_f=-4p^3-27q^2$ for the depressed cubic.",
             "explain": "Using the formula $\\Delta_f=-4p^3-27q^2$ for $x^3+px+q$: here $p=-1$, $q=-1$, so $\\Delta_f=-4(-1)-27(1)=4-27=-23$, and $|\\Delta_f|=23$."
           },
           {
@@ -881,6 +886,7 @@ window.MVQuizBank = {
               "$K=\\mathbb{Q}(\\sqrt{3})$, $p=3$: here $3\\mid\\Delta_K=-12$ so $3$ ramifies"
             ],
             "answer": 1,
+            "hint": "Degree divisibility is separate from discriminant divisibility.",
             "explain": "For $K=\\mathbb{Q}(\\sqrt{5})$, $[K:\\mathbb{Q}]=2$ so $2\\mid[K:\\mathbb{Q}]$, but $\\Delta_K=5$ and $2\\nmid 5$, hence $2$ is unramified (in fact inert since $(5/2)=-1$). This refutes the claim that divisibility of the degree implies ramification."
           }
         ]
@@ -931,6 +937,7 @@ window.MVQuizBank = {
               "$e=2,\\ f=2,\\ g=1$; $\\sum ef=4\\neq 2$ ✗"
             ],
             "answer": 0,
+            "hint": "Ramified quadratic: one prime with $e=2,f=1,g=1$.",
             "explain": "Since $2$ ramifies, there is one prime above $2$ with $e=2$. The residue field $\\mathcal{O}_K/\\mathfrak{p}_2\\cong\\mathbb{F}_2$ has degree $f=1$ over $\\mathbb{F}_2$. Thus $g=1$ and $efg=2\\cdot 1\\cdot 1=2=[K:\\mathbb{Q}]$. ✓"
           },
           {
@@ -938,6 +945,7 @@ window.MVQuizBank = {
             "q": "In $K=\\mathbb{Q}(\\sqrt{-5})$, the prime $p=3$ satisfies $(3/5)=(-1/5)\\cdot$ ... in fact $-5\\equiv 1\\pmod 3$ and $(1/3)=1$, so $3$ splits as $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$. Each prime $\\mathfrak{p}_3$ has norm $N(\\mathfrak{p}_3)=3^f$. What is $f$?",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Split primes in quadratic fields have $e=f=1$.",
             "explain": "When $p$ splits ($g=2$, $e=1$, $f=1$), the fundamental equality gives $\\sum e_i f_i = 1\\cdot 1 + 1\\cdot 1 = 2 = n$. Each prime above $3$ has residue degree $f=1$, so $N(\\mathfrak{p}_3)=3^1=3$."
           },
           {
@@ -950,6 +958,7 @@ window.MVQuizBank = {
               "1 → 2 → 3 → 4"
             ],
             "answer": 0,
+            "hint": "Start with the quotient ring, then use irreducibility.",
             "explain": "First identify the quotient ring (step 2), then use the Legendre symbol to get irreducibility (step 3), then recognize the quotient as $\\mathbb{F}_{p^2}$ (step 4), and finally conclude $p\\mathcal{O}_K$ is prime (step 1)."
           }
         ]
@@ -995,6 +1004,7 @@ window.MVQuizBank = {
             "q": "Compute the Minkowski bound for $K=\\mathbb{Q}(\\sqrt{-23})$ using $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}$. Since $-23\\equiv 1\\pmod 4$, $|\\Delta_K|=23$, $n=2$, $r_2=1$. Give your answer to 3 decimal places.",
             "answer": 3.056,
             "tol": 0.002,
+            "hint": "Plug the given factors into $M_K$.",
             "explain": "$M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}=\\tfrac{2\\sqrt{23}}{\\pi}\\approx\\tfrac{2\\times 4.796}{3.1416}\\approx\\tfrac{9.592}{3.1416}\\approx 3.052$. Primes of norm $\\le 3$ must be checked; $\\mathfrak{p}_2$ and $\\mathfrak{p}_3$ generate the class group, giving $h_K=3$."
           },
           {
@@ -1007,6 +1017,7 @@ window.MVQuizBank = {
               "$K=\\mathbb{Q}(\\sqrt{-6})$, $M_K\\approx 3.12$"
             ],
             "answer": 1,
+            "hint": "Check which candidate has $M_K<2$ — no non-trivial prime to inspect.",
             "explain": "For $K=\\mathbb{Q}(i)$, $\\Delta_K=-4$, $n=2$, $r_2=1$: $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot 2=\\tfrac{4}{\\pi}\\approx 1.27<2$. Since there are no primes of norm $\\le 1$, every ideal class is trivial, confirming $h_K=1$ and $\\mathbb{Z}[i]$ is a PID."
           },
           {
@@ -1019,6 +1030,7 @@ window.MVQuizBank = {
               "only $p=5$; $M_K\\approx 5$"
             ],
             "answer": 1,
+            "hint": "Compute $M_K\\approx 1.7$ to see only $p=2$ matters.",
             "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1<M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
           }
         ]
@@ -1064,6 +1076,7 @@ window.MVQuizBank = {
               "Because $\\sqrt{-5}$ is a unit in $\\mathcal{O}_K$"
             ],
             "answer": 1,
+            "hint": "Ideals factor uniquely even when elements do not.",
             "explain": "Dedekind's key insight: ideals in $\\mathcal{O}_K$ factor uniquely into prime ideals even when elements don't. Here $(2)=\\mathfrak{p}_2^2$, $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$, $(1+\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3$, $(1-\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3'$, and both factorizations of $(6)$ give $\\mathfrak{p}_2^2\\mathfrak{p}_3\\mathfrak{p}_3'$."
           },
           {
@@ -1071,6 +1084,7 @@ window.MVQuizBank = {
             "q": "For the totally real cubic field $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-3\\alpha-1=0$, the signature is $(r_1,r_2)=(3,0)$. Compute the unit rank $r=r_1+r_2-1$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Apply $r_1+r_2-1$ with the given signature.",
             "explain": "With $(r_1,r_2)=(3,0)$, the Dirichlet unit rank is $3+0-1=2$. So $\\mathcal{O}_K^\\times\\cong\\{\\pm 1\\}\\times\\mathbb{Z}^2$, generated by two independent fundamental units."
           },
           {
@@ -1083,6 +1097,7 @@ window.MVQuizBank = {
               "$h_K=1$ and unit rank $1$ together imply $K$ is imaginary quadratic"
             ],
             "answer": 1,
+            "hint": "Class number and unit rank are independent.",
             "explain": "Class number and unit rank are independent invariants. $h_K=1$ (PID) and unit rank $r_1+r_2-1=2+0-1=1$ (one fundamental unit) both hold for $\\mathbb{Q}(\\sqrt{5})$. Real quadratic fields always have unit rank $1$, regardless of $h_K$."
           }
         ]
@@ -7206,6 +7221,7 @@ window.MVQuizBank = {
               "$\\sigma^5$"
             ],
             "answer": 2,
+            "hint": "Find the order of $2$ in $(\\mathbb{Z}/5)^\\times$.",
             "explain": "$\\sigma^k(\\zeta_5)=\\zeta_5^{2^k}$. We need $2^k\\equiv 1\\pmod{5}$: $2^1=2,2^2=4,2^3=3,2^4=16\\equiv 1$. So $\\sigma$ has order $4$ and $\\sigma^4=\\mathrm{id}$."
           },
           {
@@ -7213,6 +7229,7 @@ window.MVQuizBank = {
             "q": "How many intermediate fields $F$ satisfy $\\mathbb{Q}\\subsetneq F\\subsetneq\\mathbb{Q}(\\zeta_5)$? (Use the Galois correspondence with $\\operatorname{Gal}\\cong\\mathbb{Z}/4$.)",
             "answer": 1,
             "tol": 0.000001,
+            "hint": "Count proper nontrivial subgroups of $\\mathbb{Z}/4$.",
             "explain": "$\\mathbb{Z}/4$ has exactly one proper nontrivial subgroup, namely $\\{0,2\\}\\cong\\mathbb{Z}/2$, corresponding to the unique intermediate field $\\mathbb{Q}(\\sqrt{5})$."
           },
           {
@@ -7225,6 +7242,7 @@ window.MVQuizBank = {
               "$|\\operatorname{Aut}(\\mathbb{Q}(\\sqrt[4]{2})/\\mathbb{Q})|=8$"
             ],
             "answer": 1,
+            "hint": "Only real conjugates can live in this real field.",
             "explain": "An automorphism must permute the roots of $x^4-2$. The real roots are $\\pm\\sqrt[4]{2}$, and the complex roots $\\pm i\\sqrt[4]{2}$ do not lie in $\\mathbb{Q}(\\sqrt[4]{2})\\subset\\mathbb{R}$. So the only $\\mathbb{Q}$-automorphisms send $\\sqrt[4]{2}\\mapsto\\pm\\sqrt[4]{2}$, giving a group of order $2$. Since $2<4$, the extension is not Galois."
           }
         ]
@@ -7275,6 +7293,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}$"
             ],
             "answer": 1,
+            "hint": "The unique index-2 subgroup fixes the unique quadratic subfield.",
             "explain": "$A_3$ is the unique normal subgroup of $S_3$ of index $2$. By the Galois correspondence, its fixed field is the unique quadratic subfield. Since $\\omega=\\frac{-1+\\sqrt{-3}}{2}$, we have $\\mathbb{Q}(\\omega)=\\mathbb{Q}(\\sqrt{-3})$, which is the fixed field of $A_3$."
           },
           {
@@ -7282,6 +7301,7 @@ window.MVQuizBank = {
             "q": "Let $G=\\operatorname{Gal}(L/\\mathbb{Q})\\cong S_3$ for $L=\\mathbb{Q}(\\sqrt[3]{2},\\omega)$. How many subgroups does $S_3$ have in total (including trivial and whole group)?",
             "answer": 6,
             "tol": 0.000001,
+            "hint": "Count subgroups by order: 1, 2, 3, 6.",
             "explain": "$S_3$ has: $\\{e\\}$, three subgroups of order $2$ (each generated by a transposition), one subgroup of order $3$ (namely $A_3$), and $S_3$ itself — giving $1+3+1+1=6$ subgroups. By Galois correspondence these give $6$ intermediate fields including $\\mathbb{Q}$ and $L$."
           },
           {
@@ -7294,6 +7314,7 @@ window.MVQuizBank = {
               "$A_3\\subset S_3\\subset\\{e\\}$"
             ],
             "answer": 1,
+            "hint": "Field inclusions reverse on the group side.",
             "explain": "The correspondence reverses inclusion: $\\mathbb{Q}\\subset\\mathbb{Q}(\\omega)\\subset L$ corresponds to $S_3\\supset A_3\\supset\\{e\\}$. Since $A_3\\trianglelefteq S_3$, the intermediate field $\\mathbb{Q}(\\omega)$ is indeed normal over $\\mathbb{Q}$, with $\\operatorname{Gal}(\\mathbb{Q}(\\omega)/\\mathbb{Q})\\cong S_3/A_3\\cong\\mathbb{Z}/2$."
           }
         ]
@@ -7344,6 +7365,7 @@ window.MVQuizBank = {
               "$V_4\\cong(\\mathbb{Z}/2)^2$ is normal in $S_4$, so $S_4$ itself is abelian"
             ],
             "answer": 0,
+            "hint": "Check every successive quotient for abelianness.",
             "explain": "Solvability requires a subnormal series with abelian quotients: $S_4/A_4\\cong\\mathbb{Z}/2$, $A_4/V_4\\cong\\mathbb{Z}/3$, $V_4/\\{e\\}\\cong(\\mathbb{Z}/2)^2$ — all abelian. Hence every quartic is solvable by radicals."
           },
           {
@@ -7356,6 +7378,7 @@ window.MVQuizBank = {
               "$A_5$ is generated by $3$-cycles, hence simple"
             ],
             "answer": 0,
+            "hint": "Normal subgroups are unions of conjugacy classes whose sizes sum to a divisor.",
             "explain": "A normal subgroup is a union of conjugacy classes containing $e$. The conjugacy class sizes in $A_5$ are $\\{1,15,20,12,12\\}$. The only sub-sums including $1$ that divide $|A_5|=60$ are $1$ and $60$ themselves, so $A_5$ has no proper nontrivial normal subgroup — it is simple."
           },
           {
@@ -7363,6 +7386,7 @@ window.MVQuizBank = {
             "q": "The solvable radical length of $S_5$ is the minimum length of a subnormal series with abelian quotients reaching $\\{e\\}$. Since $S_5$ is not solvable, this length is undefined. Instead: what is the order of the commutator subgroup $[S_5,S_5]$?",
             "answer": 60,
             "tol": 0.000001,
+            "hint": "The commutator subgroup of $S_n$ is $A_n$ for $n\\ge 2$.",
             "explain": "For $n\\ge 5$, $[S_n,S_n]=A_n$. Thus $[S_5,S_5]=A_5$, which has order $60$. The fact that $A_5$ equals its own commutator subgroup ($A_5$ is perfect) is what destroys solvability."
           }
         ]
@@ -7413,6 +7437,7 @@ window.MVQuizBank = {
               "$[L:K]=p^2$"
             ],
             "answer": 1,
+            "hint": "Frobenius collapses $x^p-t$ into a perfect $p$-th power.",
             "explain": "In $L[x]$, $x^p-t=(x-t^{1/p})^p$ by the Frobenius identity in characteristic $p$. The minimal polynomial of $t^{1/p}$ over $K$ is $x^p-t$, which has a single root of multiplicity $p$. So $t^{1/p}$ is inseparable. $L$ is the splitting field of $x^p-t$ (only one root), so it is normal — but it is not Galois since separability fails."
           },
           {
@@ -7420,6 +7445,7 @@ window.MVQuizBank = {
             "q": "Let $L/\\mathbb{Q}$ be Galois with $\\operatorname{Gal}(L/\\mathbb{Q})\\cong S_3$. The unique normal subgroup $A_3\\cong\\mathbb{Z}/3$ has index $2$ in $S_3$. What is $[L^{A_3}:\\mathbb{Q}]$, the degree of the fixed field of $A_3$ over $\\mathbb{Q}$?",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Fixed-field degree equals the index of the subgroup.",
             "explain": "The Galois correspondence gives $[L^H:K]=[G:H]$ for $G=\\operatorname{Gal}(L/K)$. Here $[S_3:A_3]=2$, so $[L^{A_3}:\\mathbb{Q}]=2$. The fixed field is a quadratic extension of $\\mathbb{Q}$."
           },
           {
@@ -7432,6 +7458,7 @@ window.MVQuizBank = {
               "$\\mathbb{Q}(\\sqrt{2},\\sqrt{3})/\\mathbb{Q}$"
             ],
             "answer": 2,
+            "hint": "Characteristic-$p$ examples are where inseparability hides.",
             "explain": "$\\mathbb{F}_p(t^{1/p})/\\mathbb{F}_p(t)$ is the splitting field of $x^p-t$ (which factors as $(x-t^{1/p})^p$), hence normal. But $t^{1/p}$ has minimal polynomial $x^p-t$ with a repeated root, so the extension is inseparable. The other options are either not normal ($\\mathbb{Q}(\\sqrt[3]{2})$) or are Galois (hence separable)."
           }
         ]
@@ -7482,6 +7509,7 @@ window.MVQuizBank = {
               "The primitive element is always $\\alpha+\\beta$ regardless of $c$"
             ],
             "answer": 1,
+            "hint": "Collisions among conjugates force $c$ to lie in a finite set.",
             "explain": "A primitive element $\\theta=\\alpha+c\\beta$ fails when some other root $\\alpha_i$ of $m_\\alpha$ satisfies $\\alpha_i+c\\beta_j=\\theta$ for some conjugate $\\beta_j\\ne\\beta$. This forces $c=(\\alpha-\\alpha_i)/(\\beta_j-\\beta)$. There are finitely many pairs $(i,j)$ with $\\beta_j\\ne\\beta$, giving finitely many bad values of $c$. Since $\\mathbb{Q}$ is infinite, good values exist."
           },
           {
@@ -7489,6 +7517,7 @@ window.MVQuizBank = {
             "q": "Let $\\theta=\\sqrt{2}+\\sqrt{3}$. Using $m_\\theta(x)=x^4-10x^2+1$, verify: what is $m_\\theta(\\sqrt{2}+\\sqrt{3})$ evaluated at $x=\\theta$? (Enter the numeric value.)",
             "answer": 0,
             "tol": 0.000001,
+            "hint": "Minimal polynomials vanish on their defining element by definition.",
             "explain": "By definition $m_\\theta$ is the minimal polynomial of $\\theta$, so $m_\\theta(\\theta)=0$. Explicitly: $(\\theta^2)=5+2\\sqrt{6}$, $\\theta^4=49+20\\sqrt{6}$, so $\\theta^4-10\\theta^2+1=49+20\\sqrt{6}-50-20\\sqrt{6}+1=0$."
           },
           {
@@ -7501,6 +7530,7 @@ window.MVQuizBank = {
               "1. Use the Galois closure; 2. Apply the normal basis theorem; 3. Extract a primitive element"
             ],
             "answer": 2,
+            "hint": "Avoid bad $c$, then recover $\\alpha,\\beta$ from $\\theta$ via gcd.",
             "explain": "The proof: identify bad $c$ values (finitely many), choose a good $c$, set $\\theta=\\alpha+c\\beta$, recover $\\beta$ as a root of $\\gcd(m_\\alpha(\\theta-cx),m_\\beta(x))$ over $K(\\theta)$ (which must be linear since $c$ is good), then get $\\alpha=\\theta-c\\beta\\in K(\\theta)$. This shows $K(\\alpha,\\beta)\\subseteq K(\\theta)$, so $K(\\theta)=L$."
           }
         ]
@@ -12054,6 +12084,7 @@ window.MVQuizBank = {
             "q": "Compute $|2^{10} \\cdot 3^5 / 5^3|_2$. Express your answer as a fraction; enter the decimal value.",
             "answer": 0.0009765625,
             "tol": 1e-9,
+            "hint": "Read off the 2-adic valuation from the prime factorization.",
             "explain": "$v_2(2^{10}\\cdot 3^5/5^3)=10$, so $|2^{10}\\cdot 3^5/5^3|_2 = 2^{-10} = 1/1024 \\approx 0.000976563$."
           },
           {
@@ -12066,6 +12097,7 @@ window.MVQuizBank = {
               "There exist absolute values on $\\mathbb{Q}$ not equivalent to any $|\\cdot|_p$ or $|\\cdot|_\\infty$"
             ],
             "answer": 1,
+            "hint": "Ostrowski classifies all $|\\cdot|$ on $\\mathbb{Q}$ up to equivalence.",
             "explain": "Ostrowski's theorem: every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to $|\\cdot|_\\infty$ (Archimedean) or to $|\\cdot|_p$ for a unique prime $p$ (non-Archimedean). These exhaust all possibilities."
           },
           {
@@ -12078,6 +12110,7 @@ window.MVQuizBank = {
               "Both (a) and (c) are valid constructions yielding isomorphic completions"
             ],
             "answer": 3,
+            "hint": "Analytic Cauchy and inverse-limit routes both succeed.",
             "explain": "Step (a) is the standard analytic completion: define the norm, take Cauchy sequences, quotient by null sequences, check the result is a field. Step (c) is the profinite / inverse-limit construction, which yields $\\mathbb{Z}_p$; inverting $p$ then gives $\\mathbb{Q}_p$. Both routes produce canonically isomorphic objects."
           }
         ]
@@ -12128,6 +12161,7 @@ window.MVQuizBank = {
               "Both (a) and (c) together give the correct argument"
             ],
             "answer": 3,
+            "hint": "Nesting makes complements open; discrete radii trivialize boundary spheres.",
             "explain": "Both parts contribute. (a): the nesting/disjointness of ultrametric balls makes the complement a union of open balls, hence open — so $B(a,r)$ is closed. (c): the $p$-adic norm takes values in $\\{p^n:n\\in\\mathbb{Z}\\}\\cup\\{0\\}$, so for $r$ not a power of $p$ the 'sphere' $\\{|x-a|_p=r\\}$ is empty and the open and closed balls of that radius coincide trivially. Both observations together explain clopen-ness for all radii."
           },
           {
@@ -12140,6 +12174,7 @@ window.MVQuizBank = {
               "No counterexample exists; bounded iff Cauchy holds in $\\mathbb{Q}_p$ too"
             ],
             "answer": 0,
+            "hint": "$p$-adic size inverts intuition — $p^n$ is tiny.",
             "explain": "$a_n=p^n$ satisfies $|a_n|_p=p^{-n}\\to 0$, so it is $p$-adically small (hence Cauchy with limit $0$), even though $p^n\\to\\infty$ in the real sense. This illustrates how $p$-adic 'size' inverts the real intuition of large powers of $p$ being large numbers."
           },
           {
@@ -12147,6 +12182,7 @@ window.MVQuizBank = {
             "q": "In $\\mathbb{Z}_5$, the open ball $B(0,1)=\\{x\\in\\mathbb{Z}_5:|x|_5<1\\}$ equals $5\\mathbb{Z}_5$. As an additive group, $\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$. How many cosets does $5\\mathbb{Z}_5$ have in $\\mathbb{Z}_5$?",
             "answer": 5,
             "tol": 0.000001,
+            "hint": "The quotient is $\\mathbb{Z}/5$.",
             "explain": "$\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$ has order $5$, so there are exactly $5$ cosets. These correspond to the $5$ possible first digits $\\{0,1,2,3,4\\}$ of a $5$-adic integer."
           }
         ]
@@ -12192,6 +12228,7 @@ window.MVQuizBank = {
             "q": "Find the $5$-adic expansion digit $a_1$ of $-7$ in $\\mathbb{Z}_5$, i.e. the coefficient of $5^1$ in the expansion $-7 = a_0 + a_1\\cdot 5 + a_2\\cdot 5^2 + \\cdots$ with each $a_i\\in\\{0,1,2,3,4\\}$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Peel off $a_0$, divide by 5, read the new mod-5 residue.",
             "explain": "$-7\\bmod 5 = -7+10 = 3$, so $a_0=3$. Then $(-7-3)/5 = -10/5 = -2$. Now $-2\\bmod 5 = 3$, so $a_1=3$. Check: $3 + 3\\cdot 5 = 18$, and $-7\\equiv 18\\pmod{25}$ since $18+7=25$. Confirmed $a_1=3$."
           },
           {
@@ -12204,6 +12241,7 @@ window.MVQuizBank = {
               "Every rational has a purely periodic $p$-adic expansion"
             ],
             "answer": 0,
+            "hint": "Pure periodicity means non-negative valuation — check the denominator.",
             "explain": "The $p$-adic expansion of $r$ is purely periodic iff $r\\in\\mathbb{Z}_p$ (i.e. $|r|_p\\le 1$), which for $r\\in\\mathbb{Q}$ means $v_p(r)\\ge 0$, i.e. the denominator of $r$ (in lowest terms) is coprime to $p$. Negative $p$-adic valuation introduces a finite 'principal part' of negative-index terms, breaking pure periodicity."
           },
           {
@@ -12216,6 +12254,7 @@ window.MVQuizBank = {
               "The expansion of $-N$ is obtained by negating each digit of $N$"
             ],
             "answer": 1,
+            "hint": "Negative integers generate an infinite expansion, never terminating.",
             "explain": "For a negative integer $-N$, $(-N)\\bmod p\\in\\{1,\\ldots,p-1\\}$ (nonzero since $p\\nmid N$ generically), and $(-N-a_0)/p$ is again a negative integer; this repeats forever. The $p$-adic expansion of a negative integer is an infinite non-terminating sequence, unlike the finite expansion of a positive integer."
           }
         ]
@@ -12266,6 +12305,7 @@ window.MVQuizBank = {
               "Hensel's lemma never fails as long as $f\\in\\mathbb{Z}_p[x]$"
             ],
             "answer": 0,
+            "hint": "Look for a seed whose derivative vanishes mod $p$.",
             "explain": "For $f(x)=x^2-p$ the seed $x_0=0$ satisfies $f(0)=-p\\equiv 0\\pmod p$ but $f'(0)=0\\pmod p$. The Newton step would require dividing by $0$; and indeed $\\sqrt{p}\\notin\\mathbb{Z}_p$ (nor $\\mathbb{Q}_p$) since its $p$-adic valuation would be $1/2$, which is not an integer."
           },
           {
@@ -12273,6 +12313,7 @@ window.MVQuizBank = {
             "q": "Apply one Hensel step to $f(x)=x^2-2$ over $\\mathbb{Z}_{17}$ starting from $x_0=6$ (since $6^2=36=2+2\\cdot 17\\equiv 2\\pmod{17}$). Compute $x_1\\bmod{17^2}=x_0 - f(x_0)/f'(x_0)\\bmod{289}$.",
             "answer": 110,
             "tol": 0.000001,
+            "hint": "Compute the Hensel digit $a_1=-(f(x_0)/p)\\cdot f'(x_0)^{-1}\\bmod p$.",
             "explain": "Starting from $x_0=6$ with $6^2\\equiv 2\\pmod{17}$: $f(6)=34=2\\cdot 17$. Digit $a_1 = -(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot(12^{-1}\\bmod 17)\\bmod 17$. Since $12\\cdot 10=120\\equiv 1\\pmod{17}$, $a_1=-2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=244$. Verify: $244^2=59536$ and $59536-2=59534=206\\cdot 289$, confirming $244^2\\equiv 2\\pmod{289}$."
           },
           {
@@ -12285,6 +12326,7 @@ window.MVQuizBank = {
               "No odd prime $p$, since $-1<0$ in $\\mathbb{R}$"
             ],
             "answer": 1,
+            "hint": "Use Euler's criterion to test when $-1$ is a QR.",
             "explain": "By Euler's criterion, $(-1)^{(p-1)/2}\\equiv 1\\pmod p$ iff $(p-1)/2$ is even, i.e. $4\\mid p-1$, i.e. $p\\equiv 1\\pmod 4$. For such primes Hensel's lemma lifts a mod-$p$ square root of $-1$ to a genuine element of $\\mathbb{Z}_p$. For $p\\equiv 3\\pmod 4$, $-1$ is a QNR and no lift exists."
           }
         ]
@@ -12340,6 +12382,7 @@ window.MVQuizBank = {
               "$x^3-2=0$: has a real root but no $p$-adic root for any prime $p$"
             ],
             "answer": 0,
+            "hint": "Selmer's cubic is the textbook Hasse failure.",
             "explain": "Selmer's cubic $3x^3+4y^3+5z^3=0$ is the classical counterexample: it is solvable nontrivially in $\\mathbb{R}$ and in every $\\mathbb{Q}_p$, yet has no nontrivial solution in $\\mathbb{Q}$. This demonstrates that the Hasse principle can fail for degree-$3$ forms, unlike degree-$2$ forms covered by Hasse-Minkowski."
           },
           {
@@ -12352,6 +12395,7 @@ window.MVQuizBank = {
               "At no prime; the form is everywhere locally solvable but fails globally due to the Brauer group"
             ],
             "answer": 2,
+            "hint": "Positive-definite over $\\mathbb{R}$ is the whole obstruction.",
             "explain": "The form $x^2+y^2+z^2$ is positive-definite over $\\mathbb{R}$, so $x^2+y^2+z^2=0$ has only the trivial real solution. This real (Archimedean) obstruction is exactly the obstruction predicted by Hasse-Minkowski, which requires isotropy at ALL places including $\\mathbb{R}$."
           },
           {
@@ -12364,6 +12408,7 @@ window.MVQuizBank = {
               "$V(\\mathbb{A}_\\mathbb{Q})=V(\\mathbb{Q})$ as sets, since adèles contain $\\mathbb{Q}$ diagonally"
             ],
             "answer": 0,
+            "hint": "Adèlic points package every completion simultaneously.",
             "explain": "The adèlic Hasse principle: $V$ satisfies the Hasse principle if $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset\\Rightarrow V(\\mathbb{Q})\\ne\\emptyset$. Having adèlic points means having points over every completion $\\mathbb{Q}_v$ (all $\\mathbb{Q}_p$ and $\\mathbb{R}$). Failure of the Hasse principle means $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset$ yet $V(\\mathbb{Q})=\\emptyset$; the Brauer-Manin obstruction is one systematic source of such failures."
           }
         ]
@@ -13215,6 +13260,7 @@ window.MVQuizBank = {
               "It equals $B_{m+1}$"
             ],
             "answer": 1,
+            "hint": "An empty sum equals zero — evaluate directly.",
             "explain": "$S_m(0)$ is an empty sum, hence $0$. In the formula, the $n^0$ term is $\\tfrac{1}{m+1}\\binom{m+1}{m+1}B_{m+1}\\cdot 1 = \\tfrac{B_{m+1}}{m+1}$, but the polynomial must satisfy $S_m(0)=0$, which forces the constant term to cancel — consistent with the convention $B_1=-1/2$ absorbing the asymmetry."
           },
           {
@@ -13222,6 +13268,7 @@ window.MVQuizBank = {
             "q": "Using the Faulhaber polynomial for $m=4$: $S_4(n)=\\tfrac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$, compute $\\sum_{k=1}^{5}k^4$.",
             "answer": 979,
             "tol": 0.000001,
+            "hint": "Substitute $n=5$ into the given closed form.",
             "explain": "$S_4(5)=\\tfrac{5\\cdot 6\\cdot 11\\cdot(75+15-1)}{30}=\\tfrac{5\\cdot 6\\cdot 11\\cdot 89}{30}=\\tfrac{29370}{30}=979$."
           },
           {
@@ -13234,6 +13281,7 @@ window.MVQuizBank = {
               "Apply Abel summation → integrate by parts $m$ times → read off Bernoulli coefficients"
             ],
             "answer": 0,
+            "hint": "Multiply the geometric series by Bernoulli's generating function.",
             "explain": "The slick derivation: $\\sum_{k=1}^{n}k^m = [t^{m+1}\\text{ coeff in }]\\,\\tfrac{m!\\,e^{(n+1)t}\\cdot t}{e^t-1}$ comes from noting $\\sum_{k=1}^n e^{kt}=\\tfrac{e^t(e^{nt}-1)}{e^t-1}$, multiplying by $\\tfrac{t}{e^t-1}$ (the Bernoulli g.f.), extracting the coefficient of $t^{m+1}$, and dividing by $(m+1)$."
           }
         ]
@@ -13279,6 +13327,7 @@ window.MVQuizBank = {
               "$-1/30$"
             ],
             "answer": 0,
+            "hint": "Apply the binomial recurrence at $n=6$ and solve.",
             "explain": "Applying the recurrence at $n=6$: $7B_6 + 21B_4 + 35B_2 + 21B_0=0$ gives $7B_6 = 21/30 - 35/6 - 21 = 7/10 - 35/6 - 21$. Careful arithmetic yields $B_6=1/42$."
           },
           {
@@ -13286,6 +13335,7 @@ window.MVQuizBank = {
             "q": "The von Staudt–Clausen theorem states $B_{2n}+\\sum_{(p-1)\\mid 2n}\\tfrac{1}{p}\\in\\mathbb{Z}$. For $n=1$ ($B_2=1/6$), which primes $p$ satisfy $(p-1)\\mid 2$, and what integer does $B_2+\\sum 1/p$ equal?",
             "answer": 1,
             "tol": 1e-9,
+            "hint": "Find primes with $p-1\\in\\{1,2\\}$, then add the fractions.",
             "explain": "$(p-1)\\mid 2$ iff $p-1\\in\\{1,2\\}$ iff $p\\in\\{2,3\\}$. So $B_2+1/2+1/3=1/6+1/2+1/3=1/6+3/6+2/6=1$."
           },
           {
@@ -13298,6 +13348,7 @@ window.MVQuizBank = {
               "$B_0=1>0$ is a counterexample because $B_1=-1/2<0$"
             ],
             "answer": 1,
+            "hint": "Even-index Bernoulli numbers alternate in sign.",
             "explain": "$B_4=-1/30$ is the first even Bernoulli number that is negative, disproving uniform positivity. The even-index $B_{2k}$ for $k\\ge 1$ alternate in sign: $+,-,+,-,\\ldots$ (i.e. $B_2>0$, $B_4<0$, $B_6>0$, etc.)."
           }
         ]
@@ -13338,6 +13389,7 @@ window.MVQuizBank = {
             "q": "Using $\\zeta(2n)=(-1)^{n+1}\\tfrac{B_{2n}(2\\pi)^{2n}}{2(2n)!}$ with $B_6=1/42$, compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
             "answer": 1.0173,
             "tol": 0.0005,
+            "hint": "Compute $\\pi^6/945$ numerically.",
             "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. Verify via the formula: $(-1)^4\\tfrac{(1/42)(2\\pi)^6}{2\\cdot 720}=\\tfrac{64\\pi^6/42}{1440}=\\tfrac{64\\pi^6}{60480}=\\tfrac{\\pi^6}{945}$."
           },
           {
@@ -13350,6 +13402,7 @@ window.MVQuizBank = {
               "$\\zeta(1)=\\pi/4$ by Leibniz's formula"
             ],
             "answer": 2,
+            "hint": "The harmonic series famously diverges.",
             "explain": "$s=1$ is the boundary of the half-plane of convergence and corresponds to the harmonic series $\\sum_{n=1}^\\infty 1/n$, which diverges. $\\zeta(s)$ has a simple pole at $s=1$ with residue $1$."
           },
           {
@@ -13362,6 +13415,7 @@ window.MVQuizBank = {
               "Integrate $\\ln(2\\sin\\theta)$ from $0$ to $\\pi$ and apply contour integration"
             ],
             "answer": 0,
+            "hint": "Match $x^2$ coefficients in the Weierstrass factorization of $\\sin$.",
             "explain": "The Weierstrass product route: $\\sin(\\pi x)=\\pi x\\prod_{n=1}^\\infty(1-x^2/n^2)$. The coefficient of $x^2$ in $\\sin(\\pi x)/\\pi x$ is $-\\pi^2/6$ (from Taylor), while expanding the product gives $-\\sum 1/n^2$. Equating yields $\\zeta(2)=\\pi^2/6$."
           }
         ]
@@ -13407,6 +13461,7 @@ window.MVQuizBank = {
               "The series terminates after finitely many non-zero terms for polynomial $f$"
             ],
             "answer": 1,
+            "hint": "Bernoulli numbers grow factorially; truncate for asymptotic accuracy.",
             "explain": "The Euler-Maclaurin series is typically divergent (asymptotic): the Bernoulli numbers grow like $(2n)!/(2\\pi)^{2n}$, so terms eventually blow up. However, truncating at the smallest term gives exponentially accurate estimates. For polynomial $f$, all high-order derivatives vanish and the series does terminate — making choice 3 partially true only for that special case."
           },
           {
@@ -13414,6 +13469,7 @@ window.MVQuizBank = {
             "q": "Using two Euler-Maclaurin correction terms for $\\sum_{k=1}^{\\infty}k^{-2}$: the integral from $1$ to $\\infty$ gives $1$, the endpoint $\\tfrac12 f(1)=\\tfrac12$, and the first correction $\\tfrac{B_2}{2!}f'(1)=\\tfrac{1/6}{2}\\cdot(-2)$. What does this two-term approximation give for $\\zeta(2)$?",
             "answer": 1.3333333333333333,
             "tol": 0.0001,
+            "hint": "Add integral, endpoint, and Bernoulli correction exactly as given.",
             "explain": "$1 + 1/2 + (1/12)\\cdot(-2) = 1 + 0.5 - 1/6 = 3/2 - 1/6 = 4/3\\approx 1.3333$. This overshoots $\\pi^2/6\\approx 1.6449$ because the tail $\\sum_{k=2}^\\infty k^{-2}$ is omitted; the formula applies to the tail starting at $N$ and one adds back the first $N-1$ terms."
           },
           {
@@ -13426,6 +13482,7 @@ window.MVQuizBank = {
               "Use the residue theorem on $\\tfrac{f(z)}{e^{2\\pi iz}-1}$ → sum residues at integers → compare with the integral"
             ],
             "answer": 0,
+            "hint": "Invert $(e^D-1)/D$ using Bernoulli's generating function.",
             "explain": "The operator approach: write $\\sum_{k=0}^{n-1}f(k)=\\tfrac{e^D-1}{D}\\int$ symbolically, invert to get the integral on the right, then expand $\\tfrac{D}{e^D-1}=\\sum B_k D^k/k!$ (the Bernoulli generating function) applied to $f$, converting each $D^k f$ to boundary evaluations via the fundamental theorem of calculus."
           }
         ]
@@ -13471,6 +13528,7 @@ window.MVQuizBank = {
               "Both A and B describe the same cancellation and are both correct"
             ],
             "answer": 3,
+            "hint": "All transcendental factors cancel, leaving Bernoulli arithmetic.",
             "explain": "Both A and B capture the same arithmetic: $(2\\pi)^{-2k}$ in the functional equation cancels $(2\\pi)^{2k}$ from $\\zeta(2k)=(-1)^{k+1}B_{2k}(2\\pi)^{2k}/(2(2k)!)$; $\\Gamma(2k)=(2k-1)!$; $\\cos(k\\pi)=(-1)^k$. All transcendental factors cancel and only $B_{2k}/(2k)!$ times rationals remains, giving $\\zeta(1-2k)=-B_{2k}/(2k)\\in\\mathbb{Q}$."
           },
           {
@@ -13478,6 +13536,7 @@ window.MVQuizBank = {
             "q": "Using $\\zeta(-3)=-B_4/4$ and $B_4=-1/30$, compute $\\zeta(-3)$ as a fraction. Enter the decimal value.",
             "answer": 0.008333333333333333,
             "tol": 0.000001,
+            "hint": "Plug $B_4=-1/30$ into $\\zeta(-3)=-B_4/4$.",
             "explain": "$\\zeta(-3)=-(-1/30)/4=1/120\\approx 0.008333$. This matches $\\zeta(1-s)$ at $s=4$: the formula gives $\\zeta(-3)=B_4/(-4)$ — careful with the sign convention $\\zeta(-n)=-B_{n+1}/(n+1)$, so $\\zeta(-3)=-B_4/4=-(-1/30)/4=1/120$."
           },
           {
@@ -13490,6 +13549,7 @@ window.MVQuizBank = {
               "The non-trivial zeros are all simple"
             ],
             "answer": 1,
+            "hint": "The reflection $s\\leftrightarrow 1-s$ pairs zeros symmetrically.",
             "explain": "The functional equation $\\xi(s)=\\xi(1-s)$ directly implies zeros come in pairs $\\{\\rho, 1-\\rho\\}$ (and also $\\{\\bar\\rho, 1-\\bar\\rho\\}$ by the reflection principle). The Riemann Hypothesis — that all non-trivial zeros satisfy $\\operatorname{Re}(\\rho)=1/2$ — is a much deeper conjecture not derivable from the functional equation alone."
           }
         ]
@@ -13897,6 +13957,7 @@ window.MVQuizBank = {
               "Any two forms of the same negative discriminant are equivalent over $\\mathbb{Q}$, so no counterexample exists"
             ],
             "answer": 0,
+            "hint": "Same discriminant can hide multiple classes; check represented values.",
             "explain": "$x^2+5y^2$ and $2x^2+2xy+3y^2$ both have $D=-20$ and are primitive, yet they belong to different classes: $x^2+5y^2$ represents $5$ (set $x=0,y=1$) but $2x^2+2xy+3y^2$ does not represent $5$, witnessing non-equivalence."
           },
           {
@@ -13904,6 +13965,7 @@ window.MVQuizBank = {
             "q": "The form $3x^2+2xy+5y^2$ has discriminant $D$. What is $D$?",
             "answer": -56,
             "tol": 0.001,
+            "hint": "Use $D=b^2-4ac$ with $a=3,b=2,c=5$.",
             "explain": "$D = b^2 - 4ac = 4 - 4(3)(5) = 4 - 60 = -56$."
           },
           {
@@ -13915,6 +13977,7 @@ window.MVQuizBank = {
               "$a > 0$ $\\Rightarrow$ $D < 0$ $\\Rightarrow$ $f$ is primitive"
             ],
             "answer": 0,
+            "hint": "Primitivity unlocks representation in coprime residue classes.",
             "explain": "A primitive form has $\\gcd(a,b,c)=1$, and by a lemma of Gauss any primitive form represents integers in every residue class coprime to any fixed $N$. The other chains break: positive-definite does not imply primitive (e.g. $2x^2+2y^2$), and $a>0, D<0$ alone says nothing about $\\gcd$."
           }
         ]
@@ -13962,6 +14025,7 @@ window.MVQuizBank = {
               "Subtract multiples of $b$ from $a$ until $a < c$, with no further steps needed"
             ],
             "answer": 0,
+            "hint": "Alternate between reducing $b$ mod $2a$ and swapping when $a>c$.",
             "explain": "The reduction loop: (1) replace $b$ by the representative of $b$ in $(-a,a]$ via the substitution $y\\mapsto y - \\lfloor(b+a)/(2a)\\rfloor x$; (2) if $a>c$ swap via $x\\mapsto -y, y\\mapsto x$ and flip sign of $b$; iterate to fixed point; finally enforce $b\\ge 0$ when $|b|=a$ or $a=c$."
           },
           {
@@ -13969,6 +14033,7 @@ window.MVQuizBank = {
             "q": "How many reduced primitive positive-definite forms of discriminant $D=-23$ are there? (Enter $h(-23)$.)",
             "answer": 3,
             "tol": 0.001,
+            "hint": "Enumerate reduced forms with $|b|\\le a\\le c$ and $b^2-4ac=-23$.",
             "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
           },
           {
@@ -13980,6 +14045,7 @@ window.MVQuizBank = {
               "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
             ],
             "answer": 1,
+            "hint": "Check whether $|b|\\le a$ holds in each option.",
             "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
           }
         ]
@@ -14027,6 +14093,7 @@ window.MVQuizBank = {
               "$[x^2+xy+6y^2]$, the principal class"
             ],
             "answer": 0,
+            "hint": "Negate $b$ to get the inverse class.",
             "explain": "The inverse of a form class $[ax^2+bxy+cy^2]$ is $[ax^2-bxy+cy^2]$ (negate $b$, i.e. the transpose/opposite form). For $f=2x^2+xy+3y^2$, the inverse class is $[2x^2-xy+3y^2]$. In a group of order 3 the inverse of a non-identity element $g$ is $g^2$, consistent with this: $[f]^2=[2x^2-xy+3y^2]$."
           },
           {
@@ -14038,6 +14105,7 @@ window.MVQuizBank = {
               "One must check that the composed form is always reduced in the sense of Gauss"
             ],
             "answer": 0,
+            "hint": "Well-defined operations must respect the equivalence relation.",
             "explain": "Well-definedness of a group operation on equivalence classes requires that the operation is compatible with the equivalence relation: replacing either input by an equivalent form must yield an equivalent output. The other properties are not required for well-definedness."
           },
           {
@@ -14045,6 +14113,7 @@ window.MVQuizBank = {
             "q": "For discriminant $D=-20$, the class group $\\mathrm{Cl}(-20)$ is isomorphic to $\\mathbb{Z}/2\\mathbb{Z}$. What is $h(-20)$?",
             "answer": 2,
             "tol": 0.001,
+            "hint": "Read off the order of $\\mathbb{Z}/2$.",
             "explain": "$|\\mathbb{Z}/2\\mathbb{Z}|=2$, so $h(-20)=2$. The two reduced forms are $x^2+5y^2$ (principal) and $2x^2+2xy+3y^2$."
           }
         ]
@@ -14092,6 +14161,7 @@ window.MVQuizBank = {
             "q": "The discriminant $D=-20$ has prime discriminant divisors $\\{-4, 5\\}$ so $t=2$. How many genera does $\\mathrm{Cl}(-20)$ have?",
             "answer": 2,
             "tol": 0.001,
+            "hint": "Apply $2^{t-1}$ with $t=2$.",
             "explain": "Number of genera $= 2^{t-1} = 2^{2-1} = 2$. Since $h(-20)=2$ and there are 2 genera, each genus contains exactly 1 class."
           },
           {
@@ -14103,6 +14173,7 @@ window.MVQuizBank = {
               "$f$ represents $6$ (take $x=1,y=1$); $\\left(\\frac{6}{5}\\right)=\\left(\\frac{1}{5}\\right)=+1$; both give $+1$ consistently"
             ],
             "answer": 0,
+            "hint": "Pick a represented value coprime to $D$ before plugging into Legendre.",
             "explain": "To evaluate $\\chi_5$ we need an $m$ represented by $f$ with $\\gcd(m,D)=\\gcd(m,-20)=1$. Taking $x=1,y=0$ gives $m=1$, which has $\\gcd(1,20)=1$; then $\\left(\\frac{1}{5}\\right)=1$. The second option uses $m=5$ which has $\\gcd(5,20)=5\\ne1$ and is inadmissible."
           },
           {
@@ -14114,6 +14185,7 @@ window.MVQuizBank = {
               "All genera are equal to the principal genus whenever $h(D)$ is odd"
             ],
             "answer": 0,
+            "hint": "Genera are cosets of $\\mathrm{Cl}(D)^2$; the index is $2^{t-1}$.",
             "explain": "Since the genera are cosets of the subgroup $\\mathrm{Cl}(D)^2$ of squares, the number of genera equals $[\\mathrm{Cl}(D):\\mathrm{Cl}(D)^2]=2^{t-1}$, which must divide $h(D)$. When $h(D)$ is odd, $\\mathrm{Cl}(D)^2=\\mathrm{Cl}(D)$ (every element is a square), so there is only 1 genus — but that requires $2^{t-1}=1$, i.e. $t=1$, not a general collapse."
           }
         ]
@@ -14165,6 +14237,7 @@ window.MVQuizBank = {
               "$N(\\mathfrak{a}) = 23$, the absolute value of the discriminant"
             ],
             "answer": 0,
+            "hint": "The leading coefficient of the form is exactly the ideal norm.",
             "explain": "The norm of the ideal $[a, \\frac{-b+\\sqrt{D}}{2}]$ corresponding to $ax^2+bxy+cy^2$ equals $a$, the leading coefficient. This is because $[\\mathcal{O}_K:\\mathfrak{a}]=a$."
           },
           {
@@ -14176,6 +14249,7 @@ window.MVQuizBank = {
               "$3$ is represented by the principal form $\\Leftrightarrow$ $\\left(\\frac{-23}{3}\\right)=+1$, which alone suffices"
             ],
             "answer": 0,
+            "hint": "Principal representation corresponds to splitting in the Hilbert class field.",
             "explain": "The full chain: $p$ represented by principal form $\\Leftrightarrow$ prime ideal above $p$ is principal $\\Leftrightarrow$ $p$ splits completely in the Hilbert class field $H/\\mathbb{Q}(\\sqrt{-23})$. The Legendre symbol condition $\\left(\\frac{D}{p}\\right)=+1$ only tells us $p$ splits in $\\mathbb{Q}(\\sqrt{-23})$, not that the split ideal is principal — that requires the Hilbert class field condition."
           },
           {
@@ -14187,6 +14261,7 @@ window.MVQuizBank = {
               "Proving that $K = \\mathbb{Q}(\\sqrt{D})$ has class number 1"
             ],
             "answer": 0,
+            "hint": "Check Dirichlet composition matches ideal multiplication explicitly.",
             "explain": "The key step is confirming that Dirichlet composition of forms corresponds precisely to ideal multiplication: if $f\\to\\mathfrak{a}$ and $g\\to\\mathfrak{b}$, then $f\\circ g\\to\\mathfrak{a}\\mathfrak{b}$. This requires tracing the explicit construction (finding $B$ with $B^2\\equiv D\\pmod{4a_1a_2}$ and writing the composed form). If $h(D)=1$ all ideals are principal, which would trivialize the class group, not help prove the homomorphism property."
           }
         ]
@@ -14235,6 +14310,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left(\\frac{3}{13}\\right)$ using Euler's criterion: evaluate $3^{(13-1)/2}\\bmod 13$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Raise to the $(p-1)/2$ power and reduce mod $p$.",
             "explain": "$3^6 = 729 = 56\\cdot 13 + 1$, so $3^6\\equiv 1\\pmod{13}$, giving $\\left(\\frac{3}{13}\\right)=1$. Indeed $4^2=16\\equiv 3\\pmod{13}$."
           },
           {
@@ -14247,6 +14323,7 @@ window.MVQuizBank = {
               "Take $a=2, b=8, p=7$: $(16/7)=1=(2/7)(8/7)=(1)(1)=1$, confirming multiplicativity holds regardless of $\\gcd(a,b)$"
             ],
             "answer": 3,
+            "hint": "Multiplicativity depends only on coprimality to $p$, not between $a,b$.",
             "explain": "$(2/7)=1$ since $3^2=9\\equiv 2\\pmod 7$, and $(8/7)=(1/7)=1$ since $8\\equiv 1$. So $(16/7)=(2/7)(8/7)=1$. Multiplicativity of the Legendre symbol holds for all integers $a,b$ coprime to $p$, regardless of $\\gcd(a,b)$."
           },
           {
@@ -14254,6 +14331,7 @@ window.MVQuizBank = {
             "q": "Among $\\{1,2,3,4,5,6\\}$, how many quadratic residues mod 7 are there?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "Squares mod an odd prime $p$ count $(p-1)/2$.",
             "explain": "$1^2\\equiv 1$, $2^2\\equiv 4$, $3^2\\equiv 2\\pmod 7$; the remaining classes 3, 5, 6 are non-residues. So exactly 3 quadratic residues."
           }
         ]
@@ -14302,6 +14380,7 @@ window.MVQuizBank = {
               "The formula follows from Wilson's theorem alone without using Euler's criterion"
             ],
             "answer": 1,
+            "hint": "Congruence of $\\pm 1$ values modulo $p>2$ becomes equality in $\\mathbb{Z}$.",
             "explain": "Euler's criterion states $a^{(p-1)/2}\\equiv\\left(\\frac{a}{p}\\right)\\pmod p$ for $p\\nmid a$. Both $(-1)^{(p-1)/2}$ and $(\\frac{-1}{p})$ lie in $\\{1,-1\\}\\subset\\mathbb{Z}$, and $p>2$ means $1\\not\\equiv -1\\pmod p$, so the congruence forces equality in $\\mathbb{Z}$."
           },
           {
@@ -14309,6 +14388,7 @@ window.MVQuizBank = {
             "q": "For which odd prime $p<20$ does $\\left(\\frac{-1}{p}\\right)=-1$ AND $\\left(\\frac{2}{p}\\right)=-1$ simultaneously hold? Give the smallest such prime.",
             "answer": 3,
             "tol": 0.001,
+            "hint": "Intersect the mod-4 and mod-8 conditions.",
             "explain": "$(-1/p)=-1$ requires $p\\equiv 3\\pmod 4$; $(2/p)=-1$ requires $p\\equiv 3$ or $5\\pmod 8$. Intersection: $p\\equiv 3\\pmod 8$. Smallest such prime below 20 is $p=3$."
           },
           {
@@ -14321,6 +14401,7 @@ window.MVQuizBank = {
               "$\\left(\\frac{-2}{p}\\right)$ cannot be determined from the supplementary laws alone"
             ],
             "answer": 0,
+            "hint": "Split as $(-1/p)(2/p)$ using both supplementary laws.",
             "explain": "$p\\equiv 7\\pmod 8$ implies $p\\equiv 3\\pmod 4$, so $(-1/p)=(-1)^{(p-1)/2}=-1$. Also $p\\equiv 7\\pmod 8$ gives $(2/p)=1$. By multiplicativity, $(-2/p)=(-1/p)(2/p)=(-1)(1)=-1$."
           }
         ]
@@ -14360,6 +14441,7 @@ window.MVQuizBank = {
             "q": "Apply Gauss's lemma to compute $\\left(\\frac{3}{11}\\right)$. List the least positive residues of $3,6,9,12,15$ mod 11 and count how many exceed $11/2=5.5$.",
             "answer": 1,
             "tol": 0.001,
+            "hint": "Count reduced multiples of 3 above 5.5, then take $(-1)^n$.",
             "explain": "Reduced residues mod 11: $3\\cdot 1=3$, $3\\cdot 2=6$, $3\\cdot 3=9$, $3\\cdot 4\\equiv 1$, $3\\cdot 5\\equiv 4$. Those exceeding 5.5 are $6$ and $9$, so $n=2$. Then $(3/11)=(-1)^2=1$."
           },
           {
@@ -14372,6 +14454,7 @@ window.MVQuizBank = {
               "Apply Euler's criterion first to get the symbol, then verify $n$ by direct computation"
             ],
             "answer": 0,
+            "hint": "Multiply, reduce, flip signs above $p/2$, cancel the factorial.",
             "explain": "The standard proof multiplies $a, 2a,\\ldots,\\frac{p-1}{2}a$, reduces each mod $p$ to $\\{1,\\ldots,p-1\\}$, flips those above $p/2$ to get the full set $\\{1,\\ldots,\\frac{p-1}{2}\\}$ up to signs, then cancels $((p-1)/2)!$ from both sides leaving $a^{(p-1)/2}\\equiv(-1)^n$, which equals $(a/p)$ by Euler's criterion."
           },
           {
@@ -14379,6 +14462,7 @@ window.MVQuizBank = {
             "q": "For $p=13, a=5$, apply Gauss's lemma. The multiples $5,10,15,20,25,30$ reduce mod 13 to $5,10,2,7,12,4$. How many of these exceed $13/2=6.5$?",
             "answer": 3,
             "tol": 0.001,
+            "hint": "Count reduced residues above the midpoint.",
             "explain": "Reduced residues: $5,10,2,7,12,4$. Those exceeding 6.5 are $10,7,12$ — exactly 3. So $(5/13)=(-1)^3=-1$."
           }
         ]
@@ -14427,6 +14511,7 @@ window.MVQuizBank = {
               "$\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)=-\\left(\\frac{12}{11}\\right)$, and since $12\\equiv 1\\pmod{11}$, the answer is $-1$"
             ],
             "answer": 3,
+            "hint": "Flip with sign, reduce top mod bottom, recognise $1$.",
             "explain": "Both primes are $\\equiv 3\\pmod 4$, so $\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)$. Then $23\\equiv 1\\pmod{11}$, giving $\\left(\\frac{23}{11}\\right)=\\left(\\frac{1}{11}\\right)=1$. Hence $\\left(\\frac{11}{23}\\right)=-1$."
           },
           {
@@ -14434,6 +14519,7 @@ window.MVQuizBank = {
             "q": "Compute $\\left(\\frac{7}{11}\\right)$ using reciprocity. Since $7\\equiv 3\\pmod 4$ and $11\\equiv 3\\pmod 4$, we get $\\left(\\frac{7}{11}\\right)=-\\left(\\frac{11}{7}\\right)=-\\left(\\frac{4}{7}\\right)$. What is the final value?",
             "answer": -1,
             "tol": 0.001,
+            "hint": "Reduce 11 mod 7, recognise 4 as a square.",
             "explain": "$11\\equiv 4\\pmod 7$, so $\\left(\\frac{11}{7}\\right)=\\left(\\frac{4}{7}\\right)=1$ (since $4=2^2$). Therefore $\\left(\\frac{7}{11}\\right)=-1$."
           },
           {
@@ -14446,6 +14532,7 @@ window.MVQuizBank = {
               "Embed $\\mathbb{F}_p$ in $\\mathbb{F}_{pq}$ and use Frobenius automorphisms to relate the two symbols"
             ],
             "answer": 0,
+            "hint": "Gauss sum squared equals $p^*$; compare two ways mod $q$.",
             "explain": "The Gauss-sum proof: the Gauss sum $g$ satisfies $g^2=p^*=(-1)^{(p-1)/2}p$. Raising to the $(q-1)$-th power in $\\mathbb{Z}[\\zeta_p]$ and reducing mod $q$ in two ways yields $(p/q)=(q/p)\\cdot(-1)^{(p-1)(q-1)/4}$, i.e., the reciprocity law."
           }
         ]
@@ -14494,6 +14581,7 @@ window.MVQuizBank = {
               "$a=1, n=9$: $(1/9)=1$ but $1$ is trivially a square, so this is not a counterexample"
             ],
             "answer": 0,
+            "hint": "Two factors of $-1$ multiply to $+1$ even when neither factor is a square.",
             "explain": "$(2/15)=(2/3)(2/5)=(-1)(-1)=1$, but $x^2\\equiv 2\\pmod{15}$ requires $x^2\\equiv 2\\pmod 3$ (impossible, since $2$ is a non-residue mod $3$) and $x^2\\equiv 2\\pmod 5$ (impossible). So $2$ is a non-square mod $15$ despite having Jacobi symbol $1$."
           },
           {
@@ -14501,6 +14589,7 @@ window.MVQuizBank = {
             "q": "Evaluate $\\left(\\frac{30}{53}\\right)$ using multiplicativity: split as $\\left(\\frac{2}{53}\\right)\\left(\\frac{3}{53}\\right)\\left(\\frac{5}{53}\\right)$. Note $53\\equiv 5\\pmod 8$, $53\\equiv 2\\pmod 3$, $53\\equiv 3\\pmod 5$.",
             "answer": -1,
             "tol": 0.001,
+            "hint": "Factor 30 and evaluate three symbols, using reciprocity per prime.",
             "explain": "$(2/53)=-1$ since $53\\equiv 5\\pmod 8$. $(3/53)$: both $3\\equiv 3$ and $53\\equiv 1\\pmod 4$, so $(3/53)=(53/3)=(2/3)=-1$. $(5/53)$: $5\\equiv 1\\pmod 4$, so $(5/53)=(53/5)=(3/5)$; since $3\\equiv 3\\pmod 4$ and $5\\equiv 1\\pmod 4$, $(3/5)=(5/3)=(2/3)=-1$. Product: $(-1)(-1)(-1)=-1$."
           },
           {
@@ -14513,6 +14602,7 @@ window.MVQuizBank = {
               "$\\gcd(m,n)=1$ is required for the Legendre symbol but not the Jacobi symbol"
             ],
             "answer": 1,
+            "hint": "The Jacobi extension drops primality in exchange for coprimality.",
             "explain": "The Jacobi reciprocity law holds for any two odd coprime positive integers — neither needs to be prime. This is what powers the Euclidean reduction algorithm: one can swap and reduce without ever testing primality, since the law applies at every step."
           }
         ]
@@ -15410,6 +15500,7 @@ window.MVQuizBank = {
               "Invoke uniformization to get the universal cover $\\mathbb{C}$, then deduce the charts"
             ],
             "answer": 0,
+            "hint": "Transition maps on a quotient are translations by lattice vectors.",
             "explain": "The standard proof: choose small open sets in $\\mathbb{C}$ mapping injectively to $\\mathbb{C}/\\Lambda$; their inverses are the charts. On overlaps the transition maps are translations $z\\mapsto z+\\lambda$, $\\lambda\\in\\Lambda$, which are biholomorphic. The Euler characteristic argument identifies the topological type but does not construct charts."
           },
           {
@@ -15417,6 +15508,7 @@ window.MVQuizBank = {
             "q": "A compact Riemann surface has a triangulation with $F=20$ faces, $E=30$ edges, and $V$ vertices. Compute its genus $g$ using $\\chi=V-E+F=2-2g$.",
             "answer": 3,
             "tol": 0.000001,
+            "hint": "Compute $\\chi=V-E+F$, then invert $\\chi=2-2g$.",
             "explain": "$\\chi=V-30+20$. For a closed orientable surface, $\\chi=2-2g$. We also need $V$: the handshaking lemma for triangulations gives $3F=2E$ only if every face is a triangle and edges are shared, so $V=E-F+2-2g$. Alternatively, given a triangulation of a genus-$g$ surface we can verify $V=E-F+(2-2g)=30-20+(2-2g)$. With the additional fact that this particular triangulation satisfies $V=2$ we get $2=10+2-2g$, giving $g=5$. For the intended problem take $V=12$: $\\chi=12-30+20=2$, so $g=0$. Re-reading with the classic data $V=10$: $\\chi=10-30+20=0$, $g=1$. With $V=8$: $\\chi=-2$, $g=2$. With $V=6$: $\\chi=-4$, $g=3$. Answer: $g=3$ for $V=6$, $E=30$, $F=20$, $\\chi=6-30+20=-4$."
           },
           {
@@ -15429,6 +15521,7 @@ window.MVQuizBank = {
               "An elliptic curve $\\mathbb{C}/\\Lambda$"
             ],
             "answer": 2,
+            "hint": "Look for a global-chart example that fails compactness.",
             "explain": "$\\mathbb{C}$ is a Riemann surface (one global chart $z$) but is non-compact: sequences like $n\\in\\mathbb{N}$ have no convergent subsequence. The other three options are compact. This is a counterexample showing 'Riemann surface' does not imply compactness."
           }
         ]
@@ -15477,6 +15570,7 @@ window.MVQuizBank = {
               "Only when $n$ is prime"
             ],
             "answer": 1,
+            "hint": "Branching happens where the fiber polynomial has repeated roots.",
             "explain": "In the affine chart $Z=1$ the fiber over $t=X/Z$ is the set of $Y$ with $t^n+Y^n=1$. A branch point occurs when the polynomial $Y^n=1-t^n$ has a repeated root, i.e., when $1-t^n=0$, so $t$ is an $n$-th root of unity. All $n$ branch points lie over these values; $(1:0)$ corresponds to $t\\to\\infty$ and is not a branch point."
           },
           {
@@ -15484,6 +15578,7 @@ window.MVQuizBank = {
             "q": "A degree-$4$ holomorphic map $f:X\\to\\mathbb{CP}^1$ has simple ramification only (each non-trivial $e_p=2$) with total ramification sum $\\sum(e_p-1)=14$. Use Riemann-Hurwitz $2g_X-2=n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Plug the given data straight into Riemann-Hurwitz.",
             "explain": "With $n=4$, $g_Y=0$, $\\sum(e_p-1)=14$: $2g_X-2=4(-2)+14=6$, so $g_X=4$. Here $14$ simple ramification points each contribute $1$, a typical count for degree-$4$ covers of the sphere."
           },
           {
@@ -15496,6 +15591,7 @@ window.MVQuizBank = {
               "$\\pi_1(\\mathbb{CP}^1)\\to S_n$"
             ],
             "answer": 0,
+            "hint": "Monodromy comes from loops on the base, permuting sheets.",
             "explain": "Analytic continuation of the $n$ sheets above a basepoint $b_0\\in\\mathbb{CP}^1\\setminus B$ along each loop gives a permutation of the fiber, yielding a homomorphism $\\pi_1(\\mathbb{CP}^1\\setminus B,b_0)\\to S_n$. The image is the monodromy group, which encodes the branching data completely (Riemann's existence theorem)."
           }
         ]
@@ -15541,6 +15637,7 @@ window.MVQuizBank = {
               "Use the Gauss-Bonnet theorem on a metric of constant curvature on $Y$ → integrate curvature"
             ],
             "answer": 0,
+            "hint": "Lift a triangulation that places branch values at vertices.",
             "explain": "The combinatorial proof: triangulate $Y$ with $F$ faces, $E$ edges, $V$ vertices so branch values are vertices. The lifted triangulation on $X$ has $nF$ faces, $nE$ edges, but only $nV-\\sum(e_p-1)$ vertices (ramification reduces the vertex count). Then $\\chi(X)=nF-nE+(nV-\\sum(e_p-1))=n\\chi(Y)-\\sum(e_p-1)$."
           },
           {
@@ -15548,6 +15645,7 @@ window.MVQuizBank = {
             "q": "A compact Riemann surface $X$ of genus $g\\ge 2$ is uniformized as $X=\\mathbb{H}/\\Gamma$ for a Fuchsian group $\\Gamma$. If $\\Gamma$ is torsion-free, the deck transformation group is isomorphic to $\\pi_1(X)$. What is $|\\pi_1(X)/[\\pi_1(X),\\pi_1(X)]|$ (order of abelianization) for $g=2$ expressed as a rank of the free abelian group?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "The abelianization gives $H_1\\cong\\mathbb{Z}^{2g}$.",
             "explain": "The abelianization of $\\pi_1(X)$ for a genus-$g$ surface is $H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, a free abelian group of rank $2g$. For $g=2$ the rank is $4$."
           },
           {
@@ -15560,6 +15658,7 @@ window.MVQuizBank = {
               "The Klein bottle, which is not orientable"
             ],
             "answer": 1,
+            "hint": "Different $j$-invariants distinguish non-isomorphic tori.",
             "explain": "Elliptic curves $\\mathbb{C}/\\Lambda$ are classified up to biholomorphism by their $j$-invariant $j(\\tau)$, where $\\Lambda=\\mathbb{Z}+\\tau\\mathbb{Z}$. The lattice $\\mathbb{Z}+2i\\mathbb{Z}$ (with $\\tau=2i$) has a different $j$-invariant from $\\mathbb{Z}+i\\mathbb{Z}$ ($\\tau=i$, $j=1728$), so they are non-isomorphic genus-$1$ curves."
           }
         ]
@@ -15605,6 +15704,7 @@ window.MVQuizBank = {
               "By Riemann-Hurwitz applied to $X\\to\\mathbb{CP}^1$ with $6g-4$ branch points"
             ],
             "answer": 1,
+            "hint": "Count complex Teichmüller parameters from Fuchsian reps.",
             "explain": "Teichmüller theory: the Teichmüller space $\\mathcal{T}_g$ is a complex manifold of dimension $3g-3$ (equivalently real dimension $6g-6$). Heuristically, a hyperbolic pair-of-pants decomposition uses $3g-3$ curves, each carrying one length and one twist parameter."
           },
           {
@@ -15612,6 +15712,7 @@ window.MVQuizBank = {
             "q": "Two compact Riemann surfaces $X$ and $Y$ satisfy $\\chi(X)=-6$ and $\\chi(Y)=-10$. How many more generators does $H_1(Y;\\mathbb{Z})$ have than $H_1(X;\\mathbb{Z})$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Translate $\\chi$ to genus, then to $b_1=2g$.",
             "explain": "$\\chi=-6\\Rightarrow g_X=4$, $b_1(X)=2\\cdot4=8$. $\\chi=-10\\Rightarrow g_Y=6$, $b_1(Y)=2\\cdot6=12$. Difference: $12-8=4$."
           },
           {
@@ -15624,6 +15725,7 @@ window.MVQuizBank = {
               "Genus determines the Euler characteristic, which in turn fixes the complex structure"
             ],
             "answer": 0,
+            "hint": "Different tori with distinct $j$-invariants break uniqueness.",
             "explain": "Both $E_1$ and $E_2$ are genus-$1$ surfaces, but their $j$-invariants differ ($j(i)=1728$ vs $j(2i)\\ne 1728$), so they are non-isomorphic as Riemann surfaces. This shows the moduli space $\\mathcal{M}_1$ is one-dimensional, not a point."
           }
         ]
@@ -15669,6 +15771,7 @@ window.MVQuizBank = {
               "$3$"
             ],
             "answer": 1,
+            "hint": "Rearrange Riemann-Roch to isolate $\\ell(K-D)$.",
             "explain": "$\\ell(K-D)=\\ell(D)-\\deg D+g-1=3-4+3-1=1$. The correction term $\\ell(K-D)$ measures how many sections the Serre-dual line bundle $\\mathcal{O}(K-D)$ has; here it is $1$, indicating $K-D$ is effective."
           },
           {
@@ -15676,6 +15779,7 @@ window.MVQuizBank = {
             "q": "On a compact Riemann surface of genus $g=2$ with canonical divisor $K$ ($\\deg K=2$), compute $\\ell(K)$ using Riemann-Roch applied to $D=K$: $\\ell(K)-\\ell(0)=\\deg K-g+1$ and $\\ell(0)=1$.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Apply Riemann-Roch with $D=K$ and use $\\ell(0)=1$.",
             "explain": "Riemann-Roch for $D=K$: $\\ell(K)-\\ell(K-K)=\\deg K-g+1=2-2+1=1$. Since $\\ell(0)=1$ (only constant functions), $\\ell(K)=1+1=2$. This equals $g=2$, consistent with $\\dim H^0(X,\\Omega^1)=g$."
           },
           {
@@ -15688,6 +15792,7 @@ window.MVQuizBank = {
               "Invoke Kodaira vanishing to force $h^1(D)=0$ for all $D$"
             ],
             "answer": 0,
+            "hint": "Serre duality pairs $H^1(D)$ with $H^0(K-D)$.",
             "explain": "Serre duality for a compact Riemann surface gives a perfect pairing $H^0(X,\\mathcal{O}(K-D))\\times H^1(X,\\mathcal{O}(D))\\to\\mathbb{C}$, so $h^1(D)=\\dim H^1(X,\\mathcal{O}(D))=\\dim H^0(X,\\mathcal{O}(K-D))=\\ell(K-D)$. This is the key identity that turns the index theorem into Riemann-Roch."
           }
         ]
@@ -19431,6 +19536,7 @@ window.MVQuizBank = {
               "$n=25$: because $25$ is a perfect square"
             ],
             "answer": 0,
+            "hint": "Norms in $\\mathbb{Z}[i]$ skip inert primes of shape $3\\bmod 4$.",
             "explain": "A positive integer $n$ is a sum of two squares iff every prime $p\\equiv 3\\pmod 4$ divides $n$ to an even power. Since $3\\equiv 3\\pmod 4$ and $3^1\\|3$, we have $3$ is not a sum of two squares. The Gaussian-integer proof: $3$ is inert (norm-irreducible), so $N(\\alpha)=3$ has no solution in $\\mathbb{Z}[i]$."
           },
           {
@@ -19438,6 +19544,7 @@ window.MVQuizBank = {
             "q": "Apply Jacobi's formula $r_2(n)=4(d_1(n)-d_3(n))$ to $n=25$. The divisors of $25$ are $1,5,25$; classify each mod $4$. What is $r_2(25)$?",
             "answer": 12,
             "tol": 0.000001,
+            "hint": "Classify each divisor of 25 mod 4 before plugging into Jacobi.",
             "explain": "Divisors of $25$: $1\\equiv 1$, $5\\equiv 1$, $25\\equiv 1$ (all $\\equiv 1\\pmod 4$). So $d_1=3$, $d_3=0$, giving $r_2(25)=4(3-0)=12$. The $12$ representations include $(\\pm 3,\\pm 4),(\\pm 4,\\pm 3),(\\pm 5,0),(0,\\pm 5)$."
           },
           {
@@ -19450,6 +19557,7 @@ window.MVQuizBank = {
               "It implies every Gaussian integer is a sum of two squares"
             ],
             "answer": 0,
+            "hint": "UFD forces $p=\\pi\\bar{\\pi}$ which is a norm identity.",
             "explain": "Because $\\mathbb{Z}[i]$ is a Euclidean domain (hence a UFD), if $p\\equiv 1\\pmod 4$ then $-1$ is a square mod $p$, producing a Gaussian prime $\\pi$ with $N(\\pi)=p$. UFD ensures this factorization is unique up to units, forcing $p=a^2+b^2$ with $a+bi=\\pi$."
           }
         ]
@@ -19500,6 +19608,7 @@ window.MVQuizBank = {
               "(1) $p$ splits → (2) $-1$ is NOT a square mod $p$ → (3) $p\\equiv 3\\pmod 4$ → (4) $p=a^2+b^2$"
             ],
             "answer": 0,
+            "hint": "Start by finding $a$ with $a^2\\equiv -1\\pmod p$, then factor $a^2+1$.",
             "explain": "The standard proof: Wilson/quadratic reciprocity gives a solution $a^2\\equiv -1\\pmod p$; then $p\\mid a^2+1=(a+i)(a-i)$ in $\\mathbb{Z}[i]$ but $p\\nmid a\\pm i$; hence $p$ is not a Gaussian prime; UFD then forces $p=\\pi\\bar{\\pi}$ with $N(\\pi)=a^2+b^2$."
           },
           {
@@ -19507,6 +19616,7 @@ window.MVQuizBank = {
             "q": "The prime $p=41$ satisfies $41\\equiv 1\\pmod 4$. Find non-negative integers $a\\le b$ with $a^2+b^2=41$ and enter $a$.",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Search small squares that sum to 41.",
             "explain": "$4^2+5^2=16+25=41$. So $a=4$, $b=5$. The corresponding Gaussian prime is $4+5i$ (or $5+4i$, etc.)."
           },
           {
@@ -19519,6 +19629,7 @@ window.MVQuizBank = {
               "the unit ideal"
             ],
             "answer": 2,
+            "hint": "Check whether $-1$ is a square mod 7.",
             "explain": "$7\\equiv 3\\pmod 4$, so the Legendre symbol $(-1/7)=-1$; $-1$ is not a square mod $7$. Hence $7$ is inert: $(7)$ stays a prime ideal in $\\mathbb{Z}[i]$, confirming $7$ is not a sum of two squares."
           }
         ]
@@ -19564,6 +19675,7 @@ window.MVQuizBank = {
               "Because $7$ is prime so it cannot be decomposed"
             ],
             "answer": 0,
+            "hint": "Squares mod 8 are $\\{0,1,4\\}$; enumerate triple sums.",
             "explain": "Modulo $8$, integer squares satisfy $a^2\\in\\{0,1,4\\}$. The maximum of three such values is $4+4+4=12\\equiv 4$, the minimum is $0$, and checking all $3^3=27$ triples shows none give sum $\\equiv 7\\pmod 8$. So $a^2+b^2+c^2\\ne 7\\pmod 8$ for any $a,b,c\\in\\mathbb{Z}$."
           },
           {
@@ -19571,6 +19683,7 @@ window.MVQuizBank = {
             "q": "Which of $n=15,\\ 23,\\ 9$ are of the form $4^a(8b+7)$? Enter the COUNT of excluded values among these three.",
             "answer": 2,
             "tol": 0.000001,
+            "hint": "Strip powers of 4; check residue 7 mod 8.",
             "explain": "$15=8(1)+7=4^0(8\\cdot1+7)$: excluded ($r_3=0$). $23=8(2)+7=4^0(8\\cdot2+7)$: excluded ($r_3=0$). $9=8(1)+1$: not of that form, so $9=0^2+0^2+3^2$ is representable. Count $=2$."
           },
           {
@@ -19583,6 +19696,7 @@ window.MVQuizBank = {
               "The three-square theorem was proved first, then Fermat derived the two-square case"
             ],
             "answer": 1,
+            "hint": "Ternary forms leave the UFD comfort zone.",
             "explain": "Fermat's two-square theorem has a clean algebraic proof via $\\mathbb{Z}[i]$. Legendre's three-square theorem requires substantially deeper tools — Gauss used the theory of ternary quadratic forms and genus theory; modern proofs invoke the Hasse–Minkowski theorem or analytic number theory — making it significantly harder."
           }
         ]
@@ -19633,6 +19747,7 @@ window.MVQuizBank = {
               "Every sum of four squares is divisible by $4$"
             ],
             "answer": 0,
+            "hint": "The identity reduces the problem to primes via multiplicativity.",
             "explain": "Euler's identity establishes multiplicativity: if $m$ and $n$ are each sums of four squares, so is $mn$. Combined with the fact that every prime $p$ is a sum of four squares (shown by a descent argument), the identity extends the result to all positive integers by induction on prime factorization."
           },
           {
@@ -19640,6 +19755,7 @@ window.MVQuizBank = {
             "q": "Use Jacobi's formula $r_4(n)=8\\sum_{4\\nmid d,\\, d\\mid n} d$ to compute $r_4(2)$. (Divisors of $2$ not divisible by $4$: $1, 2$; their sum is $3$.)",
             "answer": 24,
             "tol": 0.000001,
+            "hint": "Sum divisors of 2 not divisible by 4, then multiply by 8.",
             "explain": "$r_4(2)=8(1+2)=8\\cdot 3=24$. These $24$ representations are all signed ordered quadruples from $\\{(\\pm 1,\\pm 1,0,0)\\}$ permutations: $\\binom{4}{2}\\cdot 4=24$."
           },
           {
@@ -19652,6 +19768,7 @@ window.MVQuizBank = {
               "$7$ cannot be expressed as a sum of squares at all"
             ],
             "answer": 0,
+            "hint": "Use $7\\equiv 7\\pmod 8$ to rule out three squares.",
             "explain": "$7=4+1+1+1=2^2+1^2+1^2+1^2$: valid four-square representation. That three squares fail follows from Legendre's theorem: $7=4^0(8\\cdot0+7)$ is excluded, so $r_3(7)=0$. This single example witnesses $g(2)\\ge 4$, and Lagrange proves $g(2)=4$."
           }
         ]
@@ -19697,6 +19814,7 @@ window.MVQuizBank = {
             "q": "The integer $n=23$ is the classic witness for $g(3)=9$. Verify: $23=2\\cdot 2^3+7\\cdot 1^3$. How many cubes ($0^3$ not counted) are used in this representation?",
             "answer": 9,
             "tol": 0.000001,
+            "hint": "Add the counts 2 and 7.",
             "explain": "$2\\cdot 2^3=2\\cdot 8=16$ uses $2$ cubes of value $8$, and $7\\cdot 1^3=7$ uses $7$ cubes of value $1$; total $2+7=9$ cubes. This demonstrates that at least $9$ cubes are sometimes needed, matching $g(3)=9$."
           },
           {
@@ -19709,6 +19827,7 @@ window.MVQuizBank = {
               "The average number of representations"
             ],
             "answer": 1,
+            "hint": "$G(k)$ counts only sufficiently large $n$, skipping small exceptions.",
             "explain": "$G(k)$ is the asymptotic constant: the least $s$ for which all sufficiently large $n$ are sums of $s$ $k$-th powers. It ignores finitely many exceptional small integers, which is why $G(k)\\le g(k)$ (often strictly). For example $G(3)\\le 7$ (Linnik) while $g(3)=9$."
           },
           {
@@ -19721,6 +19840,7 @@ window.MVQuizBank = {
               "$g(k)=\\lfloor(4/3)^k\\rfloor+k$"
             ],
             "answer": 0,
+            "hint": "Evaluate the $2^k+\\lfloor(3/2)^k\\rfloor-2$ formula at $k=4$.",
             "explain": "The conjectured (and proved for most $k$) formula is $g(k)=2^k+\\lfloor(3/2)^k\\rfloor-2$. For $k=4$: $2^4+\\lfloor(3/2)^4\\rfloor-2=16+5-2=19$, matching $g(4)=19$ (verified by Balasubramanian–Deshouillers–Dress, 1986)."
           }
         ]
@@ -20461,6 +20581,7 @@ window.MVQuizBank = {
               "It is the discriminant of a quadratic form"
             ],
             "answer": 1,
+            "hint": "This $N$ is stuck below $3^k$ and forces many $2^k$'s and $1^k$'s.",
             "explain": "The number $N=2^k\\lfloor(3/2)^k\\rfloor-1<3^k$ cannot use any $k$-th power $\\ge 3^k$; it uses as many $2^k$'s as possible ($\\lfloor(3/2)^k\\rfloor-1$ of them), leaving a remainder filled with $1^k$'s. Counting all terms gives the lower bound $g(k)\\ge 2^k+\\lfloor(3/2)^k\\rfloor-2$."
           },
           {
@@ -20468,6 +20589,7 @@ window.MVQuizBank = {
             "q": "Using the formula $g(k)=2^k+\\lfloor(3/2)^k\\rfloor-2$, compute $g(4)$. Recall $(3/2)^4=81/16=5.0625$.",
             "answer": 19,
             "tol": 0.000001,
+            "hint": "Plug $k=4$ into $2^k+\\lfloor(3/2)^k\\rfloor-2$.",
             "explain": "$g(4)=2^4+\\lfloor 5.0625\\rfloor - 2 = 16+5-2=19$. Confirmed: $79=4\\cdot 2^4+15\\cdot 1^4$ requires all $19$ terms."
           },
           {
@@ -20480,6 +20602,7 @@ window.MVQuizBank = {
               "$n=12$"
             ],
             "answer": 1,
+            "hint": "Find the classic $n\\equiv 7\\pmod 8$ witness.",
             "explain": "$7$ is of the form $4^0(8\\cdot 0+7)$, so by Legendre's three-square theorem it cannot be expressed as a sum of three squares. This forces $g(2)\\ge 4$."
           }
         ]
@@ -20530,6 +20653,7 @@ window.MVQuizBank = {
               "$G(k)\\ge g(k)$ always, because sufficiently large integers are harder"
             ],
             "answer": 0,
+            "hint": "Only $g(k)$ must account for every small $n$.",
             "explain": "By definition, $G(k)$ asks only about all sufficiently large $n$, so finitely many integers (like $79$ for $k=4$) that require many $k$-th powers are excluded. Since $g(k)$ must handle every $n\\ge 1$, the handful of small difficult integers can push $g(k)$ well above $G(k)$."
           },
           {
@@ -20537,6 +20661,7 @@ window.MVQuizBank = {
             "q": "It is known that $G(3)\\le 7$ (Linnik) and conjectured that $G(3)=7$. Using only this bound, what is the minimum $s$ guaranteed to represent every sufficiently large $n$ as a sum of $s$ cubes?",
             "answer": 7,
             "tol": 0.000001,
+            "hint": "Use the stated Linnik bound directly.",
             "explain": "The best proven upper bound is $G(3)\\le 7$, so $s=7$ suffices for all sufficiently large $n$. The lower bound $G(3)\\ge 4$ comes from numbers $\\equiv 8\\pmod{9}$, but the exact value of $G(3)$ remains open."
           },
           {
@@ -20549,6 +20674,7 @@ window.MVQuizBank = {
               "By Fermat's last theorem, three cubes cannot sum to a cube"
             ],
             "answer": 1,
+            "hint": "Check cube residues mod 9.",
             "explain": "Modulo $9$, the cubes hit only residues $\\{0,1,8\\}$. A sum of three cubes can achieve residues $0+0+0$ through $8+8+8\\pmod 9$, but $8+8+8=24\\equiv 6\\pmod 9$, so the residue $8\\pmod 9$ (e.g. from $n\\equiv 8$) requires at least a fourth cube."
           }
         ]
@@ -20599,6 +20725,7 @@ window.MVQuizBank = {
               "It replaces the need for Hilbert's identity by providing explicit representations"
             ],
             "answer": 0,
+            "hint": "Lagrange supplies the integer-square input that Hilbert's identity consumes.",
             "explain": "The induction works as follows: every integer $n$ is a sum of four squares (Lagrange), so $n=(x_1^2+x_2^2+x_3^2+x_4^2)$. Hilbert's identity then writes $n^k$ as a positive combination of $(2k)$-th powers of integer linear forms in the $x_i$, and those linear forms are themselves integers — closing the induction."
           },
           {
@@ -20611,6 +20738,7 @@ window.MVQuizBank = {
               "Invoke the Weil conjectures → Compute local densities → Apply the Hasse principle"
             ],
             "answer": 1,
+            "hint": "Lagrange, algebraic identity, denominator clearing, done.",
             "explain": "Hilbert's strategy: (1) Lagrange gives the base $k=2$; (2) an algebraic identity over $\\mathbb{R}$ expresses a power of a sum of squares as a sum of $(2k)$-th powers of linear forms with positive rational coefficients; (3) clearing denominators yields an integer identity; (4) substituting the four-square representation of $n$ gives $g(k)<\\infty$."
           },
           {
@@ -20618,6 +20746,7 @@ window.MVQuizBank = {
             "q": "Hilbert's bound (before later improvements) gave $g(k)$ growing roughly as a tower of exponentials. For $k=2$, the sharp value is $g(2)=4$. How many $k$-th powers ($k=2$) are needed to represent $n=7$?",
             "answer": 4,
             "tol": 0.000001,
+            "hint": "Recall $7\\equiv 7\\pmod 8$ needs four squares.",
             "explain": "$7=4+1+1+1=2^2+1^2+1^2+1^2$ and $7$ cannot be written as a sum of three squares (since $7\\equiv 7\\pmod 8$), so exactly $4$ squares are needed — the maximum for $k=2$."
           }
         ]
@@ -20668,6 +20797,7 @@ window.MVQuizBank = {
               "$\\int_{\\mathfrak{m}} f^s \\sim \\mathfrak{S}(N)\\mathfrak{J}(N)$ just as on major arcs"
             ],
             "answer": 0,
+            "hint": "Pair Weyl's sup bound with a Parseval $L^{s-2}$ estimate.",
             "explain": "One bounds $\\sup_{\\alpha\\in\\mathfrak{m}}|f(\\alpha)|\\ll N^{1/k-\\sigma_k}$ (Weyl), then uses Parseval/mean-value to handle $\\int|f|^{s-2}$, combining to get a power saving over the main term $N^{s/k-1}$. The saving $2\\sigma_k>0$ is what closes the argument when $s$ is large enough."
           },
           {
@@ -20675,6 +20805,7 @@ window.MVQuizBank = {
             "q": "Using the Jacobi formula $r_4(N)=8\\sum_{d\\mid N,\\,4\\nmid d}d$ for odd $N$, compute $r_4(5)$.",
             "answer": 48,
             "tol": 0.000001,
+            "hint": "Sum divisors of 5 unblocked by 4, then multiply by 8.",
             "explain": "Divisors of $5$ are $1$ and $5$, both odd (so $4\\nmid d$). Hence $r_4(5)=8(1+5)=48$. Check: $5=1^2+2^2+0^2+0^2$ and all signed/ordered permutations account for $48$ representations."
           },
           {
@@ -20687,6 +20818,7 @@ window.MVQuizBank = {
               "It is used only on minor arcs to get lower bounds"
             ],
             "answer": 1,
+            "hint": "On major arcs $f$ factors into a Gauss sum times an archimedean piece.",
             "explain": "Near a rational $a/q$ with $q$ small, the exponential sum $f(\\alpha)$ factors into the complete Gauss sum $S(a,q)$ (capturing arithmetic at the prime $p\\mid q$) multiplied by a smooth continuous integral $\\hat{v}(\\beta)$ (the archimedean factor). This factorization is why the singular series $\\mathfrak{S}(N)=\\sum_q q^{-s}\\sum_a^* S(a,q)^s e(-aN/q)$ is an Euler product of local densities."
           }
         ]
@@ -20742,6 +20874,7 @@ window.MVQuizBank = {
               "For $k=4$, $s=16$: the singular series vanishes for all $N$"
             ],
             "answer": 0,
+            "hint": "A mod-8 obstruction kills local density at $p=2$.",
             "explain": "Modulo $8$, squares are only $0,1,4$. A sum of three squares modulo $8$ reaches $\\{0,1,2,3,4,5,6\\}$ but not $7$. So $N\\equiv 7\\pmod 8$ has $\\sigma_2(N)=0$ (no $2$-adic solution with $s=3$), which is exactly why $G(2)\\ge 4$ and $g(2)\\ge 4$."
           },
           {
@@ -20754,6 +20887,7 @@ window.MVQuizBank = {
               "Factor $f$ as a product of local Gauss sums over all primes"
             ],
             "answer": 0,
+            "hint": "Square $f$ and convert to a difference-sum over pairs.",
             "explain": "Squaring $|f(\\alpha)|^2$ converts the sum to a correlation sum over differences $h=m^2-n^2$, which can be bounded via the number of representations of $h$ as a difference of two squares — a divisor-type estimate. Iterating this differencing $k-1$ times reduces to a linear exponential sum, which is trivially bounded."
           },
           {
@@ -20761,6 +20895,7 @@ window.MVQuizBank = {
             "q": "For the Hardy–Littlewood circle method applied to $s$ squares ($k=2$), the main term is $\\mathfrak{S}(N)\\mathfrak{J}(N)\\sim C_s N^{s/2-1}$ for large $N$. For $s=5$, what is the exponent of $N$ in this main term?",
             "answer": 1.5,
             "tol": 0.000001,
+            "hint": "Evaluate $s/2-1$ at $s=5$.",
             "explain": "$s/2 - 1 = 5/2 - 1 = 3/2 = 1.5$. So the count of representations of $N$ as a sum of $5$ squares grows like $N^{3/2}$ (times constants from the singular series and singular integral)."
           }
         ]
