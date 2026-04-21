@@ -65,6 +65,76 @@
         }
       ]
     },
+    "outer-measure-caratheodory": {
+      "title": "Outer measure & Carathéodory's criterion",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property is guaranteed for the Lebesgue outer measure $m^*$ on all subsets of $\\mathbb{R}$, even on non-measurable sets?",
+          "choices": [
+            "Countable additivity on pairwise-disjoint unions",
+            "Countable subadditivity: $m^*(\\bigcup_n E_n)\\le\\sum_n m^*(E_n)$",
+            "Translation invariance only for Borel sets",
+            "$m^*(E)=\\sup\\{m(K):K\\subset E,\\ K\\text{ compact}\\}$ for every $E$"
+          ],
+          "answer": 1,
+          "explain": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate). Countable additivity fails on non-measurable sets — that is precisely what Carathéodory's criterion diagnoses."
+        },
+        {
+          "type": "mcq",
+          "q": "A set $E\\subseteq\\mathbb{R}$ is Carathéodory-measurable when, for every test set $A\\subseteq\\mathbb{R}$:",
+          "choices": [
+            "$m^*(A)=m^*(A\\cap E)\\cdot m^*(A\\cap E^c)$",
+            "$m^*(A)=m^*(A\\cap E)+m^*(A\\cap E^c)$",
+            "$m^*(A\\cap E)=m^*(A\\cap E^c)$",
+            "$m^*(A\\cap E)\\le m^*(A)$"
+          ],
+          "answer": 1,
+          "explain": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure. The $\\le$ direction is free by subadditivity; the $\\ge$ direction is the substantive requirement."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which statement about Carathéodory's extension theorem is correct?",
+          "choices": [
+            "Every outer measure extends uniquely to a measure on $\\mathcal{P}(X)$",
+            "A premeasure $\\mu_0$ on an algebra $\\mathcal{A}_0$ extends to a measure on $\\sigma(\\mathcal{A}_0)$, uniquely if $\\mu_0$ is $\\sigma$-finite",
+            "The extension is automatic with no hypothesis on $\\mu_0$",
+            "Uniqueness holds without any finiteness assumption"
+          ],
+          "answer": 1,
+          "hint": "Existence is unconditional; the subtle hypothesis is what guarantees uniqueness.",
+          "explain": "Carathéodory: every premeasure extends to an outer measure, and the measurable sets form a $\\sigma$-algebra on which the outer measure is countably additive. Existence is free; $\\sigma$-finiteness is the clean hypothesis that makes the extension to $\\sigma(\\mathcal{A}_0)$ unique."
+        },
+        {
+          "type": "mcq",
+          "q": "Why can't countable additivity hold for $m^*$ on all of $\\mathcal{P}(\\mathbb{R})$?",
+          "choices": [
+            "Because $\\mathcal{P}(\\mathbb{R})$ is too large as a set",
+            "Because Vitali's non-measurable set (using AC) has translates that would force $m^*([0,1])\\in\\{0,\\infty\\}$",
+            "Because every subset of $\\mathbb{R}$ has positive outer measure",
+            "Because $\\mathbb{R}$ is uncountable"
+          ],
+          "answer": 1,
+          "explain": "Vitali's construction (partition $[0,1]$ by the $\\mathbb{Q}$-translation equivalence and pick one representative per class) produces a set $V$ whose $\\mathbb{Q}\\cap[-1,1]$-translates are disjoint and cover a finite-length interval. Translation invariance + countable additivity + non-zero $m^*(V)$ force contradictions on both sides (either 0 or $\\infty$)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mu_0$ be the length premeasure on the algebra of finite unions of half-open intervals $(a,b]\\subset\\mathbb{R}$. After Carathéodory extension, what is the Lebesgue outer measure of the fat Cantor set obtained by removing middle intervals of length $4^{-n}$ from $[0,1]$ at stage $n$?",
+          "answer": 0.5,
+          "tol": 1e-6,
+          "explain": "Total removed length is $\\sum_{n=1}^\\infty 2^{n-1}\\cdot 4^{-n}=\\sum_{n=1}^\\infty 2^{-n-1}=1/2$. The remaining closed set has Lebesgue measure $1-1/2=1/2$ — a Lebesgue-positive-measure set with empty interior, showing Carathéodory measurability is strictly subtler than topology."
+        }
+      ]
+    },
     "lebesgue-measure": {
       "title": "Lebesgue measure",
       "questions": [
@@ -373,6 +443,355 @@
           ],
           "answer": 0,
           "explain": "$f(x)=x^{-1/2}$ satisfies $\\int_0^1 x^{-1/2}\\,dx=2$, so $f\\in L^1$. But $\\int_0^1 x^{-1}\\,dx=\\infty$, so $f\\notin L^2$. This demonstrates that on $[0,1]$ (finite measure) the inclusion $L^2\\subset L^1$ holds but the reverse fails."
+        }
+      ]
+    },
+    "product-measures": {
+      "title": "Product measures & σ-finiteness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The product $\\sigma$-algebra $\\mathcal{A}\\otimes\\mathcal{B}$ on $X\\times Y$ is:",
+          "choices": [
+            "The collection of all subsets $A\\times B$ with $A\\in\\mathcal{A}$, $B\\in\\mathcal{B}$",
+            "The $\\sigma$-algebra generated by the measurable rectangles $A\\times B$",
+            "The power set $\\mathcal{P}(X\\times Y)$",
+            "Always equal to $\\mathcal{B}(X\\times Y)$ when $X,Y$ are topological spaces"
+          ],
+          "answer": 1,
+          "explain": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$. Measurable rectangles alone aren't closed under countable operations, hence the generation step."
+        },
+        {
+          "type": "numeric",
+          "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
+          "answer": 0.2,
+          "tol": 1e-6,
+          "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
+        },
+        {
+          "type": "mcq",
+          "q": "A measure space $(X,\\mathcal{A},\\mu)$ is $\\sigma$-finite when:",
+          "choices": [
+            "$\\mu(X)<\\infty$",
+            "$X$ is a countable union of measurable sets of finite measure",
+            "$\\mathcal{A}$ has countably many elements",
+            "$\\mu$ takes only finite values"
+          ],
+          "answer": 1,
+          "explain": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$. Lebesgue measure on $\\mathbb{R}$ is $\\sigma$-finite ($\\mathbb{R}=\\bigcup_n[-n,n]$) but not finite."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which measure space fails to be $\\sigma$-finite, so that product-measure uniqueness via Carathéodory can break?",
+          "choices": [
+            "Lebesgue measure on $\\mathbb{R}^n$",
+            "Counting measure on an uncountable set $X$",
+            "Any probability space",
+            "Counting measure on $\\mathbb{N}$"
+          ],
+          "answer": 1,
+          "hint": "$\\sigma$-finite means $X$ is a countable union of sets of finite measure.",
+          "explain": "Counting measure on an uncountable $X$ assigns $\\infty$ to every infinite set and $n$ to each $n$-element finite set; a countable union of finite sets is still countable, so $X$ itself cannot be written that way. Uniqueness in the Carathéodory extension can then fail (two distinct measures agreeing on the algebra but disagreeing on the generated $\\sigma$-algebra)."
+        },
+        {
+          "type": "numeric",
+          "q": "On $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B},m\\otimes m)$, compute the measure of the triangle $\\{(x,y):0\\le y\\le x\\le 1\\}$.",
+          "answer": 0.5,
+          "tol": 1e-6,
+          "explain": "By Tonelli: $\\int_0^1\\int_0^x 1\\,dy\\,dx=\\int_0^1 x\\,dx=1/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\sigma$-finiteness of both $\\mu$ and $\\nu$ make $\\mu\\otimes\\nu$ uniquely determined on $\\mathcal{A}\\otimes\\mathcal{B}$?",
+          "choices": [
+            "Because every product of two $\\sigma$-finite measures is itself a probability measure",
+            "Because the algebra of finite disjoint unions of measurable rectangles is $\\sigma$-finite under the premeasure $(\\mu\\otimes\\nu)(A\\times B):=\\mu(A)\\nu(B)$, and Carathéodory's uniqueness applies",
+            "Because $\\sigma$-finite spaces are compact",
+            "Because product measures exist only when both factors are probability measures"
+          ],
+          "answer": 1,
+          "explain": "Existence is via Carathéodory applied to the rectangle premeasure on the algebra of finite disjoint rectangle unions. Uniqueness in Carathéodory's extension theorem needs the premeasure to be $\\sigma$-finite, which follows from $\\sigma$-finiteness of both $\\mu$ and $\\nu$."
+        }
+      ]
+    },
+    "fubini-tonelli": {
+      "title": "Fubini & Tonelli",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Tonelli's theorem (for $\\sigma$-finite $\\mu,\\nu$) swaps iterated integrals with no integrability hypothesis, provided:",
+          "choices": [
+            "$f$ is continuous",
+            "$f$ is $\\mathcal{A}\\otimes\\mathcal{B}$-measurable and $f\\ge 0$",
+            "$\\int|f|<\\infty$",
+            "$f$ has compact support"
+          ],
+          "answer": 1,
+          "explain": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally. Fubini is the companion statement for complex-valued $f\\in L^1(\\mu\\otimes\\nu)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
+          "answer": 0.25,
+          "tol": 1e-6,
+          "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
+        },
+        {
+          "type": "mcq",
+          "q": "The operational protocol before swapping iterated integrals of a signed function $f(x,y)$ is:",
+          "choices": [
+            "Swap freely — Tonelli always applies to measurable functions",
+            "Compute $\\int\\int|f|$ via Tonelli first; if finite, invoke Fubini to swap",
+            "Swap only when $f$ is continuous",
+            "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
+          ],
+          "answer": 1,
+          "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On $X=Y=\\mathbb{N}$ with counting measure, $a_{m,n}=1$ if $n=m$, $-1$ if $n=m+1$, else $0$. Which statement is correct?",
+          "choices": [
+            "Both iterated sums equal $0$",
+            "$\\sum_m\\sum_n a_{m,n}=0$ but $\\sum_n\\sum_m a_{m,n}=1$, so Fubini fails because $\\sum_{m,n}|a_{m,n}|=\\infty$",
+            "Both iterated sums equal $\\infty$",
+            "Fubini applies since $a_{m,n}$ is bounded"
+          ],
+          "answer": 1,
+          "hint": "Sum by rows first, then by columns, and notice the telescoping mismatch.",
+          "explain": "Row sums: for each $m$, $a_{m,m}+a_{m,m+1}=1-1=0$, so $\\sum_m 0=0$. Column sums: for $n=0$, only $a_{0,0}=1$ contributes (since $a_{m,0}\\ne 0$ only at $m=0$), and for $n\\ge 1$, $a_{n,n}+a_{n-1,n}=1-1=0$. Total $=1$. $|a_{m,n}|$ has $\\sum=\\infty$, so Fubini fails."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_0^\\infty\\int_0^\\infty e^{-xy}\\sin x\\,dx\\,dy$ assuming absolute integrability allows the swap. (Hint: swap and use $\\int_0^\\infty e^{-xy}\\sin x\\,dy=\\sin x/x$.)",
+          "answer": 1.5707963268,
+          "tol": 1e-3,
+          "explain": "Swap: $\\int_0^\\infty\\sin x\\int_0^\\infty e^{-xy}\\,dy\\,dx=\\int_0^\\infty \\frac{\\sin x}{x}\\,dx=\\pi/2$. Absolute integrability in the stated form is delicate here, but the iterated computation yields the classical Dirichlet integral."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step ordering for Fubini (for $f\\in L^1(\\mu\\otimes\\nu)$, $\\sigma$-finite case)?",
+          "choices": [
+            "Prove for $\\mathbf{1}_{A\\times B}$; linearity to simple; MCT to $[0,\\infty]$-valued (that is Tonelli); split $f=f^+-f^-$ and use integrability to subtract",
+            "Apply Hahn decomposition to $f$ directly",
+            "Use DCT to interchange the order",
+            "Reduce to the Riemann integral via uniform continuity"
+          ],
+          "answer": 0,
+          "explain": "Fubini is built up in layers: indicator rectangles → simple functions → nonneg measurable (Tonelli) → integrable by splitting $f^\\pm$. The $\\sigma$-finiteness hypothesis is used in uniqueness of the product measure and in applying Tonelli to $|f|$ to avoid $\\infty-\\infty$."
+        }
+      ]
+    },
+    "signed-measures-radon-nikodym": {
+      "title": "Signed measures & Radon–Nikodym",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Jordan decomposition of a signed measure $\\nu$ expresses $\\nu$ as:",
+          "choices": [
+            "$\\nu=\\nu^+-\\nu^-$ with mutually singular positive measures $\\nu^+,\\nu^-$",
+            "$\\nu=\\nu^+\\cdot\\nu^-$",
+            "$\\nu=\\nu^+/\\nu^-$",
+            "$\\nu=\\nu^+\\circ\\nu^-$"
+          ],
+          "answer": 0,
+          "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
+        },
+        {
+          "type": "mcq",
+          "q": "We say $\\nu\\ll\\mu$ (absolutely continuous) when:",
+          "choices": [
+            "$\\nu(E)=0$ whenever $\\mu(E)=0$",
+            "$\\mu(E)=0$ whenever $\\nu(E)=0$",
+            "$\\nu$ and $\\mu$ agree on every set",
+            "$\\nu$ is a probability measure"
+          ],
+          "answer": 0,
+          "explain": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null. Radon–Nikodym gives a density $f=d\\nu/d\\mu\\ge 0$ with $\\nu(E)=\\int_E f\\,d\\mu$ when $\\mu$ is $\\sigma$-finite and $\\nu\\ll\\mu$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct statement of the Lebesgue decomposition theorem?",
+          "choices": [
+            "Every $\\sigma$-finite measure $\\nu$ has a unique density with respect to $\\mu$",
+            "For $\\sigma$-finite $\\mu,\\nu$, there exist unique $\\nu_{ac}\\ll\\mu$ and $\\nu_s\\perp\\mu$ with $\\nu=\\nu_{ac}+\\nu_s$",
+            "Every signed measure is absolutely continuous",
+            "Signed measures are always singular to Lebesgue measure"
+          ],
+          "answer": 1,
+          "explain": "Lebesgue decomposition: $\\nu=\\nu_{ac}+\\nu_s$ with $\\nu_{ac}\\ll\\mu$ (Radon–Nikodym applies) and $\\nu_s\\perp\\mu$ (concentrated on a $\\mu$-null set). The two pieces are uniquely determined."
+        },
+        {
+          "type": "numeric",
+          "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=f\\,dm$ with $f(x)=3x^2$. Compute $\\nu([0,1/2])$.",
+          "answer": 0.125,
+          "tol": 1e-6,
+          "explain": "$\\nu([0,1/2])=\\int_0^{1/2}3x^2\\,dm=x^3\\big|_0^{1/2}=1/8=0.125$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which measure on $[0,1]$ is NOT absolutely continuous with respect to Lebesgue measure $m$?",
+          "choices": [
+            "$d\\nu=\\mathbf{1}_{[0,1/2]}\\,dm$",
+            "$d\\nu=e^x\\,dm$",
+            "A Dirac mass at $x=1/2$, i.e.\\ $\\nu=\\delta_{1/2}$",
+            "$d\\nu=(1+x^2)\\,dm$"
+          ],
+          "answer": 2,
+          "explain": "The Dirac mass $\\delta_{1/2}$ concentrates all mass at the single point $\\{1/2\\}$, which has $m(\\{1/2\\})=0$. So $m(\\{1/2\\})=0$ but $\\delta_{1/2}(\\{1/2\\})=1$, violating $\\nu\\ll m$. $\\delta_{1/2}\\perp m$ instead."
+        }
+      ]
+    },
+    "riesz-representation-measures": {
+      "title": "Riesz representation (measure form)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Riesz–Markov–Kakutani theorem says: every positive linear functional $\\Lambda$ on $C_c(X)$ for locally compact Hausdorff $X$ is:",
+          "choices": [
+            "A finite sum of Dirac masses",
+            "$\\Lambda(f)=\\int_X f\\,d\\mu$ for a unique regular Borel measure $\\mu$",
+            "A derivative operator",
+            "Represented by an $L^\\infty$ function"
+          ],
+          "answer": 1,
+          "explain": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets). The bijection is the bridge from functional analysis to measure theory."
+        },
+        {
+          "type": "numeric",
+          "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which regularity property of the representing measure is essential to Riesz representation?",
+          "choices": [
+            "Translation invariance",
+            "Inner regularity on open sets and outer regularity on Borel sets",
+            "Absolute continuity with respect to Lebesgue measure",
+            "$\\sigma$-finiteness"
+          ],
+          "answer": 1,
+          "explain": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$. These conditions pin $\\mu$ down uniquely."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which functional on $C_c(\\mathbb{R})$ fails to be representable by a Radon measure?",
+          "choices": [
+            "$\\Lambda(f)=\\int f\\,dm$ (Lebesgue)",
+            "$\\Lambda(f)=f(0)$",
+            "$\\Lambda(f)=f'(0)$",
+            "$\\Lambda(f)=\\sum_{n=1}^\\infty f(1/n)/2^n$"
+          ],
+          "answer": 2,
+          "hint": "One of these is not positive and not continuous on $C_c$ with the sup-norm topology.",
+          "explain": "$\\Lambda(f)=f'(0)$ is not a positive functional: take $f\\ge 0$ with a strict max at $0$, then $f'(0)=0$ or even $\\le 0$, so positivity fails. It is a well-defined linear functional on $C^1_c$, but Riesz representation only covers positive linear functionals on $C_c$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $X=[0,1]$, let $\\Lambda(f)=\\int_0^1 f(x)\\cdot 2x\\,dx$. What is $\\mu([0,1])$ for the representing measure?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\Lambda(f)=\\int f\\,d\\mu$ where $d\\mu=2x\\,dm$. So $\\mu([0,1])=\\int_0^1 2x\\,dm=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which consequence of Riesz representation is used to build Haar measure on a locally compact group $G$?",
+          "choices": [
+            "Hahn decomposition",
+            "Existence of a translation-invariant positive linear functional on $C_c(G)$, which then gives a translation-invariant Radon measure",
+            "The Lebesgue differentiation theorem",
+            "The spectral theorem"
+          ],
+          "answer": 1,
+          "explain": "One shows that $C_c(G)$ admits a translation-invariant positive linear functional $\\Lambda$ (existence by a Hahn–Banach / tangent-functional argument), then Riesz representation upgrades $\\Lambda$ to a left-Haar measure. Uniqueness up to scaling is a separate argument."
+        }
+      ]
+    },
+    "hausdorff-measure": {
+      "title": "Hausdorff measure & dimension",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The $s$-dimensional Hausdorff outer measure $\\mathcal{H}^s(E)$ is defined as:",
+          "choices": [
+            "$\\inf\\sum_i\\mathrm{diam}(U_i)^s$ over $\\delta$-covers $\\{U_i\\}$ of $E$, in the limit $\\delta\\to 0$",
+            "$\\sup\\sum_i\\mathrm{diam}(U_i)^s$ over finite covers",
+            "The Lebesgue measure when $s=1$",
+            "Always zero for fractals"
+          ],
+          "answer": 0,
+          "explain": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$. This limit is monotone decreasing in $\\delta$, hence well-defined in $[0,\\infty]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
+          "answer": 0.6309297536,
+          "tol": 1e-3,
+          "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Hausdorff dimension of a set $E$ is:",
+          "choices": [
+            "The unique $s$ at which $\\mathcal{H}^s(E)$ jumps from $\\infty$ to $0$",
+            "Always an integer",
+            "Equal to the topological dimension",
+            "The Lebesgue measure of $E$"
+          ],
+          "answer": 0,
+          "explain": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$. At $s^*$ itself, $\\mathcal{H}^{s^*}(E)$ may take any value in $[0,\\infty]$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which Hausdorff-measure statement is correct for the $s$-dimensional Sierpiński gasket (three contractions of ratio $1/2$)?",
+          "choices": [
+            "$\\dim_H=2$, $\\mathcal{H}^2>0$",
+            "$\\dim_H=\\log 3/\\log 2\\approx 1.585$, with $0<\\mathcal{H}^s<\\infty$ at $s=\\dim_H$",
+            "$\\dim_H=1$",
+            "$\\dim_H=0$"
+          ],
+          "answer": 1,
+          "hint": "Moran's equation $N\\cdot r^s=1$ for $N$ self-similar copies of ratio $r$.",
+          "explain": "Moran: $3\\cdot(1/2)^s=1\\Rightarrow s=\\log 3/\\log 2$. The gasket satisfies the Open Set Condition, which implies $0<\\mathcal{H}^s(\\text{gasket})<\\infty$ at $s=\\dim_H$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the 4-contraction Koch curve with similarity ratio $1/3$, compute the Hausdorff dimension to 3 decimals. (Moran: $4\\cdot(1/3)^s=1$.)",
+          "answer": 1.2618595071,
+          "tol": 1e-3,
+          "explain": "$s=\\log 4/\\log 3\\approx 1.2619$. The Koch curve has strictly larger Hausdorff dimension than its topological dimension ($1$), reflecting its fractal crinkliness."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\mathcal{H}^1$ on $\\mathbb{R}$ agree with Lebesgue measure $m$?",
+          "choices": [
+            "Because both are translation-invariant Radon measures on $\\mathbb{R}$ agreeing on intervals (an interval $[a,b]$ has $\\mathcal{H}^1=b-a$); uniqueness of the Haar/Lebesgue measure forces equality",
+            "By definition",
+            "By Radon–Nikodym with an irrational density",
+            "They don't agree — $\\mathcal{H}^1\\ne m$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathcal{H}^1([a,b])=b-a$ because optimal covers by small intervals have diameter-sum approaching $b-a$. Both $\\mathcal{H}^1$ and $m$ are translation-invariant, $\\sigma$-finite, and agree on a generating ring of intervals, so Carathéodory uniqueness forces $\\mathcal{H}^1=m$ on $\\mathcal{B}(\\mathbb{R})$."
         }
       ]
     }

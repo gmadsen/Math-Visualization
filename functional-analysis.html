@@ -214,14 +214,19 @@ function drawNode(svg, x, y, label, opts={}){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Normed,&nbsp;Banach,&nbsp;Hilbert</a>
   <a href="#hilbert">2&nbsp;Hilbert&nbsp;geometry</a>
-  <a href="#bounded">3&nbsp;Bounded&nbsp;operators</a>
-  <a href="#bigfour">4&nbsp;Big&nbsp;four&nbsp;theorems</a>
-  <a href="#compact">5&nbsp;Compact&nbsp;&amp;&nbsp;spectrum</a>
-  <a href="#spectral">6&nbsp;Spectral&nbsp;theorem</a>
-  <a href="#duality">7&nbsp;Duality&nbsp;&amp;&nbsp;Riesz</a>
-  <a href="#riesz">8&nbsp;Riesz&nbsp;representation</a>
-  <a href="#weak">9&nbsp;Weak&nbsp;topologies</a>
-  <a href="#outro">10&nbsp;Connections</a>
+  <a href="#opnorm">3&nbsp;Operator&nbsp;norm</a>
+  <a href="#bounded">4&nbsp;Bounded&nbsp;operators</a>
+  <a href="#adjoint">5&nbsp;Adjoint&nbsp;operator</a>
+  <a href="#bigfour">6&nbsp;Big&nbsp;four&nbsp;theorems</a>
+  <a href="#compact">7&nbsp;Compact&nbsp;operators</a>
+  <a href="#spectral">8&nbsp;Spectral&nbsp;theorem</a>
+  <a href="#spec-class">9&nbsp;Spectrum&nbsp;types</a>
+  <a href="#duality">10&nbsp;Duality</a>
+  <a href="#riesz">11&nbsp;Riesz&nbsp;representation</a>
+  <a href="#reflexivity">12&nbsp;Reflexivity</a>
+  <a href="#weak">13&nbsp;Weak&nbsp;topologies</a>
+  <a href="#distributions">14&nbsp;Distributions</a>
+  <a href="#outro">15&nbsp;Connections</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -451,7 +456,9 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#opnorm">Functional analysis</a> · Bounded linear operators and the operator norm</div>
     <div><a href="./functional-analysis.html#bounded">Functional analysis</a> · Bounded operators and adjoints</div>
+    <div><a href="./functional-analysis.html#distributions">Functional analysis</a> · Distributions and test functions</div>
     <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -702,8 +709,168 @@ v−Pv  = (${r[0].toFixed(2)}, ${r[1].toFixed(2)}, ${r[2].toFixed(2)})    ‖v�
 })();
 </script>
 
+<section id="opnorm">
+<h2>3. Bounded operators and the operator norm</h2>
+
+<p>Before specializing to Hilbert space, take a moment with the operator norm itself. Given normed spaces $X,Y$ and a linear map $T\colon X\to Y$, the quantity</p>
+$$\|T\| = \sup_{\|x\|\le 1}\|Tx\|_Y = \sup_{x\ne 0}\frac{\|Tx\|_Y}{\|x\|_X} = \inf\{C\ge 0 : \|Tx\|\le C\|x\|\ \forall x\}$$
+<p>is three definitions of the same thing. The finiteness of any one of them is what we mean by <em>bounded</em>. For linear maps, bounded $\iff$ continuous $\iff$ Lipschitz with constant $\|T\|$ — so one number does all the work of measuring $T$'s stretching, $T$'s continuity, and $T$'s Lipschitz constant simultaneously.</p>
+
+<p>Writing $B(X,Y)=\{T\colon X\to Y \text{ bounded linear}\}$, the operator norm makes it a normed space. A foundational fact, often taken for granted: <strong>$B(X,Y)$ is complete whenever $Y$ is</strong>, regardless of completeness of $X$. Completeness transfers from the target, not the source. The proof goes: given Cauchy $(T_n)$, for each $x$ the sequence $(T_n x)$ is Cauchy in $Y$ so it converges to some $Tx$; linearity transfers; then uniformity in $\|x\|\le 1$ upgrades pointwise convergence to operator-norm convergence.</p>
+
+<h3>Computing operator norms of $2\times 2$ matrices</h3>
+<p>On $\mathbb{R}^n$ with the Euclidean norm, the operator norm of a matrix is its <strong>largest singular value</strong>: $\|T\|=\sqrt{\lambda_{\max}(T^\top T)}$. For symmetric $T$, $T^\top T = T^2$ and the singular values are $|\lambda_i|$, so $\|T\|=\max_i|\lambda_i|$. For a general matrix, diagonal entries can drastically under- or overestimate the true operator norm — stretching can be bigger than any single entry (and smaller than the largest singular value when there is cancellation).</p>
+
+<div class="widget" id="w-opnorm">
+  <div class="hd"><div class="ttl">Operator norm of a $2\times 2$ matrix (Euclidean)</div><div class="hint">$\|T\|=\sigma_{\max}(T)$; drag vectors on the unit circle to see stretching</div></div>
+  <svg id="opnorm-svg" viewBox="0 0 560 360" width="560" height="360"><title>Operator norm of a $2\times 2$ matrix (Euclidean)</title></svg>
+  <div class="row">
+    <label for="opn-a">$T_{11}$</label>
+    <input type="range" id="opn-a" min="-3" max="3" step="0.05" value="2">
+    <span class="readout" id="opn-a-out" style="min-width:60px;flex:0 0 auto">2.00</span>
+  </div>
+  <div class="row">
+    <label for="opn-b">$T_{12}$</label>
+    <input type="range" id="opn-b" min="-3" max="3" step="0.05" value="1">
+    <span class="readout" id="opn-b-out" style="min-width:60px;flex:0 0 auto">1.00</span>
+  </div>
+  <div class="row">
+    <label for="opn-c">$T_{21}$</label>
+    <input type="range" id="opn-c" min="-3" max="3" step="0.05" value="0">
+    <span class="readout" id="opn-c-out" style="min-width:60px;flex:0 0 auto">0.00</span>
+  </div>
+  <div class="row">
+    <label for="opn-d">$T_{22}$</label>
+    <input type="range" id="opn-d" min="-3" max="3" step="0.05" value="1">
+    <span class="readout" id="opn-d-out" style="min-width:60px;flex:0 0 auto">1.00</span>
+  </div>
+  <div class="row">
+    <button id="opn-shift">shift: $\begin{smallmatrix}0&amp;0\\1&amp;0\end{smallmatrix}$</button>
+    <button id="opn-rot">rotation</button>
+    <button id="opn-rank1">rank-1</button>
+    <button id="opn-pauli">Pauli $\sigma_x$</button>
+  </div>
+  <div class="readout" id="opn-out"></div>
+</div>
+
+<p>The widget draws the image of the unit circle under $T$; it is always an ellipse (or a segment/point for rank-deficient $T$) with semi-axes equal to the singular values of $T$. The operator norm is the longer semi-axis.</p>
+
+<div class="quiz" data-concept="operator-norm"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#bounded">Functional analysis</a> · Bounded operators and adjoints</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* ============================ §3 operator norm widget ============================ */
+(function(){
+  const svg = $('#opnorm-svg'),
+        aS=$('#opn-a'), bS=$('#opn-b'), cS=$('#opn-c'), dS=$('#opn-d'),
+        aO=$('#opn-a-out'), bO=$('#opn-b-out'), cO=$('#opn-c-out'), dO=$('#opn-d-out'),
+        out = $('#opn-out');
+  const W=560, H=360, cx=W/2, cy=H/2, R=90;
+
+  function svd2(A){
+    // compute SVD of 2x2 matrix: returns {sigma: [s1,s2], angles}
+    const [a,b,c,d] = [A[0][0],A[0][1],A[1][0],A[1][1]];
+    // compute eigenvalues of A^T A
+    const t11 = a*a + c*c, t22 = b*b + d*d, t12 = a*b + c*d;
+    const tr = t11 + t22;
+    const det = t11*t22 - t12*t12;
+    const disc = Math.max(0, tr*tr/4 - det);
+    const lam1 = tr/2 + Math.sqrt(disc);
+    const lam2 = tr/2 - Math.sqrt(disc);
+    return {s1: Math.sqrt(Math.max(0,lam1)), s2: Math.sqrt(Math.max(0,lam2))};
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const a=parseFloat(aS.value), b=parseFloat(bS.value), c=parseFloat(cS.value), d=parseFloat(dS.value);
+    aO.textContent = a.toFixed(2); bO.textContent = b.toFixed(2);
+    cO.textContent = c.toFixed(2); dO.textContent = d.toFixed(2);
+    const T = [[a,b],[c,d]];
+
+    // axes
+    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
+    // unit circle input (dashed cyan)
+    const Npts = 200;
+    let inpts=[], outpts=[];
+    for(let i=0;i<=Npts;i++){
+      const th = 2*Math.PI*i/Npts;
+      const x = Math.cos(th), y = Math.sin(th);
+      inpts.push([cx + x*R, cy - y*R]);
+      const Tx = a*x + b*y, Ty = c*x + d*y;
+      outpts.push([cx + Tx*R, cy - Ty*R]);
+    }
+    const indash = inpts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ') + ' Z';
+    svg.appendChild(SVG('path',{d:indash, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.2, 'stroke-dasharray':'4 3'}));
+    const outd = outpts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ') + ' Z';
+    svg.appendChild(SVG('path',{d:outd, fill:'var(--yellow)', 'fill-opacity':0.15, stroke:'var(--yellow)', 'stroke-width':2}));
+
+    // find unit vector u maximizing ||Tu||
+    const {s1, s2} = svd2(T);
+    let bestU=[1,0], bestNorm=0;
+    for(let i=0;i<Npts;i++){
+      const th = 2*Math.PI*i/Npts;
+      const x = Math.cos(th), y = Math.sin(th);
+      const Tx = a*x + b*y, Ty = c*x + d*y;
+      const n = Math.hypot(Tx,Ty);
+      if(n > bestNorm){ bestNorm = n; bestU = [x,y]; }
+    }
+    // draw the maximizing vector u (cyan) and Tu (yellow)
+    const uEnd = [cx + bestU[0]*R, cy - bestU[1]*R];
+    const Tu = [a*bestU[0]+b*bestU[1], c*bestU[0]+d*bestU[1]];
+    const TuEnd = [cx + Tu[0]*R, cy - Tu[1]*R];
+    drawArrow(svg, [cx,cy], uEnd, {color:'var(--cyan)', width:2, markerId:'opn-u', pad1:0, pad2:4});
+    drawArrow(svg, [cx,cy], TuEnd, {color:'var(--yellow)', width:2.5, markerId:'opn-Tu', pad1:0, pad2:4});
+
+    // legend
+    const lg1 = SVG('text',{x:W-28,y:28,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    lg1.textContent = 'unit circle (input)'; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-28,y:46,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg2.textContent = 'T(unit circle) = ellipse'; svg.appendChild(lg2);
+
+    out.textContent =
+`T =
+  [${a.toFixed(3)}  ${b.toFixed(3)}]
+  [${c.toFixed(3)}  ${d.toFixed(3)}]
+
+singular values (semi-axes of image ellipse):
+  σ₁ = ${s1.toFixed(4)}    σ₂ = ${s2.toFixed(4)}
+
+operator norm  ‖T‖ = σ₁ = ${s1.toFixed(4)}
+Frobenius norm ‖T‖_F = √(a²+b²+c²+d²) = ${Math.sqrt(a*a+b*b+c*c+d*d).toFixed(4)}
+
+(max-stretch unit vector u = (${bestU[0].toFixed(3)}, ${bestU[1].toFixed(3)}),  ‖Tu‖ = ${bestNorm.toFixed(4)})`;
+  }
+
+  [aS,bS,cS,dS].forEach(s=>s.addEventListener('input', render));
+  $('#opn-shift').addEventListener('click', ()=>{
+    aS.value=0; bS.value=0; cS.value=1; dS.value=0; render();
+  });
+  $('#opn-rot').addEventListener('click', ()=>{
+    // 30-degree rotation
+    const th = Math.PI/6;
+    aS.value=Math.cos(th).toFixed(2); bS.value=(-Math.sin(th)).toFixed(2);
+    cS.value=Math.sin(th).toFixed(2); dS.value=Math.cos(th).toFixed(2); render();
+  });
+  $('#opn-rank1').addEventListener('click', ()=>{
+    aS.value=3; bS.value=4; cS.value=0; dS.value=0; render();
+  });
+  $('#opn-pauli').addEventListener('click', ()=>{
+    aS.value=0; bS.value=1; cS.value=1; dS.value=0; render();
+  });
+  render();
+})();
+</script>
+
 <section id="bounded">
-<h2>3. Bounded linear operators</h2>
+<h2>4. Bounded linear operators</h2>
 <p>Let $X,Y$ be normed spaces. A linear map $T\colon X\to Y$ is <strong>bounded</strong> when</p>
 $$\|T\| := \sup_{\|x\|\le 1}\|Tx\|_Y < \infty.$$
 <p>For linear maps, bounded $\iff$ continuous $\iff$ continuous at $0$. The collection</p>
@@ -747,10 +914,13 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#adjoint">Functional analysis</a> · Adjoint operator on Hilbert space</div>
+    <div><a href="./functional-analysis.html#compact">Functional analysis</a> · Compact operators and Fredholm alternative</div>
     <div><a href="./functional-analysis.html#spectral">Functional analysis</a> · Spectral theorem viewpoint</div>
+    <div><a href="./functional-analysis.html#spec-class">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>
+    <div><a href="./functional-analysis.html#bigfour">Functional analysis</a> · The big four theorems</div>
     <div><a href="./functional-analysis.html#weak">Functional analysis</a> · Weak and weak-* topologies</div>
-    <div><a href="./operator-algebras.html#cstar">Operator algebras</a> · C*-algebras and examples</div>
-    <div><a href="./operator-algebras.html#spec">Operator algebras</a> · Spectrum and functional calculus</div>
+    <div class="more">… and 2 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -759,8 +929,152 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
 
 </section>
 
+<section id="adjoint">
+<h2>5. The adjoint operator</h2>
+
+<p>On a Hilbert space, the adjoint $T^*$ of an operator $T\in B(H)$ is the unique operator satisfying</p>
+$$\langle Tx,y\rangle = \langle x, T^*y\rangle,\qquad \forall x,y\in H.$$
+<p>Existence is a one-line application of the <em>Riesz representation theorem</em>: for fixed $y$, the map $x\mapsto\overline{\langle Tx,y\rangle}$ is a bounded conjugate-linear functional, so there is a unique $T^*y$ representing it.</p>
+
+<p>The adjoint sorts operators into four natural classes by how $T$ and $T^*$ commute or coincide:</p>
+<table class="plain">
+<thead><tr><th>class</th><th>defining identity</th><th>spectrum</th></tr></thead>
+<tbody>
+<tr><td><strong>self-adjoint</strong> (Hermitian)</td><td>$T^*=T$</td><td>$\sigma(T)\subset\mathbb{R}$</td></tr>
+<tr><td><strong>skew-adjoint</strong> (anti-Hermitian)</td><td>$T^*=-T$</td><td>$\sigma(T)\subset i\mathbb{R}$</td></tr>
+<tr><td><strong>unitary</strong></td><td>$T^*T=TT^*=I$</td><td>$\sigma(T)\subset\{|z|=1\}$</td></tr>
+<tr><td><strong>normal</strong></td><td>$T^*T=TT^*$</td><td>general $\subset\mathbb{C}$</td></tr>
+</tbody>
+</table>
+
+<p>Normal is the weakest: self-adjoint, skew-adjoint, and unitary operators are all normal. A normal operator on a finite-dimensional Hilbert space admits an orthonormal eigenbasis — that is the finite-dimensional spectral theorem. The operator algebraic slogan: normal $\iff$ spectral theorem applies $\iff$ unitarily diagonalizable in a generalized sense.</p>
+
+<h3>Polar decomposition and the Cayley transform</h3>
+<p>Every $T\in B(H)$ factors as $T=U|T|$ where $|T|=\sqrt{T^*T}\ge 0$ is self-adjoint and $U$ is a partial isometry — the <strong>polar decomposition</strong>. This is the operator-theoretic analogue of $z=e^{i\theta}|z|$ for complex numbers. The <strong>Cayley transform</strong> $U=(T-i)(T+i)^{-1}$ bijects (densely defined) self-adjoint operators with unitaries avoiding $1$; this is the device for passing from real-spectrum (self-adjoint) problems to bounded (unitary) ones.</p>
+
+<h3>Widget — adjoint matrix visualizer</h3>
+
+<div class="widget" id="w-adjoint">
+  <div class="hd"><div class="ttl">$T$ vs $T^*$: self-adjoint / unitary detector</div><div class="hint">real $2\times 2$ case; badges light up when the identities hold</div></div>
+  <div class="row">
+    <label for="adj-a">$T_{11}$</label>
+    <input type="range" id="adj-a" min="-3" max="3" step="0.05" value="0">
+    <span class="readout" id="adj-a-out" style="min-width:60px;flex:0 0 auto">0.00</span>
+  </div>
+  <div class="row">
+    <label for="adj-b">$T_{12}$</label>
+    <input type="range" id="adj-b" min="-3" max="3" step="0.05" value="1">
+    <span class="readout" id="adj-b-out" style="min-width:60px;flex:0 0 auto">1.00</span>
+  </div>
+  <div class="row">
+    <label for="adj-c">$T_{21}$</label>
+    <input type="range" id="adj-c" min="-3" max="3" step="0.05" value="1">
+    <span class="readout" id="adj-c-out" style="min-width:60px;flex:0 0 auto">1.00</span>
+  </div>
+  <div class="row">
+    <label for="adj-d">$T_{22}$</label>
+    <input type="range" id="adj-d" min="-3" max="3" step="0.05" value="0">
+    <span class="readout" id="adj-d-out" style="min-width:60px;flex:0 0 auto">0.00</span>
+  </div>
+  <div class="row">
+    <button id="adj-pauli-x">$\sigma_x$</button>
+    <button id="adj-pauli-z">$\sigma_z$</button>
+    <button id="adj-skew">skew: $J$</button>
+    <button id="adj-rot45">rot 45°</button>
+    <button id="adj-hadamard">Hadamard</button>
+  </div>
+  <div class="readout" id="adj-out"></div>
+</div>
+
+<div class="quiz" data-concept="adjoint-hilbert"></div>
+</section>
+
+<script>
+/* ============================ §5 adjoint widget ============================ */
+(function(){
+  const aS=$('#adj-a'), bS=$('#adj-b'), cS=$('#adj-c'), dS=$('#adj-d');
+  const aO=$('#adj-a-out'), bO=$('#adj-b-out'), cO=$('#adj-c-out'), dO=$('#adj-d-out');
+  const out = $('#adj-out');
+
+  function fmt(x){ return (x>=0?' ':'')+x.toFixed(3); }
+
+  function render(){
+    const a=parseFloat(aS.value), b=parseFloat(bS.value), c=parseFloat(cS.value), d=parseFloat(dS.value);
+    aO.textContent = a.toFixed(2); bO.textContent = b.toFixed(2);
+    cO.textContent = c.toFixed(2); dO.textContent = d.toFixed(2);
+
+    // T* (real case): transpose
+    const eps = 1e-6;
+    const selfAdj = Math.abs(b - c) < eps;
+    const skewAdj = Math.abs(a) < eps && Math.abs(d) < eps && Math.abs(b + c) < eps;
+    // normal: T T^T == T^T T  (for real T, this reads (a,b;c,d)(a,c;b,d) = (a,c;b,d)(a,b;c,d))
+    // TT^T = (a²+b², ac+bd; ac+bd, c²+d²)
+    // T^T T = (a²+c², ab+cd; ab+cd, b²+d²)
+    // so normal iff b²=c² AND ac+bd=ab+cd, i.e., ac+bd=ab+cd, i.e., (a-d)(c-b)=0.
+    const normal = (Math.abs(b*b - c*c) < eps) && (Math.abs((a-d)*(c-b)) < eps);
+    // unitary: T T^T = I   →  a²+b²=1, c²+d²=1, ac+bd=0
+    const unitary = Math.abs(a*a+b*b - 1) < 1e-3 && Math.abs(c*c+d*d - 1) < 1e-3 && Math.abs(a*c+b*d) < 1e-3;
+
+    // det and eigenvalues (real)
+    const tr = a+d, det = a*d - b*c;
+    const disc = tr*tr/4 - det;
+    let lam1, lam2, lam1i=0, lam2i=0;
+    if(disc >= 0){
+      lam1 = tr/2 + Math.sqrt(disc);
+      lam2 = tr/2 - Math.sqrt(disc);
+    } else {
+      lam1 = tr/2; lam1i =  Math.sqrt(-disc);
+      lam2 = tr/2; lam2i = -Math.sqrt(-disc);
+    }
+
+    function badge(name, on){
+      return on ? '✔ '+name : '✗ '+name;
+    }
+
+    out.textContent =
+`T =                        T* = Tᵀ (real case) =
+  [${fmt(a)} ${fmt(b)}]           [${fmt(a)} ${fmt(c)}]
+  [${fmt(c)} ${fmt(d)}]           [${fmt(b)} ${fmt(d)}]
+
+classification:
+  ${badge('self-adjoint  (T*=T, i.e. b=c)', selfAdj)}
+  ${badge('skew-adjoint  (T*=−T, diag=0, b=−c)', skewAdj)}
+  ${badge('normal        (T*T=TT*)', normal)}
+  ${badge('unitary       (T*T=TT*=I)', unitary)}
+
+eigenvalues: ${disc>=0 ? `λ₁=${lam1.toFixed(4)}, λ₂=${lam2.toFixed(4)}   (real)`
+                       : `λ=${lam1.toFixed(4)} ± ${Math.abs(lam1i).toFixed(4)}i   (complex pair)`}
+trace = ${tr.toFixed(4)},   det = ${det.toFixed(4)}
+
+spectrum lies in: ${selfAdj ? 'ℝ (self-adjoint)' : skewAdj ? 'iℝ (skew-adjoint)' : unitary ? 'unit circle |z|=1' : 'general ℂ'}`;
+  }
+
+  [aS,bS,cS,dS].forEach(s=>s.addEventListener('input', render));
+  $('#adj-pauli-x').addEventListener('click', ()=>{
+    aS.value=0; bS.value=1; cS.value=1; dS.value=0; render();
+  });
+  $('#adj-pauli-z').addEventListener('click', ()=>{
+    aS.value=1; bS.value=0; cS.value=0; dS.value=-1; render();
+  });
+  $('#adj-skew').addEventListener('click', ()=>{
+    aS.value=0; bS.value=1; cS.value=-1; dS.value=0; render();
+  });
+  $('#adj-rot45').addEventListener('click', ()=>{
+    const s = Math.SQRT1_2;
+    aS.value=s.toFixed(2); bS.value=(-s).toFixed(2);
+    cS.value=s.toFixed(2); dS.value=s.toFixed(2); render();
+  });
+  $('#adj-hadamard').addEventListener('click', ()=>{
+    const s = Math.SQRT1_2;
+    aS.value=s.toFixed(2); bS.value=s.toFixed(2);
+    cS.value=s.toFixed(2); dS.value=(-s).toFixed(2); render();
+  });
+  render();
+})();
+</script>
+
 <section id="bigfour">
-<h2>4. The big four theorems</h2>
+<h2>6. The big four theorems</h2>
 <p>Four theorems, all ultimately powered by the <strong>Baire category theorem</strong> (a complete metric space is not a countable union of nowhere-dense sets) or by <strong>Zorn's lemma</strong>, organize Banach-space analysis.</p>
 
 <h3>A one-minute summary</h3>
@@ -808,10 +1122,12 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
   <li><strong>Closed Graph</strong> → if an operator factors through a Banach space and each factor has closed graph, so does the composition. Used repeatedly to promote a-priori estimates into continuity.</li>
   <li><strong>Banach–Steinhaus</strong> → divergence of Fourier series at a dense $G_\delta$ of points (du Bois-Reymond), existence of pathological operators, resonance theorems.</li>
 </ul>
+
+<div class="quiz" data-concept="big-four-theorems"></div>
 </section>
 
 <section id="compact">
-<h2>5. Compact operators and the spectrum</h2>
+<h2>7. Compact operators and the spectrum</h2>
 
 <p>A bounded operator $T\colon X\to Y$ is <strong>compact</strong> if $T(B_X)$ is relatively compact in $Y$, where $B_X$ is the closed unit ball. Equivalently, $T$ sends bounded sequences to sequences with norm-convergent subsequences. Compact operators are the infinite-dimensional analogue of "finite-rank-ish" — they are a closed two-sided ideal in $B(X)$ and the norm-closure of finite-rank operators on a Hilbert space (and on many Banach spaces with the approximation property).</p>
 
@@ -876,6 +1192,22 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
   </div>
   <div class="readout" id="spec-out"></div>
 </div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./point-set-topology.html#compact">Compactness</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#spectral">Functional analysis</a> · Spectral theorem viewpoint</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+<div class="quiz" data-concept="compact-operators"></div>
 </section>
 
 <script>
@@ -947,7 +1279,7 @@ ${mode==='compact'
 </script>
 
 <section id="spectral">
-<h2>6. The spectral theorem</h2>
+<h2>8. The spectral theorem</h2>
 
 <p>The spectral theorem is the centerpiece: it says a self-adjoint (or more generally <em>normal</em>) operator can be decomposed along its spectrum, in a way that reduces the study of $T$ to the study of scalar multiplication. Four tiers:</p>
 
@@ -1010,7 +1342,218 @@ $$C(\sigma(T))\hookrightarrow B(H),\qquad f\mapsto f(T)=\int_{\sigma(T)} f(\lamb
 <p>Most interesting operators (differential operators on $L^2$) are <em>unbounded</em>: they are defined only on a dense domain $D(T)\subset H$, and bookkeeping about domains becomes essential. The right notion is that $T$ is <strong>self-adjoint</strong> if $T=T^*$ as unbounded operators (domains included). The spectral theorem, Stone's theorem on one-parameter unitary groups, and the Schrödinger equation all live in this setting — but the price is that "self-adjoint" is genuinely stronger than "symmetric" ($\langle Tx,y\rangle=\langle x,Ty\rangle$ on $D(T)$), and von Neumann's deficiency-index theory is the tool for deciding when a symmetric operator extends to a self-adjoint one.</p>
 
 <div class="quiz" data-concept="spectral-theorem-fa"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#spec-class">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>
+</aside>
+<!-- backlinks-auto-end -->
+
 </section>
+
+<section id="spec-class">
+<h2>9. Classifying the spectrum: point, continuous, residual</h2>
+
+<p>The spectrum $\sigma(T)$ tells you where $T-\lambda I$ fails to be invertible in $B(X)$. There are three distinct ways this can fail, and they organize the spectrum into disjoint pieces:</p>
+
+<table class="plain">
+<thead><tr><th>part</th><th>condition on $T-\lambda I$</th><th>name</th></tr></thead>
+<tbody>
+<tr><td>$\sigma_p(T)$</td><td>not injective (i.e. $\lambda$ is an eigenvalue, $\exists v\ne 0, Tv=\lambda v$)</td><td><strong>point spectrum</strong></td></tr>
+<tr><td>$\sigma_c(T)$</td><td>injective, range dense but not closed (so no bounded inverse)</td><td><strong>continuous spectrum</strong></td></tr>
+<tr><td>$\sigma_r(T)$</td><td>injective, range not dense</td><td><strong>residual spectrum</strong></td></tr>
+<tr><td>$\rho(T)$</td><td>bijection with bounded inverse</td><td><strong>resolvent set</strong></td></tr>
+</tbody>
+</table>
+
+<p>These four sets partition $\mathbb{C}$. The spectrum $\sigma(T)=\sigma_p\sqcup\sigma_c\sqcup\sigma_r$ is always closed and bounded by $\|T\|$; the resolvent $\rho(T)$ is the open complement. For self-adjoint operators, $\sigma_r=\emptyset$ (proof: $\mathrm{ran}(T-\lambda)^\perp=\ker(T-\lambda)$ uses $T=T^*$ and reality of $\lambda$). For compact operators the spectrum is $\{0\}\cup\sigma_p$ — continuous and residual parts vanish outside $\{0\}$.</p>
+
+<h3>Canonical examples</h3>
+<ul>
+  <li><strong>Multiplication $M_x$ on $L^2[0,1]$:</strong> $\sigma(M_x)=[0,1]$, all continuous spectrum. No eigenvalues ($\{x=\lambda\}$ has measure zero), range dense but not closed for $\lambda\in[0,1]$.</li>
+  <li><strong>Right shift $S$ on $\ell^2$:</strong> $\sigma(S)=\overline{D(0,1)}$ (closed unit disk). Point spectrum empty, continuous spectrum = unit circle, residual spectrum = open unit disk.</li>
+  <li><strong>Left shift $S^*$ on $\ell^2$:</strong> $\sigma(S^*)=\overline{D(0,1)}$. Point spectrum = open unit disk (many eigenvectors), continuous spectrum = unit circle, residual spectrum empty.</li>
+  <li><strong>Self-adjoint (e.g., $\sigma_z$ on $\mathbb{C}^2$):</strong> $\sigma=\{-1,+1\}$, all point spectrum; residual empty by the general theorem.</li>
+</ul>
+
+<p>The shift and its adjoint provide a textbook demonstration that residual spectrum of $T$ is dual to point spectrum of $T^*$: $\sigma_r(S)\subseteq\overline{\sigma_p(S^*)}$, with the conjugation becoming identity in the real case.</p>
+
+<div class="widget" id="w-specclass">
+  <div class="hd"><div class="ttl">Spectrum classifier</div><div class="hint">pick an operator, select a $\lambda$, see which part it lies in</div></div>
+  <svg id="specclass-svg" viewBox="0 0 560 300" width="560" height="300"><title>Spectrum classifier</title></svg>
+  <div class="row">
+    <label>operator</label>
+    <select id="specclass-op">
+      <option value="shift-R" selected>right shift $S$ on $\ell^2$</option>
+      <option value="shift-L">left shift $S^*$ on $\ell^2$</option>
+      <option value="mult-x">multiplication by $x$ on $L^2[0,1]$</option>
+      <option value="sigma-z">Pauli $\sigma_z$ on $\mathbb{C}^2$</option>
+      <option value="diag-1n">diag$(1/n)$ on $\ell^2$ (compact)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="specclass-re">Re $\lambda$</label>
+    <input type="range" id="specclass-re" min="-1.5" max="1.5" step="0.01" value="0.5">
+    <label for="specclass-im">Im $\lambda$</label>
+    <input type="range" id="specclass-im" min="-1.5" max="1.5" step="0.01" value="0">
+  </div>
+  <div class="readout" id="specclass-out"></div>
+</div>
+
+<div class="quiz" data-concept="spectrum-classification"></div>
+</section>
+
+<script>
+/* ============================ §9 spectrum classifier ============================ */
+(function(){
+  const svg = $('#specclass-svg'), opSel = $('#specclass-op'),
+        reS = $('#specclass-re'), imS = $('#specclass-im'),
+        out = $('#specclass-out');
+  const W=560, H=300, cx=W/2, cy=H/2, R=90;
+
+  // classify lambda given operator. Returns {part: 'resolvent'|'point'|'continuous'|'residual', note: '...'}
+  function classify(op, re, im){
+    const mag2 = re*re + im*im, mag = Math.sqrt(mag2);
+    if(op === 'shift-R'){
+      // σ(S) = {|z|≤1}. σ_p = ∅; σ_c = {|z|=1}; σ_r = {|z|<1}.
+      if(mag > 1 + 1e-3) return {part:'resolvent', note:'|λ|>1 ⇒ in resolvent set'};
+      if(mag > 1 - 1e-3) return {part:'continuous', note:'|λ|=1 ⇒ continuous spectrum (injective, dense but non-closed range)'};
+      return {part:'residual', note:'|λ|<1 ⇒ residual spectrum (injective, range not dense; λ̄ is an eigenvalue of S*)'};
+    }
+    if(op === 'shift-L'){
+      // σ(S*) = {|z|≤1}. σ_p(S*) = {|z|<1} (many eigenvectors). σ_c = {|z|=1}. σ_r=∅.
+      if(mag > 1 + 1e-3) return {part:'resolvent', note:'|λ|>1 ⇒ in resolvent set'};
+      if(mag > 1 - 1e-3) return {part:'continuous', note:'|λ|=1 ⇒ continuous spectrum'};
+      return {part:'point', note:'|λ|<1 ⇒ point spectrum — eigenvector (1,λ,λ²,…)∈ℓ²'};
+    }
+    if(op === 'mult-x'){
+      // σ(M_x) = [0,1]. All continuous. σ_p = σ_r = ∅.
+      if(Math.abs(im) > 1e-3) return {part:'resolvent', note:'Im λ ≠ 0, but spectrum is real ⇒ resolvent'};
+      if(re < -1e-3 || re > 1+1e-3) return {part:'resolvent', note:'λ ∉ [0,1] ⇒ resolvent'};
+      return {part:'continuous', note:'λ ∈ [0,1] ⇒ continuous spectrum (no eigenvectors; M_x−λ has dense but non-closed range)'};
+    }
+    if(op === 'sigma-z'){
+      // σ(σ_z) = {+1,-1}. All point.
+      if(Math.abs(re - 1) < 0.03 && Math.abs(im) < 0.03) return {part:'point', note:'λ = +1 ⇒ eigenvalue (eigenvector e₁)'};
+      if(Math.abs(re + 1) < 0.03 && Math.abs(im) < 0.03) return {part:'point', note:'λ = −1 ⇒ eigenvalue (eigenvector e₂)'};
+      return {part:'resolvent', note:'λ ∉ {±1} ⇒ resolvent (σ_z has only the two eigenvalues)'};
+    }
+    if(op === 'diag-1n'){
+      // σ = {0} ∪ {1/n : n≥1}. Point spectrum = {1/n : n≥1}; σ_c = σ_r = ∅ for nonzero; 0 is in σ but not eigenvalue.
+      if(Math.abs(im) > 1e-3) return {part:'resolvent', note:'Im λ ≠ 0 ⇒ resolvent'};
+      // check if re = 1/n for some small n
+      for(let n=1;n<=50;n++){
+        if(Math.abs(re - 1/n) < 0.02) return {part:'point', note:`λ ≈ 1/${n} ⇒ eigenvalue (eigenvector e_${n})`};
+      }
+      if(Math.abs(re) < 0.02) return {part:'continuous', note:'λ ≈ 0 ⇒ accumulation point of σ_p, lies in σ but NOT an eigenvalue (continuous part)'};
+      return {part:'resolvent', note:'not 1/n and not 0 ⇒ resolvent'};
+    }
+    return {part:'resolvent', note:'?'};
+  }
+
+  function drawSpectrum(op){
+    // draw the spectrum as colored region / points
+    const sc = (z) => [cx + z[0]*R, cy - z[1]*R];
+    // always axes
+    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));
+    const tx = SVG('text',{x:cx+R+6,y:cy+14,'font-size':11,fill:'var(--mute)'}); tx.textContent='1'; svg.appendChild(tx);
+    const ty = SVG('text',{x:cx+6,y:cy-R+4,'font-size':11,fill:'var(--mute)'}); ty.textContent='i'; svg.appendChild(ty);
+
+    if(op==='shift-R' || op==='shift-L'){
+      // closed disk colored by parts
+      const rr = R;
+      // residual (open disk) — for right shift
+      if(op === 'shift-R'){
+        svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:rr,fill:'var(--pink)','fill-opacity':0.15, stroke:'none'}));
+      } else {
+        svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:rr,fill:'var(--yellow)','fill-opacity':0.18, stroke:'none'}));
+      }
+      // unit circle = continuous
+      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:rr,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+    } else if(op==='mult-x'){
+      // interval [0,1] on real axis
+      svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:cx+R, y2:cy, stroke:'var(--cyan)','stroke-width':4}));
+    } else if(op==='sigma-z'){
+      // two points at ±1
+      svg.appendChild(SVG('circle',{cx:cx+R, cy:cy, r:5, fill:'var(--yellow)'}));
+      svg.appendChild(SVG('circle',{cx:cx-R, cy:cy, r:5, fill:'var(--yellow)'}));
+    } else if(op==='diag-1n'){
+      // 0 (cyan, accumulation) and 1/n (yellow point spectrum)
+      svg.appendChild(SVG('circle',{cx:cx, cy:cy, r:5, fill:'var(--cyan)'}));
+      for(let n=1;n<=30;n++){
+        svg.appendChild(SVG('circle',{cx:cx+R/n, cy:cy, r:Math.max(1.5, 4-n*0.1), fill:'var(--yellow)'}));
+      }
+    }
+  }
+
+  function drawLambda(re, im){
+    const px = cx + re*R, py = cy - im*R;
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':2}));
+    const t = SVG('text',{x:px+10,y:py+4,'font-size':12,fill:'var(--pink)'});
+    t.textContent = 'λ'; svg.appendChild(t);
+  }
+
+  function drawLegend(op){
+    const ly = 24;
+    let items = [];
+    if(op === 'shift-R'){
+      items = [
+        ['open disk: σ_r (residual)', 'var(--pink)'],
+        ['unit circle: σ_c (continuous)', 'var(--cyan)'],
+        ['outside: ρ (resolvent)', 'var(--mute)']
+      ];
+    } else if(op === 'shift-L'){
+      items = [
+        ['open disk: σ_p (point)', 'var(--yellow)'],
+        ['unit circle: σ_c (continuous)', 'var(--cyan)'],
+        ['outside: ρ (resolvent)', 'var(--mute)']
+      ];
+    } else if(op === 'mult-x'){
+      items = [
+        ['segment [0,1]: σ_c (all continuous)', 'var(--cyan)'],
+        ['elsewhere: ρ (resolvent)', 'var(--mute)']
+      ];
+    } else if(op === 'sigma-z'){
+      items = [
+        ['±1: σ_p (eigenvalues)', 'var(--yellow)'],
+        ['elsewhere: ρ (resolvent)', 'var(--mute)']
+      ];
+    } else {
+      items = [
+        ['1/n: σ_p (eigenvalues)', 'var(--yellow)'],
+        ['0: accumulation, in σ but not σ_p', 'var(--cyan)'],
+        ['elsewhere: ρ (resolvent)', 'var(--mute)']
+      ];
+    }
+    items.forEach((it,i)=>{
+      const t = SVG('text',{x:W-24,y:ly+i*16,'text-anchor':'end','font-size':11,fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const op = opSel.value;
+    drawSpectrum(op);
+    drawLegend(op);
+    const re = parseFloat(reS.value), im = parseFloat(imS.value);
+    drawLambda(re, im);
+    const res = classify(op, re, im);
+    out.textContent =
+`operator: ${opSel.options[opSel.selectedIndex].text.replace(/<[^>]+>/g,'')}
+λ = ${re.toFixed(2)}${im>=0?' + ':' − '}${Math.abs(im).toFixed(2)}i
+
+classification: λ ∈ ${res.part.toUpperCase()}
+${res.note}`;
+  }
+
+  opSel.addEventListener('change', render);
+  reS.addEventListener('input', render);
+  imS.addEventListener('input', render);
+  render();
+})();
+</script>
 
 <script>
 /* ============================ §6 symmetric 3×3 spectral widget ============================ */
@@ -1131,7 +1674,7 @@ ${fmt(Arec)}
 </script>
 
 <section id="duality">
-<h2>7. Duality and the Riesz representation</h2>
+<h2>10. Duality and the Riesz representation</h2>
 
 <p>Every Banach space $X$ has a dual $X^* = B(X,\mathbb{K})$. Understanding $X^*$ concretely is often half the job; it tells you which "tests" probe points of $X$.</p>
 
@@ -1314,7 +1857,7 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 </script>
 
 <section id="riesz">
-<h2>8. The Riesz representation theorem</h2>
+<h2>11. The Riesz representation theorem</h2>
 
 <p>The Riesz representation theorem is the statement that makes a Hilbert space into its own dual. Given a Hilbert space $H$, every bounded linear functional $\ell\in H^*$ is of the form $\ell(x)=\langle x,y\rangle$ for a <em>unique</em> $y\in H$, and the correspondence $y\leftrightarrow\ell$ is an isometric (conjugate-linear) bijection $H\cong H^*$. Concretely: to probe a Hilbert vector with a continuous linear test, you take an inner product with another Hilbert vector — nothing else is available.</p>
 
@@ -1328,12 +1871,122 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
     <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#reflexivity">Functional analysis</a> · Reflexivity</div>
+</aside>
+<!-- backlinks-auto-end -->
+
 
 <div class="quiz" data-concept="riesz-representation"></div>
 </section>
 
+<section id="reflexivity">
+<h2>12. Reflexivity</h2>
+
+<p>Every Banach space $X$ has a canonical map into its double dual:</p>
+$$J\colon X\to X^{**},\qquad (Jx)(\ell) = \ell(x)\ \text{for } \ell\in X^*.$$
+<p>Hahn–Banach guarantees this is always an <em>isometric</em> embedding: $\|Jx\|=\sup_{\|\ell\|\le 1}|\ell(x)|=\|x\|$. The space $X$ is <strong>reflexive</strong> when $J$ is also surjective — i.e., every functional on $X^*$ is evaluation at a point of $X$.</p>
+
+<p>Reflexivity is a compactness property in disguise. The deep equivalence:</p>
+<div class="ok"><strong>Theorem (Kakutani).</strong> $X$ is reflexive $\iff$ the closed unit ball $B_X$ is weakly compact. Equivalently (Eberlein–Šmulian on $X$ metrizable-weakly), every bounded sequence has a weakly convergent subsequence.</div>
+
+<p>This is why reflexive spaces are the natural arena for the <em>direct method</em> in the calculus of variations: a minimizing sequence $(x_n)$ is bounded (so has a weak limit $x^*$), and weak lower semicontinuity of a convex functional gives $F(x^*)\le\liminf F(x_n)$ — a minimizer exists without any explicit construction. Non-reflexive spaces can fail this: minimizing sequences may escape to infinity at infinity.</p>
+
+<h3>Reflexive vs non-reflexive at a glance</h3>
+<table class="plain">
+<thead><tr><th>space</th><th>$X^*$</th><th>$X^{**}$</th><th>reflexive?</th></tr></thead>
+<tbody>
+<tr><td>$\mathbb{R}^n,\mathbb{C}^n$ (any norm)</td><td>$\mathbb{K}^n$</td><td>$\mathbb{K}^n$</td><td>yes (trivially)</td></tr>
+<tr><td>Hilbert $H$</td><td>$H$ (Riesz)</td><td>$H$</td><td>yes</td></tr>
+<tr><td>$\ell^p,L^p$, $1<p<\infty$</td><td>$\ell^q,L^q$</td><td>$\ell^p,L^p$</td><td>yes</td></tr>
+<tr><td>$\ell^1$</td><td>$\ell^\infty$</td><td>$(\ell^\infty)^*\supsetneq\ell^1$</td><td>no</td></tr>
+<tr><td>$L^1$ ($\sigma$-finite, non-atomic)</td><td>$L^\infty$</td><td>$(L^\infty)^*\supsetneq L^1$</td><td>no</td></tr>
+<tr><td>$\ell^\infty$</td><td>$(\ell^\infty)^*\supsetneq\ell^1$</td><td>huge</td><td>no</td></tr>
+<tr><td>$c_0$ (sequences $\to 0$)</td><td>$\ell^1$</td><td>$\ell^\infty$</td><td>no</td></tr>
+<tr><td>$C[0,1]$ (sup norm)</td><td>$M[0,1]$ (measures)</td><td>much bigger</td><td>no</td></tr>
+</tbody>
+</table>
+
+<h3>Why $c_0$ fails — the canonical obstruction</h3>
+<p>The canonical chain is $c_0\hookrightarrow(c_0)^{**}\cong\ell^\infty$. The constant sequence $(1,1,1,\ldots)\in\ell^\infty$ is a legitimate element of $c_0^{**}$ (it acts on $\ell^1=c_0^*$ by $\ell\mapsto\sum \ell_n$), but it is NOT the image under $J$ of any $c\in c_0$, because no $c\in c_0$ satisfies $\ell(c)=\sum\ell_n$ for all $\ell\in\ell^1$ (take $\ell=e_n$ to read off $c_n=1$, contradicting $c_n\to 0$). The defect is precisely that $c_0$ sees $J(c_0)$ as a strict subspace of $c_0^{**}=\ell^\infty$.</p>
+
+<h3>Widget — reflexivity checker</h3>
+
+<div class="widget" id="w-refl">
+  <div class="hd"><div class="ttl">Classify a Banach space</div><div class="hint">pick $X$ and read off its dual-chain status</div></div>
+  <div class="row">
+    <label>space $X$</label>
+    <select id="refl-sp">
+      <option value="l2" selected>$\ell^2$ (Hilbert)</option>
+      <option value="lp3">$\ell^p$, $p=3$ ($1<p<\infty$)</option>
+      <option value="l1">$\ell^1$</option>
+      <option value="linf">$\ell^\infty$</option>
+      <option value="c0">$c_0$</option>
+      <option value="C01">$C[0,1]$ (sup norm)</option>
+      <option value="L2">$L^2[0,1]$</option>
+      <option value="L1">$L^1[0,1]$</option>
+      <option value="Rn">$\mathbb{R}^n$ (finite-dim)</option>
+    </select>
+  </div>
+  <div class="readout" id="refl-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="reflexivity"></div>
+</section>
+
+<script>
+/* ============================ §12 reflexivity widget ============================ */
+(function(){
+  const sel = $('#refl-sp'), out = $('#refl-out');
+  const data = {
+    'l2':   {dual:'ℓ²',                   ddual:'ℓ²',        refl:true,  note:'Hilbert space; Riesz gives H ≅ H* via x ↦ ⟨·,x⟩. Reflexive (and self-dual up to conjugation).'},
+    'lp3':  {dual:'ℓ^{3/2}',              ddual:'ℓ³',        refl:true,  note:'For 1<p<∞, ℓ^p is reflexive. (ℓ^p)* = ℓ^q, (ℓ^p)** = ℓ^p via the canonical J.'},
+    'l1':   {dual:'ℓ^∞',                  ddual:'(ℓ^∞)*⊋ℓ¹', refl:false, note:'(ℓ¹)* = ℓ^∞ (integration/pairing). But (ℓ^∞)* is strictly larger than ℓ¹ — it contains Banach limits. So J: ℓ¹ ↪ (ℓ^∞)* is NOT surjective.'},
+    'linf': {dual:'⊋ℓ¹',                  ddual:'huge',      refl:false, note:'(ℓ^∞)* properly contains ℓ¹ (Banach limits). The double dual is vast; ℓ^∞ is not reflexive, and the unit ball is NOT weakly sequentially compact (consider (0,0,…,0,1,0,…)).'},
+    'c0':   {dual:'ℓ¹',                   ddual:'ℓ^∞',       refl:false, note:'c₀* = ℓ¹ (tail-summability). c₀** = ℓ^∞ strictly contains c₀: the constant sequence (1,1,…)∈ℓ^∞ is not J(c) for any c∈c₀.'},
+    'C01':  {dual:'M[0,1] (regular Borel measures, TV norm)', ddual:'much bigger', refl:false, note:'Riesz–Markov: C[0,1]* = M[0,1]. Not reflexive — the biduals are the strict spaces of finitely additive / Radon-ish gadgets.'},
+    'L2':   {dual:'L²[0,1]',              ddual:'L²[0,1]',   refl:true,  note:'Hilbert; reflexive. Norm-closed convex sets are weakly closed (Mazur); bounded sequences have weakly convergent subsequences.'},
+    'L1':   {dual:'L^∞[0,1]',             ddual:'⊋L¹',       refl:false, note:'(L¹)* = L^∞ on σ-finite spaces, but (L^∞)* is strictly larger (finitely additive signed measures). So L¹ is not reflexive.'},
+    'Rn':   {dual:'ℝⁿ',                   ddual:'ℝⁿ',        refl:true,  note:'Finite-dimensional spaces are always reflexive (dim X = dim X* = dim X**, and J is always injective).'}
+  };
+
+  function render(){
+    const k = sel.value;
+    const d = data[k];
+    const x = sel.options[sel.selectedIndex].text.replace(/<[^>]+>/g,'');
+    // strip $...$ markers
+    const xs = x.replace(/\$([^$]*)\$/g, '$1');
+    const badge = d.refl ? '✔ REFLEXIVE' : '✗ NOT REFLEXIVE';
+    out.textContent =
+`space X           = ${xs}
+dual X*           = ${d.dual}
+double-dual X**   = ${d.ddual}
+canonical J:X→X** = isometric embedding (always)
+J surjective?     = ${d.refl ? 'yes' : 'no'}
+
+${badge}
+
+unit ball of X is weakly ${d.refl ? 'compact (Kakutani)' : 'NOT compact'}.
+bounded sequences have weakly ${d.refl ? 'convergent subsequences (Eberlein–Šmulian)' : 'convergent subsequences only sometimes'}.
+
+note: ${d.note}`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 <section id="weak">
-<h2>9. Weak and weak-* topologies</h2>
+<h2>13. Weak and weak-* topologies</h2>
 
 <p>In infinite dimensions, norm-compactness is rare — the closed unit ball of an infinite-dimensional Banach space is never compact (Riesz's lemma). The fix is to weaken the topology. The <strong>weak topology</strong> on a Banach space $X$ is the coarsest topology making every $\ell\in X^*$ continuous: $x_n\rightharpoonup x$ means $\ell(x_n)\to\ell(x)$ for every $\ell\in X^*$. The <strong>weak-* topology</strong> on the dual $X^*$ is the coarsest making evaluation-at-$x$ continuous for every $x\in X$: $\ell_n\xrightarrow{w*}\ell$ means $\ell_n(x)\to\ell(x)$ pointwise in $x$.</p>
 
@@ -1345,12 +1998,161 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
     <li><a href="./point-set-topology.html#compact">Compactness</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#reflexivity">Functional analysis</a> · Reflexivity</div>
+</aside>
+<!-- backlinks-auto-end -->
+
 
 <div class="quiz" data-concept="weak-topology"></div>
 </section>
 
+<section id="distributions">
+<h2>14. Distributions and test functions</h2>
+
+<p>Many objects in analysis and PDE — the delta "function," the derivative of a step, the Fourier transform of a polynomial — are not functions. They are <strong>distributions</strong>: continuous linear functionals on a chosen space of very-nice <em>test functions</em>.</p>
+
+<p>Fix $\Omega\subset\mathbb{R}^n$ open. The space of test functions is</p>
+$$\mathcal{D}(\Omega) = C_c^\infty(\Omega) = \{\phi\in C^\infty(\Omega) : \mathrm{supp}(\phi)\text{ compact in }\Omega\}.$$
+<p>Equipped with the natural inductive-limit topology (convergence in $\mathcal{D}$ means: supports stay in a common compact set, and all derivatives converge uniformly), the dual</p>
+$$\mathcal{D}'(\Omega) = \{T\colon\mathcal{D}(\Omega)\to\mathbb{C} \text{ continuous linear}\}$$
+<p>is the space of <strong>distributions</strong> on $\Omega$. Every $f\in L^1_{\mathrm{loc}}(\Omega)$ defines one by $\langle T_f,\phi\rangle=\int f\phi$, but $\mathcal{D}'$ contains more:</p>
+
+<ul>
+  <li><strong>Dirac delta</strong>: $\langle\delta_0,\phi\rangle=\phi(0)$. Not given by any function — the defining "integral" is a point evaluation.</li>
+  <li><strong>Principal value</strong>: $\langle\mathrm{p.v.}\tfrac{1}{x},\phi\rangle=\lim_{\varepsilon\to 0^+}\int_{|x|>\varepsilon}\phi(x)/x\,dx$, a regularized integral.</li>
+  <li><strong>Derivatives of distributions</strong>: for any $T\in\mathcal{D}'$, define $\langle T',\phi\rangle=-\langle T,\phi'\rangle$. Everything in $\mathcal{D}'$ is infinitely differentiable. For instance, $(\log|x|)'=\mathrm{p.v.}\tfrac{1}{x}$, and the derivative of the Heaviside step is $\delta_0$.</li>
+  <li><strong>Tempered distributions</strong> $\mathcal{S}'(\mathbb{R}^n)$ — dual of Schwartz space $\mathcal{S}$, the smooth rapidly-decreasing functions. The Fourier transform acts continuously on $\mathcal{S}$, so by duality it extends to $\mathcal{S}'$. This is how $\hat{\delta}=1$, $\hat 1=(2\pi)^{n/2}\delta$, and the Fourier transform of a polynomial make sense.</li>
+</ul>
+
+<p>A sequence $(f_n)$ of $L^1_{\mathrm{loc}}$ functions converges to $T\in\mathcal{D}'$ in the distributional sense if $\int f_n\phi\to\langle T,\phi\rangle$ for every $\phi\in C_c^\infty$. The delta is the weak limit of any bump with unit mass shrinking to the origin — a classic example being $n\cdot\mathbf{1}_{[0,1/n]}$, or a Gaussian $\tfrac{1}{\sqrt{2\pi}\,\sigma}e^{-x^2/(2\sigma^2)}$ as $\sigma\to 0$.</p>
+
+<h3>Widget — delta distribution as a limit of bumps</h3>
+
+<div class="widget" id="w-delta">
+  <div class="hd"><div class="ttl">$f_\sigma \to \delta_0$ in $\mathcal{D}'$</div><div class="hint">Gaussian bump of width $\sigma$; pair with a test function $\phi$ to see $\int f_\sigma\phi\to\phi(0)$</div></div>
+  <svg id="delta-svg" viewBox="0 0 560 300" width="560" height="300"><title>Delta distribution approximation via bump sequence</title></svg>
+  <div class="row">
+    <label for="delta-sigma">$\sigma$</label>
+    <input type="range" id="delta-sigma" min="0.02" max="1.5" step="0.01" value="0.8">
+    <span class="readout" id="delta-sigma-out" style="min-width:70px;flex:0 0 auto">σ = 0.80</span>
+  </div>
+  <div class="row">
+    <label>test $\phi$</label>
+    <select id="delta-phi">
+      <option value="bump" selected>bump $\phi(x)=e^{-x^2}\mathbf{1}_{|x|<2}$ ($\phi(0)=1$)</option>
+      <option value="cos">$\phi(x)=\cos(x)\mathbf{1}_{|x|<2}$ ($\phi(0)=1$)</option>
+      <option value="quad">$\phi(x)=(2-x^2)\mathbf{1}_{|x|<\sqrt{2}}$ ($\phi(0)=2$)</option>
+      <option value="shifted">$\phi(x)=e^{-(x-1)^2}\mathbf{1}_{|x-1|<2}$ ($\phi(0)=e^{-1}\approx 0.368$)</option>
+    </select>
+  </div>
+  <div class="readout" id="delta-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#bump-functions">Bump functions</a></li>
+    <li><a href="./real-analysis.html#uniform-convergence">Uniform convergence</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="distributions"></div>
+</section>
+
+<script>
+/* ============================ §14 delta-bump widget ============================ */
+(function(){
+  const svg = $('#delta-svg'), sS = $('#delta-sigma'), sO = $('#delta-sigma-out'),
+        phiSel = $('#delta-phi'), out = $('#delta-out');
+  const W=560, H=300, padL=40, padR=20, padT=20, padB=30;
+  const xmin=-2.5, xmax=2.5;
+
+  function phi(name, x){
+    if(name==='bump') return Math.abs(x) < 2 ? Math.exp(-x*x) : 0;
+    if(name==='cos')  return Math.abs(x) < 2 ? Math.cos(x) : 0;
+    if(name==='quad') return Math.abs(x) < Math.sqrt(2) ? (2 - x*x) : 0;
+    if(name==='shifted') return Math.abs(x-1) < 2 ? Math.exp(-(x-1)*(x-1)) : 0;
+    return 0;
+  }
+  function phiAt0(name){ return phi(name, 0); }
+
+  function gauss(x, sigma){
+    return Math.exp(-x*x/(2*sigma*sigma)) / (Math.sqrt(2*Math.PI)*sigma);
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const sigma = parseFloat(sS.value);
+    sO.textContent = `σ = ${sigma.toFixed(2)}`;
+    const name = phiSel.value;
+
+    // scale: y from -0.2 to max(3, 1/sigma)
+    const ymax = Math.max(3, 1/(Math.sqrt(2*Math.PI)*sigma) + 0.4);
+    const ymin = -0.4;
+    const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+    const sy = y => padT + (ymax - y)/(ymax-ymin)*(H-padT-padB);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+
+    // gaussian f_sigma
+    const M=400;
+    let gpts=[], ppts=[];
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      gpts.push([sx(x), sy(gauss(x,sigma))]);
+      ppts.push([sx(x), sy(phi(name,x))]);
+    }
+    const gd = gpts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ');
+    svg.appendChild(SVG('path',{d:gd, fill:'var(--yellow)', 'fill-opacity':0.2, stroke:'var(--yellow)','stroke-width':2}));
+    const pd = ppts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ');
+    svg.appendChild(SVG('path',{d:pd, fill:'none', stroke:'var(--cyan)','stroke-width':2}));
+
+    // pairing: approximate ∫ f_σ φ
+    const G=2000;
+    let integral = 0;
+    const dx = (xmax-xmin)/G;
+    for(let i=0;i<G;i++){
+      const x = xmin + (i+0.5)*dx;
+      integral += gauss(x,sigma)*phi(name,x)*dx;
+    }
+    // also ∫ f_σ = 1 (within the cutoff; it will be slightly <1 since we cut at ±2.5)
+    let mass = 0;
+    for(let i=0;i<G;i++){
+      const x = xmin + (i+0.5)*dx;
+      mass += gauss(x,sigma)*dx;
+    }
+
+    // legend
+    const lg1 = SVG('text',{x:W-padR-4,y:padT+14,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg1.textContent = `f_σ (Gaussian, σ=${sigma.toFixed(2)})`; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-padR-4,y:padT+30,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    lg2.textContent = 'φ (test function)'; svg.appendChild(lg2);
+
+    const phi0 = phiAt0(name);
+    out.textContent =
+`approximate δ₀ pairing: ∫ f_σ(x) φ(x) dx  ≈  ${integral.toFixed(5)}
+target (exact δ₀ pairing):  ⟨δ₀, φ⟩ = φ(0)  =  ${phi0.toFixed(5)}
+difference:  ${(integral - phi0).toFixed(5)}
+
+∫ f_σ  ≈  ${mass.toFixed(4)}   (→ 1; Gaussian has unit mass, minor cutoff loss at ±2.5)
+
+As σ → 0, ∫ f_σ φ → φ(0) for every continuous φ — this is the definition of f_σ → δ₀ in 𝒟'.
+Pointwise, f_σ(0) = 1/(√(2π)σ) → ∞; away from 0, f_σ(x) → 0. The limit is NOT a function.`;
+  }
+
+  sS.addEventListener('input', render);
+  phiSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
 <section id="outro">
-<h2>10. Connections</h2>
+<h2>15. Connections</h2>
 
 <p>Functional analysis is the grammar of modern mathematical analysis. Some of the neighbors:</p>
 

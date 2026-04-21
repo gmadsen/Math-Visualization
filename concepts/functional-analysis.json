@@ -13,22 +13,71 @@
       "blurb": "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs."
     },
     {
+      "id": "operator-norm",
+      "title": "Bounded linear operators and the operator norm",
+      "anchor": "opnorm",
+      "prereqs": [
+        "banach-hilbert-spaces"
+      ],
+      "blurb": "B(X,Y) is Banach under the operator norm; for linear maps bounded = continuous = Lipschitz, and the norm is the largest singular value in the matrix case."
+    },
+    {
       "id": "bounded-operators-fa",
       "title": "Bounded operators and adjoints",
       "anchor": "bounded",
       "prereqs": [
+        "operator-norm",
         "banach-hilbert-spaces"
       ],
       "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
+    },
+    {
+      "id": "adjoint-hilbert",
+      "title": "Adjoint operator on Hilbert space",
+      "anchor": "adjoint",
+      "prereqs": [
+        "bounded-operators-fa"
+      ],
+      "blurb": "Self-adjoint, normal, and unitary operators are detected through identities between T and T*; Pauli matrices make the distinctions concrete in 2×2."
+    },
+    {
+      "id": "big-four-theorems",
+      "title": "The big four theorems",
+      "anchor": "bigfour",
+      "prereqs": [
+        "bounded-operators-fa"
+      ],
+      "blurb": "Hahn–Banach, Open Mapping, Closed Graph, and Banach–Steinhaus organize Banach-space analysis via Baire category and Zorn's lemma."
+    },
+    {
+      "id": "compact-operators",
+      "title": "Compact operators and Fredholm alternative",
+      "anchor": "compact",
+      "prereqs": [
+        "bounded-operators-fa",
+        "compactness"
+      ],
+      "blurb": "Compact operators send bounded sets to precompact sets; Riesz–Schauder gives a discrete spectrum accumulating only at 0 and the Fredholm alternative for T−λI."
     },
     {
       "id": "spectral-theorem-fa",
       "title": "Spectral theorem viewpoint",
       "anchor": "spectral",
       "prereqs": [
-        "bounded-operators-fa"
+        "bounded-operators-fa",
+        "compact-operators"
       ],
       "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions."
+    },
+    {
+      "id": "spectrum-classification",
+      "title": "Spectrum classification: point, continuous, residual",
+      "anchor": "spec-class",
+      "prereqs": [
+        "bounded-operators-fa",
+        "spectral-theorem-fa"
+      ],
+      "blurb": "The spectrum decomposes by which way T−λ fails to be invertible: not injective (point), dense-range-but-not-closed (continuous), or non-dense range (residual)."
     },
     {
       "id": "riesz-representation",
@@ -49,6 +98,27 @@
         "compactness"
       ],
       "blurb": "Coarsen the topology so dual pairings become continuous; Banach–Alaoglu then makes the unit ball of the dual weak-* compact."
+    },
+    {
+      "id": "reflexivity",
+      "title": "Reflexivity",
+      "anchor": "reflexivity",
+      "prereqs": [
+        "weak-topology",
+        "riesz-representation",
+        "lp-spaces"
+      ],
+      "blurb": "X is reflexive when the canonical embedding X → X** is surjective; Lᵖ (1<p<∞) and Hilbert spaces qualify; L¹, L∞, C[0,1], c₀ do not."
+    },
+    {
+      "id": "distributions",
+      "title": "Distributions and test functions",
+      "anchor": "distributions",
+      "prereqs": [
+        "banach-hilbert-spaces",
+        "uniform-convergence"
+      ],
+      "blurb": "The dual of Cc^∞ is the space of distributions — delta, principal value, tempered — extending differentiation and Fourier analysis beyond functions."
     }
   ]
 }

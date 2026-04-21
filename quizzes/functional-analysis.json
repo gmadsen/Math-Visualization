@@ -70,6 +70,72 @@
         }
       ]
     },
+    "operator-norm": {
+      "title": "Bounded linear operators and the operator norm",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The operator norm of $T\\in B(X,Y)$ is defined by $\\|T\\|=\\sup_{\\|x\\|\\le 1}\\|Tx\\|$. Which equivalent expression is INCORRECT?",
+          "choices": [
+            "$\\sup_{\\|x\\|=1}\\|Tx\\|$",
+            "$\\sup_{x\\ne 0}\\|Tx\\|/\\|x\\|$",
+            "the smallest $C\\ge 0$ with $\\|Tx\\|\\le C\\|x\\|$ for all $x$",
+            "$\\inf\\{\\|Tx\\| : x\\in X\\}$"
+          ],
+          "answer": 3,
+          "explain": "The infimum is $0$ for any linear $T$ (take $x=0$). The first three expressions are all standard equivalent formulas for the operator norm."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{R}^2$ with Euclidean norm, what is the operator norm of the diagonal matrix $T=\\mathrm{diag}(3,-4)$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$. Here $\\max(3,4)=4$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the operator norm of $T=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$ (symmetric, so $\\|T\\|=\\max|\\lambda_i|$).",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$. The operator norm is $\\max(|3|,|-1|)=3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "$B(X,Y)$ is a Banach space whenever $Y$ is a Banach space — even if $X$ is merely normed. Which step of the proof of completeness of $B(X,Y)$ is MOST subtle?",
+          "choices": [
+            "Showing $\\|T\\|$ is a norm",
+            "Showing that a Cauchy $(T_n)$ in $B(X,Y)$ defines a pointwise limit $Tx=\\lim T_n x$ in $Y$, verifying linearity, and then showing $\\|T_n-T\\|\\to 0$ in operator norm (not just pointwise)",
+            "Invoking Hahn–Banach to construct $T$",
+            "Applying Banach–Alaoglu to the unit ball"
+          ],
+          "answer": 1,
+          "hint": "The nonobvious step is operator-norm convergence, not pointwise convergence.",
+          "explain": "Pointwise convergence $T_n x\\to Tx$ is given by completeness of $Y$ and the Cauchy property of $(T_n x)$. Upgrading to operator-norm convergence uses a uniform $\\varepsilon$ over $\\|x\\|\\le 1$: for $n,m\\ge N$, $\\|T_n x-T_m x\\|\\le\\varepsilon\\|x\\|$; let $m\\to\\infty$ to get $\\|T_n x-Tx\\|\\le\\varepsilon\\|x\\|$, so $\\|T_n-T\\|\\le\\varepsilon$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $T=\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ on $\\mathbb{R}^2$ (Euclidean). Compute $\\|T\\|$ via the largest singular value.",
+          "answer": 5,
+          "tol": 1e-6,
+          "hint": "Compute $T^\\top T$ and find its largest eigenvalue, then take square root.",
+          "explain": "$T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$ has eigenvalues $25$ and $0$. Largest singular value is $\\sqrt{25}=5$. Matches: the single nonzero row has norm $\\sqrt{9+16}=5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which operator on $\\ell^2$ satisfies $\\|T\\|=1$ yet has $T^n\\to 0$ in the strong operator topology (i.e. $T^n x\\to 0$ for every $x$), while $\\|T^n\\|=1$ for all $n$?",
+          "choices": [
+            "the identity operator",
+            "the right shift $S$",
+            "the left shift $S^*$",
+            "a compact operator"
+          ],
+          "answer": 2,
+          "explain": "$S^*$ (left shift) has $\\|S^*\\|=1$ and $\\|(S^*)^n\\|=1$ for all $n$, yet $(S^*)^n x\\to 0$ for every $x\\in\\ell^2$ since only the tail past index $n$ remains. This is the prototypical \"strongly convergent but not uniformly convergent\" example, showing operator-norm convergence is strictly stronger than pointwise/strong."
+        }
+      ]
+    },
     "bounded-operators-fa": {
       "title": "Bounded operators and adjoints",
       "questions": [
@@ -140,6 +206,252 @@
         }
       ]
     },
+    "adjoint-hilbert": {
+      "title": "Adjoint operator on Hilbert space",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On a Hilbert space $H$, the adjoint $T^*$ of $T\\in B(H)$ is the unique operator satisfying:",
+          "choices": [
+            "$\\|T^*x\\|=\\|Tx\\|$ for every $x$",
+            "$\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$ for all $x,y\\in H$",
+            "$T^*=T^{-1}$ when $T$ is invertible",
+            "$T^*T=I$"
+          ],
+          "answer": 1,
+          "explain": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$. Existence and uniqueness follow from the Riesz representation theorem applied to $y\\mapsto\\langle Tx,y\\rangle$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all matrices that are self-adjoint (Hermitian) as operators on $\\mathbb{C}^2$.",
+          "choices": [
+            "$\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ (Pauli $\\sigma_z$)",
+            "$\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ (Pauli $\\sigma_x$)",
+            "$\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix}$ (Pauli $\\sigma_y$)",
+            "$\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ (skew-symmetric rotation generator)"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$. The skew-symmetric matrix $J=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ satisfies $J^*=-J$, so it is anti-self-adjoint, not self-adjoint."
+        },
+        {
+          "type": "numeric",
+          "q": "For $T=\\begin{pmatrix}2&i\\\\ 3&0\\end{pmatrix}$ on $\\mathbb{C}^2$, compute $(T^*)_{12}$ (the top-right entry of the adjoint). Give your answer as a real number (it happens to be real here).",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$. So $(T^*)_{12}=3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Classify the operator $U=\\frac{1}{\\sqrt 2}\\begin{pmatrix}1&1\\\\1&-1\\end{pmatrix}$ (Hadamard matrix) on $\\mathbb{R}^2$.",
+          "choices": [
+            "self-adjoint but not unitary",
+            "unitary but not self-adjoint",
+            "both self-adjoint AND unitary (so $U^2=I$ and spectrum $\\subset\\{\\pm 1\\}$)",
+            "normal but neither self-adjoint nor unitary"
+          ],
+          "answer": 2,
+          "hint": "Compute $U^\\top U$ and check whether $U^\\top=U$.",
+          "explain": "$U^\\top=U$ (real symmetric, hence self-adjoint). Also $U^\\top U=\\tfrac{1}{2}\\begin{pmatrix}2&0\\\\0&2\\end{pmatrix}=I$, so $U$ is unitary. A self-adjoint unitary is called a reflection: $U^2=I$, eigenvalues $\\pm 1$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each operator class to the defining identity between $T$ and $T^*$.",
+          "left": [
+            "$T^*T=TT^*$",
+            "$T^*=T$",
+            "$T^*T=TT^*=I$",
+            "$T^*=-T$"
+          ],
+          "right": [
+            "self-adjoint",
+            "anti-self-adjoint (skew-adjoint)",
+            "normal",
+            "unitary"
+          ],
+          "answer": [1, 3, 0, 2],
+          "explain": "Self-adjoint: $T^*=T$. Skew-adjoint: $T^*=-T$. Normal: $T^*T=TT^*$ (strictly weaker — includes self-adjoint and unitary). Unitary: $T^*T=TT^*=I$ (i.e., $T$ is an isometric bijection)."
+        },
+        {
+          "type": "mcq",
+          "q": "On $L^2[0,1]$, consider the Volterra operator $(Vf)(x)=\\int_0^x f(t)\\,dt$. What is its adjoint $V^*$?",
+          "choices": [
+            "$V^*=V$ (Volterra is self-adjoint)",
+            "$(V^*f)(x)=\\int_x^1 f(t)\\,dt$ (integration from $x$ to $1$)",
+            "$(V^*f)(x)=f'(x)$ (distributional derivative)",
+            "$V^*=V^{-1}$"
+          ],
+          "answer": 1,
+          "explain": "Change the order of integration: $\\langle Vf,g\\rangle=\\int_0^1\\int_0^x f(t)g(x)\\,dt\\,dx=\\int_0^1 f(t)\\int_t^1 g(x)\\,dx\\,dt=\\langle f,V^*g\\rangle$, so $(V^*g)(t)=\\int_t^1 g(x)\\,dx$. Volterra is NOT self-adjoint; in fact $V+V^*$ is self-adjoint and equals the rank-one operator $(Mf)(x)=\\int_0^1 f$ (a constant function)."
+        }
+      ]
+    },
+    "big-four-theorems": {
+      "title": "The big four theorems",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "Match each of the big four theorems to its tagline.",
+          "left": [
+            "functional on subspace extends to whole space with same norm",
+            "surjective bounded linear map between Banach spaces is open",
+            "closed-graph linear maps between Banach spaces are bounded",
+            "pointwise bounded family of operators is uniformly bounded"
+          ],
+          "right": [
+            "Open Mapping",
+            "Closed Graph",
+            "Banach–Steinhaus",
+            "Hahn–Banach"
+          ],
+          "answer": [3, 0, 1, 2],
+          "explain": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness) upgrades pointwise bounds to norm bounds."
+        },
+        {
+          "type": "mcq",
+          "q": "Three of the big four theorems are proved via the Baire category theorem. Which one is NOT?",
+          "choices": [
+            "Open Mapping",
+            "Closed Graph",
+            "Banach–Steinhaus",
+            "Hahn–Banach (extension form)"
+          ],
+          "answer": 3,
+          "explain": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category. The other three all use the Baire category theorem on a Banach space — a complete metric space is not a countable union of nowhere-dense sets."
+        },
+        {
+          "type": "mcq",
+          "q": "A direct consequence of Hahn–Banach on a normed space $X$ is that $X^*$ separates points, i.e., for every $x\\ne 0$ there is $\\ell\\in X^*$ with $\\ell(x)\\ne 0$. What is the standard one-line construction?",
+          "choices": [
+            "Apply Banach–Alaoglu to $B_{X^*}$",
+            "Define $\\ell$ on the line $\\mathbb{K}x$ by $\\ell(\\alpha x)=\\alpha\\|x\\|$ (so $\\|\\ell\\|=1$ there) and extend by Hahn–Banach",
+            "Take $\\ell$ the zero functional",
+            "Use the Riesz representation theorem, then restrict to $X$"
+          ],
+          "answer": 1,
+          "explain": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there. Hahn–Banach extends $\\ell_0$ to $\\ell\\in X^*$ with $\\|\\ell\\|=1$ and $\\ell(x)=\\|x\\|>0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Closed Graph Theorem is often used contrapositively: if $T\\colon X\\to Y$ is linear between Banach spaces but UNbounded, then its graph is not closed. What does this translate to concretely?",
+          "choices": [
+            "There exist $x_n\\to 0$ in $X$ with $Tx_n\\to y\\ne 0$ in $Y$ — convergence is 'lost' under $T$",
+            "$T$ has eigenvalues accumulating at infinity",
+            "$T$ has no adjoint",
+            "The unit ball of $X$ is unbounded"
+          ],
+          "answer": 0,
+          "hint": "Graph-closedness says: if both $x_n\\to x$ and $Tx_n\\to y$, then $y=Tx$. Failure means $y$ exists but $y\\ne Tx$.",
+          "explain": "If the graph is not closed, there is a sequence with $x_n\\to x$ and $Tx_n\\to y$ but $y\\ne Tx$. Taking $x=0$ gives $x_n\\to 0$ with $Tx_n\\to y\\ne T(0)=0$: a bounded $T$ cannot do this. Example: differentiation on $C[0,1]\\to C[0,1]$ with domain $C^1[0,1]$ — $f_n(x)=\\sin(n^2 x)/n\\to 0$ uniformly but $f_n'\\to$ nothing uniformly; graph is not closed in $C[0,1]\\times C[0,1]$."
+        },
+        {
+          "type": "mcq",
+          "q": "A classical application of Banach–Steinhaus (the uniform boundedness principle): there exists a continuous $2\\pi$-periodic function whose Fourier series diverges at a dense set of points. Which functional is 'resonating' in the proof?",
+          "choices": [
+            "the $L^2$ projection onto trigonometric polynomials",
+            "the $N$-th partial-sum evaluated at $0$: $L_N(f)=S_N f(0)$ on $C(\\mathbb{T})$, whose norm is the $N$-th Lebesgue constant $\\|L_N\\|\\sim\\log N\\to\\infty$",
+            "the Cesàro mean",
+            "the identity on $C(\\mathbb{T})$"
+           ],
+          "answer": 1,
+          "explain": "Banach–Steinhaus says: if $\\sup_N\\|L_N\\|=\\infty$, then $\\{f:\\sup_N|L_N(f)|<\\infty\\}$ is meager. The Lebesgue constants $\\|L_N\\|=\\int_{-\\pi}^\\pi|D_N(t)|dt/(2\\pi)$ grow like $\\log N$, so the set of $f$ with $S_N f(0)$ bounded is meager — and for generic $f$, the Fourier series diverges at $0$. By translation, divergence occurs on a dense set."
+        },
+        {
+          "type": "proof-completion",
+          "q": "Prove: if $T\\colon X\\to Y$ is a bounded linear bijection between Banach spaces, then $T^{-1}$ is bounded. Which step correctly continues after step 2?",
+          "steps": [
+            "1. $T$ is bounded linear and bijective between Banach spaces.",
+            "2. By the Open Mapping Theorem, $T$ is an open map (image of every open set is open)."
+          ],
+          "choices": [
+            "Apply Banach–Steinhaus to the family $\\{T^{-1}\\}$.",
+            "The map $T^{-1}\\colon Y\\to X$ is continuous iff the preimage of every open set under $T^{-1}$ is open, i.e., iff $T$ sends open sets to open sets — which we just established in step 2.",
+            "Invoke the spectral theorem on $T$.",
+            "Observe that $T$ has closed range; conclude by Closed Graph."
+          ],
+          "answer": 1,
+          "explain": "Step 3 unpacks: $T^{-1}$ continuous $\\iff (T^{-1})^{-1}(U)=T(U)$ is open for every open $U$ — exactly openness of $T$. So openness of $T$ (step 2) IS the boundedness of $T^{-1}$. This is the Inverse Mapping Theorem as a corollary of the Open Mapping Theorem."
+        }
+      ]
+    },
+    "compact-operators": {
+      "title": "Compact operators and Fredholm alternative",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A bounded operator $T\\colon X\\to Y$ is compact if:",
+          "choices": [
+            "it is continuous",
+            "it is injective",
+            "$T$ maps bounded sets to relatively compact sets (equivalently, bounded sequences to sequences with norm-convergent subsequences)",
+            "$\\|T\\|<1$"
+          ],
+          "answer": 2,
+          "explain": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set. Equivalently, every bounded sequence $(x_n)$ has $(Tx_{n_k})$ norm-convergent. This is far stronger than continuity."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all operators that are compact on an infinite-dimensional Hilbert space.",
+          "choices": [
+            "the identity operator $I$",
+            "a finite-rank operator",
+            "a diagonal operator with eigenvalues $\\lambda_n=1/n$",
+            "a diagonal operator with eigenvalues $\\lambda_n=1+1/n$"
+          ],
+          "answer": [1, 2],
+          "explain": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma). Finite-rank operators are always compact. Diagonal operators with $\\lambda_n\\to 0$ are compact (norm-limit of finite-rank truncations). $\\lambda_n=1+1/n\\to 1\\ne 0$, so not compact."
+        },
+        {
+          "type": "mcq",
+          "q": "The Fredholm alternative says: for compact $T$ and $\\lambda\\ne 0$, exactly one of the following holds for $(T-\\lambda I)x=y$:",
+          "choices": [
+            "a solution always exists for every $y$",
+            "either $(T-\\lambda I)$ is bijective (unique solution for every $y$), or $\\ker(T-\\lambda I)\\ne\\{0\\}$ and solutions exist iff $y\\perp\\ker(T^*-\\bar\\lambda I)$",
+            "there is never a solution unless $y=0$",
+            "solutions exist iff $y$ is an eigenvector of $T$"
+          ],
+          "answer": 1,
+          "explain": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is equivalent to a finite family of orthogonality conditions."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which statement about the spectrum of a compact operator $T$ on an infinite-dimensional Banach space is FALSE?",
+          "choices": [
+            "$0\\in\\sigma(T)$",
+            "every nonzero $\\lambda\\in\\sigma(T)$ is an eigenvalue with finite-dimensional generalized eigenspace",
+            "$\\sigma(T)$ is at most countable with $0$ as the only possible accumulation point",
+            "$\\sigma(T)$ is always connected"
+          ],
+          "answer": 3,
+          "hint": "Compact operators can have two distinct isolated nonzero eigenvalues.",
+          "explain": "The spectrum of a compact operator is typically disconnected: a discrete sequence $\\{\\lambda_n\\}_n$ accumulating only at $0$, together with $0$ itself. For instance, $T=\\mathrm{diag}(1,1/2,1/3,\\ldots)$ on $\\ell^2$ has $\\sigma(T)=\\{0,1,1/2,1/3,\\ldots\\}$, highly disconnected."
+        },
+        {
+          "type": "mcq",
+          "q": "Rellich's theorem: the inclusion $H^1_0(\\Omega)\\hookrightarrow L^2(\\Omega)$ for a bounded domain $\\Omega\\subset\\mathbb{R}^n$ is compact. Combined with the spectral theorem, what does this give for the Dirichlet Laplacian $-\\Delta$ on $\\Omega$?",
+          "choices": [
+            "An orthonormal basis $\\{\\phi_k\\}$ of $L^2(\\Omega)$ with $-\\Delta\\phi_k=\\lambda_k\\phi_k$ and $0<\\lambda_1\\le\\lambda_2\\le\\cdots\\to\\infty$",
+            "The Dirichlet Laplacian is compact",
+            "The spectrum of $-\\Delta$ is continuous",
+            "$-\\Delta$ has no eigenfunctions"
+          ],
+          "answer": 0,
+          "explain": "The resolvent $(-\\Delta)^{-1}$ (Green's operator) is bounded $L^2\\to H^1_0$ by Lax–Milgram, and $H^1_0\\hookrightarrow L^2$ is compact by Rellich. So $(-\\Delta)^{-1}$ is compact self-adjoint on $L^2$; Hilbert–Schmidt gives an ONB of eigenfunctions with eigenvalues of $(-\\Delta)^{-1}$ accumulating at $0$, i.e. eigenvalues of $-\\Delta$ tending to $+\\infty$."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the diagonal operator $T$ on $\\ell^2$ with $T e_n=\\frac{1}{n}e_n$. Compute the Hilbert–Schmidt norm $\\|T\\|_{HS}^2=\\sum_n\\|Te_n\\|^2=\\sum_n 1/n^2$. Give the exact value $\\pi^2/6$ numerically.",
+          "answer": 1.6449,
+          "tol": 0.001,
+          "explain": "$\\|T\\|_{HS}^2=\\sum_{n=1}^\\infty 1/n^2=\\pi^2/6\\approx 1.6449$. Since the HS norm is finite, $T$ is Hilbert–Schmidt (hence compact). By contrast, the trace norm $\\|T\\|_1=\\sum 1/n=\\infty$, so $T$ is NOT trace-class — the hierarchy trace-class $\\subsetneq$ HS $\\subsetneq$ compact is strict."
+        }
+      ]
+    },
     "spectral-theorem-fa": {
       "title": "Spectral theorem viewpoint",
       "questions": [
@@ -206,6 +518,86 @@
           "answer": 1,
           "tol": 1e-6,
           "explain": "$T^*T=T^2=(P_+-P_-)^2=P_++P_-=I$ (since $P_+P_-=0$ and $P_\\pm^2=P_\\pm$). Thus $\\|T^*T\\|=\\|I\\|=1$, so $\\|T\\|^2=1$ and $\\|T\\|=1$. This matches $\\|T\\|=\\max(|+1|,|-1|)=1$."
+        }
+      ]
+    },
+    "spectrum-classification": {
+      "title": "Spectrum classification: point, continuous, residual",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "For $T\\in B(X)$ and $\\lambda\\in\\sigma(T)$, classify $\\lambda$ by WHY $T-\\lambda I$ fails to be invertible. Match each row to its definition.",
+          "left": [
+            "$T-\\lambda I$ not injective",
+            "$T-\\lambda I$ injective with range dense but not closed",
+            "$T-\\lambda I$ injective with range not dense"
+          ],
+          "right": [
+            "continuous spectrum $\\sigma_c(T)$",
+            "residual spectrum $\\sigma_r(T)$",
+            "point spectrum $\\sigma_p(T)$"
+          ],
+          "answer": [2, 0, 1],
+          "explain": "Point = $\\lambda$ is an eigenvalue. Continuous = injective, dense range, not closed (think multiplication by $x$ on $L^2[0,1]$). Residual = injective, range not dense (classic: $\\lambda=0$ for the right shift)."
+        },
+        {
+          "type": "mcq",
+          "q": "On $\\ell^2$, let $S$ be the right shift. What is $\\sigma_p(S)$ (point spectrum)?",
+          "choices": [
+            "$\\{|\\lambda|\\le 1\\}$ (full closed unit disk)",
+            "$\\{|\\lambda|=1\\}$ (unit circle)",
+            "empty",
+            "$\\{0\\}$"
+          ],
+          "answer": 2,
+          "explain": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$. If $\\lambda=0$, then $x=0$; if $\\lambda\\ne 0$, then $x_1=0$ and inductively $x=0$. So $S$ has no eigenvalues — $\\sigma_p(S)=\\emptyset$, yet $\\sigma(S)=\\overline{D(0,1)}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The RESOLVENT set $\\rho(T)$ and the spectrum $\\sigma(T)$ partition $\\mathbb{C}$. Which is TRUE?",
+          "choices": [
+            "$\\rho(T)$ is always finite",
+            "$\\rho(T)$ is open and $\\sigma(T)$ is compact; moreover $\\sigma(T)\\subset\\{|\\lambda|\\le\\|T\\|\\}$",
+            "$\\sigma(T)$ is always countable",
+            "$\\rho(T)$ is closed"
+          ],
+          "answer": 1,
+          "explain": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed. It is also bounded by $\\|T\\|$ (for $|\\lambda|>\\|T\\|$, the Neumann series $\\sum(T/\\lambda)^n/\\lambda$ inverts $T-\\lambda I$). Hence $\\sigma(T)$ is compact, non-empty, and countable iff dictated by extra structure (e.g., compactness of $T$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On $\\ell^2$, the right shift $S$ and the left shift $S^*$. Which statement correctly classifies $\\lambda=0$ in each spectrum?",
+          "choices": [
+            "$0$ is in the point spectrum of both, since the kernels are both $\\{0\\}$",
+            "$0\\in\\sigma_r(S)$ (residual) because $S$ is injective with range $\\{x:x_1=0\\}$ (not dense in $\\ell^2$); and $0\\in\\sigma_p(S^*)$ (point) since $S^*e_1=0$",
+            "$0$ is in the continuous spectrum of both",
+            "$0\\in\\rho(S)$ because $S$ is injective"
+          ],
+          "answer": 1,
+          "hint": "Compute the range of $S$ and the kernel of $S^*$ separately.",
+          "explain": "$S$ is injective but $\\mathrm{ran}(S)=\\{x\\in\\ell^2:x_1=0\\}$ is closed but not dense, so $0\\in\\sigma_r(S)$. $S^*e_1=0$, so $e_1$ is an eigenvector of $S^*$ with eigenvalue $0$, giving $0\\in\\sigma_p(S^*)$. This is the canonical example where residual spectrum of $T$ = conjugate of point spectrum of $T^*$."
+        },
+        {
+          "type": "mcq",
+          "q": "For self-adjoint $T$ on a Hilbert space, which pieces of the spectrum CAN be nonempty?",
+          "choices": [
+            "point, continuous, AND residual",
+            "point and continuous only (residual is empty)",
+            "continuous only (point is empty)",
+            "point only"
+          ],
+          "answer": 1,
+          "hint": "Use the relation $\\sigma_r(T)\\subseteq\\overline{\\sigma_p(T^*)}$.",
+          "explain": "A theorem: self-adjoint operators have empty residual spectrum. Proof: if $\\lambda\\in\\sigma_r(T)$ (real, since $\\sigma(T)\\subset\\mathbb{R}$), then $\\mathrm{ran}(T-\\lambda)^\\perp=\\ker(T^*-\\lambda)^*=\\ker(T-\\lambda)\\ne\\{0\\}$, forcing $\\lambda\\in\\sigma_p(T)$ — contradiction. So for self-adjoint $T$, spectrum splits into point $\\cup$ continuous."
+        },
+        {
+          "type": "numeric",
+          "q": "On $L^2[0,1]$, the multiplication operator $(M_x f)(x)=xf(x)$ has $\\sigma(M_x)=[0,1]$. What is the Lebesgue measure of its POINT spectrum $\\sigma_p(M_x)$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "$M_x$ has no eigenvalues: $(M_x-\\lambda)f=0$ forces $f(x)=0$ for a.e. $x\\ne\\lambda$, so $f=0$ in $L^2$. Thus $\\sigma_p(M_x)=\\emptyset$, and its measure is $0$. The entire spectrum $[0,1]$ is continuous spectrum: $M_x-\\lambda$ is injective with dense range but not surjective for $\\lambda\\in[0,1]$."
         }
       ]
     },
@@ -344,6 +736,167 @@
           "answer": 0,
           "tol": 0.01,
           "explain": "$\\int_0^{2\\pi} x\\sin(nx)\\,dx=\\left[-\\frac{x\\cos(nx)}{n}\\right]_0^{2\\pi}+\\frac{1}{n}\\int_0^{2\\pi}\\cos(nx)\\,dx=-\\frac{2\\pi}{n}+0\\to 0$ as $n\\to\\infty$. Since this holds for all $g\\in L^2[0,2\\pi]$ (by Riemann–Lebesgue), $f_n\\rightharpoonup 0$ weakly, even though $\\|f_n\\|_{L^2}=\\sqrt{\\pi}$ for all $n$."
+        }
+      ]
+    },
+    "reflexivity": {
+      "title": "Reflexivity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The canonical embedding $J\\colon X\\to X^{**}$ sends $x$ to the functional $Jx(\\ell)=\\ell(x)$. This map is always:",
+          "choices": [
+            "surjective",
+            "an isometric linear embedding (i.e., $\\|Jx\\|_{X^{**}}=\\|x\\|_X$)",
+            "zero for every $x$",
+            "conjugate-linear"
+          ],
+          "answer": 1,
+          "explain": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$. $X$ is reflexive when $J$ is additionally surjective."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following spaces are reflexive?",
+          "choices": [
+            "$\\ell^p$ for $1<p<\\infty$",
+            "Hilbert space $H$",
+            "$L^1[0,1]$",
+            "$C[0,1]$ with sup norm",
+            "$\\ell^\\infty$"
+          ],
+          "answer": [0, 1],
+          "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
+        },
+        {
+          "type": "mcq",
+          "q": "An equivalent formulation of reflexivity (Kakutani): $X$ is reflexive iff its closed unit ball is:",
+          "choices": [
+            "norm-compact",
+            "weakly compact",
+            "countable",
+            "finite-dimensional"
+          ],
+          "answer": 1,
+          "explain": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact. Norm-compactness happens only in finite dimensions. Eberlein–Šmulian further says this weak compactness can be checked sequentially: $B_X$ weakly compact iff every bounded sequence has a weakly convergent subsequence."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Why is $c_0$ (sequences tending to $0$, with sup norm) NOT reflexive? Pick the crispest reason.",
+          "choices": [
+            "$c_0^{**}=\\ell^\\infty$ (since $c_0^*=\\ell^1$ and $(\\ell^1)^*=\\ell^\\infty$) strictly larger than $c_0$ — e.g., the constant sequence $(1,1,1,\\ldots)\\in\\ell^\\infty\\setminus c_0$",
+            "$c_0$ is not complete",
+            "$c_0$ has no Schauder basis",
+            "$c_0$ is finite-dimensional"
+          ],
+          "answer": 0,
+          "hint": "Chase the duals twice.",
+          "explain": "The canonical chain $c_0\\hookrightarrow c_0^{**}\\cong\\ell^\\infty$ is strict because sequences not tending to $0$ (e.g., constants) lie in $\\ell^\\infty\\setminus c_0$. So $J$ is not surjective. The sequence $(1,1,\\ldots)\\in\\ell^\\infty$ corresponds to a functional on $c_0^*=\\ell^1$ that is NOT evaluation at any element of $c_0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which theorem about reflexive spaces is the foundation of the direct method in the calculus of variations?",
+          "choices": [
+            "Banach–Steinhaus",
+            "In a reflexive space, bounded sequences have weakly convergent subsequences (consequence of Banach–Alaoglu + Kakutani + Eberlein–Šmulian)",
+            "Hahn–Banach",
+            "Open Mapping"
+          ],
+          "answer": 1,
+          "explain": "In a reflexive Banach space, the unit ball is weakly compact, so any bounded sequence has a weakly convergent subsequence. Coupling this with weak lower semicontinuity of a convex energy functional $F$ produces a minimizer: take a minimizing sequence, extract a weak limit $x^*$, and use $F(x^*)\\le\\liminf F(x_n)$."
+        },
+        {
+          "type": "mcq",
+          "q": "On any reflexive Banach space $X$, an additional regularity property holds automatically for every convex continuous function. Which one?",
+          "choices": [
+            "differentiability everywhere",
+            "attainment of the norm on any nonempty closed convex set by a (not necessarily unique) best approximation",
+            "the norm is Fréchet-differentiable",
+            "the space is separable"
+          ],
+          "answer": 1,
+          "hint": "Use weak compactness of bounded sets + weak lower semicontinuity of the norm.",
+          "explain": "For a nonempty closed convex $C\\subset X$ reflexive and any $x\\in X$, the infimum $\\inf_{c\\in C}\\|x-c\\|$ is attained. Take a minimizing sequence $(c_n)$; it is bounded so has a weakly convergent subsequence $c_{n_k}\\rightharpoonup c^*\\in C$ (Mazur + norm-closure of convex $C$); weak lower semicontinuity of the norm gives $\\|x-c^*\\|\\le\\liminf\\|x-c_{n_k}\\|$. Non-reflexive spaces generally lack this."
+        }
+      ]
+    },
+    "distributions": {
+      "title": "Distributions and test functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A distribution on $\\mathbb{R}$ is:",
+          "choices": [
+            "a function in $L^1_{\\mathrm{loc}}(\\mathbb{R})$",
+            "a continuous linear functional on the space $C_c^\\infty(\\mathbb{R})$ of smooth compactly supported test functions",
+            "a probability measure",
+            "an element of $L^\\infty(\\mathbb{R})$"
+          ],
+          "answer": 1,
+          "explain": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology). Every locally integrable function $f$ defines a distribution $\\phi\\mapsto\\int f\\phi$, but distributions are strictly more general — they include $\\delta$ and its derivatives."
+        },
+        {
+          "type": "mcq",
+          "q": "The Dirac delta distribution $\\delta_0$ is defined by $\\langle\\delta_0,\\phi\\rangle=\\phi(0)$. Which sequence of $L^1$ functions $f_n$ converges to $\\delta_0$ in the distributional sense?",
+          "choices": [
+            "$f_n(x)=n\\cdot\\mathbf{1}_{[0,1/n]}(x)$",
+            "$f_n(x)=1$ for all $n$",
+            "$f_n(x)=1/n$",
+            "$f_n(x)=\\sin(nx)$"
+          ],
+          "answer": 0,
+          "explain": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$. For $\\phi\\in C_c^\\infty$, $\\int f_n\\phi=n\\int_0^{1/n}\\phi(x)dx\\to\\phi(0)$ by continuity. Hence $f_n\\to\\delta_0$ in $\\mathcal{D}'$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\langle\\delta_0^{(1)},\\phi\\rangle$ where $\\delta_0^{(1)}$ is the distributional derivative of $\\delta_0$ and $\\phi(x)=x^2-3x+5$. Recall $\\langle\\delta_0^{(1)},\\phi\\rangle=-\\phi'(0)$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$. For $T=\\delta_0$, $\\langle\\delta_0',\\phi\\rangle=-\\langle\\delta_0,\\phi'\\rangle=-\\phi'(0)$. With $\\phi(x)=x^2-3x+5$, $\\phi'(x)=2x-3$, $\\phi'(0)=-3$, so $-\\phi'(0)=3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The principal value distribution $\\mathrm{p.v.}\\,\\tfrac{1}{x}$ is defined by $\\langle\\mathrm{p.v.}\\tfrac{1}{x},\\phi\\rangle=\\lim_{\\varepsilon\\to 0^+}\\int_{|x|>\\varepsilon}\\phi(x)/x\\,dx$. Which identity relates the distributional derivative of $\\log|x|$ to it?",
+          "choices": [
+            "$\\tfrac{d}{dx}\\log|x|=\\delta_0$",
+            "$\\tfrac{d}{dx}\\log|x|=\\mathrm{p.v.}\\tfrac{1}{x}$ (in $\\mathcal{D}'(\\mathbb{R})$)",
+            "$\\tfrac{d}{dx}\\log|x|=0$",
+            "$\\tfrac{d}{dx}\\log|x|$ is not a distribution"
+          ],
+          "answer": 1,
+          "hint": "Pair the derivative with a test function and integrate by parts away from $0$, taking a symmetric limit.",
+          "explain": "For $\\phi\\in C_c^\\infty$: $\\langle(\\log|x|)',\\phi\\rangle=-\\langle\\log|x|,\\phi'\\rangle=-\\lim_{\\varepsilon\\to 0}\\int_{|x|>\\varepsilon}\\log|x|\\phi'(x)dx$. Integrate by parts; boundary terms $\\log\\varepsilon(\\phi(\\varepsilon)-\\phi(-\\varepsilon))\\to 0$ because $\\phi(\\varepsilon)-\\phi(-\\varepsilon)=O(\\varepsilon)$. The remaining integral is $\\lim_{\\varepsilon\\to 0}\\int_{|x|>\\varepsilon}\\phi(x)/x\\,dx=\\langle\\mathrm{p.v.}\\tfrac{1}{x},\\phi\\rangle$. The singularity at $0$ is regularized by the principal-value cancellation."
+        },
+        {
+          "type": "mcq",
+          "q": "Tempered distributions $\\mathcal{S}'(\\mathbb{R}^n)$ are the dual of Schwartz space $\\mathcal{S}$ (rapidly decreasing smooth functions). Which property makes them the correct setting for Fourier analysis?",
+          "choices": [
+            "They are a Hilbert space",
+            "The Fourier transform is a continuous automorphism of $\\mathcal{S}$, so it extends by duality to an automorphism of $\\mathcal{S}'$ — allowing $\\hat{\\delta}=1$, $\\hat 1=(2\\pi)^{n/2}\\delta$, and Fourier transforms of polynomials",
+            "Every tempered distribution is a function",
+            "$\\mathcal{S}'$ is separable"
+          ],
+          "answer": 1,
+          "explain": "The Fourier transform $\\mathcal{F}\\colon\\mathcal{S}\\to\\mathcal{S}$ is a topological isomorphism. By duality, $\\hat{T}\\in\\mathcal{S}'$ is defined by $\\langle\\hat T,\\phi\\rangle=\\langle T,\\hat\\phi\\rangle$. This extends Fourier to objects with no Fourier integral as a function: $\\delta$, polynomials, $\\mathrm{p.v.}\\tfrac{1}{x}$. It is the foundation of PDE via Fourier multipliers. Arbitrary distributions in $\\mathcal{D}'$ do NOT have Fourier transforms in general."
+        },
+        {
+          "type": "proof-completion",
+          "q": "Prove that $x\\cdot\\delta_0=0$ as a distribution on $\\mathbb{R}$. Pick the correct next step.",
+          "steps": [
+            "1. By definition, $(x\\cdot\\delta_0)$ acts on $\\phi\\in C_c^\\infty$ as $\\langle x\\cdot\\delta_0,\\phi\\rangle=\\langle\\delta_0,x\\phi\\rangle$ (multiplying a distribution by a smooth function is the dual of multiplying the test function).",
+            "2. $\\langle\\delta_0,x\\phi\\rangle=(x\\phi)(0)$ by the definition of $\\delta_0$."
+          ],
+          "choices": [
+            "Apply integration by parts.",
+            "$(x\\phi)(0)=0\\cdot\\phi(0)=0$ for every $\\phi$, so $x\\cdot\\delta_0=0$ as a distribution.",
+            "Note $\\phi$ has compact support.",
+            "Invoke the Fourier transform."
+          ],
+          "answer": 1,
+          "explain": "The function $g(x)=x\\phi(x)$ vanishes at $0$: $g(0)=0$. So $\\langle x\\delta_0,\\phi\\rangle=0$ for every $\\phi$, which is the definition of the zero distribution. This identity $x\\delta_0=0$ is the distributional version of the algebraic fact — and it is why $\\delta_0$ is a genuine new object, not a function: no function $f$ satisfies $xf=0$ a.e. yet $\\int f=1$."
         }
       ]
     }

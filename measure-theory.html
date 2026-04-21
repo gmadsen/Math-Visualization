@@ -214,11 +214,18 @@ function drawNode(svg, x, y, label, opts={}){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Why&nbsp;measure?</a>
   <a href="#sigma">2&nbsp;$\sigma$-algebras</a>
-  <a href="#integral">3&nbsp;Lebesgue&nbsp;integral</a>
-  <a href="#convergence">4&nbsp;Convergence</a>
-  <a href="#lp">5&nbsp;$L^p$&nbsp;spaces</a>
-  <a href="#product">6&nbsp;Fubini</a>
-  <a href="#outro">7&nbsp;Connections</a>
+  <a href="#outer-measure">3&nbsp;Outer&nbsp;measure</a>
+  <a href="#lebesgue">4&nbsp;Lebesgue</a>
+  <a href="#measurable">5&nbsp;Measurable&nbsp;functions</a>
+  <a href="#integral">6&nbsp;Lebesgue&nbsp;integral</a>
+  <a href="#convergence">7&nbsp;Convergence</a>
+  <a href="#lp">8&nbsp;$L^p$&nbsp;spaces</a>
+  <a href="#product-measure">9&nbsp;Products</a>
+  <a href="#fubini">10&nbsp;Fubini</a>
+  <a href="#radon-nikodym">11&nbsp;Radon–Nikodym</a>
+  <a href="#riesz-measure">12&nbsp;Riesz</a>
+  <a href="#hausdorff">13&nbsp;Hausdorff</a>
+  <a href="#outro">14&nbsp;Connections</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -413,8 +420,8 @@ This single property — that the measure of a disjoint countable union is the s
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
-    <div><a href="./measure-theory.html#lebesgue">Measure theory</a> · Lebesgue measure</div>
     <div><a href="./measure-theory.html#measurable">Measure theory</a> · Measurable functions</div>
+    <div><a href="./measure-theory.html#outer-measure">Measure theory</a> · Outer measure &amp; Carathéodory's criterion</div>
     <div><a href="./probability-theory.html#sample">Probability theory</a> · Sample spaces, events, and probability measures</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -424,20 +431,115 @@ This single property — that the measure of a disjoint countable union is the s
 
 
 <div class="quiz" data-concept="sigma-algebras"></div>
+</section>
 
-<h3 id="lebesgue">Outer measure and Carathéodory</h3>
+<section id="outer-measure">
+<h2>3. Outer measure and Carathéodory's criterion</h2>
 
-<p>Lebesgue measure on $\mathbb{R}$ is constructed in two stages. First define the <strong>outer measure</strong>
-$$ m^*(E) = \inf\!\Bigl\{\,\sum_n (b_n-a_n) : E\subseteq \bigcup_n (a_n,b_n)\,\Bigr\},$$
-the infimum over countable covers by open intervals. The outer measure is defined for every subset of $\mathbb{R}$ and is countably <em>subadditive</em>, but it is not countably additive on $\mathcal{P}(\mathbb{R})$ (Vitali).</p>
+<p>Given any nonempty family $\mathcal{E}\subset\mathcal{P}(X)$ equipped with a nonnegative set function $\rho\colon\mathcal{E}\to[0,\infty]$ (typically a <em>premeasure</em> on an algebra), one builds an <strong>outer measure</strong>
+$$ \mu^*(E) \;=\; \inf\!\Bigl\{\sum_n \rho(E_n) \,:\, E\subseteq\bigcup_n E_n,\ E_n\in\mathcal{E}\Bigr\}. $$
+For Lebesgue on $\mathbb{R}$ the generators are open intervals and $\rho((a,b))=b-a$. The functional $\mu^*$ is defined on <em>all</em> subsets of $X$, is countably <em>subadditive</em>, monotone, and assigns $0$ to $\varnothing$ — but it is not countably additive. (Vitali's construction is the obstruction.)</p>
 
-<p>Carathéodory's criterion picks out a $\sigma$-algebra on which the outer measure restricts to a measure. Say $E$ is <strong>measurable</strong> if for every $A\subseteq\mathbb{R}$,
-$$ m^*(A) = m^*(A\cap E) + m^*(A\cap E^c). $$
-The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction of $m^*$ to $\mathcal{M}$ is a complete measure — <em>Lebesgue measure</em> $m$ — which extends the ordinary length on intervals.</p>
+<p><strong>Carathéodory's criterion.</strong> Declare $E\subseteq X$ to be <strong>measurable</strong> when it splits every test set $A$ additively against $\mu^*$:
+$$ \mu^*(A) \;=\; \mu^*(A\cap E) + \mu^*(A\cap E^c) \quad\text{for all } A\subseteq X. $$
+The $\le$ direction is free (subadditivity); the $\ge$ direction is the content of the criterion.</p>
 
-<div class="note"><strong>Why the Carathéodory condition?</strong> It forces the test set $A$ to be split additively by $E$. A set that the outer measure <em>already</em> splits additively against every test set cannot fail additivity in any combination: this closure gives a $\sigma$-algebra essentially by bookkeeping. Once you see the proof that measurable sets form an algebra (direct verification), the jump to $\sigma$-algebra is a standard truncation argument.</div>
+<div class="ok"><strong>Carathéodory's theorem.</strong> The measurable sets $\mathcal{M}$ form a $\sigma$-algebra, and $\mu:=\mu^*|_{\mathcal{M}}$ is a complete measure. If $\rho$ was a $\sigma$-finite premeasure on an algebra $\mathcal{A}_0$, then $\mathcal{A}_0\subseteq\mathcal{M}$, $\mu|_{\mathcal{A}_0}=\rho$, and the extension to $\sigma(\mathcal{A}_0)$ is unique.</div>
 
-<p>Borel sets are measurable ($\mathcal{B}(\mathbb{R})\subsetneq\mathcal{M}$, strictly), and every subset of a Lebesgue null set is Lebesgue measurable with measure zero — i.e., Lebesgue measure is <em>complete</em>.</p>
+<p>Proof sketch: algebra closure is elementary bookkeeping on the additivity identity. The $\sigma$-algebra step truncates any countable union by monotonicity. Completeness is automatic — a subset of a $\mu^*$-null set trivially splits any $A$ additively (both pieces have $\mu^*=0$).</p>
+
+<div class="note"><strong>Why the Carathéodory condition?</strong> We want a family on which subadditivity upgrades to equality. A set $E$ that already splits <em>every</em> test set additively cannot be combined with others to break additivity. That closure property is what promotes $\mu^*$ from an outer measure to an honest measure — on exactly the $\sigma$-algebra it picks out.</div>
+
+<div class="widget" id="w-outer">
+  <div class="hd"><div class="ttl">Outer measure: covering a set by intervals</div><div class="hint">slide cover width — the infimum is $m^*$</div></div>
+  <svg id="outer-svg" viewBox="0 0 760 260" width="760" height="260"><title>Outer measure as an infimum over open covers</title></svg>
+  <div class="row">
+    <label for="outer-w">cover width $\delta$</label>
+    <input id="outer-w" type="range" min="0.02" max="0.6" step="0.01" value="0.3">
+    <span id="outer-wv" class="small"></span>
+  </div>
+  <div class="readout" id="outer-out"></div>
+</div>
+<div class="quiz" data-concept="outer-measure-caratheodory"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#hausdorff">Measure theory</a> · Hausdorff measure &amp; dimension</div>
+    <div><a href="./measure-theory.html#lebesgue">Measure theory</a> · Lebesgue measure</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== §3 Outer measure covering demo =============================== */
+(function(){
+  const svg = $('#outer-svg'), out = $('#outer-out');
+  const ws = $('#outer-w'), wv = $('#outer-wv');
+  const W=760, H=260, pad=40;
+  const xl=pad, xr=W-pad, yt=40, yb=H-pad;
+  // target set E: union of three intervals (total length 0.6)
+  const E = [[0.05,0.18],[0.34,0.52],[0.70,0.86]];
+  const Eextent = E.reduce((s,[a,b])=>s+(b-a),0);
+  const X = t => xl + t*(xr-xl);
+  function draw(){
+    const delta = +ws.value;
+    wv.textContent = `δ = ${delta.toFixed(2)}`;
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    for(const v of [0, 0.25, 0.5, 0.75, 1]){
+      const t = SVG('text',{x:X(v),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = v.toFixed(2); svg.appendChild(t);
+    }
+    // draw target set E
+    for(const [a,b] of E){
+      svg.appendChild(SVG('rect',{x:X(a),y:yb-22,width:X(b)-X(a),height:16,
+        fill:'rgba(125,224,214,0.30)',stroke:'var(--cyan)','stroke-width':1.2}));
+    }
+    const t0 = SVG('text',{x:xl,y:yb-28,'font-size':11,fill:'var(--cyan)'});
+    t0.textContent = `target set E (total length = ${Eextent.toFixed(3)})`;
+    svg.appendChild(t0);
+
+    // greedy cover of E by open intervals of length ≤ δ centered on a grid step of size δ/2
+    // place cover intervals starting at each E-component's left endpoint, width δ, step δ until past right endpoint
+    const covers = [];
+    for(const [a,b] of E){
+      let x = a;
+      while(x < b + 1e-9){
+        covers.push([x - 0.005, x + delta - 0.005]); // tiny left slack so it's strictly open around a
+        x += delta;
+      }
+    }
+    let total = 0;
+    for(const [a,b] of covers){
+      total += (b - a);
+      svg.appendChild(SVG('rect',{x:X(a),y:yt,width:X(b)-X(a),height:yb-yt-30,
+        fill:'rgba(255,216,102,0.12)',stroke:'var(--yellow)','stroke-width':0.9}));
+    }
+    const t1 = SVG('text',{x:xl,y:yt-6,'font-size':11,fill:'var(--yellow)'});
+    t1.textContent = `cover by ${covers.length} intervals of width δ — total length ${total.toFixed(3)}`;
+    svg.appendChild(t1);
+
+    out.textContent =
+      `m(E) = ${Eextent.toFixed(3)}  (true Lebesgue measure)\n`+
+      `cover length Σ(b_n - a_n) = ${total.toFixed(3)}   ≥ m*(E)\n`+
+      `outer measure m*(E) = inf over all countable open covers of E.\n`+
+      `As δ shrinks and covers become tighter, total length → ${Eextent.toFixed(3)} = m(E).`;
+  }
+  ws.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="lebesgue">
+<h2>4. Lebesgue measure on $\mathbb{R}$</h2>
+
+<p>Applying Carathéodory to the length premeasure on the algebra of finite disjoint unions of intervals yields <strong>Lebesgue measure</strong> $m$, a complete, translation-invariant, $\sigma$-finite measure on a $\sigma$-algebra $\mathcal{M}$ strictly larger than the Borel $\sigma$-algebra. On any interval $m([a,b])=b-a$, and $m$ is the unique translation-invariant Radon measure on $\mathbb{R}$ with $m([0,1])=1$ (Haar measure on $(\mathbb{R},+)$).</p>
+
+<p><strong>Regularity.</strong> For every Lebesgue-measurable $E$,
+$$ m(E) \;=\; \inf\{m(U):U\supseteq E,\ U\text{ open}\} \;=\; \sup\{m(K):K\subseteq E,\ K\text{ compact}\}. $$
+Outer regularity on the left is straightforward from the cover-infimum definition; inner regularity (on the right) is the substantive statement.</p>
 
 <div class="quiz" data-concept="lebesgue-measure"></div>
 <!-- backlinks-auto-begin -->
@@ -445,6 +547,8 @@ The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction o
   <div class="ttl">Used in</div>
     <div><a href="./dynamical-systems.html#ergodic">Dynamical systems</a> · Ergodicity and invariant measures</div>
     <div><a href="./measure-theory.html#integral">Measure theory</a> · Lebesgue integral</div>
+    <div><a href="./measure-theory.html#product-measure">Measure theory</a> · Product measures &amp; σ-finiteness</div>
+    <div><a href="./measure-theory.html#riesz-measure">Measure theory</a> · Riesz representation (measure form)</div>
     <div><a href="./probability-theory.html#sample">Probability theory</a> · Sample spaces, events, and probability measures</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -453,17 +557,11 @@ The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction o
 
 
 
-<h3 id="measurable">Measurable functions</h3>
-
-<p>A function $f:(X,\mathcal A)\to(\mathbb R,\mathcal B)$ is measurable when $f^{-1}(B)\in\mathcal A$ for every Borel set $B$. Equivalent tests use half-lines:
-$$ f \text{ measurable } \Longleftrightarrow \{x\in X:f(x)>t\}\in\mathcal A \ \text{for all } t\in\mathbb R. $$
-Simple functions are measurable by definition, and every nonnegative measurable function is an increasing limit of simple functions.</p>
-
 <h3>The Cantor set: uncountable, measure zero</h3>
 
 <p>Iteratively remove middle thirds. Start with $C_0=[0,1]$, and at stage $k$ delete the open middle third of each surviving interval, obtaining $C_k$ as a disjoint union of $2^k$ intervals each of length $3^{-k}$. The <em>Cantor set</em> is $C = \bigcap_k C_k$.</p>
 
-<p>By countable additivity (or monotonicity), $m(C) = \lim_k m(C_k) = \lim_k (2/3)^k = 0$. Yet $C$ is uncountable — bijective to $\{0,1\}^{\mathbb{N}}$ via ternary expansions. This is the prototype of a Lebesgue-null set with the cardinality of the continuum.</p>
+<p>By countable additivity (or monotonicity), $m(C) = \lim_k m(C_k) = \lim_k (2/3)^k = 0$. Yet $C$ is uncountable — bijective to $\{0,1\}^{\mathbb{N}}$ via ternary expansions. This is the prototype of a Lebesgue-null set with the cardinality of the continuum. Its Hausdorff dimension is $\log 2/\log 3$ (see §13).</p>
 
 <div class="widget" id="w-cantor">
   <div class="hd"><div class="ttl">Middle-thirds Cantor set</div><div class="hint">drag depth $k$ to iterate</div></div>
@@ -484,6 +582,33 @@ If $V$ were measurable, translation invariance gives $m(V_q)=m(V)$; countable ad
 $$ 1 \le \sum_{q} m(V) \le 3,$$
 which is impossible whether $m(V)=0$ (sum = 0) or $m(V)>0$ (sum = $\infty$). Hence $V\notin\mathcal{M}$. Without some choice axiom Vitali's construction fails, and in models of ZF with Dependent Choice + "every set is measurable" (Solovay) the theory is consistent.</p>
 
+</section>
+
+<section id="measurable">
+<h2>5. Measurable functions</h2>
+
+<p>A function $f\colon(X,\mathcal A)\to(\mathbb R,\mathcal B)$ is <strong>measurable</strong> when $f^{-1}(B)\in\mathcal A$ for every Borel set $B$. Equivalent tests use half-lines:
+$$ f \text{ measurable } \iff \{x\in X:f(x)>t\}\in\mathcal A \ \text{for all } t\in\mathbb R. $$
+(Equivalence: the family of $B\subseteq\mathbb{R}$ with $f^{-1}(B)\in\mathcal{A}$ is a $\sigma$-algebra; it contains every $(t,\infty)$; hence it contains $\sigma$ of those, which is $\mathcal{B}(\mathbb{R})$.)</p>
+
+<p><strong>Closure properties.</strong> Sums, products, and pointwise suprema/infima of measurable functions are measurable; pointwise limits (where defined) are measurable; compositions $g\circ f$ are measurable for Borel $g$. The closure under pointwise limits is a decisive advantage over the continuous functions.</p>
+
+<p><strong>Simple function approximation.</strong> A <em>simple function</em> $\varphi=\sum_{k=1}^N c_k\,\mathbf{1}_{E_k}$ ($E_k\in\mathcal{A}$, $c_k\ge 0$) is measurable by construction. For any measurable $f\colon X\to[0,\infty]$ define the dyadic floor
+$$ \varphi_n(x) \;=\; \min\!\bigl(n,\ 2^{-n}\lfloor 2^n f(x)\rfloor\bigr), $$
+so $\varphi_n$ is simple, $0\le\varphi_n\nearrow f$ pointwise, and uniformly on $\{f\le M\}$ for any $M$. Every integration theorem below bootstraps up from simple functions along this ladder.</p>
+
+<div class="widget" id="w-preimage">
+  <div class="hd"><div class="ttl">Preimage viewer: $f^{-1}([a,b])$</div><div class="hint">drag the threshold window to see the preimage light up</div></div>
+  <svg id="preimage-svg" viewBox="0 0 760 320" width="760" height="320"><title>Preimage viewer for f(x)=0.5 + 0.4 sin(3πx)</title></svg>
+  <div class="row">
+    <label for="preimage-a">$a$</label>
+    <input id="preimage-a" type="range" min="0" max="1" step="0.01" value="0.3">
+    <label for="preimage-b">$b$</label>
+    <input id="preimage-b" type="range" min="0" max="1" step="0.01" value="0.7">
+    <span id="preimage-rv" class="small"></span>
+  </div>
+  <div class="readout" id="preimage-out"></div>
+</div>
 <div class="quiz" data-concept="measurable-functions"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -493,10 +618,86 @@ which is impossible whether $m(V)=0$ (sum = 0) or $m(V)>0$ (sum = $\infty$). Hen
 </aside>
 <!-- backlinks-auto-end -->
 
-
-
-
 </section>
+
+<script>
+/* =============================== §5 Preimage viewer widget =============================== */
+(function(){
+  const svg = $('#preimage-svg'), out = $('#preimage-out');
+  const as = $('#preimage-a'), bs = $('#preimage-b'), rv = $('#preimage-rv');
+  const W=760, H=320, pad=40;
+  const xl=pad, xr=W-pad, yt=30, yb=H-pad-30;
+  const X = t => xl + t*(xr-xl);
+  const Y = v => yb - v*(yb-yt);
+  // f(x) = 0.5 + 0.4 sin(3 π x)
+  const f = x => 0.5 + 0.4*Math.sin(3*Math.PI*x);
+
+  function draw(){
+    let a = +as.value, b = +bs.value;
+    if(a > b) [a,b] = [b,a];
+    rv.textContent = `window = [${a.toFixed(2)}, ${b.toFixed(2)}]`;
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
+    // y tick labels
+    for(const v of [0,0.25,0.5,0.75,1]){
+      const t = SVG('text',{x:xl-6,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent = v.toFixed(2); svg.appendChild(t);
+    }
+    // x tick labels
+    for(const v of [0,0.5,1]){
+      const t = SVG('text',{x:X(v),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent = v; svg.appendChild(t);
+    }
+    // draw [a,b] horizontal band in the codomain
+    svg.appendChild(SVG('rect',{x:xl,y:Y(b),width:xr-xl,height:Y(a)-Y(b),
+      fill:'rgba(179,157,219,0.18)',stroke:'var(--violet)','stroke-dasharray':'4 3','stroke-width':1}));
+    const tlab = SVG('text',{x:xr-4,y:Y((a+b)/2)+4,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+    tlab.textContent = `codomain window [a,b]`; svg.appendChild(tlab);
+    // sample f over [0,1] and find preimage mask
+    const Ns = 1500;
+    const mask = new Array(Ns).fill(false);
+    let hit = 0;
+    for(let i=0;i<Ns;i++){
+      const x = i/(Ns-1);
+      const y = f(x);
+      if(y >= a && y <= b){ mask[i] = true; hit++; }
+    }
+    const measure = hit/(Ns-1);
+    // draw f curve
+    let d='';
+    for(let i=0;i<Ns;i++){
+      const x=i/(Ns-1), y=f(x);
+      d += (i? ' L':'M')+X(x).toFixed(2)+' '+Y(y).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.6}));
+    // highlight preimage on x-axis
+    let i=0;
+    while(i<Ns){
+      if(!mask[i]){ i++; continue; }
+      let j=i;
+      while(j<Ns && mask[j]) j++;
+      const a0 = i/(Ns-1), b0 = (j-1)/(Ns-1);
+      svg.appendChild(SVG('rect',{x:X(a0),y:yb+4,width:Math.max(X(b0)-X(a0),1.2),height:10,
+        fill:'var(--yellow)',stroke:'var(--yellow)'}));
+      i=j;
+    }
+    const tx = SVG('text',{x:xl,y:yb+28,'font-size':11,fill:'var(--yellow)'});
+    tx.textContent = `f^-1([a,b]) ⊂ [0,1] — highlighted on the x-axis`;
+    svg.appendChild(tx);
+
+    out.textContent =
+      `f(x) = 0.5 + 0.4 sin(3πx),  window [a,b] = [${a.toFixed(2)}, ${b.toFixed(2)}]\n`+
+      `m(f^{-1}([a,b])) ≈ ${measure.toFixed(4)}   (Lebesgue measure of preimage)\n`+
+      `By definition: f is Borel measurable iff f^{-1}(B) ∈ 𝓐 for every Borel B.\n`+
+      `Each threshold window [a,b] is Borel; tracing the preimage verifies measurability visually.`;
+  }
+  as.addEventListener('input',draw);
+  bs.addEventListener('input',draw);
+  draw();
+})();
+</script>
 
 <script>
 /* =============================== §2 Cantor set widget =============================== */
@@ -550,7 +751,7 @@ which is impossible whether $m(V)=0$ (sum = 0) or $m(V)>0$ (sum = $\infty$). Hen
 </script>
 
 <section id="integral">
-<h2>3. The Lebesgue integral</h2>
+<h2>6. The Lebesgue integral</h2>
 
 <p>With Lebesgue measure in hand, the integral is built in three steps: (i) for simple functions (finite-range measurable functions); (ii) extended to nonnegative measurable functions by monotone limits; (iii) extended to signed/complex measurable functions by decomposition. A function $f\colon X\to\overline{\mathbb{R}}$ is <strong>measurable</strong> if $f^{-1}((\alpha,\infty])\in\mathcal{A}$ for every $\alpha\in\mathbb{R}$ — equivalently, preimages of Borel sets land in $\mathcal{A}$.</p>
 
@@ -705,7 +906,7 @@ Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int 
 <div class="quiz" data-concept="lebesgue-integral"></div>
 
 <section id="convergence">
-<h2>4. Convergence theorems</h2>
+<h2>7. Convergence theorems</h2>
 
 <p>The appeal of Lebesgue integration is that it plays well with limits. Three theorems — each a step weaker in hypothesis, each a direct consequence of the last — cover the main cases.</p>
 
@@ -758,14 +959,22 @@ $$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0.
 
 
 
-
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#uniform-convergence">Uniform convergence</a></li>
+  </ul>
+</aside>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#fubini">Measure theory</a> · Fubini &amp; Tonelli</div>
     <div><a href="./measure-theory.html#lp">Measure theory</a> · Lᵖ spaces</div>
     <div><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</div>
 </aside>
 <!-- backlinks-auto-end -->
+
+
 </section>
 
 <script>
@@ -860,7 +1069,7 @@ $$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0.
 <div class="quiz" data-concept="convergence-theorems"></div>
 
 <section id="lp">
-<h2>5. $L^p$ spaces</h2>
+<h2>8. $L^p$ spaces</h2>
 
 <p>Fix a measure space $(X,\mathcal{A},\mu)$ and a real parameter $1\le p<\infty$. The space
 $$ \mathcal{L}^p(\mu) := \Bigl\{ f\colon X\to\mathbb{C} \text{ measurable} : \int |f|^p\,d\mu < \infty\Bigr\} $$
@@ -924,7 +1133,9 @@ The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is 
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./functional-analysis.html#hilbert">Functional analysis</a> · Banach and Hilbert spaces</div>
+    <div><a href="./functional-analysis.html#reflexivity">Functional analysis</a> · Reflexivity</div>
     <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
+    <div><a href="./measure-theory.html#radon-nikodym">Measure theory</a> · Signed measures &amp; Radon–Nikodym</div>
     <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -1006,38 +1217,606 @@ The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is 
 
 <div class="quiz" data-concept="lp-spaces"></div>
 
-<section id="product">
-<h2>6. Product measures and Fubini</h2>
+<section id="product-measure">
+<h2>9. Product measures &amp; $\sigma$-finiteness</h2>
 
-<p>Given $\sigma$-finite measure spaces $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\nu)$, the product $\sigma$-algebra $\mathcal{A}\otimes\mathcal{B}$ is generated by the rectangles $A\times B$, $A\in\mathcal{A}, B\in\mathcal{B}$. There is a unique product measure $\mu\otimes\nu$ on $\mathcal{A}\otimes\mathcal{B}$ satisfying
-$$ (\mu\otimes\nu)(A\times B) = \mu(A)\,\nu(B). $$
-Existence uses the Carathéodory extension applied to the rectangle pre-measure; $\sigma$-finiteness ensures uniqueness.</p>
+<p>Given $\sigma$-finite measure spaces $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\nu)$, the <strong>product $\sigma$-algebra</strong> $\mathcal{A}\otimes\mathcal{B}$ is generated by the measurable rectangles $A\times B$, $A\in\mathcal{A}, B\in\mathcal{B}$. On the algebra of finite disjoint unions of rectangles, the set function
+$$ \rho(A_1\times B_1 \sqcup \cdots \sqcup A_N\times B_N) \;=\; \sum_{k=1}^N \mu(A_k)\,\nu(B_k) $$
+is a $\sigma$-finite premeasure, and Carathéodory extension produces the <strong>product measure</strong> $\mu\otimes\nu$ on $\mathcal{A}\otimes\mathcal{B}$ characterised by
+$$ (\mu\otimes\nu)(A\times B) \;=\; \mu(A)\,\nu(B). $$
+Uniqueness on $\mathcal{A}\otimes\mathcal{B}$ uses Carathéodory's uniqueness half — this is exactly where $\sigma$-finiteness does its work.</p>
 
-<h3>Tonelli and Fubini</h3>
+<div class="note"><strong>Where $\sigma$-finiteness bites.</strong> Without $\sigma$-finiteness, two different measures can agree on rectangles but diverge on the full product $\sigma$-algebra. Standard counterexample: take $X=Y=[0,1]$ with $\mu$ Lebesgue and $\nu$ counting measure. Counting measure is not $\sigma$-finite, and the diagonal $\Delta=\{(x,x)\}$ has $\int\int\mathbf{1}_\Delta\,d\mu\,d\nu = 0$ but $\int\int\mathbf{1}_\Delta\,d\nu\,d\mu = 1$. Product-measure uniqueness fails here.</div>
 
-<div class="ok"><strong>Tonelli.</strong> For $f\colon X\times Y\to[0,\infty]$ measurable,
-$$ \int_{X\times Y} f\,d(\mu\otimes\nu) = \int_X\!\int_Y f(x,y)\,d\nu(y)\,d\mu(x) = \int_Y\!\int_X f(x,y)\,d\mu(x)\,d\nu(y). $$
-All three are elements of $[0,\infty]$ and are equal — no integrability hypothesis required.</div>
+<p><strong>Sections.</strong> For $E\in\mathcal{A}\otimes\mathcal{B}$ and $x\in X$, the <em>$x$-section</em> $E_x:=\{y\in Y:(x,y)\in E\}$ belongs to $\mathcal{B}$; similarly for $y$-sections. In the $\sigma$-finite case, $x\mapsto\nu(E_x)$ is $\mathcal{A}$-measurable and
+$$ (\mu\otimes\nu)(E) \;=\; \int_X \nu(E_x)\,d\mu(x) \;=\; \int_Y \mu(E^y)\,d\nu(y). $$
+This measurability-of-sections statement is the combinatorial heart of Tonelli–Fubini.</p>
 
-<div class="ok"><strong>Fubini.</strong> For $f\colon X\times Y\to\mathbb{C}$ with $\int |f|\,d(\mu\otimes\nu) < \infty$, the iterated integrals exist for a.e.\ section and are equal, and all three agree.</div>
+<div class="widget" id="w-product">
+  <div class="hd"><div class="ttl">Product measure: rectangles tile the plane</div><div class="hint">drag the corner to reshape; the area updates as $\mu(A)\cdot\nu(B)$</div></div>
+  <svg id="product-svg" viewBox="0 0 760 300" width="760" height="300"><title>Product measure on a measurable rectangle</title></svg>
+  <div class="row">
+    <label for="product-ax">$\mu(A)=$ length on $x$</label>
+    <input id="product-ax" type="range" min="0.05" max="0.95" step="0.01" value="0.55">
+    <label for="product-by">$\nu(B)=$ length on $y$</label>
+    <input id="product-by" type="range" min="0.05" max="0.95" step="0.01" value="0.4">
+  </div>
+  <div class="readout" id="product-out"></div>
+</div>
+<div class="quiz" data-concept="product-measures"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#fubini">Measure theory</a> · Fubini &amp; Tonelli</div>
+</aside>
+<!-- backlinks-auto-end -->
 
-<p>The usual proof: first verify for indicators of measurable rectangles (easy); linearity to simple functions; MCT to $[0,\infty]$-valued measurable; then split $f=f^+-f^-$ and invoke integrability to avoid $\infty - \infty$. The single hypothesis in Fubini — $f\in L^1(\mu\otimes\nu)$ — is not optional.</p>
+</section>
+
+<script>
+/* =============================== §9 Product-measure rectangle widget =============================== */
+(function(){
+  const svg = $('#product-svg'), out = $('#product-out');
+  const axs = $('#product-ax'), bys = $('#product-by');
+  const W=760, H=300, pad=40;
+  const xl=pad+120, xr=W-pad, yt=30, yb=H-pad;
+  const X = t => xl + t*(xr-xl);
+  const Y = v => yb - v*(yb-yt);
+  function draw(){
+    const a = +axs.value, b = +bys.value;
+    svg.innerHTML = '';
+    // axes for x and y
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
+    // background square [0,1]^2
+    svg.appendChild(SVG('rect',{x:X(0),y:Y(1),width:X(1)-X(0),height:Y(0)-Y(1),
+      fill:'rgba(255,255,255,0.02)',stroke:'var(--line)','stroke-dasharray':'3 3'}));
+    // rectangle A×B in [0,a]×[0,b]
+    svg.appendChild(SVG('rect',{x:X(0),y:Y(b),width:X(a)-X(0),height:Y(0)-Y(b),
+      fill:'rgba(131,193,103,0.22)',stroke:'var(--green)','stroke-width':1.5}));
+    // shade A on x-axis and B on y-axis
+    svg.appendChild(SVG('rect',{x:X(0),y:yb+4,width:X(a)-X(0),height:8,
+      fill:'var(--yellow)',stroke:'var(--yellow)'}));
+    svg.appendChild(SVG('rect',{x:xl-12,y:Y(b),width:8,height:Y(0)-Y(b),
+      fill:'var(--cyan)',stroke:'var(--cyan)'}));
+    // ticks
+    for(const v of [0, 0.5, 1]){
+      const t1 = SVG('text',{x:X(v),y:yb+28,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t1.textContent = v; svg.appendChild(t1);
+      const t2 = SVG('text',{x:xl-20,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t2.textContent = v; svg.appendChild(t2);
+    }
+    // legend
+    const lx = 30, ly = yt+10;
+    const lg = SVG('text',{x:lx,y:ly,'font-size':12,fill:'var(--yellow)'});
+    lg.textContent = `μ(A) = ${a.toFixed(3)}`;
+    svg.appendChild(lg);
+    const lg2 = SVG('text',{x:lx,y:ly+22,'font-size':12,fill:'var(--cyan)'});
+    lg2.textContent = `ν(B) = ${b.toFixed(3)}`;
+    svg.appendChild(lg2);
+    const lg3 = SVG('text',{x:lx,y:ly+54,'font-size':12,fill:'var(--green)'});
+    lg3.textContent = `(μ⊗ν)(A×B)`;
+    svg.appendChild(lg3);
+    const lg4 = SVG('text',{x:lx,y:ly+70,'font-size':14,fill:'var(--green)','font-weight':600});
+    lg4.textContent = `= μ(A)·ν(B) = ${(a*b).toFixed(4)}`;
+    svg.appendChild(lg4);
+
+    out.textContent =
+      `Rectangle A×B = [0, ${a.toFixed(3)}] × [0, ${b.toFixed(3)}]\n`+
+      `(μ⊗ν)(A×B) = μ(A)·ν(B) = ${a.toFixed(3)} · ${b.toFixed(3)} = ${(a*b).toFixed(5)}\n`+
+      `σ-finiteness gives the unique extension to all of 𝓐⊗𝓑. On non-rectangles, Carathéodory fills in the rest.`;
+  }
+  axs.addEventListener('input',draw);
+  bys.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="fubini">
+<h2>10. Fubini &amp; Tonelli</h2>
+
+<div class="ok"><strong>Tonelli.</strong> Let $(X,\mathcal{A},\mu)$, $(Y,\mathcal{B},\nu)$ be $\sigma$-finite and $f\colon X\times Y\to[0,\infty]$ measurable. Then all three of
+$$ \int_{X\times Y} f\,d(\mu\otimes\nu),\qquad \int_X\!\int_Y f(x,y)\,d\nu(y)\,d\mu(x),\qquad \int_Y\!\int_X f(x,y)\,d\mu(x)\,d\nu(y) $$
+exist in $[0,\infty]$ and are equal. <em>No integrability hypothesis.</em></div>
+
+<div class="ok"><strong>Fubini.</strong> For $f\colon X\times Y\to\mathbb{C}$ with $\int|f|\,d(\mu\otimes\nu)<\infty$ (equivalently, one of the unsigned iterated integrals of $|f|$ is finite, by Tonelli), the iterated integrals exist for a.e.\ section, are equal, and agree with the double integral.</div>
+
+<p>The standard proof climbs the measurable ladder: indicators of rectangles (elementary) $\to$ simple nonneg (linearity) $\to$ nonneg measurable (MCT, giving Tonelli) $\to$ complex integrable (split $f=f^+-f^-$, finite integrability avoids $\infty-\infty$, giving Fubini).</p>
 
 <h3>Failure when integrability fails</h3>
 
 <p>On $X=Y=\mathbb{N}$ with counting measure, consider
 $$ a_{m,n} = \begin{cases} 1 & n=m, \\ -1 & n=m+1, \\ 0 & \text{otherwise.} \end{cases}$$
-Then $\sum_n a_{m,n} = 0$ for each $m$, so $\sum_m\sum_n a_{m,n} = 0$. But $\sum_m a_{m,n}$ equals $1$ for $n=0$ (from the diagonal), and telescopes elsewhere: $\sum_n\sum_m a_{m,n} = 1$. The two iterated sums disagree because $\sum_{m,n}|a_{m,n}|=\infty$.</p>
+Then $\sum_n a_{m,n} = 0$ for each $m$, so $\sum_m\sum_n a_{m,n} = 0$. But $\sum_m a_{m,n}$ equals $1$ for $n=0$ (from the diagonal) and telescopes to $0$ elsewhere, giving $\sum_n\sum_m a_{m,n} = 1$. The two iterated sums disagree because $\sum_{m,n}|a_{m,n}|=\infty$.</p>
 
 <div class="note">A continuous version: on $[0,1]^2$ with Lebesgue measure, let
 $$ f(x,y) = \frac{x^2-y^2}{(x^2+y^2)^2}, \qquad (x,y)\ne (0,0).$$
-Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx = -\pi/4$. The function is not absolutely integrable near the origin, so Fubini's hypothesis is violated, and the iterated integrals are genuinely different.</div>
+Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx = -\pi/4$. The function is not absolutely integrable near the origin, so Fubini's hypothesis is violated and the iterated integrals genuinely disagree.</div>
 
-<p>Operationally: before swapping order of integration, check $\int |f| < \infty$ (by computing it in either order — Tonelli makes the unsigned iterated integrals automatically equal).</p>
+<p><strong>Operational protocol.</strong> Before swapping order of integration on a signed $f$, compute $\int\int|f|$ in <em>either</em> order (Tonelli makes the unsigned iterated integrals automatically equal). If that is finite, $f\in L^1(\mu\otimes\nu)$ and Fubini licenses the swap. Otherwise: don't.</p>
+
+<div class="widget" id="w-fubini">
+  <div class="hd"><div class="ttl">Fubini: iterate $dx\,dy$ or $dy\,dx$</div><div class="hint">region $R_\alpha=\{(x,y):x,y\ge 0,\ x^\alpha+y^\alpha\le 1\}$</div></div>
+  <svg id="fubini-svg" viewBox="0 0 760 320" width="760" height="320"><title>Fubini iterated integral over R_alpha</title></svg>
+  <div class="row">
+    <label for="fubini-a">$\alpha$</label>
+    <input id="fubini-a" type="range" min="0.7" max="3" step="0.05" value="2">
+    <label for="fubini-ord">order</label>
+    <select id="fubini-ord">
+      <option value="xy">$\int\!\int 1\,dx\,dy$</option>
+      <option value="yx">$\int\!\int 1\,dy\,dx$</option>
+    </select>
+    <span id="fubini-av" class="small"></span>
+  </div>
+  <div class="readout" id="fubini-out"></div>
+</div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#multivariable-integration">Real analysis</a> · Multivariable integration</div>
+    <div><a href="./probability-theory.html#indep">Probability theory</a> · Independence and product measures</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="fubini-tonelli"></div>
 </section>
 
+<script>
+/* =============================== §10 Fubini iterated-integral widget =============================== */
+(function(){
+  const svg = $('#fubini-svg'), out = $('#fubini-out');
+  const as_ = $('#fubini-a'), ord = $('#fubini-ord'), av = $('#fubini-av');
+  const W=760, H=320, pad=40;
+  const xl=pad+60, xr=W-pad, yt=30, yb=H-pad;
+  const X = t => xl + t*(xr-xl);
+  const Y = v => yb - v*(yb-yt);
+  function draw(){
+    const alpha = +as_.value, mode = ord.value;
+    av.textContent = `α = ${alpha.toFixed(2)}`;
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
+    for(const v of [0,0.5,1]){
+      const tx = SVG('text',{x:X(v),y:yb+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent = v; svg.appendChild(tx);
+      const ty = SVG('text',{x:xl-6,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      ty.textContent = v; svg.appendChild(ty);
+    }
+    // boundary: x^α + y^α = 1, quadrant
+    let d = '';
+    const Npt = 200;
+    for(let i=0;i<=Npt;i++){
+      const x = i/Npt;
+      const yr = Math.pow(Math.max(1 - Math.pow(x,alpha),0), 1/alpha);
+      d += (i? ' L':'M')+X(x).toFixed(2)+' '+Y(yr).toFixed(2);
+    }
+    // fill
+    svg.appendChild(SVG('path',{d:d+` L${X(1)} ${Y(0)} L${X(0)} ${Y(0)} Z`,
+      fill:'rgba(125,224,214,0.18)',stroke:'var(--cyan)','stroke-width':1.4}));
+    // draw iteration strips
+    const Nstrips = 18;
+    let area = 0;
+    if(mode === 'xy'){
+      // outer dy, strips horizontal
+      for(let k=0;k<Nstrips;k++){
+        const y0 = k/Nstrips, y1 = (k+1)/Nstrips;
+        const xmax = Math.pow(Math.max(1 - Math.pow((y0+y1)/2, alpha), 0), 1/alpha);
+        if(xmax <= 0) continue;
+        area += xmax / Nstrips;
+        svg.appendChild(SVG('rect',{x:X(0),y:Y(y1),width:X(xmax)-X(0),height:Y(y0)-Y(y1),
+          fill:'rgba(255,216,102,0.22)',stroke:'var(--yellow)','stroke-width':0.8}));
+      }
+    } else {
+      // outer dx, strips vertical
+      for(let k=0;k<Nstrips;k++){
+        const x0 = k/Nstrips, x1 = (k+1)/Nstrips;
+        const ymax = Math.pow(Math.max(1 - Math.pow((x0+x1)/2, alpha), 0), 1/alpha);
+        if(ymax <= 0) continue;
+        area += ymax / Nstrips;
+        svg.appendChild(SVG('rect',{x:X(x0),y:Y(ymax),width:X(x1)-X(x0),height:Y(0)-Y(ymax),
+          fill:'rgba(224,122,95,0.22)',stroke:'var(--pink)','stroke-width':0.8}));
+      }
+    }
+    // title
+    const t = SVG('text',{x:(xl+xr)/2,y:16,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    t.textContent = `region R_α:  x,y≥0,  x^α + y^α ≤ 1   — iterated by ${mode==='xy'?'∫dy ∫dx':'∫dx ∫dy'}`;
+    svg.appendChild(t);
+
+    // exact area via Beta: ∫_0^1 (1-x^α)^(1/α) dx = (1/α)·B(1/α, 1 + 1/α) = Γ(1+1/α)²/Γ(1+2/α)
+    // compute via numerical integration for display:
+    let exact = 0, Nh = 2000;
+    for(let i=0;i<Nh;i++){
+      const x = (i+0.5)/Nh;
+      exact += Math.pow(Math.max(1 - Math.pow(x,alpha), 0), 1/alpha) / Nh;
+    }
+
+    out.textContent =
+      `α = ${alpha.toFixed(2)},  order = ${mode==='xy' ? 'dx then dy' : 'dy then dx'}\n`+
+      `Riemann-approximated iterated integral with ${Nstrips} strips = ${area.toFixed(4)}\n`+
+      `finer Riemann sum (N=${Nh}) = ${exact.toFixed(4)}\n`+
+      `Tonelli: both orders agree for 1_{R_α} ≥ 0 — the integrand is automatic, no integrability check needed.`;
+  }
+  as_.addEventListener('input',draw);
+  ord.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<section id="radon-nikodym">
+<h2>11. Signed measures &amp; Radon–Nikodym</h2>
+
+<p>A <strong>signed measure</strong> on $(X,\mathcal{A})$ is a countably additive $\nu\colon\mathcal{A}\to[-\infty,\infty]$ (taking at most one of the two infinities) with $\nu(\varnothing)=0$. Examples: $\nu(E) = \int_E f\,d\mu$ for a $\mu$-measurable $f$ with $\int f^+\,d\mu < \infty$ or $\int f^-\,d\mu < \infty$.</p>
+
+<div class="ok"><strong>Hahn–Jordan decomposition.</strong> There is a measurable partition $X = P \sqcup N$ such that $\nu(E\cap P)\ge 0$ and $\nu(E\cap N)\le 0$ for every measurable $E$. Setting $\nu^+(E)=\nu(E\cap P)$ and $\nu^-(E)=-\nu(E\cap N)$ yields two mutually singular positive measures with $\nu = \nu^+ - \nu^-$, unique up to null-set adjustments. The <em>total variation</em> is $|\nu|=\nu^++\nu^-$.</div>
+
+<p><strong>Absolute continuity.</strong> Write $\nu\ll\mu$ (or "$\nu$ is absolutely continuous with respect to $\mu$") when $\mu(E)=0 \Rightarrow \nu(E)=0$ for every $E\in\mathcal{A}$. Write $\nu\perp\mu$ ("mutually singular") when there is a measurable partition $X=A\sqcup B$ with $\nu(A)=\mu(B)=0$.</p>
+
+<div class="ok"><strong>Radon–Nikodym.</strong> Let $\mu$ be $\sigma$-finite and $\nu$ a $\sigma$-finite signed measure with $\nu\ll\mu$. Then there exists a $\mu$-measurable $f\colon X\to\mathbb{R}$, $\mu$-a.e. unique, such that
+$$ \nu(E) \;=\; \int_E f\,d\mu \qquad\text{for every } E\in\mathcal{A}. $$
+One writes $f = \dfrac{d\nu}{d\mu}$ — the <em>Radon–Nikodym density</em>.</div>
+
+<p><strong>Lebesgue decomposition.</strong> For $\sigma$-finite $\mu,\nu$ there is a unique split $\nu = \nu_{ac} + \nu_s$ with $\nu_{ac}\ll\mu$ and $\nu_s\perp\mu$. Radon–Nikodym gives a density for $\nu_{ac}$; the singular part $\nu_s$ lives on a $\mu$-null set (a Dirac mass, or the Cantor–Lebesgue measure on $C\subset[0,1]$).</p>
+
+<p><strong>Proof idea (Hilbert-space route).</strong> On the finite-measure case, define $L\colon L^2(\mu+\nu)\to\mathbb{R}$ by $Lg=\int g\,d\nu$. By Riesz representation on $L^2(\mu+\nu)$, $Lg = \int gh\,d(\mu+\nu)$ for some $h\in L^2(\mu+\nu)$ with $0\le h\le 1$. Algebra on indicators gives $d\nu = h/(1-h)\,d\mu$ on $\{h<1\}$, and $\{h=1\}$ is $\mu$-null — exactly the Lebesgue decomposition. This von-Neumann-style argument avoids transfinite induction entirely.</p>
+
+<div class="widget" id="w-rn">
+  <div class="hd"><div class="ttl">Radon–Nikodym density $d\nu/dm$</div><div class="hint">shape the density; mass tracks below</div></div>
+  <svg id="rn-svg" viewBox="0 0 760 320" width="760" height="320"><title>Radon-Nikodym density on [0,1]</title></svg>
+  <div class="row">
+    <label for="rn-c">peak height $c$</label>
+    <input id="rn-c" type="range" min="0.5" max="5" step="0.05" value="2.2">
+    <label for="rn-s">peak center</label>
+    <input id="rn-s" type="range" min="0.15" max="0.85" step="0.01" value="0.5">
+  </div>
+  <div class="readout" id="rn-out"></div>
+</div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
+    <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="signed-measures-radon-nikodym"></div>
+</section>
+
+<script>
+/* =============================== §11 Radon-Nikodym density widget =============================== */
+(function(){
+  const svg = $('#rn-svg'), out = $('#rn-out');
+  const cs = $('#rn-c'), ss = $('#rn-s');
+  const W=760, H=320, pad=40;
+  const xl=pad, xr=W-pad, yt=30, yb=H-pad-40;
+  const X = t => xl + t*(xr-xl);
+  let YMAX = 5;
+  const Y = v => yb - (v/YMAX)*(yb-yt);
+  function draw(){
+    const c = +cs.value, s = +ss.value;
+    svg.innerHTML = '';
+    // f(x) = c · exp(-10 (x-s)^2), i.e., a bump centered at s
+    const f = x => c * Math.exp(-10 * (x - s) ** 2);
+    // axes
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
+    for(const v of [0,1,2,3,4,5]){
+      const ty = SVG('text',{x:xl-6,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      ty.textContent = v; svg.appendChild(ty);
+      svg.appendChild(SVG('line',{x1:xl-3,y1:Y(v),x2:xl,y2:Y(v),stroke:'var(--mute)'}));
+    }
+    for(const v of [0,0.5,1]){
+      const tx = SVG('text',{x:X(v),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent = v; svg.appendChild(tx);
+    }
+    // shaded area
+    const Npt = 800;
+    let dPath = `M${X(0)} ${Y(0)}`;
+    let total = 0;
+    for(let i=0;i<=Npt;i++){
+      const x = i/Npt, y = Math.min(f(x), YMAX);
+      dPath += ` L${X(x).toFixed(2)} ${Y(y).toFixed(2)}`;
+      if(i>0){ total += f((i-0.5)/Npt) / Npt; }
+    }
+    dPath += ` L${X(1)} ${Y(0)} Z`;
+    svg.appendChild(SVG('path',{d:dPath,fill:'rgba(125,224,214,0.22)',stroke:'var(--cyan)','stroke-width':1.5}));
+    // density curve
+    let dc = '';
+    for(let i=0;i<=Npt;i++){
+      const x = i/Npt, y = Math.min(f(x), YMAX);
+      dc += (i? ' L':'M')+X(x).toFixed(2)+' '+Y(y).toFixed(2);
+    }
+    svg.appendChild(SVG('path',{d:dc,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+
+    // ν on x-axis: thickness proportional to f
+    for(let i=0;i<Npt;i+=8){
+      const x = (i+0.5)/Npt, y = f(x);
+      const t = Math.min(1, y/YMAX);
+      svg.appendChild(SVG('line',{x1:X(x),y1:yb+4,x2:X(x),y2:yb+4+2+t*18,
+        stroke:'var(--green)','stroke-width':1,opacity:0.5+0.4*t}));
+    }
+    const tm = SVG('text',{x:xl,y:yb+42,'font-size':11,fill:'var(--green)'});
+    tm.textContent = 'ν concentrates near high-density regions';
+    svg.appendChild(tm);
+
+    out.textContent =
+      `density f(x) = dν/dm = ${c.toFixed(2)} · exp(-10 (x − ${s.toFixed(2)})²)\n`+
+      `ν([0,1]) = ∫_0^1 f dm ≈ ${total.toFixed(4)}\n`+
+      `ν is absolutely continuous w.r.t. m:  m(E)=0 ⇒ ν(E)=0 (integrating f over a null set gives 0).\n`+
+      `Radon–Nikodym says every ν ≪ m is of this form (m-a.e. unique density).`;
+  }
+  cs.addEventListener('input',draw);
+  ss.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="riesz-measure">
+<h2>12. Riesz representation (measure form)</h2>
+
+<p>Let $X$ be a locally compact Hausdorff space and $C_c(X)$ the continuous real-valued functions with compact support. A linear functional $\Lambda\colon C_c(X)\to\mathbb{R}$ is <strong>positive</strong> if $f\ge 0 \Rightarrow \Lambda f\ge 0$.</p>
+
+<div class="ok"><strong>Riesz–Markov–Kakutani.</strong> Every positive linear functional $\Lambda$ on $C_c(X)$ is integration against a unique regular Borel measure $\mu$ on $X$:
+$$ \Lambda f \;=\; \int_X f\,d\mu, \qquad f\in C_c(X). $$
+Here "regular" means:
+<ul>
+  <li>$\mu(K) < \infty$ for every compact $K\subset X$ (finiteness on compacta);</li>
+  <li>$\mu(U) = \sup\{\mu(K) : K\subset U \text{ compact}\}$ for every open $U$ (inner regularity on opens);</li>
+  <li>$\mu(E) = \inf\{\mu(U) : E\subset U \text{ open}\}$ for every Borel $E$ (outer regularity).</li>
+</ul></div>
+
+<p>This is how measure theory and functional analysis meet: any positive linear functional on continuous test-functions <em>is</em> a measure. Dirac deltas $\Lambda f = f(p)$ correspond to $\mu = \delta_p$; Lebesgue integration $\Lambda f = \int f\,dm$ corresponds to $\mu = m$; summing at a sequence $\Lambda f = \sum_n \alpha_n f(x_n)$ corresponds to $\mu = \sum_n \alpha_n \delta_{x_n}$ when $\sum|\alpha_n|<\infty$ on each compact.</p>
+
+<p><strong>Why the regularity conditions?</strong> Without regularity, two different Borel measures can give the same functional on $C_c(X)$. Regularity pins $\mu$ down uniquely: knowing $\mu(U)$ on opens determines $\mu$ on Borel sets via outer regularity, and inner regularity recovers $\mu(U)$ from the compact-set values $\mu(K)$, which are computable from $\Lambda$ via Urysohn's lemma (sandwich $\mathbf{1}_K\le f\le \mathbf{1}_U$).</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./point-set-topology.html#compact">Compactness</a> — needed for "compact support" and Urysohn sandwiches.</li>
+    <li><a href="./functional-analysis.html#riesz">Functional-analytic Riesz representation</a> — the Hilbert-space twin.</li>
+  </ul>
+</aside>
+
+<div class="widget" id="w-riesz">
+  <div class="hd"><div class="ttl">Functionals ↔ measures: choose a recipe</div><div class="hint">each positive linear $\Lambda$ on $C_c$ is integration against some $\mu$</div></div>
+  <svg id="riesz-svg" viewBox="0 0 760 280" width="760" height="280"><title>Riesz representation: functionals vs measures</title></svg>
+  <div class="row">
+    <label for="riesz-mode">$\Lambda$</label>
+    <select id="riesz-mode">
+      <option value="dirac">$\Lambda f = f(1/2)$ (Dirac at 1/2)</option>
+      <option value="leb">$\Lambda f = \int_0^1 f\,dm$ (Lebesgue)</option>
+      <option value="sum">$\Lambda f = \frac{1}{2}f(1/4) + \frac{1}{2}f(3/4)$ (two-atom)</option>
+      <option value="weighted">$\Lambda f = \int_0^1 f(x)\cdot 2x\,dm$ (density $2x$)</option>
+    </select>
+    <label for="riesz-pick">test $f = \mathbf{1}_{[a,b]}$: $a$</label>
+    <input id="riesz-pick" type="range" min="0" max="1" step="0.01" value="0.3">
+    <span id="riesz-pv" class="small"></span>
+  </div>
+  <div class="readout" id="riesz-out"></div>
+</div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
+    <div><a href="./probability-theory.html#sample">Probability theory</a> · Sample spaces, events, and probability measures</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="riesz-representation-measures"></div>
+</section>
+
+<script>
+/* =============================== §12 Riesz functional/measure selector =============================== */
+(function(){
+  const svg = $('#riesz-svg'), out = $('#riesz-out');
+  const mode = $('#riesz-mode'), pa = $('#riesz-pick'), pv = $('#riesz-pv');
+  const W=760, H=280, pad=40;
+  const xl=pad, xr=W-pad, yt=30, yb=H-pad-30;
+  const X = t => xl + t*(xr-xl);
+  function draw(){
+    const m = mode.value;
+    const a = Math.max(0, Math.min(1, +pa.value));
+    const b = Math.min(1, a + 0.25);
+    pv.textContent = `[a,b] = [${a.toFixed(2)}, ${b.toFixed(2)}]`;
+    svg.innerHTML = '';
+    svg.appendChild(SVG('line',{x1:xl,y1:yb,x2:xr,y2:yb,stroke:'var(--line)'}));
+    for(const v of [0,0.5,1]){
+      const tx = SVG('text',{x:X(v),y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent = v; svg.appendChild(tx);
+    }
+    // draw test interval [a,b]
+    svg.appendChild(SVG('rect',{x:X(a),y:yb-24,width:X(b)-X(a),height:20,
+      fill:'rgba(179,157,219,0.25)',stroke:'var(--violet)','stroke-width':1.2}));
+    const tlab = SVG('text',{x:(X(a)+X(b))/2,y:yb-30,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});
+    tlab.textContent = 'test f = 𝟙_[a,b]'; svg.appendChild(tlab);
+    // draw the measure visually
+    let Lf, description, muDesc;
+    if(m === 'dirac'){
+      // delta at 1/2
+      svg.appendChild(SVG('line',{x1:X(0.5),y1:yb-80,x2:X(0.5),y2:yb,stroke:'var(--pink)','stroke-width':2.4}));
+      svg.appendChild(SVG('circle',{cx:X(0.5),cy:yb-80,r:5,fill:'var(--pink)'}));
+      const t = SVG('text',{x:X(0.5)+8,y:yb-72,'font-size':11,fill:'var(--pink)'});
+      t.textContent = 'μ = δ_{1/2}'; svg.appendChild(t);
+      Lf = (0.5 >= a && 0.5 <= b) ? 1 : 0;
+      muDesc = 'unit point mass at 1/2';
+      description = `Λf = f(1/2).  For f = 𝟙_[a,b]:  Λf = 𝟙_[a,b](1/2) = ${Lf}.`;
+    } else if(m === 'leb'){
+      // Lebesgue density 1
+      svg.appendChild(SVG('rect',{x:X(0),y:yb-50,width:X(1)-X(0),height:46,
+        fill:'rgba(125,224,214,0.22)',stroke:'var(--cyan)','stroke-width':1}));
+      const t = SVG('text',{x:X(1)-8,y:yb-56,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});
+      t.textContent = 'μ = m (Lebesgue)'; svg.appendChild(t);
+      Lf = b - a;
+      muDesc = 'Lebesgue measure on [0,1]';
+      description = `Λf = ∫f dm.  For f = 𝟙_[a,b]:  Λf = b − a = ${Lf.toFixed(3)}.`;
+    } else if(m === 'sum'){
+      svg.appendChild(SVG('line',{x1:X(0.25),y1:yb-60,x2:X(0.25),y2:yb,stroke:'var(--pink)','stroke-width':2.4}));
+      svg.appendChild(SVG('line',{x1:X(0.75),y1:yb-60,x2:X(0.75),y2:yb,stroke:'var(--pink)','stroke-width':2.4}));
+      svg.appendChild(SVG('circle',{cx:X(0.25),cy:yb-60,r:4.5,fill:'var(--pink)'}));
+      svg.appendChild(SVG('circle',{cx:X(0.75),cy:yb-60,r:4.5,fill:'var(--pink)'}));
+      const t = SVG('text',{x:X(0.5),y:yb-70,'text-anchor':'middle','font-size':11,fill:'var(--pink)'});
+      t.textContent = 'μ = ½ δ_{1/4} + ½ δ_{3/4}'; svg.appendChild(t);
+      Lf = 0;
+      if(0.25 >= a && 0.25 <= b) Lf += 0.5;
+      if(0.75 >= a && 0.75 <= b) Lf += 0.5;
+      muDesc = 'two atoms of mass 1/2 each';
+      description = `Λf = ½ f(1/4) + ½ f(3/4).  For f = 𝟙_[a,b]:  Λf = ${Lf.toFixed(3)}.`;
+    } else {
+      // weighted density 2x
+      const Npt = 400;
+      let dpath = `M${X(0)} ${yb}`;
+      for(let i=0;i<=Npt;i++){
+        const x = i/Npt, y = 2*x;
+        dpath += ` L${X(x).toFixed(2)} ${(yb - y*40).toFixed(2)}`;
+      }
+      dpath += ` L${X(1)} ${yb} Z`;
+      svg.appendChild(SVG('path',{d:dpath,fill:'rgba(255,216,102,0.22)',stroke:'var(--yellow)','stroke-width':1.5}));
+      const t = SVG('text',{x:X(1)-8,y:yb-80,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+      t.textContent = 'dμ = 2x dm'; svg.appendChild(t);
+      Lf = b*b - a*a;
+      muDesc = 'absolutely continuous, density 2x';
+      description = `Λf = ∫₀¹ f(x)·2x dx.  For f = 𝟙_[a,b]:  Λf = b² − a² = ${Lf.toFixed(3)}.`;
+    }
+    out.textContent =
+      `${description}\n`+
+      `Represented by μ = ${muDesc}.\n`+
+      `Riesz: every positive Λ on C_c corresponds to a unique regular Borel μ.`;
+  }
+  mode.addEventListener('change',draw);
+  pa.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<section id="hausdorff">
+<h2>13. Hausdorff measure &amp; dimension</h2>
+
+<p>Lebesgue measure counts 1-dim length on $\mathbb{R}$, 2-dim area on $\mathbb{R}^2$, and so on — but only for integer dimensions. Fractals (the Cantor set, the Koch snowflake) have no natural "integer-dimensional" size; we need a size-functional that interpolates smoothly.</p>
+
+<p><strong>The $s$-dimensional Hausdorff outer measure.</strong> For $s\ge 0$, $\delta>0$, $E\subset\mathbb{R}^n$, define
+$$ \mathcal{H}^s_\delta(E) \;=\; \inf\!\Bigl\{\sum_i (\mathrm{diam}\,U_i)^s \,:\, E\subseteq\bigcup_i U_i,\ \mathrm{diam}\,U_i\le\delta\Bigr\}. $$
+$\mathcal{H}^s_\delta$ is monotone decreasing in $\delta$, and the <em>Hausdorff outer measure</em> is the limit
+$$ \mathcal{H}^s(E) \;=\; \lim_{\delta\downarrow 0}\mathcal{H}^s_\delta(E) \;=\; \sup_{\delta>0}\mathcal{H}^s_\delta(E). $$
+Applying Carathéodory's criterion to $\mathcal{H}^s$ produces a $\sigma$-algebra containing the Borel sets; the restriction is a Borel-regular measure (the <em>$s$-dimensional Hausdorff measure</em>).</p>
+
+<div class="ok"><strong>Dimension.</strong> For each $E$ the map $s\mapsto\mathcal{H}^s(E)$ is $\infty$ for $s<s^*$ and $0$ for $s>s^*$, with a unique jump-point $s^* =: \dim_H(E)$ (the <em>Hausdorff dimension</em>). At $s=s^*$ itself, $\mathcal{H}^{s^*}(E)\in[0,\infty]$ is information beyond just the dimension.</div>
+
+<p><strong>Self-similar sets &amp; Moran's equation.</strong> If $E = \bigcup_{i=1}^N T_i(E)$ with $T_i$ contractions of ratios $r_i\in(0,1)$ satisfying the Open Set Condition, then
+$$ \sum_{i=1}^N r_i^{\,s} = 1 \quad\Longleftrightarrow\quad s = \dim_H(E), $$
+and $0<\mathcal{H}^s(E)<\infty$. The middle-thirds Cantor set has $N=2$, $r=1/3$: $2\cdot(1/3)^s=1\Rightarrow s=\log 2/\log 3 \approx 0.6309$. The Koch curve has $N=4$, $r=1/3$, giving $\log 4/\log 3 \approx 1.2619$. The Sierpiński gasket: $N=3$, $r=1/2$, giving $\log 3/\log 2\approx 1.585$.</p>
+
+<p><strong>Consistency with Lebesgue.</strong> Up to a normalisation constant depending on $n$ and $s=n$, $\mathcal{H}^n$ on $\mathbb{R}^n$ agrees with Lebesgue measure $m_n$. (Translation-invariance + agreement on a basis of cubes forces equality up to a Haar-measure scalar.) Hausdorff measure is the natural extension of "length/area/volume" to non-integer $s$.</p>
+
+<div class="widget" id="w-hausdorff">
+  <div class="hd"><div class="ttl">Hausdorff dimension: Cantor iteration</div><div class="hint">drag $s$; mass at level $k$ is $N^k r^{ks}$</div></div>
+  <svg id="hausdorff-svg" viewBox="0 0 760 320" width="760" height="320"><title>Hausdorff mass for Cantor-like sets at varying s</title></svg>
+  <div class="row">
+    <label for="hausdorff-s">dimension $s$</label>
+    <input id="hausdorff-s" type="range" min="0.05" max="1.5" step="0.01" value="0.63">
+    <label for="hausdorff-set">set</label>
+    <select id="hausdorff-set">
+      <option value="cantor">Cantor ($N=2$, $r=1/3$)</option>
+      <option value="koch">Koch ($N=4$, $r=1/3$)</option>
+      <option value="gasket">Sierpiński ($N=3$, $r=1/2$)</option>
+    </select>
+    <span id="hausdorff-sv" class="small"></span>
+  </div>
+  <div class="readout" id="hausdorff-out"></div>
+</div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dynamical-systems.html#ergodic">Dynamical systems</a> · Ergodicity and invariant measures</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="hausdorff-measure"></div>
+</section>
+
+<script>
+/* =============================== §13 Hausdorff measure/dimension widget =============================== */
+(function(){
+  const svg = $('#hausdorff-svg'), out = $('#hausdorff-out');
+  const ss = $('#hausdorff-s'), sel = $('#hausdorff-set'), sv = $('#hausdorff-sv');
+  const W=760, H=320, pad=40;
+  const xl=pad+60, xr=W-pad, yt=30, yb=H-pad;
+  const sets = {
+    cantor:  {N:2, r:1/3, dim: Math.log(2)/Math.log(3)},
+    koch:    {N:4, r:1/3, dim: Math.log(4)/Math.log(3)},
+    gasket:  {N:3, r:1/2, dim: Math.log(3)/Math.log(2)}
+  };
+  function draw(){
+    const s = +ss.value;
+    sv.textContent = `s = ${s.toFixed(2)}`;
+    svg.innerHTML = '';
+    const key = sel.value;
+    const {N, r, dim} = sets[key];
+    // axes (k on x, log mass on y)
+    const Kmax = 12;
+    const xscale = (xr - xl) / Kmax;
+    const yOffset = (yb + yt) / 2;
+    const yScale = 22;
+    svg.appendChild(SVG('line',{x1:xl,y1:yOffset,x2:xr,y2:yOffset,stroke:'var(--line)','stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('line',{x1:xl,y1:yt,x2:xl,y2:yb,stroke:'var(--line)'}));
+    // y tick
+    for(const v of [-6, -3, 0, 3, 6]){
+      const y = yOffset - v*yScale/2;
+      const t = SVG('text',{x:xl-6,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent = `10^${v}`;
+      svg.appendChild(t);
+    }
+    // x ticks
+    for(let k=0;k<=Kmax;k+=2){
+      const tx = SVG('text',{x:xl + k*xscale,y:yb+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent = k; svg.appendChild(tx);
+    }
+    // title
+    const tt = SVG('text',{x:(xl+xr)/2,y:16,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tt.textContent = `log₁₀ (N^k · r^{ks})  vs  iteration k  — ${key} (N=${N}, r=${r.toFixed(3)})`;
+    svg.appendChild(tt);
+    // data
+    const logBase = Math.log(10);
+    // mass at stage k = N^k · r^{ks}; log10 = k·(log N + s log r)
+    let pts = [];
+    for(let k=0;k<=Kmax;k++){
+      const logM = k * (Math.log(N) + s*Math.log(r)) / logBase;
+      const x = xl + k*xscale, y = yOffset - logM*yScale/2;
+      pts.push([x, y, logM]);
+    }
+    // line + dots
+    let d = '';
+    for(let i=0;i<pts.length;i++){
+      const [x,y] = pts[i];
+      d += (i? ' L':'M')+x.toFixed(2)+' '+y.toFixed(2);
+    }
+    const col = s < dim ? 'var(--pink)' : s > dim ? 'var(--cyan)' : 'var(--green)';
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:col,'stroke-width':2}));
+    for(const [x,y] of pts){
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:2.2,fill:col}));
+    }
+    // critical-line marker at dim
+    const lcrit = SVG('text',{x:xr-4,y:yt+14,'text-anchor':'end','font-size':11,fill:'var(--green)'});
+    lcrit.textContent = `dim_H = log N / log(1/r) = ${dim.toFixed(4)}`;
+    svg.appendChild(lcrit);
+
+    const verdict = s < dim
+      ? `s = ${s.toFixed(2)} < dim_H. Mass N^k r^{ks} → ∞, so H^s = ∞ (cover sum diverges).`
+      : s > dim
+      ? `s = ${s.toFixed(2)} > dim_H. Mass N^k r^{ks} → 0, so H^s = 0 (cover sum vanishes).`
+      : `s = ${s.toFixed(2)} = dim_H. Mass N^k r^{ks} is constant (= 1), so 0 < H^s < ∞ at the critical dimension.`;
+    out.textContent =
+      `set = ${key};  similarity: N = ${N}, r = ${r.toFixed(4)};  Hausdorff dim = log N / log(1/r) = ${dim.toFixed(5)}.\n`+
+      `At stage k, natural cover mass = N^k · r^{ks};  log₁₀ at k=${Kmax} is ${(Kmax*(Math.log(N)+s*Math.log(r))/Math.log(10)).toFixed(3)}.\n`+
+      verdict;
+  }
+  ss.addEventListener('input',draw);
+  sel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
 <section id="outro">
-<h2>7. Connections</h2>
+<h2>14. Connections</h2>
 
 <p>Measure theory is not an end in itself. It is the substrate on which several further theories are built; each contributes back motivation for why the definitions of $\S 2$ were the right ones.</p>
 

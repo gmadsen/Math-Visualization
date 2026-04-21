@@ -7719,6 +7719,72 @@ window.MVQuizBank = {
           }
         ]
       },
+      "operator-norm": {
+        "title": "Bounded linear operators and the operator norm",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The operator norm of $T\\in B(X,Y)$ is defined by $\\|T\\|=\\sup_{\\|x\\|\\le 1}\\|Tx\\|$. Which equivalent expression is INCORRECT?",
+            "choices": [
+              "$\\sup_{\\|x\\|=1}\\|Tx\\|$",
+              "$\\sup_{x\\ne 0}\\|Tx\\|/\\|x\\|$",
+              "the smallest $C\\ge 0$ with $\\|Tx\\|\\le C\\|x\\|$ for all $x$",
+              "$\\inf\\{\\|Tx\\| : x\\in X\\}$"
+            ],
+            "answer": 3,
+            "explain": "The infimum is $0$ for any linear $T$ (take $x=0$). The first three expressions are all standard equivalent formulas for the operator norm."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{R}^2$ with Euclidean norm, what is the operator norm of the diagonal matrix $T=\\mathrm{diag}(3,-4)$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$. Here $\\max(3,4)=4$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the operator norm of $T=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$ (symmetric, so $\\|T\\|=\\max|\\lambda_i|$).",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$. The operator norm is $\\max(|3|,|-1|)=3$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "$B(X,Y)$ is a Banach space whenever $Y$ is a Banach space — even if $X$ is merely normed. Which step of the proof of completeness of $B(X,Y)$ is MOST subtle?",
+            "choices": [
+              "Showing $\\|T\\|$ is a norm",
+              "Showing that a Cauchy $(T_n)$ in $B(X,Y)$ defines a pointwise limit $Tx=\\lim T_n x$ in $Y$, verifying linearity, and then showing $\\|T_n-T\\|\\to 0$ in operator norm (not just pointwise)",
+              "Invoking Hahn–Banach to construct $T$",
+              "Applying Banach–Alaoglu to the unit ball"
+            ],
+            "answer": 1,
+            "hint": "The nonobvious step is operator-norm convergence, not pointwise convergence.",
+            "explain": "Pointwise convergence $T_n x\\to Tx$ is given by completeness of $Y$ and the Cauchy property of $(T_n x)$. Upgrading to operator-norm convergence uses a uniform $\\varepsilon$ over $\\|x\\|\\le 1$: for $n,m\\ge N$, $\\|T_n x-T_m x\\|\\le\\varepsilon\\|x\\|$; let $m\\to\\infty$ to get $\\|T_n x-Tx\\|\\le\\varepsilon\\|x\\|$, so $\\|T_n-T\\|\\le\\varepsilon$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $T=\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ on $\\mathbb{R}^2$ (Euclidean). Compute $\\|T\\|$ via the largest singular value.",
+            "answer": 5,
+            "tol": 0.000001,
+            "hint": "Compute $T^\\top T$ and find its largest eigenvalue, then take square root.",
+            "explain": "$T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$ has eigenvalues $25$ and $0$. Largest singular value is $\\sqrt{25}=5$. Matches: the single nonzero row has norm $\\sqrt{9+16}=5$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which operator on $\\ell^2$ satisfies $\\|T\\|=1$ yet has $T^n\\to 0$ in the strong operator topology (i.e. $T^n x\\to 0$ for every $x$), while $\\|T^n\\|=1$ for all $n$?",
+            "choices": [
+              "the identity operator",
+              "the right shift $S$",
+              "the left shift $S^*$",
+              "a compact operator"
+            ],
+            "answer": 2,
+            "explain": "$S^*$ (left shift) has $\\|S^*\\|=1$ and $\\|(S^*)^n\\|=1$ for all $n$, yet $(S^*)^n x\\to 0$ for every $x\\in\\ell^2$ since only the tail past index $n$ remains. This is the prototypical \"strongly convergent but not uniformly convergent\" example, showing operator-norm convergence is strictly stronger than pointwise/strong."
+          }
+        ]
+      },
       "bounded-operators-fa": {
         "title": "Bounded operators and adjoints",
         "questions": [
@@ -7786,6 +7852,269 @@ window.MVQuizBank = {
             "answer": 5,
             "tol": 0.000001,
             "explain": "The singular values of $T$ are the square roots of the eigenvalues of $T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$. Its eigenvalues are $25$ and $0$, so the largest singular value — and hence the operator norm — is $\\sqrt{25}=5$."
+          }
+        ]
+      },
+      "adjoint-hilbert": {
+        "title": "Adjoint operator on Hilbert space",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a Hilbert space $H$, the adjoint $T^*$ of $T\\in B(H)$ is the unique operator satisfying:",
+            "choices": [
+              "$\\|T^*x\\|=\\|Tx\\|$ for every $x$",
+              "$\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$ for all $x,y\\in H$",
+              "$T^*=T^{-1}$ when $T$ is invertible",
+              "$T^*T=I$"
+            ],
+            "answer": 1,
+            "explain": "The defining identity of the adjoint is $\\langle Tx,y\\rangle=\\langle x,T^*y\\rangle$. Existence and uniqueness follow from the Riesz representation theorem applied to $y\\mapsto\\langle Tx,y\\rangle$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all matrices that are self-adjoint (Hermitian) as operators on $\\mathbb{C}^2$.",
+            "choices": [
+              "$\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ (Pauli $\\sigma_z$)",
+              "$\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ (Pauli $\\sigma_x$)",
+              "$\\begin{pmatrix}0&-i\\\\i&0\\end{pmatrix}$ (Pauli $\\sigma_y$)",
+              "$\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ (skew-symmetric rotation generator)"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "All three Pauli matrices are Hermitian (self-adjoint): $\\sigma_k^*=\\sigma_k$. The skew-symmetric matrix $J=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$ satisfies $J^*=-J$, so it is anti-self-adjoint, not self-adjoint."
+          },
+          {
+            "type": "numeric",
+            "q": "For $T=\\begin{pmatrix}2&i\\\\ 3&0\\end{pmatrix}$ on $\\mathbb{C}^2$, compute $(T^*)_{12}$ (the top-right entry of the adjoint). Give your answer as a real number (it happens to be real here).",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$. So $(T^*)_{12}=3$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Classify the operator $U=\\frac{1}{\\sqrt 2}\\begin{pmatrix}1&1\\\\1&-1\\end{pmatrix}$ (Hadamard matrix) on $\\mathbb{R}^2$.",
+            "choices": [
+              "self-adjoint but not unitary",
+              "unitary but not self-adjoint",
+              "both self-adjoint AND unitary (so $U^2=I$ and spectrum $\\subset\\{\\pm 1\\}$)",
+              "normal but neither self-adjoint nor unitary"
+            ],
+            "answer": 2,
+            "hint": "Compute $U^\\top U$ and check whether $U^\\top=U$.",
+            "explain": "$U^\\top=U$ (real symmetric, hence self-adjoint). Also $U^\\top U=\\tfrac{1}{2}\\begin{pmatrix}2&0\\\\0&2\\end{pmatrix}=I$, so $U$ is unitary. A self-adjoint unitary is called a reflection: $U^2=I$, eigenvalues $\\pm 1$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each operator class to the defining identity between $T$ and $T^*$.",
+            "left": [
+              "$T^*T=TT^*$",
+              "$T^*=T$",
+              "$T^*T=TT^*=I$",
+              "$T^*=-T$"
+            ],
+            "right": [
+              "self-adjoint",
+              "anti-self-adjoint (skew-adjoint)",
+              "normal",
+              "unitary"
+            ],
+            "answer": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "explain": "Self-adjoint: $T^*=T$. Skew-adjoint: $T^*=-T$. Normal: $T^*T=TT^*$ (strictly weaker — includes self-adjoint and unitary). Unitary: $T^*T=TT^*=I$ (i.e., $T$ is an isometric bijection)."
+          },
+          {
+            "type": "mcq",
+            "q": "On $L^2[0,1]$, consider the Volterra operator $(Vf)(x)=\\int_0^x f(t)\\,dt$. What is its adjoint $V^*$?",
+            "choices": [
+              "$V^*=V$ (Volterra is self-adjoint)",
+              "$(V^*f)(x)=\\int_x^1 f(t)\\,dt$ (integration from $x$ to $1$)",
+              "$(V^*f)(x)=f'(x)$ (distributional derivative)",
+              "$V^*=V^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Change the order of integration: $\\langle Vf,g\\rangle=\\int_0^1\\int_0^x f(t)g(x)\\,dt\\,dx=\\int_0^1 f(t)\\int_t^1 g(x)\\,dx\\,dt=\\langle f,V^*g\\rangle$, so $(V^*g)(t)=\\int_t^1 g(x)\\,dx$. Volterra is NOT self-adjoint; in fact $V+V^*$ is self-adjoint and equals the rank-one operator $(Mf)(x)=\\int_0^1 f$ (a constant function)."
+          }
+        ]
+      },
+      "big-four-theorems": {
+        "title": "The big four theorems",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each of the big four theorems to its tagline.",
+            "left": [
+              "functional on subspace extends to whole space with same norm",
+              "surjective bounded linear map between Banach spaces is open",
+              "closed-graph linear maps between Banach spaces are bounded",
+              "pointwise bounded family of operators is uniformly bounded"
+            ],
+            "right": [
+              "Open Mapping",
+              "Closed Graph",
+              "Banach–Steinhaus",
+              "Hahn–Banach"
+            ],
+            "answer": [
+              3,
+              0,
+              1,
+              2
+            ],
+            "explain": "Hahn–Banach extends functionals; Open Mapping gives openness (so inverses of bijections are bounded); Closed Graph turns a a-priori estimate into continuity; Banach–Steinhaus (uniform boundedness) upgrades pointwise bounds to norm bounds."
+          },
+          {
+            "type": "mcq",
+            "q": "Three of the big four theorems are proved via the Baire category theorem. Which one is NOT?",
+            "choices": [
+              "Open Mapping",
+              "Closed Graph",
+              "Banach–Steinhaus",
+              "Hahn–Banach (extension form)"
+            ],
+            "answer": 3,
+            "explain": "Hahn–Banach rests on Zorn's lemma (or the axiom of choice), not on Baire category. The other three all use the Baire category theorem on a Banach space — a complete metric space is not a countable union of nowhere-dense sets."
+          },
+          {
+            "type": "mcq",
+            "q": "A direct consequence of Hahn–Banach on a normed space $X$ is that $X^*$ separates points, i.e., for every $x\\ne 0$ there is $\\ell\\in X^*$ with $\\ell(x)\\ne 0$. What is the standard one-line construction?",
+            "choices": [
+              "Apply Banach–Alaoglu to $B_{X^*}$",
+              "Define $\\ell$ on the line $\\mathbb{K}x$ by $\\ell(\\alpha x)=\\alpha\\|x\\|$ (so $\\|\\ell\\|=1$ there) and extend by Hahn–Banach",
+              "Take $\\ell$ the zero functional",
+              "Use the Riesz representation theorem, then restrict to $X$"
+            ],
+            "answer": 1,
+            "explain": "On the 1-dimensional subspace $\\mathbb{K}x$, define $\\ell_0(\\alpha x)=\\alpha\\|x\\|$ so that $|\\ell_0|=\\|\\cdot\\|$ there. Hahn–Banach extends $\\ell_0$ to $\\ell\\in X^*$ with $\\|\\ell\\|=1$ and $\\ell(x)=\\|x\\|>0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The Closed Graph Theorem is often used contrapositively: if $T\\colon X\\to Y$ is linear between Banach spaces but UNbounded, then its graph is not closed. What does this translate to concretely?",
+            "choices": [
+              "There exist $x_n\\to 0$ in $X$ with $Tx_n\\to y\\ne 0$ in $Y$ — convergence is 'lost' under $T$",
+              "$T$ has eigenvalues accumulating at infinity",
+              "$T$ has no adjoint",
+              "The unit ball of $X$ is unbounded"
+            ],
+            "answer": 0,
+            "hint": "Graph-closedness says: if both $x_n\\to x$ and $Tx_n\\to y$, then $y=Tx$. Failure means $y$ exists but $y\\ne Tx$.",
+            "explain": "If the graph is not closed, there is a sequence with $x_n\\to x$ and $Tx_n\\to y$ but $y\\ne Tx$. Taking $x=0$ gives $x_n\\to 0$ with $Tx_n\\to y\\ne T(0)=0$: a bounded $T$ cannot do this. Example: differentiation on $C[0,1]\\to C[0,1]$ with domain $C^1[0,1]$ — $f_n(x)=\\sin(n^2 x)/n\\to 0$ uniformly but $f_n'\\to$ nothing uniformly; graph is not closed in $C[0,1]\\times C[0,1]$."
+          },
+          {
+            "type": "mcq",
+            "q": "A classical application of Banach–Steinhaus (the uniform boundedness principle): there exists a continuous $2\\pi$-periodic function whose Fourier series diverges at a dense set of points. Which functional is 'resonating' in the proof?",
+            "choices": [
+              "the $L^2$ projection onto trigonometric polynomials",
+              "the $N$-th partial-sum evaluated at $0$: $L_N(f)=S_N f(0)$ on $C(\\mathbb{T})$, whose norm is the $N$-th Lebesgue constant $\\|L_N\\|\\sim\\log N\\to\\infty$",
+              "the Cesàro mean",
+              "the identity on $C(\\mathbb{T})$"
+            ],
+            "answer": 1,
+            "explain": "Banach–Steinhaus says: if $\\sup_N\\|L_N\\|=\\infty$, then $\\{f:\\sup_N|L_N(f)|<\\infty\\}$ is meager. The Lebesgue constants $\\|L_N\\|=\\int_{-\\pi}^\\pi|D_N(t)|dt/(2\\pi)$ grow like $\\log N$, so the set of $f$ with $S_N f(0)$ bounded is meager — and for generic $f$, the Fourier series diverges at $0$. By translation, divergence occurs on a dense set."
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove: if $T\\colon X\\to Y$ is a bounded linear bijection between Banach spaces, then $T^{-1}$ is bounded. Which step correctly continues after step 2?",
+            "steps": [
+              "1. $T$ is bounded linear and bijective between Banach spaces.",
+              "2. By the Open Mapping Theorem, $T$ is an open map (image of every open set is open)."
+            ],
+            "choices": [
+              "Apply Banach–Steinhaus to the family $\\{T^{-1}\\}$.",
+              "The map $T^{-1}\\colon Y\\to X$ is continuous iff the preimage of every open set under $T^{-1}$ is open, i.e., iff $T$ sends open sets to open sets — which we just established in step 2.",
+              "Invoke the spectral theorem on $T$.",
+              "Observe that $T$ has closed range; conclude by Closed Graph."
+            ],
+            "answer": 1,
+            "explain": "Step 3 unpacks: $T^{-1}$ continuous $\\iff (T^{-1})^{-1}(U)=T(U)$ is open for every open $U$ — exactly openness of $T$. So openness of $T$ (step 2) IS the boundedness of $T^{-1}$. This is the Inverse Mapping Theorem as a corollary of the Open Mapping Theorem."
+          }
+        ]
+      },
+      "compact-operators": {
+        "title": "Compact operators and Fredholm alternative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A bounded operator $T\\colon X\\to Y$ is compact if:",
+            "choices": [
+              "it is continuous",
+              "it is injective",
+              "$T$ maps bounded sets to relatively compact sets (equivalently, bounded sequences to sequences with norm-convergent subsequences)",
+              "$\\|T\\|<1$"
+            ],
+            "answer": 2,
+            "explain": "A compact operator sends the unit ball (bounded) to a relatively compact (precompact) set. Equivalently, every bounded sequence $(x_n)$ has $(Tx_{n_k})$ norm-convergent. This is far stronger than continuity."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all operators that are compact on an infinite-dimensional Hilbert space.",
+            "choices": [
+              "the identity operator $I$",
+              "a finite-rank operator",
+              "a diagonal operator with eigenvalues $\\lambda_n=1/n$",
+              "a diagonal operator with eigenvalues $\\lambda_n=1+1/n$"
+            ],
+            "answer": [
+              1,
+              2
+            ],
+            "explain": "The identity is not compact on an infinite-dimensional Hilbert space (the unit ball is not compact — Riesz's lemma). Finite-rank operators are always compact. Diagonal operators with $\\lambda_n\\to 0$ are compact (norm-limit of finite-rank truncations). $\\lambda_n=1+1/n\\to 1\\ne 0$, so not compact."
+          },
+          {
+            "type": "mcq",
+            "q": "The Fredholm alternative says: for compact $T$ and $\\lambda\\ne 0$, exactly one of the following holds for $(T-\\lambda I)x=y$:",
+            "choices": [
+              "a solution always exists for every $y$",
+              "either $(T-\\lambda I)$ is bijective (unique solution for every $y$), or $\\ker(T-\\lambda I)\\ne\\{0\\}$ and solutions exist iff $y\\perp\\ker(T^*-\\bar\\lambda I)$",
+              "there is never a solution unless $y=0$",
+              "solutions exist iff $y$ is an eigenvector of $T$"
+            ],
+            "answer": 1,
+            "explain": "Fredholm alternative dichotomy: for $\\lambda\\ne 0$ in $\\sigma(T)\\cup\\rho(T)$, either $T-\\lambda I$ is a bijection, or $\\dim\\ker(T-\\lambda I)=\\dim\\mathrm{coker}(T-\\lambda I)<\\infty$ and solvability is equivalent to a finite family of orthogonality conditions."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which statement about the spectrum of a compact operator $T$ on an infinite-dimensional Banach space is FALSE?",
+            "choices": [
+              "$0\\in\\sigma(T)$",
+              "every nonzero $\\lambda\\in\\sigma(T)$ is an eigenvalue with finite-dimensional generalized eigenspace",
+              "$\\sigma(T)$ is at most countable with $0$ as the only possible accumulation point",
+              "$\\sigma(T)$ is always connected"
+            ],
+            "answer": 3,
+            "hint": "Compact operators can have two distinct isolated nonzero eigenvalues.",
+            "explain": "The spectrum of a compact operator is typically disconnected: a discrete sequence $\\{\\lambda_n\\}_n$ accumulating only at $0$, together with $0$ itself. For instance, $T=\\mathrm{diag}(1,1/2,1/3,\\ldots)$ on $\\ell^2$ has $\\sigma(T)=\\{0,1,1/2,1/3,\\ldots\\}$, highly disconnected."
+          },
+          {
+            "type": "mcq",
+            "q": "Rellich's theorem: the inclusion $H^1_0(\\Omega)\\hookrightarrow L^2(\\Omega)$ for a bounded domain $\\Omega\\subset\\mathbb{R}^n$ is compact. Combined with the spectral theorem, what does this give for the Dirichlet Laplacian $-\\Delta$ on $\\Omega$?",
+            "choices": [
+              "An orthonormal basis $\\{\\phi_k\\}$ of $L^2(\\Omega)$ with $-\\Delta\\phi_k=\\lambda_k\\phi_k$ and $0<\\lambda_1\\le\\lambda_2\\le\\cdots\\to\\infty$",
+              "The Dirichlet Laplacian is compact",
+              "The spectrum of $-\\Delta$ is continuous",
+              "$-\\Delta$ has no eigenfunctions"
+            ],
+            "answer": 0,
+            "explain": "The resolvent $(-\\Delta)^{-1}$ (Green's operator) is bounded $L^2\\to H^1_0$ by Lax–Milgram, and $H^1_0\\hookrightarrow L^2$ is compact by Rellich. So $(-\\Delta)^{-1}$ is compact self-adjoint on $L^2$; Hilbert–Schmidt gives an ONB of eigenfunctions with eigenvalues of $(-\\Delta)^{-1}$ accumulating at $0$, i.e. eigenvalues of $-\\Delta$ tending to $+\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Consider the diagonal operator $T$ on $\\ell^2$ with $T e_n=\\frac{1}{n}e_n$. Compute the Hilbert–Schmidt norm $\\|T\\|_{HS}^2=\\sum_n\\|Te_n\\|^2=\\sum_n 1/n^2$. Give the exact value $\\pi^2/6$ numerically.",
+            "answer": 1.6449,
+            "tol": 0.001,
+            "explain": "$\\|T\\|_{HS}^2=\\sum_{n=1}^\\infty 1/n^2=\\pi^2/6\\approx 1.6449$. Since the HS norm is finite, $T$ is Hilbert–Schmidt (hence compact). By contrast, the trace norm $\\|T\\|_1=\\sum 1/n=\\infty$, so $T$ is NOT trace-class — the hierarchy trace-class $\\subsetneq$ HS $\\subsetneq$ compact is strict."
           }
         ]
       },
@@ -7858,6 +8187,90 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 0.000001,
             "explain": "$T^*T=T^2=(P_+-P_-)^2=P_++P_-=I$ (since $P_+P_-=0$ and $P_\\pm^2=P_\\pm$). Thus $\\|T^*T\\|=\\|I\\|=1$, so $\\|T\\|^2=1$ and $\\|T\\|=1$. This matches $\\|T\\|=\\max(|+1|,|-1|)=1$."
+          }
+        ]
+      },
+      "spectrum-classification": {
+        "title": "Spectrum classification: point, continuous, residual",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "For $T\\in B(X)$ and $\\lambda\\in\\sigma(T)$, classify $\\lambda$ by WHY $T-\\lambda I$ fails to be invertible. Match each row to its definition.",
+            "left": [
+              "$T-\\lambda I$ not injective",
+              "$T-\\lambda I$ injective with range dense but not closed",
+              "$T-\\lambda I$ injective with range not dense"
+            ],
+            "right": [
+              "continuous spectrum $\\sigma_c(T)$",
+              "residual spectrum $\\sigma_r(T)$",
+              "point spectrum $\\sigma_p(T)$"
+            ],
+            "answer": [
+              2,
+              0,
+              1
+            ],
+            "explain": "Point = $\\lambda$ is an eigenvalue. Continuous = injective, dense range, not closed (think multiplication by $x$ on $L^2[0,1]$). Residual = injective, range not dense (classic: $\\lambda=0$ for the right shift)."
+          },
+          {
+            "type": "mcq",
+            "q": "On $\\ell^2$, let $S$ be the right shift. What is $\\sigma_p(S)$ (point spectrum)?",
+            "choices": [
+              "$\\{|\\lambda|\\le 1\\}$ (full closed unit disk)",
+              "$\\{|\\lambda|=1\\}$ (unit circle)",
+              "empty",
+              "$\\{0\\}$"
+            ],
+            "answer": 2,
+            "explain": "If $Sx=\\lambda x$ with $x\\ne 0$, then $(0,x_1,x_2,\\ldots)=\\lambda(x_1,x_2,\\ldots)$ gives $\\lambda x_1=0$ and $\\lambda x_{n+1}=x_n$. If $\\lambda=0$, then $x=0$; if $\\lambda\\ne 0$, then $x_1=0$ and inductively $x=0$. So $S$ has no eigenvalues — $\\sigma_p(S)=\\emptyset$, yet $\\sigma(S)=\\overline{D(0,1)}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The RESOLVENT set $\\rho(T)$ and the spectrum $\\sigma(T)$ partition $\\mathbb{C}$. Which is TRUE?",
+            "choices": [
+              "$\\rho(T)$ is always finite",
+              "$\\rho(T)$ is open and $\\sigma(T)$ is compact; moreover $\\sigma(T)\\subset\\{|\\lambda|\\le\\|T\\|\\}$",
+              "$\\sigma(T)$ is always countable",
+              "$\\rho(T)$ is closed"
+            ],
+            "answer": 1,
+            "explain": "The resolvent set is open (perturbing $T-\\lambda I$ slightly keeps invertibility by a Neumann-series argument), so the spectrum is closed. It is also bounded by $\\|T\\|$ (for $|\\lambda|>\\|T\\|$, the Neumann series $\\sum(T/\\lambda)^n/\\lambda$ inverts $T-\\lambda I$). Hence $\\sigma(T)$ is compact, non-empty, and countable iff dictated by extra structure (e.g., compactness of $T$)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On $\\ell^2$, the right shift $S$ and the left shift $S^*$. Which statement correctly classifies $\\lambda=0$ in each spectrum?",
+            "choices": [
+              "$0$ is in the point spectrum of both, since the kernels are both $\\{0\\}$",
+              "$0\\in\\sigma_r(S)$ (residual) because $S$ is injective with range $\\{x:x_1=0\\}$ (not dense in $\\ell^2$); and $0\\in\\sigma_p(S^*)$ (point) since $S^*e_1=0$",
+              "$0$ is in the continuous spectrum of both",
+              "$0\\in\\rho(S)$ because $S$ is injective"
+            ],
+            "answer": 1,
+            "hint": "Compute the range of $S$ and the kernel of $S^*$ separately.",
+            "explain": "$S$ is injective but $\\mathrm{ran}(S)=\\{x\\in\\ell^2:x_1=0\\}$ is closed but not dense, so $0\\in\\sigma_r(S)$. $S^*e_1=0$, so $e_1$ is an eigenvector of $S^*$ with eigenvalue $0$, giving $0\\in\\sigma_p(S^*)$. This is the canonical example where residual spectrum of $T$ = conjugate of point spectrum of $T^*$."
+          },
+          {
+            "type": "mcq",
+            "q": "For self-adjoint $T$ on a Hilbert space, which pieces of the spectrum CAN be nonempty?",
+            "choices": [
+              "point, continuous, AND residual",
+              "point and continuous only (residual is empty)",
+              "continuous only (point is empty)",
+              "point only"
+            ],
+            "answer": 1,
+            "hint": "Use the relation $\\sigma_r(T)\\subseteq\\overline{\\sigma_p(T^*)}$.",
+            "explain": "A theorem: self-adjoint operators have empty residual spectrum. Proof: if $\\lambda\\in\\sigma_r(T)$ (real, since $\\sigma(T)\\subset\\mathbb{R}$), then $\\mathrm{ran}(T-\\lambda)^\\perp=\\ker(T^*-\\lambda)^*=\\ker(T-\\lambda)\\ne\\{0\\}$, forcing $\\lambda\\in\\sigma_p(T)$ — contradiction. So for self-adjoint $T$, spectrum splits into point $\\cup$ continuous."
+          },
+          {
+            "type": "numeric",
+            "q": "On $L^2[0,1]$, the multiplication operator $(M_x f)(x)=xf(x)$ has $\\sigma(M_x)=[0,1]$. What is the Lebesgue measure of its POINT spectrum $\\sigma_p(M_x)$?",
+            "answer": 0,
+            "tol": 1e-9,
+            "explain": "$M_x$ has no eigenvalues: $(M_x-\\lambda)f=0$ forces $f(x)=0$ for a.e. $x\\ne\\lambda$, so $f=0$ in $L^2$. Thus $\\sigma_p(M_x)=\\emptyset$, and its measure is $0$. The entire spectrum $[0,1]$ is continuous spectrum: $M_x-\\lambda$ is injective with dense range but not surjective for $\\lambda\\in[0,1]$."
           }
         ]
       },
@@ -7996,6 +8409,170 @@ window.MVQuizBank = {
             "answer": 0,
             "tol": 0.01,
             "explain": "$\\int_0^{2\\pi} x\\sin(nx)\\,dx=\\left[-\\frac{x\\cos(nx)}{n}\\right]_0^{2\\pi}+\\frac{1}{n}\\int_0^{2\\pi}\\cos(nx)\\,dx=-\\frac{2\\pi}{n}+0\\to 0$ as $n\\to\\infty$. Since this holds for all $g\\in L^2[0,2\\pi]$ (by Riemann–Lebesgue), $f_n\\rightharpoonup 0$ weakly, even though $\\|f_n\\|_{L^2}=\\sqrt{\\pi}$ for all $n$."
+          }
+        ]
+      },
+      "reflexivity": {
+        "title": "Reflexivity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The canonical embedding $J\\colon X\\to X^{**}$ sends $x$ to the functional $Jx(\\ell)=\\ell(x)$. This map is always:",
+            "choices": [
+              "surjective",
+              "an isometric linear embedding (i.e., $\\|Jx\\|_{X^{**}}=\\|x\\|_X$)",
+              "zero for every $x$",
+              "conjugate-linear"
+            ],
+            "answer": 1,
+            "explain": "Hahn–Banach guarantees enough functionals to isometrically embed $X$ in $X^{**}$: $\\|Jx\\|=\\sup_{\\|\\ell\\|\\le 1}|\\ell(x)|=\\|x\\|$. $X$ is reflexive when $J$ is additionally surjective."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following spaces are reflexive?",
+            "choices": [
+              "$\\ell^p$ for $1<p<\\infty$",
+              "Hilbert space $H$",
+              "$L^1[0,1]$",
+              "$C[0,1]$ with sup norm",
+              "$\\ell^\\infty$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "$\\ell^p,L^p$ for $1<p<\\infty$ and Hilbert spaces are reflexive. $L^1$ is not ($L^{1**}=L^{\\infty *}\\supsetneq L^1$). $C[0,1]$ is not (its dual is measures, whose dual is much larger). $\\ell^\\infty$ is not (its dual contains Banach limits outside $\\ell^1$)."
+          },
+          {
+            "type": "mcq",
+            "q": "An equivalent formulation of reflexivity (Kakutani): $X$ is reflexive iff its closed unit ball is:",
+            "choices": [
+              "norm-compact",
+              "weakly compact",
+              "countable",
+              "finite-dimensional"
+            ],
+            "answer": 1,
+            "explain": "Kakutani's theorem: $X$ is reflexive iff $B_X$ is weakly compact. Norm-compactness happens only in finite dimensions. Eberlein–Šmulian further says this weak compactness can be checked sequentially: $B_X$ weakly compact iff every bounded sequence has a weakly convergent subsequence."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Why is $c_0$ (sequences tending to $0$, with sup norm) NOT reflexive? Pick the crispest reason.",
+            "choices": [
+              "$c_0^{**}=\\ell^\\infty$ (since $c_0^*=\\ell^1$ and $(\\ell^1)^*=\\ell^\\infty$) strictly larger than $c_0$ — e.g., the constant sequence $(1,1,1,\\ldots)\\in\\ell^\\infty\\setminus c_0$",
+              "$c_0$ is not complete",
+              "$c_0$ has no Schauder basis",
+              "$c_0$ is finite-dimensional"
+            ],
+            "answer": 0,
+            "hint": "Chase the duals twice.",
+            "explain": "The canonical chain $c_0\\hookrightarrow c_0^{**}\\cong\\ell^\\infty$ is strict because sequences not tending to $0$ (e.g., constants) lie in $\\ell^\\infty\\setminus c_0$. So $J$ is not surjective. The sequence $(1,1,\\ldots)\\in\\ell^\\infty$ corresponds to a functional on $c_0^*=\\ell^1$ that is NOT evaluation at any element of $c_0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which theorem about reflexive spaces is the foundation of the direct method in the calculus of variations?",
+            "choices": [
+              "Banach–Steinhaus",
+              "In a reflexive space, bounded sequences have weakly convergent subsequences (consequence of Banach–Alaoglu + Kakutani + Eberlein–Šmulian)",
+              "Hahn–Banach",
+              "Open Mapping"
+            ],
+            "answer": 1,
+            "explain": "In a reflexive Banach space, the unit ball is weakly compact, so any bounded sequence has a weakly convergent subsequence. Coupling this with weak lower semicontinuity of a convex energy functional $F$ produces a minimizer: take a minimizing sequence, extract a weak limit $x^*$, and use $F(x^*)\\le\\liminf F(x_n)$."
+          },
+          {
+            "type": "mcq",
+            "q": "On any reflexive Banach space $X$, an additional regularity property holds automatically for every convex continuous function. Which one?",
+            "choices": [
+              "differentiability everywhere",
+              "attainment of the norm on any nonempty closed convex set by a (not necessarily unique) best approximation",
+              "the norm is Fréchet-differentiable",
+              "the space is separable"
+            ],
+            "answer": 1,
+            "hint": "Use weak compactness of bounded sets + weak lower semicontinuity of the norm.",
+            "explain": "For a nonempty closed convex $C\\subset X$ reflexive and any $x\\in X$, the infimum $\\inf_{c\\in C}\\|x-c\\|$ is attained. Take a minimizing sequence $(c_n)$; it is bounded so has a weakly convergent subsequence $c_{n_k}\\rightharpoonup c^*\\in C$ (Mazur + norm-closure of convex $C$); weak lower semicontinuity of the norm gives $\\|x-c^*\\|\\le\\liminf\\|x-c_{n_k}\\|$. Non-reflexive spaces generally lack this."
+          }
+        ]
+      },
+      "distributions": {
+        "title": "Distributions and test functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A distribution on $\\mathbb{R}$ is:",
+            "choices": [
+              "a function in $L^1_{\\mathrm{loc}}(\\mathbb{R})$",
+              "a continuous linear functional on the space $C_c^\\infty(\\mathbb{R})$ of smooth compactly supported test functions",
+              "a probability measure",
+              "an element of $L^\\infty(\\mathbb{R})$"
+            ],
+            "answer": 1,
+            "explain": "The space $\\mathcal{D}'(\\mathbb{R})=(C_c^\\infty(\\mathbb{R}))^*$ is, by definition, the continuous linear functionals on test functions (with a specific inductive-limit topology). Every locally integrable function $f$ defines a distribution $\\phi\\mapsto\\int f\\phi$, but distributions are strictly more general — they include $\\delta$ and its derivatives."
+          },
+          {
+            "type": "mcq",
+            "q": "The Dirac delta distribution $\\delta_0$ is defined by $\\langle\\delta_0,\\phi\\rangle=\\phi(0)$. Which sequence of $L^1$ functions $f_n$ converges to $\\delta_0$ in the distributional sense?",
+            "choices": [
+              "$f_n(x)=n\\cdot\\mathbf{1}_{[0,1/n]}(x)$",
+              "$f_n(x)=1$ for all $n$",
+              "$f_n(x)=1/n$",
+              "$f_n(x)=\\sin(nx)$"
+            ],
+            "answer": 0,
+            "explain": "$f_n=n\\cdot\\mathbf{1}_{[0,1/n]}$ has $\\int f_n=1$ and mass concentrating at $0$. For $\\phi\\in C_c^\\infty$, $\\int f_n\\phi=n\\int_0^{1/n}\\phi(x)dx\\to\\phi(0)$ by continuity. Hence $f_n\\to\\delta_0$ in $\\mathcal{D}'$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\langle\\delta_0^{(1)},\\phi\\rangle$ where $\\delta_0^{(1)}$ is the distributional derivative of $\\delta_0$ and $\\phi(x)=x^2-3x+5$. Recall $\\langle\\delta_0^{(1)},\\phi\\rangle=-\\phi'(0)$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$. For $T=\\delta_0$, $\\langle\\delta_0',\\phi\\rangle=-\\langle\\delta_0,\\phi'\\rangle=-\\phi'(0)$. With $\\phi(x)=x^2-3x+5$, $\\phi'(x)=2x-3$, $\\phi'(0)=-3$, so $-\\phi'(0)=3$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The principal value distribution $\\mathrm{p.v.}\\,\\tfrac{1}{x}$ is defined by $\\langle\\mathrm{p.v.}\\tfrac{1}{x},\\phi\\rangle=\\lim_{\\varepsilon\\to 0^+}\\int_{|x|>\\varepsilon}\\phi(x)/x\\,dx$. Which identity relates the distributional derivative of $\\log|x|$ to it?",
+            "choices": [
+              "$\\tfrac{d}{dx}\\log|x|=\\delta_0$",
+              "$\\tfrac{d}{dx}\\log|x|=\\mathrm{p.v.}\\tfrac{1}{x}$ (in $\\mathcal{D}'(\\mathbb{R})$)",
+              "$\\tfrac{d}{dx}\\log|x|=0$",
+              "$\\tfrac{d}{dx}\\log|x|$ is not a distribution"
+            ],
+            "answer": 1,
+            "hint": "Pair the derivative with a test function and integrate by parts away from $0$, taking a symmetric limit.",
+            "explain": "For $\\phi\\in C_c^\\infty$: $\\langle(\\log|x|)',\\phi\\rangle=-\\langle\\log|x|,\\phi'\\rangle=-\\lim_{\\varepsilon\\to 0}\\int_{|x|>\\varepsilon}\\log|x|\\phi'(x)dx$. Integrate by parts; boundary terms $\\log\\varepsilon(\\phi(\\varepsilon)-\\phi(-\\varepsilon))\\to 0$ because $\\phi(\\varepsilon)-\\phi(-\\varepsilon)=O(\\varepsilon)$. The remaining integral is $\\lim_{\\varepsilon\\to 0}\\int_{|x|>\\varepsilon}\\phi(x)/x\\,dx=\\langle\\mathrm{p.v.}\\tfrac{1}{x},\\phi\\rangle$. The singularity at $0$ is regularized by the principal-value cancellation."
+          },
+          {
+            "type": "mcq",
+            "q": "Tempered distributions $\\mathcal{S}'(\\mathbb{R}^n)$ are the dual of Schwartz space $\\mathcal{S}$ (rapidly decreasing smooth functions). Which property makes them the correct setting for Fourier analysis?",
+            "choices": [
+              "They are a Hilbert space",
+              "The Fourier transform is a continuous automorphism of $\\mathcal{S}$, so it extends by duality to an automorphism of $\\mathcal{S}'$ — allowing $\\hat{\\delta}=1$, $\\hat 1=(2\\pi)^{n/2}\\delta$, and Fourier transforms of polynomials",
+              "Every tempered distribution is a function",
+              "$\\mathcal{S}'$ is separable"
+            ],
+            "answer": 1,
+            "explain": "The Fourier transform $\\mathcal{F}\\colon\\mathcal{S}\\to\\mathcal{S}$ is a topological isomorphism. By duality, $\\hat{T}\\in\\mathcal{S}'$ is defined by $\\langle\\hat T,\\phi\\rangle=\\langle T,\\hat\\phi\\rangle$. This extends Fourier to objects with no Fourier integral as a function: $\\delta$, polynomials, $\\mathrm{p.v.}\\tfrac{1}{x}$. It is the foundation of PDE via Fourier multipliers. Arbitrary distributions in $\\mathcal{D}'$ do NOT have Fourier transforms in general."
+          },
+          {
+            "type": "proof-completion",
+            "q": "Prove that $x\\cdot\\delta_0=0$ as a distribution on $\\mathbb{R}$. Pick the correct next step.",
+            "steps": [
+              "1. By definition, $(x\\cdot\\delta_0)$ acts on $\\phi\\in C_c^\\infty$ as $\\langle x\\cdot\\delta_0,\\phi\\rangle=\\langle\\delta_0,x\\phi\\rangle$ (multiplying a distribution by a smooth function is the dual of multiplying the test function).",
+              "2. $\\langle\\delta_0,x\\phi\\rangle=(x\\phi)(0)$ by the definition of $\\delta_0$."
+            ],
+            "choices": [
+              "Apply integration by parts.",
+              "$(x\\phi)(0)=0\\cdot\\phi(0)=0$ for every $\\phi$, so $x\\cdot\\delta_0=0$ as a distribution.",
+              "Note $\\phi$ has compact support.",
+              "Invoke the Fourier transform."
+            ],
+            "answer": 1,
+            "explain": "The function $g(x)=x\\phi(x)$ vanishes at $0$: $g(0)=0$. So $\\langle x\\delta_0,\\phi\\rangle=0$ for every $\\phi$, which is the definition of the zero distribution. This identity $x\\delta_0=0$ is the distributional version of the algebraic fact — and it is why $\\delta_0$ is a genuine new object, not a function: no function $f$ satisfies $xf=0$ a.e. yet $\\int f=1$."
           }
         ]
       }
@@ -10782,6 +11359,76 @@ window.MVQuizBank = {
           }
         ]
       },
+      "outer-measure-caratheodory": {
+        "title": "Outer measure & Carathéodory's criterion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which property is guaranteed for the Lebesgue outer measure $m^*$ on all subsets of $\\mathbb{R}$, even on non-measurable sets?",
+            "choices": [
+              "Countable additivity on pairwise-disjoint unions",
+              "Countable subadditivity: $m^*(\\bigcup_n E_n)\\le\\sum_n m^*(E_n)$",
+              "Translation invariance only for Borel sets",
+              "$m^*(E)=\\sup\\{m(K):K\\subset E,\\ K\\text{ compact}\\}$ for every $E$"
+            ],
+            "answer": 1,
+            "explain": "Outer measure is countably subadditive on all of $\\mathcal{P}(\\mathbb{R})$ by construction (take covers of each $E_n$ and concatenate). Countable additivity fails on non-measurable sets — that is precisely what Carathéodory's criterion diagnoses."
+          },
+          {
+            "type": "mcq",
+            "q": "A set $E\\subseteq\\mathbb{R}$ is Carathéodory-measurable when, for every test set $A\\subseteq\\mathbb{R}$:",
+            "choices": [
+              "$m^*(A)=m^*(A\\cap E)\\cdot m^*(A\\cap E^c)$",
+              "$m^*(A)=m^*(A\\cap E)+m^*(A\\cap E^c)$",
+              "$m^*(A\\cap E)=m^*(A\\cap E^c)$",
+              "$m^*(A\\cap E)\\le m^*(A)$"
+            ],
+            "answer": 1,
+            "explain": "Carathéodory's additivity criterion: $E$ splits every test set additively against the outer measure. The $\\le$ direction is free by subadditivity; the $\\ge$ direction is the substantive requirement."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which statement about Carathéodory's extension theorem is correct?",
+            "choices": [
+              "Every outer measure extends uniquely to a measure on $\\mathcal{P}(X)$",
+              "A premeasure $\\mu_0$ on an algebra $\\mathcal{A}_0$ extends to a measure on $\\sigma(\\mathcal{A}_0)$, uniquely if $\\mu_0$ is $\\sigma$-finite",
+              "The extension is automatic with no hypothesis on $\\mu_0$",
+              "Uniqueness holds without any finiteness assumption"
+            ],
+            "answer": 1,
+            "hint": "Existence is unconditional; the subtle hypothesis is what guarantees uniqueness.",
+            "explain": "Carathéodory: every premeasure extends to an outer measure, and the measurable sets form a $\\sigma$-algebra on which the outer measure is countably additive. Existence is free; $\\sigma$-finiteness is the clean hypothesis that makes the extension to $\\sigma(\\mathcal{A}_0)$ unique."
+          },
+          {
+            "type": "mcq",
+            "q": "Why can't countable additivity hold for $m^*$ on all of $\\mathcal{P}(\\mathbb{R})$?",
+            "choices": [
+              "Because $\\mathcal{P}(\\mathbb{R})$ is too large as a set",
+              "Because Vitali's non-measurable set (using AC) has translates that would force $m^*([0,1])\\in\\{0,\\infty\\}$",
+              "Because every subset of $\\mathbb{R}$ has positive outer measure",
+              "Because $\\mathbb{R}$ is uncountable"
+            ],
+            "answer": 1,
+            "explain": "Vitali's construction (partition $[0,1]$ by the $\\mathbb{Q}$-translation equivalence and pick one representative per class) produces a set $V$ whose $\\mathbb{Q}\\cap[-1,1]$-translates are disjoint and cover a finite-length interval. Translation invariance + countable additivity + non-zero $m^*(V)$ force contradictions on both sides (either 0 or $\\infty$)."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mu_0$ be the length premeasure on the algebra of finite unions of half-open intervals $(a,b]\\subset\\mathbb{R}$. After Carathéodory extension, what is the Lebesgue outer measure of the fat Cantor set obtained by removing middle intervals of length $4^{-n}$ from $[0,1]$ at stage $n$?",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "Total removed length is $\\sum_{n=1}^\\infty 2^{n-1}\\cdot 4^{-n}=\\sum_{n=1}^\\infty 2^{-n-1}=1/2$. The remaining closed set has Lebesgue measure $1-1/2=1/2$ — a Lebesgue-positive-measure set with empty interior, showing Carathéodory measurability is strictly subtler than topology."
+          }
+        ]
+      },
       "lebesgue-measure": {
         "title": "Lebesgue measure",
         "questions": [
@@ -11112,6 +11759,355 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "$f(x)=x^{-1/2}$ satisfies $\\int_0^1 x^{-1/2}\\,dx=2$, so $f\\in L^1$. But $\\int_0^1 x^{-1}\\,dx=\\infty$, so $f\\notin L^2$. This demonstrates that on $[0,1]$ (finite measure) the inclusion $L^2\\subset L^1$ holds but the reverse fails."
+          }
+        ]
+      },
+      "product-measures": {
+        "title": "Product measures & σ-finiteness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The product $\\sigma$-algebra $\\mathcal{A}\\otimes\\mathcal{B}$ on $X\\times Y$ is:",
+            "choices": [
+              "The collection of all subsets $A\\times B$ with $A\\in\\mathcal{A}$, $B\\in\\mathcal{B}$",
+              "The $\\sigma$-algebra generated by the measurable rectangles $A\\times B$",
+              "The power set $\\mathcal{P}(X\\times Y)$",
+              "Always equal to $\\mathcal{B}(X\\times Y)$ when $X,Y$ are topological spaces"
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{A}\\otimes\\mathcal{B}:=\\sigma(\\{A\\times B:A\\in\\mathcal{A},B\\in\\mathcal{B}\\})$. Measurable rectangles alone aren't closed under countable operations, hence the generation step."
+          },
+          {
+            "type": "numeric",
+            "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
+            "answer": 0.2,
+            "tol": 0.000001,
+            "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
+          },
+          {
+            "type": "mcq",
+            "q": "A measure space $(X,\\mathcal{A},\\mu)$ is $\\sigma$-finite when:",
+            "choices": [
+              "$\\mu(X)<\\infty$",
+              "$X$ is a countable union of measurable sets of finite measure",
+              "$\\mathcal{A}$ has countably many elements",
+              "$\\mu$ takes only finite values"
+            ],
+            "answer": 1,
+            "explain": "$\\sigma$-finiteness says $X=\\bigcup_n X_n$ with $\\mu(X_n)<\\infty$. Lebesgue measure on $\\mathbb{R}$ is $\\sigma$-finite ($\\mathbb{R}=\\bigcup_n[-n,n]$) but not finite."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which measure space fails to be $\\sigma$-finite, so that product-measure uniqueness via Carathéodory can break?",
+            "choices": [
+              "Lebesgue measure on $\\mathbb{R}^n$",
+              "Counting measure on an uncountable set $X$",
+              "Any probability space",
+              "Counting measure on $\\mathbb{N}$"
+            ],
+            "answer": 1,
+            "hint": "$\\sigma$-finite means $X$ is a countable union of sets of finite measure.",
+            "explain": "Counting measure on an uncountable $X$ assigns $\\infty$ to every infinite set and $n$ to each $n$-element finite set; a countable union of finite sets is still countable, so $X$ itself cannot be written that way. Uniqueness in the Carathéodory extension can then fail (two distinct measures agreeing on the algebra but disagreeing on the generated $\\sigma$-algebra)."
+          },
+          {
+            "type": "numeric",
+            "q": "On $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B},m\\otimes m)$, compute the measure of the triangle $\\{(x,y):0\\le y\\le x\\le 1\\}$.",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "explain": "By Tonelli: $\\int_0^1\\int_0^x 1\\,dy\\,dx=\\int_0^1 x\\,dx=1/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\sigma$-finiteness of both $\\mu$ and $\\nu$ make $\\mu\\otimes\\nu$ uniquely determined on $\\mathcal{A}\\otimes\\mathcal{B}$?",
+            "choices": [
+              "Because every product of two $\\sigma$-finite measures is itself a probability measure",
+              "Because the algebra of finite disjoint unions of measurable rectangles is $\\sigma$-finite under the premeasure $(\\mu\\otimes\\nu)(A\\times B):=\\mu(A)\\nu(B)$, and Carathéodory's uniqueness applies",
+              "Because $\\sigma$-finite spaces are compact",
+              "Because product measures exist only when both factors are probability measures"
+            ],
+            "answer": 1,
+            "explain": "Existence is via Carathéodory applied to the rectangle premeasure on the algebra of finite disjoint rectangle unions. Uniqueness in Carathéodory's extension theorem needs the premeasure to be $\\sigma$-finite, which follows from $\\sigma$-finiteness of both $\\mu$ and $\\nu$."
+          }
+        ]
+      },
+      "fubini-tonelli": {
+        "title": "Fubini & Tonelli",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Tonelli's theorem (for $\\sigma$-finite $\\mu,\\nu$) swaps iterated integrals with no integrability hypothesis, provided:",
+            "choices": [
+              "$f$ is continuous",
+              "$f$ is $\\mathcal{A}\\otimes\\mathcal{B}$-measurable and $f\\ge 0$",
+              "$\\int|f|<\\infty$",
+              "$f$ has compact support"
+            ],
+            "answer": 1,
+            "explain": "Tonelli requires only nonnegativity + joint measurability; all three expressions in $[0,\\infty]$ are equal unconditionally. Fubini is the companion statement for complex-valued $f\\in L^1(\\mu\\otimes\\nu)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
+            "answer": 0.25,
+            "tol": 0.000001,
+            "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
+          },
+          {
+            "type": "mcq",
+            "q": "The operational protocol before swapping iterated integrals of a signed function $f(x,y)$ is:",
+            "choices": [
+              "Swap freely — Tonelli always applies to measurable functions",
+              "Compute $\\int\\int|f|$ via Tonelli first; if finite, invoke Fubini to swap",
+              "Swap only when $f$ is continuous",
+              "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
+            ],
+            "answer": 1,
+            "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "On $X=Y=\\mathbb{N}$ with counting measure, $a_{m,n}=1$ if $n=m$, $-1$ if $n=m+1$, else $0$. Which statement is correct?",
+            "choices": [
+              "Both iterated sums equal $0$",
+              "$\\sum_m\\sum_n a_{m,n}=0$ but $\\sum_n\\sum_m a_{m,n}=1$, so Fubini fails because $\\sum_{m,n}|a_{m,n}|=\\infty$",
+              "Both iterated sums equal $\\infty$",
+              "Fubini applies since $a_{m,n}$ is bounded"
+            ],
+            "answer": 1,
+            "hint": "Sum by rows first, then by columns, and notice the telescoping mismatch.",
+            "explain": "Row sums: for each $m$, $a_{m,m}+a_{m,m+1}=1-1=0$, so $\\sum_m 0=0$. Column sums: for $n=0$, only $a_{0,0}=1$ contributes (since $a_{m,0}\\ne 0$ only at $m=0$), and for $n\\ge 1$, $a_{n,n}+a_{n-1,n}=1-1=0$. Total $=1$. $|a_{m,n}|$ has $\\sum=\\infty$, so Fubini fails."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\int_0^\\infty\\int_0^\\infty e^{-xy}\\sin x\\,dx\\,dy$ assuming absolute integrability allows the swap. (Hint: swap and use $\\int_0^\\infty e^{-xy}\\sin x\\,dy=\\sin x/x$.)",
+            "answer": 1.5707963268,
+            "tol": 0.001,
+            "explain": "Swap: $\\int_0^\\infty\\sin x\\int_0^\\infty e^{-xy}\\,dy\\,dx=\\int_0^\\infty \\frac{\\sin x}{x}\\,dx=\\pi/2$. Absolute integrability in the stated form is delicate here, but the iterated computation yields the classical Dirichlet integral."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct proof-step ordering for Fubini (for $f\\in L^1(\\mu\\otimes\\nu)$, $\\sigma$-finite case)?",
+            "choices": [
+              "Prove for $\\mathbf{1}_{A\\times B}$; linearity to simple; MCT to $[0,\\infty]$-valued (that is Tonelli); split $f=f^+-f^-$ and use integrability to subtract",
+              "Apply Hahn decomposition to $f$ directly",
+              "Use DCT to interchange the order",
+              "Reduce to the Riemann integral via uniform continuity"
+            ],
+            "answer": 0,
+            "explain": "Fubini is built up in layers: indicator rectangles → simple functions → nonneg measurable (Tonelli) → integrable by splitting $f^\\pm$. The $\\sigma$-finiteness hypothesis is used in uniqueness of the product measure and in applying Tonelli to $|f|$ to avoid $\\infty-\\infty$."
+          }
+        ]
+      },
+      "signed-measures-radon-nikodym": {
+        "title": "Signed measures & Radon–Nikodym",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Jordan decomposition of a signed measure $\\nu$ expresses $\\nu$ as:",
+            "choices": [
+              "$\\nu=\\nu^+-\\nu^-$ with mutually singular positive measures $\\nu^+,\\nu^-$",
+              "$\\nu=\\nu^+\\cdot\\nu^-$",
+              "$\\nu=\\nu^+/\\nu^-$",
+              "$\\nu=\\nu^+\\circ\\nu^-$"
+            ],
+            "answer": 0,
+            "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
+          },
+          {
+            "type": "mcq",
+            "q": "We say $\\nu\\ll\\mu$ (absolutely continuous) when:",
+            "choices": [
+              "$\\nu(E)=0$ whenever $\\mu(E)=0$",
+              "$\\mu(E)=0$ whenever $\\nu(E)=0$",
+              "$\\nu$ and $\\mu$ agree on every set",
+              "$\\nu$ is a probability measure"
+            ],
+            "answer": 0,
+            "explain": "$\\nu\\ll\\mu$ iff every $\\mu$-null set is also $\\nu$-null. Radon–Nikodym gives a density $f=d\\nu/d\\mu\\ge 0$ with $\\nu(E)=\\int_E f\\,d\\mu$ when $\\mu$ is $\\sigma$-finite and $\\nu\\ll\\mu$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which is the correct statement of the Lebesgue decomposition theorem?",
+            "choices": [
+              "Every $\\sigma$-finite measure $\\nu$ has a unique density with respect to $\\mu$",
+              "For $\\sigma$-finite $\\mu,\\nu$, there exist unique $\\nu_{ac}\\ll\\mu$ and $\\nu_s\\perp\\mu$ with $\\nu=\\nu_{ac}+\\nu_s$",
+              "Every signed measure is absolutely continuous",
+              "Signed measures are always singular to Lebesgue measure"
+            ],
+            "answer": 1,
+            "explain": "Lebesgue decomposition: $\\nu=\\nu_{ac}+\\nu_s$ with $\\nu_{ac}\\ll\\mu$ (Radon–Nikodym applies) and $\\nu_s\\perp\\mu$ (concentrated on a $\\mu$-null set). The two pieces are uniquely determined."
+          },
+          {
+            "type": "numeric",
+            "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=f\\,dm$ with $f(x)=3x^2$. Compute $\\nu([0,1/2])$.",
+            "answer": 0.125,
+            "tol": 0.000001,
+            "explain": "$\\nu([0,1/2])=\\int_0^{1/2}3x^2\\,dm=x^3\\big|_0^{1/2}=1/8=0.125$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which measure on $[0,1]$ is NOT absolutely continuous with respect to Lebesgue measure $m$?",
+            "choices": [
+              "$d\\nu=\\mathbf{1}_{[0,1/2]}\\,dm$",
+              "$d\\nu=e^x\\,dm$",
+              "A Dirac mass at $x=1/2$, i.e.\\ $\\nu=\\delta_{1/2}$",
+              "$d\\nu=(1+x^2)\\,dm$"
+            ],
+            "answer": 2,
+            "explain": "The Dirac mass $\\delta_{1/2}$ concentrates all mass at the single point $\\{1/2\\}$, which has $m(\\{1/2\\})=0$. So $m(\\{1/2\\})=0$ but $\\delta_{1/2}(\\{1/2\\})=1$, violating $\\nu\\ll m$. $\\delta_{1/2}\\perp m$ instead."
+          }
+        ]
+      },
+      "riesz-representation-measures": {
+        "title": "Riesz representation (measure form)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Riesz–Markov–Kakutani theorem says: every positive linear functional $\\Lambda$ on $C_c(X)$ for locally compact Hausdorff $X$ is:",
+            "choices": [
+              "A finite sum of Dirac masses",
+              "$\\Lambda(f)=\\int_X f\\,d\\mu$ for a unique regular Borel measure $\\mu$",
+              "A derivative operator",
+              "Represented by an $L^\\infty$ function"
+            ],
+            "answer": 1,
+            "explain": "Riesz representation: positive linear functionals on $C_c(X)$ are exactly integration against regular Borel measures (inner regular on open sets, outer regular on Borel sets, finite on compact sets). The bijection is the bridge from functional analysis to measure theory."
+          },
+          {
+            "type": "numeric",
+            "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which regularity property of the representing measure is essential to Riesz representation?",
+            "choices": [
+              "Translation invariance",
+              "Inner regularity on open sets and outer regularity on Borel sets",
+              "Absolute continuity with respect to Lebesgue measure",
+              "$\\sigma$-finiteness"
+            ],
+            "answer": 1,
+            "explain": "The representing Radon/regular Borel measure $\\mu$ satisfies: $\\mu(U)=\\sup\\{\\mu(K):K\\subset U\\text{ compact}\\}$ on open $U$, and $\\mu(E)=\\inf\\{\\mu(U):E\\subset U\\text{ open}\\}$ on Borel $E$. These conditions pin $\\mu$ down uniquely."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which functional on $C_c(\\mathbb{R})$ fails to be representable by a Radon measure?",
+            "choices": [
+              "$\\Lambda(f)=\\int f\\,dm$ (Lebesgue)",
+              "$\\Lambda(f)=f(0)$",
+              "$\\Lambda(f)=f'(0)$",
+              "$\\Lambda(f)=\\sum_{n=1}^\\infty f(1/n)/2^n$"
+            ],
+            "answer": 2,
+            "hint": "One of these is not positive and not continuous on $C_c$ with the sup-norm topology.",
+            "explain": "$\\Lambda(f)=f'(0)$ is not a positive functional: take $f\\ge 0$ with a strict max at $0$, then $f'(0)=0$ or even $\\le 0$, so positivity fails. It is a well-defined linear functional on $C^1_c$, but Riesz representation only covers positive linear functionals on $C_c$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $X=[0,1]$, let $\\Lambda(f)=\\int_0^1 f(x)\\cdot 2x\\,dx$. What is $\\mu([0,1])$ for the representing measure?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\Lambda(f)=\\int f\\,d\\mu$ where $d\\mu=2x\\,dm$. So $\\mu([0,1])=\\int_0^1 2x\\,dm=1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which consequence of Riesz representation is used to build Haar measure on a locally compact group $G$?",
+            "choices": [
+              "Hahn decomposition",
+              "Existence of a translation-invariant positive linear functional on $C_c(G)$, which then gives a translation-invariant Radon measure",
+              "The Lebesgue differentiation theorem",
+              "The spectral theorem"
+            ],
+            "answer": 1,
+            "explain": "One shows that $C_c(G)$ admits a translation-invariant positive linear functional $\\Lambda$ (existence by a Hahn–Banach / tangent-functional argument), then Riesz representation upgrades $\\Lambda$ to a left-Haar measure. Uniqueness up to scaling is a separate argument."
+          }
+        ]
+      },
+      "hausdorff-measure": {
+        "title": "Hausdorff measure & dimension",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The $s$-dimensional Hausdorff outer measure $\\mathcal{H}^s(E)$ is defined as:",
+            "choices": [
+              "$\\inf\\sum_i\\mathrm{diam}(U_i)^s$ over $\\delta$-covers $\\{U_i\\}$ of $E$, in the limit $\\delta\\to 0$",
+              "$\\sup\\sum_i\\mathrm{diam}(U_i)^s$ over finite covers",
+              "The Lebesgue measure when $s=1$",
+              "Always zero for fractals"
+            ],
+            "answer": 0,
+            "explain": "$\\mathcal{H}^s_\\delta(E)=\\inf\\{\\sum_i\\mathrm{diam}(U_i)^s:E\\subset\\bigcup_i U_i,\\ \\mathrm{diam}(U_i)\\le\\delta\\}$, and $\\mathcal{H}^s(E)=\\lim_{\\delta\\to 0}\\mathcal{H}^s_\\delta(E)$. This limit is monotone decreasing in $\\delta$, hence well-defined in $[0,\\infty]$."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
+            "answer": 0.6309297536,
+            "tol": 0.001,
+            "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hausdorff dimension of a set $E$ is:",
+            "choices": [
+              "The unique $s$ at which $\\mathcal{H}^s(E)$ jumps from $\\infty$ to $0$",
+              "Always an integer",
+              "Equal to the topological dimension",
+              "The Lebesgue measure of $E$"
+            ],
+            "answer": 0,
+            "explain": "$s\\mapsto\\mathcal{H}^s(E)$ is $\\infty$ for small $s$ and $0$ for large $s$, with a unique transition point $s^*=\\dim_H(E)$. At $s^*$ itself, $\\mathcal{H}^{s^*}(E)$ may take any value in $[0,\\infty]$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which Hausdorff-measure statement is correct for the $s$-dimensional Sierpiński gasket (three contractions of ratio $1/2$)?",
+            "choices": [
+              "$\\dim_H=2$, $\\mathcal{H}^2>0$",
+              "$\\dim_H=\\log 3/\\log 2\\approx 1.585$, with $0<\\mathcal{H}^s<\\infty$ at $s=\\dim_H$",
+              "$\\dim_H=1$",
+              "$\\dim_H=0$"
+            ],
+            "answer": 1,
+            "hint": "Moran's equation $N\\cdot r^s=1$ for $N$ self-similar copies of ratio $r$.",
+            "explain": "Moran: $3\\cdot(1/2)^s=1\\Rightarrow s=\\log 3/\\log 2$. The gasket satisfies the Open Set Condition, which implies $0<\\mathcal{H}^s(\\text{gasket})<\\infty$ at $s=\\dim_H$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the 4-contraction Koch curve with similarity ratio $1/3$, compute the Hausdorff dimension to 3 decimals. (Moran: $4\\cdot(1/3)^s=1$.)",
+            "answer": 1.2618595071,
+            "tol": 0.001,
+            "explain": "$s=\\log 4/\\log 3\\approx 1.2619$. The Koch curve has strictly larger Hausdorff dimension than its topological dimension ($1$), reflecting its fractal crinkliness."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathcal{H}^1$ on $\\mathbb{R}$ agree with Lebesgue measure $m$?",
+            "choices": [
+              "Because both are translation-invariant Radon measures on $\\mathbb{R}$ agreeing on intervals (an interval $[a,b]$ has $\\mathcal{H}^1=b-a$); uniqueness of the Haar/Lebesgue measure forces equality",
+              "By definition",
+              "By Radon–Nikodym with an irrational density",
+              "They don't agree — $\\mathcal{H}^1\\ne m$"
+            ],
+            "answer": 0,
+            "explain": "$\\mathcal{H}^1([a,b])=b-a$ because optimal covers by small intervals have diameter-sum approaching $b-a$. Both $\\mathcal{H}^1$ and $m$ are translation-invariant, $\\sigma$-finite, and agree on a generating ring of intervals, so Carathéodory uniqueness forces $\\mathcal{H}^1=m$ on $\\mathcal{B}(\\mathbb{R})$."
           }
         ]
       }
