@@ -175,12 +175,21 @@ function buildHeadBlock() {
     '<script>window.__MV_SECTION_MAP = ' + sectionMapJson + ';</script>\n' +
     '<script src="./js/breadcrumb.js"></script>\n' +
     '<script src="./js/glossary-popover.js" defer></script>\n' +
+    '<link rel="stylesheet" media="print" href="./css/print.css">\n' +
+    '<script src="./concepts/bundle.js" defer></script>\n' +
+    '<script src="./js/topic-hotkeys.js" defer></script>\n' +
+    '<script src="./js/topic-lineage.js" defer></script>\n' +
     HEAD_END
   );
 }
 
 function buildNavBlock() {
-  return NAV_BEGIN + '<div class="breadcrumb"></div>' + NAV_END;
+  return (
+    NAV_BEGIN +
+    '<div class="breadcrumb"></div>' +
+    '<div id="mv-lineage-mount" class="lineage-strip" hidden></div>' +
+    NAV_END
+  );
 }
 
 // ----------------------------------------------------------------------------

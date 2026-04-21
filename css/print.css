@@ -1,0 +1,216 @@
+/* Math-Visualization print stylesheet.
+ *
+ * Loaded via <link rel="stylesheet" media="print" href="./css/print.css">,
+ * so these rules only apply when the user prints or exports to PDF. The
+ * goal is a clean, linear paper reflow: hide the chrome (nav, sidetoc,
+ * breadcrumb, drawers, progress pills, mastery chips, hotkey overlay),
+ * flatten any collapsed/tabbed widgets, override the dark theme to
+ * black-on-white, and surface link targets as parenthetical URLs so the
+ * PDF is readable standalone.
+ *
+ * Palette tokens stay variable-driven — we just override them at :root
+ * under @media print so every existing `var(--ink)` / `var(--bg)` call
+ * does the right thing without rewriting the entire topic CSS.
+ */
+
+@media print {
+
+  /* -------- palette override (dark → paper) ------------------------ */
+
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --panel2: #ffffff;
+    --ink: #000000;
+    --mute: #333333;
+    --line: #bbbbbb;
+    /* Keep accent colours for diagrams, but darken them so they print
+     * with enough contrast on white paper. */
+    --yellow: #b08800;
+    --blue: #1f6f88;
+    --green: #2e6f2e;
+    --pink: #a84a33;
+    --violet: #5f4db0;
+    --cyan: #1f7f75;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  /* -------- hide interactive / navigational chrome ----------------- */
+
+  nav.toc,
+  aside.sidetoc,
+  .breadcrumb,
+  .lineage-strip,
+  #mv-lineage-mount,
+  #mv-hotkey-help,
+  .mv-glossary-popover,
+  .progbtn,
+  .mastery-chip,
+  .mobile-chip,
+  .mvnb-drawer,
+  .mvnb-drawer-backdrop,
+  [data-drawer],
+  [data-mv-drawer],
+  [class*="drawer"],
+  button,
+  input[type="range"],
+  input[type="number"],
+  input[type="text"],
+  select {
+    display: none !important;
+  }
+
+  /* Quiz widgets: hide the interactive answer machinery but leave the
+   * question prose visible so a printed page still shows what was
+   * asked. The quiz.js DOM uses `.quiz-question`, `.quiz-choices`, and
+   * `.quiz-actions` — drop the actions/choices, keep the question. */
+  .quiz-choices,
+  .quiz-actions,
+  .quiz-feedback,
+  .quiz-hint-btn,
+  .quiz-next,
+  .quiz-progress {
+    display: none !important;
+  }
+
+  /* -------- widgets: flatten but keep SVG diagrams ----------------- */
+
+  .widget {
+    background: #ffffff !important;
+    border: 1px solid #bbbbbb !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .widget .hd .hint,
+  .row label,
+  .readout {
+    color: #333333 !important;
+  }
+
+  .readout {
+    background: #f6f6f6 !important;
+    border: 1px solid #bbbbbb !important;
+  }
+
+  .note,
+  .callback,
+  .related,
+  aside.callback,
+  aside.related {
+    background: #f6f6f6 !important;
+    color: #000000 !important;
+    border-left: 3px solid #555555 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* -------- layout: single column, generous margins ---------------- */
+
+  main {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    grid-template-columns: 1fr !important;
+    display: block !important;
+  }
+
+  body > * {
+    max-width: 100% !important;
+  }
+
+  section {
+    page-break-before: auto;
+    break-before: auto;
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  /* Avoid orphaned headings — keep the heading with the first few lines
+   * that follow it. */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid-page;
+    color: #000000 !important;
+    border-bottom-color: #888888 !important;
+  }
+
+  h1 { font-size: 22pt; }
+  h2 { font-size: 16pt; margin-top: 1.5rem; }
+  h3 { font-size: 13pt; }
+
+  /* -------- links: show full URLs in parentheses ------------------- */
+
+  a, a:link, a:visited {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+
+  /* External (http/https) and same-site (./…) links: append the href.
+   * Skip anchor-only links (#section) — they wouldn't mean anything on
+   * paper. */
+  a[href^="http"]::after,
+  a[href^="./"]::after,
+  a[href^="../"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555555;
+    word-break: break-all;
+  }
+
+  /* -------- KaTeX: serif fallback if web fonts don't load ---------- */
+
+  .katex, .katex * {
+    color: #000000 !important;
+  }
+
+  /* If KaTeX webfont CSS is blocked by the print engine, fall back to a
+   * serif font stack that is still readable for math expressions. */
+  .katex {
+    font-family: "KaTeX_Main", "Latin Modern Roman", "STIX Two Math",
+                 "TeX Gyre Termes", "Times New Roman", serif;
+  }
+
+  /* -------- page-size hints ---------------------------------------- */
+
+  @page {
+    margin: 0.75in;
+  }
+
+  /* The hero sub-paragraph is usually muted — bring it into the
+   * readable range on paper. */
+  .sub {
+    color: #333333 !important;
+  }
+
+  /* Avoid splitting the changelog footer, the callback asides, or the
+   * quiz question away from their context. */
+  details.changelog,
+  aside.callback,
+  aside.related {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Explicitly hide any element whose own class list declares it a
+   * widget interaction affordance we couldn't enumerate above. */
+  .mv-hotkey-help,
+  .mv-topic-hotkeys-overlay,
+  [data-interactive-only] {
+    display: none !important;
+  }
+}
