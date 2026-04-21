@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Foundations · Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.6}
+  a{color:var(--blue)}
+  main{max-width:1000px;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .hero{text-align:center;margin-bottom:1.6rem}
+  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .pathway-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
+  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
+  .sec{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:2.6rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+  .card.coming{opacity:0.55;cursor:not-allowed}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
+    border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .body{flex:1;min-width:0;display:flex;flex-direction:column}
+  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:#fff}
+  .desc{color:var(--mute);font-size:0.88rem;margin:0 0 8px;line-height:1.5;flex:1}
+  .tag{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
+  .card.y .tt{color:var(--yellow)} .card.y:hover{border-color:var(--yellow)}
+  .card.b .tt{color:var(--blue)}   .card.b:hover{border-color:var(--blue)}
+  .card.g .tt{color:var(--green)}  .card.g:hover{border-color:var(--green)}
+  .card.p .tt{color:var(--pink)}   .card.p:hover{border-color:var(--pink)}
+  .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
+  .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
+  svg{display:block}
+  .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
+    border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
+  .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
+  .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
+  .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
+    border-top:1px solid var(--line);padding-top:1.4rem}
+</style>
+</head>
+<body>
+<!-- section-index-auto-begin -->
+<main>
+  <nav class="section-nav" style="font-size:0.88rem;margin:0 0 1.6rem;color:var(--mute)">
+    <a href="../index.html" style="color:var(--violet)">← Full index</a>
+    &nbsp;·&nbsp;
+    <a href="../pathway.html" style="color:var(--violet)">Pathway explorer →</a>
+  </nav>
+  <section class="hero">
+    <h1>Foundations</h1>
+    <p class="sub">Sets, functions, quotients, countability — the common background for everything else.</p>
+  </section>
+
+  <div class="sec">Foundations</div>
+  <div class="grid">
+
+
+    <a class="card b" href="../naive-set-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two overlapping circles (Venn) with a diagonal hint for Cantor diagonal -->
+        <circle cx="38" cy="42" r="20" fill="none" stroke="#58c4dd" stroke-width="1.4"/>
+        <circle cx="62" cy="42" r="20" fill="none" stroke="#58c4dd" stroke-width="1.4"/>
+        <g fill="#58c4dd"><circle cx="31" cy="42" r="1.8"/><circle cx="50" cy="42" r="1.8"/><circle cx="69" cy="42" r="1.8"/></g>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="#58c4dd" font-style="italic" font-family="serif">A ∩ B</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Naive set theory <span class="level prereq">prereq</span></div>
+        <div class="desc">Sets, functions, unions/intersections, equivalence relations and quotients, Cantor's diagonal argument, and why $|\mathbb{R}|>|\mathbb{Q}|$.</div>
+        <span class="tag">∈ · ∼ · diagonal</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.
+  </footer>
+</main>
+<!-- section-index-auto-end -->
+</body>
+</html>

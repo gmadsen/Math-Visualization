@@ -1,6 +1,6 @@
 # Agent Guide
 
-Read this file before making any change to the repository. Read [`ROADMAP.md`](./ROADMAP.md) immediately after to know what work is actually wanted — the roadmap defines current priorities and the dependency spine.
+Read this file before making any change to the repository. Read [`PLAN.md`](./PLAN.md) immediately after to know what work is actually wanted — it defines current priorities, concrete next tasks, and the dependency spine.
 
 ## Project goal
 
@@ -39,6 +39,7 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Color tokens, never hex** — inside widget markup, reach for `var(--yellow)`, `var(--cyan)`, `var(--mute)`, etc. The `:root` declarations define the palette; inlining raw hex breaks theme swaps and the color-mix border rules on `.callback` / `.related` / `.changelog`.
 - **No ad-hoc localStorage keys** — `MVProgress` owns `mvnb.progress.v1`. Anything else goes in memory for the session. The legacy 2-arg form `setMastered(id, bool)` silently defaults `tier='v1'` for backwards compat, but new code should pass the tier explicitly.
 - **Don't commit scratch verify scripts** — ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the repo (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public.
+- **LaTeX inside `<option>` requires `js/katex-select.js`** — native `<select>` popups are drawn by the OS and render `<option>` labels as plain text, so raw `$\omega = dx$` leaks into the dropdown. Any widget with LaTeX-containing options must load `js/katex-select.js` (a hidden-native + custom-popup shim). Run `node scripts/wire-katex-select.mjs` (audit) or `--fix` after adding such options; the script inserts the loader after the `quiz.js` tag idempotently.
 
 ## House conventions
 
@@ -152,7 +153,7 @@ Every new topic page should ship with quizzes for its concepts.
      }
    }
    ```
-   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**. Authoring the Section-A hard-tier banks (A1–A48) is tracked in `TODO.md`.
+   Aim for 3 questions per concept in `questions` (mix types, use KaTeX). The `hard` array is optional; when present, aim for 2–3 questions that either **chain two concepts** or probe **counterexamples / subtle failures of a hypothesis**.
 
    **Schema compatibility**: banks without a `hard` key keep behaving as before — nothing changes in the UI except the badge text.
 4. **Progression** — `js/progress.js` exposes `MVProgress.{isMastered, setMastered, stateOf, clearAll}` on `window`. Mastery is tracked at two tiers per concept: `'v1'` and `'hard'`.
@@ -236,7 +237,7 @@ When you publish `new-topic.html`:
 3. Create `concepts/new-topic.json` and register it in `concepts/index.json`.
 4. Create `quizzes/new-topic.json` with one quiz per concept id.
 5. If it's a capstone, add an entry (with `section` field) to [`concepts/capstones.json`](./concepts/capstones.json).
-6. Bump the topic count in `README.md` and `ROADMAP.md` (currently 44 pages across 7 sections — update both in sync).
+6. If you're adding a page to a new section, update the section list in `README.md` accordingly. Topic counts are not maintained in prose — the aggregate is whatever `concepts/index.json` declares.
 7. **Regenerate both bundles** so pages opened via `file://` still work:
    ```bash
    node scripts/build-concepts-bundle.mjs
@@ -296,10 +297,10 @@ If you can't run even jsdom, say so explicitly — do not claim a visual feature
 
 You may spawn multiple agents to draft independent pages in parallel. Every such agent must:
 
-1. Read `AGENTS.md` (this file) and `ROADMAP.md`.
+1. Read `AGENTS.md` (this file) and `PLAN.md`.
 2. Read `category-theory.html` for style before writing markup.
 3. Read one page with similar subject matter (e.g. drafting `bsd.html` → also read `L-functions.html` and `elliptic-curves.html`) so notation and callbacks match.
-4. Write only the assigned page plus its `concepts/` and `quizzes/` files. Do not touch `index.html`, `README.md`, or `ROADMAP.md` — the orchestrating session handles registration so edits don't conflict.
+4. Write only the assigned page plus its `concepts/` and `quizzes/` files. Do not touch `index.html`, `README.md`, or `PLAN.md` — the orchestrating session handles registration so edits don't conflict.
 
 Side tasks that are safe to parallelize with page drafting: concept-graph validation scripts, concept-map JSON for an already-published page, CSS-only refactors scoped to a single file.
 

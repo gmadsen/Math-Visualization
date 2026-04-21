@@ -2,38 +2,36 @@
 
 A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets.
 
-The notebook currently includes **56 topic pages** organized into **7 sections**:
-- Foundations
-- Algebra
-- Analysis
-- Geometry & topology
-- Number theory
-- Modular forms & L-functions
-- Algebraic geometry
-
-Open [`index.html`](./index.html) in any modern browser and start wherever you like.
+Topics are grouped into seven sections: Foundations · Algebra · Analysis · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
 
 ## How to use
 
-Just open the files in a browser — either by double-clicking `index.html` or serving the folder locally:
+Open the files in a browser — either by double-clicking `index.html` or serving the folder locally:
 
 ```bash
-# Python 3
-python3 -m http.server 8000
-
-# Node
-npx serve .
+python3 -m http.server 8000      # Python 3
+npx serve .                      # Node
 ```
+
+## How the notebook is organized
+
+Vanilla HTML/CSS/JS — no build step, no framework, no external JS beyond KaTeX. Every topic is a single self-contained file you can open by double-clicking.
+
+**Topic pages.** Each `<topic>.html` follows the template of [`category-theory.html`](./category-theory.html): sticky sidebar TOC, numbered sections, each section with a worked SVG widget, KaTeX for math. Pages end with a concept-by-concept quiz and a `git log`-seeded changelog footer.
+
+**Concepts and the pathway DAG.** Each topic has a concept graph in `concepts/<topic>.json` — a handful of concept entries, each with an anchor linking into the page and a `prereqs` list that may reach into other topics. The aggregate graph powers [`pathway.html`](./pathway.html): select a capstone (see [`concepts/capstones.json`](./concepts/capstones.json)), see the full prerequisite tree, and watch concepts light up `locked → ready → mastered` as you pass quizzes.
+
+**Quizzes and mastery.** Each concept carries two optional tiers: `questions` (v1, required to pass) and `hard` (unlocked after v1). Mastery is tracked per-tier in `localStorage` via [`js/progress.js`](./js/progress.js); `pathway.html` draws dual mastery rings. Only v1 mastery gates downstream concepts; hard-tier is for the completionist.
+
+**Cross-references.** Two directions. Forward `<aside class="callback">` ("See also → prereq") blocks are inserted by [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs). Reverse `<aside class="related">` ("Used in → consumer") blocks are inserted by [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs). Both are idempotent.
+
+**Offline-first.** Browsers block `fetch()` of local JSON over `file://`, so the concept-graph and quiz-bank data are flattened into two bundle files ([`concepts/bundle.js`](./concepts/bundle.js), [`quizzes/bundle.js`](./quizzes/bundle.js)) that load as `<script>` tags. Pages work identically under `file://` double-click and under a local dev server. [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip for workshops.
+
+**Quality gates.** [`scripts/validate-concepts.mjs`](./scripts/validate-concepts.mjs) catches duplicate ids, broken prereqs, cycles, and missing anchors. [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) verifies every page has a sidebar, top-nav backlink, quiz wiring, and at least one widget. Forward/reverse callback audits enforce cross-reference coverage. CI ([`.github/workflows/verify.yml`](./.github/workflows/verify.yml)) runs the whole chain on every push.
 
 ## Learning pathways
 
-- Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals.
-- Topic cards on the index can carry a level badge:
-  - `prereq` (foundational)
-  - `advanced` (specialized)
-  - `capstone` (synthesis topics)
-
-Concept graph data lives under [`concepts/`](./concepts), with topic registration in [`concepts/index.json`](./concepts/index.json).
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals. Topic cards on the index can carry a level badge: `prereq` (foundational), `advanced` (specialized), or `capstone` (synthesis).
 
 ## Contents
 
@@ -107,11 +105,9 @@ Concept graph data lives under [`concepts/`](./concepts), with topic registratio
 - [Stacks (Deligne–Mumford)](./stacks.html) — groupoid-valued functors, $BG$, $\mathcal{M}_{1,1}$
 - [Étale cohomology](./etale-cohomology.html) — étale morphisms, $\ell$-adic cohomology, the Weil conjectures
 
-## Quizzes and progression
+## Resetting progress
 
-Topic pages ship with [Brilliant](https://brilliant.org)-style concept-by-concept quizzes. Answer all questions in a concept correctly and it is marked **mastered** (persisted in `localStorage`). The mastery store powers [`pathway.html`](./pathway.html): prerequisite concepts light up as *ready* when their predecessors are mastered, and *locked* otherwise.
-
-Clear all progress from the browser devtools console with:
+Clear all mastery from the browser devtools console:
 
 ```js
 MVProgress.clearAll()
@@ -123,18 +119,18 @@ MVProgress.clearAll()
 index.html                    landing page with section grid
 pathway.html                  capstone prerequisite explorer
 <topic>.html                  one self-contained page per topic
-concepts/                     concept graph JSONs (one per topic) + index.json + capstones.json
-quizzes/                      quiz bank JSONs (one per topic)
+concepts/                     concept graph JSONs + index.json + capstones.json + bundle.js
+quizzes/                      quiz bank JSONs + bundle.js
 js/progress.js                mastery store (localStorage)
 js/quiz.js                    quiz widget
-scripts/validate-concepts.mjs concept-graph validator
+scripts/                      validators, audits, bundle builders, packaging
 AGENTS.md                     authoring conventions for contributors (human or agent)
-ROADMAP.md                    current priorities and per-wave status
+PLAN.md                       forward-looking priorities and concrete next tasks
 ```
 
 ## Contributing
 
-If you're working on this notebook (or directing an agent to), start with [`AGENTS.md`](./AGENTS.md). It covers the canonical template ([`category-theory.html`](./category-theory.html)), house conventions, helper scripts, the quiz/progression wiring, and verification. [`ROADMAP.md`](./ROADMAP.md) tracks what's prioritized next.
+If you're working on this notebook (or directing an agent to), start with [`AGENTS.md`](./AGENTS.md). It covers the canonical template ([`category-theory.html`](./category-theory.html)), house conventions, helper scripts, the quiz/progression wiring, and verification. [`PLAN.md`](./PLAN.md) tracks what's prioritized next.
 
 ## References
 

@@ -36,7 +36,19 @@
     font-size:17px;line-height:1.6}
   a{color:var(--blue)}
   main{max-width:1000px;margin:0 auto;padding:3.5rem 1.5rem 6rem}
-  .hero{text-align:center;margin-bottom:2.5rem}
+  .hero{text-align:center;margin-bottom:1.6rem}
+  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .pathway-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
+  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   .sec{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -77,9 +89,17 @@
 <main>
   <section class="hero">
     <h1>Interactive Mathematics Notebook</h1>
-    <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples. Start anywhere — or <a href="./pathway.html">follow a capstone pathway</a>.</p>
+    <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples.</p>
   </section>
 
+  <a class="pathway-banner" href="./pathway.html">
+    <div class="pb-body">
+      <div class="pb-eyebrow">Start here · Learning pathways</div>
+      <div class="pb-title">Pick a capstone, see the full prerequisite tree</div>
+      <p class="pb-desc">Choose any goal — Sato–Tate, BSD, modularity & FLT, Yoneda, solvability by radicals — and walk its dependency graph. Concepts light up locked → ready → mastered as you pass quizzes.</p>
+    </div>
+    <div class="pb-arrow">→</div>
+  </a>
 
   <div class="sec">Foundations</div>
   <div class="grid">
@@ -1367,6 +1387,18 @@
       </div>
     </a>
   </div>
+  <!-- section-links-auto-begin -->
+  <div class="sec" style="margin-top:3rem">Sections</div>
+  <p class="sub" style="text-align:left;font-size:0.92rem;margin:0 0 1rem">
+    <a href="./sections/foundations.html">Foundations</a> · 
+    <a href="./sections/algebra.html">Algebra</a> · 
+    <a href="./sections/analysis.html">Analysis</a> · 
+    <a href="./sections/geometry-and-topology.html">Geometry & topology</a> · 
+    <a href="./sections/number-theory.html">Number theory</a> · 
+    <a href="./sections/modular-forms-and-l-functions.html">Modular forms & L-functions</a> · 
+    <a href="./sections/algebraic-geometry.html">Algebraic geometry</a>
+  </p>
+  <!-- section-links-auto-end -->
 
   <footer>
     Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.

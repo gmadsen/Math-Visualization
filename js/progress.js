@@ -13,8 +13,7 @@
 // Root concepts (no prereqs) are "ready" by default.
 //
 // Hard-tier mastery does not affect locked/ready/mastered — it's a visual
-// "second ring" on pathway.html and gates nothing downstream. Section-A
-// rollout (see TODO.md) is about filling in `hard` arrays for each concept.
+// "second ring" on pathway.html and gates nothing downstream.
 
 (function(global){
   const KEY = 'mvnb.progress.v1';

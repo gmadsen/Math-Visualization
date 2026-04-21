@@ -10,6 +10,7 @@
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false},{left:'\\\\[',right:'\\\\]',display:true}]});"></script>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <style>
   :root{
@@ -115,7 +116,7 @@
   aside.related a{color:inherit}
 </style>
 </head>
-<body>
+<body data-section="algebra" data-level="prereq">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];

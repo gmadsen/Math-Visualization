@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Number theory · Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.6}
+  a{color:var(--blue)}
+  main{max-width:1000px;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .hero{text-align:center;margin-bottom:1.6rem}
+  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .pathway-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
+  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
+  .sec{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:2.6rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+  .card.coming{opacity:0.55;cursor:not-allowed}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
+    border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .body{flex:1;min-width:0;display:flex;flex-direction:column}
+  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:#fff}
+  .desc{color:var(--mute);font-size:0.88rem;margin:0 0 8px;line-height:1.5;flex:1}
+  .tag{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
+  .card.y .tt{color:var(--yellow)} .card.y:hover{border-color:var(--yellow)}
+  .card.b .tt{color:var(--blue)}   .card.b:hover{border-color:var(--blue)}
+  .card.g .tt{color:var(--green)}  .card.g:hover{border-color:var(--green)}
+  .card.p .tt{color:var(--pink)}   .card.p:hover{border-color:var(--pink)}
+  .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
+  .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
+  svg{display:block}
+  .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
+    border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
+  .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
+  .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
+  .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
+    border-top:1px solid var(--line);padding-top:1.4rem}
+</style>
+</head>
+<body>
+<!-- section-index-auto-begin -->
+<main>
+  <nav class="section-nav" style="font-size:0.88rem;margin:0 0 1.6rem;color:var(--mute)">
+    <a href="../index.html" style="color:var(--violet)">← Full index</a>
+    &nbsp;·&nbsp;
+    <a href="../pathway.html" style="color:var(--violet)">Pathway explorer →</a>
+  </nav>
+  <section class="hero">
+    <h1>Number theory</h1>
+    <p class="sub">Reciprocity laws, p-adic completions, local/global duality, and the road to class field theory.</p>
+  </section>
+
+  <div class="sec">Number theory</div>
+  <div class="grid">
+
+
+    <a class="card v" href="../galois.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="#b39ddb">
+          <circle cx="50" cy="12" r="3.3"/>
+          <circle cx="25" cy="40" r="3.3"/><circle cx="50" cy="40" r="3.3"/><circle cx="75" cy="40" r="3.3"/>
+          <circle cx="50" cy="68" r="3.3"/>
+        </g>
+        <g stroke="#b39ddb" stroke-width="1" opacity="0.8">
+          <line x1="50" y1="15" x2="25" y2="37"/><line x1="50" y1="15" x2="50" y2="37"/><line x1="50" y1="15" x2="75" y2="37"/>
+          <line x1="25" y1="43" x2="50" y2="65"/><line x1="50" y1="43" x2="50" y2="65"/><line x1="75" y1="43" x2="50" y2="65"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois theory &amp; the quintic</div>
+        <div class="desc">From compass-and-straightedge to the Galois correspondence to the unsolvability of the quintic — anchored by the simplicity of $A_5$.</div>
+        <span class="tag">constructibility · A₅ · solvability</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../quadratic-reciprocity.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two primes with a flipping arrow between Legendre symbols -->
+        <g font-family="serif" font-style="italic" fill="#ffd866">
+          <text x="26" y="34" text-anchor="middle" font-size="16">(p/q)</text>
+          <text x="74" y="58" text-anchor="middle" font-size="16">(q/p)</text>
+        </g>
+        <!-- double-headed reciprocity arrow -->
+        <path d="M 42 40 Q 50 50 58 52" fill="none" stroke="#58c4dd" stroke-width="1.3" marker-end="url(#qr1)" marker-start="url(#qr2)"/>
+        <defs>
+          <marker id="qr1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+          <marker id="qr2" viewBox="0 0 8 8" refX="2" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+        </defs>
+        <text x="50" y="75" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">± depending on p,q mod 4</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Quadratic reciprocity</div>
+        <div class="desc">Legendre symbol, Euler's criterion, Gauss's lemma, the reciprocity law $\left(\tfrac{p}{q}\right)\left(\tfrac{q}{p}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, and the supplementary laws for $-1$ and $2$.</div>
+        <span class="tag">(a/p) · Gauss · ± 1</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../sums-of-squares.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Gaussian-integer lattice with a circle of radius √r counting r_2(n) -->
+        <g fill="#58c4dd" opacity="0.85">
+          <circle cx="20" cy="60" r="1.6"/><circle cx="35" cy="60" r="1.6"/><circle cx="50" cy="60" r="1.6"/><circle cx="65" cy="60" r="1.6"/><circle cx="80" cy="60" r="1.6"/>
+          <circle cx="20" cy="45" r="1.6"/><circle cx="35" cy="45" r="1.6"/><circle cx="50" cy="45" r="1.6"/><circle cx="65" cy="45" r="1.6"/><circle cx="80" cy="45" r="1.6"/>
+          <circle cx="20" cy="30" r="1.6"/><circle cx="35" cy="30" r="1.6"/><circle cx="50" cy="30" r="1.6"/><circle cx="65" cy="30" r="1.6"/><circle cx="80" cy="30" r="1.6"/>
+          <circle cx="20" cy="15" r="1.6"/><circle cx="35" cy="15" r="1.6"/><circle cx="50" cy="15" r="1.6"/><circle cx="65" cy="15" r="1.6"/><circle cx="80" cy="15" r="1.6"/>
+        </g>
+        <!-- circle x^2+y^2 = n -->
+        <circle cx="50" cy="45" r="22" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <!-- highlighted lattice points on the circle: (0,±n), (±a,±b) -->
+        <g fill="#ffd866">
+          <circle cx="50" cy="23" r="2.4"/><circle cx="50" cy="67" r="2.4"/>
+          <circle cx="28" cy="45" r="2.4"/><circle cx="72" cy="45" r="2.4"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Sums of squares</div>
+        <div class="desc">Fermat's two-squares, Lagrange's four-squares, Gaussian integers $\mathbb{Z}[i]$ as a UFD, the primes that split in $\mathbb{Z}[i]$, and a hint at theta functions.</div>
+        <span class="tag">r₂(n) · ℤ[i] · Lagrange</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../power-sums-bernoulli.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- discrete staircase sum S_k(n) and smooth integral x^{k+1}/(k+1) -->
+        <g fill="#ffd866" opacity="0.85">
+          <rect x="16" y="58" width="9" height="6"/>
+          <rect x="27" y="50" width="9" height="14"/>
+          <rect x="38" y="40" width="9" height="24"/>
+          <rect x="49" y="28" width="9" height="36"/>
+          <rect x="60" y="14" width="9" height="50"/>
+        </g>
+        <path d="M 16 64 Q 40 64 84 10" fill="none" stroke="#58c4dd" stroke-width="1.4"/>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">Σ kᵖ vs ∫ xᵖ dx</text>
+        <text x="12" y="16" font-size="9" fill="#e07a5f" font-style="italic" font-family="serif">Bₙ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Power sums &amp; Bernoulli</div>
+        <div class="desc">Faulhaber's formulas, Bernoulli numbers $B_n$, the Euler–Maclaurin expansion, and the bridge to $\zeta(-n) = -B_{n+1}/(n+1)$ that foreshadows analytic continuation.</div>
+        <span class="tag">Bₙ · Faulhaber · Euler–Maclaurin</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../waring.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- unit circle with exponential sum samples -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="#58c4dd" stroke-width="1.2"/>
+        <g fill="#ffd866">
+          <circle cx="76" cy="40" r="2"/><circle cx="70" cy="24" r="2"/>
+          <circle cx="54" cy="14" r="2"/><circle cx="34" cy="20" r="2"/>
+          <circle cx="24" cy="40" r="2"/><circle cx="32" cy="60" r="2"/>
+          <circle cx="54" cy="66" r="2"/><circle cx="70" cy="56" r="2"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">∫₀¹ f(α)ᵏ e(-nα) dα</text>
+        <text x="12" y="16" font-size="8" fill="#e07a5f" font-style="italic" font-family="serif">g(k)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Waring's problem</div>
+        <div class="desc">Every positive integer is a sum of at most $g(k)$ $k$-th powers. The Hardy–Littlewood circle method: major and minor arcs, singular series, and exponential sums.</div>
+        <span class="tag">g(k) · G(k) · circle method</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../quadratic-forms-genus-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- binary quadratic form level curves + reduced region -->
+        <g fill="none" stroke="#ffd866" stroke-width="1" opacity="0.7">
+          <ellipse cx="50" cy="40" rx="30" ry="12"/>
+          <ellipse cx="50" cy="40" rx="22" ry="9"/>
+          <ellipse cx="50" cy="40" rx="14" ry="6"/>
+        </g>
+        <!-- reduction strip |b|<=a<=c sketched as a trapezoid -->
+        <path d="M 34 20 L 66 20 L 74 60 L 26 60 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.8"/>
+        <!-- a few reduced forms as dots -->
+        <g fill="#e07a5f">
+          <circle cx="45" cy="30" r="1.8"/><circle cx="55" cy="30" r="1.8"/>
+          <circle cx="40" cy="50" r="1.8"/><circle cx="60" cy="50" r="1.8"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">ax²+bxy+cy²</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Quadratic forms &amp; genus theory</div>
+        <div class="desc">Gauss's binary forms $ax^2+bxy+cy^2$, reduction theory, the form class group under composition, genus characters, and the bijection with the ideal class group of $\mathbb{Q}(\sqrt{D})$.</div>
+        <span class="tag">h(D) · genus · Gauss composition</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="../algebraic-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- lattice with a highlighted non-principal ideal -->
+        <g fill="var(--green)">
+          <circle cx="20" cy="60" r="2"/><circle cx="40" cy="60" r="2"/><circle cx="60" cy="60" r="2"/><circle cx="80" cy="60" r="2"/>
+          <circle cx="20" cy="40" r="2"/><circle cx="40" cy="40" r="2"/><circle cx="60" cy="40" r="2"/><circle cx="80" cy="40" r="2"/>
+          <circle cx="20" cy="20" r="2"/><circle cx="40" cy="20" r="2"/><circle cx="60" cy="20" r="2"/><circle cx="80" cy="20" r="2"/>
+        </g>
+        <!-- highlighted index-2 sublattice -->
+        <g fill="#ffd866">
+          <circle cx="20" cy="60" r="3"/><circle cx="60" cy="60" r="3"/>
+          <circle cx="40" cy="40" r="3"/><circle cx="80" cy="40" r="3"/>
+          <circle cx="20" cy="20" r="3"/><circle cx="60" cy="20" r="3"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">𝒪ₖ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic number theory</div>
+        <div class="desc">Rings of integers, Dedekind domains, ramification, the ideal class group, Minkowski's theorem, and Dirichlet's unit theorem.</div>
+        <span class="tag">𝒪ₖ · Cl(K) · units</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../p-adic-numbers.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- p-adic tree for p=3: root with 3 children, each with 3 children -->
+        <g stroke="#7de0d6" stroke-width="1" fill="none" opacity="0.85">
+          <line x1="50" y1="14" x2="22" y2="38"/>
+          <line x1="50" y1="14" x2="50" y2="38"/>
+          <line x1="50" y1="14" x2="78" y2="38"/>
+          <line x1="22" y1="38" x2="13" y2="60"/><line x1="22" y1="38" x2="22" y2="60"/><line x1="22" y1="38" x2="31" y2="60"/>
+          <line x1="50" y1="38" x2="41" y2="60"/><line x1="50" y1="38" x2="50" y2="60"/><line x1="50" y1="38" x2="59" y2="60"/>
+          <line x1="78" y1="38" x2="69" y2="60"/><line x1="78" y1="38" x2="78" y2="60"/><line x1="78" y1="38" x2="87" y2="60"/>
+        </g>
+        <g fill="#7de0d6">
+          <circle cx="50" cy="14" r="2.4"/>
+          <circle cx="22" cy="38" r="2"/><circle cx="50" cy="38" r="2"/><circle cx="78" cy="38" r="2"/>
+          <circle cx="13" cy="60" r="1.6"/><circle cx="22" cy="60" r="1.6"/><circle cx="31" cy="60" r="1.6"/>
+          <circle cx="41" cy="60" r="1.6"/><circle cx="50" cy="60" r="1.6"/><circle cx="59" cy="60" r="1.6"/>
+          <circle cx="69" cy="60" r="1.6"/><circle cx="78" cy="60" r="1.6"/><circle cx="87" cy="60" r="1.6"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="8" fill="#7de0d6" font-style="italic" font-family="serif">ℤₚ = lim ℤ/pⁿ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">p-adic numbers</div>
+        <div class="desc">$\mathbb{Z}_p$ as inverse limit of $\mathbb{Z}/p^n$, the p-adic tree, the non-Archimedean norm, Hensel's lemma, and $\mathbb{Q}_p$ as a completion distinct from $\mathbb{R}$.</div>
+        <span class="tag">ℤₚ · ℚₚ · Hensel</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../adeles-and-ideles.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- restricted direct product: R × ∏' Q_p represented as a comb of places -->
+        <line x1="10" y1="40" x2="90" y2="40" stroke="#7de0d6" stroke-width="0.8" opacity="0.5"/>
+        <!-- archimedean place R on the left -->
+        <text x="14" y="36" font-size="10" fill="#e07a5f" font-style="italic" font-family="serif">ℝ</text>
+        <circle cx="14" cy="48" r="3" fill="#e07a5f"/>
+        <!-- p-adic places as vertical marks -->
+        <g stroke="#7de0d6" stroke-width="1.5" fill="none">
+          <line x1="30" y1="28" x2="30" y2="52"/>
+          <line x1="44" y1="30" x2="44" y2="50"/>
+          <line x1="56" y1="32" x2="56" y2="48"/>
+          <line x1="68" y1="33" x2="68" y2="47"/>
+          <line x1="78" y1="34" x2="78" y2="46"/>
+          <line x1="86" y1="35" x2="86" y2="45"/>
+        </g>
+        <g font-size="6" fill="#7de0d6" text-anchor="middle" font-family="serif">
+          <text x="30" y="62">ℚ₂</text><text x="44" y="62">ℚ₃</text><text x="56" y="62">ℚ₅</text><text x="68" y="62">ℚ₇</text>
+        </g>
+        <text x="50" y="14" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">𝔸 = ℝ × ∏' ℚₚ</text>
+        <text x="50" y="78" text-anchor="middle" font-size="6" fill="var(--green)" font-style="italic" font-family="serif">restricted product</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Adèles &amp; idèles</div>
+        <div class="desc">Restricted direct products over all places, the adèle ring $\mathbb{A}_\mathbb{Q}$, the idèle class group $C_\mathbb{Q}$, strong approximation, and Tate's thesis as the gateway to modern L-functions.</div>
+        <span class="tag">𝔸 · Cℚ · Tate's thesis</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="../frobenius-and-reciprocity.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- dictionary arrows between arithmetic (primes) and automorphic (cycle shapes) -->
+        <g fill="var(--green)">
+          <circle cx="18" cy="22" r="2.4"/><circle cx="18" cy="40" r="2.4"/><circle cx="18" cy="58" r="2.4"/>
+        </g>
+        <g font-size="8" fill="var(--green)" font-style="italic" font-family="serif" text-anchor="end" opacity="0.9">
+          <text x="14" y="25">2</text><text x="14" y="43">3</text><text x="14" y="61">5</text>
+        </g>
+        <!-- cycle shape diagrams on the right -->
+        <g stroke="#ffd866" stroke-width="1.1" fill="none">
+          <circle cx="78" cy="22" r="5"/>
+          <path d="M 73 38 A 5 5 0 0 1 83 42 A 5 5 0 0 1 73 38"/>
+          <circle cx="73" cy="58" r="3"/><circle cx="83" cy="58" r="3"/>
+        </g>
+        <g fill="#ffd866"><circle cx="78" cy="22" r="1.4"/></g>
+        <!-- arrows: p → cycle shape -->
+        <g stroke="#58c4dd" stroke-width="1" fill="none">
+          <line x1="22" y1="22" x2="70" y2="22" marker-end="url(#fr1)"/>
+          <line x1="22" y1="40" x2="66" y2="40" marker-end="url(#fr1)"/>
+          <line x1="22" y1="58" x2="66" y2="58" marker-end="url(#fr1)"/>
+        </g>
+        <defs>
+          <marker id="fr1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+        </defs>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">p ↦ Frobₚ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Frobenius &amp; reciprocity</div>
+        <div class="desc">Factoring $f(x) \bmod p$ as a cycle shape of $\mathrm{Frob}_p$, Chebotarev density, and the weak→strong reciprocity dictionary mapping primes to automorphic data.</div>
+        <span class="tag">Frobₚ · Chebotarev · dict</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="../class-field-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="#b39ddb" stroke-width="1.2">
+          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
+          <path d="M42 32 L50 42 L58 32"/>
+        </g>
+        <g fill="#b39ddb"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
+        <span class="tag">Artin map · ideles · reciprocity</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.
+  </footer>
+</main>
+<!-- section-index-auto-end -->
+</body>
+</html>

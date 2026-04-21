@@ -9,6 +9,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <script>
 (function(){
@@ -150,7 +151,7 @@
   aside.related a{color:inherit}
 </style>
 </head>
-<body>
+<body data-section="analysis" data-level="advanced">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Geometry & topology · Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.6}
+  a{color:var(--blue)}
+  main{max-width:1000px;margin:0 auto;padding:3.5rem 1.5rem 6rem}
+  .hero{text-align:center;margin-bottom:1.6rem}
+  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .pathway-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
+  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
+  .sec{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:2.6rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+  .card.coming{opacity:0.55;cursor:not-allowed}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
+    border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .body{flex:1;min-width:0;display:flex;flex-direction:column}
+  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:#fff}
+  .desc{color:var(--mute);font-size:0.88rem;margin:0 0 8px;line-height:1.5;flex:1}
+  .tag{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
+  .card.y .tt{color:var(--yellow)} .card.y:hover{border-color:var(--yellow)}
+  .card.b .tt{color:var(--blue)}   .card.b:hover{border-color:var(--blue)}
+  .card.g .tt{color:var(--green)}  .card.g:hover{border-color:var(--green)}
+  .card.p .tt{color:var(--pink)}   .card.p:hover{border-color:var(--pink)}
+  .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
+  .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
+  svg{display:block}
+  .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
+    border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
+  .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
+  .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
+  .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
+    border-top:1px solid var(--line);padding-top:1.4rem}
+</style>
+</head>
+<body>
+<!-- section-index-auto-begin -->
+<main>
+  <nav class="section-nav" style="font-size:0.88rem;margin:0 0 1.6rem;color:var(--mute)">
+    <a href="../index.html" style="color:var(--violet)">← Full index</a>
+    &nbsp;·&nbsp;
+    <a href="../pathway.html" style="color:var(--violet)">Pathway explorer →</a>
+  </nav>
+  <section class="hero">
+    <h1>Geometry & topology</h1>
+    <p class="sub">From metric spaces and the fundamental group to Riemannian curvature and Lie groups.</p>
+  </section>
+
+  <div class="sec">Geometry & topology</div>
+  <div class="grid">
+
+
+    <a class="card v" href="../point-set-topology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- nested open balls with a compact cover -->
+        <circle cx="35" cy="42" r="22" fill="none" stroke="#b39ddb" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <circle cx="35" cy="42" r="14" fill="none" stroke="#b39ddb" stroke-width="1.2"/>
+        <circle cx="35" cy="42" r="7" fill="none" stroke="#b39ddb" stroke-width="1.1"/>
+        <circle cx="35" cy="42" r="2" fill="#b39ddb"/>
+        <!-- a finite subcover of [0,1] on the right -->
+        <line x1="55" y1="58" x2="92" y2="58" stroke="#b39ddb" stroke-width="1.2"/>
+        <g stroke="#ffd866" stroke-width="2" stroke-linecap="round" opacity="0.9">
+          <line x1="57" y1="50" x2="69" y2="50"/>
+          <line x1="66" y1="44" x2="82" y2="44"/>
+          <line x1="78" y1="38" x2="92" y2="38"/>
+        </g>
+        <circle cx="55" cy="58" r="1.8" fill="#b39ddb"/><circle cx="92" cy="58" r="1.8" fill="#b39ddb"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Point-set topology <span class="level prereq">prereq</span></div>
+        <div class="desc">Munkres-style: metric spaces, topological spaces, continuity and homeomorphism, compactness, connectedness, separation and countability axioms.</div>
+        <span class="tag">open · compact · T₂</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../algebraic-topology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="#7de0d6" stroke-width="1.5"/>
+        <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <path d="M 34 41 Q 50 47 66 41" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <ellipse cx="50" cy="40" rx="7" ry="17" fill="none" stroke="#ffd866" stroke-width="1.2" stroke-dasharray="3 2"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic topology <span class="level prereq">prereq</span></div>
+        <div class="desc">Fundamental groups, covering spaces, simplicial homology, Mayer–Vietoris, the Euler characteristic as a homotopy invariant.</div>
+        <span class="tag">π₁ · Hₙ · covers</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../smooth-manifolds.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- sphere with two chart patches overlapping -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="#ffd866" stroke-width="1.3"/>
+        <!-- chart U_1 (north) -->
+        <path d="M 30 30 Q 50 18 70 30 Q 50 44 30 30 Z" fill="#ffd866" opacity="0.15" stroke="#ffd866" stroke-width="0.9"/>
+        <!-- chart U_2 (south) -->
+        <path d="M 30 50 Q 50 62 70 50 Q 50 36 30 50 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.9"/>
+        <!-- overlap region dashed -->
+        <ellipse cx="50" cy="40" rx="18" ry="5" fill="none" stroke="#e07a5f" stroke-width="0.9" stroke-dasharray="2 2"/>
+        <text x="30" y="22" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">φ₁</text>
+        <text x="70" y="62" font-size="7" fill="#58c4dd" font-style="italic" font-family="serif">φ₂</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Smooth manifolds</div>
+        <div class="desc">Charts and atlases, transition maps, the tangent space three ways, the differential, immersions vs. embeddings, vector fields and the Lie bracket via flows.</div>
+        <span class="tag">(U, φ) · T_pM · [X,Y]</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../differential-forms.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
+        <g stroke="#58c4dd" stroke-width="1.2" opacity="0.75">
+          <line x1="14" y1="20" x2="86" y2="20"/>
+          <line x1="14" y1="32" x2="86" y2="32"/>
+          <line x1="14" y1="44" x2="86" y2="44"/>
+          <line x1="14" y1="56" x2="86" y2="56"/>
+          <line x1="14" y1="68" x2="86" y2="68"/>
+        </g>
+        <!-- a vector piercing the stack -->
+        <line x1="30" y1="62" x2="72" y2="22" stroke="#ffd866" stroke-width="1.6" marker-end="url(#df1)"/>
+        <!-- basepoint -->
+        <circle cx="30" cy="62" r="2" fill="#fff"/>
+        <text x="78" y="14" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">ω(v)</text>
+        <defs>
+          <marker id="df1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Differential forms</div>
+        <div class="desc">$k$-forms as oriented volume-eaters, wedge and exterior derivative, Stokes's theorem as the master identity, and de Rham cohomology on the annulus.</div>
+        <span class="tag">ω · d · ∫∂ = ∫d</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="../differential-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- a curved surface patch with a normal vector -->
+        <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="#b39ddb" stroke-width="1.4"/>
+        <path d="M 12 64 Q 32 34 52 40 Q 72 46 88 28" fill="none" stroke="#b39ddb" stroke-width="1.1" opacity="0.6"/>
+        <path d="M 12 70 Q 32 40 52 46 Q 72 52 88 34" fill="none" stroke="#b39ddb" stroke-width="0.9" opacity="0.4"/>
+        <!-- normal vector at a point on the top curve -->
+        <circle cx="52" cy="34" r="2.2" fill="#ffd866"/>
+        <line x1="52" y1="34" x2="58" y2="16" stroke="#ffd866" stroke-width="1.3" marker-end="url(#dg1)"/>
+        <!-- tangent -->
+        <line x1="52" y1="34" x2="72" y2="37" stroke="#58c4dd" stroke-width="1.2" opacity="0.85" marker-end="url(#dg2)"/>
+        <defs>
+          <marker id="dg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+          <marker id="dg2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Differential geometry</div>
+        <div class="desc">Frenet frames, first and second fundamental forms, the Gauss map, geodesics on surfaces, parallel transport, and Gauss–Bonnet.</div>
+        <span class="tag">κ · τ · geodesics · G–B</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../riemannian-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- sphere with a geodesic triangle on it -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="#e07a5f" stroke-width="1.3"/>
+        <!-- inner latitude ellipse -->
+        <ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="#e07a5f" stroke-width="0.8" opacity="0.45"/>
+        <!-- geodesic triangle: north pole and two equator points -->
+        <g stroke="#ffd866" stroke-width="1.3" fill="none">
+          <path d="M 50 14 Q 36 26 28 45"/>
+          <path d="M 50 14 Q 64 26 72 45"/>
+          <path d="M 28 45 Q 50 55 72 45"/>
+        </g>
+        <g fill="#ffd866"><circle cx="50" cy="14" r="2"/><circle cx="28" cy="45" r="2"/><circle cx="72" cy="45" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#e07a5f" font-style="italic" font-family="serif">K &gt; 0 ⇒ ∑α &gt; π</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Riemannian geometry</div>
+        <div class="desc">The metric $g$, Levi-Civita connection, parallel transport, geodesics via exponential map, sectional/Ricci curvature, Jacobi fields, and Bonnet–Myers.</div>
+        <span class="tag">g · ∇ · R · exp</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../lie-groups.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- great circle on S^3 / matrix group with tangent at identity -->
+        <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="#7de0d6" stroke-width="1.4"/>
+        <!-- identity point -->
+        <circle cx="80" cy="40" r="2.8" fill="#ffd866"/>
+        <text x="80" y="55" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">e</text>
+        <!-- tangent vector at identity: T_e G = g -->
+        <line x1="80" y1="40" x2="94" y2="20" stroke="#ffd866" stroke-width="1.4" marker-end="url(#lg1)"/>
+        <!-- one-parameter subgroup: a second point along the curve -->
+        <circle cx="66" cy="20" r="2.2" fill="#7de0d6"/>
+        <text x="66" y="14" text-anchor="middle" font-size="7" fill="#7de0d6" font-style="italic" font-family="serif">exp(tX)</text>
+        <defs>
+          <marker id="lg1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#ffd866"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Lie groups &amp; algebras</div>
+        <div class="desc">Classical matrix groups as manifolds, $\mathfrak{g}=T_eG$, the exponential map, brackets, $\mathrm{SU}(2)\!\to\!\mathrm{SO}(3)$ double cover, and $A_1,A_2$ root systems.</div>
+        <span class="tag">exp · [·,·] · roots</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="../riemann-surfaces.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- fundamental parallelogram with side identifications -->
+        <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="#7de0d6" stroke-width="1.3"/>
+        <!-- single-arrow identification on top/bottom -->
+        <polygon points="35,60 40,57 40,63" fill="#ffd866"/>
+        <polygon points="60,20 65,17 65,23" fill="#ffd866"/>
+        <!-- double-arrow identification on left/right -->
+        <g fill="#e07a5f">
+          <polygon points="30,42 34,39 34,45"/><polygon points="34,38 38,35 38,41"/>
+          <polygon points="65,42 69,39 69,45"/><polygon points="69,38 73,35 73,41"/>
+        </g>
+        <!-- tau parameter hint -->
+        <text x="50" y="75" text-anchor="middle" font-size="8" fill="#7de0d6" font-style="italic" font-family="serif">ℂ/Λ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Riemann surfaces</div>
+        <div class="desc">Sphere and torus as prototypes, branched covers of $w^2=P(z)$, Riemann–Hurwitz, the uniformization trichotomy, and a peek at divisors &amp; Riemann–Roch.</div>
+        <span class="tag">ℂ/Λ · covers · genus</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.
+  </footer>
+</main>
+<!-- section-index-auto-end -->
+</body>
+</html>
