@@ -33,6 +33,39 @@
           "answer": 2,
           "explain": "Near the boundary of convergence, tails decay more slowly."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The abscissae $\\sigma_c$ (conditional convergence) and $\\sigma_a$ (absolute convergence) of a Dirichlet series satisfy which sharp bound?",
+          "choices": [
+            "$\\sigma_a - \\sigma_c$ can be arbitrarily large",
+            "$\\sigma_a - \\sigma_c \\le 1$, and this bound is sharp",
+            "$\\sigma_a = \\sigma_c$ always",
+            "$\\sigma_a - \\sigma_c \\le 1/2$ always"
+          ],
+          "answer": 1,
+          "explain": "For any Dirichlet series $0 \\le \\sigma_a - \\sigma_c \\le 1$. The bound is attained by $\\sum (-1)^{n+1}/n^s$ (the alternating zeta), where $\\sigma_c=0$ but $\\sigma_a=1$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $D(s)=\\sum_{n=1}^\\infty (-1)^{n+1} n^{-s}$ (the Dirichlet eta function), the abscissa of conditional convergence $\\sigma_c$ equals?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "By Dirichlet's alternating-series test applied uniformly in $t$, $\\eta(s)$ converges conditionally for $\\Re(s)>0$; at $\\sigma=0$ it diverges. Hence $\\sigma_c=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step ordering for showing that if $D(s_0)$ converges absolutely then $D(s)$ converges absolutely for all $s$ with $\\Re(s)>\\Re(s_0)$?",
+          "choices": [
+            "Use the triangle inequality on partial sums, then bound $|n^{-s}|\\le |n^{-s_0}|$ when $\\Re(s)\\ge\\Re(s_0)$, then invoke absolute convergence at $s_0$",
+            "Apply Cauchy's theorem, then integrate term-by-term, then invoke the residue theorem",
+            "Use partial summation (Abel summation) to bound the tail, then apply Dirichlet's test",
+            "Invoke the functional equation to reflect $D(s)$ to a half-plane where convergence is obvious"
+          ],
+          "answer": 0,
+          "explain": "The key inequality is $|a_n n^{-s}|=|a_n| n^{-\\Re(s)} \\le |a_n| n^{-\\Re(s_0)}$; summing and using absolute convergence at $s_0$ closes the argument by comparison."
+        }
       ]
     },
     "euler-product-structure": {
@@ -67,6 +100,39 @@
           "answer": 1,
           "explain": "Multiplicativity organizes terms by prime powers, giving an Euler product."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The local Euler factor of $\\zeta(s)$ at prime $p$ is $(1-p^{-s})^{-1}=\\sum_{k\\ge 0} p^{-ks}$. Which step in expanding the full product $\\prod_p(1-p^{-s})^{-1}$ into $\\sum n^{-s}$ invokes unique factorization?",
+          "choices": [
+            "Switching the order of summation over primes",
+            "Distributing the product over the geometric series and matching each $n$ to its unique prime factorization $n=\\prod p_i^{k_i}$",
+            "Applying the residue theorem to each Euler factor",
+            "Using Dirichlet's theorem on primes in arithmetic progressions"
+          ],
+          "answer": 1,
+          "explain": "Each term $n^{-s}$ in $\\zeta(s)$ comes from choosing the $p_i^{-k_i s}$ term in exactly one Euler factor per prime $p_i$. Unique factorization guarantees every $n$ arises exactly once, making the product equal to the sum."
+        },
+        {
+          "type": "numeric",
+          "q": "Truncate the Euler product to the first two primes: $(1-2^{-2})^{-1}(1-3^{-2})^{-1}$. What is the exact value?",
+          "answer": 1.5,
+          "tol": 1e-6,
+          "explain": "$(1-2^{-2})^{-1}=4/3$ and $(1-3^{-2})^{-1}=9/8$; their product is $36/24=3/2=1.5$. The true $\\zeta(2)=\\pi^2/6\\approx1.6449$ — the missing primes contribute the rest."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that a Dirichlet series $\\sum a_n n^{-s}$ need NOT have an Euler product?",
+          "choices": [
+            "$a_n = 1$ for all $n$ (the zeta function)",
+            "$a_n = \\mu(n)$ (the Möbius function), which is multiplicative and does have an Euler product",
+            "$a_n = d(n)$ (the number of divisors), which is multiplicative and does have an Euler product",
+            "$a_n = r(n)$ where $r(n)=1$ if $n$ is prime and $0$ otherwise — this is not multiplicative since $r(4)=0\\ne r(2)^2$"
+          ],
+          "answer": 3,
+          "explain": "The sequence $r(n)=\\mathbf{1}[n\\text{ prime}]$ is not multiplicative: $r(2\\cdot2)=r(4)=0$ but $r(2)\\cdot r(2)=1$. Non-multiplicative coefficients do not factorize into an Euler product."
+        }
       ]
     },
     "dirichlet-characters-lseries": {
@@ -100,6 +166,39 @@
           "answer": 4,
           "tol": 1e-9,
           "explain": "$\\varphi(8)=4$ (classes $1,3,5,7$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct ordering of the key steps in Dirichlet's proof that there are infinitely many primes $p\\equiv a\\pmod{N}$ with $\\gcd(a,N)=1$?",
+          "choices": [
+            "Show $L(1,\\chi)\\ne 0$ for all non-trivial $\\chi$ → use orthogonality of characters to isolate the class $a$ → deduce $\\sum_{p\\equiv a}p^{-s}\\to\\infty$",
+            "Apply the prime-number theorem → use the Chinese Remainder Theorem → count primes directly",
+            "Show $\\zeta(s)$ has no zeros on $\\Re(s)=1$ → use Perron's formula → extract the residue",
+            "Diagonalize the group ring of $(\\mathbb{Z}/N)^\\times$ over $\\mathbb{Q}$ → apply Chebotarev density"
+          ],
+          "answer": 0,
+          "explain": "Dirichlet's argument: orthogonality $\\frac{1}{\\varphi(N)}\\sum_\\chi\\overline{\\chi(a)}\\chi(p)=\\mathbf{1}[p\\equiv a]$ isolates the class. Multiplying by $p^{-s}$ and summing gives $\\sum_{p\\equiv a}p^{-s}=\\frac{1}{\\varphi(N)}\\sum_\\chi\\overline{\\chi(a)}\\log L(s,\\chi)+O(1)$. The trivial character makes $\\log L(s,\\chi_0)\\to+\\infty$; non-vanishing $L(1,\\chi)\\ne0$ for non-trivial $\\chi$ keeps those terms bounded, so the whole expression diverges."
+        },
+        {
+          "type": "numeric",
+          "q": "The non-trivial character $\\chi_{-4}$ mod $4$ satisfies $\\chi_{-4}(n)=(-1)^{(n-1)/2}$ for odd $n$. Compute $L(1,\\chi_{-4})=1-1/3+1/5-1/7+\\cdots$ to 4 decimal places.",
+          "answer": 0.7854,
+          "tol": 0.0001,
+          "explain": "$L(1,\\chi_{-4})=\\pi/4\\approx0.78540$. This is the Leibniz formula for $\\pi$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $L(1,\\chi)\\ne 0$ for a complex character $\\chi$ follow more easily than for real non-trivial $\\chi$?",
+          "choices": [
+            "Complex characters have trivial conductor, so the functional equation is simpler",
+            "If $L(1,\\chi)=0$ for complex $\\chi$, then $L(1,\\bar\\chi)=0$ too (by conjugation), and considering $\\prod_\\chi L(s,\\chi)$ one can show a zero at $s=1$ of order $\\ge 2$ contradicts the simple pole of $\\zeta(s)$ there",
+            "Complex characters are completely multiplicative, so their $L$-functions never vanish",
+            "The Riemann hypothesis for function fields implies non-vanishing for all complex characters"
+          ],
+          "answer": 1,
+          "explain": "For complex $\\chi$, $\\bar\\chi\\ne\\chi$, so a zero of $L(s,\\chi)$ at $s=1$ pairs with a zero of $L(s,\\bar\\chi)$. The product $\\prod_\\chi L(s,\\chi)$ would then have a zero of order $\\ge 2$ at $s=1$ cancelling the simple pole of $\\zeta(s)$, giving $\\prod_\\chi L(s,\\chi)\\to 0$. But this product can be shown to be $\\ge 1$ for real $s>1$, giving a contradiction."
         }
       ]
     },
@@ -137,6 +236,39 @@
           "answer": 0,
           "explain": "Riemann's 1859 trick: the completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is the Mellin of $\\tfrac12(\\theta(x)-1)$; the Jacobi theta functional equation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ splits the integral $\\int_0^\\infty = \\int_0^1 + \\int_1^\\infty$ into two convergent pieces, manifesting $\\xi(s)=\\xi(1-s)$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Mellin transform of $f(x)=e^{-x^2}$ (a Gaussian) is $\\frac{1}{2}\\Gamma(s/2)$. Which substitution reduces this to a standard Gamma integral?",
+          "choices": [
+            "$u = x^2$, giving $\\int_0^\\infty e^{-u}u^{s/2-1}\\tfrac{du}{2}=\\tfrac{1}{2}\\Gamma(s/2)$",
+            "$u = \\log x$, giving a Laplace transform",
+            "$u = 1/x$, giving a beta-function integral",
+            "$u = x^s$, giving $\\Gamma(s)$ directly"
+          ],
+          "answer": 0,
+          "explain": "Set $u=x^2$, $du=2x\\,dx$, so $dx=du/(2\\sqrt{u})$. Then $\\int_0^\\infty e^{-x^2}x^{s-1}dx = \\int_0^\\infty e^{-u}u^{(s-1)/2}\\frac{du}{2\\sqrt{u}}=\\frac{1}{2}\\int_0^\\infty e^{-u}u^{s/2-1}du=\\frac{1}{2}\\Gamma(s/2)$."
+        },
+        {
+          "type": "numeric",
+          "q": "The Jacobi theta function satisfies $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$. Using this, the completed zeta satisfies $\\xi(s)=\\xi(1-s)$. At $s=1/2$, compute $\\xi(1/2)/\\xi(1/2)$ (i.e. verify the symmetry gives what ratio).",
+          "answer": 1,
+          "tol": 1e-9,
+          "explain": "$\\xi(1-s)=\\xi(s)$ evaluated at $s=1/2$ gives $\\xi(1/2)=\\xi(1/2)$, so the ratio is $1$. The symmetry point $s=1/2$ is the center of the functional equation."
+        },
+        {
+          "type": "mcq",
+          "q": "The Mellin transform converts multiplication by $x^a$ into which operation on the transform variable $s$?",
+          "choices": [
+            "Differentiation: $\\mathcal{M}[x^a f](s) = \\frac{d}{ds}\\mathcal{M}[f](s)$",
+            "Convolution with $\\delta(s-a)$",
+            "A shift: $\\mathcal{M}[x^a f](s) = \\mathcal{M}[f](s+a)$",
+            "Multiplication by $a$: $\\mathcal{M}[x^a f](s) = a\\,\\mathcal{M}[f](s)$"
+          ],
+          "answer": 2,
+          "explain": "$\\mathcal{M}[x^a f](s)=\\int_0^\\infty x^a f(x) x^{s-1}dx=\\int_0^\\infty f(x)x^{(s+a)-1}dx=\\mathcal{M}[f](s+a)$. Dilation in $x$ becomes translation in $s$, the Mellin analogue of the shift theorem for Fourier transforms."
+        }
       ]
     },
     "perron-formula": {
@@ -172,6 +304,39 @@
           "answer": 2.7183,
           "tol": 0.001,
           "explain": "$\\mathrm{Res}_{s=1}\\zeta(s)\\cdot x^s/s = 1\\cdot e^1/1 = e \\approx 2.71828$. This is exactly the leading term in Perron for $\\sum_{n\\le e}1 = $ counting function, with correction terms from the other poles/zeros."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In Perron's formula the kernel $\\frac{1}{2\\pi i}\\int_{c-i\\infty}^{c+i\\infty}\\frac{x^s}{s}ds$ equals $1$ when $x>1$ and $0$ when $0<x<1$. Which contour-shifting argument produces this?",
+          "choices": [
+            "Close to the left for $x>1$ (picking up the pole of $1/s$ at $s=0$ with residue $1$); close to the right for $x<1$ (no poles enclosed, giving $0$)",
+            "Close to the right for $x>1$ (no poles, giving $1$); close to the left for $x<1$ (pole gives $0$)",
+            "Apply Cauchy's integral formula with $f(s)=x^s$ at $s=0$ directly without closing a contour",
+            "Use the functional equation of $\\zeta$ to reflect the contour"
+          ],
+          "answer": 0,
+          "explain": "For $x>1$, $|x^s|=x^\\sigma\\to 0$ as $\\sigma\\to-\\infty$, so close the contour to the left; the only enclosed pole is $1/s$ at $s=0$ with residue $x^0=1$. For $x<1$, $|x^s|\\to 0$ as $\\sigma\\to+\\infty$, so close to the right; no poles are enclosed and the integral is $0$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the Perron-based proof of the PNT, each non-trivial zero $\\rho=\\beta+i\\gamma$ of $\\zeta$ contributes a term $-x^\\rho/\\rho$ to $\\psi(x)$. The Riemann Hypothesis $\\beta=1/2$ would make this term have absolute value:",
+          "choices": [
+            "$O(x)$ — as large as the main term",
+            "$O(x^{1/2}\\log^2 x)$ — substantially smaller than $x$",
+            "$O(1)$ — bounded independently of $x$",
+            "$O(\\log x)$ — logarithmically growing"
+          ],
+          "answer": 1,
+          "explain": "Each zero contributes $|x^\\rho/\\rho|=x^\\beta/|\\rho|\\le x^{1/2}/|\\gamma|$. Summing over zeros (with the $1/|\\gamma|$ decay) gives an error $O(x^{1/2}\\log^2 x)$, yielding the RH-conditional form of the PNT: $\\psi(x)=x+O(x^{1/2}\\log^2 x)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Truncate the explicit formula to the single zero $\\rho=1/2+14.135i$ ($|\\rho|\\approx14.14$). Estimate $|x^\\rho/\\rho|$ at $x=e^{10}$ to 1 decimal place.",
+          "answer": 10.5,
+          "tol": 0.5,
+          "explain": "$|x^\\rho/\\rho|=x^{\\Re(\\rho)}/|\\rho|=(e^{10})^{1/2}/14.14=e^5/14.14\\approx148.41/14.14\\approx10.5$. The main term is $x=e^{10}\\approx22026$, so zeros contribute small but detectable oscillations."
         }
       ]
     }

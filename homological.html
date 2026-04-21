@@ -103,7 +103,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -127,6 +127,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -374,6 +388,18 @@ function zmoduleFromSmith(invariants, extraFree){
     <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
+    <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and resolutions</div>
+    <div><a href="./homological.html#exact">Homological algebra</a> · Exact sequences</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="chain-complexes"></div>
 </section>
@@ -583,6 +609,17 @@ Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokerne
 </div>
 
 <div class="quiz" data-concept="exact-sequences"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
+    <div><a href="./homological.html#snake">Homological algebra</a> · The snake lemma</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -737,6 +774,16 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 <p class="small">In the snake lemma's diagram, the rows are the SES at homological degree $n$ (top) and degree $n-1$ (bottom); the vertical maps are the differentials. Then $\ker\gamma/\operatorname{im}\alpha$ pieces are precisely $H_n(C)$-parts, and $\delta$ becomes the boundary in the long exact sequence in homology.</p>
 
 <div class="quiz" data-concept="snake-lemma"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./homological.html#les">Homological algebra</a> · Long exact sequence in homology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -916,6 +963,16 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
     <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaf-cohomology.html#les">Sheaf cohomology</a> · Long exact sequence in cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="long-exact-sequence"></div>
 </section>
@@ -962,6 +1019,17 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </div>
 
 <div class="quiz" data-concept="derived-functors"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./homological.html#spectral">Homological algebra</a> · Spectral sequences</div>
+    <div><a href="./sheaf-cohomology.html#derived">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1572,6 +1640,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

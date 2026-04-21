@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $\\mathcal{A}$ be the collection of all subsets of $\\mathbb{N}$ that are either finite or have finite complement. Which property fails, showing $\\mathcal{A}$ is NOT a $\\sigma$-algebra?",
+          "choices": [
+            "Closure under finite unions",
+            "Closure under complements",
+            "Closure under countable unions",
+            "Containing $\\varnothing$"
+          ],
+          "answer": 2,
+          "explain": "Take $A_n=\\{2n\\}$ for $n\\ge 1$; each $A_n$ is finite so $A_n\\in\\mathcal{A}$. But $\\bigcup_{n=1}^\\infty A_n$ is the set of all even positive integers, which is infinite and has infinite complement (the odd naturals), so it is not in $\\mathcal{A}$. Thus $\\mathcal{A}$ fails closure under countable unions."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $(X,\\mathcal{A},\\mu)$ be a measure space with $\\mu(X)=1$. Suppose $A_1\\supset A_2\\supset\\cdots$ with $\\mu(A_1)=0.8$ and $\\mu(A_n)\\to L$. If $\\mu(A_3)=0.5$ and $\\mu(A_5)=0.3$, and $\\bigcap_{n=1}^\\infty A_n=\\varnothing$, what is $L$?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "By continuity of measure from above: if $\\mu(A_1)<\\infty$ and $A_n\\downarrow\\varnothing$, then $\\mu(A_n)\\to\\mu(\\varnothing)=0$. The values at $n=3,5$ are irrelevant to the limit."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in proving that the Borel $\\sigma$-algebra $\\mathcal{B}(\\mathbb{R})$ contains all closed sets?",
+          "choices": [
+            "Note closed sets are complements of open sets; since $\\mathcal{B}(\\mathbb{R})$ contains all open sets and is closed under complements, it contains all closed sets",
+            "Construct closed sets from Borel sets using countable intersections only",
+            "Use the fact that every closed set is a countable union of open intervals",
+            "Apply the monotone class theorem directly"
+          ],
+          "answer": 0,
+          "explain": "$\\mathcal{B}(\\mathbb{R})$ is defined as the smallest $\\sigma$-algebra containing all open sets. Since every closed set $F=U^c$ for some open $U$, and $\\sigma$-algebras are closed under complementation, $F\\in\\mathcal{B}(\\mathbb{R})$."
+        }
       ]
     },
     "lebesgue-measure": {
@@ -55,6 +88,39 @@
           "answer": [0, 2],
           "tol": 1e-6,
           "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Cantor set $C$ is constructed by removing middle thirds from $[0,1]$. Which statement correctly describes its Lebesgue measure and cardinality?",
+          "choices": [
+            "$m(C)=0$ and $C$ is countable",
+            "$m(C)=0$ and $C$ is uncountable",
+            "$m(C)=1/3$ and $C$ is uncountable",
+            "$m(C)>0$ and $C$ is countable"
+          ],
+          "answer": 1,
+          "explain": "At stage $n$, total removed length is $\\sum_{k=0}^{n-1}2^k/3^{k+1}\\to 1$, so $m(C)=0$. Yet $C$ is in bijection with $\\{0,1\\}^{\\mathbb{N}}$ via ternary expansions, making it uncountable. This is the standard counterexample of an uncountable null set."
+        },
+        {
+          "type": "numeric",
+          "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, if $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ are pairwise disjoint and cover $[0,2]$, what value does $\\sum_{q}m(V+q)$ take if $m(V)$ existed and were positive?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "If $m(V)=c>0$, countable additivity gives $m([0,2])\\ge\\sum_{q}c=\\infty$, contradicting $m([0,2])=2$. If $m(V)=0$, then $m([0,2])=0$, again a contradiction. So no consistent value of $m(V)$ exists; the correct answer reflecting the only non-contradictory finite value attempted is $0$, but in truth measurability fails entirely."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step order for showing outer regularity of Lebesgue measure: $m(E)=\\inf\\{m(U):U\\supset E,\\ U\\text{ open}\\}$?",
+          "choices": [
+            "Cover $E$ by open intervals; sum their lengths; take infimum; verify the infimum is attained by an open set",
+            "Use inner regularity first; then dualize",
+            "Apply Hahn decomposition and restrict to the positive part",
+            "Invoke the Radon–Nikodym theorem"
+          ],
+          "answer": 0,
+          "explain": "For any $\\varepsilon>0$, cover $E$ by open intervals $I_n$ with $\\sum m(I_n)<m(E)+\\varepsilon$; their union $U=\\bigcup I_n$ is open, contains $E$, and $m(U)\\le\\sum m(I_n)<m(E)+\\varepsilon$. Since $m(U)\\ge m(E)$ always, the infimum equals $m(E)$."
         }
       ]
     },
@@ -87,6 +153,39 @@
           "tol": 1e-6,
           "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $f_n\\to f$ pointwise. Which is the correct counterexample showing that pointwise limits of measurable functions can be non-measurable if the $\\sigma$-algebra is not complete?",
+          "choices": [
+            "Take $f_n=f$ constant; the limit is obviously measurable",
+            "Take a non-measurable set $N$ inside a null set $Z$; set $f=\\mathbf{1}_N$; approximate by $f_n=0$; then $f_n\\to f$ pointwise but $f$ is non-measurable in the incomplete $\\sigma$-algebra",
+            "Pointwise limits of measurable functions are always measurable by the Borel $\\sigma$-algebra axioms",
+            "Use dominated convergence to conclude measurability"
+          ],
+          "answer": 1,
+          "explain": "In an incomplete measure space, a null set $Z$ may contain non-measurable subsets $N$. Then $f_n=0$ (measurable) converges pointwise to $\\mathbf{1}_N$, which is not measurable. Completeness is exactly the condition that prevents this: it ensures every subset of a null set is measurable."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f:\\mathbb{R}\\to\\mathbb{R}$ be a simple function $f=3\\cdot\\mathbf{1}_A+7\\cdot\\mathbf{1}_B$ where $A=[0,1]$, $B=(2,4]$, and $A\\cap B=\\varnothing$. Compute $\\int f\\,dm$.",
+          "answer": 17,
+          "tol": 1e-6,
+          "explain": "For a simple function $\\int\\sum c_i\\mathbf{1}_{E_i}\\,dm=\\sum c_i m(E_i)$. So $\\int f\\,dm=3\\cdot m([0,1])+7\\cdot m((2,4])=3\\cdot 1+7\\cdot 2=3+14=17$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step ordering for showing that $f+g$ is measurable when $f,g:(X,\\mathcal{A})\\to\\mathbb{R}$ are measurable?",
+          "choices": [
+            "Write $\\{f+g>a\\}=\\bigcup_{q\\in\\mathbb{Q}}(\\{f>q\\}\\cap\\{g>a-q\\})$; each set is in $\\mathcal{A}$; countable union stays in $\\mathcal{A}$",
+            "Use the product $\\sigma$-algebra on $\\mathbb{R}^2$; map $(f,g)$; compose with addition",
+            "Apply Lusin's theorem to approximate by continuous functions",
+            "Note addition is continuous so measurability is automatic"
+          ],
+          "answer": 0,
+          "explain": "The standard elementary proof: $f+g>a$ iff $f>a-g$ iff $\\exists q\\in\\mathbb{Q}$ with $f>q>a-g$, giving $\\{f+g>a\\}=\\bigcup_{q\\in\\mathbb{Q}}(\\{f>q\\}\\cap\\{g>a-q\\})$. Each factor is measurable; $\\mathcal{A}$ is closed under finite intersections and countable unions."
+        }
       ]
     },
     "lebesgue-integral": {
@@ -118,6 +217,39 @@
           "tol": 1e-6,
           "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which function is Lebesgue integrable on $[0,1]$ but NOT Riemann integrable?",
+          "choices": [
+            "$f(x)=x^2$",
+            "$f(x)=\\mathbf{1}_{\\mathbb{Q}\\cap[0,1]}$ (the Dirichlet function)",
+            "$f(x)=\\sin(x)$",
+            "$f(x)=|x|$"
+          ],
+          "answer": 1,
+          "explain": "The Dirichlet function is nowhere continuous, so it is not Riemann integrable (upper and lower Riemann sums differ). However, $\\mathbb{Q}\\cap[0,1]$ is countable hence has Lebesgue measure $0$, so $\\int_0^1\\mathbf{1}_{\\mathbb{Q}}\\,dm=0$. It is Lebesgue integrable."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_1^e \\ln(x)\\,dx$ using the Lebesgue integral (equal to the Riemann integral here).",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Integration by parts: $\\int_1^e \\ln x\\,dx=[x\\ln x - x]_1^e=(e\\cdot 1-e)-(1\\cdot 0-1)=0+1=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $f_n(x)=n\\cdot\\mathbf{1}_{(0,1/n]}$. Then $f_n\\to 0$ pointwise a.e. yet $\\int f_n\\,dm=1$ for all $n$. Which hypothesis of the Dominated Convergence Theorem fails?",
+          "choices": [
+            "Pointwise a.e. convergence to $f=0$",
+            "Existence of an integrable dominator $g\\ge|f_n|$ for all $n$",
+            "Measurability of $f_n$",
+            "Finiteness of the measure space"
+          ],
+          "answer": 1,
+          "explain": "Any dominator must satisfy $g(x)\\ge n\\cdot\\mathbf{1}_{(0,1/n]}(x)$ for all $n$, which forces $g(x)\\ge 1/x$ near $0$. But $\\int_0^1 1/x\\,dm=\\infty$, so no integrable dominator exists. DCT requires $|f_n|\\le g$ for some $g\\in L^1$, which fails here."
+        }
       ]
     },
     "convergence-theorems": {
@@ -143,6 +275,39 @@
           "answer": [0, 1],
           "tol": 1e-6,
           "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Fatou's lemma states $\\int\\liminf_n f_n\\,d\\mu\\le\\liminf_n\\int f_n\\,d\\mu$ for $f_n\\ge 0$. Which sequence shows the inequality can be strict?",
+          "choices": [
+            "$f_n=\\mathbf{1}_{[0,1]}$ for all $n$",
+            "$f_n=\\mathbf{1}_{[n,n+1]}$ on $(\\mathbb{R},m)$",
+            "$f_n=1/n$ on $[0,1]$",
+            "$f_n=e^{-nx}$ on $[0,\\infty)$"
+          ],
+          "answer": 1,
+          "explain": "$f_n=\\mathbf{1}_{[n,n+1]}\\to 0$ pointwise, so $\\liminf f_n=0$ and $\\int\\liminf f_n=0$. But $\\int f_n=1$ for all $n$, so $\\liminf_n\\int f_n=1>0$. Strict inequality holds because mass escapes to infinity."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $g_n(x)=\\mathbf{1}_{[0,n]}(x)\\cdot e^{-x}$ on $[0,\\infty)$. By MCT (the sequence is increasing and nonneg), $\\lim_{n\\to\\infty}\\int_0^\\infty g_n\\,dm$ equals what?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$g_n\\uparrow e^{-x}$ pointwise, so MCT gives $\\lim\\int g_n=\\int_0^\\infty e^{-x}\\,dm=[-e^{-x}]_0^\\infty=0-(-1)=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step order for the Monotone Convergence Theorem (for $0\\le f_n\\uparrow f$)?",
+          "choices": [
+            "Show $\\limsup\\int f_n\\le\\int f$ using simple-function approximations; show $\\int f\\le\\liminf\\int f_n$ by Fatou; conclude equality",
+            "Show $\\int f\\le\\liminf\\int f_n$ by monotonicity; show $\\limsup\\int f_n\\le\\int f$ by fixing a simple $0\\le s\\le f$ and $c\\in(0,1)$, applying measure of $\\{f_n\\ge cs\\}\\uparrow X$; conclude $\\int f=\\lim\\int f_n$",
+            "Apply dominated convergence with dominator $f$",
+            "Use the Radon–Nikodym theorem to pass the limit inside"
+          ],
+          "answer": 1,
+          "explain": "Standard MCT proof: monotonicity gives $\\int f_n\\le\\int f$, so $\\limsup\\int f_n\\le\\int f$. For the reverse, fix simple $0\\le s\\le f$ and $c\\in(0,1)$; the sets $E_n=\\{f_n\\ge cs\\}$ increase to $X$; thus $\\int f_n\\ge c\\int_{E_n}s\\,d\\mu\\to c\\int s\\,d\\mu$; let $c\\to 1$ and take sup over $s$ to get $\\liminf\\int f_n\\ge\\int f$."
         }
       ]
     },
@@ -174,6 +339,39 @@
           "answer": 1.414213562,
           "tol": 1e-3,
           "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On $[1,\\infty)$ with Lebesgue measure, $f(x)=x^{-\\alpha}$. For which values of $\\alpha$ does $f\\in L^2[1,\\infty)$?",
+          "choices": [
+            "$\\alpha>1/2$",
+            "$\\alpha>1$",
+            "$\\alpha\\ge 1$",
+            "$\\alpha>2$"
+          ],
+          "answer": 0,
+          "explain": "$\\int_1^\\infty x^{-2\\alpha}\\,dx$ converges iff $2\\alpha>1$, i.e., $\\alpha>1/2$. This is strictly weaker than $L^1$ membership (which requires $\\alpha>1$), illustrating that $L^1\\not\\subset L^2$ on infinite-measure spaces."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f,g\\in L^2([0,1])$ with $\\|f\\|_2=3$ and $\\|g\\|_2=4$. By the Cauchy–Schwarz inequality, $|\\langle f,g\\rangle|\\le$ what value?",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "Cauchy–Schwarz: $|\\langle f,g\\rangle|\\le\\|f\\|_2\\|g\\|_2=3\\cdot 4=12$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct counterexample showing $L^1([0,1])\\not\\subset L^2([0,1])$?",
+          "choices": [
+            "$f(x)=x^{-1/2}$: then $\\|f\\|_1=2<\\infty$ but $\\|f\\|_2^2=\\int_0^1 x^{-1}\\,dx=\\infty$",
+            "$f(x)=\\ln x$: then $f\\in L^1$ but $\\|f\\|_2=\\infty$",
+            "$f(x)=1$: bounded, so in both spaces",
+            "$f(x)=x^{-2}$: not in $L^1$ either, so not a valid counterexample"
+          ],
+          "answer": 0,
+          "explain": "$f(x)=x^{-1/2}$ satisfies $\\int_0^1 x^{-1/2}\\,dx=2$, so $f\\in L^1$. But $\\int_0^1 x^{-1}\\,dx=\\infty$, so $f\\notin L^2$. This demonstrates that on $[0,1]$ (finite measure) the inclusion $L^2\\subset L^1$ holds but the reverse fails."
         }
       ]
     }

@@ -116,7 +116,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -140,6 +140,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -406,6 +420,19 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
     <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dirichlet-series-euler-products.html#dir">Dirichlet series and Euler products</a> · Dirichlet characters and L-series</div>
+    <div><a href="./quadratic-forms-genus-theory.html#binary-forms-basics">Quadratic forms &amp; genus theory</a> · Binary quadratic forms</div>
+    <div><a href="./quadratic-reciprocity.html#gauss-lemma">Quadratic reciprocity</a> · Gauss's lemma</div>
+    <div><a href="./quadratic-reciprocity.html#supplementary">Quadratic reciprocity</a> · Supplementary laws</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="legendre-symbol"></div>
 </section>
@@ -428,6 +455,16 @@ $$ a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod p. $$</div>
 
 <p>Together with multiplicativity, these let us handle $-1$ and $2$ with a single glance at $p \bmod 8$.</p>
 <div class="quiz" data-concept="supplementary-laws-qr"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quadratic-reciprocity.html#reciprocity">Quadratic reciprocity</a> · Quadratic reciprocity law</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="gauss-lemma">
@@ -540,6 +577,16 @@ upper-half residues:
 })();
 </script>
 <div class="quiz" data-concept="gauss-lemma-qr"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quadratic-reciprocity.html#reciprocity">Quadratic reciprocity</a> · Quadratic reciprocity law</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="reciprocity">
@@ -615,6 +662,27 @@ is the lattice-point count in the whole rectangle $[1,(p-1)/2]\times[1,(q-1)/2]$
   grid.appendChild(tbl);
 })();
 </script>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-number-theory.html#ramification">Ideal factorization and ramification</a></li>
+    <li><a href="./frobenius-and-reciprocity.html#frobenius">Frobenius elements</a></li>
+    <li><a href="./frobenius-and-reciprocity.html#splitting">Splitting types: split, inert, ramified</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quadratic-forms-genus-theory.html#genus-theory">Quadratic forms &amp; genus theory</a> · Genus theory</div>
+    <div><a href="./quadratic-reciprocity.html#jacobi">Quadratic reciprocity</a> · The Jacobi symbol</div>
+    <div><a href="./sums-of-squares.html#twosq">Sums of squares</a> · Sum of two squares</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
 <div class="quiz" data-concept="quadratic-reciprocity-law"></div>
 </section>
 
@@ -900,6 +968,7 @@ Each follows from the Legendre version by multiplicativity together with the ide
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>
     </tbody>

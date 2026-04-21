@@ -29,6 +29,39 @@
           "answer": 0,
           "explain": "Hecke operators act endomorphically on standard modular-form spaces."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $f\\in S_k(\\Gamma_0(N))$ be a normalized eigenform with $T_p f=\\lambda_p f$. Which statement correctly links $\\lambda_p$ to the $q$-expansion coefficient $a_p$?",
+          "choices": [
+            "$\\lambda_p = a_p$ because normalization sets $a_1=1$ and the eigenvalue equals the $p$-th coefficient",
+            "$\\lambda_p = p^{k-1}$ regardless of $f$",
+            "$\\lambda_p = a_p^2 - p^{k-1}$ by the functional equation",
+            "$\\lambda_p$ is always an integer, but $a_p$ may be irrational"
+          ],
+          "answer": 0,
+          "explain": "For a normalized eigenform ($a_1=1$), applying $T_p$ and reading the $n=1$ slot of the resulting $q$-expansion gives $a_p(T_p f)=\\lambda_p a_1=\\lambda_p$, so $\\lambda_p=a_p$ exactly."
+        },
+        {
+          "type": "numeric",
+          "q": "The $q$-expansion of the unique normalized cusp form $\\Delta\\in S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))$ begins $q-24q^2+252q^3-\\cdots$. Its Hecke eigenvalue $\\lambda_2$ equals $a_2$. What is $\\lambda_2$?",
+          "answer": -24,
+          "tol": 0.001,
+          "explain": "For a normalized eigenform, $\\lambda_p=a_p$. The Ramanujan tau function gives $\\tau(2)=a_2=-24$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that $T_p$ does NOT preserve the space of Eisenstein series $E_k$ by sending it to $S_k$?",
+          "choices": [
+            "It is a counterexample: $T_p E_k$ is always a cusp form",
+            "There is no counterexample; $T_p$ maps $E_k$ to a scalar multiple of itself, so Eisenstein series are eigenvectors of $T_p$",
+            "$T_p$ is undefined on Eisenstein series",
+            "$T_p E_k=0$ because all coefficients vanish"
+          ],
+          "answer": 1,
+          "explain": "$E_k$ is itself an eigenform for every $T_p$: the eigenvalue is $\\sigma_{k-1}(p)=1+p^{k-1}$. So Eisenstein series are not sent to cusp forms — they remain Eisenstein series."
+        }
       ]
     },
     "hecke-q-expansion-action": {
@@ -63,6 +96,39 @@
           "answer": 0,
           "explain": "It makes Hecke action algorithmic on q-series data."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For $f\\in S_{12}$ with $q$-expansion $\\sum a_n q^n$ and $a_3=252$, use $T_3 f=a_3 f$ (normalized eigenform) to find the coefficient of $q^3$ in $T_3 f$.",
+          "answer": 63504,
+          "tol": 0.001,
+          "explain": "$T_3 f = 252 f$, so the $q^3$ coefficient of $T_3 f$ is $252 \\cdot a_3 = 252 \\times 252 = 63504$."
+        },
+        {
+          "type": "mcq",
+          "q": "In weight $k=12$, the formula for the $n$-th coefficient of $T_p f$ is $a'_n = a_{pn} + p^{11}a_{n/p}$. For $p=2, n=1$, which term survives?",
+          "choices": [
+            "Only $a_{2}$, since $a_{1/2}$ is undefined ($1/2\\notin\\mathbb{Z}$)",
+            "Only $p^{11}a_{1/2}$",
+            "Both terms contribute equally",
+            "Neither term survives; $a'_1=0$"
+          ],
+          "answer": 0,
+          "explain": "$a_{n/p}$ is set to $0$ when $p\\nmid n$. For $n=1, p=2$, we have $2\\nmid 1$, so only $a_{pn}=a_2$ survives and $a'_1=a_2$. This matches $\\lambda_2=a_2$ for a normalized eigenform."
+        },
+        {
+          "type": "mcq",
+          "q": "The Hecke recursion for prime powers gives $a_{p^{r+1}}=a_p a_{p^r}-p^{k-1}a_{p^{r-1}}$. This relation chains which two concepts?",
+          "choices": [
+            "The $q$-expansion action of $T_p$ and the multiplicativity of eigenform coefficients",
+            "The Petersson inner product and the Atkin–Lehner involution",
+            "The Eichler–Shimura relation and $\\ell$-adic representations",
+            "Eisenstein series and the constant term of the $q$-expansion"
+          ],
+          "answer": 0,
+          "explain": "The recursion is derived by applying the $q$-expansion formula for $T_{p^r}$ and using multiplicativity of eigenform coefficients; it links the coefficient formula directly to the multiplicative structure."
+        }
       ]
     },
     "hecke-algebra-commuting": {
@@ -93,6 +159,39 @@
           "tol": 0.001,
           "explain": "Linearity gives $(5+(-1))f=4f$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Hecke algebra $\\mathbb{T}$ acts on $S_k(\\Gamma_0(N))$. Over $\\mathbb{C}$ it is semisimple and commutative. Which statement about its structure is correct?",
+          "choices": [
+            "$\\mathbb{T}\\otimes\\mathbb{C}\\cong\\mathbb{C}^d$ where $d=\\dim S_k(\\Gamma_0(N))$, since simultaneous diagonalization gives $d$ algebra characters",
+            "$\\mathbb{T}$ is always isomorphic to $\\mathbb{Z}[x]$",
+            "$\\mathbb{T}$ is non-commutative for $N>1$",
+            "$\\mathbb{T}\\otimes\\mathbb{C}$ has dimension larger than $\\dim S_k$"
+          ],
+          "answer": 0,
+          "explain": "A commutative semisimple algebra over $\\mathbb{C}$ splits as a product of copies of $\\mathbb{C}$, one per algebra homomorphism $\\mathbb{T}\\to\\mathbb{C}$; these correspond exactly to normalized eigenforms, so the product has $d$ factors."
+        },
+        {
+          "type": "mcq",
+          "q": "Commutativity $T_mT_n=T_nT_m$ holds for all $m,n$. Which identity is the key step for coprime $m,n$?",
+          "choices": [
+            "$T_{mn}=T_m T_n$ when $\\gcd(m,n)=1$",
+            "$T_{mn}=T_m+T_n$ for all $m,n$",
+            "$T_{p^2}=T_p^2$ for every prime $p$",
+            "$T_m=m\\cdot\\mathrm{id}$ for composite $m$"
+          ],
+          "answer": 0,
+          "explain": "Multiplicativity $T_{mn}=T_m T_n$ for $\\gcd(m,n)=1$ is the main relation; since multiplication of integers is commutative, $T_mT_n=T_{mn}=T_nT_m$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f$ is a simultaneous eigenvector with $T_2 f=a_2 f$ and $T_3 f=a_3 f$, then $T_6 f = a_2 a_3 f$ by multiplicativity. Given $a_2=-24$ and $a_3=252$ (Ramanujan $\\Delta$ in $S_{12}$), compute the $T_6$ eigenvalue.",
+          "answer": -6048,
+          "tol": 0.001,
+          "explain": "$T_6$ eigenvalue $= a_2 \\cdot a_3 = (-24)(252) = -6048$."
+        }
       ]
     },
     "eigenforms-and-euler-factors": {
@@ -122,6 +221,39 @@
           "answer": -6,
           "tol": 0.001,
           "explain": "Coprime multiplicativity yields $a_6=a_2a_3=3(-2)=-6$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The local Euler factor at a good prime $p$ for a normalized eigenform $f$ with eigenvalue $a_p$ is $(1-a_p p^{-s}+p^{k-1-2s})^{-1}$. Which statement about this factor is correct?",
+          "choices": [
+            "It factors as $(1-\\alpha_p p^{-s})^{-1}(1-\\beta_p p^{-s})^{-1}$ where $\\alpha_p+\\beta_p=a_p$ and $\\alpha_p\\beta_p=p^{k-1}$",
+            "It equals $(1-p^{-s})^{-1}$ for all eigenforms",
+            "The denominator is always a linear polynomial in $p^{-s}$",
+            "It is only defined when $a_p=0$"
+          ],
+          "answer": 0,
+          "explain": "The quadratic $1-a_p X+p^{k-1}X^2$ factors over $\\mathbb{C}$ with roots $1/\\alpha_p,1/\\beta_p$ satisfying $\\alpha_p+\\beta_p=a_p$ and $\\alpha_p\\beta_p=p^{k-1}$ (Hecke eigenvalue relations)."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\Delta\\in S_{12}$, the Euler factor at $p=2$ is $(1+24\\cdot 2^{-s}+2^{11-2s})^{-1}$. At $s=11$ this becomes $(1+24\\cdot 2^{-11}+2^{-11})^{-1}$. Compute the numerator (i.e., $1+24\\cdot 2^{-11}+2^{-11}$) as a fraction with denominator $2048$.",
+          "answer": 2073,
+          "tol": 0.5,
+          "explain": "$1+24/2048+1/2048 = (2048+24+1)/2048 = 2073/2048$, so the numerator is $2073$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two distinct normalized eigenforms in $S_k(\\Gamma_0(N))$ have different systems of Hecke eigenvalues. Which principle guarantees this?",
+          "choices": [
+            "The Ramanujan conjecture",
+            "The strong multiplicity-one theorem: an eigenform is determined up to scalar by its $T_p$-eigenvalues for all but finitely many primes",
+            "The Weil conjectures applied to the associated $\\ell$-adic representation",
+            "Atkin–Lehner theory, which forces distinct eigenvalues at the level"
+          ],
+          "answer": 1,
+          "explain": "Strong multiplicity one (for $\\mathrm{GL}_1$ and $\\mathrm{GL}_2$) says if two newforms share $T_p$-eigenvalues for almost all $p$, they are identical. This ensures distinct eigenforms have distinct eigenvalue systems."
         }
       ]
     },
@@ -156,6 +288,39 @@
           "answer": 3,
           "tol": 0.001,
           "explain": "Self-adjointness requires $p\\nmid 15$, so $p\\in\\{2,7,11\\}$ — three primes. At $p=3,5$ one gets Atkin–Lehner involutions instead."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Petersson inner product $\\langle f,g\\rangle=\\int_{\\mathcal{F}} f(\\tau)\\overline{g(\\tau)}y^k\\,d\\mu$ is well-defined on $S_k$ but NOT on the full space $M_k$. Why?",
+          "choices": [
+            "The integral diverges for Eisenstein series because they do not decay at the cusp",
+            "Holomorphic functions cannot be integrated against their conjugate",
+            "The fundamental domain $\\mathcal{F}$ is compact so the integral is always zero",
+            "The measure $y^{k-2}\\,dx\\,dy$ is only $\\mathrm{SL}_2(\\mathbb{Z})$-invariant when $k<2$"
+          ],
+          "answer": 0,
+          "explain": "Cusp forms decay exponentially at $\\infty$, making the integral convergent. Eisenstein series have polynomial growth at cusps, causing the Petersson integral to diverge. This is why self-adjointness is stated for $T_p$ on $S_k$, not on $M_k$."
+        },
+        {
+          "type": "mcq",
+          "q": "Self-adjointness of $T_p$ (for $p\\nmid N$) combined with commutativity of the Hecke algebra implies, via the spectral theorem, that $S_k(\\Gamma_0(N))$ has an orthonormal basis of eigenforms. Which would be a correct counterexample if $T_p$ were NOT self-adjoint?",
+          "choices": [
+            "The eigenvalues could be non-real, so $a_p\\notin\\mathbb{R}$ for some eigenform, contradicting known rationality results",
+            "The space $S_k$ could become infinite-dimensional",
+            "The Euler product would diverge for $\\mathrm{Re}(s)<1$",
+            "The Ramanujan bound $|a_p|\\le 2p^{(k-1)/2}$ would be violated"
+          ],
+          "answer": 0,
+          "explain": "Non-self-adjoint operators can have complex eigenvalues. Since $a_p\\in\\mathbb{R}$ for eigenforms of $\\mathrm{SL}_2(\\mathbb{Z})$ is a theorem, failure of self-adjointness would contradict this — it is a key ingredient in proving real eigenvalues."
+        },
+        {
+          "type": "numeric",
+          "q": "The adjoint of $T_p$ with respect to the Petersson inner product satisfies $T_p^* = \\langle p\\rangle^{-1}T_p$ where $\\langle p\\rangle$ is the diamond operator. For $\\Gamma_0(N)$ with $\\gcd(p,N)=1$, the diamond operator $\\langle p\\rangle$ acts on $S_k$ as multiplication by what integer (using that it acts trivially on $S_k(\\Gamma_0(N))$ since there is no nebentypus)?",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "On $S_k(\\Gamma_0(N))$ (trivial nebentypus), the diamond operator $\\langle p\\rangle$ acts as the identity ($\\times 1$), so $T_p^*=T_p$, confirming self-adjointness."
         }
       ]
     }

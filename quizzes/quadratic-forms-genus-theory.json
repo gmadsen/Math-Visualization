@@ -1,0 +1,342 @@
+{
+  "topic": "quadratic-forms-genus-theory",
+  "quizzes": {
+    "binary-forms-basics": {
+      "title": "Binary quadratic forms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The discriminant of the binary quadratic form $ax^2+bxy+cy^2$ is:",
+          "choices": [
+            "$D = b^2 - 4ac$",
+            "$D = 4ac - b^2$",
+            "$D = a^2 - 4bc$"
+          ],
+          "answer": 0,
+          "explain": "By definition $D = b^2 - 4ac$. For positive-definite forms $D < 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "A form $ax^2+bxy+cy^2$ is called <em>primitive</em> when:",
+          "choices": [
+            "$\\gcd(a,b,c)=1$",
+            "$a>0$ and $D<0$",
+            "$b$ is even"
+          ],
+          "answer": 0,
+          "explain": "Primitivity means the three coefficients share no common factor greater than 1."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the discriminant $D$ of the form $x^2+xy+y^2$.",
+          "answer": -3,
+          "tol": 0.001,
+          "explain": "$D = b^2 - 4ac = 1 - 4(1)(1) = -3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is a correct counterexample showing that two forms with the same discriminant need not be $\\mathrm{SL}_2(\\mathbb{Z})$-equivalent?",
+          "choices": [
+            "$x^2+5y^2$ and $2x^2+2xy+3y^2$ both have discriminant $-20$ but represent different sets of odd primes",
+            "$x^2+y^2$ and $x^2+4y^2$ both have discriminant $-4$ and are equivalent",
+            "Any two forms of the same negative discriminant are equivalent over $\\mathbb{Q}$, so no counterexample exists"
+          ],
+          "answer": 0,
+          "explain": "$x^2+5y^2$ and $2x^2+2xy+3y^2$ both have $D=-20$ and are primitive, yet they belong to different classes: $x^2+5y^2$ represents $5$ (set $x=0,y=1$) but $2x^2+2xy+3y^2$ does not represent $5$, witnessing non-equivalence."
+        },
+        {
+          "type": "numeric",
+          "q": "The form $3x^2+2xy+5y^2$ has discriminant $D$. What is $D$?",
+          "answer": -56,
+          "tol": 0.001,
+          "explain": "$D = b^2 - 4ac = 4 - 4(3)(5) = 4 - 60 = -56$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which chain of implications is correct for a positive-definite binary form $f = ax^2+bxy+cy^2$?",
+          "choices": [
+            "primitive $\\Rightarrow$ $\\gcd(a,b,c)=1$ $\\Rightarrow$ $f$ represents a value coprime to any given integer $N$",
+            "positive-definite $\\Rightarrow$ primitive $\\Rightarrow$ $a > 0$",
+            "$a > 0$ $\\Rightarrow$ $D < 0$ $\\Rightarrow$ $f$ is primitive"
+          ],
+          "answer": 0,
+          "explain": "A primitive form has $\\gcd(a,b,c)=1$, and by a lemma of Gauss any primitive form represents integers in every residue class coprime to any fixed $N$. The other chains break: positive-definite does not imply primitive (e.g. $2x^2+2y^2$), and $a>0, D<0$ alone says nothing about $\\gcd$."
+        }
+      ]
+    },
+    "reduction-theory": {
+      "title": "Reduction theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A positive-definite form $ax^2+bxy+cy^2$ is <em>reduced</em> in the sense of Gauss when:",
+          "choices": [
+            "$|b| \\le a \\le c$, with $b \\ge 0$ if $|b|=a$ or $a=c$",
+            "$a \\le b \\le c$ and all coefficients are positive",
+            "$a < c$ and $b = 0$"
+          ],
+          "answer": 0,
+          "explain": "Gauss's reduction inequalities are $|b|\\le a\\le c$ with the tie-breaking sign conventions."
+        },
+        {
+          "type": "mcq",
+          "q": "Every equivalence class of primitive positive-definite forms of discriminant $D$:",
+          "choices": [
+            "contains infinitely many reduced forms",
+            "contains exactly one reduced form",
+            "may contain zero or one reduced forms"
+          ],
+          "answer": 1,
+          "explain": "A key theorem: each class contains precisely one reduced representative, making the class number well-defined."
+        },
+        {
+          "type": "numeric",
+          "q": "How many reduced primitive positive-definite forms have discriminant $D=-4$? (i.e. what is $h(-4)$?)",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "The only reduced form with $D=-4$ is $x^2+y^2$, so $h(-4)=1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "What is the correct order of steps in Gauss's algorithm that reduces a positive-definite form $ax^2+bxy+cy^2$ to its reduced representative?",
+          "choices": [
+            "Replace $b$ by $b \\bmod 2a$ to achieve $|b|\\le a$; if $a > c$ swap $(a,c)$ and negate $b$; repeat until stable; apply tie-breaking sign rule",
+            "First swap $a$ and $c$, then reduce $b$ modulo $a$, then check $|b|\\le a$",
+            "Subtract multiples of $b$ from $a$ until $a < c$, with no further steps needed"
+          ],
+          "answer": 0,
+          "explain": "The reduction loop: (1) replace $b$ by the representative of $b$ in $(-a,a]$ via the substitution $y\\mapsto y - \\lfloor(b+a)/(2a)\\rfloor x$; (2) if $a>c$ swap via $x\\mapsto -y, y\\mapsto x$ and flip sign of $b$; iterate to fixed point; finally enforce $b\\ge 0$ when $|b|=a$ or $a=c$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many reduced primitive positive-definite forms of discriminant $D=-23$ are there? (Enter $h(-23)$.)",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "The three reduced forms are $x^2+xy+6y^2$, $2x^2+xy+3y^2$, and $2x^2-xy+3y^2$, all satisfying $|b|\\le a\\le c$ with $D=b^2-4ac=-23$. So $h(-23)=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about reduced forms is a correct counterexample to the claim 'any form with $a \\le c$ is reduced'?",
+          "choices": [
+            "$x^2 - 3xy + 3y^2$ has $a=1\\le c=3$ but $|b|=3 > a=1$, so it is not reduced",
+            "$x^2+2xy+2y^2$ has $a=1\\le c=2$ and $|b|=2>a=1$, so it is not reduced",
+            "No counterexample exists; $a\\le c$ is both necessary and sufficient for reduction"
+          ],
+          "answer": 1,
+          "explain": "$x^2+2xy+2y^2$: here $a=1, b=2, c=2$. We have $a\\le c$ but $|b|=2 > a=1$, violating the first reduction inequality $|b|\\le a$. It is not reduced despite $a\\le c$. (The form $x^2-3xy+3y^2$ also fails, but its $|b|=3=c=3$ ties require further case analysis.)"
+        }
+      ]
+    },
+    "form-class-group": {
+      "title": "Form class group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Under Dirichlet composition, the set of primitive form classes of fixed discriminant $D$ forms a:",
+          "choices": [
+            "finite abelian group",
+            "infinite cyclic group",
+            "ring but not a group"
+          ],
+          "answer": 0,
+          "explain": "Gauss–Dirichlet composition turns the set of primitive classes into a finite abelian group, the form class group of discriminant $D$."
+        },
+        {
+          "type": "mcq",
+          "q": "The identity element of the form class group for discriminant $D<0$ odd is represented by:",
+          "choices": [
+            "the principal form $x^2 - (D/4)y^2$ when $4\\mid D$, or $x^2+xy+\\frac{1-D}{4}y^2$ when $D\\equiv 1\\pmod 4$",
+            "any form with $a=1$",
+            "the zero form $0\\cdot x^2+0\\cdot xy+0\\cdot y^2$"
+          ],
+          "answer": 0,
+          "explain": "The principal form (the one representing $1$) is the identity; its exact form depends on the parity of $D$."
+        },
+        {
+          "type": "numeric",
+          "q": "The class number $h(-23)$ equals 3. How many elements does the form class group of discriminant $-23$ have?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "The form class group has order equal to the class number, so $h(-23)=3$ means a group of order 3."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $[f]$ be the class of $f=2x^2+xy+3y^2$ in $\\mathrm{Cl}(-23)$, a group of order 3. What is $[f]^{-1}$?",
+          "choices": [
+            "$[2x^2-xy+3y^2]$, the class of the form obtained by negating $b$",
+            "$[f]$ itself, since every element of order 3 is its own inverse",
+            "$[x^2+xy+6y^2]$, the principal class"
+          ],
+          "answer": 0,
+          "explain": "The inverse of a form class $[ax^2+bxy+cy^2]$ is $[ax^2-bxy+cy^2]$ (negate $b$, i.e. the transpose/opposite form). For $f=2x^2+xy+3y^2$, the inverse class is $[2x^2-xy+3y^2]$. In a group of order 3 the inverse of a non-identity element $g$ is $g^2$, consistent with this: $[f]^2=[2x^2-xy+3y^2]$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement correctly describes a necessary step in proving that Dirichlet composition is well-defined on classes (not just forms)?",
+          "choices": [
+            "One must show that if $f_1 \\sim f_1'$ and $f_2 \\sim f_2'$ under $\\mathrm{SL}_2(\\mathbb{Z})$-equivalence, then $f_1\\circ f_2 \\sim f_1'\\circ f_2'$",
+            "One must verify that the composed form has the same leading coefficient as each factor",
+            "One must check that the composed form is always reduced in the sense of Gauss"
+          ],
+          "answer": 0,
+          "explain": "Well-definedness of a group operation on equivalence classes requires that the operation is compatible with the equivalence relation: replacing either input by an equivalent form must yield an equivalent output. The other properties are not required for well-definedness."
+        },
+        {
+          "type": "numeric",
+          "q": "For discriminant $D=-20$, the class group $\\mathrm{Cl}(-20)$ is isomorphic to $\\mathbb{Z}/2\\mathbb{Z}$. What is $h(-20)$?",
+          "answer": 2,
+          "tol": 0.001,
+          "explain": "$|\\mathbb{Z}/2\\mathbb{Z}|=2$, so $h(-20)=2$. The two reduced forms are $x^2+5y^2$ (principal) and $2x^2+2xy+3y^2$."
+        }
+      ]
+    },
+    "genus-theory": {
+      "title": "Genus theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The number of genera of primitive forms of discriminant $D$ (with $t$ distinct prime divisors of $D$ counted appropriately) is:",
+          "choices": [
+            "$2^{t-1}$",
+            "$2^t$",
+            "$t$"
+          ],
+          "answer": 0,
+          "explain": "Gauss proved the number of genera is exactly $2^{t-1}$ where $t$ counts the number of prime discriminant divisors of $D$."
+        },
+        {
+          "type": "mcq",
+          "q": "A genus character $\\chi_p$ for an odd prime $p\\mid D$ assigns to a form $f$ representing $m$ with $\\gcd(m,D)=1$ the value:",
+          "choices": [
+            "$\\left(\\frac{m}{p}\\right)$, the Legendre symbol",
+            "$m \\bmod p$",
+            "$(-1)^{(m-1)/2}$"
+          ],
+          "answer": 0,
+          "explain": "Each genus character is a Legendre symbol evaluated at integers represented by the form, linking genus theory to quadratic residue symbols."
+        },
+        {
+          "type": "mcq",
+          "q": "The <em>principal genus</em> is:",
+          "choices": [
+            "the genus containing the principal form, equal to the subgroup of squares in the class group",
+            "the genus of largest cardinality",
+            "the unique genus of forms representing 1"
+          ],
+          "answer": 0,
+          "explain": "The principal genus is the kernel of all genus characters; it equals the subgroup $\\mathrm{Cl}(D)^2$ of squares."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The discriminant $D=-20$ has prime discriminant divisors $\\{-4, 5\\}$ so $t=2$. How many genera does $\\mathrm{Cl}(-20)$ have?",
+          "answer": 2,
+          "tol": 0.001,
+          "explain": "Number of genera $= 2^{t-1} = 2^{2-1} = 2$. Since $h(-20)=2$ and there are 2 genera, each genus contains exactly 1 class."
+        },
+        {
+          "type": "mcq",
+          "q": "Which chain correctly derives the genus character value of the form $f = x^2+5y^2$ at the character $\\chi_5 = \\left(\\frac{\\cdot}{5}\\right)$?",
+          "choices": [
+            "$f$ represents $1$ (take $x=1,y=0$); $\\gcd(1,20)=1$; $\\left(\\frac{1}{5}\\right)=+1$; so $\\chi_5(f)=+1$",
+            "$f$ represents $5$ (take $x=0,y=1$); $\\left(\\frac{5}{5}\\right)=0$; so the character is $0$",
+            "$f$ represents $6$ (take $x=1,y=1$); $\\left(\\frac{6}{5}\\right)=\\left(\\frac{1}{5}\\right)=+1$; both give $+1$ consistently"
+          ],
+          "answer": 0,
+          "explain": "To evaluate $\\chi_5$ we need an $m$ represented by $f$ with $\\gcd(m,D)=\\gcd(m,-20)=1$. Taking $x=1,y=0$ gives $m=1$, which has $\\gcd(1,20)=1$; then $\\left(\\frac{1}{5}\\right)=1$. The second option uses $m=5$ which has $\\gcd(5,20)=5\\ne1$ and is inadmissible."
+        },
+        {
+          "type": "mcq",
+          "q": "Gauss proved that every genus contains the same number of classes, and that each genus in the principal genus $\\mathrm{Cl}(D)^2$ is a coset of the principal genus. Which statement is a correct consequence?",
+          "choices": [
+            "The number of genera divides $h(D)$, and the principal genus has index $2^{t-1}$ in $\\mathrm{Cl}(D)$",
+            "Every element of $\\mathrm{Cl}(D)$ is a square, so $\\mathrm{Cl}(D)=\\mathrm{Cl}(D)^2$",
+            "All genera are equal to the principal genus whenever $h(D)$ is odd"
+          ],
+          "answer": 0,
+          "explain": "Since the genera are cosets of the subgroup $\\mathrm{Cl}(D)^2$ of squares, the number of genera equals $[\\mathrm{Cl}(D):\\mathrm{Cl}(D)^2]=2^{t-1}$, which must divide $h(D)$. When $h(D)$ is odd, $\\mathrm{Cl}(D)^2=\\mathrm{Cl}(D)$ (every element is a square), so there is only 1 genus — but that requires $2^{t-1}=1$, i.e. $t=1$, not a general collapse."
+        }
+      ]
+    },
+    "ideals-vs-forms": {
+      "title": "Forms and ideal classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a negative discriminant $D$, the form class group $\\mathrm{Cl}^+(D)$ is isomorphic to:",
+          "choices": [
+            "the ideal class group of $\\mathbb{Q}(\\sqrt{D})$",
+            "the unit group of $\\mathbb{Z}[\\sqrt{D}]$",
+            "the Galois group of $\\mathbb{Q}(\\sqrt{D})/\\mathbb{Q}$"
+          ],
+          "answer": 0,
+          "explain": "The classical correspondence sends a primitive form $ax^2+bxy+cy^2$ to the ideal $[a, (-b+\\sqrt{D})/2]$ in the ring of integers, yielding a group isomorphism."
+        },
+        {
+          "type": "mcq",
+          "q": "Under the forms-to-ideals bijection, the principal genus corresponds to:",
+          "choices": [
+            "principal ideals (the trivial class in the ideal class group)",
+            "prime ideals of norm dividing $D$",
+            "ideals of the form $(a)$ with $a$ totally positive"
+          ],
+          "answer": 0,
+          "explain": "The principal form class maps to the trivial ideal class, and the principal genus maps to the subgroup of squares, matching the structure on both sides."
+        },
+        {
+          "type": "mcq",
+          "q": "A prime $p$ (not dividing $D$) is represented by a principal form of discriminant $D<0$ if and only if:",
+          "choices": [
+            "$p$ splits completely in the Hilbert class field of $\\mathbb{Q}(\\sqrt{D})$",
+            "$p$ is inert in $\\mathbb{Q}(\\sqrt{D})$",
+            "$p \\equiv 1 \\pmod{|D|}$"
+          ],
+          "answer": 0,
+          "explain": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of class field theory."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Under the bijection, the form $f=2x^2+xy+3y^2$ of discriminant $-23$ maps to the ideal $\\mathfrak{a}=[2,\\frac{-1+\\sqrt{-23}}{2}]$ in $\\mathcal{O}_K$. What is the norm $N(\\mathfrak{a})$?",
+          "choices": [
+            "$N(\\mathfrak{a}) = 2$, the leading coefficient of the form",
+            "$N(\\mathfrak{a}) = 6$, the product $ac$",
+            "$N(\\mathfrak{a}) = 23$, the absolute value of the discriminant"
+          ],
+          "answer": 0,
+          "explain": "The norm of the ideal $[a, \\frac{-b+\\sqrt{D}}{2}]$ corresponding to $ax^2+bxy+cy^2$ equals $a$, the leading coefficient. This is because $[\\mathcal{O}_K:\\mathfrak{a}]=a$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which chain of equivalences correctly identifies when the prime $p=3$ is represented by $x^2+xy+6y^2$ (principal form, $D=-23$)?",
+          "choices": [
+            "$3$ is represented by the principal form $\\Leftrightarrow$ $(3)=\\mathfrak{p}\\bar{\\mathfrak{p}}$ splits in $\\mathbb{Q}(\\sqrt{-23})$ and $\\mathfrak{p}$ is principal $\\Leftrightarrow$ $3$ splits completely in the Hilbert class field of $\\mathbb{Q}(\\sqrt{-23})$",
+            "$3$ is represented by the principal form $\\Leftrightarrow$ $3\\mid D=-23$, which it does not, so $3$ is not represented",
+            "$3$ is represented by the principal form $\\Leftrightarrow$ $\\left(\\frac{-23}{3}\\right)=+1$, which alone suffices"
+          ],
+          "answer": 0,
+          "explain": "The full chain: $p$ represented by principal form $\\Leftrightarrow$ prime ideal above $p$ is principal $\\Leftrightarrow$ $p$ splits completely in the Hilbert class field $H/\\mathbb{Q}(\\sqrt{-23})$. The Legendre symbol condition $\\left(\\frac{D}{p}\\right)=+1$ only tells us $p$ splits in $\\mathbb{Q}(\\sqrt{-23})$, not that the split ideal is principal — that requires the Hilbert class field condition."
+        },
+        {
+          "type": "mcq",
+          "q": "The isomorphism $\\phi: \\mathrm{Cl}(D) \\xrightarrow{\\sim} \\mathrm{Cl}(\\mathcal{O}_K)$ sends composition of forms to multiplication of ideals. Which step is critical for showing $\\phi$ is a group homomorphism?",
+          "choices": [
+            "Verifying that the ideal $\\mathfrak{a}_f \\cdot \\mathfrak{a}_g$ corresponding to the Dirichlet composition $f\\circ g$ equals the product ideal, using the explicit Dirichlet construction with the Bhargava–style matrix",
+            "Checking that all ideals are principal in $\\mathcal{O}_K$",
+            "Proving that $K = \\mathbb{Q}(\\sqrt{D})$ has class number 1"
+          ],
+          "answer": 0,
+          "explain": "The key step is confirming that Dirichlet composition of forms corresponds precisely to ideal multiplication: if $f\\to\\mathfrak{a}$ and $g\\to\\mathfrak{b}$, then $f\\circ g\\to\\mathfrak{a}\\mathfrak{b}$. This requires tracing the explicit construction (finding $B$ with $B^2\\equiv D\\pmod{4a_1a_2}$ and writing the composed form). If $h(D)=1$ all ideals are principal, which would trivialize the class group, not help prove the homomorphism property."
+        }
+      ]
+    }
+  }
+}

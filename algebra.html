@@ -99,6 +99,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -143,6 +157,20 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <p><span class="pill">field</span> a ring where multiplication is also a group on nonzero elements. Models <em>numbers</em> — places you can solve linear equations. $\mathbb{Q},\mathbb{R},\mathbb{C}$, and, crucially, the finite fields $\mathbb{F}_{p^n}$.</p>
 <p>Everything below is a tour through examples where you can actually <em>poke</em> the axioms.</p>
 <div class="quiz" data-concept="algebraic-structures"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#cayley">Abstract algebra</a> · Cayley tables and subgroups</div>
+    <div><a href="./commutative-algebra.html#ideals">Commutative algebra</a> · Ideals and quotient rings</div>
+    <div><a href="./galois.html#galois">Galois theory</a> · Field extensions and automorphisms</div>
+    <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
+    <div><a href="./lie-groups.html#intro">Lie groups</a> · Lie groups and matrix examples</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="cayley">
@@ -175,6 +203,17 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\trianglelefteq G$ you can form the quotient $G/H$.</p>
 </div>
 <div class="quiz" data-concept="cayley-tables"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#finite">Abstract algebra</a> · Quotients and finite fields</div>
+    <div><a href="./representation-theory.html#def">Representation theory</a> · Group representations</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -552,7 +591,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     // vertices
     for(let j=0;j<n;j++){
       const [x,y] = pts[j];
-      const col = j===0?'#ffd866':(j===1?'#83c167':'#58c4dd');
+      const col = j===0?'#ffd866':(j===1?'var(--green)':'#58c4dd');
       svg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:col,stroke:'#fff','stroke-width':1.5}));
       const t = SVG('text',{x,y:y+0.5,'font-size':12,'text-anchor':'middle','dominant-baseline':'central',fill:'#111','font-weight':700});
       t.textContent = j+1;
@@ -683,7 +722,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       const g = gcd(k,n);
       const isUnit = (k!==0 && g===1);
       const isZD = (k!==0 && g!==1);
-      const color = k===0? '#9aa4b2' : (isUnit? '#83c167' : '#e07a5f');
+      const color = k===0? '#9aa4b2' : (isUnit? 'var(--green)' : '#e07a5f');
       const dot = SVG('circle',{cx:x,cy:y,r:10,fill:color,stroke:'#fff','stroke-width':1});
       svg.appendChild(dot);
       const t = SVG('text',{x,y:y+4,'font-size':12,'text-anchor':'middle',fill:'#111','font-weight':700});
@@ -703,7 +742,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       d.innerHTML = `<marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="${color}"/></marker>`;
       svg.appendChild(d);
     }
-    addMarker('#58c4dd','arrowA'); addMarker('#83c167','arrowB'); addMarker('#ffd866','arrowSum'); addMarker('#e07a5f','arrowProd');
+    addMarker('#58c4dd','arrowA'); addMarker('var(--green)','arrowB'); addMarker('#ffd866','arrowSum'); addMarker('#e07a5f','arrowProd');
 
     // show chord from 0 to a (blue)
     function posOf(k){ const θ=2*Math.PI*k/n-Math.PI/2; return {x:cx+rad*Math.cos(θ),y:cy+rad*Math.sin(θ)}; }
@@ -721,10 +760,10 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     const lh = 26;
     const pairs = [
       ['a', `${a}`, '#58c4dd'],
-      ['b', `${b}`, '#83c167'],
+      ['b', `${b}`, 'var(--green)'],
       ['a + b mod n', `${mod(a+b,n)}`, '#ffd866'],
       ['a · b mod n', `${mod(a*b,n)}`, '#e07a5f'],
-      ['gcd(a,n)', `${gcd(a,n)}  ⇒  a is ${a===0?'zero':gcd(a,n)===1?'a unit':'a zero divisor'}`, gcd(a,n)===1&&a!==0?'#83c167':(a===0?'#9aa4b2':'#e07a5f')],
+      ['gcd(a,n)', `${gcd(a,n)}  ⇒  a is ${a===0?'zero':gcd(a,n)===1?'a unit':'a zero divisor'}`, gcd(a,n)===1&&a!==0?'var(--green)':(a===0?'#9aa4b2':'#e07a5f')],
     ];
     let y = boxY;
     for(const [k,v,c] of pairs){
@@ -739,7 +778,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       let inv=-1;
       for(let i=1;i<n;i++) if(mod(a*i,n)===1){inv=i;break}
       const t1 = SVG('text',{x:boxX,y,'font-size':14,fill:'#9aa4b2'}); t1.textContent='a⁻¹ mod n';
-      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:'#83c167','font-weight':600}); t2.textContent=inv;
+      const t2 = SVG('text',{x:boxX+150,y,'font-size':15,fill:'var(--green)','font-weight':600}); t2.textContent=inv;
       svg.appendChild(t1); svg.appendChild(t2); y+=lh;
     }
     if(a!==0 && gcd(a,n)>1){
@@ -1004,6 +1043,19 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 
 <p class="small">Frobenius orbits partition $\mathbb{F}_{p^n}$ into Galois-conjugate classes; each orbit of size $d\mid n$ is the roots of some irreducible $m_d\in\mathbb{F}_p[x]$ of degree $d$. Summing orbit sizes gives the classical identity $p^n = \sum_{d\mid n} d\cdot N_d$ where $N_d$ is the number of monic irreducibles of degree $d$ in $\mathbb{F}_p[x]$.</p>
 <div class="quiz" data-concept="quotients-homomorphisms"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#ideals">Abstract algebra</a> · Ideals and quotient rings</div>
+    <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
+    <div><a href="./galois.html#normal-separable">Galois theory</a> · Normal and separable extensions</div>
+    <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1173,7 +1225,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     }
 
     // Frobenius orbit coloring
-    const orbitColor = ['#ffd866','#e07a5f','#b39ddb','#83c167','#7de0d6','#f78fb3','#6495ed'];
+    const orbitColor = ['#ffd866','#e07a5f','#b39ddb','var(--green)','#7de0d6','#f78fb3','#6495ed'];
     const orbit = new Array(q).fill(-1);
     let oc = 0;
     for(let k=0;k<q;k++){
@@ -1296,6 +1348,16 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <p>Two sub-species matter most. A <strong>prime ideal</strong> $\mathfrak{p}$ satisfies $ab\in\mathfrak{p}\Rightarrow a\in\mathfrak{p}$ or $b\in\mathfrak{p}$, equivalently $R/\mathfrak{p}$ is an integral domain. A <strong>maximal ideal</strong> $\mathfrak{m}$ is a proper ideal with no proper ideal strictly containing it, equivalently $R/\mathfrak{m}$ is a field. Concretely in $\mathbb{Z}$ the prime ideals are $(0)$ and $(p)$ for $p$ prime, and the maximal ideals are exactly $(p)$; this is why $\mathbb{Z}/(p)=\mathbb{F}_p$ is a field while $\mathbb{Z}/(6)$ is not even a domain (since $2\cdot 3\equiv 0$).</p>
 <p>The Third Isomorphism Theorem for rings, $R/I \big/ (J/I)\cong R/J$ whenever $I\subseteq J$, shows that passing to a quotient just collapses ideals above $I$ onto the corresponding ideals of $R/I$. This is the algebraic counterpart of restricting to a closed subscheme in algebraic geometry.</p>
 <div class="quiz" data-concept="ring-ideals"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#extensions">Abstract algebra</a> · Field extensions and minimal polynomials</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="extensions">
@@ -1304,6 +1366,17 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <p>Adjoining $\alpha$ gives $F(\alpha)\cong F[x]/(m_\alpha)$ by the evaluation map $x\mapsto \alpha$ and the First Isomorphism Theorem: the kernel is exactly $(m_\alpha)$, so the image — a subring of $K$ — is isomorphic to the quotient, which is a field because $(m_\alpha)$ is maximal whenever $m_\alpha$ is irreducible. Its dimension over $F$ is $\deg m_\alpha$, so $[F(\alpha):F]=\deg m_\alpha$. The Tower Law $[L:F]=[L:K]\cdot[K:F]$ then multiplies degrees through a chain $F\subseteq K\subseteq L$, e.g. $[\mathbb{Q}(\sqrt{2},\sqrt{3}):\mathbb{Q}]=2\cdot 2=4$.</p>
 <p>A polynomial $f\in F[x]$ of degree $n$ <em>splits</em> in an extension $K/F$ if $f=c\prod_{i=1}^n(x-\alpha_i)$ with each $\alpha_i\in K$; the smallest such $K$ is the <strong>splitting field</strong> of $f$, always algebraic and of finite degree $\le n!$. Splitting fields are the springboard for Galois theory, where automorphisms of $K$ fixing $F$ permute the roots of $f$.</p>
 <div class="quiz" data-concept="field-extensions-basics"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
+    <div><a href="./projective-plane.html#cross-ratio">Projective plane</a> · The cross-ratio</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <div id="sections-end"></div>
@@ -1371,6 +1444,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>Audit roadmap state and add algebra quiz/mastery wiring</td></tr>
       <tr><td>2026-04-19</td><td>rename &quot;Algebra refresher&quot; to &quot;Abstract algebra&quot;</td></tr>

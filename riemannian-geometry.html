@@ -110,7 +110,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -134,6 +134,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -286,6 +300,17 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
     <li><a href="./smooth-manifolds.html#intro">Smooth manifolds and atlases</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./riemannian-geometry.html#geodesics">Riemannian geometry</a> · Levi-Civita connection and geodesics</div>
+    <div><a href="./riemannian-geometry.html#volume">Riemannian geometry</a> · Riemannian volume form and divergence</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="riemannian-metrics"></div>
 </section>
@@ -746,6 +771,16 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
 </div>
 
 <div class="quiz" data-concept="levi-civita-connection"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./riemannian-geometry.html#comparison">Riemannian geometry</a> · Curvature tensor and comparison</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1746,6 +1781,16 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
 </div>
 
 <div class="quiz" data-concept="riemann-curvature-tensor"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./riemannian-geometry.html#ricci">Riemannian geometry</a> · Ricci curvature and Einstein manifolds</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1941,6 +1986,7 @@ On Euclidean space ($g_{ij}=\delta_{ij}$) it collapses to the usual Laplacian $\
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

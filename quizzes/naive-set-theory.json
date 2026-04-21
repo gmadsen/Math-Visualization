@@ -30,6 +30,39 @@
           "tol": 0,
           "explain": "Each of the $6$ elements is independently in or out of a subset, so $|\\mathcal{P}(A)| = 2^6 = 64$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $f\\colon A \\to B$ and $g\\colon B \\to C$. Which is the correct chain of implications among injectivity and surjectivity of compositions?",
+          "choices": [
+            "$g\\circ f$ injective $\\Rightarrow$ $f$ injective; $g\\circ f$ surjective $\\Rightarrow$ $g$ surjective",
+            "$g\\circ f$ injective $\\Rightarrow$ $g$ injective; $g\\circ f$ surjective $\\Rightarrow$ $f$ surjective",
+            "$g\\circ f$ injective $\\Rightarrow$ both $f$ and $g$ injective",
+            "$g\\circ f$ surjective $\\Rightarrow$ both $f$ and $g$ surjective"
+          ],
+          "answer": 0,
+          "explain": "If $g\\circ f$ is injective and $f(a)=f(a')$, then $g(f(a))=g(f(a'))$, so $a=a'$; thus $f$ is injective. Conversely $g$ need not be (e.g. $g$ can collapse elements outside $\\operatorname{im} f$). If $g\\circ f$ is surjective then every $c\\in C$ is hit, so $g$ is surjective; $f$ need not be."
+        },
+        {
+          "type": "numeric",
+          "q": "Sets $A$, $B$, $C$ satisfy $|A|=10$, $|B|=8$, $|C|=6$, $|A\\cap B|=3$, $|A\\cap C|=2$, $|B\\cap C|=4$, $|A\\cap B\\cap C|=1$. Compute $|A\\cup B\\cup C|$.",
+          "answer": 16,
+          "tol": 0,
+          "explain": "Three-set inclusion–exclusion: $|A\\cup B\\cup C|=10+8+6-3-2-4+1=16$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that $f^{-1}(f(S)) = S$ can fail?",
+          "choices": [
+            "Take $f\\colon\\{1,2\\}\\to\\{a\\}$, $f(1)=f(2)=a$, $S=\\{1\\}$. Then $f(S)=\\{a\\}$ and $f^{-1}(\\{a\\})=\\{1,2\\}\\ne S$.",
+            "Take $f=\\mathrm{id}$ and $S=\\emptyset$; then $f^{-1}(f(\\emptyset))=\\emptyset\\ne S$.",
+            "Take $f$ surjective and $S=A$; then $f^{-1}(f(A))\\supsetneq A$.",
+            "The equality always holds for injective $f$ and can never fail."
+          ],
+          "answer": 0,
+          "explain": "$f^{-1}(f(S))\\supseteq S$ always, with equality iff $f$ is injective on the relevant domain. A non-injective $f$ can collapse elements outside $S$ into $f(S)$, enlarging the preimage. The example above is the minimal witness."
+        }
       ]
     },
 
@@ -61,6 +94,34 @@
           "answer": 64,
           "tol": 0,
           "explain": "$|A\\times B| = 3\\cdot 2 = 6$, so $|\\mathcal{P}(A\\times B)| = 2^6 = 64$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $|\\mathcal{P}(\\mathcal{P}(\\{a,b\\}))|$, i.e. the size of the power set of the power set of a $2$-element set.",
+          "answer": 16,
+          "tol": 0,
+          "explain": "$|\\{a,b\\}|=2$, so $|\\mathcal{P}(\\{a,b\\})|=4$, and $|\\mathcal{P}(\\mathcal{P}(\\{a,b\\}))|=2^4=16$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following correctly describes the relationship between $A\\times B$ and $B\\times A$?",
+          "choices": [
+            "They are always equal as sets.",
+            "They are always in bijection but equal only when $A=B$ or one of them is empty.",
+            "They are in bijection via $(a,b)\\mapsto(b,a)$, but as sets $A\\times B\\ne B\\times A$ in general (even when $|A|=|B|>0$ and $A\\ne B$).",
+            "They are equal whenever $|A|=|B|$."
+          ],
+          "answer": 2,
+          "explain": "The swap map $(a,b)\\mapsto(b,a)$ is a bijection $A\\times B\\to B\\times A$, so they have the same cardinality. However, as sets of ordered pairs they differ: $(a,b)\\in A\\times B$ has first coordinate in $A$, while $(b,a)\\in B\\times A$ has first coordinate in $B$. If $A\\cap B=\\emptyset$ and both are non-empty, no element of $A\\times B$ belongs to $B\\times A$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many injective functions are there from a $3$-element set to a $5$-element set?",
+          "answer": 60,
+          "tol": 0,
+          "explain": "The first element has $5$ choices, the second $4$, the third $3$: $5\\cdot 4\\cdot 3=60$."
         }
       ]
     },
@@ -99,6 +160,39 @@
           "answer": 1,
           "explain": "The universal property: $f\\colon X \\to Y$ descends to a (unique) $\\bar f\\colon X/{\\sim} \\to Y$ with $\\bar f \\circ \\pi = f$ exactly when $f$ respects the equivalence — i.e. $x \\sim x' \\Rightarrow f(x) = f(x')$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A relation $R$ on a set $A$ is reflexive and transitive but fails symmetry. Which of the following is a correct counterexample?",
+          "choices": [
+            "Divisibility $\\mid$ on $\\mathbb{N}_{>0}$: $2\\mid 4$ but $4\\nmid 2$, and $\\mid$ is reflexive and transitive.",
+            "Equality $=$ on $\\mathbb{Z}$: it is reflexive, transitive, and symmetric, so it is an equivalence relation.",
+            "The empty relation on a non-empty set: it is symmetric and transitive but not reflexive.",
+            "The relation $a\\sim b\\iff a^2\\le b^2$ on $\\mathbb{Z}$: it fails transitivity."
+          ],
+          "answer": 0,
+          "explain": "Divisibility on $\\mathbb{N}_{>0}$ is a partial order (reflexive, antisymmetric, transitive) but not symmetric: $2\\mid 4$ yet $4\\nmid 2$. It therefore shows that reflexivity + transitivity do not force symmetry."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in proving that the kernel equivalence $x\\sim_f y\\iff f(x)=f(y)$ yields the canonical factorisation $f = \\bar f\\circ\\pi$?",
+          "choices": [
+            "Define $\\bar f([x])=f(x)$ → check well-definedness (same class gives same value) → verify $\\bar f\\circ\\pi = f$ → show $\\bar f$ is injective on $X/\\sim_f$",
+            "Show $\\bar f$ is surjective → define $\\bar f$ → check transitivity of $\\sim_f$",
+            "Prove $\\pi$ is bijective → factor $f$ through $\\pi^{-1}$",
+            "Check $f$ is surjective → define quotient → apply universal property"
+          ],
+          "answer": 0,
+          "explain": "Standard proof: first define $\\bar f([x])=f(x)$, then verify well-definedness ($x\\sim_f y\\Rightarrow f(x)=f(y)$), then observe $\\bar f(\\pi(x))=\\bar f([x])=f(x)$. Injectivity of $\\bar f$ follows because $\\bar f([x])=\\bar f([y])$ implies $f(x)=f(y)$ implies $[x]=[y]$."
+        },
+        {
+          "type": "numeric",
+          "q": "The relation $\\sim$ on $\\{1,2,3,4,5,6\\}$ is defined by $a\\sim b\\iff 3\\mid a-b$. How many equivalence classes are there, and what is the size of the class $[2]$?  Enter the size of $[2]$.",
+          "answer": 2,
+          "tol": 0,
+          "explain": "There are $3$ classes: $[0]=\\{3,6\\}$, $[1]=\\{1,4\\}$, $[2]=\\{2,5\\}$. The class $[2]=\\{2,5\\}$ has size $2$."
+        }
       ]
     },
 
@@ -130,6 +224,39 @@
           "answer": 8,
           "tol": 0,
           "explain": "$\\langle 2, 1 \\rangle = \\tfrac{(2+1)(2+1+1)}{2} + 2 = \\tfrac{3 \\cdot 4}{2} + 2 = 6 + 2 = 8$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Cantor's theorem states $|A| < |\\mathcal{P}(A)|$ for every set $A$. Which step in the diagonal proof is the critical one that produces a contradiction?",
+          "choices": [
+            "Assuming $f\\colon A\\to\\mathcal{P}(A)$ is injective and deriving a cardinality bound",
+            "Defining $D=\\{a\\in A\\mid a\\notin f(a)\\}$ and noting $D\\in\\mathcal{P}(A)$, then showing $D\\notin\\operatorname{im} f$",
+            "Showing $\\mathcal{P}(A)$ injects into $A$ via the power-set axiom",
+            "Applying the Schröder–Bernstein theorem to $A$ and $\\mathcal{P}(A)$"
+          ],
+          "answer": 1,
+          "explain": "Assume for contradiction $f\\colon A\\to\\mathcal{P}(A)$ is surjective. Form the diagonal set $D=\\{a\\in A\\mid a\\notin f(a)\\}$. Since $f$ is surjective, $D=f(d)$ for some $d$. Then $d\\in D\\iff d\\notin f(d)=D$, a contradiction. Hence no surjection $A\\to\\mathcal{P}(A)$ exists."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct proof-step ordering for showing $\\mathbb{Q}$ is countable via the zigzag enumeration?",
+          "choices": [
+            "Well-order $\\mathbb{Q}$ → extract a bijection with $\\mathbb{N}$ → conclude countability",
+            "Embed $\\mathbb{Q}$ into $\\mathbb{Z}\\times\\mathbb{N}_{>0}$ via $p/q\\mapsto(p,q)$ in lowest terms → note $\\mathbb{Z}\\times\\mathbb{N}_{>0}$ is countable as a product of two countable sets → conclude $\\mathbb{Q}$ is countable",
+            "Show $|\\mathbb{Q}|=|\\mathbb{R}|$ and then argue $\\mathbb{R}$ is countable",
+            "Apply Cantor's theorem to $\\mathbb{Z}$ to get $|\\mathbb{Q}|<|\\mathcal{P}(\\mathbb{Z})|=\\mathfrak{c}$"
+          ],
+          "answer": 1,
+          "explain": "Writing each rational in lowest terms gives an injection $\\mathbb{Q}\\hookrightarrow\\mathbb{Z}\\times\\mathbb{N}_{>0}$. A countable product of countable sets is countable (shown by the zigzag/Cantor pairing), so $\\mathbb{Z}\\times\\mathbb{N}_{>0}$ is countable, and any subset of a countable set is countable."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the Cantor zigzag pairing $\\langle i,j\\rangle=\\frac{(i+j)(i+j+1)}{2}+i$, compute $\\langle 3,0\\rangle$.",
+          "answer": 6,
+          "tol": 0,
+          "explain": "$\\langle 3,0\\rangle=\\frac{(3+0)(3+0+1)}{2}+3=\\frac{3\\cdot 4}{2}+3=6+0=6$."
         }
       ]
     },
@@ -172,6 +299,44 @@
           ],
           "answer": 3,
           "explain": "The first three all use full AC (or Zorn's lemma, which is equivalent). The countable-union-of-countable-sets statement only needs the weaker <em>countable choice</em>, and over ZF plus <em>countable</em> choice it is provable — but in ZF alone it is not. The question asks for the statement that is 'not known to require <em>AC</em>' (i.e. full choice)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct logical chain showing AC $\\Rightarrow$ Well-Ordering Theorem $\\Rightarrow$ Zorn's Lemma $\\Rightarrow$ AC (the classical equivalence circle)?",
+          "choices": [
+            "AC gives a choice function on all non-empty subsets of any set, which is used to build a well-ordering by transfinite recursion; a well-ordering on a poset yields a maximal chain and hence a maximal element; from Zorn one constructs a choice function by taking maximal elements of finite sub-families.",
+            "AC is strictly stronger than the Well-Ordering Theorem, and Zorn's Lemma is independent of both.",
+            "Zorn's Lemma implies AC directly without passing through the Well-Ordering Theorem.",
+            "The three statements are equivalent only for sets of size at most $\\aleph_1$."
+          ],
+          "answer": 0,
+          "explain": "All three are equivalent over ZF. AC → Well-Ordering: use the choice function to pick the least element at each transfinite stage. Well-Ordering → Zorn: in a well-ordered poset every chain has an upper bound (its supremum in the well-order), so a maximal element exists. Zorn → AC: apply Zorn to the poset of partial choice functions ordered by extension."
+        },
+        {
+          "type": "mcq",
+          "q": "In ZF without AC, which of the following <em>can</em> be proved?",
+          "choices": [
+            "Every infinite set has a countably infinite subset.",
+            "The reals $\\mathbb{R}$ can be well-ordered.",
+            "Cantor's theorem: $|A| < |\\mathcal{P}(A)|$ for every set $A$.",
+            "Every surjection has a right inverse (section)."
+          ],
+          "answer": 2,
+          "explain": "Cantor's diagonal theorem requires no choice whatsoever — the diagonal set $D=\\{a\\mid a\\notin f(a)\\}$ is defined explicitly. The existence of a countably infinite subset of every infinite set requires (at least) Dependent Choice; well-ordering $\\mathbb{R}$ needs full AC; and right inverses for surjections are equivalent to AC."
+        },
+        {
+          "type": "mcq",
+          "q": "Vitali's construction of a non-measurable subset of $[0,1]$ uses AC in which essential step?",
+          "choices": [
+            "Choosing one representative from each coset of $\\mathbb{Q}$ in $\\mathbb{R}/\\mathbb{Q}\\cap[0,1]$, which requires selecting from uncountably many non-empty sets with no definable rule.",
+            "Proving $[0,1]$ is uncountable via Cantor diagonalisation.",
+            "Applying the triangle inequality to the Lebesgue outer measure.",
+            "Showing that a countable union of measure-zero sets has measure zero."
+          ],
+          "answer": 0,
+          "explain": "The Vitali set $V$ is built by picking exactly one element from each equivalence class of $x\\sim y\\iff x-y\\in\\mathbb{Q}$ restricted to $[0,1]$. There are uncountably many classes and no canonical choice; AC is invoked to guarantee a simultaneous selection. Assuming $V$ is measurable then leads to a contradiction with countable additivity."
         }
       ]
     }

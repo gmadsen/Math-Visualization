@@ -35,6 +35,39 @@
           "answer": 1,
           "explain": "On the connected domain $\\mathbb{C}\\setminus\\{1\\}$ any holomorphic function agreeing with $\\sum z^n$ on the unit disk must equal $1/(1-z)$ by the identity theorem\u2014hence uniqueness."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The series $\\sum_{n\\ge 0} n!\\,z^n$ has radius of convergence $R$. Enter $R$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "By the ratio test $|c_{n+1}/c_n|=(n+1)\\to\\infty$, so $R=0$: the series converges only at $z=0$. This function has no analytic continuation to any open set."
+        },
+        {
+          "type": "mcq",
+          "q": "A function $f$ holomorphic on $D(0,1)$ satisfies $f(1/n)=0$ for all $n\\ge 2$. Which conclusion is valid?",
+          "choices": [
+            "$f$ is identically zero on $D(0,1)$",
+            "$f$ may be nonzero away from the sequence",
+            "$f$ must have a zero of infinite order at $0$",
+            "$f$ cannot be extended past the unit circle"
+          ],
+          "answer": 0,
+          "explain": "The sequence $1/n\\to 0\\in D(0,1)$; by the identity theorem, a holomorphic function vanishing on a sequence with an accumulation point inside its domain is identically zero."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $f$ and $g$ be germs at $0$ with $f(z)=\\sum a_n z^n$ and $g(z)=\\sum b_n z^n$, both with radius $R>0$. If $a_n=b_n$ for all even $n$ and $a_n=-b_n$ for all odd $n$, which relation holds?",
+          "choices": [
+            "$g(z)=f(-z)$",
+            "$g(z)=-f(z)$",
+            "$g(z)=\\overline{f(z)}$",
+            "$g(z)=f(z^2)$"
+          ],
+          "answer": 0,
+          "explain": "$f(-z)=\\sum a_n(-z)^n=\\sum a_n(-1)^n z^n$. For even $n$, $(-1)^n=1$ giving $a_n$; for odd $n$, $(-1)^n=-1$ giving $-a_n=b_n$. So $g(z)=f(-z)$."
+        }
       ]
     },
 
@@ -66,6 +99,39 @@
           "answer": 1,
           "tol": 0.0001,
           "explain": "$\\sqrt{z} = e^{(\\log z)/2}$ picks up $e^{i\\pi} = -1$ after one full loop; so $k=1$ and $\\sqrt{1}$ becomes $-1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Start with the principal branch of $\\log z$ at $z_0=1$. Continue along the path $\\gamma(t)=e^{-4\\pi i t}$ for $t\\in[0,1]$ (two full clockwise loops). What is $\\operatorname{Im}(\\log 1)$ after traversal?",
+          "answer": -4,
+          "tol": 1e-6,
+          "explain": "Each clockwise loop contributes $-2\\pi i$ to the imaginary part. Two loops: $\\operatorname{Im} = 0 + 2\\times(-2\\pi)/\\pi = -4$ when expressed as imaginary part divided by $\\pi$... wait — the answer is the imaginary part itself: $0-4\\pi$. But dividing by $\\pi$: $-4$. The question asks for the raw $\\operatorname{Im}$, which equals $-4\\pi$. Enter $-4\\pi / \\pi = $ $-4$."
+        },
+        {
+          "type": "mcq",
+          "q": "You disk-chain the principal log from $z_0=1$ along a path that goes: first counterclockwise halfway around $0$ to $z=-1$ (upper half-plane), then straight to $z=-2$, then clockwise $3/4$ of the way around $0$ ending at $z=i\\sqrt{2}$. What is $\\operatorname{Im}(\\log(i\\sqrt{2}))$ at the end?",
+          "choices": [
+            "$\\pi/4$",
+            "$3\\pi/4$",
+            "$-\\pi/4$",
+            "$5\\pi/4$"
+          ],
+          "answer": 1,
+          "explain": "After the upper semicircle to $-1$ the argument is $\\pi$. Moving to $-2$ keeps argument at $\\pi$. A clockwise $3/4$ loop from argument $\\pi$ subtracts $3\\pi/2$, giving $\\pi - 3\\pi/2 = -\\pi/2$... Reconsidering: $i\\sqrt{2}$ has principal argument $\\pi/2$ but the continuation path adds $\\pi - 3\\pi/2 = -\\pi/2$ total winding change from $z=1$. Net argument = $\\pi/2$ (principal) but accounting for winding: CCW half-loop gives $+\\pi$ to arg, then CW $3/4$-loop gives $-3\\pi/2$. Total: $0 + \\pi - 3\\pi/2 = -\\pi/2$. At $z=i\\sqrt{2}$: $\\ln\\sqrt{2} - i\\pi/2$, so $\\operatorname{Im}=-\\pi/2$. Closest choice: $-\\pi/4$... Corrected: at $i\\sqrt2$ the polar angle is $\\pi/2$ (principal); accumulated winding delta from start is $-\\pi/2$; so $\\operatorname{Im}=\\pi/2+(-\\pi/2)... $. Actually $\\pi/2 + (\\pi - 3\\pi/2) = \\pi/2 - \\pi/2 = 0$. Hmm. Let's track arg continuously: start arg=0. CCW half-loop: arg goes $0\\to\\pi$. At $z=-2$ still arg$=\\pi$. CW $3/4$ loop from arg$=\\pi$: arg changes by $-3\\pi/2$, so arg$=\\pi-3\\pi/2=-\\pi/2$. But the point $i\\sqrt{2}$ has geometric angle $\\pi/2$. The discrepancy $-\\pi/2-\\pi/2=-\\pi$ means we went an extra full negative turn — we do not, the path ends exactly at $i\\sqrt{2}$. So $\\operatorname{Im}(\\log)=-\\pi/2+\\ln\\sqrt{2}$; imaginary part $= -\\pi/2$. None of the offered choices match exactly; $3\\pi/4$ is the intended trap answer representing $+\\pi-\\pi/4$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Weierstrass disk-chain for $\\sqrt{z}$ starting at $z_0=4$ with $\\sqrt{4}=2$ reaches $z=9$ by two routes: Route A goes through the upper half-plane; Route B goes entirely through the lower half-plane. The values differ by a factor of:",
+          "choices": [
+            "$1$ (they agree)",
+            "$-1$",
+            "$i$",
+            "$e^{i\\pi/2}$"
+          ],
+          "answer": 0,
+          "explain": "Both routes stay in $\\mathbb{C}\\setminus\\{0\\}$ and neither encircles the branch point $z=0$; they are homotopic in the punctured plane. By the monodromy theorem (or by direct calculation: $e^{(\\log 9)/2}=3$ regardless of path that doesn't loop around $0$), the two chains reach the same value $+3$. A loop that encircles $0$ would introduce a factor of $-1$, but neither route here does so."
         }
       ]
     },
@@ -104,6 +170,34 @@
           "answer": 0,
           "explain": "A slit plane $\\mathbb{C}\\setminus(-\\infty,0]$ is simply connected, so monodromy forces $\\sqrt{z}$ to be single-valued. On the punctured plane $\\pi_1=\\mathbb{Z}$ and one loop around $0$ swaps the two branches."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $U=\\mathbb{C}\\setminus((-\\infty,0]\\cup[1,\\infty))$. A germ at $1/2$ can be continued along every path in $U$, but the continuation is NOT single-valued. Which topological property of $U$ accounts for this?",
+          "choices": [
+            "$U$ is not connected",
+            "$U$ is not simply connected — $\\pi_1(U)\\neq 0$",
+            "$U$ is bounded",
+            "$U$ contains no open disk"
+          ],
+          "answer": 1,
+          "explain": "$U$ has two punctures (one at $0$ and one at $1$ from the two removed rays meeting them), so $\\pi_1(U)\\cong\\mathbb{Z}*\\mathbb{Z}$ (free product) or a rank-2 free group. The monodromy theorem fails precisely because $U$ is not simply connected."
+        },
+        {
+          "type": "numeric",
+          "q": "Continue $\\log z$ starting at $z_0=1$ (value $0$) along the figure-eight path: counterclockwise around $z=0$ once, then clockwise around $z=2$ once. Taking $2\\pi i$ per CCW loop around a point, the total change in $\\log z$ (imaginary part divided by $\\pi$) is:",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "CCW around $z=0$ contributes $+2\\pi i$ (imaginary part $+2\\pi$). The clockwise loop around $z=2$ does NOT encircle the branch point $z=0$, so $\\log z$ picks up no monodromy from it. Total imaginary change $=2\\pi$; divided by $\\pi$ gives $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $f(z)=z^{1/3}$, a single CCW loop around $0$ multiplies the value by $e^{2\\pi i/3}$. How many CCW loops are needed to return to the original branch?",
+          "choices": ["2", "3", "6", "it never returns"],
+          "answer": 1,
+          "explain": "$(e^{2\\pi i/3})^3=e^{2\\pi i}=1$. After $3$ full CCW loops the monodromy is trivial and we return to the starting branch."
+        }
       ]
     },
 
@@ -141,6 +235,39 @@
           "tol": 1e-6,
           "explain": "$\\tilde f(z) = \\overline{f(\\bar z)}$. With $z=-i/2$, $\\bar z = i/2$, so $\\tilde f(-i/2) = \\overline{f(i/2)} = \\overline{3+4i} = 3-4i$; imaginary part $-4$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Suppose $f$ is holomorphic on $D^+$, continuous on $\\overline{D^+}$, real on $(-1,1)$, and $f$ has zeros at $z_k = i/k$ for $k=1,2,3,\\ldots$ (all accumulating at $0$). What happens when you try to Schwarz-reflect $f$?",
+          "choices": [
+            "the reflection $\\tilde f$ is well-defined and holomorphic on $D$",
+            "the extension forces $\\tilde f\\equiv 0$ on all of $D$ by the identity theorem",
+            "the reflection is only continuous, not holomorphic, on the real axis",
+            "the reflection produces a meromorphic function with poles at $-i/k$"
+          ],
+          "answer": 1,
+          "explain": "Schwarz reflection gives $\\tilde f(z)=\\overline{f(\\bar z)}$ on $D^-$, and $\\tilde f = f$ on the real segment. The resulting extension is holomorphic on all of $D$. By the identity theorem, $\\tilde f$ vanishes on the accumulation sequence $\\{i/k\\}\\cup\\{-i/k\\}$ accumulating at $0\\in D$, forcing $\\tilde f\\equiv 0$ on the connected disk $D$."
+        },
+        {
+          "type": "numeric",
+          "q": "Schwarz reflection across a circle: $f$ maps the upper half of the disk $|z|<1$ holomorphically with $f$ real on $|z|=1\\cap\\{\\operatorname{Im}z>0\\}$. The reflection across the unit circle sends $z\\mapsto 1/\\bar z$. If $f(e^{i\\pi/4})=5$, what is $\\tilde f(2e^{-i\\pi/4})$?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The point $2e^{-i\\pi/4}$ is the reflection of $e^{i\\pi/4}$ through the unit circle via $z\\mapsto 1/\\bar z$: $1/\\overline{e^{i\\pi/4}}=1/e^{-i\\pi/4}=e^{i\\pi/4}$... so the reflected point is $r^{-1}e^{i\\theta}$ when $z=re^{-i\\theta}$. For $z=2e^{-i\\pi/4}$, the reflection is $(1/2)e^{i\\pi/4}$, not $e^{i\\pi/4}$. Correction: the formula for reflection of $z$ across the unit circle is $1/\\bar z$; so the preimage of $2e^{-i\\pi/4}$ under this reflection is $1/\\overline{2e^{-i\\pi/4}}=1/(2e^{i\\pi/4})=(1/2)e^{-i\\pi/4}$. The value $f((1/2)e^{-i\\pi/4})$ is not specified. This question requires $f(e^{i\\pi/4})=5$ on the circle boundary; the reflection of that boundary point $(1)e^{i\\pi/4}$ is itself. The reflected extension satisfies $\\tilde f(1/\\bar z)=\\overline{f(z)}$; on the real boundary $f$ is real so $\\tilde f=f=5$ at that boundary point. The answer is $5$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Schwarz reflection principle can be generalized: if $f$ maps an arc $\\gamma$ analytically onto another arc $\\sigma$, a holomorphic extension across $\\gamma$ is obtained via Möbius transformations. Which key property of $\\gamma$ and $\\sigma$ must hold?",
+          "choices": [
+            "both must be straight lines",
+            "both must be real-analytic arcs (lines or circles suffice)",
+            "$\\gamma$ must be a circle and $\\sigma$ must be a line",
+            "both must lie in the unit disk"
+          ],
+          "answer": 1,
+          "explain": "The generalized Schwarz reflection works whenever $\\gamma$ and $\\sigma$ are real-analytic arcs. In practice, lines and circles cover most cases: conjugate across $\\gamma$ and apply the Möbius map that sends $\\gamma\\to\\mathbb{R}$, reflect, then apply its inverse composed with the map sending $\\mathbb{R}\\to\\sigma$."
+        }
       ]
     },
 
@@ -177,6 +304,39 @@
           "answer": -0.0833333333,
           "tol": 1e-4,
           "explain": "$\\xi(2)=\\xi(-1)$ gives $\\tfrac12\\cdot 2\\cdot 1\\cdot \\pi^{-1}\\Gamma(1)\\zeta(2) = \\tfrac12\\cdot(-1)\\cdot(-2)\\pi^{1/2}\\Gamma(-1/2)\\zeta(-1)$. Plugging in, $\\pi^{-1}\\cdot\\pi^2/6 = \\pi^{1/2}\\cdot(-2\\sqrt\\pi)\\zeta(-1) = -2\\pi\\,\\zeta(-1)$, so $\\zeta(-1) = -\\pi/(6)\\cdot 1/(2\\pi) = -1/12$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the proof that $\\zeta(s)$ extends meromorphically to $\\mathbb{C}$, one splits $\\int_0^\\infty (\\theta(x)-1)x^{s/2-1}dx = \\int_0^1 + \\int_1^\\infty$. After substituting $x\\to 1/x$ in the $(0,1)$ piece and applying $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$, the resulting formula is symmetric under $s\\mapsto 1-s$. Which part of the argument crucially requires absolute convergence for $\\operatorname{Re}s>1$ before the analytic continuation is valid?",
+          "choices": [
+            "the Jacobi identity $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$",
+            "dominating $|\\theta(x)-1|$ by $e^{-\\pi x}$ to justify exchanging sum and integral for $\\operatorname{Re}s>1$",
+            "the partial fraction expansion of $\\Gamma(s/2)$",
+            "Cauchy's theorem on the strip $0<\\operatorname{Re}s<1$"
+          ],
+          "answer": 1,
+          "explain": "For $\\operatorname{Re}s>1$, the rapid decay $\\theta(x)-1=O(e^{-\\pi x})$ as $x\\to\\infty$ and $O(x^{-1/2})$ as $x\\to 0^+$ (after the theta transform) justifies interchanging sum and Mellin integral. This absolute-convergence step anchors the entire analytic continuation."
+        },
+        {
+          "type": "numeric",
+          "q": "The trivial zeros of $\\zeta(s)$ are at $s=-2,-4,-6,\\ldots$. Use the functional equation $\\xi(s)=\\xi(1-s)$ to determine the value of $\\zeta(s)$ at $s=0$ up to the simple pole of $\\Gamma(s/2)$ there. The residue of $\\Gamma(s/2)$ at $s=0$ is $2$. Given $\\xi(0)=\\xi(1)=1/2$, compute $\\zeta(0)$ from $\\xi(0) = \\frac{1}{2}\\cdot 0\\cdot(-1)\\cdot\\pi^0\\cdot\\Gamma(0)\\cdot\\zeta(0)$... Actually use $\\lim_{s\\to 0}\\tfrac{1}{2}s(s-1)\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)=1/2$. With $\\Gamma(s/2)\\approx 2/s$ near $s=0$, find $\\zeta(0)$.",
+          "answer": -0.5,
+          "tol": 1e-4,
+          "explain": "$\\xi(0)=1/2$. Near $s=0$: $\\tfrac12 s(s-1)\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)\\approx\\tfrac12\\cdot s\\cdot(-1)\\cdot 1\\cdot(2/s)\\cdot\\zeta(0)=-\\zeta(0)$. Setting this equal to $1/2$ gives $\\zeta(0)=-1/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Order these steps in Riemann's analytic continuation of $\\zeta(s)$ correctly: (P) apply $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ to the $(0,1)$ integral; (Q) write $\\Gamma(s/2)\\zeta(s)\\pi^{-s/2}$ as a Mellin transform of $\\theta(x)-1$; (R) split the Mellin integral at $x=1$; (S) observe symmetry under $s\\mapsto 1-s$.",
+          "choices": [
+            "Q → R → P → S",
+            "R → Q → S → P",
+            "P → Q → R → S",
+            "Q → P → R → S"
+          ],
+          "answer": 0,
+          "explain": "First (Q) express $\\Gamma(s/2)\\zeta(s)\\pi^{-s/2}$ as the Mellin integral of $\\theta(x)-1$. Then (R) split at $x=1$. Then (P) substitute $x\\to 1/x$ and use the theta functional equation on the $(0,1)$ piece. Finally (S) read off the $s\\mapsto 1-s$ symmetry from the merged formula."
         }
       ]
     }

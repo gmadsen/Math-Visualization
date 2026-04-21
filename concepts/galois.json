@@ -26,7 +26,10 @@
       "title": "Solvability by radicals",
       "anchor": "quintic",
       "prereqs": [
-        "fundamental-theorem-galois"
+        "fundamental-theorem-galois",
+        "algebraic-structures",
+        "quotients-homomorphisms",
+        "field-extensions-basics"
       ],
       "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
     },

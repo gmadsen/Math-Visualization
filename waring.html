@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -248,6 +262,17 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
     <li><a href="./sums-of-squares.html#four">Four squares and Waring perspective</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./waring.html#gvsG">Waring's problem and the circle method</a> · g(k) versus G(k)</div>
+    <div><a href="./waring.html#hilbert">Waring's problem and the circle method</a> · Hilbert–Waring theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="waring-problem-statement"></div>
 </section>
@@ -440,6 +465,16 @@ Clearing denominators (replace $n$ by a large multiple), one gets every sufficie
 <p>Hilbert's method is non-constructive: the implicit $g(k)$ is astronomically large. For example, the first explicit bounds of the form $g(k)\le (2k+1)\cdot 2^k$ came only decades later. The circle method of Hardy–Littlewood (1920–25), which replaced algebra with analysis, brought the estimates down to essentially optimal.</p>
 
 <div class="quiz" data-concept="hilbert-waring-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./waring.html#circle">Waring's problem and the circle method</a> · Circle method setup</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="circle">
@@ -487,6 +522,16 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
     <li><a href="./dirichlet-series-euler-products.html#series">Dirichlet series basics</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./waring.html#arcs">Waring's problem and the circle method</a> · Major arcs vs minor arcs</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="circle-method-intro"></div>
 </section>
@@ -789,7 +834,7 @@ has integer solutions iff it has solutions modulo every $p^h$ and solutions in $
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-20</td><td>initial version</td></tr>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
     </tbody>
   </table>
 </details>

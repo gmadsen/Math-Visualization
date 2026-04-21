@@ -35,6 +35,39 @@
           "answer": 1,
           "explain": "$(0,1)$ is not complete: the sequence $x_n=1/n$ is Cauchy but its limit $0$ lies outside the space. Completeness is a metric property, not a topological one — $(0,1)$ is homeomorphic to $\\mathbb{R}$, which is complete."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Define $d(x,y)=|x-y|/(1+|x-y|)$ on $\\mathbb{R}$. Which statement is correct?",
+          "choices": [
+            "$d$ is not a metric because the triangle inequality can fail",
+            "$d$ is a metric on $\\mathbb{R}$ and induces the same topology as the Euclidean metric, but $(\\mathbb{R},d)$ is bounded",
+            "$d$ is a metric and $(\\mathbb{R},d)$ is complete",
+            "$d$ is a metric and every Cauchy sequence in $(\\mathbb{R},d)$ converges in $\\mathbb{R}$"
+          ],
+          "answer": 1,
+          "explain": "The function $t\\mapsto t/(1+t)$ is subadditive and increasing on $[0,\\infty)$, so $d$ satisfies the triangle inequality and is a valid metric. It generates the standard topology because the identity maps are uniformly continuous in both directions locally. However $d(x,y)<1$ for all $x,y$, so $\\mathbb{R}$ becomes bounded — but NOT complete under $d$: a sequence diverging to $\\infty$ is $d$-Cauchy yet has no limit."
+        },
+        {
+          "type": "numeric",
+          "q": "In the taxicab metric on $\\mathbb{R}^2$ ($d_1(x,y)=|x_1-y_1|+|x_2-y_2|$), what is the area of the open ball $B(0,1)$?",
+          "answer": 2,
+          "tol": 0.001,
+          "explain": "The taxicab unit ball is the open square rotated $45°$: vertices $\\pm e_1$ and $\\pm e_2$. It is a square with diagonal $2$, so side length $\\sqrt{2}$ and area $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to prove the Baire Category Theorem for complete metric spaces?",
+          "choices": [
+            "Assume $X=\\bigcup_n F_n$ with each $F_n$ closed; choose open $U_0$; inductively pick nested closed balls $\\overline{B}_n\\subset U_0\\setminus F_n$ with radii $\\to 0$; invoke completeness to get a limit point; derive contradiction",
+            "Enumerate the dense open sets; show their union is all of $X$; conclude $X$ is not meager",
+            "Apply the Cantor intersection property directly to $\\{F_n\\}$; no inductive construction needed",
+            "Show each $F_n$ has empty interior; deduce $\\bigcup F_n=X$ is impossible because $X$ is open"
+          ],
+          "answer": 0,
+          "explain": "The standard proof builds a nested sequence of closed balls avoiding each $F_n$, with radii shrinking to $0$. Completeness supplies a point in $\\bigcap \\overline{B}_n$, which lies in $U_0$ but in none of the $F_n$, contradicting $X=\\bigcup F_n$."
+        }
       ]
     },
 
@@ -71,6 +104,39 @@
           "answer": 4,
           "tol": 0.0001,
           "explain": "The four topologies are: (i) indiscrete $\\{\\emptyset,X\\}$; (ii) discrete $\\{\\emptyset,\\{a\\},\\{b\\},X\\}$; (iii) Sierpiński $\\{\\emptyset,\\{a\\},X\\}$; (iv) the mirror $\\{\\emptyset,\\{b\\},X\\}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "How many distinct topologies are there on a 3-element set?",
+          "answer": 29,
+          "tol": 0.0001,
+          "explain": "By exhaustive enumeration (up to labeling) there are 9 non-homeomorphic topologies, but counting labeled topologies on $\\{a,b,c\\}$ gives 29. This is a classical combinatorial result."
+        },
+        {
+          "type": "mcq",
+          "q": "The indiscrete topology $\\{\\emptyset, X\\}$ on a set $X$ with $|X|\\ge 2$ is:",
+          "choices": [
+            "$T_1$ and Hausdorff",
+            "$T_0$ but not $T_1$",
+            "not even $T_0$",
+            "metrizable"
+          ],
+          "answer": 2,
+          "explain": "In the indiscrete topology no singleton is closed (every nonempty open set is all of $X$), so distinct points cannot be topologically distinguished — the space fails $T_0$. It cannot be metrizable since distinct points in any metric space have disjoint open neighborhoods."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following correctly characterizes the closure of a set $A$ in a topological space?",
+          "choices": [
+            "$\\overline{A}$ is the largest open set containing $A$",
+            "$\\overline{A}$ is the smallest closed set containing $A$, equivalently $A$ together with all its limit points",
+            "$\\overline{A}=A\\cup\\partial A$ where $\\partial A$ is always open",
+            "$\\overline{A}$ equals the interior of $A$"
+          ],
+          "answer": 1,
+          "explain": "The closure $\\overline{A}$ is the intersection of all closed sets containing $A$ — hence the smallest such closed set. Equivalently it is $A\\cup A'$ where $A'$ is the derived set of limit points. The boundary $\\partial A=\\overline{A}\\setminus\\mathrm{int}(A)$ need not be open."
         }
       ]
     },
@@ -114,6 +180,39 @@
           "answer": 1,
           "explain": "$(0,1)$ has the cut-point property: removing any interior point disconnects it. $S^1\\setminus\\{p\\}$ is a connected arc. Since homeomorphisms preserve connectedness and bijections, no homeomorphism can match cut points to non-cut points."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A bijective continuous map $f:X\\to Y$ is NOT necessarily a homeomorphism. Which example witnesses this?",
+          "choices": [
+            "$f:[0,1)\\to S^1$, $f(t)=e^{2\\pi i t}$, which is a continuous bijection but whose inverse is discontinuous at $f(0)=1$",
+            "Any bijection between finite topological spaces is automatically a homeomorphism",
+            "$f:\\mathbb{R}\\to\\mathbb{R}$, $f(x)=x^3$, which fails to be surjective",
+            "A continuous bijection from a discrete space to an indiscrete space of the same cardinality"
+          ],
+          "answer": 0,
+          "explain": "$f:[0,1)\\to S^1$ given by $t\\mapsto e^{2\\pi it}$ is a continuous bijection. The inverse sends $1$ to $0$ but the preimage of $[0,\\varepsilon)$ under $f^{-1}$ is not open in $S^1$, so $f^{-1}$ is discontinuous. This shows compactness of the domain is essential for a continuous bijection to be a homeomorphism."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to prove $f:X\\to Y$ continuous iff $f^{-1}(C)$ is closed for every closed $C\\subseteq Y$?",
+          "choices": [
+            "Assume $f^{-1}(V)$ is open for all open $V$; let $C$ be closed; note $V=Y\\setminus C$ is open; so $f^{-1}(V)=X\\setminus f^{-1}(C)$ is open; hence $f^{-1}(C)$ is closed — and reverse the argument for the other direction",
+            "Use the fact that closed sets generate the topology; apply the open-set criterion directly",
+            "Show $f^{-1}(C)$ closed implies $f$ is a closed map, then deduce continuity",
+            "Invoke Urysohn's lemma to construct a continuous extension"
+          ],
+          "answer": 0,
+          "explain": "Complements interchange open and closed sets and commute with preimages: $f^{-1}(Y\\setminus C)=X\\setminus f^{-1}(C)$. So the open-set criterion and the closed-set criterion are exact logical duals of each other via complementation."
+        },
+        {
+          "type": "numeric",
+          "q": "The map $f:\\mathbb{R}\\to\\mathbb{R}$, $f(x)=x^2$, sends the open set $(-2,2)$ to the set $[0,4)$. What is the minimum number of points one must remove from $(-2,2)$ so that the image of the remaining open set is open?",
+          "answer": 1,
+          "tol": 0.0001,
+          "explain": "Removing the single point $0$ from $(-2,2)$ gives $(-2,0)\\cup(0,2)$, whose image under $x^2$ is $(0,4)$, which is open. The failure at $0$ was the only obstruction."
+        }
       ]
     },
 
@@ -155,6 +254,39 @@
           ],
           "answer": 3,
           "explain": "The constant function is continuous on any $K$ and is far from injective. The other three are standard consequences of compactness: extreme value theorem, continuous image of compact is compact, Heine–Cantor."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The closed unit ball $\\overline{B}$ in an infinite-dimensional Hilbert space $H$ is closed and bounded but not compact. Which sequence witnesses the failure of sequential compactness?",
+          "choices": [
+            "Any constant sequence — it converges, so it contradicts non-compactness",
+            "An orthonormal sequence $\\{e_n\\}$: it lies in $\\overline{B}$ and $\\|e_n-e_m\\|=\\sqrt{2}$ for $n\\ne m$, so it has no convergent subsequence",
+            "The sequence $e_n/n\\to 0$, showing the ball is not closed",
+            "A sequence converging weakly but not in norm, proving weak compactness fails"
+          ],
+          "answer": 1,
+          "explain": "An orthonormal set satisfies $\\|e_n\\|=1$ (in the ball) and $\\|e_n-e_m\\|=\\sqrt{2}$ for $n\\ne m$ by the Pythagorean theorem. No subsequence can be Cauchy, so none converges. This is the standard counterexample showing Heine–Borel fails in infinite dimensions."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct sequence of implications for a metric space $X$?",
+          "choices": [
+            "Compact $\\Rightarrow$ sequentially compact $\\Rightarrow$ limit-point compact, and all three are equivalent for metric spaces",
+            "Limit-point compact $\\Rightarrow$ compact, but compact does not imply limit-point compact",
+            "Sequentially compact $\\Rightarrow$ complete but compact does not imply complete",
+            "Compact implies complete and totally bounded, but the converse fails in general metric spaces"
+          ],
+          "answer": 0,
+          "explain": "For metric spaces the three notions — compactness (every open cover has a finite subcover), sequential compactness (every sequence has a convergent subsequence), and limit-point compactness (every infinite subset has a limit point) — are all equivalent. This equivalence fails for general topological spaces."
+        },
+        {
+          "type": "numeric",
+          "q": "The Cantor set $C\\subset[0,1]$ is compact. It is obtained by removing open middle thirds. After $n$ stages, $2^n$ closed intervals remain, each of length $3^{-n}$. What is the total length of $C$ (i.e., its Lebesgue measure)?",
+          "answer": 0,
+          "tol": 0.0001,
+          "explain": "After $n$ steps the total length remaining is $(2/3)^n\\to 0$. The Cantor set has Lebesgue measure $0$ yet is uncountable and compact — a classic example of a nowhere-dense perfect set."
         }
       ]
     },
@@ -198,6 +330,39 @@
           "answer": 1,
           "explain": "Continuous images of connected sets are connected; the connected subsets of $\\mathbb{R}$ are exactly the intervals (possibly unbounded, possibly degenerate). This is the abstract form of the intermediate value theorem."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Path-connectedness implies connectedness, but the converse fails. Which is the correct chain of implications (strongest to weakest)?",
+          "choices": [
+            "Locally path-connected $+$ connected $\\Rightarrow$ path-connected $\\Rightarrow$ connected",
+            "Connected $\\Rightarrow$ path-connected $\\Rightarrow$ locally path-connected",
+            "Path-connected $\\Rightarrow$ connected; connected $+$ locally path-connected $\\Rightarrow$ path-connected",
+            "All three notions coincide for manifolds"
+          ],
+          "answer": 2,
+          "explain": "Path-connected always implies connected. The converse needs local path-connectedness as a hypothesis: a connected, locally path-connected space is path-connected. Manifolds are locally Euclidean (hence locally path-connected), so for manifolds connected $\\iff$ path-connected — but this is a consequence of the chain, not a coincidence."
+        },
+        {
+          "type": "mcq",
+          "q": "$\\mathbb{R}^n\\setminus\\{0\\}$ is connected for $n\\ge 2$ but disconnected for $n=1$. Which topological property explains the $n=1$ case?",
+          "choices": [
+            "$0$ is a cut point of $\\mathbb{R}$: its removal splits $\\mathbb{R}$ into $(-\\infty,0)$ and $(0,\\infty)$, but no point of $\\mathbb{R}^n$ ($n\\ge 2$) is a cut point",
+            "$\\mathbb{R}$ is compact so removing a point disconnects it",
+            "For $n\\ge 2$, $\\mathbb{R}^n$ is simply connected so no cut points exist",
+            "The origin has higher topological dimension in $\\mathbb{R}^n$ for $n\\ge 2$"
+          ],
+          "answer": 0,
+          "explain": "Removing any point $p$ from $\\mathbb{R}$ yields two disjoint open rays, disconnecting the line — $p$ is a cut point. In $\\mathbb{R}^n$ for $n\\ge 2$, any two points in $\\mathbb{R}^n\\setminus\\{0\\}$ can be joined by a path avoiding the origin (route around it), so removal of a single point leaves the space path-connected, hence connected."
+        },
+        {
+          "type": "numeric",
+          "q": "The rational numbers $\\mathbb{Q}$ with the subspace topology from $\\mathbb{R}$ are totally disconnected: the only connected subsets are singletons. How many connected components does the subspace $\\{1/n : n\\ge 1\\}\\subset\\mathbb{R}$ have?",
+          "answer": 0,
+          "tol": 0.0001,
+          "explain": "Each point $\\{1/n\\}$ is isolated in the subspace (the sets $\\{1/n\\}=\\{x:1/(n+1)<x<1/(n-1)\\}\\cap S$ are open in $S$), so every singleton is a connected component. The subspace has countably infinitely many connected components — but the question asks for the count of components that are NOT singletons, which is $0$."
+        }
       ]
     },
 
@@ -239,6 +404,44 @@
           ],
           "answer": 1,
           "explain": "Urysohn metrization: a regular, Hausdorff, second-countable space is metrizable. The converse (metric $\\Rightarrow$ regular Hausdorff) holds but metric spaces need not be second-countable in general — second-countability is the bite here."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Urysohn's Lemma states: if $X$ is normal ($T_4$) and $A,B$ are disjoint closed sets, then there exists a continuous $f:X\\to[0,1]$ with $f|_A=0$ and $f|_B=1$. Which step is the key inductive construction in its proof?",
+          "choices": [
+            "Assign open sets $U_r$ for each dyadic rational $r\\in[0,1]$ with $A\\subset U_r\\subset\\overline{U_r}\\subset U_s\\subset X\\setminus B$ for $r<s$, then set $f(x)=\\inf\\{r:x\\in U_r\\}$",
+            "Use compactness of $A$ and $B$ to find a finite cover and define $f$ piecewise",
+            "Apply the Tietze extension theorem directly to the indicator function of $A$",
+            "Use second-countability to find a countable dense set of intermediate closed sets"
+          ],
+          "answer": 0,
+          "explain": "The proof constructs a nested family of open sets $\\{U_r\\}$ indexed by dyadic rationals via repeated application of normality (which guarantees open sets separating disjoint closed sets). The function $f(x)=\\inf\\{r:x\\in U_r\\}$ is then continuous by construction."
+        },
+        {
+          "type": "mcq",
+          "q": "The Sorgenfrey line ($\\mathbb{R}$ with the lower-limit topology, basis $\\{[a,b):a<b\\}$) is $T_{3.5}$ (Tychonoff) but its square $\\mathbb{R}_\\ell^2$ is NOT normal. Which property does $\\mathbb{R}_\\ell^2$ fail that witnesses non-normality?",
+          "choices": [
+            "The anti-diagonal $\\{(x,-x):x\\in\\mathbb{R}\\}$ is closed and discrete, yet $\\mathbb{R}_\\ell^2$ is separable, contradicting Jones's lemma for normal spaces",
+            "$\\mathbb{R}_\\ell^2$ is not Hausdorff because open sets in the product are too small",
+            "The diagonal is not closed in $\\mathbb{R}_\\ell^2$",
+            "There are no disjoint closed sets in $\\mathbb{R}_\\ell^2$"
+          ],
+          "answer": 0,
+          "explain": "Jones's lemma: a normal separable space has no uncountable closed discrete subspace. The anti-diagonal $D=\\{(x,-x)\\}$ is closed and discrete (each $[x,x+1)\\times[-x,-x+1)$ meets $D$ only at $(x,-x)$), and $\\mathbb{R}_\\ell^2$ is separable ($\\mathbb{Q}^2$ is dense). This contradicts normality."
+        },
+        {
+          "type": "mcq",
+          "q": "A second-countable space is separable, but a separable space need not be second-countable. Which example shows this?",
+          "choices": [
+            "The Sorgenfrey line $\\mathbb{R}_\\ell$: it is separable ($\\mathbb{Q}$ is dense) but has an uncountable family of disjoint open sets $\\{[x,x+1)\\}_{x\\in\\mathbb{R}\\setminus\\mathbb{Q}}$, so no countable base suffices",
+            "$\\mathbb{R}$ with the discrete topology: it is second-countable and separable",
+            "Any finite space: it is separable iff it has at most one point",
+            "The one-point compactification of $\\mathbb{R}$: separable but not $T_1$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{R}_\\ell$ is separable because $\\mathbb{Q}$ is dense. But a second-countable space satisfies the countable chain condition (no uncountable disjoint family of opens). The family $\\{[x,x+1):x\\in\\mathbb{R}\\setminus\\mathbb{Q}\\}$ is an uncountable pairwise-disjoint open family, so $\\mathbb{R}_\\ell$ is not second-countable."
         }
       ]
     }

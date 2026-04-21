@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -259,6 +273,25 @@ const C = {
 </div>
 
 <div class="quiz" data-concept="complex-numbers"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#conf">Complex Analysis</a> · Disk automorphisms</div>
+    <div><a href="./upper-half-plane-hyperbolic.html#sl2z">Upper half-plane and hyperbolic geometry</a> · SL2(R) action and modular preview</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="quiz" data-concept="mobius-transformations"></div>
 </section>
 
@@ -328,6 +361,27 @@ const C = {
     <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#contour">Complex Analysis</a> · Contour integrals</div>
+    <div><a href="./complex-analysis.html#holo">Complex Analysis</a> · Domain coloring</div>
+    <div><a href="./riemann-surfaces.html#divisors">Riemann surfaces</a> · Divisors and the Riemann–Roch theorem</div>
+    <div><a href="./riemann-surfaces.html#intro">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="quiz" data-concept="amplitwist"></div>
 <div class="quiz" data-concept="cauchy-riemann"></div>
@@ -381,6 +435,26 @@ const C = {
     <li><a href="./algebraic-topology.html#simply-connected">Simply connected domains</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#cons">Complex Analysis</a> · Analyticity = holomorphy</div>
+    <div><a href="./complex-analysis.html#cons">Complex Analysis</a> · Liouville's theorem</div>
+    <div><a href="./complex-analysis.html#cons">Complex Analysis</a> · Maximum modulus principle</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 </section>
 
@@ -418,6 +492,29 @@ const C = {
   <svg id="tay-svg" viewBox="0 0 480 480" width="480" height="480"></svg>
   <div class="readout" id="tay-readout"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#conf">Complex Analysis</a> · Disk automorphisms</div>
+    <div><a href="./complex-analysis.html#conf">Complex Analysis</a> · Riemann mapping theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="laurent">
@@ -441,6 +538,25 @@ const C = {
 <p>Try it: the contour widget in §3 above already computes $\oint f\,dz$ as $2\pi i \sum\mathrm{Res}$ for the enclosed poles. Drag a vertex over a pole to see the sum jump.</p>
 
 <div class="quiz" data-concept="residue-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#arg">Complex Analysis</a> · Argument principle</div>
+    <div><a href="./dirichlet-series-euler-products.html#perron">Dirichlet series and Euler products</a> · Perron's formula</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+
+
+
+
+
+
+
 </section>
 
 <section id="arg">
@@ -474,6 +590,16 @@ const C = {
   <svg id="ag-svg" viewBox="0 0 760 380" width="760" height="380"></svg>
   <div class="readout" id="ag-readout"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#arg">Complex Analysis</a> · Rouché's theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="conf">
@@ -517,6 +643,20 @@ const C = {
     <li><a href="./real-analysis.html#uniform-convergence">Uniform convergence</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#conf">Complex Analysis</a> · Riemann mapping theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+
+
+
 
 </section>
 
@@ -527,6 +667,20 @@ const C = {
 <p><strong>Analytic continuation.</strong> A holomorphic function on a small disk has a unique extension to any simply connected domain containing the disk on which the extension exists. (Identity theorem: two holomorphic functions agreeing on a set with an accumulation point agree everywhere on the connected component.) The natural domain of $\sqrt{z}$ or $\log z$ is not $\mathbb{C}\setminus\{0\}$ but a bigger object — a <em>Riemann surface</em>. Walking $\log z$ around a loop encircling $0$ adds $2\pi i$; that increment is the <em>monodromy</em>.</p>
 <p>Riemann surfaces are the natural homes of multi-valued analytic functions. The compact ones are classified by genus; the simply connected ones by uniformization (every compact Riemann surface of genus $\ge 2$ is a quotient of the upper half-plane by a Fuchsian group). Modular forms — automorphic functions on the upper half-plane — pick up here. <em>Forward pointer: a future <code>modular-forms.html</code> will continue this thread.</em></p>
 <div class="ok">Holomorphic = locally rotation+scaling = locally a power series = $u,v$ harmonic conjugates = closed contour integrals vanish = boundary values determine interior. Six perspectives on one phenomenon.</div>
+
+
+
+
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#bsd-rank-equality">Birch and Swinnerton-Dyer</a> · BSD rank equality</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -1440,6 +1594,7 @@ const C = {
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-19</td><td>Audit Wave 4 prereqs, add page smoke test, register Wave 4 capstones</td></tr>
       <tr><td>2026-04-19</td><td>main topics added</td></tr>
       <tr><td>2026-04-19</td><td>quiz widget + 5 complex-analysis quizzes; link operator algebras</td></tr>

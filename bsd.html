@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -601,6 +615,17 @@ Doubling multiplies height by 4, so reachable points spread quadratically in eac
     <li><a href="./elliptic-curves.html#mordell">Mordell–Weil and invariants</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#point-counting-heuristic">Birch and Swinnerton-Dyer</a> · Birch–Swinnerton-Dyer heuristic</div>
+    <div><a href="./bsd.html#regulator">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="mordell-weil"></div>
 </section>
@@ -769,6 +794,16 @@ where $r = \operatorname{rank} E(\mathbb{Q})$ and $c > 0$ is a constant dependin
     <li><a href="./sato-tate.html#angle">Hasse bound and the Frobenius angle</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#bsd-rank-equality">Birch and Swinnerton-Dyer</a> · BSD rank equality</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="point-counting-heuristic"></div>
 </section>
@@ -1079,6 +1114,16 @@ Order r=${r} controls zero multiplicity; Ω,R mostly rescale the first nonzero c
     <li><a href="./L-functions.html#modularity">Arithmetic data and modularity links</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#sha-tate-shafarevich">Birch and Swinnerton-Dyer</a> · The Tate–Shafarevich group Ш</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="bsd-rank-equality"></div>
 </section>
@@ -1344,6 +1389,7 @@ Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the p
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>Fix open issue regressions in quizzes and widget scripts</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>

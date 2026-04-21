@@ -35,6 +35,39 @@
           "answer": 1,
           "explain": "A prime $\\ell \\mid abc$ with $\\ell$ odd appears in $\\Delta$ to multiplicity $2p$, i.e. a perfect square. By Tate's algorithm this gives multiplicative reduction, so the curve is semistable; the conductor $N_E$ is squarefree away from $2$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Frey curve $E_{a,b,c}$ is constructed so that its conductor $N_E$ is divisible only by primes dividing $2abc$. Which property of the discriminant $\\Delta = (abc)^{2p}/2^{8}$ forces the conductor to be squarefree at odd primes?",
+          "choices": [
+            "The discriminant vanishes at all odd primes",
+            "Each odd prime $\\ell \\mid abc$ appears in $\\Delta$ to a perfect $2p$-th power, so $v_\\ell(\\Delta) = 2p \\cdot v_\\ell(abc)$ is nonzero; Tate's algorithm then gives multiplicative (not additive) reduction, hence $\\ell \\parallel N_E$",
+            "The discriminant is coprime to all odd primes",
+            "Multiplicative reduction at $\\ell$ is equivalent to $\\ell^2 \\mid \\Delta$"
+          ],
+          "answer": 1,
+          "explain": "Tate's algorithm: if $v_\\ell(\\Delta) > 0$ but the curve has a node (not a cusp) after minimal change of variables, reduction is multiplicative, contributing $\\ell^1$ to the conductor. The $2p$-th power structure in $\\Delta$ at odd primes ensures exactly nodal reduction, giving squarefree conductor at those primes."
+        },
+        {
+          "type": "numeric",
+          "q": "For the formal Frey discriminant $\\Delta = (abc)^{2p}/2^8$, compute $v_5(\\Delta)$ (the $5$-adic valuation) when $a = 5,\\ b = 4,\\ c = ?$ and $p = 7$. (Only $a = 5$ contributes a factor of $5$; treat $b,c$ as coprime to $5$.) Enter the integer value.",
+          "answer": 14,
+          "tol": 0.01,
+          "explain": "$v_5(\\Delta) = 2p \\cdot v_5(abc) = 2 \\cdot 7 \\cdot v_5(5) = 14 \\cdot 1 = 14$. This is a perfect $2p$-th power valuation, ensuring multiplicative reduction at $5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Serre's original conjecture (now Khare–Wintenberger theorem) predicts that every odd irreducible $\\overline{\\rho}: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ is modular. In the FLT proof, which weaker statement about $\\overline{\\rho}_{E,p}$ actually suffices to apply Ribet's theorem?",
+          "choices": [
+            "The full Serre conjecture for all $p$",
+            "That $\\overline{\\rho}_{E,3}$ or $\\overline{\\rho}_{E,5}$ is modular, which follows from $E$ being modular",
+            "That $\\overline{\\rho}_{E,p}$ has finite image",
+            "That $p \\mid \\#E(\\mathbb{F}_p)$ for all good primes"
+          ],
+          "answer": 1,
+          "explain": "Wiles proves $E$ is modular (as a full $p$-adic representation), from which the residual representation $\\overline{\\rho}_{E,p}$ is automatically modular. Ribet's theorem then applies to lower the level. The full Serre conjecture is not needed."
+        }
       ]
     },
 
@@ -71,6 +104,39 @@
           ],
           "answer": 2,
           "explain": "The full modularity theorem was completed in 2001 by Breuil, Conrad, Diamond, and Taylor, handling the remaining cases of additive reduction at $3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "The newform $f_E$ associated to the curve $E: y^2 = x^3 - x^2 - 10x - 10$ of conductor $N = 20$ satisfies $a_3(f_E) = a_3(E) = 3 + 1 - \\#E(\\mathbb{F}_3)$. Given $\\#E(\\mathbb{F}_3) = 4$, what is $a_3(f_E)$?",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "$a_3(E) = 3 + 1 - 4 = 0$. By the modularity theorem, $a_3(f_E) = a_3(E) = 0$, meaning $3$ is a root of the $L$-factor at $p = 3$ in the newform's $L$-function."
+        },
+        {
+          "type": "mcq",
+          "q": "The modularity theorem implies that the $L$-function $L(E, s)$ equals the $L$-function $L(f_E, s)$ of a weight-2 newform. Which analytic property does this immediately grant $L(E, s)$?",
+          "choices": [
+            "It is a polynomial in $s$",
+            "It has analytic continuation to all of $\\mathbb{C}$ and satisfies a functional equation relating $s \\leftrightarrow 2-s$",
+            "It has no zeros in the critical strip",
+            "It is equal to the Riemann zeta function"
+          ],
+          "answer": 1,
+          "explain": "Hecke's theory gives $L(f, s)$ an analytic continuation and functional equation for any newform $f$. Via modularity $L(E, s) = L(f_E, s)$, the elliptic curve $L$-function inherits both properties — this is essential for BSD and other applications."
+        },
+        {
+          "type": "mcq",
+          "q": "The space $S_2(\\Gamma_0(N))$ has dimension given by the genus formula. For which level $N$ does one first get a nonzero space $S_2(\\Gamma_0(N)) \\neq 0$?",
+          "choices": [
+            "$N = 2$",
+            "$N = 10$",
+            "$N = 11$",
+            "$N = 5$"
+          ],
+          "answer": 2,
+          "explain": "The genus of $X_0(N)$ (hence $\\dim S_2(\\Gamma_0(N))$) is $0$ for small $N$. The first $N$ with genus $\\ge 1$ is $N = 11$, where $\\dim S_2(\\Gamma_0(11)) = 1$, spanned by the newform $\\eta(\\tau)^2\\eta(11\\tau)^2$."
         }
       ]
     },
@@ -109,6 +175,39 @@
           "answer": 1,
           "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists \u2014 contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Ribet's level-lowering requires the residual representation $\\overline{\\rho}_{E,p}$ to be irreducible. Why does this hold for the Frey curve when $p \\ge 5$?",
+          "choices": [
+            "All Galois representations on elliptic curves are irreducible",
+            "Mazur's theorem on rational isogenies: if $\\overline{\\rho}_{E,p}$ were reducible, $E$ would have a $\\mathbb{Q}$-rational $p$-isogeny, but for $p \\ge 11$ no such isogenies exist for semistable $E$; cases $p = 5, 7$ are handled separately",
+            "Reducibility is equivalent to $E$ having complex multiplication",
+            "Wiles proved irreducibility as part of the deformation argument"
+          ],
+          "answer": 1,
+          "explain": "Mazur classified rational isogenies of prime degree on elliptic curves over $\\mathbb{Q}$; semistable curves with a rational $p$-isogeny are excluded for large $p$. The Frey curve's special form and $p \\ge 5$ guarantee irreducibility, which Ribet's theorem requires."
+        },
+        {
+          "type": "mcq",
+          "q": "In Ribet's proof, one removes a prime $q \\mid N_E$ from the level by showing $\\overline{\\rho}_{E,p}$ is unramified at $q$. Which property of $q$ in the Frey setting makes this possible?",
+          "choices": [
+            "$q = p$, so ramification is controlled by the $p$-adic structure",
+            "$q$ is an odd prime dividing $abc$, and $v_q(\\Delta_E) = 2p \\cdot v_q(abc)$ is divisible by $p$, so the Galois action on $p$-torsion is unramified at $q$",
+            "$q \\mid c$ only, so the curve has good reduction at $q$",
+            "All primes dividing $N_E$ are automatically unramified in $\\overline{\\rho}_{E,p}$"
+          ],
+          "answer": 1,
+          "explain": "The key: $v_q(\\Delta_E)$ is divisible by $p$ for every odd prime $q \\mid abc$. This means $E$ has multiplicative reduction at $q$, and the Galois representation on $E[p]$ is unramified at $q$ (it looks like an unramified twist). Ribet's machinery then removes $q$ from the level."
+        },
+        {
+          "type": "numeric",
+          "q": "The conductor of the Frey curve $E_{a,b,c}$ is $N_E = 2^s \\cdot \\prod_{\\ell \\mid abc,\\ \\ell\\text{ odd}} \\ell$ for some $s \\ge 1$. After Ribet lowers the level by removing all odd primes, the resulting level is a power of $2$. Given that $\\dim S_2(\\Gamma_0(2^k)) = 0$ for $k = 1, 2, 3$, what is $\\dim S_2(\\Gamma_0(8))$?",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "$X_0(8)$ has genus $0$, so $\\dim S_2(\\Gamma_0(8)) = 0$. This is consistent with the fact that all levels $N = 2^k$ for $k \\le 3$ yield genus-$0$ modular curves, and the contradiction in FLT holds regardless of which power of $2$ the level reduces to."
+        }
       ]
     },
 
@@ -145,6 +244,39 @@
           "answer": 3,
           "tol": 0.01,
           "explain": "$\\dim \\mathbb{Z}_p[[x_1,x_2,x_3]] = 1 + 3 = 4$ (the $1$ for $\\mathbb{Z}_p$); killing a regular element drops the dimension by $1$, giving $\\dim R_\\Sigma = 3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The tangent space of $R_\\Sigma$ computes $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline{\\rho})$. In the Taylor–Wiles method, one adds auxiliary primes $Q_n = \\{q_1, \\ldots, q_n\\}$ to enlarge $\\Sigma$. What is the net effect on the tangent space dimension?",
+          "choices": [
+            "It stays fixed because the Selmer conditions are unchanged",
+            "It grows by $n$ because each auxiliary prime $q_i \\equiv 1 \\pmod{p}$ contributes one new local condition",
+            "It grows by $|\\Sigma|$ regardless of $Q_n$",
+            "It shrinks by $n$ since auxiliary primes impose extra ramification"
+          ],
+          "answer": 1,
+          "explain": "Each Taylor–Wiles prime $q \\equiv 1 \\pmod{p}$ with $\\overline{\\rho}(\\mathrm{Frob}_q)$ having distinct eigenvalues adds one dimension to the unrestricted local $H^1$ at $q$, enlarging the Selmer tangent space by $1$. Choosing $n$ such primes balances the obstruction count in the numerical criterion."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $\\overline{\\rho}: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ is reducible. Why does the universal deformation ring $R^{\\mathrm{univ}}$ fail to exist in the same sense?",
+          "choices": [
+            "Reducible representations have no lifts to characteristic zero",
+            "The deformation functor is not representable: different lifts can be conjugated into each other by elements outside $\\ker(\\mathrm{GL}_2(A) \\to \\mathrm{GL}_2(\\mathbb{F}_p))$, so the quotient-by-conjugation functor is not well-behaved",
+            "Reducible representations automatically factor through an abelian group",
+            "The Krull dimension of any quotient ring is $0$"
+          ],
+          "answer": 1,
+          "explain": "When $\\overline{\\rho}$ is reducible, the group of units $1 + \\mathfrak{m}_A M_2(A)$ acting by conjugation is too large relative to the stabilizer of $\\overline{\\rho}$; the functor of conjugacy classes of lifts may fail to be representable. Mazur's representability theorem crucially requires absolute irreducibility."
+        },
+        {
+          "type": "numeric",
+          "q": "In the minimal deformation problem for $\\overline{\\rho}_{E,p}$ at a prime $p$ where $\\mathrm{Ad}^0\\overline{\\rho}$ has $H^0 = 0$, Euler characteristic considerations give $\\dim H^1 - \\dim H^2 = -\\chi$. If the local Euler factors at $p$ and $\\infty$ contribute a net correction of $-1$, and the global $\\chi(G_\\mathbb{Q,\\Sigma}, \\mathrm{Ad}^0\\overline{\\rho}) = -3$ before local correction, what is $\\dim H^1_\\Sigma - \\dim H^2_\\Sigma$?",
+          "answer": -4,
+          "tol": 0.01,
+          "explain": "The Euler characteristic formula: $\\dim H^1_\\Sigma - \\dim H^2_\\Sigma = \\chi(G_{\\mathbb{Q},\\Sigma}, \\mathrm{Ad}^0\\overline{\\rho}) + \\text{local correction} = -3 + (-1) = -4$. A negative value means obstructions outweigh tangent dimensions, which the Taylor–Wiles patching resolves by adding auxiliary primes."
         }
       ]
     },
@@ -187,6 +319,39 @@
           ],
           "answer": 1,
           "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift — the whole point of modularity lifting."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Taylor–Wiles patching argument constructs inverse systems $R_{Q_n} \\twoheadrightarrow \\mathbb{T}_{Q_n}$ over auxiliary sets $Q_n$. In the limit, one obtains an isomorphism $R_\\infty \\cong \\mathbb{T}_\\infty$ of power series rings over $\\mathbb{Z}_p$. Which property of the auxiliary primes $q \\in Q_n$ is essential for the patching to work?",
+          "choices": [
+            "$q \\equiv -1 \\pmod{p}$ so that the local Galois group has order $2$",
+            "$q \\equiv 1 \\pmod{p}$ and $\\overline{\\rho}(\\mathrm{Frob}_q)$ has distinct eigenvalues mod $p$, ensuring the local deformation ring at $q$ is formally smooth",
+            "$q$ is inert in the CM field associated to $\\overline{\\rho}$",
+            "$q \\mid N_E$ so that ramification is already present"
+          ],
+          "answer": 1,
+          "explain": "The conditions $q \\equiv 1 \\pmod{p}$ and distinct Frobenius eigenvalues make the local deformation ring at $q$ isomorphic to $\\mathbb{Z}_p[\\![x]\\!]/(x^{p-1}-1)$ locally, which is formally smooth after base change. This provides the free variables needed to patch the modules compatibly."
+        },
+        {
+          "type": "mcq",
+          "q": "Put the key steps of Wiles' proof in logical order: (W1) Frey curve is semistable, (W2) Apply Ribet's level-lowering to $\\overline{\\rho}_{E,p}$, (W3) R = T theorem via Taylor–Wiles patching, (W4) Modularity of the Frey curve, (W5) Contradiction from $S_2(\\Gamma_0(2)) = 0$.",
+          "choices": [
+            "W3 → W1 → W4 → W2 → W5",
+            "W1 → W3 → W4 → W2 → W5",
+            "W1 → W4 → W2 → W5; W3 is the engine proving W4",
+            "W2 → W1 → W3 → W4 → W5"
+          ],
+          "answer": 2,
+          "explain": "Logical flow: W1 (Frey semistable) feeds into proving W4 (modular) via W3 (R = T, which is the technical heart proving modularity lifting). Then W2 (Ribet level-lowers $\\overline{\\rho}_{E,p}$ to level 2), and W5 closes the contradiction. W3 is the engine that makes W4 possible."
+        },
+        {
+          "type": "numeric",
+          "q": "At the numerical criterion step in the R = T proof, one shows $\\ell(\\ker(R_\\Sigma \\to \\mathbb{T}_\\Sigma)) = 0$ using the equality of Fitting ideals. If the Hecke algebra $\\mathbb{T}_\\Sigma$ has $\\mathbb{Z}_p$-rank $d$ and the deformation ring satisfies $\\mathrm{rank}_{\\mathbb{Z}_p} R_\\Sigma \\le d$, what is $\\mathrm{length}_{\\mathbb{Z}_p}(R_\\Sigma / \\mathbb{T}_\\Sigma)$ when the numerical criterion holds with equality?",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "The numerical criterion: when $\\#\\Phi_\\Sigma = \\#\\Psi_\\Sigma$ (the Selmer and congruence numbers match), the surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ is an isomorphism, so the length of the cokernel/kernel is $0$. This is the definitive check that R = T."
         }
       ]
     }

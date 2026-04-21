@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "On $\\mu_{\\ell^n}$, $\\mathrm{Frob}_p$ acts by $\\zeta\\mapsto\\zeta^p$, so $\\chi(\\mathrm{Frob}_p)=p$. For $p=7$ the value is $7$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_2(\\bar{\\mathbb{Q}}_\\ell)$ be an $\\ell$-adic representation and $\\sigma\\in G_\\mathbb{Q}$ an element of infinite order. Which property is NOT guaranteed to hold for $\\rho(\\sigma)$?",
+          "choices": [
+            "$\\rho(\\sigma)$ has finite order",
+            "$\\rho(\\sigma)\\in\\mathrm{GL}_2(\\bar{\\mathbb{Q}}_\\ell)$",
+            "$\\rho$ evaluated on the topological closure $\\overline{\\langle\\sigma\\rangle}$ is continuous",
+            "$\\rho$ is a group homomorphism"
+          ],
+          "answer": 0,
+          "explain": "For Artin (complex) representations continuity forces finite image, but $\\ell$-adic representations can have infinite image — e.g., the cyclotomic character. An element $\\sigma$ of infinite order in $G_\\mathbb{Q}$ need not map to a matrix of finite order."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the proof that every continuous $\\rho:G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\mathbb{C})$ has finite image. Which step is the critical one?",
+          "choices": [
+            "Any Hausdorff quotient of a profinite group is profinite, and $\\mathrm{GL}_n(\\mathbb{C})$ contains no infinite profinite subgroup because its subgroups that are both compact and totally disconnected are finite",
+            "The image is a closed subgroup of a compact Lie group, hence finite by dimension counting",
+            "$G_\\mathbb{Q}$ is finite, so any homomorphic image is finite",
+            "All representations of Galois groups have finite image by the Langlands program"
+          ],
+          "answer": 0,
+          "explain": "The key step: $G_\\mathbb{Q}$ is profinite (compact, totally disconnected), so any continuous image in $\\mathrm{GL}_n(\\mathbb{C})$ must be compact and totally disconnected. But $\\mathrm{GL}_n(\\mathbb{C})$ is a real Lie group; its compact totally disconnected subgroups are finite (they have no small subgroups by a theorem on Lie groups)."
+        },
+        {
+          "type": "numeric",
+          "q": "The mod-$\\ell$ cyclotomic character $\\bar\\chi_\\ell:G_\\mathbb{Q}\\to(\\mathbb{Z}/\\ell\\mathbb{Z})^\\times$ satisfies $\\bar\\chi_\\ell(\\mathrm{Frob}_p)\\equiv p\\pmod{\\ell}$ for $p\\ne\\ell$. For $\\ell=5$ and $p=11$, what is $\\bar\\chi_5(\\mathrm{Frob}_{11})$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$11\\equiv 1\\pmod{5}$, so $\\bar\\chi_5(\\mathrm{Frob}_{11})=1$."
+        }
       ]
     },
     "frobenius-traces": {
@@ -65,6 +98,39 @@
           "answer": 12,
           "tol": 1e-6,
           "explain": "$2\\sqrt{37}\\approx 12.166$, so the largest integer value of $a_p$ is $12$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Weil conjectures (proved by Deligne) state that for a smooth projective variety over $\\mathbb{F}_q$, the eigenvalues of Frobenius on $H^i_{\\text{ét}}$ have absolute value $q^{i/2}$. For an elliptic curve this gives $|\\alpha|=|\\beta|=\\sqrt{p}$ where $t^2-a_p t+p=(t-\\alpha)(t-\\beta)$. Which of the following is a valid chain of implications?",
+          "choices": [
+            "Weil conjectures $\\Rightarrow$ $|\\alpha|=\\sqrt{p}$ $\\Rightarrow$ $|a_p|=|\\alpha+\\beta|\\le|\\alpha|+|\\beta|=2\\sqrt{p}$ (Hasse bound)",
+            "Hasse bound $\\Rightarrow$ $|a_p|\\le 2\\sqrt{p}$ $\\Rightarrow$ eigenvalues have norm $p$",
+            "GRH $\\Rightarrow$ Weil conjectures $\\Rightarrow$ Hasse bound",
+            "Hasse bound implies the eigenvalues are real"
+          ],
+          "answer": 0,
+          "explain": "The Weil conjectures give $|\\alpha|=|\\beta|=\\sqrt{p}$; the triangle inequality then recovers Hasse's $|a_p|\\le 2\\sqrt{p}$. This is the correct logical chain: Weil conjectures are the deep statement, and the Hasse bound follows as a corollary."
+        },
+        {
+          "type": "numeric",
+          "q": "For the elliptic curve $E:y^2=x^3-x$ over $\\mathbb{F}_5$, the points are $(0,0),(1,0),(4,0),(2,1),(2,4),(3,2),(3,3)$ plus the point at infinity, giving $|E(\\mathbb{F}_5)|=8$. Compute $a_5$.",
+          "answer": -2,
+          "tol": 1e-6,
+          "explain": "$a_5=5+1-|E(\\mathbb{F}_5)|=6-8=-2$. The characteristic polynomial of $\\mathrm{Frob}_5$ is $t^2+2t+5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Two $\\ell$-adic representations $\\rho_1,\\rho_2:G_\\mathbb{Q}\\to\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$ that are both unramified outside a finite set $S$ and satisfy $\\operatorname{tr}\\rho_1(\\mathrm{Frob}_p)=\\operatorname{tr}\\rho_2(\\mathrm{Frob}_p)$ for all $p\\notin S$ are related by the Chebotarev density theorem as follows:",
+          "choices": [
+            "They are isomorphic as representations",
+            "They have the same semisimplification: $\\rho_1^{\\mathrm{ss}}\\cong\\rho_2^{\\mathrm{ss}}$",
+            "They differ by a twist by the cyclotomic character",
+            "They must both be reducible"
+          ],
+          "answer": 1,
+          "explain": "Chebotarev implies Frobenius elements are dense, so equal traces at almost all primes forces equal characteristic polynomials for all $g\\in G_\\mathbb{Q}$. By Brauer–Nesbitt, two semisimple representations with the same character are isomorphic; hence $\\rho_1^{\\mathrm{ss}}\\cong\\rho_2^{\\mathrm{ss}}$."
         }
       ]
     },
@@ -102,6 +168,39 @@
           "tol": 1e-6,
           "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_5)=\\operatorname{tr}\\rho^{\\mathrm{ss}}(\\mathrm{Frob}_5)=\\chi(\\mathrm{Frob}_5)+1=5+1=6$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $\\rho=\\begin{pmatrix}\\chi & *\\\\ 0 & 1\\end{pmatrix}$ be a non-split extension of $\\mathbf{1}$ by $\\chi$ (cyclotomic). Which statement correctly identifies $\\rho$ vs $\\rho^{\\mathrm{ss}}$ and their Frobenius traces?",
+          "choices": [
+            "$\\rho^{\\mathrm{ss}}=\\chi\\oplus\\mathbf{1}$; $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=p+1$ for unramified $p$; yet $\\rho\\not\\cong\\rho^{\\mathrm{ss}}$ since the extension class is nontrivial",
+            "$\\rho^{\\mathrm{ss}}=\\chi\\otimes\\mathbf{1}$; trace equals $p-1$",
+            "$\\rho=\\rho^{\\mathrm{ss}}$ because all reducible representations are semisimple",
+            "$\\operatorname{tr}\\rho(\\mathrm{Frob}_p)=0$ for all unramified $p$"
+          ],
+          "answer": 0,
+          "explain": "Semisimplification of a non-split extension $0\\to\\chi\\to\\rho\\to\\mathbf{1}\\to 0$ is $\\chi\\oplus\\mathbf{1}$. Frobenius trace equals $\\chi(\\mathrm{Frob}_p)+1=p+1$ for unramified $p$. The extension itself is nontrivial (e.g., arises in the $\\ell$-adic rep associated to a CM elliptic curve at supersingular primes), so $\\rho\\ncong\\rho^{\\mathrm{ss}}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct counterexample showing that $\\rho^{\\mathrm{ss}}\\cong\\sigma^{\\mathrm{ss}}$ does NOT imply $\\rho\\cong\\sigma$?",
+          "choices": [
+            "A non-split extension $0\\to\\chi\\to\\rho\\to\\mathbf{1}\\to 0$ and the split $\\sigma=\\chi\\oplus\\mathbf{1}$ both have $\\rho^{\\mathrm{ss}}\\cong\\sigma^{\\mathrm{ss}}\\cong\\chi\\oplus\\mathbf{1}$, yet $\\rho\\not\\cong\\sigma$ when the extension class is nontrivial in $\\operatorname{Ext}^1_{G}(\\mathbf{1},\\chi)$",
+            "Two irreducible representations with the same dimension but different traces",
+            "The zero representation and any nontrivial representation",
+            "Any two representations of the same dimension are semisimplification-equivalent"
+          ],
+          "answer": 0,
+          "explain": "Semisimplification loses information about extension classes. A non-split extension and the direct sum share the same semisimplification; this is the canonical counterexample. Extensions are classified by $H^1(G_\\mathbb{Q}, \\chi\\otimes\\mathbf{1}^\\vee)=H^1(G_\\mathbb{Q},\\chi)$, which can be nontrivial."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\rho^{\\mathrm{ss}}=\\chi^2\\oplus\\chi\\oplus\\mathbf{1}$ where $\\chi$ is the $\\ell$-adic cyclotomic character. Compute $\\operatorname{tr}\\rho(\\mathrm{Frob}_3)$ for the unramified prime $p=3$.",
+          "answer": 13,
+          "tol": 1e-6,
+          "explain": "$\\operatorname{tr}\\rho(\\mathrm{Frob}_3)=\\chi(\\mathrm{Frob}_3)^2+\\chi(\\mathrm{Frob}_3)+1=9+3+1=13$."
+        }
       ]
     },
     "ramification-galois-rep": {
@@ -138,6 +237,39 @@
           "tol": 1e-6,
           "explain": "With trivial wild term, $f_p=\\dim V-\\dim V^{I_p}=3-2=1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For an elliptic curve $E/\\mathbb{Q}$ with additive reduction at $p$, which statement about the conductor exponent $f_p$ is correct?",
+          "choices": [
+            "$f_p=0$ since $E$ has good reduction",
+            "$f_p=1$ since inertia acts on a codimension-1 subspace",
+            "$f_p\\ge 2$ since $\\dim V^{I_p}=0$ and the wild part $\\delta_p\\ge 0$ contributes",
+            "$f_p=p$ by definition of additive reduction"
+          ],
+          "answer": 2,
+          "explain": "Additive reduction means $V_\\ell E$ has no inertia invariants ($\\dim V^{I_p}=0$), so the tame part contributes $\\dim V-\\dim V^{I_p}=2$. The wild part $\\delta_p\\ge 0$ (it vanishes only for $p\\ge 5$). Thus $f_p=2+\\delta_p\\ge 2$."
+        },
+        {
+          "type": "numeric",
+          "q": "A 4-dimensional representation $\\rho$ has $\\dim V^{I_p}=1$ and wild conductor exponent $\\delta_p=3$. Compute $f_p(\\rho)$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$f_p=\\dim V-\\dim V^{I_p}+\\delta_p=4-1+3=6$."
+        },
+        {
+          "type": "mcq",
+          "q": "Place the following steps in the correct logical order for the proof that the global conductor $N=\\prod_p p^{f_p}$ is well-defined and finite for a representation $\\rho$ unramified outside $S$:",
+          "choices": [
+            "(1) For $p\\notin S$, $I_p\\subset\\ker\\rho$ so $f_p=0$; (2) For $p\\in S$, $f_p$ is finite since $V$ is finite-dimensional and higher ramification groups act trivially for large enough index; (3) $N=\\prod_{p\\in S}p^{f_p}$ is a finite product of primes each to a finite power",
+            "(1) $N$ is defined as the level of the associated modular form; (2) Finiteness follows from modularity",
+            "(1) Each $f_p$ is infinite; (2) the product is still finite",
+            "(1) Wild ramification is always trivial; (2) $N=\\prod p^{\\dim V - \\dim V^{I_p}}$"
+          ],
+          "answer": 0,
+          "explain": "The key steps: $f_p=0$ for unramified primes by definition; for ramified primes the filtration of higher ramification groups eventually stabilizes (acting trivially) since $\\rho$ factors through a finite extension of the completion, making $f_p$ finite; the conductor $N$ is then a well-defined positive integer."
+        }
       ]
     },
     "modularity-and-deformations": {
@@ -173,6 +305,39 @@
           "answer": -24,
           "tol": 1e-6,
           "explain": "Deligne's construction gives $\\operatorname{tr}\\rho_{\\Delta,\\ell}(\\mathrm{Frob}_p)=\\tau(p)$, so the trace at $p=2$ is $\\tau(2)=-24$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the $R=T$ modularity lifting theorem, what role does the condition that $\\bar\\rho$ is absolutely irreducible play?",
+          "choices": [
+            "It ensures $R$ and $T$ are both zero, trivializing the problem",
+            "It guarantees that the universal deformation ring $R$ is well-defined and that the map $R\\to T$ can be shown to be an isomorphism via Taylor–Wiles patching",
+            "It makes $\\bar\\rho$ modular automatically without any lifting",
+            "It forces all deformations of $\\bar\\rho$ to have finite image"
+          ],
+          "answer": 1,
+          "explain": "Absolute irreducibility of $\\bar\\rho$ is needed for Mazur's deformation theory: it ensures the functor of lifts is representable by a pro-ring $R$. Without it, deformations may not be classified by a single universal object. The $R=T$ theorem then uses Taylor–Wiles patching to show $R\\cong T$, lifting modularity from $\\bar\\rho$ to the $\\ell$-adic representation."
+        },
+        {
+          "type": "numeric",
+          "q": "For $f=\\Delta$ of weight 12, the Weil conjectures give $|\\alpha|=|\\beta|=p^{(k-1)/2}$ for eigenvalues of $\\mathrm{Frob}_p$ on $V_\\ell\\Delta$. Compute $|\\alpha|$ at $p=4$ (i.e., $p=2^2$ — but use $p=2$, $k=12$): $2^{(12-1)/2}=2^{5.5}$. To the nearest integer, what is $\\lfloor 2^{5.5}\\rfloor$?",
+          "answer": 45,
+          "tol": 1e-6,
+          "explain": "$2^{5.5}=2^5\\cdot\\sqrt{2}=32\\sqrt{2}\\approx 45.254$, so $\\lfloor 2^{5.5}\\rfloor=45$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which sequence of steps correctly outlines the proof of Fermat's Last Theorem via Galois representations?",
+          "choices": [
+            "(1) Assume $a^p+b^p=c^p$; (2) Form the Frey curve $E:y^2=x(x-a^p)(x+b^p)$; (3) Ribet's level-lowering shows $\\bar\\rho_{E,p}$ would have to come from a weight-2 form of level 2; (4) No such form exists; (5) Contradiction",
+            "(1) Apply the Hasse bound to get $a_p=0$; (2) Conclude $E$ has no rational points",
+            "(1) Use class field theory to show $\\mathbb{Q}$ has no extensions of degree $p$; (2) Fermat follows",
+            "(1) Assume $a^p+b^p=c^p$; (2) Show $E$ has good reduction everywhere; (3) Modularity gives a contradiction"
+          ],
+          "answer": 0,
+          "explain": "The Wiles–Taylor proof: (1) the Frey curve is semistable; (2) Serre's conjecture (Ribet's theorem) implies $\\bar\\rho_{E,p}$ descends to level 2; (3) there are no cuspidal eigenforms of weight 2 and level 2; (4) Wiles' modularity lifting gives $\\rho_{E,p}$ is modular, so $\\bar\\rho_{E,p}$ modular — contradiction."
         }
       ]
     }

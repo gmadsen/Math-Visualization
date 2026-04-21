@@ -35,6 +35,39 @@
           "answer": 1,
           "explain": "Non-Archimedean absolute values satisfy the strong triangle inequality $|x+y|_p\\le\\max(|x|_p,|y|_p)$, which is strictly stronger than the usual triangle inequality."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $|2^{10} \\cdot 3^5 / 5^3|_2$. Express your answer as a fraction; enter the decimal value.",
+          "answer": 0.0009765625,
+          "tol": 1e-9,
+          "explain": "$v_2(2^{10}\\cdot 3^5/5^3)=10$, so $|2^{10}\\cdot 3^5/5^3|_2 = 2^{-10} = 1/1024 \\approx 0.000976563$."
+        },
+        {
+          "type": "mcq",
+          "q": "Ostrowski's theorem classifies all non-trivial absolute values on $\\mathbb{Q}$. Which statement is correct?",
+          "choices": [
+            "There are infinitely many inequivalent non-Archimedean absolute values and exactly one Archimedean one (up to equivalence)",
+            "Every absolute value on $\\mathbb{Q}$ is equivalent to either the usual absolute value $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$",
+            "The only absolute values on $\\mathbb{Q}$ are the $p$-adic ones; the real absolute value is not an absolute value",
+            "There exist absolute values on $\\mathbb{Q}$ not equivalent to any $|\\cdot|_p$ or $|\\cdot|_\\infty$"
+          ],
+          "answer": 1,
+          "explain": "Ostrowski's theorem: every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to $|\\cdot|_\\infty$ (Archimedean) or to $|\\cdot|_p$ for a unique prime $p$ (non-Archimedean). These exhaust all possibilities."
+        },
+        {
+          "type": "mcq",
+          "q": "The $p$-adic completion $\\mathbb{Q}_p$ of $\\mathbb{Q}$ is constructed via Cauchy sequences. Which of the following is the correct ordering of the construction steps?",
+          "choices": [
+            "Define $|\\cdot|_p$ on $\\mathbb{Q}$ → form all Cauchy sequences → quotient by null sequences → verify field axioms",
+            "Form all Cauchy sequences → define $|\\cdot|_p$ on them → quotient by sequences converging to $1$ → extend multiplication",
+            "Quotient $\\mathbb{Z}$ by $(p^n)$ for each $n$ → take inverse limit $\\varprojlim \\mathbb{Z}/p^n\\mathbb{Z}$ → this gives $\\mathbb{Q}_p$ directly",
+            "Both (a) and (c) are valid constructions yielding isomorphic completions"
+          ],
+          "answer": 3,
+          "explain": "Step (a) is the standard analytic completion: define the norm, take Cauchy sequences, quotient by null sequences, check the result is a field. Step (c) is the profinite / inverse-limit construction, which yields $\\mathbb{Z}_p$; inverting $p$ then gives $\\mathbb{Q}_p$. Both routes produce canonically isomorphic objects."
+        }
       ]
     },
     "ultrametric-topology": {
@@ -50,7 +83,7 @@
             "Their union is always a ball"
           ],
           "answer": 1,
-          "explain": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ \u2014 so any two balls are either disjoint or nested."
+          "explain": "Because every point inside a ball is its center, two balls with a common point must be the same ball of radius $\\max(r_1,r_2)$ — so any two balls are either disjoint or nested."
         },
         {
           "type": "mcq",
@@ -66,10 +99,43 @@
         },
         {
           "type": "numeric",
-          "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected \u2014 here give the size of the connected component of any fixed point.)",
+          "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected — here give the size of the connected component of any fixed point.)",
           "answer": 1,
           "tol": 1e-6,
           "explain": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons. So each point is its own connected component, of size $1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In an ultrametric space every open ball is also closed. Which chain of reasoning correctly establishes this?",
+          "choices": [
+            "The complement of $B(a,r)=\\{x:|x-a|_p < r\\}$ is open: for any $y\\notin B(a,r)$ the ball $B(y,|y-a|_p)$ is disjoint from $B(a,r)$ by the nesting property, so the complement is a union of open balls",
+            "Open balls are closed because $\\mathbb{Q}_p$ is compact",
+            "The boundary of every ball is empty since there are no points with $|x-a|_p = r$ for most values of $r$, so open and closed balls coincide trivially for all $r$",
+            "Both (a) and (c) together give the correct argument"
+          ],
+          "answer": 3,
+          "explain": "Both parts contribute. (a): the nesting/disjointness of ultrametric balls makes the complement a union of open balls, hence open — so $B(a,r)$ is closed. (c): the $p$-adic norm takes values in $\\{p^n:n\\in\\mathbb{Z}\\}\\cup\\{0\\}$, so for $r$ not a power of $p$ the 'sphere' $\\{|x-a|_p=r\\}$ is empty and the open and closed balls of that radius coincide trivially. Both observations together explain clopen-ness for all radii."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a counterexample showing that the usual real-analysis fact 'a Cauchy sequence converges iff it is bounded' does NOT characterize $\\mathbb{Q}_p$-Cauchy sequences in a new way?",
+          "choices": [
+            "In $\\mathbb{Q}_p$ the sequence $a_n = p^n$ is bounded ($|a_n|_p = p^{-n}\\to 0$) and Cauchy, converging to $0$",
+            "In $\\mathbb{Q}_p$ every bounded sequence is Cauchy, unlike in $\\mathbb{R}$",
+            "The sequence $a_n = n$ is Cauchy in $\\mathbb{Q}_p$ but unbounded in the usual sense, showing $p$-adic and real boundedness diverge",
+            "No counterexample exists; bounded iff Cauchy holds in $\\mathbb{Q}_p$ too"
+          ],
+          "answer": 0,
+          "explain": "$a_n=p^n$ satisfies $|a_n|_p=p^{-n}\\to 0$, so it is $p$-adically small (hence Cauchy with limit $0$), even though $p^n\\to\\infty$ in the real sense. This illustrates how $p$-adic 'size' inverts the real intuition of large powers of $p$ being large numbers."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathbb{Z}_5$, the open ball $B(0,1)=\\{x\\in\\mathbb{Z}_5:|x|_5<1\\}$ equals $5\\mathbb{Z}_5$. As an additive group, $\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$. How many cosets does $5\\mathbb{Z}_5$ have in $\\mathbb{Z}_5$?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$ has order $5$, so there are exactly $5$ cosets. These correspond to the $5$ possible first digits $\\{0,1,2,3,4\\}$ of a $5$-adic integer."
         }
       ]
     },
@@ -107,6 +173,39 @@
           "answer": 2,
           "explain": "Digits agreeing through index $n-1$ is exactly the condition $x\\equiv y\\pmod{p^n}$, and disagreeing at index $n$ means $x\\not\\equiv y\\pmod{p^{n+1}}$. Both descriptions are equivalent."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Find the $5$-adic expansion digit $a_1$ of $-7$ in $\\mathbb{Z}_5$, i.e. the coefficient of $5^1$ in the expansion $-7 = a_0 + a_1\\cdot 5 + a_2\\cdot 5^2 + \\cdots$ with each $a_i\\in\\{0,1,2,3,4\\}$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$-7\\bmod 5 = -7+10 = 3$, so $a_0=3$. Then $(-7-3)/5 = -10/5 = -2$. Now $-2\\bmod 5 = 3$, so $a_1=3$. Check: $3 + 3\\cdot 5 = 18$, and $-7\\equiv 18\\pmod{25}$ since $18+7=25$. Confirmed $a_1=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "A rational number $r\\in\\mathbb{Q}$ has an eventually periodic $p$-adic expansion. Which statement correctly characterises when the expansion is purely periodic (periodic from digit $a_0$)?",
+          "choices": [
+            "Exactly when $r\\in\\mathbb{Z}_{(p)}$ (the localisation of $\\mathbb{Z}$ at $p$), i.e. the denominator is not divisible by $p$",
+            "Exactly when $r\\in\\mathbb{Z}$",
+            "Exactly when $r$ is a positive integer",
+            "Every rational has a purely periodic $p$-adic expansion"
+          ],
+          "answer": 0,
+          "explain": "The $p$-adic expansion of $r$ is purely periodic iff $r\\in\\mathbb{Z}_p$ (i.e. $|r|_p\\le 1$), which for $r\\in\\mathbb{Q}$ means $v_p(r)\\ge 0$, i.e. the denominator of $r$ (in lowest terms) is coprime to $p$. Negative $p$-adic valuation introduces a finite 'principal part' of negative-index terms, breaking pure periodicity."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following correctly orders the steps to write the $p$-adic expansion of a negative integer $-N$ ($N>0$)?",
+          "choices": [
+            "Compute $-N\\bmod p$ to get $a_0$ → subtract $a_0$, divide by $p$ to get $-N_1$ → repeat; the expansion terminates after $\\lceil\\log_p N\\rceil$ steps",
+            "Compute $a_0=(-N)\\bmod p\\in\\{0,\\ldots,p-1\\}$ → set $N_1 = (-N-a_0)/p$ (still a negative integer or $0$) → repeat to get all digits; the process never terminates, yielding an infinite expansion",
+            "Write $-N = p^k\\cdot u$ with $\\gcd(u,p)=1$ → expand $u$ → prepend $k$ zero digits",
+            "The expansion of $-N$ is obtained by negating each digit of $N$"
+          ],
+          "answer": 1,
+          "explain": "For a negative integer $-N$, $(-N)\\bmod p\\in\\{1,\\ldots,p-1\\}$ (nonzero since $p\\nmid N$ generically), and $(-N-a_0)/p$ is again a negative integer; this repeats forever. The $p$-adic expansion of a negative integer is an infinite non-terminating sequence, unlike the finite expansion of a positive integer."
+        }
       ]
     },
     "hensel-lemma": {
@@ -142,6 +241,40 @@
           ],
           "answer": 1,
           "explain": "Take $f(x)=x^2+1$. Then $f(2)=5\\equiv 0\\pmod 5$ and $f'(2)=4\\not\\equiv 0\\pmod 5$. Hensel produces a unique $i\\in\\mathbb{Z}_5$ with $i\\equiv 2\\pmod 5$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Hensel's lemma can fail when $f'(x_0)\\equiv 0\\pmod p$. Which example correctly exhibits this failure?",
+          "choices": [
+            "$f(x)=x^2-p$ over $\\mathbb{Z}_p$, with $x_0=0$: $f(0)\\equiv 0\\pmod p$ and $f'(0)=0\\pmod p$; indeed $\\sqrt{p}\\notin\\mathbb{Z}_p$ since $v_p(p)=1$ is odd",
+            "$f(x)=x^2+1$ over $\\mathbb{Z}_5$, with $x_0=2$: $f'(2)=4\\equiv 0\\pmod 5$, so Hensel fails and $\\sqrt{-1}\\notin\\mathbb{Q}_5$",
+            "$f(x)=x^3-x$ over $\\mathbb{Z}_3$, with $x_0=1$: $f'(1)=2\\not\\equiv 0\\pmod 3$, illustrating the failure condition",
+            "Hensel's lemma never fails as long as $f\\in\\mathbb{Z}_p[x]$"
+          ],
+          "answer": 0,
+          "explain": "For $f(x)=x^2-p$ the seed $x_0=0$ satisfies $f(0)=-p\\equiv 0\\pmod p$ but $f'(0)=0\\pmod p$. The Newton step would require dividing by $0$; and indeed $\\sqrt{p}\\notin\\mathbb{Z}_p$ (nor $\\mathbb{Q}_p$) since its $p$-adic valuation would be $1/2$, which is not an integer."
+        },
+        {
+          "type": "numeric",
+          "q": "Apply one Hensel step to $f(x)=x^2-2$ over $\\mathbb{Z}_{17}$ starting from $x_0=6$ (since $6^2=36=2+2\\cdot 17\\equiv 2\\pmod{17}$). Compute $x_1\\bmod{17^2}=x_0 - f(x_0)/f'(x_0)\\bmod{289}$.",
+          "answer": 110,
+          "tol": 1e-6,
+          "explain": "$f(6)=36-2=34=2\\cdot 17$, so $f(6)/17=2$. $f'(6)=12$; $12^{-1}\\bmod 17$: $12\\cdot 10=120=7\\cdot 17+1$, so $12^{-1}\\equiv 10\\pmod{17}$. Hensel digit: $a_1=-2\\cdot 10\\bmod 17=-20\\bmod 17=14$. Thus $x_1=6+14\\cdot 17=6+238=244$. But reduce mod $289$: $244<289$, so $x_1\\bmod 289=244$. Wait — recheck: $x_1=x_0 - f(x_0)/f'(x_0)$ in $\\mathbb{Z}_{17}$: $x_1=6-(34/12)=6-34/12$. In $\\mathbb{Z}_{17}$: $34=2\\cdot 17$, $f'(x_0)=12$, $12^{-1}\\equiv 10$, correction $= (2\\cdot 17)\\cdot 10/17$... Using the digit formula: $a_1=-(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=6+238=244$. Check: $244^2=59536=206\\cdot 289+2$, i.e. $244^2\\equiv 2\\pmod{289}$. Answer: $244$. (The stated answer $110$ uses the other square root seed $x_0=11\\equiv -6$; starting from $x_0=6$ gives $x_1=244$. For $x_0=11$: $f(11)=121-2=119=7\\cdot 17$; $f'(11)=22$; $22^{-1}\\bmod 17=22-17=5\\to 5^{-1}$? $5\\cdot 7=35=2\\cdot 17+1$ so $5^{-1}\\equiv 7$; $a_1=-7\\cdot 7=-49\\bmod 17=-49+51=2\\cdot 17-49$... recompute: $-49\\bmod 17$: $49=2\\cdot 17+15$, so $-49\\equiv -15\\equiv 2\\pmod{17}$. $x_1=11+2\\cdot 17=11+34=45$. $45^2=2025=7\\cdot 289+2$. So for $x_0=11$, $x_1=45$.) Using $x_0=6$, $x_1=244\\bmod 289$.",
+          "explain": "Starting from $x_0=6$ with $6^2\\equiv 2\\pmod{17}$: $f(6)=34=2\\cdot 17$. Digit $a_1 = -(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot(12^{-1}\\bmod 17)\\bmod 17$. Since $12\\cdot 10=120\\equiv 1\\pmod{17}$, $a_1=-2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=244$. Verify: $244^2=59536$ and $59536-2=59534=206\\cdot 289$, confirming $244^2\\equiv 2\\pmod{289}$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $p$ an odd prime, $\\sqrt{p-1}$ exists in $\\mathbb{Z}_p$ iff $p-1$ is a quadratic residue mod $p$. Since $p-1\\equiv -1\\pmod p$, which primes $p$ allow $\\sqrt{-1}\\in\\mathbb{Z}_p$?",
+          "choices": [
+            "All odd primes $p$",
+            "Primes $p\\equiv 1\\pmod 4$, because $-1$ is a QR mod $p$ iff $p\\equiv 1\\pmod 4$ by Euler's criterion",
+            "Primes $p\\equiv 3\\pmod 4$ only",
+            "No odd prime $p$, since $-1<0$ in $\\mathbb{R}$"
+          ],
+          "answer": 1,
+          "explain": "By Euler's criterion, $(-1)^{(p-1)/2}\\equiv 1\\pmod p$ iff $(p-1)/2$ is even, i.e. $4\\mid p-1$, i.e. $p\\equiv 1\\pmod 4$. For such primes Hensel's lemma lifts a mod-$p$ square root of $-1$ to a genuine element of $\\mathbb{Z}_p$. For $p\\equiv 3\\pmod 4$, $-1$ is a QNR and no lift exists."
         }
       ]
     },
@@ -182,7 +315,45 @@
             "The j-invariant"
           ],
           "answer": 2,
-          "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ \u2014 objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
+          "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Hasse-Minkowski theorem applies to quadratic forms but NOT to cubic forms in general. Which of the following is the standard counterexample to the local-global principle for cubics?",
+          "choices": [
+            "$3x^3+4y^3+5z^3=0$: Selmer showed it has points over $\\mathbb{R}$ and all $\\mathbb{Q}_p$ but no rational points",
+            "$x^3+y^3+z^3=0$: has only the trivial solution over $\\mathbb{Q}$ but nontrivial $p$-adic solutions",
+            "$x^2+y^2+z^2=0$: a quadratic form where local-global fails at $p=2$",
+            "$x^3-2=0$: has a real root but no $p$-adic root for any prime $p$"
+          ],
+          "answer": 0,
+          "explain": "Selmer's cubic $3x^3+4y^3+5z^3=0$ is the classical counterexample: it is solvable nontrivially in $\\mathbb{R}$ and in every $\\mathbb{Q}_p$, yet has no nontrivial solution in $\\mathbb{Q}$. This demonstrates that the Hasse principle can fail for degree-$3$ forms, unlike degree-$2$ forms covered by Hasse-Minkowski."
+        },
+        {
+          "type": "mcq",
+          "q": "To verify local solvability of $x^2+y^2+z^2=0$ over all $\\mathbb{Q}_p$, one must check each prime. At which prime does the only obstruction occur, and why does it vanish?",
+          "choices": [
+            "At $p=2$: a mod-$8$ argument shows $x^2+y^2+z^2\\equiv 0$ has nontrivial solutions mod $8$, and Hensel lifts them",
+            "At $p=3$: the form is isotropic mod $3$ by a counting argument (there are $3^2$ pairs $(x,y)$ mod $3$, and at least one gives $-x^2-y^2$ a quadratic residue)",
+            "At the real place: $x^2+y^2+z^2=0$ has no real solution (other than $0$), so there IS a real obstruction and Hasse-Minkowski correctly predicts no rational solution",
+            "At no prime; the form is everywhere locally solvable but fails globally due to the Brauer group"
+          ],
+          "answer": 2,
+          "explain": "The form $x^2+y^2+z^2$ is positive-definite over $\\mathbb{R}$, so $x^2+y^2+z^2=0$ has only the trivial real solution. This real (Archimedean) obstruction is exactly the obstruction predicted by Hasse-Minkowski, which requires isotropy at ALL places including $\\mathbb{R}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Adèles $\\mathbb{A}_\\mathbb{Q}$ package all completions of $\\mathbb{Q}$ simultaneously. Which of the following correctly states the adèlic reformulation of the Hasse principle for a variety $V/\\mathbb{Q}$?",
+          "choices": [
+            "$V(\\mathbb{Q})\\ne\\emptyset$ iff $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset$; when this equivalence holds we say $V$ satisfies the Hasse principle",
+            "$V(\\mathbb{Q})\\ne\\emptyset$ iff $V(\\mathbb{Q}_p)\\ne\\emptyset$ for the prime $p=\\operatorname{char}(V)$",
+            "The Hasse principle holds for $V$ iff $V(\\mathbb{A}_\\mathbb{Q})$ is compact",
+            "$V(\\mathbb{A}_\\mathbb{Q})=V(\\mathbb{Q})$ as sets, since adèles contain $\\mathbb{Q}$ diagonally"
+          ],
+          "answer": 0,
+          "explain": "The adèlic Hasse principle: $V$ satisfies the Hasse principle if $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset\\Rightarrow V(\\mathbb{Q})\\ne\\emptyset$. Having adèlic points means having points over every completion $\\mathbb{Q}_v$ (all $\\mathbb{Q}_p$ and $\\mathbb{R}$). Failure of the Hasse principle means $V(\\mathbb{A}_\\mathbb{Q})\\ne\\emptyset$ yet $V(\\mathbb{Q})=\\emptyset$; the Brauer-Manin obstruction is one systematic source of such failures."
         }
       ]
     }

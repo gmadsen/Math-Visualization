@@ -1,60 +1,158 @@
 {
   "capstones": [
     {
+      "id": "capstone-solvability-by-radicals",
+      "section": "Algebra",
+      "title": "Galois solvability of polynomials",
+      "goal": "solvability-by-radicals",
+      "blurb": "A polynomial is solvable by radicals iff its Galois group is a solvable group — why the quintic resists closed-form roots and the cubic/quartic don't."
+    },
+    {
+      "id": "capstone-yoneda",
+      "section": "Algebra",
+      "title": "Yoneda, limits, and adjunctions",
+      "goal": "yoneda-limits-adjunctions",
+      "blurb": "An object is what it does to every other object. Yoneda + limits + adjunctions is the categorical core that every downstream subject silently uses."
+    },
+    {
       "id": "capstone-residue-theorem",
-      "section": "Complex analysis",
+      "section": "Analysis",
       "title": "Master the residue theorem",
       "goal": "residue-theorem",
-      "blurb": "Integrate f around a closed contour by summing residues at its poles. The algorithmic heart of complex analysis."
+      "blurb": "Integrate $f$ around a closed contour by summing residues at its poles. The algorithmic heart of complex analysis."
     },
     {
       "id": "capstone-riemann-mapping",
-      "section": "Complex analysis",
+      "section": "Analysis",
       "title": "Prove the Riemann mapping theorem",
       "goal": "riemann-mapping",
-      "blurb": "Every simply connected proper open U ⊂ C is conformally the disk. Needs Schwarz, Möbius, Montel."
+      "blurb": "Every simply connected proper open $U\\subset\\mathbb{C}$ is conformally the disk. Needs Schwarz, Möbius, Montel."
     },
     {
       "id": "capstone-fta",
-      "section": "Complex analysis",
+      "section": "Analysis",
       "title": "Complex-analytic proof of the FTA",
       "goal": "fta",
       "blurb": "Liouville gives the one-page proof: a bounded entire function is constant."
     },
     {
       "id": "capstone-rouche",
-      "section": "Complex analysis",
+      "section": "Analysis",
       "title": "Locate zeros with Rouché",
       "goal": "rouche",
       "blurb": "Count zeros of holomorphic functions by perturbation. Foundation for the argument-principle toolkit."
     },
     {
+      "id": "capstone-spectral-theorem",
+      "section": "Analysis",
+      "title": "The spectral theorem",
+      "goal": "spectral-theorem-fa",
+      "blurb": "Every self-adjoint operator on a Hilbert space is a multiplication operator in disguise — the infinite-dimensional eigenbasis that powers quantum mechanics and PDE."
+    },
+    {
+      "id": "capstone-gelfand-naimark",
+      "section": "Analysis",
+      "title": "Gelfand–Naimark duality",
+      "goal": "gelfand-duality-oa",
+      "blurb": "Commutative unital $C^*$-algebras are the same thing as compact Hausdorff spaces. Noncommutative algebras become noncommutative topology."
+    },
+    {
+      "id": "capstone-stokes-derham",
+      "section": "Geometry & topology",
+      "title": "Stokes & de Rham cohomology",
+      "goal": "stokes-derham",
+      "blurb": "$\\int_{\\partial M}\\omega = \\int_M d\\omega$ unifies FTC, Green, Gauss, Stokes. De Rham cohomology turns the failure of $d\\omega=0\\Rightarrow\\omega=d\\eta$ into a topological invariant."
+    },
+    {
+      "id": "capstone-riemann-roch",
+      "section": "Geometry & topology",
+      "title": "Riemann–Roch on a Riemann surface",
+      "goal": "riemann-roch",
+      "blurb": "$\\ell(D) - \\ell(K-D) = \\deg D - g + 1$. Topology ($g$), analysis (meromorphic sections), and algebra (divisors) meet in one formula."
+    },
+    {
+      "id": "capstone-gauss-bonnet",
+      "section": "Geometry & topology",
+      "title": "Gauss–Bonnet theorem",
+      "goal": "gauss-bonnet",
+      "blurb": "$\\int_M K\\,dA = 2\\pi\\chi(M)$. Local curvature integrates to a purely topological invariant — the first great bridge between differential geometry and algebraic topology."
+    },
+    {
+      "id": "capstone-quadratic-reciprocity",
+      "section": "Number theory",
+      "title": "Gauss's quadratic reciprocity",
+      "goal": "quadratic-reciprocity-law",
+      "blurb": "For odd primes $p\\ne q$: $\\left(\\tfrac{p}{q}\\right)\\left(\\tfrac{q}{p}\\right) = (-1)^{\\frac{p-1}{2}\\frac{q-1}{2}}$. The first nontrivial reciprocity law; blueprint for everything after."
+    },
+    {
+      "id": "capstone-local-global",
+      "section": "Number theory",
+      "title": "The Hasse local–global principle",
+      "goal": "local-global-principle",
+      "blurb": "A quadratic form has a rational solution iff it has one over every $\\mathbb{Q}_p$ and $\\mathbb{R}$. The principle — and its failures — drive modern arithmetic."
+    },
+    {
+      "id": "capstone-hilbert-class-field",
+      "section": "Number theory",
+      "title": "The Hilbert class field",
+      "goal": "hilbert-class-field",
+      "blurb": "Every number field $K$ has a maximal unramified abelian extension $H/K$ whose Galois group is the class group of $K$. Class field theory's first visible miracle."
+    },
+    {
       "id": "capstone-sato-tate",
-      "section": "Arithmetic capstones",
+      "section": "Modular forms & L-functions",
       "title": "Sato–Tate equidistribution",
       "goal": "symmetric-power-l-functions",
-      "blurb": "Frobenius angles θ_p of a non-CM elliptic curve equidistribute with respect to the semicircular measure (2/π)sin²θ dθ."
+      "blurb": "Frobenius angles $\\theta_p$ of a non-CM elliptic curve equidistribute with respect to the semicircular measure $(2/\\pi)\\sin^2\\theta\\,d\\theta$."
     },
     {
       "id": "capstone-bsd",
-      "section": "Arithmetic capstones",
+      "section": "Modular forms & L-functions",
       "title": "Birch & Swinnerton-Dyer",
       "goal": "bsd-rank-equality",
-      "blurb": "ord_{s=1} L(E,s) = rank E(Q). One of the Clay Millennium problems, tying an analytic quantity to Mordell–Weil rank."
+      "blurb": "$\\mathrm{ord}_{s=1} L(E,s) = \\mathrm{rank}\\, E(\\mathbb{Q})$. One of the Clay Millennium problems, tying an analytic quantity to Mordell–Weil rank."
+    },
+    {
+      "id": "capstone-modularity-flt",
+      "section": "Modular forms & L-functions",
+      "title": "Modularity and Fermat's Last Theorem",
+      "goal": "ribet-level-lowering",
+      "blurb": "Frey + Ribet + Wiles: a solution to $a^p+b^p=c^p$ would give a newform of level $2$, but $S_2(\\Gamma_0(2))=0$ — contradiction."
+    },
+    {
+      "id": "capstone-zeta-functional-equation",
+      "section": "Modular forms & L-functions",
+      "title": "Riemann's functional equation",
+      "goal": "zeta-functional-equation",
+      "blurb": "$\\xi(s) = \\xi(1-s)$, where $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. Mellin + theta gives analytic continuation and the symmetry about $\\Re(s) = 1/2$."
+    },
+    {
+      "id": "capstone-moonshine",
+      "section": "Modular forms & L-functions",
+      "title": "Monstrous moonshine (Borcherds)",
+      "goal": "borcherds-proof-sketch",
+      "blurb": "Fourier coefficients of $j(\\tau)$ are sums of Monster irrep dimensions. Borcherds' Fields-medal proof via a generalized Kac–Moody Lie algebra and replication formulas."
+    },
+    {
+      "id": "capstone-ramanujan-congruences",
+      "section": "Modular forms & L-functions",
+      "title": "Ramanujan congruences for p(n)",
+      "goal": "ramanujan-congruences",
+      "blurb": "$p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$. Explained by the modularity of Dedekind $\\eta$."
     },
     {
       "id": "capstone-etale-cohomology",
       "section": "Algebraic geometry",
       "title": "Weil conjectures via étale cohomology",
       "goal": "weil-frobenius-trace",
-      "blurb": "Point counts over 𝔽_q as an alternating sum of Frobenius traces on ℓ-adic cohomology, with eigenvalues pinned by Deligne."
+      "blurb": "Point counts over $\\mathbb{F}_q$ as an alternating sum of Frobenius traces on $\\ell$-adic cohomology, with eigenvalues pinned by Deligne."
     },
     {
-      "id": "capstone-modularity-flt",
-      "section": "Arithmetic capstones",
-      "title": "Modularity and Fermat's Last Theorem",
-      "goal": "ribet-level-lowering",
-      "blurb": "Frey + Ribet + Wiles: a solution to aᵖ + bᵖ = cᵖ would give a newform of level 2, but S_2(Γ_0(2)) = 0 — contradiction."
+      "id": "capstone-moduli-stable-curves",
+      "section": "Algebraic geometry",
+      "title": "Moduli of higher-genus curves",
+      "goal": "higher-genus-moduli",
+      "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
     }
   ]
 }

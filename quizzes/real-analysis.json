@@ -35,6 +35,27 @@
           "answer": 1,
           "explain": "Cauchy completeness is exactly the statement that every Cauchy sequence has a limit in the space. Bounded sequences need not converge ($(-1)^n$); monotone-bounded sequences do, and bounded sequences have convergent subsequences (Bolzano–Weierstrass) — but those are consequences, not definitions."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to prove that every Cauchy sequence in $\\mathbb{R}$ converges?",
+          "choices": [
+            "Show it is bounded → extract a convergent subsequence (B–W) → show the full sequence converges to the same limit",
+            "Show it converges → conclude it is bounded → apply the least-upper-bound property",
+            "Apply the Archimedean property directly to get the limit → verify the Cauchy condition",
+            "Extract a monotone subsequence → apply the LUB property → ignore the rest of the sequence"
+          ],
+          "answer": 0,
+          "explain": "Proof chain: (1) Every Cauchy sequence is bounded. (2) Bolzano–Weierstrass extracts a convergent subsequence $a_{n_k}\\to L$. (3) For any $\\varepsilon>0$ choose $N$ so $|a_m-a_n|<\\varepsilon/2$ for $m,n>N$ and $k$ with $n_k>N$ and $|a_{n_k}-L|<\\varepsilon/2$; then $|a_n-L|\\le|a_n-a_{n_k}|+|a_{n_k}-L|<\\varepsilon$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A = \\{x\\in\\mathbb{Q} : x^2 < 3\\}$. In $\\mathbb{R}$, $\\sup A = \\sqrt{3}$. How many rational numbers satisfy $x^2 = 3$?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\sqrt{3}$ is irrational (its square is $3$, but $3$ is not a perfect square, and a standard argument shows $\\sqrt{3}\\notin\\mathbb{Q}$). So there are $0$ rational solutions to $x^2=3$, illustrating why $\\sup A$ is not attained in $\\mathbb{Q}$."
+        }
       ]
     },
 
@@ -72,6 +93,27 @@
           "answer": 2,
           "explain": "Continuity on a closed bounded interval gives EVT (attains max/min), uniform continuity (via compactness), and that the image is compact and connected (so a closed bounded interval). Differentiability is a strictly stronger condition — e.g., $f(x)=|x-1/2|$ is continuous on $[0,1]$ but not differentiable at $1/2$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing a function can be continuous at every irrational but discontinuous at every rational?",
+          "choices": [
+            "Dirichlet function $\\mathbf{1}_{\\mathbb{Q}}$",
+            "Thomae's function: $f(p/q)=1/q$ in lowest terms, $f(x)=0$ for $x\\notin\\mathbb{Q}$",
+            "The function $f(x)=|x|$",
+            "$f(x)=x\\sin(1/x)$ extended by $f(0)=0$"
+          ],
+          "answer": 1,
+          "explain": "Thomae's function is continuous at every irrational (the set $\\{x : f(x)\\ge 1/n\\}$ is finite for each $n$, so rationals with large $q$ are 'sparse near any irrational') and discontinuous at every rational (every neighborhood of $p/q$ contains irrationals where $f=0\\ne 1/q$). This shows discontinuity sets need not be closed."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f(x)=x^2\\sin(1/x)$ for $x\\ne 0$ and $f(0)=0$. Using the $\\varepsilon$–$\\delta$ definition with $\\varepsilon=10^{-4}$, what is the largest $\\delta$ guaranteeing $|f(x)-f(0)|<\\varepsilon$ for $|x|<\\delta$? (Hint: $|f(x)|\\le x^2$.)",
+          "answer": 0.01,
+          "tol": 1e-6,
+          "explain": "$|f(x)-0|=|x^2\\sin(1/x)|\\le x^2 < \\varepsilon$ whenever $|x|<\\sqrt{\\varepsilon}=\\sqrt{10^{-4}}=0.01$. So $\\delta=0.01$."
+        }
       ]
     },
 
@@ -103,6 +145,27 @@
           "answer": 0.000166667,
           "tol": 1e-6,
           "explain": "Lagrange: $|R_2(x)| \\le \\max|f^{(3)}(\\xi)| \\cdot |x|^3/3! \\le 1 \\cdot (0.1)^3/6 = 0.001/6 \\approx 0.000166\\overline{6}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step order for the Mean Value Theorem applied to $f\\colon[a,b]\\to\\mathbb{R}$ differentiable on $(a,b)$?",
+          "choices": [
+            "Define $g(x)=f(x)-f(a)-\\tfrac{f(b)-f(a)}{b-a}(x-a)$ → note $g(a)=g(b)=0$ → apply Rolle's theorem to obtain $c\\in(a,b)$ with $g'(c)=0$ → conclude $f'(c)=\\tfrac{f(b)-f(a)}{b-a}$",
+            "Apply the Extreme Value Theorem → set $f'=0$ → recover the average slope",
+            "Use the FTC to write $f(b)-f(a)=\\int_a^b f'$ → bound the integral → obtain $c$ by IVT",
+            "Apply Rolle directly to $f$ without any auxiliary function"
+          ],
+          "answer": 0,
+          "explain": "The standard proof introduces the auxiliary function $g$ that measures deviation from the secant line. $g(a)=g(b)=0$ satisfies Rolle's hypothesis (continuous on $[a,b]$, differentiable on $(a,b)$). Rolle gives $c$ with $g'(c)=0$, which unpacks to $f'(c)=(f(b)-f(a))/(b-a)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f(x)=e^x$ on $[0,1]$. The Taylor remainder after the first-degree polynomial at $a=0$ is $R_1(x)=e^\\xi x^2/2$ for some $\\xi\\in(0,x)$. Give the Lagrange upper bound for $|R_1(1)|$ using $e^\\xi\\le e^1\\approx 2.71828$.",
+          "answer": 1.35914,
+          "tol": 0.001,
+          "explain": "$|R_1(1)|\\le e^1\\cdot 1^2/2 = e/2 \\approx 2.71828/2 \\approx 1.35914$."
         }
       ]
     },
@@ -141,6 +204,27 @@
           "answer": 1,
           "explain": "Uniform limits of continuous functions are continuous (standard $\\varepsilon/3$ argument), and uniform convergence on $[a,b]$ lets you swap limit and Riemann integral. Uniform convergence does NOT in general preserve differentiability — additional hypotheses are needed there."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which chain of implications is correct for sequences of functions on $[0,1]$?",
+          "choices": [
+            "Uniform convergence $\\Rightarrow$ pointwise convergence; pointwise convergence $\\Rightarrow$ uniform convergence",
+            "Uniform convergence $\\Rightarrow$ pointwise convergence; pointwise convergence $\\not\\Rightarrow$ uniform convergence",
+            "Pointwise convergence $\\Rightarrow$ uniform convergence $\\Rightarrow$ convergence in $L^2$",
+            "Uniform convergence and pointwise convergence are equivalent on compact sets"
+          ],
+          "answer": 1,
+          "explain": "Uniform convergence is strictly stronger: $\\|f_n-f\\|_\\infty\\to 0$ forces pointwise convergence. The converse fails — $f_n(x)=x^n$ converges pointwise to the discontinuous indicator of $\\{1\\}$, but $\\sup|f_n-f|=1$ for all $n$."
+        },
+        {
+          "type": "numeric",
+          "q": "The series $\\sum_{n=1}^\\infty \\frac{(-1)^n}{n} x^n$ converges uniformly on $[-r, r]$ for $0<r<1$. Using the Weierstrass M-test with $M_n = r^n/n$, compute $\\sum_{n=1}^{\\infty} M_n$ at $r=1/2$. (Give the exact decimal value to 4 places.)",
+          "answer": 0.6931,
+          "tol": 0.001,
+          "explain": "$\\sum_{n=1}^\\infty (1/2)^n/n = -\\ln(1-1/2) = \\ln 2 \\approx 0.6931$. The M-test bound is $\\ln 2$, confirming absolute and uniform convergence on $[-1/2,\\,1/2]$."
+        }
       ]
     },
 
@@ -172,6 +256,27 @@
           "answer": 0.1,
           "tol": 1e-6,
           "explain": "On $[(k-1)/n, k/n]$, $\\sup f - \\inf f = 1/n$. Summing: $U - L = \\sum_{k=1}^n (1/n)\\cdot(1/n) = 1/n$. At $n=10$, gap $= 0.1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which correctly orders the steps to prove the Fundamental Theorem of Calculus (Part 1): if $f$ is continuous on $[a,b]$, then $F(x)=\\int_a^x f(t)\\,dt$ satisfies $F'(x)=f(x)$?",
+          "choices": [
+            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ → bound by $h\\cdot\\sup|f|$ → take $h\\to 0$",
+            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ → apply MVT for integrals to get $f(c_h)\\cdot h$ for some $c_h$ between $x$ and $x+h$ → use continuity of $f$ to take $h\\to 0$ and obtain $f(x)$",
+            "Differentiate under the integral sign using the Leibniz rule directly",
+            "Apply Fubini's theorem to swap order of integration"
+          ],
+          "answer": 1,
+          "explain": "The clean proof uses the MVT for integrals: $\\frac{F(x+h)-F(x)}{h}=\\frac{1}{h}\\int_x^{x+h}f(t)\\,dt=f(c_h)$ where $c_h$ lies between $x$ and $x+h$. As $h\\to 0$, $c_h\\to x$, and continuity of $f$ gives $f(c_h)\\to f(x)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f(x) = \\begin{cases}x\\sin(1/x) & x\\ne 0 \\\\ 0 & x=0\\end{cases}$. Is $f$ Riemann-integrable on $[-1,1]$? Compute $\\int_{-1}^1 |f(x)|\\,dx$ to 4 decimal places. (Hint: the integral equals $2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$.)",
+          "answer": 0.4538,
+          "tol": 0.005,
+          "explain": "$f$ is bounded and continuous except at $0$ (a single point, measure zero), so it is Riemann-integrable by Lebesgue's criterion. Numerically, $\\int_{-1}^1 |x\\sin(1/x)|\\,dx=2\\int_0^1 x|\\sin(1/x)|\\,dx\\approx 0.4538$."
         }
       ]
     },
@@ -210,6 +315,27 @@
           "answer": 2,
           "explain": "Bare existence of partials is too weak. The standard counterexample $f(x,y) = xy/(x^2+y^2)$ (with $f(0,0)=0$) has both partials at the origin yet fails to be continuous — let alone differentiable — there. Continuity of the partials in a neighborhood is the standard sufficient condition."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is a valid counterexample showing that existence of all directional derivatives at a point does NOT imply differentiability?",
+          "choices": [
+            "$f(x,y)=x^2+y^2$ at the origin",
+            "$f(x,y)=\\frac{x^2y}{x^4+y^2}$ (extended by $0$ at the origin) — all directional derivatives exist at $(0,0)$ yet $f$ is not continuous there",
+            "$f(x,y)=xy$ at the origin",
+            "$f(x,y)=|x|+|y|$ at the origin"
+          ],
+          "answer": 1,
+          "explain": "Along any ray $(t\\cos\\theta, t\\sin\\theta)$, the function $f$ tends to $0$ as $t\\to 0$, so all directional derivatives exist and equal $0$. But along the parabolic curve $y=x^2$, $f(x,x^2)=1/2\\not\\to 0$. Thus $f$ is not continuous (let alone differentiable) at the origin."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f(x,y)=3x^2+2xy+y^2$. Compute the mixed partial $\\partial^2 f/\\partial y\\,\\partial x$ at any point.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\partial f/\\partial x = 6x+2y$. Then $\\partial^2 f/\\partial y\\,\\partial x = \\partial(6x+2y)/\\partial y = 2$. By Clairaut's theorem this equals $\\partial^2 f/\\partial x\\,\\partial y=2$ (both partials are continuous)."
+        }
       ]
     },
 
@@ -241,6 +367,27 @@
           "answer": 6,
           "tol": 1e-6,
           "explain": "The Jacobian matrix is $\\operatorname{diag}(2,3)$, with determinant $|\\det J| = 6$. Areas scale by exactly this factor."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Fubini's theorem can fail for signed integrands. Which is the standard counterexample showing $\\int_0^1\\int_0^1 f(x,y)\\,dx\\,dy \\ne \\int_0^1\\int_0^1 f(x,y)\\,dy\\,dx$?",
+          "choices": [
+            "$f(x,y)=x-y$ on $[0,1]^2$",
+            "$f(x,y)=\\frac{x^2-y^2}{(x^2+y^2)^2}$ on $[0,1]^2$, where $\\int_0^1\\int_0^1 f\\,dx\\,dy=\\pi/4$ and $\\int_0^1\\int_0^1 f\\,dy\\,dx=-\\pi/4$",
+            "$f(x,y)=e^{-(x+y)}$ on $[0,\\infty)^2$",
+            "$f(x,y)=\\sin(xy)$ on $[0,1]^2$"
+          ],
+          "answer": 1,
+          "explain": "Fubini requires $\\iint|f|<\\infty$. For $f=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ the double integral of $|f|$ diverges, so Tonelli's condition fails and the two iterated integrals differ by a sign, giving $\\pi/4$ vs $-\\pi/4$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\iint_D x\\,dA$ where $D$ is the triangle with vertices $(0,0)$, $(1,0)$, $(1,1)$ (i.e., $0\\le y\\le x\\le 1$).",
+          "answer": 0.33333,
+          "tol": 0.0001,
+          "explain": "Iterated: $\\int_0^1\\int_0^x x\\,dy\\,dx = \\int_0^1 x\\cdot x\\,dx = \\int_0^1 x^2\\,dx = [x^3/3]_0^1 = 1/3\\approx 0.33333$."
         }
       ]
     },
@@ -278,6 +425,27 @@
           ],
           "answer": 1,
           "explain": "The $y$-block Jacobian (here $\\partial F/\\partial y$) must be invertible. If $\\partial F/\\partial y(x_0, y_0) = 0$, IFT does not apply — geometrically, the tangent to $\\{F=0\\}$ is vertical, so the curve fails to be locally a graph $y = g(x)$ (e.g., the unit circle at $(\\pm 1, 0)$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step order for the Inverse Function Theorem (IFT) for $F\\colon\\mathbb{R}^n\\to\\mathbb{R}^n$, $C^1$, $\\det J_F(a)\\ne 0$?",
+          "choices": [
+            "Continuity of $\\det J_F$ near $a$ → $J_F$ invertible on a neighborhood $U$ → apply the contraction mapping principle to construct a local $C^1$ inverse $G$ → verify $DG(F(x))=(J_F(x))^{-1}$",
+            "Apply the implicit function theorem to $G\\circ F=\\mathrm{id}$ to recover $G$ → use the chain rule",
+            "Show $F$ is injective globally → conclude a global inverse exists → restrict to a neighborhood",
+            "Show $\\ker J_F(a)=0$ → integrate along paths to define $G$ → verify continuity"
+          ],
+          "answer": 0,
+          "explain": "Standard proof chain: (1) $\\det J_F$ is continuous, so $J_F$ stays invertible near $a$. (2) Use the contraction mapping theorem (Banach fixed-point) on a suitable ball to produce a unique local inverse. (3) Differentiate $G(F(x))=x$ via the chain rule to get $DG(y)=(J_F(G(y)))^{-1}$, establishing $C^1$ regularity."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $F(x,y)=(x^2-y^2,\\,2xy)$. Compute $|\\det J_F(1,1)|$.",
+          "answer": 8,
+          "tol": 1e-6,
+          "explain": "$J_F=\\begin{pmatrix}2x & -2y \\\\ 2y & 2x\\end{pmatrix}$. At $(1,1)$: $J_F=\\begin{pmatrix}2&-2\\\\2&2\\end{pmatrix}$. $\\det J_F = (2)(2)-(-2)(2)=4+4=8$. Since $8\\ne 0$, IFT guarantees $F$ is a local diffeomorphism near $(1,1)$."
         }
       ]
     }

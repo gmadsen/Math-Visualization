@@ -172,14 +172,14 @@
 
     <a class="card g" href="./commutative-algebra.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="#83c167" stroke-width="1.5">
+        <g fill="none" stroke="var(--green)" stroke-width="1.5">
           <rect x="10" y="30" width="24" height="22" rx="3"/>
           <rect x="66" y="30" width="24" height="22" rx="3"/>
         </g>
-        <text x="22" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">M</text>
-        <text x="78" y="45" text-anchor="middle" font-size="12" fill="#83c167" font-style="italic" font-family="serif">N</text>
-        <text x="50" y="46" text-anchor="middle" font-size="18" fill="#83c167">⊗</text>
-        <text x="50" y="22" text-anchor="middle" font-size="8" fill="#83c167" opacity="0.75">over R</text>
+        <text x="22" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">M</text>
+        <text x="78" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">N</text>
+        <text x="50" y="46" text-anchor="middle" font-size="18" fill="var(--green)">⊗</text>
+        <text x="50" y="22" text-anchor="middle" font-size="8" fill="var(--green)" opacity="0.75">over R</text>
       </svg></div>
       <div class="body">
         <div class="tt">Commutative algebra</div>
@@ -242,13 +242,13 @@
     <a class="card g" href="./measure-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Cantor-set construction: three horizontal bars -->
-        <g stroke="#83c167" stroke-width="3" stroke-linecap="square">
+        <g stroke="var(--green)" stroke-width="3" stroke-linecap="square">
           <line x1="10" y1="22" x2="90" y2="22"/>
           <line x1="10" y1="40" x2="37" y2="40"/><line x1="63" y1="40" x2="90" y2="40"/>
           <line x1="10" y1="58" x2="19" y2="58"/><line x1="28" y1="58" x2="37" y2="58"/>
           <line x1="63" y1="58" x2="72" y2="58"/><line x1="81" y1="58" x2="90" y2="58"/>
         </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">measure zero</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">measure zero</text>
       </svg></div>
       <div class="body">
         <div class="tt">Measure theory</div>
@@ -624,10 +624,35 @@
     </a>
 
 
+    <a class="card y" href="./quadratic-forms-genus-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- binary quadratic form level curves + reduced region -->
+        <g fill="none" stroke="#ffd866" stroke-width="1" opacity="0.7">
+          <ellipse cx="50" cy="40" rx="30" ry="12"/>
+          <ellipse cx="50" cy="40" rx="22" ry="9"/>
+          <ellipse cx="50" cy="40" rx="14" ry="6"/>
+        </g>
+        <!-- reduction strip |b|<=a<=c sketched as a trapezoid -->
+        <path d="M 34 20 L 66 20 L 74 60 L 26 60 Z" fill="#58c4dd" opacity="0.15" stroke="#58c4dd" stroke-width="0.8"/>
+        <!-- a few reduced forms as dots -->
+        <g fill="#e07a5f">
+          <circle cx="45" cy="30" r="1.8"/><circle cx="55" cy="30" r="1.8"/>
+          <circle cx="40" cy="50" r="1.8"/><circle cx="60" cy="50" r="1.8"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">ax²+bxy+cy²</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Quadratic forms &amp; genus theory</div>
+        <div class="desc">Gauss's binary forms $ax^2+bxy+cy^2$, reduction theory, the form class group under composition, genus characters, and the bijection with the ideal class group of $\mathbb{Q}(\sqrt{D})$.</div>
+        <span class="tag">h(D) · genus · Gauss composition</span>
+      </div>
+    </a>
+
+
     <a class="card g" href="./algebraic-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- lattice with a highlighted non-principal ideal -->
-        <g fill="#83c167">
+        <g fill="var(--green)">
           <circle cx="20" cy="60" r="2"/><circle cx="40" cy="60" r="2"/><circle cx="60" cy="60" r="2"/><circle cx="80" cy="60" r="2"/>
           <circle cx="20" cy="40" r="2"/><circle cx="40" cy="40" r="2"/><circle cx="60" cy="40" r="2"/><circle cx="80" cy="40" r="2"/>
           <circle cx="20" cy="20" r="2"/><circle cx="40" cy="20" r="2"/><circle cx="60" cy="20" r="2"/><circle cx="80" cy="20" r="2"/>
@@ -638,7 +663,7 @@
           <circle cx="40" cy="40" r="3"/><circle cx="80" cy="40" r="3"/>
           <circle cx="20" cy="20" r="3"/><circle cx="60" cy="20" r="3"/>
         </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">𝒪ₖ</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">𝒪ₖ</text>
       </svg></div>
       <div class="body">
         <div class="tt">Algebraic number theory</div>
@@ -676,13 +701,43 @@
     </a>
 
 
+    <a class="card c" href="./adeles-and-ideles.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- restricted direct product: R × ∏' Q_p represented as a comb of places -->
+        <line x1="10" y1="40" x2="90" y2="40" stroke="#7de0d6" stroke-width="0.8" opacity="0.5"/>
+        <!-- archimedean place R on the left -->
+        <text x="14" y="36" font-size="10" fill="#e07a5f" font-style="italic" font-family="serif">ℝ</text>
+        <circle cx="14" cy="48" r="3" fill="#e07a5f"/>
+        <!-- p-adic places as vertical marks -->
+        <g stroke="#7de0d6" stroke-width="1.5" fill="none">
+          <line x1="30" y1="28" x2="30" y2="52"/>
+          <line x1="44" y1="30" x2="44" y2="50"/>
+          <line x1="56" y1="32" x2="56" y2="48"/>
+          <line x1="68" y1="33" x2="68" y2="47"/>
+          <line x1="78" y1="34" x2="78" y2="46"/>
+          <line x1="86" y1="35" x2="86" y2="45"/>
+        </g>
+        <g font-size="6" fill="#7de0d6" text-anchor="middle" font-family="serif">
+          <text x="30" y="62">ℚ₂</text><text x="44" y="62">ℚ₃</text><text x="56" y="62">ℚ₅</text><text x="68" y="62">ℚ₇</text>
+        </g>
+        <text x="50" y="14" text-anchor="middle" font-size="8" fill="#ffd866" font-style="italic" font-family="serif">𝔸 = ℝ × ∏' ℚₚ</text>
+        <text x="50" y="78" text-anchor="middle" font-size="6" fill="var(--green)" font-style="italic" font-family="serif">restricted product</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Adèles &amp; idèles</div>
+        <div class="desc">Restricted direct products over all places, the adèle ring $\mathbb{A}_\mathbb{Q}$, the idèle class group $C_\mathbb{Q}$, strong approximation, and Tate's thesis as the gateway to modern L-functions.</div>
+        <span class="tag">𝔸 · Cℚ · Tate's thesis</span>
+      </div>
+    </a>
+
+
     <a class="card g" href="./frobenius-and-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- dictionary arrows between arithmetic (primes) and automorphic (cycle shapes) -->
-        <g fill="#83c167">
+        <g fill="var(--green)">
           <circle cx="18" cy="22" r="2.4"/><circle cx="18" cy="40" r="2.4"/><circle cx="18" cy="58" r="2.4"/>
         </g>
-        <g font-size="8" fill="#83c167" font-style="italic" font-family="serif" text-anchor="end" opacity="0.9">
+        <g font-size="8" fill="var(--green)" font-style="italic" font-family="serif" text-anchor="end" opacity="0.9">
           <text x="14" y="25">2</text><text x="14" y="43">3</text><text x="14" y="61">5</text>
         </g>
         <!-- cycle shape diagrams on the right -->
@@ -701,7 +756,7 @@
         <defs>
           <marker id="fr1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#58c4dd"/></marker>
         </defs>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="#83c167" font-style="italic" font-family="serif">p ↦ Frobₚ</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">p ↦ Frobₚ</text>
       </svg></div>
       <div class="body">
         <div class="tt">Frobenius &amp; reciprocity</div>
@@ -859,6 +914,43 @@
         <div class="tt">Analytic continuation</div>
         <div class="desc">Power series germs, the identity theorem, the monodromy theorem, the Riemann zeta functional equation via Mellin + theta, and why $\zeta(-1) = -1/12$ is not a trick.</div>
         <span class="tag">germs · monodromy · ξ(s)=ξ(1−s)</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="./zeta-values.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- ζ values at integers as dots on a number line -->
+        <line x1="10" y1="55" x2="90" y2="55" stroke="#b494ff" stroke-width="0.8"/>
+        <!-- tick marks for n=-2,-1,0,1,2,3,4 -->
+        <g stroke="#b494ff" stroke-width="0.8">
+          <line x1="20" y1="52" x2="20" y2="58"/>
+          <line x1="32" y1="52" x2="32" y2="58"/>
+          <line x1="44" y1="52" x2="44" y2="58"/>
+          <line x1="56" y1="52" x2="56" y2="58"/>
+          <line x1="68" y1="52" x2="68" y2="58"/>
+          <line x1="80" y1="52" x2="80" y2="58"/>
+        </g>
+        <!-- trivial zeros at negative even integers -->
+        <g fill="#e07a5f">
+          <circle cx="20" cy="55" r="2.4"/><circle cx="32" cy="55" r="2.4"/>
+        </g>
+        <!-- special values: ζ(2) = π²/6, ζ(4) = π⁴/90 shown as tall bars on positive side -->
+        <g stroke="#ffd866" stroke-width="1.6">
+          <line x1="56" y1="55" x2="56" y2="20"/>
+          <line x1="68" y1="55" x2="68" y2="32"/>
+          <line x1="80" y1="55" x2="80" y2="40"/>
+        </g>
+        <g fill="#ffd866">
+          <circle cx="56" cy="20" r="2.2"/><circle cx="68" cy="32" r="2.2"/><circle cx="80" cy="40" r="2.2"/>
+        </g>
+        <text x="56" y="14" text-anchor="middle" font-size="7" fill="#ffd866" font-style="italic" font-family="serif">π²/6</text>
+        <text x="50" y="74" text-anchor="middle" font-size="7" fill="#b494ff" font-style="italic" font-family="serif">ζ(n) at integer n</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Zeta values</div>
+        <div class="desc">$\zeta(2)=\pi^2/6$ (Basel), Euler's closed form for $\zeta(2n)$ via Bernoulli, Apéry's irrationality of $\zeta(3)$, trivial zeros $\zeta(-2n)=0$, and the functional equation pinning it all together.</div>
+        <span class="tag">ζ(2n) · Apéry · B₂ₙ</span>
       </div>
     </a>
 
@@ -1029,16 +1121,16 @@
 
     <a class="card g" href="./schemes.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="8" y1="55" x2="92" y2="55" stroke="#83c167" opacity="0.4"/>
-        <g fill="#83c167">
+        <line x1="8" y1="55" x2="92" y2="55" stroke="var(--green)" opacity="0.4"/>
+        <g fill="var(--green)">
           <circle cx="15" cy="55" r="2.4"/><circle cx="32" cy="55" r="2.4"/><circle cx="50" cy="55" r="2.4"/><circle cx="68" cy="55" r="2.4"/><circle cx="85" cy="55" r="2.4"/>
         </g>
-        <g font-size="7" fill="#83c167" text-anchor="middle" font-family="serif" font-style="italic">
+        <g font-size="7" fill="var(--green)" text-anchor="middle" font-family="serif" font-style="italic">
           <text x="15" y="70">2</text><text x="32" y="70">3</text><text x="50" y="70">5</text><text x="68" y="70">7</text><text x="85" y="70">p</text>
         </g>
-        <circle cx="50" cy="25" r="7" fill="#83c167" opacity="0.2"/>
-        <circle cx="50" cy="25" r="1.8" fill="#83c167"/>
-        <text x="50" y="17" text-anchor="middle" font-size="8" fill="#83c167" opacity="0.8" font-style="italic">η</text>
+        <circle cx="50" cy="25" r="7" fill="var(--green)" opacity="0.2"/>
+        <circle cx="50" cy="25" r="1.8" fill="var(--green)"/>
+        <text x="50" y="17" text-anchor="middle" font-size="8" fill="var(--green)" opacity="0.8" font-style="italic">η</text>
       </svg></div>
       <div class="body">
         <div class="tt">Schemes</div>
@@ -1137,10 +1229,10 @@
         <!-- chord through P and Q with third intersection R -->
         <line x1="25" y1="58" x2="80" y2="28" stroke="#58c4dd" stroke-width="1" opacity="0.85"/>
         <!-- points P, Q, R and P+Q -->
-        <circle cx="28" cy="56" r="2.2" fill="#83c167"/>
-        <text x="23" y="66" font-size="7" fill="#83c167" font-style="italic" font-family="serif">P</text>
-        <circle cx="56" cy="41" r="2.2" fill="#83c167"/>
-        <text x="58" y="38" font-size="7" fill="#83c167" font-style="italic" font-family="serif">Q</text>
+        <circle cx="28" cy="56" r="2.2" fill="var(--green)"/>
+        <text x="23" y="66" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">P</text>
+        <circle cx="56" cy="41" r="2.2" fill="var(--green)"/>
+        <text x="58" y="38" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">Q</text>
         <circle cx="76" cy="30" r="2.2" fill="#e07a5f"/>
         <text x="80" y="28" font-size="7" fill="#e07a5f" font-style="italic" font-family="serif">R</text>
         <!-- reflection of R gives P+Q -->
@@ -1228,12 +1320,12 @@
 
     <a class="card g" href="./stacks.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="#83c167">
+        <g fill="var(--green)">
           <circle cx="25" cy="28" r="3.2"/>
           <circle cx="70" cy="28" r="3.2"/>
           <circle cx="48" cy="56" r="3.2"/>
         </g>
-        <g fill="none" stroke="#83c167" stroke-width="1.2">
+        <g fill="none" stroke="var(--green)" stroke-width="1.2">
           <path d="M 28 28 Q 48 20 67 28" marker-end="url(#st1)"/>
           <path d="M 67 32 Q 58 48 51 53" marker-end="url(#st1)"/>
           <path d="M 45 55 Q 30 48 26 32" marker-end="url(#st1)"/>
@@ -1244,7 +1336,7 @@
           <circle cx="48" cy="66" r="5"/>
         </g>
         <defs>
-          <marker id="st1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#83c167"/></marker>
+          <marker id="st1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--green)"/></marker>
         </defs>
       </svg></div>
       <div class="body">

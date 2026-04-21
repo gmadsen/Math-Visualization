@@ -28,7 +28,7 @@
       "id": "quadratic-reciprocity-law",
       "title": "Quadratic reciprocity law",
       "anchor": "reciprocity",
-      "prereqs": ["supplementary-laws-qr", "gauss-lemma-qr"],
+      "prereqs": ["supplementary-laws-qr", "gauss-lemma-qr", "prime-ideals-factorization-ant", "frobenius-element", "splitting-types"],
       "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
     },
     {

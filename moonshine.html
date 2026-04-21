@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -271,6 +285,16 @@ These coefficients are large positive integers, growing roughly like $e^{4\pi\sq
     <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./moonshine.html#mckay">Monstrous moonshine</a> · McKay's observation</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="j-invariant-q-expansion"></div>
 </section>
@@ -347,6 +371,16 @@ Expanded, that is</p>
     <li><a href="./representation-theory.html#def">Group representations</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./moonshine.html#mckay">Monstrous moonshine</a> · McKay's observation</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="monster-group-structure"></div>
 </section>
@@ -444,6 +478,16 @@ recovers the $j$-function. The requirement that the Monster acts is then a const
 <p>The McKay–Thompson observation went further. For each conjugacy class of $\mathbb{M}$, applying its character to the same hypothetical module would give a different $q$-series — and those $q$-series, conjecturally, are genus-zero modular functions for specific subgroups of $\mathrm{SL}_2(\mathbb{R})$. That is the subject of the next section.</p>
 
 <div class="quiz" data-concept="mckay-observation"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./moonshine.html#thompson">Monstrous moonshine</a> · Thompson series and Conway–Norton</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="thompson">
@@ -538,6 +582,16 @@ which is the coefficient of $q$ in $T_{2A}$ — the Hauptmodul for $\Gamma_0(2)+
     <li><a href="./hecke-operators.html#eigen">Eigenforms and Euler factors</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./moonshine.html#borcherds">Monstrous moonshine</a> · Borcherds' proof — generalized Kac–Moody and replication</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="thompson-series"></div>
 </section>
@@ -828,7 +882,7 @@ Think of $Y$ as a non-commutative generalization of multiplication, parametrized
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-20</td><td>initial version</td></tr>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
     </tbody>
   </table>
 </details>

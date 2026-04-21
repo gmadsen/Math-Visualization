@@ -23,6 +23,23 @@ Before drafting a new page or editing widget code, **read [`category-theory.html
 
 When parallelizing: every agent spawned to draft or edit a page must read `category-theory.html` first so tone, markup, and helpers stay consistent across the notebook.
 
+## Common pitfalls — read once, then refer back
+
+Recurring gotchas collected from real fan-outs. Skim this list before editing; revisit after a test failure. Each item has a section below that goes deeper, but this is the pre-flight checklist.
+
+- **Two-tier quiz schema** — each concept entry in `quizzes/<topic>.json` carries a `questions` array (v1 tier) and may carry a `hard` sibling array. `MVProgress` tracks `v1` and `hard` independently; `js/quiz.js` unlocks the hard tier after v1 mastery. When authoring a hard-tier bank, drop it under the same concept key, not a separate file.
+- **Anchor contract (silent 404)** — every `concepts/<topic>.json` concept's `anchor` must match an `id="…"` on the corresponding `<section>` in the topic HTML. Mismatches don't throw; the deep-link just doesn't jump. `scripts/smoke-test.mjs` refuses to exit 0 if any anchor drifts.
+- **Quiz bundle order** — after editing `quizzes/*.json` or `concepts/*.json`, **always** run both `node scripts/build-quizzes-bundle.mjs` and `node scripts/build-concepts-bundle.mjs`. Browsers block `fetch()` of local JSON over `file://` (the double-click flow); without a fresh bundle, double-click opens "could not load" silently and pathway state desyncs.
+- **Callback idempotency** — `scripts/audit-callbacks.mjs --fix` inserts `<aside class="callback">` blocks bounded by `<!-- callback-auto-begin -->` / `<!-- callback-auto-end -->` fences. Re-run the script after editing any `prereqs`; it strips and re-inserts so duplicate asides never accumulate. Same fence trick for `scripts/insert-used-in-backlinks.mjs` (`aside.related`, `backlinks-auto-*` fences) and `scripts/insert-changelog-footer.mjs` (`<details class="changelog">`).
+- **3D decimation on drag** — any widget using `make3DDraggable` must cut mesh density (`NU`/`NV` or equivalent knob) while `view.dragging` is true, then redraw at full resolution on `pointerup`. Without this, heavy meshes chug visibly on rotation.
+- **Legends in viewport coords, not data coords** — anchor legends at fixed viewport offsets (e.g. `translate(-230, 155)`). Anchoring to `(xmin, ymin+pad)` drifts with rotation because the bounding box shifts.
+- **Changelog re-seed is safe** — `scripts/insert-changelog-footer.mjs` rebuilds each footer from `git log --follow`, so re-running picks up new commits without duplicating rows. Pages with no git history yet retain a `YYYY-MM-DD · initial version` placeholder until the first commit lands.
+- **Cross-topic prereqs need callbacks** — adding a prereq that crosses topic boundaries is incomplete without the callback. Run `scripts/audit-callbacks.mjs --fix` after any `prereqs` edit; the audit mode (no flag) is a CI guard that fails if the forward-direction block is missing.
+- **"Used in" backlinks are the reverse direction** — `scripts/insert-used-in-backlinks.mjs --fix` emits a `<aside class="related">` on the prereq side (downstream consumers of this concept). Audit mode enforces presence; re-run after any `prereqs` edit so both directions stay in sync.
+- **Color tokens, never hex** — inside widget markup, reach for `var(--yellow)`, `var(--cyan)`, `var(--mute)`, etc. The `:root` declarations define the palette; inlining raw hex breaks theme swaps and the color-mix border rules on `.callback` / `.related` / `.changelog`.
+- **No ad-hoc localStorage keys** — `MVProgress` owns `mvnb.progress.v1`. Anything else goes in memory for the session. The legacy 2-arg form `setMastered(id, bool)` silently defaults `tier='v1'` for backwards compat, but new code should pass the tier explicitly.
+- **Don't commit scratch verify scripts** — ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the repo (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public.
+
 ## House conventions
 
 - **Colors** live in `:root`: `--bg`, `--panel`, `--panel2`, `--ink`, `--mute`, `--line`, plus accents `--yellow --blue --green --pink --violet --cyan`. Use these vars, never hex literals inside widgets.

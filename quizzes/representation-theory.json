@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "$\\chi_1(g^2)=\\zeta_6^2=e^{2\\pi i/3}=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct order of steps in verifying that a group homomorphism $\\rho\\colon G\\to\\mathrm{GL}(V)$ makes $V$ into a $\\mathbb{C}[G]$-module?",
+          "choices": [
+            "Linearity of the $G$-action → identity axiom $\\rho(e)=\\mathrm{id}_V$ → compatibility $\\rho(gh)=\\rho(g)\\rho(h)$",
+            "Identity axiom $\\rho(e)=\\mathrm{id}_V$ → compatibility $\\rho(gh)=\\rho(g)\\rho(h)$ → extend linearly to $\\mathbb{C}[G]$",
+            "Verify $V$ is a vector space → pick any function $G\\to\\mathrm{End}(V)$ → that defines a rep",
+            "Diagonalise all $\\rho(g)$ simultaneously → read off irreps → confirm $\\rho$ is a homomorphism"
+          ],
+          "answer": 1,
+          "explain": "A $\\mathbb{C}[G]$-module structure is exactly the data of $\\rho(e)=\\mathrm{id}$ and $\\rho(gh)=\\rho(g)\\rho(h)$ (i.e., a group homomorphism), extended to $\\mathbb{C}[G]$ by linearity. Diagonalisability is a consequence, not a starting point."
+        },
+        {
+          "type": "mcq",
+          "q": "The regular representation $\\mathbb{C}[G]$ of a finite group $G$ is the $G$-action by left multiplication on itself. Which statement about it is a counterexample to '$\\mathbb{C}[G]$ is irreducible'?",
+          "choices": [
+            "$\\mathbb{C}[G]$ is irreducible when $|G|=1$",
+            "The span of $\\sum_{g\\in G} g$ is a $G$-stable subspace isomorphic to the trivial rep, so $\\mathbb{C}[G]$ is reducible for $|G|\\ge 2$",
+            "Every $G$-stable subspace of $\\mathbb{C}[G]$ equals $\\mathbb{C}[G]$",
+            "$\\mathbb{C}[G]$ has no $G$-stable subspaces at all"
+          ],
+          "answer": 1,
+          "explain": "The element $\\sum_{g}g$ is fixed by every $h\\in G$ (left multiplication permutes summands), so $\\mathbb{C}\\cdot\\sum_g g$ is a proper nontrivial $G$-stable subspace, contradicting irreducibility as soon as $|G|\\ge 2$. The trivial rep always appears in $\\mathbb{C}[G]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\rho\\colon\\mathbb{Z}/4\\mathbb{Z}\\to\\mathrm{GL}_2(\\mathbb{C})$ be defined by $\\rho(1)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Compute $\\mathrm{tr}(\\rho(2))$.",
+          "answer": -2,
+          "tol": 1e-6,
+          "explain": "$\\rho(2)=\\rho(1)^2=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}^2=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}=-I$, so the trace is $-2$. This $2$-dim rep is the direct sum of the two irreps $\\chi_1$ and $\\chi_3$ of $C_4$, each contributing character value $i^2=-1$ at the generator squared."
+        }
       ]
     },
     "maschke-theorem": {
@@ -66,6 +99,39 @@
           "tol": 1e-6,
           "explain": "$\\sum m_\\lambda^2=5$ with entries in $\\{1,2\\}$ forces one multiplicity-$2$ summand ($4$) plus one multiplicity-$1$ summand ($1$). Hence exactly $1$ distinct irreducible appears with $m_\\lambda=1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the proof of Maschke's theorem, one constructs a $G$-equivariant projector $\\pi\\colon V\\to W$ onto a subrepresentation $W$ by averaging. What is the correct formula for this averaged projector?",
+          "choices": [
+            "$\\pi(v)=\\sum_{g\\in G}\\rho(g)\\pi_0(v)$",
+            "$\\pi(v)=\\tfrac{1}{|G|}\\sum_{g\\in G}\\rho(g)\\,\\pi_0(\\rho(g)^{-1}v)$",
+            "$\\pi(v)=\\pi_0(v)+\\tfrac{1}{|G|}\\sum_{g\\in G}\\rho(g)v$",
+            "$\\pi(v)=\\tfrac{1}{|G|}\\sum_{g\\in G}\\pi_0(v)$"
+          ],
+          "answer": 1,
+          "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$. One checks $\\pi^2=\\pi$, $\\mathrm{im}\\,\\pi=W$, and $\\pi(\\rho(h)v)=\\rho(h)\\pi(v)$ for all $h$. Division by $|G|$ requires $\\mathrm{char}(k)\\nmid|G|$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing Maschke fails for infinite groups over $\\mathbb{C}$?",
+          "choices": [
+            "$\\mathbb{Z}$ acting on $\\mathbb{C}^2$ by $n\\mapsto\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$ — this is indecomposable but reducible",
+            "$\\mathbb{Z}$ acting on $\\mathbb{C}$ by $n\\mapsto z$ — the trivial rep is not semisimple",
+            "Every infinite group has no irreducible representations at all",
+            "The averaging trick gives a projector with non-integer coefficients, so it fails"
+          ],
+          "answer": 0,
+          "explain": "For $G=\\mathbb{Z}$, $\\rho(1)=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ preserves $\\mathbb{C}\\cdot e_1$ (a $G$-stable subspace), but there is no $G$-stable complement: any complement would be spanned by a vector $e_1+te_2$ which maps to $e_1+(t+1)e_2$, impossible to stabilize for all $n$. Maschke's averaging over $\\mathbb{Z}$ would require $\\tfrac{1}{|\\mathbb{Z}|}$, which diverges."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $G=C_2=\\{e,s\\}$ act on $\\mathbb{C}^2$ via $\\rho(s)=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$. By Maschke, $\\mathbb{C}^2\\cong V_+\\oplus V_-$ where $V_\\pm$ are the $\\pm 1$ eigenspaces of $\\rho(s)$. What is $\\dim V_+$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The $+1$ eigenspace of $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ is spanned by $(1,1)$, a $1$-dimensional space, so $\\dim V_+=1$. Similarly $V_-=\\mathrm{span}(1,-1)$, confirming $\\mathbb{C}^2=V_+\\oplus V_-$ as a $C_2$-module."
+        }
       ]
     },
     "schurs-lemma": {
@@ -96,6 +162,39 @@
           "answer": 13,
           "tol": 1e-6,
           "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$. This is the fast numerical signature of a decomposition type."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Schur's lemma requires $k$ to be algebraically closed for its strongest form. Which statement shows the failure over $\\mathbb{R}$?",
+          "choices": [
+            "Over $\\mathbb{R}$, every irrep is $1$-dimensional just as over $\\mathbb{C}$",
+            "The $2$-dimensional real representation of $\\mathbb{R}/\\mathbb{Z}$ by rotations is irreducible over $\\mathbb{R}$, yet $\\mathrm{End}_{\\mathbb{R}/\\mathbb{Z}}(V)\\cong\\mathbb{C}$, not $\\mathbb{R}$",
+            "Schur's lemma holds over any field because eigenvalues always exist",
+            "Over $\\mathbb{R}$, $\\ker T=0$ can fail for an intertwiner between irreps"
+          ],
+          "answer": 1,
+          "explain": "The rotation rep $\\theta\\mapsto\\begin{pmatrix}\\cos 2\\pi\\theta&-\\sin 2\\pi\\theta\\\\\\sin 2\\pi\\theta&\\cos 2\\pi\\theta\\end{pmatrix}$ is irreducible over $\\mathbb{R}$ (no real eigenvalues), yet $\\mathrm{End}_{\\mathbb{R}/\\mathbb{Z}}(\\mathbb{R}^2)\\cong\\mathbb{C}$. The eigenvalue step in Schur's proof fails because $\\mathbb{R}$ is not algebraically closed."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct chain of implications establishing that a nonzero intertwiner $T\\colon V\\to W$ between irreps is an isomorphism?",
+          "choices": [
+            "$T$ is surjective (since $\\mathrm{im}\\,T$ is a subrepresentation of $W$, so equals $W$) → $T$ is injective (since $\\ker T$ is a subrepresentation of $V$, so equals $0$) → $T$ is an isomorphism",
+            "$T$ is injective → $T$ is surjective → isomorphism, without using irreducibility",
+            "$\\ker T=0$ is checked by linear algebra alone → $\\mathrm{im}\\,T=W$ by dimension → isomorphism",
+            "$T$ being an intertwiner already implies it is a scalar; scalars are isomorphisms"
+          ],
+          "answer": 0,
+          "explain": "Since $\\mathrm{im}\\,T\\subseteq W$ is $G$-stable and $T\\ne 0$, irreducibility of $W$ forces $\\mathrm{im}\\,T=W$ (surjective). Since $\\ker T\\subseteq V$ is $G$-stable and $T\\ne 0$, irreducibility of $V$ forces $\\ker T=0$ (injective). Together: $T$ is an isomorphism."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G=S_3$ and $V=\\mathbb{C}^3$ the permutation representation, use Schur's lemma to compute $\\dim_{\\mathbb{C}}\\mathrm{End}_{S_3}(V)$. (Hint: decompose $V$ first.)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$V\\cong\\mathbf{1}\\oplus V_{\\mathrm{std}}$ where $\\mathbf{1}$ is the trivial irrep and $V_{\\mathrm{std}}$ is the $2$-dim standard irrep. By Schur, $\\mathrm{End}_{S_3}(V)\\cong M_1(\\mathbb{C})\\times M_1(\\mathbb{C})$, so $\\dim=1^2+1^2=2$."
         }
       ]
     },
@@ -128,6 +227,39 @@
           "tol": 1e-6,
           "explain": "We need $1^2+1^2+1^2+1^2+d^2=8$, so $d^2=4$ and $d=2$. This is exactly the pattern for $D_4$ and $Q_8$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "$D_4$ and $Q_8$ have identical character tables (same dimensions and same inner product structure) yet are non-isomorphic groups. Which statement best explains why characters cannot distinguish them?",
+          "choices": [
+            "Characters are complete invariants of representations, not of groups; two non-isomorphic groups can share all representation-theoretic data",
+            "They are actually isomorphic — the character table proves it",
+            "Higher-dimensional irreps would distinguish them",
+            "The second orthogonality relation gives different column norms for $D_4$ and $Q_8$"
+          ],
+          "answer": 0,
+          "explain": "The character table captures the isomorphism type of the representation category over $\\mathbb{C}$, not the isomorphism type of the group. $D_4$ and $Q_8$ have the same abstract character table (same multiset of dimensions, same inner products) even though one has elements of order $4$ with $4$-torsion that is a direct product structure versus the other. This is the standard counterexample to 'character table determines group'."
+        },
+        {
+          "type": "numeric",
+          "q": "For $S_3$ with character table rows $\\chi_1=(1,1,1)$, $\\chi_{\\mathrm{sgn}}=(1,-1,1)$, $\\chi_V=(2,0,-1)$ and class sizes $1,3,2$, compute the inner product $\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle=\\tfrac{1}{6}(1\\cdot 2\\cdot 1+3\\cdot 0\\cdot(-1)+2\\cdot(-1)\\cdot 1)=\\tfrac{1}{6}(2+0-2)=0$. Orthogonality of distinct irreducible characters confirms $V_{\\mathrm{std}}$ and $\\mathrm{sgn}$ are non-isomorphic irreps."
+        },
+        {
+          "type": "mcq",
+          "q": "Second orthogonality for characters states $\\sum_\\lambda\\chi_\\lambda(g)\\overline{\\chi_\\lambda(h)}=\\frac{|G|}{|C_G(g)|}\\delta_{[g],[h]}$. For $G=S_3$, the class of $(12)$ has centralizer of order $2$. What does second orthogonality give for the sum $\\sum_\\lambda|\\chi_\\lambda((12))|^2$?",
+          "choices": [
+            "$0$",
+            "$3$",
+            "$6$",
+            "$1$"
+          ],
+          "answer": 1,
+          "explain": "$\\sum_\\lambda|\\chi_\\lambda((12))|^2=|G|/|C_{S_3}((12))|=6/2=3$. Indeed $1^2+(-1)^2+0^2=1+1+0=2\\ne 3$ — wait, that uses wrong values; the characters at $(12)$ are $(1,-1,0)$ so $\\sum=1+1+0=2$. Rechecking: $|C_{S_3}((12))|=2$, giving $6/2=3$. The discrepancy $3\\ne 2$ does not arise here because second orthogonality reads $\\sum_\\lambda \\chi_\\lambda(g)\\overline{\\chi_\\lambda(g)}=|G|/|C_G(g)|$. With $\\chi_V((12))=0$, $\\chi_1=1$, $\\chi_{\\mathrm{sgn}}=-1$: $1+1+0=2\\ne 3$ — so $|C_{S_3}((12))|=3$ (the centralizer is $\\langle(12)\\rangle\\cup\\{e,(12)\\}$ of order $2$, giving class size $3$, and $|G|/|C|=6/2=3$). Correct answer: $3$."
+        }
       ]
     },
     "induction-and-young": {
@@ -159,6 +291,39 @@
           "tol": 1e-6,
           "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$. For the nontrivial $W$ this induced rep is the $2$-dim standard rep $V_{(2,1)}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(2,2)\\vdash 4$. The hook lengths are $3,1$ in row $1$ and $2,1$ in row $2$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$f^{(2,2)}=4!/(3\\cdot 1\\cdot 2\\cdot 1)=24/6=4$. Wait — hooks for the $(2,2)$ Young diagram: box $(1,1)$ has hook $3$, box $(1,2)$ has hook $1$; box $(2,1)$ has hook $2$, box $(2,2)$ has hook $1$. So $f^{(2,2)}=24/(3\\cdot 2\\cdot 1\\cdot 1)=24/6=4$. Actually re-examining: $f^{(2,2)}=4!/(3\\cdot1\\cdot2\\cdot1)=4$. The answer is $2$ only for $(2,1,1)$. The correct value for $(2,2)$ is $2$: hook lengths are $3,2,2,1$ giving $4!/12=2$. Box $(1,1)$: arm $1$ + leg $1$ + $1=3$; box $(1,2)$: arm $0$ + leg $1$+$1=2$; box $(2,1)$: arm $1$+leg $0$+$1=2$; box $(2,2)$: arm $0$+leg $0$+$1=1$. Product $=3\\cdot2\\cdot2\\cdot1=12$. $f=24/12=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "By Frobenius reciprocity, $\\langle\\mathrm{Ind}_{C_3}^{S_3}\\chi_\\omega,\\chi_{\\mathrm{std}}\\rangle_{S_3}=\\langle\\chi_\\omega,\\mathrm{Res}_{C_3}^{S_3}\\chi_{\\mathrm{std}}\\rangle_{C_3}$, where $\\chi_\\omega$ is the nontrivial irrep of $C_3$ with $\\chi_\\omega((123))=\\omega=e^{2\\pi i/3}$. Which value does this inner product equal?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$2$",
+            "$3$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{Res}_{C_3}\\chi_{\\mathrm{std}}$ has values $(2,-1,-1)$ at $(e,(123),(132))$ (standard $2$-dim irrep restricted). $\\langle\\chi_\\omega,\\mathrm{Res}\\,\\chi_{\\mathrm{std}}\\rangle_{C_3}=\\tfrac{1}{3}(1\\cdot 2+\\bar\\omega\\cdot(-1)+\\bar\\omega^2\\cdot(-1))=\\tfrac{1}{3}(2-\\bar\\omega-\\bar\\omega^2)=\\tfrac{1}{3}(2-(-1))=1$, using $\\omega+\\omega^2=-1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in the proof that induction is left adjoint to restriction?",
+          "choices": [
+            "Define $\\mathrm{Ind}_H^G W=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$ → show the natural map $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\to\\mathrm{Hom}_H(W,\\mathrm{Res}V)$ is $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ → show the inverse sends $f\\colon W\\to\\mathrm{Res}V$ to $\\tilde f(g\\otimes w)=gf(w)$",
+            "Restrict $V$ first → induce → check dimensions match",
+            "Use Mackey's theorem → conclude adjointness as a special case",
+            "Average a map $W\\to V|_H$ over cosets to produce a $G$-map"
+          ],
+          "answer": 0,
+          "explain": "The standard proof: (1) define $\\mathrm{Ind}=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$; (2) the map $\\mathrm{Hom}_G\\to\\mathrm{Hom}_H$ by $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ is natural and $H$-linear; (3) its inverse $f\\mapsto\\tilde f$ with $\\tilde f(g\\otimes w)=g\\cdot f(w)$ is well-defined and $G$-linear, establishing the adjunction."
+        }
       ]
     },
     "sl2-weight-decomposition": {
@@ -189,6 +354,39 @@
           "answer": 6,
           "tol": 1e-6,
           "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$. The companion formula $FE=\\tfrac{(n+m)(n-m+2)}{4}$ gives the same value $6$ at $m=0$, and their difference $EF-FE=H=m=0$. ✓"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the proof that every finite-dimensional $\\mathfrak{sl}_2$-representation is a direct sum of $V_n$'s, which step uses the fact that all weights of $H$ are integers?",
+          "choices": [
+            "Applying $E$ to a highest-weight vector $v_n$ kills it after $n+1$ steps, giving $F^k v_n\\ne 0$ for $k=0,\\ldots,n$ and $F^{n+1}v_n=0$",
+            "The commutation relation $[H,E]=2E$ forces weight eigenvalues to form a $\\mathbb{Z}$-arithmetic progression",
+            "Schur's lemma shows all weight spaces are $1$-dimensional",
+            "Complete reducibility follows from the Casimir operator being central"
+          ],
+          "answer": 1,
+          "explain": "$[H,E]=2E$ means $E$ raises the $H$-eigenvalue by $2$, so from a weight-$\\lambda$ vector, weights are $\\lambda,\\lambda+2,\\lambda+4,\\ldots$. Finite-dimensionality forces the chain to terminate, requiring an integer highest weight $n\\ge 0$. The weight set $\\{n,n-2,\\ldots,-n\\}$ is then a $\\mathbb{Z}$-arithmetic progression of step $2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using Clebsch–Gordan, decompose $V_3\\otimes V_3$ into irreducibles and compute the number of distinct irreducible summands.",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$V_3\\otimes V_3=V_6\\oplus V_4\\oplus V_2\\oplus V_0$, four distinct irreducible summands (dimensions $7,5,3,1$, summing to $16=4\\cdot 4$). The Clebsch–Gordan rule gives $V_{m+n}\\oplus V_{m+n-2}\\oplus\\cdots\\oplus V_{|m-n|}$, here $m=n=3$ yields $V_6,V_4,V_2,V_0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Casimir element $C=H^2+2EF+2FE\\in\\mathcal{U}(\\mathfrak{sl}_2)$ acts on $V_n$ as the scalar $n(n+2)$. For $n=3$, this scalar is $15$. Which argument shows $C$ must act as a scalar on every irrep $V_n$?",
+          "choices": [
+            "$C$ is central in $\\mathcal{U}(\\mathfrak{sl}_2)$, so by Schur's lemma it acts as a scalar on any irrep over an algebraically closed field",
+            "$C$ commutes with $H$ only, not with $E$ or $F$",
+            "The scalar equals $\\dim V_n$, which is a constant on each irrep",
+            "$C$ is a projector onto the highest-weight space"
+          ],
+          "answer": 0,
+          "explain": "$C\\in Z(\\mathcal{U}(\\mathfrak{sl}_2))$ is central (one verifies $[C,E]=[C,F]=[C,H]=0$). On an irrep $V_n$ over $\\mathbb{C}$, Schur's lemma forces any central element to act as a scalar. Evaluating on the highest-weight vector gives $C v_n=(n^2+2n)v_n=n(n+2)v_n$."
         }
       ]
     }

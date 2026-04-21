@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "The empty cover of $\\emptyset$ forces $F(\\emptyset)$ to be the terminal object of the target category — for abelian groups, the zero group $\\{0\\}$, which has $1$ element."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider the constant presheaf $\\underline{\\mathbb{Z}}^{\\mathrm{pre}}$ on a disconnected space $X = U_1 \\sqcup U_2$ assigning $\\mathbb{Z}$ to every non-empty open. Its sheafification $\\underline{\\mathbb{Z}}$ satisfies $\\underline{\\mathbb{Z}}(X) \\cong$ :",
+          "choices": [
+            "$\\mathbb{Z}$",
+            "$\\mathbb{Z} \\times \\mathbb{Z}$",
+            "$0$",
+            "$\\mathbb{Z}[x]$"
+          ],
+          "answer": 1,
+          "explain": "On $X = U_1 \\sqcup U_2$ the sheaf condition forces $F(X) \\cong F(U_1)\\times F(U_2)$ because $\\{U_1,U_2\\}$ is a cover with $U_1\\cap U_2=\\emptyset$. The constant presheaf assigned $\\mathbb{Z}$ to $X$, but its sheafification assigns $\\mathbb{Z}\\times\\mathbb{Z}$, showing constant presheaf $\\neq$ constant sheaf on disconnected spaces."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in verifying the equalizer condition for the sheaf $\\mathcal{O}_X$ of holomorphic functions on a Riemann surface?",
+          "choices": [
+            "Gluing → Locality → Functoriality",
+            "Functoriality → Gluing → Locality",
+            "Locality (injectivity of $e$) first — if $f|_{U_i}=g|_{U_i}$ for all $i$ then $f=g$ — then Gluing (surjectivity onto the equalizer) — a compatible family $(f_i)$ extends to $f\\in\\mathcal{O}(U)$",
+            "Gluing first, then Locality, then the empty-set check"
+          ],
+          "answer": 2,
+          "explain": "The standard verification separates into two parts matching the two parts of the equalizer: first prove $e:F(U)\\to\\prod F(U_i)$ is injective (locality/separation), then prove every element of the equalizer is in the image (gluing/descent)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $F$ be the skyscraper sheaf at $x\\in X$ with stalk $\\mathbb{Z}/5\\mathbb{Z}$. For any open $U$ not containing $x$, $|F(U)|$ equals what?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "A skyscraper sheaf assigns the trivial group (of size $1$) to every open set not containing the base point $x$, and the stalk group $\\mathbb{Z}/5\\mathbb{Z}$ to every open containing $x$."
+        }
       ]
     },
     "stalks-local-data": {
@@ -71,6 +104,39 @@
           "tol": 1e-6,
           "explain": "$\\mathbb{Z}_{(5)}/5\\mathbb{Z}_{(5)} = \\mathbb{F}_5$, the residue field at the prime $(5)$, which has characteristic $5$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A morphism $\\varphi:F\\to G$ of sheaves on $X$ is an isomorphism if and only if:",
+          "choices": [
+            "$\\varphi(U):F(U)\\to G(U)$ is an isomorphism for every open $U$",
+            "$\\varphi$ is injective and surjective as a natural transformation on opens",
+            "the induced map on stalks $\\varphi_x:F_x\\to G_x$ is an isomorphism for every $x\\in X$",
+            "$\\varphi(X):F(X)\\to G(X)$ is an isomorphism"
+          ],
+          "answer": 2,
+          "explain": "For sheaves, a morphism is an isomorphism iff it is an isomorphism on all stalks. This fails for presheaves — the key point is that sheafification preserves stalks, so stalk-wise data is the correct local invariant."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\mathcal{O}_{\\mathbb{C},0}$ the stalk of holomorphic functions at $0\\in\\mathbb{C}$, the function $f(z)=z^3+2z$ has germ $[(U,f)]$ at $0$. What is the value of this germ evaluated at $z=0$, i.e., $f(0)$?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$f(0) = 0^3 + 2\\cdot 0 = 0$. The germ encodes all local data of $f$ near $0$, including $f(0)=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The étalé space $\\acute{E}t(F)$ of a sheaf $F$ is constructed so that sections of $F$ over $U$ correspond bijectively to:",
+          "choices": [
+            "all continuous maps $U\\to\\acute{E}t(F)$",
+            "continuous sections $s:U\\to\\acute{E}t(F)$ of the projection $\\pi:\\acute{E}t(F)\\to X$",
+            "open subsets of $\\acute{E}t(F)$ lying over $U$",
+            "locally constant maps $U\\to\\bigsqcup_{x\\in U}F_x$"
+          ],
+          "answer": 1,
+          "explain": "The étalé (or étale) space is $\\acute{E}t(F)=\\bigsqcup_{x\\in X}F_x$ topologized so that $F(U)\\cong\\{$continuous sections of $\\pi$ over $U\\}$. This is the sheaf-of-sections construction and underpins the equivalence between sheaves and étalé bundles."
+        }
       ]
     },
     "sheafification-and-qcoh": {
@@ -106,6 +172,39 @@
           "answer": 3,
           "tol": 1e-6,
           "explain": "Inverting $2$ in $\\mathbb{Z}/6$ kills the $2$-part: $(\\mathbb{Z}/6)[1/2] = \\mathbb{Z}/3$, which has $3$ elements."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct sequence of steps in the two-step construction of sheafification $F\\mapsto F^+$?",
+          "choices": [
+            "First sheafify, then separate",
+            "First apply $F\\mapsto F^+$ to get a separated presheaf, then apply $(-)^+$ again to get a sheaf; the result $(F^+)^+$ is the sheafification",
+            "Apply the plus-construction once; the result is already a sheaf by the universal property",
+            "Take the colimit over all refinements of covers directly"
+          ],
+          "answer": 1,
+          "explain": "The plus-construction $F^+$ yields a separated presheaf from any presheaf. Applying it a second time to the separated presheaf yields the sheaf $(F^+)^+$. Grothendieck showed two applications always suffice."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $R = k[x,y]/(xy)$ and $M = R/(x)\\cong k[y]$. The localization $M_x = M[1/x]$ has how many elements when $k = \\mathbb{F}_2$ and we count elements of $M_x$ that are annihilated by $x$? (Hint: $xM=0$.)",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "Since $x$ annihilates every element of $M = k[y]$ (as $x\\cdot k[y]=0$ in $R/(x)$), inverting $x$ forces $M_x = 0$. So every element of $M_x$ is $0$, and $0$ elements are annihilated by $x$ in a trivial group sense — $M_x$ itself has size $1$ (the zero module), so there are $0$ non-zero elements annihilated by $x$."
+        },
+        {
+          "type": "mcq",
+          "q": "A coherent sheaf on a Noetherian scheme $X$ is a quasi-coherent sheaf $\\mathcal{F}$ that is additionally:",
+          "choices": [
+            "globally generated by finitely many sections",
+            "locally finitely presented: on each affine $\\mathrm{Spec}\\,R_i$ the corresponding module $M_i$ is finitely generated over $R_i$",
+            "a direct sum of line bundles",
+            "flat over $\\mathcal{O}_X$"
+          ],
+          "answer": 1,
+          "explain": "Coherence requires local finite generation (and, for non-Noetherian rings, also that the kernel of any map from a free finite-rank sheaf is finitely generated). On a Noetherian scheme, local finite generation suffices."
         }
       ]
     }

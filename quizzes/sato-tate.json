@@ -30,6 +30,39 @@
           "tol": 0.01,
           "explain": "The map $\\theta \\mapsto 2\\sqrt{p}\\cos\\theta$ is a bijection $[0,\\pi] \\to [-2\\sqrt{p}, 2\\sqrt{p}]$, so $\\theta_p \\in [0,\\pi]$, of length $\\pi$."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For the elliptic curve $y^2=x^3-x$ at $p=5$, one finds $a_5=-2$. Compute $\\theta_5\\in[0,\\pi]$ in radians, rounded to 3 decimals. (Use $\\cos\\theta_5 = a_5/(2\\sqrt{5})$.)",
+          "answer": 2.034,
+          "tol": 0.01,
+          "explain": "$\\cos\\theta_5 = -2/(2\\sqrt{5}) = -1/\\sqrt{5}\\approx -0.4472$, so $\\theta_5 = \\arccos(-0.4472)\\approx 2.034$. Check: $2\\sqrt{5}\\cos(2.034)\\approx 2(2.236)(-0.4472)\\approx -2$. ✓"
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a correct counterexample showing the Hasse bound $|a_p|\\le 2\\sqrt{p}$ is tight, i.e., $|a_p|$ can equal $2\\sqrt{p}$ exactly only in a degenerate case?",
+          "choices": [
+            "$|a_p|=2\\sqrt{p}$ occurs at good primes whenever $E$ has CM",
+            "$|a_p|=2\\sqrt{p}$ forces $\\theta_p\\in\\{0,\\pi\\}$, which requires $a_p=\\pm 2\\sqrt{p}$; but $a_p\\in\\mathbb{Z}$ so this forces $p$ to be a perfect square, impossible for a prime",
+            "$|a_p|=2\\sqrt{p}$ is achieved for every prime $p$ when $E$ is supersingular",
+            "$|a_p|=2\\sqrt{p}$ happens for infinitely many primes by the equidistribution theorem"
+          ],
+          "answer": 1,
+          "explain": "Since $a_p$ is an integer and $2\\sqrt{p}$ is irrational for any prime $p$, the strict inequality $|a_p|<2\\sqrt{p}$ holds for every prime of good reduction. The bound is asymptotically tight in the sense that $a_p/(2\\sqrt{p})$ is dense in $[-1,1]$, but never exactly $\\pm 1$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the correct chain of logical implications that produced the Frobenius angle $\\theta_p$?",
+          "choices": [
+            "Weil conjectures $\\Rightarrow$ $|\\alpha_p|=\\sqrt{p}$ $\\Rightarrow$ write $\\alpha_p=\\sqrt{p}e^{i\\theta_p}$ $\\Rightarrow$ $a_p=2\\sqrt{p}\\cos\\theta_p$",
+            "$a_p\\in\\mathbb{Z}$ $\\Rightarrow$ Hasse bound $\\Rightarrow$ $\\alpha_p=e^{i\\theta_p}$ $\\Rightarrow$ $a_p=2\\cos\\theta_p$",
+            "Sato–Tate theorem $\\Rightarrow$ $\\theta_p$ exists $\\Rightarrow$ $|\\alpha_p|=\\sqrt{p}$ $\\Rightarrow$ Hasse bound",
+            "Riemann hypothesis $\\Rightarrow$ $a_p=0$ $\\Rightarrow$ $\\theta_p=\\pi/2$ for all $p$"
+          ],
+          "answer": 0,
+          "explain": "Hasse proved $|a_p|\\le 2\\sqrt{p}$ directly; the Weil conjectures (proved by Deligne for curves) imply $|\\alpha_p|=|\\beta_p|=\\sqrt{p}$. Writing $\\alpha_p=\\sqrt{p}e^{i\\theta_p}$ then gives $a_p=\\alpha_p+\\beta_p=2\\sqrt{p}\\cos\\theta_p$."
+        }
       ]
     },
 
@@ -66,6 +99,39 @@
           "answer": 0,
           "tol": 1e-6,
           "explain": "$\\int_0^\\pi 2\\cos\\theta\\cdot(2/\\pi)\\sin^2\\theta\\,d\\theta = (4/\\pi)\\int_0^\\pi \\cos\\theta\\sin^2\\theta\\,d\\theta = (4/\\pi)\\cdot 0 = 0$ (the integrand is antisymmetric about $\\theta=\\pi/2$). This is orthogonality of $\\chi_1$ to the trivial representation on $\\mathrm{SU}(2)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Weyl's criterion for $\\mathrm{SU}(2)$ requires $\\frac{1}{\\pi(X)}\\sum_{p\\le X}\\chi_n(\\theta_p)\\to 0$ for every $n\\ge 1$. If one knows this only for $n=1$, which conclusion is valid?",
+          "choices": [
+            "Full equidistribution with respect to $\\mu_{ST}$ follows, because $\\chi_1$ generates the representation ring",
+            "The angles $\\theta_p$ equidistribute with respect to the pushforward of Haar measure on $\\mathrm{U}(1)$, not $\\mathrm{SU}(2)$",
+            "Only that $\\frac{1}{\\pi(X)}\\sum_{p}\\cos\\theta_p\\to 0$; all other moments remain unconstrained",
+            "The $L$-function $L(\\mathrm{Sym}^1 E,s)=L(E,s)$ is entire, but nothing about higher symmetric powers"
+          ],
+          "answer": 2,
+          "explain": "Each $n$ in Weyl's criterion is an independent condition. Knowing $n=1$ controls only the first trigonometric moment $\\langle\\cos\\theta\\rangle$. Full equidistribution requires all $n\\ge 1$, corresponding to holomorphy and non-vanishing of every $L(\\mathrm{Sym}^n E,s)$ on $\\operatorname{Re}s\\ge 1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\int_0^\\pi \\chi_2(\\theta)\\,d\\mu_{ST}(\\theta)$ where $\\chi_2(\\theta)=4\\cos^2\\theta-1$ is the character of $\\mathrm{Sym}^2$. Use $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
+          "answer": 0,
+          "tol": 0.001,
+          "explain": "$\\int_0^\\pi(4\\cos^2\\theta-1)\\tfrac{2}{\\pi}\\sin^2\\theta\\,d\\theta = \\tfrac{2}{\\pi}\\bigl[4\\int_0^\\pi\\cos^2\\theta\\sin^2\\theta\\,d\\theta - \\int_0^\\pi\\sin^2\\theta\\,d\\theta\\bigr] = \\tfrac{2}{\\pi}\\bigl[4\\cdot\\tfrac{\\pi}{8} - \\tfrac{\\pi}{2}\\bigr] = \\tfrac{2}{\\pi}(\\tfrac{\\pi}{2}-\\tfrac{\\pi}{2})=0$. This reflects orthogonality of $\\mathrm{Sym}^2$ to the trivial rep."
+        },
+        {
+          "type": "mcq",
+          "q": "Weyl's equidistribution theorem for the sequence $\\alpha n\\pmod{1}$ ($\\alpha$ irrational) uses the same criterion as Sato–Tate. Which is the correct chain of steps?",
+          "choices": [
+            "Density $\\Rightarrow$ equidistribution $\\Rightarrow$ Weyl criterion for all $k$",
+            "Weyl criterion for all $k\\ne 0$: $\\frac{1}{N}\\sum e^{2\\pi ik\\alpha n}\\to 0$ (geometric series, $|e^{2\\pi ik\\alpha}-1|>0$) $\\Rightarrow$ equidistribution by approximation of continuous functions by trigonometric polynomials",
+            "Measure-zero set avoidance $\\Rightarrow$ equidistribution $\\Rightarrow$ Weyl criterion",
+            "Ergodicity of the rotation $x\\mapsto x+\\alpha$ on $[0,1]$ $\\Rightarrow$ Weyl criterion fails for $k=0$ only"
+          ],
+          "answer": 1,
+          "explain": "For $k\\ne 0$, $\\frac{1}{N}\\sum_{n=1}^Ne^{2\\pi ik\\alpha n} = \\frac{e^{2\\pi ik\\alpha}(e^{2\\pi ikN\\alpha}-1)}{N(e^{2\\pi ik\\alpha}-1)}\\to 0$ since the denominator is bounded away from zero when $\\alpha\\notin\\mathbb{Q}$. The criterion then yields equidistribution by approximating indicator functions with trigonometric polynomials."
         }
       ]
     },
@@ -104,6 +170,39 @@
           "answer": 1,
           "explain": "Equidistribution: for any continuous test function $f$ on $[0,\\pi]$, $\\lim_{X\\to\\infty}\\tfrac{1}{\\pi(X)}\\sum_{p\\le X} f(\\theta_p) = \\int_0^\\pi f\\,d\\mu_{ST}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute the variance of $\\cos\\theta$ under $\\mu_{ST}$, i.e., $\\int_0^\\pi\\cos^2\\theta\\,d\\mu_{ST} - \\left(\\int_0^\\pi\\cos\\theta\\,d\\mu_{ST}\\right)^2$. Use $d\\mu_{ST}=(2/\\pi)\\sin^2\\theta\\,d\\theta$.",
+          "answer": 0.25,
+          "tol": 0.005,
+          "explain": "$\\int_0^\\pi\\cos\\theta\\,d\\mu_{ST}=0$ (shown earlier). $\\int_0^\\pi\\cos^2\\theta\\,(2/\\pi)\\sin^2\\theta\\,d\\theta = (2/\\pi)\\int_0^\\pi\\cos^2\\theta\\sin^2\\theta\\,d\\theta = (2/\\pi)\\cdot\\pi/8 = 1/4$. Variance $= 1/4 - 0 = 1/4$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Sato–Tate measure is the pushforward of normalized Haar measure on $\\mathrm{SU}(2)$ along the map $g\\mapsto\\theta_g$ (half the argument of eigenvalues). Which statement about this measure is FALSE?",
+          "choices": [
+            "It assigns more mass near $\\theta=\\pi/2$ than near $\\theta=0$ or $\\theta=\\pi$",
+            "It is absolutely continuous with respect to Lebesgue measure on $[0,\\pi]$",
+            "It is the uniform measure on $[0,\\pi]$",
+            "Its density vanishes at $\\theta=0$ and $\\theta=\\pi$"
+          ],
+          "answer": 2,
+          "explain": "The Sato–Tate density is $(2/\\pi)\\sin^2\\theta$, not the uniform measure $1/\\pi$. It peaks at $\\theta=\\pi/2$ and vanishes at the endpoints, so options A, B, D are true statements."
+        },
+        {
+          "type": "mcq",
+          "q": "Under $\\mu_{ST}$, what is the probability that $a_p > 0$, i.e., that $\\theta_p\\in(0,\\pi/2)$?",
+          "choices": [
+            "$1/3$",
+            "$1/2$",
+            "$2/3$",
+            "$1/4$"
+          ],
+          "answer": 1,
+          "explain": "$\\Pr[\\theta_p\\in(0,\\pi/2)]=\\int_0^{\\pi/2}(2/\\pi)\\sin^2\\theta\\,d\\theta = (2/\\pi)\\cdot\\pi/4 = 1/2$. The density $(2/\\pi)\\sin^2\\theta$ is symmetric about $\\theta=\\pi/2$, so exactly half the mass lies in each half."
+        }
       ]
     },
 
@@ -141,6 +240,39 @@
           "tol": 100,
           "explain": "Half of $78498$ is $39249$. The exact count fluctuates by $O(\\sqrt{\\pi(X)})$ — Chebotarev with error term — so any count within a few hundred is consistent with the CM equidistribution law."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For a CM elliptic curve $E/\\mathbb{Q}$ with CM by $\\mathcal{O}_K$, the Sato–Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Which is the correct order-of-steps argument showing the equidistribution for split primes?",
+          "choices": [
+            "Hecke $L$-function $L(\\psi,s)$ is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$ $\\Rightarrow$ the split Frobenius angles equidistribute uniformly on $[0,\\pi]$ via Weyl's criterion for $\\mathrm{U}(1)$",
+            "Sato–Tate theorem for non-CM applies to $E$ because all elliptic curves over $\\mathbb{Q}$ are modular $\\Rightarrow$ angles equidistribute as $(2/\\pi)\\sin^2\\theta$",
+            "Supersingular primes have density $0$ by the prime number theorem $\\Rightarrow$ CM and non-CM angles follow the same law",
+            "Chebotarev density theorem applied to the 2-division field $\\Rightarrow$ all torsion primes equidistribute"
+          ],
+          "answer": 0,
+          "explain": "For split primes $p$ in a CM curve, $a_p=\\psi(\\mathfrak{p})+\\overline{\\psi(\\mathfrak{p})}$ for a Hecke Grössencharacter $\\psi$. The associated Hecke $L$-function is entire and non-vanishing on $\\operatorname{Re}s\\ge 1$, so the split angles equidistribute uniformly on $[0,\\pi]$ (the Haar measure on $\\mathrm{U}(1)$ pushed to $[0,\\pi]$)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which space is NOT a valid Sato–Tate group for any motive over $\\mathbb{Q}$ of rank 2?",
+          "choices": [
+            "$\\mathrm{SU}(2)$",
+            "$N(T)\\subset\\mathrm{SU}(2)$ (normalizer of maximal torus)",
+            "$\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$ (maximal torus)",
+            "$\\mathrm{SO}(3)$"
+          ],
+          "answer": 3,
+          "explain": "$\\mathrm{SO}(3)$ is not a subgroup of $\\mathrm{USp}(2)\\cong\\mathrm{SU}(2)$ in the relevant sense for rank-2 motives. The Sato–Tate groups for rank-2 motives are $\\mathrm{SU}(2)$ (non-CM), $N(T)$ (CM over $\\mathbb{Q}$), or $U(1)$ (CM over the base field); $\\mathrm{SO}(3)$ appears for symmetric-square motives, not rank-2."
+        },
+        {
+          "type": "numeric",
+          "q": "For a CM curve with CM field $K=\\mathbb{Q}(i)$, primes that split in $K$ are those $p\\equiv 1\\pmod{4}$. By Dirichlet's theorem, their density among all primes is $1/2$. Given $\\pi(100)=25$, estimate the count of primes $p\\le 100$ with $p\\equiv 1\\pmod{4}$.",
+          "answer": 11,
+          "tol": 2,
+          "explain": "Primes $\\le 100$ with $p\\equiv 1\\pmod 4$: $5,13,17,29,37,41,53,61,73,89,97$ — that is $11$ primes. Dirichlet predicts roughly $25/2\\approx 12.5$; the actual count is $11$."
+        }
       ]
     },
 
@@ -177,6 +309,39 @@
           ],
           "answer": 1,
           "explain": "By a Tauberian / Wiener\u2013Ikehara argument, non-vanishing + holomorphy of each $L(\\mathrm{Sym}^n E, s)$ on $\\mathrm{Re}\\,s \\ge 1$ yields equidistribution of traces with respect to the Sato\u2013Tate measure via character orthogonality on $\\mathrm{SU}(2)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For $\\theta_p=\\pi/4$, compute the trace of $\\mathrm{Sym}^3$ Frobenius: $\\alpha_p^3+\\alpha_p^2\\beta_p+\\alpha_p\\beta_p^2+\\beta_p^3$, divided by $p^{3/2}$.",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "The $\\mathrm{Sym}^3$ character is $\\chi_3(\\theta)=\\sin(4\\theta)/\\sin\\theta$. At $\\theta=\\pi/4$: $\\sin(\\pi)=0$, so $\\chi_3(\\pi/4)=0$. Alternatively, $U_3(\\cos(\\pi/4))=U_3(1/\\sqrt2)=4(1/\\sqrt2)^3-2(1/\\sqrt2)=4/(2\\sqrt2)-\\sqrt2=\\sqrt2-\\sqrt2=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The proof of Sato–Tate by Barnet-Lamb–Geraghty–Harris–Taylor establishes holomorphy and non-vanishing of $L(\\mathrm{Sym}^n E,s)$ on $\\operatorname{Re}s\\ge 1$ by which main strategy?",
+          "choices": [
+            "Direct computation of $a_p$ for all primes using Weil's explicit formula",
+            "Potential automorphy: showing $\\mathrm{Sym}^n$ of the Galois representation becomes automorphic over a solvable extension, then descending",
+            "Proving the Riemann hypothesis for $\\zeta(s)$ and transferring it to $L(\\mathrm{Sym}^n E,s)$",
+            "Applying the trace formula for $\\mathrm{GL}_n$ directly to the symmetric-power $L$-function"
+          ],
+          "answer": 1,
+          "explain": "BLGHT uses the 'potential automorphy' method of Taylor: one shows that $\\mathrm{Sym}^n(\\rho_{E,\\ell})$ becomes automorphic over some totally real field $F$ (a solvable base change), establishes the required analytic properties there, and then uses automorphic induction / descent to get non-vanishing on $\\operatorname{Re}s\\ge 1$ over $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which chain of inclusions correctly describes the local Euler factor degree for $L(\\mathrm{Sym}^n E,s)$ versus $L(E,s)$?",
+          "choices": [
+            "$L(E,s)$ has degree-$2$ Euler factors; $L(\\mathrm{Sym}^n E,s)$ has degree-$(n+1)$ Euler factors at good primes",
+            "$L(E,s)$ has degree-$n$ Euler factors; $L(\\mathrm{Sym}^n E,s)$ has degree-$2$ Euler factors",
+            "Both have degree-$2$ Euler factors for all $n$",
+            "$L(\\mathrm{Sym}^n E,s)$ has degree-$2n$ Euler factors because it is a tensor product of $n$ copies of $L(E,s)$"
+          ],
+          "answer": 0,
+          "explain": "$L(E,s)$ has $(1-\\alpha_p p^{-s})^{-1}(1-\\beta_p p^{-s})^{-1}$ at good $p$: degree 2. $\\mathrm{Sym}^n$ of the 2-dim Frobenius has eigenvalues $\\{\\alpha_p^{n-k}\\beta_p^k\\}_{k=0}^n$, giving $n+1$ inverse-linear factors, so degree $n+1$."
         }
       ]
     }

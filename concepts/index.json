@@ -25,11 +25,13 @@
 
     "galois",
     "quadratic-reciprocity",
+    "quadratic-forms-genus-theory",
     "sums-of-squares",
     "power-sums-bernoulli",
     "waring",
     "algebraic-number-theory",
     "p-adic-numbers",
+    "adeles-and-ideles",
     "frobenius-and-reciprocity",
     "class-field-theory",
 
@@ -40,6 +42,7 @@
     "hecke-operators",
     "dirichlet-series-euler-products",
     "analytic-continuation",
+    "zeta-values",
     "L-functions",
     "galois-representations",
     "moonshine",

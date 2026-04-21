@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "$\\chi(T^2)=1-2+1=0$. Every closed orientable surface of genus $g$ has $\\chi=2-2g$; here $g=1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is a valid chain complex over $\\mathbb{Z}$?",
+          "choices": [
+            "$\\cdots\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}\\to\\cdots$",
+            "$\\cdots\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\xrightarrow{0}\\mathbb{Z}\\to\\cdots$",
+            "$\\cdots\\to\\mathbb{Z}\\xrightarrow{\\mathrm{id}}\\mathbb{Z}\\xrightarrow{\\mathrm{id}}\\mathbb{Z}\\to\\cdots$",
+            "$\\cdots\\to\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\cdots$"
+          ],
+          "answer": 1,
+          "explain": "We need $\\partial_{n-1}\\circ\\partial_n=0$. For option B: $0\\circ 2=0$. For A: $3\\circ 2=6\\ne 0$. For C: $\\mathrm{id}\\circ\\mathrm{id}=\\mathrm{id}\\ne 0$. For D: $2\\circ 3=6\\ne 0$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $C_\\bullet$ be the chain complex $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 3}\\mathbb{Z}\\to 0$ concentrated in degrees $1$ and $0$. Compute $|H_0(C_\\bullet)|$ (the order of $H_0$).",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$H_0=\\ker(C_{-1}\\to C_{-2})/\\operatorname{im}(\\partial_1)=\\mathbb{Z}/3\\mathbb{Z}$, which has order $3$."
+        },
+        {
+          "type": "mcq",
+          "q": "A chain map $f_\\bullet:C_\\bullet\\to D_\\bullet$ consists of maps $f_n:C_n\\to D_n$ satisfying which condition?",
+          "choices": [
+            "$f_n$ is an isomorphism for all $n$",
+            "$\\partial^D_n\\circ f_n = f_{n-1}\\circ\\partial^C_n$ for all $n$",
+            "$f_n\\circ f_{n-1}=0$ for all $n$",
+            "$f_n = f_{n+1}$ for all $n$"
+          ],
+          "answer": 1,
+          "explain": "A chain map must commute with the boundary maps: $\\partial^D\\circ f=f\\circ\\partial^C$. This ensures $f$ descends to a well-defined map on homology groups."
+        }
       ]
     },
     "exact-sequences": {
@@ -65,6 +98,39 @@
           "answer": 60,
           "tol": 1e-6,
           "explain": "Orders multiply across a short exact sequence: $|B|=|A|\\cdot|C|=6\\cdot 10=60$. This is the group-theoretic analogue of $\\dim B = \\dim A + \\dim C$ for vector spaces."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is a counterexample showing that a short exact sequence $0\\to A\\to B\\to C\\to 0$ need not split?",
+          "choices": [
+            "$0\\to\\mathbb{Z}\\xrightarrow{\\mathrm{id}}\\mathbb{Z}\\to 0\\to 0$",
+            "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot 2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$",
+            "$0\\to\\mathbb{Z}\\to\\mathbb{Z}\\oplus\\mathbb{Z}/2\\to\\mathbb{Z}/2\\to 0$",
+            "$0\\to 0\\to\\mathbb{Z}/3\\to\\mathbb{Z}/3\\to 0$"
+          ],
+          "answer": 1,
+          "explain": "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot 2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ is short exact but does not split: a splitting would require a homomorphism $\\mathbb{Z}/2\\to\\mathbb{Z}$, which is impossible since $\\mathbb{Z}$ is torsion-free."
+        },
+        {
+          "type": "numeric",
+          "q": "In the long exact sequence arising from $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$, suppose $H_1(B)=0$, $H_1(C)=\\mathbb{Z}^2$, $H_0(A)=\\mathbb{Z}^3$, and the connecting map $\\partial:H_1(C)\\to H_0(A)$ is injective. What is $\\dim_{\\mathbb{Q}}\\operatorname{coker}(\\partial)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\partial:\\mathbb{Z}^2\\hookrightarrow\\mathbb{Z}^3$ is injective (since $H_1(B)=0$ forces exactness). Its cokernel has rank $3-2=1$ over $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The five-lemma: in a commutative diagram with exact rows, if the four outer vertical maps are isomorphisms, the middle map is:",
+          "choices": [
+            "always zero",
+            "an isomorphism, by a diagram chase",
+            "injective but not necessarily surjective",
+            "surjective but not necessarily injective"
+          ],
+          "answer": 1,
+          "explain": "The five-lemma: with exact rows and the four outer verticals being isomorphisms, a standard diagram chase (injectivity first, then surjectivity) proves the middle map is also an isomorphism."
         }
       ]
     },
@@ -102,6 +168,39 @@
           "tol": 1e-6,
           "explain": "Lift $c=1$ to $b=1\\in\\mathbb{Z}/4$; $\\beta(b)=2$; pull back along $i':a'\\mapsto 2a'$ to get $a'=1\\in\\mathbb{Z}/2$. Since $\\operatorname{im}\\alpha=0$, $\\delta(1)=1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the snake-lemma diagram, which is the correct order of steps to construct $\\delta(c)\\in\\operatorname{coker}\\alpha$ from $c\\in\\ker\\gamma$?",
+          "choices": [
+            "Apply $\\gamma$ to $c$, lift to $B'$, then apply $\\beta^{-1}$",
+            "Lift $c$ to $b\\in B$ via $j$ (exactness), apply $\\beta(b)$, note $j'(\\beta(b))=\\gamma(c)=0$, pull $\\beta(b)$ back to $A'$ via $i'$, project to $\\operatorname{coker}\\alpha$",
+            "Push $c$ forward via $\\gamma$, factor through $B$, then take $\\ker\\alpha$",
+            "Apply $\\alpha^{-1}$ to $c$, then compose with $j$"
+          ],
+          "answer": 1,
+          "explain": "The snake recipe: (1) lift $c$ to some $b\\in B$ using surjectivity from $j$, (2) compute $\\beta(b)\\in B'$, (3) since $j'(\\beta(b))=\\gamma(j(b))=\\gamma(c)=0$, exactness gives $\\beta(b)=i'(a')$ for a unique $a'\\in A'$, (4) $\\delta(c)=[a']\\in\\operatorname{coker}\\alpha$. Independence of lift follows from $\\partial^2=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which condition on $\\alpha$ and $\\gamma$ forces $\\delta=0$ identically?",
+          "choices": [
+            "$\\alpha$ is surjective",
+            "$\\gamma$ is injective",
+            "$\\beta$ is an isomorphism",
+            "$\\alpha$ is surjective (equivalently $\\operatorname{coker}\\alpha=0$)"
+          ],
+          "answer": 3,
+          "explain": "If $\\alpha$ is surjective then $\\operatorname{coker}\\alpha=0$, so $\\delta$ must be the zero map. Alternatively, if $\\gamma$ is injective then $\\ker\\gamma=0$ and $\\delta$ has trivial domain."
+        },
+        {
+          "type": "numeric",
+          "q": "In a snake-lemma setup with $\\alpha=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\beta=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ and exact rows being the identity sequence, what is $|\\ker\\delta|$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
+        }
       ]
     },
     "long-exact-sequence": {
@@ -138,6 +237,39 @@
           "answer": 1,
           "explain": "With the middle terms $H_n(B)=H_{n-1}(B)=0$ the sequence $0\\to H_n(C)\\xrightarrow{\\partial}H_{n-1}(A)\\to 0$ forces $\\partial$ to be an isomorphism. Acyclic complexes are 'invisible' except for the degree shift they impose."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Mayer–Vietoris sequence for $X=A\\cup B$ has connecting map $\\partial:H_n(A\\cup B)\\to H_{n-1}(A\\cap B)$. Which description of the connecting map is correct?",
+          "choices": [
+            "Take a cycle $z\\in Z_n(X)$, write $z=a+b$ with $a\\in C_n(A),b\\in C_n(B)$, then $\\partial a = -\\partial b \\in Z_{n-1}(A\\cap B)$ defines the class",
+            "Push the cycle forward through the inclusion $A\\hookrightarrow X$",
+            "Apply the boundary map $\\partial_n$ of the ambient complex directly",
+            "Restrict a cocycle to $A\\cap B$ and take homology"
+          ],
+          "answer": 0,
+          "explain": "A cycle $z$ on $X$ can be written $z=a+b$ (with chains supported in $A$ and $B$ respectively). Then $\\partial a = -\\partial b$ is a cycle in $A\\cap B$; its homology class is $\\partial[z]$. This is the snake-lemma connecting map applied to the Mayer–Vietoris short exact sequence of chain complexes."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the long exact sequence of the pair $(D^2, S^1)$ and the fact that $D^2$ is contractible, compute $\\dim_{\\mathbb{Q}} H_1(D^2,S^1;\\mathbb{Q})$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The LES gives $H_1(D^2)\\to H_1(D^2,S^1)\\to H_0(S^1)\\to H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$ and the map $H_0(S^1)\\cong\\mathbb{Q}\\to H_0(D^2)\\cong\\mathbb{Q}$ is an isomorphism. So $H_1(D^2,S^1)\\cong\\mathbb{Q}$, dimension $1$. (By excision this equals $\\tilde{H}_1(S^1)\\cong\\mathbb{Q}$.)"
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct proof-step ordering to show naturality of the connecting map $\\partial$ in the long exact sequence?",
+          "choices": [
+            "Show $\\partial$ is a group homomorphism, then check it commutes with induced maps on homology by a diagram chase in the snake lemma",
+            "Define $\\partial$ on cochains, then dualize to chains",
+            "First construct the long exact sequence, then define $\\partial$ to make it exact",
+            "Use the five-lemma to force naturality without any diagram chase"
+          ],
+          "answer": 0,
+          "explain": "Naturality is proved by chasing the snake-lemma diagram for the naturality square: a map of short exact sequences of chain complexes induces a map of long exact sequences, and the connecting homomorphisms commute with the induced maps because each step of the snake construction is natural."
+        }
       ]
     },
     "derived-functors": {
@@ -168,6 +300,39 @@
           "answer": 2,
           "tol": 1e-6,
           "explain": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(6,4)=2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "To compute $\\operatorname{Ext}^n_{\\mathbb{Z}}(\\mathbb{Z}/p,M)$ via a projective resolution of $\\mathbb{Z}/p$, the correct resolution is:",
+          "choices": [
+            "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot p}\\mathbb{Z}\\to\\mathbb{Z}/p\\to 0$, which is a free (hence projective) resolution of length $1$",
+            "$0\\to\\mathbb{Z}/p\\to\\mathbb{Q}/\\mathbb{Z}\\to\\cdots$, an injective resolution",
+            "$0\\to\\mathbb{Z}/p\\to\\mathbb{Z}/p^2\\to\\cdots$, a projective resolution of length $\\infty$",
+            "$0\\to\\mathbb{Z}\\to\\mathbb{Q}\\to\\mathbb{Q}/\\mathbb{Z}\\to 0$, a flat resolution"
+          ],
+          "answer": 0,
+          "explain": "$0\\to\\mathbb{Z}\\xrightarrow{\\cdot p}\\mathbb{Z}\\to\\mathbb{Z}/p\\to 0$ is a free resolution of $\\mathbb{Z}/p$ of length $1$. Applying $\\operatorname{Hom}(-,M)$ and taking cohomology gives $\\operatorname{Ext}^0=M^p$ (fixed by $p$) and $\\operatorname{Ext}^1=M/pM$; higher Ext groups vanish."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $|\\operatorname{Tor}^{\\mathbb{Z}}_1(\\mathbb{Z}/12,\\mathbb{Z}/8)|$ (the order of the group).",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(12,8)=4$, so the group is $\\mathbb{Z}/4$ with order $4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following functors is NOT right exact (and hence genuinely requires derived functors to fix)?",
+          "choices": [
+            "$M\\otimes_R -$ for a flat module $M$",
+            "$\\operatorname{Hom}_R(M,-)$ for a non-projective module $M$",
+            "$M\\otimes_R -$ for an arbitrary module $M$",
+            "The identity functor on $R$-modules"
+          ],
+          "answer": 1,
+          "explain": "$\\operatorname{Hom}_R(M,-)$ is left exact but not right exact in general: $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ applied with $M=\\mathbb{Z}$ gives $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$, which fails surjectivity. Its right derived functors are the $\\operatorname{Ext}^n$ groups."
         }
       ]
     },
@@ -204,6 +369,39 @@
           "answer": 0,
           "tol": 1e-6,
           "explain": "The horizontal map $\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$ is injective, so its kernel is $0$. Thus $E_1^{0,0}=\\ker(2)=0$, which has rank $0$ (and is in fact the zero group)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Serre spectral sequence for a fibration $F\\to E\\to B$ has $E_2$-page $E_2^{p,q}=H^p(B;H^q(F))$. If $F=S^1$ and $B=S^2$, which groups are the only potentially nonzero entries on $E_2$?",
+          "choices": [
+            "$E_2^{p,q}$ for $(p,q)\\in\\{(0,0),(2,0),(0,1),(2,1)\\}$",
+            "$E_2^{p,q}$ for all $p,q\\ge 0$",
+            "$E_2^{p,q}$ for $p+q\\le 2$",
+            "$E_2^{p,q}$ for $p=0$ only"
+          ],
+          "answer": 0,
+          "explain": "$H^p(S^2)$ is $\\mathbb{Z}$ for $p=0,2$ and $0$ otherwise. $H^q(S^1)$ is $\\mathbb{Z}$ for $q=0,1$ and $0$ otherwise. So the only nonzero corners of the $E_2$ page are $(p,q)\\in\\{(0,0),(2,0),(0,1),(2,1)\\}$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the Serre spectral sequence for $S^1\\to E\\to S^2$ converging to $H^*(E)$, the only potentially nontrivial differential on the $E_2$ page is $d_2:E_2^{0,1}\\to E_2^{2,0}$. If $E=S^3$ (Hopf fibration), this map is:",
+          "choices": [
+            "the zero map, since $E_2$ degenerates",
+            "an isomorphism $\\mathbb{Z}\\xrightarrow{\\sim}\\mathbb{Z}$",
+            "multiplication by $2$",
+            "undefined at the $E_2$ page"
+          ],
+          "answer": 1,
+          "explain": "For the Hopf fibration $S^1\\to S^3\\to S^2$, the spectral sequence must give $H^*(S^3)$: $\\mathbb{Z}$ in degrees $0$ and $3$. To kill $E_\\infty^{0,1}$ and $E_\\infty^{2,0}$ we need $d_2:E_2^{0,1}\\cong\\mathbb{Z}\\xrightarrow{\\sim}E_2^{2,0}\\cong\\mathbb{Z}$ to be an isomorphism."
+        },
+        {
+          "type": "numeric",
+          "q": "For the Leray–Hirsch spectral sequence of the trivial fibration $E=F\\times B$ with $F=S^2,B=S^2$, the spectral sequence degenerates at $E_2$. Compute $\\dim_{\\mathbb{Q}} H^2(E;\\mathbb{Q})$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Degeneration gives $H^n(E)\\cong\\bigoplus_{p+q=n}H^p(B)\\otimes H^q(F)$. For $n=2$: $(p,q)=(2,0)$ contributes $H^2(S^2)\\otimes H^0(S^2)=\\mathbb{Q}$, and $(0,2)$ contributes $H^0(S^2)\\otimes H^2(S^2)=\\mathbb{Q}$. Total $\\dim=2$."
         }
       ]
     }

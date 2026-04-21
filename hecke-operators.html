@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -460,6 +474,16 @@ $$(T_p f)(\tau) \;=\; p^{\,k-1}\, f(p\tau) \;+\; \frac{1}{p} \sum_{b=0}^{p-1} f\
     <li><a href="./modular-forms.html#qexp">q-expansions and arithmetic data</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hecke-operators.html#qexp">Hecke operators</a> · Action on q-expansions</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="hecke-operator-tp"></div>
 </section>
@@ -599,6 +623,16 @@ $$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},
 })();
 </script>
 <div class="quiz" data-concept="hecke-q-expansion-action"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hecke-operators.html#algebra">Hecke operators</a> · Commuting Hecke algebra</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="algebra">
@@ -669,6 +703,18 @@ For $n = p$ prime this specializes to the formula above. The crucial structural 
 <h3>Why does $T_m T_n = T_n T_m$?</h3>
 <p>The slick proof goes through the <em>double coset algebra</em>. The operators $T_p$ correspond to the double coset $\mathrm{SL}_2(\mathbb{Z})\, \mathrm{diag}(1,p)\, \mathrm{SL}_2(\mathbb{Z})$ in $\mathrm{GL}_2^+(\mathbb{Q})$, and the product of two double cosets is commutative by the Satake isomorphism (abstractly: because $\mathrm{GL}_2$ modulo its center is "almost" a symmetric space). A direct coefficient computation also works — expand $T_m T_n$ on $q$-expansions using the formula above and check the divisor sum collapses symmetrically in $m,n$.</p>
 <div class="quiz" data-concept="hecke-algebra-commuting"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hecke-operators.html#eigen">Hecke operators</a> · Eigenforms and Euler factors</div>
+    <div><a href="./hecke-operators.html#petersson">Hecke operators</a> · Self-adjointness of $T_p$</div>
+    <div><a href="./modularity-and-flt.html#rt">Modularity and FLT</a> · The R = T theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="eigen">
@@ -840,6 +886,18 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
 })();
 </script>
 <div class="quiz" data-concept="eigenforms-and-euler-factors"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./L-functions.html#modularity">L-functions</a> · Arithmetic data and modularity links</div>
+    <div><a href="./modularity-and-flt.html#modularity">Modularity and FLT</a> · Modularity theorem</div>
+    <div><a href="./moonshine.html#thompson">Monstrous moonshine</a> · Thompson series and Conway–Norton</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="petersson">
@@ -1152,6 +1210,7 @@ $$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>
     </tbody>

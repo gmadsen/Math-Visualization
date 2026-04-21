@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -438,6 +452,18 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./smooth-manifolds.html#tangent">Tangent spaces</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#d">Differential forms</a> · Exterior derivative</div>
+    <div><a href="./differential-forms.html#pullback">Differential forms</a> · Pullback of forms</div>
+    <div><a href="./riemannian-geometry.html#volume">Riemannian geometry</a> · Riemannian volume form and divergence</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="forms-and-wedge"></div>
 </section>
@@ -519,7 +545,7 @@ function drawNode(svg, x, y, label, opts={}){
     const c = coef();
     const signed = c * (V.x*Wv.y - V.y*Wv.x);
     const col = signed >= 0 ? 'rgba(131,193,103,0.30)' : 'rgba(224,122,95,0.30)';
-    const stk = signed >= 0 ? '#83c167' : '#e07a5f';
+    const stk = signed >= 0 ? 'var(--green)' : '#e07a5f';
     svg.appendChild(SVG('path',{d, fill:col, stroke:stk, 'stroke-width':1.4, 'stroke-dasharray':'3,3'}));
 
     // basepoint
@@ -587,6 +613,16 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="small" style="margin-top:.4rem">Grid of the plane (centered at origin, minus the puncture at $(0,0)$ for the angle form). Each cell is colored by the sign and magnitude of the coefficient of $d\omega$ there, normalized. Green = positive, pink = negative, dark = near zero.</div>
 </div>
 <div class="quiz" data-concept="exterior-derivative"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#deRham">Differential forms</a> · Stokes theorem and de Rham cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -682,6 +718,16 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#deRham">Differential forms</a> · Stokes theorem and de Rham cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="integration-on-chains"></div>
 </section>
@@ -702,6 +748,16 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./smooth-manifolds.html#maps">Smooth maps and diffeomorphisms</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#integration">Differential forms</a> · Integration of forms over chains</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="pullback-of-forms"></div>
 </section>
@@ -893,6 +949,16 @@ function drawNode(svg, x, y, label, opts={}){
 </table>
 <p class="small">Each $H^0 = \mathbb{R}^{\#\text{components}}$; that is just "locally constant functions." The first interesting data is in $H^1$, which counts $1$-dimensional holes.</p>
 <div class="quiz" data-concept="stokes-derham"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#comparison">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1065,6 +1131,7 @@ function drawNode(svg, x, y, label, opts={}){
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

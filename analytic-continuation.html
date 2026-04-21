@@ -109,7 +109,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -133,6 +133,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -252,6 +266,16 @@ has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around an
     <li><a href="./complex-analysis.html#cons">Analyticity = holomorphy</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-continuation.html#path">Analytic continuation</a> · Continuation along a path</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="power-series-radius-analytic"></div>
 </section>
@@ -339,6 +363,18 @@ has radius $R=1$. Already inside the disk we can <em>re-expand</em> it around an
     <li><a href="./algebraic-topology.html#paths">Paths and homotopy</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-continuation.html#mono">Analytic continuation</a> · Monodromy theorem</div>
+    <div><a href="./analytic-continuation.html#zeta">Analytic continuation</a> · Riemann’s functional equation for $\zeta$</div>
+    <div><a href="./analytic-continuation.html#schwarz">Analytic continuation</a> · Schwarz reflection principle</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="continuation-along-path"></div>
 </section>
@@ -1081,7 +1117,7 @@ Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" z
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-20</td><td>initial version</td></tr>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
     </tbody>
   </table>
 </details>

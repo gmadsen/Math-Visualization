@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -334,6 +348,20 @@ where $v$ ranges over $\infty$ and all primes. Decrease somewhere, increase some
     <li><a href="./point-set-topology.html#metric">Metric spaces</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./adeles-and-ideles.html#places">Adèles and idèles</a> · Places and local fields</div>
+    <div><a href="./galois-representations.html#ram">Galois representations</a> · Inertia, ramification, and the conductor</div>
+    <div><a href="./p-adic-numbers.html#expand">p-adic numbers</a> · p-adic expansions and topology</div>
+    <div><a href="./p-adic-numbers.html#ultra">p-adic numbers</a> · Ultrametric topology</div>
+    <div><a href="./singular-cubics-reduction.html#minimal-model">Singular cubics and reduction</a> · Minimal Weierstrass model and conductor</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="padic-norm-completion"></div>
 </section>
@@ -458,6 +486,16 @@ For a non-negative integer $n$, the expansion terminates: it is exactly the base
 <p class="small">Example: in $\mathbb{Z}_5$, $-1 = 4 + 4\cdot 5 + 4\cdot 5^2 + \cdots$ because $(p-1)\sum_{i\ge 0} p^i = -1$ under $|\cdot|_p$. Every negative integer has an infinite expansion.</p>
 
 <div class="quiz" data-concept="padic-expansions"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./p-adic-numbers.html#hensel">p-adic numbers</a> · Hensel lifting</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="inv">
@@ -845,6 +883,16 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
 <p>The take-away: in $\mathbb{Z}_p$, "approximate solution mod $p$" plus "derivative is a unit" always promotes to an exact root. This is why $p$-adic fields behave so well for deformation arguments.</p>
 
 <div class="quiz" data-concept="hensel-lemma"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./p-adic-numbers.html#localglobal">p-adic numbers</a> · Local-global (Hasse) principle</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="localglobal">
@@ -1013,6 +1061,7 @@ The left-to-right direction is automatic; the deep content is the reverse direct
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>
     </tbody>

@@ -3,6 +3,39 @@
   "quizzes": {
     "mordell-weil": {
       "title": "Mordell\u2013Weil",
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Weak Mordell\u2013Weil shows $E(\\mathbb{Q})/nE(\\mathbb{Q})$ is finite. Which tool reduces the infinite group $E(\\mathbb{Q})$ to a finite computation from this fact?",
+          "choices": [
+            "The Riemann hypothesis for curves",
+            "A height function satisfying $\\hat h(nP) = n^2\\hat h(P)$ plus a bound on the number of points of bounded height",
+            "The Weil conjectures for $E/\\mathbb{F}_p$",
+            "Minkowski\u2019s geometry of numbers applied to $E(\\mathbb{C})$"
+          ],
+          "answer": 1,
+          "explain": "Tate\u2019s canonical height $\\hat h$ is quadratic: $\\hat h(nP)=n^2\\hat h(P)$. Finiteness of $E(\\mathbb{Q})/nE(\\mathbb{Q})$ plus the fact that $\\{P : \\hat h(P)\\le B\\}$ is finite for every $B$ lets one descend an arbitrary point to a coset representative, proving finite generation."
+        },
+        {
+          "type": "mcq",
+          "q": "The curve $E: y^2 = x^3 - x$ has rank $0$ and $E(\\mathbb{Q})_{\\text{tors}} \\cong (\\mathbb{Z}/2)^2$. The doubling map $[2]: E(\\mathbb{Q}) \\to E(\\mathbb{Q})$ has image:",
+          "choices": [
+            "all of $E(\\mathbb{Q})$",
+            "just the identity $O$",
+            "only the identity $O$ (since every non-identity element has order $2$)",
+            "$\\{O, (1,0), (-1,0), (0,0)\\}$"
+          ],
+          "answer": 2,
+          "explain": "Every non-identity element of $(\\mathbb{Z}/2)^2$ satisfies $2P = O$. So $[2]$ kills the entire group and its image is $\\{O\\}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The free part of $E(\\mathbb{Q})$ for a rank-$3$ curve has a Gram matrix (height pairing) with diagonal entries $(2, 3, 5)$ and all off-diagonal entries $0$. Compute the regulator $R$.",
+          "answer": 30,
+          "tol": 1e-6,
+          "explain": "With a diagonal Gram matrix $\\operatorname{diag}(2,3,5)$, the determinant is $2\\cdot 3\\cdot 5 = 30$. Orthogonality of the basis means each generator contributes independently to the lattice covolume."
+        }
+      ],
       "questions": [
         {
           "type": "mcq",
@@ -34,6 +67,39 @@
     },
     "point-counting-heuristic": {
       "title": "Point-counting heuristic",
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For the Euler product $L(E,s) = \\prod_{p\\nmid N}(1-a_p p^{-s}+p^{1-2s})^{-1}\\cdots$, the quantity $a_p = p+1-N_p$ satisfies $|a_p| \\le 2\\sqrt{p}$ (Hasse). When $E$ has positive rank, which qualitative statement about the Dirichlet coefficients is behind the heuristic?",
+          "choices": [
+            "$a_p$ is always $0$ for primes $p>5$",
+            "On average $a_p > 0$, meaning fewer points than $p+1$",
+            "On average $a_p < 0$, biasing $N_p$ above $p+1$ and $N_p/p$ above $1$",
+            "The $a_p$ are i.i.d. Gaussian with mean $0$ and variance $p$"
+          ],
+          "answer": 2,
+          "explain": "Higher rank pushes more rational points; reducing mod $p$ they persist and bias $N_p$ above $p+1$, making $a_p = p+1-N_p$ systematically negative on average. This is the heuristic reason $\\prod_{p\\le X}N_p/p$ grows rather than stays bounded."
+        },
+        {
+          "type": "numeric",
+          "q": "For $E: y^2+y = x^3-x^2$ (conductor $11$, rank $0$) the formula $N_{11} = 11+1-a_{11}$ applies with $a_{11} = 1$ (good reduction is lost; treat as $a_{11}=1$ here). Compute $N_{11}$.",
+          "answer": 11,
+          "tol": 0.5,
+          "explain": "$N_{11} = 11+1-1 = 11$. (The conductor is $11$ so $11$ is a prime of bad reduction; the exact Euler factor differs, but the arithmetic $11+1-1=11$ follows directly from the given data.)"
+        },
+        {
+          "type": "mcq",
+          "q": "The Sato\u2013Tate conjecture (now theorem) describes the distribution of $a_p/(2\\sqrt{p})$ as $p\\to\\infty$. What is that distribution?",
+          "choices": [
+            "Uniform on $[-1,1]$",
+            "The semicircular measure $\\frac{2}{\\pi}\\sqrt{1-t^2}\\,dt$ on $[-1,1]$",
+            "A Gaussian $N(0,1)$",
+            "Bernoulli $\\pm 1$ with equal probability"
+          ],
+          "answer": 1,
+          "explain": "Sato\u2013Tate (proved by Taylor et al., 2011): for a non-CM elliptic curve over $\\mathbb{Q}$ the angles $\\theta_p$ with $a_p = 2\\sqrt{p}\\cos\\theta_p$ equidistribute with respect to the Haar measure $\\frac{2}{\\pi}\\sin^2\\theta\\,d\\theta$, which translates to the semicircle on $[-1,1]$."
+        }
+      ],
       "questions": [
         {
           "type": "mcq",
@@ -70,6 +136,44 @@
     },
     "bsd-rank-equality": {
       "title": "BSD rank equality",
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Gross\u2013Zagier (1986) relates $L'(E,1)$ (when analytic rank $=1$) to what explicit algebraic object?",
+          "choices": [
+            "The conductor $N$ of $E$",
+            "The canonical height of a Heegner point $y_K \\in E(K)$ for an imaginary quadratic field $K$",
+            "The regulator of the cyclotomic field $\\mathbb{Q}(\\zeta_N)$",
+            "The order of $E(\\mathbb{F}_p)$ for the smallest good prime $p$"
+          ],
+          "answer": 1,
+          "explain": "Gross\u2013Zagier: $L'(E,1) = \\frac{\\Omega\\cdot c}{\\sqrt{|\\Delta_K|}}\\cdot\\hat h(y_K)$ for a Heegner point $y_K$ on $E(K)$. Combined with Kolyvagin\u2019s Euler systems this proves BSD for analytic rank $1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Kolyvagin\u2019s theorem (1989) establishes BSD in which cases?",
+          "choices": [
+            "All elliptic curves over $\\mathbb{Q}$, unconditionally",
+            "Curves with complex multiplication only",
+            "Modular elliptic curves with analytic rank $\\le 1$",
+            "Curves of conductor $N < 1000$"
+          ],
+          "answer": 2,
+          "explain": "Kolyvagin proved: if $E/\\mathbb{Q}$ is modular (now all curves, by Wiles et al.) and $\\operatorname{ord}_{s=1}L(E,s) \\le 1$, then the algebraic rank equals the analytic rank and $\\Sha(E/\\mathbb{Q})$ is finite. The case of analytic rank $\\ge 2$ remains open."
+        },
+        {
+          "type": "mcq",
+          "q": "Order the following steps in the proof strategy for BSD rank $=1$: (A) Use Gross\u2013Zagier to show $\\hat h(y_K) \\ne 0$ from $L'(E,1) \\ne 0$. (B) Apply Kolyvagin\u2019s Euler system to deduce $\\operatorname{rank}E(\\mathbb{Q})=1$. (C) Verify analytic rank $= 1$ via $L(E,1)=0$, $L'(E,1)\\ne 0$. What is the correct order?",
+          "choices": [
+            "A, B, C",
+            "C, A, B",
+            "B, C, A",
+            "C, B, A"
+          ],
+          "answer": 1,
+          "explain": "First establish the analytic data $L(E,1)=0$, $L'(E,1)\\ne 0$ (step C). Then Gross\u2013Zagier converts $L'(E,1)\\ne 0$ into $\\hat h(y_K)\\ne 0$, so the Heegner point is non-torsion (step A). Finally Kolyvagin\u2019s machinery propagates this to algebraic rank exactly $1$ (step B)."
+        }
+      ],
       "questions": [
         {
           "type": "mcq",
@@ -106,6 +210,34 @@
     },
     "regulator": {
       "title": "Regulator and canonical height",
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Let $E(\\mathbb{Q})$ have rank $1$ with generator $P$ satisfying $\\hat h(P) = 0.5051$. Compute $\\hat h(3P)$.",
+          "answer": 4.5459,
+          "tol": 0.001,
+          "explain": "$\\hat h(3P) = 3^2 \\cdot \\hat h(P) = 9 \\times 0.5051 = 4.5459$. The canonical height is exactly quadratic: $\\hat h(nP)=n^2\\hat h(P)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property distinguishes the N\u00e9ron\u2013Tate canonical height $\\hat h$ from the naive Weil height $h$ of the $x$-coordinate?",
+          "choices": [
+            "$\\hat h$ is defined only on torsion points",
+            "$\\hat h$ is exactly quadratic and vanishes precisely on torsion, while $h$ satisfies these only up to $O(1)$ errors",
+            "$\\hat h$ equals $h$ for all but finitely many points",
+            "$\\hat h$ is integer-valued, while $h$ takes real values"
+          ],
+          "answer": 1,
+          "explain": "The Weil height $h(P)$ satisfies $h(nP) = n^2 h(P) + O(1)$. Tate\u2019s limiting process $\\hat h(P) = \\lim_{n\\to\\infty} h(2^n P)/4^n$ removes the $O(1)$ error, making $\\hat h$ exactly quadratic. Crucially, $\\hat h(P)=0$ iff $P$ is torsion."
+        },
+        {
+          "type": "numeric",
+          "q": "A rank-$2$ curve has height-pairing matrix $\\begin{pmatrix}4 & 2\\\\ 2 & 4\\end{pmatrix}$. Is this matrix positive definite? (Enter $1$ for yes, $0$ for no.)",
+          "answer": 1,
+          "tol": 0.5,
+          "explain": "Check: $\\det = 4\\cdot 4 - 2\\cdot 2 = 12 > 0$ and the leading entry $4 > 0$, so Sylvester\u2019s criterion confirms positive definiteness. The canonical height pairing on the free part is always positive definite."
+        }
+      ],
       "questions": [
         {
           "type": "mcq",
@@ -137,6 +269,39 @@
     },
     "sha-tate-shafarevich": {
       "title": "Tate–Shafarevich group",
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Cassels–Tate pairing on $\\Sha(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\Sha$ is finite). Which of the following is the correct logical chain forcing $|\\Sha|$ to be a perfect square?",
+          "choices": [
+            "An alternating non-degenerate pairing on a finite group $A$ pairs each element with itself to $0$, so $A \\cong B \\oplus B$ for some $B$, giving $|A| = |B|^2$",
+            "The Weil pairing on $E[n]$ forces $|\\Sha[n]|^2 = n^2$",
+            "$\\Sha$ embeds into $H^2(\\mathbb{Q}, \\mu_n)$ which has square order",
+            "Perfect squares are the only integers appearing as orders of abelian groups"
+          ],
+          "answer": 0,
+          "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\Sha| = |B|^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "A genus-$1$ curve $C/\\mathbb{Q}$ represents a non-trivial element of $\\Sha(E/\\mathbb{Q})$. What must be true of $C$?",
+          "choices": [
+            "$C$ has no $\\mathbb{R}$-points",
+            "$C$ has $\\mathbb{Q}_p$-points for all primes $p$ and an $\\mathbb{R}$-point, but no $\\mathbb{Q}$-point",
+            "$C$ has exactly one $\\mathbb{Q}$-point, which is a torsion point of $E$",
+            "$C$ is isomorphic to $E$ over $\\mathbb{Q}$"
+          ],
+          "answer": 1,
+          "explain": "$\\Sha$ consists of everywhere-locally-trivial torsors: $C$ must be locally solvable (points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$) yet have no global $\\mathbb{Q}$-point. This is a pure failure of the Hasse principle, with no single local obstruction."
+        },
+        {
+          "type": "numeric",
+          "q": "Suppose $|\\mathrm{Sel}_3(E)| = 27$ and $|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 3$. Using the descent exact sequence $0 \\to E(\\mathbb{Q})/3E(\\mathbb{Q}) \\to \\mathrm{Sel}_3(E) \\to \\Sha(E)[3] \\to 0$, compute $|\\Sha(E)[3]|$.",
+          "answer": 9,
+          "tol": 0.5,
+          "explain": "From the exact sequence, $|\\Sha[3]| = |\\mathrm{Sel}_3|/|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 27/3 = 9$. This is consistent with $|\\Sha|$ being a perfect square."
+        }
+      ],
       "questions": [
         {
           "type": "mcq",

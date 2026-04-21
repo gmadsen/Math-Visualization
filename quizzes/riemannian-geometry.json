@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "Parametrize $v(t)=t$ for $t\\in[1,e]$; the length is $\\int_1^e dt/t = \\ln e - \\ln 1 = 1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Two Riemannian metrics $g$ and $\\tilde g$ on $M$ are conformally equivalent if $\\tilde g = e^{2f}g$ for a smooth $f$. Which property is NOT preserved under conformal change?",
+          "choices": [
+            "Angles between tangent vectors",
+            "Geodesics (as unparametrised curves)",
+            "The Levi-Civita connection",
+            "The conformal class of the metric"
+          ],
+          "answer": 2,
+          "explain": "Conformal changes preserve angles (the ratio $g(u,v)/\\sqrt{g(u,u)g(v,v)}$ is unchanged) and hence the conformal structure, but they alter lengths and therefore change the Levi-Civita connection and its geodesics."
+        },
+        {
+          "type": "numeric",
+          "q": "On the hyperbolic half-plane with $ds^2=(du^2+dv^2)/v^2$, what is $\\sqrt{\\det g_{ij}}$ at the point $(u,v)=(3,2)$?",
+          "answer": 0.25,
+          "tol": 1e-6,
+          "explain": "The metric matrix is $\\mathrm{diag}(1/v^2,1/v^2)$, so $\\det g_{ij}=v^{-4}$ and $\\sqrt{\\det g}=v^{-2}=1/4$ at $v=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct proof-step order for showing every smooth manifold admits a Riemannian metric?",
+          "choices": [
+            "Choose a global frame, define $g$ on it, extend by linearity",
+            "Use a partition of unity subordinate to a locally finite atlas to patch together local Euclidean metrics into a global positive-definite tensor",
+            "Embed $M$ in $\\mathbb{R}^N$ via Whitney and pull back the standard metric; no partition of unity is needed",
+            "Apply Zorn's lemma to the poset of partial metrics ordered by inclusion"
+          ],
+          "answer": 1,
+          "explain": "The standard existence proof: (1) cover $M$ by coordinate charts, (2) pull back the Euclidean metric on each chart to get local positive-definite tensors $g_\\alpha$, (3) choose a partition of unity $\\{\\rho_\\alpha\\}$, (4) set $g=\\sum_\\alpha \\rho_\\alpha g_\\alpha$. Positive-definiteness is preserved by convex combinations with non-negative coefficients summing to 1."
+        }
       ]
     },
     "levi-civita-connection": {
@@ -66,6 +99,39 @@
           "tol": 1e-6,
           "explain": "$\\Gamma^k_{ij} = \\tfrac12 g^{k\\ell}(\\partial_i g_{j\\ell}+\\partial_j g_{i\\ell}-\\partial_\\ell g_{ij})$. With $g_{ij}$ constant, every partial vanishes, so all Christoffels are zero."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in the proof that the Levi-Civita connection is unique?",
+          "choices": [
+            "Assume two connections $\\nabla,\\nabla'$ satisfy metric-compatibility and torsion-freeness; write the Koszul formula for each; subtract to show $\\nabla_X Y - \\nabla'_X Y=0$",
+            "Use curvature to distinguish them, then set curvature to zero",
+            "Show existence first via parallel transport, then uniqueness by compactness",
+            "Apply the implicit-function theorem to the space of all connections"
+          ],
+          "answer": 0,
+          "explain": "Uniqueness follows from the Koszul identity $2g(\\nabla_X Y,Z)=Xg(Y,Z)+Yg(X,Z)-Zg(X,Y)+g([X,Y],Z)-g([Y,Z],X)+g([Z,X],Y)$, which is determined entirely by $g$ and the bracket. Any two metric-compatible torsion-free connections satisfy this same identity and hence agree."
+        },
+        {
+          "type": "numeric",
+          "q": "On the round $S^2$ (radius $1$, coordinates $\\theta,\\varphi$), the only non-zero independent Christoffel symbol components are $\\Gamma^\\theta_{\\varphi\\varphi}=-\\sin\\theta\\cos\\theta$ and $\\Gamma^\\varphi_{\\theta\\varphi}=\\cos\\theta/\\sin\\theta$. Evaluate $\\Gamma^\\theta_{\\varphi\\varphi}$ at $\\theta=\\pi/4$. Express your answer to six decimal places.",
+          "answer": -0.5,
+          "tol": 1e-5,
+          "explain": "$\\Gamma^\\theta_{\\varphi\\varphi}=-\\sin(\\pi/4)\\cos(\\pi/4)=-(\\frac{\\sqrt2}{2})(\\frac{\\sqrt2}{2})=-\\frac12=-0.5$."
+        },
+        {
+          "type": "mcq",
+          "q": "A geodesic $\\gamma$ on a Riemannian manifold is a counterexample to which false claim?",
+          "choices": [
+            "Geodesics are locally length-minimising",
+            "Geodesics are globally length-minimising",
+            "Geodesics have constant speed",
+            "Geodesics are solutions to $\\ddot x^k+\\Gamma^k_{ij}\\dot x^i\\dot x^j=0$"
+          ],
+          "answer": 1,
+          "explain": "On $S^2$, the longer arc of a great circle between two non-antipodal points is a geodesic (satisfies the ODE) but is NOT the shortest path; it is only a local saddle of the length functional. Geodesics are always locally minimising but can fail to be globally minimising."
+        }
       ]
     },
     "riemann-curvature-tensor": {
@@ -96,6 +162,39 @@
           "answer": 1.5707963267948966,
           "tol": 1e-6,
           "explain": "With $K=1$, the excess equals the area $A=\\pi/2 \\approx 1.5708$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Riemann tensor satisfies the first Bianchi identity $R_{ijkl}+R_{jkil}+R_{kijl}=0$. This is a consequence of which property of the Levi-Civita connection?",
+          "choices": [
+            "Metric-compatibility ($\\nabla g=0$)",
+            "Torsion-freeness ($T=0$, i.e. $\\nabla_X Y-\\nabla_Y X=[X,Y]$)",
+            "Flatness of the connection",
+            "The second Bianchi identity"
+          ],
+          "answer": 1,
+          "explain": "The algebraic (first) Bianchi identity $\\mathfrak{S}_{ijk} R_{\\ell ijk}=0$ follows directly from the torsion-free condition: expanding $R(X,Y)Z+R(Y,Z)X+R(Z,X)Y$ using $\\nabla_{[X,Y]}=(\\nabla_X\\nabla_Y-\\nabla_Y\\nabla_X)$ and the vanishing torsion gives the cyclic sum zero."
+        },
+        {
+          "type": "numeric",
+          "q": "A geodesic triangle on the hyperbolic plane ($K=-1$) has area $A$. Its angle excess is $(\\alpha+\\beta+\\gamma)-\\pi = -A$ (Gauss–Bonnet with $K=-1$). If $\\alpha=\\pi/6$, $\\beta=\\pi/6$, $\\gamma=\\pi/6$, what is the area $A$?",
+          "answer": 1.5707963267948966,
+          "tol": 1e-6,
+          "explain": "Gauss–Bonnet on the hyperbolic plane ($K=-1$): $\\alpha+\\beta+\\gamma-\\pi = \\int K\\,dA = -A$, so $A = \\pi-(\\alpha+\\beta+\\gamma)$. With $\\alpha=\\beta=\\gamma=\\pi/6$: $A=\\pi-3(\\pi/6)=\\pi-\\pi/2=\\pi/2\\approx 1.5708$."
+        },
+        {
+          "type": "mcq",
+          "q": "Cartan–Hadamard theorem: a complete simply-connected Riemannian manifold with $K\\le 0$ everywhere is diffeomorphic to $\\mathbb{R}^n$. Which step in the proof is critical?",
+          "choices": [
+            "Show the exponential map $\\exp_p: T_pM\\to M$ is a local diffeomorphism using the Jacobi equation, then use simple-connectedness to promote it to a global diffeomorphism",
+            "Apply Myers' theorem to get compactness and then use simple-connectedness",
+            "Use the Hopf–Rinow theorem directly to show $M$ is compact",
+            "Invoke the Gauss–Bonnet theorem to compute $\\chi(M)=1$"
+          ],
+          "answer": 0,
+          "explain": "The key steps: (1) Non-positive curvature implies Jacobi fields along geodesics from $p$ never vanish (no conjugate points), so $d(\\exp_p)$ is everywhere non-singular and $\\exp_p$ is a local diffeomorphism. (2) Completeness + Hopf–Rinow make $\\exp_p$ surjective. (3) Simple-connectedness then shows $\\exp_p$ has trivial monodromy, hence is a global diffeomorphism."
         }
       ]
     },
@@ -133,6 +232,39 @@
           "answer": 1,
           "explain": "Einstein's condition in pure geometry is $\\operatorname{Ric}=\\lambda g$: the Ricci tensor is proportional to the metric. Spheres, hyperbolic spaces, and complex projective spaces with their symmetric metrics are all Einstein."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The contracted second Bianchi identity $\\nabla^j G_{ij}=0$ (where $G_{ij}=\\operatorname{Ric}_{ij}-\\tfrac12 Sg_{ij}$ is the Einstein tensor) implies which physical conservation law in general relativity?",
+          "choices": [
+            "Conservation of energy-momentum: $\\nabla^\\mu T_{\\mu\\nu}=0$ via the Einstein field equations $G_{\\mu\\nu}=8\\pi T_{\\mu\\nu}$",
+            "Conservation of the Riemann tensor",
+            "The scalar curvature $S$ is constant",
+            "The metric is flat wherever $T_{\\mu\\nu}=0$"
+          ],
+          "answer": 0,
+          "explain": "The second contracted Bianchi identity gives $\\nabla^\\mu G_{\\mu\\nu}=0$ identically. Einstein's equation $G_{\\mu\\nu}=8\\pi T_{\\mu\\nu}$ then forces $\\nabla^\\mu T_{\\mu\\nu}=0$, which encodes local conservation of energy and momentum."
+        },
+        {
+          "type": "numeric",
+          "q": "On a compact Einstein $n$-manifold with $\\operatorname{Ric}=\\lambda g$, the scalar curvature is $S=n\\lambda$. If $n=4$ and $\\lambda=3$, what is $S$?",
+          "answer": 12,
+          "tol": 1e-6,
+          "explain": "$S = g^{ij}\\operatorname{Ric}_{ij} = g^{ij}(\\lambda g_{ij}) = \\lambda\\,\\delta^i{}_i = \\lambda n = 3\\cdot 4 = 12$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which manifold is an Einstein manifold with $\\lambda<0$?",
+          "choices": [
+            "The round sphere $S^n$ with the standard metric",
+            "Euclidean space $\\mathbb{R}^n$ with the flat metric",
+            "Hyperbolic space $\\mathbb{H}^n$ with the standard metric",
+            "The flat torus $T^n$"
+          ],
+          "answer": 2,
+          "explain": "Hyperbolic space has $\\operatorname{Ric}=-(n-1)g$, so $\\lambda=-(n-1)<0$ for $n\\ge 2$. The sphere has $\\lambda=n-1>0$, Euclidean space and flat tori have $\\lambda=0$."
+        }
       ]
     },
     "volume-form-rg": {
@@ -168,6 +300,39 @@
           ],
           "answer": 1,
           "explain": "The metric divergence of $\\operatorname{grad}_g f = g^{ij}\\partial_j f\\,\\partial_i$ computed against the volume form $\\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n$ gives exactly $\\Delta_g f = \\tfrac{1}{\\sqrt{\\det g}}\\partial_i(\\sqrt{\\det g}\\,g^{ij}\\partial_j f)$. On Euclidean space ($g_{ij}=\\delta_{ij}$) this collapses to the usual Laplacian."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Riemannian volume form $d\\mathrm{vol}_g$ is NOT preserved under which transformation?",
+          "choices": [
+            "Orientation-preserving isometries",
+            "A conformal rescaling $\\tilde g = e^{2f}g$ with $f$ non-constant",
+            "Pullback along an isometry",
+            "Parallel transport along curves"
+          ],
+          "answer": 1,
+          "explain": "Under $\\tilde g=e^{2f}g$ in $n$ dimensions, $\\sqrt{\\det\\tilde g}=e^{nf}\\sqrt{\\det g}$, so $d\\mathrm{vol}_{\\tilde g}=e^{nf}d\\mathrm{vol}_g\\ne d\\mathrm{vol}_g$ whenever $f$ is non-constant. Isometries pull $d\\mathrm{vol}_g$ back to itself by definition."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the Laplace–Beltrami operator on the round $S^2$ (radius $1$), the first non-zero eigenvalue is $\\lambda_1=l(l+1)$ for the lowest $l\\ge 1$. What is $\\lambda_1$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Spherical harmonics of degree $l$ satisfy $-\\Delta_{S^2}Y_l^m=l(l+1)Y_l^m$. The smallest positive eigenvalue is at $l=1$: $\\lambda_1=1\\cdot 2=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The divergence theorem on a compact oriented Riemannian manifold $(M,g)$ with boundary states $\\int_M \\operatorname{div}_g X\\,d\\mathrm{vol}_g = ?$",
+          "choices": [
+            "$0$ for any vector field $X$",
+            "$\\int_{\\partial M} \\langle X, \\nu\\rangle\\,d\\mathrm{vol}_{g|_{\\partial M}}$, where $\\nu$ is the outward unit normal",
+            "$\\int_M |X|^2\\,d\\mathrm{vol}_g$",
+            "$\\int_{\\partial M} \\operatorname{div}_{\\partial M} X\\,d\\mathrm{vol}_{g|_{\\partial M}}$"
+          ],
+          "answer": 1,
+          "explain": "Stokes' theorem applied to the $(n-1)$-form $\\iota_X d\\mathrm{vol}_g$ yields $\\int_M \\mathcal{L}_X d\\mathrm{vol}_g = \\int_{\\partial M} \\iota_X d\\mathrm{vol}_g$, which is $\\int_M \\operatorname{div}_g X\\,d\\mathrm{vol}_g = \\int_{\\partial M}\\langle X,\\nu\\rangle\\,d\\sigma$ where $d\\sigma$ is the induced volume form on $\\partial M$."
         }
       ]
     }

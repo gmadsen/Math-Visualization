@@ -77,7 +77,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -101,6 +101,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -265,6 +279,16 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#ladic">Étale cohomology</a> · ℓ-adic cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="etale-morphism"></div>
 </section>
@@ -381,6 +405,17 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
     <li><a href="./sheaf-cohomology.html#derived">Derived functor sheaf cohomology</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#comparison">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>
+    <div><a href="./etale-cohomology.html#lefschetz">Étale cohomology</a> · Grothendieck–Lefschetz fixed-point formula</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="l-adic-cohomology"></div>
 </section>
@@ -592,6 +627,16 @@ $$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^
     <li><a href="./morphisms-fiber-products.html#fiber">Fiber products and base change</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#weil">Étale cohomology</a> · Weil conjectures and Frobenius trace</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="lefschetz-fixed-point"></div>
 </section>
@@ -963,6 +1008,7 @@ $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}}
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
       <tr><td>2026-04-19</td><td>Expand Wave 4 capstones with additional interactive widgets</td></tr>

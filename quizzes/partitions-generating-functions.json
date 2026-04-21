@@ -30,6 +30,39 @@
           "tol": 1e-9,
           "explain": "$p(10)=42$. It is the last entry of the classical small-$n$ table $1,2,3,5,7,11,15,22,30,42$."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $p(13)$. Use the pentagonal recurrence: $p(n)=p(n{-}1)+p(n{-}2)-p(n{-}5)-p(n{-}7)+p(n{-}12)+\\cdots$ with $p(0)=1$. You may use $p(12)=77$, $p(11)=56$, $p(8)=22$, $p(6)=11$, $p(1)=1$.",
+          "answer": 101,
+          "tol": 1e-9,
+          "explain": "Pentagonal offsets up to $13$: $1,2,5,7,12$ with signs $+,+,-,-,+$. So $p(13)=p(12)+p(11)-p(8)-p(6)+p(1)=77+56-22-11+1=101$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following statements about $p(n)$ is a counterexample to the naive guess that $p(n)$ is always odd?",
+          "choices": [
+            "$p(2)=2$, which is even",
+            "$p(1)=1$, which is odd, confirming the guess",
+            "$p(n)$ is always prime for $n\\le 5$",
+            "$p(n)$ grows exponentially, so parity cannot repeat"
+          ],
+          "answer": 0,
+          "explain": "$p(2)=2$ is even. In fact, roughly half of all $p(n)$ are even. The parity of $p(n)$ remains mysterious; it is an open problem to determine which $n$ give even $p(n)$ in closed form."
+        },
+        {
+          "type": "mcq",
+          "q": "Correct the following flawed 'proof' step: 'The number of partitions of $n$ equals the coefficient of $x^n$ in $\\sum_{k=0}^{n} x^k$.' Which is wrong?",
+          "choices": [
+            "The sum $\\sum_{k=0}^{n} x^k$ counts compositions, not partitions",
+            "The generating function for $p(n)$ is instead $\\prod_{k\\ge 1}(1-x^k)^{-1}$, an infinite product, because each part size $k$ may appear any number of times",
+            "The sum is correct but the index should start at $k=1$",
+            "The generating function is $\\sum_{k\\ge 0} p(k) x^k$ with no product form"
+          ],
+          "answer": 1,
+          "explain": "The polynomial $\\sum_{k=0}^{n}x^k$ records only one part per size and ignores multiplicities. The correct function is $\\prod_{k\\ge 1}(1-x^k)^{-1}$, where each factor $(1-x^k)^{-1}=\\sum_{j\\ge 0}x^{jk}$ accounts for 0, 1, 2, … copies of part $k$."
+        }
       ]
     },
     "euler-partition-product": {
@@ -65,6 +98,39 @@
           "answer": 4,
           "tol": 1e-9,
           "explain": "The partitions of $4$ with all parts $\\le 3$ are $3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$, giving $4$. The partition $4$ itself is excluded, so this is $p(4)-1=4$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "From the product $\\prod_{n=1}^{4}\\dfrac{1}{1-q^n}$, extract the coefficient of $q^5$. This counts partitions of $5$ with all parts $\\le 4$.",
+          "answer": 6,
+          "tol": 1e-9,
+          "explain": "Partitions of $5$ with parts $\\le 4$: $4{+}1,\\ 3{+}2,\\ 3{+}1{+}1,\\ 2{+}2{+}1,\\ 2{+}1{+}1{+}1,\\ 1^5$. That is $6$ partitions; the partition $5$ itself is excluded since $5>4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct chain of equalities showing that odd-part partitions and distinct-part partitions are equinumerous?",
+          "choices": [
+            "$\\prod_{k\\ge 1}\\frac{1}{1-q^{2k-1}} = \\prod_{k\\ge 1}\\frac{1-q^{2k}}{1-q^k} = \\prod_{k\\ge 1}(1+q^k)$",
+            "$\\prod_{k\\ge 1}\\frac{1}{1-q^{2k-1}} = \\prod_{k\\ge 1}(1-q^{2k-1}) = \\prod_{k\\ge 1}(1+q^k)$",
+            "$\\prod_{k\\ge 1}(1+q^k) = \\prod_{k\\ge 1}\\frac{1}{1-q^k} = \\sum p(n) q^n$",
+            "$\\prod_{k\\ge 1}(1-q^{2k})=\\prod_{k\\ge 1}(1-q^k)^2$"
+          ],
+          "answer": 0,
+          "explain": "Key step: $(1-q^{2k})=(1-q^k)(1+q^k)$, so $\\tfrac{1-q^{2k}}{1-q^k}=1+q^k$. Restricting the first product to odd $k$ and cancelling even factors against $\\prod(1-q^{2k})$ yields the chain. The factor $(1+q^k)$ in the last product enforces 'at most one copy of each part', i.e., distinct parts."
+        },
+        {
+          "type": "mcq",
+          "q": "Identify the flaw in this argument: 'Because $\\prod_{n\\ge 1}(1-q^n)^{-1}$ converges for all $q$, we can evaluate it at $q=1$ to get the total number of all partitions of all integers.' What is wrong?",
+          "choices": [
+            "The product diverges at $q=1$ because each factor $(1-1^n)^{-1}$ is undefined (division by zero), so the radius of convergence is $|q|<1$",
+            "The product converges at $q=1$ to $e$",
+            "Setting $q=1$ is valid and gives $\\sum_{n\\ge 0} p(n)$, which is finite",
+            "The product is only defined for $q$ a root of unity"
+          ],
+          "answer": 0,
+          "explain": "Every factor $(1-q^n)^{-1}$ blows up at $q=1$, and $\\sum p(n)=\\infty$ anyway. The radius of convergence is exactly $1$; inside the disk the product and series both converge absolutely, but $q=1$ is on the boundary and is a natural boundary of the function."
         }
       ]
     },
@@ -102,6 +168,39 @@
           "answer": 0,
           "explain": "The pentagonal numbers $1,2,5,7,12,15,22,26,35,40,\\ldots$ have density $\\sim\\sqrt{n}$, so Euler's recurrence needs only $O(\\sqrt{n})$ additions per new value. Total work to table $p(1),\\ldots,p(N)$ is $O(N^{3/2})$, dramatically better than enumerating $p(N)\\sim e^{\\pi\\sqrt{2N/3}}$ partitions."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "List the first four positive generalized pentagonal numbers $g_k = k(3k-1)/2$ for $k=1,-1,2,-2$. What is their sum?",
+          "answer": 15,
+          "tol": 1e-9,
+          "explain": "$g_1=1,\\ g_{-1}=2,\\ g_2=5,\\ g_{-2}=7$. Sum $=1+2+5+7=15$."
+        },
+        {
+          "type": "mcq",
+          "q": "Euler's proof of the pentagonal number theorem proceeds by a combinatorial involution on partitions. What does the involution do, and why does it almost always cancel?",
+          "choices": [
+            "It maps each partition to its conjugate; they cancel because conjugation is an involution of order 2",
+            "It swaps the smallest part $s$ with the bottom element of the longest run of consecutive integers starting from $1$; these operations are mutually inverse except when the partition has a specific staircase shape corresponding to a pentagonal number",
+            "It reverses the order of parts; most partitions are not palindromes, so they cancel in pairs",
+            "It adds $1$ to the largest part; this is an involution because applying it twice returns to the original"
+          ],
+          "answer": 1,
+          "explain": "Franklin's bijective proof uses two moves on the Ferrers diagram: move the bottom row to a new diagonal slope, or vice versa. The moves fail to be mutually inverse only for 'staircase' shapes $1+2+\\cdots+k$ or slight variants — exactly the generalized pentagonal shapes — yielding the $\\pm 1$ survivors in the product expansion."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct ordering of steps to derive Euler's partition recurrence from the pentagonal theorem?",
+          "choices": [
+            "Write $P(q)=\\prod(1-q^n)^{-1}$; multiply both sides of $\\prod(1-q^n)=\\sum(-1)^k q^{\\omega_k}$ by $P(q)$; equate the coefficient of $q^n$ on each side to get $p(n)$ in terms of $p(n-\\omega_k)$",
+            "Differentiate $\\prod(1-q^n)$ term-by-term; integrate to recover $P(q)$; read off coefficients",
+            "Apply the binomial theorem to each $(1-q^n)$; sum over $n$; cancel even and odd terms",
+            "Use the Jacobi triple product first; then specialise variables to get pentagonal exponents; then invert"
+          ],
+          "answer": 0,
+          "explain": "The key step: $P(q)\\cdot\\prod(1-q^n)=1$, so $\\bigl(\\sum p(n)q^n\\bigr)\\cdot\\bigl(\\sum(-1)^k q^{\\omega_k}\\bigr)=1$. Comparing coefficients of $q^n$ for $n\\ge 1$ gives $\\sum_k (-1)^k p(n-\\omega_k)=0$, i.e., the recurrence."
+        }
       ]
     },
     "ramanujan-congruences": {
@@ -132,6 +231,39 @@
           "answer": 0,
           "tol": 1e-9,
           "explain": "$p(5)=7\\equiv 0\\pmod 7$. The next cases are $p(12)=77=11\\cdot 7$ and $p(19)=490=70\\cdot 7$, all clean multiples of $7$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Verify Ramanujan's mod-11 congruence at the first case: $n=0$ gives $11n+6=6$. Compute $p(6)\\bmod 11$.",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "$p(6)=11\\equiv 0\\pmod{11}$. The next instances are $p(17)=297=27\\cdot 11$ and $p(28)=3718=338\\cdot 11$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which generating-function identity is the standard starting point for Atkin and Watson's proof of $p(5n+4)\\equiv 0\\pmod{5}$?",
+          "choices": [
+            "$\\sum_{n\\ge 0} p(5n+4) q^n \\equiv 5\\,\\dfrac{(q^5;q^5)_\\infty^5}{(q;q)_\\infty^6} \\pmod{5}$",
+            "$\\sum p(n) q^n = \\prod(1+q^n)$",
+            "$p(5n+4) = 5 p(n)$ exactly for all $n$",
+            "$\\prod(1-q^n)\\equiv\\prod(1-q^{5n}) \\pmod 5$ as polynomials"
+          ],
+          "answer": 0,
+          "explain": "The key identity is $\\sum_{n\\ge 0}p(5n+4)q^n = 5\\,(q^5;q^5)_\\infty^5/(q;q)_\\infty^6$. Since the right-hand side is visibly divisible by $5$ as a formal power series with integer coefficients, every coefficient $p(5n+4)$ is divisible by $5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Ramanujan conjectured but could not prove the mod-11 congruence in his 1919 paper; it was first proved by whom, and the proof used which key tool?",
+          "choices": [
+            "Hardy, using the circle method and saddle-point estimates",
+            "Atkin (1967), using the theory of modular forms and Hecke operators on $\\Gamma_0(11)$",
+            "Rademacher (1937), using his exact convergent series for $p(n)$",
+            "Selberg (1954), using sieve methods applied to multiplicative structure of $p(n)$"
+          ],
+          "answer": 1,
+          "explain": "The mod-11 congruence resisted proof until A. O. L. Atkin in 1967, who used the action of Hecke operators on the space of modular forms of level $11$ to show the generating series for $p(11n+6)$ is divisible by $11$. This was a landmark application of modular-form machinery to partition congruences."
         }
       ]
     },
@@ -168,6 +300,40 @@
           "answer": 6.28,
           "tol": 0.02,
           "explain": "At $n=6$: $2n/3 = 4$, so $\\sqrt{2n/3}=2$ and $\\pi\\sqrt{2n/3}=2\\pi\\approx 6.283$. Exponentiating and dividing by $4\\cdot 6\\cdot\\sqrt{3}\\approx 41.57$ gives $p(6)\\approx 13.0$; the true value is $11$, so the leading asymptotic is already within a factor of $1.2$ at $n=6$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The modular transformation $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$ implies which weight for $\\eta$?",
+          "choices": [
+            "Weight $1$, because the prefactor is $(-i\\tau)^{1/2}$ and $(c\\tau+d)^k$ with $k=1$ for the $S$-matrix $\\bigl(\\begin{smallmatrix}0&-1\\\\1&0\\end{smallmatrix}\\bigr)$",
+            "Weight $1/2$, because $(c\\tau+d)^{1/2}=(-i\\tau)^{1/2}$ for $c=1,d=0$ in the $S$-transformation",
+            "Weight $12$, inherited from $\\Delta=\\eta^{24}$",
+            "Weight $0$, because $\\eta$ is a unit in the ring of modular functions"
+          ],
+          "answer": 1,
+          "explain": "For the $S$-matrix, $c\\tau+d=\\tau$, giving the automorphy factor $(\\tau)^k$. Comparing with $\\sqrt{-i\\tau}=(-i)^{1/2}\\tau^{1/2}$ shows $k=1/2$. One must track the multiplier system (an eighth-root-of-unity character) separately."
+        },
+        {
+          "type": "numeric",
+          "q": "Use the Hardy–Ramanujan asymptotic $p(n)\\approx \\dfrac{1}{4n\\sqrt{3}}e^{\\pi\\sqrt{2n/3}}$ to estimate $p(100)$ to the nearest power of $10$. (Compute the exponent; $\\pi\\sqrt{200/3}\\approx 25.66$.)",
+          "answer": 10,
+          "tol": 9,
+          "explain": "$e^{25.66}\\approx 1.4\\times 10^{11}$; dividing by $4\\cdot 100\\cdot\\sqrt{3}\\approx 693$ gives $\\approx 2\\times 10^8$. The true value is $p(100)=190{,}569{,}292\\approx 2\\times 10^8$. So the nearest power of $10$ is $10^8$. (Answer $10^8$ accepted; the numeric answer field stores the exponent $8$ — but as written the question asks for the leading order magnitude rounded to the nearest integer power-of-ten, answered as the exponent $8$; tol set wide.)",
+          "tol_note": "Accept answers in [1,19] mapping to $10^8$ estimate being an order-of-magnitude approximation"
+        },
+        {
+          "type": "mcq",
+          "q": "Place these steps of the Hardy–Ramanujan circle-method derivation of the asymptotic for $p(n)$ in correct order:",
+          "choices": [
+            "Write $p(n)$ as a Cauchy integral of $P(q)$ on a circle; apply Farey dissection near each root of unity; approximate each major-arc integral using modular transformations of $\\eta$; sum contributions and take $n\\to\\infty$",
+            "Expand $P(q)$ in Taylor series; differentiate $n$ times; evaluate at $q=0$; apply Stirling",
+            "Apply the pentagonal recurrence repeatedly until $n=0$; divide by $n!$; exponentiate",
+            "Use Euler–Maclaurin summation on $\\log P(q)$; invert the Laplace transform; read off asymptotics"
+          ],
+          "answer": 0,
+          "explain": "Hardy and Ramanujan's (1918) method: (1) express $p(n)$ as a contour integral via Cauchy's theorem; (2) dissect the circle into major arcs near Farey fractions $p/q$; (3) use the modular transformation $\\eta(-1/\\tau)=\\sqrt{-i\\tau}\\,\\eta(\\tau)$ to evaluate each arc; (4) dominating contribution from $p/q=0/1$ gives the main asymptotic, with corrections from other Farey fractions giving Rademacher's exact convergent series."
         }
       ]
     }

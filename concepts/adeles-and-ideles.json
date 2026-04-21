@@ -1,0 +1,54 @@
+{
+  "topic": "adeles-and-ideles",
+  "title": "Adèles and idèles",
+  "page": "adeles-and-ideles.html",
+  "concepts": [
+    {
+      "id": "places-and-local-fields",
+      "title": "Places and local fields",
+      "anchor": "places",
+      "prereqs": [
+        "padic-norm-completion",
+        "number-fields-integers"
+      ],
+      "blurb": "A place of $\\mathbb{Q}$ is an equivalence class of absolute values: the archimedean place $v_\\infty$ giving $\\mathbb{R}$, and for each prime $p$ the $p$-adic place $v_p$ giving $\\mathbb{Q}_p$. Each completion is a local field — locally compact with a non-discrete topology."
+    },
+    {
+      "id": "adele-ring",
+      "title": "The adèle ring",
+      "anchor": "adeles",
+      "prereqs": [
+        "places-and-local-fields"
+      ],
+      "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times \\prod_p' \\mathbb{Q}_p$ is the restricted direct product: tuples $(x_v)$ over all places where $x_p \\in \\mathbb{Z}_p$ for all but finitely many $p$. This makes $\\mathbb{A}_\\mathbb{Q}$ a locally compact ring in which $\\mathbb{Q}$ embeds diagonally as a discrete cocompact subgroup."
+    },
+    {
+      "id": "idele-class-group",
+      "title": "The idèle class group",
+      "anchor": "ideles",
+      "prereqs": [
+        "adele-ring"
+      ],
+      "blurb": "The idèle group $\\mathbb{A}_\\mathbb{Q}^\\times$ consists of invertible adèles with the restricted product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ is a locally compact abelian group whose connected component encodes the archimedean data."
+    },
+    {
+      "id": "strong-approximation",
+      "title": "Strong approximation",
+      "anchor": "strong-approx",
+      "prereqs": [
+        "adele-ring"
+      ],
+      "blurb": "Strong approximation for $\\mathbb{Q}$: the diagonal image of $\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}^\\infty = \\prod_p' \\mathbb{Q}_p$ (adèles with the archimedean place omitted). This packages the Chinese Remainder Theorem and simultaneous Diophantine approximation into a single topological statement."
+    },
+    {
+      "id": "tate-thesis-sketch",
+      "title": "Tate's thesis sketch",
+      "anchor": "tate",
+      "prereqs": [
+        "idele-class-group",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
+    }
+  ]
+}

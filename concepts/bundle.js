@@ -25,11 +25,13 @@ window.__MVConcepts = {
       "riemann-surfaces",
       "galois",
       "quadratic-reciprocity",
+      "quadratic-forms-genus-theory",
       "sums-of-squares",
       "power-sums-bernoulli",
       "waring",
       "algebraic-number-theory",
       "p-adic-numbers",
+      "adeles-and-ideles",
       "frobenius-and-reciprocity",
       "class-field-theory",
       "upper-half-plane-hyperbolic",
@@ -39,6 +41,7 @@ window.__MVConcepts = {
       "hecke-operators",
       "dirichlet-series-euler-products",
       "analytic-continuation",
+      "zeta-values",
       "L-functions",
       "galois-representations",
       "moonshine",
@@ -189,7 +192,10 @@ window.__MVConcepts = {
           "title": "Yoneda, limits, and adjunctions",
           "anchor": "adj",
           "prereqs": [
-            "functors-natural-transformations"
+            "functors-natural-transformations",
+            "presheaf-functor",
+            "exact-sequences",
+            "quotients-homomorphisms"
           ],
           "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
         },
@@ -1400,7 +1406,10 @@ window.__MVConcepts = {
           "title": "Solvability by radicals",
           "anchor": "quintic",
           "prereqs": [
-            "fundamental-theorem-galois"
+            "fundamental-theorem-galois",
+            "algebraic-structures",
+            "quotients-homomorphisms",
+            "field-extensions-basics"
           ],
           "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas."
         },
@@ -1463,7 +1472,10 @@ window.__MVConcepts = {
           "anchor": "reciprocity",
           "prereqs": [
             "supplementary-laws-qr",
-            "gauss-lemma-qr"
+            "gauss-lemma-qr",
+            "prime-ideals-factorization-ant",
+            "frobenius-element",
+            "splitting-types"
           ],
           "blurb": "For odd primes p,q: (p/q)(q/p)=(-1)^((p-1)(q-1)/4), exchanging residue problems between primes."
         },
@@ -1475,6 +1487,60 @@ window.__MVConcepts = {
             "quadratic-reciprocity-law"
           ],
           "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required."
+        }
+      ]
+    },
+    "quadratic-forms-genus-theory": {
+      "topic": "quadratic-forms-genus-theory",
+      "title": "Quadratic forms & genus theory",
+      "page": "quadratic-forms-genus-theory.html",
+      "concepts": [
+        {
+          "id": "binary-forms-basics",
+          "title": "Binary quadratic forms",
+          "anchor": "binary-forms-basics",
+          "prereqs": [
+            "legendre-symbol"
+          ],
+          "blurb": "A binary quadratic form ax²+bxy+cy² is characterized by its discriminant D=b²−4ac; GL₂(ℤ) acts by change of variables and equivalence classes are the core objects of study."
+        },
+        {
+          "id": "reduction-theory",
+          "title": "Reduction theory",
+          "anchor": "reduction-theory",
+          "prereqs": [
+            "binary-forms-basics"
+          ],
+          "blurb": "Gauss's reduction algorithm identifies a canonical reduced representative in each equivalence class of positive-definite forms, making the class number h(D) finite and computable."
+        },
+        {
+          "id": "form-class-group",
+          "title": "Form class group",
+          "anchor": "form-class-group",
+          "prereqs": [
+            "reduction-theory"
+          ],
+          "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D."
+        },
+        {
+          "id": "genus-theory",
+          "title": "Genus theory",
+          "anchor": "genus-theory",
+          "prereqs": [
+            "form-class-group",
+            "quadratic-reciprocity-law"
+          ],
+          "blurb": "Gauss partitions form classes into genera using Legendre-symbol characters; the principal genus is the subgroup of squares, and there are exactly 2^(t−1) genera where t counts prime discriminant divisors."
+        },
+        {
+          "id": "ideals-vs-forms",
+          "title": "Forms and ideal classes",
+          "anchor": "ideals-vs-forms",
+          "prereqs": [
+            "genus-theory",
+            "prime-ideals-factorization-ant"
+          ],
+          "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
         }
       ]
     },
@@ -1742,6 +1808,60 @@ window.__MVConcepts = {
             "prime-ideals-factorization-ant"
           ],
           "blurb": "A Diophantine problem over Q is studied by solving it over R and every Q_p; for quadratic forms this local data is sufficient, while failures for higher-degree forms are measured by Brauer and Tate-Shafarevich groups."
+        }
+      ]
+    },
+    "adeles-and-ideles": {
+      "topic": "adeles-and-ideles",
+      "title": "Adèles and idèles",
+      "page": "adeles-and-ideles.html",
+      "concepts": [
+        {
+          "id": "places-and-local-fields",
+          "title": "Places and local fields",
+          "anchor": "places",
+          "prereqs": [
+            "padic-norm-completion",
+            "number-fields-integers"
+          ],
+          "blurb": "A place of $\\mathbb{Q}$ is an equivalence class of absolute values: the archimedean place $v_\\infty$ giving $\\mathbb{R}$, and for each prime $p$ the $p$-adic place $v_p$ giving $\\mathbb{Q}_p$. Each completion is a local field — locally compact with a non-discrete topology."
+        },
+        {
+          "id": "adele-ring",
+          "title": "The adèle ring",
+          "anchor": "adeles",
+          "prereqs": [
+            "places-and-local-fields"
+          ],
+          "blurb": "The adèle ring $\\mathbb{A}_\\mathbb{Q} = \\mathbb{R} \\times \\prod_p' \\mathbb{Q}_p$ is the restricted direct product: tuples $(x_v)$ over all places where $x_p \\in \\mathbb{Z}_p$ for all but finitely many $p$. This makes $\\mathbb{A}_\\mathbb{Q}$ a locally compact ring in which $\\mathbb{Q}$ embeds diagonally as a discrete cocompact subgroup."
+        },
+        {
+          "id": "idele-class-group",
+          "title": "The idèle class group",
+          "anchor": "ideles",
+          "prereqs": [
+            "adele-ring"
+          ],
+          "blurb": "The idèle group $\\mathbb{A}_\\mathbb{Q}^\\times$ consists of invertible adèles with the restricted product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ is a locally compact abelian group whose connected component encodes the archimedean data."
+        },
+        {
+          "id": "strong-approximation",
+          "title": "Strong approximation",
+          "anchor": "strong-approx",
+          "prereqs": [
+            "adele-ring"
+          ],
+          "blurb": "Strong approximation for $\\mathbb{Q}$: the diagonal image of $\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}^\\infty = \\prod_p' \\mathbb{Q}_p$ (adèles with the archimedean place omitted). This packages the Chinese Remainder Theorem and simultaneous Diophantine approximation into a single topological statement."
+        },
+        {
+          "id": "tate-thesis-sketch",
+          "title": "Tate's thesis sketch",
+          "anchor": "tate",
+          "prereqs": [
+            "idele-class-group",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Tate's 1950 thesis reproves the analytic continuation and functional equation of $\\zeta(s)$ and Dirichlet $L$-functions by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; the global functional equation follows from Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$."
         }
       ]
     },
@@ -2058,7 +2178,10 @@ window.__MVConcepts = {
           "title": "Ramanujan congruences",
           "anchor": "ram",
           "prereqs": [
-            "pentagonal-number-theorem"
+            "pentagonal-number-theorem",
+            "modular-form-definition",
+            "dedekind-eta-modular",
+            "jacobi-triple-product"
           ],
           "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
         },
@@ -2238,6 +2361,61 @@ window.__MVConcepts = {
             "theta-transformation-law"
           ],
           "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function."
+        }
+      ]
+    },
+    "zeta-values": {
+      "topic": "zeta-values",
+      "title": "Zeta values — ζ at integers",
+      "page": "zeta-values.html",
+      "concepts": [
+        {
+          "id": "basel-problem",
+          "title": "The Basel problem: ζ(2) = π²/6",
+          "anchor": "basel-problem",
+          "prereqs": [
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$."
+        },
+        {
+          "id": "even-integer-values",
+          "title": "Even values ζ(2n) via Bernoulli numbers",
+          "anchor": "even-integer-values",
+          "prereqs": [
+            "basel-problem",
+            "bernoulli-generating-function"
+          ],
+          "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$."
+        },
+        {
+          "id": "odd-integer-values-apery",
+          "title": "Odd values and Apéry's constant ζ(3)",
+          "anchor": "odd-integer-values-apery",
+          "prereqs": [
+            "even-integer-values"
+          ],
+          "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory."
+        },
+        {
+          "id": "negative-integer-values",
+          "title": "Negative-integer values and trivial zeros",
+          "anchor": "negative-integer-values",
+          "prereqs": [
+            "zeta-special-values",
+            "bernoulli-generating-function"
+          ],
+          "blurb": "Analytic continuation gives $\\zeta(-n)=-B_{n+1}/(n+1)$ for $n\\ge 0$; in particular $\\zeta(-2k)=0$ for $k\\ge 1$ — these are the trivial zeros. The values $\\zeta(-n)$ encode the renormalised sums familiar from physics."
+        },
+        {
+          "id": "functional-equation-zeta",
+          "title": "The functional equation ξ(s) = ξ(1−s)",
+          "anchor": "functional-equation-zeta",
+          "prereqs": [
+            "negative-integer-values",
+            "zeta-functional-equation-preview"
+          ],
+          "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$, linking values on the right half-plane to those on the left and forcing the symmetry $\\zeta(1-2k)=-B_{2k}/(2k)$."
         }
       ]
     },
@@ -3278,60 +3456,158 @@ window.__MVConcepts = {
   "capstones": {
     "capstones": [
       {
+        "id": "capstone-solvability-by-radicals",
+        "section": "Algebra",
+        "title": "Galois solvability of polynomials",
+        "goal": "solvability-by-radicals",
+        "blurb": "A polynomial is solvable by radicals iff its Galois group is a solvable group — why the quintic resists closed-form roots and the cubic/quartic don't."
+      },
+      {
+        "id": "capstone-yoneda",
+        "section": "Algebra",
+        "title": "Yoneda, limits, and adjunctions",
+        "goal": "yoneda-limits-adjunctions",
+        "blurb": "An object is what it does to every other object. Yoneda + limits + adjunctions is the categorical core that every downstream subject silently uses."
+      },
+      {
         "id": "capstone-residue-theorem",
-        "section": "Complex analysis",
+        "section": "Analysis",
         "title": "Master the residue theorem",
         "goal": "residue-theorem",
-        "blurb": "Integrate f around a closed contour by summing residues at its poles. The algorithmic heart of complex analysis."
+        "blurb": "Integrate $f$ around a closed contour by summing residues at its poles. The algorithmic heart of complex analysis."
       },
       {
         "id": "capstone-riemann-mapping",
-        "section": "Complex analysis",
+        "section": "Analysis",
         "title": "Prove the Riemann mapping theorem",
         "goal": "riemann-mapping",
-        "blurb": "Every simply connected proper open U ⊂ C is conformally the disk. Needs Schwarz, Möbius, Montel."
+        "blurb": "Every simply connected proper open $U\\subset\\mathbb{C}$ is conformally the disk. Needs Schwarz, Möbius, Montel."
       },
       {
         "id": "capstone-fta",
-        "section": "Complex analysis",
+        "section": "Analysis",
         "title": "Complex-analytic proof of the FTA",
         "goal": "fta",
         "blurb": "Liouville gives the one-page proof: a bounded entire function is constant."
       },
       {
         "id": "capstone-rouche",
-        "section": "Complex analysis",
+        "section": "Analysis",
         "title": "Locate zeros with Rouché",
         "goal": "rouche",
         "blurb": "Count zeros of holomorphic functions by perturbation. Foundation for the argument-principle toolkit."
       },
       {
+        "id": "capstone-spectral-theorem",
+        "section": "Analysis",
+        "title": "The spectral theorem",
+        "goal": "spectral-theorem-fa",
+        "blurb": "Every self-adjoint operator on a Hilbert space is a multiplication operator in disguise — the infinite-dimensional eigenbasis that powers quantum mechanics and PDE."
+      },
+      {
+        "id": "capstone-gelfand-naimark",
+        "section": "Analysis",
+        "title": "Gelfand–Naimark duality",
+        "goal": "gelfand-duality-oa",
+        "blurb": "Commutative unital $C^*$-algebras are the same thing as compact Hausdorff spaces. Noncommutative algebras become noncommutative topology."
+      },
+      {
+        "id": "capstone-stokes-derham",
+        "section": "Geometry & topology",
+        "title": "Stokes & de Rham cohomology",
+        "goal": "stokes-derham",
+        "blurb": "$\\int_{\\partial M}\\omega = \\int_M d\\omega$ unifies FTC, Green, Gauss, Stokes. De Rham cohomology turns the failure of $d\\omega=0\\Rightarrow\\omega=d\\eta$ into a topological invariant."
+      },
+      {
+        "id": "capstone-riemann-roch",
+        "section": "Geometry & topology",
+        "title": "Riemann–Roch on a Riemann surface",
+        "goal": "riemann-roch",
+        "blurb": "$\\ell(D) - \\ell(K-D) = \\deg D - g + 1$. Topology ($g$), analysis (meromorphic sections), and algebra (divisors) meet in one formula."
+      },
+      {
+        "id": "capstone-gauss-bonnet",
+        "section": "Geometry & topology",
+        "title": "Gauss–Bonnet theorem",
+        "goal": "gauss-bonnet",
+        "blurb": "$\\int_M K\\,dA = 2\\pi\\chi(M)$. Local curvature integrates to a purely topological invariant — the first great bridge between differential geometry and algebraic topology."
+      },
+      {
+        "id": "capstone-quadratic-reciprocity",
+        "section": "Number theory",
+        "title": "Gauss's quadratic reciprocity",
+        "goal": "quadratic-reciprocity-law",
+        "blurb": "For odd primes $p\\ne q$: $\\left(\\tfrac{p}{q}\\right)\\left(\\tfrac{q}{p}\\right) = (-1)^{\\frac{p-1}{2}\\frac{q-1}{2}}$. The first nontrivial reciprocity law; blueprint for everything after."
+      },
+      {
+        "id": "capstone-local-global",
+        "section": "Number theory",
+        "title": "The Hasse local–global principle",
+        "goal": "local-global-principle",
+        "blurb": "A quadratic form has a rational solution iff it has one over every $\\mathbb{Q}_p$ and $\\mathbb{R}$. The principle — and its failures — drive modern arithmetic."
+      },
+      {
+        "id": "capstone-hilbert-class-field",
+        "section": "Number theory",
+        "title": "The Hilbert class field",
+        "goal": "hilbert-class-field",
+        "blurb": "Every number field $K$ has a maximal unramified abelian extension $H/K$ whose Galois group is the class group of $K$. Class field theory's first visible miracle."
+      },
+      {
         "id": "capstone-sato-tate",
-        "section": "Arithmetic capstones",
+        "section": "Modular forms & L-functions",
         "title": "Sato–Tate equidistribution",
         "goal": "symmetric-power-l-functions",
-        "blurb": "Frobenius angles θ_p of a non-CM elliptic curve equidistribute with respect to the semicircular measure (2/π)sin²θ dθ."
+        "blurb": "Frobenius angles $\\theta_p$ of a non-CM elliptic curve equidistribute with respect to the semicircular measure $(2/\\pi)\\sin^2\\theta\\,d\\theta$."
       },
       {
         "id": "capstone-bsd",
-        "section": "Arithmetic capstones",
+        "section": "Modular forms & L-functions",
         "title": "Birch & Swinnerton-Dyer",
         "goal": "bsd-rank-equality",
-        "blurb": "ord_{s=1} L(E,s) = rank E(Q). One of the Clay Millennium problems, tying an analytic quantity to Mordell–Weil rank."
+        "blurb": "$\\mathrm{ord}_{s=1} L(E,s) = \\mathrm{rank}\\, E(\\mathbb{Q})$. One of the Clay Millennium problems, tying an analytic quantity to Mordell–Weil rank."
+      },
+      {
+        "id": "capstone-modularity-flt",
+        "section": "Modular forms & L-functions",
+        "title": "Modularity and Fermat's Last Theorem",
+        "goal": "ribet-level-lowering",
+        "blurb": "Frey + Ribet + Wiles: a solution to $a^p+b^p=c^p$ would give a newform of level $2$, but $S_2(\\Gamma_0(2))=0$ — contradiction."
+      },
+      {
+        "id": "capstone-zeta-functional-equation",
+        "section": "Modular forms & L-functions",
+        "title": "Riemann's functional equation",
+        "goal": "zeta-functional-equation",
+        "blurb": "$\\xi(s) = \\xi(1-s)$, where $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. Mellin + theta gives analytic continuation and the symmetry about $\\Re(s) = 1/2$."
+      },
+      {
+        "id": "capstone-moonshine",
+        "section": "Modular forms & L-functions",
+        "title": "Monstrous moonshine (Borcherds)",
+        "goal": "borcherds-proof-sketch",
+        "blurb": "Fourier coefficients of $j(\\tau)$ are sums of Monster irrep dimensions. Borcherds' Fields-medal proof via a generalized Kac–Moody Lie algebra and replication formulas."
+      },
+      {
+        "id": "capstone-ramanujan-congruences",
+        "section": "Modular forms & L-functions",
+        "title": "Ramanujan congruences for p(n)",
+        "goal": "ramanujan-congruences",
+        "blurb": "$p(5n+4)\\equiv 0\\pmod 5$, $p(7n+5)\\equiv 0\\pmod 7$, $p(11n+6)\\equiv 0\\pmod{11}$. Explained by the modularity of Dedekind $\\eta$."
       },
       {
         "id": "capstone-etale-cohomology",
         "section": "Algebraic geometry",
         "title": "Weil conjectures via étale cohomology",
         "goal": "weil-frobenius-trace",
-        "blurb": "Point counts over 𝔽_q as an alternating sum of Frobenius traces on ℓ-adic cohomology, with eigenvalues pinned by Deligne."
+        "blurb": "Point counts over $\\mathbb{F}_q$ as an alternating sum of Frobenius traces on $\\ell$-adic cohomology, with eigenvalues pinned by Deligne."
       },
       {
-        "id": "capstone-modularity-flt",
-        "section": "Arithmetic capstones",
-        "title": "Modularity and Fermat's Last Theorem",
-        "goal": "ribet-level-lowering",
-        "blurb": "Frey + Ribet + Wiles: a solution to aᵖ + bᵖ = cᵖ would give a newform of level 2, but S_2(Γ_0(2)) = 0 — contradiction."
+        "id": "capstone-moduli-stable-curves",
+        "section": "Algebraic geometry",
+        "title": "Moduli of higher-genus curves",
+        "goal": "higher-genus-moduli",
+        "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
       }
     ]
   }

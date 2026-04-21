@@ -103,7 +103,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -127,6 +127,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -232,6 +246,16 @@ The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect square
     <li><a href="./modular-forms.html#forms">Definition of modular forms</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./theta-functions.html#conv">Theta functions</a> · q-expansion and convergence</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="theta-series-lattice"></div>
 </section>
@@ -345,6 +369,16 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
   <div class="small">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>
 </div>
 <div class="quiz" data-concept="theta-q-expansion"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./theta-functions.html#trans">Theta functions</a> · Theta transformation law</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -459,6 +493,17 @@ Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight 
   <div class="small">On the imaginary axis $\tau = iy$ we have $-1/iy = i/y$, and $\sqrt{-i\cdot iy} = \sqrt{y}$ is real. The graphs of $\theta(i/y)$ (blue) and $\sqrt{y}\,\theta(iy)$ (yellow) coincide point-by-point — that is the identity.</div>
 </div>
 <div class="quiz" data-concept="theta-transformation-law"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-continuation.html#zeta">Analytic continuation</a> · Riemann’s functional equation for $\zeta$</div>
+    <div><a href="./theta-functions.html#eta">Theta functions</a> · Dedekind eta and theta</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -739,6 +784,17 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
   <div class="small">At the specialization $z=1$: blue bars are the truncated sum $\sum_{|n|\le N} q^{n^2/2}$, yellow bars are the truncated product $\prod_{n=1}^N (1-q^n)(1+q^{n-1/2})^2$. Once $N$ is big enough the leading coefficients lock in and never change.</div>
 </div>
 <div class="quiz" data-concept="jacobi-triple-product"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./partitions-generating-functions.html#eta">Partitions and generating functions</a> · Dedekind eta as a modular form</div>
+    <div><a href="./partitions-generating-functions.html#ram">Partitions and generating functions</a> · Ramanujan congruences</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -875,6 +931,16 @@ See <a href="./modular-forms.html">modular forms</a> for the construction of $\D
   <div class="readout" id="eta-out" style="font-size:.85rem"></div>
 </div>
 <div class="quiz" data-concept="dedekind-eta-theta"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./theta-functions.html#jtp">Theta functions</a> · Jacobi triple product and q-identities</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1244,6 +1310,7 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>
     </tbody>

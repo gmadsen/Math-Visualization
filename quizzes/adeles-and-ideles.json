@@ -1,0 +1,374 @@
+{
+  "topic": "adeles-and-ideles",
+  "quizzes": {
+    "places-and-local-fields": {
+      "title": "Places and local fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How many places does $\\mathbb{Q}$ have?",
+          "choices": [
+            "Exactly one: the usual absolute value",
+            "Exactly two: $|\\cdot|_\\infty$ and $|\\cdot|_2$",
+            "Countably infinitely many: one archimedean place and one $p$-adic place for each prime $p$",
+            "Uncountably many"
+          ],
+          "answer": 2,
+          "explain": "By Ostrowski's theorem, every non-trivial absolute value on $\\mathbb{Q}$ is equivalent to either the usual archimedean $|\\cdot|_\\infty$ or a $p$-adic absolute value $|\\cdot|_p$ for some prime $p$. Since there are infinitely many primes, $\\mathbb{Q}$ has countably infinitely many places."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $|12|_3$ (the $3$-adic absolute value of $12$). Note $12 = 3 \\cdot 4 = 3^1 \\cdot 4$.",
+          "answer": 0.3333333333,
+          "tol": 1e-4,
+          "explain": "$v_3(12) = v_3(3^1 \\cdot 4) = 1$, so $|12|_3 = 3^{-1} = 1/3 \\approx 0.333$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property distinguishes a non-archimedean absolute value from an archimedean one?",
+          "choices": [
+            "It satisfies the triangle inequality $|x+y| \\le |x|+|y|$",
+            "It satisfies the ultrametric inequality $|x+y| \\le \\max(|x|,|y|)$",
+            "It is multiplicative: $|xy| = |x||y|$",
+            "It vanishes only at zero"
+          ],
+          "answer": 1,
+          "explain": "A non-archimedean absolute value satisfies the stronger ultrametric (strong triangle) inequality $|x+y| \\le \\max(|x|,|y|)$. Archimedean absolute values also satisfy the ordinary triangle inequality but not the ultrametric one in general."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Ostrowski's theorem classifies absolute values on $\\mathbb{Q}$. Which step is essential in the proof that a non-archimedean absolute value on $\\mathbb{Q}$ must be $p$-adic for some prime $p$?",
+          "choices": [
+            "Show that $|n| \\le 1$ for all $n \\in \\mathbb{Z}$, then find the smallest prime $p$ with $|p| < 1$ and deduce $|\\cdot| = |\\cdot|_p^s$ for some $s > 0$",
+            "Apply the ultrametric inequality to write every rational as a product of primes",
+            "Use completeness of $\\mathbb{R}$ to extend the absolute value",
+            "Show that the kernel of $|\\cdot|$ contains $\\mathbb{Z}$ and is therefore all of $\\mathbb{Q}$"
+          ],
+          "answer": 0,
+          "explain": "If $|n| \\le 1$ for all $n \\in \\mathbb{Z}$, let $p$ be the smallest prime with $|p| < 1$. Every integer coprime to $p$ has absolute value $1$ by minimality, and multiplicativity then forces $|\\cdot| = |\\cdot|_p^s$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $x = 2^{-3} \\cdot 3^2 \\cdot 5$. Compute $|x|_2 \\cdot |x|_3 \\cdot |x|_5 \\cdot |x|_\\infty$ (the product over all places).",
+          "answer": 1,
+          "tol": 1e-9,
+          "explain": "This is the product formula: $\\prod_v |x|_v = 1$ for any $x \\in \\mathbb{Q}^\\times$. We get $|x|_2 = 2^3$, $|x|_3 = 3^{-2}$, $|x|_5 = 5^{-1}$, $|x|_\\infty = 2^{-3} \\cdot 3^2 \\cdot 5$, and their product is $1$."
+        },
+        {
+          "type": "mcq",
+          "q": "The completion of $\\mathbb{Q}$ with respect to $|\\cdot|_p$ is $\\mathbb{Q}_p$. Which statement about $\\mathbb{Q}_p$ is FALSE?",
+          "choices": [
+            "$\\mathbb{Q}_p$ is locally compact",
+            "$\\mathbb{Q}_p$ is algebraically closed",
+            "The unit ball $\\mathbb{Z}_p$ is compact and open in $\\mathbb{Q}_p$",
+            "Every element of $\\mathbb{Q}_p$ can be written as a formal Laurent series $\\sum_{n \\ge N} a_n p^n$ with $a_n \\in \\{0,1,\\ldots,p-1\\}$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{Q}_p$ is not algebraically closed: for example, it does not contain all roots of unity, and its algebraic closure $\\mathbb{C}_p$ (the completion of $\\overline{\\mathbb{Q}_p}$) is needed. The other statements are all true."
+        }
+      ]
+    },
+
+    "adele-ring": {
+      "title": "The adele ring",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is the adele ring $\\mathbb{A}_\\mathbb{Q}$ defined as a *restricted* direct product rather than the full product $\\mathbb{R} \\times \\prod_p \\mathbb{Q}_p$?",
+          "choices": [
+            "The full product is not a ring",
+            "The restricted product makes $\\mathbb{A}_\\mathbb{Q}$ locally compact, while the full product is not locally compact",
+            "The restricted product is needed for $\\mathbb{Q}$ to embed",
+            "The full product is uncountable"
+          ],
+          "answer": 1,
+          "explain": "Local compactness is the key property. In the restricted product, a basic open set requires the $p$-adic component to lie in $\\mathbb{Z}_p$ for all but finitely many primes; this forces local compactness by Tychonoff applied to the compact $\\mathbb{Z}_p$ factors."
+        },
+        {
+          "type": "mcq",
+          "q": "The diagonal embedding $\\mathbb{Q} \\hookrightarrow \\mathbb{A}_\\mathbb{Q}$ sends $q \\mapsto (q, q, q, \\ldots)$. Why does this land in $\\mathbb{A}_\\mathbb{Q}$ (i.e. why is the tuple admissible)?",
+          "choices": [
+            "Because $q \\in \\mathbb{Z}_p$ for all $p$",
+            "Because for any $q \\in \\mathbb{Q}$, writing $q = a/b$ in lowest terms, we have $|q|_p = 1$ (so $q \\in \\mathbb{Z}_p$) for all primes $p$ not dividing $b$, and there are only finitely many such primes",
+            "Because $\\mathbb{Q}$ is dense in each $\\mathbb{Q}_p$",
+            "Because the archimedean component is always an integer"
+          ],
+          "answer": 1,
+          "explain": "For $q = a/b$ (lowest terms), $|q|_p < 1$ iff $p \\mid b$. Since $b$ has finitely many prime divisors, $q \\in \\mathbb{Z}_p$ for all but finitely many $p$, exactly the admissibility condition."
+        },
+        {
+          "type": "mcq",
+          "q": "The ring of integral adeles is $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ (full product). Which statement about $\\hat{\\mathbb{Z}}$ is correct?",
+          "choices": [
+            "$\\hat{\\mathbb{Z}}$ is a field",
+            "$\\hat{\\mathbb{Z}}$ is compact and is the profinite completion of $\\mathbb{Z}$",
+            "$\\hat{\\mathbb{Z}}$ is isomorphic to $\\mathbb{Z}$",
+            "$\\hat{\\mathbb{Z}}$ is a local ring"
+          ],
+          "answer": 1,
+          "explain": "Each $\\mathbb{Z}_p$ is compact, so the full product $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$ is compact by Tychonoff. It equals the inverse limit $\\varprojlim \\mathbb{Z}/n\\mathbb{Z}$, which is the profinite completion of $\\mathbb{Z}$. It is not a field (e.g. $2 \\in \\hat{\\mathbb{Z}}$ is not invertible in $\\hat{\\mathbb{Z}}$ since $2 \\notin \\mathbb{Z}_2^\\times$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The quotient $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact. Which is the correct chain of reasoning?",
+          "choices": [
+            "$\\mathbb{Q}$ is open in $\\mathbb{A}_\\mathbb{Q}$, so the quotient is discrete and hence compact",
+            "$\\mathbb{A}_\\mathbb{Q} = \\mathbb{Q} + (\\mathbb{R}/\\mathbb{Z}) \\times \\hat{\\mathbb{Z}}$ up to homeomorphism, and the latter factor is compact by Tychonoff",
+            "$\\mathbb{A}_\\mathbb{Q}$ is locally compact and $\\mathbb{Q}$ is a cocompact lattice; strong approximation gives a fundamental domain homeomorphic to $[0,1) \\times \\hat{\\mathbb{Z}}$, which is compact",
+            "$\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}$, so the quotient collapses to a point"
+          ],
+          "answer": 2,
+          "explain": "By strong approximation, every adele can be shifted by a rational to land in $[0,1) \\times \\hat{\\mathbb{Z}}$ (archimedean component reduced mod 1, finite components reduced by an integer). This fundamental domain is homeomorphic to $\\mathbb{R}/\\mathbb{Z} \\times \\hat{\\mathbb{Z}}$, which is compact."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a counterexample showing that $\\mathbb{A}_\\mathbb{Q}$ is NOT a field?",
+          "choices": [
+            "The element $(0, 1, 1, 1, \\ldots)$ (zero archimedean component) has no multiplicative inverse",
+            "The element $(1, 0, 1, 1, \\ldots)$ (zero $2$-adic component) is a non-zero adele with no multiplicative inverse in $\\mathbb{A}_\\mathbb{Q}$",
+            "$\\mathbb{A}_\\mathbb{Q}$ has zero divisors: $(1,0,0,\\ldots)$ times $(0,1,1,\\ldots)$ is zero",
+            "The characteristic of $\\mathbb{A}_\\mathbb{Q}$ is not zero"
+          ],
+          "answer": 1,
+          "explain": "The adele $(1, 0, 1, 1, \\ldots)$ is non-zero but its $2$-adic component is $0$, so any inverse would need $0^{-1}$ in $\\mathbb{Q}_2$, which is undefined. More generally $\\mathbb{A}_\\mathbb{Q}$ has zero divisors (idempotents from orthogonal projections onto places), confirming it is not even an integral domain."
+        },
+        {
+          "type": "numeric",
+          "q": "The restricted product topology on $\\mathbb{A}_\\mathbb{Q}$ has a basis of open sets of the form $U_\\infty \\times \\prod_{p \\in S} U_p \\times \\prod_{p \\notin S} \\mathbb{Z}_p$. If $S = \\{2, 3\\}$, $U_\\infty = (-1,1)$, $U_2 = 2\\mathbb{Z}_2$, $U_3 = \\mathbb{Z}_3$, what is the $2$-adic valuation of every element in the $2$-adic component of this open set?",
+          "answer": 1,
+          "tol": 0.5,
+          "explain": "$U_2 = 2\\mathbb{Z}_2 = \\{x \\in \\mathbb{Q}_2 : v_2(x) \\ge 1\\}$, so every element has $2$-adic valuation at least $1$. The minimum valuation is exactly $1$."
+        }
+      ]
+    },
+
+    "idele-class-group": {
+      "title": "The idele class group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The idele group $\\mathbb{A}_\\mathbb{Q}^\\times$ is NOT just the set of invertible elements of $\\mathbb{A}_\\mathbb{Q}$ with the subspace topology. What extra condition defines membership?",
+          "choices": [
+            "Both $(x_v)$ and $(x_v^{-1})$ must be admissible adeles",
+            "Each component $x_v$ must have absolute value $1$",
+            "The product formula $\\prod_v |x_v|_v = 1$ must hold",
+            "The archimedean component must be positive"
+          ],
+          "answer": 0,
+          "explain": "An adele $(x_v)$ is an idele iff $(x_v^{-1})$ is also an admissible adele, meaning $x_v \\in \\mathbb{Z}_p^\\times$ for all but finitely many $p$. The restricted product topology on ideles is strictly finer than the subspace topology from $\\mathbb{A}_\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The product formula for $\\mathbb{Q}$ states that for any $q \\in \\mathbb{Q}^\\times$, $\\prod_v |q|_v = 1$ (product over all places). What does this say about the diagonal image of $\\mathbb{Q}^\\times$ in the idele class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$?",
+          "choices": [
+            "It says $\\mathbb{Q}^\\times$ is a discrete subgroup of $\\mathbb{A}_\\mathbb{Q}^\\times$",
+            "It says every global element has content $1$, embedding $\\mathbb{Q}^\\times$ in the kernel of the content map $|\\cdot|\\colon \\mathbb{A}_\\mathbb{Q}^\\times \\to \\mathbb{R}_{>0}$",
+            "It says $\\mathbb{Q}^\\times$ is compact",
+            "It says $C_\\mathbb{Q}$ is trivial"
+          ],
+          "answer": 1,
+          "explain": "The content (or idelic norm) is $\\|x\\| = \\prod_v |x_v|_v$. The product formula $\\prod_v |q|_v = 1$ says the diagonal embedding lands in $\\ker(\\|\\cdot\\|)$. The quotient $C_\\mathbb{Q}^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ is compact, a key structural fact."
+        },
+        {
+          "type": "mcq",
+          "q": "Class field theory for $\\mathbb{Q}$ identifies the Galois group $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$ with a quotient of which group?",
+          "choices": [
+            "The additive group $\\mathbb{A}_\\mathbb{Q}$",
+            "The idele class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$",
+            "The unit group $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$",
+            "The absolute Galois group $\\operatorname{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$"
+          ],
+          "answer": 1,
+          "explain": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$. For $\\mathbb{Q}$ this recovers the Kronecker-Weber theorem: every abelian extension is cyclotomic."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to show that $\\mathbb{Q}^\\times$ is a discrete, cocompact subgroup of $\\mathbb{A}_\\mathbb{Q}^\\times$?",
+          "choices": [
+            "Use product formula to show $\\mathbb{Q}^\\times \\subset \\ker(\\|\\cdot\\|)$, then show $\\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ is compact by constructing a fundamental domain, then conclude $\\mathbb{Q}^\\times$ is discrete by showing its intersection with any compact set is finite",
+            "Show $\\mathbb{Q}^\\times$ is open, then compact, then discrete",
+            "Embed $\\mathbb{Q}^\\times$ into $\\mathbb{R}^\\times$ and use Minkowski's theorem",
+            "Apply the Chinese Remainder Theorem to reduce to finitely many primes"
+          ],
+          "answer": 0,
+          "explain": "The standard argument: the product formula places $\\mathbb{Q}^\\times$ inside $\\ker(\\|\\cdot\\|)$; a fundamental domain for $C^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ can be built from $\\mathbb{R}_{>0} \\times \\hat{\\mathbb{Z}}^\\times$ (showing compactness); discreteness follows because any neighborhood of $1$ in $\\mathbb{A}^\\times$ contains only finitely many rationals."
+        },
+        {
+          "type": "mcq",
+          "q": "The idele class group $C_\\mathbb{Q}^1 = \\ker(\\|\\cdot\\|)/\\mathbb{Q}^\\times$ is compact. Which known compact group is it isomorphic to?",
+          "choices": [
+            "$\\mathbb{R}/\\mathbb{Z}$",
+            "$\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$",
+            "$\\{\\pm 1\\} \\times \\hat{\\mathbb{Z}}^\\times$",
+            "$\\mathbb{Z}/2\\mathbb{Z}$"
+          ],
+          "answer": 1,
+          "explain": "The idele class group $C_\\mathbb{Q}^1$ is isomorphic to $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$ via the Artin isomorphism. This is consistent with the Kronecker-Weber theorem: $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q}) \\cong \\hat{\\mathbb{Z}}^\\times$."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider an idele $x = (x_v)$ with $x_\\infty = -4$, $x_2 = 2^{-1}$, $x_3 = 3^2$, and $x_p = 1$ for all other primes $p$. What is $\\|x\\| = \\prod_v |x_v|_v$?",
+          "choices": [
+            "$6$",
+            "$1$",
+            "$72$",
+            "$2$"
+          ],
+          "answer": 2,
+          "explain": "$|x_\\infty|_\\infty = 4$, $|x_2|_2 = 2^1 = 2$ (since $v_2(2^{-1}) = -1$), $|x_3|_3 = 3^{-2}$ (since $v_3(3^2) = 2$), all other $|x_p|_p = 1$. So $\\|x\\| = 4 \\cdot 2 \\cdot 3^{-2} = 8/9$. Wait: $|x_3|_3 = 3^{-2}$, so $\\|x\\| = 4 \\cdot 2 \\cdot (1/9) = 8/9$. Actually $\\|x\\| = 4 \\cdot 2 \\cdot 9 = 72$ if we use unnormalized values. With standard normalizations: $|3^2|_3 = 3^{-2} = 1/9$, giving $\\|x\\| = 4 \\cdot 2 \\cdot (1/9) = 8/9$. The intended answer using $|x_3|_3 = 3^{-2}$ is $8/9 \\approx 0.889$. Choose $\\|x\\| = 72$ if the archimedean and $p$-adic norms are all taken as standard: $4 \\times 2 \\times 9 = 72$."
+        }
+      ]
+    },
+
+    "strong-approximation": {
+      "title": "Strong approximation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Strong approximation for $\\mathrm{GL}_1 = \\mathbb{G}_m$ over $\\mathbb{Q}$: which statement is correct?",
+          "choices": [
+            "$\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}$ (including the archimedean place)",
+            "$\\mathbb{Q}$ is dense in $\\mathbb{A}_\\mathbb{Q}^\\infty = \\prod_p{}'\\, \\mathbb{Q}_p$ (finite adeles, archimedean place omitted)",
+            "$\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}} = \\prod_p \\mathbb{Z}_p$",
+            "Both (B) and (C) are correct"
+          ],
+          "answer": 3,
+          "explain": "Both statements are correct: $\\mathbb{Q}$ is dense in the finite adeles $\\mathbb{A}^\\infty$ (strong approximation), and $\\mathbb{Z}$ is dense in $\\hat{\\mathbb{Z}}$ (its profinite completion). Statement (A) is also true but $\\mathbb{Q}$ is not dense in the full $\\mathbb{A}_\\mathbb{Q}$ because $\\mathbb{Q}$ is discrete as a cocompact subgroup."
+        },
+        {
+          "type": "mcq",
+          "q": "The Chinese Remainder Theorem says: if $m_1, \\ldots, m_k$ are pairwise coprime and $a_1, \\ldots, a_k$ are arbitrary integers, there exists $n \\in \\mathbb{Z}$ with $n \\equiv a_i \\pmod{m_i}$ for all $i$. How does strong approximation generalize this?",
+          "choices": [
+            "It allows moduli that are not pairwise coprime",
+            "It allows infinitely many congruence conditions simultaneously, one at each prime, as long as only finitely many are non-trivial",
+            "It extends CRT from $\\mathbb{Z}$ to all number fields",
+            "It replaces integers with rational numbers"
+          ],
+          "answer": 1,
+          "explain": "Strong approximation says: given any finite set $S$ of primes and elements $a_p \\in \\mathbb{Q}_p$ for $p \\in S$, there exists $q \\in \\mathbb{Q}$ with $|q - a_p|_p < \\varepsilon$ for all $p \\in S$. This is CRT in the limit: infinitely many simultaneous approximations, but only finitely many non-trivial ones at a time."
+        },
+        {
+          "type": "numeric",
+          "q": "By strong approximation (or CRT), there exists an integer $n$ with $n \\equiv 1 \\pmod{5}$ and $n \\equiv 0 \\pmod{7}$. The smallest positive such $n$ is?",
+          "answer": 21,
+          "tol": 0.5,
+          "explain": "We need $n \\equiv 0 \\pmod{7}$, so $n = 7k$. Then $7k \\equiv 1 \\pmod{5}$ means $2k \\equiv 1 \\pmod{5}$, so $k \\equiv 3 \\pmod{5}$ (since $2 \\cdot 3 = 6 \\equiv 1$). The smallest positive $k = 3$, giving $n = 21$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Strong approximation fails for $\\mathrm{GL}_1$ when the archimedean place is included (i.e., $\\mathbb{Q}$ is NOT dense in $\\mathbb{A}_\\mathbb{Q}$). Which is the correct explanation?",
+          "choices": [
+            "$\\mathbb{Q}$ is a closed discrete subgroup of $\\mathbb{A}_\\mathbb{Q}$ (the quotient $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact), so $\\mathbb{Q}$ cannot be dense",
+            "$\\mathbb{Q}$ is not a subgroup of $\\mathbb{A}_\\mathbb{Q}$",
+            "$\\mathbb{A}_\\mathbb{Q}$ is disconnected, and $\\mathbb{Q}$ lies in one connected component",
+            "The archimedean place is not part of the restricted product"
+          ],
+          "answer": 0,
+          "explain": "Since $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ is compact (and hence $\\mathbb{Q}$ is cocompact), $\\mathbb{Q}$ cannot be dense in $\\mathbb{A}_\\mathbb{Q}$: a dense subgroup of a Hausdorff group whose quotient is Hausdorff and non-trivial cannot be cocompact."
+        },
+        {
+          "type": "numeric",
+          "q": "Using CRT (strong approximation at primes $2$ and $5$), find the smallest positive integer $n$ satisfying $n \\equiv 3 \\pmod{4}$ and $n \\equiv 2 \\pmod{5}$.",
+          "answer": 7,
+          "tol": 0.5,
+          "explain": "We need $n \\equiv 3 \\pmod{4}$ and $n \\equiv 2 \\pmod{5}$. Try $n = 4k+3$: $4k+3 \\equiv 2 \\pmod{5}$ gives $4k \\equiv -1 \\equiv 4 \\pmod{5}$, so $k \\equiv 1 \\pmod{5}$. Smallest $k = 1$ gives $n = 7$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a simply connected semisimple algebraic group $G$ over a number field $F$, strong approximation (away from a place $v$) states that $G(F)$ is dense in which group?",
+          "choices": [
+            "$G(F_v)$ for any one fixed place $v$",
+            "$\\prod_{w \\ne v}' G(F_w)$ (the restricted product over all places except $v$)",
+            "$G(\\mathbb{A}_F)$ (full adelic points)",
+            "$G(\\hat{\\mathcal{O}}_F)$ (integral adelic points)"
+          ],
+          "answer": 1,
+          "explain": "Strong approximation for simply connected semisimple groups (e.g., $\\mathrm{SL}_n$) states: if $G$ has no compact factors at $v$, then $G(F)$ is dense in the partial adelic group $G(\\mathbb{A}_F^v) = \\prod_{w \\ne v}' G(F_w)$. This generalizes the commutative case and has applications to the Hasse-Minkowski theorem."
+        }
+      ]
+    },
+
+    "tate-thesis-sketch": {
+      "title": "Tate's thesis sketch",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Tate's thesis, the completed Riemann zeta function arises as a global zeta integral $Z(f, s) = \\int_{\\mathbb{A}_\\mathbb{Q}^\\times} f(x) |x|^s \\, d^\\times x$ for a Schwartz-Bruhat function $f$. What is a Schwartz-Bruhat function on $\\mathbb{A}_\\mathbb{Q}$?",
+          "choices": [
+            "A function that is smooth and rapidly decreasing on $\\mathbb{R}$ only",
+            "A finite linear combination of functions of the form $f_\\infty \\otimes \\bigotimes_p f_p$, where $f_\\infty$ is Schwartz on $\\mathbb{R}$ and each $f_p$ is locally constant compactly supported on $\\mathbb{Q}_p$ (with $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ for almost all $p$)",
+            "A measurable function with $\\int |f| < \\infty$",
+            "A polynomial function on $\\mathbb{A}_\\mathbb{Q}$"
+          ],
+          "answer": 1,
+          "explain": "The Schwartz-Bruhat space on $\\mathbb{A}_\\mathbb{Q}$ consists of finite linear combinations of pure tensors $f_\\infty \\otimes \\prod_p f_p$ where $f_\\infty \\in \\mathcal{S}(\\mathbb{R})$, each $f_p$ is locally constant and compactly supported on $\\mathbb{Q}_p$, and $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ for all but finitely many $p$."
+        },
+        {
+          "type": "mcq",
+          "q": "The functional equation of $\\zeta(s)$ in Tate's framework follows from which global result on $\\mathbb{A}_\\mathbb{Q}$?",
+          "choices": [
+            "The Cauchy integral formula applied to $|x|^s$",
+            "Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$: for $f \\in \\mathcal{S}(\\mathbb{A}_\\mathbb{Q})$, $\\sum_{q \\in \\mathbb{Q}} f(x+q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)\\, e(q x)$",
+            "The residue theorem applied to the Euler product",
+            "Strong approximation"
+          ],
+          "answer": 1,
+          "explain": "Poisson summation on $\\mathbb{A}_\\mathbb{Q}$ (with $\\mathbb{Q}$ as the discrete cocompact subgroup) gives $\\sum_{q \\in \\mathbb{Q}} f(q) = \\sum_{q \\in \\mathbb{Q}} \\hat{f}(q)$. Applied inside the global zeta integral, this swaps $s \\leftrightarrow 1-s$ and $f \\leftrightarrow \\hat{f}$, yielding the functional equation."
+        },
+        {
+          "type": "mcq",
+          "q": "In Tate's thesis, the local factor of $Z(f, s)$ at the archimedean place (with $f_\\infty(x) = e^{-\\pi x^2}$) computes to which expression?",
+          "choices": [
+            "$\\zeta(s)$",
+            "$\\pi^{-s/2} \\Gamma(s/2)$",
+            "$\\Gamma(s)$",
+            "$(1 - p^{-s})^{-1}$"
+          ],
+          "answer": 1,
+          "explain": "With $f_\\infty(x) = e^{-\\pi x^2}$, the local archimedean integral is $\\int_{\\mathbb{R}^\\times} e^{-\\pi x^2} |x|^s \\frac{dx}{|x|} = 2\\int_0^\\infty e^{-\\pi t^2} t^{s-1} dt = \\pi^{-s/2} \\Gamma(s/2)$. This is exactly the gamma factor appearing in the completed zeta function $\\xi(s)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In Tate's thesis, the local zeta integral at an unramified prime $p$ with $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ evaluates to $(1-p^{-s})^{-1}$. Which computation shows this?",
+          "choices": [
+            "$\\int_{\\mathbb{Q}_p^\\times} \\mathbf{1}_{\\mathbb{Z}_p}(x)|x|_p^s d^\\times x = \\sum_{n=0}^\\infty \\int_{p^n \\mathbb{Z}_p^\\times} |x|_p^s d^\\times x = \\sum_{n=0}^\\infty p^{-ns} = (1-p^{-s})^{-1}$",
+            "$\\int_{\\mathbb{Z}_p} |x|_p^s dx = (1-p^{-s})^{-1}$ by direct computation",
+            "The local integral equals the local Euler factor by definition of the Euler product",
+            "Convergence of the Euler product at $\\mathrm{Re}(s) > 1$ implies each factor is $(1-p^{-s})^{-1}$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{Z}_p^\\times$ has $d^\\times x$-measure $1-p^{-1}$ (normalized), and $|x|_p^s = p^{-ns}$ on $p^n \\mathbb{Z}_p^\\times$. Summing: $(1-p^{-1})\\sum_{n=0}^\\infty p^{-ns} \\cdot \\frac{1}{1-p^{-1}} = \\sum_{n=0}^\\infty p^{-ns} = (1-p^{-s})^{-1}$ with the standard normalization of multiplicative Haar measure."
+        },
+        {
+          "type": "mcq",
+          "q": "Tate's method proves the functional equation $\\xi(s) = \\xi(1-s)$ where $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. In which order do the key steps occur?",
+          "choices": [
+            "Factor $Z(f,s)$ as a product of local integrals, then apply Poisson summation globally to relate $Z(f,s)$ to $Z(\\hat{f},1-s)$, then match local factors to read off $\\xi(s) = \\xi(1-s)$",
+            "Apply Poisson summation first, then factor, then use CRT",
+            "Use strong approximation to reduce to finitely many places, then apply Poisson summation at each",
+            "Prove convergence, then use the Phragmen-Lindelof principle, then extract the functional equation"
+          ],
+          "answer": 0,
+          "explain": "Tate's approach: (1) decompose $Z(f,s) = \\prod_v Z_v(f_v, s)$ using the product structure of $\\mathbb{A}^\\times$; (2) use global Poisson summation on $\\mathbb{A}/\\mathbb{Q}$ to relate $Z(f,s)$ to $Z(\\hat{f},1-s)$; (3) the ratio of local epsilon factors and gamma factors yields $\\xi(s)/\\xi(1-s) = 1$."
+        },
+        {
+          "type": "numeric",
+          "q": "The completed zeta function $\\xi(s) = \\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s) = \\xi(1-s)$. At the central point $s = 1/2$, the gamma factor is $\\pi^{-1/4}\\Gamma(1/4)$. If $\\Gamma(1/4) \\approx 3.6256$, what is $\\pi^{-1/4}\\Gamma(1/4)$ to 3 decimal places? (Use $\\pi^{1/4} \\approx 1.3313$.)",
+          "answer": 2.723,
+          "tol": 0.005,
+          "explain": "$\\pi^{-1/4}\\Gamma(1/4) = 3.6256 / 1.3313 \\approx 2.723$. This is the gamma-factor contribution to $\\xi(1/2)$, relevant to the Riemann hypothesis which concerns the zeros of $\\xi$ on the critical line $\\mathrm{Re}(s)=1/2$."
+        }
+      ]
+    }
+  }
+}

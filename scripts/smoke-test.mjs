@@ -257,6 +257,36 @@ for (const file of htmlFiles) {
     }
   }
 
+  // Backlinks idempotency guard — scripts/insert-used-in-backlinks.mjs must
+  // produce at most one <aside class="related"> per concept section. Duplicates
+  // indicate the comment-fence strip failed and re-runs are piling up asides.
+  // We check per-section by walking opens/closes of the fence pair.
+  const openFences = (html.match(/<!--\s*backlinks-auto-begin\s*-->/gi) || []).length;
+  const closeFences = (html.match(/<!--\s*backlinks-auto-end\s*-->/gi) || []).length;
+  if (openFences !== closeFences) {
+    fail(`unbalanced backlink fences: ${openFences} begin vs ${closeFences} end`);
+  }
+  if (graph) {
+    for (const c of graph.concepts) {
+      if (!c.anchor) continue;
+      const anchorRe = c.anchor.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      // Grab a rough section body: from id="<anchor>" to the next id="…"
+      // on a section/h2/h3/h4, or to </section>. Count aside.related occurrences.
+      const openRe = new RegExp(`id="${anchorRe}"`);
+      const om = openRe.exec(html);
+      if (!om) continue;
+      const after = html.slice(om.index);
+      const boundaryRe = /<(?:section|h2|h3|h4)\b[^>]*\sid=["'][^"']+["']|<\/section>/i;
+      const bm = boundaryRe.exec(after.slice(1));
+      const endRel = bm ? bm.index + 1 : after.length;
+      const section = after.slice(0, endRel);
+      const relatedCount = (section.match(/<aside\s+class=["']related["']/gi) || []).length;
+      if (relatedCount > 1) {
+        fail(`section #${c.anchor} has ${relatedCount} <aside class="related"> blocks — expected ≤ 1 (run scripts/insert-used-in-backlinks.mjs --fix)`);
+      }
+    }
+  }
+
   perPage.set(file, { title, checks, svgs, widgets, placeholders: placeholders.length });
   if (checks.some((c) => c.level === 'error')) pagesWithIssues.push(file);
 }

@@ -25,6 +25,39 @@
           "answer": 0,
           "explain": "Modular invariance identifies orbit-equivalent points."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The fundamental domain $\\mathcal{F}$ for $SL_2(\\mathbb{Z})$ acting on $\\mathfrak{H}$ is $\\{\\tau:\\,|\\tau|\\ge 1,\\,|\\Re\\tau|\\le 1/2\\}$. Which statement correctly identifies an orbit-equivalence on the boundary?",
+          "choices": [
+            "$\\tau$ and $\\tau+1$ are always identified by $T$, but so are $\\tau$ and $-\\bar\\tau$",
+            "The left edge $\\Re\\tau=-1/2$ is identified with the right edge $\\Re\\tau=1/2$ via $T$, and the arc $|\\tau|=1$ is identified with itself via $S$",
+            "Every point on $\\partial\\mathcal{F}$ is its own orbit representative",
+            "$S$ identifies $i$ with $\\infty$"
+          ],
+          "answer": 1,
+          "explain": "$T:\\tau\\mapsto\\tau+1$ glues $\\Re\\tau=-1/2$ to $\\Re\\tau=1/2$. On the circular arc $|\\tau|=1$, the involution $S:\\tau\\mapsto -1/\\tau$ identifies $\\tau$ with $-1/\\tau$, which also lies on the arc (since $|-1/\\tau|=1$). This makes $\\mathcal{F}$ topologically a sphere with one puncture at $i\\infty$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\rho=e^{2\\pi i/3}=(-1+i\\sqrt{3})/2$. Compute $|S(\\rho)|$ where $S(\\tau)=-1/\\tau$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$S(\\rho)=-1/\\rho$. Since $|\\rho|=1$ we have $|-1/\\rho|=1/|\\rho|=1$. Indeed $\\rho$ lies on the arc $|\\tau|=1$, so $S$ maps it back to the arc."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in showing that every $\\tau\\in\\mathfrak{H}$ is $SL_2(\\mathbb{Z})$-equivalent to a point in $\\mathcal{F}$?",
+          "choices": [
+            "Apply $S$ first to maximize $\\Im\\tau$, then apply $T^n$ to center $\\Re\\tau$, repeating until stable",
+            "Apply $T^n$ to bring $\\Re\\tau$ into $[-1/2,1/2]$, then if $|\\tau|<1$ apply $S$ to increase $\\Im\\tau$; repeat — the process terminates because $\\Im(S(\\tau))=\\Im\\tau/|\\tau|^2>\\Im\\tau$ when $|\\tau|<1$",
+            "Apply $S$ repeatedly until $\\Im\\tau>1$, then center with $T^n$",
+            "The reduction works only for $\\tau$ with $\\Im\\tau>1$"
+          ],
+          "answer": 1,
+          "explain": "The standard reduction algorithm: (1) translate by $T^n$ to put $\\Re\\tau\\in[-1/2,1/2]$; (2) if $|\\tau|<1$, apply $S$ — this strictly increases $\\Im\\tau$ since $\\Im(S\\tau)=\\Im\\tau/|\\tau|^2>\\Im\\tau$; (3) repeat. The imaginary part is bounded above in each $SL_2(\\mathbb{Z})$-orbit, so the algorithm terminates."
+        }
       ]
     },
     "modular-form-definition": {
@@ -55,6 +88,39 @@
           "tol": 0.001,
           "explain": "Cusp forms vanish at the cusp."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The space $M_k(SL_2(\\mathbb{Z}))$ of weight-$k$ modular forms is zero for $k$ odd and $k<0$. Which additional value of $k$ gives $M_k=0$?",
+          "choices": [
+            "$k=2$",
+            "$k=4$",
+            "$k=1$",
+            "$k=6$"
+          ],
+          "answer": 2,
+          "explain": "For $SL_2(\\mathbb{Z})$, the dimension formula gives $\\dim M_k=0$ for odd $k$ (since $-I$ acts as $(-1)^k$), and in particular $M_1=0$. The first nonzero spaces are $M_4$ and $M_6$ (each 1-dimensional), spanned by $E_4$ and $E_6$ respectively."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does applying the weight-$k$ slash operator twice, $f|_{k}\\gamma_1|_{k}\\gamma_2$, equal $f|_{k}(\\gamma_1\\gamma_2)$? Which step in the chain is critical?",
+          "choices": [
+            "The cocycle identity $(c_1\\gamma_2\\tau+d_1)(c_2\\tau+d_2)=(c_{12}\\tau+d_{12})$ for matrix multiplication $\\gamma_1\\gamma_2$",
+            "Holomorphicity of $f$ ensures commutativity of the operators",
+            "The identity follows from $|c\\tau+d|=1$ on the fundamental domain",
+            "It uses the fact that $\\det\\gamma=1$ to cancel cross-terms"
+          ],
+          "answer": 0,
+          "explain": "The slash operator is $(f|_k\\gamma)(\\tau)=(c\\tau+d)^{-k}f(\\gamma\\tau)$. Composing two slashes yields a factor $(c_1(\\gamma_2\\tau)+d_1)^{-k}(c_2\\tau+d_2)^{-k}$. The cocycle identity for $GL_2$ shows this product equals $(c_{12}\\tau+d_{12})^{-k}$ where $\\gamma_{12}=\\gamma_1\\gamma_2$, making the slash action a genuine group action."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the dimension formula $\\dim M_k = \\lfloor k/12\\rfloor + 1$ for $k\\ge 4$ even and $k\\not\\equiv 2\\pmod{12}$ (approximately), estimate $\\dim M_{12}$.",
+          "answer": 2,
+          "tol": 0.5,
+          "explain": "$\\dim M_{12}=\\lfloor 12/12\\rfloor+1=1+1=2$. Indeed $M_{12}$ is spanned by $E_{12}$ and $\\Delta$, confirming dimension $2$."
+        }
       ]
     },
     "eisenstein-series-mf": {
@@ -80,6 +146,39 @@
           "choices": ["meromorphic-only forms", "explicit modular forms", "non-holomorphic Maass forms"],
           "answer": 1,
           "explain": "They are concrete holomorphic modular forms."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "$E_2(\\tau)=1-24\\sum_{n=1}^\\infty\\sigma_1(n)q^n$ is NOT a modular form of weight 2 for $SL_2(\\mathbb{Z})$. Which transformation law does it satisfy instead?",
+          "choices": [
+            "$E_2(\\gamma\\tau)=(c\\tau+d)^2 E_2(\\tau)$ exactly, so it is a genuine weight-2 form",
+            "$E_2(\\gamma\\tau)=(c\\tau+d)^2 E_2(\\tau) - \\frac{6ic}{\\pi}(c\\tau+d)$, showing a non-trivial correction term",
+            "$E_2(\\gamma\\tau)=E_2(\\tau)$ for all $\\gamma\\in SL_2(\\mathbb{Z})$, making it weight 0",
+            "$E_2$ diverges at the cusp, so no transformation law exists"
+          ],
+          "answer": 1,
+          "explain": "$E_2$ transforms with the anomalous correction $-(6ic/\\pi)(c\\tau+d)$. This makes $E_2$ a quasi-modular form. The combination $E_2^*(\\tau)=E_2(\\tau)-3/(\\pi\\Im\\tau)$ is non-holomorphic but transforms correctly; $E_2$ itself is the holomorphic shadow."
+        },
+        {
+          "type": "numeric",
+          "q": "The $q$-expansion of $E_4$ begins $1+240q+\\cdots$. What is the coefficient of $q$ (i.e., the $n=1$ term)?",
+          "answer": 240,
+          "tol": 0.5,
+          "explain": "The $q^n$ coefficient of normalized $E_4$ is $240\\sigma_3(n)$. For $n=1$: $\\sigma_3(1)=1$, so the coefficient is $240$."
+        },
+        {
+          "type": "mcq",
+          "q": "The discriminant form $\\Delta=\\frac{E_4^3-E_6^2}{1728}$ is a weight-12 cusp form. Which argument correctly shows $\\Delta\\ne 0$ on $\\mathfrak{H}$?",
+          "choices": [
+            "$\\Delta$ vanishes wherever $E_4^3=E_6^2$, but there are no such $\\tau$ in $\\mathfrak{H}$",
+            "$\\Delta(\\tau)=(2\\pi)^{12}\\eta(\\tau)^{24}$ where $\\eta$ is the Dedekind eta function, which is nowhere-zero on $\\mathfrak{H}$ because $\\eta(\\tau)^{24}$ equals an absolutely convergent product $q\\prod(1-q^n)^{24}$ with no zeros for $|q|<1$",
+            "$\\Delta$ is a cusp form, so it must vanish on $\\mathfrak{H}$ by definition",
+            "$\\Delta\\ne 0$ because its $q$-expansion has positive leading coefficient"
+          ],
+          "answer": 1,
+          "explain": "The Dedekind eta function $\\eta(\\tau)=q^{1/24}\\prod_{n=1}^\\infty(1-q^n)$ has no zeros on $\\mathfrak{H}$ since the infinite product converges absolutely and each factor $1-q^n\\ne 0$ for $|q|<1$. Hence $\\Delta=(2\\pi)^{12}\\eta^{24}\\ne 0$ on $\\mathfrak{H}$; it only vanishes at the cusp $i\\infty$."
         }
       ]
     },
@@ -110,6 +209,39 @@
           ],
           "answer": 1,
           "explain": "Arithmetic information is encoded in Fourier coefficients."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The $q$-expansion principle says a modular form is determined by its $q$-expansion. Which statement is the correct precise version?",
+          "choices": [
+            "Two modular forms of the same weight are equal if and only if their $q$-expansions agree in the first $\\lfloor k/12\\rfloor+1$ coefficients",
+            "A modular form $f$ of weight $k$ for $SL_2(\\mathbb{Z})$ is identically zero if and only if its $q$-expansion $\\sum a_n q^n$ is the zero power series, because the map $f\\mapsto\\sum a_n q^n$ is injective",
+            "The $q$-expansion determines $f$ only on the arc $|\\tau|=1$",
+            "Two forms agree if $a_0=b_0$ (constant terms match)"
+          ],
+          "answer": 1,
+          "explain": "The $q$-expansion $f(\\tau)\\mapsto\\sum_{n\\ge 0}a_n q^n$ is injective on $M_k$: a holomorphic modular form that vanishes as $q\\to 0$ (i.e., $a_n=0$ for all $n$) must be identically zero, since vanishing to infinite order at $i\\infty$ and holomorphicity on $\\mathfrak{H}$ force $f\\equiv 0$ by the identity principle."
+        },
+        {
+          "type": "numeric",
+          "q": "The Ramanujan tau function $\\tau(n)$ gives the $q$-expansion $\\Delta=\\sum_{n=1}^\\infty\\tau(n)q^n$. What is $\\tau(1)$?",
+          "answer": 1,
+          "tol": 0.5,
+          "explain": "$\\Delta=q\\prod_{n=1}^\\infty(1-q^n)^{24}=q-24q^2+\\cdots$. The leading coefficient is $\\tau(1)=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "A newform $f=\\sum a_n q^n\\in S_k(\\Gamma_0(N))$ satisfies $a_{mn}=a_m a_n$ when $\\gcd(m,n)=1$. Which property of Hecke operators explains this multiplicativity?",
+          "choices": [
+            "Hecke operators $T_m$ and $T_n$ commute and $T_{mn}=T_m T_n$ for $\\gcd(m,n)=1$, so their common eigenvalue satisfies $a_{mn}=a_m a_n$",
+            "The $q$-expansion is periodic, so coefficients repeat multiplicatively",
+            "Multiplicativity follows from the cusp-form vanishing condition $a_0=0$",
+            "All weight-$k$ forms have multiplicative coefficients by definition"
+          ],
+          "answer": 0,
+          "explain": "For $\\gcd(m,n)=1$ the Hecke operators satisfy $T_m T_n=T_{mn}$. A newform is a simultaneous eigenfunction: $T_n f=a_n f$. Applying $T_m T_n=T_{mn}$ to $f$ gives $a_m a_n f=a_{mn}f$, so $a_{mn}=a_m a_n$. This is the source of the Euler product for the associated $L$-function."
         }
       ]
     },
@@ -144,6 +276,39 @@
           "answer": 0,
           "tol": 1e-9,
           "explain": "Hecke operators are self-adjoint for the Petersson product, so eigenspaces for distinct eigenvalue systems are orthogonal."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Petersson inner product integrates over a fundamental domain $\\mathcal{F}$. Which argument shows the integral is independent of the choice of fundamental domain?",
+          "choices": [
+            "The integrand $f(\\tau)\\overline{g(\\tau)}y^{k-2}\\,dx\\,dy$ is $SL_2(\\mathbb{Z})$-invariant, so integrating over any two fundamental domains gives the same value",
+            "The integral depends on the domain but different choices give values differing by an integer",
+            "Independence holds only when $k=12$",
+            "One must always use the standard fundamental domain $\\{|\\tau|\\ge 1,\\,|\\Re\\tau|\\le 1/2\\}$"
+          ],
+          "answer": 0,
+          "explain": "Under $\\tau\\mapsto\\gamma\\tau$, the hyperbolic measure transforms as $y^{-2}dx\\,dy\\to y^{-2}dx\\,dy$ (it is $SL_2(\\mathbb{R})$-invariant), and $f(\\gamma\\tau)\\overline{g(\\gamma\\tau)}y^k$ picks up $(|c\\tau+d|^{-2k})(|c\\tau+d|^{2k})=1$. So the integrand is $\\Gamma$-invariant, and any two fundamental domains tile $\\mathfrak{H}$ the same way, giving identical integrals."
+        },
+        {
+          "type": "mcq",
+          "q": "The Petersson norm $\\lVert f\\rVert^2=\\langle f,f\\rangle$ satisfies $\\lVert f\\rVert^2>0$ for $f\\ne 0$. Which step in the proof is key?",
+          "choices": [
+            "$|f(\\tau)|^2 y^{k-2}\\ge 0$ everywhere with equality only if $f(\\tau)=0$ pointwise, and a holomorphic function vanishing on an open set is identically zero",
+            "Cusp forms have real Fourier coefficients, so $\\langle f,f\\rangle=\\sum|a_n|^2>0$",
+            "The hyperbolic metric gives $\\mathcal{F}$ finite area, ensuring positivity",
+            "Positivity follows from the Cauchy–Schwarz inequality"
+          ],
+          "answer": 0,
+          "explain": "The integrand $|f(\\tau)|^2 y^{k-2}$ is non-negative and equals zero only where $f=0$. If $f\\not\\equiv 0$, there is an open set where $|f|>0$ (by the identity principle for holomorphic functions). That set has positive hyperbolic measure, so the integral is strictly positive."
+        },
+        {
+          "type": "numeric",
+          "q": "The space $S_{12}(SL_2(\\mathbb{Z}))$ is 1-dimensional, spanned by the normalized newform $\\Delta$. If $\\langle\\Delta,\\Delta\\rangle=C$ for some constant $C>0$, and $f=3\\Delta$, what is $\\langle f,f\\rangle/C$?",
+          "answer": 9,
+          "tol": 0.001,
+          "explain": "$\\langle 3\\Delta,3\\Delta\\rangle=9\\langle\\Delta,\\Delta\\rangle=9C$, so $\\langle f,f\\rangle/C=9$. The Petersson product is sesquilinear, so scaling by $3$ multiplies the norm-squared by $|3|^2=9$."
         }
       ]
     }

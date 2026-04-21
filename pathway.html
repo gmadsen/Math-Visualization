@@ -28,11 +28,23 @@
   .back:hover{color:var(--yellow)}
   .bar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
-    padding:.7rem .9rem;margin-bottom:1.2rem}
+    padding:.7rem .9rem;margin-bottom:1.2rem;position:relative}
   .bar label{color:var(--mute);font-size:.88rem}
-  select,button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+  select,button,input[type="text"]{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
     border-radius:6px;padding:.4rem .6rem;font-family:inherit;font-size:.92rem;cursor:pointer}
+  input[type="text"]{cursor:text}
   button:hover{background:#242c3e}
+  button[disabled]{opacity:.5;cursor:not-allowed}
+  button[disabled]:hover{background:var(--panel2)}
+  .search-wrap{display:inline-flex;align-items:center;gap:.4rem}
+  #search{min-width:140px;max-width:220px}
+  .match-count{color:var(--mute);font-size:.82rem;min-width:70px}
+  .chip{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:999px;padding:.25rem .7rem;font-size:.82rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:.35rem}
+  .chip:hover:not([disabled]){background:#242c3e;border-color:var(--yellow)}
+  .chip[disabled]{opacity:.6;cursor:default}
+  .chip b{color:var(--yellow)}
   .legend{display:flex;gap:.8rem;flex-wrap:wrap;color:var(--mute);font-size:.85rem;margin-left:auto}
   .legend span{display:inline-flex;align-items:center;gap:.35rem}
   .sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
@@ -40,29 +52,62 @@
   .sw.mastered{background:var(--green)}
   .sw.locked{background:var(--panel2)}
   .sw.hard{background:var(--violet)}
+  .section-legend{display:flex;gap:.7rem;flex-wrap:wrap;color:var(--mute);font-size:.8rem;
+    width:100%;padding-top:.5rem;border-top:1px dashed var(--line);margin-top:.3rem}
+  .section-legend span{display:inline-flex;align-items:center;gap:.3rem}
+  .section-legend .sw{width:10px;height:10px;border-radius:2px}
+  .zoom-btns{display:inline-flex;gap:.25rem}
+  .zoom-btns button{padding:.3rem .55rem;font-size:.82rem;min-width:32px}
+  .help-btn{padding:.35rem .6rem;font-weight:600;line-height:1}
+  .help-panel{position:absolute;top:100%;right:.4rem;margin-top:.3rem;z-index:10;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:.8rem 1rem;min-width:260px;box-shadow:0 8px 24px rgba(0,0,0,.5);
+    font-size:.86rem;color:var(--ink)}
+  .help-panel h4{margin:0 0 .4rem;color:var(--yellow);font-size:.9rem}
+  .help-panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.25rem .6rem}
+  .help-panel dt{color:var(--mute);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:.82rem;white-space:nowrap}
+  .help-panel dd{margin:0;color:var(--ink)}
   .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;
-    padding:.6rem;overflow:auto}
-  svg.dag{display:block;margin:0 auto;background:transparent}
+    padding:.6rem;overflow:hidden;position:relative;cursor:grab;
+    user-select:none;-webkit-user-select:none}
+  .stage.dragging{cursor:grabbing}
+  svg.dag{display:block;margin:0 auto;background:transparent;touch-action:none}
   .nodebox{cursor:pointer}
-  .nodebox rect{stroke:var(--line);stroke-width:1.2;fill:var(--panel2);
+  .nodebox rect.node-bg{stroke:var(--line);stroke-width:1.2;fill:var(--panel2);
     transition:fill 150ms ease, stroke 150ms ease}
   .nodebox text{fill:var(--ink);font-size:13px;pointer-events:none}
   .nodebox .sub{fill:var(--mute);font-size:11px}
-  .nodebox.ready rect{stroke:var(--yellow)}
+  .nodebox.ready rect.node-bg{stroke:var(--yellow)}
   .nodebox.ready text{fill:var(--yellow)}
-  .nodebox.mastered rect{fill:rgba(131,193,103,0.18);stroke:var(--green)}
+  .nodebox.mastered rect.node-bg{fill:rgba(131,193,103,0.18);stroke:var(--green)}
   .nodebox.mastered text{fill:var(--green)}
-  .nodebox.hard rect{stroke:var(--violet);stroke-width:2}
-  .nodebox.hard.mastered rect{fill:rgba(179,157,219,0.18)}
-  .nodebox.locked rect{opacity:.6}
-  .nodebox.goal rect{stroke-width:2.4}
-  .nodebox:hover rect{fill:#242c3e}
+  .nodebox.hard rect.node-bg{stroke:var(--violet);stroke-width:2}
+  .nodebox.hard.mastered rect.node-bg{fill:rgba(179,157,219,0.18)}
+  .nodebox.locked rect.node-bg{opacity:.6}
+  .nodebox.goal rect.node-bg{stroke-width:2.4}
+  .nodebox:hover rect.node-bg{fill:#242c3e}
+  .nodebox.match rect.node-bg{filter:drop-shadow(0 0 8px var(--yellow))}
+  .nodebox.dim{opacity:.25}
+  @keyframes nodepulse{
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.05); }
+    60%  { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  .nodebox.pulse rect.node-bg{
+    animation: nodepulse 0.55s ease-in-out 3;
+    transform-origin:center;transform-box:fill-box;
+    stroke:var(--yellow) !important;stroke-width:3 !important
+  }
   /* Two mastery rings on the right edge of each node: inner = v1 (green),
      outer arc = hard (violet). Rendered as SVG circles inside .nodebox. */
   .ring-v1{fill:none;stroke:var(--line);stroke-width:2}
   .ring-v1.on{stroke:var(--green)}
   .ring-hard{fill:none;stroke:var(--line);stroke-width:2;opacity:.55}
   .ring-hard.on{stroke:var(--violet);opacity:1}
+  /* Section accent stripe on the inside-left edge of each node. */
+  .section-stripe{stroke:none}
   .edge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.7;opacity:.95}
   .edge.lit{stroke:var(--violet);stroke-width:2.2;opacity:1}
   .panel-right{background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -74,8 +119,27 @@
     border-radius:999px;padding:1px 8px;font-size:.78rem;color:var(--mute);margin-right:4px}
   .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}
   .small{font-size:.85rem;color:var(--mute)}
-  .stats{display:flex;gap:1.2rem;color:var(--mute);font-size:.88rem}
+  .stats{display:flex;gap:1.2rem;color:var(--mute);font-size:.88rem;flex-wrap:wrap;align-items:center}
   .stats b{color:#fff}
+  .bytopic{margin-top:.4rem;background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:.4rem .8rem;color:var(--mute);font-size:.85rem}
+  .bytopic summary{cursor:pointer;padding:.2rem 0}
+  .bytopic summary:hover{color:var(--ink)}
+  .bytopic[open] summary{color:var(--ink);margin-bottom:.4rem}
+  .tpbar{display:grid;grid-template-columns:minmax(160px,1fr) 1fr auto;gap:.6rem;
+    align-items:center;padding:.2rem 0;font-size:.84rem}
+  .tpbar .tpname{color:var(--ink)}
+  .tpbar .tpmeter{height:8px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:4px;overflow:hidden;position:relative}
+  .tpbar .tpfill{height:100%;background:var(--green);transition:width 200ms ease}
+  .tpbar .tpcount{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tpbar.done .tpname{color:var(--green)}
+  @media (max-width: 480px){
+    main{padding:1.4rem .6rem 4rem}
+    .legend{width:100%;margin-left:0}
+    #search{min-width:0;flex:1}
+    .search-wrap{flex:1 1 100%}
+  }
 </style>
 </head>
 <body>
@@ -88,18 +152,40 @@
     <label>Goal:</label>
     <select id="goal-select"></select>
     <button id="btn-reset">reset progress</button>
+    <span class="search-wrap">
+      <label for="search">Search:</label>
+      <input type="text" id="search" placeholder="title or id" autocomplete="off" aria-label="Search concepts" />
+      <span class="match-count" id="match-count"></span>
+    </span>
+    <span class="zoom-btns" role="group" aria-label="Zoom controls">
+      <button id="btn-zoom-out" aria-label="Zoom out">−</button>
+      <button id="btn-zoom-reset" aria-label="Reset zoom">0</button>
+      <button id="btn-zoom-in" aria-label="Zoom in">+</button>
+    </span>
+    <button id="btn-help" class="help-btn" aria-label="Keyboard shortcuts" aria-expanded="false">?</button>
     <div class="legend">
       <span><i class="sw locked"></i>locked</span>
       <span><i class="sw ready"></i>ready</span>
       <span><i class="sw mastered"></i>mastered</span>
       <span><i class="sw hard"></i>hard-tier</span>
     </div>
+    <div class="section-legend" id="section-legend"></div>
+    <div class="help-panel" id="help-panel" role="dialog" aria-label="Keyboard shortcuts" hidden>
+      <h4>Keyboard &amp; mouse</h4>
+      <dl id="help-list"></dl>
+    </div>
   </div>
 
   <div class="stats" id="stats"></div>
+  <details class="bytopic" id="bytopic">
+    <summary>by topic</summary>
+    <div id="bytopic-body"></div>
+  </details>
 
-  <div class="stage">
-    <svg class="dag" id="dag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet"></svg>
+  <div class="stage" id="stage">
+    <svg class="dag" id="dag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+      <g id="zoom-root"></g>
+    </svg>
   </div>
 
   <div class="panel-right" id="detail">
@@ -151,9 +237,77 @@
   const byId = new Map();
   for(const t of topics){
     for(const c of t.concepts){
-      byId.set(c.id, {...c, topicPage: t.page, topicTitle: t.title});
+      byId.set(c.id, {...c, topicId: t.topic, topicPage: t.page, topicTitle: t.title});
     }
   }
+
+  // ---------- topic → section mapping (mirrors index.html sections) ----------
+  const TOPIC_SECTION = {
+    // Foundations
+    'naive-set-theory': 'Foundations',
+    // Algebra
+    'algebra':'Algebra','category-theory':'Algebra','representation-theory':'Algebra',
+    'commutative-algebra':'Algebra','homological':'Algebra',
+    // Analysis
+    'real-analysis':'Analysis','measure-theory':'Analysis','complex-analysis':'Analysis',
+    'functional-analysis':'Analysis','operator-algebras':'Analysis',
+    // Geometry & topology
+    'point-set-topology':'Geometry & topology','algebraic-topology':'Geometry & topology',
+    'smooth-manifolds':'Geometry & topology','differential-forms':'Geometry & topology',
+    'differential-geometry':'Geometry & topology','riemannian-geometry':'Geometry & topology',
+    'lie-groups':'Geometry & topology','riemann-surfaces':'Geometry & topology',
+    // Number theory
+    'galois':'Number theory','quadratic-reciprocity':'Number theory',
+    'sums-of-squares':'Number theory','power-sums-bernoulli':'Number theory',
+    'waring':'Number theory','algebraic-number-theory':'Number theory',
+    'p-adic-numbers':'Number theory','frobenius-and-reciprocity':'Number theory',
+    'class-field-theory':'Number theory',
+    // Modular forms & L-functions
+    'upper-half-plane-hyperbolic':'Modular forms & L-functions',
+    'modular-forms':'Modular forms & L-functions','theta-functions':'Modular forms & L-functions',
+    'partitions-generating-functions':'Modular forms & L-functions',
+    'hecke-operators':'Modular forms & L-functions',
+    'dirichlet-series-euler-products':'Modular forms & L-functions',
+    'analytic-continuation':'Modular forms & L-functions',
+    'L-functions':'Modular forms & L-functions',
+    'galois-representations':'Modular forms & L-functions',
+    'moonshine':'Modular forms & L-functions',
+    'sato-tate':'Modular forms & L-functions',
+    'bsd':'Modular forms & L-functions',
+    'modularity-and-flt':'Modular forms & L-functions',
+    // Algebraic geometry
+    'projective-plane':'Algebraic geometry','bezout':'Algebraic geometry',
+    'schemes':'Algebraic geometry','sheaves':'Algebraic geometry',
+    'morphisms-fiber-products':'Algebraic geometry','functor-of-points':'Algebraic geometry',
+    'elliptic-curves':'Algebraic geometry','singular-cubics-reduction':'Algebraic geometry',
+    'moduli-spaces':'Algebraic geometry','sheaf-cohomology':'Algebraic geometry',
+    'stacks':'Algebraic geometry','etale-cohomology':'Algebraic geometry'
+  };
+  const SECTION_COLOR = {
+    'Foundations':                  'var(--mute)',
+    'Algebra':                      'var(--yellow)',
+    'Analysis':                     'var(--blue)',
+    'Geometry & topology':          'var(--cyan)',
+    'Number theory':                'var(--green)',
+    'Modular forms & L-functions':  'var(--pink)',
+    'Algebraic geometry':           'var(--violet)'
+  };
+  const SECTION_ORDER = ['Foundations','Algebra','Analysis','Geometry & topology',
+    'Number theory','Modular forms & L-functions','Algebraic geometry'];
+  function sectionFor(id){
+    const c = byId.get(id);
+    if(!c) return 'Foundations';
+    return TOPIC_SECTION[c.topicId] || 'Foundations';
+  }
+
+  // Populate the section→color legend in the toolbar.
+  (function buildSectionLegend(){
+    const el = document.getElementById('section-legend');
+    el.innerHTML = '<span class="small" style="color:var(--mute)">sections:</span>' +
+      SECTION_ORDER.map(s =>
+        `<span><i class="sw" style="background:${SECTION_COLOR[s]}"></i>${s}</span>`
+      ).join('');
+  })();
 
   // Validate: every prereq resolves; graph is acyclic.
   for(const [id, c] of byId){
@@ -250,13 +404,19 @@
         n.h = nodeH;
       });
     }
-    return {layers, svgW, svgH, nodesById: new Map(nodes.map(n=>[n.id,n]))};
+    // Build a topological order (leaves first) for "next up" cycling.
+    const topo = [];
+    for(let L=0; L<layers.length; L++) for(const n of layers[L]) topo.push(n.id);
+    return {layers, svgW, svgH, nodesById: new Map(nodes.map(n=>[n.id,n])), topo};
   }
 
   // ---------- render ----------
   const svg = document.getElementById('dag');
+  const zoomRoot = document.getElementById('zoom-root');
+  const stage = document.getElementById('stage');
   const detail = document.getElementById('detail');
   const statsEl = document.getElementById('stats');
+  const bytopicBody = document.getElementById('bytopic-body');
   function el(tag, attrs){
     const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
     for(const [k,v] of Object.entries(attrs||{})) e.setAttribute(k, v);
@@ -267,14 +427,28 @@
   let currentGoal = null;
   let currentLayout = null;
   let currentSelection = null;
+  // Zoom + pan state, applied as transform on #zoom-root.
+  let view = { scale: 1, tx: 0, ty: 0 };
+  let nextUpCursor = 0; // index into the ready list for "next up" cycling.
+
+  function applyView(){
+    zoomRoot.setAttribute('transform',
+      `translate(${view.tx} ${view.ty}) scale(${view.scale})`);
+  }
+  function resetView(){
+    view = { scale: 1, tx: 0, ty: 0 };
+    applyView();
+  }
 
   function render(goalId){
     currentGoal = goalId;
     const ids = ancestors(goalId);
     currentLayout = layout(ids);
-    svg.innerHTML = '';
+    zoomRoot.innerHTML = '';
     svg.setAttribute('viewBox', `0 0 ${currentLayout.svgW} ${currentLayout.svgH}`);
     svg.setAttribute('height', Math.min(currentLayout.svgH, 900));
+    resetView();
+    nextUpCursor = 0;
 
     // edges first
     const outIdx = new Map();
@@ -313,7 +487,7 @@
         edgeGroup.appendChild(path);
       }
     }
-    svg.appendChild(edgeGroup);
+    zoomRoot.appendChild(edgeGroup);
 
     // nodes
     for(const [id,n] of currentLayout.nodesById){
@@ -322,11 +496,21 @@
       g.classList.add(info.state);
       if(info.hard) g.classList.add('hard');
       if(id === goalId) g.classList.add('goal');
-      g.appendChild(el('rect', {width: n.w, height: n.h, rx: 8, ry: 8}));
-      const t1 = el('text', {x: 12, y: 22});
+      g.appendChild(el('rect', {class: 'node-bg', width: n.w, height: n.h, rx: 8, ry: 8}));
+      // Section accent stripe, 6px wide, rounded left corners only.
+      const section = sectionFor(id);
+      const color = SECTION_COLOR[section] || 'var(--mute)';
+      const stripe = el('path', {
+        class: 'section-stripe',
+        // rounded on the left (radius 8), flat on the right.
+        d: `M 8 0 L 6 0 L 6 ${n.h} L 8 ${n.h} A 8 8 0 0 1 0 ${n.h - 8} L 0 8 A 8 8 0 0 1 8 0 Z`,
+        fill: color
+      });
+      g.appendChild(stripe);
+      const t1 = el('text', {x: 16, y: 22});
       t1.textContent = n.node.title;
       g.appendChild(t1);
-      const t2 = el('text', {x: 12, y: 42, class: 'sub'});
+      const t2 = el('text', {x: 16, y: 42, class: 'sub'});
       t2.setAttribute('class','sub');
       t2.textContent = '#' + id;
       g.appendChild(t2);
@@ -353,10 +537,13 @@
         }
         selectNode(id);
       });
-      svg.appendChild(g);
+      zoomRoot.appendChild(g);
     }
 
     updateStats();
+    updateByTopic();
+    updateNextUpChip();
+    applySearch();
     if(currentSelection && ids.has(currentSelection)) selectNode(currentSelection);
     else renderDetail(null);
   }
@@ -367,17 +554,304 @@
     const mastered = ids.filter(id => MVProgress.isMastered(id, 'v1')).length;
     const hard     = ids.filter(id => MVProgress.isMastered(id, 'hard')).length;
     const ready    = ids.filter(id => MVProgress.stateOf(id, conceptsMap).state === 'ready').length;
-    statsEl.innerHTML = `<span><b>${mastered}</b> / ${total} mastered</span>` +
-                       `<span><b>${hard}</b> hard-tier</span>` +
-                       `<span><b>${ready}</b> ready to learn</span>` +
-                       `<span>${total - mastered - ready} locked</span>`;
+    const locked   = total - mastered - ready;
+    const chipBody = ready > 0
+      ? `<b>${ready}</b> ready — next up →`
+      : 'all caught up ✓';
+    const chipAttr = ready > 0 ? '' : 'disabled';
+    statsEl.innerHTML =
+      `<span><b>${mastered}</b> / ${total} mastered</span>` +
+      `<span><b>${hard}</b> hard-tier</span>` +
+      `<span><b>${ready}</b> ready to learn</span>` +
+      `<span>${locked} locked</span>` +
+      `<button class="chip" id="chip-next" ${chipAttr} aria-label="cycle to next ready concept">${chipBody}</button>`;
+    const chip = document.getElementById('chip-next');
+    if(chip && !chip.disabled){
+      chip.addEventListener('click', cycleNextUp);
+    }
   }
+
+  function updateNextUpChip(){
+    // Called after render to keep the chip in sync; updateStats does the work,
+    // this hook exists for readability / future divergence.
+    // no-op here, updateStats injected the chip above.
+  }
+
+  function readyList(){
+    // Ready concepts in the current goal's ancestry, in topological order
+    // (leaves first) so cycling feels "bottom-up".
+    if(!currentLayout) return [];
+    return currentLayout.topo.filter(id =>
+      MVProgress.stateOf(id, conceptsMap).state === 'ready');
+  }
+
+  function cycleNextUp(){
+    const r = readyList();
+    if(r.length === 0) return;
+    const id = r[nextUpCursor % r.length];
+    nextUpCursor = (nextUpCursor + 1) % r.length;
+    selectNode(id);
+    // Pulse animation on the selected node.
+    const g = zoomRoot.querySelector(`.nodebox[data-id="${cssEscape(id)}"]`);
+    if(g){
+      g.classList.remove('pulse');
+      // force reflow to restart animation
+      void g.getBoundingClientRect();
+      g.classList.add('pulse');
+      setTimeout(()=>g.classList.remove('pulse'), 1800);
+      // also scroll it into view (within the stage)
+      scrollNodeIntoView(g);
+    }
+  }
+
+  function cssEscape(s){
+    // CSS.escape polyfill for selector safety. Concept ids are kebab-case
+    // so this is mostly defensive.
+    if(window.CSS && CSS.escape) return CSS.escape(s);
+    return String(s).replace(/[^a-zA-Z0-9_-]/g, c => '\\' + c);
+  }
+
+  function scrollNodeIntoView(g){
+    // Best-effort: the stage has overflow:hidden now (zoom handles panning),
+    // so instead nudge the view so the node is centered in the viewport.
+    if(!currentLayout) return;
+    const id = g.getAttribute('data-id');
+    const n = currentLayout.nodesById.get(id);
+    if(!n) return;
+    const box = svg.getBoundingClientRect();
+    // Center of node in unscaled SVG coords:
+    const cx = n.x + n.w/2;
+    const cy = n.y + n.h/2;
+    // We want view.tx + cx*scale = box.width/2 (approx) — but svg maintains
+    // its own viewBox, so "center" in viewBox space is svgW/2, svgH/2.
+    // Adjust tx,ty so the node maps to the viewBox center.
+    const cxView = currentLayout.svgW / 2;
+    const cyView = currentLayout.svgH / 2;
+    view.tx = cxView - cx * view.scale;
+    view.ty = cyView - cy * view.scale;
+    applyView();
+  }
+
+  // ---------- by-topic progress ----------
+  function updateByTopic(){
+    const ids = [...currentLayout.nodesById.keys()];
+    const perTopic = new Map(); // topicId -> { title, total, v1, hard }
+    for(const id of ids){
+      const c = byId.get(id);
+      const key = c.topicId;
+      if(!perTopic.has(key)){
+        perTopic.set(key, {title: c.topicTitle || key, total:0, v1:0, hard:0});
+      }
+      const e = perTopic.get(key);
+      e.total++;
+      if(MVProgress.isMastered(id, 'v1'))   e.v1++;
+      if(MVProgress.isMastered(id, 'hard')) e.hard++;
+    }
+    const rows = [...perTopic.values()];
+    rows.sort((a,b)=>{
+      const pa = a.total ? a.v1/a.total : 0;
+      const pb = b.total ? b.v1/b.total : 0;
+      const aDone = pa >= 1, bDone = pb >= 1;
+      if(aDone !== bDone) return aDone ? -1 : 1; // fully-mastered first
+      if(pb !== pa) return pb - pa;              // then higher percentage
+      return a.title.localeCompare(b.title);      // then alpha
+    });
+    if(rows.length === 0){
+      bytopicBody.innerHTML = '<div class="small">no topics in this goal</div>';
+      return;
+    }
+    bytopicBody.innerHTML = rows.map(r => {
+      const pct = r.total ? Math.round(100 * r.v1 / r.total) : 0;
+      const done = r.v1 === r.total;
+      return `<div class="tpbar${done ? ' done' : ''}">
+        <span class="tpname">${escapeHtml(r.title)}</span>
+        <span class="tpmeter"><span class="tpfill" style="width:${pct}%"></span></span>
+        <span class="tpcount">${r.v1}/${r.total}${r.hard ? ` · ${r.hard} hard` : ''}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
+  }
+
+  // ---------- search ----------
+  const searchInput = document.getElementById('search');
+  const matchCountEl = document.getElementById('match-count');
+  let searchTimer = null;
+  function applySearch(){
+    if(!currentLayout) return;
+    const q = (searchInput.value || '').trim().toLowerCase();
+    let matches = 0;
+    for(const [id,n] of currentLayout.nodesById){
+      const g = zoomRoot.querySelector(`.nodebox[data-id="${cssEscape(id)}"]`);
+      if(!g) continue;
+      if(q === ''){
+        g.classList.remove('match');
+        g.classList.remove('dim');
+      } else {
+        const hay = (n.node.title + ' ' + id).toLowerCase();
+        if(hay.includes(q)){
+          g.classList.add('match');
+          g.classList.remove('dim');
+          matches++;
+        } else {
+          g.classList.remove('match');
+          g.classList.add('dim');
+        }
+      }
+    }
+    matchCountEl.textContent = q === '' ? '' : (matches + ' match' + (matches===1?'':'es'));
+  }
+  searchInput.addEventListener('input', ()=>{
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applySearch, 120);
+  });
+
+  // ---------- help panel ----------
+  const isMac = navigator.platform.includes('Mac');
+  const mod = isMac ? '⌘' : 'ctrl';
+  const shift = isMac ? '⇧' : 'shift';
+  const helpBtn = document.getElementById('btn-help');
+  const helpPanel = document.getElementById('help-panel');
+  const helpList = document.getElementById('help-list');
+  helpList.innerHTML = [
+    ['click',                    'select node / show details'],
+    [`${mod}-click`,             'toggle v1 mastery'],
+    [`${shift}+${mod}-click`,    'toggle hard-tier mastery'],
+    ['/',                         'focus search box'],
+    ['n',                         'cycle to next-up ready concept'],
+    ['+ / − / 0',                 'zoom in / out / reset'],
+    ['drag',                      'pan the DAG'],
+    ['wheel / pinch',             'zoom the DAG'],
+    ['Esc',                       'close this panel']
+  ].map(([k,v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('');
+  function toggleHelp(open){
+    const willOpen = open === undefined ? helpPanel.hasAttribute('hidden') : open;
+    if(willOpen){ helpPanel.removeAttribute('hidden'); helpBtn.setAttribute('aria-expanded','true'); }
+    else { helpPanel.setAttribute('hidden',''); helpBtn.setAttribute('aria-expanded','false'); }
+  }
+  helpBtn.addEventListener('click', (ev)=>{
+    ev.stopPropagation();
+    toggleHelp();
+  });
+  document.addEventListener('click', (ev)=>{
+    if(helpPanel.hasAttribute('hidden')) return;
+    if(helpPanel.contains(ev.target) || helpBtn.contains(ev.target)) return;
+    toggleHelp(false);
+  });
+  document.addEventListener('keydown', (ev)=>{
+    if(ev.key === 'Escape'){
+      if(!helpPanel.hasAttribute('hidden')){ toggleHelp(false); ev.preventDefault(); }
+      return;
+    }
+    const t = ev.target;
+    const isInput = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+    if(isInput) return;
+    if(ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if(ev.key === '/'){ ev.preventDefault(); searchInput.focus(); searchInput.select(); }
+    else if(ev.key === 'n' || ev.key === 'N'){ ev.preventDefault(); cycleNextUp(); }
+  });
+
+  // ---------- zoom + pan ----------
+  const MIN_SCALE = 0.4, MAX_SCALE = 2.5;
+  function zoomAt(clientX, clientY, factor){
+    // Keep the point under the cursor fixed during zoom.
+    const rect = svg.getBoundingClientRect();
+    const vb = svg.viewBox.baseVal;
+    // Map clientX,Y → svg viewBox space (prior to our zoomRoot transform):
+    // the svg has preserveAspectRatio="xMidYMid meet" so there may be letterboxing.
+    const sx = rect.width  / vb.width;
+    const sy = rect.height / vb.height;
+    const s = Math.min(sx, sy);
+    const offX = (rect.width  - vb.width  * s) / 2;
+    const offY = (rect.height - vb.height * s) / 2;
+    const vbX = (clientX - rect.left - offX) / s;
+    const vbY = (clientY - rect.top  - offY) / s;
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, view.scale * factor));
+    const k = newScale / view.scale;
+    // Preserve vbX,vbY under transform: (vb - tx)/scale should match before & after.
+    view.tx = vbX - (vbX - view.tx) * k;
+    view.ty = vbY - (vbY - view.ty) * k;
+    view.scale = newScale;
+    applyView();
+  }
+  // Wheel events: trackpad pinch arrives with ctrlKey=true; keep those.
+  // Plain wheel also zooms (standard for DAG viewers). Click+drag pans.
+  stage.addEventListener('wheel', (ev)=>{
+    ev.preventDefault();
+    const factor = Math.exp(-ev.deltaY * 0.0015);
+    zoomAt(ev.clientX, ev.clientY, factor);
+  }, {passive:false});
+
+  // Pan via pointer drag on the stage background (not on nodes).
+  let panState = null;
+  stage.addEventListener('pointerdown', (ev)=>{
+    if(ev.button !== 0) return;             // only primary button pans
+    if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    // Don't start a pan when the user click-drags on a node — clicks still
+    // work because a pan only engages after movement.
+    panState = {
+      x: ev.clientX, y: ev.clientY,
+      tx0: view.tx, ty0: view.ty,
+      moved: false, pointerId: ev.pointerId
+    };
+  });
+  stage.addEventListener('pointermove', (ev)=>{
+    if(!panState) return;
+    const dx = ev.clientX - panState.x;
+    const dy = ev.clientY - panState.y;
+    if(!panState.moved && Math.hypot(dx, dy) < 3) return;
+    if(!panState.moved){
+      panState.moved = true;
+      stage.classList.add('dragging');
+      try { stage.setPointerCapture(panState.pointerId); } catch(_) {}
+    }
+    // Convert pixel delta to viewBox units using the current svg scale.
+    const rect = svg.getBoundingClientRect();
+    const vb = svg.viewBox.baseVal;
+    const sx = rect.width  / vb.width;
+    const sy = rect.height / vb.height;
+    const s = Math.min(sx, sy) || 1;
+    view.tx = panState.tx0 + dx / s;
+    view.ty = panState.ty0 + dy / s;
+    applyView();
+  });
+  function endPan(ev){
+    if(!panState) return;
+    const moved = panState.moved;
+    try { stage.releasePointerCapture(panState.pointerId); } catch(_) {}
+    panState = null;
+    stage.classList.remove('dragging');
+    if(moved && ev){
+      // Swallow the trailing click so a drag doesn't also select/deselect.
+      const stop = (e)=>{ e.stopPropagation(); e.preventDefault(); stage.removeEventListener('click', stop, true); };
+      stage.addEventListener('click', stop, true);
+    }
+  }
+  stage.addEventListener('pointerup', endPan);
+  stage.addEventListener('pointercancel', endPan);
+  stage.addEventListener('pointerleave', endPan);
+
+  document.getElementById('btn-zoom-in').addEventListener('click', ()=>{
+    const rect = svg.getBoundingClientRect();
+    zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 1.2);
+  });
+  document.getElementById('btn-zoom-out').addEventListener('click', ()=>{
+    const rect = svg.getBoundingClientRect();
+    zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 1/1.2);
+  });
+  document.getElementById('btn-zoom-reset').addEventListener('click', ()=>{
+    resetView();
+  });
 
   function selectNode(id){
     currentSelection = id;
     // highlight incoming edges
-    svg.querySelectorAll('.edge').forEach(e => e.classList.remove('lit'));
-    svg.querySelectorAll(`.edge[data-to="${id}"]`).forEach(e => e.classList.add('lit'));
+    zoomRoot.querySelectorAll('.edge').forEach(e => e.classList.remove('lit'));
+    zoomRoot.querySelectorAll(`.edge[data-to="${cssEscape(id)}"]`).forEach(e => e.classList.add('lit'));
     renderDetail(id);
   }
 
@@ -396,9 +870,11 @@
     const tierLabel = info.hard
       ? '<span style="color:var(--violet)">v1 + hard</span>'
       : (info.v1 ? '<span style="color:var(--green)">v1</span>' : '<span class="small">none</span>');
+    const section = sectionFor(id);
+    const sColor = SECTION_COLOR[section] || 'var(--mute)';
     detail.innerHTML = `
       <h3>${c.title}</h3>
-      <div class="meta">${c.topicTitle} · <a href="${anchor}">open page →</a></div>
+      <div class="meta">${c.topicTitle} · <span class="pill" style="border-color:${sColor};color:${sColor}">${section}</span> · <a href="${anchor}">open page →</a></div>
       <div class="blurb">${c.blurb || ''}</div>
       <div class="meta"><b>Prereqs:</b> ${prereqList}</div>
       <div class="row">

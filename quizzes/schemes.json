@@ -35,6 +35,39 @@
           "answer": 0,
           "explain": "The vanishing loci $V(I)=\\{\\mathfrak p\\supseteq I\\}$ define the Zariski topology. They are closed under arbitrary intersection and finite union."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Consider $R=k[x,y]/(xy)$. Which of the following correctly describes $\\operatorname{Spec}(R)$ and its irreducible components?",
+          "choices": [
+            "It is irreducible with a single generic point $(xy)$",
+            "It has two irreducible components corresponding to $(x)$ and $(y)$, meeting at the maximal ideal $(x,y)$",
+            "It is smooth everywhere and has one component",
+            "It has no closed points because $k[x,y]/(xy)$ is not Noetherian"
+          ],
+          "answer": 1,
+          "explain": "$xy=0$ means any prime contains $x$ or $y$. The minimal primes are $(x)$ and $(y)$, giving two irreducible components (the two coordinate axes). They meet at the closed point $(x,y)$, making $\\operatorname{Spec}(R)$ reducible."
+        },
+        {
+          "type": "numeric",
+          "q": "How many points does $\\operatorname{Spec}(\\mathbb{Z}[x]/(x^2+1))$ have that lie over the prime $(2)\\subset\\mathbb{Z}$? (Count prime ideals of $\\mathbb{Z}[x]/(x^2+1)$ above $2$.)",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Over $(2)$: $\\mathbb{F}_2[x]/(x^2+1)=\\mathbb{F}_2[x]/(x+1)^2$ since $x^2+1=(x+1)^2$ in characteristic $2$. This quotient has a unique prime $(x+1)$, so there is exactly $1$ prime above $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $I=(x^2,y)\\subset k[x,y]$. Which statement about $V(I)\\subset\\operatorname{Spec}(k[x,y])$ is correct?",
+          "choices": [
+            "$V(I)=V(\\sqrt{I})=V((x,y))$ as sets, even though $I\\ne\\sqrt{I}$",
+            "$V(I)=V((x^2,y))$ consists of two distinct closed points",
+            "$V(I)$ is empty because $I$ contains a unit",
+            "$V(I)=V((x,y^2))$ since the two ideals generate the same ring"
+          ],
+          "answer": 0,
+          "explain": "The radical $\\sqrt{(x^2,y)}=(x,y)$ because any prime containing $x^2$ must contain $x$. Hence $V(I)=V(\\sqrt{I})=V((x,y))$, the single closed point $(x,y)$. The scheme-theoretic structure differs (nilpotents exist), but the underlying set is the same."
+        }
       ]
     },
     "structure-sheaf-schemes": {
@@ -71,6 +104,39 @@
           "tol": 1e-6,
           "explain": "$\\mathbb Q$ has characteristic $0$. By contrast $\\kappa((p))=\\mathbb F_p$ at a closed point has characteristic $p$ — different points can have residue fields of different characteristics."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For $R=k[x]/(x^2)$ (the dual numbers), $\\operatorname{Spec}(R)$ has a single point $\\mathfrak m=(x)$. The stalk $\\mathcal{O}_{\\mathfrak m}$ equals $R_{\\mathfrak m}$. Which statement about sections on the unique non-empty open set is correct?",
+          "choices": [
+            "$\\mathcal{O}(\\operatorname{Spec}R)=R$ and there are nilpotents: $x^2=0$ in $R$",
+            "$\\mathcal{O}(\\operatorname{Spec}R)=k$ because sheaves always see reduced rings",
+            "$\\mathcal{O}(\\operatorname{Spec}R)=k[x]$ since we must invert all elements",
+            "The structure sheaf is undefined when $R$ has nilpotents"
+          ],
+          "answer": 0,
+          "explain": "Global sections of $\\mathcal{O}$ on $\\operatorname{Spec}(R)$ equal $R$ itself. The nilpotent $x$ is a legitimate global section; scheme theory allows non-reduced rings and their nilpotents encode infinitesimal thickening."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $f:\\operatorname{Spec}(B)\\to\\operatorname{Spec}(A)$ be the morphism induced by a ring map $\\phi:A\\to B$. The image of a prime $\\mathfrak q\\subset B$ under $f$ is:",
+          "choices": [
+            "$\\phi(\\mathfrak q)$, the direct image ideal",
+            "$\\phi^{-1}(\\mathfrak q)$, the contraction of $\\mathfrak q$ to $A$",
+            "$B/\\mathfrak q$",
+            "The radical $\\sqrt{\\phi(\\mathfrak q)}$"
+          ],
+          "answer": 1,
+          "explain": "The continuous map on spectra sends $\\mathfrak q$ to $f(\\mathfrak q)=\\phi^{-1}(\\mathfrak q)=\\{a\\in A:\\phi(a)\\in\\mathfrak q\\}$, which is prime in $A$ because $\\phi$ is a ring homomorphism."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $R=\\mathbb{Z}[i]=\\mathbb{Z}[x]/(x^2+1)$. The prime $(3)\\subset\\mathbb{Z}$ splits in $R$ as $(3)=(3,i-?)(3,i+?)$ because $x^2+1=(x-1)(x+1)\\pmod{3}$ is incorrect; in fact $x^2+1$ is irreducible mod $3$. How many primes of $R$ lie over $(3)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$x^2+1\\pmod{3}$: checking $x=0,1,2$ gives $1,2,2$ — no root, so $x^2+1$ is irreducible over $\\mathbb{F}_3$. Thus $(3)$ remains prime in $\\mathbb{Z}[i]$ (it is inert), and there is exactly $1$ prime of $\\mathbb{Z}[i]$ above $3$."
+        }
       ]
     },
     "gluing-affines": {
@@ -106,6 +172,39 @@
           ],
           "answer": 1,
           "explain": "$\\mathbb P^1_k$ is the classic non-affine scheme. Global sections of $\\mathcal O$ are just $k$ (too few for an affine of positive dimension), yet it is covered by two affine charts $\\mathbb A^1_k$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "To glue two affine schemes $X_1=\\operatorname{Spec}(A_1)$ and $X_2=\\operatorname{Spec}(A_2)$ along open subsets $U_{12}\\subset X_1$ and $U_{21}\\subset X_2$ via an isomorphism $\\varphi:U_{12}\\xrightarrow{\\sim}U_{21}$, which cocycle condition must hold when gluing three affines $X_1,X_2,X_3$?",
+          "choices": [
+            "No condition is needed; any collection of pairwise gluing data yields a scheme",
+            "The overlap isomorphisms must satisfy $\\varphi_{31}=\\varphi_{32}\\circ\\varphi_{21}$ on $U_{12}\\cap U_{13}$",
+            "Each $\\varphi_{ij}$ must be the identity map",
+            "The triple overlaps must be empty"
+          ],
+          "answer": 1,
+          "explain": "The cocycle condition $\\varphi_{ki}=\\varphi_{kj}\\circ\\varphi_{ji}$ on triple overlaps ensures the local isomorphisms are consistent; without it the resulting space may fail to be a scheme (or may not even be well-defined as a ringed space)."
+        },
+        {
+          "type": "numeric",
+          "q": "The projective space $\\mathbb{P}^n_k$ is covered by $n+1$ standard affine charts $D_+(x_i)\\cong\\mathbb{A}^n_k$. For $n=3$, how many affine charts are in the standard cover?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{P}^3_k$ is covered by $D_+(x_0),D_+(x_1),D_+(x_2),D_+(x_3)$, giving $n+1=4$ affine charts."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that a scheme obtained by gluing affines need not be separated?",
+          "choices": [
+            "$\\mathbb{P}^1_k$ — the diagonal $\\Delta\\subset\\mathbb{P}^1_k\\times\\mathbb{P}^1_k$ is not closed",
+            "The affine line with doubled origin: glue two copies of $\\mathbb{A}^1_k$ along $\\mathbb{A}^1_k\\setminus\\{0\\}$ via the identity; the diagonal is not closed",
+            "$\\operatorname{Spec}(k)$ — a point is not separated",
+            "$\\mathbb{A}^2_k$ — it fails the valuative criterion of separatedness"
+          ],
+          "answer": 1,
+          "explain": "The line with doubled origin is the standard non-separated scheme: two copies of $\\mathbb{A}^1_k$ glued on the complement of the origin. The two origins cannot be separated by open sets, and the diagonal is not closed in the product, violating separatedness."
         }
       ]
     }

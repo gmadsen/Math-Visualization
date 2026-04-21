@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "$(2+i)(1-i)=2-2i+i-i^2=2-i+1=3-i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is an algebraic integer but NOT an element of $\\mathbb{Z}[\\sqrt{5}]$?",
+          "choices": [
+            "$\\sqrt{5}$",
+            "$\\tfrac{1+\\sqrt{5}}{2}$",
+            "$2+\\sqrt{5}$",
+            "$\\sqrt{5}-1$"
+          ],
+          "answer": 1,
+          "explain": "Since $5\\equiv 1\\pmod 4$, the ring of integers of $\\mathbb{Q}(\\sqrt{5})$ is $\\mathbb{Z}\\!\\left[\\tfrac{1+\\sqrt{5}}{2}\\right]$, which is strictly larger than $\\mathbb{Z}[\\sqrt{5}]$. The golden ratio $\\tfrac{1+\\sqrt{5}}{2}$ satisfies $x^2-x-1=0$, so it is an algebraic integer not in $\\mathbb{Z}[\\sqrt{5}]$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $K=\\mathbb{Q}(\\sqrt{-3})$. Since $-3\\equiv 1\\pmod 4$, the ring of integers is $\\mathbb{Z}[\\omega]$ where $\\omega=\\tfrac{1+\\sqrt{-3}}{2}$. Compute $\\omega^2+\\omega$ (as an integer).",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "$\\omega$ satisfies the minimal polynomial $x^2-x+1=0$, so $\\omega^2-\\omega+1=0$, giving $\\omega^2=\\omega-1$ and $\\omega^2+\\omega=2\\omega-1$. But $\\omega^2+\\omega+1=0$ is the cyclotomic relation for $\\omega=e^{2\\pi i/3}$; rearranging $x^2+x+1=0$ gives $\\omega^2+\\omega=-1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Chains concept: the ring of integers $\\mathcal{O}_K$ has discriminant $\\Delta_K=-20$ for $K=\\mathbb{Q}(\\sqrt{-5})$. Using $p\\mid\\Delta_K$ as the ramification criterion, which prime(s) ramify in $K$?",
+          "choices": [
+            "only $p=5$",
+            "only $p=2$",
+            "$p=2$ and $p=5$",
+            "$p=2$, $p=5$, and $p=7$"
+          ],
+          "answer": 2,
+          "explain": "$\\Delta_K=-20=-4\\cdot 5=-(2^2\\cdot 5)$, so both $2$ and $5$ divide $\\Delta_K$. By the discriminant–ramification theorem, exactly $p=2$ and $p=5$ ramify."
+        }
       ]
     },
     "discriminant-ant": {
@@ -60,6 +93,39 @@
           "answer": 125,
           "tol": 1e-6,
           "explain": "$|\\Delta_{\\mathbb{Q}(\\zeta_p)}|=p^{p-2}$ for an odd prime $p$; for $p=5$, that is $5^3=125$. (Only the prime $5$ ramifies, as expected.)"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The conductor–discriminant formula states $\\Delta_{K/\\mathbb{Q}}=\\prod_\\chi \\mathfrak{f}(\\chi)$ for an abelian extension. For the biquadratic field $K=\\mathbb{Q}(\\sqrt{5},\\sqrt{13})$, which expression correctly gives $|\\Delta_K|$ using discriminants of its three quadratic subfields ($\\Delta_{\\mathbb{Q}(\\sqrt{5})}=5$, $\\Delta_{\\mathbb{Q}(\\sqrt{13})}=13$, $\\Delta_{\\mathbb{Q}(\\sqrt{65})}=65$)?",
+          "choices": [
+            "$5\\cdot 13=65$",
+            "$(5\\cdot 13)^2=4225$",
+            "$5^2\\cdot 13^2=4225$",
+            "$5\\cdot 13\\cdot 65=4225$"
+          ],
+          "answer": 2,
+          "explain": "For a biquadratic field $\\mathbb{Q}(\\sqrt{d_1},\\sqrt{d_2})$ with $[K:\\mathbb{Q}]=4$, the conductor–discriminant formula gives $\\Delta_K=(\\Delta_1\\Delta_2\\Delta_3)^{?}$. More directly, $\\Delta_K=(d_1 d_2 d_3)$ where $d_3=d_1 d_2/\\gcd^2$; the precise formula yields $(5\\cdot 13)^2=4225$ since each quadratic character contributes its conductor once per degree."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-\\alpha-1=0$. The discriminant of the polynomial $f=x^3-x-1$ is $\\Delta_f=-4(-1)^3-27(-1)^2=-23$. Compute $|\\Delta_f|$.",
+          "answer": 23,
+          "tol": 1e-6,
+          "explain": "Using the formula $\\Delta_f=-4p^3-27q^2$ for $x^3+px+q$: here $p=-1$, $q=-1$, so $\\Delta_f=-4(-1)-27(1)=4-27=-23$, and $|\\Delta_f|=23$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a valid counterexample to the claim 'a prime $p$ divides $[K:\\mathbb{Q}]$ implies $p$ ramifies in $K$'?",
+          "choices": [
+            "$K=\\mathbb{Q}(\\sqrt{2})$, $p=2$: here $2\\mid[K:\\mathbb{Q}]=2$ and $2$ ramifies",
+            "$K=\\mathbb{Q}(\\sqrt{5})$, $p=2$: here $2\\mid[K:\\mathbb{Q}]=2$ but $2\\nmid\\Delta_K=5$, so $2$ does not ramify",
+            "$K=\\mathbb{Q}(\\zeta_5)$, $p=5$: here $5\\mid[K:\\mathbb{Q}]=4$ and $5$ ramifies",
+            "$K=\\mathbb{Q}(\\sqrt{3})$, $p=3$: here $3\\mid\\Delta_K=-12$ so $3$ ramifies"
+          ],
+          "answer": 1,
+          "explain": "For $K=\\mathbb{Q}(\\sqrt{5})$, $[K:\\mathbb{Q}]=2$ so $2\\mid[K:\\mathbb{Q}]$, but $\\Delta_K=5$ and $2\\nmid 5$, hence $2$ is unramified (in fact inert since $(5/2)=-1$). This refutes the claim that divisibility of the degree implies ramification."
         }
       ]
     },
@@ -97,6 +163,39 @@
           "tol": 1e-6,
           "explain": "When $p\\mid\\Delta_K$ (here $\\Delta_K=-20$), the prime ramifies; in the quadratic case the exponent on the unique prime above is $e=2$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In $K=\\mathbb{Q}(\\sqrt{-5})$, the ideal $(2)$ ramifies as $(2)=\\mathfrak{p}_2^2$. What are the values of $e$, $f$, $g$ for this factorization, and does $\\sum e_i f_i=n=2$ check out?",
+          "choices": [
+            "$e=2,\\ f=1,\\ g=1$; $\\sum ef=2\\cdot 1=2$ ✓",
+            "$e=1,\\ f=2,\\ g=1$; $\\sum ef=1\\cdot 2=2$ ✓",
+            "$e=1,\\ f=1,\\ g=2$; $\\sum ef=1\\cdot 1+1\\cdot 1=2$ ✓",
+            "$e=2,\\ f=2,\\ g=1$; $\\sum ef=4\\neq 2$ ✗"
+          ],
+          "answer": 0,
+          "explain": "Since $2$ ramifies, there is one prime above $2$ with $e=2$. The residue field $\\mathcal{O}_K/\\mathfrak{p}_2\\cong\\mathbb{F}_2$ has degree $f=1$ over $\\mathbb{F}_2$. Thus $g=1$ and $efg=2\\cdot 1\\cdot 1=2=[K:\\mathbb{Q}]$. ✓"
+        },
+        {
+          "type": "numeric",
+          "q": "In $K=\\mathbb{Q}(\\sqrt{-5})$, the prime $p=3$ satisfies $(3/5)=(-1/5)\\cdot$ ... in fact $-5\\equiv 1\\pmod 3$ and $(1/3)=1$, so $3$ splits as $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$. Each prime $\\mathfrak{p}_3$ has norm $N(\\mathfrak{p}_3)=3^f$. What is $f$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "When $p$ splits ($g=2$, $e=1$, $f=1$), the fundamental equality gives $\\sum e_i f_i = 1\\cdot 1 + 1\\cdot 1 = 2 = n$. Each prime above $3$ has residue degree $f=1$, so $N(\\mathfrak{p}_3)=3^1=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Proof-step ordering: to show that $p$ is inert in $\\mathbb{Q}(\\sqrt{d})$ when $(d/p)=-1$, arrange these steps correctly. (1) Conclude $p\\mathcal{O}_K$ is prime with $f=2$. (2) Observe $\\mathcal{O}_K/p\\mathcal{O}_K\\cong\\mathbb{F}_p[x]/(x^2-d)$. (3) Note $(d/p)=-1$ means $x^2-d$ is irreducible over $\\mathbb{F}_p$. (4) Deduce $\\mathbb{F}_p[x]/(x^2-d)\\cong\\mathbb{F}_{p^2}$, a field.",
+          "choices": [
+            "2 → 3 → 4 → 1",
+            "3 → 2 → 4 → 1",
+            "2 → 4 → 3 → 1",
+            "1 → 2 → 3 → 4"
+          ],
+          "answer": 0,
+          "explain": "First identify the quotient ring (step 2), then use the Legendre symbol to get irreducibility (step 3), then recognize the quotient as $\\mathbb{F}_{p^2}$ (step 4), and finally conclude $p\\mathcal{O}_K$ is prime (step 1)."
+        }
       ]
     },
     "minkowski-bound": {
@@ -133,6 +232,39 @@
           "answer": 1,
           "explain": "Every class contains a representative $I$ with $N(I)\\le M_K$, and for any bound $B$ only finitely many integral ideals satisfy $N(I)\\le B$ (each such ideal lies above a rational prime $p\\le B$)."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute the Minkowski bound for $K=\\mathbb{Q}(\\sqrt{-23})$ using $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}$. Since $-23\\equiv 1\\pmod 4$, $|\\Delta_K|=23$, $n=2$, $r_2=1$. Give your answer to 3 decimal places.",
+          "answer": 3.056,
+          "tol": 0.002,
+          "explain": "$M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot\\sqrt{23}=\\tfrac{2\\sqrt{23}}{\\pi}\\approx\\tfrac{2\\times 4.796}{3.1416}\\approx\\tfrac{9.592}{3.1416}\\approx 3.052$. Primes of norm $\\le 3$ must be checked; $\\mathfrak{p}_2$ and $\\mathfrak{p}_3$ generate the class group, giving $h_K=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which field has class number $h_K=1$ (i.e., is a PID), verified by finding the Minkowski bound $< 2$ so no non-trivial primes need to be checked?",
+          "choices": [
+            "$K=\\mathbb{Q}(\\sqrt{-5})$, $M_K\\approx 2.85$",
+            "$K=\\mathbb{Q}(\\sqrt{-1})$, $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot 2=\\tfrac{4}{\\pi}\\approx 1.27$",
+            "$K=\\mathbb{Q}(\\sqrt{-23})$, $M_K\\approx 3.05$",
+            "$K=\\mathbb{Q}(\\sqrt{-6})$, $M_K\\approx 3.12$"
+          ],
+          "answer": 1,
+          "explain": "For $K=\\mathbb{Q}(i)$, $\\Delta_K=-4$, $n=2$, $r_2=1$: $M_K=\\tfrac{4}{\\pi}\\cdot\\tfrac{1}{2}\\cdot 2=\\tfrac{4}{\\pi}\\approx 1.27<2$. Since there are no primes of norm $\\le 1$, every ideal class is trivial, confirming $h_K=1$ and $\\mathbb{Z}[i]$ is a PID."
+        },
+        {
+          "type": "mcq",
+          "q": "The Minkowski bound chains with the discriminant: for $K=\\mathbb{Q}(\\zeta_5)$ with $|\\Delta_K|=125$ and $(n,r_1,r_2)=(4,0,2)$, the bound is $M_K=\\left(\\tfrac{4}{\\pi}\\right)^2\\cdot\\tfrac{4!}{4^4}\\cdot\\sqrt{125}$. Which primes must be tested against the class group?",
+          "choices": [
+            "no primes; $M_K<2$",
+            "only $p=2$; $2<M_K<3$",
+            "only $p=2$ and $p=3$; $3<M_K<5$",
+            "only $p=5$; $M_K\\approx 5$"
+          ],
+          "answer": 1,
+          "explain": "$M_K=\\left(\\tfrac{16}{\\pi^2}\\right)\\cdot\\tfrac{24}{256}\\cdot 5\\sqrt{5}\\approx 1.621\\cdot 0.09375\\cdot 11.18\\approx 1.70$. Since $1<M_K<2$, only the prime $p=2$ could contribute, but the only prime above $2$ is principal, so $h_K=1$ and $\\mathbb{Z}[\\zeta_5]$ is a PID."
+        }
       ]
     },
     "class-group-units-ant": {
@@ -163,6 +295,39 @@
           "answer": 1,
           "tol": 1e-6,
           "explain": "With $h_K=2$, $\\mathbb{Z}[\\sqrt{-5}]$ is not a PID — the classical failure of unique factorization, $6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5})$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In $\\mathbb{Z}[\\sqrt{-5}]$, we have $6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5})$. Which statement correctly explains why this is NOT a counterexample to unique factorization in $\\mathcal{O}_K$ at the ideal level?",
+          "choices": [
+            "Because $2$ and $3$ are not irreducible in $\\mathcal{O}_K$",
+            "Because at the ideal level $(6)=\\mathfrak{p}_2^2\\mathfrak{p}_3\\mathfrak{p}_3'$ factors uniquely; the non-uniqueness of element factorization reflects non-principal ideals",
+            "Because $\\mathcal{O}_K$ has unique factorization — $6=2\\cdot 3$ and $6=(1+\\sqrt{-5})(1-\\sqrt{-5})$ are the same factorization in disguise",
+            "Because $\\sqrt{-5}$ is a unit in $\\mathcal{O}_K$"
+          ],
+          "answer": 1,
+          "explain": "Dedekind's key insight: ideals in $\\mathcal{O}_K$ factor uniquely into prime ideals even when elements don't. Here $(2)=\\mathfrak{p}_2^2$, $(3)=\\mathfrak{p}_3\\mathfrak{p}_3'$, $(1+\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3$, $(1-\\sqrt{-5})=\\mathfrak{p}_2\\mathfrak{p}_3'$, and both factorizations of $(6)$ give $\\mathfrak{p}_2^2\\mathfrak{p}_3\\mathfrak{p}_3'$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the totally real cubic field $K=\\mathbb{Q}(\\alpha)$ where $\\alpha^3-3\\alpha-1=0$, the signature is $(r_1,r_2)=(3,0)$. Compute the unit rank $r=r_1+r_2-1$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "With $(r_1,r_2)=(3,0)$, the Dirichlet unit rank is $3+0-1=2$. So $\\mathcal{O}_K^\\times\\cong\\{\\pm 1\\}\\times\\mathbb{Z}^2$, generated by two independent fundamental units."
+        },
+        {
+          "type": "mcq",
+          "q": "Chains concept: for $K=\\mathbb{Q}(\\sqrt{5})$ with fundamental unit $\\varepsilon=\\tfrac{1+\\sqrt{5}}{2}$ (the golden ratio), the Minkowski bound is $M_K=\\sqrt{5}/1\\approx 2.24$. Since $h_K=1$, which statement about $\\mathcal{O}_K^\\times$ and the class group is consistent?",
+          "choices": [
+            "$h_K=1$ implies no units exist beyond $\\pm 1$",
+            "$h_K=1$ means $\\mathcal{O}_K$ is a PID; independently, the unit group has rank $1$ with fundamental unit $\\varepsilon=\\tfrac{1+\\sqrt{5}}{2}$",
+            "$h_K=1$ implies the unit rank is $0$",
+            "$h_K=1$ and unit rank $1$ together imply $K$ is imaginary quadratic"
+          ],
+          "answer": 1,
+          "explain": "Class number and unit rank are independent invariants. $h_K=1$ (PID) and unit rank $r_1+r_2-1=2+0-1=1$ (one fundamental unit) both hold for $\\mathbb{Q}(\\sqrt{5})$. Real quadratic fields always have unit rank $1$, regardless of $h_K$."
         }
       ]
     }

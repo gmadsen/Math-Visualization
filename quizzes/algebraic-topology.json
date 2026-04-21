@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Path concatenation $\\alpha*\\beta$ is associative up to homotopy rel endpoints. Which statement is a correct counterexample showing it fails on the nose (not just up to homotopy)?",
+          "choices": [
+            "$(\\alpha*\\beta)*\\gamma$ and $\\alpha*(\\beta*\\gamma)$ always differ by a non-continuous reparametrisation",
+            "$(\\alpha*\\beta)*\\gamma$ traverses $\\alpha$ on $[0,1/4]$ while $\\alpha*(\\beta*\\gamma)$ traverses $\\alpha$ on $[0,1/2]$, so they are unequal as functions $[0,1]\\to X$",
+            "Concatenation is strictly associative whenever $X$ is a metric space",
+            "Associativity fails only for loops, not for paths with distinct endpoints"
+          ],
+          "answer": 1,
+          "explain": "$(\\alpha*\\beta)*\\gamma$ spends the first quarter of $[0,1]$ on $\\alpha$, the second on $\\beta$, and the last half on $\\gamma$, whereas $\\alpha*(\\beta*\\gamma)$ spends the first half on $\\alpha$. The functions are genuinely different even though they are homotopic rel endpoints via a linear reparametrisation homotopy."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\gamma:[0,1]\\to\\mathbb{C}^*$ be a loop with $\\gamma(t)=e^{4\\pi i t}$. The homotopy class of $\\gamma$ in $\\pi_1(\\mathbb{C}^*,1)\\cong\\mathbb{Z}$ equals what integer?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\gamma$ winds around the origin $4\\pi/2\\pi=2$ full times, so its winding number is $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct order of steps in proving that the path-homotopy relation $\\simeq$ is an equivalence relation on paths from $x_0$ to $x_1$?",
+          "choices": [
+            "Transitivity → Symmetry → Reflexivity",
+            "Reflexivity (constant homotopy) → Symmetry (reparametrise $s\\mapsto 1-s$) → Transitivity (concatenate homotopies in the $s$-direction)",
+            "Reflexivity → Transitivity → Symmetry",
+            "Symmetry → Reflexivity → Transitivity"
+          ],
+          "answer": 1,
+          "explain": "Standard proof order: first the constant homotopy $H(t,s)=\\gamma(t)$ gives reflexivity; reversing the deformation parameter gives symmetry; stacking $H_1(t,s)$ on $[0,1/2]$ and $H_2(t,2s-1)$ on $[1/2,1]$ in $s$ gives transitivity."
+        }
       ]
     },
     "simply-connected": {
@@ -55,6 +88,39 @@
           "answer": [1, 0],
           "tol": 1e-6,
           "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "$S^2$ is simply connected. Which argument correctly shows every loop $\\gamma:S^1\\to S^2$ is null-homotopic?",
+          "choices": [
+            "Every loop on $S^2$ misses at least one point, and $S^2$ minus a point is homeomorphic to $\\mathbb{R}^2$, which is contractible",
+            "The Euler characteristic of $S^2$ is $2$, so all loops are trivial",
+            "$S^2$ has no holes, so loops must be constant",
+            "Every map from a compact space to $S^2$ is null-homotopic"
+          ],
+          "answer": 0,
+          "explain": "A space-filling loop would require $\\gamma$ to be surjective; by a small transversality/smooth perturbation argument every smooth loop misses a point. Removing that point gives $\\mathbb{R}^2$, and any loop in $\\mathbb{R}^2$ contracts to a point via the straight-line homotopy, so $\\gamma$ was null-homotopic in $S^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these spaces is NOT simply connected?",
+          "choices": [
+            "$\\mathbb{R}^n$ for any $n\\ge 1$",
+            "$S^n$ for $n\\ge 2$",
+            "The open unit disk $D^2\\setminus\\partial D^2$",
+            "$\\mathbb{R}^3\\setminus\\{\\text{a line}\\}$"
+          ],
+          "answer": 3,
+          "explain": "$\\mathbb{R}^3$ minus a line is homotopy equivalent to $S^1$ (retract radially onto a circle linking the line), so $\\pi_1\\cong\\mathbb{Z}\\neq 0$. The other three spaces are all simply connected."
+        },
+        {
+          "type": "numeric",
+          "q": "The van Kampen theorem applied to $S^2 = U \\cup V$ (each a contractible open hemisphere with $U\\cap V\\simeq S^1$) gives $\\pi_1(S^2)\\cong$ the trivial group. How many generators does $\\pi_1(U)*_{\\pi_1(U\\cap V)}\\pi_1(V)$ have after the amalgamation kills all generators?",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\pi_1(U)=\\pi_1(V)=0$, so the amalgamated free product $0*_{\\mathbb{Z}}0$ forces the single generator of $\\pi_1(U\\cap V)\\cong\\mathbb{Z}$ to map to $0$ in both factors, yielding the trivial group with $0$ generators."
         }
       ]
     },
@@ -87,6 +153,39 @@
           "tol": 1e-6,
           "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "By van Kampen's theorem, $\\pi_1(T^2)\\cong\\mathbb{Z}\\times\\mathbb{Z}$. Which decomposition is used?",
+          "choices": [
+            "Write $T^2=S^1\\vee S^1$ and apply the free-product formula",
+            "Write $T^2=S^1\\times S^1$ and use the product formula $\\pi_1(X\\times Y)\\cong\\pi_1(X)\\times\\pi_1(Y)$",
+            "Triangulate $T^2$ with $2$ triangles and read off the presentation",
+            "Apply excision to the pair $(T^2, S^1)$"
+          ],
+          "answer": 1,
+          "explain": "$\\pi_1$ preserves products: $\\pi_1(S^1\\times S^1)\\cong\\pi_1(S^1)\\times\\pi_1(S^1)\\cong\\mathbb{Z}\\times\\mathbb{Z}$. The two generators correspond to the meridian and longitude loops."
+        },
+        {
+          "type": "mcq",
+          "q": "The Klein bottle $K$ has $\\pi_1(K)=\\langle a,b\\mid abab^{-1}=1\\rangle$. This group is non-abelian. Which element witnesses non-commutativity?",
+          "choices": [
+            "$a$ and $b$ commute because $ab=ba$ follows from the relation",
+            "$ba\\ne ab$: from $aba=b$ one gets $ab=b a^{-1}b^{-1}b=ba^{-1}$, which equals $ba$ only if $a=a^{-1}$",
+            "All groups with two generators are abelian",
+            "The relation $abab^{-1}=1$ forces $b$ to be the identity"
+          ],
+          "answer": 1,
+          "explain": "Rewrite the relation as $ab=ba^{-1}$. This means $a$ and $b$ do NOT commute (unless $a^2=1$), so the group is non-abelian; it is an HNN extension of $\\mathbb{Z}$ by $\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=\\mathbb{R}^2\\setminus\\{p_1,p_2\\}$ (the plane with two punctures). The rank of $\\pi_1(X)$ as a free group equals how many?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{R}^2$ minus $n$ points deformation-retracts onto a wedge of $n$ circles, so $\\pi_1\\cong F_n$. For $n=2$ the free group $F_2$ has rank $2$."
+        }
       ]
     },
     "covering-spaces": {
@@ -112,6 +211,39 @@
           "answer": [0, -1],
           "tol": 1e-6,
           "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The covering space correspondence says connected covers of $X$ (up to isomorphism) correspond to conjugacy classes of subgroups of $\\pi_1(X,x_0)$. For $X=S^1$ with $\\pi_1\\cong\\mathbb{Z}$, which cover corresponds to the subgroup $3\\mathbb{Z}\\le\\mathbb{Z}$?",
+          "choices": [
+            "The universal cover $\\mathbb{R}\\to S^1$",
+            "The $3$-sheeted cover $p_3:S^1\\to S^1$, $z\\mapsto z^3$",
+            "The $2$-sheeted cover $p_2:S^1\\to S^1$, $z\\mapsto z^2$",
+            "There is no cover corresponding to $3\\mathbb{Z}$"
+          ],
+          "answer": 1,
+          "explain": "The subgroup $n\\mathbb{Z}\\le\\mathbb{Z}$ has index $n$ and corresponds to the $n$-sheeted cyclic cover $z\\mapsto z^n$. For $n=3$ this is $p_3$, whose deck transformation group is $\\mathbb{Z}/3\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The universal cover of $T^2=S^1\\times S^1$ is $\\mathbb{R}^2$. The deck transformation group acts by integer translations. How many deck transformations map the origin $(0,0)$ to the point $(2,3)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Deck transformations of a regular cover act freely and transitively on each fiber. There is exactly $1$ deck transformation sending any chosen fiber point to any other given fiber point."
+        },
+        {
+          "type": "mcq",
+          "q": "Path lifting: given a covering $p:\\tilde{X}\\to X$, a path $\\gamma:[0,1]\\to X$, and a lift $\\tilde{\\gamma}(0)=\\tilde{x}_0\\in p^{-1}(\\gamma(0))$, how many lifts $\\tilde{\\gamma}$ exist?",
+          "choices": [
+            "None in general — lifting may fail",
+            "Exactly one, by the unique path-lifting property",
+            "One for each sheet of the cover",
+            "Infinitely many, parametrised by $\\pi_1(X)$"
+          ],
+          "answer": 1,
+          "explain": "The unique path-lifting property of covering spaces guarantees exactly one lift $\\tilde{\\gamma}:[0,1]\\to\\tilde{X}$ with $\\tilde{\\gamma}(0)=\\tilde{x}_0$ and $p\\circ\\tilde{\\gamma}=\\gamma$."
         }
       ]
     },

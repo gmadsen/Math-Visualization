@@ -113,7 +113,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -137,6 +137,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -310,6 +324,18 @@ over open covers ordered by refinement. For paracompact Hausdorff $X$ this agree
     <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaf-cohomology.html#derived">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>
+    <div><a href="./sheaf-cohomology.html#leray">Sheaf cohomology</a> · Leray acyclic covers and affine vanishing</div>
+    <div><a href="./sheaf-cohomology.html#les">Sheaf cohomology</a> · Long exact sequence in cohomology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="cech-cohomology"></div>
 </section>
@@ -416,6 +442,17 @@ When $f$ is an affine morphism of schemes and $\mathcal{F}$ is quasi-coherent, $
     <li><a href="./homological.html#derived">Derived functors and resolutions</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#ladic">Étale cohomology</a> · ℓ-adic cohomology</div>
+    <div><a href="./sheaf-cohomology.html#serre">Sheaf cohomology</a> · Picard groups and Serre duality signals</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="derived-functor-cohomology"></div>
 </section>
@@ -1435,6 +1472,7 @@ is an equalizer for every étale cover. The derived functors of $\Gamma$ on this
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

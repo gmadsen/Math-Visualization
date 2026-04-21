@@ -1,0 +1,330 @@
+{
+  "topic": "zeta-values",
+  "quizzes": {
+    "basel-problem": {
+      "title": "The Basel problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Euler's proof of $\\zeta(2)=\\pi^2/6$ starts from the Weierstrass product $\\sin(\\pi x)=\\pi x\\prod_{n=1}^{\\infty}(1-x^2/n^2)$. Which coefficient comparison yields $\\zeta(2)$?",
+          "choices": [
+            "Comparing the coefficient of $x$ in the Taylor expansion of $\\sin(\\pi x)$ and the product",
+            "Comparing the coefficient of $x^2$ in $\\sin(\\pi x)/(\\pi x)$ from Taylor with the elementary symmetric polynomial $-\\sum 1/n^2$ from the product",
+            "Taking the logarithmic derivative at $x=1$ of both sides",
+            "Matching the coefficient of $x^4$ and dividing by $\\pi^2$"
+          ],
+          "answer": 1,
+          "explain": "Dividing both sides by $\\pi x$ gives $\\sin(\\pi x)/(\\pi x)=\\prod_{n=1}^\\infty(1-x^2/n^2)$. The Taylor expansion gives coefficient of $x^2$ as $-\\pi^2/6$, while the product gives $-\\sum_{n=1}^\\infty 1/n^2 = -\\zeta(2)$. Equating: $\\zeta(2)=\\pi^2/6$."
+        },
+        {
+          "type": "numeric",
+          "q": "The partial sum $\\sum_{n=1}^{4} 1/n^2 = 1 + 1/4 + 1/9 + 1/16$. Enter this value as a decimal to four places.",
+          "answer": 1.4236,
+          "tol": 5e-4,
+          "explain": "$1+0.25+0.1111+0.0625=1.4236$. Compare with $\\pi^2/6\\approx 1.6449$; the series converges slowly."
+        },
+        {
+          "type": "numeric",
+          "q": "Euler's result: $\\zeta(2)=\\pi^2/6$. Compute this to four decimal places.",
+          "answer": 1.6449,
+          "tol": 5e-4,
+          "explain": "$\\pi^2\\approx 9.8696$, so $\\pi^2/6\\approx 1.6449$. This is the exact sum of the reciprocals of all perfect squares."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Euler's proof uses the factorisation $\\sin(\\pi x)/(\\pi x)=\\prod_{n=1}^\\infty(1-x^2/n^2)$. Which step in the proof is NOT rigorous without further justification?",
+          "choices": [
+            "Identifying the zeros of $\\sin(\\pi x)$ at $x=\\pm 1,\\pm 2,\\ldots$",
+            "Interchanging the infinite product with its power-series expansion to equate coefficients",
+            "Using the Taylor series $\\sin(\\pi x)=\\pi x-\\pi^3 x^3/6+\\cdots$",
+            "Concluding $\\zeta(2)=\\pi^2/6$ from the coefficient of $x^2$"
+          ],
+          "answer": 1,
+          "explain": "Euler treated the infinite product like a finite polynomial to compare coefficients — this exchange of limit and sum requires uniform convergence, which Euler did not verify. Weierstrass's factorisation theorem later provided the rigorous foundation."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct ordering of steps in Euler's coefficient-comparison proof of $\\zeta(2)=\\pi^2/6$?",
+          "choices": [
+            "Write down the product → divide by $\\pi x$ → expand the product's $x^2$ term → match with Taylor → conclude",
+            "Compute $\\zeta(2)$ numerically → guess $\\pi^2/6$ → verify one partial sum",
+            "Take the logarithmic derivative of $\\sin(\\pi x)$ → integrate → evaluate at $x=1$",
+            "Use the functional equation $\\xi(s)=\\xi(1-s)$ at $s=2$ to derive the value"
+          ],
+          "answer": 0,
+          "explain": "The proof proceeds: write $\\sin(\\pi x)=\\pi x\\prod(1-x^2/n^2)$, divide by $\\pi x$, note the elementary symmetric polynomial in $\\{-1/n^2\\}$ gives $-\\zeta(2)$ as the $x^2$ coefficient, equate with $-\\pi^2/6$ from the Taylor series."
+        },
+        {
+          "type": "numeric",
+          "q": "The alternating series $\\eta(2)=\\sum_{n=1}^\\infty(-1)^{n+1}/n^2$ satisfies $\\eta(2)=(1-2^{1-2})\\zeta(2)=\\zeta(2)/2$. Using $\\zeta(2)=\\pi^2/6$, what is $\\eta(2)$ to four decimal places?",
+          "answer": 0.8225,
+          "tol": 5e-4,
+          "explain": "$\\eta(2)=\\pi^2/12\\approx 9.8696/12\\approx 0.8225$. Alternatively: $1-1/4+1/9-1/16+\\cdots=\\pi^2/12$."
+        }
+      ]
+    },
+    "even-integer-values": {
+      "title": "Even zeta values",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The closed-form formula for even zeta values is $\\zeta(2n)=(-1)^{n+1}\\dfrac{B_{2n}(2\\pi)^{2n}}{2(2n)!}$. Using $B_4=-1/30$, which is $\\zeta(4)$?",
+          "choices": ["$\\pi^4/90$", "$\\pi^4/45$", "$\\pi^4/120$", "$\\pi^4/60$"],
+          "answer": 0,
+          "explain": "With $n=2$: $(-1)^3 \\cdot (-1/30)(2\\pi)^4/(2\\cdot 24) = (1/30)\\cdot 16\\pi^4/48 = 16\\pi^4/1440 = \\pi^4/90$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\zeta(6)=\\pi^6/945$ to four decimal places.",
+          "answer": 1.0173,
+          "tol": 5e-4,
+          "explain": "$\\pi^6\\approx 961.39$, so $\\pi^6/945\\approx 1.0173$. This uses $B_6=1/42$ and $n=3$ in the formula."
+        },
+        {
+          "type": "mcq",
+          "q": "For which values of $n$ does the closed-form $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$ apply?",
+          "choices": [
+            "All positive integers $n\\ge 1$",
+            "Only even positive integers $n=2,4,6,\\ldots$",
+            "Only positive integers $n\\ge 2$",
+            "All integers including negative ones"
+          ],
+          "answer": 0,
+          "explain": "The formula holds for all positive integers $n\\ge 1$, giving $\\zeta(2),\\zeta(4),\\zeta(6),\\ldots$ in terms of Bernoulli numbers and $\\pi$. It does not extend to odd arguments, where no analogous rational-times-power-of-$\\pi$ formula is known."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Bernoulli numbers satisfy $B_0=1, B_1=-1/2$, and $B_{2k+1}=0$ for $k\\ge 1$. Using the formula $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, the sign of $\\zeta(2n)$ depends on $(-1)^{n+1}B_{2n}$. Which pattern do the signs of $B_{2n}$ follow?",
+          "choices": [
+            "$B_{2n}$ is always positive",
+            "$B_{2n}$ alternates: $B_2>0,B_4<0,B_6>0,\\ldots$",
+            "$B_{2n}$ is always negative",
+            "$B_{2n}$ alternates: $B_2>0,B_4<0$ is false since $B_4=1/30>0$"
+          ],
+          "answer": 1,
+          "explain": "$B_2=1/6>0$, $B_4=-1/30<0$, $B_6=1/42>0$, alternating. This alternation, combined with $(-1)^{n+1}$, ensures $\\zeta(2n)>0$ for all $n\\ge 1$, consistent with the series of positive terms."
+        },
+        {
+          "type": "numeric",
+          "q": "From the formula with $B_6=1/42$, compute $\\zeta(6)=(-1)^4\\cdot(1/42)\\cdot(2\\pi)^6/(2\\cdot 720)$. Simplify: $(2\\pi)^6=64\\pi^6$ and $2\\cdot720=1440$. What is the denominator of $\\zeta(6)$ expressed as $\\pi^6/N$?",
+          "answer": 945,
+          "tol": 0.5,
+          "explain": "$\\zeta(6)=(1/42)\\cdot 64\\pi^6/1440=64\\pi^6/60480=\\pi^6/945$. So $N=945$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about $\\zeta(2n)$ as $n\\to\\infty$ is correct?",
+          "choices": [
+            "$\\zeta(2n)\\to\\infty$ since Bernoulli numbers grow faster than $(2\\pi)^{2n}$",
+            "$\\zeta(2n)\\to 1$ since for large $s$ the series $\\sum n^{-s}$ is dominated by its first term",
+            "$\\zeta(2n)$ oscillates with no limit",
+            "$\\zeta(2n)\\to 0$ since $\\pi^{2n}/(2n)!\\to 0$"
+          ],
+          "answer": 1,
+          "explain": "For large real $s$, $\\zeta(s)=1+2^{-s}+3^{-s}+\\cdots\\to 1$ because every term beyond the first vanishes exponentially. Equivalently, $|B_{2n}|\\sim 2(2n)!/(2\\pi)^{2n}$ (Stirling), so the formula gives $\\zeta(2n)\\to 1$."
+        }
+      ]
+    },
+    "odd-integer-values-apery": {
+      "title": "Apéry's constant ζ(3)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What did Roger Apéry prove in 1978 about $\\zeta(3)=\\sum_{n=1}^{\\infty}1/n^3$?",
+          "choices": [
+            "It equals $\\pi^3/32$",
+            "It is irrational",
+            "It is transcendental",
+            "It equals a rational multiple of $\\ln 2$"
+          ],
+          "answer": 1,
+          "explain": "Apéry proved irrationality using an accelerated series $\\zeta(3)=5/2\\sum_{n=1}^{\\infty}(-1)^{n+1}/(n^3\\binom{2n}{n})$ and showing the implied rational approximations converge too fast for $\\zeta(3)$ to be rational. Transcendence remains open."
+        },
+        {
+          "type": "numeric",
+          "q": "The Apéry series converges via $\\zeta(3)=5/2\\sum_{n=1}^{\\infty}(-1)^{n+1}/\\bigl(n^3\\tbinom{2n}{n}\\bigr)$. The first term ($n=1$) contributes $5/2 \\cdot 1/(1^3\\cdot 2)$. What is this?",
+          "answer": 1.25,
+          "tol": 1e-6,
+          "explain": "$5/2\\cdot 1/2 = 5/4 = 1.25$. Compare with $\\zeta(3)\\approx 1.2021$; the first term alone over-estimates, but convergence is rapid."
+        },
+        {
+          "type": "numeric",
+          "q": "The value $\\zeta(3)\\approx 1.2021$ is known as Apéry's constant. Enter this value to four decimal places.",
+          "answer": 1.2021,
+          "tol": 5e-4,
+          "explain": "$\\zeta(3)=1+1/8+1/27+1/64+\\cdots\\approx 1.20206$. No closed form in terms of $\\pi$ is known."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Apéry's irrationality proof for $\\zeta(3)$ constructs integer sequences $a_n,b_n$ such that $0<|b_n\\zeta(3)-a_n|\\to 0$ faster than $1/b_n$. Which property of the convergents rules out $\\zeta(3)$ being rational?",
+          "choices": [
+            "If $\\zeta(3)=p/q$ then $|b_n\\zeta(3)-a_n|=|b_n p/q-a_n|\\ge 1/q$ for all large $n$, contradicting the rate of approach to $0$",
+            "The sequence $a_n/b_n$ converges to an irrational limit by the ratio test",
+            "Rational numbers have eventually periodic continued fractions, but Apéry's sequence is not periodic",
+            "The denominators $b_n$ grow too slowly to approximate any rational number"
+          ],
+          "answer": 0,
+          "explain": "If $\\zeta(3)=p/q$, then $b_n\\zeta(3)-a_n=(b_n p-a_n q)/q$ is a nonzero integer multiple of $1/q$ for all but finitely many $n$ (since $b_n p-a_n q\\in\\mathbb{Z}$ and eventually nonzero). But Apéry showed $|b_n\\zeta(3)-a_n|\\to 0$ faster than $q^{-1}$, a contradiction."
+        },
+        {
+          "type": "mcq",
+          "q": "Which step correctly orders the logical chain of Apéry's proof?",
+          "choices": [
+            "Define $a_n,b_n$ → verify integer recurrence → show $b_n\\zeta(3)-a_n\\to 0$ faster than $b_n^{-1}$ → conclude irrationality by Dirichlet-type argument",
+            "Assume rationality → use continued fractions → derive a contradiction from the Euler product",
+            "Compute $\\zeta(3)$ numerically → show it has infinite decimal expansion → conclude irrationality",
+            "Show $\\zeta(3)$ is transcendental → deduce irrationality as a special case"
+          ],
+          "answer": 0,
+          "explain": "Apéry's route: (1) explicit integer sequences satisfying a three-term recurrence, (2) verification that $b_n\\in\\mathbb{Z}$ (using properties of LCMs), (3) asymptotic bound showing the approximation is too good, (4) contradiction with rationality. Transcendence of $\\zeta(3)$ remains unknown."
+        },
+        {
+          "type": "numeric",
+          "q": "The accelerated series $\\zeta(3)=5/2\\sum_{n=1}^\\infty(-1)^{n+1}/(n^3\\binom{2n}{n})$ has second term ($n=2$): $5/2\\cdot(-1)^3/(8\\binom{4}{2})=5/2\\cdot(-1)/(8\\cdot 6)$. What is this term to six decimal places?",
+          "answer": -0.052083,
+          "tol": 5e-6,
+          "explain": "$5/2\\cdot(-1)/48=-5/96\\approx -0.052083$. Adding to the first term $1.25$ gives $\\approx 1.197917$, already close to $\\zeta(3)\\approx 1.202057$."
+        }
+      ]
+    },
+    "negative-integer-values": {
+      "title": "Negative-integer values",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Using the formula $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_2=1/6$, what is $\\zeta(-1)$?",
+          "choices": ["$1/12$", "$-1/12$", "$0$", "$-1/6$"],
+          "answer": 1,
+          "explain": "$\\zeta(-1)=-B_2/2=-1/12$. This is the analytic continuation value behind the regularisation $1+2+3+\\cdots \\mapsto -1/12$."
+        },
+        {
+          "type": "numeric",
+          "q": "Since $B_3=0$, what is $\\zeta(-2)$ using $\\zeta(-n)=-B_{n+1}/(n+1)$?",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "$\\zeta(-2)=-B_3/3=0$. Similarly all $\\zeta(-2k)=0$ for $k\\ge 1$ are the trivial zeros of $\\zeta$."
+        },
+        {
+          "type": "mcq",
+          "q": "Where are the trivial zeros of the Riemann zeta function?",
+          "choices": [
+            "At $s=0,-1,-2,-3,\\ldots$",
+            "At $s=-2,-4,-6,\\ldots$ (negative even integers)",
+            "At $s=-1,-3,-5,\\ldots$ (negative odd integers)",
+            "At $s=1/2+it$ for real $t$"
+          ],
+          "answer": 1,
+          "explain": "Trivial zeros occur at $s=-2,-4,-6,\\ldots$ because $B_{2k+1}=0$ for $k\\ge 1$, making $\\zeta(-2k)=0$. The zeros at $s=1/2+it$ are the non-trivial zeros, whose distribution is the subject of the Riemann Hypothesis."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct logical chain connecting analytic continuation to the value $\\zeta(-1)=-1/12$?",
+          "choices": [
+            "The Dirichlet series $\\sum n^{-s}$ converges at $s=-1$ and equals $-1/12$",
+            "Define $\\zeta(s)$ by analytic continuation from $\\mathrm{Re}(s)>1$; the continuation is unique by the identity theorem; evaluate the resulting function at $s=-1$ to get $-B_2/2=-1/12$",
+            "Sum the divergent series $1+2+3+\\cdots$ by Cesàro summation to get $-1/12$",
+            "Apply the Euler–Maclaurin formula directly at $s=-1$ without continuation"
+          ],
+          "answer": 1,
+          "explain": "The Dirichlet series diverges for $\\mathrm{Re}(s)\\le 1$. The correct path is: (1) prove $\\zeta(s)$ extends to a meromorphic function on $\\mathbb{C}$; (2) the extension is unique by the identity theorem for analytic functions; (3) the extended function satisfies $\\zeta(-n)=-B_{n+1}/(n+1)$, giving $\\zeta(-1)=-1/12$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(-n)=-B_{n+1}/(n+1)$ and $B_4=-1/30$, compute $\\zeta(-3)$ as a fraction. What is its decimal value to six places?",
+          "answer": 0.008333,
+          "tol": 5e-6,
+          "explain": "$\\zeta(-3)=-B_4/4=-(-1/30)/4=1/120\\approx 0.008333$. Note: this is positive, consistent with the formula since $B_4<0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a counterexample showing that $\\zeta(-2k)=0$ for $k\\ge 1$ does NOT mean $\\zeta(s)$ vanishes identically near $s=-2$?",
+          "choices": [
+            "The Laurent expansion of $\\zeta(s)$ near $s=-2$ shows a simple pole",
+            "$\\zeta(-2)=0$ but $\\zeta'(-2)\\ne 0$, so the zero is simple and $\\zeta$ is nonzero in a punctured neighbourhood of $s=-2$",
+            "$\\zeta(s)=0$ for all $s$ near $-2$ by continuity",
+            "$\\zeta(-2)=0$ implies $\\zeta(-2-\\epsilon)=0$ for all small $\\epsilon>0$"
+          ],
+          "answer": 1,
+          "explain": "Each trivial zero $s=-2k$ is a simple zero: $\\zeta'(-2k)\\ne 0$, as seen from the functional equation. In a punctured neighbourhood $\\zeta(s)\\ne 0$; the zero is isolated, not an extended vanishing."
+        }
+      ]
+    },
+    "functional-equation-zeta": {
+      "title": "The functional equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The completed zeta function is $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. The functional equation states:",
+          "choices": [
+            "$\\xi(s)=\\xi(s+1)$",
+            "$\\xi(s)=\\xi(1-s)$",
+            "$\\xi(s)=\\overline{\\xi(s)}$",
+            "$\\xi(s)=\\xi(-s)$"
+          ],
+          "answer": 1,
+          "explain": "Riemann showed $\\xi(s)=\\xi(1-s)$. This maps $s\\leftrightarrow 1-s$, reflecting the critical strip about $\\mathrm{Re}(s)=1/2$, and forces zeros to be symmetric about that line."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement is an immediate consequence of the functional equation $\\xi(s)=\\xi(1-s)$?",
+          "choices": [
+            "All non-trivial zeros lie on $\\mathrm{Re}(s)=1/2$",
+            "Non-trivial zeros come in pairs $\\{\\rho,\\,1-\\rho\\}$",
+            "$\\zeta(s)$ has no zeros in $\\mathrm{Re}(s)>1$",
+            "$\\zeta(s)$ extends to an entire function"
+          ],
+          "answer": 1,
+          "explain": "The symmetry $s\\mapsto 1-s$ directly implies that if $\\rho$ is a zero, so is $1-\\rho$. The Riemann Hypothesis (zeros on $\\mathrm{Re}(s)=1/2$) is a stronger, unproven claim. The absence of zeros in $\\mathrm{Re}(s)>1$ follows from the Euler product, not the functional equation."
+        },
+        {
+          "type": "numeric",
+          "q": "Using $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=2$: $\\cos(\\pi)=-1$ and $\\Gamma(2)=1$. Combined with $\\zeta(2)=\\pi^2/6$, what is $\\zeta(-1)$?",
+          "answer": -0.08333,
+          "tol": 5e-4,
+          "explain": "$\\zeta(-1)=2(2\\pi)^{-2}\\cos(\\pi)\\cdot 1\\cdot\\pi^2/6 = 2\\cdot(-1)/(4\\pi^2)\\cdot\\pi^2/6 = -2/24 = -1/12\\approx -0.0833$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The functional equation $\\xi(s)=\\xi(1-s)$ involves the completed function $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$. Which step in deriving the functional equation uses the Poisson summation formula?",
+          "choices": [
+            "Showing $\\Gamma(s/2)$ has simple poles at $s=0,-2,-4,\\ldots$",
+            "Relating the theta function $\\theta(t)=\\sum_{n=-\\infty}^\\infty e^{-\\pi n^2 t}$ at $t$ and $1/t$ via $\\theta(1/t)=t^{1/2}\\theta(t)$",
+            "Verifying that $\\zeta(s)$ has a simple pole at $s=1$",
+            "Expressing $\\Gamma(s/2)$ as a Mellin transform of $e^{-t}$"
+          ],
+          "answer": 1,
+          "explain": "Riemann's proof writes $\\xi(s)$ as a Mellin transform of $\\theta(t)-1$, then splits the integral at $t=1$ and transforms the $[0,1]$ part using $\\theta(1/t)=t^{1/2}\\theta(t)$. This identity for $\\theta$ is exactly Poisson summation applied to the Gaussian."
+        },
+        {
+          "type": "mcq",
+          "q": "The functional equation forces zeros to be symmetric about $\\mathrm{Re}(s)=1/2$. Combined with complex conjugate symmetry $\\zeta(\\bar{s})=\\overline{\\zeta(s)}$, if $\\rho=\\sigma+it$ is a non-trivial zero, which set of four zeros must all exist?",
+          "choices": [
+            "$\\{\\rho,\\,\\bar{\\rho},\\,1-\\rho,\\,1-\\bar{\\rho}\\}$",
+            "$\\{\\rho,\\,-\\rho,\\,1/\\rho,\\,-1/\\rho\\}$",
+            "$\\{\\rho,\\,\\rho+1,\\,\\rho-1,\\,1-\\rho\\}$",
+            "$\\{\\rho,\\,i\\rho,\\,-\\rho,\\,-i\\rho\\}$"
+          ],
+          "answer": 0,
+          "explain": "The functional equation gives $1-\\rho$; complex conjugation (using $\\zeta(\\bar{s})=\\overline{\\zeta(s)}$) gives $\\bar{\\rho}$ and $\\overline{1-\\rho}=1-\\bar{\\rho}$. So zeros come in quadruples $\\{\\rho,\\bar\\rho,1-\\rho,1-\\bar\\rho\\}$, collapsing to pairs on the critical line when $\\sigma=1/2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the reflection formula $\\zeta(1-s)=2(2\\pi)^{-s}\\cos(\\pi s/2)\\Gamma(s)\\zeta(s)$ at $s=4$ with $\\cos(2\\pi)=1$, $\\Gamma(4)=6$, and $\\zeta(4)=\\pi^4/90$, what is $\\zeta(-3)$ to six decimal places?",
+          "answer": 0.008333,
+          "tol": 5e-6,
+          "explain": "$\\zeta(-3)=2(2\\pi)^{-4}\\cdot 1\\cdot 6\\cdot\\pi^4/90=2\\cdot 6\\pi^4/(90\\cdot 16\\pi^4)=12/1440=1/120\\approx 0.008333$."
+        }
+      ]
+    }
+  }
+}

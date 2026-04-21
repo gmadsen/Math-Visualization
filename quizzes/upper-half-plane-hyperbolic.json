@@ -33,6 +33,39 @@
           "answer": 0,
           "explain": "The boundary is not in the space but appears as ideal points."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which statement is a correct counterexample showing the real axis $\\partial\\mathbb{H}$ is NOT in $\\mathbb{H}$?",
+          "choices": [
+            "The point $3+0i$ has $\\operatorname{Im}=0$, so it fails the strict inequality $y>0$ and lies outside $\\mathbb{H}$",
+            "The real axis has measure zero, so it can be included without changing the space",
+            "Boundary points are excluded only in the disk model, not the upper half-plane model",
+            "Any point with $\\operatorname{Re}>0$ is in $\\mathbb{H}$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{H}=\\{x+iy:y>0\\}$ strictly. The point $3+0i$ has $y=0$, which fails $y>0$, so it is an ideal boundary point — it encodes a direction at infinity for geodesics, not an interior point."
+        },
+        {
+          "type": "numeric",
+          "q": "The map $\\phi(z)=\\frac{z-i}{z+i}$ sends $\\mathbb{H}$ biholomorphically to the open unit disk $\\mathbb{D}$. Compute $|\\phi(2i)|$.",
+          "answer": 0.333,
+          "tol": 0.001,
+          "explain": "$\\phi(2i)=\\frac{2i-i}{2i+i}=\\frac{i}{3i}=\\frac{1}{3}$, so $|\\phi(2i)|=1/3\\approx 0.333$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the correct proof-step ordering to show $\\mathbb{H}$ is conformally equivalent to the unit disk $\\mathbb{D}$?",
+          "choices": [
+            "Apply Riemann mapping, then exhibit the explicit map $\\phi(z)=(z-i)/(z+i)$, then verify $\\phi(\\mathbb{H})=\\mathbb{D}$",
+            "Show $\\mathbb{H}$ is compact, then apply Liouville, then conclude biholomorphism",
+            "Triangulate $\\mathbb{H}$, compute Euler characteristic, then invoke uniformisation",
+            "Use the Schwarz lemma directly without finding $\\phi$ explicitly"
+          ],
+          "answer": 0,
+          "explain": "The standard argument: Riemann mapping guarantees a biholomorphism exists (since $\\mathbb{H}$ is simply connected and not all of $\\mathbb{C}$); the Cayley map $\\phi(z)=(z-i)/(z+i)$ is the explicit choice; checking $y>0$ gives $|\\phi(z)|<1$ verifies the image is $\\mathbb{D}$."
+        }
       ]
     },
     "hyperbolic-metric": {
@@ -63,6 +96,39 @@
           "answer": 2,
           "explain": "Division by $y$ makes lengths diverge near boundary."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute the hyperbolic distance between $i$ and $2i$ in $\\mathbb{H}$. (Use $d(i,2i)=\\ln(y_2/y_1)$ for points on the same vertical geodesic.)",
+          "answer": 0.693,
+          "tol": 0.001,
+          "explain": "$d(i,2i)=\\int_1^2 \\frac{dy}{y}=\\ln 2\\approx 0.693$. Points on a vertical line are at hyperbolic distance $|\\ln(y_2/y_1)|$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these is a correct counterexample showing the hyperbolic metric is NOT conformal to the Euclidean metric (i.e., the ratio $ds_{\\text{hyp}}/ds_{\\text{Eucl}}$ is not constant)?",
+          "choices": [
+            "At $y=1$ the ratio is $1$, but at $y=2$ the ratio is $1/2$, so the scaling factor varies with height",
+            "The metrics agree on the real axis $y=0$, proving they are the same metric",
+            "Both metrics give the same distance between $i$ and $2i$",
+            "Conformal equivalence requires equal arc lengths, which holds for all $y>0$"
+          ],
+          "answer": 0,
+          "explain": "The local scaling factor is $1/y$, which depends on $y$. At $y=1$ it is $1$ and at $y=2$ it is $0.5$, so the metrics are pointwise proportional with a non-constant ratio — they are conformally related but not isometric."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the correct order of steps to derive the hyperbolic line element $ds^2=(dx^2+dy^2)/y^2$ from the requirement that $PSL_2(\\mathbb{R})$ acts by isometries?",
+          "choices": [
+            "Postulate $ds^2=f(x,y)(dx^2+dy^2)$ → require invariance under $z\\mapsto z+1$ (translation) to get $f=f(y)$ → require invariance under $z\\mapsto -1/z$ to pin down $f(y)=1/y^2$",
+            "Set $f=1/x^2$ by symmetry, then verify under the full group",
+            "Use the Gauss–Bonnet theorem first, then back-solve for the metric",
+            "Require constant Gaussian curvature $+1$ to determine $f(y)=y^2$"
+          ],
+          "answer": 0,
+          "explain": "Translation invariance forces $f$ to depend only on $y$. The inversion $z\\mapsto -1/z$ maps $iy\\mapsto i/y$; requiring this to be an isometry pins down $f(y)=c/y^2$. Normalising curvature to $-1$ sets $c=1$."
+        }
       ]
     },
     "geodesics-in-H": {
@@ -92,6 +158,39 @@
           "answer": 1,
           "tol": 0.001,
           "explain": "Like Euclidean lines, distinct geodesics intersect at most once in the interior."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In hyperbolic geometry there exist infinitely many lines through a given point not meeting a given geodesic. Which configuration is a concrete counterexample to the Euclidean parallel postulate in $\\mathbb{H}$?",
+          "choices": [
+            "The geodesic $x=0$ and the point $2i$: the two semicircles through $2i$ with endpoints $(-1,0)$ and $(1,0)$ both avoid $x=0$, giving two distinct parallel geodesics through the same point",
+            "Vertical lines $x=0$ and $x=1$ together with the point $i$ show a unique parallel exists",
+            "No two geodesics in $\\mathbb{H}$ are disjoint — they always meet on the boundary",
+            "The parallel postulate holds in $\\mathbb{H}$ because it is simply connected"
+          ],
+          "answer": 0,
+          "explain": "Through any point outside a hyperbolic line there are infinitely many parallel geodesics (those whose ideal endpoints lie between the two ideal endpoints of the given geodesic). This is the defining failure of Euclid's fifth postulate in the model."
+        },
+        {
+          "type": "numeric",
+          "q": "The semicircle geodesic with Euclidean center $3$ and radius $2$ has ideal endpoints at what two real numbers? Give the larger one.",
+          "answer": 5,
+          "tol": 0.001,
+          "explain": "A semicircle of radius $r$ centered at $a\\in\\mathbb{R}$ meets the real axis at $a\\pm r$. Here $3+2=5$ and $3-2=1$, so the larger endpoint is $5$."
+        },
+        {
+          "type": "mcq",
+          "q": "To prove that semicircles orthogonal to $\\mathbb{R}$ are geodesics, which is the correct proof strategy?",
+          "choices": [
+            "Show every such semicircle is the orbit of the imaginary axis under some $g\\in PSL_2(\\mathbb{R})$, and the imaginary axis minimises arc length by a direct integral calculation",
+            "Compute the second fundamental form and show it vanishes",
+            "Apply the Hopf–Rinow theorem directly to deduce completeness implies geodesicity",
+            "Use the fact that all circles in $\\mathbb{C}$ are geodesics of some Riemannian metric"
+          ],
+          "answer": 0,
+          "explain": "The imaginary axis is geodesic by the arc-length calculation $\\int dy/y=\\ln(y_2/y_1)$. Any semicircle orthogonal to $\\mathbb{R}$ is the image of the imaginary axis under a Möbius transformation in $PSL_2(\\mathbb{R})$, which is an isometry, so it is also a geodesic."
         }
       ]
     },
@@ -127,6 +226,39 @@
           "answer": 1,
           "explain": "This is the entry point to modular forms."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For $S=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, compute $\\operatorname{Im}(S\\cdot(1+i))$.",
+          "answer": 0.5,
+          "tol": 0.001,
+          "explain": "$S\\cdot\\tau=-1/\\tau$. With $\\tau=1+i$: $-1/(1+i)=-(1-i)/2=(-1+i)/2$. The imaginary part is $1/2=0.5$."
+        },
+        {
+          "type": "mcq",
+          "q": "The generators $T(z)=z+1$ and $S(z)=-1/z$ of $SL_2(\\mathbb{Z})$ satisfy $S^2=-I$. What does the relation $S^2=\\mathrm{id}$ as a Möbius map tell us about the kernel?",
+          "choices": [
+            "It shows $SL_2(\\mathbb{Z})$ has order $2$",
+            "In $PSL_2(\\mathbb{Z})=SL_2(\\mathbb{Z})/\\{\\pm I\\}$ the element $S$ has order $2$, since $S^2=-I$ maps to the identity coset",
+            "The map $S$ is parabolic because $S^2=\\mathrm{id}$",
+            "$S$ generates a free group of rank $1$ inside $PSL_2(\\mathbb{Z})$"
+          ],
+          "answer": 1,
+          "explain": "$S^2=-I$ in $SL_2(\\mathbb{Z})$, and $-I$ acts trivially on $\\mathbb{H}$, so in $PSL_2(\\mathbb{Z})$ the class $[S]$ satisfies $[S]^2=[\\mathrm{id}]$: order $2$. This reflects the elliptic fixed point of $S$ at $i$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct chain of reasoning to show $\\operatorname{Im}(g\\cdot\\tau)=\\operatorname{Im}(\\tau)/|c\\tau+d|^2$ for $g=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in SL_2(\\mathbb{R})$?",
+          "choices": [
+            "Write $g\\cdot\\tau=(a\\tau+b)/(c\\tau+d)$, multiply numerator and denominator by $\\overline{c\\tau+d}$, extract imaginary part using $\\operatorname{Im}(\\tau)=(\\tau-\\bar\\tau)/(2i)$, use $ad-bc=1$",
+            "Use the Schwarz lemma to bound $\\operatorname{Im}(g\\cdot\\tau)$ above by $\\operatorname{Im}(\\tau)$",
+            "Observe that $g$ is conformal so it preserves imaginary parts",
+            "Apply Cauchy–Schwarz to $|c\\tau+d|$ and the Jacobian of $g$"
+          ],
+          "answer": 0,
+          "explain": "Direct computation: $g\\cdot\\tau=(a\\tau+b)/(c\\tau+d)$. Multiplying by $\\overline{c\\tau+d}/\\overline{c\\tau+d}$ gives $\\operatorname{Im}(g\\cdot\\tau)=(ad-bc)\\operatorname{Im}(\\tau)/|c\\tau+d|^2=\\operatorname{Im}(\\tau)/|c\\tau+d|^2$ since $\\det g=1$."
+        }
       ]
     },
     "isometry-group-psl2r": {
@@ -160,6 +292,39 @@
           "answer": 2,
           "tol": 0.001,
           "explain": "$\\operatorname{tr} g = 1+1 = 2$, so $g$ is parabolic with its unique fixed point at $\\infty$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that a hyperbolic element $g$ (with $|\\operatorname{tr} g|>2$) cannot have a fixed point inside $\\mathbb{H}$?",
+          "choices": [
+            "The fixed-point equation $(c\\tau^2+(d-a)\\tau-b)=0$ has discriminant $(d-a)^2+4bc=(\\operatorname{tr} g)^2-4$; for $|\\operatorname{tr} g|>2$ this is positive, so both roots are real and lie on $\\partial\\mathbb{H}$",
+            "Hyperbolic elements always fix the point $i$ inside $\\mathbb{H}$",
+            "A positive discriminant means complex roots, which lie inside $\\mathbb{H}$",
+            "The trace condition only applies over $\\mathbb{F}_p$, not over $\\mathbb{R}$"
+          ],
+          "answer": 0,
+          "explain": "The fixed-point equation is $c\\tau^2+(d-a)\\tau-b=0$. Its discriminant is $(d-a)^2+4bc=(a+d)^2-4(ad-bc)=(\\operatorname{tr} g)^2-4$. For $|\\operatorname{tr} g|>2$ the discriminant is positive, giving two distinct real fixed points on the real axis — none inside $\\mathbb{H}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $g=\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$, compute $|\\operatorname{tr} g|$ and classify $g$. Enter just $|\\operatorname{tr} g|$.",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "$\\operatorname{tr} g=2+1=3$, so $|\\operatorname{tr} g|=3>2$. The element is hyperbolic with two real fixed points."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the correct proof-step ordering to show every elliptic element of $PSL_2(\\mathbb{R})$ is conjugate to a rotation $\\begin{pmatrix}\\cos\\theta & -\\sin\\theta\\\\ \\sin\\theta & \\cos\\theta\\end{pmatrix}$?",
+          "choices": [
+            "Send the fixed point $p\\in\\mathbb{H}$ to $i$ via a Möbius transformation $h$; conjugate $g$ by $h$ to get $hgh^{-1}$ fixing $i$; show the stabiliser of $i$ in $PSL_2(\\mathbb{R})$ is $SO(2)/\\{\\pm I\\}\\cong S^1$",
+            "Diagonalise $g$ over $\\mathbb{R}$ directly, then read off the rotation angle",
+            "Use the Cayley–Hamilton theorem to express $g$ as a polynomial in the identity",
+            "Apply the Jordan normal form theorem over $\\mathbb{C}$ and restrict to $\\mathbb{R}$"
+          ],
+          "answer": 0,
+          "explain": "Any elliptic $g$ has a unique fixed point $p\\in\\mathbb{H}$. Choose $h\\in PSL_2(\\mathbb{R})$ with $h(p)=i$; then $hgh^{-1}$ fixes $i$. The stabiliser of $i$ consists of matrices with $a=d, b=-c, a^2+b^2=1$, i.e., rotations $SO(2)$ mod $\\pm I$."
         }
       ]
     }

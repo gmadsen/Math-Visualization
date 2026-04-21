@@ -20,5 +20,9 @@ jobs:
         run: node scripts/build-quizzes-bundle.mjs
       - name: Validate concepts
         run: node scripts/validate-concepts.mjs
+      - name: Audit callbacks
+        run: node scripts/audit-callbacks.mjs
+      - name: Audit used-in backlinks
+        run: node scripts/insert-used-in-backlinks.mjs
       - name: Smoke test pages
         run: node scripts/smoke-test.mjs

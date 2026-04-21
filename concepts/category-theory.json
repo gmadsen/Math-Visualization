@@ -26,7 +26,10 @@
       "title": "Yoneda, limits, and adjunctions",
       "anchor": "adj",
       "prereqs": [
-        "functors-natural-transformations"
+        "functors-natural-transformations",
+        "presheaf-functor",
+        "exact-sequences",
+        "quotients-homomorphisms"
       ],
       "blurb": "Yoneda and adjunctions turn universal properties into a computational language used across modern mathematics."
     },

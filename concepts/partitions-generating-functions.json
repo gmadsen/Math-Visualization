@@ -28,7 +28,7 @@
       "id": "ramanujan-congruences",
       "title": "Ramanujan congruences",
       "anchor": "ram",
-      "prereqs": ["pentagonal-number-theorem"],
+      "prereqs": ["pentagonal-number-theorem", "modular-form-definition", "dedekind-eta-modular", "jacobi-triple-product"],
       "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
     },
     {

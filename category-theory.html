@@ -104,7 +104,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -128,6 +128,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -260,6 +274,17 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./category-theory.html#nat">Category theory</a> · Functors and natural transformations</div>
+    <div><a href="./sheaves.html#presheaves">Sheaves</a> · Presheaves on Open(X)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -596,6 +621,18 @@ function drawNode(svg, x, y, label, opts={}){
   <svg id="nt-svg" viewBox="0 0 720 440" width="720" height="440"></svg>
   <div class="readout" id="nt-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./category-theory.html#mon">Category theory</a> · Monoidal categories</div>
+    <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
+    <div><a href="./sheaves.html#morphisms">Sheaves</a> · Morphisms of sheaves and stalk criteria</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -1220,6 +1257,26 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   <svg id="aj-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
   <div class="readout" id="aj-out"></div>
 </div>
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#finite">Quotients and finite fields</a></li>
+    <li><a href="./homological.html#exact">Exact sequences</a></li>
+    <li><a href="./sheaves.html#presheaves">Presheaves on Open(X)</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./category-theory.html#univ">Category theory</a> · Universal properties and representability</div>
+    <div><a href="./functor-of-points.html#reframe">Functor of points</a> · Functor-of-points viewpoint</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
 </section>
 
 <script>
@@ -1695,6 +1752,16 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 <p>Notice the shape: every line of the table reads "$X$ represents the functor $C\mapsto(\text{data on }C)$, with universal element $u$ recovering the defining map." Once you see a universal property you already know the object is unique up to unique iso, that it preserves the operations you'd expect (right adjoints preserve limits!), and how to compute with it (factor through the universal map). The discipline of category theory is to replace ad-hoc constructions with their universal properties whenever possible — then Yoneda and the adjoint functor theorem do the work.</p>
 
 <div class="quiz" data-concept="universal-properties"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functor-of-points.html#yoneda-embedding">Functor of points</a> · The Yoneda embedding for schemes</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -1865,6 +1932,7 @@ satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\al
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

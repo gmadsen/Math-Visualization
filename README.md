@@ -2,7 +2,7 @@
 
 A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets.
 
-The notebook currently includes **48 topic pages** organized into **7 sections**:
+The notebook currently includes **56 topic pages** organized into **7 sections**:
 - Foundations
 - Algebra
 - Analysis
@@ -67,9 +67,13 @@ Concept graph data lives under [`concepts/`](./concepts), with topic registratio
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
 - [Quadratic reciprocity](./quadratic-reciprocity.html) — Legendre symbols and reciprocity law
+- [Quadratic forms & genus theory](./quadratic-forms-genus-theory.html) — binary forms, genus classes, representation of primes
 - [Sums of squares](./sums-of-squares.html) — two/four-square theorems and theta previews
+- [Power sums & Bernoulli numbers](./power-sums-bernoulli.html) — Faulhaber, Bernoulli generating function, $\zeta(-n)$
+- [Waring's problem](./waring.html) — $g(k)$ and $G(k)$, Hilbert–Waring, circle-method preview
 - [Algebraic number theory](./algebraic-number-theory.html) — rings of integers, class groups, Minkowski
 - [p-adic numbers](./p-adic-numbers.html) — inverse limits, Hensel lifting, p-adic metrics
+- [Adèles & idèles](./adeles-and-ideles.html) — restricted products, strong approximation, Tate's thesis sketch
 - [Frobenius & reciprocity](./frobenius-and-reciprocity.html) — splitting types, Frobenius classes, reciprocity dictionary
 - [Class field theory](./class-field-theory.html) — Artin reciprocity, ideles, abelian extensions
 
@@ -77,10 +81,14 @@ Concept graph data lives under [`concepts/`](./concepts), with topic registratio
 - [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action
 - [Modular forms](./modular-forms.html) — $\mathrm{SL}_2(\mathbb{Z})$ action, q-expansions, Eisenstein series
 - [Theta functions](./theta-functions.html) — Jacobi theta series and modular transforms
+- [Partitions & generating functions](./partitions-generating-functions.html) — Euler's pentagonal number theorem, $p(n)$
 - [Hecke operators](./hecke-operators.html) — Hecke algebra, eigenforms, coefficient multiplicativity
 - [Dirichlet series & Euler products](./dirichlet-series-euler-products.html) — analytic continuation and Euler factorizations
+- [Analytic continuation](./analytic-continuation.html) — zeta at negative integers, reflection formula, functional-equation narrative
+- [Zeta values](./zeta-values.html) — $\zeta(2)=\pi^2/6$, Apéry's $\zeta(3)$, $\zeta(-2n)=0$ trivial zeros
 - [L-functions](./L-functions.html) — functional equations and arithmetic avatars
 - [Galois representations](./galois-representations.html) — linear actions of Galois groups, Frobenius traces, modularity
+- [Moonshine](./moonshine.html) — $j$-function coefficients and the monster, McKay–Thompson series
 - [Sato–Tate](./sato-tate.html) — Frobenius angles, the semicircular measure, symmetric-power $L$-functions
 - [Birch & Swinnerton-Dyer](./bsd.html) — Mordell–Weil, $L$-function order of vanishing, rank equality
 - [Modularity & FLT](./modularity-and-flt.html) — Frey curve, Ribet's level lowering, Taylor–Wiles

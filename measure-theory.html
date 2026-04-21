@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -384,6 +398,17 @@ This single property — that the measure of a disjoint countable union is the s
     <li><a href="./real-analysis.html#riemann-integral">Riemann integral</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#lebesgue">Measure theory</a> · Lebesgue measure</div>
+    <div><a href="./measure-theory.html#measurable">Measure theory</a> · Measurable functions</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="sigma-algebras"></div>
 
@@ -402,6 +427,16 @@ The measurable sets form a $\sigma$-algebra $\mathcal{M}$, and the restriction o
 <p>Borel sets are measurable ($\mathcal{B}(\mathbb{R})\subsetneq\mathcal{M}$, strictly), and every subset of a Lebesgue null set is Lebesgue measurable with measure zero — i.e., Lebesgue measure is <em>complete</em>.</p>
 
 <div class="quiz" data-concept="lebesgue-measure"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#integral">Measure theory</a> · Lebesgue integral</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <h3 id="measurable">Measurable functions</h3>
 
@@ -435,6 +470,16 @@ $$ 1 \le \sum_{q} m(V) \le 3,$$
 which is impossible whether $m(V)=0$ (sum = 0) or $m(V)>0$ (sum = $\infty$). Hence $V\notin\mathcal{M}$. Without some choice axiom Vitali's construction fails, and in models of ZF with Dependent Choice + "every set is measurable" (Solovay) the theory is consistent.</p>
 
 <div class="quiz" data-concept="measurable-functions"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#integral">Measure theory</a> · Lebesgue integral</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -530,6 +575,16 @@ Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int 
   </div>
   <div class="readout" id="simple-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#convergence">Measure theory</a> · Monotone and dominated convergence</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -683,6 +738,16 @@ $$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0.
   </div>
   <div class="readout" id="dct-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./measure-theory.html#lp">Measure theory</a> · Lᵖ spaces</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -833,6 +898,17 @@ The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is 
   </div>
   <div class="readout" id="lp-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#hilbert">Functional analysis</a> · Banach and Hilbert spaces</div>
+    <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -1035,6 +1111,7 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx 
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
       <tr><td>2026-04-19</td><td>Fix TOC anchor targets for measure and algebraic topology pages</td></tr>
       <tr><td>2026-04-19</td><td>Add missing quiz banks and wire quizzes for measure theory and algebraic topology</td></tr>

@@ -115,7 +115,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -139,6 +139,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -268,6 +282,20 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
     <li><a href="./real-analysis.html#inverse-function-theorem">Inverse & implicit function theorems</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-groups.html#intro">Lie groups</a> · Lie groups and matrix examples</div>
+    <div><a href="./riemann-surfaces.html#intro">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>
+    <div><a href="./riemannian-geometry.html#metric">Riemannian geometry</a> · Riemannian metrics</div>
+    <div><a href="./smooth-manifolds.html#examples">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>
+    <div><a href="./smooth-manifolds.html#maps">Smooth manifolds</a> · Smooth maps and diffeomorphisms</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="smooth-manifold-definition"></div>
 </section>
@@ -446,6 +474,17 @@ $$df_p\colon T_pM\longrightarrow T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed th
 
 <p>Rank is pointwise: it can drop on a subset where the Jacobian's determinant vanishes. Where rank is maximal (= $\min(\dim M,\dim N)$), $f$ is locally modelled by a linear surjection or injection — this is the content of the constant-rank theorem, which powers §7.</p>
 
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#pullback">Differential forms</a> · Pullback of forms</div>
+    <div><a href="./smooth-manifolds.html#tangent">Smooth manifolds</a> · Tangent spaces</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -581,6 +620,19 @@ $$\tilde X^j = \frac{\partial y^j}{\partial x^i}\,X^i.$$
 <p class="note">The three definitions trade convenience for manoeuvrability. Curves are closest to intuition and to mechanics. Coordinates are good for computation. Derivations are good for algebra and for defining things intrinsically (without choosing a chart). In proofs one switches between them freely.</p>
 
 <div class="quiz" data-concept="tangent-space-manifolds"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#wedge">Differential forms</a> · Differential forms and wedge product</div>
+    <div><a href="./lie-groups.html#algebra">Lie groups</a> · Lie algebra as tangent space at the identity</div>
+    <div><a href="./smooth-manifolds.html#sub">Smooth manifolds</a> · Immersions, submersions, and submanifolds</div>
+    <div><a href="./smooth-manifolds.html#bundle">Smooth manifolds</a> · Tangent bundle and vector fields</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -747,6 +799,16 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
 
 <p>The hairy-ball theorem is a consequence of the Poincaré–Hopf theorem: the sum of indices of zeros of a vector field equals the Euler characteristic of $M$. For $S^2$, $\chi = 2\neq 0$, so zeros must exist. For $T^2$, $\chi = 0$, and nowhere-vanishing vector fields do exist — e.g. any constant-coefficient field on $\mathbb{R}^2$ descends to the torus.</p>
 
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./smooth-manifolds.html#bracket">Smooth manifolds</a> · Lie bracket of vector fields</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -1086,6 +1148,16 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 <p>The easy version — $M\hookrightarrow \mathbb{R}^{2n+1}$ — is straightforward by partitions of unity. The sharp version needs more. The theorem says that abstract manifolds are not strictly more general than submanifolds of Euclidean space, which is comforting, though intrinsic definitions remain conceptually cleaner.</p>
 
 <div class="quiz" data-concept="submanifolds-immersions"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-geometry.html#surfaces">Differential geometry</a> · Curves and surfaces in R^3</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1217,6 +1289,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

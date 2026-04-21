@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -286,6 +300,22 @@ to $y^2 = x^3 + ax + b$ are not invertible. In those characteristics one retains
     <li><a href="./projective-plane.html#defn">Projective points and lines</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bezout.html#cayleybach">Bézout theorem</a> · Cayley–Bacharach and associativity</div>
+    <div><a href="./elliptic-curves.html#complex">Elliptic curves</a> · Complex uniformization and CM</div>
+    <div><a href="./elliptic-curves.html#group">Elliptic curves</a> · Group law on cubic curves</div>
+    <div><a href="./elliptic-curves.html#j">Elliptic curves</a> · The j-invariant and isomorphism classes</div>
+    <div><a href="./modularity-and-flt.html#frey">Modularity and FLT</a> · The Frey curve</div>
+    <div><a href="./sato-tate.html#angle">Sato–Tate</a> · Hasse bound and the Frobenius angle</div>
+    <div class="more">… and 1 more.</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -686,6 +716,19 @@ giving $P + Q = (x_3, y_3)$.</p>
 
 <p>Looking at the trajectory $P, 2P, 3P, \ldots$ on a real elliptic curve, one sees no visible pattern — the points bounce around the oval and the unbounded arm in an apparently chaotic way. This is a shadow of the deep fact that generic $P$ over $\mathbb{Q}$ has <em>infinite order</em>, and its multiples are equidistributed with respect to a natural measure related to the Néron–Tate height pairing.</p>
 
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#mordell-weil">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>
+    <div><a href="./bsd.html#sha-tate-shafarevich">Birch and Swinnerton-Dyer</a> · The Tate–Shafarevich group Ш</div>
+    <div><a href="./elliptic-curves.html#mordell">Elliptic curves</a> · Mordell–Weil and invariants</div>
+    <div><a href="./singular-cubics-reduction.html#reduction">Singular cubics and reduction</a> · Reduction modulo p</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <div class="quiz" data-concept="elliptic-group-law"></div>
@@ -1166,6 +1209,16 @@ is implemented by integration of forms along cycles; the period matrix $(\omega_
     <li><a href="./riemann-surfaces.html#intro">Riemann surfaces as 1D complex manifolds</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sato-tate.html#cm">Sato–Tate</a> · CM vs. non-CM: two equidistribution laws</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -1256,6 +1309,17 @@ The cokernel is the <em>Selmer group</em>, a subtle finite-dimensional $\mathbb{
 $$x(P) = \frac{612776083187947368101}{78841535860683900210},$$
 a number whose denominator is already $21$ digits. There is no descent-free way to predict this; the computation requires ascending through a tower of $2$-isogenies or a careful Heegner-point construction. Rank computation in general remains, in practice, an art form.</p>
 
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#mordell-weil">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>
+    <div><a href="./bsd.html#regulator">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <div class="quiz" data-concept="mordell-weil-ec"></div>
@@ -1357,6 +1421,7 @@ a number whose denominator is already $21$ digits. There is no descent-free way 
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>

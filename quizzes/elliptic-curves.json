@@ -33,6 +33,39 @@
           "answer": 0,
           "explain": "Singularity appears as node/cusp where derivatives vanish simultaneously."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The singular Weierstrass cubic $y^2=x^3$ (a cusp at the origin) has smooth locus isomorphic (as a group) to:",
+          "choices": [
+            "The multiplicative group $\\mathbb{G}_m$",
+            "The additive group $\\mathbb{G}_a$",
+            "An elliptic curve of rank $1$",
+            "The circle group $S^1$"
+          ],
+          "answer": 1,
+          "explain": "A cuspidal cubic has smooth locus $\\cong\\mathbb{G}_a$ (the additive group), parametrised by $t\\mapsto(t^2,t^3)$. A nodal cubic has smooth locus $\\cong\\mathbb{G}_m$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $E:y^2=x^3+x^2$ (a node at the origin, $a=0,b=0$ in Weierstrass form after the change $x\\mapsto x-1/3$ is NOT yet done), compute $4a^3+27b^2$ directly from $a=0,b=0$.",
+          "answer": 0,
+          "tol": 1e-9,
+          "explain": "$4(0)^3+27(0)^2=0$, confirming $\\Delta=0$ and a singular point."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to verify $y^2=x^3-3x+2$ is singular?",
+          "choices": [
+            "Check $\\Delta\\ne 0$, then find the node, then confirm genus $1$",
+            "Compute $f=x^3-3x+2$, find a double root by solving $f=f'=0$ simultaneously, then confirm $\\Delta=0$",
+            "Compute the $j$-invariant; if $j=0$ the curve is singular",
+            "Verify the point $(1,0)$ is rational; all rational points imply singularity"
+          ],
+          "answer": 1,
+          "explain": "$f(1)=1-3+2=0$ and $f'(1)=3-3=0$, so $x=1$ is a double root, giving a node at $(1,0)$. One then confirms $\\Delta=-16(4(-3)^3+27(2)^2)=-16(-108+108)=0$."
+        }
       ]
     },
     "elliptic-group-law": {
@@ -66,6 +99,39 @@
           "answer": 5,
           "tol": 1e-9,
           "explain": "That is the definition of order."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The slick proof that the chord-and-tangent group law is associative uses:",
+          "choices": [
+            "Explicit verification of all $27$ cases by coordinate computation",
+            "The Riemann–Roch isomorphism $E\\xrightarrow{\\sim}\\operatorname{Pic}^0(E)$, $P\\mapsto[P]-[O]$, transporting the group structure from $\\operatorname{Pic}^0(E)$",
+            "The fact that every cubic curve is a group scheme",
+            "Associativity of polynomial multiplication in $k[x,y]$"
+          ],
+          "answer": 1,
+          "explain": "One identifies $E$ with $\\operatorname{Pic}^0(E)$ via $P\\mapsto[P]-[O]$; since $\\operatorname{Pic}^0$ is a group by construction, associativity is automatic and one avoids all coordinate computation."
+        },
+        {
+          "type": "numeric",
+          "q": "On $E: y^2=x^3-x$ over $\\mathbb{Q}$, the $2$-torsion points satisfy $y=0$. How many affine $2$-torsion points does $E$ have?",
+          "answer": 3,
+          "tol": 1e-9,
+          "explain": "$y=0$ gives $x^3-x=x(x-1)(x+1)=0$, so $x\\in\\{0,1,-1\\}$: three affine points $(0,0),(1,0),(-1,0)$. Together with $\\mathcal O$, the full $E[2]\\cong(\\mathbb{Z}/2)^2$ has $4$ elements."
+        },
+        {
+          "type": "mcq",
+          "q": "The degree of the multiplication-by-$n$ map $[n]:E\\to E$ is:",
+          "choices": [
+            "$n$",
+            "$n^2$",
+            "$2n$",
+            "$n!$"
+          ],
+          "answer": 1,
+          "explain": "$\\deg[n]=n^2$, so the kernel $E[n]$ has $n^2$ geometric points over $\\bar k$ (when $\\operatorname{char}(k)\\nmid n$), isomorphic to $(\\mathbb{Z}/n)^2$."
         }
       ]
     },
@@ -103,6 +169,39 @@
           "answer": 0,
           "explain": "At $j=0$ the curve has an order-$6$ automorphism (via $\\omega$); at $j=1728$ it has an order-$4$ automorphism (via $i$). Generic $j$ gives $\\operatorname{Aut}(E)=\\{\\pm1\\}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Two curves $E: y^2=x^3+x$ and $E': y^2=x^3+4x$ have the same $j$-invariant $1728$. Over $\\mathbb{Q}$, they are:",
+          "choices": [
+            "Isomorphic over $\\mathbb{Q}$ since $j(E)=j(E')$",
+            "Isomorphic only over $\\bar{\\mathbb{Q}}$; over $\\mathbb{Q}$ they are quadratic twists, hence generally non-isomorphic",
+            "Not isomorphic over any field",
+            "Isomorphic iff both have the same rank"
+          ],
+          "answer": 1,
+          "explain": "Same $j$ over $\\bar k$ means isomorphic over $\\bar k$, but the twist parameter $u^4 a'=a$ requires $u^4=4$, so $u=\\sqrt{2}\\notin\\mathbb{Q}$. They are $\\mathbb{Q}(\\sqrt{2})$-twists of each other, not isomorphic over $\\mathbb{Q}$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $j(E)$ for $E: y^2=x^3+1$ (i.e. $a=0, b=1$). Recall $j=1728\\cdot 4a^3/(4a^3+27b^2)$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$4a^3=0$, so $j=1728\\cdot 0/(0+27)=0$. This is the CM-by-$\\mathbb{Z}[\\omega]$ curve."
+        },
+        {
+          "type": "mcq",
+          "q": "The isomorphism $(a,b)\\mapsto(u^4 a, u^6 b)$ for $u\\in\\bar k^\\times$ induces a $\\bar k^\\times$-action of weight $(4,6)$. The $j$-invariant $j=1728\\cdot 4a^3/(4a^3+27b^2)$ is invariant because:",
+          "choices": [
+            "Numerator and denominator both scale by $u^{12}$, so the ratio is unchanged",
+            "The discriminant $\\Delta$ scales by $u^6$, cancelling the numerator",
+            "$j$ is always an integer, hence constant under field automorphisms",
+            "The $j$-line $\\mathbb{A}^1_j$ has trivial $\\bar k^\\times$-action by definition"
+          ],
+          "answer": 0,
+          "explain": "Under $(a,b)\\mapsto(u^4 a,u^6 b)$: numerator $4a^3\\mapsto 4u^{12}a^3$ and denominator $4a^3+27b^2\\mapsto u^{12}(4a^3+27b^2)$. The $u^{12}$ cancels, leaving $j$ unchanged."
+        }
       ]
     },
     "complex-multiplication": {
@@ -139,6 +238,39 @@
           "tol": 1e-9,
           "explain": "$|i|^2=1$, so multiplication by $i$ is an automorphism (degree $1$), consistent with $j=1728$ having $\\operatorname{Aut}(E)\\supset\\{\\pm1,\\pm i\\}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Two lattices $\\Lambda$ and $\\Lambda'$ give isomorphic elliptic curves over $\\mathbb{C}$ iff:",
+          "choices": [
+            "$\\Lambda=\\Lambda'$ as subsets of $\\mathbb{C}$",
+            "$\\Lambda'=\\alpha\\Lambda$ for some $\\alpha\\in\\mathbb{C}^\\times$ (they are homothetic)",
+            "$\\Lambda$ and $\\Lambda'$ have the same covolume $\\operatorname{Area}(\\mathbb{C}/\\Lambda)$",
+            "$\\Lambda$ and $\\Lambda'$ are both square lattices"
+          ],
+          "answer": 1,
+          "explain": "An analytic isomorphism $\\mathbb{C}/\\Lambda\\to\\mathbb{C}/\\Lambda'$ must lift to a $\\mathbb{C}$-linear map $z\\mapsto\\alpha z$, which maps $\\Lambda$ onto $\\Lambda'$. So isomorphism $\\Leftrightarrow$ homothety $\\Lambda'=\\alpha\\Lambda$."
+        },
+        {
+          "type": "numeric",
+          "q": "The endomorphism 'multiplication by $1+i$' on $\\mathbb{C}/\\mathbb{Z}[i]$ is an isogeny of degree $|1+i|^2=$?",
+          "answer": 2,
+          "tol": 1e-9,
+          "explain": "$|1+i|^2=1^2+1^2=2$. The kernel is $\\frac{1}{1+i}\\mathbb{Z}[i]/\\mathbb{Z}[i]\\cong\\mathbb{Z}/2$, so the isogeny has degree $2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following correctly describes the significance of $j((1+\\sqrt{-163})/2)=-640320^3$?",
+          "choices": [
+            "It shows the $j$-function is unbounded on the upper half-plane",
+            "It is a CM $j$-value lying in $\\mathbb{Q}$ because the Hilbert class number of $\\mathbb{Q}(\\sqrt{-163})$ is $1$, making $j$ rational and explaining why $e^{\\pi\\sqrt{163}}$ is nearly an integer",
+            "It proves the Riemann hypothesis for the $L$-function of the CM curve",
+            "It gives the order of the automorphism group of the corresponding elliptic curve"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{Q}(\\sqrt{-163})$ has class number $1$, so the Hilbert class field equals $\\mathbb{Q}(\\sqrt{-163})$ and its singular modulus $j$ must lie in $\\mathbb{Q}$. Since $j=-640320^3$, we get $e^{\\pi\\sqrt{163}}=j+744+O(e^{-2\\pi\\sqrt{163}})\\approx 640320^3+744$."
+        }
       ]
     },
     "mordell-weil-ec": {
@@ -172,6 +304,44 @@
           ],
           "answer": 1,
           "explain": "Over $\\mathbb{Q}$, torsion is finite (Mazur classifies possibilities)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT on Mazur's list of possible torsion subgroups of $E(\\mathbb{Q})$?",
+          "choices": [
+            "$\\mathbb{Z}/7\\mathbb{Z}$",
+            "$\\mathbb{Z}/2\\mathbb{Z}\\oplus\\mathbb{Z}/8\\mathbb{Z}$",
+            "$\\mathbb{Z}/11\\mathbb{Z}$",
+            "$\\mathbb{Z}/2\\mathbb{Z}\\oplus\\mathbb{Z}/6\\mathbb{Z}$"
+          ],
+          "answer": 2,
+          "explain": "Mazur's theorem (1977) restricts $E(\\mathbb{Q})_{\\text{tors}}$ to $\\mathbb{Z}/n$ for $n\\le 10$ or $n=12$, or $\\mathbb{Z}/2\\oplus\\mathbb{Z}/2n$ for $n\\le 4$. $\\mathbb{Z}/11$ is not on the list; the allowed cyclic groups go up to $n=10$ and then jump to $12$."
+        },
+        {
+          "type": "mcq",
+          "q": "The BSD conjecture predicts $\\operatorname{ord}_{s=1}L(E,s)=r$. For which ranks is this unconditionally known?",
+          "choices": [
+            "All ranks, by work of Wiles",
+            "Ranks $0$ and $1$, by Kolyvagin and Gross\u2013Zagier",
+            "Only rank $0$, by Euler system methods",
+            "No ranks; BSD is entirely open"
+          ],
+          "answer": 1,
+          "explain": "Gross\u2013Zagier (1986) links the derivative $L'(E,1)$ to the height of a Heegner point, and Kolyvagin's Euler system bounds the Selmer group. Together these prove BSD for analytic rank $\\le 1$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the proof of the weak Mordell\u2013Weil theorem, which exact sequence is central?",
+          "choices": [
+            "The long exact sequence in singular homology for the pair $(E,\\mathcal O)$",
+            "The Kummer sequence $0\\to E[n]\\to E\\xrightarrow{[n]} E\\to 0$ of group schemes, giving $0\\to E(K)/nE(K)\\to H^1(G_K,E[n])\\to\\ldots$ in Galois cohomology",
+            "The short exact sequence $0\\to\\mathbb{Z}\\to\\mathbb{R}\\to S^1\\to 0$ in topology",
+            "The Mayer\u2013Vietoris sequence for $E$ decomposed into two affine patches"
+          ],
+          "answer": 1,
+          "explain": "Applying Galois cohomology to $0\\to E[n]\\to E\\xrightarrow{[n]}E\\to 0$ gives the Kummer map $E(K)/nE(K)\\hookrightarrow H^1(G_K,E[n])$. Since $E[n]$ is defined over a finite extension and the cocycles satisfy local conditions, the image (the Selmer group) is finite, proving $E(K)/nE(K)$ is finite."
         }
       ]
     }

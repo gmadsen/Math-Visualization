@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -344,6 +358,16 @@ Cartesian squares upstairs project to commuting squares downstairs — "pullback
     <li><a href="./sheaves.html#sheaves">Presheaves and sheaf condition</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stacks.html#bg">Stacks</a> · Classifying stacks BG</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="groupoids-and-descent"></div>
 </section>
@@ -511,6 +535,16 @@ $$ BG(R) \;=\; \text{groupoid of } G\text{-torsors on } \mathrm{Spec}\,R. $$
 <p>$BG$ has a universal property: maps $T\to BG$ from a scheme $T$ correspond to $G$-torsors on $T$. In particular $\mathrm{Spec}\,k\to BG$ classifies the trivial torsor and is itself a <strong>smooth surjection</strong> — this will be our model for "atlas" in a moment.</p>
 
 <div class="quiz" data-concept="classifying-stacks"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stacks.html#quotient">Stacks</a> · Quotient stack [X/G]</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="quotient">
@@ -527,6 +561,16 @@ $$ [X/G](T) \;=\; \Bigl\{ \text{pairs } (P \to T,\ P \xrightarrow{\phi} X) \;:\;
 $$ G\times X \;\rightrightarrows\; X, \qquad (g,x)\mapsto x \text{ and } (g,x)\mapsto g\cdot x. $$
 <p>Every DM (or Artin) stack is <em>locally</em> of this form: étale-locally on the atlas, a stack looks like $[U/\Gamma]$ for a finite group $\Gamma$. So quotient stacks are the building blocks — understand these and you can reason by pulling back to charts. Example: the coarse shape of $\mathcal{M}_{1,1}$ near $j=0$ is $[\mathbb{A}^1/\mu_3]$, and near $j=1728$ it is $[\mathbb{A}^1/\mu_2]$.</p>
 <div class="quiz" data-concept="quotient-stack"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stacks.html#artin">Stacks</a> · Deligne–Mumford vs. Artin stacks</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="dm">
@@ -611,6 +655,16 @@ A one-line slogan: DM ⇔ Artin with $\dim \mathrm{Aut}(x) = 0$ at every geometr
 <p>Formally, Artin stacks sit one rung above DM stacks in a tower that continues upward — $\infty$-stacks, derived stacks — each step admitting richer automorphism phenomena and more relaxed smoothness data. For this page the takeaway is operational:</p>
 <div class="ok"><strong>When to pick which.</strong> If your moduli problem has finite automorphism groups (stable curves, elliptic curves away from char $2,3$, finite group torsors), aim for DM — you inherit étale-local machinery, coarse moduli spaces, and clean intersection theory. If automorphisms are positive-dimensional (vector bundles, $G$-bundles, quotients by non-free actions of reductive groups), you must be Artin, and you must work with smooth (not étale) atlases throughout.</div>
 <div class="quiz" data-concept="deligne-mumford-vs-artin"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stacks.html#coarse">Stacks</a> · Deligne–Mumford stacks and coarse spaces</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="m11">
@@ -810,6 +864,7 @@ After quotienting by the generic $\mu_2$ you see residual $\mu_2$ at $j=1728$ an
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

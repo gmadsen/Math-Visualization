@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -236,6 +250,22 @@ As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by mult
     <li><a href="./real-analysis.html#riemann-integral">Riemann integral</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./adeles-and-ideles.html#tate">Adèles and idèles</a> · Tate's thesis sketch</div>
+    <div><a href="./dirichlet-series-euler-products.html#euler">Dirichlet series and Euler products</a> · Euler products and multiplicativity</div>
+    <div><a href="./dirichlet-series-euler-products.html#mellin">Dirichlet series and Euler products</a> · Mellin transform and the gamma integral</div>
+    <div><a href="./L-functions.html#continuation">L-functions</a> · Analytic continuation of $L$-functions</div>
+    <div><a href="./power-sums-bernoulli.html#zeta">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler's formula for $\zeta(2n)$</div>
+    <div><a href="./waring.html#circle">Waring's problem and the circle method</a> · Circle method setup</div>
+    <div class="more">… and 1 more.</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -425,6 +455,18 @@ Watch the partial sieve converge to $1$.</p>
   </div>
   <div class="readout" id="ep-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./bsd.html#bsd-rank-equality">Birch and Swinnerton-Dyer</a> · BSD rank equality</div>
+    <div><a href="./dirichlet-series-euler-products.html#dir">Dirichlet series and Euler products</a> · Dirichlet characters and L-series</div>
+    <div><a href="./sato-tate.html#symn">Sato–Tate</a> · Symmetric-power L-functions</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -879,6 +921,18 @@ A Dirichlet series has become the Mellin transform of a generating function on t
     <li><a href="./complex-analysis.html#contour">Contour integrals</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-continuation.html#zeta">Analytic continuation</a> · Riemann’s functional equation for $\zeta$</div>
+    <div><a href="./dirichlet-series-euler-products.html#perron">Dirichlet series and Euler products</a> · Perron's formula</div>
+    <div><a href="./power-sums-bernoulli.html#func-eq">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Functional equation preview via Mellin</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -1166,6 +1220,16 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
     <li><a href="./quadratic-reciprocity.html#legendre">The Legendre symbol</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./L-functions.html#unified">L-functions</a> · Prototype L-functions</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -1330,6 +1394,7 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>

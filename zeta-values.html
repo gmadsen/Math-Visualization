@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Zeta values — ζ at integers</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  table.plain td.num{font-family:ui-monospace,monospace;color:var(--cyan)}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+</style>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+</head>
+<body>
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Index</a>
+  <a href="#basel-problem">1&nbsp;Basel</a>
+  <a href="#even-integer-values">2&nbsp;Even&nbsp;values</a>
+  <a href="#odd-integer-values-apery">3&nbsp;Apéry</a>
+  <a href="#negative-integer-values">4&nbsp;Negative&nbsp;values</a>
+  <a href="#functional-equation-zeta">5&nbsp;Functional&nbsp;eq.</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Zeta values — $\zeta$ at integers</h1>
+  <p class="sub">The Riemann zeta function $\zeta(s)=\sum_{n=1}^\infty n^{-s}$ conceals one of mathematics' great treasures: at integer arguments, its values reveal $\pi$, rational numbers, and deep irrationality theorems. From Euler's 1734 proof that $\zeta(2)=\pi^2/6$ to Apéry's 1978 bombshell that $\zeta(3)$ is irrational, and from the trivial zeros at negative even integers to the functional equation connecting left and right half-planes, this page uncovers the arithmetic of $\zeta$ at integers.</p>
+</section>
+
+<!-- ================================================================== -->
+<section id="basel-problem">
+<h2>1. The Basel problem: $\zeta(2)=\pi^2/6$</h2>
+
+<p>The <em>Basel problem</em>, posed by Pietro Mengoli in 1650, asks for the exact value of the series $1 + \tfrac{1}{4} + \tfrac{1}{9} + \tfrac{1}{16} + \cdots$. Jakob Bernoulli confirmed it converges but could not find the sum. In 1734, the twenty-seven-year-old Euler stunned the mathematical world by announcing the answer: $\pi^2/6$.</p>
+
+<h3>Euler's product proof</h3>
+
+<p>Euler's key insight was to treat $\sin(\pi x)$ as an "infinite polynomial" with roots at $x=\pm 1, \pm 2, \pm 3,\ldots$ Factoring it analogously to a finite polynomial with leading term $\pi x$ (since $\sin(\pi x)/(\pi x)\to 1$ as $x\to 0$) gives the <strong>Weierstrass product</strong>:</p>
+
+$$\sin(\pi x) = \pi x \prod_{n=1}^{\infty}\!\left(1 - \frac{x^2}{n^2}\right).$$
+
+<p>Dividing both sides by $\pi x$:</p>
+
+$$\frac{\sin(\pi x)}{\pi x} = \prod_{n=1}^{\infty}\!\left(1 - \frac{x^2}{n^2}\right).$$
+
+<p>Now expand both sides in powers of $x^2$. The Taylor series gives $\sin(\pi x)/(\pi x)=1-\tfrac{(\pi x)^2}{6}+\tfrac{(\pi x)^4}{120}-\cdots$, so the coefficient of $x^2$ is $-\pi^2/6$. The product expansion gives</p>
+
+$$\prod_{n\ge 1}\!\left(1-\frac{x^2}{n^2}\right) = 1 - \left(\sum_{n=1}^\infty\frac{1}{n^2}\right)x^2 + \cdots$$
+
+<p>Matching coefficients of $x^2$:</p>
+
+$$\boxed{\zeta(2) = \sum_{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}.}$$
+
+<div class="note"><strong>Rigour note.</strong> Euler's argument assumed without proof that $\sin(\pi x)$ could be treated like a finite polynomial for coefficient-matching purposes. Rigorous justification via uniform convergence of infinite products came later. The result is nonetheless correct.</div>
+
+<div class="widget" id="w-partial">
+  <div class="hd"><div class="ttl">Basel partial sums vs $\pi^2/6$</div><div class="hint">drag slider to add more terms</div></div>
+  <div class="row">
+    <label>terms $N=$</label>
+    <input type="range" id="bp-n" min="1" max="200" step="1" value="10">
+    <span id="bp-n-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="bp-out"></div>
+  <svg id="bp-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <div class="small" style="color:var(--mute)">Cyan: partial sum $S_N=\sum_{k=1}^{N}1/k^2$. Yellow dashed: $\pi^2/6\approx 1.6449$. The series converges, but slowly — a reminder that the exact value $\pi^2/6$ is non-trivial.</div>
+</div>
+
+<script>
+(function(){
+  const PI2o6 = Math.PI*Math.PI/6;
+  const slider = $('#bp-n'), lbl = $('#bp-n-lbl'), out = $('#bp-out'), svg = $('#bp-svg');
+  function draw(){
+    const N = parseInt(slider.value,10);
+    lbl.textContent = 'N = '+N;
+    let s = 0;
+    for(let k=1;k<=N;k++) s += 1/(k*k);
+    out.textContent = `S_${N} = ${s.toFixed(10)}\nπ²/6  = ${PI2o6.toFixed(10)}\nerror = ${(PI2o6-s).toFixed(10)}`;
+    // draw convergence plot
+    svg.innerHTML='';
+    const W=620, H=200, padL=52, padR=20, padT=16, padB=30;
+    const Npts = Math.min(N,200);
+    const partial = [];
+    let acc = 0;
+    for(let k=1;k<=Npts;k++){ acc+=1/(k*k); partial.push(acc); }
+    const yMin = partial[0]*0.9, yMax = PI2o6*1.04;
+    const xP = k => padL + (k/(Npts))*(W-padL-padR);
+    const yP = v => (H-padB) - (v-yMin)/(yMax-yMin)*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));
+    // y ticks
+    [1.0,1.2,1.4,1.6].forEach(v=>{
+      const y = yP(v);
+      if(y<padT||y>H-padB) return;
+      svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t.textContent=v.toFixed(1); svg.appendChild(t);
+    });
+    // target line
+    const yTarget = yP(PI2o6);
+    const dash = SVG('line',{x1:padL,y1:yTarget,x2:W-padR,y2:yTarget,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'});
+    svg.appendChild(dash);
+    const tLbl = SVG('text',{x:W-padR-2,y:yTarget-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tLbl.textContent='π²/6'; svg.appendChild(tLbl);
+    // partial sum curve
+    const pts = partial.map((v,i)=>`${xP(i+1)} ${yP(v)}`).join(' L ');
+    svg.appendChild(SVG('polyline',{points:partial.map((v,i)=>`${xP(i+1)},${yP(v)}`).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
+  }
+  slider.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dirichlet-series-euler-products.html#series">Dirichlet series basics</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./zeta-values.html#even-integer-values">Zeta values — ζ at integers</a> · Even values ζ(2n) via Bernoulli numbers</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+<div class="quiz" data-concept="basel-problem"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="even-integer-values">
+<h2>2. Even values: $\zeta(2n)$ via Bernoulli numbers</h2>
+
+<p>Euler did not stop at $\zeta(2)$. By extending his product argument — or equivalently, by using the Bernoulli generating function — he derived a complete formula for all even positive-integer values. The statement requires the <em>Bernoulli numbers</em> $B_{2n}$:</p>
+
+$$\boxed{\zeta(2n) = (-1)^{n+1}\frac{B_{2n}\,(2\pi)^{2n}}{2\,(2n)!}, \qquad n=1,2,3,\ldots}$$
+
+<p>The Bernoulli numbers $B_{2n}$ are the rational coefficients in the generating function $\tfrac{t}{e^t-1}=\sum_{k\ge 0}B_k \tfrac{t^k}{k!}$, with $B_0=1$, $B_2=\tfrac{1}{6}$, $B_4=-\tfrac{1}{30}$, $B_6=\tfrac{1}{42}$, $\ldots$ The formula confirms that every $\zeta(2n)$ is a <em>rational multiple of $\pi^{2n}$</em>.</p>
+
+<table class="plain">
+  <thead><tr><th>$n$</th><th>$\zeta(2n)$</th><th>Closed form</th><th>$B_{2n}$</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="num">1.6449…</td><td>$\pi^2/6$</td><td>$1/6$</td></tr>
+    <tr><td>2</td><td class="num">1.0823…</td><td>$\pi^4/90$</td><td>$-1/30$</td></tr>
+    <tr><td>3</td><td class="num">1.0173…</td><td>$\pi^6/945$</td><td>$1/42$</td></tr>
+    <tr><td>4</td><td class="num">1.0041…</td><td>$\pi^8/9450$</td><td>$-1/30$</td></tr>
+    <tr><td>5</td><td class="num">1.0009…</td><td>$\pi^{10}/93555$</td><td>$5/66$</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>Why rational times $\pi^{2n}$?</strong> The functional equation (§5) relates $\zeta(1-2n)$ to $\zeta(2n)$, and the left side is rational (a Bernoulli number). Each transcendental factor of $\pi$ on the right must be balanced by the power of $2\pi$ in the formula — the Bernoulli numbers supply the precise rational correction.</div>
+
+<div class="widget" id="w-even">
+  <div class="hd"><div class="ttl">Even zeta values: formula vs numerical sum</div><div class="hint">pick $n$, compare closed form to partial sum</div></div>
+  <div class="row">
+    <label>$n=$</label>
+    <input type="range" id="ev-n" min="1" max="8" step="1" value="2">
+    <span id="ev-n-lbl" class="small"></span>
+    <label style="margin-left:1rem">terms $N=$</label>
+    <input type="range" id="ev-N" min="10" max="2000" step="10" value="200">
+    <span id="ev-N-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="ev-out"></div>
+  <svg id="ev-svg" viewBox="0 0 620 180" width="620" height="180"></svg>
+  <div class="small" style="color:var(--mute)">Bar chart: $k^{-2n}$ for $k=1\ldots 30$. Notice how terms decay faster for larger $n$ — the series converges much faster than $\zeta(2)$.</div>
+</div>
+
+<script>
+(function(){
+  // Bernoulli numbers (even indices) — precomputed rationals as [num,den] BigInt pairs
+  const BERN = {
+    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n],
+    10:[5n,66n], 12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n]
+  };
+  function bernoulli(k){ const b = BERN[k]; return b ? Number(b[0])/Number(b[1]) : 0; }
+  function zetaFormula(n){
+    // (-1)^{n+1} B_{2n} (2pi)^{2n} / (2 (2n)!)
+    const B = bernoulli(2*n);
+    const sign = ((n+1)%2===0) ? -1 : 1;
+    let fact = 1;
+    for(let i=1;i<=2*n;i++) fact*=i;
+    return sign * B * Math.pow(2*Math.PI, 2*n) / (2 * fact);
+  }
+  function zetaPartial(n, N){
+    let s = 0;
+    for(let k=1;k<=N;k++) s += Math.pow(k, -2*n);
+    return s;
+  }
+
+  const nEl=$('#ev-n'), NEl=$('#ev-N'), nLbl=$('#ev-n-lbl'), NLbl=$('#ev-N-lbl');
+  const out=$('#ev-out'), svg=$('#ev-svg');
+
+  function draw(){
+    const n=parseInt(nEl.value,10), N=parseInt(NEl.value,10);
+    nLbl.textContent='n = '+n;
+    NLbl.textContent='N = '+N;
+    const exact=zetaFormula(n), partial=zetaPartial(n,N);
+    const fmtMap={1:'π²/6',2:'π⁴/90',3:'π⁶/945',4:'π⁸/9450',5:'π¹⁰/93555'};
+    out.textContent =
+      `ζ(${2*n}) formula  = ${exact.toFixed(10)}  [= ${fmtMap[n]||'…'}]\n`+
+      `ζ(${2*n}) partial (${N} terms) = ${partial.toFixed(10)}\n`+
+      `error = ${(exact-partial).toExponential(4)}`;
+    // bar chart of first 30 terms
+    svg.innerHTML='';
+    const W=620,H=180,padL=50,padR=20,padT=14,padB=30;
+    const M=30;
+    const vals = Array.from({length:M},(_, i)=>Math.pow(i+1,-2*n));
+    const yMax = vals[0]*1.08;
+    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;
+    const yP=v=>(H-padB)-(v/yMax)*(H-padT-padB);
+    const bw=(W-padL-padR)/M*0.6;
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    // y axis label
+    const ylbl=SVG('text',{x:padL-6,y:padT+5,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+    ylbl.textContent='k⁻²ⁿ'; svg.appendChild(ylbl);
+    vals.forEach((v,i)=>{
+      const x=xP(i), y=yP(v);
+      const bar=SVG('rect',{x:x-bw/2,y,width:bw,height:(H-padB)-y,
+        fill:`rgba(125,224,214,0.6)`,stroke:'var(--cyan)','stroke-width':0.7});
+      svg.appendChild(bar);
+      if(i%5===0){
+        const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+        t.textContent=i+1; svg.appendChild(t);
+      }
+    });
+  }
+  nEl.addEventListener('input',draw);
+  NEl.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="power-sums-bernoulli.html#bernoulli">Bernoulli numbers and their generating function</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./zeta-values.html#odd-integer-values-apery">Zeta values — ζ at integers</a> · Odd values and Apéry's constant ζ(3)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+<div class="quiz" data-concept="even-integer-values"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="odd-integer-values-apery">
+<h2>3. Odd values and Apéry's constant $\zeta(3)$</h2>
+
+<p>While every even positive-integer value of $\zeta$ admits the elegant formula above, odd values are a mystery. We know $\zeta(3)\approx 1.20206$ from numerical computation, but no closed form involving $\pi$ is known — and there are strong heuristic reasons to believe none exists.</p>
+
+<h3>Apéry's theorem (1978)</h3>
+
+<p>In 1978, Roger Apéry announced at a conference that $\zeta(3)$ is irrational. The audience was initially skeptical — the proof came with no prior publications and used an obscure sequence. Within months, mathematicians including Alfred van der Poorten verified the proof. It rests on the <em>Apéry numbers</em> $a_n = \sum_{k=0}^{n}\binom{n}{k}^2\binom{n+k}{k}^2$ and a rapid rational approximation to $\zeta(3)$:</p>
+
+$$\zeta(3) = \frac{5}{2}\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n^3\binom{2n}{n}}.$$
+
+<p>The denominators of the partial sums grow slower than the denominators of any rational approximation to $\zeta(3)$ — a contradiction if $\zeta(3)$ were rational. The proof establishes irrationality but says nothing about transcendence.</p>
+
+<div class="note"><strong>What about $\zeta(5), \zeta(7), \ldots$?</strong> In 2001, Tanguy Rivoal proved that infinitely many odd zeta values are irrational, and in 2022 Wadim Zudilin showed at least one of $\zeta(5),\zeta(7),\zeta(9),\zeta(11)$ is irrational. Whether each individual odd value is irrational — let alone whether any has a $\pi^{2k+1}$-type closed form — remains completely open.</div>
+
+<div class="widget" id="w-apery">
+  <div class="hd"><div class="ttl">Apéry series convergence</div><div class="hint">watch rational approximants approach ζ(3)</div></div>
+  <div class="row">
+    <label>terms $N=$</label>
+    <input type="range" id="ap-n" min="1" max="40" step="1" value="8">
+    <span id="ap-n-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="ap-out"></div>
+  <svg id="ap-svg" viewBox="0 0 620 220" width="620" height="220"></svg>
+  <div class="small" style="color:var(--mute)">Pink dots: partial sums of the Apéry series $\tfrac{5}{2}\sum_{k=1}^{N}\tfrac{(-1)^{k+1}}{k^3\binom{2k}{k}}$. Yellow dashed: $\zeta(3)\approx 1.20206$. The series converges much faster than $\sum k^{-3}$.</div>
+</div>
+
+<script>
+(function(){
+  const ZETA3 = 1.2020569031595943;
+  // central binomial C(2k,k)
+  function cbinom(k){ let r=1; for(let i=1;i<=k;i++) r = r*(k+i)/i; return r; }
+  // partial sums of Apery series S_N = 5/2 * sum_{k=1}^N (-1)^{k+1} / (k^3 * C(2k,k))
+  function aperyPartial(N){
+    let s=0;
+    for(let k=1;k<=N;k++){
+      s += (k%2===1?1:-1) / (k*k*k * cbinom(k));
+    }
+    return 2.5*s;
+  }
+
+  const sliderEl=$('#ap-n'), lblEl=$('#ap-n-lbl'), outEl=$('#ap-out'), svgEl=$('#ap-svg');
+  function draw(){
+    const N = parseInt(sliderEl.value,10);
+    lblEl.textContent = 'N = '+N;
+    const Npts = Math.max(N, 1);
+    const pts = [];
+    for(let k=1;k<=Npts;k++) pts.push(aperyPartial(k));
+    const pN = pts[Npts-1];
+    outEl.textContent =
+      `Apery partial sum (${N} terms) = ${pN.toFixed(12)}\n`+
+      `ζ(3)                           = ${ZETA3.toFixed(12)}\n`+
+      `error                          = ${Math.abs(ZETA3-pN).toExponential(4)}`;
+    // draw
+    const W=620,H=220,padL=52,padR=20,padT=16,padB=30;
+    svgEl.innerHTML='';
+    const allY = pts.concat([ZETA3]);
+    const yMin=Math.min(...allY)*0.985, yMax=Math.max(...allY)*1.01;
+    const xP=i=>padL+(i/Npts)*(W-padL-padR);
+    const yP=v=>(H-padB)-(v-yMin)/(yMax-yMin)*(H-padT-padB);
+    // axes
+    svgEl.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));
+    svgEl.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));
+    // target
+    const yt=yP(ZETA3);
+    svgEl.appendChild(SVG('line',{x1:padL,y1:yt,x2:W-padR,y2:yt,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'}));
+    const tl=SVG('text',{x:W-padR-2,y:yt-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tl.textContent='ζ(3)'; svgEl.appendChild(tl);
+    // plot curve
+    if(pts.length>1){
+      const d=pts.map((v,i)=>(i===0?'M':'L')+xP(i+1)+' '+yP(v)).join(' ');
+      svgEl.appendChild(SVG('path',{d,fill:'none',stroke:'rgba(224,122,95,0.55)','stroke-width':1.5}));
+    }
+    // dots
+    pts.forEach((v,i)=>{
+      svgEl.appendChild(SVG('circle',{cx:xP(i+1),cy:yP(v),r:4,fill:'var(--pink)',stroke:'none'}));
+    });
+    // x ticks
+    for(let i=1;i<=Npts;i+=Math.max(1,Math.floor(Npts/8))){
+      const x=xP(i);
+      svgEl.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent=i; svgEl.appendChild(t);
+    }
+  }
+  sliderEl.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="odd-integer-values-apery"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="negative-integer-values">
+<h2>4. Negative-integer values and trivial zeros</h2>
+
+<p>The Dirichlet series $\sum n^{-s}$ converges only for $\operatorname{Re}(s)>1$. But Riemann proved in 1859 that $\zeta(s)$ extends to a meromorphic function on all of $\mathbb{C}$, with a single simple pole at $s=1$ with residue $1$. This <em>analytic continuation</em> assigns finite values to all non-pole points, including the negative integers.</p>
+
+<p>The values at negative integers are determined by the Bernoulli numbers:</p>
+
+$$\zeta(-n) = -\frac{B_{n+1}}{n+1}, \qquad n=0,1,2,3,\ldots$$
+
+<p>For instance:</p>
+
+<p style="text-align:center">$\zeta(0)=-\tfrac{1}{2},\quad \zeta(-1)=-\tfrac{1}{12},\quad \zeta(-2)=0,\quad \zeta(-3)=\tfrac{1}{120},\quad \zeta(-4)=0,\ldots$</p>
+
+<p>The zeros $\zeta(-2)=\zeta(-4)=\zeta(-6)=\cdots=0$ are the <strong>trivial zeros</strong> of $\zeta$. They arise because $B_3=B_5=B_7=\cdots=0$ (odd Bernoulli numbers past $B_1$ vanish), so $\zeta(-2k)=-B_{2k+1}/(2k+1)=0$ for $k\ge 1$.</p>
+
+<div class="bad"><strong>Not actual sums.</strong> Writing $1+2+3+\cdots=-\tfrac{1}{12}$ is a shorthand for $\zeta(-1)=-\tfrac{1}{12}$, where $\zeta$ is the <em>analytically continued</em> function. The ordinary divergent series has no value; the Riemann zeta provides a consistent extension of the summation concept to regions where the series diverges.</div>
+
+<div class="widget" id="w-neg">
+  <div class="hd"><div class="ttl">$\zeta(-n)$ table viewer</div><div class="hint">select $n$ to see formula and value</div></div>
+  <div class="row">
+    <label>$n=$</label>
+    <input type="range" id="neg-n" min="0" max="12" step="1" value="1">
+    <span id="neg-n-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="neg-out"></div>
+  <svg id="neg-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
+  <div class="small" style="color:var(--mute)">Bars show $\zeta(-n)$ for $n=0,1,\ldots,12$. Values at even $n\ge 2$ are exactly zero (trivial zeros). Note the rapid growth of $|\zeta(-n)|$ for odd $n$.</div>
+</div>
+
+<script>
+(function(){
+  // B_n for n=0..13
+  const BRAT = [
+    [1n,1n],[-1n,2n],[1n,6n],[0n,1n],[-1n,30n],[0n,1n],[1n,42n],[0n,1n],
+    [-1n,30n],[0n,1n],[5n,66n],[0n,1n],[-691n,2730n],[0n,1n]
+  ];
+  // zeta(-n) = -B_{n+1}/(n+1)
+  function zetaNeg(n){
+    const [num,den] = BRAT[n+1] || [0n,1n];
+    // -num/(den*(n+1))
+    return -Number(num)/(Number(den)*(n+1));
+  }
+  function bernStr(k){
+    const [num,den]=BRAT[k]||[0n,1n];
+    if(num===0n) return '0';
+    return (den===1n) ? num.toString() : `${num}/${den}`;
+  }
+
+  const slider=$('#neg-n'), lbl=$('#neg-n-lbl'), out=$('#neg-out'), svg=$('#neg-svg');
+  function draw(){
+    const n=parseInt(slider.value,10);
+    lbl.textContent='n = '+n;
+    const val=zetaNeg(n);
+    const Bn1=bernStr(n+1);
+    out.textContent =
+      `ζ(−${n}) = −B_{${n+1}}/(${n+1}) = −(${Bn1})/${n+1} = ${val===0?'0':val.toFixed(8)}\n`+
+      (n%2===0 && n>=2 ? `[trivial zero: B_{${n+1}} = 0 since ${n+1} is odd and ≥3]` :
+       n===0 ? `[ζ(0) = −1/2]` : '');
+    // bar chart n=0..12
+    const vals=[];
+    for(let k=0;k<=12;k++) vals.push(zetaNeg(k));
+    svg.innerHTML='';
+    const W=620,H=240,padL=60,padR=20,padT=16,padB=30;
+    const M=13;
+    const yAbsMax=Math.max(...vals.map(Math.abs))*1.15 || 0.1;
+    const yMid=H/2;
+    const yScale=(H/2-padT-8)/yAbsMax;
+    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;
+    const bw=(W-padL-padR)/M*0.5;
+    // zero axis
+    svg.appendChild(SVG('line',{x1:padL,y1:yMid,x2:W-padR,y2:yMid,stroke:'var(--line)'}));
+    // y labels
+    [-0.1,-0.05,0,0.05,0.1].forEach(v=>{
+      const y=yMid-v*yScale;
+      if(y<padT||y>H-padB) return;
+      const t=SVG('text',{x:padL-5,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent=v.toFixed(2); svg.appendChild(t);
+    });
+    vals.forEach((v,i)=>{
+      const x=xP(i);
+      const isSel=(i===n);
+      const isZero=(v===0);
+      const y0=yMid, y1=yMid-v*yScale;
+      const color=isZero?'rgba(180,180,180,0.3)': isSel?'var(--yellow)':'rgba(179,157,219,0.65)';
+      if(!isZero){
+        svg.appendChild(SVG('rect',{
+          x:x-bw/2,y:Math.min(y0,y1),width:bw,height:Math.abs(y1-y0),
+          fill:color,stroke:isSel?'var(--yellow)':'var(--violet)','stroke-width':isSel?2:0.7
+        }));
+      } else {
+        svg.appendChild(SVG('circle',{cx:x,cy:yMid,r:5,fill:'none',stroke:'var(--mute)','stroke-width':1.5}));
+      }
+      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:isSel?'var(--yellow)':'var(--mute)'});
+      t.textContent='-'+i; svg.appendChild(t);
+    });
+  }
+  slider.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="power-sums-bernoulli.html#bernoulli">Bernoulli numbers — generating function and values</a></li>
+    <li><a href="power-sums-bernoulli.html#zeta">Euler's formula $\zeta(2n)$ from the Bernoulli perspective</a></li>
+  </ul>
+</aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./zeta-values.html#functional-equation-zeta">Zeta values — ζ at integers</a> · The functional equation ξ(s) = ξ(1−s)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
+
+<div class="quiz" data-concept="negative-integer-values"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="functional-equation-zeta">
+<h2>5. The functional equation $\xi(s)=\xi(1-s)$</h2>
+
+<p>Riemann's 1859 memoir introduced a <em>completed</em> zeta function that absorbs the gamma factor encoding the Archimedean place:</p>
+
+$$\xi(s) = \pi^{-s/2}\,\Gamma\!\left(\tfrac{s}{2}\right)\zeta(s).$$
+
+<p>The profound symmetry is the <strong>functional equation</strong>:</p>
+
+$$\xi(s) = \xi(1-s).$$
+
+<p>This reflects the critical strip $0\le\operatorname{Re}(s)\le 1$ about the line $\operatorname{Re}(s)=\tfrac{1}{2}$. Written out as a relation between $\zeta(s)$ and $\zeta(1-s)$:</p>
+
+$$\zeta(1-s) = 2\,(2\pi)^{-s}\cos\!\left(\tfrac{\pi s}{2}\right)\Gamma(s)\,\zeta(s).$$
+
+<p>This is the bridge between the two worlds: values for $\operatorname{Re}(s)>1$ (where the Dirichlet series converges) and values for $\operatorname{Re}(s)<0$ (where Bernoulli numbers live).</p>
+
+<h3>Recovering the Bernoulli formulas</h3>
+
+<p>At $s=2n$ (positive even integer), $\cos(\pi n)=(-1)^n$, $\Gamma(2n)=(2n-1)!$, and $\zeta(2n)=(-1)^{n+1}B_{2n}(2\pi)^{2n}/(2(2n)!)$. Substituting into the right side and collecting powers of $2\pi$ gives $\zeta(1-2n)=-B_{2n}/(2n)$, the Bernoulli-number formula for the negative values.</p>
+
+<div class="note"><strong>Non-trivial zeros.</strong> A zero of $\zeta$ in $0&lt;\operatorname{Re}(s)&lt;1$ is a <em>non-trivial zero</em>. The functional equation forces zeros to come in pairs $\{\rho, 1-\rho\}$. The <em>Riemann Hypothesis</em> asserts all such $\rho$ satisfy $\operatorname{Re}(\rho)=\tfrac{1}{2}$; it remains unproven.</div>
+
+<div class="widget" id="w-feq">
+  <div class="hd"><div class="ttl">Functional equation: value pairing $\zeta(s)\leftrightarrow\zeta(1-s)$</div><div class="hint">move slider to see how $s$ maps to $1-s$</div></div>
+  <div class="row">
+    <label>$\operatorname{Re}(s)=$</label>
+    <input type="range" id="fe-s" min="-3" max="4" step="0.05" value="2">
+    <span id="fe-s-lbl" class="small"></span>
+  </div>
+  <div class="readout" id="fe-out"></div>
+  <svg id="fe-svg" viewBox="0 0 620 200" width="620" height="200"></svg>
+  <div class="small" style="color:var(--mute)">Number line showing the real axis. Yellow dot: $s$. Pink dot: $1-s$. The midpoint $s=1/2$ (the critical line) is always at the center of the reflection.</div>
+</div>
+
+<script>
+(function(){
+  // Gamma function (real, positive argument only needed here for display)
+  function gammaReal(x){
+    if(x<0.5) return Math.PI/(Math.sin(Math.PI*x)*gammaReal(1-x));
+    x -= 1;
+    const g=7;
+    const p=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
+      771.32342877765313,-176.61502916214059,12.507343278686905,
+      -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+    let t=x+g+0.5;
+    let s=p[0];
+    for(let i=1;i<=g+1;i++) s+=p[i]/(x+i);
+    return Math.sqrt(2*Math.PI)*Math.pow(t,x+0.5)*Math.exp(-t)*s;
+  }
+  // zeta(s) for real s > 1 via Euler-Maclaurin style partial sum + tail correction
+  function zetaReal(s){
+    if(s<=1) return null;
+    let acc=0;
+    const N=200;
+    for(let k=1;k<=N;k++) acc+=Math.pow(k,-s);
+    // tail integral correction: sum_{k>N} k^{-s} ≈ integral_N^inf x^{-s} dx = N^{1-s}/(s-1)
+    acc += Math.pow(N,1-s)/(s-1);
+    return acc;
+  }
+
+  const slider=$('#fe-s'), lbl=$('#fe-s-lbl'), out=$('#fe-out'), svg=$('#fe-svg');
+  function draw(){
+    const s=parseFloat(slider.value);
+    const s1=1-s;
+    lbl.textContent=`s = ${s.toFixed(2)}, 1−s = ${s1.toFixed(2)}`;
+    let line1='', line2='';
+    if(s>1){
+      const zs=zetaReal(s);
+      line1 = `ζ(${s.toFixed(2)}) ≈ ${zs.toFixed(6)}  [converges by Dirichlet series]`;
+    } else if(Number.isInteger(s) && s<=0){
+      const n=-s;
+      // ζ(-n) = -B_{n+1}/(n+1)
+      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];
+      if(n>=0 && n<BRAT.length-1){
+        const [num,den]=BRAT[n+1];
+        const v=-num/(den*(n+1));
+        line1=`ζ(${s.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;
+      } else {
+        line1=`ζ(${s.toFixed(2)})  [analytic continuation]`;
+      }
+    } else {
+      line1=`ζ(${s.toFixed(2)})  [analytic continuation region]`;
+    }
+    if(s1>1){
+      const zs1=zetaReal(s1);
+      line2=`ζ(${s1.toFixed(2)}) ≈ ${zs1.toFixed(6)}  [converges by Dirichlet series]`;
+    } else if(Number.isInteger(s1) && s1<=0){
+      const n=-s1;
+      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];
+      if(n>=0 && n<BRAT.length-1){
+        const [num,den]=BRAT[n+1];
+        const v=-num/(den*(n+1));
+        line2=`ζ(${s1.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;
+      } else {
+        line2=`ζ(${s1.toFixed(2)})  [analytic continuation]`;
+      }
+    } else {
+      line2=`ζ(${s1.toFixed(2)})  [analytic continuation region]`;
+    }
+    out.textContent=line1+'\n'+line2+'\n\nFunctional equation relates these via:\nζ(1−s) = 2(2π)^{−s} cos(πs/2) Γ(s) ζ(s)';
+    // draw number line
+    svg.innerHTML='';
+    const W=620,H=200,cy=100;
+    const xMin=-4, xMax=5;
+    const xP=v=>40+(v-xMin)/(xMax-xMin)*(W-80);
+    // line
+    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1.5}));
+    // ticks
+    for(let v=xMin;v<=xMax;v++){
+      const x=xP(v);
+      svg.appendChild(SVG('line',{x1:x,y1:cy-5,x2:x,y2:cy+5,stroke:'var(--line)'}));
+      const t=SVG('text',{x,y:cy+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=v; svg.appendChild(t);
+    }
+    // critical line at s=1/2
+    const xHalf=xP(0.5);
+    svg.appendChild(SVG('line',{x1:xHalf,y1:cy-30,x2:xHalf,y2:cy+30,stroke:'var(--cyan)','stroke-width':1.5,'stroke-dasharray':'4 3'}));
+    const clbl=SVG('text',{x:xHalf,y:cy-34,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); clbl.textContent='Re(s)=½'; svg.appendChild(clbl);
+    // s dot (yellow)
+    const xs=xP(s);
+    svg.appendChild(SVG('circle',{cx:xs,cy:cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));
+    const sl=SVG('text',{x:xs,y:cy-16,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); sl.textContent='s'; svg.appendChild(sl);
+    // 1-s dot (pink)
+    const xs1=xP(s1);
+    svg.appendChild(SVG('circle',{cx:xs1,cy:cy,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));
+    const s1l=SVG('text',{x:xs1,y:cy+26,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); s1l.textContent='1−s'; svg.appendChild(s1l);
+    // dashed bridge between them
+    if(Math.abs(xs-xs1)>2){
+      svg.appendChild(SVG('line',{x1:xs,y1:cy,x2:xs1,y2:cy,stroke:'rgba(255,255,255,0.18)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+    }
+    // region labels
+    const convLabel=SVG('text',{x:xP(2.5),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--green)'});
+    convLabel.textContent='Dirichlet series converges'; svg.appendChild(convLabel);
+    const contLabel=SVG('text',{x:xP(-2),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});
+    contLabel.textContent='analytic continuation'; svg.appendChild(contLabel);
+    // shade Re(s)>1 region
+    const xOne=xP(1);
+    const shade=SVG('rect',{x:xOne,y:cy-28,width:xP(xMax)-xOne,height:56,
+      fill:'rgba(131,193,103,0.07)',stroke:'none'});
+    svg.insertBefore(shade, svg.firstChild);
+    // shade Re(s)<0 region
+    const shade2=SVG('rect',{x:40,y:cy-28,width:xP(0)-40,height:56,
+      fill:'rgba(179,157,219,0.07)',stroke:'none'});
+    svg.insertBefore(shade2, svg.firstChild);
+  }
+  slider.addEventListener('input',draw);
+  draw();
+})();
+</script>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="power-sums-bernoulli.html#func-eq">Functional equation preview via Mellin transform</a></li>
+    <li><a href="dirichlet-series-euler-products.html">Dirichlet series and the Euler product</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="functional-equation-zeta"></div>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('zeta-values'); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-20</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

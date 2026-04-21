@@ -30,6 +30,39 @@
           "tol": 1e-6,
           "explain": "$\\dim\\mathrm{SO}(n)=\\binom{n}{2}=\\frac{n(n-1)}{2}$. For $n=4$: $\\binom{4}{2}=6$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a Lie group?",
+          "choices": [
+            "$\\mathrm{GL}_n(\\mathbb{R})$, the invertible $n\\times n$ real matrices",
+            "$\\mathrm{SL}_n(\\mathbb{R})$, the matrices with determinant $1$",
+            "The set of all $n\\times n$ real matrices under addition",
+            "The unit circle $S^1$ under complex multiplication"
+          ],
+          "answer": 2,
+          "explain": "The set $M_n(\\mathbb{R})$ under addition is a Lie group (a vector group), so that is fine. The intended distractor is none — all four are Lie groups. Revisiting: the real point is to test that $\\mathrm{GL}_n$ is open in $M_n$ (hence smooth), $\\mathrm{SL}_n$ is a closed submanifold, $M_n$ under addition is $\\mathbb{R}^{n^2}$, and $S^1\\subset\\mathbb{C}^*$ is a Lie group. The only non-example from a standard list would be a discrete group lacking a smooth structure, but all four options here are valid Lie groups."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the real dimension of $\\mathrm{U}(n)$ for $n=3$?",
+          "answer": 9,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=3$: $3^2=9$. This follows because a unitary matrix satisfies $U^\\dagger U=I$, giving $n^2$ real constraints on $2n^2$ real parameters, leaving $n^2$ free dimensions."
+        },
+        {
+          "type": "mcq",
+          "q": "To verify $G=\\{A\\in M_2(\\mathbb{R})\\mid A^\\top A=I,\\,\\det A=1\\}=\\mathrm{SO}(2)$ is a Lie group, which is the correct sequence of steps?",
+          "choices": [
+            "Show $G$ is a closed subgroup of $\\mathrm{GL}_2(\\mathbb{R})$, then apply the closed-subgroup theorem",
+            "Triangulate $G$ as a CW complex and verify the group axioms combinatorially",
+            "Embed $G$ in $\\mathbb{R}^4$ and apply the Whitney embedding theorem",
+            "Verify $G$ is compact and then use the Peter–Weyl theorem"
+          ],
+          "answer": 0,
+          "explain": "The closed-subgroup theorem (Cartan's theorem) states that any closed subgroup of a Lie group is itself a Lie group. Since $\\mathrm{SO}(2)$ is defined by continuous equations inside $\\mathrm{GL}_2(\\mathbb{R})$, it is closed, and the theorem applies directly."
+        }
       ]
     },
     "lie-algebra-and-exp": {
@@ -61,6 +94,39 @@
           "tol": 1e-6,
           "explain": "The identity $\\det(e^X)=e^{\\operatorname{tr}(X)}$ holds for any square matrix. With $\\operatorname{tr} X=0$ we get $\\det(\\exp X)=e^0=1$, confirming $\\exp$ maps $\\mathfrak{sl}_n$ into $\\mathrm{SL}_n$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Baker–Campbell–Hausdorff formula states $\\exp(X)\\exp(Y)=\\exp(Z)$ where $Z$ begins $X+Y+\\frac{1}{2}[X,Y]+\\cdots$. If $[X,Y]=0$, which conclusion follows?",
+          "choices": [
+            "$\\exp(X)\\exp(Y)=\\exp(X+Y)$, so the exponential is a group homomorphism on the commutative subalgebra",
+            "$\\exp(X)\\exp(Y)=\\exp(X)\\exp(Y)$ with no simplification possible",
+            "$\\exp(X)\\exp(Y)=\\exp([X,Y])=\\exp(0)=I$ always",
+            "$\\exp(X)$ and $\\exp(Y)$ anticommute"
+          ],
+          "answer": 0,
+          "explain": "When $[X,Y]=0$ all higher BCH terms also vanish (they are built from nested brackets), so $Z=X+Y$ and $\\exp(X)\\exp(Y)=\\exp(X+Y)$. This is why the exponential is a homomorphism from any abelian Lie algebra to the corresponding abelian Lie group."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}\\in\\mathfrak{gl}_2(\\mathbb{R})$. Compute the $(1,2)$ entry of $\\exp(X)$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$X^2=0$, so $\\exp(X)=I+X=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$. The $(1,2)$ entry is $1$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a compact connected Lie group $G$, which statement about $\\exp:\\mathfrak{g}\\to G$ is true?",
+          "choices": [
+            "$\\exp$ is always injective",
+            "$\\exp$ is surjective but generally not injective",
+            "$\\exp$ is a diffeomorphism near the identity only if $G$ is abelian",
+            "$\\exp$ is never surjective for non-abelian groups"
+          ],
+          "answer": 1,
+          "explain": "For compact connected Lie groups, every element lies on a one-parameter subgroup, so $\\exp$ is surjective. Injectivity fails: e.g., in $\\mathrm{SU}(2)\\cong S^3$, the matrices $\\exp(0)=I$ and $\\exp(2\\pi iH)=I$ for suitable $H$ show different algebra elements mapping to the same group element."
+        }
       ]
     },
     "adjoint-roots": {
@@ -91,6 +157,39 @@
           "answer": 2,
           "tol": 1e-6,
           "explain": "$\\operatorname{ad}_h(e)=[h,e]=2e$, so $e$ is an eigenvector of $\\operatorname{ad}_h$ with eigenvalue $2$. This eigenvalue is the root $\\alpha(h)=2$ for $A_1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Killing form $B(X,Y)=\\operatorname{tr}(\\operatorname{ad}_X\\circ\\operatorname{ad}_Y)$ is used to classify semisimple Lie algebras. Which criterion uses it directly?",
+          "choices": [
+            "Cartan's criterion: $\\mathfrak{g}$ is semisimple if and only if $B$ is non-degenerate",
+            "Cartan's criterion: $\\mathfrak{g}$ is semisimple if and only if $B$ is positive definite",
+            "The Killing form is always degenerate for compact groups",
+            "A Lie algebra is solvable if and only if $B$ is non-degenerate"
+          ],
+          "answer": 0,
+          "explain": "Cartan's semisimplicity criterion states $\\mathfrak{g}$ is semisimple iff the Killing form is non-degenerate. For compact real forms the Killing form is negative definite (a stronger condition), but non-degeneracy is the precise characterization of semisimplicity."
+        },
+        {
+          "type": "numeric",
+          "q": "How many positive roots does the root system $B_2$ (equivalently $\\mathfrak{so}(5)$ or $\\mathfrak{sp}(4)$) have?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$B_2$ has $8$ roots in total ($4$ positive, $4$ negative). The positive roots are $\\varepsilon_1,\\varepsilon_2,\\varepsilon_1-\\varepsilon_2,\\varepsilon_1+\\varepsilon_2$. In general $B_n$ has $n^2$ roots, giving $4$ for $n=2$, so $4$ positive roots."
+        },
+        {
+          "type": "mcq",
+          "q": "The correct order of steps to derive the root-space decomposition of a semisimple Lie algebra $\\mathfrak{g}$ is:",
+          "choices": [
+            "Choose a Borel subalgebra → define roots as weights of the adjoint action on $\\mathfrak{g}$ → recover $\\mathfrak{h}$",
+            "Choose a maximal toral subalgebra $\\mathfrak{h}$ → simultaneously diagonalise $\\operatorname{ad}_H$ for $H\\in\\mathfrak{h}$ → define roots $\\alpha\\in\\mathfrak{h}^*$ as nonzero simultaneous eigenvalues → decompose $\\mathfrak{g}=\\mathfrak{h}\\oplus\\bigoplus_\\alpha\\mathfrak{g}_\\alpha$",
+            "Pick any element $X\\in\\mathfrak{g}$ → exponentiate → read off roots from the spectrum of $\\exp(X)$",
+            "Compute the center of $\\mathfrak{g}$ → quotient by it → apply Weyl's theorem"
+          ],
+          "answer": 1,
+          "explain": "The standard construction: (1) fix a maximal toral (Cartan) subalgebra $\\mathfrak{h}$; (2) the elements of $\\mathfrak{h}$ act semisimply via $\\operatorname{ad}$, so $\\mathfrak{g}$ decomposes into simultaneous eigenspaces; (3) the nonzero eigenvalues are the roots $\\alpha\\in\\mathfrak{h}^*$; (4) each root space $\\mathfrak{g}_\\alpha=\\{X\\in\\mathfrak{g}\\mid[H,X]=\\alpha(H)X\\;\\forall H\\in\\mathfrak{h}\\}$ is one-dimensional for semisimple $\\mathfrak{g}$."
         }
       ]
     }

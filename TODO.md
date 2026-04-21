@@ -2,88 +2,43 @@
 
 Self-contained tasks derived from `ROADMAP.md` § Outstanding and § Proposed improvements. Each task can be picked up by a fresh agent in parallel — no cross-task dependencies unless explicitly noted. When a task is checked off, the **Roadmap update** line tells you exactly what to change in `ROADMAP.md`.
 
-## Status (2026-04-20 — after parallel fan-out #3, Round 2)
+## Status (2026-04-20 — after parallel fan-out #4)
 
-Round 1 (Sections A0, B1–B5, D1–D4) and Round 2 (Sections C1–C3, E1–E3) are ✅ closed.
+Fan-out #4 closed Section A (hard-tier authoring, all 56 topics), Section G (capstone prereq-threading, G1–G4), Section F2–F4 hygiene, plus the two top Proposed improvements ("More narrative side quests" and "Deeper cross-referencing"). ROADMAP § Outstanding is now empty — the notebook has no tracked must-do work.
 
 Current baseline:
 
 ```text
-53 topic pages · 303 concepts · 798 quiz questions · 8 capstones
-two-tier quiz schema live (v1 + hard)
-149 cross-topic prereq edges, all surfaced via <aside class="callback">
+56 topic pages · 318 concepts · 843 v1 + 829 hard questions · 22 capstones
+two-tier quiz schema with full hard-tier coverage (281/281 concepts-with-quizzes)
+171 forward callback edges · 227 reverse backlink asides
 per-page <details class="changelog"> footers on every topic page
-validate-concepts.mjs → 0 errors, 0 warnings
-audit-callbacks.mjs   → OK (all cross-topic prereqs covered)
-smoke-test.mjs        → 53/53 OK
-CI (GitHub Actions)   → green
+validate-concepts.mjs          → 0 errors, 0 warnings
+audit-callbacks.mjs            → OK (all cross-topic prereqs covered)
+insert-used-in-backlinks.mjs   → OK (all downstream consumers surfaced)
+smoke-test.mjs                 → 56/56 OK
+CI (GitHub Actions)            → green
 ```
 
-Before starting any task, read [`AGENTS.md`](./AGENTS.md) for house style + quiz wiring conventions. After finishing, always run:
+Before starting any task, read [`AGENTS.md`](./AGENTS.md) (especially the new § "Common pitfalls"). After finishing, always run:
 
 ```bash
 node scripts/validate-concepts.mjs
 node scripts/audit-callbacks.mjs
+node scripts/insert-used-in-backlinks.mjs
 node scripts/smoke-test.mjs
 node scripts/build-concepts-bundle.mjs   # if concepts/*.json changed
 node scripts/build-quizzes-bundle.mjs    # if quizzes/*.json changed
 ```
 
-**Priority ordering** (pick tasks top-down unless you have a reason):
+## Next wave — Proposed improvements pulled forward from ROADMAP
 
-1. **Section A** — hard-tier quiz authoring. A0 is done; A1–A53 is the biggest remaining surface area and the last Roadmap Outstanding item.
-2. **Section F** — ongoing hygiene (stale blurbs, color tokens, AGENTS.md pitfalls). Grab when touching adjacent files.
+These are the handful of follow-ups that accumulated during fan-out #4. All are low-urgency; pick them up as the mood strikes.
 
----
-
-## Section A — Hard-tier quiz questions (Outstanding #1 + Proposed: Difficulty scaling)
-
-A0 shipped the schema; the runtime now reads a sibling `"hard": [ ... ]` array on each concept entry. Extend mastery beyond v1 by filling in hard-tier banks, one topic at a time.
-
-**Schema reminder (already live):**
-
-```json
-"gelfand-duality-oa": {
-  "title": "Commutative duality and spectra",
-  "questions": [ /* v1 tier */ ],
-  "hard":      [ /* v2 tier — proof-flavor, counterexamples, chained reasoning */ ]
-}
-```
-
-`js/quiz.js` already renders a "Harder tier" gate after v1 mastery; `js/progress.js` tracks `v1` vs `hard` separately; `pathway.html` shows dual mastery rings (inner green v1, outer violet hard).
-
-One hard-tier fixture exists in `quizzes/algebraic-topology.json` under `singular-homology` — use it as the reference shape.
-
-**Per-task recipe (one task per topic):**
-
-1. Open `quizzes/<topic>.json`.
-2. For each concept entry, author 2–3 hard-tier questions. Hard-tier criteria:
-   - Requires chaining two concepts on the page, not just recall.
-   - Counterexample selection (MCQ where every choice looks plausible).
-   - Numeric with non-trivial algebra (no direct plug-and-chug).
-   - Proof-step ordering (shuffled bullet list → correct order).
-3. Add under `"hard": [...]` per concept. Same shape as v1 questions.
-4. `node scripts/build-quizzes-bundle.mjs` → regenerate bundle.
-5. `node scripts/smoke-test.mjs` — no new errors.
-
-**Roadmap update (per task):** bump the `798 quiz questions total` number in Current state. When all 53 topics are done, reword Outstanding #1 from "quiz depth" to closed, and remove "Difficulty scaling on quizzes" from Proposed improvements.
-
-All 53 topics:
-
-- [ ] **A1. `algebra`** · **A2. `algebraic-number-theory`** · **A3. `algebraic-topology`** (partial — 1 concept already has hard fixture) · **A4. `analytic-continuation`** · **A5. `bezout`** · **A6. `bsd`** · **A7. `category-theory`** · **A8. `class-field-theory`** · **A9. `commutative-algebra`** · **A10. `complex-analysis`** · **A11. `differential-forms`** · **A12. `differential-geometry`** · **A13. `dirichlet-series-euler-products`** · **A14. `elliptic-curves`** · **A15. `etale-cohomology`** · **A16. `frobenius-and-reciprocity`** · **A17. `functional-analysis`** · **A18. `functor-of-points`** · **A19. `galois`** · **A20. `galois-representations`** · **A21. `hecke-operators`** · **A22. `homological`** · **A23. `L-functions`** · **A24. `lie-groups`** · **A25. `measure-theory`** · **A26. `modular-forms`** · **A27. `modularity-and-flt`** · **A28. `moduli-spaces`** · **A29. `moonshine`** · **A30. `morphisms-fiber-products`** · **A31. `naive-set-theory`** · **A32. `operator-algebras`** · **A33. `p-adic-numbers`** · **A34. `partitions-generating-functions`** · **A35. `point-set-topology`** · **A36. `power-sums-bernoulli`** · **A37. `projective-plane`** · **A38. `quadratic-reciprocity`** · **A39. `real-analysis`** · **A40. `representation-theory`** · **A41. `riemann-surfaces`** · **A42. `riemannian-geometry`** · **A43. `sato-tate`** · **A44. `schemes`** · **A45. `sheaf-cohomology`** · **A46. `sheaves`** · **A47. `singular-cubics-reduction`** · **A48. `smooth-manifolds`** · **A49. `stacks`** · **A50. `sums-of-squares`** · **A51. `theta-functions`** · **A52. `upper-half-plane-hyperbolic`** · **A53. `waring`**
-
-> Parallelization note: A1–A53 are all independent. Fan out freely. Typical time per topic: 20–40 min depending on concept count (5–26 concepts per topic, median 5).
-
----
-
-## Section F — Ongoing hygiene (pick-up-as-you-go)
-
-Not formal outstanding work, but easy wins to grab when touching adjacent files:
-
-- [ ] **F1. Audit stale concept blurbs.** Some blurbs date to before the anchor contract was enforced; a pass to ensure blurbs match the section content would improve `pathway.html` preview text.
-- [ ] **F2. Color-token cleanup.** A few older pages still inline hex colors in SVG widgets; replace with CSS-variable references. Also: the `.callback` and `.changelog` rules injected in Round 2 use a hardcoded cyan border (`rgba(88,196,221,…)`) — good candidate to unify with each page's section accent color.
-- [ ] **F3. AGENTS.md "common pitfalls" section.** Consolidate recurring gotchas (3D drag decimation, legend coords, quiz bundle ordering, anchor contract, two-tier quiz schema, callback idempotency, changelog re-seed) into a single top-of-file checklist for new contributors.
-- [ ] **F4. Reconcile changelog placeholders.** Five pages carry a `2026-04-20 · initial version` placeholder row (`power-sums-bernoulli`, `waring`, `partitions-generating-functions`, `moonshine`, `analytic-continuation`). After the next few commits touch those files, re-run `scripts/insert-changelog-footer.mjs` and verify real git rows replace the placeholder.
+- [ ] **P1. Third-tier "expert" quiz schema.** Sibling `"expert": [ ... ]` array per concept, unlocked after hard mastery; extend `MVProgress` to a 3-tier model and `pathway.html` to a 3-ring node rendering. Authoring is out-of-scope here — just wire the schema + UI.
+- [ ] **P2. Pathway study-plan export.** On `pathway.html`, add a "Copy as study plan" button that, given a capstone, writes a linear topo-sorted list of ancestors as Markdown to the clipboard.
+- [ ] **P3. Widen the color-var substitution table.** `scripts/` has no color-audit script yet. Writing one would let us flip legacy `#58c4dd` → `var(--blue)` etc. safely (the color-token sweep in fan-out #4 skipped this because the palette hex and widget hex currently coincide).
+- [ ] **P4. Stale-blurb audit.** Walk every concept in `concepts/*.json`, compare the blurb against the owning `<section>` content on its topic page, flag or rewrite any that drift. Small surface-area pass that meaningfully improves pathway preview text.
 
 ---
 
@@ -93,12 +48,24 @@ When a task is checked off here, the corresponding ROADMAP.md update is:
 
 | Task range | ROADMAP.md section(s) to touch |
 |------------|--------------------------------|
-| A1–A53     | Current state (question-count bump); when all done, close Outstanding #1 + remove "Difficulty scaling" from Proposed improvements |
-| F1–F4      | No roadmap change required (internal hygiene) |
+| P1         | Add a bullet to Current state describing the 3-tier schema; drop P1 from Proposed improvements |
+| P2         | Add a bullet to Current state describing the export button; drop P2 from Proposed improvements |
+| P3         | Internal hygiene — mention in the "Recently shipped" block if you want, no structural change needed |
+| P4         | Internal hygiene — same |
 
 ---
 
 ## Archive — completed sections (for reference)
+
+**Fan-out #4 (2026-04-20):**
+
+- **Section A (hard-tier quiz authoring).** A1–A53 shipped, plus hard-tier banks for the three new side-quest pages. 281 of 281 concept entries with quizzes now carry a `"hard"` sibling array. 829 hard-tier questions total.
+- **Section B (new narrative side quests).** Three new pages: `zeta-values.html`, `adeles-and-ideles.html`, `quadratic-forms-genus-theory.html`. Each registered in `concepts/index.json`, `index.html`, `concepts/bundle.js`, `quizzes/bundle.js`; each ships a 5-concept graph, 5 quiz entries with hard tier, full page scaffolding, changelog footer.
+- **Section G (capstone prereq-threading).** G1–G4 all shipped. Cross-topic prereq edges added to `solvability-by-radicals`, `yoneda-limits-adjunctions`, `ramanujan-congruences`, `quadratic-reciprocity-law`. Ancestry breadth now well above the old 4-node floor.
+- **Section F2 (color-token cleanup).** ~95 hex literals across 58 files replaced with `var(--*)`. `.callback` borders switched from hardcoded `rgba(88,196,221,…)` to `color-mix(in srgb, var(--cyan) 45%, transparent)`. `.related` borders follow the same pattern on `var(--mute)`.
+- **Section F3 (AGENTS.md pitfalls checklist).** New § "Common pitfalls" near the top of `AGENTS.md` consolidating the recurring gotchas from two-tier schema, anchor contract, quiz bundle regeneration, callback idempotency, 3D decimation, legend placement, changelog re-seed, etc.
+- **Section F4 (changelog placeholder reconciliation).** `scripts/insert-changelog-footer.mjs` re-run; real git rows replaced the 5 older side-quest placeholders. Three placeholders remain on the brand-new fan-out #4 side-quests — they'll flip after the first commit that touches those files.
+- **Bidirectional backlinks (ROADMAP Proposed "Deeper cross-referencing").** New `scripts/insert-used-in-backlinks.mjs` generates and maintains `<aside class="related">` reverse-direction blocks on 227 concept sections, 457 downstream edges, capped at 6 items + overflow. Idempotent via `<!-- backlinks-auto-begin -->` fences. Wired into CI.
 
 **Fan-out #3 (2026-04-20):**
 

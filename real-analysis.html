@@ -117,6 +117,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -291,6 +305,16 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="note"><strong>Archimedean property.</strong> For every real $x$ there is a natural number $n$ with $n>x$. This sounds obvious and follows from completeness: if $\mathbb{N}$ were bounded above, it would have a supremum $s$, but $s-1$ would also be an upper bound. The Archimedean property excludes infinitesimals and is what lets $\varepsilon$–$\delta$ arguments grind forward.</div>
 
 <div class="quiz" data-concept="real-numbers"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#real-continuity">Real analysis</a> · Continuity on R</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §2 CONTINUITY =============================== -->
@@ -382,6 +406,18 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
 <div class="note"><strong>Uniform continuity.</strong> On a <em>compact</em> set $K$, a continuous function is automatically <strong>uniformly continuous</strong>: the same $\delta$ works everywhere in $K$, given $\varepsilon$. On non-compact domains this fails — $f(x)=x^2$ is continuous on $\mathbb{R}$ but not uniformly continuous; $f(x)=1/x$ is continuous on $(0,1]$ but not uniformly continuous either.</div>
 
 <div class="quiz" data-concept="real-continuity"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#real-differentiation">Real analysis</a> · Differentiation</div>
+    <div><a href="./real-analysis.html#riemann-integral">Real analysis</a> · Riemann integral</div>
+    <div><a href="./real-analysis.html#uniform-convergence">Real analysis</a> · Uniform convergence</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §3 DIFFERENTIATION =============================== -->
@@ -503,6 +539,17 @@ $$ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \;+\; \frac{f^{(n+1)}(\xi)}{(
 <p>The first sum is the degree-$n$ Taylor polynomial; the last term is <em>Lagrange's form</em> of the remainder (integral and Cauchy forms also exist). The remainder quantifies how well polynomials approximate smooth functions — tightly, if $f^{(n+1)}$ is bounded — and underlies every error estimate in numerical analysis.</p>
 
 <div class="quiz" data-concept="real-differentiation"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#holo">Complex Analysis</a> · Amplitwist</div>
+    <div><a href="./real-analysis.html#multivariable-differentiation">Real analysis</a> · Multivariable differentiation</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §4 UNIFORM CONVERGENCE =============================== -->
@@ -612,6 +659,16 @@ $$ |f(x)-f(y)| \le |f(x)-f_N(x)| + |f_N(x)-f_N(y)| + |f_N(y)-f(y)|, $$
 <div class="note"><strong>Weierstrass M-test.</strong> If $\sum M_n<\infty$ and $|f_n(x)|\le M_n$ for all $x\in D$, then $\sum f_n$ converges absolutely and uniformly on $D$. This is the standard tool for producing uniform convergence of power series on compact subsets of their disk of convergence, and Fourier series of sufficiently smooth functions.</div>
 
 <div class="quiz" data-concept="uniform-convergence"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#conf">Complex Analysis</a> · Normal families (Montel)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §5 RIEMANN INTEGRAL =============================== -->
@@ -740,6 +797,19 @@ $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,
 <div class="note"><strong>Bridge to measure theory.</strong> Pointwise limits break Riemann integrability (Dirichlet); unbounded domains produce only conditional convergence (Fourier's integrals); the class of integrable functions is not a Banach space. These pathologies motivate Lebesgue's slice-the-range construction in <a href="./measure-theory.html">measure theory</a>, whose dominated convergence theorem licenses the swap $\int\lim = \lim\int$ under a single integrable dominator.</div>
 
 <div class="quiz" data-concept="riemann-integral"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./dirichlet-series-euler-products.html#series">Dirichlet series and Euler products</a> · Dirichlet series basics</div>
+    <div><a href="./measure-theory.html#sigma">Measure theory</a> · σ-algebras and measures</div>
+    <div><a href="./power-sums-bernoulli.html#em">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler-Maclaurin summation</div>
+    <div><a href="./real-analysis.html#multivariable-integration">Real analysis</a> · Multivariable integration</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §6 MULTIVARIABLE DIFFERENTIATION =============================== -->
@@ -864,6 +934,17 @@ $$ D(F\circ G)(a) = DF(G(a))\circ DG(a),\qquad J_{F\circ G}(a) = J_F(G(a))\cdot 
 <p>The derivative of a composition is the <em>matrix product</em> of Jacobians. In single-variable language this collapses to $(f\circ g)'(a)=f'(g(a))g'(a)$.</p>
 
 <div class="quiz" data-concept="multivariable-differentiation"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#inverse-function-theorem">Real analysis</a> · Inverse &amp; implicit function theorems</div>
+    <div><a href="./real-analysis.html#multivariable-integration">Real analysis</a> · Multivariable integration</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <!-- =============================== §7 MULTIVARIABLE INTEGRATION =============================== -->
@@ -1112,6 +1193,16 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
 <div class="note"><strong>Where IFT fails.</strong> On the folium $x^3+y^3-3xy=0$, both partials vanish at the origin — so near $(0,0)$ the curve is <em>not</em> the graph of $y=g(x)$ or of $x=h(y)$. Geometrically, it self-intersects. IFT guarantees nothing when the relevant Jacobian block is singular; the failure modes are where interesting singularity theory starts.</div>
 
 <div class="quiz" data-concept="inverse-function-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./smooth-manifolds.html#intro">Smooth manifolds</a> · Smooth manifolds and atlases</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
@@ -1176,6 +1267,7 @@ $$ F(x, g(x)) = 0, \qquad g(a)=b. $$
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-19</td><td>main topics added</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

@@ -30,6 +30,39 @@
           "answer": 0,
           "explain": "$V(I)=\\{\\mathfrak{p}:I\\subseteq\\mathfrak{p}\\}$. In $\\mathbb{Z}$, $(30)\\subseteq (p)$ iff $p\\in\\{2,3,5\\}$, so $V((30))=\\{(2),(3),(5)\\}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $A=k[x,y]$ and $I=(x^2,xy,y^2)$. Which is the correct chain of inclusions relating $I$, $\\sqrt{I}$, and the maximal ideal $\\mathfrak{m}=(x,y)$?",
+          "choices": [
+            "$I=\\sqrt{I}=\\mathfrak{m}$",
+            "$I\\subsetneq\\sqrt{I}=\\mathfrak{m}$",
+            "$I=\\sqrt{I}\\subsetneq\\mathfrak{m}$",
+            "$I\\subsetneq\\sqrt{I}\\subsetneq\\mathfrak{m}$"
+          ],
+          "answer": 1,
+          "explain": "$I=(x^2,xy,y^2)\\subsetneq\\mathfrak{m}=(x,y)$ since $x\\notin I$. But $x^2,y^2\\in I$ means $x,y\\in\\sqrt{I}$, so $\\sqrt{I}=\\mathfrak{m}$. Thus $I\\subsetneq\\sqrt{I}=\\mathfrak{m}$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathbb{Z}[x]$, the ideal $(2, x)$ is maximal with residue field $\\mathbb{F}_2$. How many elements does $\\mathbb{Z}[x]/(2,x^2+x+1)$ have?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\mathbb{Z}[x]/(2,x^2+x+1)\\cong\\mathbb{F}_2[x]/(x^2+x+1)$. Since $x^2+x+1$ is irreducible over $\\mathbb{F}_2$ (it has no roots in $\\mathbb{F}_2$), this is the field $\\mathbb{F}_4$, which has $2^2=4$ elements."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about nilradical and Jacobson radical of a commutative ring $A$ is always true?",
+          "choices": [
+            "$\\mathrm{Jac}(A)\\subseteq\\mathrm{nil}(A)$",
+            "$\\mathrm{nil}(A)\\subseteq\\mathrm{Jac}(A)$",
+            "$\\mathrm{nil}(A)=\\mathrm{Jac}(A)$ always",
+            "They are always coprime ideals"
+          ],
+          "answer": 1,
+          "explain": "The nilradical $\\mathrm{nil}(A)=\\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ and Jacobson radical $\\mathrm{Jac}(A)=\\bigcap_{\\mathfrak{m}\\text{ maximal}}\\mathfrak{m}$. Every maximal ideal is prime, so $\\mathrm{nil}(A)\\subseteq\\mathrm{Jac}(A)$. Equality fails e.g. for $\\mathbb{Z}$: $\\mathrm{nil}(\\mathbb{Z})=0$ but $\\mathrm{Jac}(\\mathbb{Z})=0$ happens to agree, whereas for $A=\\mathbb{Z}/(p^2)$, $\\mathrm{nil}=(p)=\\mathrm{Jac}$; a separating example is $A=k[x]$."
+        }
       ]
     },
     "localization-ca": {
@@ -65,6 +98,39 @@
           ],
           "answer": 1,
           "explain": "Modding $A_{\\mathfrak{p}}$ by its maximal ideal yields the fraction field of the integral domain $A/\\mathfrak{p}$. For $A=\\mathbb{Z}$, $\\mathfrak{p}=(p)$: residue field $\\mathbb{F}_p=\\mathrm{Frac}(\\mathbb{Z}/p)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $A=k[x,y]_{(x,y)}$ (local ring at the origin) and $S=A\\setminus(x,y)$. Arranging the localization maps, which ring is $S^{-1}(A/(xy))$?",
+          "choices": [
+            "$k[x,y]/(xy)$ localized at $(x,y)$, a non-domain local ring",
+            "$k(x)\\times k(y)$, a product of fields",
+            "$k[[x,y]]/(xy)$, a power-series ring",
+            "$k[x,x^{-1}]$, a Laurent polynomial ring"
+          ],
+          "answer": 0,
+          "explain": "Localization and quotient commute: $S^{-1}(A/(xy))\\cong (S^{-1}A)/(xy)=A/(xy)$ where $A$ is already local. This is the local ring of the node $xy=0$ at the origin — a non-domain local ring with two minimal primes $(x)$ and $(y)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A=\\mathbb{Z}_{(5)}$ (integers localized at $(5)$). How many ideals does $A/(125)$ have?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$A/(125)\\cong\\mathbb{Z}_{(5)}/(5^3)\\cong\\mathbb{Z}/125\\mathbb{Z}$ as rings. Since $\\mathbb{Z}/125$ is a local ring with maximal ideal $(5)$, its ideals are $(0),(5),(25),(125)=(0)$ in the quotient — equivalently $(0),(\\bar 5),(\\bar{25})$ and the whole ring. There are $4$ ideals (including $(0)$ and the ring itself): $(0)\\subsetneq(\\bar{25})\\subsetneq(\\bar 5)\\subsetneq A/(125)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Arrange the steps to prove that localization is exact (i.e., $S^{-1}$ preserves short exact sequences). Which order is correct?",
+          "choices": [
+            "Tensor with $S^{-1}A$; use flatness of $S^{-1}A$; conclude exactness",
+            "Use Nakayama's lemma; localize; conclude exactness",
+            "Check surjectivity first; then injectivity; use the snake lemma",
+            "Localize; form the long exact Tor sequence; read off $\\mathrm{Tor}_0$"
+          ],
+          "answer": 0,
+          "explain": "$S^{-1}M\\cong M\\otimes_A S^{-1}A$. Since $S^{-1}A$ is flat over $A$ (localizations are always flat), tensoring with it preserves exactness. This is the cleanest proof: identify $S^{-1}$ with $-\\otimes_A S^{-1}A$, invoke flatness."
         }
       ]
     },
@@ -102,6 +168,39 @@
           "answer": 1,
           "explain": "Over a Noetherian local ring, a finitely generated flat module is free (this is the local criterion for flatness combined with Nakayama)."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $0\\to M'\\to M\\to M''\\to 0$ be exact with $M''$ flat. Which is true?",
+          "choices": [
+            "$M$ is flat iff $M'$ is flat",
+            "$M'$ is always flat",
+            "$M$ is always flat",
+            "$M''$ being flat forces $M=M'\\oplus M''$"
+          ],
+          "answer": 0,
+          "explain": "When $M''$ is flat the sequence $0\\to M'\\otimes N\\to M\\otimes N\\to M''\\otimes N\\to 0$ remains exact for all $N$ by the long exact Tor sequence ($\\mathrm{Tor}_1(-,N)$ vanishes on $M''$). So $M$ is flat iff $M'$ is flat. This is the \"flat extension\" lemma."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/m,\\mathbb{Z}/n)$ as an abelian group. What is the order of $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Over $\\mathbb{Z}$ (a PID of global dimension $1$), $\\mathrm{Tor}_i^{\\mathbb{Z}}=0$ for all $i\\ge 2$. So $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)=0$, which has order $1$ (the trivial group)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which example shows that torsion-free does NOT imply flat over a non-PID?",
+          "choices": [
+            "$\\mathbb{Q}$ over $\\mathbb{Z}$",
+            "The ideal $(x,y)$ in $k[x,y]$ as a $k[x,y]$-module",
+            "$k[x]$ over itself",
+            "$\\mathbb{Z}/p$ over $\\mathbb{F}_p$"
+          ],
+          "answer": 1,
+          "explain": "$(x,y)\\subset k[x,y]$ is torsion-free (it injects into the fraction field), but it is not flat: tensoring the injection $0\\to(x,y)\\to k[x,y]$ with $k[x,y]/(x,y)=k$ is not injective since $(x,y)\\otimes k\\cong k^2$ but the map to $k$ has a kernel. This uses $\\mathrm{Tor}_1^{k[x,y]}(k[x,y]/(x,y),(x,y))\\neq 0$."
+        }
       ]
     },
     "nakayama-lemma-ca": {
@@ -137,6 +236,39 @@
           ],
           "answer": 1,
           "explain": "Regularity says the Zariski tangent-space dimension (embedding dimension) equals the Krull dimension. In general $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, with equality iff $A$ is regular — the algebraic analogue of smoothness."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $(A,\\mathfrak{m})$ be a Noetherian local ring with $M$ a f.g. $A$-module and $N\\subseteq M$ a submodule. Arrange the steps in the proof that $\\mathfrak{m}N=N\\Rightarrow N=0$.",
+          "choices": [
+            "Apply Cayley–Hamilton to get a relation $f(1)\\cdot n=0$ for all $n\\in N$; show $f(1)$ is a unit",
+            "Use that $\\mathfrak{m}$ is nilpotent; descend along $\\mathfrak{m}^k N$",
+            "Tensor with $A/\\mathfrak{m}$ first; conclude $N/\\mathfrak{m}N=0$; apply Nakayama",
+            "Use Zorn's lemma on the set of submodules of $N$ not equal to $N$"
+          ],
+          "answer": 0,
+          "explain": "The standard proof: $\\mathfrak{m}N=N$ gives a matrix equation $Mn=n$ (Cayley–Hamilton trick), yielding $p(1)=0$ for a monic $p\\in 1+\\mathfrak{m}[t]$. Since $p(1)\\equiv 1\\pmod{\\mathfrak{m}}$, it is a unit in $A$, so $N=0$. Option C describes a corollary, not the root argument."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A=k[[t]]$ (formal power series), $\\mathfrak{m}=(t)$. What is $\\dim_k \\mathfrak{m}^3/\\mathfrak{m}^4$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\mathfrak{m}^n=(t^n)$ in $k[[t]]$, so $\\mathfrak{m}^3/\\mathfrak{m}^4\\cong (t^3)/(t^4)\\cong k$ as a $k$-vector space, spanned by the image of $t^3$. Dimension is $1$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a regular local ring $(A,\\mathfrak{m},k)$ of dimension $d$, which statement about the associated graded ring $\\mathrm{gr}_\\mathfrak{m}A=\\bigoplus_{n\\ge 0}\\mathfrak{m}^n/\\mathfrak{m}^{n+1}$ is true?",
+          "choices": [
+            "$\\mathrm{gr}_\\mathfrak{m}A\\cong k[[x_1,\\dots,x_d]]$",
+            "$\\mathrm{gr}_\\mathfrak{m}A\\cong k[x_1,\\dots,x_d]$ as graded rings",
+            "$\\mathrm{gr}_\\mathfrak{m}A$ is always a local ring",
+            "$\\mathrm{gr}_\\mathfrak{m}A\\cong A$ as ungraded rings"
+          ],
+          "answer": 1,
+          "explain": "Regularity implies $\\mathrm{gr}_\\mathfrak{m}A$ is a polynomial ring: choosing a regular system of parameters $x_1,\\dots,x_d$ (a $k$-basis of $\\mathfrak{m}/\\mathfrak{m}^2$) gives $\\mathrm{gr}_\\mathfrak{m}A\\cong k[x_1,\\dots,x_d]$. The formal completion $\\hat A\\cong k[[x_1,\\dots,x_d]]$ (not the associated graded)."
         }
       ]
     },
@@ -174,6 +306,39 @@
           "answer": 3,
           "explain": "Integral does not imply finitely generated: $\\overline{\\mathbb{Q}}$ is integral over $\\mathbb{Z}$ (every algebraic integer) but not f.g. The other statements are standard consequences of lying-over, going-up, and incomparability."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $A\\subseteq B$ be an integral extension of Noetherian domains with $A$ integrally closed. If $\\mathfrak{q}_1,\\mathfrak{q}_2\\subset B$ both lie over the same prime $\\mathfrak{p}=\\mathfrak{q}_i\\cap A$, which must hold?",
+          "choices": [
+            "$\\mathfrak{q}_1=\\mathfrak{q}_2$ always",
+            "$\\mathfrak{q}_1$ and $\\mathfrak{q}_2$ are conjugate under $\\mathrm{Aut}(B/A)$ when $B/A$ is Galois",
+            "$\\mathfrak{q}_1\\subsetneq\\mathfrak{q}_2$ or $\\mathfrak{q}_2\\subsetneq\\mathfrak{q}_1$",
+            "$\\mathfrak{q}_1\\cap\\mathfrak{q}_2=\\mathfrak{p}B$"
+          ],
+          "answer": 1,
+          "explain": "By the theorem of going-up and incomparability, primes lying over $\\mathfrak{p}$ are incomparable. When $B/A$ arises from a Galois extension of fraction fields, the Galois group acts transitively on the fiber $\\{\\mathfrak{q}:A\\cap\\mathfrak{q}=\\mathfrak{p}\\}$, so any two are conjugate. In general they need not be equal (e.g. $\\mathbb{Z}[\\sqrt{-5}]$ over $\\mathbb{Z}$ at $p=2$)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $B=\\mathbb{Z}[i]$ (Gaussian integers) and $A=\\mathbb{Z}$. How many prime ideals of $B$ lie over the prime $(5)\\subset\\mathbb{Z}$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$5=(2+i)(2-i)$ splits in $\\mathbb{Z}[i]$ since $5\\equiv 1\\pmod 4$. The two factors generate distinct prime ideals $(2+i)$ and $(2-i)$ in $\\mathbb{Z}[i]$, both lying over $(5)$. So there are $2$ primes above $(5)$."
+        },
+        {
+          "type": "mcq",
+          "q": "In the proof of Noether normalization for $k[x_1,\\dots,x_n]/I$ over $k$ (infinite field), what is the role of the linear change of variables $x_i\\mapsto x_i-\\lambda_i x_n$?",
+          "choices": [
+            "It makes $x_n$ integral over $k[x_1,\\dots,x_{n-1}]$ by producing a monic polynomial",
+            "It inverts $x_n$ to pass to the fraction field",
+            "It eliminates $x_n$ entirely from $I$",
+            "It makes the extension separable by clearing denominators"
+          ],
+          "answer": 0,
+          "explain": "Given a nonzero $f\\in I$, the substitution $x_i\\mapsto x_i+\\lambda_i x_n$ (generic $\\lambda_i\\in k$) makes the leading monomial in $x_n$ have a nonzero coefficient, so $f$ becomes monic (after scaling) in $x_n$. This exhibits $x_n$ as integral over $k[x_1,\\dots,x_{n-1}]$, allowing induction on $n$."
+        }
       ]
     },
     "krull-dimension-ca": {
@@ -199,6 +364,34 @@
           "answer": 2,
           "tol": 1e-6,
           "explain": "For Noetherian $A$, $\\dim A[x]=\\dim A+1$. Since $\\dim \\mathbb{Z}=1$, we get $\\dim \\mathbb{Z}[x]=2$. A chain: $(0)\\subsetneq (p)\\subsetneq (p,x)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\dim k[x,y,z]/(xz-y^2, yz-x^3, z^2-x^2 y)$ (the twisted cubic curve).",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The twisted cubic is an irreducible curve in $\\mathbb{A}^3$ parametrized by $t\\mapsto(t,t^2,t^3)$. The ideal cuts out a $1$-dimensional variety (a curve), so the Krull dimension of the quotient ring is $1$. A prime chain: $(0)\\subsetneq\\mathfrak{m}$ for any point ideal $\\mathfrak{m}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is an example of a Noetherian ring that is NOT catenary (where catenary means all maximal chains between two primes have the same length)?",
+          "choices": [
+            "Any field $k$",
+            "$\\mathbb{Z}$",
+            "A Nagata-style domain constructed to have inconsistent chain lengths between two fixed primes",
+            "$k[x_1,\\dots,x_n]$ for any $n$"
+          ],
+          "answer": 2,
+          "explain": "Nagata constructed a Noetherian domain with two maximal ideals $\\mathfrak{m}_1,\\mathfrak{m}_2$ such that all saturated chains from $(0)$ to $\\mathfrak{m}_1$ have length $1$ but all chains to $\\mathfrak{m}_2$ have length $2$. Polynomial rings over fields, $\\mathbb{Z}$, and fields are all catenary (universally catenary, in fact)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A=k[x,y,z]/(x^2+y^2+z^2-1)$ (coordinate ring of the $2$-sphere over $k=\\mathbb{R}$). Compute $\\dim A$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The $2$-sphere is an irreducible $2$-dimensional variety, so $\\dim A = 2$. More precisely, $A$ is a domain of transcendence degree $2$ over $k$ (the sphere maps finitely to $\\mathbb{A}^2$ via projection), giving Krull dimension $2$."
         }
       ]
     }

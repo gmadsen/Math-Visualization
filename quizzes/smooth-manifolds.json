@@ -35,6 +35,39 @@
           "answer": 1,
           "explain": "Composing the two stereographic projections gives $(u,v)\\mapsto(u,v)/(u^2+v^2)$, a $C^\\infty$ diffeomorphism of $\\mathbb{R}^2\\setminus\\{0\\}$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The circle $S^1$ admits a smooth atlas with two charts. Which statement is a correct counterexample showing that a single chart cannot cover $S^1$?",
+          "choices": [
+            "A single chart would require a homeomorphism $S^1\\to\\mathbb{R}$, but $S^1$ is compact and $\\mathbb{R}$ is not",
+            "A single chart is disallowed by the definition of manifold regardless of topology",
+            "No open subset of $\\mathbb{R}$ can be diffeomorphic to an arc of $S^1$",
+            "The transition map of a single-chart atlas would not be smooth"
+          ],
+          "answer": 0,
+          "explain": "A single chart would require a homeomorphism from all of $S^1$ onto an open subset of $\\mathbb{R}$. But $S^1$ is compact and a continuous bijection from a compact space to a Hausdorff space is a homeomorphism onto its image; no open subset of $\\mathbb{R}$ is compact, so no such homeomorphism exists."
+        },
+        {
+          "type": "numeric",
+          "q": "The torus $T^2 = S^1\\times S^1$ carries a smooth atlas derived from the product of two two-chart atlases on $S^1$. What is the minimum number of charts in such a product atlas?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "Each factor $S^1$ needs at least $2$ charts, so the product atlas has $2\\times 2 = 4$ charts of the form $U_i\\times V_j$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the correct order of steps in verifying that two charts $(U,\\varphi)$ and $(V,\\psi)$ are smoothly compatible?",
+          "choices": [
+            "Check $U\\cap V\\ne\\emptyset$, then verify $\\psi\\circ\\varphi^{-1}$ is $C^\\infty$ on $\\varphi(U\\cap V)$, then verify $\\varphi\\circ\\psi^{-1}$ is $C^\\infty$ on $\\psi(U\\cap V)$",
+            "Check $\\varphi\\circ\\psi^{-1}$ is $C^\\infty$, then verify $U$ and $V$ are disjoint",
+            "Verify $\\varphi=\\psi$ on $U\\cap V$, then check surjectivity",
+            "Verify $U\\cap V=\\emptyset$, then the charts are automatically compatible"
+          ],
+          "answer": 0,
+          "explain": "Two charts are smoothly compatible when their overlap is open (possibly empty) and both transition maps $\\psi\\circ\\varphi^{-1}$ and $\\varphi\\circ\\psi^{-1}$ are $C^\\infty$. If the overlap is empty they are trivially compatible, skipping the smoothness check."
+        }
       ]
     },
     "tangent-space-manifolds": {
@@ -65,6 +98,39 @@
           "answer": 6,
           "tol": 1e-6,
           "explain": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A smooth curve $\\gamma:(-\\varepsilon,\\varepsilon)\\to M$ defines a tangent vector $\\gamma'(0)\\in T_pM$ as a derivation on smooth functions. Which statement correctly orders the steps in showing this derivation satisfies the Leibniz rule?",
+          "choices": [
+            "Compute $\\gamma'(0)(fg)$ via the chain rule; apply the product rule for real functions; substitute $f(p)$ and $g(p)$",
+            "Verify $\\gamma'(0)$ is linear first, then separately check Leibniz without using the chain rule",
+            "Assume Leibniz holds by definition of manifold, then verify linearity",
+            "Use the chart map to reduce to $\\mathbb{R}^n$, then apply Leibniz for partial derivatives before pulling back"
+          ],
+          "answer": 0,
+          "explain": "$\\gamma'(0)(fg)=\\frac{d}{dt}\\big|_{t=0}(fg\\circ\\gamma)=f(p)\\,g'(0)+g(p)\\,f'(0)=f(p)\\,\\gamma'(0)(g)+g(p)\\,\\gamma'(0)(f)$ by the real product rule, confirming Leibniz directly without passing to a chart."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f:M\\to N$ be a smooth map between manifolds of dimensions $3$ and $5$. What is the dimension of $\\ker(df_p)$ if $df_p$ has rank $2$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "By the rank-nullity theorem applied to $df_p:T_pM\\to T_{f(p)}N$, $\\dim\\ker(df_p)=\\dim T_pM-\\operatorname{rank}(df_p)=3-2=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing that the tangent bundle $TS^2$ is not trivial (i.e., $TS^2\\ncong S^2\\times\\mathbb{R}^2$)?",
+          "choices": [
+            "The hairy ball theorem: every smooth vector field on $S^2$ must vanish somewhere, so no global frame exists",
+            "$S^2$ is compact, and compact manifolds never have trivial tangent bundles",
+            "A rank-$2$ bundle over a $2$-manifold is always non-trivial",
+            "$TS^2$ has the wrong Euler characteristic to be trivial"
+          ],
+          "answer": 0,
+          "explain": "A trivial rank-$n$ bundle admits $n$ everywhere-linearly-independent global sections, i.e., a global frame. The hairy ball theorem asserts every tangent vector field on $S^2$ vanishes somewhere, so no non-vanishing global section exists, let alone a full frame. Hence $TS^2$ is non-trivial."
         }
       ]
     },
@@ -101,6 +167,39 @@
           ],
           "answer": 2,
           "explain": "Whitney (1944): every smooth $n$-manifold embeds smoothly in $\\mathbb{R}^{2n}$, and immerses in $\\mathbb{R}^{2n-1}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The figure-eight $f:\\mathbb{R}\\to\\mathbb{R}^2$, $f(t)=(\\sin 2t,\\sin t)$, is an injective immersion but not an embedding. Which property fails?",
+          "choices": [
+            "$f$ is not injective: $f(0)=f(\\pi)$",
+            "$f$ is not an immersion: $df_t$ is zero at some $t$",
+            "$f$ is not a topological embedding: the induced topology on $f(\\mathbb{R})$ differs from the subspace topology of $\\mathbb{R}^2$ near the crossing point",
+            "$f(\\mathbb{R})$ is not a manifold of any dimension"
+          ],
+          "answer": 2,
+          "explain": "$f$ is injective and $df_t$ is everywhere non-zero, so it is an injective immersion. However, the image is a figure-eight whose crossing point has a neighbourhood in $f(\\mathbb{R})$ that is not homeomorphic to an interval: nearby points in the domain map to four branches meeting at the origin, whereas the subspace topology sees all four. Thus $f$ is not a homeomorphism onto its image and fails to be an embedding."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $g:\\mathbb{R}^3\\to\\mathbb{R}^2$, $g(x,y,z)=(x^2+y^2+z^2,\\, x+y+z)$. At the point $p=(1,0,0)$, what is the rank of $dg_p$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$dg_p = \\begin{pmatrix}2&0&0\\\\1&1&1\\end{pmatrix}$. The first row has leading entry $2$ and the second has entry $1$ in the second column; the two rows are linearly independent, so $\\operatorname{rank}(dg_p)=2$, making $p$ a regular point."
+        },
+        {
+          "type": "mcq",
+          "q": "By the constant-rank theorem, if $f:M^m\\to N^n$ has constant rank $r$ near $p$, what is the local normal form of $f$?",
+          "choices": [
+            "$(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^m,0,\\dots,0)$ in suitable charts",
+            "$(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^r,0,\\dots,0)$ in suitable charts",
+            "$(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^n)$ whenever $m\\ge n$",
+            "$(x^1,\\dots,x^m)\\mapsto((x^1)^2,\\dots,(x^r)^2,0,\\dots,0)$"
+          ],
+          "answer": 1,
+          "explain": "The constant-rank theorem (local form): choosing adapted charts around $p$ and $f(p)$, $f$ looks like the standard projection–injection $(x^1,\\dots,x^m)\\mapsto(x^1,\\dots,x^r,0,\\dots,0)\\in\\mathbb{R}^n$. The first $r$ coordinates are kept; the rest are sent to zero."
         }
       ]
     }

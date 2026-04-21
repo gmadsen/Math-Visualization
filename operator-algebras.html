@@ -110,7 +110,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -134,6 +134,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -330,6 +344,18 @@ $$\boxed{\quad \|a^* a\| = \|a\|^2 \quad\text{for every } a\in A.\quad}$$
     <li><a href="./functional-analysis.html#bounded">Bounded operators and adjoints</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./operator-algebras.html#duality">Operator algebras</a> · Commutative duality and spectra</div>
+    <div><a href="./operator-algebras.html#spec">Operator algebras</a> · Spectrum and functional calculus</div>
+    <div><a href="./operator-algebras.html#ncg">Operator algebras</a> · Von Neumann algebras and noncommutative geometry</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="cstar-basics"></div>
 </section>
@@ -382,6 +408,17 @@ $$\Phi_a\colon C(\sigma(a)) \;\longrightarrow\; A,\qquad f\mapsto f(a),$$
     <li><a href="./functional-analysis.html#bounded">Bounded operators and adjoints</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./operator-algebras.html#duality">Operator algebras</a> · Commutative duality and spectra</div>
+    <div><a href="./operator-algebras.html#positive">Operator algebras</a> · Positive elements and states</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="spectrum-of-element"></div>
 </section>
@@ -1234,6 +1271,16 @@ $$v\,u \;=\; e^{2\pi i \theta}\, u\, v.$$
 <p>A <strong>state</strong> on a unital $C^*$-algebra $A$ is a positive linear functional $\varphi\colon A\to\mathbb{C}$ with $\varphi(1)=1$. Positivity means $\varphi(a^*a)\ge 0$ for every $a\in A$; when $A=C(X)$ the Riesz–Markov theorem identifies states with Borel probability measures on $X$, so states are the $C^*$-algebraic generalization of probability distributions. The <strong>state space</strong> $S(A)=\{\varphi\colon\varphi\text{ state}\}$ is weak-$*$ compact convex, and its extreme points — the <strong>pure states</strong> — play the role of points in the noncommutative geometry dictionary. The GNS construction turns each state into a cyclic $*$-representation $\pi_\varphi\colon A\to B(H_\varphi)$ with $\varphi(a)=\langle\pi_\varphi(a)\xi_\varphi,\xi_\varphi\rangle$, and taking the direct sum over all states yields the universal embedding $A\hookrightarrow B(H)$ promised by Gelfand–Naimark.</p>
 
 <div class="quiz" data-concept="positive-elements"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./operator-algebras.html#ncg">Operator algebras</a> · Von Neumann algebras and noncommutative geometry</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <section id="groth">
@@ -1443,6 +1490,7 @@ $$v\,u \;=\; e^{2\pi i \theta}\, u\, v.$$
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>main topics added</td></tr>
       <tr><td>2026-04-19</td><td>operators</td></tr>

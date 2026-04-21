@@ -107,7 +107,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -131,6 +131,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -404,6 +418,16 @@ The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean
 </div>
 
 <div class="quiz" data-concept="gaussian-integer-splitting"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sums-of-squares.html#three">Sums of squares</a> · Legendre three-square theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -498,6 +522,16 @@ where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$
     <li><a href="./quadratic-reciprocity.html#reciprocity">Quadratic reciprocity law</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sums-of-squares.html#gaussian">Sums of squares</a> · Gaussian integers and prime splitting</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="two-squares-theorem"></div>
 </section>
@@ -594,6 +628,16 @@ where $h(D)$ is the class number of discriminant $D$. This is the first appearan
 </div>
 
 <div class="quiz" data-concept="three-squares-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sums-of-squares.html#four">Sums of squares</a> · Four squares and Waring perspective</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -707,6 +751,17 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
 </div>
 
 <div class="quiz" data-concept="four-squares-and-waring"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sums-of-squares.html#waring">Sums of squares</a> · Waring's problem: g(k) and G(k)</div>
+    <div><a href="./waring.html#statement">Waring's problem and the circle method</a> · Waring's problem: g(k)</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1017,6 +1072,7 @@ So every question about $r_k(n)$ is a question about the $q$-expansion of $\thet
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-19</td><td>more pages</td></tr>
     </tbody>

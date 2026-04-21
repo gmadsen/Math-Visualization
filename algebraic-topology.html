@@ -108,7 +108,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -132,6 +132,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 </head>
 <body>
@@ -216,6 +230,19 @@ function matMul(A,B){
     <li><a href="./point-set-topology.html#continuity">Continuity & homeomorphism</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-topology.html#pi1">Algebraic topology</a> · Fundamental group</div>
+    <div><a href="./algebraic-topology.html#simply-connected">Algebraic topology</a> · Simply connected domains</div>
+    <div><a href="./analytic-continuation.html#path">Analytic continuation</a> · Continuation along a path</div>
+    <div><a href="./complex-analysis.html#contour">Complex Analysis</a> · Contour integrals</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="paths"></div>
 
@@ -223,6 +250,17 @@ function matMul(A,B){
 <p>A space is simply connected if it is path-connected and every loop contracts to a point, equivalently $\pi_1(X)=0$. This hypothesis appears repeatedly in analysis and geometry (for example, contour integration on simply connected domains).</p>
 
 <div class="quiz" data-concept="simply-connected"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-continuation.html#mono">Analytic continuation</a> · Monodromy theorem</div>
+    <div><a href="./complex-analysis.html#contour">Complex Analysis</a> · Cauchy's theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <p>Why would you want to do this? Because continuous problems become combinatorial the moment you apply a functor. Three classic examples:</p>
 
@@ -276,6 +314,20 @@ function matMul(A,B){
 </table>
 
 <p>A clean slogan: $\pi_1$ is abelian whenever loops have "room to slide past each other" — true for any H-space, any product, and any space of dimension $\ge 2$ in the sense of CW dimension if $\pi_1$ happens to commute. In general though — figure-eight, surface groups, braid groups — $\pi_1$ is gloriously non-abelian.</p>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-topology.html#covers">Algebraic topology</a> · Covering spaces</div>
+    <div><a href="./algebraic-topology.html#homology">Algebraic topology</a> · Singular homology</div>
+    <div><a href="./analytic-continuation.html#mono">Analytic continuation</a> · Monodromy theorem</div>
+    <div><a href="./lie-groups.html#so3su2">Lie groups</a> · SO(3), SU(2), and the double cover</div>
+    <div><a href="./riemann-surfaces.html#rh">Riemann surfaces</a> · Genus as the universal invariant</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -675,6 +727,18 @@ function matMul(A,B){
   <li>$T^2$: $H_0=\mathbb{Z}$, $H_1=\mathbb{Z}^2$, $H_2=\mathbb{Z}$. The $\mathbb{Z}^2$ comes from the two independent loops; note it matches $\pi_1$ abelianized.</li>
   <li>$\mathbb{RP}^2$ (over $\mathbb{Q}$): $b_0=1$, $b_1=0$, $b_2=0$. The single nontrivial loop has order 2, so rationally it dies. Over $\mathbb{Z}$ there is a torsion summand $H_1=\mathbb{Z}/2$.</li>
 </ul>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./differential-forms.html#integration">Differential forms</a> · Integration of forms over chains</div>
+    <div><a href="./etale-cohomology.html#comparison">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>
+    <div><a href="./homological.html#les">Homological algebra</a> · Long exact sequence in homology</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -1364,6 +1428,7 @@ The left side is a local analytic invariant (curvature integrated); the right si
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-19</td><td>Add concepts and quiz wiring for Dirichlet, elliptic curves, and L-functions</td></tr>
       <tr><td>2026-04-19</td><td>Fix TOC anchor targets for measure and algebraic topology pages</td></tr>
       <tr><td>2026-04-19</td><td>Add missing quiz banks and wire quizzes for measure theory and algebraic topology</td></tr>

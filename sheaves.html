@@ -106,7 +106,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -130,6 +130,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -298,6 +312,17 @@ commutes. The restrictions $\rho^F, \rho^G$ are the presheaf restrictions. For p
     <li><a href="./point-set-topology.html#open">Topological spaces</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
+    <div><a href="./sheaves.html#sheaves">Sheaves</a> · Presheaves and sheaf condition</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -361,9 +386,9 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
     <text x="540" y="100" text-anchor="middle" font-size="16" fill="#fff" font-weight="600">∏ᵢⱼ F(Uᵢ ∩ Uⱼ)</text>
     <line x1="120" y1="100" x2="240" y2="100" stroke="#e8ecf1" stroke-width="1.5" marker-end="url(#eq-arr)"/>
     <text x="180" y="92" text-anchor="middle" font-size="11" fill="#9aa4b2" font-style="italic">(s|U₁, s|U₂, s|U₃)</text>
-    <line x1="380" y1="90" x2="465" y2="90" stroke="#83c167" stroke-width="1.5" marker-end="url(#eq-arr)"/>
+    <line x1="380" y1="90" x2="465" y2="90" stroke="var(--green)" stroke-width="1.5" marker-end="url(#eq-arr)"/>
     <line x1="380" y1="110" x2="465" y2="110" stroke="#e07a5f" stroke-width="1.5" marker-end="url(#eq-arr)"/>
-    <text x="425" y="80" text-anchor="middle" font-size="11" fill="#83c167" font-style="italic">(sᵢ|ᵢⱼ)</text>
+    <text x="425" y="80" text-anchor="middle" font-size="11" fill="var(--green)" font-style="italic">(sᵢ|ᵢⱼ)</text>
     <text x="425" y="130" text-anchor="middle" font-size="11" fill="#e07a5f" font-style="italic">(sⱼ|ᵢⱼ)</text>
     <text x="310" y="180" text-anchor="middle" font-size="13" fill="#9aa4b2" font-style="italic">F is a sheaf iff the diagram is an equalizer for every open cover.</text>
   </svg>
@@ -378,6 +403,19 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
   <li><strong>$F(\emptyset)$ is the terminal object.</strong> The empty cover of the empty open set forces $F(\emptyset)$ to be the equalizer of the empty diagram, i.e. the terminal object of the target category. So $F(\emptyset) = \{\ast\}$ for sheaves of sets, $\{0\}$ for sheaves of abelian groups, the zero ring for sheaves of rings, etc.</li>
 </ul>
 <div class="quiz" data-concept="presheaf-sheaf-axioms"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./etale-cohomology.html#etale">Étale cohomology</a> · Étale morphisms</div>
+    <div><a href="./sheaf-cohomology.html#cech">Sheaf cohomology</a> · Čech cocycles and cohomology</div>
+    <div><a href="./sheaves.html#stalks">Sheaves</a> · Stalks and germs</div>
+    <div><a href="./stacks.html#fib">Stacks</a> · Groupoids, fibered categories, descent</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -637,6 +675,16 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
   <div class="readout" id="g2-out"></div>
 </div>
 <div class="quiz" data-concept="stalks-local-data"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaves.html#morphisms">Sheaves</a> · Morphisms of sheaves and stalk criteria</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -795,6 +843,17 @@ On $X = \mathbb{C}^\times$, the coboundary $\mathcal{O}_X^\times(X) \to H^1(X, \
     <li><a href="./category-theory.html#nat">Functors and natural transformations</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaves.html#omod">Sheaves</a> · Ringed spaces and $\mathcal{O}_X$-modules</div>
+    <div><a href="./sheaves.html#sheafify">Sheaves</a> · Sheafification as a left adjoint</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -910,6 +969,16 @@ A section over $U$ is a choice of germ at each point that is locally represented
   <svg id="sf-svg" viewBox="0 0 620 240" width="620" height="240"></svg>
   <div class="readout" id="sf-out"></div>
 </div>
+
+
+
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaves.html#qcoh">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <script>
@@ -1040,6 +1109,16 @@ commutes for $V \subseteq U$. The category $\mathsf{Mod}(\mathcal{O}_X)$ is abel
     <li><a href="./schemes.html#speckxy">Structure sheaf and affine schemes</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./sheaves.html#qcoh">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 </section>
 
@@ -1346,6 +1425,7 @@ with inverse $\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$. The functor is exact,
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

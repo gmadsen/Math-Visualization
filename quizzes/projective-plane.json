@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=3$: $9+3+1=13$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of the following correctly orders the steps that verify $\\sim$ (scaling equivalence on $K^3\\setminus\\{0\\}$) is an equivalence relation?",
+          "choices": [
+            "Transitivity ($\\lambda\\mu\\ne 0$) → Symmetry ($\\lambda^{-1}$) → Reflexivity ($\\lambda=1$)",
+            "Reflexivity ($\\lambda=1$) → Symmetry (use $\\lambda^{-1}$) → Transitivity (compose scalars $\\lambda,\\mu$ to get $\\lambda\\mu$)",
+            "Symmetry → Transitivity → Reflexivity",
+            "The relation is not an equivalence relation over finite fields"
+          ],
+          "answer": 1,
+          "explain": "Reflexivity: $(X,Y,Z)\\sim(X,Y,Z)$ via $\\lambda=1\\in K^\\times$. Symmetry: if $(X,Y,Z)=\\lambda(X',Y',Z')$ then $(X',Y',Z')=\\lambda^{-1}(X,Y,Z)$ and $\\lambda^{-1}\\in K^\\times$. Transitivity: $\\lambda$ followed by $\\mu$ gives scalar $\\lambda\\mu\\in K^\\times$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many points does $\\mathbb{P}^2(\\mathbb{F}_5)$ have?",
+          "answer": 31,
+          "tol": 1e-6,
+          "explain": "$|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=5$: $25+5+1=31$."
+        },
+        {
+          "type": "mcq",
+          "q": "In $\\mathbb{P}^2(\\mathbb{R})$, the set of \"points at infinity\" (added to $\\mathbb{R}^2$ to form the projective plane) is itself a projective line. Which statement is a correct counterexample to the claim that this line is homeomorphic to $\\mathbb{R}$?",
+          "choices": [
+            "The line at infinity is homeomorphic to $S^1$, which is compact, whereas $\\mathbb{R}$ is not",
+            "The line at infinity contains only one point, so it cannot be homeomorphic to $\\mathbb{R}$",
+            "Points at infinity do not form a line; they form a circle plus one extra point",
+            "The line at infinity is homeomorphic to $\\mathbb{R}$ because it parametrizes slopes"
+          ],
+          "answer": 0,
+          "explain": "The line at infinity in $\\mathbb{P}^2(\\mathbb{R})$ is $\\{[X:Y:0]\\mid (X,Y)\\ne(0,0)\\}\\cong\\mathbb{P}^1(\\mathbb{R})$, which is homeomorphic to $S^1$ (a compact space). Since $\\mathbb{R}$ is not compact, they cannot be homeomorphic — the \"line at infinity\" wraps around and identifies antipodal directions."
+        }
       ]
     },
     "homogeneous-coordinates": {
@@ -65,6 +98,39 @@
           "answer": 1,
           "tol": 1e-6,
           "explain": "Setting $Z=0$ in $YZ-X^2=0$ gives $X^2=0$, hence $X=0$ and $[0:1:0]$ is the unique projective solution. The parabola has exactly one point at infinity."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The affine line $y=2x+1$ lives in the $Z=1$ chart. Its homogenization is $Y=2X+Z$, i.e., $2X-Y+Z=0$. How many points at infinity does it have over $\\mathbb{R}$?",
+          "choices": [
+            "0 — lines over $\\mathbb{R}$ have no points at infinity",
+            "1 — the direction $[1:2:0]$",
+            "2 — directions $[1:2:0]$ and $[-1:-2:0]$ are distinct",
+            "Infinitely many — every direction on the line at infinity works"
+          ],
+          "answer": 1,
+          "explain": "Setting $Z=0$ in $2X-Y+Z=0$ gives $2X-Y=0$, so $Y=2X$, yielding the unique projective point $[1:2:0]$. Note $[-1:-2:0]=[1:2:0]$ in $\\mathbb{P}^2$, so there is exactly one point at infinity — the direction of the line."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $F(X,Y,Z)$ is a degree-$d$ homogeneous polynomial and $\\lambda\\in K^\\times$. Which chain of equalities correctly shows $V(F)\\subset\\mathbb{P}^2$ is well-defined?",
+          "choices": [
+            "$F(\\lambda X,\\lambda Y,\\lambda Z)=F(X,Y,Z)$ because $F$ is homogeneous",
+            "$F(\\lambda X,\\lambda Y,\\lambda Z)=\\lambda^d F(X,Y,Z)$, so $F(X,Y,Z)=0\\Leftrightarrow F(\\lambda X,\\lambda Y,\\lambda Z)=0$",
+            "$F(\\lambda X,\\lambda Y,\\lambda Z)=\\lambda F(X,Y,Z)$ for all $d$, giving well-definedness",
+            "$V(F)$ is only well-defined when $\\lambda=1$"
+          ],
+          "answer": 1,
+          "explain": "For a degree-$d$ homogeneous polynomial: $F(\\lambda X,\\lambda Y,\\lambda Z)=\\lambda^d F(X,Y,Z)$. Since $\\lambda^d\\ne 0$, vanishing is preserved under scaling, so $F=0$ on the equivalence class $[X:Y:Z]$ is unambiguous."
+        },
+        {
+          "type": "numeric",
+          "q": "The homogeneous cubic $F(X,Y,Z)=X^3+Y^3+Z^3$. How many points at infinity ($Z=0$) does $V(F)$ have over $\\mathbb{R}$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Setting $Z=0$: $X^3+Y^3=0$, so $(X/Y)^3=-1$, giving $X/Y=-1$ over $\\mathbb{R}$, i.e., the unique real point $[1:-1:0]$. (Over $\\mathbb{C}$ there are three cube roots of $-1$.)"
         }
       ]
     },
@@ -102,6 +168,39 @@
           "answer": 1,
           "explain": "Over an algebraically closed field any smooth plane conic can be brought into $X^2+Y^2=Z^2$ (or equivalently $XY=Z^2$) by an element of $\\mathrm{PGL}_3$, so there is a unique projective equivalence class."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A projective transformation $[X:Y:Z]\\mapsto A[X:Y:Z]^T$ is an automorphism of $\\mathbb{P}^2$ iff $A\\in\\mathrm{GL}_3(K)$. Which is the correct counterexample showing the matrix $A$ is NOT uniquely determined by the transformation?",
+          "choices": [
+            "$A$ and $-A$ define the same map on $\\mathbb{P}^2$ since $[-X:-Y:-Z]=[X:Y:Z]$, so two matrices always give the same transformation",
+            "$A$ and $2A$ define the same map, yet $2A\\ne A$ as matrices, so the matrix is not unique",
+            "Only scalar multiples $\\lambda A$ with $\\lambda\\ne 0$ give the same transformation, witnessing the quotient $\\mathrm{PGL}_3=\\mathrm{GL}_3/K^\\times$",
+            "Both B and C above"
+          ],
+          "answer": 3,
+          "explain": "Any $\\lambda A$ ($\\lambda\\in K^\\times$) induces the same map on $\\mathbb{P}^2$ because $\\lambda A\\mathbf{v}=\\lambda(A\\mathbf{v})$ and $[\\lambda\\mathbf{w}]=[\\mathbf{w}]$ in projective space. Both $-A$ (with $\\lambda=-1$) and $2A$ (with $\\lambda=2$) are specific instances of this non-uniqueness, so D captures the full picture."
+        },
+        {
+          "type": "numeric",
+          "q": "A projective transformation of $\\mathbb{P}^2$ is determined by the images of a projective frame (four points in general position). How many points in general position are needed to specify an element of $\\mathrm{PGL}_3(K)$ uniquely?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{PGL}_3(K)$ has dimension $8$. A projective frame consists of $4$ points (no three collinear): specifying where each goes provides $3\\times 4=12$ coordinates minus $4$ normalization constraints, leaving $8$ degrees of freedom — exactly matching $\\dim\\mathrm{PGL}_3$. So $4$ points in general position uniquely fix a projective transformation."
+        },
+        {
+          "type": "mcq",
+          "q": "Over $\\mathbb{R}$, smooth conics are NOT all projectively equivalent. Which is a correct counterexample distinguishing real projective conics?",
+          "choices": [
+            "The conic $X^2+Y^2-Z^2=0$ has real points but $X^2+Y^2+Z^2=0$ has none, so they cannot be projectively equivalent over $\\mathbb{R}$",
+            "Over $\\mathbb{R}$, all smooth conics are projectively equivalent just as over $\\bar{\\mathbb{R}}$",
+            "Ellipses and hyperbolas differ in degree over $\\mathbb{R}$",
+            "The signature of the defining quadratic form is a projective invariant in all characteristics"
+          ],
+          "answer": 0,
+          "explain": "Over $\\mathbb{R}$, the signature of the associated symmetric bilinear form is preserved by $\\mathrm{GL}_3(\\mathbb{R})$ (Sylvester's law of inertia). $X^2+Y^2-Z^2=0$ has signature $(2,1)$ and has real points (e.g., $[1:0:1]$), while $X^2+Y^2+Z^2=0$ has signature $(3,0)$ and no real solutions. They are inequivalent over $\\mathbb{R}$, though equivalent over $\\mathbb{C}$."
+        }
       ]
     },
     "projective-duality": {
@@ -138,6 +237,39 @@
           "tol": 1e-6,
           "explain": "By duality $|(\\mathbb{P}^2)^*(\\mathbb{F}_q)|=|\\mathbb{P}^2(\\mathbb{F}_q)|=q^2+q+1$. For $q=2$: $4+2+1=7$ — the Fano plane has $7$ points and $7$ lines, beautifully self-dual."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Pascal's theorem says: if six points lie on a smooth conic, the three intersection points of opposite sides of the hexagon are collinear (on the 'Pascal line'). Its dual (Brianchon's theorem) states:",
+          "choices": [
+            "If six lines are tangent to a smooth conic, the three lines joining opposite vertices of the hexagon are concurrent",
+            "If six points lie on a conic, their tangent lines form a hexagon whose diagonals meet in a point",
+            "Every smooth conic is self-dual under the standard polarity",
+            "Six points on a conic always determine a unique inscribed triangle"
+          ],
+          "answer": 0,
+          "explain": "Duality swaps 'point' with 'line' and 'collinear' with 'concurrent'. Pascal: six points on conic $\\Rightarrow$ three intersection points of opposite sides are collinear. Brianchon: six tangent lines to conic $\\Rightarrow$ three lines joining opposite vertices are concurrent."
+        },
+        {
+          "type": "mcq",
+          "q": "The double dual: applying projective duality twice to a point $P\\in\\mathbb{P}^2$ gives back $P$ itself. Which step in the proof is essential?",
+          "choices": [
+            "The pairing $\\langle [a:b:c],[X:Y:Z]\\rangle = aX+bY+cZ$ is symmetric in its two arguments, so $(\\mathbb{P}^2)^{**}\\cong\\mathbb{P}^2$ canonically",
+            "Every line in $(\\mathbb{P}^2)^*$ corresponds to a conic in $\\mathbb{P}^2$, and conics are self-dual",
+            "The dual of a dual line is a point, which must equal $P$ by compactness",
+            "Double duality holds only over algebraically closed fields"
+          ],
+          "answer": 0,
+          "explain": "The incidence pairing $aX+bY+cZ=0$ is symmetric in $(a,b,c)$ and $(X,Y,Z)$. Dualizing a point $P=[X_0:Y_0:Z_0]$ gives the line $X_0 a+Y_0 b+Z_0 c=0$ in $(\\mathbb{P}^2)^*$; dualizing that line in $(\\mathbb{P}^2)^{**}$ recovers $[X_0:Y_0:Z_0]\\in\\mathbb{P}^2$. The symmetry of the bilinear form is the key step."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathbb{P}^2(\\mathbb{F}_3)$, each line contains $q+1$ points. How many points lie on each line of $\\mathbb{P}^2(\\mathbb{F}_3)$?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "A projective line over $\\mathbb{F}_q$ is isomorphic to $\\mathbb{P}^1(\\mathbb{F}_q)$, which has $q+1$ points. For $q=3$: $3+1=4$ points per line."
+        }
       ]
     },
     "cross-ratio": {
@@ -168,6 +300,39 @@
           "answer": 6,
           "tol": 1e-6,
           "explain": "Of the $24$ permutations of four points, the Klein four-group $V_4$ (double-transpositions together with the identity) fixes the cross-ratio $\\lambda$. The remaining $24/4=6$ cosets give the six values $\\{\\lambda,\\ 1-\\lambda,\\ 1/\\lambda,\\ 1/(1-\\lambda),\\ \\lambda/(\\lambda-1),\\ (\\lambda-1)/\\lambda\\}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Four collinear points have cross-ratio $\\lambda=2$. One permutation of the four points gives cross-ratio $1-\\lambda$. What is the value of $1-\\lambda$ for $\\lambda=2$?",
+          "answer": -1,
+          "tol": 1e-6,
+          "explain": "$1-\\lambda=1-2=-1$. A cross-ratio of $-1$ is special: it means the four points form a harmonic range — a classical construction in projective geometry."
+        },
+        {
+          "type": "mcq",
+          "q": "The cross-ratio $[A,B;C,D]=-1$ is called the harmonic relation. Which geometric construction produces the harmonic conjugate $D$ of $C$ with respect to $A,B$?",
+          "choices": [
+            "Complete the quadrilateral: draw any two lines through $C$ meeting $AB$ and find the diagonal point; the line from that diagonal point meets $AB$ in $D$",
+            "Reflect $C$ through the midpoint of $AB$ in the affine chart",
+            "$D$ is always the point at infinity when $C$ is the midpoint of $AB$",
+            "Both A and C — they give the same result and are projectively equivalent descriptions"
+          ],
+          "answer": 3,
+          "explain": "Both descriptions are correct and projectively related. The complete-quadrilateral construction is the projective definition: $D$ is the fourth harmonic. In the affine chart where $A=0$, $B=\\infty$, the midpoint $C=m$ gives harmonic conjugate $D=\\infty$; but with $A=0$, $B=1$, $C=m$ the harmonic conjugate is $D=m/(2m-1)$. When $C$ is the affine midpoint of $AB$, $D$ is the point at infinity — consistent with both descriptions."
+        },
+        {
+          "type": "mcq",
+          "q": "Two quadruples of distinct collinear points $(A,B,C,D)$ and $(A',B',C',D')$ on two projective lines are projectively equivalent (i.e., there exists a projectivity sending one to the other) if and only if:",
+          "choices": [
+            "The affine distances $|AB|=|A'B'|$, $|CD|=|C'D'|$, etc.",
+            "$[A,B;C,D]=[A',B';C',D']$",
+            "The two lines are in the same projective plane",
+            "The cross-ratios satisfy $[A,B;C,D]\\cdot[A',B';C',D']=1$"
+          ],
+          "answer": 1,
+          "explain": "The cross-ratio is the complete projective invariant of four collinear points: two such quadruples are related by a projectivity (element of $\\mathrm{PGL}_2$) iff their cross-ratios are equal. This is the fundamental theorem of projective geometry restricted to the line."
         }
       ]
     }

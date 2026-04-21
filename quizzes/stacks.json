@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "All three objects are connected by isomorphisms, so they form a single isomorphism class: $\\pi_0(G)$ has one element. The three $\\mathbb{Z}/2$ automorphism groups are what is lost when one collapses to $\\pi_0$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A fibered category $p:\\mathcal{X}\\to\\mathcal{C}$ satisfies descent for a cover $\\{U_i\\to U\\}$ but the isomorphism-sheaf condition fails for some pair of objects. Which axiom of a stack does this violate?",
+          "choices": [
+            "The gluing axiom for objects",
+            "The sheaf axiom for morphisms (isomorphisms must form a sheaf)",
+            "The Yoneda lemma for stacks",
+            "Representability of the diagonal"
+          ],
+          "answer": 1,
+          "explain": "A stack requires two conditions: (1) $\\mathrm{Isom}(x,y)$ is a sheaf (morphism sheaf axiom) and (2) descent data for objects glue. Failure of the Isom sheaf condition violates the first axiom while leaving the second intact."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these is a counterexample showing that the naive moduli set-functor $\\mathcal{M}_{1,1}^{\\mathrm{naive}}:\\mathrm{Sch}^{\\mathrm{op}}\\to\\mathrm{Set}$ (assigning iso-classes of elliptic curves) is NOT a sheaf in the étale topology?",
+          "choices": [
+            "The $j$-invariant takes values in $\\mathbb{A}^1$, which is a scheme, so it is automatically a sheaf",
+            "An isotrivial elliptic surface over $\\mathbb{P}^1$ can have constant $j$-invariant yet be non-trivial, so local triviality does not imply global triviality",
+            "Every elliptic curve has a unique model, so descent is trivially satisfied",
+            "Étale covers do not exist for elliptic curves"
+          ],
+          "answer": 1,
+          "explain": "Twisting a constant family by a non-trivial $\\mu_2$-torsor (via the $[-1]$ automorphism) over an étale cover produces an isotrivial but non-trivial family. The cocycle data exist, but they glue to different isomorphism-class representatives depending on the chosen descent isomorphisms — violating sheafness."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathcal{C}$ be the groupoid with objects $\\{A,B,C\\}$, morphisms forming a single isomorphism class, and $\\mathrm{Aut}(A)=\\{e\\}$. After passing to $\\pi_0$, how many objects remain?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "All three objects are isomorphic, so they represent a single isomorphism class. $|\\pi_0(\\mathcal{C})|=1$. The trivial automorphism groups are irrelevant to $\\pi_0$."
+        }
       ]
     },
     "classifying-stacks": {
@@ -65,6 +98,39 @@
           "answer": 2,
           "tol": 1e-6,
           "explain": "$\\mathrm{Hom}(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\{0,\\mathrm{id}\\}$ has 2 elements: the trivial torsor and the non-trivial one corresponding to $\\mathrm{Spec}\\,\\mathbb{C}\\to\\mathrm{Spec}\\,\\mathbb{R}$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For any algebraic group $G$, the inertia stack $I(BG)=BG\\times_{BG\\times BG}BG$ is equivalent to which stack?",
+          "choices": [
+            "$BG$ itself",
+            "The adjoint quotient stack $[G/G]$ where $G$ acts by conjugation",
+            "The classifying stack $B(G\\times G)$",
+            "The quotient scheme $G/G$"
+          ],
+          "answer": 1,
+          "explain": "The inertia stack of $BG$ parametrises pairs (torsor, automorphism), which is the same data as a $G$-torsor together with a section of the associated group scheme — i.e., an element of $G$ up to conjugation. This is exactly $[G/G]$ for the conjugation action."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G=\\mathbb{Z}/5$ over an algebraically closed field $k$ with $\\mathrm{char}(k)\\ne 5$, how many isomorphism classes of $G$-torsors are there over $\\mathrm{Spec}\\,k$?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Over an algebraically closed field, $H^1_{\\text{ét}}(\\mathrm{Spec}\\,k,G)=0$ for any finite group $G$ of order coprime to the characteristic. So there is exactly $1$ isomorphism class: the trivial torsor."
+        },
+        {
+          "type": "mcq",
+          "q": "The correct chain of implications among stack conditions is:",
+          "choices": [
+            "Scheme $\\Rightarrow$ Algebraic space $\\Rightarrow$ DM stack $\\Rightarrow$ Artin stack",
+            "Artin stack $\\Rightarrow$ DM stack $\\Rightarrow$ Algebraic space $\\Rightarrow$ Scheme",
+            "DM stack $\\Rightarrow$ Scheme $\\Rightarrow$ Algebraic space $\\Rightarrow$ Artin stack",
+            "Algebraic space $\\Rightarrow$ Scheme $\\Rightarrow$ DM stack $\\Rightarrow$ Artin stack"
+          ],
+          "answer": 0,
+          "explain": "Every scheme is an algebraic space (trivial groupoid structure); every algebraic space is a DM stack (étale atlas, trivial automorphisms); every DM stack is an Artin stack (étale implies smooth). The reverse implications all fail: $B\\mathbb{G}_m$ is Artin but not DM; $[\\mathbb{A}^1/\\mu_2]$ is DM but not an algebraic space."
         }
       ]
     },
@@ -102,6 +168,39 @@
           "tol": 1e-6,
           "explain": "$\\mathrm{Stab}_{\\mu_3}(0)=\\mu_3$ has order $3$. Geometrically this is the stacky enhancement at the fixed point; away from $0$ the quotient is an ordinary scheme."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $G=\\mathbb{G}_m$ act on $X=\\mathbb{A}^2\\setminus\\{0\\}$ by $\\lambda\\cdot(x,y)=(\\lambda x,\\lambda y)$. The quotient stack $[X/G]$ is equivalent to which classical geometric object?",
+          "choices": [
+            "The projective line $\\mathbb{P}^1$, since the action is free",
+            "The classifying stack $B\\mathbb{G}_m$",
+            "The weighted projective line $\\mathbb{P}(1,1)$, confirming $[X/G]\\cong\\mathbb{P}^1$ as a DM stack",
+            "The affine line $\\mathbb{A}^1$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathbb{G}_m$ acts freely on $\\mathbb{A}^2\\setminus\\{0\\}$ (no non-trivial stabilisers), so $[X/G]$ is an algebraic space and in fact coincides with the ordinary quotient scheme $\\mathbb{P}^1$."
+        },
+        {
+          "type": "mcq",
+          "q": "A $T$-point of $[\\mathrm{pt}/G]=BG$ is a $G$-torsor on $T$. What is the correct chain of equivalences proving $[\\mathrm{pt}/G]=BG$?",
+          "choices": [
+            "$[\\mathrm{pt}/G](T)=\\{(P,\\phi:P\\to\\mathrm{pt})\\mid P$ a $G$-torsor on $T\\}$, but $\\phi$ is unique, so $[\\mathrm{pt}/G](T)\\simeq\\{G\\text{-torsors on }T\\}=BG(T)$",
+            "$[\\mathrm{pt}/G](T)=\\{\\text{maps }T\\to\\mathrm{pt}\\}=\\{\\mathrm{id}\\}$, giving a single point regardless of $T$",
+            "The quotient of a point by any group is always a scheme",
+            "$[\\mathrm{pt}/G]=BG$ only holds when $G$ is finite"
+          ],
+          "answer": 0,
+          "explain": "A $T$-point of $[X/G]$ is $(P\\to T, \\phi:P\\to X)$ with $P$ a $G$-torsor and $\\phi$ equivariant. For $X=\\mathrm{pt}$, $\\phi$ is forced to be the unique map $P\\to\\mathrm{pt}$, so the data reduces to just the $G$-torsor $P\\to T$. Hence $[\\mathrm{pt}/G](T)\\simeq BG(T)$ for all $T$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G=\\mu_2$ acting on $\\mathbb{A}^1$ by $\\zeta\\cdot x=-x$, the coarse moduli space of $[\\mathbb{A}^1/\\mu_2]$ is $\\mathbb{A}^1$ (via $x\\mapsto x^2$). At the stacky point $x=0$, the automorphism group has order?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "The stabiliser of $0$ under the $\\mu_2$ action $x\\mapsto -x$ is all of $\\mu_2$, which has order $2$. Away from $0$ the stabiliser is trivial."
+        }
       ]
     },
     "deligne-mumford-vs-artin": {
@@ -138,6 +237,39 @@
           "tol": 1e-6,
           "explain": "$B\\mathbb{G}_m$ has automorphism group $\\mathbb{G}_m$ (the multiplicative group) at every geometric point, which is $1$-dimensional. That positive dimension is exactly why $B\\mathbb{G}_m$ fails to be DM."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps in proving that an Artin stack $\\mathcal{X}$ with an étale atlas is Deligne-Mumford?",
+          "choices": [
+            "Show the diagonal is representable → show it is unramified → conclude automorphism schemes are étale → conclude DM",
+            "Show coarse space exists → show it is a scheme → conclude DM",
+            "Show $\\mathcal{X}$ is proper → show it has a fine moduli space → conclude DM",
+            "Verify quasi-compactness → verify separatedness → verify finite type → conclude DM"
+          ],
+          "answer": 0,
+          "explain": "The standard proof: (1) representability of the diagonal is required for any Artin stack; (2) if the diagonal is also unramified, automorphism groups are finite and unramified (0-dimensional); (3) this is equivalent to the existence of an étale atlas, the defining condition of DM."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a counterexample showing that $B\\mathbb{G}_m$ is not Deligne-Mumford?",
+          "choices": [
+            "$B\\mathbb{G}_m$ has no objects over any field",
+            "The automorphism group $\\mathbb{G}_m$ is positive-dimensional, so the diagonal $B\\mathbb{G}_m\\to B\\mathbb{G}_m\\times B\\mathbb{G}_m$ is not unramified",
+            "$B\\mathbb{G}_m$ does not admit any smooth atlas",
+            "Line bundles do not form a groupoid"
+          ],
+          "answer": 1,
+          "explain": "A stack is DM iff its diagonal is unramified (equivalently, automorphism schemes are 0-dimensional). Since $\\mathbb{G}_m$ is 1-dimensional, the inertia stack $I(B\\mathbb{G}_m)\\cong[\\mathbb{G}_m/\\mathbb{G}_m]$ has positive-dimensional fibers, so $B\\mathbb{G}_m$ is Artin but not DM."
+        },
+        {
+          "type": "numeric",
+          "q": "An Artin stack $\\mathcal{X}$ has a smooth atlas $U\\to\\mathcal{X}$ with $U$ a scheme of dimension $3$ and the fibers of the atlas map have dimension $1$. What is $\\dim(\\mathcal{X})$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "For a smooth atlas $U\\to\\mathcal{X}$ of relative dimension $d$, $\\dim(\\mathcal{X})=\\dim(U)-d=3-1=2$. Here the fiber dimension $1$ corresponds to the $1$-dimensional automorphism group typical of an Artin (non-DM) stack."
+        }
       ]
     },
     "dm-stacks-coarse-space": {
@@ -173,6 +305,39 @@
           "answer": 6,
           "tol": 1e-6,
           "explain": "At $j=0$, $E$ has complex multiplication by $\\mathbb{Z}[\\zeta_3]$ and $\\mathrm{Aut}(E)=\\mu_6$, of order $6$. After quotienting by the generic $\\mu_2$ ($[-1]$), residual automorphism is $\\mu_3$, so locally $\\mathcal{M}_{1,1}$ looks like $[\\mathbb{A}^1/\\mu_3]$ near $j=0$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The correct sequence of steps in constructing the coarse moduli space via Keel-Mori is:",
+          "choices": [
+            "Reduce to the case of a gerbe → apply the tame case → glue via étale covers → obtain the coarse space as a scheme",
+            "Triangulate the stack → take the geometric realization → apply the nerve theorem",
+            "Blow up the inertia stack → take the coarse space of the blow-up → descend to the original",
+            "Find a fine moduli space → quotient by automorphisms → apply GIT"
+          ],
+          "answer": 0,
+          "explain": "Keel-Mori: after checking finite inertia and finite type, one locally reduces to a $\\mu_n$-gerbe over an algebraic space, handles the tame case via étale-local arguments, then glues the local coarse spaces using the étale topology to produce a global algebraic space (or scheme in good cases)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a counterexample showing the coarse space map $\\pi:\\mathcal{M}_{1,1}\\to\\mathbb{A}^1_j$ does NOT preserve integral Chow rings?",
+          "choices": [
+            "$\\mathrm{CH}^1(\\mathcal{M}_{1,1})=\\mathbb{Z}/12\\mathbb{Z}$ generated by the Hodge class $\\lambda$, while $\\mathrm{CH}^1(\\mathbb{A}^1)=0$",
+            "$\\mathrm{CH}^0(\\mathcal{M}_{1,1})=0$ while $\\mathrm{CH}^0(\\mathbb{A}^1)=\\mathbb{Z}$",
+            "$\\pi$ is an isomorphism on rational Chow groups $\\mathrm{CH}^*\\otimes\\mathbb{Q}$, and this extends integrally",
+            "The Hodge bundle does not exist on $\\mathcal{M}_{1,1}$"
+          ],
+          "answer": 0,
+          "explain": "The Hodge line bundle $\\lambda$ on $\\mathcal{M}_{1,1}$ satisfies $12\\lambda=0$ in $\\mathrm{Pic}(\\mathcal{M}_{1,1})$ (reflecting the $\\mu_2$ automorphism at every point and the $\\mu_6$ at $j=0$), giving $\\mathrm{CH}^1(\\mathcal{M}_{1,1})\\cong\\mathbb{Z}/12$. Meanwhile $\\mathrm{CH}^1(\\mathbb{A}^1)=0$, so $\\pi^*$ is not an isomorphism integrally."
+        },
+        {
+          "type": "numeric",
+          "q": "For the DM stack $[\\mathbb{A}^1/\\mu_n]$ (with $\\mu_n$ acting by scaling), the coarse moduli map $\\pi:[\\mathbb{A}^1/\\mu_n]\\to\\mathbb{A}^1$ sends the stacky point $0$ to $0$. The local Picard group of the stack at $0$ is $\\mathbb{Z}/n\\mathbb{Z}$. For $n=4$, what is the order of this local Picard group?",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "The stacky point $0\\in[\\mathbb{A}^1/\\mu_n]$ has automorphism group $\\mu_n$, contributing a local $\\mathrm{Pic}\\cong\\widehat{\\mu_n}\\cong\\mathbb{Z}/n\\mathbb{Z}$. For $n=4$ this has order $4$."
         }
       ]
     }

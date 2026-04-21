@@ -84,7 +84,7 @@
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
     background:rgba(88,196,221,0.05);
-    border-left:3px solid rgba(88,196,221,0.55);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
     border-radius:0 6px 6px 0;
     font-size:.93rem;
   }
@@ -108,6 +108,20 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
 </style>
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
@@ -185,6 +199,18 @@ function mod(a,n){return ((a%n)+n)%n}
     <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
   </ul>
 </aside>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./schemes.html#generic-point">Schemes</a> · Generic points and specialization</div>
+    <div><a href="./schemes.html#residue-field">Schemes</a> · Residue fields and evaluation at points</div>
+    <div><a href="./schemes.html#speckxy">Schemes</a> · Structure sheaf and affine schemes</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 
 <div class="quiz" data-concept="spectrum-primes"></div>
 </section>
@@ -613,6 +639,18 @@ function mod(a,n){return ((a%n)+n)%n}
 <p style="margin:.2rem 0"><strong>The generic point is not a dot.</strong> Every nonempty open set of $\operatorname{Spec}k[x,y]$ contains the generic point $(0)$. It "lives everywhere" — it isn't drawable as a location. Instead think of it as a perspective: statements true at the generic point hold on a dense open set.</p>
 </div>
 <div class="quiz" data-concept="structure-sheaf-schemes"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./schemes.html#gluing">Schemes</a> · Gluing affine schemes</div>
+    <div><a href="./schemes.html#locally-ringed-space">Schemes</a> · Locally ringed spaces</div>
+    <div><a href="./sheaves.html#omod">Sheaves</a> · Ringed spaces and $\mathcal{O}_X$-modules</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -703,7 +741,7 @@ function mod(a,n){return ((a%n)+n)%n}
   crosshair.appendChild(chV); crosshair.appendChild(chH); crosshair.appendChild(chD);
   let mouseMath = {x:0.7,y:0.49}; // start on parabola
 
-  const colorMap = ['#58c4dd','#ffd866','#83c167','#e07a5f','#b39ddb','#7de0d6','#f78fb3'];
+  const colorMap = ['#58c4dd','#ffd866','var(--green)','#e07a5f','#b39ddb','#7de0d6','#f78fb3'];
 
   function redraw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -801,7 +839,7 @@ function mod(a,n){return ((a%n)+n)%n}
     {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},
     {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},
     {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},
-    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'#83c167', desc:'generic point of the unit circle'},
+    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},
     // closed points
     {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},
     {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},
@@ -1086,6 +1124,17 @@ function mod(a,n){return ((a%n)+n)%n}
 <p style="margin:.2rem 0"><strong>Where next?</strong> Sheaves (local-to-global functions), morphisms of schemes, base change, fiber products, projective schemes, coherent sheaves, and cohomology. From the scheme foundation, category theory (the language of functors, adjunctions, Yoneda) takes over, and stacks extend schemes to handle moduli problems where "points have automorphisms" — another page for another day.</p>
 </div>
 <div class="quiz" data-concept="gluing-affines"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./morphisms-fiber-products.html#morphism">Morphisms and fiber products</a> · Morphisms of schemes</div>
+    <div><a href="./schemes.html#projective-scheme">Schemes</a> · Projective schemes and Proj</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+
+
 </section>
 
 <script>
@@ -1364,6 +1413,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-04-20</td><td>audit complete, new topics</td></tr>
       <tr><td>2026-04-20</td><td>updates to outstanding (in progress)</td></tr>
       <tr><td>2026-04-18</td><td>interactive pages</td></tr>
     </tbody>

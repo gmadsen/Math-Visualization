@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A morphism $f\\colon A\\to B$ in a category is a monomorphism if and only if:",
+          "choices": [
+            "it has a left inverse",
+            "for all $g,h\\colon C\\to A$, $f\\circ g = f\\circ h$ implies $g=h$",
+            "for all $g,h\\colon B\\to C$, $g\\circ f = h\\circ f$ implies $g=h$",
+            "it is an isomorphism"
+          ],
+          "answer": 1,
+          "explain": "A monomorphism is left-cancellable: $f\\circ g=f\\circ h\\Rightarrow g=h$. This is the categorical generalisation of injectivity. Having a left inverse implies mono, but not conversely — e.g. inclusions in $\\mathsf{Top}$ can be mono without being split."
+        },
+        {
+          "type": "mcq",
+          "q": "Consider the category $\\mathcal{B}G$ associated to a group $G$ (one object $*$, morphisms = elements of $G$, composition = multiplication). A functor $F\\colon\\mathcal{B}G\\to\\mathsf{Set}$ is the same as:",
+          "choices": [
+            "a group homomorphism $G\\to G$",
+            "a left $G$-set",
+            "a right $G$-module over $\\mathbb{Z}$",
+            "a normal subgroup of $G$"
+          ],
+          "answer": 1,
+          "explain": "$F$ must send $*$ to some set $S=F(*)$ and each $g\\in G$ to a function $S\\to S$, preserving composition and identity. This is precisely the data of a left $G$-set (group action on $S$)."
+        },
+        {
+          "type": "numeric",
+          "q": "The category of a poset $(P,\\le)$ has a morphism $x\\to y$ iff $x\\le y$. In the poset $\\{0<1<2\\}$, how many morphisms (including identities) are there in total?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "Identities: $0\\to 0$, $1\\to 1$, $2\\to 2$ (3 morphisms). Non-identity morphisms: $0\\to 1$, $1\\to 2$, $0\\to 2$ (3 morphisms). Total: $6$."
+        }
       ]
     },
     "functors-natural-transformations": {
@@ -70,6 +103,39 @@
           "answer": 5,
           "tol": 1e-6,
           "explain": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The evaluation map $\\mathrm{ev}_V\\colon V\\to V^{**}$, $v\\mapsto(\\varphi\\mapsto\\varphi(v))$, is a natural transformation $\\mathrm{id}_{\\mathsf{Vect}_k}\\Rightarrow(-)^{**}$. Why is there NO natural isomorphism $\\mathrm{id}\\Rightarrow(-)^*$ (single dual) on all of $\\mathsf{Vect}_k$?",
+          "choices": [
+            "$(-)^*$ is a covariant functor, so no natural transformation can exist",
+            "$(-)^*$ is contravariant, so its domain and codomain categories differ from those of $\\mathrm{id}$",
+            "Any isomorphism $V\\cong V^*$ requires a choice of basis and cannot be made natural",
+            "Infinite-dimensional spaces have no dual"
+          ],
+          "answer": 1,
+          "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
+        },
+        {
+          "type": "mcq",
+          "q": "Arrange the steps to verify that a family $\\eta=\\{\\eta_A\\}$ is a natural transformation $F\\Rightarrow G$. Which ordering is logically correct?",
+          "choices": [
+            "Fix $f\\colon A\\to B$; (ii) form $G(f)\\circ\\eta_A$; (iii) form $\\eta_B\\circ F(f)$; (iv) show equality",
+            "Fix $A$; (ii) define $\\eta_A\\colon F(A)\\to G(A)$; (iii) fix $f\\colon A\\to B$; (iv) check $G(f)\\circ\\eta_A=\\eta_B\\circ F(f)$",
+            "Show each $\\eta_A$ is an isomorphism; (ii) conclude naturality",
+            "Check $\\eta$ commutes with identities; (ii) conclude it commutes with all morphisms by induction"
+          ],
+          "answer": 1,
+          "explain": "One must first define all components $\\eta_A$, then verify the naturality square for each morphism $f$. Step (i) fixes an arbitrary morphism; steps (ii–iii) spell out both paths around the square; step (iv) proves them equal using the definitions of $F$, $G$, and $\\eta$. Isomorphism is not required for a natural transformation."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathcal{C}$ be the discrete category on $3$ objects (no non-identity morphisms). How many natural transformations are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "A natural transformation $\\eta\\colon\\mathrm{id}\\Rightarrow\\mathrm{id}$ needs, for each object $A$, a morphism $\\eta_A\\colon A\\to A$. In a discrete category the only morphism $A\\to A$ is $\\mathrm{id}_A$. So there is exactly $1$ natural transformation (all components forced to be identities)."
         }
       ]
     },
@@ -107,6 +173,39 @@
           "tol": 1e-6,
           "explain": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Yoneda embedding $h_{(-)}\\colon\\mathcal{C}\\to\\mathsf{Fun}(\\mathcal{C}^{\\mathrm{op}},\\mathsf{Set})$ is fully faithful. What does full faithfulness imply about objects of $\\mathcal{C}$?",
+          "choices": [
+            "$\\mathcal{C}$ embeds as a full subcategory; in particular $X\\cong Y$ in $\\mathcal{C}$ iff $h_X\\cong h_Y$ as functors",
+            "Every presheaf is representable",
+            "The embedding is an equivalence of categories",
+            "$\\operatorname{Nat}(h_X,h_Y)$ is always a singleton"
+          ],
+          "answer": 0,
+          "explain": "Full faithfulness gives $\\operatorname{Hom}_{\\mathcal{C}}(X,Y)\\cong\\operatorname{Nat}(h_X,h_Y)$ (by Yoneda with $F=h_Y$). In particular $X\\cong Y\\Leftrightarrow h_X\\cong h_Y$: objects are determined up to isomorphism by their functor of points. Not every presheaf need be representable (that would make the embedding an equivalence, which is usually false)."
+        },
+        {
+          "type": "mcq",
+          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$, the unit $\\eta_X\\colon X\\to UF(X)$ is the insertion-of-generators map. What does the counit $\\varepsilon_G\\colon FU(G)\\to G$ do?",
+          "choices": [
+            "It sends every element of $G$ to the identity",
+            "It is the unique group homomorphism extending the identity $\\mathrm{id}_G\\colon G\\to G$ along the insertion $G\\hookrightarrow FU(G)$",
+            "It is the abelianization map $G\\to G/[G,G]$",
+            "It is the inclusion $G\\hookrightarrow FU(G)$"
+          ],
+          "answer": 1,
+          "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ — i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathsf{Set}$, the coproduct (categorical colimit) of $\\{a,b\\}$ and $\\{0,1,2\\}$ has how many elements?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The coproduct in $\\mathsf{Set}$ is the disjoint union, so $|A\\sqcup B|=|A|+|B|=2+3=5$."
+        }
       ]
     },
     "universal-properties": {
@@ -143,6 +242,39 @@
           "tol": 1e-6,
           "explain": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Arrange the canonical steps of a 'products are unique up to unique iso' proof in the correct order: (A) apply UP of $Q$ to the cone $(\\pi_1,\\pi_2)$ on $P$ to get $u\\colon P\\to Q$; (B) apply UP of $P$ to the cone $(\\rho_1,\\rho_2)$ on $Q$ to get $v\\colon Q\\to P$; (C) use uniqueness in UP of $P$ to conclude $vu=\\mathrm{id}_P$; (D) use uniqueness in UP of $Q$ to conclude $uv=\\mathrm{id}_Q$.",
+          "choices": [
+            "A, B, C, D",
+            "B, A, D, C",
+            "A, B, D, C",
+            "C, D, A, B"
+          ],
+          "answer": 0,
+          "explain": "First produce $u$ (step A) then $v$ (step B). Then check $vu=\\mathrm{id}_P$ using uniqueness of the map $P\\to P$ making projections commute — that map must be $\\mathrm{id}_P$ (step C). Similarly $uv=\\mathrm{id}_Q$ (step D). The proof is symmetric, so A then B is the natural order."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a counterexample showing that a left adjoint need not reflect limits?",
+          "choices": [
+            "The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ does not send a product of sets to the product of free groups",
+            "The forgetful functor $U\\colon\\mathsf{Ab}\\to\\mathsf{Set}$ preserves products",
+            "The identity functor on $\\mathsf{Set}$ preserves all colimits",
+            "The inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$ reflects all limits"
+          ],
+          "answer": 0,
+          "explain": "Left adjoints preserve colimits but need not preserve — or reflect — limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\operatorname{Hom}(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity — exactly $1$."
+        }
       ]
     },
     "monoidal-categories": {
@@ -178,6 +310,39 @@
           "answer": 5,
           "tol": 1e-6,
           "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Mac Lane's coherence theorem for monoidal categories states that:",
+          "choices": [
+            "Every monoidal category is equivalent to a strict monoidal category where associativity and unit isomorphisms are identities",
+            "The associator $\\alpha$ must be the identity morphism",
+            "All monoidal categories are symmetric",
+            "Pentagon and triangle diagrams hold only when all objects are isomorphic"
+          ],
+          "answer": 0,
+          "explain": "Mac Lane's coherence theorem says every monoidal category is monoidally equivalent to a strict one (where $\\otimes$ is strictly associative and $I\\otimes A=A=A\\otimes I$ on the nose). This justifies treating parenthesizations as equal 'in practice': any diagram built from associators and unit isomorphisms commutes."
+        },
+        {
+          "type": "mcq",
+          "q": "A commutative monoid object in a symmetric monoidal category $(\\mathcal{C},\\otimes,I)$ is a monoid $(M,\\mu,\\eta)$ satisfying additionally $\\mu\\circ\\sigma_{M,M}=\\mu$, where $\\sigma$ is the symmetry. In $(\\mathsf{Ab},\\otimes_{\\mathbb Z},\\mathbb Z)$, what additional structure does this give over an ordinary ring?",
+          "choices": [
+            "An ideal",
+            "A commutative ring",
+            "A field",
+            "A graded ring"
+          ],
+          "answer": 1,
+          "explain": "Commutativity of the monoid with respect to the symmetry isomorphism $\\sigma$ translates exactly to $ab=ba$ in the ring $M$, i.e. $M$ is a commutative ring."
+        },
+        {
+          "type": "numeric",
+          "q": "The Catalan number $C_n$ counts the bracketings of an $(n{+}1)$-fold tensor. Using $C_n=\\binom{2n}{n}/(n+1)$, compute $C_4$ (the number of bracketings of a $5$-fold tensor $A\\otimes B\\otimes C\\otimes D\\otimes E$).",
+          "answer": 14,
+          "tol": 1e-6,
+          "explain": "$C_4=\\binom{8}{4}/5=70/5=14$. These $14$ bracketings all become equal under iterated application of the associator $\\alpha$, by Mac Lane's coherence theorem."
         }
       ]
     }

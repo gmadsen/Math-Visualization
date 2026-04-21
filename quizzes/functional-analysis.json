@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The space $C[0,1]$ with the $L^2$ norm is NOT a Banach space. Which is the correct reason, and which is its completion?",
+          "choices": [
+            "The $L^2$ norm fails the triangle inequality on $C[0,1]$; the completion is $C^1[0,1]$",
+            "The sequence $f_n(x)=x^n$ is Cauchy in $L^2$ but its $L^2$ limit is not continuous; the completion is $L^2[0,1]$",
+            "There are no Cauchy sequences in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, so completeness is vacuously false",
+            "$C[0,1]$ is already a Banach space under the $L^2$ norm because it is finite-dimensional"
+          ],
+          "answer": 1,
+          "explain": "The functions $f_n(x)=x^n$ form a Cauchy sequence in $C[0,1]$ under $\\|\\cdot\\|_{L^2}$, but their $L^2$ limit is the indicator $\\mathbf{1}_{{1}}$, which is not continuous. Thus $C[0,1]$ is not closed under $L^2$ limits; its metric completion is $L^2[0,1]$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps for proving $\\ell^2$ is a Hilbert space via the Riesz–Fischer approach?",
+          "choices": [
+            "Define inner product → check linearity → apply Gram–Schmidt → conclude completeness",
+            "Take a Cauchy sequence → extract a fast-Cauchy subsequence with $\\|x_{n_{k+1}}-x_{n_k}\\|<2^{-k}$ → show coordinatewise limit $x$ lies in $\\ell^2$ → verify $\\|x_{n_k}-x\\|\\to 0$ → conclude",
+            "Apply Hahn–Banach to extend each coordinate functional → invoke Banach–Alaoglu → extract convergent subsequence",
+            "Show the unit ball is compact → deduce completeness from sequential compactness"
+          ],
+          "answer": 1,
+          "explain": "The standard proof: pass to a fast-Cauchy subsequence (so the telescoping series of norms converges), form the coordinatewise limit $x$, use the dominated convergence-style bound $\\sum|x_k|^2\\le(\\|x_{n_1}\\|+\\sum 2^{-k})^2<\\infty$ to put $x\\in\\ell^2$, then verify norm convergence. The unit ball of an infinite-dimensional Hilbert space is never compact."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $e_1,e_2\\in\\ell^2$ be the first two standard basis vectors. Using the polarization identity $\\langle x,y\\rangle=\\tfrac{1}{4}(\\|x+y\\|^2-\\|x-y\\|^2)$ (real case), compute $\\langle e_1+2e_2,\\, 3e_1-e_2\\rangle$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\langle e_1+2e_2,3e_1-e_2\\rangle=1\\cdot 3+2\\cdot(-1)=3-2=1$. Verify with polarization: $\\|x+y\\|^2=\\|(4e_1+e_2)\\|^2=17$, $\\|x-y\\|^2=\\|(-2e_1+3e_2)\\|^2=13$; $(17-13)/4=1$."
+        }
       ]
     },
     "bounded-operators-fa": {
@@ -70,6 +103,39 @@
           "answer": 1,
           "tol": 1e-6,
           "explain": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $S$ be the unilateral right shift on $\\ell^2$ and $S^*$ its adjoint (left shift). Which statement about their composition is correct?",
+          "choices": [
+            "$S^*S=I$ and $SS^*=I$, so $S$ is unitary",
+            "$S^*S=I$ but $SS^*\\ne I$; in fact $SS^*=I-P$ where $P$ is the projection onto $e_1$",
+            "$SS^*=I$ but $S^*S\\ne I$",
+            "$S^*S=SS^*=0$"
+          ],
+          "answer": 1,
+          "explain": "$S^*$ is the left shift: $S^*(x_1,x_2,\\ldots)=(x_2,x_3,\\ldots)$. Then $S^*S(x)=S^*(0,x_1,x_2,\\ldots)=(x_1,x_2,\\ldots)=x$, so $S^*S=I$. But $(SS^*)(x_1,x_2,\\ldots)=S(x_2,x_3,\\ldots)=(0,x_2,x_3,\\ldots)$, missing the first coordinate — so $SS^*=I-P_{e_1}$. $S$ is an isometry but not unitary: it is not surjective."
+        },
+        {
+          "type": "mcq",
+          "q": "The Open Mapping Theorem requires both domain and codomain to be Banach spaces. Which example shows the theorem can fail if the domain is not complete?",
+          "choices": [
+            "The identity map $\\mathrm{id}:(\\mathbb{R}^n,\\|\\cdot\\|_1)\\to(\\mathbb{R}^n,\\|\\cdot\\|_2)$ is bijective and bounded but not open",
+            "The inclusion $i:(c_{00},\\|\\cdot\\|_2)\\hookrightarrow\\ell^2$ is surjective and bounded but $i(B_{c_{00}})$ is not open in $\\ell^2$",
+            "Every bijective bounded linear map between normed spaces has a bounded inverse",
+            "Differentiation $d/dx:C^1[0,1]\\to C[0,1]$ is surjective and open"
+          ],
+          "answer": 1,
+          "explain": "$c_{00}$ (finitely supported sequences) with the $\\ell^2$ norm is a normed space but not complete. The inclusion into $\\ell^2$ is bounded and injective with dense range; a surjective bounded map from an incomplete space to a Banach space need not be open, so the inverse need not be bounded. The Open Mapping Theorem requires the domain to be Banach."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $T$ be the $2\\times 2$ matrix $\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ viewed as an operator $\\mathbb{R}^2\\to\\mathbb{R}^2$ with the Euclidean norm. Compute $\\|T\\|$ (the operator norm), which equals the largest singular value of $T$.",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The singular values of $T$ are the square roots of the eigenvalues of $T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$. Its eigenvalues are $25$ and $0$, so the largest singular value — and hence the operator norm — is $\\sqrt{25}=5$."
         }
       ]
     },
@@ -107,6 +173,39 @@
           "tol": 1e-6,
           "explain": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which is the correct sequence of steps to prove that eigenvalues of a self-adjoint operator $T$ on a Hilbert space are real?",
+          "choices": [
+            "Assume $Tv=\\lambda v$, $v\\ne 0$ → compute $\\langle Tv,v\\rangle=\\lambda\\|v\\|^2$ → use $T=T^*$ to get $\\langle Tv,v\\rangle=\\langle v,Tv\\rangle=\\overline{\\lambda}\\|v\\|^2$ → conclude $\\lambda=\\overline{\\lambda}$",
+            "Use the spectral theorem to diagonalise $T$ → read off real diagonal entries",
+            "Apply the Cayley transform $U=(T-i)(T+i)^{-1}$ → note $U$ is unitary → eigenvalues of $U$ on the unit circle → invert to get $\\lambda\\in\\mathbb{R}$",
+            "Invoke Banach–Steinhaus to bound $\\lambda$ → use the closed graph theorem to force $\\lambda\\in\\mathbb{R}$"
+          ],
+          "answer": 0,
+          "explain": "The elementary proof: $\\langle Tv,v\\rangle=\\lambda\\|v\\|^2$ from the eigenvalue equation, and $\\langle Tv,v\\rangle=\\langle v,T^*v\\rangle=\\langle v,Tv\\rangle=\\overline{\\lambda}\\|v\\|^2$ from self-adjointness. So $\\lambda=\\overline{\\lambda}$, i.e., $\\lambda\\in\\mathbb{R}$. The spectral theorem proof is circular (it uses real spectrum as input)."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $M_g$ be the multiplication operator $(M_g f)(x)=g(x)f(x)$ on $L^2[0,1]$ with $g(x)=x$. Which statement about its spectrum is correct?",
+          "choices": [
+            "$\\sigma(M_g)=\\{0,1\\}$ — only the endpoints",
+            "$\\sigma(M_g)=[0,1]$ — the entire range of $g$, and $M_g$ has no eigenvalues",
+            "$\\sigma(M_g)=\\emptyset$ — the operator is compact",
+            "$\\sigma(M_g)=\\mathbb{R}$ — multiplication operators always have full real spectrum"
+          ],
+          "answer": 1,
+          "explain": "$M_g-\\lambda$ is invertible iff $g-\\lambda$ is bounded away from $0$ a.e., i.e., $\\lambda\\notin\\operatorname{ess-range}(g)=[0,1]$. So $\\sigma(M_g)=[0,1]$. For any $\\lambda\\in[0,1]$, $M_g-\\lambda$ is injective (the set $\\{x=\\lambda\\}$ has measure $0$), so $\\lambda$ is not an eigenvalue — yet $\\lambda$ is in the spectrum because $M_g-\\lambda$ is not bounded below."
+        },
+        {
+          "type": "numeric",
+          "q": "The spectral projections of $T=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ onto eigenspaces $\\lambda=+1$ and $\\lambda=-1$ are $P_+=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $P_-=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$. Compute $\\|T\\|^2=\\|T^*T\\|$ using the spectral decomposition $T=P_+-P_-$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$T^*T=T^2=(P_+-P_-)^2=P_++P_-=I$ (since $P_+P_-=0$ and $P_\\pm^2=P_\\pm$). Thus $\\|T^*T\\|=\\|I\\|=1$, so $\\|T\\|^2=1$ and $\\|T\\|=1$. This matches $\\|T\\|=\\max(|+1|,|-1|)=1$."
+        }
       ]
     },
     "riesz-representation": {
@@ -143,6 +242,39 @@
           "tol": 1e-6,
           "explain": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$. Riesz makes $\\|\\ell\\|_{H^*}=\\|y\\|_H$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Riesz theorem fails for $p=1$: $(L^1)^*\\cong L^\\infty$ but $(L^\\infty)^*\\not\\cong L^1$. Which is the standard counterexample showing $(L^\\infty[0,1])^*$ is strictly larger than $L^1[0,1]$?",
+          "choices": [
+            "The norm functional $f\\mapsto\\|f\\|_{L^\\infty}$ is in $(L^\\infty)^*$ but is not given by any $L^1$ function",
+            "Evaluation at a point, e.g., $\\delta_0(f)=f(0)$, is a bounded linear functional on $L^\\infty[0,1]$ (choosing measurable representatives) but lies outside the image of $L^1$",
+            "The identity map $L^\\infty\\to L^\\infty$ is a bounded functional not represented by any $g\\in L^1$",
+            "The zero functional is in $(L^\\infty)^*$ but not in $L^1$"
+          ],
+          "answer": 1,
+          "explain": "Point evaluations are well-defined on $L^\\infty$ (up to measure-zero sets they can be realized via limits and Banach limits) and give bounded linear functionals. The Banach limit — a positive linear functional on $\\ell^\\infty$ extending $\\lim$ from convergent sequences — is the classical example: it is bounded, not $w^*$-continuous, and lies strictly outside the image of $\\ell^1\\hookrightarrow(\\ell^\\infty)^*$."
+        },
+        {
+          "type": "mcq",
+          "q": "Prove step-by-step that the Riesz vector $y$ in $\\ell(x)=\\langle x,y\\rangle$ is unique. Which argument is correct?",
+          "choices": [
+            "Suppose $\\langle x,y_1\\rangle=\\langle x,y_2\\rangle$ for all $x$ → then $\\langle x,y_1-y_2\\rangle=0$ for all $x$ → set $x=y_1-y_2$ → get $\\|y_1-y_2\\|^2=0$ → so $y_1=y_2$",
+            "Use Gram–Schmidt to orthogonalise $y_1,y_2$; if they span the same functional they must coincide",
+            "Apply Banach–Alaoglu to extract a unique weak-* limit",
+            "Uniqueness follows from the Hahn–Banach theorem applied to the subspace spanned by $y_1-y_2$"
+          ],
+          "answer": 0,
+          "explain": "The standard one-line uniqueness argument: if $\\langle x,y_1\\rangle=\\langle x,y_2\\rangle$ for all $x$, then $y:=y_1-y_2$ satisfies $\\langle x,y\\rangle=0$ for all $x$; taking $x=y$ gives $\\|y\\|^2=0$, forcing $y=0$. Existence uses the projection theorem onto a closed subspace."
+        },
+        {
+          "type": "numeric",
+          "q": "On $L^2[0,1]$, the functional $\\ell(f)=\\int_0^1 (3x^2-1)f(x)\\,dx$ is represented by $y(x)=3x^2-1$. Compute $\\|\\ell\\|=\\|y\\|_{L^2}$ to three decimal places (the answer is $\\sqrt{\\int_0^1(3x^2-1)^2dx}$).",
+          "answer": 0.6325,
+          "tol": 0.001,
+          "explain": "$\\int_0^1(3x^2-1)^2dx=\\int_0^1(9x^4-6x^2+1)dx=9/5-6/3+1=9/5-2+1=9/5-1=4/5$. So $\\|y\\|_{L^2}=\\sqrt{4/5}=2/\\sqrt{5}\\approx 0.6325$."
+        }
       ]
     },
     "weak-topology": {
@@ -178,6 +310,39 @@
           "answer": 0,
           "tol": 1e-6,
           "explain": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$. Yet $\\|e_n-0\\|_2=1$, so there is no norm convergence — a textbook illustration that weak limit $\\ne$ strong limit."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Mazur's theorem states that for a convex set $C$ in a Banach space, weak closure equals norm closure. Which consequence is most directly useful in optimization?",
+          "choices": [
+            "Every weakly closed set is bounded",
+            "If a sequence $x_n\\rightharpoonup x$ weakly and each $x_n\\in C$ (convex, norm-closed), then $x\\in C$ — so norm-closed convex sets are closed under weak limits",
+            "Every norm-bounded sequence has a weakly convergent subsequence",
+            "Weak convergence implies norm convergence for convex sequences"
+          ],
+          "answer": 1,
+          "explain": "Mazur: for convex $C$, weak-closure $=$ norm-closure. The key corollary: if $C$ is convex and norm-closed, it is also weakly closed, so weak limits of sequences in $C$ remain in $C$. This is indispensable in calculus of variations — one finds minimizers as weak limits in a reflexive space, then uses convexity to stay inside feasible sets."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $X=\\ell^1$ and consider its dual $X^*=\\ell^\\infty$. A sequence $(\\ell_n)$ in $B_{\\ell^\\infty}$ converges weak-* to $\\ell$ iff:",
+          "choices": [
+            "$\\|\\ell_n-\\ell\\|_\\infty\\to 0$",
+            "$\\ell_n(x)\\to\\ell(x)$ for every $x\\in\\ell^1$, i.e., $\\sum_k (\\ell_n)_k x_k\\to\\sum_k \\ell_k x_k$ for all $x\\in\\ell^1$",
+            "$\\ell_n(x)\\to\\ell(x)$ for every $x\\in\\ell^\\infty$",
+            "$(\\ell_n)$ is eventually constant in every coordinate"
+          ],
+          "answer": 1,
+          "explain": "Weak-* convergence in $X^*=\\ell^\\infty$ is convergence on every $x\\in X=\\ell^1$. Norm convergence (choice A) is strictly stronger. Convergence on all of $\\ell^\\infty$ (choice C) would be weak convergence in $\\ell^\\infty$ itself — a finer topology. Concretely, $\\delta_n\\rightharpoonup^* 0$ in $\\ell^\\infty$ since $\\delta_n(x)=x_n\\to 0$ for every $x\\in\\ell^1$, but $\\|\\delta_n\\|_\\infty=1\\not\\to 0$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $L^2[0,2\\pi]$, consider $f_n(x)=\\sin(nx)$. One can show $f_n\\rightharpoonup 0$ weakly. Compute $\\lim_{n\\to\\infty}\\int_0^{2\\pi}\\sin(nx)\\cdot x\\,dx$ using integration by parts (this gives the value of the weak limit applied to $g(x)=x$, confirming $f_n\\rightharpoonup 0$).",
+          "answer": 0,
+          "tol": 0.01,
+          "explain": "$\\int_0^{2\\pi} x\\sin(nx)\\,dx=\\left[-\\frac{x\\cos(nx)}{n}\\right]_0^{2\\pi}+\\frac{1}{n}\\int_0^{2\\pi}\\cos(nx)\\,dx=-\\frac{2\\pi}{n}+0\\to 0$ as $n\\to\\infty$. Since this holds for all $g\\in L^2[0,2\\pi]$ (by Riemann–Lebesgue), $f_n\\rightharpoonup 0$ weakly, even though $\\|f_n\\|_{L^2}=\\sqrt{\\pi}$ for all $n$."
         }
       ]
     }

@@ -35,6 +35,39 @@
           "tol": 1e-6,
           "explain": "$\\check{H}^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$ (the winding-number class), so rationally it is $1$-dimensional."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For the torus $T^2$ with the constant sheaf $\\underline{\\mathbb{Z}}$, which statement about a cover by two open sets is correct?",
+          "choices": [
+            "Any cover by two contractible sets is Leray, so $\\check{H}^1=0$",
+            "No cover by two sets can compute $\\check{H}^1(T^2,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}^2$ correctly because two-set Čech complexes truncate at $\\check{C}^1$",
+            "A cover by two contractible sets is NOT Leray because their intersection need not be acyclic, and the Čech complex may miss $H^2$",
+            "The Čech complex with two sets always computes all cohomology of $T^2$"
+          ],
+          "answer": 2,
+          "explain": "Two contractible open sets $U,V$ covering $T^2$ must have $U\\cap V\\simeq S^1\\sqcup S^1$ (not contractible), so the cover fails the Leray acyclicity condition on intersections. This is precisely why a good cover (all intersections contractible) is required for Čech to recover sheaf cohomology."
+        },
+        {
+          "type": "numeric",
+          "q": "For the cover of $S^2$ by two contractible open hemispheres $U,V$ with $U\\cap V\\simeq S^1$, compute $\\dim_{\\mathbb{Q}}\\check{H}^1(\\mathcal{U},\\underline{\\mathbb{Q}})$ directly from the Čech complex $\\check{C}^0\\to\\check{C}^1$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$\\check{C}^0=\\underline{\\mathbb{Q}}(U)\\oplus\\underline{\\mathbb{Q}}(V)\\cong\\mathbb{Q}^2$ and $\\check{C}^1=\\underline{\\mathbb{Q}}(U\\cap V)$. Since $U\\cap V\\simeq S^1$, $H^0(U\\cap V,\\underline{\\mathbb{Q}})\\cong\\mathbb{Q}$. The coboundary $d\\colon\\mathbb{Q}^2\\to\\mathbb{Q}$, $(a,b)\\mapsto b-a$, is surjective with kernel $\\mathbb{Q}$, giving $\\ker/\\mathrm{im}=0$. So $\\check{H}^1=0$, consistent with $H^1(S^2)=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to verify that a Čech cocycle $\\{t_{\\alpha\\beta}\\}$ is a coboundary?",
+          "choices": [
+            "Find $\\{s_\\alpha\\in\\mathcal{F}(U_\\alpha)\\}$ such that $t_{\\alpha\\beta}=s_\\beta - s_\\alpha$ on $U_{\\alpha\\beta}$, then check the cocycle condition",
+            "Check the cocycle condition $t_{\\beta\\gamma}-t_{\\alpha\\gamma}+t_{\\alpha\\beta}=0$, then declare it a coboundary",
+            "Find $\\{s_\\alpha\\}$ with $s_\\beta - s_\\alpha = t_{\\alpha\\beta}$; if such $s_\\alpha$ exist, the cocycle is a coboundary",
+            "Compute $H^1$ and if it vanishes declare every cocycle a coboundary without finding the $s_\\alpha$"
+          ],
+          "answer": 2,
+          "explain": "A $1$-cochain $\\{t_{\\alpha\\beta}\\}$ is a coboundary iff there exist local sections $s_\\alpha\\in\\mathcal{F}(U_\\alpha)$ with $t_{\\alpha\\beta}=s_\\beta|_{U_{\\alpha\\beta}}-s_\\alpha|_{U_{\\alpha\\beta}}$. Exhibiting explicit $s_\\alpha$ is the direct verification; the cocycle condition is necessary but not sufficient."
+        }
       ]
     },
     "leray-acyclic-covers": {
@@ -70,6 +103,39 @@
           "answer": 3,
           "tol": 0,
           "explain": "$\\check C^1$ indexes strictly-increasing pairs $(\\alpha_0,\\alpha_1)$ from $\\{0,1,2\\}$, so its rank is $\\binom{3}{2} = 3$. (Triple intersections contribute $\\binom{3}{3}=1$ term in $\\check C^2$.)"
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Let $X=\\mathbb{P}^1_k$ with affine cover $U_0=\\{x_0\\ne 0\\}$, $U_1=\\{x_1\\ne 0\\}$, and $\\mathcal{F}=\\mathcal{O}(-3)$. Which statement correctly explains why this cover is Leray for $\\mathcal{O}(-3)$?",
+          "choices": [
+            "Both $U_0$ and $U_1$ are isomorphic to $\\mathbb{A}^1$, so they are affine; $U_0\\cap U_1\\cong\\mathbb{A}^1\\setminus\\{0\\}$ is also affine. Serre's theorem gives $H^i(\\mathrm{affine},\\widetilde{M})=0$ for $i>0$.",
+            "The sheaf $\\mathcal{O}(-3)$ has $H^0=0$, so the cover is trivially Leray.",
+            "The cover is Leray because $\\mathbb{P}^1$ is a smooth curve.",
+            "Affine covers are Leray only for line bundles of non-negative degree."
+          ],
+          "answer": 0,
+          "explain": "Each chart and their intersection are affine schemes. Serre's vanishing theorem for quasi-coherent sheaves on affine schemes ensures $H^i>0$ vanishes on each piece, making the cover Leray and the Čech computation exact."
+        },
+        {
+          "type": "numeric",
+          "q": "Using the Leray cover $\\{U_0,U_1\\}$ of $\\mathbb{P}^2$ (standard affine cover by three charts), the Čech complex for a quasi-coherent sheaf has terms in degrees $0,1,2$. How many terms does $\\check{C}^2$ have?",
+          "answer": 1,
+          "tol": 0,
+          "explain": "$\\check{C}^2$ indexes strictly-increasing triples from $\\{0,1,2\\}$: only $(0,1,2)$, giving $\\binom{3}{3}=1$ term."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\mathcal{U}$ is a Leray cover for $\\mathcal{F}$ but NOT for $\\mathcal{G}$, and there is a map $\\mathcal{F}\\to\\mathcal{G}$, which conclusion is valid?",
+          "choices": [
+            "$\\check{H}^p(\\mathcal{U},\\mathcal{F})\\cong H^p(X,\\mathcal{F})$ but $\\check{H}^p(\\mathcal{U},\\mathcal{G})$ may differ from $H^p(X,\\mathcal{G})$",
+            "Both Čech groups equal the derived-functor groups because any cover suffices",
+            "Neither Čech computation is valid once a non-Leray sheaf is involved",
+            "$H^p(X,\\mathcal{F})=0$ for all $p$ whenever the cover is Leray for $\\mathcal{F}$"
+          ],
+          "answer": 0,
+          "explain": "The Leray isomorphism $\\check{H}^p(\\mathcal{U},\\mathcal{F})\\cong H^p(X,\\mathcal{F})$ applies sheaf-by-sheaf; $\\mathcal{F}$ satisfies the hypothesis but $\\mathcal{G}$ does not, so the Čech-to-derived comparison holds for $\\mathcal{F}$ and may fail for $\\mathcal{G}$."
         }
       ]
     },
@@ -107,6 +173,39 @@
           "tol": 1e-6,
           "explain": "The sandwiching $H^i(\\mathcal{O}(-1)) = 0$ forces $H^0(\\mathcal{O}) \\xrightarrow{\\sim} H^0(\\mathcal{O}_p)$. Since $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}) = 1$, we get $\\dim H^0(\\mathcal{O}_p) = 1$ — the stalk at $p$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "From the exponential sequence $0\\to\\underline{\\mathbb{Z}}\\to\\mathcal{O}_X\\to\\mathcal{O}_X^\\times\\to 0$ on a compact Riemann surface $X$, the connecting map $\\delta\\colon H^1(X,\\mathcal{O}_X^\\times)\\to H^2(X,\\underline{\\mathbb{Z}})$ sends a line bundle $L$ to which invariant?",
+          "choices": [
+            "The holomorphic Euler characteristic $\\chi(L)$",
+            "The first Chern class $c_1(L)\\in H^2(X,\\mathbb{Z})$",
+            "The degree zero part of $\\mathrm{Pic}(X)$",
+            "The rank of $H^0(X,L)$"
+          ],
+          "answer": 1,
+          "explain": "The connecting homomorphism $\\delta$ in the long exact sequence of the exponential sequence sends a holomorphic line bundle (class in $H^1(\\mathcal{O}^\\times)=\\mathrm{Pic}(X)$) to its first Chern class in $H^2(X,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$, which equals the degree of the line bundle."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{P}^1$, apply the long exact sequence of $0\\to\\mathcal{O}(-1)\\to\\mathcal{O}^{\\oplus 2}\\to\\mathcal{O}(1)\\to 0$ (Euler sequence twisted). Given $\\dim H^0(\\mathcal{O})=1$, $\\dim H^0(\\mathcal{O}(-1))=0$, $\\dim H^1(\\mathcal{O}(-1))=0$, compute $\\dim H^0(\\mathbb{P}^1,\\mathcal{O}(1))$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "From the long exact sequence: $0\\to H^0(\\mathcal{O}(-1))\\to H^0(\\mathcal{O})^2\\to H^0(\\mathcal{O}(1))\\to H^1(\\mathcal{O}(-1))\\to\\cdots$. Since the flanking terms vanish, the middle map is an isomorphism followed by a surjection: $\\dim H^0(\\mathcal{O}(1))=2\\cdot 1=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct order of steps to construct the connecting homomorphism $\\delta\\colon H^p(X,\\mathcal{F}'')\\to H^{p+1}(X,\\mathcal{F}')$ from a SES $0\\to\\mathcal{F}'\\to\\mathcal{F}\\to\\mathcal{F}''\\to 0$?",
+          "choices": [
+            "Apply $\\Gamma$ first, use surjectivity of $\\mathcal{F}\\to\\mathcal{F}''$ at the level of injective resolutions, then form the snake map",
+            "Take injective resolutions $0\\to I'^\\bullet\\to I^\\bullet\\to I''^\\bullet\\to 0$, apply $\\Gamma$ to get a SES of complexes (using injectivity to split), then the snake lemma on cohomology yields $\\delta$",
+            "Directly apply $\\Gamma$ to the SES and read off $\\delta$ from the failure of surjectivity on global sections",
+            "Use the five lemma to construct $\\delta$ from the long exact homotopy sequence"
+          ],
+          "answer": 1,
+          "explain": "The standard construction: embed each sheaf in an injective sheaf, extend to a SES of injective resolutions (which splits in each degree by injectivity of $I'^p$), apply $\\Gamma$, and apply the snake lemma to the resulting SES of cochain complexes. The resulting boundary map on cohomology is $\\delta$."
+        }
       ]
     },
     "derived-functor-cohomology": {
@@ -143,6 +242,39 @@
           "tol": 1e-6,
           "explain": "$\\max(-(-5)-1,0)=\\max(4,0)=4$."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which of these sheaves on $S^1$ is NOT $\\Gamma$-acyclic, and why?",
+          "choices": [
+            "The constant sheaf $\\underline{\\mathbb{Z}}$, because $H^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}\\ne 0$",
+            "Any flabby sheaf, because restriction maps are surjective",
+            "Any injective sheaf, because $R^i\\Gamma(I)=0$ for $i>0$ by definition",
+            "The skyscraper sheaf at a point, because it has non-vanishing $H^1$"
+          ],
+          "answer": 0,
+          "explain": "The constant sheaf $\\underline{\\mathbb{Z}}$ on $S^1$ has $H^1(S^1,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}$, witnessing the winding-number class. Flabby and injective sheaves are acyclic by construction; skyscraper sheaves at a point have $H^i=0$ for $i>0$ since points are acyclic."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\mathbb{P}^2_k$, the formula $\\dim H^1(\\mathbb{P}^2,\\mathcal{O}(n))=0$ for all $n$. Using this and the exact sequence $0\\to\\mathcal{O}(-1)\\to\\mathcal{O}\\to\\mathcal{O}_H\\to 0$ (restriction to a hyperplane $H\\cong\\mathbb{P}^1$), compute $\\dim H^0(\\mathbb{P}^2,\\mathcal{O})$ given $\\dim H^0(\\mathbb{P}^1,\\mathcal{O})=1$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "The long exact sequence gives $0\\to H^0(\\mathcal{O}(-1))\\to H^0(\\mathcal{O})\\to H^0(\\mathcal{O}_H)\\to H^1(\\mathcal{O}(-1))\\to\\cdots$. Since $H^0(\\mathcal{O}(-1))=0$ and $H^1(\\mathcal{O}(-1))=0$, we get $H^0(\\mathbb{P}^2,\\mathcal{O})\\cong H^0(\\mathbb{P}^1,\\mathcal{O})=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the global-sections functor $\\Gamma(X,-)$ fail to be right exact on $\\mathbf{Ab}(X)$ (abelian sheaves on $X$)?",
+          "choices": [
+            "Because $\\Gamma$ does not preserve direct sums",
+            "Because a surjection of sheaves $\\mathcal{F}\\to\\mathcal{G}\\to 0$ means surjectivity on stalks, not necessarily on global sections — sections may not lift globally",
+            "Because $\\Gamma$ does not preserve monomorphisms",
+            "Because $\\mathbf{Ab}(X)$ does not have enough injectives"
+          ],
+          "answer": 1,
+          "explain": "A morphism of sheaves is surjective iff it is surjective on stalks. Global sections need not be surjective: the exponential $\\mathcal{O}\\to\\mathcal{O}^\\times$ is locally surjective (every holomorphic function has local logarithms), but $z\\in H^0(\\mathbb{C}^\\times,\\mathcal{O}^\\times)$ has no global logarithm, so $H^0(\\mathcal{O})\\to H^0(\\mathcal{O}^\\times)$ is not surjective."
+        }
       ]
     },
     "applications-picard-serre": {
@@ -173,6 +305,39 @@
           "answer": 7,
           "tol": 1e-6,
           "explain": "Riemann–Roch: $h^0(L)-h^1(L)=d-g+1=10-4+1=7$, and Serre duality identifies $h^1(L)=h^0(\\omega_C\\otimes L^{-1})$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "On an elliptic curve $E$ (genus $1$, $\\omega_E\\cong\\mathcal{O}_E$), Serre duality gives $H^1(E,L)\\cong H^0(E,L^{-1})^\\vee$. For a degree-$3$ line bundle $L$, which statement is correct?",
+          "choices": [
+            "$\\dim H^1(E,L)=\\dim H^0(E,L^{-1})=3$ since $L^{-1}$ has degree $3$",
+            "$\\dim H^1(E,L)=0$ because $\\deg L>0$ implies $H^1=0$ by Kodaira vanishing",
+            "$\\dim H^1(E,L)=\\dim H^0(E,L^{-1})=0$ since $L^{-1}$ has degree $-3<0$ and $H^0=0$",
+            "$\\dim H^1(E,L)=1$ by the Riemann–Roch theorem"
+          ],
+          "answer": 2,
+          "explain": "Serre duality: $H^1(E,L)\\cong H^0(E,\\omega_E\\otimes L^{-1})^\\vee = H^0(E,L^{-1})^\\vee$. Since $L^{-1}$ has degree $-3<0$, $H^0(E,L^{-1})=0$, so $\\dim H^1(E,L)=0$. Then Riemann–Roch gives $\\dim H^0(E,L)=\\deg L -g+1=3$."
+        },
+        {
+          "type": "numeric",
+          "q": "For the projective line $\\mathbb{P}^1$ and the line bundle $\\mathcal{O}(n)$, Serre duality says $h^1(\\mathcal{O}(n))=h^0(\\mathcal{O}(-n-2))$. Compute $h^1(\\mathbb{P}^1,\\mathcal{O}(-4))$ using this duality.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$h^1(\\mathcal{O}(-4))=h^0(\\mathcal{O}(-(-4)-2))=h^0(\\mathcal{O}(2))=2+1=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Picard group $\\mathrm{Pic}(\\mathbb{P}^1_k)\\cong\\mathbb{Z}$ is generated by $\\mathcal{O}(1)$. The exponential sequence on a smooth projective curve $C$ over $\\mathbb{C}$ gives an exact sequence involving $\\mathrm{Pic}^0(C)$. Which statement correctly identifies $\\mathrm{Pic}^0(C)$?",
+          "choices": [
+            "$\\mathrm{Pic}^0(C)=0$ for all smooth curves",
+            "$\\mathrm{Pic}^0(C)\\cong H^1(C,\\mathcal{O}_C)/H^1(C,\\underline{\\mathbb{Z}})$, which is a complex torus of dimension $g$ (the Jacobian)",
+            "$\\mathrm{Pic}^0(C)\\cong H^1(C,\\underline{\\mathbb{Z}})\\cong\\mathbb{Z}^{2g}$",
+            "$\\mathrm{Pic}^0(C)$ is only defined when $g=1$"
+          ],
+          "answer": 1,
+          "explain": "From the exponential sequence, the degree-zero line bundles form $\\mathrm{Pic}^0(C)=\\ker(c_1)$. The long exact sequence gives $H^1(C,\\mathcal{O})\\to H^1(C,\\mathcal{O}^\\times)\\xrightarrow{c_1} H^2(C,\\mathbb{Z})$, and $\\mathrm{Pic}^0(C)\\cong H^1(C,\\mathcal{O})/\\mathrm{image}(H^1(C,\\underline{\\mathbb{Z}}))$, a $g$-dimensional complex torus — the Jacobian of $C$."
         }
       ]
     }

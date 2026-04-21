@@ -29,6 +29,34 @@
           "answer": 2,
           "explain": "Away from multiples of $p$, residues split into squares (1) and nonsquares (-1)."
         }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Compute $\\left(\\frac{3}{13}\\right)$ using Euler's criterion: evaluate $3^{(13-1)/2}\\bmod 13$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$3^6 = 729 = 56\\cdot 13 + 1$, so $3^6\\equiv 1\\pmod{13}$, giving $\\left(\\frac{3}{13}\\right)=1$. Indeed $4^2=16\\equiv 3\\pmod{13}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct counterexample showing $\\left(\\frac{ab}{p}\\right)=\\left(\\frac{a}{p}\\right)\\left(\\frac{b}{p}\\right)$ does NOT require $a,b$ to be coprime to each other?",
+          "choices": [
+            "Take $a=p, b=1$: both sides equal 0 confirming multiplicativity",
+            "Take $a=2, b=8, p=7$: $(16/7)=(2/7)^2(-1)$ which breaks multiplicativity",
+            "Take $a=3, b=5, p=7$: $(15/7)=(1/7)=1$ while $(3/7)(5/7)=(-1)(1)=-1$, so multiplicativity fails when $\\gcd(a,b)>1$",
+            "Take $a=2, b=8, p=7$: $(16/7)=1=(2/7)(8/7)=(1)(1)=1$, confirming multiplicativity holds regardless of $\\gcd(a,b)$"
+          ],
+          "answer": 3,
+          "explain": "$(2/7)=1$ since $3^2=9\\equiv 2\\pmod 7$, and $(8/7)=(1/7)=1$ since $8\\equiv 1$. So $(16/7)=(2/7)(8/7)=1$. Multiplicativity of the Legendre symbol holds for all integers $a,b$ coprime to $p$, regardless of $\\gcd(a,b)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Among $\\{1,2,3,4,5,6\\}$, how many quadratic residues mod 7 are there?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "$1^2\\equiv 1$, $2^2\\equiv 4$, $3^2\\equiv 2\\pmod 7$; the remaining classes 3, 5, 6 are non-residues. So exactly 3 quadratic residues."
+        }
       ]
     },
     "supplementary-laws-qr": {
@@ -63,6 +91,39 @@
           "answer": 1,
           "explain": "$(2/p)=(-1)^{(p^2-1)/8}$ is negative for classes 3 and 5 mod 8."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which chain of implications correctly derives $(-1/p)=(-1)^{(p-1)/2}$ from Euler's criterion?",
+          "choices": [
+            "Euler's criterion gives $(-1)^{(p-1)/2}\\equiv (-1)\\pmod p$, then compare signs to get the symbol",
+            "Euler's criterion gives $(-1/p)\\equiv (-1)^{(p-1)/2}\\pmod p$; since both sides are $\\pm 1$ and $p>2$, equality holds in $\\mathbb{Z}$",
+            "Fermat's little theorem directly gives $(-1/p)=(-1)^p$, and $(-1)^p=(-1)^{(p-1)/2}$ by evenness",
+            "The formula follows from Wilson's theorem alone without using Euler's criterion"
+          ],
+          "answer": 1,
+          "explain": "Euler's criterion states $a^{(p-1)/2}\\equiv\\left(\\frac{a}{p}\\right)\\pmod p$ for $p\\nmid a$. Both $(-1)^{(p-1)/2}$ and $(\\frac{-1}{p})$ lie in $\\{1,-1\\}\\subset\\mathbb{Z}$, and $p>2$ means $1\\not\\equiv -1\\pmod p$, so the congruence forces equality in $\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "For which odd prime $p<20$ does $\\left(\\frac{-1}{p}\\right)=-1$ AND $\\left(\\frac{2}{p}\\right)=-1$ simultaneously hold? Give the smallest such prime.",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "$(-1/p)=-1$ requires $p\\equiv 3\\pmod 4$; $(2/p)=-1$ requires $p\\equiv 3$ or $5\\pmod 8$. Intersection: $p\\equiv 3\\pmod 8$. Smallest such prime below 20 is $p=3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $p\\equiv 7\\pmod 8$. Which statement about $\\left(\\frac{-2}{p}\\right)$ is correct?",
+          "choices": [
+            "$\\left(\\frac{-2}{p}\\right)=\\left(\\frac{-1}{p}\\right)\\left(\\frac{2}{p}\\right)=(-1)(1)=-1$",
+            "$\\left(\\frac{-2}{p}\\right)=\\left(\\frac{-1}{p}\\right)\\left(\\frac{2}{p}\\right)=(1)(1)=1$",
+            "$\\left(\\frac{-2}{p}\\right)=\\left(\\frac{-1}{p}\\right)\\left(\\frac{2}{p}\\right)=(-1)(-1)=1$",
+            "$\\left(\\frac{-2}{p}\\right)$ cannot be determined from the supplementary laws alone"
+          ],
+          "answer": 0,
+          "explain": "$p\\equiv 7\\pmod 8$ implies $p\\equiv 3\\pmod 4$, so $(-1/p)=(-1)^{(p-1)/2}=-1$. Also $p\\equiv 7\\pmod 8$ gives $(2/p)=1$. By multiplicativity, $(-2/p)=(-1/p)(2/p)=(-1)(1)=-1$."
+        }
       ]
     },
     "gauss-lemma-qr": {
@@ -92,6 +153,34 @@
           "answer": -1,
           "tol": 0.001,
           "explain": "$n=3$ is odd, so $(-1)^n=-1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "Apply Gauss's lemma to compute $\\left(\\frac{3}{11}\\right)$. List the least positive residues of $3,6,9,12,15$ mod 11 and count how many exceed $11/2=5.5$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "Reduced residues mod 11: $3\\cdot 1=3$, $3\\cdot 2=6$, $3\\cdot 3=9$, $3\\cdot 4\\equiv 1$, $3\\cdot 5\\equiv 4$. Those exceeding 5.5 are $6$ and $9$, so $n=2$. Then $(3/11)=(-1)^2=1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Gauss's lemma connects $\\left(\\frac{a}{p}\\right)$ to a product of signs. Which statement correctly orders the proof steps?",
+          "choices": [
+            "Multiply all residues $a,2a,\\ldots,\\frac{p-1}{2}a$ together mod $p$; observe that after reducing to $(-1)^n\\cdot(p-1)/2!$ one equates to $((p-1)/2)!$ and cancels to get $(-1)^n$",
+            "Factor $a^{(p-1)/2}$ using the Chinese Remainder Theorem, then compare with Wilson's theorem",
+            "Use the pigeonhole principle to show $n$ residues exceed $p/2$, then apply the definition of the symbol directly",
+            "Apply Euler's criterion first to get the symbol, then verify $n$ by direct computation"
+          ],
+          "answer": 0,
+          "explain": "The standard proof multiplies $a, 2a,\\ldots,\\frac{p-1}{2}a$, reduces each mod $p$ to $\\{1,\\ldots,p-1\\}$, flips those above $p/2$ to get the full set $\\{1,\\ldots,\\frac{p-1}{2}\\}$ up to signs, then cancels $((p-1)/2)!$ from both sides leaving $a^{(p-1)/2}\\equiv(-1)^n$, which equals $(a/p)$ by Euler's criterion."
+        },
+        {
+          "type": "numeric",
+          "q": "For $p=13, a=5$, apply Gauss's lemma. The multiples $5,10,15,20,25,30$ reduce mod 13 to $5,10,2,7,12,4$. How many of these exceed $13/2=6.5$?",
+          "answer": 3,
+          "tol": 0.001,
+          "explain": "Reduced residues: $5,10,2,7,12,4$. Those exceeding 6.5 are $10,7,12$ — exactly 3. So $(5/13)=(-1)^3=-1$."
         }
       ]
     },
@@ -127,6 +216,39 @@
           "answer": 1,
           "explain": "The sign factor is -1 exactly in the (3 mod 4, 3 mod 4) case."
         }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Use quadratic reciprocity to compute $\\left(\\frac{11}{23}\\right)$. Since $11\\equiv 3\\pmod 4$ and $23\\equiv 3\\pmod 4$, which chain of steps is correct?",
+          "choices": [
+            "$\\left(\\frac{11}{23}\\right)=\\left(\\frac{23}{11}\\right)=\\left(\\frac{1}{11}\\right)=1$",
+            "$\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)=-\\left(\\frac{1}{11}\\right)=-1$",
+            "$\\left(\\frac{11}{23}\\right)=\\left(\\frac{23}{11}\\right)=\\left(\\frac{12}{11}\\right)=\\left(\\frac{1}{11}\\right)=1$",
+            "$\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)=-\\left(\\frac{12}{11}\\right)$, and since $12\\equiv 1\\pmod{11}$, the answer is $-1$"
+          ],
+          "answer": 3,
+          "explain": "Both primes are $\\equiv 3\\pmod 4$, so $\\left(\\frac{11}{23}\\right)=-\\left(\\frac{23}{11}\\right)$. Then $23\\equiv 1\\pmod{11}$, giving $\\left(\\frac{23}{11}\\right)=\\left(\\frac{1}{11}\\right)=1$. Hence $\\left(\\frac{11}{23}\\right)=-1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\left(\\frac{7}{11}\\right)$ using reciprocity. Since $7\\equiv 3\\pmod 4$ and $11\\equiv 3\\pmod 4$, we get $\\left(\\frac{7}{11}\\right)=-\\left(\\frac{11}{7}\\right)=-\\left(\\frac{4}{7}\\right)$. What is the final value?",
+          "answer": -1,
+          "tol": 0.001,
+          "explain": "$11\\equiv 4\\pmod 7$, so $\\left(\\frac{11}{7}\\right)=\\left(\\frac{4}{7}\\right)=1$ (since $4=2^2$). Therefore $\\left(\\frac{7}{11}\\right)=-1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which ordered sequence of proof steps correctly establishes the quadratic reciprocity law via Gauss sums?",
+          "choices": [
+            "Define $g=\\sum_{a}(a/p)e^{2\\pi ia/p}$; show $g^2=(-1)^{(p-1)/2}p$; compute $g^{q-1}$ two ways to extract $(p/q)(q/p)$",
+            "Use Gauss's lemma to count lattice points in a rectangle, then compare parities of row and column counts",
+            "Apply the Chinese Remainder Theorem to $\\mathbb{Z}/pq\\mathbb{Z}$ and factor the group of units",
+            "Embed $\\mathbb{F}_p$ in $\\mathbb{F}_{pq}$ and use Frobenius automorphisms to relate the two symbols"
+          ],
+          "answer": 0,
+          "explain": "The Gauss-sum proof: the Gauss sum $g$ satisfies $g^2=p^*=(-1)^{(p-1)/2}p$. Raising to the $(q-1)$-th power in $\\mathbb{Z}[\\zeta_p]$ and reducing mod $q$ in two ways yields $(p/q)=(q/p)\\cdot(-1)^{(p-1)(q-1)/4}$, i.e., the reciprocity law."
+        }
       ]
     },
     "jacobi-symbol-generalization": {
@@ -160,6 +282,39 @@
           ],
           "answer": 1,
           "explain": "Multiplicativity plus the mod-2 identity $\\tfrac{mn-1}{2}\\equiv\\tfrac{m-1}{2}+\\tfrac{n-1}{2}$ lifts every step to odd integers, so no primality test is ever needed."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The Jacobi symbol $\\left(\\frac{a}{n}\\right)=1$ does NOT guarantee $a$ is a square mod $n$. Which is the smallest counterexample with $n$ composite?",
+          "choices": [
+            "$a=2, n=15$: $(2/15)=1$ yet $x^2\\equiv 2\\pmod{15}$ has no solution",
+            "$a=4, n=15$: $(4/15)=1$ yet $x^2\\equiv 4\\pmod{15}$ has no solution",
+            "$a=9, n=15$: $(9/15)$ is undefined since $\\gcd(9,15)>1$",
+            "$a=1, n=9$: $(1/9)=1$ but $1$ is trivially a square, so this is not a counterexample"
+          ],
+          "answer": 0,
+          "explain": "$(2/15)=(2/3)(2/5)=(-1)(-1)=1$, but $x^2\\equiv 2\\pmod{15}$ requires $x^2\\equiv 2\\pmod 3$ (impossible, since $2$ is a non-residue mod $3$) and $x^2\\equiv 2\\pmod 5$ (impossible). So $2$ is a non-square mod $15$ despite having Jacobi symbol $1$."
+        },
+        {
+          "type": "numeric",
+          "q": "Evaluate $\\left(\\frac{30}{53}\\right)$ using multiplicativity: split as $\\left(\\frac{2}{53}\\right)\\left(\\frac{3}{53}\\right)\\left(\\frac{5}{53}\\right)$. Note $53\\equiv 5\\pmod 8$, $53\\equiv 2\\pmod 3$, $53\\equiv 3\\pmod 5$.",
+          "answer": -1,
+          "tol": 0.001,
+          "explain": "$(2/53)=-1$ since $53\\equiv 5\\pmod 8$. $(3/53)$: both $3\\equiv 3$ and $53\\equiv 1\\pmod 4$, so $(3/53)=(53/3)=(2/3)=-1$. $(5/53)$: $5\\equiv 1\\pmod 4$, so $(5/53)=(53/5)=(3/5)$; since $3\\equiv 3\\pmod 4$ and $5\\equiv 1\\pmod 4$, $(3/5)=(5/3)=(2/3)=-1$. Product: $(-1)(-1)(-1)=-1$."
+        },
+        {
+          "type": "mcq",
+          "q": "For the Jacobi symbol, reciprocity takes the form $\\left(\\frac{m}{n}\\right)\\left(\\frac{n}{m}\\right)=(-1)^{\\frac{m-1}{2}\\cdot\\frac{n-1}{2}}$ for odd positive coprime $m,n$. Which hypothesis is essential for this to hold that is NOT required for the Legendre symbol version?",
+          "choices": [
+            "Both $m$ and $n$ must be prime",
+            "Both $m$ and $n$ need only be odd and positive — primality is not required",
+            "$m$ and $n$ must both be $\\equiv 1\\pmod 4$",
+            "$\\gcd(m,n)=1$ is required for the Legendre symbol but not the Jacobi symbol"
+          ],
+          "answer": 1,
+          "explain": "The Jacobi reciprocity law holds for any two odd coprime positive integers — neither needs to be prime. This is what powers the Euclidean reduction algorithm: one can swap and reduce without ever testing primality, since the law applies at every step."
         }
       ]
     }
