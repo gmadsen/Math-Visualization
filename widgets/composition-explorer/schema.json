@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/composition-explorer/schema.json",
+  "title": "composition-explorer widget params",
+  "description": "Data needed to render the Composition explorer widget: a small category with finitely many objects, morphisms (with identities), and a composition table.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "resetId",
+    "title",
+    "hint",
+    "viewBox",
+    "width",
+    "height",
+    "initialOutput",
+    "resetLabel",
+    "legend",
+    "sectionComment",
+    "objects",
+    "morphisms",
+    "composition"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "svgId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "resetId":  { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "title":    { "type": "string" },
+    "hint":     { "type": "string" },
+    "viewBox":  { "type": "string" },
+    "width":    { "type": "integer", "minimum": 1 },
+    "height":   { "type": "integer", "minimum": 1 },
+    "initialOutput": { "type": "string" },
+    "resetLabel":    { "type": "string" },
+    "legend":        { "type": "string" },
+    "sectionComment":{ "type": "string", "description": "Comment placed at the top of the driving IIFE (e.g. 'SECTION 1 widget'). Lets the script byte-match its original source." },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "x", "y"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$" },
+          "x":  { "type": "number" },
+          "y":  { "type": "number" }
+        }
+      }
+    },
+    "morphisms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "src", "tgt", "label"],
+        "properties": {
+          "id":    { "type": "string" },
+          "src":   { "type": "string" },
+          "tgt":   { "type": "string" },
+          "label": { "type": "string" },
+          "loop":  { "type": "boolean" },
+          "curve": { "type": "number" }
+        }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "description": "Keys are 'left.right' (right applied first); values are morphism ids.",
+      "additionalProperties": { "type": "string" },
+      "propertyNames": { "pattern": "^[A-Za-z0-9_]+\\.[A-Za-z0-9_]+$" }
+    },
+    "compositionLines": {
+      "type": "array",
+      "description": "Optional visual grouping of composition-table keys into lines (for pretty-printing the embedded script). A React consumer can ignore this.",
+      "items": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  }
+}
