@@ -339,10 +339,15 @@ function zmoduleFromSmith(invariants, extraFree){
   <a href="#complexes">1&nbsp;Chain&nbsp;complexes</a>
   <a href="#exact">2&nbsp;Exact&nbsp;sequences</a>
   <a href="#snake">3&nbsp;Snake&nbsp;lemma</a>
-  <a href="#les">4&nbsp;Long&nbsp;exact&nbsp;sequence</a>
-  <a href="#derived">5&nbsp;Ext&nbsp;&amp;&nbsp;Tor</a>
-  <a href="#resolutions">6&nbsp;Resolutions</a>
-  <a href="#spectral">7&nbsp;Spectral&nbsp;sequences</a>
+  <a href="#five">4&nbsp;Five&nbsp;lemma</a>
+  <a href="#les">5&nbsp;Long&nbsp;exact&nbsp;sequence</a>
+  <a href="#projective">6&nbsp;Projective</a>
+  <a href="#injective">7&nbsp;Injective</a>
+  <a href="#flat">8&nbsp;Flat</a>
+  <a href="#derived">9&nbsp;Ext&nbsp;&amp;&nbsp;Tor</a>
+  <a href="#resolutions">10&nbsp;Resolutions</a>
+  <a href="#spectral">11&nbsp;Spectral&nbsp;sequences</a>
+  <a href="#abelian">12&nbsp;Abelian&nbsp;categories</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -404,7 +409,7 @@ function zmoduleFromSmith(invariants, extraFree){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
-    <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and resolutions</div>
+    <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
     <div><a href="./homological.html#exact">Homological algebra</a> · Exact sequences</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -626,7 +631,11 @@ Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokerne
   <div class="ttl">Used in</div>
     <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
     <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
-    <div><a href="./homological.html#snake">Homological algebra</a> · The snake lemma</div>
+    <div><a href="./homological.html#abelian">Homological algebra</a> · Abelian categories and triangulated preview</div>
+    <div><a href="./homological.html#flat">Homological algebra</a> · Flat modules</div>
+    <div><a href="./homological.html#injective">Homological algebra</a> · Injective modules</div>
+    <div><a href="./homological.html#projective">Homological algebra</a> · Projective modules</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -791,6 +800,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./homological.html#les">Homological algebra</a> · Long exact sequence in homology</div>
+    <div><a href="./homological.html#five">Homological algebra</a> · The five lemma</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -961,8 +971,156 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 })();
 </script>
 
+<section id="five">
+<h2>4. The five lemma</h2>
+<p>The snake lemma's close cousin, used constantly to <em>recognize isomorphisms</em> inside big diagrams. Suppose we have a commutative diagram of abelian groups (or objects of any abelian category) with <em>exact rows</em>:</p>
+<p style="text-align:center">
+$\begin{array}{ccccccccc}
+A_1 & \to & A_2 & \to & A_3 & \to & A_4 & \to & A_5 \\
+\downarrow f_1 & & \downarrow f_2 & & \downarrow f_3 & & \downarrow f_4 & & \downarrow f_5 \\
+B_1 & \to & B_2 & \to & B_3 & \to & B_4 & \to & B_5.
+\end{array}$
+</p>
+
+<div class="note"><strong>Five lemma.</strong> If $f_1, f_2, f_4, f_5$ are isomorphisms then $f_3$ is also an isomorphism. More precisely, it splits into two halves: $f_2$ surjective + $f_4$ injective $\Rightarrow$ $f_3$ surjective; $f_2$ injective + $f_4$ surjective $\Rightarrow$ $f_3$ injective.</div>
+
+<p>The proof is the archetypal diagram chase. To see $f_3$ is injective, suppose $f_3(a_3) = 0$. Push $a_3$ one step to the right; by commutativity its image under $f_4$ is also zero, and since $f_4$ is injective, the pushed element is zero. Exactness then writes $a_3$ as the image of some $a_2$; push $a_2$ down and use commutativity; exactness on the bottom row backs up $f_2(a_2)$ to a $b_1$; the surjectivity of $f_1$ lifts $b_1$ to an $a_1$; finally commutativity forces the image to match. Trace out the tree of implications — it looks like the whale on a Moby-Dick cover.</p>
+
+<div class="widget" id="w-5lem">
+  <div class="hd"><div class="ttl">Five-lemma chase</div><div class="hint">click <em>step</em> to watch the chase; pick which half to trace</div></div>
+  <div class="row">
+    <label>prove:</label>
+    <select id="fl-mode">
+      <option value="inj" selected>$f_3$ injective (from $f_2$ inj, $f_4$ inj, $f_1$ surj)</option>
+      <option value="surj">$f_3$ surjective (from $f_2$ surj, $f_4$ inj, $f_5$ inj)</option>
+    </select>
+    <button id="fl-step">step ▶</button>
+    <button id="fl-reset">reset</button>
+    <span class="small" id="fl-stage"></span>
+  </div>
+  <svg id="fl-svg" viewBox="0 0 820 320" width="820" height="320"><title>Five-lemma chase</title></svg>
+  <div class="readout" id="fl-out"></div>
+</div>
+
+<p class="small">Weakening any hypothesis in the five lemma breaks it: standard counterexamples drop $f_1$ surjective (so $f_3$ can fail to be injective even if everything else is an isomorphism), etc. The four outer hypotheses are each doing work — this is why the lemma is "tight."</p>
+
+<div class="quiz" data-concept="five-lemma"></div>
+</section>
+
+<script>
+/* =============================== SECTION 4: Five lemma chase =============================== */
+(function(){
+  const svg = $('#fl-svg'), out = $('#fl-out'), stage = $('#fl-stage');
+  const modeSel = $('#fl-mode'), stepBtn = $('#fl-step'), resetBtn = $('#fl-reset');
+  const W = 820, H = 320;
+
+  // We walk through the chase for injectivity or surjectivity of f_3.
+  // Each stage highlights a node and describes the chase-step implication.
+
+  const STAGES_INJ = [
+    {label:'Start: a_3 ∈ A_3 with f_3(a_3)=0', highlight:['A3','B3'], desc:'Pick a_3 ∈ A_3 with f_3(a_3) = 0 ∈ B_3. Goal: prove a_3 = 0.'},
+    {label:'Push to A_4 and B_4', highlight:['A3','A4','B4'], desc:'Let a_4 = d_3(a_3) ∈ A_4. By commutativity f_4(a_4) = f_4(d_3 a_3) = d_3(f_3 a_3) = d_3(0) = 0.'},
+    {label:'Use f_4 injective ⇒ a_4 = 0', highlight:['A4'], desc:'Since f_4 is injective and f_4(a_4) = 0, we conclude a_4 = 0. So d_3(a_3) = 0, i.e. a_3 ∈ ker(d_3).'},
+    {label:'Exactness at A_3 lifts a_3', highlight:['A2','A3'], desc:'By exactness of the top row at A_3: ker(d_3) = im(d_2). So there exists a_2 ∈ A_2 with d_2(a_2) = a_3.'},
+    {label:'Push a_2 down to B_2', highlight:['A2','B2'], desc:'Let b_2 = f_2(a_2) ∈ B_2.'},
+    {label:'Push b_2 along bottom row', highlight:['B2','B3'], desc:'By commutativity: d_2(b_2) = d_2(f_2 a_2) = f_3(d_2 a_2) = f_3(a_3) = 0. So b_2 ∈ ker(d_2).'},
+    {label:'Exactness at B_2 lifts b_2', highlight:['B1','B2'], desc:'Bottom row exact at B_2: ker(d_2) = im(d_1). So b_2 = d_1(b_1) for some b_1 ∈ B_1.'},
+    {label:'Use f_1 surjective to get a_1', highlight:['A1','B1'], desc:'f_1 surjective ⇒ b_1 = f_1(a_1) for some a_1 ∈ A_1.'},
+    {label:'Push a_1 to A_2 and compare', highlight:['A1','A2','B2'], desc:'Let a_2\' = d_1(a_1) ∈ A_2. Then f_2(a_2\') = f_2(d_1 a_1) = d_1(f_1 a_1) = d_1(b_1) = b_2 = f_2(a_2). So f_2(a_2 - a_2\') = 0.'},
+    {label:'f_2 injective ⇒ a_2 = d_1(a_1)', highlight:['A2'], desc:'By injectivity of f_2, a_2 = a_2\' = d_1(a_1). So a_3 = d_2(a_2) = d_2(d_1(a_1)) = 0 (exactness ⇒ d_2 d_1 = 0). Thus a_3 = 0. ✓'}
+  ];
+  const STAGES_SURJ = [
+    {label:'Start: pick b_3 ∈ B_3', highlight:['B3'], desc:'Start with b_3 ∈ B_3. Goal: find a_3 ∈ A_3 with f_3(a_3) = b_3.'},
+    {label:'Push to B_4 and pull back', highlight:['B3','B4','A4'], desc:'Let b_4 = d_3(b_3) ∈ B_4. Since f_4 is surjective, write b_4 = f_4(a_4) for some a_4 ∈ A_4.'},
+    {label:'Push a_4 to A_5 and compare', highlight:['A4','A5','B5'], desc:'Let a_5 = d_4(a_4) ∈ A_5. Then f_5(a_5) = f_5 d_4(a_4) = d_4 f_4(a_4) = d_4(b_4) = d_4 d_3(b_3) = 0 (bottom row is a complex).'},
+    {label:'f_5 injective ⇒ a_5 = 0', highlight:['A5'], desc:'Since f_5 is injective and f_5(a_5) = 0, a_5 = 0, i.e. d_4(a_4) = 0.'},
+    {label:'Exactness at A_4 lifts a_4', highlight:['A3','A4'], desc:'Top row exact at A_4: ker(d_4) = im(d_3). So a_4 = d_3(a_3\') for some a_3\' ∈ A_3.'},
+    {label:'Compare f_3(a_3\') to b_3', highlight:['A3','B3'], desc:'f_3(a_3\') has d_3(f_3 a_3\') = f_4(d_3 a_3\') = f_4(a_4) = b_4 = d_3(b_3). So d_3(f_3(a_3\') - b_3) = 0, meaning f_3(a_3\') - b_3 ∈ ker(d_3) in bottom row.'},
+    {label:'Exactness at B_3 + f_2 surj', highlight:['A2','B2','B3'], desc:'Bottom row exact at B_3: f_3(a_3\') - b_3 = d_2(b_2) for some b_2 ∈ B_2. Surjectivity of f_2 yields b_2 = f_2(a_2).'},
+    {label:'Adjust: a_3 = a_3\' - d_2(a_2)', highlight:['A3'], desc:'Set a_3 = a_3\' - d_2(a_2). Then f_3(a_3) = f_3(a_3\') - f_3(d_2 a_2) = f_3(a_3\') - d_2(f_2 a_2) = f_3(a_3\') - d_2(b_2) = b_3. ✓'}
+  ];
+
+  let step = 0, mode = 'inj';
+
+  function stagesFor(){ return mode==='inj' ? STAGES_INJ : STAGES_SURJ; }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const STAGES = stagesFor();
+    const s = STAGES[step];
+
+    // layout: two rows of five
+    const xs = [90, 230, 400, 570, 730];
+    const yTop = 110, yBot = 230;
+    const nodes = {
+      A1:{x:xs[0],y:yTop,label:'A_1'}, A2:{x:xs[1],y:yTop,label:'A_2'},
+      A3:{x:xs[2],y:yTop,label:'A_3'}, A4:{x:xs[3],y:yTop,label:'A_4'},
+      A5:{x:xs[4],y:yTop,label:'A_5'},
+      B1:{x:xs[0],y:yBot,label:'B_1'}, B2:{x:xs[1],y:yBot,label:'B_2'},
+      B3:{x:xs[2],y:yBot,label:'B_3'}, B4:{x:xs[3],y:yBot,label:'B_4'},
+      B5:{x:xs[4],y:yBot,label:'B_5'},
+    };
+
+    // defs for arrows
+    const defs = SVG('defs');
+    ['m-l','m-y','m-g'].forEach((id,i)=>{
+      const col = i===0?'var(--line)' : i===1?'var(--yellow)':'var(--green)';
+      const m = SVG('marker',{id:'fl-'+id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+      m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:col}));
+      defs.appendChild(m);
+    });
+    svg.appendChild(defs);
+
+    // arrows: top row A1-A5, bottom row B1-B5
+    function hArr(x1,y1,x2,y2){
+      svg.appendChild(SVG('line',{x1:x1+26,y1:y1,x2:x2-26,y2:y2,
+        stroke:'var(--line)','stroke-width':1.2,'marker-end':'url(#fl-m-l)'}));
+    }
+    for(let i=0;i<4;i++){
+      hArr(xs[i],yTop,xs[i+1],yTop);
+      hArr(xs[i],yBot,xs[i+1],yBot);
+    }
+    // vertical f_i arrows
+    for(let i=0;i<5;i++){
+      svg.appendChild(SVG('line',{x1:xs[i],y1:yTop+20,x2:xs[i],y2:yBot-20,
+        stroke:'var(--line)','stroke-width':1.2,'marker-end':'url(#fl-m-l)'}));
+      const t = SVG('text',{x:xs[i]+10,y:(yTop+yBot)/2+4,'font-size':12,fill:'var(--mute)'});
+      t.textContent = 'f_'+(i+1);
+      svg.appendChild(t);
+    }
+
+    // nodes
+    const highlightSet = new Set(s.highlight);
+    for(const [key,n] of Object.entries(nodes)){
+      const isH = highlightSet.has(key);
+      const col = isH ? 'var(--yellow)' : 'var(--mute)';
+      const r = SVG('rect',{x:n.x-24,y:n.y-18,width:48,height:36,rx:6,
+        fill:'#0b0f16',stroke:col,'stroke-width':isH?1.8:1.2});
+      svg.appendChild(r);
+      const t = SVG('text',{x:n.x,y:n.y+5,'text-anchor':'middle','font-size':13,
+        fill:col,'font-weight':600});
+      t.textContent = n.label;
+      svg.appendChild(t);
+    }
+
+    // header
+    const hdr = SVG('text',{x:20,y:40,'font-size':14,fill:'var(--ink)','font-weight':600});
+    hdr.textContent = mode==='inj' ? 'proving f_3 injective' : 'proving f_3 surjective';
+    svg.appendChild(hdr);
+
+    stage.textContent = `step ${step+1}/${STAGES.length} — ${s.label}`;
+    out.textContent = s.desc;
+  }
+
+  modeSel.addEventListener('change', ()=>{ mode = modeSel.value; step=0; draw(); });
+  stepBtn.addEventListener('click', ()=>{ const L = stagesFor().length; step = Math.min(L-1, step+1); draw(); });
+  resetBtn.addEventListener('click', ()=>{ step=0; draw(); });
+  draw();
+})();
+</script>
+
 <section id="les">
-<h2>4. The long exact sequence in homology</h2>
+<h2>5. The long exact sequence in homology</h2>
 <p>Suppose $0 \to A_\bullet \xrightarrow{f} B_\bullet \xrightarrow{g} C_\bullet \to 0$ is a short exact sequence of chain complexes — a triple of complexes with a chain map of each, so that in every degree $n$ the rows $0\to A_n \to B_n \to C_n\to 0$ are exact and all squares commute with the differentials. Applying the snake lemma to two consecutive degrees extracts a <strong>connecting homomorphism</strong> $\partial : H_n(C) \to H_{n-1}(A)$, and iterating over every $n$ splices the pieces into one infinite exact sequence:</p>
 <p style="text-align:center">$\cdots \to H_n(A) \xrightarrow{f_*} H_n(B) \xrightarrow{g_*} H_n(C) \xrightarrow{\;\partial\;} H_{n-1}(A) \to \cdots$</p>
 
@@ -990,8 +1148,450 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 <div class="quiz" data-concept="long-exact-sequence"></div>
 </section>
 
+<section id="projective">
+<h2>6. Projective modules</h2>
+<p>A module $P$ over a ring $R$ is <strong>projective</strong> if every surjection $M\twoheadrightarrow P$ splits — equivalently, if for every surjection $\varphi\colon M\twoheadrightarrow N$ and every map $f\colon P\to N$, there exists a <em>lift</em> $\tilde f\colon P\to M$ with $\varphi\circ\tilde f = f$:</p>
+<p style="text-align:center">
+$\begin{array}{ccc}
+   &  & P \\
+   & \swarrow_{\tilde f} & \downarrow f \\
+   M & \xrightarrow{\;\varphi\;\;} & N.
+\end{array}$
+</p>
+
+<div class="note">Equivalent characterizations of $P$ projective:
+<ul>
+  <li>$P$ is a direct summand of a free module;</li>
+  <li>$\operatorname{Hom}(P, -)$ is an <em>exact</em> functor (not merely left exact);</li>
+  <li>every short exact sequence $0\to A\to B\to P\to 0$ splits.</li>
+</ul>
+Over a PID (including $\mathbb{Z}$), projective $\iff$ free. Over a Dedekind domain, projective rank-$1$ modules are classified by the ideal class group.</div>
+
+<p>Why care? Projectives are exactly the modules whose $\operatorname{Hom}$ functor preserves exactness — they are the "good" source side for derived functors. Free modules are visibly projective (the lift is computed on a basis), and the step from free to projective is exactly "direct summand of free."</p>
+
+<div class="widget" id="w-proj">
+  <div class="hd"><div class="ttl">Projective lifting property</div><div class="hint">pick $P$ and a surjection $M\twoheadrightarrow N$; see whether a lift exists</div></div>
+  <div class="row">
+    <label>$P$ =</label>
+    <select id="pj-P">
+      <option value="Z" selected>ℤ (free, hence projective)</option>
+      <option value="Z2">ℤ² (free)</option>
+      <option value="Z2c">ℤ/2 (not projective over ℤ)</option>
+      <option value="Z6">ℤ/6 (not projective over ℤ)</option>
+    </select>
+    <label>surjection:</label>
+    <select id="pj-phi">
+      <option value="z2" selected>$\mathbb{Z}\twoheadrightarrow\mathbb{Z}/2$ (reduction mod 2)</option>
+      <option value="zz">$\mathbb{Z}\oplus\mathbb{Z}\twoheadrightarrow\mathbb{Z}$ (project to first factor)</option>
+      <option value="z6">$\mathbb{Z}\twoheadrightarrow\mathbb{Z}/6$ (reduction mod 6)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>given $f\colon P\to N$:</label>
+    <select id="pj-f">
+      <option value="id" selected>identity onto the target</option>
+      <option value="zero">zero map</option>
+    </select>
+  </div>
+  <svg id="pj-svg" viewBox="0 0 820 260" width="820" height="260"><title>Projective lifting property</title></svg>
+  <div class="readout" id="pj-out"></div>
+</div>
+
+<div class="quiz" data-concept="projective-modules"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 6: Projective lifting =============================== */
+(function(){
+  const svg = $('#pj-svg'), out = $('#pj-out');
+  const Psel = $('#pj-P'), phiSel = $('#pj-phi'), fSel = $('#pj-f');
+
+  function describe(){
+    const P = Psel.value, phi = phiSel.value, f = fSel.value;
+    const PnameMap = {Z:'ℤ', Z2:'ℤ²', Z2c:'ℤ/2', Z6:'ℤ/6'};
+    const Pname = PnameMap[P];
+    const surjMap = {
+      z2: {M:'ℤ', N:'ℤ/2'},
+      zz: {M:'ℤ²', N:'ℤ'},
+      z6: {M:'ℤ', N:'ℤ/6'}
+    };
+    const Psurj = surjMap[phi];
+
+    const lines = [];
+    lines.push(`P = ${Pname}`);
+    lines.push(`φ : ${Psurj.M} ↠ ${Psurj.N}`);
+
+    let fExists = true, fDescTxt = '', lift = null;
+    function isProjective(P){ return P==='Z' || P==='Z2'; }
+
+    if(f==='zero'){
+      fDescTxt = 'f = 0';
+      lift = `f̃ = 0  (the zero lift always works)`;
+    } else {
+      if(P==='Z'){ fDescTxt = `f: ℤ → ${Psurj.N}, 1 ↦ 1`; }
+      else if(P==='Z2'){ fDescTxt = `f: ℤ² → ${Psurj.N}, (1,0) ↦ 1, (0,1) ↦ 0`; }
+      else if(P==='Z2c'){
+        if(Psurj.N==='ℤ'){ fExists = false; fDescTxt = 'no nonzero f: ℤ/2 → ℤ (ℤ is torsion-free)'; }
+        else if(Psurj.N==='ℤ/2'){ fDescTxt = 'f: ℤ/2 → ℤ/2, 1 ↦ 1 (identity)'; }
+        else { fDescTxt = 'f: ℤ/2 → ℤ/6, 1 ↦ 3 (only nonzero 2-torsion element in ℤ/6)'; }
+      } else if(P==='Z6'){
+        if(Psurj.N==='ℤ'){ fExists = false; fDescTxt = 'no nonzero f: ℤ/6 → ℤ (ℤ is torsion-free)'; }
+        else if(Psurj.N==='ℤ/2'){ fDescTxt = 'f: ℤ/6 → ℤ/2, 1 ↦ 1 (reduction mod 2)'; }
+        else { fDescTxt = 'f: ℤ/6 → ℤ/6, 1 ↦ 1 (identity)'; }
+      }
+
+      if(!fExists){
+        lift = 'n/a — f itself is the zero map; zero lifts trivially';
+      } else if(isProjective(P)){
+        if(P==='Z' && phi==='z2'){ lift = 'f̃: ℤ → ℤ, 1 ↦ 1 (φf̃(1)=1 mod 2=1=f(1)). ✓'; }
+        else if(P==='Z' && phi==='zz'){ lift = 'f̃: ℤ → ℤ², 1 ↦ (1,0). ✓'; }
+        else if(P==='Z' && phi==='z6'){ lift = 'f̃: ℤ → ℤ, 1 ↦ 1. ✓'; }
+        else if(P==='Z2' && phi==='z2'){ lift = 'f̃: ℤ² → ℤ, (1,0) ↦ 1, (0,1) ↦ 0. ✓'; }
+        else if(P==='Z2' && phi==='zz'){ lift = 'f̃: ℤ² → ℤ², (a,b) ↦ (a,b). ✓'; }
+        else if(P==='Z2' && phi==='z6'){ lift = 'f̃: ℤ² → ℤ, (1,0) ↦ 1, (0,1) ↦ 0. ✓'; }
+      } else {
+        if(P==='Z2c' && phi==='z2'){ lift = 'NO LIFT: would need f̃: ℤ/2 → ℤ nontrivial; but ℤ is torsion-free. ✗'; }
+        else if(P==='Z2c' && phi==='z6'){ lift = 'NO LIFT: would need f̃: ℤ/2 → ℤ; torsion-free target kills it. ✗'; }
+        else if(P==='Z6' && phi==='z2'){ lift = 'NO LIFT: would need f̃: ℤ/6 → ℤ; torsion-free target kills it. ✗'; }
+        else if(P==='Z6' && phi==='z6'){ lift = 'NO LIFT: would need f̃: ℤ/6 → ℤ; but ℤ is torsion-free. ✗'; }
+        else { lift = 'NO LIFT (P not projective). ✗'; }
+      }
+    }
+
+    lines.push('');
+    lines.push(fDescTxt);
+    lines.push('');
+    lines.push(lift);
+
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const xP = 620, yP = 60, xM = 160, yMN = 200, xN = 620;
+    const defs = SVG('defs');
+    ['l','y','g','p'].forEach((c)=>{
+      const col = c==='l'?'var(--line)':c==='y'?'var(--yellow)':c==='g'?'var(--green)':'var(--pink)';
+      const m = SVG('marker',{id:'pj-'+c,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+      m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:col}));
+      defs.appendChild(m);
+    });
+    svg.appendChild(defs);
+
+    function node(x,y,label,col){
+      const r = SVG('rect',{x:x-40,y:y-18,width:80,height:36,rx:6,fill:'#0b0f16',stroke:col,'stroke-width':1.4});
+      svg.appendChild(r);
+      const t = SVG('text',{x:x,y:y+5,'text-anchor':'middle','font-size':13,fill:col,'font-weight':600});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    function arr(x1,y1,x2,y2,lbl,color,dashed){
+      const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy);
+      const ux=dx/L, uy=dy/L;
+      const ax=x1+ux*40, ay=y1+uy*18, bx=x2-ux*40, by=y2-uy*18;
+      const mk = color==='var(--yellow)'?'url(#pj-y)':color==='var(--green)'?'url(#pj-g)':color==='var(--pink)'?'url(#pj-p)':'url(#pj-l)';
+      const line = SVG('line',{x1:ax,y1:ay,x2:bx,y2:by,stroke:color,'stroke-width':1.6,'marker-end':mk});
+      if(dashed) line.setAttribute('stroke-dasharray','5 3');
+      svg.appendChild(line);
+      if(lbl){
+        const t = SVG('text',{x:(ax+bx)/2+10,y:(ay+by)/2-6,'font-size':12,fill:color});
+        t.textContent = lbl;
+        svg.appendChild(t);
+      }
+    }
+
+    node(xP, yP, Pname, 'var(--cyan)');
+    node(xM, yMN, Psurj.M, 'var(--ink)');
+    node(xN, yMN, Psurj.N, 'var(--ink)');
+    arr(xM, yMN, xN, yMN, 'φ (surj.)', 'var(--mute)');
+    arr(xP, yP, xN, yMN, 'f', 'var(--mute)');
+    const canLift = fExists && isProjective(P);
+    const liftColor = !fExists ? 'var(--mute)' : (canLift ? 'var(--green)' : 'var(--pink)');
+    arr(xP, yP, xM, yMN, canLift?'f̃':'f̃?', liftColor, true);
+
+    const verdict = !fExists ? 'trivial (f=0)' : (canLift ? 'LIFT EXISTS' : 'NO LIFT');
+    const vcol = !fExists ? 'var(--mute)' : (canLift ? 'var(--green)' : 'var(--pink)');
+    const vt = SVG('text',{x:410,y:30,'text-anchor':'middle','font-size':16,fill:vcol,'font-weight':600});
+    vt.textContent = verdict;
+    svg.appendChild(vt);
+
+    out.textContent = lines.join('\n');
+    out.style.color = 'var(--ink)';
+  }
+
+  Psel.addEventListener('change', describe);
+  phiSel.addEventListener('change', describe);
+  fSel.addEventListener('change', describe);
+  describe();
+})();
+</script>
+
+<section id="injective">
+<h2>7. Injective modules</h2>
+<p>Dual to projective: a module $I$ is <strong>injective</strong> if every injection $A\hookrightarrow B$ and every map $f\colon A\to I$ extends to a map $\tilde f\colon B\to I$:</p>
+<p style="text-align:center">
+$\begin{array}{ccc}
+   A & \hookrightarrow & B \\
+   \downarrow f & \swarrow_{\tilde f} & \\
+   I. & &
+\end{array}$
+</p>
+
+<div class="note"><strong>Baer's criterion.</strong> $I$ is injective over a ring $R$ iff for every ideal $\mathfrak{a}\subseteq R$, every homomorphism $\mathfrak{a}\to I$ extends to $R\to I$. This reduces an a priori huge check to a tractable one — you only have to test against ideals, not all modules.</div>
+
+<p>Over $\mathbb{Z}$, Baer's criterion gives a concrete characterization: a $\mathbb{Z}$-module $I$ is injective iff $I$ is <strong>divisible</strong> — for every $a\in I$ and every $n\ge 1$, there exists $x\in I$ with $nx=a$. The proof is one line: an ideal of $\mathbb{Z}$ is $(n)$; extending $(n)\to I$ sending $n\mapsto a$ to $\mathbb{Z}\to I$ means finding $x\in I$ with $nx=a$. Examples of injective abelian groups: $\mathbb{Q}$, $\mathbb{Q}/\mathbb{Z}$, the Prüfer groups $\mathbb{Z}/p^\infty$. Non-examples: $\mathbb{Z}$, $\mathbb{Z}/n$.</p>
+
+<div class="widget" id="w-inj">
+  <div class="hd"><div class="ttl">Baer's criterion / divisibility toggle</div><div class="hint">pick a group; test divisibility ideal-by-ideal</div></div>
+  <div class="row">
+    <label>$I$ =</label>
+    <select id="inj-I">
+      <option value="Q" selected>ℚ</option>
+      <option value="QmodZ">ℚ/ℤ</option>
+      <option value="Zpinf">ℤ/2<sup>∞</sup> (Prüfer at $p=2$)</option>
+      <option value="Z">ℤ</option>
+      <option value="Z4">ℤ/4</option>
+      <option value="Z2xZ3">ℤ/2 ⊕ ℤ/3</option>
+    </select>
+    <label for="inj-n">ideal $(n) \subseteq \mathbb{Z}$, $n$ =</label>
+    <input type="number" id="inj-n" value="2" min="1" max="12" style="width:4rem">
+    <label for="inj-a">target $a\in I$ =</label>
+    <input type="text" id="inj-a" value="1" style="width:5rem">
+  </div>
+  <div class="readout" id="inj-out"></div>
+</div>
+
+<div class="quiz" data-concept="injective-modules"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 7: Injective / Baer toggle =============================== */
+(function(){
+  const Isel = $('#inj-I'), nIn = $('#inj-n'), aIn = $('#inj-a'), out = $('#inj-out');
+
+  function gcd2(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+  function parseFrac(s){
+    s = s.trim();
+    if(!s) return null;
+    if(s.includes('/')){
+      const [p,q] = s.split('/').map(x=>parseInt(x.trim(),10));
+      if(isNaN(p)||isNaN(q)||q===0) return null;
+      return {p,q};
+    }
+    const v = parseInt(s,10);
+    if(isNaN(v)) return null;
+    return {p:v,q:1};
+  }
+
+  function render(){
+    const Ikey = Isel.value;
+    const n = Math.max(1, Math.min(12, parseInt(nIn.value,10)||1));
+    nIn.value = n;
+    const a = aIn.value;
+    const lines = [];
+
+    const divisible = {
+      Q:true, QmodZ:true, Zpinf:true,
+      Z:false, Z4:false, Z2xZ3:false
+    };
+    const Iname = {
+      Q:'ℚ', QmodZ:'ℚ/ℤ', Zpinf:'ℤ/2^∞', Z:'ℤ', Z4:'ℤ/4', Z2xZ3:'ℤ/2 ⊕ ℤ/3'
+    }[Ikey];
+
+    lines.push(`I = ${Iname}`);
+    lines.push(`ideal tested: (${n}) ⊆ ℤ`);
+    lines.push(`targeted a ∈ I: ${a}`);
+    lines.push('');
+
+    let ok = false, why = '';
+    if(Ikey==='Q'){
+      const f = parseFrac(a);
+      if(!f){ why = 'parse error; enter a fraction or integer'; }
+      else { ok = true; why = `x = ${f.p}/${f.q*n} works; ℚ is divisible.`; }
+    } else if(Ikey==='QmodZ'){
+      const f = parseFrac(a);
+      if(!f){ why = 'parse error; enter a fraction'; }
+      else { ok = true; why = `In ℚ/ℤ: x = (${f.p}/${f.q})/${n} = ${f.p}/${f.q*n} (mod 1) works; ℚ/ℤ is divisible.`; }
+    } else if(Ikey==='Zpinf'){
+      const f = parseFrac(a);
+      if(!f){ why = 'parse error'; }
+      else {
+        let m = n, s = 0;
+        while(m%2===0){ m/=2; s++; }
+        ok = true;
+        why = `ℤ/2^∞ is divisible by every nonzero integer; solving ${n}x = ${f.p}/${f.q} reduces to dividing by the power-of-2 part ${Math.pow(2,s)} (shift the denominator exponent) and by the odd cofactor ${m} (invert mod 2^∞).`;
+      }
+    } else if(Ikey==='Z'){
+      const av = parseInt(a,10);
+      if(isNaN(av)){ why='parse error; ℤ elements are integers'; }
+      else {
+        ok = (av % n === 0);
+        why = ok
+          ? `x = ${av/n} ∈ ℤ works.`
+          : `${n} ∤ ${av}, so no x ∈ ℤ with ${n}x = ${av}. ℤ is NOT divisible, hence NOT injective.`;
+      }
+    } else if(Ikey==='Z4'){
+      const av = parseInt(a,10);
+      if(isNaN(av)){ why='parse error; enter an integer mod 4'; }
+      else {
+        const am = ((av%4)+4)%4;
+        const g = gcd2(n,4);
+        ok = (am % g === 0);
+        why = ok
+          ? `In ℤ/4: ${n}x ≡ ${am} mod 4 is solvable (gcd(${n},4)=${g} divides ${am}).`
+          : `In ℤ/4: ${n}x ≡ ${am} mod 4 is NOT solvable (gcd(${n},4)=${g} does not divide ${am}). ℤ/4 is NOT divisible.`;
+      }
+    } else if(Ikey==='Z2xZ3'){
+      const av = parseInt(a,10);
+      if(isNaN(av)){ why='parse error; enter an integer interpreted mod 6'; }
+      else {
+        const am = ((av%6)+6)%6;
+        const a2 = am%2, a3 = am%3;
+        const g2 = gcd2(n,2), g3 = gcd2(n,3);
+        const ok2 = (a2 % g2 === 0), ok3 = (a3 % g3 === 0);
+        ok = ok2 && ok3;
+        why = ok
+          ? `Solvable in both factors.`
+          : `Fails in factor${!ok2 && !ok3?'s':''}: ${!ok2?'ℤ/2 component (gcd('+n+',2)='+g2+' ∤ '+a2+')':''}${(!ok2&&!ok3)?' and ':''}${!ok3?'ℤ/3 component (gcd('+n+',3)='+g3+' ∤ '+a3+')':''}. Not divisible.`;
+      }
+    }
+
+    lines.push(`solvable for this instance? ${ok?'YES':'NO'}`);
+    lines.push(why);
+    lines.push('');
+    lines.push(`global verdict: ${divisible[Ikey]?'I is divisible ⇒ injective over ℤ ✓':'I is NOT divisible ⇒ NOT injective over ℤ ✗'}`);
+
+    out.textContent = lines.join('\n');
+    out.style.color = divisible[Ikey] ? 'var(--ink)' : (ok ? 'var(--ink)' : 'var(--pink)');
+  }
+
+  Isel.addEventListener('change', render);
+  nIn.addEventListener('input', render);
+  aIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<section id="flat">
+<h2>8. Flat modules</h2>
+<p>A module $M$ is <strong>flat</strong> if the functor $-\otimes_R M$ is exact — equivalently (since $-\otimes M$ is always right exact), if it takes injective maps to injective maps. Flatness is strictly between "free" and nothing: every projective module is flat, but many flat modules are not projective.</p>
+
+<div class="note"><strong>The canonical flat modules.</strong>
+<ul>
+  <li><strong>Free / projective.</strong> $R$, $R^n$, and direct summands of free modules are all flat.</li>
+  <li><strong>Localizations.</strong> For any multiplicative set $S\subseteq R$, the localization $S^{-1}R$ is flat over $R$ — tensoring is just localizing on the nose, and localization is exact. Concretely, $\mathbb{Q}$ is flat (but not projective) over $\mathbb{Z}$.</li>
+  <li><strong>Over a PID,</strong> flat $\iff$ torsion-free. So $\mathbb{Z}[1/p]$, $\mathbb{Q}$, and $\mathbb{Z}$ are flat; $\mathbb{Z}/n$ is not.</li>
+</ul>
+</div>
+
+<p>Flatness is detected by $\operatorname{Tor}$: $M$ is flat iff $\operatorname{Tor}_1^R(M,N) = 0$ for every $N$ (and then all higher Tor's vanish too). So "how non-flat is $M$?" is measured by its $\operatorname{Tor}_1$ with all test modules — a quantitative refinement of a qualitative property.</p>
+
+<div class="widget" id="w-flat">
+  <div class="hd"><div class="ttl">Tensor a SES — watch exactness (or its failure)</div><div class="hint">pick $M$; tensor $0\to\mathbb{Z}\xrightarrow{\cdot n}\mathbb{Z}\to\mathbb{Z}/n\to 0$ with $M$</div></div>
+  <div class="row">
+    <label>$M$ =</label>
+    <select id="fl-M">
+      <option value="Z" selected>ℤ (flat)</option>
+      <option value="Q">ℚ (flat, not projective)</option>
+      <option value="Zloc">ℤ[1/3] (flat, localization)</option>
+      <option value="Z2">ℤ/2 (not flat)</option>
+      <option value="Z6">ℤ/6 (not flat)</option>
+      <option value="Z2xZ">ℤ/2 ⊕ ℤ (not flat)</option>
+    </select>
+    <label for="fl-n">$n$ =</label>
+    <input type="number" id="fl-n" value="4" min="2" max="12" style="width:4rem">
+  </div>
+  <div class="readout" id="fl-out"></div>
+</div>
+
+<div class="quiz" data-concept="flat-modules"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./homological.html#resolutions">Homological algebra</a> · Resolutions: projective, injective, flat</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 8: Flat modules =============================== */
+(function(){
+  const Msel = $('#fl-M'), nIn = $('#fl-n'), out = $('#fl-out');
+
+  function gcd2(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+
+  function render(){
+    const M = Msel.value;
+    const n = Math.max(2, Math.min(12, parseInt(nIn.value,10)||2));
+    nIn.value = n;
+
+    const Mname = {Z:'ℤ', Q:'ℚ', Zloc:'ℤ[1/3]', Z2:'ℤ/2', Z6:'ℤ/6', Z2xZ:'ℤ/2 ⊕ ℤ'}[M];
+    const flat = {Z:true, Q:true, Zloc:true, Z2:false, Z6:false, Z2xZ:false}[M];
+
+    const lines = [];
+    lines.push(`M = ${Mname}`);
+    lines.push(`SES: 0 → ℤ --·${n}--> ℤ → ℤ/${n} → 0`);
+    lines.push(`apply −⊗M`);
+    lines.push('');
+    lines.push(`  ${Mname} --·${n}--> ${Mname} --quot--> ℤ/${n} ⊗ ${Mname} → 0`);
+    lines.push('');
+
+    let kerLine = '', torLine = '';
+    if(M==='Z'){
+      kerLine = `ker(·${n} on ℤ) = 0`;
+      torLine = `Tor_1(ℤ/${n}, ℤ) = 0 ✓ (ℤ is flat)`;
+    } else if(M==='Q'){
+      kerLine = `ker(·${n} on ℚ) = 0  (${n} is invertible in ℚ)`;
+      torLine = `Tor_1(ℤ/${n}, ℚ) = 0 ✓ (ℚ is flat)`;
+    } else if(M==='Zloc'){
+      kerLine = `ker(·${n} on ℤ[1/3]) = 0  (ℤ[1/3] is torsion-free)`;
+      torLine = `Tor_1(ℤ/${n}, ℤ[1/3]) = 0 ✓ (localizations are flat)`;
+    } else if(M==='Z2'){
+      const g = gcd2(n,2);
+      kerLine = `ker(·${n} on ℤ/2) = ℤ/${g}  (since gcd(${n},2)=${g})`;
+      torLine = g>1 ? `Tor_1(ℤ/${n}, ℤ/2) = ℤ/${g} ≠ 0 ✗ (ℤ/2 is NOT flat)`
+                    : `for this n, Tor_1 vanishes — but for even n it does not.`;
+    } else if(M==='Z6'){
+      const g = gcd2(n,6);
+      kerLine = `ker(·${n} on ℤ/6) = ℤ/${g}  (since gcd(${n},6)=${g})`;
+      torLine = g>1 ? `Tor_1(ℤ/${n}, ℤ/6) = ℤ/${g} ≠ 0 ✗ (ℤ/6 is NOT flat)`
+                    : `this specific n misses the torsion; but for e.g. n=2 one gets nonzero Tor.`;
+    } else if(M==='Z2xZ'){
+      const g = gcd2(n,2);
+      kerLine = `ker(·${n} on ℤ/2 ⊕ ℤ) = ℤ/${g} ⊕ 0`;
+      torLine = g>1 ? `Tor_1 = ℤ/${g} ≠ 0 ✗ (not flat — the ℤ/2 summand obstructs)`
+                    : `for odd n, this instance has Tor_1 = 0; but n=2 reveals the failure.`;
+    }
+
+    lines.push(kerLine);
+    lines.push('');
+    lines.push(torLine);
+    lines.push('');
+    lines.push(`global verdict: ${Mname} is ${flat?'FLAT':'NOT FLAT'} over ℤ`);
+
+    out.textContent = lines.join('\n');
+    out.style.color = flat ? 'var(--ink)' : 'var(--pink)';
+  }
+
+  Msel.addEventListener('change', render);
+  nIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
 <section id="derived">
-<h2>5. Derived functors, Ext and Tor</h2>
+<h2>9. Derived functors, Ext and Tor</h2>
 <p>Many constructions in algebra are <em>left</em> or <em>right exact</em> but fail to be exact on both sides. $\operatorname{Hom}(M,-)$ is left exact; $-\otimes_A N$ is right exact; $(-)^G$ (invariants under a group action) is left exact; $\Gamma$ (global sections of a sheaf) is left exact. <strong>Derived functors</strong> package the failure into a sequence of functors $R^iF$ or $L_iF$ forming, for each short exact sequence in the source, a long exact sequence of derived values.</p>
 
 <p>The recipe: to compute $R^iF(M)$ (for $F$ left exact) choose an <em>injective resolution</em> $0\to M\to I^0\to I^1\to\cdots$, apply $F$, and take cohomology of the resulting complex $F(I^\bullet)$. Dually, for $L_iF$ (with $F$ right exact), use a <em>projective resolution</em>. The miracle: the answer is independent of the resolution.</p>
@@ -1035,6 +1635,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./homological.html#resolutions">Homological algebra</a> · Resolutions: projective, injective, flat</div>
     <div><a href="./homological.html#spectral">Homological algebra</a> · Spectral sequences</div>
     <div><a href="./sheaf-cohomology.html#derived">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>
 </aside>
@@ -1284,7 +1885,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </script>
 
 <section id="resolutions">
-<h2>6. Resolutions: projective, injective, flat</h2>
+<h2>10. Resolutions: projective, injective, flat</h2>
 <p>A <strong>projective resolution</strong> of an $A$-module $M$ is an exact sequence</p>
 <p style="text-align:center">$\cdots \to P_2 \to P_1 \to P_0 \twoheadrightarrow M \to 0$</p>
 <p>in which every $P_i$ is projective (a direct summand of a free module). An <strong>injective resolution</strong> dually has $M \hookrightarrow I^0 \to I^1 \to \cdots$ exact with each $I^i$ injective. <strong>Flat resolutions</strong> use modules that are flat (tensor product with them preserves exact sequences). Free ⇒ projective ⇒ flat; over nice rings all three are distinct.</p>
@@ -1311,6 +1912,8 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </div>
 
 <p>The finitely generated case over $\mathbb{Z}$ is misleadingly clean. Over $\mathbb{Z}[x]$ a free resolution of $\mathbb{Z}[x]/(x^2)$ already has length $1$ but is infinite; over $\mathbb{Z}[x,y]$ things can get arbitrarily long. The <em>global dimension</em> of a ring is the supremum of projective-resolution lengths over all modules. For fields it is $0$; for PIDs it is $\le 1$; for polynomial rings in $n$ variables over a field it is $n$ (Hilbert syzygy theorem).</p>
+
+<div class="quiz" data-concept="resolutions-ha"></div>
 </section>
 
 <script>
@@ -1388,7 +1991,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 </script>
 
 <section id="spectral">
-<h2>7. Spectral sequences (a gentle taste)</h2>
+<h2>11. Spectral sequences (a gentle taste)</h2>
 <p>A <strong>spectral sequence</strong> is a sequence of "pages" $E_0, E_1, E_2, \dots$ where each page is a bigraded abelian group with a differential $d_r: E_r^{p,q} \to E_r^{p-r, q+r-1}$ (or with indices reversed, depending on convention) satisfying $d_r^2 = 0$, and the next page is the homology of the current one: $E_{r+1}^{p,q} = H(E_r^{p,q}, d_r)$. Under reasonable finiteness conditions, the differentials eventually vanish and the pages stabilize at an $E_\infty$ page, which is (up to a filtration) the answer you were after.</p>
 
 <p>Two canonical examples:</p>
@@ -1576,12 +2179,164 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 })();
 </script>
 
+<section id="abelian">
+<h2>12. Abelian categories and a triangulated preview</h2>
+<p>Every diagram chase in §§1–11 secretly takes place in an <strong>abelian category</strong>: a category with a zero object, all finite biproducts, all kernels and cokernels, and in which every monomorphism is a kernel and every epimorphism is a cokernel (the "every mono/epi is normal" axiom). In an abelian category, short exact sequences, the snake lemma, the five lemma, Ext/Tor, and all the tools we've built work verbatim.</p>
+
+<div class="note"><strong>Freyd–Mitchell embedding.</strong> Every small abelian category $\mathcal{A}$ admits a fully faithful, exact embedding $\mathcal{A}\hookrightarrow R\text{-Mod}$ for some ring $R$. Upshot: any element-level diagram chase in $\mathsf{Ab}$ transfers immediately to any abelian category — <em>"you can do homological algebra without ever leaving modules."</em></div>
+
+<p>Canonical examples of abelian categories:</p>
+<ul>
+  <li><strong>$R$-Mod</strong> for any ring $R$ (left or right modules). The prototypical example.</li>
+  <li><strong>Sheaves of abelian groups</strong> on a topological space (kernels computed sectionwise; cokernels require sheafification).</li>
+  <li><strong>Chain complexes $\operatorname{Ch}(\mathcal{A})$</strong> in an abelian category $\mathcal{A}$ — itself abelian, with pointwise kernels/cokernels.</li>
+  <li><strong>Finitely generated modules</strong> over a Noetherian ring (abelian; closedness under kernel/cokernel uses Noetherian-ness).</li>
+</ul>
+
+<p>The next conceptual leap is the <strong>derived category</strong> $D(\mathcal{A})$: take $\operatorname{Ch}(\mathcal{A})$, formally invert all quasi-isomorphisms, and work in the resulting category. It is <em>not</em> abelian — it is a <strong>triangulated category</strong>. Short exact sequences of complexes lift to <strong>distinguished triangles</strong> $X\to Y\to Z\xrightarrow{+1} X[1]$, and rotation/long-exact-sequence relations now follow from the triangulated axioms directly.</p>
+
+<div class="note">The fundamental identification: for $M,N\in\mathcal{A}$ viewed as complexes in degree $0$,
+$$\operatorname{Hom}_{D(\mathcal{A})}(M, N[i]) \;\cong\; \operatorname{Ext}^i_\mathcal{A}(M, N).$$
+Every Ext group appears as a hom in the derived category after a shift. This is why modern homological algebra is written in derived/$\infty$-categorical language.</div>
+
+<div class="widget" id="w-abc">
+  <div class="hd"><div class="ttl">Category classifier: abelian, triangulated, or neither?</div><div class="hint">pick a category, see which axioms hold</div></div>
+  <div class="row">
+    <label>category:</label>
+    <select id="abc-pick">
+      <option value="rmod" selected>$R$-Mod (left $R$-modules)</option>
+      <option value="sh">Sheaves of abelian groups on $X$</option>
+      <option value="chcplx">Chain complexes $\mathrm{Ch}(\mathsf{Ab})$</option>
+      <option value="derived">Derived category $D(\mathsf{Ab})$</option>
+      <option value="grp">Groups (not necessarily abelian)</option>
+      <option value="top">Topological spaces</option>
+      <option value="field">Fields</option>
+      <option value="fgmod">Finitely generated ℤ-modules</option>
+    </select>
+  </div>
+  <div class="readout" id="abc-out"></div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="abelian-categories"></div>
+</section>
+
+<script>
+/* =============================== SECTION 12: Abelian/triangulated classifier =============================== */
+(function(){
+  const pick = $('#abc-pick'), out = $('#abc-out');
+
+  const DATA = {
+    rmod: {
+      label: 'R-Mod',
+      ab: true, tri: false,
+      notes: [
+        'zero object: 0. ✓',
+        'kernels, cokernels, biproducts exist pointwise. ✓',
+        'every mono is the kernel of its cokernel, every epi is the cokernel of its kernel. ✓',
+        'verdict: ABELIAN — the archetypal example.',
+        'not triangulated: no natural shift functor on modules.'
+      ]
+    },
+    sh: {
+      label: 'Sh(X, Ab)',
+      ab: true, tri: false,
+      notes: [
+        'kernels sectionwise; cokernels require sheafification. ✓',
+        'zero sheaf, direct sums, and all abelian axioms hold. ✓',
+        'verdict: ABELIAN.',
+        'global sections Γ is left exact but not right exact — its right derived functors are sheaf cohomology H^i(X,ℱ).'
+      ]
+    },
+    chcplx: {
+      label: 'Ch(Ab)',
+      ab: true, tri: false,
+      notes: [
+        'kernels, cokernels, biproducts computed degreewise. ✓',
+        'abelian axioms pass through to complexes. ✓',
+        'verdict: ABELIAN.',
+        'but NOT triangulated — to get a triangulated structure you must pass to the homotopy category K(Ab) or derived category D(Ab).'
+      ]
+    },
+    derived: {
+      label: 'D(Ab)',
+      ab: false, tri: true,
+      notes: [
+        'has a shift functor [1] (autoequivalence). ✓',
+        'distinguished triangles replace short exact sequences. ✓',
+        'rotation axiom, octahedral axiom. ✓',
+        'verdict: TRIANGULATED, not abelian.',
+        'the "right" category for Ext: Hom_{D(Ab)}(M, N[i]) = Ext^i(M, N).'
+      ]
+    },
+    grp: {
+      label: 'Grp',
+      ab: false, tri: false,
+      notes: [
+        'has zero object (trivial group). ✓',
+        'has kernels (normal subgroups) and cokernels (quotients), but...',
+        'not every mono is a kernel: subgroup H ⊂ G is the kernel of some map iff H is normal. ✗',
+        'verdict: NOT ABELIAN (and far from triangulated).'
+      ]
+    },
+    top: {
+      label: 'Top',
+      ab: false, tri: false,
+      notes: [
+        'no zero object (the empty space is initial but a point is terminal — they differ). ✗',
+        'no biproducts in the sense of abelian categories.',
+        'verdict: NOT ABELIAN.'
+      ]
+    },
+    field: {
+      label: 'Field',
+      ab: false, tri: false,
+      notes: [
+        'no zero object (fields exclude 0; there is no zero field). ✗',
+        'no kernels/cokernels in any useful sense.',
+        'verdict: NOT ABELIAN.'
+      ]
+    },
+    fgmod: {
+      label: 'fg ℤ-modules',
+      ab: true, tri: false,
+      notes: [
+        'closed under kernels, cokernels, biproducts in Ab (ℤ is Noetherian, so submodules of fg are fg). ✓',
+        'abelian, a full subcategory of Ab.',
+        'verdict: ABELIAN.',
+        'a finitely generated module has a finite-length projective resolution (global dim = 1 over ℤ).'
+      ]
+    }
+  };
+
+  function render(){
+    const D = DATA[pick.value];
+    const lines = [];
+    lines.push(`category: ${D.label}`);
+    lines.push('');
+    for(const n of D.notes) lines.push('  • ' + n);
+    lines.push('');
+    lines.push(`abelian?     ${D.ab?'YES ✓':'NO ✗'}`);
+    lines.push(`triangulated? ${D.tri?'YES ✓':'NO ✗'}`);
+    out.textContent = lines.join('\n');
+    out.style.color = 'var(--ink)';
+  }
+  pick.addEventListener('change', render);
+  render();
+})();
+</script>
+
 <section id="outro">
 <h2>Where this goes next</h2>
-<p>What we've skipped, in order of increasing sophistication:</p>
+<p>What we've skipped or only previewed, in order of increasing sophistication:</p>
 <ul>
-  <li><strong>Abelian categories.</strong> The smallest categorical setting in which every diagram-chase in the preceding sections makes sense. Homological algebra lives in abelian categories: kernels, cokernels, images, coimages, short exact sequences, and the nine lemma all carry over verbatim.</li>
-  <li><strong>The derived category.</strong> Instead of computing $\operatorname{Ext}$ and $\operatorname{Tor}$ one degree at a time, invert all quasi-isomorphisms of complexes and work in the resulting triangulated category $D(\mathsf{Ab})$. A map in $D(\mathsf{Ab})$ between two objects $M, N$ placed in degree zero is precisely $\operatorname{Ext}^0(M,N)$; a degree-$i$ map is $\operatorname{Ext}^i(M,N)$. Long exact sequences become <em>distinguished triangles</em>.</li>
+  <li><strong>The derived category, fleshed out.</strong> Instead of computing $\operatorname{Ext}$ and $\operatorname{Tor}$ one degree at a time, invert all quasi-isomorphisms of complexes and work in the resulting triangulated category $D(\mathsf{Ab})$. A map in $D(\mathsf{Ab})$ between two objects $M, N$ placed in degree zero is precisely $\operatorname{Ext}^0(M,N)$; a degree-$i$ map is $\operatorname{Ext}^i(M,N)$. Long exact sequences become <em>distinguished triangles</em>.</li>
   <li><strong>Sheaf cohomology.</strong> Apply the same machine to sheaves of abelian groups on a topological space. The global sections functor is left exact; its right derived functors $H^i(X,\mathcal{F}) := R^i\Gamma(\mathcal{F})$ are sheaf cohomology. Čech cohomology is a concrete model for this.</li>
   <li><strong>Group cohomology.</strong> $H^n(G,M) := \operatorname{Ext}^n_{\mathbb{Z}G}(\mathbb{Z}, M)$. It governs extensions of $G$ by $M$, obstructions to lifting actions, and the characteristic classes of central extensions.</li>
   <li><strong>Koszul duality and non-abelian derived functors.</strong> Replace $\mathsf{Ab}$ by more exotic categories — DG categories, $\infty$-categories, $\mathbb{E}_\infty$-algebras — and derived functors become Quillen-type functors between model categories. This is the setting for modern derived algebraic geometry and the work of Lurie and others.</li>

@@ -42,7 +42,8 @@
             "Diagonalise all $\\rho(g)$ simultaneously → read off irreps → confirm $\\rho$ is a homomorphism"
           ],
           "answer": 1,
-          "explain": "A $\\mathbb{C}[G]$-module structure is exactly the data of $\\rho(e)=\\mathrm{id}$ and $\\rho(gh)=\\rho(g)\\rho(h)$ (i.e., a group homomorphism), extended to $\\mathbb{C}[G]$ by linearity. Diagonalisability is a consequence, not a starting point."
+          "hint": "A group homomorphism extended linearly to the group algebra.",
+          "explain": "A $\\mathbb{C}[G]$-module structure is exactly the data of $\\rho(e)=\\mathrm{id}$ and $\\rho(gh)=\\rho(g)\\rho(h)$ (i.e., a group homomorphism), extended to $\\mathbb{C}[G]$ by linearity."
         },
         {
           "type": "mcq",
@@ -54,14 +55,87 @@
             "$\\mathbb{C}[G]$ has no $G$-stable subspaces at all"
           ],
           "answer": 1,
-          "explain": "The element $\\sum_{g}g$ is fixed by every $h\\in G$ (left multiplication permutes summands), so $\\mathbb{C}\\cdot\\sum_g g$ is a proper nontrivial $G$-stable subspace, contradicting irreducibility as soon as $|G|\\ge 2$. The trivial rep always appears in $\\mathbb{C}[G]$."
+          "hint": "Look for a $G$-invariant vector — something left-translation fixes.",
+          "explain": "The element $\\sum_{g}g$ is fixed by every $h\\in G$ (left multiplication permutes summands), so $\\mathbb{C}\\cdot\\sum_g g$ is a proper nontrivial $G$-stable subspace, contradicting irreducibility as soon as $|G|\\ge 2$."
         },
         {
           "type": "numeric",
           "q": "Let $\\rho\\colon\\mathbb{Z}/4\\mathbb{Z}\\to\\mathrm{GL}_2(\\mathbb{C})$ be defined by $\\rho(1)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Compute $\\mathrm{tr}(\\rho(2))$.",
           "answer": -2,
           "tol": 1e-6,
-          "explain": "$\\rho(2)=\\rho(1)^2=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}^2=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}=-I$, so the trace is $-2$. This $2$-dim rep is the direct sum of the two irreps $\\chi_1$ and $\\chi_3$ of $C_4$, each contributing character value $i^2=-1$ at the generator squared."
+          "hint": "Square the generator.",
+          "explain": "$\\rho(2)=\\rho(1)^2=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}=-I$, so the trace is $-2$."
+        }
+      ]
+    },
+    "tensor-and-dual-reps": {
+      "title": "Tensor products and dual representations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For representations $V$ and $W$ of a finite group $G$, the character of the tensor product $V\\otimes W$ satisfies:",
+          "choices": [
+            "$\\chi_{V\\otimes W}(g) = \\chi_V(g) + \\chi_W(g)$",
+            "$\\chi_{V\\otimes W}(g) = \\chi_V(g)\\cdot\\chi_W(g)$",
+            "$\\chi_{V\\otimes W}(g) = \\chi_V(g) - \\chi_W(g)$",
+            "$\\chi_{V\\otimes W}(g) = \\chi_V(g)/\\chi_W(g)$"
+          ],
+          "answer": 1,
+          "explain": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$."
+        },
+        {
+          "type": "mcq",
+          "q": "The dual representation $V^*$ has $G$-action $(g\\cdot f)(v) = f(\\rho(g^{-1})v)$. Why is the $g^{-1}$ needed?",
+          "choices": [
+            "Without it, $V^*$ would not be finite-dimensional",
+            "Without it, $(gh)\\cdot f = h\\cdot(g\\cdot f)$ instead of $g\\cdot(h\\cdot f)$, making $V^*$ a right-action rather than a left-action",
+            "The inverse appears only by convention — $g$ without inverse also works as a left action",
+            "To force $V^*$ to be irreducible"
+          ],
+          "answer": 1,
+          "explain": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action. The inverse restores left-action compatibility."
+        },
+        {
+          "type": "numeric",
+          "q": "For the standard $2$-dim irrep $V$ of $S_3$ with character $(2,0,-1)$ on classes $\\{e,(12),(123)\\}$, compute $\\chi_{V\\otimes V}((123))$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For the standard $2$-dim irrep $V$ of $S_3$, the tensor $V\\otimes V$ decomposes into irreducibles. Using $\\chi_{V\\otimes V} = (4,0,1)$ and the character table rows $\\chi_{\\mathbf{1}}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$, find the decomposition.",
+          "choices": [
+            "$V\\otimes V = 2V$",
+            "$V\\otimes V = \\mathbf{1} \\oplus \\varepsilon \\oplus V$",
+            "$V\\otimes V = 4\\cdot\\mathbf{1}$",
+            "$V\\otimes V = V \\oplus V$"
+          ],
+          "answer": 1,
+          "hint": "Compute $\\langle\\chi_{V\\otimes V}, \\chi_\\lambda\\rangle$ for each irreducible.",
+          "explain": "$\\langle\\chi_{V\\otimes V},\\chi_{\\mathbf 1}\\rangle = \\frac16(1\\cdot 4 + 3\\cdot 0 + 2\\cdot 1) = 1$. Similarly $\\langle\\chi_{V\\otimes V},\\chi_\\varepsilon\\rangle = 1$ and $\\langle\\chi_{V\\otimes V},\\chi_V\\rangle = 1$. So $V\\otimes V = \\mathbf{1}\\oplus\\varepsilon\\oplus V$, a sum of three distinct multiplicity-$1$ irreducibles."
+        },
+        {
+          "type": "mcq",
+          "q": "For a finite group $G$ and irrep $V$, which of the following is equivalent to $V$ being self-dual (i.e., $V\\cong V^*$)?",
+          "choices": [
+            "$V$ is $1$-dimensional",
+            "The character $\\chi_V$ takes only real values",
+            "$V$ is the trivial representation",
+            "$\\dim V = |G|$"
+          ],
+          "answer": 1,
+          "hint": "What is $\\chi_{V^*}(g)$ in terms of $\\chi_V$?",
+          "explain": "Since $\\chi_{V^*}(g) = \\overline{\\chi_V(g)}$, $V\\cong V^*$ (as characters are complete invariants) iff $\\chi_V = \\overline{\\chi_V}$, i.e., $\\chi_V$ is real-valued. A rep with real character is called $\\textit{self-dual}$; the further distinction between real-type and quaternionic-type is captured by the Frobenius-Schur indicator."
+        },
+        {
+          "type": "numeric",
+          "q": "For the standard $2$-dim irrep $V$ of $S_3$ with $\\chi_V = (2,0,-1)$, compute $\\chi_{S^2 V}((12))$. Use $\\chi_{S^2 V}(g) = \\tfrac12(\\chi_V(g)^2 + \\chi_V(g^2))$ and note that $(12)^2 = e$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\chi_V((12))=0$, $\\chi_V((12)^2)=\\chi_V(e)=2$. So $\\chi_{S^2V}((12)) = \\tfrac12(0 + 2) = 1$."
         }
       ]
     },
@@ -78,7 +152,7 @@
             "$|G|$ is prime"
           ],
           "answer": 2,
-          "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$. Algebraic closure is irrelevant; characteristic $0$ suffices but is not necessary."
+          "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$."
         },
         {
           "type": "mcq",
@@ -112,7 +186,7 @@
           ],
           "answer": 1,
           "hint": "Conjugate a naive projector by $\\rho(g)$ and average — the $1/|G|$ is essential.",
-          "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$. One checks $\\pi^2=\\pi$, $\\mathrm{im}\\,\\pi=W$, and $\\pi(\\rho(h)v)=\\rho(h)\\pi(v)$ for all $h$. Division by $|G|$ requires $\\mathrm{char}(k)\\nmid|G|$."
+          "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$."
         },
         {
           "type": "mcq",
@@ -124,14 +198,15 @@
             "The averaging trick gives a projector with non-integer coefficients, so it fails"
           ],
           "answer": 0,
-          "explain": "For $G=\\mathbb{Z}$, $\\rho(1)=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ preserves $\\mathbb{C}\\cdot e_1$ (a $G$-stable subspace), but there is no $G$-stable complement: any complement would be spanned by a vector $e_1+te_2$ which maps to $e_1+(t+1)e_2$, impossible to stabilize for all $n$. Maschke's averaging over $\\mathbb{Z}$ would require $\\tfrac{1}{|\\mathbb{Z}|}$, which diverges."
+          "hint": "Pick a $\\mathbb Z$-rep with a stable subspace that has no complement.",
+          "explain": "For $G=\\mathbb{Z}$, $\\rho(1)=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ preserves $\\mathbb{C}\\cdot e_1$ but has no $G$-stable complement. Averaging over $\\mathbb{Z}$ requires $\\tfrac{1}{|\\mathbb{Z}|}$, which diverges."
         },
         {
           "type": "numeric",
           "q": "Let $G=C_2=\\{e,s\\}$ act on $\\mathbb{C}^2$ via $\\rho(s)=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$. By Maschke, $\\mathbb{C}^2\\cong V_+\\oplus V_-$ where $V_\\pm$ are the $\\pm 1$ eigenspaces of $\\rho(s)$. What is $\\dim V_+$?",
           "answer": 1,
           "tol": 1e-6,
-          "explain": "The $+1$ eigenspace of $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ is spanned by $(1,1)$, a $1$-dimensional space, so $\\dim V_+=1$. Similarly $V_-=\\mathrm{span}(1,-1)$, confirming $\\mathbb{C}^2=V_+\\oplus V_-$ as a $C_2$-module."
+          "explain": "The $+1$ eigenspace of $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ is spanned by $(1,1)$, a $1$-dimensional space."
         }
       ]
     },
@@ -148,7 +223,7 @@
             "$T$ preserves a Hermitian inner product"
           ],
           "answer": 1,
-          "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility. When $V=W$, $T-\\lambda\\,\\mathrm{id}$ has a kernel for any eigenvalue $\\lambda$ (which exists since $\\mathbb{C}$ is algebraically closed), forcing $T=\\lambda\\,\\mathrm{id}$."
+          "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility."
         },
         {
           "type": "numeric",
@@ -162,7 +237,7 @@
           "q": "Let $V = 2V_1 \\oplus 3V_2$ where $V_1,V_2$ are non-isomorphic irreps of $G$. By the commutant formula $\\mathrm{End}_G(V)\\cong\\prod_\\lambda M_{m_\\lambda}(\\mathbb{C})$, compute $\\dim_{\\mathbb{C}}\\mathrm{End}_G(V)$.",
           "answer": 13,
           "tol": 1e-6,
-          "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$. This is the fast numerical signature of a decomposition type."
+          "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$."
         }
       ],
       "hard": [
@@ -176,7 +251,8 @@
             "Over $\\mathbb{R}$, $\\ker T=0$ can fail for an intertwiner between irreps"
           ],
           "answer": 1,
-          "explain": "The rotation rep $\\theta\\mapsto\\begin{pmatrix}\\cos 2\\pi\\theta&-\\sin 2\\pi\\theta\\\\\\sin 2\\pi\\theta&\\cos 2\\pi\\theta\\end{pmatrix}$ is irreducible over $\\mathbb{R}$ (no real eigenvalues), yet $\\mathrm{End}_{\\mathbb{R}/\\mathbb{Z}}(\\mathbb{R}^2)\\cong\\mathbb{C}$. The eigenvalue step in Schur's proof fails because $\\mathbb{R}$ is not algebraically closed."
+          "hint": "Think about rotations — can you diagonalize them over $\\mathbb R$?",
+          "explain": "The rotation rep $\\theta\\mapsto\\begin{pmatrix}\\cos 2\\pi\\theta&-\\sin 2\\pi\\theta\\\\\\sin 2\\pi\\theta&\\cos 2\\pi\\theta\\end{pmatrix}$ is irreducible over $\\mathbb{R}$ (no real eigenvalues), yet its real endomorphism algebra is $\\mathbb{C}$."
         },
         {
           "type": "mcq",
@@ -188,14 +264,16 @@
             "$T$ being an intertwiner already implies it is a scalar; scalars are isomorphisms"
           ],
           "answer": 0,
-          "explain": "Since $\\mathrm{im}\\,T\\subseteq W$ is $G$-stable and $T\\ne 0$, irreducibility of $W$ forces $\\mathrm{im}\\,T=W$ (surjective). Since $\\ker T\\subseteq V$ is $G$-stable and $T\\ne 0$, irreducibility of $V$ forces $\\ker T=0$ (injective). Together: $T$ is an isomorphism."
+          "hint": "Use the fact that kernel and image are each $G$-stable.",
+          "explain": "$\\mathrm{im}\\,T\\subseteq W$ is $G$-stable; by irreducibility of $W$ and $T\\ne 0$, it is all of $W$. Similarly $\\ker T\\subseteq V$ is $G$-stable and proper, so it is $0$."
         },
         {
           "type": "numeric",
           "q": "For $G=S_3$ and $V=\\mathbb{C}^3$ the permutation representation, use Schur's lemma to compute $\\dim_{\\mathbb{C}}\\mathrm{End}_{S_3}(V)$. (Hint: decompose $V$ first.)",
           "answer": 2,
           "tol": 1e-6,
-          "explain": "$V\\cong\\mathbf{1}\\oplus V_{\\mathrm{std}}$ where $\\mathbf{1}$ is the trivial irrep and $V_{\\mathrm{std}}$ is the $2$-dim standard irrep. By Schur, $\\mathrm{End}_{S_3}(V)\\cong M_1(\\mathbb{C})\\times M_1(\\mathbb{C})$, so $\\dim=1^2+1^2=2$."
+          "hint": "Decompose $\\mathbb C^3$ into irreducibles and apply $\\dim \\mathrm{End}_G = \\sum m_\\lambda^2$.",
+          "explain": "$V\\cong\\mathbf{1}\\oplus V_{\\mathrm{std}}$, so $\\dim\\mathrm{End}_{S_3}(V) = 1^2+1^2 = 2$."
         }
       ]
     },
@@ -212,27 +290,27 @@
             "$\\chi_V(g)=0$ for all $g\\ne e$"
           ],
           "answer": 1,
-          "explain": "By first orthogonality, the irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand, i.e.\\ $V$ is irreducible."
+          "explain": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand."
         },
         {
           "type": "numeric",
           "q": "For $S_3$ with classes $\\{e\\},\\{(12)\\},\\{(123)\\}$ of sizes $1,3,2$, the $3$-dimensional permutation rep has character $(3,1,0)$. Compute the multiplicity $\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle$ of the standard $2$-dim irrep $V$ (whose character is $(2,0,-1)$).",
           "answer": 1,
           "tol": 1e-6,
-          "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=\\tfrac{6}{6}=1$, so the standard rep appears with multiplicity $1$ in $\\mathbb{C}^3=\\mathbf{1}\\oplus V$."
+          "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$."
         },
         {
           "type": "numeric",
           "q": "Using $|G|=\\sum_\\lambda (\\dim V_\\lambda)^2$, a group of order $8$ has five conjugacy classes. If four of its irreducibles are $1$-dimensional, what is the dimension of the fifth irreducible?",
           "answer": 2,
           "tol": 1e-6,
-          "explain": "We need $1^2+1^2+1^2+1^2+d^2=8$, so $d^2=4$ and $d=2$. This is exactly the pattern for $D_4$ and $Q_8$."
+          "explain": "$1+1+1+1+d^2=8$, so $d=2$. This is the pattern for $D_4$ and $Q_8$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "$D_4$ and $Q_8$ have identical character tables (same dimensions and same inner product structure) yet are non-isomorphic groups. Which statement best explains why characters cannot distinguish them?",
+          "q": "$D_4$ and $Q_8$ have identical character tables yet are non-isomorphic groups. Which statement best explains why characters cannot distinguish them?",
           "choices": [
             "Characters are complete invariants of representations, not of groups; two non-isomorphic groups can share all representation-theoretic data",
             "They are actually isomorphic — the character table proves it",
@@ -240,31 +318,194 @@
             "The second orthogonality relation gives different column norms for $D_4$ and $Q_8$"
           ],
           "answer": 0,
-          "explain": "The character table captures the isomorphism type of the representation category over $\\mathbb{C}$, not the isomorphism type of the group. $D_4$ and $Q_8$ have the same abstract character table (same multiset of dimensions, same inner products) even though one has elements of order $4$ with $4$-torsion that is a direct product structure versus the other. This is the standard counterexample to 'character table determines group'."
+          "hint": "Characters determine reps up to isomorphism — but do they determine the group?",
+          "explain": "The character table captures the isomorphism type of the representation category over $\\mathbb{C}$, not the group itself. $D_4$ and $Q_8$ are a famous counterexample."
         },
         {
           "type": "numeric",
-          "q": "For $S_3$ with character table rows $\\chi_1=(1,1,1)$, $\\chi_{\\mathrm{sgn}}=(1,-1,1)$, $\\chi_V=(2,0,-1)$ and class sizes $1,3,2$, compute the inner product $\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle$.",
+          "q": "For $S_3$ with characters $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ and class sizes $1,3,2$, compute the inner product $\\langle\\chi_V,\\chi_\\varepsilon\\rangle$.",
           "answer": 0,
           "tol": 1e-6,
-          "explain": "$\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle=\\tfrac{1}{6}(1\\cdot 2\\cdot 1+3\\cdot 0\\cdot(-1)+2\\cdot(-1)\\cdot 1)=\\tfrac{1}{6}(2+0-2)=0$. Orthogonality of distinct irreducible characters confirms $V_{\\mathrm{std}}$ and $\\mathrm{sgn}$ are non-isomorphic irreps."
-        },
-        {
-          "type": "mcq",
-          "q": "Second orthogonality for characters states $\\sum_\\lambda\\chi_\\lambda(g)\\overline{\\chi_\\lambda(h)}=\\frac{|G|}{|C_G(g)|}\\delta_{[g],[h]}$. For $G=S_3$, the class of $(12)$ has centralizer of order $2$. What does second orthogonality give for the sum $\\sum_\\lambda|\\chi_\\lambda((12))|^2$?",
-          "choices": [
-            "$0$",
-            "$3$",
-            "$6$",
-            "$1$"
-          ],
-          "answer": 1,
-          "explain": "$\\sum_\\lambda|\\chi_\\lambda((12))|^2=|G|/|C_{S_3}((12))|=6/2=3$. Indeed $1^2+(-1)^2+0^2=1+1+0=2\\ne 3$ — wait, that uses wrong values; the characters at $(12)$ are $(1,-1,0)$ so $\\sum=1+1+0=2$. Rechecking: $|C_{S_3}((12))|=2$, giving $6/2=3$. The discrepancy $3\\ne 2$ does not arise here because second orthogonality reads $\\sum_\\lambda \\chi_\\lambda(g)\\overline{\\chi_\\lambda(g)}=|G|/|C_G(g)|$. With $\\chi_V((12))=0$, $\\chi_1=1$, $\\chi_{\\mathrm{sgn}}=-1$: $1+1+0=2\\ne 3$ — so $|C_{S_3}((12))|=3$ (the centralizer is $\\langle(12)\\rangle\\cup\\{e,(12)\\}$ of order $2$, giving class size $3$, and $|G|/|C|=6/2=3$). Correct answer: $3$."
+          "explain": "$\\langle\\chi_V,\\chi_\\varepsilon\\rangle=\\tfrac{1}{6}(1\\cdot 2\\cdot 1+3\\cdot 0\\cdot(-1)+2\\cdot(-1)\\cdot 1)=\\tfrac{1}{6}(2-2)=0$."
         }
       ]
     },
-    "induction-and-young": {
-      "title": "Induction and symmetric-group combinatorics",
+    "character-tables": {
+      "title": "Character tables",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many irreducible complex representations does $S_4$ have?",
+          "answer": 5,
+          "tol": 1e-6,
+          "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $D_4 = \\langle r, s \\mid r^4 = s^2 = 1, srs = r^{-1}\\rangle$, how many $1$-dimensional irreducible representations are there?",
+          "choices": [
+            "$1$",
+            "$2$",
+            "$4$",
+            "$5$"
+          ],
+          "answer": 2,
+          "explain": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters. So $D_4$ has $4$ one-dimensional irreps plus one $2$-dimensional."
+        },
+        {
+          "type": "numeric",
+          "q": "The character table of $S_3$ has rows $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ on classes $\\{e\\},\\{(12)\\},\\{(123)\\}$. Verify the $|G| = \\sum_\\lambda (\\dim V_\\lambda)^2$ identity by computing $\\sum_\\lambda (\\dim V_\\lambda)^2$.",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$. The dimension column of the character table squares to $|G|$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A group $G$ of order $12$ has conjugacy classes of sizes $1, 3, 4, 4$. Which group is it, and what are the dimensions of its irreducibles?",
+          "choices": [
+            "$A_4$ with irreducible dimensions $1, 1, 1, 3$",
+            "$S_3 \\times \\mathbb{Z}/2$ with dimensions $1,1,1,2,2$",
+            "$D_6$ with dimensions $1,1,1,1,2,2$",
+            "$\\mathbb{Z}/12$ with dimensions $1$ (all twelve)"
+          ],
+          "answer": 0,
+          "hint": "Sum of squared dimensions must equal $|G|=12$; number of irreducibles = number of classes.",
+          "explain": "4 classes → 4 irreducibles. $1^2+1^2+1^2+3^2 = 12$. This is $A_4$: the $3$-dim irrep is the standard rep and the three $1$-dim irreps are characters of $A_4/V_4 \\cong \\mathbb{Z}/3$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $Q_8$ (quaternion group of order $8$) with five conjugacy classes $\\{1\\}, \\{-1\\}, \\{\\pm i\\}, \\{\\pm j\\}, \\{\\pm k\\}$ and sizes $1, 1, 2, 2, 2$, use the column orthogonality relation $\\sum_\\lambda |\\chi_\\lambda(g)|^2 = |C_G(g)|$ at $g=-1$ (centralizer is all of $Q_8$, order $8$) to compute the sum $\\sum_\\lambda |\\chi_\\lambda(-1)|^2$.",
+          "answer": 8,
+          "tol": 1e-6,
+          "hint": "$-1$ is central, so its centralizer is the whole group.",
+          "explain": "Column orthogonality: $\\sum_\\lambda\\chi_\\lambda(g)\\overline{\\chi_\\lambda(h)} = |C_G(g)|\\cdot\\delta_{[g][h]}$. At $g=h=-1$, $|C_G(-1)| = 8$ (the centralizer of a central element is the whole group). So $\\sum_\\lambda|\\chi_\\lambda(-1)|^2 = 8$. Verify: the four $1$-dim irreps all send $-1\\mapsto 1$, and the $2$-dim irrep sends $-1\\mapsto -2$. $1^2+1^2+1^2+1^2+(-2)^2 = 8$. ✓"
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following character tables is consistent with a group of order $8$?",
+          "choices": [
+            "Four $1$-dim rows and one $3$-dim row (sum of squares: $1+1+1+1+9 = 13$)",
+            "Four $1$-dim rows and one $2$-dim row (sum of squares: $1+1+1+1+4 = 8$)",
+            "Five $1$-dim rows and one $2$-dim row (sum of squares: $5+4=9$)",
+            "Two $2$-dim rows (sum of squares: $4+4=8$, but wrong number of irreps)"
+          ],
+          "answer": 1,
+          "hint": "Count irreducibles (= conjugacy classes) and check $\\sum d_i^2 = |G|$.",
+          "explain": "A group of order $8$ has a character table whose dimensions square-sum to $8$. Both $D_4$ and $Q_8$ have exactly four $1$-dim irreps and one $2$-dim irrep."
+        }
+      ]
+    },
+    "orbit-stabilizer-rep": {
+      "title": "Orbits, stabilizers, and permutation reps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a $G$-set $X$, the permutation representation $V_X = \\bigoplus_{x\\in X} \\mathbb{C} e_x$ has character:",
+          "choices": [
+            "$\\chi_{V_X}(g) = |X|$",
+            "$\\chi_{V_X}(g) = \\#\\mathrm{Fix}_X(g) = \\#\\{x : g\\cdot x = x\\}$",
+            "$\\chi_{V_X}(g) = |G|/|X|$",
+            "$\\chi_{V_X}(g) = 0$ unless $g=e$"
+          ],
+          "answer": 1,
+          "explain": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points."
+        },
+        {
+          "type": "numeric",
+          "q": "By Burnside's lemma, the number of orbits of $G$ on $X$ equals $\\frac{1}{|G|}\\sum_{g\\in G}\\#\\mathrm{Fix}_X(g)$. For $G=S_3$ acting on $X=\\{1,2,3\\}$ (transitively), this gives:",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$. Sum $= 3+3+0 = 6$. Divided by $|S_3|=6$ gives $1$ orbit."
+        },
+        {
+          "type": "numeric",
+          "q": "For $S_4$ acting on the $6$ two-element subsets of $\\{1,2,3,4\\}$, the stabilizer of $\\{1,2\\}$ is $S_{\\{1,2\\}}\\times S_{\\{3,4\\}} \\cong S_2\\times S_2$ of order $4$. By orbit-stabilizer, the orbit of $\\{1,2\\}$ has size:",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For $S_4$ acting on the $4$ cosets of the subgroup $S_3 = \\mathrm{Stab}(4)$, the resulting permutation representation $\\mathbb{C}[S_4/S_3]$ decomposes as:",
+          "choices": [
+            "$\\mathbb{C}[S_4/S_3] = \\mathbf{1}$",
+            "$\\mathbb{C}[S_4/S_3] = \\mathbf{1} \\oplus V_{(3,1)}$",
+            "$\\mathbb{C}[S_4/S_3] = V_{(3,1)} \\oplus V_{(2,1,1)}$",
+            "$\\mathbb{C}[S_4/S_3] = 4\\cdot\\mathbf{1}$"
+          ],
+          "answer": 1,
+          "hint": "By Frobenius reciprocity, this is $\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$. Use dimensions.",
+          "explain": "$\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$ has dimension $[S_4:S_3]\\cdot 1 = 4$. The trivial rep always appears once (since the stabilizer is transitive), and by Frobenius the standard rep $V_{(3,1)}$ (dim $3$) appears. Total dim $1+3 = 4$. ✓"
+        },
+        {
+          "type": "numeric",
+          "q": "For $S_4$ acting on the $8$ vertices of a cube (via its identification with the rotation group of the cube, which is $S_4$), the stabilizer of a vertex is which subgroup, and what order does it have?",
+          "answer": 3,
+          "tol": 1e-6,
+          "hint": "A vertex is fixed by rotations around its diagonal; the stabilizer is cyclic.",
+          "explain": "The stabilizer is cyclic of order $3$ (rotations by $0°, 120°, 240°$ around the vertex's long diagonal). Orbit size $= 24/3 = 8$, matching the $8$ vertices."
+        }
+      ]
+    },
+    "regular-rep-decomposition": {
+      "title": "The regular representation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The regular representation $\\mathbb{C}[G]$ of a finite group $G$ decomposes as:",
+          "choices": [
+            "$\\mathbb{C}[G] = \\bigoplus_\\lambda V_\\lambda$ (each irrep once)",
+            "$\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$",
+            "$\\mathbb{C}[G]$ is irreducible",
+            "$\\mathbb{C}[G] = \\mathbf{1}^{\\oplus|G|}$ (trivially)"
+          ],
+          "answer": 1,
+          "explain": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$."
+        },
+        {
+          "type": "numeric",
+          "q": "The regular representation of $S_3$ has dimension $6$. Verify: how many copies of each irrep does it contain in total (summed dimensions)? Compute $\\sum_\\lambda \\dim V_\\lambda$ for $S_3$ (sum of one of each irrep).",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$. (Compare to $\\sum (\\dim V_\\lambda)^2 = 1+1+4 = 6 = |S_3|$.)"
+        },
+        {
+          "type": "numeric",
+          "q": "The character of the regular representation of any finite group $G$ satisfies $\\chi_{\\mathrm{reg}}(e) = |G|$ and $\\chi_{\\mathrm{reg}}(g) = 0$ for $g\\ne e$. For $|G|=12$, compute $\\langle \\chi_{\\mathrm{reg}}, \\chi_\\lambda\\rangle$ for a $3$-dimensional irrep $V_\\lambda$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The isotypic decomposition $\\mathbb{C}[G] = \\bigoplus_\\lambda M_{d_\\lambda}(\\mathbb{C})$ (as a two-sided module: $G\\times G$ acts by left and right translation) is which abstract ring isomorphism?",
+          "choices": [
+            "Artin-Wedderburn: the group algebra $\\mathbb{C}[G]$ is semisimple and isomorphic to $\\prod_\\lambda M_{d_\\lambda}(\\mathbb{C})$, with $d_\\lambda = \\dim V_\\lambda$",
+            "The character map sends $\\mathbb{C}[G]$ to $\\mathbb{C}^{\\#\\mathrm{classes}}$, which is the same thing",
+            "$\\mathbb{C}[G] \\cong \\mathbb{C}$ always",
+            "This only holds for abelian groups"
+          ],
+          "answer": 0,
+          "hint": "What does Maschke + irreducible structure give you as an algebra?",
+          "explain": "Maschke shows $\\mathbb{C}[G]$ is semisimple; Artin-Wedderburn then gives $\\mathbb{C}[G] \\cong \\prod_\\lambda \\mathrm{End}(V_\\lambda) \\cong \\prod_\\lambda M_{d_\\lambda}(\\mathbb{C})$. Dimensions: $|G| = \\sum d_\\lambda^2$. The two-sided action is exactly by matrix multiplication."
+        },
+        {
+          "type": "numeric",
+          "q": "For $|G|=8$ with four $1$-dim irreps and one $2$-dim irrep (e.g. $D_4$ or $Q_8$), how many times does the $2$-dim irrep appear as a direct summand of $\\mathbb{C}[G]$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "Multiplicity = dimension = $2$. Check: $4\\cdot 1^2 + 1\\cdot 2^2 = 4 + 4 = 8 = |G|$. ✓"
+        }
+      ]
+    },
+    "frobenius-reciprocity": {
+      "title": "Induction, restriction, Frobenius reciprocity",
       "questions": [
         {
           "type": "mcq",
@@ -276,31 +517,24 @@
             "$\\dim\\mathrm{Ind}_H^G W = \\dim W$"
           ],
           "answer": 0,
-          "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}_H^G W,V)\\cong \\mathrm{Hom}_H(W,\\mathrm{Res}^G_H V)$. On characters, $\\langle\\chi_{\\mathrm{Ind}W},\\chi_V\\rangle_G=\\langle\\chi_W,\\chi_{\\mathrm{Res}V}\\rangle_H$."
-        },
-        {
-          "type": "numeric",
-          "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
-          "answer": 3,
-          "tol": 1e-6,
-          "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$. This is the standard rep of $S_4$."
+          "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$."
         },
         {
           "type": "numeric",
           "q": "Let $H=\\langle(123)\\rangle\\cong C_3\\le S_3$, $[S_3:H]=2$. If $W$ is any $1$-dimensional rep of $C_3$, compute $\\dim\\mathrm{Ind}_H^{S_3}W$.",
           "answer": 2,
           "tol": 1e-6,
-          "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$. For the nontrivial $W$ this induced rep is the $2$-dim standard rep $V_{(2,1)}$."
+          "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $H = A_4 \\le G = S_4$ with $[G:H] = 2$, compute $\\dim \\mathrm{Ind}_H^G \\mathbf{1}_H$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$. This induced rep is $\\mathbf{1}\\oplus\\varepsilon$ (the trivial rep plus the sign rep of $S_4$)."
         }
       ],
       "hard": [
-        {
-          "type": "numeric",
-          "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(2,2)\\vdash 4$. The hook lengths are $3,1$ in row $1$ and $2,1$ in row $2$.",
-          "answer": 2,
-          "tol": 1e-6,
-          "explain": "$f^{(2,2)}=4!/(3\\cdot 1\\cdot 2\\cdot 1)=24/6=4$. Wait — hooks for the $(2,2)$ Young diagram: box $(1,1)$ has hook $3$, box $(1,2)$ has hook $1$; box $(2,1)$ has hook $2$, box $(2,2)$ has hook $1$. So $f^{(2,2)}=24/(3\\cdot 2\\cdot 1\\cdot 1)=24/6=4$. Actually re-examining: $f^{(2,2)}=4!/(3\\cdot1\\cdot2\\cdot1)=4$. The answer is $2$ only for $(2,1,1)$. The correct value for $(2,2)$ is $2$: hook lengths are $3,2,2,1$ giving $4!/12=2$. Box $(1,1)$: arm $1$ + leg $1$ + $1=3$; box $(1,2)$: arm $0$ + leg $1$+$1=2$; box $(2,1)$: arm $1$+leg $0$+$1=2$; box $(2,2)$: arm $0$+leg $0$+$1=1$. Product $=3\\cdot2\\cdot2\\cdot1=12$. $f=24/12=2$."
-        },
         {
           "type": "mcq",
           "q": "By Frobenius reciprocity, $\\langle\\mathrm{Ind}_{C_3}^{S_3}\\chi_\\omega,\\chi_{\\mathrm{std}}\\rangle_{S_3}=\\langle\\chi_\\omega,\\mathrm{Res}_{C_3}^{S_3}\\chi_{\\mathrm{std}}\\rangle_{C_3}$, where $\\chi_\\omega$ is the nontrivial irrep of $C_3$ with $\\chi_\\omega((123))=\\omega=e^{2\\pi i/3}$. Which value does this inner product equal?",
@@ -311,7 +545,8 @@
             "$3$"
           ],
           "answer": 1,
-          "explain": "$\\mathrm{Res}_{C_3}\\chi_{\\mathrm{std}}$ has values $(2,-1,-1)$ at $(e,(123),(132))$ (standard $2$-dim irrep restricted). $\\langle\\chi_\\omega,\\mathrm{Res}\\,\\chi_{\\mathrm{std}}\\rangle_{C_3}=\\tfrac{1}{3}(1\\cdot 2+\\bar\\omega\\cdot(-1)+\\bar\\omega^2\\cdot(-1))=\\tfrac{1}{3}(2-\\bar\\omega-\\bar\\omega^2)=\\tfrac{1}{3}(2-(-1))=1$, using $\\omega+\\omega^2=-1$."
+          "hint": "Restrict $V_{\\text{std}}$ to $C_3$ first, then compute the inner product.",
+          "explain": "$\\mathrm{Res}_{C_3}\\chi_{\\mathrm{std}}$ has values $(2,-1,-1)$ at $(e,(123),(132))$. $\\langle\\chi_\\omega,\\mathrm{Res}\\,\\chi_{\\mathrm{std}}\\rangle_{C_3}=\\tfrac{1}{3}(2 - \\bar\\omega - \\bar\\omega^2) = \\tfrac{1}{3}(2 + 1) = 1$."
         },
         {
           "type": "mcq",
@@ -323,12 +558,214 @@
             "Average a map $W\\to V|_H$ over cosets to produce a $G$-map"
           ],
           "answer": 0,
-          "explain": "The standard proof: (1) define $\\mathrm{Ind}=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$; (2) the map $\\mathrm{Hom}_G\\to\\mathrm{Hom}_H$ by $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ is natural and $H$-linear; (3) its inverse $f\\mapsto\\tilde f$ with $\\tilde f(g\\otimes w)=g\\cdot f(w)$ is well-defined and $G$-linear, establishing the adjunction."
+          "hint": "Tensor-hom adjunction — where does it come from?",
+          "explain": "Standard proof: $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ is natural and $H$-linear; its inverse $f\\mapsto\\tilde f$ with $\\tilde f(g\\otimes w)=g\\cdot f(w)$ is $G$-linear. This is just the tensor-hom adjunction for the ring extension $\\mathbb{C}[H]\\hookrightarrow\\mathbb{C}[G]$."
+        },
+        {
+          "type": "numeric",
+          "q": "For $G = S_4$ and $H = S_3 \\le G$ (as stabilizer of $\\{4\\}$), compute $\\langle \\mathrm{Ind}_H^G\\mathbf{1}_H, \\chi_\\mathbf{1}\\rangle_G$ — the number of copies of the trivial rep in $\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "hint": "Use Frobenius reciprocity and restrict the trivial $G$-rep.",
+          "explain": "By Frobenius, $\\langle \\mathrm{Ind}_H^G\\mathbf{1}_H, \\mathbf{1}_G\\rangle_G = \\langle\\mathbf{1}_H, \\mathrm{Res}_H^G\\mathbf{1}_G\\rangle_H = \\langle\\mathbf{1}_H,\\mathbf{1}_H\\rangle_H = 1$."
+        }
+      ]
+    },
+    "induction-and-young": {
+      "title": "Young tableaux and irreps of $S_n$",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many partitions does $5$ have, i.e., how many irreducible representations does $S_5$ have?",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$. Seven partitions, seven irreducible representations."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\lambda = (2,2) \\vdash 4$, the hook lengths are $3, 2, 2, 1$. Compute $\\dim V_{(2,2)}$.",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "numeric",
+          "q": "For $\\lambda = (3,2) \\vdash 5$, compute $\\dim V_\\lambda$ using the hook-length formula. Hook lengths: row 1 has $(4, 3, 1)$, row 2 has $(2, 1)$.",
+          "answer": 5,
+          "tol": 1e-6,
+          "hint": "Product of hooks is $4\\cdot 3\\cdot 1\\cdot 2\\cdot 1$.",
+          "explain": "$f^{(3,2)} = 5!/(4\\cdot 3\\cdot 1\\cdot 2\\cdot 1) = 120/24 = 5$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Young symmetrizer $c_T = (\\sum_{p\\in R_T} p)(\\sum_{q\\in C_T}\\mathrm{sgn}(q)\\, q)$ has the property:",
+          "choices": [
+            "$c_T = 0$ always",
+            "$c_T^2 = \\tfrac{n!}{f^\\lambda} c_T$, making $(f^\\lambda/n!)\\cdot c_T$ an idempotent",
+            "$c_T$ is central in $\\mathbb{C}[S_n]$",
+            "$c_T$ commutes with every transposition"
+          ],
+          "answer": 1,
+          "hint": "$c_T$ is a near-idempotent; look at $c_T^2/c_T$.",
+          "explain": "$c_T^2 = (n!/f^\\lambda)\\cdot c_T$, so dividing by $n!/f^\\lambda$ gives an idempotent generator of the Specht module $V_\\lambda$."
+        }
+      ]
+    },
+    "peter-weyl-preview": {
+      "title": "Compact groups and Peter–Weyl",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For which class of groups does the Peter–Weyl theorem decompose $L^2(G)$ into a Hilbert direct sum of matrix coefficients of irreducible unitary representations?",
+          "choices": [
+            "All topological groups",
+            "Compact Hausdorff topological groups",
+            "Discrete groups only",
+            "Simply connected Lie groups"
+          ],
+          "answer": 1,
+          "explain": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure). For non-compact groups like $\\mathrm{SL}_2(\\mathbb{R})$, infinite-dim irreps enter via the Plancherel theorem."
+        },
+        {
+          "type": "numeric",
+          "q": "The irreducible unitary representations of $\\mathrm{SU}(2)$ are $V_n$ of dimension $n+1$ for $n = 0, 1, 2, \\ldots$. How many linearly independent matrix coefficients does $V_3$ contribute to $L^2(\\mathrm{SU}(2))$ (i.e., what is $\\dim V_3 \\cdot \\dim V_3^* = (\\dim V_3)^2$)?",
+          "answer": 16,
+          "tol": 1e-6,
+          "explain": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients."
+        },
+        {
+          "type": "mcq",
+          "q": "The character of $V_n$ on the maximal torus $\\{\\mathrm{diag}(e^{i\\theta},e^{-i\\theta})\\}$ of $\\mathrm{SU}(2)$ is:",
+          "choices": [
+            "$\\chi_n(\\theta) = (n+1)\\cos(\\theta)$",
+            "$\\chi_n(\\theta) = \\sin((n+1)\\theta)/\\sin(\\theta)$",
+            "$\\chi_n(\\theta) = e^{in\\theta}$",
+            "$\\chi_n(\\theta) = n+1$"
+          ],
+          "answer": 1,
+          "explain": "Weights of $V_n$ on the maximal torus are $n, n-2, \\ldots, -n$, so $\\chi_n(\\theta) = \\sum_{k=0}^n e^{i(n-2k)\\theta} = e^{-in\\theta}\\frac{e^{i2(n+1)\\theta}-1}{e^{i2\\theta}-1} = \\sin((n+1)\\theta)/\\sin(\\theta)$ — the Chebyshev polynomial $U_n(\\cos\\theta)$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "For the circle group $\\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$, Peter–Weyl recovers which classical result?",
+          "choices": [
+            "The Plancherel theorem on $\\mathbb{R}$",
+            "The Fourier series expansion $L^2(\\mathbb{T}) = \\widehat{\\bigoplus}_{n\\in\\mathbb{Z}}\\mathbb{C}\\cdot e^{2\\pi i n\\theta}$",
+            "The Poisson summation formula",
+            "The Riemann hypothesis for $L$-functions"
+          ],
+          "answer": 1,
+          "hint": "What are the irreducible unitary reps of $\\mathbb T$?",
+          "explain": "Irreps of $\\mathbb{T}$ are $\\chi_n(\\theta) = e^{2\\pi i n\\theta}$ for $n\\in\\mathbb{Z}$; each is $1$-dimensional, so matrix coefficients equal characters. Peter–Weyl then gives exactly the Fourier basis of $L^2(\\mathbb{T})$."
+        },
+        {
+          "type": "numeric",
+          "q": "The Weyl integration formula for $\\mathrm{SU}(2)$ reads $\\int_{\\mathrm{SU}(2)} f(g)\\,dg = \\frac{2}{\\pi}\\int_0^\\pi f(\\theta)\\sin^2(\\theta)\\,d\\theta$ for class functions $f$. Using this, compute $\\int_{\\mathrm{SU}(2)}|\\chi_1(g)|^2\\,dg$ where $\\chi_1$ is the character of the standard $2$-dim rep.",
+          "answer": 1,
+          "tol": 1e-6,
+          "hint": "Characters of distinct irreps are orthonormal under this integral.",
+          "explain": "$\\chi_1(\\theta) = \\sin(2\\theta)/\\sin(\\theta) = 2\\cos\\theta$. Then $\\frac{2}{\\pi}\\int_0^\\pi 4\\cos^2(\\theta)\\sin^2(\\theta)\\,d\\theta = \\frac{2}{\\pi}\\int_0^\\pi \\sin^2(2\\theta)\\,d\\theta = \\frac{2}{\\pi}\\cdot\\frac{\\pi}{2} = 1$. Orthonormality of irreducible characters. ✓"
+        },
+        {
+          "type": "mcq",
+          "q": "The Peter–Weyl decomposition $L^2(G) = \\widehat{\\bigoplus}_\\pi V_\\pi\\otimes V_\\pi^*$ exhibits $L^2(G)$ as a $G\\times G$ representation (by left and right translation). The $V_\\pi\\otimes V_\\pi^*$ factor carries which $G\\times G$ action?",
+          "choices": [
+            "trivial on both factors",
+            "$(g_1, g_2)\\cdot (v\\otimes f) = \\pi(g_1)v \\otimes \\pi^*(g_2)f$ — left translation acts on $V_\\pi$, right translation on $V_\\pi^*$",
+            "only the diagonal $G\\to G\\times G$ acts",
+            "$L^2(G)$ is not a $G\\times G$ representation"
+          ],
+          "answer": 1,
+          "hint": "Left translation: $(L_{g_1}f)(x) = f(g_1^{-1}x)$, right translation $(R_{g_2}f)(x) = f(xg_2)$.",
+          "explain": "$L^2(G)$ carries commuting left- and right-translation actions, giving a $G\\times G$ rep. On matrix coefficients $\\pi_{ij}(x) = \\langle\\pi(x)e_j, e_i\\rangle$, left translation acts on the $i$-index (i.e., on $V_\\pi$) and right translation on the $j$-index (on $V_\\pi^*$)."
+        }
+      ]
+    },
+    "highest-weight-theorem": {
+      "title": "Highest-weight vectors for $\\mathfrak{sl}_2$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A highest-weight vector $v$ of weight $\\lambda$ in an $\\mathfrak{sl}_2$-representation is, by definition, a nonzero vector satisfying:",
+          "choices": [
+            "$Hv = \\lambda v$ and $Fv = 0$",
+            "$Hv = \\lambda v$ and $Ev = 0$",
+            "$Ev = \\lambda v$ and $Fv = 0$",
+            "$Hv = Ev = Fv = 0$"
+          ],
+          "answer": 1,
+          "explain": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $v$ is a highest-weight vector of weight $n = 5$ in a finite-dimensional irreducible $\\mathfrak{sl}_2$-rep, how many linearly independent vectors are in $\\{v, Fv, F^2 v, \\ldots, F^5 v\\}$?",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does finite-dimensionality force the highest weight $\\lambda$ of an irreducible $\\mathfrak{sl}_2$-rep to be a non-negative integer?",
+          "choices": [
+            "Because the vectors $v, Fv, F^2v, \\ldots$ must eventually repeat",
+            "Because $F^{n+1}v = 0$ for some $n$, and then $0 = E F^{n+1}v = (n+1)(\\lambda - n)F^n v$ with $F^n v \\ne 0$ forces $\\lambda = n$",
+            "Because $\\mathfrak{sl}_2$ is simple",
+            "Because the exponential map sends $\\lambda$ to a complex number"
+          ],
+          "answer": 1,
+          "explain": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$. Applying $E$ and using $EF^k v = k(\\lambda - k + 1)F^{k-1}v$ at $k = n+1$ gives $0 = (n+1)(\\lambda-n)F^n v$. Since $F^n v \\ne 0$ and $n+1 \\ne 0$, $\\lambda = n$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "If $v$ is a highest-weight vector of weight $\\lambda$ and $\\lambda \\notin \\mathbb{Z}_{\\ge 0}$, which is true?",
+          "choices": [
+            "No such vector can exist in any $\\mathfrak{sl}_2$-rep",
+            "The Verma module $M(\\lambda)$ exists and is irreducible, but is infinite-dimensional",
+            "Such a $v$ always generates a finite-dim rep",
+            "$\\mathfrak{sl}_2$ has no representations of non-integer weight"
+          ],
+          "answer": 1,
+          "hint": "Think about $\\mathcal{U}(\\mathfrak{sl}_2)$-modules generated by $v$ — what's the general construction?",
+          "explain": "For any $\\lambda\\in\\mathbb{C}$, the Verma module $M(\\lambda) = \\mathcal{U}(\\mathfrak{sl}_2) \\otimes_{\\mathfrak{b}} \\mathbb{C}_\\lambda$ (where $\\mathfrak{b} = \\mathbb{C}H + \\mathbb{C}E$) is a highest-weight module with basis $\\{F^k v : k\\ge 0\\}$. For $\\lambda\\in\\mathbb{Z}_{\\ge 0}$, $F^{\\lambda+1}v$ generates a submodule and the quotient is $V_\\lambda$; for $\\lambda\\notin\\mathbb{Z}_{\\ge 0}$, $M(\\lambda)$ is irreducible but infinite-dim."
+        },
+        {
+          "type": "numeric",
+          "q": "In the irreducible rep $V_4$ of $\\mathfrak{sl}_2$ (highest weight $4$, dimension $5$), let $v_0$ be the highest-weight vector. Using the formula $EF^k v_0 = k(\\lambda - k + 1) F^{k-1} v_0$ at $k = 2$, $\\lambda = 4$: compute the coefficient.",
+          "answer": 6,
+          "tol": 1e-6,
+          "hint": "Plug $k = 2, \\lambda = 4$ directly into $k(\\lambda - k + 1)$.",
+          "explain": "$k(\\lambda - k + 1) = 2\\cdot(4 - 2 + 1) = 2\\cdot 3 = 6$. So $EF^2 v_0 = 6 F v_0$."
+        },
+        {
+          "type": "mcq",
+          "q": "In higher rank (e.g. $\\mathfrak{sl}_3$), which of the following generalizes 'highest-weight vector'?",
+          "choices": [
+            "A vector $v$ with $Hv = \\lambda v$ for all $H\\in\\mathfrak{h}$ and $E_\\alpha v = 0$ for every positive root $\\alpha$",
+            "A vector $v$ of largest norm",
+            "A vector in the kernel of every $F_\\alpha$",
+            "The identity matrix in the adjoint rep"
+          ],
+          "answer": 0,
+          "hint": "Generalize $E$ to all positive root vectors.",
+          "explain": "For a semisimple $\\mathfrak{g}$ with Cartan $\\mathfrak{h}$, positive roots $\\Phi^+$, and root vectors $E_\\alpha$: a highest-weight vector satisfies $\\mathfrak{h}v\\subset\\mathbb{C}v$ and $E_\\alpha v = 0$ for all $\\alpha\\in\\Phi^+$. This is the universal template — for $\\mathfrak{sl}_2$, $\\Phi^+$ has one element and $E_\\alpha = E$."
         }
       ]
     },
     "sl2-weight-decomposition": {
-      "title": "Weight decomposition for 𝔰𝔩₂",
+      "title": "Weight decomposition for $\\mathfrak{sl}_2$",
       "questions": [
         {
           "type": "mcq",
@@ -340,7 +777,7 @@
             "$\\{\\pm n\\}$"
           ],
           "answer": 1,
-          "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$, each of multiplicity $1$."
+          "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$."
         },
         {
           "type": "numeric",
@@ -354,7 +791,7 @@
           "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
           "answer": 6,
           "tol": 1e-6,
-          "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$. The companion formula $FE=\\tfrac{(n+m)(n-m+2)}{4}$ gives the same value $6$ at $m=0$, and their difference $EF-FE=H=m=0$. ✓"
+          "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
         }
       ],
       "hard": [
@@ -368,14 +805,15 @@
             "Complete reducibility follows from the Casimir operator being central"
           ],
           "answer": 1,
-          "explain": "$[H,E]=2E$ means $E$ raises the $H$-eigenvalue by $2$, so from a weight-$\\lambda$ vector, weights are $\\lambda,\\lambda+2,\\lambda+4,\\ldots$. Finite-dimensionality forces the chain to terminate, requiring an integer highest weight $n\\ge 0$. The weight set $\\{n,n-2,\\ldots,-n\\}$ is then a $\\mathbb{Z}$-arithmetic progression of step $2$."
+          "hint": "$[H,E]=2E$ shifts weights by exactly $2$.",
+          "explain": "$[H,E]=2E$ means $E$ raises the $H$-eigenvalue by $2$. Finite-dimensionality forces the chain to terminate, requiring an integer highest weight $n\\ge 0$."
         },
         {
           "type": "numeric",
           "q": "Using Clebsch–Gordan, decompose $V_3\\otimes V_3$ into irreducibles and compute the number of distinct irreducible summands.",
           "answer": 4,
           "tol": 1e-6,
-          "explain": "$V_3\\otimes V_3=V_6\\oplus V_4\\oplus V_2\\oplus V_0$, four distinct irreducible summands (dimensions $7,5,3,1$, summing to $16=4\\cdot 4$). The Clebsch–Gordan rule gives $V_{m+n}\\oplus V_{m+n-2}\\oplus\\cdots\\oplus V_{|m-n|}$, here $m=n=3$ yields $V_6,V_4,V_2,V_0$."
+          "explain": "$V_3\\otimes V_3=V_6\\oplus V_4\\oplus V_2\\oplus V_0$, four distinct irreducible summands (dimensions $7,5,3,1$, summing to $16=4\\cdot 4$)."
         },
         {
           "type": "mcq",
@@ -387,7 +825,8 @@
             "$C$ is a projector onto the highest-weight space"
           ],
           "answer": 0,
-          "explain": "$C\\in Z(\\mathcal{U}(\\mathfrak{sl}_2))$ is central (one verifies $[C,E]=[C,F]=[C,H]=0$). On an irrep $V_n$ over $\\mathbb{C}$, Schur's lemma forces any central element to act as a scalar. Evaluating on the highest-weight vector gives $C v_n=(n^2+2n)v_n=n(n+2)v_n$."
+          "hint": "Central elements act as scalars on irreducibles — why?",
+          "explain": "$C\\in Z(\\mathcal{U}(\\mathfrak{sl}_2))$ is central. On an irrep $V_n$ over $\\mathbb{C}$, Schur's lemma forces any central element to act as a scalar. Evaluating on the highest-weight vector gives $Cv_n = n(n+2)v_n$."
         }
       ]
     }

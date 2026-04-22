@@ -31,6 +31,15 @@
       "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels."
     },
     {
+      "id": "five-lemma",
+      "title": "The five lemma",
+      "anchor": "five",
+      "prereqs": [
+        "snake-lemma"
+      ],
+      "blurb": "In a commutative ladder of exact rows, if the four outer vertical maps are isomorphisms then so is the middle one — the workhorse diagram-chase for recognizing isomorphisms."
+    },
+    {
       "id": "long-exact-sequence",
       "title": "Long exact sequence in homology",
       "anchor": "les",
@@ -41,13 +50,62 @@
       "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree."
     },
     {
+      "id": "projective-modules",
+      "title": "Projective modules",
+      "anchor": "projective",
+      "prereqs": [
+        "exact-sequences"
+      ],
+      "blurb": "A module P is projective iff every surjection onto P splits; equivalently P is a direct summand of a free module and makes Hom(P,−) exact."
+    },
+    {
+      "id": "injective-modules",
+      "title": "Injective modules",
+      "anchor": "injective",
+      "prereqs": [
+        "exact-sequences"
+      ],
+      "blurb": "Dual to projective: I is injective iff every injection of I extends; Baer's criterion and divisibility characterize injectives over ℤ."
+    },
+    {
+      "id": "flat-modules",
+      "title": "Flat modules",
+      "anchor": "flat",
+      "prereqs": [
+        "exact-sequences"
+      ],
+      "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness."
+    },
+    {
       "id": "derived-functors",
-      "title": "Derived functors and resolutions",
+      "title": "Derived functors and Ext/Tor",
       "anchor": "derived",
       "prereqs": [
-        "chain-complexes"
+        "chain-complexes",
+        "projective-modules",
+        "injective-modules"
       ],
-      "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants."
+      "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants; the Ext/Tor tables pin down extensions and torsion."
+    },
+    {
+      "id": "resolutions-ha",
+      "title": "Resolutions: projective, injective, flat",
+      "anchor": "resolutions",
+      "prereqs": [
+        "derived-functors",
+        "flat-modules"
+      ],
+      "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring."
+    },
+    {
+      "id": "abelian-categories",
+      "title": "Abelian categories and triangulated preview",
+      "anchor": "abelian",
+      "prereqs": [
+        "exact-sequences",
+        "categories-morphisms"
+      ],
+      "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles."
     },
     {
       "id": "spectral-sequences-ha",

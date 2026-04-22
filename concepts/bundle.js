@@ -283,6 +283,70 @@ window.__MVConcepts = {
             "functors-natural-transformations"
           ],
           "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category."
+        },
+        {
+          "id": "yoneda-lemma",
+          "title": "The Yoneda lemma",
+          "anchor": "yoneda-deep",
+          "prereqs": [
+            "functors-natural-transformations"
+          ],
+          "blurb": "$\\mathrm{Nat}(h_A,F)\\cong F(A)$: every natural transformation out of a representable is pinned by a single element, and every object is determined by its functor of points."
+        },
+        {
+          "id": "limits-colimits",
+          "title": "Limits and colimits",
+          "anchor": "lim-deep",
+          "prereqs": [
+            "functors-natural-transformations"
+          ],
+          "blurb": "A (co)limit is the universal (co)cone on a diagram; products, equalizers, pullbacks and their duals are all special cases of the same representability problem."
+        },
+        {
+          "id": "adjunctions",
+          "title": "Adjunctions: unit, counit, triangle",
+          "anchor": "adj-deep",
+          "prereqs": [
+            "yoneda-lemma"
+          ],
+          "blurb": "An adjunction $F\\dashv G$ is a natural Hom-isomorphism, equivalently unit/counit satisfying the triangle identities; left adjoints preserve colimits, right adjoints preserve limits."
+        },
+        {
+          "id": "monads-algebras",
+          "title": "Monads and their algebras",
+          "anchor": "mon-ad",
+          "prereqs": [
+            "adjunctions"
+          ],
+          "blurb": "A monad $(T,\\mu,\\eta)$ is a monoid in endofunctors; Kleisli and Eilenberg–Moore categories recover the adjunction and classify its algebras."
+        },
+        {
+          "id": "kan-extensions",
+          "title": "Kan extensions",
+          "anchor": "kan",
+          "prereqs": [
+            "limits-colimits",
+            "adjunctions"
+          ],
+          "blurb": "Left and right Kan extensions along a functor extend structure as freely (or cofreely) as possible; Mac Lane's aphorism ‘all concepts are Kan extensions’ is literally true."
+        },
+        {
+          "id": "two-categories",
+          "title": "2-categories preview",
+          "anchor": "twocat",
+          "prereqs": [
+            "functors-natural-transformations"
+          ],
+          "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells."
+        },
+        {
+          "id": "enriched-categories",
+          "title": "Enriched categories preview",
+          "anchor": "enr",
+          "prereqs": [
+            "monoidal-categories"
+          ],
+          "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category."
         }
       ]
     },
@@ -299,6 +363,15 @@ window.__MVConcepts = {
             "cayley-tables"
           ],
           "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
+        },
+        {
+          "id": "tensor-and-dual-reps",
+          "title": "Tensor products and dual representations",
+          "anchor": "tensor-dual",
+          "prereqs": [
+            "group-representations"
+          ],
+          "blurb": "The category $\\mathbf{Rep}(G)$ is closed under direct sum, tensor product, and duals; characters multiply under $\\otimes$, making $\\mathbf{Rep}(G)$ a rigid symmetric monoidal category."
         },
         {
           "id": "maschke-theorem",
@@ -328,23 +401,77 @@ window.__MVConcepts = {
           "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
         },
         {
-          "id": "induction-and-young",
-          "title": "Induction and symmetric-group combinatorics",
-          "anchor": "young",
+          "id": "character-tables",
+          "title": "Character tables",
+          "anchor": "tables",
           "prereqs": [
             "characters-orthogonality"
           ],
-          "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+          "blurb": "The $k\\times k$ square table of irreducible characters against conjugacy classes — rows orthonormal, columns weighted-orthonormal, completely determined by small-group data for $S_3$, $S_4$, $D_4$, $Q_8$, $A_5$."
+        },
+        {
+          "id": "orbit-stabilizer-rep",
+          "title": "Orbits, stabilizers, and permutation reps",
+          "anchor": "sec-orbit",
+          "prereqs": [
+            "characters-orthogonality"
+          ],
+          "blurb": "For a $G$-set $X$, the permutation rep $\\mathbb{C}[X]$ has character $\\chi(g)=\\#\\mathrm{Fix}(g)$; Burnside counts orbits and stabilizers govern isotypic components."
+        },
+        {
+          "id": "regular-rep-decomposition",
+          "title": "The regular representation",
+          "anchor": "sec-regdecomp",
+          "prereqs": [
+            "characters-orthogonality"
+          ],
+          "blurb": "$\\mathbb{C}[G] \\cong \\bigoplus_\\lambda (\\dim V_\\lambda)\\,V_\\lambda$: each irrep appears with multiplicity equal to its dimension, giving $|G| = \\sum (\\dim V_\\lambda)^2$."
+        },
+        {
+          "id": "frobenius-reciprocity",
+          "title": "Induction, restriction, Frobenius reciprocity",
+          "anchor": "frobenius",
+          "prereqs": [
+            "characters-orthogonality"
+          ],
+          "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations."
+        },
+        {
+          "id": "induction-and-young",
+          "title": "Young tableaux and irreps of $S_n$",
+          "anchor": "young",
+          "prereqs": [
+            "frobenius-reciprocity"
+          ],
+          "blurb": "Irreps of $S_n$ are indexed by partitions $\\lambda\\vdash n$; Specht modules realize them and the hook-length formula gives $\\dim V_\\lambda = n!/\\prod h(c)$."
+        },
+        {
+          "id": "peter-weyl-preview",
+          "title": "Compact groups and Peter–Weyl",
+          "anchor": "peter-weyl",
+          "prereqs": [
+            "characters-orthogonality"
+          ],
+          "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis."
+        },
+        {
+          "id": "highest-weight-theorem",
+          "title": "Highest-weight vectors for $\\mathfrak{sl}_2$",
+          "anchor": "hw",
+          "prereqs": [
+            "schurs-lemma"
+          ],
+          "blurb": "An $\\mathfrak{sl}_2$-irrep is determined by a highest-weight vector $v$: $Hv = nv$, $Ev=0$, and the $F$-orbit $\\{v,Fv,F^2v,\\ldots,F^nv\\}$ exhausts the rep — the template for every semisimple Lie algebra."
         },
         {
           "id": "sl2-weight-decomposition",
-          "title": "Weight decomposition for 𝔰𝔩₂",
+          "title": "Weight decomposition for $\\mathfrak{sl}_2$",
           "anchor": "sl2",
           "prereqs": [
-            "characters-orthogonality",
+            "highest-weight-theorem",
             "lie-algebra-tangent"
           ],
-          "blurb": "Every finite-dimensional irrep of 𝔰𝔩₂(ℂ) is determined by a highest weight n ≥ 0 and realized as Sym^n of the standard rep, with weights n, n−2, …, −n and Clebsch–Gordan decomposition V_m ⊗ V_n = ⊕ V_{m+n−2k}."
+          "blurb": "Every finite-dimensional irrep of $\\mathfrak{sl}_2(\\mathbb{C})$ is determined by a highest weight $n \\ge 0$ and realized as $\\mathrm{Sym}^n$ of the standard rep, with weights $n, n-2, \\ldots, -n$ and Clebsch–Gordan decomposition $V_m \\otimes V_n = \\bigoplus V_{m+n-2k}$."
         }
       ]
     },
@@ -363,11 +490,58 @@ window.__MVConcepts = {
           "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries."
         },
         {
+          "id": "primes-maximals-ca",
+          "title": "Prime vs maximal ideals",
+          "anchor": "primes-max",
+          "prereqs": [
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Prime ideals are those with domain quotient; maximal ideals yield field quotients. In Artinian rings the two coincide; in $\\mathbb{Z}$, $k[x,y]$ they split into a height-graded structure."
+        },
+        {
+          "id": "spec-zariski-ca",
+          "title": "Spec and Zariski topology",
+          "anchor": "zariski",
+          "prereqs": [
+            "primes-maximals-ca"
+          ],
+          "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
+        },
+        {
+          "id": "nilradical-jacobson-ca",
+          "title": "Nilradical and Jacobson radical",
+          "anchor": "radicals",
+          "prereqs": [
+            "primes-maximals-ca"
+          ],
+          "blurb": "$\\mathrm{nil}(A) = \\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ detects nilpotents; $\\mathrm{Jac}(A) = \\bigcap_{\\mathfrak{m}\\text{ max}}\\mathfrak{m}$ controls units via $1 + \\mathrm{Jac}(A) \\subset A^\\times$."
+        },
+        {
+          "id": "modules-ca",
+          "title": "Modules and tensor products",
+          "anchor": "modules",
+          "prereqs": [
+            "ideals-quotients-ca"
+          ],
+          "blurb": "Modules are linear algebra over a ring; submodules, quotients, direct sums, and tensor products assemble them into the abelian category $A\\mathbf{-Mod}$."
+        },
+        {
+          "id": "noetherian-hilbert-ca",
+          "title": "Noetherian rings and Hilbert basis",
+          "anchor": "noetherian",
+          "prereqs": [
+            "ideals-quotients-ca",
+            "modules-ca"
+          ],
+          "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian."
+        },
+        {
           "id": "localization-ca",
           "title": "Localization and local algebra",
           "anchor": "localize",
           "prereqs": [
-            "ideals-quotients-ca"
+            "ideals-quotients-ca",
+            "primes-maximals-ca"
           ],
           "blurb": "Localization zooms to behavior near primes and isolates local properties."
         },
@@ -377,6 +551,7 @@ window.__MVConcepts = {
           "anchor": "flat",
           "prereqs": [
             "localization-ca",
+            "modules-ca",
             "chain-complexes",
             "exact-sequences"
           ],
@@ -387,7 +562,8 @@ window.__MVConcepts = {
           "title": "Nakayama's lemma and Zariski tangent spaces",
           "anchor": "nakayama",
           "prereqs": [
-            "localization-ca"
+            "localization-ca",
+            "modules-ca"
           ],
           "blurb": "Over a local ring, Nakayama reduces minimal generation of a finitely generated module to a vector-space count over the residue field; applied to the maximal ideal it produces the Zariski tangent space $\\mathfrak{m}/\\mathfrak{m}^2$."
         },
@@ -397,6 +573,7 @@ window.__MVConcepts = {
           "anchor": "integral",
           "prereqs": [
             "ideals-quotients-ca",
+            "noetherian-hilbert-ca",
             "prime-ideals-factorization-ant"
           ],
           "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring."
@@ -407,9 +584,20 @@ window.__MVConcepts = {
           "anchor": "dim",
           "prereqs": [
             "localization-ca",
-            "integral-extensions-ca"
+            "integral-extensions-ca",
+            "spec-zariski-ca"
           ],
           "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
+        },
+        {
+          "id": "transcendence-degree-ca",
+          "title": "Transcendence degree and geometric dimension",
+          "anchor": "trdeg",
+          "prereqs": [
+            "krull-dimension-ca",
+            "integral-extensions-ca"
+          ],
+          "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\"."
         }
       ]
     },
@@ -446,6 +634,15 @@ window.__MVConcepts = {
           "blurb": "A commutative diagram with exact rows yields a connecting map δ:ker γ → coker α and a six-term exact sequence linking kernels to cokernels."
         },
         {
+          "id": "five-lemma",
+          "title": "The five lemma",
+          "anchor": "five",
+          "prereqs": [
+            "snake-lemma"
+          ],
+          "blurb": "In a commutative ladder of exact rows, if the four outer vertical maps are isomorphisms then so is the middle one — the workhorse diagram-chase for recognizing isomorphisms."
+        },
+        {
           "id": "long-exact-sequence",
           "title": "Long exact sequence in homology",
           "anchor": "les",
@@ -456,13 +653,62 @@ window.__MVConcepts = {
           "blurb": "A short exact sequence of chain complexes induces a long exact sequence in homology, built by iterating the snake-lemma connecting map in each degree."
         },
         {
+          "id": "projective-modules",
+          "title": "Projective modules",
+          "anchor": "projective",
+          "prereqs": [
+            "exact-sequences"
+          ],
+          "blurb": "A module P is projective iff every surjection onto P splits; equivalently P is a direct summand of a free module and makes Hom(P,−) exact."
+        },
+        {
+          "id": "injective-modules",
+          "title": "Injective modules",
+          "anchor": "injective",
+          "prereqs": [
+            "exact-sequences"
+          ],
+          "blurb": "Dual to projective: I is injective iff every injection of I extends; Baer's criterion and divisibility characterize injectives over ℤ."
+        },
+        {
+          "id": "flat-modules",
+          "title": "Flat modules",
+          "anchor": "flat",
+          "prereqs": [
+            "exact-sequences"
+          ],
+          "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness."
+        },
+        {
           "id": "derived-functors",
-          "title": "Derived functors and resolutions",
+          "title": "Derived functors and Ext/Tor",
           "anchor": "derived",
           "prereqs": [
-            "chain-complexes"
+            "chain-complexes",
+            "projective-modules",
+            "injective-modules"
           ],
-          "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants."
+          "blurb": "Projective or injective resolutions define Ext and Tor as computable invariants; the Ext/Tor tables pin down extensions and torsion."
+        },
+        {
+          "id": "resolutions-ha",
+          "title": "Resolutions: projective, injective, flat",
+          "anchor": "resolutions",
+          "prereqs": [
+            "derived-functors",
+            "flat-modules"
+          ],
+          "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring."
+        },
+        {
+          "id": "abelian-categories",
+          "title": "Abelian categories and triangulated preview",
+          "anchor": "abelian",
+          "prereqs": [
+            "exact-sequences",
+            "categories-morphisms"
+          ],
+          "blurb": "Abelian categories are the native habitat of homological algebra; triangulated categories encode long exact sequences as distinguished triangles."
         },
         {
           "id": "spectral-sequences-ha",

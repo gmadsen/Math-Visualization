@@ -353,6 +353,512 @@
           "explain": "$C_4=\\binom{8}{4}/5=70/5=14$. These $14$ bracketings all become equal under iterated application of the associator $\\alpha$, by Mac Lane's coherence theorem."
         }
       ]
+    },
+    "yoneda-lemma": {
+      "title": "The Yoneda lemma",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Yoneda lemma asserts a bijection $\\mathrm{Nat}(h_A,F)\\cong F(A)$. The forward map sends a natural transformation $\\eta\\colon h_A\\Rightarrow F$ to:",
+          "choices": [
+            "$\\eta_A(\\mathrm{id}_A)\\in F(A)$",
+            "the component $\\eta_A$ regarded as an element of $F(A)$",
+            "$F(\\mathrm{id}_A)\\in F(A)$",
+            "the natural transformation itself, coerced to a set"
+          ],
+          "answer": 0,
+          "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$. That single value determines every other component via naturality."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every statement that is an immediate corollary of the Yoneda lemma.",
+          "choices": [
+            "The Yoneda embedding $h_{(-)}\\colon\\mathcal{C}\\hookrightarrow\\mathsf{Fun}(\\mathcal{C}^{\\mathrm{op}},\\mathsf{Set})$ is fully faithful.",
+            "An object is determined up to isomorphism by its functor of points $h_X$.",
+            "Every presheaf is representable.",
+            "Representing objects are unique up to unique isomorphism."
+          ],
+          "answer": [0, 1, 3],
+          "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
+        },
+        {
+          "type": "numeric",
+          "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\mathrm{Hom}(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
+          "answer": 4,
+          "tol": 1e-06,
+          "explain": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "proof-completion",
+          "q": "Prove $\\mathrm{Nat}(h_A,F)\\to F(A)$, $\\eta\\mapsto\\eta_A(\\mathrm{id}_A)$, is injective. Pick the correct next step.",
+          "steps": [
+            "Let $\\eta,\\eta'\\colon h_A\\Rightarrow F$ with $\\eta_A(\\mathrm{id}_A)=\\eta'_A(\\mathrm{id}_A)=:x$.",
+            "Fix any object $C$ and any morphism $\\varphi\\colon C\\to A$."
+          ],
+          "choices": [
+            "Conclude $\\eta=\\eta'$ because both are natural.",
+            "Apply naturality of $\\eta$ and $\\eta'$ to $\\varphi$ to get $\\eta_C(\\varphi)=F(\\varphi)(x)=\\eta'_C(\\varphi)$.",
+            "Note that $F(\\varphi)$ is an isomorphism, hence $\\eta_C=\\eta'_C$.",
+            "Use Yoneda to conclude $\\eta=\\eta'$ without further computation."
+          ],
+          "answer": 1,
+          "hint": "$\\varphi=\\mathrm{id}_A\\circ\\varphi$: push it through the naturality square.",
+          "explain": "Naturality says $\\eta_C(\\varphi)=F(\\varphi)(\\eta_A(\\mathrm{id}_A))=F(\\varphi)(x)$, same for $\\eta'$. So components agree on every $C$ and every $\\varphi$, giving $\\eta=\\eta'$."
+        },
+        {
+          "type": "mcq",
+          "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\mathrm{Hom}(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
+          "choices": [
+            "$h_X$ is naturally isomorphic to the identity functor.",
+            "$h_X\\colon\\mathcal{C}\\to\\mathsf{Set}$ reflects isomorphisms, and the class $\\{X\\}$ is 'enough projectives'.",
+            "$X$ is an initial object.",
+            "Every object is a quotient of $X$."
+          ],
+          "answer": 1,
+          "explain": "Faithfulness of $\\mathrm{Hom}(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $G$ be a finite group and $\\mathcal{B}G$ its one-object category. A functor $F\\colon\\mathcal{B}G^{\\mathrm{op}}\\to\\mathsf{Set}$ is a right $G$-set. By Yoneda, $\\mathrm{Nat}(h_\\ast,F)\\cong F(\\ast)$; for $G=S_3$ and $F(\\ast)$ the regular right $S_3$-set, how many natural transformations are there?",
+          "answer": 6,
+          "tol": 1e-06,
+          "explain": "$|S_3|=6$, so the regular $S_3$-set has $6$ elements and Yoneda gives $|\\mathrm{Nat}(h_\\ast,F)|=|F(\\ast)|=6$."
+        }
+      ]
+    },
+    "limits-colimits": {
+      "title": "Limits and colimits",
+      "questions": [
+        {
+          "type": "matching",
+          "q": "Match each diagram shape $\\mathcal{J}$ with the corresponding limit in $\\mathcal{C}$.",
+          "left": [
+            "terminal object",
+            "product $A\\times B$",
+            "equalizer $\\mathrm{eq}(f,g)$",
+            "pullback $A\\times_C B$"
+          ],
+          "right": [
+            "empty diagram",
+            "discrete two-object diagram",
+            "parallel pair $\\bullet\\rightrightarrows\\bullet$",
+            "cospan $\\bullet\\to\\bullet\\leftarrow\\bullet$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Each limit is the universal cone on the corresponding shape: empty → terminal, two-point discrete → product, parallel pair → equalizer, cospan → pullback."
+        },
+        {
+          "type": "mcq",
+          "q": "In $\\mathsf{Set}$, the pullback of $f\\colon X\\to Z$ and $g\\colon Y\\to Z$ is:",
+          "choices": [
+            "$X\\cup Y$",
+            "$X\\times Y$",
+            "$\\{(x,y)\\in X\\times Y\\mid f(x)=g(y)\\}$",
+            "$\\{(x,y)\\in X\\times Y\\mid f(x)\\ne g(y)\\}$"
+          ],
+          "answer": 2,
+          "explain": "The pullback is the set of pairs that agree in $Z$ — exactly the universal cone over the cospan."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $X=\\{1,2,3,4\\}$, $Y=\\{a,b\\}$, $Z=\\{0,1\\}$, with $f\\colon X\\to Z$ defined $f(1)=f(2)=0$, $f(3)=f(4)=1$, and $g\\colon Y\\to Z$ defined $g(a)=0$, $g(b)=1$. Compute $|X\\times_Z Y|$.",
+          "answer": 4,
+          "tol": 1e-06,
+          "explain": "Fiber over $0$: $\\{1,2\\}\\times\\{a\\}$ gives $2$ pairs; fiber over $1$: $\\{3,4\\}\\times\\{b\\}$ gives $2$ pairs. Total: $4$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A functor $F\\colon\\mathcal{C}\\to\\mathcal{D}$ $\\textit{preserves}$ a limit $L$ of a diagram $D$ if $F(L)$ is a limit of $F\\circ D$; it $\\textit{reflects}$ limits if every cone $(c_j)$ in $\\mathcal{C}$ whose image is a limit cone in $\\mathcal{D}$ was already a limit cone. Which statement is false?",
+          "choices": [
+            "Every equivalence of categories preserves and reflects all limits.",
+            "Right adjoints preserve limits.",
+            "Faithful functors reflect limits.",
+            "The forgetful functor $U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$ preserves products."
+          ],
+          "answer": 2,
+          "hint": "A faithful functor can forget just enough structure to reflect isos but not reflect whole limit cones.",
+          "explain": "Faithful functors reflect isomorphisms but not general limits. E.g. $U\\colon\\mathsf{Top}\\to\\mathsf{Set}$ is faithful yet does not reflect products (a non-product topology on $X\\times Y$ still has product underlying set)."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the steps to show the pullback $X\\times_Z Y$ exists in $\\mathsf{Set}$.",
+          "items": [
+            "Define $P:=\\{(x,y)\\in X\\times Y\\mid f(x)=g(y)\\}$.",
+            "Let $\\pi_1\\colon P\\to X,\\pi_2\\colon P\\to Y$ be the projections; check $f\\pi_1=g\\pi_2$.",
+            "Given any other cone $(h\\colon W\\to X, k\\colon W\\to Y)$ with $fh=gk$, define $u\\colon W\\to P$ by $u(w)=(h(w),k(w))$.",
+            "Verify $\\pi_1 u=h$, $\\pi_2 u=k$, and that $u$ is the unique such map."
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Construct the set, equip it with projections, produce the universal map, verify uniqueness."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathsf{Set}$, the coequalizer of $f,g\\colon A\\rightrightarrows B$ with $A=\\{1,2,3\\}$, $B=\\{x,y,z,w\\}$, $f(1)=x,f(2)=y,f(3)=z$ and $g(1)=y,g(2)=z,g(3)=w$ is $B/{\\sim}$ where $\\sim$ is generated by $f(a)\\sim g(a)$. How many elements does the coequalizer have?",
+          "answer": 1,
+          "tol": 1e-06,
+          "explain": "The relations $x\\sim y$, $y\\sim z$, $z\\sim w$ collapse all of $B$ to a single equivalence class."
+        }
+      ]
+    },
+    "adjunctions": {
+      "title": "Adjunctions: unit, counit, triangle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$F\\dashv G$ means, by definition, that there is an isomorphism, natural in $A$ and $B$:",
+          "choices": [
+            "$\\mathrm{Hom}_{\\mathcal{C}}(G(B),A)\\cong\\mathrm{Hom}_{\\mathcal{D}}(B,F(A))$",
+            "$\\mathrm{Hom}_{\\mathcal{D}}(F(A),B)\\cong\\mathrm{Hom}_{\\mathcal{C}}(A,G(B))$",
+            "$F\\circ G\\cong\\mathrm{id}_{\\mathcal{D}}$",
+            "$G\\circ F\\cong\\mathrm{id}_{\\mathcal{C}}$"
+          ],
+          "answer": 1,
+          "explain": "The defining Hom-isomorphism: mapping out of $F(A)$ in $\\mathcal{D}$ is the same data as mapping into $G(B)$ in $\\mathcal{C}$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every example of an adjunction.",
+          "choices": [
+            "Free group $\\dashv$ forgetful $\\mathsf{Grp}\\to\\mathsf{Set}$",
+            "$(-)\\times A\\dashv\\mathrm{Hom}(A,-)$ in $\\mathsf{Set}$ (currying)",
+            "Abelianization $\\dashv$ inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$",
+            "The identity functor $\\mathrm{id}\\colon\\mathsf{Grp}\\to\\mathsf{Grp}$ is left adjoint to the double-dual $(-)^{**}$"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "The first three are textbook adjunctions. $(-)^{**}$ on $\\mathsf{Grp}$ isn't even functorial in an obvious way — and there's certainly no natural Hom-isomorphism with the identity."
+        },
+        {
+          "type": "numeric",
+          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
+          "answer": 5,
+          "tol": 1e-06,
+          "explain": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "The triangle identities for an adjunction $F\\dashv G$ with unit $\\eta$ and counit $\\varepsilon$ are:",
+          "choices": [
+            "$(\\varepsilon F)\\circ(F\\eta)=\\mathrm{id}_F$ and $(G\\varepsilon)\\circ(\\eta G)=\\mathrm{id}_G$",
+            "$\\eta\\circ\\varepsilon=\\mathrm{id}$ and $\\varepsilon\\circ\\eta=\\mathrm{id}$",
+            "$F\\eta=\\mathrm{id}_F$ and $G\\varepsilon=\\mathrm{id}_G$",
+            "$\\eta$ and $\\varepsilon$ are both natural isomorphisms"
+          ],
+          "answer": 0,
+          "explain": "The triangles say 'whisker on one side, then whisker back, and you're home'. Neither $\\eta$ nor $\\varepsilon$ need be an iso — e.g. $F\\dashv U$ for free groups has non-iso $\\eta$ and non-iso $\\varepsilon$."
+        },
+        {
+          "type": "mcq",
+          "q": "$F\\dashv G$ and $F$ preserves all colimits that exist. Which is the correct slogan?",
+          "choices": [
+            "LAPL / RAPC: left adjoints preserve limits, right adjoints preserve colimits.",
+            "LAPC / RAPL: left adjoints preserve colimits, right adjoints preserve limits.",
+            "Both adjoints preserve both limits and colimits.",
+            "Neither slogan has content: it depends on the category."
+          ],
+          "answer": 1,
+          "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\mathrm{Hom}$ is covariant in its second argument and commutes with limits?",
+          "explain": "$\\mathrm{Hom}(-,X)$ turns colimits into limits, so $\\mathrm{Hom}(F-,-)\\cong\\mathrm{Hom}(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)|$.",
+          "answer": 9,
+          "tol": 1e-06,
+          "explain": "By the adjunction, $\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)\\cong\\mathrm{Hom}_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
+        }
+      ]
+    },
+    "monads-algebras": {
+      "title": "Monads and their algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A monad on $\\mathcal{C}$ is a triple $(T,\\mu,\\eta)$ where $T\\colon\\mathcal{C}\\to\\mathcal{C}$ is a functor, $\\mu\\colon T^2\\Rightarrow T$ and $\\eta\\colon\\mathrm{id}\\Rightarrow T$ are natural transformations. Which identities must hold?",
+          "choices": [
+            "$\\mu\\circ T\\mu=\\mu\\circ\\mu T$ and $\\mu\\circ T\\eta=\\mu\\circ\\eta T=\\mathrm{id}_T$",
+            "$\\mu\\circ\\eta=\\mathrm{id}$ and $\\eta\\circ\\mu=\\mathrm{id}$",
+            "$\\mu$ is an isomorphism",
+            "$\\eta$ is an isomorphism"
+          ],
+          "answer": 0,
+          "explain": "Associativity of multiplication and the left/right unit laws — the 'monoid-in-endofunctors' axioms."
+        },
+        {
+          "type": "mcq",
+          "q": "The $\\mathrm{Maybe}$ monad on $\\mathsf{Set}$ sends $X\\mapsto X\\sqcup\\{\\bot\\}$. The Kleisli composition $g\\circ_K f$ of $f\\colon X\\to\\mathrm{Maybe}\\,Y$ and $g\\colon Y\\to\\mathrm{Maybe}\\,Z$ is:",
+          "choices": [
+            "$x\\mapsto g(f(x))$ (ordinary composition)",
+            "$x\\mapsto$ if $f(x)=\\bot$ then $\\bot$ else $g(f(x))$",
+            "$x\\mapsto\\bot$ for all $x$",
+            "undefined without a strict monad structure"
+          ],
+          "answer": 1,
+          "explain": "Kleisli composition is 'bind then map': unwrap the option from $f$, run $g$ on success, propagate $\\bot$ on failure. This is exactly $\\mu_Z\\circ\\mathrm{Maybe}(g)\\circ f$."
+        },
+        {
+          "type": "numeric",
+          "q": "Every adjunction $F\\dashv U$ induces a monad $T=UF$ on the source category. For $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Mon}$ (free monoid / underlying set), what is $|T(\\{a\\})|$ restricted to words of length $\\le 3$ (including the empty word)?",
+          "answer": 4,
+          "tol": 1e-06,
+          "explain": "Words in $\\{a\\}$ of length $0,1,2,3$ are $\\varepsilon, a, aa, aaa$ — exactly $4$ elements."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A $T$-algebra for a monad $T$ is a pair $(A,\\alpha)$ with $\\alpha\\colon T(A)\\to A$ satisfying unit and associativity axioms. For the free-monoid monad $T\\colon\\mathsf{Set}\\to\\mathsf{Set}$, a $T$-algebra is:",
+          "choices": [
+            "any set",
+            "a monoid",
+            "a group",
+            "a topological space"
+          ],
+          "answer": 1,
+          "hint": "$T(A)$ is the set of finite words in $A$; $\\alpha$ says how to 'multiply' a word.",
+          "explain": "The structure map $\\alpha\\colon T(A)\\to A$ assigns a product to every finite word; the axioms force this to be associative and unital — i.e. make $A$ a monoid. This is Eilenberg–Moore: algebras for the free-monoid monad = monoids."
+        },
+        {
+          "type": "mcq",
+          "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\mathrm{Hom}_{\\mathcal{C}_T}(X,Y)=\\mathrm{Hom}_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
+          "choices": [
+            "A right adjoint to the Eilenberg–Moore category with no left adjoint.",
+            "The $\\textit{initial}$ adjunction generating $T$: $F_T\\dashv U_T$ where $F_T\\colon\\mathcal{C}\\to\\mathcal{C}_T$ sends $X\\mapsto X$ and $U_T X=T(X)$.",
+            "No adjunction; $\\mathcal{C}_T$ is a standalone construction.",
+            "The same adjunction as the Eilenberg–Moore category, up to equivalence."
+          ],
+          "answer": 1,
+          "explain": "Kleisli is the initial adjunction whose induced monad is $T$ (Eilenberg–Moore is the terminal one). Both recover $T$ as $U_T F_T=T$, but the resulting categories differ: Kleisli is a full subcategory of $\\mathcal{C}^T$ on the free algebras."
+        },
+        {
+          "type": "numeric",
+          "q": "For the list (= free-monoid) monad on $\\mathsf{Set}$, Kleisli morphisms $X\\to Y$ are functions $X\\to\\mathrm{List}(Y)$. How many Kleisli morphisms from $\\{a\\}$ to $\\{b\\}$ using lists of length exactly $2$ are there?",
+          "answer": 1,
+          "tol": 1e-06,
+          "explain": "A function $\\{a\\}\\to\\mathrm{List}^{=2}(\\{b\\})$ picks one list of length $2$ from $\\{bb\\}$ — exactly $1$ choice."
+        }
+      ]
+    },
+    "kan-extensions": {
+      "title": "Kan extensions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Given functors $F\\colon\\mathcal{A}\\to\\mathcal{C}$ and $K\\colon\\mathcal{A}\\to\\mathcal{B}$, the $\\textit{left Kan extension}$ $\\mathrm{Lan}_K F$ is characterized by:",
+          "choices": [
+            "a natural iso $\\mathrm{Hom}(\\mathrm{Lan}_K F, G)\\cong\\mathrm{Hom}(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
+            "$\\mathrm{Lan}_K F=F\\circ K$",
+            "$\\mathrm{Lan}_K F\\cong K\\circ F$",
+            "any extension of $F$ to $\\mathcal{B}$"
+          ],
+          "answer": 0,
+          "explain": "The left Kan extension is the left adjoint (up to iso) to precomposition with $K$: $(-)\\circ K\\colon\\mathsf{Fun}(\\mathcal{B},\\mathcal{C})\\to\\mathsf{Fun}(\\mathcal{A},\\mathcal{C})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Mac Lane's dictum 'all concepts are Kan extensions' is literal: which of the following is NOT an instance of a (co)limit-as-Kan-extension?",
+          "choices": [
+            "A limit of $D\\colon\\mathcal{J}\\to\\mathcal{C}$ is the right Kan extension of $D$ along $\\mathcal{J}\\to\\mathbf{1}$.",
+            "A colimit of $D$ is the left Kan extension of $D$ along $\\mathcal{J}\\to\\mathbf{1}$.",
+            "An adjunction $F\\dashv G$ can be expressed via Kan extensions along identities.",
+            "Every functor is a Kan extension of itself along itself (tautologically)."
+          ],
+          "answer": 3,
+          "hint": "A Kan extension along $\\mathrm{id}$ is just the functor itself — fine as a tautology. Check whether that counts as a non-trivial 'instance' of a concept.",
+          "explain": "The tautology is true but vacuous — not a genuine $\\textit{instance}$ of a concept being recovered. Limits, colimits, and adjoints really ARE Kan extensions in the substantive sense."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $K\\colon\\mathbf{1}\\to\\mathcal{J}$ be the inclusion of the one-object category into a diagram shape $\\mathcal{J}$ with $3$ objects and only identity arrows. For $F\\colon\\mathbf{1}\\to\\mathsf{Set}$ picking a $2$-element set, how many objects does $\\mathrm{Lan}_K F\\colon\\mathcal{J}\\to\\mathsf{Set}$ assign, counted as the sum $\\sum_{j\\in\\mathcal{J}}|\\mathrm{Lan}_K F(j)|$?",
+          "answer": 2,
+          "tol": 1e-06,
+          "explain": "$K$ hits one of the three objects; $\\mathrm{Lan}_K F$ at that object is $F(\\ast)$ (size $2$), and the initial (empty) colimit at the other two — so the total is $2+0+0=2$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "When $\\mathcal{C}$ is cocomplete and $\\mathcal{A}$ is small, the pointwise formula $\\mathrm{Lan}_K F(b)=\\mathrm{colim}\\,(K/b\\to\\mathcal{A}\\xrightarrow{F}\\mathcal{C})$ says the left Kan extension at $b\\in\\mathcal{B}$ is:",
+          "choices": [
+            "a limit over the comma category $(K/b)$",
+            "a colimit over the comma category $(K/b)$",
+            "a single object $F(K^{-1}(b))$",
+            "undefined unless $K$ is an equivalence"
+          ],
+          "answer": 1,
+          "explain": "Left Kan = colimit; right Kan = limit. The pointwise formula identifies the extension with a colimit indexed by the comma category of 'ways $b$ is hit by $K$'."
+        },
+        {
+          "type": "mcq",
+          "q": "Density theorem (a Kan-extension statement): every presheaf $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ is canonically a colimit of representables. Specifically $F\\cong\\mathrm{colim}\\,(\\text{elements}(F)\\to\\mathcal{C}\\xrightarrow{h_{-}}\\mathsf{PSh}(\\mathcal{C}))$. Which other result does this generalize?",
+          "choices": [
+            "Every vector is a linear combination of basis vectors (only when $\\mathcal{C}$ is discrete).",
+            "Every sheaf is etale.",
+            "The Yoneda embedding is an equivalence.",
+            "Mac Lane's coherence theorem."
+          ],
+          "answer": 0,
+          "hint": "What does the density theorem say for $\\mathcal{C}=$ a discrete category on a set?",
+          "explain": "When $\\mathcal{C}$ is discrete, a presheaf is just a family of sets, and the colimit of representables recovers the disjoint union — exactly 'expand in the basis of points'. Density is the categorical analogue."
+        },
+        {
+          "type": "numeric",
+          "q": "For $K\\colon\\mathcal{A}\\to\\mathcal{B}$ with $\\mathcal{A}$ discrete on $3$ objects, $\\mathcal{B}$ discrete on $5$ objects, and $K$ injective on objects with image of size $3$, and $F\\colon\\mathcal{A}\\to\\mathsf{Set}$ constantly the $2$-element set, compute $\\sum_{b\\in\\mathcal{B}}|\\mathrm{Lan}_K F(b)|$.",
+          "answer": 6,
+          "tol": 1e-06,
+          "explain": "At the $3$ objects of $\\mathcal{B}$ in the image of $K$, the extension is the $2$-element set; at the other $2$ objects, it's the empty colimit. Total: $3\\cdot 2+2\\cdot 0=6$."
+        }
+      ]
+    },
+    "two-categories": {
+      "title": "2-categories preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A (strict) 2-category has objects, 1-morphisms between objects, and 2-morphisms between parallel 1-morphisms. Which is the canonical example?",
+          "choices": [
+            "$\\mathsf{Set}$, with injections as 2-cells",
+            "$\\mathsf{Cat}$: objects = categories, 1-cells = functors, 2-cells = natural transformations",
+            "The free category on any graph",
+            "Any discrete category on objects alone"
+          ],
+          "answer": 1,
+          "explain": "$\\mathsf{Cat}$ is the archetypal 2-category; the 2-cells are natural transformations and the two composition laws (vertical and horizontal) are the two ways of composing natural transformations."
+        },
+        {
+          "type": "mcq",
+          "q": "In a 2-category, 2-cells have $\\textit{two}$ compositions: vertical (composing $\\alpha\\colon f\\Rightarrow g$ and $\\beta\\colon g\\Rightarrow h$) and horizontal (composing $\\alpha\\colon f\\Rightarrow g$ and $\\alpha'\\colon f'\\Rightarrow g'$ where $f',g'$ are composable with $f,g$). The interchange law says:",
+          "choices": [
+            "vertical and horizontal composition are the same",
+            "$(\\beta\\circ\\alpha)*(\\beta'\\circ\\alpha')=(\\beta*\\beta')\\circ(\\alpha*\\alpha')$ for compatible 2-cells",
+            "all 2-cells are invertible",
+            "horizontal composition is strictly associative but vertical is only up to 3-cell"
+          ],
+          "answer": 1,
+          "explain": "Interchange: the two ways of reading a 'grid' of 2-cells — all-vertical-then-horizontal vs. all-horizontal-then-vertical — agree. This is the defining coherence of a (strict) 2-category."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\mathsf{Cat}$ viewed as a 2-category, how many 2-cells are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself, when $\\mathcal{C}$ is a discrete category on $5$ objects?",
+          "answer": 1,
+          "tol": 1e-06,
+          "explain": "A natural transformation $\\mathrm{id}\\Rightarrow\\mathrm{id}$ is a family $\\eta_A\\colon A\\to A$; in a discrete category the only such choice is $\\mathrm{id}_A$ at every object. So exactly $1$ 2-cell."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A 2-categorical $\\textit{adjunction}$ in a 2-category $\\mathcal{K}$ consists of 1-morphisms $f\\colon A\\to B$, $g\\colon B\\to A$ and 2-cells $\\eta\\colon\\mathrm{id}_A\\Rightarrow g\\circ f$, $\\varepsilon\\colon f\\circ g\\Rightarrow\\mathrm{id}_B$ satisfying the triangle equations. In $\\mathcal{K}=\\mathsf{Cat}$ this specializes to:",
+          "choices": [
+            "a pair of inverse equivalences",
+            "an ordinary adjunction $F\\dashv G$ of categories",
+            "a strict isomorphism of categories",
+            "a natural isomorphism between two functors"
+          ],
+          "answer": 1,
+          "explain": "Exactly: the 2-categorical definition in $\\mathsf{Cat}$ reproduces the unit/counit formulation of an ordinary adjunction. 2-category theory is designed so every such notion specializes cleanly."
+        },
+        {
+          "type": "mcq",
+          "q": "A $\\textit{monad in a 2-category}$ $\\mathcal{K}$ is an object $A$ together with a 1-morphism $t\\colon A\\to A$ and 2-cells $\\mu\\colon tt\\Rightarrow t$, $\\eta\\colon\\mathrm{id}_A\\Rightarrow t$ satisfying the monad axioms. Specializing to $\\mathcal{K}=\\mathsf{Cat}$ recovers:",
+          "choices": [
+            "an ordinary monad on a category",
+            "a ring",
+            "a group",
+            "a limit"
+          ],
+          "answer": 0,
+          "explain": "A monad on a category $\\mathcal{C}$ = a monad in $\\mathsf{Cat}$ at the object $\\mathcal{C}$. The 2-categorical definition is just the diagrammatic axioms interpreted abstractly."
+        },
+        {
+          "type": "numeric",
+          "q": "The 2-category $\\mathsf{Cat}$ restricted to the full sub-2-category on one object $\\mathcal{C}=\\mathbf{1}$ (the terminal category) has one object and one 1-morphism (the identity functor). How many 2-cells $\\mathrm{id}_{\\mathbf{1}}\\Rightarrow\\mathrm{id}_{\\mathbf{1}}$?",
+          "answer": 1,
+          "tol": 1e-06,
+          "explain": "The only arrow in $\\mathbf{1}$ is $\\mathrm{id}_\\ast$; the only natural transformation is the one with component $\\mathrm{id}_\\ast$."
+        }
+      ]
+    },
+    "enriched-categories": {
+      "title": "Enriched categories preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ in $\\mathcal{V}$. Identity becomes:",
+          "choices": [
+            "a morphism $I\\to\\mathrm{Hom}(A,A)$",
+            "a morphism $\\mathrm{Hom}(A,A)\\to I$",
+            "an isomorphism $\\mathrm{Hom}(A,A)\\cong I$",
+            "not needed; enriched categories have no identities"
+          ],
+          "answer": 0,
+          "explain": "The identity 1-morphism at $A$ is a 'point' of the Hom-object, i.e. an arrow out of the monoidal unit $I$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each choice of $\\mathcal{V}$ with the structure a $\\mathcal{V}$-enriched category recovers.",
+          "left": [
+            "ordinary category",
+            "additive/pre-additive category",
+            "$\\mathsf{Cat}$-enriched (strict) 2-category",
+            "Lawvere metric space"
+          ],
+          "right": [
+            "$\\mathcal{V}=\\mathsf{Set}$ with $\\times$",
+            "$\\mathcal{V}=\\mathsf{Ab}$ with $\\otimes_{\\mathbb{Z}}$",
+            "$\\mathcal{V}=\\mathsf{Cat}$ with $\\times$",
+            "$\\mathcal{V}=([0,\\infty],\\ge,+,0)$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "In a Lawvere metric space (an enriched category over $[0,\\infty]$), the 'identity at $A$' is a morphism $0\\ge d(A,A)$, i.e. $d(A,A)\\le 0$. Combined with $d\\ge 0$ this forces $d(A,A)=$ which value?",
+          "answer": 0,
+          "tol": 1e-06,
+          "explain": "$0\\le d(A,A)\\le 0$, so $d(A,A)=0$ — the reflexivity axiom of a pseudo-metric."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In Lawvere's enriched-category interpretation, composition $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ becomes the inequality:",
+          "choices": [
+            "$d(B,C)+d(A,B)\\ge d(A,C)$ (triangle inequality)",
+            "$d(B,C)\\cdot d(A,B)\\ge d(A,C)$",
+            "$\\max(d(B,C),d(A,B))\\ge d(A,C)$",
+            "$d(A,C)=d(A,B)+d(B,C)$ (exact equality)"
+          ],
+          "answer": 0,
+          "hint": "The monoidal product in $[0,\\infty]$ is $+$, and the hom-order is $\\ge$.",
+          "explain": "A morphism from $x\\otimes y$ to $z$ in $([0,\\infty],\\ge,+)$ is the inequality $x+y\\ge z$ — exactly the triangle inequality."
+        },
+        {
+          "type": "mcq",
+          "q": "A $\\mathsf{Set}$-enriched functor is an ordinary functor. A $\\mathsf{Ab}$-enriched functor between pre-additive categories is:",
+          "choices": [
+            "any ordinary functor",
+            "a functor whose action on Hom-groups is a group homomorphism",
+            "a full and faithful functor",
+            "an isomorphism on underlying sets"
+          ],
+          "answer": 1,
+          "explain": "Enriched functoriality = functoriality plus compatibility with the $\\mathcal{V}$-structure on Homs. For $\\mathcal{V}=\\mathsf{Ab}$ this is additivity on hom-groups."
+        },
+        {
+          "type": "numeric",
+          "q": "A Lawvere metric space with $3$ points $\\{A,B,C\\}$ satisfies $d(A,B)=2$, $d(B,C)=3$. The enriched-category axiom (triangle inequality) gives the strongest upper bound on $d(A,C)$. What is this bound?",
+          "answer": 5,
+          "tol": 1e-06,
+          "explain": "The composition in the enriched category gives $d(A,C)\\le d(A,B)+d(B,C)=2+3=5$."
+        }
+      ]
     }
   }
 }

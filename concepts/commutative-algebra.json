@@ -13,11 +13,58 @@
       "blurb": "Ideals control quotient constructions and algebraic geometry dictionaries."
     },
     {
+      "id": "primes-maximals-ca",
+      "title": "Prime vs maximal ideals",
+      "anchor": "primes-max",
+      "prereqs": [
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Prime ideals are those with domain quotient; maximal ideals yield field quotients. In Artinian rings the two coincide; in $\\mathbb{Z}$, $k[x,y]$ they split into a height-graded structure."
+    },
+    {
+      "id": "spec-zariski-ca",
+      "title": "Spec and Zariski topology",
+      "anchor": "zariski",
+      "prereqs": [
+        "primes-maximals-ca"
+      ],
+      "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes."
+    },
+    {
+      "id": "nilradical-jacobson-ca",
+      "title": "Nilradical and Jacobson radical",
+      "anchor": "radicals",
+      "prereqs": [
+        "primes-maximals-ca"
+      ],
+      "blurb": "$\\mathrm{nil}(A) = \\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ detects nilpotents; $\\mathrm{Jac}(A) = \\bigcap_{\\mathfrak{m}\\text{ max}}\\mathfrak{m}$ controls units via $1 + \\mathrm{Jac}(A) \\subset A^\\times$."
+    },
+    {
+      "id": "modules-ca",
+      "title": "Modules and tensor products",
+      "anchor": "modules",
+      "prereqs": [
+        "ideals-quotients-ca"
+      ],
+      "blurb": "Modules are linear algebra over a ring; submodules, quotients, direct sums, and tensor products assemble them into the abelian category $A\\mathbf{-Mod}$."
+    },
+    {
+      "id": "noetherian-hilbert-ca",
+      "title": "Noetherian rings and Hilbert basis",
+      "anchor": "noetherian",
+      "prereqs": [
+        "ideals-quotients-ca",
+        "modules-ca"
+      ],
+      "blurb": "A ring is Noetherian when every ascending chain of ideals stabilizes, equivalently every ideal is finitely generated. The Hilbert basis theorem propagates this to $A[x]$, so $k[x_1,\\dots,x_n]$ and every finitely generated $k$-algebra are Noetherian."
+    },
+    {
       "id": "localization-ca",
       "title": "Localization and local algebra",
       "anchor": "localize",
       "prereqs": [
-        "ideals-quotients-ca"
+        "ideals-quotients-ca",
+        "primes-maximals-ca"
       ],
       "blurb": "Localization zooms to behavior near primes and isolates local properties."
     },
@@ -27,6 +74,7 @@
       "anchor": "flat",
       "prereqs": [
         "localization-ca",
+        "modules-ca",
         "chain-complexes",
         "exact-sequences"
       ],
@@ -37,7 +85,8 @@
       "title": "Nakayama's lemma and Zariski tangent spaces",
       "anchor": "nakayama",
       "prereqs": [
-        "localization-ca"
+        "localization-ca",
+        "modules-ca"
       ],
       "blurb": "Over a local ring, Nakayama reduces minimal generation of a finitely generated module to a vector-space count over the residue field; applied to the maximal ideal it produces the Zariski tangent space $\\mathfrak{m}/\\mathfrak{m}^2$."
     },
@@ -47,6 +96,7 @@
       "anchor": "integral",
       "prereqs": [
         "ideals-quotients-ca",
+        "noetherian-hilbert-ca",
         "prime-ideals-factorization-ant"
       ],
       "blurb": "An element is integral over $A$ when it satisfies a monic polynomial over $A$; integral extensions enjoy lying-over and going-up, and Noether normalization exhibits every finitely generated $k$-algebra as finite over a polynomial subring."
@@ -57,9 +107,20 @@
       "anchor": "dim",
       "prereqs": [
         "localization-ca",
-        "integral-extensions-ca"
+        "integral-extensions-ca",
+        "spec-zariski-ca"
       ],
       "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
+    },
+    {
+      "id": "transcendence-degree-ca",
+      "title": "Transcendence degree and geometric dimension",
+      "anchor": "trdeg",
+      "prereqs": [
+        "krull-dimension-ca",
+        "integral-extensions-ca"
+      ],
+      "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\"."
     }
   ]
 }

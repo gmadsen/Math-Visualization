@@ -218,6 +218,87 @@
         }
       ]
     },
+    "five-lemma": {
+      "title": "The five lemma",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The five lemma concerns a commutative diagram with exact rows $A_1\\to A_2\\to A_3\\to A_4\\to A_5$ and $B_1\\to B_2\\to B_3\\to B_4\\to B_5$, with vertical maps $f_1,\\dots,f_5$. What is its conclusion?",
+          "choices": [
+            "If $f_2$ and $f_4$ are isomorphisms, so is $f_3$.",
+            "If $f_1,f_2,f_4,f_5$ are isomorphisms, then $f_3$ is an isomorphism.",
+            "If $f_3$ is an isomorphism, so are the others.",
+            "If all rows are zero, all $f_i$ are zero."
+          ],
+          "answer": 1,
+          "explain": "The five lemma: outer four $f_1,f_2,f_4,f_5$ isomorphisms + exact rows $\\Rightarrow$ middle $f_3$ is an isomorphism. Proof is the standard two-step diagram chase (injectivity, then surjectivity)."
+        },
+        {
+          "type": "mcq",
+          "q": "In the four lemma (one half of five), which hypotheses imply $f_3$ is surjective?",
+          "choices": [
+            "$f_2$ surjective, $f_4$ injective",
+            "$f_2$ injective, $f_4$ surjective",
+            "$f_1$ surjective, $f_5$ injective",
+            "$f_1$ injective, $f_5$ surjective"
+          ],
+          "answer": 0,
+          "explain": "The surjectivity half of the five lemma: $f_2$ surjective and $f_4$ injective force $f_3$ surjective. The injectivity half requires $f_2$ injective and $f_4$ surjective — dual conditions, split across the two halves."
+        },
+        {
+          "type": "numeric",
+          "q": "In a ladder with exact rows, $f_1,f_2,f_4,f_5$ are isomorphisms and $\\dim A_3=\\dim B_3=7$ (vector spaces). What is the rank of $f_3$?",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "By the five lemma $f_3$ is an isomorphism, so its rank equals $\\dim A_3=7$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "proof-completion",
+          "q": "Injectivity half of the five lemma: assume rows exact, $f_1$ surjective, $f_2,f_4$ injective. Show $f_3$ is injective. Suppose $f_3(a_3)=0$. Pick the correct next step.",
+          "steps": [
+            "Let $a_3\\in A_3$ with $f_3(a_3)=0$.",
+            "Push forward: let $a_4 = d^A_3(a_3)\\in A_4$. Then $f_4(a_4)=f_4(d^A_3 a_3)=d^B_3 f_3(a_3)=d^B_3(0)=0$."
+          ],
+          "choices": [
+            "Conclude $a_4=0$ since $f_4$ is injective; by exactness at $A_3$ there exists $a_2\\in A_2$ with $d^A_2(a_2)=a_3$; pushing down yields $f_2(a_2)$ and we chase further.",
+            "Conclude $a_3=0$ directly from $f_4(a_4)=0$ (since $f_3$ and $f_4$ commute).",
+            "Take $a_4^{-1}$ under $f_4$ and hope it equals $a_3$.",
+            "Apply the snake lemma and read off the cokernel."
+          ],
+          "answer": 0,
+          "hint": "You have $f_4(a_4)=0$; the injectivity of $f_4$ kills $a_4$, which unlocks exactness at $A_3$.",
+          "explain": "Injectivity of $f_4$ gives $a_4=0$, i.e. $d^A_3(a_3)=0$, so $a_3\\in\\ker d^A_3=\\operatorname{im}d^A_2$. Write $a_3=d^A_2(a_2)$. Continue the chase with $f_2(a_2)$ and use $f_1$ surjective to finish."
+        },
+        {
+          "type": "mcq",
+          "q": "Which configuration is a counterexample showing the five lemma fails if $f_4$ is merely surjective (not injective), while $f_1,f_2,f_5$ remain isomorphisms?",
+          "choices": [
+            "Take all groups trivial; the conclusion is vacuously true.",
+            "Let $A_3=\\mathbb{Z}$, $B_3=\\mathbb{Z}\\oplus\\mathbb{Z}/2$, suitably; $f_3$ can fail to be surjective even though $f_1,f_2,f_5$ iso and $f_4$ surjective.",
+            "Take $f_3$ the zero map; this violates commutativity.",
+            "The five lemma never fails, regardless of hypotheses."
+          ],
+          "answer": 1,
+          "hint": "You need a map out of $A_4$ that kills a summand of $B_3$, letting $f_3$ miss torsion.",
+          "explain": "The five lemma is sharp: weakening any of the four outer hypotheses can break the conclusion. One can construct a concrete diagram where $f_4$ is surjective (not injective), the other three are isomorphisms, yet $f_3$ fails injectivity because a kernel element of $f_4$ hides in $A_4$ but is not the image of anything in $A_3$."
+        },
+        {
+          "type": "mcq",
+          "q": "The five lemma in an abelian category is proved by:",
+          "choices": [
+            "element-free diagram chases using subobjects / generalized elements (Mitchell's embedding theorem says it suffices to verify in $\\mathsf{Ab}$)",
+            "choosing a basis in each object",
+            "Yoneda's lemma and a double limit",
+            "applying Freyd–Mitchell and then quoting Zorn's lemma"
+          ],
+          "answer": 0,
+          "hint": "Mitchell's theorem lets you run the same chase you'd do in $\\mathsf{Ab}$.",
+          "explain": "In an abelian category one either uses element-free chases with generalized elements (morphisms out of a 'test object') or, via Freyd–Mitchell embedding, reduces to $\\mathsf{Ab}$ where ordinary element chases work."
+        }
+      ]
+    },
     "long-exact-sequence": {
       "title": "Long exact sequence in homology",
       "questions": [
@@ -287,6 +368,230 @@
         }
       ]
     },
+    "projective-modules": {
+      "title": "Projective modules",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is equivalent to $P$ being projective as a module over a ring $R$?",
+          "choices": [
+            "$P$ is a free module",
+            "$P$ is a direct summand of a free module",
+            "$P$ is torsion-free",
+            "$\\operatorname{Hom}(P,-)$ is right exact"
+          ],
+          "answer": 1,
+          "explain": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free module. Free is strictly stronger in general (though not over a PID)."
+        },
+        {
+          "type": "mcq",
+          "q": "Given $\\varphi\\colon M\\twoheadrightarrow N$ and a map $f\\colon P\\to N$ with $P$ projective, the lifting property says:",
+          "choices": [
+            "there exists $\\tilde f\\colon P\\to M$ with $\\varphi\\circ\\tilde f=f$",
+            "there exists $\\tilde f\\colon N\\to P$ with $\\tilde f\\circ f = \\mathrm{id}$",
+            "$f$ must be surjective",
+            "$\\varphi$ must be an isomorphism"
+          ],
+          "answer": 0,
+          "explain": "Projectivity: for any surjection $\\varphi\\colon M\\twoheadrightarrow N$ and any $f\\colon P\\to N$, there exists a lift $\\tilde f\\colon P\\to M$ with $\\varphi\\tilde f=f$. This is exactly the dual of the 'extension' property defining injectives."
+        },
+        {
+          "type": "mcq",
+          "q": "Over $\\mathbb{Z}$, which of the following is NOT projective?",
+          "choices": [
+            "$\\mathbb{Z}$",
+            "$\\mathbb{Z}^n$ for any $n$",
+            "$\\mathbb{Z}/2$",
+            "any free abelian group"
+          ],
+          "answer": 2,
+          "explain": "Over a PID, projective $\\iff$ free. $\\mathbb{Z}/2$ is not free (it has torsion), and the surjection $\\mathbb{Z}\\twoheadrightarrow\\mathbb{Z}/2$ does not split (no homomorphism $\\mathbb{Z}/2\\to\\mathbb{Z}$). Hence $\\mathbb{Z}/2$ is not projective."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Over $R=\\mathbb{Z}[x,y]/(xy)$, the module $R/(x)\\cong\\mathbb{Z}[y]$ is projective but not free. Which invariant distinguishes projective-not-free?",
+          "choices": [
+            "rank — free modules have well-defined rank equal to generator count",
+            "a module can be locally free (projective) without being globally free if $\\operatorname{Spec} R$ is disconnected or has nontrivial line bundles",
+            "torsion — projectives can be torsion while free cannot",
+            "projectives are always free over commutative rings"
+          ],
+          "answer": 1,
+          "explain": "Over rings with nontrivial Picard group (like $\\mathbb{Z}[x,y]/(xy)$, whose Spec has two components), projectives can be direct summands of free modules without themselves being free. The canonical example: rank-$1$ projectives $\\leftrightarrow$ invertible modules $\\leftrightarrow$ elements of $\\mathrm{Pic}(R)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $P$ be a module. Which statement is FALSE?",
+          "choices": [
+            "$P$ is projective $\\iff$ every SES $0\\to A\\to B\\to P\\to 0$ splits",
+            "Direct sums of projectives are projective",
+            "Direct summands of projectives are projective",
+            "Infinite products of projectives are always projective"
+          ],
+          "answer": 3,
+          "hint": "Sums of projectives are fine; products are not.",
+          "explain": "Direct sums and summands of projectives are projective, and projectivity is equivalent to every SES ending in $P$ splitting. But infinite products of projectives need not be projective: e.g. $\\prod_{\\mathbb{N}}\\mathbb{Z}$ is not a free (or projective) $\\mathbb{Z}$-module (Baer–Specker group)."
+        },
+        {
+          "type": "numeric",
+          "q": "How many isomorphism classes of projective modules of rank $1$ are there over a Dedekind domain with class number $h=3$?",
+          "answer": 3,
+          "tol": 1e-6,
+          "explain": "Over a Dedekind domain, rank-$1$ projectives are classified by the ideal class group $\\mathrm{Cl}(R)$. If $h=|\\mathrm{Cl}(R)|=3$, there are exactly $3$ isomorphism classes (the trivial class corresponds to the free module $R$; the other two are non-free rank-$1$ projectives)."
+        }
+      ]
+    },
+    "injective-modules": {
+      "title": "Injective modules",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$I$ is injective iff:",
+          "choices": [
+            "every injection $I\\hookrightarrow M$ splits",
+            "every injection $A\\hookrightarrow B$ and map $f\\colon A\\to I$ extends to $\\tilde f\\colon B\\to I$",
+            "$\\operatorname{Hom}(-,I)$ is right exact",
+            "$I$ is finitely generated"
+          ],
+          "answer": 1,
+          "explain": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$. Equivalently $\\operatorname{Hom}(-,I)$ is exact (both left and right). The 'every injection from $I$ splits' form is also an equivalent formulation."
+        },
+        {
+          "type": "mcq",
+          "q": "Baer's criterion says: to verify $I$ is injective over a ring $R$, it suffices to check the extension property for:",
+          "choices": [
+            "finitely generated ideals $\\mathfrak{a}\\hookrightarrow R$ only",
+            "all ideals $\\mathfrak{a}\\hookrightarrow R$ and all maps $\\mathfrak{a}\\to I$",
+            "simple modules $S\\hookrightarrow R$ only",
+            "projective modules $P\\hookrightarrow R$ only"
+          ],
+          "answer": 1,
+          "explain": "Baer's criterion: $I$ is injective $\\iff$ every map from an ideal $\\mathfrak{a}\\subseteq R$ to $I$ extends to $R\\to I$. This reduces an a priori enormous check (all injections of all modules) to a single, tractable one."
+        },
+        {
+          "type": "mcq",
+          "q": "Which abelian group is NOT injective as a $\\mathbb{Z}$-module?",
+          "choices": [
+            "$\\mathbb{Q}$",
+            "$\\mathbb{Q}/\\mathbb{Z}$",
+            "$\\mathbb{Z}/2$",
+            "$\\prod_p \\mathbb{Z}/p^\\infty$"
+          ],
+          "answer": 2,
+          "explain": "Over $\\mathbb{Z}$, injective $\\iff$ divisible. $\\mathbb{Q}$ and $\\mathbb{Q}/\\mathbb{Z}$ and Prüfer groups $\\mathbb{Z}/p^\\infty$ are divisible; $\\mathbb{Z}/2$ is not ($2\\cdot\\mathbb{Z}/2 = 0\\ne \\mathbb{Z}/2$)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Over $\\mathbb{Z}$, divisibility characterizes injectivity. Why does Baer's criterion immediately yield this?",
+          "choices": [
+            "Ideals in $\\mathbb{Z}$ are exactly $(n)=n\\mathbb{Z}$; extending $n\\mathbb{Z}\\to I$ to $\\mathbb{Z}\\to I$ means solving $n\\cdot x = f(n)$ in $I$ — exactly divisibility by $n$.",
+            "Because $\\mathbb{Z}$ is finitely generated.",
+            "Because every ideal is principal with finite cokernel.",
+            "Because $\\mathbb{Z}$ has global dimension $1$."
+          ],
+          "answer": 0,
+          "hint": "Lift the generator of $(n)$ and see what's needed.",
+          "explain": "Baer: extension to $\\mathbb{Z}$ of a map $(n)\\to I$ sending $n\\mapsto a$ requires $x\\in I$ with $nx = a$. That is exactly divisibility of $a\\in I$ by $n$. Since every ideal of $\\mathbb{Z}$ is some $(n)$, injectivity $\\iff$ divisibility."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about injective hulls is correct?",
+          "choices": [
+            "Every module $M$ embeds in an injective module $E(M)$, the injective hull, minimal among injectives containing $M$; the hull is essentially unique.",
+            "Only finitely generated modules have injective hulls.",
+            "Injective hulls exist only over Noetherian rings.",
+            "The injective hull is always isomorphic to $M$."
+          ],
+          "answer": 0,
+          "explain": "Every module has an injective hull (or envelope) $M\\hookrightarrow E(M)$: the minimal injective extension, unique up to (non-canonical) isomorphism. Over $\\mathbb{Z}$, $E(\\mathbb{Z}) = \\mathbb{Q}$ and $E(\\mathbb{Z}/p) = \\mathbb{Z}/p^\\infty$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $I=\\mathbb{Q}/\\mathbb{Z}$ over $\\mathbb{Z}$. How many extensions $\\mathbb{Z}\\to I$ exist of a given map $f\\colon(2)\\to I$ with $f(2)=1/4\\in\\mathbb{Q}/\\mathbb{Z}$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "We need $\\tilde f(1)\\in\\mathbb{Q}/\\mathbb{Z}$ with $2\\tilde f(1)=1/4$, i.e. $\\tilde f(1)\\in\\{1/8, 5/8\\}\\pmod{1}$. Both are valid extensions; there are exactly $2$."
+        }
+      ]
+    },
+    "flat-modules": {
+      "title": "Flat modules",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$M$ is a flat $R$-module iff:",
+          "choices": [
+            "$-\\otimes_R M$ is exact",
+            "$M$ is finitely generated",
+            "$\\operatorname{Hom}(M,-)$ is exact",
+            "$M$ is free"
+          ],
+          "answer": 0,
+          "explain": "Flat $=$ tensoring with $M$ preserves exactness. Equivalently preserves injectivity (the right-exactness of $-\\otimes M$ holds automatically; flatness is the extra condition that injective maps stay injective after tensoring)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which implication chain is correct for modules over a ring?",
+          "choices": [
+            "free $\\Rightarrow$ projective $\\Rightarrow$ flat",
+            "flat $\\Rightarrow$ projective $\\Rightarrow$ free",
+            "projective $\\Rightarrow$ flat $\\Rightarrow$ free",
+            "free $\\Rightarrow$ flat $\\Rightarrow$ injective"
+          ],
+          "answer": 0,
+          "explain": "Free $\\Rightarrow$ projective (trivial: free is projective); projective $\\Rightarrow$ flat (direct summand of free, and free is obviously flat). None of the reverse implications hold over general rings."
+        },
+        {
+          "type": "mcq",
+          "q": "Over $\\mathbb{Z}$, which of the following is NOT flat?",
+          "choices": [
+            "$\\mathbb{Z}$",
+            "$\\mathbb{Q}$",
+            "$\\mathbb{Z}[1/p]$",
+            "$\\mathbb{Z}/2$"
+          ],
+          "answer": 3,
+          "explain": "Over a PID, flat $\\iff$ torsion-free. $\\mathbb{Z}/2$ has torsion; concretely, tensoring $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 2}\\mathbb{Z}$ with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, which is not injective. So $\\mathbb{Z}/2$ is not flat."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A key source of flat modules: localization. Which is the correct statement?",
+          "choices": [
+            "$S^{-1}R$ is flat over $R$ for every multiplicative set $S\\subseteq R$.",
+            "$S^{-1}R$ is free over $R$ for every $S$.",
+            "$S^{-1}R$ is projective over $R$ iff $S$ contains a unit.",
+            "Localization never preserves flatness."
+          ],
+          "answer": 0,
+          "explain": "Localization is the archetypal non-projective flat module: $S^{-1}R$ is always flat over $R$ (tensor product with localization preserves exact sequences), but usually not projective (e.g. $\\mathbb{Q}$ over $\\mathbb{Z}$ is flat, not projective). This is why flatness is the 'right' local notion."
+        },
+        {
+          "type": "mcq",
+          "q": "Lazard's theorem characterizes flat modules as:",
+          "choices": [
+            "direct sums of free modules",
+            "filtered colimits of finitely generated free modules",
+            "arbitrary colimits of projective modules",
+            "direct summands of injective modules"
+          ],
+          "answer": 1,
+          "explain": "Lazard's theorem: $M$ is flat $\\iff$ $M$ is a filtered colimit of finitely generated free modules. This is why flatness is 'locally free' in a categorical sense, and why tensor products preserve filtered colimits commute cleanly."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $M = \\mathbb{Z}/6$ as a $\\mathbb{Z}$-module. Tensor the SES $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 4}\\mathbb{Z}\\to\\mathbb{Z}/4\\to 0$ with $M$. What is the order of the kernel of the induced map $\\mathbb{Z}/6\\to\\mathbb{Z}/6$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "After tensoring with $\\mathbb{Z}/6$, the map $\\cdot 4\\colon\\mathbb{Z}/6\\to\\mathbb{Z}/6$ has kernel $\\{x\\in\\mathbb{Z}/6 : 4x\\equiv 0\\pmod 6\\}=\\{0,3\\}$, of order $2$. This measures the failure of flatness of $\\mathbb{Z}/6$: $\\operatorname{Tor}_1^\\mathbb{Z}(\\mathbb{Z}/6,\\mathbb{Z}/4)=\\mathbb{Z}/\\gcd(6,4)=\\mathbb{Z}/2$."
+        }
+      ]
+    },
     "derived-functors": {
       "title": "Derived functors and resolutions",
       "questions": [
@@ -348,6 +653,156 @@
           ],
           "answer": 1,
           "explain": "$\\operatorname{Hom}_R(M,-)$ is left exact but not right exact in general: $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ applied with $M=\\mathbb{Z}$ gives $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$, which fails surjectivity. Its right derived functors are the $\\operatorname{Ext}^n$ groups."
+        }
+      ]
+    },
+    "resolutions-ha": {
+      "title": "Resolutions: projective, injective, flat",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A projective resolution of a module $M$ is an exact sequence:",
+          "choices": [
+            "$0\\to M\\to I^0\\to I^1\\to\\cdots$ with each $I^i$ injective",
+            "$\\cdots\\to P_1\\to P_0\\to M\\to 0$ with each $P_i$ projective",
+            "$\\cdots\\to F_1\\to F_0\\to M\\to 0$ with each $F_i$ flat",
+            "$M\\to F_0\\to F_1\\to\\cdots$ with each $F_i$ free"
+          ],
+          "answer": 1,
+          "explain": "Projective resolutions go from the left: $\\cdots\\to P_1\\to P_0\\twoheadrightarrow M\\to 0$, exact at every spot. They are used to compute left-derived functors like $\\operatorname{Tor}$ and $L_iF$ for right-exact $F$."
+        },
+        {
+          "type": "numeric",
+          "q": "$\\mathbb{Z}/6$ has what length-$1$ free resolution? Enter the single invariant factor appearing in the presentation matrix (a $1\\times 1$ matrix).",
+          "answer": 6,
+          "tol": 1e-6,
+          "explain": "The resolution is $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 6}\\mathbb{Z}\\to\\mathbb{Z}/6\\to 0$. The presentation matrix is the $1\\times 1$ matrix $[6]$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the global dimension of the polynomial ring $k[x_1,\\dots,x_n]$ over a field $k$?",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$n$",
+            "$\\infty$"
+          ],
+          "answer": 2,
+          "explain": "Hilbert's syzygy theorem: the global dimension of $k[x_1,\\dots,x_n]$ is exactly $n$. Equivalently, every finitely generated module has a free resolution of length $\\le n$, and there exist modules requiring length exactly $n$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Over the ring $R=k[\\varepsilon]/(\\varepsilon^2)$ (dual numbers), the module $k=R/(\\varepsilon)$ has which minimal free resolution?",
+          "choices": [
+            "$0\\to R\\to k\\to 0$ (length $0$)",
+            "$0\\to R\\xrightarrow{\\varepsilon}R\\to k\\to 0$ (length $1$)",
+            "$\\cdots\\to R\\xrightarrow{\\varepsilon}R\\xrightarrow{\\varepsilon}R\\to k\\to 0$ (infinite, $2$-periodic)",
+            "$0\\to R^2\\to R\\to k\\to 0$ (length $1$ with rank $2$)"
+          ],
+          "answer": 2,
+          "explain": "$R=k[\\varepsilon]/(\\varepsilon^2)$ has global dimension $\\infty$: $k$ has an infinite $2$-periodic free resolution $\\cdots\\xrightarrow{\\varepsilon}R\\xrightarrow{\\varepsilon}R\\to k$. Consequently $\\operatorname{Ext}^i_R(k,k)=k$ for all $i\\ge 0$ (not eventually zero). This is a typical non-regular local ring."
+        },
+        {
+          "type": "numeric",
+          "q": "Over a PID $R$, every finitely generated module has a free resolution of length at most what?",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "Over a PID, submodules of free modules are free (Smith normal form), so a finitely generated module $M$ has a resolution $0\\to R^r\\to R^s\\to M\\to 0$ of length $1$. Hence global dimension of a PID is $\\le 1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about flat resolutions is correct?",
+          "choices": [
+            "Flat resolutions suffice to compute $\\operatorname{Tor}$ but not $\\operatorname{Ext}$.",
+            "Flat resolutions suffice to compute both $\\operatorname{Tor}$ and $\\operatorname{Ext}$.",
+            "Flat resolutions exist only for flat modules.",
+            "Flat resolutions are unique up to isomorphism, not just quasi-isomorphism."
+          ],
+          "answer": 0,
+          "explain": "$\\operatorname{Tor}_i(M,N)$ can be computed from a flat resolution of $M$ (since $-\\otimes N$ is right-exact and flat modules give the acyclicity needed). $\\operatorname{Ext}$ requires projective (or injective) resolutions — flat is not enough."
+        }
+      ]
+    },
+    "abelian-categories": {
+      "title": "Abelian categories and triangulated preview",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT required of an abelian category?",
+          "choices": [
+            "It has a zero object.",
+            "Every morphism has a kernel and cokernel.",
+            "Every monomorphism is a kernel and every epimorphism is a cokernel.",
+            "Every object is projective."
+          ],
+          "answer": 3,
+          "explain": "Abelian categories need a zero object, kernels/cokernels, biproducts, and every mono/epi to be normal (a kernel/cokernel respectively). They do NOT need every object to be projective — in fact $\\mathsf{Ab}$ is abelian and most objects there aren't projective."
+        },
+        {
+          "type": "mcq",
+          "q": "The Freyd–Mitchell embedding theorem says:",
+          "choices": [
+            "Every small abelian category embeds fully faithfully into a category of modules over some ring.",
+            "Every abelian category is equivalent to $\\mathsf{Ab}$.",
+            "Every abelian category has enough projectives.",
+            "Every abelian category is triangulated."
+          ],
+          "answer": 0,
+          "explain": "Freyd–Mitchell: any small abelian category $\\mathcal{A}$ admits a full exact embedding $\\mathcal{A}\\hookrightarrow R\\text{-Mod}$ for some ring $R$. The point: element-chases in $\\mathsf{Ab}$ transfer to any abelian category."
+        },
+        {
+          "type": "mcq",
+          "q": "In the derived category $D(\\mathcal{A})$, a distinguished triangle $X\\to Y\\to Z\\to X[1]$ replaces what in ordinary abelian categories?",
+          "choices": [
+            "a commutative square",
+            "a short exact sequence $0\\to X\\to Y\\to Z\\to 0$",
+            "a pair of adjoint functors",
+            "an object"
+          ],
+          "answer": 1,
+          "explain": "Short exact sequences in $\\mathcal{A}$ lift to distinguished triangles in $D(\\mathcal{A})$; the rotation/shift structure of triangles encodes long exact sequences of cohomology objects. This is the fundamental move toward derived categories."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which example is an abelian category?",
+          "choices": [
+            "the category of groups (not necessarily abelian)",
+            "the category of topological spaces",
+            "sheaves of abelian groups on a topological space",
+            "the category of fields"
+          ],
+          "answer": 2,
+          "hint": "Abelianness is inherited objectwise in a sheaf setting.",
+          "explain": "Sheaves of abelian groups form an abelian category (kernels are taken section-wise; cokernels require sheafification). The other examples fail: in non-abelian groups every subgroup isn't normal; in Top monos-that-aren't-kernels exist; fields lack zero objects / biproducts."
+        },
+        {
+          "type": "mcq",
+          "q": "Which axiom of a triangulated category fails in a general abelian category $\\mathcal{A}$, forcing us to pass to $D(\\mathcal{A})$?",
+          "choices": [
+            "existence of a shift functor $[1]$ that is an autoequivalence",
+            "the octahedral axiom, which requires mapping cones",
+            "all of the above — $\\mathcal{A}$ itself is not triangulated unless $\\mathcal{A}=0$",
+            "having finite products"
+          ],
+          "answer": 2,
+          "explain": "An abelian category is not triangulated (except the trivial one): it lacks a natural shift and distinguished triangle structure. The chain complex category $\\mathrm{Ch}(\\mathcal{A})$, localized at quasi-isomorphisms, becomes the derived category $D(\\mathcal{A})$ — now genuinely triangulated."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about $\\operatorname{Ext}$ in the derived category is correct?",
+          "choices": [
+            "$\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i]) = \\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ when $X,Y\\in\\mathcal{A}$ are viewed as complexes concentrated in degree $0$.",
+            "$\\operatorname{Hom}_{D(\\mathcal{A})}$ equals $\\operatorname{Hom}_\\mathcal{A}$.",
+            "Ext is not visible in $D(\\mathcal{A})$.",
+            "All Ext groups vanish in $D(\\mathcal{A})$."
+          ],
+          "answer": 0,
+          "hint": "Derived category maps read off all Ext groups via shifts.",
+          "explain": "The fundamental identification: $\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i])\\cong\\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ for $X,Y\\in\\mathcal{A}$. This is why the derived category is 'the right place' to do homological algebra: all Ext/Tor appear as hom-sets after shifts."
         }
       ]
     },

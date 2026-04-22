@@ -303,12 +303,17 @@ function allMonicPolysUpToDeg(d,p){
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#ideals">1&nbsp;Ideals&nbsp;&amp;&nbsp;Spec</a>
-  <a href="#modules">2&nbsp;Modules&nbsp;&amp;&nbsp;tensor</a>
-  <a href="#localize">3&nbsp;Localization</a>
-  <a href="#flat">4&nbsp;Flatness</a>
-  <a href="#nakayama">5&nbsp;Nakayama</a>
-  <a href="#integral">6&nbsp;Integral&nbsp;extensions</a>
-  <a href="#dim">7&nbsp;Dimension</a>
+  <a href="#primes-max">2&nbsp;Prime&nbsp;vs&nbsp;maximal</a>
+  <a href="#zariski">3&nbsp;Zariski&nbsp;topology</a>
+  <a href="#radicals">4&nbsp;Radicals</a>
+  <a href="#modules">5&nbsp;Modules&nbsp;&amp;&nbsp;tensor</a>
+  <a href="#noetherian">6&nbsp;Noetherian</a>
+  <a href="#localize">7&nbsp;Localization</a>
+  <a href="#flat">8&nbsp;Flatness</a>
+  <a href="#nakayama">9&nbsp;Nakayama</a>
+  <a href="#integral">10&nbsp;Integral&nbsp;extensions</a>
+  <a href="#dim">11&nbsp;Dimension</a>
+  <a href="#trdeg">12&nbsp;Transcendence&nbsp;degree</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -369,9 +374,11 @@ function allMonicPolysUpToDeg(d,p){
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#integral">Commutative algebra</a> · Integral extensions and Noether normalization</div>
     <div><a href="./commutative-algebra.html#localize">Commutative algebra</a> · Localization and local algebra</div>
+    <div><a href="./commutative-algebra.html#modules">Commutative algebra</a> · Modules and tensor products</div>
+    <div><a href="./commutative-algebra.html#noetherian">Commutative algebra</a> · Noetherian rings and Hilbert basis</div>
+    <div><a href="./commutative-algebra.html#primes-max">Commutative algebra</a> · Prime vs maximal ideals</div>
     <div><a href="./homological.html#complexes">Homological algebra</a> · Chain complexes and homology</div>
-    <div><a href="./schemes.html#closed-subscheme">Schemes</a> · Closed subschemes, reducedness, and irreducibility</div>
-    <div><a href="./schemes.html#intro">Schemes</a> · Prime spectrum and Zariski topology</div>
+    <div class="more">… and 2 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -381,6 +388,381 @@ function allMonicPolysUpToDeg(d,p){
 
 <div class="quiz" data-concept="ideals-quotients-ca"></div>
 </section>
+
+<section id="primes-max">
+<h2>2. Prime vs maximal ideals</h2>
+<p>Two distinguished classes of ideals carry almost all the geometric information. An ideal $\mathfrak{p}\subsetneq A$ is <strong>prime</strong> when $A/\mathfrak{p}$ is an integral domain; <strong>maximal</strong> when $A/\mathfrak{p}$ is a field. Every maximal ideal is prime (fields are domains), but not vice-versa.</p>
+<div class="note"><strong>Dimension-zero rings.</strong> $A$ is Artinian iff every prime is maximal. Example: $\mathbb{Z}/n$, $k[x]/(f)$, any finite ring. Contrast with $\mathbb{Z}$ or $k[x]$ where $(0)$ is prime but not maximal — the generic point.</div>
+<p>Three worked examples to keep next to each other, in increasing dimension:</p>
+<p><span class="pill">$\mathbb{Z}$, dim 1</span> Primes: $(0)$ (generic, height 0) and $(p)$ for $p$ prime (maximal, height 1). Maximals exactly = $\{(p)\}$.</p>
+<p><span class="pill">$\mathbb{R}[x]$, dim 1</span> Primes: $(0)$ (height 0); $(x-a)$ for $a\in\mathbb{R}$ and $(x^2+bx+c)$ with negative discriminant (height 1 maximals with residue field $\mathbb{R}$ or $\mathbb{C}$). All height-$1$ primes are maximal.</p>
+<p><span class="pill">$k[x,y]$, dim 2</span> Three tiers: $(0)$ at height $0$; $(f)$ for $f$ irreducible at height $1$ (curves — prime but <em>not</em> maximal); $(x-a,y-b)$ at height $2$ (points — the maximals, by Hilbert's Nullstellensatz when $k=\overline k$).</p>
+
+<div class="widget" id="w-pm">
+  <div class="hd"><div class="ttl">Prime-vs-maximal explorer</div><div class="hint">click a point in Spec to see its status</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="pm-ring">
+      <option value="Z">ℤ</option>
+      <option value="Rx">ℝ[x]</option>
+      <option value="Cx">ℂ[x]</option>
+      <option value="kxy">k[x,y] (k algebraically closed)</option>
+      <option value="Z12">ℤ/12</option>
+    </select>
+    <span class="small">
+      <span style="color:var(--pink)">■</span> maximal ·
+      <span style="color:var(--yellow)">■</span> non-maximal prime ·
+      <span style="color:var(--violet)">■</span> generic
+    </span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start">
+    <svg id="pm-svg" viewBox="0 0 480 300" width="100%" style="max-width:480px"><title>Prime vs maximal explorer</title></svg>
+    <div class="readout" id="pm-info" style="min-height:9em"></div>
+  </div>
+</div>
+<p class="small">For a Noetherian ring, $\dim A = 0 \iff A$ is Artinian $\iff$ every prime is maximal. As dimension grows, the gap between "prime" and "maximal" widens into an entire lattice of heights.</p>
+<div class="quiz" data-concept="primes-maximals-ca"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#localize">Commutative algebra</a> · Localization and local algebra</div>
+    <div><a href="./commutative-algebra.html#radicals">Commutative algebra</a> · Nilradical and Jacobson radical</div>
+    <div><a href="./commutative-algebra.html#zariski">Commutative algebra</a> · Spec and Zariski topology</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 2: prime vs maximal explorer =============================== */
+(function(){
+  const DATA = {
+    'Z': {
+      title:'Spec(ℤ)  —  dim 1',
+      primes:[
+        {id:'0', label:'(0)', kind:'generic', pos:[240,150], desc:'generic point · residue field ℚ · height 0\nclosure = entire Spec'},
+        {id:'2', label:'(2)', kind:'max', pos:[80,80], desc:'maximal · residue field 𝔽₂ · height 1'},
+        {id:'3', label:'(3)', kind:'max', pos:[160,60], desc:'maximal · residue field 𝔽₃ · height 1'},
+        {id:'5', label:'(5)', kind:'max', pos:[240,50], desc:'maximal · residue field 𝔽₅ · height 1'},
+        {id:'7', label:'(7)', kind:'max', pos:[320,60], desc:'maximal · residue field 𝔽₇ · height 1'},
+        {id:'p', label:'(p)…', kind:'max', pos:[400,80], desc:'∞ more closed points, one per prime'}
+      ]
+    },
+    'Rx': {
+      title:'Spec(ℝ[x])  —  dim 1',
+      primes:[
+        {id:'0', label:'(0)', kind:'generic', pos:[240,150], desc:'generic · residue field ℝ(x) · height 0'},
+        {id:'x', label:'(x)', kind:'max', pos:[80,80], desc:'maximal · residue field ℝ · height 1 · point x=0'},
+        {id:'x1', label:'(x−1)', kind:'max', pos:[160,60], desc:'maximal · residue field ℝ · point x=1'},
+        {id:'x2+1', label:'(x²+1)', kind:'max', pos:[280,55], desc:'maximal · residue field ℂ · no real root'},
+        {id:'xab', label:'(x²+bx+c)', kind:'max', pos:[400,80], desc:'max when Δ<0 · residue ℂ'}
+      ]
+    },
+    'Cx': {
+      title:'Spec(ℂ[x])  —  dim 1',
+      primes:[
+        {id:'0', label:'(0)', kind:'generic', pos:[240,150], desc:'generic · residue ℂ(x) · height 0'},
+        {id:'x', label:'(x)', kind:'max', pos:[80,80], desc:'maximal · residue ℂ · point 0'},
+        {id:'x1', label:'(x−1)', kind:'max', pos:[160,60], desc:'maximal · residue ℂ · point 1'},
+        {id:'xi', label:'(x−i)', kind:'max', pos:[280,55], desc:'maximal · residue ℂ · point i'},
+        {id:'xa', label:'(x−a)', kind:'max', pos:[400,80], desc:'∞ more maximals, one per a∈ℂ'}
+      ]
+    },
+    'kxy': {
+      title:'Spec(k[x,y])  —  dim 2',
+      primes:[
+        {id:'0', label:'(0)', kind:'generic', pos:[240,240], desc:'generic of 𝔸² · height 0 · residue k(x,y)'},
+        {id:'x', label:'(x)', kind:'prime', pos:[90,150], desc:'prime, height 1 · curve (y-axis) · residue k(y) · NOT maximal'},
+        {id:'f', label:'(f) irr.', kind:'prime', pos:[240,150], desc:'prime, height 1 · irreducible curve · residue k(V(f)) · NOT maximal'},
+        {id:'xy', label:'(y−x²)', kind:'prime', pos:[390,150], desc:'prime, height 1 · parabola · residue field k(parabola)'},
+        {id:'00', label:'(x,y)', kind:'max', pos:[130,60], desc:'maximal, height 2 · residue field k · point (0,0)'},
+        {id:'ab', label:'(x−a,y−b)', kind:'max', pos:[330,60], desc:'maximal, height 2 · residue k · point (a,b) · Nullstellensatz'}
+      ]
+    },
+    'Z12': {
+      title:'Spec(ℤ/12)  —  dim 0',
+      primes:[
+        {id:'2', label:'(2)', kind:'max', pos:[160,120], desc:'maximal = prime (Artinian) · residue 𝔽₂'},
+        {id:'3', label:'(3)', kind:'max', pos:[320,120], desc:'maximal = prime (Artinian) · residue 𝔽₃'}
+      ]
+    }
+  };
+  const pick = $('#pm-ring'), svg = $('#pm-svg'), info = $('#pm-info');
+  let sel = null;
+  function colorOf(k){
+    if(k==='max') return 'var(--pink)';
+    if(k==='prime') return 'var(--yellow)';
+    return 'var(--violet)';
+  }
+  function draw(){
+    const R = DATA[pick.value];
+    svg.innerHTML = '';
+    const t = SVG('text',{x:240,y:22,'text-anchor':'middle','font-size':15,fill:'#fff','font-weight':600});
+    t.textContent = R.title; svg.appendChild(t);
+    for(const p of R.primes){
+      const g = SVG('g'); g.style.cursor='pointer';
+      const is = sel===p.id;
+      const r = p.kind==='generic' ? 10 : (p.kind==='max' ? 7 : 8);
+      const c = SVG('circle',{cx:p.pos[0],cy:p.pos[1],r: is?r+3:r, fill:colorOf(p.kind), stroke:is?'#fff':'#111','stroke-width':is?2:1});
+      const lab = SVG('text',{x:p.pos[0]+14,y:p.pos[1]+5,'font-size':12,fill:'#e8ecf1'});
+      lab.textContent = p.label;
+      g.appendChild(c); g.appendChild(lab);
+      g.addEventListener('click', ()=>{ sel = p.id; draw(); });
+      svg.appendChild(g);
+    }
+    const cur = R.primes.find(p=>p.id===sel) || R.primes[0];
+    info.textContent = `${cur.label}\n${cur.desc}`;
+  }
+  pick.addEventListener('change', ()=>{ sel=null; draw(); });
+  draw();
+})();
+</script>
+
+<section id="zariski">
+<h2>3. Spec and the Zariski topology</h2>
+<p>Given a ring $A$, $\mathrm{Spec}(A)$ becomes a topological space with closed sets</p>
+<p style="text-align:center">$V(I) = \{\mathfrak{p}\in\mathrm{Spec}(A) : I\subseteq\mathfrak{p}\}.$</p>
+<p>Open sets have a particularly clean basis: <strong>distinguished opens</strong></p>
+<p style="text-align:center">$D(f) = \{\mathfrak{p} : f\notin\mathfrak{p}\} = \mathrm{Spec}(A_f).$</p>
+<p>Two features make this topology unusual — and useful:</p>
+<div class="note">
+<ul style="margin:.2rem 0;padding-left:1.1rem">
+<li>Points are generally <em>not closed</em>. The closure of $\{\mathfrak{p}\}$ is $V(\mathfrak{p})$; maximal ideals are closed, but $(0)\in\mathrm{Spec}(\mathbb{Z})$ has closure = whole Spec.</li>
+<li>$\mathrm{Spec}(A)$ is always <em>quasi-compact</em>, though rarely Hausdorff. Connectedness corresponds algebraically to idempotents: $A = A_1 \times A_2 \iff \mathrm{Spec}(A)$ disconnected.</li>
+</ul>
+</div>
+<p>Irreducible components of $\mathrm{Spec}(A)$ biject with minimal primes of $A$: each minimal prime $\mathfrak{p}$ gives the irreducible closed set $V(\mathfrak{p})$.</p>
+
+<div class="widget" id="w-zar">
+  <div class="hd"><div class="ttl">Zariski topology explorer</div><div class="hint">toggle closed sets V(I) and opens D(f)</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="zar-ring">
+      <option value="Z">ℤ (dim 1)</option>
+      <option value="Z30">ℤ/30</option>
+      <option value="kxy">k[x,y]/(xy(x−1))</option>
+    </select>
+    <label>ideal:</label>
+    <select id="zar-ideal">
+      <option value="I1">option A</option>
+      <option value="I2">option B</option>
+      <option value="I3">option C</option>
+    </select>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start">
+    <svg id="zar-svg" viewBox="0 0 480 280" width="100%" style="max-width:480px"><title>Zariski topology explorer</title></svg>
+    <div class="readout" id="zar-info" style="min-height:8em"></div>
+  </div>
+</div>
+<p class="small">The equivalence $D(f)\cong\mathrm{Spec}(A_f)$ packages localization as "restricting to an open subset". This is the germ of schemes: $\mathrm{Spec}(A)$ is glued from its distinguished opens, with structure sheaf $\mathcal{O}(D(f))=A_f$.</p>
+<div class="quiz" data-concept="spec-zariski-ca"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#dim">Commutative algebra</a> · Krull dimension and depth heuristics</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 3: Zariski topology explorer =============================== */
+(function(){
+  const CONFIG = {
+    'Z': {
+      title:'Spec(ℤ)',
+      primes:[
+        {id:'0', label:'(0)', pos:[240,180], kind:'generic'},
+        {id:'2', label:'(2)', pos:[80,80], kind:'max'},
+        {id:'3', label:'(3)', pos:[180,60], kind:'max'},
+        {id:'5', label:'(5)', pos:[280,60], kind:'max'},
+        {id:'7', label:'(7)', pos:[380,80], kind:'max'}
+      ],
+      ideals:[
+        {id:'I1', label:'I=(6)', contains:p=>['2','3'].includes(p.id)||p.id==='0'&&false, V:['2','3']},
+        {id:'I2', label:'I=(0)', contains:p=>true, V:['0','2','3','5','7']},
+        {id:'I3', label:'D(10) open', opensOn:[], D:['3','7','0']}
+      ]
+    },
+    'Z30': {
+      title:'Spec(ℤ/30)',
+      primes:[
+        {id:'2', label:'(2)', pos:[140,120], kind:'max'},
+        {id:'3', label:'(3)', pos:[240,120], kind:'max'},
+        {id:'5', label:'(5)', pos:[340,120], kind:'max'}
+      ],
+      ideals:[
+        {id:'I1', label:'V((2))', V:['2']},
+        {id:'I2', label:'V((6))', V:['2','3']},
+        {id:'I3', label:'D(6) open', D:['5']}
+      ]
+    },
+    'kxy': {
+      title:'Spec(k[x,y]/(xy(x−1)))',
+      primes:[
+        {id:'x', label:'(x) · y-axis', pos:[120,180], kind:'min'},
+        {id:'y', label:'(y) · x-axis', pos:[240,220], kind:'min'},
+        {id:'x1', label:'(x−1) · line', pos:[360,180], kind:'min'},
+        {id:'0y', label:'(x,y) · origin', pos:[180,80], kind:'max'},
+        {id:'1y', label:'(x−1,y)', pos:[360,80], kind:'max'}
+      ],
+      ideals:[
+        {id:'I1', label:'V((x))', V:['x','0y']},
+        {id:'I2', label:'V((y))', V:['y','0y','1y']},
+        {id:'I3', label:'3 irreducible components', V:['x','y','x1','0y','1y']}
+      ]
+    }
+  };
+
+  const pick = $('#zar-ring'), ip = $('#zar-ideal'), svg = $('#zar-svg'), info = $('#zar-info');
+
+  function draw(){
+    const R = CONFIG[pick.value];
+    const chosen = R.ideals.find(i=>i.id===ip.value) || R.ideals[0];
+    const inV = new Set(chosen.V || []);
+    const inD = new Set(chosen.D || []);
+    svg.innerHTML = '';
+    const t = SVG('text',{x:240,y:22,'text-anchor':'middle','font-size':15,fill:'#fff','font-weight':600});
+    t.textContent = R.title; svg.appendChild(t);
+    const sub = SVG('text',{x:240,y:42,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    sub.textContent = chosen.label; svg.appendChild(sub);
+    for(const p of R.primes){
+      const g = SVG('g');
+      const highlighted = inV.has(p.id) || inD.has(p.id);
+      const col = inV.has(p.id) ? 'var(--pink)' : (inD.has(p.id) ? 'var(--green)' : 'var(--mute)');
+      const c = SVG('circle',{cx:p.pos[0],cy:p.pos[1],r: highlighted?10:7, fill:col, stroke:'#111','stroke-width':1});
+      const lab = SVG('text',{x:p.pos[0]+14,y:p.pos[1]+5,'font-size':12,fill:'#e8ecf1'});
+      lab.textContent = p.label;
+      g.appendChild(c); g.appendChild(lab);
+      svg.appendChild(g);
+    }
+    let msg = `ring: ${R.title}\nchosen: ${chosen.label}\n\n`;
+    if(chosen.V){
+      msg += `V contains ${chosen.V.length} primes:\n`;
+      for(const id of chosen.V){
+        const p = R.primes.find(q=>q.id===id);
+        if(p) msg += `  · ${p.label}\n`;
+      }
+      msg += '\nThis is a closed subset of Spec.';
+    } else if(chosen.D){
+      msg += `D(f) contains ${chosen.D.length} primes:\n`;
+      for(const id of chosen.D){
+        const p = R.primes.find(q=>q.id===id);
+        if(p) msg += `  · ${p.label}\n`;
+      }
+      msg += '\nThis is an open subset ≅ Spec(A_f).';
+    }
+    info.textContent = msg;
+  }
+  function repopulate(){
+    const R = CONFIG[pick.value];
+    ip.innerHTML = '';
+    for(const ideal of R.ideals){
+      const o = document.createElement('option');
+      o.value = ideal.id; o.textContent = ideal.label;
+      ip.appendChild(o);
+    }
+    draw();
+  }
+  pick.addEventListener('change', repopulate);
+  ip.addEventListener('change', draw);
+  repopulate();
+})();
+</script>
+
+<section id="radicals">
+<h2>4. Nilradical and Jacobson radical</h2>
+<p>Two canonical ideals measure different flavors of "smallness":</p>
+<div class="note">
+$$\mathrm{nil}(A) = \bigcap_{\mathfrak{p}\text{ prime}}\mathfrak{p} = \{x\in A : x^n = 0\text{ for some }n\}.$$
+$$\mathrm{Jac}(A) = \bigcap_{\mathfrak{m}\text{ maximal}}\mathfrak{m} = \{x\in A : 1 - xy\in A^\times\text{ for all }y\in A\}.$$
+</div>
+<p>Both are ideals; $\mathrm{nil}(A)\subseteq\mathrm{Jac}(A)$ always, since maximal $\Rightarrow$ prime. The two coincide in <strong>Jacobson rings</strong> (e.g. any finitely generated $k$-algebra, or $\mathbb{Z}$): $\mathrm{nil}(A/I) = \mathrm{Jac}(A/I)$ for all ideals $I$. A ring with $\mathrm{nil}(A) = 0$ is called <strong>reduced</strong>.</p>
+<p>Examples:</p>
+<p><span class="pill">$\mathbb{Z}/72$</span> $72 = 2^3\cdot 3^2$. Nilradical = $(6)$, Jacobson radical = $(6)$ (Artinian: agree).</p>
+<p><span class="pill">$\mathbb{Z}$</span> reduced, $\mathrm{nil} = (0)$. Jacobson: $\bigcap_p (p) = (0)$ too — $\mathbb{Z}$ is Jacobson.</p>
+<p><span class="pill">$\mathbb{Z}_{(p)}$</span> $\mathrm{nil}=(0)$ (local domain) but $\mathrm{Jac} = (p)\ne 0$. Not Jacobson.</p>
+
+<div class="widget" id="w-rad">
+  <div class="hd"><div class="ttl">Radical computer</div><div class="hint">pick a ring; see nilradical & Jacobson side by side</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="rad-ring">
+      <option value="Z72">ℤ/72</option>
+      <option value="Z100">ℤ/100</option>
+      <option value="Z30">ℤ/30</option>
+      <option value="kxy-x2">k[x,y]/(x²)</option>
+      <option value="kxy-x2y2">k[x,y]/(x²,y²)</option>
+      <option value="Z">ℤ</option>
+      <option value="Zp">ℤ_(p) (local)</option>
+    </select>
+  </div>
+  <div class="readout" id="rad-out" style="min-height:8em"></div>
+</div>
+<p class="small">Nilradical is "algebraic information you can't see geometrically" — reducing a scheme kills nilpotents but keeps the underlying point set. Jacobson radical is what Nakayama's lemma handles in §9.</p>
+<div class="quiz" data-concept="nilradical-jacobson-ca"></div>
+</section>
+
+<script>
+/* =============================== SECTION 4: radicals =============================== */
+(function(){
+  function radOfN(n){
+    let r = 1;
+    for(const [p] of factorizeInt(n)) r *= p;
+    return r;
+  }
+  const PRESETS = {
+    'Z72': ()=>{
+      const n = 72; const r = radOfN(n);
+      return {
+        title:'ℤ/72',
+        primes: factorizeInt(n).map(([p])=>`(${p})`).join(', '),
+        max: factorizeInt(n).map(([p])=>`(${p})`).join(', '),
+        nil: `(${r}) = intersection of primes = (2)∩(3) = (6)`,
+        jac: `(${r}) = (6) — agrees with nilradical (Artinian)`,
+        reduced: r===1
+      };
+    },
+    'Z100': ()=>{
+      const n=100; const r=radOfN(n);
+      return { title:'ℤ/100', primes:'(2), (5)', max:'(2), (5)',
+        nil:`(${r}) = (10) — nilpotent = divisible by 10`,
+        jac:`(${r}) = (10) — same (Artinian)`, reduced:r===1 };
+    },
+    'Z30': ()=>({ title:'ℤ/30', primes:'(2), (3), (5)', max:'(2), (3), (5)',
+      nil:'(30)=(0) — no nilpotents beyond 0; ℤ/30 is REDUCED',
+      jac:'(30)=(0) — intersection of all three maximals is 0',
+      reduced:true }),
+    'kxy-x2': ()=>({ title:'k[x,y]/(x²)', primes:'(x) (unique minimal)', max:'(x, y−a) for a∈k',
+      nil:'(x) = the nilpotent ideal; x²=0',
+      jac:'(x) — agrees (Jacobson ring)',
+      reduced:false }),
+    'kxy-x2y2': ()=>({ title:'k[x,y]/(x²,y²)', primes:'(x,y) unique', max:'(x,y)',
+      nil:'(x,y) — both x,y nilpotent',
+      jac:'(x,y) — same (Artinian local)',
+      reduced:false }),
+    'Z': ()=>({ title:'ℤ', primes:'(0), (p) for all primes p', max:'(p) for primes p',
+      nil:'(0) — ℤ is REDUCED',
+      jac:'∩_p (p) = (0) — ℤ is Jacobson',
+      reduced:true }),
+    'Zp': ()=>({ title:'ℤ_(p) · local at p', primes:'(0), (p)', max:'(p) only',
+      nil:'(0) — domain',
+      jac:'(p) — ≠ nilradical! ℤ_(p) is NOT Jacobson',
+      reduced:true })
+  };
+  const pick = $('#rad-ring'), out = $('#rad-out');
+  function draw(){
+    const R = PRESETS[pick.value]();
+    let msg = `ring: ${R.title}\n\nprimes: ${R.primes}\nmaximals: ${R.max}\n\n`;
+    msg += `nilradical = ${R.nil}\n`;
+    msg += `Jacobson = ${R.jac}\n\n`;
+    msg += R.reduced ? '→ REDUCED (no nonzero nilpotents)' : '→ NOT reduced';
+    out.textContent = msg;
+  }
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
 
 <script>
 /* =============================== SECTION 1: ideal lattice =============================== */
@@ -752,7 +1134,7 @@ function allMonicPolysUpToDeg(d,p){
 </script>
 
 <section id="modules">
-<h2>2. Modules and tensor products</h2>
+<h2>5. Modules and tensor products</h2>
 <p>A module $M$ over $A$ is an abelian group with an $A$-action — "linear algebra over rings". When $A$ is a field this is just a vector space; when $A=\mathbb{Z}$ it is an abelian group. The interesting thing is that over $\mathbb{Z}$, unlike over a field, modules can have <em>torsion</em>: $2\cdot \bar 1 = 0$ in $\mathbb{Z}/2$.</p>
 <p>The <strong>tensor product</strong> $M\otimes_A N$ is the universal object through which $A$-bilinear maps $M\times N\to P$ factor. Two operational rules do all the work:</p>
 <div class="note">
@@ -781,7 +1163,22 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
   <div class="readout" id="t-out"></div>
 </div>
 
-<p class="small">Two things to notice. (i) <em>Tensoring with $\mathbb{Q}$ kills torsion</em>: $\mathbb{Z}/n\otimes_\mathbb{Z}\mathbb{Q}=0$. (ii) $\mathbb{Z}\otimes_\mathbb{Z}\mathbb{Z}/n=\mathbb{Z}/n$ (identity). Over $\mathbb{Z}$ the tensor product is <em>not</em> left-exact — we'll see this bite in §4.</p>
+<p class="small">Two things to notice. (i) <em>Tensoring with $\mathbb{Q}$ kills torsion</em>: $\mathbb{Z}/n\otimes_\mathbb{Z}\mathbb{Q}=0$. (ii) $\mathbb{Z}\otimes_\mathbb{Z}\mathbb{Z}/n=\mathbb{Z}/n$ (identity). Over $\mathbb{Z}$ the tensor product is <em>not</em> left-exact — we'll see this bite in §8.</p>
+
+<h3>Submodules, direct sums, exact sequences</h3>
+<p>Submodules $N\subseteq M$ and quotients $M/N$ work exactly as for groups. Direct sums $M\oplus N$ exist for any family. A sequence $L\xrightarrow{f}M\xrightarrow{g}N$ is <strong>exact at $M$</strong> when $\ker g = \mathrm{im}\,f$; a short exact sequence $0\to A\to B\to C\to 0$ packages "$A$ is a submodule with quotient $C$". For $\mathbb{Z}$-modules, $0\to\mathbb{Z}/2\to\mathbb{Z}/6\to\mathbb{Z}/3\to 0$ is exact and <em>splits</em> (since $\gcd(2,3)=1$), so $\mathbb{Z}/6\cong\mathbb{Z}/2\oplus\mathbb{Z}/3$.</p>
+<p>A key identity for tensor: $A/I\otimes_A A/J\cong A/(I+J)$. Specialized to $A=\mathbb{Z}$: $\mathbb{Z}/m\otimes\mathbb{Z}/n\cong\mathbb{Z}/\gcd(m,n)$, exactly the widget above.</p>
+
+<div class="quiz" data-concept="modules-ca"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
+    <div><a href="./commutative-algebra.html#nakayama">Commutative algebra</a> · Nakayama's lemma and Zariski tangent spaces</div>
+    <div><a href="./commutative-algebra.html#noetherian">Commutative algebra</a> · Noetherian rings and Hilbert basis</div>
+</aside>
+<!-- backlinks-auto-end -->
+
 </section>
 
 <script>
@@ -903,8 +1300,109 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 })();
 </script>
 
+<section id="noetherian">
+<h2>6. Noetherian rings and the Hilbert basis theorem</h2>
+<p>A ring $A$ is <strong>Noetherian</strong> when every ascending chain of ideals $I_1\subseteq I_2\subseteq\cdots$ eventually stabilizes — equivalently, every ideal is finitely generated. This bounds "how complicated" ideals can be and is the single hypothesis most commutative-algebra theorems actually need.</p>
+<div class="note"><strong>Hilbert basis theorem.</strong> If $A$ is Noetherian, so is $A[x]$. Iterating: $k[x_1,\dots,x_n]$ is Noetherian over any field $k$; every finitely generated $k$-algebra is Noetherian; $\mathbb{Z}[x_1,\dots,x_n]$ is Noetherian. All the rings you meet in daily algebra are Noetherian — failures are deliberate constructions ($k[x_1,x_2,\dots]$ in infinitely many variables, $C(\mathbb{R})$, huge direct products).</div>
+<p>Three equivalent conditions on $A$:</p>
+<p><span class="pill">ACC</span> every ascending chain of ideals stabilizes.</p>
+<p><span class="pill">f.g.</span> every ideal is finitely generated.</p>
+<p><span class="pill">maximum</span> every nonempty set of ideals has a maximal element.</p>
+<p>The same three conditions define "Noetherian $A$-module" (replacing "ideal" with "submodule"). A submodule or quotient of a Noetherian module is Noetherian; extensions stay Noetherian; so finite direct sums and f.g. modules over a Noetherian ring are Noetherian.</p>
+
+<div class="widget" id="w-noeth">
+  <div class="hd"><div class="ttl">Ascending chain explorer</div><div class="hint">watch the chain stabilize (or not)</div></div>
+  <div class="row">
+    <label>setup:</label>
+    <select id="noeth-pick">
+      <option value="kxyz">k[x,y,z] — chain of monomial ideals</option>
+      <option value="Z">ℤ — divisibility chain</option>
+      <option value="polyinf">k[x₁,x₂,…] — infinite variables (fails!)</option>
+    </select>
+    <button id="noeth-step">step the chain</button>
+    <button id="noeth-reset">reset</button>
+  </div>
+  <div class="readout" id="noeth-out" style="min-height:10em"></div>
+</div>
+<p class="small">For $k[x_1,x_2,\dots]$ the chain $(x_1)\subsetneq(x_1,x_2)\subsetneq(x_1,x_2,x_3)\subsetneq\cdots$ never stabilizes: no ideal contains all $x_i$ finitely. For $k[x,y,z]$ any such chain terminates (Hilbert basis theorem).</p>
+<div class="quiz" data-concept="noetherian-hilbert-ca"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#integral">Commutative algebra</a> · Integral extensions and Noether normalization</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<script>
+/* =============================== SECTION 6: Noetherian ascending chain =============================== */
+(function(){
+  const SETUPS = {
+    'kxyz': {
+      title:'k[x,y,z] — monomial ideals',
+      desc:'A classical chain. Because k[x,y,z] is Noetherian, ANY chain stabilizes.',
+      chain:[
+        '(x)',
+        '(x, y)',
+        '(x, y, z²)',
+        '(x, y, z²) ← stable! height 3 finite',
+      ],
+      stable: 3,
+      total: 4
+    },
+    'Z': {
+      title:'ℤ — divisibility chain',
+      desc:'ℤ is Noetherian (PID). Any ascending chain of ideals = descending chain of divisors.',
+      chain:[
+        '(100)',
+        '(50)  [since 100 = 2·50, (100)⊂(50)]',
+        '(10)',
+        '(2)',
+        '(1) = ℤ ← stable! reached unit',
+      ],
+      stable: 4,
+      total: 5
+    },
+    'polyinf': {
+      title:'k[x₁, x₂, x₃, …] — ACC fails',
+      desc:'Infinitely many variables — NOT Noetherian.',
+      chain:[
+        '(x₁)',
+        '(x₁, x₂)',
+        '(x₁, x₂, x₃)',
+        '(x₁, x₂, x₃, x₄)',
+        '(x₁, …, xₙ) … ← no termination!',
+      ],
+      stable: -1,
+      total: 5
+    }
+  };
+  let key = 'kxyz', step = 0;
+  const pick = $('#noeth-pick'), btnStep = $('#noeth-step'), btnReset = $('#noeth-reset'), out = $('#noeth-out');
+  function draw(){
+    const s = SETUPS[key];
+    let msg = `${s.title}\n${s.desc}\n\nChain progress (step ${step} of ${s.total-1}):\n`;
+    for(let i=0;i<=Math.min(step, s.total-1);i++){
+      const marker = (i===step) ? '► ' : '  ';
+      msg += `  ${marker}${s.chain[i]}\n`;
+    }
+    if(s.stable >= 0 && step >= s.stable){
+      msg += `\n✓ Chain stabilized after ${s.stable+1} steps (Noetherian).`;
+    } else if(s.stable < 0 && step >= s.total-1){
+      msg += `\n✗ Chain keeps growing — ACC fails.`;
+    }
+    out.textContent = msg;
+  }
+  pick.addEventListener('change', ()=>{ key=pick.value; step=0; draw(); });
+  btnStep.addEventListener('click', ()=>{ const s=SETUPS[key]; if(step<s.total-1) step++; draw(); });
+  btnReset.addEventListener('click', ()=>{ step=0; draw(); });
+  draw();
+})();
+</script>
+
 <section id="localize">
-<h2>3. Localization</h2>
+<h2>7. Localization</h2>
 <p>Localization is the algebraic shadow of "zooming in". Pick a multiplicatively closed set $S\subset A$ (with $1\in S$, closed under multiplication, not containing $0$ unless you want to kill the ring). The <strong>localization</strong></p>
 <p style="text-align:center">$S^{-1}A = \{a/s : a\in A, s\in S\} / \sim, \qquad a/s \sim a'/s' \iff \exists t\in S,\; t(a s' - a' s) = 0.$</p>
 <p>The extra "$t$" is there to handle zero-divisors. Two important special cases:</p>
@@ -1056,7 +1554,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 </script>
 
 <section id="flat">
-<h2>4. Flatness</h2>
+<h2>8. Flatness</h2>
 <p>Tensoring is right-exact but not always left-exact. An $A$-module $M$ is <strong>flat</strong> if tensoring with $M$ preserves injections — equivalently, preserves all short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>:</p>
 <p style="text-align:center">$0\to N'\to N\to N''\to 0$ remains exact after $-\otimes_A M$.</p>
 <p>Equivalently: $\mathrm{Tor}_1^A(M,-)=0$. The implication chain is</p>
@@ -1243,7 +1741,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 </script>
 
 <section id="nakayama">
-<h2>5. Nakayama's lemma</h2>
+<h2>9. Nakayama's lemma</h2>
 <p>Let $(A,\mathfrak{m})$ be a local ring (one maximal ideal) with residue field $k=A/\mathfrak{m}$.</p>
 <div class="note"><strong>Nakayama.</strong> If $M$ is a finitely generated $A$-module with $\mathfrak{m}M=M$, then $M=0$.</div>
 <p>The standard use: $M/\mathfrak{m}M$ is a $k$-vector space, and a family $m_1,\dots,m_r\in M$ generates $M$ iff their images generate $M/\mathfrak{m}M$. So <em>the dimension of $M/\mathfrak{m}M$ is the minimal number of generators</em>.</p>
@@ -1452,7 +1950,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 </script>
 
 <section id="integral">
-<h2>6. Integral extensions and Noether normalization</h2>
+<h2>10. Integral extensions and Noether normalization</h2>
 <p>Fix a ring extension $A\subseteq B$. An element $b\in B$ is <strong>integral over $A$</strong> if it satisfies a monic polynomial</p>
 <p style="text-align:center">$b^n + a_{n-1}b^{n-1} + \cdots + a_1 b + a_0 = 0,\qquad a_i\in A.$</p>
 <p>Equivalently, $A[b]\subseteq B$ is a finitely generated $A$-module. The set of integral elements is a subring — the <strong>integral closure</strong> of $A$ in $B$ — and $B$ is an <em>integral extension</em> when every element is integral. This generalizes "algebraic number" from $\mathbb{Z}\subseteq\overline{\mathbb{Q}}$ to arbitrary rings; $\mathcal{O}_K$ is the integral closure of $\mathbb{Z}$ in the number field $K$.</p>
@@ -1464,6 +1962,23 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 </ul></div>
 <p><strong>Noether normalization.</strong> If $B$ is a finitely generated $k$-algebra of Krull dimension $d$, there exist algebraically independent $y_1,\dots,y_d\in B$ with $k[y_1,\dots,y_d]\hookrightarrow B$ a finite (in particular integral) extension. Geometrically: every affine variety admits a finite surjection to some $\mathbb{A}^d_k$, projecting it onto a polynomial coordinate system. This is the engine behind Hilbert's Nullstellensatz: maximal ideals of $k[x_1,\dots,x_n]$ with $k=\overline k$ are exactly $(x_1-a_1,\dots,x_n-a_n)$, proved by showing any residue field $k[x_1,\dots,x_n]/\mathfrak{m}$ is finite over $k$ via normalization, hence equals $k$.</p>
 <p class="small">Concretely: for $B=k[x,y]/(y^2-x^3-x)$ one can take $y_1=x$; then $B$ is a degree-2 extension of $k[x]$, realized by the covering map $(x,y)\mapsto x$ that exhibits the elliptic curve as a double cover of the line branched at the roots of $x^3+x$. Going-up is why this projection is surjective on points.</p>
+
+<div class="widget" id="w-int">
+  <div class="hd"><div class="ttl">Integrality checker</div><div class="hint">does α satisfy a monic polynomial over A?</div></div>
+  <div class="row">
+    <label>element over ℤ:</label>
+    <select id="int-ring">
+      <option value="sqrt-5">α = √−5</option>
+      <option value="cbrt2">α = ∛2</option>
+      <option value="half">α = 1/2</option>
+      <option value="gaussian">α = i (imaginary unit)</option>
+      <option value="third">α = 1/3</option>
+      <option value="phi">α = (1+√5)/2 (golden ratio)</option>
+      <option value="rootof">α = y with y² = x³+x (over k[x])</option>
+    </select>
+  </div>
+  <div class="readout" id="int-out" style="min-height:7em"></div>
+</div>
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
@@ -1474,6 +1989,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#dim">Commutative algebra</a> · Krull dimension and depth heuristics</div>
+    <div><a href="./commutative-algebra.html#trdeg">Commutative algebra</a> · Transcendence degree and geometric dimension</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -1484,8 +2000,75 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 <div class="quiz" data-concept="integral-extensions-ca"></div>
 </section>
 
+<script>
+/* =============================== SECTION 10: integrality checker =============================== */
+(function(){
+  const DATA = {
+    'sqrt-5': {
+      label:'α = √−5',
+      monic:'t² + 5 = 0',
+      integral:true,
+      reason:'α² = −5 ∈ ℤ, so α satisfies t² + 5 = 0 (monic, coefficients in ℤ).',
+      ring:'α generates the ring of integers ℤ[√−5] ⊂ ℚ(√−5).'
+    },
+    'cbrt2': {
+      label:'α = ∛2',
+      monic:'t³ − 2 = 0',
+      integral:true,
+      reason:'α³ = 2, so α satisfies t³ − 2 = 0 (monic).',
+      ring:'ℤ[∛2] is the ring of integers of ℚ(∛2).'
+    },
+    'half': {
+      label:'α = 1/2',
+      monic:'no monic integer polynomial vanishes at 1/2',
+      integral:false,
+      reason:'Rational roots of a monic ℤ[t] polynomial must divide the constant term and be integers (rational root theorem) — so the only rational integral elements over ℤ are ordinary integers.',
+      ring:'1/2 is algebraic (satisfies 2t − 1) but not integral.'
+    },
+    'gaussian': {
+      label:'α = i',
+      monic:'t² + 1 = 0',
+      integral:true,
+      reason:'i² = −1, so i satisfies t² + 1 = 0.',
+      ring:'ℤ[i] = Gaussian integers, the integral closure of ℤ in ℚ(i).'
+    },
+    'third': {
+      label:'α = 1/3',
+      monic:'no monic integer polynomial vanishes at 1/3',
+      integral:false,
+      reason:'Same reason as 1/2: rational root theorem blocks non-integer rationals.',
+      ring:'1/3 satisfies 3t − 1 = 0 — non-monic, so not integral.'
+    },
+    'phi': {
+      label:'α = (1+√5)/2',
+      monic:'t² − t − 1 = 0',
+      integral:true,
+      reason:'Direct check: ((1+√5)/2)² = (6+2√5)/4 = (3+√5)/2 = 1 + (1+√5)/2. So α² = α + 1.',
+      ring:'ℤ[α] is the ring of integers of ℚ(√5) — the "full" ring, not just ℤ[√5].'
+    },
+    'rootof': {
+      label:'α = y where y² = x³ + x',
+      monic:'t² − (x³+x) = 0 ∈ k[x][t]',
+      integral:true,
+      reason:'y satisfies t² − (x³+x) = 0, monic over k[x].',
+      ring:'k[x,y]/(y²−x³−x) is a degree-2 integral extension of k[x] — the affine elliptic curve, covered 2:1 by projection to the x-line.'
+    }
+  };
+  const pick = $('#int-ring'), out = $('#int-out');
+  function draw(){
+    const D = DATA[pick.value];
+    let msg = `${D.label}\n\nmonic relation: ${D.monic}\n\nreason: ${D.reason}\n\n`;
+    msg += D.integral ? '→ INTEGRAL ✓' : '→ NOT integral ✗';
+    msg += `\n${D.ring}`;
+    out.textContent = msg;
+  }
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
 <section id="dim">
-<h2>7. Dimension and primary decomposition</h2>
+<h2>11. Dimension and primary decomposition</h2>
 <p>The <strong>Krull dimension</strong> of a ring $A$ is the supremum of lengths $n$ of chains</p>
 <p style="text-align:center">$\mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\cdots\subsetneq\mathfrak{p}_n$</p>
 <p>of prime ideals. It's the algebraic shadow of "dimension of a variety". The basic table:</p>
@@ -1524,6 +2107,7 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#trdeg">Commutative algebra</a> · Transcendence degree and geometric dimension</div>
     <div><a href="./schemes.html#dimension">Schemes</a> · Dimension of a scheme</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -1713,7 +2297,68 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 })();
 </script>
 
-<p style="margin-top:3rem">The pattern running through these six sections: every classical operation (taking a subvariety, zooming in, linearizing, perturbing) has an exact algebraic shadow — quotient, localization, tangent space via $\mathfrak{m}/\mathfrak{m}^2$, flatness. Commutative algebra is the language that lets you turn geometric questions into finite computations on ideals and modules, and vice versa. The payoff, once you start using schemes seriously, is that the two pictures collapse into one.</p>
+<section id="trdeg">
+<h2>12. Transcendence degree and geometric dimension</h2>
+<p>For a field extension $K/k$, the <strong>transcendence degree</strong> $\mathrm{tr.deg}_k(K)$ is the cardinality of a maximal algebraically independent subset of $K$ over $k$ — the "number of free parameters" separating $K$ from $k$. All such subsets have the same size (a Steinitz-style exchange argument). A transcendence basis extends to $K$ via an algebraic extension.</p>
+<div class="note"><strong>The bridge theorem.</strong> If $B$ is a finitely generated integral domain over a field $k$, then
+$$\dim B = \mathrm{tr.deg}_k\,\mathrm{Frac}(B).$$
+Proof: apply Noether normalization to find $k[y_1,\dots,y_d]\hookrightarrow B$ finite with $d=\mathrm{tr.deg}$; integral extensions preserve dimension; $\dim k[y_1,\dots,y_d]=d$.</div>
+
+<p>Table of matching dimensions:</p>
+
+<div class="widget" id="w-tr">
+  <div class="hd"><div class="ttl">Dimension ↔ transcendence degree</div><div class="hint">pick a variety, see the two agree</div></div>
+  <div class="row">
+    <label>ring:</label>
+    <select id="tr-pick">
+      <option value="kx">k[x]</option>
+      <option value="kxy">k[x,y]</option>
+      <option value="kxy-xy">k[x,y]/(xy-1) · hyperbola</option>
+      <option value="kxyz-S2">k[x,y,z]/(x²+y²+z²-1) · sphere</option>
+      <option value="kxy-y2x3">k[x,y]/(y²-x³-x) · elliptic curve</option>
+      <option value="kxyz">k[x,y,z]</option>
+    </select>
+  </div>
+  <div class="readout" id="tr-out" style="min-height:8em"></div>
+</div>
+
+<p>Two corollaries worth remembering:</p>
+<p><span class="pill">dim of intersection</span> If $V, W\subseteq\mathbb{A}^n$ are irreducible varieties of dimensions $d_1, d_2$, each irreducible component of $V\cap W$ has dimension $\ge d_1+d_2-n$. Equality is "proper intersection"; it fails for tangent components (excess intersection).</p>
+<p><span class="pill">dim of fibre</span> For a dominant morphism $f\colon X\to Y$ of irreducible varieties, the generic fibre has dimension $\dim X - \dim Y$; special fibres can only jump up (upper-semicontinuity).</p>
+
+<p class="small">Transcendence degree also controls the function-field side of the dictionary: birational equivalence of varieties $\Leftrightarrow$ isomorphism of their fraction fields over $k$. So birational classification of curves ($\mathrm{tr.deg}=1$) is the classification of one-variable function fields, which Riemann-Roch organizes by genus.</p>
+<div class="quiz" data-concept="transcendence-degree-ca"></div>
+</section>
+
+<script>
+/* =============================== SECTION 12: transcendence degree =============================== */
+(function(){
+  const RINGS = {
+    'kx': { title:'k[x]', dim:1, trdeg:1, basis:'{x}', desc:'affine line — one free parameter' },
+    'kxy': { title:'k[x,y]', dim:2, trdeg:2, basis:'{x, y}', desc:'affine plane — two free parameters' },
+    'kxy-xy': { title:'k[x,y]/(xy-1)', dim:1, trdeg:1, basis:'{x} (y = 1/x is algebraic over k(x))', desc:'hyperbola — 1-dimensional' },
+    'kxyz-S2': { title:'k[x,y,z]/(x²+y²+z²-1)', dim:2, trdeg:2, basis:'{x, y} (z is algebraic: z² = 1 - x² - y²)', desc:'sphere — 2-dimensional' },
+    'kxy-y2x3': { title:'k[x,y]/(y²-x³-x)', dim:1, trdeg:1, basis:'{x} (y² = x³+x makes y algebraic)', desc:'elliptic curve — 1-dimensional' },
+    'kxyz': { title:'k[x,y,z]', dim:3, trdeg:3, basis:'{x, y, z}', desc:'affine 3-space — three free parameters' }
+  };
+  const pick = $('#tr-pick'), out = $('#tr-out');
+  function draw(){
+    const R = RINGS[pick.value];
+    let msg = `ring: ${R.title}\n${R.desc}\n\n`;
+    msg += `Krull dim = ${R.dim}\n`;
+    msg += `tr.deg_k(Frac(·)) = ${R.trdeg}\n`;
+    msg += `transcendence basis: ${R.basis}\n\n`;
+    msg += (R.dim === R.trdeg)
+      ? '✓ dim = tr.deg (bridge theorem holds)'
+      : '⚠ mismatch (should not happen for f.g. domains)';
+    out.textContent = msg;
+  }
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
+
+<p style="margin-top:3rem">The pattern running through these twelve sections: every classical operation (taking a subvariety, zooming in, linearizing, perturbing, counting parameters) has an exact algebraic shadow — quotient, localization, tangent space via $\mathfrak{m}/\mathfrak{m}^2$, flatness, transcendence degree. Commutative algebra is the language that lets you turn geometric questions into finite computations on ideals and modules, and vice versa. The payoff, once you start using schemes seriously, is that the two pictures collapse into one.</p>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 </main>

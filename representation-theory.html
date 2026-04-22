@@ -242,14 +242,17 @@ function cfmt(a){
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
   <a href="#def">1&nbsp;Representations</a>
   <a href="#examples">2&nbsp;Examples</a>
-  <a href="#maschke">3&nbsp;Maschke</a>
-  <a href="#schur">4&nbsp;Schur</a>
-  <a href="#characters">5&nbsp;Characters</a>
-  <a href="#tables">6&nbsp;Character&nbsp;tables</a>
-  <a href="#decompose">7&nbsp;Decomposing</a>
-  <a href="#frobenius">8&nbsp;Induction</a>
-  <a href="#young">9&nbsp;Young&nbsp;tableaux</a>
-  <a href="#sl2">10&nbsp;𝔰𝔩₂</a>
+  <a href="#tensor-dual">3&nbsp;Tensor&nbsp;&amp;&nbsp;dual</a>
+  <a href="#maschke">4&nbsp;Maschke</a>
+  <a href="#schur">5&nbsp;Schur</a>
+  <a href="#characters">6&nbsp;Characters</a>
+  <a href="#tables">7&nbsp;Character&nbsp;tables</a>
+  <a href="#decompose">8&nbsp;Decomposing</a>
+  <a href="#frobenius">9&nbsp;Induction</a>
+  <a href="#young">10&nbsp;Young&nbsp;tableaux</a>
+  <a href="#hw">11&nbsp;Highest&nbsp;weights</a>
+  <a href="#sl2">12&nbsp;𝔰𝔩₂</a>
+  <a href="#peter-weyl">13&nbsp;Peter–Weyl</a>
 </nav>
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
@@ -292,6 +295,7 @@ function cfmt(a){
     <div><a href="./lie-groups.html#adjoint">Lie groups</a> · Adjoint representation and Killing form</div>
     <div><a href="./moonshine.html#monster">Monstrous moonshine</a> · The Monster group and its irreducibles</div>
     <div><a href="./representation-theory.html#maschke">Representation theory</a> · Maschke's theorem</div>
+    <div><a href="./representation-theory.html#tensor-dual">Representation theory</a> · Tensor products and dual representations</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -338,12 +342,52 @@ function cfmt(a){
 <p style="text-align:center">$i\mapsto \begin{pmatrix}i&0\\0&-i\end{pmatrix},\quad j\mapsto \begin{pmatrix}0&1\\-1&0\end{pmatrix},\quad k\mapsto \begin{pmatrix}0&i\\i&0\end{pmatrix}$.</p>
 
 <h3>Tensor and dual reps</h3>
-<p>If $(V,\rho)$ and $(W,\sigma)$ are reps, then $V\otimes W$ and $V\oplus W$ and $V^* = \mathrm{Hom}(V,\mathbb{C})$ are reps, with $G$ acting diagonally on the tensor and by $(g\cdot f)(v)=f(\rho(g^{-1})v)$ on the dual. This turns $\mathbf{Rep}(G)$ into a rigid symmetric monoidal category — the launching pad for Tannakian reconstruction.</p>
+<p>If $(V,\rho)$ and $(W,\sigma)$ are reps, then $V\otimes W$ and $V\oplus W$ and $V^* = \mathrm{Hom}(V,\mathbb{C})$ are reps, with $G$ acting diagonally on the tensor and by $(g\cdot f)(v)=f(\rho(g^{-1})v)$ on the dual. This turns $\mathbf{Rep}(G)$ into a rigid symmetric monoidal category — the launching pad for Tannakian reconstruction. The next section develops this carefully.</p>
+
+</section>
+
+<section id="tensor-dual">
+<h2>3. Tensor products and duals: the monoidal structure</h2>
+
+<p>Fix representations $(V,\rho)$ and $(W,\sigma)$ of $G$. The category $\mathbf{Rep}(G)$ has three natural constructions, each with a clean effect on characters:</p>
+
+<ul>
+<li><strong>Direct sum</strong> $V\oplus W$: $g$ acts blockwise, $\rho\oplus\sigma(g) = \mathrm{diag}(\rho(g),\sigma(g))$. Character $\chi_{V\oplus W} = \chi_V + \chi_W$.</li>
+<li><strong>Tensor product</strong> $V\otimes W$: $g$ acts diagonally, $(\rho\otimes\sigma)(g)(v\otimes w) = \rho(g)v \otimes \sigma(g)w$. Character $\chi_{V\otimes W} = \chi_V \cdot \chi_W$ — a pointwise product of class functions.</li>
+<li><strong>Dual</strong> $V^* = \mathrm{Hom}_\mathbb{C}(V,\mathbb{C})$: the action must use $g^{-1}$ to remain a left action, $(g\cdot f)(v) = f(\rho(g^{-1})v)$. Character $\chi_{V^*}(g) = \chi_V(g^{-1}) = \overline{\chi_V(g)}$ (the last equality because $\rho(g)$ has finite order and so eigenvalues on the unit circle).</li>
+</ul>
+
+<p><strong>Hom as a rep.</strong> From $V$ and $W$, $\mathrm{Hom}(V,W) \cong V^*\otimes W$ is a rep with $(g\cdot T)(v) = \sigma(g)\,T(\rho(g^{-1})v)$. Its $G$-fixed subspace is</p>
+<p style="text-align:center">$\mathrm{Hom}_G(V,W) = \mathrm{Hom}(V,W)^G$,</p>
+<p>the space of intertwiners. Combined with Schur's lemma, this is where character orthogonality <em>comes from</em>: $\dim\mathrm{Hom}_G(V,W) = \langle\chi_V,\chi_W\rangle$.</p>
+
+<p><strong>Symmetric and alternating squares.</strong> Inside $V\otimes V$, the $S_2$-action by swap gives a canonical decomposition</p>
+<p style="text-align:center">$V\otimes V \;=\; S^2 V \oplus \Lambda^2 V$,</p>
+<p>both $G$-stable, with characters</p>
+<p style="text-align:center">$\chi_{S^2 V}(g) = \tfrac12(\chi_V(g)^2 + \chi_V(g^2)), \quad \chi_{\Lambda^2 V}(g) = \tfrac12(\chi_V(g)^2 - \chi_V(g^2))$.</p>
+<p>A useful character identity to know by reflex.</p>
+
+<p><strong>Rigidity.</strong> Evaluation $V^*\otimes V \to \mathbf{1}$ and coevaluation $\mathbf{1} \to V\otimes V^*$ are $G$-equivariant, making every finite-dimensional rep <em>dualizable</em>. This rigidity is what powers Tannaka–Krein reconstruction: a symmetric monoidal functor $\mathbf{Rep}(G) \to \mathbf{Vect}$ that respects rigidity (a "fiber functor") determines $G$ up to canonical isomorphism.</p>
+
+<div class="widget" id="w-tensor">
+  <div class="hd"><div class="ttl">tensor character visualizer</div><div class="hint">pick a group and two irreps · see $\chi_{V\otimes W}$ and its irreducible decomposition</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="tn-group"></select>
+    <label style="margin-left:.6rem">$V$:</label>
+    <select id="tn-v"></select>
+    <label style="margin-left:.6rem">$W$:</label>
+    <select id="tn-w"></select>
+  </div>
+  <div class="readout" id="tn-out"></div>
+</div>
+
+<div class="quiz" data-concept="tensor-and-dual-reps"></div>
 
 </section>
 
 <section id="maschke">
-<h2>3. Subrepresentations and Maschke's theorem</h2>
+<h2>4. Subrepresentations and Maschke's theorem</h2>
 
 <p>A <strong>subrepresentation</strong> of $(V,\rho)$ is a subspace $W\subseteq V$ stable under every $\rho(g)$. We then call $V$ <em>irreducible</em> if its only subrepresentations are $0$ and $V$ itself, and <em>completely reducible</em> (or <em>semisimple</em>) if $V$ is a direct sum of irreducibles.</p>
 
@@ -363,6 +407,25 @@ function cfmt(a){
 
 <p>Consequence for infinite groups: Maschke fails in general (e.g.\ the above rep of $\mathbb{Z}$ over $\mathbb{C}$ is indecomposable but reducible). However, for <em>compact</em> groups — using Haar measure to replace $\tfrac{1}{|G|}\sum$ — semisimplicity is restored, and nearly the entire theory below generalizes.</p>
 
+<p>The widget below lets you watch the averaging projector in action: pick a small group, a subrepresentation $W$, and a naive projector $\pi_0$; the widget averages over $G$ and displays $\pi(v)$ against $\pi_0(v)$, confirming $\pi\circ\rho(h) = \rho(h)\circ\pi$ numerically.</p>
+
+<div class="widget" id="w-maschke">
+  <div class="hd"><div class="ttl">Maschke averaging projector</div><div class="hint">see the $G$-equivariant projector emerge from a naive one</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="mk-group">
+      <option value="C3">$C_3$ (regular rep on $\mathbb{C}^3$)</option>
+      <option value="C4">$C_4$ (regular rep on $\mathbb{C}^4$)</option>
+      <option value="S3-perm">$S_3$ (permutation rep on $\mathbb{C}^3$)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>naive projector $\pi_0$ onto $\mathrm{span}(e_1)$:</label>
+    <button id="mk-run">average over $G$</button>
+  </div>
+  <div class="readout" id="mk-out"></div>
+</div>
+
 <div class="quiz" data-concept="maschke-theorem"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
@@ -378,7 +441,7 @@ function cfmt(a){
 </section>
 
 <section id="schur">
-<h2>4. Schur's lemma</h2>
+<h2>5. Schur's lemma</h2>
 
 <p>Let $V$ and $W$ be irreducible representations of a group $G$ over an algebraically closed field $k$, and let $T\colon V\to W$ be an intertwiner. Then:</p>
 <ul>
@@ -402,12 +465,28 @@ function cfmt(a){
 <p style="text-align:center">$\displaystyle P_\lambda \;=\; \frac{\dim V_\lambda}{|G|}\sum_{g\in G} \overline{\chi_\lambda(g)}\,\rho(g)$,</p>
 <p>a formula we will derive below from the orthogonality relations. This is the workhorse of computational rep theory.</p>
 
+<p>The widget below computes $\dim\mathrm{Hom}_G(V,W) = \langle\chi_V,\chi_W\rangle$ for any pair of reps built from a group's irreps. Schur's lemma predicts: $0$ when $V,W$ share no common irreducible summand, positive integer otherwise.</p>
+
+<div class="widget" id="w-schur">
+  <div class="hd"><div class="ttl">Schur: $\dim\mathrm{Hom}_G(V,W)$</div><div class="hint">pick two reps · see the intertwiner dimension</div></div>
+  <div class="row">
+    <label>group:</label>
+    <select id="sc-group"></select>
+    <label style="margin-left:.6rem">$V$:</label>
+    <select id="sc-v"></select>
+    <label style="margin-left:.6rem">$W$:</label>
+    <select id="sc-w"></select>
+  </div>
+  <div class="readout" id="sc-out"></div>
+</div>
+
 <div class="quiz" data-concept="schurs-lemma"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./galois-representations.html#ss">Galois representations</a> · Irreducibility and semisimplification</div>
     <div><a href="./representation-theory.html#characters">Representation theory</a> · Characters and orthogonality</div>
+    <div><a href="./representation-theory.html#hw">Representation theory</a> · Highest-weight vectors for $\mathfrak{sl}_2$</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -418,7 +497,7 @@ function cfmt(a){
 </section>
 
 <section id="characters">
-<h2>5. Characters and orthogonality</h2>
+<h2>6. Characters and orthogonality</h2>
 
 <p>Given a rep $\rho\colon G\to\mathrm{GL}(V)$, the <strong>character</strong> is</p>
 <p style="text-align:center">$\chi_\rho(g) \;=\; \mathrm{tr}\,\rho(g)$.</p>
@@ -459,8 +538,11 @@ function cfmt(a){
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
-    <div><a href="./representation-theory.html#young">Representation theory</a> · Induction and symmetric-group combinatorics</div>
-    <div><a href="./representation-theory.html#sl2">Representation theory</a> · Weight decomposition for 𝔰𝔩₂</div>
+    <div><a href="./representation-theory.html#tables">Representation theory</a> · Character tables</div>
+    <div><a href="./representation-theory.html#peter-weyl">Representation theory</a> · Compact groups and Peter–Weyl</div>
+    <div><a href="./representation-theory.html#frobenius">Representation theory</a> · Induction, restriction, Frobenius reciprocity</div>
+    <div><a href="./representation-theory.html#sec-orbit">Representation theory</a> · Orbits, stabilizers, and permutation reps</div>
+    <div><a href="./representation-theory.html#sec-regdecomp">Representation theory</a> · The regular representation</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -471,7 +553,7 @@ function cfmt(a){
 </section>
 
 <section id="tables">
-<h2>6. Character tables</h2>
+<h2>7. Character tables</h2>
 
 <p>The <strong>character table</strong> of $G$ is a square matrix whose rows are irreducible characters $\chi_\lambda$ and whose columns are conjugacy classes of $G$. Each entry is $\chi_\lambda(g)$ for a representative $g\in C$. The column of the identity lists the dimensions of the irreducibles.</p>
 
@@ -522,10 +604,12 @@ function cfmt(a){
   <div class="readout" id="ct-out"></div>
 </div>
 
+<div class="quiz" data-concept="character-tables"></div>
+
 </section>
 
 <section id="decompose">
-<h2>7. Decomposing a representation into irreducibles</h2>
+<h2>8. Decomposing a representation into irreducibles</h2>
 
 <p>Armed with the character table, decomposing an arbitrary rep is mechanical: compute the character, take inner products with each $\chi_\lambda$.</p>
 
@@ -559,7 +643,7 @@ function cfmt(a){
 </section>
 
 <section id="sec-orbit">
-<h2>7.1. Aside: orbits and stabilizers</h2>
+<h2>8.1. Orbits, stabilizers, and permutation reps</h2>
 
 <p>Permutation reps live and die by the orbit structure. For a $G$-set $X$, $V_X = \bigoplus_{x\in X}\mathbb{C} e_x$, and $\langle\chi_X,\mathbf{1}\rangle = \#\text{orbits}(X)$ — Burnside's lemma. More refinedly, Mackey tells us the isotypic decomposition of $V_X$ is governed by $G$-equivariant maps from $V_X$ to irreps, and these are computed from stabilizers by Frobenius reciprocity (§8).</p>
 
@@ -582,10 +666,12 @@ function cfmt(a){
   <div class="readout" id="ob-out"></div>
 </div>
 
+<div class="quiz" data-concept="orbit-stabilizer-rep"></div>
+
 </section>
 
 <section id="sec-regdecomp">
-<h2>7.2. The regular representation, concretely</h2>
+<h2>8.2. The regular representation, concretely</h2>
 
 <p>Let's look at a specific small group to see the decomposition $\mathbb{C}[G] = \bigoplus_\lambda (\dim V_\lambda) V_\lambda$ in matrix form. Pick a group; the widget shows the $|G|\times|G|$ permutation matrix for left multiplication by a generator, then decomposes by character.</p>
 
@@ -599,10 +685,12 @@ function cfmt(a){
   <div class="readout" id="rg-out"></div>
 </div>
 
+<div class="quiz" data-concept="regular-rep-decomposition"></div>
+
 </section>
 
 <section id="frobenius">
-<h2>8. Induction, restriction, Frobenius reciprocity</h2>
+<h2>9. Induction, restriction, Frobenius reciprocity</h2>
 
 <p>Let $H\le G$. There are two natural functors between $\mathbf{Rep}(H)$ and $\mathbf{Rep}(G)$:</p>
 <ul>
@@ -633,10 +721,40 @@ function cfmt(a){
 <p style="text-align:center">$\mathrm{Ind}_H^G\mathbf{1} \;\cong\; \mathbb{C}[G/H]$,</p>
 <p>which often decomposes into nontrivial irreducibles and thus detects how $G$ sees its coset space. This is the beginning of <em>Mackey's formula</em> and all of its descendants (Hecke algebras, spherical functions, intertwining operators for automorphic forms...).</p>
 
+<p>The widget below computes $\dim\mathrm{Ind}_H^G W = [G:H]\cdot\dim W$ for a menu of subgroups and verifies Frobenius reciprocity on the character level.</p>
+
+<div class="widget" id="w-ind">
+  <div class="hd"><div class="ttl">induced-rep dimension calculator</div><div class="hint">$\dim\mathrm{Ind}_H^G W = [G:H]\cdot\dim W$</div></div>
+  <div class="row">
+    <label>pair $H\le G$:</label>
+    <select id="in-pair">
+      <option value="C3-S3">$C_3 \le S_3$ (index $2$)</option>
+      <option value="C2-S3">$C_2 \le S_3$ (index $3$)</option>
+      <option value="C4-D4">$C_4 \le D_4$ (index $2$)</option>
+      <option value="C2-D4">$C_2 \le D_4$ (index $4$)</option>
+      <option value="V4-S4">$V_4 \le S_4$ (index $6$)</option>
+      <option value="A4-S4">$A_4 \le S_4$ (index $2$)</option>
+      <option value="S3-S4">$S_3 \le S_4$ (index $4$)</option>
+    </select>
+    <label style="margin-left:.6rem" for="in-dw">$\dim W$:</label>
+    <input id="in-dw" type="number" min="1" max="5" value="1" style="width:4em">
+  </div>
+  <div class="readout" id="in-out"></div>
+</div>
+
+<div class="quiz" data-concept="frobenius-reciprocity"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./representation-theory.html#young">Representation theory</a> · Young tableaux and irreps of $S_n$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
 </section>
 
 <section id="young">
-<h2>9. Young tableaux and the irreps of $S_n$</h2>
+<h2>10. Young tableaux and the irreps of $S_n$</h2>
 
 <p>The irreducible representations of $S_n$ are indexed by <strong>partitions</strong> of $n$: finite weakly decreasing sequences $\lambda = (\lambda_1\ge\lambda_2\ge\cdots\ge\lambda_k)$ with $\sum \lambda_i = n$. Write $\lambda\vdash n$. Each partition is drawn as a <em>Young diagram</em>: $\lambda_i$ boxes in row $i$, left-justified.</p>
 
@@ -679,8 +797,65 @@ function cfmt(a){
 
 </section>
 
+<section id="hw">
+<h2>11. Highest-weight vectors: the algebraic skeleton</h2>
+
+<p>Before specializing to $\mathfrak{sl}_2$, pause on the idea of a <em>highest-weight vector</em>. This one notion organizes the whole representation theory of every semisimple Lie algebra.</p>
+
+<p>Let $\mathfrak{g} = \mathfrak{sl}_2(\mathbb{C})$ with generators $H,E,F$ and relations $[H,E]=2E$, $[H,F]=-2F$, $[E,F]=H$. Let $V$ be a finite-dimensional rep.</p>
+
+<p><strong>Definition.</strong> A <strong>highest-weight vector</strong> of weight $\lambda$ is a nonzero $v\in V$ with $Hv = \lambda v$ and $Ev = 0$.</p>
+
+<p><strong>Lemma (existence).</strong> <em>Every finite-dimensional rep $V$ contains a highest-weight vector.</em> Proof: diagonalize $H$, pick the largest real-part eigenvalue $\lambda$, and in $V_\lambda = \ker(H - \lambda)$ the operator $E$ sends weight-$\lambda$ to weight-$(\lambda+2)$ — which is zero by maximality. So every nonzero $v\in V_\lambda$ is highest-weight.</p>
+
+<p><strong>Theorem (irreducibility from a highest-weight vector).</strong> <em>If $V$ is irreducible and $v\in V$ is a highest-weight vector of weight $\lambda$, then</em></p>
+<p style="text-align:center">$V = \mathrm{span}\{v, Fv, F^2v, F^3v, \ldots\}$,</p>
+<p><em>and $\lambda \in \mathbb{Z}_{\ge 0}$ is an integer.</em></p>
+
+<p><em>Proof sketch.</em> The subspace $\mathbb{C}\langle v, Fv, F^2 v, \ldots\rangle$ is $F$-stable by construction, $H$-stable since $Hv_k = (\lambda-2k)v_k$, and $E$-stable by the identity $EF^k v = k(\lambda - k + 1)F^{k-1}v$, proved by induction using $[E,F]=H$. Hence it is an $\mathfrak{sl}_2$-subrep, and irreducibility forces it to be all of $V$. Finite-dimensionality forces $F^{n+1}v = 0$ for some $n$, and then $0 = EF^{n+1}v = (n+1)(\lambda-n)F^n v$ with $F^n v\ne 0$ gives $\lambda = n$. $\blacksquare$</p>
+
+<p><strong>Why this is the universal template.</strong> For any semisimple Lie algebra $\mathfrak{g}$, fix a Cartan $\mathfrak{h}$ and a positive system of roots $\Phi^+$. A vector $v$ in an $\mathfrak{g}$-rep is <em>highest-weight</em> if $\mathfrak{h}v \subset \mathbb{C}v$ and $\mathfrak{g}_\alpha v = 0$ for every positive root $\alpha$. The algebraic theorem above generalizes:</p>
+
+<ul>
+<li>Every finite-dimensional irrep of $\mathfrak{g}$ has a unique (up to scalar) highest-weight vector.</li>
+<li>The weight $\lambda$ of this vector determines the irrep up to isomorphism.</li>
+<li>The set of achievable $\lambda$'s is the <em>dominant integral weight lattice</em> $\Lambda^+$.</li>
+<li>The irrep is generated from $v$ by lowering operators (the $\mathfrak{g}_{-\alpha}$ for $\alpha\in\Phi^+$), and the Weyl character formula gives its character in closed form.</li>
+</ul>
+
+<p>For $\mathfrak{sl}_2$: $\mathfrak{h} = \mathbb{C}H$, $\Phi^+ = \{2\}$ (the root $\alpha = 2$ of $E$), $\Lambda^+ = \mathbb{Z}_{\ge 0}$, and the closed-form dimension is $\dim V_n = n+1$.</p>
+
+<div class="widget" id="w-hw">
+  <div class="hd"><div class="ttl">highest-weight construction</div><div class="hint">$v \to Fv \to F^2 v \to \cdots \to F^n v$, then $F^{n+1}v = 0$</div></div>
+  <div class="row">
+    <label>highest weight $\lambda$:</label>
+    <select id="hw-lam">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="0.5">$\tfrac12$ (not integral)</option>
+      <option value="-1">$-1$ (negative)</option>
+    </select>
+  </div>
+  <div class="readout" id="hw-out"></div>
+</div>
+
+<div class="quiz" data-concept="highest-weight-theorem"></div>
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./representation-theory.html#sl2">Representation theory</a> · Weight decomposition for $\mathfrak{sl}_2$</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+
+</section>
+
 <section id="sl2">
-<h2>10. Capstone: representations of $\mathfrak{sl}_2(\mathbb{C})$</h2>
+<h2>12. Capstone: representations of $\mathfrak{sl}_2(\mathbb{C})$</h2>
 
 <p>We leave finite groups behind and meet the atom of Lie algebra representation theory. The Lie algebra $\mathfrak{sl}_2(\mathbb{C})$ is $2\times 2$ traceless complex matrices, with bracket $[A,B] = AB-BA$. Its standard basis is</p>
 <p style="text-align:center">$H = \begin{pmatrix}1&0\\0&-1\end{pmatrix},\quad E = \begin{pmatrix}0&1\\0&0\end{pmatrix},\quad F = \begin{pmatrix}0&0\\1&0\end{pmatrix}$,</p>
@@ -766,6 +941,74 @@ function cfmt(a){
 </aside>
 
 <div class="quiz" data-concept="sl2-weight-decomposition"></div>
+
+</section>
+
+<section id="peter-weyl">
+<h2>13. Preview: compact groups and the Peter–Weyl theorem</h2>
+
+<p>For an arbitrary finite group $G$, Maschke + characters give a complete answer. What happens when $G$ is <em>infinite but compact</em>, say $\mathrm{SU}(2)$ or $\mathrm{SO}(3)$ or the circle $\mathbb{T} = \mathbb{R}/\mathbb{Z}$?</p>
+
+<p>The miracle is that almost everything generalizes, with sums replaced by integrals against the <strong>Haar measure</strong> $dg$ — the unique (up to scale) translation-invariant Borel measure on $G$, which exists and has total mass $1$ for every compact Hausdorff topological group.</p>
+
+<ul>
+<li><strong>Maschke:</strong> every continuous finite-dimensional rep of $G$ is unitarizable (average any inner product against Haar), hence completely reducible.</li>
+<li><strong>Schur:</strong> for irreducible unitary reps $(\pi, V_\pi)$ and $(\pi', V_{\pi'})$, $\mathrm{Hom}_G(V_\pi, V_{\pi'}) = \mathbb{C}\cdot\delta_{\pi\cong\pi'}\,\mathrm{id}$ — unchanged.</li>
+<li><strong>Characters</strong> are continuous functions $\chi_\pi(g) = \mathrm{tr}\,\pi(g)$; they satisfy $\langle \chi_\pi,\chi_{\pi'}\rangle = \int_G \chi_\pi(g)\overline{\chi_{\pi'}(g)}\,dg = \delta_{\pi\cong\pi'}$.</li>
+</ul>
+
+<p><strong>Matrix coefficients.</strong> For a unitary irrep $(\pi, V_\pi)$ with orthonormal basis $\{e_i\}$, the functions</p>
+<p style="text-align:center">$\pi_{ij}(g) \;=\; \langle \pi(g)\,e_j,\,e_i\rangle$</p>
+<p>are continuous complex-valued functions on $G$, called <strong>matrix coefficients</strong>. They are the generalization of characters (which are just the traces $\sum_i \pi_{ii}$).</p>
+
+<p><strong>Peter–Weyl theorem.</strong> <em>Let $G$ be a compact Hausdorff topological group with Haar measure $dg$ of total mass $1$, and let $\widehat G$ denote the set of isomorphism classes of continuous irreducible unitary representations. Then:</em></p>
+
+<ol>
+<li><em>Each $\widehat\pi \in \widehat G$ has a finite-dimensional representation space $V_\pi$;</em></li>
+<li><em>The matrix coefficients $\sqrt{\dim V_\pi}\cdot \pi_{ij}$, as $\pi$ ranges over $\widehat G$ and $i,j$ over an orthonormal basis of $V_\pi$, form a Hilbert basis of $L^2(G, dg)$. Equivalently,</em></li>
+</ol>
+<p style="text-align:center">$\displaystyle L^2(G) \;\cong\; \widehat{\bigoplus}_{\pi\in\widehat G}\, V_\pi \otimes V_\pi^*$.</p>
+
+<p><em>This is exactly the regular-rep decomposition for finite groups, upgraded to Hilbert spaces: left multiplication acts on the $\pi$-block as $\pi \otimes \mathrm{id}_{V_\pi^*}$, so each irrep $\pi$ appears with multiplicity $\dim V_\pi$.</em></p>
+
+<p><strong>Example: the circle $\mathbb{T} = \mathbb{R}/\mathbb{Z}$.</strong> The irreducible unitary reps are 1-dimensional: $\chi_n(\theta) = e^{2\pi i n\theta}$ for $n\in\mathbb{Z}$. Peter–Weyl gives</p>
+<p style="text-align:center">$L^2(\mathbb{T}) = \bigoplus_{n\in\mathbb{Z}} \mathbb{C}\cdot e^{2\pi i n\theta}$,</p>
+<p>which is the <em>classical Fourier series expansion</em>. So Peter–Weyl is the proper generalization of Fourier analysis to non-abelian compact groups.</p>
+
+<p><strong>Example: $\mathrm{SU}(2)$.</strong> The irreducible unitary reps are $V_n = \mathrm{Sym}^n(\mathbb{C}^2)$ for $n = 0,1,2,\ldots$, of dimension $n+1$ — the same list as for $\mathfrak{sl}_2(\mathbb{C})$. Their matrix coefficients are polynomial in $q_0, q_1, q_2, q_3$ (Euler angles or quaternion coordinates on $S^3 = \mathrm{SU}(2)$), and Peter–Weyl gives</p>
+<p style="text-align:center">$L^2(\mathrm{SU}(2)) = \bigoplus_{n\ge 0} V_n\otimes V_n^*$,</p>
+<p>with multiplicity $(n+1)$ of each $V_n$ in the left-regular rep. Characters are $\chi_n(g) = \tfrac{\sin((n+1)\theta)}{\sin\theta}$ where $g$ has eigenvalues $e^{\pm i\theta}$ — the <em>Chebyshev polynomials of the second kind</em>.</p>
+
+<p>Below, a chart of the first few matrix coefficients of $\mathrm{SU}(2)$ as functions of $\theta$ along the maximal torus $\{\mathrm{diag}(e^{i\theta},e^{-i\theta})\}$.</p>
+
+<div class="widget" id="w-pw">
+  <div class="hd"><div class="ttl">Peter–Weyl: $\mathrm{SU}(2)$ matrix coefficients</div><div class="hint">characters $\chi_n(\theta) = \sin((n+1)\theta)/\sin\theta$ on the maximal torus</div></div>
+  <div class="row">
+    <label>highest weight $n$ (up to):</label>
+    <select id="pw-n">
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="7">7</option>
+    </select>
+  </div>
+  <svg id="pw-svg" viewBox="0 0 820 300" width="820" height="300"><title>Peter–Weyl matrix coefficients of SU(2)</title></svg>
+  <div class="readout" id="pw-out"></div>
+</div>
+
+<div class="note">
+<strong>Beyond compact:</strong> for locally compact groups (like $\mathrm{SL}_2(\mathbb{R})$ or $\mathrm{GL}_n(\mathbb{Q}_p)$), Peter–Weyl partially generalizes to the <em>Plancherel theorem</em>: $L^2(G)$ decomposes as a direct integral of irreducible unitary reps against the Plancherel measure on the unitary dual $\widehat G$. Non-discrete irreps then contribute to the <em>continuous spectrum</em>, giving rise to the "tempered representations" at the heart of the Langlands program.
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#so3su2">SU(2), SO(3), and the double cover</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="peter-weyl-preview"></div>
 
 </section>
 
@@ -1457,6 +1700,252 @@ function innerProd(group, chiA, chiB){
   populateLam();
 })();
 
+/* =============================== §3 Tensor character visualizer =============================== */
+(function(){
+  const gsel = $('#tn-group'), vsel = $('#tn-v'), wsel = $('#tn-w'), out = $('#tn-out');
+  Object.keys(GROUPS).forEach(k=>{ const o = document.createElement('option'); o.value=k; o.textContent=k; gsel.appendChild(o); });
+  gsel.value = 'S3';
+  function populate(){
+    const G = GROUPS[gsel.value];
+    [vsel, wsel].forEach(sel=>{
+      sel.innerHTML='';
+      G.irreps.forEach((r,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=r.name; sel.appendChild(o); });
+    });
+    if(G.irreps.length>=2) wsel.value = '1';
+    update();
+  }
+  function update(){
+    const G = GROUPS[gsel.value];
+    const V = G.irreps[+vsel.value], W = G.irreps[+wsel.value];
+    if(!V || !W){ out.textContent=''; return; }
+    const chi = G.classes.map((_,c)=> cmul(toC(V.chi[c]), toC(W.chi[c])));
+    const lines = [];
+    lines.push(`χ_{V⊗W}(g) = χ_V(g)·χ_W(g) on each class:`);
+    lines.push('  ' + G.classes.map((c,i)=>`[${c.name}] → ${fmtEntry(chi[i])}`).join('  '));
+    lines.push('');
+    lines.push(`χ_{V⊗W}(e) = dim(V⊗W) = ${V.dim*W.dim} = ${V.dim}·${W.dim} ✓`);
+    lines.push('');
+    lines.push('Decomposition into irreducibles via inner products:');
+    const parts = [];
+    for(const r of G.irreps){
+      const ip = innerProd(G, chi, r.chi);
+      const m = Math.round(ip.re);
+      if(m>0) parts.push(m===1? r.name : `${m}·${r.name}`);
+      lines.push(`  ⟨χ_{V⊗W}, χ_${r.name}⟩ = ${fmtEntry(ip)} → mult ${m}`);
+    }
+    lines.push('');
+    lines.push(`${V.name} ⊗ ${W.name} = ${parts.join(' ⊕ ') || '0'}`);
+    // character of dual
+    const dualChi = G.classes.map((_,c)=> cconj(toC(V.chi[c])));
+    lines.push('');
+    lines.push(`(For comparison, χ_{V*}(g) = conj(χ_V(g)): ${G.classes.map((c,i)=>fmtEntry(dualChi[i])).join(' , ')})`);
+    out.textContent = lines.join('\n');
+  }
+  gsel.addEventListener('change', populate);
+  vsel.addEventListener('change', update);
+  wsel.addEventListener('change', update);
+  populate();
+})();
+
+/* =============================== §4 Maschke averaging projector =============================== */
+(function(){
+  const sel = $('#mk-group'), btn = $('#mk-run'), out = $('#mk-out');
+  // Each config: n (dim), generators (permutations as arrays).  Start with unit vector e1, naive projector π_0(v)=v_1 e_1.
+  function cfg(key){
+    if(key==='C3') return {n:3, name:'C_3', gens:[[0,1,2],[1,2,0],[2,0,1]]};
+    if(key==='C4') return {n:4, name:'C_4', gens:[[0,1,2,3],[1,2,3,0],[2,3,0,1],[3,0,1,2]]};
+    if(key==='S3-perm') return {n:3, name:'S_3 on {1,2,3}',
+      gens:[[0,1,2],[1,0,2],[0,2,1],[2,1,0],[1,2,0],[2,0,1]]};
+    return null;
+  }
+  function run(){
+    const c = cfg(sel.value);
+    if(!c){ out.textContent=''; return; }
+    const N = c.n;
+    // naive projector π_0(v)=v_1 e_1, represented as matrix: only (0,0) entry = 1
+    // ρ(g) is the permutation matrix for permutation c.gens[g]: (ρ(g))_{i j} = 1 iff i = c.gens[g][j]
+    // Then averaged: π(v) = (1/|G|) Σ_g ρ(g) π_0 ρ(g^{-1}) v
+    // Matrix: M = (1/|G|) Σ_g P_g · E_{00} · P_g^{-1}
+    // E_{00} is matrix with 1 at (0,0) else 0.  P_g E_{00} P_g^{-1} has (i,j) entry = δ_{i, g(0)} δ_{j, g(0)}.
+    // So M_{ij} = (1/|G|) · #{g : g(0)=i and g(0)=j} = (1/|G|) · #{g:g(0)=i} · δ_{ij}? Actually i=j=g(0), so only diagonal.
+    const count = new Array(N).fill(0);
+    for(const g of c.gens){ count[g[0]]++; }
+    const M = Array(N).fill(null).map(_=>Array(N).fill(0));
+    for(let i=0;i<N;i++){ M[i][i] = count[i] / c.gens.length; }
+    // Verify M is G-equivariant: for every generator g, P_g M = M P_g (commutes with permutations)
+    // Since M is a scalar matrix α·I on the G-orbit of e_1, but we keep it general here.
+    const lines = [];
+    lines.push(`Group: ${c.name}, |G| = ${c.gens.length}, acting on ℂ^${N}.`);
+    lines.push('');
+    lines.push('Naive projector π_0 = E_{00} (projection onto e_1):');
+    lines.push('  π_0(e_1) = e_1,  π_0(e_i) = 0 for i ≠ 1.');
+    lines.push('');
+    lines.push('Averaged π = (1/|G|) Σ_g ρ(g) π_0 ρ(g^{-1}):');
+    for(let i=0;i<N;i++){
+      const row = [];
+      for(let j=0;j<N;j++) row.push(M[i][j].toFixed(3));
+      lines.push('  [' + row.join(', ') + ']');
+    }
+    lines.push('');
+    // Verify equivariance
+    let equivariant = true;
+    for(const g of c.gens){
+      for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+        // (P_g M)_{ij} = M_{g^{-1}(i), j} where g^{-1}(i) is the preimage of i under g
+        // Simpler: (P_g)_{ab} = δ_{a, g(b)}, so (P_g M)_{ij} = Σ_b δ_{i,g(b)} M_{bj} = M_{g^{-1}(i), j}
+        const ginv = [];
+        for(let k=0;k<N;k++) ginv[g[k]] = k;
+        const lhs = M[ginv[i]][j];
+        const rhs = M[i][g[j]];
+        if(Math.abs(lhs - rhs) > 1e-9) equivariant = false;
+      }
+    }
+    lines.push(equivariant ? 'Equivariance check ρ(g)π = πρ(g): ✓ (the averaged projector commutes with every g)' : 'Equivariance check: ✗');
+    lines.push('');
+    lines.push(`Trace π = ${M.map((r,i)=>r[i]).reduce((a,b)=>a+b,0).toFixed(3)} = rank (counts orbit of e_1 under G).`);
+    lines.push('The averaging trick works because 1/|G| is defined in characteristic coprime to |G|.');
+    out.textContent = lines.join('\n');
+  }
+  btn.addEventListener('click', run);
+  sel.addEventListener('change', run);
+  run();
+})();
+
+/* =============================== §5 Schur Hom dimension =============================== */
+(function(){
+  const gsel = $('#sc-group'), vsel = $('#sc-v'), wsel = $('#sc-w'), out = $('#sc-out');
+  Object.keys(GROUPS).forEach(k=>{ const o = document.createElement('option'); o.value=k; o.textContent=k; gsel.appendChild(o); });
+  gsel.value = 'S3';
+  function buildReps(key){
+    const G = GROUPS[key];
+    const reps = [];
+    // include each irrep by itself, plus some sums
+    G.irreps.forEach((r,i)=>{ reps.push({name:r.name, chi:r.chi.slice(), dim:r.dim}); });
+    // V ⊕ V
+    for(let i=0;i<G.irreps.length;i++){
+      const r = G.irreps[i];
+      const chi = G.classes.map((_,c)=> cadd(toC(r.chi[c]), toC(r.chi[c])));
+      reps.push({name:`2·${r.name}`, chi, dim: 2*r.dim});
+    }
+    // sum of two distinct
+    for(let i=0;i<G.irreps.length;i++) for(let j=i+1;j<G.irreps.length;j++){
+      const a = G.irreps[i], b = G.irreps[j];
+      const chi = G.classes.map((_,c)=> cadd(toC(a.chi[c]), toC(b.chi[c])));
+      reps.push({name:`${a.name} ⊕ ${b.name}`, chi, dim: a.dim+b.dim});
+    }
+    // regular
+    reps.push({name:'ℂ[G] (regular)', chi: G.classes.map((c,i)=> i===0 ? G.order : 0), dim: G.order});
+    return reps;
+  }
+  function populate(){
+    const reps = buildReps(gsel.value);
+    [vsel, wsel].forEach(sel=>{
+      sel.innerHTML='';
+      reps.forEach((r,i)=>{ const o = document.createElement('option'); o.value=i; o.textContent=r.name; sel.appendChild(o); });
+    });
+    if(reps.length>=2) wsel.value = '1';
+    update();
+  }
+  function update(){
+    const G = GROUPS[gsel.value];
+    const reps = buildReps(gsel.value);
+    const V = reps[+vsel.value], W = reps[+wsel.value];
+    if(!V || !W){ out.textContent=''; return; }
+    const ip = innerProd(G, V.chi, W.chi);
+    const d = Math.round(ip.re);
+    const lines = [];
+    lines.push(`V = ${V.name}  (dim ${V.dim}),  W = ${W.name}  (dim ${W.dim})`);
+    lines.push('');
+    lines.push(`dim Hom_G(V, W) = ⟨χ_V, χ_W⟩ = ${fmtEntry(ip)} → ${d}`);
+    lines.push('');
+    if(d === 0){
+      lines.push('Schur: V and W share no irreducible summand — no nonzero intertwiners.');
+    } else {
+      lines.push(`Schur: writing V = ⊕ m_λ V_λ and W = ⊕ n_λ V_λ, dim Hom_G = Σ m_λ n_λ = ${d}.`);
+    }
+    lines.push('');
+    lines.push('(For comparison, dim Hom(V,W) = dim V · dim W = ' + (V.dim*W.dim) + ' — the G-equivariant piece is much smaller.)');
+    out.textContent = lines.join('\n');
+  }
+  gsel.addEventListener('change', populate);
+  vsel.addEventListener('change', update);
+  wsel.addEventListener('change', update);
+  populate();
+})();
+
+/* =============================== §9 Induced rep dimension calc =============================== */
+(function(){
+  const sel = $('#in-pair'), dw = $('#in-dw'), out = $('#in-out');
+  const pairs = {
+    'C3-S3':  {H:'C_3', G:'S_3', iHorder:3, Gorder:6, idx:2, note:'Ind_{C_3}^{S_3} χ_ω = V_{(2,1)} (standard rep).'},
+    'C2-S3':  {H:'C_2', G:'S_3', iHorder:2, Gorder:6, idx:3, note:'Ind_{C_2}^{S_3} 𝟙 = 𝟙 ⊕ V_{(2,1)} (permutation rep on S_3/C_2 ≅ {1,2,3}).'},
+    'C4-D4':  {H:'C_4', G:'D_4', iHorder:4, Gorder:8, idx:2, note:'The rotation subgroup; inducing non-trivial 1-dim gets 2-dim irrep.'},
+    'C2-D4':  {H:'C_2', G:'D_4', iHorder:2, Gorder:8, idx:4, note:'A reflection subgroup.'},
+    'V4-S4':  {H:'V_4', G:'S_4', iHorder:4, Gorder:24, idx:6, note:'The Klein 4-group; Ind_{V_4}^{S_4} 𝟙 = 𝟙 ⊕ ε ⊕ 2V_{(3,1)} ⊕ ... (permutation rep on 6 cosets, decomposes via Frobenius).'},
+    'A4-S4':  {H:'A_4', G:'S_4', iHorder:12, Gorder:24, idx:2, note:'Ind_{A_4}^{S_4} 𝟙 = 𝟙 ⊕ ε; induces trivial rep to trivial+sign.'},
+    'S3-S4':  {H:'S_3', G:'S_4', iHorder:6, Gorder:24, idx:4, note:'Stabilizer of a point; Ind_{S_3}^{S_4} 𝟙 = 𝟙 ⊕ V_{(3,1)}, the standard permutation rep.'}
+  };
+  function update(){
+    const p = pairs[sel.value];
+    const d = +dw.value;
+    const lines = [];
+    lines.push(`Pair: ${p.H} ≤ ${p.G},  |${p.G}|/|${p.H}| = ${p.Gorder}/${p.iHorder} = ${p.idx} = [G:H]`);
+    lines.push('');
+    lines.push(`dim Ind_H^G W = [G:H] · dim W = ${p.idx} · ${d} = ${p.idx * d}`);
+    lines.push('');
+    lines.push('Frobenius reciprocity (character side):');
+    lines.push('  ⟨χ_{Ind W}, χ_V⟩_G = ⟨χ_W, χ_{Res V}⟩_H');
+    lines.push('');
+    lines.push('Note: ' + p.note);
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', update);
+  dw.addEventListener('input', update);
+  update();
+})();
+
+/* =============================== §11 Highest-weight construction =============================== */
+(function(){
+  const sel = $('#hw-lam'), out = $('#hw-out');
+  function update(){
+    const lam = parseFloat(sel.value);
+    const lines = [];
+    lines.push(`Start with v = highest-weight vector: H v = ${lam} · v, E v = 0.`);
+    lines.push('');
+    const isInt = (Math.abs(lam - Math.round(lam)) < 1e-9);
+    const isNonneg = (lam >= -1e-9);
+    if(!isInt){
+      lines.push(`λ = ${lam} is NOT an integer.  Applying F repeatedly:`);
+      lines.push('  H (F^k v) = (λ - 2k) v_k, a sequence of non-integer weights.');
+      lines.push('  The chain ⟨v, Fv, F²v, ...⟩ is an infinite-dimensional Verma module;');
+      lines.push('  it has NO finite-dimensional quotient, so there is no finite-dim irrep with this HW.');
+    } else if(!isNonneg){
+      lines.push(`λ = ${lam} is a NEGATIVE integer.  The Verma M(λ) is infinite-dim;`);
+      lines.push('  the Weyl reflection sends λ → -λ-2 = ' + (-lam-2) + ', the HW of the finite-dim quotient.');
+      lines.push('  Running F: H(F^k v) = (λ-2k)v_k; no k makes this = -λ-2 with a kernel.');
+      lines.push('  Conclusion: no finite-dim irrep has highest weight λ < 0.');
+    } else {
+      const n = Math.round(lam);
+      lines.push(`λ = ${n} is a non-negative integer.  Apply F repeatedly:`);
+      const chain = [];
+      for(let k=0;k<=n+1;k++){
+        const w = n - 2*k;
+        chain.push(`  v_${k} = F^${k} v / ${k}!  has H-eigenvalue ${w}`);
+      }
+      chain.forEach(l=>lines.push(l));
+      lines.push('');
+      lines.push(`F^{${n+1}} v = 0 (checks via EF^{k}v = k(λ-k+1) F^{k-1}v at k = ${n+1}: (λ-(n+1)+1) = ${n - n} = 0).`);
+      lines.push('');
+      lines.push(`Result: V = span{v_0,...,v_${n}} has dim ${n+1} = λ+1.`);
+      lines.push(`This is V_${n}, the unique irreducible 𝔰𝔩₂-rep of highest weight ${n}.`);
+      lines.push(`Weights: ${n}, ${n-2}, ..., ${-n+2}, ${-n} (each multiplicity 1).`);
+    }
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', update);
+  update();
+})();
+
 /* =============================== §10 𝔰𝔩₂ weight diagram =============================== */
 (function(){
   const svg = $('#sl-svg'), out = $('#sl-out'), slider = $('#sl-n'), val = $('#sl-nval');
@@ -1577,6 +2066,95 @@ function innerProd(group, chiA, chiB){
   }
   mS.addEventListener('input', render);
   nS.addEventListener('input', render);
+  render();
+})();
+
+/* =============================== §13 Peter–Weyl: SU(2) matrix coefficients =============================== */
+(function(){
+  const svg = $('#pw-svg'), out = $('#pw-out'), sel = $('#pw-n');
+  function render(){
+    const nMax = +sel.value;
+    svg.innerHTML='';
+    const W = 820, H = 300;
+    // axes
+    const padL = 60, padR = 40, padT = 30, padB = 50;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    // theta from 0 to 2π along x, y range [-nMax-1, nMax+1]
+    const yMax = nMax + 1.5;
+    const xAxis = SVG('line',{x1:padL, y1:H-padB, x2:W-padR, y2:H-padB, stroke:'var(--line)', 'stroke-width':1});
+    svg.appendChild(xAxis);
+    const yAxis = SVG('line',{x1:padL, y1:padT, x2:padL, y2:H-padB, stroke:'var(--line)', 'stroke-width':1});
+    svg.appendChild(yAxis);
+    // center line (y=0)
+    const y0 = padT + plotH * (yMax/(2*yMax));
+    svg.appendChild(SVG('line',{x1:padL, y1:y0, x2:W-padR, y2:y0, stroke:'var(--line)', 'stroke-dasharray':'3 3'}));
+    // x-ticks at 0, π/2, π, 3π/2, 2π
+    const ticks = [{t:0, l:'0'}, {t:Math.PI/2, l:'π/2'}, {t:Math.PI, l:'π'}, {t:3*Math.PI/2, l:'3π/2'}, {t:2*Math.PI, l:'2π'}];
+    ticks.forEach(tk=>{
+      const x = padL + plotW * (tk.t / (2*Math.PI));
+      svg.appendChild(SVG('line',{x1:x, y1:H-padB, x2:x, y2:H-padB+4, stroke:'var(--mute)'}));
+      const t = SVG('text',{x, y:H-padB+18, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
+      t.textContent = tk.l;
+      svg.appendChild(t);
+    });
+    // x-label
+    const xLab = SVG('text',{x:W-padR+8, y:H-padB+5, 'font-size':12, fill:'var(--mute)'});
+    xLab.textContent = 'θ';
+    svg.appendChild(xLab);
+    // y-ticks
+    const yTicks = [-yMax+1, 0, yMax-1];
+    yTicks.forEach(v=>{
+      const y = padT + plotH * ((yMax - v) / (2*yMax));
+      svg.appendChild(SVG('line',{x1:padL-4, y1:y, x2:padL, y2:y, stroke:'var(--mute)'}));
+      const t = SVG('text',{x:padL-8, y:y+4, 'text-anchor':'end', 'font-size':11, fill:'var(--mute)'});
+      t.textContent = v.toFixed(0);
+      svg.appendChild(t);
+    });
+    // plot χ_n(θ) = sin((n+1)θ)/sin(θ) for n = 0..nMax
+    const colors = ['var(--yellow)', 'var(--blue)', 'var(--green)', 'var(--pink)', 'var(--violet)', 'var(--cyan)'];
+    const NPTS = 600;
+    for(let n=0; n<=nMax; n++){
+      let d = '';
+      let first = true;
+      for(let i=0;i<=NPTS;i++){
+        const th = 2*Math.PI*i/NPTS;
+        let chi;
+        if(Math.abs(Math.sin(th)) < 1e-9){
+          // limit: χ_n(0) = n+1,  χ_n(π) = (-1)^n (n+1) if we're careful
+          chi = (Math.abs(th) < 1e-9 || Math.abs(th - 2*Math.PI) < 1e-9) ? (n+1) : ((-1)**n * (n+1));
+        } else {
+          chi = Math.sin((n+1)*th) / Math.sin(th);
+        }
+        const x = padL + plotW * (th / (2*Math.PI));
+        const y = padT + plotH * ((yMax - chi) / (2*yMax));
+        if(first){ d = `M${x} ${y}`; first = false; }
+        else d += ` L${x} ${y}`;
+      }
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:colors[n%colors.length], 'stroke-width':1.8}));
+      // legend
+      const lx = W - padR - 120, ly = padT + 12 + n*16;
+      svg.appendChild(SVG('rect',{x:lx, y:ly-9, width:18, height:3, fill:colors[n%colors.length]}));
+      const lt = SVG('text',{x:lx+26, y:ly, 'font-size':11, fill:'var(--ink)'});
+      lt.textContent = `χ_${n}  (dim ${n+1})`;
+      svg.appendChild(lt);
+    }
+    // title
+    const ti = SVG('text',{x:W/2, y:18, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    ti.textContent = 'characters of SU(2) on the maximal torus:  χ_n(θ) = sin((n+1)θ) / sin(θ)';
+    svg.appendChild(ti);
+    // readout
+    const lines = [];
+    lines.push(`Displayed: characters χ_0, χ_1, ..., χ_${nMax} of SU(2) on the maximal torus diag(e^{iθ}, e^{-iθ}).`);
+    lines.push('');
+    lines.push(`Peter–Weyl: L²(SU(2)) = ⊕_{n≥0} V_n ⊗ V_n*,  with each V_n of dim ${nMax+1>=1?'n+1':''} appearing with multiplicity n+1.`);
+    lines.push('');
+    lines.push('Orthogonality: ∫₀^π χ_m(θ) χ_n(θ) · (2/π)sin²(θ) dθ = δ_{mn}.  (Weyl integration formula.)');
+    lines.push('');
+    lines.push('Chebyshev connection: χ_n(θ) = U_n(cos θ) where U_n is the Chebyshev polynomial of the 2nd kind.');
+    out.textContent = lines.join('\n');
+  }
+  sel.addEventListener('change', render);
   render();
 })();
 </script>

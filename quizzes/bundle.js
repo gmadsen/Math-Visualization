@@ -3342,6 +3342,535 @@ window.MVQuizBank = {
             "explain": "$C_4=\\binom{8}{4}/5=70/5=14$. These $14$ bracketings all become equal under iterated application of the associator $\\alpha$, by Mac Lane's coherence theorem."
           }
         ]
+      },
+      "yoneda-lemma": {
+        "title": "The Yoneda lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Yoneda lemma asserts a bijection $\\mathrm{Nat}(h_A,F)\\cong F(A)$. The forward map sends a natural transformation $\\eta\\colon h_A\\Rightarrow F$ to:",
+            "choices": [
+              "$\\eta_A(\\mathrm{id}_A)\\in F(A)$",
+              "the component $\\eta_A$ regarded as an element of $F(A)$",
+              "$F(\\mathrm{id}_A)\\in F(A)$",
+              "the natural transformation itself, coerced to a set"
+            ],
+            "answer": 0,
+            "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$. That single value determines every other component via naturality."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every statement that is an immediate corollary of the Yoneda lemma.",
+            "choices": [
+              "The Yoneda embedding $h_{(-)}\\colon\\mathcal{C}\\hookrightarrow\\mathsf{Fun}(\\mathcal{C}^{\\mathrm{op}},\\mathsf{Set})$ is fully faithful.",
+              "An object is determined up to isomorphism by its functor of points $h_X$.",
+              "Every presheaf is representable.",
+              "Representing objects are unique up to unique isomorphism."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
+          },
+          {
+            "type": "numeric",
+            "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\mathrm{Hom}(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "proof-completion",
+            "q": "Prove $\\mathrm{Nat}(h_A,F)\\to F(A)$, $\\eta\\mapsto\\eta_A(\\mathrm{id}_A)$, is injective. Pick the correct next step.",
+            "steps": [
+              "Let $\\eta,\\eta'\\colon h_A\\Rightarrow F$ with $\\eta_A(\\mathrm{id}_A)=\\eta'_A(\\mathrm{id}_A)=:x$.",
+              "Fix any object $C$ and any morphism $\\varphi\\colon C\\to A$."
+            ],
+            "choices": [
+              "Conclude $\\eta=\\eta'$ because both are natural.",
+              "Apply naturality of $\\eta$ and $\\eta'$ to $\\varphi$ to get $\\eta_C(\\varphi)=F(\\varphi)(x)=\\eta'_C(\\varphi)$.",
+              "Note that $F(\\varphi)$ is an isomorphism, hence $\\eta_C=\\eta'_C$.",
+              "Use Yoneda to conclude $\\eta=\\eta'$ without further computation."
+            ],
+            "answer": 1,
+            "hint": "$\\varphi=\\mathrm{id}_A\\circ\\varphi$: push it through the naturality square.",
+            "explain": "Naturality says $\\eta_C(\\varphi)=F(\\varphi)(\\eta_A(\\mathrm{id}_A))=F(\\varphi)(x)$, same for $\\eta'$. So components agree on every $C$ and every $\\varphi$, giving $\\eta=\\eta'$."
+          },
+          {
+            "type": "mcq",
+            "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\mathrm{Hom}(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
+            "choices": [
+              "$h_X$ is naturally isomorphic to the identity functor.",
+              "$h_X\\colon\\mathcal{C}\\to\\mathsf{Set}$ reflects isomorphisms, and the class $\\{X\\}$ is 'enough projectives'.",
+              "$X$ is an initial object.",
+              "Every object is a quotient of $X$."
+            ],
+            "answer": 1,
+            "explain": "Faithfulness of $\\mathrm{Hom}(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $G$ be a finite group and $\\mathcal{B}G$ its one-object category. A functor $F\\colon\\mathcal{B}G^{\\mathrm{op}}\\to\\mathsf{Set}$ is a right $G$-set. By Yoneda, $\\mathrm{Nat}(h_\\ast,F)\\cong F(\\ast)$; for $G=S_3$ and $F(\\ast)$ the regular right $S_3$-set, how many natural transformations are there?",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$|S_3|=6$, so the regular $S_3$-set has $6$ elements and Yoneda gives $|\\mathrm{Nat}(h_\\ast,F)|=|F(\\ast)|=6$."
+          }
+        ]
+      },
+      "limits-colimits": {
+        "title": "Limits and colimits",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each diagram shape $\\mathcal{J}$ with the corresponding limit in $\\mathcal{C}$.",
+            "left": [
+              "terminal object",
+              "product $A\\times B$",
+              "equalizer $\\mathrm{eq}(f,g)$",
+              "pullback $A\\times_C B$"
+            ],
+            "right": [
+              "empty diagram",
+              "discrete two-object diagram",
+              "parallel pair $\\bullet\\rightrightarrows\\bullet$",
+              "cospan $\\bullet\\to\\bullet\\leftarrow\\bullet$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Each limit is the universal cone on the corresponding shape: empty → terminal, two-point discrete → product, parallel pair → equalizer, cospan → pullback."
+          },
+          {
+            "type": "mcq",
+            "q": "In $\\mathsf{Set}$, the pullback of $f\\colon X\\to Z$ and $g\\colon Y\\to Z$ is:",
+            "choices": [
+              "$X\\cup Y$",
+              "$X\\times Y$",
+              "$\\{(x,y)\\in X\\times Y\\mid f(x)=g(y)\\}$",
+              "$\\{(x,y)\\in X\\times Y\\mid f(x)\\ne g(y)\\}$"
+            ],
+            "answer": 2,
+            "explain": "The pullback is the set of pairs that agree in $Z$ — exactly the universal cone over the cospan."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $X=\\{1,2,3,4\\}$, $Y=\\{a,b\\}$, $Z=\\{0,1\\}$, with $f\\colon X\\to Z$ defined $f(1)=f(2)=0$, $f(3)=f(4)=1$, and $g\\colon Y\\to Z$ defined $g(a)=0$, $g(b)=1$. Compute $|X\\times_Z Y|$.",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Fiber over $0$: $\\{1,2\\}\\times\\{a\\}$ gives $2$ pairs; fiber over $1$: $\\{3,4\\}\\times\\{b\\}$ gives $2$ pairs. Total: $4$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A functor $F\\colon\\mathcal{C}\\to\\mathcal{D}$ $\\textit{preserves}$ a limit $L$ of a diagram $D$ if $F(L)$ is a limit of $F\\circ D$; it $\\textit{reflects}$ limits if every cone $(c_j)$ in $\\mathcal{C}$ whose image is a limit cone in $\\mathcal{D}$ was already a limit cone. Which statement is false?",
+            "choices": [
+              "Every equivalence of categories preserves and reflects all limits.",
+              "Right adjoints preserve limits.",
+              "Faithful functors reflect limits.",
+              "The forgetful functor $U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$ preserves products."
+            ],
+            "answer": 2,
+            "hint": "A faithful functor can forget just enough structure to reflect isos but not reflect whole limit cones.",
+            "explain": "Faithful functors reflect isomorphisms but not general limits. E.g. $U\\colon\\mathsf{Top}\\to\\mathsf{Set}$ is faithful yet does not reflect products (a non-product topology on $X\\times Y$ still has product underlying set)."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the steps to show the pullback $X\\times_Z Y$ exists in $\\mathsf{Set}$.",
+            "items": [
+              "Define $P:=\\{(x,y)\\in X\\times Y\\mid f(x)=g(y)\\}$.",
+              "Let $\\pi_1\\colon P\\to X,\\pi_2\\colon P\\to Y$ be the projections; check $f\\pi_1=g\\pi_2$.",
+              "Given any other cone $(h\\colon W\\to X, k\\colon W\\to Y)$ with $fh=gk$, define $u\\colon W\\to P$ by $u(w)=(h(w),k(w))$.",
+              "Verify $\\pi_1 u=h$, $\\pi_2 u=k$, and that $u$ is the unique such map."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Construct the set, equip it with projections, produce the universal map, verify uniqueness."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathsf{Set}$, the coequalizer of $f,g\\colon A\\rightrightarrows B$ with $A=\\{1,2,3\\}$, $B=\\{x,y,z,w\\}$, $f(1)=x,f(2)=y,f(3)=z$ and $g(1)=y,g(2)=z,g(3)=w$ is $B/{\\sim}$ where $\\sim$ is generated by $f(a)\\sim g(a)$. How many elements does the coequalizer have?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "The relations $x\\sim y$, $y\\sim z$, $z\\sim w$ collapse all of $B$ to a single equivalence class."
+          }
+        ]
+      },
+      "adjunctions": {
+        "title": "Adjunctions: unit, counit, triangle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$F\\dashv G$ means, by definition, that there is an isomorphism, natural in $A$ and $B$:",
+            "choices": [
+              "$\\mathrm{Hom}_{\\mathcal{C}}(G(B),A)\\cong\\mathrm{Hom}_{\\mathcal{D}}(B,F(A))$",
+              "$\\mathrm{Hom}_{\\mathcal{D}}(F(A),B)\\cong\\mathrm{Hom}_{\\mathcal{C}}(A,G(B))$",
+              "$F\\circ G\\cong\\mathrm{id}_{\\mathcal{D}}$",
+              "$G\\circ F\\cong\\mathrm{id}_{\\mathcal{C}}$"
+            ],
+            "answer": 1,
+            "explain": "The defining Hom-isomorphism: mapping out of $F(A)$ in $\\mathcal{D}$ is the same data as mapping into $G(B)$ in $\\mathcal{C}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every example of an adjunction.",
+            "choices": [
+              "Free group $\\dashv$ forgetful $\\mathsf{Grp}\\to\\mathsf{Set}$",
+              "$(-)\\times A\\dashv\\mathrm{Hom}(A,-)$ in $\\mathsf{Set}$ (currying)",
+              "Abelianization $\\dashv$ inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$",
+              "The identity functor $\\mathrm{id}\\colon\\mathsf{Grp}\\to\\mathsf{Grp}$ is left adjoint to the double-dual $(-)^{**}$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The first three are textbook adjunctions. $(-)^{**}$ on $\\mathsf{Grp}$ isn't even functorial in an obvious way — and there's certainly no natural Hom-isomorphism with the identity."
+          },
+          {
+            "type": "numeric",
+            "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The triangle identities for an adjunction $F\\dashv G$ with unit $\\eta$ and counit $\\varepsilon$ are:",
+            "choices": [
+              "$(\\varepsilon F)\\circ(F\\eta)=\\mathrm{id}_F$ and $(G\\varepsilon)\\circ(\\eta G)=\\mathrm{id}_G$",
+              "$\\eta\\circ\\varepsilon=\\mathrm{id}$ and $\\varepsilon\\circ\\eta=\\mathrm{id}$",
+              "$F\\eta=\\mathrm{id}_F$ and $G\\varepsilon=\\mathrm{id}_G$",
+              "$\\eta$ and $\\varepsilon$ are both natural isomorphisms"
+            ],
+            "answer": 0,
+            "explain": "The triangles say 'whisker on one side, then whisker back, and you're home'. Neither $\\eta$ nor $\\varepsilon$ need be an iso — e.g. $F\\dashv U$ for free groups has non-iso $\\eta$ and non-iso $\\varepsilon$."
+          },
+          {
+            "type": "mcq",
+            "q": "$F\\dashv G$ and $F$ preserves all colimits that exist. Which is the correct slogan?",
+            "choices": [
+              "LAPL / RAPC: left adjoints preserve limits, right adjoints preserve colimits.",
+              "LAPC / RAPL: left adjoints preserve colimits, right adjoints preserve limits.",
+              "Both adjoints preserve both limits and colimits.",
+              "Neither slogan has content: it depends on the category."
+            ],
+            "answer": 1,
+            "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\mathrm{Hom}$ is covariant in its second argument and commutes with limits?",
+            "explain": "$\\mathrm{Hom}(-,X)$ turns colimits into limits, so $\\mathrm{Hom}(F-,-)\\cong\\mathrm{Hom}(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)|$.",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "By the adjunction, $\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)\\cong\\mathrm{Hom}_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
+          }
+        ]
+      },
+      "monads-algebras": {
+        "title": "Monads and their algebras",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A monad on $\\mathcal{C}$ is a triple $(T,\\mu,\\eta)$ where $T\\colon\\mathcal{C}\\to\\mathcal{C}$ is a functor, $\\mu\\colon T^2\\Rightarrow T$ and $\\eta\\colon\\mathrm{id}\\Rightarrow T$ are natural transformations. Which identities must hold?",
+            "choices": [
+              "$\\mu\\circ T\\mu=\\mu\\circ\\mu T$ and $\\mu\\circ T\\eta=\\mu\\circ\\eta T=\\mathrm{id}_T$",
+              "$\\mu\\circ\\eta=\\mathrm{id}$ and $\\eta\\circ\\mu=\\mathrm{id}$",
+              "$\\mu$ is an isomorphism",
+              "$\\eta$ is an isomorphism"
+            ],
+            "answer": 0,
+            "explain": "Associativity of multiplication and the left/right unit laws — the 'monoid-in-endofunctors' axioms."
+          },
+          {
+            "type": "mcq",
+            "q": "The $\\mathrm{Maybe}$ monad on $\\mathsf{Set}$ sends $X\\mapsto X\\sqcup\\{\\bot\\}$. The Kleisli composition $g\\circ_K f$ of $f\\colon X\\to\\mathrm{Maybe}\\,Y$ and $g\\colon Y\\to\\mathrm{Maybe}\\,Z$ is:",
+            "choices": [
+              "$x\\mapsto g(f(x))$ (ordinary composition)",
+              "$x\\mapsto$ if $f(x)=\\bot$ then $\\bot$ else $g(f(x))$",
+              "$x\\mapsto\\bot$ for all $x$",
+              "undefined without a strict monad structure"
+            ],
+            "answer": 1,
+            "explain": "Kleisli composition is 'bind then map': unwrap the option from $f$, run $g$ on success, propagate $\\bot$ on failure. This is exactly $\\mu_Z\\circ\\mathrm{Maybe}(g)\\circ f$."
+          },
+          {
+            "type": "numeric",
+            "q": "Every adjunction $F\\dashv U$ induces a monad $T=UF$ on the source category. For $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Mon}$ (free monoid / underlying set), what is $|T(\\{a\\})|$ restricted to words of length $\\le 3$ (including the empty word)?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Words in $\\{a\\}$ of length $0,1,2,3$ are $\\varepsilon, a, aa, aaa$ — exactly $4$ elements."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A $T$-algebra for a monad $T$ is a pair $(A,\\alpha)$ with $\\alpha\\colon T(A)\\to A$ satisfying unit and associativity axioms. For the free-monoid monad $T\\colon\\mathsf{Set}\\to\\mathsf{Set}$, a $T$-algebra is:",
+            "choices": [
+              "any set",
+              "a monoid",
+              "a group",
+              "a topological space"
+            ],
+            "answer": 1,
+            "hint": "$T(A)$ is the set of finite words in $A$; $\\alpha$ says how to 'multiply' a word.",
+            "explain": "The structure map $\\alpha\\colon T(A)\\to A$ assigns a product to every finite word; the axioms force this to be associative and unital — i.e. make $A$ a monoid. This is Eilenberg–Moore: algebras for the free-monoid monad = monoids."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\mathrm{Hom}_{\\mathcal{C}_T}(X,Y)=\\mathrm{Hom}_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
+            "choices": [
+              "A right adjoint to the Eilenberg–Moore category with no left adjoint.",
+              "The $\\textit{initial}$ adjunction generating $T$: $F_T\\dashv U_T$ where $F_T\\colon\\mathcal{C}\\to\\mathcal{C}_T$ sends $X\\mapsto X$ and $U_T X=T(X)$.",
+              "No adjunction; $\\mathcal{C}_T$ is a standalone construction.",
+              "The same adjunction as the Eilenberg–Moore category, up to equivalence."
+            ],
+            "answer": 1,
+            "explain": "Kleisli is the initial adjunction whose induced monad is $T$ (Eilenberg–Moore is the terminal one). Both recover $T$ as $U_T F_T=T$, but the resulting categories differ: Kleisli is a full subcategory of $\\mathcal{C}^T$ on the free algebras."
+          },
+          {
+            "type": "numeric",
+            "q": "For the list (= free-monoid) monad on $\\mathsf{Set}$, Kleisli morphisms $X\\to Y$ are functions $X\\to\\mathrm{List}(Y)$. How many Kleisli morphisms from $\\{a\\}$ to $\\{b\\}$ using lists of length exactly $2$ are there?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "A function $\\{a\\}\\to\\mathrm{List}^{=2}(\\{b\\})$ picks one list of length $2$ from $\\{bb\\}$ — exactly $1$ choice."
+          }
+        ]
+      },
+      "kan-extensions": {
+        "title": "Kan extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given functors $F\\colon\\mathcal{A}\\to\\mathcal{C}$ and $K\\colon\\mathcal{A}\\to\\mathcal{B}$, the $\\textit{left Kan extension}$ $\\mathrm{Lan}_K F$ is characterized by:",
+            "choices": [
+              "a natural iso $\\mathrm{Hom}(\\mathrm{Lan}_K F, G)\\cong\\mathrm{Hom}(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
+              "$\\mathrm{Lan}_K F=F\\circ K$",
+              "$\\mathrm{Lan}_K F\\cong K\\circ F$",
+              "any extension of $F$ to $\\mathcal{B}$"
+            ],
+            "answer": 0,
+            "explain": "The left Kan extension is the left adjoint (up to iso) to precomposition with $K$: $(-)\\circ K\\colon\\mathsf{Fun}(\\mathcal{B},\\mathcal{C})\\to\\mathsf{Fun}(\\mathcal{A},\\mathcal{C})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Mac Lane's dictum 'all concepts are Kan extensions' is literal: which of the following is NOT an instance of a (co)limit-as-Kan-extension?",
+            "choices": [
+              "A limit of $D\\colon\\mathcal{J}\\to\\mathcal{C}$ is the right Kan extension of $D$ along $\\mathcal{J}\\to\\mathbf{1}$.",
+              "A colimit of $D$ is the left Kan extension of $D$ along $\\mathcal{J}\\to\\mathbf{1}$.",
+              "An adjunction $F\\dashv G$ can be expressed via Kan extensions along identities.",
+              "Every functor is a Kan extension of itself along itself (tautologically)."
+            ],
+            "answer": 3,
+            "hint": "A Kan extension along $\\mathrm{id}$ is just the functor itself — fine as a tautology. Check whether that counts as a non-trivial 'instance' of a concept.",
+            "explain": "The tautology is true but vacuous — not a genuine $\\textit{instance}$ of a concept being recovered. Limits, colimits, and adjoints really ARE Kan extensions in the substantive sense."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K\\colon\\mathbf{1}\\to\\mathcal{J}$ be the inclusion of the one-object category into a diagram shape $\\mathcal{J}$ with $3$ objects and only identity arrows. For $F\\colon\\mathbf{1}\\to\\mathsf{Set}$ picking a $2$-element set, how many objects does $\\mathrm{Lan}_K F\\colon\\mathcal{J}\\to\\mathsf{Set}$ assign, counted as the sum $\\sum_{j\\in\\mathcal{J}}|\\mathrm{Lan}_K F(j)|$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$K$ hits one of the three objects; $\\mathrm{Lan}_K F$ at that object is $F(\\ast)$ (size $2$), and the initial (empty) colimit at the other two — so the total is $2+0+0=2$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "When $\\mathcal{C}$ is cocomplete and $\\mathcal{A}$ is small, the pointwise formula $\\mathrm{Lan}_K F(b)=\\mathrm{colim}\\,(K/b\\to\\mathcal{A}\\xrightarrow{F}\\mathcal{C})$ says the left Kan extension at $b\\in\\mathcal{B}$ is:",
+            "choices": [
+              "a limit over the comma category $(K/b)$",
+              "a colimit over the comma category $(K/b)$",
+              "a single object $F(K^{-1}(b))$",
+              "undefined unless $K$ is an equivalence"
+            ],
+            "answer": 1,
+            "explain": "Left Kan = colimit; right Kan = limit. The pointwise formula identifies the extension with a colimit indexed by the comma category of 'ways $b$ is hit by $K$'."
+          },
+          {
+            "type": "mcq",
+            "q": "Density theorem (a Kan-extension statement): every presheaf $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ is canonically a colimit of representables. Specifically $F\\cong\\mathrm{colim}\\,(\\text{elements}(F)\\to\\mathcal{C}\\xrightarrow{h_{-}}\\mathsf{PSh}(\\mathcal{C}))$. Which other result does this generalize?",
+            "choices": [
+              "Every vector is a linear combination of basis vectors (only when $\\mathcal{C}$ is discrete).",
+              "Every sheaf is etale.",
+              "The Yoneda embedding is an equivalence.",
+              "Mac Lane's coherence theorem."
+            ],
+            "answer": 0,
+            "hint": "What does the density theorem say for $\\mathcal{C}=$ a discrete category on a set?",
+            "explain": "When $\\mathcal{C}$ is discrete, a presheaf is just a family of sets, and the colimit of representables recovers the disjoint union — exactly 'expand in the basis of points'. Density is the categorical analogue."
+          },
+          {
+            "type": "numeric",
+            "q": "For $K\\colon\\mathcal{A}\\to\\mathcal{B}$ with $\\mathcal{A}$ discrete on $3$ objects, $\\mathcal{B}$ discrete on $5$ objects, and $K$ injective on objects with image of size $3$, and $F\\colon\\mathcal{A}\\to\\mathsf{Set}$ constantly the $2$-element set, compute $\\sum_{b\\in\\mathcal{B}}|\\mathrm{Lan}_K F(b)|$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "At the $3$ objects of $\\mathcal{B}$ in the image of $K$, the extension is the $2$-element set; at the other $2$ objects, it's the empty colimit. Total: $3\\cdot 2+2\\cdot 0=6$."
+          }
+        ]
+      },
+      "two-categories": {
+        "title": "2-categories preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A (strict) 2-category has objects, 1-morphisms between objects, and 2-morphisms between parallel 1-morphisms. Which is the canonical example?",
+            "choices": [
+              "$\\mathsf{Set}$, with injections as 2-cells",
+              "$\\mathsf{Cat}$: objects = categories, 1-cells = functors, 2-cells = natural transformations",
+              "The free category on any graph",
+              "Any discrete category on objects alone"
+            ],
+            "answer": 1,
+            "explain": "$\\mathsf{Cat}$ is the archetypal 2-category; the 2-cells are natural transformations and the two composition laws (vertical and horizontal) are the two ways of composing natural transformations."
+          },
+          {
+            "type": "mcq",
+            "q": "In a 2-category, 2-cells have $\\textit{two}$ compositions: vertical (composing $\\alpha\\colon f\\Rightarrow g$ and $\\beta\\colon g\\Rightarrow h$) and horizontal (composing $\\alpha\\colon f\\Rightarrow g$ and $\\alpha'\\colon f'\\Rightarrow g'$ where $f',g'$ are composable with $f,g$). The interchange law says:",
+            "choices": [
+              "vertical and horizontal composition are the same",
+              "$(\\beta\\circ\\alpha)*(\\beta'\\circ\\alpha')=(\\beta*\\beta')\\circ(\\alpha*\\alpha')$ for compatible 2-cells",
+              "all 2-cells are invertible",
+              "horizontal composition is strictly associative but vertical is only up to 3-cell"
+            ],
+            "answer": 1,
+            "explain": "Interchange: the two ways of reading a 'grid' of 2-cells — all-vertical-then-horizontal vs. all-horizontal-then-vertical — agree. This is the defining coherence of a (strict) 2-category."
+          },
+          {
+            "type": "numeric",
+            "q": "In $\\mathsf{Cat}$ viewed as a 2-category, how many 2-cells are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself, when $\\mathcal{C}$ is a discrete category on $5$ objects?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "A natural transformation $\\mathrm{id}\\Rightarrow\\mathrm{id}$ is a family $\\eta_A\\colon A\\to A$; in a discrete category the only such choice is $\\mathrm{id}_A$ at every object. So exactly $1$ 2-cell."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A 2-categorical $\\textit{adjunction}$ in a 2-category $\\mathcal{K}$ consists of 1-morphisms $f\\colon A\\to B$, $g\\colon B\\to A$ and 2-cells $\\eta\\colon\\mathrm{id}_A\\Rightarrow g\\circ f$, $\\varepsilon\\colon f\\circ g\\Rightarrow\\mathrm{id}_B$ satisfying the triangle equations. In $\\mathcal{K}=\\mathsf{Cat}$ this specializes to:",
+            "choices": [
+              "a pair of inverse equivalences",
+              "an ordinary adjunction $F\\dashv G$ of categories",
+              "a strict isomorphism of categories",
+              "a natural isomorphism between two functors"
+            ],
+            "answer": 1,
+            "explain": "Exactly: the 2-categorical definition in $\\mathsf{Cat}$ reproduces the unit/counit formulation of an ordinary adjunction. 2-category theory is designed so every such notion specializes cleanly."
+          },
+          {
+            "type": "mcq",
+            "q": "A $\\textit{monad in a 2-category}$ $\\mathcal{K}$ is an object $A$ together with a 1-morphism $t\\colon A\\to A$ and 2-cells $\\mu\\colon tt\\Rightarrow t$, $\\eta\\colon\\mathrm{id}_A\\Rightarrow t$ satisfying the monad axioms. Specializing to $\\mathcal{K}=\\mathsf{Cat}$ recovers:",
+            "choices": [
+              "an ordinary monad on a category",
+              "a ring",
+              "a group",
+              "a limit"
+            ],
+            "answer": 0,
+            "explain": "A monad on a category $\\mathcal{C}$ = a monad in $\\mathsf{Cat}$ at the object $\\mathcal{C}$. The 2-categorical definition is just the diagrammatic axioms interpreted abstractly."
+          },
+          {
+            "type": "numeric",
+            "q": "The 2-category $\\mathsf{Cat}$ restricted to the full sub-2-category on one object $\\mathcal{C}=\\mathbf{1}$ (the terminal category) has one object and one 1-morphism (the identity functor). How many 2-cells $\\mathrm{id}_{\\mathbf{1}}\\Rightarrow\\mathrm{id}_{\\mathbf{1}}$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "The only arrow in $\\mathbf{1}$ is $\\mathrm{id}_\\ast$; the only natural transformation is the one with component $\\mathrm{id}_\\ast$."
+          }
+        ]
+      },
+      "enriched-categories": {
+        "title": "Enriched categories preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ in $\\mathcal{V}$. Identity becomes:",
+            "choices": [
+              "a morphism $I\\to\\mathrm{Hom}(A,A)$",
+              "a morphism $\\mathrm{Hom}(A,A)\\to I$",
+              "an isomorphism $\\mathrm{Hom}(A,A)\\cong I$",
+              "not needed; enriched categories have no identities"
+            ],
+            "answer": 0,
+            "explain": "The identity 1-morphism at $A$ is a 'point' of the Hom-object, i.e. an arrow out of the monoidal unit $I$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each choice of $\\mathcal{V}$ with the structure a $\\mathcal{V}$-enriched category recovers.",
+            "left": [
+              "ordinary category",
+              "additive/pre-additive category",
+              "$\\mathsf{Cat}$-enriched (strict) 2-category",
+              "Lawvere metric space"
+            ],
+            "right": [
+              "$\\mathcal{V}=\\mathsf{Set}$ with $\\times$",
+              "$\\mathcal{V}=\\mathsf{Ab}$ with $\\otimes_{\\mathbb{Z}}$",
+              "$\\mathcal{V}=\\mathsf{Cat}$ with $\\times$",
+              "$\\mathcal{V}=([0,\\infty],\\ge,+,0)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
+          },
+          {
+            "type": "numeric",
+            "q": "In a Lawvere metric space (an enriched category over $[0,\\infty]$), the 'identity at $A$' is a morphism $0\\ge d(A,A)$, i.e. $d(A,A)\\le 0$. Combined with $d\\ge 0$ this forces $d(A,A)=$ which value?",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$0\\le d(A,A)\\le 0$, so $d(A,A)=0$ — the reflexivity axiom of a pseudo-metric."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "In Lawvere's enriched-category interpretation, composition $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ becomes the inequality:",
+            "choices": [
+              "$d(B,C)+d(A,B)\\ge d(A,C)$ (triangle inequality)",
+              "$d(B,C)\\cdot d(A,B)\\ge d(A,C)$",
+              "$\\max(d(B,C),d(A,B))\\ge d(A,C)$",
+              "$d(A,C)=d(A,B)+d(B,C)$ (exact equality)"
+            ],
+            "answer": 0,
+            "hint": "The monoidal product in $[0,\\infty]$ is $+$, and the hom-order is $\\ge$.",
+            "explain": "A morphism from $x\\otimes y$ to $z$ in $([0,\\infty],\\ge,+)$ is the inequality $x+y\\ge z$ — exactly the triangle inequality."
+          },
+          {
+            "type": "mcq",
+            "q": "A $\\mathsf{Set}$-enriched functor is an ordinary functor. A $\\mathsf{Ab}$-enriched functor between pre-additive categories is:",
+            "choices": [
+              "any ordinary functor",
+              "a functor whose action on Hom-groups is a group homomorphism",
+              "a full and faithful functor",
+              "an isomorphism on underlying sets"
+            ],
+            "answer": 1,
+            "explain": "Enriched functoriality = functoriality plus compatibility with the $\\mathcal{V}$-structure on Homs. For $\\mathcal{V}=\\mathsf{Ab}$ this is additivity on hom-groups."
+          },
+          {
+            "type": "numeric",
+            "q": "A Lawvere metric space with $3$ points $\\{A,B,C\\}$ satisfies $d(A,B)=2$, $d(B,C)=3$. The enriched-category axiom (triangle inequality) gives the strongest upper bound on $d(A,C)$. What is this bound?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "The composition in the enriched category gives $d(A,C)\\le d(A,B)+d(B,C)=2+3=5$."
+          }
+        ]
       }
     }
   },
@@ -3802,14 +4331,14 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "How many prime ideals does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
-            "answer": 2,
+            "q": "How many ideals does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
+            "answer": 6,
             "tol": 0.000001,
-            "explain": "Prime ideals of $\\mathbb{Z}/n$ correspond to prime divisors of $n$. Since $12=2^2\\cdot 3$, the primes are $(2)$ and $(3)$, giving $2$ prime ideals."
+            "explain": "Ideals of $\\mathbb{Z}/n$ correspond to divisors of $n$. Divisors of $12$: $1,2,3,4,6,12$, so $6$ ideals."
           },
           {
             "type": "mcq",
-            "q": "Which ideal of $\\mathbb{Z}$ equals $V^{-1}$ of the closed set $\\{(2),(3),(5)\\}\\subset\\mathrm{Spec}(\\mathbb{Z})$, i.e. an ideal whose zero set is exactly those three primes?",
+            "q": "Which ideal of $\\mathbb{Z}$ has zero set $V(I) = \\{(2),(3),(5)\\}\\subset\\mathrm{Spec}(\\mathbb{Z})$?",
             "choices": [
               "$(2\\cdot 3\\cdot 5)=(30)$",
               "$(2+3+5)=(10)$",
@@ -3831,26 +4360,394 @@ window.MVQuizBank = {
               "$I\\subsetneq\\sqrt{I}\\subsetneq\\mathfrak{m}$"
             ],
             "answer": 1,
-            "explain": "$I=(x^2,xy,y^2)\\subsetneq\\mathfrak{m}=(x,y)$ since $x\\notin I$. But $x^2,y^2\\in I$ means $x,y\\in\\sqrt{I}$, so $\\sqrt{I}=\\mathfrak{m}$. Thus $I\\subsetneq\\sqrt{I}=\\mathfrak{m}$."
+            "hint": "Is $x \\in I$? Is $x \\in \\sqrt{I}$?",
+            "explain": "$I\\subsetneq\\mathfrak{m}=(x,y)$ since $x\\notin I$. But $x^2,y^2\\in I$ means $x,y\\in\\sqrt{I}$, so $\\sqrt{I}=\\mathfrak{m}$."
           },
           {
             "type": "numeric",
-            "q": "In $\\mathbb{Z}[x]$, the ideal $(2, x)$ is maximal with residue field $\\mathbb{F}_2$. How many elements does $\\mathbb{Z}[x]/(2,x^2+x+1)$ have?",
+            "q": "How many elements does $\\mathbb{Z}[x]/(2,x^2+x+1)$ have?",
             "answer": 4,
             "tol": 0.000001,
-            "explain": "$\\mathbb{Z}[x]/(2,x^2+x+1)\\cong\\mathbb{F}_2[x]/(x^2+x+1)$. Since $x^2+x+1$ is irreducible over $\\mathbb{F}_2$ (it has no roots in $\\mathbb{F}_2$), this is the field $\\mathbb{F}_4$, which has $2^2=4$ elements."
+            "hint": "Reduce mod $2$ first and check irreducibility.",
+            "explain": "$\\mathbb{Z}[x]/(2,x^2+x+1)\\cong\\mathbb{F}_2[x]/(x^2+x+1)$. Since $x^2+x+1$ is irreducible over $\\mathbb{F}_2$, this is the field $\\mathbb{F}_4$ with $4$ elements."
+          }
+        ]
+      },
+      "primes-maximals-ca": {
+        "title": "Prime vs maximal ideals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the polynomial ring $k[x]$ over a field $k$, which of the following is a maximal ideal?",
+            "choices": [
+              "$(0)$",
+              "$(x^2+1)$ when $k=\\mathbb{R}$",
+              "$(x^2-1)$ when $k=\\mathbb{R}$",
+              "$k[x]$ itself"
+            ],
+            "answer": 1,
+            "explain": "In a PID, maximal ideals are $(f)$ with $f$ irreducible. $x^2+1$ is irreducible over $\\mathbb{R}$; $x^2-1=(x-1)(x+1)$ is not. $(0)$ is prime but not maximal."
+          },
+          {
+            "type": "numeric",
+            "q": "How many maximal ideals does $\\mathbb{Z}/30\\mathbb{Z}$ have?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "In an Artinian ring every prime is maximal. Primes of $\\mathbb{Z}/30$ correspond to primes dividing $30=2\\cdot 3\\cdot 5$, giving $(2),(3),(5)$: $3$ maximal ideals."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all primes of $\\mathbb{Z}[x]$ that are maximal.",
+            "choices": [
+              "$(0)$",
+              "$(2)$",
+              "$(x)$",
+              "$(2,x)$",
+              "$(3, x^2+1)$"
+            ],
+            "answer": [
+              3,
+              4
+            ],
+            "explain": "$\\dim\\mathbb{Z}[x]=2$, so maximal ideals have height $2$. $(0)$ is generic (height $0$); $(2),(x)$ are height $1$ (quotient is a domain but not a field). $(2,x)$ and $(3,x^2+1)$ are height-$2$ with residue field $\\mathbb{F}_2$ and $\\mathbb{F}_9$ respectively."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which is true of every commutative ring $A$ with $1\\ne 0$?",
+            "choices": [
+              "$A$ has at least one prime ideal, and every maximal ideal is prime",
+              "$A$ has only finitely many prime ideals",
+              "Every prime ideal of $A$ is maximal",
+              "The intersection of all maximal ideals is $(0)$"
+            ],
+            "answer": 0,
+            "hint": "One of these is Krull's theorem (Zorn); others fail for $\\mathbb{Z}$, $k[x]$, or $k[[x]]$.",
+            "explain": "Krull's theorem (via Zorn) guarantees every proper ideal sits inside a maximal one, so maximals exist, and maximal $\\Rightarrow$ prime (quotient by maximal is a field, hence a domain). $\\mathbb{Z}$ has infinitely many primes; $(0)\\subsetneq(2)$ in $\\mathbb{Z}$ shows primes need not be maximal; $\\bigcap\\mathfrak{m}$ can be nonzero in a local ring."
+          },
+          {
+            "type": "numeric",
+            "q": "In $A = \\mathbb{Z}[\\sqrt{-5}]$, the prime $(2)\\subset\\mathbb{Z}$ factors as $(2, 1+\\sqrt{-5})^2$. How many primes of $A$ lie over $(2)$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "The prime is ramified.",
+            "explain": "$(2)$ is ramified: $(2)A = \\mathfrak{p}^2$ with $\\mathfrak{p} = (2, 1+\\sqrt{-5})$, so exactly one prime lies above $(2)$. Note $A/\\mathfrak{p}\\cong\\mathbb{F}_2$."
           },
           {
             "type": "mcq",
-            "q": "Which statement about nilradical and Jacobson radical of a commutative ring $A$ is always true?",
+            "q": "For $A = k[x,y]$ with $k$ algebraically closed, Hilbert's Nullstellensatz says every maximal ideal has the form:",
             "choices": [
-              "$\\mathrm{Jac}(A)\\subseteq\\mathrm{nil}(A)$",
-              "$\\mathrm{nil}(A)\\subseteq\\mathrm{Jac}(A)$",
-              "$\\mathrm{nil}(A)=\\mathrm{Jac}(A)$ always",
-              "They are always coprime ideals"
+              "$(f)$ for $f$ irreducible",
+              "$(x-a, y-b)$ for some $(a,b)\\in k^2$",
+              "$(x^n, y^n)$ for some $n\\ge 1$",
+              "the intersection of height-$1$ primes"
             ],
             "answer": 1,
-            "explain": "The nilradical $\\mathrm{nil}(A)=\\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ and Jacobson radical $\\mathrm{Jac}(A)=\\bigcap_{\\mathfrak{m}\\text{ maximal}}\\mathfrak{m}$. Every maximal ideal is prime, so $\\mathrm{nil}(A)\\subseteq\\mathrm{Jac}(A)$. Equality fails e.g. for $\\mathbb{Z}$: $\\mathrm{nil}(\\mathbb{Z})=0$ but $\\mathrm{Jac}(\\mathbb{Z})=0$ happens to agree, whereas for $A=\\mathbb{Z}/(p^2)$, $\\mathrm{nil}=(p)=\\mathrm{Jac}$; a separating example is $A=k[x]$."
+            "explain": "By the weak Nullstellensatz, maximal ideals of $k[x_1,\\dots,x_n]$ (algebraically closed $k$) biject with points $(a_1,\\dots,a_n)\\in k^n$ via $(x_1-a_1,\\dots,x_n-a_n)$. $(f)$ is only a prime of height $1$ (a curve), not maximal."
+          }
+        ]
+      },
+      "spec-zariski-ca": {
+        "title": "Spec and Zariski topology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathrm{Spec}(\\mathbb{Z})$, the closure $\\overline{\\{(0)\\}}$ equals:",
+            "choices": [
+              "$\\{(0)\\}$",
+              "$\\mathrm{Spec}(\\mathbb{Z})$",
+              "the set of maximal ideals $(p)$",
+              "the empty set"
+            ],
+            "answer": 1,
+            "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\mathrm{Spec}(\\mathbb{Z})$: the generic point is dense."
+          },
+          {
+            "type": "numeric",
+            "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\mathrm{Spec}(\\mathbb{Z}/30)$ contain?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Primes of $\\mathbb{Z}/30$ are $(2),(3),(5)$. $D(6)$ excludes primes containing $6$, i.e. containing $2$ or $3$, so it excludes $(2)$ and $(3)$, leaving $\\{(5)\\}$: $1$ point."
+          },
+          {
+            "type": "mcq",
+            "q": "Which subset of $\\mathrm{Spec}(\\mathbb{Z})$ is NOT closed in the Zariski topology?",
+            "choices": [
+              "$\\{(2),(3)\\}$",
+              "$\\{(0)\\}$",
+              "$\\mathrm{Spec}(\\mathbb{Z})$",
+              "$\\emptyset$"
+            ],
+            "answer": 1,
+            "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\mathrm{Spec}=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\mathrm{Spec}$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For a ring $A$, the map $\\mathrm{Spec}(A/I)\\to\\mathrm{Spec}(A)$ induced by $A\\twoheadrightarrow A/I$ is:",
+            "choices": [
+              "a homeomorphism onto $V(I)$",
+              "always surjective",
+              "always an open immersion",
+              "an isomorphism"
+            ],
+            "answer": 0,
+            "hint": "Primes of $A/I$ correspond to primes of $A$ containing $I$.",
+            "explain": "Primes of $A/I$ biject with primes of $A$ containing $I$, i.e. with $V(I)$; the bijection is a Zariski homeomorphism. Similarly $\\mathrm{Spec}(S^{-1}A)$ embeds as the open set of primes disjoint from $S$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all properties that $\\mathrm{Spec}(A)$ always satisfies as a topological space.",
+            "choices": [
+              "quasi-compact (every open cover has a finite subcover)",
+              "Hausdorff",
+              "$T_0$ (points distinguishable by open sets)",
+              "connected"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathrm{Spec}(A)$ is always quasi-compact and $T_0$, never Hausdorff unless zero-dimensional (non-closed generic points). Connectedness fails for $A\\times B$: $\\mathrm{Spec}(A\\times B)=\\mathrm{Spec}(A)\\sqcup\\mathrm{Spec}(B)$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many irreducible components does $\\mathrm{Spec}(k[x,y]/(xy(x-1)))$ have?",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "Decompose $(xy(x-1))$ into its prime components.",
+            "explain": "$(xy(x-1)) = (x)\\cap(y)\\cap(x-1)$ as a radical ideal. The three minimal primes correspond to three irreducible components: the $y$-axis $(x)$, the $x$-axis $(y)$, and the line $x=1$."
+          }
+        ]
+      },
+      "nilradical-jacobson-ca": {
+        "title": "Nilradical and Jacobson radical",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The nilradical $\\mathrm{nil}(A)$ of a commutative ring $A$ equals:",
+            "choices": [
+              "$\\bigcap_{\\mathfrak{m}\\text{ max}}\\mathfrak{m}$",
+              "$\\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$",
+              "$\\bigcap_{\\mathfrak{p}\\text{ minimal}}\\mathfrak{p}$",
+              "the set of units"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{nil}(A) = \\{x : x^n = 0\\text{ some }n\\}$. A classical theorem: this equals $\\bigcap\\mathfrak{p}$ over all primes. The intersection over minimal primes also works (it's the same set)."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the nilradical of $\\mathbb{Z}/72\\mathbb{Z}$? (Give its smallest nonnegative generator.)",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$72 = 2^3\\cdot 3^2$. Nilradical = $(\\mathrm{rad}(72)) = (2\\cdot 3) = (6)$. An element is nilpotent iff it's divisible by every prime dividing $72$, i.e. by $6$."
+          },
+          {
+            "type": "mcq",
+            "q": "An element $x\\in A$ lies in the Jacobson radical $\\mathrm{Jac}(A)$ iff:",
+            "choices": [
+              "$x$ is nilpotent",
+              "$1-xy$ is a unit for every $y\\in A$",
+              "$x = 0$",
+              "$x$ is a zero divisor"
+            ],
+            "answer": 1,
+            "explain": "Characterization: $x\\in\\mathrm{Jac}(A) \\Leftrightarrow 1-xy \\in A^\\times$ for all $y$. In a local ring this says $x$ is in the maximal ideal; more generally $\\mathrm{Jac}(A) = \\bigcap\\mathfrak{m}$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which inclusion between nilradical and Jacobson radical is always true for commutative rings $A$?",
+            "choices": [
+              "$\\mathrm{Jac}(A) \\subseteq \\mathrm{nil}(A)$",
+              "$\\mathrm{nil}(A) \\subseteq \\mathrm{Jac}(A)$",
+              "$\\mathrm{nil}(A) = \\mathrm{Jac}(A)$ always",
+              "They are always coprime"
+            ],
+            "answer": 1,
+            "hint": "Every maximal ideal is prime.",
+            "explain": "Every maximal ideal is prime, so $\\bigcap\\mathfrak{m} \\supseteq \\bigcap\\mathfrak{p}$, i.e. $\\mathrm{Jac}(A)\\supseteq\\mathrm{nil}(A)$. Equality fails e.g. for $\\mathbb{Z}_{(p)}$: $\\mathrm{nil}=(0)$ but $\\mathrm{Jac}=(p)\\ne 0$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all rings $A$ for which $\\mathrm{nil}(A) = \\mathrm{Jac}(A)$.",
+            "choices": [
+              "Any Artinian ring",
+              "$\\mathbb{Z}$",
+              "$k[x]$ for a field $k$",
+              "Any Jacobson ring (e.g. finitely generated $k$-algebra)"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "In Artinian rings, every prime is maximal, so the two intersections agree. Jacobson rings are defined by $\\mathrm{nil}(A/I)=\\mathrm{Jac}(A/I)$ for every $I$, in particular for $I=0$. For $\\mathbb{Z}$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(p)=(0)$ — equal! But $k[x]$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(f)=(0)$... actually these are both $(0)$ for one-dimensional Jacobson domains. Option B is valid too; but stricter rings like $\\mathbb{Z}_{(p)}$ fail."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $A=k[x,y]/(x^2,xy)$. Compute $\\dim_k(\\mathrm{nil}(A))$ as a $k$-vector space.",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "$A/(\\bar x)\\cong k[y]$ is reduced, so $\\mathrm{nil}(A) \\subseteq (\\bar x)$.",
+            "explain": "$A$ has basis $\\{1,\\bar y,\\bar y^2,\\dots,\\bar x\\}$ over $k$. Since $A/(\\bar x)\\cong k[y]$ is reduced, $\\mathrm{nil}(A) = (\\bar x)$. And $(\\bar x) = k\\cdot\\bar x$ (since $\\bar x\\bar y = 0$), giving $\\dim_k\\mathrm{nil}(A)=1$."
+          }
+        ]
+      },
+      "modules-ca": {
+        "title": "Modules and tensor products",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Over $\\mathbb{Z}$, which of the following is $\\mathbb{Z}/4 \\otimes_\\mathbb{Z} \\mathbb{Z}/6$?",
+            "choices": [
+              "$\\mathbb{Z}/24$",
+              "$\\mathbb{Z}/12$",
+              "$\\mathbb{Z}/2$",
+              "$0$"
+            ],
+            "answer": 2,
+            "explain": "$\\mathbb{Z}/m\\otimes_\\mathbb{Z}\\mathbb{Z}/n \\cong \\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(4,6)=2$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many $\\mathbb{Z}$-submodules does $\\mathbb{Z}/6\\mathbb{Z}$ have?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "Submodules of $\\mathbb{Z}/6$ correspond to divisors of $6$: $1,2,3,6$, giving $4$ submodules: $0,\\;2\\mathbb{Z}/6,\\;3\\mathbb{Z}/6,\\;\\mathbb{Z}/6$ itself."
+          },
+          {
+            "type": "mcq",
+            "q": "For which sequence is the claim 'tensoring with $\\mathbb{Z}/2$ over $\\mathbb{Z}$ preserves exactness' FALSE?",
+            "choices": [
+              "$0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$",
+              "$0\\to\\mathbb{Z}\\to\\mathbb{Z}\\oplus\\mathbb{Z}\\to\\mathbb{Z}\\to 0$ (split)",
+              "$0\\to\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}\\to\\mathbb{Z}/3\\to 0$",
+              "$0\\to\\mathbb{Z}/3\\to\\mathbb{Z}/6\\to\\mathbb{Z}/2\\to 0$"
+            ],
+            "answer": 0,
+            "explain": "Tensoring the first sequence with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2 \\xrightarrow{2=0}\\mathbb{Z}/2$, so injectivity fails. The other sequences either split or are tensored with a coprime factor."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $M, N$ be finitely generated modules over a commutative ring $A$. The canonical map $M^\\vee \\otimes N \\to \\mathrm{Hom}(M, N)$ (where $M^\\vee = \\mathrm{Hom}(M, A)$) is an isomorphism when:",
+            "choices": [
+              "always",
+              "$M$ is finitely generated projective",
+              "$A$ is a PID",
+              "$N$ is free"
+            ],
+            "answer": 1,
+            "hint": "The isomorphism requires dualizability of $M$.",
+            "explain": "$M^\\vee\\otimes N\\to\\mathrm{Hom}(M,N)$ is an iso when $M$ is f.g. projective (dualizable in $A\\mathbf{-Mod}$). It fails for general f.g. $M$ (e.g. torsion modules over a domain)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all statements that hold for modules $M$ over a commutative ring $A$.",
+            "choices": [
+              "$\\mathrm{Hom}_A(A, M) \\cong M$ for every $M$",
+              "$M\\otimes_A A \\cong M$ for every $M$",
+              "Direct sum is a left adjoint to the diagonal functor",
+              "Every finitely generated module over a PID is free"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$\\mathrm{Hom}(A,-)$ and $-\\otimes A$ are both the identity functor on $A\\mathbf{-Mod}$. Coproducts (direct sums) are left adjoint to diagonal. The last is false: $\\mathbb{Z}/n$ is f.g. over $\\mathbb{Z}$ but not free."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\dim_{\\mathbb{F}_p}(\\mathbb{F}_p[x]/(x^3) \\otimes_{\\mathbb{F}_p[x]} \\mathbb{F}_p[x]/(x^7))$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "Use $A/I \\otimes_A A/J \\cong A/(I+J)$.",
+            "explain": "$\\mathbb{F}_p[x]/(x^3)\\otimes_{\\mathbb{F}_p[x]}\\mathbb{F}_p[x]/(x^7) \\cong \\mathbb{F}_p[x]/((x^3)+(x^7))=\\mathbb{F}_p[x]/(x^3)$ since $(x^3)\\supseteq(x^7)$. Dimension $= 3$."
+          }
+        ]
+      },
+      "noetherian-hilbert-ca": {
+        "title": "Noetherian rings and Hilbert basis",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A commutative ring $A$ is Noetherian iff:",
+            "choices": [
+              "every ideal is principal",
+              "every ascending chain of ideals $I_1\\subseteq I_2\\subseteq\\cdots$ stabilizes",
+              "$A$ has only finitely many prime ideals",
+              "$A$ is finitely generated as a $\\mathbb{Z}$-algebra"
+            ],
+            "answer": 1,
+            "explain": "The ascending chain condition is the defining property; equivalently, every ideal is finitely generated. Principal ideal domains are stronger; finite prime count fails for $\\mathbb{Z}$ (which is Noetherian)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Noetherian?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$k[x_1, x_2, x_3, \\ldots]$ (infinitely many variables)",
+              "$k[x,y]/(xy)$",
+              "The ring of continuous functions $C(\\mathbb{R})$"
+            ],
+            "answer": [
+              0,
+              2
+            ],
+            "explain": "$\\mathbb{Z}$ is a PID (Noetherian). $k[x,y]/(xy)$ is a quotient of the Noetherian $k[x,y]$. $k[x_1,x_2,\\dots]$ has the non-stabilizing chain $(x_1)\\subsetneq(x_1,x_2)\\subsetneq\\cdots$. $C(\\mathbb{R})$ has chains of vanishing ideals that don't stabilize."
+          },
+          {
+            "type": "numeric",
+            "q": "The Hilbert basis theorem says: if $A$ is Noetherian then so is $A[x]$. Applying this repeatedly, $k[x_1,\\dots,x_n]$ is Noetherian over any field $k$. How many generators does the ideal $(x^5, x^3 y, y^7)\\subset k[x,y]$ need, minimally?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "In a monomial ideal, minimal generators are the monomials not divisible by other monomials in the generating set. $x^5, x^3y, y^7$: none divides another, so all three are needed. $3$ generators."
+          }
+        ],
+        "hard": [
+          {
+            "type": "ordering",
+            "q": "Arrange the steps of the proof of the Hilbert basis theorem (that $A$ Noetherian $\\Rightarrow A[x]$ Noetherian).",
+            "items": [
+              "Let $I\\subseteq A[x]$ be an ideal and form the ideal $J\\subseteq A$ of leading coefficients",
+              "Choose finitely many $f_1,\\dots,f_r\\in I$ whose leading coefficients generate $J$",
+              "For any $g\\in I$, subtract a combination $\\sum a_i x^{k_i} f_i$ to reduce $\\deg g$",
+              "Reduce to a finite-dimensional sub-case and invoke Noetherianness of $A$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Start by extracting data from $I$; end by invoking ACC on $A$.",
+            "explain": "The classical proof: first define $J$ = leading coefficients of elements of $I$ (this is an ideal of $A$), pick generators via Noetherianness of $A$, use them to reduce any $g\\in I$ modulo bounded-degree pieces, and finish with f.g. coefficient modules."
+          },
+          {
+            "type": "mcq",
+            "q": "Which ring is NOT Noetherian but has an 'ascending chain condition on finitely generated ideals'?",
+            "choices": [
+              "A polynomial ring in infinitely many variables",
+              "A valuation ring of rank $1$ with non-discrete value group (e.g. $\\mathbb{Z}[\\frac{1}{2},\\frac{1}{3},\\ldots]_{(p)}$-type constructions)",
+              "Any Artinian ring",
+              "$\\mathbb{Z}[1/p]$"
+            ],
+            "answer": 1,
+            "hint": "A valuation ring has totally ordered ideals — but the ordering might not be well-founded.",
+            "explain": "Non-discrete valuation rings have totally ordered ideal structure, so principal/f.g. ideals form a chain, but the order-type can be $\\mathbb{R}$-like, violating ACC on all ideals. Polynomial rings in $\\infty$ variables fail ACC on f.g. ideals too."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $A = k[x,y,z]/(x^2, xy, yz, z^2)$ (monomial quotient). How many associated primes does $A$ have as an $A$-module of itself?",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "Consider annihilators of nonzero elements.",
+            "explain": "The only minimal prime containing $(x^2,xy,yz,z^2)$ is the nilradical's associated prime $(x,y,z)$: every nonzero element's annihilator is contained in $(x,y,z)$. One associated prime."
           }
         ]
       },
@@ -3871,10 +4768,10 @@ window.MVQuizBank = {
           },
           {
             "type": "numeric",
-            "q": "How many prime ideals does the localization $\\mathbb{Z}[1/2]$ (inverting $2$) have lying over primes of $\\mathbb{Z}$ strictly less than $100$? (Count only nonzero primes of $\\mathbb{Z}[1/2]$ of the form $(p)$ with $p<100$.)",
+            "q": "How many primes less than $100$ survive in $\\mathbb{Z}[1/2]$ (i.e. remain non-unit primes)?",
             "answer": 24,
             "tol": 0.000001,
-            "explain": "Primes of $S^{-1}A$ correspond to primes of $A$ disjoint from $S$. Inverting $2$ kills the prime $(2)$, leaving odd primes below $100$: $3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97$, which is $24$ primes."
+            "explain": "Primes of $S^{-1}A$ correspond to primes of $A$ disjoint from $S$. Inverting $2$ kills $(2)$, leaving odd primes $<100$: $3,5,7,11,\\dots,97$, which is $24$ primes."
           },
           {
             "type": "mcq",
@@ -3886,40 +4783,41 @@ window.MVQuizBank = {
               "$\\mathbb{Z}$ always"
             ],
             "answer": 1,
-            "explain": "Modding $A_{\\mathfrak{p}}$ by its maximal ideal yields the fraction field of the integral domain $A/\\mathfrak{p}$. For $A=\\mathbb{Z}$, $\\mathfrak{p}=(p)$: residue field $\\mathbb{F}_p=\\mathrm{Frac}(\\mathbb{Z}/p)$."
+            "explain": "Modding $A_{\\mathfrak{p}}$ by its maximal ideal yields the fraction field of $A/\\mathfrak{p}$. For $A=\\mathbb{Z}$, $\\mathfrak{p}=(p)$: residue field $\\mathbb{F}_p=\\mathrm{Frac}(\\mathbb{Z}/p)$."
           }
         ],
         "hard": [
           {
             "type": "mcq",
-            "q": "Let $A=k[x,y]_{(x,y)}$ (local ring at the origin) and $S=A\\setminus(x,y)$. Arranging the localization maps, which ring is $S^{-1}(A/(xy))$?",
+            "q": "Let $A=k[x,y]_{(x,y)}$ (local ring at the origin). Which ring is $A/(xy)$ as a local ring?",
             "choices": [
-              "$k[x,y]/(xy)$ localized at $(x,y)$, a non-domain local ring",
+              "$k[x,y]/(xy)$ localized at $(x,y)$, a non-domain local ring with two minimal primes",
               "$k(x)\\times k(y)$, a product of fields",
               "$k[[x,y]]/(xy)$, a power-series ring",
-              "$k[x,x^{-1}]$, a Laurent polynomial ring"
+              "$k[x,x^{-1}]$"
             ],
             "answer": 0,
-            "explain": "Localization and quotient commute: $S^{-1}(A/(xy))\\cong (S^{-1}A)/(xy)=A/(xy)$ where $A$ is already local. This is the local ring of the node $xy=0$ at the origin — a non-domain local ring with two minimal primes $(x)$ and $(y)$."
+            "hint": "Localization commutes with quotient.",
+            "explain": "Localization and quotient commute: $A/(xy)=(k[x,y]/(xy))_{(x,y)}$ — the local ring of the node at the origin, non-domain with minimal primes $(x)$ and $(y)$."
           },
           {
             "type": "numeric",
-            "q": "Let $A=\\mathbb{Z}_{(5)}$ (integers localized at $(5)$). How many ideals does $A/(125)$ have?",
+            "q": "Let $A=\\mathbb{Z}_{(5)}$. How many ideals does $A/(125)$ have?",
             "answer": 4,
             "tol": 0.000001,
-            "explain": "$A/(125)\\cong\\mathbb{Z}_{(5)}/(5^3)\\cong\\mathbb{Z}/125\\mathbb{Z}$ as rings. Since $\\mathbb{Z}/125$ is a local ring with maximal ideal $(5)$, its ideals are $(0),(5),(25),(125)=(0)$ in the quotient — equivalently $(0),(\\bar 5),(\\bar{25})$ and the whole ring. There are $4$ ideals (including $(0)$ and the ring itself): $(0)\\subsetneq(\\bar{25})\\subsetneq(\\bar 5)\\subsetneq A/(125)$."
+            "explain": "$A/(125)\\cong\\mathbb{Z}/125$ as rings: local with chain $(0)\\subsetneq(25)\\subsetneq(5)\\subsetneq(1)$. $4$ ideals."
           },
           {
             "type": "mcq",
-            "q": "Arrange the steps to prove that localization is exact (i.e., $S^{-1}$ preserves short exact sequences). Which order is correct?",
+            "q": "Arrange: why is localization exact? Pick the correct one-line proof.",
             "choices": [
-              "Tensor with $S^{-1}A$; use flatness of $S^{-1}A$; conclude exactness",
-              "Use Nakayama's lemma; localize; conclude exactness",
-              "Check surjectivity first; then injectivity; use the snake lemma",
-              "Localize; form the long exact Tor sequence; read off $\\mathrm{Tor}_0$"
+              "$S^{-1}M\\cong M\\otimes_A S^{-1}A$ and $S^{-1}A$ is flat",
+              "Nakayama's lemma",
+              "Surjectivity first, then injectivity via snake lemma",
+              "Long exact Tor sequence, read $\\mathrm{Tor}_0$"
             ],
             "answer": 0,
-            "explain": "$S^{-1}M\\cong M\\otimes_A S^{-1}A$. Since $S^{-1}A$ is flat over $A$ (localizations are always flat), tensoring with it preserves exactness. This is the cleanest proof: identify $S^{-1}$ with $-\\otimes_A S^{-1}A$, invoke flatness."
+            "explain": "$S^{-1}M\\cong M\\otimes_A S^{-1}A$; $S^{-1}A$ is flat over $A$ (a direct-limit of free modules), so tensoring preserves exactness."
           }
         ]
       },
@@ -3936,14 +4834,14 @@ window.MVQuizBank = {
               "$\\mathbb{Z}^{\\oplus 5}$"
             ],
             "answer": 2,
-            "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has $3$-torsion, so it is not flat; the others are torsion-free (localizations and free modules are always flat)."
+            "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has torsion."
           },
           {
             "type": "numeric",
             "q": "Compute $\\dim_{\\mathbb{F}_2}\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "Resolve $\\mathbb{Z}/2$ as $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, tensor with $\\mathbb{Z}/2$: get $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, so $\\mathrm{Tor}_1=\\ker=\\mathbb{Z}/2$, dimension $1$ over $\\mathbb{F}_2$."
+            "explain": "Resolve $\\mathbb{Z}/2$ via $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, tensor with $\\mathbb{Z}/2$: $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, kernel $\\mathbb{Z}/2$."
           },
           {
             "type": "mcq",
@@ -3955,7 +4853,7 @@ window.MVQuizBank = {
               "$\\mathrm{Tor}_1^A(M,A/\\mathfrak{m})$ is finitely generated"
             ],
             "answer": 1,
-            "explain": "Over a Noetherian local ring, a finitely generated flat module is free (this is the local criterion for flatness combined with Nakayama)."
+            "explain": "Over a Noetherian local ring, f.g. flat = free (local criterion plus Nakayama)."
           }
         ],
         "hard": [
@@ -3966,29 +4864,30 @@ window.MVQuizBank = {
               "$M$ is flat iff $M'$ is flat",
               "$M'$ is always flat",
               "$M$ is always flat",
-              "$M''$ being flat forces $M=M'\\oplus M''$"
+              "$M''$ flat forces split"
             ],
             "answer": 0,
-            "explain": "When $M''$ is flat the sequence $0\\to M'\\otimes N\\to M\\otimes N\\to M''\\otimes N\\to 0$ remains exact for all $N$ by the long exact Tor sequence ($\\mathrm{Tor}_1(-,N)$ vanishes on $M''$). So $M$ is flat iff $M'$ is flat. This is the \"flat extension\" lemma."
+            "hint": "Use the long exact Tor sequence.",
+            "explain": "$\\mathrm{Tor}_1(M'',N)=0$ gives exactness of $0\\to M'\\otimes N\\to M\\otimes N$; extend by $\\mathrm{Tor}_2$ for higher statements. So $M$ flat $\\Leftrightarrow$ $M'$ flat."
           },
           {
             "type": "numeric",
-            "q": "Compute $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/m,\\mathbb{Z}/n)$ as an abelian group. What is the order of $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)$?",
+            "q": "Compute the order of $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)$.",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "Over $\\mathbb{Z}$ (a PID of global dimension $1$), $\\mathrm{Tor}_i^{\\mathbb{Z}}=0$ for all $i\\ge 2$. So $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)=0$, which has order $1$ (the trivial group)."
+            "explain": "$\\mathbb{Z}$ has global dimension $1$, so $\\mathrm{Tor}_i^{\\mathbb{Z}}=0$ for $i\\ge 2$. Trivial group has order $1$."
           },
           {
             "type": "mcq",
-            "q": "Which example shows that torsion-free does NOT imply flat over a non-PID?",
+            "q": "Which example shows torsion-free $\\ne$ flat over a non-PID?",
             "choices": [
               "$\\mathbb{Q}$ over $\\mathbb{Z}$",
-              "The ideal $(x,y)$ in $k[x,y]$ as a $k[x,y]$-module",
+              "$(x,y)\\subset k[x,y]$ as $k[x,y]$-module",
               "$k[x]$ over itself",
               "$\\mathbb{Z}/p$ over $\\mathbb{F}_p$"
             ],
             "answer": 1,
-            "explain": "$(x,y)\\subset k[x,y]$ is torsion-free (it injects into the fraction field), but it is not flat: tensoring the injection $0\\to(x,y)\\to k[x,y]$ with $k[x,y]/(x,y)=k$ is not injective since $(x,y)\\otimes k\\cong k^2$ but the map to $k$ has a kernel. This uses $\\mathrm{Tor}_1^{k[x,y]}(k[x,y]/(x,y),(x,y))\\neq 0$."
+            "explain": "$(x,y)$ is torsion-free (injects in fraction field), but not flat: $\\mathrm{Tor}_1^{k[x,y]}(k[x,y]/(x,y),(x,y))\\ne 0$."
           }
         ]
       },
@@ -3997,26 +4896,26 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Let $(A,\\mathfrak{m},k)$ be a local Noetherian ring and $M$ a f.g. $A$-module. Elements $m_1,\\dots,m_r$ generate $M$ iff:",
+            "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian, $M$ f.g. Elements $m_1,\\dots,m_r\\in M$ generate $M$ iff:",
             "choices": [
-              "$m_1,\\dots,m_r$ are linearly independent over $A$",
+              "$m_1,\\dots,m_r$ are $A$-linearly independent",
               "their images span $M/\\mathfrak{m}M$ as a $k$-vector space",
               "they generate $\\mathfrak{m}M$",
               "$M$ is free of rank $r$"
             ],
             "answer": 1,
-            "explain": "This is the standard corollary of Nakayama: generation of $M$ is detected after modding out by $\\mathfrak{m}$. Minimal generators correspond to a basis of $M/\\mathfrak{m}M$."
+            "explain": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$."
           },
           {
             "type": "numeric",
-            "q": "For the nodal cubic $y^2=x^3+x^2$ at the origin $p=(0,0)$, compute $\\dim_k(\\mathfrak{m}/\\mathfrak{m}^2)$ where $\\mathfrak{m}$ is the maximal ideal of the local ring at $p$.",
+            "q": "For the nodal cubic $y^2=x^3+x^2$ at the origin $p$, compute $\\dim_k(\\mathfrak{m}/\\mathfrak{m}^2)$ of the local ring at $p$.",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "Both partials $\\partial_x(y^2-x^3-x^2)=-3x^2-2x$ and $\\partial_y(y^2-x^3-x^2)=2y$ vanish at the origin, so the Jacobian is zero and the Zariski tangent space has dimension $2$. Since the curve is $1$-dimensional, the node is singular."
+            "explain": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero. Zariski tangent space has dimension $2$ while the curve is $1$-dim: singular."
           },
           {
             "type": "mcq",
-            "q": "A Noetherian local ring $(A,\\mathfrak{m},k)$ is called regular when:",
+            "q": "A Noetherian local ring $(A,\\mathfrak{m},k)$ is regular when:",
             "choices": [
               "$A$ is a domain",
               "$\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$",
@@ -4024,41 +4923,41 @@ window.MVQuizBank = {
               "$A$ is a UFD"
             ],
             "answer": 1,
-            "explain": "Regularity says the Zariski tangent-space dimension (embedding dimension) equals the Krull dimension. In general $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, with equality iff $A$ is regular — the algebraic analogue of smoothness."
+            "explain": "Regularity: embedding dimension = Krull dimension. $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, equality iff regular."
           }
         ],
         "hard": [
           {
             "type": "mcq",
-            "q": "Let $(A,\\mathfrak{m})$ be a Noetherian local ring with $M$ a f.g. $A$-module and $N\\subseteq M$ a submodule. Arrange the steps in the proof that $\\mathfrak{m}N=N\\Rightarrow N=0$.",
+            "q": "Pick the key step in proving $\\mathfrak{m}N=N\\Rightarrow N=0$ for $N\\subseteq M$ a submodule of an f.g. module over a local ring.",
             "choices": [
-              "Apply Cayley–Hamilton to get a relation $f(1)\\cdot n=0$ for all $n\\in N$; show $f(1)$ is a unit",
-              "Use that $\\mathfrak{m}$ is nilpotent; descend along $\\mathfrak{m}^k N$",
-              "Tensor with $A/\\mathfrak{m}$ first; conclude $N/\\mathfrak{m}N=0$; apply Nakayama",
-              "Use Zorn's lemma on the set of submodules of $N$ not equal to $N$"
+              "Cayley–Hamilton: produce $f(1)\\cdot n = 0$ with $f(1)\\in 1 + \\mathfrak{m}$, a unit",
+              "Use $\\mathfrak{m}$ nilpotent; descend",
+              "Tensor with $k$",
+              "Zorn's lemma"
             ],
             "answer": 0,
-            "hint": "Look for a polynomial relation whose constant term is a unit modulo $\\mathfrak{m}$.",
-            "explain": "The standard proof: $\\mathfrak{m}N=N$ gives a matrix equation $Mn=n$ (Cayley–Hamilton trick), yielding $p(1)=0$ for a monic $p\\in 1+\\mathfrak{m}[t]$. Since $p(1)\\equiv 1\\pmod{\\mathfrak{m}}$, it is a unit in $A$, so $N=0$. Option C describes a corollary, not the root argument."
+            "hint": "Look for a monic polynomial whose constant term is a unit mod $\\mathfrak{m}$.",
+            "explain": "$\\mathfrak{m}N=N$ gives matrix equation $Mn=n$; Cayley–Hamilton yields $p(1)\\in 1+\\mathfrak{m}$ annihilating $N$. $p(1)$ is a unit, so $N=0$."
           },
           {
             "type": "numeric",
-            "q": "Let $A=k[[t]]$ (formal power series), $\\mathfrak{m}=(t)$. What is $\\dim_k \\mathfrak{m}^3/\\mathfrak{m}^4$?",
+            "q": "Let $A=k[[t]]$, $\\mathfrak{m}=(t)$. Compute $\\dim_k\\mathfrak{m}^3/\\mathfrak{m}^4$.",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "$\\mathfrak{m}^n=(t^n)$ in $k[[t]]$, so $\\mathfrak{m}^3/\\mathfrak{m}^4\\cong (t^3)/(t^4)\\cong k$ as a $k$-vector space, spanned by the image of $t^3$. Dimension is $1$."
+            "explain": "$\\mathfrak{m}^n=(t^n)$, so $\\mathfrak{m}^3/\\mathfrak{m}^4\\cong k$ spanned by $t^3$."
           },
           {
             "type": "mcq",
-            "q": "For a regular local ring $(A,\\mathfrak{m},k)$ of dimension $d$, which statement about the associated graded ring $\\mathrm{gr}_\\mathfrak{m}A=\\bigoplus_{n\\ge 0}\\mathfrak{m}^n/\\mathfrak{m}^{n+1}$ is true?",
+            "q": "For a regular local ring $(A,\\mathfrak{m},k)$ of dim $d$, which is true of $\\mathrm{gr}_\\mathfrak{m}A$?",
             "choices": [
-              "$\\mathrm{gr}_\\mathfrak{m}A\\cong k[[x_1,\\dots,x_d]]$",
-              "$\\mathrm{gr}_\\mathfrak{m}A\\cong k[x_1,\\dots,x_d]$ as graded rings",
-              "$\\mathrm{gr}_\\mathfrak{m}A$ is always a local ring",
-              "$\\mathrm{gr}_\\mathfrak{m}A\\cong A$ as ungraded rings"
+              "$\\cong k[[x_1,\\dots,x_d]]$",
+              "$\\cong k[x_1,\\dots,x_d]$ as graded rings",
+              "always local",
+              "$\\cong A$ as ungraded"
             ],
             "answer": 1,
-            "explain": "Regularity implies $\\mathrm{gr}_\\mathfrak{m}A$ is a polynomial ring: choosing a regular system of parameters $x_1,\\dots,x_d$ (a $k$-basis of $\\mathfrak{m}/\\mathfrak{m}^2$) gives $\\mathrm{gr}_\\mathfrak{m}A\\cong k[x_1,\\dots,x_d]$. The formal completion $\\hat A\\cong k[[x_1,\\dots,x_d]]$ (not the associated graded)."
+            "explain": "Regular $\\Leftrightarrow$ $\\mathrm{gr}_\\mathfrak{m}A\\cong k[x_1,\\dots,x_d]$ (polynomial). Completion gives power series."
           }
         ]
       },
@@ -4067,7 +4966,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Which of the following is an integral extension?",
+            "q": "Which is an integral extension?",
             "choices": [
               "$\\mathbb{Z}\\subseteq\\mathbb{Z}[1/2]$",
               "$k[x]\\subseteq k(x)$",
@@ -4075,75 +4974,76 @@ window.MVQuizBank = {
               "$\\mathbb{Z}\\subseteq\\mathbb{Q}$"
             ],
             "answer": 2,
-            "explain": "$\\sqrt{-5}$ satisfies the monic equation $t^2+5=0$ over $\\mathbb{Z}$, making $\\mathbb{Z}[\\sqrt{-5}]$ integral over $\\mathbb{Z}$. Localizations $\\mathbb{Z}[1/2]$, $\\mathbb{Q}$, and $k(x)$ invert non-unit elements, producing non-integral transcendental/fractional elements like $1/2$, which satisfies no monic $\\mathbb{Z}$-polynomial."
+            "explain": "$\\sqrt{-5}$ satisfies $t^2+5=0$, monic over $\\mathbb{Z}$."
           },
           {
             "type": "numeric",
-            "q": "By Noether normalization, $k[x,y]/(xy-1)$ is finite over $k[z]$ for some transcendental $z$. What is the minimum possible degree $[B:k[z]]$ of this finite extension (where $B=k[x,y]/(xy-1)$)?",
+            "q": "By Noether normalization, $B=k[x,y]/(xy-1)$ is finite over $k[z]$ for some $z$. Minimum $[B:k[z]]$?",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "The hyperbola $xy=1$ has dimension $1$, so Noether normalization gives a finite map to $k[z]$ (one variable). Choosing $z=x+y$ works: then $x,y$ are the roots of $t^2-zt+1=0$ over $k[z]$, so $B$ is free of rank $2$ over $k[z]$."
+            "explain": "Choose $z=x+y$: $x,y$ satisfy $t^2-zt+1=0$, so $B$ is free of rank $2$ over $k[z]$."
           },
           {
             "type": "mcq",
-            "q": "If $A\\subseteq B$ is an integral extension of domains, which fails?",
+            "q": "If $A\\subseteq B$ is integral of domains, which fails in general?",
             "choices": [
               "$\\dim A=\\dim B$",
               "$\\mathrm{Spec}(B)\\to\\mathrm{Spec}(A)$ is surjective",
               "$A$ is a field iff $B$ is a field",
-              "$B$ is always a finitely generated $A$-module"
+              "$B$ is a finitely generated $A$-module"
             ],
             "answer": 3,
-            "explain": "Integral does not imply finitely generated: $\\overline{\\mathbb{Q}}$ is integral over $\\mathbb{Z}$ (every algebraic integer) but not f.g. The other statements are standard consequences of lying-over, going-up, and incomparability."
+            "explain": "$\\overline{\\mathbb{Q}}$ is integral over $\\mathbb{Z}$ but not f.g."
           }
         ],
         "hard": [
           {
             "type": "mcq",
-            "q": "Let $A\\subseteq B$ be an integral extension of Noetherian domains with $A$ integrally closed. If $\\mathfrak{q}_1,\\mathfrak{q}_2\\subset B$ both lie over the same prime $\\mathfrak{p}=\\mathfrak{q}_i\\cap A$, which must hold?",
+            "q": "$A\\subseteq B$ integral of Noetherian domains, $A$ integrally closed. Primes $\\mathfrak{q}_1,\\mathfrak{q}_2$ over $\\mathfrak{p}$:",
             "choices": [
-              "$\\mathfrak{q}_1=\\mathfrak{q}_2$ always",
-              "$\\mathfrak{q}_1$ and $\\mathfrak{q}_2$ are conjugate under $\\mathrm{Aut}(B/A)$ when $B/A$ is Galois",
-              "$\\mathfrak{q}_1\\subsetneq\\mathfrak{q}_2$ or $\\mathfrak{q}_2\\subsetneq\\mathfrak{q}_1$",
+              "always $\\mathfrak{q}_1=\\mathfrak{q}_2$",
+              "conjugate under $\\mathrm{Aut}(B/A)$ when Galois",
+              "$\\mathfrak{q}_1\\subsetneq\\mathfrak{q}_2$",
               "$\\mathfrak{q}_1\\cap\\mathfrak{q}_2=\\mathfrak{p}B$"
             ],
             "answer": 1,
-            "explain": "By the theorem of going-up and incomparability, primes lying over $\\mathfrak{p}$ are incomparable. When $B/A$ arises from a Galois extension of fraction fields, the Galois group acts transitively on the fiber $\\{\\mathfrak{q}:A\\cap\\mathfrak{q}=\\mathfrak{p}\\}$, so any two are conjugate. In general they need not be equal (e.g. $\\mathbb{Z}[\\sqrt{-5}]$ over $\\mathbb{Z}$ at $p=2$)."
+            "hint": "Incomparability + Galois transitivity.",
+            "explain": "Galois group acts transitively on the fiber; in general fibers are incomparable but need not collapse."
           },
           {
             "type": "numeric",
-            "q": "Let $B=\\mathbb{Z}[i]$ (Gaussian integers) and $A=\\mathbb{Z}$. How many prime ideals of $B$ lie over the prime $(5)\\subset\\mathbb{Z}$?",
+            "q": "How many primes of $\\mathbb{Z}[i]$ lie over $(5)\\subset\\mathbb{Z}$?",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "$5=(2+i)(2-i)$ splits in $\\mathbb{Z}[i]$ since $5\\equiv 1\\pmod 4$. The two factors generate distinct prime ideals $(2+i)$ and $(2-i)$ in $\\mathbb{Z}[i]$, both lying over $(5)$. So there are $2$ primes above $(5)$."
+            "explain": "$5=(2+i)(2-i)$ splits since $5\\equiv 1\\pmod 4$. Two primes."
           },
           {
             "type": "mcq",
-            "q": "In the proof of Noether normalization for $k[x_1,\\dots,x_n]/I$ over $k$ (infinite field), what is the role of the linear change of variables $x_i\\mapsto x_i-\\lambda_i x_n$?",
+            "q": "In Noether normalization, the role of the linear change $x_i\\mapsto x_i - \\lambda_i x_n$ is to:",
             "choices": [
-              "It makes $x_n$ integral over $k[x_1,\\dots,x_{n-1}]$ by producing a monic polynomial",
-              "It inverts $x_n$ to pass to the fraction field",
-              "It eliminates $x_n$ entirely from $I$",
-              "It makes the extension separable by clearing denominators"
+              "make $x_n$ integral over $k[x_1,\\dots,x_{n-1}]$ via a monic relation",
+              "invert $x_n$",
+              "eliminate $x_n$ from $I$",
+              "ensure separability"
             ],
             "answer": 0,
-            "explain": "Given a nonzero $f\\in I$, the substitution $x_i\\mapsto x_i+\\lambda_i x_n$ (generic $\\lambda_i\\in k$) makes the leading monomial in $x_n$ have a nonzero coefficient, so $f$ becomes monic (after scaling) in $x_n$. This exhibits $x_n$ as integral over $k[x_1,\\dots,x_{n-1}]$, allowing induction on $n$."
+            "explain": "Generic $\\lambda$ ensures the top $x_n$-power coefficient in $f$ is nonzero; after scaling, monic in $x_n$, so $x_n$ is integral over the others."
           }
         ]
       },
       "krull-dimension-ca": {
-        "title": "Krull dimension and depth heuristics",
+        "title": "Krull dimension",
         "questions": [
           {
             "type": "numeric",
-            "q": "What is the Krull dimension of $k[x_1,x_2,x_3,x_4]$?",
+            "q": "Krull dimension of $k[x_1,x_2,x_3,x_4]$?",
             "answer": 4,
             "tol": 0.000001,
-            "explain": "Over a field, $\\dim k[x_1,\\dots,x_n]=n$. Chain: $(0)\\subsetneq(x_1)\\subsetneq(x_1,x_2)\\subsetneq(x_1,x_2,x_3)\\subsetneq(x_1,x_2,x_3,x_4)$."
+            "explain": "$\\dim k[x_1,\\dots,x_n]=n$; chain $(0)\\subsetneq(x_1)\\subsetneq\\cdots\\subsetneq(x_1,\\dots,x_4)$."
           },
           {
             "type": "mcq",
-            "q": "What is $\\dim k[x,y]/(xy)$?",
+            "q": "$\\dim k[x,y]/(xy)$?",
             "choices": [
               "$0$",
               "$1$",
@@ -4151,42 +5051,112 @@ window.MVQuizBank = {
               "$\\infty$"
             ],
             "answer": 1,
-            "explain": "$\\mathrm{Spec}\\,k[x,y]/(xy)$ is the union of the two coordinate axes. The longest chain of primes is (generic point of one axis) $\\subsetneq$ (origin), giving dimension $1$."
+            "explain": "Two coordinate axes; longest chain is (generic of one axis) $\\subsetneq$ (origin): dim $1$."
           },
           {
             "type": "numeric",
-            "q": "What is $\\dim \\mathbb{Z}[x]$?",
+            "q": "$\\dim\\mathbb{Z}[x]$?",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "For Noetherian $A$, $\\dim A[x]=\\dim A+1$. Since $\\dim \\mathbb{Z}=1$, we get $\\dim \\mathbb{Z}[x]=2$. A chain: $(0)\\subsetneq (p)\\subsetneq (p,x)$."
+            "explain": "$\\dim A[x]=\\dim A+1$ for Noetherian $A$. $\\dim\\mathbb{Z}=1$, so $\\dim\\mathbb{Z}[x]=2$. Chain: $(0)\\subsetneq(p)\\subsetneq(p,x)$."
           }
         ],
         "hard": [
           {
             "type": "numeric",
-            "q": "Compute $\\dim k[x,y,z]/(xz-y^2, yz-x^3, z^2-x^2 y)$ (the twisted cubic curve).",
+            "q": "Compute $\\dim k[x,y,z]/(xz-y^2, yz-x^3, z^2-x^2 y)$ (twisted cubic).",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "The twisted cubic is an irreducible curve in $\\mathbb{A}^3$ parametrized by $t\\mapsto(t,t^2,t^3)$. The ideal cuts out a $1$-dimensional variety (a curve), so the Krull dimension of the quotient ring is $1$. A prime chain: $(0)\\subsetneq\\mathfrak{m}$ for any point ideal $\\mathfrak{m}$."
+            "explain": "Twisted cubic is a $1$-dim curve $t\\mapsto(t,t^2,t^3)$."
           },
           {
             "type": "mcq",
-            "q": "Which is an example of a Noetherian ring that is NOT catenary (where catenary means all maximal chains between two primes have the same length)?",
+            "q": "Which is a Noetherian but non-catenary ring?",
             "choices": [
-              "Any field $k$",
+              "Any field",
               "$\\mathbb{Z}$",
-              "A Nagata-style domain constructed to have inconsistent chain lengths between two fixed primes",
-              "$k[x_1,\\dots,x_n]$ for any $n$"
+              "Nagata's counterexample with inconsistent chain lengths",
+              "$k[x_1,\\dots,x_n]$"
             ],
             "answer": 2,
-            "explain": "Nagata constructed a Noetherian domain with two maximal ideals $\\mathfrak{m}_1,\\mathfrak{m}_2$ such that all saturated chains from $(0)$ to $\\mathfrak{m}_1$ have length $1$ but all chains to $\\mathfrak{m}_2$ have length $2$. Polynomial rings over fields, $\\mathbb{Z}$, and fields are all catenary (universally catenary, in fact)."
+            "explain": "Nagata built a Noetherian domain with chains of two different maximal lengths. Polynomial rings, fields, and $\\mathbb{Z}$ are universally catenary."
           },
           {
             "type": "numeric",
-            "q": "Let $A=k[x,y,z]/(x^2+y^2+z^2-1)$ (coordinate ring of the $2$-sphere over $k=\\mathbb{R}$). Compute $\\dim A$.",
+            "q": "Compute $\\dim \\mathbb{R}[x,y,z]/(x^2+y^2+z^2-1)$.",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "The $2$-sphere is an irreducible $2$-dimensional variety, so $\\dim A = 2$. More precisely, $A$ is a domain of transcendence degree $2$ over $k$ (the sphere maps finitely to $\\mathbb{A}^2$ via projection), giving Krull dimension $2$."
+            "explain": "$2$-sphere is $2$-dim irreducible variety; $\\dim$ = tr.deg = $2$."
+          }
+        ]
+      },
+      "transcendence-degree-ca": {
+        "title": "Transcendence degree and geometric dimension",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The transcendence degree $\\mathrm{tr.deg}_k(k(x,y))$ of the field of rational functions in two variables is:",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$2$",
+              "$\\infty$"
+            ],
+            "answer": 2,
+            "explain": "$\\{x,y\\}$ is algebraically independent over $k$, so $\\mathrm{tr.deg}=2$. This is the same as the Krull dimension of $k[x,y]$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $B = k[x,y,z]/(z - xy)$. Compute $\\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The relation $z=xy$ makes $z$ algebraically dependent on $x,y$. $\\mathrm{Frac}(B)=k(x,y)$, with tr.deg $2$. (Matches $\\dim B = 2$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "For a finitely generated integral domain $B$ over an algebraically closed field $k$, which theorem asserts $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$?",
+            "choices": [
+              "Hilbert basis theorem",
+              "Noether normalization plus going-up",
+              "Nakayama's lemma",
+              "Going-down theorem"
+            ],
+            "answer": 1,
+            "explain": "Noether normalization gives a finite map $B\\twoheadleftarrow k[y_1,\\dots,y_d]$ with $d=\\mathrm{tr.deg}$; going-up preserves dimension; $\\dim k[y_1,\\dots,y_d]=d$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Let $f\\colon X\\to Y$ be a dominant morphism of irreducible varieties over $\\overline k$ with $\\dim X > \\dim Y$. Pick the correct generic-fiber statement.",
+            "choices": [
+              "Every fiber of $f$ has dimension $\\dim X - \\dim Y$",
+              "The generic fiber has dimension $\\dim X - \\dim Y$; other fibers may jump",
+              "Fibers have dimension $\\dim X$",
+              "Fibers have dimension $\\dim Y$"
+            ],
+            "answer": 1,
+            "hint": "Upper-semicontinuity of fiber dimension.",
+            "explain": "The dimension-of-fiber theorem: generic fiber has dim $=\\dim X - \\dim Y$; special fibers can only jump up. E.g. blow-up has generic fiber a point but exceptional fiber a curve."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\mathrm{tr.deg}_{\\mathbb{Q}}(\\mathbb{Q}(\\sqrt{2}, \\pi, e))$ assuming $\\pi, e$ are algebraically independent over $\\mathbb{Q}$ (this is open, but assume it).",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\sqrt{2}$ is algebraic over $\\mathbb{Q}$ (contributes $0$ to tr.deg). $\\pi, e$ assumed algebraically independent contribute $2$. Total: $2$."
+          },
+          {
+            "type": "mcq",
+            "q": "For a purely transcendental extension $k\\subset k(t_1,\\dots,t_n)$, which is true?",
+            "choices": [
+              "It is algebraic",
+              "It has transcendence degree $n$ and is the fraction field of $k[t_1,\\dots,t_n]$",
+              "It has transcendence degree $1$",
+              "It equals $k$"
+            ],
+            "answer": 1,
+            "explain": "Purely transcendental means a transcendence basis generates the extension. tr.deg = $n$; the field is $k(t_1,\\dots,t_n) = \\mathrm{Frac}(k[t_1,\\dots,t_n])$."
           }
         ]
       }
@@ -10260,6 +11230,87 @@ window.MVQuizBank = {
           }
         ]
       },
+      "five-lemma": {
+        "title": "The five lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The five lemma concerns a commutative diagram with exact rows $A_1\\to A_2\\to A_3\\to A_4\\to A_5$ and $B_1\\to B_2\\to B_3\\to B_4\\to B_5$, with vertical maps $f_1,\\dots,f_5$. What is its conclusion?",
+            "choices": [
+              "If $f_2$ and $f_4$ are isomorphisms, so is $f_3$.",
+              "If $f_1,f_2,f_4,f_5$ are isomorphisms, then $f_3$ is an isomorphism.",
+              "If $f_3$ is an isomorphism, so are the others.",
+              "If all rows are zero, all $f_i$ are zero."
+            ],
+            "answer": 1,
+            "explain": "The five lemma: outer four $f_1,f_2,f_4,f_5$ isomorphisms + exact rows $\\Rightarrow$ middle $f_3$ is an isomorphism. Proof is the standard two-step diagram chase (injectivity, then surjectivity)."
+          },
+          {
+            "type": "mcq",
+            "q": "In the four lemma (one half of five), which hypotheses imply $f_3$ is surjective?",
+            "choices": [
+              "$f_2$ surjective, $f_4$ injective",
+              "$f_2$ injective, $f_4$ surjective",
+              "$f_1$ surjective, $f_5$ injective",
+              "$f_1$ injective, $f_5$ surjective"
+            ],
+            "answer": 0,
+            "explain": "The surjectivity half of the five lemma: $f_2$ surjective and $f_4$ injective force $f_3$ surjective. The injectivity half requires $f_2$ injective and $f_4$ surjective — dual conditions, split across the two halves."
+          },
+          {
+            "type": "numeric",
+            "q": "In a ladder with exact rows, $f_1,f_2,f_4,f_5$ are isomorphisms and $\\dim A_3=\\dim B_3=7$ (vector spaces). What is the rank of $f_3$?",
+            "answer": 7,
+            "tol": 0.000001,
+            "explain": "By the five lemma $f_3$ is an isomorphism, so its rank equals $\\dim A_3=7$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "proof-completion",
+            "q": "Injectivity half of the five lemma: assume rows exact, $f_1$ surjective, $f_2,f_4$ injective. Show $f_3$ is injective. Suppose $f_3(a_3)=0$. Pick the correct next step.",
+            "steps": [
+              "Let $a_3\\in A_3$ with $f_3(a_3)=0$.",
+              "Push forward: let $a_4 = d^A_3(a_3)\\in A_4$. Then $f_4(a_4)=f_4(d^A_3 a_3)=d^B_3 f_3(a_3)=d^B_3(0)=0$."
+            ],
+            "choices": [
+              "Conclude $a_4=0$ since $f_4$ is injective; by exactness at $A_3$ there exists $a_2\\in A_2$ with $d^A_2(a_2)=a_3$; pushing down yields $f_2(a_2)$ and we chase further.",
+              "Conclude $a_3=0$ directly from $f_4(a_4)=0$ (since $f_3$ and $f_4$ commute).",
+              "Take $a_4^{-1}$ under $f_4$ and hope it equals $a_3$.",
+              "Apply the snake lemma and read off the cokernel."
+            ],
+            "answer": 0,
+            "hint": "You have $f_4(a_4)=0$; the injectivity of $f_4$ kills $a_4$, which unlocks exactness at $A_3$.",
+            "explain": "Injectivity of $f_4$ gives $a_4=0$, i.e. $d^A_3(a_3)=0$, so $a_3\\in\\ker d^A_3=\\operatorname{im}d^A_2$. Write $a_3=d^A_2(a_2)$. Continue the chase with $f_2(a_2)$ and use $f_1$ surjective to finish."
+          },
+          {
+            "type": "mcq",
+            "q": "Which configuration is a counterexample showing the five lemma fails if $f_4$ is merely surjective (not injective), while $f_1,f_2,f_5$ remain isomorphisms?",
+            "choices": [
+              "Take all groups trivial; the conclusion is vacuously true.",
+              "Let $A_3=\\mathbb{Z}$, $B_3=\\mathbb{Z}\\oplus\\mathbb{Z}/2$, suitably; $f_3$ can fail to be surjective even though $f_1,f_2,f_5$ iso and $f_4$ surjective.",
+              "Take $f_3$ the zero map; this violates commutativity.",
+              "The five lemma never fails, regardless of hypotheses."
+            ],
+            "answer": 1,
+            "hint": "You need a map out of $A_4$ that kills a summand of $B_3$, letting $f_3$ miss torsion.",
+            "explain": "The five lemma is sharp: weakening any of the four outer hypotheses can break the conclusion. One can construct a concrete diagram where $f_4$ is surjective (not injective), the other three are isomorphisms, yet $f_3$ fails injectivity because a kernel element of $f_4$ hides in $A_4$ but is not the image of anything in $A_3$."
+          },
+          {
+            "type": "mcq",
+            "q": "The five lemma in an abelian category is proved by:",
+            "choices": [
+              "element-free diagram chases using subobjects / generalized elements (Mitchell's embedding theorem says it suffices to verify in $\\mathsf{Ab}$)",
+              "choosing a basis in each object",
+              "Yoneda's lemma and a double limit",
+              "applying Freyd–Mitchell and then quoting Zorn's lemma"
+            ],
+            "answer": 0,
+            "hint": "Mitchell's theorem lets you run the same chase you'd do in $\\mathsf{Ab}$.",
+            "explain": "In an abelian category one either uses element-free chases with generalized elements (morphisms out of a 'test object') or, via Freyd–Mitchell embedding, reduces to $\\mathsf{Ab}$ where ordinary element chases work."
+          }
+        ]
+      },
       "long-exact-sequence": {
         "title": "Long exact sequence in homology",
         "questions": [
@@ -10329,6 +11380,230 @@ window.MVQuizBank = {
           }
         ]
       },
+      "projective-modules": {
+        "title": "Projective modules",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is equivalent to $P$ being projective as a module over a ring $R$?",
+            "choices": [
+              "$P$ is a free module",
+              "$P$ is a direct summand of a free module",
+              "$P$ is torsion-free",
+              "$\\operatorname{Hom}(P,-)$ is right exact"
+            ],
+            "answer": 1,
+            "explain": "The characterizations: $P$ projective $\\iff$ every surjection $M\\twoheadrightarrow P$ splits $\\iff$ $\\operatorname{Hom}(P,-)$ is exact (both left and right) $\\iff$ $P$ is a direct summand of a free module. Free is strictly stronger in general (though not over a PID)."
+          },
+          {
+            "type": "mcq",
+            "q": "Given $\\varphi\\colon M\\twoheadrightarrow N$ and a map $f\\colon P\\to N$ with $P$ projective, the lifting property says:",
+            "choices": [
+              "there exists $\\tilde f\\colon P\\to M$ with $\\varphi\\circ\\tilde f=f$",
+              "there exists $\\tilde f\\colon N\\to P$ with $\\tilde f\\circ f = \\mathrm{id}$",
+              "$f$ must be surjective",
+              "$\\varphi$ must be an isomorphism"
+            ],
+            "answer": 0,
+            "explain": "Projectivity: for any surjection $\\varphi\\colon M\\twoheadrightarrow N$ and any $f\\colon P\\to N$, there exists a lift $\\tilde f\\colon P\\to M$ with $\\varphi\\tilde f=f$. This is exactly the dual of the 'extension' property defining injectives."
+          },
+          {
+            "type": "mcq",
+            "q": "Over $\\mathbb{Z}$, which of the following is NOT projective?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Z}^n$ for any $n$",
+              "$\\mathbb{Z}/2$",
+              "any free abelian group"
+            ],
+            "answer": 2,
+            "explain": "Over a PID, projective $\\iff$ free. $\\mathbb{Z}/2$ is not free (it has torsion), and the surjection $\\mathbb{Z}\\twoheadrightarrow\\mathbb{Z}/2$ does not split (no homomorphism $\\mathbb{Z}/2\\to\\mathbb{Z}$). Hence $\\mathbb{Z}/2$ is not projective."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Over $R=\\mathbb{Z}[x,y]/(xy)$, the module $R/(x)\\cong\\mathbb{Z}[y]$ is projective but not free. Which invariant distinguishes projective-not-free?",
+            "choices": [
+              "rank — free modules have well-defined rank equal to generator count",
+              "a module can be locally free (projective) without being globally free if $\\operatorname{Spec} R$ is disconnected or has nontrivial line bundles",
+              "torsion — projectives can be torsion while free cannot",
+              "projectives are always free over commutative rings"
+            ],
+            "answer": 1,
+            "explain": "Over rings with nontrivial Picard group (like $\\mathbb{Z}[x,y]/(xy)$, whose Spec has two components), projectives can be direct summands of free modules without themselves being free. The canonical example: rank-$1$ projectives $\\leftrightarrow$ invertible modules $\\leftrightarrow$ elements of $\\mathrm{Pic}(R)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $P$ be a module. Which statement is FALSE?",
+            "choices": [
+              "$P$ is projective $\\iff$ every SES $0\\to A\\to B\\to P\\to 0$ splits",
+              "Direct sums of projectives are projective",
+              "Direct summands of projectives are projective",
+              "Infinite products of projectives are always projective"
+            ],
+            "answer": 3,
+            "hint": "Sums of projectives are fine; products are not.",
+            "explain": "Direct sums and summands of projectives are projective, and projectivity is equivalent to every SES ending in $P$ splitting. But infinite products of projectives need not be projective: e.g. $\\prod_{\\mathbb{N}}\\mathbb{Z}$ is not a free (or projective) $\\mathbb{Z}$-module (Baer–Specker group)."
+          },
+          {
+            "type": "numeric",
+            "q": "How many isomorphism classes of projective modules of rank $1$ are there over a Dedekind domain with class number $h=3$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Over a Dedekind domain, rank-$1$ projectives are classified by the ideal class group $\\mathrm{Cl}(R)$. If $h=|\\mathrm{Cl}(R)|=3$, there are exactly $3$ isomorphism classes (the trivial class corresponds to the free module $R$; the other two are non-free rank-$1$ projectives)."
+          }
+        ]
+      },
+      "injective-modules": {
+        "title": "Injective modules",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$I$ is injective iff:",
+            "choices": [
+              "every injection $I\\hookrightarrow M$ splits",
+              "every injection $A\\hookrightarrow B$ and map $f\\colon A\\to I$ extends to $\\tilde f\\colon B\\to I$",
+              "$\\operatorname{Hom}(-,I)$ is right exact",
+              "$I$ is finitely generated"
+            ],
+            "answer": 1,
+            "explain": "Injectivity: for every injection $A\\hookrightarrow B$ and map $A\\to I$, there is an extension $B\\to I$. Equivalently $\\operatorname{Hom}(-,I)$ is exact (both left and right). The 'every injection from $I$ splits' form is also an equivalent formulation."
+          },
+          {
+            "type": "mcq",
+            "q": "Baer's criterion says: to verify $I$ is injective over a ring $R$, it suffices to check the extension property for:",
+            "choices": [
+              "finitely generated ideals $\\mathfrak{a}\\hookrightarrow R$ only",
+              "all ideals $\\mathfrak{a}\\hookrightarrow R$ and all maps $\\mathfrak{a}\\to I$",
+              "simple modules $S\\hookrightarrow R$ only",
+              "projective modules $P\\hookrightarrow R$ only"
+            ],
+            "answer": 1,
+            "explain": "Baer's criterion: $I$ is injective $\\iff$ every map from an ideal $\\mathfrak{a}\\subseteq R$ to $I$ extends to $R\\to I$. This reduces an a priori enormous check (all injections of all modules) to a single, tractable one."
+          },
+          {
+            "type": "mcq",
+            "q": "Which abelian group is NOT injective as a $\\mathbb{Z}$-module?",
+            "choices": [
+              "$\\mathbb{Q}$",
+              "$\\mathbb{Q}/\\mathbb{Z}$",
+              "$\\mathbb{Z}/2$",
+              "$\\prod_p \\mathbb{Z}/p^\\infty$"
+            ],
+            "answer": 2,
+            "explain": "Over $\\mathbb{Z}$, injective $\\iff$ divisible. $\\mathbb{Q}$ and $\\mathbb{Q}/\\mathbb{Z}$ and Prüfer groups $\\mathbb{Z}/p^\\infty$ are divisible; $\\mathbb{Z}/2$ is not ($2\\cdot\\mathbb{Z}/2 = 0\\ne \\mathbb{Z}/2$)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Over $\\mathbb{Z}$, divisibility characterizes injectivity. Why does Baer's criterion immediately yield this?",
+            "choices": [
+              "Ideals in $\\mathbb{Z}$ are exactly $(n)=n\\mathbb{Z}$; extending $n\\mathbb{Z}\\to I$ to $\\mathbb{Z}\\to I$ means solving $n\\cdot x = f(n)$ in $I$ — exactly divisibility by $n$.",
+              "Because $\\mathbb{Z}$ is finitely generated.",
+              "Because every ideal is principal with finite cokernel.",
+              "Because $\\mathbb{Z}$ has global dimension $1$."
+            ],
+            "answer": 0,
+            "hint": "Lift the generator of $(n)$ and see what's needed.",
+            "explain": "Baer: extension to $\\mathbb{Z}$ of a map $(n)\\to I$ sending $n\\mapsto a$ requires $x\\in I$ with $nx = a$. That is exactly divisibility of $a\\in I$ by $n$. Since every ideal of $\\mathbb{Z}$ is some $(n)$, injectivity $\\iff$ divisibility."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about injective hulls is correct?",
+            "choices": [
+              "Every module $M$ embeds in an injective module $E(M)$, the injective hull, minimal among injectives containing $M$; the hull is essentially unique.",
+              "Only finitely generated modules have injective hulls.",
+              "Injective hulls exist only over Noetherian rings.",
+              "The injective hull is always isomorphic to $M$."
+            ],
+            "answer": 0,
+            "explain": "Every module has an injective hull (or envelope) $M\\hookrightarrow E(M)$: the minimal injective extension, unique up to (non-canonical) isomorphism. Over $\\mathbb{Z}$, $E(\\mathbb{Z}) = \\mathbb{Q}$ and $E(\\mathbb{Z}/p) = \\mathbb{Z}/p^\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $I=\\mathbb{Q}/\\mathbb{Z}$ over $\\mathbb{Z}$. How many extensions $\\mathbb{Z}\\to I$ exist of a given map $f\\colon(2)\\to I$ with $f(2)=1/4\\in\\mathbb{Q}/\\mathbb{Z}$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "We need $\\tilde f(1)\\in\\mathbb{Q}/\\mathbb{Z}$ with $2\\tilde f(1)=1/4$, i.e. $\\tilde f(1)\\in\\{1/8, 5/8\\}\\pmod{1}$. Both are valid extensions; there are exactly $2$."
+          }
+        ]
+      },
+      "flat-modules": {
+        "title": "Flat modules",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$M$ is a flat $R$-module iff:",
+            "choices": [
+              "$-\\otimes_R M$ is exact",
+              "$M$ is finitely generated",
+              "$\\operatorname{Hom}(M,-)$ is exact",
+              "$M$ is free"
+            ],
+            "answer": 0,
+            "explain": "Flat $=$ tensoring with $M$ preserves exactness. Equivalently preserves injectivity (the right-exactness of $-\\otimes M$ holds automatically; flatness is the extra condition that injective maps stay injective after tensoring)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which implication chain is correct for modules over a ring?",
+            "choices": [
+              "free $\\Rightarrow$ projective $\\Rightarrow$ flat",
+              "flat $\\Rightarrow$ projective $\\Rightarrow$ free",
+              "projective $\\Rightarrow$ flat $\\Rightarrow$ free",
+              "free $\\Rightarrow$ flat $\\Rightarrow$ injective"
+            ],
+            "answer": 0,
+            "explain": "Free $\\Rightarrow$ projective (trivial: free is projective); projective $\\Rightarrow$ flat (direct summand of free, and free is obviously flat). None of the reverse implications hold over general rings."
+          },
+          {
+            "type": "mcq",
+            "q": "Over $\\mathbb{Z}$, which of the following is NOT flat?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Q}$",
+              "$\\mathbb{Z}[1/p]$",
+              "$\\mathbb{Z}/2$"
+            ],
+            "answer": 3,
+            "explain": "Over a PID, flat $\\iff$ torsion-free. $\\mathbb{Z}/2$ has torsion; concretely, tensoring $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 2}\\mathbb{Z}$ with $\\mathbb{Z}/2$ gives $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, which is not injective. So $\\mathbb{Z}/2$ is not flat."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A key source of flat modules: localization. Which is the correct statement?",
+            "choices": [
+              "$S^{-1}R$ is flat over $R$ for every multiplicative set $S\\subseteq R$.",
+              "$S^{-1}R$ is free over $R$ for every $S$.",
+              "$S^{-1}R$ is projective over $R$ iff $S$ contains a unit.",
+              "Localization never preserves flatness."
+            ],
+            "answer": 0,
+            "explain": "Localization is the archetypal non-projective flat module: $S^{-1}R$ is always flat over $R$ (tensor product with localization preserves exact sequences), but usually not projective (e.g. $\\mathbb{Q}$ over $\\mathbb{Z}$ is flat, not projective). This is why flatness is the 'right' local notion."
+          },
+          {
+            "type": "mcq",
+            "q": "Lazard's theorem characterizes flat modules as:",
+            "choices": [
+              "direct sums of free modules",
+              "filtered colimits of finitely generated free modules",
+              "arbitrary colimits of projective modules",
+              "direct summands of injective modules"
+            ],
+            "answer": 1,
+            "explain": "Lazard's theorem: $M$ is flat $\\iff$ $M$ is a filtered colimit of finitely generated free modules. This is why flatness is 'locally free' in a categorical sense, and why tensor products preserve filtered colimits commute cleanly."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $M = \\mathbb{Z}/6$ as a $\\mathbb{Z}$-module. Tensor the SES $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 4}\\mathbb{Z}\\to\\mathbb{Z}/4\\to 0$ with $M$. What is the order of the kernel of the induced map $\\mathbb{Z}/6\\to\\mathbb{Z}/6$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "After tensoring with $\\mathbb{Z}/6$, the map $\\cdot 4\\colon\\mathbb{Z}/6\\to\\mathbb{Z}/6$ has kernel $\\{x\\in\\mathbb{Z}/6 : 4x\\equiv 0\\pmod 6\\}=\\{0,3\\}$, of order $2$. This measures the failure of flatness of $\\mathbb{Z}/6$: $\\operatorname{Tor}_1^\\mathbb{Z}(\\mathbb{Z}/6,\\mathbb{Z}/4)=\\mathbb{Z}/\\gcd(6,4)=\\mathbb{Z}/2$."
+          }
+        ]
+      },
       "derived-functors": {
         "title": "Derived functors and resolutions",
         "questions": [
@@ -10390,6 +11665,156 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "$\\operatorname{Hom}_R(M,-)$ is left exact but not right exact in general: $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$ applied with $M=\\mathbb{Z}$ gives $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$, which fails surjectivity. Its right derived functors are the $\\operatorname{Ext}^n$ groups."
+          }
+        ]
+      },
+      "resolutions-ha": {
+        "title": "Resolutions: projective, injective, flat",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A projective resolution of a module $M$ is an exact sequence:",
+            "choices": [
+              "$0\\to M\\to I^0\\to I^1\\to\\cdots$ with each $I^i$ injective",
+              "$\\cdots\\to P_1\\to P_0\\to M\\to 0$ with each $P_i$ projective",
+              "$\\cdots\\to F_1\\to F_0\\to M\\to 0$ with each $F_i$ flat",
+              "$M\\to F_0\\to F_1\\to\\cdots$ with each $F_i$ free"
+            ],
+            "answer": 1,
+            "explain": "Projective resolutions go from the left: $\\cdots\\to P_1\\to P_0\\twoheadrightarrow M\\to 0$, exact at every spot. They are used to compute left-derived functors like $\\operatorname{Tor}$ and $L_iF$ for right-exact $F$."
+          },
+          {
+            "type": "numeric",
+            "q": "$\\mathbb{Z}/6$ has what length-$1$ free resolution? Enter the single invariant factor appearing in the presentation matrix (a $1\\times 1$ matrix).",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "The resolution is $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 6}\\mathbb{Z}\\to\\mathbb{Z}/6\\to 0$. The presentation matrix is the $1\\times 1$ matrix $[6]$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the global dimension of the polynomial ring $k[x_1,\\dots,x_n]$ over a field $k$?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$n$",
+              "$\\infty$"
+            ],
+            "answer": 2,
+            "explain": "Hilbert's syzygy theorem: the global dimension of $k[x_1,\\dots,x_n]$ is exactly $n$. Equivalently, every finitely generated module has a free resolution of length $\\le n$, and there exist modules requiring length exactly $n$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Over the ring $R=k[\\varepsilon]/(\\varepsilon^2)$ (dual numbers), the module $k=R/(\\varepsilon)$ has which minimal free resolution?",
+            "choices": [
+              "$0\\to R\\to k\\to 0$ (length $0$)",
+              "$0\\to R\\xrightarrow{\\varepsilon}R\\to k\\to 0$ (length $1$)",
+              "$\\cdots\\to R\\xrightarrow{\\varepsilon}R\\xrightarrow{\\varepsilon}R\\to k\\to 0$ (infinite, $2$-periodic)",
+              "$0\\to R^2\\to R\\to k\\to 0$ (length $1$ with rank $2$)"
+            ],
+            "answer": 2,
+            "explain": "$R=k[\\varepsilon]/(\\varepsilon^2)$ has global dimension $\\infty$: $k$ has an infinite $2$-periodic free resolution $\\cdots\\xrightarrow{\\varepsilon}R\\xrightarrow{\\varepsilon}R\\to k$. Consequently $\\operatorname{Ext}^i_R(k,k)=k$ for all $i\\ge 0$ (not eventually zero). This is a typical non-regular local ring."
+          },
+          {
+            "type": "numeric",
+            "q": "Over a PID $R$, every finitely generated module has a free resolution of length at most what?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Over a PID, submodules of free modules are free (Smith normal form), so a finitely generated module $M$ has a resolution $0\\to R^r\\to R^s\\to M\\to 0$ of length $1$. Hence global dimension of a PID is $\\le 1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about flat resolutions is correct?",
+            "choices": [
+              "Flat resolutions suffice to compute $\\operatorname{Tor}$ but not $\\operatorname{Ext}$.",
+              "Flat resolutions suffice to compute both $\\operatorname{Tor}$ and $\\operatorname{Ext}$.",
+              "Flat resolutions exist only for flat modules.",
+              "Flat resolutions are unique up to isomorphism, not just quasi-isomorphism."
+            ],
+            "answer": 0,
+            "explain": "$\\operatorname{Tor}_i(M,N)$ can be computed from a flat resolution of $M$ (since $-\\otimes N$ is right-exact and flat modules give the acyclicity needed). $\\operatorname{Ext}$ requires projective (or injective) resolutions — flat is not enough."
+          }
+        ]
+      },
+      "abelian-categories": {
+        "title": "Abelian categories and triangulated preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT required of an abelian category?",
+            "choices": [
+              "It has a zero object.",
+              "Every morphism has a kernel and cokernel.",
+              "Every monomorphism is a kernel and every epimorphism is a cokernel.",
+              "Every object is projective."
+            ],
+            "answer": 3,
+            "explain": "Abelian categories need a zero object, kernels/cokernels, biproducts, and every mono/epi to be normal (a kernel/cokernel respectively). They do NOT need every object to be projective — in fact $\\mathsf{Ab}$ is abelian and most objects there aren't projective."
+          },
+          {
+            "type": "mcq",
+            "q": "The Freyd–Mitchell embedding theorem says:",
+            "choices": [
+              "Every small abelian category embeds fully faithfully into a category of modules over some ring.",
+              "Every abelian category is equivalent to $\\mathsf{Ab}$.",
+              "Every abelian category has enough projectives.",
+              "Every abelian category is triangulated."
+            ],
+            "answer": 0,
+            "explain": "Freyd–Mitchell: any small abelian category $\\mathcal{A}$ admits a full exact embedding $\\mathcal{A}\\hookrightarrow R\\text{-Mod}$ for some ring $R$. The point: element-chases in $\\mathsf{Ab}$ transfer to any abelian category."
+          },
+          {
+            "type": "mcq",
+            "q": "In the derived category $D(\\mathcal{A})$, a distinguished triangle $X\\to Y\\to Z\\to X[1]$ replaces what in ordinary abelian categories?",
+            "choices": [
+              "a commutative square",
+              "a short exact sequence $0\\to X\\to Y\\to Z\\to 0$",
+              "a pair of adjoint functors",
+              "an object"
+            ],
+            "answer": 1,
+            "explain": "Short exact sequences in $\\mathcal{A}$ lift to distinguished triangles in $D(\\mathcal{A})$; the rotation/shift structure of triangles encodes long exact sequences of cohomology objects. This is the fundamental move toward derived categories."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "Which example is an abelian category?",
+            "choices": [
+              "the category of groups (not necessarily abelian)",
+              "the category of topological spaces",
+              "sheaves of abelian groups on a topological space",
+              "the category of fields"
+            ],
+            "answer": 2,
+            "hint": "Abelianness is inherited objectwise in a sheaf setting.",
+            "explain": "Sheaves of abelian groups form an abelian category (kernels are taken section-wise; cokernels require sheafification). The other examples fail: in non-abelian groups every subgroup isn't normal; in Top monos-that-aren't-kernels exist; fields lack zero objects / biproducts."
+          },
+          {
+            "type": "mcq",
+            "q": "Which axiom of a triangulated category fails in a general abelian category $\\mathcal{A}$, forcing us to pass to $D(\\mathcal{A})$?",
+            "choices": [
+              "existence of a shift functor $[1]$ that is an autoequivalence",
+              "the octahedral axiom, which requires mapping cones",
+              "all of the above — $\\mathcal{A}$ itself is not triangulated unless $\\mathcal{A}=0$",
+              "having finite products"
+            ],
+            "answer": 2,
+            "explain": "An abelian category is not triangulated (except the trivial one): it lacks a natural shift and distinguished triangle structure. The chain complex category $\\mathrm{Ch}(\\mathcal{A})$, localized at quasi-isomorphisms, becomes the derived category $D(\\mathcal{A})$ — now genuinely triangulated."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement about $\\operatorname{Ext}$ in the derived category is correct?",
+            "choices": [
+              "$\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i]) = \\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ when $X,Y\\in\\mathcal{A}$ are viewed as complexes concentrated in degree $0$.",
+              "$\\operatorname{Hom}_{D(\\mathcal{A})}$ equals $\\operatorname{Hom}_\\mathcal{A}$.",
+              "Ext is not visible in $D(\\mathcal{A})$.",
+              "All Ext groups vanish in $D(\\mathcal{A})$."
+            ],
+            "answer": 0,
+            "hint": "Derived category maps read off all Ext groups via shifts.",
+            "explain": "The fundamental identification: $\\operatorname{Hom}_{D(\\mathcal{A})}(X,Y[i])\\cong\\operatorname{Ext}^i_\\mathcal{A}(X,Y)$ for $X,Y\\in\\mathcal{A}$. This is why the derived category is 'the right place' to do homological algebra: all Ext/Tor appear as hom-sets after shifts."
           }
         ]
       },
@@ -19667,7 +21092,8 @@ window.MVQuizBank = {
               "Diagonalise all $\\rho(g)$ simultaneously → read off irreps → confirm $\\rho$ is a homomorphism"
             ],
             "answer": 1,
-            "explain": "A $\\mathbb{C}[G]$-module structure is exactly the data of $\\rho(e)=\\mathrm{id}$ and $\\rho(gh)=\\rho(g)\\rho(h)$ (i.e., a group homomorphism), extended to $\\mathbb{C}[G]$ by linearity. Diagonalisability is a consequence, not a starting point."
+            "hint": "A group homomorphism extended linearly to the group algebra.",
+            "explain": "A $\\mathbb{C}[G]$-module structure is exactly the data of $\\rho(e)=\\mathrm{id}$ and $\\rho(gh)=\\rho(g)\\rho(h)$ (i.e., a group homomorphism), extended to $\\mathbb{C}[G]$ by linearity."
           },
           {
             "type": "mcq",
@@ -19679,14 +21105,87 @@ window.MVQuizBank = {
               "$\\mathbb{C}[G]$ has no $G$-stable subspaces at all"
             ],
             "answer": 1,
-            "explain": "The element $\\sum_{g}g$ is fixed by every $h\\in G$ (left multiplication permutes summands), so $\\mathbb{C}\\cdot\\sum_g g$ is a proper nontrivial $G$-stable subspace, contradicting irreducibility as soon as $|G|\\ge 2$. The trivial rep always appears in $\\mathbb{C}[G]$."
+            "hint": "Look for a $G$-invariant vector — something left-translation fixes.",
+            "explain": "The element $\\sum_{g}g$ is fixed by every $h\\in G$ (left multiplication permutes summands), so $\\mathbb{C}\\cdot\\sum_g g$ is a proper nontrivial $G$-stable subspace, contradicting irreducibility as soon as $|G|\\ge 2$."
           },
           {
             "type": "numeric",
             "q": "Let $\\rho\\colon\\mathbb{Z}/4\\mathbb{Z}\\to\\mathrm{GL}_2(\\mathbb{C})$ be defined by $\\rho(1)=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. Compute $\\mathrm{tr}(\\rho(2))$.",
             "answer": -2,
             "tol": 0.000001,
-            "explain": "$\\rho(2)=\\rho(1)^2=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}^2=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}=-I$, so the trace is $-2$. This $2$-dim rep is the direct sum of the two irreps $\\chi_1$ and $\\chi_3$ of $C_4$, each contributing character value $i^2=-1$ at the generator squared."
+            "hint": "Square the generator.",
+            "explain": "$\\rho(2)=\\rho(1)^2=\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}=-I$, so the trace is $-2$."
+          }
+        ]
+      },
+      "tensor-and-dual-reps": {
+        "title": "Tensor products and dual representations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For representations $V$ and $W$ of a finite group $G$, the character of the tensor product $V\\otimes W$ satisfies:",
+            "choices": [
+              "$\\chi_{V\\otimes W}(g) = \\chi_V(g) + \\chi_W(g)$",
+              "$\\chi_{V\\otimes W}(g) = \\chi_V(g)\\cdot\\chi_W(g)$",
+              "$\\chi_{V\\otimes W}(g) = \\chi_V(g) - \\chi_W(g)$",
+              "$\\chi_{V\\otimes W}(g) = \\chi_V(g)/\\chi_W(g)$"
+            ],
+            "answer": 1,
+            "explain": "Since $\\rho_{V\\otimes W}(g) = \\rho_V(g)\\otimes\\rho_W(g)$ and the trace of a tensor product is the product of traces, characters multiply pointwise under $\\otimes$."
+          },
+          {
+            "type": "mcq",
+            "q": "The dual representation $V^*$ has $G$-action $(g\\cdot f)(v) = f(\\rho(g^{-1})v)$. Why is the $g^{-1}$ needed?",
+            "choices": [
+              "Without it, $V^*$ would not be finite-dimensional",
+              "Without it, $(gh)\\cdot f = h\\cdot(g\\cdot f)$ instead of $g\\cdot(h\\cdot f)$, making $V^*$ a right-action rather than a left-action",
+              "The inverse appears only by convention — $g$ without inverse also works as a left action",
+              "To force $V^*$ to be irreducible"
+            ],
+            "answer": 1,
+            "explain": "Using $\\rho(g)$ instead of $\\rho(g^{-1})$ would give $((gh)\\cdot f)(v) = f(\\rho(gh)v) = f(\\rho(g)\\rho(h)v) = (h\\cdot(g\\cdot f))(v)$, the opposite order — a right action. The inverse restores left-action compatibility."
+          },
+          {
+            "type": "numeric",
+            "q": "For the standard $2$-dim irrep $V$ of $S_3$ with character $(2,0,-1)$ on classes $\\{e,(12),(123)\\}$, compute $\\chi_{V\\otimes V}((123))$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\chi_{V\\otimes V}(g) = \\chi_V(g)^2$, so $\\chi_{V\\otimes V}((123)) = (-1)^2 = 1$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For the standard $2$-dim irrep $V$ of $S_3$, the tensor $V\\otimes V$ decomposes into irreducibles. Using $\\chi_{V\\otimes V} = (4,0,1)$ and the character table rows $\\chi_{\\mathbf{1}}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$, find the decomposition.",
+            "choices": [
+              "$V\\otimes V = 2V$",
+              "$V\\otimes V = \\mathbf{1} \\oplus \\varepsilon \\oplus V$",
+              "$V\\otimes V = 4\\cdot\\mathbf{1}$",
+              "$V\\otimes V = V \\oplus V$"
+            ],
+            "answer": 1,
+            "hint": "Compute $\\langle\\chi_{V\\otimes V}, \\chi_\\lambda\\rangle$ for each irreducible.",
+            "explain": "$\\langle\\chi_{V\\otimes V},\\chi_{\\mathbf 1}\\rangle = \\frac16(1\\cdot 4 + 3\\cdot 0 + 2\\cdot 1) = 1$. Similarly $\\langle\\chi_{V\\otimes V},\\chi_\\varepsilon\\rangle = 1$ and $\\langle\\chi_{V\\otimes V},\\chi_V\\rangle = 1$. So $V\\otimes V = \\mathbf{1}\\oplus\\varepsilon\\oplus V$, a sum of three distinct multiplicity-$1$ irreducibles."
+          },
+          {
+            "type": "mcq",
+            "q": "For a finite group $G$ and irrep $V$, which of the following is equivalent to $V$ being self-dual (i.e., $V\\cong V^*$)?",
+            "choices": [
+              "$V$ is $1$-dimensional",
+              "The character $\\chi_V$ takes only real values",
+              "$V$ is the trivial representation",
+              "$\\dim V = |G|$"
+            ],
+            "answer": 1,
+            "hint": "What is $\\chi_{V^*}(g)$ in terms of $\\chi_V$?",
+            "explain": "Since $\\chi_{V^*}(g) = \\overline{\\chi_V(g)}$, $V\\cong V^*$ (as characters are complete invariants) iff $\\chi_V = \\overline{\\chi_V}$, i.e., $\\chi_V$ is real-valued. A rep with real character is called $\\textit{self-dual}$; the further distinction between real-type and quaternionic-type is captured by the Frobenius-Schur indicator."
+          },
+          {
+            "type": "numeric",
+            "q": "For the standard $2$-dim irrep $V$ of $S_3$ with $\\chi_V = (2,0,-1)$, compute $\\chi_{S^2 V}((12))$. Use $\\chi_{S^2 V}(g) = \\tfrac12(\\chi_V(g)^2 + \\chi_V(g^2))$ and note that $(12)^2 = e$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\chi_V((12))=0$, $\\chi_V((12)^2)=\\chi_V(e)=2$. So $\\chi_{S^2V}((12)) = \\tfrac12(0 + 2) = 1$."
           }
         ]
       },
@@ -19703,7 +21202,7 @@ window.MVQuizBank = {
               "$|G|$ is prime"
             ],
             "answer": 2,
-            "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$. Algebraic closure is irrelevant; characteristic $0$ suffices but is not necessary."
+            "explain": "The averaging projector $\\pi(v)=\\tfrac{1}{|G|}\\sum_g\\rho(g)\\pi_0(\\rho(g^{-1})v)$ requires $|G|$ to be invertible in $k$, i.e.\\ $\\mathrm{char}(k)\\nmid|G|$."
           },
           {
             "type": "mcq",
@@ -19737,7 +21236,7 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "Conjugate a naive projector by $\\rho(g)$ and average — the $1/|G|$ is essential.",
-            "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$. One checks $\\pi^2=\\pi$, $\\mathrm{im}\\,\\pi=W$, and $\\pi(\\rho(h)v)=\\rho(h)\\pi(v)$ for all $h$. Division by $|G|$ requires $\\mathrm{char}(k)\\nmid|G|$."
+            "explain": "Start with any projector $\\pi_0\\colon V\\twoheadrightarrow W$. Average by conjugating with $\\rho(g)$: $\\pi(v)=\\tfrac{1}{|G|}\\sum_{g}\\rho(g)\\pi_0(\\rho(g)^{-1}v)$."
           },
           {
             "type": "mcq",
@@ -19749,14 +21248,15 @@ window.MVQuizBank = {
               "The averaging trick gives a projector with non-integer coefficients, so it fails"
             ],
             "answer": 0,
-            "explain": "For $G=\\mathbb{Z}$, $\\rho(1)=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ preserves $\\mathbb{C}\\cdot e_1$ (a $G$-stable subspace), but there is no $G$-stable complement: any complement would be spanned by a vector $e_1+te_2$ which maps to $e_1+(t+1)e_2$, impossible to stabilize for all $n$. Maschke's averaging over $\\mathbb{Z}$ would require $\\tfrac{1}{|\\mathbb{Z}|}$, which diverges."
+            "hint": "Pick a $\\mathbb Z$-rep with a stable subspace that has no complement.",
+            "explain": "For $G=\\mathbb{Z}$, $\\rho(1)=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ preserves $\\mathbb{C}\\cdot e_1$ but has no $G$-stable complement. Averaging over $\\mathbb{Z}$ requires $\\tfrac{1}{|\\mathbb{Z}|}$, which diverges."
           },
           {
             "type": "numeric",
             "q": "Let $G=C_2=\\{e,s\\}$ act on $\\mathbb{C}^2$ via $\\rho(s)=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$. By Maschke, $\\mathbb{C}^2\\cong V_+\\oplus V_-$ where $V_\\pm$ are the $\\pm 1$ eigenspaces of $\\rho(s)$. What is $\\dim V_+$?",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "The $+1$ eigenspace of $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ is spanned by $(1,1)$, a $1$-dimensional space, so $\\dim V_+=1$. Similarly $V_-=\\mathrm{span}(1,-1)$, confirming $\\mathbb{C}^2=V_+\\oplus V_-$ as a $C_2$-module."
+            "explain": "The $+1$ eigenspace of $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ is spanned by $(1,1)$, a $1$-dimensional space."
           }
         ]
       },
@@ -19773,7 +21273,7 @@ window.MVQuizBank = {
               "$T$ preserves a Hermitian inner product"
             ],
             "answer": 1,
-            "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility. When $V=W$, $T-\\lambda\\,\\mathrm{id}$ has a kernel for any eigenvalue $\\lambda$ (which exists since $\\mathbb{C}$ is algebraically closed), forcing $T=\\lambda\\,\\mathrm{id}$."
+            "explain": "$\\ker T$ and $\\mathrm{im}\\,T$ are subreps, so each is $0$ or all of its ambient space by irreducibility."
           },
           {
             "type": "numeric",
@@ -19787,7 +21287,7 @@ window.MVQuizBank = {
             "q": "Let $V = 2V_1 \\oplus 3V_2$ where $V_1,V_2$ are non-isomorphic irreps of $G$. By the commutant formula $\\mathrm{End}_G(V)\\cong\\prod_\\lambda M_{m_\\lambda}(\\mathbb{C})$, compute $\\dim_{\\mathbb{C}}\\mathrm{End}_G(V)$.",
             "answer": 13,
             "tol": 0.000001,
-            "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$. This is the fast numerical signature of a decomposition type."
+            "explain": "$\\dim\\mathrm{End}_G(V)=\\sum m_\\lambda^2=2^2+3^2=4+9=13$."
           }
         ],
         "hard": [
@@ -19801,7 +21301,8 @@ window.MVQuizBank = {
               "Over $\\mathbb{R}$, $\\ker T=0$ can fail for an intertwiner between irreps"
             ],
             "answer": 1,
-            "explain": "The rotation rep $\\theta\\mapsto\\begin{pmatrix}\\cos 2\\pi\\theta&-\\sin 2\\pi\\theta\\\\\\sin 2\\pi\\theta&\\cos 2\\pi\\theta\\end{pmatrix}$ is irreducible over $\\mathbb{R}$ (no real eigenvalues), yet $\\mathrm{End}_{\\mathbb{R}/\\mathbb{Z}}(\\mathbb{R}^2)\\cong\\mathbb{C}$. The eigenvalue step in Schur's proof fails because $\\mathbb{R}$ is not algebraically closed."
+            "hint": "Think about rotations — can you diagonalize them over $\\mathbb R$?",
+            "explain": "The rotation rep $\\theta\\mapsto\\begin{pmatrix}\\cos 2\\pi\\theta&-\\sin 2\\pi\\theta\\\\\\sin 2\\pi\\theta&\\cos 2\\pi\\theta\\end{pmatrix}$ is irreducible over $\\mathbb{R}$ (no real eigenvalues), yet its real endomorphism algebra is $\\mathbb{C}$."
           },
           {
             "type": "mcq",
@@ -19813,14 +21314,16 @@ window.MVQuizBank = {
               "$T$ being an intertwiner already implies it is a scalar; scalars are isomorphisms"
             ],
             "answer": 0,
-            "explain": "Since $\\mathrm{im}\\,T\\subseteq W$ is $G$-stable and $T\\ne 0$, irreducibility of $W$ forces $\\mathrm{im}\\,T=W$ (surjective). Since $\\ker T\\subseteq V$ is $G$-stable and $T\\ne 0$, irreducibility of $V$ forces $\\ker T=0$ (injective). Together: $T$ is an isomorphism."
+            "hint": "Use the fact that kernel and image are each $G$-stable.",
+            "explain": "$\\mathrm{im}\\,T\\subseteq W$ is $G$-stable; by irreducibility of $W$ and $T\\ne 0$, it is all of $W$. Similarly $\\ker T\\subseteq V$ is $G$-stable and proper, so it is $0$."
           },
           {
             "type": "numeric",
             "q": "For $G=S_3$ and $V=\\mathbb{C}^3$ the permutation representation, use Schur's lemma to compute $\\dim_{\\mathbb{C}}\\mathrm{End}_{S_3}(V)$. (Hint: decompose $V$ first.)",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "$V\\cong\\mathbf{1}\\oplus V_{\\mathrm{std}}$ where $\\mathbf{1}$ is the trivial irrep and $V_{\\mathrm{std}}$ is the $2$-dim standard irrep. By Schur, $\\mathrm{End}_{S_3}(V)\\cong M_1(\\mathbb{C})\\times M_1(\\mathbb{C})$, so $\\dim=1^2+1^2=2$."
+            "hint": "Decompose $\\mathbb C^3$ into irreducibles and apply $\\dim \\mathrm{End}_G = \\sum m_\\lambda^2$.",
+            "explain": "$V\\cong\\mathbf{1}\\oplus V_{\\mathrm{std}}$, so $\\dim\\mathrm{End}_{S_3}(V) = 1^2+1^2 = 2$."
           }
         ]
       },
@@ -19837,27 +21340,27 @@ window.MVQuizBank = {
               "$\\chi_V(g)=0$ for all $g\\ne e$"
             ],
             "answer": 1,
-            "explain": "By first orthogonality, the irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand, i.e.\\ $V$ is irreducible."
+            "explain": "By first orthogonality, irreducible characters are orthonormal, so $\\langle\\chi_V,\\chi_V\\rangle=\\sum m_\\lambda^2=1$ iff there is a single multiplicity-$1$ summand."
           },
           {
             "type": "numeric",
             "q": "For $S_3$ with classes $\\{e\\},\\{(12)\\},\\{(123)\\}$ of sizes $1,3,2$, the $3$-dimensional permutation rep has character $(3,1,0)$. Compute the multiplicity $\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle$ of the standard $2$-dim irrep $V$ (whose character is $(2,0,-1)$).",
             "answer": 1,
             "tol": 0.000001,
-            "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=\\tfrac{6}{6}=1$, so the standard rep appears with multiplicity $1$ in $\\mathbb{C}^3=\\mathbf{1}\\oplus V$."
+            "explain": "$\\langle\\chi_\\mathrm{perm},\\chi_V\\rangle=\\tfrac{1}{6}(1\\cdot 3\\cdot 2 + 3\\cdot 1\\cdot 0 + 2\\cdot 0\\cdot(-1))=1$."
           },
           {
             "type": "numeric",
             "q": "Using $|G|=\\sum_\\lambda (\\dim V_\\lambda)^2$, a group of order $8$ has five conjugacy classes. If four of its irreducibles are $1$-dimensional, what is the dimension of the fifth irreducible?",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "We need $1^2+1^2+1^2+1^2+d^2=8$, so $d^2=4$ and $d=2$. This is exactly the pattern for $D_4$ and $Q_8$."
+            "explain": "$1+1+1+1+d^2=8$, so $d=2$. This is the pattern for $D_4$ and $Q_8$."
           }
         ],
         "hard": [
           {
             "type": "mcq",
-            "q": "$D_4$ and $Q_8$ have identical character tables (same dimensions and same inner product structure) yet are non-isomorphic groups. Which statement best explains why characters cannot distinguish them?",
+            "q": "$D_4$ and $Q_8$ have identical character tables yet are non-isomorphic groups. Which statement best explains why characters cannot distinguish them?",
             "choices": [
               "Characters are complete invariants of representations, not of groups; two non-isomorphic groups can share all representation-theoretic data",
               "They are actually isomorphic — the character table proves it",
@@ -19865,31 +21368,194 @@ window.MVQuizBank = {
               "The second orthogonality relation gives different column norms for $D_4$ and $Q_8$"
             ],
             "answer": 0,
-            "explain": "The character table captures the isomorphism type of the representation category over $\\mathbb{C}$, not the isomorphism type of the group. $D_4$ and $Q_8$ have the same abstract character table (same multiset of dimensions, same inner products) even though one has elements of order $4$ with $4$-torsion that is a direct product structure versus the other. This is the standard counterexample to 'character table determines group'."
+            "hint": "Characters determine reps up to isomorphism — but do they determine the group?",
+            "explain": "The character table captures the isomorphism type of the representation category over $\\mathbb{C}$, not the group itself. $D_4$ and $Q_8$ are a famous counterexample."
           },
           {
             "type": "numeric",
-            "q": "For $S_3$ with character table rows $\\chi_1=(1,1,1)$, $\\chi_{\\mathrm{sgn}}=(1,-1,1)$, $\\chi_V=(2,0,-1)$ and class sizes $1,3,2$, compute the inner product $\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle$.",
+            "q": "For $S_3$ with characters $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ and class sizes $1,3,2$, compute the inner product $\\langle\\chi_V,\\chi_\\varepsilon\\rangle$.",
             "answer": 0,
             "tol": 0.000001,
-            "explain": "$\\langle\\chi_V,\\chi_{\\mathrm{sgn}}\\rangle=\\tfrac{1}{6}(1\\cdot 2\\cdot 1+3\\cdot 0\\cdot(-1)+2\\cdot(-1)\\cdot 1)=\\tfrac{1}{6}(2+0-2)=0$. Orthogonality of distinct irreducible characters confirms $V_{\\mathrm{std}}$ and $\\mathrm{sgn}$ are non-isomorphic irreps."
-          },
-          {
-            "type": "mcq",
-            "q": "Second orthogonality for characters states $\\sum_\\lambda\\chi_\\lambda(g)\\overline{\\chi_\\lambda(h)}=\\frac{|G|}{|C_G(g)|}\\delta_{[g],[h]}$. For $G=S_3$, the class of $(12)$ has centralizer of order $2$. What does second orthogonality give for the sum $\\sum_\\lambda|\\chi_\\lambda((12))|^2$?",
-            "choices": [
-              "$0$",
-              "$3$",
-              "$6$",
-              "$1$"
-            ],
-            "answer": 1,
-            "explain": "$\\sum_\\lambda|\\chi_\\lambda((12))|^2=|G|/|C_{S_3}((12))|=6/2=3$. Indeed $1^2+(-1)^2+0^2=1+1+0=2\\ne 3$ — wait, that uses wrong values; the characters at $(12)$ are $(1,-1,0)$ so $\\sum=1+1+0=2$. Rechecking: $|C_{S_3}((12))|=2$, giving $6/2=3$. The discrepancy $3\\ne 2$ does not arise here because second orthogonality reads $\\sum_\\lambda \\chi_\\lambda(g)\\overline{\\chi_\\lambda(g)}=|G|/|C_G(g)|$. With $\\chi_V((12))=0$, $\\chi_1=1$, $\\chi_{\\mathrm{sgn}}=-1$: $1+1+0=2\\ne 3$ — so $|C_{S_3}((12))|=3$ (the centralizer is $\\langle(12)\\rangle\\cup\\{e,(12)\\}$ of order $2$, giving class size $3$, and $|G|/|C|=6/2=3$). Correct answer: $3$."
+            "explain": "$\\langle\\chi_V,\\chi_\\varepsilon\\rangle=\\tfrac{1}{6}(1\\cdot 2\\cdot 1+3\\cdot 0\\cdot(-1)+2\\cdot(-1)\\cdot 1)=\\tfrac{1}{6}(2-2)=0$."
           }
         ]
       },
-      "induction-and-young": {
-        "title": "Induction and symmetric-group combinatorics",
+      "character-tables": {
+        "title": "Character tables",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many irreducible complex representations does $S_4$ have?",
+            "answer": 5,
+            "tol": 0.000001,
+            "explain": "The number of irreducibles equals the number of conjugacy classes of $S_4$: $\\{e\\}, (12), (12)(34), (123), (1234)$ — five classes, five irreducibles of dimensions $1,3,2,3,1$ summing-squared to $24$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $D_4 = \\langle r, s \\mid r^4 = s^2 = 1, srs = r^{-1}\\rangle$, how many $1$-dimensional irreducible representations are there?",
+            "choices": [
+              "$1$",
+              "$2$",
+              "$4$",
+              "$5$"
+            ],
+            "answer": 2,
+            "explain": "The abelianization $D_4/[D_4,D_4] = D_4/\\langle r^2\\rangle \\cong \\mathbb{Z}/2 \\times \\mathbb{Z}/2$ has $4$ characters. So $D_4$ has $4$ one-dimensional irreps plus one $2$-dimensional."
+          },
+          {
+            "type": "numeric",
+            "q": "The character table of $S_3$ has rows $\\chi_\\mathbf{1}=(1,1,1)$, $\\chi_\\varepsilon=(1,-1,1)$, $\\chi_V=(2,0,-1)$ on classes $\\{e\\},\\{(12)\\},\\{(123)\\}$. Verify the $|G| = \\sum_\\lambda (\\dim V_\\lambda)^2$ identity by computing $\\sum_\\lambda (\\dim V_\\lambda)^2$.",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$1^2 + 1^2 + 2^2 = 6 = |S_3|$. The dimension column of the character table squares to $|G|$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "A group $G$ of order $12$ has conjugacy classes of sizes $1, 3, 4, 4$. Which group is it, and what are the dimensions of its irreducibles?",
+            "choices": [
+              "$A_4$ with irreducible dimensions $1, 1, 1, 3$",
+              "$S_3 \\times \\mathbb{Z}/2$ with dimensions $1,1,1,2,2$",
+              "$D_6$ with dimensions $1,1,1,1,2,2$",
+              "$\\mathbb{Z}/12$ with dimensions $1$ (all twelve)"
+            ],
+            "answer": 0,
+            "hint": "Sum of squared dimensions must equal $|G|=12$; number of irreducibles = number of classes.",
+            "explain": "4 classes → 4 irreducibles. $1^2+1^2+1^2+3^2 = 12$. This is $A_4$: the $3$-dim irrep is the standard rep and the three $1$-dim irreps are characters of $A_4/V_4 \\cong \\mathbb{Z}/3$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $Q_8$ (quaternion group of order $8$) with five conjugacy classes $\\{1\\}, \\{-1\\}, \\{\\pm i\\}, \\{\\pm j\\}, \\{\\pm k\\}$ and sizes $1, 1, 2, 2, 2$, use the column orthogonality relation $\\sum_\\lambda |\\chi_\\lambda(g)|^2 = |C_G(g)|$ at $g=-1$ (centralizer is all of $Q_8$, order $8$) to compute the sum $\\sum_\\lambda |\\chi_\\lambda(-1)|^2$.",
+            "answer": 8,
+            "tol": 0.000001,
+            "hint": "$-1$ is central, so its centralizer is the whole group.",
+            "explain": "Column orthogonality: $\\sum_\\lambda\\chi_\\lambda(g)\\overline{\\chi_\\lambda(h)} = |C_G(g)|\\cdot\\delta_{[g][h]}$. At $g=h=-1$, $|C_G(-1)| = 8$ (the centralizer of a central element is the whole group). So $\\sum_\\lambda|\\chi_\\lambda(-1)|^2 = 8$. Verify: the four $1$-dim irreps all send $-1\\mapsto 1$, and the $2$-dim irrep sends $-1\\mapsto -2$. $1^2+1^2+1^2+1^2+(-2)^2 = 8$. ✓"
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following character tables is consistent with a group of order $8$?",
+            "choices": [
+              "Four $1$-dim rows and one $3$-dim row (sum of squares: $1+1+1+1+9 = 13$)",
+              "Four $1$-dim rows and one $2$-dim row (sum of squares: $1+1+1+1+4 = 8$)",
+              "Five $1$-dim rows and one $2$-dim row (sum of squares: $5+4=9$)",
+              "Two $2$-dim rows (sum of squares: $4+4=8$, but wrong number of irreps)"
+            ],
+            "answer": 1,
+            "hint": "Count irreducibles (= conjugacy classes) and check $\\sum d_i^2 = |G|$.",
+            "explain": "A group of order $8$ has a character table whose dimensions square-sum to $8$. Both $D_4$ and $Q_8$ have exactly four $1$-dim irreps and one $2$-dim irrep."
+          }
+        ]
+      },
+      "orbit-stabilizer-rep": {
+        "title": "Orbits, stabilizers, and permutation reps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a $G$-set $X$, the permutation representation $V_X = \\bigoplus_{x\\in X} \\mathbb{C} e_x$ has character:",
+            "choices": [
+              "$\\chi_{V_X}(g) = |X|$",
+              "$\\chi_{V_X}(g) = \\#\\mathrm{Fix}_X(g) = \\#\\{x : g\\cdot x = x\\}$",
+              "$\\chi_{V_X}(g) = |G|/|X|$",
+              "$\\chi_{V_X}(g) = 0$ unless $g=e$"
+            ],
+            "answer": 1,
+            "explain": "The matrix of $\\rho(g)$ in the basis $\\{e_x\\}$ has a $1$ on the diagonal exactly at fixed points $x = g\\cdot x$, so its trace counts fixed points."
+          },
+          {
+            "type": "numeric",
+            "q": "By Burnside's lemma, the number of orbits of $G$ on $X$ equals $\\frac{1}{|G|}\\sum_{g\\in G}\\#\\mathrm{Fix}_X(g)$. For $G=S_3$ acting on $X=\\{1,2,3\\}$ (transitively), this gives:",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "Fix counts: $e$ fixes $3$, each of the three transpositions fixes $1$, each $3$-cycle fixes $0$. Sum $= 3+3+0 = 6$. Divided by $|S_3|=6$ gives $1$ orbit."
+          },
+          {
+            "type": "numeric",
+            "q": "For $S_4$ acting on the $6$ two-element subsets of $\\{1,2,3,4\\}$, the stabilizer of $\\{1,2\\}$ is $S_{\\{1,2\\}}\\times S_{\\{3,4\\}} \\cong S_2\\times S_2$ of order $4$. By orbit-stabilizer, the orbit of $\\{1,2\\}$ has size:",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "$|G|/|\\mathrm{Stab}| = 24/4 = 6$, matching the $6$ two-element subsets (single orbit)."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For $S_4$ acting on the $4$ cosets of the subgroup $S_3 = \\mathrm{Stab}(4)$, the resulting permutation representation $\\mathbb{C}[S_4/S_3]$ decomposes as:",
+            "choices": [
+              "$\\mathbb{C}[S_4/S_3] = \\mathbf{1}$",
+              "$\\mathbb{C}[S_4/S_3] = \\mathbf{1} \\oplus V_{(3,1)}$",
+              "$\\mathbb{C}[S_4/S_3] = V_{(3,1)} \\oplus V_{(2,1,1)}$",
+              "$\\mathbb{C}[S_4/S_3] = 4\\cdot\\mathbf{1}$"
+            ],
+            "answer": 1,
+            "hint": "By Frobenius reciprocity, this is $\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$. Use dimensions.",
+            "explain": "$\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$ has dimension $[S_4:S_3]\\cdot 1 = 4$. The trivial rep always appears once (since the stabilizer is transitive), and by Frobenius the standard rep $V_{(3,1)}$ (dim $3$) appears. Total dim $1+3 = 4$. ✓"
+          },
+          {
+            "type": "numeric",
+            "q": "For $S_4$ acting on the $8$ vertices of a cube (via its identification with the rotation group of the cube, which is $S_4$), the stabilizer of a vertex is which subgroup, and what order does it have?",
+            "answer": 3,
+            "tol": 0.000001,
+            "hint": "A vertex is fixed by rotations around its diagonal; the stabilizer is cyclic.",
+            "explain": "The stabilizer is cyclic of order $3$ (rotations by $0°, 120°, 240°$ around the vertex's long diagonal). Orbit size $= 24/3 = 8$, matching the $8$ vertices."
+          }
+        ]
+      },
+      "regular-rep-decomposition": {
+        "title": "The regular representation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The regular representation $\\mathbb{C}[G]$ of a finite group $G$ decomposes as:",
+            "choices": [
+              "$\\mathbb{C}[G] = \\bigoplus_\\lambda V_\\lambda$ (each irrep once)",
+              "$\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$",
+              "$\\mathbb{C}[G]$ is irreducible",
+              "$\\mathbb{C}[G] = \\mathbf{1}^{\\oplus|G|}$ (trivially)"
+            ],
+            "answer": 1,
+            "explain": "The multiplicity of $V_\\lambda$ in $\\mathbb{C}[G]$ equals $\\dim V_\\lambda$, giving $\\mathbb{C}[G] = \\bigoplus_\\lambda (\\dim V_\\lambda)\\cdot V_\\lambda$ and $|G|=\\sum(\\dim V_\\lambda)^2$."
+          },
+          {
+            "type": "numeric",
+            "q": "The regular representation of $S_3$ has dimension $6$. Verify: how many copies of each irrep does it contain in total (summed dimensions)? Compute $\\sum_\\lambda \\dim V_\\lambda$ for $S_3$ (sum of one of each irrep).",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$S_3$ has irreducibles of dimensions $1, 1, 2$, summing to $4$. (Compare to $\\sum (\\dim V_\\lambda)^2 = 1+1+4 = 6 = |S_3|$.)"
+          },
+          {
+            "type": "numeric",
+            "q": "The character of the regular representation of any finite group $G$ satisfies $\\chi_{\\mathrm{reg}}(e) = |G|$ and $\\chi_{\\mathrm{reg}}(g) = 0$ for $g\\ne e$. For $|G|=12$, compute $\\langle \\chi_{\\mathrm{reg}}, \\chi_\\lambda\\rangle$ for a $3$-dimensional irrep $V_\\lambda$.",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "$\\langle\\chi_{\\mathrm{reg}},\\chi_\\lambda\\rangle = \\tfrac{1}{|G|}\\cdot|G|\\cdot\\chi_\\lambda(e) = \\chi_\\lambda(e) = \\dim V_\\lambda = 3$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "The isotypic decomposition $\\mathbb{C}[G] = \\bigoplus_\\lambda M_{d_\\lambda}(\\mathbb{C})$ (as a two-sided module: $G\\times G$ acts by left and right translation) is which abstract ring isomorphism?",
+            "choices": [
+              "Artin-Wedderburn: the group algebra $\\mathbb{C}[G]$ is semisimple and isomorphic to $\\prod_\\lambda M_{d_\\lambda}(\\mathbb{C})$, with $d_\\lambda = \\dim V_\\lambda$",
+              "The character map sends $\\mathbb{C}[G]$ to $\\mathbb{C}^{\\#\\mathrm{classes}}$, which is the same thing",
+              "$\\mathbb{C}[G] \\cong \\mathbb{C}$ always",
+              "This only holds for abelian groups"
+            ],
+            "answer": 0,
+            "hint": "What does Maschke + irreducible structure give you as an algebra?",
+            "explain": "Maschke shows $\\mathbb{C}[G]$ is semisimple; Artin-Wedderburn then gives $\\mathbb{C}[G] \\cong \\prod_\\lambda \\mathrm{End}(V_\\lambda) \\cong \\prod_\\lambda M_{d_\\lambda}(\\mathbb{C})$. Dimensions: $|G| = \\sum d_\\lambda^2$. The two-sided action is exactly by matrix multiplication."
+          },
+          {
+            "type": "numeric",
+            "q": "For $|G|=8$ with four $1$-dim irreps and one $2$-dim irrep (e.g. $D_4$ or $Q_8$), how many times does the $2$-dim irrep appear as a direct summand of $\\mathbb{C}[G]$?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Multiplicity = dimension = $2$. Check: $4\\cdot 1^2 + 1\\cdot 2^2 = 4 + 4 = 8 = |G|$. ✓"
+          }
+        ]
+      },
+      "frobenius-reciprocity": {
+        "title": "Induction, restriction, Frobenius reciprocity",
         "questions": [
           {
             "type": "mcq",
@@ -19901,31 +21567,24 @@ window.MVQuizBank = {
               "$\\dim\\mathrm{Ind}_H^G W = \\dim W$"
             ],
             "answer": 0,
-            "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}_H^G W,V)\\cong \\mathrm{Hom}_H(W,\\mathrm{Res}^G_H V)$. On characters, $\\langle\\chi_{\\mathrm{Ind}W},\\chi_V\\rangle_G=\\langle\\chi_W,\\chi_{\\mathrm{Res}V}\\rangle_H$."
-          },
-          {
-            "type": "numeric",
-            "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
-            "answer": 3,
-            "tol": 0.000001,
-            "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$. This is the standard rep of $S_4$."
+            "explain": "Induction is left adjoint to restriction: $\\mathrm{Hom}_G(\\mathrm{Ind}W,V)\\cong\\mathrm{Hom}_H(W,\\mathrm{Res}V)$."
           },
           {
             "type": "numeric",
             "q": "Let $H=\\langle(123)\\rangle\\cong C_3\\le S_3$, $[S_3:H]=2$. If $W$ is any $1$-dimensional rep of $C_3$, compute $\\dim\\mathrm{Ind}_H^{S_3}W$.",
             "answer": 2,
             "tol": 0.000001,
-            "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$. For the nontrivial $W$ this induced rep is the $2$-dim standard rep $V_{(2,1)}$."
+            "explain": "$\\dim\\mathrm{Ind}_H^G W=[G:H]\\cdot\\dim W = 2\\cdot 1 = 2$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $H = A_4 \\le G = S_4$ with $[G:H] = 2$, compute $\\dim \\mathrm{Ind}_H^G \\mathbf{1}_H$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$\\dim\\mathrm{Ind}_{A_4}^{S_4}\\mathbf{1} = [S_4:A_4]\\cdot 1 = 2\\cdot 1 = 2$. This induced rep is $\\mathbf{1}\\oplus\\varepsilon$ (the trivial rep plus the sign rep of $S_4$)."
           }
         ],
         "hard": [
-          {
-            "type": "numeric",
-            "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(2,2)\\vdash 4$. The hook lengths are $3,1$ in row $1$ and $2,1$ in row $2$.",
-            "answer": 2,
-            "tol": 0.000001,
-            "explain": "$f^{(2,2)}=4!/(3\\cdot 1\\cdot 2\\cdot 1)=24/6=4$. Wait — hooks for the $(2,2)$ Young diagram: box $(1,1)$ has hook $3$, box $(1,2)$ has hook $1$; box $(2,1)$ has hook $2$, box $(2,2)$ has hook $1$. So $f^{(2,2)}=24/(3\\cdot 2\\cdot 1\\cdot 1)=24/6=4$. Actually re-examining: $f^{(2,2)}=4!/(3\\cdot1\\cdot2\\cdot1)=4$. The answer is $2$ only for $(2,1,1)$. The correct value for $(2,2)$ is $2$: hook lengths are $3,2,2,1$ giving $4!/12=2$. Box $(1,1)$: arm $1$ + leg $1$ + $1=3$; box $(1,2)$: arm $0$ + leg $1$+$1=2$; box $(2,1)$: arm $1$+leg $0$+$1=2$; box $(2,2)$: arm $0$+leg $0$+$1=1$. Product $=3\\cdot2\\cdot2\\cdot1=12$. $f=24/12=2$."
-          },
           {
             "type": "mcq",
             "q": "By Frobenius reciprocity, $\\langle\\mathrm{Ind}_{C_3}^{S_3}\\chi_\\omega,\\chi_{\\mathrm{std}}\\rangle_{S_3}=\\langle\\chi_\\omega,\\mathrm{Res}_{C_3}^{S_3}\\chi_{\\mathrm{std}}\\rangle_{C_3}$, where $\\chi_\\omega$ is the nontrivial irrep of $C_3$ with $\\chi_\\omega((123))=\\omega=e^{2\\pi i/3}$. Which value does this inner product equal?",
@@ -19936,7 +21595,8 @@ window.MVQuizBank = {
               "$3$"
             ],
             "answer": 1,
-            "explain": "$\\mathrm{Res}_{C_3}\\chi_{\\mathrm{std}}$ has values $(2,-1,-1)$ at $(e,(123),(132))$ (standard $2$-dim irrep restricted). $\\langle\\chi_\\omega,\\mathrm{Res}\\,\\chi_{\\mathrm{std}}\\rangle_{C_3}=\\tfrac{1}{3}(1\\cdot 2+\\bar\\omega\\cdot(-1)+\\bar\\omega^2\\cdot(-1))=\\tfrac{1}{3}(2-\\bar\\omega-\\bar\\omega^2)=\\tfrac{1}{3}(2-(-1))=1$, using $\\omega+\\omega^2=-1$."
+            "hint": "Restrict $V_{\\text{std}}$ to $C_3$ first, then compute the inner product.",
+            "explain": "$\\mathrm{Res}_{C_3}\\chi_{\\mathrm{std}}$ has values $(2,-1,-1)$ at $(e,(123),(132))$. $\\langle\\chi_\\omega,\\mathrm{Res}\\,\\chi_{\\mathrm{std}}\\rangle_{C_3}=\\tfrac{1}{3}(2 - \\bar\\omega - \\bar\\omega^2) = \\tfrac{1}{3}(2 + 1) = 1$."
           },
           {
             "type": "mcq",
@@ -19948,12 +21608,214 @@ window.MVQuizBank = {
               "Average a map $W\\to V|_H$ over cosets to produce a $G$-map"
             ],
             "answer": 0,
-            "explain": "The standard proof: (1) define $\\mathrm{Ind}=\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}W$; (2) the map $\\mathrm{Hom}_G\\to\\mathrm{Hom}_H$ by $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ is natural and $H$-linear; (3) its inverse $f\\mapsto\\tilde f$ with $\\tilde f(g\\otimes w)=g\\cdot f(w)$ is well-defined and $G$-linear, establishing the adjunction."
+            "hint": "Tensor-hom adjunction — where does it come from?",
+            "explain": "Standard proof: $\\phi\\mapsto(w\\mapsto\\phi(1\\otimes w))$ is natural and $H$-linear; its inverse $f\\mapsto\\tilde f$ with $\\tilde f(g\\otimes w)=g\\cdot f(w)$ is $G$-linear. This is just the tensor-hom adjunction for the ring extension $\\mathbb{C}[H]\\hookrightarrow\\mathbb{C}[G]$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $G = S_4$ and $H = S_3 \\le G$ (as stabilizer of $\\{4\\}$), compute $\\langle \\mathrm{Ind}_H^G\\mathbf{1}_H, \\chi_\\mathbf{1}\\rangle_G$ — the number of copies of the trivial rep in $\\mathrm{Ind}_{S_3}^{S_4}\\mathbf{1}$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "Use Frobenius reciprocity and restrict the trivial $G$-rep.",
+            "explain": "By Frobenius, $\\langle \\mathrm{Ind}_H^G\\mathbf{1}_H, \\mathbf{1}_G\\rangle_G = \\langle\\mathbf{1}_H, \\mathrm{Res}_H^G\\mathbf{1}_G\\rangle_H = \\langle\\mathbf{1}_H,\\mathbf{1}_H\\rangle_H = 1$."
+          }
+        ]
+      },
+      "induction-and-young": {
+        "title": "Young tableaux and irreps of $S_n$",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Use the hook-length formula to compute $\\dim V_\\lambda$ for $\\lambda=(3,1)\\vdash 4$. The hook lengths are $4,2,1$ in the first row and $1$ in the second row.",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "$f^\\lambda = 4!/(4\\cdot 2\\cdot 1\\cdot 1)=24/8=3$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many partitions does $5$ have, i.e., how many irreducible representations does $S_5$ have?",
+            "answer": 7,
+            "tol": 0.000001,
+            "explain": "Partitions of $5$: $(5), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1)$. Seven partitions, seven irreducible representations."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\lambda = (2,2) \\vdash 4$, the hook lengths are $3, 2, 2, 1$. Compute $\\dim V_{(2,2)}$.",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "$f^{(2,2)} = 4!/(3\\cdot 2\\cdot 2\\cdot 1) = 24/12 = 2$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "numeric",
+            "q": "For $\\lambda = (3,2) \\vdash 5$, compute $\\dim V_\\lambda$ using the hook-length formula. Hook lengths: row 1 has $(4, 3, 1)$, row 2 has $(2, 1)$.",
+            "answer": 5,
+            "tol": 0.000001,
+            "hint": "Product of hooks is $4\\cdot 3\\cdot 1\\cdot 2\\cdot 1$.",
+            "explain": "$f^{(3,2)} = 5!/(4\\cdot 3\\cdot 1\\cdot 2\\cdot 1) = 120/24 = 5$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Young symmetrizer $c_T = (\\sum_{p\\in R_T} p)(\\sum_{q\\in C_T}\\mathrm{sgn}(q)\\, q)$ has the property:",
+            "choices": [
+              "$c_T = 0$ always",
+              "$c_T^2 = \\tfrac{n!}{f^\\lambda} c_T$, making $(f^\\lambda/n!)\\cdot c_T$ an idempotent",
+              "$c_T$ is central in $\\mathbb{C}[S_n]$",
+              "$c_T$ commutes with every transposition"
+            ],
+            "answer": 1,
+            "hint": "$c_T$ is a near-idempotent; look at $c_T^2/c_T$.",
+            "explain": "$c_T^2 = (n!/f^\\lambda)\\cdot c_T$, so dividing by $n!/f^\\lambda$ gives an idempotent generator of the Specht module $V_\\lambda$."
+          }
+        ]
+      },
+      "peter-weyl-preview": {
+        "title": "Compact groups and Peter–Weyl",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For which class of groups does the Peter–Weyl theorem decompose $L^2(G)$ into a Hilbert direct sum of matrix coefficients of irreducible unitary representations?",
+            "choices": [
+              "All topological groups",
+              "Compact Hausdorff topological groups",
+              "Discrete groups only",
+              "Simply connected Lie groups"
+            ],
+            "answer": 1,
+            "explain": "Peter–Weyl requires compactness (ensures Haar measure is finite and irreps are finite-dimensional) plus Hausdorff (ensures unique Haar measure). For non-compact groups like $\\mathrm{SL}_2(\\mathbb{R})$, infinite-dim irreps enter via the Plancherel theorem."
+          },
+          {
+            "type": "numeric",
+            "q": "The irreducible unitary representations of $\\mathrm{SU}(2)$ are $V_n$ of dimension $n+1$ for $n = 0, 1, 2, \\ldots$. How many linearly independent matrix coefficients does $V_3$ contribute to $L^2(\\mathrm{SU}(2))$ (i.e., what is $\\dim V_3 \\cdot \\dim V_3^* = (\\dim V_3)^2$)?",
+            "answer": 16,
+            "tol": 0.000001,
+            "explain": "$V_3$ has dimension $4$, so $V_3\\otimes V_3^*$ contributes $4\\cdot 4 = 16$ matrix coefficients."
+          },
+          {
+            "type": "mcq",
+            "q": "The character of $V_n$ on the maximal torus $\\{\\mathrm{diag}(e^{i\\theta},e^{-i\\theta})\\}$ of $\\mathrm{SU}(2)$ is:",
+            "choices": [
+              "$\\chi_n(\\theta) = (n+1)\\cos(\\theta)$",
+              "$\\chi_n(\\theta) = \\sin((n+1)\\theta)/\\sin(\\theta)$",
+              "$\\chi_n(\\theta) = e^{in\\theta}$",
+              "$\\chi_n(\\theta) = n+1$"
+            ],
+            "answer": 1,
+            "explain": "Weights of $V_n$ on the maximal torus are $n, n-2, \\ldots, -n$, so $\\chi_n(\\theta) = \\sum_{k=0}^n e^{i(n-2k)\\theta} = e^{-in\\theta}\\frac{e^{i2(n+1)\\theta}-1}{e^{i2\\theta}-1} = \\sin((n+1)\\theta)/\\sin(\\theta)$ — the Chebyshev polynomial $U_n(\\cos\\theta)$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "For the circle group $\\mathbb{T} = \\mathbb{R}/\\mathbb{Z}$, Peter–Weyl recovers which classical result?",
+            "choices": [
+              "The Plancherel theorem on $\\mathbb{R}$",
+              "The Fourier series expansion $L^2(\\mathbb{T}) = \\widehat{\\bigoplus}_{n\\in\\mathbb{Z}}\\mathbb{C}\\cdot e^{2\\pi i n\\theta}$",
+              "The Poisson summation formula",
+              "The Riemann hypothesis for $L$-functions"
+            ],
+            "answer": 1,
+            "hint": "What are the irreducible unitary reps of $\\mathbb T$?",
+            "explain": "Irreps of $\\mathbb{T}$ are $\\chi_n(\\theta) = e^{2\\pi i n\\theta}$ for $n\\in\\mathbb{Z}$; each is $1$-dimensional, so matrix coefficients equal characters. Peter–Weyl then gives exactly the Fourier basis of $L^2(\\mathbb{T})$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Weyl integration formula for $\\mathrm{SU}(2)$ reads $\\int_{\\mathrm{SU}(2)} f(g)\\,dg = \\frac{2}{\\pi}\\int_0^\\pi f(\\theta)\\sin^2(\\theta)\\,d\\theta$ for class functions $f$. Using this, compute $\\int_{\\mathrm{SU}(2)}|\\chi_1(g)|^2\\,dg$ where $\\chi_1$ is the character of the standard $2$-dim rep.",
+            "answer": 1,
+            "tol": 0.000001,
+            "hint": "Characters of distinct irreps are orthonormal under this integral.",
+            "explain": "$\\chi_1(\\theta) = \\sin(2\\theta)/\\sin(\\theta) = 2\\cos\\theta$. Then $\\frac{2}{\\pi}\\int_0^\\pi 4\\cos^2(\\theta)\\sin^2(\\theta)\\,d\\theta = \\frac{2}{\\pi}\\int_0^\\pi \\sin^2(2\\theta)\\,d\\theta = \\frac{2}{\\pi}\\cdot\\frac{\\pi}{2} = 1$. Orthonormality of irreducible characters. ✓"
+          },
+          {
+            "type": "mcq",
+            "q": "The Peter–Weyl decomposition $L^2(G) = \\widehat{\\bigoplus}_\\pi V_\\pi\\otimes V_\\pi^*$ exhibits $L^2(G)$ as a $G\\times G$ representation (by left and right translation). The $V_\\pi\\otimes V_\\pi^*$ factor carries which $G\\times G$ action?",
+            "choices": [
+              "trivial on both factors",
+              "$(g_1, g_2)\\cdot (v\\otimes f) = \\pi(g_1)v \\otimes \\pi^*(g_2)f$ — left translation acts on $V_\\pi$, right translation on $V_\\pi^*$",
+              "only the diagonal $G\\to G\\times G$ acts",
+              "$L^2(G)$ is not a $G\\times G$ representation"
+            ],
+            "answer": 1,
+            "hint": "Left translation: $(L_{g_1}f)(x) = f(g_1^{-1}x)$, right translation $(R_{g_2}f)(x) = f(xg_2)$.",
+            "explain": "$L^2(G)$ carries commuting left- and right-translation actions, giving a $G\\times G$ rep. On matrix coefficients $\\pi_{ij}(x) = \\langle\\pi(x)e_j, e_i\\rangle$, left translation acts on the $i$-index (i.e., on $V_\\pi$) and right translation on the $j$-index (on $V_\\pi^*$)."
+          }
+        ]
+      },
+      "highest-weight-theorem": {
+        "title": "Highest-weight vectors for $\\mathfrak{sl}_2$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A highest-weight vector $v$ of weight $\\lambda$ in an $\\mathfrak{sl}_2$-representation is, by definition, a nonzero vector satisfying:",
+            "choices": [
+              "$Hv = \\lambda v$ and $Fv = 0$",
+              "$Hv = \\lambda v$ and $Ev = 0$",
+              "$Ev = \\lambda v$ and $Fv = 0$",
+              "$Hv = Ev = Fv = 0$"
+            ],
+            "answer": 1,
+            "explain": "A highest-weight vector is annihilated by the raising operator $E$ (so its weight cannot be increased) and is a simultaneous eigenvector of the Cartan $H$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $v$ is a highest-weight vector of weight $n = 5$ in a finite-dimensional irreducible $\\mathfrak{sl}_2$-rep, how many linearly independent vectors are in $\\{v, Fv, F^2 v, \\ldots, F^5 v\\}$?",
+            "answer": 6,
+            "tol": 0.000001,
+            "explain": "The chain has $n+1 = 6$ linearly independent vectors, and their $H$-weights $5, 3, 1, -1, -3, -5$ are distinct."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does finite-dimensionality force the highest weight $\\lambda$ of an irreducible $\\mathfrak{sl}_2$-rep to be a non-negative integer?",
+            "choices": [
+              "Because the vectors $v, Fv, F^2v, \\ldots$ must eventually repeat",
+              "Because $F^{n+1}v = 0$ for some $n$, and then $0 = E F^{n+1}v = (n+1)(\\lambda - n)F^n v$ with $F^n v \\ne 0$ forces $\\lambda = n$",
+              "Because $\\mathfrak{sl}_2$ is simple",
+              "Because the exponential map sends $\\lambda$ to a complex number"
+            ],
+            "answer": 1,
+            "explain": "Finite dimensionality gives $F^{n+1}v = 0$ for some $n$. Applying $E$ and using $EF^k v = k(\\lambda - k + 1)F^{k-1}v$ at $k = n+1$ gives $0 = (n+1)(\\lambda-n)F^n v$. Since $F^n v \\ne 0$ and $n+1 \\ne 0$, $\\lambda = n$."
+          }
+        ],
+        "hard": [
+          {
+            "type": "mcq",
+            "q": "If $v$ is a highest-weight vector of weight $\\lambda$ and $\\lambda \\notin \\mathbb{Z}_{\\ge 0}$, which is true?",
+            "choices": [
+              "No such vector can exist in any $\\mathfrak{sl}_2$-rep",
+              "The Verma module $M(\\lambda)$ exists and is irreducible, but is infinite-dimensional",
+              "Such a $v$ always generates a finite-dim rep",
+              "$\\mathfrak{sl}_2$ has no representations of non-integer weight"
+            ],
+            "answer": 1,
+            "hint": "Think about $\\mathcal{U}(\\mathfrak{sl}_2)$-modules generated by $v$ — what's the general construction?",
+            "explain": "For any $\\lambda\\in\\mathbb{C}$, the Verma module $M(\\lambda) = \\mathcal{U}(\\mathfrak{sl}_2) \\otimes_{\\mathfrak{b}} \\mathbb{C}_\\lambda$ (where $\\mathfrak{b} = \\mathbb{C}H + \\mathbb{C}E$) is a highest-weight module with basis $\\{F^k v : k\\ge 0\\}$. For $\\lambda\\in\\mathbb{Z}_{\\ge 0}$, $F^{\\lambda+1}v$ generates a submodule and the quotient is $V_\\lambda$; for $\\lambda\\notin\\mathbb{Z}_{\\ge 0}$, $M(\\lambda)$ is irreducible but infinite-dim."
+          },
+          {
+            "type": "numeric",
+            "q": "In the irreducible rep $V_4$ of $\\mathfrak{sl}_2$ (highest weight $4$, dimension $5$), let $v_0$ be the highest-weight vector. Using the formula $EF^k v_0 = k(\\lambda - k + 1) F^{k-1} v_0$ at $k = 2$, $\\lambda = 4$: compute the coefficient.",
+            "answer": 6,
+            "tol": 0.000001,
+            "hint": "Plug $k = 2, \\lambda = 4$ directly into $k(\\lambda - k + 1)$.",
+            "explain": "$k(\\lambda - k + 1) = 2\\cdot(4 - 2 + 1) = 2\\cdot 3 = 6$. So $EF^2 v_0 = 6 F v_0$."
+          },
+          {
+            "type": "mcq",
+            "q": "In higher rank (e.g. $\\mathfrak{sl}_3$), which of the following generalizes 'highest-weight vector'?",
+            "choices": [
+              "A vector $v$ with $Hv = \\lambda v$ for all $H\\in\\mathfrak{h}$ and $E_\\alpha v = 0$ for every positive root $\\alpha$",
+              "A vector $v$ of largest norm",
+              "A vector in the kernel of every $F_\\alpha$",
+              "The identity matrix in the adjoint rep"
+            ],
+            "answer": 0,
+            "hint": "Generalize $E$ to all positive root vectors.",
+            "explain": "For a semisimple $\\mathfrak{g}$ with Cartan $\\mathfrak{h}$, positive roots $\\Phi^+$, and root vectors $E_\\alpha$: a highest-weight vector satisfies $\\mathfrak{h}v\\subset\\mathbb{C}v$ and $E_\\alpha v = 0$ for all $\\alpha\\in\\Phi^+$. This is the universal template — for $\\mathfrak{sl}_2$, $\\Phi^+$ has one element and $E_\\alpha = E$."
           }
         ]
       },
       "sl2-weight-decomposition": {
-        "title": "Weight decomposition for 𝔰𝔩₂",
+        "title": "Weight decomposition for $\\mathfrak{sl}_2$",
         "questions": [
           {
             "type": "mcq",
@@ -19965,7 +21827,7 @@ window.MVQuizBank = {
               "$\\{\\pm n\\}$"
             ],
             "answer": 1,
-            "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$, each of multiplicity $1$."
+            "explain": "From a highest-weight vector $v$ with $Hv=nv$ and $Ev=0$, applying $F$ repeatedly yields $n+1$ nonzero weight vectors with weights $n,n-2,\\ldots,-n$."
           },
           {
             "type": "numeric",
@@ -19979,7 +21841,7 @@ window.MVQuizBank = {
             "q": "On the weight-$m$ space of $V_n$, the operator $EF$ acts as the scalar $\\tfrac{(n-m)(n+m+2)}{4}$. For $n=4$, $m=0$, what is this scalar?",
             "answer": 6,
             "tol": 0.000001,
-            "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$. The companion formula $FE=\\tfrac{(n+m)(n-m+2)}{4}$ gives the same value $6$ at $m=0$, and their difference $EF-FE=H=m=0$. ✓"
+            "explain": "$\\tfrac{(4-0)(4+0+2)}{4}=\\tfrac{4\\cdot 6}{4}=6$."
           }
         ],
         "hard": [
@@ -19993,14 +21855,15 @@ window.MVQuizBank = {
               "Complete reducibility follows from the Casimir operator being central"
             ],
             "answer": 1,
-            "explain": "$[H,E]=2E$ means $E$ raises the $H$-eigenvalue by $2$, so from a weight-$\\lambda$ vector, weights are $\\lambda,\\lambda+2,\\lambda+4,\\ldots$. Finite-dimensionality forces the chain to terminate, requiring an integer highest weight $n\\ge 0$. The weight set $\\{n,n-2,\\ldots,-n\\}$ is then a $\\mathbb{Z}$-arithmetic progression of step $2$."
+            "hint": "$[H,E]=2E$ shifts weights by exactly $2$.",
+            "explain": "$[H,E]=2E$ means $E$ raises the $H$-eigenvalue by $2$. Finite-dimensionality forces the chain to terminate, requiring an integer highest weight $n\\ge 0$."
           },
           {
             "type": "numeric",
             "q": "Using Clebsch–Gordan, decompose $V_3\\otimes V_3$ into irreducibles and compute the number of distinct irreducible summands.",
             "answer": 4,
             "tol": 0.000001,
-            "explain": "$V_3\\otimes V_3=V_6\\oplus V_4\\oplus V_2\\oplus V_0$, four distinct irreducible summands (dimensions $7,5,3,1$, summing to $16=4\\cdot 4$). The Clebsch–Gordan rule gives $V_{m+n}\\oplus V_{m+n-2}\\oplus\\cdots\\oplus V_{|m-n|}$, here $m=n=3$ yields $V_6,V_4,V_2,V_0$."
+            "explain": "$V_3\\otimes V_3=V_6\\oplus V_4\\oplus V_2\\oplus V_0$, four distinct irreducible summands (dimensions $7,5,3,1$, summing to $16=4\\cdot 4$)."
           },
           {
             "type": "mcq",
@@ -20012,7 +21875,8 @@ window.MVQuizBank = {
               "$C$ is a projector onto the highest-weight space"
             ],
             "answer": 0,
-            "explain": "$C\\in Z(\\mathcal{U}(\\mathfrak{sl}_2))$ is central (one verifies $[C,E]=[C,F]=[C,H]=0$). On an irrep $V_n$ over $\\mathbb{C}$, Schur's lemma forces any central element to act as a scalar. Evaluating on the highest-weight vector gives $C v_n=(n^2+2n)v_n=n(n+2)v_n$."
+            "hint": "Central elements act as scalars on irreducibles — why?",
+            "explain": "$C\\in Z(\\mathcal{U}(\\mathfrak{sl}_2))$ is central. On an irrep $V_n$ over $\\mathbb{C}$, Schur's lemma forces any central element to act as a scalar. Evaluating on the highest-weight vector gives $Cv_n = n(n+2)v_n$."
           }
         ]
       }

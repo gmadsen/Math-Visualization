@@ -50,6 +50,70 @@
         "functors-natural-transformations"
       ],
       "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category."
+    },
+    {
+      "id": "yoneda-lemma",
+      "title": "The Yoneda lemma",
+      "anchor": "yoneda-deep",
+      "prereqs": [
+        "functors-natural-transformations"
+      ],
+      "blurb": "$\\mathrm{Nat}(h_A,F)\\cong F(A)$: every natural transformation out of a representable is pinned by a single element, and every object is determined by its functor of points."
+    },
+    {
+      "id": "limits-colimits",
+      "title": "Limits and colimits",
+      "anchor": "lim-deep",
+      "prereqs": [
+        "functors-natural-transformations"
+      ],
+      "blurb": "A (co)limit is the universal (co)cone on a diagram; products, equalizers, pullbacks and their duals are all special cases of the same representability problem."
+    },
+    {
+      "id": "adjunctions",
+      "title": "Adjunctions: unit, counit, triangle",
+      "anchor": "adj-deep",
+      "prereqs": [
+        "yoneda-lemma"
+      ],
+      "blurb": "An adjunction $F\\dashv G$ is a natural Hom-isomorphism, equivalently unit/counit satisfying the triangle identities; left adjoints preserve colimits, right adjoints preserve limits."
+    },
+    {
+      "id": "monads-algebras",
+      "title": "Monads and their algebras",
+      "anchor": "mon-ad",
+      "prereqs": [
+        "adjunctions"
+      ],
+      "blurb": "A monad $(T,\\mu,\\eta)$ is a monoid in endofunctors; Kleisli and Eilenberg–Moore categories recover the adjunction and classify its algebras."
+    },
+    {
+      "id": "kan-extensions",
+      "title": "Kan extensions",
+      "anchor": "kan",
+      "prereqs": [
+        "limits-colimits",
+        "adjunctions"
+      ],
+      "blurb": "Left and right Kan extensions along a functor extend structure as freely (or cofreely) as possible; Mac Lane's aphorism ‘all concepts are Kan extensions’ is literally true."
+    },
+    {
+      "id": "two-categories",
+      "title": "2-categories preview",
+      "anchor": "twocat",
+      "prereqs": [
+        "functors-natural-transformations"
+      ],
+      "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells."
+    },
+    {
+      "id": "enriched-categories",
+      "title": "Enriched categories preview",
+      "anchor": "enr",
+      "prereqs": [
+        "monoidal-categories"
+      ],
+      "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category."
     }
   ]
 }

@@ -13,6 +13,15 @@
       "blurb": "A representation realizes group elements as linear operators, translating group questions into linear algebra."
     },
     {
+      "id": "tensor-and-dual-reps",
+      "title": "Tensor products and dual representations",
+      "anchor": "tensor-dual",
+      "prereqs": [
+        "group-representations"
+      ],
+      "blurb": "The category $\\mathbf{Rep}(G)$ is closed under direct sum, tensor product, and duals; characters multiply under $\\otimes$, making $\\mathbf{Rep}(G)$ a rigid symmetric monoidal category."
+    },
+    {
       "id": "maschke-theorem",
       "title": "Maschke's theorem",
       "anchor": "maschke",
@@ -40,23 +49,77 @@
       "blurb": "Character theory packages traces of representations and gives powerful decomposition formulas."
     },
     {
-      "id": "induction-and-young",
-      "title": "Induction and symmetric-group combinatorics",
-      "anchor": "young",
+      "id": "character-tables",
+      "title": "Character tables",
+      "anchor": "tables",
       "prereqs": [
         "characters-orthogonality"
       ],
-      "blurb": "Induction, restriction, and Young diagrams organize families of representations and branching laws."
+      "blurb": "The $k\\times k$ square table of irreducible characters against conjugacy classes — rows orthonormal, columns weighted-orthonormal, completely determined by small-group data for $S_3$, $S_4$, $D_4$, $Q_8$, $A_5$."
+    },
+    {
+      "id": "orbit-stabilizer-rep",
+      "title": "Orbits, stabilizers, and permutation reps",
+      "anchor": "sec-orbit",
+      "prereqs": [
+        "characters-orthogonality"
+      ],
+      "blurb": "For a $G$-set $X$, the permutation rep $\\mathbb{C}[X]$ has character $\\chi(g)=\\#\\mathrm{Fix}(g)$; Burnside counts orbits and stabilizers govern isotypic components."
+    },
+    {
+      "id": "regular-rep-decomposition",
+      "title": "The regular representation",
+      "anchor": "sec-regdecomp",
+      "prereqs": [
+        "characters-orthogonality"
+      ],
+      "blurb": "$\\mathbb{C}[G] \\cong \\bigoplus_\\lambda (\\dim V_\\lambda)\\,V_\\lambda$: each irrep appears with multiplicity equal to its dimension, giving $|G| = \\sum (\\dim V_\\lambda)^2$."
+    },
+    {
+      "id": "frobenius-reciprocity",
+      "title": "Induction, restriction, Frobenius reciprocity",
+      "anchor": "frobenius",
+      "prereqs": [
+        "characters-orthogonality"
+      ],
+      "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations."
+    },
+    {
+      "id": "induction-and-young",
+      "title": "Young tableaux and irreps of $S_n$",
+      "anchor": "young",
+      "prereqs": [
+        "frobenius-reciprocity"
+      ],
+      "blurb": "Irreps of $S_n$ are indexed by partitions $\\lambda\\vdash n$; Specht modules realize them and the hook-length formula gives $\\dim V_\\lambda = n!/\\prod h(c)$."
+    },
+    {
+      "id": "peter-weyl-preview",
+      "title": "Compact groups and Peter–Weyl",
+      "anchor": "peter-weyl",
+      "prereqs": [
+        "characters-orthogonality"
+      ],
+      "blurb": "For a compact group $G$ with Haar measure, $L^2(G) \\cong \\widehat{\\bigoplus}_{\\pi\\in\\widehat G}\\, V_\\pi\\otimes V_\\pi^*$ — matrix coefficients of irreducible unitary reps form a Hilbert basis."
+    },
+    {
+      "id": "highest-weight-theorem",
+      "title": "Highest-weight vectors for $\\mathfrak{sl}_2$",
+      "anchor": "hw",
+      "prereqs": [
+        "schurs-lemma"
+      ],
+      "blurb": "An $\\mathfrak{sl}_2$-irrep is determined by a highest-weight vector $v$: $Hv = nv$, $Ev=0$, and the $F$-orbit $\\{v,Fv,F^2v,\\ldots,F^nv\\}$ exhausts the rep — the template for every semisimple Lie algebra."
     },
     {
       "id": "sl2-weight-decomposition",
-      "title": "Weight decomposition for 𝔰𝔩₂",
+      "title": "Weight decomposition for $\\mathfrak{sl}_2$",
       "anchor": "sl2",
       "prereqs": [
-        "characters-orthogonality",
+        "highest-weight-theorem",
         "lie-algebra-tangent"
       ],
-      "blurb": "Every finite-dimensional irrep of 𝔰𝔩₂(ℂ) is determined by a highest weight n ≥ 0 and realized as Sym^n of the standard rep, with weights n, n−2, …, −n and Clebsch–Gordan decomposition V_m ⊗ V_n = ⊕ V_{m+n−2k}."
+      "blurb": "Every finite-dimensional irrep of $\\mathfrak{sl}_2(\\mathbb{C})$ is determined by a highest weight $n \\ge 0$ and realized as $\\mathrm{Sym}^n$ of the standard rep, with weights $n, n-2, \\ldots, -n$ and Clebsch–Gordan decomposition $V_m \\otimes V_n = \\bigoplus V_{m+n-2k}$."
     }
   ]
 }
