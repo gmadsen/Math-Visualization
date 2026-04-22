@@ -4,6 +4,7 @@
 //   node scripts/build-concepts-bundle.mjs
 //   node scripts/build-quizzes-bundle.mjs
 //   node scripts/build-search-index.mjs
+//   node scripts/validate-schema.mjs
 //   node scripts/validate-concepts.mjs
 //   node scripts/validate-katex.mjs
 //   node scripts/audit-callbacks.mjs --fix
@@ -19,7 +20,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, search, validate, katex, callbacks, backlinks, breadcrumb, a11y, smoke
+//                       concepts, quizzes, search, schema, validate, katex, callbacks, backlinks, breadcrumb, a11y, smoke
 //
 // Zero dependencies.
 
@@ -50,6 +51,7 @@ const STEPS = [
   { name: 'concepts',   script: 'build-concepts-bundle.mjs',    fix: false },
   { name: 'quizzes',    script: 'build-quizzes-bundle.mjs',     fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
+  { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },

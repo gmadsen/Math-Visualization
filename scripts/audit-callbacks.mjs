@@ -27,6 +27,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { escapeRe } from './lib/audit-utils.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -92,10 +93,6 @@ for (const arr of needed.values()) {
 const missingReport = [];
 let insertedCount = 0;
 let existingCount = 0;
-
-function escapeRe(s) {
-  return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
 
 // Find the "block" owned by a concept anchor. The anchor can be either a top-level
 // <section id="anchor"> or a sub-heading like <h3 id="anchor"> inside a section.
