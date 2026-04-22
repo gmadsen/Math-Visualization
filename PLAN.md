@@ -4,6 +4,25 @@ Forward-looking priorities for the notebook. For architecture, conventions, and 
 
 After any change, run `node scripts/rebuild.mjs` (exits 0 on green, bails on the first non-zero child). `--no-fix` mirrors CI; `--only <step>` runs a single step. The full step list lives in `scripts/rebuild.mjs` — refer to it rather than duplicating step names here.
 
+## Portable data model — what's landed, what's next
+
+The structured-content pipeline is the big recent shift. See `widgets/README.md` for the widget registry and the `feat/portable-data-model` branch history (`git log --oneline --grep='Phase [0-9]'`) for the commit trail.
+
+**Landed:**
+- Explicit schemas for `concepts/<topic>.json` and `quizzes/<topic>.json` (`schemas/*.schema.json`).
+- Shared content-model loader (`scripts/lib/content-model.mjs`) and audit utils (`scripts/lib/audit-utils.mjs`); seven audits migrated; ~1,200 lines of duplicated code deleted.
+- Every topic has a `content/<topic>.json` — an ordered block decomposition (raw / widget / widget-script / quiz) that renders byte-identical to the handwritten HTML via `scripts/render-topic.mjs`.
+- Widget registry with three entries (`composition-explorer`, `natural-transformation-explorer`, `clickable-diagram`); five widgets in category-theory now registry-driven (5 of 13).
+- CI gates: `validate-schema`, `validate-widget-params`, `test-roundtrip` all wired into `rebuild.mjs`.
+- Prototypes of alternate frontends: `examples/react-consumer/` (SSR via React+ajv), `examples/threejs-prototype/` (tangent bundle on S², Three.js from CDN).
+
+**Next moves (in priority order):**
+- Widen the registry: keep migrating widgets where a shared renderer is a clean fit. The 8 category-theory widgets skipped by `clickable-diagram` are domain-logic-heavy (randomized-functor tables, sets-and-maps blob renderers, group-theory computations); they want bespoke modules, not a shared abstraction.
+- Full-topic React frontend: current POC renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry.
+- Three.js adoption decision: the prototype validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). If you green-light it, first real use would be the Gauss-curvature surface in `differential-geometry.html`, behind a widget-registry slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
+- Flip `content/` to the source of truth: currently `content/*.json` tracks `<topic>.html` and the roundtrip gate catches drift. The inverse — edit JSON, regenerate HTML — is one render-topic.mjs flag away.
+- Markdown prose: reversibly convert raw HTML prose blocks to Markdown while preserving byte-identical round-trip on the restricted subset the notebook uses. This was the deferred Phase 3c — worth revisiting once the registry coverage is higher.
+
 ## Near-term tasks
 
 Grouped by theme. Each item is a short title plus one-line scope. No checkboxes — when something ships, delete its bullet.
@@ -49,7 +68,7 @@ Quiz-type work serializes on `js/quiz.js` — schedule as one agent, not several
 ### Maintainability & tooling
 
 - **`.claude/agents/`.** Directory exists but is empty. Ship four: content-scaffolder, cross-topic-prereq recommender, quiz-difficulty calibrator, pedagogy/notation auditor.
-- **Markdown-first content pipeline.** Accept contributions as Markdown + `[WIDGET: slug]` placeholders; an agent compiles to HTML + concept JSON + quiz skeleton.
+- **Markdown-first content pipeline.** *Partially shipped:* structured content is now `content/<topic>.json` with `widget` blocks carrying `slug + params` references. Markdown (rather than raw HTML) for prose blocks is still deferred — would require a reversible HTML↔Markdown conversion that preserves byte-identity on the restricted subset the notebook uses.
 - **Cross-page consistency audit.** Verify every topic page has identical `<head>` boilerplate, sidetoc scaffold, and `data-section`/`data-level` attributes.
 - **Mobile widget performance audit.** Use the Playwright MCP to measure FPS on 3D rotation and SVG drag at a mobile viewport; wire as a gate.
 - **Bundle-staleness guard.** Fast check that `concepts/bundle.js` and `quizzes/bundle.js` match their sources without running a full rebuild.
