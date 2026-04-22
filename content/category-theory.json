@@ -538,12 +538,577 @@
         {
           "type": "widget",
           "id": "w-proof",
-          "html": "<div class=\"widget\" id=\"w-proof\">\n  <div class=\"hd\"><div class=\"ttl\">Proof stepper</div><div class=\"hint\">click <em>next</em> · watch each arrow appear</div></div>\n  <div class=\"row\">\n    <label>proof:</label>\n    <select id=\"pf-pick\">\n      <option value=\"identity\">Identity morphisms are unique</option>\n      <option value=\"initial\">Initial objects are unique up to unique iso</option>\n      <option value=\"product\">Products are unique up to unique iso</option>\n    </select>\n    <button id=\"pf-prev\">◀ back</button>\n    <button id=\"pf-next\">next ▶</button>\n    <button id=\"pf-reset\">reset</button>\n    <span class=\"small\" id=\"pf-counter\" style=\"margin-left:.4rem\"></span>\n  </div>\n  <svg id=\"pf-svg\" viewBox=\"0 0 560 320\" width=\"100%\" style=\"max-width:560px\"><title>Proof stepper</title></svg>\n  <div class=\"readout\" id=\"pf-text\"></div>\n  <div class=\"readout\" id=\"pf-log\" style=\"margin-top:.4rem;min-height:1.6em\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "proof-stepper",
+            "widgetId": "w-proof",
+            "pickId": "pf-pick",
+            "prevId": "pf-prev",
+            "nextId": "pf-next",
+            "resetId": "pf-reset",
+            "counterId": "pf-counter",
+            "svgId": "pf-svg",
+            "outputTextId": "pf-text",
+            "outputLogId": "pf-log",
+            "title": "Proof stepper",
+            "hint": "click <em>next</em> · watch each arrow appear",
+            "pickLabel": "proof:",
+            "prevLabel": "◀ back",
+            "nextLabel": "next ▶",
+            "resetLabel": "reset",
+            "svgViewBox": "0 0 560 320",
+            "svgWidthAttr": "100%",
+            "svgStyleAttr": "max-width:560px",
+            "outputLogStyleAttr": "margin-top:.4rem;min-height:1.6em",
+            "initialKey": "identity",
+            "options": [
+              {
+                "value": "identity",
+                "label": "Identity morphisms are unique"
+              },
+              {
+                "value": "initial",
+                "label": "Initial objects are unique up to unique iso"
+              },
+              {
+                "value": "product",
+                "label": "Products are unique up to unique iso"
+              }
+            ],
+            "cases": {
+              "identity": {
+                "title": "Identity morphisms are unique",
+                "intro": "Suppose e and e' are both identity morphisms on A. We'll show e = e'.",
+                "nodes": {
+                  "A": {
+                    "x": 280,
+                    "y": 160
+                  }
+                },
+                "given": [
+                  {
+                    "id": "e",
+                    "from": "A",
+                    "to": "A",
+                    "loop": "top",
+                    "label": "e"
+                  },
+                  {
+                    "id": "eprime",
+                    "from": "A",
+                    "to": "A",
+                    "loop": "bottom",
+                    "label": "e'"
+                  }
+                ],
+                "steps": [
+                  {
+                    "highlight": [
+                      "e"
+                    ],
+                    "equation": "e ∘ e' = e'",
+                    "text": "Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'."
+                  },
+                  {
+                    "highlight": [
+                      "eprime"
+                    ],
+                    "equation": "e ∘ e' = e",
+                    "text": "Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e."
+                  },
+                  {
+                    "highlight": [],
+                    "equation": "⟹   e = e'",
+                    "text": "Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.",
+                    "done": true
+                  }
+                ]
+              },
+              "initial": {
+                "title": "Initial objects are unique up to unique iso",
+                "intro": "Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.",
+                "nodes": {
+                  "I": {
+                    "x": 160,
+                    "y": 160
+                  },
+                  "J": {
+                    "x": 400,
+                    "y": 160
+                  }
+                },
+                "given": [],
+                "steps": [
+                  {
+                    "add": [
+                      {
+                        "id": "f",
+                        "from": "I",
+                        "to": "J",
+                        "curve": -22,
+                        "label": "f",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "f"
+                    ],
+                    "equation": "∃! f: I → J",
+                    "text": "I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f."
+                  },
+                  {
+                    "add": [
+                      {
+                        "id": "g",
+                        "from": "J",
+                        "to": "I",
+                        "curve": -22,
+                        "label": "g",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "g"
+                    ],
+                    "equation": "∃! g: J → I",
+                    "text": "Symmetrically, J is initial, so there is a unique arrow g: J → I."
+                  },
+                  {
+                    "highlight": [
+                      "f",
+                      "g"
+                    ],
+                    "equation": "g ∘ f = id_I",
+                    "text": "Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I."
+                  },
+                  {
+                    "highlight": [
+                      "f",
+                      "g"
+                    ],
+                    "equation": "f ∘ g = id_J",
+                    "text": "The symmetric argument gives f ∘ g = id_J."
+                  },
+                  {
+                    "highlight": [
+                      "f"
+                    ],
+                    "equation": "⟹  I ≅ J uniquely via f",
+                    "text": "f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.",
+                    "done": true
+                  }
+                ]
+              },
+              "product": {
+                "title": "Products are unique up to unique iso",
+                "intro": "Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.",
+                "nodes": {
+                  "P": {
+                    "x": 130,
+                    "y": 80
+                  },
+                  "Q": {
+                    "x": 430,
+                    "y": 80
+                  },
+                  "X": {
+                    "x": 180,
+                    "y": 260
+                  },
+                  "Y": {
+                    "x": 380,
+                    "y": 260
+                  }
+                },
+                "given": [
+                  {
+                    "id": "pi1",
+                    "from": "P",
+                    "to": "X",
+                    "label": "π₁"
+                  },
+                  {
+                    "id": "pi2",
+                    "from": "P",
+                    "to": "Y",
+                    "label": "π₂"
+                  },
+                  {
+                    "id": "rho1",
+                    "from": "Q",
+                    "to": "X",
+                    "label": "ρ₁"
+                  },
+                  {
+                    "id": "rho2",
+                    "from": "Q",
+                    "to": "Y",
+                    "label": "ρ₂"
+                  }
+                ],
+                "steps": [
+                  {
+                    "add": [
+                      {
+                        "id": "u",
+                        "from": "P",
+                        "to": "Q",
+                        "curve": -30,
+                        "label": "u",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "u"
+                    ],
+                    "equation": "∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂",
+                    "text": "P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂."
+                  },
+                  {
+                    "add": [
+                      {
+                        "id": "v",
+                        "from": "Q",
+                        "to": "P",
+                        "curve": -30,
+                        "label": "v",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "v"
+                    ],
+                    "equation": "∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂",
+                    "text": "Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "π₁(vu) = π₁,   π₂(vu) = π₂",
+                    "text": "Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "vu = id_P",
+                    "text": "But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "uv = id_Q",
+                    "text": "The symmetric argument gives uv = id_Q."
+                  },
+                  {
+                    "highlight": [
+                      "u"
+                    ],
+                    "equation": "⟹  P ≅ Q uniquely",
+                    "text": "u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.",
+                    "done": true
+                  }
+                ]
+              }
+            },
+            "proofsLiteral": "{\n    identity: {\n      title: 'Identity morphisms are unique',\n      nodes: { A: {x: 280, y: 160} },\n      intro: \"Suppose e and e' are both identity morphisms on A. We'll show e = e'.\",\n      // arrows keyed by id\n      given: [\n        {id:'e',      from:'A', to:'A', loop:'top',    label:\"e\"},\n        {id:'eprime', from:'A', to:'A', loop:'bottom', label:\"e'\"}\n      ],\n      steps: [\n        {\n          highlight:['e'],\n          equation: \"e ∘ e' = e'\",\n          text: \"Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'.\"\n        },\n        {\n          highlight:['eprime'],\n          equation: \"e ∘ e' = e\",\n          text: \"Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e.\"\n        },\n        {\n          highlight:[],\n          equation: \"⟹   e = e'\",\n          text: \"Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.\",\n          done: true\n        }\n      ]\n    },\n\n    initial: {\n      title: 'Initial objects are unique up to unique iso',\n      nodes: { I: {x: 160, y: 160}, J: {x: 400, y: 160} },\n      intro: \"Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.\",\n      given: [],\n      steps: [\n        {\n          add: [{id:'f', from:'I', to:'J', curve:-22, label:\"f\", derived:true}],\n          highlight: ['f'],\n          equation: \"∃! f: I → J\",\n          text: \"I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f.\"\n        },\n        {\n          add: [{id:'g', from:'J', to:'I', curve:-22, label:\"g\", derived:true}],\n          highlight: ['g'],\n          equation: \"∃! g: J → I\",\n          text: \"Symmetrically, J is initial, so there is a unique arrow g: J → I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"g ∘ f = id_I\",\n          text: \"Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"f ∘ g = id_J\",\n          text: \"The symmetric argument gives f ∘ g = id_J.\"\n        },\n        {\n          highlight: ['f'],\n          equation: \"⟹  I ≅ J uniquely via f\",\n          text: \"f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.\",\n          done: true\n        }\n      ]\n    },\n\n    product: {\n      title: 'Products are unique up to unique iso',\n      nodes: {\n        P: {x: 130, y:  80},\n        Q: {x: 430, y:  80},\n        X: {x: 180, y: 260},\n        Y: {x: 380, y: 260}\n      },\n      intro: \"Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.\",\n      given: [\n        {id:'pi1',  from:'P', to:'X', label:'π₁'},\n        {id:'pi2',  from:'P', to:'Y', label:'π₂'},\n        {id:'rho1', from:'Q', to:'X', label:'ρ₁'},\n        {id:'rho2', from:'Q', to:'Y', label:'ρ₂'}\n      ],\n      steps: [\n        {\n          add: [{id:'u', from:'P', to:'Q', curve:-30, label:\"u\", derived:true}],\n          highlight: ['u'],\n          equation: \"∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂\",\n          text: \"P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂.\"\n        },\n        {\n          add: [{id:'v', from:'Q', to:'P', curve:-30, label:\"v\", derived:true}],\n          highlight: ['v'],\n          equation: \"∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂\",\n          text: \"Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"π₁(vu) = π₁,   π₂(vu) = π₂\",\n          text: \"Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"vu = id_P\",\n          text: \"But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"uv = id_Q\",\n          text: \"The symmetric argument gives uv = id_Q.\"\n        },\n        {\n          highlight: ['u'],\n          equation: \"⟹  P ≅ Q uniquely\",\n          text: \"u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.\",\n          done: true\n        }\n      ]\n    }\n  }"
+          }
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: \"something exists and is unique\" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \\operatorname{id}_P$ at the end of the product-uniqueness proof.</p>\n</section>\n\n<script>\n(function(){\n  const PROOFS = {\n    identity: {\n      title: 'Identity morphisms are unique',\n      nodes: { A: {x: 280, y: 160} },\n      intro: \"Suppose e and e' are both identity morphisms on A. We'll show e = e'.\",\n      // arrows keyed by id\n      given: [\n        {id:'e',      from:'A', to:'A', loop:'top',    label:\"e\"},\n        {id:'eprime', from:'A', to:'A', loop:'bottom', label:\"e'\"}\n      ],\n      steps: [\n        {\n          highlight:['e'],\n          equation: \"e ∘ e' = e'\",\n          text: \"Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'.\"\n        },\n        {\n          highlight:['eprime'],\n          equation: \"e ∘ e' = e\",\n          text: \"Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e.\"\n        },\n        {\n          highlight:[],\n          equation: \"⟹   e = e'\",\n          text: \"Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.\",\n          done: true\n        }\n      ]\n    },\n\n    initial: {\n      title: 'Initial objects are unique up to unique iso',\n      nodes: { I: {x: 160, y: 160}, J: {x: 400, y: 160} },\n      intro: \"Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.\",\n      given: [],\n      steps: [\n        {\n          add: [{id:'f', from:'I', to:'J', curve:-22, label:\"f\", derived:true}],\n          highlight: ['f'],\n          equation: \"∃! f: I → J\",\n          text: \"I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f.\"\n        },\n        {\n          add: [{id:'g', from:'J', to:'I', curve:-22, label:\"g\", derived:true}],\n          highlight: ['g'],\n          equation: \"∃! g: J → I\",\n          text: \"Symmetrically, J is initial, so there is a unique arrow g: J → I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"g ∘ f = id_I\",\n          text: \"Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"f ∘ g = id_J\",\n          text: \"The symmetric argument gives f ∘ g = id_J.\"\n        },\n        {\n          highlight: ['f'],\n          equation: \"⟹  I ≅ J uniquely via f\",\n          text: \"f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.\",\n          done: true\n        }\n      ]\n    },\n\n    product: {\n      title: 'Products are unique up to unique iso',\n      nodes: {\n        P: {x: 130, y:  80},\n        Q: {x: 430, y:  80},\n        X: {x: 180, y: 260},\n        Y: {x: 380, y: 260}\n      },\n      intro: \"Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.\",\n      given: [\n        {id:'pi1',  from:'P', to:'X', label:'π₁'},\n        {id:'pi2',  from:'P', to:'Y', label:'π₂'},\n        {id:'rho1', from:'Q', to:'X', label:'ρ₁'},\n        {id:'rho2', from:'Q', to:'Y', label:'ρ₂'}\n      ],\n      steps: [\n        {\n          add: [{id:'u', from:'P', to:'Q', curve:-30, label:\"u\", derived:true}],\n          highlight: ['u'],\n          equation: \"∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂\",\n          text: \"P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂.\"\n        },\n        {\n          add: [{id:'v', from:'Q', to:'P', curve:-30, label:\"v\", derived:true}],\n          highlight: ['v'],\n          equation: \"∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂\",\n          text: \"Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"π₁(vu) = π₁,   π₂(vu) = π₂\",\n          text: \"Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"vu = id_P\",\n          text: \"But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"uv = id_Q\",\n          text: \"The symmetric argument gives uv = id_Q.\"\n        },\n        {\n          highlight: ['u'],\n          equation: \"⟹  P ≅ Q uniquely\",\n          text: \"u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.\",\n          done: true\n        }\n      ]\n    }\n  };\n\n  // locals\n  const pick = $('#pf-pick'), next = $('#pf-next'), prev = $('#pf-prev'),\n        reset = $('#pf-reset'), cnt = $('#pf-counter'),\n        svg = $('#pf-svg'), textEl = $('#pf-text'), logEl = $('#pf-log');\n  let key = 'identity', step = 0;\n\n  // Loop-arrow drawer (for identity proof)\n  function drawLoop(svg, pos, side, label, color){\n    const markerId = 'pf-loop-' + (color==='var(--yellow)'?'hl':(color==='var(--green)'?'dr':'in'));\n    ensureArrow(svg, markerId, color);\n    const s = side === 'bottom' ? 1 : -1;\n    const r = 18;\n    const x0 = pos.x - 10, y0 = pos.y + s*r*0.6;\n    const x1 = pos.x + 10, y1 = pos.y + s*r*0.6;\n    const cx1 = pos.x - 50, cy1 = pos.y + s*(r*0.4 + 55);\n    const cx2 = pos.x + 50, cy2 = pos.y + s*(r*0.4 + 55);\n    const p = SVG('path', {\n      d: `M${x0} ${y0} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x1} ${y1}`,\n      fill:'none', stroke: color, 'stroke-width': 1.8,\n      'marker-end': `url(#${markerId})`\n    });\n    svg.appendChild(p);\n    if(label){\n      const t = SVG('text', {\n        x: pos.x, y: pos.y + s*(r + 58),\n        'text-anchor':'middle', 'font-size': 14,\n        fill: color, 'font-style':'italic'\n      });\n      t.textContent = label;\n      svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const P = PROOFS[key];\n\n    // Build the set of visible arrows and highlighted ids based on current step.\n    const visible = P.given.slice();\n    let highlights = new Set();\n    const eqs = [];\n    let captionText = P.intro;\n\n    for(let i = 0; i < step; i++){\n      const s = P.steps[i];\n      if(s.add) for(const a of s.add) visible.push(a);\n      if(s.equation) eqs.push(s.equation);\n      if(i === step - 1){\n        captionText = s.text;\n        if(s.highlight) for(const h of s.highlight) highlights.add(h);\n      }\n    }\n\n    // Draw nodes first.\n    for(const [id, pos] of Object.entries(P.nodes)){\n      drawNode(svg, pos.x, pos.y, id, {r:20, stroke:'var(--blue)'});\n    }\n\n    // Draw arrows\n    for(const a of visible){\n      const from = P.nodes[a.from], to = P.nodes[a.to];\n      const hl = highlights.has(a.id);\n      const color = hl ? 'var(--yellow)' : (a.derived ? 'var(--green)' : 'var(--ink)');\n      if(a.loop){\n        drawLoop(svg, from, a.loop, a.label, color);\n      } else {\n        drawArrow(svg, [from.x, from.y], [to.x, to.y], {\n          curve: a.curve || 0,\n          label: a.label,\n          color,\n          width: hl ? 2.2 : 1.5,\n          markerId: 'pf-' + (hl?'hl':(a.derived?'dr':'in')),\n          pad1: 20, pad2: 22\n        });\n      }\n    }\n\n    // Caption + log\n    textEl.textContent = captionText;\n    logEl.textContent = eqs.length ? 'established:\\n  ' + eqs.join('\\n  ') : '';\n    logEl.style.color = step >= P.steps.length ? 'var(--green)' : 'var(--ink)';\n\n    cnt.textContent = step >= P.steps.length\n      ? `complete · ${P.steps.length}/${P.steps.length}`\n      : `step ${step}/${P.steps.length}`;\n    prev.disabled = step === 0;\n    next.disabled = step >= P.steps.length;\n    prev.style.opacity = prev.disabled ? 0.5 : 1;\n    next.style.opacity = next.disabled ? 0.5 : 1;\n  }\n\n  pick.addEventListener('change', () => { key = pick.value; step = 0; render(); });\n  next.addEventListener('click', () => {\n    const P = PROOFS[key];\n    if(step < P.steps.length){ step++; render(); }\n  });\n  prev.addEventListener('click', () => { if(step > 0){ step--; render(); } });\n  reset.addEventListener('click', () => { step = 0; render(); });\n\n  render();\n})();\n</script>\n\n"
+          "html": "\n\n<p class=\"small\">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: \"something exists and is unique\" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \\operatorname{id}_P$ at the end of the product-uniqueness proof.</p>\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "proof-stepper",
+            "widgetId": "w-proof",
+            "pickId": "pf-pick",
+            "prevId": "pf-prev",
+            "nextId": "pf-next",
+            "resetId": "pf-reset",
+            "counterId": "pf-counter",
+            "svgId": "pf-svg",
+            "outputTextId": "pf-text",
+            "outputLogId": "pf-log",
+            "title": "Proof stepper",
+            "hint": "click <em>next</em> · watch each arrow appear",
+            "pickLabel": "proof:",
+            "prevLabel": "◀ back",
+            "nextLabel": "next ▶",
+            "resetLabel": "reset",
+            "svgViewBox": "0 0 560 320",
+            "svgWidthAttr": "100%",
+            "svgStyleAttr": "max-width:560px",
+            "outputLogStyleAttr": "margin-top:.4rem;min-height:1.6em",
+            "initialKey": "identity",
+            "options": [
+              {
+                "value": "identity",
+                "label": "Identity morphisms are unique"
+              },
+              {
+                "value": "initial",
+                "label": "Initial objects are unique up to unique iso"
+              },
+              {
+                "value": "product",
+                "label": "Products are unique up to unique iso"
+              }
+            ],
+            "cases": {
+              "identity": {
+                "title": "Identity morphisms are unique",
+                "intro": "Suppose e and e' are both identity morphisms on A. We'll show e = e'.",
+                "nodes": {
+                  "A": {
+                    "x": 280,
+                    "y": 160
+                  }
+                },
+                "given": [
+                  {
+                    "id": "e",
+                    "from": "A",
+                    "to": "A",
+                    "loop": "top",
+                    "label": "e"
+                  },
+                  {
+                    "id": "eprime",
+                    "from": "A",
+                    "to": "A",
+                    "loop": "bottom",
+                    "label": "e'"
+                  }
+                ],
+                "steps": [
+                  {
+                    "highlight": [
+                      "e"
+                    ],
+                    "equation": "e ∘ e' = e'",
+                    "text": "Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'."
+                  },
+                  {
+                    "highlight": [
+                      "eprime"
+                    ],
+                    "equation": "e ∘ e' = e",
+                    "text": "Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e."
+                  },
+                  {
+                    "highlight": [],
+                    "equation": "⟹   e = e'",
+                    "text": "Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.",
+                    "done": true
+                  }
+                ]
+              },
+              "initial": {
+                "title": "Initial objects are unique up to unique iso",
+                "intro": "Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.",
+                "nodes": {
+                  "I": {
+                    "x": 160,
+                    "y": 160
+                  },
+                  "J": {
+                    "x": 400,
+                    "y": 160
+                  }
+                },
+                "given": [],
+                "steps": [
+                  {
+                    "add": [
+                      {
+                        "id": "f",
+                        "from": "I",
+                        "to": "J",
+                        "curve": -22,
+                        "label": "f",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "f"
+                    ],
+                    "equation": "∃! f: I → J",
+                    "text": "I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f."
+                  },
+                  {
+                    "add": [
+                      {
+                        "id": "g",
+                        "from": "J",
+                        "to": "I",
+                        "curve": -22,
+                        "label": "g",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "g"
+                    ],
+                    "equation": "∃! g: J → I",
+                    "text": "Symmetrically, J is initial, so there is a unique arrow g: J → I."
+                  },
+                  {
+                    "highlight": [
+                      "f",
+                      "g"
+                    ],
+                    "equation": "g ∘ f = id_I",
+                    "text": "Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I."
+                  },
+                  {
+                    "highlight": [
+                      "f",
+                      "g"
+                    ],
+                    "equation": "f ∘ g = id_J",
+                    "text": "The symmetric argument gives f ∘ g = id_J."
+                  },
+                  {
+                    "highlight": [
+                      "f"
+                    ],
+                    "equation": "⟹  I ≅ J uniquely via f",
+                    "text": "f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.",
+                    "done": true
+                  }
+                ]
+              },
+              "product": {
+                "title": "Products are unique up to unique iso",
+                "intro": "Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.",
+                "nodes": {
+                  "P": {
+                    "x": 130,
+                    "y": 80
+                  },
+                  "Q": {
+                    "x": 430,
+                    "y": 80
+                  },
+                  "X": {
+                    "x": 180,
+                    "y": 260
+                  },
+                  "Y": {
+                    "x": 380,
+                    "y": 260
+                  }
+                },
+                "given": [
+                  {
+                    "id": "pi1",
+                    "from": "P",
+                    "to": "X",
+                    "label": "π₁"
+                  },
+                  {
+                    "id": "pi2",
+                    "from": "P",
+                    "to": "Y",
+                    "label": "π₂"
+                  },
+                  {
+                    "id": "rho1",
+                    "from": "Q",
+                    "to": "X",
+                    "label": "ρ₁"
+                  },
+                  {
+                    "id": "rho2",
+                    "from": "Q",
+                    "to": "Y",
+                    "label": "ρ₂"
+                  }
+                ],
+                "steps": [
+                  {
+                    "add": [
+                      {
+                        "id": "u",
+                        "from": "P",
+                        "to": "Q",
+                        "curve": -30,
+                        "label": "u",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "u"
+                    ],
+                    "equation": "∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂",
+                    "text": "P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂."
+                  },
+                  {
+                    "add": [
+                      {
+                        "id": "v",
+                        "from": "Q",
+                        "to": "P",
+                        "curve": -30,
+                        "label": "v",
+                        "derived": true
+                      }
+                    ],
+                    "highlight": [
+                      "v"
+                    ],
+                    "equation": "∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂",
+                    "text": "Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "π₁(vu) = π₁,   π₂(vu) = π₂",
+                    "text": "Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "vu = id_P",
+                    "text": "But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P."
+                  },
+                  {
+                    "highlight": [
+                      "u",
+                      "v"
+                    ],
+                    "equation": "uv = id_Q",
+                    "text": "The symmetric argument gives uv = id_Q."
+                  },
+                  {
+                    "highlight": [
+                      "u"
+                    ],
+                    "equation": "⟹  P ≅ Q uniquely",
+                    "text": "u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.",
+                    "done": true
+                  }
+                ]
+              }
+            },
+            "proofsLiteral": "{\n    identity: {\n      title: 'Identity morphisms are unique',\n      nodes: { A: {x: 280, y: 160} },\n      intro: \"Suppose e and e' are both identity morphisms on A. We'll show e = e'.\",\n      // arrows keyed by id\n      given: [\n        {id:'e',      from:'A', to:'A', loop:'top',    label:\"e\"},\n        {id:'eprime', from:'A', to:'A', loop:'bottom', label:\"e'\"}\n      ],\n      steps: [\n        {\n          highlight:['e'],\n          equation: \"e ∘ e' = e'\",\n          text: \"Since e is an identity on A, we have e ∘ g = g for every g ending at A. Take g = e'.\"\n        },\n        {\n          highlight:['eprime'],\n          equation: \"e ∘ e' = e\",\n          text: \"Since e' is an identity on A, we have f ∘ e' = f for every f starting at A. Take f = e.\"\n        },\n        {\n          highlight:[],\n          equation: \"⟹   e = e'\",\n          text: \"Both equations read off the same composite e ∘ e'. So the two morphisms we started with are literally equal.\",\n          done: true\n        }\n      ]\n    },\n\n    initial: {\n      title: 'Initial objects are unique up to unique iso',\n      nodes: { I: {x: 160, y: 160}, J: {x: 400, y: 160} },\n      intro: \"Suppose I and J are both initial in a category C — from each, there is a unique arrow to every object.\",\n      given: [],\n      steps: [\n        {\n          add: [{id:'f', from:'I', to:'J', curve:-22, label:\"f\", derived:true}],\n          highlight: ['f'],\n          equation: \"∃! f: I → J\",\n          text: \"I is initial, so there is a unique arrow from I to any object — in particular, to J. Call it f.\"\n        },\n        {\n          add: [{id:'g', from:'J', to:'I', curve:-22, label:\"g\", derived:true}],\n          highlight: ['g'],\n          equation: \"∃! g: J → I\",\n          text: \"Symmetrically, J is initial, so there is a unique arrow g: J → I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"g ∘ f = id_I\",\n          text: \"Consider g ∘ f : I → I. But I is initial, so there is exactly ONE arrow I → I. The identity id_I is such an arrow — so it IS the unique one, and therefore g ∘ f = id_I.\"\n        },\n        {\n          highlight: ['f','g'],\n          equation: \"f ∘ g = id_J\",\n          text: \"The symmetric argument gives f ∘ g = id_J.\"\n        },\n        {\n          highlight: ['f'],\n          equation: \"⟹  I ≅ J uniquely via f\",\n          text: \"f and g are mutually inverse, so f is an iso. And it was the unique arrow from I to J, so the iso is unique too.\",\n          done: true\n        }\n      ]\n    },\n\n    product: {\n      title: 'Products are unique up to unique iso',\n      nodes: {\n        P: {x: 130, y:  80},\n        Q: {x: 430, y:  80},\n        X: {x: 180, y: 260},\n        Y: {x: 380, y: 260}\n      },\n      intro: \"Suppose both P and Q are products of X and Y — each has projection arrows, and each satisfies the universal property.\",\n      given: [\n        {id:'pi1',  from:'P', to:'X', label:'π₁'},\n        {id:'pi2',  from:'P', to:'Y', label:'π₂'},\n        {id:'rho1', from:'Q', to:'X', label:'ρ₁'},\n        {id:'rho2', from:'Q', to:'Y', label:'ρ₂'}\n      ],\n      steps: [\n        {\n          add: [{id:'u', from:'P', to:'Q', curve:-30, label:\"u\", derived:true}],\n          highlight: ['u'],\n          equation: \"∃! u: P → Q  with ρ₁u = π₁, ρ₂u = π₂\",\n          text: \"P carries a cone (π₁, π₂) over {X, Y}. The universal property of Q says there is a UNIQUE arrow u: P → Q making ρ₁u = π₁ and ρ₂u = π₂.\"\n        },\n        {\n          add: [{id:'v', from:'Q', to:'P', curve:-30, label:\"v\", derived:true}],\n          highlight: ['v'],\n          equation: \"∃! v: Q → P  with π₁v = ρ₁, π₂v = ρ₂\",\n          text: \"Symmetrically, Q carries a cone over {X, Y}. The universal property of P produces a unique v: Q → P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"π₁(vu) = π₁,   π₂(vu) = π₂\",\n          text: \"Consider vu: P → P. Then π₁(vu) = (π₁v)u = ρ₁u = π₁, and similarly π₂(vu) = π₂. So vu is a self-map of P making the projections commute.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"vu = id_P\",\n          text: \"But id_P also makes the projections commute: π₁·id_P = π₁. The UNIQUENESS half of P's universal property forces vu = id_P.\"\n        },\n        {\n          highlight: ['u','v'],\n          equation: \"uv = id_Q\",\n          text: \"The symmetric argument gives uv = id_Q.\"\n        },\n        {\n          highlight: ['u'],\n          equation: \"⟹  P ≅ Q uniquely\",\n          text: \"u: P → Q is an iso with inverse v. And u was the unique arrow from P making the projections match, so the isomorphism is canonical — no choice was made.\",\n          done: true\n        }\n      ]\n    }\n  }"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         }
       ]
     },
@@ -557,8 +1122,72 @@
         {
           "type": "widget",
           "id": "w-univ",
-          "html": "<div class=\"widget\" id=\"w-univ\">\n  <div class=\"hd\"><div class=\"ttl\">Universal property explorer</div><div class=\"hint\">pick a construction · read off its representing functor</div></div>\n  <div class=\"row\">\n    <label>construction:</label>\n    <select id=\"univ-pick\">\n      <option value=\"product\">product $A\\times B$ in $\\mathsf{Set}$</option>\n      <option value=\"coproduct\">coproduct $A\\sqcup B$ in $\\mathsf{Set}$</option>\n      <option value=\"free\">free group $F(S)$</option>\n      <option value=\"tensor\">tensor product $M\\otimes_R N$</option>\n      <option value=\"abelian\">abelianization $G^{\\mathrm{ab}}$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"univ-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "readout-only",
+            "widgetId": "w-univ",
+            "pickId": "univ-pick",
+            "outputId": "univ-out",
+            "title": "Universal property explorer",
+            "hint": "pick a construction · read off its representing functor",
+            "pickLabel": "construction:",
+            "options": [
+              {
+                "value": "product",
+                "label": "product $A\\times B$ in $\\mathsf{Set}$"
+              },
+              {
+                "value": "coproduct",
+                "label": "coproduct $A\\sqcup B$ in $\\mathsf{Set}$"
+              },
+              {
+                "value": "free",
+                "label": "free group $F(S)$"
+              },
+              {
+                "value": "tensor",
+                "label": "tensor product $M\\otimes_R N$"
+              },
+              {
+                "value": "abelian",
+                "label": "abelianization $G^{\\mathrm{ab}}$"
+              }
+            ],
+            "cases": {
+              "product": {
+                "X": "A × B",
+                "functor": "C  ↦  Hom(C,A) × Hom(C,B)",
+                "u": "the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)",
+                "factoring": "given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g"
+              },
+              "coproduct": {
+                "X": "A ⊔ B",
+                "functor": "C  ↦  Hom(A,C) × Hom(B,C)",
+                "u": "the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)",
+                "factoring": "given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g"
+              },
+              "free": {
+                "X": "F(S)  (free group on S)",
+                "functor": "G  ↦  Hom_Set(S, U(G))",
+                "u": "the inclusion η_S: S → U(F(S)) sending each generator to itself",
+                "factoring": "each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction"
+              },
+              "tensor": {
+                "X": "M ⊗_R N",
+                "functor": "P  ↦  Bilin_R(M × N, P)",
+                "u": "the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n",
+                "factoring": "every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear"
+              },
+              "abelian": {
+                "X": "G^ab = G/[G,G]",
+                "functor": "A  ↦  Hom_Grp(G, A)   (A abelian)",
+                "u": "the quotient q: G → G^ab",
+                "factoring": "every homomorphism G → A to an abelian group factors uniquely through q"
+              }
+            },
+            "dataLiteral": "{\n    product: {\n      X: 'A × B',\n      functor: 'C  ↦  Hom(C,A) × Hom(C,B)',\n      u: 'the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)',\n      factoring: 'given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g'\n    },\n    coproduct: {\n      X: 'A ⊔ B',\n      functor: 'C  ↦  Hom(A,C) × Hom(B,C)',\n      u: 'the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)',\n      factoring: 'given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g'\n    },\n    free: {\n      X: 'F(S)  (free group on S)',\n      functor: 'G  ↦  Hom_Set(S, U(G))',\n      u: 'the inclusion η_S: S → U(F(S)) sending each generator to itself',\n      factoring: 'each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction'\n    },\n    tensor: {\n      X: 'M ⊗_R N',\n      functor: 'P  ↦  Bilin_R(M × N, P)',\n      u: 'the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n',\n      factoring: 'every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear'\n    },\n    abelian: {\n      X: 'G^ab = G/[G,G]',\n      functor: 'A  ↦  Hom_Grp(G, A)   (A abelian)',\n      u: 'the quotient q: G → G^ab',\n      factoring: 'every homomorphism G → A to an abelian group factors uniquely through q'\n    }\n  }",
+            "templateLiteral": "      `representing object X:\\n  ${d.X}\\n\\n` +\n      `represents the functor:\\n  ${d.functor}\\n\\n` +\n      `universal element u ∈ F(X):\\n  ${d.u}\\n\\n` +\n      `factoring property:\\n  ${d.factoring}\\n\\n` +\n      `(Yoneda: since F ≅ h_X, X is unique up to unique iso.)`"
+          }
         },
         {
           "type": "raw",
@@ -581,7 +1210,80 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functor-of-points.html#yoneda-embedding\">Functor of points</a> · The Yoneda embedding for schemes</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n</section>\n\n<script>\n(function(){\n  const pick = $('#univ-pick'), out = $('#univ-out');\n  if(!pick || !out) return;\n  const DATA = {\n    product: {\n      X: 'A × B',\n      functor: 'C  ↦  Hom(C,A) × Hom(C,B)',\n      u: 'the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)',\n      factoring: 'given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g'\n    },\n    coproduct: {\n      X: 'A ⊔ B',\n      functor: 'C  ↦  Hom(A,C) × Hom(B,C)',\n      u: 'the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)',\n      factoring: 'given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g'\n    },\n    free: {\n      X: 'F(S)  (free group on S)',\n      functor: 'G  ↦  Hom_Set(S, U(G))',\n      u: 'the inclusion η_S: S → U(F(S)) sending each generator to itself',\n      factoring: 'each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction'\n    },\n    tensor: {\n      X: 'M ⊗_R N',\n      functor: 'P  ↦  Bilin_R(M × N, P)',\n      u: 'the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n',\n      factoring: 'every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear'\n    },\n    abelian: {\n      X: 'G^ab = G/[G,G]',\n      functor: 'A  ↦  Hom_Grp(G, A)   (A abelian)',\n      u: 'the quotient q: G → G^ab',\n      factoring: 'every homomorphism G → A to an abelian group factors uniquely through q'\n    }\n  };\n  function render(){\n    const d = DATA[pick.value];\n    out.textContent =\n      `representing object X:\\n  ${d.X}\\n\\n` +\n      `represents the functor:\\n  ${d.functor}\\n\\n` +\n      `universal element u ∈ F(X):\\n  ${d.u}\\n\\n` +\n      `factoring property:\\n  ${d.factoring}\\n\\n` +\n      `(Yoneda: since F ≅ h_X, X is unique up to unique iso.)`;\n  }\n  pick.addEventListener('change', render);\n  render();\n})();\n</script>\n\n<script>\n/* =============================== Commutative-diagram editor prototype =============================== */\n(function(){\n  if(!window.MVDiagramEditor) return;\n  window.MVDiagramEditor.init('#w-diagram-editor', {\n    title: 'Commutative-diagram editor — pullback square',\n    width: 560, height: 340,\n    objects: [\n      { id:'P', x:140, y: 90, label:'A\\\\times_Z B' },\n      { id:'A', x:420, y: 90, label:'A' },\n      { id:'B', x:140, y:250, label:'B' },\n      { id:'Z', x:420, y:250, label:'Z' },\n    ],\n    morphisms: [\n      { from:'P', to:'A', label:'\\\\pi_A' },\n      { from:'P', to:'B', label:'\\\\pi_B' },\n      { from:'A', to:'Z', label:'f' },\n      { from:'B', to:'Z', label:'g' },\n    ],\n    commutes: [\n      { paths: [ ['\\\\pi_A','f'], ['\\\\pi_B','g'] ],\n        description: 'the pullback square commutes: f\\\\,\\\\pi_A = g\\\\,\\\\pi_B' }\n    ]\n  });\n})();\n</script>\n\n"
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functor-of-points.html#yoneda-embedding\">Functor of points</a> · The Yoneda embedding for schemes</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "readout-only",
+            "widgetId": "w-univ",
+            "pickId": "univ-pick",
+            "outputId": "univ-out",
+            "title": "Universal property explorer",
+            "hint": "pick a construction · read off its representing functor",
+            "pickLabel": "construction:",
+            "options": [
+              {
+                "value": "product",
+                "label": "product $A\\times B$ in $\\mathsf{Set}$"
+              },
+              {
+                "value": "coproduct",
+                "label": "coproduct $A\\sqcup B$ in $\\mathsf{Set}$"
+              },
+              {
+                "value": "free",
+                "label": "free group $F(S)$"
+              },
+              {
+                "value": "tensor",
+                "label": "tensor product $M\\otimes_R N$"
+              },
+              {
+                "value": "abelian",
+                "label": "abelianization $G^{\\mathrm{ab}}$"
+              }
+            ],
+            "cases": {
+              "product": {
+                "X": "A × B",
+                "functor": "C  ↦  Hom(C,A) × Hom(C,B)",
+                "u": "the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)",
+                "factoring": "given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g"
+              },
+              "coproduct": {
+                "X": "A ⊔ B",
+                "functor": "C  ↦  Hom(A,C) × Hom(B,C)",
+                "u": "the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)",
+                "factoring": "given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g"
+              },
+              "free": {
+                "X": "F(S)  (free group on S)",
+                "functor": "G  ↦  Hom_Set(S, U(G))",
+                "u": "the inclusion η_S: S → U(F(S)) sending each generator to itself",
+                "factoring": "each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction"
+              },
+              "tensor": {
+                "X": "M ⊗_R N",
+                "functor": "P  ↦  Bilin_R(M × N, P)",
+                "u": "the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n",
+                "factoring": "every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear"
+              },
+              "abelian": {
+                "X": "G^ab = G/[G,G]",
+                "functor": "A  ↦  Hom_Grp(G, A)   (A abelian)",
+                "u": "the quotient q: G → G^ab",
+                "factoring": "every homomorphism G → A to an abelian group factors uniquely through q"
+              }
+            },
+            "dataLiteral": "{\n    product: {\n      X: 'A × B',\n      functor: 'C  ↦  Hom(C,A) × Hom(C,B)',\n      u: 'the pair of projections (π_A, π_B) ∈ Hom(A×B,A) × Hom(A×B,B)',\n      factoring: 'given (f: C→A, g: C→B), the unique ⟨f,g⟩: C → A×B satisfies π_A∘⟨f,g⟩ = f and π_B∘⟨f,g⟩ = g'\n    },\n    coproduct: {\n      X: 'A ⊔ B',\n      functor: 'C  ↦  Hom(A,C) × Hom(B,C)',\n      u: 'the pair of inclusions (ι_A, ι_B) ∈ Hom(A, A⊔B) × Hom(B, A⊔B)',\n      factoring: 'given (f: A→C, g: B→C), the unique [f,g]: A⊔B → C satisfies [f,g]∘ι_A = f and [f,g]∘ι_B = g'\n    },\n    free: {\n      X: 'F(S)  (free group on S)',\n      functor: 'G  ↦  Hom_Set(S, U(G))',\n      u: 'the inclusion η_S: S → U(F(S)) sending each generator to itself',\n      factoring: 'each set-function f: S → U(G) extends to a unique group-hom F(S) → G — the free-forgetful adjunction'\n    },\n    tensor: {\n      X: 'M ⊗_R N',\n      functor: 'P  ↦  Bilin_R(M × N, P)',\n      u: 'the canonical R-bilinear map ⊗: M × N → M⊗N, (m,n) ↦ m⊗n',\n      factoring: 'every R-bilinear φ: M×N → P factors uniquely as φ = φ̃ ∘ ⊗ with φ̃: M⊗N → P R-linear'\n    },\n    abelian: {\n      X: 'G^ab = G/[G,G]',\n      functor: 'A  ↦  Hom_Grp(G, A)   (A abelian)',\n      u: 'the quotient q: G → G^ab',\n      factoring: 'every homomorphism G → A to an abelian group factors uniquely through q'\n    }\n  }",
+            "templateLiteral": "      `representing object X:\\n  ${d.X}\\n\\n` +\n      `represents the functor:\\n  ${d.functor}\\n\\n` +\n      `universal element u ∈ F(X):\\n  ${d.u}\\n\\n` +\n      `factoring property:\\n  ${d.factoring}\\n\\n` +\n      `(Yoneda: since F ≅ h_X, X is unique up to unique iso.)`"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<script>\n/* =============================== Commutative-diagram editor prototype =============================== */\n(function(){\n  if(!window.MVDiagramEditor) return;\n  window.MVDiagramEditor.init('#w-diagram-editor', {\n    title: 'Commutative-diagram editor — pullback square',\n    width: 560, height: 340,\n    objects: [\n      { id:'P', x:140, y: 90, label:'A\\\\times_Z B' },\n      { id:'A', x:420, y: 90, label:'A' },\n      { id:'B', x:140, y:250, label:'B' },\n      { id:'Z', x:420, y:250, label:'Z' },\n    ],\n    morphisms: [\n      { from:'P', to:'A', label:'\\\\pi_A' },\n      { from:'P', to:'B', label:'\\\\pi_B' },\n      { from:'A', to:'Z', label:'f' },\n      { from:'B', to:'Z', label:'g' },\n    ],\n    commutes: [\n      { paths: [ ['\\\\pi_A','f'], ['\\\\pi_B','g'] ],\n        description: 'the pullback square commutes: f\\\\,\\\\pi_A = g\\\\,\\\\pi_B' }\n    ]\n  });\n})();\n</script>\n\n"
         }
       ]
     },
@@ -595,8 +1297,70 @@
         {
           "type": "widget",
           "id": "w-mon",
-          "html": "<div class=\"widget\" id=\"w-mon\">\n  <div class=\"hd\"><div class=\"ttl\">Monoid-in-a-monoidal-category dictionary</div><div class=\"hint\">pick the ambient $(\\mathcal{C},\\otimes)$ · read off what a monoid object <em>is</em></div></div>\n  <div class=\"row\">\n    <label>ambient category:</label>\n    <select id=\"mon-pick\">\n      <option value=\"set\">$(\\mathsf{Set},\\times,\\{\\ast\\})$</option>\n      <option value=\"ab\">$(\\mathsf{Ab},\\otimes_{\\mathbb Z},\\mathbb Z)$</option>\n      <option value=\"vect\">$(\\mathsf{Vect}_k,\\otimes_k,k)$</option>\n      <option value=\"rmod\">$(R\\text{-}\\mathsf{Mod},\\otimes_R,R)$</option>\n      <option value=\"top\">$(\\mathsf{Top},\\times,\\ast)$</option>\n      <option value=\"end\">$(\\operatorname{End}(\\mathcal{C}),\\circ,\\mathrm{id})$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"mon-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "readout-only",
+            "widgetId": "w-mon",
+            "pickId": "mon-pick",
+            "outputId": "mon-out",
+            "title": "Monoid-in-a-monoidal-category dictionary",
+            "hint": "pick the ambient $(\\mathcal{C},\\otimes)$ · read off what a monoid object <em>is</em>",
+            "pickLabel": "ambient category:",
+            "options": [
+              {
+                "value": "set",
+                "label": "$(\\mathsf{Set},\\times,\\{\\ast\\})$"
+              },
+              {
+                "value": "ab",
+                "label": "$(\\mathsf{Ab},\\otimes_{\\mathbb Z},\\mathbb Z)$"
+              },
+              {
+                "value": "vect",
+                "label": "$(\\mathsf{Vect}_k,\\otimes_k,k)$"
+              },
+              {
+                "value": "rmod",
+                "label": "$(R\\text{-}\\mathsf{Mod},\\otimes_R,R)$"
+              },
+              {
+                "value": "top",
+                "label": "$(\\mathsf{Top},\\times,\\ast)$"
+              },
+              {
+                "value": "end",
+                "label": "$(\\operatorname{End}(\\mathcal{C}),\\circ,\\mathrm{id})$"
+              }
+            ],
+            "cases": {
+              "set": {
+                "name": "(Set, ×, {∗})",
+                "monoid": "an ordinary monoid — a set with associative multiplication and a unit"
+              },
+              "ab": {
+                "name": "(Ab, ⊗_Z, Z)",
+                "monoid": "a ring (not necessarily commutative)"
+              },
+              "vect": {
+                "name": "(Vect_k, ⊗_k, k)",
+                "monoid": "a k-algebra (associative unital)"
+              },
+              "rmod": {
+                "name": "(R-Mod, ⊗_R, R)",
+                "monoid": "an R-algebra"
+              },
+              "top": {
+                "name": "(Top, ×, ∗)",
+                "monoid": "a topological monoid (e.g. a topological group forgetting inverses)"
+              },
+              "end": {
+                "name": "(End(𝒞), ∘, id)",
+                "monoid": "a monad on 𝒞"
+              }
+            },
+            "dataLiteral": "{\n    set:  { name:'(Set, ×, {∗})',          monoid:'an ordinary monoid — a set with associative multiplication and a unit' },\n    ab:   { name:'(Ab, ⊗_Z, Z)',           monoid:'a ring (not necessarily commutative)' },\n    vect: { name:'(Vect_k, ⊗_k, k)',       monoid:'a k-algebra (associative unital)' },\n    rmod: { name:'(R-Mod, ⊗_R, R)',        monoid:'an R-algebra' },\n    top:  { name:'(Top, ×, ∗)',            monoid:'a topological monoid (e.g. a topological group forgetting inverses)' },\n    end:  { name:'(End(𝒞), ∘, id)',        monoid:'a monad on 𝒞' }\n  }",
+            "templateLiteral": "      `ambient monoidal category:\\n  ${d.name}\\n\\n` +\n      `a monoid object (M, μ: M⊗M → M, η: I → M) here is:\\n  ${d.monoid}\\n\\n` +\n      `data:    μ satisfies associativity\\n         η satisfies left/right unit\\n(both drawn as commuting squares in 𝒞)`"
+          }
         },
         {
           "type": "raw",
@@ -609,7 +1373,78 @@
         },
         {
           "type": "raw",
-          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#enr\">Category theory</a> · Enriched categories preview</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n</section>\n\n<script>\n(function(){\n  const pick = $('#mon-pick'), out = $('#mon-out');\n  if(!pick || !out) return;\n  const DATA = {\n    set:  { name:'(Set, ×, {∗})',          monoid:'an ordinary monoid — a set with associative multiplication and a unit' },\n    ab:   { name:'(Ab, ⊗_Z, Z)',           monoid:'a ring (not necessarily commutative)' },\n    vect: { name:'(Vect_k, ⊗_k, k)',       monoid:'a k-algebra (associative unital)' },\n    rmod: { name:'(R-Mod, ⊗_R, R)',        monoid:'an R-algebra' },\n    top:  { name:'(Top, ×, ∗)',            monoid:'a topological monoid (e.g. a topological group forgetting inverses)' },\n    end:  { name:'(End(𝒞), ∘, id)',        monoid:'a monad on 𝒞' }\n  };\n  function render(){\n    const d = DATA[pick.value];\n    out.textContent =\n      `ambient monoidal category:\\n  ${d.name}\\n\\n` +\n      `a monoid object (M, μ: M⊗M → M, η: I → M) here is:\\n  ${d.monoid}\\n\\n` +\n      `data:    μ satisfies associativity\\n         η satisfies left/right unit\\n(both drawn as commuting squares in 𝒞)`;\n  }\n  pick.addEventListener('change', render);\n  render();\n})();\n</script>\n\n"
+          "html": "\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#enr\">Category theory</a> · Enriched categories preview</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "readout-only",
+            "widgetId": "w-mon",
+            "pickId": "mon-pick",
+            "outputId": "mon-out",
+            "title": "Monoid-in-a-monoidal-category dictionary",
+            "hint": "pick the ambient $(\\mathcal{C},\\otimes)$ · read off what a monoid object <em>is</em>",
+            "pickLabel": "ambient category:",
+            "options": [
+              {
+                "value": "set",
+                "label": "$(\\mathsf{Set},\\times,\\{\\ast\\})$"
+              },
+              {
+                "value": "ab",
+                "label": "$(\\mathsf{Ab},\\otimes_{\\mathbb Z},\\mathbb Z)$"
+              },
+              {
+                "value": "vect",
+                "label": "$(\\mathsf{Vect}_k,\\otimes_k,k)$"
+              },
+              {
+                "value": "rmod",
+                "label": "$(R\\text{-}\\mathsf{Mod},\\otimes_R,R)$"
+              },
+              {
+                "value": "top",
+                "label": "$(\\mathsf{Top},\\times,\\ast)$"
+              },
+              {
+                "value": "end",
+                "label": "$(\\operatorname{End}(\\mathcal{C}),\\circ,\\mathrm{id})$"
+              }
+            ],
+            "cases": {
+              "set": {
+                "name": "(Set, ×, {∗})",
+                "monoid": "an ordinary monoid — a set with associative multiplication and a unit"
+              },
+              "ab": {
+                "name": "(Ab, ⊗_Z, Z)",
+                "monoid": "a ring (not necessarily commutative)"
+              },
+              "vect": {
+                "name": "(Vect_k, ⊗_k, k)",
+                "monoid": "a k-algebra (associative unital)"
+              },
+              "rmod": {
+                "name": "(R-Mod, ⊗_R, R)",
+                "monoid": "an R-algebra"
+              },
+              "top": {
+                "name": "(Top, ×, ∗)",
+                "monoid": "a topological monoid (e.g. a topological group forgetting inverses)"
+              },
+              "end": {
+                "name": "(End(𝒞), ∘, id)",
+                "monoid": "a monad on 𝒞"
+              }
+            },
+            "dataLiteral": "{\n    set:  { name:'(Set, ×, {∗})',          monoid:'an ordinary monoid — a set with associative multiplication and a unit' },\n    ab:   { name:'(Ab, ⊗_Z, Z)',           monoid:'a ring (not necessarily commutative)' },\n    vect: { name:'(Vect_k, ⊗_k, k)',       monoid:'a k-algebra (associative unital)' },\n    rmod: { name:'(R-Mod, ⊗_R, R)',        monoid:'an R-algebra' },\n    top:  { name:'(Top, ×, ∗)',            monoid:'a topological monoid (e.g. a topological group forgetting inverses)' },\n    end:  { name:'(End(𝒞), ∘, id)',        monoid:'a monad on 𝒞' }\n  }",
+            "templateLiteral": "      `ambient monoidal category:\\n  ${d.name}\\n\\n` +\n      `a monoid object (M, μ: M⊗M → M, η: I → M) here is:\\n  ${d.monoid}\\n\\n` +\n      `data:    μ satisfies associativity\\n         η satisfies left/right unit\\n(both drawn as commuting squares in 𝒞)`"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         }
       ]
     },

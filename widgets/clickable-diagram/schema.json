@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/clickable-diagram/schema.json",
+  "title": "clickable-diagram widget params",
+  "description": "A shared widget module driving multiple category-theory diagram widgets. Dispatches on the `interaction` field between two modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon) and 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` data; the literals exist so renderScript can byte-match the legacy inline source.",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/readoutOnly" },
+    { "$ref": "#/$defs/proofStepper" }
+  ],
+  "$defs": {
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "label"],
+      "properties": {
+        "value": { "type": "string" },
+        "label": { "type": "string" },
+        "selected": { "type": "boolean" }
+      }
+    },
+    "readoutOnly": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction",
+        "widgetId", "pickId", "outputId",
+        "title", "hint", "pickLabel",
+        "options", "cases",
+        "dataLiteral", "templateLiteral"
+      ],
+      "properties": {
+        "interaction":    { "const": "readout-only" },
+        "widgetId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "pickId":         { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outputId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":          { "type": "string" },
+        "hint":           { "type": "string" },
+        "pickLabel":      { "type": "string" },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "cases": {
+          "type": "object",
+          "description": "Portable data: keys are option values; each entry is an object of string fields consumed by the template.",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        },
+        "dataLiteral": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim JS object-literal text for `const DATA = <here>;` in the driving IIFE. Preserves the original source's manual alignment (e.g. irregular spacing after keys). A portable consumer regenerates from `cases` and ignores this."
+        },
+        "templateLiteral": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim JS text for the right-hand side of `out.textContent = <here>;` — the backtick-literal chain that formats the readout. Preserves original newlines and indentation."
+        }
+      }
+    },
+    "proofStepper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction",
+        "widgetId", "pickId",
+        "prevId", "nextId", "resetId", "counterId",
+        "svgId", "outputTextId", "outputLogId",
+        "title", "hint", "pickLabel",
+        "prevLabel", "nextLabel", "resetLabel",
+        "svgViewBox", "svgWidthAttr", "svgStyleAttr",
+        "outputLogStyleAttr",
+        "options", "cases",
+        "proofsLiteral", "initialKey"
+      ],
+      "properties": {
+        "interaction":         { "const": "proof-stepper" },
+        "widgetId":            { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "pickId":              { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "prevId":              { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "nextId":              { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "resetId":             { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "counterId":           { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "svgId":               { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outputTextId":        { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "outputLogId":         { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":               { "type": "string" },
+        "hint":                { "type": "string" },
+        "pickLabel":           { "type": "string" },
+        "prevLabel":           { "type": "string" },
+        "nextLabel":           { "type": "string" },
+        "resetLabel":          { "type": "string" },
+        "svgViewBox":          { "type": "string" },
+        "svgWidthAttr":        { "type": "string", "description": "ARTIFACT. Raw width attr value — may be a % or px literal." },
+        "svgStyleAttr":        { "type": "string", "description": "ARTIFACT. Raw style attr value for the <svg>." },
+        "outputLogStyleAttr":  { "type": "string", "description": "ARTIFACT. Raw style attr value for the log readout div." },
+        "initialKey":          { "type": "string", "description": "Option value the IIFE starts on (`let key = '…'`)." },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "cases": {
+          "type": "object",
+          "description": "Portable data: keys are option values; each entry carries { title, intro, nodes, given, steps } describing one proof.",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "proofsLiteral": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim JS object-literal text for `const PROOFS = <here>;`. Preserves the original source's alignment (e.g. `x: 130, y:  80` with double space) and inline comments."
+        }
+      }
+    }
+  }
+}
