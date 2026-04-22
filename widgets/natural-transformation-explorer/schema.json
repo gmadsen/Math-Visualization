@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/natural-transformation-explorer/schema.json",
+  "title": "natural-transformation-explorer widget params",
+  "description": "Data needed to render the Naturality-square element-trace widget: two small sets A and B, four hom-set grids at the corners of the square, and the initial slider positions.  The mathematical setup is fixed (F = Hom(X,-), G = Hom(Y,-), η induced by u: Y → X with u(y) = x_1; X = {x_1, x_2}, Y = {y}); what varies across instances is labelling, layout, ids, and initial state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "sliderFId",
+    "sliderFLabelId",
+    "playId",
+    "sliderPhiId",
+    "sliderPhiLabelId",
+    "title",
+    "hint",
+    "intro",
+    "fLabel",
+    "phiLabel",
+    "playLabel",
+    "viewBox",
+    "width",
+    "height",
+    "sectionComment",
+    "setA",
+    "setB",
+    "grids",
+    "initialFi",
+    "initialPhii",
+    "sliderFMin",
+    "sliderFMax",
+    "sliderFStep",
+    "sliderPhiMin",
+    "sliderPhiMax",
+    "sliderPhiStep"
+  ],
+  "properties": {
+    "widgetId":         { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "svgId":            { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "outputId":         { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "sliderFId":        { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "sliderFLabelId":   { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "playId":           { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "sliderPhiId":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "sliderPhiLabelId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "title":     { "type": "string" },
+    "hint":      { "type": "string" },
+    "intro":     { "type": "string", "description": "Rich-HTML intro paragraph embedded verbatim inside the widget <div>.  Bytes are preserved exactly so math + colored spans render identically to the source page." },
+    "fLabel":    { "type": "string" },
+    "phiLabel":  { "type": "string" },
+    "playLabel": { "type": "string" },
+    "viewBox":   { "type": "string" },
+    "width":     { "type": "integer", "minimum": 1 },
+    "height":    { "type": "integer", "minimum": 1 },
+    "sectionComment": { "type": "string", "description": "Comment placed at the top of the driving IIFE (e.g. 'Section 3 widget ...'). Lets the script byte-match its original source.  Emitted verbatim, with no /* */ wrapping — include whatever framing the source uses." },
+    "setA": {
+      "type": "array",
+      "description": "Elements of A, as display strings (used in readout and cell labels).",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "setB": {
+      "type": "array",
+      "description": "Elements of B, as display strings.",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "grids": {
+      "type": "object",
+      "description": "Geometry / labelling for the four hom-set grids at the corners of the naturality square.",
+      "additionalProperties": false,
+      "required": ["HXA", "HXB", "HYA", "HYB"],
+      "properties": {
+        "HXA": { "$ref": "#/$defs/grid2d" },
+        "HXB": { "$ref": "#/$defs/grid2d" },
+        "HYA": { "$ref": "#/$defs/grid1d" },
+        "HYB": { "$ref": "#/$defs/grid1d" }
+      }
+    },
+    "initialFi":   { "type": "integer", "minimum": 0 },
+    "initialPhii": { "type": "integer", "minimum": 0 },
+    "sliderFMin":  { "type": "integer" },
+    "sliderFMax":  { "type": "integer" },
+    "sliderFStep": { "type": "integer", "minimum": 1 },
+    "sliderPhiMin":  { "type": "integer" },
+    "sliderPhiMax":  { "type": "integer" },
+    "sliderPhiStep": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "grid2d": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "cols", "rows", "cell", "title", "colHdr", "rowHdr"],
+      "properties": {
+        "x":      { "type": "integer" },
+        "y":      { "type": "integer" },
+        "cols":   { "type": "integer", "minimum": 1 },
+        "rows":   { "type": "integer", "minimum": 1 },
+        "cell":   { "type": "integer", "minimum": 1 },
+        "title":  { "type": "string" },
+        "colHdr": { "type": "string" },
+        "rowHdr": { "type": "string" }
+      }
+    },
+    "grid1d": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "cols", "rows", "cell", "title", "rowHdr"],
+      "properties": {
+        "x":      { "type": "integer" },
+        "y":      { "type": "integer" },
+        "cols":   { "type": "integer", "minimum": 1 },
+        "rows":   { "type": "integer", "minimum": 1 },
+        "cell":   { "type": "integer", "minimum": 1 },
+        "title":  { "type": "string" },
+        "rowHdr": { "type": "string" }
+      }
+    }
+  }
+}

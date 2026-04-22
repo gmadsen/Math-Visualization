@@ -283,12 +283,173 @@
         {
           "type": "widget",
           "id": "w-nat",
-          "html": "<div class=\"widget\" id=\"w-nat\">\n  <div class=\"hd\"><div class=\"ttl\">Naturality square — element trace</div><div class=\"hint\">$F=\\text{Hom}(X,-)$ · $G=\\text{Hom}(Y,-)$ · $\\eta=u^*$ with $u(y)=x_1$</div></div>\n\n  <p class=\"small\" style=\"margin:4px 0 10px;color:var(--mute)\">\n    Each corner is a hom-set; <em>every little cell is one function in that hom-set</em>, with its label giving its values.\n    Pick a <span style=\"color:var(--yellow);font-weight:600\">yellow φ</span> in $\\text{Hom}(X,A)$ (click any top-left cell). Then watch it get chased two ways to $\\text{Hom}(Y,B)$:\n    the <span style=\"color:var(--blue);font-weight:600\">blue route</span> goes top-then-right ($F(f)$ then $\\eta_B$),\n    the <span style=\"color:var(--pink);font-weight:600\">pink route</span> goes left-then-bottom ($\\eta_A$ then $G(f)$).\n    Both arrows land on the <span style=\"color:var(--green);font-weight:600\">same green cell</span> — that equality, for every $\\varphi$ and every $f$, <em>is</em> naturality. Move the sliders and watch the endpoints jump together.\n  </p>\n\n  <div class=\"row\">\n    <label for=\"nt-f\">$f\\colon A\\to B$:</label>\n    <input type=\"range\" id=\"nt-f\" min=\"0\" max=\"7\" step=\"1\" value=\"3\">\n    <span class=\"small\" id=\"nt-f-lbl\"></span>\n    <button id=\"nt-play\">play</button>\n  </div>\n  <div class=\"row\">\n    <label for=\"nt-phi\">$\\varphi\\in\\text{Hom}(X,A)$:</label>\n    <input type=\"range\" id=\"nt-phi\" min=\"0\" max=\"8\" step=\"1\" value=\"1\">\n    <span class=\"small\" id=\"nt-phi-lbl\"></span>\n  </div>\n\n  <svg id=\"nt-svg\" viewBox=\"0 0 720 440\" width=\"720\" height=\"440\"><title>Naturality square — element trace</title></svg>\n  <div class=\"readout\" id=\"nt-out\"></div>\n</div>",
-          "script": null
+          "slug": "natural-transformation-explorer",
+          "params": {
+            "widgetId": "w-nat",
+            "svgId": "nt-svg",
+            "outputId": "nt-out",
+            "sliderFId": "nt-f",
+            "sliderFLabelId": "nt-f-lbl",
+            "playId": "nt-play",
+            "sliderPhiId": "nt-phi",
+            "sliderPhiLabelId": "nt-phi-lbl",
+            "title": "Naturality square — element trace",
+            "hint": "$F=\\text{Hom}(X,-)$ · $G=\\text{Hom}(Y,-)$ · $\\eta=u^*$ with $u(y)=x_1$",
+            "intro": "  <p class=\"small\" style=\"margin:4px 0 10px;color:var(--mute)\">\n    Each corner is a hom-set; <em>every little cell is one function in that hom-set</em>, with its label giving its values.\n    Pick a <span style=\"color:var(--yellow);font-weight:600\">yellow φ</span> in $\\text{Hom}(X,A)$ (click any top-left cell). Then watch it get chased two ways to $\\text{Hom}(Y,B)$:\n    the <span style=\"color:var(--blue);font-weight:600\">blue route</span> goes top-then-right ($F(f)$ then $\\eta_B$),\n    the <span style=\"color:var(--pink);font-weight:600\">pink route</span> goes left-then-bottom ($\\eta_A$ then $G(f)$).\n    Both arrows land on the <span style=\"color:var(--green);font-weight:600\">same green cell</span> — that equality, for every $\\varphi$ and every $f$, <em>is</em> naturality. Move the sliders and watch the endpoints jump together.\n  </p>",
+            "fLabel": "$f\\colon A\\to B$:",
+            "phiLabel": "$\\varphi\\in\\text{Hom}(X,A)$:",
+            "playLabel": "play",
+            "viewBox": "0 0 720 440",
+            "width": 720,
+            "height": 440,
+            "sectionComment": "",
+            "setA": [
+              "a₁",
+              "a₂",
+              "a₃"
+            ],
+            "setB": [
+              "b₁",
+              "b₂"
+            ],
+            "grids": {
+              "HXA": {
+                "x": 110,
+                "y": 66,
+                "cols": 3,
+                "rows": 3,
+                "cell": 34,
+                "title": "Hom(X, A)",
+                "colHdr": "φ(x₂) →",
+                "rowHdr": "φ(x₁) ↓"
+              },
+              "HXB": {
+                "x": 540,
+                "y": 83,
+                "cols": 2,
+                "rows": 2,
+                "cell": 34,
+                "title": "Hom(X, B)",
+                "colHdr": "ψ(x₂) →",
+                "rowHdr": "ψ(x₁) ↓"
+              },
+              "HYA": {
+                "x": 110,
+                "y": 330,
+                "cols": 3,
+                "rows": 1,
+                "cell": 34,
+                "title": "Hom(Y, A)",
+                "rowHdr": "ρ(y) →"
+              },
+              "HYB": {
+                "x": 540,
+                "y": 330,
+                "cols": 2,
+                "rows": 1,
+                "cell": 34,
+                "title": "Hom(Y, B)",
+                "rowHdr": "σ(y) →"
+              }
+            },
+            "initialFi": 3,
+            "initialPhii": 1,
+            "sliderFMin": 0,
+            "sliderFMax": 7,
+            "sliderFStep": 1,
+            "sliderPhiMin": 0,
+            "sliderPhiMax": 8,
+            "sliderPhiStep": 1
+          }
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./sheaves.html#morphisms\">Sheaves</a> · Morphisms of sheaves and stalk criteria</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n<script>\n(function(){\n  // Set up the concrete example: X={x1,x2}, Y={y}, u:Y→X with u(y)=x1.\n  // F = Hom(X,-) covariant; G = Hom(Y,-); η = u* (precompose with u).\n  // A = {a1,a2,a3}, B = {b1,b2}, f varies over Hom(A,B) (8 functions).\n\n  const svg=$('#nt-svg'), out=$('#nt-out');\n  const slider=$('#nt-f'), flbl=$('#nt-f-lbl'), play=$('#nt-play');\n  const phiSl=$('#nt-phi'), phiLbl=$('#nt-phi-lbl');\n  const A=['a₁','a₂','a₃'], B=['b₁','b₂'];\n\n  // enumerate the four hom-sets\n  const HXA=[]; for(let i=0;i<3;i++) for(let j=0;j<3;j++) HXA.push([i,j]);   // 9: (φ(x1), φ(x2))\n  const HXB=[]; for(let i=0;i<2;i++) for(let j=0;j<2;j++) HXB.push([i,j]);   // 4: (ψ(x1), ψ(x2))\n  const HYA=[[0],[1],[2]];                                                    // 3: ρ(y)\n  const HYB=[[0],[1]];                                                        // 2: σ(y)\n  const FS=[]; for(let i=0;i<2;i++) for(let j=0;j<2;j++) for(let k=0;k<2;k++) FS.push([i,j,k]); // 8\n  slider.max=FS.length-1; phiSl.max=HXA.length-1;\n\n  // layout: four grids at corners\n  const G={\n    HXA:{x:110, y:66,  cols:3, rows:3, cell:34, title:'Hom(X, A)', colHdr:'φ(x₂) →', rowHdr:'φ(x₁) ↓'},\n    HXB:{x:540, y:83,  cols:2, rows:2, cell:34, title:'Hom(X, B)', colHdr:'ψ(x₂) →', rowHdr:'ψ(x₁) ↓'},\n    HYA:{x:110, y:330, cols:3, rows:1, cell:34, title:'Hom(Y, A)', rowHdr:'ρ(y) →'},\n    HYB:{x:540, y:330, cols:2, rows:1, cell:34, title:'Hom(Y, B)', rowHdr:'σ(y) →'}\n  };\n  function center(g,i){ const r=Math.floor(i/g.cols), c=i%g.cols;\n    return [g.x + c*g.cell + g.cell/2, g.y + r*g.cell + g.cell/2]; }\n  function cellLabel(name, i){\n    if(name==='HXA'){ const p=HXA[i]; return A[p[0]]+A[p[1]]; }\n    if(name==='HXB'){ const p=HXB[i]; return B[p[0]]+B[p[1]]; }\n    if(name==='HYA'){ return A[HYA[i][0]]; }\n    if(name==='HYB'){ return B[HYB[i][0]]; }\n  }\n\n  let fi=3, phii=1, timer=null;\n\n  function drawGrid(name, highlights, clickable){\n    const g=G[name];\n    // title\n    const t=SVG('text',{x:g.x + g.cols*g.cell/2, y:g.y-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600});\n    t.textContent=g.title; svg.appendChild(t);\n    // size caption\n    const cap=SVG('text',{x:g.x + g.cols*g.cell/2, y:g.y + g.rows*g.cell + 16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    cap.textContent='|'+g.title.replace(/\\s+/g,'')+'| = '+(g.cols*g.rows);\n    svg.appendChild(cap);\n    // cells\n    const N=g.cols*g.rows;\n    for(let i=0;i<N;i++){\n      const r=Math.floor(i/g.cols), c=i%g.cols;\n      const x=g.x + c*g.cell, y=g.y + r*g.cell;\n      const hl=highlights[i];\n      const fill = hl ? hl.fill : 'var(--panel2)';\n      const stroke = hl ? hl.stroke : 'var(--line)';\n      const sw = hl ? 2.5 : 1;\n      const rect=SVG('rect',{x:x+2,y:y+2,width:g.cell-4,height:g.cell-4,fill,stroke,'stroke-width':sw,rx:4,\n        'data-grid':name,'data-idx':i, style: clickable?'cursor:pointer':'cursor:default'});\n      svg.appendChild(rect);\n      const txt=SVG('text',{x:x+g.cell/2,y:y+g.cell/2+4,'text-anchor':'middle','font-size':11,\n        fill: hl ? (hl.textColor||'#000') : 'var(--mute)',\n        'font-family':'ui-monospace, monospace','pointer-events':'none','font-weight': hl?700:400});\n      txt.textContent=cellLabel(name,i);\n      svg.appendChild(txt);\n    }\n  }\n\n  function render(){\n    svg.innerHTML='';\n    const f=FS[fi], phi=HXA[phii];\n    flbl.textContent=`f(a₁)=${B[f[0]]}, f(a₂)=${B[f[1]]}, f(a₃)=${B[f[2]]}`;\n    phiLbl.textContent=`φ: x₁↦${A[phi[0]]}, x₂↦${A[phi[1]]}`;\n\n    // Compute images along each arrow\n    // F(f)(φ) = f∘φ : X→B, values (f(φ(x1)), f(φ(x2)))\n    const fphi=[f[phi[0]], f[phi[1]]];\n    const topIdx = fphi[0]*2 + fphi[1];              // index in HXB\n    // η_A(φ) = φ∘u : Y→A, y ↦ φ(x1)\n    const leftIdx = phi[0];                          // index in HYA\n    // Blue finish: η_B(f∘φ) = (f∘φ)∘u : y ↦ (f∘φ)(x1) = f[phi[0]] = fphi[0]\n    const blueBR = fphi[0];                          // index in HYB\n    // Pink finish: G(f)(φ∘u) = f∘(φ∘u) : y ↦ f(φ(x1)) = f[phi[0]]\n    const pinkBR = f[leftIdx];                       // index in HYB\n    const agree = (blueBR===pinkBR);\n\n    // Highlights\n    const hlHXA={[phii]: {fill:'var(--yellow)', stroke:'var(--yellow)', textColor:'#0b0d10'}};\n    const hlHXB={[topIdx]: {fill:'var(--blue)', stroke:'var(--blue)', textColor:'#0b0d10'}};\n    const hlHYA={[leftIdx]: {fill:'var(--pink)', stroke:'var(--pink)', textColor:'#0b0d10'}};\n    const hlHYB={};\n    if(agree){ hlHYB[blueBR]={fill:'var(--green)', stroke:'var(--green)', textColor:'#0b0d10'}; }\n    else { hlHYB[blueBR]={fill:'var(--blue)', stroke:'var(--blue)', textColor:'#0b0d10'};\n           hlHYB[pinkBR]={fill:'var(--pink)', stroke:'var(--pink)', textColor:'#0b0d10'}; }\n\n    drawGrid('HXA', hlHXA, true);\n    drawGrid('HXB', hlHXB, false);\n    drawGrid('HYA', hlHYA, false);\n    drawGrid('HYB', hlHYB, false);\n\n    // Functor-action labels in the gaps\n    const midX = (G.HXA.x + G.HXA.cols*G.HXA.cell + G.HXB.x)/2;\n    const midY_top = G.HXA.y - 40;\n    const midY_bot = G.HYA.y + G.HYA.cell + 40;\n    function txt(x,y,s,c,style){ const t=SVG('text',{x,y,'text-anchor':'middle','font-size':12,fill:c,'font-style':'italic'});\n      if(style==='b') t.setAttribute('font-weight','600'); t.textContent=s; svg.appendChild(t); }\n    txt(midX, midY_top, 'F(f) = f ∘ —', 'var(--blue)', 'b');\n    txt(midX, midY_bot, 'G(f) = f ∘ —', 'var(--pink)', 'b');\n\n    // Left / right η labels\n    const midY_lr = (G.HXA.y + G.HXA.rows*G.HXA.cell + G.HYA.y)/2;\n    txt(60, midY_lr-8, 'η_A = — ∘ u', 'var(--pink)', 'b');\n    txt(60, midY_lr+8, '(precompose)', 'var(--mute)');\n    txt(670, midY_lr-8, 'η_B = — ∘ u', 'var(--blue)', 'b');\n    txt(670, midY_lr+8, '(precompose)', 'var(--mute)');\n\n    // --- Route arrows drawn CELL-TO-CELL ---\n    // blue top: yellow cell → blue cell\n    const pYellow = center(G.HXA, phii);\n    const pBlueT  = center(G.HXB, topIdx);\n    const pPinkL  = center(G.HYA, leftIdx);\n    const pBlueBR = center(G.HYB, blueBR);\n    const pPinkBR = center(G.HYB, pinkBR);\n\n    drawArrow(svg, pYellow, pBlueT, {color:'var(--blue)', markerId:'nt-blueTop', curve:-18, width:2.2, pad1:20, pad2:22});\n    drawArrow(svg, pBlueT,  pBlueBR, {color:'var(--blue)', markerId:'nt-blueRight', curve:18, width:2.2, pad1:20, pad2:22});\n    drawArrow(svg, pYellow, pPinkL, {color:'var(--pink)', markerId:'nt-pinkLeft', curve:-18, width:2.2, pad1:20, pad2:22, dash:'6 3'});\n    drawArrow(svg, pPinkL,  pPinkBR, {color:'var(--pink)', markerId:'nt-pinkBot', curve:18, width:2.2, pad1:20, pad2:22, dash:'6 3'});\n\n    // agreement ring\n    if(agree){\n      svg.appendChild(SVG('circle',{cx:pBlueBR[0], cy:pBlueBR[1], r:22, fill:'none',\n        stroke:'var(--green)', 'stroke-width':2, 'stroke-dasharray':'3 2', opacity:0.9}));\n      const chk=SVG('text',{x:pBlueBR[0]+28, y:pBlueBR[1]+4,'font-size':14,fill:'var(--green)','font-weight':700});\n      chk.textContent='✓'; svg.appendChild(chk);\n    }\n\n    // readout\n    out.innerHTML =\n      `<div><span style=\"color:var(--yellow);font-weight:600\">φ</span>: x₁↦${A[phi[0]]}, x₂↦${A[phi[1]]} &nbsp;·&nbsp; <b>f</b>: (${B[f[0]]}, ${B[f[1]]}, ${B[f[2]]})</div>`+\n      `<div style=\"color:var(--blue);margin-top:6px\">▸ blue (top → right): φ  ─F(f)→  f∘φ = ${B[fphi[0]]}${B[fphi[1]]}  ─η_B→  y ↦ ${B[blueBR]}</div>`+\n      `<div style=\"color:var(--pink)\">▸ pink (left → bottom): φ  ─η_A→  y ↦ ${A[leftIdx]}  ─G(f)→  y ↦ ${B[pinkBR]}</div>`+\n      `<div style=\"color:var(--green);margin-top:6px;font-weight:600\">`+\n        (agree?`✓ both routes end at ${B[blueBR]} — the square commutes (as it must for every φ and every f).`\n             :`✗ routes disagree (this is a bug — naturality should force agreement).`)+\n      `</div>`;\n  }\n\n  slider.addEventListener('input', ()=>{fi=parseInt(slider.value,10); render();});\n  phiSl.addEventListener('input',  ()=>{phii=parseInt(phiSl.value,10); render();});\n  // click a yellow cell to choose φ\n  svg.addEventListener('click', (e)=>{\n    const g=e.target.getAttribute && e.target.getAttribute('data-grid');\n    const i=e.target.getAttribute && e.target.getAttribute('data-idx');\n    if(g==='HXA' && i!=null){ phii=parseInt(i,10); phiSl.value=phii; render(); }\n  });\n  play.addEventListener('click', ()=>{\n    if(timer){ clearInterval(timer); timer=null; play.textContent='play'; return; }\n    play.textContent='stop';\n    timer=setInterval(()=>{\n      fi=(fi+1)%FS.length;\n      if(fi===0) phii=(phii+1)%HXA.length;\n      slider.value=fi; phiSl.value=phii;\n      render();\n    }, 900);\n  });\n  render();\n})();\n</script>\n\n<p>Natural transformations organize functors into a category: $[\\mathcal{C},\\mathcal{D}]$ or $\\mathsf{Fun}(\\mathcal{C},\\mathcal{D})$. This is where the <em>Yoneda</em> magic happens.</p>\n\n"
+          "html": "\n\n\n\n\n<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#twocat\">Category theory</a> · 2-categories preview</div>\n    <div><a href=\"./category-theory.html#lim-deep\">Category theory</a> · Limits and colimits</div>\n    <div><a href=\"./category-theory.html#mon\">Category theory</a> · Monoidal categories</div>\n    <div><a href=\"./category-theory.html#yoneda-deep\">Category theory</a> · The Yoneda lemma</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./sheaves.html#morphisms\">Sheaves</a> · Morphisms of sheaves and stalk criteria</div>\n</aside>\n<!-- backlinks-auto-end -->\n</section>\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "natural-transformation-explorer",
+          "params": {
+            "widgetId": "w-nat",
+            "svgId": "nt-svg",
+            "outputId": "nt-out",
+            "sliderFId": "nt-f",
+            "sliderFLabelId": "nt-f-lbl",
+            "playId": "nt-play",
+            "sliderPhiId": "nt-phi",
+            "sliderPhiLabelId": "nt-phi-lbl",
+            "title": "Naturality square — element trace",
+            "hint": "$F=\\text{Hom}(X,-)$ · $G=\\text{Hom}(Y,-)$ · $\\eta=u^*$ with $u(y)=x_1$",
+            "intro": "  <p class=\"small\" style=\"margin:4px 0 10px;color:var(--mute)\">\n    Each corner is a hom-set; <em>every little cell is one function in that hom-set</em>, with its label giving its values.\n    Pick a <span style=\"color:var(--yellow);font-weight:600\">yellow φ</span> in $\\text{Hom}(X,A)$ (click any top-left cell). Then watch it get chased two ways to $\\text{Hom}(Y,B)$:\n    the <span style=\"color:var(--blue);font-weight:600\">blue route</span> goes top-then-right ($F(f)$ then $\\eta_B$),\n    the <span style=\"color:var(--pink);font-weight:600\">pink route</span> goes left-then-bottom ($\\eta_A$ then $G(f)$).\n    Both arrows land on the <span style=\"color:var(--green);font-weight:600\">same green cell</span> — that equality, for every $\\varphi$ and every $f$, <em>is</em> naturality. Move the sliders and watch the endpoints jump together.\n  </p>",
+            "fLabel": "$f\\colon A\\to B$:",
+            "phiLabel": "$\\varphi\\in\\text{Hom}(X,A)$:",
+            "playLabel": "play",
+            "viewBox": "0 0 720 440",
+            "width": 720,
+            "height": 440,
+            "sectionComment": "",
+            "setA": [
+              "a₁",
+              "a₂",
+              "a₃"
+            ],
+            "setB": [
+              "b₁",
+              "b₂"
+            ],
+            "grids": {
+              "HXA": {
+                "x": 110,
+                "y": 66,
+                "cols": 3,
+                "rows": 3,
+                "cell": 34,
+                "title": "Hom(X, A)",
+                "colHdr": "φ(x₂) →",
+                "rowHdr": "φ(x₁) ↓"
+              },
+              "HXB": {
+                "x": 540,
+                "y": 83,
+                "cols": 2,
+                "rows": 2,
+                "cell": 34,
+                "title": "Hom(X, B)",
+                "colHdr": "ψ(x₂) →",
+                "rowHdr": "ψ(x₁) ↓"
+              },
+              "HYA": {
+                "x": 110,
+                "y": 330,
+                "cols": 3,
+                "rows": 1,
+                "cell": 34,
+                "title": "Hom(Y, A)",
+                "rowHdr": "ρ(y) →"
+              },
+              "HYB": {
+                "x": 540,
+                "y": 330,
+                "cols": 2,
+                "rows": 1,
+                "cell": 34,
+                "title": "Hom(Y, B)",
+                "rowHdr": "σ(y) →"
+              }
+            },
+            "initialFi": 3,
+            "initialPhii": 1,
+            "sliderFMin": 0,
+            "sliderFMax": 7,
+            "sliderFStep": 1,
+            "sliderPhiMin": 0,
+            "sliderPhiMax": 8,
+            "sliderPhiStep": 1
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>Natural transformations organize functors into a category: $[\\mathcal{C},\\mathcal{D}]$ or $\\mathsf{Fun}(\\mathcal{C},\\mathcal{D})$. This is where the <em>Yoneda</em> magic happens.</p>\n\n"
         },
         {
           "type": "quiz",
