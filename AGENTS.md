@@ -19,10 +19,15 @@ pathway.html                  capstone prerequisite explorer
 <topic>.html                  one self-contained page per topic
 concepts/                     concept graph JSONs + index.json + capstones.json + bundle.js
 quizzes/                      quiz bank JSONs + bundle.js
+content/                      per-topic block-level JSON (raw / widget / widget-script / quiz)
+widgets/                      widget registry: schema.json + index.mjs + README.md per slug
+schemas/                      JSON Schemas for concept graph + quiz banks
+audits/                       generated graph-health reports (TSV + Markdown summary)
 js/progress.js                mastery store (localStorage)
 js/quiz.js                    quiz widget
 js/katex-select.js            LaTeX-in-<option> shim
 scripts/                      validators, audits, bundle builders, packaging
+scripts/lib/                  shared loader (content-model.mjs) + audit-utils.mjs
 .github/workflows/verify.yml  CI entry point
 AGENTS.md                     this file
 PLAN.md                       forward priorities and next tasks
@@ -37,6 +42,12 @@ Quality gates — all exit non-zero on failure and gate CI:
 - [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) — every page has sidebar, top-nav backlink, quiz wiring, ≥1 widget; anchors resolve.
 - [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs) — cross-topic prereqs have a forward "See also" aside.
 - [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
+
+Structured content gates — wired into `rebuild.mjs` and CI; all exit non-zero on failure:
+
+- [`scripts/validate-schema.mjs`](./scripts/validate-schema.mjs) — `concepts/*.json` and `quizzes/*.json` validate against the JSON Schemas under `schemas/`.
+- [`scripts/validate-widget-params.mjs`](./scripts/validate-widget-params.mjs) — every registry-driven `widget` block in `content/*.json` has `params` that validate against `widgets/<slug>/schema.json`.
+- [`scripts/test-roundtrip.mjs`](./scripts/test-roundtrip.mjs) — re-rendering `content/<topic>.json` via `render-topic.mjs` is byte-identical to `<topic>.html` on disk. Catches drift when a page is edited without updating its content JSON.
 
 Non-gating audits (advisory reports, safe to run any time):
 
@@ -59,6 +70,27 @@ Content-shared tooling (injectors and section-index generator, run via `rebuild.
 - [`scripts/inject-breadcrumb.mjs`](./scripts/inject-breadcrumb.mjs) — injects a breadcrumb + prev/next-in-section block into every topic page's top nav. Idempotent via fence comments.
 - [`scripts/inject-page-metadata.mjs`](./scripts/inject-page-metadata.mjs) — stamps `data-section` / `data-level` on each topic's `<body>` using data read from `index.html`.
 - [`scripts/build-section-indexes.mjs`](./scripts/build-section-indexes.mjs) — generates per-section mini-index pages under `sections/`.
+
+## Structured content pipeline
+
+Alongside the handwritten topic HTML, every topic now has a structured counterpart under `content/<topic>.json`. This is a block-level decomposition of the page — an ordered array of `raw`, `widget`, `widget-script`, and `quiz` blocks. `raw` blocks are HTML strings copied verbatim; `widget` blocks reference an entry in the widget registry by `slug` and carry a `params` object; `widget-script` blocks hold the `<script>` tail that wires a widget up; `quiz` blocks name the concept id whose quiz placeholder belongs at that position. All 58 registered topics are extracted.
+
+Two scripts round-trip between HTML and JSON:
+
+- [`scripts/extract-topic.mjs`](./scripts/extract-topic.mjs) — parses `<topic>.html` into the block array and writes `content/<topic>.json`.
+- [`scripts/render-topic.mjs`](./scripts/render-topic.mjs) — the reverse: reads `content/<topic>.json` and emits the HTML bytes.
+
+The hard invariant is **byte-identical round-trip**: for every topic, `render-topic(<topic>.json)` must equal the on-disk `<topic>.html` exactly. [`scripts/test-roundtrip.mjs`](./scripts/test-roundtrip.mjs) enforces this in CI. If you edit a topic HTML without updating its content JSON (or vice versa), the roundtrip gate fails — regenerate via `extract-topic.mjs` after HTML edits, or (eventually) `render-topic.mjs` after JSON edits.
+
+Widgets live in a registry at `widgets/<slug>/` with three files:
+
+- `schema.json` — JSON Schema 2020-12 for the widget's `params`.
+- `index.mjs` — exports `renderMarkup(params)` and `renderScript(params)`, pure functions that produce the exact bytes a handwritten page would inline.
+- `README.md` — param reference.
+
+See [`widgets/README.md`](./widgets/README.md) for the current registry and the rules for adding a new entry. Because widgets are schema-described, non-HTML frontends can consume the same `content/<topic>.json` — see `examples/react-consumer/` for a proof-of-concept React renderer.
+
+The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits should consume these rather than re-parsing JSON or HTML.
 
 ## Style reference — always read first
 
@@ -90,6 +122,8 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **No ad-hoc localStorage keys** — `MVProgress` owns `mvnb.progress.v1`. Anything else goes in memory for the session. The legacy 2-arg form `setMastered(id, bool)` silently defaults `tier='v1'` for backwards compat, but new code should pass the tier explicitly.
 - **Don't commit scratch verify scripts** — ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the repo (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public.
 - **LaTeX inside `<option>` requires `js/katex-select.js`** — native `<select>` popups are drawn by the OS and render `<option>` labels as plain text, so raw `$\omega = dx$` leaks into the dropdown. Any widget with LaTeX-containing options must load `js/katex-select.js` (a hidden-native + custom-popup shim). Run `node scripts/wire-katex-select.mjs` (audit) or `--fix` after adding such options; the script inserts the loader after the `quiz.js` tag idempotently.
+- **Round-trip invariant** — every `<topic>.html` is mirrored by `content/<topic>.json`. Editing a topic HTML directly without regenerating the content JSON fails `scripts/test-roundtrip.mjs` in CI. **How to apply:** after any hand edit to `<topic>.html`, run `node scripts/extract-topic.mjs <topic>` to refresh its content JSON before committing. `rebuild.mjs` runs the roundtrip gate at the end of the chain.
+- **Widget registry blocks carry `slug + params`** — in `content/<topic>.json`, `widget` blocks reference an entry under `widgets/<slug>/` rather than inlining markup. **Why:** `scripts/validate-widget-params.mjs` validates each block's `params` against `widgets/<slug>/schema.json` so schema violations surface in CI, and non-HTML frontends can render the same widget from the schema alone. **How to apply:** when you add a new interactive widget that you want registry-backed, add an entry under `widgets/` following [`widgets/README.md`](./widgets/README.md); otherwise the block stays as `raw` HTML and nothing changes.
 
 ## House conventions
 
@@ -331,7 +365,7 @@ Skipping any of these is a silent break — quizzes appear but do nothing, or th
 
 ## Registering a new page
 
-Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 1, 3–4, and step 7 below (creates the stub topic HTML, `concepts/<slug>.json`, `quizzes/<slug>.json`, registers the slug in `concepts/index.json` under the given section, and inserts a placeholder `<a class="card">` block into the matching section of `index.html`). Step 2 (README bullet) and step 5 (capstones) remain manual.
+Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 1, 3–4, and step 7 below (creates the stub topic HTML, `concepts/<slug>.json`, `quizzes/<slug>.json`, registers the slug in `concepts/index.json` under the given section, and inserts a placeholder `<a class="card">` block into the matching section of `index.html`). Step 2 (README bullet) and step 5 (capstones) remain manual. The structured `content/<slug>.json` counterpart is produced on the first `rebuild.mjs` run via `scripts/extract-topic.mjs`, so the roundtrip gate picks the new page up automatically.
 
 When you publish `new-topic.html`:
 
@@ -427,3 +461,4 @@ Side tasks that are safe to parallelize with page drafting: concept-graph valida
 - Don't rewrite the helper block in a new style — copy from `category-theory.html`.
 - Don't claim a page is done without browser verification.
 - Don't commit scratch verification scripts into the repo. Ad-hoc `_verify_*.js` files used for jsdom smoke-testing belong one level up from the workspace (e.g. `/sessions/<id>/_verify_<page>.js`), not inside `Math-Visualization/`. The repo is public; keep it free of throwaway instrumentation.
+- Don't re-implement concept / quiz / topic-HTML parsing in a new audit script. Import `loadContentModel()` from [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs) — it memoizes a normalized model across all topics (concepts, quiz banks, reverse adjacency, cross-topic edges, parsed HTML). Shared audit helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). Bespoke `JSON.parse` loops in new audits are a code-smell the reviewer will flag.
