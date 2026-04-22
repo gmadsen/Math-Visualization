@@ -31,48 +31,22 @@
 // hubs. Keep it short — it's advisory, the operator skims it.
 //
 // CLI: node scripts/audit-backlink-quality.mjs
-// Zero external dependencies.
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
+const model = await loadContentModel();
+const { topicIds, topics, concepts, byPrereq, ownerOf } = model;
 
-// ----- Load concept graph (same approach as insert-used-in-backlinks.mjs) -----
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
-
-// conceptId -> { topic, title }
-const ownerOf = new Map();
-// topic -> topic title
-const topicTitle = new Map();
-// all concepts in declaration order
+// Replay the "first-wins in registered-topic order" iteration used by the
+// original script so output ordering is preserved byte-for-byte.
 const allConcepts = [];
-
-for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  const d = JSON.parse(readFileSync(p, 'utf8'));
-  topicTitle.set(topic, d.title || topic);
-  for (const c of d.concepts || []) {
-    if (ownerOf.has(c.id)) continue; // first-wins, matches inserter semantics
-    ownerOf.set(c.id, { topic, title: c.title });
-    allConcepts.push({ id: c.id, topic, title: c.title, prereqs: c.prereqs || [] });
-  }
-}
-
-// ----- Build reverse adjacency: conceptId -> Array<consumer> -----
-// Only count prereqs that resolve to an owned concept id (mirrors the
-// inserter, which silently drops unknown ids).
-const reverse = new Map();
-for (const c of allConcepts) {
-  for (const p of c.prereqs) {
-    if (!ownerOf.has(p)) continue;
-    if (!reverse.has(p)) reverse.set(p, []);
-    reverse.get(p).push({ id: c.id, topic: c.topic, title: c.title });
+for (const topicId of topicIds) {
+  const topic = topics.get(topicId);
+  if (!topic) continue;
+  for (const conceptId of topic.conceptIds) {
+    const c = concepts.get(conceptId);
+    if (!c || c.topic !== topicId) continue; // first-wins: only owner emits
+    allConcepts.push(c);
   }
 }
 
@@ -83,18 +57,22 @@ for (const c of allConcepts) {
 //   crossTopic   = # of consumers living on a different topic page
 //   crossRatio   = crossTopic / total  (NaN for dead-ends)
 const stats = allConcepts.map((c) => {
-  const consumers = reverse.get(c.id) || [];
+  const consumerIds = byPrereq.get(c.id) || new Set();
   let sameTopic = 0;
-  for (const cons of consumers) if (cons.topic === c.topic) sameTopic++;
-  const crossTopic = consumers.length - sameTopic;
+  for (const consId of consumerIds) {
+    const owner = ownerOf.get(consId);
+    if (owner && owner.topic === c.topic) sameTopic++;
+  }
+  const total = consumerIds.size;
+  const crossTopic = total - sameTopic;
   return {
     id: c.id,
     topic: c.topic,
     title: c.title,
-    total: consumers.length,
+    total,
     sameTopic,
     crossTopic,
-    crossRatio: consumers.length > 0 ? crossTopic / consumers.length : null,
+    crossRatio: total > 0 ? crossTopic / total : null,
   };
 });
 
@@ -151,7 +129,7 @@ function fmtConcept(s) {
 
 // ----- Report -----
 console.log(
-  `audit-backlink-quality: ${allConcepts.length} concept(s) across ${topicTitle.size} topic(s)`
+  `audit-backlink-quality: ${allConcepts.length} concept(s) across ${topics.size} topic(s)`
 );
 console.log('');
 console.log('Backlink count distribution (downstream consumers per concept):');

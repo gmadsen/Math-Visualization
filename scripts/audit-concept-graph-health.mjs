@@ -1,17 +1,23 @@
 #!/usr/bin/env node
 // Meta-audit: aggregate per-topic health signals into a single scorecard.
 //
-// This script is a read-only, advisory pass that joins five existing audits
-// into one per-topic table so that topics needing attention (stale blurbs,
-// dead-end concepts, missing cross-topic edges, static widgets, sparse quiz
-// coverage) pop out at a glance.
+// This script is a read-only, advisory pass that joins five per-topic health
+// signals into one table so that topics needing attention (stale blurbs, dead-
+// end concepts, missing cross-topic edges, static widgets, sparse quiz cover-
+// age) pop out at a glance.
 //
-// Design goals:
-//   - Zero deps, standalone: reimplement the relevant metrics here rather
-//     than shell-out to the other audits. Regex patterns and parsing
-//     strategies are reused from the source audits, but all computation is
-//     local to this script so it cannot drift if the other scripts change
-//     their output format.
+// Implementation notes:
+//   - Topic list, concept graph (prereqs / reverse adjacency / ownership),
+//     and quiz banks come from the shared content model
+//     (scripts/lib/content-model.mjs). No local re-parse of concepts/*.json
+//     or quizzes/*.json.
+//   - Title-regex building, regex escaping, and the skip-zone mask used by
+//     the cross-topic prereq pass come from scripts/lib/audit-utils.mjs.
+//   - Stale-blurb heuristics, widget-interactivity scan, and cross-topic
+//     prereq suggestion finder are computed here — they are private to the
+//     source audits and not (yet) exposed by the shared model. Algorithms
+//     mirror audit-stale-blurbs.mjs, audit-widget-interactivity.mjs, and
+//     audit-cross-topic-prereqs.mjs respectively.
 //   - Always exits 0 (advisory). Not wired into CI.
 //
 // CLI:
@@ -28,12 +34,11 @@
 //   1. Concept count      — total, v1 quizzes, hard quizzes, hints.
 //   2. Stale blurbs       — LENGTH/MATCH/RECALL/OFFPAGE/DUP flag count
 //                           (heuristics from audit-stale-blurbs.mjs).
-//   3. Backlink quality   — dead-ends, hubs, orphaned hubs (from the
-//                           reverse adjacency of concepts/*.json, same
-//                           approach as audit-backlink-quality.mjs).
+//   3. Backlink quality   — dead-ends, hubs, orphaned hubs (from the shared
+//                           model's reverse adjacency).
 //   4. Cross-topic prereq — suggestion count (full list via the dedicated
-//                           audit). Uses the same title-matching approach
-//                           as audit-cross-topic-prereqs.mjs.
+//                           audit). Same title-matching approach as
+//                           audit-cross-topic-prereqs.mjs.
 //   5. Widget interact    — interactive/total ratio (same method as
 //                           audit-widget-interactivity.mjs).
 //
@@ -47,13 +52,19 @@
 // (worst single-metric bucket per topic).
 
 import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
-const quizzesDir = join(repoRoot, 'quizzes');
+// The shared model doesn't surface the per-topic human-readable title (only
+// registered ids + concept entries). We peek at concepts/<topic>.json's
+// top-level `title` field for the scorecard/JSON display.
+
+import { loadContentModel } from './lib/content-model.mjs';
+import {
+  escapeRe,
+  buildTitleRegex,
+  TITLE_BLOCKLIST,
+  buildSkipMask,
+} from './lib/audit-utils.mjs';
 
 // ─────────────────────────────────────────────────────────────────────────
 // CLI.
@@ -83,72 +94,56 @@ for (let i = 0; i < argv.length; i++) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Load concept graph & quiz banks.
+// Load the shared content model and raw HTML per topic.
 
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
+const model = await loadContentModel();
+const {
+  repoRoot,
+  topicIds,
+  topics: modelTopics,
+  concepts: modelConcepts,
+  byPrereq,
+  quizBanks,
+} = model;
 
-const topicData = new Map(); // topic -> concepts JSON
-const quizData = new Map();  // topic -> quizzes JSON (or null)
-const pageHtml = new Map();  // topic -> HTML string (or null)
-
-// conceptId -> { topic, title, anchor, page, prereqs, blurb }
-const byId = new Map();
-// all concepts in declaration order
-const allConcepts = [];
-
-for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  const d = JSON.parse(readFileSync(p, 'utf8'));
-  topicData.set(topic, d);
-
-  const page = d.page || `${topic}.html`;
-  const pagePath = join(repoRoot, page);
+// Raw HTML strings keyed by topic id (regex-based helpers below want the raw
+// source; the parsed HTML tree in the model is not used here).
+const pageHtml = new Map();
+// Per-topic human-readable titles, peeked from concepts/<topic>.json.
+const topicTitles = new Map();
+for (const topicId of topicIds) {
+  const t = modelTopics.get(topicId);
+  if (!t) continue;
+  const pagePath = join(repoRoot, t.page);
   if (existsSync(pagePath)) {
-    pageHtml.set(topic, readFileSync(pagePath, 'utf8'));
+    pageHtml.set(topicId, readFileSync(pagePath, 'utf8'));
   } else {
-    pageHtml.set(topic, null);
+    pageHtml.set(topicId, null);
   }
-
-  const qp = join(quizzesDir, `${topic}.json`);
-  if (existsSync(qp)) {
+  const conceptPath = join(model.conceptsDir, `${topicId}.json`);
+  if (existsSync(conceptPath)) {
     try {
-      quizData.set(topic, JSON.parse(readFileSync(qp, 'utf8')));
-    } catch {
-      quizData.set(topic, null);
-    }
-  } else {
-    quizData.set(topic, null);
+      const doc = JSON.parse(readFileSync(conceptPath, 'utf8'));
+      if (doc && typeof doc.title === 'string') topicTitles.set(topicId, doc.title);
+    } catch { /* shared model already handled the real parse */ }
   }
+}
 
-  for (const c of d.concepts || []) {
-    if (byId.has(c.id)) continue;
-    byId.set(c.id, {
-      topic,
-      title: c.title,
-      anchor: c.anchor,
-      page,
-      prereqs: c.prereqs || [],
-      blurb: c.blurb || '',
-    });
-    allConcepts.push({
-      id: c.id,
-      topic,
-      title: c.title,
-      anchor: c.anchor,
-      prereqs: c.prereqs || [],
-      blurb: c.blurb || '',
-    });
+// Flat list of concepts in registered-topic / declaration order. Drives
+// duplicate-blurb detection and the cross-topic prereq title vocabulary.
+const allConcepts = [];
+for (const topicId of topicIds) {
+  const t = modelTopics.get(topicId);
+  if (!t) continue;
+  for (const id of t.conceptIds) {
+    const c = modelConcepts.get(id);
+    if (!c) continue;
+    allConcepts.push(c);
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────
 // Shared helpers.
-
-function escapeRe(s) {
-  return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
 
 function findSectionBody(html, anchor) {
   const idRe = new RegExp(
@@ -175,7 +170,7 @@ function findSectionBody(html, anchor) {
 // 1. Concept count + quiz coverage per topic.
 
 function tallyQuizzes(topic) {
-  const d = quizData.get(topic);
+  const d = quizBanks.get(topic);
   if (!d || !d.quizzes) return { v1: 0, hard: 0, expert: 0, hints: 0 };
   let v1 = 0, hard = 0, expert = 0, hints = 0;
   for (const [, bank] of Object.entries(d.quizzes)) {
@@ -383,8 +378,8 @@ for (const c of allConcepts) {
     if (!BLAND.has(s)) globalVocab.add(s);
   }
 }
-for (const topic of topicData.keys()) {
-  for (const tok of topic.split(/[^a-z0-9]+/i)) {
+for (const topicId of topicIds) {
+  for (const tok of topicId.split(/[^a-z0-9]+/i)) {
     if (tok.length >= MIN_TOKEN_LEN) {
       const s = stem(tok.toLowerCase());
       if (!BLAND.has(s)) globalVocab.add(s);
@@ -403,10 +398,12 @@ for (const c of allConcepts) {
 
 function countBlurbFlagsForTopic(topic) {
   const html = pageHtml.get(topic);
-  const d = topicData.get(topic);
-  if (!d) return 0;
+  const t = modelTopics.get(topic);
+  if (!t) return 0;
   let flags = 0;
-  for (const c of d.concepts || []) {
+  for (const cid of t.conceptIds) {
+    const c = modelConcepts.get(cid);
+    if (!c) continue;
     const blurb = (c.blurb || '').trim();
     const codes = new Set();
 
@@ -443,8 +440,8 @@ function countBlurbFlagsForTopic(topic) {
             .slice(0, TOP_SECTION_TERMS)
             .map(([k]) => k);
           let hits = 0;
-          for (const t of topTerms) {
-            if (blurbBag.has(t) || titleBag.has(t)) hits++;
+          for (const tt of topTerms) {
+            if (blurbBag.has(tt) || titleBag.has(tt)) hits++;
           }
           if (topTerms.length >= TOP_SECTION_TERMS && hits < TOP_SECTION_TERMS_NEEDED) {
             codes.add('RECALL');
@@ -467,26 +464,21 @@ function countBlurbFlagsForTopic(topic) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// 3. Backlink-quality metrics (mirrors audit-backlink-quality.mjs).
+// 3. Backlink-quality metrics (consumes byPrereq from the shared model).
 
-const reverse = new Map(); // conceptId -> consumers[]
-for (const c of allConcepts) {
-  for (const p of c.prereqs) {
-    if (!byId.has(p)) continue;
-    if (!reverse.has(p)) reverse.set(p, []);
-    reverse.get(p).push({ id: c.id, topic: c.topic });
-  }
-}
-
+// Per-concept consumer counts, partitioned by same-topic vs cross-topic.
 const backlinkStats = new Map(); // conceptId -> { total, sameTopic, crossTopic }
 for (const c of allConcepts) {
-  const consumers = reverse.get(c.id) || [];
+  const consumers = byPrereq.get(c.id) || new Set();
   let sameTopic = 0;
-  for (const cons of consumers) if (cons.topic === c.topic) sameTopic++;
+  for (const consId of consumers) {
+    const cons = modelConcepts.get(consId);
+    if (cons && cons.topic === c.topic) sameTopic++;
+  }
   backlinkStats.set(c.id, {
-    total: consumers.length,
+    total: consumers.size,
     sameTopic,
-    crossTopic: consumers.length - sameTopic,
+    crossTopic: consumers.size - sameTopic,
   });
 }
 
@@ -506,11 +498,11 @@ const HUB_THRESHOLD = Math.max(3, percentile(globalCounts, 95));
 const ORPHAN_THRESHOLD = Math.max(3, percentile(globalCounts, 90));
 
 function backlinkSignalsForTopic(topic) {
-  const d = topicData.get(topic);
-  if (!d) return { deadEnds: 0, hubs: 0, orphanedHubs: 0 };
+  const t = modelTopics.get(topic);
+  if (!t) return { deadEnds: 0, hubs: 0, orphanedHubs: 0 };
   let deadEnds = 0, hubs = 0, orphanedHubs = 0;
-  for (const c of d.concepts || []) {
-    const s = backlinkStats.get(c.id);
+  for (const cid of t.conceptIds) {
+    const s = backlinkStats.get(cid);
     if (!s) continue;
     if (s.total === 0) deadEnds++;
     if (s.total >= HUB_THRESHOLD) hubs++;
@@ -523,48 +515,19 @@ function backlinkSignalsForTopic(topic) {
 // 4. Cross-topic prereq suggestions (mirrors audit-cross-topic-prereqs.mjs).
 
 const MIN_TITLE_LEN = 5;
-const TITLE_BLOCKLIST = new Set([
-  'sets', 'rank', 'limit', 'limits', 'functor', 'functors', 'group', 'groups',
-  'ring', 'rings', 'field', 'fields', 'space', 'spaces', 'map', 'maps',
-  'action', 'order', 'norm', 'degree', 'product', 'products', 'sum', 'sums',
-  'number', 'numbers', 'point', 'points', 'line', 'lines', 'curve', 'curves',
-  'surface', 'surfaces', 'trace', 'root', 'roots', 'base', 'basis', 'image',
-  'kernel', 'range', 'domain', 'series', 'form', 'forms', 'module', 'modules',
-  'ideal', 'ideals', 'genus', 'class', 'classes', 'algebra', 'algebras',
-  'category', 'scheme', 'schemes', 'sheaf', 'sheaves', 'topology', 'manifold',
-  'manifolds', 'function', 'functions', 'measure', 'measures', 'operator',
-  'operators', 'set', 'integral', 'integrals', 'derivative', 'derivatives',
-  'partition', 'partitions', 'period', 'periods', 'weight', 'level', 'index',
-  'index.html', 'residue', 'residues',
-]);
 
-function escapeForRegex(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function buildTitleRegex(title) {
-  return new RegExp(
-    '\\b' +
-      title
-        .split(/\s+/)
-        .map((w) => escapeForRegex(w).replace(/[-‐-―]/g, '[-\\u2010-\\u2015]'))
-        .join('\\s+') +
-      '\\b',
-    'gi',
-  );
-}
-
+// Title vocabulary: every concept with a non-blocklisted, long-enough title.
 const vocab = [];
-for (const [id, c] of byId) {
+for (const c of allConcepts) {
   if (!c.title || !c.anchor) continue;
   const titleLower = c.title.trim().toLowerCase();
   if (c.title.trim().length < MIN_TITLE_LEN) continue;
   if (TITLE_BLOCKLIST.has(titleLower)) continue;
   vocab.push({
-    id,
+    id: c.id,
     title: c.title.trim(),
     topic: c.topic,
-    regex: buildTitleRegex(c.title.trim()),
+    regex: buildTitleRegex(c.title.trim(), { global: true }),
   });
 }
 vocab.sort((a, b) => b.title.length - a.title.length);
@@ -573,7 +536,7 @@ const transitiveCache = new Map();
 function transitivePrereqs(id) {
   if (transitiveCache.has(id)) return transitiveCache.get(id);
   const seen = new Set();
-  const src = byId.get(id);
+  const src = modelConcepts.get(id);
   if (!src) {
     transitiveCache.set(id, seen);
     return seen;
@@ -583,7 +546,7 @@ function transitivePrereqs(id) {
     const next = queue.shift();
     if (seen.has(next)) continue;
     seen.add(next);
-    const n = byId.get(next);
+    const n = modelConcepts.get(next);
     if (!n) continue;
     for (const p of n.prereqs || []) {
       if (!seen.has(p)) queue.push(p);
@@ -591,184 +554,6 @@ function transitivePrereqs(id) {
   }
   transitiveCache.set(id, seen);
   return seen;
-}
-
-// Skip-zone mask for a topic page (lifted from audit-cross-topic-prereqs.mjs,
-// trimmed to just the bits we need for <p>-prose extraction).
-
-function buildSkipMask(html) {
-  const mask = new Uint8Array(html.length);
-  const containerMask = new Uint8Array(html.length);
-
-  const bodyM = html.match(/<body\b[^>]*>/i);
-  if (bodyM) {
-    const end = bodyM.index + bodyM[0].length;
-    for (let i = 0; i < end; i++) {
-      mask[i] = 1;
-      containerMask[i] = 1;
-    }
-  }
-
-  function maskBalanced(tagName) {
-    const openRe = new RegExp(`<${tagName}\\b[^>]*?>`, 'gi');
-    const closeRe = new RegExp(`</${tagName}\\s*>`, 'gi');
-    const opens = [];
-    let m;
-    while ((m = openRe.exec(html))) opens.push(m.index + m[0].length);
-    const closes = [];
-    while ((m = closeRe.exec(html))) closes.push(m.index);
-    const events = [];
-    for (const o of opens) events.push({ at: o, kind: 'open' });
-    for (const c of closes) events.push({ at: c, kind: 'close' });
-    events.sort((a, b) => a.at - b.at);
-    const outerStack = [];
-    let depth = 0;
-    for (const ev of events) {
-      if (ev.kind === 'open') {
-        if (depth === 0) outerStack.push(ev.at);
-        depth++;
-      } else {
-        depth--;
-        if (depth === 0) {
-          const start = outerStack.pop();
-          if (start !== undefined) {
-            for (let i = start; i < ev.at && i < mask.length; i++) {
-              mask[i] = 1;
-              containerMask[i] = 1;
-            }
-          }
-        }
-        if (depth < 0) depth = 0;
-      }
-    }
-  }
-
-  for (const t of ['script', 'style', 'head', 'svg', 'pre', 'code', 'aside']) {
-    maskBalanced(t);
-  }
-  for (let i = 1; i <= 6; i++) maskBalanced('h' + i);
-  maskBalanced('a');
-
-  {
-    const widgetOpenRe = /<div\b[^>]*\bclass=["'][^"']*\bwidget\b[^"']*["'][^>]*>/gi;
-    let m;
-    while ((m = widgetOpenRe.exec(html))) {
-      const start = m.index;
-      let depth = 1;
-      const divOpenRe = /<div\b[^>]*>/gi;
-      const divCloseRe = /<\/div\s*>/gi;
-      divOpenRe.lastIndex = m.index + m[0].length;
-      divCloseRe.lastIndex = m.index + m[0].length;
-      let end = html.length;
-      while (depth > 0) {
-        divOpenRe.lastIndex = Math.max(divOpenRe.lastIndex, divCloseRe.lastIndex - 1);
-        const o = divOpenRe.exec(html);
-        const c = divCloseRe.exec(html);
-        if (!c) break;
-        if (o && o.index < c.index) {
-          depth++;
-          divCloseRe.lastIndex = o.index + o[0].length;
-        } else {
-          depth--;
-          if (depth === 0) {
-            end = c.index + c[0].length;
-            break;
-          }
-          divOpenRe.lastIndex = c.index + c[0].length;
-        }
-      }
-      for (let i = start; i < end && i < mask.length; i++) {
-        mask[i] = 1;
-        containerMask[i] = 1;
-      }
-    }
-  }
-
-  // KaTeX math spans.
-  function escapedAt(s, i) {
-    let n = 0;
-    for (let j = i - 1; j >= 0 && s[j] === '\\'; j--) n++;
-    return n % 2 === 1;
-  }
-  {
-    let i = 0;
-    while (i < html.length - 1) {
-      if (html[i] === '$' && html[i + 1] === '$' && !escapedAt(html, i)) {
-        const start = i;
-        let j = i + 2;
-        while (j < html.length - 1) {
-          if (html[j] === '$' && html[j + 1] === '$' && !escapedAt(html, j)) {
-            for (let k = start; k < j + 2 && k < mask.length; k++) mask[k] = 1;
-            i = j + 2;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length - 1) break;
-      } else {
-        i++;
-      }
-    }
-  }
-  {
-    let i = 0;
-    while (i < html.length) {
-      if (
-        html[i] === '$' &&
-        html[i + 1] !== '$' &&
-        !escapedAt(html, i) &&
-        !mask[i]
-      ) {
-        const start = i;
-        let j = i + 1;
-        while (j < html.length) {
-          if (html[j] === '$' && html[j + 1] !== '$' && !escapedAt(html, j)) {
-            for (let k = start; k < j + 1 && k < mask.length; k++) mask[k] = 1;
-            i = j + 1;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length) break;
-      } else {
-        i++;
-      }
-    }
-  }
-  for (const [openL, openR, closeL, closeR] of [
-    ['\\', '(', '\\', ')'],
-    ['\\', '[', '\\', ']'],
-  ]) {
-    let i = 0;
-    while (i < html.length - 1) {
-      if (html[i] === openL && html[i + 1] === openR) {
-        const start = i;
-        let j = i + 2;
-        while (j < html.length - 1) {
-          if (html[j] === closeL && html[j + 1] === closeR) {
-            for (let k = start; k < j + 2 && k < mask.length; k++) mask[k] = 1;
-            i = j + 2;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length - 1) break;
-      } else {
-        i++;
-      }
-    }
-  }
-
-  {
-    const tagRe = /<[^>]*>/g;
-    let m;
-    while ((m = tagRe.exec(html))) {
-      for (let i = m.index; i < m.index + m[0].length && i < mask.length; i++) {
-        mask[i] = 1;
-      }
-    }
-  }
-  return { mask, containerMask };
 }
 
 function extractProseRegion(html, mask, containerMask, innerStart, innerEnd) {
@@ -801,16 +586,15 @@ for (const [topic, html] of pageHtml) {
 }
 
 function countCrossTopicSuggestionsForTopic(topic) {
-  const d = topicData.get(topic);
-  if (!d) return 0;
+  const t = modelTopics.get(topic);
+  if (!t) return 0;
   const html = pageHtml.get(topic);
   const ctx = html ? pageMask.get(topic) : null;
   let count = 0;
-  for (const c of d.concepts || []) {
-    if (!c.anchor) continue;
-    const src = byId.get(c.id);
-    if (!src) continue;
-    const directPrereqs = new Set(src.prereqs);
+  for (const cid of t.conceptIds) {
+    const c = modelConcepts.get(cid);
+    if (!c || !c.anchor) continue;
+    const directPrereqs = new Set(c.prereqs);
     const transitive = transitivePrereqs(c.id);
 
     let sectionText = '';
@@ -952,23 +736,23 @@ function extractScriptBodies(html) {
 }
 
 function scriptReferencesSelector(scriptText, selector, kind) {
-  const selEsc = escapeForRegex(selector);
+  const selEsc = escapeRe(selector);
   const prefix = kind === 'id' ? '#' : '.';
-  const dollarRe = new RegExp(`\\$\\(\\s*["'\`]\\s*${escapeForRegex(prefix)}${selEsc}\\b`);
+  const dollarRe = new RegExp(`\\$\\(\\s*["'\`]\\s*${escapeRe(prefix)}${selEsc}\\b`);
   if (dollarRe.test(scriptText)) return true;
   if (kind === 'id') {
     const gbiRe = new RegExp(`getElementById\\(\\s*["'\`]${selEsc}["'\`]\\s*\\)`);
     if (gbiRe.test(scriptText)) return true;
   }
   const qsRe = new RegExp(
-    `querySelector(?:All)?\\(\\s*["'\`][^"'\`]*${escapeForRegex(prefix)}${selEsc}\\b[^"'\`]*["'\`]\\s*\\)`,
+    `querySelector(?:All)?\\(\\s*["'\`][^"'\`]*${escapeRe(prefix)}${selEsc}\\b[^"'\`]*["'\`]\\s*\\)`,
   );
   if (qsRe.test(scriptText)) return true;
   if (kind === 'class') {
     const gcRe = new RegExp(`getElementsByClassName\\(\\s*["'\`]${selEsc}["'\`]\\s*\\)`);
     if (gcRe.test(scriptText)) return true;
   }
-  const bareRe = new RegExp(`["'\`]\\s*${escapeForRegex(prefix)}${selEsc}\\b`);
+  const bareRe = new RegExp(`["'\`]\\s*${escapeRe(prefix)}${selEsc}\\b`);
   if (bareRe.test(scriptText) && EVENT_VERBS_RE.test(scriptText)) return true;
   return false;
 }
@@ -1029,12 +813,12 @@ function worst(buckets) {
 // Build per-topic scorecards.
 
 const scorecards = [];
-for (const topic of topics) {
-  if (!topicData.has(topic)) continue;
+for (const topic of topicIds) {
+  const t = modelTopics.get(topic);
+  if (!t || t.conceptIds.length === 0) continue;
   if (TOPIC_FILTER && topic !== TOPIC_FILTER) continue;
 
-  const d = topicData.get(topic);
-  const conceptCount = (d.concepts || []).length;
+  const conceptCount = t.conceptIds.length;
   const quiz = tallyQuizzes(topic);
   const blurbs = countBlurbFlagsForTopic(topic);
   const back = backlinkSignalsForTopic(topic);
@@ -1051,7 +835,7 @@ for (const topic of topics) {
 
   scorecards.push({
     topic,
-    title: d.title || topic,
+    title: topicTitles.get(topic) || topic,
     conceptCount,
     quiz,
     blurbs,

@@ -34,17 +34,9 @@
 // CLI
 //   node scripts/audit-backlink-strength.mjs            # default top 20
 //   node scripts/audit-backlink-strength.mjs --top N    # top N
-//
-// Zero dependencies: regex + string scans only.
 
-import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
-const conceptsDir = join(repoRoot, 'concepts');
-const quizzesDir = join(repoRoot, 'quizzes');
+import { loadContentModel, forEachSectionProse } from './lib/content-model.mjs';
+import { buildTitleRegex } from './lib/audit-utils.mjs';
 
 // ─────────────────────────────────────────────────────────────────────────
 // CLI
@@ -64,390 +56,115 @@ let TOP_N = 20;
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Load concept graph (mirrors audit-backlink-quality.mjs).
+// Load unified content model.
 
-const indexPath = join(conceptsDir, 'index.json');
-const topics = JSON.parse(readFileSync(indexPath, 'utf8')).topics;
+const model = await loadContentModel();
+const {
+  topicIds: registeredTopics,
+  topics,
+  concepts,
+  byPrereq,
+  quizByConcept,
+} = model;
 
-// conceptId -> { id, topic, title, anchor, prereqs, blurb }
-const byId = new Map();
-// topic -> topic title
-const topicTitle = new Map();
-// topic -> page filename
-const topicPage = new Map();
-// all concepts in declaration order
+// Preserve the declaration-order list of concepts (first-writer-wins on
+// duplicates, topic iteration in registered order — matches the original
+// loader semantics).
 const allConcepts = [];
-
-for (const topic of topics) {
-  const p = join(conceptsDir, `${topic}.json`);
-  if (!existsSync(p)) continue;
-  const d = JSON.parse(readFileSync(p, 'utf8'));
-  topicTitle.set(topic, d.title || topic);
-  topicPage.set(topic, d.page || `${topic}.html`);
-  for (const c of d.concepts || []) {
-    if (byId.has(c.id)) continue;
-    const entry = {
-      id: c.id,
-      topic,
-      title: c.title || c.id,
-      anchor: c.anchor || null,
-      prereqs: c.prereqs || [],
-      blurb: c.blurb || '',
-    };
-    byId.set(c.id, entry);
-    allConcepts.push(entry);
+const seenConceptIds = new Set();
+for (const topicId of registeredTopics) {
+  const topic = topics.get(topicId);
+  if (!topic) continue;
+  for (const cid of topic.conceptIds) {
+    if (seenConceptIds.has(cid)) continue;
+    const c = concepts.get(cid);
+    if (!c) continue;
+    seenConceptIds.add(cid);
+    allConcepts.push(c);
   }
-}
-
-// Reverse adjacency: conceptId -> Array<consumer>.
-const reverse = new Map();
-for (const c of allConcepts) {
-  for (const pid of c.prereqs) {
-    if (!byId.has(pid)) continue;
-    if (!reverse.has(pid)) reverse.set(pid, []);
-    reverse.get(pid).push(c);
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────
-// Load topic HTMLs (lazy cache).
-
-const htmlCache = new Map();
-function loadTopicHtml(topic) {
-  if (htmlCache.has(topic)) return htmlCache.get(topic);
-  const pagePath = join(repoRoot, topicPage.get(topic));
-  let html = null;
-  if (existsSync(pagePath)) {
-    try {
-      html = readFileSync(pagePath, 'utf8');
-    } catch {
-      html = null;
-    }
-  }
-  htmlCache.set(topic, html);
-  return html;
-}
-
-// Load quiz bank (lazy cache).
-const quizCache = new Map();
-function loadTopicQuiz(topic) {
-  if (quizCache.has(topic)) return quizCache.get(topic);
-  const quizPath = join(quizzesDir, `${topic}.json`);
-  let data = null;
-  if (existsSync(quizPath)) {
-    try {
-      data = JSON.parse(readFileSync(quizPath, 'utf8'));
-    } catch {
-      data = null;
-    }
-  }
-  quizCache.set(topic, data);
-  return data;
 }
 
 // ─────────────────────────────────────────────────────────────────────────
 // Title-in-prose matching.
 //
-// Mirrors audit-inline-links.mjs:
-//   - whole-word case-insensitive match;
-//   - tolerant to varied whitespace between words;
-//   - unicode hyphens interchangeable.
-//
-// We do *not* apply the blocklist / min-length filter here: the prereq edge
-// already restricts us to specific (C, D) pairs, so false positives from
-// generic English are far less of a concern than in the inline-link inserter.
-
-function titleRegex(title, { global } = { global: false }) {
-  const pattern =
-    '\\b' +
-    title
-      .split(/\s+/)
-      .map((w) =>
-        w
-          .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-          .replace(/[-‐-―]/g, '[-\\u2010-\\u2015]')
-      )
-      .join('\\s+') +
-    '\\b';
-  return new RegExp(pattern, global ? 'gi' : 'i');
-}
+// Mirrors audit-inline-links.mjs: whole-word case-insensitive match, tolerant
+// to varied whitespace, unicode hyphens interchangeable. The prereq edge
+// already restricts us to specific (C, D) pairs, so we skip the
+// blocklist/min-length filter used by the inline-link inserter.
 
 function countMatches(text, title) {
   if (!text || !title) return 0;
-  const re = titleRegex(title, { global: true });
+  const re = buildTitleRegex(title, { global: true });
   const matches = text.match(re);
   return matches ? matches.length : 0;
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Skip-zone + <p>-only prose extraction (borrowed from audit-inline-links.mjs,
-// trimmed to return the plain-text inside eligible <p> blocks only).
+// Section-prose extraction.
+//
+// Original implementation scanned raw HTML, taking characters inside eligible
+// <p> blocks only, with skip-mask covering <a>/<h*>/widgets/math spans/etc.
+// We reproduce that behavior on top of the parsed DOM:
+//
+//   - forEachSectionProse already skips <script>/<style>/<svg>/<code>/<pre>/
+//     <aside>/<h1..6>/<a>/.widget/.katex subtrees, and exposes a math-masked
+//     variant of each TextNode's text.
+//   - We further restrict to TextNodes whose ancestor chain contains a <p>.
+//   - Per-<p> text is joined with ' ' and whitespace-collapsed, matching the
+//     original's `buf.replace(/\s+/g,' ').trim()` + ` ` join between blocks.
 
-function maskRegion(mask, start, end) {
-  for (let i = start; i < end && i < mask.length; i++) mask[i] = true;
-}
+const proseCache = new Map(); // conceptId -> prose string
 
-function buildSkipMask(html) {
-  const mask = new Uint8Array(html.length);
-  const containerMask = new Uint8Array(html.length);
-
-  const bodyM = html.match(/<body\b[^>]*>/i);
-  if (bodyM) {
-    maskRegion(mask, 0, bodyM.index + bodyM[0].length);
-    maskRegion(containerMask, 0, bodyM.index + bodyM[0].length);
-  }
-
-  function maskBalanced(tagName) {
-    const openRe = new RegExp(`<${tagName}\\b[^>]*?>`, 'gi');
-    const closeRe = new RegExp(`</${tagName}\\s*>`, 'gi');
-    const opens = [];
-    let m;
-    while ((m = openRe.exec(html))) opens.push(m.index + m[0].length);
-    const closes = [];
-    while ((m = closeRe.exec(html))) closes.push(m.index);
-    const events = [];
-    for (const o of opens) events.push({ at: o, kind: 'open' });
-    for (const c of closes) events.push({ at: c, kind: 'close' });
-    events.sort((a, b) => a.at - b.at);
-    const outerStack = [];
-    let depth = 0;
-    for (const ev of events) {
-      if (ev.kind === 'open') {
-        if (depth === 0) outerStack.push(ev.at);
-        depth++;
-      } else {
-        depth--;
-        if (depth === 0) {
-          const start = outerStack.pop();
-          if (start !== undefined) {
-            maskRegion(mask, start, ev.at);
-            maskRegion(containerMask, start, ev.at);
-          }
-        }
-        if (depth < 0) depth = 0;
-      }
-    }
-  }
-
-  for (const t of ['script', 'style', 'head', 'svg', 'pre', 'code', 'aside']) {
-    maskBalanced(t);
-  }
-  for (let i = 1; i <= 6; i++) maskBalanced('h' + i);
-  maskBalanced('a');
-
-  // <div class="widget"> balanced-scan
-  {
-    const widgetOpenRe = /<div\b[^>]*\bclass=["'][^"']*\bwidget\b[^"']*["'][^>]*>/gi;
-    let m;
-    while ((m = widgetOpenRe.exec(html))) {
-      const start = m.index;
-      let depth = 1;
-      const divOpenRe = /<div\b[^>]*>/gi;
-      const divCloseRe = /<\/div\s*>/gi;
-      divOpenRe.lastIndex = m.index + m[0].length;
-      divCloseRe.lastIndex = m.index + m[0].length;
-      let end = html.length;
-      while (depth > 0) {
-        divOpenRe.lastIndex = Math.max(
-          divOpenRe.lastIndex,
-          divCloseRe.lastIndex - 1
-        );
-        const o = divOpenRe.exec(html);
-        const c = divCloseRe.exec(html);
-        if (!c) break;
-        if (o && o.index < c.index) {
-          depth++;
-          divCloseRe.lastIndex = o.index + o[0].length;
-        } else {
-          depth--;
-          if (depth === 0) {
-            end = c.index + c[0].length;
-            break;
-          }
-          divOpenRe.lastIndex = c.index + c[0].length;
-        }
-      }
-      maskRegion(mask, start, end);
-      maskRegion(containerMask, start, end);
-    }
-  }
-
-  // KaTeX math spans.
-  function escapedAt(s, i) {
-    let n = 0;
-    for (let j = i - 1; j >= 0 && s[j] === '\\'; j--) n++;
-    return n % 2 === 1;
-  }
-  {
-    let i = 0;
-    while (i < html.length - 1) {
-      if (html[i] === '$' && html[i + 1] === '$' && !escapedAt(html, i)) {
-        const start = i;
-        let j = i + 2;
-        while (j < html.length - 1) {
-          if (html[j] === '$' && html[j + 1] === '$' && !escapedAt(html, j)) {
-            maskRegion(mask, start, j + 2);
-            i = j + 2;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length - 1) break;
-      } else {
-        i++;
-      }
-    }
-  }
-  {
-    let i = 0;
-    while (i < html.length) {
-      if (
-        html[i] === '$' &&
-        html[i + 1] !== '$' &&
-        !escapedAt(html, i) &&
-        !mask[i]
-      ) {
-        const start = i;
-        let j = i + 1;
-        while (j < html.length) {
-          if (html[j] === '$' && html[j + 1] !== '$' && !escapedAt(html, j)) {
-            maskRegion(mask, start, j + 1);
-            i = j + 1;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length) break;
-      } else {
-        i++;
-      }
-    }
-  }
-  for (const [openL, openR, closeL, closeR] of [
-    ['\\', '(', '\\', ')'],
-    ['\\', '[', '\\', ']'],
-  ]) {
-    let i = 0;
-    while (i < html.length - 1) {
-      if (html[i] === openL && html[i + 1] === openR) {
-        const start = i;
-        let j = i + 2;
-        while (j < html.length - 1) {
-          if (html[j] === closeL && html[j + 1] === closeR) {
-            maskRegion(mask, start, j + 2);
-            i = j + 2;
-            break;
-          }
-          j++;
-        }
-        if (j >= html.length - 1) break;
-      } else {
-        i++;
-      }
-    }
-  }
-
-  // Mask every HTML tag interior.
-  {
-    const tagRe = /<[^>]*>/g;
-    let m;
-    while ((m = tagRe.exec(html))) {
-      maskRegion(mask, m.index, m.index + m[0].length);
-    }
-  }
-
-  return { mask, containerMask };
-}
-
-function buildSectionMap(html) {
-  const sections = [];
-  const openRe = /<section\b([^>]*)>/gi;
-  const closeRe = /<\/section\s*>/gi;
-  const tokens = [];
-  let m;
-  while ((m = openRe.exec(html))) {
-    const attrs = m[1];
-    const idM = attrs.match(/\bid=["']([^"']+)["']/);
-    tokens.push({
-      at: m.index,
-      kind: 'open',
-      id: idM ? idM[1] : null,
-      endTag: m.index + m[0].length,
-    });
-  }
-  while ((m = closeRe.exec(html))) {
-    tokens.push({ at: m.index, kind: 'close', endTag: m.index + m[0].length });
-  }
-  tokens.sort((a, b) => a.at - b.at);
-  const stack = [];
-  for (const t of tokens) {
-    if (t.kind === 'open') {
-      stack.push({ id: t.id, start: t.endTag });
-    } else {
-      const top = stack.pop();
-      if (top) sections.push({ id: top.id, start: top.start, end: t.at });
-    }
-  }
-  return sections;
-}
-
-// Return the concatenated prose (plain text from unmasked characters inside
-// eligible <p> blocks) within the <section id="<anchor>"> region of the
-// topic HTML. Returns '' if the section can't be located.
-function extractSectionProse(html, sectionAnchor) {
-  if (!html || !sectionAnchor) return '';
-
-  const sections = buildSectionMap(html);
-  // Pick the outermost section whose id matches; there should be exactly
-  // one, but prefer the first in document order just in case.
-  let target = null;
-  for (const s of sections) {
-    if (s.id === sectionAnchor) {
-      target = s;
-      break;
-    }
-  }
-  if (!target) return '';
-
-  const { mask, containerMask } = buildSkipMask(html);
-
-  // Enumerate <p> openers inside [target.start, target.end).
-  let out = '';
-  const openRe = /<p\b[^>]*>/gi;
-  openRe.lastIndex = target.start;
-  let m;
-  while ((m = openRe.exec(html))) {
-    if (m.index >= target.end) break;
-    const innerStart = m.index + m[0].length;
-    if (containerMask[m.index]) continue;
-    const closeRe = /<\/p\s*>/gi;
-    closeRe.lastIndex = innerStart;
-    const cm = closeRe.exec(html);
-    if (!cm) continue;
-    const innerEnd = Math.min(cm.index, target.end);
-
-    // Extract characters that are NOT masked (i.e. eligible prose).
-    let buf = '';
-    for (let i = innerStart; i < innerEnd; i++) {
-      if (!mask[i]) buf += html[i];
-    }
-    // Collapse whitespace.
-    buf = buf.replace(/\s+/g, ' ').trim();
-    if (buf) {
-      if (out) out += ' ';
-      out += buf;
-    }
-  }
+function extractSectionProseFor(concept) {
+  if (proseCache.has(concept.id)) return proseCache.get(concept.id);
+  const out = buildSectionProse(concept);
+  proseCache.set(concept.id, out);
   return out;
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// Quiz-text extraction (hard tier only).
+function buildSectionProse(concept) {
+  const sectionEl = concept.section;
+  if (!sectionEl) return '';
 
-function extractHardQuizText(topic, conceptId) {
-  const bank = loadTopicQuiz(topic);
-  if (!bank || !bank.quizzes) return '';
-  const entry = bank.quizzes[conceptId];
+  // Group masked TextNode texts by their nearest <p> ancestor. TextNodes with
+  // no <p> ancestor (or not inside this section's body) are ignored — the
+  // original only extracted from <p> blocks.
+  const perP = new Map(); // pElement -> string buffer
+  const pOrder = []; // preserve document order
+
+  forEachSectionProse(sectionEl, (_textNode, { masked, parent }) => {
+    const pEl = nearestAncestorTag(parent, 'p', sectionEl);
+    if (!pEl) return;
+    if (!perP.has(pEl)) {
+      perP.set(pEl, '');
+      pOrder.push(pEl);
+    }
+    perP.set(pEl, perP.get(pEl) + masked);
+  });
+
+  const blocks = [];
+  for (const pEl of pOrder) {
+    const collapsed = perP.get(pEl).replace(/\s+/g, ' ').trim();
+    if (collapsed) blocks.push(collapsed);
+  }
+  return blocks.join(' ');
+}
+
+function nearestAncestorTag(node, tagName, stopAt) {
+  let cur = node;
+  while (cur && cur !== stopAt) {
+    const tag = (cur.rawTagName || cur.tagName || '').toLowerCase();
+    if (tag === tagName) return cur;
+    cur = cur.parentNode || null;
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Hard-tier quiz text extraction.
+
+function extractHardQuizText(conceptId) {
+  const entry = quizByConcept.get(conceptId);
   if (!entry) return '';
   const hard = entry.hard;
   if (!Array.isArray(hard) || hard.length === 0) return '';
@@ -476,12 +193,11 @@ function couplingScore(C, D) {
   if (countMatches(D.blurb, C.title) >= 1) score += 1;
 
   // +2: D's section prose mentions C.title ≥ 2 times.
-  const html = loadTopicHtml(D.topic);
-  const prose = extractSectionProse(html, D.anchor);
+  const prose = extractSectionProseFor(D);
   if (countMatches(prose, C.title) >= 2) score += 2;
 
   // +3: D's hard-tier quiz bank mentions C.title ≥ 1 time.
-  const hardText = extractHardQuizText(D.topic, D.id);
+  const hardText = extractHardQuizText(D.id);
   if (countMatches(hardText, C.title) >= 1) score += 3;
 
   return score;
@@ -491,7 +207,12 @@ function couplingScore(C, D) {
 // Compute per-concept strength.
 
 const perConcept = allConcepts.map((C) => {
-  const consumers = reverse.get(C.id) || [];
+  // byPrereq gives a Set<conceptId> of downstream consumers (reverse edges).
+  // Resolve to concept records; iterate in allConcepts order for determinism.
+  const downstreamIds = byPrereq.get(C.id) || new Set();
+  const consumers = [];
+  for (const D of allConcepts) if (downstreamIds.has(D.id)) consumers.push(D);
+
   let total = 0;
   for (const D of consumers) total += couplingScore(C, D);
   const avgDepth = consumers.length > 0 ? total / consumers.length : 0;
@@ -587,8 +308,10 @@ function fmtRow(s) {
   );
 }
 
+const topicTitleCount = registeredTopics.filter((t) => topics.has(t)).length;
+
 console.log(
-  `audit-backlink-strength: ${allConcepts.length} concept(s) across ${topicTitle.size} topic(s)`
+  `audit-backlink-strength: ${allConcepts.length} concept(s) across ${topicTitleCount} topic(s)`
 );
 console.log('');
 console.log(
