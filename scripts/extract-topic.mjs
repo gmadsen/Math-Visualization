@@ -150,6 +150,174 @@ function extractBlocksFromSectionBody(body, sectionId) {
   return blocks;
 }
 
+// ----- phase 3: auto-detect widget-script pairing inside raw blocks -----
+
+// Collect every id referenced by a widget block (its own id plus every
+// `id="X"` attribute found inside its html).
+function widgetIdSet(widgetBlock) {
+  const ids = new Set();
+  ids.add(widgetBlock.id);
+  const idAttrRe = /\bid="([^"]+)"/g;
+  let m;
+  while ((m = idAttrRe.exec(widgetBlock.html)) !== null) {
+    ids.add(m[1]);
+  }
+  return ids;
+}
+
+// Find all <script>...</script> occurrences in a string; return
+// [{ start, end, inner, full }] where `start`/`end` are byte offsets in the
+// input, `full` is the slice including the tags, and `inner` is the script
+// body (used for selector scanning).
+function findScripts(html) {
+  const out = [];
+  let i = 0;
+  const OPEN = '<script';
+  const OPEN_CLOSE = '</script>';
+  while (i < html.length) {
+    const o = html.indexOf(OPEN, i);
+    if (o === -1) break;
+    // Make sure this is a script TAG, not just the substring (e.g. "<scriptish").
+    const after = html.charCodeAt(o + OPEN.length);
+    // valid chars following <script: space, tab, newline, > (no attrs case)
+    if (!(after === 32 || after === 9 || after === 10 || after === 13 || after === 62)) {
+      i = o + OPEN.length;
+      continue;
+    }
+    // Find the opening tag's '>'.
+    const tagEnd = html.indexOf('>', o);
+    if (tagEnd === -1) break;
+    // Closing </script>.
+    const close = html.indexOf(OPEN_CLOSE, tagEnd + 1);
+    if (close === -1) break;
+    const end = close + OPEN_CLOSE.length;
+    out.push({
+      start: o,
+      end,
+      full: html.slice(o, end),
+      inner: html.slice(tagEnd + 1, close),
+    });
+    i = end;
+  }
+  return out;
+}
+
+// Scan a script body for id selectors and return the set of referenced ids.
+// Handles `$('#id')`, `$("#id")`, `document.getElementById('id')`,
+// `querySelector('#id')`, `querySelectorAll('#id')`.
+function referencedIdsInScript(scriptInner) {
+  const ids = new Set();
+  // $('#id') or $("#id") — optional whitespace.
+  const dollarRe = /\$\(\s*['"]#([A-Za-z_][\w-]*)['"]/g;
+  // getElementById('id') — no leading '#'.
+  const gebRe = /getElementById\(\s*['"]([A-Za-z_][\w-]*)['"]/g;
+  // querySelector / querySelectorAll('#id...') — we only grab the leading #id token.
+  const qsRe = /querySelector(?:All)?\(\s*['"]#([A-Za-z_][\w-]*)/g;
+  let m;
+  while ((m = dollarRe.exec(scriptInner)) !== null) ids.add(m[1]);
+  while ((m = gebRe.exec(scriptInner)) !== null) ids.add(m[1]);
+  while ((m = qsRe.exec(scriptInner)) !== null) ids.add(m[1]);
+  return ids;
+}
+
+// Walk all sections' blocks. For every raw block, detect scripts that target
+// a specific widget; when exactly one script references exactly one widget,
+// split the raw block into (raw-before, widget-script, raw-after).
+function autoPairWidgetScripts(sections) {
+  // Build a lookup from any id (widget id OR descendant id) to the widget id
+  // it belongs to. If an id belongs to multiple widgets, record 'AMBIG'.
+  const idToWidget = new Map();
+  for (const s of sections) {
+    for (const b of s.blocks) {
+      if (b.type !== 'widget') continue;
+      const ids = widgetIdSet(b);
+      for (const id of ids) {
+        if (idToWidget.has(id) && idToWidget.get(id) !== b.id) {
+          idToWidget.set(id, 'AMBIG');
+        } else {
+          idToWidget.set(id, b.id);
+        }
+      }
+    }
+  }
+
+  const stats = { split: 0, leftIntact: 0, pairedWidgets: new Set() };
+
+  for (const s of sections) {
+    const newBlocks = [];
+    for (const b of s.blocks) {
+      if (b.type !== 'raw' || !b.html.includes('<script')) {
+        newBlocks.push(b);
+        continue;
+      }
+      const scripts = findScripts(b.html);
+      if (scripts.length === 0) {
+        newBlocks.push(b);
+        continue;
+      }
+      // For each script, find widgets it references.
+      let scriptsWithWidget = 0;
+      let candidateScript = null;
+      let candidateWidget = null;
+      let conflict = false;
+      for (const sc of scripts) {
+        const ids = referencedIdsInScript(sc.inner);
+        const widgetsReferenced = new Set();
+        for (const id of ids) {
+          const wid = idToWidget.get(id);
+          if (wid && wid !== 'AMBIG') widgetsReferenced.add(wid);
+        }
+        if (widgetsReferenced.size === 0) {
+          // glue / page-level — ignore this script.
+          continue;
+        }
+        if (widgetsReferenced.size > 1) {
+          // ambiguous — bail on this whole raw block.
+          conflict = true;
+          break;
+        }
+        // exactly one widget referenced.
+        scriptsWithWidget += 1;
+        if (scriptsWithWidget > 1) { conflict = true; break; }
+        candidateScript = sc;
+        candidateWidget = [...widgetsReferenced][0];
+      }
+
+      if (conflict || scriptsWithWidget !== 1) {
+        // keep as single opaque raw block
+        if (b.html.includes('<script') && scripts.some(sc => referencedIdsInScript(sc.inner).size > 0)) {
+          // only count as "leftIntact" if it actually had widget-referencing scripts that we bailed on
+          if (conflict) stats.leftIntact += 1;
+        }
+        newBlocks.push(b);
+        continue;
+      }
+
+      // Split the raw block into three.
+      const before = b.html.slice(0, candidateScript.start);
+      const scriptSlice = b.html.slice(candidateScript.start, candidateScript.end);
+      const after = b.html.slice(candidateScript.end);
+
+      if (before.length > 0) {
+        newBlocks.push({ type: 'raw', html: before });
+      }
+      newBlocks.push({
+        type: 'widget-script',
+        forWidget: candidateWidget,
+        html: scriptSlice,
+      });
+      if (after.length > 0) {
+        newBlocks.push({ type: 'raw', html: after });
+      }
+      stats.split += 1;
+      stats.pairedWidgets.add(candidateWidget);
+    }
+    s.blocks = newBlocks;
+  }
+
+  return stats;
+}
+
 function extract(topicSlug) {
   const srcPath = resolve(repoRoot, `${topicSlug}.html`);
   const text = readFileSync(srcPath, 'utf8');
@@ -198,12 +366,16 @@ function extract(topicSlug) {
 
   const rawBodySuffix = text.slice(mainCloseIdx);
 
+  // Phase 3: auto-detect and pair widget scripts that live inside raw blocks.
+  const pairStats = autoPairWidgetScripts(sections);
+
   return {
     topic: topicSlug,
     rawHead,
     rawBodyPrefix,
     sections,
     rawBodySuffix,
+    _pairStats: pairStats, // non-serialized caller-only metadata
   };
 }
 
@@ -215,15 +387,26 @@ function main() {
   }
   const t0 = Date.now();
   const doc = extract(slug);
+  const pairStats = doc._pairStats;
+  delete doc._pairStats;
   const outDir = resolve(repoRoot, 'content');
   mkdirSync(outDir, { recursive: true });
-  const outPath = resolve(outDir, `${slug}.json`);
+  // Special case: category-theory was hand-edited in Phase 2 to use the
+  // widget registry (slug+params). Re-extracting from source would overwrite
+  // those enhancements, so route the output to /tmp for inspection instead.
+  const outPath = slug === 'category-theory'
+    ? '/tmp/ct-reextracted.json'
+    : resolve(outDir, `${slug}.json`);
   writeFileSync(outPath, JSON.stringify(doc, null, 2));
   const ms = Date.now() - t0;
-  const widgets = doc.sections.flatMap(s => s.blocks).filter(b => b.type === 'widget').length;
-  const quizzes = doc.sections.flatMap(s => s.blocks).filter(b => b.type === 'quiz').length;
+  const allBlocks = doc.sections.flatMap(s => s.blocks);
+  const widgets = allBlocks.filter(b => b.type === 'widget').length;
+  const quizzes = allBlocks.filter(b => b.type === 'quiz').length;
+  const widgetScripts = allBlocks.filter(b => b.type === 'widget-script').length;
   console.error(
-    `extracted ${slug}: ${doc.sections.length} sections, ${widgets} widgets, ${quizzes} quizzes -> ${outPath} (${ms} ms)`
+    `extracted ${slug}: ${doc.sections.length} sections, ${widgets} widgets, ` +
+    `${quizzes} quizzes, ${widgetScripts} widget-scripts (split=${pairStats.split}, ` +
+    `bailed=${pairStats.leftIntact}) -> ${outPath} (${ms} ms)`
   );
 }
 

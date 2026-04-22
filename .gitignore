@@ -15,3 +15,6 @@ package-lock.json
 _verify*.js
 _sidetoc_verify.js
 test_index.js
+
+.claude/worktrees
+.claude/worktree

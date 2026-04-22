@@ -12,6 +12,7 @@
 //   node scripts/inject-breadcrumb.mjs --fix
 //   node scripts/fix-a11y.mjs --fix
 //   node scripts/smoke-test.mjs
+//   node scripts/test-roundtrip.mjs
 //
 // Streams each child's stdout/stderr through, prints a banner per step, and
 // bails on the first non-zero exit.
@@ -20,7 +21,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, search, schema, validate, katex, callbacks, backlinks, breadcrumb, a11y, smoke
+//                       concepts, quizzes, search, schema, validate, katex, callbacks, backlinks, breadcrumb, a11y, smoke, roundtrip
 //
 // Zero dependencies.
 
@@ -59,6 +60,7 @@ const STEPS = [
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
+  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: false },
 ];
 
 if (only) {

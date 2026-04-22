@@ -48,8 +48,15 @@ async function renderBlock(b) {
     return b.html + (b.script || '');
   }
   if (b.type === 'widget-script') {
-    const mod = await loadWidgetModule(b.slug);
-    return mod.renderScript(b.params);
+    // Registry-driven case (Phase 2 hand-edit): slug + params resolve
+    // through the widgets/ registry.
+    if (b.slug) {
+      const mod = await loadWidgetModule(b.slug);
+      return mod.renderScript(b.params);
+    }
+    // Auto-detected case (Phase 3): verbatim html field with a forWidget
+    // back-reference.
+    return b.html;
   }
   // raw / quiz both carry their html verbatim.
   return b.html;
