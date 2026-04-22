@@ -23,6 +23,73 @@ The structured-content pipeline is the big recent shift. See `widgets/README.md`
 - Flip `content/` to the source of truth: currently `content/*.json` tracks `<topic>.html` and the roundtrip gate catches drift. The inverse — edit JSON, regenerate HTML — is one render-topic.mjs flag away.
 - Markdown prose: reversibly convert raw HTML prose blocks to Markdown while preserving byte-identical round-trip on the restricted subset the notebook uses. This was the deferred Phase 3c — worth revisiting once the registry coverage is higher.
 
+## Backlog — project health + standards (Apr 2026)
+
+Honest self-review items raised while shipping Phase 2b/2c + reader-toggle + coverage-stats. Not urgent; most are judgment calls on where to invest next.
+
+### Principle: authoring should be easy
+
+Easy authoring *enforces* good decisions. If decomposing a concept or scaffolding a widget is tedious, authors skip the good practice — inconsistent theme, bundled concepts, stale links. If the common path is one command, consistency happens for free.
+
+Concretely:
+
+- `scripts/new-topic.mjs` already exists and is the gold standard.
+- New-concept is handled by the `.claude/agents/content-scaffolder.md` skill (no script, no CLI).
+- **New-widget is not scaffolded.** The current path is a 6-step manual process in `widgets/README.md`. Worth building a skill or a tiny scaffold command that creates `widgets/<slug>/{schema.json, index.mjs, README.md}` with filled-in `meta` block, picks a family from a small menu, and leaves the author only the params + render functions to write.
+- **Adding a concept to an existing topic** currently means editing `concepts/<topic>.json`, the matching section in `<topic>.html`, and the quiz bank — plus re-extracting `content/<topic>.json`. A new-concept scaffold could do all four.
+
+### Widget registry — is it paying off?
+
+Honest read: the registry is at **5 of 452 widgets (1.1%)**. Three modules (`composition-explorer`, `natural-transformation-explorer`, `clickable-diagram`) maintained; clickable-diagram absorbed 3 category-theory widgets that genuinely shared structure. The other 8 category-theory widgets are domain-specific (randomized-functor tables, sets-and-maps blob renderers, group-theory computations) — bespoke modules if migrated at all.
+
+Open questions:
+- The byte-identity requirement pushed us to add "artifact" params (`sectionComment`, `proofsLiteral`, `svgStyleAttr`, etc.) that exist only for reproducing the current hand-written source. That's technical debt. Worth revisiting once we decide whether byte-identity-with-today's-HTML is a forever requirement or just a migration-safety one.
+- Registry value is largely speculative right now — it's a bet on alternate frontends (React, mobile, etc.) that may or may not ship. The React POC is 160 lines and works; it proves portability but nothing production uses it yet.
+- **Decision point**: commit more widget migration (say, 30 of 452), or accept the registry as a sparse high-value subset serving cross-framework portability examples?
+
+### Quizzes — do they need the same treatment?
+
+No — quizzes are already well-factored:
+- Structurally separated from topic HTML (live in `quizzes/<topic>.json`; only a `<div class="quiz" data-concept>` placeholder appears in HTML).
+- Typed (9 question types) and tiered (v1/hard/expert), both machine-queryable.
+- Rendered centrally by `js/quiz.js` — no per-quiz module needed.
+
+`scripts/stats-coverage.mjs` gives the aggregate picture we were missing. The remaining questions are content-level: 2298 total quizzes, 1160 v1 / 1125 hard / only 13 expert — the expert tier is barely populated. Concept coverage: every concept has a v1 quiz; many lack hard.
+
+### Script audit — are they all needed? Can we simplify?
+
+29 scripts in `scripts/`. 8 share the content-model loader; 21 still don't. The non-consolidated ones should be reviewed for necessity and overlap:
+
+- **Candidates to merge or drop:**
+  - `audit-color-vars.mjs` + `fix-color-vars.mjs` + `fix-color-vars-style.mjs` — three files for a narrow concern.
+  - `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`.
+  - `audit-concept-graph-health.mjs` now overlaps with the new `audit-graph-health.mjs`.
+  - `audit-backlink-quality.mjs` + `audit-backlink-strength.mjs` — two backlink audits that could plausibly merge.
+  - `audit-doc-drift.mjs` missed the PLAN.md/AGENTS.md/README.md drift that surfaced in April review — either fix it or replace it.
+  - `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage; confirm whether signal is worth the maintenance.
+- **Consolidation candidates:** validate-concepts.mjs, audit-widget-interactivity.mjs, audit-cross-page-consistency.mjs all re-implement concept/topic loading. Could import `loadContentModel()`.
+
+A one-afternoon pass could probably cut 5–8 scripts without losing signal.
+
+### NPM packages — candidates worth evaluating
+
+Hand-rolled code that has mature npm equivalents:
+
+- **`cheerio`** over `node-html-parser` — cheerio is richer for DOM manipulation in the `inject-*`/`fix-*` scripts, though it's heavier (node-html-parser suits perf-sensitive parsing of 58 topic HTMLs).
+- **`katex` as a dependency** (not just a CDN loader) — would let `validate-katex.mjs` do real rendering instead of heuristic structural checks. Catches more bugs but slower.
+- **`remark` + `rehype`** — if we ever convert prose blocks to Markdown, this is the standard ecosystem. Not needed today.
+- **`natural` or `compromise`** for prose analysis (stale-blurbs, cross-topic-prereqs) — probably overkill; current regex heuristics are good enough at this scale.
+
+For brand-new functionality (stats-coverage, display-prefs) native Node / vanilla JS is adequate; no npm gain.
+
+### Docs — currency check
+
+`AGENTS.md` and `README.md` were stale by ~10 commits until the Apr 2026 refresh. An `audit-doc-drift.mjs` that actually catches this is worth the effort — or bake doc-mentioning-infrastructure checks into CI (e.g. fail if `AGENTS.md` doesn't mention any `scripts/*.mjs` added in the last N commits).
+
+### Items added to the general backlog list that follows
+
+Below — the existing near-term sections. Treat the above as the "judgment calls" tier; below are the "known specific tasks" tier.
+
 ## Near-term tasks
 
 Grouped by theme. Each item is a short title plus one-line scope. No checkboxes — when something ships, delete its bullet.
