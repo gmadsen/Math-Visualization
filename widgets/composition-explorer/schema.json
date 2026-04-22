@@ -3,6 +3,12 @@
   "$id": "https://math-vis.local/widgets/composition-explorer/schema.json",
   "title": "composition-explorer widget params",
   "description": "Data needed to render the Composition explorer widget: a small category with finitely many objects, morphisms (with identities), and a composition table.",
+  "meta": {
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
   "type": "object",
   "additionalProperties": false,
   "required": [

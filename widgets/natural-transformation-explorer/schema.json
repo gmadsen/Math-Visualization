@@ -3,6 +3,12 @@
   "$id": "https://math-vis.local/widgets/natural-transformation-explorer/schema.json",
   "title": "natural-transformation-explorer widget params",
   "description": "Data needed to render the Naturality-square element-trace widget: two small sets A and B, four hom-set grids at the corners of the square, and the initial slider positions.  The mathematical setup is fixed (F = Hom(X,-), G = Hom(Y,-), η induced by u: Y → X with u(y) = x_1; X = {x_1, x_2}, Y = {y}); what varies across instances is labelling, layout, ids, and initial state.",
+  "meta": {
+    "family": "naturality-square",
+    "dimension": "2d",
+    "gesture": "slider+click",
+    "role": "exploratory"
+  },
   "type": "object",
   "additionalProperties": false,
   "required": [

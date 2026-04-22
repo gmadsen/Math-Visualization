@@ -98,9 +98,11 @@ function validateFile(absPath, fileRel, validator) {
   return true;
 }
 
-// concepts/*.json — skip the index, capstone list, and the built bundle.
+// concepts/*.json — skip registry files (index, capstones, sections) and the
+// built bundle. These have their own shapes; only topic concept files get
+// validated against schemas/concept.schema.json.
 const conceptFiles = listJsonFiles(conceptsDir, {
-  skip: ['index.json', 'capstones.json'],
+  skip: ['index.json', 'capstones.json', 'sections.json'],
 });
 let conceptOk = 0;
 for (const f of conceptFiles) {

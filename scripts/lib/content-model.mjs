@@ -78,6 +78,19 @@ function buildModel() {
     ? JSON.parse(readFileSync(capstonesPath, 'utf8')).capstones || []
     : [];
 
+  // 2a. Sections (topic -> subject mapping).
+  const sectionsPath = join(conceptsDir, 'sections.json');
+  const sectionsRaw = existsSync(sectionsPath)
+    ? JSON.parse(readFileSync(sectionsPath, 'utf8')).sections || []
+    : [];
+  // topic id -> { id, title } of its owning section
+  const sectionByTopic = new Map();
+  for (const s of sectionsRaw) {
+    if (!s || !s.id) continue;
+    const entry = { id: s.id, title: s.title || s.id };
+    for (const t of s.topics || []) sectionByTopic.set(t, entry);
+  }
+
   // 3. Walk each topic: concept file + quiz file + HTML.
   const topics = new Map();
   const concepts = new Map();
@@ -211,6 +224,7 @@ function buildModel() {
     quizzesDir,
     topicIds,
     capstones,
+    sections: sectionsRaw,
     topics,
     concepts,
     byPrereq,
@@ -218,6 +232,10 @@ function buildModel() {
     quizBanks,
     quizByConcept,
     ownerOf,
+    // topic id -> { id, title } of its owning subject section, or null.
+    sectionOf(topicId) {
+      return sectionByTopic.get(topicId) || null;
+    },
   };
 }
 

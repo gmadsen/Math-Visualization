@@ -54,14 +54,58 @@ let registeredTopics = [];
   }
 }
 
-// 2. Find on-disk topic files (excluding index.json and capstones.json)
+// 2. Find on-disk topic files (excluding index.json, sections.json, capstones.json)
 let onDiskTopicFiles = [];
 try {
   onDiskTopicFiles = readdirSync(conceptsDir)
-    .filter((f) => f.endsWith('.json') && f !== 'index.json' && f !== 'capstones.json')
+    .filter(
+      (f) =>
+        f.endsWith('.json') &&
+        f !== 'index.json' &&
+        f !== 'sections.json' &&
+        f !== 'capstones.json'
+    )
     .map((f) => f.replace(/\.json$/, ''));
 } catch (e) {
   err(`concepts/: cannot list directory: ${e.message}`);
+}
+
+// 2a. Load sections.json (topic -> subject mapping) and validate coverage.
+const sectionsPath = join(conceptsDir, 'sections.json');
+if (!existsSync(sectionsPath)) {
+  err(`concepts/sections.json is missing — every registered topic must be assigned to a subject`);
+} else {
+  const r = readJson(sectionsPath);
+  if (!r.ok) {
+    err(`concepts/sections.json: ${r.error}`);
+  } else if (!r.data || !Array.isArray(r.data.sections)) {
+    err(`concepts/sections.json: expected { "sections": [...] }`);
+  } else {
+    const seenTopics = new Set();
+    const dups = [];
+    for (const s of r.data.sections) {
+      if (!s || typeof s !== 'object') continue;
+      if (!s.id || typeof s.id !== 'string')
+        err(`concepts/sections.json: section missing string "id"`);
+      if (!s.title || typeof s.title !== 'string')
+        err(`concepts/sections.json: section "${s.id}" missing string "title"`);
+      if (!Array.isArray(s.topics))
+        err(`concepts/sections.json: section "${s.id}" missing "topics" array`);
+      for (const t of s.topics || []) {
+        if (seenTopics.has(t)) dups.push(t);
+        seenTopics.add(t);
+      }
+    }
+    for (const t of dups) err(`concepts/sections.json: topic "${t}" appears in more than one section`);
+    for (const t of registeredTopics) {
+      if (!seenTopics.has(t))
+        err(`concepts/sections.json: registered topic "${t}" is not assigned to any section`);
+    }
+    for (const t of seenTopics) {
+      if (!registeredTopics.includes(t))
+        warn(`concepts/sections.json: "${t}" is listed but is not registered in concepts/index.json`);
+    }
+  }
 }
 
 // Report registered-but-missing (error) and on-disk-but-unregistered (warning).

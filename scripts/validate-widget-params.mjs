@@ -40,8 +40,10 @@ function readJson(absPath) {
   return JSON.parse(raw);
 }
 
-// Ajv setup — mirror validate-schema.mjs.
-const ajv = new Ajv2020({ allErrors: true, strict: true });
+// Ajv setup — strict:false so widget schemas can carry annotation-only
+// keywords like top-level `meta` (family / dimension / gesture / role) without
+// compile rejection.
+const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
 
 // Cache of compiled validators, keyed by slug. `null` means the slug is known

@@ -1,0 +1,105 @@
+{
+  "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
+  "sections": [
+    {
+      "id": "foundations",
+      "title": "Foundations",
+      "topics": [
+        "naive-set-theory"
+      ]
+    },
+    {
+      "id": "algebra",
+      "title": "Algebra",
+      "topics": [
+        "algebra",
+        "category-theory",
+        "representation-theory",
+        "commutative-algebra",
+        "homological"
+      ]
+    },
+    {
+      "id": "analysis",
+      "title": "Analysis",
+      "topics": [
+        "real-analysis",
+        "measure-theory",
+        "complex-analysis",
+        "functional-analysis",
+        "operator-algebras",
+        "dynamical-systems",
+        "probability-theory"
+      ]
+    },
+    {
+      "id": "geometry-and-topology",
+      "title": "Geometry & topology",
+      "topics": [
+        "point-set-topology",
+        "algebraic-topology",
+        "smooth-manifolds",
+        "differential-forms",
+        "differential-geometry",
+        "riemannian-geometry",
+        "lie-groups",
+        "riemann-surfaces"
+      ]
+    },
+    {
+      "id": "number-theory",
+      "title": "Number theory",
+      "topics": [
+        "galois",
+        "quadratic-reciprocity",
+        "sums-of-squares",
+        "power-sums-bernoulli",
+        "waring",
+        "quadratic-forms-genus-theory",
+        "algebraic-number-theory",
+        "p-adic-numbers",
+        "adeles-and-ideles",
+        "frobenius-and-reciprocity",
+        "class-field-theory"
+      ]
+    },
+    {
+      "id": "modular-forms-and-l-functions",
+      "title": "Modular forms & L-functions",
+      "topics": [
+        "upper-half-plane-hyperbolic",
+        "modular-forms",
+        "theta-functions",
+        "partitions-generating-functions",
+        "hecke-operators",
+        "dirichlet-series-euler-products",
+        "analytic-continuation",
+        "zeta-values",
+        "L-functions",
+        "galois-representations",
+        "moonshine",
+        "sato-tate",
+        "bsd",
+        "modularity-and-flt"
+      ]
+    },
+    {
+      "id": "algebraic-geometry",
+      "title": "Algebraic geometry",
+      "topics": [
+        "projective-plane",
+        "bezout",
+        "schemes",
+        "sheaves",
+        "morphisms-fiber-products",
+        "functor-of-points",
+        "elliptic-curves",
+        "singular-cubics-reduction",
+        "moduli-spaces",
+        "sheaf-cohomology",
+        "stacks",
+        "etale-cohomology"
+      ]
+    }
+  ]
+}

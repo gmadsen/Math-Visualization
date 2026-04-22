@@ -3,6 +3,12 @@
   "$id": "https://math-vis.local/widgets/clickable-diagram/schema.json",
   "title": "clickable-diagram widget params",
   "description": "A shared widget module driving multiple category-theory diagram widgets. Dispatches on the `interaction` field between two modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon) and 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` data; the literals exist so renderScript can byte-match the legacy inline source.",
+  "meta": {
+    "family": "clickable-diagram",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
   "type": "object",
   "oneOf": [
     { "$ref": "#/$defs/readoutOnly" },
