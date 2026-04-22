@@ -18,10 +18,11 @@
         },
         {
           "type": "numeric",
-          "q": "Evaluate $\\log_{10}\\Delta$ for the <em>formal</em> Frey discriminant $\\Delta = (abc)^{2p}/2^{8}$ with $a=3,\\ b=4,\\ c=5,\\ p=5$. (No integer $c$ exists with $3^5+4^5=c^5$ \u2014 this is a sanity check on the formula only.) Round to 2 decimals.",
-          "answer": 15.37,
-          "tol": 0.05,
-          "explain": "$abc = 60$, so $(abc)^{2p} = 60^{10}$. $\\log_{10}(60^{10}) = 10\\log_{10}60 \\approx 10\\cdot 1.7782 = 17.782$. Subtract $\\log_{10}2^{8} = 8\\log_{10}2 \\approx 2.408$: $17.782-2.408 \\approx 15.37$."
+          "q": "The Frey discriminant is $\\Delta=(abc)^{2p}/2^{8}$. Suppose $\\ell$ is an odd prime dividing $abc$ exactly once (i.e. $v_\\ell(abc)=1$), and take $p=5$. Compute $v_\\ell(\\Delta)\\bmod p$.",
+          "answer": 0,
+          "tol": 1e-09,
+          "hint": "$v_\\ell(\\Delta)=2p\\cdot v_\\ell(abc)$ at odd $\\ell$; what is that value mod $p$?",
+          "explain": "At an odd prime $\\ell\\mid abc$, the factor of $2^8$ doesn't affect $v_\\ell$, so $v_\\ell(\\Delta)=2p\\cdot v_\\ell(abc)=2\\cdot 5\\cdot 1=10$, and $10\\equiv 0\\pmod 5$. This divisibility by $p$ is precisely what makes $\\overline{\\rho}_{E,p}$ unramified at $\\ell$, enabling Ribet's level-lowering to strip $\\ell$ from the level."
         },
         {
           "type": "mcq",
@@ -333,17 +334,24 @@
           "explain": "The conditions $q \\equiv 1 \\pmod{p}$ and distinct Frobenius eigenvalues make the local deformation ring at $q$ isomorphic to $\\mathbb{Z}_p[\\![x]\\!]/(x^{p-1}-1)$ locally, which is formally smooth after base change. This provides the free variables needed to patch the modules compatibly."
         },
         {
-          "type": "mcq",
-          "q": "Put the key steps of Wiles' proof in logical order: (W1) Frey curve is semistable, (W2) Apply Ribet's level-lowering to $\\overline{\\rho}_{E,p}$, (W3) R = T theorem via Taylor\u2013Wiles patching, (W4) Modularity of the Frey curve, (W5) Contradiction from $S_2(\\Gamma_0(2)) = 0$.",
-          "choices": [
-            "W3 \u2192 W1 \u2192 W4 \u2192 W2 \u2192 W5",
-            "W1 \u2192 W3 \u2192 W4 \u2192 W2 \u2192 W5",
-            "W1 \u2192 W4 \u2192 W2 \u2192 W5; W3 is the engine proving W4",
-            "W2 \u2192 W1 \u2192 W3 \u2192 W4 \u2192 W5"
+          "type": "ordering",
+          "q": "Arrange the key steps of Wiles' proof of Fermat's Last Theorem in their logical order.",
+          "items": [
+            "W1: The Frey curve $E_{a,b,c}$ is semistable.",
+            "W2: Apply Ribet's level-lowering to $\\overline{\\rho}_{E,p}$, reducing the level to $2$.",
+            "W3: Prove the modularity lifting theorem $R_\\Sigma=\\mathbb{T}_\\Sigma$ via Taylor\u2013Wiles patching.",
+            "W4: Conclude that the Frey curve is modular.",
+            "W5: Derive a contradiction from $\\dim S_2(\\Gamma_0(2))=0$."
           ],
-          "answer": 2,
-          "hint": "Semistability enables the modularity engine, which gives modularity, which Ribet then reduces.",
-          "explain": "Logical flow: W1 (Frey semistable) feeds into proving W4 (modular) via W3 (R = T, which is the technical heart proving modularity lifting). Then W2 (Ribet level-lowers $\\overline{\\rho}_{E,p}$ to level 2), and W5 closes the contradiction. W3 is the engine that makes W4 possible."
+          "answer": [
+            0,
+            2,
+            3,
+            1,
+            4
+          ],
+          "hint": "Semistability is the hypothesis that enables the modularity engine; Ribet acts after modularity is known.",
+          "explain": "W1 (semistable Frey curve) is the hypothesis that lets Wiles' modularity lifting engine apply. W3 (R=T via Taylor\u2013Wiles) is the technical heart, which combined with residual modularity yields W4 (Frey is modular). Then W2 (Ribet) lowers the level of $\\overline{\\rho}_{E,p}$ from the Frey conductor down to $2$, and W5 closes the contradiction: no weight-$2$ cusp form of level $2$ exists."
         },
         {
           "type": "numeric",

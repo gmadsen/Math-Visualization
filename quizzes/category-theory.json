@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "How many morphisms does the category $\\mathbf{2}=(\\bullet\\xrightarrow{f}\\bullet)$ with two objects and one non-identity arrow have in total (including identities)?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms."
         }
       ],
@@ -47,7 +47,7 @@
             "it is an isomorphism"
           ],
           "answer": 1,
-          "explain": "A monomorphism is left-cancellable: $f\\circ g=f\\circ h\\Rightarrow g=h$. This is the categorical generalisation of injectivity. Having a left inverse implies mono, but not conversely — e.g. inclusions in $\\mathsf{Top}$ can be mono without being split."
+          "explain": "A monomorphism is left-cancellable: $f\\circ g=f\\circ h\\Rightarrow g=h$. This is the categorical generalisation of injectivity. Having a left inverse implies mono, but not conversely \u2014 e.g. inclusions in $\\mathsf{Top}$ can be mono without being split."
         },
         {
           "type": "mcq",
@@ -65,7 +65,7 @@
           "type": "numeric",
           "q": "The category of a poset $(P,\\le)$ has a morphism $x\\to y$ iff $x\\le y$. In the poset $\\{0<1<2\\}$, how many morphisms (including identities) are there in total?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "Identities: $0\\to 0$, $1\\to 1$, $2\\to 2$ (3 morphisms). Non-identity morphisms: $0\\to 1$, $1\\to 2$, $0\\to 2$ (3 morphisms). Total: $6$."
         }
       ]
@@ -80,10 +80,10 @@
             "$F(g\\circ f) = F(f)\\circ F(g)$",
             "$F(g\\circ f) = F(g)\\circ F(f)$",
             "$F(g\\circ f) = F(g)+F(f)$",
-            "$F$ need not respect composition — only objects"
+            "$F$ need not respect composition \u2014 only objects"
           ],
           "answer": 1,
-          "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it — those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
+          "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it \u2014 those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
         },
         {
           "type": "mcq",
@@ -101,7 +101,7 @@
           "type": "numeric",
           "q": "How many functors are there from the terminal category $\\mathbf{1}$ (one object, only identity) to a category $\\mathcal{C}$ with exactly $5$ objects?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$."
         }
       ],
@@ -117,7 +117,7 @@
           ],
           "answer": 1,
           "hint": "What direction does $(-)^*$ send a linear map $f\\colon V\\to W$?",
-          "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
+          "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation \u2014 let alone isomorphism \u2014 between them can be written down."
         },
         {
           "type": "mcq",
@@ -129,13 +129,13 @@
             "Check $\\eta$ commutes with identities; (ii) conclude it commutes with all morphisms by induction"
           ],
           "answer": 1,
-          "explain": "One must first define all components $\\eta_A$, then verify the naturality square for each morphism $f$. Step (i) fixes an arbitrary morphism; steps (ii–iii) spell out both paths around the square; step (iv) proves them equal using the definitions of $F$, $G$, and $\\eta$. Isomorphism is not required for a natural transformation."
+          "explain": "One must first define all components $\\eta_A$, then verify the naturality square for each morphism $f$. Step (i) fixes an arbitrary morphism; steps (ii\u2013iii) spell out both paths around the square; step (iv) proves them equal using the definitions of $F$, $G$, and $\\eta$. Isomorphism is not required for a natural transformation."
         },
         {
           "type": "numeric",
           "q": "Let $\\mathcal{C}$ be the discrete category on $3$ objects (no non-identity morphisms). How many natural transformations are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "A natural transformation $\\eta\\colon\\mathrm{id}\\Rightarrow\\mathrm{id}$ needs, for each object $A$, a morphism $\\eta_A\\colon A\\to A$. In a discrete category the only morphism $A\\to A$ is $\\mathrm{id}_A$. So there is exactly $1$ natural transformation (all components forced to be identities)."
         }
       ]
@@ -171,7 +171,7 @@
           "type": "numeric",
           "q": "In $\\mathsf{Set}$, the product (= categorical limit of the discrete two-object diagram) of $\\{a,b,c\\}$ and $\\{0,1\\}$ has how many elements?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$."
         }
       ],
@@ -190,7 +190,7 @@
         },
         {
           "type": "mcq",
-          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$, the unit $\\eta_X\\colon X\\to UF(X)$ is the insertion-of-generators map. What does the counit $\\varepsilon_G\\colon FU(G)\\to G$ do?",
+          "q": "For the free\u2013forgetful adjunction $F\\dashv U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$, the unit $\\eta_X\\colon X\\to UF(X)$ is the insertion-of-generators map. What does the counit $\\varepsilon_G\\colon FU(G)\\to G$ do?",
           "choices": [
             "It sends every element of $G$ to the identity",
             "It is the unique group homomorphism extending the identity $\\mathrm{id}_G\\colon G\\to G$ along the insertion $G\\hookrightarrow FU(G)$",
@@ -199,13 +199,13 @@
           ],
           "answer": 1,
           "hint": "Apply the universal property of the free group to the identity function on $U(G)$.",
-          "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ — i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
+          "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ \u2014 i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
         },
         {
           "type": "numeric",
           "q": "In $\\mathsf{Set}$, the coproduct (categorical colimit) of $\\{a,b\\}$ and $\\{0,1,2\\}$ has how many elements?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "The coproduct in $\\mathsf{Set}$ is the disjoint union, so $|A\\sqcup B|=|A|+|B|=2+3=5$."
         }
       ]
@@ -241,22 +241,27 @@
           "type": "numeric",
           "q": "By Yoneda, how many objects (up to isomorphism) satisfy the universal property of the product $A\\times B$ in a given category (assuming at least one exists)?",
           "answer": 1,
-          "tol": 1e-6,
-          "explain": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class."
+          "tol": 1e-06,
+          "explain": "Representing objects are unique up to unique isomorphism \u2014 exactly $1$ isomorphism class."
         }
       ],
       "hard": [
         {
-          "type": "mcq",
-          "q": "Arrange the canonical steps of a 'products are unique up to unique iso' proof in the correct order: (A) apply UP of $Q$ to the cone $(\\pi_1,\\pi_2)$ on $P$ to get $u\\colon P\\to Q$; (B) apply UP of $P$ to the cone $(\\rho_1,\\rho_2)$ on $Q$ to get $v\\colon Q\\to P$; (C) use uniqueness in UP of $P$ to conclude $vu=\\mathrm{id}_P$; (D) use uniqueness in UP of $Q$ to conclude $uv=\\mathrm{id}_Q$.",
-          "choices": [
-            "A, B, C, D",
-            "B, A, D, C",
-            "A, B, D, C",
-            "C, D, A, B"
+          "type": "ordering",
+          "q": "Arrange the canonical steps of a proof that products in a category are unique up to unique isomorphism. Let $P=(A\\times B,\\pi_1,\\pi_2)$ and $Q=(A\\times B,\\rho_1,\\rho_2)$ be two candidate products of the same objects $A$ and $B$.",
+          "items": [
+            "Apply the universal property of $Q$ to the cone $(\\pi_1,\\pi_2)$ on $P$ to obtain a unique map $u\\colon P\\to Q$ with $\\rho_i\\circ u=\\pi_i$.",
+            "Apply the universal property of $P$ to the cone $(\\rho_1,\\rho_2)$ on $Q$ to obtain a unique map $v\\colon Q\\to P$ with $\\pi_i\\circ v=\\rho_i$.",
+            "Use uniqueness in the universal property of $P$ to conclude $v\\circ u=\\mathrm{id}_P$ (both sides are the unique map $P\\to P$ compatible with $\\pi_1,\\pi_2$).",
+            "Use uniqueness in the universal property of $Q$ to conclude $u\\circ v=\\mathrm{id}_Q$ (both sides are the unique map $Q\\to Q$ compatible with $\\rho_1,\\rho_2$)."
           ],
-          "answer": 0,
-          "explain": "First produce $u$ (step A) then $v$ (step B). Then check $vu=\\mathrm{id}_P$ using uniqueness of the map $P\\to P$ making projections commute — that map must be $\\mathrm{id}_P$ (step C). Similarly $uv=\\mathrm{id}_Q$ (step D). The proof is symmetric, so A then B is the natural order."
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "First produce $u$ and $v$ in either order (A, then B). Then verify $vu=\\mathrm{id}_P$ via uniqueness inside $P$'s universal property (C), and $uv=\\mathrm{id}_Q$ via uniqueness inside $Q$'s (D). The proof is symmetric between $P$ and $Q$, which is the hallmark of a universal-property argument."
         },
         {
           "type": "mcq",
@@ -269,14 +274,14 @@
           ],
           "answer": 0,
           "hint": "Which direction (limits vs colimits) does a LEFT adjoint preserve?",
-          "explain": "Left adjoints preserve colimits but need not preserve — or reflect — limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
+          "explain": "Left adjoints preserve colimits but need not preserve \u2014 or reflect \u2014 limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
         },
         {
           "type": "numeric",
           "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\operatorname{Hom}(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
           "answer": 1,
-          "tol": 1e-6,
-          "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity — exactly $1$."
+          "tol": 1e-06,
+          "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity \u2014 exactly $1$."
         }
       ]
     },
@@ -301,7 +306,7 @@
           "choices": [
             "the naturality square of $\\sigma$",
             "Mac Lane's pentagon relating the two associators on a fourfold tensor",
-            "the Yang–Baxter hexagon",
+            "the Yang\u2013Baxter hexagon",
             "the pushout square"
           ],
           "answer": 1,
@@ -311,8 +316,8 @@
           "type": "numeric",
           "q": "How many distinct bracketings of a fourfold tensor product $A\\otimes B\\otimes C\\otimes D$ are there (Catalan number $C_3$)?",
           "answer": 5,
-          "tol": 1e-6,
-          "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
+          "tol": 1e-06,
+          "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves \u2014 $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
         }
       ],
       "hard": [
@@ -344,7 +349,7 @@
           "type": "numeric",
           "q": "The Catalan number $C_n$ counts the bracketings of an $(n{+}1)$-fold tensor. Using $C_n=\\binom{2n}{n}/(n+1)$, compute $C_4$ (the number of bracketings of a $5$-fold tensor $A\\otimes B\\otimes C\\otimes D\\otimes E$).",
           "answer": 14,
-          "tol": 1e-6,
+          "tol": 1e-06,
           "explain": "$C_4=\\binom{8}{4}/5=70/5=14$. These $14$ bracketings all become equal under iterated application of the associator $\\alpha$, by Mac Lane's coherence theorem."
         }
       ]

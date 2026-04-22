@@ -14,14 +14,22 @@
         {
           "type": "complex",
           "q": "Multiply $(1+i)(2-i)$.",
-          "answer": [3, 1],
+          "answer": [
+            3,
+            1
+          ],
           "tol": 0.001,
           "explain": "$(1+i)(2-i) = 2 - i + 2i - i^2 = 2 + i + 1 = 3 + i$."
         },
         {
           "type": "mcq",
           "q": "What is $\\arg(-1 - i)$ in $(-\\pi, \\pi]$?",
-          "choices": ["$\\pi/4$", "$3\\pi/4$", "$-\\pi/4$", "$-3\\pi/4$"],
+          "choices": [
+            "$\\pi/4$",
+            "$3\\pi/4$",
+            "$-\\pi/4$",
+            "$-3\\pi/4$"
+          ],
           "answer": 3,
           "explain": "$-1-i$ lies in the third quadrant. Its modulus is $\\sqrt{2}$ and its angle from the positive real axis (measured in $(-\\pi,\\pi]$) is $-3\\pi/4$."
         },
@@ -29,8 +37,16 @@
           "type": "construction",
           "q": "On the complex plane below, place a marker at the primitive sixth root of unity $\\zeta_6 = e^{i\\pi/3}$. Real axis runs left-right; imaginary axis runs up (note the SVG $y$-axis has been flipped so positive imaginary is up). Unit circle is shown.",
           "viewBox": "-1.2 -1.2 2.4 2.4",
-          "start": { "x": 0, "y": 0 },
-          "target": { "kind": "point", "x": 0.5, "y": -0.8660254, "tolerance": 0.15 },
+          "start": {
+            "x": 0,
+            "y": 0
+          },
+          "target": {
+            "kind": "point",
+            "x": 0.5,
+            "y": -0.8660254,
+            "tolerance": 0.15
+          },
           "hint": "$\\zeta_6 = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2$.",
           "explain": "The primitive sixth root of unity is $\\zeta_6 = e^{i\\pi/3} = \\cos(\\pi/3) + i\\sin(\\pi/3) = 1/2 + i\\sqrt{3}/2 \\approx 0.5 + 0.866 i$. In the SVG viewBox the $y$-axis points down, so the target coordinate is $(0.5, -\\sqrt{3}/2)$."
         }
@@ -39,7 +55,10 @@
         {
           "type": "complex",
           "q": "Compute the sum of all 4th roots of $-16$ as a single complex number $a + bi$.",
-          "answer": [0, 0],
+          "answer": [
+            0,
+            0
+          ],
           "tol": 0.001,
           "hint": "The roots lie at the vertices of a regular polygon centered at the origin.",
           "explain": "The 4th roots of $-16 = 16 e^{i\\pi}$ are $2e^{i(\\pi + 2\\pi k)/4}$ for $k=0,1,2,3$. Their sum equals $2(e^{i\\pi/4}+e^{3i\\pi/4}+e^{5i\\pi/4}+e^{7i\\pi/4}) = 0$, since the roots of any $z^n = c$ sum to $0$ when $n \\ge 2$."
@@ -58,43 +77,55 @@
         }
       ]
     },
-
     "mobius-transformations": {
-      "title": "Möbius transformations",
+      "title": "M\u00f6bius transformations",
       "questions": [
         {
           "type": "mcq",
-          "q": "How many fixed points does a non-identity Möbius transformation have on $\\hat{\\mathbb{C}}$?",
-          "choices": ["always 0", "always 1", "always 2 (counted with multiplicity)", "always infinitely many"],
+          "q": "How many fixed points does a non-identity M\u00f6bius transformation have on $\\hat{\\mathbb{C}}$?",
+          "choices": [
+            "always 0",
+            "always 1",
+            "always 2 (counted with multiplicity)",
+            "always infinitely many"
+          ],
           "answer": 2,
           "explain": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$. Always exactly two roots in $\\hat{\\mathbb{C}}$ counted with multiplicity."
         },
         {
           "type": "complex",
           "q": "Let $T(z) = \\dfrac{z-1}{z+1}$. Compute $T(0)$.",
-          "answer": [-1, 0],
+          "answer": [
+            -1,
+            0
+          ],
           "tol": 0.001,
           "explain": "$T(0) = (0-1)/(0+1) = -1$."
         },
         {
           "type": "numeric",
-          "q": "How many distinct points must you specify the image of in order to uniquely determine a Möbius transformation?",
+          "q": "How many distinct points must you specify the image of in order to uniquely determine a M\u00f6bius transformation?",
           "answer": 3,
           "tol": 0.0001,
-          "explain": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
+          "explain": "M\u00f6bius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "The cross-ratio $(z_1, z_2; z_3, z_4)$ is invariant under Möbius transformations. If $(0, 1; z, \\infty) = 2$, what is $z$?",
-          "choices": ["$z = 1/2$", "$z = 2$", "$z = -1$", "$z = 1/3$"],
+          "q": "The cross-ratio $(z_1, z_2; z_3, z_4)$ is invariant under M\u00f6bius transformations. If $(0, 1; z, \\infty) = 2$, what is $z$?",
+          "choices": [
+            "$z = 1/2$",
+            "$z = 2$",
+            "$z = -1$",
+            "$z = 1/3$"
+          ],
           "answer": 0,
           "explain": "The cross-ratio $(z_1,z_2;z_3,z_4)=\\frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}$. With $z_4=\\infty$ this simplifies to $\\frac{z_1-z_3}{z_2-z_3}=\\frac{0-z}{1-z}$. Setting equal to $2$: $-z = 2(1-z) = 2-2z$, so $z = 2 - 2z + z \\Rightarrow z = 1/2$."
         },
         {
           "type": "mcq",
-          "q": "A Möbius transformation $T$ has exactly one fixed point in $\\hat{\\mathbb{C}}$. Which type is $T$?",
+          "q": "A M\u00f6bius transformation $T$ has exactly one fixed point in $\\hat{\\mathbb{C}}$. Which type is $T$?",
           "choices": [
             "Elliptic (trace $\\in (-2,2) \\subset \\mathbb{R}$)",
             "Hyperbolic (trace $\\in \\mathbb{R}$, $|\\mathrm{tr}|>2$)",
@@ -102,11 +133,11 @@
             "Loxodromic ($\\mathrm{tr} \\notin \\mathbb{R}$)"
           ],
           "answer": 2,
-          "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
+          "explain": "A non-identity M\u00f6bius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
         },
         {
           "type": "matching",
-          "q": "Match each Möbius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
+          "q": "Match each M\u00f6bius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
           "left": [
             "rotation about the origin by angle $\\theta$",
             "translation by $1$",
@@ -119,12 +150,16 @@
             "$T(z) = rz$",
             "$T(z) = e^{i\\theta} z$"
           ],
-          "answer": [1, 2, 3, 0],
+          "answer": [
+            1,
+            2,
+            3,
+            0
+          ],
           "explain": "$T(z)=z+1$ is translation; $T(z)=1/z$ is the classical inversion $z\\mapsto 1/z$ (the map whose fixed points are $\\pm 1$ and which swaps $0$ and $\\infty$); $T(z)=rz$ is a dilation; $T(z)=e^{i\\theta}z$ is a rotation by $\\theta$."
         }
       ]
     },
-
     "amplitwist": {
       "title": "Amplitwist",
       "questions": [
@@ -143,7 +178,10 @@
         {
           "type": "mcq",
           "q": "If $f$ is holomorphic at $z_0$ and $f'(z_0) = 0$, is $f$ conformal (angle-preserving) at $z_0$?",
-          "choices": ["yes, always", "no — angles get multiplied by the order of vanishing"],
+          "choices": [
+            "yes, always",
+            "no \u2014 angles get multiplied by the order of vanishing"
+          ],
           "answer": 1,
           "explain": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$."
         },
@@ -166,15 +204,19 @@
         {
           "type": "mcq",
           "q": "Let $f(z) = z^n$ for $n \\ge 2$. At $z_0 = 0$ the map $f$ is not conformal. By what factor are angles between smooth curves through $0$ multiplied by $f$?",
-          "choices": ["$1$", "$n-1$", "$n$", "$2n$"],
+          "choices": [
+            "$1$",
+            "$n-1$",
+            "$n$",
+            "$2n$"
+          ],
           "answer": 2,
           "explain": "At a zero of $f'$ of order $n-1$ (i.e., $f(z) = z^n$ has $f'(0) = 0$ to order $n-1$), the map behaves like $z \\mapsto z^n$ locally, which multiplies angles by $n$. Two curves meeting at angle $\\alpha$ get mapped to curves meeting at angle $n\\alpha$."
         }
       ]
     },
-
     "cauchy-riemann": {
-      "title": "Cauchy–Riemann equations",
+      "title": "Cauchy\u2013Riemann equations",
       "questions": [
         {
           "type": "mcq",
@@ -186,7 +228,7 @@
             "$f(z) = z^2 + 1$"
           ],
           "answer": 3,
-          "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy–Riemann equations. Polynomials in $z$ alone are entire."
+          "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy\u2013Riemann equations. Polynomials in $z$ alone are entire."
         },
         {
           "type": "numeric",
@@ -197,7 +239,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which is the correct form of the Cauchy–Riemann equations for $f = u + iv$?",
+          "q": "Which is the correct form of the Cauchy\u2013Riemann equations for $f = u + iv$?",
           "choices": [
             "$u_x = v_y, \\quad u_y = -v_x$",
             "$u_x = -v_y, \\quad u_y = v_x$",
@@ -210,11 +252,20 @@
       ],
       "hard": [
         {
-          "type": "mcq",
-          "q": "The function $f(z) = |z|^2$ satisfies the Cauchy–Riemann equations at exactly one point. Which point?",
-          "choices": ["$z = 1$", "$z = i$", "$z = 0$", "No such point exists"],
-          "answer": 2,
-          "explain": "Write $f = x^2 + y^2 + 0i$, so $u = x^2+y^2$, $v = 0$. Then $u_x = 2x$, $v_y = 0$, $u_y = 2y$, $v_x = 0$. The C–R equations $u_x = v_y$ and $u_y = -v_x$ become $2x = 0$ and $2y = 0$, satisfied only at $z = 0$. But $f$ is not holomorphic there since the partial derivatives are not continuous in a neighborhood consistent with complex differentiability at any nonzero radius."
+          "type": "multi-select",
+          "q": "Let $f(z)=|z|^2$ on $\\mathbb{C}$. Which of the following statements are true?",
+          "choices": [
+            "The Cauchy\u2013Riemann equations hold at $z=0$",
+            "$f$ is complex-differentiable at $z=0$ (i.e. $\\lim_{h\\to 0}(f(h)-f(0))/h$ exists)",
+            "$f$ is holomorphic on some open neighborhood of $0$",
+            "$f$ is entire (holomorphic on all of $\\mathbb{C}$)"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "hint": "Check CR pointwise at $0$; compute the difference quotient at $0$; then ask whether complex-differentiability at a single point is enough for holomorphy.",
+          "explain": "Writing $f=u+iv$ with $u(x,y)=x^2+y^2$, $v=0$: the CR equations $u_x=v_y$, $u_y=-v_x$ become $2x=0$, $2y=0$, holding only at the origin. At $z=0$ the difference quotient is $\\lim_{h\\to 0}|h|^2/h=\\lim_{h\\to 0}\\bar h=0$, so $f'(0)$ exists. However, at any $z_0\\ne 0$ the CR equations fail, so $f$ is not complex-differentiable there. Holomorphy requires differentiability on an open set, so $f$ is not holomorphic on any neighborhood of $0$, and in particular not entire."
         },
         {
           "type": "numeric",
@@ -225,14 +276,16 @@
         }
       ]
     },
-
     "residue-theorem": {
       "title": "Residue theorem",
       "questions": [
         {
           "type": "complex",
           "q": "Compute $\\operatorname{Res}\\bigl(\\tfrac{1}{z^2+1};\\, i\\bigr)$.",
-          "answer": [0, -0.5],
+          "answer": [
+            0,
+            -0.5
+          ],
           "tol": 0.001,
           "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
         },
@@ -283,7 +336,13 @@
             "Apply the residue theorem: the closed-contour integral equals $2\\pi i$ times the sum of residues inside.",
             "Equate the limiting closed-contour integral with the real-line integral to read off the desired value."
           ],
-          "answer": [0, 1, 2, 3, 4],
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
           "hint": "Think of the workflow: classify singularities first, build the contour, estimate the arc, invoke the theorem, then extract the real answer.",
           "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
         }

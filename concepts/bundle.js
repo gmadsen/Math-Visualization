@@ -1121,14 +1121,25 @@ window.__MVConcepts = {
           "blurb": "C*-algebras abstract norm-closed *-algebras of operators and keep spectral control."
         },
         {
-          "id": "spectrum-of-element",
-          "title": "Spectrum and functional calculus",
-          "anchor": "spec",
+          "id": "banach-spectrum",
+          "title": "Spectrum in Banach algebras",
+          "anchor": "banach-spec",
           "prereqs": [
             "cstar-basics",
             "bounded-operators-fa"
           ],
-          "blurb": "The spectrum σ(a) is a non-empty compact subset of ℂ; the spectral-radius formula r(a)=lim‖aⁿ‖^{1/n} and a continuous functional calculus on normal elements make C*-algebras analytically tractable."
+          "blurb": "For $a$ in a unital Banach algebra, $\\sigma(a)$ is a non-empty compact subset of $\\overline{B(0,\\|a\\|)}\\subset\\mathbb{C}$, and the spectral radius formula $r(a)=\\lim_n\\|a^n\\|^{1/n}$ recovers a complex-analytic invariant from the norm."
+        },
+        {
+          "id": "spectrum-of-element",
+          "title": "Continuous functional calculus",
+          "anchor": "spec",
+          "prereqs": [
+            "cstar-basics",
+            "banach-spectrum",
+            "bounded-operators-fa"
+          ],
+          "blurb": "For a normal element $a$ of a unital $C^*$-algebra, $C(\\sigma(a))\\cong C^*(a,1)$ via $f\\mapsto f(a)$, upgrading Riesz–Dunford to an isometric $*$-isomorphism and powering the spectral theorem."
         },
         {
           "id": "gelfand-duality-oa",
@@ -1141,23 +1152,83 @@ window.__MVConcepts = {
           "blurb": "Commutative C*-algebras correspond to compact spaces via Gelfand duality."
         },
         {
+          "id": "von-neumann-and-nc",
+          "title": "Noncommutative dictionary",
+          "anchor": "ncg",
+          "prereqs": [
+            "cstar-basics",
+            "gelfand-duality-oa"
+          ],
+          "blurb": "Noncommutative $C^*$-algebras model noncommutative spaces: points become pure states, measures become states, bundles become projective modules. The irrational rotation algebra $A_\\theta$ is the canonical tutorial."
+        },
+        {
+          "id": "von-neumann-algebras",
+          "title": "Von Neumann algebras and the double commutant",
+          "anchor": "vna",
+          "prereqs": [
+            "cstar-basics",
+            "banach-hilbert-spaces",
+            "weak-topology"
+          ],
+          "blurb": "A unital $*$-subalgebra $M\\subseteq B(H)$ is a von Neumann algebra iff $M=M''$ (double-commutant theorem); equivalently it is closed in the strong/weak operator topologies."
+        },
+        {
+          "id": "factors-types",
+          "title": "Factors and type classification",
+          "anchor": "factors",
+          "prereqs": [
+            "von-neumann-algebras"
+          ],
+          "blurb": "A factor has trivial center $Z(M)=\\mathbb{C}\\cdot 1$; Murray–von Neumann sort factors into types I$_n$, I$_\\infty$, II$_1$, II$_\\infty$, and III, detected by traces and minimal projections."
+        },
+        {
+          "id": "murray-vn-equivalence",
+          "title": "Murray–von Neumann equivalence and dimension",
+          "anchor": "mvn-equiv",
+          "prereqs": [
+            "factors-types"
+          ],
+          "blurb": "Projections $p\\sim q$ in $M$ iff there is $v\\in M$ with $v^*v=p$, $vv^*=q$; on a II$_1$ factor this yields a continuous dimension function $d\\colon \\mathrm{Proj}(M)\\to[0,1]$."
+        },
+        {
           "id": "positive-elements",
-          "title": "Positive elements and states",
+          "title": "Positive elements",
           "anchor": "positive",
           "prereqs": [
             "spectrum-of-element"
           ],
-          "blurb": "Positive elements a = b*b form a closed cone detected by σ(a) ⊆ [0,∞); positive linear functionals of norm 1 are states, generalizing Borel probability measures to noncommutative C*-algebras."
+          "blurb": "Positive elements $a=b^*b$ form a closed cone, detected by $a=a^*$ with $\\sigma(a)\\subseteq[0,\\infty)$, and induce the partial order $a\\le b\\iff b-a\\ge 0$ (pointwise in $C(X)$, Löwner in $B(H)$)."
         },
         {
-          "id": "von-neumann-and-nc",
-          "title": "Von Neumann algebras and noncommutative geometry",
-          "anchor": "ncg",
+          "id": "states-pure-states",
+          "title": "States and pure states",
+          "anchor": "states",
+          "prereqs": [
+            "positive-elements",
+            "riesz-representation",
+            "lebesgue-integral"
+          ],
+          "blurb": "A state is a positive linear functional with $\\phi(1)=1$; the state space $S(A)$ is weak-$*$ compact convex, and its extreme points — the pure states — play the role of points (Borel probability measures on $X$ when $A=C(X)$)."
+        },
+        {
+          "id": "gns-construction",
+          "title": "GNS construction",
+          "anchor": "gns",
+          "prereqs": [
+            "states-pure-states",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "From a state $\\omega$ on $A$ build $(\\pi_\\omega, H_\\omega, \\Omega_\\omega)$: take $\\langle a,b\\rangle=\\omega(b^*a)$, quotient the null ideal, complete, and let $A$ act by left multiplication; $\\omega(a)=\\langle\\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+        },
+        {
+          "id": "approximate-units-amenability",
+          "title": "Approximate units and amenability",
+          "anchor": "approx-units",
           "prereqs": [
             "cstar-basics",
             "positive-elements"
           ],
-          "blurb": "Weak closures, states, and noncommutative spaces extend geometry to operator settings."
+          "blurb": "Every $C^*$-algebra has an approximate unit $(e_\\lambda)$ with $e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$; nuclearity and amenability refine this by asking for finite-dimensional approximations."
         }
       ]
     },

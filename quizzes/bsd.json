@@ -329,11 +329,18 @@
           "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial \u2014 failures of the Hasse principle."
         },
         {
-          "type": "numeric",
-          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, Cassels\u2013Tate forces its order to be a perfect square. Which of $\\{1, 2, 4, 6, 9\\}$ is NOT a possible value of $|\\Sha|$? Enter the value.",
-          "answer": 6,
-          "tol": 1e-06,
-          "explain": "$6$ is not a perfect square, so it is forbidden by the Cassels\u2013Tate pairing (which gives $\\Sha$ an alternating non-degenerate pairing, hence square order). $1, 4, 9$ are squares; $2$ can occur as $|\\Sha[2]|$ but not as $|\\Sha|$ \u2014 however the question only asks about non-square obstruction, making $6$ the cleanest answer."
+          "type": "mcq",
+          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, the Cassels\u2013Tate pairing forces $|\\Sha|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\Sha$?",
+          "choices": [
+            "$1$",
+            "$4$",
+            "$6$",
+            "$9$",
+            "$25$"
+          ],
+          "answer": 2,
+          "hint": "Which of the options isn't a perfect square?",
+          "explain": "Cassels\u2013Tate gives $\\Sha(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
         },
         {
           "type": "mcq",

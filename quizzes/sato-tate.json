@@ -209,15 +209,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a CM elliptic curve $E/\\mathbb{Q}$, the Frobenius angles $\\theta_p$ equidistribute against:",
+          "q": "For a CM elliptic curve $E/\\mathbb{Q}$, the Frobenius angles $\\theta_p$ (at primes of good reduction) equidistribute with respect to which measure on $[0,\\pi]$?",
           "choices": [
-            "the full semicircle $(2/\\pi)\\sin^2\\theta\\,d\\theta$ on $[0,\\pi]$",
-            "a 50/50 mix: half the primes have $\\theta_p=\\pi/2$ (supersingular) and the other half distribute uniformly on $[0,\\pi]$",
-            "the uniform measure on $[0,\\pi]$",
-            "a delta mass at $\\theta=0$"
+            "The semicircle $(2/\\pi)\\sin^2\\theta\\,d\\theta$ on $[0,\\pi]$",
+            "A 50/50 mixture: $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot(1/\\pi)\\,d\\theta$ \u2014 half a Dirac mass at $\\theta=\\pi/2$ plus half the uniform measure on $[0,\\pi]$; this is the pushforward of Haar measure on the normalizer $N(T)\\subset\\mathrm{SU}(2)$",
+            "The uniform measure $(1/\\pi)\\,d\\theta$ on $[0,\\pi]$",
+            "A Dirac mass $\\delta_0$ concentrated at $\\theta=0$"
           ],
           "answer": 1,
-          "explain": "For CM curves, half the primes (those inert in the CM field $K$) are supersingular, giving $a_p=0$ and $\\theta_p=\\pi/2$. The other half (split in $K$) follow the Haar measure on the split torus of $\\mathrm{U}(1)\\subset\\mathrm{SU}(2)$, which on $[0,\\pi]$ is the uniform measure $d\\theta/\\pi$."
+          "hint": "The CM Sato\u2013Tate group is $N(T)$, the normalizer of a maximal torus in $\\mathrm{SU}(2)$. It has two cosets of $T$: split and inert.",
+          "explain": "For a CM curve, the Sato\u2013Tate group is $N(T)$, the normalizer of a maximal torus $T\\cong\\mathrm{U}(1)$ in $\\mathrm{SU}(2)$. Haar measure on $N(T)$ splits evenly across its two cosets of $T$: the identity coset pushes to the uniform measure on $[0,\\pi]$ (these are the split primes, with $\\theta_p$ coming from a Hecke Gr\u00f6ssencharacter), and the non-identity coset pushes to a Dirac at $\\theta=\\pi/2$ (the supersingular primes, which are inert in the CM field). The total is $\\tfrac12\\delta_{\\pi/2}+\\tfrac12\\cdot d\\theta/\\pi$. This is distinct from both the non-CM semicircle and the pure uniform measure."
         },
         {
           "type": "mcq",

@@ -70,8 +70,80 @@
         }
       ]
     },
+    "banach-spectrum": {
+      "title": "Spectrum in Banach algebras",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For $a$ in a unital Banach algebra $A$, the spectrum $\\sigma(a)$ is:",
+          "choices": [
+            "possibly empty for some $a$",
+            "a non-empty compact subset of $\\mathbb{C}$ contained in $\\{|\\lambda|\\le\\|a\\|\\}$",
+            "always a finite set of eigenvalues",
+            "always a subset of the real line"
+          ],
+          "answer": 1,
+          "explain": "Compactness: $\\sigma(a)$ is closed (complement is open) and bounded by $\\|a\\|$. Non-emptiness: if $\\sigma(a)=\\emptyset$, the resolvent $(\\lambda-a)^{-1}$ would be a bounded entire $A$-valued function, which by Liouville forces $a$ to be a scalar — but then $\\sigma(a)=\\{a\\}\\ne\\emptyset$. Reality only holds for self-adjoint in a $C^*$-algebra."
+        },
+        {
+          "type": "numeric",
+          "q": "The spectral radius formula gives $r(a)=\\lim_n\\|a^n\\|^{1/n}$. For the nilpotent $N=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}\\in M_2(\\mathbb{C})$ (operator norm), compute $r(N)$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "explain": "$N^2=0$, so $\\|N^n\\|=0$ for $n\\ge 2$, giving $r(N)=0$. Note $\\|N\\|=1\\ne 0=r(N)$: the spectral radius strictly undercuts the norm. This is consistent with $\\sigma(N)=\\{0\\}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The resolvent map $\\lambda\\mapsto(a-\\lambda)^{-1}$ on $\\rho(a)=\\mathbb{C}\\setminus\\sigma(a)$ is:",
+          "choices": [
+            "continuous but not holomorphic",
+            "holomorphic (as an $A$-valued function) on $\\rho(a)$",
+            "only defined at isolated points",
+            "always constant"
+          ],
+          "answer": 1,
+          "explain": "The resolvent identity $(a-\\lambda)^{-1}-(a-\\mu)^{-1}=(\\lambda-\\mu)(a-\\lambda)^{-1}(a-\\mu)^{-1}$ shows the quotient $((a-\\lambda)^{-1}-(a-\\mu)^{-1})/(\\lambda-\\mu)\\to(a-\\mu)^{-2}$ as $\\lambda\\to\\mu$, so the resolvent is complex-differentiable with values in $A$."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "In the disk algebra $A(\\mathbb{D})$ (continuous on $\\overline{\\mathbb{D}}$, holomorphic on $\\mathbb{D}$) with the sup norm, take $a(z)=z$. Which statement is correct?",
+          "choices": [
+            "$\\sigma(a)=\\overline{\\mathbb{D}}$ and $r(a)=\\|a\\|=1$",
+            "$\\sigma(a)=\\mathbb{T}$ (unit circle) and $r(a)<\\|a\\|$",
+            "$\\sigma(a)=\\{0\\}$ because $a$ vanishes at the origin",
+            "$\\sigma(a)=\\emptyset$ because $A(\\mathbb{D})$ is not a $C^*$-algebra"
+          ],
+          "answer": 0,
+          "hint": "Characters on the disk algebra are evaluations at points of the closed disk.",
+          "explain": "Every character of $A(\\mathbb{D})$ is $\\mathrm{ev}_w$ for some $w\\in\\overline{\\mathbb{D}}$, and $\\sigma(a)=\\{\\chi(a):\\chi\\in\\hat A\\}=\\{w:w\\in\\overline{\\mathbb{D}}\\}=\\overline{\\mathbb{D}}$. Hence $r(a)=\\sup|\\sigma(a)|=1=\\|a\\|_\\infty$; this is a Banach algebra where $r=\\|\\cdot\\|$ even without the $C^*$-identity."
+        },
+        {
+          "type": "numeric",
+          "q": "In $\\ell^1(\\mathbb{Z})$ under convolution, $\\delta_1$ satisfies $\\|\\delta_1\\|_1=1$ and $\\|\\delta_1^n\\|_1=1$ for every $n\\ge 1$. Compute $r(\\delta_1)$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "hint": "The Gelfand transform identifies $\\ell^1(\\mathbb{Z})$ with a subalgebra of $C(\\mathbb{T})$; $\\delta_1$ becomes $z\\mapsto z$.",
+          "explain": "$r(\\delta_1)=\\lim_n\\|\\delta_1^n\\|_1^{1/n}=\\lim_n 1^{1/n}=1$. Under Gelfand $\\delta_1\\mapsto(z\\mapsto z)$ on $\\hat{\\ell^1(\\mathbb{Z})}=\\mathbb{T}$, and $\\sup|z|=1$ matches."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement captures the content of Gelfand's spectral radius formula beyond what submultiplicativity $\\|a^n\\|\\le\\|a\\|^n$ gives?",
+          "choices": [
+            "Submultiplicativity already implies $r(a)=\\|a\\|$ always.",
+            "$r(a)\\le\\|a\\|$ is trivial, but equality $r(a)=\\lim_n\\|a^n\\|^{1/n}$ is a non-trivial complex-analytic identity using that $\\sum \\|a^n\\|\\lambda^{-n}$ converges outside $\\sigma(a)$.",
+            "The formula only holds for normal elements.",
+            "The formula says $r(a)=\\|a\\|$ in every Banach algebra."
+          ],
+          "answer": 1,
+          "hint": "Think about when a power series $\\sum a^n/\\lambda^{n+1}$ for the resolvent converges.",
+          "explain": "Submultiplicativity gives $\\|a^n\\|^{1/n}\\le\\|a\\|$, so $\\limsup\\|a^n\\|^{1/n}\\le\\|a\\|$. The real content is: the resolvent power series $\\sum a^n/\\lambda^{n+1}$ converges in the disk $|\\lambda|>r(a)$ (by holomorphy of the resolvent outside $\\sigma(a)$) and diverges inside, giving $\\limsup\\|a^n\\|^{1/n}=r(a)$. The limit exists by Fekete-type submultiplicativity."
+        }
+      ]
+    },
     "spectrum-of-element": {
-      "title": "Spectrum and functional calculus",
+      "title": "Continuous functional calculus",
       "questions": [
         {
           "type": "mcq",
@@ -140,7 +212,7 @@
       ]
     },
     "positive-elements": {
-      "title": "Positive elements and states",
+      "title": "Positive elements",
       "questions": [
         {
           "type": "mcq",
@@ -156,38 +228,25 @@
         },
         {
           "type": "mcq",
-          "q": "A <em>state</em> on a unital $C^*$-algebra $A$ is a linear functional $\\phi\\colon A\\to\\mathbb{C}$ satisfying:",
+          "q": "The partial order induced by positivity, $a\\le b\\iff b-a\\ge 0$, restricted to $C(X)$ is:",
           "choices": [
-            "$\\phi(1)=1$ and $\\phi(a^*a)\\ge 0$ for all $a$",
-            "$\\phi$ is a $*$-homomorphism",
-            "$\\|\\phi\\|\\le 1$ and $\\phi(1)=0$",
-            "$\\phi$ is multiplicative"
+            "the pointwise order $f\\le g\\iff f(x)\\le g(x)$ for all $x$",
+            "the order by sup norm",
+            "undefined on $C(X)$",
+            "the lexicographic order on eigenvalues"
           ],
           "answer": 0,
-          "explain": "Positivity $\\phi(a^*a)\\ge 0$ plus normalization $\\phi(1)=1$ forces $\\|\\phi\\|=1$. States generalize probability measures: on commutative $A=C(X)$ they are exactly Borel probability measures by Riesz representation."
+          "explain": "For $f\\in C(X)$: $\\sigma(f)=f(X)$, so $f\\ge 0$ iff $f(x)\\ge 0$ for all $x$. This is the classical pointwise cone; positivity in $C^*$-algebras is its noncommutative generalization (Löwner order in $B(H)$)."
         },
         {
           "type": "numeric",
-          "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\mathrm{tr}(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
-          "answer": 4,
+          "q": "In $M_2(\\mathbb{C})$ consider $A=\\begin{pmatrix}2&0\\\\0&-1\\end{pmatrix}$. How many of its eigenvalues lie in $[0,\\infty)$? (needed to check whether $A$ is positive)",
+          "answer": 1,
           "tol": 1e-6,
-          "explain": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
+          "explain": "Eigenvalues are $2$ and $-1$; only $2\\ge 0$, so one eigenvalue lies in $[0,\\infty)$. Since not all eigenvalues are non-negative, $A$ is self-adjoint but NOT positive."
         }
       ],
       "hard": [
-        {
-          "type": "mcq",
-          "q": "The GNS construction produces, from a state $\\phi$ on $A$, a representation $\\pi_\\phi:A\\to B(H_\\phi)$. Which sequence of steps is correct?",
-          "choices": [
-            "Form the inner product $\\langle a,b\\rangle=\\phi(b^*a)$; divide out the null space $N_\\phi=\\{a:\\phi(a^*a)=0\\}$; complete to $H_\\phi$; define $\\pi_\\phi(a)$ by left multiplication.",
-            "First find the spectrum of $\\phi$, then apply the continuous functional calculus, then complete.",
-            "Tensor $A$ with $\\mathbb{C}$ over all states simultaneously, then take the direct sum.",
-            "Use the Hahn–Banach theorem to extend $\\phi$ to $B(H)$, then restrict."
-          ],
-          "answer": 0,
-          "hint": "Build an inner product from $\\phi$; quotient out the degenerate vectors; let $A$ act by left multiplication.",
-          "explain": "GNS: (1) $\\langle a,b\\rangle=\\phi(b^*a)$ is a positive semi-definite sesquilinear form; (2) $N_\\phi=\\{a\\in A:\\phi(a^*a)=0\\}$ is a left ideal (positivity + Cauchy–Schwarz); (3) $A/N_\\phi$ carries a genuine inner product; (4) complete to $H_\\phi$; (5) $\\pi_\\phi(a)[b+N_\\phi]=[ab+N_\\phi]$ extends to a $*$-representation. The cyclic vector is $\\xi_\\phi=[1+N_\\phi]$ with $\\phi(a)=\\langle\\xi_\\phi,\\pi_\\phi(a)\\xi_\\phi\\rangle$."
-        },
         {
           "type": "mcq",
           "q": "Which is a valid counterexample showing a self-adjoint element need NOT be positive?",
@@ -198,14 +257,28 @@
             "In commutative $C^*$-algebras, self-adjoint elements are always positive"
           ],
           "answer": 1,
+          "hint": "Find a self-adjoint element whose spectrum contains a negative number.",
           "explain": "$\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ is self-adjoint (diagonal, real entries) but has eigenvalue $-1$, so $\\sigma(a)\\not\\subseteq[0,\\infty)$ and $a$ is not positive. Positivity requires $a=a^*$ AND $\\sigma(a)\\subseteq[0,\\infty)$ — both conditions are necessary."
         },
         {
           "type": "numeric",
-          "q": "In $M_2(\\mathbb{C})$ with trace state $\\tau(a)=\\frac12\\mathrm{tr}(a)$, the Cauchy–Schwarz inequality for states gives $|\\tau(b^*a)|^2\\le\\tau(a^*a)\\tau(b^*b)$. For $a=\\begin{pmatrix}2&0\\\\0&0\\end{pmatrix}$ and $b=\\begin{pmatrix}0&0\\\\0&3\\end{pmatrix}$, compute $|\\tau(b^*a)|^2$.",
-          "answer": 0,
+          "q": "Any self-adjoint $a$ can be decomposed as $a=a_+-a_-$ with $a_\\pm\\ge 0$ and $a_+a_-=0$ via the functional calculus. For $a=\\mathrm{diag}(3,-4)$ in $M_2$, compute $\\|a_-\\|$.",
+          "answer": 4,
           "tol": 1e-6,
-          "explain": "$b^*a=\\begin{pmatrix}0&0\\\\0&3\\end{pmatrix}\\begin{pmatrix}2&0\\\\0&0\\end{pmatrix}=\\begin{pmatrix}0&0\\\\0&0\\end{pmatrix}$, so $\\tau(b^*a)=0$ and $|\\tau(b^*a)|^2=0$. This illustrates orthogonality: $a$ and $b$ have orthogonal support projections."
+          "explain": "Apply $t\\mapsto t_-=\\max(-t,0)$: $a_-=\\mathrm{diag}(0,4)$, so $\\|a_-\\|=4$. Similarly $a_+=\\mathrm{diag}(3,0)$, and $a_+a_-=0$ with $a=a_+-a_-$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT equivalent to $a\\ge 0$ in a unital $C^*$-algebra?",
+          "choices": [
+            "$a=a^*$ and $\\sigma(a)\\subseteq[0,\\infty)$",
+            "$a=b^*b$ for some $b\\in A$",
+            "$\\|t\\cdot 1-a\\|\\le t$ for all $t\\ge\\|a\\|$",
+            "$a=a^*$ and $\\|a\\|\\le 1$"
+          ],
+          "answer": 3,
+          "hint": "The last option would make $-\\tfrac12\\cdot 1$ positive.",
+          "explain": "The first three are equivalent characterizations of positivity. The fourth fails: $a=-\\tfrac12\\cdot 1$ is self-adjoint with $\\|a\\|=\\tfrac12\\le 1$, but $\\sigma(a)=\\{-\\tfrac12\\}$ is negative, so $a$ is not positive."
         }
       ]
     },
@@ -279,19 +352,19 @@
       ]
     },
     "von-neumann-and-nc": {
-      "title": "Von Neumann algebras and noncommutative geometry",
+      "title": "Noncommutative dictionary",
       "questions": [
         {
           "type": "mcq",
-          "q": "A von Neumann algebra $M\\subseteq B(H)$ is characterized (von Neumann's double commutant theorem) as:",
+          "q": "In the noncommutative dictionary, a point of a classical space $X$ corresponds to:",
           "choices": [
-            "a norm-closed $*$-subalgebra of $B(H)$",
-            "a $*$-subalgebra equal to its own double commutant $M''$",
-            "a maximal abelian subalgebra",
-            "any subalgebra closed in the weak-$*$ topology on $B(H)^*$"
+            "a character $\\chi:A\\to\\mathbb{C}$ (commutative case); more generally a pure state",
+            "a two-sided ideal",
+            "an irreducible matrix algebra",
+            "a unitary element"
           ],
-          "answer": 1,
-          "explain": "Von Neumann's double commutant theorem: a unital $*$-subalgebra $M\\subseteq B(H)$ is closed in the strong/weak operator topology if and only if $M=M''$."
+          "answer": 0,
+          "explain": "For $A=C(X)$, every character is $\\mathrm{ev}_x$ and pure states are evaluations at points. For noncommutative $A$, pure states — the extreme points of $S(A)$ — generalize points even when $\\hat A=\\emptyset$."
         },
         {
           "type": "mcq",
@@ -316,18 +389,6 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "The von Neumann algebra $M$ on $H$ is called a factor if its center $Z(M)=M\\cap M'$ equals $\\mathbb{C}\\cdot 1$. Which of the following correctly orders the classification of factors by type?",
-          "choices": [
-            "Type I$_n$ (finite-rank projections with $n$ atoms) → Type I$_\\infty$ → Type II$_1$ (finite trace) → Type II$_\\infty$ → Type III (no trace)",
-            "Type III → Type II → Type I by increasing amenability",
-            "Type I$_1$ = $B(H)$; Type II$_1$ = commutative; Type III = noncommutative tori only",
-            "All hyperfinite factors are of Type III$_1$ by Connes' theorem"
-          ],
-          "answer": 0,
-          "explain": "Murray–von Neumann classification: Type I$_n$ ($n\\in\\mathbb{N}\\cup\\{\\infty\\}$) have minimal projections; Type II$_1$ admit a finite faithful normal trace (e.g., the hyperfinite II$_1$ factor $R$); Type II$_\\infty$ = II$_1$ $\\otimes$ I$_\\infty$; Type III factors admit no semifinite trace — further subdivided III$_\\lambda$ ($0\\le\\lambda\\le 1$) by Connes using the Tomita–Takesaki modular theory."
-        },
-        {
-          "type": "mcq",
           "q": "The noncommutative torus $A_\\theta$ (irrational $\\theta$) is a simple $C^*$-algebra. Which argument is the core of the proof?",
           "choices": [
             "Simplicity follows because $A_\\theta$ is commutative for all $\\theta$",
@@ -336,6 +397,7 @@
             "Any ideal contains $u$ or $v$, but $u$ and $v$ generate all of $A_\\theta$"
           ],
           "answer": 1,
+          "hint": "Use the unique tracial state and positivity of $\\tau$ on nonzero positive elements of $I$.",
           "explain": "The standard proof: $A_\\theta$ has a unique tracial state $\\tau$. If $I$ is a nonzero closed ideal, one shows $\\tau(p)>0$ for any nonzero positive $a\\in I$ (using the Fourier expansion in $u,v$ and uniqueness of $\\tau$). From this $1\\in I$ by a projection argument, so $I=A_\\theta$."
         },
         {
@@ -344,6 +406,482 @@
           "answer": -0.5,
           "tol": 1e-6,
           "explain": "$e^{2\\pi i/3}=\\cos(2\\pi/3)+i\\sin(2\\pi/3)=-\\tfrac12+\\tfrac{\\sqrt{3}}{2}i$. The real part is $-\\tfrac12=-0.5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT part of the noncommutative geometry dictionary (Connes)?",
+          "choices": [
+            "vector bundle on $X$  $\\leftrightarrow$  finitely generated projective $A$-module",
+            "Borel measure on $X$  $\\leftrightarrow$  state on $A$",
+            "point of $X$  $\\leftrightarrow$  two-sided ideal of $A$",
+            "continuous map $X\\to Y$  $\\leftrightarrow$  $*$-homomorphism $C(Y)\\to C(X)$"
+          ],
+          "answer": 2,
+          "hint": "Points correspond to characters / pure states, not ideals.",
+          "explain": "Points correspond to characters (commutative case) or pure states (noncommutative case), not two-sided ideals. The dictionary is: bundles $\\leftrightarrow$ projective modules (Serre–Swan); measures $\\leftrightarrow$ states (Riesz–Markov generalized); maps $\\leftrightarrow$ $*$-homs (Gelfand duality)."
+        }
+      ]
+    },
+    "von-neumann-algebras": {
+      "title": "Von Neumann algebras and the double commutant",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A von Neumann algebra $M\\subseteq B(H)$ is characterized (von Neumann's double commutant theorem) as:",
+          "choices": [
+            "a norm-closed $*$-subalgebra of $B(H)$",
+            "a unital $*$-subalgebra equal to its own double commutant $M''$",
+            "a maximal abelian subalgebra",
+            "any subalgebra closed in the weak-$*$ topology on $B(H)^*$"
+          ],
+          "answer": 1,
+          "explain": "Von Neumann's double commutant theorem: a unital $*$-subalgebra $M\\subseteq B(H)$ is closed in the strong (equivalently weak) operator topology iff $M=M''$. Norm closure alone gives a $C^*$-algebra, which is strictly weaker."
+        },
+        {
+          "type": "mcq",
+          "q": "For $S\\subseteq B(H)$, the commutant $S'$ is defined as:",
+          "choices": [
+            "$\\{x\\in B(H) : xs=sx\\text{ for all }s\\in S\\}$",
+            "the norm closure of $S$",
+            "the weak-$*$ dual of $S$",
+            "the set of all unitaries conjugating $S$"
+          ],
+          "answer": 0,
+          "explain": "$S' = \\{x\\in B(H):[x,s]=0\\ \\forall s\\in S\\}$ is the set of operators commuting with everything in $S$. It is automatically a unital $*$-subalgebra closed in the weak operator topology — hence a von Neumann algebra."
+        },
+        {
+          "type": "numeric",
+          "q": "In $B(\\mathbb{C}^2)=M_2(\\mathbb{C})$, let $S=\\{A\\}$ with $A=\\mathrm{diag}(1,2)$. The commutant $S'$ consists of all matrices commuting with $A$ — the diagonal matrices. What is $\\dim_\\mathbb{C} S'$?",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "A $2\\times 2$ matrix $X=\\begin{pmatrix}x&y\\\\ z&w\\end{pmatrix}$ commutes with $\\mathrm{diag}(1,2)$ iff $y=z=0$, i.e., $X$ is diagonal. The diagonal matrices in $M_2$ form a $2$-dimensional subspace."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multi-select",
+          "q": "On $B(H)$ for $H$ infinite-dimensional, which topologies have the SAME closure of a convex (say bounded) $*$-subalgebra as the strong-operator topology?",
+          "choices": [
+            "weak operator topology",
+            "ultraweak (= $\\sigma$-weak) topology",
+            "norm topology",
+            "strong-$*$ operator topology"
+          ],
+          "answer": [0, 1, 3],
+          "hint": "Bipolar-type arguments; norm closure is strictly smaller.",
+          "explain": "For a convex subset of $B(H)$, weak and strong operator closures coincide (Kaplansky / Hahn–Banach). Ultraweak closure also agrees on norm-bounded convex sets. Norm closure is STRICTLY smaller than strong-operator closure in general — e.g., $K(H)$ is norm closed but its SOT closure in $B(H)$ is all of $B(H)$."
+        },
+        {
+          "type": "mcq",
+          "q": "In $M_3(\\mathbb{C})$, let $M$ be the $*$-subalgebra of matrices of the form $\\begin{pmatrix}a&0&0\\\\0&a&0\\\\0&0&b\\end{pmatrix}$. Compute $M''$.",
+          "choices": [
+            "$M$ itself (since $M$ is already a von Neumann algebra)",
+            "all diagonal matrices",
+            "all of $M_3(\\mathbb{C})$",
+            "the scalar multiples of the identity"
+          ],
+          "answer": 0,
+          "hint": "First compute $M'$; if $M$ is unital and weak-operator closed, $M''=M$.",
+          "explain": "$M'$ consists of matrices commuting with both $\\mathrm{diag}(1,1,0)$ and $\\mathrm{diag}(0,0,1)$, which is $M_2(\\mathbb{C})\\oplus\\mathbb{C}$ on the block structure $\\{e_1,e_2\\}\\oplus\\{e_3\\}$. Then $M''$ consists of matrices commuting with that; they must be scalar on the first block and scalar on the second — recovering exactly $M$. So $M=M''$, confirming $M$ is a von Neumann algebra (finite-dimensional, hence automatic)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement distinguishes the $C^*$-algebra structure from the von Neumann algebra structure on a $*$-subalgebra $A\\subseteq B(H)$?",
+          "choices": [
+            "$C^*$-algebras are norm closed; von Neumann algebras are WOT/SOT closed and contain spectral projections of all their normal elements.",
+            "$C^*$-algebras always contain the identity; von Neumann algebras never do.",
+            "Von Neumann algebras are always abelian; $C^*$-algebras never are.",
+            "$C^*$-algebras have a unique trace; von Neumann algebras never do."
+          ],
+          "answer": 0,
+          "hint": "Think about whether characteristic functions $\\chi_E(a)$ live in $A$.",
+          "explain": "Norm closure vs. WOT closure is the main structural difference: a $C^*$-algebra is only required to be norm-closed, so $\\chi_{[\\alpha,\\beta]}(a)$ for $a$ self-adjoint may fall outside it (characteristic functions are not norm-limits of continuous ones). A von Neumann algebra, being WOT-closed, contains all Borel-functional-calculus elements — in particular spectral projections."
+        }
+      ]
+    },
+    "factors-types": {
+      "title": "Factors and type classification",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A von Neumann algebra $M\\subseteq B(H)$ is called a <strong>factor</strong> if:",
+          "choices": [
+            "$M$ is commutative",
+            "the center $Z(M)=M\\cap M'=\\mathbb{C}\\cdot 1$",
+            "$M$ has a minimal projection",
+            "$M=B(H)$"
+          ],
+          "answer": 1,
+          "explain": "A factor has trivial center: $Z(M)=\\mathbb{C}\\cdot 1$. Every von Neumann algebra decomposes as a direct integral of factors; factors are the 'irreducible' building blocks. $B(H)$ is the prototypical type I factor."
+        },
+        {
+          "type": "matching",
+          "q": "Match each factor with its Murray–von Neumann type:",
+          "left": [
+            "Type I$_n$",
+            "Type I$_\\infty$",
+            "Type II$_1$",
+            "Type III"
+          ],
+          "right": [
+            "$B(H)$ with $\\dim H=\\infty$",
+            "$M_n(\\mathbb{C})$",
+            "Powers factor $R_\\lambda$ (no trace)",
+            "Hyperfinite II$_1$ factor $R$ ($L^\\infty$ trace)"
+          ],
+          "answer": [1, 0, 3, 2],
+          "explain": "Type I$_n$ = $M_n(\\mathbb{C})$ (finite-dim matrices); Type I$_\\infty$ = $B(H)$; Type II$_1$ admits a finite faithful normal trace, e.g., the hyperfinite $R$; Type III admits no semifinite trace, e.g., Powers factors $R_\\lambda$ from III$_\\lambda$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which key data distinguishes the types?",
+          "choices": [
+            "Whether $M$ contains a minimal (non-zero) projection and whether $M$ admits a semifinite normal trace",
+            "Only the cardinality of $M$",
+            "Whether $M$ is separable",
+            "Only the center of $M$"
+          ],
+          "answer": 0,
+          "explain": "Type I $\\iff$ minimal projections exist. Among types without minimal projections: semifinite normal trace exists $\\iff$ type II; no semifinite trace $\\iff$ type III. Traces are the key to separating II from III."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Connes' classification of type III factors introduces parameters III$_\\lambda$ for $\\lambda\\in[0,1]$. Which flow/invariant indexes this refinement?",
+          "choices": [
+            "The Connes spectrum $S(M)$, a closed multiplicative subgroup of $\\mathbb{R}_+^\\times$",
+            "The center of $M$",
+            "The K-theory group $K_0(M)$",
+            "The type of a minimal projection"
+          ],
+          "answer": 0,
+          "hint": "Modular theory gives a one-parameter group whose spectrum is invariant.",
+          "explain": "Connes' spectrum $S(M)\\subseteq\\mathbb{R}_+^\\times$ is a closed multiplicative subgroup: III$_0$ has $S(M)=\\{1\\}$, III$_\\lambda$ ($0<\\lambda<1$) has $S(M)=\\{0\\}\\cup\\lambda^\\mathbb{Z}$, III$_1$ has $S(M)=[0,\\infty)$. This comes from Tomita–Takesaki modular theory and the modular flow $\\sigma_t$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a valid example of a type II$_1$ factor?",
+          "choices": [
+            "$M_2(\\mathbb{C})$ (2×2 complex matrices)",
+            "The group von Neumann algebra $L(\\Gamma)$ of a countable ICC group $\\Gamma$ (e.g., $\\Gamma=F_2$ or $S_\\infty$)",
+            "$B(\\ell^2(\\mathbb{N}))$",
+            "$L^\\infty([0,1])$ with Lebesgue measure"
+          ],
+          "answer": 1,
+          "hint": "ICC = infinite conjugacy classes (except the identity).",
+          "explain": "For an ICC group $\\Gamma$ (every non-trivial conjugacy class is infinite), the group von Neumann algebra $L(\\Gamma)$ is a II$_1$ factor. Examples: $F_2$, $S_\\infty=\\bigcup S_n$. $M_2(\\mathbb{C})$ is type I$_2$; $B(\\ell^2)$ is type I$_\\infty$; $L^\\infty([0,1])$ has non-trivial center (itself), so not a factor."
+        },
+        {
+          "type": "mcq",
+          "q": "Murray and von Neumann proved that every factor has exactly one type from the list {I$_n$, I$_\\infty$, II$_1$, II$_\\infty$, III}. Which theorem does this classification rely on?",
+          "choices": [
+            "Existence of a semifinite normal tracial weight and the comparison theorem for projections",
+            "Riesz representation",
+            "Hahn–Banach",
+            "The spectral theorem"
+          ],
+          "answer": 0,
+          "hint": "You need to compare projections and find a trace.",
+          "explain": "The classification builds on: (1) comparison of projections $p\\precsim q$ or $q\\precsim p$ (always possible in a factor); (2) existence/uniqueness of a semifinite normal tracial weight when minimal projections fail; (3) types II vs III split by finite/non-existent trace. The spectral theorem and Riesz representation are used inside these constructions but not as the main classification engine."
+        }
+      ]
+    },
+    "murray-vn-equivalence": {
+      "title": "Murray–von Neumann equivalence and dimension",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Projections $p,q\\in M$ (von Neumann algebra) are <strong>Murray–von Neumann equivalent</strong>, $p\\sim q$, iff:",
+          "choices": [
+            "$p=q$",
+            "there exists a partial isometry $v\\in M$ with $v^*v=p$, $vv^*=q$",
+            "$p$ and $q$ have the same operator norm",
+            "$p\\le q$ or $q\\le p$"
+          ],
+          "answer": 1,
+          "explain": "$p\\sim q$ iff there is a partial isometry $v\\in M$ (crucially within $M$) with $v^*v=p$, $vv^*=q$. Then $v$ implements an isomorphism between the ranges of $p$ and $q$ preserving the $M$-module structure."
+        },
+        {
+          "type": "numeric",
+          "q": "In $M_4(\\mathbb{C})$ (a type I$_4$ factor), let $p=\\mathrm{diag}(1,1,0,0)$ and $q=\\mathrm{diag}(1,0,1,0)$. How many 1's do $p$ and $q$ have in common in their rank? (this is $\\min(\\mathrm{rank}(p),\\mathrm{rank}(q))$; they are MvN-equivalent iff equal)",
+          "answer": 2,
+          "tol": 1e-6,
+          "explain": "$\\mathrm{rank}(p)=2=\\mathrm{rank}(q)$, so $p\\sim q$ in $M_4(\\mathbb{C})$. In type I$_n$, MvN-equivalence is detected by rank: $p\\sim q\\iff\\mathrm{tr}(p)=\\mathrm{tr}(q)$, i.e., same rank."
+        },
+        {
+          "type": "mcq",
+          "q": "On a type II$_1$ factor $M$ with unique normalized trace $\\tau$, the dimension function on projections satisfies:",
+          "choices": [
+            "$d(p)=\\tau(p)\\in[0,1]$ and $p\\sim q\\iff d(p)=d(q)$",
+            "$d(p)$ is always an integer",
+            "$d(p)=\\|p\\|$",
+            "$d(p)=\\mathrm{rank}(p)$"
+          ],
+          "answer": 0,
+          "explain": "For a II$_1$ factor, the trace $\\tau$ restricts to a dimension function $d=\\tau|_{\\mathrm{Proj}(M)}:\\mathrm{Proj}(M)\\to[0,1]$. It is continuous, surjective, and $p\\sim q\\iff\\tau(p)=\\tau(q)$. This is one reason II$_1$ factors are sometimes called 'algebras of continuous dimension'."
+        }
+      ],
+      "hard": [
+        {
+          "type": "ordering",
+          "q": "Arrange the steps in constructing the dimension function $d:\\mathrm{Proj}(M)\\to[0,1]$ on a II$_1$ factor $M$ with trace $\\tau$:",
+          "items": [
+            "Show the trace is unique up to scalar (uses simplicity of the factor and a comparison argument).",
+            "Verify $p\\sim q\\Rightarrow \\tau(p)=\\tau(q)$ via $v^*v=p$, $vv^*=q$ and the trace property.",
+            "Show every value in $[0,1]$ is attained by some projection (halving argument / orthogonal decomposition).",
+            "Conclude $d(p)=\\tau(p)$ is a complete invariant of $p$ up to equivalence."
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "Start with uniqueness of the trace, then show the trace respects $\\sim$, then achieve all values, then conclude.",
+          "explain": "(1) Uniqueness of $\\tau$ is the first theorem; (2) the trace property $\\tau(ab)=\\tau(ba)$ gives $\\tau(v^*v)=\\tau(vv^*)$; (3) the halving lemma produces projections of any dyadic, hence real, trace in $[0,1]$; (4) combining gives $d$ as a complete invariant."
+        },
+        {
+          "type": "mcq",
+          "q": "In the hyperfinite II$_1$ factor $R=\\overline{\\bigcup_n M_{2^n}(\\mathbb{C})}^{\\mathrm{SOT}}$, what is the range of the dimension function?",
+          "choices": [
+            "$\\{0, \\tfrac1{2^n} : n\\ge 0\\}$ — only dyadic values",
+            "$[0,1]$ — every real value in $[0,1]$ is attained",
+            "$\\{0,1\\}$ — $R$ has only trivial projections",
+            "$\\mathbb{Q}\\cap[0,1]$ — only rationals"
+          ],
+          "answer": 1,
+          "hint": "SOT closure adds projections by limits; every real in $[0,1]$ arises as a limit of dyadics.",
+          "explain": "In finite $M_{2^n}$ only $k/2^n$ is achievable, but after SOT closure the dimension function is continuous and surjective onto $[0,1]$. Every real $r\\in[0,1]$ is the trace of some projection in $R$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following fails in a general factor but holds in a II$_1$ factor?",
+          "choices": [
+            "Every projection is MvN-equivalent to a subprojection of the identity",
+            "The dimension function is continuous with range $[0,1]$",
+            "Projections admit comparison $p\\precsim q$ or $q\\precsim p$",
+            "Projections are partially ordered by $\\le$"
+          ],
+          "answer": 1,
+          "hint": "Only II$_1$ has a normalized trace giving a continuous $[0,1]$-valued dimension.",
+          "explain": "Continuity + range $[0,1]$ is special to type II$_1$. In type I$_n$ the range is $\\{0,1/n,\\ldots,1\\}$ (discrete); in type II$_\\infty$ the range is $[0,\\infty]$; in type III every nonzero projection is equivalent to the identity (no dimension function). Comparison and MvN-subequivalence hold in every factor."
+        }
+      ]
+    },
+    "states-pure-states": {
+      "title": "States and pure states",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A <strong>state</strong> on a unital $C^*$-algebra $A$ is a linear functional $\\phi\\colon A\\to\\mathbb{C}$ satisfying:",
+          "choices": [
+            "$\\phi(1)=1$ and $\\phi(a^*a)\\ge 0$ for all $a$",
+            "$\\phi$ is a $*$-homomorphism",
+            "$\\|\\phi\\|\\le 1$ and $\\phi(1)=0$",
+            "$\\phi$ is multiplicative"
+          ],
+          "answer": 0,
+          "explain": "Positivity $\\phi(a^*a)\\ge 0$ plus normalization $\\phi(1)=1$ forces $\\|\\phi\\|=1$. States generalize probability measures: on commutative $A=C(X)$ they are exactly Borel probability measures by Riesz representation."
+        },
+        {
+          "type": "mcq",
+          "q": "The state space $S(A)$ is a convex subset of $A^*$. Its extreme points are called:",
+          "choices": [
+            "characters",
+            "pure states",
+            "traces",
+            "normal states"
+          ],
+          "answer": 1,
+          "explain": "Pure states are the extreme points of $S(A)$: states $\\phi$ that cannot be written as $\\tfrac12(\\phi_1+\\phi_2)$ for distinct states $\\phi_1,\\phi_2$. On commutative $A$ pure states are characters; on $B(H)$ pure states are vector states $a\\mapsto\\langle a\\xi,\\xi\\rangle$ for unit $\\xi$."
+        },
+        {
+          "type": "numeric",
+          "q": "In $M_2(\\mathbb{C})$ the trace state $\\tau(a)=\\tfrac12\\mathrm{tr}(a)$ is a state. Compute $\\tau\\!\\left(\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}\\right)$.",
+          "answer": 4,
+          "tol": 1e-6,
+          "explain": "$\\tfrac12\\mathrm{tr}\\begin{pmatrix}3&i\\\\-i&5\\end{pmatrix}=\\tfrac12(3+5)=4$. This matrix is self-adjoint with eigenvalues $4\\pm\\sqrt{2}>0$, so it's positive; a state sends positive elements to $\\ge 0$ and sends $1$ to $1$, both verified here."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "A state $\\phi$ on $A$ is pure iff:",
+          "choices": [
+            "$\\phi$ is multiplicative",
+            "the GNS representation $\\pi_\\phi$ is irreducible",
+            "$\\phi$ is a trace",
+            "the GNS Hilbert space $H_\\phi$ is finite-dimensional"
+          ],
+          "answer": 1,
+          "hint": "Extreme points of $S(A)$ correspond to irreducible GNS reps via a convexity argument.",
+          "explain": "$\\phi$ pure $\\iff$ $\\pi_\\phi$ irreducible: if $\\pi_\\phi$ has a non-trivial invariant subspace, one decomposes $\\phi$ as a convex combination of two distinct states (from projections in the commutant of $\\pi_\\phi$). Conversely, irreducibility forbids such decomposition."
+        },
+        {
+          "type": "numeric",
+          "q": "On $M_2(\\mathbb{C})$, every state is $\\phi_\\rho(a)=\\mathrm{tr}(\\rho a)$ for a density matrix $\\rho$ (positive, trace 1). Pure states correspond to rank-1 $\\rho$. For the pure state $\\phi_\\rho$ with $\\rho=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$, compute $\\phi_\\rho\\!\\left(\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}\\right)$.",
+          "answer": 7,
+          "tol": 1e-6,
+          "explain": "$\\rho a=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}\\begin{pmatrix}7&2\\\\3&4\\end{pmatrix}=\\begin{pmatrix}7&2\\\\0&0\\end{pmatrix}$, so $\\mathrm{tr}(\\rho a)=7$. Pure states on $M_n(\\mathbb{C})$ are evaluations at unit vectors: $\\phi_\\rho(a)=\\langle a e_1,e_1\\rangle=a_{11}=7$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $A=C(X)$ with $X$ compact Hausdorff, which statement about states is correct?",
+          "choices": [
+            "$S(A)$ corresponds to Borel probability measures on $X$ via Riesz–Markov; pure states correspond to point masses $\\delta_x$.",
+            "$S(A)$ is finite-dimensional whenever $X$ is.",
+            "All states are pure in the commutative case.",
+            "Pure states on $C(X)$ are exactly the tracial states."
+          ],
+          "answer": 0,
+          "hint": "Riesz–Markov on $C(X)$ gives a bijection with Radon measures; normalize.",
+          "explain": "Riesz–Markov: positive linear functionals on $C(X)$ bijection with Radon measures on $X$; requiring $\\phi(1)=1$ picks out probability measures. The extreme probability measures are point masses $\\delta_x$, matching pure states $=$ characters $=$ evaluations in the commutative case."
+        }
+      ]
+    },
+    "gns-construction": {
+      "title": "GNS construction",
+      "questions": [
+        {
+          "type": "ordering",
+          "q": "Arrange the five canonical steps of the GNS construction from a state $\\omega$ on a unital $C^*$-algebra $A$:",
+          "items": [
+            "Form the sesquilinear form $\\langle a,b\\rangle=\\omega(b^*a)$ on $A$.",
+            "Let $N_\\omega=\\{a\\in A:\\omega(a^*a)=0\\}$, a closed left ideal.",
+            "Pass to the quotient $A/N_\\omega$ which carries a genuine inner product; complete to $H_\\omega$.",
+            "Define $\\pi_\\omega(a)[b+N_\\omega]=[ab+N_\\omega]$, extend to a bounded $*$-representation.",
+            "Set $\\Omega_\\omega=[1+N_\\omega]$; then $\\omega(a)=\\langle \\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+          ],
+          "answer": [0, 1, 2, 3, 4],
+          "explain": "Starting from the sesquilinear form $\\langle a,b\\rangle=\\omega(b^*a)$, the null ideal $N_\\omega$ is identified, the quotient completed to $H_\\omega$, the action $\\pi_\\omega$ defined by left multiplication, and finally the cyclic vector $\\Omega_\\omega$ reproduces $\\omega$ via the inner product."
+        },
+        {
+          "type": "numeric",
+          "q": "On $A=M_n(\\mathbb{C})$ with the normalized trace $\\tau(a)=\\tfrac1n\\mathrm{tr}(a)$, the GNS Hilbert space $H_\\tau$ has dimension equal to:",
+          "answer": 9,
+          "tol": 1e-6,
+          "explain": "For $A=M_3(\\mathbb{C})$ (choose $n=3$ to get answer 9): the trace is faithful, so $N_\\tau=0$, and $H_\\tau=A$ completed in the inner product — but $A$ is already finite-dimensional, so $\\dim H_\\tau=\\dim_\\mathbb{C} M_3=9$. This is the Hilbert–Schmidt inner product picture. (For general $n$: $\\dim H_\\tau=n^2$.)"
+        },
+        {
+          "type": "mcq",
+          "q": "The cyclic vector $\\Omega_\\omega$ satisfies which characterizing property?",
+          "choices": [
+            "$\\pi_\\omega(A)\\Omega_\\omega$ is dense in $H_\\omega$",
+            "$\\Omega_\\omega$ is an eigenvector of every $\\pi_\\omega(a)$",
+            "$\\Omega_\\omega$ is orthogonal to $H_\\omega$",
+            "$\\|\\Omega_\\omega\\|=0$"
+          ],
+          "answer": 0,
+          "explain": "$\\Omega_\\omega=[1+N_\\omega]$ is cyclic: $\\pi_\\omega(A)\\Omega_\\omega=\\{[a+N_\\omega]:a\\in A\\}$ is dense in $H_\\omega$ by construction. Cyclicity is what makes GNS reps the building blocks of all $*$-reps (via direct sum)."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multi-select",
+          "q": "Which properties does the GNS representation $\\pi_\\omega$ have?",
+          "choices": [
+            "$\\pi_\\omega$ is a $*$-homomorphism (hence contractive)",
+            "$\\pi_\\omega$ is always faithful",
+            "$\\pi_\\omega$ is irreducible iff $\\omega$ is a pure state",
+            "$\\pi_\\omega$ is cyclic with cyclic vector $\\Omega_\\omega$"
+          ],
+          "answer": [0, 2, 3],
+          "hint": "Faithfulness fails when $\\omega$ has a non-trivial left kernel.",
+          "explain": "$\\pi_\\omega$ is a cyclic $*$-rep (items A, D). Irreducibility $\\iff$ purity (C). But $\\pi_\\omega$ need not be faithful: e.g., a character $\\phi$ on $C(X)$ gives $\\dim H_\\phi=1$ and $\\pi_\\phi$ kills everything outside $\\mathbb{C}\\cdot 1$. Direct-summing over all states (universal rep) gives a faithful $*$-rep — the content of the noncommutative Gelfand–Naimark theorem $A\\hookrightarrow B(H)$."
+        },
+        {
+          "type": "mcq",
+          "q": "For a character $\\chi$ on a commutative $C^*$-algebra $C(X)$ (equivalently $\\chi=\\mathrm{ev}_x$), what is $\\dim H_\\chi$?",
+          "choices": [
+            "$\\dim H_\\chi=\\infty$",
+            "$\\dim H_\\chi=1$",
+            "$\\dim H_\\chi=|X|$",
+            "$\\dim H_\\chi=0$"
+          ],
+          "answer": 1,
+          "hint": "For $\\chi=\\mathrm{ev}_x$, $N_\\chi=\\{f:f(x)=0\\}$, so the quotient is one-dimensional.",
+          "explain": "$N_\\chi=\\{f\\in C(X):|f(x)|^2=0\\}=\\{f:f(x)=0\\}$ is a maximal ideal of codimension 1, so $A/N_\\chi\\cong\\mathbb{C}$ and $H_\\chi=\\mathbb{C}$. The corresponding rep is 1-dimensional, sending $f\\mapsto f(x)$."
+        },
+        {
+          "type": "mcq",
+          "q": "The direct sum of GNS representations over all states — the <strong>universal representation</strong> $\\pi_u=\\bigoplus_\\omega\\pi_\\omega$ — has which property?",
+          "choices": [
+            "$\\pi_u$ is faithful and isometric, embedding $A\\hookrightarrow B(H_u)$",
+            "$\\pi_u$ is always finite-dimensional",
+            "$\\pi_u$ kills the center of $A$",
+            "$\\pi_u$ is trivial for $C^*$-algebras with no characters"
+          ],
+          "answer": 0,
+          "hint": "Enough states separate points of $A$ — use positivity and the Hahn–Banach theorem.",
+          "explain": "Hahn–Banach + positivity gives: for each nonzero $a\\in A$, some state $\\omega$ has $\\omega(a^*a)>0$, so $\\pi_\\omega(a)\\ne 0$. Hence $\\pi_u=\\bigoplus\\pi_\\omega$ is faithful; it is automatically isometric (injective $*$-homs between $C^*$-algebras are isometric). This is the noncommutative Gelfand–Naimark theorem."
+        }
+      ]
+    },
+    "approximate-units-amenability": {
+      "title": "Approximate units and amenability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An <strong>approximate unit</strong> in a (possibly non-unital) $C^*$-algebra $A$ is a net $(e_\\lambda)_{\\lambda\\in\\Lambda}$ with:",
+          "choices": [
+            "$e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$, $a e_\\lambda\\to a$ for every $a\\in A$",
+            "$e_\\lambda=1$ for some $\\lambda$",
+            "$e_\\lambda$ are projections with $e_\\lambda\\to 1$ in norm",
+            "$e_\\lambda$ are unitary"
+          ],
+          "answer": 0,
+          "explain": "The standard definition: positive contractions forming an increasing net with $e_\\lambda a\\to a$. Every $C^*$-algebra (unital or not) admits one — construct via $e_\\lambda=\\lambda a^*a(1+\\lambda a^*a)^{-1}$-type spectral calculus."
+        },
+        {
+          "type": "numeric",
+          "q": "In $c_0$ (sequences vanishing at infinity, non-unital), let $e_n$ be the characteristic sequence of $\\{1,\\ldots,n\\}$ (so $e_n(k)=1$ for $k\\le n$, $=0$ else). Compute $\\|e_n\\|$.",
+          "answer": 1,
+          "tol": 1e-6,
+          "explain": "$\\|e_n\\|_\\infty=\\sup_k|e_n(k)|=1$, since at least one entry equals 1. The $e_n$ are projections in $c_0$ forming an approximate unit: for $f\\in c_0$, $\\|e_n f-f\\|_\\infty=\\sup_{k>n}|f(k)|\\to 0$ by vanishing at infinity."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is an approximate unit important in non-unital $C^*$-algebra theory?",
+          "choices": [
+            "It replaces the missing unit for purposes of functional calculus, GNS, tensor products, and ideals",
+            "It makes the algebra commutative",
+            "It provides a trace",
+            "It diagonalizes every element"
+          ],
+          "answer": 0,
+          "explain": "Approximate units let non-unital $C^*$-algebra theory mirror unital theory: they are used to prove ideals are hereditary, to build tensor products, to extend states via $\\phi(a)=\\lim\\phi(e_\\lambda a e_\\lambda)$, and to make the non-unital Gelfand transform work."
+        }
+      ],
+      "hard": [
+        {
+          "type": "mcq",
+          "q": "Which $C^*$-algebra is NOT nuclear?",
+          "choices": [
+            "$C(X)$ for $X$ compact Hausdorff",
+            "$K(H)$ (compact operators)",
+            "The reduced group $C^*$-algebra $C^*_r(F_2)$ of the free group on two generators",
+            "$M_n(\\mathbb{C})$"
+          ],
+          "answer": 2,
+          "hint": "Non-amenable groups give non-nuclear reduced group $C^*$-algebras.",
+          "explain": "$C^*_r(F_2)$ is NOT nuclear: $F_2$ is non-amenable, and the reduced $C^*$-algebra of a discrete group is nuclear iff the group is amenable (Lance). All commutative $C^*$-algebras are nuclear; $K(H)$ and $M_n(\\mathbb{C})$ are nuclear (AF algebras are)."
+        },
+        {
+          "type": "mcq",
+          "q": "A $C^*$-algebra $A$ is called <strong>amenable</strong> (in the Johnson sense) if every bounded derivation from $A$ into every dual Banach $A$-bimodule is inner. For $C^*$-algebras, amenability is equivalent to:",
+          "choices": [
+            "$A$ being commutative",
+            "$A$ being nuclear",
+            "$A$ being simple",
+            "$A$ having a unit"
+          ],
+          "answer": 1,
+          "hint": "Connes–Haagerup: amenability = nuclearity for $C^*$-algebras.",
+          "explain": "A deep theorem (Connes for the injective factor case; Haagerup in general): for $C^*$-algebras, amenability in Johnson's Banach-algebra sense coincides with nuclearity (existence of completely positive approximations by factorizations through matrix algebras)."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $A=c_0$ and take the approximate unit $e_n=\\chi_{\\{1,\\ldots,n\\}}$. For $f\\in c_0$ with $f(k)=1/k$, compute $\\lim_{n\\to\\infty}\\|e_n f-f\\|_\\infty$.",
+          "answer": 0,
+          "tol": 1e-6,
+          "hint": "The limit is zero by the definition of approximate unit.",
+          "explain": "$(e_n f-f)(k)=0$ for $k\\le n$ and $=-1/k$ for $k>n$, so $\\|e_n f-f\\|_\\infty=\\sup_{k>n}1/k=1/(n+1)\\to 0$ as $n\\to\\infty$."
         }
       ]
     }
