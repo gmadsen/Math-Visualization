@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tangent bundle of S² — Three.js prototype</title>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  main{max-width:880px;margin:0 auto;padding:2rem 1.5rem 4rem}
+  h1{font-size:1.6rem;margin:0 0 .2rem;color:#fff}
+  p.sub{color:var(--mute);margin:.2rem 0 1.2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;
+    letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  select{background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.86rem;
+    color:#cbd5e1;margin-top:.6rem;white-space:pre-wrap}
+  #stage{width:100%;height:520px;border-radius:8px;overflow:hidden;
+    background:radial-gradient(circle at 50% 40%, #1a2030 0%, #0b0f16 100%);
+    border:1px solid var(--line)}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;
+    background:#1a1828;margin:1rem 0;border-radius:0 6px 6px 0;font-size:.92rem}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Tangent bundle of S² — Three.js prototype</h1>
+  <p class="sub">A standalone prototype comparing WebGL (Three.js r164) against the notebook's hand-rolled SVG + <code>proj3</code> stack.
+    See <a href="./README.md">README</a> for the comparison.</p>
+
+  <div class="widget" id="w-tbs2">
+    <div class="hd">
+      <div class="ttl">Tangent bundle T S² — pick a section</div>
+      <div class="hint">drag to orbit · scroll to zoom · right-drag to pan</div>
+    </div>
+    <div class="row">
+      <label for="field">vector field:</label>
+      <select id="field">
+        <option value="zero">zero section (every fiber-zero)</option>
+        <option value="longitude" selected>∂/∂φ (longitudinal — vanishes at poles)</option>
+        <option value="smooth-fail">comb attempt (fails at one point)</option>
+      </select>
+      <label for="count">arrows:</label>
+      <select id="count">
+        <option value="64">64</option>
+        <option value="144" selected>144</option>
+        <option value="256">256</option>
+      </select>
+    </div>
+    <div id="stage"></div>
+    <div class="readout" id="readout">loading…</div>
+    <div class="note"><strong>Hairy ball theorem.</strong> Every continuous tangent vector field on S² vanishes somewhere.
+      The longitudinal field has two zeros (poles); the "comb" field has at least one. Only the zero section is globally smooth
+      <em>and</em> vanishing everywhere — and that's the whole point: T S² is a non-trivial bundle.</div>
+  </div>
+</main>
+
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.164.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.164.0/examples/jsm/controls/OrbitControls.js';
+
+const stage = document.getElementById('stage');
+const readout = document.getElementById('readout');
+const fieldSel = document.getElementById('field');
+const countSel = document.getElementById('count');
+
+// ---------- Scene / camera / renderer ----------
+const scene = new THREE.Scene();
+scene.background = null;
+const camera = new THREE.PerspectiveCamera(45, stage.clientWidth / stage.clientHeight, 0.1, 100);
+camera.position.set(3.4, 2.0, 3.4);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+renderer.setSize(stage.clientWidth, stage.clientHeight);
+stage.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 2.4;
+controls.maxDistance = 12;
+
+// ---------- Lights (Lambertian + subtle rim) ----------
+scene.add(new THREE.AmbientLight(0xbfcbdc, 0.35));
+const key = new THREE.DirectionalLight(0xffd866, 0.9); key.position.set(3, 4, 2); scene.add(key);
+const fill = new THREE.DirectionalLight(0x58c4dd, 0.35); fill.position.set(-3, -1, -2); scene.add(fill);
+const rim = new THREE.DirectionalLight(0xb39ddb, 0.25); rim.position.set(0, -4, 3); scene.add(rim);
+
+// ---------- Base sphere S² ----------
+const sphereGeo = new THREE.SphereGeometry(1, 64, 48);
+const sphereMat = new THREE.MeshPhongMaterial({
+  color: 0x2a3242, specular: 0x7de0d6, shininess: 28,
+  flatShading: false, transparent: true, opacity: 0.92
+});
+scene.add(new THREE.Mesh(sphereGeo, sphereMat));
+
+// faint wireframe equator/meridian grid to anchor orientation
+const gridGeo = new THREE.SphereGeometry(1.001, 24, 16);
+const gridMat = new THREE.MeshBasicMaterial({ color: 0x3a465c, wireframe: true, transparent: true, opacity: 0.35 });
+scene.add(new THREE.Mesh(gridGeo, gridMat));
+
+// zero-section markers at the poles (shown when vanishing points matter)
+const poleGroup = new THREE.Group(); scene.add(poleGroup);
+
+// ---------- Fiber arrows ----------
+// Each arrow = ArrowHelper, reusable origin/dir pair so we can refit by dispose+rebuild.
+let arrowGroup = new THREE.Group(); scene.add(arrowGroup);
+
+// Fibonacci sphere sampling — nearly uniform distribution on S².
+function fibonacciPoints(N){
+  const pts = [];
+  const phi = Math.PI * (3 - Math.sqrt(5));
+  for(let i=0;i<N;i++){
+    const y = 1 - (i/(N-1))*2;          // -1 .. 1
+    const r = Math.sqrt(Math.max(0, 1 - y*y));
+    const th = phi * i;
+    pts.push(new THREE.Vector3(Math.cos(th)*r, y, Math.sin(th)*r));
+  }
+  return pts;
+}
+
+// Tangent vector fields: return a THREE.Vector3 in the tangent plane at p (unit point on S²).
+const fields = {
+  zero: (p) => new THREE.Vector3(0,0,0),
+  // ∂/∂φ rotated-around-y: world vector (-z, 0, x), vanishes at y=±1.
+  longitude: (p) => new THREE.Vector3(-p.z, 0, p.x),
+  // "comb" attempt: project a fixed world direction onto T_p S²; vanishes where
+  // the direction is normal, i.e. p = ±(that direction).
+  'smooth-fail': (p) => {
+    const e = new THREE.Vector3(1, 0.2, 0.3).normalize();
+    const dot = e.dot(p);
+    return e.clone().sub(p.clone().multiplyScalar(dot));
+  }
+};
+
+// Colour-by-base-point: HSL from spherical coords.
+function colourFor(p){
+  const phi   = Math.atan2(p.z, p.x);          // -pi..pi
+  const theta = Math.acos(THREE.MathUtils.clamp(p.y, -1, 1)); // 0..pi
+  const h = (phi + Math.PI) / (2*Math.PI);     // 0..1
+  const s = 0.55 + 0.35 * Math.sin(theta);     // brighter near equator
+  const l = 0.58;
+  return new THREE.Color().setHSL(h, s, l);
+}
+
+function buildArrows(){
+  // Dispose previous arrows cleanly.
+  arrowGroup.traverse(o => {
+    if (o.isMesh || o.isLine){
+      o.geometry?.dispose();
+      o.material?.dispose();
+    }
+  });
+  scene.remove(arrowGroup);
+  arrowGroup = new THREE.Group();
+
+  const N = parseInt(countSel.value, 10);
+  const pts = fibonacciPoints(N);
+  const field = fields[fieldSel.value];
+
+  let zeros = 0;
+  for (const p of pts){
+    const v = field(p);
+    const mag = v.length();
+    if (mag < 1e-3){ zeros++; continue; }
+    const dir = v.clone().normalize();
+    const len = 0.28 * Math.min(1, mag);     // cap visually
+    const origin = p.clone().multiplyScalar(1.01);
+    const color = colourFor(p).getHex();
+    // headLength ≈ 0.35·len, headWidth ≈ 0.18·len gives a crisp arrow at this scale
+    const arr = new THREE.ArrowHelper(dir, origin, len, color, 0.35*len, 0.18*len);
+    arrowGroup.add(arr);
+  }
+
+  // Mark zero-section / vanishing points for the non-zero sections.
+  poleGroup.clear();
+  if (fieldSel.value === 'longitude'){
+    for (const yy of [1.0, -1.0]){
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 16, 12),
+        new THREE.MeshBasicMaterial({ color: 0xe07a5f })
+      );
+      dot.position.set(0, yy*1.02, 0);
+      poleGroup.add(dot);
+    }
+  } else if (fieldSel.value === 'smooth-fail'){
+    const e = new THREE.Vector3(1, 0.2, 0.3).normalize();
+    for (const s of [1, -1]){
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 16, 12),
+        new THREE.MeshBasicMaterial({ color: 0xe07a5f })
+      );
+      dot.position.copy(e).multiplyScalar(s*1.02);
+      poleGroup.add(dot);
+    }
+  }
+
+  scene.add(arrowGroup);
+  updateReadout(N, zeros);
+}
+
+// ---------- HUD / readout ----------
+let fpsEma = 60, lastT = performance.now(), frames = 0, accT = 0;
+function updateReadout(N, zeros){
+  const name = { zero:'zero section', longitude:'∂/∂φ', 'smooth-fail':'comb projection' }[fieldSel.value];
+  readout.textContent =
+    `field: ${name}\n` +
+    `arrows drawn: ${N - zeros} / ${N}   (${zeros} near-vanishing base points)\n` +
+    `fps: ${fpsEma.toFixed(0)}   arrows-per-frame cap: 60fps at N=256`;
+}
+
+// ---------- Render loop ----------
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+
+  const now = performance.now();
+  const dt = now - lastT; lastT = now;
+  frames++; accT += dt;
+  if (accT > 500){
+    fpsEma = 0.7*fpsEma + 0.3*(1000*frames/accT);
+    frames = 0; accT = 0;
+    // cheap refresh of the fps number only
+    const lines = readout.textContent.split('\n');
+    if (lines.length >= 3){
+      lines[2] = lines[2].replace(/fps: [\d.]+/, `fps: ${fpsEma.toFixed(0)}`);
+      readout.textContent = lines.join('\n');
+    }
+  }
+}
+
+// ---------- Events ----------
+fieldSel.addEventListener('change', buildArrows);
+countSel.addEventListener('change', buildArrows);
+window.addEventListener('resize', () => {
+  camera.aspect = stage.clientWidth / stage.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(stage.clientWidth, stage.clientHeight);
+});
+
+buildArrows();
+animate();
+</script>
+</body>
+</html>

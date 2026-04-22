@@ -18,3 +18,6 @@ test_index.js
 
 .claude/worktrees
 .claude/worktree
+
+# examples/ build outputs
+examples/react-consumer/render.html
