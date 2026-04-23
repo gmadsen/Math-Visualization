@@ -12,9 +12,22 @@
         },
         {
           "type": "widget",
-          "id": "w-linecircle",
-          "html": "<div class=\"widget\" id=\"w-linecircle\">\n  <div class=\"hd\"><div class=\"ttl\">Line meets circle</div><div class=\"hint\">slide $t$; watch intersection points merge at tangency</div></div>\n  <svg id=\"lc-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Line meets circle</title></svg>\n  <div class=\"row\">\n    <label for=\"lc-t\">height $t$ =</label>\n    <input id=\"lc-t\" type=\"range\" min=\"-1.4\" max=\"1.4\" step=\"0.01\" value=\"0.3\">\n    <span id=\"lc-tval\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"lc-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-linecircle",
+            "title": "Line meets circle",
+            "hint": "slide $t$; watch intersection points merge at tangency",
+            "svgId": "lc-svg",
+            "svgViewBox": "0 0 620 320",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "320",
+            "svgTitle": "Line meets circle",
+            "outputId": "lc-out",
+            "layout": "svg-first",
+            "controlsLiteral": "    <label for=\"lc-t\">height $t$ =</label>\n    <input id=\"lc-t\" type=\"range\" min=\"-1.4\" max=\"1.4\" step=\"0.01\" value=\"0.3\">\n    <span id=\"lc-tval\" class=\"small\"></span>",
+            "scriptBodyLiteral": "(function(){\n  const svg=$('#lc-svg'), slider=$('#lc-t'), tval=$('#lc-tval'), out=$('#lc-out');\n  const W=620,H=320,cx=310,cy=160,R=120;\n  function draw(){\n    svg.innerHTML='';\n    const t = parseFloat(slider.value);\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // circle\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // line y = t  (world y)  mapped to pixel y = cy - R*t\n    const py = cy - R*t;\n    svg.appendChild(SVG('line',{x1:40,y1:py,x2:W-40,y2:py,stroke:'var(--yellow)','stroke-width':2}));\n    // intersections: x = ±sqrt(1-t^2)\n    const disc = 1 - t*t;\n    let points=[];\n    let msg='';\n    if(disc > 1e-6){\n      const xr = Math.sqrt(disc);\n      points.push([xr,t],[-xr,t]);\n      msg = `two real points: (${xr.toFixed(3)}, ${t.toFixed(3)})  and  (${(-xr).toFixed(3)}, ${t.toFixed(3)})\\n`\n          + `intersection count: 2  (matches $1 \\\\cdot 2 = 2$)`;\n    } else if(Math.abs(disc) < 1e-6){\n      points.push([0,t]);\n      msg = `tangent: one real point (0, ${t.toFixed(3)}) — but counted with multiplicity 2.\\n`\n          + `the line and circle share the tangent direction here.`;\n    } else {\n      const c1 = Math.sqrt(-disc);\n      msg = `no real intersection.\\n`\n          + `over $\\\\mathbb{C}$: two points at  x = ±${c1.toFixed(3)}i, y = ${t.toFixed(3)}.\\n`\n          + `intersection count (in $\\\\mathbb{C}$): 2.`;\n    }\n    for(const [x,y] of points){\n      const px = cx + R*x, pyy = cy - R*y;\n      const col = (Math.abs(disc) < 1e-6) ? 'var(--pink)' : 'var(--green)';\n      svg.appendChild(SVG('circle',{cx:px,cy:pyy,r:6,fill:col,stroke:'#fff','stroke-width':1.2}));\n      if(Math.abs(disc) < 1e-6){\n        const t2=SVG('text',{x:px+10,y:pyy-8,'font-size':11,fill:'var(--pink)'});\n        t2.textContent='mult 2';\n        svg.appendChild(t2);\n      }\n    }\n    tval.textContent = `t = ${t.toFixed(2)}`;\n    out.textContent = msg;\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -22,8 +35,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-linecircle",
-          "html": "<script>\n(function(){\n  const svg=$('#lc-svg'), slider=$('#lc-t'), tval=$('#lc-tval'), out=$('#lc-out');\n  const W=620,H=320,cx=310,cy=160,R=120;\n  function draw(){\n    svg.innerHTML='';\n    const t = parseFloat(slider.value);\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // circle\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // line y = t  (world y)  mapped to pixel y = cy - R*t\n    const py = cy - R*t;\n    svg.appendChild(SVG('line',{x1:40,y1:py,x2:W-40,y2:py,stroke:'var(--yellow)','stroke-width':2}));\n    // intersections: x = ±sqrt(1-t^2)\n    const disc = 1 - t*t;\n    let points=[];\n    let msg='';\n    if(disc > 1e-6){\n      const xr = Math.sqrt(disc);\n      points.push([xr,t],[-xr,t]);\n      msg = `two real points: (${xr.toFixed(3)}, ${t.toFixed(3)})  and  (${(-xr).toFixed(3)}, ${t.toFixed(3)})\\n`\n          + `intersection count: 2  (matches $1 \\\\cdot 2 = 2$)`;\n    } else if(Math.abs(disc) < 1e-6){\n      points.push([0,t]);\n      msg = `tangent: one real point (0, ${t.toFixed(3)}) — but counted with multiplicity 2.\\n`\n          + `the line and circle share the tangent direction here.`;\n    } else {\n      const c1 = Math.sqrt(-disc);\n      msg = `no real intersection.\\n`\n          + `over $\\\\mathbb{C}$: two points at  x = ±${c1.toFixed(3)}i, y = ${t.toFixed(3)}.\\n`\n          + `intersection count (in $\\\\mathbb{C}$): 2.`;\n    }\n    for(const [x,y] of points){\n      const px = cx + R*x, pyy = cy - R*y;\n      const col = (Math.abs(disc) < 1e-6) ? 'var(--pink)' : 'var(--green)';\n      svg.appendChild(SVG('circle',{cx:px,cy:pyy,r:6,fill:col,stroke:'#fff','stroke-width':1.2}));\n      if(Math.abs(disc) < 1e-6){\n        const t2=SVG('text',{x:px+10,y:pyy-8,'font-size':11,fill:'var(--pink)'});\n        t2.textContent='mult 2';\n        svg.appendChild(t2);\n      }\n    }\n    tval.textContent = `t = ${t.toFixed(2)}`;\n    out.textContent = msg;\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-linecircle",
+            "title": "Line meets circle",
+            "hint": "slide $t$; watch intersection points merge at tangency",
+            "svgId": "lc-svg",
+            "svgViewBox": "0 0 620 320",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "320",
+            "svgTitle": "Line meets circle",
+            "outputId": "lc-out",
+            "layout": "svg-first",
+            "controlsLiteral": "    <label for=\"lc-t\">height $t$ =</label>\n    <input id=\"lc-t\" type=\"range\" min=\"-1.4\" max=\"1.4\" step=\"0.01\" value=\"0.3\">\n    <span id=\"lc-tval\" class=\"small\"></span>",
+            "scriptBodyLiteral": "(function(){\n  const svg=$('#lc-svg'), slider=$('#lc-t'), tval=$('#lc-tval'), out=$('#lc-out');\n  const W=620,H=320,cx=310,cy=160,R=120;\n  function draw(){\n    svg.innerHTML='';\n    const t = parseFloat(slider.value);\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // circle\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // line y = t  (world y)  mapped to pixel y = cy - R*t\n    const py = cy - R*t;\n    svg.appendChild(SVG('line',{x1:40,y1:py,x2:W-40,y2:py,stroke:'var(--yellow)','stroke-width':2}));\n    // intersections: x = ±sqrt(1-t^2)\n    const disc = 1 - t*t;\n    let points=[];\n    let msg='';\n    if(disc > 1e-6){\n      const xr = Math.sqrt(disc);\n      points.push([xr,t],[-xr,t]);\n      msg = `two real points: (${xr.toFixed(3)}, ${t.toFixed(3)})  and  (${(-xr).toFixed(3)}, ${t.toFixed(3)})\\n`\n          + `intersection count: 2  (matches $1 \\\\cdot 2 = 2$)`;\n    } else if(Math.abs(disc) < 1e-6){\n      points.push([0,t]);\n      msg = `tangent: one real point (0, ${t.toFixed(3)}) — but counted with multiplicity 2.\\n`\n          + `the line and circle share the tangent direction here.`;\n    } else {\n      const c1 = Math.sqrt(-disc);\n      msg = `no real intersection.\\n`\n          + `over $\\\\mathbb{C}$: two points at  x = ±${c1.toFixed(3)}i, y = ${t.toFixed(3)}.\\n`\n          + `intersection count (in $\\\\mathbb{C}$): 2.`;\n    }\n    for(const [x,y] of points){\n      const px = cx + R*x, pyy = cy - R*y;\n      const col = (Math.abs(disc) < 1e-6) ? 'var(--pink)' : 'var(--green)';\n      svg.appendChild(SVG('circle',{cx:px,cy:pyy,r:6,fill:col,stroke:'#fff','stroke-width':1.2}));\n      if(Math.abs(disc) < 1e-6){\n        const t2=SVG('text',{x:px+10,y:pyy-8,'font-size':11,fill:'var(--pink)'});\n        t2.textContent='mult 2';\n        svg.appendChild(t2);\n      }\n    }\n    tval.textContent = `t = ${t.toFixed(2)}`;\n    out.textContent = msg;\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -40,9 +67,24 @@
         },
         {
           "type": "widget",
-          "id": "w-homog",
-          "html": "<div class=\"widget\" id=\"w-homog\">\n  <div class=\"hd\"><div class=\"ttl\">Homogenize to $\\mathbb{P}^2$</div><div class=\"hint\">where do the points at infinity live?</div></div>\n  <div class=\"row\">\n    <label>pick a curve:</label>\n    <select id=\"hm-pick\">\n      <option value=\"line\">line:  $x + y - 1 = 0$</option>\n      <option value=\"par\" selected>parabola:  $y - x^2 = 0$</option>\n      <option value=\"circ\">circle:  $x^2 + y^2 - 1 = 0$</option>\n      <option value=\"cub\">cubic:  $y^2 - x^3 - 1 = 0$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"hm-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-homog",
+            "title": "Homogenize to $\\mathbb{P}^2$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>pick a curve:</label>\n    <select id=\"hm-pick\">\n      <option value=\"line\">line:  $x + y - 1 = 0$</option>\n      <option value=\"par\" selected>parabola:  $y - x^2 = 0$</option>\n      <option value=\"circ\">circle:  $x^2 + y^2 - 1 = 0$</option>\n      <option value=\"cub\">cubic:  $y^2 - x^3 - 1 = 0$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hm-out"
+              }
+            ],
+            "bodyScript": "  const sel=$('#hm-pick'), out=$('#hm-out');\n  const DATA = {\n    line: {\n      f:'f(x,y) = x + y - 1',\n      F:'F(X,Y,Z) = X + Y - Z',\n      deg:1,\n      infPoly:'F(X,Y,0) = X + Y',\n      infZeros:'[-1 : 1 : 0]   — one point at infinity (the direction (1,-1))',\n    },\n    par: {\n      f:'f(x,y) = y - x^2',\n      F:'F(X,Y,Z) = YZ - X^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = -X^2',\n      infZeros:'[0 : 1 : 0]   — one point, but as a DOUBLE zero of -X^2 (multiplicity 2 at infinity)',\n    },\n    circ: {\n      f:'f(x,y) = x^2 + y^2 - 1',\n      F:'F(X,Y,Z) = X^2 + Y^2 - Z^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = X^2 + Y^2',\n      infZeros:'[1 : i : 0]  and  [1 : -i : 0]   — the \"circular points\" (complex conjugate)',\n    },\n    cub: {\n      f:'f(x,y) = y^2 - x^3 - 1',\n      F:'F(X,Y,Z) = Y^2 Z - X^3 - Z^3',\n      deg:3,\n      infPoly:'F(X,Y,0) = -X^3',\n      infZeros:'[0 : 1 : 0]   — single point but as a triple zero (inflection at infinity on the cubic)',\n    }\n  };\n  function update(){\n    const d = DATA[sel.value];\n    out.textContent =\n      `affine:   ${d.f}\\n`+\n      `homogenize (degree ${d.deg}):\\n   ${d.F}\\n\\n`+\n      `points at infinity  (set Z = 0):\\n   ${d.infPoly}\\n   zeros: ${d.infZeros}`;\n  }\n  sel.addEventListener('change',update); update();",
+            "hint": "where do the points at infinity live?",
+            "readoutId": "hm-out"
+          }
         },
         {
           "type": "raw",
@@ -50,8 +92,24 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-homog",
-          "html": "<script>\n(function(){\n  const sel=$('#hm-pick'), out=$('#hm-out');\n  const DATA = {\n    line: {\n      f:'f(x,y) = x + y - 1',\n      F:'F(X,Y,Z) = X + Y - Z',\n      deg:1,\n      infPoly:'F(X,Y,0) = X + Y',\n      infZeros:'[-1 : 1 : 0]   — one point at infinity (the direction (1,-1))',\n    },\n    par: {\n      f:'f(x,y) = y - x^2',\n      F:'F(X,Y,Z) = YZ - X^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = -X^2',\n      infZeros:'[0 : 1 : 0]   — one point, but as a DOUBLE zero of -X^2 (multiplicity 2 at infinity)',\n    },\n    circ: {\n      f:'f(x,y) = x^2 + y^2 - 1',\n      F:'F(X,Y,Z) = X^2 + Y^2 - Z^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = X^2 + Y^2',\n      infZeros:'[1 : i : 0]  and  [1 : -i : 0]   — the \"circular points\" (complex conjugate)',\n    },\n    cub: {\n      f:'f(x,y) = y^2 - x^3 - 1',\n      F:'F(X,Y,Z) = Y^2 Z - X^3 - Z^3',\n      deg:3,\n      infPoly:'F(X,Y,0) = -X^3',\n      infZeros:'[0 : 1 : 0]   — single point but as a triple zero (inflection at infinity on the cubic)',\n    }\n  };\n  function update(){\n    const d = DATA[sel.value];\n    out.textContent =\n      `affine:   ${d.f}\\n`+\n      `homogenize (degree ${d.deg}):\\n   ${d.F}\\n\\n`+\n      `points at infinity  (set Z = 0):\\n   ${d.infPoly}\\n   zeros: ${d.infZeros}`;\n  }\n  sel.addEventListener('change',update); update();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-homog",
+            "title": "Homogenize to $\\mathbb{P}^2$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>pick a curve:</label>\n    <select id=\"hm-pick\">\n      <option value=\"line\">line:  $x + y - 1 = 0$</option>\n      <option value=\"par\" selected>parabola:  $y - x^2 = 0$</option>\n      <option value=\"circ\">circle:  $x^2 + y^2 - 1 = 0$</option>\n      <option value=\"cub\">cubic:  $y^2 - x^3 - 1 = 0$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hm-out"
+              }
+            ],
+            "bodyScript": "  const sel=$('#hm-pick'), out=$('#hm-out');\n  const DATA = {\n    line: {\n      f:'f(x,y) = x + y - 1',\n      F:'F(X,Y,Z) = X + Y - Z',\n      deg:1,\n      infPoly:'F(X,Y,0) = X + Y',\n      infZeros:'[-1 : 1 : 0]   — one point at infinity (the direction (1,-1))',\n    },\n    par: {\n      f:'f(x,y) = y - x^2',\n      F:'F(X,Y,Z) = YZ - X^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = -X^2',\n      infZeros:'[0 : 1 : 0]   — one point, but as a DOUBLE zero of -X^2 (multiplicity 2 at infinity)',\n    },\n    circ: {\n      f:'f(x,y) = x^2 + y^2 - 1',\n      F:'F(X,Y,Z) = X^2 + Y^2 - Z^2',\n      deg:2,\n      infPoly:'F(X,Y,0) = X^2 + Y^2',\n      infZeros:'[1 : i : 0]  and  [1 : -i : 0]   — the \"circular points\" (complex conjugate)',\n    },\n    cub: {\n      f:'f(x,y) = y^2 - x^3 - 1',\n      F:'F(X,Y,Z) = Y^2 Z - X^3 - Z^3',\n      deg:3,\n      infPoly:'F(X,Y,0) = -X^3',\n      infZeros:'[0 : 1 : 0]   — single point but as a triple zero (inflection at infinity on the cubic)',\n    }\n  };\n  function update(){\n    const d = DATA[sel.value];\n    out.textContent =\n      `affine:   ${d.f}\\n`+\n      `homogenize (degree ${d.deg}):\\n   ${d.F}\\n\\n`+\n      `points at infinity  (set Z = 0):\\n   ${d.infPoly}\\n   zeros: ${d.infZeros}`;\n  }\n  sel.addEventListener('change',update); update();",
+            "hint": "where do the points at infinity live?",
+            "readoutId": "hm-out"
+          }
         },
         {
           "type": "raw",
@@ -216,9 +274,37 @@
         },
         {
           "type": "widget",
-          "id": "w-twoconics",
-          "html": "<div class=\"widget\" id=\"w-twoconics\">\n  <div class=\"hd\"><div class=\"ttl\">Two conics in $\\mathbb{P}^2$</div><div class=\"hint\">dial parameters; intersection count is always 4</div></div>\n  <svg id=\"tc-svg\" viewBox=\"0 0 620 360\" width=\"620\" height=\"360\"><title>Two conics in $\\mathbb{P}^2$</title></svg>\n  <div class=\"row\">\n    <label for=\"tc-a\">ellipse $\\tfrac{x^2}{a^2} + \\tfrac{y^2}{b^2} = 1$:   $a=$</label>\n    <input id=\"tc-a\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.4\">\n    <span id=\"tc-aval\" class=\"small\"></span>\n    <label for=\"tc-b\">$b=$</label>\n    <input id=\"tc-b\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.0\">\n    <span id=\"tc-bval\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"tc-h\">circle $(x-h)^2+y^2=r^2$:   $h=$</label>\n    <input id=\"tc-h\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.02\" value=\"0.3\">\n    <span id=\"tc-hval\" class=\"small\"></span>\n    <label for=\"tc-r\">$r=$</label>\n    <input id=\"tc-r\" type=\"range\" min=\"0.4\" max=\"1.6\" step=\"0.02\" value=\"0.9\">\n    <span id=\"tc-rval\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"tc-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-twoconics",
+            "title": "Two conics in $\\mathbb{P}^2$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "tc-svg",
+                "viewBox": "0 0 620 360",
+                "width": 620,
+                "height": 360
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tc-a\">ellipse $\\tfrac{x^2}{a^2} + \\tfrac{y^2}{b^2} = 1$:   $a=$</label>\n    <input id=\"tc-a\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.4\">\n    <span id=\"tc-aval\" class=\"small\"></span>\n    <label for=\"tc-b\">$b=$</label>\n    <input id=\"tc-b\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.0\">\n    <span id=\"tc-bval\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tc-h\">circle $(x-h)^2+y^2=r^2$:   $h=$</label>\n    <input id=\"tc-h\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.02\" value=\"0.3\">\n    <span id=\"tc-hval\" class=\"small\"></span>\n    <label for=\"tc-r\">$r=$</label>\n    <input id=\"tc-r\" type=\"range\" min=\"0.4\" max=\"1.6\" step=\"0.02\" value=\"0.9\">\n    <span id=\"tc-rval\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "tc-out"
+              }
+            ],
+            "bodyScript": "  const a=$('#tc-a'), b=$('#tc-b'), h=$('#tc-h'), r=$('#tc-r');\n  const aval=$('#tc-aval'), bval=$('#tc-bval'), hval=$('#tc-hval'), rval=$('#tc-rval');\n  const svg=$('#tc-svg'), out=$('#tc-out');\n  const W=620,H=360,cx=310,cy=180,S=80;\n  function solve(A,B,H,R){\n    // (x-H)^2 + y^2 = R^2   and   x^2/A^2 + y^2/B^2 = 1\n    // ==> y^2 = R^2 - (x-H)^2  and  y^2 = B^2(1 - x^2/A^2)\n    // equate: R^2 - (x-H)^2 = B^2 - B^2 x^2 / A^2\n    // ==> (-1 + B^2/A^2) x^2 + 2H x + (R^2 - H^2 - B^2) = 0\n    const p2 = -1 + B*B/(A*A);\n    const p1 = 2*H;\n    const p0 = R*R - H*H - B*B;\n    // quartic total: each real x yields up to 2 y's\n    let xs;\n    if(Math.abs(p2) < 1e-8){\n      if(Math.abs(p1) < 1e-8) xs=[]; else xs=[-p0/p1];\n    } else {\n      const disc = p1*p1 - 4*p2*p0;\n      if(disc < -1e-6) xs=[];\n      else if(disc < 1e-6) xs=[-p1/(2*p2)];\n      else { const s=Math.sqrt(disc); xs=[(-p1+s)/(2*p2),(-p1-s)/(2*p2)]; }\n    }\n    const pts=[];\n    for(const x of xs){\n      const y2 = R*R - (x-H)*(x-H);\n      if(y2 > 1e-6){\n        const y=Math.sqrt(y2);\n        pts.push([x,y]); pts.push([x,-y]);\n      } else if(y2 > -1e-6){\n        pts.push([x,0]);\n      }\n    }\n    return pts;\n  }\n  function draw(){\n    svg.innerHTML='';\n    const A=parseFloat(a.value), B=parseFloat(b.value);\n    const HH=parseFloat(h.value), R=parseFloat(r.value);\n    aval.textContent='a='+A.toFixed(2); bval.textContent='b='+B.toFixed(2);\n    hval.textContent='h='+HH.toFixed(2); rval.textContent='r='+R.toFixed(2);\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n    // ellipse\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:A*S,ry:B*S,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // circle\n    svg.appendChild(SVG('circle',{cx:cx+HH*S,cy,r:R*S,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // intersections\n    const pts = solve(A,B,HH,R);\n    for(const [x,y] of pts){\n      svg.appendChild(SVG('circle',{cx:cx+x*S,cy:cy-y*S,r:5,fill:'var(--green)',stroke:'#fff','stroke-width':1.1}));\n    }\n    let msg;\n    const real = pts.length;\n    const complex = 4 - real;\n    msg = `real intersections in this affine view: ${real}\\n`\n        + `complex conjugate pairs (off the real plane): ${complex}\\n`\n        + `total in $\\\\mathbb{P}^2_{\\\\mathbb{C}}$ with multiplicity: 4  (Bezout: 2 · 2).`;\n    out.textContent = msg;\n  }\n  [a,b,h,r].forEach(x=>x.addEventListener('input',draw));\n  draw();",
+            "hint": "dial parameters; intersection count is always 4",
+            "svgId": "tc-svg",
+            "viewBox": "0 0 620 360",
+            "readoutId": "tc-out"
+          }
         },
         {
           "type": "raw",
@@ -226,8 +312,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-twoconics",
-          "html": "<script>\n(function(){\n  const a=$('#tc-a'), b=$('#tc-b'), h=$('#tc-h'), r=$('#tc-r');\n  const aval=$('#tc-aval'), bval=$('#tc-bval'), hval=$('#tc-hval'), rval=$('#tc-rval');\n  const svg=$('#tc-svg'), out=$('#tc-out');\n  const W=620,H=360,cx=310,cy=180,S=80;\n  function solve(A,B,H,R){\n    // (x-H)^2 + y^2 = R^2   and   x^2/A^2 + y^2/B^2 = 1\n    // ==> y^2 = R^2 - (x-H)^2  and  y^2 = B^2(1 - x^2/A^2)\n    // equate: R^2 - (x-H)^2 = B^2 - B^2 x^2 / A^2\n    // ==> (-1 + B^2/A^2) x^2 + 2H x + (R^2 - H^2 - B^2) = 0\n    const p2 = -1 + B*B/(A*A);\n    const p1 = 2*H;\n    const p0 = R*R - H*H - B*B;\n    // quartic total: each real x yields up to 2 y's\n    let xs;\n    if(Math.abs(p2) < 1e-8){\n      if(Math.abs(p1) < 1e-8) xs=[]; else xs=[-p0/p1];\n    } else {\n      const disc = p1*p1 - 4*p2*p0;\n      if(disc < -1e-6) xs=[];\n      else if(disc < 1e-6) xs=[-p1/(2*p2)];\n      else { const s=Math.sqrt(disc); xs=[(-p1+s)/(2*p2),(-p1-s)/(2*p2)]; }\n    }\n    const pts=[];\n    for(const x of xs){\n      const y2 = R*R - (x-H)*(x-H);\n      if(y2 > 1e-6){\n        const y=Math.sqrt(y2);\n        pts.push([x,y]); pts.push([x,-y]);\n      } else if(y2 > -1e-6){\n        pts.push([x,0]);\n      }\n    }\n    return pts;\n  }\n  function draw(){\n    svg.innerHTML='';\n    const A=parseFloat(a.value), B=parseFloat(b.value);\n    const HH=parseFloat(h.value), R=parseFloat(r.value);\n    aval.textContent='a='+A.toFixed(2); bval.textContent='b='+B.toFixed(2);\n    hval.textContent='h='+HH.toFixed(2); rval.textContent='r='+R.toFixed(2);\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n    // ellipse\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:A*S,ry:B*S,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // circle\n    svg.appendChild(SVG('circle',{cx:cx+HH*S,cy,r:R*S,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // intersections\n    const pts = solve(A,B,HH,R);\n    for(const [x,y] of pts){\n      svg.appendChild(SVG('circle',{cx:cx+x*S,cy:cy-y*S,r:5,fill:'var(--green)',stroke:'#fff','stroke-width':1.1}));\n    }\n    let msg;\n    const real = pts.length;\n    const complex = 4 - real;\n    msg = `real intersections in this affine view: ${real}\\n`\n        + `complex conjugate pairs (off the real plane): ${complex}\\n`\n        + `total in $\\\\mathbb{P}^2_{\\\\mathbb{C}}$ with multiplicity: 4  (Bezout: 2 · 2).`;\n    out.textContent = msg;\n  }\n  [a,b,h,r].forEach(x=>x.addEventListener('input',draw));\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-twoconics",
+            "title": "Two conics in $\\mathbb{P}^2$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "tc-svg",
+                "viewBox": "0 0 620 360",
+                "width": 620,
+                "height": 360
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tc-a\">ellipse $\\tfrac{x^2}{a^2} + \\tfrac{y^2}{b^2} = 1$:   $a=$</label>\n    <input id=\"tc-a\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.4\">\n    <span id=\"tc-aval\" class=\"small\"></span>\n    <label for=\"tc-b\">$b=$</label>\n    <input id=\"tc-b\" type=\"range\" min=\"0.6\" max=\"2.0\" step=\"0.02\" value=\"1.0\">\n    <span id=\"tc-bval\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tc-h\">circle $(x-h)^2+y^2=r^2$:   $h=$</label>\n    <input id=\"tc-h\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.02\" value=\"0.3\">\n    <span id=\"tc-hval\" class=\"small\"></span>\n    <label for=\"tc-r\">$r=$</label>\n    <input id=\"tc-r\" type=\"range\" min=\"0.4\" max=\"1.6\" step=\"0.02\" value=\"0.9\">\n    <span id=\"tc-rval\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "tc-out"
+              }
+            ],
+            "bodyScript": "  const a=$('#tc-a'), b=$('#tc-b'), h=$('#tc-h'), r=$('#tc-r');\n  const aval=$('#tc-aval'), bval=$('#tc-bval'), hval=$('#tc-hval'), rval=$('#tc-rval');\n  const svg=$('#tc-svg'), out=$('#tc-out');\n  const W=620,H=360,cx=310,cy=180,S=80;\n  function solve(A,B,H,R){\n    // (x-H)^2 + y^2 = R^2   and   x^2/A^2 + y^2/B^2 = 1\n    // ==> y^2 = R^2 - (x-H)^2  and  y^2 = B^2(1 - x^2/A^2)\n    // equate: R^2 - (x-H)^2 = B^2 - B^2 x^2 / A^2\n    // ==> (-1 + B^2/A^2) x^2 + 2H x + (R^2 - H^2 - B^2) = 0\n    const p2 = -1 + B*B/(A*A);\n    const p1 = 2*H;\n    const p0 = R*R - H*H - B*B;\n    // quartic total: each real x yields up to 2 y's\n    let xs;\n    if(Math.abs(p2) < 1e-8){\n      if(Math.abs(p1) < 1e-8) xs=[]; else xs=[-p0/p1];\n    } else {\n      const disc = p1*p1 - 4*p2*p0;\n      if(disc < -1e-6) xs=[];\n      else if(disc < 1e-6) xs=[-p1/(2*p2)];\n      else { const s=Math.sqrt(disc); xs=[(-p1+s)/(2*p2),(-p1-s)/(2*p2)]; }\n    }\n    const pts=[];\n    for(const x of xs){\n      const y2 = R*R - (x-H)*(x-H);\n      if(y2 > 1e-6){\n        const y=Math.sqrt(y2);\n        pts.push([x,y]); pts.push([x,-y]);\n      } else if(y2 > -1e-6){\n        pts.push([x,0]);\n      }\n    }\n    return pts;\n  }\n  function draw(){\n    svg.innerHTML='';\n    const A=parseFloat(a.value), B=parseFloat(b.value);\n    const HH=parseFloat(h.value), R=parseFloat(r.value);\n    aval.textContent='a='+A.toFixed(2); bval.textContent='b='+B.toFixed(2);\n    hval.textContent='h='+HH.toFixed(2); rval.textContent='r='+R.toFixed(2);\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n    // ellipse\n    svg.appendChild(SVG('ellipse',{cx,cy,rx:A*S,ry:B*S,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // circle\n    svg.appendChild(SVG('circle',{cx:cx+HH*S,cy,r:R*S,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // intersections\n    const pts = solve(A,B,HH,R);\n    for(const [x,y] of pts){\n      svg.appendChild(SVG('circle',{cx:cx+x*S,cy:cy-y*S,r:5,fill:'var(--green)',stroke:'#fff','stroke-width':1.1}));\n    }\n    let msg;\n    const real = pts.length;\n    const complex = 4 - real;\n    msg = `real intersections in this affine view: ${real}\\n`\n        + `complex conjugate pairs (off the real plane): ${complex}\\n`\n        + `total in $\\\\mathbb{P}^2_{\\\\mathbb{C}}$ with multiplicity: 4  (Bezout: 2 · 2).`;\n    out.textContent = msg;\n  }\n  [a,b,h,r].forEach(x=>x.addEventListener('input',draw));\n  draw();",
+            "hint": "dial parameters; intersection count is always 4",
+            "svgId": "tc-svg",
+            "viewBox": "0 0 620 360",
+            "readoutId": "tc-out"
+          }
         },
         {
           "type": "raw",
@@ -235,9 +350,22 @@
         },
         {
           "type": "widget",
-          "id": "w-pascal",
-          "html": "<div class=\"widget\" id=\"w-pascal\">\n  <div class=\"hd\"><div class=\"ttl\">Pascal's theorem</div><div class=\"hint\">drag the angles; the three red points stay collinear</div></div>\n  <svg id=\"pa-svg\" viewBox=\"0 0 620 380\" width=\"620\" height=\"380\"><title>Pascal&#39;s theorem</title></svg>\n  <div class=\"row\">\n    <label for=\"pa-th\">hexagon rotation =</label>\n    <input id=\"pa-th\" type=\"range\" min=\"0\" max=\"360\" step=\"1\" value=\"40\">\n    <button id=\"pa-shuffle\">randomize</button>\n  </div>\n  <div class=\"readout\" id=\"pa-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-pascal",
+            "title": "Pascal's theorem",
+            "hint": "drag the angles; the three red points stay collinear",
+            "svgId": "pa-svg",
+            "svgViewBox": "0 0 620 380",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "380",
+            "svgTitle": "Pascal&#39;s theorem",
+            "outputId": "pa-out",
+            "layout": "svg-first",
+            "controlsLiteral": "    <label for=\"pa-th\">hexagon rotation =</label>\n    <input id=\"pa-th\" type=\"range\" min=\"0\" max=\"360\" step=\"1\" value=\"40\">\n    <button id=\"pa-shuffle\">randomize</button>",
+            "scriptBodyLiteral": "(function(){\n  const svg=$('#pa-svg'), th=$('#pa-th'), shuf=$('#pa-shuffle'), out=$('#pa-out');\n  const W=620,H=380,cx=310,cy=180,R=140;\n  let angles=[10,60,110,170,230,290];\n  function rotAll(d){ angles = angles.map(a => (a+d)%360); }\n  function lineInter(p1,p2,p3,p4){\n    // intersection of line p1-p2 with p3-p4\n    const [x1,y1]=p1,[x2,y2]=p2,[x3,y3]=p3,[x4,y4]=p4;\n    const den = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);\n    if(Math.abs(den) < 1e-8) return null;\n    const t = ((x1-x3)*(y3-y4) - (y1-y3)*(x3-x4))/den;\n    return [x1 + t*(x2-x1), y1 + t*(y2-y1)];\n  }\n  function draw(){\n    svg.innerHTML='';\n    // conic (circle)\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // compute six points\n    const base = parseFloat(th.value);\n    const A = angles.map(a => {\n      const rad = (a + base)*Math.PI/180;\n      return [cx + R*Math.cos(rad), cy + R*Math.sin(rad)];\n    });\n    // dots + labels\n    A.forEach((p,i)=>{\n      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:5,fill:'var(--yellow)',stroke:'#fff','stroke-width':1}));\n      const t=SVG('text',{x:p[0]+10,y:p[1]-10,'font-size':11,fill:'var(--yellow)'});\n      t.textContent = String(i+1);\n      svg.appendChild(t);\n    });\n    // hexagon sides 1-2, 2-3, ..., 6-1\n    for(let i=0;i<6;i++){\n      const [u,v]=[A[i], A[(i+1)%6]];\n      svg.appendChild(SVG('line',{x1:u[0],y1:u[1],x2:v[0],y2:v[1],stroke:'var(--violet)','stroke-width':1,opacity:0.8}));\n    }\n    // the three opposite-side intersection points:\n    //   (1-2) ∩ (4-5),  (2-3) ∩ (5-6),  (3-4) ∩ (6-1)\n    const opps = [[0,1,3,4],[1,2,4,5],[2,3,5,0]];\n    const ips=[];\n    for(const [a1,a2,b1,b2] of opps){\n      // extend each side to a long line for drawing\n      const sideA1=A[a1], sideA2=A[a2], sideB1=A[b1], sideB2=A[b2];\n      // draw extended (dashed) lines\n      const ext = (p,q)=>{\n        const dx=q[0]-p[0], dy=q[1]-p[1];\n        return [[p[0]-1.2*dx,p[1]-1.2*dy],[q[0]+1.2*dx,q[1]+1.2*dy]];\n      };\n      const eA=ext(sideA1,sideA2), eB=ext(sideB1,sideB2);\n      svg.appendChild(SVG('line',{x1:eA[0][0],y1:eA[0][1],x2:eA[1][0],y2:eA[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      svg.appendChild(SVG('line',{x1:eB[0][0],y1:eB[0][1],x2:eB[1][0],y2:eB[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      const ip = lineInter(sideA1,sideA2,sideB1,sideB2);\n      if(ip) ips.push(ip);\n    }\n    // Pascal line through the three intersections\n    let msg;\n    if(ips.length === 3){\n      for(const ip of ips){\n        svg.appendChild(SVG('circle',{cx:ip[0],cy:ip[1],r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':1.2}));\n      }\n      // fit a line through ips[0] and ips[2]; check ips[1] collinearity\n      const [p,q,rr] = ips;\n      const d = (q[0]-p[0])*(rr[1]-p[1]) - (q[1]-p[1])*(rr[0]-p[0]);\n      // draw line through p and rr extended\n      const dx=rr[0]-p[0], dy=rr[1]-p[1];\n      svg.appendChild(SVG('line',{x1:p[0]-2*dx,y1:p[1]-2*dy,x2:rr[0]+2*dx,y2:rr[1]+2*dy,\n        stroke:'var(--pink)','stroke-width':1.6}));\n      msg = `three opposite-side intersections (pink): always collinear.\\n`\n          + `collinearity residual det ≈ ${d.toFixed(2)} (would be 0 in exact arithmetic).\\n`\n          + `the pink line is the PASCAL LINE of this inscribed hexagon.`;\n    } else {\n      msg = 'some opposite sides are parallel — Pascal line is at infinity.';\n    }\n    out.textContent = msg;\n  }\n  th.addEventListener('input',draw);\n  shuf.addEventListener('click',()=>{\n    angles = Array.from({length:6},()=>Math.random()*360).sort((a,b)=>a-b);\n    draw();\n  });\n  draw();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -245,8 +373,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-pascal",
-          "html": "<script>\n(function(){\n  const svg=$('#pa-svg'), th=$('#pa-th'), shuf=$('#pa-shuffle'), out=$('#pa-out');\n  const W=620,H=380,cx=310,cy=180,R=140;\n  let angles=[10,60,110,170,230,290];\n  function rotAll(d){ angles = angles.map(a => (a+d)%360); }\n  function lineInter(p1,p2,p3,p4){\n    // intersection of line p1-p2 with p3-p4\n    const [x1,y1]=p1,[x2,y2]=p2,[x3,y3]=p3,[x4,y4]=p4;\n    const den = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);\n    if(Math.abs(den) < 1e-8) return null;\n    const t = ((x1-x3)*(y3-y4) - (y1-y3)*(x3-x4))/den;\n    return [x1 + t*(x2-x1), y1 + t*(y2-y1)];\n  }\n  function draw(){\n    svg.innerHTML='';\n    // conic (circle)\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // compute six points\n    const base = parseFloat(th.value);\n    const A = angles.map(a => {\n      const rad = (a + base)*Math.PI/180;\n      return [cx + R*Math.cos(rad), cy + R*Math.sin(rad)];\n    });\n    // dots + labels\n    A.forEach((p,i)=>{\n      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:5,fill:'var(--yellow)',stroke:'#fff','stroke-width':1}));\n      const t=SVG('text',{x:p[0]+10,y:p[1]-10,'font-size':11,fill:'var(--yellow)'});\n      t.textContent = String(i+1);\n      svg.appendChild(t);\n    });\n    // hexagon sides 1-2, 2-3, ..., 6-1\n    for(let i=0;i<6;i++){\n      const [u,v]=[A[i], A[(i+1)%6]];\n      svg.appendChild(SVG('line',{x1:u[0],y1:u[1],x2:v[0],y2:v[1],stroke:'var(--violet)','stroke-width':1,opacity:0.8}));\n    }\n    // the three opposite-side intersection points:\n    //   (1-2) ∩ (4-5),  (2-3) ∩ (5-6),  (3-4) ∩ (6-1)\n    const opps = [[0,1,3,4],[1,2,4,5],[2,3,5,0]];\n    const ips=[];\n    for(const [a1,a2,b1,b2] of opps){\n      // extend each side to a long line for drawing\n      const sideA1=A[a1], sideA2=A[a2], sideB1=A[b1], sideB2=A[b2];\n      // draw extended (dashed) lines\n      const ext = (p,q)=>{\n        const dx=q[0]-p[0], dy=q[1]-p[1];\n        return [[p[0]-1.2*dx,p[1]-1.2*dy],[q[0]+1.2*dx,q[1]+1.2*dy]];\n      };\n      const eA=ext(sideA1,sideA2), eB=ext(sideB1,sideB2);\n      svg.appendChild(SVG('line',{x1:eA[0][0],y1:eA[0][1],x2:eA[1][0],y2:eA[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      svg.appendChild(SVG('line',{x1:eB[0][0],y1:eB[0][1],x2:eB[1][0],y2:eB[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      const ip = lineInter(sideA1,sideA2,sideB1,sideB2);\n      if(ip) ips.push(ip);\n    }\n    // Pascal line through the three intersections\n    let msg;\n    if(ips.length === 3){\n      for(const ip of ips){\n        svg.appendChild(SVG('circle',{cx:ip[0],cy:ip[1],r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':1.2}));\n      }\n      // fit a line through ips[0] and ips[2]; check ips[1] collinearity\n      const [p,q,rr] = ips;\n      const d = (q[0]-p[0])*(rr[1]-p[1]) - (q[1]-p[1])*(rr[0]-p[0]);\n      // draw line through p and rr extended\n      const dx=rr[0]-p[0], dy=rr[1]-p[1];\n      svg.appendChild(SVG('line',{x1:p[0]-2*dx,y1:p[1]-2*dy,x2:rr[0]+2*dx,y2:rr[1]+2*dy,\n        stroke:'var(--pink)','stroke-width':1.6}));\n      msg = `three opposite-side intersections (pink): always collinear.\\n`\n          + `collinearity residual det ≈ ${d.toFixed(2)} (would be 0 in exact arithmetic).\\n`\n          + `the pink line is the PASCAL LINE of this inscribed hexagon.`;\n    } else {\n      msg = 'some opposite sides are parallel — Pascal line is at infinity.';\n    }\n    out.textContent = msg;\n  }\n  th.addEventListener('input',draw);\n  shuf.addEventListener('click',()=>{\n    angles = Array.from({length:6},()=>Math.random()*360).sort((a,b)=>a-b);\n    draw();\n  });\n  draw();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-pascal",
+            "title": "Pascal's theorem",
+            "hint": "drag the angles; the three red points stay collinear",
+            "svgId": "pa-svg",
+            "svgViewBox": "0 0 620 380",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "380",
+            "svgTitle": "Pascal&#39;s theorem",
+            "outputId": "pa-out",
+            "layout": "svg-first",
+            "controlsLiteral": "    <label for=\"pa-th\">hexagon rotation =</label>\n    <input id=\"pa-th\" type=\"range\" min=\"0\" max=\"360\" step=\"1\" value=\"40\">\n    <button id=\"pa-shuffle\">randomize</button>",
+            "scriptBodyLiteral": "(function(){\n  const svg=$('#pa-svg'), th=$('#pa-th'), shuf=$('#pa-shuffle'), out=$('#pa-out');\n  const W=620,H=380,cx=310,cy=180,R=140;\n  let angles=[10,60,110,170,230,290];\n  function rotAll(d){ angles = angles.map(a => (a+d)%360); }\n  function lineInter(p1,p2,p3,p4){\n    // intersection of line p1-p2 with p3-p4\n    const [x1,y1]=p1,[x2,y2]=p2,[x3,y3]=p3,[x4,y4]=p4;\n    const den = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);\n    if(Math.abs(den) < 1e-8) return null;\n    const t = ((x1-x3)*(y3-y4) - (y1-y3)*(x3-x4))/den;\n    return [x1 + t*(x2-x1), y1 + t*(y2-y1)];\n  }\n  function draw(){\n    svg.innerHTML='';\n    // conic (circle)\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    // compute six points\n    const base = parseFloat(th.value);\n    const A = angles.map(a => {\n      const rad = (a + base)*Math.PI/180;\n      return [cx + R*Math.cos(rad), cy + R*Math.sin(rad)];\n    });\n    // dots + labels\n    A.forEach((p,i)=>{\n      svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:5,fill:'var(--yellow)',stroke:'#fff','stroke-width':1}));\n      const t=SVG('text',{x:p[0]+10,y:p[1]-10,'font-size':11,fill:'var(--yellow)'});\n      t.textContent = String(i+1);\n      svg.appendChild(t);\n    });\n    // hexagon sides 1-2, 2-3, ..., 6-1\n    for(let i=0;i<6;i++){\n      const [u,v]=[A[i], A[(i+1)%6]];\n      svg.appendChild(SVG('line',{x1:u[0],y1:u[1],x2:v[0],y2:v[1],stroke:'var(--violet)','stroke-width':1,opacity:0.8}));\n    }\n    // the three opposite-side intersection points:\n    //   (1-2) ∩ (4-5),  (2-3) ∩ (5-6),  (3-4) ∩ (6-1)\n    const opps = [[0,1,3,4],[1,2,4,5],[2,3,5,0]];\n    const ips=[];\n    for(const [a1,a2,b1,b2] of opps){\n      // extend each side to a long line for drawing\n      const sideA1=A[a1], sideA2=A[a2], sideB1=A[b1], sideB2=A[b2];\n      // draw extended (dashed) lines\n      const ext = (p,q)=>{\n        const dx=q[0]-p[0], dy=q[1]-p[1];\n        return [[p[0]-1.2*dx,p[1]-1.2*dy],[q[0]+1.2*dx,q[1]+1.2*dy]];\n      };\n      const eA=ext(sideA1,sideA2), eB=ext(sideB1,sideB2);\n      svg.appendChild(SVG('line',{x1:eA[0][0],y1:eA[0][1],x2:eA[1][0],y2:eA[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      svg.appendChild(SVG('line',{x1:eB[0][0],y1:eB[0][1],x2:eB[1][0],y2:eB[1][1],\n        stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.6}));\n      const ip = lineInter(sideA1,sideA2,sideB1,sideB2);\n      if(ip) ips.push(ip);\n    }\n    // Pascal line through the three intersections\n    let msg;\n    if(ips.length === 3){\n      for(const ip of ips){\n        svg.appendChild(SVG('circle',{cx:ip[0],cy:ip[1],r:6,fill:'var(--pink)',stroke:'#fff','stroke-width':1.2}));\n      }\n      // fit a line through ips[0] and ips[2]; check ips[1] collinearity\n      const [p,q,rr] = ips;\n      const d = (q[0]-p[0])*(rr[1]-p[1]) - (q[1]-p[1])*(rr[0]-p[0]);\n      // draw line through p and rr extended\n      const dx=rr[0]-p[0], dy=rr[1]-p[1];\n      svg.appendChild(SVG('line',{x1:p[0]-2*dx,y1:p[1]-2*dy,x2:rr[0]+2*dx,y2:rr[1]+2*dy,\n        stroke:'var(--pink)','stroke-width':1.6}));\n      msg = `three opposite-side intersections (pink): always collinear.\\n`\n          + `collinearity residual det ≈ ${d.toFixed(2)} (would be 0 in exact arithmetic).\\n`\n          + `the pink line is the PASCAL LINE of this inscribed hexagon.`;\n    } else {\n      msg = 'some opposite sides are parallel — Pascal line is at infinity.';\n    }\n    out.textContent = msg;\n  }\n  th.addEventListener('input',draw);\n  shuf.addEventListener('click',()=>{\n    angles = Array.from({length:6},()=>Math.random()*360).sort((a,b)=>a-b);\n    draw();\n  });\n  draw();\n})();"
+          }
         },
         {
           "type": "raw",

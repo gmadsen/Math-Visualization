@@ -12,9 +12,23 @@
         },
         {
           "type": "widget",
-          "id": "w-table",
-          "html": "<div class=\"widget\" id=\"w-table\">\n  <div class=\"hd\"><div class=\"ttl\">$r_k(n)$ for small $n,\\,k$</div><div class=\"hint\">$r_k(n)$ counts signed ordered representations</div></div>\n  <div id=\"rtable\"></div>\n  <p class=\"small\">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\\ge 1$ for every $n$ — foreshadowing Lagrange.</p>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-table",
+            "title": "$r_k(n)$ for small $n,\\,k$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"rtable\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\\ge 1$ for every $n$ — foreshadowing Lagrange.</p>"
+              }
+            ],
+            "bodyScript": "  function r2(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r3(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    }\n    return c;\n  }\n  function r4(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const rem=n-a*a-b*b;\n        if(rem<0) continue;\n        // count reps of rem as r2\n        c += r2(rem);\n      }\n    }\n    return c;\n  }\n  const host = document.getElementById('rtable');\n  const t = document.createElement('table');\n  t.className='plain';\n  const head = document.createElement('thead');\n  head.innerHTML = '<tr><th>$n$</th><th>$r_2(n)$</th><th>$r_3(n)$</th><th>$r_4(n)$</th><th>smallest rep of $n$ as sum of $\\\\le 4$ squares</th></tr>';\n  t.appendChild(head);\n  const body = document.createElement('tbody');\n  function bestRep(n){\n    // min k s.t. n = sum of k squares of positive ints (k up to 4)\n    if(n===0) return '0';\n    for(let k=1;k<=4;k++){\n      const found = [];\n      function go(rem, start, chosen){\n        if(chosen.length===k){\n          if(rem===0){ found.push([...chosen]); return true; }\n          return false;\n        }\n        for(let x=start;x*x<=rem;x++){\n          chosen.push(x);\n          if(go(rem-x*x, x, chosen)) return true;\n          chosen.pop();\n        }\n        return false;\n      }\n      if(go(n,1,[])) return found[0].map(x=>x+'²').join(' + ');\n    }\n    return '—';\n  }\n  const ns = [0,1,2,3,4,5,6,7,8,9,10,11,12];\n  for(const n of ns){\n    const tr = document.createElement('tr');\n    tr.innerHTML = `<td class=\"num\">${n}</td><td class=\"num\">${r2(n)}</td><td class=\"num\">${r3(n)}</td><td class=\"num\">${r4(n)}</td><td class=\"num\">${bestRep(n)}</td>`;\n    body.appendChild(tr);\n  }\n  t.appendChild(body);\n  host.appendChild(t);",
+            "hint": "$r_k(n)$ counts signed ordered representations"
+          }
         },
         {
           "type": "raw",
@@ -22,8 +36,23 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-table",
-          "html": "<script>\n(function(){\n  function r2(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r3(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    }\n    return c;\n  }\n  function r4(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const rem=n-a*a-b*b;\n        if(rem<0) continue;\n        // count reps of rem as r2\n        c += r2(rem);\n      }\n    }\n    return c;\n  }\n  const host = document.getElementById('rtable');\n  const t = document.createElement('table');\n  t.className='plain';\n  const head = document.createElement('thead');\n  head.innerHTML = '<tr><th>$n$</th><th>$r_2(n)$</th><th>$r_3(n)$</th><th>$r_4(n)$</th><th>smallest rep of $n$ as sum of $\\\\le 4$ squares</th></tr>';\n  t.appendChild(head);\n  const body = document.createElement('tbody');\n  function bestRep(n){\n    // min k s.t. n = sum of k squares of positive ints (k up to 4)\n    if(n===0) return '0';\n    for(let k=1;k<=4;k++){\n      const found = [];\n      function go(rem, start, chosen){\n        if(chosen.length===k){\n          if(rem===0){ found.push([...chosen]); return true; }\n          return false;\n        }\n        for(let x=start;x*x<=rem;x++){\n          chosen.push(x);\n          if(go(rem-x*x, x, chosen)) return true;\n          chosen.pop();\n        }\n        return false;\n      }\n      if(go(n,1,[])) return found[0].map(x=>x+'²').join(' + ');\n    }\n    return '—';\n  }\n  const ns = [0,1,2,3,4,5,6,7,8,9,10,11,12];\n  for(const n of ns){\n    const tr = document.createElement('tr');\n    tr.innerHTML = `<td class=\"num\">${n}</td><td class=\"num\">${r2(n)}</td><td class=\"num\">${r3(n)}</td><td class=\"num\">${r4(n)}</td><td class=\"num\">${bestRep(n)}</td>`;\n    body.appendChild(tr);\n  }\n  t.appendChild(body);\n  host.appendChild(t);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-table",
+            "title": "$r_k(n)$ for small $n,\\,k$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"rtable\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\\ge 1$ for every $n$ — foreshadowing Lagrange.</p>"
+              }
+            ],
+            "bodyScript": "  function r2(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r3(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    }\n    return c;\n  }\n  function r4(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const rem=n-a*a-b*b;\n        if(rem<0) continue;\n        // count reps of rem as r2\n        c += r2(rem);\n      }\n    }\n    return c;\n  }\n  const host = document.getElementById('rtable');\n  const t = document.createElement('table');\n  t.className='plain';\n  const head = document.createElement('thead');\n  head.innerHTML = '<tr><th>$n$</th><th>$r_2(n)$</th><th>$r_3(n)$</th><th>$r_4(n)$</th><th>smallest rep of $n$ as sum of $\\\\le 4$ squares</th></tr>';\n  t.appendChild(head);\n  const body = document.createElement('tbody');\n  function bestRep(n){\n    // min k s.t. n = sum of k squares of positive ints (k up to 4)\n    if(n===0) return '0';\n    for(let k=1;k<=4;k++){\n      const found = [];\n      function go(rem, start, chosen){\n        if(chosen.length===k){\n          if(rem===0){ found.push([...chosen]); return true; }\n          return false;\n        }\n        for(let x=start;x*x<=rem;x++){\n          chosen.push(x);\n          if(go(rem-x*x, x, chosen)) return true;\n          chosen.pop();\n        }\n        return false;\n      }\n      if(go(n,1,[])) return found[0].map(x=>x+'²').join(' + ');\n    }\n    return '—';\n  }\n  const ns = [0,1,2,3,4,5,6,7,8,9,10,11,12];\n  for(const n of ns){\n    const tr = document.createElement('tr');\n    tr.innerHTML = `<td class=\"num\">${n}</td><td class=\"num\">${r2(n)}</td><td class=\"num\">${r3(n)}</td><td class=\"num\">${r4(n)}</td><td class=\"num\">${bestRep(n)}</td>`;\n    body.appendChild(tr);\n  }\n  t.appendChild(body);\n  host.appendChild(t);",
+            "hint": "$r_k(n)$ counts signed ordered representations"
+          }
         },
         {
           "type": "raw",
@@ -152,9 +181,28 @@
         },
         {
           "type": "widget",
-          "id": "w-lattice",
-          "html": "<div class=\"widget\" id=\"w-lattice\">\n  <div class=\"hd\"><div class=\"ttl\">Gaussian integer lattice</div><div class=\"hint\">circles $|\\alpha|^2 = p$ for small primes</div></div>\n  <svg id=\"lat-svg\" viewBox=\"0 0 620 460\" width=\"620\" height=\"460\"><title>Gaussian integer lattice</title></svg>\n  <div class=\"row\">\n    <label>highlight $p=$</label>\n    <select id=\"lat-p\">\n      <option value=\"2\">2 (ramified)</option>\n      <option value=\"3\">3 (inert)</option>\n      <option value=\"5\" selected>5 (split)</option>\n      <option value=\"7\">7 (inert)</option>\n      <option value=\"11\">11 (inert)</option>\n      <option value=\"13\">13 (split)</option>\n      <option value=\"17\">17 (split)</option>\n      <option value=\"19\">19 (inert)</option>\n    </select>\n    <span class=\"small\" id=\"lat-info\"></span>\n  </div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lattice",
+            "title": "Gaussian integer lattice",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lat-svg",
+                "viewBox": "0 0 620 460",
+                "width": 620,
+                "height": 460
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>highlight $p=$</label>\n    <select id=\"lat-p\">\n      <option value=\"2\">2 (ramified)</option>\n      <option value=\"3\">3 (inert)</option>\n      <option value=\"5\" selected>5 (split)</option>\n      <option value=\"7\">7 (inert)</option>\n      <option value=\"11\">11 (inert)</option>\n      <option value=\"13\">13 (split)</option>\n      <option value=\"17\">17 (split)</option>\n      <option value=\"19\">19 (inert)</option>\n    </select>\n    <span class=\"small\" id=\"lat-info\"></span>\n  </div>"
+              }
+            ],
+            "bodyScript": "  const svg = document.getElementById('lat-svg');\n  const pick = document.getElementById('lat-p');\n  const info = document.getElementById('lat-info');\n  const W=620, H=460, cx=W/2, cy=H/2;\n  const unit=36;  // pixels per lattice step\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1}));\n    // axis labels\n    const tx = SVG('text',{x:W-10,y:cy-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    tx.textContent='Re'; svg.appendChild(tx);\n    const ty = SVG('text',{x:cx+8,y:14,'text-anchor':'start','font-size':12,fill:'var(--mute)'});\n    ty.textContent='Im'; svg.appendChild(ty);\n\n    const p = +pick.value;\n    // circle |α|²=p\n    const R = unit*Math.sqrt(p);\n    const col = (p===2)?'var(--pink)' : ((p%4===1)?'var(--green)':'var(--yellow)');\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:col,'stroke-width':1.8,'stroke-dasharray':'4 3'}));\n    // lattice points\n    const xmax = Math.floor((W-cx)/unit), ymax = Math.floor((H-cy)/unit);\n    const hits = [];\n    for(let a=-xmax-1;a<=xmax+1;a++){\n      for(let b=-ymax-1;b<=ymax+1;b++){\n        const x = cx + a*unit, y = cy - b*unit;\n        if(x<-2||x>W+2||y<-2||y>H+2) continue;\n        const onCircle = (a*a+b*b===p);\n        const r = onCircle?5:2.2;\n        const fill = onCircle? col : 'var(--mute)';\n        svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill}));\n        if(onCircle && !(a===0&&b===0)) hits.push([a,b]);\n      }\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--blue)'}));\n    // annotate hits (unique up to ±) with labels\n    const labeled = new Set();\n    for(const [a,b] of hits){\n      const key = Math.abs(a)+':'+Math.abs(b);\n      if(labeled.has(key)) continue;\n      labeled.add(key);\n      if(a<0||(a===0&&b<0)) continue;\n      const x = cx + a*unit, y = cy - b*unit;\n      const t = SVG('text',{x:x+9,y:y-6,'font-size':12,fill:col});\n      t.textContent = `${a}${b>=0?'+':''}${b}i`;\n      svg.appendChild(t);\n    }\n    const kind = (p===2)?'ramified, (2)=(1+i)²·(-i)'\n               : (p%4===1)?`split, (${p})=(a+bi)(a-bi) with ${p}=${hits.length?Math.abs(hits[0][0]):'?'}²+${hits.length?Math.abs(hits[0][1]):'?'}²`\n               : `inert (no lattice points on circle): ${p}≡3 (mod 4)`;\n    info.textContent = kind;\n  }\n  pick.addEventListener('change', render);\n  render();",
+            "hint": "circles $|\\alpha|^2 = p$ for small primes",
+            "svgId": "lat-svg",
+            "viewBox": "0 0 620 460"
+          }
         },
         {
           "type": "raw",
@@ -171,8 +219,28 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lattice",
-          "html": "<script>\n(function(){\n  const svg = document.getElementById('lat-svg');\n  const pick = document.getElementById('lat-p');\n  const info = document.getElementById('lat-info');\n  const W=620, H=460, cx=W/2, cy=H/2;\n  const unit=36;  // pixels per lattice step\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1}));\n    // axis labels\n    const tx = SVG('text',{x:W-10,y:cy-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    tx.textContent='Re'; svg.appendChild(tx);\n    const ty = SVG('text',{x:cx+8,y:14,'text-anchor':'start','font-size':12,fill:'var(--mute)'});\n    ty.textContent='Im'; svg.appendChild(ty);\n\n    const p = +pick.value;\n    // circle |α|²=p\n    const R = unit*Math.sqrt(p);\n    const col = (p===2)?'var(--pink)' : ((p%4===1)?'var(--green)':'var(--yellow)');\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:col,'stroke-width':1.8,'stroke-dasharray':'4 3'}));\n    // lattice points\n    const xmax = Math.floor((W-cx)/unit), ymax = Math.floor((H-cy)/unit);\n    const hits = [];\n    for(let a=-xmax-1;a<=xmax+1;a++){\n      for(let b=-ymax-1;b<=ymax+1;b++){\n        const x = cx + a*unit, y = cy - b*unit;\n        if(x<-2||x>W+2||y<-2||y>H+2) continue;\n        const onCircle = (a*a+b*b===p);\n        const r = onCircle?5:2.2;\n        const fill = onCircle? col : 'var(--mute)';\n        svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill}));\n        if(onCircle && !(a===0&&b===0)) hits.push([a,b]);\n      }\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--blue)'}));\n    // annotate hits (unique up to ±) with labels\n    const labeled = new Set();\n    for(const [a,b] of hits){\n      const key = Math.abs(a)+':'+Math.abs(b);\n      if(labeled.has(key)) continue;\n      labeled.add(key);\n      if(a<0||(a===0&&b<0)) continue;\n      const x = cx + a*unit, y = cy - b*unit;\n      const t = SVG('text',{x:x+9,y:y-6,'font-size':12,fill:col});\n      t.textContent = `${a}${b>=0?'+':''}${b}i`;\n      svg.appendChild(t);\n    }\n    const kind = (p===2)?'ramified, (2)=(1+i)²·(-i)'\n               : (p%4===1)?`split, (${p})=(a+bi)(a-bi) with ${p}=${hits.length?Math.abs(hits[0][0]):'?'}²+${hits.length?Math.abs(hits[0][1]):'?'}²`\n               : `inert (no lattice points on circle): ${p}≡3 (mod 4)`;\n    info.textContent = kind;\n  }\n  pick.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lattice",
+            "title": "Gaussian integer lattice",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lat-svg",
+                "viewBox": "0 0 620 460",
+                "width": 620,
+                "height": 460
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>highlight $p=$</label>\n    <select id=\"lat-p\">\n      <option value=\"2\">2 (ramified)</option>\n      <option value=\"3\">3 (inert)</option>\n      <option value=\"5\" selected>5 (split)</option>\n      <option value=\"7\">7 (inert)</option>\n      <option value=\"11\">11 (inert)</option>\n      <option value=\"13\">13 (split)</option>\n      <option value=\"17\">17 (split)</option>\n      <option value=\"19\">19 (inert)</option>\n    </select>\n    <span class=\"small\" id=\"lat-info\"></span>\n  </div>"
+              }
+            ],
+            "bodyScript": "  const svg = document.getElementById('lat-svg');\n  const pick = document.getElementById('lat-p');\n  const info = document.getElementById('lat-info');\n  const W=620, H=460, cx=W/2, cy=H/2;\n  const unit=36;  // pixels per lattice step\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1}));\n    // axis labels\n    const tx = SVG('text',{x:W-10,y:cy-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    tx.textContent='Re'; svg.appendChild(tx);\n    const ty = SVG('text',{x:cx+8,y:14,'text-anchor':'start','font-size':12,fill:'var(--mute)'});\n    ty.textContent='Im'; svg.appendChild(ty);\n\n    const p = +pick.value;\n    // circle |α|²=p\n    const R = unit*Math.sqrt(p);\n    const col = (p===2)?'var(--pink)' : ((p%4===1)?'var(--green)':'var(--yellow)');\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:col,'stroke-width':1.8,'stroke-dasharray':'4 3'}));\n    // lattice points\n    const xmax = Math.floor((W-cx)/unit), ymax = Math.floor((H-cy)/unit);\n    const hits = [];\n    for(let a=-xmax-1;a<=xmax+1;a++){\n      for(let b=-ymax-1;b<=ymax+1;b++){\n        const x = cx + a*unit, y = cy - b*unit;\n        if(x<-2||x>W+2||y<-2||y>H+2) continue;\n        const onCircle = (a*a+b*b===p);\n        const r = onCircle?5:2.2;\n        const fill = onCircle? col : 'var(--mute)';\n        svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill}));\n        if(onCircle && !(a===0&&b===0)) hits.push([a,b]);\n      }\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx,cy,r:3,fill:'var(--blue)'}));\n    // annotate hits (unique up to ±) with labels\n    const labeled = new Set();\n    for(const [a,b] of hits){\n      const key = Math.abs(a)+':'+Math.abs(b);\n      if(labeled.has(key)) continue;\n      labeled.add(key);\n      if(a<0||(a===0&&b<0)) continue;\n      const x = cx + a*unit, y = cy - b*unit;\n      const t = SVG('text',{x:x+9,y:y-6,'font-size':12,fill:col});\n      t.textContent = `${a}${b>=0?'+':''}${b}i`;\n      svg.appendChild(t);\n    }\n    const kind = (p===2)?'ramified, (2)=(1+i)²·(-i)'\n               : (p%4===1)?`split, (${p})=(a+bi)(a-bi) with ${p}=${hits.length?Math.abs(hits[0][0]):'?'}²+${hits.length?Math.abs(hits[0][1]):'?'}²`\n               : `inert (no lattice points on circle): ${p}≡3 (mod 4)`;\n    info.textContent = kind;\n  }\n  pick.addEventListener('change', render);\n  render();",
+            "hint": "circles $|\\alpha|^2 = p$ for small primes",
+            "svgId": "lat-svg",
+            "viewBox": "0 0 620 460"
+          }
         },
         {
           "type": "raw",
@@ -268,9 +336,33 @@
         },
         {
           "type": "widget",
-          "id": "w-three",
-          "html": "<div class=\"widget\" id=\"w-three\">\n  <div class=\"hd\"><div class=\"ttl\">Three-squares: excluded integers</div><div class=\"hint\">red = $4^a(8b+7)$, not a sum of three squares</div></div>\n  <svg id=\"three-svg\" viewBox=\"0 0 620 160\" width=\"620\" height=\"160\"><title>Three-squares: excluded integers</title></svg>\n  <div class=\"row\">\n    <label for=\"th-n\">check $n =$</label>\n    <input type=\"number\" id=\"th-n\" value=\"28\" min=\"0\" max=\"2000\" style=\"width:7em\">\n    <button id=\"th-go\">check</button>\n  </div>\n  <div class=\"readout\" id=\"th-out\"></div>\n</div>",
-          "script": null
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-three",
+            "title": "Three-squares: excluded integers",
+            "inputs": [
+              {
+                "id": "th-n",
+                "type": "number",
+                "value": "28",
+                "min": "0",
+                "max": "2000",
+                "style": "width:7em",
+                "label": "check $n =$"
+              }
+            ],
+            "button": {
+              "id": "th-go",
+              "text": "check"
+            },
+            "readoutId": "th-out",
+            "bodyScript": "  function isExcluded(n){\n    if(n<=0) return false;\n    let m=n;\n    while(m%4===0) m/=4;\n    return m%8===7;\n  }\n  function r3(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++)\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    return c;\n  }\n  function oneRep3(n){\n    if(n===0) return '0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++){\n      const r=n-a*a-b*b; if(r<0) break;\n      const c=Math.round(Math.sqrt(r));\n      if(c>=b && c*c===r) return `${a}² + ${b}² + ${c}²`;\n    }\n    return null;\n  }\n  // draw number line 0..200, mark excluded red, others small tick\n  const svg = document.getElementById('three-svg');\n  const W=620, H=160;\n  const N=200;\n  const xof = n => 20 + (n/N)*(W-40);\n  const yLine = 100;\n  // line\n  svg.appendChild(SVG('line',{x1:20,y1:yLine,x2:W-20,y2:yLine,stroke:'var(--line)','stroke-width':1.5}));\n  // ticks every 20\n  for(let n=0;n<=N;n+=20){\n    svg.appendChild(SVG('line',{x1:xof(n),y1:yLine-5,x2:xof(n),y2:yLine+5,stroke:'var(--mute)','stroke-width':1}));\n    const t = SVG('text',{x:xof(n),y:yLine+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = n; svg.appendChild(t);\n  }\n  // excluded marks\n  for(let n=0;n<=N;n++){\n    if(isExcluded(n)){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-14,r:4,fill:'var(--pink)'}));\n      const t = SVG('text',{x:xof(n),y:yLine-22,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n      t.textContent = n;\n      svg.appendChild(t);\n    } else if(n>0){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-8,r:1.6,fill:'var(--green)'}));\n    }\n  }\n  // title\n  const lbl = SVG('text',{x:20,y:30,'font-size':13,fill:'var(--mute)'});\n  lbl.textContent = 'Red: excluded (of form 4ᵃ(8b+7)).  Green dots: sums of three squares.';\n  svg.appendChild(lbl);\n\n  const go=document.getElementById('th-go'), out=document.getElementById('th-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('th-n').value|0));\n    const ex = isExcluded(n);\n    if(ex){\n      let m=n, a=0; while(m%4===0){ m/=4; a++; }\n      const b = (m-7)/8;\n      out.textContent = `n = ${n} = 4^${a}·(8·${b}+7) — EXCLUDED\\nr₃(${n}) = 0.`;\n    } else {\n      const rep = oneRep3(n);\n      out.textContent = `n = ${n} — NOT of form 4ᵃ(8b+7)\\none rep: ${n} = ${rep}\\nr₃(${n}) = ${r3(n)}`;\n    }\n  }\n  go.addEventListener('click', render);\n  document.getElementById('th-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();",
+            "hint": "red = $4^a(8b+7)$, not a sum of three squares",
+            "svgId": "three-svg",
+            "viewBox": "0 0 620 160",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "160"
+          }
         },
         {
           "type": "raw",
@@ -287,8 +379,33 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-three",
-          "html": "<script>\n(function(){\n  function isExcluded(n){\n    if(n<=0) return false;\n    let m=n;\n    while(m%4===0) m/=4;\n    return m%8===7;\n  }\n  function r3(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++)\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    return c;\n  }\n  function oneRep3(n){\n    if(n===0) return '0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++){\n      const r=n-a*a-b*b; if(r<0) break;\n      const c=Math.round(Math.sqrt(r));\n      if(c>=b && c*c===r) return `${a}² + ${b}² + ${c}²`;\n    }\n    return null;\n  }\n  // draw number line 0..200, mark excluded red, others small tick\n  const svg = document.getElementById('three-svg');\n  const W=620, H=160;\n  const N=200;\n  const xof = n => 20 + (n/N)*(W-40);\n  const yLine = 100;\n  // line\n  svg.appendChild(SVG('line',{x1:20,y1:yLine,x2:W-20,y2:yLine,stroke:'var(--line)','stroke-width':1.5}));\n  // ticks every 20\n  for(let n=0;n<=N;n+=20){\n    svg.appendChild(SVG('line',{x1:xof(n),y1:yLine-5,x2:xof(n),y2:yLine+5,stroke:'var(--mute)','stroke-width':1}));\n    const t = SVG('text',{x:xof(n),y:yLine+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = n; svg.appendChild(t);\n  }\n  // excluded marks\n  for(let n=0;n<=N;n++){\n    if(isExcluded(n)){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-14,r:4,fill:'var(--pink)'}));\n      const t = SVG('text',{x:xof(n),y:yLine-22,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n      t.textContent = n;\n      svg.appendChild(t);\n    } else if(n>0){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-8,r:1.6,fill:'var(--green)'}));\n    }\n  }\n  // title\n  const lbl = SVG('text',{x:20,y:30,'font-size':13,fill:'var(--mute)'});\n  lbl.textContent = 'Red: excluded (of form 4ᵃ(8b+7)).  Green dots: sums of three squares.';\n  svg.appendChild(lbl);\n\n  const go=document.getElementById('th-go'), out=document.getElementById('th-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('th-n').value|0));\n    const ex = isExcluded(n);\n    if(ex){\n      let m=n, a=0; while(m%4===0){ m/=4; a++; }\n      const b = (m-7)/8;\n      out.textContent = `n = ${n} = 4^${a}·(8·${b}+7) — EXCLUDED\\nr₃(${n}) = 0.`;\n    } else {\n      const rep = oneRep3(n);\n      out.textContent = `n = ${n} — NOT of form 4ᵃ(8b+7)\\none rep: ${n} = ${rep}\\nr₃(${n}) = ${r3(n)}`;\n    }\n  }\n  go.addEventListener('click', render);\n  document.getElementById('th-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();\n</script>"
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-three",
+            "title": "Three-squares: excluded integers",
+            "inputs": [
+              {
+                "id": "th-n",
+                "type": "number",
+                "value": "28",
+                "min": "0",
+                "max": "2000",
+                "style": "width:7em",
+                "label": "check $n =$"
+              }
+            ],
+            "button": {
+              "id": "th-go",
+              "text": "check"
+            },
+            "readoutId": "th-out",
+            "bodyScript": "  function isExcluded(n){\n    if(n<=0) return false;\n    let m=n;\n    while(m%4===0) m/=4;\n    return m%8===7;\n  }\n  function r3(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++)\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    return c;\n  }\n  function oneRep3(n){\n    if(n===0) return '0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++){\n      const r=n-a*a-b*b; if(r<0) break;\n      const c=Math.round(Math.sqrt(r));\n      if(c>=b && c*c===r) return `${a}² + ${b}² + ${c}²`;\n    }\n    return null;\n  }\n  // draw number line 0..200, mark excluded red, others small tick\n  const svg = document.getElementById('three-svg');\n  const W=620, H=160;\n  const N=200;\n  const xof = n => 20 + (n/N)*(W-40);\n  const yLine = 100;\n  // line\n  svg.appendChild(SVG('line',{x1:20,y1:yLine,x2:W-20,y2:yLine,stroke:'var(--line)','stroke-width':1.5}));\n  // ticks every 20\n  for(let n=0;n<=N;n+=20){\n    svg.appendChild(SVG('line',{x1:xof(n),y1:yLine-5,x2:xof(n),y2:yLine+5,stroke:'var(--mute)','stroke-width':1}));\n    const t = SVG('text',{x:xof(n),y:yLine+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = n; svg.appendChild(t);\n  }\n  // excluded marks\n  for(let n=0;n<=N;n++){\n    if(isExcluded(n)){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-14,r:4,fill:'var(--pink)'}));\n      const t = SVG('text',{x:xof(n),y:yLine-22,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n      t.textContent = n;\n      svg.appendChild(t);\n    } else if(n>0){\n      svg.appendChild(SVG('circle',{cx:xof(n),cy:yLine-8,r:1.6,fill:'var(--green)'}));\n    }\n  }\n  // title\n  const lbl = SVG('text',{x:20,y:30,'font-size':13,fill:'var(--mute)'});\n  lbl.textContent = 'Red: excluded (of form 4ᵃ(8b+7)).  Green dots: sums of three squares.';\n  svg.appendChild(lbl);\n\n  const go=document.getElementById('th-go'), out=document.getElementById('th-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('th-n').value|0));\n    const ex = isExcluded(n);\n    if(ex){\n      let m=n, a=0; while(m%4===0){ m/=4; a++; }\n      const b = (m-7)/8;\n      out.textContent = `n = ${n} = 4^${a}·(8·${b}+7) — EXCLUDED\\nr₃(${n}) = 0.`;\n    } else {\n      const rep = oneRep3(n);\n      out.textContent = `n = ${n} — NOT of form 4ᵃ(8b+7)\\none rep: ${n} = ${rep}\\nr₃(${n}) = ${r3(n)}`;\n    }\n  }\n  go.addEventListener('click', render);\n  document.getElementById('th-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();",
+            "hint": "red = $4^a(8b+7)$, not a sum of three squares",
+            "svgId": "three-svg",
+            "viewBox": "0 0 620 160",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "160"
+          }
         },
         {
           "type": "raw",
@@ -384,9 +501,25 @@
         },
         {
           "type": "widget",
-          "id": "w-waring",
-          "html": "<div class=\"widget\" id=\"w-waring\">\n  <div class=\"hd\"><div class=\"ttl\">Waring constants</div><div class=\"hint\">click a row for a decomposition of a random $n$</div></div>\n  <table class=\"plain\" id=\"waring-tbl\"><thead>\n    <tr><th>$k$</th><th>$g(k)$</th><th>$G(k)$</th><th>note</th></tr>\n  </thead><tbody></tbody></table>\n  <div class=\"readout\" id=\"waring-out\">click a row…</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-waring",
+            "title": "Waring constants",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<table class=\"plain\" id=\"waring-tbl\"><thead>\n    <tr><th>$k$</th><th>$g(k)$</th><th>$G(k)$</th><th>note</th></tr>\n  </thead><tbody></tbody></table>"
+              },
+              {
+                "kind": "readout",
+                "id": "waring-out",
+                "content": "click a row…"
+              }
+            ],
+            "bodyScript": "  const rows = [\n    {k:2, g:'4 (Lagrange)',         G:'4',      note:'Legendre–Gauss rules out $4^a(8b+7)$ for three'},\n    {k:3, g:'9',                    G:'4–7',    note:'$23=2\\\\cdot 2^3+7\\\\cdot 1^3$ needs 9 cubes; $G(3)\\\\le 7$ (Linnik)'},\n    {k:4, g:'19',                   G:'16',     note:'$79$ needs 19 fourth powers'},\n    {k:5, g:'37',                   G:'6–17',   note:'classical, still some open bounds on $G$'},\n    {k:6, g:'73',                   G:'9–24',   note:''},\n    {k:7, g:'143',                  G:'8–33',   note:''},\n    {k:8, g:'279',                  G:'32–42',  note:''}\n  ];\n  function powers(k,lim){\n    const arr=[0]; for(let x=1; ;x++){ const v=Math.pow(x,k); if(v>lim) break; arr.push(v); } return arr;\n  }\n  function decompose(n, k, s){\n    // greedy then backtracking: find s k-th powers summing to n\n    const P = powers(k, n);\n    const found = [];\n    function go(rem, left, start){\n      if(left===0) return rem===0;\n      if(rem<0) return false;\n      for(let i=P.length-1;i>=0;i--){\n        const p = P[i];\n        if(p>rem) continue;\n        found.push(Math.round(Math.pow(p,1/k)));\n        if(go(rem-p, left-1, i)) return true;\n        found.pop();\n      }\n      return false;\n    }\n    if(go(n, s, P.length-1)) return found.filter(x=>x>0);\n    return null;\n  }\n  function minPowers(n, k){\n    // BFS / iterative deepening: smallest s\n    for(let s=1; s<=40; s++){\n      const r = decompose(n, k, s);\n      if(r) return {s, rep:r};\n    }\n    return null;\n  }\n  const tb = document.querySelector('#waring-tbl tbody');\n  const out = document.getElementById('waring-out');\n  rows.forEach(r=>{\n    const tr = document.createElement('tr');\n    tr.style.cursor='pointer';\n    tr.innerHTML = `<td class=\"num\">${r.k}</td><td>${r.g}</td><td>${r.G}</td><td class=\"small\">${r.note}</td>`;\n    tr.addEventListener('click', ()=>{\n      const k = r.k;\n      // pick a random n in a small range\n      const maxN = Math.min(200, Math.floor(Math.pow(50,k/2)));\n      const n = 5 + Math.floor(Math.random()*maxN);\n      const res = minPowers(n, k);\n      if(!res){ out.textContent = `no decomposition found within search bounds for n=${n}, k=${k}.`; return; }\n      out.textContent =\n        `k = ${k},  n = ${n}\\n`+\n        `minimum # of ${k}-th powers found: ${res.s}\\n`+\n        `decomposition: ${n} = ${res.rep.map(x=>`${x}^${k}`).join(' + ')}`;\n    });\n    tb.appendChild(tr);\n  });",
+            "hint": "click a row for a decomposition of a random $n$",
+            "readoutId": "waring-out"
+          }
         },
         {
           "type": "raw",
@@ -403,8 +536,25 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-waring",
-          "html": "<script>\n(function(){\n  const rows = [\n    {k:2, g:'4 (Lagrange)',         G:'4',      note:'Legendre–Gauss rules out $4^a(8b+7)$ for three'},\n    {k:3, g:'9',                    G:'4–7',    note:'$23=2\\\\cdot 2^3+7\\\\cdot 1^3$ needs 9 cubes; $G(3)\\\\le 7$ (Linnik)'},\n    {k:4, g:'19',                   G:'16',     note:'$79$ needs 19 fourth powers'},\n    {k:5, g:'37',                   G:'6–17',   note:'classical, still some open bounds on $G$'},\n    {k:6, g:'73',                   G:'9–24',   note:''},\n    {k:7, g:'143',                  G:'8–33',   note:''},\n    {k:8, g:'279',                  G:'32–42',  note:''}\n  ];\n  function powers(k,lim){\n    const arr=[0]; for(let x=1; ;x++){ const v=Math.pow(x,k); if(v>lim) break; arr.push(v); } return arr;\n  }\n  function decompose(n, k, s){\n    // greedy then backtracking: find s k-th powers summing to n\n    const P = powers(k, n);\n    const found = [];\n    function go(rem, left, start){\n      if(left===0) return rem===0;\n      if(rem<0) return false;\n      for(let i=P.length-1;i>=0;i--){\n        const p = P[i];\n        if(p>rem) continue;\n        found.push(Math.round(Math.pow(p,1/k)));\n        if(go(rem-p, left-1, i)) return true;\n        found.pop();\n      }\n      return false;\n    }\n    if(go(n, s, P.length-1)) return found.filter(x=>x>0);\n    return null;\n  }\n  function minPowers(n, k){\n    // BFS / iterative deepening: smallest s\n    for(let s=1; s<=40; s++){\n      const r = decompose(n, k, s);\n      if(r) return {s, rep:r};\n    }\n    return null;\n  }\n  const tb = document.querySelector('#waring-tbl tbody');\n  const out = document.getElementById('waring-out');\n  rows.forEach(r=>{\n    const tr = document.createElement('tr');\n    tr.style.cursor='pointer';\n    tr.innerHTML = `<td class=\"num\">${r.k}</td><td>${r.g}</td><td>${r.G}</td><td class=\"small\">${r.note}</td>`;\n    tr.addEventListener('click', ()=>{\n      const k = r.k;\n      // pick a random n in a small range\n      const maxN = Math.min(200, Math.floor(Math.pow(50,k/2)));\n      const n = 5 + Math.floor(Math.random()*maxN);\n      const res = minPowers(n, k);\n      if(!res){ out.textContent = `no decomposition found within search bounds for n=${n}, k=${k}.`; return; }\n      out.textContent =\n        `k = ${k},  n = ${n}\\n`+\n        `minimum # of ${k}-th powers found: ${res.s}\\n`+\n        `decomposition: ${n} = ${res.rep.map(x=>`${x}^${k}`).join(' + ')}`;\n    });\n    tb.appendChild(tr);\n  });\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-waring",
+            "title": "Waring constants",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<table class=\"plain\" id=\"waring-tbl\"><thead>\n    <tr><th>$k$</th><th>$g(k)$</th><th>$G(k)$</th><th>note</th></tr>\n  </thead><tbody></tbody></table>"
+              },
+              {
+                "kind": "readout",
+                "id": "waring-out",
+                "content": "click a row…"
+              }
+            ],
+            "bodyScript": "  const rows = [\n    {k:2, g:'4 (Lagrange)',         G:'4',      note:'Legendre–Gauss rules out $4^a(8b+7)$ for three'},\n    {k:3, g:'9',                    G:'4–7',    note:'$23=2\\\\cdot 2^3+7\\\\cdot 1^3$ needs 9 cubes; $G(3)\\\\le 7$ (Linnik)'},\n    {k:4, g:'19',                   G:'16',     note:'$79$ needs 19 fourth powers'},\n    {k:5, g:'37',                   G:'6–17',   note:'classical, still some open bounds on $G$'},\n    {k:6, g:'73',                   G:'9–24',   note:''},\n    {k:7, g:'143',                  G:'8–33',   note:''},\n    {k:8, g:'279',                  G:'32–42',  note:''}\n  ];\n  function powers(k,lim){\n    const arr=[0]; for(let x=1; ;x++){ const v=Math.pow(x,k); if(v>lim) break; arr.push(v); } return arr;\n  }\n  function decompose(n, k, s){\n    // greedy then backtracking: find s k-th powers summing to n\n    const P = powers(k, n);\n    const found = [];\n    function go(rem, left, start){\n      if(left===0) return rem===0;\n      if(rem<0) return false;\n      for(let i=P.length-1;i>=0;i--){\n        const p = P[i];\n        if(p>rem) continue;\n        found.push(Math.round(Math.pow(p,1/k)));\n        if(go(rem-p, left-1, i)) return true;\n        found.pop();\n      }\n      return false;\n    }\n    if(go(n, s, P.length-1)) return found.filter(x=>x>0);\n    return null;\n  }\n  function minPowers(n, k){\n    // BFS / iterative deepening: smallest s\n    for(let s=1; s<=40; s++){\n      const r = decompose(n, k, s);\n      if(r) return {s, rep:r};\n    }\n    return null;\n  }\n  const tb = document.querySelector('#waring-tbl tbody');\n  const out = document.getElementById('waring-out');\n  rows.forEach(r=>{\n    const tr = document.createElement('tr');\n    tr.style.cursor='pointer';\n    tr.innerHTML = `<td class=\"num\">${r.k}</td><td>${r.g}</td><td>${r.G}</td><td class=\"small\">${r.note}</td>`;\n    tr.addEventListener('click', ()=>{\n      const k = r.k;\n      // pick a random n in a small range\n      const maxN = Math.min(200, Math.floor(Math.pow(50,k/2)));\n      const n = 5 + Math.floor(Math.random()*maxN);\n      const res = minPowers(n, k);\n      if(!res){ out.textContent = `no decomposition found within search bounds for n=${n}, k=${k}.`; return; }\n      out.textContent =\n        `k = ${k},  n = ${n}\\n`+\n        `minimum # of ${k}-th powers found: ${res.s}\\n`+\n        `decomposition: ${n} = ${res.rep.map(x=>`${x}^${k}`).join(' + ')}`;\n    });\n    tb.appendChild(tr);\n  });",
+            "hint": "click a row for a decomposition of a random $n$",
+            "readoutId": "waring-out"
+          }
         },
         {
           "type": "raw",
@@ -421,9 +571,30 @@
         },
         {
           "type": "widget",
-          "id": "w-hist",
-          "html": "<div class=\"widget\" id=\"w-hist\">\n  <div class=\"hd\"><div class=\"ttl\">$r_2(n)$ for $n=1..100$</div><div class=\"hint\">hover a bar to see a decomposition</div></div>\n  <svg id=\"hist-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>$r_2(n)$ for $n=1..100$</title></svg>\n  <div class=\"readout\" id=\"hist-out\">hover a bar…</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hist",
+            "title": "$r_2(n)$ for $n=1..100$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hist-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "hist-out",
+                "content": "hover a bar…"
+              }
+            ],
+            "bodyScript": "  function r2(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function reps(n){\n    const out=[]; const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) out.push([a,b]);\n    }\n    return out;\n  }\n  const svg = document.getElementById('hist-svg');\n  const out = document.getElementById('hist-out');\n  const W=620, H=240, pad=28;\n  const nMax=100;\n  let maxR = 0;\n  const data = [];\n  for(let n=1;n<=nMax;n++){ const v=r2(n); data.push(v); if(v>maxR) maxR=v; }\n  const bw = (W-2*pad)/nMax;\n  // axes\n  svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  svg.appendChild(SVG('line',{x1:pad,y1:pad/2,x2:pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  // y-ticks\n  for(let k=0;k<=maxR;k+=4){\n    const y = (H-pad) - (k/maxR)*(H-pad-pad/2);\n    svg.appendChild(SVG('line',{x1:pad-4,y1:y,x2:pad,y2:y,stroke:'var(--mute)','stroke-width':1}));\n    const t=SVG('text',{x:pad-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t.textContent=k; svg.appendChild(t);\n  }\n  // x ticks every 10\n  for(let n=10;n<=nMax;n+=10){\n    const x = pad + (n-0.5)*bw;\n    const t=SVG('text',{x,y:H-pad+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    t.textContent=n; svg.appendChild(t);\n  }\n  // bars\n  data.forEach((v,i)=>{\n    const n=i+1;\n    const x=pad + i*bw;\n    const h = maxR? (v/maxR)*(H-pad-pad/2) : 0;\n    const y = (H-pad)-h;\n    const col = v===0 ? 'var(--pink)' : 'var(--cyan)';\n    const bar = SVG('rect',{x:x+1,y,width:Math.max(1,bw-1.2),height:h,fill:col,opacity:0.85});\n    bar.addEventListener('mouseenter', ()=>{\n      const rs = reps(n);\n      const list = rs.length? rs.map(([a,b])=>`${a}²+${b}²`).join(', ') : '— none —';\n      out.textContent = `n=${n}  r₂=${v}  ·  reps (unordered, nonneg): ${list}`;\n    });\n    svg.appendChild(bar);\n  });\n  // label\n  const lbl = SVG('text',{x:W-pad,y:pad-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  lbl.textContent = 'pink bars: r₂=0 (bad prime q≡3 mod 4 to odd power)';\n  svg.appendChild(lbl);",
+            "hint": "hover a bar to see a decomposition",
+            "svgId": "hist-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "hist-out"
+          }
         },
         {
           "type": "raw",
@@ -431,8 +602,30 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-hist",
-          "html": "<script>\n(function(){\n  function r2(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function reps(n){\n    const out=[]; const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) out.push([a,b]);\n    }\n    return out;\n  }\n  const svg = document.getElementById('hist-svg');\n  const out = document.getElementById('hist-out');\n  const W=620, H=240, pad=28;\n  const nMax=100;\n  let maxR = 0;\n  const data = [];\n  for(let n=1;n<=nMax;n++){ const v=r2(n); data.push(v); if(v>maxR) maxR=v; }\n  const bw = (W-2*pad)/nMax;\n  // axes\n  svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  svg.appendChild(SVG('line',{x1:pad,y1:pad/2,x2:pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  // y-ticks\n  for(let k=0;k<=maxR;k+=4){\n    const y = (H-pad) - (k/maxR)*(H-pad-pad/2);\n    svg.appendChild(SVG('line',{x1:pad-4,y1:y,x2:pad,y2:y,stroke:'var(--mute)','stroke-width':1}));\n    const t=SVG('text',{x:pad-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t.textContent=k; svg.appendChild(t);\n  }\n  // x ticks every 10\n  for(let n=10;n<=nMax;n+=10){\n    const x = pad + (n-0.5)*bw;\n    const t=SVG('text',{x,y:H-pad+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    t.textContent=n; svg.appendChild(t);\n  }\n  // bars\n  data.forEach((v,i)=>{\n    const n=i+1;\n    const x=pad + i*bw;\n    const h = maxR? (v/maxR)*(H-pad-pad/2) : 0;\n    const y = (H-pad)-h;\n    const col = v===0 ? 'var(--pink)' : 'var(--cyan)';\n    const bar = SVG('rect',{x:x+1,y,width:Math.max(1,bw-1.2),height:h,fill:col,opacity:0.85});\n    bar.addEventListener('mouseenter', ()=>{\n      const rs = reps(n);\n      const list = rs.length? rs.map(([a,b])=>`${a}²+${b}²`).join(', ') : '— none —';\n      out.textContent = `n=${n}  r₂=${v}  ·  reps (unordered, nonneg): ${list}`;\n    });\n    svg.appendChild(bar);\n  });\n  // label\n  const lbl = SVG('text',{x:W-pad,y:pad-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  lbl.textContent = 'pink bars: r₂=0 (bad prime q≡3 mod 4 to odd power)';\n  svg.appendChild(lbl);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hist",
+            "title": "$r_2(n)$ for $n=1..100$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hist-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "hist-out",
+                "content": "hover a bar…"
+              }
+            ],
+            "bodyScript": "  function r2(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function reps(n){\n    const out=[]; const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) out.push([a,b]);\n    }\n    return out;\n  }\n  const svg = document.getElementById('hist-svg');\n  const out = document.getElementById('hist-out');\n  const W=620, H=240, pad=28;\n  const nMax=100;\n  let maxR = 0;\n  const data = [];\n  for(let n=1;n<=nMax;n++){ const v=r2(n); data.push(v); if(v>maxR) maxR=v; }\n  const bw = (W-2*pad)/nMax;\n  // axes\n  svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  svg.appendChild(SVG('line',{x1:pad,y1:pad/2,x2:pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  // y-ticks\n  for(let k=0;k<=maxR;k+=4){\n    const y = (H-pad) - (k/maxR)*(H-pad-pad/2);\n    svg.appendChild(SVG('line',{x1:pad-4,y1:y,x2:pad,y2:y,stroke:'var(--mute)','stroke-width':1}));\n    const t=SVG('text',{x:pad-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t.textContent=k; svg.appendChild(t);\n  }\n  // x ticks every 10\n  for(let n=10;n<=nMax;n+=10){\n    const x = pad + (n-0.5)*bw;\n    const t=SVG('text',{x,y:H-pad+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n    t.textContent=n; svg.appendChild(t);\n  }\n  // bars\n  data.forEach((v,i)=>{\n    const n=i+1;\n    const x=pad + i*bw;\n    const h = maxR? (v/maxR)*(H-pad-pad/2) : 0;\n    const y = (H-pad)-h;\n    const col = v===0 ? 'var(--pink)' : 'var(--cyan)';\n    const bar = SVG('rect',{x:x+1,y,width:Math.max(1,bw-1.2),height:h,fill:col,opacity:0.85});\n    bar.addEventListener('mouseenter', ()=>{\n      const rs = reps(n);\n      const list = rs.length? rs.map(([a,b])=>`${a}²+${b}²`).join(', ') : '— none —';\n      out.textContent = `n=${n}  r₂=${v}  ·  reps (unordered, nonneg): ${list}`;\n    });\n    svg.appendChild(bar);\n  });\n  // label\n  const lbl = SVG('text',{x:W-pad,y:pad-6,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  lbl.textContent = 'pink bars: r₂=0 (bad prime q≡3 mod 4 to odd power)';\n  svg.appendChild(lbl);",
+            "hint": "hover a bar to see a decomposition",
+            "svgId": "hist-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "hist-out"
+          }
         },
         {
           "type": "raw",

@@ -12,9 +12,100 @@
         },
         {
           "type": "widget",
-          "id": "w-metric",
-          "html": "<div class=\"widget\" id=\"w-metric\">\n  <div class=\"hd\"><div class=\"ttl\">Open balls in four metrics</div><div class=\"hint\">drag the blue point · slide $\\varepsilon$ · flip the metric</div></div>\n  <svg id=\"met-svg\" viewBox=\"0 0 640 360\" width=\"640\" height=\"360\"><title>Open balls in four metrics</title></svg>\n  <div class=\"row\">\n    <label>metric</label>\n    <button data-met=\"e\" class=\"active\">Euclidean $d_2$</button>\n    <button data-met=\"t\">taxicab $d_1$</button>\n    <button data-met=\"s\">sup $d_\\infty$</button>\n    <button data-met=\"d\">discrete</button>\n  </div>\n  <div class=\"row\">\n    <label for=\"met-eps\">$\\varepsilon$</label>\n    <input type=\"range\" id=\"met-eps\" min=\"0.1\" max=\"4\" step=\"0.05\" value=\"1.3\"/>\n    <span class=\"small\" id=\"met-epsv\">1.30</span>\n  </div>\n  <div class=\"readout\" id=\"met-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-metric",
+            "title": "Open balls in four metrics",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "met-svg",
+                "viewBox": "0 0 640 360",
+                "width": 640,
+                "height": 360
+              },
+              {
+                "kind": "row",
+                "label": "metric",
+                "buttons": [
+                  {
+                    "label": "Euclidean $d_2$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "e"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "taxicab $d_1$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "t"
+                    }
+                  },
+                  {
+                    "label": "sup $d_\\infty$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "s"
+                    }
+                  },
+                  {
+                    "label": "discrete",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "d"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"met-eps\">$\\varepsilon$</label>\n    <input type=\"range\" id=\"met-eps\" min=\"0.1\" max=\"4\" step=\"0.05\" value=\"1.3\"/>\n    <span class=\"small\" id=\"met-epsv\">1.30</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "met-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#met-svg'), out=$('#met-out'), eps=$('#met-eps'), epsv=$('#met-epsv');\n  let metric='e';\n  let cx=0, cy=0; // in math coords\n  const W=640, H=360;\n  const scale=60; // pixels per unit\n  function toPx(x,y){ return [W/2 + x*scale, H/2 - y*scale]; }\n  function toMath(px,py){ return [(px-W/2)/scale, -(py-H/2)/scale]; }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid\n    const grid = SVG('g');\n    for(let i=-5;i<=5;i++){\n      const [px0,py0]=toPx(i,-3), [px1,py1]=toPx(i,3);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    for(let j=-3;j<=3;j++){\n      const [px0,py0]=toPx(-5,j), [px1,py1]=toPx(5,j);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    // axes\n    const [ax0,ay0]=toPx(-5,0), [ax1,ay1]=toPx(5,0);\n    grid.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.8}));\n    const [bx0,by0]=toPx(0,-3), [bx1,by1]=toPx(0,3);\n    grid.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--mute)','stroke-width':0.8}));\n    svg.appendChild(grid);\n\n    const e = parseFloat(eps.value);\n    const [pcx,pcy]=toPx(cx,cy);\n    // draw the open ball\n    let shape, shapeText;\n    if(metric==='e'){\n      shape = SVG('circle',{cx:pcx,cy:pcy,r:e*scale,\n        fill:'rgba(88,196,221,0.18)',stroke:'var(--blue)','stroke-width':1.5});\n      shapeText='disk';\n    } else if(metric==='t'){\n      // taxicab: |x-cx|+|y-cy|<e → diamond\n      const pts=[\n        toPx(cx+e,cy),toPx(cx,cy+e),toPx(cx-e,cy),toPx(cx,cy-e)\n      ].map(p=>p.join(',')).join(' ');\n      shape = SVG('polygon',{points:pts,\n        fill:'rgba(255,216,102,0.18)',stroke:'var(--yellow)','stroke-width':1.5});\n      shapeText='diamond (rotated square)';\n    } else if(metric==='s'){\n      const [x0,y0]=toPx(cx-e,cy+e), [x1,y1]=toPx(cx+e,cy-e);\n      shape = SVG('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,\n        fill:'rgba(131,193,103,0.18)',stroke:'var(--green)','stroke-width':1.5});\n      shapeText='axis-aligned square';\n    } else {\n      // discrete: if e<=1, ball={center}; if e>1, all of X (draw big translucent frame)\n      if(e<=1){\n        shape = SVG('circle',{cx:pcx,cy:pcy,r:5,\n          fill:'var(--pink)',stroke:'var(--pink)','stroke-width':1.5});\n        shapeText='singleton {x}';\n      } else {\n        shape = SVG('rect',{x:0,y:0,width:W,height:H,\n          fill:'rgba(224,122,95,0.12)',stroke:'var(--pink)','stroke-width':1.5,\n          'stroke-dasharray':'6 4'});\n        shapeText='all of X';\n      }\n    }\n    svg.appendChild(shape);\n    // center point\n    svg.appendChild(SVG('circle',{cx:pcx,cy:pcy,r:5,fill:'var(--blue)','stroke':'#fff','stroke-width':1.5,\n      style:'cursor:grab','data-drag':'1'}));\n    const lbl = SVG('text',{x:pcx+8,y:pcy-8,'font-size':12,fill:'var(--ink)'});\n    lbl.textContent = `x=(${cx.toFixed(2)}, ${cy.toFixed(2)})`;\n    svg.appendChild(lbl);\n\n    epsv.textContent = e.toFixed(2);\n    const mNames = {e:'Euclidean', t:'taxicab', s:'sup', d:'discrete'};\n    out.textContent =\n      `metric: ${mNames[metric]}\\n` +\n      `open ball B(x,ε) of radius ε=${e.toFixed(2)}\\n` +\n      `shape: ${shapeText}\\n\\n` +\n      (metric==='d'\n        ? 'Discrete metric: every singleton is open, so every subset is open. This is a genuinely different topology — sequences converge only if eventually constant.'\n        : 'Euclidean, taxicab, and sup metrics on ℝ² have different ball shapes but generate the SAME topology — any taxicab ball contains a smaller Euclidean ball and vice versa. Topology sees only which sets are open, not which metric you used.');\n  }\n\n  // dragging\n  let dragging=false;\n  svg.addEventListener('pointerdown',e=>{\n    if(e.target.getAttribute('data-drag')){\n      dragging=true; svg.setPointerCapture(e.pointerId);\n    }\n  });\n  svg.addEventListener('pointermove',e=>{\n    if(!dragging) return;\n    const rect = svg.getBoundingClientRect();\n    const sx = W/rect.width, sy = H/rect.height;\n    const px = (e.clientX-rect.left)*sx, py=(e.clientY-rect.top)*sy;\n    [cx,cy] = toMath(px,py);\n    cx = Math.max(-4.5, Math.min(4.5, cx));\n    cy = Math.max(-2.5, Math.min(2.5, cy));\n    render();\n  });\n  svg.addEventListener('pointerup',e=>{ dragging=false; });\n  svg.addEventListener('pointercancel',e=>{ dragging=false; });\n\n  eps.addEventListener('input',render);\n  $$('[data-met]').forEach(b=>{\n    b.addEventListener('click',()=>{\n      metric = b.getAttribute('data-met');\n      $$('[data-met]').forEach(x=>x.classList.remove('active'));\n      b.classList.add('active');\n      render();\n    });\n  });\n  render();",
+            "hint": "drag the blue point · slide $\\varepsilon$ · flip the metric",
+            "buttons": [
+              {
+                "label": "Euclidean $d_2$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "e"
+                },
+                "className": "active"
+              },
+              {
+                "label": "taxicab $d_1$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "t"
+                }
+              },
+              {
+                "label": "sup $d_\\infty$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "s"
+                }
+              },
+              {
+                "label": "discrete",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "d"
+                }
+              }
+            ],
+            "sectionComment": "=============================== SECTION 1 widget ===============================",
+            "svgId": "met-svg",
+            "viewBox": "0 0 640 360",
+            "readoutId": "met-out"
+          }
         },
         {
           "type": "raw",
@@ -31,8 +122,100 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-metric",
-          "html": "<script>\n/* =============================== SECTION 1 widget =============================== */\n(function(){\n  const svg=$('#met-svg'), out=$('#met-out'), eps=$('#met-eps'), epsv=$('#met-epsv');\n  let metric='e';\n  let cx=0, cy=0; // in math coords\n  const W=640, H=360;\n  const scale=60; // pixels per unit\n  function toPx(x,y){ return [W/2 + x*scale, H/2 - y*scale]; }\n  function toMath(px,py){ return [(px-W/2)/scale, -(py-H/2)/scale]; }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid\n    const grid = SVG('g');\n    for(let i=-5;i<=5;i++){\n      const [px0,py0]=toPx(i,-3), [px1,py1]=toPx(i,3);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    for(let j=-3;j<=3;j++){\n      const [px0,py0]=toPx(-5,j), [px1,py1]=toPx(5,j);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    // axes\n    const [ax0,ay0]=toPx(-5,0), [ax1,ay1]=toPx(5,0);\n    grid.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.8}));\n    const [bx0,by0]=toPx(0,-3), [bx1,by1]=toPx(0,3);\n    grid.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--mute)','stroke-width':0.8}));\n    svg.appendChild(grid);\n\n    const e = parseFloat(eps.value);\n    const [pcx,pcy]=toPx(cx,cy);\n    // draw the open ball\n    let shape, shapeText;\n    if(metric==='e'){\n      shape = SVG('circle',{cx:pcx,cy:pcy,r:e*scale,\n        fill:'rgba(88,196,221,0.18)',stroke:'var(--blue)','stroke-width':1.5});\n      shapeText='disk';\n    } else if(metric==='t'){\n      // taxicab: |x-cx|+|y-cy|<e → diamond\n      const pts=[\n        toPx(cx+e,cy),toPx(cx,cy+e),toPx(cx-e,cy),toPx(cx,cy-e)\n      ].map(p=>p.join(',')).join(' ');\n      shape = SVG('polygon',{points:pts,\n        fill:'rgba(255,216,102,0.18)',stroke:'var(--yellow)','stroke-width':1.5});\n      shapeText='diamond (rotated square)';\n    } else if(metric==='s'){\n      const [x0,y0]=toPx(cx-e,cy+e), [x1,y1]=toPx(cx+e,cy-e);\n      shape = SVG('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,\n        fill:'rgba(131,193,103,0.18)',stroke:'var(--green)','stroke-width':1.5});\n      shapeText='axis-aligned square';\n    } else {\n      // discrete: if e<=1, ball={center}; if e>1, all of X (draw big translucent frame)\n      if(e<=1){\n        shape = SVG('circle',{cx:pcx,cy:pcy,r:5,\n          fill:'var(--pink)',stroke:'var(--pink)','stroke-width':1.5});\n        shapeText='singleton {x}';\n      } else {\n        shape = SVG('rect',{x:0,y:0,width:W,height:H,\n          fill:'rgba(224,122,95,0.12)',stroke:'var(--pink)','stroke-width':1.5,\n          'stroke-dasharray':'6 4'});\n        shapeText='all of X';\n      }\n    }\n    svg.appendChild(shape);\n    // center point\n    svg.appendChild(SVG('circle',{cx:pcx,cy:pcy,r:5,fill:'var(--blue)','stroke':'#fff','stroke-width':1.5,\n      style:'cursor:grab','data-drag':'1'}));\n    const lbl = SVG('text',{x:pcx+8,y:pcy-8,'font-size':12,fill:'var(--ink)'});\n    lbl.textContent = `x=(${cx.toFixed(2)}, ${cy.toFixed(2)})`;\n    svg.appendChild(lbl);\n\n    epsv.textContent = e.toFixed(2);\n    const mNames = {e:'Euclidean', t:'taxicab', s:'sup', d:'discrete'};\n    out.textContent =\n      `metric: ${mNames[metric]}\\n` +\n      `open ball B(x,ε) of radius ε=${e.toFixed(2)}\\n` +\n      `shape: ${shapeText}\\n\\n` +\n      (metric==='d'\n        ? 'Discrete metric: every singleton is open, so every subset is open. This is a genuinely different topology — sequences converge only if eventually constant.'\n        : 'Euclidean, taxicab, and sup metrics on ℝ² have different ball shapes but generate the SAME topology — any taxicab ball contains a smaller Euclidean ball and vice versa. Topology sees only which sets are open, not which metric you used.');\n  }\n\n  // dragging\n  let dragging=false;\n  svg.addEventListener('pointerdown',e=>{\n    if(e.target.getAttribute('data-drag')){\n      dragging=true; svg.setPointerCapture(e.pointerId);\n    }\n  });\n  svg.addEventListener('pointermove',e=>{\n    if(!dragging) return;\n    const rect = svg.getBoundingClientRect();\n    const sx = W/rect.width, sy = H/rect.height;\n    const px = (e.clientX-rect.left)*sx, py=(e.clientY-rect.top)*sy;\n    [cx,cy] = toMath(px,py);\n    cx = Math.max(-4.5, Math.min(4.5, cx));\n    cy = Math.max(-2.5, Math.min(2.5, cy));\n    render();\n  });\n  svg.addEventListener('pointerup',e=>{ dragging=false; });\n  svg.addEventListener('pointercancel',e=>{ dragging=false; });\n\n  eps.addEventListener('input',render);\n  $$('[data-met]').forEach(b=>{\n    b.addEventListener('click',()=>{\n      metric = b.getAttribute('data-met');\n      $$('[data-met]').forEach(x=>x.classList.remove('active'));\n      b.classList.add('active');\n      render();\n    });\n  });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-metric",
+            "title": "Open balls in four metrics",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "met-svg",
+                "viewBox": "0 0 640 360",
+                "width": 640,
+                "height": 360
+              },
+              {
+                "kind": "row",
+                "label": "metric",
+                "buttons": [
+                  {
+                    "label": "Euclidean $d_2$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "e"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "taxicab $d_1$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "t"
+                    }
+                  },
+                  {
+                    "label": "sup $d_\\infty$",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "s"
+                    }
+                  },
+                  {
+                    "label": "discrete",
+                    "dataAttr": {
+                      "name": "data-met",
+                      "value": "d"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"met-eps\">$\\varepsilon$</label>\n    <input type=\"range\" id=\"met-eps\" min=\"0.1\" max=\"4\" step=\"0.05\" value=\"1.3\"/>\n    <span class=\"small\" id=\"met-epsv\">1.30</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "met-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#met-svg'), out=$('#met-out'), eps=$('#met-eps'), epsv=$('#met-epsv');\n  let metric='e';\n  let cx=0, cy=0; // in math coords\n  const W=640, H=360;\n  const scale=60; // pixels per unit\n  function toPx(x,y){ return [W/2 + x*scale, H/2 - y*scale]; }\n  function toMath(px,py){ return [(px-W/2)/scale, -(py-H/2)/scale]; }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid\n    const grid = SVG('g');\n    for(let i=-5;i<=5;i++){\n      const [px0,py0]=toPx(i,-3), [px1,py1]=toPx(i,3);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    for(let j=-3;j<=3;j++){\n      const [px0,py0]=toPx(-5,j), [px1,py1]=toPx(5,j);\n      grid.appendChild(SVG('line',{x1:px0,y1:py0,x2:px1,y2:py1,\n        stroke:'var(--line)','stroke-width':0.5}));\n    }\n    // axes\n    const [ax0,ay0]=toPx(-5,0), [ax1,ay1]=toPx(5,0);\n    grid.appendChild(SVG('line',{x1:ax0,y1:ay0,x2:ax1,y2:ay1,stroke:'var(--mute)','stroke-width':0.8}));\n    const [bx0,by0]=toPx(0,-3), [bx1,by1]=toPx(0,3);\n    grid.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by1,stroke:'var(--mute)','stroke-width':0.8}));\n    svg.appendChild(grid);\n\n    const e = parseFloat(eps.value);\n    const [pcx,pcy]=toPx(cx,cy);\n    // draw the open ball\n    let shape, shapeText;\n    if(metric==='e'){\n      shape = SVG('circle',{cx:pcx,cy:pcy,r:e*scale,\n        fill:'rgba(88,196,221,0.18)',stroke:'var(--blue)','stroke-width':1.5});\n      shapeText='disk';\n    } else if(metric==='t'){\n      // taxicab: |x-cx|+|y-cy|<e → diamond\n      const pts=[\n        toPx(cx+e,cy),toPx(cx,cy+e),toPx(cx-e,cy),toPx(cx,cy-e)\n      ].map(p=>p.join(',')).join(' ');\n      shape = SVG('polygon',{points:pts,\n        fill:'rgba(255,216,102,0.18)',stroke:'var(--yellow)','stroke-width':1.5});\n      shapeText='diamond (rotated square)';\n    } else if(metric==='s'){\n      const [x0,y0]=toPx(cx-e,cy+e), [x1,y1]=toPx(cx+e,cy-e);\n      shape = SVG('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,\n        fill:'rgba(131,193,103,0.18)',stroke:'var(--green)','stroke-width':1.5});\n      shapeText='axis-aligned square';\n    } else {\n      // discrete: if e<=1, ball={center}; if e>1, all of X (draw big translucent frame)\n      if(e<=1){\n        shape = SVG('circle',{cx:pcx,cy:pcy,r:5,\n          fill:'var(--pink)',stroke:'var(--pink)','stroke-width':1.5});\n        shapeText='singleton {x}';\n      } else {\n        shape = SVG('rect',{x:0,y:0,width:W,height:H,\n          fill:'rgba(224,122,95,0.12)',stroke:'var(--pink)','stroke-width':1.5,\n          'stroke-dasharray':'6 4'});\n        shapeText='all of X';\n      }\n    }\n    svg.appendChild(shape);\n    // center point\n    svg.appendChild(SVG('circle',{cx:pcx,cy:pcy,r:5,fill:'var(--blue)','stroke':'#fff','stroke-width':1.5,\n      style:'cursor:grab','data-drag':'1'}));\n    const lbl = SVG('text',{x:pcx+8,y:pcy-8,'font-size':12,fill:'var(--ink)'});\n    lbl.textContent = `x=(${cx.toFixed(2)}, ${cy.toFixed(2)})`;\n    svg.appendChild(lbl);\n\n    epsv.textContent = e.toFixed(2);\n    const mNames = {e:'Euclidean', t:'taxicab', s:'sup', d:'discrete'};\n    out.textContent =\n      `metric: ${mNames[metric]}\\n` +\n      `open ball B(x,ε) of radius ε=${e.toFixed(2)}\\n` +\n      `shape: ${shapeText}\\n\\n` +\n      (metric==='d'\n        ? 'Discrete metric: every singleton is open, so every subset is open. This is a genuinely different topology — sequences converge only if eventually constant.'\n        : 'Euclidean, taxicab, and sup metrics on ℝ² have different ball shapes but generate the SAME topology — any taxicab ball contains a smaller Euclidean ball and vice versa. Topology sees only which sets are open, not which metric you used.');\n  }\n\n  // dragging\n  let dragging=false;\n  svg.addEventListener('pointerdown',e=>{\n    if(e.target.getAttribute('data-drag')){\n      dragging=true; svg.setPointerCapture(e.pointerId);\n    }\n  });\n  svg.addEventListener('pointermove',e=>{\n    if(!dragging) return;\n    const rect = svg.getBoundingClientRect();\n    const sx = W/rect.width, sy = H/rect.height;\n    const px = (e.clientX-rect.left)*sx, py=(e.clientY-rect.top)*sy;\n    [cx,cy] = toMath(px,py);\n    cx = Math.max(-4.5, Math.min(4.5, cx));\n    cy = Math.max(-2.5, Math.min(2.5, cy));\n    render();\n  });\n  svg.addEventListener('pointerup',e=>{ dragging=false; });\n  svg.addEventListener('pointercancel',e=>{ dragging=false; });\n\n  eps.addEventListener('input',render);\n  $$('[data-met]').forEach(b=>{\n    b.addEventListener('click',()=>{\n      metric = b.getAttribute('data-met');\n      $$('[data-met]').forEach(x=>x.classList.remove('active'));\n      b.classList.add('active');\n      render();\n    });\n  });\n  render();",
+            "hint": "drag the blue point · slide $\\varepsilon$ · flip the metric",
+            "buttons": [
+              {
+                "label": "Euclidean $d_2$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "e"
+                },
+                "className": "active"
+              },
+              {
+                "label": "taxicab $d_1$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "t"
+                }
+              },
+              {
+                "label": "sup $d_\\infty$",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "s"
+                }
+              },
+              {
+                "label": "discrete",
+                "dataAttr": {
+                  "name": "data-met",
+                  "value": "d"
+                }
+              }
+            ],
+            "sectionComment": "=============================== SECTION 1 widget ===============================",
+            "svgId": "met-svg",
+            "viewBox": "0 0 640 360",
+            "readoutId": "met-out"
+          }
         },
         {
           "type": "raw",
@@ -252,9 +435,38 @@
         },
         {
           "type": "widget",
-          "id": "w-hom",
-          "html": "<div class=\"widget\" id=\"w-hom\">\n  <div class=\"hd\"><div class=\"ttl\">Continuous? Homeomorphism? Preimages of opens</div><div class=\"hint\">pick a map · drag the target point to see the preimage</div></div>\n  <div class=\"row\">\n    <label>map</label>\n    <select id=\"hm-pick\">\n      <option value=\"id-II\">id : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"sq-II\">$t\\mapsto t^2$ : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"wrap\">$t\\mapsto e^{2\\pi i t}$ : $[0,1]\\to S^1$ (continuous surjection, NOT injective)</option>\n      <option value=\"rot\">rotation : $S^1\\to S^1$ (homeomorphism)</option>\n      <option value=\"incl\">inclusion $(0,1)\\hookrightarrow S^1$ (continuous injection, NOT surjective, NOT a homeomorphism)</option>\n    </select>\n  </div>\n  <svg id=\"hm-svg\" viewBox=\"0 0 700 260\" width=\"700\" height=\"260\"><title>Continuous? Homeomorphism? Preimages of opens</title></svg>\n  <div class=\"row\">\n    <label for=\"hm-y\">target sample $y$</label>\n    <input type=\"range\" id=\"hm-y\" min=\"0\" max=\"1\" step=\"0.005\" value=\"0.3\"/>\n  </div>\n  <div class=\"readout\" id=\"hm-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hom",
+            "title": "Continuous? Homeomorphism? Preimages of opens",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>map</label>\n    <select id=\"hm-pick\">\n      <option value=\"id-II\">id : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"sq-II\">$t\\mapsto t^2$ : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"wrap\">$t\\mapsto e^{2\\pi i t}$ : $[0,1]\\to S^1$ (continuous surjection, NOT injective)</option>\n      <option value=\"rot\">rotation : $S^1\\to S^1$ (homeomorphism)</option>\n      <option value=\"incl\">inclusion $(0,1)\\hookrightarrow S^1$ (continuous injection, NOT surjective, NOT a homeomorphism)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "hm-svg",
+                "viewBox": "0 0 700 260",
+                "width": 700,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hm-y\">target sample $y$</label>\n    <input type=\"range\" id=\"hm-y\" min=\"0\" max=\"1\" step=\"0.005\" value=\"0.3\"/>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hm-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#hm-svg'), out=$('#hm-out'), pick=$('#hm-pick'), ySlider=$('#hm-y');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const mode = pick.value;\n    const y = parseFloat(ySlider.value);\n\n    // Left panel: domain. Right panel: codomain.\n    // Axes: left (0,300)x(0,260); right (400,700)x(0,260).\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:260,fill:'transparent'}));\n\n    // left label\n    const lt = SVG('text',{x:10,y:18,'font-size':12,fill:'var(--mute)'});\n    lt.textContent='domain X';\n    svg.appendChild(lt);\n    const rt = SVG('text',{x:410,y:18,'font-size':12,fill:'var(--mute)'});\n    rt.textContent='codomain Y';\n    svg.appendChild(rt);\n\n    // draw domain shape\n    function drawInterval(x0,y0,w, color, label){\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0+w,y2:y0,stroke:color,'stroke-width':2}));\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:x0+w,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      const t=SVG('text',{x:x0+w/2,y:y0+25,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n    function drawCircle(cx,cy,r,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r,fill:'none',stroke:color,'stroke-width':2}));\n      const t=SVG('text',{x:cx,y:cy+r+22,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n\n    // helpers to draw points\n    function ptOnInterval(x0,y0,w,t,color){\n      return SVG('circle',{cx:x0+w*t,cy:y0,r:6,fill:color});\n    }\n    function ptOnCircle(cx,cy,r,t,color){\n      const a=2*Math.PI*t;\n      return SVG('circle',{cx:cx+r*Math.cos(a),cy:cy-r*Math.sin(a),r:6,fill:color});\n    }\n    function highlightIntervalRegion(x0,y0,w,t0,t1,color){\n      const a=x0+w*t0, b=x0+w*t1;\n      svg.appendChild(SVG('line',{x1:a,y1:y0,x2:b,y2:y0,stroke:color,'stroke-width':6,opacity:0.5}));\n    }\n    function highlightArc(cx,cy,r,t0,t1,color){\n      const a0=2*Math.PI*t0, a1=2*Math.PI*t1;\n      const p=SVG('path',{\n        d:`M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 ${a1-a0>Math.PI?1:0} 0 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}`,\n        fill:'none',stroke:color,'stroke-width':6,opacity:0.5});\n      svg.appendChild(p);\n    }\n\n    let msg='';\n    // layout switch per map\n    if(mode==='id-II' || mode==='sq-II'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawInterval(440,130,240,'var(--yellow)','(0,1)');\n      // preimage of y: f^{-1}(y)\n      const preT = mode==='id-II' ? y : Math.sqrt(y);\n      svg.appendChild(ptOnInterval(40,130,240,preT,'var(--pink)'));\n      svg.appendChild(ptOnInterval(440,130,240,y,'var(--yellow)'));\n      // preimage of a small open interval around y\n      const dy=0.06;\n      const a=Math.max(0,y-dy), b=Math.min(1,y+dy);\n      const preA = mode==='id-II'? a : Math.sqrt(a);\n      const preB = mode==='id-II'? b : Math.sqrt(b);\n      highlightIntervalRegion(440,130,240,a,b,'var(--yellow)');\n      highlightIntervalRegion(40,130,240,preA,preB,'var(--pink)');\n      msg = `f = ${mode==='id-II'?'identity':'t → t²'}\\n`+\n        `preimage of y = ${y.toFixed(3)} is ${preT.toFixed(3)}\\n`+\n        `preimage of open (${a.toFixed(2)}, ${b.toFixed(2)}) is open (${preA.toFixed(3)}, ${preB.toFixed(3)})\\n`+\n        `preimages of opens stay open ✓   bijective ✓   inverse continuous ✓\\n→ HOMEOMORPHISM`;\n    } else if(mode==='wrap'){\n      drawInterval(40,130,240,'var(--blue)','[0,1]');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // preimage of e^{2πi y} is {y} if y∈(0,1), is {0,1} if y=0\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // domain points\n      svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      if(Math.abs(y)<1e-6 || Math.abs(y-1)<1e-6){\n        svg.appendChild(ptOnInterval(40,130,240,0,'var(--pink)'));\n        svg.appendChild(ptOnInterval(40,130,240,1,'var(--pink)'));\n      }\n      // preimage of an arc around y\n      const da=0.06;\n      const a=y-da, b=y+da;\n      highlightArc(560,130,60,Math.max(0,a),Math.min(1,b),'var(--yellow)');\n      highlightIntervalRegion(40,130,240,Math.max(0,a),Math.min(1,b),'var(--pink)');\n      msg = `f(t) = e^{2πi t} wraps [0,1] onto S¹\\n`+\n        `preimage of the arc around y is the open interval around t=y\\n`+\n        `→ continuous SURJECTION, preimages of opens are open\\n`+\n        `but f(0)=f(1), so NOT injective, NOT a homeomorphism`;\n    } else if(mode==='rot'){\n      drawCircle(160,130,60,'var(--blue)','S¹');\n      drawCircle(540,130,60,'var(--yellow)','S¹');\n      const shift = 0.25;\n      svg.appendChild(ptOnCircle(540,130,60,y,'var(--yellow)'));\n      svg.appendChild(ptOnCircle(160,130,60,(y-shift+1)%1,'var(--pink)'));\n      const da=0.06;\n      highlightArc(540,130,60,y-da,y+da,'var(--yellow)');\n      highlightArc(160,130,60,(y-shift-da+1)%1,(y-shift+da+1)%1,'var(--pink)');\n      msg = `f(z) = e^{2πi·0.25}·z rotates the circle\\n`+\n        `bijective, continuous, inverse = rotate by -π/2\\n→ HOMEOMORPHISM`;\n    } else if(mode==='incl'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // inclusion: t in (0,1) → e^{2πi t}, with t=0,1 identified so this misses one point\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // preimage existence check: if y near 0 or 1 (the missing basepoint), no preimage\n      const nearBase = (y<0.05 || y>0.95);\n      if(!nearBase){\n        svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      }\n      const da=0.06;\n      highlightArc(560,130,60,y-da,y+da,'var(--yellow)');\n      if(!nearBase){\n        highlightIntervalRegion(40,130,240,y-da,y+da,'var(--pink)');\n      }\n      msg = `inclusion (0,1) ↪ S¹ via t ↦ e^{2πi t}, t∈(0,1)\\n`+\n        `image misses the basepoint 1 ∈ S¹\\n`+\n        `continuous, injective, NOT surjective\\n→ not a homeomorphism (domain has a cut point, image doesn't)`;\n    }\n    out.textContent = msg;\n  }\n  pick.addEventListener('change',render);\n  ySlider.addEventListener('input',render);\n  render();",
+            "hint": "pick a map · drag the target point to see the preimage",
+            "sectionComment": "=============================== SECTION 3 widget ===============================",
+            "svgId": "hm-svg",
+            "viewBox": "0 0 700 260",
+            "readoutId": "hm-out"
+          }
         },
         {
           "type": "raw",
@@ -271,8 +483,38 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-hom",
-          "html": "<script>\n/* =============================== SECTION 3 widget =============================== */\n(function(){\n  const svg=$('#hm-svg'), out=$('#hm-out'), pick=$('#hm-pick'), ySlider=$('#hm-y');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const mode = pick.value;\n    const y = parseFloat(ySlider.value);\n\n    // Left panel: domain. Right panel: codomain.\n    // Axes: left (0,300)x(0,260); right (400,700)x(0,260).\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:260,fill:'transparent'}));\n\n    // left label\n    const lt = SVG('text',{x:10,y:18,'font-size':12,fill:'var(--mute)'});\n    lt.textContent='domain X';\n    svg.appendChild(lt);\n    const rt = SVG('text',{x:410,y:18,'font-size':12,fill:'var(--mute)'});\n    rt.textContent='codomain Y';\n    svg.appendChild(rt);\n\n    // draw domain shape\n    function drawInterval(x0,y0,w, color, label){\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0+w,y2:y0,stroke:color,'stroke-width':2}));\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:x0+w,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      const t=SVG('text',{x:x0+w/2,y:y0+25,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n    function drawCircle(cx,cy,r,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r,fill:'none',stroke:color,'stroke-width':2}));\n      const t=SVG('text',{x:cx,y:cy+r+22,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n\n    // helpers to draw points\n    function ptOnInterval(x0,y0,w,t,color){\n      return SVG('circle',{cx:x0+w*t,cy:y0,r:6,fill:color});\n    }\n    function ptOnCircle(cx,cy,r,t,color){\n      const a=2*Math.PI*t;\n      return SVG('circle',{cx:cx+r*Math.cos(a),cy:cy-r*Math.sin(a),r:6,fill:color});\n    }\n    function highlightIntervalRegion(x0,y0,w,t0,t1,color){\n      const a=x0+w*t0, b=x0+w*t1;\n      svg.appendChild(SVG('line',{x1:a,y1:y0,x2:b,y2:y0,stroke:color,'stroke-width':6,opacity:0.5}));\n    }\n    function highlightArc(cx,cy,r,t0,t1,color){\n      const a0=2*Math.PI*t0, a1=2*Math.PI*t1;\n      const p=SVG('path',{\n        d:`M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 ${a1-a0>Math.PI?1:0} 0 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}`,\n        fill:'none',stroke:color,'stroke-width':6,opacity:0.5});\n      svg.appendChild(p);\n    }\n\n    let msg='';\n    // layout switch per map\n    if(mode==='id-II' || mode==='sq-II'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawInterval(440,130,240,'var(--yellow)','(0,1)');\n      // preimage of y: f^{-1}(y)\n      const preT = mode==='id-II' ? y : Math.sqrt(y);\n      svg.appendChild(ptOnInterval(40,130,240,preT,'var(--pink)'));\n      svg.appendChild(ptOnInterval(440,130,240,y,'var(--yellow)'));\n      // preimage of a small open interval around y\n      const dy=0.06;\n      const a=Math.max(0,y-dy), b=Math.min(1,y+dy);\n      const preA = mode==='id-II'? a : Math.sqrt(a);\n      const preB = mode==='id-II'? b : Math.sqrt(b);\n      highlightIntervalRegion(440,130,240,a,b,'var(--yellow)');\n      highlightIntervalRegion(40,130,240,preA,preB,'var(--pink)');\n      msg = `f = ${mode==='id-II'?'identity':'t → t²'}\\n`+\n        `preimage of y = ${y.toFixed(3)} is ${preT.toFixed(3)}\\n`+\n        `preimage of open (${a.toFixed(2)}, ${b.toFixed(2)}) is open (${preA.toFixed(3)}, ${preB.toFixed(3)})\\n`+\n        `preimages of opens stay open ✓   bijective ✓   inverse continuous ✓\\n→ HOMEOMORPHISM`;\n    } else if(mode==='wrap'){\n      drawInterval(40,130,240,'var(--blue)','[0,1]');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // preimage of e^{2πi y} is {y} if y∈(0,1), is {0,1} if y=0\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // domain points\n      svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      if(Math.abs(y)<1e-6 || Math.abs(y-1)<1e-6){\n        svg.appendChild(ptOnInterval(40,130,240,0,'var(--pink)'));\n        svg.appendChild(ptOnInterval(40,130,240,1,'var(--pink)'));\n      }\n      // preimage of an arc around y\n      const da=0.06;\n      const a=y-da, b=y+da;\n      highlightArc(560,130,60,Math.max(0,a),Math.min(1,b),'var(--yellow)');\n      highlightIntervalRegion(40,130,240,Math.max(0,a),Math.min(1,b),'var(--pink)');\n      msg = `f(t) = e^{2πi t} wraps [0,1] onto S¹\\n`+\n        `preimage of the arc around y is the open interval around t=y\\n`+\n        `→ continuous SURJECTION, preimages of opens are open\\n`+\n        `but f(0)=f(1), so NOT injective, NOT a homeomorphism`;\n    } else if(mode==='rot'){\n      drawCircle(160,130,60,'var(--blue)','S¹');\n      drawCircle(540,130,60,'var(--yellow)','S¹');\n      const shift = 0.25;\n      svg.appendChild(ptOnCircle(540,130,60,y,'var(--yellow)'));\n      svg.appendChild(ptOnCircle(160,130,60,(y-shift+1)%1,'var(--pink)'));\n      const da=0.06;\n      highlightArc(540,130,60,y-da,y+da,'var(--yellow)');\n      highlightArc(160,130,60,(y-shift-da+1)%1,(y-shift+da+1)%1,'var(--pink)');\n      msg = `f(z) = e^{2πi·0.25}·z rotates the circle\\n`+\n        `bijective, continuous, inverse = rotate by -π/2\\n→ HOMEOMORPHISM`;\n    } else if(mode==='incl'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // inclusion: t in (0,1) → e^{2πi t}, with t=0,1 identified so this misses one point\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // preimage existence check: if y near 0 or 1 (the missing basepoint), no preimage\n      const nearBase = (y<0.05 || y>0.95);\n      if(!nearBase){\n        svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      }\n      const da=0.06;\n      highlightArc(560,130,60,y-da,y+da,'var(--yellow)');\n      if(!nearBase){\n        highlightIntervalRegion(40,130,240,y-da,y+da,'var(--pink)');\n      }\n      msg = `inclusion (0,1) ↪ S¹ via t ↦ e^{2πi t}, t∈(0,1)\\n`+\n        `image misses the basepoint 1 ∈ S¹\\n`+\n        `continuous, injective, NOT surjective\\n→ not a homeomorphism (domain has a cut point, image doesn't)`;\n    }\n    out.textContent = msg;\n  }\n  pick.addEventListener('change',render);\n  ySlider.addEventListener('input',render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hom",
+            "title": "Continuous? Homeomorphism? Preimages of opens",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>map</label>\n    <select id=\"hm-pick\">\n      <option value=\"id-II\">id : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"sq-II\">$t\\mapsto t^2$ : $(0,1)\\to(0,1)$ (homeomorphism)</option>\n      <option value=\"wrap\">$t\\mapsto e^{2\\pi i t}$ : $[0,1]\\to S^1$ (continuous surjection, NOT injective)</option>\n      <option value=\"rot\">rotation : $S^1\\to S^1$ (homeomorphism)</option>\n      <option value=\"incl\">inclusion $(0,1)\\hookrightarrow S^1$ (continuous injection, NOT surjective, NOT a homeomorphism)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "hm-svg",
+                "viewBox": "0 0 700 260",
+                "width": 700,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hm-y\">target sample $y$</label>\n    <input type=\"range\" id=\"hm-y\" min=\"0\" max=\"1\" step=\"0.005\" value=\"0.3\"/>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hm-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#hm-svg'), out=$('#hm-out'), pick=$('#hm-pick'), ySlider=$('#hm-y');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const mode = pick.value;\n    const y = parseFloat(ySlider.value);\n\n    // Left panel: domain. Right panel: codomain.\n    // Axes: left (0,300)x(0,260); right (400,700)x(0,260).\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:260,fill:'transparent'}));\n\n    // left label\n    const lt = SVG('text',{x:10,y:18,'font-size':12,fill:'var(--mute)'});\n    lt.textContent='domain X';\n    svg.appendChild(lt);\n    const rt = SVG('text',{x:410,y:18,'font-size':12,fill:'var(--mute)'});\n    rt.textContent='codomain Y';\n    svg.appendChild(rt);\n\n    // draw domain shape\n    function drawInterval(x0,y0,w, color, label){\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0+w,y2:y0,stroke:color,'stroke-width':2}));\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:x0+w,cy:y0,r:3,fill:'var(--panel2)',stroke:color,'stroke-width':1.5}));\n      const t=SVG('text',{x:x0+w/2,y:y0+25,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n    function drawCircle(cx,cy,r,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r,fill:'none',stroke:color,'stroke-width':2}));\n      const t=SVG('text',{x:cx,y:cy+r+22,'font-size':11,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=label; svg.appendChild(t);\n    }\n\n    // helpers to draw points\n    function ptOnInterval(x0,y0,w,t,color){\n      return SVG('circle',{cx:x0+w*t,cy:y0,r:6,fill:color});\n    }\n    function ptOnCircle(cx,cy,r,t,color){\n      const a=2*Math.PI*t;\n      return SVG('circle',{cx:cx+r*Math.cos(a),cy:cy-r*Math.sin(a),r:6,fill:color});\n    }\n    function highlightIntervalRegion(x0,y0,w,t0,t1,color){\n      const a=x0+w*t0, b=x0+w*t1;\n      svg.appendChild(SVG('line',{x1:a,y1:y0,x2:b,y2:y0,stroke:color,'stroke-width':6,opacity:0.5}));\n    }\n    function highlightArc(cx,cy,r,t0,t1,color){\n      const a0=2*Math.PI*t0, a1=2*Math.PI*t1;\n      const p=SVG('path',{\n        d:`M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 ${a1-a0>Math.PI?1:0} 0 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}`,\n        fill:'none',stroke:color,'stroke-width':6,opacity:0.5});\n      svg.appendChild(p);\n    }\n\n    let msg='';\n    // layout switch per map\n    if(mode==='id-II' || mode==='sq-II'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawInterval(440,130,240,'var(--yellow)','(0,1)');\n      // preimage of y: f^{-1}(y)\n      const preT = mode==='id-II' ? y : Math.sqrt(y);\n      svg.appendChild(ptOnInterval(40,130,240,preT,'var(--pink)'));\n      svg.appendChild(ptOnInterval(440,130,240,y,'var(--yellow)'));\n      // preimage of a small open interval around y\n      const dy=0.06;\n      const a=Math.max(0,y-dy), b=Math.min(1,y+dy);\n      const preA = mode==='id-II'? a : Math.sqrt(a);\n      const preB = mode==='id-II'? b : Math.sqrt(b);\n      highlightIntervalRegion(440,130,240,a,b,'var(--yellow)');\n      highlightIntervalRegion(40,130,240,preA,preB,'var(--pink)');\n      msg = `f = ${mode==='id-II'?'identity':'t → t²'}\\n`+\n        `preimage of y = ${y.toFixed(3)} is ${preT.toFixed(3)}\\n`+\n        `preimage of open (${a.toFixed(2)}, ${b.toFixed(2)}) is open (${preA.toFixed(3)}, ${preB.toFixed(3)})\\n`+\n        `preimages of opens stay open ✓   bijective ✓   inverse continuous ✓\\n→ HOMEOMORPHISM`;\n    } else if(mode==='wrap'){\n      drawInterval(40,130,240,'var(--blue)','[0,1]');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // preimage of e^{2πi y} is {y} if y∈(0,1), is {0,1} if y=0\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // domain points\n      svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      if(Math.abs(y)<1e-6 || Math.abs(y-1)<1e-6){\n        svg.appendChild(ptOnInterval(40,130,240,0,'var(--pink)'));\n        svg.appendChild(ptOnInterval(40,130,240,1,'var(--pink)'));\n      }\n      // preimage of an arc around y\n      const da=0.06;\n      const a=y-da, b=y+da;\n      highlightArc(560,130,60,Math.max(0,a),Math.min(1,b),'var(--yellow)');\n      highlightIntervalRegion(40,130,240,Math.max(0,a),Math.min(1,b),'var(--pink)');\n      msg = `f(t) = e^{2πi t} wraps [0,1] onto S¹\\n`+\n        `preimage of the arc around y is the open interval around t=y\\n`+\n        `→ continuous SURJECTION, preimages of opens are open\\n`+\n        `but f(0)=f(1), so NOT injective, NOT a homeomorphism`;\n    } else if(mode==='rot'){\n      drawCircle(160,130,60,'var(--blue)','S¹');\n      drawCircle(540,130,60,'var(--yellow)','S¹');\n      const shift = 0.25;\n      svg.appendChild(ptOnCircle(540,130,60,y,'var(--yellow)'));\n      svg.appendChild(ptOnCircle(160,130,60,(y-shift+1)%1,'var(--pink)'));\n      const da=0.06;\n      highlightArc(540,130,60,y-da,y+da,'var(--yellow)');\n      highlightArc(160,130,60,(y-shift-da+1)%1,(y-shift+da+1)%1,'var(--pink)');\n      msg = `f(z) = e^{2πi·0.25}·z rotates the circle\\n`+\n        `bijective, continuous, inverse = rotate by -π/2\\n→ HOMEOMORPHISM`;\n    } else if(mode==='incl'){\n      drawInterval(40,130,240,'var(--blue)','(0,1)');\n      drawCircle(560,130,60,'var(--yellow)','S¹');\n      // inclusion: t in (0,1) → e^{2πi t}, with t=0,1 identified so this misses one point\n      svg.appendChild(ptOnCircle(560,130,60,y,'var(--yellow)'));\n      // preimage existence check: if y near 0 or 1 (the missing basepoint), no preimage\n      const nearBase = (y<0.05 || y>0.95);\n      if(!nearBase){\n        svg.appendChild(ptOnInterval(40,130,240,y,'var(--pink)'));\n      }\n      const da=0.06;\n      highlightArc(560,130,60,y-da,y+da,'var(--yellow)');\n      if(!nearBase){\n        highlightIntervalRegion(40,130,240,y-da,y+da,'var(--pink)');\n      }\n      msg = `inclusion (0,1) ↪ S¹ via t ↦ e^{2πi t}, t∈(0,1)\\n`+\n        `image misses the basepoint 1 ∈ S¹\\n`+\n        `continuous, injective, NOT surjective\\n→ not a homeomorphism (domain has a cut point, image doesn't)`;\n    }\n    out.textContent = msg;\n  }\n  pick.addEventListener('change',render);\n  ySlider.addEventListener('input',render);\n  render();",
+            "hint": "pick a map · drag the target point to see the preimage",
+            "sectionComment": "=============================== SECTION 3 widget ===============================",
+            "svgId": "hm-svg",
+            "viewBox": "0 0 700 260",
+            "readoutId": "hm-out"
+          }
         },
         {
           "type": "raw",
@@ -598,9 +840,49 @@
         },
         {
           "type": "widget",
-          "id": "w-conn",
-          "html": "<div class=\"widget\" id=\"w-conn\">\n  <div class=\"hd\"><div class=\"ttl\">Connectedness vs path-connectedness</div><div class=\"hint\">shrink the gap · try the sine-curve toggle</div></div>\n  <svg id=\"cn-svg\" viewBox=\"0 0 700 280\" width=\"700\" height=\"280\"><title>Connectedness vs path-connectedness</title></svg>\n  <div class=\"row\">\n    <label for=\"cn-g\">gap $g$</label>\n    <input type=\"range\" id=\"cn-g\" min=\"0\" max=\"1.5\" step=\"0.01\" value=\"0.6\"/>\n    <span class=\"small\" id=\"cn-gv\">0.60</span>\n  </div>\n  <div class=\"row\">\n    <button id=\"cn-sine\">toggle topologist's sine curve</button>\n  </div>\n  <div class=\"readout\" id=\"cn-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-conn",
+            "title": "Connectedness vs path-connectedness",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "cn-svg",
+                "viewBox": "0 0 700 280",
+                "width": 700,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cn-g\">gap $g$</label>\n    <input type=\"range\" id=\"cn-g\" min=\"0\" max=\"1.5\" step=\"0.01\" value=\"0.6\"/>\n    <span class=\"small\" id=\"cn-gv\">0.60</span>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "toggle topologist's sine curve",
+                    "id": "cn-sine"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "cn-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cn-svg'), out=$('#cn-out'), gS=$('#cn-g'), gV=$('#cn-gv'), sineBtn=$('#cn-sine');\n  let sineMode=false;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const g = parseFloat(gS.value);\n    gV.textContent = g.toFixed(2);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:280,fill:'transparent'}));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:140,x2:660,y2:140,stroke:'var(--line)','stroke-width':0.5}));\n\n    // left disk\n    const r=60;\n    const c1x = 200, c1y=140;\n    svg.appendChild(SVG('circle',{cx:c1x,cy:c1y,r,fill:'rgba(88,196,221,0.2)',stroke:'var(--blue)','stroke-width':2}));\n\n    if(!sineMode){\n      const c2x = 200 + 2*r + g*60, c2y=140;\n      svg.appendChild(SVG('circle',{cx:c2x,cy:c2y,r,fill:'rgba(255,216,102,0.2)',stroke:'var(--yellow)','stroke-width':2}));\n      let verdict;\n      if(g>0.005){\n        verdict = `two disks separated by gap ${g.toFixed(2)}\\nDISCONNECTED: open balls around the left and right disks give U ⊔ V.\\npath-components: 2 · connected components: 2`;\n      } else {\n        verdict = `disks touch at a single point (gap = 0)\\nCONNECTED (and path-connected) — any separation U ⊔ V would have to assign the touching point to one side; neither U nor V is then open.\\npath-components: 1 · connected components: 1`;\n      }\n      out.textContent = verdict;\n    } else {\n      // topologist's sine curve\n      // on right half, draw the curve y = sin(1/x) for x∈(0.03,0.8), scaled, plus y-axis segment\n      const ox = 400, oy = 140;\n      const W=240, H=80;\n      // y-axis segment\n      svg.appendChild(SVG('line',{x1:ox,y1:oy-H,x2:ox,y2:oy+H,stroke:'var(--pink)','stroke-width':3}));\n      const path = [];\n      const N=400;\n      let first = true;\n      for(let i=1;i<=N;i++){\n        const t = i/N;\n        const x = 0.02 + t*0.8;\n        const y = Math.sin(1/x);\n        const px = ox + x/0.82*W;\n        const py = oy - y*H*0.95;\n        path.push((first?'M':'L')+' '+px.toFixed(1)+' '+py.toFixed(1));\n        first=false;\n      }\n      svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.5}));\n      const t=SVG('text',{x:ox+W/2,y:oy+H+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent='topologist\\u2019s sine curve: graph ∪ limit segment';\n      svg.appendChild(t);\n      out.textContent =\n        'left disk + topologist\\u2019s sine curve T (right).\\n'+\n        '\\n'+\n        'T alone: CONNECTED (closure of a connected set), NOT path-connected\\n'+\n        '(no continuous path from the y-axis segment to the oscillating graph).\\n'+\n        '→ connected components of T: 1\\n'+\n        '→ path-components of T: 2 (segment, graph)\\n'+\n        '\\n'+\n        'This is the canonical example showing connected ⇏ path-connected.';\n    }\n  }\n  gS.addEventListener('input',render);\n  sineBtn.addEventListener('click',()=>{ sineMode=!sineMode; sineBtn.classList.toggle('active',sineMode); render(); });\n  render();",
+            "hint": "shrink the gap · try the sine-curve toggle",
+            "buttons": [
+              {
+                "label": "toggle topologist's sine curve",
+                "id": "cn-sine"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 5 widget ===============================",
+            "svgId": "cn-svg",
+            "viewBox": "0 0 700 280",
+            "readoutId": "cn-out"
+          }
         },
         {
           "type": "raw",
@@ -617,8 +899,49 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-conn",
-          "html": "<script>\n/* =============================== SECTION 5 widget =============================== */\n(function(){\n  const svg=$('#cn-svg'), out=$('#cn-out'), gS=$('#cn-g'), gV=$('#cn-gv'), sineBtn=$('#cn-sine');\n  let sineMode=false;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const g = parseFloat(gS.value);\n    gV.textContent = g.toFixed(2);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:280,fill:'transparent'}));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:140,x2:660,y2:140,stroke:'var(--line)','stroke-width':0.5}));\n\n    // left disk\n    const r=60;\n    const c1x = 200, c1y=140;\n    svg.appendChild(SVG('circle',{cx:c1x,cy:c1y,r,fill:'rgba(88,196,221,0.2)',stroke:'var(--blue)','stroke-width':2}));\n\n    if(!sineMode){\n      const c2x = 200 + 2*r + g*60, c2y=140;\n      svg.appendChild(SVG('circle',{cx:c2x,cy:c2y,r,fill:'rgba(255,216,102,0.2)',stroke:'var(--yellow)','stroke-width':2}));\n      let verdict;\n      if(g>0.005){\n        verdict = `two disks separated by gap ${g.toFixed(2)}\\nDISCONNECTED: open balls around the left and right disks give U ⊔ V.\\npath-components: 2 · connected components: 2`;\n      } else {\n        verdict = `disks touch at a single point (gap = 0)\\nCONNECTED (and path-connected) — any separation U ⊔ V would have to assign the touching point to one side; neither U nor V is then open.\\npath-components: 1 · connected components: 1`;\n      }\n      out.textContent = verdict;\n    } else {\n      // topologist's sine curve\n      // on right half, draw the curve y = sin(1/x) for x∈(0.03,0.8), scaled, plus y-axis segment\n      const ox = 400, oy = 140;\n      const W=240, H=80;\n      // y-axis segment\n      svg.appendChild(SVG('line',{x1:ox,y1:oy-H,x2:ox,y2:oy+H,stroke:'var(--pink)','stroke-width':3}));\n      const path = [];\n      const N=400;\n      let first = true;\n      for(let i=1;i<=N;i++){\n        const t = i/N;\n        const x = 0.02 + t*0.8;\n        const y = Math.sin(1/x);\n        const px = ox + x/0.82*W;\n        const py = oy - y*H*0.95;\n        path.push((first?'M':'L')+' '+px.toFixed(1)+' '+py.toFixed(1));\n        first=false;\n      }\n      svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.5}));\n      const t=SVG('text',{x:ox+W/2,y:oy+H+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent='topologist\\u2019s sine curve: graph ∪ limit segment';\n      svg.appendChild(t);\n      out.textContent =\n        'left disk + topologist\\u2019s sine curve T (right).\\n'+\n        '\\n'+\n        'T alone: CONNECTED (closure of a connected set), NOT path-connected\\n'+\n        '(no continuous path from the y-axis segment to the oscillating graph).\\n'+\n        '→ connected components of T: 1\\n'+\n        '→ path-components of T: 2 (segment, graph)\\n'+\n        '\\n'+\n        'This is the canonical example showing connected ⇏ path-connected.';\n    }\n  }\n  gS.addEventListener('input',render);\n  sineBtn.addEventListener('click',()=>{ sineMode=!sineMode; sineBtn.classList.toggle('active',sineMode); render(); });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-conn",
+            "title": "Connectedness vs path-connectedness",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "cn-svg",
+                "viewBox": "0 0 700 280",
+                "width": 700,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cn-g\">gap $g$</label>\n    <input type=\"range\" id=\"cn-g\" min=\"0\" max=\"1.5\" step=\"0.01\" value=\"0.6\"/>\n    <span class=\"small\" id=\"cn-gv\">0.60</span>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "toggle topologist's sine curve",
+                    "id": "cn-sine"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "cn-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cn-svg'), out=$('#cn-out'), gS=$('#cn-g'), gV=$('#cn-gv'), sineBtn=$('#cn-sine');\n  let sineMode=false;\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const g = parseFloat(gS.value);\n    gV.textContent = g.toFixed(2);\n    svg.appendChild(SVG('rect',{x:0,y:0,width:700,height:280,fill:'transparent'}));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:140,x2:660,y2:140,stroke:'var(--line)','stroke-width':0.5}));\n\n    // left disk\n    const r=60;\n    const c1x = 200, c1y=140;\n    svg.appendChild(SVG('circle',{cx:c1x,cy:c1y,r,fill:'rgba(88,196,221,0.2)',stroke:'var(--blue)','stroke-width':2}));\n\n    if(!sineMode){\n      const c2x = 200 + 2*r + g*60, c2y=140;\n      svg.appendChild(SVG('circle',{cx:c2x,cy:c2y,r,fill:'rgba(255,216,102,0.2)',stroke:'var(--yellow)','stroke-width':2}));\n      let verdict;\n      if(g>0.005){\n        verdict = `two disks separated by gap ${g.toFixed(2)}\\nDISCONNECTED: open balls around the left and right disks give U ⊔ V.\\npath-components: 2 · connected components: 2`;\n      } else {\n        verdict = `disks touch at a single point (gap = 0)\\nCONNECTED (and path-connected) — any separation U ⊔ V would have to assign the touching point to one side; neither U nor V is then open.\\npath-components: 1 · connected components: 1`;\n      }\n      out.textContent = verdict;\n    } else {\n      // topologist's sine curve\n      // on right half, draw the curve y = sin(1/x) for x∈(0.03,0.8), scaled, plus y-axis segment\n      const ox = 400, oy = 140;\n      const W=240, H=80;\n      // y-axis segment\n      svg.appendChild(SVG('line',{x1:ox,y1:oy-H,x2:ox,y2:oy+H,stroke:'var(--pink)','stroke-width':3}));\n      const path = [];\n      const N=400;\n      let first = true;\n      for(let i=1;i<=N;i++){\n        const t = i/N;\n        const x = 0.02 + t*0.8;\n        const y = Math.sin(1/x);\n        const px = ox + x/0.82*W;\n        const py = oy - y*H*0.95;\n        path.push((first?'M':'L')+' '+px.toFixed(1)+' '+py.toFixed(1));\n        first=false;\n      }\n      svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.5}));\n      const t=SVG('text',{x:ox+W/2,y:oy+H+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent='topologist\\u2019s sine curve: graph ∪ limit segment';\n      svg.appendChild(t);\n      out.textContent =\n        'left disk + topologist\\u2019s sine curve T (right).\\n'+\n        '\\n'+\n        'T alone: CONNECTED (closure of a connected set), NOT path-connected\\n'+\n        '(no continuous path from the y-axis segment to the oscillating graph).\\n'+\n        '→ connected components of T: 1\\n'+\n        '→ path-components of T: 2 (segment, graph)\\n'+\n        '\\n'+\n        'This is the canonical example showing connected ⇏ path-connected.';\n    }\n  }\n  gS.addEventListener('input',render);\n  sineBtn.addEventListener('click',()=>{ sineMode=!sineMode; sineBtn.classList.toggle('active',sineMode); render(); });\n  render();",
+            "hint": "shrink the gap · try the sine-curve toggle",
+            "buttons": [
+              {
+                "label": "toggle topologist's sine curve",
+                "id": "cn-sine"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 5 widget ===============================",
+            "svgId": "cn-svg",
+            "viewBox": "0 0 700 280",
+            "readoutId": "cn-out"
+          }
         },
         {
           "type": "raw",

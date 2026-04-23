@@ -50,8 +50,108 @@
         {
           "type": "widget",
           "id": "w-qexp",
-          "html": "<div class=\"widget\" id=\"w-qexp\">\n  <div class=\"hd\"><div class=\"ttl\">$q$-expansion of $\\theta^k$</div><div class=\"hint\">coefficient of $q^{n/2}$ in $\\theta^k(\\tau)$</div></div>\n  <div class=\"row\">\n    <button data-k=\"1\" class=\"active\">$\\theta$</button>\n    <button data-k=\"2\">$\\theta^2$</button>\n    <button data-k=\"3\">$\\theta^3$</button>\n    <button data-k=\"4\">$\\theta^4$</button>\n    <button data-k=\"8\">$\\theta^8$</button>\n  </div>\n  <svg id=\"qexp-svg\" viewBox=\"0 0 620 270\" width=\"620\" height=\"270\"><title>$q$-expansion of $\\theta^k$</title></svg>\n  <div class=\"small\">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qexp",
+            "title": "$q$-expansion of $\\theta^k$",
+            "hint": "coefficient of $q^{n/2}$ in $\\theta^k(\\tau)$",
+            "svgId": "qexp-svg",
+            "viewBox": "0 0 620 270",
+            "buttons": [
+              {
+                "label": "$\\theta$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "1"
+                },
+                "className": "active"
+              },
+              {
+                "label": "$\\theta^2$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "2"
+                }
+              },
+              {
+                "label": "$\\theta^3$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "3"
+                }
+              },
+              {
+                "label": "$\\theta^4$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "4"
+                }
+              },
+              {
+                "label": "$\\theta^8$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "8"
+                }
+              }
+            ],
+            "sectionComment": "========================= widget 2: q-expansion bar chart ========================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "$\\theta$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "1"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "$\\theta^2$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "2"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^3$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "3"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^4$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "4"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^8$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "8"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "qexp-svg",
+                "viewBox": "0 0 620 270",
+                "width": 620,
+                "height": 270
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#qexp-svg');\n  const btns = $$('#w-qexp [data-k]');\n\n  // r_k(n): number of ways to write n as an ordered sum of k signed squares.\n  // Compute by convolving the theta sequence r1(n)=1 if n is a square (with sign multiplicity),\n  // actually r1 takes values 1 (n=0), 2 (n square >0), 0 else.\n  function makeRk(k, N){\n    // build r1 up to N\n    const r1 = new Array(N+1).fill(0);\n    r1[0] = 1;\n    for(let m=1; m*m<=N; m++) r1[m*m] = 2;\n    // convolve k times\n    let cur = r1.slice();\n    for(let i=1;i<k;i++){\n      const nxt = new Array(N+1).fill(0);\n      for(let a=0;a<=N;a++){\n        if(cur[a]===0) continue;\n        for(let b=0;a+b<=N;b++){\n          if(r1[b]===0) continue;\n          nxt[a+b] += cur[a]*r1[b];\n        }\n      }\n      cur = nxt;\n    }\n    return cur;\n  }\n\n  function render(k){\n    svg.innerHTML = '';\n    const W=620, H=270, pad={l:50,r:16,t:20,b:36};\n    const Nmax = 40;\n    const coeffs = makeRk(k, Nmax);\n    // Use max over visible range\n    let maxV = 1;\n    for(let n=0;n<=Nmax;n++) if(coeffs[n]>maxV) maxV = coeffs[n];\n    // log-ish scale when too big\n    const useLog = maxV > 50;\n    const scale = v => useLog ? Math.log(1+v) / Math.log(1+maxV) : v/maxV;\n\n    const bw = (W - pad.l - pad.r) / (Nmax+1);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    // bars\n    for(let n=0;n<=Nmax;n++){\n      const v = coeffs[n];\n      const h = v>0 ? Math.max(2, scale(v) * (H - pad.t - pad.b)) : 0;\n      const x = pad.l + n*bw;\n      const yTop = H - pad.b - h;\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:yTop, width:Math.max(1,bw-2), height:h, fill:'var(--yellow)', opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+bw/2, y:H-pad.b+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        t.textContent = n;\n        svg.appendChild(t);\n      }\n      if(v>0 && n<=Nmax){\n        const lbl = SVG('text',{x:x+bw/2, y:yTop-3, 'text-anchor':'middle','font-size':9, fill:'var(--ink)'});\n        lbl.textContent = v;\n        svg.appendChild(lbl);\n      }\n    }\n    // axis labels\n    const tx = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'exponent index n  (term q^(n/2))'; svg.appendChild(tx);\n    const ty = SVG('text',{x:16,y:(H+pad.t-pad.b)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 16 ${(H+pad.t-pad.b)/2})`});\n    ty.textContent = useLog ? 'r_k(n) (log scale)' : 'r_k(n)';\n    svg.appendChild(ty);\n\n    // title tag\n    const tt = SVG('text',{x:W-pad.r,y:pad.t+4, 'text-anchor':'end','font-size':12,fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `θ^${k}`; svg.appendChild(tt);\n  }\n\n  btns.forEach(b=>b.addEventListener('click',()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(parseInt(b.dataset.k,10));\n  }));\n  render(1);"
+          }
         },
         {
           "type": "raw",
@@ -68,8 +168,108 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-qexp",
-          "html": "<script>\n/* ========================= widget 2: q-expansion bar chart ======================== */\n(function(){\n  const svg = $('#qexp-svg');\n  const btns = $$('#w-qexp [data-k]');\n\n  // r_k(n): number of ways to write n as an ordered sum of k signed squares.\n  // Compute by convolving the theta sequence r1(n)=1 if n is a square (with sign multiplicity),\n  // actually r1 takes values 1 (n=0), 2 (n square >0), 0 else.\n  function makeRk(k, N){\n    // build r1 up to N\n    const r1 = new Array(N+1).fill(0);\n    r1[0] = 1;\n    for(let m=1; m*m<=N; m++) r1[m*m] = 2;\n    // convolve k times\n    let cur = r1.slice();\n    for(let i=1;i<k;i++){\n      const nxt = new Array(N+1).fill(0);\n      for(let a=0;a<=N;a++){\n        if(cur[a]===0) continue;\n        for(let b=0;a+b<=N;b++){\n          if(r1[b]===0) continue;\n          nxt[a+b] += cur[a]*r1[b];\n        }\n      }\n      cur = nxt;\n    }\n    return cur;\n  }\n\n  function render(k){\n    svg.innerHTML = '';\n    const W=620, H=270, pad={l:50,r:16,t:20,b:36};\n    const Nmax = 40;\n    const coeffs = makeRk(k, Nmax);\n    // Use max over visible range\n    let maxV = 1;\n    for(let n=0;n<=Nmax;n++) if(coeffs[n]>maxV) maxV = coeffs[n];\n    // log-ish scale when too big\n    const useLog = maxV > 50;\n    const scale = v => useLog ? Math.log(1+v) / Math.log(1+maxV) : v/maxV;\n\n    const bw = (W - pad.l - pad.r) / (Nmax+1);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    // bars\n    for(let n=0;n<=Nmax;n++){\n      const v = coeffs[n];\n      const h = v>0 ? Math.max(2, scale(v) * (H - pad.t - pad.b)) : 0;\n      const x = pad.l + n*bw;\n      const yTop = H - pad.b - h;\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:yTop, width:Math.max(1,bw-2), height:h, fill:'var(--yellow)', opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+bw/2, y:H-pad.b+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        t.textContent = n;\n        svg.appendChild(t);\n      }\n      if(v>0 && n<=Nmax){\n        const lbl = SVG('text',{x:x+bw/2, y:yTop-3, 'text-anchor':'middle','font-size':9, fill:'var(--ink)'});\n        lbl.textContent = v;\n        svg.appendChild(lbl);\n      }\n    }\n    // axis labels\n    const tx = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'exponent index n  (term q^(n/2))'; svg.appendChild(tx);\n    const ty = SVG('text',{x:16,y:(H+pad.t-pad.b)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 16 ${(H+pad.t-pad.b)/2})`});\n    ty.textContent = useLog ? 'r_k(n) (log scale)' : 'r_k(n)';\n    svg.appendChild(ty);\n\n    // title tag\n    const tt = SVG('text',{x:W-pad.r,y:pad.t+4, 'text-anchor':'end','font-size':12,fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `θ^${k}`; svg.appendChild(tt);\n  }\n\n  btns.forEach(b=>b.addEventListener('click',()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(parseInt(b.dataset.k,10));\n  }));\n  render(1);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qexp",
+            "title": "$q$-expansion of $\\theta^k$",
+            "hint": "coefficient of $q^{n/2}$ in $\\theta^k(\\tau)$",
+            "svgId": "qexp-svg",
+            "viewBox": "0 0 620 270",
+            "buttons": [
+              {
+                "label": "$\\theta$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "1"
+                },
+                "className": "active"
+              },
+              {
+                "label": "$\\theta^2$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "2"
+                }
+              },
+              {
+                "label": "$\\theta^3$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "3"
+                }
+              },
+              {
+                "label": "$\\theta^4$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "4"
+                }
+              },
+              {
+                "label": "$\\theta^8$",
+                "dataAttr": {
+                  "name": "data-k",
+                  "value": "8"
+                }
+              }
+            ],
+            "sectionComment": "========================= widget 2: q-expansion bar chart ========================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "$\\theta$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "1"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "$\\theta^2$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "2"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^3$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "3"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^4$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "4"
+                    }
+                  },
+                  {
+                    "label": "$\\theta^8$",
+                    "dataAttr": {
+                      "name": "data-k",
+                      "value": "8"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "qexp-svg",
+                "viewBox": "0 0 620 270",
+                "width": 620,
+                "height": 270
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Horizontal: exponent $n/2$ (i.e. $n = 0,1,2,\\ldots$). Vertical: coefficient $r_k(n)$. For $k=1$ the only non-zero bars sit at perfect squares. For $k=2,3,4$ the coefficients explode into the arithmetic of sums of squares.</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#qexp-svg');\n  const btns = $$('#w-qexp [data-k]');\n\n  // r_k(n): number of ways to write n as an ordered sum of k signed squares.\n  // Compute by convolving the theta sequence r1(n)=1 if n is a square (with sign multiplicity),\n  // actually r1 takes values 1 (n=0), 2 (n square >0), 0 else.\n  function makeRk(k, N){\n    // build r1 up to N\n    const r1 = new Array(N+1).fill(0);\n    r1[0] = 1;\n    for(let m=1; m*m<=N; m++) r1[m*m] = 2;\n    // convolve k times\n    let cur = r1.slice();\n    for(let i=1;i<k;i++){\n      const nxt = new Array(N+1).fill(0);\n      for(let a=0;a<=N;a++){\n        if(cur[a]===0) continue;\n        for(let b=0;a+b<=N;b++){\n          if(r1[b]===0) continue;\n          nxt[a+b] += cur[a]*r1[b];\n        }\n      }\n      cur = nxt;\n    }\n    return cur;\n  }\n\n  function render(k){\n    svg.innerHTML = '';\n    const W=620, H=270, pad={l:50,r:16,t:20,b:36};\n    const Nmax = 40;\n    const coeffs = makeRk(k, Nmax);\n    // Use max over visible range\n    let maxV = 1;\n    for(let n=0;n<=Nmax;n++) if(coeffs[n]>maxV) maxV = coeffs[n];\n    // log-ish scale when too big\n    const useLog = maxV > 50;\n    const scale = v => useLog ? Math.log(1+v) / Math.log(1+maxV) : v/maxV;\n\n    const bw = (W - pad.l - pad.r) / (Nmax+1);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    // bars\n    for(let n=0;n<=Nmax;n++){\n      const v = coeffs[n];\n      const h = v>0 ? Math.max(2, scale(v) * (H - pad.t - pad.b)) : 0;\n      const x = pad.l + n*bw;\n      const yTop = H - pad.b - h;\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:yTop, width:Math.max(1,bw-2), height:h, fill:'var(--yellow)', opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+bw/2, y:H-pad.b+14, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        t.textContent = n;\n        svg.appendChild(t);\n      }\n      if(v>0 && n<=Nmax){\n        const lbl = SVG('text',{x:x+bw/2, y:yTop-3, 'text-anchor':'middle','font-size':9, fill:'var(--ink)'});\n        lbl.textContent = v;\n        svg.appendChild(lbl);\n      }\n    }\n    // axis labels\n    const tx = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'exponent index n  (term q^(n/2))'; svg.appendChild(tx);\n    const ty = SVG('text',{x:16,y:(H+pad.t-pad.b)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)',transform:`rotate(-90 16 ${(H+pad.t-pad.b)/2})`});\n    ty.textContent = useLog ? 'r_k(n) (log scale)' : 'r_k(n)';\n    svg.appendChild(ty);\n\n    // title tag\n    const tt = SVG('text',{x:W-pad.r,y:pad.t+4, 'text-anchor':'end','font-size':12,fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `θ^${k}`; svg.appendChild(tt);\n  }\n\n  btns.forEach(b=>b.addEventListener('click',()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(parseInt(b.dataset.k,10));\n  }));\n  render(1);"
+          }
         },
         {
           "type": "raw",
@@ -226,8 +426,84 @@
         {
           "type": "widget",
           "id": "w-lat",
-          "html": "<div class=\"widget\" id=\"w-lat\">\n  <div class=\"hd\"><div class=\"ttl\">Theta series of 2D lattices</div><div class=\"hint\">compare $\\mathbb{Z}^2$, hexagonal $A_2$, and $D_4$</div></div>\n  <div class=\"row\">\n    <button data-lat=\"Z2\" class=\"active\">$\\mathbb{Z}^2$</button>\n    <button data-lat=\"A2\">hexagonal $A_2$</button>\n    <button data-lat=\"D4\">$D_4$</button>\n  </div>\n  <svg id=\"lat-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Theta series of 2D lattices</title></svg>\n  <div class=\"readout\" id=\"lat-out\" style=\"font-size:.85rem\"></div>\n  <div class=\"small\">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\\Theta_L(\\tau) = \\sum N_L(m)\\, q^{m/2}$, first several coefficients.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lat",
+            "title": "Theta series of 2D lattices",
+            "hint": "compare $\\mathbb{Z}^2$, hexagonal $A_2$, and $D_4$",
+            "svgId": "lat-svg",
+            "viewBox": "0 0 620 320",
+            "buttons": [
+              {
+                "label": "$\\mathbb{Z}^2$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "Z2"
+                },
+                "className": "active"
+              },
+              {
+                "label": "hexagonal $A_2$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "A2"
+                }
+              },
+              {
+                "label": "$D_4$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "D4"
+                }
+              }
+            ],
+            "sectionComment": "============================== widget 7: lattice theta ===========================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "$\\mathbb{Z}^2$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "Z2"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "hexagonal $A_2$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "A2"
+                    }
+                  },
+                  {
+                    "label": "$D_4$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "D4"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "lat-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"lat-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\\Theta_L(\\tau) = \\sum N_L(m)\\, q^{m/2}$, first several coefficients.</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#lat-svg'), out = $('#lat-out');\n  const btns = $$('#w-lat [data-lat]');\n\n  // lattices: each is a function that returns {vectors:[ [x,y,|v|^2], ...], name, counts: {m:n}}\n  function buildZ2(B){\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      vs.push([a,b,a*a+b*b]);\n    }\n    return vs;\n  }\n  function buildA2(B){\n    // basis: e1=(1,0), e2=(1/2, sqrt(3)/2).  Inner product is standard, giving norm^2 = a^2+ab+b^2.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      const x = a + b*0.5;\n      const y = b*Math.sqrt(3)/2;\n      const n = a*a + a*b + b*b;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n  function buildD4proj(B){\n    // D4 = { (x1,x2,x3,x4) ∈ Z^4 : x1+x2+x3+x4 even }\n    // project to 2D by (x1+x3, x2+x4) (not an isometry but good for visualization).\n    // But for the theta series we use the true 4D norm.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++) for(let c=-B;c<=B;c++) for(let d=-B;d<=B;d++){\n      if(((a+b+c+d) & 1) !== 0) continue;\n      const x = a + c*0.6;\n      const y = b + d*0.6;\n      const n = a*a+b*b+c*c+d*d;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n\n  const LATS = {\n    'Z2': {name:'Z²', vectors:buildZ2(6), scale:20,\n      info:'basis (1,0),(0,1);  norm² = a²+b²'},\n    'A2': {name:'A₂ (hex)', vectors:buildA2(7), scale:22,\n      info:'basis (1,0),(1/2,√3/2);  norm² = a²+ab+b²'},\n    'D4': {name:'D₄', vectors:buildD4proj(3), scale:20,\n      info:'even-sum lattice in Z⁴; displayed via oblique 2D projection'}\n  };\n\n  function render(key){\n    svg.innerHTML='';\n    const L = LATS[key];\n    // Count multiplicities by squared length (integer)\n    const cnt = {};\n    for(const v of L.vectors){\n      const m = v[2];\n      cnt[m] = (cnt[m]||0)+1;\n    }\n    const lengths = Object.keys(cnt).map(Number).sort((a,b)=>a-b);\n\n    // Left half: draw lattice\n    const W=620, H=320, leftW = 300;\n    const cx = 150, cy = H/2;\n    const s = L.scale;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:10,y1:cy,x2:leftW-10,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n\n    // first few shells with distinct colors\n    const PALETTE = ['var(--yellow)','var(--green)','var(--cyan)','var(--pink)','var(--violet)','var(--blue)'];\n\n    // show origin ring guides for first few nonzero shells\n    const firstShells = lengths.filter(m=>m>0).slice(0,5);\n    for(let i=0;i<firstShells.length;i++){\n      const m = firstShells[i];\n      const r = Math.sqrt(m)*s;\n      if(r > leftW/2) continue;\n      svg.appendChild(SVG('circle',{cx,cy,r, fill:'none', stroke:PALETTE[i],'stroke-width':0.7,'stroke-dasharray':'2 3',opacity:0.55}));\n    }\n\n    for(const v of L.vectors){\n      const [x,y,m] = v;\n      const px = cx + x*s, py = cy - y*s;\n      if(px<5 || px>leftW-5 || py<15 || py>H-15) continue;\n      let color = 'var(--mute)';\n      const idx = firstShells.indexOf(m);\n      if(m===0) color = '#fff';\n      else if(idx>=0) color = PALETTE[idx];\n      const rr = m===0?3.5:2.5;\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:rr,fill:color,opacity:0.95}));\n    }\n\n    // Right half: theta series coefficients\n    const rightX = 330;\n    const rightW = W-rightX-12;\n    const maxM = Math.min(10, lengths[lengths.length-1]);\n    const shown = [];\n    for(let m=0;m<=maxM;m++) shown.push([m, cnt[m]||0]);\n    const maxV = Math.max(1, ...shown.map(p=>p[1]));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n\n    const barAreaH = 220, barAreaTop = 40;\n    const bw = rightW/(shown.length);\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop+barAreaH, x2:rightX+rightW, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop, x2:rightX, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n\n    for(let i=0;i<shown.length;i++){\n      const [m,v] = shown[i];\n      const x = rightX + i*bw;\n      const h = scale(v)*barAreaH;\n      if(v>0){\n        let color = 'var(--yellow)';\n        const idx = firstShells.indexOf(m);\n        if(idx>=0) color = PALETTE[idx];\n        if(m===0) color = '#fff';\n        svg.appendChild(SVG('rect',{x:x+2,y:barAreaTop+barAreaH-h,width:Math.max(1,bw-4),height:h,fill:color,opacity:0.9}));\n      }\n      const t = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n      if(v>0){\n        const t2 = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n        t2.textContent = v; svg.appendChild(t2);\n      }\n    }\n    const tx = SVG('text',{x:rightX+rightW/2, y:barAreaTop+barAreaH+30, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'squared length m  (coefficient of q^(m/2))'; svg.appendChild(tx);\n\n    const ttl = SVG('text',{x:rightX, y:barAreaTop-12,'font-size':12,fill:'var(--blue)','font-style':'italic'});\n    ttl.textContent = `Θ_${L.name}(τ)`; svg.appendChild(ttl);\n\n    // text summary\n    const terms = [];\n    terms.push(`Θ_{${L.name}}(τ) = `);\n    let first = true;\n    for(const [m,v] of shown){\n      if(v===0) continue;\n      if(first){ terms.push(`${v}${m===0?'':' q^('+m+'/2)'}`); first=false; }\n      else terms.push(` + ${v} q^(${m}/2)`);\n    }\n    terms.push(' + …');\n    out.textContent = `${L.info}\\n${terms.join('')}`;\n  }\n\n  btns.forEach(b => b.addEventListener('click', ()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(b.dataset.lat);\n  }));\n  render('Z2');"
+          }
         },
         {
           "type": "raw",
@@ -235,8 +511,84 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lat",
-          "html": "<script>\n/* ============================== widget 7: lattice theta =========================== */\n(function(){\n  const svg = $('#lat-svg'), out = $('#lat-out');\n  const btns = $$('#w-lat [data-lat]');\n\n  // lattices: each is a function that returns {vectors:[ [x,y,|v|^2], ...], name, counts: {m:n}}\n  function buildZ2(B){\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      vs.push([a,b,a*a+b*b]);\n    }\n    return vs;\n  }\n  function buildA2(B){\n    // basis: e1=(1,0), e2=(1/2, sqrt(3)/2).  Inner product is standard, giving norm^2 = a^2+ab+b^2.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      const x = a + b*0.5;\n      const y = b*Math.sqrt(3)/2;\n      const n = a*a + a*b + b*b;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n  function buildD4proj(B){\n    // D4 = { (x1,x2,x3,x4) ∈ Z^4 : x1+x2+x3+x4 even }\n    // project to 2D by (x1+x3, x2+x4) (not an isometry but good for visualization).\n    // But for the theta series we use the true 4D norm.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++) for(let c=-B;c<=B;c++) for(let d=-B;d<=B;d++){\n      if(((a+b+c+d) & 1) !== 0) continue;\n      const x = a + c*0.6;\n      const y = b + d*0.6;\n      const n = a*a+b*b+c*c+d*d;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n\n  const LATS = {\n    'Z2': {name:'Z²', vectors:buildZ2(6), scale:20,\n      info:'basis (1,0),(0,1);  norm² = a²+b²'},\n    'A2': {name:'A₂ (hex)', vectors:buildA2(7), scale:22,\n      info:'basis (1,0),(1/2,√3/2);  norm² = a²+ab+b²'},\n    'D4': {name:'D₄', vectors:buildD4proj(3), scale:20,\n      info:'even-sum lattice in Z⁴; displayed via oblique 2D projection'}\n  };\n\n  function render(key){\n    svg.innerHTML='';\n    const L = LATS[key];\n    // Count multiplicities by squared length (integer)\n    const cnt = {};\n    for(const v of L.vectors){\n      const m = v[2];\n      cnt[m] = (cnt[m]||0)+1;\n    }\n    const lengths = Object.keys(cnt).map(Number).sort((a,b)=>a-b);\n\n    // Left half: draw lattice\n    const W=620, H=320, leftW = 300;\n    const cx = 150, cy = H/2;\n    const s = L.scale;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:10,y1:cy,x2:leftW-10,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n\n    // first few shells with distinct colors\n    const PALETTE = ['var(--yellow)','var(--green)','var(--cyan)','var(--pink)','var(--violet)','var(--blue)'];\n\n    // show origin ring guides for first few nonzero shells\n    const firstShells = lengths.filter(m=>m>0).slice(0,5);\n    for(let i=0;i<firstShells.length;i++){\n      const m = firstShells[i];\n      const r = Math.sqrt(m)*s;\n      if(r > leftW/2) continue;\n      svg.appendChild(SVG('circle',{cx,cy,r, fill:'none', stroke:PALETTE[i],'stroke-width':0.7,'stroke-dasharray':'2 3',opacity:0.55}));\n    }\n\n    for(const v of L.vectors){\n      const [x,y,m] = v;\n      const px = cx + x*s, py = cy - y*s;\n      if(px<5 || px>leftW-5 || py<15 || py>H-15) continue;\n      let color = 'var(--mute)';\n      const idx = firstShells.indexOf(m);\n      if(m===0) color = '#fff';\n      else if(idx>=0) color = PALETTE[idx];\n      const rr = m===0?3.5:2.5;\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:rr,fill:color,opacity:0.95}));\n    }\n\n    // Right half: theta series coefficients\n    const rightX = 330;\n    const rightW = W-rightX-12;\n    const maxM = Math.min(10, lengths[lengths.length-1]);\n    const shown = [];\n    for(let m=0;m<=maxM;m++) shown.push([m, cnt[m]||0]);\n    const maxV = Math.max(1, ...shown.map(p=>p[1]));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n\n    const barAreaH = 220, barAreaTop = 40;\n    const bw = rightW/(shown.length);\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop+barAreaH, x2:rightX+rightW, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop, x2:rightX, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n\n    for(let i=0;i<shown.length;i++){\n      const [m,v] = shown[i];\n      const x = rightX + i*bw;\n      const h = scale(v)*barAreaH;\n      if(v>0){\n        let color = 'var(--yellow)';\n        const idx = firstShells.indexOf(m);\n        if(idx>=0) color = PALETTE[idx];\n        if(m===0) color = '#fff';\n        svg.appendChild(SVG('rect',{x:x+2,y:barAreaTop+barAreaH-h,width:Math.max(1,bw-4),height:h,fill:color,opacity:0.9}));\n      }\n      const t = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n      if(v>0){\n        const t2 = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n        t2.textContent = v; svg.appendChild(t2);\n      }\n    }\n    const tx = SVG('text',{x:rightX+rightW/2, y:barAreaTop+barAreaH+30, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'squared length m  (coefficient of q^(m/2))'; svg.appendChild(tx);\n\n    const ttl = SVG('text',{x:rightX, y:barAreaTop-12,'font-size':12,fill:'var(--blue)','font-style':'italic'});\n    ttl.textContent = `Θ_${L.name}(τ)`; svg.appendChild(ttl);\n\n    // text summary\n    const terms = [];\n    terms.push(`Θ_{${L.name}}(τ) = `);\n    let first = true;\n    for(const [m,v] of shown){\n      if(v===0) continue;\n      if(first){ terms.push(`${v}${m===0?'':' q^('+m+'/2)'}`); first=false; }\n      else terms.push(` + ${v} q^(${m}/2)`);\n    }\n    terms.push(' + …');\n    out.textContent = `${L.info}\\n${terms.join('')}`;\n  }\n\n  btns.forEach(b => b.addEventListener('click', ()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(b.dataset.lat);\n  }));\n  render('Z2');\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lat",
+            "title": "Theta series of 2D lattices",
+            "hint": "compare $\\mathbb{Z}^2$, hexagonal $A_2$, and $D_4$",
+            "svgId": "lat-svg",
+            "viewBox": "0 0 620 320",
+            "buttons": [
+              {
+                "label": "$\\mathbb{Z}^2$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "Z2"
+                },
+                "className": "active"
+              },
+              {
+                "label": "hexagonal $A_2$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "A2"
+                }
+              },
+              {
+                "label": "$D_4$",
+                "dataAttr": {
+                  "name": "data-lat",
+                  "value": "D4"
+                }
+              }
+            ],
+            "sectionComment": "============================== widget 7: lattice theta ===========================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "$\\mathbb{Z}^2$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "Z2"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "hexagonal $A_2$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "A2"
+                    }
+                  },
+                  {
+                    "label": "$D_4$",
+                    "dataAttr": {
+                      "name": "data-lat",
+                      "value": "D4"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "lat-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"lat-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\\Theta_L(\\tau) = \\sum N_L(m)\\, q^{m/2}$, first several coefficients.</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#lat-svg'), out = $('#lat-out');\n  const btns = $$('#w-lat [data-lat]');\n\n  // lattices: each is a function that returns {vectors:[ [x,y,|v|^2], ...], name, counts: {m:n}}\n  function buildZ2(B){\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      vs.push([a,b,a*a+b*b]);\n    }\n    return vs;\n  }\n  function buildA2(B){\n    // basis: e1=(1,0), e2=(1/2, sqrt(3)/2).  Inner product is standard, giving norm^2 = a^2+ab+b^2.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++){\n      const x = a + b*0.5;\n      const y = b*Math.sqrt(3)/2;\n      const n = a*a + a*b + b*b;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n  function buildD4proj(B){\n    // D4 = { (x1,x2,x3,x4) ∈ Z^4 : x1+x2+x3+x4 even }\n    // project to 2D by (x1+x3, x2+x4) (not an isometry but good for visualization).\n    // But for the theta series we use the true 4D norm.\n    const vs = [];\n    for(let a=-B;a<=B;a++) for(let b=-B;b<=B;b++) for(let c=-B;c<=B;c++) for(let d=-B;d<=B;d++){\n      if(((a+b+c+d) & 1) !== 0) continue;\n      const x = a + c*0.6;\n      const y = b + d*0.6;\n      const n = a*a+b*b+c*c+d*d;\n      vs.push([x,y,n]);\n    }\n    return vs;\n  }\n\n  const LATS = {\n    'Z2': {name:'Z²', vectors:buildZ2(6), scale:20,\n      info:'basis (1,0),(0,1);  norm² = a²+b²'},\n    'A2': {name:'A₂ (hex)', vectors:buildA2(7), scale:22,\n      info:'basis (1,0),(1/2,√3/2);  norm² = a²+ab+b²'},\n    'D4': {name:'D₄', vectors:buildD4proj(3), scale:20,\n      info:'even-sum lattice in Z⁴; displayed via oblique 2D projection'}\n  };\n\n  function render(key){\n    svg.innerHTML='';\n    const L = LATS[key];\n    // Count multiplicities by squared length (integer)\n    const cnt = {};\n    for(const v of L.vectors){\n      const m = v[2];\n      cnt[m] = (cnt[m]||0)+1;\n    }\n    const lengths = Object.keys(cnt).map(Number).sort((a,b)=>a-b);\n\n    // Left half: draw lattice\n    const W=620, H=320, leftW = 300;\n    const cx = 150, cy = H/2;\n    const s = L.scale;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:10,y1:cy,x2:leftW-10,y2:cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)'}));\n\n    // first few shells with distinct colors\n    const PALETTE = ['var(--yellow)','var(--green)','var(--cyan)','var(--pink)','var(--violet)','var(--blue)'];\n\n    // show origin ring guides for first few nonzero shells\n    const firstShells = lengths.filter(m=>m>0).slice(0,5);\n    for(let i=0;i<firstShells.length;i++){\n      const m = firstShells[i];\n      const r = Math.sqrt(m)*s;\n      if(r > leftW/2) continue;\n      svg.appendChild(SVG('circle',{cx,cy,r, fill:'none', stroke:PALETTE[i],'stroke-width':0.7,'stroke-dasharray':'2 3',opacity:0.55}));\n    }\n\n    for(const v of L.vectors){\n      const [x,y,m] = v;\n      const px = cx + x*s, py = cy - y*s;\n      if(px<5 || px>leftW-5 || py<15 || py>H-15) continue;\n      let color = 'var(--mute)';\n      const idx = firstShells.indexOf(m);\n      if(m===0) color = '#fff';\n      else if(idx>=0) color = PALETTE[idx];\n      const rr = m===0?3.5:2.5;\n      svg.appendChild(SVG('circle',{cx:px,cy:py,r:rr,fill:color,opacity:0.95}));\n    }\n\n    // Right half: theta series coefficients\n    const rightX = 330;\n    const rightW = W-rightX-12;\n    const maxM = Math.min(10, lengths[lengths.length-1]);\n    const shown = [];\n    for(let m=0;m<=maxM;m++) shown.push([m, cnt[m]||0]);\n    const maxV = Math.max(1, ...shown.map(p=>p[1]));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n\n    const barAreaH = 220, barAreaTop = 40;\n    const bw = rightW/(shown.length);\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop+barAreaH, x2:rightX+rightW, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:rightX, y1:barAreaTop, x2:rightX, y2:barAreaTop+barAreaH, stroke:'var(--line)'}));\n\n    for(let i=0;i<shown.length;i++){\n      const [m,v] = shown[i];\n      const x = rightX + i*bw;\n      const h = scale(v)*barAreaH;\n      if(v>0){\n        let color = 'var(--yellow)';\n        const idx = firstShells.indexOf(m);\n        if(idx>=0) color = PALETTE[idx];\n        if(m===0) color = '#fff';\n        svg.appendChild(SVG('rect',{x:x+2,y:barAreaTop+barAreaH-h,width:Math.max(1,bw-4),height:h,fill:color,opacity:0.9}));\n      }\n      const t = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n      if(v>0){\n        const t2 = SVG('text',{x:x+bw/2,y:barAreaTop+barAreaH-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n        t2.textContent = v; svg.appendChild(t2);\n      }\n    }\n    const tx = SVG('text',{x:rightX+rightW/2, y:barAreaTop+barAreaH+30, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tx.textContent = 'squared length m  (coefficient of q^(m/2))'; svg.appendChild(tx);\n\n    const ttl = SVG('text',{x:rightX, y:barAreaTop-12,'font-size':12,fill:'var(--blue)','font-style':'italic'});\n    ttl.textContent = `Θ_${L.name}(τ)`; svg.appendChild(ttl);\n\n    // text summary\n    const terms = [];\n    terms.push(`Θ_{${L.name}}(τ) = `);\n    let first = true;\n    for(const [m,v] of shown){\n      if(v===0) continue;\n      if(first){ terms.push(`${v}${m===0?'':' q^('+m+'/2)'}`); first=false; }\n      else terms.push(` + ${v} q^(${m}/2)`);\n    }\n    terms.push(' + …');\n    out.textContent = `${L.info}\\n${terms.join('')}`;\n  }\n\n  btns.forEach(b => b.addEventListener('click', ()=>{\n    btns.forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render(b.dataset.lat);\n  }));\n  render('Z2');"
+          }
         },
         {
           "type": "raw",

@@ -151,8 +151,49 @@
         {
           "type": "widget",
           "id": "w-dual",
-          "html": "<div class=\"widget\" id=\"w-dual\">\n  <div class=\"hd\"><div class=\"ttl\">A map $X\\to Y$ becomes $C(Y)\\to C(X)$</div><div class=\"hint\">arrows reverse, structure is preserved</div></div>\n  <div class=\"row\">\n    <label>map type</label>\n    <button id=\"dual-coll\" class=\"active\">collapse Y → pt</button>\n    <button id=\"dual-incl\">inclusion {1,2}↪{1,2,3}</button>\n    <button id=\"dual-double\">double cover 𝕋 → 𝕋</button>\n  </div>\n  <svg id=\"dual-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>A map $X\\to Y$ becomes $C(Y)\\to C(X)$</title></svg>\n  <div class=\"readout\" id=\"dual-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dual",
+            "title": "A map $X\\to Y$ becomes $C(Y)\\to C(X)$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "map type",
+                "buttons": [
+                  {
+                    "label": "collapse Y → pt",
+                    "id": "dual-coll",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "inclusion {1,2}↪{1,2,3}",
+                    "id": "dual-incl"
+                  },
+                  {
+                    "label": "double cover 𝕋 → 𝕋",
+                    "id": "dual-double"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "dual-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "dual-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#dual-svg'), out=$('#dual-out');\n  const buttons = {coll:$('#dual-coll'), incl:$('#dual-incl'), double:$('#dual-double')};\n  let mode='coll';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320;\n    // header bands\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'TOPOLOGY  (CHaus)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'C*-ALGEBRAS (cCAlg₁ᵒᵖ)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n\n    if(mode==='coll'){\n      // left: Y = {a,b,c} → X = {*}\n      drawNode(svg, 100, 100, 'a', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 160, 'b', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 220, 'c', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 230, 160, '*', {r:14,stroke:'var(--green)'});\n      drawArrow(svg, [115,100],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,160],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,220],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = {a,b,c}  →  X = {*},  φ(everything) = *'}));\n      // right: C(X) = ℂ → C(Y) = ℂ³, constant map\n      drawNode(svg, 410, 160, 'ℂ', {r:18,stroke:'var(--green)'});\n      drawNode(svg, 540, 100, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 160, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 220, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawArrow(svg, [428,160],[525,100],{color:'var(--violet)',markerId:'d-coll2',label:'φ*'});\n      drawArrow(svg, [428,160],[525,160],{color:'var(--violet)',markerId:'d-coll2'});\n      drawArrow(svg, [428,160],[525,220],{color:'var(--violet)',markerId:'d-coll2'});\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'C(X) = ℂ  →  C(Y) = ℂ³,  φ*(c) = (c,c,c)'}));\n      out.textContent =\n        `Topology: φ : Y={a,b,c} → X={*} is the unique map (collapse).\\n`+\n        `Algebra:  φ* : C(X)=ℂ → C(Y)=ℂ³, φ*(c) = constant c.\\n`+\n        `Note arrow direction reversal: a SURJECTION on the left becomes an INJECTION (in fact, the diagonal embedding ℂ ↪ ℂ³) on the right.`;\n    } else if(mode==='incl'){\n      // left: i : {1,2} ↪ {1,2,3}\n      drawNode(svg, 90, 130, '1', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 90, 200, '2', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 230, 110, '1', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 170, '2', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 230, '3', {r:13,stroke:'var(--green)'});\n      drawArrow(svg, [103,130],[218,110],{color:'var(--mute)',markerId:'d-incl1'});\n      drawArrow(svg, [103,200],[218,170],{color:'var(--mute)',markerId:'d-incl1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i : Y={1,2} ↪ X={1,2,3}'}));\n      // right: C(X)=ℂ³ → C(Y)=ℂ², restriction (drop coord 3)\n      drawNode(svg, 410, 110, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 170, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 230, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 540, 130, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 540, 200, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawArrow(svg, [423,110],[527,130],{color:'var(--violet)',markerId:'d-incl2',label:'i*'});\n      drawArrow(svg, [423,170],[527,200],{color:'var(--violet)',markerId:'d-incl2'});\n      // x for the dropped one\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:240,'text-anchor':'middle','font-size':14,fill:'var(--pink)'}),{textContent:'×'}));\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i* : ℂ³ ↠ ℂ², (a,b,c) ↦ (a,b)'}));\n      out.textContent =\n        `Topology: a closed inclusion {1,2} ↪ {1,2,3}.\\n`+\n        `Algebra: i* : C(X)=ℂ³ ↠ C(Y)=ℂ², \"restrict to {1,2}\".\\n`+\n        `Kernel: {(0,0,c) : c ∈ ℂ} = functions vanishing on Y. Closed inclusions ↔ quotient algebras.`;\n    } else { // double cover\n      // left: T → T,  z ↦ z²\n      const cxL=130, cyL=160, RL=70;\n      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:RL,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));\n      const cxR=270, cyR=160, RR=70;\n      svg.appendChild(SVG('circle',{cx:cxR,cy:cyR,r:RR,fill:'none',stroke:'var(--green)','stroke-width':1.5}));\n      // mark a base point and its preimages\n      svg.appendChild(SVG('circle',{cx:cxR+RR,cy:cyR,r:5,fill:'var(--green)'}));\n      svg.appendChild(SVG('circle',{cx:cxL+RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      svg.appendChild(SVG('circle',{cx:cxL-RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      drawArrow(svg, [cxL+8,cyL-RL-10],[cxR-8,cyR-RR-10],{color:'var(--mute)',markerId:'d-dbl1',curve:-20,label:'z↦z²'});\n      svg.appendChild(Object.assign(SVG('text',{x:cxL,y:cyL+RL+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = 𝕋'}));\n      svg.appendChild(Object.assign(SVG('text',{x:cxR,y:cyR+RR+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'X = 𝕋'}));\n      // right: C(T) → C(T), f(z) ↦ f(z²)  (pullback embeds even-Fourier subalgebra)\n      const lx=410, rx=560, by=140;\n      svg.appendChild(Object.assign(SVG('text',{x:lx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'C(X) = C(𝕋)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--blue)'}),{textContent:'C(Y) = C(𝕋)'}));\n      drawArrow(svg, [lx+30,by],[rx-30,by],{color:'var(--violet)',markerId:'d-dbl2',label:'φ*'});\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+44,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'φ*(f)(w) = f(w²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+72,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'image = even Fourier modes  {f : f̂(2k+1)=0}'}));\n      out.textContent =\n        `Topology: φ : 𝕋 → 𝕋, z ↦ z² (degree-2 covering).\\n`+\n        `Algebra:  φ* : C(𝕋) → C(𝕋), f ↦ f∘φ.  Image is the subalgebra of functions g with g(z) = g(-z) — equivalently, only even Fourier coefficients.\\n`+\n        `Surjective covering  ↔  injective *-hom into a subalgebra. φ* is NOT surjective.`;\n    }\n    // big curved arrow on top showing functor reversal\n    drawArrow(svg, [W/4-10, 50],[3*W/4-30, 50],{color:'var(--cyan)',markerId:'d-fun',curve:-15,label:'C(-)'});\n    drawArrow(svg, [3*W/4-30, 70],[W/4-10, 70],{color:'var(--cyan)',markerId:'d-fun2',curve:15,label:'(-)^'});\n  }\n\n  Object.entries(buttons).forEach(([k,b])=> b.addEventListener('click', ()=>{\n    mode = k;\n    Object.values(buttons).forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();",
+            "hint": "arrows reverse, structure is preserved",
+            "sectionComment": "=============================== §6 duality widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -169,8 +210,49 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-dual",
-          "html": "<script>\n/* =============================== §6 duality widget =============================== */\n(function(){\n  const svg=$('#dual-svg'), out=$('#dual-out');\n  const buttons = {coll:$('#dual-coll'), incl:$('#dual-incl'), double:$('#dual-double')};\n  let mode='coll';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320;\n    // header bands\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'TOPOLOGY  (CHaus)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'C*-ALGEBRAS (cCAlg₁ᵒᵖ)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n\n    if(mode==='coll'){\n      // left: Y = {a,b,c} → X = {*}\n      drawNode(svg, 100, 100, 'a', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 160, 'b', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 220, 'c', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 230, 160, '*', {r:14,stroke:'var(--green)'});\n      drawArrow(svg, [115,100],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,160],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,220],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = {a,b,c}  →  X = {*},  φ(everything) = *'}));\n      // right: C(X) = ℂ → C(Y) = ℂ³, constant map\n      drawNode(svg, 410, 160, 'ℂ', {r:18,stroke:'var(--green)'});\n      drawNode(svg, 540, 100, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 160, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 220, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawArrow(svg, [428,160],[525,100],{color:'var(--violet)',markerId:'d-coll2',label:'φ*'});\n      drawArrow(svg, [428,160],[525,160],{color:'var(--violet)',markerId:'d-coll2'});\n      drawArrow(svg, [428,160],[525,220],{color:'var(--violet)',markerId:'d-coll2'});\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'C(X) = ℂ  →  C(Y) = ℂ³,  φ*(c) = (c,c,c)'}));\n      out.textContent =\n        `Topology: φ : Y={a,b,c} → X={*} is the unique map (collapse).\\n`+\n        `Algebra:  φ* : C(X)=ℂ → C(Y)=ℂ³, φ*(c) = constant c.\\n`+\n        `Note arrow direction reversal: a SURJECTION on the left becomes an INJECTION (in fact, the diagonal embedding ℂ ↪ ℂ³) on the right.`;\n    } else if(mode==='incl'){\n      // left: i : {1,2} ↪ {1,2,3}\n      drawNode(svg, 90, 130, '1', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 90, 200, '2', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 230, 110, '1', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 170, '2', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 230, '3', {r:13,stroke:'var(--green)'});\n      drawArrow(svg, [103,130],[218,110],{color:'var(--mute)',markerId:'d-incl1'});\n      drawArrow(svg, [103,200],[218,170],{color:'var(--mute)',markerId:'d-incl1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i : Y={1,2} ↪ X={1,2,3}'}));\n      // right: C(X)=ℂ³ → C(Y)=ℂ², restriction (drop coord 3)\n      drawNode(svg, 410, 110, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 170, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 230, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 540, 130, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 540, 200, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawArrow(svg, [423,110],[527,130],{color:'var(--violet)',markerId:'d-incl2',label:'i*'});\n      drawArrow(svg, [423,170],[527,200],{color:'var(--violet)',markerId:'d-incl2'});\n      // x for the dropped one\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:240,'text-anchor':'middle','font-size':14,fill:'var(--pink)'}),{textContent:'×'}));\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i* : ℂ³ ↠ ℂ², (a,b,c) ↦ (a,b)'}));\n      out.textContent =\n        `Topology: a closed inclusion {1,2} ↪ {1,2,3}.\\n`+\n        `Algebra: i* : C(X)=ℂ³ ↠ C(Y)=ℂ², \"restrict to {1,2}\".\\n`+\n        `Kernel: {(0,0,c) : c ∈ ℂ} = functions vanishing on Y. Closed inclusions ↔ quotient algebras.`;\n    } else { // double cover\n      // left: T → T,  z ↦ z²\n      const cxL=130, cyL=160, RL=70;\n      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:RL,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));\n      const cxR=270, cyR=160, RR=70;\n      svg.appendChild(SVG('circle',{cx:cxR,cy:cyR,r:RR,fill:'none',stroke:'var(--green)','stroke-width':1.5}));\n      // mark a base point and its preimages\n      svg.appendChild(SVG('circle',{cx:cxR+RR,cy:cyR,r:5,fill:'var(--green)'}));\n      svg.appendChild(SVG('circle',{cx:cxL+RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      svg.appendChild(SVG('circle',{cx:cxL-RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      drawArrow(svg, [cxL+8,cyL-RL-10],[cxR-8,cyR-RR-10],{color:'var(--mute)',markerId:'d-dbl1',curve:-20,label:'z↦z²'});\n      svg.appendChild(Object.assign(SVG('text',{x:cxL,y:cyL+RL+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = 𝕋'}));\n      svg.appendChild(Object.assign(SVG('text',{x:cxR,y:cyR+RR+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'X = 𝕋'}));\n      // right: C(T) → C(T), f(z) ↦ f(z²)  (pullback embeds even-Fourier subalgebra)\n      const lx=410, rx=560, by=140;\n      svg.appendChild(Object.assign(SVG('text',{x:lx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'C(X) = C(𝕋)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--blue)'}),{textContent:'C(Y) = C(𝕋)'}));\n      drawArrow(svg, [lx+30,by],[rx-30,by],{color:'var(--violet)',markerId:'d-dbl2',label:'φ*'});\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+44,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'φ*(f)(w) = f(w²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+72,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'image = even Fourier modes  {f : f̂(2k+1)=0}'}));\n      out.textContent =\n        `Topology: φ : 𝕋 → 𝕋, z ↦ z² (degree-2 covering).\\n`+\n        `Algebra:  φ* : C(𝕋) → C(𝕋), f ↦ f∘φ.  Image is the subalgebra of functions g with g(z) = g(-z) — equivalently, only even Fourier coefficients.\\n`+\n        `Surjective covering  ↔  injective *-hom into a subalgebra. φ* is NOT surjective.`;\n    }\n    // big curved arrow on top showing functor reversal\n    drawArrow(svg, [W/4-10, 50],[3*W/4-30, 50],{color:'var(--cyan)',markerId:'d-fun',curve:-15,label:'C(-)'});\n    drawArrow(svg, [3*W/4-30, 70],[W/4-10, 70],{color:'var(--cyan)',markerId:'d-fun2',curve:15,label:'(-)^'});\n  }\n\n  Object.entries(buttons).forEach(([k,b])=> b.addEventListener('click', ()=>{\n    mode = k;\n    Object.values(buttons).forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dual",
+            "title": "A map $X\\to Y$ becomes $C(Y)\\to C(X)$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "map type",
+                "buttons": [
+                  {
+                    "label": "collapse Y → pt",
+                    "id": "dual-coll",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "inclusion {1,2}↪{1,2,3}",
+                    "id": "dual-incl"
+                  },
+                  {
+                    "label": "double cover 𝕋 → 𝕋",
+                    "id": "dual-double"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "dual-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "dual-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#dual-svg'), out=$('#dual-out');\n  const buttons = {coll:$('#dual-coll'), incl:$('#dual-incl'), double:$('#dual-double')};\n  let mode='coll';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320;\n    // header bands\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'TOPOLOGY  (CHaus)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'C*-ALGEBRAS (cCAlg₁ᵒᵖ)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n\n    if(mode==='coll'){\n      // left: Y = {a,b,c} → X = {*}\n      drawNode(svg, 100, 100, 'a', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 160, 'b', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 100, 220, 'c', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 230, 160, '*', {r:14,stroke:'var(--green)'});\n      drawArrow(svg, [115,100],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,160],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      drawArrow(svg, [115,220],[215,160],{color:'var(--mute)',markerId:'d-coll1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = {a,b,c}  →  X = {*},  φ(everything) = *'}));\n      // right: C(X) = ℂ → C(Y) = ℂ³, constant map\n      drawNode(svg, 410, 160, 'ℂ', {r:18,stroke:'var(--green)'});\n      drawNode(svg, 540, 100, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 160, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawNode(svg, 540, 220, 'ℂ', {r:14,stroke:'var(--blue)'});\n      drawArrow(svg, [428,160],[525,100],{color:'var(--violet)',markerId:'d-coll2',label:'φ*'});\n      drawArrow(svg, [428,160],[525,160],{color:'var(--violet)',markerId:'d-coll2'});\n      drawArrow(svg, [428,160],[525,220],{color:'var(--violet)',markerId:'d-coll2'});\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'C(X) = ℂ  →  C(Y) = ℂ³,  φ*(c) = (c,c,c)'}));\n      out.textContent =\n        `Topology: φ : Y={a,b,c} → X={*} is the unique map (collapse).\\n`+\n        `Algebra:  φ* : C(X)=ℂ → C(Y)=ℂ³, φ*(c) = constant c.\\n`+\n        `Note arrow direction reversal: a SURJECTION on the left becomes an INJECTION (in fact, the diagonal embedding ℂ ↪ ℂ³) on the right.`;\n    } else if(mode==='incl'){\n      // left: i : {1,2} ↪ {1,2,3}\n      drawNode(svg, 90, 130, '1', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 90, 200, '2', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 230, 110, '1', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 170, '2', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 230, 230, '3', {r:13,stroke:'var(--green)'});\n      drawArrow(svg, [103,130],[218,110],{color:'var(--mute)',markerId:'d-incl1'});\n      drawArrow(svg, [103,200],[218,170],{color:'var(--mute)',markerId:'d-incl1'});\n      svg.appendChild(Object.assign(SVG('text',{x:165,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i : Y={1,2} ↪ X={1,2,3}'}));\n      // right: C(X)=ℂ³ → C(Y)=ℂ², restriction (drop coord 3)\n      drawNode(svg, 410, 110, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 170, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 410, 230, 'ℂ', {r:13,stroke:'var(--green)'});\n      drawNode(svg, 540, 130, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawNode(svg, 540, 200, 'ℂ', {r:13,stroke:'var(--blue)'});\n      drawArrow(svg, [423,110],[527,130],{color:'var(--violet)',markerId:'d-incl2',label:'i*'});\n      drawArrow(svg, [423,170],[527,200],{color:'var(--violet)',markerId:'d-incl2'});\n      // x for the dropped one\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:240,'text-anchor':'middle','font-size':14,fill:'var(--pink)'}),{textContent:'×'}));\n      svg.appendChild(Object.assign(SVG('text',{x:475,y:H-30,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'i* : ℂ³ ↠ ℂ², (a,b,c) ↦ (a,b)'}));\n      out.textContent =\n        `Topology: a closed inclusion {1,2} ↪ {1,2,3}.\\n`+\n        `Algebra: i* : C(X)=ℂ³ ↠ C(Y)=ℂ², \"restrict to {1,2}\".\\n`+\n        `Kernel: {(0,0,c) : c ∈ ℂ} = functions vanishing on Y. Closed inclusions ↔ quotient algebras.`;\n    } else { // double cover\n      // left: T → T,  z ↦ z²\n      const cxL=130, cyL=160, RL=70;\n      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:RL,fill:'none',stroke:'var(--blue)','stroke-width':1.5}));\n      const cxR=270, cyR=160, RR=70;\n      svg.appendChild(SVG('circle',{cx:cxR,cy:cyR,r:RR,fill:'none',stroke:'var(--green)','stroke-width':1.5}));\n      // mark a base point and its preimages\n      svg.appendChild(SVG('circle',{cx:cxR+RR,cy:cyR,r:5,fill:'var(--green)'}));\n      svg.appendChild(SVG('circle',{cx:cxL+RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      svg.appendChild(SVG('circle',{cx:cxL-RL,cy:cyL,r:5,fill:'var(--yellow)'}));\n      drawArrow(svg, [cxL+8,cyL-RL-10],[cxR-8,cyR-RR-10],{color:'var(--mute)',markerId:'d-dbl1',curve:-20,label:'z↦z²'});\n      svg.appendChild(Object.assign(SVG('text',{x:cxL,y:cyL+RL+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'Y = 𝕋'}));\n      svg.appendChild(Object.assign(SVG('text',{x:cxR,y:cyR+RR+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'X = 𝕋'}));\n      // right: C(T) → C(T), f(z) ↦ f(z²)  (pullback embeds even-Fourier subalgebra)\n      const lx=410, rx=560, by=140;\n      svg.appendChild(Object.assign(SVG('text',{x:lx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'C(X) = C(𝕋)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:by-10,'text-anchor':'middle','font-size':13,fill:'var(--blue)'}),{textContent:'C(Y) = C(𝕋)'}));\n      drawArrow(svg, [lx+30,by],[rx-30,by],{color:'var(--violet)',markerId:'d-dbl2',label:'φ*'});\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+44,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:'φ*(f)(w) = f(w²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(lx+rx)/2,y:by+72,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'image = even Fourier modes  {f : f̂(2k+1)=0}'}));\n      out.textContent =\n        `Topology: φ : 𝕋 → 𝕋, z ↦ z² (degree-2 covering).\\n`+\n        `Algebra:  φ* : C(𝕋) → C(𝕋), f ↦ f∘φ.  Image is the subalgebra of functions g with g(z) = g(-z) — equivalently, only even Fourier coefficients.\\n`+\n        `Surjective covering  ↔  injective *-hom into a subalgebra. φ* is NOT surjective.`;\n    }\n    // big curved arrow on top showing functor reversal\n    drawArrow(svg, [W/4-10, 50],[3*W/4-30, 50],{color:'var(--cyan)',markerId:'d-fun',curve:-15,label:'C(-)'});\n    drawArrow(svg, [3*W/4-30, 70],[W/4-10, 70],{color:'var(--cyan)',markerId:'d-fun2',curve:15,label:'(-)^'});\n  }\n\n  Object.entries(buttons).forEach(([k,b])=> b.addEventListener('click', ()=>{\n    mode = k;\n    Object.values(buttons).forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();",
+            "hint": "arrows reverse, structure is preserved",
+            "sectionComment": "=============================== §6 duality widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -188,8 +270,22 @@
         {
           "type": "widget",
           "id": "w-nct",
-          "html": "<div class=\"widget\" id=\"w-nct\">\n  <div class=\"hd\"><div class=\"ttl\">$A_\\theta$ — a knob with no spectrum</div><div class=\"hint\">drag $\\theta$; the classical points vanish for $\\theta$ irrational</div></div>\n  <div class=\"row\">\n    <label for=\"nct-th\">θ</label>\n    <input type=\"range\" id=\"nct-th\" min=\"0\" max=\"100\" step=\"0.1\" value=\"61.8\">\n    <span class=\"readout\" id=\"nct-th-out\" style=\"min-width:90px;flex:0 0 auto\">θ = 0.618</span>\n  </div>\n  <svg id=\"nct-svg\" viewBox=\"0 0 540 280\" width=\"540\" height=\"280\"><title>$A_\\theta$ — a knob with no spectrum</title></svg>\n  <div class=\"readout\" id=\"nct-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-nct",
+            "title": "$A_\\theta$ — a knob with no spectrum",
+            "hint": "drag $\\theta$; the classical points vanish for $\\theta$ irrational",
+            "svgId": "nct-svg",
+            "svgViewBox": "0 0 540 280",
+            "svgWidthAttr": "540",
+            "svgHeightAttr": "280",
+            "svgTitle": "$A_\\theta$ — a knob with no spectrum",
+            "outputId": "nct-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"nct-th\">θ</label>\n    <input type=\"range\" id=\"nct-th\" min=\"0\" max=\"100\" step=\"0.1\" value=\"61.8\">\n    <span class=\"readout\" id=\"nct-th-out\" style=\"min-width:90px;flex:0 0 auto\">θ = 0.618</span>",
+            "scriptBodyLiteral": "/* =============================== §7 noncommutative torus widget =============================== */\n(function(){\n  const sl=$('#nct-th'), sout=$('#nct-th-out'), svg=$('#nct-svg'), out=$('#nct-out');\n\n  function isRational(θ, eps=1e-3){\n    // crude: check small-denominator continued fraction approx\n    let best=null;\n    for(let q=1;q<=12;q++){\n      const p = Math.round(θ*q);\n      if(Math.abs(θ - p/q) < eps){ best={p,q}; break; }\n    }\n    return best;\n  }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const θ = (+sl.value)/100;\n    sout.textContent = `θ = ${θ.toFixed(3)}`;\n    const W=540, H=280;\n    const rat = isRational(θ);\n\n    // Visualize the unit-disc orbit of v u v* u* relation: angles e^{2πiθ}\n    // left: a circle with two unitary generators u, v as rotations\n    const cx=130, cy=140, R=90;\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n    // base point\n    svg.appendChild(SVG('circle',{cx:cx+R,cy,r:4,fill:'var(--ink)'}));\n    // orbit under multiplication by e^{2πiθ}\n    const ORB=24;\n    for(let k=0;k<ORB;k++){\n      const ang = 2*Math.PI*θ*k;\n      const x = cx + R*Math.cos(ang), y = cy - R*Math.sin(ang);\n      const op = 1 - k/ORB*0.7;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3.5,fill:'var(--yellow)','fill-opacity':op}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'u-orbit of 1 ∈ 𝕋, step e^{2πiθ}'}));\n\n    // right: status panel\n    const rx=320, ry=80;\n    svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry,'font-size':14,fill:'var(--ink)','font-weight':600}),{textContent:`A_θ generated by u, v with vu = e^{2πiθ} uv`}));\n    if(θ===0){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--green)'}),{textContent:'θ = 0:  uv = vu, so A_0 ≅ C(𝕋²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--green)'}),{textContent:'classical spectrum = 𝕋² (the 2-torus)'}));\n      out.textContent = `θ=0: A_θ is commutative, equals C(𝕋²). Gelfand spectrum = 𝕋².\\nThis is the classical commutative endpoint of the family.`;\n    } else if(rat){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--blue)'}),{textContent:`θ = ${rat.p}/${rat.q} (rational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--blue)'}),{textContent:`A_{p/q} = sections of an M_q-bundle over 𝕋²`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':12,fill:'var(--mute)'}),{textContent:`center ≅ C(𝕋²); has ordinary spectrum = 𝕋² (with multiplicity)`}));\n      out.textContent = `θ = ${rat.p}/${rat.q}:  A_θ is a homogeneous Azumaya-type algebra over the 2-torus.\\nIt has a rich character/representation theory, but A_θ ≇ C(X) for any X — it is noncommutative.`;\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--pink)'}),{textContent:`θ = ${θ.toFixed(3)}  (irrational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--pink)'}),{textContent:'A_θ is simple, has a UNIQUE TRACE,'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':13,fill:'var(--pink)'}),{textContent:'and has  Â = ∅  (no characters).'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+96,'font-size':12,fill:'var(--mute)'}),{textContent:'classical Gelfand machinery FAILS.'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+114,'font-size':12,fill:'var(--mute)'}),{textContent:'still: K_0(A_θ) = ℤ + θℤ ⊂ ℝ (Pimsner–Voiculescu).'}));\n      out.textContent = `θ irrational: A_θ is simple. Its only \"spectrum\" in the classical sense is empty.\\nBut K-theory and trace pairings give it K_0(A_θ) = ℤ + θℤ as an ordered subgroup of ℝ — Connes's first triumph for noncommutative geometry.\\nThis is the prototypical noncommutative space: orbit space of the irrational rotation 𝕋 ↻ 𝕋, which is a horrible topological quotient but a perfectly good C*-algebra.`;\n    }\n  }\n\n  sl.addEventListener('input', render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -206,8 +302,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-nct",
-          "html": "<script>\n/* =============================== §7 noncommutative torus widget =============================== */\n(function(){\n  const sl=$('#nct-th'), sout=$('#nct-th-out'), svg=$('#nct-svg'), out=$('#nct-out');\n\n  function isRational(θ, eps=1e-3){\n    // crude: check small-denominator continued fraction approx\n    let best=null;\n    for(let q=1;q<=12;q++){\n      const p = Math.round(θ*q);\n      if(Math.abs(θ - p/q) < eps){ best={p,q}; break; }\n    }\n    return best;\n  }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const θ = (+sl.value)/100;\n    sout.textContent = `θ = ${θ.toFixed(3)}`;\n    const W=540, H=280;\n    const rat = isRational(θ);\n\n    // Visualize the unit-disc orbit of v u v* u* relation: angles e^{2πiθ}\n    // left: a circle with two unitary generators u, v as rotations\n    const cx=130, cy=140, R=90;\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n    // base point\n    svg.appendChild(SVG('circle',{cx:cx+R,cy,r:4,fill:'var(--ink)'}));\n    // orbit under multiplication by e^{2πiθ}\n    const ORB=24;\n    for(let k=0;k<ORB;k++){\n      const ang = 2*Math.PI*θ*k;\n      const x = cx + R*Math.cos(ang), y = cy - R*Math.sin(ang);\n      const op = 1 - k/ORB*0.7;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3.5,fill:'var(--yellow)','fill-opacity':op}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'u-orbit of 1 ∈ 𝕋, step e^{2πiθ}'}));\n\n    // right: status panel\n    const rx=320, ry=80;\n    svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry,'font-size':14,fill:'var(--ink)','font-weight':600}),{textContent:`A_θ generated by u, v with vu = e^{2πiθ} uv`}));\n    if(θ===0){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--green)'}),{textContent:'θ = 0:  uv = vu, so A_0 ≅ C(𝕋²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--green)'}),{textContent:'classical spectrum = 𝕋² (the 2-torus)'}));\n      out.textContent = `θ=0: A_θ is commutative, equals C(𝕋²). Gelfand spectrum = 𝕋².\\nThis is the classical commutative endpoint of the family.`;\n    } else if(rat){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--blue)'}),{textContent:`θ = ${rat.p}/${rat.q} (rational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--blue)'}),{textContent:`A_{p/q} = sections of an M_q-bundle over 𝕋²`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':12,fill:'var(--mute)'}),{textContent:`center ≅ C(𝕋²); has ordinary spectrum = 𝕋² (with multiplicity)`}));\n      out.textContent = `θ = ${rat.p}/${rat.q}:  A_θ is a homogeneous Azumaya-type algebra over the 2-torus.\\nIt has a rich character/representation theory, but A_θ ≇ C(X) for any X — it is noncommutative.`;\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--pink)'}),{textContent:`θ = ${θ.toFixed(3)}  (irrational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--pink)'}),{textContent:'A_θ is simple, has a UNIQUE TRACE,'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':13,fill:'var(--pink)'}),{textContent:'and has  Â = ∅  (no characters).'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+96,'font-size':12,fill:'var(--mute)'}),{textContent:'classical Gelfand machinery FAILS.'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+114,'font-size':12,fill:'var(--mute)'}),{textContent:'still: K_0(A_θ) = ℤ + θℤ ⊂ ℝ (Pimsner–Voiculescu).'}));\n      out.textContent = `θ irrational: A_θ is simple. Its only \"spectrum\" in the classical sense is empty.\\nBut K-theory and trace pairings give it K_0(A_θ) = ℤ + θℤ as an ordered subgroup of ℝ — Connes's first triumph for noncommutative geometry.\\nThis is the prototypical noncommutative space: orbit space of the irrational rotation 𝕋 ↻ 𝕋, which is a horrible topological quotient but a perfectly good C*-algebra.`;\n    }\n  }\n\n  sl.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-nct",
+            "title": "$A_\\theta$ — a knob with no spectrum",
+            "hint": "drag $\\theta$; the classical points vanish for $\\theta$ irrational",
+            "svgId": "nct-svg",
+            "svgViewBox": "0 0 540 280",
+            "svgWidthAttr": "540",
+            "svgHeightAttr": "280",
+            "svgTitle": "$A_\\theta$ — a knob with no spectrum",
+            "outputId": "nct-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"nct-th\">θ</label>\n    <input type=\"range\" id=\"nct-th\" min=\"0\" max=\"100\" step=\"0.1\" value=\"61.8\">\n    <span class=\"readout\" id=\"nct-th-out\" style=\"min-width:90px;flex:0 0 auto\">θ = 0.618</span>",
+            "scriptBodyLiteral": "/* =============================== §7 noncommutative torus widget =============================== */\n(function(){\n  const sl=$('#nct-th'), sout=$('#nct-th-out'), svg=$('#nct-svg'), out=$('#nct-out');\n\n  function isRational(θ, eps=1e-3){\n    // crude: check small-denominator continued fraction approx\n    let best=null;\n    for(let q=1;q<=12;q++){\n      const p = Math.round(θ*q);\n      if(Math.abs(θ - p/q) < eps){ best={p,q}; break; }\n    }\n    return best;\n  }\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const θ = (+sl.value)/100;\n    sout.textContent = `θ = ${θ.toFixed(3)}`;\n    const W=540, H=280;\n    const rat = isRational(θ);\n\n    // Visualize the unit-disc orbit of v u v* u* relation: angles e^{2πiθ}\n    // left: a circle with two unitary generators u, v as rotations\n    const cx=130, cy=140, R=90;\n    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n    // base point\n    svg.appendChild(SVG('circle',{cx:cx+R,cy,r:4,fill:'var(--ink)'}));\n    // orbit under multiplication by e^{2πiθ}\n    const ORB=24;\n    for(let k=0;k<ORB;k++){\n      const ang = 2*Math.PI*θ*k;\n      const x = cx + R*Math.cos(ang), y = cy - R*Math.sin(ang);\n      const op = 1 - k/ORB*0.7;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:3.5,fill:'var(--yellow)','fill-opacity':op}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'u-orbit of 1 ∈ 𝕋, step e^{2πiθ}'}));\n\n    // right: status panel\n    const rx=320, ry=80;\n    svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry,'font-size':14,fill:'var(--ink)','font-weight':600}),{textContent:`A_θ generated by u, v with vu = e^{2πiθ} uv`}));\n    if(θ===0){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--green)'}),{textContent:'θ = 0:  uv = vu, so A_0 ≅ C(𝕋²)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--green)'}),{textContent:'classical spectrum = 𝕋² (the 2-torus)'}));\n      out.textContent = `θ=0: A_θ is commutative, equals C(𝕋²). Gelfand spectrum = 𝕋².\\nThis is the classical commutative endpoint of the family.`;\n    } else if(rat){\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--blue)'}),{textContent:`θ = ${rat.p}/${rat.q} (rational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--blue)'}),{textContent:`A_{p/q} = sections of an M_q-bundle over 𝕋²`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':12,fill:'var(--mute)'}),{textContent:`center ≅ C(𝕋²); has ordinary spectrum = 𝕋² (with multiplicity)`}));\n      out.textContent = `θ = ${rat.p}/${rat.q}:  A_θ is a homogeneous Azumaya-type algebra over the 2-torus.\\nIt has a rich character/representation theory, but A_θ ≇ C(X) for any X — it is noncommutative.`;\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+30,'font-size':13,fill:'var(--pink)'}),{textContent:`θ = ${θ.toFixed(3)}  (irrational)`}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+50,'font-size':13,fill:'var(--pink)'}),{textContent:'A_θ is simple, has a UNIQUE TRACE,'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+70,'font-size':13,fill:'var(--pink)'}),{textContent:'and has  Â = ∅  (no characters).'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+96,'font-size':12,fill:'var(--mute)'}),{textContent:'classical Gelfand machinery FAILS.'}));\n      svg.appendChild(Object.assign(SVG('text',{x:rx,y:ry+114,'font-size':12,fill:'var(--mute)'}),{textContent:'still: K_0(A_θ) = ℤ + θℤ ⊂ ℝ (Pimsner–Voiculescu).'}));\n      out.textContent = `θ irrational: A_θ is simple. Its only \"spectrum\" in the classical sense is empty.\\nBut K-theory and trace pairings give it K_0(A_θ) = ℤ + θℤ as an ordered subgroup of ℝ — Connes's first triumph for noncommutative geometry.\\nThis is the prototypical noncommutative space: orbit space of the irrational rotation 𝕋 ↻ 𝕋, which is a horrible topological quotient but a perfectly good C*-algebra.`;\n    }\n  }\n\n  sl.addEventListener('input', render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -225,8 +335,50 @@
         {
           "type": "widget",
           "id": "w-dcom",
-          "html": "<div class=\"widget\" id=\"w-dcom\">\n  <div class=\"hd\"><div class=\"ttl\">$M$ vs $M''$ in $M_3(\\mathbb{C})$</div><div class=\"hint\">pick a subalgebra; see $M'$ and $M''$</div></div>\n  <div class=\"row\">\n    <label>subalgebra $M\\subseteq M_3$</label>\n    <button id=\"dcom-diag\" class=\"active\">diagonal</button>\n    <button id=\"dcom-block\">$\\mathbb{C}\\oplus M_2$</button>\n    <button id=\"dcom-scalar\">$\\mathbb{C}\\cdot 1$</button>\n  </div>\n  <svg id=\"dcom-svg\" viewBox=\"0 0 560 240\" width=\"560\" height=\"240\"><title>M, M', M''</title></svg>\n  <div class=\"readout\" id=\"dcom-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dcom",
+            "title": "$M$ vs $M''$ in $M_3(\\mathbb{C})$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "subalgebra $M\\subseteq M_3$",
+                "buttons": [
+                  {
+                    "label": "diagonal",
+                    "id": "dcom-diag",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "$\\mathbb{C}\\oplus M_2$",
+                    "id": "dcom-block"
+                  },
+                  {
+                    "label": "$\\mathbb{C}\\cdot 1$",
+                    "id": "dcom-scalar"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "dcom-svg",
+                "viewBox": "0 0 560 240",
+                "width": 560,
+                "height": 240,
+                "titleText": "M, M', M''"
+              },
+              {
+                "kind": "readout",
+                "id": "dcom-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#dcom-svg'), out=$('#dcom-out');\n  const bD=$('#dcom-diag'), bB=$('#dcom-block'), bS=$('#dcom-scalar');\n  let mode='diag';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=240, col=[90,280,470], y=120, r=46;\n    const labels=['M','M′','M′′'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    let desc, ms;\n    if(mode==='diag'){\n      ms=['diag(a,b,c)','diag(x,y,z)','diag(a,b,c)'];\n      desc='M = diagonal matrices (dim 3). Abelian, maximal abelian — so M′ = M, hence M′′ = M. A von Neumann algebra.';\n    } else if(mode==='block'){\n      ms=['a⊕1 ⊕ B₂₂','diag(x,x,y)','a⊕1 ⊕ B₂₂'];\n      desc='M = {λ·1 on ⟨e₁⟩} ⊕ M_2(ℂ) on ⟨e₂,e₃⟩, dim 5. M′ = scalars on each block = ℂ·1 ⊕ ℂ·1, dim 2. M′′ = M. von Neumann algebra.';\n    } else {\n      ms=['λ·1','all of M₃(ℂ)','λ·1'];\n      desc='M = ℂ·1 (centre), dim 1. M′ = everything commuting with 1 = M₃(ℂ), dim 9. M′′ = scalars, dim 1. Again M = M′′.';\n    }\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:col[i],cy:y,r,fill:'none',stroke:colors[i],'stroke-width':2}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y-r-10,'text-anchor':'middle','font-size':14,fill:colors[i],'font-weight':600}),{textContent:labels[i]}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:ms[i]}));\n    }\n    // arrows M -> M' -> M'' and equality M == M''\n    drawArrow(svg,[col[0]+r,y],[col[1]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a1'});\n    drawArrow(svg,[col[1]+r,y],[col[2]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a2'});\n    svg.appendChild(Object.assign(SVG('text',{x:(col[0]+col[2])/2,y:y+r+30,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'M = M′′   (double commutant theorem)'}));\n    out.textContent = desc;\n  }\n  function set(m,btn){ mode=m; [bD,bB,bS].forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(); }\n  bD.addEventListener('click',()=>set('diag',bD));\n  bB.addEventListener('click',()=>set('block',bB));\n  bS.addEventListener('click',()=>set('scalar',bS));\n  render();",
+            "hint": "pick a subalgebra; see $M'$ and $M''$",
+            "sectionComment": "=============================== §9 double commutant widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -243,8 +395,50 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-dcom",
-          "html": "<script>\n/* =============================== §9 double commutant widget =============================== */\n(function(){\n  const svg=$('#dcom-svg'), out=$('#dcom-out');\n  const bD=$('#dcom-diag'), bB=$('#dcom-block'), bS=$('#dcom-scalar');\n  let mode='diag';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=240, col=[90,280,470], y=120, r=46;\n    const labels=['M','M′','M′′'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    let desc, ms;\n    if(mode==='diag'){\n      ms=['diag(a,b,c)','diag(x,y,z)','diag(a,b,c)'];\n      desc='M = diagonal matrices (dim 3). Abelian, maximal abelian — so M′ = M, hence M′′ = M. A von Neumann algebra.';\n    } else if(mode==='block'){\n      ms=['a⊕1 ⊕ B₂₂','diag(x,x,y)','a⊕1 ⊕ B₂₂'];\n      desc='M = {λ·1 on ⟨e₁⟩} ⊕ M_2(ℂ) on ⟨e₂,e₃⟩, dim 5. M′ = scalars on each block = ℂ·1 ⊕ ℂ·1, dim 2. M′′ = M. von Neumann algebra.';\n    } else {\n      ms=['λ·1','all of M₃(ℂ)','λ·1'];\n      desc='M = ℂ·1 (centre), dim 1. M′ = everything commuting with 1 = M₃(ℂ), dim 9. M′′ = scalars, dim 1. Again M = M′′.';\n    }\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:col[i],cy:y,r,fill:'none',stroke:colors[i],'stroke-width':2}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y-r-10,'text-anchor':'middle','font-size':14,fill:colors[i],'font-weight':600}),{textContent:labels[i]}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:ms[i]}));\n    }\n    // arrows M -> M' -> M'' and equality M == M''\n    drawArrow(svg,[col[0]+r,y],[col[1]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a1'});\n    drawArrow(svg,[col[1]+r,y],[col[2]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a2'});\n    svg.appendChild(Object.assign(SVG('text',{x:(col[0]+col[2])/2,y:y+r+30,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'M = M′′   (double commutant theorem)'}));\n    out.textContent = desc;\n  }\n  function set(m,btn){ mode=m; [bD,bB,bS].forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(); }\n  bD.addEventListener('click',()=>set('diag',bD));\n  bB.addEventListener('click',()=>set('block',bB));\n  bS.addEventListener('click',()=>set('scalar',bS));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dcom",
+            "title": "$M$ vs $M''$ in $M_3(\\mathbb{C})$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "subalgebra $M\\subseteq M_3$",
+                "buttons": [
+                  {
+                    "label": "diagonal",
+                    "id": "dcom-diag",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "$\\mathbb{C}\\oplus M_2$",
+                    "id": "dcom-block"
+                  },
+                  {
+                    "label": "$\\mathbb{C}\\cdot 1$",
+                    "id": "dcom-scalar"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "dcom-svg",
+                "viewBox": "0 0 560 240",
+                "width": 560,
+                "height": 240,
+                "titleText": "M, M', M''"
+              },
+              {
+                "kind": "readout",
+                "id": "dcom-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#dcom-svg'), out=$('#dcom-out');\n  const bD=$('#dcom-diag'), bB=$('#dcom-block'), bS=$('#dcom-scalar');\n  let mode='diag';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=240, col=[90,280,470], y=120, r=46;\n    const labels=['M','M′','M′′'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    let desc, ms;\n    if(mode==='diag'){\n      ms=['diag(a,b,c)','diag(x,y,z)','diag(a,b,c)'];\n      desc='M = diagonal matrices (dim 3). Abelian, maximal abelian — so M′ = M, hence M′′ = M. A von Neumann algebra.';\n    } else if(mode==='block'){\n      ms=['a⊕1 ⊕ B₂₂','diag(x,x,y)','a⊕1 ⊕ B₂₂'];\n      desc='M = {λ·1 on ⟨e₁⟩} ⊕ M_2(ℂ) on ⟨e₂,e₃⟩, dim 5. M′ = scalars on each block = ℂ·1 ⊕ ℂ·1, dim 2. M′′ = M. von Neumann algebra.';\n    } else {\n      ms=['λ·1','all of M₃(ℂ)','λ·1'];\n      desc='M = ℂ·1 (centre), dim 1. M′ = everything commuting with 1 = M₃(ℂ), dim 9. M′′ = scalars, dim 1. Again M = M′′.';\n    }\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:col[i],cy:y,r,fill:'none',stroke:colors[i],'stroke-width':2}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y-r-10,'text-anchor':'middle','font-size':14,fill:colors[i],'font-weight':600}),{textContent:labels[i]}));\n      svg.appendChild(Object.assign(SVG('text',{x:col[i],y:y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:ms[i]}));\n    }\n    // arrows M -> M' -> M'' and equality M == M''\n    drawArrow(svg,[col[0]+r,y],[col[1]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a1'});\n    drawArrow(svg,[col[1]+r,y],[col[2]-r,y],{color:'var(--mute)',label:\"'\",markerId:'dc-a2'});\n    svg.appendChild(Object.assign(SVG('text',{x:(col[0]+col[2])/2,y:y+r+30,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:'M = M′′   (double commutant theorem)'}));\n    out.textContent = desc;\n  }\n  function set(m,btn){ mode=m; [bD,bB,bS].forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(); }\n  bD.addEventListener('click',()=>set('diag',bD));\n  bB.addEventListener('click',()=>set('block',bB));\n  bS.addEventListener('click',()=>set('scalar',bS));\n  render();",
+            "hint": "pick a subalgebra; see $M'$ and $M''$",
+            "sectionComment": "=============================== §9 double commutant widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -262,8 +456,57 @@
         {
           "type": "widget",
           "id": "w-typ",
-          "html": "<div class=\"widget\" id=\"w-typ\">\n  <div class=\"hd\"><div class=\"ttl\">The type lattice</div><div class=\"hint\">hover / click a type for examples</div></div>\n  <div class=\"row\">\n    <button id=\"typ-In\" class=\"active\">I_n</button>\n    <button id=\"typ-Iinf\">I_∞</button>\n    <button id=\"typ-II1\">II_1</button>\n    <button id=\"typ-IIinf\">II_∞</button>\n    <button id=\"typ-III\">III</button>\n  </div>\n  <svg id=\"typ-svg\" viewBox=\"0 0 560 260\" width=\"560\" height=\"260\"><title>Type classification of factors</title></svg>\n  <div class=\"readout\" id=\"typ-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-typ",
+            "title": "The type lattice",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "I_n",
+                    "id": "typ-In",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "I_∞",
+                    "id": "typ-Iinf"
+                  },
+                  {
+                    "label": "II_1",
+                    "id": "typ-II1"
+                  },
+                  {
+                    "label": "II_∞",
+                    "id": "typ-IIinf"
+                  },
+                  {
+                    "label": "III",
+                    "id": "typ-III"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "typ-svg",
+                "viewBox": "0 0 560 260",
+                "width": 560,
+                "height": 260,
+                "titleText": "Type classification of factors"
+              },
+              {
+                "kind": "readout",
+                "id": "typ-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#typ-svg'), out=$('#typ-out');\n  const btns={In:$('#typ-In'),Iinf:$('#typ-Iinf'),II1:$('#typ-II1'),IIinf:$('#typ-IIinf'),III:$('#typ-III')};\n  const data={\n    In:{label:'I_n',trace:'unique trace, integer-valued on projections',range:'{0,1,…,n}',ex:'M_n(ℂ) acting on ℂⁿ.',color:'var(--yellow)'},\n    Iinf:{label:'I_∞',trace:'semi-finite trace (= usual operator trace)',range:'{0,1,2,…,∞}',ex:'B(H), H separable ∞-dim.',color:'var(--yellow)'},\n    II1:{label:'II_1',trace:'unique faithful finite trace τ, τ(1)=1',range:'[0,1] — continuous!',ex:'hyperfinite factor ℛ = (⊗_n M_2)″; free group factors L(F_n).',color:'var(--green)'},\n    IIinf:{label:'II_∞',trace:'semi-finite unbounded trace',range:'[0,∞]',ex:'ℛ ⊗̄ B(H).',color:'var(--green)'},\n    III:{label:'III',trace:'NO semi-finite trace',range:'{0,∞} — every nonzero proj is infinite',ex:'local algebras in QFT; Powers factors R_λ (0<λ<1).',color:'var(--pink)'}\n  };\n  let cur='In';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // draw a number-line of projection dimensions for the current type\n    const x0=60, x1=500, y0=80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x0,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:'0'}));\n    svg.appendChild(Object.assign(SVG('text',{x:x1,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent: (cur==='II1'?'1':'∞')}));\n    const d=data[cur];\n    if(cur==='In'){\n      const n=5;\n      for(let k=0;k<=n;k++){\n        const x = x0 + (x1-x0)*k/n;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:5,fill:d.color}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:y0-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}),{textContent:k}));\n      }\n    } else if(cur==='Iinf'){\n      for(let k=0;k<=12;k++){\n        const x = x0 + (x1-x0)*k/14;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:4,fill:d.color}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:x0+(x1-x0)*13.5/14,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else if(cur==='II1'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n    } else if(cur==='IIinf'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0-18,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:x1-6,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else {\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(SVG('circle',{cx:x1,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:(x0+x1)/2,y:y0+4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'no intermediate projection dimensions'}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:140,'text-anchor':'middle','font-size':14,fill:d.color,'font-weight':600}),{textContent:`type ${d.label}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:168,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`trace: ${d.trace}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:190,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`range of dim(p): ${d.range}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:220,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:`example: ${d.ex}`}));\n    out.textContent = `Type ${d.label}. ${d.trace}. Projection dimensions live in ${d.range}.\\nPrototype: ${d.ex}`;\n  }\n  function set(k){ cur=k; Object.keys(btns).forEach(x=>btns[x].classList.toggle('active',x===k)); render(); }\n  Object.keys(btns).forEach(k=>btns[k].addEventListener('click',()=>set(k)));\n  render();",
+            "hint": "hover / click a type for examples",
+            "sectionComment": "=============================== §10 type classification widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -280,8 +523,57 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-typ",
-          "html": "<script>\n/* =============================== §10 type classification widget =============================== */\n(function(){\n  const svg=$('#typ-svg'), out=$('#typ-out');\n  const btns={In:$('#typ-In'),Iinf:$('#typ-Iinf'),II1:$('#typ-II1'),IIinf:$('#typ-IIinf'),III:$('#typ-III')};\n  const data={\n    In:{label:'I_n',trace:'unique trace, integer-valued on projections',range:'{0,1,…,n}',ex:'M_n(ℂ) acting on ℂⁿ.',color:'var(--yellow)'},\n    Iinf:{label:'I_∞',trace:'semi-finite trace (= usual operator trace)',range:'{0,1,2,…,∞}',ex:'B(H), H separable ∞-dim.',color:'var(--yellow)'},\n    II1:{label:'II_1',trace:'unique faithful finite trace τ, τ(1)=1',range:'[0,1] — continuous!',ex:'hyperfinite factor ℛ = (⊗_n M_2)″; free group factors L(F_n).',color:'var(--green)'},\n    IIinf:{label:'II_∞',trace:'semi-finite unbounded trace',range:'[0,∞]',ex:'ℛ ⊗̄ B(H).',color:'var(--green)'},\n    III:{label:'III',trace:'NO semi-finite trace',range:'{0,∞} — every nonzero proj is infinite',ex:'local algebras in QFT; Powers factors R_λ (0<λ<1).',color:'var(--pink)'}\n  };\n  let cur='In';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // draw a number-line of projection dimensions for the current type\n    const x0=60, x1=500, y0=80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x0,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:'0'}));\n    svg.appendChild(Object.assign(SVG('text',{x:x1,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent: (cur==='II1'?'1':'∞')}));\n    const d=data[cur];\n    if(cur==='In'){\n      const n=5;\n      for(let k=0;k<=n;k++){\n        const x = x0 + (x1-x0)*k/n;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:5,fill:d.color}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:y0-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}),{textContent:k}));\n      }\n    } else if(cur==='Iinf'){\n      for(let k=0;k<=12;k++){\n        const x = x0 + (x1-x0)*k/14;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:4,fill:d.color}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:x0+(x1-x0)*13.5/14,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else if(cur==='II1'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n    } else if(cur==='IIinf'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0-18,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:x1-6,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else {\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(SVG('circle',{cx:x1,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:(x0+x1)/2,y:y0+4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'no intermediate projection dimensions'}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:140,'text-anchor':'middle','font-size':14,fill:d.color,'font-weight':600}),{textContent:`type ${d.label}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:168,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`trace: ${d.trace}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:190,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`range of dim(p): ${d.range}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:220,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:`example: ${d.ex}`}));\n    out.textContent = `Type ${d.label}. ${d.trace}. Projection dimensions live in ${d.range}.\\nPrototype: ${d.ex}`;\n  }\n  function set(k){ cur=k; Object.keys(btns).forEach(x=>btns[x].classList.toggle('active',x===k)); render(); }\n  Object.keys(btns).forEach(k=>btns[k].addEventListener('click',()=>set(k)));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-typ",
+            "title": "The type lattice",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "I_n",
+                    "id": "typ-In",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "I_∞",
+                    "id": "typ-Iinf"
+                  },
+                  {
+                    "label": "II_1",
+                    "id": "typ-II1"
+                  },
+                  {
+                    "label": "II_∞",
+                    "id": "typ-IIinf"
+                  },
+                  {
+                    "label": "III",
+                    "id": "typ-III"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "typ-svg",
+                "viewBox": "0 0 560 260",
+                "width": 560,
+                "height": 260,
+                "titleText": "Type classification of factors"
+              },
+              {
+                "kind": "readout",
+                "id": "typ-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#typ-svg'), out=$('#typ-out');\n  const btns={In:$('#typ-In'),Iinf:$('#typ-Iinf'),II1:$('#typ-II1'),IIinf:$('#typ-IIinf'),III:$('#typ-III')};\n  const data={\n    In:{label:'I_n',trace:'unique trace, integer-valued on projections',range:'{0,1,…,n}',ex:'M_n(ℂ) acting on ℂⁿ.',color:'var(--yellow)'},\n    Iinf:{label:'I_∞',trace:'semi-finite trace (= usual operator trace)',range:'{0,1,2,…,∞}',ex:'B(H), H separable ∞-dim.',color:'var(--yellow)'},\n    II1:{label:'II_1',trace:'unique faithful finite trace τ, τ(1)=1',range:'[0,1] — continuous!',ex:'hyperfinite factor ℛ = (⊗_n M_2)″; free group factors L(F_n).',color:'var(--green)'},\n    IIinf:{label:'II_∞',trace:'semi-finite unbounded trace',range:'[0,∞]',ex:'ℛ ⊗̄ B(H).',color:'var(--green)'},\n    III:{label:'III',trace:'NO semi-finite trace',range:'{0,∞} — every nonzero proj is infinite',ex:'local algebras in QFT; Powers factors R_λ (0<λ<1).',color:'var(--pink)'}\n  };\n  let cur='In';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // draw a number-line of projection dimensions for the current type\n    const x0=60, x1=500, y0=80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--line)','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x0,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:'0'}));\n    svg.appendChild(Object.assign(SVG('text',{x:x1,y:y0+22,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent: (cur==='II1'?'1':'∞')}));\n    const d=data[cur];\n    if(cur==='In'){\n      const n=5;\n      for(let k=0;k<=n;k++){\n        const x = x0 + (x1-x0)*k/n;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:5,fill:d.color}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:y0-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}),{textContent:k}));\n      }\n    } else if(cur==='Iinf'){\n      for(let k=0;k<=12;k++){\n        const x = x0 + (x1-x0)*k/14;\n        svg.appendChild(SVG('circle',{cx:x,cy:y0,r:4,fill:d.color}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:x0+(x1-x0)*13.5/14,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else if(cur==='II1'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n    } else if(cur==='IIinf'){\n      svg.appendChild(SVG('rect',{x:x0,y:y0-6,width:x1-x0-18,height:12,fill:d.color,'fill-opacity':0.55,stroke:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:x1-6,y:y0+4,'text-anchor':'middle','font-size':14,fill:'var(--mute)'}),{textContent:'…'}));\n    } else {\n      svg.appendChild(SVG('circle',{cx:x0,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(SVG('circle',{cx:x1,cy:y0,r:5,fill:d.color}));\n      svg.appendChild(Object.assign(SVG('text',{x:(x0+x1)/2,y:y0+4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'no intermediate projection dimensions'}));\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:140,'text-anchor':'middle','font-size':14,fill:d.color,'font-weight':600}),{textContent:`type ${d.label}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:168,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`trace: ${d.trace}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:190,'text-anchor':'middle','font-size':12,fill:'var(--ink)'}),{textContent:`range of dim(p): ${d.range}`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/2,y:220,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:`example: ${d.ex}`}));\n    out.textContent = `Type ${d.label}. ${d.trace}. Projection dimensions live in ${d.range}.\\nPrototype: ${d.ex}`;\n  }\n  function set(k){ cur=k; Object.keys(btns).forEach(x=>btns[x].classList.toggle('active',x===k)); render(); }\n  Object.keys(btns).forEach(k=>btns[k].addEventListener('click',()=>set(k)));\n  render();",
+            "hint": "hover / click a type for examples",
+            "sectionComment": "=============================== §10 type classification widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -299,8 +591,22 @@
         {
           "type": "widget",
           "id": "w-mvn",
-          "html": "<div class=\"widget\" id=\"w-mvn\">\n  <div class=\"hd\"><div class=\"ttl\">$p\\sim q$ via a partial isometry</div><div class=\"hint\">drag to choose dimensions</div></div>\n  <div class=\"row\">\n    <label for=\"mvn-d\">$\\tau(p)=\\tau(q)=$</label>\n    <input type=\"range\" id=\"mvn-d\" min=\"1\" max=\"99\" step=\"1\" value=\"40\">\n    <span class=\"readout\" id=\"mvn-d-out\" style=\"min-width:80px;flex:0 0 auto\">d = 0.40</span>\n  </div>\n  <svg id=\"mvn-svg\" viewBox=\"0 0 560 240\" width=\"560\" height=\"240\"><title>Murray–von Neumann equivalence</title></svg>\n  <div class=\"readout\" id=\"mvn-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-mvn",
+            "title": "$p\\sim q$ via a partial isometry",
+            "hint": "drag to choose dimensions",
+            "svgId": "mvn-svg",
+            "svgViewBox": "0 0 560 240",
+            "svgWidthAttr": "560",
+            "svgHeightAttr": "240",
+            "svgTitle": "Murray–von Neumann equivalence",
+            "outputId": "mvn-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"mvn-d\">$\\tau(p)=\\tau(q)=$</label>\n    <input type=\"range\" id=\"mvn-d\" min=\"1\" max=\"99\" step=\"1\" value=\"40\">\n    <span class=\"readout\" id=\"mvn-d-out\" style=\"min-width:80px;flex:0 0 auto\">d = 0.40</span>",
+            "scriptBodyLiteral": "/* =============================== §11 Murray–vN widget =============================== */\n(function(){\n  const sl=$('#mvn-d'), sout=$('#mvn-d-out'), svg=$('#mvn-svg'), out=$('#mvn-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d=(+sl.value)/100;\n    sout.textContent = `d = ${d.toFixed(2)}`;\n    const W=560, H=240;\n    // two circles representing projections p, q; arcs showing their \"dimensions\"\n    function wedge(cx,cy,R,frac,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n      const a = 2*Math.PI*frac;\n      const x2 = cx + R*Math.sin(a);\n      const y2 = cy - R*Math.cos(a);\n      const large = frac>0.5?1:0;\n      const path = `M${cx} ${cy} L${cx} ${cy-R} A${R} ${R} 0 ${large} 1 ${x2} ${y2} Z`;\n      svg.appendChild(SVG('path',{d:path,fill:color,'fill-opacity':0.55,stroke:color}));\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+22,'text-anchor':'middle','font-size':13,fill:color,'font-weight':600}),{textContent:label}));\n    }\n    wedge(150,120,70,d,'var(--yellow)','p (τ(p)='+d.toFixed(2)+')');\n    wedge(410,120,70,d,'var(--blue)','q (τ(q)='+d.toFixed(2)+')');\n    // arrow labelled v\n    drawArrow(svg,[220,120],[340,120],{color:'var(--green)',label:'v',markerId:'mvn-v'});\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:108,'text-anchor':'middle','font-size':13,fill:'var(--green)','font-weight':600}),{textContent:'v: pH → qH'}));\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:148,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'v*v = p,  vv* = q'}));\n    out.textContent = `Two projections with τ(p) = τ(q) = ${d.toFixed(2)} are Murray–von Neumann equivalent in a II₁ factor.\\nA partial isometry v ∈ M witnesses the equivalence: v*v = p, vv* = q.\\nThe dimension function d(p) = τ(p) takes every value in [0,1] — projections exist at ANY fraction.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -317,8 +623,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-mvn",
-          "html": "<script>\n/* =============================== §11 Murray–vN widget =============================== */\n(function(){\n  const sl=$('#mvn-d'), sout=$('#mvn-d-out'), svg=$('#mvn-svg'), out=$('#mvn-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d=(+sl.value)/100;\n    sout.textContent = `d = ${d.toFixed(2)}`;\n    const W=560, H=240;\n    // two circles representing projections p, q; arcs showing their \"dimensions\"\n    function wedge(cx,cy,R,frac,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n      const a = 2*Math.PI*frac;\n      const x2 = cx + R*Math.sin(a);\n      const y2 = cy - R*Math.cos(a);\n      const large = frac>0.5?1:0;\n      const path = `M${cx} ${cy} L${cx} ${cy-R} A${R} ${R} 0 ${large} 1 ${x2} ${y2} Z`;\n      svg.appendChild(SVG('path',{d:path,fill:color,'fill-opacity':0.55,stroke:color}));\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+22,'text-anchor':'middle','font-size':13,fill:color,'font-weight':600}),{textContent:label}));\n    }\n    wedge(150,120,70,d,'var(--yellow)','p (τ(p)='+d.toFixed(2)+')');\n    wedge(410,120,70,d,'var(--blue)','q (τ(q)='+d.toFixed(2)+')');\n    // arrow labelled v\n    drawArrow(svg,[220,120],[340,120],{color:'var(--green)',label:'v',markerId:'mvn-v'});\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:108,'text-anchor':'middle','font-size':13,fill:'var(--green)','font-weight':600}),{textContent:'v: pH → qH'}));\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:148,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'v*v = p,  vv* = q'}));\n    out.textContent = `Two projections with τ(p) = τ(q) = ${d.toFixed(2)} are Murray–von Neumann equivalent in a II₁ factor.\\nA partial isometry v ∈ M witnesses the equivalence: v*v = p, vv* = q.\\nThe dimension function d(p) = τ(p) takes every value in [0,1] — projections exist at ANY fraction.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-mvn",
+            "title": "$p\\sim q$ via a partial isometry",
+            "hint": "drag to choose dimensions",
+            "svgId": "mvn-svg",
+            "svgViewBox": "0 0 560 240",
+            "svgWidthAttr": "560",
+            "svgHeightAttr": "240",
+            "svgTitle": "Murray–von Neumann equivalence",
+            "outputId": "mvn-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"mvn-d\">$\\tau(p)=\\tau(q)=$</label>\n    <input type=\"range\" id=\"mvn-d\" min=\"1\" max=\"99\" step=\"1\" value=\"40\">\n    <span class=\"readout\" id=\"mvn-d-out\" style=\"min-width:80px;flex:0 0 auto\">d = 0.40</span>",
+            "scriptBodyLiteral": "/* =============================== §11 Murray–vN widget =============================== */\n(function(){\n  const sl=$('#mvn-d'), sout=$('#mvn-d-out'), svg=$('#mvn-svg'), out=$('#mvn-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const d=(+sl.value)/100;\n    sout.textContent = `d = ${d.toFixed(2)}`;\n    const W=560, H=240;\n    // two circles representing projections p, q; arcs showing their \"dimensions\"\n    function wedge(cx,cy,R,frac,color,label){\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n      const a = 2*Math.PI*frac;\n      const x2 = cx + R*Math.sin(a);\n      const y2 = cy - R*Math.cos(a);\n      const large = frac>0.5?1:0;\n      const path = `M${cx} ${cy} L${cx} ${cy-R} A${R} ${R} 0 ${large} 1 ${x2} ${y2} Z`;\n      svg.appendChild(SVG('path',{d:path,fill:color,'fill-opacity':0.55,stroke:color}));\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+22,'text-anchor':'middle','font-size':13,fill:color,'font-weight':600}),{textContent:label}));\n    }\n    wedge(150,120,70,d,'var(--yellow)','p (τ(p)='+d.toFixed(2)+')');\n    wedge(410,120,70,d,'var(--blue)','q (τ(q)='+d.toFixed(2)+')');\n    // arrow labelled v\n    drawArrow(svg,[220,120],[340,120],{color:'var(--green)',label:'v',markerId:'mvn-v'});\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:108,'text-anchor':'middle','font-size':13,fill:'var(--green)','font-weight':600}),{textContent:'v: pH → qH'}));\n    svg.appendChild(Object.assign(SVG('text',{x:280,y:148,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'v*v = p,  vv* = q'}));\n    out.textContent = `Two projections with τ(p) = τ(q) = ${d.toFixed(2)} are Murray–von Neumann equivalent in a II₁ factor.\\nA partial isometry v ∈ M witnesses the equivalence: v*v = p, vv* = q.\\nThe dimension function d(p) = τ(p) takes every value in [0,1] — projections exist at ANY fraction.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -354,8 +674,22 @@
         {
           "type": "widget",
           "id": "w-state",
-          "html": "<div class=\"widget\" id=\"w-state\">\n  <div class=\"hd\"><div class=\"ttl\">State space simplex for $A=C(\\{1,2,3\\})$</div><div class=\"hint\">drag to pick a state; watch where extreme points live</div></div>\n  <div class=\"row\">\n    <label for=\"st-a\">$p_1$</label>\n    <input type=\"range\" id=\"st-a\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <label for=\"st-b\">$p_2$</label>\n    <input type=\"range\" id=\"st-b\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <span class=\"small\" id=\"st-meta\">$p_3=1-p_1-p_2$</span>\n  </div>\n  <svg id=\"st-svg\" viewBox=\"0 0 520 300\" width=\"520\" height=\"300\"><title>State space of C({1,2,3})</title></svg>\n  <div class=\"readout\" id=\"st-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-state",
+            "title": "State space simplex for $A=C(\\{1,2,3\\})$",
+            "hint": "drag to pick a state; watch where extreme points live",
+            "svgId": "st-svg",
+            "svgViewBox": "0 0 520 300",
+            "svgWidthAttr": "520",
+            "svgHeightAttr": "300",
+            "svgTitle": "State space of C({1,2,3})",
+            "outputId": "st-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"st-a\">$p_1$</label>\n    <input type=\"range\" id=\"st-a\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <label for=\"st-b\">$p_2$</label>\n    <input type=\"range\" id=\"st-b\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <span class=\"small\" id=\"st-meta\">$p_3=1-p_1-p_2$</span>",
+            "scriptBodyLiteral": "/* =============================== §13 state-space simplex widget =============================== */\n(function(){\n  const sa=$('#st-a'), sb=$('#st-b'), svg=$('#st-svg'), out=$('#st-out');\n  // Triangle vertices (screen coords)\n  const V=[[260,50],[90,260],[430,260]];\n  function bary(p1,p2,p3){\n    return [V[0][0]*p1+V[1][0]*p2+V[2][0]*p3, V[0][1]*p1+V[1][1]*p2+V[2][1]*p3];\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    let p1=(+sa.value)/100, p2=(+sb.value)/100;\n    if(p1+p2>1){ const s=p1+p2; p1/=s+1e-9; p2/=s+1e-9; }\n    const p3=Math.max(0,1-p1-p2);\n    // triangle\n    svg.appendChild(SVG('polygon',{points:V.map(v=>v.join(',')).join(' '),fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1.5}));\n    // vertices = pure states\n    const names=['δ₁ (= ev₁)','δ₂ (= ev₂)','δ₃ (= ev₃)'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:V[i][0],cy:V[i][1],r:7,fill:colors[i]}));\n      const off=i===0?[-8,-14]:i===1?[-14,18]:[14,18];\n      svg.appendChild(Object.assign(SVG('text',{x:V[i][0]+off[0],y:V[i][1]+off[1],'font-size':12,fill:colors[i]}),{textContent:names[i]}));\n    }\n    // draw the selected state as a point\n    const [x,y]=bary(p1,p2,p3);\n    svg.appendChild(SVG('circle',{cx:x,cy:y,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x+12,y:y+4,'font-size':12,fill:'var(--pink)'}),{textContent:'φ'}));\n    // label\n    svg.appendChild(Object.assign(SVG('text',{x:260,y:290,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'S(A) = probability simplex Δ² ⊂ ℝ³'}));\n    const isExtreme = (p1>0.98)||(p2>0.98)||(p3>0.98);\n    out.textContent =\n      `State: φ = ${p1.toFixed(2)}·δ₁ + ${p2.toFixed(2)}·δ₂ + ${p3.toFixed(2)}·δ₃.\\n`+\n      `${isExtreme?'PURE STATE — extreme point of S(A). Corresponds to a point of X = {1,2,3}.':'Mixed state — a proper convex combination of pure states. Not extreme.'}\\n`+\n      `S(C({1,2,3})) ≅ probability measures on {1,2,3}; ∂_e S(A) = {δ₁,δ₂,δ₃} ↔ points of X.`;\n  }\n  sa.addEventListener('input',render);\n  sb.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -372,8 +706,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-state",
-          "html": "<script>\n/* =============================== §13 state-space simplex widget =============================== */\n(function(){\n  const sa=$('#st-a'), sb=$('#st-b'), svg=$('#st-svg'), out=$('#st-out');\n  // Triangle vertices (screen coords)\n  const V=[[260,50],[90,260],[430,260]];\n  function bary(p1,p2,p3){\n    return [V[0][0]*p1+V[1][0]*p2+V[2][0]*p3, V[0][1]*p1+V[1][1]*p2+V[2][1]*p3];\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    let p1=(+sa.value)/100, p2=(+sb.value)/100;\n    if(p1+p2>1){ const s=p1+p2; p1/=s+1e-9; p2/=s+1e-9; }\n    const p3=Math.max(0,1-p1-p2);\n    // triangle\n    svg.appendChild(SVG('polygon',{points:V.map(v=>v.join(',')).join(' '),fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1.5}));\n    // vertices = pure states\n    const names=['δ₁ (= ev₁)','δ₂ (= ev₂)','δ₃ (= ev₃)'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:V[i][0],cy:V[i][1],r:7,fill:colors[i]}));\n      const off=i===0?[-8,-14]:i===1?[-14,18]:[14,18];\n      svg.appendChild(Object.assign(SVG('text',{x:V[i][0]+off[0],y:V[i][1]+off[1],'font-size':12,fill:colors[i]}),{textContent:names[i]}));\n    }\n    // draw the selected state as a point\n    const [x,y]=bary(p1,p2,p3);\n    svg.appendChild(SVG('circle',{cx:x,cy:y,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x+12,y:y+4,'font-size':12,fill:'var(--pink)'}),{textContent:'φ'}));\n    // label\n    svg.appendChild(Object.assign(SVG('text',{x:260,y:290,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'S(A) = probability simplex Δ² ⊂ ℝ³'}));\n    const isExtreme = (p1>0.98)||(p2>0.98)||(p3>0.98);\n    out.textContent =\n      `State: φ = ${p1.toFixed(2)}·δ₁ + ${p2.toFixed(2)}·δ₂ + ${p3.toFixed(2)}·δ₃.\\n`+\n      `${isExtreme?'PURE STATE — extreme point of S(A). Corresponds to a point of X = {1,2,3}.':'Mixed state — a proper convex combination of pure states. Not extreme.'}\\n`+\n      `S(C({1,2,3})) ≅ probability measures on {1,2,3}; ∂_e S(A) = {δ₁,δ₂,δ₃} ↔ points of X.`;\n  }\n  sa.addEventListener('input',render);\n  sb.addEventListener('input',render);\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-state",
+            "title": "State space simplex for $A=C(\\{1,2,3\\})$",
+            "hint": "drag to pick a state; watch where extreme points live",
+            "svgId": "st-svg",
+            "svgViewBox": "0 0 520 300",
+            "svgWidthAttr": "520",
+            "svgHeightAttr": "300",
+            "svgTitle": "State space of C({1,2,3})",
+            "outputId": "st-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"st-a\">$p_1$</label>\n    <input type=\"range\" id=\"st-a\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <label for=\"st-b\">$p_2$</label>\n    <input type=\"range\" id=\"st-b\" min=\"0\" max=\"100\" step=\"1\" value=\"33\">\n    <span class=\"small\" id=\"st-meta\">$p_3=1-p_1-p_2$</span>",
+            "scriptBodyLiteral": "/* =============================== §13 state-space simplex widget =============================== */\n(function(){\n  const sa=$('#st-a'), sb=$('#st-b'), svg=$('#st-svg'), out=$('#st-out');\n  // Triangle vertices (screen coords)\n  const V=[[260,50],[90,260],[430,260]];\n  function bary(p1,p2,p3){\n    return [V[0][0]*p1+V[1][0]*p2+V[2][0]*p3, V[0][1]*p1+V[1][1]*p2+V[2][1]*p3];\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    let p1=(+sa.value)/100, p2=(+sb.value)/100;\n    if(p1+p2>1){ const s=p1+p2; p1/=s+1e-9; p2/=s+1e-9; }\n    const p3=Math.max(0,1-p1-p2);\n    // triangle\n    svg.appendChild(SVG('polygon',{points:V.map(v=>v.join(',')).join(' '),fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1.5}));\n    // vertices = pure states\n    const names=['δ₁ (= ev₁)','δ₂ (= ev₂)','δ₃ (= ev₃)'];\n    const colors=['var(--yellow)','var(--blue)','var(--green)'];\n    for(let i=0;i<3;i++){\n      svg.appendChild(SVG('circle',{cx:V[i][0],cy:V[i][1],r:7,fill:colors[i]}));\n      const off=i===0?[-8,-14]:i===1?[-14,18]:[14,18];\n      svg.appendChild(Object.assign(SVG('text',{x:V[i][0]+off[0],y:V[i][1]+off[1],'font-size':12,fill:colors[i]}),{textContent:names[i]}));\n    }\n    // draw the selected state as a point\n    const [x,y]=bary(p1,p2,p3);\n    svg.appendChild(SVG('circle',{cx:x,cy:y,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    svg.appendChild(Object.assign(SVG('text',{x:x+12,y:y+4,'font-size':12,fill:'var(--pink)'}),{textContent:'φ'}));\n    // label\n    svg.appendChild(Object.assign(SVG('text',{x:260,y:290,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'S(A) = probability simplex Δ² ⊂ ℝ³'}));\n    const isExtreme = (p1>0.98)||(p2>0.98)||(p3>0.98);\n    out.textContent =\n      `State: φ = ${p1.toFixed(2)}·δ₁ + ${p2.toFixed(2)}·δ₂ + ${p3.toFixed(2)}·δ₃.\\n`+\n      `${isExtreme?'PURE STATE — extreme point of S(A). Corresponds to a point of X = {1,2,3}.':'Mixed state — a proper convex combination of pure states. Not extreme.'}\\n`+\n      `S(C({1,2,3})) ≅ probability measures on {1,2,3}; ∂_e S(A) = {δ₁,δ₂,δ₃} ↔ points of X.`;\n  }\n  sa.addEventListener('input',render);\n  sb.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -391,8 +739,50 @@
         {
           "type": "widget",
           "id": "w-gns",
-          "html": "<div class=\"widget\" id=\"w-gns\">\n  <div class=\"hd\"><div class=\"ttl\">GNS: $\\omega \\rightsquigarrow (\\pi_\\omega,H_\\omega,\\Omega_\\omega)$</div><div class=\"hint\">pick a state on $M_2(\\mathbb{C})$</div></div>\n  <div class=\"row\">\n    <label>state $\\omega$</label>\n    <button id=\"gns-tr\" class=\"active\">tracial: $\\tfrac12\\mathrm{tr}$</button>\n    <button id=\"gns-v\">vector state $\\omega_e = \\langle\\cdot e,e\\rangle$</button>\n    <button id=\"gns-mix\">mixed</button>\n  </div>\n  <svg id=\"gns-svg\" viewBox=\"0 0 560 260\" width=\"560\" height=\"260\"><title>GNS construction</title></svg>\n  <div class=\"readout\" id=\"gns-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gns",
+            "title": "GNS: $\\omega \\rightsquigarrow (\\pi_\\omega,H_\\omega,\\Omega_\\omega)$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "state $\\omega$",
+                "buttons": [
+                  {
+                    "label": "tracial: $\\tfrac12\\mathrm{tr}$",
+                    "id": "gns-tr",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "vector state $\\omega_e = \\langle\\cdot e,e\\rangle$",
+                    "id": "gns-v"
+                  },
+                  {
+                    "label": "mixed",
+                    "id": "gns-mix"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "gns-svg",
+                "viewBox": "0 0 560 260",
+                "width": 560,
+                "height": 260,
+                "titleText": "GNS construction"
+              },
+              {
+                "kind": "readout",
+                "id": "gns-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#gns-svg'), out=$('#gns-out');\n  const bT=$('#gns-tr'), bV=$('#gns-v'), bM=$('#gns-mix');\n  let mode='tr';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // left: the state; right: its GNS rep\n    svg.appendChild(SVG('rect',{x:30,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(SVG('rect',{x:330,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:130,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'state ω on A = M_2(ℂ)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'GNS rep (π_ω, H_ω, Ω_ω)'}));\n    let desc, right1, right2, right3;\n    if(mode==='tr'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω(a) = ½ tr(a)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'faithful tracial state'}));\n      right1='H_ω = ℂ⁴ (= M_2 with HS inner prod)';\n      right2='π_ω(a) = left multiplication';\n      right3='Ω_ω = 1/√2 · I';\n      desc='The trace ½ tr is faithful, so N_ω = 0. Then A/N_ω = M_2(ℂ) with inner product ⟨a,b⟩ = ½ tr(b*a) — the Hilbert–Schmidt inner product. π_ω is left-regular rep; Ω_ω = I/√2. This rep is NOT irreducible (it decomposes as 2 copies of the defining rep).';\n    } else if(mode==='v'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω_e(a) = ⟨ae, e⟩,  e ∈ ℂ²'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'pure vector state (unit e)'}));\n      right1='H_ω = ℂ²';\n      right2='π_ω = identity rep of M_2 on ℂ²';\n      right3='Ω_ω = e';\n      desc='A unit vector e in ℂ² gives a pure state ω_e. The null ideal is N_ω = {a : ae=0}. The GNS space is M_2·e ≅ ℂ², π_ω is the defining rep, Ω_ω = e. This rep IS irreducible — pure state ↔ irreducible GNS (general theorem).';\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω = ½ ω_{e₁} + ½ ω_{e₂}'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'= ½ tr  (by coincidence in M_2)'}));\n      right1='H_ω = ℂ² ⊕ ℂ²';\n      right2='π_ω = id ⊕ id';\n      right3='Ω_ω = (e₁,e₂)/√2';\n      desc='A proper mixture of two pure states. GNS gives the direct sum of the two irreducible GNS reps — reducible. The cyclic vector is the \"diagonal\" √½(e₁,e₂). In M_2(ℂ) this mixture happens to equal ½ tr, but its GNS rep is distinct from the tracial one (Hilbert space has dim 4 either way but the algebras act differently — they differ by a unitary equivalence).';\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:90,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right1}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:120,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right2}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:150,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right3}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:188,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'ω(a) = ⟨Ω_ω, π_ω(a) Ω_ω⟩'}));\n    drawArrow(svg,[235,130],[325,130],{color:'var(--blue)',label:'GNS',markerId:'gns-ar'});\n    out.textContent = desc;\n  }\n  function set(m,b){ mode=m; [bT,bV,bM].forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }\n  bT.addEventListener('click',()=>set('tr',bT));\n  bV.addEventListener('click',()=>set('v',bV));\n  bM.addEventListener('click',()=>set('mix',bM));\n  render();",
+            "hint": "pick a state on $M_2(\\mathbb{C})$",
+            "sectionComment": "=============================== §14 GNS widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -409,8 +799,50 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-gns",
-          "html": "<script>\n/* =============================== §14 GNS widget =============================== */\n(function(){\n  const svg=$('#gns-svg'), out=$('#gns-out');\n  const bT=$('#gns-tr'), bV=$('#gns-v'), bM=$('#gns-mix');\n  let mode='tr';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // left: the state; right: its GNS rep\n    svg.appendChild(SVG('rect',{x:30,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(SVG('rect',{x:330,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:130,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'state ω on A = M_2(ℂ)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'GNS rep (π_ω, H_ω, Ω_ω)'}));\n    let desc, right1, right2, right3;\n    if(mode==='tr'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω(a) = ½ tr(a)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'faithful tracial state'}));\n      right1='H_ω = ℂ⁴ (= M_2 with HS inner prod)';\n      right2='π_ω(a) = left multiplication';\n      right3='Ω_ω = 1/√2 · I';\n      desc='The trace ½ tr is faithful, so N_ω = 0. Then A/N_ω = M_2(ℂ) with inner product ⟨a,b⟩ = ½ tr(b*a) — the Hilbert–Schmidt inner product. π_ω is left-regular rep; Ω_ω = I/√2. This rep is NOT irreducible (it decomposes as 2 copies of the defining rep).';\n    } else if(mode==='v'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω_e(a) = ⟨ae, e⟩,  e ∈ ℂ²'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'pure vector state (unit e)'}));\n      right1='H_ω = ℂ²';\n      right2='π_ω = identity rep of M_2 on ℂ²';\n      right3='Ω_ω = e';\n      desc='A unit vector e in ℂ² gives a pure state ω_e. The null ideal is N_ω = {a : ae=0}. The GNS space is M_2·e ≅ ℂ², π_ω is the defining rep, Ω_ω = e. This rep IS irreducible — pure state ↔ irreducible GNS (general theorem).';\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω = ½ ω_{e₁} + ½ ω_{e₂}'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'= ½ tr  (by coincidence in M_2)'}));\n      right1='H_ω = ℂ² ⊕ ℂ²';\n      right2='π_ω = id ⊕ id';\n      right3='Ω_ω = (e₁,e₂)/√2';\n      desc='A proper mixture of two pure states. GNS gives the direct sum of the two irreducible GNS reps — reducible. The cyclic vector is the \"diagonal\" √½(e₁,e₂). In M_2(ℂ) this mixture happens to equal ½ tr, but its GNS rep is distinct from the tracial one (Hilbert space has dim 4 either way but the algebras act differently — they differ by a unitary equivalence).';\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:90,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right1}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:120,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right2}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:150,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right3}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:188,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'ω(a) = ⟨Ω_ω, π_ω(a) Ω_ω⟩'}));\n    drawArrow(svg,[235,130],[325,130],{color:'var(--blue)',label:'GNS',markerId:'gns-ar'});\n    out.textContent = desc;\n  }\n  function set(m,b){ mode=m; [bT,bV,bM].forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }\n  bT.addEventListener('click',()=>set('tr',bT));\n  bV.addEventListener('click',()=>set('v',bV));\n  bM.addEventListener('click',()=>set('mix',bM));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gns",
+            "title": "GNS: $\\omega \\rightsquigarrow (\\pi_\\omega,H_\\omega,\\Omega_\\omega)$",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "state $\\omega$",
+                "buttons": [
+                  {
+                    "label": "tracial: $\\tfrac12\\mathrm{tr}$",
+                    "id": "gns-tr",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "vector state $\\omega_e = \\langle\\cdot e,e\\rangle$",
+                    "id": "gns-v"
+                  },
+                  {
+                    "label": "mixed",
+                    "id": "gns-mix"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "gns-svg",
+                "viewBox": "0 0 560 260",
+                "width": 560,
+                "height": 260,
+                "titleText": "GNS construction"
+              },
+              {
+                "kind": "readout",
+                "id": "gns-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#gns-svg'), out=$('#gns-out');\n  const bT=$('#gns-tr'), bV=$('#gns-v'), bM=$('#gns-mix');\n  let mode='tr';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=560, H=260;\n    // left: the state; right: its GNS rep\n    svg.appendChild(SVG('rect',{x:30,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(SVG('rect',{x:330,y:40,width:200,height:180,rx:10,fill:'var(--panel2)',stroke:'var(--line)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:130,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'state ω on A = M_2(ℂ)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'GNS rep (π_ω, H_ω, Ω_ω)'}));\n    let desc, right1, right2, right3;\n    if(mode==='tr'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω(a) = ½ tr(a)'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'faithful tracial state'}));\n      right1='H_ω = ℂ⁴ (= M_2 with HS inner prod)';\n      right2='π_ω(a) = left multiplication';\n      right3='Ω_ω = 1/√2 · I';\n      desc='The trace ½ tr is faithful, so N_ω = 0. Then A/N_ω = M_2(ℂ) with inner product ⟨a,b⟩ = ½ tr(b*a) — the Hilbert–Schmidt inner product. π_ω is left-regular rep; Ω_ω = I/√2. This rep is NOT irreducible (it decomposes as 2 copies of the defining rep).';\n    } else if(mode==='v'){\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω_e(a) = ⟨ae, e⟩,  e ∈ ℂ²'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'pure vector state (unit e)'}));\n      right1='H_ω = ℂ²';\n      right2='π_ω = identity rep of M_2 on ℂ²';\n      right3='Ω_ω = e';\n      desc='A unit vector e in ℂ² gives a pure state ω_e. The null ideal is N_ω = {a : ae=0}. The GNS space is M_2·e ≅ ℂ², π_ω is the defining rep, Ω_ω = e. This rep IS irreducible — pure state ↔ irreducible GNS (general theorem).';\n    } else {\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:90,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'ω = ½ ω_{e₁} + ½ ω_{e₂}'}));\n      svg.appendChild(Object.assign(SVG('text',{x:130,y:120,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'= ½ tr  (by coincidence in M_2)'}));\n      right1='H_ω = ℂ² ⊕ ℂ²';\n      right2='π_ω = id ⊕ id';\n      right3='Ω_ω = (e₁,e₂)/√2';\n      desc='A proper mixture of two pure states. GNS gives the direct sum of the two irreducible GNS reps — reducible. The cyclic vector is the \"diagonal\" √½(e₁,e₂). In M_2(ℂ) this mixture happens to equal ½ tr, but its GNS rep is distinct from the tracial one (Hilbert space has dim 4 either way but the algebras act differently — they differ by a unitary equivalence).';\n    }\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:90,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right1}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:120,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right2}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:150,'text-anchor':'middle','font-size':13,fill:'var(--green)'}),{textContent:right3}));\n    svg.appendChild(Object.assign(SVG('text',{x:430,y:188,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'ω(a) = ⟨Ω_ω, π_ω(a) Ω_ω⟩'}));\n    drawArrow(svg,[235,130],[325,130],{color:'var(--blue)',label:'GNS',markerId:'gns-ar'});\n    out.textContent = desc;\n  }\n  function set(m,b){ mode=m; [bT,bV,bM].forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }\n  bT.addEventListener('click',()=>set('tr',bT));\n  bV.addEventListener('click',()=>set('v',bV));\n  bM.addEventListener('click',()=>set('mix',bM));\n  render();",
+            "hint": "pick a state on $M_2(\\mathbb{C})$",
+            "sectionComment": "=============================== §14 GNS widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -428,8 +860,22 @@
         {
           "type": "widget",
           "id": "w-au",
-          "html": "<div class=\"widget\" id=\"w-au\">\n  <div class=\"hd\"><div class=\"ttl\">Approximate unit in $C_0(\\mathbb{R})$</div><div class=\"hint\">drag $n$; watch $e_n\\cdot f\\to f$</div></div>\n  <div class=\"row\">\n    <label for=\"au-n\">$n$</label>\n    <input type=\"range\" id=\"au-n\" min=\"1\" max=\"20\" step=\"1\" value=\"3\">\n    <span class=\"readout\" id=\"au-n-out\" style=\"min-width:60px;flex:0 0 auto\">n = 3</span>\n  </div>\n  <svg id=\"au-svg\" viewBox=\"0 0 560 240\" width=\"560\" height=\"240\"><title>Approximate unit bump vs target function</title></svg>\n  <div class=\"readout\" id=\"au-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-au",
+            "title": "Approximate unit in $C_0(\\mathbb{R})$",
+            "hint": "drag $n$; watch $e_n\\cdot f\\to f$",
+            "svgId": "au-svg",
+            "svgViewBox": "0 0 560 240",
+            "svgWidthAttr": "560",
+            "svgHeightAttr": "240",
+            "svgTitle": "Approximate unit bump vs target function",
+            "outputId": "au-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"au-n\">$n$</label>\n    <input type=\"range\" id=\"au-n\" min=\"1\" max=\"20\" step=\"1\" value=\"3\">\n    <span class=\"readout\" id=\"au-n-out\" style=\"min-width:60px;flex:0 0 auto\">n = 3</span>",
+            "scriptBodyLiteral": "/* =============================== §15 approximate-unit widget =============================== */\n(function(){\n  const sl=$('#au-n'), sout=$('#au-n-out'), svg=$('#au-svg'), out=$('#au-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n=+sl.value;\n    sout.textContent = `n = ${n}`;\n    const W=560, H=240, pad=30, y0=H-40;\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:y0,x2:W-pad,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:y0,stroke:'var(--line)','stroke-dasharray':'3,3'}));\n    // x in [-10,10]\n    const xToPx = x => pad + (x+10)/20*(W-2*pad);\n    const yToPx = y => y0 - y*160;\n    // target f(x) = exp(-x^2/8) (a function in C_0(ℝ))\n    const f = x=>Math.exp(-x*x/8);\n    // approximate unit e_n: bump = 1 on [-n,n], smooth ramp to 0 on [-(n+1),-n] and [n,n+1]\n    function e(x){\n      const a=Math.abs(x);\n      if(a<=n) return 1;\n      if(a>=n+1) return 0;\n      const t=a-n; return 1 - t*t*(3-2*t); // smoothstep\n    }\n    // draw f\n    let d1='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d1 += `${xToPx(x)} ${yToPx(f(x))} L`; }\n    d1 = d1.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));\n    // draw e_n\n    let d2='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d2 += `${xToPx(x)} ${yToPx(e(x))} L`; }\n    d2=d2.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':1.8,'stroke-dasharray':'5,3'}));\n    // draw e_n · f\n    let d3='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d3 += `${xToPx(x)} ${yToPx(e(x)*f(x))} L`; }\n    d3=d3.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--green)','stroke-width':1.8}));\n    // legend\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:40,'text-anchor':'end','font-size':12,fill:'var(--blue)'}),{textContent:'f(x) = e^{-x²/8}'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:58,'text-anchor':'end','font-size':12,fill:'var(--yellow)'}),{textContent:`e_n(x)  (bump on [-${n},${n}])`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:76,'text-anchor':'end','font-size':12,fill:'var(--green)'}),{textContent:'(e_n · f)(x)'}));\n    // sup-norm error\n    let err=0;\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; err=Math.max(err,Math.abs(f(x)-e(x)*f(x))); }\n    out.textContent = `‖e_n · f − f‖_∞ ≈ ${err.toExponential(2)}  (→ 0 as n→∞).\\nThis is what \"approximate unit\" means: no single element acts as the identity, but the net (e_n) approaches it on every compact set.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -446,8 +892,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-au",
-          "html": "<script>\n/* =============================== §15 approximate-unit widget =============================== */\n(function(){\n  const sl=$('#au-n'), sout=$('#au-n-out'), svg=$('#au-svg'), out=$('#au-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n=+sl.value;\n    sout.textContent = `n = ${n}`;\n    const W=560, H=240, pad=30, y0=H-40;\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:y0,x2:W-pad,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:y0,stroke:'var(--line)','stroke-dasharray':'3,3'}));\n    // x in [-10,10]\n    const xToPx = x => pad + (x+10)/20*(W-2*pad);\n    const yToPx = y => y0 - y*160;\n    // target f(x) = exp(-x^2/8) (a function in C_0(ℝ))\n    const f = x=>Math.exp(-x*x/8);\n    // approximate unit e_n: bump = 1 on [-n,n], smooth ramp to 0 on [-(n+1),-n] and [n,n+1]\n    function e(x){\n      const a=Math.abs(x);\n      if(a<=n) return 1;\n      if(a>=n+1) return 0;\n      const t=a-n; return 1 - t*t*(3-2*t); // smoothstep\n    }\n    // draw f\n    let d1='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d1 += `${xToPx(x)} ${yToPx(f(x))} L`; }\n    d1 = d1.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));\n    // draw e_n\n    let d2='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d2 += `${xToPx(x)} ${yToPx(e(x))} L`; }\n    d2=d2.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':1.8,'stroke-dasharray':'5,3'}));\n    // draw e_n · f\n    let d3='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d3 += `${xToPx(x)} ${yToPx(e(x)*f(x))} L`; }\n    d3=d3.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--green)','stroke-width':1.8}));\n    // legend\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:40,'text-anchor':'end','font-size':12,fill:'var(--blue)'}),{textContent:'f(x) = e^{-x²/8}'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:58,'text-anchor':'end','font-size':12,fill:'var(--yellow)'}),{textContent:`e_n(x)  (bump on [-${n},${n}])`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:76,'text-anchor':'end','font-size':12,fill:'var(--green)'}),{textContent:'(e_n · f)(x)'}));\n    // sup-norm error\n    let err=0;\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; err=Math.max(err,Math.abs(f(x)-e(x)*f(x))); }\n    out.textContent = `‖e_n · f − f‖_∞ ≈ ${err.toExponential(2)}  (→ 0 as n→∞).\\nThis is what \"approximate unit\" means: no single element acts as the identity, but the net (e_n) approaches it on every compact set.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-au",
+            "title": "Approximate unit in $C_0(\\mathbb{R})$",
+            "hint": "drag $n$; watch $e_n\\cdot f\\to f$",
+            "svgId": "au-svg",
+            "svgViewBox": "0 0 560 240",
+            "svgWidthAttr": "560",
+            "svgHeightAttr": "240",
+            "svgTitle": "Approximate unit bump vs target function",
+            "outputId": "au-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label for=\"au-n\">$n$</label>\n    <input type=\"range\" id=\"au-n\" min=\"1\" max=\"20\" step=\"1\" value=\"3\">\n    <span class=\"readout\" id=\"au-n-out\" style=\"min-width:60px;flex:0 0 auto\">n = 3</span>",
+            "scriptBodyLiteral": "/* =============================== §15 approximate-unit widget =============================== */\n(function(){\n  const sl=$('#au-n'), sout=$('#au-n-out'), svg=$('#au-svg'), out=$('#au-out');\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const n=+sl.value;\n    sout.textContent = `n = ${n}`;\n    const W=560, H=240, pad=30, y0=H-40;\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:y0,x2:W-pad,y2:y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:W/2,y1:20,x2:W/2,y2:y0,stroke:'var(--line)','stroke-dasharray':'3,3'}));\n    // x in [-10,10]\n    const xToPx = x => pad + (x+10)/20*(W-2*pad);\n    const yToPx = y => y0 - y*160;\n    // target f(x) = exp(-x^2/8) (a function in C_0(ℝ))\n    const f = x=>Math.exp(-x*x/8);\n    // approximate unit e_n: bump = 1 on [-n,n], smooth ramp to 0 on [-(n+1),-n] and [n,n+1]\n    function e(x){\n      const a=Math.abs(x);\n      if(a<=n) return 1;\n      if(a>=n+1) return 0;\n      const t=a-n; return 1 - t*t*(3-2*t); // smoothstep\n    }\n    // draw f\n    let d1='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d1 += `${xToPx(x)} ${yToPx(f(x))} L`; }\n    d1 = d1.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':1.8}));\n    // draw e_n\n    let d2='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d2 += `${xToPx(x)} ${yToPx(e(x))} L`; }\n    d2=d2.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':1.8,'stroke-dasharray':'5,3'}));\n    // draw e_n · f\n    let d3='M';\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; d3 += `${xToPx(x)} ${yToPx(e(x)*f(x))} L`; }\n    d3=d3.slice(0,-1);\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--green)','stroke-width':1.8}));\n    // legend\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:40,'text-anchor':'end','font-size':12,fill:'var(--blue)'}),{textContent:'f(x) = e^{-x²/8}'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:58,'text-anchor':'end','font-size':12,fill:'var(--yellow)'}),{textContent:`e_n(x)  (bump on [-${n},${n}])`}));\n    svg.appendChild(Object.assign(SVG('text',{x:W-pad-20,y:76,'text-anchor':'end','font-size':12,fill:'var(--green)'}),{textContent:'(e_n · f)(x)'}));\n    // sup-norm error\n    let err=0;\n    for(let k=0;k<=200;k++){ const x=-10+20*k/200; err=Math.max(err,Math.abs(f(x)-e(x)*f(x))); }\n    out.textContent = `‖e_n · f − f‖_∞ ≈ ${err.toExponential(2)}  (→ 0 as n→∞).\\nThis is what \"approximate unit\" means: no single element acts as the identity, but the net (e_n) approaches it on every compact set.`;\n  }\n  sl.addEventListener('input',render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -465,8 +925,45 @@
         {
           "type": "widget",
           "id": "w-cmp",
-          "html": "<div class=\"widget\" id=\"w-cmp\">\n  <div class=\"hd\"><div class=\"ttl\">Spectra compared</div><div class=\"hint\">closed points vs prime ideals</div></div>\n  <div class=\"row\">\n    <label>example</label>\n    <button id=\"cmp-Z\" class=\"active\">A = C({1,2,3}) vs R = ℤ</button>\n    <button id=\"cmp-Cx\">A = C(𝕋) vs R = ℂ[x]</button>\n  </div>\n  <svg id=\"cmp-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Spectra compared</title></svg>\n  <div class=\"readout\" id=\"cmp-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cmp",
+            "title": "Spectra compared",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "example",
+                "buttons": [
+                  {
+                    "label": "A = C({1,2,3}) vs R = ℤ",
+                    "id": "cmp-Z",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "A = C(𝕋) vs R = ℂ[x]",
+                    "id": "cmp-Cx"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cmp-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "cmp-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  const bZ=$('#cmp-Z'), bC=$('#cmp-Cx');\n  let mode='Z';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320, midX=W/2;\n    svg.appendChild(SVG('line',{x1:midX,y1:20,x2:midX,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â  (Gelfand)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Spec R  (Grothendieck)'}));\n\n    if(mode==='Z'){\n      // left: A = C({1,2,3}), three points\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C({1,2,3}) ≅ ℂ³'}));\n      const ys = [120,180,240];\n      ['1','2','3'].forEach((lab,i)=>{\n        svg.appendChild(SVG('circle',{cx:W/4, cy:ys[i], r:9, fill:'var(--yellow)'}));\n        svg.appendChild(Object.assign(SVG('text',{x:W/4+18,y:ys[i]+4,'font-size':12,fill:'var(--ink)'}),{textContent:`ev_${lab} = (a₁,a₂,a₃)↦a_${lab}`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'all points are closed; |Â| = 3'}));\n\n      // right: Spec ℤ — primes 2,3,5,7,... and (0) generic\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℤ'}));\n      const primes=[2,3,5,7,11,13];\n      primes.forEach((p,i)=>{\n        const x = midX + 70 + i*38;\n        svg.appendChild(SVG('circle',{cx:x,cy:170,r:7,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:188,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(${p})`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:midX+70 + 6*38 + 10, y:174,'font-size':12,fill:'var(--mute)'}),{textContent:'…'}));\n      // generic point (0) drawn as a fat fuzzy bar across\n      svg.appendChild(SVG('rect',{x:midX+50, y:240, width:300, height:18, fill:'var(--violet)','fill-opacity':0.25, stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:midX+200,y:252,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point, dense in Spec ℤ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed points + 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â consists of three closed points, namely ev_1, ev_2, ev_3 — one per point of {1,2,3}. There is NO \"generic\" character.\\n\\n`+\n        `Grothendieck: Spec ℤ has one closed point per prime p (the maximal ideal (p)), plus a single GENERIC POINT (0) that is dense.\\n`+\n        `The generic point is invisible to Gelfand because A/(0) would have to be a complex Banach division algebra with the C*-axioms — Gelfand–Mazur forces it to be ℂ, killing non-maximal ideals.`;\n    } else {\n      // A = C(T)\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C(𝕋)'}));\n      const cx=W/4, cy=180, R=70;\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));\n      // mark sample points\n      for(let k=0;k<8;k++){\n        const a = k/8 * 2*Math.PI;\n        svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(a), cy:cy-R*Math.sin(a), r:3.5,fill:'var(--yellow)'}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â = 𝕋, all closed; uncountably many points, no generic point'}));\n\n      // R = C[x]\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℂ[x]'}));\n      // affine line: closed points = (x - a) for a ∈ ℂ — draw a small grid; plus generic (0)\n      const Lx=midX+50, Rx=midX+300, Ly=160;\n      svg.appendChild(SVG('line',{x1:Lx,y1:Ly,x2:Rx,y2:Ly,stroke:'var(--line)'}));\n      // sample closed points\n      [-2,-1,0,1,2,3].forEach(a => {\n        const x = Lx + (a+2)*((Rx-Lx)/5);\n        svg.appendChild(SVG('circle',{cx:x,cy:Ly,r:5,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:Ly+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(x-${a})`}));\n      });\n      // generic point — dense bar\n      svg.appendChild(SVG('rect',{x:Lx, y:Ly+40, width:Rx-Lx, height:18, fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(Lx+Rx)/2,y:Ly+52,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point of 𝔸¹_ℂ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed pts ↔ ℂ, plus 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â = 𝕋 (compact Hausdorff). Every character is ev_{e^{iθ}} for some θ.\\n\\n`+\n        `Grothendieck: Spec ℂ[x] = 𝔸¹_ℂ has one closed point per a ∈ ℂ (the prime (x-a)) PLUS one generic point (0) which is dense.\\n`+\n        `Note: the topological spaces Â and Spec ℂ[x] are completely different — Â is Hausdorff and uncountable in a \"geometric\" sense, Spec ℂ[x] is non-Hausdorff with cofinite topology and only encodes geometry through its structure sheaf 𝒪.`;\n    }\n  }\n\n  bZ.addEventListener('click', ()=>{ mode='Z'; bZ.classList.add('active'); bC.classList.remove('active'); render(); });\n  bC.addEventListener('click', ()=>{ mode='Cx'; bC.classList.add('active'); bZ.classList.remove('active'); render(); });\n  render();",
+            "hint": "closed points vs prime ideals",
+            "sectionComment": "=============================== §8 comparison widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -474,8 +971,45 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-cmp",
-          "html": "<script>\n/* =============================== §8 comparison widget =============================== */\n(function(){\n  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  const bZ=$('#cmp-Z'), bC=$('#cmp-Cx');\n  let mode='Z';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320, midX=W/2;\n    svg.appendChild(SVG('line',{x1:midX,y1:20,x2:midX,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â  (Gelfand)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Spec R  (Grothendieck)'}));\n\n    if(mode==='Z'){\n      // left: A = C({1,2,3}), three points\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C({1,2,3}) ≅ ℂ³'}));\n      const ys = [120,180,240];\n      ['1','2','3'].forEach((lab,i)=>{\n        svg.appendChild(SVG('circle',{cx:W/4, cy:ys[i], r:9, fill:'var(--yellow)'}));\n        svg.appendChild(Object.assign(SVG('text',{x:W/4+18,y:ys[i]+4,'font-size':12,fill:'var(--ink)'}),{textContent:`ev_${lab} = (a₁,a₂,a₃)↦a_${lab}`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'all points are closed; |Â| = 3'}));\n\n      // right: Spec ℤ — primes 2,3,5,7,... and (0) generic\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℤ'}));\n      const primes=[2,3,5,7,11,13];\n      primes.forEach((p,i)=>{\n        const x = midX + 70 + i*38;\n        svg.appendChild(SVG('circle',{cx:x,cy:170,r:7,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:188,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(${p})`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:midX+70 + 6*38 + 10, y:174,'font-size':12,fill:'var(--mute)'}),{textContent:'…'}));\n      // generic point (0) drawn as a fat fuzzy bar across\n      svg.appendChild(SVG('rect',{x:midX+50, y:240, width:300, height:18, fill:'var(--violet)','fill-opacity':0.25, stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:midX+200,y:252,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point, dense in Spec ℤ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed points + 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â consists of three closed points, namely ev_1, ev_2, ev_3 — one per point of {1,2,3}. There is NO \"generic\" character.\\n\\n`+\n        `Grothendieck: Spec ℤ has one closed point per prime p (the maximal ideal (p)), plus a single GENERIC POINT (0) that is dense.\\n`+\n        `The generic point is invisible to Gelfand because A/(0) would have to be a complex Banach division algebra with the C*-axioms — Gelfand–Mazur forces it to be ℂ, killing non-maximal ideals.`;\n    } else {\n      // A = C(T)\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C(𝕋)'}));\n      const cx=W/4, cy=180, R=70;\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));\n      // mark sample points\n      for(let k=0;k<8;k++){\n        const a = k/8 * 2*Math.PI;\n        svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(a), cy:cy-R*Math.sin(a), r:3.5,fill:'var(--yellow)'}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â = 𝕋, all closed; uncountably many points, no generic point'}));\n\n      // R = C[x]\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℂ[x]'}));\n      // affine line: closed points = (x - a) for a ∈ ℂ — draw a small grid; plus generic (0)\n      const Lx=midX+50, Rx=midX+300, Ly=160;\n      svg.appendChild(SVG('line',{x1:Lx,y1:Ly,x2:Rx,y2:Ly,stroke:'var(--line)'}));\n      // sample closed points\n      [-2,-1,0,1,2,3].forEach(a => {\n        const x = Lx + (a+2)*((Rx-Lx)/5);\n        svg.appendChild(SVG('circle',{cx:x,cy:Ly,r:5,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:Ly+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(x-${a})`}));\n      });\n      // generic point — dense bar\n      svg.appendChild(SVG('rect',{x:Lx, y:Ly+40, width:Rx-Lx, height:18, fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(Lx+Rx)/2,y:Ly+52,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point of 𝔸¹_ℂ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed pts ↔ ℂ, plus 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â = 𝕋 (compact Hausdorff). Every character is ev_{e^{iθ}} for some θ.\\n\\n`+\n        `Grothendieck: Spec ℂ[x] = 𝔸¹_ℂ has one closed point per a ∈ ℂ (the prime (x-a)) PLUS one generic point (0) which is dense.\\n`+\n        `Note: the topological spaces Â and Spec ℂ[x] are completely different — Â is Hausdorff and uncountable in a \"geometric\" sense, Spec ℂ[x] is non-Hausdorff with cofinite topology and only encodes geometry through its structure sheaf 𝒪.`;\n    }\n  }\n\n  bZ.addEventListener('click', ()=>{ mode='Z'; bZ.classList.add('active'); bC.classList.remove('active'); render(); });\n  bC.addEventListener('click', ()=>{ mode='Cx'; bC.classList.add('active'); bZ.classList.remove('active'); render(); });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cmp",
+            "title": "Spectra compared",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "example",
+                "buttons": [
+                  {
+                    "label": "A = C({1,2,3}) vs R = ℤ",
+                    "id": "cmp-Z",
+                    "dataAttr": {
+                      "name": "class",
+                      "value": "active"
+                    }
+                  },
+                  {
+                    "label": "A = C(𝕋) vs R = ℂ[x]",
+                    "id": "cmp-Cx"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cmp-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "readout",
+                "id": "cmp-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  const bZ=$('#cmp-Z'), bC=$('#cmp-Cx');\n  let mode='Z';\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=620, H=320, midX=W/2;\n    svg.appendChild(SVG('line',{x1:midX,y1:20,x2:midX,y2:H-20,stroke:'var(--line)','stroke-dasharray':'4,4'}));\n    svg.appendChild(Object.assign(SVG('text',{x:W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â  (Gelfand)'}));\n    svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Spec R  (Grothendieck)'}));\n\n    if(mode==='Z'){\n      // left: A = C({1,2,3}), three points\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C({1,2,3}) ≅ ℂ³'}));\n      const ys = [120,180,240];\n      ['1','2','3'].forEach((lab,i)=>{\n        svg.appendChild(SVG('circle',{cx:W/4, cy:ys[i], r:9, fill:'var(--yellow)'}));\n        svg.appendChild(Object.assign(SVG('text',{x:W/4+18,y:ys[i]+4,'font-size':12,fill:'var(--ink)'}),{textContent:`ev_${lab} = (a₁,a₂,a₃)↦a_${lab}`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'all points are closed; |Â| = 3'}));\n\n      // right: Spec ℤ — primes 2,3,5,7,... and (0) generic\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℤ'}));\n      const primes=[2,3,5,7,11,13];\n      primes.forEach((p,i)=>{\n        const x = midX + 70 + i*38;\n        svg.appendChild(SVG('circle',{cx:x,cy:170,r:7,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:188,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(${p})`}));\n      });\n      svg.appendChild(Object.assign(SVG('text',{x:midX+70 + 6*38 + 10, y:174,'font-size':12,fill:'var(--mute)'}),{textContent:'…'}));\n      // generic point (0) drawn as a fat fuzzy bar across\n      svg.appendChild(SVG('rect',{x:midX+50, y:240, width:300, height:18, fill:'var(--violet)','fill-opacity':0.25, stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:midX+200,y:252,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point, dense in Spec ℤ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:280,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed points + 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â consists of three closed points, namely ev_1, ev_2, ev_3 — one per point of {1,2,3}. There is NO \"generic\" character.\\n\\n`+\n        `Grothendieck: Spec ℤ has one closed point per prime p (the maximal ideal (p)), plus a single GENERIC POINT (0) that is dense.\\n`+\n        `The generic point is invisible to Gelfand because A/(0) would have to be a complex Banach division algebra with the C*-axioms — Gelfand–Mazur forces it to be ℂ, killing non-maximal ideals.`;\n    } else {\n      // A = C(T)\n      svg.appendChild(Object.assign(SVG('text',{x:W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'A = C(𝕋)'}));\n      const cx=W/4, cy=180, R=70;\n      svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));\n      // mark sample points\n      for(let k=0;k<8;k++){\n        const a = k/8 * 2*Math.PI;\n        svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(a), cy:cy-R*Math.sin(a), r:3.5,fill:'var(--yellow)'}));\n      }\n      svg.appendChild(Object.assign(SVG('text',{x:cx,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'Â = 𝕋, all closed; uncountably many points, no generic point'}));\n\n      // R = C[x]\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:60,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}),{textContent:'R = ℂ[x]'}));\n      // affine line: closed points = (x - a) for a ∈ ℂ — draw a small grid; plus generic (0)\n      const Lx=midX+50, Rx=midX+300, Ly=160;\n      svg.appendChild(SVG('line',{x1:Lx,y1:Ly,x2:Rx,y2:Ly,stroke:'var(--line)'}));\n      // sample closed points\n      [-2,-1,0,1,2,3].forEach(a => {\n        const x = Lx + (a+2)*((Rx-Lx)/5);\n        svg.appendChild(SVG('circle',{cx:x,cy:Ly,r:5,fill:'var(--blue)'}));\n        svg.appendChild(Object.assign(SVG('text',{x,y:Ly+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}),{textContent:`(x-${a})`}));\n      });\n      // generic point — dense bar\n      svg.appendChild(SVG('rect',{x:Lx, y:Ly+40, width:Rx-Lx, height:18, fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-dasharray':'3,3'}));\n      svg.appendChild(Object.assign(SVG('text',{x:(Lx+Rx)/2,y:Ly+52,'text-anchor':'middle','font-size':12,fill:'var(--violet)'}),{textContent:'(0) — generic point of 𝔸¹_ℂ'}));\n      svg.appendChild(Object.assign(SVG('text',{x:3*W/4,y:cy+R+30,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}),{textContent:'closed pts ↔ ℂ, plus 1 generic point;  topology cofinite'}));\n\n      out.textContent =\n        `Gelfand: Â = 𝕋 (compact Hausdorff). Every character is ev_{e^{iθ}} for some θ.\\n\\n`+\n        `Grothendieck: Spec ℂ[x] = 𝔸¹_ℂ has one closed point per a ∈ ℂ (the prime (x-a)) PLUS one generic point (0) which is dense.\\n`+\n        `Note: the topological spaces Â and Spec ℂ[x] are completely different — Â is Hausdorff and uncountable in a \"geometric\" sense, Spec ℂ[x] is non-Hausdorff with cofinite topology and only encodes geometry through its structure sheaf 𝒪.`;\n    }\n  }\n\n  bZ.addEventListener('click', ()=>{ mode='Z'; bZ.classList.add('active'); bC.classList.remove('active'); render(); });\n  bC.addEventListener('click', ()=>{ mode='Cx'; bC.classList.add('active'); bZ.classList.remove('active'); render(); });\n  render();",
+            "hint": "closed points vs prime ideals",
+            "sectionComment": "=============================== §8 comparison widget ==============================="
+          }
         },
         {
           "type": "raw",

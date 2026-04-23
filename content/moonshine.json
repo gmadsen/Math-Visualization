@@ -12,9 +12,49 @@
         },
         {
           "type": "widget",
-          "id": "w-j",
-          "html": "<div class=\"widget\" id=\"w-j\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 1 · j-coefficient table</div><div class=\"hint\">the Fourier head of $j(\\tau) = q^{-1} + 744 + c_1 q + c_2 q^2 + \\cdots$</div></div>\n  <div class=\"row\">\n    <label for=\"w-j-N\">show coefficients up to $q^N$ with $N$ =</label>\n    <input id=\"w-j-N\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">\n    <span id=\"w-j-Nv\" class=\"pill\">N=6</span>\n  </div>\n  <div class=\"readout\" id=\"w-j-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // c_n := Fourier coefficient of q^n in j(tau), for n = -1, 0, 1, 2, ...\n  // OEIS A000521\n  const C = {\n   \"-1\": 1n,\n    \"0\": 744n,\n    \"1\": 196884n,\n    \"2\": 21493760n,\n    \"3\": 864299970n,\n    \"4\": 20245856256n,\n    \"5\": 333202640600n,\n    \"6\": 4252023300096n,\n    \"7\": 44656994071935n,\n    \"8\": 401490886656000n,\n    \"9\": 3176440229784420n,\n   \"10\": 22567393309593600n,\n  };\n  const slider = $('#w-j-N'), lbl = $('#w-j-Nv'), out = $('#w-j-out');\n  function render(){\n    const N = +slider.value;\n    lbl.textContent = 'N=' + N;\n    let s = 'n      c_n  (Fourier coefficient of q^n in j)\\n';\n    s += '---    ----------------------------------------\\n';\n    for(let n=-1;n<=N;n++){\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + C[String(n)].toString() + '\\n';\n    }\n    out.textContent = s.trimEnd();\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 1 · j-coefficient table",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-N\">show coefficients up to $q^N$ with $N$ =</label>\n    <input id=\"w-j-N\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">\n    <span id=\"w-j-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-j-out"
+              }
+            ],
+            "bodyScript": "  // c_n := Fourier coefficient of q^n in j(tau), for n = -1, 0, 1, 2, ...\n  // OEIS A000521\n  const C = {\n   \"-1\": 1n,\n    \"0\": 744n,\n    \"1\": 196884n,\n    \"2\": 21493760n,\n    \"3\": 864299970n,\n    \"4\": 20245856256n,\n    \"5\": 333202640600n,\n    \"6\": 4252023300096n,\n    \"7\": 44656994071935n,\n    \"8\": 401490886656000n,\n    \"9\": 3176440229784420n,\n   \"10\": 22567393309593600n,\n  };\n  const slider = $('#w-j-N'), lbl = $('#w-j-Nv'), out = $('#w-j-out');\n  function render(){\n    const N = +slider.value;\n    lbl.textContent = 'N=' + N;\n    let s = 'n      c_n  (Fourier coefficient of q^n in j)\\n';\n    s += '---    ----------------------------------------\\n';\n    for(let n=-1;n<=N;n++){\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + C[String(n)].toString() + '\\n';\n    }\n    out.textContent = s.trimEnd();\n  }\n  slider.addEventListener('input', render);\n  render();",
+            "hint": "the Fourier head of $j(\\tau) = q^{-1} + 744 + c_1 q + c_2 q^2 + \\cdots$",
+            "readoutId": "w-j-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 1 · j-coefficient table",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-N\">show coefficients up to $q^N$ with $N$ =</label>\n    <input id=\"w-j-N\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">\n    <span id=\"w-j-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-j-out"
+              }
+            ],
+            "bodyScript": "  // c_n := Fourier coefficient of q^n in j(tau), for n = -1, 0, 1, 2, ...\n  // OEIS A000521\n  const C = {\n   \"-1\": 1n,\n    \"0\": 744n,\n    \"1\": 196884n,\n    \"2\": 21493760n,\n    \"3\": 864299970n,\n    \"4\": 20245856256n,\n    \"5\": 333202640600n,\n    \"6\": 4252023300096n,\n    \"7\": 44656994071935n,\n    \"8\": 401490886656000n,\n    \"9\": 3176440229784420n,\n   \"10\": 22567393309593600n,\n  };\n  const slider = $('#w-j-N'), lbl = $('#w-j-Nv'), out = $('#w-j-out');\n  function render(){\n    const N = +slider.value;\n    lbl.textContent = 'N=' + N;\n    let s = 'n      c_n  (Fourier coefficient of q^n in j)\\n';\n    s += '---    ----------------------------------------\\n';\n    for(let n=-1;n<=N;n++){\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + C[String(n)].toString() + '\\n';\n    }\n    out.textContent = s.trimEnd();\n  }\n  slider.addEventListener('input', render);\n  render();",
+            "hint": "the Fourier head of $j(\\tau) = q^{-1} + 744 + c_1 q + c_2 q^2 + \\cdots$",
+            "readoutId": "w-j-out"
+          }
         },
         {
           "type": "raw",
@@ -40,9 +80,51 @@
         },
         {
           "type": "widget",
-          "id": "w-mon",
-          "html": "<div class=\"widget\" id=\"w-mon\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 2 · Monster irreducible dimensions</div><div class=\"hint\">tap a row to highlight the dimension you'll want in section 3</div></div>\n  <div class=\"row\" id=\"w-mon-rows\" style=\"flex-direction:column;align-items:stretch;gap:.25rem\"></div>\n  <div class=\"readout\" id=\"w-mon-out\">click a row…</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const DATA = [\n    {i:1, d:1n,           name:\"V₁ (trivial)\"},\n    {i:2, d:196883n,      name:\"V₂\"},\n    {i:3, d:21296876n,    name:\"V₃\"},\n    {i:4, d:842609326n,   name:\"V₄\"},\n    {i:5, d:18538750076n, name:\"V₅\"},\n    {i:6, d:19360062527n, name:\"V₆\"},\n  ];\n  const host = $('#w-mon-rows'), out = $('#w-mon-out');\n  DATA.forEach(r=>{\n    const row = document.createElement('div');\n    row.style.cssText = 'display:flex;gap:.6rem;align-items:center;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--panel2)';\n    row.innerHTML = `<span style=\"color:var(--yellow);font-weight:600;width:3em\">${r.name.split(' ')[0]}</span>\n      <span style=\"color:var(--mute);flex:1\">${r.name}</span>\n      <code style=\"color:#f0c987\">${r.d.toString()}</code>`;\n    row.addEventListener('click', ()=>{\n      [...host.children].forEach(c=>c.style.background='var(--panel2)');\n      row.style.background='#2a2416';\n      const d = r.d;\n      let hint = '';\n      if(r.i===2) hint = 'c_1 = 196884 = 196883 + 1 = dim V_2 + dim V_1';\n      else if(r.i===3) hint = 'c_2 = 21493760 = 21296876 + 196883 + 1 = dim V_3 + dim V_2 + dim V_1';\n      else if(r.i===1) hint = 'the trivial representation — always appears';\n      else hint = 'appears in the decomposition of c_n for larger n';\n      out.textContent = `${r.name}: dim = ${d.toString()}\\n${hint}`;\n    });\n    host.appendChild(row);\n  });\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mon",
+            "title": "Widget 2 · Monster irreducible dimensions",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-mon-rows\" style=\"flex-direction:column;align-items:stretch;gap:.25rem\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-mon-out",
+                "content": "click a row…"
+              }
+            ],
+            "bodyScript": "  const DATA = [\n    {i:1, d:1n,           name:\"V₁ (trivial)\"},\n    {i:2, d:196883n,      name:\"V₂\"},\n    {i:3, d:21296876n,    name:\"V₃\"},\n    {i:4, d:842609326n,   name:\"V₄\"},\n    {i:5, d:18538750076n, name:\"V₅\"},\n    {i:6, d:19360062527n, name:\"V₆\"},\n  ];\n  const host = $('#w-mon-rows'), out = $('#w-mon-out');\n  DATA.forEach(r=>{\n    const row = document.createElement('div');\n    row.style.cssText = 'display:flex;gap:.6rem;align-items:center;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--panel2)';\n    row.innerHTML = `<span style=\"color:var(--yellow);font-weight:600;width:3em\">${r.name.split(' ')[0]}</span>\n      <span style=\"color:var(--mute);flex:1\">${r.name}</span>\n      <code style=\"color:#f0c987\">${r.d.toString()}</code>`;\n    row.addEventListener('click', ()=>{\n      [...host.children].forEach(c=>c.style.background='var(--panel2)');\n      row.style.background='#2a2416';\n      const d = r.d;\n      let hint = '';\n      if(r.i===2) hint = 'c_1 = 196884 = 196883 + 1 = dim V_2 + dim V_1';\n      else if(r.i===3) hint = 'c_2 = 21493760 = 21296876 + 196883 + 1 = dim V_3 + dim V_2 + dim V_1';\n      else if(r.i===1) hint = 'the trivial representation — always appears';\n      else hint = 'appears in the decomposition of c_n for larger n';\n      out.textContent = `${r.name}: dim = ${d.toString()}\\n${hint}`;\n    });\n    host.appendChild(row);\n  });",
+            "hint": "tap a row to highlight the dimension you'll want in section 3",
+            "readoutId": "w-mon-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mon",
+            "title": "Widget 2 · Monster irreducible dimensions",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-mon-rows\" style=\"flex-direction:column;align-items:stretch;gap:.25rem\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-mon-out",
+                "content": "click a row…"
+              }
+            ],
+            "bodyScript": "  const DATA = [\n    {i:1, d:1n,           name:\"V₁ (trivial)\"},\n    {i:2, d:196883n,      name:\"V₂\"},\n    {i:3, d:21296876n,    name:\"V₃\"},\n    {i:4, d:842609326n,   name:\"V₄\"},\n    {i:5, d:18538750076n, name:\"V₅\"},\n    {i:6, d:19360062527n, name:\"V₆\"},\n  ];\n  const host = $('#w-mon-rows'), out = $('#w-mon-out');\n  DATA.forEach(r=>{\n    const row = document.createElement('div');\n    row.style.cssText = 'display:flex;gap:.6rem;align-items:center;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--panel2)';\n    row.innerHTML = `<span style=\"color:var(--yellow);font-weight:600;width:3em\">${r.name.split(' ')[0]}</span>\n      <span style=\"color:var(--mute);flex:1\">${r.name}</span>\n      <code style=\"color:#f0c987\">${r.d.toString()}</code>`;\n    row.addEventListener('click', ()=>{\n      [...host.children].forEach(c=>c.style.background='var(--panel2)');\n      row.style.background='#2a2416';\n      const d = r.d;\n      let hint = '';\n      if(r.i===2) hint = 'c_1 = 196884 = 196883 + 1 = dim V_2 + dim V_1';\n      else if(r.i===3) hint = 'c_2 = 21493760 = 21296876 + 196883 + 1 = dim V_3 + dim V_2 + dim V_1';\n      else if(r.i===1) hint = 'the trivial representation — always appears';\n      else hint = 'appears in the decomposition of c_n for larger n';\n      out.textContent = `${r.name}: dim = ${d.toString()}\\n${hint}`;\n    });\n    host.appendChild(row);\n  });",
+            "hint": "tap a row to highlight the dimension you'll want in section 3",
+            "readoutId": "w-mon-out"
+          }
         },
         {
           "type": "raw",
@@ -68,9 +150,49 @@
         },
         {
           "type": "widget",
-          "id": "w-mck",
-          "html": "<div class=\"widget\" id=\"w-mck\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 3 · McKay decomposition calculator</div><div class=\"hint\">enter $n$; widget displays $c_n$ and the $\\mathbb{M}$-irreducible decomposition of $V^{\\natural}_n$</div></div>\n  <div class=\"row\">\n    <label>level $n$:</label>\n    <select id=\"w-mck-n\">\n      <option value=\"-1\">n = −1</option>\n      <option value=\"1\" selected>n = 1</option>\n      <option value=\"2\">n = 2</option>\n      <option value=\"3\">n = 3</option>\n      <option value=\"4\">n = 4</option>\n      <option value=\"5\">n = 5</option>\n    </select>\n    <button id=\"w-mck-check\">check arithmetic</button>\n  </div>\n  <div class=\"readout\" id=\"w-mck-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // Dimensions of Monster irreducibles we'll use.\n  const DIM = [\n    1n, 196883n, 21296876n, 842609326n, 18538750076n, 19360062527n,\n    293553734298n, 3879214937598n, 12432283649025n,\n  ];\n  // Multiplicities m_{i,n} in V^♮_n for small n (published decompositions).\n  // entry is: n -> array of multiplicities for V_1..V_9 (we use only the first few).\n  const DEC = {\n    \"-1\": [1, 0, 0, 0, 0, 0, 0, 0, 0],\n     \"1\": [1, 1, 0, 0, 0, 0, 0, 0, 0],\n     \"2\": [1, 1, 1, 0, 0, 0, 0, 0, 0],\n     \"3\": [2, 2, 1, 1, 0, 0, 0, 0, 0],\n     \"4\": [2, 3, 2, 1, 1, 0, 0, 0, 0],\n     \"5\": [4, 5, 3, 2, 1, 1, 0, 0, 0],\n  };\n  // c_n for sanity check\n  const C = {\n   \"-1\": 1n, \"1\": 196884n, \"2\": 21493760n, \"3\": 864299970n,\n    \"4\": 20245856256n, \"5\": 333202640600n,\n  };\n  const sel = $('#w-mck-n'), btn = $('#w-mck-check'), out = $('#w-mck-out');\n  function render(){\n    const n = sel.value;\n    const mults = DEC[n];\n    const c = C[n];\n    let lines = [];\n    lines.push(`n = ${n}`);\n    lines.push(`c_n = ${c.toString()}   (Fourier coef of q^${n} in j)`);\n    lines.push('');\n    lines.push('decomposition V^♮_n  =  ⊕ m_i · V_i :');\n    let total = 0n, human = [];\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      total += BigInt(m) * DIM[i];\n      const coef = m===1 ? '' : (m+'·');\n      human.push(`${coef}V_${i+1}`);\n    });\n    lines.push('  ' + human.join('  +  '));\n    lines.push('');\n    lines.push('arithmetic check:');\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      lines.push(`  ${String(m).padStart(2,' ')} · dim V_${i+1} = ${String(m).padStart(2,' ')} · ${DIM[i].toString().padStart(12,' ')} = ${(BigInt(m)*DIM[i]).toString()}`);\n    });\n    lines.push(`  sum                                = ${total.toString()}`);\n    lines.push(`  target c_${n===-1?'{-1}':n}                              = ${c.toString()}`);\n    lines.push(`  match? ${total === c ? 'YES' : 'NO'}`);\n    out.textContent = lines.join('\\n');\n  }\n  sel.addEventListener('change', render);\n  btn.addEventListener('click', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mck",
+            "title": "Widget 3 · McKay decomposition calculator",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>level $n$:</label>\n    <select id=\"w-mck-n\">\n      <option value=\"-1\">n = −1</option>\n      <option value=\"1\" selected>n = 1</option>\n      <option value=\"2\">n = 2</option>\n      <option value=\"3\">n = 3</option>\n      <option value=\"4\">n = 4</option>\n      <option value=\"5\">n = 5</option>\n    </select>\n    <button id=\"w-mck-check\">check arithmetic</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-mck-out"
+              }
+            ],
+            "bodyScript": "  // Dimensions of Monster irreducibles we'll use.\n  const DIM = [\n    1n, 196883n, 21296876n, 842609326n, 18538750076n, 19360062527n,\n    293553734298n, 3879214937598n, 12432283649025n,\n  ];\n  // Multiplicities m_{i,n} in V^♮_n for small n (published decompositions).\n  // entry is: n -> array of multiplicities for V_1..V_9 (we use only the first few).\n  const DEC = {\n    \"-1\": [1, 0, 0, 0, 0, 0, 0, 0, 0],\n     \"1\": [1, 1, 0, 0, 0, 0, 0, 0, 0],\n     \"2\": [1, 1, 1, 0, 0, 0, 0, 0, 0],\n     \"3\": [2, 2, 1, 1, 0, 0, 0, 0, 0],\n     \"4\": [2, 3, 2, 1, 1, 0, 0, 0, 0],\n     \"5\": [4, 5, 3, 2, 1, 1, 0, 0, 0],\n  };\n  // c_n for sanity check\n  const C = {\n   \"-1\": 1n, \"1\": 196884n, \"2\": 21493760n, \"3\": 864299970n,\n    \"4\": 20245856256n, \"5\": 333202640600n,\n  };\n  const sel = $('#w-mck-n'), btn = $('#w-mck-check'), out = $('#w-mck-out');\n  function render(){\n    const n = sel.value;\n    const mults = DEC[n];\n    const c = C[n];\n    let lines = [];\n    lines.push(`n = ${n}`);\n    lines.push(`c_n = ${c.toString()}   (Fourier coef of q^${n} in j)`);\n    lines.push('');\n    lines.push('decomposition V^♮_n  =  ⊕ m_i · V_i :');\n    let total = 0n, human = [];\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      total += BigInt(m) * DIM[i];\n      const coef = m===1 ? '' : (m+'·');\n      human.push(`${coef}V_${i+1}`);\n    });\n    lines.push('  ' + human.join('  +  '));\n    lines.push('');\n    lines.push('arithmetic check:');\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      lines.push(`  ${String(m).padStart(2,' ')} · dim V_${i+1} = ${String(m).padStart(2,' ')} · ${DIM[i].toString().padStart(12,' ')} = ${(BigInt(m)*DIM[i]).toString()}`);\n    });\n    lines.push(`  sum                                = ${total.toString()}`);\n    lines.push(`  target c_${n===-1?'{-1}':n}                              = ${c.toString()}`);\n    lines.push(`  match? ${total === c ? 'YES' : 'NO'}`);\n    out.textContent = lines.join('\\n');\n  }\n  sel.addEventListener('change', render);\n  btn.addEventListener('click', render);\n  render();",
+            "hint": "enter $n$; widget displays $c_n$ and the $\\mathbb{M}$-irreducible decomposition of $V^{\\natural}_n$",
+            "readoutId": "w-mck-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mck",
+            "title": "Widget 3 · McKay decomposition calculator",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>level $n$:</label>\n    <select id=\"w-mck-n\">\n      <option value=\"-1\">n = −1</option>\n      <option value=\"1\" selected>n = 1</option>\n      <option value=\"2\">n = 2</option>\n      <option value=\"3\">n = 3</option>\n      <option value=\"4\">n = 4</option>\n      <option value=\"5\">n = 5</option>\n    </select>\n    <button id=\"w-mck-check\">check arithmetic</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-mck-out"
+              }
+            ],
+            "bodyScript": "  // Dimensions of Monster irreducibles we'll use.\n  const DIM = [\n    1n, 196883n, 21296876n, 842609326n, 18538750076n, 19360062527n,\n    293553734298n, 3879214937598n, 12432283649025n,\n  ];\n  // Multiplicities m_{i,n} in V^♮_n for small n (published decompositions).\n  // entry is: n -> array of multiplicities for V_1..V_9 (we use only the first few).\n  const DEC = {\n    \"-1\": [1, 0, 0, 0, 0, 0, 0, 0, 0],\n     \"1\": [1, 1, 0, 0, 0, 0, 0, 0, 0],\n     \"2\": [1, 1, 1, 0, 0, 0, 0, 0, 0],\n     \"3\": [2, 2, 1, 1, 0, 0, 0, 0, 0],\n     \"4\": [2, 3, 2, 1, 1, 0, 0, 0, 0],\n     \"5\": [4, 5, 3, 2, 1, 1, 0, 0, 0],\n  };\n  // c_n for sanity check\n  const C = {\n   \"-1\": 1n, \"1\": 196884n, \"2\": 21493760n, \"3\": 864299970n,\n    \"4\": 20245856256n, \"5\": 333202640600n,\n  };\n  const sel = $('#w-mck-n'), btn = $('#w-mck-check'), out = $('#w-mck-out');\n  function render(){\n    const n = sel.value;\n    const mults = DEC[n];\n    const c = C[n];\n    let lines = [];\n    lines.push(`n = ${n}`);\n    lines.push(`c_n = ${c.toString()}   (Fourier coef of q^${n} in j)`);\n    lines.push('');\n    lines.push('decomposition V^♮_n  =  ⊕ m_i · V_i :');\n    let total = 0n, human = [];\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      total += BigInt(m) * DIM[i];\n      const coef = m===1 ? '' : (m+'·');\n      human.push(`${coef}V_${i+1}`);\n    });\n    lines.push('  ' + human.join('  +  '));\n    lines.push('');\n    lines.push('arithmetic check:');\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      lines.push(`  ${String(m).padStart(2,' ')} · dim V_${i+1} = ${String(m).padStart(2,' ')} · ${DIM[i].toString().padStart(12,' ')} = ${(BigInt(m)*DIM[i]).toString()}`);\n    });\n    lines.push(`  sum                                = ${total.toString()}`);\n    lines.push(`  target c_${n===-1?'{-1}':n}                              = ${c.toString()}`);\n    lines.push(`  match? ${total === c ? 'YES' : 'NO'}`);\n    out.textContent = lines.join('\\n');\n  }\n  sel.addEventListener('change', render);\n  btn.addEventListener('click', render);\n  render();",
+            "hint": "enter $n$; widget displays $c_n$ and the $\\mathbb{M}$-irreducible decomposition of $V^{\\natural}_n$",
+            "readoutId": "w-mck-out"
+          }
         },
         {
           "type": "raw",
@@ -96,9 +218,49 @@
         },
         {
           "type": "widget",
-          "id": "w-t",
-          "html": "<div class=\"widget\" id=\"w-t\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 4 · Thompson-series selector</div><div class=\"hint\">pick a conjugacy class $g \\in \\mathbb{M}$; see the head of $T_g(\\tau)$</div></div>\n  <div class=\"row\">\n    <label>conjugacy class:</label>\n    <select id=\"w-t-g\">\n      <option value=\"1A\" selected>1A   (identity)</option>\n      <option value=\"2A\">2A   (order 2, class \"Fischer involution\")</option>\n      <option value=\"2B\">2B   (order 2, class \"Conway involution\")</option>\n      <option value=\"3A\">3A   (order 3)</option>\n      <option value=\"5A\">5A   (order 5)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"w-t-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // Thompson series head coefficients (tr g|V_n for n=-1..4).\n  // Classical data: T_{1A} = j - 744; T_{2A}, T_{2B}, T_{3A}, T_{5A} are the Hauptmoduls\n  // for Gamma_0(2)+ , Gamma_0(2), Gamma_0(3)+, Gamma_0(5)+ respectively.\n  const T = {\n    \"1A\": {\n      label: \"T_{1A}(τ) = J(τ) = j(τ) − 744\",\n      coefs: [\"1\",\"0\",\"196884\",\"21493760\",\"864299970\",\"20245856256\"],\n      group: \"SL_2(ℤ)     (genus 0; normalizer of itself)\",\n    },\n    \"2A\": {\n      label: \"T_{2A}(τ)   (Hauptmodul for Γ₀(2)+)\",\n      coefs: [\"1\",\"0\",\"4372\",\"96256\",\"1240002\",\"10698752\"],\n      group: \"Γ₀(2)+      (genus 0)\",\n    },\n    \"2B\": {\n      label: \"T_{2B}(τ)   (Hauptmodul for Γ₀(2))\",\n      coefs: [\"1\",\"0\",\"276\",\"−2048\",\"11202\",\"−49152\"],\n      group: \"Γ₀(2)        (genus 0)\",\n    },\n    \"3A\": {\n      label: \"T_{3A}(τ)   (Hauptmodul for Γ₀(3)+)\",\n      coefs: [\"1\",\"0\",\"783\",\"8672\",\"65367\",\"371520\"],\n      group: \"Γ₀(3)+      (genus 0)\",\n    },\n    \"5A\": {\n      label: \"T_{5A}(τ)   (Hauptmodul for Γ₀(5)+)\",\n      coefs: [\"1\",\"0\",\"134\",\"760\",\"3345\",\"12256\"],\n      group: \"Γ₀(5)+      (genus 0)\",\n    },\n  };\n  const sel = $('#w-t-g'), out = $('#w-t-out');\n  function render(){\n    const t = T[sel.value];\n    let s = '';\n    s += t.label + '\\n';\n    s += 'modular group:   ' + t.group + '\\n\\n';\n    s += 'n      tr(g | V^♮_n)\\n';\n    s += '---    -----------------\\n';\n    const ns = [-1,0,1,2,3,4];\n    ns.forEach((n,i)=>{\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + t.coefs[i] + '\\n';\n    });\n    s += '\\n';\n    s += 'n = -1 coefficient is always 1: the vacuum V^♮_{-1} is the trivial rep,\\n';\n    s += 'and every group element acts as the identity on it.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-t",
+            "title": "Widget 4 · Thompson-series selector",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>conjugacy class:</label>\n    <select id=\"w-t-g\">\n      <option value=\"1A\" selected>1A   (identity)</option>\n      <option value=\"2A\">2A   (order 2, class \"Fischer involution\")</option>\n      <option value=\"2B\">2B   (order 2, class \"Conway involution\")</option>\n      <option value=\"3A\">3A   (order 3)</option>\n      <option value=\"5A\">5A   (order 5)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-t-out"
+              }
+            ],
+            "bodyScript": "  // Thompson series head coefficients (tr g|V_n for n=-1..4).\n  // Classical data: T_{1A} = j - 744; T_{2A}, T_{2B}, T_{3A}, T_{5A} are the Hauptmoduls\n  // for Gamma_0(2)+ , Gamma_0(2), Gamma_0(3)+, Gamma_0(5)+ respectively.\n  const T = {\n    \"1A\": {\n      label: \"T_{1A}(τ) = J(τ) = j(τ) − 744\",\n      coefs: [\"1\",\"0\",\"196884\",\"21493760\",\"864299970\",\"20245856256\"],\n      group: \"SL_2(ℤ)     (genus 0; normalizer of itself)\",\n    },\n    \"2A\": {\n      label: \"T_{2A}(τ)   (Hauptmodul for Γ₀(2)+)\",\n      coefs: [\"1\",\"0\",\"4372\",\"96256\",\"1240002\",\"10698752\"],\n      group: \"Γ₀(2)+      (genus 0)\",\n    },\n    \"2B\": {\n      label: \"T_{2B}(τ)   (Hauptmodul for Γ₀(2))\",\n      coefs: [\"1\",\"0\",\"276\",\"−2048\",\"11202\",\"−49152\"],\n      group: \"Γ₀(2)        (genus 0)\",\n    },\n    \"3A\": {\n      label: \"T_{3A}(τ)   (Hauptmodul for Γ₀(3)+)\",\n      coefs: [\"1\",\"0\",\"783\",\"8672\",\"65367\",\"371520\"],\n      group: \"Γ₀(3)+      (genus 0)\",\n    },\n    \"5A\": {\n      label: \"T_{5A}(τ)   (Hauptmodul for Γ₀(5)+)\",\n      coefs: [\"1\",\"0\",\"134\",\"760\",\"3345\",\"12256\"],\n      group: \"Γ₀(5)+      (genus 0)\",\n    },\n  };\n  const sel = $('#w-t-g'), out = $('#w-t-out');\n  function render(){\n    const t = T[sel.value];\n    let s = '';\n    s += t.label + '\\n';\n    s += 'modular group:   ' + t.group + '\\n\\n';\n    s += 'n      tr(g | V^♮_n)\\n';\n    s += '---    -----------------\\n';\n    const ns = [-1,0,1,2,3,4];\n    ns.forEach((n,i)=>{\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + t.coefs[i] + '\\n';\n    });\n    s += '\\n';\n    s += 'n = -1 coefficient is always 1: the vacuum V^♮_{-1} is the trivial rep,\\n';\n    s += 'and every group element acts as the identity on it.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "hint": "pick a conjugacy class $g \\in \\mathbb{M}$; see the head of $T_g(\\tau)$",
+            "readoutId": "w-t-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-t",
+            "title": "Widget 4 · Thompson-series selector",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>conjugacy class:</label>\n    <select id=\"w-t-g\">\n      <option value=\"1A\" selected>1A   (identity)</option>\n      <option value=\"2A\">2A   (order 2, class \"Fischer involution\")</option>\n      <option value=\"2B\">2B   (order 2, class \"Conway involution\")</option>\n      <option value=\"3A\">3A   (order 3)</option>\n      <option value=\"5A\">5A   (order 5)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-t-out"
+              }
+            ],
+            "bodyScript": "  // Thompson series head coefficients (tr g|V_n for n=-1..4).\n  // Classical data: T_{1A} = j - 744; T_{2A}, T_{2B}, T_{3A}, T_{5A} are the Hauptmoduls\n  // for Gamma_0(2)+ , Gamma_0(2), Gamma_0(3)+, Gamma_0(5)+ respectively.\n  const T = {\n    \"1A\": {\n      label: \"T_{1A}(τ) = J(τ) = j(τ) − 744\",\n      coefs: [\"1\",\"0\",\"196884\",\"21493760\",\"864299970\",\"20245856256\"],\n      group: \"SL_2(ℤ)     (genus 0; normalizer of itself)\",\n    },\n    \"2A\": {\n      label: \"T_{2A}(τ)   (Hauptmodul for Γ₀(2)+)\",\n      coefs: [\"1\",\"0\",\"4372\",\"96256\",\"1240002\",\"10698752\"],\n      group: \"Γ₀(2)+      (genus 0)\",\n    },\n    \"2B\": {\n      label: \"T_{2B}(τ)   (Hauptmodul for Γ₀(2))\",\n      coefs: [\"1\",\"0\",\"276\",\"−2048\",\"11202\",\"−49152\"],\n      group: \"Γ₀(2)        (genus 0)\",\n    },\n    \"3A\": {\n      label: \"T_{3A}(τ)   (Hauptmodul for Γ₀(3)+)\",\n      coefs: [\"1\",\"0\",\"783\",\"8672\",\"65367\",\"371520\"],\n      group: \"Γ₀(3)+      (genus 0)\",\n    },\n    \"5A\": {\n      label: \"T_{5A}(τ)   (Hauptmodul for Γ₀(5)+)\",\n      coefs: [\"1\",\"0\",\"134\",\"760\",\"3345\",\"12256\"],\n      group: \"Γ₀(5)+      (genus 0)\",\n    },\n  };\n  const sel = $('#w-t-g'), out = $('#w-t-out');\n  function render(){\n    const t = T[sel.value];\n    let s = '';\n    s += t.label + '\\n';\n    s += 'modular group:   ' + t.group + '\\n\\n';\n    s += 'n      tr(g | V^♮_n)\\n';\n    s += '---    -----------------\\n';\n    const ns = [-1,0,1,2,3,4];\n    ns.forEach((n,i)=>{\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + t.coefs[i] + '\\n';\n    });\n    s += '\\n';\n    s += 'n = -1 coefficient is always 1: the vacuum V^♮_{-1} is the trivial rep,\\n';\n    s += 'and every group element acts as the identity on it.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "hint": "pick a conjugacy class $g \\in \\mathbb{M}$; see the head of $T_g(\\tau)$",
+            "readoutId": "w-t-out"
+          }
         },
         {
           "type": "raw",
@@ -124,9 +286,49 @@
         },
         {
           "type": "widget",
-          "id": "w-rep",
-          "html": "<div class=\"widget\" id=\"w-rep\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 5 · Replication formula for J</div><div class=\"hint\">numerical check of Borcherds' recursion on $J$'s own coefficients</div></div>\n  <div class=\"row\">\n    <label>test $c(m) c(n) = $ sum identity at $(m,n)$:</label>\n    <select id=\"w-rep-mn\">\n      <option value=\"2,3\" selected>(m,n) = (2, 3)</option>\n      <option value=\"2,2\">(m,n) = (2, 2)</option>\n      <option value=\"1,4\">(m,n) = (1, 4)</option>\n      <option value=\"3,3\">(m,n) = (3, 3)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"w-rep-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // Coefficients c(n) of q^n in J(tau) = j(tau) - 744.\n  // c(-1) = 1; c(0) = 0; c(n) = j-coefficient for n >= 1.\n  const c = new Map();\n  c.set(-1, 1n); c.set(0, 0n);\n  c.set(1, 196884n);\n  c.set(2, 21493760n);\n  c.set(3, 864299970n);\n  c.set(4, 20245856256n);\n  c.set(5, 333202640600n);\n  c.set(6, 4252023300096n);\n  c.set(7, 44656994071935n);\n  c.set(8, 401490886656000n);\n  c.set(9, 3176440229784420n);\n  c.set(10, 22567393309593600n);\n\n  // The classical \"replication\" identity for J coming from the Monster denominator:\n  //   c(4m+2n) = (sum_{r>=0, r<=m} c(2m-r) c(2n+r))  ... (schematic).\n  // For a clean numerical demo we instead verify the following special case that\n  // follows from comparing q^m p^n and q^n p^m terms of log of the denominator\n  // product: for m,n >= 1,\n  //   c(mn) = (1/(m+n)) * sum of certain c(i)c(j) — but to keep arithmetic exact\n  // we test the simplest closed identity that can be checked with our table:\n  //   c(m+n-1) appears inside Faber polynomial relations.\n  // We use the best-known small replication check:\n  //   c(2) + c(1)^2 / 2   vs.  a known linear combo.\n  // For a user-facing widget we give the check as a symbolic identity:\n  //   \"Borcherds' recursion expresses c(m n) in terms of c(k) for k < mn.\"\n  //  and we verify this numerically using one specific recursion instance at a time.\n\n  const REC = {\n    // Identity used: for j-function, c(4) = c(1)*c(3) - c(1)^2*c(1) + ...\n    // Instead of deriving these, we give Mahler's/Borcherds' \"replication\" at level 2:\n    //    c(2n) = c(n)^2/? + ...\n    // For simplicity, we check Mahler's celebrated identity at (m,n)=(2,3):\n    //    c(6) = c(1) c(5) + c(2) c(4) + c(3)^2 - c(1)^4 - ... (long).\n    // We keep the demo honest by just showing the hand-verifiable identity:\n    //    j(p) - j(q) = p^-1 * prod_{m>0,n} (1 - p^m q^n)^c(mn)\n    // and expanding the first few terms.\n    \"2,3\": {\n      desc: \"Expanding  p^{-1} ∏ (1 − p^m q^n)^{c(mn)}  −  (p^{-1} − q^{-1})  =  J(p) − J(q) + J(p)·J(q)·… low terms\",\n      check: \"The coefficient of p^2 q^3 on the LHS, computed from c(mn) for mn ≤ 6, equals c(2)·c(3) + {lower} — see note\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n        [\"c(5)\", \"333202640600\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n    \"2,2\": {\n      desc: \"Coefficient of p^2 q^2: controlled by c(1), c(2), c(4).\",\n      check: \"The denominator product's Weyl side forces c(4) to be determined by the lower c's — Borcherds' content.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"1,4\": {\n      desc: \"Coefficient of p^1 q^4: involves c(1), c(2), c(3), c(4).\",\n      check: \"Matches the Hauptmodul expansion of J — used as a cross-check in Conway–Norton's tables.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"3,3\": {\n      desc: \"Coefficient of p^3 q^3: diagonal case, involves c(1..6).\",\n      check: \"Replicability of T_{1A} = J is the identity-class instance of replicability of every T_g.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n  };\n\n  const sel = $('#w-rep-mn'), out = $('#w-rep-out');\n  function render(){\n    const r = REC[sel.value];\n    let s = '';\n    s += 'denominator identity:\\n';\n    s += '   p^{-1} · ∏_{m>0, n∈Z} (1 − p^m q^n)^{c(mn)}  =  J(p) − J(q)\\n\\n';\n    s += 'selected coefficient check: (m,n) = ' + sel.value.replace(',', ', ') + '\\n';\n    s += '  ' + r.desc + '\\n';\n    s += '  ' + r.check + '\\n\\n';\n    s += 'values in play:\\n';\n    r.numbers.forEach(([k,v])=>{ s += '  ' + k + ' = ' + v + '\\n'; });\n    s += '\\n';\n    s += 'interpretation: the same numbers c(n) — the j-coefficients — appear as\\n';\n    s += 'root multiplicities in the Monster Lie algebra and as graded dimensions\\n';\n    s += 'of V^♮_n. The denominator identity is the bridge.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rep",
+            "title": "Widget 5 · Replication formula for J",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>test $c(m) c(n) = $ sum identity at $(m,n)$:</label>\n    <select id=\"w-rep-mn\">\n      <option value=\"2,3\" selected>(m,n) = (2, 3)</option>\n      <option value=\"2,2\">(m,n) = (2, 2)</option>\n      <option value=\"1,4\">(m,n) = (1, 4)</option>\n      <option value=\"3,3\">(m,n) = (3, 3)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-rep-out"
+              }
+            ],
+            "bodyScript": "  // Coefficients c(n) of q^n in J(tau) = j(tau) - 744.\n  // c(-1) = 1; c(0) = 0; c(n) = j-coefficient for n >= 1.\n  const c = new Map();\n  c.set(-1, 1n); c.set(0, 0n);\n  c.set(1, 196884n);\n  c.set(2, 21493760n);\n  c.set(3, 864299970n);\n  c.set(4, 20245856256n);\n  c.set(5, 333202640600n);\n  c.set(6, 4252023300096n);\n  c.set(7, 44656994071935n);\n  c.set(8, 401490886656000n);\n  c.set(9, 3176440229784420n);\n  c.set(10, 22567393309593600n);\n\n  // The classical \"replication\" identity for J coming from the Monster denominator:\n  //   c(4m+2n) = (sum_{r>=0, r<=m} c(2m-r) c(2n+r))  ... (schematic).\n  // For a clean numerical demo we instead verify the following special case that\n  // follows from comparing q^m p^n and q^n p^m terms of log of the denominator\n  // product: for m,n >= 1,\n  //   c(mn) = (1/(m+n)) * sum of certain c(i)c(j) — but to keep arithmetic exact\n  // we test the simplest closed identity that can be checked with our table:\n  //   c(m+n-1) appears inside Faber polynomial relations.\n  // We use the best-known small replication check:\n  //   c(2) + c(1)^2 / 2   vs.  a known linear combo.\n  // For a user-facing widget we give the check as a symbolic identity:\n  //   \"Borcherds' recursion expresses c(m n) in terms of c(k) for k < mn.\"\n  //  and we verify this numerically using one specific recursion instance at a time.\n\n  const REC = {\n    // Identity used: for j-function, c(4) = c(1)*c(3) - c(1)^2*c(1) + ...\n    // Instead of deriving these, we give Mahler's/Borcherds' \"replication\" at level 2:\n    //    c(2n) = c(n)^2/? + ...\n    // For simplicity, we check Mahler's celebrated identity at (m,n)=(2,3):\n    //    c(6) = c(1) c(5) + c(2) c(4) + c(3)^2 - c(1)^4 - ... (long).\n    // We keep the demo honest by just showing the hand-verifiable identity:\n    //    j(p) - j(q) = p^-1 * prod_{m>0,n} (1 - p^m q^n)^c(mn)\n    // and expanding the first few terms.\n    \"2,3\": {\n      desc: \"Expanding  p^{-1} ∏ (1 − p^m q^n)^{c(mn)}  −  (p^{-1} − q^{-1})  =  J(p) − J(q) + J(p)·J(q)·… low terms\",\n      check: \"The coefficient of p^2 q^3 on the LHS, computed from c(mn) for mn ≤ 6, equals c(2)·c(3) + {lower} — see note\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n        [\"c(5)\", \"333202640600\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n    \"2,2\": {\n      desc: \"Coefficient of p^2 q^2: controlled by c(1), c(2), c(4).\",\n      check: \"The denominator product's Weyl side forces c(4) to be determined by the lower c's — Borcherds' content.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"1,4\": {\n      desc: \"Coefficient of p^1 q^4: involves c(1), c(2), c(3), c(4).\",\n      check: \"Matches the Hauptmodul expansion of J — used as a cross-check in Conway–Norton's tables.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"3,3\": {\n      desc: \"Coefficient of p^3 q^3: diagonal case, involves c(1..6).\",\n      check: \"Replicability of T_{1A} = J is the identity-class instance of replicability of every T_g.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n  };\n\n  const sel = $('#w-rep-mn'), out = $('#w-rep-out');\n  function render(){\n    const r = REC[sel.value];\n    let s = '';\n    s += 'denominator identity:\\n';\n    s += '   p^{-1} · ∏_{m>0, n∈Z} (1 − p^m q^n)^{c(mn)}  =  J(p) − J(q)\\n\\n';\n    s += 'selected coefficient check: (m,n) = ' + sel.value.replace(',', ', ') + '\\n';\n    s += '  ' + r.desc + '\\n';\n    s += '  ' + r.check + '\\n\\n';\n    s += 'values in play:\\n';\n    r.numbers.forEach(([k,v])=>{ s += '  ' + k + ' = ' + v + '\\n'; });\n    s += '\\n';\n    s += 'interpretation: the same numbers c(n) — the j-coefficients — appear as\\n';\n    s += 'root multiplicities in the Monster Lie algebra and as graded dimensions\\n';\n    s += 'of V^♮_n. The denominator identity is the bridge.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "hint": "numerical check of Borcherds' recursion on $J$'s own coefficients",
+            "readoutId": "w-rep-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rep",
+            "title": "Widget 5 · Replication formula for J",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>test $c(m) c(n) = $ sum identity at $(m,n)$:</label>\n    <select id=\"w-rep-mn\">\n      <option value=\"2,3\" selected>(m,n) = (2, 3)</option>\n      <option value=\"2,2\">(m,n) = (2, 2)</option>\n      <option value=\"1,4\">(m,n) = (1, 4)</option>\n      <option value=\"3,3\">(m,n) = (3, 3)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-rep-out"
+              }
+            ],
+            "bodyScript": "  // Coefficients c(n) of q^n in J(tau) = j(tau) - 744.\n  // c(-1) = 1; c(0) = 0; c(n) = j-coefficient for n >= 1.\n  const c = new Map();\n  c.set(-1, 1n); c.set(0, 0n);\n  c.set(1, 196884n);\n  c.set(2, 21493760n);\n  c.set(3, 864299970n);\n  c.set(4, 20245856256n);\n  c.set(5, 333202640600n);\n  c.set(6, 4252023300096n);\n  c.set(7, 44656994071935n);\n  c.set(8, 401490886656000n);\n  c.set(9, 3176440229784420n);\n  c.set(10, 22567393309593600n);\n\n  // The classical \"replication\" identity for J coming from the Monster denominator:\n  //   c(4m+2n) = (sum_{r>=0, r<=m} c(2m-r) c(2n+r))  ... (schematic).\n  // For a clean numerical demo we instead verify the following special case that\n  // follows from comparing q^m p^n and q^n p^m terms of log of the denominator\n  // product: for m,n >= 1,\n  //   c(mn) = (1/(m+n)) * sum of certain c(i)c(j) — but to keep arithmetic exact\n  // we test the simplest closed identity that can be checked with our table:\n  //   c(m+n-1) appears inside Faber polynomial relations.\n  // We use the best-known small replication check:\n  //   c(2) + c(1)^2 / 2   vs.  a known linear combo.\n  // For a user-facing widget we give the check as a symbolic identity:\n  //   \"Borcherds' recursion expresses c(m n) in terms of c(k) for k < mn.\"\n  //  and we verify this numerically using one specific recursion instance at a time.\n\n  const REC = {\n    // Identity used: for j-function, c(4) = c(1)*c(3) - c(1)^2*c(1) + ...\n    // Instead of deriving these, we give Mahler's/Borcherds' \"replication\" at level 2:\n    //    c(2n) = c(n)^2/? + ...\n    // For simplicity, we check Mahler's celebrated identity at (m,n)=(2,3):\n    //    c(6) = c(1) c(5) + c(2) c(4) + c(3)^2 - c(1)^4 - ... (long).\n    // We keep the demo honest by just showing the hand-verifiable identity:\n    //    j(p) - j(q) = p^-1 * prod_{m>0,n} (1 - p^m q^n)^c(mn)\n    // and expanding the first few terms.\n    \"2,3\": {\n      desc: \"Expanding  p^{-1} ∏ (1 − p^m q^n)^{c(mn)}  −  (p^{-1} − q^{-1})  =  J(p) − J(q) + J(p)·J(q)·… low terms\",\n      check: \"The coefficient of p^2 q^3 on the LHS, computed from c(mn) for mn ≤ 6, equals c(2)·c(3) + {lower} — see note\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n        [\"c(5)\", \"333202640600\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n    \"2,2\": {\n      desc: \"Coefficient of p^2 q^2: controlled by c(1), c(2), c(4).\",\n      check: \"The denominator product's Weyl side forces c(4) to be determined by the lower c's — Borcherds' content.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"1,4\": {\n      desc: \"Coefficient of p^1 q^4: involves c(1), c(2), c(3), c(4).\",\n      check: \"Matches the Hauptmodul expansion of J — used as a cross-check in Conway–Norton's tables.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"3,3\": {\n      desc: \"Coefficient of p^3 q^3: diagonal case, involves c(1..6).\",\n      check: \"Replicability of T_{1A} = J is the identity-class instance of replicability of every T_g.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n  };\n\n  const sel = $('#w-rep-mn'), out = $('#w-rep-out');\n  function render(){\n    const r = REC[sel.value];\n    let s = '';\n    s += 'denominator identity:\\n';\n    s += '   p^{-1} · ∏_{m>0, n∈Z} (1 − p^m q^n)^{c(mn)}  =  J(p) − J(q)\\n\\n';\n    s += 'selected coefficient check: (m,n) = ' + sel.value.replace(',', ', ') + '\\n';\n    s += '  ' + r.desc + '\\n';\n    s += '  ' + r.check + '\\n\\n';\n    s += 'values in play:\\n';\n    r.numbers.forEach(([k,v])=>{ s += '  ' + k + ' = ' + v + '\\n'; });\n    s += '\\n';\n    s += 'interpretation: the same numbers c(n) — the j-coefficients — appear as\\n';\n    s += 'root multiplicities in the Monster Lie algebra and as graded dimensions\\n';\n    s += 'of V^♮_n. The denominator identity is the bridge.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "hint": "numerical check of Borcherds' recursion on $J$'s own coefficients",
+            "readoutId": "w-rep-out"
+          }
         },
         {
           "type": "raw",

@@ -59,8 +59,163 @@
         {
           "type": "widget",
           "id": "w-frob",
-          "html": "<div class=\"widget\" id=\"w-frob\">\n  <div class=\"hd\"><div class=\"ttl\">Frobenius as a permutation</div><div class=\"hint\">cycle shape $\\leftrightarrow$ factorisation</div></div>\n  <div class=\"row\">\n    <label>pick:</label>\n    <button data-key=\"a\" class=\"active\">(3) — 3-cycle, cubic stays irreducible</button>\n    <button data-key=\"b\">(2,1) — transposition, deg 2 × deg 1</button>\n    <button data-key=\"c\">(1,1,1) — identity, fully split</button>\n  </div>\n  <svg id=\"frob-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Frobenius as a permutation</title></svg>\n  <div class=\"readout\" id=\"frob-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#frob-svg'), out = $('#frob-out');\n  // three root positions\n  const R = [[160,130],[310,80],[460,130]];\n  const LABELS = ['α₁','α₂','α₃'];\n  const PERMS = {\n    a: {name:'3-cycle',    perm:[1,2,0], factorisation:'f̄(x) irreducible of degree 3'},\n    b: {name:'transposition', perm:[1,0,2], factorisation:'f̄(x) = (deg 2) · (deg 1)'},\n    c: {name:'identity',   perm:[0,1,2], factorisation:'f̄(x) = (x−r₁)(x−r₂)(x−r₃), three linear'},\n  };\n  let key = 'a';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    for(let i=0;i<3;i++) drawNode(svg, R[i][0], R[i][1], LABELS[i], {r:22, stroke:'var(--blue)'});\n    const P = PERMS[key];\n    for(let i=0;i<3;i++){\n      const j = P.perm[i];\n      if(i===j){\n        // loop\n        const [x,y] = R[i];\n        ensureArrow(svg,'frob-fix','var(--green)');\n        const d = `M ${x-12} ${y-26} C ${x-40} ${y-70}, ${x+40} ${y-70}, ${x+12} ${y-26}`;\n        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--green)','stroke-width':1.6,'marker-end':'url(#frob-fix)'}));\n      } else {\n        const curve = (i<j)?32:-32;\n        drawArrow(svg, R[i], R[j], {\n          color:'var(--yellow)', curve, markerId:'frob-'+key+'-'+i,\n          pad1:24, pad2:26, width:1.8\n        });\n      }\n    }\n    // caption + shape\n    const shape = cycleShapeFromPerm(P.perm);\n    const t = SVG('text',{x:310,y:210,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-style':'italic'});\n    t.textContent = `cycle shape = ${shapeStr(shape)}`;\n    svg.appendChild(t);\n    out.textContent = `Frobenius type: ${P.name}\\n${P.factorisation}`;\n  }\n  function cycleShapeFromPerm(p){\n    const n = p.length; const seen = new Array(n).fill(false); const cycs = [];\n    for(let i=0;i<n;i++){\n      if(seen[i]) continue;\n      let j = i, L = 0;\n      while(!seen[j]){ seen[j]=true; j=p[j]; L++; }\n      cycs.push(L);\n    }\n    cycs.sort((a,b)=>b-a);\n    return cycs;\n  }\n  document.querySelectorAll('#w-frob button').forEach(b => b.addEventListener('click', () => {\n    document.querySelectorAll('#w-frob button').forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    key = b.getAttribute('data-key');\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-frob",
+            "title": "Frobenius as a permutation",
+            "hint": "cycle shape $\\leftrightarrow$ factorisation",
+            "svgId": "frob-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "frob-out",
+            "buttons": [
+              {
+                "label": "(3) — 3-cycle, cubic stays irreducible",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "a"
+                },
+                "className": "active"
+              },
+              {
+                "label": "(2,1) — transposition, deg 2 × deg 1",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "b"
+                }
+              },
+              {
+                "label": "(1,1,1) — identity, fully split",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "c"
+                }
+              }
+            ],
+            "layout": [
+              {
+                "kind": "row",
+                "label": "pick:",
+                "buttons": [
+                  {
+                    "label": "(3) — 3-cycle, cubic stays irreducible",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "a"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "(2,1) — transposition, deg 2 × deg 1",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "b"
+                    }
+                  },
+                  {
+                    "label": "(1,1,1) — identity, fully split",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "c"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "frob-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "frob-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#frob-svg'), out = $('#frob-out');\n  // three root positions\n  const R = [[160,130],[310,80],[460,130]];\n  const LABELS = ['α₁','α₂','α₃'];\n  const PERMS = {\n    a: {name:'3-cycle',    perm:[1,2,0], factorisation:'f̄(x) irreducible of degree 3'},\n    b: {name:'transposition', perm:[1,0,2], factorisation:'f̄(x) = (deg 2) · (deg 1)'},\n    c: {name:'identity',   perm:[0,1,2], factorisation:'f̄(x) = (x−r₁)(x−r₂)(x−r₃), three linear'},\n  };\n  let key = 'a';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    for(let i=0;i<3;i++) drawNode(svg, R[i][0], R[i][1], LABELS[i], {r:22, stroke:'var(--blue)'});\n    const P = PERMS[key];\n    for(let i=0;i<3;i++){\n      const j = P.perm[i];\n      if(i===j){\n        // loop\n        const [x,y] = R[i];\n        ensureArrow(svg,'frob-fix','var(--green)');\n        const d = `M ${x-12} ${y-26} C ${x-40} ${y-70}, ${x+40} ${y-70}, ${x+12} ${y-26}`;\n        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--green)','stroke-width':1.6,'marker-end':'url(#frob-fix)'}));\n      } else {\n        const curve = (i<j)?32:-32;\n        drawArrow(svg, R[i], R[j], {\n          color:'var(--yellow)', curve, markerId:'frob-'+key+'-'+i,\n          pad1:24, pad2:26, width:1.8\n        });\n      }\n    }\n    // caption + shape\n    const shape = cycleShapeFromPerm(P.perm);\n    const t = SVG('text',{x:310,y:210,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-style':'italic'});\n    t.textContent = `cycle shape = ${shapeStr(shape)}`;\n    svg.appendChild(t);\n    out.textContent = `Frobenius type: ${P.name}\\n${P.factorisation}`;\n  }\n  function cycleShapeFromPerm(p){\n    const n = p.length; const seen = new Array(n).fill(false); const cycs = [];\n    for(let i=0;i<n;i++){\n      if(seen[i]) continue;\n      let j = i, L = 0;\n      while(!seen[j]){ seen[j]=true; j=p[j]; L++; }\n      cycs.push(L);\n    }\n    cycs.sort((a,b)=>b-a);\n    return cycs;\n  }\n  document.querySelectorAll('#w-frob button').forEach(b => b.addEventListener('click', () => {\n    document.querySelectorAll('#w-frob button').forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    key = b.getAttribute('data-key');\n    render();\n  }));\n  render();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-frob",
+            "title": "Frobenius as a permutation",
+            "hint": "cycle shape $\\leftrightarrow$ factorisation",
+            "svgId": "frob-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "frob-out",
+            "buttons": [
+              {
+                "label": "(3) — 3-cycle, cubic stays irreducible",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "a"
+                },
+                "className": "active"
+              },
+              {
+                "label": "(2,1) — transposition, deg 2 × deg 1",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "b"
+                }
+              },
+              {
+                "label": "(1,1,1) — identity, fully split",
+                "dataAttr": {
+                  "name": "data-key",
+                  "value": "c"
+                }
+              }
+            ],
+            "layout": [
+              {
+                "kind": "row",
+                "label": "pick:",
+                "buttons": [
+                  {
+                    "label": "(3) — 3-cycle, cubic stays irreducible",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "a"
+                    },
+                    "className": "active"
+                  },
+                  {
+                    "label": "(2,1) — transposition, deg 2 × deg 1",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "b"
+                    }
+                  },
+                  {
+                    "label": "(1,1,1) — identity, fully split",
+                    "dataAttr": {
+                      "name": "data-key",
+                      "value": "c"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "frob-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "frob-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#frob-svg'), out = $('#frob-out');\n  // three root positions\n  const R = [[160,130],[310,80],[460,130]];\n  const LABELS = ['α₁','α₂','α₃'];\n  const PERMS = {\n    a: {name:'3-cycle',    perm:[1,2,0], factorisation:'f̄(x) irreducible of degree 3'},\n    b: {name:'transposition', perm:[1,0,2], factorisation:'f̄(x) = (deg 2) · (deg 1)'},\n    c: {name:'identity',   perm:[0,1,2], factorisation:'f̄(x) = (x−r₁)(x−r₂)(x−r₃), three linear'},\n  };\n  let key = 'a';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    for(let i=0;i<3;i++) drawNode(svg, R[i][0], R[i][1], LABELS[i], {r:22, stroke:'var(--blue)'});\n    const P = PERMS[key];\n    for(let i=0;i<3;i++){\n      const j = P.perm[i];\n      if(i===j){\n        // loop\n        const [x,y] = R[i];\n        ensureArrow(svg,'frob-fix','var(--green)');\n        const d = `M ${x-12} ${y-26} C ${x-40} ${y-70}, ${x+40} ${y-70}, ${x+12} ${y-26}`;\n        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--green)','stroke-width':1.6,'marker-end':'url(#frob-fix)'}));\n      } else {\n        const curve = (i<j)?32:-32;\n        drawArrow(svg, R[i], R[j], {\n          color:'var(--yellow)', curve, markerId:'frob-'+key+'-'+i,\n          pad1:24, pad2:26, width:1.8\n        });\n      }\n    }\n    // caption + shape\n    const shape = cycleShapeFromPerm(P.perm);\n    const t = SVG('text',{x:310,y:210,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-style':'italic'});\n    t.textContent = `cycle shape = ${shapeStr(shape)}`;\n    svg.appendChild(t);\n    out.textContent = `Frobenius type: ${P.name}\\n${P.factorisation}`;\n  }\n  function cycleShapeFromPerm(p){\n    const n = p.length; const seen = new Array(n).fill(false); const cycs = [];\n    for(let i=0;i<n;i++){\n      if(seen[i]) continue;\n      let j = i, L = 0;\n      while(!seen[j]){ seen[j]=true; j=p[j]; L++; }\n      cycs.push(L);\n    }\n    cycs.sort((a,b)=>b-a);\n    return cycs;\n  }\n  document.querySelectorAll('#w-frob button').forEach(b => b.addEventListener('click', () => {\n    document.querySelectorAll('#w-frob button').forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    key = b.getAttribute('data-key');\n    render();\n  }));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -143,8 +298,45 @@
         {
           "type": "widget",
           "id": "w-cyc",
-          "html": "<div class=\"widget\" id=\"w-cyc\">\n  <div class=\"hd\"><div class=\"ttl\">$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group</div><div class=\"hint\">element = residue class, Frob is identity map</div></div>\n  <div class=\"row\">\n    <label>$N$:</label>\n    <select id=\"cy-N\"></select>\n    <label for=\"cy-p\">highlight prime $p$:</label>\n    <input type=\"number\" id=\"cy-p\" value=\"11\" min=\"2\" max=\"200\" style=\"width:5em\">\n  </div>\n  <svg id=\"cy-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group</title></svg>\n  <div class=\"readout\" id=\"cy-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const Ns = [5,7,8,12,15,16];\n  const selN = $('#cy-N'), pin = $('#cy-p'), svg = $('#cy-svg'), out = $('#cy-out');\n  Ns.forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=String(n); selN.appendChild(o); });\n  selN.value = 12;\n  function render(){\n    const N = +selN.value;\n    const pv = +pin.value;\n    // elements of (Z/N)^*\n    const elts = [];\n    for(let k=1;k<N;k++){\n      if(gcd(k,N)===1) elts.push(k);\n    }\n    // layout on a circle\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const cx=310, cy=130, R=95;\n    // title\n    const tH = SVG('text',{x:310, y:22, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tH.textContent = `|(ℤ/${N})×| = ${elts.length},  Frob_p = p mod ${N}`;\n    svg.appendChild(tH);\n    const n = elts.length;\n    let frobRes = null;\n    if(isPrime(pv) && gcd(pv,N)===1) frobRes = mod(pv,N);\n    for(let i=0;i<n;i++){\n      const ang = -Math.PI/2 + 2*Math.PI*i/n;\n      const x = cx + R*Math.cos(ang), y = cy + R*Math.sin(ang);\n      const isFrob = elts[i] === frobRes;\n      drawNode(svg, x, y, String(elts[i]), {r:18, stroke: isFrob?'var(--yellow)':'var(--blue)'});\n    }\n    // describe cycle structure of Frob_p acting on roots of unity — i.e. order of p in (Z/N)*\n    if(frobRes !== null){\n      let ord = 1, curr = frobRes;\n      while(curr !== 1 && ord < N*2){ curr = mod(curr*frobRes, N); ord++; }\n      const phiN = elts.length;\n      const cycles = phiN / ord;\n      out.textContent = `p = ${pv},  Frob_p = ${frobRes} mod ${N}.  order of Frob in G = ${ord}.\\nΦ_${N}(x) mod ${pv} factors as ${cycles} irreducible piece(s), each of degree ${ord}.`;\n    } else {\n      if(!isPrime(pv)) out.textContent = `${pv} is not prime`;\n      else out.textContent = `p = ${pv} divides N = ${N} (ramified).`;\n    }\n  }\n  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; }\n  selN.addEventListener('change', render);\n  pin.addEventListener('change', render);\n  pin.addEventListener('keyup', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-cyc",
+            "title": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
+            "hint": "element = residue class, Frob is identity map",
+            "svgId": "cy-svg",
+            "svgViewBox": "0 0 620 260",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "260",
+            "svgTitle": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
+            "outputId": "cy-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>$N$:</label>\n    <select id=\"cy-N\"></select>\n    <label for=\"cy-p\">highlight prime $p$:</label>\n    <input type=\"number\" id=\"cy-p\" value=\"11\" min=\"2\" max=\"200\" style=\"width:5em\">",
+            "scriptBodyLiteral": "(function(){\n  const Ns = [5,7,8,12,15,16];\n  const selN = $('#cy-N'), pin = $('#cy-p'), svg = $('#cy-svg'), out = $('#cy-out');\n  Ns.forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=String(n); selN.appendChild(o); });\n  selN.value = 12;\n  function render(){\n    const N = +selN.value;\n    const pv = +pin.value;\n    // elements of (Z/N)^*\n    const elts = [];\n    for(let k=1;k<N;k++){\n      if(gcd(k,N)===1) elts.push(k);\n    }\n    // layout on a circle\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const cx=310, cy=130, R=95;\n    // title\n    const tH = SVG('text',{x:310, y:22, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tH.textContent = `|(ℤ/${N})×| = ${elts.length},  Frob_p = p mod ${N}`;\n    svg.appendChild(tH);\n    const n = elts.length;\n    let frobRes = null;\n    if(isPrime(pv) && gcd(pv,N)===1) frobRes = mod(pv,N);\n    for(let i=0;i<n;i++){\n      const ang = -Math.PI/2 + 2*Math.PI*i/n;\n      const x = cx + R*Math.cos(ang), y = cy + R*Math.sin(ang);\n      const isFrob = elts[i] === frobRes;\n      drawNode(svg, x, y, String(elts[i]), {r:18, stroke: isFrob?'var(--yellow)':'var(--blue)'});\n    }\n    // describe cycle structure of Frob_p acting on roots of unity — i.e. order of p in (Z/N)*\n    if(frobRes !== null){\n      let ord = 1, curr = frobRes;\n      while(curr !== 1 && ord < N*2){ curr = mod(curr*frobRes, N); ord++; }\n      const phiN = elts.length;\n      const cycles = phiN / ord;\n      out.textContent = `p = ${pv},  Frob_p = ${frobRes} mod ${N}.  order of Frob in G = ${ord}.\\nΦ_${N}(x) mod ${pv} factors as ${cycles} irreducible piece(s), each of degree ${ord}.`;\n    } else {\n      if(!isPrime(pv)) out.textContent = `${pv} is not prime`;\n      else out.textContent = `p = ${pv} divides N = ${N} (ramified).`;\n    }\n  }\n  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; }\n  selN.addEventListener('change', render);\n  pin.addEventListener('change', render);\n  pin.addEventListener('keyup', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-cyc",
+            "title": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
+            "hint": "element = residue class, Frob is identity map",
+            "svgId": "cy-svg",
+            "svgViewBox": "0 0 620 260",
+            "svgWidthAttr": "620",
+            "svgHeightAttr": "260",
+            "svgTitle": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
+            "outputId": "cy-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>$N$:</label>\n    <select id=\"cy-N\"></select>\n    <label for=\"cy-p\">highlight prime $p$:</label>\n    <input type=\"number\" id=\"cy-p\" value=\"11\" min=\"2\" max=\"200\" style=\"width:5em\">",
+            "scriptBodyLiteral": "(function(){\n  const Ns = [5,7,8,12,15,16];\n  const selN = $('#cy-N'), pin = $('#cy-p'), svg = $('#cy-svg'), out = $('#cy-out');\n  Ns.forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=String(n); selN.appendChild(o); });\n  selN.value = 12;\n  function render(){\n    const N = +selN.value;\n    const pv = +pin.value;\n    // elements of (Z/N)^*\n    const elts = [];\n    for(let k=1;k<N;k++){\n      if(gcd(k,N)===1) elts.push(k);\n    }\n    // layout on a circle\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const cx=310, cy=130, R=95;\n    // title\n    const tH = SVG('text',{x:310, y:22, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tH.textContent = `|(ℤ/${N})×| = ${elts.length},  Frob_p = p mod ${N}`;\n    svg.appendChild(tH);\n    const n = elts.length;\n    let frobRes = null;\n    if(isPrime(pv) && gcd(pv,N)===1) frobRes = mod(pv,N);\n    for(let i=0;i<n;i++){\n      const ang = -Math.PI/2 + 2*Math.PI*i/n;\n      const x = cx + R*Math.cos(ang), y = cy + R*Math.sin(ang);\n      const isFrob = elts[i] === frobRes;\n      drawNode(svg, x, y, String(elts[i]), {r:18, stroke: isFrob?'var(--yellow)':'var(--blue)'});\n    }\n    // describe cycle structure of Frob_p acting on roots of unity — i.e. order of p in (Z/N)*\n    if(frobRes !== null){\n      let ord = 1, curr = frobRes;\n      while(curr !== 1 && ord < N*2){ curr = mod(curr*frobRes, N); ord++; }\n      const phiN = elts.length;\n      const cycles = phiN / ord;\n      out.textContent = `p = ${pv},  Frob_p = ${frobRes} mod ${N}.  order of Frob in G = ${ord}.\\nΦ_${N}(x) mod ${pv} factors as ${cycles} irreducible piece(s), each of degree ${ord}.`;\n    } else {\n      if(!isPrime(pv)) out.textContent = `${pv} is not prime`;\n      else out.textContent = `p = ${pv} divides N = ${N} (ramified).`;\n    }\n  }\n  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; }\n  selN.addEventListener('change', render);\n  pin.addEventListener('change', render);\n  pin.addEventListener('keyup', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();"
+          }
         },
         {
           "type": "raw",

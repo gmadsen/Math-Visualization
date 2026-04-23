@@ -77,8 +77,22 @@
         {
           "type": "widget",
           "id": "w-ram",
-          "html": "<div class=\"widget\" id=\"w-ram\">\n  <div class=\"hd\"><div class=\"ttl\">Prime factorization in $\\mathcal{O}_K$</div><div class=\"hint\">pick $K$ and $p$</div></div>\n  <div class=\"row\">\n    <label>K = Q(√d), d:</label>\n    <select id=\"ram-d\">\n      <option value=\"-1\">−1  (Gaussian)</option>\n      <option value=\"-2\">−2</option>\n      <option value=\"-3\">−3  (Eisenstein)</option>\n      <option value=\"-5\" selected>−5  (class # 2)</option>\n      <option value=\"-7\">−7</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\">5</option>\n      <option value=\"6\">6</option>\n    </select>\n    <label>prime p:</label>\n    <select id=\"ram-p\">\n      <option>2</option><option>3</option><option>5</option>\n      <option selected>7</option><option>11</option><option>13</option>\n    </select>\n  </div>\n  <svg id=\"ram-svg\" viewBox=\"0 0 720 220\" width=\"720\" height=\"220\"><title>Prime factorization in $\\mathcal{O}_K$</title></svg>\n  <div class=\"readout\" id=\"ram-out\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-ram",
+            "title": "Prime factorization in $\\mathcal{O}_K$",
+            "hint": "pick $K$ and $p$",
+            "svgId": "ram-svg",
+            "svgViewBox": "0 0 720 220",
+            "svgWidthAttr": "720",
+            "svgHeightAttr": "220",
+            "svgTitle": "Prime factorization in $\\mathcal{O}_K$",
+            "outputId": "ram-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>K = Q(√d), d:</label>\n    <select id=\"ram-d\">\n      <option value=\"-1\">−1  (Gaussian)</option>\n      <option value=\"-2\">−2</option>\n      <option value=\"-3\">−3  (Eisenstein)</option>\n      <option value=\"-5\" selected>−5  (class # 2)</option>\n      <option value=\"-7\">−7</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\">5</option>\n      <option value=\"6\">6</option>\n    </select>\n    <label>prime p:</label>\n    <select id=\"ram-p\">\n      <option>2</option><option>3</option><option>5</option>\n      <option selected>7</option><option>11</option><option>13</option>\n    </select>",
+            "scriptBodyLiteral": "/* =============================== SECTION 4: ramification =============================== */\n(function(){\n  const svg = $('#ram-svg'), out = $('#ram-out');\n  const dSel = $('#ram-d'), pSel = $('#ram-p');\n\n  function classify(d, p){\n    d = parseInt(d,10); p = parseInt(p,10);\n    const dmod4 = mod(d,4);\n    // ramification: p | Δ_K\n    const disc = (dmod4===1) ? d : 4*d;\n    const ramifies = (mod(disc, p) === 0);\n    let behavior, e, f, g, factors;\n    if(p === 2){\n      // handle p=2 by explicit cases based on d mod 8 for d odd; d even always ramifies\n      if(mod(d,2)===0){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = (2, √'+d+')'];\n      } else {\n        const d8 = mod(d,8);\n        if(d8===1){ behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = (2, (1+√'+d+')/2)', 'p₂ = (2, (1−√'+d+')/2)']; }\n        else if(d8===5){ behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = (2)']; }\n        else { behavior='ramifies'; e=2; f=1; g=1;\n          factors = ['p₁ = (2, 1+√'+d+')']; }\n      }\n    } else {\n      if(ramifies){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = ('+p+', √'+d+')'];\n      } else {\n        const sym = legendre(d, p);\n        if(sym === 1){\n          // split: find r with r^2 ≡ d (mod p)\n          let r = 0;\n          for(let k=1;k<p;k++){ if(mod(k*k - d, p)===0){ r=k; break; } }\n          behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = ('+p+', '+r+' − √'+d+')', 'p₂ = ('+p+', '+r+' + √'+d+')'];\n        } else {\n          behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = ('+p+')'];\n        }\n      }\n    }\n    return {behavior, e, f, g, factors, sum: e*f*g};\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const d = dSel.value, p = pSel.value;\n    const info = classify(d, p);\n    const W=720, H=220;\n\n    // draw the rational prime p on the left, and the primes above it on the right\n    const px = 130, py = 110;\n    drawNode(svg, px, py, 'p='+p, {r:28, stroke:'var(--violet)', fontSize:14});\n    const t1 = SVG('text',{x:px, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t1.textContent = 'in Z';\n    svg.appendChild(t1);\n\n    const gx = 520;\n    for(let i=0;i<info.g;i++){\n      const gy = info.g===1 ? py : (info.g===2 ? (i===0 ? 60 : 160) : 110);\n      drawNode(svg, gx, gy, 'p'+(info.g>1?'_'+(i+1):''), {r:28, stroke:'var(--yellow)', fontSize:14});\n      const exp = info.e>1 ? ' (e='+info.e+')' : '';\n      const rez = info.f>1 ? ' (f='+info.f+')' : '';\n      drawArrow(svg, [px, py], [gx, gy], {\n        color:'var(--blue)', curve: info.g===2 ? (i===0?-25:25) : 0,\n        label: exp+rez, markerId:'ram'+i,\n        pad1: 32, pad2: 32\n      });\n    }\n    const t2 = SVG('text',{x:gx, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t2.textContent = 'in O_K';\n    svg.appendChild(t2);\n\n    // behavior badge\n    const col = info.behavior==='splits' ? 'var(--green)'\n               : info.behavior==='inert' ? 'var(--cyan)'\n               : 'var(--pink)';\n    const bx = SVG('rect',{x:W/2-54,y:12,width:108,height:26,rx:13,fill:'var(--panel2)',stroke:col,'stroke-width':1.4});\n    svg.appendChild(bx);\n    const bt = SVG('text',{x:W/2,y:29,'text-anchor':'middle','font-size':13,fill:col,'font-weight':600});\n    bt.textContent = info.behavior.toUpperCase();\n    svg.appendChild(bt);\n\n    const dmod4 = mod(parseInt(d,10),4);\n    const dmod8 = mod(parseInt(d,10),8);\n    const disc = (dmod4===1) ? parseInt(d,10) : 4*parseInt(d,10);\n    const lines = [\n      'K = Q(√'+d+'),  p = '+p,\n      'discriminant Δ_K = '+disc,\n      (parseInt(p,10)===2)\n        ? 'p=2 case (d mod 8 = '+dmod8+')'\n        : 'Legendre symbol  (d/p) = '+ (mod(disc,parseInt(p,10))===0 ? '0 (p | Δ)' : legendre(parseInt(d,10),parseInt(p,10))),\n      'factorization: p O_K = '+info.factors.map((s,i)=>{\n        const exp = info.e>1 ? '^'+info.e : '';\n        return '('+s+')'+exp;\n      }).join(' · '),\n      'ramification data:  e = '+info.e+',  f = '+info.f+',  g = '+info.g,\n      'check  Σ eᵢ fᵢ = '+info.sum+' = [K:Q] = 2   '+(info.sum===2?'✓':'✗')\n    ];\n    out.textContent = lines.join('\\n');\n  }\n\n  dSel.addEventListener('change', render);\n  pSel.addEventListener('change', render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -95,8 +109,22 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-ram",
-          "html": "<script>\n/* =============================== SECTION 4: ramification =============================== */\n(function(){\n  const svg = $('#ram-svg'), out = $('#ram-out');\n  const dSel = $('#ram-d'), pSel = $('#ram-p');\n\n  function classify(d, p){\n    d = parseInt(d,10); p = parseInt(p,10);\n    const dmod4 = mod(d,4);\n    // ramification: p | Δ_K\n    const disc = (dmod4===1) ? d : 4*d;\n    const ramifies = (mod(disc, p) === 0);\n    let behavior, e, f, g, factors;\n    if(p === 2){\n      // handle p=2 by explicit cases based on d mod 8 for d odd; d even always ramifies\n      if(mod(d,2)===0){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = (2, √'+d+')'];\n      } else {\n        const d8 = mod(d,8);\n        if(d8===1){ behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = (2, (1+√'+d+')/2)', 'p₂ = (2, (1−√'+d+')/2)']; }\n        else if(d8===5){ behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = (2)']; }\n        else { behavior='ramifies'; e=2; f=1; g=1;\n          factors = ['p₁ = (2, 1+√'+d+')']; }\n      }\n    } else {\n      if(ramifies){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = ('+p+', √'+d+')'];\n      } else {\n        const sym = legendre(d, p);\n        if(sym === 1){\n          // split: find r with r^2 ≡ d (mod p)\n          let r = 0;\n          for(let k=1;k<p;k++){ if(mod(k*k - d, p)===0){ r=k; break; } }\n          behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = ('+p+', '+r+' − √'+d+')', 'p₂ = ('+p+', '+r+' + √'+d+')'];\n        } else {\n          behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = ('+p+')'];\n        }\n      }\n    }\n    return {behavior, e, f, g, factors, sum: e*f*g};\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const d = dSel.value, p = pSel.value;\n    const info = classify(d, p);\n    const W=720, H=220;\n\n    // draw the rational prime p on the left, and the primes above it on the right\n    const px = 130, py = 110;\n    drawNode(svg, px, py, 'p='+p, {r:28, stroke:'var(--violet)', fontSize:14});\n    const t1 = SVG('text',{x:px, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t1.textContent = 'in Z';\n    svg.appendChild(t1);\n\n    const gx = 520;\n    for(let i=0;i<info.g;i++){\n      const gy = info.g===1 ? py : (info.g===2 ? (i===0 ? 60 : 160) : 110);\n      drawNode(svg, gx, gy, 'p'+(info.g>1?'_'+(i+1):''), {r:28, stroke:'var(--yellow)', fontSize:14});\n      const exp = info.e>1 ? ' (e='+info.e+')' : '';\n      const rez = info.f>1 ? ' (f='+info.f+')' : '';\n      drawArrow(svg, [px, py], [gx, gy], {\n        color:'var(--blue)', curve: info.g===2 ? (i===0?-25:25) : 0,\n        label: exp+rez, markerId:'ram'+i,\n        pad1: 32, pad2: 32\n      });\n    }\n    const t2 = SVG('text',{x:gx, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t2.textContent = 'in O_K';\n    svg.appendChild(t2);\n\n    // behavior badge\n    const col = info.behavior==='splits' ? 'var(--green)'\n               : info.behavior==='inert' ? 'var(--cyan)'\n               : 'var(--pink)';\n    const bx = SVG('rect',{x:W/2-54,y:12,width:108,height:26,rx:13,fill:'var(--panel2)',stroke:col,'stroke-width':1.4});\n    svg.appendChild(bx);\n    const bt = SVG('text',{x:W/2,y:29,'text-anchor':'middle','font-size':13,fill:col,'font-weight':600});\n    bt.textContent = info.behavior.toUpperCase();\n    svg.appendChild(bt);\n\n    const dmod4 = mod(parseInt(d,10),4);\n    const dmod8 = mod(parseInt(d,10),8);\n    const disc = (dmod4===1) ? parseInt(d,10) : 4*parseInt(d,10);\n    const lines = [\n      'K = Q(√'+d+'),  p = '+p,\n      'discriminant Δ_K = '+disc,\n      (parseInt(p,10)===2)\n        ? 'p=2 case (d mod 8 = '+dmod8+')'\n        : 'Legendre symbol  (d/p) = '+ (mod(disc,parseInt(p,10))===0 ? '0 (p | Δ)' : legendre(parseInt(d,10),parseInt(p,10))),\n      'factorization: p O_K = '+info.factors.map((s,i)=>{\n        const exp = info.e>1 ? '^'+info.e : '';\n        return '('+s+')'+exp;\n      }).join(' · '),\n      'ramification data:  e = '+info.e+',  f = '+info.f+',  g = '+info.g,\n      'check  Σ eᵢ fᵢ = '+info.sum+' = [K:Q] = 2   '+(info.sum===2?'✓':'✗')\n    ];\n    out.textContent = lines.join('\\n');\n  }\n\n  dSel.addEventListener('change', render);\n  pSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "clickable-diagram",
+          "params": {
+            "interaction": "svg-diagram",
+            "widgetId": "w-ram",
+            "title": "Prime factorization in $\\mathcal{O}_K$",
+            "hint": "pick $K$ and $p$",
+            "svgId": "ram-svg",
+            "svgViewBox": "0 0 720 220",
+            "svgWidthAttr": "720",
+            "svgHeightAttr": "220",
+            "svgTitle": "Prime factorization in $\\mathcal{O}_K$",
+            "outputId": "ram-out",
+            "layout": "controls-first",
+            "controlsLiteral": "    <label>K = Q(√d), d:</label>\n    <select id=\"ram-d\">\n      <option value=\"-1\">−1  (Gaussian)</option>\n      <option value=\"-2\">−2</option>\n      <option value=\"-3\">−3  (Eisenstein)</option>\n      <option value=\"-5\" selected>−5  (class # 2)</option>\n      <option value=\"-7\">−7</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\">5</option>\n      <option value=\"6\">6</option>\n    </select>\n    <label>prime p:</label>\n    <select id=\"ram-p\">\n      <option>2</option><option>3</option><option>5</option>\n      <option selected>7</option><option>11</option><option>13</option>\n    </select>",
+            "scriptBodyLiteral": "/* =============================== SECTION 4: ramification =============================== */\n(function(){\n  const svg = $('#ram-svg'), out = $('#ram-out');\n  const dSel = $('#ram-d'), pSel = $('#ram-p');\n\n  function classify(d, p){\n    d = parseInt(d,10); p = parseInt(p,10);\n    const dmod4 = mod(d,4);\n    // ramification: p | Δ_K\n    const disc = (dmod4===1) ? d : 4*d;\n    const ramifies = (mod(disc, p) === 0);\n    let behavior, e, f, g, factors;\n    if(p === 2){\n      // handle p=2 by explicit cases based on d mod 8 for d odd; d even always ramifies\n      if(mod(d,2)===0){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = (2, √'+d+')'];\n      } else {\n        const d8 = mod(d,8);\n        if(d8===1){ behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = (2, (1+√'+d+')/2)', 'p₂ = (2, (1−√'+d+')/2)']; }\n        else if(d8===5){ behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = (2)']; }\n        else { behavior='ramifies'; e=2; f=1; g=1;\n          factors = ['p₁ = (2, 1+√'+d+')']; }\n      }\n    } else {\n      if(ramifies){\n        behavior='ramifies'; e=2; f=1; g=1;\n        factors = ['p₁ = ('+p+', √'+d+')'];\n      } else {\n        const sym = legendre(d, p);\n        if(sym === 1){\n          // split: find r with r^2 ≡ d (mod p)\n          let r = 0;\n          for(let k=1;k<p;k++){ if(mod(k*k - d, p)===0){ r=k; break; } }\n          behavior='splits'; e=1; f=1; g=2;\n          factors = ['p₁ = ('+p+', '+r+' − √'+d+')', 'p₂ = ('+p+', '+r+' + √'+d+')'];\n        } else {\n          behavior='inert'; e=1; f=2; g=1;\n          factors = ['p = ('+p+')'];\n        }\n      }\n    }\n    return {behavior, e, f, g, factors, sum: e*f*g};\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const d = dSel.value, p = pSel.value;\n    const info = classify(d, p);\n    const W=720, H=220;\n\n    // draw the rational prime p on the left, and the primes above it on the right\n    const px = 130, py = 110;\n    drawNode(svg, px, py, 'p='+p, {r:28, stroke:'var(--violet)', fontSize:14});\n    const t1 = SVG('text',{x:px, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t1.textContent = 'in Z';\n    svg.appendChild(t1);\n\n    const gx = 520;\n    for(let i=0;i<info.g;i++){\n      const gy = info.g===1 ? py : (info.g===2 ? (i===0 ? 60 : 160) : 110);\n      drawNode(svg, gx, gy, 'p'+(info.g>1?'_'+(i+1):''), {r:28, stroke:'var(--yellow)', fontSize:14});\n      const exp = info.e>1 ? ' (e='+info.e+')' : '';\n      const rez = info.f>1 ? ' (f='+info.f+')' : '';\n      drawArrow(svg, [px, py], [gx, gy], {\n        color:'var(--blue)', curve: info.g===2 ? (i===0?-25:25) : 0,\n        label: exp+rez, markerId:'ram'+i,\n        pad1: 32, pad2: 32\n      });\n    }\n    const t2 = SVG('text',{x:gx, y:py+58,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t2.textContent = 'in O_K';\n    svg.appendChild(t2);\n\n    // behavior badge\n    const col = info.behavior==='splits' ? 'var(--green)'\n               : info.behavior==='inert' ? 'var(--cyan)'\n               : 'var(--pink)';\n    const bx = SVG('rect',{x:W/2-54,y:12,width:108,height:26,rx:13,fill:'var(--panel2)',stroke:col,'stroke-width':1.4});\n    svg.appendChild(bx);\n    const bt = SVG('text',{x:W/2,y:29,'text-anchor':'middle','font-size':13,fill:col,'font-weight':600});\n    bt.textContent = info.behavior.toUpperCase();\n    svg.appendChild(bt);\n\n    const dmod4 = mod(parseInt(d,10),4);\n    const dmod8 = mod(parseInt(d,10),8);\n    const disc = (dmod4===1) ? parseInt(d,10) : 4*parseInt(d,10);\n    const lines = [\n      'K = Q(√'+d+'),  p = '+p,\n      'discriminant Δ_K = '+disc,\n      (parseInt(p,10)===2)\n        ? 'p=2 case (d mod 8 = '+dmod8+')'\n        : 'Legendre symbol  (d/p) = '+ (mod(disc,parseInt(p,10))===0 ? '0 (p | Δ)' : legendre(parseInt(d,10),parseInt(p,10))),\n      'factorization: p O_K = '+info.factors.map((s,i)=>{\n        const exp = info.e>1 ? '^'+info.e : '';\n        return '('+s+')'+exp;\n      }).join(' · '),\n      'ramification data:  e = '+info.e+',  f = '+info.f+',  g = '+info.g,\n      'check  Σ eᵢ fᵢ = '+info.sum+' = [K:Q] = 2   '+(info.sum===2?'✓':'✗')\n    ];\n    out.textContent = lines.join('\\n');\n  }\n\n  dSel.addEventListener('change', render);\n  pSel.addEventListener('change', render);\n  render();\n})();"
+          }
         },
         {
           "type": "raw",
@@ -114,8 +142,63 @@
         {
           "type": "widget",
           "id": "w-class",
-          "html": "<div class=\"widget\" id=\"w-class\">\n  <div class=\"hd\"><div class=\"ttl\">Nonprincipal ideal in $\\mathbb{Z}[\\sqrt{-5}]$</div><div class=\"hint\">lattice · sub-lattice · norm test</div></div>\n  <div class=\"row\">\n    <button id=\"class-showring\" class=\"active\">lattice of $\\mathbb{Z}[\\sqrt{-5}]$</button>\n    <button id=\"class-showideal\">sub-lattice of $\\mathfrak{p}=(2,1+\\sqrt{-5})$</button>\n    <button id=\"class-showsquare\">$\\mathfrak{p}^2=(2)$</button>\n  </div>\n  <svg id=\"class-svg\" viewBox=\"0 0 720 360\" width=\"720\" height=\"360\"><title>Nonprincipal ideal in $\\mathbb{Z}[\\sqrt{-5}]$</title></svg>\n  <div class=\"readout\" id=\"class-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-class",
+            "title": "Nonprincipal ideal in $\\mathbb{Z}[\\sqrt{-5}]$",
+            "hint": "lattice · sub-lattice · norm test",
+            "svgId": "class-svg",
+            "viewBox": "0 0 720 360",
+            "readoutId": "class-out",
+            "buttons": [
+              {
+                "label": "lattice of $\\mathbb{Z}[\\sqrt{-5}]$",
+                "id": "class-showring",
+                "className": "active"
+              },
+              {
+                "label": "sub-lattice of $\\mathfrak{p}=(2,1+\\sqrt{-5})$",
+                "id": "class-showideal"
+              },
+              {
+                "label": "$\\mathfrak{p}^2=(2)$",
+                "id": "class-showsquare"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 5: class group widget ===============================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "lattice of $\\mathbb{Z}[\\sqrt{-5}]$",
+                    "id": "class-showring",
+                    "className": "active"
+                  },
+                  {
+                    "label": "sub-lattice of $\\mathfrak{p}=(2,1+\\sqrt{-5})$",
+                    "id": "class-showideal"
+                  },
+                  {
+                    "label": "$\\mathfrak{p}^2=(2)$",
+                    "id": "class-showsquare"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "class-svg",
+                "viewBox": "0 0 720 360",
+                "width": 720,
+                "height": 360
+              },
+              {
+                "kind": "readout",
+                "id": "class-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#class-svg'), out = $('#class-out');\n  const btnR = $('#class-showring'), btnI = $('#class-showideal'), btnS = $('#class-showsquare');\n  let mode = 'ring';\n\n  function activate(which){\n    [btnR,btnI,btnS].forEach(b=>b.classList.remove('active'));\n    ({ring:btnR,ideal:btnI,square:btnS})[which].classList.add('active');\n    mode = which;\n    render();\n  }\n  btnR.addEventListener('click', ()=>activate('ring'));\n  btnI.addEventListener('click', ()=>activate('ideal'));\n  btnS.addEventListener('click', ()=>activate('square'));\n\n  // O_K = Z + Z√-5; embed via √-5 → i√5\n  const v1 = [1,0], v2 = [0, Math.sqrt(5)];\n  const W=720, H=360, cx=W/2, cy=H/2;\n  const scale = 42;\n\n  function inIdeal(a,b){\n    // p = (2, 1+√-5)  =>  Z-module gen: {2, 1+√-5, 2√-5 (since p is of index 2)} -> generated as Z-module\n    // A rank-2 sublattice with basis (2, 0), (1, 1) in (a,b) coordinates → index 2 in Z^2\n    // So (a,b) ∈ p iff a + b ≡ 0 (mod 2).\n    return mod(a+b, 2) === 0;\n  }\n  function inIdealSq(a,b){\n    // p^2 = (2)  =>  (a,b) ∈ (2) iff a,b both even\n    return mod(a,2)===0 && mod(b,2)===0;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    const rx = SVG('text',{x:W-20,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    rx.textContent='Re'; svg.appendChild(rx);\n    const ry = SVG('text',{x:cx+6,y:30,'font-size':11,fill:'var(--mute)'});\n    ry.textContent='Im (√5 units)'; svg.appendChild(ry);\n\n    let inside, extra;\n    if(mode==='ring'){ inside = ()=>true; extra=''; }\n    else if(mode==='ideal'){ inside = inIdeal; extra='(highlighting p — index 2)'; }\n    else { inside = inIdealSq; extra='(highlighting p² = (2) — index 4)'; }\n\n    for(let a=-6;a<=6;a++){\n      for(let b=-4;b<=4;b++){\n        const x = a*v1[0] + b*v2[0];\n        const y = a*v1[1] + b*v2[1];\n        const px = cx + x*scale;\n        const py = cy - y*scale;\n        if(px<10 || px>W-10 || py<10 || py>H-10) continue;\n        const on = inside(a,b);\n        const isZero = (a===0 && b===0);\n        const color = isZero ? 'var(--cyan)' : (on ? 'var(--yellow)' : 'var(--mute)');\n        const r = isZero ? 5 : (on ? 4 : 2.2);\n        const op = isZero ? 1 : (on ? 1 : 0.45);\n        svg.appendChild(SVG('circle',{cx:px,cy:py,r,fill:color,opacity:op}));\n      }\n    }\n    // label a few\n    const lbl = (a,b,txt,c)=>{\n      const x = a*v1[0] + b*v2[0];\n      const y = a*v1[1] + b*v2[1];\n      const t = SVG('text',{x:cx+x*scale+8,y:cy-y*scale-6,'font-size':11,fill:c});\n      t.textContent=txt; svg.appendChild(t);\n    };\n    lbl(1,0,'1','var(--yellow)');\n    lbl(0,1,'√-5','var(--yellow)');\n    lbl(1,1,'1+√-5','var(--green)');\n    lbl(2,0,'2','var(--green)');\n\n    // title\n    const title = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n    if(mode==='ring') title.textContent = 'O_K = Z[√-5] embedded in C';\n    else if(mode==='ideal') title.textContent = 'p = (2, 1+√-5):  a+b ≡ 0 (mod 2),  index 2';\n    else title.textContent = 'p² = (2):  both a,b even,  index 4';\n    svg.appendChild(title);\n\n    const norms = [];\n    for(let a=-3;a<=3;a++){\n      for(let b=-3;b<=3;b++){\n        if(a===0 && b===0) continue;\n        norms.push([a,b,a*a+5*b*b]);\n      }\n    }\n    norms.sort((x,y)=>x[2]-y[2]);\n    const noN2 = norms.filter(x=>x[2]===2).length;\n\n    const lines = [\n      'K = Q(√-5),  O_K = Z[√-5]  (d = -5 ≡ 3 mod 4),  Δ_K = -20',\n      'ideal p = (2, 1+√-5):  Z-basis {2, 1+√-5},  norm N(p)=2',\n      mode==='ring'\n        ? 'full lattice shown. |α|²=a²+5b². No element of norm 2 exists — so p is NOT principal.'\n        : mode==='ideal'\n        ? 'sub-lattice of index 2 = N(p). These are exactly the (a,b) with a+b even.'\n        : 'sub-lattice of index 4 = N(p²) = N((2)) = 4. Generated by the principal 2.',\n      'small α ∈ O_K and their norms:',\n      '   '+norms.slice(0,7).map(([a,b,n])=>'('+a+','+b+')→'+n).join('  '),\n      '→ there are '+noN2+' elements of norm 2.  (class number h(Q(√-5)) = 2.)'\n    ];\n    out.textContent = lines.join('\\n');\n  }\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -123,8 +206,63 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-class",
-          "html": "<script>\n/* =============================== SECTION 5: class group widget =============================== */\n(function(){\n  const svg = $('#class-svg'), out = $('#class-out');\n  const btnR = $('#class-showring'), btnI = $('#class-showideal'), btnS = $('#class-showsquare');\n  let mode = 'ring';\n\n  function activate(which){\n    [btnR,btnI,btnS].forEach(b=>b.classList.remove('active'));\n    ({ring:btnR,ideal:btnI,square:btnS})[which].classList.add('active');\n    mode = which;\n    render();\n  }\n  btnR.addEventListener('click', ()=>activate('ring'));\n  btnI.addEventListener('click', ()=>activate('ideal'));\n  btnS.addEventListener('click', ()=>activate('square'));\n\n  // O_K = Z + Z√-5; embed via √-5 → i√5\n  const v1 = [1,0], v2 = [0, Math.sqrt(5)];\n  const W=720, H=360, cx=W/2, cy=H/2;\n  const scale = 42;\n\n  function inIdeal(a,b){\n    // p = (2, 1+√-5)  =>  Z-module gen: {2, 1+√-5, 2√-5 (since p is of index 2)} -> generated as Z-module\n    // A rank-2 sublattice with basis (2, 0), (1, 1) in (a,b) coordinates → index 2 in Z^2\n    // So (a,b) ∈ p iff a + b ≡ 0 (mod 2).\n    return mod(a+b, 2) === 0;\n  }\n  function inIdealSq(a,b){\n    // p^2 = (2)  =>  (a,b) ∈ (2) iff a,b both even\n    return mod(a,2)===0 && mod(b,2)===0;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    const rx = SVG('text',{x:W-20,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    rx.textContent='Re'; svg.appendChild(rx);\n    const ry = SVG('text',{x:cx+6,y:30,'font-size':11,fill:'var(--mute)'});\n    ry.textContent='Im (√5 units)'; svg.appendChild(ry);\n\n    let inside, extra;\n    if(mode==='ring'){ inside = ()=>true; extra=''; }\n    else if(mode==='ideal'){ inside = inIdeal; extra='(highlighting p — index 2)'; }\n    else { inside = inIdealSq; extra='(highlighting p² = (2) — index 4)'; }\n\n    for(let a=-6;a<=6;a++){\n      for(let b=-4;b<=4;b++){\n        const x = a*v1[0] + b*v2[0];\n        const y = a*v1[1] + b*v2[1];\n        const px = cx + x*scale;\n        const py = cy - y*scale;\n        if(px<10 || px>W-10 || py<10 || py>H-10) continue;\n        const on = inside(a,b);\n        const isZero = (a===0 && b===0);\n        const color = isZero ? 'var(--cyan)' : (on ? 'var(--yellow)' : 'var(--mute)');\n        const r = isZero ? 5 : (on ? 4 : 2.2);\n        const op = isZero ? 1 : (on ? 1 : 0.45);\n        svg.appendChild(SVG('circle',{cx:px,cy:py,r,fill:color,opacity:op}));\n      }\n    }\n    // label a few\n    const lbl = (a,b,txt,c)=>{\n      const x = a*v1[0] + b*v2[0];\n      const y = a*v1[1] + b*v2[1];\n      const t = SVG('text',{x:cx+x*scale+8,y:cy-y*scale-6,'font-size':11,fill:c});\n      t.textContent=txt; svg.appendChild(t);\n    };\n    lbl(1,0,'1','var(--yellow)');\n    lbl(0,1,'√-5','var(--yellow)');\n    lbl(1,1,'1+√-5','var(--green)');\n    lbl(2,0,'2','var(--green)');\n\n    // title\n    const title = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n    if(mode==='ring') title.textContent = 'O_K = Z[√-5] embedded in C';\n    else if(mode==='ideal') title.textContent = 'p = (2, 1+√-5):  a+b ≡ 0 (mod 2),  index 2';\n    else title.textContent = 'p² = (2):  both a,b even,  index 4';\n    svg.appendChild(title);\n\n    const norms = [];\n    for(let a=-3;a<=3;a++){\n      for(let b=-3;b<=3;b++){\n        if(a===0 && b===0) continue;\n        norms.push([a,b,a*a+5*b*b]);\n      }\n    }\n    norms.sort((x,y)=>x[2]-y[2]);\n    const noN2 = norms.filter(x=>x[2]===2).length;\n\n    const lines = [\n      'K = Q(√-5),  O_K = Z[√-5]  (d = -5 ≡ 3 mod 4),  Δ_K = -20',\n      'ideal p = (2, 1+√-5):  Z-basis {2, 1+√-5},  norm N(p)=2',\n      mode==='ring'\n        ? 'full lattice shown. |α|²=a²+5b². No element of norm 2 exists — so p is NOT principal.'\n        : mode==='ideal'\n        ? 'sub-lattice of index 2 = N(p). These are exactly the (a,b) with a+b even.'\n        : 'sub-lattice of index 4 = N(p²) = N((2)) = 4. Generated by the principal 2.',\n      'small α ∈ O_K and their norms:',\n      '   '+norms.slice(0,7).map(([a,b,n])=>'('+a+','+b+')→'+n).join('  '),\n      '→ there are '+noN2+' elements of norm 2.  (class number h(Q(√-5)) = 2.)'\n    ];\n    out.textContent = lines.join('\\n');\n  }\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-class",
+            "title": "Nonprincipal ideal in $\\mathbb{Z}[\\sqrt{-5}]$",
+            "hint": "lattice · sub-lattice · norm test",
+            "svgId": "class-svg",
+            "viewBox": "0 0 720 360",
+            "readoutId": "class-out",
+            "buttons": [
+              {
+                "label": "lattice of $\\mathbb{Z}[\\sqrt{-5}]$",
+                "id": "class-showring",
+                "className": "active"
+              },
+              {
+                "label": "sub-lattice of $\\mathfrak{p}=(2,1+\\sqrt{-5})$",
+                "id": "class-showideal"
+              },
+              {
+                "label": "$\\mathfrak{p}^2=(2)$",
+                "id": "class-showsquare"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 5: class group widget ===============================",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "lattice of $\\mathbb{Z}[\\sqrt{-5}]$",
+                    "id": "class-showring",
+                    "className": "active"
+                  },
+                  {
+                    "label": "sub-lattice of $\\mathfrak{p}=(2,1+\\sqrt{-5})$",
+                    "id": "class-showideal"
+                  },
+                  {
+                    "label": "$\\mathfrak{p}^2=(2)$",
+                    "id": "class-showsquare"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "class-svg",
+                "viewBox": "0 0 720 360",
+                "width": 720,
+                "height": 360
+              },
+              {
+                "kind": "readout",
+                "id": "class-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#class-svg'), out = $('#class-out');\n  const btnR = $('#class-showring'), btnI = $('#class-showideal'), btnS = $('#class-showsquare');\n  let mode = 'ring';\n\n  function activate(which){\n    [btnR,btnI,btnS].forEach(b=>b.classList.remove('active'));\n    ({ring:btnR,ideal:btnI,square:btnS})[which].classList.add('active');\n    mode = which;\n    render();\n  }\n  btnR.addEventListener('click', ()=>activate('ring'));\n  btnI.addEventListener('click', ()=>activate('ideal'));\n  btnS.addEventListener('click', ()=>activate('square'));\n\n  // O_K = Z + Z√-5; embed via √-5 → i√5\n  const v1 = [1,0], v2 = [0, Math.sqrt(5)];\n  const W=720, H=360, cx=W/2, cy=H/2;\n  const scale = 42;\n\n  function inIdeal(a,b){\n    // p = (2, 1+√-5)  =>  Z-module gen: {2, 1+√-5, 2√-5 (since p is of index 2)} -> generated as Z-module\n    // A rank-2 sublattice with basis (2, 0), (1, 1) in (a,b) coordinates → index 2 in Z^2\n    // So (a,b) ∈ p iff a + b ≡ 0 (mod 2).\n    return mod(a+b, 2) === 0;\n  }\n  function inIdealSq(a,b){\n    // p^2 = (2)  =>  (a,b) ∈ (2) iff a,b both even\n    return mod(a,2)===0 && mod(b,2)===0;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:30,y1:cy,x2:W-30,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    const rx = SVG('text',{x:W-20,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    rx.textContent='Re'; svg.appendChild(rx);\n    const ry = SVG('text',{x:cx+6,y:30,'font-size':11,fill:'var(--mute)'});\n    ry.textContent='Im (√5 units)'; svg.appendChild(ry);\n\n    let inside, extra;\n    if(mode==='ring'){ inside = ()=>true; extra=''; }\n    else if(mode==='ideal'){ inside = inIdeal; extra='(highlighting p — index 2)'; }\n    else { inside = inIdealSq; extra='(highlighting p² = (2) — index 4)'; }\n\n    for(let a=-6;a<=6;a++){\n      for(let b=-4;b<=4;b++){\n        const x = a*v1[0] + b*v2[0];\n        const y = a*v1[1] + b*v2[1];\n        const px = cx + x*scale;\n        const py = cy - y*scale;\n        if(px<10 || px>W-10 || py<10 || py>H-10) continue;\n        const on = inside(a,b);\n        const isZero = (a===0 && b===0);\n        const color = isZero ? 'var(--cyan)' : (on ? 'var(--yellow)' : 'var(--mute)');\n        const r = isZero ? 5 : (on ? 4 : 2.2);\n        const op = isZero ? 1 : (on ? 1 : 0.45);\n        svg.appendChild(SVG('circle',{cx:px,cy:py,r,fill:color,opacity:op}));\n      }\n    }\n    // label a few\n    const lbl = (a,b,txt,c)=>{\n      const x = a*v1[0] + b*v2[0];\n      const y = a*v1[1] + b*v2[1];\n      const t = SVG('text',{x:cx+x*scale+8,y:cy-y*scale-6,'font-size':11,fill:c});\n      t.textContent=txt; svg.appendChild(t);\n    };\n    lbl(1,0,'1','var(--yellow)');\n    lbl(0,1,'√-5','var(--yellow)');\n    lbl(1,1,'1+√-5','var(--green)');\n    lbl(2,0,'2','var(--green)');\n\n    // title\n    const title = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n    if(mode==='ring') title.textContent = 'O_K = Z[√-5] embedded in C';\n    else if(mode==='ideal') title.textContent = 'p = (2, 1+√-5):  a+b ≡ 0 (mod 2),  index 2';\n    else title.textContent = 'p² = (2):  both a,b even,  index 4';\n    svg.appendChild(title);\n\n    const norms = [];\n    for(let a=-3;a<=3;a++){\n      for(let b=-3;b<=3;b++){\n        if(a===0 && b===0) continue;\n        norms.push([a,b,a*a+5*b*b]);\n      }\n    }\n    norms.sort((x,y)=>x[2]-y[2]);\n    const noN2 = norms.filter(x=>x[2]===2).length;\n\n    const lines = [\n      'K = Q(√-5),  O_K = Z[√-5]  (d = -5 ≡ 3 mod 4),  Δ_K = -20',\n      'ideal p = (2, 1+√-5):  Z-basis {2, 1+√-5},  norm N(p)=2',\n      mode==='ring'\n        ? 'full lattice shown. |α|²=a²+5b². No element of norm 2 exists — so p is NOT principal.'\n        : mode==='ideal'\n        ? 'sub-lattice of index 2 = N(p). These are exactly the (a,b) with a+b even.'\n        : 'sub-lattice of index 4 = N(p²) = N((2)) = 4. Generated by the principal 2.',\n      'small α ∈ O_K and their norms:',\n      '   '+norms.slice(0,7).map(([a,b,n])=>'('+a+','+b+')→'+n).join('  '),\n      '→ there are '+noN2+' elements of norm 2.  (class number h(Q(√-5)) = 2.)'\n    ];\n    out.textContent = lines.join('\\n');\n  }\n  render();"
+          }
         },
         {
           "type": "raw",

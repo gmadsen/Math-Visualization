@@ -12,9 +12,75 @@
         },
         {
           "type": "widget",
-          "id": "w-partial",
-          "html": "<div class=\"widget\" id=\"w-partial\">\n  <div class=\"hd\"><div class=\"ttl\">Basel partial sums vs $\\pi^2/6$</div><div class=\"hint\">drag slider to add more terms</div></div>\n  <div class=\"row\">\n    <label for=\"bp-n\">terms $N=$</label>\n    <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"200\" step=\"1\" value=\"10\">\n    <span id=\"bp-n-lbl\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"bp-out\"></div>\n  <svg id=\"bp-svg\" viewBox=\"0 0 620 200\" width=\"620\" height=\"200\"><title>Basel partial sums vs $\\pi^2/6$</title></svg>\n  <div class=\"small\" style=\"color:var(--mute)\">Cyan: partial sum $S_N=\\sum_{k=1}^{N}1/k^2$. Yellow dashed: $\\pi^2/6\\approx 1.6449$. The series converges, but slowly — a reminder that the exact value $\\pi^2/6$ is non-trivial.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const PI2o6 = Math.PI*Math.PI/6;\n  const slider = $('#bp-n'), lbl = $('#bp-n-lbl'), out = $('#bp-out'), svg = $('#bp-svg');\n  function draw(){\n    const N = parseInt(slider.value,10);\n    lbl.textContent = 'N = '+N;\n    let s = 0;\n    for(let k=1;k<=N;k++) s += 1/(k*k);\n    out.textContent = `S_${N} = ${s.toFixed(10)}\\nπ²/6  = ${PI2o6.toFixed(10)}\\nerror = ${(PI2o6-s).toFixed(10)}`;\n    // draw convergence plot\n    svg.innerHTML='';\n    const W=620, H=200, padL=52, padR=20, padT=16, padB=30;\n    const Npts = Math.min(N,200);\n    const partial = [];\n    let acc = 0;\n    for(let k=1;k<=Npts;k++){ acc+=1/(k*k); partial.push(acc); }\n    const yMin = partial[0]*0.9, yMax = PI2o6*1.04;\n    const xP = k => padL + (k/(Npts))*(W-padL-padR);\n    const yP = v => (H-padB) - (v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    // y ticks\n    [1.0,1.2,1.4,1.6].forEach(v=>{\n      const y = yP(v);\n      if(y<padT||y>H-padB) return;\n      svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t.textContent=v.toFixed(1); svg.appendChild(t);\n    });\n    // target line\n    const yTarget = yP(PI2o6);\n    const dash = SVG('line',{x1:padL,y1:yTarget,x2:W-padR,y2:yTarget,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'});\n    svg.appendChild(dash);\n    const tLbl = SVG('text',{x:W-padR-2,y:yTarget-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tLbl.textContent='π²/6'; svg.appendChild(tLbl);\n    // partial sum curve\n    const pts = partial.map((v,i)=>`${xP(i+1)} ${yP(v)}`).join(' L ');\n    svg.appendChild(SVG('polyline',{points:partial.map((v,i)=>`${xP(i+1)},${yP(v)}`).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n  }\n  slider.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-partial",
+            "title": "Basel partial sums vs $\\pi^2/6$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"bp-n\">terms $N=$</label>\n    <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"200\" step=\"1\" value=\"10\">\n    <span id=\"bp-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bp-out"
+              },
+              {
+                "kind": "svg",
+                "id": "bp-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Cyan: partial sum $S_N=\\sum_{k=1}^{N}1/k^2$. Yellow dashed: $\\pi^2/6\\approx 1.6449$. The series converges, but slowly — a reminder that the exact value $\\pi^2/6$ is non-trivial.</div>"
+              }
+            ],
+            "bodyScript": "  const PI2o6 = Math.PI*Math.PI/6;\n  const slider = $('#bp-n'), lbl = $('#bp-n-lbl'), out = $('#bp-out'), svg = $('#bp-svg');\n  function draw(){\n    const N = parseInt(slider.value,10);\n    lbl.textContent = 'N = '+N;\n    let s = 0;\n    for(let k=1;k<=N;k++) s += 1/(k*k);\n    out.textContent = `S_${N} = ${s.toFixed(10)}\\nπ²/6  = ${PI2o6.toFixed(10)}\\nerror = ${(PI2o6-s).toFixed(10)}`;\n    // draw convergence plot\n    svg.innerHTML='';\n    const W=620, H=200, padL=52, padR=20, padT=16, padB=30;\n    const Npts = Math.min(N,200);\n    const partial = [];\n    let acc = 0;\n    for(let k=1;k<=Npts;k++){ acc+=1/(k*k); partial.push(acc); }\n    const yMin = partial[0]*0.9, yMax = PI2o6*1.04;\n    const xP = k => padL + (k/(Npts))*(W-padL-padR);\n    const yP = v => (H-padB) - (v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    // y ticks\n    [1.0,1.2,1.4,1.6].forEach(v=>{\n      const y = yP(v);\n      if(y<padT||y>H-padB) return;\n      svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t.textContent=v.toFixed(1); svg.appendChild(t);\n    });\n    // target line\n    const yTarget = yP(PI2o6);\n    const dash = SVG('line',{x1:padL,y1:yTarget,x2:W-padR,y2:yTarget,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'});\n    svg.appendChild(dash);\n    const tLbl = SVG('text',{x:W-padR-2,y:yTarget-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tLbl.textContent='π²/6'; svg.appendChild(tLbl);\n    // partial sum curve\n    const pts = partial.map((v,i)=>`${xP(i+1)} ${yP(v)}`).join(' L ');\n    svg.appendChild(SVG('polyline',{points:partial.map((v,i)=>`${xP(i+1)},${yP(v)}`).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n  }\n  slider.addEventListener('input', draw);\n  draw();",
+            "hint": "drag slider to add more terms",
+            "svgId": "bp-svg",
+            "viewBox": "0 0 620 200",
+            "readoutId": "bp-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-partial",
+            "title": "Basel partial sums vs $\\pi^2/6$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"bp-n\">terms $N=$</label>\n    <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"200\" step=\"1\" value=\"10\">\n    <span id=\"bp-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bp-out"
+              },
+              {
+                "kind": "svg",
+                "id": "bp-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Cyan: partial sum $S_N=\\sum_{k=1}^{N}1/k^2$. Yellow dashed: $\\pi^2/6\\approx 1.6449$. The series converges, but slowly — a reminder that the exact value $\\pi^2/6$ is non-trivial.</div>"
+              }
+            ],
+            "bodyScript": "  const PI2o6 = Math.PI*Math.PI/6;\n  const slider = $('#bp-n'), lbl = $('#bp-n-lbl'), out = $('#bp-out'), svg = $('#bp-svg');\n  function draw(){\n    const N = parseInt(slider.value,10);\n    lbl.textContent = 'N = '+N;\n    let s = 0;\n    for(let k=1;k<=N;k++) s += 1/(k*k);\n    out.textContent = `S_${N} = ${s.toFixed(10)}\\nπ²/6  = ${PI2o6.toFixed(10)}\\nerror = ${(PI2o6-s).toFixed(10)}`;\n    // draw convergence plot\n    svg.innerHTML='';\n    const W=620, H=200, padL=52, padR=20, padT=16, padB=30;\n    const Npts = Math.min(N,200);\n    const partial = [];\n    let acc = 0;\n    for(let k=1;k<=Npts;k++){ acc+=1/(k*k); partial.push(acc); }\n    const yMin = partial[0]*0.9, yMax = PI2o6*1.04;\n    const xP = k => padL + (k/(Npts))*(W-padL-padR);\n    const yP = v => (H-padB) - (v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)','stroke-width':1}));\n    // y ticks\n    [1.0,1.2,1.4,1.6].forEach(v=>{\n      const y = yP(v);\n      if(y<padT||y>H-padB) return;\n      svg.appendChild(SVG('line',{x1:padL-4,y1:y,x2:padL,y2:y,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:padL-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); t.textContent=v.toFixed(1); svg.appendChild(t);\n    });\n    // target line\n    const yTarget = yP(PI2o6);\n    const dash = SVG('line',{x1:padL,y1:yTarget,x2:W-padR,y2:yTarget,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'});\n    svg.appendChild(dash);\n    const tLbl = SVG('text',{x:W-padR-2,y:yTarget-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tLbl.textContent='π²/6'; svg.appendChild(tLbl);\n    // partial sum curve\n    const pts = partial.map((v,i)=>`${xP(i+1)} ${yP(v)}`).join(' L ');\n    svg.appendChild(SVG('polyline',{points:partial.map((v,i)=>`${xP(i+1)},${yP(v)}`).join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n  }\n  slider.addEventListener('input', draw);\n  draw();",
+            "hint": "drag slider to add more terms",
+            "svgId": "bp-svg",
+            "viewBox": "0 0 620 200",
+            "readoutId": "bp-out"
+          }
         },
         {
           "type": "raw",
@@ -40,9 +106,75 @@
         },
         {
           "type": "widget",
-          "id": "w-even",
-          "html": "<div class=\"widget\" id=\"w-even\">\n  <div class=\"hd\"><div class=\"ttl\">Even zeta values: formula vs numerical sum</div><div class=\"hint\">pick $n$, compare closed form to partial sum</div></div>\n  <div class=\"row\">\n    <label for=\"ev-n\">$n=$</label>\n    <input type=\"range\" id=\"ev-n\" min=\"1\" max=\"8\" step=\"1\" value=\"2\">\n    <span id=\"ev-n-lbl\" class=\"small\"></span>\n    <label style=\"margin-left:1rem\" for=\"ev-N\">terms $N=$</label>\n    <input type=\"range\" id=\"ev-N\" min=\"10\" max=\"2000\" step=\"10\" value=\"200\">\n    <span id=\"ev-N-lbl\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"ev-out\"></div>\n  <svg id=\"ev-svg\" viewBox=\"0 0 620 180\" width=\"620\" height=\"180\"><title>Even zeta values: formula vs numerical sum</title></svg>\n  <div class=\"small\" style=\"color:var(--mute)\">Bar chart: $k^{-2n}$ for $k=1\\ldots 30$. Notice how terms decay faster for larger $n$ — the series converges much faster than $\\zeta(2)$.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // Bernoulli numbers (even indices) — precomputed rationals as [num,den] BigInt pairs\n  const BERN = {\n    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n],\n    10:[5n,66n], 12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n]\n  };\n  function bernoulli(k){ const b = BERN[k]; return b ? Number(b[0])/Number(b[1]) : 0; }\n  function zetaFormula(n){\n    // (-1)^{n+1} B_{2n} (2pi)^{2n} / (2 (2n)!)\n    const B = bernoulli(2*n);\n    const sign = ((n+1)%2===0) ? -1 : 1;\n    let fact = 1;\n    for(let i=1;i<=2*n;i++) fact*=i;\n    return sign * B * Math.pow(2*Math.PI, 2*n) / (2 * fact);\n  }\n  function zetaPartial(n, N){\n    let s = 0;\n    for(let k=1;k<=N;k++) s += Math.pow(k, -2*n);\n    return s;\n  }\n\n  const nEl=$('#ev-n'), NEl=$('#ev-N'), nLbl=$('#ev-n-lbl'), NLbl=$('#ev-N-lbl');\n  const out=$('#ev-out'), svg=$('#ev-svg');\n\n  function draw(){\n    const n=parseInt(nEl.value,10), N=parseInt(NEl.value,10);\n    nLbl.textContent='n = '+n;\n    NLbl.textContent='N = '+N;\n    const exact=zetaFormula(n), partial=zetaPartial(n,N);\n    const fmtMap={1:'π²/6',2:'π⁴/90',3:'π⁶/945',4:'π⁸/9450',5:'π¹⁰/93555'};\n    out.textContent =\n      `ζ(${2*n}) formula  = ${exact.toFixed(10)}  [= ${fmtMap[n]||'…'}]\\n`+\n      `ζ(${2*n}) partial (${N} terms) = ${partial.toFixed(10)}\\n`+\n      `error = ${(exact-partial).toExponential(4)}`;\n    // bar chart of first 30 terms\n    svg.innerHTML='';\n    const W=620,H=180,padL=50,padR=20,padT=14,padB=30;\n    const M=30;\n    const vals = Array.from({length:M},(_, i)=>Math.pow(i+1,-2*n));\n    const yMax = vals[0]*1.08;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const yP=v=>(H-padB)-(v/yMax)*(H-padT-padB);\n    const bw=(W-padL-padR)/M*0.6;\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // y axis label\n    const ylbl=SVG('text',{x:padL-6,y:padT+5,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    ylbl.textContent='k⁻²ⁿ'; svg.appendChild(ylbl);\n    vals.forEach((v,i)=>{\n      const x=xP(i), y=yP(v);\n      const bar=SVG('rect',{x:x-bw/2,y,width:bw,height:(H-padB)-y,\n        fill:`rgba(125,224,214,0.6)`,stroke:'var(--cyan)','stroke-width':0.7});\n      svg.appendChild(bar);\n      if(i%5===0){\n        const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=i+1; svg.appendChild(t);\n      }\n    });\n  }\n  nEl.addEventListener('input',draw);\n  NEl.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-even",
+            "title": "Even zeta values: formula vs numerical sum",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ev-n\">$n=$</label>\n    <input type=\"range\" id=\"ev-n\" min=\"1\" max=\"8\" step=\"1\" value=\"2\">\n    <span id=\"ev-n-lbl\" class=\"small\"></span>\n    <label style=\"margin-left:1rem\" for=\"ev-N\">terms $N=$</label>\n    <input type=\"range\" id=\"ev-N\" min=\"10\" max=\"2000\" step=\"10\" value=\"200\">\n    <span id=\"ev-N-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ev-out"
+              },
+              {
+                "kind": "svg",
+                "id": "ev-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Bar chart: $k^{-2n}$ for $k=1\\ldots 30$. Notice how terms decay faster for larger $n$ — the series converges much faster than $\\zeta(2)$.</div>"
+              }
+            ],
+            "bodyScript": "  // Bernoulli numbers (even indices) — precomputed rationals as [num,den] BigInt pairs\n  const BERN = {\n    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n],\n    10:[5n,66n], 12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n]\n  };\n  function bernoulli(k){ const b = BERN[k]; return b ? Number(b[0])/Number(b[1]) : 0; }\n  function zetaFormula(n){\n    // (-1)^{n+1} B_{2n} (2pi)^{2n} / (2 (2n)!)\n    const B = bernoulli(2*n);\n    const sign = ((n+1)%2===0) ? -1 : 1;\n    let fact = 1;\n    for(let i=1;i<=2*n;i++) fact*=i;\n    return sign * B * Math.pow(2*Math.PI, 2*n) / (2 * fact);\n  }\n  function zetaPartial(n, N){\n    let s = 0;\n    for(let k=1;k<=N;k++) s += Math.pow(k, -2*n);\n    return s;\n  }\n\n  const nEl=$('#ev-n'), NEl=$('#ev-N'), nLbl=$('#ev-n-lbl'), NLbl=$('#ev-N-lbl');\n  const out=$('#ev-out'), svg=$('#ev-svg');\n\n  function draw(){\n    const n=parseInt(nEl.value,10), N=parseInt(NEl.value,10);\n    nLbl.textContent='n = '+n;\n    NLbl.textContent='N = '+N;\n    const exact=zetaFormula(n), partial=zetaPartial(n,N);\n    const fmtMap={1:'π²/6',2:'π⁴/90',3:'π⁶/945',4:'π⁸/9450',5:'π¹⁰/93555'};\n    out.textContent =\n      `ζ(${2*n}) formula  = ${exact.toFixed(10)}  [= ${fmtMap[n]||'…'}]\\n`+\n      `ζ(${2*n}) partial (${N} terms) = ${partial.toFixed(10)}\\n`+\n      `error = ${(exact-partial).toExponential(4)}`;\n    // bar chart of first 30 terms\n    svg.innerHTML='';\n    const W=620,H=180,padL=50,padR=20,padT=14,padB=30;\n    const M=30;\n    const vals = Array.from({length:M},(_, i)=>Math.pow(i+1,-2*n));\n    const yMax = vals[0]*1.08;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const yP=v=>(H-padB)-(v/yMax)*(H-padT-padB);\n    const bw=(W-padL-padR)/M*0.6;\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // y axis label\n    const ylbl=SVG('text',{x:padL-6,y:padT+5,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    ylbl.textContent='k⁻²ⁿ'; svg.appendChild(ylbl);\n    vals.forEach((v,i)=>{\n      const x=xP(i), y=yP(v);\n      const bar=SVG('rect',{x:x-bw/2,y,width:bw,height:(H-padB)-y,\n        fill:`rgba(125,224,214,0.6)`,stroke:'var(--cyan)','stroke-width':0.7});\n      svg.appendChild(bar);\n      if(i%5===0){\n        const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=i+1; svg.appendChild(t);\n      }\n    });\n  }\n  nEl.addEventListener('input',draw);\n  NEl.addEventListener('input',draw);\n  draw();",
+            "hint": "pick $n$, compare closed form to partial sum",
+            "svgId": "ev-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "ev-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-even",
+            "title": "Even zeta values: formula vs numerical sum",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ev-n\">$n=$</label>\n    <input type=\"range\" id=\"ev-n\" min=\"1\" max=\"8\" step=\"1\" value=\"2\">\n    <span id=\"ev-n-lbl\" class=\"small\"></span>\n    <label style=\"margin-left:1rem\" for=\"ev-N\">terms $N=$</label>\n    <input type=\"range\" id=\"ev-N\" min=\"10\" max=\"2000\" step=\"10\" value=\"200\">\n    <span id=\"ev-N-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ev-out"
+              },
+              {
+                "kind": "svg",
+                "id": "ev-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Bar chart: $k^{-2n}$ for $k=1\\ldots 30$. Notice how terms decay faster for larger $n$ — the series converges much faster than $\\zeta(2)$.</div>"
+              }
+            ],
+            "bodyScript": "  // Bernoulli numbers (even indices) — precomputed rationals as [num,den] BigInt pairs\n  const BERN = {\n    2:[1n,6n], 4:[-1n,30n], 6:[1n,42n], 8:[-1n,30n],\n    10:[5n,66n], 12:[-691n,2730n], 14:[7n,6n], 16:[-3617n,510n]\n  };\n  function bernoulli(k){ const b = BERN[k]; return b ? Number(b[0])/Number(b[1]) : 0; }\n  function zetaFormula(n){\n    // (-1)^{n+1} B_{2n} (2pi)^{2n} / (2 (2n)!)\n    const B = bernoulli(2*n);\n    const sign = ((n+1)%2===0) ? -1 : 1;\n    let fact = 1;\n    for(let i=1;i<=2*n;i++) fact*=i;\n    return sign * B * Math.pow(2*Math.PI, 2*n) / (2 * fact);\n  }\n  function zetaPartial(n, N){\n    let s = 0;\n    for(let k=1;k<=N;k++) s += Math.pow(k, -2*n);\n    return s;\n  }\n\n  const nEl=$('#ev-n'), NEl=$('#ev-N'), nLbl=$('#ev-n-lbl'), NLbl=$('#ev-N-lbl');\n  const out=$('#ev-out'), svg=$('#ev-svg');\n\n  function draw(){\n    const n=parseInt(nEl.value,10), N=parseInt(NEl.value,10);\n    nLbl.textContent='n = '+n;\n    NLbl.textContent='N = '+N;\n    const exact=zetaFormula(n), partial=zetaPartial(n,N);\n    const fmtMap={1:'π²/6',2:'π⁴/90',3:'π⁶/945',4:'π⁸/9450',5:'π¹⁰/93555'};\n    out.textContent =\n      `ζ(${2*n}) formula  = ${exact.toFixed(10)}  [= ${fmtMap[n]||'…'}]\\n`+\n      `ζ(${2*n}) partial (${N} terms) = ${partial.toFixed(10)}\\n`+\n      `error = ${(exact-partial).toExponential(4)}`;\n    // bar chart of first 30 terms\n    svg.innerHTML='';\n    const W=620,H=180,padL=50,padR=20,padT=14,padB=30;\n    const M=30;\n    const vals = Array.from({length:M},(_, i)=>Math.pow(i+1,-2*n));\n    const yMax = vals[0]*1.08;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const yP=v=>(H-padB)-(v/yMax)*(H-padT-padB);\n    const bw=(W-padL-padR)/M*0.6;\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // y axis label\n    const ylbl=SVG('text',{x:padL-6,y:padT+5,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    ylbl.textContent='k⁻²ⁿ'; svg.appendChild(ylbl);\n    vals.forEach((v,i)=>{\n      const x=xP(i), y=yP(v);\n      const bar=SVG('rect',{x:x-bw/2,y,width:bw,height:(H-padB)-y,\n        fill:`rgba(125,224,214,0.6)`,stroke:'var(--cyan)','stroke-width':0.7});\n      svg.appendChild(bar);\n      if(i%5===0){\n        const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=i+1; svg.appendChild(t);\n      }\n    });\n  }\n  nEl.addEventListener('input',draw);\n  NEl.addEventListener('input',draw);\n  draw();",
+            "hint": "pick $n$, compare closed form to partial sum",
+            "svgId": "ev-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "ev-out"
+          }
         },
         {
           "type": "raw",
@@ -68,9 +200,75 @@
         },
         {
           "type": "widget",
-          "id": "w-apery",
-          "html": "<div class=\"widget\" id=\"w-apery\">\n  <div class=\"hd\"><div class=\"ttl\">Apéry series convergence</div><div class=\"hint\">watch rational approximants approach ζ(3)</div></div>\n  <div class=\"row\">\n    <label for=\"ap-n\">terms $N=$</label>\n    <input type=\"range\" id=\"ap-n\" min=\"1\" max=\"40\" step=\"1\" value=\"8\">\n    <span id=\"ap-n-lbl\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"ap-out\"></div>\n  <svg id=\"ap-svg\" viewBox=\"0 0 620 220\" width=\"620\" height=\"220\"><title>Apéry series convergence</title></svg>\n  <div class=\"small\" style=\"color:var(--mute)\">Pink dots: partial sums of the Apéry series $\\tfrac{5}{2}\\sum_{k=1}^{N}\\tfrac{(-1)^{k+1}}{k^3\\binom{2k}{k}}$. Yellow dashed: $\\zeta(3)\\approx 1.20206$. The series converges much faster than $\\sum k^{-3}$.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const ZETA3 = 1.2020569031595943;\n  // central binomial C(2k,k)\n  function cbinom(k){ let r=1; for(let i=1;i<=k;i++) r = r*(k+i)/i; return r; }\n  // partial sums of Apery series S_N = 5/2 * sum_{k=1}^N (-1)^{k+1} / (k^3 * C(2k,k))\n  function aperyPartial(N){\n    let s=0;\n    for(let k=1;k<=N;k++){\n      s += (k%2===1?1:-1) / (k*k*k * cbinom(k));\n    }\n    return 2.5*s;\n  }\n\n  const sliderEl=$('#ap-n'), lblEl=$('#ap-n-lbl'), outEl=$('#ap-out'), svgEl=$('#ap-svg');\n  function draw(){\n    const N = parseInt(sliderEl.value,10);\n    lblEl.textContent = 'N = '+N;\n    const Npts = Math.max(N, 1);\n    const pts = [];\n    for(let k=1;k<=Npts;k++) pts.push(aperyPartial(k));\n    const pN = pts[Npts-1];\n    outEl.textContent =\n      `Apery partial sum (${N} terms) = ${pN.toFixed(12)}\\n`+\n      `ζ(3)                           = ${ZETA3.toFixed(12)}\\n`+\n      `error                          = ${Math.abs(ZETA3-pN).toExponential(4)}`;\n    // draw\n    const W=620,H=220,padL=52,padR=20,padT=16,padB=30;\n    svgEl.innerHTML='';\n    const allY = pts.concat([ZETA3]);\n    const yMin=Math.min(...allY)*0.985, yMax=Math.max(...allY)*1.01;\n    const xP=i=>padL+(i/Npts)*(W-padL-padR);\n    const yP=v=>(H-padB)-(v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svgEl.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svgEl.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // target\n    const yt=yP(ZETA3);\n    svgEl.appendChild(SVG('line',{x1:padL,y1:yt,x2:W-padR,y2:yt,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'}));\n    const tl=SVG('text',{x:W-padR-2,y:yt-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tl.textContent='ζ(3)'; svgEl.appendChild(tl);\n    // plot curve\n    if(pts.length>1){\n      const d=pts.map((v,i)=>(i===0?'M':'L')+xP(i+1)+' '+yP(v)).join(' ');\n      svgEl.appendChild(SVG('path',{d,fill:'none',stroke:'rgba(224,122,95,0.55)','stroke-width':1.5}));\n    }\n    // dots\n    pts.forEach((v,i)=>{\n      svgEl.appendChild(SVG('circle',{cx:xP(i+1),cy:yP(v),r:4,fill:'var(--pink)',stroke:'none'}));\n    });\n    // x ticks\n    for(let i=1;i<=Npts;i+=Math.max(1,Math.floor(Npts/8))){\n      const x=xP(i);\n      svgEl.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent=i; svgEl.appendChild(t);\n    }\n  }\n  sliderEl.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apery",
+            "title": "Apéry series convergence",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-n\">terms $N=$</label>\n    <input type=\"range\" id=\"ap-n\" min=\"1\" max=\"40\" step=\"1\" value=\"8\">\n    <span id=\"ap-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 220",
+                "width": 620,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Pink dots: partial sums of the Apéry series $\\tfrac{5}{2}\\sum_{k=1}^{N}\\tfrac{(-1)^{k+1}}{k^3\\binom{2k}{k}}$. Yellow dashed: $\\zeta(3)\\approx 1.20206$. The series converges much faster than $\\sum k^{-3}$.</div>"
+              }
+            ],
+            "bodyScript": "  const ZETA3 = 1.2020569031595943;\n  // central binomial C(2k,k)\n  function cbinom(k){ let r=1; for(let i=1;i<=k;i++) r = r*(k+i)/i; return r; }\n  // partial sums of Apery series S_N = 5/2 * sum_{k=1}^N (-1)^{k+1} / (k^3 * C(2k,k))\n  function aperyPartial(N){\n    let s=0;\n    for(let k=1;k<=N;k++){\n      s += (k%2===1?1:-1) / (k*k*k * cbinom(k));\n    }\n    return 2.5*s;\n  }\n\n  const sliderEl=$('#ap-n'), lblEl=$('#ap-n-lbl'), outEl=$('#ap-out'), svgEl=$('#ap-svg');\n  function draw(){\n    const N = parseInt(sliderEl.value,10);\n    lblEl.textContent = 'N = '+N;\n    const Npts = Math.max(N, 1);\n    const pts = [];\n    for(let k=1;k<=Npts;k++) pts.push(aperyPartial(k));\n    const pN = pts[Npts-1];\n    outEl.textContent =\n      `Apery partial sum (${N} terms) = ${pN.toFixed(12)}\\n`+\n      `ζ(3)                           = ${ZETA3.toFixed(12)}\\n`+\n      `error                          = ${Math.abs(ZETA3-pN).toExponential(4)}`;\n    // draw\n    const W=620,H=220,padL=52,padR=20,padT=16,padB=30;\n    svgEl.innerHTML='';\n    const allY = pts.concat([ZETA3]);\n    const yMin=Math.min(...allY)*0.985, yMax=Math.max(...allY)*1.01;\n    const xP=i=>padL+(i/Npts)*(W-padL-padR);\n    const yP=v=>(H-padB)-(v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svgEl.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svgEl.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // target\n    const yt=yP(ZETA3);\n    svgEl.appendChild(SVG('line',{x1:padL,y1:yt,x2:W-padR,y2:yt,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'}));\n    const tl=SVG('text',{x:W-padR-2,y:yt-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tl.textContent='ζ(3)'; svgEl.appendChild(tl);\n    // plot curve\n    if(pts.length>1){\n      const d=pts.map((v,i)=>(i===0?'M':'L')+xP(i+1)+' '+yP(v)).join(' ');\n      svgEl.appendChild(SVG('path',{d,fill:'none',stroke:'rgba(224,122,95,0.55)','stroke-width':1.5}));\n    }\n    // dots\n    pts.forEach((v,i)=>{\n      svgEl.appendChild(SVG('circle',{cx:xP(i+1),cy:yP(v),r:4,fill:'var(--pink)',stroke:'none'}));\n    });\n    // x ticks\n    for(let i=1;i<=Npts;i+=Math.max(1,Math.floor(Npts/8))){\n      const x=xP(i);\n      svgEl.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent=i; svgEl.appendChild(t);\n    }\n  }\n  sliderEl.addEventListener('input', draw);\n  draw();",
+            "hint": "watch rational approximants approach ζ(3)",
+            "svgId": "ap-svg",
+            "viewBox": "0 0 620 220",
+            "readoutId": "ap-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apery",
+            "title": "Apéry series convergence",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-n\">terms $N=$</label>\n    <input type=\"range\" id=\"ap-n\" min=\"1\" max=\"40\" step=\"1\" value=\"8\">\n    <span id=\"ap-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 220",
+                "width": 620,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Pink dots: partial sums of the Apéry series $\\tfrac{5}{2}\\sum_{k=1}^{N}\\tfrac{(-1)^{k+1}}{k^3\\binom{2k}{k}}$. Yellow dashed: $\\zeta(3)\\approx 1.20206$. The series converges much faster than $\\sum k^{-3}$.</div>"
+              }
+            ],
+            "bodyScript": "  const ZETA3 = 1.2020569031595943;\n  // central binomial C(2k,k)\n  function cbinom(k){ let r=1; for(let i=1;i<=k;i++) r = r*(k+i)/i; return r; }\n  // partial sums of Apery series S_N = 5/2 * sum_{k=1}^N (-1)^{k+1} / (k^3 * C(2k,k))\n  function aperyPartial(N){\n    let s=0;\n    for(let k=1;k<=N;k++){\n      s += (k%2===1?1:-1) / (k*k*k * cbinom(k));\n    }\n    return 2.5*s;\n  }\n\n  const sliderEl=$('#ap-n'), lblEl=$('#ap-n-lbl'), outEl=$('#ap-out'), svgEl=$('#ap-svg');\n  function draw(){\n    const N = parseInt(sliderEl.value,10);\n    lblEl.textContent = 'N = '+N;\n    const Npts = Math.max(N, 1);\n    const pts = [];\n    for(let k=1;k<=Npts;k++) pts.push(aperyPartial(k));\n    const pN = pts[Npts-1];\n    outEl.textContent =\n      `Apery partial sum (${N} terms) = ${pN.toFixed(12)}\\n`+\n      `ζ(3)                           = ${ZETA3.toFixed(12)}\\n`+\n      `error                          = ${Math.abs(ZETA3-pN).toExponential(4)}`;\n    // draw\n    const W=620,H=220,padL=52,padR=20,padT=16,padB=30;\n    svgEl.innerHTML='';\n    const allY = pts.concat([ZETA3]);\n    const yMin=Math.min(...allY)*0.985, yMax=Math.max(...allY)*1.01;\n    const xP=i=>padL+(i/Npts)*(W-padL-padR);\n    const yP=v=>(H-padB)-(v-yMin)/(yMax-yMin)*(H-padT-padB);\n    // axes\n    svgEl.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svgEl.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n    // target\n    const yt=yP(ZETA3);\n    svgEl.appendChild(SVG('line',{x1:padL,y1:yt,x2:W-padR,y2:yt,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'6 4'}));\n    const tl=SVG('text',{x:W-padR-2,y:yt-5,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tl.textContent='ζ(3)'; svgEl.appendChild(tl);\n    // plot curve\n    if(pts.length>1){\n      const d=pts.map((v,i)=>(i===0?'M':'L')+xP(i+1)+' '+yP(v)).join(' ');\n      svgEl.appendChild(SVG('path',{d,fill:'none',stroke:'rgba(224,122,95,0.55)','stroke-width':1.5}));\n    }\n    // dots\n    pts.forEach((v,i)=>{\n      svgEl.appendChild(SVG('circle',{cx:xP(i+1),cy:yP(v),r:4,fill:'var(--pink)',stroke:'none'}));\n    });\n    // x ticks\n    for(let i=1;i<=Npts;i+=Math.max(1,Math.floor(Npts/8))){\n      const x=xP(i);\n      svgEl.appendChild(SVG('line',{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent=i; svgEl.appendChild(t);\n    }\n  }\n  sliderEl.addEventListener('input', draw);\n  draw();",
+            "hint": "watch rational approximants approach ζ(3)",
+            "svgId": "ap-svg",
+            "viewBox": "0 0 620 220",
+            "readoutId": "ap-out"
+          }
         },
         {
           "type": "raw",
@@ -96,9 +294,75 @@
         },
         {
           "type": "widget",
-          "id": "w-neg",
-          "html": "<div class=\"widget\" id=\"w-neg\">\n  <div class=\"hd\"><div class=\"ttl\">$\\zeta(-n)$ table viewer</div><div class=\"hint\">select $n$ to see formula and value</div></div>\n  <div class=\"row\">\n    <label for=\"neg-n\">$n=$</label>\n    <input type=\"range\" id=\"neg-n\" min=\"0\" max=\"12\" step=\"1\" value=\"1\">\n    <span id=\"neg-n-lbl\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"neg-out\"></div>\n  <svg id=\"neg-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>$\\zeta(-n)$ table viewer</title></svg>\n  <div class=\"small\" style=\"color:var(--mute)\">Bars show $\\zeta(-n)$ for $n=0,1,\\ldots,12$. Values at even $n\\ge 2$ are exactly zero (trivial zeros). Note the rapid growth of $|\\zeta(-n)|$ for odd $n$.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // B_n for n=0..13\n  const BRAT = [\n    [1n,1n],[-1n,2n],[1n,6n],[0n,1n],[-1n,30n],[0n,1n],[1n,42n],[0n,1n],\n    [-1n,30n],[0n,1n],[5n,66n],[0n,1n],[-691n,2730n],[0n,1n]\n  ];\n  // zeta(-n) = -B_{n+1}/(n+1)\n  function zetaNeg(n){\n    const [num,den] = BRAT[n+1] || [0n,1n];\n    // -num/(den*(n+1))\n    return -Number(num)/(Number(den)*(n+1));\n  }\n  function bernStr(k){\n    const [num,den]=BRAT[k]||[0n,1n];\n    if(num===0n) return '0';\n    return (den===1n) ? num.toString() : `${num}/${den}`;\n  }\n\n  const slider=$('#neg-n'), lbl=$('#neg-n-lbl'), out=$('#neg-out'), svg=$('#neg-svg');\n  function draw(){\n    const n=parseInt(slider.value,10);\n    lbl.textContent='n = '+n;\n    const val=zetaNeg(n);\n    const Bn1=bernStr(n+1);\n    out.textContent =\n      `ζ(−${n}) = −B_{${n+1}}/(${n+1}) = −(${Bn1})/${n+1} = ${val===0?'0':val.toFixed(8)}\\n`+\n      (n%2===0 && n>=2 ? `[trivial zero: B_{${n+1}} = 0 since ${n+1} is odd and ≥3]` :\n       n===0 ? `[ζ(0) = −1/2]` : '');\n    // bar chart n=0..12\n    const vals=[];\n    for(let k=0;k<=12;k++) vals.push(zetaNeg(k));\n    svg.innerHTML='';\n    const W=620,H=240,padL=60,padR=20,padT=16,padB=30;\n    const M=13;\n    const yAbsMax=Math.max(...vals.map(Math.abs))*1.15 || 0.1;\n    const yMid=H/2;\n    const yScale=(H/2-padT-8)/yAbsMax;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const bw=(W-padL-padR)/M*0.5;\n    // zero axis\n    svg.appendChild(SVG('line',{x1:padL,y1:yMid,x2:W-padR,y2:yMid,stroke:'var(--line)'}));\n    // y labels\n    [-0.1,-0.05,0,0.05,0.1].forEach(v=>{\n      const y=yMid-v*yScale;\n      if(y<padT||y>H-padB) return;\n      const t=SVG('text',{x:padL-5,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    });\n    vals.forEach((v,i)=>{\n      const x=xP(i);\n      const isSel=(i===n);\n      const isZero=(v===0);\n      const y0=yMid, y1=yMid-v*yScale;\n      const color=isZero?'rgba(180,180,180,0.3)': isSel?'var(--yellow)':'rgba(179,157,219,0.65)';\n      if(!isZero){\n        svg.appendChild(SVG('rect',{\n          x:x-bw/2,y:Math.min(y0,y1),width:bw,height:Math.abs(y1-y0),\n          fill:color,stroke:isSel?'var(--yellow)':'var(--violet)','stroke-width':isSel?2:0.7\n        }));\n      } else {\n        svg.appendChild(SVG('circle',{cx:x,cy:yMid,r:5,fill:'none',stroke:'var(--mute)','stroke-width':1.5}));\n      }\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:isSel?'var(--yellow)':'var(--mute)'});\n      t.textContent='-'+i; svg.appendChild(t);\n    });\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-neg",
+            "title": "$\\zeta(-n)$ table viewer",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"neg-n\">$n=$</label>\n    <input type=\"range\" id=\"neg-n\" min=\"0\" max=\"12\" step=\"1\" value=\"1\">\n    <span id=\"neg-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "neg-out"
+              },
+              {
+                "kind": "svg",
+                "id": "neg-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Bars show $\\zeta(-n)$ for $n=0,1,\\ldots,12$. Values at even $n\\ge 2$ are exactly zero (trivial zeros). Note the rapid growth of $|\\zeta(-n)|$ for odd $n$.</div>"
+              }
+            ],
+            "bodyScript": "  // B_n for n=0..13\n  const BRAT = [\n    [1n,1n],[-1n,2n],[1n,6n],[0n,1n],[-1n,30n],[0n,1n],[1n,42n],[0n,1n],\n    [-1n,30n],[0n,1n],[5n,66n],[0n,1n],[-691n,2730n],[0n,1n]\n  ];\n  // zeta(-n) = -B_{n+1}/(n+1)\n  function zetaNeg(n){\n    const [num,den] = BRAT[n+1] || [0n,1n];\n    // -num/(den*(n+1))\n    return -Number(num)/(Number(den)*(n+1));\n  }\n  function bernStr(k){\n    const [num,den]=BRAT[k]||[0n,1n];\n    if(num===0n) return '0';\n    return (den===1n) ? num.toString() : `${num}/${den}`;\n  }\n\n  const slider=$('#neg-n'), lbl=$('#neg-n-lbl'), out=$('#neg-out'), svg=$('#neg-svg');\n  function draw(){\n    const n=parseInt(slider.value,10);\n    lbl.textContent='n = '+n;\n    const val=zetaNeg(n);\n    const Bn1=bernStr(n+1);\n    out.textContent =\n      `ζ(−${n}) = −B_{${n+1}}/(${n+1}) = −(${Bn1})/${n+1} = ${val===0?'0':val.toFixed(8)}\\n`+\n      (n%2===0 && n>=2 ? `[trivial zero: B_{${n+1}} = 0 since ${n+1} is odd and ≥3]` :\n       n===0 ? `[ζ(0) = −1/2]` : '');\n    // bar chart n=0..12\n    const vals=[];\n    for(let k=0;k<=12;k++) vals.push(zetaNeg(k));\n    svg.innerHTML='';\n    const W=620,H=240,padL=60,padR=20,padT=16,padB=30;\n    const M=13;\n    const yAbsMax=Math.max(...vals.map(Math.abs))*1.15 || 0.1;\n    const yMid=H/2;\n    const yScale=(H/2-padT-8)/yAbsMax;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const bw=(W-padL-padR)/M*0.5;\n    // zero axis\n    svg.appendChild(SVG('line',{x1:padL,y1:yMid,x2:W-padR,y2:yMid,stroke:'var(--line)'}));\n    // y labels\n    [-0.1,-0.05,0,0.05,0.1].forEach(v=>{\n      const y=yMid-v*yScale;\n      if(y<padT||y>H-padB) return;\n      const t=SVG('text',{x:padL-5,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    });\n    vals.forEach((v,i)=>{\n      const x=xP(i);\n      const isSel=(i===n);\n      const isZero=(v===0);\n      const y0=yMid, y1=yMid-v*yScale;\n      const color=isZero?'rgba(180,180,180,0.3)': isSel?'var(--yellow)':'rgba(179,157,219,0.65)';\n      if(!isZero){\n        svg.appendChild(SVG('rect',{\n          x:x-bw/2,y:Math.min(y0,y1),width:bw,height:Math.abs(y1-y0),\n          fill:color,stroke:isSel?'var(--yellow)':'var(--violet)','stroke-width':isSel?2:0.7\n        }));\n      } else {\n        svg.appendChild(SVG('circle',{cx:x,cy:yMid,r:5,fill:'none',stroke:'var(--mute)','stroke-width':1.5}));\n      }\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:isSel?'var(--yellow)':'var(--mute)'});\n      t.textContent='-'+i; svg.appendChild(t);\n    });\n  }\n  slider.addEventListener('input',draw);\n  draw();",
+            "hint": "select $n$ to see formula and value",
+            "svgId": "neg-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "neg-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-neg",
+            "title": "$\\zeta(-n)$ table viewer",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"neg-n\">$n=$</label>\n    <input type=\"range\" id=\"neg-n\" min=\"0\" max=\"12\" step=\"1\" value=\"1\">\n    <span id=\"neg-n-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "neg-out"
+              },
+              {
+                "kind": "svg",
+                "id": "neg-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Bars show $\\zeta(-n)$ for $n=0,1,\\ldots,12$. Values at even $n\\ge 2$ are exactly zero (trivial zeros). Note the rapid growth of $|\\zeta(-n)|$ for odd $n$.</div>"
+              }
+            ],
+            "bodyScript": "  // B_n for n=0..13\n  const BRAT = [\n    [1n,1n],[-1n,2n],[1n,6n],[0n,1n],[-1n,30n],[0n,1n],[1n,42n],[0n,1n],\n    [-1n,30n],[0n,1n],[5n,66n],[0n,1n],[-691n,2730n],[0n,1n]\n  ];\n  // zeta(-n) = -B_{n+1}/(n+1)\n  function zetaNeg(n){\n    const [num,den] = BRAT[n+1] || [0n,1n];\n    // -num/(den*(n+1))\n    return -Number(num)/(Number(den)*(n+1));\n  }\n  function bernStr(k){\n    const [num,den]=BRAT[k]||[0n,1n];\n    if(num===0n) return '0';\n    return (den===1n) ? num.toString() : `${num}/${den}`;\n  }\n\n  const slider=$('#neg-n'), lbl=$('#neg-n-lbl'), out=$('#neg-out'), svg=$('#neg-svg');\n  function draw(){\n    const n=parseInt(slider.value,10);\n    lbl.textContent='n = '+n;\n    const val=zetaNeg(n);\n    const Bn1=bernStr(n+1);\n    out.textContent =\n      `ζ(−${n}) = −B_{${n+1}}/(${n+1}) = −(${Bn1})/${n+1} = ${val===0?'0':val.toFixed(8)}\\n`+\n      (n%2===0 && n>=2 ? `[trivial zero: B_{${n+1}} = 0 since ${n+1} is odd and ≥3]` :\n       n===0 ? `[ζ(0) = −1/2]` : '');\n    // bar chart n=0..12\n    const vals=[];\n    for(let k=0;k<=12;k++) vals.push(zetaNeg(k));\n    svg.innerHTML='';\n    const W=620,H=240,padL=60,padR=20,padT=16,padB=30;\n    const M=13;\n    const yAbsMax=Math.max(...vals.map(Math.abs))*1.15 || 0.1;\n    const yMid=H/2;\n    const yScale=(H/2-padT-8)/yAbsMax;\n    const xP=i=>padL+(i+0.5)*(W-padL-padR)/M;\n    const bw=(W-padL-padR)/M*0.5;\n    // zero axis\n    svg.appendChild(SVG('line',{x1:padL,y1:yMid,x2:W-padR,y2:yMid,stroke:'var(--line)'}));\n    // y labels\n    [-0.1,-0.05,0,0.05,0.1].forEach(v=>{\n      const y=yMid-v*yScale;\n      if(y<padT||y>H-padB) return;\n      const t=SVG('text',{x:padL-5,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    });\n    vals.forEach((v,i)=>{\n      const x=xP(i);\n      const isSel=(i===n);\n      const isZero=(v===0);\n      const y0=yMid, y1=yMid-v*yScale;\n      const color=isZero?'rgba(180,180,180,0.3)': isSel?'var(--yellow)':'rgba(179,157,219,0.65)';\n      if(!isZero){\n        svg.appendChild(SVG('rect',{\n          x:x-bw/2,y:Math.min(y0,y1),width:bw,height:Math.abs(y1-y0),\n          fill:color,stroke:isSel?'var(--yellow)':'var(--violet)','stroke-width':isSel?2:0.7\n        }));\n      } else {\n        svg.appendChild(SVG('circle',{cx:x,cy:yMid,r:5,fill:'none',stroke:'var(--mute)','stroke-width':1.5}));\n      }\n      const t=SVG('text',{x,y:H-padB+14,'text-anchor':'middle','font-size':10,fill:isSel?'var(--yellow)':'var(--mute)'});\n      t.textContent='-'+i; svg.appendChild(t);\n    });\n  }\n  slider.addEventListener('input',draw);\n  draw();",
+            "hint": "select $n$ to see formula and value",
+            "svgId": "neg-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "neg-out"
+          }
         },
         {
           "type": "raw",
@@ -124,9 +388,75 @@
         },
         {
           "type": "widget",
-          "id": "w-feq",
-          "html": "<div class=\"widget\" id=\"w-feq\">\n  <div class=\"hd\"><div class=\"ttl\">Functional equation: value pairing $\\zeta(s)\\leftrightarrow\\zeta(1-s)$</div><div class=\"hint\">move slider to see how $s$ maps to $1-s$</div></div>\n  <div class=\"row\">\n    <label for=\"fe-s\">$\\operatorname{Re}(s)=$</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"fe-s-lbl\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"fe-out\"></div>\n  <svg id=\"fe-svg\" viewBox=\"0 0 620 200\" width=\"620\" height=\"200\"><title>Functional equation: value pairing $\\zeta(s)\\leftrightarrow\\zeta(1-s)$</title></svg>\n  <div class=\"small\" style=\"color:var(--mute)\">Number line showing the real axis. Yellow dot: $s$. Pink dot: $1-s$. The midpoint $s=1/2$ (the critical line) is always at the center of the reflection.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // Gamma function (real, positive argument only needed here for display)\n  function gammaReal(x){\n    if(x<0.5) return Math.PI/(Math.sin(Math.PI*x)*gammaReal(1-x));\n    x -= 1;\n    const g=7;\n    const p=[0.99999999999980993,676.5203681218851,-1259.1392167224028,\n      771.32342877765313,-176.61502916214059,12.507343278686905,\n      -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n    let t=x+g+0.5;\n    let s=p[0];\n    for(let i=1;i<=g+1;i++) s+=p[i]/(x+i);\n    return Math.sqrt(2*Math.PI)*Math.pow(t,x+0.5)*Math.exp(-t)*s;\n  }\n  // zeta(s) for real s > 1 via Euler-Maclaurin style partial sum + tail correction\n  function zetaReal(s){\n    if(s<=1) return null;\n    let acc=0;\n    const N=200;\n    for(let k=1;k<=N;k++) acc+=Math.pow(k,-s);\n    // tail integral correction: sum_{k>N} k^{-s} ≈ integral_N^inf x^{-s} dx = N^{1-s}/(s-1)\n    acc += Math.pow(N,1-s)/(s-1);\n    return acc;\n  }\n\n  const slider=$('#fe-s'), lbl=$('#fe-s-lbl'), out=$('#fe-out'), svg=$('#fe-svg');\n  function draw(){\n    const s=parseFloat(slider.value);\n    const s1=1-s;\n    lbl.textContent=`s = ${s.toFixed(2)}, 1−s = ${s1.toFixed(2)}`;\n    let line1='', line2='';\n    if(s>1){\n      const zs=zetaReal(s);\n      line1 = `ζ(${s.toFixed(2)}) ≈ ${zs.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s) && s<=0){\n      const n=-s;\n      // ζ(-n) = -B_{n+1}/(n+1)\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line1=`ζ(${s.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line1=`ζ(${s.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line1=`ζ(${s.toFixed(2)})  [analytic continuation region]`;\n    }\n    if(s1>1){\n      const zs1=zetaReal(s1);\n      line2=`ζ(${s1.toFixed(2)}) ≈ ${zs1.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s1) && s1<=0){\n      const n=-s1;\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line2=`ζ(${s1.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line2=`ζ(${s1.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line2=`ζ(${s1.toFixed(2)})  [analytic continuation region]`;\n    }\n    out.textContent=line1+'\\n'+line2+'\\n\\nFunctional equation relates these via:\\nζ(1−s) = 2(2π)^{−s} cos(πs/2) Γ(s) ζ(s)';\n    // draw number line\n    svg.innerHTML='';\n    const W=620,H=200,cy=100;\n    const xMin=-4, xMax=5;\n    const xP=v=>40+(v-xMin)/(xMax-xMin)*(W-80);\n    // line\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1.5}));\n    // ticks\n    for(let v=xMin;v<=xMax;v++){\n      const x=xP(v);\n      svg.appendChild(SVG('line',{x1:x,y1:cy-5,x2:x,y2:cy+5,stroke:'var(--line)'}));\n      const t=SVG('text',{x,y:cy+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=v; svg.appendChild(t);\n    }\n    // critical line at s=1/2\n    const xHalf=xP(0.5);\n    svg.appendChild(SVG('line',{x1:xHalf,y1:cy-30,x2:xHalf,y2:cy+30,stroke:'var(--cyan)','stroke-width':1.5,'stroke-dasharray':'4 3'}));\n    const clbl=SVG('text',{x:xHalf,y:cy-34,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); clbl.textContent='Re(s)=½'; svg.appendChild(clbl);\n    // s dot (yellow)\n    const xs=xP(s);\n    svg.appendChild(SVG('circle',{cx:xs,cy:cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n    const sl=SVG('text',{x:xs,y:cy-16,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); sl.textContent='s'; svg.appendChild(sl);\n    // 1-s dot (pink)\n    const xs1=xP(s1);\n    svg.appendChild(SVG('circle',{cx:xs1,cy:cy,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    const s1l=SVG('text',{x:xs1,y:cy+26,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); s1l.textContent='1−s'; svg.appendChild(s1l);\n    // dashed bridge between them\n    if(Math.abs(xs-xs1)>2){\n      svg.appendChild(SVG('line',{x1:xs,y1:cy,x2:xs1,y2:cy,stroke:'rgba(255,255,255,0.18)','stroke-width':1.5,'stroke-dasharray':'5 4'}));\n    }\n    // region labels\n    const convLabel=SVG('text',{x:xP(2.5),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--green)'});\n    convLabel.textContent='Dirichlet series converges'; svg.appendChild(convLabel);\n    const contLabel=SVG('text',{x:xP(-2),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    contLabel.textContent='analytic continuation'; svg.appendChild(contLabel);\n    // shade Re(s)>1 region\n    const xOne=xP(1);\n    const shade=SVG('rect',{x:xOne,y:cy-28,width:xP(xMax)-xOne,height:56,\n      fill:'rgba(131,193,103,0.07)',stroke:'none'});\n    svg.insertBefore(shade, svg.firstChild);\n    // shade Re(s)<0 region\n    const shade2=SVG('rect',{x:40,y:cy-28,width:xP(0)-40,height:56,\n      fill:'rgba(179,157,219,0.07)',stroke:'none'});\n    svg.insertBefore(shade2, svg.firstChild);\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-feq",
+            "title": "Functional equation: value pairing $\\zeta(s)\\leftrightarrow\\zeta(1-s)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$\\operatorname{Re}(s)=$</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"fe-s-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "fe-out"
+              },
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Number line showing the real axis. Yellow dot: $s$. Pink dot: $1-s$. The midpoint $s=1/2$ (the critical line) is always at the center of the reflection.</div>"
+              }
+            ],
+            "bodyScript": "  // Gamma function (real, positive argument only needed here for display)\n  function gammaReal(x){\n    if(x<0.5) return Math.PI/(Math.sin(Math.PI*x)*gammaReal(1-x));\n    x -= 1;\n    const g=7;\n    const p=[0.99999999999980993,676.5203681218851,-1259.1392167224028,\n      771.32342877765313,-176.61502916214059,12.507343278686905,\n      -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n    let t=x+g+0.5;\n    let s=p[0];\n    for(let i=1;i<=g+1;i++) s+=p[i]/(x+i);\n    return Math.sqrt(2*Math.PI)*Math.pow(t,x+0.5)*Math.exp(-t)*s;\n  }\n  // zeta(s) for real s > 1 via Euler-Maclaurin style partial sum + tail correction\n  function zetaReal(s){\n    if(s<=1) return null;\n    let acc=0;\n    const N=200;\n    for(let k=1;k<=N;k++) acc+=Math.pow(k,-s);\n    // tail integral correction: sum_{k>N} k^{-s} ≈ integral_N^inf x^{-s} dx = N^{1-s}/(s-1)\n    acc += Math.pow(N,1-s)/(s-1);\n    return acc;\n  }\n\n  const slider=$('#fe-s'), lbl=$('#fe-s-lbl'), out=$('#fe-out'), svg=$('#fe-svg');\n  function draw(){\n    const s=parseFloat(slider.value);\n    const s1=1-s;\n    lbl.textContent=`s = ${s.toFixed(2)}, 1−s = ${s1.toFixed(2)}`;\n    let line1='', line2='';\n    if(s>1){\n      const zs=zetaReal(s);\n      line1 = `ζ(${s.toFixed(2)}) ≈ ${zs.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s) && s<=0){\n      const n=-s;\n      // ζ(-n) = -B_{n+1}/(n+1)\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line1=`ζ(${s.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line1=`ζ(${s.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line1=`ζ(${s.toFixed(2)})  [analytic continuation region]`;\n    }\n    if(s1>1){\n      const zs1=zetaReal(s1);\n      line2=`ζ(${s1.toFixed(2)}) ≈ ${zs1.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s1) && s1<=0){\n      const n=-s1;\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line2=`ζ(${s1.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line2=`ζ(${s1.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line2=`ζ(${s1.toFixed(2)})  [analytic continuation region]`;\n    }\n    out.textContent=line1+'\\n'+line2+'\\n\\nFunctional equation relates these via:\\nζ(1−s) = 2(2π)^{−s} cos(πs/2) Γ(s) ζ(s)';\n    // draw number line\n    svg.innerHTML='';\n    const W=620,H=200,cy=100;\n    const xMin=-4, xMax=5;\n    const xP=v=>40+(v-xMin)/(xMax-xMin)*(W-80);\n    // line\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1.5}));\n    // ticks\n    for(let v=xMin;v<=xMax;v++){\n      const x=xP(v);\n      svg.appendChild(SVG('line',{x1:x,y1:cy-5,x2:x,y2:cy+5,stroke:'var(--line)'}));\n      const t=SVG('text',{x,y:cy+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=v; svg.appendChild(t);\n    }\n    // critical line at s=1/2\n    const xHalf=xP(0.5);\n    svg.appendChild(SVG('line',{x1:xHalf,y1:cy-30,x2:xHalf,y2:cy+30,stroke:'var(--cyan)','stroke-width':1.5,'stroke-dasharray':'4 3'}));\n    const clbl=SVG('text',{x:xHalf,y:cy-34,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); clbl.textContent='Re(s)=½'; svg.appendChild(clbl);\n    // s dot (yellow)\n    const xs=xP(s);\n    svg.appendChild(SVG('circle',{cx:xs,cy:cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n    const sl=SVG('text',{x:xs,y:cy-16,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); sl.textContent='s'; svg.appendChild(sl);\n    // 1-s dot (pink)\n    const xs1=xP(s1);\n    svg.appendChild(SVG('circle',{cx:xs1,cy:cy,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    const s1l=SVG('text',{x:xs1,y:cy+26,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); s1l.textContent='1−s'; svg.appendChild(s1l);\n    // dashed bridge between them\n    if(Math.abs(xs-xs1)>2){\n      svg.appendChild(SVG('line',{x1:xs,y1:cy,x2:xs1,y2:cy,stroke:'rgba(255,255,255,0.18)','stroke-width':1.5,'stroke-dasharray':'5 4'}));\n    }\n    // region labels\n    const convLabel=SVG('text',{x:xP(2.5),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--green)'});\n    convLabel.textContent='Dirichlet series converges'; svg.appendChild(convLabel);\n    const contLabel=SVG('text',{x:xP(-2),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    contLabel.textContent='analytic continuation'; svg.appendChild(contLabel);\n    // shade Re(s)>1 region\n    const xOne=xP(1);\n    const shade=SVG('rect',{x:xOne,y:cy-28,width:xP(xMax)-xOne,height:56,\n      fill:'rgba(131,193,103,0.07)',stroke:'none'});\n    svg.insertBefore(shade, svg.firstChild);\n    // shade Re(s)<0 region\n    const shade2=SVG('rect',{x:40,y:cy-28,width:xP(0)-40,height:56,\n      fill:'rgba(179,157,219,0.07)',stroke:'none'});\n    svg.insertBefore(shade2, svg.firstChild);\n  }\n  slider.addEventListener('input',draw);\n  draw();",
+            "hint": "move slider to see how $s$ maps to $1-s$",
+            "svgId": "fe-svg",
+            "viewBox": "0 0 620 200",
+            "readoutId": "fe-out"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-feq",
+            "title": "Functional equation: value pairing $\\zeta(s)\\leftrightarrow\\zeta(1-s)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$\\operatorname{Re}(s)=$</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"fe-s-lbl\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "fe-out"
+              },
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" style=\"color:var(--mute)\">Number line showing the real axis. Yellow dot: $s$. Pink dot: $1-s$. The midpoint $s=1/2$ (the critical line) is always at the center of the reflection.</div>"
+              }
+            ],
+            "bodyScript": "  // Gamma function (real, positive argument only needed here for display)\n  function gammaReal(x){\n    if(x<0.5) return Math.PI/(Math.sin(Math.PI*x)*gammaReal(1-x));\n    x -= 1;\n    const g=7;\n    const p=[0.99999999999980993,676.5203681218851,-1259.1392167224028,\n      771.32342877765313,-176.61502916214059,12.507343278686905,\n      -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n    let t=x+g+0.5;\n    let s=p[0];\n    for(let i=1;i<=g+1;i++) s+=p[i]/(x+i);\n    return Math.sqrt(2*Math.PI)*Math.pow(t,x+0.5)*Math.exp(-t)*s;\n  }\n  // zeta(s) for real s > 1 via Euler-Maclaurin style partial sum + tail correction\n  function zetaReal(s){\n    if(s<=1) return null;\n    let acc=0;\n    const N=200;\n    for(let k=1;k<=N;k++) acc+=Math.pow(k,-s);\n    // tail integral correction: sum_{k>N} k^{-s} ≈ integral_N^inf x^{-s} dx = N^{1-s}/(s-1)\n    acc += Math.pow(N,1-s)/(s-1);\n    return acc;\n  }\n\n  const slider=$('#fe-s'), lbl=$('#fe-s-lbl'), out=$('#fe-out'), svg=$('#fe-svg');\n  function draw(){\n    const s=parseFloat(slider.value);\n    const s1=1-s;\n    lbl.textContent=`s = ${s.toFixed(2)}, 1−s = ${s1.toFixed(2)}`;\n    let line1='', line2='';\n    if(s>1){\n      const zs=zetaReal(s);\n      line1 = `ζ(${s.toFixed(2)}) ≈ ${zs.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s) && s<=0){\n      const n=-s;\n      // ζ(-n) = -B_{n+1}/(n+1)\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line1=`ζ(${s.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line1=`ζ(${s.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line1=`ζ(${s.toFixed(2)})  [analytic continuation region]`;\n    }\n    if(s1>1){\n      const zs1=zetaReal(s1);\n      line2=`ζ(${s1.toFixed(2)}) ≈ ${zs1.toFixed(6)}  [converges by Dirichlet series]`;\n    } else if(Number.isInteger(s1) && s1<=0){\n      const n=-s1;\n      const BRAT=[[1,1],[-1,2],[1,6],[0,1],[-1,30],[0,1],[1,42],[0,1]];\n      if(n>=0 && n<BRAT.length-1){\n        const [num,den]=BRAT[n+1];\n        const v=-num/(den*(n+1));\n        line2=`ζ(${s1.toFixed(0)}) = −B_${n+1}/${n+1} = ${v===0?'0':v.toFixed(6)}  [analytic continuation]`;\n      } else {\n        line2=`ζ(${s1.toFixed(2)})  [analytic continuation]`;\n      }\n    } else {\n      line2=`ζ(${s1.toFixed(2)})  [analytic continuation region]`;\n    }\n    out.textContent=line1+'\\n'+line2+'\\n\\nFunctional equation relates these via:\\nζ(1−s) = 2(2π)^{−s} cos(πs/2) Γ(s) ζ(s)';\n    // draw number line\n    svg.innerHTML='';\n    const W=620,H=200,cy=100;\n    const xMin=-4, xMax=5;\n    const xP=v=>40+(v-xMin)/(xMax-xMin)*(W-80);\n    // line\n    svg.appendChild(SVG('line',{x1:40,y1:cy,x2:W-40,y2:cy,stroke:'var(--line)','stroke-width':1.5}));\n    // ticks\n    for(let v=xMin;v<=xMax;v++){\n      const x=xP(v);\n      svg.appendChild(SVG('line',{x1:x,y1:cy-5,x2:x,y2:cy+5,stroke:'var(--line)'}));\n      const t=SVG('text',{x,y:cy+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=v; svg.appendChild(t);\n    }\n    // critical line at s=1/2\n    const xHalf=xP(0.5);\n    svg.appendChild(SVG('line',{x1:xHalf,y1:cy-30,x2:xHalf,y2:cy+30,stroke:'var(--cyan)','stroke-width':1.5,'stroke-dasharray':'4 3'}));\n    const clbl=SVG('text',{x:xHalf,y:cy-34,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'}); clbl.textContent='Re(s)=½'; svg.appendChild(clbl);\n    // s dot (yellow)\n    const xs=xP(s);\n    svg.appendChild(SVG('circle',{cx:xs,cy:cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n    const sl=SVG('text',{x:xs,y:cy-16,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); sl.textContent='s'; svg.appendChild(sl);\n    // 1-s dot (pink)\n    const xs1=xP(s1);\n    svg.appendChild(SVG('circle',{cx:xs1,cy:cy,r:8,fill:'var(--pink)',stroke:'#fff','stroke-width':1.5}));\n    const s1l=SVG('text',{x:xs1,y:cy+26,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); s1l.textContent='1−s'; svg.appendChild(s1l);\n    // dashed bridge between them\n    if(Math.abs(xs-xs1)>2){\n      svg.appendChild(SVG('line',{x1:xs,y1:cy,x2:xs1,y2:cy,stroke:'rgba(255,255,255,0.18)','stroke-width':1.5,'stroke-dasharray':'5 4'}));\n    }\n    // region labels\n    const convLabel=SVG('text',{x:xP(2.5),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--green)'});\n    convLabel.textContent='Dirichlet series converges'; svg.appendChild(convLabel);\n    const contLabel=SVG('text',{x:xP(-2),y:cy-42,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    contLabel.textContent='analytic continuation'; svg.appendChild(contLabel);\n    // shade Re(s)>1 region\n    const xOne=xP(1);\n    const shade=SVG('rect',{x:xOne,y:cy-28,width:xP(xMax)-xOne,height:56,\n      fill:'rgba(131,193,103,0.07)',stroke:'none'});\n    svg.insertBefore(shade, svg.firstChild);\n    // shade Re(s)<0 region\n    const shade2=SVG('rect',{x:40,y:cy-28,width:xP(0)-40,height:56,\n      fill:'rgba(179,157,219,0.07)',stroke:'none'});\n    svg.insertBefore(shade2, svg.firstChild);\n  }\n  slider.addEventListener('input',draw);\n  draw();",
+            "hint": "move slider to see how $s$ maps to $1-s$",
+            "svgId": "fe-svg",
+            "viewBox": "0 0 620 200",
+            "readoutId": "fe-out"
+          }
         },
         {
           "type": "raw",
