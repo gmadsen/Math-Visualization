@@ -13,8 +13,29 @@
         {
           "type": "widget",
           "id": "w-flow",
-          "html": "<div class=\"widget\" id=\"w-flow\">\n  <div class=\"hd\"><div class=\"ttl\">Flow of a 2D vector field</div><div class=\"hint\">click to drop a starting point · orbit integrates with RK4</div></div>\n  <div class=\"row\">\n    <label for=\"fl-pick\">field:</label>\n    <select id=\"fl-pick\">\n      <option value=\"linear\" selected>linear sink (−x, −y/2)</option>\n      <option value=\"pendulum\">undamped pendulum (y, −sin x)</option>\n      <option value=\"predator\">predator–prey (x(1−y), y(x−1))</option>\n    </select>\n    <label for=\"fl-T\">T:</label>\n    <input type=\"range\" id=\"fl-T\" min=\"2\" max=\"40\" value=\"20\" step=\"1\">\n    <span class=\"small\" id=\"fl-Tval\">T=20</span>\n  </div>\n  <svg id=\"fl-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Flow of a 2D vector field with sample orbits</title></svg>\n  <div class=\"readout\" id=\"fl-out\">click the field to drop an initial condition…</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-flow",
+            "title": "Flow of a 2D vector field",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fl-pick\">field:</label>\n    <select id=\"fl-pick\">\n      <option value=\"linear\" selected>linear sink (−x, −y/2)</option>\n      <option value=\"pendulum\">undamped pendulum (y, −sin x)</option>\n      <option value=\"predator\">predator–prey (x(1−y), y(x−1))</option>\n    </select>\n    <label for=\"fl-T\">T:</label>\n    <input type=\"range\" id=\"fl-T\" min=\"2\" max=\"40\" value=\"20\" step=\"1\">\n    <span class=\"small\" id=\"fl-Tval\">T=20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"fl-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Flow of a 2D vector field with sample orbits</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "fl-out",
+                "content": "click the field to drop an initial condition…"
+              }
+            ],
+            "hint": "click to drop a starting point · orbit integrates with RK4",
+            "bodyScript": "  const svg = $('#fl-svg'), pick = $('#fl-pick'), Tslider=$('#fl-T'), Tval=$('#fl-Tval'), out=$('#fl-out');\n  const FIELDS = {\n    linear:   { f:(t,[x,y])=>[-x, -0.5*y],                   label:'linear sink', box:10 },\n    pendulum: { f:(t,[x,y])=>[y, -Math.sin(x)],              label:'pendulum',   box:7 },\n    predator: { f:(t,[x,y])=>[x*(1-y), y*(x-1)],             label:'predator–prey', box:4 }\n  };\n  const mk = { linear:[], pendulum:[], predator:[] };\n  let starts = [[2, 3]]; // default starting points\n  function render(){\n    const key = pick.value; const F = FIELDS[key];\n    const box = F.box;\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow grid\n    const N = 17, step = 2*box/N;\n    ensureArrow(svg, 'arr-field', 'var(--mute)');\n    for(let i=0;i<N;i++){\n      for(let j=0;j<N;j++){\n        const x = -box + (i+0.5)*step, y = -box + (j+0.5)*step;\n        const [vx,vy] = F.f(0,[x,y]);\n        const L = Math.hypot(vx,vy) || 1;\n        const s = step*0.35 / L;\n        const x2 = x + vx*s, y2 = y + vy*s;\n        const line = SVG('line',{x1:x,y1:-y,x2:x2,y2:-y2,stroke:'var(--mute)','stroke-width':0.04,'marker-end':'url(#arr-field)','opacity':0.55});\n        svg.appendChild(line);\n      }\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.03}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.03}));\n    // orbits\n    const T = Number(Tslider.value); const h = 0.01;\n    for(const s of starts){\n      const pts=[s]; let y=s.slice();\n      for(let t=0;t<T;t+=h){\n        y = rk4Step(F.f, t, y, h);\n        if(Math.abs(y[0])>2*box || Math.abs(y[1])>2*box) break;\n        if(pts.length && Math.hypot(y[0]-pts[pts.length-1][0], y[1]-pts[pts.length-1][1])>0.04) pts.push(y.slice());\n      }\n      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.08}));\n      svg.appendChild(SVG('circle',{cx:s[0], cy:-s[1], r:0.14, fill:'var(--yellow)'}));\n    }\n    out.textContent = `${F.label} · T=${T}\\nclick the field to drop an orbit — orbits integrate with RK4.`;\n  }\n  function pointerToWorld(e){\n    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;\n    const m = svg.getScreenCTM(); if(!m) return null;\n    const inv = m.inverse(); const w = pt.matrixTransform(inv);\n    return [w.x, -w.y];\n  }\n  svg.addEventListener('click', e=>{\n    const w = pointerToWorld(e); if(!w) return;\n    starts.push(w); if(starts.length>6) starts.shift();\n    render();\n  });\n  pick.addEventListener('change', ()=>{starts = []; render();});\n  Tslider.addEventListener('input', ()=>{ Tval.textContent = `T=${Tslider.value}`; render(); });\n  render();",
+            "sectionComment": "============================= SECTION 1: flow widget ============================="
+          }
         },
         {
           "type": "raw",
@@ -31,8 +52,29 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-flow",
-          "html": "<script>\n/* ============================= SECTION 1: flow widget ============================= */\n(function(){\n  const svg = $('#fl-svg'), pick = $('#fl-pick'), Tslider=$('#fl-T'), Tval=$('#fl-Tval'), out=$('#fl-out');\n  const FIELDS = {\n    linear:   { f:(t,[x,y])=>[-x, -0.5*y],                   label:'linear sink', box:10 },\n    pendulum: { f:(t,[x,y])=>[y, -Math.sin(x)],              label:'pendulum',   box:7 },\n    predator: { f:(t,[x,y])=>[x*(1-y), y*(x-1)],             label:'predator–prey', box:4 }\n  };\n  const mk = { linear:[], pendulum:[], predator:[] };\n  let starts = [[2, 3]]; // default starting points\n  function render(){\n    const key = pick.value; const F = FIELDS[key];\n    const box = F.box;\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow grid\n    const N = 17, step = 2*box/N;\n    ensureArrow(svg, 'arr-field', 'var(--mute)');\n    for(let i=0;i<N;i++){\n      for(let j=0;j<N;j++){\n        const x = -box + (i+0.5)*step, y = -box + (j+0.5)*step;\n        const [vx,vy] = F.f(0,[x,y]);\n        const L = Math.hypot(vx,vy) || 1;\n        const s = step*0.35 / L;\n        const x2 = x + vx*s, y2 = y + vy*s;\n        const line = SVG('line',{x1:x,y1:-y,x2:x2,y2:-y2,stroke:'var(--mute)','stroke-width':0.04,'marker-end':'url(#arr-field)','opacity':0.55});\n        svg.appendChild(line);\n      }\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.03}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.03}));\n    // orbits\n    const T = Number(Tslider.value); const h = 0.01;\n    for(const s of starts){\n      const pts=[s]; let y=s.slice();\n      for(let t=0;t<T;t+=h){\n        y = rk4Step(F.f, t, y, h);\n        if(Math.abs(y[0])>2*box || Math.abs(y[1])>2*box) break;\n        if(pts.length && Math.hypot(y[0]-pts[pts.length-1][0], y[1]-pts[pts.length-1][1])>0.04) pts.push(y.slice());\n      }\n      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.08}));\n      svg.appendChild(SVG('circle',{cx:s[0], cy:-s[1], r:0.14, fill:'var(--yellow)'}));\n    }\n    out.textContent = `${F.label} · T=${T}\\nclick the field to drop an orbit — orbits integrate with RK4.`;\n  }\n  function pointerToWorld(e){\n    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;\n    const m = svg.getScreenCTM(); if(!m) return null;\n    const inv = m.inverse(); const w = pt.matrixTransform(inv);\n    return [w.x, -w.y];\n  }\n  svg.addEventListener('click', e=>{\n    const w = pointerToWorld(e); if(!w) return;\n    starts.push(w); if(starts.length>6) starts.shift();\n    render();\n  });\n  pick.addEventListener('change', ()=>{starts = []; render();});\n  Tslider.addEventListener('input', ()=>{ Tval.textContent = `T=${Tslider.value}`; render(); });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-flow",
+            "title": "Flow of a 2D vector field",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fl-pick\">field:</label>\n    <select id=\"fl-pick\">\n      <option value=\"linear\" selected>linear sink (−x, −y/2)</option>\n      <option value=\"pendulum\">undamped pendulum (y, −sin x)</option>\n      <option value=\"predator\">predator–prey (x(1−y), y(x−1))</option>\n    </select>\n    <label for=\"fl-T\">T:</label>\n    <input type=\"range\" id=\"fl-T\" min=\"2\" max=\"40\" value=\"20\" step=\"1\">\n    <span class=\"small\" id=\"fl-Tval\">T=20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"fl-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Flow of a 2D vector field with sample orbits</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "fl-out",
+                "content": "click the field to drop an initial condition…"
+              }
+            ],
+            "hint": "click to drop a starting point · orbit integrates with RK4",
+            "bodyScript": "  const svg = $('#fl-svg'), pick = $('#fl-pick'), Tslider=$('#fl-T'), Tval=$('#fl-Tval'), out=$('#fl-out');\n  const FIELDS = {\n    linear:   { f:(t,[x,y])=>[-x, -0.5*y],                   label:'linear sink', box:10 },\n    pendulum: { f:(t,[x,y])=>[y, -Math.sin(x)],              label:'pendulum',   box:7 },\n    predator: { f:(t,[x,y])=>[x*(1-y), y*(x-1)],             label:'predator–prey', box:4 }\n  };\n  const mk = { linear:[], pendulum:[], predator:[] };\n  let starts = [[2, 3]]; // default starting points\n  function render(){\n    const key = pick.value; const F = FIELDS[key];\n    const box = F.box;\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow grid\n    const N = 17, step = 2*box/N;\n    ensureArrow(svg, 'arr-field', 'var(--mute)');\n    for(let i=0;i<N;i++){\n      for(let j=0;j<N;j++){\n        const x = -box + (i+0.5)*step, y = -box + (j+0.5)*step;\n        const [vx,vy] = F.f(0,[x,y]);\n        const L = Math.hypot(vx,vy) || 1;\n        const s = step*0.35 / L;\n        const x2 = x + vx*s, y2 = y + vy*s;\n        const line = SVG('line',{x1:x,y1:-y,x2:x2,y2:-y2,stroke:'var(--mute)','stroke-width':0.04,'marker-end':'url(#arr-field)','opacity':0.55});\n        svg.appendChild(line);\n      }\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.03}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.03}));\n    // orbits\n    const T = Number(Tslider.value); const h = 0.01;\n    for(const s of starts){\n      const pts=[s]; let y=s.slice();\n      for(let t=0;t<T;t+=h){\n        y = rk4Step(F.f, t, y, h);\n        if(Math.abs(y[0])>2*box || Math.abs(y[1])>2*box) break;\n        if(pts.length && Math.hypot(y[0]-pts[pts.length-1][0], y[1]-pts[pts.length-1][1])>0.04) pts.push(y.slice());\n      }\n      const d = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.08}));\n      svg.appendChild(SVG('circle',{cx:s[0], cy:-s[1], r:0.14, fill:'var(--yellow)'}));\n    }\n    out.textContent = `${F.label} · T=${T}\\nclick the field to drop an orbit — orbits integrate with RK4.`;\n  }\n  function pointerToWorld(e){\n    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;\n    const m = svg.getScreenCTM(); if(!m) return null;\n    const inv = m.inverse(); const w = pt.matrixTransform(inv);\n    return [w.x, -w.y];\n  }\n  svg.addEventListener('click', e=>{\n    const w = pointerToWorld(e); if(!w) return;\n    starts.push(w); if(starts.length>6) starts.shift();\n    render();\n  });\n  pick.addEventListener('change', ()=>{starts = []; render();});\n  Tslider.addEventListener('input', ()=>{ Tval.textContent = `T=${Tslider.value}`; render(); });\n  render();",
+            "sectionComment": "============================= SECTION 1: flow widget ============================="
+          }
         },
         {
           "type": "raw",
@@ -50,8 +92,31 @@
         {
           "type": "widget",
           "id": "w-lin",
-          "html": "<div class=\"widget\" id=\"w-lin\">\n  <div class=\"hd\"><div class=\"ttl\">Linear 2D classifier</div><div class=\"hint\">dial $a,b,c,d$; watch $(\\operatorname{tr},\\det)$ and the portrait type</div></div>\n  <div class=\"row\">\n    <label for=\"li-a\">a:</label><input type=\"range\" id=\"li-a\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-aval\">a=-1</span>\n    <label for=\"li-b\">b:</label><input type=\"range\" id=\"li-b\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"1\"><span class=\"small\" id=\"li-bval\">b=1</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"li-c\">c:</label><input type=\"range\" id=\"li-c\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-cval\">c=-1</span>\n    <label for=\"li-d\">d:</label><input type=\"range\" id=\"li-d\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-dval\">d=-1</span>\n  </div>\n  <svg id=\"li-svg\" viewBox=\"-5 -5 10 10\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Linear 2D classifier: eigenvalues and portrait type</title></svg>\n  <div class=\"readout\" id=\"li-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lin",
+            "title": "Linear 2D classifier",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"li-a\">a:</label><input type=\"range\" id=\"li-a\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-aval\">a=-1</span>\n    <label for=\"li-b\">b:</label><input type=\"range\" id=\"li-b\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"1\"><span class=\"small\" id=\"li-bval\">b=1</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"li-c\">c:</label><input type=\"range\" id=\"li-c\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-cval\">c=-1</span>\n    <label for=\"li-d\">d:</label><input type=\"range\" id=\"li-d\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-dval\">d=-1</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"li-svg\" viewBox=\"-5 -5 10 10\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Linear 2D classifier: eigenvalues and portrait type</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "li-out"
+              }
+            ],
+            "hint": "dial $a,b,c,d$; watch $(\\operatorname{tr},\\det)$ and the portrait type",
+            "bodyScript": "  const svg=$('#li-svg'), out=$('#li-out');\n  const sa=$('#li-a'), sb=$('#li-b'), sc=$('#li-c'), sd=$('#li-d');\n  const la=$('#li-aval'), lb=$('#li-bval'), lc=$('#li-cval'), ld=$('#li-dval');\n  function render(){\n    const a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    la.textContent=`a=${a.toFixed(2)}`; lb.textContent=`b=${b.toFixed(2)}`;\n    lc.textContent=`c=${c.toFixed(2)}`; ld.textContent=`d=${d.toFixed(2)}`;\n    const tr=a+d, det=a*d-b*c, disc=tr*tr-4*det;\n    let type;\n    if(Math.abs(det)<1e-9) type='degenerate (zero eigenvalue)';\n    else if(det<0) type='saddle';\n    else if(Math.abs(tr)<1e-9) type='center (linear) — nonlinear fate needs higher-order';\n    else if(disc>=0){\n      if(tr<0) type='stable node (real negative eigenvalues)';\n      else type='unstable node (real positive eigenvalues)';\n    } else {\n      if(tr<0) type='stable spiral';\n      else type='unstable spiral';\n    }\n    const f=(t,[x,y])=>[a*x+b*y, c*x+d*y];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-5,y1:0,x2:5,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-5,x2:0,y2:5,stroke:'var(--line)','stroke-width':0.02}));\n    // tiny orbits from a ring of ICs\n    const NIC=12, R=4;\n    for(let k=0;k<NIC;k++){\n      const ang = 2*Math.PI*k/NIC;\n      let y=[R*Math.cos(ang), R*Math.sin(ang)];\n      const pts=[y.slice()];\n      // integrate forward\n      for(let t=0;t<6;t+=0.01){\n        y = rk4Step(f,t,y,0.01);\n        if(Math.abs(y[0])>8 || Math.abs(y[1])>8) break;\n        pts.push(y.slice());\n      }\n      const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.04, opacity:0.85}));\n    }\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--yellow)'}));\n    // eigenvalues\n    let eig;\n    if(disc>=0){\n      const s=Math.sqrt(disc);\n      eig = [(tr+s)/2, (tr-s)/2].map(v=>v.toFixed(3));\n    } else {\n      const im = Math.sqrt(-disc)/2;\n      eig = [`${(tr/2).toFixed(3)}+${im.toFixed(3)}i`, `${(tr/2).toFixed(3)}-${im.toFixed(3)}i`];\n    }\n    out.textContent = `A = [[${a.toFixed(2)}, ${b.toFixed(2)}], [${c.toFixed(2)}, ${d.toFixed(2)}]]\\n`\n      + `tr=${tr.toFixed(3)} · det=${det.toFixed(3)} · disc=${disc.toFixed(3)}\\n`\n      + `eigenvalues: ${eig.join(', ')}\\n`\n      + `classification: ${type}`;\n  }\n  [sa,sb,sc,sd].forEach(s=>s.addEventListener('input', render));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -68,8 +133,31 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lin",
-          "html": "<script>\n(function(){\n  const svg=$('#li-svg'), out=$('#li-out');\n  const sa=$('#li-a'), sb=$('#li-b'), sc=$('#li-c'), sd=$('#li-d');\n  const la=$('#li-aval'), lb=$('#li-bval'), lc=$('#li-cval'), ld=$('#li-dval');\n  function render(){\n    const a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    la.textContent=`a=${a.toFixed(2)}`; lb.textContent=`b=${b.toFixed(2)}`;\n    lc.textContent=`c=${c.toFixed(2)}`; ld.textContent=`d=${d.toFixed(2)}`;\n    const tr=a+d, det=a*d-b*c, disc=tr*tr-4*det;\n    let type;\n    if(Math.abs(det)<1e-9) type='degenerate (zero eigenvalue)';\n    else if(det<0) type='saddle';\n    else if(Math.abs(tr)<1e-9) type='center (linear) — nonlinear fate needs higher-order';\n    else if(disc>=0){\n      if(tr<0) type='stable node (real negative eigenvalues)';\n      else type='unstable node (real positive eigenvalues)';\n    } else {\n      if(tr<0) type='stable spiral';\n      else type='unstable spiral';\n    }\n    const f=(t,[x,y])=>[a*x+b*y, c*x+d*y];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-5,y1:0,x2:5,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-5,x2:0,y2:5,stroke:'var(--line)','stroke-width':0.02}));\n    // tiny orbits from a ring of ICs\n    const NIC=12, R=4;\n    for(let k=0;k<NIC;k++){\n      const ang = 2*Math.PI*k/NIC;\n      let y=[R*Math.cos(ang), R*Math.sin(ang)];\n      const pts=[y.slice()];\n      // integrate forward\n      for(let t=0;t<6;t+=0.01){\n        y = rk4Step(f,t,y,0.01);\n        if(Math.abs(y[0])>8 || Math.abs(y[1])>8) break;\n        pts.push(y.slice());\n      }\n      const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.04, opacity:0.85}));\n    }\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--yellow)'}));\n    // eigenvalues\n    let eig;\n    if(disc>=0){\n      const s=Math.sqrt(disc);\n      eig = [(tr+s)/2, (tr-s)/2].map(v=>v.toFixed(3));\n    } else {\n      const im = Math.sqrt(-disc)/2;\n      eig = [`${(tr/2).toFixed(3)}+${im.toFixed(3)}i`, `${(tr/2).toFixed(3)}-${im.toFixed(3)}i`];\n    }\n    out.textContent = `A = [[${a.toFixed(2)}, ${b.toFixed(2)}], [${c.toFixed(2)}, ${d.toFixed(2)}]]\\n`\n      + `tr=${tr.toFixed(3)} · det=${det.toFixed(3)} · disc=${disc.toFixed(3)}\\n`\n      + `eigenvalues: ${eig.join(', ')}\\n`\n      + `classification: ${type}`;\n  }\n  [sa,sb,sc,sd].forEach(s=>s.addEventListener('input', render));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lin",
+            "title": "Linear 2D classifier",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"li-a\">a:</label><input type=\"range\" id=\"li-a\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-aval\">a=-1</span>\n    <label for=\"li-b\">b:</label><input type=\"range\" id=\"li-b\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"1\"><span class=\"small\" id=\"li-bval\">b=1</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"li-c\">c:</label><input type=\"range\" id=\"li-c\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-cval\">c=-1</span>\n    <label for=\"li-d\">d:</label><input type=\"range\" id=\"li-d\" min=\"-2\" max=\"2\" step=\"0.05\" value=\"-1\"><span class=\"small\" id=\"li-dval\">d=-1</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"li-svg\" viewBox=\"-5 -5 10 10\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Linear 2D classifier: eigenvalues and portrait type</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "li-out"
+              }
+            ],
+            "hint": "dial $a,b,c,d$; watch $(\\operatorname{tr},\\det)$ and the portrait type",
+            "bodyScript": "  const svg=$('#li-svg'), out=$('#li-out');\n  const sa=$('#li-a'), sb=$('#li-b'), sc=$('#li-c'), sd=$('#li-d');\n  const la=$('#li-aval'), lb=$('#li-bval'), lc=$('#li-cval'), ld=$('#li-dval');\n  function render(){\n    const a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    la.textContent=`a=${a.toFixed(2)}`; lb.textContent=`b=${b.toFixed(2)}`;\n    lc.textContent=`c=${c.toFixed(2)}`; ld.textContent=`d=${d.toFixed(2)}`;\n    const tr=a+d, det=a*d-b*c, disc=tr*tr-4*det;\n    let type;\n    if(Math.abs(det)<1e-9) type='degenerate (zero eigenvalue)';\n    else if(det<0) type='saddle';\n    else if(Math.abs(tr)<1e-9) type='center (linear) — nonlinear fate needs higher-order';\n    else if(disc>=0){\n      if(tr<0) type='stable node (real negative eigenvalues)';\n      else type='unstable node (real positive eigenvalues)';\n    } else {\n      if(tr<0) type='stable spiral';\n      else type='unstable spiral';\n    }\n    const f=(t,[x,y])=>[a*x+b*y, c*x+d*y];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-5,y1:0,x2:5,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-5,x2:0,y2:5,stroke:'var(--line)','stroke-width':0.02}));\n    // tiny orbits from a ring of ICs\n    const NIC=12, R=4;\n    for(let k=0;k<NIC;k++){\n      const ang = 2*Math.PI*k/NIC;\n      let y=[R*Math.cos(ang), R*Math.sin(ang)];\n      const pts=[y.slice()];\n      // integrate forward\n      for(let t=0;t<6;t+=0.01){\n        y = rk4Step(f,t,y,0.01);\n        if(Math.abs(y[0])>8 || Math.abs(y[1])>8) break;\n        pts.push(y.slice());\n      }\n      const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.04, opacity:0.85}));\n    }\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--yellow)'}));\n    // eigenvalues\n    let eig;\n    if(disc>=0){\n      const s=Math.sqrt(disc);\n      eig = [(tr+s)/2, (tr-s)/2].map(v=>v.toFixed(3));\n    } else {\n      const im = Math.sqrt(-disc)/2;\n      eig = [`${(tr/2).toFixed(3)}+${im.toFixed(3)}i`, `${(tr/2).toFixed(3)}-${im.toFixed(3)}i`];\n    }\n    out.textContent = `A = [[${a.toFixed(2)}, ${b.toFixed(2)}], [${c.toFixed(2)}, ${d.toFixed(2)}]]\\n`\n      + `tr=${tr.toFixed(3)} · det=${det.toFixed(3)} · disc=${disc.toFixed(3)}\\n`\n      + `eigenvalues: ${eig.join(', ')}\\n`\n      + `classification: ${type}`;\n  }\n  [sa,sb,sc,sd].forEach(s=>s.addEventListener('input', render));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -87,8 +175,27 @@
         {
           "type": "widget",
           "id": "w-phase",
-          "html": "<div class=\"widget\" id=\"w-phase\">\n  <div class=\"hd\"><div class=\"ttl\">Phase portrait explorer</div><div class=\"hint\">preset · morph by μ · orbits seeded from a ring of ICs</div></div>\n  <div class=\"row\">\n    <label for=\"ph-pick\">system:</label>\n    <select id=\"ph-pick\">\n      <option value=\"hopf\" selected>Hopf normal form</option>\n      <option value=\"saddle\">saddle</option>\n      <option value=\"node\">stable node</option>\n      <option value=\"vanderpol\">Van der Pol</option>\n      <option value=\"predator\">predator–prey</option>\n    </select>\n    <label for=\"ph-mu\">μ:</label>\n    <input type=\"range\" id=\"ph-mu\" min=\"-1\" max=\"1\" step=\"0.02\" value=\"0.4\">\n    <span class=\"small\" id=\"ph-muval\">μ=0.40</span>\n  </div>\n  <svg id=\"ph-svg\" viewBox=\"-3 -3 6 6\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Phase portrait with fixed points, nullclines, and trajectories</title></svg>\n  <div class=\"readout\" id=\"ph-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-phase",
+            "title": "Phase portrait explorer",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ph-pick\">system:</label>\n    <select id=\"ph-pick\">\n      <option value=\"hopf\" selected>Hopf normal form</option>\n      <option value=\"saddle\">saddle</option>\n      <option value=\"node\">stable node</option>\n      <option value=\"vanderpol\">Van der Pol</option>\n      <option value=\"predator\">predator–prey</option>\n    </select>\n    <label for=\"ph-mu\">μ:</label>\n    <input type=\"range\" id=\"ph-mu\" min=\"-1\" max=\"1\" step=\"0.02\" value=\"0.4\">\n    <span class=\"small\" id=\"ph-muval\">μ=0.40</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"ph-svg\" viewBox=\"-3 -3 6 6\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Phase portrait with fixed points, nullclines, and trajectories</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "ph-out"
+              }
+            ],
+            "hint": "preset · morph by μ · orbits seeded from a ring of ICs",
+            "bodyScript": "  const svg=$('#ph-svg'), pick=$('#ph-pick'), mu=$('#ph-mu'), muv=$('#ph-muval'), out=$('#ph-out');\n  function render(){\n    const m = +mu.value; muv.textContent = `μ=${m.toFixed(2)}`;\n    let f, box=3, name='';\n    switch(pick.value){\n      case 'hopf':\n        f = (t,[x,y]) => [m*x - y - x*(x*x+y*y), x + m*y - y*(x*x+y*y)];\n        name='Hopf normal form'; break;\n      case 'saddle':\n        f = (t,[x,y]) => [x, -y*(1+m*0.4)]; name='saddle'; break;\n      case 'node':\n        f = (t,[x,y]) => [-(1+m*0.5)*x, -(2+m*0.3)*y]; name='stable node'; break;\n      case 'vanderpol':\n        f = (t,[x,y]) => [y, (0.5+m)*(1-x*x)*y - x]; name='Van der Pol'; break;\n      case 'predator':\n        f = (t,[x,y]) => [x*(1-y), y*(x-1)]; name='Lotka–Volterra (μ ignored)'; box=2.5; break;\n    }\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow field\n    const N=13;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-box+(i+0.5)*2*box/N, y=-box+(j+0.5)*2*box/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=2*box/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.015,opacity:0.6}));\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.015}));\n    // integrate a ring of ICs\n    const NIC=10, R=box*0.7, T=15, h=0.01;\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC;\n      let y=[R*Math.cos(a), R*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.02,opacity:0.9}));\n    }\n    // another ring closer to origin\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC + Math.PI/NIC;\n      let y=[R*0.3*Math.cos(a), R*0.3*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.02,opacity:0.85}));\n    }\n    // origin as fixed point (most presets)\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `${name} · μ=${m.toFixed(2)}\\nyellow = orbits from outer ring · cyan = orbits from inner ring.`;\n  }\n  pick.addEventListener('change',render); mu.addEventListener('input',render); render();"
+          }
         },
         {
           "type": "raw",
@@ -105,8 +212,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-phase",
-          "html": "<script>\n(function(){\n  const svg=$('#ph-svg'), pick=$('#ph-pick'), mu=$('#ph-mu'), muv=$('#ph-muval'), out=$('#ph-out');\n  function render(){\n    const m = +mu.value; muv.textContent = `μ=${m.toFixed(2)}`;\n    let f, box=3, name='';\n    switch(pick.value){\n      case 'hopf':\n        f = (t,[x,y]) => [m*x - y - x*(x*x+y*y), x + m*y - y*(x*x+y*y)];\n        name='Hopf normal form'; break;\n      case 'saddle':\n        f = (t,[x,y]) => [x, -y*(1+m*0.4)]; name='saddle'; break;\n      case 'node':\n        f = (t,[x,y]) => [-(1+m*0.5)*x, -(2+m*0.3)*y]; name='stable node'; break;\n      case 'vanderpol':\n        f = (t,[x,y]) => [y, (0.5+m)*(1-x*x)*y - x]; name='Van der Pol'; break;\n      case 'predator':\n        f = (t,[x,y]) => [x*(1-y), y*(x-1)]; name='Lotka–Volterra (μ ignored)'; box=2.5; break;\n    }\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow field\n    const N=13;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-box+(i+0.5)*2*box/N, y=-box+(j+0.5)*2*box/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=2*box/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.015,opacity:0.6}));\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.015}));\n    // integrate a ring of ICs\n    const NIC=10, R=box*0.7, T=15, h=0.01;\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC;\n      let y=[R*Math.cos(a), R*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.02,opacity:0.9}));\n    }\n    // another ring closer to origin\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC + Math.PI/NIC;\n      let y=[R*0.3*Math.cos(a), R*0.3*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.02,opacity:0.85}));\n    }\n    // origin as fixed point (most presets)\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `${name} · μ=${m.toFixed(2)}\\nyellow = orbits from outer ring · cyan = orbits from inner ring.`;\n  }\n  pick.addEventListener('change',render); mu.addEventListener('input',render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-phase",
+            "title": "Phase portrait explorer",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ph-pick\">system:</label>\n    <select id=\"ph-pick\">\n      <option value=\"hopf\" selected>Hopf normal form</option>\n      <option value=\"saddle\">saddle</option>\n      <option value=\"node\">stable node</option>\n      <option value=\"vanderpol\">Van der Pol</option>\n      <option value=\"predator\">predator–prey</option>\n    </select>\n    <label for=\"ph-mu\">μ:</label>\n    <input type=\"range\" id=\"ph-mu\" min=\"-1\" max=\"1\" step=\"0.02\" value=\"0.4\">\n    <span class=\"small\" id=\"ph-muval\">μ=0.40</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"ph-svg\" viewBox=\"-3 -3 6 6\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Phase portrait with fixed points, nullclines, and trajectories</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "ph-out"
+              }
+            ],
+            "hint": "preset · morph by μ · orbits seeded from a ring of ICs",
+            "bodyScript": "  const svg=$('#ph-svg'), pick=$('#ph-pick'), mu=$('#ph-mu'), muv=$('#ph-muval'), out=$('#ph-out');\n  function render(){\n    const m = +mu.value; muv.textContent = `μ=${m.toFixed(2)}`;\n    let f, box=3, name='';\n    switch(pick.value){\n      case 'hopf':\n        f = (t,[x,y]) => [m*x - y - x*(x*x+y*y), x + m*y - y*(x*x+y*y)];\n        name='Hopf normal form'; break;\n      case 'saddle':\n        f = (t,[x,y]) => [x, -y*(1+m*0.4)]; name='saddle'; break;\n      case 'node':\n        f = (t,[x,y]) => [-(1+m*0.5)*x, -(2+m*0.3)*y]; name='stable node'; break;\n      case 'vanderpol':\n        f = (t,[x,y]) => [y, (0.5+m)*(1-x*x)*y - x]; name='Van der Pol'; break;\n      case 'predator':\n        f = (t,[x,y]) => [x*(1-y), y*(x-1)]; name='Lotka–Volterra (μ ignored)'; box=2.5; break;\n    }\n    svg.setAttribute('viewBox', `${-box} ${-box} ${2*box} ${2*box}`);\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // arrow field\n    const N=13;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-box+(i+0.5)*2*box/N, y=-box+(j+0.5)*2*box/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=2*box/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.015,opacity:0.6}));\n    }\n    // axes\n    svg.appendChild(SVG('line',{x1:-box,y1:0,x2:box,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-box,x2:0,y2:box,stroke:'var(--line)','stroke-width':0.015}));\n    // integrate a ring of ICs\n    const NIC=10, R=box*0.7, T=15, h=0.01;\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC;\n      let y=[R*Math.cos(a), R*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.02,opacity:0.9}));\n    }\n    // another ring closer to origin\n    for(let k=0;k<NIC;k++){\n      const a=2*Math.PI*k/NIC + Math.PI/NIC;\n      let y=[R*0.3*Math.cos(a), R*0.3*Math.sin(a)];\n      const pts=[y.slice()];\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>2*box||Math.abs(y[1])>2*box) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.02,opacity:0.85}));\n    }\n    // origin as fixed point (most presets)\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `${name} · μ=${m.toFixed(2)}\\nyellow = orbits from outer ring · cyan = orbits from inner ring.`;\n  }\n  pick.addEventListener('change',render); mu.addEventListener('input',render); render();"
+          }
         },
         {
           "type": "raw",
@@ -124,8 +250,27 @@
         {
           "type": "widget",
           "id": "w-vdp",
-          "html": "<div class=\"widget\" id=\"w-vdp\">\n  <div class=\"hd\"><div class=\"ttl\">Van der Pol limit cycle</div><div class=\"hint\">slide μ · watch the cycle morph from near-circular to relaxation</div></div>\n  <div class=\"row\">\n    <label for=\"vd-mu\">μ:</label><input type=\"range\" id=\"vd-mu\" min=\"0\" max=\"5\" step=\"0.05\" value=\"1.2\">\n    <span class=\"small\" id=\"vd-muval\">μ=1.20</span>\n  </div>\n  <svg id=\"vd-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Van der Pol oscillator phase portrait and limit cycle</title></svg>\n  <div class=\"readout\" id=\"vd-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-vdp",
+            "title": "Van der Pol limit cycle",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"vd-mu\">μ:</label><input type=\"range\" id=\"vd-mu\" min=\"0\" max=\"5\" step=\"0.05\" value=\"1.2\">\n    <span class=\"small\" id=\"vd-muval\">μ=1.20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"vd-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Van der Pol oscillator phase portrait and limit cycle</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "vd-out"
+              }
+            ],
+            "hint": "slide μ · watch the cycle morph from near-circular to relaxation",
+            "bodyScript": "  const svg=$('#vd-svg'), mu=$('#vd-mu'), muv=$('#vd-muval'), out=$('#vd-out');\n  function render(){\n    const m=+mu.value; muv.textContent=`μ=${m.toFixed(2)}`;\n    const f=(t,[x,y])=>[y, m*(1-x*x)*y - x];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // arrow field\n    const N=14;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-4+(i+0.5)*8/N, y=-4+(j+0.5)*8/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=8/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.02,opacity:0.5}));\n    }\n    // multiple orbits\n    const starts = [[0.3,0.3],[3.5,0],[0,3.5],[-3.5,0],[0,-3.5]];\n    const colors = ['var(--yellow)','var(--cyan)','var(--cyan)','var(--cyan)','var(--cyan)'];\n    for(let k=0;k<starts.length;k++){\n      let y=starts[k].slice(); const pts=[y.slice()];\n      const T=30, h=0.005;\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>6||Math.abs(y[1])>10) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:colors[k],'stroke-width':0.025,opacity:0.9}));\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `Van der Pol · μ=${m.toFixed(2)}\\nyellow: inner start · cyan: outer starts. All spiral onto the unique stable limit cycle.`;\n  }\n  mu.addEventListener('input',render); render();"
+          }
         },
         {
           "type": "raw",
@@ -142,8 +287,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-vdp",
-          "html": "<script>\n(function(){\n  const svg=$('#vd-svg'), mu=$('#vd-mu'), muv=$('#vd-muval'), out=$('#vd-out');\n  function render(){\n    const m=+mu.value; muv.textContent=`μ=${m.toFixed(2)}`;\n    const f=(t,[x,y])=>[y, m*(1-x*x)*y - x];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // arrow field\n    const N=14;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-4+(i+0.5)*8/N, y=-4+(j+0.5)*8/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=8/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.02,opacity:0.5}));\n    }\n    // multiple orbits\n    const starts = [[0.3,0.3],[3.5,0],[0,3.5],[-3.5,0],[0,-3.5]];\n    const colors = ['var(--yellow)','var(--cyan)','var(--cyan)','var(--cyan)','var(--cyan)'];\n    for(let k=0;k<starts.length;k++){\n      let y=starts[k].slice(); const pts=[y.slice()];\n      const T=30, h=0.005;\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>6||Math.abs(y[1])>10) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:colors[k],'stroke-width':0.025,opacity:0.9}));\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `Van der Pol · μ=${m.toFixed(2)}\\nyellow: inner start · cyan: outer starts. All spiral onto the unique stable limit cycle.`;\n  }\n  mu.addEventListener('input',render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-vdp",
+            "title": "Van der Pol limit cycle",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"vd-mu\">μ:</label><input type=\"range\" id=\"vd-mu\" min=\"0\" max=\"5\" step=\"0.05\" value=\"1.2\">\n    <span class=\"small\" id=\"vd-muval\">μ=1.20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"vd-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Van der Pol oscillator phase portrait and limit cycle</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "vd-out"
+              }
+            ],
+            "hint": "slide μ · watch the cycle morph from near-circular to relaxation",
+            "bodyScript": "  const svg=$('#vd-svg'), mu=$('#vd-mu'), muv=$('#vd-muval'), out=$('#vd-out');\n  function render(){\n    const m=+mu.value; muv.textContent=`μ=${m.toFixed(2)}`;\n    const f=(t,[x,y])=>[y, m*(1-x*x)*y - x];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // arrow field\n    const N=14;\n    for(let i=0;i<N;i++) for(let j=0;j<N;j++){\n      const x=-4+(i+0.5)*8/N, y=-4+(j+0.5)*8/N;\n      const [u,v]=f(0,[x,y]); const L=Math.hypot(u,v)||1;\n      const s=8/N*0.3/L;\n      svg.appendChild(SVG('line',{x1:x,y1:-y,x2:x+u*s,y2:-(y+v*s),stroke:'var(--mute)','stroke-width':0.02,opacity:0.5}));\n    }\n    // multiple orbits\n    const starts = [[0.3,0.3],[3.5,0],[0,3.5],[-3.5,0],[0,-3.5]];\n    const colors = ['var(--yellow)','var(--cyan)','var(--cyan)','var(--cyan)','var(--cyan)'];\n    for(let k=0;k<starts.length;k++){\n      let y=starts[k].slice(); const pts=[y.slice()];\n      const T=30, h=0.005;\n      for(let t=0;t<T;t+=h){\n        y=rk4Step(f,t,y,h);\n        if(Math.abs(y[0])>6||Math.abs(y[1])>10) break;\n        pts.push(y.slice());\n      }\n      const d=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ');\n      svg.appendChild(SVG('path',{d,fill:'none',stroke:colors[k],'stroke-width':0.025,opacity:0.9}));\n    }\n    // origin\n    svg.appendChild(SVG('circle',{cx:0,cy:0,r:0.08,fill:'var(--pink)'}));\n    out.textContent = `Van der Pol · μ=${m.toFixed(2)}\\nyellow: inner start · cyan: outer starts. All spiral onto the unique stable limit cycle.`;\n  }\n  mu.addEventListener('input',render); render();"
+          }
         },
         {
           "type": "raw",
@@ -161,8 +325,27 @@
         {
           "type": "widget",
           "id": "w-cob",
-          "html": "<div class=\"widget\" id=\"w-cob\">\n  <div class=\"hd\"><div class=\"ttl\">Cobweb of 1D maps</div><div class=\"hint\">pick a map · drag $x_0$ · watch 80 iterates spiral</div></div>\n  <div class=\"row\">\n    <label for=\"co-pick\">map:</label>\n    <select id=\"co-pick\">\n      <option value=\"logistic\" selected>logistic $rx(1-x)$</option>\n      <option value=\"tent\">tent map</option>\n      <option value=\"doubling\">doubling $2x\\bmod 1$</option>\n      <option value=\"sine\">$r\\sin(\\pi x)$</option>\n    </select>\n    <label for=\"co-r\">r:</label><input type=\"range\" id=\"co-r\" min=\"1\" max=\"4\" step=\"0.005\" value=\"2.9\"><span class=\"small\" id=\"co-rval\">r=2.90</span>\n    <label for=\"co-x0\">x₀:</label><input type=\"range\" id=\"co-x0\" min=\"0.02\" max=\"0.98\" step=\"0.01\" value=\"0.2\"><span class=\"small\" id=\"co-x0val\">x₀=0.20</span>\n  </div>\n  <svg id=\"co-svg\" viewBox=\"-0.12 -0.12 1.24 1.24\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Cobweb plot of a 1D map</title></svg>\n  <div class=\"readout\" id=\"co-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cob",
+            "title": "Cobweb of 1D maps",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"co-pick\">map:</label>\n    <select id=\"co-pick\">\n      <option value=\"logistic\" selected>logistic $rx(1-x)$</option>\n      <option value=\"tent\">tent map</option>\n      <option value=\"doubling\">doubling $2x\\bmod 1$</option>\n      <option value=\"sine\">$r\\sin(\\pi x)$</option>\n    </select>\n    <label for=\"co-r\">r:</label><input type=\"range\" id=\"co-r\" min=\"1\" max=\"4\" step=\"0.005\" value=\"2.9\"><span class=\"small\" id=\"co-rval\">r=2.90</span>\n    <label for=\"co-x0\">x₀:</label><input type=\"range\" id=\"co-x0\" min=\"0.02\" max=\"0.98\" step=\"0.01\" value=\"0.2\"><span class=\"small\" id=\"co-x0val\">x₀=0.20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"co-svg\" viewBox=\"-0.12 -0.12 1.24 1.24\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Cobweb plot of a 1D map</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "co-out"
+              }
+            ],
+            "hint": "pick a map · drag $x_0$ · watch 80 iterates spiral",
+            "bodyScript": "  const svg=$('#co-svg'), pick=$('#co-pick'), rs=$('#co-r'), xs=$('#co-x0');\n  const rv=$('#co-rval'), xv=$('#co-x0val'), out=$('#co-out');\n  function render(){\n    const r=+rs.value, x0=+xs.value;\n    rv.textContent=`r=${r.toFixed(3)}`; xv.textContent=`x₀=${x0.toFixed(2)}`;\n    let f; const p = pick.value;\n    switch(p){\n      case 'logistic': f = x=>r*x*(1-x); break;\n      case 'tent':     f = x=>(x<0.5 ? 2*x : 2*(1-x)); break;\n      case 'doubling': f = x=>(2*x)%1; break;\n      case 'sine':     f = x=>r/4*Math.sin(Math.PI*x); break;  // scale so max ≈ r/4\n    }\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'none',stroke:'var(--line)','stroke-width':0.003}));\n    // diagonal\n    svg.appendChild(SVG('line',{x1:0,y1:0,x2:1,y2:-1,stroke:'var(--mute)','stroke-width':0.004}));\n    // curve\n    const M=300;\n    let d='';\n    for(let i=0;i<=M;i++){ const x=i/M, y=f(x); d += (i?'L':'M')+x+' '+(-y); }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.006}));\n    // cobweb\n    let x=x0; let d2=`M${x} 0`;\n    for(let i=0;i<80;i++){\n      const y=f(x);\n      d2 += ` L${x} ${-y}`;\n      d2 += ` L${y} ${-y}`;\n      x = y;\n      if(!isFinite(x)) break;\n    }\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':0.004,opacity:0.95}));\n    svg.appendChild(SVG('circle',{cx:x0,cy:0,r:0.012,fill:'var(--yellow)'}));\n    const xlast = x;\n    out.textContent = `${p} · r=${r.toFixed(3)} · x₀=${x0.toFixed(2)}\\nafter 80 iterates, x ≈ ${xlast.toFixed(5)}`;\n  }\n  [pick, rs, xs].forEach(el=>el.addEventListener('input', render));\n  pick.addEventListener('change', render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -179,8 +362,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-cob",
-          "html": "<script>\n(function(){\n  const svg=$('#co-svg'), pick=$('#co-pick'), rs=$('#co-r'), xs=$('#co-x0');\n  const rv=$('#co-rval'), xv=$('#co-x0val'), out=$('#co-out');\n  function render(){\n    const r=+rs.value, x0=+xs.value;\n    rv.textContent=`r=${r.toFixed(3)}`; xv.textContent=`x₀=${x0.toFixed(2)}`;\n    let f; const p = pick.value;\n    switch(p){\n      case 'logistic': f = x=>r*x*(1-x); break;\n      case 'tent':     f = x=>(x<0.5 ? 2*x : 2*(1-x)); break;\n      case 'doubling': f = x=>(2*x)%1; break;\n      case 'sine':     f = x=>r/4*Math.sin(Math.PI*x); break;  // scale so max ≈ r/4\n    }\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'none',stroke:'var(--line)','stroke-width':0.003}));\n    // diagonal\n    svg.appendChild(SVG('line',{x1:0,y1:0,x2:1,y2:-1,stroke:'var(--mute)','stroke-width':0.004}));\n    // curve\n    const M=300;\n    let d='';\n    for(let i=0;i<=M;i++){ const x=i/M, y=f(x); d += (i?'L':'M')+x+' '+(-y); }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.006}));\n    // cobweb\n    let x=x0; let d2=`M${x} 0`;\n    for(let i=0;i<80;i++){\n      const y=f(x);\n      d2 += ` L${x} ${-y}`;\n      d2 += ` L${y} ${-y}`;\n      x = y;\n      if(!isFinite(x)) break;\n    }\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':0.004,opacity:0.95}));\n    svg.appendChild(SVG('circle',{cx:x0,cy:0,r:0.012,fill:'var(--yellow)'}));\n    const xlast = x;\n    out.textContent = `${p} · r=${r.toFixed(3)} · x₀=${x0.toFixed(2)}\\nafter 80 iterates, x ≈ ${xlast.toFixed(5)}`;\n  }\n  [pick, rs, xs].forEach(el=>el.addEventListener('input', render));\n  pick.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cob",
+            "title": "Cobweb of 1D maps",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"co-pick\">map:</label>\n    <select id=\"co-pick\">\n      <option value=\"logistic\" selected>logistic $rx(1-x)$</option>\n      <option value=\"tent\">tent map</option>\n      <option value=\"doubling\">doubling $2x\\bmod 1$</option>\n      <option value=\"sine\">$r\\sin(\\pi x)$</option>\n    </select>\n    <label for=\"co-r\">r:</label><input type=\"range\" id=\"co-r\" min=\"1\" max=\"4\" step=\"0.005\" value=\"2.9\"><span class=\"small\" id=\"co-rval\">r=2.90</span>\n    <label for=\"co-x0\">x₀:</label><input type=\"range\" id=\"co-x0\" min=\"0.02\" max=\"0.98\" step=\"0.01\" value=\"0.2\"><span class=\"small\" id=\"co-x0val\">x₀=0.20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"co-svg\" viewBox=\"-0.12 -0.12 1.24 1.24\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Cobweb plot of a 1D map</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "co-out"
+              }
+            ],
+            "hint": "pick a map · drag $x_0$ · watch 80 iterates spiral",
+            "bodyScript": "  const svg=$('#co-svg'), pick=$('#co-pick'), rs=$('#co-r'), xs=$('#co-x0');\n  const rv=$('#co-rval'), xv=$('#co-x0val'), out=$('#co-out');\n  function render(){\n    const r=+rs.value, x0=+xs.value;\n    rv.textContent=`r=${r.toFixed(3)}`; xv.textContent=`x₀=${x0.toFixed(2)}`;\n    let f; const p = pick.value;\n    switch(p){\n      case 'logistic': f = x=>r*x*(1-x); break;\n      case 'tent':     f = x=>(x<0.5 ? 2*x : 2*(1-x)); break;\n      case 'doubling': f = x=>(2*x)%1; break;\n      case 'sine':     f = x=>r/4*Math.sin(Math.PI*x); break;  // scale so max ≈ r/4\n    }\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'none',stroke:'var(--line)','stroke-width':0.003}));\n    // diagonal\n    svg.appendChild(SVG('line',{x1:0,y1:0,x2:1,y2:-1,stroke:'var(--mute)','stroke-width':0.004}));\n    // curve\n    const M=300;\n    let d='';\n    for(let i=0;i<=M;i++){ const x=i/M, y=f(x); d += (i?'L':'M')+x+' '+(-y); }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':0.006}));\n    // cobweb\n    let x=x0; let d2=`M${x} 0`;\n    for(let i=0;i<80;i++){\n      const y=f(x);\n      d2 += ` L${x} ${-y}`;\n      d2 += ` L${y} ${-y}`;\n      x = y;\n      if(!isFinite(x)) break;\n    }\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':0.004,opacity:0.95}));\n    svg.appendChild(SVG('circle',{cx:x0,cy:0,r:0.012,fill:'var(--yellow)'}));\n    const xlast = x;\n    out.textContent = `${p} · r=${r.toFixed(3)} · x₀=${x0.toFixed(2)}\\nafter 80 iterates, x ≈ ${xlast.toFixed(5)}`;\n  }\n  [pick, rs, xs].forEach(el=>el.addEventListener('input', render));\n  pick.addEventListener('change', render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -198,8 +400,27 @@
         {
           "type": "widget",
           "id": "w-bif",
-          "html": "<div class=\"widget\" id=\"w-bif\">\n  <div class=\"hd\"><div class=\"ttl\">Logistic bifurcation diagram</div><div class=\"hint\">slide $r$ to pin a vertical line · watch the attractor change</div></div>\n  <div class=\"row\">\n    <label for=\"bi-r\">r:</label><input type=\"range\" id=\"bi-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.56\"><span class=\"small\" id=\"bi-rval\">r=3.560</span>\n  </div>\n  <svg id=\"bi-svg\" viewBox=\"2.8 -1 1.2 1\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Logistic map bifurcation diagram over r in [2.8, 4]</title></svg>\n  <div class=\"readout\" id=\"bi-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bif",
+            "title": "Logistic bifurcation diagram",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"bi-r\">r:</label><input type=\"range\" id=\"bi-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.56\"><span class=\"small\" id=\"bi-rval\">r=3.560</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"bi-svg\" viewBox=\"2.8 -1 1.2 1\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Logistic map bifurcation diagram over r in [2.8, 4]</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "bi-out"
+              }
+            ],
+            "hint": "slide $r$ to pin a vertical line · watch the attractor change",
+            "bodyScript": "  const svg=$('#bi-svg'), rs=$('#bi-r'), rv=$('#bi-rval'), out=$('#bi-out');\n  // Precompute the attractor as a set of (r, x) dots.\n  const pts = [];\n  const R0 = 2.8, R1 = 4.0, STEPS = 500;\n  for(let k=0;k<STEPS;k++){\n    const r = R0 + (R1-R0)*k/(STEPS-1);\n    let x = 0.4;\n    for(let i=0;i<300;i++) x = r*x*(1-x);  // transient\n    for(let i=0;i<100;i++){ x = r*x*(1-x); pts.push([r,x]); }\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1,width:R1-R0,height:1,fill:'var(--panel2)',opacity:0.4}));\n    // build a single path of dots as tiny 'M x -y h 0.0001'\n    let d = '';\n    for(const [rr, xx] of pts) d += `M${rr} ${-xx}h0.001 `;\n    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':0.003,fill:'none',opacity:0.85}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1,x2:r,y2:0,stroke:'var(--yellow)','stroke-width':0.006,opacity:0.9}));\n    // Compute the attractor sample at r for readout\n    let x = 0.4; for(let i=0;i<400;i++) x = r*x*(1-x);\n    const sample = [];\n    for(let i=0;i<50;i++){ x = r*x*(1-x); sample.push(x); }\n    const uniq = new Set(sample.map(v=>v.toFixed(3)));\n    out.textContent = `r=${r.toFixed(3)} · distinct attractor values (after transient) ≈ ${uniq.size}\\n`\n      + `(1=fixed point · 2=2-cycle · 4=4-cycle · many=chaotic window)`;\n  }\n  rs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -216,8 +437,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-bif",
-          "html": "<script>\n(function(){\n  const svg=$('#bi-svg'), rs=$('#bi-r'), rv=$('#bi-rval'), out=$('#bi-out');\n  // Precompute the attractor as a set of (r, x) dots.\n  const pts = [];\n  const R0 = 2.8, R1 = 4.0, STEPS = 500;\n  for(let k=0;k<STEPS;k++){\n    const r = R0 + (R1-R0)*k/(STEPS-1);\n    let x = 0.4;\n    for(let i=0;i<300;i++) x = r*x*(1-x);  // transient\n    for(let i=0;i<100;i++){ x = r*x*(1-x); pts.push([r,x]); }\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1,width:R1-R0,height:1,fill:'var(--panel2)',opacity:0.4}));\n    // build a single path of dots as tiny 'M x -y h 0.0001'\n    let d = '';\n    for(const [rr, xx] of pts) d += `M${rr} ${-xx}h0.001 `;\n    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':0.003,fill:'none',opacity:0.85}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1,x2:r,y2:0,stroke:'var(--yellow)','stroke-width':0.006,opacity:0.9}));\n    // Compute the attractor sample at r for readout\n    let x = 0.4; for(let i=0;i<400;i++) x = r*x*(1-x);\n    const sample = [];\n    for(let i=0;i<50;i++){ x = r*x*(1-x); sample.push(x); }\n    const uniq = new Set(sample.map(v=>v.toFixed(3)));\n    out.textContent = `r=${r.toFixed(3)} · distinct attractor values (after transient) ≈ ${uniq.size}\\n`\n      + `(1=fixed point · 2=2-cycle · 4=4-cycle · many=chaotic window)`;\n  }\n  rs.addEventListener('input', render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bif",
+            "title": "Logistic bifurcation diagram",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"bi-r\">r:</label><input type=\"range\" id=\"bi-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.56\"><span class=\"small\" id=\"bi-rval\">r=3.560</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"bi-svg\" viewBox=\"2.8 -1 1.2 1\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Logistic map bifurcation diagram over r in [2.8, 4]</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "bi-out"
+              }
+            ],
+            "hint": "slide $r$ to pin a vertical line · watch the attractor change",
+            "bodyScript": "  const svg=$('#bi-svg'), rs=$('#bi-r'), rv=$('#bi-rval'), out=$('#bi-out');\n  // Precompute the attractor as a set of (r, x) dots.\n  const pts = [];\n  const R0 = 2.8, R1 = 4.0, STEPS = 500;\n  for(let k=0;k<STEPS;k++){\n    const r = R0 + (R1-R0)*k/(STEPS-1);\n    let x = 0.4;\n    for(let i=0;i<300;i++) x = r*x*(1-x);  // transient\n    for(let i=0;i<100;i++){ x = r*x*(1-x); pts.push([r,x]); }\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1,width:R1-R0,height:1,fill:'var(--panel2)',opacity:0.4}));\n    // build a single path of dots as tiny 'M x -y h 0.0001'\n    let d = '';\n    for(const [rr, xx] of pts) d += `M${rr} ${-xx}h0.001 `;\n    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':0.003,fill:'none',opacity:0.85}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1,x2:r,y2:0,stroke:'var(--yellow)','stroke-width':0.006,opacity:0.9}));\n    // Compute the attractor sample at r for readout\n    let x = 0.4; for(let i=0;i<400;i++) x = r*x*(1-x);\n    const sample = [];\n    for(let i=0;i<50;i++){ x = r*x*(1-x); sample.push(x); }\n    const uniq = new Set(sample.map(v=>v.toFixed(3)));\n    out.textContent = `r=${r.toFixed(3)} · distinct attractor values (after transient) ≈ ${uniq.size}\\n`\n      + `(1=fixed point · 2=2-cycle · 4=4-cycle · many=chaotic window)`;\n  }\n  rs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -235,8 +475,27 @@
         {
           "type": "widget",
           "id": "w-lya",
-          "html": "<div class=\"widget\" id=\"w-lya\">\n  <div class=\"hd\"><div class=\"ttl\">Lyapunov exponent of the logistic map</div><div class=\"hint\">$\\lambda(r)$ across $r\\in[2.8,4]$ · chaos windows are where $\\lambda&gt;0$</div></div>\n  <div class=\"row\">\n    <label for=\"ly-r\">r:</label><input type=\"range\" id=\"ly-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.8\"><span class=\"small\" id=\"ly-rval\">r=3.800</span>\n  </div>\n  <svg id=\"ly-svg\" viewBox=\"2.8 -1.2 1.2 2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Lyapunov exponent of the logistic map across r</title></svg>\n  <div class=\"readout\" id=\"ly-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lya",
+            "title": "Lyapunov exponent of the logistic map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ly-r\">r:</label><input type=\"range\" id=\"ly-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.8\"><span class=\"small\" id=\"ly-rval\">r=3.800</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"ly-svg\" viewBox=\"2.8 -1.2 1.2 2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Lyapunov exponent of the logistic map across r</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "ly-out"
+              }
+            ],
+            "hint": "$\\lambda(r)$ across $r\\in[2.8,4]$ · chaos windows are where $\\lambda&gt;0$",
+            "bodyScript": "  const svg=$('#ly-svg'), rs=$('#ly-r'), rv=$('#ly-rval'), out=$('#ly-out');\n  const R0=2.8, R1=4.0;\n  // precompute lambda(r)\n  const data = [];\n  const NR=600, BURN=400, N=1000;\n  for(let k=0;k<NR;k++){\n    const r = R0 + (R1-R0)*k/(NR-1);\n    let x=0.4;\n    for(let i=0;i<BURN;i++) x = r*x*(1-x);\n    let s=0, m=0;\n    for(let i=0;i<N;i++){\n      x = r*x*(1-x);\n      const d = Math.abs(r - 2*r*x);\n      if(d>0){ s += Math.log(d); m++; }\n    }\n    data.push([r, s/m]);\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1.2,width:R1-R0,height:2,fill:'var(--panel2)',opacity:0.4}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:R0,y1:0,x2:R1,y2:0,stroke:'var(--mute)','stroke-width':0.005}));\n    // lambda curve  (note: svg y-axis flipped; lambda>0 is up, so y=-lambda)\n    let d = '';\n    for(let i=0;i<data.length;i++){\n      const [rr,ll] = data[i];\n      const y = -Math.max(-1.2, Math.min(0.8, ll));\n      d += (i?'L':'M')+rr+' '+y;\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.006}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1.2,x2:r,y2:0.8,stroke:'var(--pink)','stroke-width':0.006,opacity:0.9}));\n    // lookup value\n    const idx = Math.min(data.length-1, Math.max(0, Math.round((r-R0)/(R1-R0)*(data.length-1))));\n    const lamHere = data[idx][1];\n    out.textContent = `λ(${r.toFixed(3)}) ≈ ${lamHere.toFixed(3)}\\n`\n      + `λ>0: chaotic (positive Lyapunov exponent) · λ<0: periodic attractor · windows of λ<0 inside chaos are periodic islands.`;\n  }\n  rs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -253,8 +512,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lya",
-          "html": "<script>\n(function(){\n  const svg=$('#ly-svg'), rs=$('#ly-r'), rv=$('#ly-rval'), out=$('#ly-out');\n  const R0=2.8, R1=4.0;\n  // precompute lambda(r)\n  const data = [];\n  const NR=600, BURN=400, N=1000;\n  for(let k=0;k<NR;k++){\n    const r = R0 + (R1-R0)*k/(NR-1);\n    let x=0.4;\n    for(let i=0;i<BURN;i++) x = r*x*(1-x);\n    let s=0, m=0;\n    for(let i=0;i<N;i++){\n      x = r*x*(1-x);\n      const d = Math.abs(r - 2*r*x);\n      if(d>0){ s += Math.log(d); m++; }\n    }\n    data.push([r, s/m]);\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1.2,width:R1-R0,height:2,fill:'var(--panel2)',opacity:0.4}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:R0,y1:0,x2:R1,y2:0,stroke:'var(--mute)','stroke-width':0.005}));\n    // lambda curve  (note: svg y-axis flipped; lambda>0 is up, so y=-lambda)\n    let d = '';\n    for(let i=0;i<data.length;i++){\n      const [rr,ll] = data[i];\n      const y = -Math.max(-1.2, Math.min(0.8, ll));\n      d += (i?'L':'M')+rr+' '+y;\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.006}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1.2,x2:r,y2:0.8,stroke:'var(--pink)','stroke-width':0.006,opacity:0.9}));\n    // lookup value\n    const idx = Math.min(data.length-1, Math.max(0, Math.round((r-R0)/(R1-R0)*(data.length-1))));\n    const lamHere = data[idx][1];\n    out.textContent = `λ(${r.toFixed(3)}) ≈ ${lamHere.toFixed(3)}\\n`\n      + `λ>0: chaotic (positive Lyapunov exponent) · λ<0: periodic attractor · windows of λ<0 inside chaos are periodic islands.`;\n  }\n  rs.addEventListener('input', render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lya",
+            "title": "Lyapunov exponent of the logistic map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ly-r\">r:</label><input type=\"range\" id=\"ly-r\" min=\"2.8\" max=\"4\" step=\"0.002\" value=\"3.8\"><span class=\"small\" id=\"ly-rval\">r=3.800</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"ly-svg\" viewBox=\"2.8 -1.2 1.2 2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1.2/1\"><title>Lyapunov exponent of the logistic map across r</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "ly-out"
+              }
+            ],
+            "hint": "$\\lambda(r)$ across $r\\in[2.8,4]$ · chaos windows are where $\\lambda&gt;0$",
+            "bodyScript": "  const svg=$('#ly-svg'), rs=$('#ly-r'), rv=$('#ly-rval'), out=$('#ly-out');\n  const R0=2.8, R1=4.0;\n  // precompute lambda(r)\n  const data = [];\n  const NR=600, BURN=400, N=1000;\n  for(let k=0;k<NR;k++){\n    const r = R0 + (R1-R0)*k/(NR-1);\n    let x=0.4;\n    for(let i=0;i<BURN;i++) x = r*x*(1-x);\n    let s=0, m=0;\n    for(let i=0;i<N;i++){\n      x = r*x*(1-x);\n      const d = Math.abs(r - 2*r*x);\n      if(d>0){ s += Math.log(d); m++; }\n    }\n    data.push([r, s/m]);\n  }\n  function render(){\n    const r = +rs.value; rv.textContent = `r=${r.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame\n    svg.appendChild(SVG('rect',{x:R0,y:-1.2,width:R1-R0,height:2,fill:'var(--panel2)',opacity:0.4}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:R0,y1:0,x2:R1,y2:0,stroke:'var(--mute)','stroke-width':0.005}));\n    // lambda curve  (note: svg y-axis flipped; lambda>0 is up, so y=-lambda)\n    let d = '';\n    for(let i=0;i<data.length;i++){\n      const [rr,ll] = data[i];\n      const y = -Math.max(-1.2, Math.min(0.8, ll));\n      d += (i?'L':'M')+rr+' '+y;\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':0.006}));\n    // vertical line at r\n    svg.appendChild(SVG('line',{x1:r,y1:-1.2,x2:r,y2:0.8,stroke:'var(--pink)','stroke-width':0.006,opacity:0.9}));\n    // lookup value\n    const idx = Math.min(data.length-1, Math.max(0, Math.round((r-R0)/(R1-R0)*(data.length-1))));\n    const lamHere = data[idx][1];\n    out.textContent = `λ(${r.toFixed(3)}) ≈ ${lamHere.toFixed(3)}\\n`\n      + `λ>0: chaotic (positive Lyapunov exponent) · λ<0: periodic attractor · windows of λ<0 inside chaos are periodic islands.`;\n  }\n  rs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -272,8 +550,27 @@
         {
           "type": "widget",
           "id": "w-div",
-          "html": "<div class=\"widget\" id=\"w-div\">\n  <div class=\"hd\"><div class=\"ttl\">Volume evolution under a 2D flow</div><div class=\"hint\">watch a blob of initial conditions deform · divergence $\\operatorname{div}X$ at the centroid</div></div>\n  <div class=\"row\">\n    <label for=\"dv-pick\">field:</label>\n    <select id=\"dv-pick\">\n      <option value=\"hamil\">Hamiltonian $\\dot x=y,\\ \\dot y=-x$</option>\n      <option value=\"damped\">damped osc $\\dot x=y,\\ \\dot y=-x-0.3y$</option>\n      <option value=\"expand\">expanding $\\dot x=x,\\ \\dot y=y$</option>\n    </select>\n    <label for=\"dv-T\">T:</label><input type=\"range\" id=\"dv-T\" min=\"0\" max=\"10\" step=\"0.05\" value=\"2\"><span class=\"small\" id=\"dv-Tval\">T=2.00</span>\n  </div>\n  <svg id=\"dv-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Volume evolution of a blob of ICs under three 2D flows</title></svg>\n  <div class=\"readout\" id=\"dv-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-div",
+            "title": "Volume evolution under a 2D flow",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"dv-pick\">field:</label>\n    <select id=\"dv-pick\">\n      <option value=\"hamil\">Hamiltonian $\\dot x=y,\\ \\dot y=-x$</option>\n      <option value=\"damped\">damped osc $\\dot x=y,\\ \\dot y=-x-0.3y$</option>\n      <option value=\"expand\">expanding $\\dot x=x,\\ \\dot y=y$</option>\n    </select>\n    <label for=\"dv-T\">T:</label><input type=\"range\" id=\"dv-T\" min=\"0\" max=\"10\" step=\"0.05\" value=\"2\"><span class=\"small\" id=\"dv-Tval\">T=2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"dv-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Volume evolution of a blob of ICs under three 2D flows</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "dv-out"
+              }
+            ],
+            "hint": "watch a blob of initial conditions deform · divergence $\\operatorname{div}X$ at the centroid",
+            "bodyScript": "  const svg=$('#dv-svg'), pick=$('#dv-pick'), Ts=$('#dv-T'), Tv=$('#dv-Tval'), out=$('#dv-out');\n  const FIELDS = {\n    hamil:  { f:(t,[x,y])=>[y, -x],        div:'0 (conservative)' },\n    damped: { f:(t,[x,y])=>[y, -x - 0.3*y], div:'-0.3 (dissipative)' },\n    expand: { f:(t,[x,y])=>[x, y],          div:'+2 (expanding)' }\n  };\n  function render(){\n    const T=+Ts.value; Tv.textContent=`T=${T.toFixed(2)}`;\n    const F = FIELDS[pick.value];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // initial blob: ring of points in a disc at (2, 0) radius 0.6\n    const NB = 80;\n    const pts0 = [];\n    for(let k=0;k<NB;k++){\n      const a = 2*Math.PI*k/NB;\n      pts0.push([2 + 0.6*Math.cos(a), 0.6*Math.sin(a)]);\n    }\n    // initial outline\n    const d0 = pts0.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--mute)','stroke-width':0.03,'stroke-dasharray':'0.08 0.08'}));\n    // forward image\n    const h=0.01;\n    const pts = pts0.map(p=>{ let y=p.slice(); for(let t=0;t<T;t+=h) y=rk4Step(F.f,t,y,h); return y; });\n    const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d1,fill:'var(--yellow)',fillOpacity:0.25,stroke:'var(--yellow)','stroke-width':0.03}));\n    // quick numerical volume (via shoelace)\n    function area(P){ let s=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; s += x1*y2-x2*y1; } return Math.abs(s)/2; }\n    const A0 = area(pts0), A1 = area(pts);\n    out.textContent = `${pick.options[pick.selectedIndex].textContent} · div X = ${F.div}\\n`\n      + `vol(U) = ${A0.toFixed(3)} · vol(Φ_T(U)) = ${A1.toFixed(3)} · ratio = ${(A1/A0).toFixed(3)}`;\n  }\n  [pick,Ts].forEach(el=>el.addEventListener('input',render));\n  pick.addEventListener('change',render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -290,8 +587,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-div",
-          "html": "<script>\n(function(){\n  const svg=$('#dv-svg'), pick=$('#dv-pick'), Ts=$('#dv-T'), Tv=$('#dv-Tval'), out=$('#dv-out');\n  const FIELDS = {\n    hamil:  { f:(t,[x,y])=>[y, -x],        div:'0 (conservative)' },\n    damped: { f:(t,[x,y])=>[y, -x - 0.3*y], div:'-0.3 (dissipative)' },\n    expand: { f:(t,[x,y])=>[x, y],          div:'+2 (expanding)' }\n  };\n  function render(){\n    const T=+Ts.value; Tv.textContent=`T=${T.toFixed(2)}`;\n    const F = FIELDS[pick.value];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // initial blob: ring of points in a disc at (2, 0) radius 0.6\n    const NB = 80;\n    const pts0 = [];\n    for(let k=0;k<NB;k++){\n      const a = 2*Math.PI*k/NB;\n      pts0.push([2 + 0.6*Math.cos(a), 0.6*Math.sin(a)]);\n    }\n    // initial outline\n    const d0 = pts0.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--mute)','stroke-width':0.03,'stroke-dasharray':'0.08 0.08'}));\n    // forward image\n    const h=0.01;\n    const pts = pts0.map(p=>{ let y=p.slice(); for(let t=0;t<T;t+=h) y=rk4Step(F.f,t,y,h); return y; });\n    const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d1,fill:'var(--yellow)',fillOpacity:0.25,stroke:'var(--yellow)','stroke-width':0.03}));\n    // quick numerical volume (via shoelace)\n    function area(P){ let s=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; s += x1*y2-x2*y1; } return Math.abs(s)/2; }\n    const A0 = area(pts0), A1 = area(pts);\n    out.textContent = `${pick.options[pick.selectedIndex].textContent} · div X = ${F.div}\\n`\n      + `vol(U) = ${A0.toFixed(3)} · vol(Φ_T(U)) = ${A1.toFixed(3)} · ratio = ${(A1/A0).toFixed(3)}`;\n  }\n  [pick,Ts].forEach(el=>el.addEventListener('input',render));\n  pick.addEventListener('change',render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-div",
+            "title": "Volume evolution under a 2D flow",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"dv-pick\">field:</label>\n    <select id=\"dv-pick\">\n      <option value=\"hamil\">Hamiltonian $\\dot x=y,\\ \\dot y=-x$</option>\n      <option value=\"damped\">damped osc $\\dot x=y,\\ \\dot y=-x-0.3y$</option>\n      <option value=\"expand\">expanding $\\dot x=x,\\ \\dot y=y$</option>\n    </select>\n    <label for=\"dv-T\">T:</label><input type=\"range\" id=\"dv-T\" min=\"0\" max=\"10\" step=\"0.05\" value=\"2\"><span class=\"small\" id=\"dv-Tval\">T=2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"dv-svg\" viewBox=\"-4 -4 8 8\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Volume evolution of a blob of ICs under three 2D flows</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "dv-out"
+              }
+            ],
+            "hint": "watch a blob of initial conditions deform · divergence $\\operatorname{div}X$ at the centroid",
+            "bodyScript": "  const svg=$('#dv-svg'), pick=$('#dv-pick'), Ts=$('#dv-T'), Tv=$('#dv-Tval'), out=$('#dv-out');\n  const FIELDS = {\n    hamil:  { f:(t,[x,y])=>[y, -x],        div:'0 (conservative)' },\n    damped: { f:(t,[x,y])=>[y, -x - 0.3*y], div:'-0.3 (dissipative)' },\n    expand: { f:(t,[x,y])=>[x, y],          div:'+2 (expanding)' }\n  };\n  function render(){\n    const T=+Ts.value; Tv.textContent=`T=${T.toFixed(2)}`;\n    const F = FIELDS[pick.value];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-4,y1:0,x2:4,y2:0,stroke:'var(--line)','stroke-width':0.015}));\n    svg.appendChild(SVG('line',{x1:0,y1:-4,x2:0,y2:4,stroke:'var(--line)','stroke-width':0.015}));\n    // initial blob: ring of points in a disc at (2, 0) radius 0.6\n    const NB = 80;\n    const pts0 = [];\n    for(let k=0;k<NB;k++){\n      const a = 2*Math.PI*k/NB;\n      pts0.push([2 + 0.6*Math.cos(a), 0.6*Math.sin(a)]);\n    }\n    // initial outline\n    const d0 = pts0.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--mute)','stroke-width':0.03,'stroke-dasharray':'0.08 0.08'}));\n    // forward image\n    const h=0.01;\n    const pts = pts0.map(p=>{ let y=p.slice(); for(let t=0;t<T;t+=h) y=rk4Step(F.f,t,y,h); return y; });\n    const d1 = pts.map((p,i)=>(i?'L':'M')+p[0]+' '+(-p[1])).join(' ')+' Z';\n    svg.appendChild(SVG('path',{d:d1,fill:'var(--yellow)',fillOpacity:0.25,stroke:'var(--yellow)','stroke-width':0.03}));\n    // quick numerical volume (via shoelace)\n    function area(P){ let s=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; s += x1*y2-x2*y1; } return Math.abs(s)/2; }\n    const A0 = area(pts0), A1 = area(pts);\n    out.textContent = `${pick.options[pick.selectedIndex].textContent} · div X = ${F.div}\\n`\n      + `vol(U) = ${A0.toFixed(3)} · vol(Φ_T(U)) = ${A1.toFixed(3)} · ratio = ${(A1/A0).toFixed(3)}`;\n  }\n  [pick,Ts].forEach(el=>el.addEventListener('input',render));\n  pick.addEventListener('change',render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -309,8 +625,27 @@
         {
           "type": "widget",
           "id": "w-poin",
-          "html": "<div class=\"widget\" id=\"w-poin\">\n  <div class=\"hd\"><div class=\"ttl\">Poincaré section of the Rössler flow</div><div class=\"hint\">crossings of $z=0$ with $\\dot z&gt;0$ · slide $c$ to watch the section morph</div></div>\n  <div class=\"row\">\n    <label for=\"po-c\">c:</label><input type=\"range\" id=\"po-c\" min=\"3\" max=\"10\" step=\"0.05\" value=\"5.7\"><span class=\"small\" id=\"po-cval\">c=5.70</span>\n  </div>\n  <svg id=\"po-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Poincaré section of the Rössler system at z=0</title></svg>\n  <div class=\"readout\" id=\"po-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-poin",
+            "title": "Poincaré section of the Rössler flow",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"po-c\">c:</label><input type=\"range\" id=\"po-c\" min=\"3\" max=\"10\" step=\"0.05\" value=\"5.7\"><span class=\"small\" id=\"po-cval\">c=5.70</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"po-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Poincaré section of the Rössler system at z=0</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "po-out"
+              }
+            ],
+            "hint": "crossings of $z=0$ with $\\dot z&gt;0$ · slide $c$ to watch the section morph",
+            "bodyScript": "  const svg=$('#po-svg'), cs=$('#po-c'), cv=$('#po-cval'), out=$('#po-out');\n  function render(){\n    const c=+cs.value; cv.textContent=`c=${c.toFixed(2)}`;\n    const a=0.2, b=0.2;\n    const f=(t,[x,y,z])=>[-y-z, x+a*y, b+z*(x-c)];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-10,y1:0,x2:10,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-10,x2:0,y2:10,stroke:'var(--line)','stroke-width':0.02}));\n    // integrate, collect crossings of z=0 with zdot>0\n    let y=[0.1, 0.0, 0.0];\n    const h=0.01;\n    // skip transient\n    for(let i=0;i<20000;i++) y = rk4Step(f,0,y,h);\n    const pts=[];\n    let prevZ = y[2];\n    for(let i=0;i<200000 && pts.length<500;i++){\n      const yprev = y.slice();\n      y = rk4Step(f,0,y,h);\n      if(prevZ<0 && y[2]>=0){\n        // linear interp\n        const r = -prevZ/(y[2]-prevZ);\n        const xi = yprev[0] + r*(y[0]-yprev[0]);\n        const yi = yprev[1] + r*(y[1]-yprev[1]);\n        pts.push([xi,yi]);\n      }\n      prevZ = y[2];\n    }\n    for(const [x,y2] of pts){\n      svg.appendChild(SVG('circle',{cx:x, cy:-y2, r:0.05, fill:'var(--yellow)', opacity:0.85}));\n    }\n    out.textContent = `Rössler (a=0.2, b=0.2, c=${c.toFixed(2)}) · ${pts.length} crossings of z=0, ż>0\\nthin curve at small c (periodic) · fattens into a fractal as c grows (chaos).`;\n  }\n  cs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -327,8 +662,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-poin",
-          "html": "<script>\n(function(){\n  const svg=$('#po-svg'), cs=$('#po-c'), cv=$('#po-cval'), out=$('#po-out');\n  function render(){\n    const c=+cs.value; cv.textContent=`c=${c.toFixed(2)}`;\n    const a=0.2, b=0.2;\n    const f=(t,[x,y,z])=>[-y-z, x+a*y, b+z*(x-c)];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-10,y1:0,x2:10,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-10,x2:0,y2:10,stroke:'var(--line)','stroke-width':0.02}));\n    // integrate, collect crossings of z=0 with zdot>0\n    let y=[0.1, 0.0, 0.0];\n    const h=0.01;\n    // skip transient\n    for(let i=0;i<20000;i++) y = rk4Step(f,0,y,h);\n    const pts=[];\n    let prevZ = y[2];\n    for(let i=0;i<200000 && pts.length<500;i++){\n      const yprev = y.slice();\n      y = rk4Step(f,0,y,h);\n      if(prevZ<0 && y[2]>=0){\n        // linear interp\n        const r = -prevZ/(y[2]-prevZ);\n        const xi = yprev[0] + r*(y[0]-yprev[0]);\n        const yi = yprev[1] + r*(y[1]-yprev[1]);\n        pts.push([xi,yi]);\n      }\n      prevZ = y[2];\n    }\n    for(const [x,y2] of pts){\n      svg.appendChild(SVG('circle',{cx:x, cy:-y2, r:0.05, fill:'var(--yellow)', opacity:0.85}));\n    }\n    out.textContent = `Rössler (a=0.2, b=0.2, c=${c.toFixed(2)}) · ${pts.length} crossings of z=0, ż>0\\nthin curve at small c (periodic) · fattens into a fractal as c grows (chaos).`;\n  }\n  cs.addEventListener('input', render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-poin",
+            "title": "Poincaré section of the Rössler flow",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"po-c\">c:</label><input type=\"range\" id=\"po-c\" min=\"3\" max=\"10\" step=\"0.05\" value=\"5.7\"><span class=\"small\" id=\"po-cval\">c=5.70</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"po-svg\" viewBox=\"-10 -10 20 20\" width=\"100%\" style=\"max-width:520px;aspect-ratio:1/1\"><title>Poincaré section of the Rössler system at z=0</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "po-out"
+              }
+            ],
+            "hint": "crossings of $z=0$ with $\\dot z&gt;0$ · slide $c$ to watch the section morph",
+            "bodyScript": "  const svg=$('#po-svg'), cs=$('#po-c'), cv=$('#po-cval'), out=$('#po-out');\n  function render(){\n    const c=+cs.value; cv.textContent=`c=${c.toFixed(2)}`;\n    const a=0.2, b=0.2;\n    const f=(t,[x,y,z])=>[-y-z, x+a*y, b+z*(x-c)];\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('line',{x1:-10,y1:0,x2:10,y2:0,stroke:'var(--line)','stroke-width':0.02}));\n    svg.appendChild(SVG('line',{x1:0,y1:-10,x2:0,y2:10,stroke:'var(--line)','stroke-width':0.02}));\n    // integrate, collect crossings of z=0 with zdot>0\n    let y=[0.1, 0.0, 0.0];\n    const h=0.01;\n    // skip transient\n    for(let i=0;i<20000;i++) y = rk4Step(f,0,y,h);\n    const pts=[];\n    let prevZ = y[2];\n    for(let i=0;i<200000 && pts.length<500;i++){\n      const yprev = y.slice();\n      y = rk4Step(f,0,y,h);\n      if(prevZ<0 && y[2]>=0){\n        // linear interp\n        const r = -prevZ/(y[2]-prevZ);\n        const xi = yprev[0] + r*(y[0]-yprev[0]);\n        const yi = yprev[1] + r*(y[1]-yprev[1]);\n        pts.push([xi,yi]);\n      }\n      prevZ = y[2];\n    }\n    for(const [x,y2] of pts){\n      svg.appendChild(SVG('circle',{cx:x, cy:-y2, r:0.05, fill:'var(--yellow)', opacity:0.85}));\n    }\n    out.textContent = `Rössler (a=0.2, b=0.2, c=${c.toFixed(2)}) · ${pts.length} crossings of z=0, ż>0\\nthin curve at small c (periodic) · fattens into a fractal as c grows (chaos).`;\n  }\n  cs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -346,8 +700,27 @@
         {
           "type": "widget",
           "id": "w-sym",
-          "html": "<div class=\"widget\" id=\"w-sym\">\n  <div class=\"hd\"><div class=\"ttl\">Itinerary of the doubling map</div><div class=\"hint\">pick $x_0$ · see the binary expansion shift one place at a time</div></div>\n  <div class=\"row\">\n    <label for=\"sy-x\">x₀:</label><input type=\"range\" id=\"sy-x\" min=\"0.01\" max=\"0.99\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"sy-xval\">x₀=0.370</span>\n  </div>\n  <svg id=\"sy-svg\" viewBox=\"0 0 620 200\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Itinerary of the doubling map: binary digits of successive iterates</title></svg>\n  <div class=\"readout\" id=\"sy-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sym",
+            "title": "Itinerary of the doubling map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sy-x\">x₀:</label><input type=\"range\" id=\"sy-x\" min=\"0.01\" max=\"0.99\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"sy-xval\">x₀=0.370</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"sy-svg\" viewBox=\"0 0 620 200\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Itinerary of the doubling map: binary digits of successive iterates</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "sy-out"
+              }
+            ],
+            "hint": "pick $x_0$ · see the binary expansion shift one place at a time",
+            "bodyScript": "  const svg=$('#sy-svg'), xs=$('#sy-x'), xv=$('#sy-xval'), out=$('#sy-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid of digits: ROWS iterates, COLS=16 bits shown per iterate\n    const ROWS=10, COLS=16;\n    const cellW=30, cellH=16;\n    let x=x0;\n    for(let r=0;r<ROWS;r++){\n      // compute first COLS binary digits of x\n      let t=x;\n      for(let c=0;c<COLS;c++){\n        t = t*2;\n        const b = t>=1 ? 1 : 0;\n        if(b) t -= 1;\n        // cell\n        const cx = 10 + c*cellW, cy = 5 + r*cellH;\n        svg.appendChild(SVG('rect',{x:cx, y:cy, width:cellW-2, height:cellH-2,\n          fill: b ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)','stroke-width':0.5}));\n        const tx = SVG('text',{x:cx+(cellW-2)/2, y:cy+cellH-5, 'text-anchor':'middle','font-size':11,\n          fill: b ? '#111' : 'var(--mute)'});\n        tx.textContent = b ? '1' : '0';\n        svg.appendChild(tx);\n      }\n      // label row\n      const lbl = SVG('text',{x:502, y:5+r*cellH+12, 'font-size':11, fill:'var(--mute)'});\n      lbl.textContent = `x_${r}≈${x.toFixed(4)}`;\n      svg.appendChild(lbl);\n      x = (2*x) % 1;\n    }\n    out.textContent = `iterate binary digits of $x$ under $f(x)=2x\\\\bmod 1$; each row is the shift of the row above it.\\nitinerary = sequence of leading bits (read down the left column): gives $\\\\sigma(x)\\\\in\\\\{0,1\\\\}^{\\\\mathbb{N}}$.`;\n  }\n  xs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -364,8 +737,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-sym",
-          "html": "<script>\n(function(){\n  const svg=$('#sy-svg'), xs=$('#sy-x'), xv=$('#sy-xval'), out=$('#sy-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid of digits: ROWS iterates, COLS=16 bits shown per iterate\n    const ROWS=10, COLS=16;\n    const cellW=30, cellH=16;\n    let x=x0;\n    for(let r=0;r<ROWS;r++){\n      // compute first COLS binary digits of x\n      let t=x;\n      for(let c=0;c<COLS;c++){\n        t = t*2;\n        const b = t>=1 ? 1 : 0;\n        if(b) t -= 1;\n        // cell\n        const cx = 10 + c*cellW, cy = 5 + r*cellH;\n        svg.appendChild(SVG('rect',{x:cx, y:cy, width:cellW-2, height:cellH-2,\n          fill: b ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)','stroke-width':0.5}));\n        const tx = SVG('text',{x:cx+(cellW-2)/2, y:cy+cellH-5, 'text-anchor':'middle','font-size':11,\n          fill: b ? '#111' : 'var(--mute)'});\n        tx.textContent = b ? '1' : '0';\n        svg.appendChild(tx);\n      }\n      // label row\n      const lbl = SVG('text',{x:502, y:5+r*cellH+12, 'font-size':11, fill:'var(--mute)'});\n      lbl.textContent = `x_${r}≈${x.toFixed(4)}`;\n      svg.appendChild(lbl);\n      x = (2*x) % 1;\n    }\n    out.textContent = `iterate binary digits of $x$ under $f(x)=2x\\\\bmod 1$; each row is the shift of the row above it.\\nitinerary = sequence of leading bits (read down the left column): gives $\\\\sigma(x)\\\\in\\\\{0,1\\\\}^{\\\\mathbb{N}}$.`;\n  }\n  xs.addEventListener('input', render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sym",
+            "title": "Itinerary of the doubling map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sy-x\">x₀:</label><input type=\"range\" id=\"sy-x\" min=\"0.01\" max=\"0.99\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"sy-xval\">x₀=0.370</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"sy-svg\" viewBox=\"0 0 620 200\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Itinerary of the doubling map: binary digits of successive iterates</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "sy-out"
+              }
+            ],
+            "hint": "pick $x_0$ · see the binary expansion shift one place at a time",
+            "bodyScript": "  const svg=$('#sy-svg'), xs=$('#sy-x'), xv=$('#sy-xval'), out=$('#sy-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // grid of digits: ROWS iterates, COLS=16 bits shown per iterate\n    const ROWS=10, COLS=16;\n    const cellW=30, cellH=16;\n    let x=x0;\n    for(let r=0;r<ROWS;r++){\n      // compute first COLS binary digits of x\n      let t=x;\n      for(let c=0;c<COLS;c++){\n        t = t*2;\n        const b = t>=1 ? 1 : 0;\n        if(b) t -= 1;\n        // cell\n        const cx = 10 + c*cellW, cy = 5 + r*cellH;\n        svg.appendChild(SVG('rect',{x:cx, y:cy, width:cellW-2, height:cellH-2,\n          fill: b ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)','stroke-width':0.5}));\n        const tx = SVG('text',{x:cx+(cellW-2)/2, y:cy+cellH-5, 'text-anchor':'middle','font-size':11,\n          fill: b ? '#111' : 'var(--mute)'});\n        tx.textContent = b ? '1' : '0';\n        svg.appendChild(tx);\n      }\n      // label row\n      const lbl = SVG('text',{x:502, y:5+r*cellH+12, 'font-size':11, fill:'var(--mute)'});\n      lbl.textContent = `x_${r}≈${x.toFixed(4)}`;\n      svg.appendChild(lbl);\n      x = (2*x) % 1;\n    }\n    out.textContent = `iterate binary digits of $x$ under $f(x)=2x\\\\bmod 1$; each row is the shift of the row above it.\\nitinerary = sequence of leading bits (read down the left column): gives $\\\\sigma(x)\\\\in\\\\{0,1\\\\}^{\\\\mathbb{N}}$.`;\n  }\n  xs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -383,8 +775,27 @@
         {
           "type": "widget",
           "id": "w-erg",
-          "html": "<div class=\"widget\" id=\"w-erg\">\n  <div class=\"hd\"><div class=\"ttl\">Time average of the doubling map</div><div class=\"hint\">running $\\tfrac{1}{N}\\sum T^k(x_0)$ versus $N$ · pick $x_0$ and watch convergence to $1/2$</div></div>\n  <div class=\"row\">\n    <label for=\"er-x\">x₀:</label><input type=\"range\" id=\"er-x\" min=\"0.005\" max=\"0.995\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"er-xval\">x₀=0.370</span>\n  </div>\n  <svg id=\"er-svg\" viewBox=\"0 -1.1 1 1.2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1/1.2\"><title>Ergodic time average under the doubling map converging to 1/2</title></svg>\n  <div class=\"readout\" id=\"er-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-erg",
+            "title": "Time average of the doubling map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"er-x\">x₀:</label><input type=\"range\" id=\"er-x\" min=\"0.005\" max=\"0.995\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"er-xval\">x₀=0.370</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"er-svg\" viewBox=\"0 -1.1 1 1.2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1/1.2\"><title>Ergodic time average under the doubling map converging to 1/2</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "er-out"
+              }
+            ],
+            "hint": "running $\\tfrac{1}{N}\\sum T^k(x_0)$ versus $N$ · pick $x_0$ and watch convergence to $1/2$",
+            "bodyScript": "  const svg=$('#er-svg'), xs=$('#er-x'), xv=$('#er-xval'), out=$('#er-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame: x-axis (N, plotted as fraction), y-axis 0..1\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'var(--panel2)',opacity:0.3}));\n    // horizontal line at 1/2\n    svg.appendChild(SVG('line',{x1:0,y1:-0.5,x2:1,y2:-0.5,stroke:'var(--green)','stroke-width':0.003,opacity:0.7}));\n    // label\n    const lbl = SVG('text',{x:0.01, y:-0.52, 'font-size':0.03, fill:'var(--green)'}); lbl.textContent='1/2';\n    svg.appendChild(lbl);\n    // compute running average\n    let x=x0, sum=0;\n    const N=2000;\n    let d='';\n    for(let k=1;k<=N;k++){\n      x = (2*x) % 1;\n      sum += x;\n      const avg = sum/k;\n      const X = k/N, Y = -avg;\n      d += (k===1?'M':'L')+X+' '+Y;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.005}));\n    // last value\n    const xEnd = (function(){ let xx=x0, s=0; for(let i=0;i<N;i++){ xx=(2*xx)%1; s+=xx; } return s/N; })();\n    out.textContent = `x₀=${x0.toFixed(3)} · N=${N} · running mean ≈ ${xEnd.toFixed(4)} (space average = 0.5 by Birkhoff).`;\n  }\n  xs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -401,8 +812,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-erg",
-          "html": "<script>\n(function(){\n  const svg=$('#er-svg'), xs=$('#er-x'), xv=$('#er-xval'), out=$('#er-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame: x-axis (N, plotted as fraction), y-axis 0..1\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'var(--panel2)',opacity:0.3}));\n    // horizontal line at 1/2\n    svg.appendChild(SVG('line',{x1:0,y1:-0.5,x2:1,y2:-0.5,stroke:'var(--green)','stroke-width':0.003,opacity:0.7}));\n    // label\n    const lbl = SVG('text',{x:0.01, y:-0.52, 'font-size':0.03, fill:'var(--green)'}); lbl.textContent='1/2';\n    svg.appendChild(lbl);\n    // compute running average\n    let x=x0, sum=0;\n    const N=2000;\n    let d='';\n    for(let k=1;k<=N;k++){\n      x = (2*x) % 1;\n      sum += x;\n      const avg = sum/k;\n      const X = k/N, Y = -avg;\n      d += (k===1?'M':'L')+X+' '+Y;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.005}));\n    // last value\n    const xEnd = (function(){ let xx=x0, s=0; for(let i=0;i<N;i++){ xx=(2*xx)%1; s+=xx; } return s/N; })();\n    out.textContent = `x₀=${x0.toFixed(3)} · N=${N} · running mean ≈ ${xEnd.toFixed(4)} (space average = 0.5 by Birkhoff).`;\n  }\n  xs.addEventListener('input', render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-erg",
+            "title": "Time average of the doubling map",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"er-x\">x₀:</label><input type=\"range\" id=\"er-x\" min=\"0.005\" max=\"0.995\" step=\"0.001\" value=\"0.37\"><span class=\"small\" id=\"er-xval\">x₀=0.370</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"er-svg\" viewBox=\"0 -1.1 1 1.2\" width=\"100%\" style=\"max-width:640px;aspect-ratio:1/1.2\"><title>Ergodic time average under the doubling map converging to 1/2</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "er-out"
+              }
+            ],
+            "hint": "running $\\tfrac{1}{N}\\sum T^k(x_0)$ versus $N$ · pick $x_0$ and watch convergence to $1/2$",
+            "bodyScript": "  const svg=$('#er-svg'), xs=$('#er-x'), xv=$('#er-xval'), out=$('#er-out');\n  function render(){\n    const x0=+xs.value; xv.textContent=`x₀=${x0.toFixed(3)}`;\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // frame: x-axis (N, plotted as fraction), y-axis 0..1\n    svg.appendChild(SVG('rect',{x:0,y:-1,width:1,height:1,fill:'var(--panel2)',opacity:0.3}));\n    // horizontal line at 1/2\n    svg.appendChild(SVG('line',{x1:0,y1:-0.5,x2:1,y2:-0.5,stroke:'var(--green)','stroke-width':0.003,opacity:0.7}));\n    // label\n    const lbl = SVG('text',{x:0.01, y:-0.52, 'font-size':0.03, fill:'var(--green)'}); lbl.textContent='1/2';\n    svg.appendChild(lbl);\n    // compute running average\n    let x=x0, sum=0;\n    const N=2000;\n    let d='';\n    for(let k=1;k<=N;k++){\n      x = (2*x) % 1;\n      sum += x;\n      const avg = sum/k;\n      const X = k/N, Y = -avg;\n      d += (k===1?'M':'L')+X+' '+Y;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--yellow)', 'stroke-width':0.005}));\n    // last value\n    const xEnd = (function(){ let xx=x0, s=0; for(let i=0;i<N;i++){ xx=(2*xx)%1; s+=xx; } return s/N; })();\n    out.textContent = `x₀=${x0.toFixed(3)} · N=${N} · running mean ≈ ${xEnd.toFixed(4)} (space average = 0.5 by Birkhoff).`;\n  }\n  xs.addEventListener('input', render); render();"
+          }
         },
         {
           "type": "raw",
@@ -420,8 +850,27 @@
         {
           "type": "widget",
           "id": "w-lor",
-          "html": "<div class=\"widget\" id=\"w-lor\">\n  <div class=\"hd\"><div class=\"ttl\">Lorenz attractor (3D, rotatable)</div><div class=\"hint\">drag to rotate · σ, β, ρ sliders · defaults = classical (10, 8/3, 28)</div></div>\n  <div class=\"row\">\n    <label for=\"lo-s\">σ:</label><input type=\"range\" id=\"lo-s\" min=\"4\" max=\"20\" step=\"0.1\" value=\"10\"><span class=\"small\" id=\"lo-sval\">σ=10.0</span>\n    <label for=\"lo-b\">β:</label><input type=\"range\" id=\"lo-b\" min=\"0.5\" max=\"5\" step=\"0.05\" value=\"2.667\"><span class=\"small\" id=\"lo-bval\">β=2.67</span>\n    <label for=\"lo-r\">ρ:</label><input type=\"range\" id=\"lo-r\" min=\"1\" max=\"50\" step=\"0.1\" value=\"28\"><span class=\"small\" id=\"lo-rval\">ρ=28.0</span>\n  </div>\n  <svg id=\"lo-svg\" viewBox=\"-260 -200 520 400\" width=\"100%\" style=\"max-width:620px;aspect-ratio:1.3/1\"><title>Lorenz attractor, 3D draggable</title></svg>\n  <div class=\"readout\" id=\"lo-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lor",
+            "title": "Lorenz attractor (3D, rotatable)",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lo-s\">σ:</label><input type=\"range\" id=\"lo-s\" min=\"4\" max=\"20\" step=\"0.1\" value=\"10\"><span class=\"small\" id=\"lo-sval\">σ=10.0</span>\n    <label for=\"lo-b\">β:</label><input type=\"range\" id=\"lo-b\" min=\"0.5\" max=\"5\" step=\"0.05\" value=\"2.667\"><span class=\"small\" id=\"lo-bval\">β=2.67</span>\n    <label for=\"lo-r\">ρ:</label><input type=\"range\" id=\"lo-r\" min=\"1\" max=\"50\" step=\"0.1\" value=\"28\"><span class=\"small\" id=\"lo-rval\">ρ=28.0</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"lo-svg\" viewBox=\"-260 -200 520 400\" width=\"100%\" style=\"max-width:620px;aspect-ratio:1.3/1\"><title>Lorenz attractor, 3D draggable</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "lo-out"
+              }
+            ],
+            "hint": "drag to rotate · σ, β, ρ sliders · defaults = classical (10, 8/3, 28)",
+            "bodyScript": "  const svg=$('#lo-svg');\n  const ss=$('#lo-s'), bs=$('#lo-b'), rs=$('#lo-r');\n  const sv=$('#lo-sval'), bv=$('#lo-bval'), rv=$('#lo-rval');\n  const out = svg.parentElement.querySelector('.readout');\n  // precomputed trajectory, recomputed when parameters change\n  let traj = [];\n  function integrate(sigma, beta, rho, N, h){\n    let y=[0.5, 0.5, 0.5]; const f=(t,[x,y2,z])=>[sigma*(y2-x), rho*x-y2-x*z, x*y2-beta*z];\n    // transient\n    for(let i=0;i<2000;i++) y = rk4Step(f,0,y,h);\n    const out=[];\n    for(let i=0;i<N;i++){ y = rk4Step(f,0,y,h); out.push(y.slice()); }\n    return out;\n  }\n  function recompute(){\n    const sigma=+ss.value, beta=+bs.value, rho=+rs.value;\n    sv.textContent=`σ=${sigma.toFixed(1)}`; bv.textContent=`β=${beta.toFixed(2)}`; rv.textContent=`ρ=${rho.toFixed(1)}`;\n    traj = integrate(sigma, beta, rho, 10000, 0.005);\n    draw();\n  }\n  function draw(){\n    const yaw = view.yaw, pitch = view.pitch;\n    const step = view.dragging ? 5 : 1; // decimate on drag\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // bounds: fixed viewBox, scale world coords\n    const scale = 6;\n    const cx = 0, cy = -50; // offset so the attractor sits near center\n    // project & build path\n    const pts = [];\n    for(let i=0;i<traj.length;i+=step){\n      const [x,y,z] = traj[i];\n      // center around (0,0,27)\n      const [X,Y,Z] = proj3([x*scale, y*scale, (z-27)*scale], yaw, pitch);\n      pts.push([X + cx, -Y + cy, Z]);  // SVG y flipped\n    }\n    // draw in segments colored by depth Z (front = brighter)\n    // simple single path for speed\n    let d = '';\n    for(let i=0;i<pts.length;i++){ d += (i?'L':'M')+pts[i][0]+' '+pts[i][1]; }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.7, opacity:0.9}));\n    // axes at origin (projected)\n    const O = proj3([0,0,-27*scale], yaw, pitch);\n    const Xax = proj3([5*scale,0,-27*scale], yaw, pitch);\n    const Yax = proj3([0,5*scale,-27*scale], yaw, pitch);\n    const Zax = proj3([0,0,-22*scale], yaw, pitch);\n    function vp(P){ return [P[0]+cx, -P[1]+cy]; }\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Xax)[0],y2:vp(Xax)[1],stroke:'var(--pink)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Yax)[0],y2:vp(Yax)[1],stroke:'var(--green)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Zax)[0],y2:vp(Zax)[1],stroke:'var(--violet)','stroke-width':1,opacity:0.6}));\n    // legend in viewport coords\n    const legend = SVG('g',{transform:'translate(-230, 170)'});\n    const lbl1 = SVG('text',{x:0,y:0,'font-size':11,fill:'var(--mute)'});\n    lbl1.textContent = `σ=${(+ss.value).toFixed(1)} · β=${(+bs.value).toFixed(2)} · ρ=${(+rs.value).toFixed(1)}`;\n    legend.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:0,y:14,'font-size':11,fill:'var(--mute)'});\n    lbl2.textContent = `yaw=${yaw.toFixed(2)} · pitch=${pitch.toFixed(2)} — drag to rotate`;\n    legend.appendChild(lbl2);\n    svg.appendChild(legend);\n  }\n  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.4 });\n  [ss, bs, rs].forEach(s=>s.addEventListener('input', recompute));\n  recompute();"
+          }
         },
         {
           "type": "raw",
@@ -438,8 +887,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lor",
-          "html": "<script>\n(function(){\n  const svg=$('#lo-svg');\n  const ss=$('#lo-s'), bs=$('#lo-b'), rs=$('#lo-r');\n  const sv=$('#lo-sval'), bv=$('#lo-bval'), rv=$('#lo-rval');\n  const out = svg.parentElement.querySelector('.readout');\n  // precomputed trajectory, recomputed when parameters change\n  let traj = [];\n  function integrate(sigma, beta, rho, N, h){\n    let y=[0.5, 0.5, 0.5]; const f=(t,[x,y2,z])=>[sigma*(y2-x), rho*x-y2-x*z, x*y2-beta*z];\n    // transient\n    for(let i=0;i<2000;i++) y = rk4Step(f,0,y,h);\n    const out=[];\n    for(let i=0;i<N;i++){ y = rk4Step(f,0,y,h); out.push(y.slice()); }\n    return out;\n  }\n  function recompute(){\n    const sigma=+ss.value, beta=+bs.value, rho=+rs.value;\n    sv.textContent=`σ=${sigma.toFixed(1)}`; bv.textContent=`β=${beta.toFixed(2)}`; rv.textContent=`ρ=${rho.toFixed(1)}`;\n    traj = integrate(sigma, beta, rho, 10000, 0.005);\n    draw();\n  }\n  function draw(){\n    const yaw = view.yaw, pitch = view.pitch;\n    const step = view.dragging ? 5 : 1; // decimate on drag\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // bounds: fixed viewBox, scale world coords\n    const scale = 6;\n    const cx = 0, cy = -50; // offset so the attractor sits near center\n    // project & build path\n    const pts = [];\n    for(let i=0;i<traj.length;i+=step){\n      const [x,y,z] = traj[i];\n      // center around (0,0,27)\n      const [X,Y,Z] = proj3([x*scale, y*scale, (z-27)*scale], yaw, pitch);\n      pts.push([X + cx, -Y + cy, Z]);  // SVG y flipped\n    }\n    // draw in segments colored by depth Z (front = brighter)\n    // simple single path for speed\n    let d = '';\n    for(let i=0;i<pts.length;i++){ d += (i?'L':'M')+pts[i][0]+' '+pts[i][1]; }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.7, opacity:0.9}));\n    // axes at origin (projected)\n    const O = proj3([0,0,-27*scale], yaw, pitch);\n    const Xax = proj3([5*scale,0,-27*scale], yaw, pitch);\n    const Yax = proj3([0,5*scale,-27*scale], yaw, pitch);\n    const Zax = proj3([0,0,-22*scale], yaw, pitch);\n    function vp(P){ return [P[0]+cx, -P[1]+cy]; }\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Xax)[0],y2:vp(Xax)[1],stroke:'var(--pink)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Yax)[0],y2:vp(Yax)[1],stroke:'var(--green)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Zax)[0],y2:vp(Zax)[1],stroke:'var(--violet)','stroke-width':1,opacity:0.6}));\n    // legend in viewport coords\n    const legend = SVG('g',{transform:'translate(-230, 170)'});\n    const lbl1 = SVG('text',{x:0,y:0,'font-size':11,fill:'var(--mute)'});\n    lbl1.textContent = `σ=${(+ss.value).toFixed(1)} · β=${(+bs.value).toFixed(2)} · ρ=${(+rs.value).toFixed(1)}`;\n    legend.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:0,y:14,'font-size':11,fill:'var(--mute)'});\n    lbl2.textContent = `yaw=${yaw.toFixed(2)} · pitch=${pitch.toFixed(2)} — drag to rotate`;\n    legend.appendChild(lbl2);\n    svg.appendChild(legend);\n  }\n  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.4 });\n  [ss, bs, rs].forEach(s=>s.addEventListener('input', recompute));\n  recompute();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lor",
+            "title": "Lorenz attractor (3D, rotatable)",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lo-s\">σ:</label><input type=\"range\" id=\"lo-s\" min=\"4\" max=\"20\" step=\"0.1\" value=\"10\"><span class=\"small\" id=\"lo-sval\">σ=10.0</span>\n    <label for=\"lo-b\">β:</label><input type=\"range\" id=\"lo-b\" min=\"0.5\" max=\"5\" step=\"0.05\" value=\"2.667\"><span class=\"small\" id=\"lo-bval\">β=2.67</span>\n    <label for=\"lo-r\">ρ:</label><input type=\"range\" id=\"lo-r\" min=\"1\" max=\"50\" step=\"0.1\" value=\"28\"><span class=\"small\" id=\"lo-rval\">ρ=28.0</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"lo-svg\" viewBox=\"-260 -200 520 400\" width=\"100%\" style=\"max-width:620px;aspect-ratio:1.3/1\"><title>Lorenz attractor, 3D draggable</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "lo-out"
+              }
+            ],
+            "hint": "drag to rotate · σ, β, ρ sliders · defaults = classical (10, 8/3, 28)",
+            "bodyScript": "  const svg=$('#lo-svg');\n  const ss=$('#lo-s'), bs=$('#lo-b'), rs=$('#lo-r');\n  const sv=$('#lo-sval'), bv=$('#lo-bval'), rv=$('#lo-rval');\n  const out = svg.parentElement.querySelector('.readout');\n  // precomputed trajectory, recomputed when parameters change\n  let traj = [];\n  function integrate(sigma, beta, rho, N, h){\n    let y=[0.5, 0.5, 0.5]; const f=(t,[x,y2,z])=>[sigma*(y2-x), rho*x-y2-x*z, x*y2-beta*z];\n    // transient\n    for(let i=0;i<2000;i++) y = rk4Step(f,0,y,h);\n    const out=[];\n    for(let i=0;i<N;i++){ y = rk4Step(f,0,y,h); out.push(y.slice()); }\n    return out;\n  }\n  function recompute(){\n    const sigma=+ss.value, beta=+bs.value, rho=+rs.value;\n    sv.textContent=`σ=${sigma.toFixed(1)}`; bv.textContent=`β=${beta.toFixed(2)}`; rv.textContent=`ρ=${rho.toFixed(1)}`;\n    traj = integrate(sigma, beta, rho, 10000, 0.005);\n    draw();\n  }\n  function draw(){\n    const yaw = view.yaw, pitch = view.pitch;\n    const step = view.dragging ? 5 : 1; // decimate on drag\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // bounds: fixed viewBox, scale world coords\n    const scale = 6;\n    const cx = 0, cy = -50; // offset so the attractor sits near center\n    // project & build path\n    const pts = [];\n    for(let i=0;i<traj.length;i+=step){\n      const [x,y,z] = traj[i];\n      // center around (0,0,27)\n      const [X,Y,Z] = proj3([x*scale, y*scale, (z-27)*scale], yaw, pitch);\n      pts.push([X + cx, -Y + cy, Z]);  // SVG y flipped\n    }\n    // draw in segments colored by depth Z (front = brighter)\n    // simple single path for speed\n    let d = '';\n    for(let i=0;i<pts.length;i++){ d += (i?'L':'M')+pts[i][0]+' '+pts[i][1]; }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':0.7, opacity:0.9}));\n    // axes at origin (projected)\n    const O = proj3([0,0,-27*scale], yaw, pitch);\n    const Xax = proj3([5*scale,0,-27*scale], yaw, pitch);\n    const Yax = proj3([0,5*scale,-27*scale], yaw, pitch);\n    const Zax = proj3([0,0,-22*scale], yaw, pitch);\n    function vp(P){ return [P[0]+cx, -P[1]+cy]; }\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Xax)[0],y2:vp(Xax)[1],stroke:'var(--pink)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Yax)[0],y2:vp(Yax)[1],stroke:'var(--green)','stroke-width':1,opacity:0.6}));\n    svg.appendChild(SVG('line',{x1:vp(O)[0],y1:vp(O)[1],x2:vp(Zax)[0],y2:vp(Zax)[1],stroke:'var(--violet)','stroke-width':1,opacity:0.6}));\n    // legend in viewport coords\n    const legend = SVG('g',{transform:'translate(-230, 170)'});\n    const lbl1 = SVG('text',{x:0,y:0,'font-size':11,fill:'var(--mute)'});\n    lbl1.textContent = `σ=${(+ss.value).toFixed(1)} · β=${(+bs.value).toFixed(2)} · ρ=${(+rs.value).toFixed(1)}`;\n    legend.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:0,y:14,'font-size':11,fill:'var(--mute)'});\n    lbl2.textContent = `yaw=${yaw.toFixed(2)} · pitch=${pitch.toFixed(2)} — drag to rotate`;\n    legend.appendChild(lbl2);\n    svg.appendChild(legend);\n  }\n  const view = make3DDraggable(svg, draw, { yaw: 0.6, pitch: 0.4 });\n  [ss, bs, rs].forEach(s=>s.addEventListener('input', recompute));\n  recompute();"
+          }
         },
         {
           "type": "raw",

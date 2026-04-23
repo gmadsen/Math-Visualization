@@ -13,8 +13,31 @@
         {
           "type": "widget",
           "id": "w-halfplane",
-          "html": "<div class=\"widget\" id=\"w-halfplane\">\n  <div class=\"hd\"><div class=\"ttl\">Half-plane of convergence</div><div class=\"hint\">drag the abscissa $\\sigma_a$</div></div>\n  <svg id=\"hp-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>Half-plane of convergence</title></svg>\n  <div class=\"row\">\n    <label for=\"hp-sig\">abscissa $\\sigma_a$</label>\n    <input type=\"range\" id=\"hp-sig\" min=\"-2\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"hp-sigv\" class=\"readout\" style=\"min-width:120px;flex:0 0 auto\">$\\sigma_a = 1.00$</span>\n  </div>\n  <div class=\"small\">Green = absolute convergence. Red = divergence. The boundary line $\\mathrm{Re}\\,s = \\sigma_a$ is where $\\sum |a_n|/n^\\sigma$ first goes finite.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-halfplane",
+            "title": "Half-plane of convergence",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hp-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hp-sig\">abscissa $\\sigma_a$</label>\n    <input type=\"range\" id=\"hp-sig\" min=\"-2\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"hp-sigv\" class=\"readout\" style=\"min-width:120px;flex:0 0 auto\">$\\sigma_a = 1.00$</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Green = absolute convergence. Red = divergence. The boundary line $\\mathrm{Re}\\,s = \\sigma_a$ is where $\\sum |a_n|/n^\\sigma$ first goes finite.</div>"
+              }
+            ],
+            "hint": "drag the abscissa $\\sigma_a$",
+            "bodyScript": "  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');\n  const W = 620, H = 260, pad = 40;\n  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function draw(){\n    svg.innerHTML = '';\n    const sv = parseFloat(sig.value);\n    // green half-plane (right of sv)\n    const xL = toX(sv), xR = toX(xmax);\n    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),\n      fill:'rgba(131,193,103,0.18)'}));\n    // red half-plane (left of sv)\n    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),\n      fill:'rgba(224,122,95,0.15)'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));\n    // grid ticks\n    for(let k=-2;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // boundary\n    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),\n      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));\n    // labels\n    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});\n    lbl1.textContent = 'Re s = σₐ';\n    svg.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});\n    lbl2.textContent = 'absolute convergence';\n    svg.appendChild(lbl2);\n    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});\n    lbl3.textContent = 'divergence';\n    svg.appendChild(lbl3);\n    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);\n    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});\n    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);\n    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 1 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -22,8 +45,31 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-halfplane",
-          "html": "<script>\n/* =============================== SECTION 1 widget =============================== */\n(function(){\n  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');\n  const W = 620, H = 260, pad = 40;\n  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function draw(){\n    svg.innerHTML = '';\n    const sv = parseFloat(sig.value);\n    // green half-plane (right of sv)\n    const xL = toX(sv), xR = toX(xmax);\n    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),\n      fill:'rgba(131,193,103,0.18)'}));\n    // red half-plane (left of sv)\n    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),\n      fill:'rgba(224,122,95,0.15)'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));\n    // grid ticks\n    for(let k=-2;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // boundary\n    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),\n      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));\n    // labels\n    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});\n    lbl1.textContent = 'Re s = σₐ';\n    svg.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});\n    lbl2.textContent = 'absolute convergence';\n    svg.appendChild(lbl2);\n    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});\n    lbl3.textContent = 'divergence';\n    svg.appendChild(lbl3);\n    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);\n    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});\n    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);\n    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;\n  }\n  sig.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-halfplane",
+            "title": "Half-plane of convergence",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hp-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"hp-sig\">abscissa $\\sigma_a$</label>\n    <input type=\"range\" id=\"hp-sig\" min=\"-2\" max=\"3\" step=\"0.05\" value=\"1\">\n    <span id=\"hp-sigv\" class=\"readout\" style=\"min-width:120px;flex:0 0 auto\">$\\sigma_a = 1.00$</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Green = absolute convergence. Red = divergence. The boundary line $\\mathrm{Re}\\,s = \\sigma_a$ is where $\\sum |a_n|/n^\\sigma$ first goes finite.</div>"
+              }
+            ],
+            "hint": "drag the abscissa $\\sigma_a$",
+            "bodyScript": "  const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');\n  const W = 620, H = 260, pad = 40;\n  const xmin = -2.5, xmax = 3.5, ymin = -2.5, ymax = 2.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function draw(){\n    svg.innerHTML = '';\n    const sv = parseFloat(sig.value);\n    // green half-plane (right of sv)\n    const xL = toX(sv), xR = toX(xmax);\n    svg.appendChild(SVG('rect',{x:xL,y:toY(ymax),width:xR-xL,height:toY(ymin)-toY(ymax),\n      fill:'rgba(131,193,103,0.18)'}));\n    // red half-plane (left of sv)\n    svg.appendChild(SVG('rect',{x:toX(xmin),y:toY(ymax),width:xL-toX(xmin),height:toY(ymin)-toY(ymax),\n      fill:'rgba(224,122,95,0.15)'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:toX(0),y1:toY(ymin),x2:toX(0),y2:toY(ymax),stroke:'var(--mute)','stroke-width':1}));\n    // grid ticks\n    for(let k=-2;k<=3;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:toY(0)-4,x2:toX(k),y2:toY(0)+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // boundary\n    svg.appendChild(SVG('line',{x1:toX(sv),y1:toY(ymin),x2:toX(sv),y2:toY(ymax),\n      stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'4 4'}));\n    // labels\n    const lbl1 = SVG('text',{x:toX(sv)+6,y:toY(ymax)+14,'font-size':12,fill:'var(--yellow)'});\n    lbl1.textContent = 'Re s = σₐ';\n    svg.appendChild(lbl1);\n    const lbl2 = SVG('text',{x:toX(2.6),y:toY(ymax)+14,'font-size':12,fill:'var(--green)'});\n    lbl2.textContent = 'absolute convergence';\n    svg.appendChild(lbl2);\n    const lbl3 = SVG('text',{x:toX(-2.3),y:toY(ymax)+14,'font-size':12,fill:'var(--pink)'});\n    lbl3.textContent = 'divergence';\n    svg.appendChild(lbl3);\n    const lbl4 = SVG('text',{x:toX(xmax)-6,y:toY(0)-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    lbl4.textContent = 'Re s'; svg.appendChild(lbl4);\n    const lbl5 = SVG('text',{x:toX(0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--mute)'});\n    lbl5.textContent = 'Im s'; svg.appendChild(lbl5);\n    sigv.textContent = `σₐ = ${sv.toFixed(2)}`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 1 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -50,8 +96,31 @@
         {
           "type": "widget",
           "id": "w-zeta",
-          "html": "<div class=\"widget\" id=\"w-zeta\">\n  <div class=\"hd\"><div class=\"ttl\">$\\zeta(\\sigma)$ on the real axis</div><div class=\"hint\">drag $\\sigma$ on $(1,\\infty)$</div></div>\n  <svg id=\"z-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>$\\zeta(\\sigma)$ on the real axis</title></svg>\n  <div class=\"row\">\n    <label for=\"z-sig\">$\\sigma$</label>\n    <input type=\"range\" id=\"z-sig\" min=\"1.01\" max=\"5\" step=\"0.01\" value=\"2\">\n    <span id=\"z-val\" class=\"readout\" style=\"min-width:240px;flex:0 0 auto\">ζ(2.00) ≈ 1.6449</span>\n  </div>\n  <div class=\"small\">Partial sum to $N=200$ shown. As $\\sigma \\downarrow 1$ the value blows up like $1/(\\sigma-1)$.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-zeta",
+            "title": "$\\zeta(\\sigma)$ on the real axis",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "z-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"z-sig\">$\\sigma$</label>\n    <input type=\"range\" id=\"z-sig\" min=\"1.01\" max=\"5\" step=\"0.01\" value=\"2\">\n    <span id=\"z-val\" class=\"readout\" style=\"min-width:240px;flex:0 0 auto\">ζ(2.00) ≈ 1.6449</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Partial sum to $N=200$ shown. As $\\sigma \\downarrow 1$ the value blows up like $1/(\\sigma-1)$.</div>"
+              }
+            ],
+            "hint": "drag $\\sigma$ on $(1,\\infty)$",
+            "bodyScript": "  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function zeta(s){\n    let S = 0; const N = 400;\n    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // ticks\n    for(let k=1;k<=5;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=6;k++){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // vertical asymptote at s=1\n    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),\n      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));\n    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});\n    a.textContent = 'pole at s=1'; svg.appendChild(a);\n\n    // curve\n    let dStr = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;\n      const y = zeta(s);\n      const X = toX(s), Y = toY(Math.min(y,ymax));\n      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // marker\n    const s0 = parseFloat(sig.value);\n    const z = zeta(s0);\n    const X = toX(s0), Y = toY(Math.min(z,ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    const lblY = Y - 12;\n    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;\n    svg.appendChild(t);\n\n    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 2 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -59,8 +128,31 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-zeta",
-          "html": "<script>\n/* =============================== SECTION 2 widget =============================== */\n(function(){\n  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function zeta(s){\n    let S = 0; const N = 400;\n    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // ticks\n    for(let k=1;k<=5;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=6;k++){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // vertical asymptote at s=1\n    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),\n      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));\n    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});\n    a.textContent = 'pole at s=1'; svg.appendChild(a);\n\n    // curve\n    let dStr = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;\n      const y = zeta(s);\n      const X = toX(s), Y = toY(Math.min(y,ymax));\n      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // marker\n    const s0 = parseFloat(sig.value);\n    const z = zeta(s0);\n    const X = toX(s0), Y = toY(Math.min(z,ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    const lblY = Y - 12;\n    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;\n    svg.appendChild(t);\n\n    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;\n  }\n  sig.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-zeta",
+            "title": "$\\zeta(\\sigma)$ on the real axis",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "z-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"z-sig\">$\\sigma$</label>\n    <input type=\"range\" id=\"z-sig\" min=\"1.01\" max=\"5\" step=\"0.01\" value=\"2\">\n    <span id=\"z-val\" class=\"readout\" style=\"min-width:240px;flex:0 0 auto\">ζ(2.00) ≈ 1.6449</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Partial sum to $N=200$ shown. As $\\sigma \\downarrow 1$ the value blows up like $1/(\\sigma-1)$.</div>"
+              }
+            ],
+            "hint": "drag $\\sigma$ on $(1,\\infty)$",
+            "bodyScript": "  const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 1.0, xmax = 5.0, ymin = 0, ymax = 6;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function zeta(s){\n    let S = 0; const N = 400;\n    for(let n=1;n<=N;n++) S += 1/Math.pow(n,s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // ticks\n    for(let k=1;k<=5;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=6;k++){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // vertical asymptote at s=1\n    svg.appendChild(SVG('line',{x1:toX(1.0),y1:toY(0),x2:toX(1.0),y2:toY(ymax),\n      stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'3 4'}));\n    const a = SVG('text',{x:toX(1.0)+6,y:toY(ymax)+14,'font-size':11,fill:'var(--pink)'});\n    a.textContent = 'pole at s=1'; svg.appendChild(a);\n\n    // curve\n    let dStr = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + 0.02 + (xmax - xmin - 0.02) * i/steps;\n      const y = zeta(s);\n      const X = toX(s), Y = toY(Math.min(y,ymax));\n      dStr += (i===0?'M':'L') + X + ' ' + Y + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dStr,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // marker\n    const s0 = parseFloat(sig.value);\n    const z = zeta(s0);\n    const X = toX(s0), Y = toY(Math.min(z,ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    const lblY = Y - 12;\n    const t = SVG('text',{x:X,y:lblY,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    t.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}`;\n    svg.appendChild(t);\n\n    val.textContent = `ζ(${s0.toFixed(2)}) ≈ ${z.toFixed(4)}    [1/(σ-1) ≈ ${(1/(s0-1)).toFixed(4)}]`;\n  }\n  sig.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 2 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -145,8 +237,31 @@
         {
           "type": "widget",
           "id": "w-funceq",
-          "html": "<div class=\"widget\" id=\"w-funceq\">\n  <div class=\"hd\"><div class=\"ttl\">Reflection $s \\leftrightarrow 1-s$</div><div class=\"hint\">drag $s$ on the critical line's axis</div></div>\n  <svg id=\"fe-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Reflection $s \\leftrightarrow 1-s$</title></svg>\n  <div class=\"row\">\n    <label for=\"fe-s\">$s$ (real part)</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.5\">\n    <span id=\"fe-sv\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>\n  <div class=\"small\">Blue = $s$; yellow = $1-s$. The critical line $\\mathrm{Re}\\,s = 1/2$ is fixed by $s\\mapsto 1-s$.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-funceq",
+            "title": "Reflection $s \\leftrightarrow 1-s$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$s$ (real part)</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.5\">\n    <span id=\"fe-sv\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue = $s$; yellow = $1-s$. The critical line $\\mathrm{Re}\\,s = 1/2$ is fixed by $s\\mapsto 1-s$.</div>"
+              }
+            ],
+            "hint": "drag $s$ on the critical line's axis",
+            "bodyScript": "  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');\n  const W = 620, H = 240, pad = 40;\n  const xmin = -3.5, xmax = 4.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const yMid = H/2;\n\n  function draw(){\n    svg.innerHTML = '';\n    // axis\n    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));\n    for(let k=-3;k<=4;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // strip 0..1\n    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));\n    // critical line x=1/2\n    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});\n    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);\n    // pole at s=1\n    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));\n    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n    pt.textContent = 'pole'; svg.appendChild(pt);\n\n    const s = parseFloat(sR.value);\n    const ref = 1 - s;\n    // s\n    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    ts.textContent = 's'; svg.appendChild(ts);\n    // 1-s\n    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));\n    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n    tr.textContent = '1−s'; svg.appendChild(tr);\n    // reflection arrow\n    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {\n      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8\n    });\n\n    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 5 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -154,8 +269,31 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-funceq",
-          "html": "<script>\n/* =============================== SECTION 5 widget =============================== */\n(function(){\n  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');\n  const W = 620, H = 240, pad = 40;\n  const xmin = -3.5, xmax = 4.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const yMid = H/2;\n\n  function draw(){\n    svg.innerHTML = '';\n    // axis\n    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));\n    for(let k=-3;k<=4;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // strip 0..1\n    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));\n    // critical line x=1/2\n    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});\n    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);\n    // pole at s=1\n    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));\n    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n    pt.textContent = 'pole'; svg.appendChild(pt);\n\n    const s = parseFloat(sR.value);\n    const ref = 1 - s;\n    // s\n    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    ts.textContent = 's'; svg.appendChild(ts);\n    // 1-s\n    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));\n    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n    tr.textContent = '1−s'; svg.appendChild(tr);\n    // reflection arrow\n    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {\n      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8\n    });\n\n    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;\n  }\n  sR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-funceq",
+            "title": "Reflection $s \\leftrightarrow 1-s$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fe-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fe-s\">$s$ (real part)</label>\n    <input type=\"range\" id=\"fe-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.5\">\n    <span id=\"fe-sv\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue = $s$; yellow = $1-s$. The critical line $\\mathrm{Re}\\,s = 1/2$ is fixed by $s\\mapsto 1-s$.</div>"
+              }
+            ],
+            "hint": "drag $s$ on the critical line's axis",
+            "bodyScript": "  const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');\n  const W = 620, H = 240, pad = 40;\n  const xmin = -3.5, xmax = 4.5;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const yMid = H/2;\n\n  function draw(){\n    svg.innerHTML = '';\n    // axis\n    svg.appendChild(SVG('line',{x1:pad,y1:yMid,x2:W-pad,y2:yMid,stroke:'var(--mute)'}));\n    for(let k=-3;k<=4;k++){\n      svg.appendChild(SVG('line',{x1:toX(k),y1:yMid-4,x2:toX(k),y2:yMid+4,stroke:'var(--mute)'}));\n      const t = SVG('text',{x:toX(k),y:yMid+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    // strip 0..1\n    svg.appendChild(SVG('rect',{x:toX(0),y:yMid-60,width:toX(1)-toX(0),height:120,fill:'rgba(131,193,103,0.08)'}));\n    // critical line x=1/2\n    svg.appendChild(SVG('line',{x1:toX(0.5),y1:yMid-80,x2:toX(0.5),y2:yMid+80,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const cl = SVG('text',{x:toX(0.5),y:yMid-88,'text-anchor':'middle','font-size':11,fill:'var(--violet)'});\n    cl.textContent = 'Re s = 1/2'; svg.appendChild(cl);\n    // pole at s=1\n    svg.appendChild(SVG('circle',{cx:toX(1),cy:yMid,r:4,fill:'var(--pink)'}));\n    const pt = SVG('text',{x:toX(1),y:yMid+40,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});\n    pt.textContent = 'pole'; svg.appendChild(pt);\n\n    const s = parseFloat(sR.value);\n    const ref = 1 - s;\n    // s\n    svg.appendChild(SVG('circle',{cx:toX(s),cy:yMid,r:7,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:toX(s),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--blue)'});\n    ts.textContent = 's'; svg.appendChild(ts);\n    // 1-s\n    svg.appendChild(SVG('circle',{cx:toX(ref),cy:yMid,r:7,fill:'var(--yellow)'}));\n    const tr = SVG('text',{x:toX(ref),y:yMid-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});\n    tr.textContent = '1−s'; svg.appendChild(tr);\n    // reflection arrow\n    drawArrow(svg, [toX(s), yMid+22], [toX(ref), yMid+22], {\n      color:'var(--violet)', markerId:'fe-arr', curve:20, pad1:8, pad2:8\n    });\n\n    sv.textContent = `Λ(${s.toFixed(2)}) = Λ(${ref.toFixed(2)})`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 5 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -173,8 +311,39 @@
         {
           "type": "widget",
           "id": "w-mellin",
-          "html": "<div class=\"widget\" id=\"w-mellin\">\n  <div class=\"hd\"><div class=\"ttl\">Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$</div><div class=\"hint\">drag $s$ and $n$</div></div>\n  <svg id=\"ml-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$</title></svg>\n  <div class=\"row\">\n    <label for=\"ml-s\">$s$</label>\n    <input type=\"range\" id=\"ml-s\" min=\"0.3\" max=\"4\" step=\"0.02\" value=\"2\">\n    <span id=\"ml-sv\" class=\"small\">s = 2.00</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"ml-n\">$n$</label>\n    <input type=\"range\" id=\"ml-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\">\n    <span id=\"ml-nv\" class=\"small\">n = 2</span>\n  </div>\n  <div class=\"readout\" id=\"ml-out\"></div>\n  <div class=\"small\">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\\Gamma(s)\\,n^{-s}$ — exact equality up to sampling error.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mellin",
+            "title": "Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ml-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-s\">$s$</label>\n    <input type=\"range\" id=\"ml-s\" min=\"0.3\" max=\"4\" step=\"0.02\" value=\"2\">\n    <span id=\"ml-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-n\">$n$</label>\n    <input type=\"range\" id=\"ml-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\">\n    <span id=\"ml-nv\" class=\"small\">n = 2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ml-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\\Gamma(s)\\,n^{-s}$ — exact equality up to sampling error.</div>"
+              }
+            ],
+            "hint": "drag $s$ and $n$",
+            "bodyScript": "  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');\n  const W = 620, H = 260, pad = 40;\n\n  // Lanczos approximation for Gamma\n  function gamma(z){\n    const g = 7;\n    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,\n               771.32342877765313, -176.61502916214059, 12.507343278686905,\n               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];\n    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));\n    z -= 1;\n    let x = c[0];\n    for(let i=1;i<g+2;i++) x += c[i]/(z+i);\n    const t = z + g + 0.5;\n    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;\n  }\n\n  function integrand(x, s, n){\n    // x^{s-1} * e^{-n x}\n    return Math.pow(x, s-1) * Math.exp(-n*x);\n  }\n\n  function integrate(s, n){\n    // trapezoidal rule on [eps, X] with adaptive upper bound\n    const eps = 1e-4;\n    const X = 60 / n;           // e^{-nx} is negligible past ~60/n\n    const N = 4000;\n    const dx = (X - eps) / N;\n    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));\n    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);\n    return S * dx;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sR.value), n = parseInt(nR.value,10);\n    sv.textContent = 's = ' + s.toFixed(2);\n    nv.textContent = 'n = ' + n;\n\n    // plot integrand on x ∈ [0, 10/n]\n    const xmin = 0, xmax = 10/n;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    // find ymax from sampling\n    let ymax = 0;\n    const samples = [];\n    const steps = 300;\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);\n      samples.push({x, y});\n      if(isFinite(y) && y > ymax) ymax = y;\n    }\n    ymax *= 1.1;\n    if(!isFinite(ymax) || ymax <= 0) ymax = 1;\n    const toY = y => H - pad - (y/ymax)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // shaded area under curve (the integral)\n    let area = `M${toX(xmin)} ${toY(0)} `;\n    for(const {x,y} of samples){\n      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;\n      area += `L${toX(x)} ${toY(yy)} `;\n    }\n    area += `L${toX(xmax)} ${toY(0)} Z`;\n    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));\n\n    // curve\n    let d = '';\n    let first = true;\n    for(const {x,y} of samples){\n      if(!isFinite(y)) continue;\n      const yy = Math.min(y, ymax);\n      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';\n      first = false;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));\n\n    // x ticks\n    for(let k=0;k<=5;k++){\n      const xv = xmin + (xmax-xmin)*k/5;\n      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t.textContent = xv.toFixed(2); svg.appendChild(t);\n    }\n\n    // numeric check\n    const numerical = integrate(s, n);\n    const theoretical = gamma(s) * Math.pow(n, -s);\n    out.textContent =\n      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\\n` +\n      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\\n` +\n      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;\n  }\n  sR.addEventListener('input', draw);\n  nR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget: gamma/Mellin integral ==============================="
+          }
         },
         {
           "type": "raw",
@@ -182,8 +351,39 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-mellin",
-          "html": "<script>\n/* =============================== SECTION 6 widget: gamma/Mellin integral =============================== */\n(function(){\n  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');\n  const W = 620, H = 260, pad = 40;\n\n  // Lanczos approximation for Gamma\n  function gamma(z){\n    const g = 7;\n    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,\n               771.32342877765313, -176.61502916214059, 12.507343278686905,\n               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];\n    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));\n    z -= 1;\n    let x = c[0];\n    for(let i=1;i<g+2;i++) x += c[i]/(z+i);\n    const t = z + g + 0.5;\n    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;\n  }\n\n  function integrand(x, s, n){\n    // x^{s-1} * e^{-n x}\n    return Math.pow(x, s-1) * Math.exp(-n*x);\n  }\n\n  function integrate(s, n){\n    // trapezoidal rule on [eps, X] with adaptive upper bound\n    const eps = 1e-4;\n    const X = 60 / n;           // e^{-nx} is negligible past ~60/n\n    const N = 4000;\n    const dx = (X - eps) / N;\n    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));\n    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);\n    return S * dx;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sR.value), n = parseInt(nR.value,10);\n    sv.textContent = 's = ' + s.toFixed(2);\n    nv.textContent = 'n = ' + n;\n\n    // plot integrand on x ∈ [0, 10/n]\n    const xmin = 0, xmax = 10/n;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    // find ymax from sampling\n    let ymax = 0;\n    const samples = [];\n    const steps = 300;\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);\n      samples.push({x, y});\n      if(isFinite(y) && y > ymax) ymax = y;\n    }\n    ymax *= 1.1;\n    if(!isFinite(ymax) || ymax <= 0) ymax = 1;\n    const toY = y => H - pad - (y/ymax)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // shaded area under curve (the integral)\n    let area = `M${toX(xmin)} ${toY(0)} `;\n    for(const {x,y} of samples){\n      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;\n      area += `L${toX(x)} ${toY(yy)} `;\n    }\n    area += `L${toX(xmax)} ${toY(0)} Z`;\n    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));\n\n    // curve\n    let d = '';\n    let first = true;\n    for(const {x,y} of samples){\n      if(!isFinite(y)) continue;\n      const yy = Math.min(y, ymax);\n      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';\n      first = false;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));\n\n    // x ticks\n    for(let k=0;k<=5;k++){\n      const xv = xmin + (xmax-xmin)*k/5;\n      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t.textContent = xv.toFixed(2); svg.appendChild(t);\n    }\n\n    // numeric check\n    const numerical = integrate(s, n);\n    const theoretical = gamma(s) * Math.pow(n, -s);\n    out.textContent =\n      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\\n` +\n      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\\n` +\n      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;\n  }\n  sR.addEventListener('input', draw);\n  nR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mellin",
+            "title": "Gamma integral $\\int_0^\\infty x^{s-1} e^{-nx}\\,dx = \\Gamma(s)\\,n^{-s}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ml-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-s\">$s$</label>\n    <input type=\"range\" id=\"ml-s\" min=\"0.3\" max=\"4\" step=\"0.02\" value=\"2\">\n    <span id=\"ml-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ml-n\">$n$</label>\n    <input type=\"range\" id=\"ml-n\" min=\"1\" max=\"6\" step=\"1\" value=\"2\">\n    <span id=\"ml-nv\" class=\"small\">n = 2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ml-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Numerical quadrature of the integrand $x^{s-1}e^{-nx}$ compared to $\\Gamma(s)\\,n^{-s}$ — exact equality up to sampling error.</div>"
+              }
+            ],
+            "hint": "drag $s$ and $n$",
+            "bodyScript": "  const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');\n  const W = 620, H = 260, pad = 40;\n\n  // Lanczos approximation for Gamma\n  function gamma(z){\n    const g = 7;\n    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,\n               771.32342877765313, -176.61502916214059, 12.507343278686905,\n               -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];\n    if(z < 0.5) return Math.PI / (Math.sin(Math.PI*z) * gamma(1-z));\n    z -= 1;\n    let x = c[0];\n    for(let i=1;i<g+2;i++) x += c[i]/(z+i);\n    const t = z + g + 0.5;\n    return Math.sqrt(2*Math.PI) * Math.pow(t, z+0.5) * Math.exp(-t) * x;\n  }\n\n  function integrand(x, s, n){\n    // x^{s-1} * e^{-n x}\n    return Math.pow(x, s-1) * Math.exp(-n*x);\n  }\n\n  function integrate(s, n){\n    // trapezoidal rule on [eps, X] with adaptive upper bound\n    const eps = 1e-4;\n    const X = 60 / n;           // e^{-nx} is negligible past ~60/n\n    const N = 4000;\n    const dx = (X - eps) / N;\n    let S = 0.5 * (integrand(eps, s, n) + integrand(X, s, n));\n    for(let i=1;i<N;i++) S += integrand(eps + i*dx, s, n);\n    return S * dx;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sR.value), n = parseInt(nR.value,10);\n    sv.textContent = 's = ' + s.toFixed(2);\n    nv.textContent = 'n = ' + n;\n\n    // plot integrand on x ∈ [0, 10/n]\n    const xmin = 0, xmax = 10/n;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    // find ymax from sampling\n    let ymax = 0;\n    const samples = [];\n    const steps = 300;\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = x === 0 ? (s >= 1 ? 0 : Infinity) : integrand(x, s, n);\n      samples.push({x, y});\n      if(isFinite(y) && y > ymax) ymax = y;\n    }\n    ymax *= 1.1;\n    if(!isFinite(ymax) || ymax <= 0) ymax = 1;\n    const toY = y => H - pad - (y/ymax)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // shaded area under curve (the integral)\n    let area = `M${toX(xmin)} ${toY(0)} `;\n    for(const {x,y} of samples){\n      const yy = isFinite(y) ? Math.min(y, ymax) : ymax;\n      area += `L${toX(x)} ${toY(yy)} `;\n    }\n    area += `L${toX(xmax)} ${toY(0)} Z`;\n    svg.appendChild(SVG('path',{d:area, fill:'rgba(88,196,221,0.22)', stroke:'none'}));\n\n    // curve\n    let d = '';\n    let first = true;\n    for(const {x,y} of samples){\n      if(!isFinite(y)) continue;\n      const yy = Math.min(y, ymax);\n      d += (first?'M':'L') + toX(x) + ' ' + toY(yy) + ' ';\n      first = false;\n    }\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--blue)', 'stroke-width':2}));\n\n    // x ticks\n    for(let k=0;k<=5;k++){\n      const xv = xmin + (xmax-xmin)*k/5;\n      const t = SVG('text',{x:toX(xv), y:toY(0)+16, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t.textContent = xv.toFixed(2); svg.appendChild(t);\n    }\n\n    // numeric check\n    const numerical = integrate(s, n);\n    const theoretical = gamma(s) * Math.pow(n, -s);\n    out.textContent =\n      `∫₀^∞ x^(s−1) e^(−nx) dx  ≈  ${numerical.toFixed(6)}\\n` +\n      `Γ(s)·n^(−s)              =  ${theoretical.toFixed(6)}\\n` +\n      `rel. error                ≈  ${Math.abs((numerical-theoretical)/theoretical).toExponential(2)}`;\n  }\n  sR.addEventListener('input', draw);\n  nR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget: gamma/Mellin integral ==============================="
+          }
         },
         {
           "type": "raw",
@@ -210,8 +410,35 @@
         {
           "type": "widget",
           "id": "w-perron",
-          "html": "<div class=\"widget\" id=\"w-perron\">\n  <div class=\"hd\"><div class=\"ttl\">Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$</div><div class=\"hint\">truncate integral at height $T$</div></div>\n  <svg id=\"pr-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$</title></svg>\n  <div class=\"row\">\n    <label for=\"pr-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"pr-T\" min=\"5\" max=\"80\" step=\"1\" value=\"25\">\n    <span id=\"pr-Tv\" class=\"small\">T = 25</span>\n  </div>\n  <div class=\"readout\" id=\"pr-out\"></div>\n  <div class=\"small\">Truncated Perron approximation to $\\sum_{n<x} 1 = \\lfloor x\\rfloor$ from $\\frac{1}{2\\pi i}\\int_{c-iT}^{c+iT}\\zeta(s)x^s/s\\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\\to\\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-perron",
+            "title": "Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "pr-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pr-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"pr-T\" min=\"5\" max=\"80\" step=\"1\" value=\"25\">\n    <span id=\"pr-Tv\" class=\"small\">T = 25</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pr-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Truncated Perron approximation to $\\sum_{n<x} 1 = \\lfloor x\\rfloor$ from $\\frac{1}{2\\pi i}\\int_{c-iT}^{c+iT}\\zeta(s)x^s/s\\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\\to\\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>"
+              }
+            ],
+            "hint": "truncate integral at height $T$",
+            "bodyScript": "  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 0.2, xmax = 8;\n\n  // partial zeta on vertical line\n  function zetaComplex(sigma, t, N){\n    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))\n    let re=0, im=0;\n    for(let n=1;n<=N;n++){\n      const nps = Math.pow(n, -sigma);\n      const arg = t * Math.log(n);\n      re += nps * Math.cos(arg);\n      im -= nps * Math.sin(arg);\n    }\n    return {re, im};\n  }\n\n  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt\n  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)\n  function truncatedPerron(x, T, c, M){\n    const N = 30;        // truncate ζ series\n    const Ntheta = 2*M;  // number of sample points in t\n    let Sre=0, Sim=0;\n    const dt = (2*T)/Ntheta;\n    for(let k=0;k<=Ntheta;k++){\n      const t = -T + k*dt;\n      // ζ(c+it) approx\n      const z = zetaComplex(c, t, N);\n      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))\n      const xc = Math.pow(x, c);\n      const lnx = Math.log(x);\n      const xre = xc * Math.cos(t*lnx);\n      const xim = xc * Math.sin(t*lnx);\n      // product z * x^s\n      const pre = z.re*xre - z.im*xim;\n      const pim = z.re*xim + z.im*xre;\n      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)\n      const denom = c*c + t*t;\n      const dre = c/denom, dim = -t/denom;\n      const qre = pre*dre - pim*dim;\n      const qim = pre*dim + pim*dre;\n      const w = (k===0 || k===Ntheta) ? 0.5 : 1;\n      Sre += w*qre;\n      Sim += w*qim;\n    }\n    Sre *= dt / (2*Math.PI);\n    Sim *= dt / (2*Math.PI);\n    return Sre;  // real part is the answer\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const T = parseInt(TR.value,10);\n    Tv.textContent = 'T = ' + T;\n    const c = 2;\n    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T\n\n    const ymax = Math.floor(xmax) + 1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // exact floor function\n    let fd = '';\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);\n      if(x2 <= x1) continue;\n      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;\n    }\n    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n\n    // truncated Perron curve\n    const steps = 60;\n    let d = '';\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = truncatedPerron(x, T, c, M);\n      const yc = Math.min(Math.max(y, -0.5), ymax);\n      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // ticks\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n\n    // legend\n    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});\n    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— truncated Perron'; svg.appendChild(L2);\n\n    const xTest = 3.5;\n    const yTest = truncatedPerron(xTest, T, c, M);\n    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;\n  }\n  TR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 7 widget: truncated Perron ==============================="
+          }
         },
         {
           "type": "raw",
@@ -219,8 +446,35 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-perron",
-          "html": "<script>\n/* =============================== SECTION 7 widget: truncated Perron =============================== */\n(function(){\n  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 0.2, xmax = 8;\n\n  // partial zeta on vertical line\n  function zetaComplex(sigma, t, N){\n    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))\n    let re=0, im=0;\n    for(let n=1;n<=N;n++){\n      const nps = Math.pow(n, -sigma);\n      const arg = t * Math.log(n);\n      re += nps * Math.cos(arg);\n      im -= nps * Math.sin(arg);\n    }\n    return {re, im};\n  }\n\n  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt\n  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)\n  function truncatedPerron(x, T, c, M){\n    const N = 30;        // truncate ζ series\n    const Ntheta = 2*M;  // number of sample points in t\n    let Sre=0, Sim=0;\n    const dt = (2*T)/Ntheta;\n    for(let k=0;k<=Ntheta;k++){\n      const t = -T + k*dt;\n      // ζ(c+it) approx\n      const z = zetaComplex(c, t, N);\n      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))\n      const xc = Math.pow(x, c);\n      const lnx = Math.log(x);\n      const xre = xc * Math.cos(t*lnx);\n      const xim = xc * Math.sin(t*lnx);\n      // product z * x^s\n      const pre = z.re*xre - z.im*xim;\n      const pim = z.re*xim + z.im*xre;\n      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)\n      const denom = c*c + t*t;\n      const dre = c/denom, dim = -t/denom;\n      const qre = pre*dre - pim*dim;\n      const qim = pre*dim + pim*dre;\n      const w = (k===0 || k===Ntheta) ? 0.5 : 1;\n      Sre += w*qre;\n      Sim += w*qim;\n    }\n    Sre *= dt / (2*Math.PI);\n    Sim *= dt / (2*Math.PI);\n    return Sre;  // real part is the answer\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const T = parseInt(TR.value,10);\n    Tv.textContent = 'T = ' + T;\n    const c = 2;\n    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T\n\n    const ymax = Math.floor(xmax) + 1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // exact floor function\n    let fd = '';\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);\n      if(x2 <= x1) continue;\n      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;\n    }\n    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n\n    // truncated Perron curve\n    const steps = 60;\n    let d = '';\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = truncatedPerron(x, T, c, M);\n      const yc = Math.min(Math.max(y, -0.5), ymax);\n      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // ticks\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n\n    // legend\n    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});\n    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— truncated Perron'; svg.appendChild(L2);\n\n    const xTest = 3.5;\n    const yTest = truncatedPerron(xTest, T, c, M);\n    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;\n  }\n  TR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-perron",
+            "title": "Perron inversion for $\\zeta(s)$: step function $\\lfloor x\\rfloor$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "pr-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pr-T\">cutoff $T$</label>\n    <input type=\"range\" id=\"pr-T\" min=\"5\" max=\"80\" step=\"1\" value=\"25\">\n    <span id=\"pr-Tv\" class=\"small\">T = 25</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pr-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Truncated Perron approximation to $\\sum_{n<x} 1 = \\lfloor x\\rfloor$ from $\\frac{1}{2\\pi i}\\int_{c-iT}^{c+iT}\\zeta(s)x^s/s\\,ds$, $c=2$. Main term $x$ from the pole at $s=1$ plus the truncated integral; as $T\\to\\infty$ the step function fills in. Gibbs-style wiggles appear at integers.</div>"
+              }
+            ],
+            "hint": "truncate integral at height $T$",
+            "bodyScript": "  const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');\n  const W = 620, H = 280, pad = 40;\n  const xmin = 0.2, xmax = 8;\n\n  // partial zeta on vertical line\n  function zetaComplex(sigma, t, N){\n    // sum_{n=1}^N n^{-sigma-it} = sum n^{-sigma} * (cos(t log n) - i sin(t log n))\n    let re=0, im=0;\n    for(let n=1;n<=N;n++){\n      const nps = Math.pow(n, -sigma);\n      const arg = t * Math.log(n);\n      re += nps * Math.cos(arg);\n      im -= nps * Math.sin(arg);\n    }\n    return {re, im};\n  }\n\n  // truncated Perron: (1/2π) * ∫_{-T}^{T} ζ(c+it) * x^{c+it} / (c+it) dt\n  // (the i's combine: ds = i dt, so 1/(2πi) ∫ = 1/(2π) ∫ after substitution)\n  function truncatedPerron(x, T, c, M){\n    const N = 30;        // truncate ζ series\n    const Ntheta = 2*M;  // number of sample points in t\n    let Sre=0, Sim=0;\n    const dt = (2*T)/Ntheta;\n    for(let k=0;k<=Ntheta;k++){\n      const t = -T + k*dt;\n      // ζ(c+it) approx\n      const z = zetaComplex(c, t, N);\n      // x^{c+it} = x^c * (cos(t ln x) + i sin(t ln x))\n      const xc = Math.pow(x, c);\n      const lnx = Math.log(x);\n      const xre = xc * Math.cos(t*lnx);\n      const xim = xc * Math.sin(t*lnx);\n      // product z * x^s\n      const pre = z.re*xre - z.im*xim;\n      const pim = z.re*xim + z.im*xre;\n      // divide by (c+it):  1/(c+it) = (c - it)/(c^2+t^2)\n      const denom = c*c + t*t;\n      const dre = c/denom, dim = -t/denom;\n      const qre = pre*dre - pim*dim;\n      const qim = pre*dim + pim*dre;\n      const w = (k===0 || k===Ntheta) ? 0.5 : 1;\n      Sre += w*qre;\n      Sim += w*qim;\n    }\n    Sre *= dt / (2*Math.PI);\n    Sim *= dt / (2*Math.PI);\n    return Sre;  // real part is the answer\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const T = parseInt(TR.value,10);\n    Tv.textContent = 'T = ' + T;\n    const c = 2;\n    const M = Math.max(60, Math.ceil(T*8));   // samples scale with T\n\n    const ymax = Math.floor(xmax) + 1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n\n    // exact floor function\n    let fd = '';\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const x1 = Math.max(xmin, k), x2 = Math.min(xmax, k+1);\n      if(x2 <= x1) continue;\n      fd += `M${toX(x1)} ${toY(k)} L${toX(x2)} ${toY(k)} `;\n    }\n    svg.appendChild(SVG('path',{d:fd,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n\n    // truncated Perron curve\n    const steps = 60;\n    let d = '';\n    for(let i=0;i<=steps;i++){\n      const x = xmin + (xmax-xmin)*i/steps;\n      const y = truncatedPerron(x, T, c, M);\n      const yc = Math.min(Math.max(y, -0.5), ymax);\n      d += (i===0?'M':'L') + toX(x) + ' ' + toY(yc) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // ticks\n    for(let k=0;k<=Math.floor(xmax);k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n\n    // legend\n    const L1 = SVG('text',{x:pad+8,y:pad+12,'font-size':12,fill:'var(--green)'});\n    L1.textContent = '- - ⌊x⌋ (exact)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+8,y:pad+28,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— truncated Perron'; svg.appendChild(L2);\n\n    const xTest = 3.5;\n    const yTest = truncatedPerron(xTest, T, c, M);\n    out.textContent = `at x = ${xTest}:  truncated Perron ≈ ${yTest.toFixed(3)},  ⌊x⌋ = ${Math.floor(xTest)}.   Larger T sharpens the staircase (and the wiggles at integers).`;\n  }\n  TR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 7 widget: truncated Perron ==============================="
+          }
         },
         {
           "type": "raw",
@@ -247,8 +501,35 @@
         {
           "type": "widget",
           "id": "w-apprimes",
-          "html": "<div class=\"widget\" id=\"w-apprimes\">\n  <div class=\"hd\"><div class=\"ttl\">$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$</div><div class=\"hint\">primes $\\equiv 1$ vs. $\\equiv 3 \\pmod 4$</div></div>\n  <svg id=\"ap-svg\" viewBox=\"0 0 620 300\" width=\"620\" height=\"300\"><title>$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$</title></svg>\n  <div class=\"row\">\n    <label for=\"ap-x\">$x$</label>\n    <input type=\"range\" id=\"ap-x\" min=\"20\" max=\"2000\" step=\"20\" value=\"500\">\n    <span id=\"ap-xv\" class=\"small\">x = 500</span>\n  </div>\n  <div class=\"readout\" id=\"ap-out\"></div>\n  <div class=\"small\">Chebyshev's bias: $\\pi(x;4,3)$ tends to <em>slightly</em> lead $\\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\\to \\infty$ at the same rate $x/(2\\log x)$.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apprimes",
+            "title": "$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 300",
+                "width": 620,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-x\">$x$</label>\n    <input type=\"range\" id=\"ap-x\" min=\"20\" max=\"2000\" step=\"20\" value=\"500\">\n    <span id=\"ap-xv\" class=\"small\">x = 500</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Chebyshev's bias: $\\pi(x;4,3)$ tends to <em>slightly</em> lead $\\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\\to \\infty$ at the same rate $x/(2\\log x)$.</div>"
+              }
+            ],
+            "hint": "primes $\\equiv 1$ vs. $\\equiv 3 \\pmod 4$",
+            "bodyScript": "  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');\n  const W = 620, H = 300, pad = 40;\n\n  function sieve(N){\n    const comp = new Uint8Array(N+1);\n    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;\n    const primes = [];\n    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);\n    return primes;\n  }\n  const PRIMES = sieve(2000);\n\n  function draw(){\n    svg.innerHTML = '';\n    const X = parseInt(xR.value, 10);\n    xv.textContent = 'x = ' + X;\n    // counts up through X\n    const xs = [], c1 = [], c3 = [];\n    const step = Math.max(1, Math.floor(X/80));\n    let n1 = 0, n3 = 0;\n    for(let p=2;p<=X;p++){\n      if(PRIMES.indexOf(p) !== -1){\n        if(p%4===1) n1++;\n        else if(p%4===3) n3++;\n      }\n      if(p%step===0 || p===X){\n        xs.push(p); c1.push(n1); c3.push(n3);\n      }\n    }\n    const ymax = Math.max(n1, n3, 5) * 1.15;\n    const toX = x => pad + x/X*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));\n    // curves\n    let d1 = '', d3 = '';\n    for(let i=0;i<xs.length;i++){\n      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';\n      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // asymptote x/(2 log x)\n    let dA = '';\n    for(let i=1;i<xs.length;i++){\n      const y = xs[i] / (2*Math.log(xs[i]));\n      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));\n\n    // legends\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});\n    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);\n    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});\n    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);\n\n    // ticks\n    for(let k=0;k<=5;k++){\n      const v = Math.round(X*k/5);\n      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = v; svg.appendChild(t);\n    }\n\n    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;\n  }\n  xR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget ==============================="
+          }
         },
         {
           "type": "raw",
@@ -256,8 +537,35 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-apprimes",
-          "html": "<script>\n/* =============================== SECTION 6 widget =============================== */\n(function(){\n  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');\n  const W = 620, H = 300, pad = 40;\n\n  function sieve(N){\n    const comp = new Uint8Array(N+1);\n    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;\n    const primes = [];\n    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);\n    return primes;\n  }\n  const PRIMES = sieve(2000);\n\n  function draw(){\n    svg.innerHTML = '';\n    const X = parseInt(xR.value, 10);\n    xv.textContent = 'x = ' + X;\n    // counts up through X\n    const xs = [], c1 = [], c3 = [];\n    const step = Math.max(1, Math.floor(X/80));\n    let n1 = 0, n3 = 0;\n    for(let p=2;p<=X;p++){\n      if(PRIMES.indexOf(p) !== -1){\n        if(p%4===1) n1++;\n        else if(p%4===3) n3++;\n      }\n      if(p%step===0 || p===X){\n        xs.push(p); c1.push(n1); c3.push(n3);\n      }\n    }\n    const ymax = Math.max(n1, n3, 5) * 1.15;\n    const toX = x => pad + x/X*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));\n    // curves\n    let d1 = '', d3 = '';\n    for(let i=0;i<xs.length;i++){\n      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';\n      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // asymptote x/(2 log x)\n    let dA = '';\n    for(let i=1;i<xs.length;i++){\n      const y = xs[i] / (2*Math.log(xs[i]));\n      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));\n\n    // legends\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});\n    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);\n    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});\n    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);\n\n    // ticks\n    for(let k=0;k<=5;k++){\n      const v = Math.round(X*k/5);\n      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = v; svg.appendChild(t);\n    }\n\n    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;\n  }\n  xR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apprimes",
+            "title": "$\\pi(x;4,1)$ vs. $\\pi(x;4,3)$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ap-svg",
+                "viewBox": "0 0 620 300",
+                "width": 620,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ap-x\">$x$</label>\n    <input type=\"range\" id=\"ap-x\" min=\"20\" max=\"2000\" step=\"20\" value=\"500\">\n    <span id=\"ap-xv\" class=\"small\">x = 500</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Chebyshev's bias: $\\pi(x;4,3)$ tends to <em>slightly</em> lead $\\pi(x;4,1)$ for small $x$, but Dirichlet guarantees both $\\to \\infty$ at the same rate $x/(2\\log x)$.</div>"
+              }
+            ],
+            "hint": "primes $\\equiv 1$ vs. $\\equiv 3 \\pmod 4$",
+            "bodyScript": "  const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');\n  const W = 620, H = 300, pad = 40;\n\n  function sieve(N){\n    const comp = new Uint8Array(N+1);\n    for(let p=2;p*p<=N;p++) if(!comp[p]) for(let k=p*p;k<=N;k+=p) comp[k] = 1;\n    const primes = [];\n    for(let p=2;p<=N;p++) if(!comp[p]) primes.push(p);\n    return primes;\n  }\n  const PRIMES = sieve(2000);\n\n  function draw(){\n    svg.innerHTML = '';\n    const X = parseInt(xR.value, 10);\n    xv.textContent = 'x = ' + X;\n    // counts up through X\n    const xs = [], c1 = [], c3 = [];\n    const step = Math.max(1, Math.floor(X/80));\n    let n1 = 0, n3 = 0;\n    for(let p=2;p<=X;p++){\n      if(PRIMES.indexOf(p) !== -1){\n        if(p%4===1) n1++;\n        else if(p%4===3) n3++;\n      }\n      if(p%step===0 || p===X){\n        xs.push(p); c1.push(n1); c3.push(n3);\n      }\n    }\n    const ymax = Math.max(n1, n3, 5) * 1.15;\n    const toX = x => pad + x/X*(W-2*pad);\n    const toY = y => H - pad - y/ymax*(H-2*pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:'var(--mute)'}));\n    // curves\n    let d1 = '', d3 = '';\n    for(let i=0;i<xs.length;i++){\n      d1 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c1[i]) + ' ';\n      d3 += (i===0?'M':'L') + toX(xs[i]) + ' ' + toY(c3[i]) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:d3,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // asymptote x/(2 log x)\n    let dA = '';\n    for(let i=1;i<xs.length;i++){\n      const y = xs[i] / (2*Math.log(xs[i]));\n      dA += (i===1?'M':'L') + toX(xs[i]) + ' ' + toY(y) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dA,fill:'none',stroke:'var(--green)','stroke-width':1.5,'stroke-dasharray':'5 5'}));\n\n    // legends\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--blue)'});\n    L1.textContent = '— π(x; 4, 1)'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--yellow)'});\n    L2.textContent = '— π(x; 4, 3)'; svg.appendChild(L2);\n    const L3 = SVG('text',{x:pad+10,y:pad+42,'font-size':12,fill:'var(--green)'});\n    L3.textContent = '- - x/(2 log x)'; svg.appendChild(L3);\n\n    // ticks\n    for(let k=0;k<=5;k++){\n      const v = Math.round(X*k/5);\n      const t = SVG('text',{x:toX(v),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = v; svg.appendChild(t);\n    }\n\n    out.textContent = `at x=${X}:  π(x;4,1) = ${n1},  π(x;4,3) = ${n3},  asymptote x/(2 log x) ≈ ${(X/(2*Math.log(X))).toFixed(1)}`;\n  }\n  xR.addEventListener('input', draw);\n  draw();",
+            "sectionComment": "=============================== SECTION 6 widget ==============================="
+          }
         },
         {
           "type": "raw",

@@ -256,9 +256,31 @@
     mount.appendChild(btn);
   }
 
+  // The mount markup (inside `<nav class="toc">`, from inject-breadcrumb)
+  // predates this widget. Leaving it inside a `position: sticky` nav means
+  // when the strip expands it just thickens the sticky bar and overlaps the
+  // content below (main has a fixed 4rem top-padding assuming a thin nav).
+  // Relocate the mount out of the sticky nav into normal document flow,
+  // right before <main>, so the strip pushes content down instead of
+  // covering it.
+  function relocateMount(mount) {
+    if (!mount || mount.dataset.mvLineageRelocated === '1') return;
+    var main = document.querySelector('main');
+    var nav = mount.closest('nav.toc') || mount.closest('nav');
+    if (!main || !nav) return;
+    // Only move if the mount is currently inside the sticky nav.
+    if (!nav.contains(mount)) return;
+    nav.removeChild(mount);
+    // Insert just before <main>, giving it a natural block slot that scrolls
+    // with the document rather than overlapping from the sticky nav.
+    main.parentNode.insertBefore(mount, main);
+    mount.dataset.mvLineageRelocated = '1';
+  }
+
   function render() {
     var mount = document.getElementById('mv-lineage-mount');
     if (!mount) return;
+    relocateMount(mount);
     var mvc = window.__MVConcepts;
     if (!mvc || !mvc.topics) {
       mount.hidden = true;

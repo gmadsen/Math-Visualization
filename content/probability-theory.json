@@ -13,8 +13,58 @@
         {
           "type": "widget",
           "id": "w-events",
-          "html": "<div class=\"widget\" id=\"w-events\">\n  <div class=\"hd\"><div class=\"ttl\">Events on a finite sample space</div><div class=\"hint\">two dice, click events</div></div>\n  <svg id=\"events-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>Probability of events on rolling two dice</title></svg>\n  <div class=\"row\">\n    <button id=\"ev-sum10\">sum $\\ge 10$</button>\n    <button id=\"ev-double\">doubles</button>\n    <button id=\"ev-even\">sum even</button>\n    <button id=\"ev-both\">sum $\\ge 10$ AND doubles</button>\n    <button id=\"ev-either\">sum $\\ge 10$ OR doubles</button>\n    <button id=\"ev-reset\">clear</button>\n  </div>\n  <div class=\"readout\" id=\"events-out\">Pick an event to highlight its outcomes in the 6×6 grid.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-events",
+            "title": "Events on a finite sample space",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "events-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Probability of events on rolling two dice"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "sum $\\ge 10$",
+                    "id": "ev-sum10"
+                  },
+                  {
+                    "label": "doubles",
+                    "id": "ev-double"
+                  },
+                  {
+                    "label": "sum even",
+                    "id": "ev-even"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ AND doubles",
+                    "id": "ev-both"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ OR doubles",
+                    "id": "ev-either"
+                  },
+                  {
+                    "label": "clear",
+                    "id": "ev-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "events-out",
+                "content": "Pick an event to highlight its outcomes in the 6×6 grid."
+              }
+            ],
+            "hint": "two dice, click events",
+            "bodyScript": "  const svg = $('#events-svg'), out = $('#events-out');\n  const W=760, H=260, pad=40;\n  const cell = 28;\n  const ox = (W - 6*cell)/2;\n  const oy = 40;\n  function drawGrid(highlight){\n    svg.innerHTML = '';\n    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));\n    // axis labels\n    for(let i=1;i<=6;i++){\n      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      tx.textContent=i; svg.appendChild(tx);\n      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      ty.textContent=i; svg.appendChild(ty);\n    }\n    // cells\n    for(let a=1;a<=6;a++){\n      for(let b=1;b<=6;b++){\n        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;\n        const on = hl.has(a+','+b);\n        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,\n          fill: on ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)'}));\n        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,\n          fill: on ? '#111' : 'var(--mute)'});\n        t.textContent=a+b;\n        svg.appendChild(t);\n      }\n    }\n    // axis titles\n    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xt.textContent='die 1'; svg.appendChild(xt);\n    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});\n    yt.textContent='die 2'; svg.appendChild(yt);\n  }\n  function outcomes(pred){\n    const res=[];\n    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);\n    return res;\n  }\n  function show(label, pred){\n    const es = outcomes(pred);\n    drawGrid(es);\n    out.textContent = `${label}\\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;\n  }\n  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));\n  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));\n  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));\n  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));\n  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));\n  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });\n  drawGrid([]);",
+            "sectionComment": "=============================== §1 Events on two dice ==============================="
+          }
         },
         {
           "type": "raw",
@@ -31,8 +81,58 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-events",
-          "html": "<script>\n/* =============================== §1 Events on two dice =============================== */\n(function(){\n  const svg = $('#events-svg'), out = $('#events-out');\n  const W=760, H=260, pad=40;\n  const cell = 28;\n  const ox = (W - 6*cell)/2;\n  const oy = 40;\n  function drawGrid(highlight){\n    svg.innerHTML = '';\n    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));\n    // axis labels\n    for(let i=1;i<=6;i++){\n      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      tx.textContent=i; svg.appendChild(tx);\n      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      ty.textContent=i; svg.appendChild(ty);\n    }\n    // cells\n    for(let a=1;a<=6;a++){\n      for(let b=1;b<=6;b++){\n        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;\n        const on = hl.has(a+','+b);\n        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,\n          fill: on ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)'}));\n        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,\n          fill: on ? '#111' : 'var(--mute)'});\n        t.textContent=a+b;\n        svg.appendChild(t);\n      }\n    }\n    // axis titles\n    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xt.textContent='die 1'; svg.appendChild(xt);\n    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});\n    yt.textContent='die 2'; svg.appendChild(yt);\n  }\n  function outcomes(pred){\n    const res=[];\n    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);\n    return res;\n  }\n  function show(label, pred){\n    const es = outcomes(pred);\n    drawGrid(es);\n    out.textContent = `${label}\\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;\n  }\n  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));\n  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));\n  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));\n  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));\n  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));\n  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });\n  drawGrid([]);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-events",
+            "title": "Events on a finite sample space",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "events-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Probability of events on rolling two dice"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "sum $\\ge 10$",
+                    "id": "ev-sum10"
+                  },
+                  {
+                    "label": "doubles",
+                    "id": "ev-double"
+                  },
+                  {
+                    "label": "sum even",
+                    "id": "ev-even"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ AND doubles",
+                    "id": "ev-both"
+                  },
+                  {
+                    "label": "sum $\\ge 10$ OR doubles",
+                    "id": "ev-either"
+                  },
+                  {
+                    "label": "clear",
+                    "id": "ev-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "events-out",
+                "content": "Pick an event to highlight its outcomes in the 6×6 grid."
+              }
+            ],
+            "hint": "two dice, click events",
+            "bodyScript": "  const svg = $('#events-svg'), out = $('#events-out');\n  const W=760, H=260, pad=40;\n  const cell = 28;\n  const ox = (W - 6*cell)/2;\n  const oy = 40;\n  function drawGrid(highlight){\n    svg.innerHTML = '';\n    const hl = new Set((highlight||[]).map(([a,b])=>a+','+b));\n    // axis labels\n    for(let i=1;i<=6;i++){\n      const tx = SVG('text',{x:ox+(i-0.5)*cell,y:oy-10,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      tx.textContent=i; svg.appendChild(tx);\n      const ty = SVG('text',{x:ox-10,y:oy+(i-0.5)*cell+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      ty.textContent=i; svg.appendChild(ty);\n    }\n    // cells\n    for(let a=1;a<=6;a++){\n      for(let b=1;b<=6;b++){\n        const x = ox+(a-1)*cell, y = oy+(b-1)*cell;\n        const on = hl.has(a+','+b);\n        svg.appendChild(SVG('rect',{x,y,width:cell-1,height:cell-1,\n          fill: on ? 'var(--yellow)' : 'var(--panel2)',\n          stroke:'var(--line)'}));\n        const t = SVG('text',{x:x+cell/2,y:y+cell/2+4,'text-anchor':'middle','font-size':10,\n          fill: on ? '#111' : 'var(--mute)'});\n        t.textContent=a+b;\n        svg.appendChild(t);\n      }\n    }\n    // axis titles\n    const xt = SVG('text',{x:ox+3*cell,y:oy+6*cell+24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xt.textContent='die 1'; svg.appendChild(xt);\n    const yt = SVG('text',{x:ox-30,y:oy+3*cell,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ox-30} ${oy+3*cell})`});\n    yt.textContent='die 2'; svg.appendChild(yt);\n  }\n  function outcomes(pred){\n    const res=[];\n    for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) if(pred(a,b)) res.push([a,b]);\n    return res;\n  }\n  function show(label, pred){\n    const es = outcomes(pred);\n    drawGrid(es);\n    out.textContent = `${label}\\n|A| = ${es.length}, |Ω| = 36, P(A) = ${es.length}/36 ≈ ${(es.length/36).toFixed(4)}`;\n  }\n  $('#ev-sum10').addEventListener('click',()=>show('sum ≥ 10', (a,b)=>a+b>=10));\n  $('#ev-double').addEventListener('click',()=>show('doubles (a=b)', (a,b)=>a===b));\n  $('#ev-even').addEventListener('click',()=>show('sum even', (a,b)=>(a+b)%2===0));\n  $('#ev-both').addEventListener('click',()=>show('(sum ≥ 10) ∩ (doubles)', (a,b)=>a+b>=10 && a===b));\n  $('#ev-either').addEventListener('click',()=>show('(sum ≥ 10) ∪ (doubles)', (a,b)=>a+b>=10 || a===b));\n  $('#ev-reset').addEventListener('click',()=>{ drawGrid([]); out.textContent='Pick an event.'; });\n  drawGrid([]);",
+            "sectionComment": "=============================== §1 Events on two dice ==============================="
+          }
         },
         {
           "type": "raw",
@@ -50,8 +150,40 @@
         {
           "type": "widget",
           "id": "w-bayes",
-          "html": "<div class=\"widget\" id=\"w-bayes\">\n  <div class=\"hd\"><div class=\"ttl\">Bayes flipper</div><div class=\"hint\">posterior updates as you slide</div></div>\n  <svg id=\"bayes-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>Bayes flipper: prior, likelihood, posterior</title></svg>\n  <div class=\"row\">\n    <label for=\"b-prior\">prior $\\mathbb{P}(D)$</label>\n    <input id=\"b-prior\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.01\">\n    <span id=\"b-prior-v\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"b-sens\">sensitivity $\\mathbb{P}(+\\mid D)$</label>\n    <input id=\"b-sens\" type=\"range\" min=\"0.5\" max=\"0.999\" step=\"0.001\" value=\"0.99\">\n    <span id=\"b-sens-v\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"b-fpr\">false-pos rate $\\mathbb{P}(+\\mid\\neg D)$</label>\n    <input id=\"b-fpr\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.05\">\n    <span id=\"b-fpr-v\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"b-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bayes",
+            "title": "Bayes flipper",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bayes-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Bayes flipper: prior, likelihood, posterior"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-prior\">prior $\\mathbb{P}(D)$</label>\n    <input id=\"b-prior\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.01\">\n    <span id=\"b-prior-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-sens\">sensitivity $\\mathbb{P}(+\\mid D)$</label>\n    <input id=\"b-sens\" type=\"range\" min=\"0.5\" max=\"0.999\" step=\"0.001\" value=\"0.99\">\n    <span id=\"b-sens-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-fpr\">false-pos rate $\\mathbb{P}(+\\mid\\neg D)$</label>\n    <input id=\"b-fpr\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.05\">\n    <span id=\"b-fpr-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "b-out"
+              }
+            ],
+            "hint": "posterior updates as you slide",
+            "bodyScript": "  const svg = $('#bayes-svg'), out = $('#b-out');\n  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');\n  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');\n  const W=760, H=260;\n  function draw(){\n    const p = +prior.value, s = +sens.value, f = +fpr.value;\n    pv.textContent = p.toFixed(3);\n    sv.textContent = s.toFixed(3);\n    fv.textContent = f.toFixed(3);\n    // posterior\n    const num = s*p;\n    const den = s*p + f*(1-p);\n    const post = den>0 ? num/den : 0;\n    svg.innerHTML = '';\n    // 3 bars: prior, likelihood ratio, posterior\n    const barW = 180, barH = 160;\n    const y0 = 50, y1 = y0+barH;\n    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];\n    const vals = [p, den, post];\n    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];\n    for(let i=0;i<3;i++){\n      const cx = 80 + i*240;\n      // frame\n      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,\n        fill:'none',stroke:'var(--line)','stroke-width':1}));\n      // filled bar\n      const fh = Math.min(1,vals[i])*barH;\n      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,\n        fill:colors[i],opacity:0.85}));\n      // value\n      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});\n      t.textContent=vals[i].toFixed(4);\n      svg.appendChild(t);\n      // label\n      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=labels[i];\n      svg.appendChild(lbl);\n    }\n    // arrow from prior to posterior\n    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});\n    out.textContent =\n      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\\n`+\n      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\\n`+\n      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\\n`+\n      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;\n  }\n  prior.addEventListener('input',draw);\n  sens.addEventListener('input',draw);\n  fpr.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §2 Bayes flipper ==============================="
+          }
         },
         {
           "type": "raw",
@@ -68,8 +200,40 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-bayes",
-          "html": "<script>\n/* =============================== §2 Bayes flipper =============================== */\n(function(){\n  const svg = $('#bayes-svg'), out = $('#b-out');\n  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');\n  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');\n  const W=760, H=260;\n  function draw(){\n    const p = +prior.value, s = +sens.value, f = +fpr.value;\n    pv.textContent = p.toFixed(3);\n    sv.textContent = s.toFixed(3);\n    fv.textContent = f.toFixed(3);\n    // posterior\n    const num = s*p;\n    const den = s*p + f*(1-p);\n    const post = den>0 ? num/den : 0;\n    svg.innerHTML = '';\n    // 3 bars: prior, likelihood ratio, posterior\n    const barW = 180, barH = 160;\n    const y0 = 50, y1 = y0+barH;\n    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];\n    const vals = [p, den, post];\n    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];\n    for(let i=0;i<3;i++){\n      const cx = 80 + i*240;\n      // frame\n      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,\n        fill:'none',stroke:'var(--line)','stroke-width':1}));\n      // filled bar\n      const fh = Math.min(1,vals[i])*barH;\n      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,\n        fill:colors[i],opacity:0.85}));\n      // value\n      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});\n      t.textContent=vals[i].toFixed(4);\n      svg.appendChild(t);\n      // label\n      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=labels[i];\n      svg.appendChild(lbl);\n    }\n    // arrow from prior to posterior\n    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});\n    out.textContent =\n      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\\n`+\n      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\\n`+\n      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\\n`+\n      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;\n  }\n  prior.addEventListener('input',draw);\n  sens.addEventListener('input',draw);\n  fpr.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bayes",
+            "title": "Bayes flipper",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bayes-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Bayes flipper: prior, likelihood, posterior"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-prior\">prior $\\mathbb{P}(D)$</label>\n    <input id=\"b-prior\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.01\">\n    <span id=\"b-prior-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-sens\">sensitivity $\\mathbb{P}(+\\mid D)$</label>\n    <input id=\"b-sens\" type=\"range\" min=\"0.5\" max=\"0.999\" step=\"0.001\" value=\"0.99\">\n    <span id=\"b-sens-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"b-fpr\">false-pos rate $\\mathbb{P}(+\\mid\\neg D)$</label>\n    <input id=\"b-fpr\" type=\"range\" min=\"0.001\" max=\"0.5\" step=\"0.001\" value=\"0.05\">\n    <span id=\"b-fpr-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "b-out"
+              }
+            ],
+            "hint": "posterior updates as you slide",
+            "bodyScript": "  const svg = $('#bayes-svg'), out = $('#b-out');\n  const prior=$('#b-prior'), sens=$('#b-sens'), fpr=$('#b-fpr');\n  const pv=$('#b-prior-v'), sv=$('#b-sens-v'), fv=$('#b-fpr-v');\n  const W=760, H=260;\n  function draw(){\n    const p = +prior.value, s = +sens.value, f = +fpr.value;\n    pv.textContent = p.toFixed(3);\n    sv.textContent = s.toFixed(3);\n    fv.textContent = f.toFixed(3);\n    // posterior\n    const num = s*p;\n    const den = s*p + f*(1-p);\n    const post = den>0 ? num/den : 0;\n    svg.innerHTML = '';\n    // 3 bars: prior, likelihood ratio, posterior\n    const barW = 180, barH = 160;\n    const y0 = 50, y1 = y0+barH;\n    const labels = ['prior P(D)', 'P(+) = sens·p + fpr·(1-p)', 'posterior P(D|+)'];\n    const vals = [p, den, post];\n    const colors = ['var(--violet)','var(--cyan)','var(--yellow)'];\n    for(let i=0;i<3;i++){\n      const cx = 80 + i*240;\n      // frame\n      svg.appendChild(SVG('rect',{x:cx,y:y0,width:barW,height:barH,\n        fill:'none',stroke:'var(--line)','stroke-width':1}));\n      // filled bar\n      const fh = Math.min(1,vals[i])*barH;\n      svg.appendChild(SVG('rect',{x:cx,y:y1-fh,width:barW,height:fh,\n        fill:colors[i],opacity:0.85}));\n      // value\n      const t=SVG('text',{x:cx+barW/2,y:y0-8,'text-anchor':'middle','font-size':13,fill:colors[i],'font-weight':600});\n      t.textContent=vals[i].toFixed(4);\n      svg.appendChild(t);\n      // label\n      const lbl=SVG('text',{x:cx+barW/2,y:y1+24,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=labels[i];\n      svg.appendChild(lbl);\n    }\n    // arrow from prior to posterior\n    drawArrow(svg,[80+180,y0+barH/2],[80+480,y0+barH/2],{color:'var(--mute)',label:'Bayes',curve:-30,labelSide:0});\n    out.textContent =\n      `P(D) = ${p.toFixed(4)} · P(+|D) = ${s.toFixed(4)} · P(+|¬D) = ${f.toFixed(4)}\\n`+\n      `P(+)  = ${s.toFixed(3)}·${p.toFixed(3)} + ${f.toFixed(3)}·${(1-p).toFixed(3)} = ${den.toFixed(5)}\\n`+\n      `P(D|+) = (P(+|D)·P(D)) / P(+) = ${num.toFixed(5)} / ${den.toFixed(5)} ≈ ${post.toFixed(4)}\\n`+\n      `posterior / prior ratio = ${(post/p).toFixed(2)}×`;\n  }\n  prior.addEventListener('input',draw);\n  sens.addEventListener('input',draw);\n  fpr.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §2 Bayes flipper ==============================="
+          }
         },
         {
           "type": "raw",
@@ -87,8 +251,32 @@
         {
           "type": "widget",
           "id": "w-rv",
-          "html": "<div class=\"widget\" id=\"w-rv\">\n  <div class=\"hd\"><div class=\"ttl\">Push-forward: $\\Omega\\to\\mathbb{R}$</div><div class=\"hint\">hover samples to see the mapping</div></div>\n  <svg id=\"rv-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>Random variable as a push-forward measure</title></svg>\n  <div class=\"row\">\n    <button id=\"rv-resample\">new sample (n=40)</button>\n    <label for=\"rv-pick\">distribution</label>\n    <select id=\"rv-pick\">\n      <option value=\"unif\">X = 2U (uniform on [0,2])</option>\n      <option value=\"sq\">X = U² (skewed)</option>\n      <option value=\"exp\">X = -ln(U) (exponential)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"rv-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rv",
+            "title": "Push-forward: $\\Omega\\to\\mathbb{R}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "rv-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Random variable as a push-forward measure"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"rv-resample\">new sample (n=40)</button>\n    <label for=\"rv-pick\">distribution</label>\n    <select id=\"rv-pick\">\n      <option value=\"unif\">X = 2U (uniform on [0,2])</option>\n      <option value=\"sq\">X = U² (skewed)</option>\n      <option value=\"exp\">X = -ln(U) (exponential)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rv-out"
+              }
+            ],
+            "hint": "hover samples to see the mapping",
+            "bodyScript": "  const svg = $('#rv-svg'), out = $('#rv-out');\n  const pick = $('#rv-pick');\n  const W=760, H=260;\n  let samples = [];\n  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }\n  function apply(u){\n    const m = pick.value;\n    if(m==='unif') return 2*u;\n    if(m==='sq') return u*u;\n    if(m==='exp') return -Math.log(Math.max(u,1e-9));\n    return u;\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // top row: Omega = [0,1]\n    const y0 = 50, y1 = 170;\n    const x0 = 80, x1 = W-80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));\n    // labels\n    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);\n    // R range varies\n    const xs = samples.map(apply);\n    const xmax = Math.max(...xs.concat([1]));\n    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);\n    // tick labels\n    for(const v of [0,0.5,1]){\n      const xp = x0 + v*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    for(const v of [0, xmax/2, xmax]){\n      const xp = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    // draw samples: dot on top, dot on bottom, segment between\n    samples.forEach((u,i)=>{\n      const xu = x0 + u*(x1-x0);\n      const v = apply(u);\n      const xv = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,\n        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));\n      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));\n      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));\n    });\n    // title\n    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;\n    svg.appendChild(t1);\n    out.textContent =\n      `n = ${samples.length} samples\\n` +\n      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\\n` +\n      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;\n  }\n  $('#rv-resample').addEventListener('click',resample);\n  pick.addEventListener('change',draw);\n  resample();",
+            "sectionComment": "=============================== §3 Push-forward visualization ==============================="
+          }
         },
         {
           "type": "raw",
@@ -105,8 +293,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-rv",
-          "html": "<script>\n/* =============================== §3 Push-forward visualization =============================== */\n(function(){\n  const svg = $('#rv-svg'), out = $('#rv-out');\n  const pick = $('#rv-pick');\n  const W=760, H=260;\n  let samples = [];\n  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }\n  function apply(u){\n    const m = pick.value;\n    if(m==='unif') return 2*u;\n    if(m==='sq') return u*u;\n    if(m==='exp') return -Math.log(Math.max(u,1e-9));\n    return u;\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // top row: Omega = [0,1]\n    const y0 = 50, y1 = 170;\n    const x0 = 80, x1 = W-80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));\n    // labels\n    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);\n    // R range varies\n    const xs = samples.map(apply);\n    const xmax = Math.max(...xs.concat([1]));\n    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);\n    // tick labels\n    for(const v of [0,0.5,1]){\n      const xp = x0 + v*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    for(const v of [0, xmax/2, xmax]){\n      const xp = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    // draw samples: dot on top, dot on bottom, segment between\n    samples.forEach((u,i)=>{\n      const xu = x0 + u*(x1-x0);\n      const v = apply(u);\n      const xv = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,\n        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));\n      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));\n      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));\n    });\n    // title\n    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;\n    svg.appendChild(t1);\n    out.textContent =\n      `n = ${samples.length} samples\\n` +\n      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\\n` +\n      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;\n  }\n  $('#rv-resample').addEventListener('click',resample);\n  pick.addEventListener('change',draw);\n  resample();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rv",
+            "title": "Push-forward: $\\Omega\\to\\mathbb{R}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "rv-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Random variable as a push-forward measure"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"rv-resample\">new sample (n=40)</button>\n    <label for=\"rv-pick\">distribution</label>\n    <select id=\"rv-pick\">\n      <option value=\"unif\">X = 2U (uniform on [0,2])</option>\n      <option value=\"sq\">X = U² (skewed)</option>\n      <option value=\"exp\">X = -ln(U) (exponential)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rv-out"
+              }
+            ],
+            "hint": "hover samples to see the mapping",
+            "bodyScript": "  const svg = $('#rv-svg'), out = $('#rv-out');\n  const pick = $('#rv-pick');\n  const W=760, H=260;\n  let samples = [];\n  function resample(){ samples = Array.from({length:40},()=>Math.random()); draw(); }\n  function apply(u){\n    const m = pick.value;\n    if(m==='unif') return 2*u;\n    if(m==='sq') return u*u;\n    if(m==='exp') return -Math.log(Math.max(u,1e-9));\n    return u;\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // top row: Omega = [0,1]\n    const y0 = 50, y1 = 170;\n    const x0 = 80, x1 = W-80;\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y0,stroke:'var(--mute)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--mute)','stroke-width':1.2}));\n    // labels\n    const lt1=SVG('text',{x:x0-12,y:y0+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt1.textContent='Ω = [0,1]'; svg.appendChild(lt1);\n    // R range varies\n    const xs = samples.map(apply);\n    const xmax = Math.max(...xs.concat([1]));\n    const lt2=SVG('text',{x:x0-12,y:y1+4,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lt2.textContent=`ℝ [0,${xmax.toFixed(2)}]`; svg.appendChild(lt2);\n    // tick labels\n    for(const v of [0,0.5,1]){\n      const xp = x0 + v*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y0-4,x2:xp,y2:y0+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y0-8,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    for(const v of [0, xmax/2, xmax]){\n      const xp = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1-4,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    // draw samples: dot on top, dot on bottom, segment between\n    samples.forEach((u,i)=>{\n      const xu = x0 + u*(x1-x0);\n      const v = apply(u);\n      const xv = x0 + (v/xmax)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xu,y1:y0,x2:xv,y2:y1,\n        stroke:'var(--violet)','stroke-width':0.8,opacity:0.55}));\n      svg.appendChild(SVG('circle',{cx:xu,cy:y0,r:3,fill:'var(--cyan)'}));\n      svg.appendChild(SVG('circle',{cx:xv,cy:y1,r:3,fill:'var(--yellow)'}));\n    });\n    // title\n    const t1 = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t1.textContent = `X pushes ω from Ω to X(ω) in ℝ — the law is the resulting measure on ℝ.`;\n    svg.appendChild(t1);\n    out.textContent =\n      `n = ${samples.length} samples\\n` +\n      `sample mean of X ≈ ${(xs.reduce((a,b)=>a+b,0)/xs.length).toFixed(4)}\\n` +\n      `min(X) = ${Math.min(...xs).toFixed(4)}, max(X) = ${Math.max(...xs).toFixed(4)}`;\n  }\n  $('#rv-resample').addEventListener('click',resample);\n  pick.addEventListener('change',draw);\n  resample();",
+            "sectionComment": "=============================== §3 Push-forward visualization ==============================="
+          }
         },
         {
           "type": "raw",
@@ -124,8 +336,36 @@
         {
           "type": "widget",
           "id": "w-dist",
-          "html": "<div class=\"widget\" id=\"w-dist\">\n  <div class=\"hd\"><div class=\"ttl\">Distribution explorer</div><div class=\"hint\">PMF/PDF + CDF + moments</div></div>\n  <svg id=\"dist-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Named distributions — PMF/PDF and CDF</title></svg>\n  <div class=\"row\">\n    <label for=\"d-pick\">family</label>\n    <select id=\"d-pick\">\n      <option value=\"bern\">$\\text{Bernoulli}(p)$</option>\n      <option value=\"bin\">$\\text{Binomial}(n,p)$</option>\n      <option value=\"pois\">$\\text{Poisson}(\\lambda)$</option>\n      <option value=\"unif\">$\\text{Uniform}[0,1]$</option>\n      <option value=\"exp\">$\\text{Exponential}(\\lambda)$</option>\n      <option value=\"norm\">$\\mathcal{N}(\\mu,\\sigma^2)$</option>\n    </select>\n  </div>\n  <div class=\"row\" id=\"d-params\"></div>\n  <div class=\"readout\" id=\"d-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dist",
+            "title": "Distribution explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "dist-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Named distributions — PMF/PDF and CDF"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"d-pick\">family</label>\n    <select id=\"d-pick\">\n      <option value=\"bern\">$\\text{Bernoulli}(p)$</option>\n      <option value=\"bin\">$\\text{Binomial}(n,p)$</option>\n      <option value=\"pois\">$\\text{Poisson}(\\lambda)$</option>\n      <option value=\"unif\">$\\text{Uniform}[0,1]$</option>\n      <option value=\"exp\">$\\text{Exponential}(\\lambda)$</option>\n      <option value=\"norm\">$\\mathcal{N}(\\mu,\\sigma^2)$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "id": "d-params"
+              },
+              {
+                "kind": "readout",
+                "id": "d-out"
+              }
+            ],
+            "hint": "PMF/PDF + CDF + moments",
+            "bodyScript": "  const svg = $('#dist-svg'), out = $('#d-out');\n  const pick = $('#d-pick'), params = $('#d-params');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }\n  function binomPMF(n,p,k){\n    if(k<0||k>n) return 0;\n    // compute C(n,k)\n    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);\n    return c*Math.pow(p,k)*Math.pow(1-p,n-k);\n  }\n  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }\n  function setParams(conf){\n    params.innerHTML = '';\n    conf.forEach(c=>{\n      const lbl = document.createElement('label');\n      lbl.setAttribute('for','dp-'+c.name);\n      lbl.textContent = c.label + ' ';\n      params.appendChild(lbl);\n      const inp = document.createElement('input');\n      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;\n      params.appendChild(inp);\n      const sp = document.createElement('span');\n      sp.className='small'; sp.id='dp-'+c.name+'-v';\n      params.appendChild(sp);\n      inp.addEventListener('input',draw);\n    });\n  }\n  function val(name){ return +document.getElementById('dp-'+name).value; }\n  function axes(xmin,xmax,ymax,discrete){\n    svg.innerHTML = '';\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // ticks\n    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];\n    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){\n      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);\n      svg.appendChild(t);\n    }\n    const yticks = [0, ymax/2, ymax];\n    for(const v of yticks){\n      const yp = y1 - (v/ymax)*(y1-y0);\n      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n  }\n  function plotDiscrete(support, pmf){\n    let ymax = Math.max(...support.map(pmf));\n    if(ymax<=0) ymax = 1;\n    const xmin = support[0], xmax = support[support.length-1] + 1;\n    axes(xmin, xmax, ymax*1.1, true);\n    // PMF bars\n    for(const k of support){\n      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;\n      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,\n        fill:'var(--cyan)', opacity:0.85}));\n    }\n    // CDF (step) overlaid, normalized to ymax*1.1\n    let cum = 0;\n    let prev = y1;\n    for(const k of support){\n      cum += pmf(k);\n      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars\n      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      prev = yA;\n    }\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PMF'; svg.appendChild(lbl2);\n  }\n  function plotContinuous(xmin,xmax, pdf, N=200){\n    // ymax\n    let ymax = 0;\n    const xs = [];\n    for(let i=0;i<=N;i++){\n      const x = xmin + i*(xmax-xmin)/N;\n      xs.push([x,pdf(x)]);\n      if(pdf(x)>ymax) ymax = pdf(x);\n    }\n    if(ymax<=0) ymax=1;\n    axes(xmin,xmax,ymax*1.1,false);\n    // PDF curve\n    let d = '';\n    xs.forEach(([x,y],i)=>{\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (y/(ymax*1.1))*(y1-y0);\n      d += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));\n    // CDF via cumulative trapezoid\n    let c = 0;\n    let d2 = '';\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n    });\n    const total = c;\n    c = 0;\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;\n      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PDF'; svg.appendChild(lbl2);\n  }\n  function spanTxt(name,v){\n    const el = document.getElementById('dp-'+name+'-v');\n    if(el) el.textContent = v;\n  }\n  function draw(){\n    const kind = pick.value;\n    if(kind==='bern'){\n      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);\n      const p = val('p'); spanTxt('p',p.toFixed(2));\n      plotDiscrete([0,1], k => k===0?1-p : p);\n      out.textContent = `Bernoulli(p=${p.toFixed(2)})\\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;\n    } else if(kind==='bin'){\n      if(!document.getElementById('dp-n')) setParams([\n        {name:'n',label:'n',min:1,max:30,step:1,value:10},\n        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}\n      ]);\n      const n = Math.round(val('n')), p = val('p');\n      spanTxt('n',n); spanTxt('p',p.toFixed(2));\n      const support = Array.from({length:n+1},(_,k)=>k);\n      plotDiscrete(support, k=>binomPMF(n,p,k));\n      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;\n    } else if(kind==='pois'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));\n      const support = Array.from({length:kmax+1},(_,k)=>k);\n      plotDiscrete(support, k=>poissonPMF(lam,k));\n      out.textContent = `Poisson(λ=${lam.toFixed(2)})\\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;\n    } else if(kind==='unif'){\n      if(!document.getElementById('dp-a')) setParams([\n        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},\n        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}\n      ]);\n      let a = val('a'), b = val('b');\n      if(b<=a) b = a+0.01;\n      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));\n      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;\n      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);\n      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;\n    } else if(kind==='exp'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;\n      plotContinuous(0, 6/lam, pdf);\n      out.textContent = `Exponential(λ=${lam.toFixed(2)})\\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;\n    } else if(kind==='norm'){\n      if(!document.getElementById('dp-mu')) setParams([\n        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},\n        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}\n      ]);\n      const mu=val('mu'), sigma=val('sigma');\n      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));\n      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));\n      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);\n      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\\nmean = μ, var = σ², support = ℝ`;\n    }\n  }\n  pick.addEventListener('change',draw);\n  draw();",
+            "sectionComment": "=============================== §4 Distribution explorer ==============================="
+          }
         },
         {
           "type": "raw",
@@ -142,8 +382,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-dist",
-          "html": "<script>\n/* =============================== §4 Distribution explorer =============================== */\n(function(){\n  const svg = $('#dist-svg'), out = $('#d-out');\n  const pick = $('#d-pick'), params = $('#d-params');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }\n  function binomPMF(n,p,k){\n    if(k<0||k>n) return 0;\n    // compute C(n,k)\n    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);\n    return c*Math.pow(p,k)*Math.pow(1-p,n-k);\n  }\n  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }\n  function setParams(conf){\n    params.innerHTML = '';\n    conf.forEach(c=>{\n      const lbl = document.createElement('label');\n      lbl.setAttribute('for','dp-'+c.name);\n      lbl.textContent = c.label + ' ';\n      params.appendChild(lbl);\n      const inp = document.createElement('input');\n      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;\n      params.appendChild(inp);\n      const sp = document.createElement('span');\n      sp.className='small'; sp.id='dp-'+c.name+'-v';\n      params.appendChild(sp);\n      inp.addEventListener('input',draw);\n    });\n  }\n  function val(name){ return +document.getElementById('dp-'+name).value; }\n  function axes(xmin,xmax,ymax,discrete){\n    svg.innerHTML = '';\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // ticks\n    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];\n    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){\n      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);\n      svg.appendChild(t);\n    }\n    const yticks = [0, ymax/2, ymax];\n    for(const v of yticks){\n      const yp = y1 - (v/ymax)*(y1-y0);\n      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n  }\n  function plotDiscrete(support, pmf){\n    let ymax = Math.max(...support.map(pmf));\n    if(ymax<=0) ymax = 1;\n    const xmin = support[0], xmax = support[support.length-1] + 1;\n    axes(xmin, xmax, ymax*1.1, true);\n    // PMF bars\n    for(const k of support){\n      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;\n      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,\n        fill:'var(--cyan)', opacity:0.85}));\n    }\n    // CDF (step) overlaid, normalized to ymax*1.1\n    let cum = 0;\n    let prev = y1;\n    for(const k of support){\n      cum += pmf(k);\n      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars\n      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      prev = yA;\n    }\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PMF'; svg.appendChild(lbl2);\n  }\n  function plotContinuous(xmin,xmax, pdf, N=200){\n    // ymax\n    let ymax = 0;\n    const xs = [];\n    for(let i=0;i<=N;i++){\n      const x = xmin + i*(xmax-xmin)/N;\n      xs.push([x,pdf(x)]);\n      if(pdf(x)>ymax) ymax = pdf(x);\n    }\n    if(ymax<=0) ymax=1;\n    axes(xmin,xmax,ymax*1.1,false);\n    // PDF curve\n    let d = '';\n    xs.forEach(([x,y],i)=>{\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (y/(ymax*1.1))*(y1-y0);\n      d += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));\n    // CDF via cumulative trapezoid\n    let c = 0;\n    let d2 = '';\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n    });\n    const total = c;\n    c = 0;\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;\n      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PDF'; svg.appendChild(lbl2);\n  }\n  function spanTxt(name,v){\n    const el = document.getElementById('dp-'+name+'-v');\n    if(el) el.textContent = v;\n  }\n  function draw(){\n    const kind = pick.value;\n    if(kind==='bern'){\n      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);\n      const p = val('p'); spanTxt('p',p.toFixed(2));\n      plotDiscrete([0,1], k => k===0?1-p : p);\n      out.textContent = `Bernoulli(p=${p.toFixed(2)})\\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;\n    } else if(kind==='bin'){\n      if(!document.getElementById('dp-n')) setParams([\n        {name:'n',label:'n',min:1,max:30,step:1,value:10},\n        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}\n      ]);\n      const n = Math.round(val('n')), p = val('p');\n      spanTxt('n',n); spanTxt('p',p.toFixed(2));\n      const support = Array.from({length:n+1},(_,k)=>k);\n      plotDiscrete(support, k=>binomPMF(n,p,k));\n      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;\n    } else if(kind==='pois'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));\n      const support = Array.from({length:kmax+1},(_,k)=>k);\n      plotDiscrete(support, k=>poissonPMF(lam,k));\n      out.textContent = `Poisson(λ=${lam.toFixed(2)})\\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;\n    } else if(kind==='unif'){\n      if(!document.getElementById('dp-a')) setParams([\n        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},\n        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}\n      ]);\n      let a = val('a'), b = val('b');\n      if(b<=a) b = a+0.01;\n      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));\n      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;\n      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);\n      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;\n    } else if(kind==='exp'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;\n      plotContinuous(0, 6/lam, pdf);\n      out.textContent = `Exponential(λ=${lam.toFixed(2)})\\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;\n    } else if(kind==='norm'){\n      if(!document.getElementById('dp-mu')) setParams([\n        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},\n        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}\n      ]);\n      const mu=val('mu'), sigma=val('sigma');\n      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));\n      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));\n      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);\n      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\\nmean = μ, var = σ², support = ℝ`;\n    }\n  }\n  pick.addEventListener('change',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dist",
+            "title": "Distribution explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "dist-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Named distributions — PMF/PDF and CDF"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"d-pick\">family</label>\n    <select id=\"d-pick\">\n      <option value=\"bern\">$\\text{Bernoulli}(p)$</option>\n      <option value=\"bin\">$\\text{Binomial}(n,p)$</option>\n      <option value=\"pois\">$\\text{Poisson}(\\lambda)$</option>\n      <option value=\"unif\">$\\text{Uniform}[0,1]$</option>\n      <option value=\"exp\">$\\text{Exponential}(\\lambda)$</option>\n      <option value=\"norm\">$\\mathcal{N}(\\mu,\\sigma^2)$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "row",
+                "id": "d-params"
+              },
+              {
+                "kind": "readout",
+                "id": "d-out"
+              }
+            ],
+            "hint": "PMF/PDF + CDF + moments",
+            "bodyScript": "  const svg = $('#dist-svg'), out = $('#d-out');\n  const pick = $('#d-pick'), params = $('#d-params');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function factorial(n){ let r=1; for(let k=2;k<=n;k++) r*=k; return r; }\n  function binomPMF(n,p,k){\n    if(k<0||k>n) return 0;\n    // compute C(n,k)\n    let c=1; for(let i=0;i<k;i++) c = c*(n-i)/(i+1);\n    return c*Math.pow(p,k)*Math.pow(1-p,n-k);\n  }\n  function poissonPMF(lam,k){ return Math.exp(-lam)*Math.pow(lam,k)/factorial(k); }\n  function setParams(conf){\n    params.innerHTML = '';\n    conf.forEach(c=>{\n      const lbl = document.createElement('label');\n      lbl.setAttribute('for','dp-'+c.name);\n      lbl.textContent = c.label + ' ';\n      params.appendChild(lbl);\n      const inp = document.createElement('input');\n      inp.type='range'; inp.id='dp-'+c.name; inp.min=c.min; inp.max=c.max; inp.step=c.step; inp.value=c.value;\n      params.appendChild(inp);\n      const sp = document.createElement('span');\n      sp.className='small'; sp.id='dp-'+c.name+'-v';\n      params.appendChild(sp);\n      inp.addEventListener('input',draw);\n    });\n  }\n  function val(name){ return +document.getElementById('dp-'+name).value; }\n  function axes(xmin,xmax,ymax,discrete){\n    svg.innerHTML = '';\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // ticks\n    const xticks = discrete ? [] : [xmin, (xmin+xmax)/2, xmax];\n    for(const v of (discrete ? [xmin, Math.round((xmin+xmax)/2), xmax] : xticks)){\n      const xp = x0 + (v-xmin)/(xmax-xmin)*(x1-x0);\n      svg.appendChild(SVG('line',{x1:xp,y1:y1,x2:xp,y2:y1+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=(typeof v==='number' && Math.abs(v-Math.round(v))<1e-9) ? v : v.toFixed(2);\n      svg.appendChild(t);\n    }\n    const yticks = [0, ymax/2, ymax];\n    for(const v of yticks){\n      const yp = y1 - (v/ymax)*(y1-y0);\n      svg.appendChild(SVG('line',{x1:x0-4,y1:yp,x2:x0,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:x0-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n  }\n  function plotDiscrete(support, pmf){\n    let ymax = Math.max(...support.map(pmf));\n    if(ymax<=0) ymax = 1;\n    const xmin = support[0], xmax = support[support.length-1] + 1;\n    axes(xmin, xmax, ymax*1.1, true);\n    // PMF bars\n    for(const k of support){\n      const xp = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const h = (pmf(k)/ymax)*(y1-y0) / 1.1;\n      svg.appendChild(SVG('rect',{x:xp-8, y:y1-h, width:16, height:h,\n        fill:'var(--cyan)', opacity:0.85}));\n    }\n    // CDF (step) overlaid, normalized to ymax*1.1\n    let cum = 0;\n    let prev = y1;\n    for(const k of support){\n      cum += pmf(k);\n      const xA = x0 + (k+0.5-xmin)/(xmax-xmin)*(x1-x0);\n      const yA = y1 - cum*(y1-y0)/1.1; // CDF on [0,1], rescaled like the bars\n      svg.appendChild(SVG('line',{x1:xA-12, y1:prev, x2:xA-12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      svg.appendChild(SVG('line',{x1:xA-12, y1:yA, x2:xA+12, y2:yA,\n        stroke:'var(--yellow)','stroke-width':1.2}));\n      prev = yA;\n    }\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PMF'; svg.appendChild(lbl2);\n  }\n  function plotContinuous(xmin,xmax, pdf, N=200){\n    // ymax\n    let ymax = 0;\n    const xs = [];\n    for(let i=0;i<=N;i++){\n      const x = xmin + i*(xmax-xmin)/N;\n      xs.push([x,pdf(x)]);\n      if(pdf(x)>ymax) ymax = pdf(x);\n    }\n    if(ymax<=0) ymax=1;\n    axes(xmin,xmax,ymax*1.1,false);\n    // PDF curve\n    let d = '';\n    xs.forEach(([x,y],i)=>{\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (y/(ymax*1.1))*(y1-y0);\n      d += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2}));\n    // CDF via cumulative trapezoid\n    let c = 0;\n    let d2 = '';\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n    });\n    const total = c;\n    c = 0;\n    xs.forEach(([x,y],i)=>{\n      if(i>0) c += (xs[i][1]+xs[i-1][1])/2 * (xs[i][0]-xs[i-1][0]);\n      const xp = x0 + (x-xmin)/(xmax-xmin)*(x1-x0);\n      const yp = y1 - (c/Math.max(total,1e-9))*(y1-y0)/1.1;\n      d2 += (i===0?'M':'L') + xp + ',' + yp + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--yellow)','stroke-width':1.4, 'stroke-dasharray':'4 3'}));\n    const lbl = SVG('text',{x:x1-30,y:y0+12,'font-size':11,fill:'var(--yellow)'});\n    lbl.textContent='CDF'; svg.appendChild(lbl);\n    const lbl2 = SVG('text',{x:x1-30,y:y0+28,'font-size':11,fill:'var(--cyan)'});\n    lbl2.textContent='PDF'; svg.appendChild(lbl2);\n  }\n  function spanTxt(name,v){\n    const el = document.getElementById('dp-'+name+'-v');\n    if(el) el.textContent = v;\n  }\n  function draw(){\n    const kind = pick.value;\n    if(kind==='bern'){\n      if(!document.getElementById('dp-p')) setParams([{name:'p',label:'p',min:0,max:1,step:0.01,value:0.3}]);\n      const p = val('p'); spanTxt('p',p.toFixed(2));\n      plotDiscrete([0,1], k => k===0?1-p : p);\n      out.textContent = `Bernoulli(p=${p.toFixed(2)})\\nmean = p = ${p.toFixed(3)}, var = p(1-p) = ${(p*(1-p)).toFixed(4)}, support = {0,1}`;\n    } else if(kind==='bin'){\n      if(!document.getElementById('dp-n')) setParams([\n        {name:'n',label:'n',min:1,max:30,step:1,value:10},\n        {name:'p',label:'p',min:0,max:1,step:0.01,value:0.4}\n      ]);\n      const n = Math.round(val('n')), p = val('p');\n      spanTxt('n',n); spanTxt('p',p.toFixed(2));\n      const support = Array.from({length:n+1},(_,k)=>k);\n      plotDiscrete(support, k=>binomPMF(n,p,k));\n      out.textContent = `Binomial(n=${n}, p=${p.toFixed(2)})\\nmean = np = ${(n*p).toFixed(3)}, var = np(1-p) = ${(n*p*(1-p)).toFixed(3)}, support = {0,...,${n}}`;\n    } else if(kind==='pois'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:15,step:0.1,value:3}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const kmax = Math.max(20, Math.round(lam+5*Math.sqrt(lam)+3));\n      const support = Array.from({length:kmax+1},(_,k)=>k);\n      plotDiscrete(support, k=>poissonPMF(lam,k));\n      out.textContent = `Poisson(λ=${lam.toFixed(2)})\\nmean = λ = ${lam.toFixed(3)}, var = λ = ${lam.toFixed(3)}, support = {0,1,2,...}`;\n    } else if(kind==='unif'){\n      if(!document.getElementById('dp-a')) setParams([\n        {name:'a',label:'a',min:-3,max:3,step:0.1,value:0},\n        {name:'b',label:'b',min:-3,max:3,step:0.1,value:1}\n      ]);\n      let a = val('a'), b = val('b');\n      if(b<=a) b = a+0.01;\n      spanTxt('a',a.toFixed(2)); spanTxt('b',b.toFixed(2));\n      const pdf = x => (x>=a && x<=b) ? 1/(b-a) : 0;\n      plotContinuous(a-0.2*(b-a), b+0.2*(b-a), pdf);\n      out.textContent = `Uniform[${a.toFixed(2)}, ${b.toFixed(2)}]\\nmean = (a+b)/2 = ${((a+b)/2).toFixed(3)}, var = (b-a)²/12 = ${(((b-a)**2)/12).toFixed(4)}`;\n    } else if(kind==='exp'){\n      if(!document.getElementById('dp-lam')) setParams([{name:'lam',label:'λ',min:0.1,max:5,step:0.05,value:1}]);\n      const lam = val('lam'); spanTxt('lam',lam.toFixed(2));\n      const pdf = x => x>=0 ? lam*Math.exp(-lam*x) : 0;\n      plotContinuous(0, 6/lam, pdf);\n      out.textContent = `Exponential(λ=${lam.toFixed(2)})\\nmean = 1/λ = ${(1/lam).toFixed(3)}, var = 1/λ² = ${(1/(lam*lam)).toFixed(4)}, support = [0,∞)`;\n    } else if(kind==='norm'){\n      if(!document.getElementById('dp-mu')) setParams([\n        {name:'mu',label:'μ',min:-3,max:3,step:0.1,value:0},\n        {name:'sigma',label:'σ',min:0.1,max:3,step:0.05,value:1}\n      ]);\n      const mu=val('mu'), sigma=val('sigma');\n      spanTxt('mu',mu.toFixed(2)); spanTxt('sigma',sigma.toFixed(2));\n      const pdf = x => Math.exp(-((x-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));\n      plotContinuous(mu-4*sigma, mu+4*sigma, pdf);\n      out.textContent = `𝒩(μ=${mu.toFixed(2)}, σ²=${(sigma*sigma).toFixed(3)})\\nmean = μ, var = σ², support = ℝ`;\n    }\n  }\n  pick.addEventListener('change',draw);\n  draw();",
+            "sectionComment": "=============================== §4 Distribution explorer ==============================="
+          }
         },
         {
           "type": "raw",
@@ -161,8 +429,28 @@
         {
           "type": "widget",
           "id": "w-scale",
-          "html": "<div class=\"widget\" id=\"w-scale\">\n  <div class=\"hd\"><div class=\"ttl\">Expectation weighing scale</div><div class=\"hint\">drag masses, watch $\\mathbb{E}[X]$</div></div>\n  <svg id=\"scale-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>Expectation as center of mass</title></svg>\n  <div class=\"readout\" id=\"scale-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-scale",
+            "title": "Expectation weighing scale",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "scale-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Expectation as center of mass"
+              },
+              {
+                "kind": "readout",
+                "id": "scale-out"
+              }
+            ],
+            "hint": "drag masses, watch $\\mathbb{E}[X]$",
+            "bodyScript": "  const svg = $('#scale-svg'), out = $('#scale-out');\n  const W=760, H=260;\n  const cy = 160, padx = 70;\n  // point masses [x in [-5,5], weight >=0]\n  let masses = [\n    {x:-3, w:1},\n    {x: 0, w:1},\n    {x: 2, w:1.5},\n  ];\n  const xmin = -5, xmax = 5;\n  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }\n  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }\n  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }\n  function vr(){\n    const mu = ex();\n    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();\n  }\n  let dragIdx = -1;\n  function draw(){\n    svg.innerHTML = '';\n    const mu = ex(), sigma = Math.sqrt(vr());\n    // pivot\n    const pivotX = X(mu);\n    // beam tilted slightly to show balance visually\n    // beam always drawn horizontal for clarity; we show a \"fulcrum\" at mu.\n    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,\n      stroke:'var(--line)','stroke-width':2}));\n    // axis ticks\n    for(let v=xmin; v<=xmax; v++){\n      const xp = X(v);\n      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));\n      if(v%1===0){\n        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=v; svg.appendChild(t);\n      }\n    }\n    // fulcrum triangle under mu\n    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,\n      fill:'var(--yellow)','stroke':'var(--yellow)'});\n    svg.appendChild(fTri);\n    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    muT.textContent = 'E[X] = '+mu.toFixed(3);\n    svg.appendChild(muT);\n    // sigma bracket\n    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    stxt.textContent='±σ = '+sigma.toFixed(3);\n    svg.appendChild(stxt);\n    // mass circles\n    masses.forEach((m,i)=>{\n      const r = 8 + 6*Math.min(m.w,3);\n      const xp = X(m.x);\n      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',\n        'data-idx':i, class:'mass'}));\n      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});\n      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;\n      svg.appendChild(lbl);\n    });\n    // instructions\n    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';\n    svg.appendChild(inst);\n    out.textContent =\n      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\\n`+\n      `total weight = ${norm().toFixed(3)}\\n`+\n      `E[X]  = ${mu.toFixed(4)}\\n`+\n      `Var(X) = ${vr().toFixed(4)}\\n`+\n      `σ = ${sigma.toFixed(4)}`;\n  }\n  svg.addEventListener('pointerdown',(ev)=>{\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // find nearest mass\n    let best = -1, bd = 1e9;\n    masses.forEach((m,i)=>{\n      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);\n      if(d<bd){ bd = d; best = i; }\n    });\n    if(bd<30) dragIdx = best;\n  });\n  svg.addEventListener('pointermove',(ev)=>{\n    if(dragIdx<0) return;\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // invert X\n    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);\n    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));\n    draw();\n  });\n  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });\n  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });\n  draw();",
+            "sectionComment": "=============================== §5 Expectation weighing scale ==============================="
+          }
         },
         {
           "type": "raw",
@@ -179,8 +467,28 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-scale",
-          "html": "<script>\n/* =============================== §5 Expectation weighing scale =============================== */\n(function(){\n  const svg = $('#scale-svg'), out = $('#scale-out');\n  const W=760, H=260;\n  const cy = 160, padx = 70;\n  // point masses [x in [-5,5], weight >=0]\n  let masses = [\n    {x:-3, w:1},\n    {x: 0, w:1},\n    {x: 2, w:1.5},\n  ];\n  const xmin = -5, xmax = 5;\n  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }\n  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }\n  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }\n  function vr(){\n    const mu = ex();\n    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();\n  }\n  let dragIdx = -1;\n  function draw(){\n    svg.innerHTML = '';\n    const mu = ex(), sigma = Math.sqrt(vr());\n    // pivot\n    const pivotX = X(mu);\n    // beam tilted slightly to show balance visually\n    // beam always drawn horizontal for clarity; we show a \"fulcrum\" at mu.\n    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,\n      stroke:'var(--line)','stroke-width':2}));\n    // axis ticks\n    for(let v=xmin; v<=xmax; v++){\n      const xp = X(v);\n      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));\n      if(v%1===0){\n        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=v; svg.appendChild(t);\n      }\n    }\n    // fulcrum triangle under mu\n    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,\n      fill:'var(--yellow)','stroke':'var(--yellow)'});\n    svg.appendChild(fTri);\n    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    muT.textContent = 'E[X] = '+mu.toFixed(3);\n    svg.appendChild(muT);\n    // sigma bracket\n    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    stxt.textContent='±σ = '+sigma.toFixed(3);\n    svg.appendChild(stxt);\n    // mass circles\n    masses.forEach((m,i)=>{\n      const r = 8 + 6*Math.min(m.w,3);\n      const xp = X(m.x);\n      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',\n        'data-idx':i, class:'mass'}));\n      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});\n      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;\n      svg.appendChild(lbl);\n    });\n    // instructions\n    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';\n    svg.appendChild(inst);\n    out.textContent =\n      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\\n`+\n      `total weight = ${norm().toFixed(3)}\\n`+\n      `E[X]  = ${mu.toFixed(4)}\\n`+\n      `Var(X) = ${vr().toFixed(4)}\\n`+\n      `σ = ${sigma.toFixed(4)}`;\n  }\n  svg.addEventListener('pointerdown',(ev)=>{\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // find nearest mass\n    let best = -1, bd = 1e9;\n    masses.forEach((m,i)=>{\n      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);\n      if(d<bd){ bd = d; best = i; }\n    });\n    if(bd<30) dragIdx = best;\n  });\n  svg.addEventListener('pointermove',(ev)=>{\n    if(dragIdx<0) return;\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // invert X\n    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);\n    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));\n    draw();\n  });\n  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });\n  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-scale",
+            "title": "Expectation weighing scale",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "scale-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "Expectation as center of mass"
+              },
+              {
+                "kind": "readout",
+                "id": "scale-out"
+              }
+            ],
+            "hint": "drag masses, watch $\\mathbb{E}[X]$",
+            "bodyScript": "  const svg = $('#scale-svg'), out = $('#scale-out');\n  const W=760, H=260;\n  const cy = 160, padx = 70;\n  // point masses [x in [-5,5], weight >=0]\n  let masses = [\n    {x:-3, w:1},\n    {x: 0, w:1},\n    {x: 2, w:1.5},\n  ];\n  const xmin = -5, xmax = 5;\n  function X(v){ return padx + (v-xmin)/(xmax-xmin)*(W-2*padx); }\n  function norm(){ const s = masses.reduce((a,m)=>a+m.w,0); return s>0?s:1; }\n  function ex(){ return masses.reduce((a,m)=>a+m.x*m.w,0)/norm(); }\n  function vr(){\n    const mu = ex();\n    return masses.reduce((a,m)=>a+m.w*(m.x-mu)**2,0)/norm();\n  }\n  let dragIdx = -1;\n  function draw(){\n    svg.innerHTML = '';\n    const mu = ex(), sigma = Math.sqrt(vr());\n    // pivot\n    const pivotX = X(mu);\n    // beam tilted slightly to show balance visually\n    // beam always drawn horizontal for clarity; we show a \"fulcrum\" at mu.\n    svg.appendChild(SVG('line',{x1:X(xmin),y1:cy,x2:X(xmax),y2:cy,\n      stroke:'var(--line)','stroke-width':2}));\n    // axis ticks\n    for(let v=xmin; v<=xmax; v++){\n      const xp = X(v);\n      svg.appendChild(SVG('line',{x1:xp,y1:cy-4,x2:xp,y2:cy+4,stroke:'var(--mute)'}));\n      if(v%1===0){\n        const t = SVG('text',{x:xp,y:cy+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent=v; svg.appendChild(t);\n      }\n    }\n    // fulcrum triangle under mu\n    const fTri = SVG('polygon',{points:`${pivotX-10},${cy+26} ${pivotX+10},${cy+26} ${pivotX},${cy+6}`,\n      fill:'var(--yellow)','stroke':'var(--yellow)'});\n    svg.appendChild(fTri);\n    const muT = SVG('text',{x:pivotX,y:cy+48,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    muT.textContent = 'E[X] = '+mu.toFixed(3);\n    svg.appendChild(muT);\n    // sigma bracket\n    const sx1 = X(mu-sigma), sx2 = X(mu+sigma);\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-70,x2:sx2,y2:cy-70,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx1,y1:cy-66,x2:sx1,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    svg.appendChild(SVG('line',{x1:sx2,y1:cy-66,x2:sx2,y2:cy-74,stroke:'var(--violet)','stroke-width':1.2}));\n    const stxt = SVG('text',{x:(sx1+sx2)/2,y:cy-78,'text-anchor':'middle','font-size':10,fill:'var(--violet)'});\n    stxt.textContent='±σ = '+sigma.toFixed(3);\n    svg.appendChild(stxt);\n    // mass circles\n    masses.forEach((m,i)=>{\n      const r = 8 + 6*Math.min(m.w,3);\n      const xp = X(m.x);\n      svg.appendChild(SVG('circle',{cx:xp,cy:cy-r, r, fill:'var(--cyan)',stroke:'var(--cyan)',\n        'data-idx':i, class:'mass'}));\n      const lbl = SVG('text',{x:xp,y:cy-r-r-4,'text-anchor':'middle','font-size':10,fill:'var(--cyan)'});\n      lbl.textContent = `w=${m.w.toFixed(1)} @ ${m.x.toFixed(2)}`;\n      svg.appendChild(lbl);\n    });\n    // instructions\n    const inst = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    inst.textContent = 'click a mass and drag left/right — fulcrum rebalances at E[X]';\n    svg.appendChild(inst);\n    out.textContent =\n      `masses: ${masses.map(m=>`${m.w.toFixed(2)}@${m.x.toFixed(2)}`).join(', ')}\\n`+\n      `total weight = ${norm().toFixed(3)}\\n`+\n      `E[X]  = ${mu.toFixed(4)}\\n`+\n      `Var(X) = ${vr().toFixed(4)}\\n`+\n      `σ = ${sigma.toFixed(4)}`;\n  }\n  svg.addEventListener('pointerdown',(ev)=>{\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // find nearest mass\n    let best = -1, bd = 1e9;\n    masses.forEach((m,i)=>{\n      const d = Math.hypot(X(m.x)-loc.x, (cy-(8+6*Math.min(m.w,3)))-loc.y);\n      if(d<bd){ bd = d; best = i; }\n    });\n    if(bd<30) dragIdx = best;\n  });\n  svg.addEventListener('pointermove',(ev)=>{\n    if(dragIdx<0) return;\n    const pt = svg.createSVGPoint();\n    pt.x = ev.clientX; pt.y = ev.clientY;\n    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());\n    // invert X\n    const v = xmin + (loc.x-padx)/(W-2*padx)*(xmax-xmin);\n    masses[dragIdx].x = Math.max(xmin, Math.min(xmax, v));\n    draw();\n  });\n  svg.addEventListener('pointerup',()=>{ dragIdx = -1; });\n  svg.addEventListener('pointercancel',()=>{ dragIdx = -1; });\n  draw();",
+            "sectionComment": "=============================== §5 Expectation weighing scale ==============================="
+          }
         },
         {
           "type": "raw",
@@ -198,8 +506,32 @@
         {
           "type": "widget",
           "id": "w-mgf",
-          "html": "<div class=\"widget\" id=\"w-mgf\">\n  <div class=\"hd\"><div class=\"ttl\">MGF / CF explorer</div><div class=\"hint\">sum of IID ↦ $M(t)^n$</div></div>\n  <svg id=\"mgf-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>MGF and characteristic function</title></svg>\n  <div class=\"row\">\n    <label for=\"m-pick\">$X$ is</label>\n    <select id=\"m-pick\">\n      <option value=\"bern\">Bernoulli(0.5)</option>\n      <option value=\"norm\">𝒩(0,1)</option>\n      <option value=\"pois\">Poisson(1)</option>\n    </select>\n    <label for=\"m-n\">$n$ (sum of IID copies)</label>\n    <input id=\"m-n\" type=\"range\" min=\"1\" max=\"30\" step=\"1\" value=\"1\">\n    <span id=\"m-n-v\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"m-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mgf",
+            "title": "MGF / CF explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mgf-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "MGF and characteristic function"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"m-pick\">$X$ is</label>\n    <select id=\"m-pick\">\n      <option value=\"bern\">Bernoulli(0.5)</option>\n      <option value=\"norm\">𝒩(0,1)</option>\n      <option value=\"pois\">Poisson(1)</option>\n    </select>\n    <label for=\"m-n\">$n$ (sum of IID copies)</label>\n    <input id=\"m-n\" type=\"range\" min=\"1\" max=\"30\" step=\"1\" value=\"1\">\n    <span id=\"m-n-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "m-out"
+              }
+            ],
+            "hint": "sum of IID ↦ $M(t)^n$",
+            "bodyScript": "  const svg = $('#mgf-svg'), out = $('#m-out');\n  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');\n  const W=760, H=260;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function base(kind,t){\n    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5\n    if(kind==='norm') return Math.exp(t*t/2);\n    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1\n    return 1;\n  }\n  function draw(){\n    const kind = pick.value;\n    const n = +sl.value;\n    slv.textContent = 'n = '+n;\n    svg.innerHTML = '';\n    // plot M_X(t)^n on [-2,2]\n    const tmin=-2, tmax=2;\n    const ts = [];\n    for(let i=0;i<=200;i++){\n      const t = tmin + i*(tmax-tmin)/200;\n      ts.push([t, Math.pow(base(kind,t), n)]);\n    }\n    const ymax = Math.max(...ts.map(([,v])=>v), 5);\n    // axes\n    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);\n    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    for(const tv of [-2,-1,0,1,2]){\n      const xp = X(tv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    ts.forEach(([t,v],i)=>{\n      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n    });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // 1 line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));\n    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t1.textContent='1'; svg.appendChild(t1);\n    // title\n    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';\n    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;\n    svg.appendChild(lbl);\n    out.textContent =\n      `M_X(0)   = 1 always (normalization)\\n`+\n      `M_X'(0)  = E[X]\\n`+\n      `M_X''(0) = E[X²]\\n`+\n      `M_{S_n}(t) = M_X(t)^n  (by independence)\\n`+\n      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §6 MGF/CF plot ==============================="
+          }
         },
         {
           "type": "raw",
@@ -216,8 +548,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-mgf",
-          "html": "<script>\n/* =============================== §6 MGF/CF plot =============================== */\n(function(){\n  const svg = $('#mgf-svg'), out = $('#m-out');\n  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');\n  const W=760, H=260;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function base(kind,t){\n    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5\n    if(kind==='norm') return Math.exp(t*t/2);\n    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1\n    return 1;\n  }\n  function draw(){\n    const kind = pick.value;\n    const n = +sl.value;\n    slv.textContent = 'n = '+n;\n    svg.innerHTML = '';\n    // plot M_X(t)^n on [-2,2]\n    const tmin=-2, tmax=2;\n    const ts = [];\n    for(let i=0;i<=200;i++){\n      const t = tmin + i*(tmax-tmin)/200;\n      ts.push([t, Math.pow(base(kind,t), n)]);\n    }\n    const ymax = Math.max(...ts.map(([,v])=>v), 5);\n    // axes\n    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);\n    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    for(const tv of [-2,-1,0,1,2]){\n      const xp = X(tv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    ts.forEach(([t,v],i)=>{\n      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n    });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // 1 line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));\n    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t1.textContent='1'; svg.appendChild(t1);\n    // title\n    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';\n    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;\n    svg.appendChild(lbl);\n    out.textContent =\n      `M_X(0)   = 1 always (normalization)\\n`+\n      `M_X'(0)  = E[X]\\n`+\n      `M_X''(0) = E[X²]\\n`+\n      `M_{S_n}(t) = M_X(t)^n  (by independence)\\n`+\n      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mgf",
+            "title": "MGF / CF explorer",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mgf-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260,
+                "titleText": "MGF and characteristic function"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"m-pick\">$X$ is</label>\n    <select id=\"m-pick\">\n      <option value=\"bern\">Bernoulli(0.5)</option>\n      <option value=\"norm\">𝒩(0,1)</option>\n      <option value=\"pois\">Poisson(1)</option>\n    </select>\n    <label for=\"m-n\">$n$ (sum of IID copies)</label>\n    <input id=\"m-n\" type=\"range\" min=\"1\" max=\"30\" step=\"1\" value=\"1\">\n    <span id=\"m-n-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "m-out"
+              }
+            ],
+            "hint": "sum of IID ↦ $M(t)^n$",
+            "bodyScript": "  const svg = $('#mgf-svg'), out = $('#m-out');\n  const pick = $('#m-pick'), sl = $('#m-n'), slv = $('#m-n-v');\n  const W=760, H=260;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function base(kind,t){\n    if(kind==='bern') return 0.5 + 0.5*Math.exp(t); // p=0.5\n    if(kind==='norm') return Math.exp(t*t/2);\n    if(kind==='pois') return Math.exp(Math.exp(t)-1); // lambda=1\n    return 1;\n  }\n  function draw(){\n    const kind = pick.value;\n    const n = +sl.value;\n    slv.textContent = 'n = '+n;\n    svg.innerHTML = '';\n    // plot M_X(t)^n on [-2,2]\n    const tmin=-2, tmax=2;\n    const ts = [];\n    for(let i=0;i<=200;i++){\n      const t = tmin + i*(tmax-tmin)/200;\n      ts.push([t, Math.pow(base(kind,t), n)]);\n    }\n    const ymax = Math.max(...ts.map(([,v])=>v), 5);\n    // axes\n    const X = t => x0 + (t-tmin)/(tmax-tmin)*(x1-x0);\n    const Y = v => y1 - (Math.min(v,ymax)/ymax)*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:X(0),y1:y0,x2:X(0),y2:y1,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    for(const tv of [-2,-1,0,1,2]){\n      const xp = X(tv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    // curve\n    let d='';\n    ts.forEach(([t,v],i)=>{\n      d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n    });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // 1 line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(1),x2:x1,y2:Y(1),stroke:'var(--mute)','stroke-dasharray':'2 2'}));\n    const t1 = SVG('text',{x:x0-6,y:Y(1)+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t1.textContent='1'; svg.appendChild(t1);\n    // title\n    const lbl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    const fname = kind==='bern' ? 'Bernoulli(0.5)' : kind==='norm' ? '𝒩(0,1)' : 'Poisson(1)';\n    lbl.textContent = `M_{S_n}(t) = M_X(t)^n with X ~ ${fname}, n = ${n}`;\n    svg.appendChild(lbl);\n    out.textContent =\n      `M_X(0)   = 1 always (normalization)\\n`+\n      `M_X'(0)  = E[X]\\n`+\n      `M_X''(0) = E[X²]\\n`+\n      `M_{S_n}(t) = M_X(t)^n  (by independence)\\n`+\n      `at t=1: M_{S_n}(1) = ${Math.pow(base(kind,1),n).toFixed(4)}`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  draw();",
+            "sectionComment": "=============================== §6 MGF/CF plot ==============================="
+          }
         },
         {
           "type": "raw",
@@ -253,8 +609,32 @@
         {
           "type": "widget",
           "id": "w-lln",
-          "html": "<div class=\"widget\" id=\"w-lln\">\n  <div class=\"hd\"><div class=\"ttl\">LLN simulator</div><div class=\"hint\">running mean converges to $\\mu$</div></div>\n  <svg id=\"lln-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Law of large numbers simulator</title></svg>\n  <div class=\"row\">\n    <button id=\"lln-run\">draw 500 more samples</button>\n    <button id=\"lln-reset\">reset</button>\n    <label for=\"lln-pick\">base dist.</label>\n    <select id=\"lln-pick\">\n      <option value=\"bern\">Bernoulli(0.5) — μ=0.5</option>\n      <option value=\"unif\">Uniform[0,1] — μ=0.5</option>\n      <option value=\"exp\">Exp(1) — μ=1</option>\n      <option value=\"cauchy\">Cauchy(0,1) — μ undefined!</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"lln-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lln",
+            "title": "LLN simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lln-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Law of large numbers simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"lln-run\">draw 500 more samples</button>\n    <button id=\"lln-reset\">reset</button>\n    <label for=\"lln-pick\">base dist.</label>\n    <select id=\"lln-pick\">\n      <option value=\"bern\">Bernoulli(0.5) — μ=0.5</option>\n      <option value=\"unif\">Uniform[0,1] — μ=0.5</option>\n      <option value=\"exp\">Exp(1) — μ=1</option>\n      <option value=\"cauchy\">Cauchy(0,1) — μ undefined!</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lln-out"
+              }
+            ],
+            "hint": "running mean converges to $\\mu$",
+            "bodyScript": "  const svg = $('#lln-svg'), out = $('#lln-out');\n  const pick = $('#lln-pick');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let samples = [];\n  let mu0 = 0.5;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.5?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));\n    return ()=>Math.random();\n  }\n  function targetMu(kind){\n    if(kind==='bern') return 0.5;\n    if(kind==='unif') return 0.5;\n    if(kind==='exp')  return 1;\n    return NaN;\n  }\n  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }\n  function run(){\n    const f = sampler(pick.value);\n    for(let i=0;i<500;i++) samples.push(f());\n    draw();\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // running mean\n    const runs = [];\n    let s=0;\n    for(let i=0;i<samples.length;i++){\n      s += samples[i];\n      runs.push(s/(i+1));\n    }\n    const N = samples.length;\n    if(N===0){\n      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n      t.textContent = 'Hit \"draw 500 more samples\" to begin.';\n      svg.appendChild(t);\n      out.textContent = 'no samples yet';\n      return;\n    }\n    // y range\n    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;\n    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;\n    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // mu line\n    if(isFinite(mu0)){\n      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),\n        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n      lbl.textContent = `μ = ${mu0}`;\n      svg.appendChild(lbl);\n    }\n    // running mean polyline\n    let d='';\n    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    // ticks\n    for(const v of [0, Math.round(N/2), N]){\n      const xp = X(v-1<0?0:v-1);\n      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    // title\n    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = 'running sample mean X̄_n vs n';\n    svg.appendChild(tl);\n    const tail = runs.slice(-1)[0];\n    out.textContent =\n      `samples so far: ${N}\\n`+\n      `running mean X̄_N = ${tail.toFixed(5)}\\n`+\n      (isFinite(mu0) ?\n        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\\n`\n      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\\n`) +\n      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;\n  }\n  $('#lln-run').addEventListener('click',run);\n  $('#lln-reset').addEventListener('click',reset);\n  pick.addEventListener('change',()=>{ reset(); });\n  reset();",
+            "sectionComment": "=============================== §8 LLN simulator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -271,8 +651,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lln",
-          "html": "<script>\n/* =============================== §8 LLN simulator =============================== */\n(function(){\n  const svg = $('#lln-svg'), out = $('#lln-out');\n  const pick = $('#lln-pick');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let samples = [];\n  let mu0 = 0.5;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.5?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));\n    return ()=>Math.random();\n  }\n  function targetMu(kind){\n    if(kind==='bern') return 0.5;\n    if(kind==='unif') return 0.5;\n    if(kind==='exp')  return 1;\n    return NaN;\n  }\n  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }\n  function run(){\n    const f = sampler(pick.value);\n    for(let i=0;i<500;i++) samples.push(f());\n    draw();\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // running mean\n    const runs = [];\n    let s=0;\n    for(let i=0;i<samples.length;i++){\n      s += samples[i];\n      runs.push(s/(i+1));\n    }\n    const N = samples.length;\n    if(N===0){\n      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n      t.textContent = 'Hit \"draw 500 more samples\" to begin.';\n      svg.appendChild(t);\n      out.textContent = 'no samples yet';\n      return;\n    }\n    // y range\n    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;\n    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;\n    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // mu line\n    if(isFinite(mu0)){\n      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),\n        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n      lbl.textContent = `μ = ${mu0}`;\n      svg.appendChild(lbl);\n    }\n    // running mean polyline\n    let d='';\n    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    // ticks\n    for(const v of [0, Math.round(N/2), N]){\n      const xp = X(v-1<0?0:v-1);\n      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    // title\n    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = 'running sample mean X̄_n vs n';\n    svg.appendChild(tl);\n    const tail = runs.slice(-1)[0];\n    out.textContent =\n      `samples so far: ${N}\\n`+\n      `running mean X̄_N = ${tail.toFixed(5)}\\n`+\n      (isFinite(mu0) ?\n        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\\n`\n      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\\n`) +\n      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;\n  }\n  $('#lln-run').addEventListener('click',run);\n  $('#lln-reset').addEventListener('click',reset);\n  pick.addEventListener('change',()=>{ reset(); });\n  reset();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lln",
+            "title": "LLN simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lln-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Law of large numbers simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"lln-run\">draw 500 more samples</button>\n    <button id=\"lln-reset\">reset</button>\n    <label for=\"lln-pick\">base dist.</label>\n    <select id=\"lln-pick\">\n      <option value=\"bern\">Bernoulli(0.5) — μ=0.5</option>\n      <option value=\"unif\">Uniform[0,1] — μ=0.5</option>\n      <option value=\"exp\">Exp(1) — μ=1</option>\n      <option value=\"cauchy\">Cauchy(0,1) — μ undefined!</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lln-out"
+              }
+            ],
+            "hint": "running mean converges to $\\mu$",
+            "bodyScript": "  const svg = $('#lln-svg'), out = $('#lln-out');\n  const pick = $('#lln-pick');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let samples = [];\n  let mu0 = 0.5;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.5?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    if(kind==='cauchy') return ()=>Math.tan(Math.PI*(Math.random()-0.5));\n    return ()=>Math.random();\n  }\n  function targetMu(kind){\n    if(kind==='bern') return 0.5;\n    if(kind==='unif') return 0.5;\n    if(kind==='exp')  return 1;\n    return NaN;\n  }\n  function reset(){ samples = []; mu0 = targetMu(pick.value); draw(); }\n  function run(){\n    const f = sampler(pick.value);\n    for(let i=0;i<500;i++) samples.push(f());\n    draw();\n  }\n  function draw(){\n    svg.innerHTML = '';\n    // running mean\n    const runs = [];\n    let s=0;\n    for(let i=0;i<samples.length;i++){\n      s += samples[i];\n      runs.push(s/(i+1));\n    }\n    const N = samples.length;\n    if(N===0){\n      const t = SVG('text',{x:W/2,y:H/2,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n      t.textContent = 'Hit \"draw 500 more samples\" to begin.';\n      svg.appendChild(t);\n      out.textContent = 'no samples yet';\n      return;\n    }\n    // y range\n    const ymin = Math.min(...runs, isFinite(mu0)?mu0:0) - 0.3;\n    const ymax = Math.max(...runs, isFinite(mu0)?mu0:1) + 0.3;\n    const X = i => x0 + (i/Math.max(N-1,1))*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // mu line\n    if(isFinite(mu0)){\n      svg.appendChild(SVG('line',{x1:x0,y1:Y(mu0),x2:x1,y2:Y(mu0),\n        stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 4'}));\n      const lbl=SVG('text',{x:x1-5,y:Y(mu0)-6,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n      lbl.textContent = `μ = ${mu0}`;\n      svg.appendChild(lbl);\n    }\n    // running mean polyline\n    let d='';\n    runs.forEach((v,i)=>{ d += (i===0?'M':'L')+X(i)+','+Math.max(y0,Math.min(y1,Y(v)))+' '; });\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    // ticks\n    for(const v of [0, Math.round(N/2), N]){\n      const xp = X(v-1<0?0:v-1);\n      const t = SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=v; svg.appendChild(t);\n    }\n    // title\n    const tl = SVG('text',{x:W/2,y:18,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = 'running sample mean X̄_n vs n';\n    svg.appendChild(tl);\n    const tail = runs.slice(-1)[0];\n    out.textContent =\n      `samples so far: ${N}\\n`+\n      `running mean X̄_N = ${tail.toFixed(5)}\\n`+\n      (isFinite(mu0) ?\n        `target μ = ${mu0} — gap |X̄_N − μ| = ${Math.abs(tail-mu0).toFixed(5)}\\n`\n      : `target μ undefined (Cauchy has no mean; sample mean does NOT concentrate)\\n`) +\n      `sample variance proxy: ${(runs.reduce((a,b)=>a+(b-tail)**2,0)/N).toExponential(2)}`;\n  }\n  $('#lln-run').addEventListener('click',run);\n  $('#lln-reset').addEventListener('click',reset);\n  pick.addEventListener('change',()=>{ reset(); });\n  reset();",
+            "sectionComment": "=============================== §8 LLN simulator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -290,8 +694,36 @@
         {
           "type": "widget",
           "id": "w-clt",
-          "html": "<div class=\"widget\" id=\"w-clt\">\n  <div class=\"hd\"><div class=\"ttl\">CLT simulator</div><div class=\"hint\">$\\bar X_N$ rescaled vs.\\ $\\mathcal{N}(0,1)$</div></div>\n  <svg id=\"clt-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Central limit theorem simulator</title></svg>\n  <div class=\"row\">\n    <label for=\"clt-N\">sample size $N$</label>\n    <input id=\"clt-N\" type=\"range\" min=\"1\" max=\"200\" step=\"1\" value=\"30\">\n    <span id=\"clt-N-v\" class=\"small\"></span>\n  </div>\n  <div class=\"row\">\n    <label for=\"clt-pick\">base distribution</label>\n    <select id=\"clt-pick\">\n      <option value=\"bern\">Bernoulli(0.3) [skewed]</option>\n      <option value=\"unif\">Uniform[0,1]</option>\n      <option value=\"bim\">bimodal (mixture of ±1)</option>\n      <option value=\"exp\">Exponential(1) [skew]</option>\n    </select>\n    <button id=\"clt-resample\">resample 2000 trials</button>\n  </div>\n  <div class=\"readout\" id=\"clt-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-clt",
+            "title": "CLT simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "clt-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Central limit theorem simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-N\">sample size $N$</label>\n    <input id=\"clt-N\" type=\"range\" min=\"1\" max=\"200\" step=\"1\" value=\"30\">\n    <span id=\"clt-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-pick\">base distribution</label>\n    <select id=\"clt-pick\">\n      <option value=\"bern\">Bernoulli(0.3) [skewed]</option>\n      <option value=\"unif\">Uniform[0,1]</option>\n      <option value=\"bim\">bimodal (mixture of ±1)</option>\n      <option value=\"exp\">Exponential(1) [skew]</option>\n    </select>\n    <button id=\"clt-resample\">resample 2000 trials</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "clt-out"
+              }
+            ],
+            "hint": "$\\bar X_N$ rescaled vs.\\ $\\mathcal{N}(0,1)$",
+            "bodyScript": "  const svg = $('#clt-svg'), out = $('#clt-out');\n  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.3?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    return ()=>Math.random();\n  }\n  function stats(kind){\n    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};\n    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};\n    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};\n    if(kind==='exp')  return {mu:1,   sd:1};\n    return {mu:0, sd:1};\n  }\n  function draw(){\n    svg.innerHTML = '';\n    const kind = pick.value, N = +sl.value;\n    slv.textContent = 'N = '+N;\n    const {mu,sd} = stats(kind);\n    const f = sampler(kind);\n    // 2000 trials\n    const M = 2000;\n    const zs = [];\n    for(let t=0;t<M;t++){\n      let s=0;\n      for(let i=0;i<N;i++) s+=f();\n      const m = s/N;\n      const z = Math.sqrt(N)*(m - mu)/sd;\n      zs.push(z);\n    }\n    // histogram\n    const zmin=-4, zmax=4, bins=40;\n    const binW=(zmax-zmin)/bins;\n    const counts = new Array(bins).fill(0);\n    for(const z of zs){\n      if(z<zmin||z>=zmax) continue;\n      counts[Math.floor((z-zmin)/binW)]++;\n    }\n    const density = counts.map(c=>c/(M*binW));\n    const ymax = Math.max(...density, 0.5);\n    // axes\n    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);\n    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(const zv of [-4,-2,0,2,4]){\n      const xp = X(zv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=zv; svg.appendChild(t);\n    }\n    // histogram bars\n    for(let k=0;k<bins;k++){\n      const xa = X(zmin + k*binW);\n      const xb = X(zmin + (k+1)*binW);\n      const ya = Y(density[k]);\n      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,\n        fill:'var(--cyan)',opacity:0.55}));\n    }\n    // standard normal overlay\n    let d='';\n    for(let i=0;i<=200;i++){\n      const z = zmin + i*(zmax-zmin)/200;\n      const xp=X(z), yp=Y(phi(z));\n      d += (i===0?'M':'L')+xp+','+yp+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});\n    lg.textContent='𝒩(0,1) PDF';\n    svg.appendChild(lg);\n    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});\n    lg2.textContent='histogram of √N(X̄ − μ)/σ';\n    svg.appendChild(lg2);\n    // stats\n    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;\n    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;\n    out.textContent =\n      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\\n`+\n      `N = ${N}, trials = ${M}\\n`+\n      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\\n`+\n      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\\n`+\n      `CLT gets sharper as N → ∞; skewed bases need larger N`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  $('#clt-resample').addEventListener('click',draw);\n  draw();",
+            "sectionComment": "=============================== §9 CLT simulator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -308,8 +740,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-clt",
-          "html": "<script>\n/* =============================== §9 CLT simulator =============================== */\n(function(){\n  const svg = $('#clt-svg'), out = $('#clt-out');\n  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.3?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    return ()=>Math.random();\n  }\n  function stats(kind){\n    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};\n    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};\n    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};\n    if(kind==='exp')  return {mu:1,   sd:1};\n    return {mu:0, sd:1};\n  }\n  function draw(){\n    svg.innerHTML = '';\n    const kind = pick.value, N = +sl.value;\n    slv.textContent = 'N = '+N;\n    const {mu,sd} = stats(kind);\n    const f = sampler(kind);\n    // 2000 trials\n    const M = 2000;\n    const zs = [];\n    for(let t=0;t<M;t++){\n      let s=0;\n      for(let i=0;i<N;i++) s+=f();\n      const m = s/N;\n      const z = Math.sqrt(N)*(m - mu)/sd;\n      zs.push(z);\n    }\n    // histogram\n    const zmin=-4, zmax=4, bins=40;\n    const binW=(zmax-zmin)/bins;\n    const counts = new Array(bins).fill(0);\n    for(const z of zs){\n      if(z<zmin||z>=zmax) continue;\n      counts[Math.floor((z-zmin)/binW)]++;\n    }\n    const density = counts.map(c=>c/(M*binW));\n    const ymax = Math.max(...density, 0.5);\n    // axes\n    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);\n    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(const zv of [-4,-2,0,2,4]){\n      const xp = X(zv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=zv; svg.appendChild(t);\n    }\n    // histogram bars\n    for(let k=0;k<bins;k++){\n      const xa = X(zmin + k*binW);\n      const xb = X(zmin + (k+1)*binW);\n      const ya = Y(density[k]);\n      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,\n        fill:'var(--cyan)',opacity:0.55}));\n    }\n    // standard normal overlay\n    let d='';\n    for(let i=0;i<=200;i++){\n      const z = zmin + i*(zmax-zmin)/200;\n      const xp=X(z), yp=Y(phi(z));\n      d += (i===0?'M':'L')+xp+','+yp+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});\n    lg.textContent='𝒩(0,1) PDF';\n    svg.appendChild(lg);\n    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});\n    lg2.textContent='histogram of √N(X̄ − μ)/σ';\n    svg.appendChild(lg2);\n    // stats\n    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;\n    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;\n    out.textContent =\n      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\\n`+\n      `N = ${N}, trials = ${M}\\n`+\n      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\\n`+\n      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\\n`+\n      `CLT gets sharper as N → ∞; skewed bases need larger N`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  $('#clt-resample').addEventListener('click',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-clt",
+            "title": "CLT simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "clt-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Central limit theorem simulator"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-N\">sample size $N$</label>\n    <input id=\"clt-N\" type=\"range\" min=\"1\" max=\"200\" step=\"1\" value=\"30\">\n    <span id=\"clt-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"clt-pick\">base distribution</label>\n    <select id=\"clt-pick\">\n      <option value=\"bern\">Bernoulli(0.3) [skewed]</option>\n      <option value=\"unif\">Uniform[0,1]</option>\n      <option value=\"bim\">bimodal (mixture of ±1)</option>\n      <option value=\"exp\">Exponential(1) [skew]</option>\n    </select>\n    <button id=\"clt-resample\">resample 2000 trials</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "clt-out"
+              }
+            ],
+            "hint": "$\\bar X_N$ rescaled vs.\\ $\\mathcal{N}(0,1)$",
+            "bodyScript": "  const svg = $('#clt-svg'), out = $('#clt-out');\n  const pick = $('#clt-pick'), sl = $('#clt-N'), slv = $('#clt-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  function sampler(kind){\n    if(kind==='bern') return ()=>Math.random()<0.3?1:0;\n    if(kind==='unif') return ()=>Math.random();\n    if(kind==='bim')  return ()=>Math.random()<0.5? 1+0.2*randn() : -1+0.2*randn();\n    if(kind==='exp')  return ()=>-Math.log(Math.max(1e-9,Math.random()));\n    return ()=>Math.random();\n  }\n  function stats(kind){\n    if(kind==='bern') return {mu:0.3, sd:Math.sqrt(0.3*0.7)};\n    if(kind==='unif') return {mu:0.5, sd:Math.sqrt(1/12)};\n    if(kind==='bim')  return {mu:0,   sd:Math.sqrt(1+0.04)};\n    if(kind==='exp')  return {mu:1,   sd:1};\n    return {mu:0, sd:1};\n  }\n  function draw(){\n    svg.innerHTML = '';\n    const kind = pick.value, N = +sl.value;\n    slv.textContent = 'N = '+N;\n    const {mu,sd} = stats(kind);\n    const f = sampler(kind);\n    // 2000 trials\n    const M = 2000;\n    const zs = [];\n    for(let t=0;t<M;t++){\n      let s=0;\n      for(let i=0;i<N;i++) s+=f();\n      const m = s/N;\n      const z = Math.sqrt(N)*(m - mu)/sd;\n      zs.push(z);\n    }\n    // histogram\n    const zmin=-4, zmax=4, bins=40;\n    const binW=(zmax-zmin)/bins;\n    const counts = new Array(bins).fill(0);\n    for(const z of zs){\n      if(z<zmin||z>=zmax) continue;\n      counts[Math.floor((z-zmin)/binW)]++;\n    }\n    const density = counts.map(c=>c/(M*binW));\n    const ymax = Math.max(...density, 0.5);\n    // axes\n    const X = z => x0 + (z-zmin)/(zmax-zmin)*(x1-x0);\n    const Y = v => y1 - (v/(ymax*1.1))*(y1-y0);\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    for(const zv of [-4,-2,0,2,4]){\n      const xp = X(zv);\n      const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=zv; svg.appendChild(t);\n    }\n    // histogram bars\n    for(let k=0;k<bins;k++){\n      const xa = X(zmin + k*binW);\n      const xb = X(zmin + (k+1)*binW);\n      const ya = Y(density[k]);\n      svg.appendChild(SVG('rect',{x:xa, y:ya, width:xb-xa-1, height:y1-ya,\n        fill:'var(--cyan)',opacity:0.55}));\n    }\n    // standard normal overlay\n    let d='';\n    for(let i=0;i<=200;i++){\n      const z = zmin + i*(zmax-zmin)/200;\n      const xp=X(z), yp=Y(phi(z));\n      d += (i===0?'M':'L')+xp+','+yp+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg=SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});\n    lg.textContent='𝒩(0,1) PDF';\n    svg.appendChild(lg);\n    const lg2=SVG('text',{x:x1-10,y:y0+30,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});\n    lg2.textContent='histogram of √N(X̄ − μ)/σ';\n    svg.appendChild(lg2);\n    // stats\n    const emp_mean = zs.reduce((a,b)=>a+b,0)/M;\n    const emp_var = zs.reduce((a,b)=>a+(b-emp_mean)**2,0)/M;\n    out.textContent =\n      `base dist: ${kind} (μ=${mu.toFixed(3)}, σ=${sd.toFixed(3)})\\n`+\n      `N = ${N}, trials = ${M}\\n`+\n      `empirical mean of Z ≈ ${emp_mean.toFixed(3)} (target 0)\\n`+\n      `empirical var  of Z ≈ ${emp_var.toFixed(3)} (target 1)\\n`+\n      `CLT gets sharper as N → ∞; skewed bases need larger N`;\n  }\n  pick.addEventListener('change',draw);\n  sl.addEventListener('input',draw);\n  $('#clt-resample').addEventListener('click',draw);\n  draw();",
+            "sectionComment": "=============================== §9 CLT simulator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -327,8 +787,48 @@
         {
           "type": "widget",
           "id": "w-markov",
-          "html": "<div class=\"widget\" id=\"w-markov\">\n  <div class=\"hd\"><div class=\"ttl\">Markov chain animator</div><div class=\"hint\">edit $P$, run, watch frequencies</div></div>\n  <svg id=\"mk-svg\" viewBox=\"0 0 760 260\" width=\"760\" height=\"260\"><title>Markov chain animator</title></svg>\n  <div class=\"row\" id=\"mk-matrix\">\n    <label for=\"mk-p11\">$P_{11}$</label>\n    <input id=\"mk-p11\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.7\" style=\"width:5em\">\n    <label for=\"mk-p12\">$P_{12}$</label>\n    <input id=\"mk-p12\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.2\" style=\"width:5em\">\n    <label for=\"mk-p22\">$P_{22}$</label>\n    <input id=\"mk-p22\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" style=\"width:5em\">\n    <label for=\"mk-p23\">$P_{23}$</label>\n    <input id=\"mk-p23\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.3\" style=\"width:5em\">\n    <label for=\"mk-p33\">$P_{33}$</label>\n    <input id=\"mk-p33\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" style=\"width:5em\">\n  </div>\n  <div class=\"row\">\n    <button id=\"mk-step\">step</button>\n    <button id=\"mk-run10\">+100 steps</button>\n    <button id=\"mk-reset\">reset</button>\n  </div>\n  <div class=\"readout\" id=\"mk-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-markov",
+            "title": "Markov chain animator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mk-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"mk-matrix\">\n    <label for=\"mk-p11\">$P_{11}$</label>\n    <input id=\"mk-p11\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.7\" style=\"width:5em\">\n    <label for=\"mk-p12\">$P_{12}$</label>\n    <input id=\"mk-p12\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.2\" style=\"width:5em\">\n    <label for=\"mk-p22\">$P_{22}$</label>\n    <input id=\"mk-p22\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" style=\"width:5em\">\n    <label for=\"mk-p23\">$P_{23}$</label>\n    <input id=\"mk-p23\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.3\" style=\"width:5em\">\n    <label for=\"mk-p33\">$P_{33}$</label>\n    <input id=\"mk-p33\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" style=\"width:5em\">\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "step",
+                    "id": "mk-step"
+                  },
+                  {
+                    "label": "+100 steps",
+                    "id": "mk-run10"
+                  },
+                  {
+                    "label": "reset",
+                    "id": "mk-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "mk-out"
+              }
+            ],
+            "hint": "edit $P$, run, watch frequencies",
+            "bodyScript": "  const svg = $('#mk-svg'), out = $('#mk-out');\n  const W=760, H=260;\n  let state = 0; // 0,1,2\n  let counts = [0,0,0];\n  function P(){\n    // build from 5 entries with row-sum constraint\n    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));\n    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));\n    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));\n    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));\n    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));\n    const p13 = Math.max(0, 1 - p11 - p12);\n    const p21 = Math.max(0, 1 - p22 - p23);\n    const p31 = Math.max(0, (1 - p33)*0.5);\n    const p32 = Math.max(0, 1 - p33 - p31);\n    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];\n  }\n  function stationary(M){\n    // solve πM = π, πᵀ1=1. Power method on Mᵀ.\n    let p = [1/3,1/3,1/3];\n    for(let k=0;k<2000;k++){\n      const np = [0,0,0];\n      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];\n      p = np;\n    }\n    const s = p.reduce((a,b)=>a+b,0);\n    return p.map(v=>v/s);\n  }\n  function step(){\n    const M = P();\n    const r = Math.random();\n    let c = 0;\n    for(let j=0;j<3;j++){\n      c += M[state][j];\n      if(r<c){ state = j; break; }\n    }\n    counts[state]++;\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    const M = P();\n    const pi = stationary(M);\n    const total = counts.reduce((a,b)=>a+b,0);\n    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];\n    // 3 state nodes arranged in a triangle\n    const pts = [[200,180],[400,100],[600,180]];\n    const labels = ['S','C','R'];\n    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];\n    // arrows\n    for(let i=0;i<3;i++){\n      for(let j=0;j<3;j++){\n        if(i===j) continue;\n        const pr = M[i][j];\n        if(pr<0.01) continue;\n        drawArrow(svg, pts[i], pts[j], {\n          color:'var(--mute)',\n          curve: (j-i>0 ? 25 : -25),\n          label: pr.toFixed(2),\n          labelSide: (j-i>0 ? 1 : 0),\n          width: 0.8 + pr*2,\n          markerId:'mk-'+i+j\n        });\n      }\n    }\n    // self-loops indicated by readout only\n    // nodes\n    for(let i=0;i<3;i++){\n      const cur = state===i;\n      drawNode(svg, pts[i][0], pts[i][1], labels[i], {\n        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',\n        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14\n      });\n    }\n    // bars below: empirical frequencies vs stationary\n    const bx = 120, by = 230, bw = 520, bh = 12;\n    for(let i=0;i<3;i++){\n      const x0 = bx + i*180;\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));\n      // stationary marker\n      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,\n        stroke:'var(--ink)','stroke-width':1.8}));\n      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});\n      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;\n      svg.appendChild(t);\n    }\n    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';\n    svg.appendChild(cap);\n    out.textContent =\n      `steps taken: ${total}, current state: ${labels[state]}\\n`+\n      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;\n  }\n  $('#mk-step').addEventListener('click',step);\n  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });\n  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });\n  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){\n    $('#'+id).addEventListener('input',draw);\n  }\n  draw();",
+            "sectionComment": "=============================== §10 Markov chain animator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -345,8 +845,48 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-markov",
-          "html": "<script>\n/* =============================== §10 Markov chain animator =============================== */\n(function(){\n  const svg = $('#mk-svg'), out = $('#mk-out');\n  const W=760, H=260;\n  let state = 0; // 0,1,2\n  let counts = [0,0,0];\n  function P(){\n    // build from 5 entries with row-sum constraint\n    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));\n    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));\n    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));\n    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));\n    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));\n    const p13 = Math.max(0, 1 - p11 - p12);\n    const p21 = Math.max(0, 1 - p22 - p23);\n    const p31 = Math.max(0, (1 - p33)*0.5);\n    const p32 = Math.max(0, 1 - p33 - p31);\n    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];\n  }\n  function stationary(M){\n    // solve πM = π, πᵀ1=1. Power method on Mᵀ.\n    let p = [1/3,1/3,1/3];\n    for(let k=0;k<2000;k++){\n      const np = [0,0,0];\n      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];\n      p = np;\n    }\n    const s = p.reduce((a,b)=>a+b,0);\n    return p.map(v=>v/s);\n  }\n  function step(){\n    const M = P();\n    const r = Math.random();\n    let c = 0;\n    for(let j=0;j<3;j++){\n      c += M[state][j];\n      if(r<c){ state = j; break; }\n    }\n    counts[state]++;\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    const M = P();\n    const pi = stationary(M);\n    const total = counts.reduce((a,b)=>a+b,0);\n    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];\n    // 3 state nodes arranged in a triangle\n    const pts = [[200,180],[400,100],[600,180]];\n    const labels = ['S','C','R'];\n    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];\n    // arrows\n    for(let i=0;i<3;i++){\n      for(let j=0;j<3;j++){\n        if(i===j) continue;\n        const pr = M[i][j];\n        if(pr<0.01) continue;\n        drawArrow(svg, pts[i], pts[j], {\n          color:'var(--mute)',\n          curve: (j-i>0 ? 25 : -25),\n          label: pr.toFixed(2),\n          labelSide: (j-i>0 ? 1 : 0),\n          width: 0.8 + pr*2,\n          markerId:'mk-'+i+j\n        });\n      }\n    }\n    // self-loops indicated by readout only\n    // nodes\n    for(let i=0;i<3;i++){\n      const cur = state===i;\n      drawNode(svg, pts[i][0], pts[i][1], labels[i], {\n        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',\n        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14\n      });\n    }\n    // bars below: empirical frequencies vs stationary\n    const bx = 120, by = 230, bw = 520, bh = 12;\n    for(let i=0;i<3;i++){\n      const x0 = bx + i*180;\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));\n      // stationary marker\n      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,\n        stroke:'var(--ink)','stroke-width':1.8}));\n      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});\n      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;\n      svg.appendChild(t);\n    }\n    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';\n    svg.appendChild(cap);\n    out.textContent =\n      `steps taken: ${total}, current state: ${labels[state]}\\n`+\n      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;\n  }\n  $('#mk-step').addEventListener('click',step);\n  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });\n  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });\n  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){\n    $('#'+id).addEventListener('input',draw);\n  }\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-markov",
+            "title": "Markov chain animator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "mk-svg",
+                "viewBox": "0 0 760 260",
+                "width": 760,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"mk-matrix\">\n    <label for=\"mk-p11\">$P_{11}$</label>\n    <input id=\"mk-p11\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.7\" style=\"width:5em\">\n    <label for=\"mk-p12\">$P_{12}$</label>\n    <input id=\"mk-p12\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.2\" style=\"width:5em\">\n    <label for=\"mk-p22\">$P_{22}$</label>\n    <input id=\"mk-p22\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" style=\"width:5em\">\n    <label for=\"mk-p23\">$P_{23}$</label>\n    <input id=\"mk-p23\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.3\" style=\"width:5em\">\n    <label for=\"mk-p33\">$P_{33}$</label>\n    <input id=\"mk-p33\" type=\"number\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" style=\"width:5em\">\n  </div>"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "step",
+                    "id": "mk-step"
+                  },
+                  {
+                    "label": "+100 steps",
+                    "id": "mk-run10"
+                  },
+                  {
+                    "label": "reset",
+                    "id": "mk-reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "mk-out"
+              }
+            ],
+            "hint": "edit $P$, run, watch frequencies",
+            "bodyScript": "  const svg = $('#mk-svg'), out = $('#mk-out');\n  const W=760, H=260;\n  let state = 0; // 0,1,2\n  let counts = [0,0,0];\n  function P(){\n    // build from 5 entries with row-sum constraint\n    const p11 = Math.max(0,Math.min(1,+$('#mk-p11').value));\n    const p12 = Math.max(0,Math.min(1,+$('#mk-p12').value));\n    const p22 = Math.max(0,Math.min(1,+$('#mk-p22').value));\n    const p23 = Math.max(0,Math.min(1,+$('#mk-p23').value));\n    const p33 = Math.max(0,Math.min(1,+$('#mk-p33').value));\n    const p13 = Math.max(0, 1 - p11 - p12);\n    const p21 = Math.max(0, 1 - p22 - p23);\n    const p31 = Math.max(0, (1 - p33)*0.5);\n    const p32 = Math.max(0, 1 - p33 - p31);\n    return [[p11,p12,p13],[p21,p22,p23],[p31,p32,p33]];\n  }\n  function stationary(M){\n    // solve πM = π, πᵀ1=1. Power method on Mᵀ.\n    let p = [1/3,1/3,1/3];\n    for(let k=0;k<2000;k++){\n      const np = [0,0,0];\n      for(let j=0;j<3;j++) for(let i=0;i<3;i++) np[j] += p[i]*M[i][j];\n      p = np;\n    }\n    const s = p.reduce((a,b)=>a+b,0);\n    return p.map(v=>v/s);\n  }\n  function step(){\n    const M = P();\n    const r = Math.random();\n    let c = 0;\n    for(let j=0;j<3;j++){\n      c += M[state][j];\n      if(r<c){ state = j; break; }\n    }\n    counts[state]++;\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    const M = P();\n    const pi = stationary(M);\n    const total = counts.reduce((a,b)=>a+b,0);\n    const emp = total>0 ? counts.map(c=>c/total) : [0,0,0];\n    // 3 state nodes arranged in a triangle\n    const pts = [[200,180],[400,100],[600,180]];\n    const labels = ['S','C','R'];\n    const colors = ['var(--yellow)','var(--cyan)','var(--pink)'];\n    // arrows\n    for(let i=0;i<3;i++){\n      for(let j=0;j<3;j++){\n        if(i===j) continue;\n        const pr = M[i][j];\n        if(pr<0.01) continue;\n        drawArrow(svg, pts[i], pts[j], {\n          color:'var(--mute)',\n          curve: (j-i>0 ? 25 : -25),\n          label: pr.toFixed(2),\n          labelSide: (j-i>0 ? 1 : 0),\n          width: 0.8 + pr*2,\n          markerId:'mk-'+i+j\n        });\n      }\n    }\n    // self-loops indicated by readout only\n    // nodes\n    for(let i=0;i<3;i++){\n      const cur = state===i;\n      drawNode(svg, pts[i][0], pts[i][1], labels[i], {\n        r: cur? 24 : 18, fill: cur?'var(--yellow)':'var(--panel2)',\n        stroke: colors[i], textColor: cur? '#111':'#fff', fontSize: 14\n      });\n    }\n    // bars below: empirical frequencies vs stationary\n    const bx = 120, by = 230, bw = 520, bh = 12;\n    for(let i=0;i<3;i++){\n      const x0 = bx + i*180;\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120,height:bh,fill:'var(--panel2)',stroke:'var(--line)'}));\n      svg.appendChild(SVG('rect',{x:x0,y:by,width:120*emp[i],height:bh,fill:colors[i],opacity:0.85}));\n      // stationary marker\n      svg.appendChild(SVG('line',{x1:x0+120*pi[i],y1:by-3,x2:x0+120*pi[i],y2:by+bh+3,\n        stroke:'var(--ink)','stroke-width':1.8}));\n      const t = SVG('text',{x:x0+60,y:by-4,'text-anchor':'middle','font-size':11,fill:colors[i]});\n      t.textContent = `${labels[i]}: emp ${(emp[i]*100).toFixed(1)}% / π ${(pi[i]*100).toFixed(1)}%`;\n      svg.appendChild(t);\n    }\n    const cap = SVG('text',{x:W/2,y:25,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    cap.textContent = '3-state chain: edit P entries, step, watch empirical freq → π';\n    svg.appendChild(cap);\n    out.textContent =\n      `steps taken: ${total}, current state: ${labels[state]}\\n`+\n      `stationary π ≈ [${pi.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `empirical  ≈ [${emp.map(v=>v.toFixed(3)).join(', ')}]\\n`+\n      `row sums (should be 1): [${M.map(r=>r.reduce((a,b)=>a+b,0).toFixed(3)).join(', ')}]`;\n  }\n  $('#mk-step').addEventListener('click',step);\n  $('#mk-run10').addEventListener('click',()=>{ for(let k=0;k<100;k++) step(); });\n  $('#mk-reset').addEventListener('click',()=>{ state=0; counts=[0,0,0]; draw(); });\n  for(const id of ['mk-p11','mk-p12','mk-p22','mk-p23','mk-p33']){\n    $('#'+id).addEventListener('input',draw);\n  }\n  draw();",
+            "sectionComment": "=============================== §10 Markov chain animator ==============================="
+          }
         },
         {
           "type": "raw",
@@ -382,8 +922,32 @@
         {
           "type": "widget",
           "id": "w-bm",
-          "html": "<div class=\"widget\" id=\"w-bm\">\n  <div class=\"hd\"><div class=\"ttl\">Brownian motion simulator</div><div class=\"hint\">path $W_t$ on $[0,1]$, $\\sqrt{N}$ scaling</div></div>\n  <svg id=\"bm-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Brownian motion path and √N scaling</title></svg>\n  <div class=\"row\">\n    <button id=\"bm-new\">new path</button>\n    <button id=\"bm-many\">overlay 20 paths</button>\n    <button id=\"bm-reset\">reset</button>\n    <label for=\"bm-N\">steps $N$</label>\n    <input id=\"bm-N\" type=\"range\" min=\"50\" max=\"2000\" step=\"50\" value=\"500\">\n    <span id=\"bm-N-v\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"bm-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bm",
+            "title": "Brownian motion simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bm-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Brownian motion path and √N scaling"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"bm-new\">new path</button>\n    <button id=\"bm-many\">overlay 20 paths</button>\n    <button id=\"bm-reset\">reset</button>\n    <label for=\"bm-N\">steps $N$</label>\n    <input id=\"bm-N\" type=\"range\" min=\"50\" max=\"2000\" step=\"50\" value=\"500\">\n    <span id=\"bm-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bm-out"
+              }
+            ],
+            "hint": "path $W_t$ on $[0,1]$, $\\sqrt{N}$ scaling",
+            "bodyScript": "  const svg = $('#bm-svg'), out = $('#bm-out');\n  const sl = $('#bm-N'), slv = $('#bm-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let paths = [];\n  function onePath(N){\n    const dt = 1/N;\n    const p = [0];\n    for(let i=1;i<=N;i++){\n      p.push(p[i-1] + Math.sqrt(dt)*randn());\n    }\n    return p;\n  }\n  function reset(){ paths = []; draw(); }\n  function newPath(){ paths = [onePath(+sl.value)]; draw(); }\n  function many(){\n    paths = [];\n    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    slv.textContent = 'N = '+sl.value;\n    const N = +sl.value;\n    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)\n    const ymin=-3.5, ymax=3.5;\n    const X = t => x0 + t*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    // ±sqrt(t) envelopes (95% band ~ ±2√t)\n    let de='', du='';\n    for(let i=0;i<=100;i++){\n      const t = i/100;\n      const e = 2*Math.sqrt(t);\n      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';\n      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';\n    }\n    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    // ticks\n    for(const tv of [0,0.5,1]){\n      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    for(const vv of [-3,-2,-1,0,1,2,3]){\n      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=vv; svg.appendChild(t);\n    }\n    // draw paths\n    paths.forEach((p,k)=>{\n      let d='';\n      p.forEach((v,i)=>{\n        const t = i/(p.length-1);\n        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n      });\n      svg.appendChild(SVG('path',{d,fill:'none',\n        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',\n        'stroke-width': paths.length>1?0.8:1.6,\n        opacity: paths.length>1?0.55:1\n      }));\n    });\n    // legend\n    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n    lg.textContent='±2√t (≈ 95% band)';\n    svg.appendChild(lg);\n    // title\n    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;\n    svg.appendChild(tl);\n    // out\n    if(paths.length===1){\n      const p = paths[0];\n      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);\n      out.textContent =\n        `single path with N=${N} steps\\n`+\n        `W_1 sample  = ${p[p.length-1].toFixed(4)}\\n`+\n        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\\n`+\n        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;\n    } else if(paths.length>1){\n      const w1s = paths.map(p=>p[p.length-1]);\n      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;\n      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;\n      out.textContent =\n        `${paths.length} overlaid paths, N=${N} steps each\\n`+\n        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\\n`+\n        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;\n    } else {\n      out.textContent = 'Click \"new path\" to simulate.';\n    }\n  }\n  $('#bm-new').addEventListener('click',newPath);\n  $('#bm-many').addEventListener('click',many);\n  $('#bm-reset').addEventListener('click',reset);\n  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });\n  newPath();",
+            "sectionComment": "=============================== §12 Brownian motion ==============================="
+          }
         },
         {
           "type": "raw",
@@ -400,8 +964,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-bm",
-          "html": "<script>\n/* =============================== §12 Brownian motion =============================== */\n(function(){\n  const svg = $('#bm-svg'), out = $('#bm-out');\n  const sl = $('#bm-N'), slv = $('#bm-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let paths = [];\n  function onePath(N){\n    const dt = 1/N;\n    const p = [0];\n    for(let i=1;i<=N;i++){\n      p.push(p[i-1] + Math.sqrt(dt)*randn());\n    }\n    return p;\n  }\n  function reset(){ paths = []; draw(); }\n  function newPath(){ paths = [onePath(+sl.value)]; draw(); }\n  function many(){\n    paths = [];\n    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    slv.textContent = 'N = '+sl.value;\n    const N = +sl.value;\n    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)\n    const ymin=-3.5, ymax=3.5;\n    const X = t => x0 + t*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    // ±sqrt(t) envelopes (95% band ~ ±2√t)\n    let de='', du='';\n    for(let i=0;i<=100;i++){\n      const t = i/100;\n      const e = 2*Math.sqrt(t);\n      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';\n      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';\n    }\n    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    // ticks\n    for(const tv of [0,0.5,1]){\n      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    for(const vv of [-3,-2,-1,0,1,2,3]){\n      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=vv; svg.appendChild(t);\n    }\n    // draw paths\n    paths.forEach((p,k)=>{\n      let d='';\n      p.forEach((v,i)=>{\n        const t = i/(p.length-1);\n        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n      });\n      svg.appendChild(SVG('path',{d,fill:'none',\n        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',\n        'stroke-width': paths.length>1?0.8:1.6,\n        opacity: paths.length>1?0.55:1\n      }));\n    });\n    // legend\n    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n    lg.textContent='±2√t (≈ 95% band)';\n    svg.appendChild(lg);\n    // title\n    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;\n    svg.appendChild(tl);\n    // out\n    if(paths.length===1){\n      const p = paths[0];\n      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);\n      out.textContent =\n        `single path with N=${N} steps\\n`+\n        `W_1 sample  = ${p[p.length-1].toFixed(4)}\\n`+\n        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\\n`+\n        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;\n    } else if(paths.length>1){\n      const w1s = paths.map(p=>p[p.length-1]);\n      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;\n      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;\n      out.textContent =\n        `${paths.length} overlaid paths, N=${N} steps each\\n`+\n        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\\n`+\n        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;\n    } else {\n      out.textContent = 'Click \"new path\" to simulate.';\n    }\n  }\n  $('#bm-new').addEventListener('click',newPath);\n  $('#bm-many').addEventListener('click',many);\n  $('#bm-reset').addEventListener('click',reset);\n  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });\n  newPath();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-bm",
+            "title": "Brownian motion simulator",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bm-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Brownian motion path and √N scaling"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"bm-new\">new path</button>\n    <button id=\"bm-many\">overlay 20 paths</button>\n    <button id=\"bm-reset\">reset</button>\n    <label for=\"bm-N\">steps $N$</label>\n    <input id=\"bm-N\" type=\"range\" min=\"50\" max=\"2000\" step=\"50\" value=\"500\">\n    <span id=\"bm-N-v\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "bm-out"
+              }
+            ],
+            "hint": "path $W_t$ on $[0,1]$, $\\sqrt{N}$ scaling",
+            "bodyScript": "  const svg = $('#bm-svg'), out = $('#bm-out');\n  const sl = $('#bm-N'), slv = $('#bm-N-v');\n  const W=760, H=280;\n  const x0=60, x1=W-40, y0=30, y1=H-40;\n  let paths = [];\n  function onePath(N){\n    const dt = 1/N;\n    const p = [0];\n    for(let i=1;i<=N;i++){\n      p.push(p[i-1] + Math.sqrt(dt)*randn());\n    }\n    return p;\n  }\n  function reset(){ paths = []; draw(); }\n  function newPath(){ paths = [onePath(+sl.value)]; draw(); }\n  function many(){\n    paths = [];\n    for(let k=0;k<20;k++) paths.push(onePath(+sl.value));\n    draw();\n  }\n  function draw(){\n    svg.innerHTML='';\n    slv.textContent = 'N = '+sl.value;\n    const N = +sl.value;\n    // y range: -4..+4 (Brownian on [0,1] has σ=1, so ±3σ typical)\n    const ymin=-3.5, ymax=3.5;\n    const X = t => x0 + t*(x1-x0);\n    const Y = v => y1 - (v-ymin)/(ymax-ymin)*(y1-y0);\n    // axes\n    svg.appendChild(SVG('line',{x1:x0,y1:y1,x2:x1,y2:y1,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y1,stroke:'var(--line)'}));\n    // zero line\n    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x1,y2:Y(0),stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    // ±sqrt(t) envelopes (95% band ~ ±2√t)\n    let de='', du='';\n    for(let i=0;i<=100;i++){\n      const t = i/100;\n      const e = 2*Math.sqrt(t);\n      de += (i===0?'M':'L')+X(t)+','+Y(-e)+' ';\n      du += (i===0?'M':'L')+X(t)+','+Y(e)+' ';\n    }\n    svg.appendChild(SVG('path',{d:de,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    svg.appendChild(SVG('path',{d:du,fill:'none',stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'2 3'}));\n    // ticks\n    for(const tv of [0,0.5,1]){\n      const xp=X(tv); const t=SVG('text',{x:xp,y:y1+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=tv; svg.appendChild(t);\n    }\n    for(const vv of [-3,-2,-1,0,1,2,3]){\n      const yp=Y(vv); const t=SVG('text',{x:x0-6,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=vv; svg.appendChild(t);\n    }\n    // draw paths\n    paths.forEach((p,k)=>{\n      let d='';\n      p.forEach((v,i)=>{\n        const t = i/(p.length-1);\n        d += (i===0?'M':'L')+X(t)+','+Y(v)+' ';\n      });\n      svg.appendChild(SVG('path',{d,fill:'none',\n        stroke: paths.length>1?'var(--cyan)':'var(--yellow)',\n        'stroke-width': paths.length>1?0.8:1.6,\n        opacity: paths.length>1?0.55:1\n      }));\n    });\n    // legend\n    const lg = SVG('text',{x:x1-10,y:y0+14,'text-anchor':'end','font-size':11,fill:'var(--violet)'});\n    lg.textContent='±2√t (≈ 95% band)';\n    svg.appendChild(lg);\n    // title\n    const tl = SVG('text',{x:W/2,y:20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    tl.textContent = `Brownian motion on [0,1], N=${N} steps; step var ∝ 1/N confirms √N scaling`;\n    svg.appendChild(tl);\n    // out\n    if(paths.length===1){\n      const p = paths[0];\n      const qv = p.slice(1).reduce((acc,v,i)=>acc+(v-p[i])**2,0);\n      out.textContent =\n        `single path with N=${N} steps\\n`+\n        `W_1 sample  = ${p[p.length-1].toFixed(4)}\\n`+\n        `quadratic variation Σ(ΔW)² = ${qv.toFixed(4)}  (converges to t=1 as N→∞)\\n`+\n        `total variation Σ|ΔW| = ${p.slice(1).reduce((a,v,i)=>a+Math.abs(v-p[i]),0).toFixed(2)} (→ ∞)`;\n    } else if(paths.length>1){\n      const w1s = paths.map(p=>p[p.length-1]);\n      const m = w1s.reduce((a,b)=>a+b,0)/w1s.length;\n      const s = w1s.reduce((a,b)=>a+(b-m)**2,0)/w1s.length;\n      out.textContent =\n        `${paths.length} overlaid paths, N=${N} steps each\\n`+\n        `empirical mean of W_1 ≈ ${m.toFixed(3)}  (target 0)\\n`+\n        `empirical var  of W_1 ≈ ${s.toFixed(3)}  (target 1)`;\n    } else {\n      out.textContent = 'Click \"new path\" to simulate.';\n    }\n  }\n  $('#bm-new').addEventListener('click',newPath);\n  $('#bm-many').addEventListener('click',many);\n  $('#bm-reset').addEventListener('click',reset);\n  sl.addEventListener('input',()=>{ slv.textContent = 'N = '+sl.value; });\n  newPath();",
+            "sectionComment": "=============================== §12 Brownian motion ==============================="
+          }
         },
         {
           "type": "raw",
