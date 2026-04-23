@@ -93,10 +93,9 @@ Grouped by theme. Each item is a short title plus one-line scope. No checkboxes 
 
 ### Content & pedagogy
 
-- **Notation/terminology audit.** Advisory script flagging drift (`\mathbb{Z}` vs `\Z`, `\operatorname{Aut}` vs `\Aut`, ring-of-integers conventions, etc.) across topic HTML, concept blurbs, and quiz banks.
-- **Worked-example audit.** Flag concept sections missing a `**Worked example:**` block; turn the pedagogical expectation into a gate.
-- **Blurb / quiz-question alignment sweep.** Verify each question probes something actually named in its concept's blurb.
-- **Capstone story pages.** Long-form companion narratives for BSD, FLT, and Sato–Tate — essay tone, not widget-heavy.
+- **Notation/terminology audit.** Advisory script exists (`audit-notation.mjs`); the goal is to actually **act on** its findings — standardize `\mathbb{Z}` vs `\Z`, `\operatorname{Aut}` vs `\Aut`, ring-of-integers conventions across topic HTML, concept blurbs, and quiz banks.
+- **Act on worked-example audit output.** The audit (`audit-worked-examples.mjs`) flags missing `**Worked example:**` blocks; fill the gaps and decide whether to turn the expectation into a CI gate.
+- **Act on blurb / quiz-question alignment output.** `audit-blurb-question-alignment.mjs` flags questions not probing their concept's blurb; close the flagged items.
 - **Topic splitting.** Complex analysis (26 concepts), real analysis, smooth manifolds, and differential geometry each read as mini-textbooks; split into 2–3 focused children once the audits above are in place.
 
 ### UX
@@ -105,41 +104,21 @@ Grouped by theme. Each item is a short title plus one-line scope. No checkboxes 
 - **Widget-state URLs.** Encode slider/selector state in the URL hash so configurations are shareable.
 - **Print CSS per topic.** `@media print` so every page exports cleanly to PDF.
 - **Onboarding tour.** First-visit 4-step overlay explaining pathway + progress + quiz flow.
-- **Concept lineage strip.** Small top-of-page DAG showing this topic's direct prereqs and downstream consumers, driven by `concepts/bundle.js`.
-- **Spaced-repetition review page.** `review.html` surfaces concepts due for re-quiz, keyed off the timestamps `MVProgress` already stores.
-- **Light theme.** Toggle via CSS custom properties; persist in localStorage.
 
 ### Novel widgets
 
 - **Proof/construction scrubber.** Timeline slider that replays a multi-step proof with synchronized narrative and diagram state.
 - **Constraint / bifurcation explorer.** Set equations or inequalities, watch the feasible region update; expose singularities.
-- **Pattern-induction workbench.** Show first N terms; learner proposes a rule; system validates against hidden tests.
 - **Counterexample generator.** UI for constructing pathological objects (non-continuous-but-integrable, non-Hausdorff) and checking which hypotheses fail.
-- **Interactive commutative-diagram editor.** Drag objects and morphisms; live-check naturality and compositionality.
 - **Inline code cells.** Tiny sandboxed cells (plain JS or Pyodide) for sieves, modular arithmetic, and other computational topics.
 - **Sonification.** Map parameter changes to audio for Fourier-adjacent topics (frequency, phase).
 
-### New quiz types
-
-- **Proof completion.** First N lines given, learner fills the middle.
-- **Matching (two-column).** Pair theorems ↔ consequences, objects ↔ categories.
-- **Spot-the-error.** Present a proof with a planted flaw; learner identifies it.
-- **Construction (draw-to-answer).** Canvas where the learner draws a curve/region; tolerance-based grading.
-- **Guess-my-rule (inductive).** System shows N examples; learner proposes a formula, checked against hidden cases.
-
-Quiz-type work serializes on `js/quiz.js` — schedule as one agent, not several.
-
 ### Maintainability & tooling
 
-- **`.claude/agents/`.** Directory exists but is empty. Ship four: content-scaffolder, cross-topic-prereq recommender, quiz-difficulty calibrator, pedagogy/notation auditor.
 - **Markdown-first content pipeline.** *Partially shipped:* structured content is now `content/<topic>.json` with `widget` blocks carrying `slug + params` references. Markdown (rather than raw HTML) for prose blocks is still deferred — would require a reversible HTML↔Markdown conversion that preserves byte-identity on the restricted subset the notebook uses.
-- **Cross-page consistency audit.** Verify every topic page has identical `<head>` boilerplate, sidetoc scaffold, and `data-section`/`data-level` attributes.
-- **Mobile widget performance audit.** Use the Playwright MCP to measure FPS on 3D rotation and SVG drag at a mobile viewport; wire as a gate.
-- **Bundle-staleness guard.** Fast check that `concepts/bundle.js` and `quizzes/bundle.js` match their sources without running a full rebuild.
 
 ### Stretch
 
-- **Global search.** Across concepts, blurbs, quiz questions, and section headings — new `search.html` with a pre-built index.
 - **Challenge mode.** Timed mixed-concept gauntlet; competitive-against-self.
 - **Learner profiles.** Multiple profiles per browser, each with its own `MVProgress` slice.
 - **Anki deck export** per topic.
