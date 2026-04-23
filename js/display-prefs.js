@@ -101,43 +101,77 @@
     return setState({ widgetsHidden: false, quizzesHidden: false }, 'showAll');
   }
 
-  function titleFor(state) {
-    var parts = [];
-    parts.push(state.widgetsHidden ? 'widgets: hidden' : 'widgets: shown');
-    parts.push(state.quizzesHidden ? 'quizzes: hidden' : 'quizzes: shown');
-    return parts.join(' · ') + ' — click: toggle widgets · shift+click: toggle quizzes · esc: show all';
+  function titleForWidgets(state) {
+    return (state.widgetsHidden ? 'widgets hidden' : 'widgets shown') +
+      ' — click to toggle · esc: show all';
   }
 
-  function labelFor(state) {
-    // A single glyph; we lean on the tooltip for detail. Dim when all hidden.
-    if (state.widgetsHidden && state.quizzesHidden) return '📖';
-    if (state.widgetsHidden || state.quizzesHidden) return '📖';
-    return '📖';
+  function titleForQuizzes(state) {
+    return (state.quizzesHidden ? 'quizzes hidden' : 'quizzes shown') +
+      ' — click to toggle · esc: show all';
   }
 
-  function createToggleButton(opts) {
+  // Two glyphs: the widget wrench and the question/quiz bubble. When a kind
+  // is hidden, its button gets .mv-display-toggle--off so CSS can dim it.
+  var WIDGETS_GLYPH = '🔧';
+  var QUIZZES_GLYPH = '❓';
+
+  function createWidgetToggle(opts) {
     opts = opts || {};
     var btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'mv-display-toggle';
+    btn.className = 'mv-display-toggle mv-display-toggle--widgets';
     if (opts.className) btn.className += ' ' + opts.className;
-    btn.setAttribute('aria-label', 'Toggle prose mode — hide widgets or quizzes');
+    btn.setAttribute('aria-label', 'Toggle widgets visibility');
+    btn.textContent = WIDGETS_GLYPH;
     var s = current();
-    btn.textContent = labelFor(s);
-    btn.title = titleFor(s);
+    btn.title = titleForWidgets(s);
+    if (s.widgetsHidden) btn.classList.add('mv-display-toggle--off');
     btn.addEventListener('click', function (ev) {
       ev.preventDefault();
-      if (ev.shiftKey) toggleQuizzes();
-      else toggleWidgets();
+      toggleWidgets();
     });
-    // Keep this button in sync when state changes (other buttons, hotkeys, or
-    // cross-tab updates).
     document.addEventListener('mvdisplay:change', function () {
       var now = current();
-      btn.textContent = labelFor(now);
-      btn.title = titleFor(now);
+      btn.title = titleForWidgets(now);
+      btn.classList.toggle('mv-display-toggle--off', now.widgetsHidden);
     });
     return btn;
+  }
+
+  function createQuizToggle(opts) {
+    opts = opts || {};
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mv-display-toggle mv-display-toggle--quizzes';
+    if (opts.className) btn.className += ' ' + opts.className;
+    btn.setAttribute('aria-label', 'Toggle quizzes visibility');
+    btn.textContent = QUIZZES_GLYPH;
+    var s = current();
+    btn.title = titleForQuizzes(s);
+    if (s.quizzesHidden) btn.classList.add('mv-display-toggle--off');
+    btn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      toggleQuizzes();
+    });
+    document.addEventListener('mvdisplay:change', function () {
+      var now = current();
+      btn.title = titleForQuizzes(now);
+      btn.classList.toggle('mv-display-toggle--off', now.quizzesHidden);
+    });
+    return btn;
+  }
+
+  // Back-compat: the slot mounter still calls createToggleButton to produce
+  // a pair. Returns a container with both buttons.
+  function createToggleButton(opts) {
+    opts = opts || {};
+    var wrap = document.createElement('span');
+    wrap.className = 'mv-display-toggles';
+    if (opts.className) wrap.className += ' ' + opts.className;
+    wrap.appendChild(createWidgetToggle());
+    wrap.appendChild(createQuizToggle());
+    return wrap;
   }
 
   // --------------------------------------------------------------------------
@@ -216,6 +250,8 @@
     toggleQuizzes: toggleQuizzes,
     showAll: showAll,
     current: current,
-    createToggleButton: createToggleButton,
+    createToggleButton: createToggleButton, // back-compat; returns both
+    createWidgetToggle: createWidgetToggle,
+    createQuizToggle: createQuizToggle,
   };
 })();

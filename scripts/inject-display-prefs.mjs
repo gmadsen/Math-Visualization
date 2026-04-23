@@ -61,6 +61,10 @@ function buildCssBlock() {
     begin + '\n' +
     '  html[data-hide-widgets] .widget { display: none !important; }\n' +
     '  html[data-hide-quizzes] .quiz { display: none !important; }\n' +
+    '  .mv-display-toggles { display: inline-flex; gap: .25rem; }\n' +
+    '  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; }\n' +
+    '  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.05)); }\n' +
+    '  .mv-display-toggle--off { opacity: 0.4; }\n' +
     '  ' + end
   );
 }
