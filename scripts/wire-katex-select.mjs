@@ -13,9 +13,10 @@
 //   node scripts/wire-katex-select.mjs           # audit (exit 1 if any page needs wiring)
 //   node scripts/wire-katex-select.mjs --fix     # write changes in place
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readHtml, writeIfChanged } from './lib/html-injector.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FIX = process.argv.includes('--fix');
@@ -43,7 +44,7 @@ const results = { scanned: 0, needsWiring: [], wired: [], skippedNoAnchor: [], a
 
 for (const file of listHtmlFiles(ROOT)) {
   results.scanned++;
-  const src = readFileSync(file, 'utf8');
+  const src = readHtml(file);
   if (!OPTION_TEX_RE.test(src)) continue;        // no LaTeX options, skip
 
   const rel = file.slice(ROOT.length + 1);
@@ -59,8 +60,7 @@ for (const file of listHtmlFiles(ROOT)) {
 
   if (FIX) {
     const patched = src.replace(ANCHOR, `${ANCHOR}\n${INJECT}`);
-    writeFileSync(file, patched);
-    results.wired.push(rel);
+    if (writeIfChanged(file, src, patched)) results.wired.push(rel);
   }
 }
 

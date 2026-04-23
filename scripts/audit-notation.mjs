@@ -38,12 +38,15 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
 const VERBOSE = argv.includes('--verbose');
+
+const model = await loadContentModel();
 
 // ─────────────────────────────────────────────────────────────────────────
 // Notation pairs. Each entry is a group of synonymous variants; we report
@@ -188,50 +191,47 @@ for (const f of ['index.html', 'pathway.html']) {
 }
 
 // Quiz banks: extract q / explain / hint / choices / items strings.
-const quizzesDir = join(repoRoot, 'quizzes');
-if (existsSync(quizzesDir)) {
-  for (const f of readdirSync(quizzesDir).sort()) {
-    if (!f.endsWith('.json')) continue;
-    try {
-      const d = JSON.parse(readFileSync(join(quizzesDir, f), 'utf8'));
-      const parts = [];
-      for (const bank of Object.values(d.quizzes || {})) {
-        for (const tier of ['questions', 'hard', 'expert']) {
-          const qs = bank[tier];
-          if (!Array.isArray(qs)) continue;
-          for (const q of qs) {
-            if (q.q) parts.push(q.q);
-            if (q.explain) parts.push(q.explain);
-            if (q.hint) parts.push(q.hint);
-            if (Array.isArray(q.choices)) parts.push(q.choices.join('\n'));
-            if (Array.isArray(q.items))   parts.push(q.items.join('\n'));
-          }
-        }
+// Iterate in filename-sorted order to match the legacy readdir path.
+const quizTopics = [...model.quizBanks.keys()]
+  .filter((t) => model.quizBanks.get(t))
+  .sort();
+for (const topicId of quizTopics) {
+  const bankDoc = model.quizBanks.get(topicId);
+  const parts = [];
+  for (const bank of Object.values(bankDoc.quizzes || {})) {
+    for (const tier of ['questions', 'hard', 'expert']) {
+      const qs = bank[tier];
+      if (!Array.isArray(qs)) continue;
+      for (const q of qs) {
+        if (q.q) parts.push(q.q);
+        if (q.explain) parts.push(q.explain);
+        if (q.hint) parts.push(q.hint);
+        if (Array.isArray(q.choices)) parts.push(q.choices.join('\n'));
+        if (Array.isArray(q.items))   parts.push(q.items.join('\n'));
       }
-      if (parts.length) {
-        sources.push({ file: `quizzes/${f}`, text: parts.join('\n') });
-      }
-    } catch (_) { /* parse error — skip */ }
+    }
+  }
+  if (parts.length) {
+    sources.push({ file: `quizzes/${topicId}.json`, text: parts.join('\n') });
   }
 }
 
-// Concept graphs: extract blurb strings.
-const conceptsDir = join(repoRoot, 'concepts');
-if (existsSync(conceptsDir)) {
-  for (const f of readdirSync(conceptsDir).sort()) {
-    if (!f.endsWith('.json')) continue;
-    if (f === 'index.json' || f === 'capstones.json') continue;
-    try {
-      const d = JSON.parse(readFileSync(join(conceptsDir, f), 'utf8'));
-      const parts = [];
-      for (const c of d.concepts || []) {
-        if (c.blurb) parts.push(c.blurb);
-        if (c.title) parts.push(c.title);
-      }
-      if (parts.length) {
-        sources.push({ file: `concepts/${f}`, text: parts.join('\n') });
-      }
-    } catch (_) { /* parse error — skip */ }
+// Concept graphs: extract blurb + title strings. Group by owning topic in
+// filename-sorted order to match the legacy readdir path.
+const conceptTopics = [...model.topicIds].sort();
+for (const topicId of conceptTopics) {
+  const topic = model.topics.get(topicId);
+  if (!topic) continue;
+  const parts = [];
+  for (const cid of topic.conceptIds) {
+    const c = model.concepts.get(cid);
+    if (!c) continue;
+    if (c.topic !== topicId) continue; // first-writer-wins ownership
+    if (c.blurb) parts.push(c.blurb);
+    if (c.title) parts.push(c.title);
+  }
+  if (parts.length) {
+    sources.push({ file: `concepts/${topicId}.json`, text: parts.join('\n') });
   }
 }
 
