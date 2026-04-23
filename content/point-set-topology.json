@@ -50,8 +50,91 @@
         {
           "type": "widget",
           "id": "w-top",
-          "html": "<div class=\"widget\" id=\"w-top\">\n  <div class=\"hd\"><div class=\"ttl\">Is this a topology on $X=\\{a,b,c,d\\}$?</div><div class=\"hint\">click subsets to toggle in/out · readout checks the three axioms</div></div>\n  <svg id=\"top-svg\" viewBox=\"0 0 640 120\" width=\"640\" height=\"120\"><title>Is this a topology on $X=\\{a,b,c,d\\}$?</title></svg>\n  <div class=\"row\" id=\"top-grid\"></div>\n  <div class=\"readout\" id=\"top-out\"></div>\n  <div class=\"row\">\n    <button id=\"top-ex1\">preset: discrete</button>\n    <button id=\"top-ex2\">preset: indiscrete</button>\n    <button id=\"top-ex3\">preset: Sierpiński-like</button>\n    <button id=\"top-ex4\">preset: broken (no union-closure)</button>\n    <button id=\"top-clear\">clear</button>\n  </div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-top",
+            "title": "Is this a topology on $X=\\{a,b,c,d\\}$?",
+            "hint": "click subsets to toggle in/out · readout checks the three axioms",
+            "svgId": "top-svg",
+            "viewBox": "0 0 640 120",
+            "readoutId": "top-out",
+            "buttons": [
+              {
+                "id": "top-ex1",
+                "label": "preset: discrete",
+                "action": "preset-discrete"
+              },
+              {
+                "id": "top-ex2",
+                "label": "preset: indiscrete",
+                "action": "preset-indiscrete"
+              },
+              {
+                "id": "top-ex3",
+                "label": "preset: Sierpiński-like",
+                "action": "preset-sierpinski"
+              },
+              {
+                "id": "top-ex4",
+                "label": "preset: broken (no union-closure)",
+                "action": "preset-broken"
+              },
+              {
+                "id": "top-clear",
+                "label": "clear",
+                "action": "reset"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 2 widget ===============================",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "top-svg",
+                "viewBox": "0 0 640 120",
+                "width": 640,
+                "height": 120
+              },
+              {
+                "kind": "row",
+                "id": "top-grid"
+              },
+              {
+                "kind": "readout",
+                "id": "top-out"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "top-ex1",
+                    "label": "preset: discrete",
+                    "action": "preset-discrete"
+                  },
+                  {
+                    "id": "top-ex2",
+                    "label": "preset: indiscrete",
+                    "action": "preset-indiscrete"
+                  },
+                  {
+                    "id": "top-ex3",
+                    "label": "preset: Sierpiński-like",
+                    "action": "preset-sierpinski"
+                  },
+                  {
+                    "id": "top-ex4",
+                    "label": "preset: broken (no union-closure)",
+                    "action": "preset-broken"
+                  },
+                  {
+                    "id": "top-clear",
+                    "label": "clear",
+                    "action": "reset"
+                  }
+                ]
+              }
+            ],
+            "bodyScript": "  const X = ['a','b','c','d'];\n  // enumerate all 16 subsets as bitmasks\n  const subs = [];\n  for(let m=0;m<16;m++){\n    const els = X.filter((_,i)=>m&(1<<i));\n    subs.push({mask:m, name: '{'+els.join(',')+'}'||'∅', pretty: els.length? '{'+els.join(',')+'}':'∅'});\n  }\n  subs[0].pretty='∅';\n  const grid = $('#top-grid'), out = $('#top-out'), topSvg = $('#top-svg');\n  const picked = new Set();\n\n  // 4 points laid out in a row with fixed SVG coords\n  const PT = {a:[120,60], b:[240,60], c:[360,60], d:[480,60]};\n  function renderSVG(){\n    while(topSvg.firstChild) topSvg.removeChild(topSvg.firstChild);\n    // draw each picked subset as a translucent capsule that encloses its points\n    const sortedByCount = [...picked].sort((a,b)=>{\n      const ca = X.filter((_,i)=>a&(1<<i)).length;\n      const cb = X.filter((_,i)=>b&(1<<i)).length;\n      return cb-ca;\n    });\n    sortedByCount.forEach((m,idx)=>{\n      const els = X.filter((_,i)=>m&(1<<i));\n      if(els.length===0) return; // don't draw ∅\n      if(m===15){\n        // full set: big rounded rect\n        topSvg.appendChild(SVG('rect',{x:60,y:22,width:540,height:76,rx:38,ry:38,\n          fill:'rgba(179,157,219,0.10)',stroke:'var(--violet)','stroke-width':1}));\n        return;\n      }\n      const xs = els.map(e=>PT[e][0]);\n      const xMin=Math.min(...xs)-24, xMax=Math.max(...xs)+24;\n      const pad = 14 + (idx%3)*4;\n      topSvg.appendChild(SVG('rect',{x:xMin, y:60-pad, width:xMax-xMin, height:2*pad, rx:pad, ry:pad,\n        fill:'rgba(88,196,221,0.12)',stroke:'var(--blue)','stroke-width':1,opacity:0.9}));\n    });\n    // points and labels\n    X.forEach(n=>{\n      const [x,y]=PT[n];\n      topSvg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.2}));\n      const t=SVG('text',{x,y:y+22,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});\n      t.textContent=n; topSvg.appendChild(t);\n    });\n  }\n\n  function renderGrid(){\n    grid.innerHTML='';\n    subs.forEach(s=>{\n      const b = document.createElement('button');\n      b.textContent = s.pretty;\n      if(picked.has(s.mask)) b.classList.add('active');\n      b.addEventListener('click',()=>{\n        if(picked.has(s.mask)) picked.delete(s.mask);\n        else picked.add(s.mask);\n        renderGrid(); check(); renderSVG();\n      });\n      grid.appendChild(b);\n    });\n  }\n  function check(){\n    const arr = [...picked].sort((a,b)=>a-b);\n    const hasEmpty = arr.includes(0);\n    const hasX = arr.includes(15);\n    // union closure\n    let unionOk=true, unionFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const u=a|b;\n        if(!arr.includes(u)){ unionOk=false; unionFail=[a,b,u]; break; }\n      }\n      if(!unionOk) break;\n    }\n    // finite intersection closure\n    let interOk=true, interFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const i=a&b;\n        if(!arr.includes(i)){ interOk=false; interFail=[a,b,i]; break; }\n      }\n      if(!interOk) break;\n    }\n    function nm(m){ return subs[m].pretty; }\n    const lines = [];\n    lines.push(`declared open: ${arr.map(nm).join(', ') || '(none)'}`);\n    lines.push('');\n    lines.push(`contains ∅ and X ?   ${hasEmpty && hasX ? '✓' : '✗'}`);\n    lines.push(`closed under union ? ${unionOk ? '✓' : '✗  (e.g. '+nm(unionFail[0])+' ∪ '+nm(unionFail[1])+' = '+nm(unionFail[2])+' is missing)'}`);\n    lines.push(`closed under ∩ ?     ${interOk ? '✓' : '✗  (e.g. '+nm(interFail[0])+' ∩ '+nm(interFail[1])+' = '+nm(interFail[2])+' is missing)'}`);\n    lines.push('');\n    const isTop = hasEmpty && hasX && unionOk && interOk;\n    lines.push(isTop ? '★ this IS a topology on X' : '✗ not a topology');\n    out.textContent = lines.join('\\n');\n  }\n  function setPreset(fn){\n    picked.clear();\n    for(let m=0;m<16;m++) if(fn(m)) picked.add(m);\n    renderGrid(); check();\n  }\n  $('#top-ex1').addEventListener('click',()=>setPreset(()=>true)); // all 16\n  $('#top-ex2').addEventListener('click',()=>setPreset(m=>m===0||m===15));\n  // Sierpiński-like: ∅, {a}, X\n  $('#top-ex3').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===15));\n  // broken: ∅, {a}, {b}, X — union {a}∪{b}={a,b} missing\n  $('#top-ex4').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===2||m===15));\n  $('#top-clear').addEventListener('click',()=>{ picked.clear(); renderGrid(); check(); });\n\n  setPreset(m=>m===0||m===1||m===15); // default = Sierpiński-like"
+          }
         },
         {
           "type": "raw",
@@ -68,8 +151,91 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-top",
-          "html": "<script>\n/* =============================== SECTION 2 widget =============================== */\n(function(){\n  const X = ['a','b','c','d'];\n  // enumerate all 16 subsets as bitmasks\n  const subs = [];\n  for(let m=0;m<16;m++){\n    const els = X.filter((_,i)=>m&(1<<i));\n    subs.push({mask:m, name: '{'+els.join(',')+'}'||'∅', pretty: els.length? '{'+els.join(',')+'}':'∅'});\n  }\n  subs[0].pretty='∅';\n  const grid = $('#top-grid'), out = $('#top-out'), topSvg = $('#top-svg');\n  const picked = new Set();\n\n  // 4 points laid out in a row with fixed SVG coords\n  const PT = {a:[120,60], b:[240,60], c:[360,60], d:[480,60]};\n  function renderSVG(){\n    while(topSvg.firstChild) topSvg.removeChild(topSvg.firstChild);\n    // draw each picked subset as a translucent capsule that encloses its points\n    const sortedByCount = [...picked].sort((a,b)=>{\n      const ca = X.filter((_,i)=>a&(1<<i)).length;\n      const cb = X.filter((_,i)=>b&(1<<i)).length;\n      return cb-ca;\n    });\n    sortedByCount.forEach((m,idx)=>{\n      const els = X.filter((_,i)=>m&(1<<i));\n      if(els.length===0) return; // don't draw ∅\n      if(m===15){\n        // full set: big rounded rect\n        topSvg.appendChild(SVG('rect',{x:60,y:22,width:540,height:76,rx:38,ry:38,\n          fill:'rgba(179,157,219,0.10)',stroke:'var(--violet)','stroke-width':1}));\n        return;\n      }\n      const xs = els.map(e=>PT[e][0]);\n      const xMin=Math.min(...xs)-24, xMax=Math.max(...xs)+24;\n      const pad = 14 + (idx%3)*4;\n      topSvg.appendChild(SVG('rect',{x:xMin, y:60-pad, width:xMax-xMin, height:2*pad, rx:pad, ry:pad,\n        fill:'rgba(88,196,221,0.12)',stroke:'var(--blue)','stroke-width':1,opacity:0.9}));\n    });\n    // points and labels\n    X.forEach(n=>{\n      const [x,y]=PT[n];\n      topSvg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.2}));\n      const t=SVG('text',{x,y:y+22,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});\n      t.textContent=n; topSvg.appendChild(t);\n    });\n  }\n\n  function renderGrid(){\n    grid.innerHTML='';\n    subs.forEach(s=>{\n      const b = document.createElement('button');\n      b.textContent = s.pretty;\n      if(picked.has(s.mask)) b.classList.add('active');\n      b.addEventListener('click',()=>{\n        if(picked.has(s.mask)) picked.delete(s.mask);\n        else picked.add(s.mask);\n        renderGrid(); check(); renderSVG();\n      });\n      grid.appendChild(b);\n    });\n  }\n  function check(){\n    const arr = [...picked].sort((a,b)=>a-b);\n    const hasEmpty = arr.includes(0);\n    const hasX = arr.includes(15);\n    // union closure\n    let unionOk=true, unionFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const u=a|b;\n        if(!arr.includes(u)){ unionOk=false; unionFail=[a,b,u]; break; }\n      }\n      if(!unionOk) break;\n    }\n    // finite intersection closure\n    let interOk=true, interFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const i=a&b;\n        if(!arr.includes(i)){ interOk=false; interFail=[a,b,i]; break; }\n      }\n      if(!interOk) break;\n    }\n    function nm(m){ return subs[m].pretty; }\n    const lines = [];\n    lines.push(`declared open: ${arr.map(nm).join(', ') || '(none)'}`);\n    lines.push('');\n    lines.push(`contains ∅ and X ?   ${hasEmpty && hasX ? '✓' : '✗'}`);\n    lines.push(`closed under union ? ${unionOk ? '✓' : '✗  (e.g. '+nm(unionFail[0])+' ∪ '+nm(unionFail[1])+' = '+nm(unionFail[2])+' is missing)'}`);\n    lines.push(`closed under ∩ ?     ${interOk ? '✓' : '✗  (e.g. '+nm(interFail[0])+' ∩ '+nm(interFail[1])+' = '+nm(interFail[2])+' is missing)'}`);\n    lines.push('');\n    const isTop = hasEmpty && hasX && unionOk && interOk;\n    lines.push(isTop ? '★ this IS a topology on X' : '✗ not a topology');\n    out.textContent = lines.join('\\n');\n  }\n  function setPreset(fn){\n    picked.clear();\n    for(let m=0;m<16;m++) if(fn(m)) picked.add(m);\n    renderGrid(); check();\n  }\n  $('#top-ex1').addEventListener('click',()=>setPreset(()=>true)); // all 16\n  $('#top-ex2').addEventListener('click',()=>setPreset(m=>m===0||m===15));\n  // Sierpiński-like: ∅, {a}, X\n  $('#top-ex3').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===15));\n  // broken: ∅, {a}, {b}, X — union {a}∪{b}={a,b} missing\n  $('#top-ex4').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===2||m===15));\n  $('#top-clear').addEventListener('click',()=>{ picked.clear(); renderGrid(); check(); });\n\n  setPreset(m=>m===0||m===1||m===15); // default = Sierpiński-like\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-top",
+            "title": "Is this a topology on $X=\\{a,b,c,d\\}$?",
+            "hint": "click subsets to toggle in/out · readout checks the three axioms",
+            "svgId": "top-svg",
+            "viewBox": "0 0 640 120",
+            "readoutId": "top-out",
+            "buttons": [
+              {
+                "id": "top-ex1",
+                "label": "preset: discrete",
+                "action": "preset-discrete"
+              },
+              {
+                "id": "top-ex2",
+                "label": "preset: indiscrete",
+                "action": "preset-indiscrete"
+              },
+              {
+                "id": "top-ex3",
+                "label": "preset: Sierpiński-like",
+                "action": "preset-sierpinski"
+              },
+              {
+                "id": "top-ex4",
+                "label": "preset: broken (no union-closure)",
+                "action": "preset-broken"
+              },
+              {
+                "id": "top-clear",
+                "label": "clear",
+                "action": "reset"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 2 widget ===============================",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "top-svg",
+                "viewBox": "0 0 640 120",
+                "width": 640,
+                "height": 120
+              },
+              {
+                "kind": "row",
+                "id": "top-grid"
+              },
+              {
+                "kind": "readout",
+                "id": "top-out"
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "top-ex1",
+                    "label": "preset: discrete",
+                    "action": "preset-discrete"
+                  },
+                  {
+                    "id": "top-ex2",
+                    "label": "preset: indiscrete",
+                    "action": "preset-indiscrete"
+                  },
+                  {
+                    "id": "top-ex3",
+                    "label": "preset: Sierpiński-like",
+                    "action": "preset-sierpinski"
+                  },
+                  {
+                    "id": "top-ex4",
+                    "label": "preset: broken (no union-closure)",
+                    "action": "preset-broken"
+                  },
+                  {
+                    "id": "top-clear",
+                    "label": "clear",
+                    "action": "reset"
+                  }
+                ]
+              }
+            ],
+            "bodyScript": "  const X = ['a','b','c','d'];\n  // enumerate all 16 subsets as bitmasks\n  const subs = [];\n  for(let m=0;m<16;m++){\n    const els = X.filter((_,i)=>m&(1<<i));\n    subs.push({mask:m, name: '{'+els.join(',')+'}'||'∅', pretty: els.length? '{'+els.join(',')+'}':'∅'});\n  }\n  subs[0].pretty='∅';\n  const grid = $('#top-grid'), out = $('#top-out'), topSvg = $('#top-svg');\n  const picked = new Set();\n\n  // 4 points laid out in a row with fixed SVG coords\n  const PT = {a:[120,60], b:[240,60], c:[360,60], d:[480,60]};\n  function renderSVG(){\n    while(topSvg.firstChild) topSvg.removeChild(topSvg.firstChild);\n    // draw each picked subset as a translucent capsule that encloses its points\n    const sortedByCount = [...picked].sort((a,b)=>{\n      const ca = X.filter((_,i)=>a&(1<<i)).length;\n      const cb = X.filter((_,i)=>b&(1<<i)).length;\n      return cb-ca;\n    });\n    sortedByCount.forEach((m,idx)=>{\n      const els = X.filter((_,i)=>m&(1<<i));\n      if(els.length===0) return; // don't draw ∅\n      if(m===15){\n        // full set: big rounded rect\n        topSvg.appendChild(SVG('rect',{x:60,y:22,width:540,height:76,rx:38,ry:38,\n          fill:'rgba(179,157,219,0.10)',stroke:'var(--violet)','stroke-width':1}));\n        return;\n      }\n      const xs = els.map(e=>PT[e][0]);\n      const xMin=Math.min(...xs)-24, xMax=Math.max(...xs)+24;\n      const pad = 14 + (idx%3)*4;\n      topSvg.appendChild(SVG('rect',{x:xMin, y:60-pad, width:xMax-xMin, height:2*pad, rx:pad, ry:pad,\n        fill:'rgba(88,196,221,0.12)',stroke:'var(--blue)','stroke-width':1,opacity:0.9}));\n    });\n    // points and labels\n    X.forEach(n=>{\n      const [x,y]=PT[n];\n      topSvg.appendChild(SVG('circle',{cx:x,cy:y,r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.2}));\n      const t=SVG('text',{x,y:y+22,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});\n      t.textContent=n; topSvg.appendChild(t);\n    });\n  }\n\n  function renderGrid(){\n    grid.innerHTML='';\n    subs.forEach(s=>{\n      const b = document.createElement('button');\n      b.textContent = s.pretty;\n      if(picked.has(s.mask)) b.classList.add('active');\n      b.addEventListener('click',()=>{\n        if(picked.has(s.mask)) picked.delete(s.mask);\n        else picked.add(s.mask);\n        renderGrid(); check(); renderSVG();\n      });\n      grid.appendChild(b);\n    });\n  }\n  function check(){\n    const arr = [...picked].sort((a,b)=>a-b);\n    const hasEmpty = arr.includes(0);\n    const hasX = arr.includes(15);\n    // union closure\n    let unionOk=true, unionFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const u=a|b;\n        if(!arr.includes(u)){ unionOk=false; unionFail=[a,b,u]; break; }\n      }\n      if(!unionOk) break;\n    }\n    // finite intersection closure\n    let interOk=true, interFail=null;\n    for(const a of arr){\n      for(const b of arr){\n        const i=a&b;\n        if(!arr.includes(i)){ interOk=false; interFail=[a,b,i]; break; }\n      }\n      if(!interOk) break;\n    }\n    function nm(m){ return subs[m].pretty; }\n    const lines = [];\n    lines.push(`declared open: ${arr.map(nm).join(', ') || '(none)'}`);\n    lines.push('');\n    lines.push(`contains ∅ and X ?   ${hasEmpty && hasX ? '✓' : '✗'}`);\n    lines.push(`closed under union ? ${unionOk ? '✓' : '✗  (e.g. '+nm(unionFail[0])+' ∪ '+nm(unionFail[1])+' = '+nm(unionFail[2])+' is missing)'}`);\n    lines.push(`closed under ∩ ?     ${interOk ? '✓' : '✗  (e.g. '+nm(interFail[0])+' ∩ '+nm(interFail[1])+' = '+nm(interFail[2])+' is missing)'}`);\n    lines.push('');\n    const isTop = hasEmpty && hasX && unionOk && interOk;\n    lines.push(isTop ? '★ this IS a topology on X' : '✗ not a topology');\n    out.textContent = lines.join('\\n');\n  }\n  function setPreset(fn){\n    picked.clear();\n    for(let m=0;m<16;m++) if(fn(m)) picked.add(m);\n    renderGrid(); check();\n  }\n  $('#top-ex1').addEventListener('click',()=>setPreset(()=>true)); // all 16\n  $('#top-ex2').addEventListener('click',()=>setPreset(m=>m===0||m===15));\n  // Sierpiński-like: ∅, {a}, X\n  $('#top-ex3').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===15));\n  // broken: ∅, {a}, {b}, X — union {a}∪{b}={a,b} missing\n  $('#top-ex4').addEventListener('click',()=>setPreset(m=>m===0||m===1||m===2||m===15));\n  $('#top-clear').addEventListener('click',()=>{ picked.clear(); renderGrid(); check(); });\n\n  setPreset(m=>m===0||m===1||m===15); // default = Sierpiński-like"
+          }
         },
         {
           "type": "raw",
@@ -124,8 +290,144 @@
         {
           "type": "widget",
           "id": "w-comp",
-          "html": "<div class=\"widget\" id=\"w-comp\">\n  <div class=\"hd\"><div class=\"ttl\">Open-cover compactness in 1D</div><div class=\"hint\">pick a set · pick a cover · can we finitely subcover?</div></div>\n  <div class=\"row\">\n    <label>the set</label>\n    <button data-set=\"c\" class=\"active\">$[0,1]$</button>\n    <button data-set=\"o\">$(0,1)$</button>\n    <button data-set=\"r\">$\\mathbb{R}$</button>\n  </div>\n  <div class=\"row\">\n    <label>the cover</label>\n    <button data-cov=\"sh\" class=\"active\">shrinking: $\\{(1/(n+2),1/n)\\}_{n\\ge 1}\\cup\\{(-0.1,0.3),(0.7,1.1)\\}$</button>\n    <button data-cov=\"thirds\">thirds: $\\{(k/3 - 0.2,\\ k/3+0.4)\\}$</button>\n    <button data-cov=\"ints\">$\\{(n-0.6,n+0.6):n\\in\\mathbb{Z}\\}$</button>\n  </div>\n  <svg id=\"cmp-svg\" viewBox=\"0 0 700 230\" width=\"700\" height=\"230\"><title>Open-cover compactness in 1D</title></svg>\n  <div class=\"readout\" id=\"cmp-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-comp",
+            "title": "Open-cover compactness in 1D",
+            "hint": "pick a set · pick a cover · can we finitely subcover?",
+            "svgId": "cmp-svg",
+            "viewBox": "0 0 700 230",
+            "readoutId": "cmp-out",
+            "buttons": [
+              {
+                "label": "$[0,1]$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "c"
+                },
+                "className": "active",
+                "action": "pick-set"
+              },
+              {
+                "label": "$(0,1)$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "o"
+                },
+                "action": "pick-set"
+              },
+              {
+                "label": "$\\mathbb{R}$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "r"
+                },
+                "action": "pick-set"
+              },
+              {
+                "label": "shrinking: $\\{(1/(n+2),1/n)\\}_{n\\ge 1}\\cup\\{(-0.1,0.3),(0.7,1.1)\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "sh"
+                },
+                "className": "active",
+                "action": "pick-cover"
+              },
+              {
+                "label": "thirds: $\\{(k/3 - 0.2,\\ k/3+0.4)\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "thirds"
+                },
+                "action": "pick-cover"
+              },
+              {
+                "label": "$\\{(n-0.6,n+0.6):n\\in\\mathbb{Z}\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "ints"
+                },
+                "action": "pick-cover"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 4 widget ===============================",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "the set",
+                "buttons": [
+                  {
+                    "label": "$[0,1]$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "c"
+                    },
+                    "className": "active",
+                    "action": "pick-set"
+                  },
+                  {
+                    "label": "$(0,1)$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "o"
+                    },
+                    "action": "pick-set"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "r"
+                    },
+                    "action": "pick-set"
+                  }
+                ]
+              },
+              {
+                "kind": "row",
+                "label": "the cover",
+                "buttons": [
+                  {
+                    "label": "shrinking: $\\{(1/(n+2),1/n)\\}_{n\\ge 1}\\cup\\{(-0.1,0.3),(0.7,1.1)\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "sh"
+                    },
+                    "className": "active",
+                    "action": "pick-cover"
+                  },
+                  {
+                    "label": "thirds: $\\{(k/3 - 0.2,\\ k/3+0.4)\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "thirds"
+                    },
+                    "action": "pick-cover"
+                  },
+                  {
+                    "label": "$\\{(n-0.6,n+0.6):n\\in\\mathbb{Z}\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "ints"
+                    },
+                    "action": "pick-cover"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cmp-svg",
+                "viewBox": "0 0 700 230",
+                "width": 700,
+                "height": 230
+              },
+              {
+                "kind": "readout",
+                "id": "cmp-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  let set='c', cov='sh';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=700, midY=120;\n    const x0=60, x1=640;\n    // axis from -2 to 2\n    function xOf(v){ return x0 + (v+2)/4 * (x1-x0); }\n    svg.appendChild(SVG('line',{x1:x0,y1:midY,x2:x1,y2:midY,stroke:'var(--mute)','stroke-width':0.8}));\n    for(let v=-2; v<=2; v+=0.5){\n      svg.appendChild(SVG('line',{x1:xOf(v),y1:midY-4,x2:xOf(v),y2:midY+4,stroke:'var(--mute)','stroke-width':0.8}));\n      const t=SVG('text',{x:xOf(v),y:midY+20,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=v.toFixed(1); svg.appendChild(t);\n    }\n\n    // draw set\n    let setLo=0, setHi=1, setColor='var(--yellow)', setLabel='[0,1]';\n    if(set==='o'){ setLo=0; setHi=1; setLabel='(0,1)'; }\n    if(set==='r'){ setLo=-2; setHi=2; setColor='var(--pink)'; setLabel='ℝ (showing [-2,2])'; }\n    svg.appendChild(SVG('line',{x1:xOf(setLo),y1:midY,x2:xOf(setHi),y2:midY,stroke:setColor,'stroke-width':4,opacity:0.7}));\n    // endpoints mark open or closed\n    const r = set==='c' ? 6 : 6;\n    if(set==='c'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:setColor}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:setColor}));\n    } else if(set==='o'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n    }\n    const lblSet=SVG('text',{x:xOf(0.5),y:midY-16,'font-size':12,fill:'var(--ink)','text-anchor':'middle'});\n    lblSet.textContent=setLabel; svg.appendChild(lblSet);\n\n    // cover intervals\n    let intervals=[];\n    if(cov==='sh'){\n      intervals.push([-0.1,0.3],[0.7,1.1]);\n      for(let n=1;n<=10;n++) intervals.push([1/(n+2),1/n]);\n    } else if(cov==='thirds'){\n      for(let k=-2;k<=4;k++) intervals.push([k/3-0.2, k/3+0.4]);\n    } else if(cov==='ints'){\n      for(let n=-3;n<=3;n++) intervals.push([n-0.6,n+0.6]);\n    }\n\n    // greedy finite subcover within set [setLo, setHi]\n    function greedyCover(arr, lo, hi){\n      // sort by left endpoint; repeatedly pick the interval with largest right endpoint that overlaps current frontier\n      const sorted = arr.slice().sort((a,b)=>a[0]-b[0]);\n      let frontier = lo;\n      const pick = [];\n      let safety = 0;\n      while(frontier<hi-1e-9 && safety<200){\n        safety++;\n        let best = null;\n        for(const I of sorted){\n          if(I[0]<=frontier+1e-9 && I[1]>frontier){\n            if(!best || I[1]>best[1]) best=I;\n          }\n        }\n        if(!best) return {ok:false, pick, stuckAt:frontier};\n        pick.push(best); frontier=best[1];\n      }\n      return {ok:frontier>=hi-1e-9, pick};\n    }\n    // for open (0,1) treat lo,hi as open — need strict covering of every point in (0,1)\n    // Note: for ℝ we restrict to window [-2,2].\n    const res = greedyCover(intervals, setLo, setHi);\n\n    // paint all cover intervals\n    intervals.forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      if(x2<=x1) return;\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--line)','stroke-width':2}));\n    });\n    // paint chosen subcover\n    (res.pick||[]).forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--cyan)','stroke-width':3.5,opacity:0.9}));\n    });\n\n    // verdict\n    const picked = res.pick.length;\n    let lines = [];\n    lines.push(`set: ${setLabel}`);\n    lines.push(`cover: ${intervals.length} open intervals`);\n    lines.push('');\n    if(set==='c' && cov==='sh'){\n      // [0,1] is covered: the (-0.1,0.3) and (0.7,1.1) leave only [0.3,0.7], which needs finitely many shrinking intervals\n      lines.push(`greedy finite subcover: ${picked} intervals, covers [0,1] ✓`);\n      lines.push(`[0,1] is compact: every open cover has a finite subcover.`);\n    } else if(set==='o' && cov==='sh'){\n      lines.push(`greedy subcover at (0,1): the shrinking family (1/(n+2),1/n) covers near 0 but any FINITE subfamily of it omits (0, 1/N) for large N.`);\n      lines.push(`Finite subcover impossible ✗`);\n      lines.push(`(0,1) is NOT compact.`);\n    } else if(set==='c' && cov==='ints'){\n      lines.push(`[0,1] ⊂ (-0.6,0.6) ∪ (0.4,1.6), so finite subcover = 2 ✓`);\n    } else if(set==='c' && cov==='thirds'){\n      lines.push(`covers [0,1] with ~4 intervals ✓`);\n    } else if(set==='o' && (cov==='thirds'||cov==='ints')){\n      lines.push(`these covers happen to admit finite subcovers even for (0,1) — but the shrinking cover shows (0,1) fails compactness in general.`);\n    } else if(set==='r'){\n      if(cov==='ints'){\n        lines.push(`ℝ = ⋃_{n∈ℤ} (n-0.6,n+0.6), no finite subfamily reaches ±∞.`);\n      } else {\n        lines.push(`ℝ is unbounded, no finite set of bounded intervals can cover it.`);\n      }\n      lines.push(`ℝ is NOT compact (not bounded).`);\n    }\n    out.textContent = lines.join('\\n');\n  }\n  $$('[data-set]').forEach(b=>b.addEventListener('click',()=>{\n    set=b.getAttribute('data-set');\n    $$('[data-set]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  $$('[data-cov]').forEach(b=>b.addEventListener('click',()=>{\n    cov=b.getAttribute('data-cov');\n    $$('[data-cov]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -142,8 +444,144 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-comp",
-          "html": "<script>\n/* =============================== SECTION 4 widget =============================== */\n(function(){\n  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  let set='c', cov='sh';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=700, midY=120;\n    const x0=60, x1=640;\n    // axis from -2 to 2\n    function xOf(v){ return x0 + (v+2)/4 * (x1-x0); }\n    svg.appendChild(SVG('line',{x1:x0,y1:midY,x2:x1,y2:midY,stroke:'var(--mute)','stroke-width':0.8}));\n    for(let v=-2; v<=2; v+=0.5){\n      svg.appendChild(SVG('line',{x1:xOf(v),y1:midY-4,x2:xOf(v),y2:midY+4,stroke:'var(--mute)','stroke-width':0.8}));\n      const t=SVG('text',{x:xOf(v),y:midY+20,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=v.toFixed(1); svg.appendChild(t);\n    }\n\n    // draw set\n    let setLo=0, setHi=1, setColor='var(--yellow)', setLabel='[0,1]';\n    if(set==='o'){ setLo=0; setHi=1; setLabel='(0,1)'; }\n    if(set==='r'){ setLo=-2; setHi=2; setColor='var(--pink)'; setLabel='ℝ (showing [-2,2])'; }\n    svg.appendChild(SVG('line',{x1:xOf(setLo),y1:midY,x2:xOf(setHi),y2:midY,stroke:setColor,'stroke-width':4,opacity:0.7}));\n    // endpoints mark open or closed\n    const r = set==='c' ? 6 : 6;\n    if(set==='c'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:setColor}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:setColor}));\n    } else if(set==='o'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n    }\n    const lblSet=SVG('text',{x:xOf(0.5),y:midY-16,'font-size':12,fill:'var(--ink)','text-anchor':'middle'});\n    lblSet.textContent=setLabel; svg.appendChild(lblSet);\n\n    // cover intervals\n    let intervals=[];\n    if(cov==='sh'){\n      intervals.push([-0.1,0.3],[0.7,1.1]);\n      for(let n=1;n<=10;n++) intervals.push([1/(n+2),1/n]);\n    } else if(cov==='thirds'){\n      for(let k=-2;k<=4;k++) intervals.push([k/3-0.2, k/3+0.4]);\n    } else if(cov==='ints'){\n      for(let n=-3;n<=3;n++) intervals.push([n-0.6,n+0.6]);\n    }\n\n    // greedy finite subcover within set [setLo, setHi]\n    function greedyCover(arr, lo, hi){\n      // sort by left endpoint; repeatedly pick the interval with largest right endpoint that overlaps current frontier\n      const sorted = arr.slice().sort((a,b)=>a[0]-b[0]);\n      let frontier = lo;\n      const pick = [];\n      let safety = 0;\n      while(frontier<hi-1e-9 && safety<200){\n        safety++;\n        let best = null;\n        for(const I of sorted){\n          if(I[0]<=frontier+1e-9 && I[1]>frontier){\n            if(!best || I[1]>best[1]) best=I;\n          }\n        }\n        if(!best) return {ok:false, pick, stuckAt:frontier};\n        pick.push(best); frontier=best[1];\n      }\n      return {ok:frontier>=hi-1e-9, pick};\n    }\n    // for open (0,1) treat lo,hi as open — need strict covering of every point in (0,1)\n    // Note: for ℝ we restrict to window [-2,2].\n    const res = greedyCover(intervals, setLo, setHi);\n\n    // paint all cover intervals\n    intervals.forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      if(x2<=x1) return;\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--line)','stroke-width':2}));\n    });\n    // paint chosen subcover\n    (res.pick||[]).forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--cyan)','stroke-width':3.5,opacity:0.9}));\n    });\n\n    // verdict\n    const picked = res.pick.length;\n    let lines = [];\n    lines.push(`set: ${setLabel}`);\n    lines.push(`cover: ${intervals.length} open intervals`);\n    lines.push('');\n    if(set==='c' && cov==='sh'){\n      // [0,1] is covered: the (-0.1,0.3) and (0.7,1.1) leave only [0.3,0.7], which needs finitely many shrinking intervals\n      lines.push(`greedy finite subcover: ${picked} intervals, covers [0,1] ✓`);\n      lines.push(`[0,1] is compact: every open cover has a finite subcover.`);\n    } else if(set==='o' && cov==='sh'){\n      lines.push(`greedy subcover at (0,1): the shrinking family (1/(n+2),1/n) covers near 0 but any FINITE subfamily of it omits (0, 1/N) for large N.`);\n      lines.push(`Finite subcover impossible ✗`);\n      lines.push(`(0,1) is NOT compact.`);\n    } else if(set==='c' && cov==='ints'){\n      lines.push(`[0,1] ⊂ (-0.6,0.6) ∪ (0.4,1.6), so finite subcover = 2 ✓`);\n    } else if(set==='c' && cov==='thirds'){\n      lines.push(`covers [0,1] with ~4 intervals ✓`);\n    } else if(set==='o' && (cov==='thirds'||cov==='ints')){\n      lines.push(`these covers happen to admit finite subcovers even for (0,1) — but the shrinking cover shows (0,1) fails compactness in general.`);\n    } else if(set==='r'){\n      if(cov==='ints'){\n        lines.push(`ℝ = ⋃_{n∈ℤ} (n-0.6,n+0.6), no finite subfamily reaches ±∞.`);\n      } else {\n        lines.push(`ℝ is unbounded, no finite set of bounded intervals can cover it.`);\n      }\n      lines.push(`ℝ is NOT compact (not bounded).`);\n    }\n    out.textContent = lines.join('\\n');\n  }\n  $$('[data-set]').forEach(b=>b.addEventListener('click',()=>{\n    set=b.getAttribute('data-set');\n    $$('[data-set]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  $$('[data-cov]').forEach(b=>b.addEventListener('click',()=>{\n    cov=b.getAttribute('data-cov');\n    $$('[data-cov]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-comp",
+            "title": "Open-cover compactness in 1D",
+            "hint": "pick a set · pick a cover · can we finitely subcover?",
+            "svgId": "cmp-svg",
+            "viewBox": "0 0 700 230",
+            "readoutId": "cmp-out",
+            "buttons": [
+              {
+                "label": "$[0,1]$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "c"
+                },
+                "className": "active",
+                "action": "pick-set"
+              },
+              {
+                "label": "$(0,1)$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "o"
+                },
+                "action": "pick-set"
+              },
+              {
+                "label": "$\\mathbb{R}$",
+                "dataAttr": {
+                  "name": "data-set",
+                  "value": "r"
+                },
+                "action": "pick-set"
+              },
+              {
+                "label": "shrinking: $\\{(1/(n+2),1/n)\\}_{n\\ge 1}\\cup\\{(-0.1,0.3),(0.7,1.1)\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "sh"
+                },
+                "className": "active",
+                "action": "pick-cover"
+              },
+              {
+                "label": "thirds: $\\{(k/3 - 0.2,\\ k/3+0.4)\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "thirds"
+                },
+                "action": "pick-cover"
+              },
+              {
+                "label": "$\\{(n-0.6,n+0.6):n\\in\\mathbb{Z}\\}$",
+                "dataAttr": {
+                  "name": "data-cov",
+                  "value": "ints"
+                },
+                "action": "pick-cover"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 4 widget ===============================",
+            "layout": [
+              {
+                "kind": "row",
+                "label": "the set",
+                "buttons": [
+                  {
+                    "label": "$[0,1]$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "c"
+                    },
+                    "className": "active",
+                    "action": "pick-set"
+                  },
+                  {
+                    "label": "$(0,1)$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "o"
+                    },
+                    "action": "pick-set"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$",
+                    "dataAttr": {
+                      "name": "data-set",
+                      "value": "r"
+                    },
+                    "action": "pick-set"
+                  }
+                ]
+              },
+              {
+                "kind": "row",
+                "label": "the cover",
+                "buttons": [
+                  {
+                    "label": "shrinking: $\\{(1/(n+2),1/n)\\}_{n\\ge 1}\\cup\\{(-0.1,0.3),(0.7,1.1)\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "sh"
+                    },
+                    "className": "active",
+                    "action": "pick-cover"
+                  },
+                  {
+                    "label": "thirds: $\\{(k/3 - 0.2,\\ k/3+0.4)\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "thirds"
+                    },
+                    "action": "pick-cover"
+                  },
+                  {
+                    "label": "$\\{(n-0.6,n+0.6):n\\in\\mathbb{Z}\\}$",
+                    "dataAttr": {
+                      "name": "data-cov",
+                      "value": "ints"
+                    },
+                    "action": "pick-cover"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cmp-svg",
+                "viewBox": "0 0 700 230",
+                "width": 700,
+                "height": 230
+              },
+              {
+                "kind": "readout",
+                "id": "cmp-out"
+              }
+            ],
+            "bodyScript": "  const svg=$('#cmp-svg'), out=$('#cmp-out');\n  let set='c', cov='sh';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const W=700, midY=120;\n    const x0=60, x1=640;\n    // axis from -2 to 2\n    function xOf(v){ return x0 + (v+2)/4 * (x1-x0); }\n    svg.appendChild(SVG('line',{x1:x0,y1:midY,x2:x1,y2:midY,stroke:'var(--mute)','stroke-width':0.8}));\n    for(let v=-2; v<=2; v+=0.5){\n      svg.appendChild(SVG('line',{x1:xOf(v),y1:midY-4,x2:xOf(v),y2:midY+4,stroke:'var(--mute)','stroke-width':0.8}));\n      const t=SVG('text',{x:xOf(v),y:midY+20,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent=v.toFixed(1); svg.appendChild(t);\n    }\n\n    // draw set\n    let setLo=0, setHi=1, setColor='var(--yellow)', setLabel='[0,1]';\n    if(set==='o'){ setLo=0; setHi=1; setLabel='(0,1)'; }\n    if(set==='r'){ setLo=-2; setHi=2; setColor='var(--pink)'; setLabel='ℝ (showing [-2,2])'; }\n    svg.appendChild(SVG('line',{x1:xOf(setLo),y1:midY,x2:xOf(setHi),y2:midY,stroke:setColor,'stroke-width':4,opacity:0.7}));\n    // endpoints mark open or closed\n    const r = set==='c' ? 6 : 6;\n    if(set==='c'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:setColor}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:setColor}));\n    } else if(set==='o'){\n      svg.appendChild(SVG('circle',{cx:xOf(0),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n      svg.appendChild(SVG('circle',{cx:xOf(1),cy:midY,r:5,fill:'var(--panel)',stroke:setColor,'stroke-width':1.5}));\n    }\n    const lblSet=SVG('text',{x:xOf(0.5),y:midY-16,'font-size':12,fill:'var(--ink)','text-anchor':'middle'});\n    lblSet.textContent=setLabel; svg.appendChild(lblSet);\n\n    // cover intervals\n    let intervals=[];\n    if(cov==='sh'){\n      intervals.push([-0.1,0.3],[0.7,1.1]);\n      for(let n=1;n<=10;n++) intervals.push([1/(n+2),1/n]);\n    } else if(cov==='thirds'){\n      for(let k=-2;k<=4;k++) intervals.push([k/3-0.2, k/3+0.4]);\n    } else if(cov==='ints'){\n      for(let n=-3;n<=3;n++) intervals.push([n-0.6,n+0.6]);\n    }\n\n    // greedy finite subcover within set [setLo, setHi]\n    function greedyCover(arr, lo, hi){\n      // sort by left endpoint; repeatedly pick the interval with largest right endpoint that overlaps current frontier\n      const sorted = arr.slice().sort((a,b)=>a[0]-b[0]);\n      let frontier = lo;\n      const pick = [];\n      let safety = 0;\n      while(frontier<hi-1e-9 && safety<200){\n        safety++;\n        let best = null;\n        for(const I of sorted){\n          if(I[0]<=frontier+1e-9 && I[1]>frontier){\n            if(!best || I[1]>best[1]) best=I;\n          }\n        }\n        if(!best) return {ok:false, pick, stuckAt:frontier};\n        pick.push(best); frontier=best[1];\n      }\n      return {ok:frontier>=hi-1e-9, pick};\n    }\n    // for open (0,1) treat lo,hi as open — need strict covering of every point in (0,1)\n    // Note: for ℝ we restrict to window [-2,2].\n    const res = greedyCover(intervals, setLo, setHi);\n\n    // paint all cover intervals\n    intervals.forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      if(x2<=x1) return;\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--line)','stroke-width':2}));\n    });\n    // paint chosen subcover\n    (res.pick||[]).forEach((I,i)=>{\n      const y = midY-45 - (i%6)*7;\n      const x1 = Math.max(-2,I[0]), x2=Math.min(2,I[1]);\n      svg.appendChild(SVG('line',{x1:xOf(x1),y1:y,x2:xOf(x2),y2:y,\n        stroke:'var(--cyan)','stroke-width':3.5,opacity:0.9}));\n    });\n\n    // verdict\n    const picked = res.pick.length;\n    let lines = [];\n    lines.push(`set: ${setLabel}`);\n    lines.push(`cover: ${intervals.length} open intervals`);\n    lines.push('');\n    if(set==='c' && cov==='sh'){\n      // [0,1] is covered: the (-0.1,0.3) and (0.7,1.1) leave only [0.3,0.7], which needs finitely many shrinking intervals\n      lines.push(`greedy finite subcover: ${picked} intervals, covers [0,1] ✓`);\n      lines.push(`[0,1] is compact: every open cover has a finite subcover.`);\n    } else if(set==='o' && cov==='sh'){\n      lines.push(`greedy subcover at (0,1): the shrinking family (1/(n+2),1/n) covers near 0 but any FINITE subfamily of it omits (0, 1/N) for large N.`);\n      lines.push(`Finite subcover impossible ✗`);\n      lines.push(`(0,1) is NOT compact.`);\n    } else if(set==='c' && cov==='ints'){\n      lines.push(`[0,1] ⊂ (-0.6,0.6) ∪ (0.4,1.6), so finite subcover = 2 ✓`);\n    } else if(set==='c' && cov==='thirds'){\n      lines.push(`covers [0,1] with ~4 intervals ✓`);\n    } else if(set==='o' && (cov==='thirds'||cov==='ints')){\n      lines.push(`these covers happen to admit finite subcovers even for (0,1) — but the shrinking cover shows (0,1) fails compactness in general.`);\n    } else if(set==='r'){\n      if(cov==='ints'){\n        lines.push(`ℝ = ⋃_{n∈ℤ} (n-0.6,n+0.6), no finite subfamily reaches ±∞.`);\n      } else {\n        lines.push(`ℝ is unbounded, no finite set of bounded intervals can cover it.`);\n      }\n      lines.push(`ℝ is NOT compact (not bounded).`);\n    }\n    out.textContent = lines.join('\\n');\n  }\n  $$('[data-set]').forEach(b=>b.addEventListener('click',()=>{\n    set=b.getAttribute('data-set');\n    $$('[data-set]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  $$('[data-cov]').forEach(b=>b.addEventListener('click',()=>{\n    cov=b.getAttribute('data-cov');\n    $$('[data-cov]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    render();\n  }));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -198,8 +636,134 @@
         {
           "type": "widget",
           "id": "w-sep",
-          "html": "<div class=\"widget\" id=\"w-sep\">\n  <div class=\"hd\"><div class=\"ttl\">The separation hierarchy, by example</div><div class=\"hint\">click a space · see its tier light up</div></div>\n  <svg id=\"sep-svg\" viewBox=\"0 0 700 330\" width=\"700\" height=\"330\"><title>The separation hierarchy, by example</title></svg>\n  <div class=\"row\">\n    <button data-sp=\"sierp\">Sierpiński $\\{0,1\\}$</button>\n    <button data-sp=\"cof\">$\\mathbb{R}$, cofinite</button>\n    <button data-sp=\"doub\">double-origin line</button>\n    <button data-sp=\"r\">$\\mathbb{R}$, Euclidean</button>\n    <button data-sp=\"disc\">any metric space</button>\n    <button data-sp=\"ind\">indiscrete $\\{a,b\\}$</button>\n  </div>\n  <div class=\"readout\" id=\"sep-out\">click an example to place it in the hierarchy</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sep",
+            "title": "The separation hierarchy, by example",
+            "hint": "click a space · see its tier light up",
+            "svgId": "sep-svg",
+            "viewBox": "0 0 700 330",
+            "readoutId": "sep-out",
+            "buttons": [
+              {
+                "label": "Sierpiński $\\{0,1\\}$",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "sierp"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "$\\mathbb{R}$, cofinite",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "cof"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "double-origin line",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "doub"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "$\\mathbb{R}$, Euclidean",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "r"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "any metric space",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "disc"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "indiscrete $\\{a,b\\}$",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "ind"
+                },
+                "action": "pick-space"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 6 widget ===============================",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sep-svg",
+                "viewBox": "0 0 700 330",
+                "width": 700,
+                "height": 330
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "Sierpiński $\\{0,1\\}$",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "sierp"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$, cofinite",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "cof"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "double-origin line",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "doub"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$, Euclidean",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "r"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "any metric space",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "disc"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "indiscrete $\\{a,b\\}$",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "ind"
+                    },
+                    "action": "pick-space"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "sep-out",
+                "content": "click an example to place it in the hierarchy"
+              }
+            ],
+            "bodyScript": "  const svg=$('#sep-svg'), out=$('#sep-out');\n  // concentric boxes: normal ⊂ regular ⊂ Hausdorff ⊂ T1 ⊂ T0 ⊂ all\n  const TIERS = [\n    {id:'all',    name:'all spaces',  color:'var(--line)',   box:[30,30,640,270]},\n    {id:'t0',     name:'T₀',          color:'var(--mute)',   box:[60,55,580,215]},\n    {id:'t1',     name:'T₁',          color:'var(--pink)',   box:[95,80,510,165]},\n    {id:'t2',     name:'T₂ Hausdorff',color:'var(--violet)', box:[130,105,440,115]},\n    {id:'t3',     name:'T₃ regular',  color:'var(--cyan)',   box:[170,130,360,65]},\n    {id:'t4',     name:'T₄ normal',   color:'var(--green)',  box:[215,155,270,20]},\n  ];\n  const SPACES = {\n    sierp:{name:'Sierpiński {0,1}',    tier:'t0', note:'distinguishes points (so T₀) but {1} is open and {0} is closed — {0} is not open, so no open separates 0 from 1. T₁ FAILS: the closure of {1} is {0,1}.'},\n    cof:  {name:'ℝ with cofinite τ',    tier:'t1', note:'every singleton is closed (T₁), but any two nonempty opens have finite complement each, so they intersect. NOT Hausdorff.'},\n    doub: {name:'double-origin line',   tier:'t1', note:'T₁ because points are closed, but the two origins 0₁, 0₂ cannot be separated: every open around either contains a small interval around the common axis.'},\n    r:    {name:'ℝ with Euclidean τ',   tier:'t4', note:'metric space ⇒ normal ⇒ regular ⇒ Hausdorff ⇒ T₁. Second-countable, first-countable, separable — all the good stuff.'},\n    disc: {name:'any metric space',     tier:'t4', note:'every metric space is normal. Disjoint closeds A,B can be separated by Urysohn-type function d(x,A)/(d(x,A)+d(x,B)).'},\n    ind:  {name:'indiscrete {a,b}',     tier:'all',note:'the topology is {∅,X}. The two points have no open that separates them. FAILS T₀.'}\n  };\n  let active = null;\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    TIERS.forEach(t=>{\n      const [x,y,w,h]=t.box;\n      const rect = SVG('rect',{x,y,width:w,height:h,rx:8,ry:8,\n        fill:'rgba(255,255,255,0.02)',stroke:t.color,'stroke-width': active && SPACES[active].tier===t.id ? 2.5 : 1.2});\n      if(active && SPACES[active].tier===t.id){\n        rect.setAttribute('fill','rgba(131,193,103,0.12)');\n      }\n      svg.appendChild(rect);\n      const txt = SVG('text',{x:x+10,y:y+16,'font-size':12,fill:t.color,'font-weight':600});\n      txt.textContent=t.name;\n      svg.appendChild(txt);\n    });\n    if(active){\n      const t = TIERS.find(x=>x.id===SPACES[active].tier);\n      const [bx,by,bw,bh]=t.box;\n      const cx=bx+bw/2, cy=by+bh/2;\n      svg.appendChild(SVG('circle',{cx,cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n      const lbl=SVG('text',{x:cx,y:cy-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});\n      lbl.textContent=SPACES[active].name;\n      svg.appendChild(lbl);\n    }\n  }\n\n  $$('[data-sp]').forEach(b=>b.addEventListener('click',()=>{\n    active = b.getAttribute('data-sp');\n    $$('[data-sp]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    const s = SPACES[active];\n    const t = TIERS.find(x=>x.id===s.tier);\n    out.textContent = `${s.name}\\ntier: ${t.name}\\n\\n${s.note}`;\n    render();\n  }));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -216,8 +780,134 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-sep",
-          "html": "<script>\n/* =============================== SECTION 6 widget =============================== */\n(function(){\n  const svg=$('#sep-svg'), out=$('#sep-out');\n  // concentric boxes: normal ⊂ regular ⊂ Hausdorff ⊂ T1 ⊂ T0 ⊂ all\n  const TIERS = [\n    {id:'all',    name:'all spaces',  color:'var(--line)',   box:[30,30,640,270]},\n    {id:'t0',     name:'T₀',          color:'var(--mute)',   box:[60,55,580,215]},\n    {id:'t1',     name:'T₁',          color:'var(--pink)',   box:[95,80,510,165]},\n    {id:'t2',     name:'T₂ Hausdorff',color:'var(--violet)', box:[130,105,440,115]},\n    {id:'t3',     name:'T₃ regular',  color:'var(--cyan)',   box:[170,130,360,65]},\n    {id:'t4',     name:'T₄ normal',   color:'var(--green)',  box:[215,155,270,20]},\n  ];\n  const SPACES = {\n    sierp:{name:'Sierpiński {0,1}',    tier:'t0', note:'distinguishes points (so T₀) but {1} is open and {0} is closed — {0} is not open, so no open separates 0 from 1. T₁ FAILS: the closure of {1} is {0,1}.'},\n    cof:  {name:'ℝ with cofinite τ',    tier:'t1', note:'every singleton is closed (T₁), but any two nonempty opens have finite complement each, so they intersect. NOT Hausdorff.'},\n    doub: {name:'double-origin line',   tier:'t1', note:'T₁ because points are closed, but the two origins 0₁, 0₂ cannot be separated: every open around either contains a small interval around the common axis.'},\n    r:    {name:'ℝ with Euclidean τ',   tier:'t4', note:'metric space ⇒ normal ⇒ regular ⇒ Hausdorff ⇒ T₁. Second-countable, first-countable, separable — all the good stuff.'},\n    disc: {name:'any metric space',     tier:'t4', note:'every metric space is normal. Disjoint closeds A,B can be separated by Urysohn-type function d(x,A)/(d(x,A)+d(x,B)).'},\n    ind:  {name:'indiscrete {a,b}',     tier:'all',note:'the topology is {∅,X}. The two points have no open that separates them. FAILS T₀.'}\n  };\n  let active = null;\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    TIERS.forEach(t=>{\n      const [x,y,w,h]=t.box;\n      const rect = SVG('rect',{x,y,width:w,height:h,rx:8,ry:8,\n        fill:'rgba(255,255,255,0.02)',stroke:t.color,'stroke-width': active && SPACES[active].tier===t.id ? 2.5 : 1.2});\n      if(active && SPACES[active].tier===t.id){\n        rect.setAttribute('fill','rgba(131,193,103,0.12)');\n      }\n      svg.appendChild(rect);\n      const txt = SVG('text',{x:x+10,y:y+16,'font-size':12,fill:t.color,'font-weight':600});\n      txt.textContent=t.name;\n      svg.appendChild(txt);\n    });\n    if(active){\n      const t = TIERS.find(x=>x.id===SPACES[active].tier);\n      const [bx,by,bw,bh]=t.box;\n      const cx=bx+bw/2, cy=by+bh/2;\n      svg.appendChild(SVG('circle',{cx,cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n      const lbl=SVG('text',{x:cx,y:cy-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});\n      lbl.textContent=SPACES[active].name;\n      svg.appendChild(lbl);\n    }\n  }\n\n  $$('[data-sp]').forEach(b=>b.addEventListener('click',()=>{\n    active = b.getAttribute('data-sp');\n    $$('[data-sp]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    const s = SPACES[active];\n    const t = TIERS.find(x=>x.id===s.tier);\n    out.textContent = `${s.name}\\ntier: ${t.name}\\n\\n${s.note}`;\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sep",
+            "title": "The separation hierarchy, by example",
+            "hint": "click a space · see its tier light up",
+            "svgId": "sep-svg",
+            "viewBox": "0 0 700 330",
+            "readoutId": "sep-out",
+            "buttons": [
+              {
+                "label": "Sierpiński $\\{0,1\\}$",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "sierp"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "$\\mathbb{R}$, cofinite",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "cof"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "double-origin line",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "doub"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "$\\mathbb{R}$, Euclidean",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "r"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "any metric space",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "disc"
+                },
+                "action": "pick-space"
+              },
+              {
+                "label": "indiscrete $\\{a,b\\}$",
+                "dataAttr": {
+                  "name": "data-sp",
+                  "value": "ind"
+                },
+                "action": "pick-space"
+              }
+            ],
+            "sectionComment": "=============================== SECTION 6 widget ===============================",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sep-svg",
+                "viewBox": "0 0 700 330",
+                "width": 700,
+                "height": 330
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "label": "Sierpiński $\\{0,1\\}$",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "sierp"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$, cofinite",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "cof"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "double-origin line",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "doub"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "$\\mathbb{R}$, Euclidean",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "r"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "any metric space",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "disc"
+                    },
+                    "action": "pick-space"
+                  },
+                  {
+                    "label": "indiscrete $\\{a,b\\}$",
+                    "dataAttr": {
+                      "name": "data-sp",
+                      "value": "ind"
+                    },
+                    "action": "pick-space"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "sep-out",
+                "content": "click an example to place it in the hierarchy"
+              }
+            ],
+            "bodyScript": "  const svg=$('#sep-svg'), out=$('#sep-out');\n  // concentric boxes: normal ⊂ regular ⊂ Hausdorff ⊂ T1 ⊂ T0 ⊂ all\n  const TIERS = [\n    {id:'all',    name:'all spaces',  color:'var(--line)',   box:[30,30,640,270]},\n    {id:'t0',     name:'T₀',          color:'var(--mute)',   box:[60,55,580,215]},\n    {id:'t1',     name:'T₁',          color:'var(--pink)',   box:[95,80,510,165]},\n    {id:'t2',     name:'T₂ Hausdorff',color:'var(--violet)', box:[130,105,440,115]},\n    {id:'t3',     name:'T₃ regular',  color:'var(--cyan)',   box:[170,130,360,65]},\n    {id:'t4',     name:'T₄ normal',   color:'var(--green)',  box:[215,155,270,20]},\n  ];\n  const SPACES = {\n    sierp:{name:'Sierpiński {0,1}',    tier:'t0', note:'distinguishes points (so T₀) but {1} is open and {0} is closed — {0} is not open, so no open separates 0 from 1. T₁ FAILS: the closure of {1} is {0,1}.'},\n    cof:  {name:'ℝ with cofinite τ',    tier:'t1', note:'every singleton is closed (T₁), but any two nonempty opens have finite complement each, so they intersect. NOT Hausdorff.'},\n    doub: {name:'double-origin line',   tier:'t1', note:'T₁ because points are closed, but the two origins 0₁, 0₂ cannot be separated: every open around either contains a small interval around the common axis.'},\n    r:    {name:'ℝ with Euclidean τ',   tier:'t4', note:'metric space ⇒ normal ⇒ regular ⇒ Hausdorff ⇒ T₁. Second-countable, first-countable, separable — all the good stuff.'},\n    disc: {name:'any metric space',     tier:'t4', note:'every metric space is normal. Disjoint closeds A,B can be separated by Urysohn-type function d(x,A)/(d(x,A)+d(x,B)).'},\n    ind:  {name:'indiscrete {a,b}',     tier:'all',note:'the topology is {∅,X}. The two points have no open that separates them. FAILS T₀.'}\n  };\n  let active = null;\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    TIERS.forEach(t=>{\n      const [x,y,w,h]=t.box;\n      const rect = SVG('rect',{x,y,width:w,height:h,rx:8,ry:8,\n        fill:'rgba(255,255,255,0.02)',stroke:t.color,'stroke-width': active && SPACES[active].tier===t.id ? 2.5 : 1.2});\n      if(active && SPACES[active].tier===t.id){\n        rect.setAttribute('fill','rgba(131,193,103,0.12)');\n      }\n      svg.appendChild(rect);\n      const txt = SVG('text',{x:x+10,y:y+16,'font-size':12,fill:t.color,'font-weight':600});\n      txt.textContent=t.name;\n      svg.appendChild(txt);\n    });\n    if(active){\n      const t = TIERS.find(x=>x.id===SPACES[active].tier);\n      const [bx,by,bw,bh]=t.box;\n      const cx=bx+bw/2, cy=by+bh/2;\n      svg.appendChild(SVG('circle',{cx,cy,r:8,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));\n      const lbl=SVG('text',{x:cx,y:cy-14,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});\n      lbl.textContent=SPACES[active].name;\n      svg.appendChild(lbl);\n    }\n  }\n\n  $$('[data-sp]').forEach(b=>b.addEventListener('click',()=>{\n    active = b.getAttribute('data-sp');\n    $$('[data-sp]').forEach(x=>x.classList.remove('active'));\n    b.classList.add('active');\n    const s = SPACES[active];\n    const t = TIERS.find(x=>x.id===s.tier);\n    out.textContent = `${s.name}\\ntier: ${t.name}\\n\\n${s.note}`;\n    render();\n  }));\n  render();"
+          }
         },
         {
           "type": "raw",
