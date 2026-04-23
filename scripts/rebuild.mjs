@@ -64,7 +64,12 @@ const STEPS = [
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
-  { name: 'changelog',  script: 'insert-changelog-footer.mjs',  fix: true, auditArg: '--audit' },
+  // Note: insert-changelog-footer.mjs is deliberately NOT in the chain —
+  // its output references "most recent commit", but the commit that *adds*
+  // the refreshed changelog can't reference itself, so every post-commit
+  // audit would report one-commit-behind drift forever. Run manually:
+  //   node scripts/insert-changelog-footer.mjs
+  // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: false },
