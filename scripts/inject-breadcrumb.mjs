@@ -190,12 +190,27 @@ function buildHeadBlock() {
 }
 
 function buildNavBlock() {
+  // Note: the lineage mount used to sit inside the sticky <nav>, but when
+  // the strip expanded it inflated the sticky bar and overlapped the
+  // content below (main has a fixed top-padding assuming a thin nav).
+  // The mount now lives OUTSIDE the nav as a sibling so it takes a
+  // natural block slot in document flow and pushes content down.
   return (
     NAV.begin +
     '<div class="breadcrumb"></div>' +
     '<span class="mv-theme-slot"></span>' +
-    '<div id="mv-lineage-mount" class="lineage-strip" hidden></div>' +
     NAV.end
+  );
+}
+
+// Separate fence for the lineage mount, placed right after </nav>.
+const LINEAGE_FENCE = makeFence('lineage-mount', 'html');
+
+function buildLineageBlock() {
+  return (
+    LINEAGE_FENCE.begin +
+    '<div id="mv-lineage-mount" class="lineage-strip" hidden></div>' +
+    LINEAGE_FENCE.end
   );
 }
 
@@ -212,7 +227,8 @@ function stripFences(html) {
     trim: { leadingIndent: true, trailingNewline: true },
   });
   const b = stripFence(a.html, 'breadcrumb-nav');
-  return { html: b.html, removed: a.removed + b.removed };
+  const c = stripFence(b.html, 'lineage-mount');
+  return { html: c.html, removed: a.removed + b.removed + c.removed };
 }
 
 // Insert the head block just before the <script src="./js/progress.js"> tag.
@@ -255,12 +271,26 @@ function insertNavBlock(html) {
   return html.slice(0, insertAt) + buildNavBlock() + html.slice(insertAt);
 }
 
+// Insert the lineage mount block immediately after the closing </nav>,
+// outside the sticky bar so it takes a natural block slot in document
+// flow (pushing content down when it expands, rather than thickening
+// the sticky nav).
+function insertLineageBlock(html) {
+  const navCloseRe = /<\/nav>/i;
+  const nm = navCloseRe.exec(html);
+  if (!nm) return null;
+  const insertAt = nm.index + nm[0].length;
+  return html.slice(0, insertAt) + '\n' + buildLineageBlock() + html.slice(insertAt);
+}
+
 // Return the desired end state for html (after fix).
 function computeDesired(origHtml) {
   const { html: stripped } = stripFences(origHtml);
   let next = insertHeadBlock(stripped);
   if (next === null) return null;
   next = insertNavBlock(next);
+  if (next === null) return null;
+  next = insertLineageBlock(next);
   if (next === null) return null;
   return next;
 }

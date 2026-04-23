@@ -40,9 +40,10 @@
       return {
         widgetsHidden: parsed.widgetsHidden === true,
         quizzesHidden: parsed.quizzesHidden === true,
+        lineageHidden: parsed.lineageHidden === true,
       };
     } catch (e) {
-      return { widgetsHidden: false, quizzesHidden: false };
+      return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false };
     }
   }
 
@@ -58,6 +59,8 @@
     else html.removeAttribute('data-hide-widgets');
     if (state.quizzesHidden) html.setAttribute('data-hide-quizzes', '');
     else html.removeAttribute('data-hide-quizzes');
+    if (state.lineageHidden) html.setAttribute('data-hide-lineage', '');
+    else html.removeAttribute('data-hide-lineage');
   }
 
   function current() {
@@ -66,6 +69,7 @@
     return {
       widgetsHidden: html.hasAttribute('data-hide-widgets'),
       quizzesHidden: html.hasAttribute('data-hide-quizzes'),
+      lineageHidden: html.hasAttribute('data-hide-lineage'),
     };
   }
 
@@ -73,12 +77,17 @@
     var prev = current();
     apply(next);
     safeWrite(next);
-    if (prev.widgetsHidden !== next.widgetsHidden || prev.quizzesHidden !== next.quizzesHidden) {
+    if (
+      prev.widgetsHidden !== next.widgetsHidden ||
+      prev.quizzesHidden !== next.quizzesHidden ||
+      prev.lineageHidden !== next.lineageHidden
+    ) {
       try {
         document.dispatchEvent(new CustomEvent('mvdisplay:change', {
           detail: {
             widgetsHidden: next.widgetsHidden,
             quizzesHidden: next.quizzesHidden,
+            lineageHidden: next.lineageHidden,
             origin: origin || 'api',
           },
         }));
@@ -89,16 +98,21 @@
 
   function toggleWidgets() {
     var s = current();
-    return setState({ widgetsHidden: !s.widgetsHidden, quizzesHidden: s.quizzesHidden }, 'toggleWidgets');
+    return setState({ widgetsHidden: !s.widgetsHidden, quizzesHidden: s.quizzesHidden, lineageHidden: s.lineageHidden }, 'toggleWidgets');
   }
 
   function toggleQuizzes() {
     var s = current();
-    return setState({ widgetsHidden: s.widgetsHidden, quizzesHidden: !s.quizzesHidden }, 'toggleQuizzes');
+    return setState({ widgetsHidden: s.widgetsHidden, quizzesHidden: !s.quizzesHidden, lineageHidden: s.lineageHidden }, 'toggleQuizzes');
+  }
+
+  function toggleLineage() {
+    var s = current();
+    return setState({ widgetsHidden: s.widgetsHidden, quizzesHidden: s.quizzesHidden, lineageHidden: !s.lineageHidden }, 'toggleLineage');
   }
 
   function showAll() {
-    return setState({ widgetsHidden: false, quizzesHidden: false }, 'showAll');
+    return setState({ widgetsHidden: false, quizzesHidden: false, lineageHidden: false }, 'showAll');
   }
 
   function titleForWidgets(state) {
@@ -111,10 +125,16 @@
       ' — click to toggle · esc: show all';
   }
 
-  // Two glyphs: the widget wrench and the question/quiz bubble. When a kind
-  // is hidden, its button gets .mv-display-toggle--off so CSS can dim it.
+  function titleForLineage(state) {
+    return (state.lineageHidden ? 'prereq lineage hidden' : 'prereq lineage shown') +
+      ' — click to toggle · esc: show all';
+  }
+
+  // Three glyphs: widget wrench, question bubble, lineage tree.
+  // When a kind is hidden, its button gets .mv-display-toggle--off.
   var WIDGETS_GLYPH = '🔧';
   var QUIZZES_GLYPH = '❓';
+  var LINEAGE_GLYPH = '🌳';
 
   function createWidgetToggle(opts) {
     opts = opts || {};
@@ -162,8 +182,31 @@
     return btn;
   }
 
+  function createLineageToggle(opts) {
+    opts = opts || {};
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mv-display-toggle mv-display-toggle--lineage';
+    if (opts.className) btn.className += ' ' + opts.className;
+    btn.setAttribute('aria-label', 'Toggle prereq lineage visibility');
+    btn.textContent = LINEAGE_GLYPH;
+    var s = current();
+    btn.title = titleForLineage(s);
+    if (s.lineageHidden) btn.classList.add('mv-display-toggle--off');
+    btn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      toggleLineage();
+    });
+    document.addEventListener('mvdisplay:change', function () {
+      var now = current();
+      btn.title = titleForLineage(now);
+      btn.classList.toggle('mv-display-toggle--off', now.lineageHidden);
+    });
+    return btn;
+  }
+
   // Back-compat: the slot mounter still calls createToggleButton to produce
-  // a pair. Returns a container with both buttons.
+  // all controls. Returns a container with widget + quiz + lineage buttons.
   function createToggleButton(opts) {
     opts = opts || {};
     var wrap = document.createElement('span');
@@ -171,6 +214,7 @@
     if (opts.className) wrap.className += ' ' + opts.className;
     wrap.appendChild(createWidgetToggle());
     wrap.appendChild(createQuizToggle());
+    wrap.appendChild(createLineageToggle());
     return wrap;
   }
 
@@ -187,7 +231,7 @@
   document.addEventListener('keydown', function (ev) {
     if (ev.key !== 'Escape' && ev.keyCode !== 27) return;
     var s = current();
-    if (!s.widgetsHidden && !s.quizzesHidden) return;
+    if (!s.widgetsHidden && !s.quizzesHidden && !s.lineageHidden) return;
     // Don't steal from input fields.
     var t = ev.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
@@ -206,6 +250,7 @@
         detail: {
           widgetsHidden: next.widgetsHidden,
           quizzesHidden: next.quizzesHidden,
+          lineageHidden: next.lineageHidden,
           origin: 'storage',
         },
       }));
@@ -248,10 +293,12 @@
   window.MVDisplay = {
     toggleWidgets: toggleWidgets,
     toggleQuizzes: toggleQuizzes,
+    toggleLineage: toggleLineage,
     showAll: showAll,
     current: current,
-    createToggleButton: createToggleButton, // back-compat; returns both
+    createToggleButton: createToggleButton, // back-compat; returns all three
     createWidgetToggle: createWidgetToggle,
     createQuizToggle: createQuizToggle,
+    createLineageToggle: createLineageToggle,
   };
 })();

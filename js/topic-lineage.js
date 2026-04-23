@@ -153,15 +153,6 @@
       '  grid-template-columns:1fr auto 1fr auto 1fr;gap:0.6rem 0.9rem;',
       '  align-items:start;font-size:0.86rem;line-height:1.35}',
       '.lineage-strip[hidden]{display:none}',
-      '.lineage-strip .lineage-close{position:absolute;top:4px;right:6px;',
-      '  background:transparent;border:0;color:var(--mute);cursor:pointer;',
-      '  font-size:1rem;line-height:1;padding:4px 6px;border-radius:4px;',
-      '  transition:color 120ms ease, background 120ms ease}',
-      '.lineage-strip .lineage-close:hover{color:var(--ink);background:var(--panel2)}',
-      '.lineage-show{margin:0.4rem 0 1rem;font-size:0.78rem;color:var(--mute);',
-      '  background:transparent;border:0;padding:0;cursor:pointer;',
-      '  text-decoration:underline dotted;text-underline-offset:3px}',
-      '.lineage-show:hover{color:var(--ink)}',
       '.lineage-strip .col{min-width:0}',
       '.lineage-strip .col-head{color:var(--mute);font-size:0.78rem;',
       '  text-transform:uppercase;letter-spacing:0.06em;',
@@ -225,62 +216,15 @@
     return a;
   }
 
-  var HIDE_KEY = 'mvnb.lineage.hidden';
-
-  function isHidden() {
-    try { return window.localStorage && localStorage.getItem(HIDE_KEY) === '1'; }
-    catch (_) { return false; }
-  }
-  function setHidden(v) {
-    try {
-      if (!window.localStorage) return;
-      if (v) localStorage.setItem(HIDE_KEY, '1');
-      else localStorage.removeItem(HIDE_KEY);
-    } catch (_) {}
-  }
-
-  function renderShowLink(mount) {
-    ensureStyle();
-    while (mount.firstChild) mount.removeChild(mount.firstChild);
-    mount.className = '';
-    mount.hidden = false;
-    mount.removeAttribute('style');
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'lineage-show';
-    btn.textContent = 'show concept lineage';
-    btn.addEventListener('click', function () {
-      setHidden(false);
-      render();
-    });
-    mount.appendChild(btn);
-  }
-
-  // The mount markup (inside `<nav class="toc">`, from inject-breadcrumb)
-  // predates this widget. Leaving it inside a `position: sticky` nav means
-  // when the strip expands it just thickens the sticky bar and overlaps the
-  // content below (main has a fixed 4rem top-padding assuming a thin nav).
-  // Relocate the mount out of the sticky nav into normal document flow,
-  // right before <main>, so the strip pushes content down instead of
-  // covering it.
-  function relocateMount(mount) {
-    if (!mount || mount.dataset.mvLineageRelocated === '1') return;
-    var main = document.querySelector('main');
-    var nav = mount.closest('nav.toc') || mount.closest('nav');
-    if (!main || !nav) return;
-    // Only move if the mount is currently inside the sticky nav.
-    if (!nav.contains(mount)) return;
-    nav.removeChild(mount);
-    // Insert just before <main>, giving it a natural block slot that scrolls
-    // with the document rather than overlapping from the sticky nav.
-    main.parentNode.insertBefore(mount, main);
-    mount.dataset.mvLineageRelocated = '1';
-  }
+  // Show/hide is controlled by js/display-prefs.js now — it owns the
+  // `mvnb.display.lineageHidden` flag and toggles the `data-hide-lineage`
+  // attribute on <html>, which CSS uses to show/hide .lineage-strip. That
+  // replaces the old per-widget `mvnb.lineage.hidden` key, the in-strip ×
+  // close button, and the "show concept lineage" placeholder text link.
 
   function render() {
     var mount = document.getElementById('mv-lineage-mount');
     if (!mount) return;
-    relocateMount(mount);
     var mvc = window.__MVConcepts;
     if (!mvc || !mvc.topics) {
       mount.hidden = true;
@@ -302,11 +246,6 @@
       return;
     }
 
-    if (isHidden()) {
-      renderShowLink(mount);
-      return;
-    }
-
     ensureStyle();
     mount.className = 'lineage-strip';
     mount.hidden = false;
@@ -319,17 +258,8 @@
     mount.appendChild(arrowCell());
     mount.appendChild(renderColumn('Consumers', lineage.consumers));
 
-    var close = document.createElement('button');
-    close.type = 'button';
-    close.className = 'lineage-close';
-    close.setAttribute('aria-label', 'hide concept lineage');
-    close.title = 'hide (restore from the link that appears in its place)';
-    close.textContent = '×';
-    close.addEventListener('click', function () {
-      setHidden(true);
-      renderShowLink(mount);
-    });
-    mount.appendChild(close);
+    // Visibility is controlled by html[data-hide-lineage] via CSS, toggled
+    // from the 🌳 button in the display-prefs toolbar.
   }
 
   if (document.readyState === 'loading') {

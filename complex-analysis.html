@@ -161,10 +161,11 @@
   /* display-prefs-css-auto-begin */
   html[data-hide-widgets] .widget { display: none !important; }
   html[data-hide-quizzes] .quiz { display: none !important; }
-  .mv-display-toggles { display: inline-flex; gap: .25rem; }
-  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; }
-  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.05)); }
-  .mv-display-toggle--off { opacity: 0.4; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
 <!-- display-prefs-head-auto-begin -->
@@ -245,7 +246,7 @@ const C = {
 };
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#sphere">1&nbsp;Plane&nbsp;&amp;&nbsp;sphere</a>
   <a href="#holo">2&nbsp;Amplitwist</a>
   <a href="#contour">3&nbsp;Contours</a>
@@ -255,6 +256,7 @@ const C = {
   <a href="#conf">7&nbsp;Conformal&nbsp;maps</a>
   <a href="#coda">8&nbsp;Coda</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
 <main>

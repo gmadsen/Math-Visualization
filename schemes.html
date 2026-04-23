@@ -125,10 +125,11 @@
   /* display-prefs-css-auto-begin */
   html[data-hide-widgets] .widget { display: none !important; }
   html[data-hide-quizzes] .quiz { display: none !important; }
-  .mv-display-toggles { display: inline-flex; gap: .25rem; }
-  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; }
-  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.05)); }
-  .mv-display-toggle--off { opacity: 0.4; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
 <!-- breadcrumb-head-auto-begin -->
@@ -177,7 +178,7 @@ function factorize(n){
 function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
 function mod(a,n){return ((a%n)+n)%n}
 </script>
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#intro">1&nbsp;Motivation</a>
   <a href="#specz">2&nbsp;Spec&nbsp;Z</a>
   <a href="#speckx">3&nbsp;Spec&nbsp;k[x]</a>
@@ -193,6 +194,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <a href="#dimension">13&nbsp;Dimension</a>
   <a href="#fiber-over-point">14&nbsp;Fibers</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
 <main>

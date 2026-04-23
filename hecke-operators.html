@@ -159,10 +159,11 @@
   /* display-prefs-css-auto-begin */
   html[data-hide-widgets] .widget { display: none !important; }
   html[data-hide-quizzes] .quiz { display: none !important; }
-  .mv-display-toggles { display: inline-flex; gap: .25rem; }
-  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; }
-  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.05)); }
-  .mv-display-toggle--off { opacity: 0.4; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
 <!-- display-prefs-head-auto-begin -->
@@ -221,7 +222,7 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- breadcrumb-nav-auto-end -->
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
   <a href="#why">1&nbsp;Which&nbsp;forms&nbsp;are&nbsp;canonical?</a>
   <a href="#tp">2&nbsp;$T_p$&nbsp;on&nbsp;lattices</a>
   <a href="#qexp">3&nbsp;Action&nbsp;on&nbsp;$q$-expansions</a>
@@ -230,6 +231,7 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#petersson">6&nbsp;Petersson&nbsp;pairing</a>
   <a href="#forward">7&nbsp;Forward&nbsp;pointers</a>
 </nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
