@@ -41,8 +41,50 @@
         {
           "type": "widget",
           "id": "w-desc",
-          "html": "<div class=\"widget\" id=\"w-desc\">\n  <div class=\"hd\"><div class=\"ttl\">Brahmagupta–Fibonacci multiplier</div><div class=\"hint\">multiply two sums of two squares</div></div>\n  <div class=\"row\">\n    <label for=\"bf-a\">$a^2+b^2$:</label>\n    <input type=\"number\" id=\"bf-a\" value=\"2\" style=\"width:4em\">\n    <input type=\"number\" id=\"bf-b\" value=\"3\" style=\"width:4em\">\n    <label for=\"bf-b\">×</label>\n    <label for=\"bf-c\">$c^2+d^2$:</label>\n    <input type=\"number\" id=\"bf-c\" value=\"1\" style=\"width:4em\">\n    <input type=\"number\" id=\"bf-d\" value=\"4\" style=\"width:4em\">\n    <button id=\"bf-go\">multiply</button>\n  </div>\n  <div class=\"readout\" id=\"bf-out\"></div>\n</div>",
-          "script": null
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-desc",
+            "title": "Brahmagupta–Fibonacci multiplier",
+            "hint": "multiply two sums of two squares",
+            "inputs": [
+              {
+                "id": "bf-a",
+                "type": "number",
+                "label": "$a^2+b^2$:",
+                "value": "2",
+                "style": "width:4em"
+              },
+              {
+                "id": "bf-b",
+                "type": "number",
+                "value": "3",
+                "style": "width:4em",
+                "trailingLabel": {
+                  "for": "bf-b",
+                  "text": "×"
+                }
+              },
+              {
+                "id": "bf-c",
+                "type": "number",
+                "label": "$c^2+d^2$:",
+                "value": "1",
+                "style": "width:4em"
+              },
+              {
+                "id": "bf-d",
+                "type": "number",
+                "value": "4",
+                "style": "width:4em"
+              }
+            ],
+            "button": {
+              "id": "bf-go",
+              "text": "multiply"
+            },
+            "readoutId": "bf-out",
+            "bodyScript": "  const go=document.getElementById('bf-go'), out=document.getElementById('bf-out');\n  function render(){\n    const a=+document.getElementById('bf-a').value|0;\n    const b=+document.getElementById('bf-b').value|0;\n    const c=+document.getElementById('bf-c').value|0;\n    const d=+document.getElementById('bf-d').value|0;\n    const L=a*a+b*b, R=c*c+d*d;\n    const p=a*c+b*d, q=a*d-b*c;\n    const P=Math.abs(p), Q=Math.abs(q);\n    const check = P*P+Q*Q;\n    out.textContent =\n      `(${a}² + ${b}²) · (${c}² + ${d}²) = ${L} · ${R} = ${L*R}\\n`+\n      `                       = (${a}·${c} + ${b}·${d})² + (${a}·${d} - ${b}·${c})²\\n`+\n      `                       = ${P}² + ${Q}² = ${check}  ${check===L*R?'✓':'(mismatch)'}`;\n  }\n  go.addEventListener('click', render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -50,8 +92,50 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-desc",
-          "html": "<script>\n(function(){\n  const go=document.getElementById('bf-go'), out=document.getElementById('bf-out');\n  function render(){\n    const a=+document.getElementById('bf-a').value|0;\n    const b=+document.getElementById('bf-b').value|0;\n    const c=+document.getElementById('bf-c').value|0;\n    const d=+document.getElementById('bf-d').value|0;\n    const L=a*a+b*b, R=c*c+d*d;\n    const p=a*c+b*d, q=a*d-b*c;\n    const P=Math.abs(p), Q=Math.abs(q);\n    const check = P*P+Q*Q;\n    out.textContent =\n      `(${a}² + ${b}²) · (${c}² + ${d}²) = ${L} · ${R} = ${L*R}\\n`+\n      `                       = (${a}·${c} + ${b}·${d})² + (${a}·${d} - ${b}·${c})²\\n`+\n      `                       = ${P}² + ${Q}² = ${check}  ${check===L*R?'✓':'(mismatch)'}`;\n  }\n  go.addEventListener('click', render);\n  render();\n})();\n</script>"
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-desc",
+            "title": "Brahmagupta–Fibonacci multiplier",
+            "hint": "multiply two sums of two squares",
+            "inputs": [
+              {
+                "id": "bf-a",
+                "type": "number",
+                "label": "$a^2+b^2$:",
+                "value": "2",
+                "style": "width:4em"
+              },
+              {
+                "id": "bf-b",
+                "type": "number",
+                "value": "3",
+                "style": "width:4em",
+                "trailingLabel": {
+                  "for": "bf-b",
+                  "text": "×"
+                }
+              },
+              {
+                "id": "bf-c",
+                "type": "number",
+                "label": "$c^2+d^2$:",
+                "value": "1",
+                "style": "width:4em"
+              },
+              {
+                "id": "bf-d",
+                "type": "number",
+                "value": "4",
+                "style": "width:4em"
+              }
+            ],
+            "button": {
+              "id": "bf-go",
+              "text": "multiply"
+            },
+            "readoutId": "bf-out",
+            "bodyScript": "  const go=document.getElementById('bf-go'), out=document.getElementById('bf-out');\n  function render(){\n    const a=+document.getElementById('bf-a').value|0;\n    const b=+document.getElementById('bf-b').value|0;\n    const c=+document.getElementById('bf-c').value|0;\n    const d=+document.getElementById('bf-d').value|0;\n    const L=a*a+b*b, R=c*c+d*d;\n    const p=a*c+b*d, q=a*d-b*c;\n    const P=Math.abs(p), Q=Math.abs(q);\n    const check = P*P+Q*Q;\n    out.textContent =\n      `(${a}² + ${b}²) · (${c}² + ${d}²) = ${L} · ${R} = ${L*R}\\n`+\n      `                       = (${a}·${c} + ${b}·${d})² + (${a}·${d} - ${b}·${c})²\\n`+\n      `                       = ${P}² + ${Q}² = ${check}  ${check===L*R?'✓':'(mismatch)'}`;\n  }\n  go.addEventListener('click', render);\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -106,8 +190,29 @@
         {
           "type": "widget",
           "id": "w-twosq",
-          "html": "<div class=\"widget\" id=\"w-twosq\">\n  <div class=\"hd\"><div class=\"ttl\">Two-squares checker</div><div class=\"hint\">enter $n\\le 10\\,000$</div></div>\n  <div class=\"row\">\n    <label for=\"ts-n\">$n =$</label>\n    <input type=\"number\" id=\"ts-n\" value=\"325\" min=\"1\" max=\"10000\" style=\"width:7em\">\n    <button id=\"ts-go\">check</button>\n  </div>\n  <div class=\"readout\" id=\"ts-out\"></div>\n</div>",
-          "script": null
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-twosq",
+            "title": "Two-squares checker",
+            "hint": "enter $n\\le 10\\,000$",
+            "inputs": [
+              {
+                "id": "ts-n",
+                "type": "number",
+                "label": "$n =$",
+                "value": "325",
+                "min": "1",
+                "max": "10000",
+                "style": "width:7em"
+              }
+            ],
+            "button": {
+              "id": "ts-go",
+              "text": "check"
+            },
+            "readoutId": "ts-out",
+            "bodyScript": "  function factor(n){\n    const f={}; let m=n;\n    for(let p=2;p*p<=m;p++){\n      while(m%p===0){ f[p]=(f[p]||0)+1; m/=p; }\n    }\n    if(m>1) f[m]=(f[m]||0)+1;\n    return f;\n  }\n  function r2(n){\n    if(n===0) return 1;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function divs(n){\n    const ds=[]; for(let d=1;d*d<=n;d++) if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    return ds.sort((a,b)=>a-b);\n  }\n  function oneRep(n){\n    if(n===0) return '0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) return `${a}² + ${b}²`;\n    }\n    return null;\n  }\n  const go=document.getElementById('ts-go'), out=document.getElementById('ts-out');\n  function render(){\n    const n = Math.max(1,Math.min(10000, +document.getElementById('ts-n').value|0));\n    const f = factor(n);\n    const bad = [];\n    const parts = [];\n    for(const p of Object.keys(f).map(Number).sort((a,b)=>a-b)){\n      const e = f[p];\n      const tag = (p===2)?'[ram]' : (p%4===1?'[split]':'[inert]');\n      if(p%4===3 && e%2===1) bad.push(p);\n      parts.push(`${p}^${e} ${tag}`);\n    }\n    const ok = bad.length===0;\n    const rep = ok ? oneRep(n) : null;\n    const ds = divs(n);\n    const d1 = ds.filter(d=>d%4===1).length;\n    const d3 = ds.filter(d=>d%4===3).length;\n    const jac = 4*(d1-d3);\n    out.textContent =\n      `n = ${n}\\n`+\n      `factorisation: ${parts.join(' · ')}\\n`+\n      (ok\n        ? `YES — sum of two squares.  one rep: ${n} = ${rep}\\n`+\n          `Jacobi: r₂(${n}) = 4·(d₁−d₃) = 4·(${d1}−${d3}) = ${jac}  (brute: r₂=${r2(n)})`\n        : `NO — bad primes (≡3 mod 4, odd exponent): ${bad.join(', ')}\\n`+\n          `Jacobi: r₂(${n}) = 4·(${d1}−${d3}) = ${jac}`);\n  }\n  go.addEventListener('click', render);\n  document.getElementById('ts-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -124,8 +229,29 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-twosq",
-          "html": "<script>\n(function(){\n  function factor(n){\n    const f={}; let m=n;\n    for(let p=2;p*p<=m;p++){\n      while(m%p===0){ f[p]=(f[p]||0)+1; m/=p; }\n    }\n    if(m>1) f[m]=(f[m]||0)+1;\n    return f;\n  }\n  function r2(n){\n    if(n===0) return 1;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function divs(n){\n    const ds=[]; for(let d=1;d*d<=n;d++) if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    return ds.sort((a,b)=>a-b);\n  }\n  function oneRep(n){\n    if(n===0) return '0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) return `${a}² + ${b}²`;\n    }\n    return null;\n  }\n  const go=document.getElementById('ts-go'), out=document.getElementById('ts-out');\n  function render(){\n    const n = Math.max(1,Math.min(10000, +document.getElementById('ts-n').value|0));\n    const f = factor(n);\n    const bad = [];\n    const parts = [];\n    for(const p of Object.keys(f).map(Number).sort((a,b)=>a-b)){\n      const e = f[p];\n      const tag = (p===2)?'[ram]' : (p%4===1?'[split]':'[inert]');\n      if(p%4===3 && e%2===1) bad.push(p);\n      parts.push(`${p}^${e} ${tag}`);\n    }\n    const ok = bad.length===0;\n    const rep = ok ? oneRep(n) : null;\n    const ds = divs(n);\n    const d1 = ds.filter(d=>d%4===1).length;\n    const d3 = ds.filter(d=>d%4===3).length;\n    const jac = 4*(d1-d3);\n    out.textContent =\n      `n = ${n}\\n`+\n      `factorisation: ${parts.join(' · ')}\\n`+\n      (ok\n        ? `YES — sum of two squares.  one rep: ${n} = ${rep}\\n`+\n          `Jacobi: r₂(${n}) = 4·(d₁−d₃) = 4·(${d1}−${d3}) = ${jac}  (brute: r₂=${r2(n)})`\n        : `NO — bad primes (≡3 mod 4, odd exponent): ${bad.join(', ')}\\n`+\n          `Jacobi: r₂(${n}) = 4·(${d1}−${d3}) = ${jac}`);\n  }\n  go.addEventListener('click', render);\n  document.getElementById('ts-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();\n</script>"
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-twosq",
+            "title": "Two-squares checker",
+            "hint": "enter $n\\le 10\\,000$",
+            "inputs": [
+              {
+                "id": "ts-n",
+                "type": "number",
+                "label": "$n =$",
+                "value": "325",
+                "min": "1",
+                "max": "10000",
+                "style": "width:7em"
+              }
+            ],
+            "button": {
+              "id": "ts-go",
+              "text": "check"
+            },
+            "readoutId": "ts-out",
+            "bodyScript": "  function factor(n){\n    const f={}; let m=n;\n    for(let p=2;p*p<=m;p++){\n      while(m%p===0){ f[p]=(f[p]||0)+1; m/=p; }\n    }\n    if(m>1) f[m]=(f[m]||0)+1;\n    return f;\n  }\n  function r2(n){\n    if(n===0) return 1;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function divs(n){\n    const ds=[]; for(let d=1;d*d<=n;d++) if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    return ds.sort((a,b)=>a-b);\n  }\n  function oneRep(n){\n    if(n===0) return '0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++){\n      const r=n-a*a; if(r<0) break;\n      const b=Math.round(Math.sqrt(r));\n      if(b>=a && b*b===r) return `${a}² + ${b}²`;\n    }\n    return null;\n  }\n  const go=document.getElementById('ts-go'), out=document.getElementById('ts-out');\n  function render(){\n    const n = Math.max(1,Math.min(10000, +document.getElementById('ts-n').value|0));\n    const f = factor(n);\n    const bad = [];\n    const parts = [];\n    for(const p of Object.keys(f).map(Number).sort((a,b)=>a-b)){\n      const e = f[p];\n      const tag = (p===2)?'[ram]' : (p%4===1?'[split]':'[inert]');\n      if(p%4===3 && e%2===1) bad.push(p);\n      parts.push(`${p}^${e} ${tag}`);\n    }\n    const ok = bad.length===0;\n    const rep = ok ? oneRep(n) : null;\n    const ds = divs(n);\n    const d1 = ds.filter(d=>d%4===1).length;\n    const d3 = ds.filter(d=>d%4===3).length;\n    const jac = 4*(d1-d3);\n    out.textContent =\n      `n = ${n}\\n`+\n      `factorisation: ${parts.join(' · ')}\\n`+\n      (ok\n        ? `YES — sum of two squares.  one rep: ${n} = ${rep}\\n`+\n          `Jacobi: r₂(${n}) = 4·(d₁−d₃) = 4·(${d1}−${d3}) = ${jac}  (brute: r₂=${r2(n)})`\n        : `NO — bad primes (≡3 mod 4, odd exponent): ${bad.join(', ')}\\n`+\n          `Jacobi: r₂(${n}) = 4·(${d1}−${d3}) = ${jac}`);\n  }\n  go.addEventListener('click', render);\n  document.getElementById('ts-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -180,8 +306,29 @@
         {
           "type": "widget",
           "id": "w-four",
-          "html": "<div class=\"widget\" id=\"w-four\">\n  <div class=\"hd\"><div class=\"ttl\">Four-squares decomposer</div><div class=\"hint\">enter $n\\le 2000$</div></div>\n  <div class=\"row\">\n    <label for=\"fs-n\">$n =$</label>\n    <input type=\"number\" id=\"fs-n\" value=\"103\" min=\"0\" max=\"2000\" style=\"width:7em\">\n    <button id=\"fs-go\">decompose</button>\n  </div>\n  <div class=\"readout\" id=\"fs-out\"></div>\n</div>",
-          "script": null
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-four",
+            "title": "Four-squares decomposer",
+            "hint": "enter $n\\le 2000$",
+            "inputs": [
+              {
+                "id": "fs-n",
+                "type": "number",
+                "label": "$n =$",
+                "value": "103",
+                "min": "0",
+                "max": "2000",
+                "style": "width:7em"
+              }
+            ],
+            "button": {
+              "id": "fs-go",
+              "text": "decompose"
+            },
+            "readoutId": "fs-out",
+            "bodyScript": "  function oneRep4(n){\n    if(n===0) return '0²+0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++) for(let c=b;c<=s;c++){\n      const r=n-a*a-b*b-c*c; if(r<0) break;\n      const d=Math.round(Math.sqrt(r));\n      if(d>=c && d*d===r) return `${a}² + ${b}² + ${c}² + ${d}²`;\n    }\n    return null;\n  }\n  function r2(n){\n    if(n<0) return 0;\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r4(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++) for(let b=-s;b<=s;b++){\n      const rem=n-a*a-b*b; if(rem<0) continue;\n      c += r2(rem);\n    }\n    return c;\n  }\n  function sigma(n){ // sum of divisors\n    let s=0; for(let d=1;d*d<=n;d++) if(n%d===0){ s+=d; if(d!==n/d) s+=n/d; } return s;\n  }\n  function jacobi4(n){\n    if(n===0) return 1;\n    let s=0;\n    for(let d=1;d<=n;d++) if(n%d===0 && d%4!==0) s+=d;\n    return 8*s;\n  }\n  const go=document.getElementById('fs-go'), out=document.getElementById('fs-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('fs-n').value|0));\n    const rep = oneRep4(n);\n    const cnt = r4(n);\n    const j = jacobi4(n);\n    const oddNote = (n>0 && n%2===1) ? `\\nn is odd:   8·σ(n) = 8·${sigma(n)} = ${8*sigma(n)}  ${8*sigma(n)===cnt?'✓':'✗'}` : '';\n    out.textContent =\n      `n = ${n}\\none rep: ${rep}\\n`+\n      `r₄(${n}) = ${cnt}     (brute count)\\n`+\n      `Jacobi: 8·Σ d (d|n, 4∤d) = ${j}   ${j===cnt?'✓':'✗'}`+oddNote;\n  }\n  go.addEventListener('click', render);\n  document.getElementById('fs-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -198,8 +345,29 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-four",
-          "html": "<script>\n(function(){\n  function oneRep4(n){\n    if(n===0) return '0²+0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++) for(let c=b;c<=s;c++){\n      const r=n-a*a-b*b-c*c; if(r<0) break;\n      const d=Math.round(Math.sqrt(r));\n      if(d>=c && d*d===r) return `${a}² + ${b}² + ${c}² + ${d}²`;\n    }\n    return null;\n  }\n  function r2(n){\n    if(n<0) return 0;\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r4(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++) for(let b=-s;b<=s;b++){\n      const rem=n-a*a-b*b; if(rem<0) continue;\n      c += r2(rem);\n    }\n    return c;\n  }\n  function sigma(n){ // sum of divisors\n    let s=0; for(let d=1;d*d<=n;d++) if(n%d===0){ s+=d; if(d!==n/d) s+=n/d; } return s;\n  }\n  function jacobi4(n){\n    if(n===0) return 1;\n    let s=0;\n    for(let d=1;d<=n;d++) if(n%d===0 && d%4!==0) s+=d;\n    return 8*s;\n  }\n  const go=document.getElementById('fs-go'), out=document.getElementById('fs-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('fs-n').value|0));\n    const rep = oneRep4(n);\n    const cnt = r4(n);\n    const j = jacobi4(n);\n    const oddNote = (n>0 && n%2===1) ? `\\nn is odd:   8·σ(n) = 8·${sigma(n)} = ${8*sigma(n)}  ${8*sigma(n)===cnt?'✓':'✗'}` : '';\n    out.textContent =\n      `n = ${n}\\none rep: ${rep}\\n`+\n      `r₄(${n}) = ${cnt}     (brute count)\\n`+\n      `Jacobi: 8·Σ d (d|n, 4∤d) = ${j}   ${j===cnt?'✓':'✗'}`+oddNote;\n  }\n  go.addEventListener('click', render);\n  document.getElementById('fs-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();\n</script>"
+          "slug": "input-form",
+          "params": {
+            "widgetId": "w-four",
+            "title": "Four-squares decomposer",
+            "hint": "enter $n\\le 2000$",
+            "inputs": [
+              {
+                "id": "fs-n",
+                "type": "number",
+                "label": "$n =$",
+                "value": "103",
+                "min": "0",
+                "max": "2000",
+                "style": "width:7em"
+              }
+            ],
+            "button": {
+              "id": "fs-go",
+              "text": "decompose"
+            },
+            "readoutId": "fs-out",
+            "bodyScript": "  function oneRep4(n){\n    if(n===0) return '0²+0²+0²+0²';\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=0;a<=s;a++) for(let b=a;b<=s;b++) for(let c=b;c<=s;c++){\n      const r=n-a*a-b*b-c*c; if(r<0) break;\n      const d=Math.round(Math.sqrt(r));\n      if(d>=c && d*d===r) return `${a}² + ${b}² + ${c}² + ${d}²`;\n    }\n    return null;\n  }\n  function r2(n){\n    if(n<0) return 0;\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r4(n){\n    if(n===0) return 1;\n    let c=0; const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++) for(let b=-s;b<=s;b++){\n      const rem=n-a*a-b*b; if(rem<0) continue;\n      c += r2(rem);\n    }\n    return c;\n  }\n  function sigma(n){ // sum of divisors\n    let s=0; for(let d=1;d*d<=n;d++) if(n%d===0){ s+=d; if(d!==n/d) s+=n/d; } return s;\n  }\n  function jacobi4(n){\n    if(n===0) return 1;\n    let s=0;\n    for(let d=1;d<=n;d++) if(n%d===0 && d%4!==0) s+=d;\n    return 8*s;\n  }\n  const go=document.getElementById('fs-go'), out=document.getElementById('fs-out');\n  function render(){\n    const n = Math.max(0, Math.min(2000, +document.getElementById('fs-n').value|0));\n    const rep = oneRep4(n);\n    const cnt = r4(n);\n    const j = jacobi4(n);\n    const oddNote = (n>0 && n%2===1) ? `\\nn is odd:   8·σ(n) = 8·${sigma(n)} = ${8*sigma(n)}  ${8*sigma(n)===cnt?'✓':'✗'}` : '';\n    out.textContent =\n      `n = ${n}\\none rep: ${rep}\\n`+\n      `r₄(${n}) = ${cnt}     (brute count)\\n`+\n      `Jacobi: 8·Σ d (d|n, 4∤d) = ${j}   ${j===cnt?'✓':'✗'}`+oddNote;\n  }\n  go.addEventListener('click', render);\n  document.getElementById('fs-n').addEventListener('keypress', e=>{ if(e.key==='Enter') render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
