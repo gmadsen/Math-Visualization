@@ -25,9 +25,10 @@
 //
 // Zero dependencies. Pure regex — the markup is well-formed and hand-written.
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeIfChanged } from './lib/html-injector.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -160,7 +161,7 @@ for (const slug of topics) {
     continue;
   }
   if (result.changed) {
-    if (!DRY_RUN) writeFileSync(pagePath, result.html);
+    if (!DRY_RUN) writeIfChanged(pagePath, html, result.html);
     touched++;
   } else {
     skipped++;

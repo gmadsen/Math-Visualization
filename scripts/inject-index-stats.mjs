@@ -23,9 +23,10 @@
 //
 // Zero external deps.
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeIfChanged } from './lib/html-injector.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -123,7 +124,7 @@ if (!FIX) {
 }
 
 const newHtml = html.replace(taglineRe, `${open}${newInner}${close}`);
-writeFileSync(indexPath, newHtml, 'utf8');
+writeIfChanged(indexPath, html, newHtml);
 
 const bits = [];
 if (topicDrift) bits.push(`topics ${oldTopicN} → ${topicCount}`);

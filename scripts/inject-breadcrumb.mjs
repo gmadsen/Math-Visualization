@@ -40,9 +40,15 @@
 //
 // Zero external dependencies.
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  makeFence,
+  stripFence,
+  insertBeforeAnchor,
+  writeIfChanged,
+} from './lib/html-injector.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -54,10 +60,8 @@ const VERBOSE = argv.includes('--verbose') || argv.includes('-v');
 
 const SKIP_PAGES = new Set(['index.html', 'pathway.html', 'progress.html']);
 
-const HEAD_BEGIN = '<!-- breadcrumb-head-auto-begin -->';
-const HEAD_END   = '<!-- breadcrumb-head-auto-end -->';
-const NAV_BEGIN  = '<!-- breadcrumb-nav-auto-begin -->';
-const NAV_END    = '<!-- breadcrumb-nav-auto-end -->';
+const HEAD = makeFence('breadcrumb-head');
+const NAV  = makeFence('breadcrumb-nav');
 
 // ----------------------------------------------------------------------------
 // 1. Parse index.html → section map.
@@ -171,7 +175,7 @@ const sectionMapJson = stableStringify(sectionMap);
 
 function buildHeadBlock() {
   return (
-    HEAD_BEGIN + '\n' +
+    HEAD.begin + '\n' +
     '<script>window.__MV_SECTION_MAP = ' + sectionMapJson + ';</script>\n' +
     '<script src="./js/breadcrumb.js"></script>\n' +
     '<script src="./js/glossary-popover.js" defer></script>\n' +
@@ -181,17 +185,17 @@ function buildHeadBlock() {
     '<script src="./concepts/bundle.js" defer></script>\n' +
     '<script src="./js/topic-hotkeys.js" defer></script>\n' +
     '<script src="./js/topic-lineage.js" defer></script>\n' +
-    HEAD_END
+    HEAD.end
   );
 }
 
 function buildNavBlock() {
   return (
-    NAV_BEGIN +
+    NAV.begin +
     '<div class="breadcrumb"></div>' +
     '<span class="mv-theme-slot"></span>' +
     '<div id="mv-lineage-mount" class="lineage-strip" hidden></div>' +
-    NAV_END
+    NAV.end
   );
 }
 
@@ -199,24 +203,16 @@ function buildNavBlock() {
 // 3. Per-topic patch logic.
 // ----------------------------------------------------------------------------
 
-// Strip any existing fenced block (both variants) from html, returning the
-// stripped html plus a count of fences removed. The head fence consumes a
-// single trailing newline (we re-insert ours with a matching trailing newline
-// so idempotency holds). The nav fence is inline — no surrounding whitespace.
+// Strip any existing fenced block (both variants) from html. The head fence
+// consumes a single trailing newline (we re-insert ours with a matching
+// trailing newline so idempotency holds). The nav fence is inline — no
+// surrounding whitespace is stripped.
 function stripFences(html) {
-  let out = html;
-  let removed = 0;
-  const patterns = [
-    /[ \t]*<!--\s*breadcrumb-head-auto-begin\s*-->[\s\S]*?<!--\s*breadcrumb-head-auto-end\s*-->\n?/g,
-    /<!--\s*breadcrumb-nav-auto-begin\s*-->[\s\S]*?<!--\s*breadcrumb-nav-auto-end\s*-->/g,
-  ];
-  for (const re of patterns) {
-    out = out.replace(re, () => {
-      removed++;
-      return '';
-    });
-  }
-  return { html: out, removed };
+  const a = stripFence(html, 'breadcrumb-head', {
+    trim: { leadingIndent: true, trailingNewline: true },
+  });
+  const b = stripFence(a.html, 'breadcrumb-nav');
+  return { html: b.html, removed: a.removed + b.removed };
 }
 
 // Insert the head block just before the <script src="./js/progress.js"> tag.
@@ -232,26 +228,8 @@ function stripFences(html) {
 //   <script src="./js/progress.js"></script>
 function insertHeadBlock(html) {
   const progRe = /<script\s+src=["']\.\/js\/progress\.js["']\s*><\/script>/i;
-  const m = progRe.exec(html);
-  let insertAt;
-  if (m) {
-    insertAt = m.index;
-  } else {
-    const headCloseRe = /<\/head>/i;
-    const hm = headCloseRe.exec(html);
-    if (!hm) return null;
-    insertAt = hm.index;
-  }
-  // Walk back over the leading whitespace on this line so we can decide
-  // whether a '\n' needs to be injected before the fence.
-  let lineStart = insertAt;
-  while (lineStart > 0 && (html[lineStart - 1] === ' ' || html[lineStart - 1] === '\t')) {
-    lineStart--;
-  }
-  const needsLeadingNewline = lineStart > 0 && html[lineStart - 1] !== '\n';
-  const pre = needsLeadingNewline ? '\n' : '';
-  const block = buildHeadBlock();
-  return html.slice(0, lineStart) + pre + block + '\n' + html.slice(lineStart);
+  const anchor = progRe.test(html) ? progRe : /<\/head>/i;
+  return insertBeforeAnchor(html, anchor, buildHeadBlock());
 }
 
 // Insert the nav block inside <nav class="toc"> immediately after the
@@ -329,7 +307,7 @@ for (const page of pageList) {
   }
   if (desired !== orig) {
     if (FIX) {
-      writeFileSync(page.path, desired);
+      writeIfChanged(page.path, orig, desired);
       touched++;
       if (VERBOSE) {
         const entry = sectionMap[page.slug];

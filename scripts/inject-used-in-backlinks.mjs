@@ -33,9 +33,15 @@
 //
 // Zero external dependencies.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  makeFence,
+  stripFence,
+  ensureCss,
+  writeIfChanged,
+} from './lib/html-injector.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -145,6 +151,8 @@ function findSection(html, anchor) {
   return { innerStart, innerEnd, body: html.slice(innerStart, innerEnd) };
 }
 
+const BACKLINKS_FENCE = makeFence('backlinks');
+
 function buildRelatedBlock(consumers) {
   const shown = consumers.slice(0, MAX_ITEMS);
   const overflow = consumers.length - shown.length;
@@ -158,12 +166,12 @@ function buildRelatedBlock(consumers) {
     lines.push(`    <div class="more">… and ${overflow} more.</div>`);
   }
   return (
-    `<!-- backlinks-auto-begin -->\n` +
+    `${BACKLINKS_FENCE.begin}\n` +
     `<aside class="related">\n` +
     `  <div class="ttl">Used in</div>\n` +
     lines.join('\n') + '\n' +
     `</aside>\n` +
-    `<!-- backlinks-auto-end -->`
+    `${BACKLINKS_FENCE.end}`
   );
 }
 
@@ -185,28 +193,25 @@ const RELATED_CSS = `  aside.related{
   aside.related a{color:inherit}`;
 
 function ensureRelatedCss(html) {
-  if (/aside\.related\s*\{/.test(html)) return html;
-  const styleCloseRe = /<\/style>/i;
-  const m = styleCloseRe.exec(html);
-  if (!m) return html;
-  return html.slice(0, m.index) + RELATED_CSS + '\n' + html.slice(m.index);
+  return ensureCss(html, /aside\.related\s*\{/, RELATED_CSS);
 }
 
 // Strip any existing fenced backlinks block inside [innerStart, innerEnd).
-// Also consumes the single leading newline we inject (so re-runs don't add
-// blank-line drift) plus any trailing blank lines directly after the fence.
+// Consumes the single leading newline we inject (so re-runs don't add blank-
+// line drift) plus any trailing blank lines directly after the fence.
 function stripFencedBlock(html, innerStart, innerEnd) {
   const body = html.slice(innerStart, innerEnd);
-  const fenceRe =
-    /\n?[ \t]*<!--\s*backlinks-auto-begin\s*-->[\s\S]*?<!--\s*backlinks-auto-end\s*-->[ \t]*\n?/g;
-  let removedCount = 0;
-  const newBody = body.replace(fenceRe, () => {
-    removedCount++;
-    return '';
+  const { html: newBody, removed } = stripFence(body, 'backlinks', {
+    trim: {
+      leadingNewline: true,
+      leadingIndent: true,
+      trailingInlineWs: true,
+      trailingNewline: true,
+    },
   });
-  if (removedCount === 0) return { html, removedCount: 0, delta: 0 };
+  if (removed === 0) return { html, removedCount: 0, delta: 0 };
   const newHtml = html.slice(0, innerStart) + newBody + html.slice(innerEnd);
-  return { html: newHtml, removedCount, delta: newBody.length - body.length };
+  return { html: newHtml, removedCount: removed, delta: newBody.length - body.length };
 }
 
 // Decide insertion offset inside the (post-strip) section body.
@@ -299,8 +304,7 @@ for (const [hostTopic, d] of topicData) {
       sectionsUpdated++;
     }
 
-    if (html !== origHtml) {
-      writeFileSync(pagePath, html);
+    if (writeIfChanged(pagePath, origHtml, html)) {
       pagesTouched++;
     }
   } else {

@@ -19,10 +19,11 @@
 //                    (rebuilt block differs from the one currently on disk).
 //                    Used by CI and `rebuild.mjs --no-fix`.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { ensureCss, writeIfChanged } from './lib/html-injector.mjs';
 
 const AUDIT = process.argv.slice(2).includes('--audit');
 
@@ -97,10 +98,7 @@ function buildBlock(rows) {
 }
 
 function ensureChangelogCss(html) {
-  if (/details\.changelog\s*\{/.test(html)) return html;
-  const m = /<\/style>/i.exec(html);
-  if (!m) return html;
-  return html.slice(0, m.index) + CHANGELOG_CSS + '\n' + html.slice(m.index);
+  return ensureCss(html, /details\.changelog\s*\{/, CHANGELOG_CSS);
 }
 
 function insertOrReplaceBlock(html, block) {
@@ -144,8 +142,7 @@ for (const f of files) {
 
   if (html !== before) {
     if (AUDIT) stalePages.push(f);
-    else {
-      writeFileSync(p, html);
+    else if (writeIfChanged(p, before, html)) {
       pagesTouched++;
     }
   }
