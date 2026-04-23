@@ -257,11 +257,18 @@ function extractStepsArray(src) {
   }
   if (end === -1) return null;
   const body = src.slice(start, end + 1);
-  // Parse `name: 'foo'` entries (preserving order).
+  // Parse each `{ name: '…', script: '…' }` entry (preserving order).
   const names = [];
-  const re = /name:\s*['"]([a-z0-9\-]+)['"]/g;
+  const nameToScript = new Map();
+  const re = /name:\s*['"]([a-z0-9\-]+)['"][^{}]*?script:\s*['"]([^'"]+)['"]/g;
   let m;
-  while ((m = re.exec(body))) names.push(m[1]);
+  while ((m = re.exec(body))) {
+    names.push(m[1]);
+    nameToScript.set(m[1], m[2]);
+  }
+  // Decorate the array with the map so callers can look up script filenames
+  // without maintaining a parallel hard-coded table.
+  names.scriptByName = nameToScript;
   return names;
 }
 
@@ -328,7 +335,12 @@ function checkRebuildStepList() {
     push('AGENTS.md', 'warn', 'could not parse STEPS array in scripts/rebuild.mjs');
     return;
   }
-  const expectedScripts = steps.map((n) => stepNameToScript(n));
+  // Prefer the script-field mapping parsed out of STEPS itself; fall back to
+  // the hard-coded table if the new parse returned no entries (shouldn't
+  // happen, but keeps the old invariant if someone rewrites the STEPS shape).
+  const expectedScripts = steps.map((n) =>
+    (steps.scriptByName && steps.scriptByName.get(n)) || stepNameToScript(n)
+  );
 
   const agents = readOrNull(join(repoRoot, 'AGENTS.md'));
   if (!agents) return;
