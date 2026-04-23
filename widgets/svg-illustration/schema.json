@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/svg-illustration/schema.json",
+  "title": "svg-illustration widget params",
+  "description": "A static SVG figure inside standard widget chrome. No driving script, no interactive controls — the widget is a pure illustration that lives inside the registry for metadata (family / dimension) and portability across alternate frontends. Optional `caption` and `footer` describe the after-SVG text blocks (a `<div class=\"small\">` paragraph or a `<div class=\"readout\">` with optional id + inline style). The SVG's inner HTML is carried verbatim as `svgInner` — typically just a `<title>` element plus any hand-drawn static content. A companion `widget-script` block may still sit next to this widget in `content/<topic>.json` — it is rendered untouched by the topic renderer, so illustrations whose pixels are produced by a neighbouring load-time script can migrate to this widget without breaking.",
+  "meta": {
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "static",
+    "role": "illustration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "svgId", "viewBox", "title", "svgInner"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id on the outer `<div class=\"widget\">`."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id on the inner `<svg>`."
+    },
+    "viewBox": {
+      "type": "string",
+      "pattern": "^0 0 [0-9]+ [0-9]+$",
+      "description": "`viewBox` attribute on the `<svg>`. Restricted to the `0 0 W H` shape the corpus uses — the renderer derives the `width` and `height` attributes from W and H."
+    },
+    "title": {
+      "type": "string",
+      "description": "Widget title. Rendered in both the `.ttl` header and as the inner text of the SVG's `<title>` element (for accessibility)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Short line rendered in the `.hint` slot of the header. Optional; when omitted no hint div is emitted."
+    },
+    "svgInner": {
+      "type": "string",
+      "description": "ARTIFACT. Raw inner HTML of the SVG, excluding the inner `<title>` element (which the renderer emits automatically from `title`). Usually an empty string — the static-svg corpus overwhelmingly carries only the title element inside the SVG and lets a sibling `widget-script` block draw decoration at load time. Non-empty values preserve hand-drawn static SVG markup verbatim."
+    },
+    "caption": { "$ref": "#/$defs/afterSvg" },
+    "footer":  { "$ref": "#/$defs/afterSvg" }
+  },
+  "$defs": {
+    "afterSvg": {
+      "type": "object",
+      "description": "An after-SVG text block. `kind: 'small'` emits `<div class=\"small\">{content}</div>`; `kind: 'readout'` emits `<div class=\"readout\" [id=\"…\"] [style=\"…\"]>{content}</div>`. `content` is raw HTML (escape rules match the on-page bytes — e.g. `&lt;` in prose stays encoded).",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "content"],
+          "properties": {
+            "kind":    { "const": "small" },
+            "content": { "type": "string" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind":    { "const": "readout" },
+            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "style":   { "type": "string", "description": "ARTIFACT. Raw inline-style attribute value (e.g. `font-size:.85rem`). Several absorbed widgets set bespoke readout styling that the shared CSS doesn't cover." },
+            "content": { "type": "string", "description": "Raw HTML content inside the div. Defaults to the empty string when omitted." }
+          }
+        }
+      ]
+    }
+  }
+}

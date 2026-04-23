@@ -27,7 +27,8 @@
         "max":   { "type": "number" },
         "step":  { "type": "number" },
         "init":  { "type": "number" },
-        "initReadout": { "type": "string", "description": "Initial text for the <span class='small' id=outId> (e.g. 't = 0.50')." }
+        "initReadout": { "type": "string", "description": "Initial text for the <span class='small' id=outId> (e.g. 't = 0.50')." },
+        "labelWraps": { "type": "boolean", "description": "When true, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>`; the `for=` attribute is omitted. When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." }
       }
     },
     "button": {

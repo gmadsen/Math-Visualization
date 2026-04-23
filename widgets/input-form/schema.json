@@ -45,6 +45,7 @@
           "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
           "type": { "enum": ["number", "text"] },
           "label": { "type": "string", "description": "Optional leading <label for=id>…</label>. Omit to suppress." },
+          "labelWraps": { "type": "boolean", "description": "When true and `label` is present, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>` (the `for=` attr is omitted). When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." },
           "value": { "type": "string", "description": "Raw value= attribute (string; numeric widgets still use string to preserve bytes like \"2\" vs \"2.0\")." },
           "min": { "type": "string", "description": "Raw min= attribute (optional)." },
           "max": { "type": "string", "description": "Raw max= attribute (optional)." },

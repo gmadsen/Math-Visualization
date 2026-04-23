@@ -45,12 +45,21 @@ function renderInputRow(inputs, button) {
   // Each input emits: optional leading <label>, the <input>, optional
   // trailing <label>.  All lines are indented four spaces (matching the
   // legacy source's `.row` children).
+  //
+  // When `labelWraps` is true and a leading `label` is present, the <input>
+  // is nested INSIDE the <label> (`<label>labelText <input ...></label>`)
+  // and the `for=` attr is omitted.  This preserves byte-identity with
+  // legacy widgets that wrap their input inside the label element.
   const lines = [];
   for (const inp of inputs) {
-    if (inp.label !== undefined) {
-      lines.push(`    <label for="${inp.id}">${inp.label}</label>`);
+    if (inp.label !== undefined && inp.labelWraps) {
+      lines.push(`    <label>${inp.label} ${renderInputElement(inp)}</label>`);
+    } else {
+      if (inp.label !== undefined) {
+        lines.push(`    <label for="${inp.id}">${inp.label}</label>`);
+      }
+      lines.push(`    ${renderInputElement(inp)}`);
     }
-    lines.push(`    ${renderInputElement(inp)}`);
     if (inp.trailingLabel !== undefined) {
       lines.push(`    <label for="${inp.trailingLabel.for}">${inp.trailingLabel.text}</label>`);
     }

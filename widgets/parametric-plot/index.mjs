@@ -35,17 +35,27 @@ function renderHintHtml(hint) {
 
 function renderSliderRow(s) {
   // Produces (with leading 2-space indent at the <div> but no trailing \n):
+  // Default form (labelWraps absent/false):
   //   <div class="row">
   //     <label for="sid">label</label>
   //     <input type="range" id="sid" min="m" max="M" step="s" value="v">
   //     <span class="small" id="sid-out">init</span>     ← optional
   //   </div>
+  // Label-wrapping form (labelWraps true):
+  //   <div class="row">
+  //     <label>label <input type="range" id="sid" min="m" max="M" step="s" value="v"></label>
+  //     <span class="small" id="sid-out">init</span>     ← optional
+  //   </div>
   const lines = [];
   lines.push(`  <div class="row">`);
-  lines.push(`    <label for="${s.id}">${s.label}</label>`);
-  lines.push(
-    `    <input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.init}">`
-  );
+  const inputTag =
+    `<input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.init}">`;
+  if (s.labelWraps) {
+    lines.push(`    <label>${s.label} ${inputTag}</label>`);
+  } else {
+    lines.push(`    <label for="${s.id}">${s.label}</label>`);
+    lines.push(`    ${inputTag}`);
+  }
   if (s.outId) {
     lines.push(
       `    <span class="small" id="${s.outId}">${s.initReadout ?? ''}</span>`
