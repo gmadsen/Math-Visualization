@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Widget catalog — every registered widget</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:960px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.6rem 0 .5rem;color:var(--yellow);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  /* catalog-specific */
+  .meta-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0 .8rem}
+  .badge{display:inline-flex;align-items:center;gap:.3rem;
+    background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:.1rem .7rem;font-size:.78rem;color:var(--mute);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .badge.family{color:var(--cyan);border-color:color-mix(in srgb, var(--cyan) 35%, var(--line))}
+  .badge.dim{color:var(--yellow);border-color:color-mix(in srgb, var(--yellow) 28%, var(--line))}
+  .badge.gesture{color:var(--pink);border-color:color-mix(in srgb, var(--pink) 32%, var(--line))}
+  .badge.role{color:var(--violet);border-color:color-mix(in srgb, var(--violet) 32%, var(--line))}
+  .badge .k{color:var(--mute);text-transform:uppercase;font-size:.66rem;letter-spacing:.1em}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1.1rem 1.2rem 1.3rem;margin:1.4rem 0}
+  .card-hd{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
+  .card h3{margin:0}
+  .card h3 a.anchor{color:inherit;text-decoration:none}
+  .card h3 a.anchor:hover{color:var(--yellow)}
+  .card .actions{display:flex;gap:.4rem;flex-wrap:wrap}
+  .card .actions button{font-size:.82rem;padding:.25rem .6rem}
+  .card .desc{color:var(--ink);margin:.6rem 0 .4rem}
+  .card .excerpt{color:var(--mute);font-size:.92rem;margin:.4rem 0}
+  .card details.schema{margin-top:.9rem;background:#0b0f16;border:1px solid var(--line);
+    border-radius:6px;padding:.4rem .8rem}
+  .card details.schema summary{cursor:pointer;color:var(--mute);font-size:.85rem;
+    letter-spacing:.1em;text-transform:uppercase}
+  .card details.schema[open] summary{color:var(--ink);margin-bottom:.4rem}
+  .card details.schema ul{margin:.3rem 0;padding-left:1.2rem;color:var(--ink);font-size:.92rem}
+  .card details.schema ul li{font-family:ui-monospace,monospace;margin:.1rem 0}
+  .card .render-wrap{margin:1rem 0 .4rem;padding:.7rem;border:1px dashed var(--line);border-radius:8px;background:#0b0f16}
+  .card .render-wrap .render-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.5rem}
+  .card .render-wrap.pending{color:var(--mute);font-style:italic;font-size:.9rem;padding:.8rem 1rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:1rem 0}
+  .grid .cell{background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    padding:.6rem .8rem}
+  .grid .cell .s{font-family:ui-monospace,monospace;color:var(--yellow);font-size:.92rem}
+  .grid .cell .t{color:var(--mute);font-size:.82rem;margin-top:.15rem}
+  .grid .cell a{color:inherit;text-decoration:none;display:block}
+  .grid .cell a:hover .s{color:var(--cyan)}
+  .copied{color:var(--green);font-size:.82rem;margin-left:.4rem}
+  .empty{color:var(--mute);font-style:italic}
+</style>
+<script src="./widgets/bundle.js"></script>
+</head>
+<body data-section="reference" data-level="reference">
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#all">All widgets</a>
+  <a href="#by-family">By family</a>
+  <a href="#footer">Registry docs</a>
+</nav>
+
+<main>
+
+<section class="hero">
+  <h1>Widget catalog</h1>
+  <p class="sub">Every widget registered under <code>widgets/</code>. One card per slug: schema summary, README excerpt, copy-pasteable content block, and — when an <code>example.json</code> is present — a live preview rendered from those params.</p>
+  <div class="note">Use this page to discover existing widgets before writing a new one, and to copy a known-good <code>{type:"widget", slug, params}</code> block into <code>content/&lt;topic&gt;.json</code>.</div>
+</section>
+
+<section id="all">
+  <h2>All widgets</h2>
+  <div id="all-grid" class="grid"><p class="empty">Loading registry…</p></div>
+</section>
+
+<section id="by-family">
+  <h2>By family</h2>
+  <div id="families"><p class="empty">Loading registry…</p></div>
+</section>
+
+<footer id="footer">
+  <p>Registry docs: <a href="./widgets/README.md">widgets/README.md</a>. Bundle regenerated by <code>node scripts/build-widgets-bundle.mjs</code> (step <code>widgets-bundle</code> in <code>rebuild.mjs</code>).</p>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const widgets = (window.__MVWidgets || []).slice();
+  if(!widgets.length){
+    document.getElementById('all-grid').innerHTML =
+      '<p class="empty">No widgets registered, or widgets/bundle.js failed to load. Run <code>node scripts/build-widgets-bundle.mjs</code>.</p>';
+    return;
+  }
+
+  const esc = (s)=>String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+  // Quick-jump grid -------------------------------------------------------
+  const grid = document.getElementById('all-grid');
+  grid.innerHTML = widgets.map(w =>
+    `<div class="cell"><a href="#${esc(w.slug)}">` +
+    `<div class="s">${esc(w.slug)}</div>` +
+    `<div class="t">${esc(w.family || 'uncategorized')}${w.hasExample?' · live preview':''}</div>` +
+    `</a></div>`
+  ).join('');
+
+  // Group by family -------------------------------------------------------
+  const byFamily = new Map();
+  for(const w of widgets){
+    const key = w.family || 'uncategorized';
+    if(!byFamily.has(key)) byFamily.set(key, []);
+    byFamily.get(key).push(w);
+  }
+  const familyNames = [...byFamily.keys()].sort((a,b)=>a.localeCompare(b));
+
+  const famRoot = document.getElementById('families');
+  famRoot.innerHTML = '';
+
+  function renderBadge(kind, key, value){
+    if(!value) return '';
+    return `<span class="badge ${kind}"><span class="k">${esc(key)}</span>${esc(value)}</span>`;
+  }
+
+  function renderCard(w){
+    const badges = [
+      renderBadge('family',  'family',    w.family),
+      renderBadge('dim',     'dim',       w.dimension),
+      renderBadge('gesture', 'gesture',   w.gesture),
+      renderBadge('role',    'role',      w.role),
+    ].filter(Boolean).join('');
+
+    const req = (w.requiredParams && w.requiredParams.length)
+      ? `<details class="schema"><summary>Schema — required params (${w.requiredParams.length})</summary>` +
+        `<ul>${w.requiredParams.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>` +
+        (w.hasExample
+          ? `<details style="margin-top:.4rem"><summary style="font-size:.78rem">Example params (JSON)</summary>` +
+            `<pre class="readout" style="margin-top:.4rem;max-height:260px;overflow:auto">${esc(JSON.stringify(w.exampleParams, null, 2))}</pre>` +
+            `</details>`
+          : '') +
+        `</details>`
+      : '';
+
+    const excerpt = w.readmeExcerpt
+      ? `<div class="excerpt">${esc(w.readmeExcerpt)}</div>`
+      : (w.description ? `<div class="excerpt">${esc(w.description)}</div>` : '');
+
+    let preview;
+    if(w.hasExample && w.exampleMarkup){
+      preview =
+        `<div class="render-wrap">` +
+        `<div class="render-label">live preview (from example.json)</div>` +
+        w.exampleMarkup +
+        `</div>`;
+    } else {
+      preview =
+        `<div class="render-wrap pending">Example pending — no <code>widgets/${esc(w.slug)}/example.json</code> yet. Add one to enable a live preview here.</div>`;
+    }
+
+    return `<article class="card" id="${esc(w.slug)}">` +
+      `<div class="card-hd">` +
+        `<h3><a class="anchor" href="#${esc(w.slug)}">${esc(w.slug)}</a></h3>` +
+        `<div class="actions">` +
+          `<button type="button" data-copy-slug="${esc(w.slug)}">Copy block</button>` +
+          `<span class="copied" data-copied-for="${esc(w.slug)}" style="display:none">copied!</span>` +
+        `</div>` +
+      `</div>` +
+      (badges ? `<div class="meta-row">${badges}</div>` : '') +
+      (w.description && w.readmeExcerpt ? `<div class="desc small">${esc(w.description)}</div>` : '') +
+      excerpt +
+      preview +
+      req +
+      `</article>`;
+  }
+
+  for(const fam of familyNames){
+    const section = document.createElement('section');
+    section.className = 'family-section';
+    const heading = document.createElement('h3');
+    heading.style.color = 'var(--cyan)';
+    heading.style.fontFamily = 'inherit';
+    heading.textContent = `family: ${fam}`;
+    section.appendChild(heading);
+    const body = document.createElement('div');
+    body.innerHTML = byFamily.get(fam).map(renderCard).join('');
+    section.appendChild(body);
+    famRoot.appendChild(section);
+  }
+
+  // Copy-block buttons ---------------------------------------------------
+  function copyToClipboard(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    // fallback for file:// without clipboard perms
+    return new Promise((resolve, reject) => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        ok ? resolve() : reject(new Error('execCommand copy failed'));
+      } catch(e){ reject(e); }
+    });
+  }
+
+  document.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('button[data-copy-slug]');
+    if(!btn) return;
+    const slug = btn.getAttribute('data-copy-slug');
+    const w = widgets.find(x => x.slug === slug);
+    if(!w) return;
+    const block = {
+      type: 'widget',
+      slug: slug,
+      params: w.exampleParams || {}
+    };
+    const snippet = JSON.stringify(block, null, 2);
+    copyToClipboard(snippet).then(() => {
+      const flag = document.querySelector(`span[data-copied-for="${slug}"]`);
+      if(flag){
+        flag.style.display = '';
+        setTimeout(() => { flag.style.display = 'none'; }, 1600);
+      }
+    }).catch(() => {
+      btn.textContent = 'copy failed — select manually';
+      setTimeout(() => { btn.textContent = 'Copy block'; }, 1600);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

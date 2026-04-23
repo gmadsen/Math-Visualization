@@ -3,6 +3,7 @@
 //
 //   node scripts/build-concepts-bundle.mjs
 //   node scripts/build-quizzes-bundle.mjs
+//   node scripts/build-widgets-bundle.mjs
 //   node scripts/build-search-index.mjs
 //   node scripts/validate-schema.mjs
 //   node scripts/validate-widget-params.mjs
@@ -24,7 +25,7 @@
 //   --no-fix          Run the two audits in audit-only mode (drop --fix).
 //                     Useful for CI-style local checks.
 //   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats
+//                       concepts, quizzes, widgets-bundle, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats
 //
 // Zero dependencies.
 
@@ -54,6 +55,7 @@ if (onlyIdx !== -1) {
 const STEPS = [
   { name: 'concepts',   script: 'build-concepts-bundle.mjs',    fix: false },
   { name: 'quizzes',    script: 'build-quizzes-bundle.mjs',     fix: false },
+  { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },

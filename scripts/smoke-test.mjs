@@ -27,8 +27,9 @@ import { loadContentModel } from './lib/content-model.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
-// Pages we don't smoke-test the same way (index is the landing grid, pathway is the DAG).
-const SPECIAL = new Set(['index.html', 'pathway.html']);
+// Pages we don't smoke-test the same way (index is the landing grid, pathway is the DAG,
+// widgets is the catalog page populated at runtime from widgets/bundle.js).
+const SPECIAL = new Set(['index.html', 'pathway.html', 'widgets.html']);
 
 const errors = []; // [{ page, msg }]
 const warnings = [];
