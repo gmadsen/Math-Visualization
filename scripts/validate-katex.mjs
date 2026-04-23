@@ -39,12 +39,7 @@
 //
 // Zero dependencies: regex + string checks, runs from stock node.
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const repoRoot = resolve(dirname(__filename), '..');
+import { loadContentModel } from './lib/content-model.mjs';
 
 const errors = [];   // [{ file, path, msg }]
 const warnings = []; // [{ file, path, msg }]
@@ -536,61 +531,57 @@ function validateString(s, file, path) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Walk quizzes/*.json.
+// Load the content model once. The model exposes raw quiz banks (preserving
+// the `.questions` tier name), the first-writer-wins concept map (keyed by
+// concept id), and the raw capstones array — everything we need to iterate.
 
-const quizzesDir = join(repoRoot, 'quizzes');
-if (existsSync(quizzesDir)) {
-  const files = readdirSync(quizzesDir).filter((f) => f.endsWith('.json')).sort();
-  for (const f of files) {
-    const abs = join(quizzesDir, f);
-    const rel = `quizzes/${f}`;
-    let data;
-    try {
-      data = JSON.parse(readFileSync(abs, 'utf8'));
-    } catch (e) {
-      errors.push({ file: rel, path: '<root>', msg: `parse error: ${e.message}` });
-      continue;
-    }
-    if (!data || typeof data.quizzes !== 'object' || !data.quizzes) continue;
-    for (const [conceptId, quiz] of Object.entries(data.quizzes)) {
-      if (!quiz || typeof quiz !== 'object') continue;
-      for (const tier of ['questions', 'hard', 'expert']) {
-        const arr = Array.isArray(quiz[tier]) ? quiz[tier] : null;
-        if (!arr) continue;
-        for (let i = 0; i < arr.length; i++) {
-          const q = arr[i];
-          if (!q || typeof q !== 'object') continue;
-          const base = `quizzes.${conceptId}.${tier}[${i}]`;
-          validateString(q.q,       rel, `${base}.q`);
-          validateString(q.explain, rel, `${base}.explain`);
-          validateString(q.hint,    rel, `${base}.hint`);
-          if ((q.type === 'mcq' || q.type === 'multi-select' || q.type === 'proof-completion')
-              && Array.isArray(q.choices)) {
-            for (let j = 0; j < q.choices.length; j++) {
-              validateString(q.choices[j], rel, `${base}.choices[${j}]`);
+const model = await loadContentModel();
+
+// ─────────────────────────────────────────────────────────────────────────
+// Walk quizzes.
+
+for (const [topic, bank] of model.quizBanks) {
+  if (!bank) continue;
+  const rel = `quizzes/${topic}.json`;
+  const quizzes = (bank && bank.quizzes) || {};
+  for (const [conceptId, quiz] of Object.entries(quizzes)) {
+    if (!quiz || typeof quiz !== 'object') continue;
+    for (const tier of ['questions', 'hard', 'expert']) {
+      const arr = Array.isArray(quiz[tier]) ? quiz[tier] : null;
+      if (!arr) continue;
+      for (let i = 0; i < arr.length; i++) {
+        const q = arr[i];
+        if (!q || typeof q !== 'object') continue;
+        const base = `quizzes.${conceptId}.${tier}[${i}]`;
+        validateString(q.q,       rel, `${base}.q`);
+        validateString(q.explain, rel, `${base}.explain`);
+        validateString(q.hint,    rel, `${base}.hint`);
+        if ((q.type === 'mcq' || q.type === 'multi-select' || q.type === 'proof-completion')
+            && Array.isArray(q.choices)) {
+          for (let j = 0; j < q.choices.length; j++) {
+            validateString(q.choices[j], rel, `${base}.choices[${j}]`);
+          }
+        }
+        if ((q.type === 'ordering') && Array.isArray(q.items)) {
+          for (let j = 0; j < q.items.length; j++) {
+            validateString(q.items[j], rel, `${base}.items[${j}]`);
+          }
+        }
+        if ((q.type === 'proof-completion' || q.type === 'spot-the-error')
+            && Array.isArray(q.steps)) {
+          for (let j = 0; j < q.steps.length; j++) {
+            validateString(q.steps[j], rel, `${base}.steps[${j}]`);
+          }
+        }
+        if (q.type === 'matching') {
+          if (Array.isArray(q.left)) {
+            for (let j = 0; j < q.left.length; j++) {
+              validateString(q.left[j], rel, `${base}.left[${j}]`);
             }
           }
-          if ((q.type === 'ordering') && Array.isArray(q.items)) {
-            for (let j = 0; j < q.items.length; j++) {
-              validateString(q.items[j], rel, `${base}.items[${j}]`);
-            }
-          }
-          if ((q.type === 'proof-completion' || q.type === 'spot-the-error')
-              && Array.isArray(q.steps)) {
-            for (let j = 0; j < q.steps.length; j++) {
-              validateString(q.steps[j], rel, `${base}.steps[${j}]`);
-            }
-          }
-          if (q.type === 'matching') {
-            if (Array.isArray(q.left)) {
-              for (let j = 0; j < q.left.length; j++) {
-                validateString(q.left[j], rel, `${base}.left[${j}]`);
-              }
-            }
-            if (Array.isArray(q.right)) {
-              for (let j = 0; j < q.right.length; j++) {
-                validateString(q.right[j], rel, `${base}.right[${j}]`);
-              }
+          if (Array.isArray(q.right)) {
+            for (let j = 0; j < q.right.length; j++) {
+              validateString(q.right[j], rel, `${base}.right[${j}]`);
             }
           }
         }
@@ -600,52 +591,20 @@ if (existsSync(quizzesDir)) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Walk concepts/*.json (excluding index.json and bundle.js).
+// Walk concept blurbs (each owner topic).
 
-const conceptsDir = join(repoRoot, 'concepts');
-if (existsSync(conceptsDir)) {
-  const files = readdirSync(conceptsDir)
-    .filter((f) => f.endsWith('.json') && f !== 'index.json' && f !== 'capstones.json')
-    .sort();
-  for (const f of files) {
-    const abs = join(conceptsDir, f);
-    const rel = `concepts/${f}`;
-    let data;
-    try {
-      data = JSON.parse(readFileSync(abs, 'utf8'));
-    } catch (e) {
-      errors.push({ file: rel, path: '<root>', msg: `parse error: ${e.message}` });
-      continue;
-    }
-    if (!data || !Array.isArray(data.concepts)) continue;
-    for (let i = 0; i < data.concepts.length; i++) {
-      const c = data.concepts[i];
-      if (!c || typeof c !== 'object') continue;
-      const key = c.id || `#${i}`;
-      validateString(c.blurb, rel, `concepts[${key}].blurb`);
-    }
-  }
+for (const c of model.concepts.values()) {
+  const rel = `concepts/${c.topic}.json`;
+  const key = c.id;
+  validateString(c.blurb, rel, `concepts[${key}].blurb`);
+}
 
-  // capstones.json: walk `capstones[*].blurb`.
-  const capPath = join(conceptsDir, 'capstones.json');
-  if (existsSync(capPath)) {
-    const rel = 'concepts/capstones.json';
-    let data;
-    try {
-      data = JSON.parse(readFileSync(capPath, 'utf8'));
-    } catch (e) {
-      errors.push({ file: rel, path: '<root>', msg: `parse error: ${e.message}` });
-      data = null;
-    }
-    if (data && Array.isArray(data.capstones)) {
-      for (let i = 0; i < data.capstones.length; i++) {
-        const c = data.capstones[i];
-        if (!c || typeof c !== 'object') continue;
-        const key = c.id || `#${i}`;
-        validateString(c.blurb, rel, `capstones[${key}].blurb`);
-      }
-    }
-  }
+// Capstones.
+for (let i = 0; i < model.capstones.length; i++) {
+  const c = model.capstones[i];
+  if (!c || typeof c !== 'object') continue;
+  const key = c.id || `#${i}`;
+  validateString(c.blurb, 'concepts/capstones.json', `capstones[${key}].blurb`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────

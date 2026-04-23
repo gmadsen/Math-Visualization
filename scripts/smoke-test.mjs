@@ -19,9 +19,10 @@
 //
 // Zero dependencies: parses with regex + string checks, runs from stock node.
 
-import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -82,55 +83,28 @@ function countWidgets(html) {
   return { svgs, widgets };
 }
 
-// Load quiz banks. These live under quizzes/*.json.
-const quizzesDir = join(repoRoot, 'quizzes');
-const quizBanks = new Map(); // topic -> Set of concept ids
-if (existsSync(quizzesDir)) {
-  for (const f of readdirSync(quizzesDir)) {
-    if (!f.endsWith('.json')) continue;
-    const topic = f.replace(/\.json$/, '');
-    try {
-      const raw = readFileSync(join(quizzesDir, f), 'utf8');
-      const d = JSON.parse(raw);
-      const ids = new Set(Object.keys(d.quizzes || {}));
-      quizBanks.set(topic, ids);
-    } catch (e) {
-      push(errors, `quizzes/${f}`, `parse error: ${e.message}`);
-    }
-  }
+const model = await loadContentModel();
+
+// Quiz bank index: topic → Set<conceptId>. Mirrors legacy `quizBanks` shape.
+// (Model's `quizBanks` stores the raw bank; we only need the concept-id set.)
+const quizBanks = new Map();
+for (const [topic, bank] of model.quizBanks) {
+  if (!bank) continue;
+  quizBanks.set(topic, new Set(Object.keys(bank.quizzes || {})));
 }
 
-// Load concept graphs. These live under concepts/<topic>.json (excluding
-// index.json / capstones.json). Each concept carries an `anchor` field that
-// pathway.html turns into a `topic.html#anchor` deep-link; an anchor that
-// doesn't correspond to an `id="..."` in the topic HTML is a silent 404.
-const conceptsDir = join(repoRoot, 'concepts');
-const conceptGraphs = new Map(); // topic -> { page, concepts: [{ id, anchor, prereqs }] }
-const conceptOwnerById = new Map(); // concept id -> owning topic (for cross-topic detection)
-if (existsSync(conceptsDir)) {
-  for (const f of readdirSync(conceptsDir)) {
-    if (!f.endsWith('.json')) continue;
-    if (f === 'index.json' || f === 'capstones.json') continue;
-    const topic = f.replace(/\.json$/, '');
-    try {
-      const raw = readFileSync(join(conceptsDir, f), 'utf8');
-      const d = JSON.parse(raw);
-      conceptGraphs.set(topic, {
-        page: d.page || `${topic}.html`,
-        concepts: (d.concepts || []).map((c) => ({
-          id: c.id,
-          anchor: c.anchor,
-          prereqs: Array.isArray(c.prereqs) ? c.prereqs.slice() : [],
-        })),
-      });
-      for (const c of d.concepts || []) {
-        if (c.id && !conceptOwnerById.has(c.id)) conceptOwnerById.set(c.id, topic);
-      }
-    } catch (e) {
-      push(errors, `concepts/${f}`, `parse error: ${e.message}`);
-    }
-  }
+// Concept-graph index keyed by topic — used for anchor + backlink checks.
+const conceptGraphs = new Map();
+for (const [topicId, topic] of model.topics) {
+  const concepts = topic.conceptIds
+    .map((id) => model.concepts.get(id))
+    .filter(Boolean)
+    .map((c) => ({ id: c.id, anchor: c.anchor, prereqs: c.prereqs.slice() }));
+  conceptGraphs.set(topicId, { page: topic.page, concepts });
 }
+// conceptOwnerById comes straight from the model.
+const conceptOwnerById = new Map();
+for (const [id, owner] of model.ownerOf) conceptOwnerById.set(id, owner.topic);
 
 // Cross-cutting: any file that renders in-browser or in GitHub's markdown viewer
 // can be silently broken by NUL-byte padding. Scan the non-topic files up front.
@@ -142,7 +116,8 @@ for (const f of allRenderedFiles) {
   if (nuls > 0) push(errors, f, `file contains ${nuls} NUL byte(s) — breaks rendering`);
 }
 
-// List .html files in repo root, excluding SPECIAL.
+// List .html files in repo root, excluding SPECIAL. Not all of these are
+// registered topics (capstone-*.html, review.html, etc. aren't in the model).
 const htmlFiles = readdirSync(repoRoot)
   .filter((f) => f.endsWith('.html') && !SPECIAL.has(f))
   .sort();
@@ -157,6 +132,8 @@ const pagesWithIssues = [];
 for (const file of htmlFiles) {
   const topic = file.replace(/\.html$/, '');
   const abs = join(repoRoot, file);
+  // Must read raw HTML: model's DOM-parsed `html.toString()` loses self-
+  // closing slashes and would mask our regex-level structural checks.
   const html = read(abs);
   if (html === null) {
     push(errors, file, 'unreadable');
@@ -172,8 +149,7 @@ for (const file of htmlFiles) {
   if (/\x00/.test(html))           fail('file contains NUL bytes — likely truncated/padded');
 
   // Title
-  const title = titleText(html);
-  if (!title) fail('missing <title>');
+  if (!titleText(html)) fail('missing <title>');
 
   // Backlink
   if (!hasNotebookBacklink(html)) fail('missing "← Notebook" backlink');
@@ -287,7 +263,7 @@ for (const file of htmlFiles) {
     }
   }
 
-  perPage.set(file, { title, checks, svgs, widgets, placeholders: placeholders.length });
+  perPage.set(file, { title: titleText(html), checks, svgs, widgets, placeholders: placeholders.length });
   if (checks.some((c) => c.level === 'error')) pagesWithIssues.push(file);
 }
 
