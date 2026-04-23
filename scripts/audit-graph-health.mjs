@@ -228,6 +228,52 @@ const topAtomicity = rows
   .sort((a, b) => b.blurb_chars - a.blurb_chars)
   .slice(0, 10);
 
+// ----- 7b. Per-topic scorecard (folded in from retired audit-concept-graph-health.mjs) -----
+// Roll up the per-concept rows into a per-topic view. Signals aggregated here
+// are a subset of the retired script's scorecard — specifically the ones that
+// fall out of THIS audit's row data without re-parsing pages or quiz banks.
+// Retained: concept count, dead-end count (incoming=0), orphan count, total
+// implicit-prereq flags, multi-topic candidate count. Dropped (because the
+// data is available from dedicated audits): stale-blurb flags,
+// widget-interactivity ratios, cross-topic prereq suggestions.
+
+const perTopic = new Map(); // tid -> { concepts, deadEnds, orphans, implicit, multiTopic }
+for (const r of rows) {
+  if (!perTopic.has(r.topic)) {
+    perTopic.set(r.topic, { concepts: 0, deadEnds: 0, orphans: 0, implicit: 0, multiTopic: 0 });
+  }
+  const t = perTopic.get(r.topic);
+  t.concepts++;
+  if (r.incoming === 0) t.deadEnds++;
+  if (r.incoming === 0 && r.outgoing === 0) t.orphans++;
+  t.implicit += r.implicit_prereqs;
+  if (r.topic_spread >= 3) t.multiTopic++;
+}
+
+function scorecardBucket(implicit, deadEnds) {
+  // Crude health: 🟢 if no implicit flags and ≤1 dead-end, 🟡 if <5 implicit
+  // and <4 dead-ends, else 🔴. Matches the spirit of the retired script's
+  // per-metric buckets without over-calibrating.
+  if (implicit === 0 && deadEnds <= 1) return 'green';
+  if (implicit < 5 && deadEnds < 4) return 'yellow';
+  return 'red';
+}
+const EMOJI = { green: '🟢', yellow: '🟡', red: '🔴' };
+
+const scorecardRows = [...perTopic.entries()]
+  .map(([tid, s]) => ({
+    topic: tid,
+    ...s,
+    bucket: scorecardBucket(s.implicit, s.deadEnds),
+  }))
+  .sort((a, b) => {
+    const order = { red: 0, yellow: 1, green: 2 };
+    return order[a.bucket] - order[b.bucket] || a.topic.localeCompare(b.topic);
+  });
+
+const bucketTotals = { green: 0, yellow: 0, red: 0 };
+for (const s of scorecardRows) bucketTotals[s.bucket]++;
+
 const summary = `# Concept graph health — summary
 
 - Total concepts: **${rows.length}**
@@ -287,6 +333,19 @@ ${
         .map((r) => `- \`${r.id}\` (${r.topic}) — ${r.blurb_sentences} sentences, ${r.blurb_chars} chars`)
         .join('\n')
 }
+
+## Per-topic scorecard
+
+Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1 dead-end), 🟡 minor, 🔴 attention. Summary: ${bucketTotals.green} 🟢 · ${bucketTotals.yellow} 🟡 · ${bucketTotals.red} 🔴.
+
+| topic | concepts | dead-ends | orphans | implicit | multi-topic | bucket |
+|---|---:|---:|---:|---:|---:|:---:|
+${scorecardRows
+  .map(
+    (s) =>
+      `| \`${s.topic}\` | ${s.concepts} | ${s.deadEnds} | ${s.orphans} | ${s.implicit} | ${s.multiTopic} | ${EMOJI[s.bucket]} |`
+  )
+  .join('\n')}
 `;
 
 writeFileSync(join(repoRoot, 'audits/graph-health-summary.md'), summary);

@@ -12,7 +12,7 @@ You MUST read, before auditing:
 - The target topic's `<slug>.html`.
 - The 1 to 2 reference topic HTML files named in the task.
 
-File fence — read only. You do not edit HTML, JSON, or scripts. You do not run `--fix` passes. You may run `node scripts/audit-accessibility.mjs`, `audit-color-vars.mjs`, and similar non-mutating audits for specific signals, but do not treat them as substitutes for the qualitative review.
+File fence — read only. You do not edit HTML, JSON, or scripts. You do not run `--fix` passes. You may run `node scripts/audit-accessibility.mjs`, `color-vars.mjs`, and similar non-mutating audits for specific signals, but do not treat them as substitutes for the qualitative review.
 
 Audit dimensions:
 

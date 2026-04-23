@@ -28,8 +28,7 @@ Orchestration: [`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no
 | [`inject-index-stats.mjs`](./inject-index-stats.mjs) | Keep `index.html` hero-tagline topic/concept counts live. |
 | [`inject-page-metadata.mjs`](./inject-page-metadata.mjs) | `data-section` / `data-level` attributes on `<body>`. |
 | [`fix-a11y.mjs`](./fix-a11y.mjs) | Backfill SVG `<title>` + `<label for=>` wiring. |
-| [`fix-color-vars.mjs`](./fix-color-vars.mjs) | Hex literals in widget paint attrs → `var(--accent)` palette. |
-| [`fix-color-vars-style.mjs`](./fix-color-vars-style.mjs) | Same, but for hex inside `<style>` blocks. |
+| [`color-vars.mjs`](./color-vars.mjs) | Audit (default, exits 1 on hits) + `--fix` rewrite for hex in paint attrs; `--fix --pattern '<regex>'` also covers hex inside `<style>` blocks. |
 | [`wire-katex-select.mjs`](./wire-katex-select.mjs) | Wire `js/katex-select.js` into pages with LaTeX-in-`<option>`. |
 
 ## Validators (gate CI; non-zero on failure)
@@ -49,20 +48,17 @@ Orchestration: [`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no
 | Script | What it reports |
 |---|---|
 | [`stats-coverage.mjs`](./stats-coverage.mjs) | Per-subject/per-topic/per-concept widget + quiz counts + coverage gaps. Writes `audits/coverage-stats.md`. |
-| [`audit-graph-health.mjs`](./audit-graph-health.mjs) | Concept-graph atomicity / multi-topic / implicit-prereq diagnostic. Writes `audits/graph-health.{tsv,md}`. |
-| [`audit-concept-graph-health.mjs`](./audit-concept-graph-health.mjs) | Per-topic 🟢/🟡/🔴 scorecard. |
+| [`audit-graph-health.mjs`](./audit-graph-health.mjs) | Concept-graph atomicity / multi-topic / implicit-prereq diagnostic plus a per-topic 🟢/🟡/🔴 scorecard. Writes `audits/graph-health.{tsv,md}`. |
 | [`audit-stale-blurbs.mjs`](./audit-stale-blurbs.mjs) | Blurb-drift: LENGTH / MATCH / RECALL / OFFPAGE / DUP. |
 | [`audit-blurb-question-alignment.mjs`](./audit-blurb-question-alignment.mjs) | Quiz questions not probing their concept's blurb. |
 | [`audit-worked-examples.mjs`](./audit-worked-examples.mjs) | Concepts missing a `**Worked example:**` block. |
 | [`audit-cross-topic-prereqs.mjs`](./audit-cross-topic-prereqs.mjs) | Suggested cross-topic prereq edges from prose/quiz co-mentions. |
 | [`audit-inline-links.mjs`](./audit-inline-links.mjs) | Unlinked concept-title mentions. `--fix` wraps first per section. |
-| [`audit-backlink-quality.mjs`](./audit-backlink-quality.mjs) | "Used in" distribution: dead-ends, hubs, orphaned hubs. |
-| [`audit-backlink-strength.mjs`](./audit-backlink-strength.mjs) | Weighted coupling-depth scoring per (concept, consumer) pair. |
+| [`audit-backlinks.mjs`](./audit-backlinks.mjs) | Backlink structure ("Used in" distribution: dead-ends, hubs, orphaned hubs) + coupling-depth scoring per (concept, consumer) pair. |
 | [`audit-notation.mjs`](./audit-notation.mjs) | KaTeX macro / notation consistency. |
 | [`audit-widget-interactivity.mjs`](./audit-widget-interactivity.mjs) | Static vs. interactive widget classifier. |
 | [`audit-accessibility.mjs`](./audit-accessibility.mjs) | Heading order, SVG a11y, form wiring, color-only prose, viewport, `<html lang>`. |
 | [`audit-responsive.mjs`](./audit-responsive.mjs) | Viewport meta, fixed widths, missing `viewBox`, overflow hazards. |
-| [`audit-color-vars.mjs`](./audit-color-vars.mjs) | Hex literals in widget markup; palette-var suggestions. |
 | [`audit-cross-page-consistency.mjs`](./audit-cross-page-consistency.mjs) | `<head>` + sidetoc + body-attr consistency across topic HTML. |
 | [`audit-bundle-staleness.mjs`](./audit-bundle-staleness.mjs) | Fast check of `concepts/bundle.js` + `quizzes/bundle.js` vs source. |
 | [`audit-doc-drift.mjs`](./audit-doc-drift.mjs) | `PLAN.md` / `AGENTS.md` / this `README.md` vs on-disk reality. Final rebuild step. |

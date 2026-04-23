@@ -61,10 +61,7 @@ No — quizzes are already well-factored:
 29 scripts in `scripts/`. 8 share the content-model loader; 21 still don't. The non-consolidated ones should be reviewed for necessity and overlap:
 
 - **Candidates to merge or drop:**
-  - `audit-color-vars.mjs` + `fix-color-vars.mjs` + `fix-color-vars-style.mjs` — three files for a narrow concern.
   - `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`.
-  - `audit-concept-graph-health.mjs` now overlaps with the new `audit-graph-health.mjs`.
-  - `audit-backlink-quality.mjs` + `audit-backlink-strength.mjs` — two backlink audits that could plausibly merge.
   - `audit-doc-drift.mjs` missed the PLAN.md/AGENTS.md/README.md drift that surfaced in April review — either fix it or replace it.
   - `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage; confirm whether signal is worth the maintenance.
 - **Consolidation candidates:** validate-concepts.mjs, audit-widget-interactivity.mjs, audit-cross-page-consistency.mjs all re-implement concept/topic loading. Could import `loadContentModel()`.
