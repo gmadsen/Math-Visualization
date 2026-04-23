@@ -2,7 +2,24 @@
 
 Node-based helpers for the notebook. All scripts are vanilla ESM (`.mjs`), Node ≥ 20. Run from the repo root. Runtime of the shipped site depends on **zero** of these; the only build-time npm deps live in `scripts/package.json` (`ajv`, `ajv-formats`, `node-html-parser`).
 
-Orchestration: [`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no-fix` mirrors CI; `--only <step>` runs one.
+## One CLI, many tools
+
+[`scripts/cli.mjs`](./cli.mjs) is a single entry point that routes to any script by its filename-as-space-separated-command. The individual `.mjs` files remain directly callable; the CLI is an ergonomic front door.
+
+```bash
+node scripts/cli.mjs                          # list all commands
+node scripts/cli.mjs rebuild --no-fix         # → scripts/rebuild.mjs
+node scripts/cli.mjs audit backlinks          # → scripts/audit-backlinks.mjs
+node scripts/cli.mjs validate concepts        # → scripts/validate-concepts.mjs
+node scripts/cli.mjs inject breadcrumb --fix  # → scripts/inject-breadcrumb.mjs
+node scripts/cli.mjs render topic category-theory > /tmp/out.html
+```
+
+Longest-prefix match, so multi-word names work either `inject used-in-backlinks` or `inject used in backlinks`. Trailing args after the script name get passed through unchanged.
+
+## Orchestration
+
+[`rebuild.mjs`](./rebuild.mjs) runs the full 17-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
