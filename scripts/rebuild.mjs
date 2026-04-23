@@ -63,10 +63,13 @@ const STEPS = [
   { name: 'backlinks',  script: 'insert-used-in-backlinks.mjs', fix: true  },
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
+  { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
+  { name: 'changelog',  script: 'insert-changelog-footer.mjs',  fix: true, auditArg: '--audit' },
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: false },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
+  { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 
 if (only) {
@@ -89,6 +92,7 @@ function runStep(n, total, step) {
   banner(n, total, step);
   const args = [join(scriptsDir, step.script)];
   if (step.fix && !NO_FIX) args.push('--fix');
+  else if (step.fix && NO_FIX && step.auditArg) args.push(step.auditArg);
   const r = spawnSync(process.execPath, args, {
     cwd: repoRoot,
     stdio: 'inherit',
