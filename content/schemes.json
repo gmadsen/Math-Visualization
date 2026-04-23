@@ -123,9 +123,140 @@
         },
         {
           "type": "widget",
-          "id": "w-spec",
-          "html": "<div class=\"widget\" id=\"w-spec\">\n  <div class=\"hd\"><div class=\"ttl\">Specialization poset</div><div class=\"hint\">click a node to highlight its closure</div></div>\n  <svg id=\"spec-svg\" viewBox=\"0 0 820 400\" width=\"820\" height=\"400\"><title>Specialization poset</title></svg>\n  <div class=\"readout\" id=\"spec-readout\">Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.</div>\n</div>",
-          "script": null
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "viewBox": "0 0 820 400",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "400",
+            "title": "Specialization poset",
+            "hint": "click a node to highlight its closure",
+            "readoutId": "spec-readout",
+            "initialReadoutHtml": "Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.",
+            "clickAction": "highlight",
+            "nodes": [
+              {
+                "id": "0",
+                "label": "(0)",
+                "x": 90,
+                "y": 60,
+                "kind": "generic"
+              },
+              {
+                "id": "y",
+                "label": "(y)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "yx2",
+                "label": "(y − x²)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "circ",
+                "label": "(x² + y² − 1)",
+                "x": 730,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "o",
+                "label": "(x, y)",
+                "x": 90,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "p1",
+                "label": "(x − 1, y)",
+                "x": 250,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pm1",
+                "label": "(x + 1, y)",
+                "x": 410,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc1",
+                "label": "(x − α, y − α²)",
+                "x": 570,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc2",
+                "label": "(x + α, y − α²)",
+                "x": 730,
+                "y": 360,
+                "kind": "closed"
+              }
+            ],
+            "edges": [
+              {
+                "src": "0",
+                "tgt": "y"
+              },
+              {
+                "src": "0",
+                "tgt": "yx2"
+              },
+              {
+                "src": "0",
+                "tgt": "circ"
+              },
+              {
+                "src": "y",
+                "tgt": "o"
+              },
+              {
+                "src": "yx2",
+                "tgt": "o"
+              },
+              {
+                "src": "y",
+                "tgt": "p1"
+              },
+              {
+                "src": "circ",
+                "tgt": "p1"
+              },
+              {
+                "src": "y",
+                "tgt": "pm1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pm1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc2"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc2"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 5: Specialization poset =============================== */",
+            "bodyScript": "\n  const svg = $('#spec-svg');\n  const W=820,H=400;\n  const ro = $('#spec-readout');\n  // nodes: {id,label,x,y,kind,containedIn:[]}  — \"containedIn\" = primes this one specializes TO\n  // edges go from smaller ideal (top) to bigger ideal (bottom).\n  // Spec C[x,y]. Take primes: (0), (y), (y-x^2), (x^2+y^2-1), and closed intersections\n  //  (y) ∩ (y-x^2) ⊃ origin = (x,y)\n  //  (y) ∩ (x^2+y^2-1) ⊃ (x-1,y) and (x+1,y)\n  //  (y-x^2) ∩ (x^2+y^2-1) ⊃ two real closed points at x satisfying x^4+x^2-1=0 (call them α,β) and two complex. I'll just mark two of them.\n  // For clarity, draw only a tractable subset.\n  const N = [\n    {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},\n    {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},\n    {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},\n    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},\n    // closed points\n    {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},\n    {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},\n    {id:'pm1',   label:'(x + 1, y)',          tier:2, color:'#e07a5f', desc:'point (−1,0) — on y=0 and on circle'},\n    {id:'pc1',   label:'(x − α, y − α²)',     tier:2, color:'#e07a5f', desc:'intersection of parabola with circle (one real point, α²+α⁴=1)'},\n    {id:'pc2',   label:'(x + α, y − α²)',     tier:2, color:'#e07a5f', desc:'the other real parabola∩circle point'},\n  ];\n  const E = [\n    ['0','y'],['0','yx2'],['0','circ'],\n    ['y','o'],['yx2','o'],\n    ['y','p1'],['circ','p1'],\n    ['y','pm1'],['circ','pm1'],\n    ['yx2','pc1'],['circ','pc1'],\n    ['yx2','pc2'],['circ','pc2'],\n  ];\n\n  // layout: three tiers\n  const yOf = t => 60 + t*150;\n  function layoutTier(ids,y){\n    const n = ids.length;\n    const pad = 80;\n    ids.forEach((id,i)=>{\n      const nd = N.find(x=>x.id===id);\n      nd.x = pad + (W-2*pad)*(n===1?0.5:(i/(n-1)));\n      nd.y = y;\n    });\n  }\n  layoutTier(['0'], yOf(0));\n  layoutTier(['y','yx2','circ'], yOf(1));\n  layoutTier(['o','p1','pm1','pc1','pc2'], yOf(2));\n\n  let selected = null;\n\n  function downstream(id){\n    // nodes that specialize from id (id ⊆ x): i.e., in closure\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(a) && !out.has(b)){out.add(b);changed=true}\n      }\n    }\n    return out;\n  }\n  function upstream(id){\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(b) && !out.has(a)){out.add(a);changed=true}\n      }\n    }\n    return out;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // tier labels\n    const tiers = [\n      {t:0,label:'generic of plane'},\n      {t:1,label:'curves (dim-1 primes)'},\n      {t:2,label:'closed points (max ideals)'},\n    ];\n    for(const {t,label} of tiers){\n      const txt = SVG('text',{x:20,y:yOf(t)+4,'font-size':12,fill:'#6c7787'});\n      txt.textContent=label;\n      svg.appendChild(txt);\n    }\n    // edges\n    const down = selected? downstream(selected):new Set();\n    const up = selected? upstream(selected):new Set();\n    for(const [a,b] of E){\n      const na = N.find(x=>x.id===a), nb = N.find(x=>x.id===b);\n      let color='#2a3242', w=1;\n      if(selected){\n        if(down.has(a) && down.has(b)){color='#ffd866';w=1.6}\n        else if(up.has(a) && up.has(b)){color='#58c4dd';w=1.4}\n      }\n      svg.appendChild(SVG('line',{x1:na.x,y1:na.y+12,x2:nb.x,y2:nb.y-12,stroke:color,'stroke-width':w,'stroke-opacity':0.85}));\n    }\n    // nodes\n    for(const nd of N){\n      const inDown = down.has(nd.id), inUp = up.has(nd.id);\n      const isSel = nd.id===selected;\n      const rad = nd.tier===0? 12 : (nd.tier===1?9:7);\n      const fill = isSel?'#fff':nd.color;\n      const stroke = isSel?'#fff': (selected? (inDown?'#ffd866':(inUp?'#58c4dd':'#2a3242')) : '#2a3242');\n      const g = SVG('g',{style:'cursor:pointer'});\n      g.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:rad,fill,stroke,'stroke-width':2}));\n      const t = SVG('text',{x:nd.x,y:nd.y+rad+16,'font-size':12,'text-anchor':'middle',fill:(isSel||inDown||inUp)?'#fff':'#9aa4b2'});\n      t.textContent = nd.label;\n      g.appendChild(t);\n      g.addEventListener('click',()=>{selected = (selected===nd.id?null:nd.id); draw();});\n      svg.appendChild(g);\n    }\n    // readout\n    if(selected){\n      const nd = N.find(x=>x.id===selected);\n      const dn = [...downstream(selected)].filter(x=>x!==selected);\n      const up2 = [...upstream(selected)].filter(x=>x!==selected);\n      ro.innerHTML = `<div><b style=\"color:#fff\">${nd.label}</b> — ${nd.desc}</div>\n        <div class=\"small\" style=\"color:var(--yellow);margin-top:.4rem\">closure (specializes to): ${dn.map(i=>N.find(x=>x.id===i).label).join(', ')||'— only itself'}</div>\n        <div class=\"small\" style=\"color:var(--blue)\">generization (specializes from): ${up2.map(i=>N.find(x=>x.id===i).label).join(', ')||'— none (this is a generic point)'}</div>`;\n    } else {\n      ro.innerHTML = `Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.`;\n    }\n  }\n  draw();\n"
+          }
         },
         {
           "type": "raw",
@@ -133,8 +264,140 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-spec",
-          "html": "<script>\n/* =============================== SECTION 5: Specialization poset =============================== */\n(function(){\n  const svg = $('#spec-svg');\n  const W=820,H=400;\n  const ro = $('#spec-readout');\n  // nodes: {id,label,x,y,kind,containedIn:[]}  — \"containedIn\" = primes this one specializes TO\n  // edges go from smaller ideal (top) to bigger ideal (bottom).\n  // Spec C[x,y]. Take primes: (0), (y), (y-x^2), (x^2+y^2-1), and closed intersections\n  //  (y) ∩ (y-x^2) ⊃ origin = (x,y)\n  //  (y) ∩ (x^2+y^2-1) ⊃ (x-1,y) and (x+1,y)\n  //  (y-x^2) ∩ (x^2+y^2-1) ⊃ two real closed points at x satisfying x^4+x^2-1=0 (call them α,β) and two complex. I'll just mark two of them.\n  // For clarity, draw only a tractable subset.\n  const N = [\n    {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},\n    {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},\n    {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},\n    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},\n    // closed points\n    {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},\n    {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},\n    {id:'pm1',   label:'(x + 1, y)',          tier:2, color:'#e07a5f', desc:'point (−1,0) — on y=0 and on circle'},\n    {id:'pc1',   label:'(x − α, y − α²)',     tier:2, color:'#e07a5f', desc:'intersection of parabola with circle (one real point, α²+α⁴=1)'},\n    {id:'pc2',   label:'(x + α, y − α²)',     tier:2, color:'#e07a5f', desc:'the other real parabola∩circle point'},\n  ];\n  const E = [\n    ['0','y'],['0','yx2'],['0','circ'],\n    ['y','o'],['yx2','o'],\n    ['y','p1'],['circ','p1'],\n    ['y','pm1'],['circ','pm1'],\n    ['yx2','pc1'],['circ','pc1'],\n    ['yx2','pc2'],['circ','pc2'],\n  ];\n\n  // layout: three tiers\n  const yOf = t => 60 + t*150;\n  function layoutTier(ids,y){\n    const n = ids.length;\n    const pad = 80;\n    ids.forEach((id,i)=>{\n      const nd = N.find(x=>x.id===id);\n      nd.x = pad + (W-2*pad)*(n===1?0.5:(i/(n-1)));\n      nd.y = y;\n    });\n  }\n  layoutTier(['0'], yOf(0));\n  layoutTier(['y','yx2','circ'], yOf(1));\n  layoutTier(['o','p1','pm1','pc1','pc2'], yOf(2));\n\n  let selected = null;\n\n  function downstream(id){\n    // nodes that specialize from id (id ⊆ x): i.e., in closure\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(a) && !out.has(b)){out.add(b);changed=true}\n      }\n    }\n    return out;\n  }\n  function upstream(id){\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(b) && !out.has(a)){out.add(a);changed=true}\n      }\n    }\n    return out;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // tier labels\n    const tiers = [\n      {t:0,label:'generic of plane'},\n      {t:1,label:'curves (dim-1 primes)'},\n      {t:2,label:'closed points (max ideals)'},\n    ];\n    for(const {t,label} of tiers){\n      const txt = SVG('text',{x:20,y:yOf(t)+4,'font-size':12,fill:'#6c7787'});\n      txt.textContent=label;\n      svg.appendChild(txt);\n    }\n    // edges\n    const down = selected? downstream(selected):new Set();\n    const up = selected? upstream(selected):new Set();\n    for(const [a,b] of E){\n      const na = N.find(x=>x.id===a), nb = N.find(x=>x.id===b);\n      let color='#2a3242', w=1;\n      if(selected){\n        if(down.has(a) && down.has(b)){color='#ffd866';w=1.6}\n        else if(up.has(a) && up.has(b)){color='#58c4dd';w=1.4}\n      }\n      svg.appendChild(SVG('line',{x1:na.x,y1:na.y+12,x2:nb.x,y2:nb.y-12,stroke:color,'stroke-width':w,'stroke-opacity':0.85}));\n    }\n    // nodes\n    for(const nd of N){\n      const inDown = down.has(nd.id), inUp = up.has(nd.id);\n      const isSel = nd.id===selected;\n      const rad = nd.tier===0? 12 : (nd.tier===1?9:7);\n      const fill = isSel?'#fff':nd.color;\n      const stroke = isSel?'#fff': (selected? (inDown?'#ffd866':(inUp?'#58c4dd':'#2a3242')) : '#2a3242');\n      const g = SVG('g',{style:'cursor:pointer'});\n      g.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:rad,fill,stroke,'stroke-width':2}));\n      const t = SVG('text',{x:nd.x,y:nd.y+rad+16,'font-size':12,'text-anchor':'middle',fill:(isSel||inDown||inUp)?'#fff':'#9aa4b2'});\n      t.textContent = nd.label;\n      g.appendChild(t);\n      g.addEventListener('click',()=>{selected = (selected===nd.id?null:nd.id); draw();});\n      svg.appendChild(g);\n    }\n    // readout\n    if(selected){\n      const nd = N.find(x=>x.id===selected);\n      const dn = [...downstream(selected)].filter(x=>x!==selected);\n      const up2 = [...upstream(selected)].filter(x=>x!==selected);\n      ro.innerHTML = `<div><b style=\"color:#fff\">${nd.label}</b> — ${nd.desc}</div>\n        <div class=\"small\" style=\"color:var(--yellow);margin-top:.4rem\">closure (specializes to): ${dn.map(i=>N.find(x=>x.id===i).label).join(', ')||'— only itself'}</div>\n        <div class=\"small\" style=\"color:var(--blue)\">generization (specializes from): ${up2.map(i=>N.find(x=>x.id===i).label).join(', ')||'— none (this is a generic point)'}</div>`;\n    } else {\n      ro.innerHTML = `Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.`;\n    }\n  }\n  draw();\n})();\n</script>"
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "viewBox": "0 0 820 400",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "400",
+            "title": "Specialization poset",
+            "hint": "click a node to highlight its closure",
+            "readoutId": "spec-readout",
+            "initialReadoutHtml": "Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.",
+            "clickAction": "highlight",
+            "nodes": [
+              {
+                "id": "0",
+                "label": "(0)",
+                "x": 90,
+                "y": 60,
+                "kind": "generic"
+              },
+              {
+                "id": "y",
+                "label": "(y)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "yx2",
+                "label": "(y − x²)",
+                "x": 410,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "circ",
+                "label": "(x² + y² − 1)",
+                "x": 730,
+                "y": 210,
+                "kind": "curve"
+              },
+              {
+                "id": "o",
+                "label": "(x, y)",
+                "x": 90,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "p1",
+                "label": "(x − 1, y)",
+                "x": 250,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pm1",
+                "label": "(x + 1, y)",
+                "x": 410,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc1",
+                "label": "(x − α, y − α²)",
+                "x": 570,
+                "y": 360,
+                "kind": "closed"
+              },
+              {
+                "id": "pc2",
+                "label": "(x + α, y − α²)",
+                "x": 730,
+                "y": 360,
+                "kind": "closed"
+              }
+            ],
+            "edges": [
+              {
+                "src": "0",
+                "tgt": "y"
+              },
+              {
+                "src": "0",
+                "tgt": "yx2"
+              },
+              {
+                "src": "0",
+                "tgt": "circ"
+              },
+              {
+                "src": "y",
+                "tgt": "o"
+              },
+              {
+                "src": "yx2",
+                "tgt": "o"
+              },
+              {
+                "src": "y",
+                "tgt": "p1"
+              },
+              {
+                "src": "circ",
+                "tgt": "p1"
+              },
+              {
+                "src": "y",
+                "tgt": "pm1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pm1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc1"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc1"
+              },
+              {
+                "src": "yx2",
+                "tgt": "pc2"
+              },
+              {
+                "src": "circ",
+                "tgt": "pc2"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 5: Specialization poset =============================== */",
+            "bodyScript": "\n  const svg = $('#spec-svg');\n  const W=820,H=400;\n  const ro = $('#spec-readout');\n  // nodes: {id,label,x,y,kind,containedIn:[]}  — \"containedIn\" = primes this one specializes TO\n  // edges go from smaller ideal (top) to bigger ideal (bottom).\n  // Spec C[x,y]. Take primes: (0), (y), (y-x^2), (x^2+y^2-1), and closed intersections\n  //  (y) ∩ (y-x^2) ⊃ origin = (x,y)\n  //  (y) ∩ (x^2+y^2-1) ⊃ (x-1,y) and (x+1,y)\n  //  (y-x^2) ∩ (x^2+y^2-1) ⊃ two real closed points at x satisfying x^4+x^2-1=0 (call them α,β) and two complex. I'll just mark two of them.\n  // For clarity, draw only a tractable subset.\n  const N = [\n    {id:'0',     label:'(0)',         tier:0, color:'#b39ddb', desc:'2-dim generic point of the whole plane — residue field ℂ(x,y)'},\n    {id:'y',     label:'(y)',         tier:1, color:'#58c4dd', desc:'generic point of the x-axis y=0'},\n    {id:'yx2',   label:'(y − x²)',    tier:1, color:'#ffd866', desc:'generic point of the parabola y=x²'},\n    {id:'circ',  label:'(x² + y² − 1)',tier:1,color:'var(--green)', desc:'generic point of the unit circle'},\n    // closed points\n    {id:'o',     label:'(x, y)',              tier:2, color:'#e07a5f', desc:'origin — lies on both y=0 and y=x²'},\n    {id:'p1',    label:'(x − 1, y)',          tier:2, color:'#e07a5f', desc:'point (1,0) — on y=0 and on circle'},\n    {id:'pm1',   label:'(x + 1, y)',          tier:2, color:'#e07a5f', desc:'point (−1,0) — on y=0 and on circle'},\n    {id:'pc1',   label:'(x − α, y − α²)',     tier:2, color:'#e07a5f', desc:'intersection of parabola with circle (one real point, α²+α⁴=1)'},\n    {id:'pc2',   label:'(x + α, y − α²)',     tier:2, color:'#e07a5f', desc:'the other real parabola∩circle point'},\n  ];\n  const E = [\n    ['0','y'],['0','yx2'],['0','circ'],\n    ['y','o'],['yx2','o'],\n    ['y','p1'],['circ','p1'],\n    ['y','pm1'],['circ','pm1'],\n    ['yx2','pc1'],['circ','pc1'],\n    ['yx2','pc2'],['circ','pc2'],\n  ];\n\n  // layout: three tiers\n  const yOf = t => 60 + t*150;\n  function layoutTier(ids,y){\n    const n = ids.length;\n    const pad = 80;\n    ids.forEach((id,i)=>{\n      const nd = N.find(x=>x.id===id);\n      nd.x = pad + (W-2*pad)*(n===1?0.5:(i/(n-1)));\n      nd.y = y;\n    });\n  }\n  layoutTier(['0'], yOf(0));\n  layoutTier(['y','yx2','circ'], yOf(1));\n  layoutTier(['o','p1','pm1','pc1','pc2'], yOf(2));\n\n  let selected = null;\n\n  function downstream(id){\n    // nodes that specialize from id (id ⊆ x): i.e., in closure\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(a) && !out.has(b)){out.add(b);changed=true}\n      }\n    }\n    return out;\n  }\n  function upstream(id){\n    const out = new Set([id]);\n    let changed=true;\n    while(changed){\n      changed=false;\n      for(const [a,b] of E){\n        if(out.has(b) && !out.has(a)){out.add(a);changed=true}\n      }\n    }\n    return out;\n  }\n\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // tier labels\n    const tiers = [\n      {t:0,label:'generic of plane'},\n      {t:1,label:'curves (dim-1 primes)'},\n      {t:2,label:'closed points (max ideals)'},\n    ];\n    for(const {t,label} of tiers){\n      const txt = SVG('text',{x:20,y:yOf(t)+4,'font-size':12,fill:'#6c7787'});\n      txt.textContent=label;\n      svg.appendChild(txt);\n    }\n    // edges\n    const down = selected? downstream(selected):new Set();\n    const up = selected? upstream(selected):new Set();\n    for(const [a,b] of E){\n      const na = N.find(x=>x.id===a), nb = N.find(x=>x.id===b);\n      let color='#2a3242', w=1;\n      if(selected){\n        if(down.has(a) && down.has(b)){color='#ffd866';w=1.6}\n        else if(up.has(a) && up.has(b)){color='#58c4dd';w=1.4}\n      }\n      svg.appendChild(SVG('line',{x1:na.x,y1:na.y+12,x2:nb.x,y2:nb.y-12,stroke:color,'stroke-width':w,'stroke-opacity':0.85}));\n    }\n    // nodes\n    for(const nd of N){\n      const inDown = down.has(nd.id), inUp = up.has(nd.id);\n      const isSel = nd.id===selected;\n      const rad = nd.tier===0? 12 : (nd.tier===1?9:7);\n      const fill = isSel?'#fff':nd.color;\n      const stroke = isSel?'#fff': (selected? (inDown?'#ffd866':(inUp?'#58c4dd':'#2a3242')) : '#2a3242');\n      const g = SVG('g',{style:'cursor:pointer'});\n      g.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:rad,fill,stroke,'stroke-width':2}));\n      const t = SVG('text',{x:nd.x,y:nd.y+rad+16,'font-size':12,'text-anchor':'middle',fill:(isSel||inDown||inUp)?'#fff':'#9aa4b2'});\n      t.textContent = nd.label;\n      g.appendChild(t);\n      g.addEventListener('click',()=>{selected = (selected===nd.id?null:nd.id); draw();});\n      svg.appendChild(g);\n    }\n    // readout\n    if(selected){\n      const nd = N.find(x=>x.id===selected);\n      const dn = [...downstream(selected)].filter(x=>x!==selected);\n      const up2 = [...upstream(selected)].filter(x=>x!==selected);\n      ro.innerHTML = `<div><b style=\"color:#fff\">${nd.label}</b> — ${nd.desc}</div>\n        <div class=\"small\" style=\"color:var(--yellow);margin-top:.4rem\">closure (specializes to): ${dn.map(i=>N.find(x=>x.id===i).label).join(', ')||'— only itself'}</div>\n        <div class=\"small\" style=\"color:var(--blue)\">generization (specializes from): ${up2.map(i=>N.find(x=>x.id===i).label).join(', ')||'— none (this is a generic point)'}</div>`;\n    } else {\n      ro.innerHTML = `Click a node: the <span style=\"color:var(--yellow)\">closure</span> is the node plus everything below. The <span style=\"color:var(--blue)\">\"generization\"</span> is everything above.`;\n    }\n  }\n  draw();\n"
+          }
         },
         {
           "type": "raw",
@@ -179,9 +442,44 @@
         },
         {
           "type": "widget",
-          "id": "w-glue",
-          "html": "<div class=\"widget\" id=\"w-glue\">\n  <div class=\"hd\"><div class=\"ttl\">ℙ¹ from two affine charts</div><div class=\"hint\">drag the point</div></div>\n  <svg id=\"glue-svg\" viewBox=\"0 0 820 440\" width=\"820\" height=\"440\"><title>ℙ¹ from two affine charts</title></svg>\n  <div class=\"readout\" id=\"glue-readout\"></div>\n</div>",
-          "script": null
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-glue",
+            "svgId": "glue-svg",
+            "viewBox": "0 0 820 440",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "440",
+            "title": "ℙ¹ from two affine charts",
+            "hint": "drag the point",
+            "readoutId": "glue-readout",
+            "initialReadoutHtml": "",
+            "clickAction": "reveal",
+            "nodes": [
+              {
+                "id": "N",
+                "label": "∞ (origin of V)",
+                "x": 410,
+                "y": 40,
+                "kind": "closed"
+              },
+              {
+                "id": "S",
+                "label": "0 (origin of U)",
+                "x": 410,
+                "y": 200,
+                "kind": "closed"
+              },
+              {
+                "id": "P",
+                "label": "point",
+                "x": 410,
+                "y": 120,
+                "kind": "draggable"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 7: Gluing → P^1 =============================== */",
+            "bodyScript": "\n  const svg = $('#glue-svg');\n  const W=820, H=440;\n  const ro = $('#glue-readout');\n\n  // Top: circle representing P^1(R). Angle θ ∈ [0, 2π). x = tan(θ/2) via stereographic from north pole.\n  // Two charts U, V below.\n  const cx = W/2, cy = 120, rad = 80;\n  // Draw circle\n  svg.appendChild(SVG('circle',{cx,cy,r:rad,fill:'none',stroke:'#3a4558','stroke-width':1.5}));\n  const tN = SVG('text',{x:cx,y:cy-rad-8,'font-size':12,'text-anchor':'middle',fill:'#e07a5f'});\n  tN.textContent='∞ (origin of V)';\n  svg.appendChild(tN);\n  const tS = SVG('text',{x:cx,y:cy+rad+18,'font-size':12,'text-anchor':'middle',fill:'#ffd866'});\n  tS.textContent='0 (origin of U)';\n  svg.appendChild(tS);\n  svg.appendChild(SVG('circle',{cx,cy:cy-rad,r:4,fill:'#e07a5f'})); // N\n  svg.appendChild(SVG('circle',{cx,cy:cy+rad,r:4,fill:'#ffd866'})); // S (x=0)\n  // title\n  const tP = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n  tP.textContent = 'ℙ¹ (real picture)';\n  svg.appendChild(tP);\n\n  // Two affine charts as horizontal number lines\n  const uY = 290, vY = 380;\n  const axL = 60, axR = W-60, axMid = (axL+axR)/2;\n  svg.appendChild(SVG('line',{x1:axL,y1:uY,x2:axR,y2:uY,stroke:'#3a4558'}));\n  svg.appendChild(SVG('line',{x1:axL,y1:vY,x2:axR,y2:vY,stroke:'#3a4558'}));\n  const uLbl = SVG('text',{x:axL,y:uY-14,'font-size':13,fill:'#ffd866'});\n  uLbl.textContent='U = Spec k[x]   — the x-chart';\n  svg.appendChild(uLbl);\n  const vLbl = SVG('text',{x:axL,y:vY-14,'font-size':13,fill:'#e07a5f'});\n  vLbl.textContent='V = Spec k[y]   — the y-chart   (y = 1/x on overlap)';\n  svg.appendChild(vLbl);\n\n  // tick marks\n  function ticks(y,col){\n    for(let k=-4;k<=4;k++){\n      if(k===0){\n        svg.appendChild(SVG('circle',{cx:axMid,cy:y,r:4,fill:col}));\n        const t = SVG('text',{x:axMid,y:y+18,'font-size':11,'text-anchor':'middle',fill:col});\n        t.textContent='0';\n        svg.appendChild(t);\n      } else {\n        const px = axMid + k*((axR-axL)/2)/4;\n        svg.appendChild(SVG('line',{x1:px,y1:y-4,x2:px,y2:y+4,stroke:'#3a4558'}));\n        const t = SVG('text',{x:px,y:y+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n        t.textContent=k;\n        svg.appendChild(t);\n      }\n    }\n  }\n  ticks(uY,'#ffd866');\n  ticks(vY,'#e07a5f');\n\n  // Point dots and connecting lines\n  const dotP = SVG('circle',{r:7,fill:'#58c4dd',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'});\n  const dotU = SVG('circle',{r:7,fill:'#ffd866',stroke:'#fff','stroke-width':1.5});\n  const dotV = SVG('circle',{r:7,fill:'#e07a5f',stroke:'#fff','stroke-width':1.5});\n  const lineUV = SVG('line',{stroke:'#58c4dd','stroke-width':1,'stroke-opacity':0.3,'stroke-dasharray':'3 4'});\n  const linePU = SVG('line',{stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const linePV = SVG('line',{stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  svg.appendChild(lineUV); svg.appendChild(linePU); svg.appendChild(linePV);\n  svg.appendChild(dotU); svg.appendChild(dotV); svg.appendChild(dotP);\n\n  // state\n  let theta = Math.PI/3; // starting angle, on the right side\n\n  function pxForX(x){\n    // squash R -> axis length using x ↦ x/(1+|x|)*half, but we also cap to axis range\n    const half = (axR-axL)/2;\n    const comp = Math.atan(x/3)/(Math.PI/2); // ∈ (-1,1)\n    return axMid + comp*half;\n  }\n  function update(){\n    // Position on circle: N at top (0,−r). Use standard angle: θ=0 at east, CCW.\n    const Px = cx + rad*Math.cos(theta);\n    const Py = cy - rad*Math.sin(theta);\n    dotP.setAttribute('cx',Px); dotP.setAttribute('cy',Py);\n\n    // Stereographic: project from N=(0,−r) (TOP of circle; \"north pole\" in our SVG is up = y small)\n    // In our coords, (cx, cy-rad) is the north pole. Use stereographic:\n    //   x = (point_x - cx) / (1 - (point_y_above_center)/(-r))  … let's just derive:\n    // Map point on unit circle to x via (sinθ)/(1 - cosθ)?  We want:\n    //   south pole (θ = -π/2 in our convention, bottom) ↦ x = 0\n    //   north pole (θ = +π/2, top) ↦ x = ∞\n    //   east (θ=0) ↦ x = 1\n    //   west (θ=π) ↦ x = -1\n    // Using tan((θ/2 + π/4))? Let's construct: with angle φ measured from south pole.\n    // Let φ = θ + π/2 (so φ=0 at south). Then x = tan(φ/2) gives:\n    //   φ=0 → x=0 ✓\n    //   φ=π → x=∞ ✓\n    //   φ=π/2 (east) → x=1 ✓\n    //   φ=-π/2 (west) → x=-1 ✓\n    const phi = theta + Math.PI/2;\n    let x, y, xInf=false, yInf=false;\n    // normalize phi to (-π, π]\n    let phiN = ((phi+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;\n    if(Math.abs(Math.abs(phiN)-Math.PI)<1e-6){ xInf=true; }\n    else { x = Math.tan(phiN/2); }\n    if(Math.abs(phiN)<1e-6){ yInf=true; }\n    else { y = 1/Math.tan(phiN/2); }\n\n    // U dot\n    if(xInf){\n      dotU.setAttribute('opacity','0.2');\n      dotU.setAttribute('cx',axR); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotU.setAttribute('opacity','1');\n      const ux = pxForX(x);\n      dotU.setAttribute('cx',ux); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('x1',Px); linePU.setAttribute('y1',Py);\n      linePU.setAttribute('x2',ux); linePU.setAttribute('y2',uY);\n      linePU.setAttribute('stroke-opacity',0.4);\n    }\n    // V dot\n    if(yInf){\n      dotV.setAttribute('opacity','0.2');\n      dotV.setAttribute('cx',axR); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotV.setAttribute('opacity','1');\n      const vx = pxForX(y);\n      dotV.setAttribute('cx',vx); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('x1',Px); linePV.setAttribute('y1',Py);\n      linePV.setAttribute('x2',vx); linePV.setAttribute('y2',vY);\n      linePV.setAttribute('stroke-opacity',0.4);\n    }\n    // connect U and V dots\n    if(!xInf && !yInf){\n      lineUV.setAttribute('x1',dotU.getAttribute('cx')); lineUV.setAttribute('y1',uY);\n      lineUV.setAttribute('x2',dotV.getAttribute('cx')); lineUV.setAttribute('y2',vY);\n      lineUV.setAttribute('stroke-opacity',0.3);\n    } else {\n      lineUV.setAttribute('stroke-opacity',0);\n    }\n    // Readout\n    const xStr = xInf?'<span style=\"color:var(--pink)\">undefined (this point ∉ U)</span>':x.toFixed(3);\n    const yStr = yInf?'<span style=\"color:var(--yellow)\">undefined (this point ∉ V)</span>':y.toFixed(3);\n    const whichCharts = (xInf?'V only':(yInf?'U only':'both charts (U ∩ V)'));\n    ro.innerHTML =\n      `<div>point's coordinates:   x = <span style=\"color:var(--yellow)\">${xStr}</span>  ·  y = <span style=\"color:var(--pink)\">${yStr}</span></div>`+\n      `<div class=\"small\">this point is covered by: ${whichCharts}` +\n      ((!xInf && !yInf)?` · check: x·y = ${(x*y).toFixed(3)} (should be 1)`:'') +\n      `</div>`;\n  }\n  update();\n\n  // drag\n  let dragging=false;\n  function setFromPx(e){\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    // compute theta\n    theta = Math.atan2(cy-py, px-cx);\n    update();\n  }\n  dotP.addEventListener('mousedown',e=>{dragging=true; e.preventDefault();});\n  window.addEventListener('mousemove',e=>{if(dragging) setFromPx(e);});\n  window.addEventListener('mouseup',()=>{dragging=false;});\n  svg.addEventListener('click',setFromPx);\n"
+          }
         },
         {
           "type": "raw",
@@ -198,8 +496,44 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-glue",
-          "html": "<script>\n/* =============================== SECTION 7: Gluing → P^1 =============================== */\n(function(){\n  const svg = $('#glue-svg');\n  const W=820, H=440;\n  const ro = $('#glue-readout');\n\n  // Top: circle representing P^1(R). Angle θ ∈ [0, 2π). x = tan(θ/2) via stereographic from north pole.\n  // Two charts U, V below.\n  const cx = W/2, cy = 120, rad = 80;\n  // Draw circle\n  svg.appendChild(SVG('circle',{cx,cy,r:rad,fill:'none',stroke:'#3a4558','stroke-width':1.5}));\n  const tN = SVG('text',{x:cx,y:cy-rad-8,'font-size':12,'text-anchor':'middle',fill:'#e07a5f'});\n  tN.textContent='∞ (origin of V)';\n  svg.appendChild(tN);\n  const tS = SVG('text',{x:cx,y:cy+rad+18,'font-size':12,'text-anchor':'middle',fill:'#ffd866'});\n  tS.textContent='0 (origin of U)';\n  svg.appendChild(tS);\n  svg.appendChild(SVG('circle',{cx,cy:cy-rad,r:4,fill:'#e07a5f'})); // N\n  svg.appendChild(SVG('circle',{cx,cy:cy+rad,r:4,fill:'#ffd866'})); // S (x=0)\n  // title\n  const tP = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n  tP.textContent = 'ℙ¹ (real picture)';\n  svg.appendChild(tP);\n\n  // Two affine charts as horizontal number lines\n  const uY = 290, vY = 380;\n  const axL = 60, axR = W-60, axMid = (axL+axR)/2;\n  svg.appendChild(SVG('line',{x1:axL,y1:uY,x2:axR,y2:uY,stroke:'#3a4558'}));\n  svg.appendChild(SVG('line',{x1:axL,y1:vY,x2:axR,y2:vY,stroke:'#3a4558'}));\n  const uLbl = SVG('text',{x:axL,y:uY-14,'font-size':13,fill:'#ffd866'});\n  uLbl.textContent='U = Spec k[x]   — the x-chart';\n  svg.appendChild(uLbl);\n  const vLbl = SVG('text',{x:axL,y:vY-14,'font-size':13,fill:'#e07a5f'});\n  vLbl.textContent='V = Spec k[y]   — the y-chart   (y = 1/x on overlap)';\n  svg.appendChild(vLbl);\n\n  // tick marks\n  function ticks(y,col){\n    for(let k=-4;k<=4;k++){\n      if(k===0){\n        svg.appendChild(SVG('circle',{cx:axMid,cy:y,r:4,fill:col}));\n        const t = SVG('text',{x:axMid,y:y+18,'font-size':11,'text-anchor':'middle',fill:col});\n        t.textContent='0';\n        svg.appendChild(t);\n      } else {\n        const px = axMid + k*((axR-axL)/2)/4;\n        svg.appendChild(SVG('line',{x1:px,y1:y-4,x2:px,y2:y+4,stroke:'#3a4558'}));\n        const t = SVG('text',{x:px,y:y+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n        t.textContent=k;\n        svg.appendChild(t);\n      }\n    }\n  }\n  ticks(uY,'#ffd866');\n  ticks(vY,'#e07a5f');\n\n  // Point dots and connecting lines\n  const dotP = SVG('circle',{r:7,fill:'#58c4dd',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'});\n  const dotU = SVG('circle',{r:7,fill:'#ffd866',stroke:'#fff','stroke-width':1.5});\n  const dotV = SVG('circle',{r:7,fill:'#e07a5f',stroke:'#fff','stroke-width':1.5});\n  const lineUV = SVG('line',{stroke:'#58c4dd','stroke-width':1,'stroke-opacity':0.3,'stroke-dasharray':'3 4'});\n  const linePU = SVG('line',{stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const linePV = SVG('line',{stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  svg.appendChild(lineUV); svg.appendChild(linePU); svg.appendChild(linePV);\n  svg.appendChild(dotU); svg.appendChild(dotV); svg.appendChild(dotP);\n\n  // state\n  let theta = Math.PI/3; // starting angle, on the right side\n\n  function pxForX(x){\n    // squash R -> axis length using x ↦ x/(1+|x|)*half, but we also cap to axis range\n    const half = (axR-axL)/2;\n    const comp = Math.atan(x/3)/(Math.PI/2); // ∈ (-1,1)\n    return axMid + comp*half;\n  }\n  function update(){\n    // Position on circle: N at top (0,−r). Use standard angle: θ=0 at east, CCW.\n    const Px = cx + rad*Math.cos(theta);\n    const Py = cy - rad*Math.sin(theta);\n    dotP.setAttribute('cx',Px); dotP.setAttribute('cy',Py);\n\n    // Stereographic: project from N=(0,−r) (TOP of circle; \"north pole\" in our SVG is up = y small)\n    // In our coords, (cx, cy-rad) is the north pole. Use stereographic:\n    //   x = (point_x - cx) / (1 - (point_y_above_center)/(-r))  … let's just derive:\n    // Map point on unit circle to x via (sinθ)/(1 - cosθ)?  We want:\n    //   south pole (θ = -π/2 in our convention, bottom) ↦ x = 0\n    //   north pole (θ = +π/2, top) ↦ x = ∞\n    //   east (θ=0) ↦ x = 1\n    //   west (θ=π) ↦ x = -1\n    // Using tan((θ/2 + π/4))? Let's construct: with angle φ measured from south pole.\n    // Let φ = θ + π/2 (so φ=0 at south). Then x = tan(φ/2) gives:\n    //   φ=0 → x=0 ✓\n    //   φ=π → x=∞ ✓\n    //   φ=π/2 (east) → x=1 ✓\n    //   φ=-π/2 (west) → x=-1 ✓\n    const phi = theta + Math.PI/2;\n    let x, y, xInf=false, yInf=false;\n    // normalize phi to (-π, π]\n    let phiN = ((phi+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;\n    if(Math.abs(Math.abs(phiN)-Math.PI)<1e-6){ xInf=true; }\n    else { x = Math.tan(phiN/2); }\n    if(Math.abs(phiN)<1e-6){ yInf=true; }\n    else { y = 1/Math.tan(phiN/2); }\n\n    // U dot\n    if(xInf){\n      dotU.setAttribute('opacity','0.2');\n      dotU.setAttribute('cx',axR); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotU.setAttribute('opacity','1');\n      const ux = pxForX(x);\n      dotU.setAttribute('cx',ux); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('x1',Px); linePU.setAttribute('y1',Py);\n      linePU.setAttribute('x2',ux); linePU.setAttribute('y2',uY);\n      linePU.setAttribute('stroke-opacity',0.4);\n    }\n    // V dot\n    if(yInf){\n      dotV.setAttribute('opacity','0.2');\n      dotV.setAttribute('cx',axR); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotV.setAttribute('opacity','1');\n      const vx = pxForX(y);\n      dotV.setAttribute('cx',vx); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('x1',Px); linePV.setAttribute('y1',Py);\n      linePV.setAttribute('x2',vx); linePV.setAttribute('y2',vY);\n      linePV.setAttribute('stroke-opacity',0.4);\n    }\n    // connect U and V dots\n    if(!xInf && !yInf){\n      lineUV.setAttribute('x1',dotU.getAttribute('cx')); lineUV.setAttribute('y1',uY);\n      lineUV.setAttribute('x2',dotV.getAttribute('cx')); lineUV.setAttribute('y2',vY);\n      lineUV.setAttribute('stroke-opacity',0.3);\n    } else {\n      lineUV.setAttribute('stroke-opacity',0);\n    }\n    // Readout\n    const xStr = xInf?'<span style=\"color:var(--pink)\">undefined (this point ∉ U)</span>':x.toFixed(3);\n    const yStr = yInf?'<span style=\"color:var(--yellow)\">undefined (this point ∉ V)</span>':y.toFixed(3);\n    const whichCharts = (xInf?'V only':(yInf?'U only':'both charts (U ∩ V)'));\n    ro.innerHTML =\n      `<div>point's coordinates:   x = <span style=\"color:var(--yellow)\">${xStr}</span>  ·  y = <span style=\"color:var(--pink)\">${yStr}</span></div>`+\n      `<div class=\"small\">this point is covered by: ${whichCharts}` +\n      ((!xInf && !yInf)?` · check: x·y = ${(x*y).toFixed(3)} (should be 1)`:'') +\n      `</div>`;\n  }\n  update();\n\n  // drag\n  let dragging=false;\n  function setFromPx(e){\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    // compute theta\n    theta = Math.atan2(cy-py, px-cx);\n    update();\n  }\n  dotP.addEventListener('mousedown',e=>{dragging=true; e.preventDefault();});\n  window.addEventListener('mousemove',e=>{if(dragging) setFromPx(e);});\n  window.addEventListener('mouseup',()=>{dragging=false;});\n  svg.addEventListener('click',setFromPx);\n})();\n</script>"
+          "slug": "clickable-graph",
+          "params": {
+            "widgetId": "w-glue",
+            "svgId": "glue-svg",
+            "viewBox": "0 0 820 440",
+            "svgWidthAttr": "820",
+            "svgHeightAttr": "440",
+            "title": "ℙ¹ from two affine charts",
+            "hint": "drag the point",
+            "readoutId": "glue-readout",
+            "initialReadoutHtml": "",
+            "clickAction": "reveal",
+            "nodes": [
+              {
+                "id": "N",
+                "label": "∞ (origin of V)",
+                "x": 410,
+                "y": 40,
+                "kind": "closed"
+              },
+              {
+                "id": "S",
+                "label": "0 (origin of U)",
+                "x": 410,
+                "y": 200,
+                "kind": "closed"
+              },
+              {
+                "id": "P",
+                "label": "point",
+                "x": 410,
+                "y": 120,
+                "kind": "draggable"
+              }
+            ],
+            "sectionComment": "/* =============================== SECTION 7: Gluing → P^1 =============================== */",
+            "bodyScript": "\n  const svg = $('#glue-svg');\n  const W=820, H=440;\n  const ro = $('#glue-readout');\n\n  // Top: circle representing P^1(R). Angle θ ∈ [0, 2π). x = tan(θ/2) via stereographic from north pole.\n  // Two charts U, V below.\n  const cx = W/2, cy = 120, rad = 80;\n  // Draw circle\n  svg.appendChild(SVG('circle',{cx,cy,r:rad,fill:'none',stroke:'#3a4558','stroke-width':1.5}));\n  const tN = SVG('text',{x:cx,y:cy-rad-8,'font-size':12,'text-anchor':'middle',fill:'#e07a5f'});\n  tN.textContent='∞ (origin of V)';\n  svg.appendChild(tN);\n  const tS = SVG('text',{x:cx,y:cy+rad+18,'font-size':12,'text-anchor':'middle',fill:'#ffd866'});\n  tS.textContent='0 (origin of U)';\n  svg.appendChild(tS);\n  svg.appendChild(SVG('circle',{cx,cy:cy-rad,r:4,fill:'#e07a5f'})); // N\n  svg.appendChild(SVG('circle',{cx,cy:cy+rad,r:4,fill:'#ffd866'})); // S (x=0)\n  // title\n  const tP = SVG('text',{x:cx,y:30,'font-size':13,'text-anchor':'middle',fill:'#fff'});\n  tP.textContent = 'ℙ¹ (real picture)';\n  svg.appendChild(tP);\n\n  // Two affine charts as horizontal number lines\n  const uY = 290, vY = 380;\n  const axL = 60, axR = W-60, axMid = (axL+axR)/2;\n  svg.appendChild(SVG('line',{x1:axL,y1:uY,x2:axR,y2:uY,stroke:'#3a4558'}));\n  svg.appendChild(SVG('line',{x1:axL,y1:vY,x2:axR,y2:vY,stroke:'#3a4558'}));\n  const uLbl = SVG('text',{x:axL,y:uY-14,'font-size':13,fill:'#ffd866'});\n  uLbl.textContent='U = Spec k[x]   — the x-chart';\n  svg.appendChild(uLbl);\n  const vLbl = SVG('text',{x:axL,y:vY-14,'font-size':13,fill:'#e07a5f'});\n  vLbl.textContent='V = Spec k[y]   — the y-chart   (y = 1/x on overlap)';\n  svg.appendChild(vLbl);\n\n  // tick marks\n  function ticks(y,col){\n    for(let k=-4;k<=4;k++){\n      if(k===0){\n        svg.appendChild(SVG('circle',{cx:axMid,cy:y,r:4,fill:col}));\n        const t = SVG('text',{x:axMid,y:y+18,'font-size':11,'text-anchor':'middle',fill:col});\n        t.textContent='0';\n        svg.appendChild(t);\n      } else {\n        const px = axMid + k*((axR-axL)/2)/4;\n        svg.appendChild(SVG('line',{x1:px,y1:y-4,x2:px,y2:y+4,stroke:'#3a4558'}));\n        const t = SVG('text',{x:px,y:y+18,'font-size':11,'text-anchor':'middle',fill:'#6c7787'});\n        t.textContent=k;\n        svg.appendChild(t);\n      }\n    }\n  }\n  ticks(uY,'#ffd866');\n  ticks(vY,'#e07a5f');\n\n  // Point dots and connecting lines\n  const dotP = SVG('circle',{r:7,fill:'#58c4dd',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'});\n  const dotU = SVG('circle',{r:7,fill:'#ffd866',stroke:'#fff','stroke-width':1.5});\n  const dotV = SVG('circle',{r:7,fill:'#e07a5f',stroke:'#fff','stroke-width':1.5});\n  const lineUV = SVG('line',{stroke:'#58c4dd','stroke-width':1,'stroke-opacity':0.3,'stroke-dasharray':'3 4'});\n  const linePU = SVG('line',{stroke:'#ffd866','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  const linePV = SVG('line',{stroke:'#e07a5f','stroke-width':1,'stroke-opacity':0.4,'stroke-dasharray':'3 4'});\n  svg.appendChild(lineUV); svg.appendChild(linePU); svg.appendChild(linePV);\n  svg.appendChild(dotU); svg.appendChild(dotV); svg.appendChild(dotP);\n\n  // state\n  let theta = Math.PI/3; // starting angle, on the right side\n\n  function pxForX(x){\n    // squash R -> axis length using x ↦ x/(1+|x|)*half, but we also cap to axis range\n    const half = (axR-axL)/2;\n    const comp = Math.atan(x/3)/(Math.PI/2); // ∈ (-1,1)\n    return axMid + comp*half;\n  }\n  function update(){\n    // Position on circle: N at top (0,−r). Use standard angle: θ=0 at east, CCW.\n    const Px = cx + rad*Math.cos(theta);\n    const Py = cy - rad*Math.sin(theta);\n    dotP.setAttribute('cx',Px); dotP.setAttribute('cy',Py);\n\n    // Stereographic: project from N=(0,−r) (TOP of circle; \"north pole\" in our SVG is up = y small)\n    // In our coords, (cx, cy-rad) is the north pole. Use stereographic:\n    //   x = (point_x - cx) / (1 - (point_y_above_center)/(-r))  … let's just derive:\n    // Map point on unit circle to x via (sinθ)/(1 - cosθ)?  We want:\n    //   south pole (θ = -π/2 in our convention, bottom) ↦ x = 0\n    //   north pole (θ = +π/2, top) ↦ x = ∞\n    //   east (θ=0) ↦ x = 1\n    //   west (θ=π) ↦ x = -1\n    // Using tan((θ/2 + π/4))? Let's construct: with angle φ measured from south pole.\n    // Let φ = θ + π/2 (so φ=0 at south). Then x = tan(φ/2) gives:\n    //   φ=0 → x=0 ✓\n    //   φ=π → x=∞ ✓\n    //   φ=π/2 (east) → x=1 ✓\n    //   φ=-π/2 (west) → x=-1 ✓\n    const phi = theta + Math.PI/2;\n    let x, y, xInf=false, yInf=false;\n    // normalize phi to (-π, π]\n    let phiN = ((phi+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;\n    if(Math.abs(Math.abs(phiN)-Math.PI)<1e-6){ xInf=true; }\n    else { x = Math.tan(phiN/2); }\n    if(Math.abs(phiN)<1e-6){ yInf=true; }\n    else { y = 1/Math.tan(phiN/2); }\n\n    // U dot\n    if(xInf){\n      dotU.setAttribute('opacity','0.2');\n      dotU.setAttribute('cx',axR); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotU.setAttribute('opacity','1');\n      const ux = pxForX(x);\n      dotU.setAttribute('cx',ux); dotU.setAttribute('cy',uY);\n      linePU.setAttribute('x1',Px); linePU.setAttribute('y1',Py);\n      linePU.setAttribute('x2',ux); linePU.setAttribute('y2',uY);\n      linePU.setAttribute('stroke-opacity',0.4);\n    }\n    // V dot\n    if(yInf){\n      dotV.setAttribute('opacity','0.2');\n      dotV.setAttribute('cx',axR); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('stroke-opacity',0.1);\n    } else {\n      dotV.setAttribute('opacity','1');\n      const vx = pxForX(y);\n      dotV.setAttribute('cx',vx); dotV.setAttribute('cy',vY);\n      linePV.setAttribute('x1',Px); linePV.setAttribute('y1',Py);\n      linePV.setAttribute('x2',vx); linePV.setAttribute('y2',vY);\n      linePV.setAttribute('stroke-opacity',0.4);\n    }\n    // connect U and V dots\n    if(!xInf && !yInf){\n      lineUV.setAttribute('x1',dotU.getAttribute('cx')); lineUV.setAttribute('y1',uY);\n      lineUV.setAttribute('x2',dotV.getAttribute('cx')); lineUV.setAttribute('y2',vY);\n      lineUV.setAttribute('stroke-opacity',0.3);\n    } else {\n      lineUV.setAttribute('stroke-opacity',0);\n    }\n    // Readout\n    const xStr = xInf?'<span style=\"color:var(--pink)\">undefined (this point ∉ U)</span>':x.toFixed(3);\n    const yStr = yInf?'<span style=\"color:var(--yellow)\">undefined (this point ∉ V)</span>':y.toFixed(3);\n    const whichCharts = (xInf?'V only':(yInf?'U only':'both charts (U ∩ V)'));\n    ro.innerHTML =\n      `<div>point's coordinates:   x = <span style=\"color:var(--yellow)\">${xStr}</span>  ·  y = <span style=\"color:var(--pink)\">${yStr}</span></div>`+\n      `<div class=\"small\">this point is covered by: ${whichCharts}` +\n      ((!xInf && !yInf)?` · check: x·y = ${(x*y).toFixed(3)} (should be 1)`:'') +\n      `</div>`;\n  }\n  update();\n\n  // drag\n  let dragging=false;\n  function setFromPx(e){\n    const r = svg.getBoundingClientRect();\n    const px = (e.clientX-r.left)*(W/r.width);\n    const py = (e.clientY-r.top)*(H/r.height);\n    // compute theta\n    theta = Math.atan2(cy-py, px-cx);\n    update();\n  }\n  dotP.addEventListener('mousedown',e=>{dragging=true; e.preventDefault();});\n  window.addEventListener('mousemove',e=>{if(dragging) setFromPx(e);});\n  window.addEventListener('mouseup',()=>{dragging=false;});\n  svg.addEventListener('click',setFromPx);\n"
+          }
         },
         {
           "type": "raw",
