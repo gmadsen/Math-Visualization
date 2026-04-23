@@ -125,12 +125,19 @@ function checkPlanVsGit() {
   }
   const body = near[1];
 
-  // Parse checklist lines: `- [ ] **Title.** body...` or `- [x] **Title.** body`.
-  const lineRe = /^-\s+\[([ xX])\]\s+\*\*([^*]+?)\*\*\s*([^\n]*)$/gm;
+  // Parse checklist lines — historically `- [ ] **Title.** body...`. In 2026
+  // PLAN.md moved to bullet form without checkboxes (per its own "no
+  // checkboxes — delete when shipped" convention), so accept both:
+  //   - [ ] **Title.** body
+  //   - [x] **Title.** body
+  //   - **Title.** body
+  // Items matched by the bullet-only form are treated as unchecked (not yet
+  // shipped) for the commit-keyword heuristic.
+  const lineRe = /^-\s+(?:\[([ xX])\]\s+)?\*\*([^*]+?)\*\*\s*([^\n]*)$/gm;
   const items = [];
   let m;
   while ((m = lineRe.exec(body))) {
-    const checked = m[1].toLowerCase() === 'x';
+    const checked = m[1] && m[1].toLowerCase() === 'x';
     const title = m[2].replace(/\.$/, '').trim();
     const rest = m[3].trim();
     items.push({ checked, title, rest });
@@ -292,21 +299,23 @@ function extractAgentsRebuildProseList(agents) {
 }
 
 function extractAgentsOnlyList(agents) {
-  // The `--only` enumeration is inline after a mention of `--only <step>` — the
-  // list appears as backtick-quoted single words separated by commas inside
-  // parentheses, possibly crossing a paren boundary.
-  //
-  // Find the first `--only` mention and scan forward for the first parenthetical
-  // group that looks like `\`a\`, \`b\`, ...`.
+  // The `--only` enumeration is inline after a mention of `--only <step>`. The
+  // list is a comma-separated sequence of backtick-quoted step names. It may
+  // appear inside parentheses, after a colon, or inline in prose — we accept
+  // any of those as long as we can find the first long run of backticked
+  // comma-separated names within ~800 chars of the `--only` mention.
   const idx = agents.indexOf('--only');
   if (idx === -1) return null;
   const region = agents.slice(idx, idx + 800);
-  const paren = region.match(/\(([^)]*`[a-z0-9\-]+`[^)]*)\)/);
-  if (!paren) return null;
+  // Match a sequence of at least 3 backticked names joined by commas.
+  const run = region.match(
+    /(?:`[a-z0-9\-]+`(?:\s*,\s*|\s+))+`[a-z0-9\-]+`/
+  );
+  if (!run) return null;
   const names = [];
   const re = /`([a-z0-9\-]+)`/g;
   let m;
-  while ((m = re.exec(paren[1]))) names.push(m[1]);
+  while ((m = re.exec(run[0]))) names.push(m[1]);
   return names.length ? names : null;
 }
 

@@ -12,11 +12,19 @@
 //   5. Empty git history (fresh page) → single placeholder row with today's date.
 //
 // Re-runnable, safe to invoke after new commits land. Zero dependencies beyond git.
+//
+// Flags:
+//   (none) | --fix   Rewrite changelog footers in place.
+//   --audit          Read-only; exit 1 if any page's changelog block is stale
+//                    (rebuilt block differs from the one currently on disk).
+//                    Used by CI and `rebuild.mjs --no-fix`.
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+
+const AUDIT = process.argv.slice(2).includes('--audit');
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -117,6 +125,7 @@ const files = readdirSync(repoRoot)
 let pagesTouched = 0;
 let seededRows = 0;
 let placeholderPages = 0;
+const stalePages = [];
 
 for (const f of files) {
   const p = join(repoRoot, f);
@@ -134,9 +143,24 @@ for (const f of files) {
   html = insertOrReplaceBlock(html, buildBlock(rows));
 
   if (html !== before) {
-    writeFileSync(p, html);
-    pagesTouched++;
+    if (AUDIT) stalePages.push(f);
+    else {
+      writeFileSync(p, html);
+      pagesTouched++;
+    }
   }
+}
+
+if (AUDIT) {
+  if (stalePages.length) {
+    for (const f of stalePages) console.error(`  ${f}: changelog stale vs git log`);
+    console.error(
+      `insert-changelog-footer: ${stalePages.length} page(s) have stale changelog footers — re-run without --audit to refresh`
+    );
+    process.exit(1);
+  }
+  console.log(`insert-changelog-footer: ${files.length} page(s) — all changelog footers in sync`);
+  process.exit(0);
 }
 
 console.log(`insert-changelog-footer: ${files.length} page(s)`);
