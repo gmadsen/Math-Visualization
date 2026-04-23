@@ -124,6 +124,28 @@ Grouped by theme. Each item is a short title plus one-line scope. No checkboxes 
 - **Anki deck export** per topic.
 - **On-demand proof cards.** Per-theorem compile-down pulling from the concept graph and section prose.
 
+## Capstone arc — higher topoi / internal logic / categorical logic (backlog)
+
+A user-requested capstone in the spirit of Lurie's *Higher Topos Theory* that joins three threads: (1) intuitionist logic inside a category (Heyting algebras, internal language, Kripke–Joyal semantics); (2) classical Grothendieck toposes and their role in algebraic geometry; (3) ∞-categories and ∞-topoi. The capstone page is only viable once a supporting prereq arc exists — it's the algebraic-geometry-arc-sized project for the topos/higher-categorical corner of the notebook.
+
+**Prereq topics to author first, foundational → advanced:**
+
+1. **Elementary topos theory** — finitely complete cartesian closed categories with a subobject classifier Ω. Concept skeleton: terminal/product/equalizer, exponentials $B^A$, power object $P(A)$, subobject classifier, characteristic maps $\chi_S\colon X \to \Omega$, examples (Set, G-Set, presheaf toposes). Bridges from `category-theory` into the rest of the arc.
+2. **Heyting algebras & intuitionist logic in toposes** — the user's explicit interest. Heyting-algebra structure on Ω, the Mitchell–Bénabou internal language, geometric morphisms, LEM failure and double-negation topology, Kripke–Joyal semantics. Widget candidates: Heyting-truth-value explorer (pick a Kripke frame, see which formulas are forced), subobject-classifier diagram, forcing-in-presheaves demo.
+3. **Grothendieck topologies & sites** — coverings, sheafification, small vs large sites, topoi as sheaves of sets on a site, geometric morphisms between topoi. Feeds `etale-cohomology` and `sheaf-cohomology` (both partly cover this; pull it up as its own page so the capstone arc can depend on it).
+4. **Simplicial sets & the nerve** — Δ, simplicial objects, geometric realization, nerve of a category, Kan complexes vs categorical nerves. Prerequisite for any ∞-category definition.
+5. **∞-categories (quasi-categories)** — Joyal's inner-horn-filling model, homotopy category, functors/natural transformations up to homotopy, (co)limits ∞-categorically, adjunctions. Widget candidates: horn-filling visualizer (click to fill a 2-horn, watch the unique-up-to-homotopy composite appear), 2-simplex composition, a simplicial-set builder.
+6. **Capstone: ∞-topoi & higher topos theory (Lurie)** — (∞,1)-sheaves on an ∞-site, ∞-topoi via left-exact accessible localizations of presheaf ∞-categories, Giraud axioms ∞-categorically, descent, hypercompletion. Closing sections gesture at the three cross-connections the user wanted:
+   - **Internal logic ↔ algebraic geometry:** the étale topos of a scheme internalizes the theory of its sheaves; classical stalk-local reasoning = geometric-sequent reasoning in the internal language.
+   - **Higher categorical algebra:** E_∞-rings, stable ∞-categories, spectrum objects — how ∞-topoi underlie derived algebraic geometry. (Likely a separate downstream capstone rather than bundled here — call out the entry point, don't try to develop it.)
+   - **Realizability & effective toposes** — optional aside tying intuitionist logic back to computability.
+
+**Scope note.** The arc is ~6 topics, comparable to the algebraic-geometry arc. Each of items 1–3 stands alone pedagogically, so the arc can land in order without blocking on the later ∞-categorical machinery. Only items 5–6 require the simplicial/∞ apparatus; items 1–4 are squarely classical category theory + sheaf theory and could ship first as a "Categorical logic mini-arc" that's valuable on its own.
+
+**Place in the notebook.** New subject group `Categorical logic & higher category theory`, sitting next to the existing algebra/topology groups in `concepts/sections.json`. Or fold items 1–3 into the existing `algebra` section and reserve the new section for items 4–6.
+
+**Cross-topic wiring to verify before authoring.** `category-theory` defines functors, natural transformations, adjunctions, limits — the arc will lean on all of these and may need concept promotions (e.g., "Kan extension" currently lives inline; promote to a first-class concept so item 5 can prereq it).
+
 ## Shipped recently
 
 Don't enumerate — see `git log --oneline -30`. If you're unsure whether an item is already done, `node scripts/audit-doc-drift.mjs` will cross-reference this file against recent commits.
