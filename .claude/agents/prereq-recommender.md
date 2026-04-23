@@ -41,4 +41,4 @@ Output format — a single markdown report, no file writes:
 - <external-concept-id>: edge exists via <local-concept-id>
 ```
 
-Keep snippets under ~15 words. Group by confidence tier, not by local concept — the author scans from strongest signal down. End with a one-line note that these are recommendations only; adding an edge requires running `scripts/audit-callbacks.mjs --fix` and `scripts/insert-used-in-backlinks.mjs --fix` afterward, which the orchestrator will handle.
+Keep snippets under ~15 words. Group by confidence tier, not by local concept — the author scans from strongest signal down. End with a one-line note that these are recommendations only; adding an edge requires running `scripts/audit-callbacks.mjs --fix` and `scripts/inject-used-in-backlinks.mjs --fix` afterward, which the orchestrator will handle.

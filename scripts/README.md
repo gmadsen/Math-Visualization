@@ -21,8 +21,8 @@ Orchestration: [`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no
 
 | Script | What it does |
 |---|---|
-| [`insert-changelog-footer.mjs`](./insert-changelog-footer.mjs) | Rebuild `<details class="changelog">` from `git log --follow`. `--audit` mode for CI. |
-| [`insert-used-in-backlinks.mjs`](./insert-used-in-backlinks.mjs) | Reverse-direction `<aside class="related">` on each concept section. `--fix` writes. |
+| [`inject-changelog-footer.mjs`](./inject-changelog-footer.mjs) | Rebuild `<details class="changelog">` from `git log --follow`. `--audit` mode for CI. |
+| [`inject-used-in-backlinks.mjs`](./inject-used-in-backlinks.mjs) | Reverse-direction `<aside class="related">` on each concept section. `--fix` writes. |
 | [`inject-breadcrumb.mjs`](./inject-breadcrumb.mjs) | Breadcrumb + prev/next-in-section in top nav. |
 | [`inject-display-prefs.mjs`](./inject-display-prefs.mjs) | `<script src="./js/display-prefs.js">` + CSS for widget/quiz hide toggle. |
 | [`inject-index-stats.mjs`](./inject-index-stats.mjs) | Keep `index.html` hero-tagline topic/concept counts live. |

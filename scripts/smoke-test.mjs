@@ -257,7 +257,7 @@ for (const file of htmlFiles) {
     }
   }
 
-  // Backlinks idempotency guard — scripts/insert-used-in-backlinks.mjs must
+  // Backlinks idempotency guard — scripts/inject-used-in-backlinks.mjs must
   // produce at most one <aside class="related"> per concept section. Duplicates
   // indicate the comment-fence strip failed and re-runs are piling up asides.
   // We check per-section by walking opens/closes of the fence pair.
@@ -282,7 +282,7 @@ for (const file of htmlFiles) {
       const section = after.slice(0, endRel);
       const relatedCount = (section.match(/<aside\s+class=["']related["']/gi) || []).length;
       if (relatedCount > 1) {
-        fail(`section #${c.anchor} has ${relatedCount} <aside class="related"> blocks — expected ≤ 1 (run scripts/insert-used-in-backlinks.mjs --fix)`);
+        fail(`section #${c.anchor} has ${relatedCount} <aside class="related"> blocks — expected ≤ 1 (run scripts/inject-used-in-backlinks.mjs --fix)`);
       }
     }
   }

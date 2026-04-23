@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Advisory audit of the auto-inserted "Used in" backlink graph.
 //
-// Companion to scripts/insert-used-in-backlinks.mjs. That script emits an
+// Companion to scripts/inject-used-in-backlinks.mjs. That script emits an
 // <aside class="related"> on each concept section listing the concepts that
 // declare this one as a prereq — the reverse adjacency of the concept DAG.
 // This script analyses that same reverse adjacency (derived from

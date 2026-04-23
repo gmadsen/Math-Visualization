@@ -337,7 +337,7 @@ const totalDownstreamPairs = [...reverse.entries()].reduce(
   0
 );
 console.log(
-  `insert-used-in-backlinks: ${topicData.size} topic(s), ${reverse.size} concept(s) with downstream consumers, ${totalDownstreamPairs} edge(s) total`
+  `inject-used-in-backlinks: ${topicData.size} topic(s), ${reverse.size} concept(s) with downstream consumers, ${totalDownstreamPairs} edge(s) total`
 );
 
 if (FIX) {

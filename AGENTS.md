@@ -43,7 +43,7 @@ Quality gates — all exit non-zero on failure and gate CI:
 - [`scripts/validate-katex.mjs`](./scripts/validate-katex.mjs) — structural + macro-aware KaTeX checks on JSON fields (blurbs, quiz questions, etc.).
 - [`scripts/smoke-test.mjs`](./scripts/smoke-test.mjs) — every page has sidebar, top-nav backlink, quiz wiring, ≥1 widget; anchors resolve.
 - [`scripts/audit-callbacks.mjs`](./scripts/audit-callbacks.mjs) — cross-topic prereqs have a forward "See also" aside.
-- [`scripts/insert-used-in-backlinks.mjs`](./scripts/insert-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
+- [`scripts/inject-used-in-backlinks.mjs`](./scripts/inject-used-in-backlinks.mjs) — prereqs have a reverse "Used in" aside.
 
 Structured content gates — wired into `rebuild.mjs` and CI; all exit non-zero on failure:
 
@@ -81,7 +81,7 @@ Content-shared tooling (injectors and section-index generator, run via `rebuild.
 - [`scripts/inject-breadcrumb.mjs`](./scripts/inject-breadcrumb.mjs) — injects a breadcrumb + prev/next-in-section block into every topic page's top nav. Idempotent via fence comments.
 - [`scripts/inject-display-prefs.mjs`](./scripts/inject-display-prefs.mjs) — injects `<script src="./js/display-prefs.js">` and CSS rules for `html[data-hide-widgets]`/`html[data-hide-quizzes]` into every topic page. Idempotent.
 - [`scripts/inject-index-stats.mjs`](./scripts/inject-index-stats.mjs) — keeps `index.html`'s hero-tagline topic / concept counts in sync with `concepts/index.json` + `concepts/*.json`. No more hand-edited stale numbers.
-- [`scripts/insert-changelog-footer.mjs`](./scripts/insert-changelog-footer.mjs) — regenerates every topic page's `<details class="changelog">` from `git log --follow`. `--audit` mode (used by rebuild --no-fix) exits 1 if any page is stale.
+- [`scripts/inject-changelog-footer.mjs`](./scripts/inject-changelog-footer.mjs) — regenerates every topic page's `<details class="changelog">` from `git log --follow`. `--audit` mode (used by rebuild --no-fix) exits 1 if any page is stale.
 - [`scripts/inject-page-metadata.mjs`](./scripts/inject-page-metadata.mjs) — stamps `data-section` / `data-level` on each topic's `<body>` using data read from `index.html`.
 - [`scripts/build-section-indexes.mjs`](./scripts/build-section-indexes.mjs) — generates per-section mini-index pages under `sections/`.
 
@@ -125,12 +125,12 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Three-tier quiz schema** — each concept entry in `quizzes/<topic>.json` carries a `questions` array (v1 tier) and may carry a `hard` sibling array and/or an `expert` sibling array. `MVProgress` tracks `v1`, `hard`, and `expert` independently; `js/quiz.js` unlocks `hard` after v1 mastery and `expert` after hard mastery. When authoring any higher-tier bank, drop it under the same concept key, not a separate file.
 - **Anchor contract (silent 404)** — every `concepts/<topic>.json` concept's `anchor` must match an `id="…"` on the corresponding `<section>` in the topic HTML. Mismatches don't throw; the deep-link just doesn't jump. `scripts/smoke-test.mjs` refuses to exit 0 if any anchor drifts.
 - **Quiz bundle order** — after editing `quizzes/*.json` or `concepts/*.json`, **always** run both `node scripts/build-quizzes-bundle.mjs` and `node scripts/build-concepts-bundle.mjs`. Browsers block `fetch()` of local JSON over `file://` (the double-click flow); without a fresh bundle, double-click opens "could not load" silently and pathway state desyncs.
-- **Callback idempotency** — `scripts/audit-callbacks.mjs --fix` inserts `<aside class="callback">` blocks bounded by `<!-- callback-auto-begin -->` / `<!-- callback-auto-end -->` fences. Re-run the script after editing any `prereqs`; it strips and re-inserts so duplicate asides never accumulate. Same fence trick for `scripts/insert-used-in-backlinks.mjs` (`aside.related`, `backlinks-auto-*` fences) and `scripts/insert-changelog-footer.mjs` (`<details class="changelog">`).
+- **Callback idempotency** — `scripts/audit-callbacks.mjs --fix` inserts `<aside class="callback">` blocks bounded by `<!-- callback-auto-begin -->` / `<!-- callback-auto-end -->` fences. Re-run the script after editing any `prereqs`; it strips and re-inserts so duplicate asides never accumulate. Same fence trick for `scripts/inject-used-in-backlinks.mjs` (`aside.related`, `backlinks-auto-*` fences) and `scripts/inject-changelog-footer.mjs` (`<details class="changelog">`).
 - **3D decimation on drag** — any widget using `make3DDraggable` must cut mesh density (`NU`/`NV` or equivalent knob) while `view.dragging` is true, then redraw at full resolution on `pointerup`. Without this, heavy meshes chug visibly on rotation.
 - **Legends in viewport coords, not data coords** — anchor legends at fixed viewport offsets (e.g. `translate(-230, 155)`). Anchoring to `(xmin, ymin+pad)` drifts with rotation because the bounding box shifts.
-- **Changelog re-seed is safe** — `scripts/insert-changelog-footer.mjs` rebuilds each footer from `git log --follow`, so re-running picks up new commits without duplicating rows. Pages with no git history yet retain a `YYYY-MM-DD · initial version` placeholder until the first commit lands.
+- **Changelog re-seed is safe** — `scripts/inject-changelog-footer.mjs` rebuilds each footer from `git log --follow`, so re-running picks up new commits without duplicating rows. Pages with no git history yet retain a `YYYY-MM-DD · initial version` placeholder until the first commit lands.
 - **Cross-topic prereqs need callbacks** — adding a prereq that crosses topic boundaries is incomplete without the callback. Run `scripts/audit-callbacks.mjs --fix` after any `prereqs` edit; the audit mode (no flag) is a CI guard that fails if the forward-direction block is missing.
-- **"Used in" backlinks are the reverse direction** — `scripts/insert-used-in-backlinks.mjs --fix` emits a `<aside class="related">` on the prereq side (downstream consumers of this concept). Audit mode enforces presence; re-run after any `prereqs` edit so both directions stay in sync.
+- **"Used in" backlinks are the reverse direction** — `scripts/inject-used-in-backlinks.mjs --fix` emits a `<aside class="related">` on the prereq side (downstream consumers of this concept). Audit mode enforces presence; re-run after any `prereqs` edit so both directions stay in sync.
 - **Color tokens, never hex** — inside widget markup, reach for `var(--yellow)`, `var(--cyan)`, `var(--mute)`, etc. The `:root` declarations define the palette; inlining raw hex breaks theme swaps and the color-mix border rules on `.callback` / `.related` / `.changelog`. Run `node scripts/audit-color-vars.mjs` to find offenders; `node scripts/fix-color-vars.mjs --fix` does a one-shot hex→`var()` rewrite in SVG paint attrs (exact-match palette hits only), and `node scripts/fix-color-vars-style.mjs` handles hex inside `<style>` blocks (audit-first; `--fix` requires an explicit `--pattern`).
 - **A11y backfill** — `node scripts/fix-a11y.mjs --fix` idempotently backfills SVG `<title>` elements and `<label for=>` wiring. Pair with `node scripts/audit-accessibility.mjs` to see what's still missing.
 - **No ad-hoc localStorage keys** — `MVProgress` owns `mvnb.progress.v1`. Anything else goes in memory for the session. The legacy 2-arg form `setMastered(id, bool)` silently defaults `tier='v1'` for backwards compat, but new code should pass the tier explicitly.
@@ -159,7 +159,7 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
   7. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms & fiber products, functor of points, elliptic curves, singular cubics, moduli spaces, sheaf cohomology, stacks.
 - **Card color palette**: each card uses one of the six accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine.
 - **Cross-page callbacks**: when a concept's `prereqs` reference an id owned by another topic, the section ends with an `<aside class="callback">` listing "See also" links to the target anchors. Insertions are mechanical — run `node scripts/audit-callbacks.mjs --fix` after editing any `concepts/*.json` prereqs. The companion audit (`node scripts/audit-callbacks.mjs`, no flag) and a light smoke-test guard both enforce coverage.
-- **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/insert-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
+- **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/inject-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
 
 ## Helper tools (in every page's top `<script>`)
 
@@ -406,7 +406,7 @@ When you publish `new-topic.html`:
    6. `validate-concepts.mjs`
    7. `validate-katex.mjs`
    8. `audit-callbacks.mjs --fix`
-   9. `insert-used-in-backlinks.mjs --fix`
+   9. `inject-used-in-backlinks.mjs --fix`
    10. `inject-breadcrumb.mjs --fix`
    11. `inject-display-prefs.mjs --fix`
    12. `inject-index-stats.mjs --fix`
@@ -418,7 +418,7 @@ When you publish `new-topic.html`:
 
    Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `search`, `schema`, `widget-params`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
 
-   `insert-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/insert-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
+   `inject-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
 
 ## Verification (required before claiming done)
 

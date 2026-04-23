@@ -420,7 +420,7 @@ function stepNameToScript(name) {
     validate:   'validate-concepts.mjs',
     katex:      'validate-katex.mjs',
     callbacks:  'audit-callbacks.mjs',
-    backlinks:  'insert-used-in-backlinks.mjs',
+    backlinks:  'inject-used-in-backlinks.mjs',
     breadcrumb: 'inject-breadcrumb.mjs',
     a11y:       'fix-a11y.mjs',
     smoke:      'smoke-test.mjs',
