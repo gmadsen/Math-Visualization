@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://math-vis.local/widgets/clickable-diagram/schema.json",
   "title": "clickable-diagram widget params",
-  "description": "A shared widget module driving multiple category-theory diagram widgets. Dispatches on the `interaction` field between two modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon) and 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` data; the literals exist so renderScript can byte-match the legacy inline source.",
+  "description": "A shared widget module driving multiple diagram widgets. Dispatches on the `interaction` field between three modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon), 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof), and 'svg-diagram' (the select-diagram family: one or more controls driving a bespoke SVG + readout redraw; absorbs a family of ~50 widgets whose script bodies are widget-specific but whose chrome is shared). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` / `controls` data; the literals exist so renderScript can byte-match the legacy inline source.",
   "meta": {
     "family": "clickable-diagram",
     "dimension": "2d",
@@ -12,7 +12,8 @@
   "type": "object",
   "oneOf": [
     { "$ref": "#/$defs/readoutOnly" },
-    { "$ref": "#/$defs/proofStepper" }
+    { "$ref": "#/$defs/proofStepper" },
+    { "$ref": "#/$defs/svgDiagram" }
   ],
   "$defs": {
     "option": {
@@ -118,6 +119,74 @@
         "proofsLiteral": {
           "type": "string",
           "description": "ARTIFACT. Verbatim JS object-literal text for `const PROOFS = <here>;`. Preserves the original source's alignment (e.g. `x: 130, y:  80` with double space) and inline comments."
+        }
+      }
+    },
+    "svgDiagram": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The 'select-diagram' family: a <select> (or other control) + an SVG canvas + a readout div. On change of the control, the script redraws the SVG and rewrites the readout. Because each absorbed widget's draw/compute body is bespoke (different FNS tables, different DATA dictionaries, different plotting logic), the script body is carried verbatim as an artifact. The chrome — widget wrapper, header, row of controls, SVG attrs, readout div — is reconstructed from structured fields so that a portable consumer (React / SSR) can render sensible UI without touching the script body.",
+      "required": [
+        "interaction",
+        "widgetId",
+        "title", "hint",
+        "svgId", "svgViewBox", "svgWidthAttr", "svgHeightAttr", "svgTitle",
+        "outputId",
+        "layout",
+        "controlsLiteral",
+        "scriptBodyLiteral"
+      ],
+      "properties": {
+        "interaction":       { "const": "svg-diagram" },
+        "widgetId":          { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title":             { "type": "string" },
+        "hint":              { "type": "string" },
+        "svgId":             { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "svgViewBox":        { "type": "string" },
+        "svgWidthAttr":      { "type": "string", "description": "ARTIFACT. Raw width attr value on <svg> — typically a px number or '100%'." },
+        "svgHeightAttr":     { "type": "string", "description": "ARTIFACT. Raw height attr value on <svg>." },
+        "svgTitle":          { "type": "string", "description": "Text inside the <svg>'s inner <title> element — usually the widget title, sometimes with manual HTML-entity escaping." },
+        "outputId":          { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "layout": {
+          "enum": ["controls-first", "svg-first"],
+          "description": "Where the SVG sits relative to the controls row. 'controls-first' = row above SVG (the common case, e.g. w-multcalc, w-res). 'svg-first' = SVG above row (e.g. w-cubic, where the canvas is the primary visual and the controls tune it)."
+        },
+        "controlsLiteral": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim inner HTML of the <div class=\"row\"> block — the full sequence of labels, selects, range inputs, span readouts, and buttons with their original whitespace and indentation. A portable consumer who wants to render real React controls should ignore this and use the structured `controls` array (if present)."
+        },
+        "scriptBodyLiteral": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim content of the driving <script> block, excluding the <script>/</script> tags themselves. Includes the leading '(function(){' and trailing '})();' and the newline after them. Preserves original alignment (e.g. aligned `const` declarations, comment columns)."
+        },
+        "controls": {
+          "type": "array",
+          "description": "Optional portable description of the controls, parallel to controlsLiteral. Each entry describes one control. A React consumer can generate real inputs from this; the vanilla renderer ignores it and emits controlsLiteral verbatim.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind":    { "enum": ["select", "range", "number", "text", "button", "label", "valueSpan"] },
+              "id":      { "type": "string" },
+              "label":   { "type": "string" },
+              "labelFor":{ "type": "string" },
+              "options": { "type": "array", "items": { "$ref": "#/$defs/option" } },
+              "min":     { "type": ["number", "string"] },
+              "max":     { "type": ["number", "string"] },
+              "step":    { "type": ["number", "string"] },
+              "init":    { "type": ["number", "string"] },
+              "value":   { "type": ["number", "string"] },
+              "placeholder": { "type": "string" },
+              "spanId":  { "type": "string" },
+              "className":{ "type": "string" }
+            }
+          }
+        },
+        "cases": {
+          "type": "object",
+          "description": "Optional portable data dictionary keyed by select-value. Each entry is an opaque payload the widget's draw/compute consumes — shape varies per widget. Present mostly as documentation for React consumers; the vanilla renderer drives everything through scriptBodyLiteral.",
+          "additionalProperties": true
         }
       }
     }

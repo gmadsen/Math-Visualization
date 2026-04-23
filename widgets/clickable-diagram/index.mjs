@@ -1,5 +1,5 @@
 // clickable-diagram widget — SHARED widget module absorbing multiple
-// category-theory widgets through a single registry entry.  Dispatches on
+// widgets through a single registry entry.  Dispatches on
 // params.interaction to render any of the supported widget shapes:
 //
 //   "readout-only"  — a <select> + <div class="readout"> pair driven by a
@@ -12,6 +12,16 @@
 //                     derived arrows, some as identity loops) + a caption +
 //                     an "established equations" log.  Used by w-proof
 //                     ("Proof stepper").
+//
+//   "svg-diagram"   — the 'select-diagram' family: one or more controls
+//                     (typically a <select>) driving a bespoke SVG redraw
+//                     plus a <div class="readout">.  The chrome (widget
+//                     wrapper, header, row, svg attrs, readout) is
+//                     reconstructed from structured fields; the control
+//                     inner-HTML and the <script> body are carried verbatim
+//                     as artifacts (controlsLiteral, scriptBodyLiteral)
+//                     because each widget's draw/compute logic is unique.
+//                     Used by w-multcalc, w-res, w-cubic in bezout.
 //
 // Both exports are pure string-returning functions; each widget's absorbed
 // markup/script round-trips byte-identical to the original inline source in
@@ -249,14 +259,57 @@ function renderProofStepperScript(params) {
   );
 }
 
+function renderSvgDiagramMarkup(params) {
+  const {
+    widgetId, title, hint,
+    svgId, svgViewBox, svgWidthAttr, svgHeightAttr, svgTitle,
+    outputId, layout,
+    controlsLiteral,
+  } = params;
+  // The <div class="row"> ... </div> block wraps controlsLiteral verbatim so
+  // that each widget's bespoke control markup (labels, selects, ranges, spans)
+  // round-trips byte-identical to the original inline HTML.
+  const rowBlock =
+    `  <div class="row">\n` +
+    `${controlsLiteral}\n` +
+    `  </div>`;
+  const svgBlock =
+    `  <svg id="${svgId}" viewBox="${svgViewBox}" width="${svgWidthAttr}" height="${svgHeightAttr}"><title>${svgTitle}</title></svg>`;
+  const middle = layout === 'svg-first'
+    ? `${svgBlock}\n${rowBlock}`
+    : `${rowBlock}\n${svgBlock}`;
+  return (
+    `<div class="widget" id="${widgetId}">\n` +
+    `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
+    `${middle}\n` +
+    `  <div class="readout" id="${outputId}"></div>\n` +
+    `</div>`
+  );
+}
+
+function renderSvgDiagramScript(params) {
+  const { scriptBodyLiteral } = params;
+  // scriptBodyLiteral is the original source between (but not including) the
+  // <script>/</script> tags — its leading/trailing newlines come from the
+  // original file.  A portable consumer ignores this and drives its own
+  // renderer from `controls` + `cases`.
+  return (
+    `<script>\n` +
+    `${scriptBodyLiteral}\n` +
+    `</script>`
+  );
+}
+
 export function renderMarkup(params) {
   if (params.interaction === 'readout-only') return renderReadoutOnlyMarkup(params);
   if (params.interaction === 'proof-stepper') return renderProofStepperMarkup(params);
+  if (params.interaction === 'svg-diagram') return renderSvgDiagramMarkup(params);
   throw new Error(`clickable-diagram: unknown interaction "${params.interaction}"`);
 }
 
 export function renderScript(params) {
   if (params.interaction === 'readout-only') return renderReadoutOnlyScript(params);
   if (params.interaction === 'proof-stepper') return renderProofStepperScript(params);
+  if (params.interaction === 'svg-diagram') return renderSvgDiagramScript(params);
   throw new Error(`clickable-diagram: unknown interaction "${params.interaction}"`);
 }
