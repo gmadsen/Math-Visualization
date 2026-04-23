@@ -3,24 +3,62 @@
 // Source of truth: widgets/<slug>/schema.json, README.md, optional example.json.
 window.__MVWidgets = [
   {
+    "slug": "button-stepper",
+    "family": "button-stepper",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "button-stepper widget params",
+    "description": "Shared renderer for the button-stepper-svg and button-stepper-text families (~47 widgets): an SVG (or HTML-only) host plus one or more <button> elements wired to step/reset/next/prev/custom actions. Markup is assembled from a structured `layout` array of block descriptors (svg, row, readout, raw); portable consumers can drive their own UI from that data and the `buttons` action list alone. The `bodyScript` field is an ARTIFACT: the verbatim JS body of the driving IIFE, preserved byte-for-byte so the vanilla-HTML frontend round-trips exactly. Single-mode schema (no oneOf yet); later passes add linear-stepper and branching-machine variants.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "layout",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Shared renderer for the `button-stepper-svg` (45 widgets) and `button-stepper-text` (~2 widgets) families — widgets with an SVG (or HTML-only) host plus one or more `<button>` elements wired to step / reset / next / prev / custom actions, with zero range sliders and zero selects. Proof-of-concept migrates three widgets from `point-set-topology.html` (`w-top`, `w-comp`, `w-sep`); subsequent passes will absorb more topics from the 28 that contain this family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "clickable-diagram",
     "family": "clickable-diagram",
     "dimension": "2d",
     "gesture": "click",
     "role": "exploratory",
     "title": "clickable-diagram widget params",
-    "description": "A shared widget module driving multiple category-theory diagram widgets. Dispatches on the `interaction` field between two modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon) and 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` data; the literals exist so renderScript can byte-match the legacy inline source.",
+    "description": "A shared widget module driving multiple diagram widgets. Dispatches on the `interaction` field between three modes: 'readout-only' (select + DATA-dictionary readout; drives w-univ and w-mon), 'proof-stepper' (select + nav buttons + SVG diagram of objects + morphisms; drives w-proof), and 'svg-diagram' (the select-diagram family: one or more controls driving a bespoke SVG + readout redraw; absorbs a family of ~50 widgets whose script bodies are widget-specific but whose chrome is shared). Portable consumers can ignore the *Literal artifact fields and render from the structured `cases` / `objects` / `morphisms` / `controls` data; the literals exist so renderScript can byte-match the legacy inline source.",
     "requiredParams": [
       "interaction",
       "widgetId",
-      "pickId",
       "title",
-      "hint",
-      "pickLabel",
-      "options",
-      "cases"
+      "hint"
     ],
-    "readmeExcerpt": "A **shared** widget module that drives several category-theory widgets from one registry entry. Dispatches on the `interaction` field between two modes:",
+    "readmeExcerpt": "A **shared** widget module that drives several topic widgets from one registry entry. Dispatches on the `interaction` field between three modes:",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "clickable-graph",
+    "family": "clickable-graph",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "clickable-graph widget params",
+    "description": "Shared widget module for the `clickable-graph` family: a host <svg> whose elements (nodes, regions, edges) are themselves the interactive controls. No sliders, buttons, or selects — the user clicks / drags a hotspot on the SVG and the readout updates. Data model: an ordered `nodes` array, an optional `edges` array, optional `readoutMap` keyed by node id, and `clickAction ∈ {highlight,toggle,reveal}` describing the UX contract. Because these widgets' JS bodies are highly idiosyncratic (custom painters, transitive-closure highlighting, stereographic projection, drag handling), the driving IIFE is carried as an artifact string in `bodyScript` so `renderScript` can byte-match the legacy inline source. A portable consumer (React, SSR, etc.) can ignore `bodyScript` entirely and render from the structured `nodes` / `edges` / `readoutMap` data.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "viewBox",
+      "title",
+      "clickAction",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Shared widget module for the `clickable-graph` family — **9 widgets across 8 topics** that all share the same UX signature: an SVG host with clickable elements (nodes, regions, arrows) instead of sliders / selects / buttons. The user clicks (or, in a few widgets, drags) directly on the SVG diagram and the readout updates.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -53,6 +91,28 @@ window.__MVWidgets = [
       "composition"
     ],
     "readmeExcerpt": "A small interactive category-theory widget: displays a finite category as an SVG diagram (objects as nodes, morphisms as arrows with identity loops), lets the reader click two composable morphisms, and prints the composite per a fixed composition table. First introduced on `category-theory.html` section `#cat` as `w-cat`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "input-form",
+    "family": "input-form",
+    "dimension": "2d",
+    "gesture": "input",
+    "role": "exploratory",
+    "title": "input-form widget params",
+    "description": "A shared widget module for the input-calculator and input-plot families: typed-entry fields (number or text) drive a bespoke per-widget computation whose output lands in a .readout div (input-calculator) or in a .readout div plus an SVG canvas (input-plot). The schema is single-mode with optional plot fields; the svg* block activates the input-plot branch. The computation logic is passed through as a `bodyScript` artifact string that renderScript drops into the IIFE — portable consumers (React, etc.) may re-implement the compute from scratch or evaluate the script in a sandbox.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "inputs",
+      "button",
+      "readoutId",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Shared widget module absorbing the **input-calculator** (31 widgets) and **input-plot** (13 widgets) families — ~44 widgets across ~25 topics in the [widget-families audit](../../audits/widget-families.md). The chrome is uniform: a header, a single `.row` of labeled `<input type=\"number\">` or `<input type=\"text\">` fields plus one action `<button>`, an optional `<svg>` canvas (input-plot variant), and a `<div class=\"readout\">` output slot. The per-widget computation logic — which varies from gcd to Sylow counts to four-squares decomposition — is passed through as a `bodyScript` artifact string that `renderScript` drops inside the canonical IIFE envelope.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -98,6 +158,31 @@ window.__MVWidgets = [
       "sliderPhiStep"
     ],
     "readmeExcerpt": "An interactive category-theory widget: renders the naturality square for $F=\\operatorname{Hom}(X,-)$, $G=\\operatorname{Hom}(Y,-)$ with $\\eta$ induced by a fixed $u\\colon Y\\to X$ sending $y\\mapsto x_1$. The four corners $\\operatorname{Hom}(X,A)$, $\\operatorname{Hom}(X,B)$, $\\operatorname{Hom}(Y,A)$, $\\operatorname{Hom}(Y,B)$ are displayed as cell grids; the reader drags two sliders (one for the morphism $f\\colon A\\to B$, one for $\\varphi\\in\\operatorname{Hom}(X,A)$) and the widget chases $\\varphi$ both ways around the square, highlighting the common endpoint in green whenever the two routes agree — which is always. First introduced on `category-theory.html` section `#nat` as `w-nat`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "parametric-plot",
+    "family": "parametric-plot",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "parametric-plot widget params",
+    "description": "Shared widget module for the slider-plot / slider-plot-actions / select-slider-plot families (combined ~159 widgets, the largest cluster in the corpus per audits/widget-families.md). A parametric-plot widget renders a header, an SVG host, one or more <input type='range'> sliders (each paired with a <label> and a live-updating <span class='small'>), optional action buttons, and a readout div. The per-widget draw logic varies too much to generalize without loss, so the IIFE body is carried as a `bodyScript` artifact string — a portable consumer should ignore `bodyScript` and drive its own renderer from the structural params. The `oneOf` dispatches between `single-mode` (bare slider-plot: sliders + optional buttons) and `multi-mode` (select-slider-plot: a <select> picks a mode, each mode supplies its own sliderDefaults + draw).",
+    "requiredParams": [
+      "interaction",
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "viewBox",
+      "svgWidth",
+      "svgHeight",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "A **shared** widget module covering the largest structural cluster in the corpus: `slider-plot` (81), `slider-plot-actions` (~23), and `select-slider-plot` (55) — combined 159 widgets across ~45 topics, ~35% of the inline corpus (see [`../../audits/widget-families.md`](../../audits/widget-families.md)).",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

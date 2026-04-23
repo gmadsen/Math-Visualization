@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **58**, concepts: **407**
-- Widgets: **452** (registry-driven: 5, inline: 447)
+- Widgets: **452** (registry-driven: 19, inline: 433)
 - Quizzes: **2298** (v1: 1160, hard: 1125, expert: 13)
 - Quiz types: mcq: 1397, numeric: 795, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
@@ -44,40 +44,40 @@
 ### Geometry & topology
 
 - Topics: **8**, concepts: **48**
-- Widgets: **48** (registry-driven: 0, inline: 48)
-  - by family: unknown: 48
-  - by dimension: unknown: 48
-  - by gesture: unknown: 48
+- Widgets: **48** (registry-driven: 3, inline: 45)
+  - by family: unknown: 45, button-stepper: 3
+  - by dimension: unknown: 45, 2d: 3
+  - by gesture: unknown: 45, click: 3
 - Quizzes: **286** (v1: 144, hard: 142, expert: 0)
   - by type: mcq: 168, numeric: 111, complex: 7
 
 ### Number theory
 
 - Topics: **11**, concepts: **56**
-- Widgets: **71** (registry-driven: 0, inline: 71)
-  - by family: unknown: 71
-  - by dimension: unknown: 71
-  - by gesture: unknown: 71
+- Widgets: **71** (registry-driven: 3, inline: 68)
+  - by family: unknown: 68, input-form: 3
+  - by dimension: unknown: 68, 2d: 3
+  - by gesture: unknown: 68, input: 3
 - Quizzes: **337** (v1: 169, hard: 168, expert: 0)
   - by type: mcq: 219, numeric: 114, complex: 3, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
 - Topics: **14**, concepts: **70**
-- Widgets: **107** (registry-driven: 0, inline: 107)
-  - by family: unknown: 107
-  - by dimension: unknown: 107
-  - by gesture: unknown: 107
+- Widgets: **107** (registry-driven: 3, inline: 104)
+  - by family: unknown: 104, parametric-plot: 3
+  - by dimension: unknown: 104, 2d: 3
+  - by gesture: unknown: 104, slider: 3
 - Quizzes: **420** (v1: 210, hard: 210, expert: 0)
   - by type: mcq: 269, numeric: 150, ordering: 1
 
 ### Algebraic geometry
 
 - Topics: **12**, concepts: **67**
-- Widgets: **79** (registry-driven: 0, inline: 79)
-  - by family: unknown: 79
-  - by dimension: unknown: 79
-  - by gesture: unknown: 79
+- Widgets: **79** (registry-driven: 5, inline: 74)
+  - by family: unknown: 74, clickable-diagram: 3, clickable-graph: 2
+  - by dimension: unknown: 74, 2d: 5
+  - by gesture: unknown: 74, click: 5
 - Quizzes: **402** (v1: 201, hard: 201, expert: 0)
   - by type: mcq: 256, numeric: 143, complex: 3
 
@@ -96,7 +96,7 @@
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=0), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=12, widgets=12 (slug=0), quiz=72 (v1=36, hard=36, expert=0)
 - `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=0), quiz=73 (v1=36, hard=24, expert=13)
-- `point-set-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=36 (v1=18, hard=18, expert=0)
+- `point-set-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=3), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=5, widgets=5 (slug=0), quiz=29 (v1=15, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=0), quiz=59 (v1=30, hard=29, expert=0)
 - `differential-forms` (Geometry & topology) — concepts=5, widgets=0 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
@@ -107,7 +107,7 @@
 - `galois` (Number theory) — concepts=5, widgets=6 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=5, widgets=6 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
-- `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
+- `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=3), quiz=30 (v1=15, hard=15, expert=0)
 - `power-sums-bernoulli` (Number theory) — concepts=5, widgets=8 (slug=0), quiz=31 (v1=16, hard=15, expert=0)
 - `waring` (Number theory) — concepts=5, widgets=4 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `algebraic-number-theory` (Number theory) — concepts=5, widgets=6 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
@@ -121,14 +121,14 @@
 - `partitions-generating-functions` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `dirichlet-series-euler-products` (Modular forms & L-functions) — concepts=5, widgets=10 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
-- `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=6 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
+- `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=6 (slug=3), quiz=30 (v1=15, hard=15, expert=0)
 - `zeta-values` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
-- `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
-- `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=0), quiz=60 (v1=30, hard=30, expert=0)
+- `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=3), quiz=30 (v1=15, hard=15, expert=0)
+- `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=2), quiz=60 (v1=30, hard=30, expert=0)
 - `sheaves` (Algebraic geometry) — concepts=7, widgets=7 (slug=0), quiz=42 (v1=21, hard=21, expert=0)
 - `morphisms-fiber-products` (Algebraic geometry) — concepts=5, widgets=7 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
 - `functor-of-points` (Algebraic geometry) — concepts=5, widgets=7 (slug=0), quiz=30 (v1=15, hard=15, expert=0)
