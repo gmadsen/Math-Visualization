@@ -17,7 +17,7 @@ A single-file, interactive graduate-mathematics notebook in the spirit of 3Blue1
 index.html                    landing page with section grid
 pathway.html                  capstone prerequisite explorer
 <topic>.html                  one self-contained page per topic
-concepts/                     concept graph JSONs + index.json + capstones.json + bundle.js
+concepts/                     concept graph JSONs + index.json + sections.json (topic→subject) + capstones.json + bundle.js
 quizzes/                      quiz bank JSONs + bundle.js
 content/                      per-topic block-level JSON (raw / widget / widget-script / quiz)
 widgets/                      widget registry: schema.json + index.mjs + README.md per slug
@@ -26,6 +26,8 @@ audits/                       generated graph-health reports (TSV + Markdown sum
 js/progress.js                mastery store (localStorage)
 js/quiz.js                    quiz widget
 js/katex-select.js            LaTeX-in-<option> shim
+js/theme-toggle.js            dark/light theme toggle
+js/display-prefs.js           reader-side widget/quiz hide toggle
 scripts/                      validators, audits, bundle builders, packaging
 scripts/lib/                  shared loader (content-model.mjs) + audit-utils.mjs
 .github/workflows/verify.yml  CI entry point
@@ -61,13 +63,25 @@ Non-gating audits (advisory reports, safe to run any time):
 - [`scripts/audit-inline-links.mjs`](./scripts/audit-inline-links.mjs) — un-linked concept-title mentions in prose; `--fix` wraps the first occurrence per section.
 - [`scripts/audit-stale-blurbs.mjs`](./scripts/audit-stale-blurbs.mjs) — concept-blurb drift (LENGTH, MATCH, RECALL, OFFPAGE, DUP classes).
 - [`scripts/audit-concept-graph-health.mjs`](./scripts/audit-concept-graph-health.mjs) — per-topic 🟢/🟡/🔴 scorecard aggregating the other audits.
-- [`scripts/audit-doc-drift.mjs`](./scripts/audit-doc-drift.mjs) — `PLAN.md` / `AGENTS.md` / `scripts/README.md` vs. on-disk reality.
+- [`scripts/audit-graph-health.mjs`](./scripts/audit-graph-health.mjs) — concept-graph atomicity / multi-topic / implicit-prereq diagnostic. Writes `audits/graph-health.{tsv,md}`.
+- [`scripts/audit-blurb-question-alignment.mjs`](./scripts/audit-blurb-question-alignment.mjs) — flags quiz questions whose prompt doesn't probe anything named in the concept's blurb.
+- [`scripts/audit-bundle-staleness.mjs`](./scripts/audit-bundle-staleness.mjs) — fast check that `concepts/bundle.js` / `quizzes/bundle.js` are in sync with source JSON.
+- [`scripts/audit-cross-page-consistency.mjs`](./scripts/audit-cross-page-consistency.mjs) — `<head>` boilerplate + sidetoc scaffold + body-attr consistency across topic HTML.
+- [`scripts/audit-notation.mjs`](./scripts/audit-notation.mjs) — KaTeX macro / notation consistency across prose + quizzes.
+- [`scripts/audit-worked-examples.mjs`](./scripts/audit-worked-examples.mjs) — flags concept sections missing a `**Worked example:**` block.
+- [`scripts/stats-coverage.mjs`](./scripts/stats-coverage.mjs) — per-subject/per-topic/per-concept widget + quiz counts (by family/dimension/gesture/role and type/tier); coverage gaps. Writes `audits/coverage-stats.md`.
+- [`scripts/audit-doc-drift.mjs`](./scripts/audit-doc-drift.mjs) — `PLAN.md` / `AGENTS.md` / `scripts/README.md` vs. on-disk reality. Wired into `rebuild.mjs` as the final advisory step.
 
-Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip; [`scripts/test-offline-bundle.mjs`](./scripts/test-offline-bundle.mjs) is the smoke test for its output.
+Offline workshop bundle: [`scripts/package-offline.mjs`](./scripts/package-offline.mjs) produces a zip; [`scripts/test-offline-bundle.mjs`](./scripts/test-offline-bundle.mjs) is the smoke test for its output. [`scripts/test-mobile-perf.mjs`](./scripts/test-mobile-perf.mjs) is a Playwright FPS check for 3D drag.
+
+Build helpers: [`scripts/build-search-index.mjs`](./scripts/build-search-index.mjs) flattens concepts + quizzes into `search-index.json` consumed by `search.html`.
 
 Content-shared tooling (injectors and section-index generator, run via `rebuild.mjs` or manually):
 
 - [`scripts/inject-breadcrumb.mjs`](./scripts/inject-breadcrumb.mjs) — injects a breadcrumb + prev/next-in-section block into every topic page's top nav. Idempotent via fence comments.
+- [`scripts/inject-display-prefs.mjs`](./scripts/inject-display-prefs.mjs) — injects `<script src="./js/display-prefs.js">` and CSS rules for `html[data-hide-widgets]`/`html[data-hide-quizzes]` into every topic page. Idempotent.
+- [`scripts/inject-index-stats.mjs`](./scripts/inject-index-stats.mjs) — keeps `index.html`'s hero-tagline topic / concept counts in sync with `concepts/index.json` + `concepts/*.json`. No more hand-edited stale numbers.
+- [`scripts/insert-changelog-footer.mjs`](./scripts/insert-changelog-footer.mjs) — regenerates every topic page's `<details class="changelog">` from `git log --follow`. `--audit` mode (used by rebuild --no-fix) exits 1 if any page is stale.
 - [`scripts/inject-page-metadata.mjs`](./scripts/inject-page-metadata.mjs) — stamps `data-section` / `data-level` on each topic's `<body>` using data read from `index.html`.
 - [`scripts/build-section-indexes.mjs`](./scripts/build-section-indexes.mjs) — generates per-section mini-index pages under `sections/`.
 
@@ -132,8 +146,10 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Widget chrome**: wrap interactives in `<div class="widget">` with `<div class="hd"><div class="ttl">…</div><div class="hint">…</div></div>`. Use `.readout`, `.row`, `.note`, `.ok`, `.bad` for standard sub-elements.
 - **Level badges** on index cards: `<span class="level prereq">prereq</span>`, `advanced`, or `capstone`. Match the roadmap's classification.
 - **SVG**: use the shared helpers, include `viewBox`, let CSS size it. Text inherits `fill:var(--ink)` from the stylesheet.
-- **Storage**: the only persistence mechanism is `MVProgress` (localStorage) for mastery state. Don't add ad-hoc `localStorage` keys, cookies, or IndexedDB — anything else goes in memory for the session.
-- **Index sections** (as of 2026-04-19, 44 topics). When registering a new card, put it in one of:
+- **Storage**: permitted `localStorage` keys are `mvnb.progress.v1` (mastery, `MVProgress`), `mvnb.theme` (dark/light), and `mvnb.display` (reader widget/quiz hide). Don't add other ad-hoc keys, cookies, or IndexedDB — anything else goes in memory for the session.
+- **Reader display preferences**: `js/display-prefs.js` exposes `window.MVDisplay.toggleWidgets()`, `toggleQuizzes()`, `showAll()`, `current()`. Preference surfaces on `<html>` as `data-hide-widgets` / `data-hide-quizzes`. A `📖` button next to the theme toggle: click = widgets, shift-click = quizzes, Escape = restore all. Cross-tab sync via the `storage` event.
+- **Hero-tagline counts in `index.html`**: the two `<span class="tg-num">` values (topics, concepts) are owned by `scripts/inject-index-stats.mjs`. Don't hand-edit — run the script (or just `node scripts/rebuild.mjs`) and the numbers will match the live corpus.
+- **Index sections**: the canonical topic → subject mapping is `concepts/sections.json`. `validate-concepts` fails if a registered topic is missing from it. The 7 sections:
   1. **Foundations** (blue) — naive set theory.
   2. **Algebra** (yellow/pink/violet mix) — abstract algebra, category theory, representation theory, commutative algebra, homological algebra.
   3. **Analysis** (pink/cyan) — real analysis, measure theory, complex analysis, functional analysis, operator algebras.
@@ -381,18 +397,27 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
-8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. Steps, in order:
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 18 steps, summarized here:
    1. `build-concepts-bundle.mjs`
    2. `build-quizzes-bundle.mjs`
-   3. `validate-concepts.mjs`
-   4. `validate-katex.mjs`
-   5. `audit-callbacks.mjs --fix`
-   6. `insert-used-in-backlinks.mjs --fix`
-   7. `inject-breadcrumb.mjs --fix`
-   8. `fix-a11y.mjs --fix`
-   9. `smoke-test.mjs`
+   3. `build-search-index.mjs`
+   4. `validate-schema.mjs`
+   5. `validate-widget-params.mjs`
+   6. `validate-concepts.mjs`
+   7. `validate-katex.mjs`
+   8. `audit-callbacks.mjs --fix`
+   9. `insert-used-in-backlinks.mjs --fix`
+   10. `inject-breadcrumb.mjs --fix`
+   11. `inject-display-prefs.mjs --fix`
+   12. `inject-index-stats.mjs --fix`
+   13. `insert-changelog-footer.mjs` (`--audit` when `--no-fix`)
+   14. `fix-a11y.mjs --fix`
+   15. `smoke-test.mjs`
+   16. `test-roundtrip.mjs`
+   17. `stats-coverage.mjs`
+   18. `audit-doc-drift.mjs`
 
-   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `a11y`, `smoke`.
+   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `search`, `schema`, `widget-params`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `changelog`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
 
 ## Verification (required before claiming done)
 
