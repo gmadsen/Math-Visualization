@@ -32,6 +32,8 @@ Empirical rule of thumb from the category-theory migration: roughly a third of w
 
 ## Adding a widget
 
+Quickstart: `node scripts/new-widget.mjs <slug> [--family <f>] [--dimension 2d|3d] [--gesture <g>] [--role <r>]` stamps out `widgets/<slug>/` with `schema.json`, `index.mjs`, and `README.md` stubs pre-wired with the `meta` block, minimal `{ widgetId, title, hint? }` params, and `TODO(<slug>)` markers at the points you need to edit. Re-runs without `--force` exit 0 as a no-op; `--force` overwrites. The 6-step manual flow below is the reference for what the scaffolder produces and what you still have to fill in.
+
 1. Read two or three existing `widgets/<slug>/index.mjs` files to pattern-match.
 2. Write `widgets/<new-slug>/schema.json`. Required fields: `widgetId` and whatever structural ids the widget needs (`svgId`, `outputId`, etc.). Then the "data" fields the widget actually renders.
 3. Write `widgets/<new-slug>/index.mjs` with `renderMarkup(params)` and `renderScript(params)` as pure functions. The output must be byte-identical to the widget as it currently appears in the handwritten topic HTML.

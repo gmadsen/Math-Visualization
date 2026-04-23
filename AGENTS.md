@@ -418,6 +418,10 @@ When you publish `new-topic.html`:
 
    `inject-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
 
+## Registering a new widget
+
+Quickstart: `node scripts/new-widget.mjs <slug> [--family <f>] [--dimension 2d|3d] [--gesture <g>] [--role <r>]` scaffolds `widgets/<slug>/` with `schema.json` (draft 2020-12, `meta` block, minimal `{ widgetId, title, hint? }` params), `index.mjs` (pure `renderMarkup` + `renderScript` stubs with `TODO(<slug>)` markers), and a short `README.md`. Re-runs are a no-op ("already exists", exit 0); `--force` overwrites. After editing the schema and renderer, add `{ "type": "widget", "slug": "<slug>", "params": {…} }` (plus a matching `widget-script` block) to the relevant `content/<topic>.json`, then run `node scripts/rebuild.mjs --only widget-params` to AJV-validate, and `node scripts/rebuild.mjs` for the full byte-identical round-trip gate. See [`widgets/README.md`](./widgets/README.md) for the registry contract and the 6-step manual reference.
+
 ## Verification (required before claiming done)
 
 Run a local server and exercise the page in a browser — type-checking or file existence is not enough:
