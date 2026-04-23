@@ -13,8 +13,42 @@
         {
           "type": "widget",
           "id": "w-germ",
-          "html": "<div class=\"widget\" id=\"w-germ\">\n  <div class=\"hd\"><div class=\"ttl\">Re-expansion widget</div><div class=\"hint\">move $a$ inside $|z|<1$; watch the new disk escape</div></div>\n  <svg id=\"germ-svg\" viewBox=\"0 0 620 360\" width=\"620\" height=\"360\"><title>Re-expansion widget</title></svg>\n  <div class=\"row\">\n    <label for=\"germ-ax\">$a$ (drag center):</label>\n    <input type=\"range\" id=\"germ-ax\" min=\"-0.95\" max=\"0.95\" step=\"0.01\" value=\"0.5\">\n    <span class=\"small\" id=\"germ-ax-out\">Re a = 0.50</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"germ-ay\">Im $a$:</label>\n    <input type=\"range\" id=\"germ-ay\" min=\"-0.95\" max=\"0.95\" step=\"0.01\" value=\"0\">\n    <span class=\"small\" id=\"germ-ay-out\">Im a = 0.00</span>\n  </div>\n  <div class=\"readout\" id=\"germ-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-germ",
+            "svgId": "germ-svg",
+            "outputId": "germ-out",
+            "title": "Re-expansion widget",
+            "hint": "move $a$ inside $|z|<1$; watch the new disk escape",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "germ-ax",
+                "outId": "germ-ax-out",
+                "label": "$a$ (drag center):",
+                "min": -0.95,
+                "max": 0.95,
+                "step": 0.01,
+                "init": 0.5,
+                "initReadout": "Re a = 0.50"
+              },
+              {
+                "id": "germ-ay",
+                "outId": "germ-ay-out",
+                "label": "Im $a$:",
+                "min": -0.95,
+                "max": 0.95,
+                "step": 0.01,
+                "init": 0,
+                "initReadout": "Im a = 0.00"
+              }
+            ],
+            "sectionComment": "========== Section 1: re-expansion disk widget ==========",
+            "bodyScript": "  const svg=$('#germ-svg'), out=$('#germ-out');\n  const axs=$('#germ-ax'), ays=$('#germ-ay'), axo=$('#germ-ax-out'), ayo=$('#germ-ay-out');\n  const W=620, H=360;\n  const cx=310, cy=180, sc=150;  // scale: 1 unit -> 150px\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // original disk D(0,1)\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:sc*1,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4,4',opacity:0.7}));\n    // original center\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--violet)'}));\n    const t0 = SVG('text',{x:cx+6,y:cy-6,'font-size':12,fill:'var(--violet)'}); t0.textContent='0'; svg.appendChild(t0);\n    // singularity at 1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:4,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // center a\n    const ax=parseFloat(axs.value), ay=parseFloat(ays.value);\n    const a=[ax,ay];\n    const pa=toPx(a);\n    // New radius = |1 - a|\n    const R = Math.hypot(1-ax, -ay);\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:sc*R,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:4,fill:'var(--yellow)'}));\n    const ta = SVG('text',{x:pa[0]+6,y:pa[1]-8,'font-size':12,fill:'var(--yellow)'}); ta.textContent='a'; svg.appendChild(ta);\n    // legend\n    axo.textContent = 'Re a = ' + ax.toFixed(2);\n    ayo.textContent = 'Im a = ' + ay.toFixed(2);\n    // Does new disk cover points outside |z|=1?\n    const reachesOut = R > (1 - Math.hypot(ax,ay)) + 0.01;\n    const excess = Math.max(0, R - (1 - Math.hypot(ax,ay)));\n    out.textContent =\n      'Re-expansion of 1/(1-z) at a gives a series with radius R = |1-a| = ' + R.toFixed(3) + '.\\n' +\n      'Distance from a to ∂D(0,1): ' + (1 - Math.hypot(ax,ay)).toFixed(3) + '.\\n' +\n      (reachesOut\n        ? 'The new disk ESCAPES the original — continuation reaches points outside |z|<1, excess radius ≈ ' + excess.toFixed(3) + '.'\n        : 'The new disk lies inside the original — no new ground covered yet.');\n  }\n  axs.addEventListener('input',draw);\n  ays.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -31,8 +65,42 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-germ",
-          "html": "<script>\n/* ========== Section 1: re-expansion disk widget ========== */\n(function(){\n  const svg=$('#germ-svg'), out=$('#germ-out');\n  const axs=$('#germ-ax'), ays=$('#germ-ay'), axo=$('#germ-ax-out'), ayo=$('#germ-ay-out');\n  const W=620, H=360;\n  const cx=310, cy=180, sc=150;  // scale: 1 unit -> 150px\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // original disk D(0,1)\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:sc*1,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4,4',opacity:0.7}));\n    // original center\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--violet)'}));\n    const t0 = SVG('text',{x:cx+6,y:cy-6,'font-size':12,fill:'var(--violet)'}); t0.textContent='0'; svg.appendChild(t0);\n    // singularity at 1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:4,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // center a\n    const ax=parseFloat(axs.value), ay=parseFloat(ays.value);\n    const a=[ax,ay];\n    const pa=toPx(a);\n    // New radius = |1 - a|\n    const R = Math.hypot(1-ax, -ay);\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:sc*R,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:4,fill:'var(--yellow)'}));\n    const ta = SVG('text',{x:pa[0]+6,y:pa[1]-8,'font-size':12,fill:'var(--yellow)'}); ta.textContent='a'; svg.appendChild(ta);\n    // legend\n    axo.textContent = 'Re a = ' + ax.toFixed(2);\n    ayo.textContent = 'Im a = ' + ay.toFixed(2);\n    // Does new disk cover points outside |z|=1?\n    const reachesOut = R > (1 - Math.hypot(ax,ay)) + 0.01;\n    const excess = Math.max(0, R - (1 - Math.hypot(ax,ay)));\n    out.textContent =\n      'Re-expansion of 1/(1-z) at a gives a series with radius R = |1-a| = ' + R.toFixed(3) + '.\\n' +\n      'Distance from a to ∂D(0,1): ' + (1 - Math.hypot(ax,ay)).toFixed(3) + '.\\n' +\n      (reachesOut\n        ? 'The new disk ESCAPES the original — continuation reaches points outside |z|<1, excess radius ≈ ' + excess.toFixed(3) + '.'\n        : 'The new disk lies inside the original — no new ground covered yet.');\n  }\n  axs.addEventListener('input',draw);\n  ays.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-germ",
+            "svgId": "germ-svg",
+            "outputId": "germ-out",
+            "title": "Re-expansion widget",
+            "hint": "move $a$ inside $|z|<1$; watch the new disk escape",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "germ-ax",
+                "outId": "germ-ax-out",
+                "label": "$a$ (drag center):",
+                "min": -0.95,
+                "max": 0.95,
+                "step": 0.01,
+                "init": 0.5,
+                "initReadout": "Re a = 0.50"
+              },
+              {
+                "id": "germ-ay",
+                "outId": "germ-ay-out",
+                "label": "Im $a$:",
+                "min": -0.95,
+                "max": 0.95,
+                "step": 0.01,
+                "init": 0,
+                "initReadout": "Im a = 0.00"
+              }
+            ],
+            "sectionComment": "========== Section 1: re-expansion disk widget ==========",
+            "bodyScript": "  const svg=$('#germ-svg'), out=$('#germ-out');\n  const axs=$('#germ-ax'), ays=$('#germ-ay'), axo=$('#germ-ax-out'), ayo=$('#germ-ay-out');\n  const W=620, H=360;\n  const cx=310, cy=180, sc=150;  // scale: 1 unit -> 150px\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // original disk D(0,1)\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:sc*1,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4,4',opacity:0.7}));\n    // original center\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--violet)'}));\n    const t0 = SVG('text',{x:cx+6,y:cy-6,'font-size':12,fill:'var(--violet)'}); t0.textContent='0'; svg.appendChild(t0);\n    // singularity at 1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:4,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // center a\n    const ax=parseFloat(axs.value), ay=parseFloat(ays.value);\n    const a=[ax,ay];\n    const pa=toPx(a);\n    // New radius = |1 - a|\n    const R = Math.hypot(1-ax, -ay);\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:sc*R,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:4,fill:'var(--yellow)'}));\n    const ta = SVG('text',{x:pa[0]+6,y:pa[1]-8,'font-size':12,fill:'var(--yellow)'}); ta.textContent='a'; svg.appendChild(ta);\n    // legend\n    axo.textContent = 'Re a = ' + ax.toFixed(2);\n    ayo.textContent = 'Im a = ' + ay.toFixed(2);\n    // Does new disk cover points outside |z|=1?\n    const reachesOut = R > (1 - Math.hypot(ax,ay)) + 0.01;\n    const excess = Math.max(0, R - (1 - Math.hypot(ax,ay)));\n    out.textContent =\n      'Re-expansion of 1/(1-z) at a gives a series with radius R = |1-a| = ' + R.toFixed(3) + '.\\n' +\n      'Distance from a to ∂D(0,1): ' + (1 - Math.hypot(ax,ay)).toFixed(3) + '.\\n' +\n      (reachesOut\n        ? 'The new disk ESCAPES the original — continuation reaches points outside |z|<1, excess radius ≈ ' + excess.toFixed(3) + '.'\n        : 'The new disk lies inside the original — no new ground covered yet.');\n  }\n  axs.addEventListener('input',draw);\n  ays.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -50,8 +118,32 @@
         {
           "type": "widget",
           "id": "w-chain",
-          "html": "<div class=\"widget\" id=\"w-chain\">\n  <div class=\"hd\"><div class=\"ttl\">Chain of disks along a path</div><div class=\"hint\">drag the slider to sweep the path; watch the radius shrink near $z=1$</div></div>\n  <svg id=\"chain-svg\" viewBox=\"0 0 620 360\" width=\"620\" height=\"360\"><title>Chain of disks along a path</title></svg>\n  <div class=\"row\">\n    <label for=\"chain-t\">path parameter $t$:</label>\n    <input type=\"range\" id=\"chain-t\" min=\"0\" max=\"1\" step=\"0.005\" value=\"0.5\">\n    <span class=\"small\" id=\"chain-tout\">t = 0.50</span>\n  </div>\n  <div class=\"readout\" id=\"chain-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-chain",
+            "svgId": "chain-svg",
+            "outputId": "chain-out",
+            "title": "Chain of disks along a path",
+            "hint": "drag the slider to sweep the path; watch the radius shrink near $z=1$",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "chain-t",
+                "outId": "chain-tout",
+                "label": "path parameter $t$:",
+                "min": 0,
+                "max": 1,
+                "step": 0.005,
+                "init": 0.5,
+                "initReadout": "t = 0.50"
+              }
+            ],
+            "sectionComment": "========== Section 2: chain of disks widget ==========",
+            "bodyScript": "  const svg=$('#chain-svg'), out=$('#chain-out'), tin=$('#chain-t'), tout=$('#chain-tout');\n  const W=620, H=360, cx=310, cy=180, sc=130;\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  // path goes from z = -0.7 to z = +0.9, straight line, aiming toward the pole at z=1\n  function pathAt(t){ return [-0.7 + t*1.6, 0.2]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // pole at z=1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:5,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // full path\n    const P0=toPx(pathAt(0)), P1=toPx(pathAt(1));\n    svg.appendChild(SVG('line',{x1:P0[0],y1:P0[1],x2:P1[0],y2:P1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // chain of disks: greedy — always jump to the boundary of the current disk\n    const t = parseFloat(tin.value);\n    const maxT = t;\n    const centers = [];\n    let cur = 0;\n    centers.push(pathAt(0));\n    let safety = 0;\n    while(cur < maxT && safety < 200){\n      safety++;\n      const c = pathAt(cur);\n      const R = Math.hypot(1-c[0], -c[1]);  // radius of convergence when expanded at c\n      // step length along path in world units: path speed is 1.6 per unit t\n      // step in t such that distance = 0.85 R\n      const stepDist = 0.85 * R;\n      const step = Math.min(maxT - cur, stepDist / 1.6);\n      cur += step;\n      if(step < 1e-4) break;\n      centers.push(pathAt(cur));\n    }\n    // draw disks\n    centers.forEach((c, k) => {\n      const pc = toPx(c);\n      const R = Math.hypot(1-c[0], -c[1]);\n      const color = k === centers.length-1 ? 'var(--yellow)' : 'var(--blue)';\n      const op = k === centers.length-1 ? 0.28 : 0.12;\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:sc*R,fill:color,'fill-opacity':op,stroke:color,'stroke-width':1,opacity:0.8}));\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:3,fill:color}));\n    });\n    // current position marker\n    const ct = pathAt(t), pct = toPx(ct);\n    svg.appendChild(SVG('circle',{cx:pct[0],cy:pct[1],r:5,fill:'var(--green)',stroke:'#000','stroke-width':1}));\n    const tx = SVG('text',{x:pct[0]+8,y:pct[1]+16,'font-size':12,fill:'var(--green)'}); tx.textContent='γ(t)'; svg.appendChild(tx);\n    // readout\n    tout.textContent = 't = ' + t.toFixed(2);\n    const lastC = centers[centers.length-1];\n    const lastR = Math.hypot(1-lastC[0], -lastC[1]);\n    out.textContent =\n      'Chain length: ' + centers.length + ' disks.\\n' +\n      'Current radius at γ(t): R = |1 − γ(t)| = ' + lastR.toFixed(3) + '.\\n' +\n      (t > 0.95\n        ? 'Near the pole z=1 the radii shrink — but the chain still continues f = 1/(1−z).'\n        : 'Each re-expansion step jumps ≈ 0.85·R along the path; the chain advances.');\n  }\n  tin.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -68,8 +160,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-chain",
-          "html": "<script>\n/* ========== Section 2: chain of disks widget ========== */\n(function(){\n  const svg=$('#chain-svg'), out=$('#chain-out'), tin=$('#chain-t'), tout=$('#chain-tout');\n  const W=620, H=360, cx=310, cy=180, sc=130;\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  // path goes from z = -0.7 to z = +0.9, straight line, aiming toward the pole at z=1\n  function pathAt(t){ return [-0.7 + t*1.6, 0.2]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // pole at z=1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:5,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // full path\n    const P0=toPx(pathAt(0)), P1=toPx(pathAt(1));\n    svg.appendChild(SVG('line',{x1:P0[0],y1:P0[1],x2:P1[0],y2:P1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // chain of disks: greedy — always jump to the boundary of the current disk\n    const t = parseFloat(tin.value);\n    const maxT = t;\n    const centers = [];\n    let cur = 0;\n    centers.push(pathAt(0));\n    let safety = 0;\n    while(cur < maxT && safety < 200){\n      safety++;\n      const c = pathAt(cur);\n      const R = Math.hypot(1-c[0], -c[1]);  // radius of convergence when expanded at c\n      // step length along path in world units: path speed is 1.6 per unit t\n      // step in t such that distance = 0.85 R\n      const stepDist = 0.85 * R;\n      const step = Math.min(maxT - cur, stepDist / 1.6);\n      cur += step;\n      if(step < 1e-4) break;\n      centers.push(pathAt(cur));\n    }\n    // draw disks\n    centers.forEach((c, k) => {\n      const pc = toPx(c);\n      const R = Math.hypot(1-c[0], -c[1]);\n      const color = k === centers.length-1 ? 'var(--yellow)' : 'var(--blue)';\n      const op = k === centers.length-1 ? 0.28 : 0.12;\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:sc*R,fill:color,'fill-opacity':op,stroke:color,'stroke-width':1,opacity:0.8}));\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:3,fill:color}));\n    });\n    // current position marker\n    const ct = pathAt(t), pct = toPx(ct);\n    svg.appendChild(SVG('circle',{cx:pct[0],cy:pct[1],r:5,fill:'var(--green)',stroke:'#000','stroke-width':1}));\n    const tx = SVG('text',{x:pct[0]+8,y:pct[1]+16,'font-size':12,fill:'var(--green)'}); tx.textContent='γ(t)'; svg.appendChild(tx);\n    // readout\n    tout.textContent = 't = ' + t.toFixed(2);\n    const lastC = centers[centers.length-1];\n    const lastR = Math.hypot(1-lastC[0], -lastC[1]);\n    out.textContent =\n      'Chain length: ' + centers.length + ' disks.\\n' +\n      'Current radius at γ(t): R = |1 − γ(t)| = ' + lastR.toFixed(3) + '.\\n' +\n      (t > 0.95\n        ? 'Near the pole z=1 the radii shrink — but the chain still continues f = 1/(1−z).'\n        : 'Each re-expansion step jumps ≈ 0.85·R along the path; the chain advances.');\n  }\n  tin.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-chain",
+            "svgId": "chain-svg",
+            "outputId": "chain-out",
+            "title": "Chain of disks along a path",
+            "hint": "drag the slider to sweep the path; watch the radius shrink near $z=1$",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "chain-t",
+                "outId": "chain-tout",
+                "label": "path parameter $t$:",
+                "min": 0,
+                "max": 1,
+                "step": 0.005,
+                "init": 0.5,
+                "initReadout": "t = 0.50"
+              }
+            ],
+            "sectionComment": "========== Section 2: chain of disks widget ==========",
+            "bodyScript": "  const svg=$('#chain-svg'), out=$('#chain-out'), tin=$('#chain-t'), tout=$('#chain-tout');\n  const W=620, H=360, cx=310, cy=180, sc=130;\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  // path goes from z = -0.7 to z = +0.9, straight line, aiming toward the pole at z=1\n  function pathAt(t){ return [-0.7 + t*1.6, 0.2]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // pole at z=1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:5,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // full path\n    const P0=toPx(pathAt(0)), P1=toPx(pathAt(1));\n    svg.appendChild(SVG('line',{x1:P0[0],y1:P0[1],x2:P1[0],y2:P1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // chain of disks: greedy — always jump to the boundary of the current disk\n    const t = parseFloat(tin.value);\n    const maxT = t;\n    const centers = [];\n    let cur = 0;\n    centers.push(pathAt(0));\n    let safety = 0;\n    while(cur < maxT && safety < 200){\n      safety++;\n      const c = pathAt(cur);\n      const R = Math.hypot(1-c[0], -c[1]);  // radius of convergence when expanded at c\n      // step length along path in world units: path speed is 1.6 per unit t\n      // step in t such that distance = 0.85 R\n      const stepDist = 0.85 * R;\n      const step = Math.min(maxT - cur, stepDist / 1.6);\n      cur += step;\n      if(step < 1e-4) break;\n      centers.push(pathAt(cur));\n    }\n    // draw disks\n    centers.forEach((c, k) => {\n      const pc = toPx(c);\n      const R = Math.hypot(1-c[0], -c[1]);\n      const color = k === centers.length-1 ? 'var(--yellow)' : 'var(--blue)';\n      const op = k === centers.length-1 ? 0.28 : 0.12;\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:sc*R,fill:color,'fill-opacity':op,stroke:color,'stroke-width':1,opacity:0.8}));\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:3,fill:color}));\n    });\n    // current position marker\n    const ct = pathAt(t), pct = toPx(ct);\n    svg.appendChild(SVG('circle',{cx:pct[0],cy:pct[1],r:5,fill:'var(--green)',stroke:'#000','stroke-width':1}));\n    const tx = SVG('text',{x:pct[0]+8,y:pct[1]+16,'font-size':12,fill:'var(--green)'}); tx.textContent='γ(t)'; svg.appendChild(tx);\n    // readout\n    tout.textContent = 't = ' + t.toFixed(2);\n    const lastC = centers[centers.length-1];\n    const lastR = Math.hypot(1-lastC[0], -lastC[1]);\n    out.textContent =\n      'Chain length: ' + centers.length + ' disks.\\n' +\n      'Current radius at γ(t): R = |1 − γ(t)| = ' + lastR.toFixed(3) + '.\\n' +\n      (t > 0.95\n        ? 'Near the pole z=1 the radii shrink — but the chain still continues f = 1/(1−z).'\n        : 'Each re-expansion step jumps ≈ 0.85·R along the path; the chain advances.');\n  }\n  tin.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -87,8 +203,32 @@
         {
           "type": "widget",
           "id": "w-mono",
-          "html": "<div class=\"widget\" id=\"w-mono\">\n  <div class=\"hd\"><div class=\"ttl\">Monodromy of log around 0</div><div class=\"hint\">drag the slider to walk a loop; watch $\\operatorname{Im}\\log z$ climb by $2\\pi$</div></div>\n  <svg id=\"mono-svg\" viewBox=\"0 0 620 360\" width=\"620\" height=\"360\"><title>Monodromy of log around 0</title></svg>\n  <div class=\"row\">\n    <label for=\"mono-t\">path (fraction of loop):</label>\n    <input type=\"range\" id=\"mono-t\" min=\"0\" max=\"2\" step=\"0.005\" value=\"0.5\">\n    <span class=\"small\" id=\"mono-tout\">t = 0.50 turns</span>\n  </div>\n  <div class=\"readout\" id=\"mono-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-mono",
+            "svgId": "mono-svg",
+            "outputId": "mono-out",
+            "title": "Monodromy of log around 0",
+            "hint": "drag the slider to walk a loop; watch $\\operatorname{Im}\\log z$ climb by $2\\pi$",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "mono-t",
+                "outId": "mono-tout",
+                "label": "path (fraction of loop):",
+                "min": 0,
+                "max": 2,
+                "step": 0.005,
+                "init": 0.5,
+                "initReadout": "t = 0.50 turns"
+              }
+            ],
+            "sectionComment": "========== Section 3: monodromy of log ==========",
+            "bodyScript": "  const svg=$('#mono-svg'), out=$('#mono-out'), tin=$('#mono-t'), tout=$('#mono-tout');\n  const W=620, H=360;\n  // LEFT: z-plane with loop | RIGHT: Im log plot\n  const L = {cx:170, cy:180, sc:110};\n  const R = {x0:360, y0:330, xw:230, yh:280};  // plot area\n  function toL(z){ return [L.cx + L.sc*z[0], L.cy - L.sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    const tmax = parseFloat(tin.value);  // number of turns (0..2)\n    // --- left: z plane ---\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:L.cy,x2:320,y2:L.cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:L.cx,y1:50,x2:L.cx,y2:310,stroke:'var(--line)'}));\n    // branch point at 0\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:5,fill:'var(--pink)'}));\n    const t0 = SVG('text',{x:L.cx+8,y:L.cy-8,'font-size':12,fill:'var(--pink)'}); t0.textContent='0'; svg.appendChild(t0);\n    // unit circle dashed\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // the traced arc\n    const arcPts = [];\n    const N = Math.max(6, Math.round(200 * tmax));\n    for(let k=0;k<=N;k++){\n      const tt = tmax * k / N;\n      const theta = 2*Math.PI * tt;\n      arcPts.push(toL([Math.cos(theta), Math.sin(theta)]));\n    }\n    let dpath = 'M ' + arcPts[0][0] + ' ' + arcPts[0][1];\n    for(let k=1;k<arcPts.length;k++) dpath += ' L ' + arcPts[k][0] + ' ' + arcPts[k][1];\n    svg.appendChild(SVG('path',{d:dpath, stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // endpoint marker\n    const ep = arcPts[arcPts.length-1];\n    svg.appendChild(SVG('circle',{cx:ep[0],cy:ep[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    // starting point\n    const sp = toL([1,0]);\n    svg.appendChild(SVG('circle',{cx:sp[0],cy:sp[1],r:4,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:sp[0]+6,y:sp[1]+16,'font-size':11,fill:'var(--blue)'}); ts.textContent='z₀=1'; svg.appendChild(ts);\n    const tl = SVG('text',{x:80,y:70,'font-size':12,fill:'var(--mute)'}); tl.textContent='z-plane'; svg.appendChild(tl);\n\n    // --- right: Im log(z) vs t ---\n    // axes\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0+R.xw,y2:R.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0,y2:R.y0-R.yh,stroke:'var(--line)'}));\n    // y-axis ticks at 0, 2pi, 4pi\n    const ymax = 4*Math.PI + 1;\n    function ty(y){ return R.y0 - (y/ymax)*R.yh; }\n    [0, 2*Math.PI, 4*Math.PI].forEach(yv => {\n      const yy = ty(yv);\n      svg.appendChild(SVG('line',{x1:R.x0-4,y1:yy,x2:R.x0,y2:yy,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:R.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});\n      tx.textContent = (yv===0?'0': (yv/Math.PI).toFixed(0) + 'π');\n      svg.appendChild(tx);\n    });\n    // x-axis ticks at 0, 1, 2 turns\n    [0,1,2].forEach(xv => {\n      const xx = R.x0 + (xv/2)*R.xw;\n      svg.appendChild(SVG('line',{x1:xx,y1:R.y0,x2:xx,y2:R.y0+4,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:xx,y:R.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      tx.textContent = xv + ' turn' + (xv===1?'':'s');\n      svg.appendChild(tx);\n    });\n    // curve: Im log(z(t)) = 2π t as a straight line\n    const Nc = Math.max(6, Math.round(200 * tmax));\n    let cd = '';\n    for(let k=0;k<=Nc;k++){\n      const tt = tmax * k / Nc;\n      const yv = 2*Math.PI*tt;\n      const xx = R.x0 + (tt/2)*R.xw;\n      const yy = ty(yv);\n      cd += (k===0?'M':'L') + xx + ' ' + yy + ' ';\n    }\n    svg.appendChild(SVG('path',{d:cd,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // mark 2π level\n    const y2pi = ty(2*Math.PI);\n    svg.appendChild(SVG('line',{x1:R.x0,y1:y2pi,x2:R.x0+R.xw,y2:y2pi,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));\n    const lbl = SVG('text',{x:R.x0+R.xw-2,y:y2pi-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'});\n    lbl.textContent = 'one full loop → +2πi';\n    svg.appendChild(lbl);\n    const tr = SVG('text',{x:R.x0+10,y:R.y0-R.yh+8,'font-size':12,fill:'var(--mute)'}); tr.textContent='Im log z(t)'; svg.appendChild(tr);\n\n    tout.textContent = 't = ' + tmax.toFixed(2) + ' turn' + (tmax===1?'':'s');\n    const total = 2*Math.PI*tmax;\n    out.textContent =\n      'After ' + tmax.toFixed(2) + ' loops around 0:\\n' +\n      '  continued value of log(1) = 0 + i·(' + total.toFixed(3) + ') = i·' + (total/Math.PI).toFixed(3) + 'π.\\n' +\n      'Monodromy generator: +2πi per loop. On C\\\\{0} we have π₁=ℤ; log is ℤ-sheeted.';\n  }\n  tin.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -105,8 +245,32 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-mono",
-          "html": "<script>\n/* ========== Section 3: monodromy of log ========== */\n(function(){\n  const svg=$('#mono-svg'), out=$('#mono-out'), tin=$('#mono-t'), tout=$('#mono-tout');\n  const W=620, H=360;\n  // LEFT: z-plane with loop | RIGHT: Im log plot\n  const L = {cx:170, cy:180, sc:110};\n  const R = {x0:360, y0:330, xw:230, yh:280};  // plot area\n  function toL(z){ return [L.cx + L.sc*z[0], L.cy - L.sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    const tmax = parseFloat(tin.value);  // number of turns (0..2)\n    // --- left: z plane ---\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:L.cy,x2:320,y2:L.cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:L.cx,y1:50,x2:L.cx,y2:310,stroke:'var(--line)'}));\n    // branch point at 0\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:5,fill:'var(--pink)'}));\n    const t0 = SVG('text',{x:L.cx+8,y:L.cy-8,'font-size':12,fill:'var(--pink)'}); t0.textContent='0'; svg.appendChild(t0);\n    // unit circle dashed\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // the traced arc\n    const arcPts = [];\n    const N = Math.max(6, Math.round(200 * tmax));\n    for(let k=0;k<=N;k++){\n      const tt = tmax * k / N;\n      const theta = 2*Math.PI * tt;\n      arcPts.push(toL([Math.cos(theta), Math.sin(theta)]));\n    }\n    let dpath = 'M ' + arcPts[0][0] + ' ' + arcPts[0][1];\n    for(let k=1;k<arcPts.length;k++) dpath += ' L ' + arcPts[k][0] + ' ' + arcPts[k][1];\n    svg.appendChild(SVG('path',{d:dpath, stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // endpoint marker\n    const ep = arcPts[arcPts.length-1];\n    svg.appendChild(SVG('circle',{cx:ep[0],cy:ep[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    // starting point\n    const sp = toL([1,0]);\n    svg.appendChild(SVG('circle',{cx:sp[0],cy:sp[1],r:4,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:sp[0]+6,y:sp[1]+16,'font-size':11,fill:'var(--blue)'}); ts.textContent='z₀=1'; svg.appendChild(ts);\n    const tl = SVG('text',{x:80,y:70,'font-size':12,fill:'var(--mute)'}); tl.textContent='z-plane'; svg.appendChild(tl);\n\n    // --- right: Im log(z) vs t ---\n    // axes\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0+R.xw,y2:R.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0,y2:R.y0-R.yh,stroke:'var(--line)'}));\n    // y-axis ticks at 0, 2pi, 4pi\n    const ymax = 4*Math.PI + 1;\n    function ty(y){ return R.y0 - (y/ymax)*R.yh; }\n    [0, 2*Math.PI, 4*Math.PI].forEach(yv => {\n      const yy = ty(yv);\n      svg.appendChild(SVG('line',{x1:R.x0-4,y1:yy,x2:R.x0,y2:yy,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:R.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});\n      tx.textContent = (yv===0?'0': (yv/Math.PI).toFixed(0) + 'π');\n      svg.appendChild(tx);\n    });\n    // x-axis ticks at 0, 1, 2 turns\n    [0,1,2].forEach(xv => {\n      const xx = R.x0 + (xv/2)*R.xw;\n      svg.appendChild(SVG('line',{x1:xx,y1:R.y0,x2:xx,y2:R.y0+4,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:xx,y:R.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      tx.textContent = xv + ' turn' + (xv===1?'':'s');\n      svg.appendChild(tx);\n    });\n    // curve: Im log(z(t)) = 2π t as a straight line\n    const Nc = Math.max(6, Math.round(200 * tmax));\n    let cd = '';\n    for(let k=0;k<=Nc;k++){\n      const tt = tmax * k / Nc;\n      const yv = 2*Math.PI*tt;\n      const xx = R.x0 + (tt/2)*R.xw;\n      const yy = ty(yv);\n      cd += (k===0?'M':'L') + xx + ' ' + yy + ' ';\n    }\n    svg.appendChild(SVG('path',{d:cd,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // mark 2π level\n    const y2pi = ty(2*Math.PI);\n    svg.appendChild(SVG('line',{x1:R.x0,y1:y2pi,x2:R.x0+R.xw,y2:y2pi,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));\n    const lbl = SVG('text',{x:R.x0+R.xw-2,y:y2pi-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'});\n    lbl.textContent = 'one full loop → +2πi';\n    svg.appendChild(lbl);\n    const tr = SVG('text',{x:R.x0+10,y:R.y0-R.yh+8,'font-size':12,fill:'var(--mute)'}); tr.textContent='Im log z(t)'; svg.appendChild(tr);\n\n    tout.textContent = 't = ' + tmax.toFixed(2) + ' turn' + (tmax===1?'':'s');\n    const total = 2*Math.PI*tmax;\n    out.textContent =\n      'After ' + tmax.toFixed(2) + ' loops around 0:\\n' +\n      '  continued value of log(1) = 0 + i·(' + total.toFixed(3) + ') = i·' + (total/Math.PI).toFixed(3) + 'π.\\n' +\n      'Monodromy generator: +2πi per loop. On C\\\\{0} we have π₁=ℤ; log is ℤ-sheeted.';\n  }\n  tin.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "single-mode",
+            "widgetId": "w-mono",
+            "svgId": "mono-svg",
+            "outputId": "mono-out",
+            "title": "Monodromy of log around 0",
+            "hint": "drag the slider to walk a loop; watch $\\operatorname{Im}\\log z$ climb by $2\\pi$",
+            "viewBox": "0 0 620 360",
+            "svgWidth": 620,
+            "svgHeight": 360,
+            "sliders": [
+              {
+                "id": "mono-t",
+                "outId": "mono-tout",
+                "label": "path (fraction of loop):",
+                "min": 0,
+                "max": 2,
+                "step": 0.005,
+                "init": 0.5,
+                "initReadout": "t = 0.50 turns"
+              }
+            ],
+            "sectionComment": "========== Section 3: monodromy of log ==========",
+            "bodyScript": "  const svg=$('#mono-svg'), out=$('#mono-out'), tin=$('#mono-t'), tout=$('#mono-tout');\n  const W=620, H=360;\n  // LEFT: z-plane with loop | RIGHT: Im log plot\n  const L = {cx:170, cy:180, sc:110};\n  const R = {x0:360, y0:330, xw:230, yh:280};  // plot area\n  function toL(z){ return [L.cx + L.sc*z[0], L.cy - L.sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    const tmax = parseFloat(tin.value);  // number of turns (0..2)\n    // --- left: z plane ---\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:L.cy,x2:320,y2:L.cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:L.cx,y1:50,x2:L.cx,y2:310,stroke:'var(--line)'}));\n    // branch point at 0\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:5,fill:'var(--pink)'}));\n    const t0 = SVG('text',{x:L.cx+8,y:L.cy-8,'font-size':12,fill:'var(--pink)'}); t0.textContent='0'; svg.appendChild(t0);\n    // unit circle dashed\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // the traced arc\n    const arcPts = [];\n    const N = Math.max(6, Math.round(200 * tmax));\n    for(let k=0;k<=N;k++){\n      const tt = tmax * k / N;\n      const theta = 2*Math.PI * tt;\n      arcPts.push(toL([Math.cos(theta), Math.sin(theta)]));\n    }\n    let dpath = 'M ' + arcPts[0][0] + ' ' + arcPts[0][1];\n    for(let k=1;k<arcPts.length;k++) dpath += ' L ' + arcPts[k][0] + ' ' + arcPts[k][1];\n    svg.appendChild(SVG('path',{d:dpath, stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // endpoint marker\n    const ep = arcPts[arcPts.length-1];\n    svg.appendChild(SVG('circle',{cx:ep[0],cy:ep[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    // starting point\n    const sp = toL([1,0]);\n    svg.appendChild(SVG('circle',{cx:sp[0],cy:sp[1],r:4,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:sp[0]+6,y:sp[1]+16,'font-size':11,fill:'var(--blue)'}); ts.textContent='z₀=1'; svg.appendChild(ts);\n    const tl = SVG('text',{x:80,y:70,'font-size':12,fill:'var(--mute)'}); tl.textContent='z-plane'; svg.appendChild(tl);\n\n    // --- right: Im log(z) vs t ---\n    // axes\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0+R.xw,y2:R.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0,y2:R.y0-R.yh,stroke:'var(--line)'}));\n    // y-axis ticks at 0, 2pi, 4pi\n    const ymax = 4*Math.PI + 1;\n    function ty(y){ return R.y0 - (y/ymax)*R.yh; }\n    [0, 2*Math.PI, 4*Math.PI].forEach(yv => {\n      const yy = ty(yv);\n      svg.appendChild(SVG('line',{x1:R.x0-4,y1:yy,x2:R.x0,y2:yy,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:R.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});\n      tx.textContent = (yv===0?'0': (yv/Math.PI).toFixed(0) + 'π');\n      svg.appendChild(tx);\n    });\n    // x-axis ticks at 0, 1, 2 turns\n    [0,1,2].forEach(xv => {\n      const xx = R.x0 + (xv/2)*R.xw;\n      svg.appendChild(SVG('line',{x1:xx,y1:R.y0,x2:xx,y2:R.y0+4,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:xx,y:R.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      tx.textContent = xv + ' turn' + (xv===1?'':'s');\n      svg.appendChild(tx);\n    });\n    // curve: Im log(z(t)) = 2π t as a straight line\n    const Nc = Math.max(6, Math.round(200 * tmax));\n    let cd = '';\n    for(let k=0;k<=Nc;k++){\n      const tt = tmax * k / Nc;\n      const yv = 2*Math.PI*tt;\n      const xx = R.x0 + (tt/2)*R.xw;\n      const yy = ty(yv);\n      cd += (k===0?'M':'L') + xx + ' ' + yy + ' ';\n    }\n    svg.appendChild(SVG('path',{d:cd,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // mark 2π level\n    const y2pi = ty(2*Math.PI);\n    svg.appendChild(SVG('line',{x1:R.x0,y1:y2pi,x2:R.x0+R.xw,y2:y2pi,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));\n    const lbl = SVG('text',{x:R.x0+R.xw-2,y:y2pi-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'});\n    lbl.textContent = 'one full loop → +2πi';\n    svg.appendChild(lbl);\n    const tr = SVG('text',{x:R.x0+10,y:R.y0-R.yh+8,'font-size':12,fill:'var(--mute)'}); tr.textContent='Im log z(t)'; svg.appendChild(tr);\n\n    tout.textContent = 't = ' + tmax.toFixed(2) + ' turn' + (tmax===1?'':'s');\n    const total = 2*Math.PI*tmax;\n    out.textContent =\n      'After ' + tmax.toFixed(2) + ' loops around 0:\\n' +\n      '  continued value of log(1) = 0 + i·(' + total.toFixed(3) + ') = i·' + (total/Math.PI).toFixed(3) + 'π.\\n' +\n      'Monodromy generator: +2πi per loop. On C\\\\{0} we have π₁=ℤ; log is ℤ-sheeted.';\n  }\n  tin.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
