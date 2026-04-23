@@ -213,9 +213,29 @@ function checkAgentsVsScripts() {
   const bareRe = /`([a-z0-9\-]+)\.mjs`/gi;
   while ((m = bareRe.exec(agents))) mentioned.add(`${m[1]}.mjs`);
 
+  // Some bare `.mjs` names in AGENTS.md aren't scripts — e.g. `index.mjs`
+  // refers to the widgets/<slug>/index.mjs registry file. Skip anything
+  // whose filename is present under widgets/ so we don't flag widget
+  // module references as missing scripts.
+  const widgetModuleFiles = new Set();
+  const widgetsDir = join(repoRoot, 'widgets');
+  if (existsSync(widgetsDir)) {
+    for (const d of readdirSync(widgetsDir, { withFileTypes: true })) {
+      if (!d.isDirectory()) continue;
+      const sub = join(widgetsDir, d.name);
+      try {
+        for (const f of readdirSync(sub)) {
+          if (f.endsWith('.mjs')) widgetModuleFiles.add(f);
+        }
+      } catch {
+        /* skip unreadable dirs */
+      }
+    }
+  }
+
   const onDisk = new Set(mjsFiles);
   for (const name of mentioned) {
-    if (!onDisk.has(name)) {
+    if (!onDisk.has(name) && !widgetModuleFiles.has(name)) {
       push('AGENTS.md', 'fail', `references missing script: scripts/${name}`);
     }
   }
