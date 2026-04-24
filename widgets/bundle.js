@@ -187,5 +187,45 @@ window.__MVWidgets = [
     "exampleParams": null,
     "exampleMarkup": null,
     "exampleScript": null
+  },
+  {
+    "slug": "surface-viewer",
+    "family": "surface-viewer",
+    "dimension": "3d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "surface-viewer widget params",
+    "description": "Shared widget module for the 3d-viewer family (6+ widgets): parametric surfaces, polyhedra, and trajectories rendered as rotatable SVG via the page-global `make3DDraggable` + `proj3` helpers. Markup is a header + single `.row` of controls + SVG host + readout; the draw logic (integrating ODEs, computing curvature, wireframing surfaces) is widget-specific and carried verbatim as the `bodyScript` ARTIFACT. A portable React/Three.js consumer would discard `bodyScript` and re-implement each widget's math in its own renderer (e.g. via react-three-fiber), reading structural params (`controls`, `svgId`, `initialYaw`, `initialPitch`) plus eventually per-widget `draw` descriptors once they are lifted out of the artifact string. The `oneOf` dispatches between `standard` (the 5 differential-geometry widgets all share the same markup shape: hd / row of controls / svg / readout) and `bare` (idiosyncratic markup such as `w-su2path`'s nested SVG + matrix readout layout — carried as a `bodyMarkup` artifact).",
+    "requiredParams": [
+      "interaction",
+      "widgetId",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Shared widget module for the **3d-viewer** family — rotatable SVG views of parametric surfaces, polyhedra, and 3-space trajectories. Absorbs widgets from `differential-geometry`, `lie-groups`, and (subsequent passes) `smooth-manifolds`, `riemannian-geometry`, and `dynamical-systems`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "svg-illustration",
+    "family": "svg-illustration",
+    "dimension": "2d",
+    "gesture": "static",
+    "role": "illustration",
+    "title": "svg-illustration widget params",
+    "description": "A static SVG figure inside standard widget chrome. No driving script, no interactive controls — the widget is a pure illustration that lives inside the registry for metadata (family / dimension) and portability across alternate frontends. Optional `caption` and `footer` describe the after-SVG text blocks (a `<div class=\"small\">` paragraph or a `<div class=\"readout\">` with optional id + inline style). The SVG's inner HTML is carried verbatim as `svgInner` — typically just a `<title>` element plus any hand-drawn static content. A companion `widget-script` block may still sit next to this widget in `content/<topic>.json` — it is rendered untouched by the topic renderer, so illustrations whose pixels are produced by a neighbouring load-time script can migrate to this widget without breaking.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "viewBox",
+      "title",
+      "svgInner"
+    ],
+    "readmeExcerpt": "A **static** widget: an SVG figure inside standard `.widget` chrome with no driving script and no interactive controls. Think \"3Blue1Brown diagram embedded in the page\" — pure visual decoration of a concept that does not react to input.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   }
 ];

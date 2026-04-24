@@ -46,6 +46,18 @@
       "type": "string",
       "description": "Display title rendered inside .hd > .ttl and inside the <svg>'s <title> element."
     },
+    "titleTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
+    },
+    "hintTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+    },
     "hint": {
       "type": "string",
       "description": "Optional short hint rendered inside .hd > .hint. If absent, the hint <div> is omitted."

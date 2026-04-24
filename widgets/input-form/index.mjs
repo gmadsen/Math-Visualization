@@ -80,20 +80,31 @@ function renderSvgTag(params) {
   return `  <svg ${attrs.join(' ')}><title>${title}</title></svg>\n`;
 }
 
+function renderTitleTag(title, titleTag) {
+  const tag = titleTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="ttl">${title}</${tag}>`;
+}
+
+function renderHintTag(hint, hintTag) {
+  if (hint === undefined) return '';
+  const tag = hintTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="hint">${hint}</${tag}>`;
+}
+
 export function renderMarkup(params) {
   const {
     widgetId, title, hint,
     inputs, button,
     readoutId, readoutPrefix,
-    svgId,
+    svgId, titleTag, hintTag,
   } = params;
-  const hintHtml = (hint !== undefined) ? `<div class="hint">${hint}</div>` : '';
+  const hintHtml = renderHintTag(hint, hintTag);
   const svgLine = (svgId !== undefined) ? renderSvgTag(params) : '';
   const rowBody = renderInputRow(inputs, button);
   const readoutInner = (readoutPrefix !== undefined) ? readoutPrefix : '';
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
     svgLine +
     `  <div class="row">\n` +
     `${rowBody}\n` +
