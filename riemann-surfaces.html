@@ -827,8 +827,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
 </ul>
 
 <div class="widget" id="w-rh">
-  <div class="hd"><span class="ttl">Riemann–Hurwitz calculator</span>
-    <span class="hint">enter degree, base genus, ramification indices</span></div>
+  <div class="hd"><div class="ttl">Riemann–Hurwitz calculator</div><div class="hint">enter degree, base genus, ramification indices</div></div>
   <div class="row">
     <label for="rh-n">deg n</label> <input type="number" id="rh-n" value="2" min="1" max="20" style="width:4em"/>
     <label for="rh-gy">g(Y)</label>  <input type="number" id="rh-gy" value="0" min="0" max="20" style="width:4em"/>
@@ -844,9 +843,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
     <button data-ex="ellcover">unramified cover of torus</button>
     <button data-ex="exotic">weird mixed</button>
   </div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const nEl = document.getElementById('rh-n');
   const gyEl = document.getElementById('rh-gy');
