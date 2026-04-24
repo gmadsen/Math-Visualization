@@ -1081,17 +1081,14 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
 <p>Divisors are the algebraic bookkeeping for "orders of zero and pole" and show up everywhere: every line bundle $\mathcal{L}$ on $X$ is $\mathcal{O}(D)$ for some divisor $D$, and the degree of the line bundle equals $\deg D$.</p>
 
 <div class="widget" id="w-div">
-  <div class="hd"><span class="ttl">Place points, build a divisor</span>
-    <span class="hint">left-click adds +1, right-click (or shift-click) adds −1</span></div>
-  <svg viewBox="0 0 760 240" width="760" height="240" id="svg-div"><title>Place points, build a divisor</title></svg>
+  <div class="hd"><div class="ttl">Place points, build a divisor</div><div class="hint">left-click adds +1, right-click (or shift-click) adds −1</div></div>
+  <svg id="svg-div" viewBox="0 0 760 240" width="760" height="240"><title>Place points, build a divisor</title></svg>
   <div class="row">
     <button id="div-clear">clear</button>
     <span class="small" style="color:var(--mute)">click on the torus cross-section to add points with multiplicity</span>
   </div>
   <div class="readout" id="out-div"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('svg-div');
   const out = document.getElementById('out-div');
