@@ -22,9 +22,43 @@
         },
         {
           "type": "widget",
-          "id": "w-jac",
-          "html": "<div class=\"widget\" id=\"w-jac\">\n  <div class=\"hd\"><div class=\"ttl\">Jacobian unit test</div><div class=\"hint\">toggle characteristic and exponent; inspect derivative on roots</div></div>\n  <div class=\"row\">\n    <label>char p <select id=\"jc-p\"><option>0</option><option>2</option><option>3</option><option>5</option></select></label>\n    <label>n <input id=\"jc-n\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"></label>\n    <span id=\"jc-nv\" class=\"small\">n = 4</span>\n  </div>\n  <div class=\"readout\" id=\"jc-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const pSel=$('#jc-p'), nSl=$('#jc-n'), nv=$('#jc-nv'), out=$('#jc-out');\n  function render(){\n    const p=+pSel.value,n=+nSl.value; nv.textContent='n = '+n;\n    const sep = (p===0) || (n%p!==0);\n    out.textContent = sep\n      ? 'f(t)=t^n-u has derivative n t^{n-1} not identically zero in char '+(p||'0')+'. Fibers are separable, so finite map is étale away from t=0 singularities.'\n      : 'p divides n (p='+p+'). Then derivative n t^{n-1} ≡ 0, so every root is multiple: purely inseparable extension, not étale.';\n  }\n  pSel.addEventListener('change',render); nSl.addEventListener('input',render); render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jac",
+            "title": "Jacobian unit test",
+            "hint": "toggle characteristic and exponent; inspect derivative on roots",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>char p <select id=\"jc-p\"><option>0</option><option>2</option><option>3</option><option>5</option></select></label>\n    <label>n <input id=\"jc-n\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"></label>\n    <span id=\"jc-nv\" class=\"small\">n = 4</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "jc-out"
+              }
+            ],
+            "bodyScript": "  const pSel=$('#jc-p'), nSl=$('#jc-n'), nv=$('#jc-nv'), out=$('#jc-out');\n  function render(){\n    const p=+pSel.value,n=+nSl.value; nv.textContent='n = '+n;\n    const sep = (p===0) || (n%p!==0);\n    out.textContent = sep\n      ? 'f(t)=t^n-u has derivative n t^{n-1} not identically zero in char '+(p||'0')+'. Fibers are separable, so finite map is étale away from t=0 singularities.'\n      : 'p divides n (p='+p+'). Then derivative n t^{n-1} ≡ 0, so every root is multiple: purely inseparable extension, not étale.';\n  }\n  pSel.addEventListener('change',render); nSl.addEventListener('input',render); render();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jac",
+            "title": "Jacobian unit test",
+            "hint": "toggle characteristic and exponent; inspect derivative on roots",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>char p <select id=\"jc-p\"><option>0</option><option>2</option><option>3</option><option>5</option></select></label>\n    <label>n <input id=\"jc-n\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"></label>\n    <span id=\"jc-nv\" class=\"small\">n = 4</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "jc-out"
+              }
+            ],
+            "bodyScript": "  const pSel=$('#jc-p'), nSl=$('#jc-n'), nv=$('#jc-nv'), out=$('#jc-out');\n  function render(){\n    const p=+pSel.value,n=+nSl.value; nv.textContent='n = '+n;\n    const sep = (p===0) || (n%p!==0);\n    out.textContent = sep\n      ? 'f(t)=t^n-u has derivative n t^{n-1} not identically zero in char '+(p||'0')+'. Fibers are separable, so finite map is étale away from t=0 singularities.'\n      : 'p divides n (p='+p+'). Then derivative n t^{n-1} ≡ 0, so every root is multiple: purely inseparable extension, not étale.';\n  }\n  pSel.addEventListener('change',render); nSl.addEventListener('input',render); render();"
+          }
         },
         {
           "type": "raw",
