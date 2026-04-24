@@ -167,9 +167,27 @@
         },
         {
           "type": "widget",
-          "id": "w-idele",
-          "html": "<div class=\"widget\" id=\"w-idele\">\n  <div class=\"hd\">\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  </div>\n  <div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>\n  <div class=\"readout\" id=\"idele-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -186,8 +204,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-idele",
-          "html": "<script>\n/* ===== Section 3: idèlic norm calculator ===== */\n(function(){\n  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
