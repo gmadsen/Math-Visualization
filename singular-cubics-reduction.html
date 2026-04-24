@@ -318,7 +318,7 @@ Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a
 <div class="widget" id="w-nvc">
   <div class="hd"><span class="ttl">Node vs. cusp side-by-side</span><span class="hint">tangent lines shown in yellow</span></div>
   <svg id="nvc-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Node vs. cusp side-by-side</title></svg>
-  <div class="readout" id="undefined">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
+  <div class="readout">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
 </div><script>
 (function(){
   const svg=$('#nvc-svg');
@@ -756,17 +756,15 @@ whenever $\alpha \ne \beta$ — giving two tangent lines and hence a node. When 
 <p>For a node over $\mathbb{F}_p$, the further question is whether the tangent slope $s = \sqrt{\alpha - \beta}$ lives in $\mathbb{F}_p$ or only in its quadratic extension $\mathbb{F}_{p^2}$. This is precisely the question of whether $\alpha - \beta$ is a square in $\mathbb{F}_p^{\times}$ — a <a href="./quadratic-reciprocity.html">Legendre symbol</a> computation.</p>
 
 <div class="widget" id="w-tan">
-<div class="hd"><span class="ttl">Tangent-cone classifier</span><span class="hint">enter a singular reduction; read off split vs. non-split</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Tangent-cone classifier</span><span class="hint">enter a singular reduction; read off split vs. non-split</span></div>
+  <div class="row">
   <label>$a$ <input type="number" id="tc-a" value="3" style="width:4.5rem"></label>
   <label>$b$ <input type="number" id="tc-b" value="2" style="width:4.5rem"></label>
   <label>$p$ <input type="number" id="tc-p" value="5" style="width:4.5rem"></label>
   <button id="tc-run">classify</button>
 </div>
-<div id="tc-out" class="readout">press classify…</div>
-</div>
-
-<script>
+  <div class="readout" id="tc-out">press classify…</div>
+</div><script>
 (function(){
   const A=$('#tc-a'), B=$('#tc-b'), P=$('#tc-p'), btn=$('#tc-run'), out=$('#tc-out');
   function mod(n,m){ return ((n%m)+m)%m; }
@@ -853,17 +851,15 @@ $$\bigl|\,|E(\mathbb{F}_p)| - (p+1)\,\bigr| \;\le\; 2 \sqrt{p}.$$
 Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over the finite field, proved by Hasse in 1933 and generalised to all varieties by Deligne.</div>
 
 <div class="widget" id="w-counter">
-<div class="hd"><span class="ttl">Point counter over $\mathbb{F}_p$</span><span class="hint">try primes where the curve is good, and primes where it is bad</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Point counter over $\mathbb{F}_p$</span><span class="hint">try primes where the curve is good, and primes where it is bad</span></div>
+  <div class="row">
   <label>$a$ <input type="number" id="ct-a" value="-1" style="width:4.5rem"></label>
   <label>$b$ <input type="number" id="ct-b" value="0" style="width:4.5rem"></label>
   <label>$p$ <input type="number" id="ct-p" value="7" style="width:4.5rem"></label>
 </div>
-<svg id="ct-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Point counter over $\mathbb{F}_p$</title></svg>
-<div id="ct-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="ct-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Point counter over $\mathbb{F}_p$</title></svg>
+  <div class="readout" id="ct-out"></div>
+</div><script>
 (function(){
   const A=$('#ct-a'), B=$('#ct-b'), P=$('#ct-p'), svg=$('#ct-svg'), out=$('#ct-out');
   const W=400,H=400,PAD=28;
@@ -929,8 +925,8 @@ Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over th
 </script>
 
 <div class="widget" id="w-hasse">
-<div class="hd"><span class="ttl">Hasse interval vs. point count</span><span class="hint">each dot is $|\tilde E(\mathbb{F}_p)|$ for one good prime</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Hasse interval vs. point count</span><span class="hint">each dot is $|\tilde E(\mathbb{F}_p)|$ for one good prime</span></div>
+  <div class="row">
   <label>curve <select id="hs-curve">
     <option value="-1,0">y² = x³ - x</option>
     <option value="0,1" selected>y² = x³ + 1</option>
@@ -939,11 +935,9 @@ Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over th
     <option value="-4,4">y² = x³ - 4x + 4</option>
   </select></label>
 </div>
-<svg id="hs-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Hasse interval vs. point count</title></svg>
-<div id="hs-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="hs-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Hasse interval vs. point count</title></svg>
+  <div class="readout" id="hs-out"></div>
+</div><script>
 (function(){
   const sel=$('#hs-curve'), svg=$('#hs-svg'), out=$('#hs-out');
   const W=640,H=320,PADX=50,PADY=40;
