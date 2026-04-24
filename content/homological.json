@@ -616,9 +616,28 @@
         },
         {
           "type": "widget",
-          "id": "w-res",
-          "html": "<div class=\"widget\" id=\"w-res\">\n  <div class=\"hd\"><div class=\"ttl\">Free resolution builder (finitely generated abelian groups)</div><div class=\"hint\">add cyclic summands · see presentation matrix and Smith normal form</div></div>\n  <div class=\"row\">\n    <label>M =</label>\n    <span id=\"res-view\" style=\"color:var(--yellow);font-weight:600\"></span>\n  </div>\n  <div class=\"row\">\n    <button data-add=\"2\">+ ℤ/2</button>\n    <button data-add=\"3\">+ ℤ/3</button>\n    <button data-add=\"4\">+ ℤ/4</button>\n    <button data-add=\"6\">+ ℤ/6</button>\n    <button data-add=\"0\">+ ℤ</button>\n    <button id=\"res-clear\">clear</button>\n  </div>\n  <div class=\"readout\" id=\"res-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-res",
+            "title": "Free resolution builder (finitely generated abelian groups)",
+            "hint": "add cyclic summands · see presentation matrix and Smith normal form",
+            "sectionComment": "=============================== SECTION 5: Free resolution builder ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>M =</label>\n    <span id=\"res-view\" style=\"color:var(--yellow);font-weight:600\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button data-add=\"2\">+ ℤ/2</button>\n    <button data-add=\"3\">+ ℤ/3</button>\n    <button data-add=\"4\">+ ℤ/4</button>\n    <button data-add=\"6\">+ ℤ/6</button>\n    <button data-add=\"0\">+ ℤ</button>\n    <button id=\"res-clear\">clear</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "res-out"
+              }
+            ],
+            "bodyScript": "  const viewSpan = $('#res-view'), out = $('#res-out');\n  const btns = $$('#w-res button[data-add]');\n  const clear = $('#res-clear');\n\n  let summands = [6, 0]; // default: Z/6 ⊕ Z\n\n  function format(sum){\n    if(sum.length===0) return '0';\n    const parts = [];\n    const free = sum.filter(x=>x===0).length;\n    if(free>0) parts.push(free===1?'ℤ':`ℤ^${free}`);\n    const cy = sum.filter(x=>x>0);\n    for(const c of cy) parts.push(`ℤ/${c}`);\n    return parts.join(' ⊕ ');\n  }\n  function render(){\n    viewSpan.textContent = format(summands);\n    // Build presentation matrix: rows = generators of M (= one per summand, length s).\n    // For a summand Z/m_i, the relation m_i · e_i = 0 contributes a column (0,...,m_i,...,0).\n    // For a summand Z, no relation.\n    const s = summands.length;\n    const cyclic = summands.map((m,i)=>({m,i})).filter(x=>x.m>0);\n    const r = cyclic.length;\n    // matrix is s×r (rows=s, cols=r). Column i of matrix has m_i at row i (the one corresponding to that cyclic).\n    // But if free summands are mixed in, the row indices differ. Use position ordering of summands.\n    const M = [];\n    for(let a=0;a<s;a++){\n      const row = new Array(r).fill(0);\n      M.push(row);\n    }\n    cyclic.forEach((c,k)=>{ M[c.i][k] = c.m; });\n    // Smith normal form for verification\n    const invs = r===0? [] : smithNormalForm(M);\n    // Number of Z summands (from the resolution's cokernel)\n    const freeRank = s - r;\n    // Now, invs are the nontrivial invariant factors of the torsion part.\n    // Smith output: list of nonzero diagonal entries; 1's mean trivial; nonzero mean torsion factor.\n\n    const lines = [];\n    if(s===0){\n      lines.push('M = 0');\n      lines.push('trivial resolution.');\n      out.textContent = lines.join('\\n');\n      return;\n    }\n    lines.push(`chosen summands: ${summands.length===0?'(empty)':summands.map(m=>m===0?'ℤ':`ℤ/${m}`).join(', ')}`);\n    lines.push(`s = ${s} (generators),  r = ${r} (relations)`);\n    lines.push('');\n    lines.push(`Two-step free resolution:`);\n    lines.push(r===0\n      ? `   0  →  ℤ^${s}  →  M  →  0`\n      : `   0  →  ℤ^${r}  ─A→  ℤ^${s}  →  M  →  0`);\n    if(r>0){\n      lines.push('');\n      lines.push('Presentation matrix A (columns are relations):');\n      for(const row of M) lines.push('   [  ' + row.map(x=>String(x).padStart(3,' ')).join('  ') + '  ]');\n    }\n    lines.push('');\n    lines.push(`Smith invariant factors: [${invs.join(', ')}]`);\n    lines.push(`Recovered M ≅ ${zmoduleFromSmith(invs, freeRank)}`);\n\n    out.textContent = lines.join('\\n');\n  }\n  btns.forEach(b=>{\n    b.addEventListener('click', ()=>{ summands.push(parseInt(b.dataset.add,10)); render(); });\n  });\n  clear.addEventListener('click', ()=>{ summands = []; render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -635,8 +654,28 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-res",
-          "html": "<script>\n/* =============================== SECTION 5: Free resolution builder =============================== */\n(function(){\n  const viewSpan = $('#res-view'), out = $('#res-out');\n  const btns = $$('#w-res button[data-add]');\n  const clear = $('#res-clear');\n\n  let summands = [6, 0]; // default: Z/6 ⊕ Z\n\n  function format(sum){\n    if(sum.length===0) return '0';\n    const parts = [];\n    const free = sum.filter(x=>x===0).length;\n    if(free>0) parts.push(free===1?'ℤ':`ℤ^${free}`);\n    const cy = sum.filter(x=>x>0);\n    for(const c of cy) parts.push(`ℤ/${c}`);\n    return parts.join(' ⊕ ');\n  }\n  function render(){\n    viewSpan.textContent = format(summands);\n    // Build presentation matrix: rows = generators of M (= one per summand, length s).\n    // For a summand Z/m_i, the relation m_i · e_i = 0 contributes a column (0,...,m_i,...,0).\n    // For a summand Z, no relation.\n    const s = summands.length;\n    const cyclic = summands.map((m,i)=>({m,i})).filter(x=>x.m>0);\n    const r = cyclic.length;\n    // matrix is s×r (rows=s, cols=r). Column i of matrix has m_i at row i (the one corresponding to that cyclic).\n    // But if free summands are mixed in, the row indices differ. Use position ordering of summands.\n    const M = [];\n    for(let a=0;a<s;a++){\n      const row = new Array(r).fill(0);\n      M.push(row);\n    }\n    cyclic.forEach((c,k)=>{ M[c.i][k] = c.m; });\n    // Smith normal form for verification\n    const invs = r===0? [] : smithNormalForm(M);\n    // Number of Z summands (from the resolution's cokernel)\n    const freeRank = s - r;\n    // Now, invs are the nontrivial invariant factors of the torsion part.\n    // Smith output: list of nonzero diagonal entries; 1's mean trivial; nonzero mean torsion factor.\n\n    const lines = [];\n    if(s===0){\n      lines.push('M = 0');\n      lines.push('trivial resolution.');\n      out.textContent = lines.join('\\n');\n      return;\n    }\n    lines.push(`chosen summands: ${summands.length===0?'(empty)':summands.map(m=>m===0?'ℤ':`ℤ/${m}`).join(', ')}`);\n    lines.push(`s = ${s} (generators),  r = ${r} (relations)`);\n    lines.push('');\n    lines.push(`Two-step free resolution:`);\n    lines.push(r===0\n      ? `   0  →  ℤ^${s}  →  M  →  0`\n      : `   0  →  ℤ^${r}  ─A→  ℤ^${s}  →  M  →  0`);\n    if(r>0){\n      lines.push('');\n      lines.push('Presentation matrix A (columns are relations):');\n      for(const row of M) lines.push('   [  ' + row.map(x=>String(x).padStart(3,' ')).join('  ') + '  ]');\n    }\n    lines.push('');\n    lines.push(`Smith invariant factors: [${invs.join(', ')}]`);\n    lines.push(`Recovered M ≅ ${zmoduleFromSmith(invs, freeRank)}`);\n\n    out.textContent = lines.join('\\n');\n  }\n  btns.forEach(b=>{\n    b.addEventListener('click', ()=>{ summands.push(parseInt(b.dataset.add,10)); render(); });\n  });\n  clear.addEventListener('click', ()=>{ summands = []; render(); });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-res",
+            "title": "Free resolution builder (finitely generated abelian groups)",
+            "hint": "add cyclic summands · see presentation matrix and Smith normal form",
+            "sectionComment": "=============================== SECTION 5: Free resolution builder ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>M =</label>\n    <span id=\"res-view\" style=\"color:var(--yellow);font-weight:600\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button data-add=\"2\">+ ℤ/2</button>\n    <button data-add=\"3\">+ ℤ/3</button>\n    <button data-add=\"4\">+ ℤ/4</button>\n    <button data-add=\"6\">+ ℤ/6</button>\n    <button data-add=\"0\">+ ℤ</button>\n    <button id=\"res-clear\">clear</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "res-out"
+              }
+            ],
+            "bodyScript": "  const viewSpan = $('#res-view'), out = $('#res-out');\n  const btns = $$('#w-res button[data-add]');\n  const clear = $('#res-clear');\n\n  let summands = [6, 0]; // default: Z/6 ⊕ Z\n\n  function format(sum){\n    if(sum.length===0) return '0';\n    const parts = [];\n    const free = sum.filter(x=>x===0).length;\n    if(free>0) parts.push(free===1?'ℤ':`ℤ^${free}`);\n    const cy = sum.filter(x=>x>0);\n    for(const c of cy) parts.push(`ℤ/${c}`);\n    return parts.join(' ⊕ ');\n  }\n  function render(){\n    viewSpan.textContent = format(summands);\n    // Build presentation matrix: rows = generators of M (= one per summand, length s).\n    // For a summand Z/m_i, the relation m_i · e_i = 0 contributes a column (0,...,m_i,...,0).\n    // For a summand Z, no relation.\n    const s = summands.length;\n    const cyclic = summands.map((m,i)=>({m,i})).filter(x=>x.m>0);\n    const r = cyclic.length;\n    // matrix is s×r (rows=s, cols=r). Column i of matrix has m_i at row i (the one corresponding to that cyclic).\n    // But if free summands are mixed in, the row indices differ. Use position ordering of summands.\n    const M = [];\n    for(let a=0;a<s;a++){\n      const row = new Array(r).fill(0);\n      M.push(row);\n    }\n    cyclic.forEach((c,k)=>{ M[c.i][k] = c.m; });\n    // Smith normal form for verification\n    const invs = r===0? [] : smithNormalForm(M);\n    // Number of Z summands (from the resolution's cokernel)\n    const freeRank = s - r;\n    // Now, invs are the nontrivial invariant factors of the torsion part.\n    // Smith output: list of nonzero diagonal entries; 1's mean trivial; nonzero mean torsion factor.\n\n    const lines = [];\n    if(s===0){\n      lines.push('M = 0');\n      lines.push('trivial resolution.');\n      out.textContent = lines.join('\\n');\n      return;\n    }\n    lines.push(`chosen summands: ${summands.length===0?'(empty)':summands.map(m=>m===0?'ℤ':`ℤ/${m}`).join(', ')}`);\n    lines.push(`s = ${s} (generators),  r = ${r} (relations)`);\n    lines.push('');\n    lines.push(`Two-step free resolution:`);\n    lines.push(r===0\n      ? `   0  →  ℤ^${s}  →  M  →  0`\n      : `   0  →  ℤ^${r}  ─A→  ℤ^${s}  →  M  →  0`);\n    if(r>0){\n      lines.push('');\n      lines.push('Presentation matrix A (columns are relations):');\n      for(const row of M) lines.push('   [  ' + row.map(x=>String(x).padStart(3,' ')).join('  ') + '  ]');\n    }\n    lines.push('');\n    lines.push(`Smith invariant factors: [${invs.join(', ')}]`);\n    lines.push(`Recovered M ≅ ${zmoduleFromSmith(invs, freeRank)}`);\n\n    out.textContent = lines.join('\\n');\n  }\n  btns.forEach(b=>{\n    b.addEventListener('click', ()=>{ summands.push(parseInt(b.dataset.add,10)); render(); });\n  });\n  clear.addEventListener('click', ()=>{ summands = []; render(); });\n  render();"
+          }
         },
         {
           "type": "raw",
