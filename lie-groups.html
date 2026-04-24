@@ -341,20 +341,19 @@ function renderMat(container, M, p=3){
 <p>Here is a working visualization of $\mathrm{SO}(3)$, the rotation group of $\mathbb{R}^3$. A rotation is determined by an axis $\hat n\in S^2$ and an angle $\theta\in[0,\pi]$ (with $(\hat n,\theta)\sim(-\hat n,2\pi-\theta)$), giving $\mathrm{SO}(3)\cong\mathbb{RP}^3$, a closed 3-manifold of dimension $\binom{3}{2}=3$.</p>
 
 <div class="widget" id="w-so3rot">
-<div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
-<div class="row"><label for="so3-az">azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
-<div class="row"><label for="so3-el">elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
-<div class="row"><label for="so3-th">angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem">
+  <div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
+  <div class="row"><label for="so3-az">azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
+  <div class="row"><label for="so3-el">elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
+  <div class="row"><label for="so3-th">angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem">
   <div>
     <div class="small" style="margin-bottom:.3rem">$R(\hat n,\theta)\in\mathrm{SO}(3)$</div>
     <div class="matgrid" id="so3-mat"></div>
   </div>
   <svg id="so3-svg" viewBox="0 0 320 260" width="320" height="260"><title>SO(3) rotation visualizer</title></svg>
 </div>
-<div class="small" id="so3-info"></div>
-</div>
-<script>
+  <div class="small" id="so3-info"></div>
+</div><script>
 (function(){
   const az = $('#so3-az'), el = $('#so3-el'), th = $('#so3-th');
   const azR = $('#so3-az-r'), elR = $('#so3-el-r'), thR = $('#so3-th-r');
@@ -560,12 +559,12 @@ $$\exp(X) = \sum_{k=0}^\infty \frac{X^k}{k!} = I + X + \tfrac{1}{2}X^2 + \tfrac{
 $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
 
 <div class="widget" id="w-expso3">
-<div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
-<div class="row"><label for="ex-x1">$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-x2">$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-x3">$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-t">parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
+  <div class="row"><label for="ex-x1">$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-x2">$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-x3">$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-t">parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$ (skew-symmetric)</div>
     <div class="matgrid" id="ex-X"></div>
@@ -576,9 +575,8 @@ $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
   </div>
   <svg id="ex-svg" viewBox="0 0 320 240" width="320" height="240"><title>Exponential map for $\mathfrak{so}(3)$</title></svg>
 </div>
-<div class="small" id="ex-info"></div>
-</div>
-<script>
+  <div class="small" id="ex-info"></div>
+</div><script>
 (function(){
   const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');
   const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');
@@ -806,8 +804,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
 <p>For matrices this is a one-line check. Conceptually it says that $\operatorname{ad}_X = [X,\cdot] : \mathfrak{g}\to\mathfrak{g}$ is a derivation: $\operatorname{ad}_X[Y,Z] = [\operatorname{ad}_X Y, Z] + [Y,\operatorname{ad}_X Z]$.</p>
 
 <div class="widget" id="w-comm">
-<div class="hd"><span class="ttl">Commutator and BCH numerical check</span><span class="hint">$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY)\stackrel{?}{=}I + t^2[X,Y]$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Commutator and BCH numerical check</span><span class="hint">$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY)\stackrel{?}{=}I + t^2[X,Y]$</span></div>
+  <div class="row">
   <label>basis:</label>
   <select id="cm-basis">
     <option value="sl2">𝔰𝔩₂ basis (e, f, h)</option>
@@ -816,8 +814,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
   <label style="margin-left:1rem">$X$:</label><select id="cm-X"></select>
   <label>$Y$:</label><select id="cm-Y"></select>
 </div>
-<div class="row"><label for="cm-t">parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div class="row"><label for="cm-t">parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$</div>
     <div class="matgrid" id="cm-Xm"></div>
@@ -835,9 +833,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
     <div class="matgrid" id="cm-Lm"></div>
   </div>
 </div>
-<div class="small" id="cm-info"></div>
-</div>
-<script>
+  <div class="small" id="cm-info"></div>
+</div><script>
 (function(){
   const basisSel = $('#cm-basis'), Xsel = $('#cm-X'), Ysel = $('#cm-Y'), tS = $('#cm-t'), tR = $('#cm-t-r');
   const Xm = $('#cm-Xm'), Ym = $('#cm-Ym'), Bm = $('#cm-Bm'), Lm = $('#cm-Lm');
@@ -948,12 +945,12 @@ a^2+b^2-c^2-d^2 & 2(bc-ad) & 2(bd+ac) \\
 \end{pmatrix}.$$
 
 <div class="widget" id="w-cover">
-<div class="hd"><span class="ttl">SU(2) → SO(3) double cover</span><span class="hint">$q\mapsto R(q) = R(-q)$</span></div>
-<div class="row"><label for="qv-a">$a$</label><input type="range" id="qv-a" min="-1" max="1" step="0.005" value="0.7"><span class="readout" id="qv-ar" style="min-width:55px"></span></div>
-<div class="row"><label for="qv-b">$b$</label><input type="range" id="qv-b" min="-1" max="1" step="0.005" value="0.4"><span class="readout" id="qv-br" style="min-width:55px"></span></div>
-<div class="row"><label for="qv-c">$c$</label><input type="range" id="qv-c" min="-1" max="1" step="0.005" value="0.3"><span class="readout" id="qv-cr" style="min-width:55px"></span></div>
-<div class="row"><label for="qv-d">$d$</label><input type="range" id="qv-d" min="-1" max="1" step="0.005" value="0.5"><span class="readout" id="qv-dr" style="min-width:55px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div class="hd"><span class="ttl">SU(2) → SO(3) double cover</span><span class="hint">$q\mapsto R(q) = R(-q)$</span></div>
+  <div class="row"><label for="qv-a">$a$</label><input type="range" id="qv-a" min="-1" max="1" step="0.005" value="0.7"><span class="readout" id="qv-ar" style="min-width:55px"></span></div>
+  <div class="row"><label for="qv-b">$b$</label><input type="range" id="qv-b" min="-1" max="1" step="0.005" value="0.4"><span class="readout" id="qv-br" style="min-width:55px"></span></div>
+  <div class="row"><label for="qv-c">$c$</label><input type="range" id="qv-c" min="-1" max="1" step="0.005" value="0.3"><span class="readout" id="qv-cr" style="min-width:55px"></span></div>
+  <div class="row"><label for="qv-d">$d$</label><input type="range" id="qv-d" min="-1" max="1" step="0.005" value="0.5"><span class="readout" id="qv-dr" style="min-width:55px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">normalised quaternion $q$</div>
     <div class="readout" id="qv-q" style="min-width:280px"></div>
@@ -967,9 +964,8 @@ a^2+b^2-c^2-d^2 & 2(bc-ad) & 2(bd+ac) \\
     <div class="matgrid" id="qv-R"></div>
   </div>
 </div>
-<div class="small" id="qv-info"></div>
-</div>
-<script>
+  <div class="small" id="qv-info"></div>
+</div><script>
 (function(){
   const sa = $('#qv-a'), sb = $('#qv-b'), sc = $('#qv-c'), sd = $('#qv-d');
   const ra = $('#qv-ar'), rb = $('#qv-br'), rc = $('#qv-cr'), rd = $('#qv-dr');
@@ -1088,15 +1084,14 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
 <p>For $\mathfrak{sl}_3(\mathbb{C})$, $\mathfrak{h}$ is the 2-dimensional space of traceless diagonal matrices $\operatorname{diag}(h_1,h_2,h_3)$ with $\sum h_i = 0$. Define $\varepsilon_i\in\mathfrak{h}^*$ by $\varepsilon_i(H) = h_i$. The roots are the six functionals $\varepsilon_i - \varepsilon_j$ ($i\ne j$): they form a regular hexagon in the plane $\{\sum h_i = 0\}\cong\mathbb{R}^2$.</p>
 
 <div class="widget" id="w-roots">
-<div class="hd"><span class="ttl">Root systems $A_1$ and $A_2$</span><span class="hint">click a root to apply the Weyl reflection through its perpendicular hyperplane</span></div>
-<div class="tabs">
+  <div class="hd"><span class="ttl">Root systems $A_1$ and $A_2$</span><span class="hint">click a root to apply the Weyl reflection through its perpendicular hyperplane</span></div>
+  <div class="tabs">
   <button id="rt-a1" class="active">$A_1$ (𝔰𝔩₂)</button>
   <button id="rt-a2">$A_2$ (𝔰𝔩₃)</button>
 </div>
-<svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"><title>Root systems $A_1$ and $A_2$</title></svg>
-<div class="small" id="rt-info"></div>
-</div>
-<script>
+  <svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"><title>Root systems $A_1$ and $A_2$</title></svg>
+  <div class="small" id="rt-info"></div>
+</div><script>
 (function(){
   const a1Btn = $('#rt-a1'), a2Btn = $('#rt-a2'), svg = $('#rt-svg'), info = $('#rt-info');
   let mode = 'A1';
