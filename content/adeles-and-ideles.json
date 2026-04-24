@@ -241,9 +241,36 @@
         },
         {
           "type": "widget",
-          "id": "w-crt",
-          "html": "<div class=\"widget\" id=\"w-crt\">\n  <div class=\"hd\">\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  </div>\n  <div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>\n  <svg id=\"crt-svg\" viewBox=\"0 0 620 180\" width=\"620\" height=\"180\"><title>CRT / strong approximation toy</title></svg>\n  <div class=\"readout\" id=\"crt-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -260,8 +287,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-crt",
-          "html": "<script>\n/* ===== Section 4: CRT widget ===== */\n(function(){\n  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
