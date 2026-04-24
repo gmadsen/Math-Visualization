@@ -96,7 +96,7 @@ export function renderMarkup(params) {
     widgetId, title, hint,
     inputs, button,
     readoutId, readoutPrefix,
-    svgId, titleTag, hintTag, trailingExplainer,
+    svgId, titleTag, hintTag, trailingExplainer, hdHtml,
   } = params;
   const hintHtml = renderHintTag(hint, hintTag);
   const svgLine = (svgId !== undefined) ? renderSvgTag(params) : '';
@@ -105,9 +105,12 @@ export function renderMarkup(params) {
   const trailingLine = (typeof trailingExplainer === 'string')
     ? `  <p class="small">${trailingExplainer}</p>\n`
     : '';
+  const hdLine = typeof hdHtml === 'string'
+    ? `  <div class="hd">${hdHtml}</div>\n`
+    : `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n`;
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
+    hdLine +
     svgLine +
     `  <div class="row">\n` +
     `${rowBody}\n` +

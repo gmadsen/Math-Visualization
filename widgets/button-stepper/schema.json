@@ -83,6 +83,10 @@
     "trailingExplainer": {
       "type": "string",
       "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
+    },
+    "hdHtml": {
+      "type": "string",
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
     }
   },
   "$defs": {

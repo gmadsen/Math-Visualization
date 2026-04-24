@@ -108,13 +108,16 @@ function renderTitleTag(title, titleTag) {
 
 function renderHeaderAndSvg(params) {
   const {
-    widgetId, svgId, title, viewBox, svgWidth, svgHeight, svgTitle, titleTag, hintTag,
+    widgetId, svgId, title, viewBox, svgWidth, svgHeight, svgTitle, titleTag, hintTag, hdHtml,
   } = params;
   const hintHtml = renderHintHtml(params.hint, hintTag);
   const svgTitleText = svgTitle ?? title;
+  const hdLine = typeof hdHtml === 'string'
+    ? `  <div class="hd">${hdHtml}</div>\n`
+    : `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n`;
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
+    hdLine +
     `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}"><title>${svgTitleText}</title></svg>`
   );
 }

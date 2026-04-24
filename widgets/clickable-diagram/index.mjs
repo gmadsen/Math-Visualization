@@ -58,6 +58,14 @@ function renderHintTag(hint, hintTag) {
   return `<${tag} class="hint">${hint}</${tag}>`;
 }
 
+function renderHdLine(params) {
+  const { hdHtml, title, hint, titleTag, hintTag } = params;
+  if (typeof hdHtml === 'string') {
+    return `  <div class="hd">${hdHtml}</div>\n`;
+  }
+  return `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n`;
+}
+
 function renderTrailingExplainer(params) {
   return typeof params.trailingExplainer === 'string'
     ? `\n  <p class="small">${params.trailingExplainer}</p>`
@@ -77,7 +85,7 @@ function renderReadoutOnlyMarkup(params) {
     .join('\n');
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
+    renderHdLine(params) +
     `  <div class="row">\n` +
     `    <label>${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
@@ -137,7 +145,7 @@ function renderProofStepperMarkup(params) {
     .join('\n');
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
+    renderHdLine(params) +
     `  <div class="row">\n` +
     `    <label>${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
@@ -299,7 +307,7 @@ function renderSvgDiagramMarkup(params) {
     : `${rowBlock}\n${svgBlock}`;
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
+    renderHdLine(params) +
     `${middle}\n` +
     `  <div class="readout" id="${outputId}"></div>` +
     `${renderTrailingExplainer(params)}\n` +
