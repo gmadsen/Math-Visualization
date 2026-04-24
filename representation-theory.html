@@ -1250,7 +1250,9 @@ function innerProd(group, chiA, chiB){
   }
   return {re: re/group.order, im: im/group.order};
 }
+</script>
 
+<script>
 /* =============================== §6 Character table explorer =============================== */
 (function(){
   const wrap = $('#ct-wrap');
@@ -1356,7 +1358,9 @@ function innerProd(group, chiA, chiB){
   });
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7 Representation decomposer =============================== */
 (function(){
   const gsel = $('#dc-group'), rsel = $('#dc-rep'), out = $('#dc-out');
@@ -1430,7 +1434,9 @@ function innerProd(group, chiA, chiB){
   rsel.addEventListener('change', update);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7.1 Orbit-stabilizer visualizer =============================== */
 (function(){
   const svg = $('#ob-svg'), out = $('#ob-out'), pick = $('#ob-pick');
@@ -1530,7 +1536,9 @@ function innerProd(group, chiA, chiB){
   pick.addEventListener('change', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §7.2 Regular rep =============================== */
 (function(){
   const svg = $('#rg-svg'), out = $('#rg-out'), pick = $('#rg-pick');
@@ -1589,7 +1597,9 @@ function innerProd(group, chiA, chiB){
   pick.addEventListener('change', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §9 Young tableau widget =============================== */
 (function(){
   const nsel = $('#yg-n'), lsel = $('#yg-lam'), shape = $('#yg-shape'), out = $('#yg-out'), list = $('#yg-list');
@@ -1712,7 +1722,9 @@ function innerProd(group, chiA, chiB){
   lsel.addEventListener('change', render);
   populateLam();
 })();
+</script>
 
+<script>
 /* =============================== §3 Tensor character visualizer =============================== */
 (function(){
   const gsel = $('#tn-group'), vsel = $('#tn-v'), wsel = $('#tn-w'), out = $('#tn-out');
@@ -1759,7 +1771,9 @@ function innerProd(group, chiA, chiB){
   wsel.addEventListener('change', update);
   populate();
 })();
+</script>
 
+<script>
 /* =============================== §4 Maschke averaging projector =============================== */
 (function(){
   const sel = $('#mk-group'), btn = $('#mk-run'), out = $('#mk-out');
@@ -1823,7 +1837,9 @@ function innerProd(group, chiA, chiB){
   sel.addEventListener('change', run);
   run();
 })();
+</script>
 
+<script>
 /* =============================== §5 Schur Hom dimension =============================== */
 (function(){
   const gsel = $('#sc-group'), vsel = $('#sc-v'), wsel = $('#sc-w'), out = $('#sc-out');
@@ -1885,7 +1901,9 @@ function innerProd(group, chiA, chiB){
   wsel.addEventListener('change', update);
   populate();
 })();
+</script>
 
+<script>
 /* =============================== §9 Induced rep dimension calc =============================== */
 (function(){
   const sel = $('#in-pair'), dw = $('#in-dw'), out = $('#in-out');
@@ -1916,7 +1934,9 @@ function innerProd(group, chiA, chiB){
   dw.addEventListener('input', update);
   update();
 })();
+</script>
 
+<script>
 /* =============================== §11 Highest-weight construction =============================== */
 (function(){
   const sel = $('#hw-lam'), out = $('#hw-out');
@@ -1958,7 +1978,9 @@ function innerProd(group, chiA, chiB){
   sel.addEventListener('change', update);
   update();
 })();
+</script>
 
+<script>
 /* =============================== §10 𝔰𝔩₂ weight diagram =============================== */
 (function(){
   const svg = $('#sl-svg'), out = $('#sl-out'), slider = $('#sl-n'), val = $('#sl-nval');
@@ -2024,7 +2046,9 @@ function innerProd(group, chiA, chiB){
   slider.addEventListener('input', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §10 𝔰𝔩₂ tensor product =============================== */
 (function(){
   const svg = $('#slt-svg'), out = $('#slt-out');
@@ -2081,7 +2105,9 @@ function innerProd(group, chiA, chiB){
   nS.addEventListener('input', render);
   render();
 })();
+</script>
 
+<script>
 /* =============================== §13 Peter–Weyl: SU(2) matrix coefficients =============================== */
 (function(){
   const svg = $('#pw-svg'), out = $('#pw-out'), sel = $('#pw-n');
