@@ -12,9 +12,19 @@
         },
         {
           "type": "widget",
-          "id": "w-schema",
-          "html": "<div class=\"widget\" id=\"w-schema\">\n  <div class=\"hd\"><div class=\"ttl\">Anatomy of an $L$-function</div><div class=\"hint\">four costumes, one object</div></div>\n  <svg id=\"sch-svg\" viewBox=\"0 0 640 280\" width=\"640\" height=\"280\"><title>Anatomy of an $L$-function</title></svg>\n  <div class=\"small\">The same $L$ looks like a sum (left), a product over primes (top), a meromorphic function on $\\mathbb{C}$ (right), and a symmetric completion $\\Lambda$ (bottom).</div>\n</div>",
-          "script": null
+          "slug": "svg-illustration",
+          "params": {
+            "widgetId": "w-schema",
+            "svgId": "sch-svg",
+            "viewBox": "0 0 640 280",
+            "title": "Anatomy of an $L$-function",
+            "hint": "four costumes, one object",
+            "svgInner": "",
+            "caption": {
+              "kind": "small",
+              "content": "The same $L$ looks like a sum (left), a product over primes (top), a meromorphic function on $\\mathbb{C}$ (right), and a symmetric completion $\\Lambda$ (bottom)."
+            }
+          }
         },
         {
           "type": "raw",
