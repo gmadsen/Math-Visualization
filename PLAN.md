@@ -20,7 +20,7 @@ The structured-content pipeline is the big recent shift. See `widgets/README.md`
 - Widen the registry: keep migrating widgets where a shared renderer is a clean fit. The 8 category-theory widgets skipped by `clickable-diagram` are domain-logic-heavy (randomized-functor tables, sets-and-maps blob renderers, group-theory computations); they want bespoke modules, not a shared abstraction.
 - Full-topic React frontend: current POC renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry.
 - Three.js adoption decision: the prototype validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). If you green-light it, first real use would be the Gauss-curvature surface in `differential-geometry.html`, behind a widget-registry slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
-- Flip `content/` to the source of truth: currently `content/*.json` tracks `<topic>.html` and the roundtrip gate catches drift. The inverse — edit JSON, regenerate HTML — is one render-topic.mjs flag away.
+- ~~Flip `content/` to the source of truth~~ — *shipped 2026-04-24.* `rebuild.mjs` (fix mode) now auto-writes HTML from JSON via `test-roundtrip.mjs --fix`; CI (`--no-fix`) still fails on drift.
 - Markdown prose: reversibly convert raw HTML prose blocks to Markdown while preserving byte-identical round-trip on the restricted subset the notebook uses. This was the deferred Phase 3c — worth revisiting once the registry coverage is higher.
 
 ## Backlog — project health + standards (Apr 2026)
@@ -100,7 +100,7 @@ Grouped by theme. Each item is a short title plus one-line scope. No checkboxes 
 
 ### Maintainability & tooling
 
-- **Reversible prose-block conversion.** Structured content is in place — `content/<topic>.json` with `slug + params` widget blocks. Prose blocks remain raw HTML; converting them to a lighter authoring source (e.g. mdx-lite, or a tag-whitelist dialect) is still open and would need a reversible HTML↔source pass that preserves byte-identity on the restricted subset the notebook uses.
+- **Lighter prose-block authoring format.** `content/<topic>.json` is now the source of truth (as of 2026-04-24, roundtrip runs in `--fix` mode and writes HTML from JSON), so prose blocks could move from raw HTML to a lighter authoring format (e.g. an mdx-lite subset, or a tag-whitelist dialect). The conversion needs to be reversible so existing prose round-trips through without loss.
 
 ### Stretch
 

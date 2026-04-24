@@ -74,7 +74,7 @@ const STEPS = [
   // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
-  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: false },
+  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];

@@ -3,12 +3,15 @@
 // render-topic.mjs and verify the output is byte-identical to <topic>.html.
 //
 // Enforces the invariant that structured content and its rendered form do
-// not drift. Edit the JSON → re-render the HTML, or edit neither.
+// not drift. Under the content-as-source-of-truth flip (2026-04-24), the
+// JSON side is authoritative; --fix overwrites <topic>.html with rendered
+// output when drift is detected. CI runs --no-fix and still fails on drift,
+// which catches any attempt to hand-edit HTML without updating the JSON.
 //
 // Skips silently when content/ is empty or absent, so topics that have not
 // been migrated to the structured pipeline don't fail CI.
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -33,8 +36,13 @@ if (contentFiles.length === 0) {
   process.exit(0);
 }
 
+const argv = process.argv.slice(2);
+const FIX = argv.includes('--fix');
+const VERBOSE = argv.includes('--verbose') || argv.includes('-v');
+
 const md5 = (buf) => createHash('md5').update(buf).digest('hex');
 const errors = [];
+const fixed = [];
 let pass = 0;
 
 for (const f of contentFiles) {
@@ -57,6 +65,16 @@ for (const f of contentFiles) {
   const rendered = r.stdout;
   const original = readFileSync(htmlPath);
   if (Buffer.compare(rendered, original) !== 0) {
+    if (FIX) {
+      // Content JSON is source of truth: overwrite <topic>.html with rendered.
+      writeFileSync(htmlPath, rendered);
+      fixed.push(
+        `${slug}: wrote ${rendered.length}B ${md5(rendered)} ` +
+        `(was ${original.length}B ${md5(original)})`
+      );
+      pass++;
+      continue;
+    }
     errors.push(
       `${slug}: drift — rendered ${md5(rendered)} (${rendered.length}B) vs on-disk ${md5(original)} (${original.length}B)`
     );
@@ -69,6 +87,16 @@ if (errors.length) {
   for (const e of errors) console.error(`  ${e}`);
   console.error(`test-roundtrip: FAIL — ${pass} ok, ${errors.length} drifted`);
   process.exit(1);
+}
+
+if (FIX && fixed.length) {
+  if (VERBOSE) {
+    for (const line of fixed) console.log(`  ${line}`);
+  }
+  console.log(
+    `test-roundtrip: wrote ${fixed.length} HTML file(s) from content/*.json, ${pass - fixed.length} already in sync.`
+  );
+  process.exit(0);
 }
 
 console.log(
