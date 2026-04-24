@@ -341,20 +341,19 @@ function renderMat(container, M, p=3){
 <p>Here is a working visualization of $\mathrm{SO}(3)$, the rotation group of $\mathbb{R}^3$. A rotation is determined by an axis $\hat n\in S^2$ and an angle $\theta\in[0,\pi]$ (with $(\hat n,\theta)\sim(-\hat n,2\pi-\theta)$), giving $\mathrm{SO}(3)\cong\mathbb{RP}^3$, a closed 3-manifold of dimension $\binom{3}{2}=3$.</p>
 
 <div class="widget" id="w-so3rot">
-<div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
-<div class="row"><label for="so3-az">azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
-<div class="row"><label for="so3-el">elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
-<div class="row"><label for="so3-th">angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem">
+  <div class="hd"><span class="ttl">SO(3) rotation visualizer</span><span class="hint">axis–angle → $3\times3$ matrix &amp; rotated cube</span></div>
+  <div class="row"><label for="so3-az">azimuth $\varphi$</label><input type="range" id="so3-az" min="-180" max="180" step="1" value="35"><span class="readout" id="so3-az-r" style="min-width:60px"></span></div>
+  <div class="row"><label for="so3-el">elevation $\vartheta$</label><input type="range" id="so3-el" min="-90" max="90" step="1" value="20"><span class="readout" id="so3-el-r" style="min-width:60px"></span></div>
+  <div class="row"><label for="so3-th">angle $\theta$</label><input type="range" id="so3-th" min="0" max="360" step="1" value="55"><span class="readout" id="so3-th-r" style="min-width:60px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem">
   <div>
     <div class="small" style="margin-bottom:.3rem">$R(\hat n,\theta)\in\mathrm{SO}(3)$</div>
     <div class="matgrid" id="so3-mat"></div>
   </div>
   <svg id="so3-svg" viewBox="0 0 320 260" width="320" height="260"><title>SO(3) rotation visualizer</title></svg>
 </div>
-<div class="small" id="so3-info"></div>
-</div>
-<script>
+  <div class="small" id="so3-info"></div>
+</div><script>
 (function(){
   const az = $('#so3-az'), el = $('#so3-el'), th = $('#so3-th');
   const azR = $('#so3-az-r'), elR = $('#so3-el-r'), thR = $('#so3-th-r');
