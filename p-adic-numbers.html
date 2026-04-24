@@ -711,11 +711,9 @@ $$x = \sum_{i=N}^{\infty} a_i p^i, \qquad a_i \in \{0,\ldots,p-1\},\ N\in\mathbb
     <label for="w6-N">terms</label><input type="number" id="w6-N" value="12" min="2" max="24" step="1" style="width:80px">
     <button id="w6-go">plot</button>
   </div>
-  <svg id="w6-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="dual convergence"></svg>
+  <svg id="w6-svg" viewBox="0 0 720 240" width="720" height="240"><title>W6 · Convergence comparison</title></svg>
   <div class="readout" id="w6-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = $('#w6-svg'), out = $('#w6-out');
   function term(n, series, p){
@@ -852,9 +850,7 @@ Since $f'(x_n)$ is a unit mod $p$, this is well-defined in $\mathbb{Z}_p$; a Tay
     <button id="w5-go">lift</button>
   </div>
   <div class="readout" id="w5-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const out = $('#w5-out');
   function go(){
@@ -935,9 +931,7 @@ The left-to-right direction is automatic; the deep content is the reverse direct
     <button id="w7-go">check</button>
   </div>
   <div class="readout" id="w7-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const out = $('#w7-out');
   function go(){
