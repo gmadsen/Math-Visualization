@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **58**, concepts: **407**
-- Widgets: **452** (registry-driven: 442, inline: 10)
+- Widgets: **452** (registry-driven: 450, inline: 2)
 - Quizzes: **2298** (v1: 1160, hard: 1125, expert: 13)
 - Quiz types: mcq: 1397, numeric: 795, complex: 29, multi-select: 25, ordering: 15, matching: 14, proof-completion: 13, spot-the-error: 6, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **100**
@@ -24,20 +24,20 @@
 ### Algebra
 
 - Topics: **5**, concepts: **61**
-- Widgets: **65** (registry-driven: 63, inline: 2)
-  - by family: button-stepper: 48, clickable-diagram: 13, unknown: 2, naturality-square: 1, declarative-host: 1
-  - by dimension: 2d: 63, unknown: 2
-  - by gesture: click: 61, unknown: 2, slider+click: 1, interactive: 1
+- Widgets: **65** (registry-driven: 65, inline: 0)
+  - by family: button-stepper: 50, clickable-diagram: 13, naturality-square: 1, declarative-host: 1
+  - by dimension: 2d: 65
+  - by gesture: click: 63, slider+click: 1, interactive: 1
 - Quizzes: **363** (v1: 183, hard: 180, expert: 0)
   - by type: mcq: 209, numeric: 134, multi-select: 11, ordering: 3, proof-completion: 2, matching: 2, complex: 1, spot-the-error: 1
 
 ### Analysis
 
 - Topics: **7**, concepts: **100**
-- Widgets: **78** (registry-driven: 74, inline: 4)
-  - by family: button-stepper: 43, clickable-diagram: 31, unknown: 4
-  - by dimension: 2d: 74, unknown: 4
-  - by gesture: click: 74, unknown: 4
+- Widgets: **78** (registry-driven: 78, inline: 0)
+  - by family: button-stepper: 47, clickable-diagram: 31
+  - by dimension: 2d: 78
+  - by gesture: click: 78
 - Quizzes: **460** (v1: 238, hard: 209, expert: 13)
   - by type: mcq: 257, numeric: 132, complex: 15, multi-select: 14, matching: 12, ordering: 11, proof-completion: 11, spot-the-error: 5, construction: 2, guess-my-rule: 1
 
@@ -74,10 +74,10 @@
 ### Algebraic geometry
 
 - Topics: **12**, concepts: **67**
-- Widgets: **79** (registry-driven: 77, inline: 2)
-  - by family: button-stepper: 59, clickable-diagram: 15, clickable-graph: 3, unknown: 2
-  - by dimension: 2d: 77, unknown: 2
-  - by gesture: click: 77, unknown: 2
+- Widgets: **79** (registry-driven: 79, inline: 0)
+  - by family: button-stepper: 61, clickable-diagram: 15, clickable-graph: 3
+  - by dimension: 2d: 79
+  - by gesture: click: 79
 - Quizzes: **402** (v1: 201, hard: 201, expert: 0)
   - by type: mcq: 256, numeric: 143, complex: 3
 
@@ -87,13 +87,13 @@
 - `algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
-- `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=10), quiz=71 (v1=36, hard=35, expert=0)
+- `commutative-algebra` (Algebra) — concepts=12, widgets=12 (slug=12), quiz=71 (v1=36, hard=35, expert=0)
 - `homological` (Algebra) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
 - `real-analysis` (Analysis) — concepts=14, widgets=14 (slug=14), quiz=71 (v1=42, hard=29, expert=0)
-- `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
+- `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
-- `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=9), quiz=72 (v1=36, hard=36, expert=0)
+- `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `probability-theory` (Analysis) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=36 (v1=18, hard=18, expert=0)
@@ -136,7 +136,7 @@
 - `singular-cubics-reduction` (Algebraic geometry) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `moduli-spaces` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sheaf-cohomology` (Algebraic geometry) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `stacks` (Algebraic geometry) — concepts=5, widgets=7 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
+- `stacks` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
