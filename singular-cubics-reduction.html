@@ -214,8 +214,8 @@ The curve is smooth precisely when $\Delta \ne 0$; equivalently, the cubic $f(x)
 <p>When $\Delta \ne 0$ the set $E(k)$ forms an abelian group under the chord-and-tangent construction, and the resulting group scheme $E/k$ is a one-dimensional abelian variety. This page asks: <em>what happens when $\Delta = 0$?</em> The cubic is still a perfectly good plane curve — it just fails to be smooth. Its singular point either pinches two branches together (a node) or collapses them into a single cuspidal tangent. The smooth complement still carries a group law, but it is no longer the elliptic one: it is one of two much simpler groups.</p>
 
 <div class="widget" id="w-disc">
-<div class="hd"><span class="ttl">Discriminant watcher</span><span class="hint">drag $a$ and $b$ and watch the singularity form at $\Delta=0$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Discriminant watcher</span><span class="hint">drag $a$ and $b$ and watch the singularity form at $\Delta=0$</span></div>
+  <div class="row">
   <label>$a$ <input type="range" id="d-a" min="-3" max="3" step="0.02" value="-1"></label>
   <span id="d-av" class="small">-1.00</span>
   <label>$b$ <input type="range" id="d-b" min="-3" max="3" step="0.02" value="0.5"></label>
@@ -223,11 +223,9 @@ The curve is smooth precisely when $\Delta \ne 0$; equivalently, the cubic $f(x)
   <button id="d-node">snap to node ($a{=}1,b{=}0$ shift)</button>
   <button id="d-cusp">snap to cusp ($a{=}0,b{=}0$)</button>
 </div>
-<svg id="d-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Discriminant watcher</title></svg>
-<div id="d-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="d-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Discriminant watcher</title></svg>
+  <div class="readout" id="d-out"></div>
+</div><script>
 (function(){
   const A=$('#d-a'), B=$('#d-b'), Av=$('#d-av'), Bv=$('#d-bv');
   const svg=$('#d-svg'), out=$('#d-out');
@@ -318,12 +316,10 @@ The singular point is the origin $(0,0)$. Writing $y^2 - x^3 - x^2 = 0$ and expa
 Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a single linear factor $y$ repeated, giving <em>one tangent direction</em> $y = 0$ with multiplicity $2$. But the curve itself does not split into two branches; the unique tangent absorbs the singularity in a qualitatively different way. This is a <strong>cusp</strong> ($A_2$-singularity), parametrizable by $(x,y) = (t^2, t^3)$.</p>
 
 <div class="widget" id="w-nvc">
-<div class="hd"><span class="ttl">Node vs. cusp side-by-side</span><span class="hint">tangent lines shown in yellow</span></div>
-<svg id="nvc-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Node vs. cusp side-by-side</title></svg>
-<div class="readout">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
-</div>
-
-<script>
+  <div class="hd"><span class="ttl">Node vs. cusp side-by-side</span><span class="hint">tangent lines shown in yellow</span></div>
+  <svg id="nvc-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Node vs. cusp side-by-side</title></svg>
+  <div class="readout">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
+</div><script>
 (function(){
   const svg=$('#nvc-svg');
   const W=640,H=320,halfW=320,PAD=24;
@@ -427,18 +423,16 @@ The cusp itself is the image of $t = 0$. Removing it identifies the smooth locus
 <div class="ok"><b>Statement.</b> On a cuspidal cubic, $C^{\mathrm{sm}}(\bar k) \cong \mathbb{G}_a(\bar k) = \bar k$ as algebraic groups.</div>
 
 <div class="widget" id="w-param">
-<div class="hd"><span class="ttl">Parametrize the smooth locus</span><span class="hint">drag $t$; watch the point sweep</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Parametrize the smooth locus</span><span class="hint">drag $t$; watch the point sweep</span></div>
+  <div class="row">
   <label><input type="radio" name="pm" value="node" checked> nodal</label>
   <label><input type="radio" name="pm" value="cusp"> cuspidal</label>
   <label>$t$ <input type="range" id="pm-t" min="-2.5" max="2.5" step="0.02" value="1.2"></label>
   <span id="pm-tv" class="small">1.20</span>
 </div>
-<svg id="pm-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Parametrize the smooth locus</title></svg>
-<div id="pm-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="pm-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Parametrize the smooth locus</title></svg>
+  <div class="readout" id="pm-out"></div>
+</div><script>
 (function(){
   const svg=$('#pm-svg'), tsl=$('#pm-t'), tv=$('#pm-tv'), out=$('#pm-out');
   const radios=$$('input[name="pm"]');
@@ -532,8 +526,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
 <p>Because $\Delta$ is an integer, only finitely many primes divide it. Almost every prime is a prime of good reduction; the finitely many primes of bad reduction are distinguished arithmetic features of $E$ and collectively form its <em>conductor</em>.</p>
 
 <div class="widget" id="w-fibration">
-<div class="hd"><span class="ttl">Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</span><span class="hint">each vertical fiber is $\tilde E_p$ over $\mathbb{F}_p$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</span><span class="hint">each vertical fiber is $\tilde E_p$ over $\mathbb{F}_p$</span></div>
+  <div class="row">
   <label>curve <select id="fb-curve">
     <option value="-1,0">y² = x³ - x   (Δ = 64 = 2⁶)</option>
     <option value="0,1" selected>y² = x³ + 1   (Δ = -432 = -2⁴·3³)</option>
@@ -541,11 +535,9 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
     <option value="1,-1">y² = x³ + x - 1</option>
   </select></label>
 </div>
-<svg id="fb-svg" viewBox="0 0 640 280" width="640" height="280" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</title></svg>
-<div id="fb-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="fb-svg" viewBox="0 0 640 280" width="640" height="280" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</title></svg>
+  <div class="readout" id="fb-out"></div>
+</div><script>
 (function(){
   const sel=$('#fb-curve'), svg=$('#fb-svg'), out=$('#fb-out');
   const W=640,H=280,PADX=40,PADY=50;
@@ -650,8 +642,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
 <p>The table below shows reduction types for several small examples. Scan for the pattern: good primes are the ones where $\Delta$ remains a unit in $\mathbb{F}_p$; bad primes are the ones where $p$ divides $\Delta$.</p>
 
 <div class="widget" id="w-dtable">
-<div class="hd"><span class="ttl">Discriminant-mod-$p$ table</span><span class="hint">pick a curve; primes up to 19</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Discriminant-mod-$p$ table</span><span class="hint">pick a curve; primes up to 19</span></div>
+  <div class="row">
   <label>curve <select id="dt-curve">
     <option value="-1,0">y² = x³ - x  (Δ = 64)</option>
     <option value="0,1" selected>y² = x³ + 1  (Δ = -432)</option>
@@ -660,10 +652,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
     <option value="1,-1">y² = x³ + x - 1  (Δ = -496)</option>
   </select></label>
 </div>
-<div id="dt-out"></div>
-</div>
-
-<script>
+  <div id="dt-out"></div>
+</div><script>
 (function(){
   const sel=$('#dt-curve'), host=$('#dt-out');
   const primes=[2,3,5,7,11,13,17,19];
@@ -766,17 +756,15 @@ whenever $\alpha \ne \beta$ — giving two tangent lines and hence a node. When 
 <p>For a node over $\mathbb{F}_p$, the further question is whether the tangent slope $s = \sqrt{\alpha - \beta}$ lives in $\mathbb{F}_p$ or only in its quadratic extension $\mathbb{F}_{p^2}$. This is precisely the question of whether $\alpha - \beta$ is a square in $\mathbb{F}_p^{\times}$ — a <a href="./quadratic-reciprocity.html">Legendre symbol</a> computation.</p>
 
 <div class="widget" id="w-tan">
-<div class="hd"><span class="ttl">Tangent-cone classifier</span><span class="hint">enter a singular reduction; read off split vs. non-split</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Tangent-cone classifier</span><span class="hint">enter a singular reduction; read off split vs. non-split</span></div>
+  <div class="row">
   <label>$a$ <input type="number" id="tc-a" value="3" style="width:4.5rem"></label>
   <label>$b$ <input type="number" id="tc-b" value="2" style="width:4.5rem"></label>
   <label>$p$ <input type="number" id="tc-p" value="5" style="width:4.5rem"></label>
   <button id="tc-run">classify</button>
 </div>
-<div id="tc-out" class="readout">press classify…</div>
-</div>
-
-<script>
+  <div class="readout" id="tc-out">press classify…</div>
+</div><script>
 (function(){
   const A=$('#tc-a'), B=$('#tc-b'), P=$('#tc-p'), btn=$('#tc-run'), out=$('#tc-out');
   function mod(n,m){ return ((n%m)+m)%m; }
@@ -863,17 +851,15 @@ $$\bigl|\,|E(\mathbb{F}_p)| - (p+1)\,\bigr| \;\le\; 2 \sqrt{p}.$$
 Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over the finite field, proved by Hasse in 1933 and generalised to all varieties by Deligne.</div>
 
 <div class="widget" id="w-counter">
-<div class="hd"><span class="ttl">Point counter over $\mathbb{F}_p$</span><span class="hint">try primes where the curve is good, and primes where it is bad</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Point counter over $\mathbb{F}_p$</span><span class="hint">try primes where the curve is good, and primes where it is bad</span></div>
+  <div class="row">
   <label>$a$ <input type="number" id="ct-a" value="-1" style="width:4.5rem"></label>
   <label>$b$ <input type="number" id="ct-b" value="0" style="width:4.5rem"></label>
   <label>$p$ <input type="number" id="ct-p" value="7" style="width:4.5rem"></label>
 </div>
-<svg id="ct-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Point counter over $\mathbb{F}_p$</title></svg>
-<div id="ct-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="ct-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Point counter over $\mathbb{F}_p$</title></svg>
+  <div class="readout" id="ct-out"></div>
+</div><script>
 (function(){
   const A=$('#ct-a'), B=$('#ct-b'), P=$('#ct-p'), svg=$('#ct-svg'), out=$('#ct-out');
   const W=400,H=400,PAD=28;
@@ -939,8 +925,8 @@ Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over th
 </script>
 
 <div class="widget" id="w-hasse">
-<div class="hd"><span class="ttl">Hasse interval vs. point count</span><span class="hint">each dot is $|\tilde E(\mathbb{F}_p)|$ for one good prime</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Hasse interval vs. point count</span><span class="hint">each dot is $|\tilde E(\mathbb{F}_p)|$ for one good prime</span></div>
+  <div class="row">
   <label>curve <select id="hs-curve">
     <option value="-1,0">y² = x³ - x</option>
     <option value="0,1" selected>y² = x³ + 1</option>
@@ -949,11 +935,9 @@ Equivalently, $|a_p| \le 2\sqrt p$. This is a Riemann Hypothesis for $E$ over th
     <option value="-4,4">y² = x³ - 4x + 4</option>
   </select></label>
 </div>
-<svg id="hs-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Hasse interval vs. point count</title></svg>
-<div id="hs-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="hs-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Hasse interval vs. point count</title></svg>
+  <div class="readout" id="hs-out"></div>
+</div><script>
 (function(){
   const sel=$('#hs-curve'), svg=$('#hs-svg'), out=$('#hs-out');
   const W=640,H=320,PADX=50,PADY=40;

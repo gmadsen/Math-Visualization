@@ -12,9 +12,55 @@
         },
         {
           "type": "widget",
-          "id": "w1",
-          "html": "<div class=\"widget\" id=\"w1\">\n  <div class=\"hd\"><span class=\"ttl\">W1 · $v_p$ and $|\\cdot|_p$ calculator</span><span class=\"hint\">enter $p$ prime and $a/b$</span></div>\n  <div class=\"row\">\n    <label for=\"w1-p\">$p=$</label><input type=\"number\" id=\"w1-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w1-a\">$a=$</label><input type=\"number\" id=\"w1-a\" value=\"98\" step=\"1\" style=\"width:110px\">\n    <label for=\"w1-b\">$b=$</label><input type=\"number\" id=\"w1-b\" value=\"3\" step=\"1\" style=\"width:110px\">\n    <button id=\"w1-go\">compute</button>\n  </div>\n  <div class=\"readout\" id=\"w1-out\"></div>\n  <svg id=\"w1-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"bar chart\"></svg>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const out = $('#w1-out'), svg = $('#w1-svg');\n  function go(){\n    const p = parseInt($('#w1-p').value,10);\n    const a = parseInt($('#w1-a').value,10);\n    const b = parseInt($('#w1-b').value,10);\n    svg.innerHTML = '';\n    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){\n      out.textContent = 'need a prime p and integers a,b with b\\u22600';\n      return;\n    }\n    const va = (a===0) ? '\\u221E' : vpInt(a,p);\n    const vb = vpInt(b,p);\n    const v  = (a===0) ? '\\u221E' : (vpInt(a,p) - vb);\n    const absVal = (a===0) ? 0 : Math.pow(p, -v);\n    out.textContent =\n      `x = ${a}/${b}\\n` +\n      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\\n` +\n      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\\n` +\n      `|x|_\\u221E = ${Math.abs(a/b).toPrecision(6)}`;\n    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity\n    const primes = [2,3,5,7,11,13].filter(q=>q!==null);\n    const W = 720, H = 160, pad = 30;\n    const n = primes.length + 1;\n    const bw = (W - 2*pad)/n * 0.6;\n    const step = (W - 2*pad)/n;\n    // each |x|_q\n    const vals = primes.map(q=>{\n      if(a===0) return 0;\n      const vq = vpInt(a,q) - vpInt(b,q);\n      return Math.pow(q, -vq);\n    });\n    const infVal = Math.abs(a/b);\n    const all = [...vals, infVal];\n    const maxV = Math.max(1e-6, ...all);\n    primes.concat(['\\u221E']).forEach((q, i) => {\n      const x = pad + step*i + step*0.2;\n      const val = (q==='\\u221E') ? infVal : vals[i];\n      const h = (H-pad-20) * (val / maxV);\n      const color = (q===p) ? 'var(--yellow)' : (q==='\\u221E' ? 'var(--pink)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));\n      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t1.textContent = (q==='\\u221E') ? '|x|\\u221E' : `|x|_${q}`;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      t2.textContent = val.toPrecision(3);\n      svg.appendChild(t2);\n    });\n  }\n  $('#w1-go').addEventListener('click', go);\n  go();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w1",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W1 · $v_p$ and $|\\cdot|_p$ calculator",
+            "hint": "enter $p$ prime and $a/b$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w1-p\">$p=$</label><input type=\"number\" id=\"w1-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w1-a\">$a=$</label><input type=\"number\" id=\"w1-a\" value=\"98\" step=\"1\" style=\"width:110px\">\n    <label for=\"w1-b\">$b=$</label><input type=\"number\" id=\"w1-b\" value=\"3\" step=\"1\" style=\"width:110px\">\n    <button id=\"w1-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w1-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w1-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"bar chart\"></svg>"
+              }
+            ],
+            "bodyScript": "  const out = $('#w1-out'), svg = $('#w1-svg');\n  function go(){\n    const p = parseInt($('#w1-p').value,10);\n    const a = parseInt($('#w1-a').value,10);\n    const b = parseInt($('#w1-b').value,10);\n    svg.innerHTML = '';\n    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){\n      out.textContent = 'need a prime p and integers a,b with b\\u22600';\n      return;\n    }\n    const va = (a===0) ? '\\u221E' : vpInt(a,p);\n    const vb = vpInt(b,p);\n    const v  = (a===0) ? '\\u221E' : (vpInt(a,p) - vb);\n    const absVal = (a===0) ? 0 : Math.pow(p, -v);\n    out.textContent =\n      `x = ${a}/${b}\\n` +\n      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\\n` +\n      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\\n` +\n      `|x|_\\u221E = ${Math.abs(a/b).toPrecision(6)}`;\n    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity\n    const primes = [2,3,5,7,11,13].filter(q=>q!==null);\n    const W = 720, H = 160, pad = 30;\n    const n = primes.length + 1;\n    const bw = (W - 2*pad)/n * 0.6;\n    const step = (W - 2*pad)/n;\n    // each |x|_q\n    const vals = primes.map(q=>{\n      if(a===0) return 0;\n      const vq = vpInt(a,q) - vpInt(b,q);\n      return Math.pow(q, -vq);\n    });\n    const infVal = Math.abs(a/b);\n    const all = [...vals, infVal];\n    const maxV = Math.max(1e-6, ...all);\n    primes.concat(['\\u221E']).forEach((q, i) => {\n      const x = pad + step*i + step*0.2;\n      const val = (q==='\\u221E') ? infVal : vals[i];\n      const h = (H-pad-20) * (val / maxV);\n      const color = (q===p) ? 'var(--yellow)' : (q==='\\u221E' ? 'var(--pink)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));\n      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t1.textContent = (q==='\\u221E') ? '|x|\\u221E' : `|x|_${q}`;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      t2.textContent = val.toPrecision(3);\n      svg.appendChild(t2);\n    });\n  }\n  $('#w1-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w1",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W1 · $v_p$ and $|\\cdot|_p$ calculator",
+            "hint": "enter $p$ prime and $a/b$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w1-p\">$p=$</label><input type=\"number\" id=\"w1-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w1-a\">$a=$</label><input type=\"number\" id=\"w1-a\" value=\"98\" step=\"1\" style=\"width:110px\">\n    <label for=\"w1-b\">$b=$</label><input type=\"number\" id=\"w1-b\" value=\"3\" step=\"1\" style=\"width:110px\">\n    <button id=\"w1-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w1-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w1-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"bar chart\"></svg>"
+              }
+            ],
+            "bodyScript": "  const out = $('#w1-out'), svg = $('#w1-svg');\n  function go(){\n    const p = parseInt($('#w1-p').value,10);\n    const a = parseInt($('#w1-a').value,10);\n    const b = parseInt($('#w1-b').value,10);\n    svg.innerHTML = '';\n    if(!isPrime(p) || !Number.isFinite(a) || !Number.isFinite(b) || b===0){\n      out.textContent = 'need a prime p and integers a,b with b\\u22600';\n      return;\n    }\n    const va = (a===0) ? '\\u221E' : vpInt(a,p);\n    const vb = vpInt(b,p);\n    const v  = (a===0) ? '\\u221E' : (vpInt(a,p) - vb);\n    const absVal = (a===0) ? 0 : Math.pow(p, -v);\n    out.textContent =\n      `x = ${a}/${b}\\n` +\n      `v_${p}(${a}) = ${va}    v_${p}(${b}) = ${vb}    v_${p}(x) = ${v}\\n` +\n      `|x|_${p} = ${p}^(-${v}) = ${absVal.toPrecision(6)}\\n` +\n      `|x|_\\u221E = ${Math.abs(a/b).toPrecision(6)}`;\n    // bar chart: plot |x|_q for q in [2,3,5,7,11,13] (primes) plus infinity\n    const primes = [2,3,5,7,11,13].filter(q=>q!==null);\n    const W = 720, H = 160, pad = 30;\n    const n = primes.length + 1;\n    const bw = (W - 2*pad)/n * 0.6;\n    const step = (W - 2*pad)/n;\n    // each |x|_q\n    const vals = primes.map(q=>{\n      if(a===0) return 0;\n      const vq = vpInt(a,q) - vpInt(b,q);\n      return Math.pow(q, -vq);\n    });\n    const infVal = Math.abs(a/b);\n    const all = [...vals, infVal];\n    const maxV = Math.max(1e-6, ...all);\n    primes.concat(['\\u221E']).forEach((q, i) => {\n      const x = pad + step*i + step*0.2;\n      const val = (q==='\\u221E') ? infVal : vals[i];\n      const h = (H-pad-20) * (val / maxV);\n      const color = (q===p) ? 'var(--yellow)' : (q==='\\u221E' ? 'var(--pink)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x,y:H-pad-h,width:bw,height:h,fill:color,opacity:0.85}));\n      const t1 = SVG('text',{x:x+bw/2,y:H-pad+14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t1.textContent = (q==='\\u221E') ? '|x|\\u221E' : `|x|_${q}`;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:x+bw/2,y:H-pad-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      t2.textContent = val.toPrecision(3);\n      svg.appendChild(t2);\n    });\n  }\n  $('#w1-go').addEventListener('click', go);\n  go();"
+          }
         },
         {
           "type": "raw",
@@ -40,9 +86,47 @@
         },
         {
           "type": "widget",
-          "id": "w4",
-          "html": "<div class=\"widget\" id=\"w4\">\n  <div class=\"hd\"><span class=\"ttl\">W4 · Ultrametric triangle</span><span class=\"hint\">three integers in $\\mathbb{Z}_p$</span></div>\n  <div class=\"row\">\n    <label for=\"w4-p\">$p=$</label><input type=\"number\" id=\"w4-p\" value=\"2\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w4-a\">$a=$</label><input type=\"number\" id=\"w4-a\" value=\"17\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-b\">$b=$</label><input type=\"number\" id=\"w4-b\" value=\"5\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-c\">$c=$</label><input type=\"number\" id=\"w4-c\" value=\"6\" step=\"1\" style=\"width:90px\">\n    <button id=\"w4-go\">check</button>\n  </div>\n  <div class=\"readout\" id=\"w4-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const out = $('#w4-out');\n  function go(){\n    const p = parseInt($('#w4-p').value,10);\n    const a = parseInt($('#w4-a').value,10);\n    const b = parseInt($('#w4-b').value,10);\n    const c = parseInt($('#w4-c').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }\n    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);\n    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);\n    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;\n    out.textContent =\n      `|a-b|_${p} = ${dab.toPrecision(4)}\\n` +\n      `|b-c|_${p} = ${dbc.toPrecision(4)}\\n` +\n      `|a-c|_${p} = ${dac.toPrecision(4)}\\n` +\n      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \\u2265 ')}\\n` +\n      (isIsoc ? 'two largest agree \\u2014 isoceles, as forced by the ultrametric.' :\n                'distances strict \\u2014 this would violate the ultrametric if inputs were valid!');\n  }\n  $('#w4-go').addEventListener('click', go);\n  go();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w4",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W4 · Ultrametric triangle",
+            "hint": "three integers in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w4-p\">$p=$</label><input type=\"number\" id=\"w4-p\" value=\"2\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w4-a\">$a=$</label><input type=\"number\" id=\"w4-a\" value=\"17\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-b\">$b=$</label><input type=\"number\" id=\"w4-b\" value=\"5\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-c\">$c=$</label><input type=\"number\" id=\"w4-c\" value=\"6\" step=\"1\" style=\"width:90px\">\n    <button id=\"w4-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w4-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w4-out');\n  function go(){\n    const p = parseInt($('#w4-p').value,10);\n    const a = parseInt($('#w4-a').value,10);\n    const b = parseInt($('#w4-b').value,10);\n    const c = parseInt($('#w4-c').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }\n    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);\n    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);\n    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;\n    out.textContent =\n      `|a-b|_${p} = ${dab.toPrecision(4)}\\n` +\n      `|b-c|_${p} = ${dbc.toPrecision(4)}\\n` +\n      `|a-c|_${p} = ${dac.toPrecision(4)}\\n` +\n      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \\u2265 ')}\\n` +\n      (isIsoc ? 'two largest agree \\u2014 isoceles, as forced by the ultrametric.' :\n                'distances strict \\u2014 this would violate the ultrametric if inputs were valid!');\n  }\n  $('#w4-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w4",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W4 · Ultrametric triangle",
+            "hint": "three integers in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w4-p\">$p=$</label><input type=\"number\" id=\"w4-p\" value=\"2\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w4-a\">$a=$</label><input type=\"number\" id=\"w4-a\" value=\"17\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-b\">$b=$</label><input type=\"number\" id=\"w4-b\" value=\"5\" step=\"1\" style=\"width:90px\">\n    <label for=\"w4-c\">$c=$</label><input type=\"number\" id=\"w4-c\" value=\"6\" step=\"1\" style=\"width:90px\">\n    <button id=\"w4-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w4-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w4-out');\n  function go(){\n    const p = parseInt($('#w4-p').value,10);\n    const a = parseInt($('#w4-a').value,10);\n    const b = parseInt($('#w4-b').value,10);\n    const c = parseInt($('#w4-c').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    function d(x,y){ if(x===y) return 0; return Math.pow(p, -vpInt(x-y,p)); }\n    const dab = d(a,b), dbc = d(b,c), dac = d(a,c);\n    const arr = [dab,dbc,dac].slice().sort((u,v)=>v-u);\n    const isIsoc = Math.abs(arr[0]-arr[1]) < 1e-12;\n    out.textContent =\n      `|a-b|_${p} = ${dab.toPrecision(4)}\\n` +\n      `|b-c|_${p} = ${dbc.toPrecision(4)}\\n` +\n      `|a-c|_${p} = ${dac.toPrecision(4)}\\n` +\n      `sorted: ${arr.map(x=>x.toPrecision(4)).join(' \\u2265 ')}\\n` +\n      (isIsoc ? 'two largest agree \\u2014 isoceles, as forced by the ultrametric.' :\n                'distances strict \\u2014 this would violate the ultrametric if inputs were valid!');\n  }\n  $('#w4-go').addEventListener('click', go);\n  go();"
+          }
         },
         {
           "type": "raw",
@@ -68,9 +152,47 @@
         },
         {
           "type": "widget",
-          "id": "w2",
-          "html": "<div class=\"widget\" id=\"w2\">\n  <div class=\"hd\"><span class=\"ttl\">W2 · p-adic expansion</span><span class=\"hint\">integer or rational $a/b$ with $\\gcd(b,p)=1$</span></div>\n  <div class=\"row\">\n    <label for=\"w2-p\">$p=$</label><input type=\"number\" id=\"w2-p\" value=\"5\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w2-a\">$a=$</label><input type=\"number\" id=\"w2-a\" value=\"-1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-b\">$b=$</label><input type=\"number\" id=\"w2-b\" value=\"1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-d\">digits</label><input type=\"number\" id=\"w2-d\" value=\"10\" min=\"1\" max=\"14\" step=\"1\" style=\"width:70px\">\n    <button id=\"w2-go\">expand</button>\n  </div>\n  <div class=\"readout\" id=\"w2-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const out = $('#w2-out');\n  function go(){\n    const p = parseInt($('#w2-p').value,10);\n    const a = parseInt($('#w2-a').value,10);\n    const b = parseInt($('#w2-b').value,10);\n    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(b===0){ out.textContent='b cannot be zero'; return; }\n    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }\n    const digs = digitsOfRatInZp(a, b, p, D);\n    if(!digs){ out.textContent='inversion failed'; return; }\n    // check periodicity on the first half\n    let period = null;\n    for(let L=1; L<=Math.floor(D/2); L++){\n      let ok = true;\n      for(let i=0;i+L<D;i++){\n        if(digs[i]!==digs[i+L]){ ok=false; break; }\n      }\n      if(ok){ period=L; break; }\n    }\n    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\\u00b7'+p+(i===1?'':'^'+i))).join('');\n    const vec = digs.join(' ');\n    out.textContent =\n      `x = ${a}/${b}  in base ${p}\\n` +\n      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\\n` +\n      `x \\u2248 ${line} + \\u2026\\n` +\n      (period ? `eventually periodic, period \\u2264 ${period}` : 'no short period detected in window');\n  }\n  $('#w2-go').addEventListener('click', go);\n  go();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W2 · p-adic expansion",
+            "hint": "integer or rational $a/b$ with $\\gcd(b,p)=1$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w2-p\">$p=$</label><input type=\"number\" id=\"w2-p\" value=\"5\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w2-a\">$a=$</label><input type=\"number\" id=\"w2-a\" value=\"-1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-b\">$b=$</label><input type=\"number\" id=\"w2-b\" value=\"1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-d\">digits</label><input type=\"number\" id=\"w2-d\" value=\"10\" min=\"1\" max=\"14\" step=\"1\" style=\"width:70px\">\n    <button id=\"w2-go\">expand</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w2-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w2-out');\n  function go(){\n    const p = parseInt($('#w2-p').value,10);\n    const a = parseInt($('#w2-a').value,10);\n    const b = parseInt($('#w2-b').value,10);\n    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(b===0){ out.textContent='b cannot be zero'; return; }\n    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }\n    const digs = digitsOfRatInZp(a, b, p, D);\n    if(!digs){ out.textContent='inversion failed'; return; }\n    // check periodicity on the first half\n    let period = null;\n    for(let L=1; L<=Math.floor(D/2); L++){\n      let ok = true;\n      for(let i=0;i+L<D;i++){\n        if(digs[i]!==digs[i+L]){ ok=false; break; }\n      }\n      if(ok){ period=L; break; }\n    }\n    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\\u00b7'+p+(i===1?'':'^'+i))).join('');\n    const vec = digs.join(' ');\n    out.textContent =\n      `x = ${a}/${b}  in base ${p}\\n` +\n      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\\n` +\n      `x \\u2248 ${line} + \\u2026\\n` +\n      (period ? `eventually periodic, period \\u2264 ${period}` : 'no short period detected in window');\n  }\n  $('#w2-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W2 · p-adic expansion",
+            "hint": "integer or rational $a/b$ with $\\gcd(b,p)=1$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w2-p\">$p=$</label><input type=\"number\" id=\"w2-p\" value=\"5\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w2-a\">$a=$</label><input type=\"number\" id=\"w2-a\" value=\"-1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-b\">$b=$</label><input type=\"number\" id=\"w2-b\" value=\"1\" step=\"1\" style=\"width:110px\">\n    <label for=\"w2-d\">digits</label><input type=\"number\" id=\"w2-d\" value=\"10\" min=\"1\" max=\"14\" step=\"1\" style=\"width:70px\">\n    <button id=\"w2-go\">expand</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w2-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w2-out');\n  function go(){\n    const p = parseInt($('#w2-p').value,10);\n    const a = parseInt($('#w2-a').value,10);\n    const b = parseInt($('#w2-b').value,10);\n    const D = Math.max(1, Math.min(14, parseInt($('#w2-d').value,10)||10));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(b===0){ out.textContent='b cannot be zero'; return; }\n    if(vpInt(b,p)>0){ out.textContent=`gcd(b,p) must be 1; your b has v_${p}(b)=${vpInt(b,p)}.\\nfor such x the expansion begins at p^{-k}; try b coprime to p.`; return; }\n    const digs = digitsOfRatInZp(a, b, p, D);\n    if(!digs){ out.textContent='inversion failed'; return; }\n    // check periodicity on the first half\n    let period = null;\n    for(let L=1; L<=Math.floor(D/2); L++){\n      let ok = true;\n      for(let i=0;i+L<D;i++){\n        if(digs[i]!==digs[i+L]){ ok=false; break; }\n      }\n      if(ok){ period=L; break; }\n    }\n    const line = digs.map((d,i)=> (i===0?'':' + ') + (d===0 && i>0 ? '0' : d) + (i===0?'':'\\u00b7'+p+(i===1?'':'^'+i))).join('');\n    const vec = digs.join(' ');\n    out.textContent =\n      `x = ${a}/${b}  in base ${p}\\n` +\n      `digits a_0 a_1 a_2 ... : ${vec}  + O(${p}^${D})\\n` +\n      `x \\u2248 ${line} + \\u2026\\n` +\n      (period ? `eventually periodic, period \\u2264 ${period}` : 'no short period detected in window');\n  }\n  $('#w2-go').addEventListener('click', go);\n  go();"
+          }
         },
         {
           "type": "raw",
@@ -96,9 +218,45 @@
         },
         {
           "type": "widget",
-          "id": "w2b",
-          "html": "<div class=\"widget\" id=\"w2b\">\n  <div class=\"hd\"><span class=\"ttl\">Inverse system view</span><span class=\"hint\">a compatible tower</span></div>\n  <svg id=\"w2b-svg\" viewBox=\"0 0 720 160\" width=\"720\" height=\"160\" aria-label=\"inverse limit diagram\"></svg>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w2b-svg');\n  const labels = ['\\u2124/p','\\u2124/p\\u00b2','\\u2124/p\\u00b3','\\u2124/p\\u2074','\\u2124/p\\u2075'];\n  const y = 70;\n  const xs = [80, 200, 330, 460, 590];\n  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));\n  for(let i=labels.length-1;i>0;i--){\n    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});\n  }\n  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n  zp.textContent = '\\u2190 \\u2124_p';\n  svg.appendChild(zp);\n  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n  cap.textContent = 'reduction maps \\u2124/p^{n+1} \\u2192 \\u2124/p^n';\n  svg.appendChild(cap);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2b",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "Inverse system view",
+            "hint": "a compatible tower",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "w2b-svg",
+                "viewBox": "0 0 720 160",
+                "width": 720,
+                "height": 160
+              }
+            ],
+            "bodyScript": "  const svg = $('#w2b-svg');\n  const labels = ['\\u2124/p','\\u2124/p\\u00b2','\\u2124/p\\u00b3','\\u2124/p\\u2074','\\u2124/p\\u2075'];\n  const y = 70;\n  const xs = [80, 200, 330, 460, 590];\n  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));\n  for(let i=labels.length-1;i>0;i--){\n    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});\n  }\n  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n  zp.textContent = '\\u2190 \\u2124_p';\n  svg.appendChild(zp);\n  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n  cap.textContent = 'reduction maps \\u2124/p^{n+1} \\u2192 \\u2124/p^n';\n  svg.appendChild(cap);"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w2b",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "Inverse system view",
+            "hint": "a compatible tower",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "w2b-svg",
+                "viewBox": "0 0 720 160",
+                "width": 720,
+                "height": 160
+              }
+            ],
+            "bodyScript": "  const svg = $('#w2b-svg');\n  const labels = ['\\u2124/p','\\u2124/p\\u00b2','\\u2124/p\\u00b3','\\u2124/p\\u2074','\\u2124/p\\u2075'];\n  const y = 70;\n  const xs = [80, 200, 330, 460, 590];\n  labels.forEach((L,i)=>drawNode(svg, xs[i], y, L, {r:28,fontSize:13, stroke:'var(--cyan)'}));\n  for(let i=labels.length-1;i>0;i--){\n    drawArrow(svg, [xs[i], y], [xs[i-1], y], {color:'var(--mute)', curve:0, markerId:'w2b-arr'});\n  }\n  const zp = SVG('text',{x:700, y:y+5, 'text-anchor':'end', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n  zp.textContent = '\\u2190 \\u2124_p';\n  svg.appendChild(zp);\n  const cap = SVG('text',{x:360, y:130, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n  cap.textContent = 'reduction maps \\u2124/p^{n+1} \\u2192 \\u2124/p^n';\n  svg.appendChild(cap);"
+          }
         },
         {
           "type": "raw",
@@ -115,9 +273,53 @@
         },
         {
           "type": "widget",
-          "id": "w3",
-          "html": "<div class=\"widget\" id=\"w3\">\n  <div class=\"hd\"><span class=\"ttl\">W3 · The p-adic tree</span><span class=\"hint\">click a node to expand, hover to see its coset</span></div>\n  <div class=\"row\">\n    <label>$p=$</label>\n    <select id=\"w3-p\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>max depth</label>\n    <select id=\"w3-d\"><option>3</option><option selected>4</option><option>5</option></select>\n    <button id=\"w3-reset\">reset</button>\n    <span class=\"pill\" id=\"w3-info\">hover a node</span>\n  </div>\n  <svg id=\"w3-svg\" viewBox=\"0 0 760 420\" width=\"760\" height=\"420\" aria-label=\"p-adic tree\"></svg>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w3-svg'), info = $('#w3-info');\n  let p = 3, maxDepth = 4;\n  // state: each node keyed by its digit tuple string, { expanded: bool }\n  let state = new Map();\n\n  function keyFor(digits){ return digits.join(','); }\n  function valueOf(digits){ // lift residue in Z/p^n given digits\n    let s = 0, pw = 1;\n    for(const d of digits){ s += d*pw; pw*=p; }\n    return s;\n  }\n  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 760, H = 420;\n    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits\n    // We'll walk and place visible nodes in rows.\n    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);\n\n    // root\n    const rootX = W/2;\n    const rootY = rowY(0);\n    const nodes = []; // {x,y,digits,depth}\n    const edges = []; // {x1,y1,x2,y2}\n\n    function visit(digits, xMin, xMax){\n      const depth = digits.length;\n      const x = (xMin+xMax)/2;\n      const y = rowY(depth);\n      nodes.push({x,y,digits:digits.slice(),depth});\n      const st = state.get(keyFor(digits));\n      if(st && st.expanded && depth < maxDepth){\n        const w = (xMax - xMin);\n        for(let d=0; d<p; d++){\n          const cxMin = xMin + w*d/p;\n          const cxMax = xMin + w*(d+1)/p;\n          const childDigits = digits.concat([d]);\n          const cx = (cxMin+cxMax)/2;\n          const cy = rowY(depth+1);\n          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});\n          visit(childDigits, cxMin, cxMax);\n        }\n      }\n    }\n    visit([], 40, W-40);\n\n    // draw edges first\n    edges.forEach(e=>{\n      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});\n      svg.appendChild(ln);\n      const tx = (e.x1+e.x2)/2 + 6;\n      const ty = (e.y1+e.y2)/2;\n      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});\n      t.textContent = e.lbl;\n      svg.appendChild(t);\n    });\n    // draw nodes\n    nodes.forEach(n=>{\n      const isRoot = n.depth===0;\n      const st = state.get(keyFor(n.digits)) || {};\n      const leafAtMax = n.depth === maxDepth;\n      const expanded = !!st.expanded;\n      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));\n      const r = isRoot ? 22 : 14;\n      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});\n      svg.appendChild(circ);\n      const label = isRoot ? '\\u2124_p' : String(valueOf(n.digits));\n      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});\n      t.textContent = label;\n      svg.appendChild(t);\n      // interactions\n      circ.addEventListener('click', ()=>{\n        if(n.depth === maxDepth) return;\n        const k = keyFor(n.digits);\n        const s = state.get(k) || {expanded:false};\n        s.expanded = !s.expanded;\n        state.set(k, s);\n        render();\n      });\n      circ.addEventListener('mouseenter', ()=>{\n        if(isRoot){ info.textContent = '\\u2124_p (whole ring)'; return; }\n        const val = valueOf(n.digits);\n        const mod = powP(n.depth);\n        info.textContent = `${val} + ${p}^${n.depth}\\u2124_p  (coset in \\u2124/${p}^${n.depth} = ${val})`;\n      });\n    });\n  }\n\n  function reset(){\n    state = new Map();\n    state.set('', {expanded:true}); // root expanded by default\n    render();\n  }\n  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });\n  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });\n  $('#w3-reset').addEventListener('click', reset);\n  p = parseInt($('#w3-p').value,10);\n  maxDepth = parseInt($('#w3-d').value,10);\n  reset();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w3",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W3 · The p-adic tree",
+            "hint": "click a node to expand, hover to see its coset",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p=$</label>\n    <select id=\"w3-p\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>max depth</label>\n    <select id=\"w3-d\"><option>3</option><option selected>4</option><option>5</option></select>\n    <button id=\"w3-reset\">reset</button>\n    <span class=\"pill\" id=\"w3-info\">hover a node</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w3-svg",
+                "viewBox": "0 0 760 420",
+                "width": 760,
+                "height": 420
+              }
+            ],
+            "bodyScript": "  const svg = $('#w3-svg'), info = $('#w3-info');\n  let p = 3, maxDepth = 4;\n  // state: each node keyed by its digit tuple string, { expanded: bool }\n  let state = new Map();\n\n  function keyFor(digits){ return digits.join(','); }\n  function valueOf(digits){ // lift residue in Z/p^n given digits\n    let s = 0, pw = 1;\n    for(const d of digits){ s += d*pw; pw*=p; }\n    return s;\n  }\n  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 760, H = 420;\n    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits\n    // We'll walk and place visible nodes in rows.\n    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);\n\n    // root\n    const rootX = W/2;\n    const rootY = rowY(0);\n    const nodes = []; // {x,y,digits,depth}\n    const edges = []; // {x1,y1,x2,y2}\n\n    function visit(digits, xMin, xMax){\n      const depth = digits.length;\n      const x = (xMin+xMax)/2;\n      const y = rowY(depth);\n      nodes.push({x,y,digits:digits.slice(),depth});\n      const st = state.get(keyFor(digits));\n      if(st && st.expanded && depth < maxDepth){\n        const w = (xMax - xMin);\n        for(let d=0; d<p; d++){\n          const cxMin = xMin + w*d/p;\n          const cxMax = xMin + w*(d+1)/p;\n          const childDigits = digits.concat([d]);\n          const cx = (cxMin+cxMax)/2;\n          const cy = rowY(depth+1);\n          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});\n          visit(childDigits, cxMin, cxMax);\n        }\n      }\n    }\n    visit([], 40, W-40);\n\n    // draw edges first\n    edges.forEach(e=>{\n      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});\n      svg.appendChild(ln);\n      const tx = (e.x1+e.x2)/2 + 6;\n      const ty = (e.y1+e.y2)/2;\n      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});\n      t.textContent = e.lbl;\n      svg.appendChild(t);\n    });\n    // draw nodes\n    nodes.forEach(n=>{\n      const isRoot = n.depth===0;\n      const st = state.get(keyFor(n.digits)) || {};\n      const leafAtMax = n.depth === maxDepth;\n      const expanded = !!st.expanded;\n      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));\n      const r = isRoot ? 22 : 14;\n      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});\n      svg.appendChild(circ);\n      const label = isRoot ? '\\u2124_p' : String(valueOf(n.digits));\n      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});\n      t.textContent = label;\n      svg.appendChild(t);\n      // interactions\n      circ.addEventListener('click', ()=>{\n        if(n.depth === maxDepth) return;\n        const k = keyFor(n.digits);\n        const s = state.get(k) || {expanded:false};\n        s.expanded = !s.expanded;\n        state.set(k, s);\n        render();\n      });\n      circ.addEventListener('mouseenter', ()=>{\n        if(isRoot){ info.textContent = '\\u2124_p (whole ring)'; return; }\n        const val = valueOf(n.digits);\n        const mod = powP(n.depth);\n        info.textContent = `${val} + ${p}^${n.depth}\\u2124_p  (coset in \\u2124/${p}^${n.depth} = ${val})`;\n      });\n    });\n  }\n\n  function reset(){\n    state = new Map();\n    state.set('', {expanded:true}); // root expanded by default\n    render();\n  }\n  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });\n  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });\n  $('#w3-reset').addEventListener('click', reset);\n  p = parseInt($('#w3-p').value,10);\n  maxDepth = parseInt($('#w3-d').value,10);\n  reset();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w3",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W3 · The p-adic tree",
+            "hint": "click a node to expand, hover to see its coset",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p=$</label>\n    <select id=\"w3-p\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>max depth</label>\n    <select id=\"w3-d\"><option>3</option><option selected>4</option><option>5</option></select>\n    <button id=\"w3-reset\">reset</button>\n    <span class=\"pill\" id=\"w3-info\">hover a node</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w3-svg",
+                "viewBox": "0 0 760 420",
+                "width": 760,
+                "height": 420
+              }
+            ],
+            "bodyScript": "  const svg = $('#w3-svg'), info = $('#w3-info');\n  let p = 3, maxDepth = 4;\n  // state: each node keyed by its digit tuple string, { expanded: bool }\n  let state = new Map();\n\n  function keyFor(digits){ return digits.join(','); }\n  function valueOf(digits){ // lift residue in Z/p^n given digits\n    let s = 0, pw = 1;\n    for(const d of digits){ s += d*pw; pw*=p; }\n    return s;\n  }\n  function powP(n){ let r=1; for(let i=0;i<n;i++) r*=p; return r; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 760, H = 420;\n    // compute positions: at depth d, node gets an x-slot proportional to its cumulative digits\n    // We'll walk and place visible nodes in rows.\n    const rowY = d => 40 + d*(H-80)/Math.max(1,maxDepth);\n\n    // root\n    const rootX = W/2;\n    const rootY = rowY(0);\n    const nodes = []; // {x,y,digits,depth}\n    const edges = []; // {x1,y1,x2,y2}\n\n    function visit(digits, xMin, xMax){\n      const depth = digits.length;\n      const x = (xMin+xMax)/2;\n      const y = rowY(depth);\n      nodes.push({x,y,digits:digits.slice(),depth});\n      const st = state.get(keyFor(digits));\n      if(st && st.expanded && depth < maxDepth){\n        const w = (xMax - xMin);\n        for(let d=0; d<p; d++){\n          const cxMin = xMin + w*d/p;\n          const cxMax = xMin + w*(d+1)/p;\n          const childDigits = digits.concat([d]);\n          const cx = (cxMin+cxMax)/2;\n          const cy = rowY(depth+1);\n          edges.push({x1:x,y1:y,x2:cx,y2:cy, lbl:String(d)});\n          visit(childDigits, cxMin, cxMax);\n        }\n      }\n    }\n    visit([], 40, W-40);\n\n    // draw edges first\n    edges.forEach(e=>{\n      const ln = SVG('line',{x1:e.x1,y1:e.y1,x2:e.x2,y2:e.y2,stroke:'var(--line)','stroke-width':1.2});\n      svg.appendChild(ln);\n      const tx = (e.x1+e.x2)/2 + 6;\n      const ty = (e.y1+e.y2)/2;\n      const t = SVG('text',{x:tx,y:ty,'font-size':10,fill:'var(--mute)'});\n      t.textContent = e.lbl;\n      svg.appendChild(t);\n    });\n    // draw nodes\n    nodes.forEach(n=>{\n      const isRoot = n.depth===0;\n      const st = state.get(keyFor(n.digits)) || {};\n      const leafAtMax = n.depth === maxDepth;\n      const expanded = !!st.expanded;\n      const color = isRoot ? 'var(--yellow)' : (leafAtMax ? 'var(--violet)' : (expanded ? 'var(--cyan)' : 'var(--blue)'));\n      const r = isRoot ? 22 : 14;\n      const circ = SVG('circle',{cx:n.x,cy:n.y,r, fill:'var(--panel2)', stroke:color,'stroke-width':1.8, style:'cursor:pointer'});\n      svg.appendChild(circ);\n      const label = isRoot ? '\\u2124_p' : String(valueOf(n.digits));\n      const t = SVG('text',{x:n.x,y:n.y+4,'text-anchor':'middle','font-size':isRoot?13:11, fill:'#fff','font-weight':600, style:'cursor:pointer;pointer-events:none'});\n      t.textContent = label;\n      svg.appendChild(t);\n      // interactions\n      circ.addEventListener('click', ()=>{\n        if(n.depth === maxDepth) return;\n        const k = keyFor(n.digits);\n        const s = state.get(k) || {expanded:false};\n        s.expanded = !s.expanded;\n        state.set(k, s);\n        render();\n      });\n      circ.addEventListener('mouseenter', ()=>{\n        if(isRoot){ info.textContent = '\\u2124_p (whole ring)'; return; }\n        const val = valueOf(n.digits);\n        const mod = powP(n.depth);\n        info.textContent = `${val} + ${p}^${n.depth}\\u2124_p  (coset in \\u2124/${p}^${n.depth} = ${val})`;\n      });\n    });\n  }\n\n  function reset(){\n    state = new Map();\n    state.set('', {expanded:true}); // root expanded by default\n    render();\n  }\n  $('#w3-p').addEventListener('change', ()=>{ p = parseInt($('#w3-p').value,10); reset(); });\n  $('#w3-d').addEventListener('change', ()=>{ maxDepth = parseInt($('#w3-d').value,10); reset(); });\n  $('#w3-reset').addEventListener('click', reset);\n  p = parseInt($('#w3-p').value,10);\n  maxDepth = parseInt($('#w3-d').value,10);\n  reset();"
+          }
         },
         {
           "type": "raw",
@@ -134,9 +336,61 @@
         },
         {
           "type": "widget",
-          "id": "w6",
-          "html": "<div class=\"widget\" id=\"w6\">\n  <div class=\"hd\"><span class=\"ttl\">W6 · Convergence comparison</span><span class=\"hint\">same series, two absolute values</span></div>\n  <div class=\"row\">\n    <label>series</label>\n    <select id=\"w6-series\">\n      <option value=\"pn\">$\\sum p^n$</option>\n      <option value=\"factp\">$\\sum n! \\cdot p^n$</option>\n      <option value=\"fact\">$\\sum n!$</option>\n      <option value=\"invn\">$\\sum 1/n$</option>\n    </select>\n    <label for=\"w6-p\">$p=$</label><input type=\"number\" id=\"w6-p\" value=\"3\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w6-N\">terms</label><input type=\"number\" id=\"w6-N\" value=\"12\" min=\"2\" max=\"24\" step=\"1\" style=\"width:80px\">\n    <button id=\"w6-go\">plot</button>\n  </div>\n  <svg id=\"w6-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\" aria-label=\"dual convergence\"></svg>\n  <div class=\"readout\" id=\"w6-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w6-svg'), out = $('#w6-out');\n  function term(n, series, p){\n    if(series==='pn') return 1;      // multiplied by p^n below\n    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='invn') return n===0 ? 0 : 1/n;\n    return 0;\n  }\n  function power(n, series, p){ // multiplier by power of p\n    if(series==='pn') return Math.pow(p,n);\n    if(series==='factp') return Math.pow(p,n);\n    return 1;\n  }\n  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }\n\n  // For |.|_p we track v_p of the *partial sum*, not just the term.\n  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.\n  function run(){\n    const series = $('#w6-series').value;\n    const p = parseInt($('#w6-p').value,10);\n    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    svg.innerHTML = '';\n    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;\n    const innerW = W-padL-padR, innerH = H-padT-padB;\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n\n    // accumulate\n    let sumReal = 0;\n    const absInf = [], absP = [];\n    // for vp we need integer arithmetic when possible\n    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer\n    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');\n\n    for(let n=0;n<=N;n++){\n      const tv = termValue(n, series, p);\n      sumReal += tv;\n      absInf.push(Math.abs(sumReal));\n      // v_p of partial sum\n      let vp = 0;\n      if(series==='invn'){\n        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational\n        if(n>=1){\n          // increment: intNum/intDen += 1/n\n          // new = (intNum*n + intDen)/(intDen*n)\n          const newNum = intNum*n + intDen;\n          const newDen = intDen*n;\n          const g = gcd(newNum, newDen);\n          intNum = newNum/g; intDen = newDen/g;\n        }\n        if(intNum===0) vp = Infinity;\n        else vp = vpInt(intNum, p) - vpInt(intDen, p);\n      } else {\n        // integer series: track integer sum\n        if(n===0){\n          intNum = tv; intDen = 1;\n        } else {\n          intNum = intNum + tv; intDen = 1;\n        }\n        vp = (intNum===0) ? Infinity : vpInt(intNum, p);\n      }\n      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);\n      absP.push(absv);\n    }\n    // plot two lines: blue = log(|S_n|_\\infty + 1), yellow = |S_n|_p (scaled)\n    // Use log scale for inf, linear for p\n    const infMax = Math.max(1, ...absInf);\n    const pMax = Math.max(1e-6, ...absP);\n    // draw infinity curve (log scale)\n    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }\n    // plot\n    const step = innerW / N;\n    // |.|_\\infty curve\n    let d1 = '';\n    absInf.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*logScale(v);\n      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // |.|_p curve\n    let d2 = '';\n    absP.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*(v/pMax);\n      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});\n    lg1.textContent = '|S_n|_\\u221E  (log scale)';\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});\n    lg2.textContent = `|S_n|_${p}`;\n    svg.appendChild(lg2);\n    // final diagnosis\n    const finInf = absInf[absInf.length-1];\n    const finP   = absP[absP.length-1];\n    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);\n    out.textContent =\n      `N=${N}  p=${p}  series=${series}\\n` +\n      `|S_N|_\\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\\n` +\n      (trendP ? `p-adically the partial sums are shrinking \\u2192 convergent in \\u211A_${p}.` :\n                `p-adically no shrinkage detected in this window.`);\n  }\n  $('#w6-go').addEventListener('click', run);\n  run();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w6",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W6 · Convergence comparison",
+            "hint": "same series, two absolute values",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>series</label>\n    <select id=\"w6-series\">\n      <option value=\"pn\">$\\sum p^n$</option>\n      <option value=\"factp\">$\\sum n! \\cdot p^n$</option>\n      <option value=\"fact\">$\\sum n!$</option>\n      <option value=\"invn\">$\\sum 1/n$</option>\n    </select>\n    <label for=\"w6-p\">$p=$</label><input type=\"number\" id=\"w6-p\" value=\"3\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w6-N\">terms</label><input type=\"number\" id=\"w6-N\" value=\"12\" min=\"2\" max=\"24\" step=\"1\" style=\"width:80px\">\n    <button id=\"w6-go\">plot</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w6-svg",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "w6-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#w6-svg'), out = $('#w6-out');\n  function term(n, series, p){\n    if(series==='pn') return 1;      // multiplied by p^n below\n    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='invn') return n===0 ? 0 : 1/n;\n    return 0;\n  }\n  function power(n, series, p){ // multiplier by power of p\n    if(series==='pn') return Math.pow(p,n);\n    if(series==='factp') return Math.pow(p,n);\n    return 1;\n  }\n  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }\n\n  // For |.|_p we track v_p of the *partial sum*, not just the term.\n  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.\n  function run(){\n    const series = $('#w6-series').value;\n    const p = parseInt($('#w6-p').value,10);\n    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    svg.innerHTML = '';\n    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;\n    const innerW = W-padL-padR, innerH = H-padT-padB;\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n\n    // accumulate\n    let sumReal = 0;\n    const absInf = [], absP = [];\n    // for vp we need integer arithmetic when possible\n    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer\n    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');\n\n    for(let n=0;n<=N;n++){\n      const tv = termValue(n, series, p);\n      sumReal += tv;\n      absInf.push(Math.abs(sumReal));\n      // v_p of partial sum\n      let vp = 0;\n      if(series==='invn'){\n        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational\n        if(n>=1){\n          // increment: intNum/intDen += 1/n\n          // new = (intNum*n + intDen)/(intDen*n)\n          const newNum = intNum*n + intDen;\n          const newDen = intDen*n;\n          const g = gcd(newNum, newDen);\n          intNum = newNum/g; intDen = newDen/g;\n        }\n        if(intNum===0) vp = Infinity;\n        else vp = vpInt(intNum, p) - vpInt(intDen, p);\n      } else {\n        // integer series: track integer sum\n        if(n===0){\n          intNum = tv; intDen = 1;\n        } else {\n          intNum = intNum + tv; intDen = 1;\n        }\n        vp = (intNum===0) ? Infinity : vpInt(intNum, p);\n      }\n      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);\n      absP.push(absv);\n    }\n    // plot two lines: blue = log(|S_n|_\\infty + 1), yellow = |S_n|_p (scaled)\n    // Use log scale for inf, linear for p\n    const infMax = Math.max(1, ...absInf);\n    const pMax = Math.max(1e-6, ...absP);\n    // draw infinity curve (log scale)\n    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }\n    // plot\n    const step = innerW / N;\n    // |.|_\\infty curve\n    let d1 = '';\n    absInf.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*logScale(v);\n      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // |.|_p curve\n    let d2 = '';\n    absP.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*(v/pMax);\n      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});\n    lg1.textContent = '|S_n|_\\u221E  (log scale)';\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});\n    lg2.textContent = `|S_n|_${p}`;\n    svg.appendChild(lg2);\n    // final diagnosis\n    const finInf = absInf[absInf.length-1];\n    const finP   = absP[absP.length-1];\n    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);\n    out.textContent =\n      `N=${N}  p=${p}  series=${series}\\n` +\n      `|S_N|_\\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\\n` +\n      (trendP ? `p-adically the partial sums are shrinking \\u2192 convergent in \\u211A_${p}.` :\n                `p-adically no shrinkage detected in this window.`);\n  }\n  $('#w6-go').addEventListener('click', run);\n  run();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w6",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W6 · Convergence comparison",
+            "hint": "same series, two absolute values",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>series</label>\n    <select id=\"w6-series\">\n      <option value=\"pn\">$\\sum p^n$</option>\n      <option value=\"factp\">$\\sum n! \\cdot p^n$</option>\n      <option value=\"fact\">$\\sum n!$</option>\n      <option value=\"invn\">$\\sum 1/n$</option>\n    </select>\n    <label for=\"w6-p\">$p=$</label><input type=\"number\" id=\"w6-p\" value=\"3\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w6-N\">terms</label><input type=\"number\" id=\"w6-N\" value=\"12\" min=\"2\" max=\"24\" step=\"1\" style=\"width:80px\">\n    <button id=\"w6-go\">plot</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "w6-svg",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "readout",
+                "id": "w6-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#w6-svg'), out = $('#w6-out');\n  function term(n, series, p){\n    if(series==='pn') return 1;      // multiplied by p^n below\n    if(series==='factp'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='fact'){ let f=1; for(let i=1;i<=n;i++) f*=i; return f; }\n    if(series==='invn') return n===0 ? 0 : 1/n;\n    return 0;\n  }\n  function power(n, series, p){ // multiplier by power of p\n    if(series==='pn') return Math.pow(p,n);\n    if(series==='factp') return Math.pow(p,n);\n    return 1;\n  }\n  function termValue(n, series, p){ return term(n,series,p) * power(n,series,p); }\n\n  // For |.|_p we track v_p of the *partial sum*, not just the term.\n  // Over Z, vp(sum) can be computed incrementally but we just use BigInt-like accumulation.\n  function run(){\n    const series = $('#w6-series').value;\n    const p = parseInt($('#w6-p').value,10);\n    const N = Math.max(2, Math.min(24, parseInt($('#w6-N').value,10)||12));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    svg.innerHTML = '';\n    const W = 720, H = 240, padL=40, padR=20, padT=20, padB=30;\n    const innerW = W-padL-padR, innerH = H-padT-padB;\n    // axes\n    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--line)'}));\n\n    // accumulate\n    let sumReal = 0;\n    const absInf = [], absP = [];\n    // for vp we need integer arithmetic when possible\n    let intNum = 0, intDen = 1; // track rational sum for exact v_p when terms are rational/integer\n    const trackRat = (series==='pn' || series==='factp' || series==='fact' || series==='invn');\n\n    for(let n=0;n<=N;n++){\n      const tv = termValue(n, series, p);\n      sumReal += tv;\n      absInf.push(Math.abs(sumReal));\n      // v_p of partial sum\n      let vp = 0;\n      if(series==='invn'){\n        // sum_{k=1..n} 1/k has denominator = lcm; v_p computed via rational\n        if(n>=1){\n          // increment: intNum/intDen += 1/n\n          // new = (intNum*n + intDen)/(intDen*n)\n          const newNum = intNum*n + intDen;\n          const newDen = intDen*n;\n          const g = gcd(newNum, newDen);\n          intNum = newNum/g; intDen = newDen/g;\n        }\n        if(intNum===0) vp = Infinity;\n        else vp = vpInt(intNum, p) - vpInt(intDen, p);\n      } else {\n        // integer series: track integer sum\n        if(n===0){\n          intNum = tv; intDen = 1;\n        } else {\n          intNum = intNum + tv; intDen = 1;\n        }\n        vp = (intNum===0) ? Infinity : vpInt(intNum, p);\n      }\n      const absv = (vp===Infinity) ? 0 : Math.pow(p, -vp);\n      absP.push(absv);\n    }\n    // plot two lines: blue = log(|S_n|_\\infty + 1), yellow = |S_n|_p (scaled)\n    // Use log scale for inf, linear for p\n    const infMax = Math.max(1, ...absInf);\n    const pMax = Math.max(1e-6, ...absP);\n    // draw infinity curve (log scale)\n    function logScale(v){ return Math.log(1+v) / Math.log(1+infMax); }\n    // plot\n    const step = innerW / N;\n    // |.|_\\infty curve\n    let d1 = '';\n    absInf.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*logScale(v);\n      d1 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // |.|_p curve\n    let d2 = '';\n    absP.forEach((v,i)=>{\n      const x = padL + step*i;\n      const y = H-padB - innerH*(v/pMax);\n      d2 += (i===0?'M':'L') + x + ' ' + y + ' ';\n    });\n    svg.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    // legend\n    const lg1 = SVG('text',{x:padL+10,y:padT+14,'font-size':12,fill:'var(--pink)'});\n    lg1.textContent = '|S_n|_\\u221E  (log scale)';\n    svg.appendChild(lg1);\n    const lg2 = SVG('text',{x:padL+10,y:padT+30,'font-size':12,fill:'var(--yellow)'});\n    lg2.textContent = `|S_n|_${p}`;\n    svg.appendChild(lg2);\n    // final diagnosis\n    const finInf = absInf[absInf.length-1];\n    const finP   = absP[absP.length-1];\n    const trendP = (absP.length>2 && absP[absP.length-1] < absP[1]);\n    out.textContent =\n      `N=${N}  p=${p}  series=${series}\\n` +\n      `|S_N|_\\u221E = ${finInf.toExponential(3)}   |S_N|_${p} = ${finP.toExponential(3)}\\n` +\n      (trendP ? `p-adically the partial sums are shrinking \\u2192 convergent in \\u211A_${p}.` :\n                `p-adically no shrinkage detected in this window.`);\n  }\n  $('#w6-go').addEventListener('click', run);\n  run();"
+          }
         },
         {
           "type": "raw",
@@ -153,9 +407,47 @@
         },
         {
           "type": "widget",
-          "id": "w5",
-          "html": "<div class=\"widget\" id=\"w5\">\n  <div class=\"hd\"><span class=\"ttl\">W5 · Hensel lift step-by-step</span><span class=\"hint\">$f(x)=x^2-k$, solve $x^2=k$ in $\\mathbb{Z}_p$</span></div>\n  <div class=\"row\">\n    <label for=\"w5-p\">$p=$</label><input type=\"number\" id=\"w5-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w5-k\">$k=$</label><input type=\"number\" id=\"w5-k\" value=\"2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-x0\">$x_0=$</label><input type=\"number\" id=\"w5-x0\" value=\"3\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-n\">steps</label><input type=\"number\" id=\"w5-n\" value=\"6\" min=\"1\" max=\"12\" step=\"1\" style=\"width:70px\">\n    <button id=\"w5-go\">lift</button>\n  </div>\n  <div class=\"readout\" id=\"w5-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const out = $('#w5-out');\n  function go(){\n    const p = parseInt($('#w5-p').value,10);\n    const k = parseInt($('#w5-k').value,10);\n    const x0 = parseInt($('#w5-x0').value,10);\n    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    // Check hypotheses\n    const f0 = ((x0*x0 - k) % p + p) % p;\n    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \\u2261 0 (mod p).  Here ${x0}\\u00b2-${k} \\u2261 ${f0} (mod ${p}).`; return; }\n    const df0 = ((2*x0) % p + p) % p;\n    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \\u2262 0 (mod p).  Here 2\\u00b7${x0} \\u2261 0 (mod ${p}).`; return; }\n    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.\n    // We compute x_n \\in Z/p^{n+1} such that x_n^2 \\equiv k (mod p^{n+1}).\n    const lines = [`f(x)=x\\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];\n    let pn = p; // modulus starts at p (we have x_0 mod p)\n    let x  = ((x0 % pn) + pn) % pn;\n    lines.push(`n=0   x_0 \\u2261 ${x} (mod ${pn})   f(x_0) \\u2261 ${(x*x - k) % pn} (mod ${pn})`);\n    for(let n=1; n<=N; n++){\n      const newPn = pn * p;\n      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \\u2261 k (mod newPn)\n      // (x^2 - k) + 2*x*a*pn \\u2261 0 (mod p^{n+1})\n      // a \\u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)\n      const delta = (x*x - k);\n      // make sure delta is divisible by pn\n      const deltaOverPn = Math.round(delta / pn);\n      // inverse of 2x mod p\n      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);\n      let a = ((-deltaOverPn * inv2x) % p + p) % p;\n      const xNew = x + a*pn;\n      const fv = (xNew*xNew - k);\n      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \\u2261 ${xNew} (mod ${newPn})   f(x_${n}) \\u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);\n      x = xNew; pn = newPn;\n    }\n    lines.push(`\\nLift converges: sqrt(${k}) \\u2208 \\u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w5-go').addEventListener('click', go);\n  go();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w5",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W5 · Hensel lift step-by-step",
+            "hint": "$f(x)=x^2-k$, solve $x^2=k$ in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w5-p\">$p=$</label><input type=\"number\" id=\"w5-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w5-k\">$k=$</label><input type=\"number\" id=\"w5-k\" value=\"2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-x0\">$x_0=$</label><input type=\"number\" id=\"w5-x0\" value=\"3\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-n\">steps</label><input type=\"number\" id=\"w5-n\" value=\"6\" min=\"1\" max=\"12\" step=\"1\" style=\"width:70px\">\n    <button id=\"w5-go\">lift</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w5-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w5-out');\n  function go(){\n    const p = parseInt($('#w5-p').value,10);\n    const k = parseInt($('#w5-k').value,10);\n    const x0 = parseInt($('#w5-x0').value,10);\n    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    // Check hypotheses\n    const f0 = ((x0*x0 - k) % p + p) % p;\n    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \\u2261 0 (mod p).  Here ${x0}\\u00b2-${k} \\u2261 ${f0} (mod ${p}).`; return; }\n    const df0 = ((2*x0) % p + p) % p;\n    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \\u2262 0 (mod p).  Here 2\\u00b7${x0} \\u2261 0 (mod ${p}).`; return; }\n    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.\n    // We compute x_n \\in Z/p^{n+1} such that x_n^2 \\equiv k (mod p^{n+1}).\n    const lines = [`f(x)=x\\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];\n    let pn = p; // modulus starts at p (we have x_0 mod p)\n    let x  = ((x0 % pn) + pn) % pn;\n    lines.push(`n=0   x_0 \\u2261 ${x} (mod ${pn})   f(x_0) \\u2261 ${(x*x - k) % pn} (mod ${pn})`);\n    for(let n=1; n<=N; n++){\n      const newPn = pn * p;\n      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \\u2261 k (mod newPn)\n      // (x^2 - k) + 2*x*a*pn \\u2261 0 (mod p^{n+1})\n      // a \\u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)\n      const delta = (x*x - k);\n      // make sure delta is divisible by pn\n      const deltaOverPn = Math.round(delta / pn);\n      // inverse of 2x mod p\n      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);\n      let a = ((-deltaOverPn * inv2x) % p + p) % p;\n      const xNew = x + a*pn;\n      const fv = (xNew*xNew - k);\n      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \\u2261 ${xNew} (mod ${newPn})   f(x_${n}) \\u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);\n      x = xNew; pn = newPn;\n    }\n    lines.push(`\\nLift converges: sqrt(${k}) \\u2208 \\u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w5-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w5",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W5 · Hensel lift step-by-step",
+            "hint": "$f(x)=x^2-k$, solve $x^2=k$ in $\\mathbb{Z}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w5-p\">$p=$</label><input type=\"number\" id=\"w5-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <label for=\"w5-k\">$k=$</label><input type=\"number\" id=\"w5-k\" value=\"2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-x0\">$x_0=$</label><input type=\"number\" id=\"w5-x0\" value=\"3\" step=\"1\" style=\"width:80px\">\n    <label for=\"w5-n\">steps</label><input type=\"number\" id=\"w5-n\" value=\"6\" min=\"1\" max=\"12\" step=\"1\" style=\"width:70px\">\n    <button id=\"w5-go\">lift</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w5-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w5-out');\n  function go(){\n    const p = parseInt($('#w5-p').value,10);\n    const k = parseInt($('#w5-k').value,10);\n    const x0 = parseInt($('#w5-x0').value,10);\n    const N = Math.max(1, Math.min(12, parseInt($('#w5-n').value,10)||6));\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    // Check hypotheses\n    const f0 = ((x0*x0 - k) % p + p) % p;\n    if(f0 !== 0){ out.textContent=`Hensel needs f(x_0) \\u2261 0 (mod p).  Here ${x0}\\u00b2-${k} \\u2261 ${f0} (mod ${p}).`; return; }\n    const df0 = ((2*x0) % p + p) % p;\n    if(df0 === 0){ out.textContent=`Hensel needs f'(x_0) \\u2262 0 (mod p).  Here 2\\u00b7${x0} \\u2261 0 (mod ${p}).`; return; }\n    // Iterate Newton-in-Z/p^n form: lift modulo p^{n} increasing.\n    // We compute x_n \\in Z/p^{n+1} such that x_n^2 \\equiv k (mod p^{n+1}).\n    const lines = [`f(x)=x\\u00b2-${k},  p=${p},  x_0=${x0}  (seed mod ${p})`];\n    let pn = p; // modulus starts at p (we have x_0 mod p)\n    let x  = ((x0 % pn) + pn) % pn;\n    lines.push(`n=0   x_0 \\u2261 ${x} (mod ${pn})   f(x_0) \\u2261 ${(x*x - k) % pn} (mod ${pn})`);\n    for(let n=1; n<=N; n++){\n      const newPn = pn * p;\n      // lift: find a in {0,..,p-1} with (x + a*pn)^2 \\u2261 k (mod newPn)\n      // (x^2 - k) + 2*x*a*pn \\u2261 0 (mod p^{n+1})\n      // a \\u2261 -((x^2 - k)/pn) * (2x)^{-1}  (mod p)\n      const delta = (x*x - k);\n      // make sure delta is divisible by pn\n      const deltaOverPn = Math.round(delta / pn);\n      // inverse of 2x mod p\n      const inv2x = modpow(((2*x)%p+p)%p, p-2, p);\n      let a = ((-deltaOverPn * inv2x) % p + p) % p;\n      const xNew = x + a*pn;\n      const fv = (xNew*xNew - k);\n      lines.push(`n=${n}   digit a_${n} = ${a}   x_${n} \\u2261 ${xNew} (mod ${newPn})   f(x_${n}) \\u2261 ${((fv % newPn)+newPn)%newPn} (mod ${newPn})`);\n      x = xNew; pn = newPn;\n    }\n    lines.push(`\\nLift converges: sqrt(${k}) \\u2208 \\u2124_${p} with digits a_0 a_1 ... giving x = ${x} (mod ${pn}).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w5-go').addEventListener('click', go);\n  go();"
+          }
         },
         {
           "type": "raw",
@@ -181,9 +473,47 @@
         },
         {
           "type": "widget",
-          "id": "w7",
-          "html": "<div class=\"widget\" id=\"w7\">\n  <div class=\"hd\"><span class=\"ttl\">W7 &middot; Local solvability check</span><span class=\"hint\">$ax^2+by^2=c$ over $\\mathbb{R}$ and $\\mathbb{Q}_p$</span></div>\n  <div class=\"row\">\n    <label for=\"w7-a\">$a=$</label><input type=\"number\" id=\"w7-a\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-b\">$b=$</label><input type=\"number\" id=\"w7-b\" value=\"-2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-c\">$c=$</label><input type=\"number\" id=\"w7-c\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-p\">$p=$</label><input type=\"number\" id=\"w7-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <button id=\"w7-go\">check</button>\n  </div>\n  <div class=\"readout\" id=\"w7-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const out = $('#w7-out');\n  function go(){\n    const a = parseInt($('#w7-a').value,10);\n    const b = parseInt($('#w7-b').value,10);\n    const c = parseInt($('#w7-c').value,10);\n    const p = parseInt($('#w7-p').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }\n    const lines = [];\n    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.\n    // Over R, ax^2 takes all values of sign(a)*[0,\\u221E) and similarly for b, so ax^2+by^2 takes:\n    //   if a>0,b>0: [0,\\u221E); if a<0,b<0: (-\\u221E,0]; otherwise all of R.\n    let realOK;\n    if(a>0 && b>0) realOK = (c>=0);\n    else if(a<0 && b<0) realOK = (c<=0);\n    else realOK = true;\n    lines.push(`over \\u211d: ax\\u00b2+by\\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \\u2713':'c='+c+' \\u2717 (sign obstruction)'}`);\n    // p-adic solvability heuristic: search modulo p^k for small k.\n    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.\n    // We do a brute search mod p^3.\n    let pk = p*p*p; // p^3\n    let found = null;\n    outer:\n    for(let x=0;x<pk;x++){\n      for(let y=0;y<pk;y++){\n        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){\n          // also require (x,y) not both \\u2261 0 mod p, to rule out trivial scaling\n          if(!(x%p===0 && y%p===0)){\n            found = [x,y]; break outer;\n          }\n        }\n        if(y>200) break; // safety\n      }\n      if(x>200) break;\n    }\n    if(found){\n      lines.push(`over \\u211a_${p}: primitive solution mod ${p}\\u00b3 at (x,y)\\u2261(${found[0]},${found[1]}), Hensel lifts \\u2713`);\n    } else {\n      lines.push(`over \\u211a_${p}: no primitive solution found mod ${p}\\u00b3 in search window (likely obstruction)`);\n    }\n    const globalLikely = realOK && !!found;\n    lines.push('');\n    lines.push(globalLikely ?\n      `local data consistent \\u2014 by Hasse\\u2013Minkowski a global \\u211a-solution exists.` :\n      `local obstruction detected \\u2014 no global \\u211a-solution (Hasse\\u2013Minkowski).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w7-go').addEventListener('click', go);\n  go();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w7",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W7 &middot; Local solvability check",
+            "hint": "$ax^2+by^2=c$ over $\\mathbb{R}$ and $\\mathbb{Q}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w7-a\">$a=$</label><input type=\"number\" id=\"w7-a\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-b\">$b=$</label><input type=\"number\" id=\"w7-b\" value=\"-2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-c\">$c=$</label><input type=\"number\" id=\"w7-c\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-p\">$p=$</label><input type=\"number\" id=\"w7-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <button id=\"w7-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w7-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w7-out');\n  function go(){\n    const a = parseInt($('#w7-a').value,10);\n    const b = parseInt($('#w7-b').value,10);\n    const c = parseInt($('#w7-c').value,10);\n    const p = parseInt($('#w7-p').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }\n    const lines = [];\n    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.\n    // Over R, ax^2 takes all values of sign(a)*[0,\\u221E) and similarly for b, so ax^2+by^2 takes:\n    //   if a>0,b>0: [0,\\u221E); if a<0,b<0: (-\\u221E,0]; otherwise all of R.\n    let realOK;\n    if(a>0 && b>0) realOK = (c>=0);\n    else if(a<0 && b<0) realOK = (c<=0);\n    else realOK = true;\n    lines.push(`over \\u211d: ax\\u00b2+by\\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \\u2713':'c='+c+' \\u2717 (sign obstruction)'}`);\n    // p-adic solvability heuristic: search modulo p^k for small k.\n    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.\n    // We do a brute search mod p^3.\n    let pk = p*p*p; // p^3\n    let found = null;\n    outer:\n    for(let x=0;x<pk;x++){\n      for(let y=0;y<pk;y++){\n        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){\n          // also require (x,y) not both \\u2261 0 mod p, to rule out trivial scaling\n          if(!(x%p===0 && y%p===0)){\n            found = [x,y]; break outer;\n          }\n        }\n        if(y>200) break; // safety\n      }\n      if(x>200) break;\n    }\n    if(found){\n      lines.push(`over \\u211a_${p}: primitive solution mod ${p}\\u00b3 at (x,y)\\u2261(${found[0]},${found[1]}), Hensel lifts \\u2713`);\n    } else {\n      lines.push(`over \\u211a_${p}: no primitive solution found mod ${p}\\u00b3 in search window (likely obstruction)`);\n    }\n    const globalLikely = realOK && !!found;\n    lines.push('');\n    lines.push(globalLikely ?\n      `local data consistent \\u2014 by Hasse\\u2013Minkowski a global \\u211a-solution exists.` :\n      `local obstruction detected \\u2014 no global \\u211a-solution (Hasse\\u2013Minkowski).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w7-go').addEventListener('click', go);\n  go();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w7",
+            "titleTag": "span",
+            "hintTag": "span",
+            "title": "W7 &middot; Local solvability check",
+            "hint": "$ax^2+by^2=c$ over $\\mathbb{R}$ and $\\mathbb{Q}_p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w7-a\">$a=$</label><input type=\"number\" id=\"w7-a\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-b\">$b=$</label><input type=\"number\" id=\"w7-b\" value=\"-2\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-c\">$c=$</label><input type=\"number\" id=\"w7-c\" value=\"1\" step=\"1\" style=\"width:80px\">\n    <label for=\"w7-p\">$p=$</label><input type=\"number\" id=\"w7-p\" value=\"7\" min=\"2\" step=\"1\" style=\"width:70px\">\n    <button id=\"w7-go\">check</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w7-out"
+              }
+            ],
+            "bodyScript": "  const out = $('#w7-out');\n  function go(){\n    const a = parseInt($('#w7-a').value,10);\n    const b = parseInt($('#w7-b').value,10);\n    const c = parseInt($('#w7-c').value,10);\n    const p = parseInt($('#w7-p').value,10);\n    if(!isPrime(p)){ out.textContent='p must be prime'; return; }\n    if(a===0 || b===0){ out.textContent='need a,b nonzero'; return; }\n    const lines = [];\n    // Real solvability: ax^2+by^2=c has real solutions iff c,a,b not forced to wrong signs.\n    // Over R, ax^2 takes all values of sign(a)*[0,\\u221E) and similarly for b, so ax^2+by^2 takes:\n    //   if a>0,b>0: [0,\\u221E); if a<0,b<0: (-\\u221E,0]; otherwise all of R.\n    let realOK;\n    if(a>0 && b>0) realOK = (c>=0);\n    else if(a<0 && b<0) realOK = (c<=0);\n    else realOK = true;\n    lines.push(`over \\u211d: ax\\u00b2+by\\u00b2 with (a,b)=(${a},${b}) reaches ${realOK?'c='+c+' \\u2713':'c='+c+' \\u2717 (sign obstruction)'}`);\n    // p-adic solvability heuristic: search modulo p^k for small k.\n    // For good primes (p odd, not dividing abc, and not p=2 special), Hensel usually lifts any smooth point.\n    // We do a brute search mod p^3.\n    let pk = p*p*p; // p^3\n    let found = null;\n    outer:\n    for(let x=0;x<pk;x++){\n      for(let y=0;y<pk;y++){\n        if(((a*x*x + b*y*y - c) % pk + pk) % pk === 0){\n          // also require (x,y) not both \\u2261 0 mod p, to rule out trivial scaling\n          if(!(x%p===0 && y%p===0)){\n            found = [x,y]; break outer;\n          }\n        }\n        if(y>200) break; // safety\n      }\n      if(x>200) break;\n    }\n    if(found){\n      lines.push(`over \\u211a_${p}: primitive solution mod ${p}\\u00b3 at (x,y)\\u2261(${found[0]},${found[1]}), Hensel lifts \\u2713`);\n    } else {\n      lines.push(`over \\u211a_${p}: no primitive solution found mod ${p}\\u00b3 in search window (likely obstruction)`);\n    }\n    const globalLikely = realOK && !!found;\n    lines.push('');\n    lines.push(globalLikely ?\n      `local data consistent \\u2014 by Hasse\\u2013Minkowski a global \\u211a-solution exists.` :\n      `local obstruction detected \\u2014 no global \\u211a-solution (Hasse\\u2013Minkowski).`);\n    out.textContent = lines.join('\\n');\n  }\n  $('#w7-go').addEventListener('click', go);\n  go();"
+          }
         },
         {
           "type": "raw",
