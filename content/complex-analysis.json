@@ -12,9 +12,33 @@
         },
         {
           "type": "widget",
-          "id": "w-mobius",
-          "html": "<div class=\"widget\" id=\"w-mobius\">\n  <div class=\"hd\"><div class=\"ttl\">Möbius transformation playground</div><div class=\"hint\">drag the three source points · the unique $T$ is recomputed</div></div>\n  <div class=\"row\">\n    <label>preset:</label>\n    <select id=\"mob-preset\">\n      <option value=\"id\">identity</option>\n      <option value=\"rot\" selected>rotation by π/3</option>\n      <option value=\"cayley\">Cayley (UHP→disk)</option>\n      <option value=\"inv\">inversion 1/z</option>\n      <option value=\"elliptic\">elliptic (fix ±i)</option>\n    </select>\n    <label><input type=\"checkbox\" id=\"mob-sphere\"> stereographic view</label>\n  </div>\n  <svg id=\"mob-svg\" viewBox=\"0 0 760 360\" width=\"760\" height=\"360\"><title>Möbius transformation playground</title></svg>\n  <div class=\"readout\" id=\"mob-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mobius",
+            "title": "Möbius transformation playground",
+            "hint": "drag the three source points · the unique $T$ is recomputed",
+            "svgId": "mob-svg",
+            "viewBox": "0 0 760 360",
+            "readoutId": "mob-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>preset:</label>\n    <select id=\"mob-preset\">\n      <option value=\"id\">identity</option>\n      <option value=\"rot\" selected>rotation by π/3</option>\n      <option value=\"cayley\">Cayley (UHP→disk)</option>\n      <option value=\"inv\">inversion 1/z</option>\n      <option value=\"elliptic\">elliptic (fix ±i)</option>\n    </select>\n    <label><input type=\"checkbox\" id=\"mob-sphere\"> stereographic view</label>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "mob-svg",
+                "viewBox": "0 0 760 360",
+                "width": 760,
+                "height": 360
+              },
+              {
+                "kind": "readout",
+                "id": "mob-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -49,9 +73,33 @@
         },
         {
           "type": "widget",
-          "id": "w-amp",
-          "html": "<div class=\"widget\" id=\"w-amp\">\n  <div class=\"hd\"><div class=\"ttl\">Amplitwist visualizer</div><div class=\"hint\">click on the left to choose $z_0$</div></div>\n  <div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"amp-fn\">\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"inv\">1/z</option>\n      <option value=\"exp\">eᶻ</option>\n      <option value=\"sin\">sin z</option>\n      <option value=\"conj\">conj (NOT holomorphic)</option>\n    </select>\n  </div>\n  <svg id=\"amp-svg\" viewBox=\"0 0 760 360\" width=\"760\" height=\"360\"><title>Amplitwist visualizer</title></svg>\n  <div class=\"readout\" id=\"amp-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-amp",
+            "title": "Amplitwist visualizer",
+            "hint": "click on the left to choose $z_0$",
+            "svgId": "amp-svg",
+            "viewBox": "0 0 760 360",
+            "readoutId": "amp-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"amp-fn\">\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"inv\">1/z</option>\n      <option value=\"exp\">eᶻ</option>\n      <option value=\"sin\">sin z</option>\n      <option value=\"conj\">conj (NOT holomorphic)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "amp-svg",
+                "viewBox": "0 0 760 360",
+                "width": 760,
+                "height": 360
+              },
+              {
+                "kind": "readout",
+                "id": "amp-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -59,9 +107,32 @@
         },
         {
           "type": "widget",
-          "id": "w-dc",
-          "html": "<div class=\"widget\" id=\"w-dc\">\n  <div class=\"hd\"><div class=\"ttl\">Domain coloring of $f(z)$</div><div class=\"hint\">hue = arg, lightness = log|f|</div></div>\n  <div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"dc-fn\">\n      <option value=\"z\">z</option>\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"inv\">1/z</option>\n      <option value=\"exp\">eᶻ</option>\n      <option value=\"sin\">sin z</option>\n      <option value=\"cos\">cos z</option>\n      <option value=\"log\">log z</option>\n      <option value=\"rat1\">(z²−1)/(z²+1)</option>\n      <option value=\"cubic\">z³ − z</option>\n    </select>\n    <label for=\"dc-radius\">view radius:</label>\n    <input id=\"dc-radius\" type=\"range\" min=\"1\" max=\"6\" step=\"0.5\" value=\"2.5\">\n    <span class=\"small\" id=\"dc-rlabel\">2.5</span>\n  </div>\n  <svg id=\"dc-svg\" viewBox=\"0 0 480 480\" width=\"480\" height=\"480\"><title>Domain coloring of $f(z)$</title></svg>\n  <div class=\"readout\">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dc",
+            "title": "Domain coloring of $f(z)$",
+            "hint": "hue = arg, lightness = log|f|",
+            "svgId": "dc-svg",
+            "viewBox": "0 0 480 480",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"dc-fn\">\n      <option value=\"z\">z</option>\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"inv\">1/z</option>\n      <option value=\"exp\">eᶻ</option>\n      <option value=\"sin\">sin z</option>\n      <option value=\"cos\">cos z</option>\n      <option value=\"log\">log z</option>\n      <option value=\"rat1\">(z²−1)/(z²+1)</option>\n      <option value=\"cubic\">z³ − z</option>\n    </select>\n    <label for=\"dc-radius\">view radius:</label>\n    <input id=\"dc-radius\" type=\"range\" min=\"1\" max=\"6\" step=\"0.5\" value=\"2.5\">\n    <span class=\"small\" id=\"dc-rlabel\">2.5</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "dc-svg",
+                "viewBox": "0 0 480 480",
+                "width": 480,
+                "height": 480
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\">Vertical axis points up (mathematical convention). The hue wheel marks: red ↔ +1, yellow ↔ $e^{i\\pi/3}$, green ↔ $i$, cyan ↔ −1, blue ↔ −i.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -96,9 +167,33 @@
         },
         {
           "type": "widget",
-          "id": "w-contour",
-          "html": "<div class=\"widget\" id=\"w-contour\">\n  <div class=\"hd\"><div class=\"ttl\">Contour integral $\\oint f\\,dz$</div><div class=\"hint\">drag vertices · integral computed via residue theorem</div></div>\n  <div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"ct-fn\">\n      <option value=\"r1\" selected>1/(z²+1)</option>\n      <option value=\"r2\">eⁱᶻ/(z²+1)</option>\n      <option value=\"r3\">1/(z(z−1)(z+2))</option>\n      <option value=\"r4\">z/(z²−1)</option>\n      <option value=\"r5\">1/(z²+2z+2)</option>\n    </select>\n    <label>preset:</label>\n    <select id=\"ct-shape\">\n      <option value=\"big\">large circle (8 vertices)</option>\n      <option value=\"rect\" selected>rectangle</option>\n      <option value=\"tri\">triangle</option>\n      <option value=\"upper\">upper semicircle</option>\n    </select>\n    <button id=\"ct-reset\">reset</button>\n  </div>\n  <svg id=\"ct-svg\" viewBox=\"0 0 760 460\" width=\"760\" height=\"460\"><title>Contour integral $\\oint f\\,dz$</title></svg>\n  <div class=\"readout\" id=\"ct-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-contour",
+            "title": "Contour integral $\\oint f\\,dz$",
+            "hint": "drag vertices · integral computed via residue theorem",
+            "svgId": "ct-svg",
+            "viewBox": "0 0 760 460",
+            "readoutId": "ct-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"ct-fn\">\n      <option value=\"r1\" selected>1/(z²+1)</option>\n      <option value=\"r2\">eⁱᶻ/(z²+1)</option>\n      <option value=\"r3\">1/(z(z−1)(z+2))</option>\n      <option value=\"r4\">z/(z²−1)</option>\n      <option value=\"r5\">1/(z²+2z+2)</option>\n    </select>\n    <label>preset:</label>\n    <select id=\"ct-shape\">\n      <option value=\"big\">large circle (8 vertices)</option>\n      <option value=\"rect\" selected>rectangle</option>\n      <option value=\"tri\">triangle</option>\n      <option value=\"upper\">upper semicircle</option>\n    </select>\n    <button id=\"ct-reset\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "ct-svg",
+                "viewBox": "0 0 760 460",
+                "width": 760,
+                "height": 460
+              },
+              {
+                "kind": "readout",
+                "id": "ct-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -115,9 +210,33 @@
         },
         {
           "type": "widget",
-          "id": "w-taylor",
-          "html": "<div class=\"widget\" id=\"w-taylor\">\n  <div class=\"hd\"><div class=\"ttl\">Taylor series convergence</div><div class=\"hint\">click the disc to set centre $z_0$</div></div>\n  <div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"tay-fn\">\n      <option value=\"geom\" selected>1/(1−z)</option>\n      <option value=\"invq\">1/(z²+1)</option>\n      <option value=\"log1z\">log(1+z)</option>\n      <option value=\"tan\">tan z</option>\n    </select>\n  </div>\n  <svg id=\"tay-svg\" viewBox=\"0 0 480 480\" width=\"480\" height=\"480\"><title>Taylor series convergence</title></svg>\n  <div class=\"readout\" id=\"tay-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-taylor",
+            "title": "Taylor series convergence",
+            "hint": "click the disc to set centre $z_0$",
+            "svgId": "tay-svg",
+            "viewBox": "0 0 480 480",
+            "readoutId": "tay-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"tay-fn\">\n      <option value=\"geom\" selected>1/(1−z)</option>\n      <option value=\"invq\">1/(z²+1)</option>\n      <option value=\"log1z\">log(1+z)</option>\n      <option value=\"tan\">tan z</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "tay-svg",
+                "viewBox": "0 0 480 480",
+                "width": 480,
+                "height": 480
+              },
+              {
+                "kind": "readout",
+                "id": "tay-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -152,9 +271,33 @@
         },
         {
           "type": "widget",
-          "id": "w-arg",
-          "html": "<div class=\"widget\" id=\"w-arg\">\n  <div class=\"hd\"><div class=\"ttl\">Argument principle</div><div class=\"hint\">image $f(\\gamma)$ winds $Z-P$ times around 0</div></div>\n  <div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"ag-fn\">\n      <option value=\"z\">z</option>\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"zm1\">z²−1</option>\n      <option value=\"cube3\">(z−1)(z−i)(z+1)</option>\n      <option value=\"rat\">(z−0.3)/(z+0.6i)</option>\n    </select>\n    <label for=\"ag-r\">radius:</label>\n    <input id=\"ag-r\" type=\"range\" min=\"0.2\" max=\"2\" step=\"0.05\" value=\"1.2\">\n    <span class=\"small\" id=\"ag-rlabel\">1.20</span>\n    <label for=\"ag-cx\">centre x:</label>\n    <input id=\"ag-cx\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0\">\n    <label for=\"ag-cy\">centre y:</label>\n    <input id=\"ag-cy\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0\">\n  </div>\n  <svg id=\"ag-svg\" viewBox=\"0 0 760 380\" width=\"760\" height=\"380\"><title>Argument principle</title></svg>\n  <div class=\"readout\" id=\"ag-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-arg",
+            "title": "Argument principle",
+            "hint": "image $f(\\gamma)$ winds $Z-P$ times around 0",
+            "svgId": "ag-svg",
+            "viewBox": "0 0 760 380",
+            "readoutId": "ag-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$f(z)=$</label>\n    <select id=\"ag-fn\">\n      <option value=\"z\">z</option>\n      <option value=\"z2\" selected>z²</option>\n      <option value=\"z3\">z³</option>\n      <option value=\"zm1\">z²−1</option>\n      <option value=\"cube3\">(z−1)(z−i)(z+1)</option>\n      <option value=\"rat\">(z−0.3)/(z+0.6i)</option>\n    </select>\n    <label for=\"ag-r\">radius:</label>\n    <input id=\"ag-r\" type=\"range\" min=\"0.2\" max=\"2\" step=\"0.05\" value=\"1.2\">\n    <span class=\"small\" id=\"ag-rlabel\">1.20</span>\n    <label for=\"ag-cx\">centre x:</label>\n    <input id=\"ag-cx\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0\">\n    <label for=\"ag-cy\">centre y:</label>\n    <input id=\"ag-cy\" type=\"range\" min=\"-1.5\" max=\"1.5\" step=\"0.05\" value=\"0\">\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "ag-svg",
+                "viewBox": "0 0 760 380",
+                "width": 760,
+                "height": 380
+              },
+              {
+                "kind": "readout",
+                "id": "ag-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -171,9 +314,33 @@
         },
         {
           "type": "widget",
-          "id": "w-conf",
-          "html": "<div class=\"widget\" id=\"w-conf\">\n  <div class=\"hd\"><div class=\"ttl\">Conformal map gallery</div><div class=\"hint\">drag the dot in the source · its image moves in the target</div></div>\n  <div class=\"row\">\n    <label>map:</label>\n    <select id=\"cf-pick\">\n      <option value=\"z2\" selected>z ↦ z²</option>\n      <option value=\"exp\">z ↦ eᶻ (strip → annulus)</option>\n      <option value=\"log\">z ↦ log z (slit plane → strip)</option>\n      <option value=\"cayley\">Cayley UHP → disk</option>\n      <option value=\"moebius\">Möbius on disk</option>\n      <option value=\"joukowski\">Joukowski (circle → airfoil)</option>\n      <option value=\"sc3\">Schwarz–Christoffel triangle</option>\n    </select>\n  </div>\n  <svg id=\"cf-svg\" viewBox=\"0 0 760 380\" width=\"760\" height=\"380\"><title>Conformal map gallery</title></svg>\n  <div class=\"readout\" id=\"cf-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-conf",
+            "title": "Conformal map gallery",
+            "hint": "drag the dot in the source · its image moves in the target",
+            "svgId": "cf-svg",
+            "viewBox": "0 0 760 380",
+            "readoutId": "cf-readout",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>map:</label>\n    <select id=\"cf-pick\">\n      <option value=\"z2\" selected>z ↦ z²</option>\n      <option value=\"exp\">z ↦ eᶻ (strip → annulus)</option>\n      <option value=\"log\">z ↦ log z (slit plane → strip)</option>\n      <option value=\"cayley\">Cayley UHP → disk</option>\n      <option value=\"moebius\">Möbius on disk</option>\n      <option value=\"joukowski\">Joukowski (circle → airfoil)</option>\n      <option value=\"sc3\">Schwarz–Christoffel triangle</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "cf-svg",
+                "viewBox": "0 0 760 380",
+                "width": 760,
+                "height": 380
+              },
+              {
+                "kind": "readout",
+                "id": "cf-readout"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
