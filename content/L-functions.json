@@ -59,9 +59,19 @@
         },
         {
           "type": "widget",
-          "id": "w-ap",
-          "html": "<div class=\"widget\" id=\"w-ap\">\n  <div class=\"hd\"><div class=\"ttl\">$a_p$ for $E:\\ y^2 = x^3 - x$</div><div class=\"hint\">primes up to 60 (good reduction at $p \\ne 2$)</div></div>\n  <svg id=\"ap-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\"><title>$a_p$ for $E:\\ y^2 = x^3 - x$</title></svg>\n  <div class=\"small\">Negative bars: $a_p &lt; 0$; positive bars: $a_p &gt; 0$; zero bars (supersingular) are the tall \"$a_p = 0$\" events. This curve has CM by $\\mathbb{Z}[i]$: $a_p = 0$ whenever $p \\equiv 3 \\pmod 4$.</div>\n</div>",
-          "script": null
+          "slug": "svg-illustration",
+          "params": {
+            "widgetId": "w-ap",
+            "svgId": "ap-svg",
+            "viewBox": "0 0 640 240",
+            "title": "$a_p$ for $E:\\ y^2 = x^3 - x$",
+            "hint": "primes up to 60 (good reduction at $p \\ne 2$)",
+            "svgInner": "",
+            "caption": {
+              "kind": "small",
+              "content": "Negative bars: $a_p &lt; 0$; positive bars: $a_p &gt; 0$; zero bars (supersingular) are the tall \"$a_p = 0$\" events. This curve has CM by $\\mathbb{Z}[i]$: $a_p = 0$ whenever $p \\equiv 3 \\pmod 4$."
+            }
+          }
         },
         {
           "type": "raw",
@@ -227,9 +237,19 @@
         },
         {
           "type": "widget",
-          "id": "w-mellin",
-          "html": "<div class=\"widget\" id=\"w-mellin\">\n  <div class=\"hd\"><div class=\"ttl\">Mellin transform visual</div><div class=\"hint\">$f(iy)$ as $y$ runs along the vertical ray</div></div>\n  <svg id=\"mel-svg\" viewBox=\"0 0 640 260\" width=\"640\" height=\"260\"><title>Mellin transform visual</title></svg>\n  <div class=\"small\">Left: the upper half plane with the imaginary ray $\\tau = iy$ highlighted. Right: the real-valued function $y \\mapsto f(iy)$ decays exponentially at $\\infty$ and (after the modular symmetry $y \\mapsto 1/y$) at $0$. The Mellin integral $\\int_0^\\infty f(iy) y^{s-1}\\,dy$ packages this two-sided decay into $\\Lambda(f,s)$.</div>\n</div>",
-          "script": null
+          "slug": "svg-illustration",
+          "params": {
+            "widgetId": "w-mellin",
+            "svgId": "mel-svg",
+            "viewBox": "0 0 640 260",
+            "title": "Mellin transform visual",
+            "hint": "$f(iy)$ as $y$ runs along the vertical ray",
+            "svgInner": "",
+            "caption": {
+              "kind": "small",
+              "content": "Left: the upper half plane with the imaginary ray $\\tau = iy$ highlighted. Right: the real-valued function $y \\mapsto f(iy)$ decays exponentially at $\\infty$ and (after the modular symmetry $y \\mapsto 1/y$) at $0$. The Mellin integral $\\int_0^\\infty f(iy) y^{s-1}\\,dy$ packages this two-sided decay into $\\Lambda(f,s)$."
+            }
+          }
         },
         {
           "type": "raw",
@@ -255,9 +275,19 @@
         },
         {
           "type": "widget",
-          "id": "w-mod",
-          "html": "<div class=\"widget\" id=\"w-mod\">\n  <div class=\"hd\"><div class=\"ttl\">The modularity dictionary</div><div class=\"hint\">two worlds, same $L$-function</div></div>\n  <svg id=\"md-svg\" viewBox=\"0 0 640 260\" width=\"640\" height=\"260\"><title>The modularity dictionary</title></svg>\n  <div class=\"small\">The identity $L(E,s) = L(f,s)$ is two different manufacturing processes producing the same Dirichlet series.</div>\n</div>",
-          "script": null
+          "slug": "svg-illustration",
+          "params": {
+            "widgetId": "w-mod",
+            "svgId": "md-svg",
+            "viewBox": "0 0 640 260",
+            "title": "The modularity dictionary",
+            "hint": "two worlds, same $L$-function",
+            "svgInner": "",
+            "caption": {
+              "kind": "small",
+              "content": "The identity $L(E,s) = L(f,s)$ is two different manufacturing processes producing the same Dirichlet series."
+            }
+          }
         },
         {
           "type": "raw",
