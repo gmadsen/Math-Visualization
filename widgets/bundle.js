@@ -97,6 +97,25 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "declarative-host",
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "exploratory",
+    "title": "declarative-host widget params",
+    "description": "Shared renderer for widgets that ship as an empty `<div class=\"widget\" id=\"…\"></div>` host plus a self-contained `<script>` calling a well-known page-global library's `init(selector, config)` function. The widget contributes NO per-widget script beyond that init call — all rendering, DOM construction, and event wiring happens inside the library. The `config` object is pure data: a portable frontend can ignore the vanilla `renderScript` and drive its own renderer directly from `library` + `config`. Two libraries supported today: `MVPatternInduction` (rule-induction grid with examples / test cases / canonical-formula answer) and `MVDiagramEditor` (draggable commutative-diagram editor with objects / morphisms / commuting paths). The `oneOf` on `library` validates the top-level keys of `config` per library; `additionalProperties: true` on the config branches tolerates library-internal flags we don't want to re-describe here.",
+    "requiredParams": [
+      "widgetId",
+      "library",
+      "config"
+    ],
+    "readmeExcerpt": "Shared renderer for widgets that ship as an **empty host div** (`<div class=\"widget\" id=\"…\"></div>`) plus a self-contained `<script>` that calls a page-global library's `init(selector, config)` method. The library does everything — header, SVG/DOM construction, event wiring, KaTeX pass. The widget contributes no per-widget script body beyond that single init call, so the `config` object is the entire declarative surface.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "input-form",
     "family": "input-form",
     "dimension": "2d",
