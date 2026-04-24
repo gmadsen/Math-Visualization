@@ -91,38 +91,22 @@ Below — the existing near-term sections. Treat the above as the "judgment call
 
 Grouped by theme. Each item is a short title plus one-line scope. No checkboxes — when something ships, delete its bullet.
 
-### Content & pedagogy
-
-- **Notation/terminology audit.** Advisory script exists (`audit-notation.mjs`); the goal is to actually **act on** its findings — standardize `\mathbb{Z}` vs `\Z`, `\operatorname{Aut}` vs `\Aut`, ring-of-integers conventions across topic HTML, concept blurbs, and quiz banks.
-- **Act on worked-example audit output.** The audit (`audit-worked-examples.mjs`) flags missing `**Worked example:**` blocks; fill the gaps and decide whether to turn the expectation into a CI gate.
-- **Act on blurb / quiz-question alignment output.** `audit-blurb-question-alignment.mjs` flags questions not probing their concept's blurb; close the flagged items.
-- **Topic splitting.** Complex analysis (26 concepts), real analysis, smooth manifolds, and differential geometry each read as mini-textbooks; split into 2–3 focused children once the audits above are in place.
-
-### UX
-
-- **Topic-page hotkeys.** `q` to the next unanswered quiz, `n`/`p` to next/prev section, `?` for a help overlay.
-- **Widget-state URLs.** Encode slider/selector state in the URL hash so configurations are shareable.
-- **Print CSS per topic.** `@media print` so every page exports cleanly to PDF.
-- **Onboarding tour.** First-visit 4-step overlay explaining pathway + progress + quiz flow.
-
 ### Novel widgets
 
 - **Proof/construction scrubber.** Timeline slider that replays a multi-step proof with synchronized narrative and diagram state.
 - **Constraint / bifurcation explorer.** Set equations or inequalities, watch the feasible region update; expose singularities.
 - **Counterexample generator.** UI for constructing pathological objects (non-continuous-but-integrable, non-Hausdorff) and checking which hypotheses fail.
 - **Inline code cells.** Tiny sandboxed cells (plain JS or Pyodide) for sieves, modular arithmetic, and other computational topics.
-- **Sonification.** Map parameter changes to audio for Fourier-adjacent topics (frequency, phase).
 
 ### Maintainability & tooling
 
-- **Markdown-first content pipeline.** *Partially shipped:* structured content is now `content/<topic>.json` with `widget` blocks carrying `slug + params` references. Markdown (rather than raw HTML) for prose blocks is still deferred — would require a reversible HTML↔Markdown conversion that preserves byte-identity on the restricted subset the notebook uses.
+- **Reversible prose-block conversion.** Structured content is in place — `content/<topic>.json` with `slug + params` widget blocks. Prose blocks remain raw HTML; converting them to a lighter authoring source (e.g. mdx-lite, or a tag-whitelist dialect) is still open and would need a reversible HTML↔source pass that preserves byte-identity on the restricted subset the notebook uses.
 
 ### Stretch
 
 - **Challenge mode.** Timed mixed-concept gauntlet; competitive-against-self.
 - **Learner profiles.** Multiple profiles per browser, each with its own `MVProgress` slice.
 - **Anki deck export** per topic.
-- **On-demand proof cards.** Per-theorem compile-down pulling from the concept graph and section prose.
 
 ## Capstone arc — higher topoi / internal logic / categorical logic (backlog)
 

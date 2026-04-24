@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 17-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 18-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -27,12 +27,20 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 |---|---|
 | [`build-concepts-bundle.mjs`](./build-concepts-bundle.mjs) | `concepts/*.json` → `concepts/bundle.js` for `file://` use. |
 | [`build-quizzes-bundle.mjs`](./build-quizzes-bundle.mjs) | `quizzes/*.json` → `quizzes/bundle.js`. |
+| [`build-widgets-bundle.mjs`](./build-widgets-bundle.mjs) | `widgets/<slug>/schema.json` → `widgets/bundle.js` (registry snapshot for `file://` consumers, React POC, stats). |
 | [`build-search-index.mjs`](./build-search-index.mjs) | Concepts + sections + quizzes → `search-index.json` for `search.html`. |
 | [`build-section-indexes.mjs`](./build-section-indexes.mjs) | Generate `sections/<id>.html` per subject group. |
 | [`extract-topic.mjs`](./extract-topic.mjs) | `<topic>.html` → `content/<topic>.json` (block decomposition, widget-script auto-pairing). |
 | [`render-topic.mjs`](./render-topic.mjs) | `content/<topic>.json` → stdout HTML (resolves widget slugs via registry). |
 | [`new-topic.mjs`](./new-topic.mjs) | Scaffold a new topic (HTML stub + concepts/ + quizzes/ + index card). |
+| [`new-widget.mjs`](./new-widget.mjs) | Scaffold a new `widgets/<slug>/` directory with schema + renderer + README stubs; `--force` overwrites, flags pre-fill the `meta` block. |
 | [`package-offline.mjs`](./package-offline.mjs) | Produce `math-viz-notebook.zip` for workshops. |
+
+## One-shot repair tools
+
+| Script | What it does |
+|---|---|
+| [`repair-widget-scripts.mjs`](./repair-widget-scripts.mjs) | Splits `<script>` tags out of monolithic `rawBodySuffix` / `raw` blocks in `content/*.json` into proper `widget-script` blocks with `forWidget` linkage, by DOM-id reference matching. Bail-out safe: only splits scripts that reference exactly one widget's ids. Preserves byte-identity. Never touches HTML; never re-extracts. |
 
 ## Injectors / fixers (mutate HTML idempotently)
 

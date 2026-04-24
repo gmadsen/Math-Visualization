@@ -100,7 +100,11 @@ Widgets live in a registry at `widgets/<slug>/` with three files:
 - `index.mjs` — exports `renderMarkup(params)` and `renderScript(params)`, pure functions that produce the exact bytes a handwritten page would inline.
 - `README.md` — param reference.
 
-See [`widgets/README.md`](./widgets/README.md) for the current registry and the rules for adding a new entry. Because widgets are schema-described, non-HTML frontends can consume the same `content/<topic>.json` — see `examples/react-consumer/` for a proof-of-concept React renderer.
+See [`widgets/README.md`](./widgets/README.md) for the current registry and the rules for adding a new entry. [`scripts/build-widgets-bundle.mjs`](./scripts/build-widgets-bundle.mjs) flattens every `widgets/<slug>/schema.json` into `widgets/bundle.js` for `file://` consumers (mirrors the concepts/quizzes bundle pattern). Because widgets are schema-described, non-HTML frontends can consume the same `content/<topic>.json` — see `examples/react-consumer/` for a proof-of-concept React renderer.
+
+When a widget's driving `<script>` is inlined in a trailing `rawBodySuffix` block rather than in an adjacent `widget-script` block, [`scripts/repair-widget-scripts.mjs`](./scripts/repair-widget-scripts.mjs) splits it back out by DOM-id reference matching (bail-out safe: only acts when the script references exactly one widget's ids). This preserves byte-identity while exposing the widget ↔ script pairing to the migration pipeline, without the destructive wholesale re-extract.
+
+One CLI front door: [`scripts/cli.mjs`](./scripts/cli.mjs) routes `node scripts/cli.mjs <space-separated-command>` to any script under `scripts/` by longest-prefix match (`cli.mjs audit backlinks` → `scripts/audit-backlinks.mjs`). Individual scripts remain directly callable; `rebuild.mjs` does not go through the CLI so CI stays dependency-free.
 
 The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits should consume these rather than re-parsing JSON or HTML.
 
@@ -395,26 +399,27 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
-8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 17 steps, summarized here:
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 18 steps, summarized here:
    1. `build-concepts-bundle.mjs`
    2. `build-quizzes-bundle.mjs`
-   3. `build-search-index.mjs`
-   4. `validate-schema.mjs`
-   5. `validate-widget-params.mjs`
-   6. `validate-concepts.mjs`
-   7. `validate-katex.mjs`
-   8. `audit-callbacks.mjs --fix`
-   9. `inject-used-in-backlinks.mjs --fix`
-   10. `inject-breadcrumb.mjs --fix`
-   11. `inject-display-prefs.mjs --fix`
-   12. `inject-index-stats.mjs --fix`
-   13. `fix-a11y.mjs --fix`
-   14. `smoke-test.mjs`
-   15. `test-roundtrip.mjs`
-   16. `stats-coverage.mjs`
-   17. `audit-doc-drift.mjs`
+   3. `build-widgets-bundle.mjs`
+   4. `build-search-index.mjs`
+   5. `validate-schema.mjs`
+   6. `validate-widget-params.mjs`
+   7. `validate-concepts.mjs`
+   8. `validate-katex.mjs`
+   9. `audit-callbacks.mjs --fix`
+   10. `inject-used-in-backlinks.mjs --fix`
+   11. `inject-breadcrumb.mjs --fix`
+   12. `inject-display-prefs.mjs --fix`
+   13. `inject-index-stats.mjs --fix`
+   14. `fix-a11y.mjs --fix`
+   15. `smoke-test.mjs`
+   16. `test-roundtrip.mjs`
+   17. `stats-coverage.mjs`
+   18. `audit-doc-drift.mjs`
 
-   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `search`, `schema`, `widget-params`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
+   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
 
    `inject-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
 

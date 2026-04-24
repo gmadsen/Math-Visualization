@@ -17,18 +17,26 @@ Both `renderMarkup` and `renderScript` are **pure functions of params**. They pr
 
 ## Current entries
 
-| slug | kind | used by |
+| slug | kind | what it covers |
 |---|---|---|
-| `composition-explorer` | bespoke | category-theory `#cat` (Phase 2) |
-| `natural-transformation-explorer` | bespoke | category-theory `#nat` (Phase 2b) |
-| `clickable-diagram` | shared | category-theory `#univ` (`w-univ`), `#mon` (`w-mon`), `#play` (`w-proof`) (Phase 2c) |
+| `composition-explorer` | bespoke | category-theory `#cat` — functor-of-sets composition toy. |
+| `natural-transformation-explorer` | bespoke | category-theory `#nat` — side-by-side naturality square. |
+| `clickable-diagram` | shared | click-on-SVG widgets with readout / proof-stepper / static-diagram branches. Covers category-theory + the broader Phase C corpus. |
+| `clickable-graph` | shared | click-on-SVG widgets whose interaction reads graph structure (nodes + edges) rather than a fixed diagram — covers the 9-widget cluster that `clickable-diagram` didn't fit. |
+| `parametric-plot` | shared | slider-driven 2D plots. Single-mode (one plot) and multi-mode (select + plots) branches via `oneOf`; `labelWraps` flag handles the `<label>text <input></label>` markup variant. |
+| `button-stepper` | shared | SVG + button-only widgets (no sliders) — step through a sequence of states. |
+| `input-form` | shared | text/number form inputs driving a readout. `labelWraps` flag available. |
+| `surface-viewer` | shared | 3D parametric-surface / polyhedron / trajectory viewers built on the page-global `make3DDraggable` + `proj3` helpers. `standard` interaction for the common header-controls-svg-readout layout; `bare` interaction carries idiosyncratic layouts as a `bodyMarkup` artifact. |
+| `svg-illustration` | shared | static SVG figures with no driving script. Registered for `meta` + portability (alternate frontends can pick an illustration-appropriate rendering strategy). `renderScript` always returns `''`. |
+
+See each slug's `README.md` for its param reference and alternate-frontend porting notes.
 
 ## Bespoke vs. shared
 
-- **Bespoke** (`composition-explorer`, `natural-transformation-explorer`): one module per widget. Cheap to write, schema matches one widget's shape, no cross-widget abstraction. Use when the widget is idiosyncratic.
-- **Shared** (`clickable-diagram`): one module driving multiple widgets via a `oneOf` on an `interaction` param. Higher upfront design cost; pays off when 3+ widgets share structure. The shared module's schema must fit every absorbed widget.
+- **Bespoke** (`composition-explorer`, `natural-transformation-explorer`): one module per widget. Cheap to write, schema matches one widget's shape, no cross-widget abstraction. Use when the widget is irreducibly idiosyncratic.
+- **Shared** (everything else): one module driving multiple widgets via a `oneOf` on an `interaction` param. Higher upfront design cost; pays off when three or more widgets share structure. The shared module's schema must fit every absorbed widget, with artifact fields (`bodyScript`, `bodyMarkup`, `sectionComment`) carrying per-widget bytes that don't generalize.
 
-Empirical rule of thumb from the category-theory migration: roughly a third of widgets fit a shared pattern cleanly; the rest are domain-specific (group-theory computations, dynamic-DOM editors, etc.) and belong in bespoke modules.
+Empirical rule of thumb after Phase B+C+D: most of the 452 inline widgets fall into roughly eight shared families; the remaining bespoke-only widgets are genuinely domain-heavy (randomized-functor tables, sets-and-maps blob renderers, custom group-theory arithmetic) and belong in per-widget modules if they get registered at all.
 
 ## Adding a widget
 
