@@ -112,6 +112,12 @@ function renderHeaderAndSvg(params) {
   );
 }
 
+function renderTrailingExplainer(params) {
+  return typeof params.trailingExplainer === 'string'
+    ? `  <p class="small">${params.trailingExplainer}</p>\n`
+    : '';
+}
+
 function renderSingleMarkup(params) {
   const head = renderHeaderAndSvg(params);
   const rows = [];
@@ -119,7 +125,7 @@ function renderSingleMarkup(params) {
   const btnRow = renderButtonsRow(params.buttons);
   if (btnRow) rows.push(btnRow);
   rows.push(renderReadoutDiv(params.outputId, params.outputInitial));
-  return `${head}\n${rows.join('\n')}\n</div>`;
+  return `${head}\n${rows.join('\n')}\n${renderTrailingExplainer(params)}</div>`;
 }
 
 function renderMultiMarkup(params) {
@@ -132,7 +138,7 @@ function renderMultiMarkup(params) {
   const btnRow = renderButtonsRow(params.buttons);
   if (btnRow) rows.push(btnRow);
   rows.push(renderReadoutDiv(params.outputId, params.outputInitial));
-  return `${head}\n${rows.join('\n')}\n</div>`;
+  return `${head}\n${rows.join('\n')}\n${renderTrailingExplainer(params)}</div>`;
 }
 
 export function renderMarkup(params) {

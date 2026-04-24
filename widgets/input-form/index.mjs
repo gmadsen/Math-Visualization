@@ -86,11 +86,15 @@ export function renderMarkup(params) {
     inputs, button,
     readoutId, readoutPrefix,
     svgId,
+    trailingExplainer,
   } = params;
   const hintHtml = (hint !== undefined) ? `<div class="hint">${hint}</div>` : '';
   const svgLine = (svgId !== undefined) ? renderSvgTag(params) : '';
   const rowBody = renderInputRow(inputs, button);
   const readoutInner = (readoutPrefix !== undefined) ? readoutPrefix : '';
+  const trailingLine = (typeof trailingExplainer === 'string')
+    ? `  <p class="small">${trailingExplainer}</p>\n`
+    : '';
   return (
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
@@ -99,6 +103,7 @@ export function renderMarkup(params) {
     `${rowBody}\n` +
     `  </div>\n` +
     `  <div class="readout" id="${readoutId}">${readoutInner}</div>\n` +
+    trailingLine +
     `</div>`
   );
 }

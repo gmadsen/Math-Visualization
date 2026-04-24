@@ -108,6 +108,10 @@
     "bodyScript": {
       "type": "string",
       "description": "ARTIFACT. The verbatim IIFE body (everything between `(function(){` and `})();`) that wires up the button, reads inputs, and writes the readout / SVG. Byte-preserved so renderScript can round-trip the original inline source exactly. A portable frontend (React, etc.) ignores this field and implements compute(inputs) → readout on its own."
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
     }
   },
   "dependentRequired": {

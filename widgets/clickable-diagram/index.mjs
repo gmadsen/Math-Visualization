@@ -47,6 +47,12 @@
 // byte-match the legacy inline source.  They are tagged as "artifact" in the
 // README.  A portable consumer can ignore them and regenerate from `cases`.
 
+function renderTrailingExplainer(params) {
+  return typeof params.trailingExplainer === 'string'
+    ? `\n  <p class="small">${params.trailingExplainer}</p>`
+    : '';
+}
+
 function renderReadoutOnlyMarkup(params) {
   const {
     widgetId, pickId, outputId,
@@ -67,7 +73,8 @@ function renderReadoutOnlyMarkup(params) {
     `${optionsBlock}\n` +
     `    </select>\n` +
     `  </div>\n` +
-    `  <div class="readout" id="${outputId}"></div>\n` +
+    `  <div class="readout" id="${outputId}"></div>` +
+    `${renderTrailingExplainer(params)}\n` +
     `</div>`
   );
 }
@@ -132,7 +139,8 @@ function renderProofStepperMarkup(params) {
     `  </div>\n` +
     `  <svg id="${svgId}" viewBox="${svgViewBox}" width="${svgWidthAttr}" style="${svgStyleAttr}"><title>${title}</title></svg>\n` +
     `  <div class="readout" id="${outputTextId}"></div>\n` +
-    `  <div class="readout" id="${outputLogId}" style="${outputLogStyleAttr}"></div>\n` +
+    `  <div class="readout" id="${outputLogId}" style="${outputLogStyleAttr}"></div>` +
+    `${renderTrailingExplainer(params)}\n` +
     `</div>`
   );
 }
@@ -282,7 +290,8 @@ function renderSvgDiagramMarkup(params) {
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
     `${middle}\n` +
-    `  <div class="readout" id="${outputId}"></div>\n` +
+    `  <div class="readout" id="${outputId}"></div>` +
+    `${renderTrailingExplainer(params)}\n` +
     `</div>`
   );
 }

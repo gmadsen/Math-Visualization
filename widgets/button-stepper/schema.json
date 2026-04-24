@@ -67,6 +67,10 @@
       "type": "array",
       "description": "Ordered list of inner-widget block descriptors. Each block renders one top-level child of the widget div (after the .hd header, which is auto-generated from `title`/`hint`). Block kinds: 'svg', 'row', 'readout', 'raw'.",
       "items": { "$ref": "#/$defs/layoutBlock" }
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
     }
   },
   "$defs": {

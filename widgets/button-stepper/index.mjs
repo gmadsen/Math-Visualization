@@ -123,7 +123,7 @@ function renderLayoutBlock(block, widgetTitle) {
 // -- Public API ---------------------------------------------------------------
 
 export function renderMarkup(params) {
-  const { widgetId, title, hint, layout } = params;
+  const { widgetId, title, hint, layout, trailingExplainer } = params;
 
   const hintHtml = typeof hint === 'string' && hint.length > 0
     ? `<div class="hint">${hint}</div>`
@@ -132,10 +132,15 @@ export function renderMarkup(params) {
   const blocks = Array.isArray(layout) ? layout : [];
   const bodyLines = blocks.map(b => renderLayoutBlock(b, title));
 
+  const trailingLine = typeof trailingExplainer === 'string'
+    ? `  <p class="small">${trailingExplainer}</p>\n`
+    : '';
+
   return (
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
     (bodyLines.length ? bodyLines.join('\n') + '\n' : '') +
+    trailingLine +
     `</div>`
   );
 }

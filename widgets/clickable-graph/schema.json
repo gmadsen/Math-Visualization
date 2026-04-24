@@ -113,6 +113,10 @@
     "sectionComment": {
       "type": "string",
       "description": "ARTIFACT. Optional JS block comment placed at the top of the IIFE (e.g. '=== SECTION 5: Specialization poset ==='). Lets the script byte-match its original source when one is present."
+    },
+    "trailingExplainer": {
+      "type": "string",
+      "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
     }
   }
 }

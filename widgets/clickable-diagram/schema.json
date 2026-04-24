@@ -64,6 +64,10 @@
         "templateLiteral": {
           "type": "string",
           "description": "ARTIFACT. Verbatim JS text for the right-hand side of `out.textContent = <here>;` — the backtick-literal chain that formats the readout. Preserves original newlines and indentation."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
         }
       }
     },
@@ -119,6 +123,10 @@
         "proofsLiteral": {
           "type": "string",
           "description": "ARTIFACT. Verbatim JS object-literal text for `const PROOFS = <here>;`. Preserves the original source's alignment (e.g. `x: 130, y:  80` with double space) and inline comments."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
         }
       }
     },
@@ -187,6 +195,10 @@
           "type": "object",
           "description": "Optional portable data dictionary keyed by select-value. Each entry is an opaque payload the widget's draw/compute consumes — shape varies per widget. Present mostly as documentation for React consumers; the vanilla renderer drives everything through scriptBodyLiteral.",
           "additionalProperties": true
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
         }
       }
     }

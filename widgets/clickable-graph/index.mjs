@@ -29,6 +29,7 @@ export function renderMarkup(params) {
     widgetId, svgId, viewBox, title,
     hint, svgWidthAttr, svgHeightAttr,
     readoutId, initialReadoutHtml,
+    trailingExplainer,
   } = params;
 
   const hintHtml = hint !== undefined
@@ -41,11 +42,15 @@ export function renderMarkup(params) {
     ? `\n  <div class="readout" id="${readoutId}">${initialReadoutHtml ?? ''}</div>`
     : '';
 
+  const trailingHtml = typeof trailingExplainer === 'string'
+    ? `\n  <p class="small">${trailingExplainer}</p>`
+    : '';
+
   return (
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}"${widthAttr}${heightAttr}><title>${title}</title></svg>` +
-    `${readoutHtml}\n` +
+    `${readoutHtml}${trailingHtml}\n` +
     `</div>`
   );
 }
