@@ -214,8 +214,8 @@ The curve is smooth precisely when $\Delta \ne 0$; equivalently, the cubic $f(x)
 <p>When $\Delta \ne 0$ the set $E(k)$ forms an abelian group under the chord-and-tangent construction, and the resulting group scheme $E/k$ is a one-dimensional abelian variety. This page asks: <em>what happens when $\Delta = 0$?</em> The cubic is still a perfectly good plane curve — it just fails to be smooth. Its singular point either pinches two branches together (a node) or collapses them into a single cuspidal tangent. The smooth complement still carries a group law, but it is no longer the elliptic one: it is one of two much simpler groups.</p>
 
 <div class="widget" id="w-disc">
-<div class="hd"><span class="ttl">Discriminant watcher</span><span class="hint">drag $a$ and $b$ and watch the singularity form at $\Delta=0$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Discriminant watcher</span><span class="hint">drag $a$ and $b$ and watch the singularity form at $\Delta=0$</span></div>
+  <div class="row">
   <label>$a$ <input type="range" id="d-a" min="-3" max="3" step="0.02" value="-1"></label>
   <span id="d-av" class="small">-1.00</span>
   <label>$b$ <input type="range" id="d-b" min="-3" max="3" step="0.02" value="0.5"></label>
@@ -223,11 +223,9 @@ The curve is smooth precisely when $\Delta \ne 0$; equivalently, the cubic $f(x)
   <button id="d-node">snap to node ($a{=}1,b{=}0$ shift)</button>
   <button id="d-cusp">snap to cusp ($a{=}0,b{=}0$)</button>
 </div>
-<svg id="d-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Discriminant watcher</title></svg>
-<div id="d-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="d-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Discriminant watcher</title></svg>
+  <div class="readout" id="d-out"></div>
+</div><script>
 (function(){
   const A=$('#d-a'), B=$('#d-b'), Av=$('#d-av'), Bv=$('#d-bv');
   const svg=$('#d-svg'), out=$('#d-out');
@@ -318,12 +316,10 @@ The singular point is the origin $(0,0)$. Writing $y^2 - x^3 - x^2 = 0$ and expa
 Again the origin is singular. The degree-$2$ part at the origin is just $y^2$: a single linear factor $y$ repeated, giving <em>one tangent direction</em> $y = 0$ with multiplicity $2$. But the curve itself does not split into two branches; the unique tangent absorbs the singularity in a qualitatively different way. This is a <strong>cusp</strong> ($A_2$-singularity), parametrizable by $(x,y) = (t^2, t^3)$.</p>
 
 <div class="widget" id="w-nvc">
-<div class="hd"><span class="ttl">Node vs. cusp side-by-side</span><span class="hint">tangent lines shown in yellow</span></div>
-<svg id="nvc-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Node vs. cusp side-by-side</title></svg>
-<div class="readout">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
-</div>
-
-<script>
+  <div class="hd"><span class="ttl">Node vs. cusp side-by-side</span><span class="hint">tangent lines shown in yellow</span></div>
+  <svg id="nvc-svg" viewBox="0 0 640 320" width="640" height="320" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Node vs. cusp side-by-side</title></svg>
+  <div class="readout" id="undefined">Left: $y^2=x^3+x^2$ (node).  Right: $y^2=x^3$ (cusp).  Pink dot = singular point.</div>
+</div><script>
 (function(){
   const svg=$('#nvc-svg');
   const W=640,H=320,halfW=320,PAD=24;
