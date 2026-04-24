@@ -12,9 +12,28 @@
         },
         {
           "type": "widget",
-          "id": "w-plane",
-          "html": "<div class=\"widget\" id=\"w-plane\">\n  <div class=\"hd\"><div class=\"ttl\">Plane curve: tangent, normal, osculating circle</div><div class=\"hint\">slide the point · watch $\\kappa(s)$ and $1/|\\kappa|$</div></div>\n  <div class=\"row\">\n    <label>curve:</label>\n    <select id=\"pc-pick\">\n      <option value=\"circle\">circle (radius 1)</option>\n      <option value=\"ellipse\" selected>ellipse (a=1.5, b=1)</option>\n      <option value=\"parabola\">parabola y = x²/2</option>\n      <option value=\"cardioid\">cardioid r = 1 − cosθ</option>\n      <option value=\"lemniscate\">lemniscate r² = cos(2θ)</option>\n      <option value=\"cycloid\">cycloid</option>\n    </select>\n    <label for=\"pc-t\">t:</label>\n    <input type=\"range\" id=\"pc-t\" min=\"0\" max=\"1000\" value=\"300\" step=\"1\">\n    <span class=\"small\" id=\"pc-tval\"></span>\n  </div>\n  <svg id=\"pc-svg\" viewBox=\"-260 -180 520 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Plane curve: tangent, normal, osculating circle</title></svg>\n  <div class=\"readout\" id=\"pc-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-plane",
+            "title": "Plane curve: tangent, normal, osculating circle",
+            "hint": "slide the point · watch $\\kappa(s)$ and $1/|\\kappa|$",
+            "readoutId": "pc-out",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve:</label>\n    <select id=\"pc-pick\">\n      <option value=\"circle\">circle (radius 1)</option>\n      <option value=\"ellipse\" selected>ellipse (a=1.5, b=1)</option>\n      <option value=\"parabola\">parabola y = x²/2</option>\n      <option value=\"cardioid\">cardioid r = 1 − cosθ</option>\n      <option value=\"lemniscate\">lemniscate r² = cos(2θ)</option>\n      <option value=\"cycloid\">cycloid</option>\n    </select>\n    <label for=\"pc-t\">t:</label>\n    <input type=\"range\" id=\"pc-t\" min=\"0\" max=\"1000\" value=\"300\" step=\"1\">\n    <span class=\"small\" id=\"pc-tval\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"pc-svg\" viewBox=\"-260 -180 520 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Plane curve: tangent, normal, osculating circle</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "pc-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -22,9 +41,28 @@
         },
         {
           "type": "widget",
-          "id": "w-space",
-          "html": "<div class=\"widget\" id=\"w-space\">\n  <div class=\"hd\"><div class=\"ttl\">Space curve: the Frenet frame $T,N,B$</div><div class=\"hint\">pick a curve · $t$ slider picks the point · drag the canvas to rotate · $T$ yellow, $N$ green, $B$ violet</div></div>\n  <div class=\"row\">\n    <label>curve:</label>\n    <select id=\"sc-pick\">\n      <option value=\"helix\" selected>helix</option>\n      <option value=\"trefoil\">trefoil knot</option>\n      <option value=\"torusk\">(2,3) torus knot</option>\n      <option value=\"vivi\">Viviani's curve</option>\n      <option value=\"helcyc\">helical cycloid</option>\n      <option value=\"ellcon\">elliptical conic helix</option>\n    </select>\n    <label for=\"sc-t\">t:</label>\n    <input type=\"range\" id=\"sc-t\" min=\"0\" max=\"1000\" value=\"250\" step=\"1\">\n  </div>\n  <svg id=\"sc-svg\" viewBox=\"-240 -180 480 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Space curve: the Frenet frame $T,N,B$</title></svg>\n  <div class=\"readout\" id=\"sc-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-space",
+            "title": "Space curve: the Frenet frame $T,N,B$",
+            "hint": "pick a curve · $t$ slider picks the point · drag the canvas to rotate · $T$ yellow, $N$ green, $B$ violet",
+            "readoutId": "sc-out",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve:</label>\n    <select id=\"sc-pick\">\n      <option value=\"helix\" selected>helix</option>\n      <option value=\"trefoil\">trefoil knot</option>\n      <option value=\"torusk\">(2,3) torus knot</option>\n      <option value=\"vivi\">Viviani's curve</option>\n      <option value=\"helcyc\">helical cycloid</option>\n      <option value=\"ellcon\">elliptical conic helix</option>\n    </select>\n    <label for=\"sc-t\">t:</label>\n    <input type=\"range\" id=\"sc-t\" min=\"0\" max=\"1000\" value=\"250\" step=\"1\">\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"sc-svg\" viewBox=\"-240 -180 480 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Space curve: the Frenet frame $T,N,B$</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "sc-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -86,9 +124,28 @@
         },
         {
           "type": "widget",
-          "id": "w-gmap",
-          "html": "<div class=\"widget\" id=\"w-gmap\">\n  <div class=\"hd\"><div class=\"ttl\">The Gauss map</div><div class=\"hint\">drag to rotate · move the point · watch $\\mathbf{n}(p)$ on $S^2$</div></div>\n  <div class=\"row\">\n    <label>surface:</label>\n    <select id=\"gm-pick\">\n      <option value=\"sphere\" selected>sphere</option>\n      <option value=\"cylinder\">cylinder</option>\n      <option value=\"torus\">torus</option>\n      <option value=\"saddle\">saddle z = x²−y²</option>\n      <option value=\"hyp\">hyperboloid (1-sheet)</option>\n      <option value=\"pseudo\">pseudosphere</option>\n    </select>\n    <label for=\"gm-u\">u:</label>\n    <input type=\"range\" id=\"gm-u\" min=\"0\" max=\"1000\" value=\"500\" step=\"1\">\n    <label for=\"gm-v\">v:</label>\n    <input type=\"range\" id=\"gm-v\" min=\"0\" max=\"1000\" value=\"500\" step=\"1\">\n  </div>\n  <svg id=\"gm-svg\" viewBox=\"-340 -200 680 400\" width=\"100%\" style=\"max-width:720px;height:auto\"><title>The Gauss map</title></svg>\n  <div class=\"readout\" id=\"gm-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gmap",
+            "title": "The Gauss map",
+            "hint": "drag to rotate · move the point · watch $\\mathbf{n}(p)$ on $S^2$",
+            "readoutId": "gm-out",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>surface:</label>\n    <select id=\"gm-pick\">\n      <option value=\"sphere\" selected>sphere</option>\n      <option value=\"cylinder\">cylinder</option>\n      <option value=\"torus\">torus</option>\n      <option value=\"saddle\">saddle z = x²−y²</option>\n      <option value=\"hyp\">hyperboloid (1-sheet)</option>\n      <option value=\"pseudo\">pseudosphere</option>\n    </select>\n    <label for=\"gm-u\">u:</label>\n    <input type=\"range\" id=\"gm-u\" min=\"0\" max=\"1000\" value=\"500\" step=\"1\">\n    <label for=\"gm-v\">v:</label>\n    <input type=\"range\" id=\"gm-v\" min=\"0\" max=\"1000\" value=\"500\" step=\"1\">\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"gm-svg\" viewBox=\"-340 -200 680 400\" width=\"100%\" style=\"max-width:720px;height:auto\"><title>The Gauss map</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "gm-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -96,9 +153,28 @@
         },
         {
           "type": "widget",
-          "id": "w-khm",
-          "html": "<div class=\"widget\" id=\"w-khm\">\n  <div class=\"hd\"><div class=\"ttl\">Gaussian curvature heatmap</div><div class=\"hint\">drag to rotate · green: $K > 0$ · pink: $K < 0$ · white: $K = 0$</div></div>\n  <div class=\"row\">\n    <label>surface:</label>\n    <select id=\"kh-pick\">\n      <option value=\"sphere\">sphere (K = 1/R², uniform green)</option>\n      <option value=\"plane\">plane (K = 0, uniform white)</option>\n      <option value=\"cylinder\">cylinder (K = 0, uniform white)</option>\n      <option value=\"torus\" selected>torus (mixed — striped)</option>\n      <option value=\"saddle\">saddle (K &lt; 0 at origin)</option>\n      <option value=\"hyp\">hyperboloid (K &lt; 0)</option>\n      <option value=\"pseudo\">pseudosphere (K = −1, uniform pink)</option>\n      <option value=\"ellipsoid\">ellipsoid</option>\n    </select>\n  </div>\n  <svg id=\"kh-svg\" viewBox=\"-240 -180 480 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Gaussian curvature heatmap</title></svg>\n  <div class=\"readout\" id=\"kh-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-khm",
+            "title": "Gaussian curvature heatmap",
+            "hint": "drag to rotate · green: $K > 0$ · pink: $K < 0$ · white: $K = 0$",
+            "readoutId": "kh-out",
+            "bodyScript": "",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>surface:</label>\n    <select id=\"kh-pick\">\n      <option value=\"sphere\">sphere (K = 1/R², uniform green)</option>\n      <option value=\"plane\">plane (K = 0, uniform white)</option>\n      <option value=\"cylinder\">cylinder (K = 0, uniform white)</option>\n      <option value=\"torus\" selected>torus (mixed — striped)</option>\n      <option value=\"saddle\">saddle (K &lt; 0 at origin)</option>\n      <option value=\"hyp\">hyperboloid (K &lt; 0)</option>\n      <option value=\"pseudo\">pseudosphere (K = −1, uniform pink)</option>\n      <option value=\"ellipsoid\">ellipsoid</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"kh-svg\" viewBox=\"-240 -180 480 360\" width=\"100%\" style=\"max-width:640px;height:auto\"><title>Gaussian curvature heatmap</title></svg>"
+              },
+              {
+                "kind": "readout",
+                "id": "kh-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",

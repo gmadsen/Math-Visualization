@@ -12,9 +12,57 @@
         },
         {
           "type": "widget",
-          "id": "w-discriminant",
-          "html": "<div class=\"widget\" id=\"w-discriminant\">\n  <div class=\"hd\"><div class=\"ttl\">Discriminant explorer</div><div class=\"hint\">enter coefficients to see $D = b^2-4ac$</div></div>\n  <div class=\"row\">\n    <label for=\"da\">$a$:</label><input type=\"number\" id=\"da\" value=\"1\" style=\"width:60px\">\n    <label for=\"db\">$b$:</label><input type=\"number\" id=\"db\" value=\"1\" style=\"width:60px\">\n    <label for=\"dc\">$c$:</label><input type=\"number\" id=\"dc\" value=\"1\" style=\"width:60px\">\n    <button id=\"disc-btn\">Compute</button>\n  </div>\n  <div class=\"readout\" id=\"disc-out\"></div>\n  <svg id=\"disc-svg\" viewBox=\"0 0 460 200\" style=\"height:200px;margin-top:.5rem\"><title>Discriminant explorer</title></svg>\n</div>",
-          "script": "\n<script>\n(function(){\n  const aI=$('#da'), bI=$('#db'), cI=$('#dc'), btn=$('#disc-btn'), out=$('#disc-out'), svg=$('#disc-svg');\n  function render(){\n    const a=parseInt(aI.value)||1, b=parseInt(bI.value)||0, c=parseInt(cI.value)||1;\n    const D = b*b - 4*a*c;\n    const g = gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c));\n    const prim = g===1;\n    const defn = D<0&&a>0 ? 'positive-definite' : D<0&&a<0 ? 'negative-definite' : D===0 ? 'degenerate' : 'indefinite';\n    out.textContent = `f(x,y) = ${a}x² ${b>=0?'+':''}${b}xy ${c>=0?'+':''}${c}y²\\nD = ${b}²−4·${a}·${c} = ${D}\\nType: ${defn}\\nPrimitive: ${prim?'yes (gcd=1)':'no (gcd='+g+')'}`;\n\n    /* draw the form as a heat-map on a small grid */\n    svg.innerHTML = '';\n    const N=8, W=460, H=200, cx=W/2, cy=H/2, sc=20;\n    /* axes */\n    const ax1=SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)',  'stroke-width':1});\n    const ax2=SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(ax1); svg.appendChild(ax2);\n    /* axis labels */\n    const xl=SVG('text',{x:W-8,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='x'; svg.appendChild(xl);\n    const yl=SVG('text',{x:cx+6,y:12,'font-size':11,fill:'var(--mute)'}); yl.textContent='y'; svg.appendChild(yl);\n\n    let vmax=1;\n    for(let ix=-N;ix<=N;ix++) for(let iy=-N;iy<=N;iy++){\n      const v=a*ix*ix+b*ix*iy+c*iy*iy;\n      if(Math.abs(v)>vmax) vmax=Math.abs(v);\n    }\n    for(let ix=-N;ix<=N;ix++){\n      for(let iy=-N;iy<=N;iy++){\n        const v = a*ix*ix+b*ix*iy+c*iy*iy;\n        const t = Math.max(-1,Math.min(1,v/vmax));\n        let r,g2,bl;\n        if(t>=0){ r=Math.round(255*(1-t)*0.3+255*t*0.3); g2=Math.round(100+155*(1-t)); bl=Math.round(50); }\n        else { const s=-t; r=Math.round(200+55*s); g2=Math.round(70*(1-s)); bl=Math.round(60*(1-s)); }\n        const fill=`rgb(${r},${g2},${bl})`;\n        const px=SVG('circle',{cx:cx+ix*sc,cy:cy-iy*sc,r:6,fill,opacity:'0.85'});\n        svg.appendChild(px);\n        if(v!==0){\n          const lab=SVG('text',{x:cx+ix*sc,y:cy-iy*sc+4,'text-anchor':'middle','font-size':8,fill:'#fff',opacity:'0.7'});\n          lab.textContent=String(v); svg.appendChild(lab);\n        }\n      }\n    }\n    const leg=SVG('text',{x:8,y:16,'font-size':10,fill:'var(--mute)'});\n    leg.textContent='green=positive · red=negative · center=0'; svg.appendChild(leg);\n  }\n  btn.addEventListener('click',render);\n  [aI,bI,cI].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')render();}));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-discriminant",
+            "title": "Discriminant explorer",
+            "hint": "enter coefficients to see $D = b^2-4ac$",
+            "readoutId": "disc-out",
+            "bodyScript": "  const aI=$('#da'), bI=$('#db'), cI=$('#dc'), btn=$('#disc-btn'), out=$('#disc-out'), svg=$('#disc-svg');\n  function render(){\n    const a=parseInt(aI.value)||1, b=parseInt(bI.value)||0, c=parseInt(cI.value)||1;\n    const D = b*b - 4*a*c;\n    const g = gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c));\n    const prim = g===1;\n    const defn = D<0&&a>0 ? 'positive-definite' : D<0&&a<0 ? 'negative-definite' : D===0 ? 'degenerate' : 'indefinite';\n    out.textContent = `f(x,y) = ${a}x² ${b>=0?'+':''}${b}xy ${c>=0?'+':''}${c}y²\\nD = ${b}²−4·${a}·${c} = ${D}\\nType: ${defn}\\nPrimitive: ${prim?'yes (gcd=1)':'no (gcd='+g+')'}`;\n\n    /* draw the form as a heat-map on a small grid */\n    svg.innerHTML = '';\n    const N=8, W=460, H=200, cx=W/2, cy=H/2, sc=20;\n    /* axes */\n    const ax1=SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)',  'stroke-width':1});\n    const ax2=SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(ax1); svg.appendChild(ax2);\n    /* axis labels */\n    const xl=SVG('text',{x:W-8,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='x'; svg.appendChild(xl);\n    const yl=SVG('text',{x:cx+6,y:12,'font-size':11,fill:'var(--mute)'}); yl.textContent='y'; svg.appendChild(yl);\n\n    let vmax=1;\n    for(let ix=-N;ix<=N;ix++) for(let iy=-N;iy<=N;iy++){\n      const v=a*ix*ix+b*ix*iy+c*iy*iy;\n      if(Math.abs(v)>vmax) vmax=Math.abs(v);\n    }\n    for(let ix=-N;ix<=N;ix++){\n      for(let iy=-N;iy<=N;iy++){\n        const v = a*ix*ix+b*ix*iy+c*iy*iy;\n        const t = Math.max(-1,Math.min(1,v/vmax));\n        let r,g2,bl;\n        if(t>=0){ r=Math.round(255*(1-t)*0.3+255*t*0.3); g2=Math.round(100+155*(1-t)); bl=Math.round(50); }\n        else { const s=-t; r=Math.round(200+55*s); g2=Math.round(70*(1-s)); bl=Math.round(60*(1-s)); }\n        const fill=`rgb(${r},${g2},${bl})`;\n        const px=SVG('circle',{cx:cx+ix*sc,cy:cy-iy*sc,r:6,fill,opacity:'0.85'});\n        svg.appendChild(px);\n        if(v!==0){\n          const lab=SVG('text',{x:cx+ix*sc,y:cy-iy*sc+4,'text-anchor':'middle','font-size':8,fill:'#fff',opacity:'0.7'});\n          lab.textContent=String(v); svg.appendChild(lab);\n        }\n      }\n    }\n    const leg=SVG('text',{x:8,y:16,'font-size':10,fill:'var(--mute)'});\n    leg.textContent='green=positive · red=negative · center=0'; svg.appendChild(leg);\n  }\n  btn.addEventListener('click',render);\n  [aI,bI,cI].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')render();}));\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"da\">$a$:</label><input type=\"number\" id=\"da\" value=\"1\" style=\"width:60px\">\n    <label for=\"db\">$b$:</label><input type=\"number\" id=\"db\" value=\"1\" style=\"width:60px\">\n    <label for=\"dc\">$c$:</label><input type=\"number\" id=\"dc\" value=\"1\" style=\"width:60px\">\n    <button id=\"disc-btn\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "disc-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"disc-svg\" viewBox=\"0 0 460 200\" style=\"height:200px;margin-top:.5rem\"><title>Discriminant explorer</title></svg>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-discriminant",
+            "title": "Discriminant explorer",
+            "hint": "enter coefficients to see $D = b^2-4ac$",
+            "readoutId": "disc-out",
+            "bodyScript": "  const aI=$('#da'), bI=$('#db'), cI=$('#dc'), btn=$('#disc-btn'), out=$('#disc-out'), svg=$('#disc-svg');\n  function render(){\n    const a=parseInt(aI.value)||1, b=parseInt(bI.value)||0, c=parseInt(cI.value)||1;\n    const D = b*b - 4*a*c;\n    const g = gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c));\n    const prim = g===1;\n    const defn = D<0&&a>0 ? 'positive-definite' : D<0&&a<0 ? 'negative-definite' : D===0 ? 'degenerate' : 'indefinite';\n    out.textContent = `f(x,y) = ${a}x² ${b>=0?'+':''}${b}xy ${c>=0?'+':''}${c}y²\\nD = ${b}²−4·${a}·${c} = ${D}\\nType: ${defn}\\nPrimitive: ${prim?'yes (gcd=1)':'no (gcd='+g+')'}`;\n\n    /* draw the form as a heat-map on a small grid */\n    svg.innerHTML = '';\n    const N=8, W=460, H=200, cx=W/2, cy=H/2, sc=20;\n    /* axes */\n    const ax1=SVG('line',{x1:0,y1:cy,x2:W,y2:cy,stroke:'var(--line)',  'stroke-width':1});\n    const ax2=SVG('line',{x1:cx,y1:0,x2:cx,y2:H,stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(ax1); svg.appendChild(ax2);\n    /* axis labels */\n    const xl=SVG('text',{x:W-8,y:cy-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='x'; svg.appendChild(xl);\n    const yl=SVG('text',{x:cx+6,y:12,'font-size':11,fill:'var(--mute)'}); yl.textContent='y'; svg.appendChild(yl);\n\n    let vmax=1;\n    for(let ix=-N;ix<=N;ix++) for(let iy=-N;iy<=N;iy++){\n      const v=a*ix*ix+b*ix*iy+c*iy*iy;\n      if(Math.abs(v)>vmax) vmax=Math.abs(v);\n    }\n    for(let ix=-N;ix<=N;ix++){\n      for(let iy=-N;iy<=N;iy++){\n        const v = a*ix*ix+b*ix*iy+c*iy*iy;\n        const t = Math.max(-1,Math.min(1,v/vmax));\n        let r,g2,bl;\n        if(t>=0){ r=Math.round(255*(1-t)*0.3+255*t*0.3); g2=Math.round(100+155*(1-t)); bl=Math.round(50); }\n        else { const s=-t; r=Math.round(200+55*s); g2=Math.round(70*(1-s)); bl=Math.round(60*(1-s)); }\n        const fill=`rgb(${r},${g2},${bl})`;\n        const px=SVG('circle',{cx:cx+ix*sc,cy:cy-iy*sc,r:6,fill,opacity:'0.85'});\n        svg.appendChild(px);\n        if(v!==0){\n          const lab=SVG('text',{x:cx+ix*sc,y:cy-iy*sc+4,'text-anchor':'middle','font-size':8,fill:'#fff',opacity:'0.7'});\n          lab.textContent=String(v); svg.appendChild(lab);\n        }\n      }\n    }\n    const leg=SVG('text',{x:8,y:16,'font-size':10,fill:'var(--mute)'});\n    leg.textContent='green=positive · red=negative · center=0'; svg.appendChild(leg);\n  }\n  btn.addEventListener('click',render);\n  [aI,bI,cI].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')render();}));\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"da\">$a$:</label><input type=\"number\" id=\"da\" value=\"1\" style=\"width:60px\">\n    <label for=\"db\">$b$:</label><input type=\"number\" id=\"db\" value=\"1\" style=\"width:60px\">\n    <label for=\"dc\">$c$:</label><input type=\"number\" id=\"dc\" value=\"1\" style=\"width:60px\">\n    <button id=\"disc-btn\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "disc-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"disc-svg\" viewBox=\"0 0 460 200\" style=\"height:200px;margin-top:.5rem\"><title>Discriminant explorer</title></svg>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -40,9 +88,49 @@
         },
         {
           "type": "widget",
-          "id": "w-reduce",
-          "html": "<div class=\"widget\" id=\"w-reduce\">\n  <div class=\"hd\"><div class=\"ttl\">Form reducer</div><div class=\"hint\">enter $a,b,c$ with $b^2-4ac&lt;0$, $a&gt;0$</div></div>\n  <div class=\"row\">\n    <label for=\"ra\">$a$:</label><input type=\"number\" id=\"ra\" value=\"3\" style=\"width:60px\">\n    <label for=\"rb\">$b$:</label><input type=\"number\" id=\"rb\" value=\"4\" style=\"width:60px\">\n    <label for=\"rc\">$c$:</label><input type=\"number\" id=\"rc\" value=\"5\" style=\"width:60px\">\n    <button id=\"red-btn\">Reduce</button>\n  </div>\n  <div class=\"readout\" id=\"red-out\"></div>\n</div>",
-          "script": "\n<script>\n(function(){\n  const aI=$('#ra'), bI=$('#rb'), cI=$('#rc'), btn=$('#red-btn'), out=$('#red-out');\n  function reduceForm(a,b,c){\n    const D = b*b - 4*a*c;\n    const steps=[];\n    steps.push(`Start: (${a}, ${b}, ${c}), D = ${D}`);\n    if(D>=0 || a<=0){ out.textContent='Need D < 0 and a > 0 for positive-definite reduction.'; return; }\n    let iter=0;\n    while(true){\n      iter++;\n      if(iter>200){ steps.push('(too many steps — aborting)'); break; }\n      if(a > c){ [a,c]=[c,a]; b=-b; steps.push(`Swap a↔c, negate b → (${a}, ${b}, ${c})`); continue; }\n      if(Math.abs(b) > a){\n        const k = Math.floor((b+a)/(2*a));\n        b = b - 2*a*k;\n        c = (b*b - D)/(4*a);\n        steps.push(`Shift b by -${2*a*k} → (${a}, ${b}, ${c})`);\n        continue;\n      }\n      break;\n    }\n    /* tie-break */\n    if(b < 0 && (Math.abs(b)===a || a===c)){ b=-b; }\n    steps.push(`Reduced: (${a}, ${b}, ${c}) — primitive: ${gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c))===1?'yes':'no'}`);\n    out.textContent = steps.join('\\n');\n  }\n  btn.addEventListener('click',()=>{\n    reduceForm(parseInt(aI.value)||1, parseInt(bI.value)||0, parseInt(cI.value)||1);\n  });\n  reduceForm(3,4,5);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-reduce",
+            "title": "Form reducer",
+            "hint": "enter $a,b,c$ with $b^2-4ac&lt;0$, $a&gt;0$",
+            "readoutId": "red-out",
+            "bodyScript": "  const aI=$('#ra'), bI=$('#rb'), cI=$('#rc'), btn=$('#red-btn'), out=$('#red-out');\n  function reduceForm(a,b,c){\n    const D = b*b - 4*a*c;\n    const steps=[];\n    steps.push(`Start: (${a}, ${b}, ${c}), D = ${D}`);\n    if(D>=0 || a<=0){ out.textContent='Need D < 0 and a > 0 for positive-definite reduction.'; return; }\n    let iter=0;\n    while(true){\n      iter++;\n      if(iter>200){ steps.push('(too many steps — aborting)'); break; }\n      if(a > c){ [a,c]=[c,a]; b=-b; steps.push(`Swap a↔c, negate b → (${a}, ${b}, ${c})`); continue; }\n      if(Math.abs(b) > a){\n        const k = Math.floor((b+a)/(2*a));\n        b = b - 2*a*k;\n        c = (b*b - D)/(4*a);\n        steps.push(`Shift b by -${2*a*k} → (${a}, ${b}, ${c})`);\n        continue;\n      }\n      break;\n    }\n    /* tie-break */\n    if(b < 0 && (Math.abs(b)===a || a===c)){ b=-b; }\n    steps.push(`Reduced: (${a}, ${b}, ${c}) — primitive: ${gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c))===1?'yes':'no'}`);\n    out.textContent = steps.join('\\n');\n  }\n  btn.addEventListener('click',()=>{\n    reduceForm(parseInt(aI.value)||1, parseInt(bI.value)||0, parseInt(cI.value)||1);\n  });\n  reduceForm(3,4,5);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ra\">$a$:</label><input type=\"number\" id=\"ra\" value=\"3\" style=\"width:60px\">\n    <label for=\"rb\">$b$:</label><input type=\"number\" id=\"rb\" value=\"4\" style=\"width:60px\">\n    <label for=\"rc\">$c$:</label><input type=\"number\" id=\"rc\" value=\"5\" style=\"width:60px\">\n    <button id=\"red-btn\">Reduce</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "red-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-reduce",
+            "title": "Form reducer",
+            "hint": "enter $a,b,c$ with $b^2-4ac&lt;0$, $a&gt;0$",
+            "readoutId": "red-out",
+            "bodyScript": "  const aI=$('#ra'), bI=$('#rb'), cI=$('#rc'), btn=$('#red-btn'), out=$('#red-out');\n  function reduceForm(a,b,c){\n    const D = b*b - 4*a*c;\n    const steps=[];\n    steps.push(`Start: (${a}, ${b}, ${c}), D = ${D}`);\n    if(D>=0 || a<=0){ out.textContent='Need D < 0 and a > 0 for positive-definite reduction.'; return; }\n    let iter=0;\n    while(true){\n      iter++;\n      if(iter>200){ steps.push('(too many steps — aborting)'); break; }\n      if(a > c){ [a,c]=[c,a]; b=-b; steps.push(`Swap a↔c, negate b → (${a}, ${b}, ${c})`); continue; }\n      if(Math.abs(b) > a){\n        const k = Math.floor((b+a)/(2*a));\n        b = b - 2*a*k;\n        c = (b*b - D)/(4*a);\n        steps.push(`Shift b by -${2*a*k} → (${a}, ${b}, ${c})`);\n        continue;\n      }\n      break;\n    }\n    /* tie-break */\n    if(b < 0 && (Math.abs(b)===a || a===c)){ b=-b; }\n    steps.push(`Reduced: (${a}, ${b}, ${c}) — primitive: ${gcd(gcd(Math.abs(a),Math.abs(b)),Math.abs(c))===1?'yes':'no'}`);\n    out.textContent = steps.join('\\n');\n  }\n  btn.addEventListener('click',()=>{\n    reduceForm(parseInt(aI.value)||1, parseInt(bI.value)||0, parseInt(cI.value)||1);\n  });\n  reduceForm(3,4,5);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ra\">$a$:</label><input type=\"number\" id=\"ra\" value=\"3\" style=\"width:60px\">\n    <label for=\"rb\">$b$:</label><input type=\"number\" id=\"rb\" value=\"4\" style=\"width:60px\">\n    <label for=\"rc\">$c$:</label><input type=\"number\" id=\"rc\" value=\"5\" style=\"width:60px\">\n    <button id=\"red-btn\">Reduce</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "red-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -50,9 +138,47 @@
         },
         {
           "type": "widget",
-          "id": "w-classlist",
-          "html": "<div class=\"widget\" id=\"w-classlist\">\n  <div class=\"hd\"><div class=\"ttl\">Reduced forms lister</div><div class=\"hint\">select $D$ to see all reduced primitive forms</div></div>\n  <div class=\"row\">\n    <label>Discriminant $D$:</label>\n    <select id=\"disc-sel\"></select>\n    <span class=\"small\" id=\"hn-label\"></span>\n  </div>\n  <div id=\"forms-list\" style=\"margin-top:.5rem;display:flex;flex-wrap:wrap;gap:6px\"></div>\n</div>",
-          "script": "\n<script>\n(function(){\n  const discs = [-3,-4,-7,-8,-11,-15,-20,-23,-24,-35,-40,-47,-56,-63,-68,-84,-120];\n  const sel=$('#disc-sel');\n  for(const d of discs){\n    const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o);\n  }\n  sel.value='-23';\n  const lst=$('#forms-list'), hnl=$('#hn-label');\n  function render(){\n    const D=parseInt(sel.value);\n    lst.innerHTML='';\n    const forms=reducedForms(D);\n    hnl.textContent=`h(${D}) = ${forms.length}`;\n    for(const [a,b,c] of forms){\n      const chip=document.createElement('span');\n      chip.className='form-chip';\n      const bsign = b>=0 ? (b===0?'':'+'+b) : String(b);\n      chip.textContent=`(${a}, ${b}, ${c})`;\n      chip.title=`${a}x²${bsign}xy+${c}y², D=${b*b-4*a*c}`;\n      lst.appendChild(chip);\n    }\n  }\n  sel.addEventListener('change',render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-classlist",
+            "title": "Reduced forms lister",
+            "hint": "select $D$ to see all reduced primitive forms",
+            "bodyScript": "  const discs = [-3,-4,-7,-8,-11,-15,-20,-23,-24,-35,-40,-47,-56,-63,-68,-84,-120];\n  const sel=$('#disc-sel');\n  for(const d of discs){\n    const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o);\n  }\n  sel.value='-23';\n  const lst=$('#forms-list'), hnl=$('#hn-label');\n  function render(){\n    const D=parseInt(sel.value);\n    lst.innerHTML='';\n    const forms=reducedForms(D);\n    hnl.textContent=`h(${D}) = ${forms.length}`;\n    for(const [a,b,c] of forms){\n      const chip=document.createElement('span');\n      chip.className='form-chip';\n      const bsign = b>=0 ? (b===0?'':'+'+b) : String(b);\n      chip.textContent=`(${a}, ${b}, ${c})`;\n      chip.title=`${a}x²${bsign}xy+${c}y², D=${b*b-4*a*c}`;\n      lst.appendChild(chip);\n    }\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>Discriminant $D$:</label>\n    <select id=\"disc-sel\"></select>\n    <span class=\"small\" id=\"hn-label\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"forms-list\" style=\"margin-top:.5rem;display:flex;flex-wrap:wrap;gap:6px\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-classlist",
+            "title": "Reduced forms lister",
+            "hint": "select $D$ to see all reduced primitive forms",
+            "bodyScript": "  const discs = [-3,-4,-7,-8,-11,-15,-20,-23,-24,-35,-40,-47,-56,-63,-68,-84,-120];\n  const sel=$('#disc-sel');\n  for(const d of discs){\n    const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o);\n  }\n  sel.value='-23';\n  const lst=$('#forms-list'), hnl=$('#hn-label');\n  function render(){\n    const D=parseInt(sel.value);\n    lst.innerHTML='';\n    const forms=reducedForms(D);\n    hnl.textContent=`h(${D}) = ${forms.length}`;\n    for(const [a,b,c] of forms){\n      const chip=document.createElement('span');\n      chip.className='form-chip';\n      const bsign = b>=0 ? (b===0?'':'+'+b) : String(b);\n      chip.textContent=`(${a}, ${b}, ${c})`;\n      chip.title=`${a}x²${bsign}xy+${c}y², D=${b*b-4*a*c}`;\n      lst.appendChild(chip);\n    }\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>Discriminant $D$:</label>\n    <select id=\"disc-sel\"></select>\n    <span class=\"small\" id=\"hn-label\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"forms-list\" style=\"margin-top:.5rem;display:flex;flex-wrap:wrap;gap:6px\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -78,9 +204,47 @@
         },
         {
           "type": "widget",
-          "id": "w-classgroup",
-          "html": "<div class=\"widget\" id=\"w-classgroup\">\n  <div class=\"hd\"><div class=\"ttl\">Class group of $D = -23$</div><div class=\"hint\">see how composition cycles through the three classes</div></div>\n  <svg id=\"cg-svg\" viewBox=\"0 0 460 220\" style=\"height:220px\"><title>Class group of $D = -23$</title></svg>\n  <div class=\"readout\" id=\"cg-out\" style=\"margin-top:.5rem\">Click a node to see composition table</div>\n</div>",
-          "script": "\n<script>\n(function(){\n  const svg=$('#cg-svg'), out=$('#cg-out');\n  const forms=[\n    {label:'(1,1,6)', name:'identity', color:'var(--yellow)'},\n    {label:'(2,1,3)', name:'g', color:'var(--blue)'},\n    {label:'(2,−1,3)', name:'g⁻¹', color:'var(--violet)'}\n  ];\n  const cx=230, cy=110, R=80;\n  const pts=forms.map((_,i)=>({\n    x: cx + R*Math.cos(-Math.PI/2 + 2*Math.PI*i/3),\n    y: cy + R*Math.sin(-Math.PI/2 + 2*Math.PI*i/3)\n  }));\n\n  function draw(highlighted=-1){\n    svg.innerHTML='';\n    /* title */\n    const t0=SVG('text',{x:230,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t0.textContent='Cl(−23) ≅ ℤ/3ℤ — three reduced forms, cyclic of order 3'; svg.appendChild(t0);\n\n    /* curved arrows for the composition g+g=g⁻¹ and g+g⁻¹=e */\n    const arrowDefs=[\n      {from:0,to:1,lbl:'×g',c:-20},\n      {from:1,to:2,lbl:'×g',c:-20},\n      {from:2,to:0,lbl:'×g',c:-20}\n    ];\n    for(const {from,to,lbl,c} of arrowDefs){\n      drawArrow(svg, [pts[from].x,pts[from].y],[pts[to].x,pts[to].y],\n        {color:'var(--mute)',curve:c,label:lbl,markerId:'arr-cg'+from+to,pad1:24,pad2:24,width:1.2});\n    }\n    for(let i=0;i<forms.length;i++){\n      const {x,y}=pts[i];\n      const f=forms[i];\n      const active = i===highlighted;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:28,\n        fill:active?f.color:'var(--panel2)',\n        stroke:f.color,'stroke-width':active?2.5:1.5,\n        style:'cursor:pointer'}));\n      const tl=SVG('text',{x,y:y-5,'text-anchor':'middle','font-size':11,\n        fill:active?'#111':'var(--ink)','font-weight':600});\n      tl.textContent=f.label; svg.appendChild(tl);\n      const ts=SVG('text',{x,y:y+10,'text-anchor':'middle','font-size':10,\n        fill:active?'#111':'var(--mute)'});\n      ts.textContent=f.name; svg.appendChild(ts);\n\n      svg.lastElementChild.parentNode; // no-op, keep structure\n      const ci = i;\n      svg.querySelectorAll('circle')[i+1]; // placeholder\n    }\n\n    /* make circles clickable — re-query after draw */\n    const circles = [...svg.querySelectorAll('circle')];\n    circles.forEach((circ,i)=>{\n      circ.style.cursor='pointer';\n      circ.addEventListener('click',()=>{\n        const table=[\n          ['e',  'g',   'g⁻¹'],\n          ['g',  'g⁻¹', 'e'],\n          ['g⁻¹','e',   'g']\n        ];\n        const names=forms.map(f=>f.name);\n        let rows=`Multiplication table (row × col):\\n    ${names.join('  ')}\\n`;\n        for(let r=0;r<3;r++){\n          rows+=`${names[r].padEnd(4)} ${table[r].map(x=>x.padEnd(4)).join(' ')}\\n`;\n        }\n        rows+=`\\nSelected: ${forms[i].label} (${forms[i].name})`;\n        out.textContent=rows;\n        draw(i);\n      });\n    });\n  }\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-classgroup",
+            "title": "Class group of $D = -23$",
+            "hint": "see how composition cycles through the three classes",
+            "bodyScript": "  const svg=$('#cg-svg'), out=$('#cg-out');\n  const forms=[\n    {label:'(1,1,6)', name:'identity', color:'var(--yellow)'},\n    {label:'(2,1,3)', name:'g', color:'var(--blue)'},\n    {label:'(2,−1,3)', name:'g⁻¹', color:'var(--violet)'}\n  ];\n  const cx=230, cy=110, R=80;\n  const pts=forms.map((_,i)=>({\n    x: cx + R*Math.cos(-Math.PI/2 + 2*Math.PI*i/3),\n    y: cy + R*Math.sin(-Math.PI/2 + 2*Math.PI*i/3)\n  }));\n\n  function draw(highlighted=-1){\n    svg.innerHTML='';\n    /* title */\n    const t0=SVG('text',{x:230,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t0.textContent='Cl(−23) ≅ ℤ/3ℤ — three reduced forms, cyclic of order 3'; svg.appendChild(t0);\n\n    /* curved arrows for the composition g+g=g⁻¹ and g+g⁻¹=e */\n    const arrowDefs=[\n      {from:0,to:1,lbl:'×g',c:-20},\n      {from:1,to:2,lbl:'×g',c:-20},\n      {from:2,to:0,lbl:'×g',c:-20}\n    ];\n    for(const {from,to,lbl,c} of arrowDefs){\n      drawArrow(svg, [pts[from].x,pts[from].y],[pts[to].x,pts[to].y],\n        {color:'var(--mute)',curve:c,label:lbl,markerId:'arr-cg'+from+to,pad1:24,pad2:24,width:1.2});\n    }\n    for(let i=0;i<forms.length;i++){\n      const {x,y}=pts[i];\n      const f=forms[i];\n      const active = i===highlighted;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:28,\n        fill:active?f.color:'var(--panel2)',\n        stroke:f.color,'stroke-width':active?2.5:1.5,\n        style:'cursor:pointer'}));\n      const tl=SVG('text',{x,y:y-5,'text-anchor':'middle','font-size':11,\n        fill:active?'#111':'var(--ink)','font-weight':600});\n      tl.textContent=f.label; svg.appendChild(tl);\n      const ts=SVG('text',{x,y:y+10,'text-anchor':'middle','font-size':10,\n        fill:active?'#111':'var(--mute)'});\n      ts.textContent=f.name; svg.appendChild(ts);\n\n      svg.lastElementChild.parentNode; // no-op, keep structure\n      const ci = i;\n      svg.querySelectorAll('circle')[i+1]; // placeholder\n    }\n\n    /* make circles clickable — re-query after draw */\n    const circles = [...svg.querySelectorAll('circle')];\n    circles.forEach((circ,i)=>{\n      circ.style.cursor='pointer';\n      circ.addEventListener('click',()=>{\n        const table=[\n          ['e',  'g',   'g⁻¹'],\n          ['g',  'g⁻¹', 'e'],\n          ['g⁻¹','e',   'g']\n        ];\n        const names=forms.map(f=>f.name);\n        let rows=`Multiplication table (row × col):\\n    ${names.join('  ')}\\n`;\n        for(let r=0;r<3;r++){\n          rows+=`${names[r].padEnd(4)} ${table[r].map(x=>x.padEnd(4)).join(' ')}\\n`;\n        }\n        rows+=`\\nSelected: ${forms[i].label} (${forms[i].name})`;\n        out.textContent=rows;\n        draw(i);\n      });\n    });\n  }\n  draw();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<svg id=\"cg-svg\" viewBox=\"0 0 460 220\" style=\"height:220px\"><title>Class group of $D = -23$</title></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"cg-out\" style=\"margin-top:.5rem\">Click a node to see composition table</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-classgroup",
+            "title": "Class group of $D = -23$",
+            "hint": "see how composition cycles through the three classes",
+            "bodyScript": "  const svg=$('#cg-svg'), out=$('#cg-out');\n  const forms=[\n    {label:'(1,1,6)', name:'identity', color:'var(--yellow)'},\n    {label:'(2,1,3)', name:'g', color:'var(--blue)'},\n    {label:'(2,−1,3)', name:'g⁻¹', color:'var(--violet)'}\n  ];\n  const cx=230, cy=110, R=80;\n  const pts=forms.map((_,i)=>({\n    x: cx + R*Math.cos(-Math.PI/2 + 2*Math.PI*i/3),\n    y: cy + R*Math.sin(-Math.PI/2 + 2*Math.PI*i/3)\n  }));\n\n  function draw(highlighted=-1){\n    svg.innerHTML='';\n    /* title */\n    const t0=SVG('text',{x:230,y:20,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t0.textContent='Cl(−23) ≅ ℤ/3ℤ — three reduced forms, cyclic of order 3'; svg.appendChild(t0);\n\n    /* curved arrows for the composition g+g=g⁻¹ and g+g⁻¹=e */\n    const arrowDefs=[\n      {from:0,to:1,lbl:'×g',c:-20},\n      {from:1,to:2,lbl:'×g',c:-20},\n      {from:2,to:0,lbl:'×g',c:-20}\n    ];\n    for(const {from,to,lbl,c} of arrowDefs){\n      drawArrow(svg, [pts[from].x,pts[from].y],[pts[to].x,pts[to].y],\n        {color:'var(--mute)',curve:c,label:lbl,markerId:'arr-cg'+from+to,pad1:24,pad2:24,width:1.2});\n    }\n    for(let i=0;i<forms.length;i++){\n      const {x,y}=pts[i];\n      const f=forms[i];\n      const active = i===highlighted;\n      svg.appendChild(SVG('circle',{cx:x,cy:y,r:28,\n        fill:active?f.color:'var(--panel2)',\n        stroke:f.color,'stroke-width':active?2.5:1.5,\n        style:'cursor:pointer'}));\n      const tl=SVG('text',{x,y:y-5,'text-anchor':'middle','font-size':11,\n        fill:active?'#111':'var(--ink)','font-weight':600});\n      tl.textContent=f.label; svg.appendChild(tl);\n      const ts=SVG('text',{x,y:y+10,'text-anchor':'middle','font-size':10,\n        fill:active?'#111':'var(--mute)'});\n      ts.textContent=f.name; svg.appendChild(ts);\n\n      svg.lastElementChild.parentNode; // no-op, keep structure\n      const ci = i;\n      svg.querySelectorAll('circle')[i+1]; // placeholder\n    }\n\n    /* make circles clickable — re-query after draw */\n    const circles = [...svg.querySelectorAll('circle')];\n    circles.forEach((circ,i)=>{\n      circ.style.cursor='pointer';\n      circ.addEventListener('click',()=>{\n        const table=[\n          ['e',  'g',   'g⁻¹'],\n          ['g',  'g⁻¹', 'e'],\n          ['g⁻¹','e',   'g']\n        ];\n        const names=forms.map(f=>f.name);\n        let rows=`Multiplication table (row × col):\\n    ${names.join('  ')}\\n`;\n        for(let r=0;r<3;r++){\n          rows+=`${names[r].padEnd(4)} ${table[r].map(x=>x.padEnd(4)).join(' ')}\\n`;\n        }\n        rows+=`\\nSelected: ${forms[i].label} (${forms[i].name})`;\n        out.textContent=rows;\n        draw(i);\n      });\n    });\n  }\n  draw();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<svg id=\"cg-svg\" viewBox=\"0 0 460 220\" style=\"height:220px\"><title>Class group of $D = -23$</title></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"cg-out\" style=\"margin-top:.5rem\">Click a node to see composition table</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -106,9 +270,55 @@
         },
         {
           "type": "widget",
-          "id": "w-genus",
-          "html": "<div class=\"widget\" id=\"w-genus\">\n  <div class=\"hd\"><div class=\"ttl\">Genus partition</div><div class=\"hint\">select a discriminant to see classes sorted by genus</div></div>\n  <div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"gen-sel\"></select>\n    <span class=\"small\" id=\"gen-info\"></span>\n  </div>\n  <div id=\"gen-display\" style=\"margin-top:.6rem\"></div>\n  <div class=\"readout\" id=\"gen-out\" style=\"margin-top:.5rem\"></div>\n</div>",
-          "script": "\n<script>\n(function(){\n  /* Compute genus for a form (a,b,c) with discriminant D using Legendre symbols at odd primes dividing D */\n  function genusVector(a,b,c,D){\n    /* find an m represented by f with gcd(m,D)=1 — try small values */\n    function rep(a,b,c){\n      for(let x=-10;x<=10;x++) for(let y=-10;y<=10;y++){\n        const v=a*x*x+b*x*y+c*y*y;\n        if(v>0 && gcd(Math.abs(v),Math.abs(D))===1) return v;\n      }\n      return a; /* fallback */\n    }\n    const m=rep(a,b,c);\n    /* collect odd prime discriminant divisors */\n    const Dabs=Math.abs(D); const primes=[];\n    for(let p=3;p<=Dabs;p+=2){ if(isPrime(p) && Dabs%p===0) primes.push(p); }\n    return {m, primes, chars: primes.map(p=>legendre(m,p))};\n  }\n\n  const discs=[-15,-20,-23,-24,-35,-40,-56,-84,-120];\n  const sel=$('#gen-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o); }\n  sel.value='-15';\n  const disp=$('#gen-display'), info=$('#gen-info'), out=$('#gen-out');\n\n  function render(){\n    const D=parseInt(sel.value);\n    const forms=reducedForms(D);\n    disp.innerHTML=''; out.textContent='';\n\n    /* group by genus character string */\n    const genera={};\n    for(const [a,b,c] of forms){\n      const {m,primes,chars}=genusVector(a,b,c,D);\n      const key=chars.join(',');\n      if(!genera[key]) genera[key]=[];\n      genera[key].push({a,b,c,m,chars,primes});\n    }\n\n    const genKeys=Object.keys(genera);\n    info.textContent=`h(${D})=${forms.length}, genera=${genKeys.length}`;\n\n    const colors=['genus-0','genus-1','genus-2','genus-3'];\n    genKeys.forEach((key,gi)=>{\n      const wrap=document.createElement('div');\n      wrap.style.cssText='margin-bottom:.5rem;';\n      const hdr=document.createElement('div');\n      const g=genera[key];\n      const charStr=g[0].primes.map((p,i)=>`(·/${p})=${g[0].chars[i]>=0?'+':''}${g[0].chars[i]}`).join(', ');\n      hdr.innerHTML=`<span class=\"genus-chip ${colors[gi%4]}\">Genus ${gi+1}: ${charStr||'principal'}</span>`;\n      wrap.appendChild(hdr);\n      const row=document.createElement('div');\n      row.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;';\n      for(const {a,b,c} of g){\n        const chip=document.createElement('span');\n        chip.className='form-chip';\n        chip.textContent=`(${a},${b},${c})`;\n        chip.addEventListener('click',()=>{\n          out.textContent=`Form (${a},${b},${c}): represents m=${g.find(x=>x.a===a&&x.b===b)?.m||'?'}, D=${b*b-4*a*c}`;\n        });\n        row.appendChild(chip);\n      }\n      wrap.appendChild(row);\n      disp.appendChild(wrap);\n    });\n  }\n  sel.addEventListener('change',render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-genus",
+            "title": "Genus partition",
+            "hint": "select a discriminant to see classes sorted by genus",
+            "bodyScript": "  /* Compute genus for a form (a,b,c) with discriminant D using Legendre symbols at odd primes dividing D */\n  function genusVector(a,b,c,D){\n    /* find an m represented by f with gcd(m,D)=1 — try small values */\n    function rep(a,b,c){\n      for(let x=-10;x<=10;x++) for(let y=-10;y<=10;y++){\n        const v=a*x*x+b*x*y+c*y*y;\n        if(v>0 && gcd(Math.abs(v),Math.abs(D))===1) return v;\n      }\n      return a; /* fallback */\n    }\n    const m=rep(a,b,c);\n    /* collect odd prime discriminant divisors */\n    const Dabs=Math.abs(D); const primes=[];\n    for(let p=3;p<=Dabs;p+=2){ if(isPrime(p) && Dabs%p===0) primes.push(p); }\n    return {m, primes, chars: primes.map(p=>legendre(m,p))};\n  }\n\n  const discs=[-15,-20,-23,-24,-35,-40,-56,-84,-120];\n  const sel=$('#gen-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o); }\n  sel.value='-15';\n  const disp=$('#gen-display'), info=$('#gen-info'), out=$('#gen-out');\n\n  function render(){\n    const D=parseInt(sel.value);\n    const forms=reducedForms(D);\n    disp.innerHTML=''; out.textContent='';\n\n    /* group by genus character string */\n    const genera={};\n    for(const [a,b,c] of forms){\n      const {m,primes,chars}=genusVector(a,b,c,D);\n      const key=chars.join(',');\n      if(!genera[key]) genera[key]=[];\n      genera[key].push({a,b,c,m,chars,primes});\n    }\n\n    const genKeys=Object.keys(genera);\n    info.textContent=`h(${D})=${forms.length}, genera=${genKeys.length}`;\n\n    const colors=['genus-0','genus-1','genus-2','genus-3'];\n    genKeys.forEach((key,gi)=>{\n      const wrap=document.createElement('div');\n      wrap.style.cssText='margin-bottom:.5rem;';\n      const hdr=document.createElement('div');\n      const g=genera[key];\n      const charStr=g[0].primes.map((p,i)=>`(·/${p})=${g[0].chars[i]>=0?'+':''}${g[0].chars[i]}`).join(', ');\n      hdr.innerHTML=`<span class=\"genus-chip ${colors[gi%4]}\">Genus ${gi+1}: ${charStr||'principal'}</span>`;\n      wrap.appendChild(hdr);\n      const row=document.createElement('div');\n      row.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;';\n      for(const {a,b,c} of g){\n        const chip=document.createElement('span');\n        chip.className='form-chip';\n        chip.textContent=`(${a},${b},${c})`;\n        chip.addEventListener('click',()=>{\n          out.textContent=`Form (${a},${b},${c}): represents m=${g.find(x=>x.a===a&&x.b===b)?.m||'?'}, D=${b*b-4*a*c}`;\n        });\n        row.appendChild(chip);\n      }\n      wrap.appendChild(row);\n      disp.appendChild(wrap);\n    });\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"gen-sel\"></select>\n    <span class=\"small\" id=\"gen-info\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"gen-display\" style=\"margin-top:.6rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"gen-out\" style=\"margin-top:.5rem\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-genus",
+            "title": "Genus partition",
+            "hint": "select a discriminant to see classes sorted by genus",
+            "bodyScript": "  /* Compute genus for a form (a,b,c) with discriminant D using Legendre symbols at odd primes dividing D */\n  function genusVector(a,b,c,D){\n    /* find an m represented by f with gcd(m,D)=1 — try small values */\n    function rep(a,b,c){\n      for(let x=-10;x<=10;x++) for(let y=-10;y<=10;y++){\n        const v=a*x*x+b*x*y+c*y*y;\n        if(v>0 && gcd(Math.abs(v),Math.abs(D))===1) return v;\n      }\n      return a; /* fallback */\n    }\n    const m=rep(a,b,c);\n    /* collect odd prime discriminant divisors */\n    const Dabs=Math.abs(D); const primes=[];\n    for(let p=3;p<=Dabs;p+=2){ if(isPrime(p) && Dabs%p===0) primes.push(p); }\n    return {m, primes, chars: primes.map(p=>legendre(m,p))};\n  }\n\n  const discs=[-15,-20,-23,-24,-35,-40,-56,-84,-120];\n  const sel=$('#gen-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=String(d); sel.appendChild(o); }\n  sel.value='-15';\n  const disp=$('#gen-display'), info=$('#gen-info'), out=$('#gen-out');\n\n  function render(){\n    const D=parseInt(sel.value);\n    const forms=reducedForms(D);\n    disp.innerHTML=''; out.textContent='';\n\n    /* group by genus character string */\n    const genera={};\n    for(const [a,b,c] of forms){\n      const {m,primes,chars}=genusVector(a,b,c,D);\n      const key=chars.join(',');\n      if(!genera[key]) genera[key]=[];\n      genera[key].push({a,b,c,m,chars,primes});\n    }\n\n    const genKeys=Object.keys(genera);\n    info.textContent=`h(${D})=${forms.length}, genera=${genKeys.length}`;\n\n    const colors=['genus-0','genus-1','genus-2','genus-3'];\n    genKeys.forEach((key,gi)=>{\n      const wrap=document.createElement('div');\n      wrap.style.cssText='margin-bottom:.5rem;';\n      const hdr=document.createElement('div');\n      const g=genera[key];\n      const charStr=g[0].primes.map((p,i)=>`(·/${p})=${g[0].chars[i]>=0?'+':''}${g[0].chars[i]}`).join(', ');\n      hdr.innerHTML=`<span class=\"genus-chip ${colors[gi%4]}\">Genus ${gi+1}: ${charStr||'principal'}</span>`;\n      wrap.appendChild(hdr);\n      const row=document.createElement('div');\n      row.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;';\n      for(const {a,b,c} of g){\n        const chip=document.createElement('span');\n        chip.className='form-chip';\n        chip.textContent=`(${a},${b},${c})`;\n        chip.addEventListener('click',()=>{\n          out.textContent=`Form (${a},${b},${c}): represents m=${g.find(x=>x.a===a&&x.b===b)?.m||'?'}, D=${b*b-4*a*c}`;\n        });\n        row.appendChild(chip);\n      }\n      wrap.appendChild(row);\n      disp.appendChild(wrap);\n    });\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"gen-sel\"></select>\n    <span class=\"small\" id=\"gen-info\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"gen-display\" style=\"margin-top:.6rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"gen-out\" style=\"margin-top:.5rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -134,9 +344,55 @@
         },
         {
           "type": "widget",
-          "id": "w-splits",
-          "html": "<div class=\"widget\" id=\"w-splits\">\n  <div class=\"hd\"><div class=\"ttl\">Which primes are represented?</div><div class=\"hint\">by the principal form of given discriminant</div></div>\n  <div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"split-sel\"></select>\n  </div>\n  <div class=\"readout\" id=\"split-out\" style=\"margin-top:.5rem\"></div>\n  <svg id=\"split-svg\" viewBox=\"0 0 460 110\" style=\"height:110px;margin-top:.4rem\"><title>Which primes are represented?</title></svg>\n</div>",
-          "script": "\n<script>\n(function(){\n  const discs=[-3,-4,-7,-8,-11,-23,-47];\n  const sel=$('#split-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=`D=${d} (h=${reducedForms(d).length})`; sel.appendChild(o); }\n  sel.value='-23';\n  const out=$('#split-out'), svg=$('#split-svg');\n\n  function sieveRep(D, limit){\n    /* Find which primes p<=limit are represented by the principal form.\n       Principal form for D<0: if D≡0 mod 4 → (1,0,-D/4); if D≡1 mod 4 → (1,1,(1-D)/4).\n       We brute-force: check if p = f(x,y) for any small x,y. */\n    let a,b,c;\n    if(D%4===0){ a=1; b=0; c=-D/4; }\n    else { a=1; b=1; c=(1-D)/4; }\n    const primes=[];\n    for(let p=2;p<=limit;p++){\n      if(!isPrime(p)) continue;\n      if(D%p===0) continue;\n      let found=false;\n      outer: for(let x=0;x<=p;x++) for(let y=0;y<=p;y++){\n        if(a*x*x+b*x*y+c*y*y===p){ found=true; break outer; }\n      }\n      primes.push({p, rep:found});\n    }\n    return primes;\n  }\n\n  function render(){\n    const D=parseInt(sel.value);\n    const primes=sieveRep(D,100);\n    const yes=primes.filter(x=>x.rep).map(x=>x.p);\n    const no=primes.filter(x=>!x.rep).map(x=>x.p).slice(0,18);\n    out.textContent=`Principal form of D=${D}:\\nRepresented primes (≤100): ${yes.join(', ')}\\nNot represented (first 18): ${no.join(', ')}`;\n\n    svg.innerHTML='';\n    const W=460, pad=10, step=Math.min(18,(W-2*pad)/primes.length);\n    primes.slice(0,Math.floor((W-2*pad)/step)).forEach(({p,rep},i)=>{\n      const x=pad+i*step+step/2;\n      const col=rep?'var(--yellow)':'var(--panel2)';\n      const bc=rep?'var(--yellow)':'var(--mute)';\n      svg.appendChild(SVG('rect',{x:pad+i*step,y:20,width:step-2,height:60,\n        fill:col,rx:3,opacity:rep?'0.25':'0.12',stroke:bc,'stroke-width':'0.5'}));\n      const t=SVG('text',{x,y:55,'text-anchor':'middle','font-size':9,fill:rep?'var(--yellow)':'var(--mute)'});\n      t.textContent=String(p); svg.appendChild(t);\n    });\n    const leg=SVG('text',{x:8,y:14,'font-size':9,fill:'var(--mute)'});\n    leg.textContent='yellow = represented by principal form'; svg.appendChild(leg);\n  }\n  sel.addEventListener('change',render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-splits",
+            "title": "Which primes are represented?",
+            "hint": "by the principal form of given discriminant",
+            "bodyScript": "  const discs=[-3,-4,-7,-8,-11,-23,-47];\n  const sel=$('#split-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=`D=${d} (h=${reducedForms(d).length})`; sel.appendChild(o); }\n  sel.value='-23';\n  const out=$('#split-out'), svg=$('#split-svg');\n\n  function sieveRep(D, limit){\n    /* Find which primes p<=limit are represented by the principal form.\n       Principal form for D<0: if D≡0 mod 4 → (1,0,-D/4); if D≡1 mod 4 → (1,1,(1-D)/4).\n       We brute-force: check if p = f(x,y) for any small x,y. */\n    let a,b,c;\n    if(D%4===0){ a=1; b=0; c=-D/4; }\n    else { a=1; b=1; c=(1-D)/4; }\n    const primes=[];\n    for(let p=2;p<=limit;p++){\n      if(!isPrime(p)) continue;\n      if(D%p===0) continue;\n      let found=false;\n      outer: for(let x=0;x<=p;x++) for(let y=0;y<=p;y++){\n        if(a*x*x+b*x*y+c*y*y===p){ found=true; break outer; }\n      }\n      primes.push({p, rep:found});\n    }\n    return primes;\n  }\n\n  function render(){\n    const D=parseInt(sel.value);\n    const primes=sieveRep(D,100);\n    const yes=primes.filter(x=>x.rep).map(x=>x.p);\n    const no=primes.filter(x=>!x.rep).map(x=>x.p).slice(0,18);\n    out.textContent=`Principal form of D=${D}:\\nRepresented primes (≤100): ${yes.join(', ')}\\nNot represented (first 18): ${no.join(', ')}`;\n\n    svg.innerHTML='';\n    const W=460, pad=10, step=Math.min(18,(W-2*pad)/primes.length);\n    primes.slice(0,Math.floor((W-2*pad)/step)).forEach(({p,rep},i)=>{\n      const x=pad+i*step+step/2;\n      const col=rep?'var(--yellow)':'var(--panel2)';\n      const bc=rep?'var(--yellow)':'var(--mute)';\n      svg.appendChild(SVG('rect',{x:pad+i*step,y:20,width:step-2,height:60,\n        fill:col,rx:3,opacity:rep?'0.25':'0.12',stroke:bc,'stroke-width':'0.5'}));\n      const t=SVG('text',{x,y:55,'text-anchor':'middle','font-size':9,fill:rep?'var(--yellow)':'var(--mute)'});\n      t.textContent=String(p); svg.appendChild(t);\n    });\n    const leg=SVG('text',{x:8,y:14,'font-size':9,fill:'var(--mute)'});\n    leg.textContent='yellow = represented by principal form'; svg.appendChild(leg);\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"split-sel\"></select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"split-out\" style=\"margin-top:.5rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"split-svg\" viewBox=\"0 0 460 110\" style=\"height:110px;margin-top:.4rem\"><title>Which primes are represented?</title></svg>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-splits",
+            "title": "Which primes are represented?",
+            "hint": "by the principal form of given discriminant",
+            "bodyScript": "  const discs=[-3,-4,-7,-8,-11,-23,-47];\n  const sel=$('#split-sel');\n  for(const d of discs){ const o=document.createElement('option'); o.value=d; o.textContent=`D=${d} (h=${reducedForms(d).length})`; sel.appendChild(o); }\n  sel.value='-23';\n  const out=$('#split-out'), svg=$('#split-svg');\n\n  function sieveRep(D, limit){\n    /* Find which primes p<=limit are represented by the principal form.\n       Principal form for D<0: if D≡0 mod 4 → (1,0,-D/4); if D≡1 mod 4 → (1,1,(1-D)/4).\n       We brute-force: check if p = f(x,y) for any small x,y. */\n    let a,b,c;\n    if(D%4===0){ a=1; b=0; c=-D/4; }\n    else { a=1; b=1; c=(1-D)/4; }\n    const primes=[];\n    for(let p=2;p<=limit;p++){\n      if(!isPrime(p)) continue;\n      if(D%p===0) continue;\n      let found=false;\n      outer: for(let x=0;x<=p;x++) for(let y=0;y<=p;y++){\n        if(a*x*x+b*x*y+c*y*y===p){ found=true; break outer; }\n      }\n      primes.push({p, rep:found});\n    }\n    return primes;\n  }\n\n  function render(){\n    const D=parseInt(sel.value);\n    const primes=sieveRep(D,100);\n    const yes=primes.filter(x=>x.rep).map(x=>x.p);\n    const no=primes.filter(x=>!x.rep).map(x=>x.p).slice(0,18);\n    out.textContent=`Principal form of D=${D}:\\nRepresented primes (≤100): ${yes.join(', ')}\\nNot represented (first 18): ${no.join(', ')}`;\n\n    svg.innerHTML='';\n    const W=460, pad=10, step=Math.min(18,(W-2*pad)/primes.length);\n    primes.slice(0,Math.floor((W-2*pad)/step)).forEach(({p,rep},i)=>{\n      const x=pad+i*step+step/2;\n      const col=rep?'var(--yellow)':'var(--panel2)';\n      const bc=rep?'var(--yellow)':'var(--mute)';\n      svg.appendChild(SVG('rect',{x:pad+i*step,y:20,width:step-2,height:60,\n        fill:col,rx:3,opacity:rep?'0.25':'0.12',stroke:bc,'stroke-width':'0.5'}));\n      const t=SVG('text',{x,y:55,'text-anchor':'middle','font-size':9,fill:rep?'var(--yellow)':'var(--mute)'});\n      t.textContent=String(p); svg.appendChild(t);\n    });\n    const leg=SVG('text',{x:8,y:14,'font-size':9,fill:'var(--mute)'});\n    leg.textContent='yellow = represented by principal form'; svg.appendChild(leg);\n  }\n  sel.addEventListener('change',render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$D$:</label>\n    <select id=\"split-sel\"></select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"split-out\" style=\"margin-top:.5rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"split-svg\" viewBox=\"0 0 460 110\" style=\"height:110px;margin-top:.4rem\"><title>Which primes are represented?</title></svg>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",

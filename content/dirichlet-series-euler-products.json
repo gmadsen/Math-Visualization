@@ -169,9 +169,38 @@
         },
         {
           "type": "widget",
-          "id": "w-sieve",
-          "html": "<div class=\"widget\" id=\"w-sieve\">\n  <div class=\"hd\"><div class=\"ttl\">Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$</div><div class=\"hint\">toggle primes, pick $s$</div></div>\n  <svg id=\"sv-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$</title></svg>\n  <div class=\"row\">\n    <label for=\"sv-s\">$s$</label>\n    <input type=\"range\" id=\"sv-s\" min=\"1.1\" max=\"3\" step=\"0.05\" value=\"2\">\n    <span id=\"sv-s-val\" class=\"small\">s = 2.00</span>\n  </div>\n  <div class=\"row\" id=\"sv-btns\"></div>\n  <div class=\"readout\" id=\"sv-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sieve",
+            "title": "Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$",
+            "hint": "toggle primes, pick $s$",
+            "svgId": "sv-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "sv-out",
+            "sectionComment": "=============================== SECTION 3a: sieve ===============================",
+            "bodyScript": "  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29];\n  const active = new Set();\n  const W = 620, H = 240, pad = 40;\n  // init buttons\n  PRIMES.forEach(p => {\n    const b = document.createElement('button');\n    b.textContent = 'p=' + p;\n    b.addEventListener('click', () => {\n      if(active.has(p)) active.delete(p); else active.add(p);\n      b.classList.toggle('active');\n      draw();\n    });\n    btnRow.appendChild(b);\n  });\n\n  function zeta(s){\n    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sRange.value);\n    sVal.textContent = 's = ' + s.toFixed(2);\n    // compute sequence of partial products\n    const Z = zeta(s);\n    const sortedPs = [...active].sort((a,b)=>a-b);\n    const ys = [Z];\n    let cur = Z;\n    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }\n    // draw bars horizontally\n    const maxBars = 11;\n    const n = ys.length;\n    const barW = (W - 2*pad) / maxBars - 6;\n    const y0 = H - pad - 20;\n    const maxY = Math.max(Z, 2);\n    for(let i=0;i<n;i++){\n      const x = pad + i*((W-2*pad)/maxBars);\n      const h = (ys[i]/maxY) * (H - 2*pad - 30);\n      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));\n      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';\n      svg.appendChild(t);\n      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      v.textContent = ys[i].toFixed(4);\n      svg.appendChild(v);\n    }\n    // 1-line\n    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);\n    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    t.textContent = 'target = 1'; svg.appendChild(t);\n\n    const last = ys[ys.length-1];\n    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;\n  }\n  sRange.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sv-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sv-s\">$s$</label>\n    <input type=\"range\" id=\"sv-s\" min=\"1.1\" max=\"3\" step=\"0.05\" value=\"2\">\n    <span id=\"sv-s-val\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"sv-btns\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sv-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -179,9 +208,38 @@
         },
         {
           "type": "widget",
-          "id": "w-euler",
-          "html": "<div class=\"widget\" id=\"w-euler\">\n  <div class=\"hd\"><div class=\"ttl\">Euler product vs. partial sum for $\\zeta(s)$</div><div class=\"hint\">drag $N$ or $s$</div></div>\n  <svg id=\"ep-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>Euler product vs. partial sum for $\\zeta(s)$</title></svg>\n  <div class=\"row\">\n    <label for=\"ep-N\">cutoff $N$</label>\n    <input type=\"range\" id=\"ep-N\" min=\"2\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"ep-Nv\" class=\"small\">N = 20</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"ep-s\">$s$</label>\n    <input type=\"range\" id=\"ep-s\" min=\"1.2\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"ep-sv\" class=\"small\">s = 2.00</span>\n  </div>\n  <div class=\"readout\" id=\"ep-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler product vs. partial sum for $\\zeta(s)$",
+            "hint": "drag $N$ or $s$",
+            "svgId": "ep-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "ep-out",
+            "sectionComment": "=============================== SECTION 3b: Euler product vs partial sum ===============================",
+            "bodyScript": "  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');\n  const W = 620, H = 260, pad = 40;\n\n  function isPrime(n){\n    if(n<2) return false;\n    for(let k=2;k*k<=n;k++) if(n%k===0) return false;\n    return true;\n  }\n  function partialSum(s, M){\n    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;\n  }\n  function partialEuler(s, M){\n    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;\n  }\n  function trueZeta(s){ return partialSum(s, 4000); }\n\n  function draw(){\n    svg.innerHTML = '';\n    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);\n    Nv.textContent = 'N = ' + Nm;\n    sVal.textContent = 's = ' + s.toFixed(2);\n\n    const xmin = 2, xmax = Math.max(Nm, 10);\n    const target = trueZeta(s);\n    const ymin = Math.max(0, target*0.5), ymax = target*1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // target line\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;\n    svg.appendChild(tl);\n\n    // plot partial sum curve and partial euler curve\n    let dS = '', dE = '';\n    for(let M = 2; M <= xmax; M++){\n      const PS = partialSum(s, M), PE = partialEuler(s, M);\n      const X = toX(M);\n      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';\n      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n\n    // marker at N\n    const Xn = toX(Nm);\n    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));\n    // legend\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});\n    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});\n    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);\n\n    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;\n  }\n  N.addEventListener('input', draw);\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ep-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-N\">cutoff $N$</label>\n    <input type=\"range\" id=\"ep-N\" min=\"2\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"ep-Nv\" class=\"small\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-s\">$s$</label>\n    <input type=\"range\" id=\"ep-s\" min=\"1.2\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"ep-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ep-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -189,8 +247,38 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-sieve",
-          "html": "<script>\n/* =============================== SECTION 3a: sieve =============================== */\n(function(){\n  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29];\n  const active = new Set();\n  const W = 620, H = 240, pad = 40;\n  // init buttons\n  PRIMES.forEach(p => {\n    const b = document.createElement('button');\n    b.textContent = 'p=' + p;\n    b.addEventListener('click', () => {\n      if(active.has(p)) active.delete(p); else active.add(p);\n      b.classList.toggle('active');\n      draw();\n    });\n    btnRow.appendChild(b);\n  });\n\n  function zeta(s){\n    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sRange.value);\n    sVal.textContent = 's = ' + s.toFixed(2);\n    // compute sequence of partial products\n    const Z = zeta(s);\n    const sortedPs = [...active].sort((a,b)=>a-b);\n    const ys = [Z];\n    let cur = Z;\n    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }\n    // draw bars horizontally\n    const maxBars = 11;\n    const n = ys.length;\n    const barW = (W - 2*pad) / maxBars - 6;\n    const y0 = H - pad - 20;\n    const maxY = Math.max(Z, 2);\n    for(let i=0;i<n;i++){\n      const x = pad + i*((W-2*pad)/maxBars);\n      const h = (ys[i]/maxY) * (H - 2*pad - 30);\n      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));\n      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';\n      svg.appendChild(t);\n      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      v.textContent = ys[i].toFixed(4);\n      svg.appendChild(v);\n    }\n    // 1-line\n    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);\n    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    t.textContent = 'target = 1'; svg.appendChild(t);\n\n    const last = ys[ys.length-1];\n    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;\n  }\n  sRange.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sieve",
+            "title": "Sieve: $\\zeta(s)\\cdot(1-2^{-s})\\cdot(1-3^{-s})\\cdots \\to 1$",
+            "hint": "toggle primes, pick $s$",
+            "svgId": "sv-svg",
+            "viewBox": "0 0 620 240",
+            "readoutId": "sv-out",
+            "sectionComment": "=============================== SECTION 3a: sieve ===============================",
+            "bodyScript": "  const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29];\n  const active = new Set();\n  const W = 620, H = 240, pad = 40;\n  // init buttons\n  PRIMES.forEach(p => {\n    const b = document.createElement('button');\n    b.textContent = 'p=' + p;\n    b.addEventListener('click', () => {\n      if(active.has(p)) active.delete(p); else active.add(p);\n      b.classList.toggle('active');\n      draw();\n    });\n    btnRow.appendChild(b);\n  });\n\n  function zeta(s){\n    let S = 0; for(let n=1;n<=1000;n++) S += 1/Math.pow(n,s); return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    const s = parseFloat(sRange.value);\n    sVal.textContent = 's = ' + s.toFixed(2);\n    // compute sequence of partial products\n    const Z = zeta(s);\n    const sortedPs = [...active].sort((a,b)=>a-b);\n    const ys = [Z];\n    let cur = Z;\n    for(const p of sortedPs){ cur = cur * (1 - Math.pow(p,-s)); ys.push(cur); }\n    // draw bars horizontally\n    const maxBars = 11;\n    const n = ys.length;\n    const barW = (W - 2*pad) / maxBars - 6;\n    const y0 = H - pad - 20;\n    const maxY = Math.max(Z, 2);\n    for(let i=0;i<n;i++){\n      const x = pad + i*((W-2*pad)/maxBars);\n      const h = (ys[i]/maxY) * (H - 2*pad - 30);\n      const col = Math.abs(ys[i]-1) < 0.01 ? 'var(--green)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x, y: y0 - h, width: barW, height: h, fill: col, opacity: 0.85}));\n      const t = SVG('text',{x: x + barW/2, y: y0 + 14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = i === 0 ? 'ζ(s)' : '×(1−'+sortedPs[i-1]+'⁻ˢ)';\n      svg.appendChild(t);\n      const v = SVG('text',{x: x + barW/2, y: y0 - h - 4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'});\n      v.textContent = ys[i].toFixed(4);\n      svg.appendChild(v);\n    }\n    // 1-line\n    const yOne = y0 - (1/maxY)*(H - 2*pad - 30);\n    svg.appendChild(SVG('line',{x1:pad,y1:yOne,x2:W-pad,y2:yOne,stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const t = SVG('text',{x:W-pad-4,y:yOne-4,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    t.textContent = 'target = 1'; svg.appendChild(t);\n\n    const last = ys[ys.length-1];\n    out.textContent = `ζ(${s.toFixed(2)}) = ${Z.toFixed(5)}    after sieving through {${sortedPs.join(', ') || '—'}}: ${last.toFixed(5)}`;\n  }\n  sRange.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "sv-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sv-s\">$s$</label>\n    <input type=\"range\" id=\"sv-s\" min=\"1.1\" max=\"3\" step=\"0.05\" value=\"2\">\n    <span id=\"sv-s-val\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"sv-btns\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sv-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -198,8 +286,38 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-euler",
-          "html": "<script>\n/* =============================== SECTION 3b: Euler product vs partial sum =============================== */\n(function(){\n  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');\n  const W = 620, H = 260, pad = 40;\n\n  function isPrime(n){\n    if(n<2) return false;\n    for(let k=2;k*k<=n;k++) if(n%k===0) return false;\n    return true;\n  }\n  function partialSum(s, M){\n    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;\n  }\n  function partialEuler(s, M){\n    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;\n  }\n  function trueZeta(s){ return partialSum(s, 4000); }\n\n  function draw(){\n    svg.innerHTML = '';\n    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);\n    Nv.textContent = 'N = ' + Nm;\n    sVal.textContent = 's = ' + s.toFixed(2);\n\n    const xmin = 2, xmax = Math.max(Nm, 10);\n    const target = trueZeta(s);\n    const ymin = Math.max(0, target*0.5), ymax = target*1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // target line\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;\n    svg.appendChild(tl);\n\n    // plot partial sum curve and partial euler curve\n    let dS = '', dE = '';\n    for(let M = 2; M <= xmax; M++){\n      const PS = partialSum(s, M), PE = partialEuler(s, M);\n      const X = toX(M);\n      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';\n      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n\n    // marker at N\n    const Xn = toX(Nm);\n    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));\n    // legend\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});\n    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});\n    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);\n\n    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;\n  }\n  N.addEventListener('input', draw);\n  sR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler product vs. partial sum for $\\zeta(s)$",
+            "hint": "drag $N$ or $s$",
+            "svgId": "ep-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "ep-out",
+            "sectionComment": "=============================== SECTION 3b: Euler product vs partial sum ===============================",
+            "bodyScript": "  const svg = $('#ep-svg'), N = $('#ep-N'), Nv = $('#ep-Nv'), sR = $('#ep-s'), sVal = $('#ep-sv'), out = $('#ep-out');\n  const W = 620, H = 260, pad = 40;\n\n  function isPrime(n){\n    if(n<2) return false;\n    for(let k=2;k*k<=n;k++) if(n%k===0) return false;\n    return true;\n  }\n  function partialSum(s, M){\n    let S = 0; for(let n=1;n<=M;n++) S += 1/Math.pow(n,s); return S;\n  }\n  function partialEuler(s, M){\n    let P = 1; for(let p=2;p<=M;p++) if(isPrime(p)) P *= 1/(1 - Math.pow(p,-s)); return P;\n  }\n  function trueZeta(s){ return partialSum(s, 4000); }\n\n  function draw(){\n    svg.innerHTML = '';\n    const Nm = parseInt(N.value,10), s = parseFloat(sR.value);\n    Nv.textContent = 'N = ' + Nm;\n    sVal.textContent = 's = ' + s.toFixed(2);\n\n    const xmin = 2, xmax = Math.max(Nm, 10);\n    const target = trueZeta(s);\n    const ymin = Math.max(0, target*0.5), ymax = target*1.5;\n    const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n    const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmax),y2:toY(ymin),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(ymin),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    // target line\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(target),x2:toX(xmax),y2:toY(target),stroke:'var(--green)','stroke-dasharray':'3 4'}));\n    const tl = SVG('text',{x:toX(xmax)-5,y:toY(target)-5,'text-anchor':'end','font-size':11,fill:'var(--green)'});\n    tl.textContent = `ζ(${s.toFixed(2)}) ≈ ${target.toFixed(4)}`;\n    svg.appendChild(tl);\n\n    // plot partial sum curve and partial euler curve\n    let dS = '', dE = '';\n    for(let M = 2; M <= xmax; M++){\n      const PS = partialSum(s, M), PE = partialEuler(s, M);\n      const X = toX(M);\n      dS += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PS,ymin),ymax)) + ' ';\n      dE += (M===2?'M':'L') + X + ' ' + toY(Math.min(Math.max(PE,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dS,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    svg.appendChild(SVG('path',{d:dE,fill:'none',stroke:'var(--blue)','stroke-width':2}));\n\n    // marker at N\n    const Xn = toX(Nm);\n    const psN = partialSum(s, Nm), peN = partialEuler(s, Nm);\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(psN,ymin),ymax)),r:4,fill:'var(--yellow)'}));\n    svg.appendChild(SVG('circle',{cx:Xn,cy:toY(Math.min(Math.max(peN,ymin),ymax)),r:4,fill:'var(--blue)'}));\n    // legend\n    const L1 = SVG('text',{x:pad+10,y:pad+10,'font-size':12,fill:'var(--yellow)'});\n    L1.textContent = '— partial sum Σ_{n≤M} 1/nˢ'; svg.appendChild(L1);\n    const L2 = SVG('text',{x:pad+10,y:pad+26,'font-size':12,fill:'var(--blue)'});\n    L2.textContent = '— partial Euler Π_{p≤M} (1-p⁻ˢ)⁻¹'; svg.appendChild(L2);\n\n    out.textContent = `at N=${Nm}: partial sum = ${psN.toFixed(5)}, partial Euler = ${peN.toFixed(5)}, target ζ(s) = ${target.toFixed(5)}`;\n  }\n  N.addEventListener('input', draw);\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ep-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-N\">cutoff $N$</label>\n    <input type=\"range\" id=\"ep-N\" min=\"2\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"ep-Nv\" class=\"small\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ep-s\">$s$</label>\n    <input type=\"range\" id=\"ep-s\" min=\"1.2\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span id=\"ep-sv\" class=\"small\">s = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ep-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -225,9 +343,24 @@
         },
         {
           "type": "widget",
-          "id": "w-chartab",
-          "html": "<div class=\"widget\" id=\"w-chartab\">\n  <div class=\"hd\"><div class=\"ttl\">Character table $(\\mathbb{Z}/N)^\\times$</div><div class=\"hint\">pick $N$</div></div>\n  <div class=\"row\">\n    <label>modulus $N$</label>\n    <select id=\"ct-N\">\n      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>\n    </select>\n    <span id=\"ct-info\" class=\"small\"></span>\n  </div>\n  <div id=\"ct-table\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chartab",
+            "title": "Character table $(\\mathbb{Z}/N)^\\times$",
+            "hint": "pick $N$",
+            "sectionComment": "=============================== SECTION 4a: character table ===============================",
+            "bodyScript": "  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');\n\n  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }\n  function units(N){\n    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;\n  }\n  function orderOf(g, N){\n    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }\n    return k;\n  }\n  function primitiveRoot(N){\n    const U = units(N), phi = U.length;\n    for(const g of U){ if(orderOf(g,N) === phi) return g; }\n    return null; // group is not cyclic (e.g. N=8)\n  }\n  function characters(N){\n    const U = units(N), phi = U.length;\n    const g = primitiveRoot(N);\n    if(g !== null){\n      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}\n      const chis = [];\n      for(let k=0;k<phi;k++){\n        const chi = {};\n        // precompute powers of g\n        let x = 1;\n        for(let j=0;j<phi;j++){\n          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};\n          chi[x] = val;\n          x = (x*g) % N;\n        }\n        chis.push(chi);\n      }\n      return {U, chis};\n    } else {\n      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2\n      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7\n      if(N === 8){\n        const chis = [];\n        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}\n        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};\n        for(let a=0;a<2;a++) for(let b=0;b<2;b++){\n          const chi = {};\n          for(const [u,[i,j]] of Object.entries(table)){\n            const sgn = Math.pow(-1, a*i + b*j);\n            chi[+u] = {re: sgn, im: 0};\n          }\n          chis.push(chi);\n        }\n        return {U, chis};\n      }\n      // fallback: only trivial\n      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};\n      return {U, chis: [chi]};\n    }\n  }\n\n  function fmt(z){\n    const eps = 1e-9;\n    if(Math.abs(z.im) < eps){\n      if(Math.abs(z.re-1) < eps) return '1';\n      if(Math.abs(z.re+1) < eps) return '−1';\n      return z.re.toFixed(3);\n    }\n    if(Math.abs(z.re) < eps){\n      if(Math.abs(z.im-1) < eps) return 'i';\n      if(Math.abs(z.im+1) < eps) return '−i';\n      return z.im.toFixed(3)+'i';\n    }\n    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;\n  }\n\n  function render(){\n    const N = parseInt(NSel.value,10);\n    const {U, chis} = characters(N);\n    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;\n    let html = '<table class=\"plain\"><thead><tr><th>n</th>';\n    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;\n    html += '</tr></thead><tbody>';\n    for(const u of U){\n      html += `<tr><td>${u}</td>`;\n      for(const chi of chis){\n        html += `<td>${fmt(chi[u])}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</tbody></table>';\n    out.innerHTML = html;\n  }\n  NSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>modulus $N$</label>\n    <select id=\"ct-N\">\n      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>\n    </select>\n    <span id=\"ct-info\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"ct-table\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -235,9 +368,33 @@
         },
         {
           "type": "widget",
-          "id": "w-lchi",
-          "html": "<div class=\"widget\" id=\"w-lchi\">\n  <div class=\"hd\"><div class=\"ttl\">$L(s,\\chi_3)$ — non-trivial character mod 4</div><div class=\"hint\">drag $s$</div></div>\n  <svg id=\"lc-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>$L(s,\\chi_3)$ — non-trivial character mod 4</title></svg>\n  <div class=\"row\">\n    <label for=\"lc-s\">$s$</label>\n    <input type=\"range\" id=\"lc-s\" min=\"0.2\" max=\"4\" step=\"0.02\" value=\"1\">\n    <span id=\"lc-val\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>\n  <div class=\"small\">At $s=1$: $L(1,\\chi_3) = \\pi/4 \\approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lchi",
+            "title": "$L(s,\\chi_3)$ — non-trivial character mod 4",
+            "hint": "drag $s$",
+            "svgId": "lc-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "=============================== SECTION 4b: L(s, chi_3 mod 4) ===============================",
+            "bodyScript": "  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');\n  const W = 620, H = 260, pad = 40;\n  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function Lchi(s){\n    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s\n    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    for(let k=0;k<=4;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=1.2;k+=0.2){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k.toFixed(1); svg.appendChild(t);\n    }\n    // curve\n    let d = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + (xmax - xmin) * i/steps;\n      const y = Lchi(s);\n      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // highlight L(1, chi_3) = π/4\n    const X1 = toX(1), Y1 = toY(Math.PI/4);\n    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));\n    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});\n    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);\n\n    // marker\n    const s0 = parseFloat(sR.value);\n    const y0 = Lchi(s0);\n    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lc-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-s\">$s$</label>\n    <input type=\"range\" id=\"lc-s\" min=\"0.2\" max=\"4\" step=\"0.02\" value=\"1\">\n    <span id=\"lc-val\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">At $s=1$: $L(1,\\chi_3) = \\pi/4 \\approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -245,8 +402,24 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-chartab",
-          "html": "<script>\n/* =============================== SECTION 4a: character table =============================== */\n(function(){\n  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');\n\n  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }\n  function units(N){\n    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;\n  }\n  function orderOf(g, N){\n    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }\n    return k;\n  }\n  function primitiveRoot(N){\n    const U = units(N), phi = U.length;\n    for(const g of U){ if(orderOf(g,N) === phi) return g; }\n    return null; // group is not cyclic (e.g. N=8)\n  }\n  function characters(N){\n    const U = units(N), phi = U.length;\n    const g = primitiveRoot(N);\n    if(g !== null){\n      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}\n      const chis = [];\n      for(let k=0;k<phi;k++){\n        const chi = {};\n        // precompute powers of g\n        let x = 1;\n        for(let j=0;j<phi;j++){\n          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};\n          chi[x] = val;\n          x = (x*g) % N;\n        }\n        chis.push(chi);\n      }\n      return {U, chis};\n    } else {\n      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2\n      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7\n      if(N === 8){\n        const chis = [];\n        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}\n        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};\n        for(let a=0;a<2;a++) for(let b=0;b<2;b++){\n          const chi = {};\n          for(const [u,[i,j]] of Object.entries(table)){\n            const sgn = Math.pow(-1, a*i + b*j);\n            chi[+u] = {re: sgn, im: 0};\n          }\n          chis.push(chi);\n        }\n        return {U, chis};\n      }\n      // fallback: only trivial\n      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};\n      return {U, chis: [chi]};\n    }\n  }\n\n  function fmt(z){\n    const eps = 1e-9;\n    if(Math.abs(z.im) < eps){\n      if(Math.abs(z.re-1) < eps) return '1';\n      if(Math.abs(z.re+1) < eps) return '−1';\n      return z.re.toFixed(3);\n    }\n    if(Math.abs(z.re) < eps){\n      if(Math.abs(z.im-1) < eps) return 'i';\n      if(Math.abs(z.im+1) < eps) return '−i';\n      return z.im.toFixed(3)+'i';\n    }\n    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;\n  }\n\n  function render(){\n    const N = parseInt(NSel.value,10);\n    const {U, chis} = characters(N);\n    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;\n    let html = '<table class=\"plain\"><thead><tr><th>n</th>';\n    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;\n    html += '</tr></thead><tbody>';\n    for(const u of U){\n      html += `<tr><td>${u}</td>`;\n      for(const chi of chis){\n        html += `<td>${fmt(chi[u])}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</tbody></table>';\n    out.innerHTML = html;\n  }\n  NSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chartab",
+            "title": "Character table $(\\mathbb{Z}/N)^\\times$",
+            "hint": "pick $N$",
+            "sectionComment": "=============================== SECTION 4a: character table ===============================",
+            "bodyScript": "  const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');\n\n  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }\n  function units(N){\n    const U = []; for(let k=1;k<N;k++) if(gcd(k,N)===1) U.push(k); return U;\n  }\n  function orderOf(g, N){\n    let k = 1, x = g % N; while(x !== 1){ x = (x*g) % N; k++; if(k > N+2) return -1; }\n    return k;\n  }\n  function primitiveRoot(N){\n    const U = units(N), phi = U.length;\n    for(const g of U){ if(orderOf(g,N) === phi) return g; }\n    return null; // group is not cyclic (e.g. N=8)\n  }\n  function characters(N){\n    const U = units(N), phi = U.length;\n    const g = primitiveRoot(N);\n    if(g !== null){\n      // cyclic: χ_k sends g -> ω^k, ω = e^{2πi/phi}\n      const chis = [];\n      for(let k=0;k<phi;k++){\n        const chi = {};\n        // precompute powers of g\n        let x = 1;\n        for(let j=0;j<phi;j++){\n          const val = {re: Math.cos(2*Math.PI*k*j/phi), im: Math.sin(2*Math.PI*k*j/phi)};\n          chi[x] = val;\n          x = (x*g) % N;\n        }\n        chis.push(chi);\n      }\n      return {U, chis};\n    } else {\n      // non-cyclic: only N=8 in our list: (Z/8)* = {1,3,5,7} = Z/2 x Z/2\n      // generators 3 and 5, relations 3^2 = 1, 5^2 = 1, (3·5) mod 8 = 7\n      if(N === 8){\n        const chis = [];\n        // chi_{a,b}(3^i · 5^j) = (-1)^{ai} · (-1)^{bj}\n        const table = {1:[0,0], 3:[1,0], 5:[0,1], 7:[1,1]};\n        for(let a=0;a<2;a++) for(let b=0;b<2;b++){\n          const chi = {};\n          for(const [u,[i,j]] of Object.entries(table)){\n            const sgn = Math.pow(-1, a*i + b*j);\n            chi[+u] = {re: sgn, im: 0};\n          }\n          chis.push(chi);\n        }\n        return {U, chis};\n      }\n      // fallback: only trivial\n      const chi = {}; for(const u of U) chi[u] = {re:1,im:0};\n      return {U, chis: [chi]};\n    }\n  }\n\n  function fmt(z){\n    const eps = 1e-9;\n    if(Math.abs(z.im) < eps){\n      if(Math.abs(z.re-1) < eps) return '1';\n      if(Math.abs(z.re+1) < eps) return '−1';\n      return z.re.toFixed(3);\n    }\n    if(Math.abs(z.re) < eps){\n      if(Math.abs(z.im-1) < eps) return 'i';\n      if(Math.abs(z.im+1) < eps) return '−i';\n      return z.im.toFixed(3)+'i';\n    }\n    return `${z.re.toFixed(2)}${z.im>=0?'+':''}${z.im.toFixed(2)}i`;\n  }\n\n  function render(){\n    const N = parseInt(NSel.value,10);\n    const {U, chis} = characters(N);\n    info.textContent = `|(Z/${N})×| = φ(${N}) = ${U.length},  characters: ${chis.length}`;\n    let html = '<table class=\"plain\"><thead><tr><th>n</th>';\n    for(let i=0;i<chis.length;i++) html += `<th>χ<sub>${i}</sub></th>`;\n    html += '</tr></thead><tbody>';\n    for(const u of U){\n      html += `<tr><td>${u}</td>`;\n      for(const chi of chis){\n        html += `<td>${fmt(chi[u])}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</tbody></table>';\n    out.innerHTML = html;\n  }\n  NSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>modulus $N$</label>\n    <select id=\"ct-N\">\n      <option>3</option><option>4</option><option selected>5</option><option>7</option><option>8</option><option>12</option>\n    </select>\n    <span id=\"ct-info\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"ct-table\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -254,8 +427,33 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lchi",
-          "html": "<script>\n/* =============================== SECTION 4b: L(s, chi_3 mod 4) =============================== */\n(function(){\n  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');\n  const W = 620, H = 260, pad = 40;\n  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function Lchi(s){\n    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s\n    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    for(let k=0;k<=4;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=1.2;k+=0.2){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k.toFixed(1); svg.appendChild(t);\n    }\n    // curve\n    let d = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + (xmax - xmin) * i/steps;\n      const y = Lchi(s);\n      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // highlight L(1, chi_3) = π/4\n    const X1 = toX(1), Y1 = toY(Math.PI/4);\n    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));\n    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});\n    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);\n\n    // marker\n    const s0 = parseFloat(sR.value);\n    const y0 = Lchi(s0);\n    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;\n  }\n  sR.addEventListener('input', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lchi",
+            "title": "$L(s,\\chi_3)$ — non-trivial character mod 4",
+            "hint": "drag $s$",
+            "svgId": "lc-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "=============================== SECTION 4b: L(s, chi_3 mod 4) ===============================",
+            "bodyScript": "  const svg = $('#lc-svg'), sR = $('#lc-s'), val = $('#lc-val');\n  const W = 620, H = 260, pad = 40;\n  const xmin = 0.1, xmax = 4.2, ymin = 0, ymax = 1.2;\n  const toX = x => pad + (x-xmin)/(xmax-xmin)*(W-2*pad);\n  const toY = y => H - pad - (y-ymin)/(ymax-ymin)*(H-2*pad);\n\n  function Lchi(s){\n    // L(s, chi mod 4) = sum_{k=0..} (-1)^k / (2k+1)^s\n    let S = 0; for(let k=0;k<2000;k++) S += Math.pow(-1,k) / Math.pow(2*k+1, s);\n    return S;\n  }\n\n  function draw(){\n    svg.innerHTML = '';\n    // axes\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmax),y2:toY(0),stroke:'var(--mute)'}));\n    svg.appendChild(SVG('line',{x1:toX(xmin),y1:toY(0),x2:toX(xmin),y2:toY(ymax),stroke:'var(--mute)'}));\n    for(let k=0;k<=4;k++){\n      const t = SVG('text',{x:toX(k),y:toY(0)+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = k; svg.appendChild(t);\n    }\n    for(let k=0;k<=1.2;k+=0.2){\n      const t = SVG('text',{x:toX(xmin)-8,y:toY(k)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = k.toFixed(1); svg.appendChild(t);\n    }\n    // curve\n    let d = '';\n    const steps = 140;\n    for(let i=0;i<=steps;i++){\n      const s = xmin + (xmax - xmin) * i/steps;\n      const y = Lchi(s);\n      d += (i===0?'M':'L') + toX(s) + ' ' + toY(Math.min(Math.max(y,ymin),ymax)) + ' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n\n    // highlight L(1, chi_3) = π/4\n    const X1 = toX(1), Y1 = toY(Math.PI/4);\n    svg.appendChild(SVG('circle',{cx:X1,cy:Y1,r:5,fill:'var(--green)'}));\n    const t1 = SVG('text',{x:X1+8,y:Y1-6,'font-size':11,fill:'var(--green)'});\n    t1.textContent = 'L(1,χ₃) = π/4'; svg.appendChild(t1);\n\n    // marker\n    const s0 = parseFloat(sR.value);\n    const y0 = Lchi(s0);\n    const X = toX(s0), Y = toY(Math.min(Math.max(y0,ymin),ymax));\n    svg.appendChild(SVG('circle',{cx:X,cy:Y,r:5,fill:'var(--blue)'}));\n    val.textContent = `L(${s0.toFixed(2)}, χ₃) ≈ ${y0.toFixed(5)}`;\n  }\n  sR.addEventListener('input', draw);\n  draw();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "lc-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-s\">$s$</label>\n    <input type=\"range\" id=\"lc-s\" min=\"0.2\" max=\"4\" step=\"0.02\" value=\"1\">\n    <span id=\"lc-val\" class=\"readout\" style=\"min-width:280px;flex:0 0 auto\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">At $s=1$: $L(1,\\chi_3) = \\pi/4 \\approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",

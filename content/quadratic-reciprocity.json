@@ -12,9 +12,57 @@
         },
         {
           "type": "widget",
-          "id": "w-squares",
-          "html": "<div class=\"widget\" id=\"w-squares\">\n  <div class=\"hd\"><div class=\"ttl\">Squares modulo <em>p</em></div><div class=\"hint\">yellow = quadratic residue</div></div>\n  <div class=\"row\">\n    <label for=\"sq-p\">prime $p$:</label>\n    <select id=\"sq-p\"></select>\n    <span class=\"small\" id=\"sq-count\"></span>\n  </div>\n  <div class=\"grid-wrap\" id=\"sq-grid\"></div>\n  <div class=\"readout\" id=\"sq-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const primes = [3,5,7,11,13,17,19,23,29,31];\n  const sel = $('#sq-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value = p; o.textContent = String(p);\n    sel.appendChild(o);\n  }\n  sel.value = 13;\n  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');\n  function render(){\n    const p = +sel.value;\n    grid.innerHTML = '';\n    const qr = new Set();\n    for(let x=1;x<p;x++) qr.add((x*x)%p);\n    // table row: x, x^2 mod p\n    const wrap = document.createElement('div');\n    wrap.innerHTML = '<div class=\"small\" style=\"color:var(--mute);margin:.2rem 0\">$x$ on top, $x^2 \\\\bmod p$ below</div>';\n    const row1 = document.createElement('div'), row2 = document.createElement('div');\n    for(let x=0;x<p;x++){\n      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;\n      c1.style.color='var(--mute)';\n      const v = (x*x)%p;\n      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');\n      c2.textContent=v;\n      row1.appendChild(c1); row2.appendChild(c2);\n    }\n    wrap.appendChild(row1); wrap.appendChild(row2);\n    // also a row showing which residues are QR vs NR\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText='color:var(--mute);margin-top:.6rem';\n    hdr.textContent='nonzero residues colored by QR / NR:';\n    wrap.appendChild(hdr);\n    const row3 = document.createElement('div');\n    for(let r=1;r<p;r++){\n      const c = document.createElement('span');\n      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');\n      c.textContent=r;\n      row3.appendChild(c);\n    }\n    wrap.appendChild(row3);\n    grid.appendChild(wrap);\n    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;\n    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;\n  }\n  sel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-squares",
+            "title": "Squares modulo <em>p</em>",
+            "hint": "yellow = quadratic residue",
+            "readoutId": "sq-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31];\n  const sel = $('#sq-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value = p; o.textContent = String(p);\n    sel.appendChild(o);\n  }\n  sel.value = 13;\n  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');\n  function render(){\n    const p = +sel.value;\n    grid.innerHTML = '';\n    const qr = new Set();\n    for(let x=1;x<p;x++) qr.add((x*x)%p);\n    // table row: x, x^2 mod p\n    const wrap = document.createElement('div');\n    wrap.innerHTML = '<div class=\"small\" style=\"color:var(--mute);margin:.2rem 0\">$x$ on top, $x^2 \\\\bmod p$ below</div>';\n    const row1 = document.createElement('div'), row2 = document.createElement('div');\n    for(let x=0;x<p;x++){\n      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;\n      c1.style.color='var(--mute)';\n      const v = (x*x)%p;\n      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');\n      c2.textContent=v;\n      row1.appendChild(c1); row2.appendChild(c2);\n    }\n    wrap.appendChild(row1); wrap.appendChild(row2);\n    // also a row showing which residues are QR vs NR\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText='color:var(--mute);margin-top:.6rem';\n    hdr.textContent='nonzero residues colored by QR / NR:';\n    wrap.appendChild(hdr);\n    const row3 = document.createElement('div');\n    for(let r=1;r<p;r++){\n      const c = document.createElement('span');\n      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');\n      c.textContent=r;\n      row3.appendChild(c);\n    }\n    wrap.appendChild(row3);\n    grid.appendChild(wrap);\n    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;\n    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sq-p\">prime $p$:</label>\n    <select id=\"sq-p\"></select>\n    <span class=\"small\" id=\"sq-count\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"grid-wrap\" id=\"sq-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sq-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-squares",
+            "title": "Squares modulo <em>p</em>",
+            "hint": "yellow = quadratic residue",
+            "readoutId": "sq-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31];\n  const sel = $('#sq-p');\n  for(const p of primes){\n    const o = document.createElement('option');\n    o.value = p; o.textContent = String(p);\n    sel.appendChild(o);\n  }\n  sel.value = 13;\n  const grid = $('#sq-grid'), out = $('#sq-out'), cnt = $('#sq-count');\n  function render(){\n    const p = +sel.value;\n    grid.innerHTML = '';\n    const qr = new Set();\n    for(let x=1;x<p;x++) qr.add((x*x)%p);\n    // table row: x, x^2 mod p\n    const wrap = document.createElement('div');\n    wrap.innerHTML = '<div class=\"small\" style=\"color:var(--mute);margin:.2rem 0\">$x$ on top, $x^2 \\\\bmod p$ below</div>';\n    const row1 = document.createElement('div'), row2 = document.createElement('div');\n    for(let x=0;x<p;x++){\n      const c1 = document.createElement('span'); c1.className='cell'; c1.textContent=x;\n      c1.style.color='var(--mute)';\n      const v = (x*x)%p;\n      const c2 = document.createElement('span'); c2.className='cell ' + (v>0 && qr.has(v)?'qr':'nonqr');\n      c2.textContent=v;\n      row1.appendChild(c1); row2.appendChild(c2);\n    }\n    wrap.appendChild(row1); wrap.appendChild(row2);\n    // also a row showing which residues are QR vs NR\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText='color:var(--mute);margin-top:.6rem';\n    hdr.textContent='nonzero residues colored by QR / NR:';\n    wrap.appendChild(hdr);\n    const row3 = document.createElement('div');\n    for(let r=1;r<p;r++){\n      const c = document.createElement('span');\n      c.className = 'chip ' + (qr.has(r)?'qr':'nonqr');\n      c.textContent=r;\n      row3.appendChild(c);\n    }\n    wrap.appendChild(row3);\n    grid.appendChild(wrap);\n    cnt.textContent = `${qr.size} quadratic residues out of ${p-1} nonzero classes`;\n    out.textContent = `QRs mod ${p}: { ${[...qr].sort((a,b)=>a-b).join(', ')} }`;\n  }\n  sel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sq-p\">prime $p$:</label>\n    <select id=\"sq-p\"></select>\n    <span class=\"small\" id=\"sq-count\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"grid-wrap\" id=\"sq-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sq-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -31,9 +79,49 @@
         },
         {
           "type": "widget",
-          "id": "w-euler",
-          "html": "<div class=\"widget\" id=\"w-euler\">\n  <div class=\"hd\"><div class=\"ttl\">Euler's criterion by fast exponentiation</div><div class=\"hint\">compute $a^{(p-1)/2} \\bmod p$</div></div>\n  <div class=\"row\">\n    <label for=\"eu-a\">$a =$</label><input id=\"eu-a\" type=\"number\" value=\"5\" style=\"width:5em\">\n    <label for=\"eu-p\">$p =$</label><input id=\"eu-p\" type=\"number\" value=\"41\" style=\"width:6em\">\n    <button id=\"eu-go\">compute</button>\n  </div>\n  <div class=\"readout\" id=\"eu-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');\n  function run(){\n    const a = parseInt(aI.value), p = parseInt(pI.value);\n    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }\n    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }\n    if(p%2===0){ out.textContent='p must be odd'; return; }\n    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }\n    const e = (p-1)/2;\n    const lines = [];\n    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);\n    // binary expansion of e\n    const bits = e.toString(2);\n    lines.push(`exponent ${e} = (${bits})_2`);\n    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);\n    // left-to-right square-and-multiply\n    for(let i=0;i<bits.length;i++){\n      r = (r*r)%P;\n      lines.push(`  square → ${r}`);\n      if(bits[i]==='1'){\n        r = (r*base)%P;\n        lines.push(`  bit 1: multiply by ${base} → ${r}`);\n      }\n    }\n    const val = Number(r);\n    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);\n    lines.push('');\n    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);\n    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler's criterion by fast exponentiation",
+            "hint": "compute $a^{(p-1)/2} \\bmod p$",
+            "readoutId": "eu-out",
+            "bodyScript": "  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');\n  function run(){\n    const a = parseInt(aI.value), p = parseInt(pI.value);\n    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }\n    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }\n    if(p%2===0){ out.textContent='p must be odd'; return; }\n    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }\n    const e = (p-1)/2;\n    const lines = [];\n    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);\n    // binary expansion of e\n    const bits = e.toString(2);\n    lines.push(`exponent ${e} = (${bits})_2`);\n    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);\n    // left-to-right square-and-multiply\n    for(let i=0;i<bits.length;i++){\n      r = (r*r)%P;\n      lines.push(`  square → ${r}`);\n      if(bits[i]==='1'){\n        r = (r*base)%P;\n        lines.push(`  bit 1: multiply by ${base} → ${r}`);\n      }\n    }\n    const val = Number(r);\n    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);\n    lines.push('');\n    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);\n    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eu-a\">$a =$</label><input id=\"eu-a\" type=\"number\" value=\"5\" style=\"width:5em\">\n    <label for=\"eu-p\">$p =$</label><input id=\"eu-p\" type=\"number\" value=\"41\" style=\"width:6em\">\n    <button id=\"eu-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "eu-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Euler's criterion by fast exponentiation",
+            "hint": "compute $a^{(p-1)/2} \\bmod p$",
+            "readoutId": "eu-out",
+            "bodyScript": "  const aI = $('#eu-a'), pI = $('#eu-p'), go = $('#eu-go'), out = $('#eu-out');\n  function run(){\n    const a = parseInt(aI.value), p = parseInt(pI.value);\n    if(!Number.isFinite(a) || !Number.isFinite(p)){ out.textContent='enter integers'; return; }\n    if(p<3 || !isPrime(p)){ out.textContent=`${p} is not an odd prime`; return; }\n    if(p%2===0){ out.textContent='p must be odd'; return; }\n    if(mod(a,p)===0){ out.textContent=`a ≡ 0 (mod p), so (a/p)=0`; return; }\n    const e = (p-1)/2;\n    const lines = [];\n    lines.push(`goal: a^((p-1)/2) = ${mod(a,p)}^${e}  (mod ${p})`);\n    // binary expansion of e\n    const bits = e.toString(2);\n    lines.push(`exponent ${e} = (${bits})_2`);\n    let r = 1n, base = BigInt(mod(a,p)), P = BigInt(p);\n    // left-to-right square-and-multiply\n    for(let i=0;i<bits.length;i++){\n      r = (r*r)%P;\n      lines.push(`  square → ${r}`);\n      if(bits[i]==='1'){\n        r = (r*base)%P;\n        lines.push(`  bit 1: multiply by ${base} → ${r}`);\n      }\n    }\n    const val = Number(r);\n    const sym = val===1 ? +1 : (val===p-1 ? -1 : 0);\n    lines.push('');\n    lines.push(`result: ${val}  ≡  ${val===p-1?'-1':val}  (mod ${p})`);\n    lines.push(`(${a}/${p}) = ${sym>0?'+1':(sym<0?'-1':0)}   →  ${a} ${sym>0?'IS':'is NOT'} a QR mod ${p}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eu-a\">$a =$</label><input id=\"eu-a\" type=\"number\" value=\"5\" style=\"width:5em\">\n    <label for=\"eu-p\">$p =$</label><input id=\"eu-p\" type=\"number\" value=\"41\" style=\"width:6em\">\n    <button id=\"eu-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "eu-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -142,9 +230,51 @@
         },
         {
           "type": "widget",
-          "id": "w-pattern",
-          "html": "<div class=\"widget\" id=\"w-pattern\">\n  <div class=\"hd\"><div class=\"ttl\">QR sign pattern over prime pairs</div><div class=\"hint\">red: symbols flip;&nbsp; green: agree</div></div>\n  <div id=\"pat-grid\"></div>\n  <div class=\"readout\" id=\"pat-out\">green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];\n  const grid = $('#pat-grid');\n  const tbl = document.createElement('table');\n  tbl.className = 'plain';\n  tbl.style.fontFamily = 'ui-monospace,monospace';\n  tbl.style.fontSize = '.85rem';\n  // header\n  const thead = document.createElement('thead');\n  const tr0 = document.createElement('tr');\n  tr0.appendChild(document.createElement('th'));\n  for(const q of primes){\n    const th = document.createElement('th');\n    th.textContent = q;\n    th.style.textAlign='center'; th.style.color='var(--mute)';\n    tr0.appendChild(th);\n  }\n  thead.appendChild(tr0); tbl.appendChild(thead);\n  const tbody = document.createElement('tbody');\n  for(const p of primes){\n    const tr = document.createElement('tr');\n    const th = document.createElement('th');\n    th.textContent = p;\n    th.style.color='var(--mute)';\n    tr.appendChild(th);\n    for(const q of primes){\n      const td = document.createElement('td');\n      td.style.textAlign='center';\n      if(p===q){\n        td.textContent='—';\n        td.style.color='var(--mute)';\n      } else {\n        const prod = legendre(p,q) * legendre(q,p);\n        const span = document.createElement('span');\n        span.className = 'chip ' + (prod>0?'pos':'neg');\n        span.textContent = prod>0 ? '+' : '−';\n        td.appendChild(span);\n      }\n      tr.appendChild(td);\n    }\n    tbody.appendChild(tr);\n  }\n  tbl.appendChild(tbody);\n  grid.appendChild(tbl);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pattern",
+            "title": "QR sign pattern over prime pairs",
+            "hint": "red: symbols flip;&nbsp; green: agree",
+            "readoutId": "pat-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];\n  const grid = $('#pat-grid');\n  const tbl = document.createElement('table');\n  tbl.className = 'plain';\n  tbl.style.fontFamily = 'ui-monospace,monospace';\n  tbl.style.fontSize = '.85rem';\n  // header\n  const thead = document.createElement('thead');\n  const tr0 = document.createElement('tr');\n  tr0.appendChild(document.createElement('th'));\n  for(const q of primes){\n    const th = document.createElement('th');\n    th.textContent = q;\n    th.style.textAlign='center'; th.style.color='var(--mute)';\n    tr0.appendChild(th);\n  }\n  thead.appendChild(tr0); tbl.appendChild(thead);\n  const tbody = document.createElement('tbody');\n  for(const p of primes){\n    const tr = document.createElement('tr');\n    const th = document.createElement('th');\n    th.textContent = p;\n    th.style.color='var(--mute)';\n    tr.appendChild(th);\n    for(const q of primes){\n      const td = document.createElement('td');\n      td.style.textAlign='center';\n      if(p===q){\n        td.textContent='—';\n        td.style.color='var(--mute)';\n      } else {\n        const prod = legendre(p,q) * legendre(q,p);\n        const span = document.createElement('span');\n        span.className = 'chip ' + (prod>0?'pos':'neg');\n        span.textContent = prod>0 ? '+' : '−';\n        td.appendChild(span);\n      }\n      tr.appendChild(td);\n    }\n    tbody.appendChild(tr);\n  }\n  tbl.appendChild(tbody);\n  grid.appendChild(tbl);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"pat-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pat-out",
+                "content": "green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pattern",
+            "title": "QR sign pattern over prime pairs",
+            "hint": "red: symbols flip;&nbsp; green: agree",
+            "readoutId": "pat-out",
+            "bodyScript": "  const primes = [3,5,7,11,13,17,19,23,29,31,37,41,43];\n  const grid = $('#pat-grid');\n  const tbl = document.createElement('table');\n  tbl.className = 'plain';\n  tbl.style.fontFamily = 'ui-monospace,monospace';\n  tbl.style.fontSize = '.85rem';\n  // header\n  const thead = document.createElement('thead');\n  const tr0 = document.createElement('tr');\n  tr0.appendChild(document.createElement('th'));\n  for(const q of primes){\n    const th = document.createElement('th');\n    th.textContent = q;\n    th.style.textAlign='center'; th.style.color='var(--mute)';\n    tr0.appendChild(th);\n  }\n  thead.appendChild(tr0); tbl.appendChild(thead);\n  const tbody = document.createElement('tbody');\n  for(const p of primes){\n    const tr = document.createElement('tr');\n    const th = document.createElement('th');\n    th.textContent = p;\n    th.style.color='var(--mute)';\n    tr.appendChild(th);\n    for(const q of primes){\n      const td = document.createElement('td');\n      td.style.textAlign='center';\n      if(p===q){\n        td.textContent='—';\n        td.style.color='var(--mute)';\n      } else {\n        const prod = legendre(p,q) * legendre(q,p);\n        const span = document.createElement('span');\n        span.className = 'chip ' + (prod>0?'pos':'neg');\n        span.textContent = prod>0 ? '+' : '−';\n        td.appendChild(span);\n      }\n      tr.appendChild(td);\n    }\n    tbody.appendChild(tr);\n  }\n  tbl.appendChild(tbody);\n  grid.appendChild(tbl);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div id=\"pat-grid\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pat-out",
+                "content": "green $(p/q)(q/p) = +1$  ·  red $(p/q)(q/p) = -1$"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -170,9 +300,49 @@
         },
         {
           "type": "widget",
-          "id": "w-calc",
-          "html": "<div class=\"widget\" id=\"w-calc\">\n  <div class=\"hd\"><div class=\"ttl\">Legendre symbol calculator</div><div class=\"hint\">step-by-step reduction</div></div>\n  <div class=\"row\">\n    <label for=\"lc-a\">$a =$</label><input id=\"lc-a\" type=\"number\" value=\"30\" style=\"width:6em\">\n    <label for=\"lc-p\">$p =$</label><input id=\"lc-p\" type=\"number\" value=\"37\" style=\"width:6em\">\n    <button id=\"lc-go\">compute</button>\n  </div>\n  <div class=\"readout\" id=\"lc-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');\n  function run(){\n    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);\n    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }\n    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }\n    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }\n    const lines = [];\n    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer\n    // We'll use odd-integer version (Jacobi). End when a=1.\n    let sign = 1;\n    let a = mod(a0, p0), p = p0;\n    lines.push(`compute (${a0}/${p0})`);\n    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);\n    let guard = 0;\n    while(a !== 1 && a !== 0 && guard++ < 50){\n      // factor out -1\n      if(a === p - 1 || a < 0){\n        const aa = mod(a,p);\n        if(aa === p-1){\n          const flip = ((p-1)/2) % 2;\n          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }\n          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);\n          a = 1; break;\n        }\n      }\n      // peel 2s\n      while(a % 2 === 0){\n        a /= 2;\n        const r8 = p % 8;\n        const two = (r8===1||r8===7) ? +1 : -1;\n        if(two<0) sign = -sign;\n        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);\n      }\n      if(a === 1) break;\n      // now a is odd >=3; apply reciprocity with p (both odd)\n      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)\n      const flip = (((a-1)/2) * ((p-1)/2)) % 2;\n      const before = `(${a}/${p})`;\n      const pmod = mod(p,a);\n      if(flip){\n        sign = -sign;\n        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);\n      } else {\n        lines.push(`  reciprocity: ${before} = (${p}/${a})`);\n      }\n      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);\n      const newA = pmod, newP = a;\n      a = newA; p = newP;\n      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\\n'); return; }\n    }\n    if(a === 1) lines.push(`  (1/${p}) = +1`);\n    lines.push('');\n    const final = sign * (a===1?1:0);\n    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);\n    // verify via Euler\n    const check = legendre(a0, p0);\n    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);\n    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-calc",
+            "title": "Legendre symbol calculator",
+            "hint": "step-by-step reduction",
+            "readoutId": "lc-out",
+            "bodyScript": "  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');\n  function run(){\n    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);\n    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }\n    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }\n    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }\n    const lines = [];\n    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer\n    // We'll use odd-integer version (Jacobi). End when a=1.\n    let sign = 1;\n    let a = mod(a0, p0), p = p0;\n    lines.push(`compute (${a0}/${p0})`);\n    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);\n    let guard = 0;\n    while(a !== 1 && a !== 0 && guard++ < 50){\n      // factor out -1\n      if(a === p - 1 || a < 0){\n        const aa = mod(a,p);\n        if(aa === p-1){\n          const flip = ((p-1)/2) % 2;\n          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }\n          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);\n          a = 1; break;\n        }\n      }\n      // peel 2s\n      while(a % 2 === 0){\n        a /= 2;\n        const r8 = p % 8;\n        const two = (r8===1||r8===7) ? +1 : -1;\n        if(two<0) sign = -sign;\n        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);\n      }\n      if(a === 1) break;\n      // now a is odd >=3; apply reciprocity with p (both odd)\n      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)\n      const flip = (((a-1)/2) * ((p-1)/2)) % 2;\n      const before = `(${a}/${p})`;\n      const pmod = mod(p,a);\n      if(flip){\n        sign = -sign;\n        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);\n      } else {\n        lines.push(`  reciprocity: ${before} = (${p}/${a})`);\n      }\n      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);\n      const newA = pmod, newP = a;\n      a = newA; p = newP;\n      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\\n'); return; }\n    }\n    if(a === 1) lines.push(`  (1/${p}) = +1`);\n    lines.push('');\n    const final = sign * (a===1?1:0);\n    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);\n    // verify via Euler\n    const check = legendre(a0, p0);\n    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);\n    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-a\">$a =$</label><input id=\"lc-a\" type=\"number\" value=\"30\" style=\"width:6em\">\n    <label for=\"lc-p\">$p =$</label><input id=\"lc-p\" type=\"number\" value=\"37\" style=\"width:6em\">\n    <button id=\"lc-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lc-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-calc",
+            "title": "Legendre symbol calculator",
+            "hint": "step-by-step reduction",
+            "readoutId": "lc-out",
+            "bodyScript": "  const aI = $('#lc-a'), pI = $('#lc-p'), go = $('#lc-go'), out = $('#lc-out');\n  function run(){\n    const a0 = parseInt(aI.value), p0 = parseInt(pI.value);\n    if(!Number.isFinite(a0) || !Number.isFinite(p0)){ out.textContent='enter integers'; return; }\n    if(p0<3 || !isPrime(p0) || p0%2===0){ out.textContent='p must be an odd prime'; return; }\n    if(mod(a0,p0)===0){ out.textContent='(0/p) = 0'; return; }\n    const lines = [];\n    // Walk reduction: we keep a running sign and (a over p) where p is odd prime or odd integer\n    // We'll use odd-integer version (Jacobi). End when a=1.\n    let sign = 1;\n    let a = mod(a0, p0), p = p0;\n    lines.push(`compute (${a0}/${p0})`);\n    if(a !== a0) lines.push(`  reduce top: ${a0} ≡ ${a} (mod ${p0})  ⇒  (${a}/${p0})`);\n    let guard = 0;\n    while(a !== 1 && a !== 0 && guard++ < 50){\n      // factor out -1\n      if(a === p - 1 || a < 0){\n        const aa = mod(a,p);\n        if(aa === p-1){\n          const flip = ((p-1)/2) % 2;\n          if(flip){ sign = -sign; lines.push(`  peel -1: (-1/${p}) = -1  since ${p} ≡ 3 (mod 4)`); }\n          else lines.push(`  peel -1: (-1/${p}) = +1  since ${p} ≡ 1 (mod 4)`);\n          a = 1; break;\n        }\n      }\n      // peel 2s\n      while(a % 2 === 0){\n        a /= 2;\n        const r8 = p % 8;\n        const two = (r8===1||r8===7) ? +1 : -1;\n        if(two<0) sign = -sign;\n        lines.push(`  peel 2: (2/${p}) = ${two>0?'+1':'-1'}   (${p} ≡ ${r8} mod 8)  ⇒  (${a}/${p})`);\n      }\n      if(a === 1) break;\n      // now a is odd >=3; apply reciprocity with p (both odd)\n      // (a/p) = (p/a) * (-1)^((a-1)/2 * (p-1)/2)\n      const flip = (((a-1)/2) * ((p-1)/2)) % 2;\n      const before = `(${a}/${p})`;\n      const pmod = mod(p,a);\n      if(flip){\n        sign = -sign;\n        lines.push(`  reciprocity: ${before} = -(${p}/${a})   (both ≡ 3 mod 4)`);\n      } else {\n        lines.push(`  reciprocity: ${before} = (${p}/${a})`);\n      }\n      lines.push(`    reduce: (${p}/${a}) = (${pmod}/${a})`);\n      const newA = pmod, newP = a;\n      a = newA; p = newP;\n      if(a === 0){ lines.push('  → gcd(a,p)>1, symbol is 0'); out.textContent = lines.join('\\n'); return; }\n    }\n    if(a === 1) lines.push(`  (1/${p}) = +1`);\n    lines.push('');\n    const final = sign * (a===1?1:0);\n    lines.push(`(${a0}/${p0}) = ${final>0?'+1':(final<0?'-1':0)}`);\n    // verify via Euler\n    const check = legendre(a0, p0);\n    lines.push(`check by Euler's criterion: ${check>0?'+1':'-1'}  ${check===final?'✓':'✗'}`);\n    lines.push(`${a0} ${final>0?'IS':'is NOT'} a QR mod ${p0}`);\n    out.textContent = lines.join('\\n');\n  }\n  go.addEventListener('click', run);\n  aI.addEventListener('change', run); pI.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"lc-a\">$a =$</label><input id=\"lc-a\" type=\"number\" value=\"30\" style=\"width:6em\">\n    <label for=\"lc-p\">$p =$</label><input id=\"lc-p\" type=\"number\" value=\"37\" style=\"width:6em\">\n    <button id=\"lc-go\">compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lc-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -180,9 +350,57 @@
         },
         {
           "type": "widget",
-          "id": "w-aqr",
-          "html": "<div class=\"widget\" id=\"w-aqr\">\n  <div class=\"hd\"><div class=\"ttl\">When is <em>a</em> a QR mod <em>p</em>?</div><div class=\"hint\">period in $p$ is a divisor of $4|a|$</div></div>\n  <div class=\"row\">\n    <label>$a =$</label>\n    <select id=\"aqr-a\">\n      <option value=\"-1\">-1</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\" selected>5</option>\n      <option value=\"7\">7</option>\n      <option value=\"-3\">-3</option>\n    </select>\n    <span class=\"small\" id=\"aqr-period\"></span>\n  </div>\n  <div id=\"aqr-strip\"></div>\n  <div class=\"readout\" id=\"aqr-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');\n  function run(){\n    const a = parseInt(sel.value);\n    strip.innerHTML = '';\n    const primes = [];\n    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);\n    const modulus = 4*Math.abs(a);\n    // build table row: prime, symbol, residue mod 4a\n    const wrap = document.createElement('div');\n    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';\n    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');\n    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';\n    row2.style.cssText='margin-bottom:.2rem';\n    row3.style.cssText='color:var(--mute);margin-top:.2rem';\n    row1.textContent = 'p:';\n    row2.textContent = `(${a}/p):`;\n    row3.textContent = `p mod ${modulus}:`;\n    row1.style.whiteSpace='pre';\n    row2.style.whiteSpace='pre';\n    row3.style.whiteSpace='pre';\n    // use chip row instead\n    wrap.appendChild(document.createElement('div'));\n    wrap.innerHTML = '';\n    const makeRow = (label) => {\n      const d = document.createElement('div');\n      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';\n      const lab = document.createElement('span');\n      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';\n      lab.textContent=label;\n      d.appendChild(lab);\n      return d;\n    };\n    const r1 = makeRow('p:');\n    const r2 = makeRow(`(${a}/p):`);\n    const r3 = makeRow(`p mod ${modulus}:`);\n    // residue-class → sign dictionary\n    const classMap = {};\n    for(const p of primes){\n      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;\n      c1.style.minWidth='2.4em';\n      r1.appendChild(c1);\n      const s = legendre(a,p);\n      const c2 = document.createElement('span');\n      c2.className='chip ' + (s>0?'pos':'neg');\n      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';\n      r2.appendChild(c2);\n      const rclass = mod(p, modulus);\n      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;\n      c3.style.minWidth='2.4em';\n      r3.appendChild(c3);\n      // track consistency\n      if(!(rclass in classMap)) classMap[rclass] = s;\n      else if(classMap[rclass] !== s) classMap[rclass] = 0;\n    }\n    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);\n    strip.appendChild(wrap);\n    per.textContent = `sign depends only on p mod ${modulus}`;\n    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);\n    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);\n    out.textContent =\n`a = ${a},  modulus = 4|a| = ${modulus}\n${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }\n${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;\n  }\n  sel.addEventListener('change', run);\n  run();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-aqr",
+            "title": "When is <em>a</em> a QR mod <em>p</em>?",
+            "hint": "period in $p$ is a divisor of $4|a|$",
+            "readoutId": "aqr-out",
+            "bodyScript": "  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');\n  function run(){\n    const a = parseInt(sel.value);\n    strip.innerHTML = '';\n    const primes = [];\n    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);\n    const modulus = 4*Math.abs(a);\n    // build table row: prime, symbol, residue mod 4a\n    const wrap = document.createElement('div');\n    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';\n    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');\n    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';\n    row2.style.cssText='margin-bottom:.2rem';\n    row3.style.cssText='color:var(--mute);margin-top:.2rem';\n    row1.textContent = 'p:';\n    row2.textContent = `(${a}/p):`;\n    row3.textContent = `p mod ${modulus}:`;\n    row1.style.whiteSpace='pre';\n    row2.style.whiteSpace='pre';\n    row3.style.whiteSpace='pre';\n    // use chip row instead\n    wrap.appendChild(document.createElement('div'));\n    wrap.innerHTML = '';\n    const makeRow = (label) => {\n      const d = document.createElement('div');\n      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';\n      const lab = document.createElement('span');\n      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';\n      lab.textContent=label;\n      d.appendChild(lab);\n      return d;\n    };\n    const r1 = makeRow('p:');\n    const r2 = makeRow(`(${a}/p):`);\n    const r3 = makeRow(`p mod ${modulus}:`);\n    // residue-class → sign dictionary\n    const classMap = {};\n    for(const p of primes){\n      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;\n      c1.style.minWidth='2.4em';\n      r1.appendChild(c1);\n      const s = legendre(a,p);\n      const c2 = document.createElement('span');\n      c2.className='chip ' + (s>0?'pos':'neg');\n      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';\n      r2.appendChild(c2);\n      const rclass = mod(p, modulus);\n      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;\n      c3.style.minWidth='2.4em';\n      r3.appendChild(c3);\n      // track consistency\n      if(!(rclass in classMap)) classMap[rclass] = s;\n      else if(classMap[rclass] !== s) classMap[rclass] = 0;\n    }\n    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);\n    strip.appendChild(wrap);\n    per.textContent = `sign depends only on p mod ${modulus}`;\n    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);\n    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);\n    out.textContent =\n`a = ${a},  modulus = 4|a| = ${modulus}\n${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }\n${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;\n  }\n  sel.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$a =$</label>\n    <select id=\"aqr-a\">\n      <option value=\"-1\">-1</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\" selected>5</option>\n      <option value=\"7\">7</option>\n      <option value=\"-3\">-3</option>\n    </select>\n    <span class=\"small\" id=\"aqr-period\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"aqr-strip\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "aqr-out"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-aqr",
+            "title": "When is <em>a</em> a QR mod <em>p</em>?",
+            "hint": "period in $p$ is a divisor of $4|a|$",
+            "readoutId": "aqr-out",
+            "bodyScript": "  const sel = $('#aqr-a'), strip = $('#aqr-strip'), out = $('#aqr-out'), per = $('#aqr-period');\n  function run(){\n    const a = parseInt(sel.value);\n    strip.innerHTML = '';\n    const primes = [];\n    for(let n=3;n<=200 && primes.length<36;n++) if(isPrime(n) && n !== Math.abs(a)) primes.push(n);\n    const modulus = 4*Math.abs(a);\n    // build table row: prime, symbol, residue mod 4a\n    const wrap = document.createElement('div');\n    wrap.style.fontFamily='ui-monospace,monospace'; wrap.style.fontSize='.85rem';\n    const row1 = document.createElement('div'), row2 = document.createElement('div'), row3 = document.createElement('div');\n    row1.style.cssText='color:var(--mute);margin-bottom:.2rem';\n    row2.style.cssText='margin-bottom:.2rem';\n    row3.style.cssText='color:var(--mute);margin-top:.2rem';\n    row1.textContent = 'p:';\n    row2.textContent = `(${a}/p):`;\n    row3.textContent = `p mod ${modulus}:`;\n    row1.style.whiteSpace='pre';\n    row2.style.whiteSpace='pre';\n    row3.style.whiteSpace='pre';\n    // use chip row instead\n    wrap.appendChild(document.createElement('div'));\n    wrap.innerHTML = '';\n    const makeRow = (label) => {\n      const d = document.createElement('div');\n      d.style.cssText='display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:.15rem 0';\n      const lab = document.createElement('span');\n      lab.style.cssText='color:var(--mute);min-width:6em;font-size:.85rem';\n      lab.textContent=label;\n      d.appendChild(lab);\n      return d;\n    };\n    const r1 = makeRow('p:');\n    const r2 = makeRow(`(${a}/p):`);\n    const r3 = makeRow(`p mod ${modulus}:`);\n    // residue-class → sign dictionary\n    const classMap = {};\n    for(const p of primes){\n      const c1 = document.createElement('span'); c1.className='chip'; c1.textContent=p;\n      c1.style.minWidth='2.4em';\n      r1.appendChild(c1);\n      const s = legendre(a,p);\n      const c2 = document.createElement('span');\n      c2.className='chip ' + (s>0?'pos':'neg');\n      c2.textContent = s>0?'+':'−'; c2.style.minWidth='2.4em';\n      r2.appendChild(c2);\n      const rclass = mod(p, modulus);\n      const c3 = document.createElement('span'); c3.className='chip'; c3.textContent=rclass;\n      c3.style.minWidth='2.4em';\n      r3.appendChild(c3);\n      // track consistency\n      if(!(rclass in classMap)) classMap[rclass] = s;\n      else if(classMap[rclass] !== s) classMap[rclass] = 0;\n    }\n    wrap.appendChild(r1); wrap.appendChild(r2); wrap.appendChild(r3);\n    strip.appendChild(wrap);\n    per.textContent = `sign depends only on p mod ${modulus}`;\n    const qrClasses = Object.entries(classMap).filter(([k,v])=>v===1).map(([k])=>k).sort((x,y)=>+x-+y);\n    const nrClasses = Object.entries(classMap).filter(([k,v])=>v===-1).map(([k])=>k).sort((x,y)=>+x-+y);\n    out.textContent =\n`a = ${a},  modulus = 4|a| = ${modulus}\n${a} is a QR when p mod ${modulus} ∈ { ${qrClasses.join(', ')} }\n${a} is a NR when p mod ${modulus} ∈ { ${nrClasses.join(', ')} }`;\n  }\n  sel.addEventListener('change', run);\n  run();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$a =$</label>\n    <select id=\"aqr-a\">\n      <option value=\"-1\">-1</option>\n      <option value=\"2\">2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\" selected>5</option>\n      <option value=\"7\">7</option>\n      <option value=\"-3\">-3</option>\n    </select>\n    <span class=\"small\" id=\"aqr-period\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"aqr-strip\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "aqr-out"
+              }
+            ]
+          }
         },
         {
           "type": "raw",

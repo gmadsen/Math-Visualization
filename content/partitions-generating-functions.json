@@ -12,9 +12,33 @@
         },
         {
           "type": "widget",
-          "id": "w-pn",
-          "html": "<div class=\"widget\" id=\"w-pn\">\n  <div class=\"hd\"><div class=\"ttl\">Partition explorer</div><div class=\"hint\">pick $n \\le 12$; see every partition as a Young diagram</div></div>\n  <div class=\"row\">\n    <label for=\"pn-n\">$n$</label>\n    <input type=\"range\" id=\"pn-n\" min=\"1\" max=\"12\" step=\"1\" value=\"5\">\n    <span id=\"pn-nv\" class=\"readout\" style=\"min-width:140px;flex:0 0 auto\">n = 5,  p(5) = 7</span>\n  </div>\n  <svg id=\"pn-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Partition explorer</title></svg>\n  <div class=\"small\">Each tile is one box; each row of tiles is one part. The partitions are sorted by lex order on their part sequences (largest part first, then ties broken by the next, etc.).</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pn",
+            "title": "Partition explorer",
+            "hint": "pick $n \\le 12$; see every partition as a Young diagram",
+            "svgId": "pn-svg",
+            "viewBox": "0 0 620 320",
+            "sectionComment": "============================ widget 1: partition explorer =========================",
+            "bodyScript": "  const svg = $('#pn-svg'), slider = $('#pn-n'), out = $('#pn-nv');\n  // Enumerate partitions of n as arrays, parts in non-increasing order.\n  function partitionsOf(n){\n    const res = [];\n    function go(rem, max, cur){\n      if(rem===0){ res.push(cur.slice()); return; }\n      const lim = Math.min(rem, max);\n      for(let k=lim; k>=1; k--){\n        cur.push(k);\n        go(rem-k, k, cur);\n        cur.pop();\n      }\n    }\n    go(n, n, []);\n    return res;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const n = parseInt(slider.value,10);\n    const parts = partitionsOf(n);\n    out.textContent = `n = ${n},  p(${n}) = ${parts.length}`;\n    const W = 620, H = 320;\n    const pad = 16;\n    // Determine grid: we have parts.length partitions; want grid of columns × rows.\n    // Each cell sized to fit the widest partition (largest part) × max rows.\n    const maxPart = n; // widest any diagram gets\n    const maxRows = n; // tallest any diagram gets\n    const cellW = maxPart * 10 + 12; // +gutter\n    const cellH = maxRows * 10 + 22;\n    const cols = Math.max(1, Math.floor((W - 2*pad) / cellW));\n    const rows = Math.ceil(parts.length / cols);\n    const totalH = rows * cellH + 2*pad;\n    // rescale vertically if too tall\n    let scale = 1;\n    if(totalH > H){ scale = (H - 2*pad) / (rows * cellH); }\n    const box = Math.round(10*scale);\n    for(let i=0;i<parts.length;i++){\n      const col = i % cols;\n      const row = Math.floor(i/cols);\n      const cx = pad + col*cellW*scale;\n      const cy = pad + row*cellH*scale;\n      const p = parts[i];\n      for(let r=0;r<p.length;r++){\n        for(let c=0;c<p[r];c++){\n          svg.appendChild(SVG('rect',{\n            x: cx + c*box, y: cy + r*box,\n            width: box-1, height: box-1,\n            fill:'var(--cyan)', opacity: 0.85\n          }));\n        }\n      }\n      // label: part list\n      const lbl = SVG('text',{\n        x: cx, y: cy + p.length*box + 11,\n        'font-size': Math.max(9, 10*scale), fill:'var(--mute)'\n      });\n      lbl.textContent = p.join('+');\n      svg.appendChild(lbl);\n    }\n    // If rows exceed the box, add a hint\n    if(scale < 1){\n      const t = SVG('text',{x:W-pad, y:H-4, 'text-anchor':'end','font-size':11, fill:'var(--mute)'});\n      t.textContent = `grid scaled ×${scale.toFixed(2)}`;\n      svg.appendChild(t);\n    }\n  }\n  slider.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pn-n\">$n$</label>\n    <input type=\"range\" id=\"pn-n\" min=\"1\" max=\"12\" step=\"1\" value=\"5\">\n    <span id=\"pn-nv\" class=\"readout\" style=\"min-width:140px;flex:0 0 auto\">n = 5,  p(5) = 7</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "pn-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Each tile is one box; each row of tiles is one part. The partitions are sorted by lex order on their part sequences (largest part first, then ties broken by the next, etc.).</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -31,8 +55,33 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-pn",
-          "html": "<script>\n/* ============================ widget 1: partition explorer ========================= */\n(function(){\n  const svg = $('#pn-svg'), slider = $('#pn-n'), out = $('#pn-nv');\n  // Enumerate partitions of n as arrays, parts in non-increasing order.\n  function partitionsOf(n){\n    const res = [];\n    function go(rem, max, cur){\n      if(rem===0){ res.push(cur.slice()); return; }\n      const lim = Math.min(rem, max);\n      for(let k=lim; k>=1; k--){\n        cur.push(k);\n        go(rem-k, k, cur);\n        cur.pop();\n      }\n    }\n    go(n, n, []);\n    return res;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const n = parseInt(slider.value,10);\n    const parts = partitionsOf(n);\n    out.textContent = `n = ${n},  p(${n}) = ${parts.length}`;\n    const W = 620, H = 320;\n    const pad = 16;\n    // Determine grid: we have parts.length partitions; want grid of columns × rows.\n    // Each cell sized to fit the widest partition (largest part) × max rows.\n    const maxPart = n; // widest any diagram gets\n    const maxRows = n; // tallest any diagram gets\n    const cellW = maxPart * 10 + 12; // +gutter\n    const cellH = maxRows * 10 + 22;\n    const cols = Math.max(1, Math.floor((W - 2*pad) / cellW));\n    const rows = Math.ceil(parts.length / cols);\n    const totalH = rows * cellH + 2*pad;\n    // rescale vertically if too tall\n    let scale = 1;\n    if(totalH > H){ scale = (H - 2*pad) / (rows * cellH); }\n    const box = Math.round(10*scale);\n    for(let i=0;i<parts.length;i++){\n      const col = i % cols;\n      const row = Math.floor(i/cols);\n      const cx = pad + col*cellW*scale;\n      const cy = pad + row*cellH*scale;\n      const p = parts[i];\n      for(let r=0;r<p.length;r++){\n        for(let c=0;c<p[r];c++){\n          svg.appendChild(SVG('rect',{\n            x: cx + c*box, y: cy + r*box,\n            width: box-1, height: box-1,\n            fill:'var(--cyan)', opacity: 0.85\n          }));\n        }\n      }\n      // label: part list\n      const lbl = SVG('text',{\n        x: cx, y: cy + p.length*box + 11,\n        'font-size': Math.max(9, 10*scale), fill:'var(--mute)'\n      });\n      lbl.textContent = p.join('+');\n      svg.appendChild(lbl);\n    }\n    // If rows exceed the box, add a hint\n    if(scale < 1){\n      const t = SVG('text',{x:W-pad, y:H-4, 'text-anchor':'end','font-size':11, fill:'var(--mute)'});\n      t.textContent = `grid scaled ×${scale.toFixed(2)}`;\n      svg.appendChild(t);\n    }\n  }\n  slider.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pn",
+            "title": "Partition explorer",
+            "hint": "pick $n \\le 12$; see every partition as a Young diagram",
+            "svgId": "pn-svg",
+            "viewBox": "0 0 620 320",
+            "sectionComment": "============================ widget 1: partition explorer =========================",
+            "bodyScript": "  const svg = $('#pn-svg'), slider = $('#pn-n'), out = $('#pn-nv');\n  // Enumerate partitions of n as arrays, parts in non-increasing order.\n  function partitionsOf(n){\n    const res = [];\n    function go(rem, max, cur){\n      if(rem===0){ res.push(cur.slice()); return; }\n      const lim = Math.min(rem, max);\n      for(let k=lim; k>=1; k--){\n        cur.push(k);\n        go(rem-k, k, cur);\n        cur.pop();\n      }\n    }\n    go(n, n, []);\n    return res;\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const n = parseInt(slider.value,10);\n    const parts = partitionsOf(n);\n    out.textContent = `n = ${n},  p(${n}) = ${parts.length}`;\n    const W = 620, H = 320;\n    const pad = 16;\n    // Determine grid: we have parts.length partitions; want grid of columns × rows.\n    // Each cell sized to fit the widest partition (largest part) × max rows.\n    const maxPart = n; // widest any diagram gets\n    const maxRows = n; // tallest any diagram gets\n    const cellW = maxPart * 10 + 12; // +gutter\n    const cellH = maxRows * 10 + 22;\n    const cols = Math.max(1, Math.floor((W - 2*pad) / cellW));\n    const rows = Math.ceil(parts.length / cols);\n    const totalH = rows * cellH + 2*pad;\n    // rescale vertically if too tall\n    let scale = 1;\n    if(totalH > H){ scale = (H - 2*pad) / (rows * cellH); }\n    const box = Math.round(10*scale);\n    for(let i=0;i<parts.length;i++){\n      const col = i % cols;\n      const row = Math.floor(i/cols);\n      const cx = pad + col*cellW*scale;\n      const cy = pad + row*cellH*scale;\n      const p = parts[i];\n      for(let r=0;r<p.length;r++){\n        for(let c=0;c<p[r];c++){\n          svg.appendChild(SVG('rect',{\n            x: cx + c*box, y: cy + r*box,\n            width: box-1, height: box-1,\n            fill:'var(--cyan)', opacity: 0.85\n          }));\n        }\n      }\n      // label: part list\n      const lbl = SVG('text',{\n        x: cx, y: cy + p.length*box + 11,\n        'font-size': Math.max(9, 10*scale), fill:'var(--mute)'\n      });\n      lbl.textContent = p.join('+');\n      svg.appendChild(lbl);\n    }\n    // If rows exceed the box, add a hint\n    if(scale < 1){\n      const t = SVG('text',{x:W-pad, y:H-4, 'text-anchor':'end','font-size':11, fill:'var(--mute)'});\n      t.textContent = `grid scaled ×${scale.toFixed(2)}`;\n      svg.appendChild(t);\n    }\n  }\n  slider.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pn-n\">$n$</label>\n    <input type=\"range\" id=\"pn-n\" min=\"1\" max=\"12\" step=\"1\" value=\"5\">\n    <span id=\"pn-nv\" class=\"readout\" style=\"min-width:140px;flex:0 0 auto\">n = 5,  p(5) = 7</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "pn-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Each tile is one box; each row of tiles is one part. The partitions are sorted by lex order on their part sequences (largest part first, then ties broken by the next, etc.).</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -49,9 +98,37 @@
         },
         {
           "type": "widget",
-          "id": "w-euler",
-          "html": "<div class=\"widget\" id=\"w-euler\">\n  <div class=\"hd\"><div class=\"ttl\">Expanding $\\prod_{n=1}^{N} \\frac{1}{1-q^n}$</div><div class=\"hint\">first coefficients stabilize to $p(m)$ as $N$ grows</div></div>\n  <div class=\"row\">\n    <label for=\"euler-N\">truncation $N$</label>\n    <input type=\"range\" id=\"euler-N\" min=\"1\" max=\"14\" step=\"1\" value=\"6\">\n    <span id=\"euler-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 6</span>\n  </div>\n  <svg id=\"euler-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Expanding $\\prod_{n=1}^{N} \\frac{1}{1-q^n}$</title></svg>\n  <div class=\"readout\" id=\"euler-out\" style=\"font-size:.85rem\"></div>\n  <div class=\"small\">Blue bars: coefficients of the truncated product $\\prod_{n=1}^{N}\\tfrac{1}{1-q^n}$. Yellow bars: the true partition counts $p(m)$. The first $N{+}1$ coefficients coincide — truncating at $N$ corrupts only the coefficients of $q^{N+1}$ and higher, where \"parts $>N$\" start to matter.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Expanding $\\prod_{n=1}^{N} \\frac{1}{1-q^n}$",
+            "hint": "first coefficients stabilize to $p(m)$ as $N$ grows",
+            "svgId": "euler-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "=========================== widget 2: Euler product expansion ====================",
+            "bodyScript": "  const svg = $('#euler-svg'), Nin = $('#euler-N'), Nv = $('#euler-Nv'), out = $('#euler-out');\n  const D = 20; // show up to q^20\n\n  // true partition numbers\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627];\n\n  // (1 - q^n)^{-1} up to q^D\n  function invOneMinus(n){\n    const p = new Array(D+1).fill(0);\n    for(let k=0; k*n<=D; k++) p[k*n] = 1;\n    return p;\n  }\n  function mul(A,B){\n    const C = new Array(D+1).fill(0);\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n\n  function truncatedProduct(N){\n    let P = new Array(D+1).fill(0); P[0] = 1;\n    for(let n=1;n<=N;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const P = truncatedProduct(N);\n    svg.innerHTML = '';\n    const W = 620, H = 240, pad = {l:50,r:14,t:24,b:36};\n    const maxV = Math.max(1, ...Ptrue.slice(0,D+1));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n    const cw = (W - pad.l - pad.r)/(D+1);\n\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m];\n      const x = pad.l + m*cw;\n      const ha = a>0 ? scale(a)*(H-pad.t-pad.b) : 0;\n      const hb = b>0 ? scale(b)*(H-pad.t-pad.b) : 0;\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--blue)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.75}));\n      if(m%2===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    // legend\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='truncated product'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(m)'; svg.appendChild(t2);\n\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'exponent m (coefficient of q^m)';\n    svg.appendChild(ax);\n\n    // textual summary of first disagreement\n    const diffs = [];\n    for(let m=0;m<=D;m++) if(P[m]!==Ptrue[m]) diffs.push(m);\n    const rows = [];\n    rows.push(`truncated prod matches p(m) for m = 0, 1, ..., ${N}`);\n    if(diffs.length){\n      rows.push(`first disagreement at m = ${diffs[0]}:  truncated=${P[diffs[0]]}, true=${Ptrue[diffs[0]]}`);\n    } else {\n      rows.push('coefficients shown all agree (N ≥ D).');\n    }\n    rows.push('first few true values: ' + Ptrue.slice(0,11).map((v,i)=>`p(${i})=${v}`).join(', '));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"euler-N\">truncation $N$</label>\n    <input type=\"range\" id=\"euler-N\" min=\"1\" max=\"14\" step=\"1\" value=\"6\">\n    <span id=\"euler-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 6</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "euler-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"euler-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue bars: coefficients of the truncated product $\\prod_{n=1}^{N}\\tfrac{1}{1-q^n}$. Yellow bars: the true partition counts $p(m)$. The first $N{+}1$ coefficients coincide — truncating at $N$ corrupts only the coefficients of $q^{N+1}$ and higher, where \"parts $>N$\" start to matter.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -68,8 +145,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-euler",
-          "html": "<script>\n/* =========================== widget 2: Euler product expansion ==================== */\n(function(){\n  const svg = $('#euler-svg'), Nin = $('#euler-N'), Nv = $('#euler-Nv'), out = $('#euler-out');\n  const D = 20; // show up to q^20\n\n  // true partition numbers\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627];\n\n  // (1 - q^n)^{-1} up to q^D\n  function invOneMinus(n){\n    const p = new Array(D+1).fill(0);\n    for(let k=0; k*n<=D; k++) p[k*n] = 1;\n    return p;\n  }\n  function mul(A,B){\n    const C = new Array(D+1).fill(0);\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n\n  function truncatedProduct(N){\n    let P = new Array(D+1).fill(0); P[0] = 1;\n    for(let n=1;n<=N;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const P = truncatedProduct(N);\n    svg.innerHTML = '';\n    const W = 620, H = 240, pad = {l:50,r:14,t:24,b:36};\n    const maxV = Math.max(1, ...Ptrue.slice(0,D+1));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n    const cw = (W - pad.l - pad.r)/(D+1);\n\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m];\n      const x = pad.l + m*cw;\n      const ha = a>0 ? scale(a)*(H-pad.t-pad.b) : 0;\n      const hb = b>0 ? scale(b)*(H-pad.t-pad.b) : 0;\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--blue)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.75}));\n      if(m%2===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    // legend\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='truncated product'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(m)'; svg.appendChild(t2);\n\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'exponent m (coefficient of q^m)';\n    svg.appendChild(ax);\n\n    // textual summary of first disagreement\n    const diffs = [];\n    for(let m=0;m<=D;m++) if(P[m]!==Ptrue[m]) diffs.push(m);\n    const rows = [];\n    rows.push(`truncated prod matches p(m) for m = 0, 1, ..., ${N}`);\n    if(diffs.length){\n      rows.push(`first disagreement at m = ${diffs[0]}:  truncated=${P[diffs[0]]}, true=${Ptrue[diffs[0]]}`);\n    } else {\n      rows.push('coefficients shown all agree (N ≥ D).');\n    }\n    rows.push('first few true values: ' + Ptrue.slice(0,11).map((v,i)=>`p(${i})=${v}`).join(', '));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-euler",
+            "title": "Expanding $\\prod_{n=1}^{N} \\frac{1}{1-q^n}$",
+            "hint": "first coefficients stabilize to $p(m)$ as $N$ grows",
+            "svgId": "euler-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "=========================== widget 2: Euler product expansion ====================",
+            "bodyScript": "  const svg = $('#euler-svg'), Nin = $('#euler-N'), Nv = $('#euler-Nv'), out = $('#euler-out');\n  const D = 20; // show up to q^20\n\n  // true partition numbers\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627];\n\n  // (1 - q^n)^{-1} up to q^D\n  function invOneMinus(n){\n    const p = new Array(D+1).fill(0);\n    for(let k=0; k*n<=D; k++) p[k*n] = 1;\n    return p;\n  }\n  function mul(A,B){\n    const C = new Array(D+1).fill(0);\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n\n  function truncatedProduct(N){\n    let P = new Array(D+1).fill(0); P[0] = 1;\n    for(let n=1;n<=N;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const P = truncatedProduct(N);\n    svg.innerHTML = '';\n    const W = 620, H = 240, pad = {l:50,r:14,t:24,b:36};\n    const maxV = Math.max(1, ...Ptrue.slice(0,D+1));\n    const scale = v => Math.log(1+v)/Math.log(1+maxV);\n    const cw = (W - pad.l - pad.r)/(D+1);\n\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m];\n      const x = pad.l + m*cw;\n      const ha = a>0 ? scale(a)*(H-pad.t-pad.b) : 0;\n      const hb = b>0 ? scale(b)*(H-pad.t-pad.b) : 0;\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--blue)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.75}));\n      if(m%2===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    // legend\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='truncated product'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(m)'; svg.appendChild(t2);\n\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'exponent m (coefficient of q^m)';\n    svg.appendChild(ax);\n\n    // textual summary of first disagreement\n    const diffs = [];\n    for(let m=0;m<=D;m++) if(P[m]!==Ptrue[m]) diffs.push(m);\n    const rows = [];\n    rows.push(`truncated prod matches p(m) for m = 0, 1, ..., ${N}`);\n    if(diffs.length){\n      rows.push(`first disagreement at m = ${diffs[0]}:  truncated=${P[diffs[0]]}, true=${Ptrue[diffs[0]]}`);\n    } else {\n      rows.push('coefficients shown all agree (N ≥ D).');\n    }\n    rows.push('first few true values: ' + Ptrue.slice(0,11).map((v,i)=>`p(${i})=${v}`).join(', '));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"euler-N\">truncation $N$</label>\n    <input type=\"range\" id=\"euler-N\" min=\"1\" max=\"14\" step=\"1\" value=\"6\">\n    <span id=\"euler-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 6</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "euler-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"euler-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue bars: coefficients of the truncated product $\\prod_{n=1}^{N}\\tfrac{1}{1-q^n}$. Yellow bars: the true partition counts $p(m)$. The first $N{+}1$ coefficients coincide — truncating at $N$ corrupts only the coefficients of $q^{N+1}$ and higher, where \"parts $>N$\" start to matter.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -86,9 +192,37 @@
         },
         {
           "type": "widget",
-          "id": "w-pent",
-          "html": "<div class=\"widget\" id=\"w-pent\">\n  <div class=\"hd\"><div class=\"ttl\">Pentagonal recurrence engine</div><div class=\"hint\">drag $N$ to compute the full table $p(0),\\ldots,p(N)$</div></div>\n  <div class=\"row\">\n    <label for=\"pent-N\">$N$</label>\n    <input type=\"range\" id=\"pent-N\" min=\"5\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"pent-Nv\" class=\"readout\" style=\"min-width:110px;flex:0 0 auto\">N = 20</span>\n  </div>\n  <svg id=\"pent-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Pentagonal recurrence engine</title></svg>\n  <div class=\"readout\" id=\"pent-out\" style=\"font-size:.85rem\"></div>\n  <div class=\"small\">The bar plot shows the values on a log scale to accommodate the rapid growth. The readout traces one step of the recurrence so you can watch the pentagonal shifts in action.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pent",
+            "title": "Pentagonal recurrence engine",
+            "hint": "drag $N$ to compute the full table $p(0),\\ldots,p(N)$",
+            "svgId": "pent-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "======================== widget 3: pentagonal recurrence =========================",
+            "bodyScript": "  const svg = $('#pent-svg'), Nin = $('#pent-N'), Nv = $('#pent-Nv'), out = $('#pent-out');\n\n  // Generate generalized pentagonal numbers and their signs\n  // Sequence: g_1=1 (k=1), g_{-1}=2 (k=-1), g_2=5 (k=2), g_{-2}=7, ...\n  // Sign = (-1)^{k+1} for k=1, -1 meaning same sign as k=1's group; actually:\n  // recurrence: p(n) = sum over k=1,2,... of (-1)^{k+1} [p(n-g_k) + p(n-g_{-k})]\n  // where g_k = k(3k-1)/2, g_{-k} = k(3k+1)/2.\n  function pentList(maxN){\n    const out = [];\n    for(let k=1; k*(3*k-1)/2 <= maxN; k++){\n      const s = (k%2===1) ? +1 : -1;\n      out.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= maxN) out.push([k*(3*k+1)/2, s]);\n    }\n    return out;\n  }\n\n  function computeP(N){\n    const P = new Array(N+1).fill(0);\n    P[0] = 1;\n    const pent = pentList(N);\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return { P, pent };\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const { P, pent } = computeP(N);\n    svg.innerHTML = '';\n    const W=620, H=240, pad={l:50,r:14,t:22,b:36};\n    const maxV = Math.max(1, ...P);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    const cw = (W-pad.l-pad.r)/(N+1);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let n=0;n<=N;n++){\n      const v = P[n], x = pad.l + n*cw;\n      const h = scale(v)*(H-pad.t-pad.b);\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-h,width:Math.max(1,cw-2),height:h,\n          fill:'var(--green)',opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = n; svg.appendChild(t);\n      }\n    }\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'n  (log bar height ∝ p(n))';\n    svg.appendChild(ax);\n    const tt = SVG('text',{x:W-pad.r, y:pad.t+4, 'text-anchor':'end','font-size':11, fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `p(${N}) = ${P[N].toLocaleString()}`;\n    svg.appendChild(tt);\n\n    // readout: trace the recurrence for n=N\n    const used = [];\n    let acc = 0;\n    for(const [g,sign] of pent){\n      if(g>N) break;\n      const contribution = sign * P[N-g];\n      used.push(`  ${sign>0?'+':'-'} p(${N-g}) = ${sign>0?'+':'-'}${P[N-g]}`);\n      acc += contribution;\n    }\n    const rows = [];\n    rows.push(`p(${N}) via pentagonal recurrence:`);\n    rows.push(used.join('\\n'));\n    rows.push(`  = ${acc} = p(${N})  ✓`);\n    rows.push('');\n    rows.push('pentagonal numbers used: ' + pent.map(([g,s])=> (s>0?'+':'-')+g).slice(0, Math.min(10,pent.length)).join(', ') + (pent.length>10?', …':''));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pent-N\">$N$</label>\n    <input type=\"range\" id=\"pent-N\" min=\"5\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"pent-Nv\" class=\"readout\" style=\"min-width:110px;flex:0 0 auto\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "pent-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"pent-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">The bar plot shows the values on a log scale to accommodate the rapid growth. The readout traces one step of the recurrence so you can watch the pentagonal shifts in action.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -105,8 +239,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-pent",
-          "html": "<script>\n/* ======================== widget 3: pentagonal recurrence ========================= */\n(function(){\n  const svg = $('#pent-svg'), Nin = $('#pent-N'), Nv = $('#pent-Nv'), out = $('#pent-out');\n\n  // Generate generalized pentagonal numbers and their signs\n  // Sequence: g_1=1 (k=1), g_{-1}=2 (k=-1), g_2=5 (k=2), g_{-2}=7, ...\n  // Sign = (-1)^{k+1} for k=1, -1 meaning same sign as k=1's group; actually:\n  // recurrence: p(n) = sum over k=1,2,... of (-1)^{k+1} [p(n-g_k) + p(n-g_{-k})]\n  // where g_k = k(3k-1)/2, g_{-k} = k(3k+1)/2.\n  function pentList(maxN){\n    const out = [];\n    for(let k=1; k*(3*k-1)/2 <= maxN; k++){\n      const s = (k%2===1) ? +1 : -1;\n      out.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= maxN) out.push([k*(3*k+1)/2, s]);\n    }\n    return out;\n  }\n\n  function computeP(N){\n    const P = new Array(N+1).fill(0);\n    P[0] = 1;\n    const pent = pentList(N);\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return { P, pent };\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const { P, pent } = computeP(N);\n    svg.innerHTML = '';\n    const W=620, H=240, pad={l:50,r:14,t:22,b:36};\n    const maxV = Math.max(1, ...P);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    const cw = (W-pad.l-pad.r)/(N+1);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let n=0;n<=N;n++){\n      const v = P[n], x = pad.l + n*cw;\n      const h = scale(v)*(H-pad.t-pad.b);\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-h,width:Math.max(1,cw-2),height:h,\n          fill:'var(--green)',opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = n; svg.appendChild(t);\n      }\n    }\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'n  (log bar height ∝ p(n))';\n    svg.appendChild(ax);\n    const tt = SVG('text',{x:W-pad.r, y:pad.t+4, 'text-anchor':'end','font-size':11, fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `p(${N}) = ${P[N].toLocaleString()}`;\n    svg.appendChild(tt);\n\n    // readout: trace the recurrence for n=N\n    const used = [];\n    let acc = 0;\n    for(const [g,sign] of pent){\n      if(g>N) break;\n      const contribution = sign * P[N-g];\n      used.push(`  ${sign>0?'+':'-'} p(${N-g}) = ${sign>0?'+':'-'}${P[N-g]}`);\n      acc += contribution;\n    }\n    const rows = [];\n    rows.push(`p(${N}) via pentagonal recurrence:`);\n    rows.push(used.join('\\n'));\n    rows.push(`  = ${acc} = p(${N})  ✓`);\n    rows.push('');\n    rows.push('pentagonal numbers used: ' + pent.map(([g,s])=> (s>0?'+':'-')+g).slice(0, Math.min(10,pent.length)).join(', ') + (pent.length>10?', …':''));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-pent",
+            "title": "Pentagonal recurrence engine",
+            "hint": "drag $N$ to compute the full table $p(0),\\ldots,p(N)$",
+            "svgId": "pent-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "======================== widget 3: pentagonal recurrence =========================",
+            "bodyScript": "  const svg = $('#pent-svg'), Nin = $('#pent-N'), Nv = $('#pent-Nv'), out = $('#pent-out');\n\n  // Generate generalized pentagonal numbers and their signs\n  // Sequence: g_1=1 (k=1), g_{-1}=2 (k=-1), g_2=5 (k=2), g_{-2}=7, ...\n  // Sign = (-1)^{k+1} for k=1, -1 meaning same sign as k=1's group; actually:\n  // recurrence: p(n) = sum over k=1,2,... of (-1)^{k+1} [p(n-g_k) + p(n-g_{-k})]\n  // where g_k = k(3k-1)/2, g_{-k} = k(3k+1)/2.\n  function pentList(maxN){\n    const out = [];\n    for(let k=1; k*(3*k-1)/2 <= maxN; k++){\n      const s = (k%2===1) ? +1 : -1;\n      out.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= maxN) out.push([k*(3*k+1)/2, s]);\n    }\n    return out;\n  }\n\n  function computeP(N){\n    const P = new Array(N+1).fill(0);\n    P[0] = 1;\n    const pent = pentList(N);\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return { P, pent };\n  }\n\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const { P, pent } = computeP(N);\n    svg.innerHTML = '';\n    const W=620, H=240, pad={l:50,r:14,t:22,b:36};\n    const maxV = Math.max(1, ...P);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    const cw = (W-pad.l-pad.r)/(N+1);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let n=0;n<=N;n++){\n      const v = P[n], x = pad.l + n*cw;\n      const h = scale(v)*(H-pad.t-pad.b);\n      if(h>0){\n        svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-h,width:Math.max(1,cw-2),height:h,\n          fill:'var(--green)',opacity:0.85}));\n      }\n      if(n%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = n; svg.appendChild(t);\n      }\n    }\n    const ax = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    ax.textContent = 'n  (log bar height ∝ p(n))';\n    svg.appendChild(ax);\n    const tt = SVG('text',{x:W-pad.r, y:pad.t+4, 'text-anchor':'end','font-size':11, fill:'var(--blue)','font-style':'italic'});\n    tt.textContent = `p(${N}) = ${P[N].toLocaleString()}`;\n    svg.appendChild(tt);\n\n    // readout: trace the recurrence for n=N\n    const used = [];\n    let acc = 0;\n    for(const [g,sign] of pent){\n      if(g>N) break;\n      const contribution = sign * P[N-g];\n      used.push(`  ${sign>0?'+':'-'} p(${N-g}) = ${sign>0?'+':'-'}${P[N-g]}`);\n      acc += contribution;\n    }\n    const rows = [];\n    rows.push(`p(${N}) via pentagonal recurrence:`);\n    rows.push(used.join('\\n'));\n    rows.push(`  = ${acc} = p(${N})  ✓`);\n    rows.push('');\n    rows.push('pentagonal numbers used: ' + pent.map(([g,s])=> (s>0?'+':'-')+g).slice(0, Math.min(10,pent.length)).join(', ') + (pent.length>10?', …':''));\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"pent-N\">$N$</label>\n    <input type=\"range\" id=\"pent-N\" min=\"5\" max=\"60\" step=\"1\" value=\"20\">\n    <span id=\"pent-Nv\" class=\"readout\" style=\"min-width:110px;flex:0 0 auto\">N = 20</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "pent-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"pent-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">The bar plot shows the values on a log scale to accommodate the rapid growth. The readout traces one step of the recurrence so you can watch the pentagonal shifts in action.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -123,9 +286,37 @@
         },
         {
           "type": "widget",
-          "id": "w-jtp",
-          "html": "<div class=\"widget\" id=\"w-jtp\">\n  <div class=\"hd\"><div class=\"ttl\">Triple product at $z = -q$, recovering Euler</div><div class=\"hint\">two parallel expansions stay in lockstep</div></div>\n  <div class=\"row\">\n    <label for=\"jtp-N\">truncation $N$</label>\n    <input type=\"range\" id=\"jtp-N\" min=\"3\" max=\"20\" step=\"1\" value=\"10\">\n    <span id=\"jtp-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 10</span>\n  </div>\n  <svg id=\"jtp-svg\" viewBox=\"0 0 620 240\" width=\"620\" height=\"240\"><title>Triple product at $z = -q$, recovering Euler</title></svg>\n  <div class=\"readout\" id=\"jtp-out\" style=\"font-size:.85rem\"></div>\n  <div class=\"small\">Blue: sum side $\\sum_{|k|\\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jtp",
+            "title": "Triple product at $z = -q$, recovering Euler",
+            "hint": "two parallel expansions stay in lockstep",
+            "svgId": "jtp-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "============================== widget 4: triple product ==========================",
+            "bodyScript": "  const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');\n  const D = 30;\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function pentSum(N){\n    const S = zeros();\n    for(let k=-N;k<=N;k++){\n      const g = k*(3*k-1)/2;\n      if(g>=0 && g<=D) S[g] += (k%2===0)?1:-1;\n    }\n    return S;\n  }\n  function eulerProduct(N){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=N;n++){\n      const q = zeros(); q[0] = 1;\n      if(n<=D) q[n] = -1;\n      P = mul(P, q);\n    }\n    return P;\n  }\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const S = pentSum(N), P = eulerProduct(N);\n    svg.innerHTML = '';\n    const W=620,H=240,pad={l:40,r:12,t:22,b:36};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const allV = [...S, ...P].map(Math.abs);\n    const maxV = Math.max(1, ...allV);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = S[m], b = P[m];\n      const x = pad.l + m*cw;\n      const midY = H - pad.b;\n      const ha = Math.abs(a)/maxV * (H-pad.t-pad.b);\n      const hb = Math.abs(b)/maxV * (H-pad.t-pad.b);\n      if(a!==0){\n        const top = a>0 ? midY-ha : midY;\n        svg.appendChild(SVG('rect',{x:x+1,y:top,width:Math.max(1,cw/2-1),height:ha,\n          fill: a>0?'var(--blue)':'var(--pink)', opacity:0.85}));\n      }\n      if(b!==0){\n        const top = b>0 ? midY-hb : midY;\n        svg.appendChild(SVG('rect',{x:x+cw/2,y:top,width:Math.max(1,cw/2-1),height:hb,\n          fill: b>0?'var(--yellow)':'var(--pink)', opacity:0.85}));\n      }\n      if(m%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='pentagonal sum'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='Euler product'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`first coefficients (sum | product):`);\n    for(let m=0;m<=Math.min(15,D);m++){\n      rows.push(`  [q^${String(m).padStart(2,' ')}]  ${String(S[m]).padStart(3,' ')}  |  ${String(P[m]).padStart(3,' ')}${S[m]===P[m]?' ✓':' ≠'}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"jtp-N\">truncation $N$</label>\n    <input type=\"range\" id=\"jtp-N\" min=\"3\" max=\"20\" step=\"1\" value=\"10\">\n    <span id=\"jtp-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 10</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "jtp-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"jtp-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue: sum side $\\sum_{|k|\\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -133,8 +324,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-jtp",
-          "html": "<script>\n/* ============================== widget 4: triple product ========================== */\n(function(){\n  const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');\n  const D = 30;\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function pentSum(N){\n    const S = zeros();\n    for(let k=-N;k<=N;k++){\n      const g = k*(3*k-1)/2;\n      if(g>=0 && g<=D) S[g] += (k%2===0)?1:-1;\n    }\n    return S;\n  }\n  function eulerProduct(N){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=N;n++){\n      const q = zeros(); q[0] = 1;\n      if(n<=D) q[n] = -1;\n      P = mul(P, q);\n    }\n    return P;\n  }\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const S = pentSum(N), P = eulerProduct(N);\n    svg.innerHTML = '';\n    const W=620,H=240,pad={l:40,r:12,t:22,b:36};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const allV = [...S, ...P].map(Math.abs);\n    const maxV = Math.max(1, ...allV);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = S[m], b = P[m];\n      const x = pad.l + m*cw;\n      const midY = H - pad.b;\n      const ha = Math.abs(a)/maxV * (H-pad.t-pad.b);\n      const hb = Math.abs(b)/maxV * (H-pad.t-pad.b);\n      if(a!==0){\n        const top = a>0 ? midY-ha : midY;\n        svg.appendChild(SVG('rect',{x:x+1,y:top,width:Math.max(1,cw/2-1),height:ha,\n          fill: a>0?'var(--blue)':'var(--pink)', opacity:0.85}));\n      }\n      if(b!==0){\n        const top = b>0 ? midY-hb : midY;\n        svg.appendChild(SVG('rect',{x:x+cw/2,y:top,width:Math.max(1,cw/2-1),height:hb,\n          fill: b>0?'var(--yellow)':'var(--pink)', opacity:0.85}));\n      }\n      if(m%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='pentagonal sum'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='Euler product'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`first coefficients (sum | product):`);\n    for(let m=0;m<=Math.min(15,D);m++){\n      rows.push(`  [q^${String(m).padStart(2,' ')}]  ${String(S[m]).padStart(3,' ')}  |  ${String(P[m]).padStart(3,' ')}${S[m]===P[m]?' ✓':' ≠'}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jtp",
+            "title": "Triple product at $z = -q$, recovering Euler",
+            "hint": "two parallel expansions stay in lockstep",
+            "svgId": "jtp-svg",
+            "viewBox": "0 0 620 240",
+            "sectionComment": "============================== widget 4: triple product ==========================",
+            "bodyScript": "  const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');\n  const D = 30;\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function pentSum(N){\n    const S = zeros();\n    for(let k=-N;k<=N;k++){\n      const g = k*(3*k-1)/2;\n      if(g>=0 && g<=D) S[g] += (k%2===0)?1:-1;\n    }\n    return S;\n  }\n  function eulerProduct(N){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=N;n++){\n      const q = zeros(); q[0] = 1;\n      if(n<=D) q[n] = -1;\n      P = mul(P, q);\n    }\n    return P;\n  }\n  function render(){\n    const N = parseInt(Nin.value,10);\n    Nv.textContent = `N = ${N}`;\n    const S = pentSum(N), P = eulerProduct(N);\n    svg.innerHTML = '';\n    const W=620,H=240,pad={l:40,r:12,t:22,b:36};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const allV = [...S, ...P].map(Math.abs);\n    const maxV = Math.max(1, ...allV);\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = S[m], b = P[m];\n      const x = pad.l + m*cw;\n      const midY = H - pad.b;\n      const ha = Math.abs(a)/maxV * (H-pad.t-pad.b);\n      const hb = Math.abs(b)/maxV * (H-pad.t-pad.b);\n      if(a!==0){\n        const top = a>0 ? midY-ha : midY;\n        svg.appendChild(SVG('rect',{x:x+1,y:top,width:Math.max(1,cw/2-1),height:ha,\n          fill: a>0?'var(--blue)':'var(--pink)', opacity:0.85}));\n      }\n      if(b!==0){\n        const top = b>0 ? midY-hb : midY;\n        svg.appendChild(SVG('rect',{x:x+cw/2,y:top,width:Math.max(1,cw/2-1),height:hb,\n          fill: b>0?'var(--yellow)':'var(--pink)', opacity:0.85}));\n      }\n      if(m%5===0){\n        const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n        t.textContent = m; svg.appendChild(t);\n      }\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t,width:10,height:10,fill:'var(--blue)'}));\n    const t1 = SVG('text',{x:W-pad.r-164,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='pentagonal sum'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-180,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-164,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='Euler product'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`first coefficients (sum | product):`);\n    for(let m=0;m<=Math.min(15,D);m++){\n      rows.push(`  [q^${String(m).padStart(2,' ')}]  ${String(S[m]).padStart(3,' ')}  |  ${String(P[m]).padStart(3,' ')}${S[m]===P[m]?' ✓':' ≠'}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Nin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"jtp-N\">truncation $N$</label>\n    <input type=\"range\" id=\"jtp-N\" min=\"3\" max=\"20\" step=\"1\" value=\"10\">\n    <span id=\"jtp-Nv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">N = 10</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "jtp-svg",
+                "viewBox": "0 0 620 240",
+                "width": 620,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"jtp-out\" style=\"font-size:.85rem\"></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\">Blue: sum side $\\sum_{|k|\\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -151,9 +371,33 @@
         },
         {
           "type": "widget",
-          "id": "w-ram",
-          "html": "<div class=\"widget\" id=\"w-ram\">\n  <div class=\"hd\"><div class=\"ttl\">Ramanujan congruence checker</div><div class=\"hint\">pick $n$; watch the three residues</div></div>\n  <div class=\"row\">\n    <label for=\"ram-n\">$n$</label>\n    <input type=\"number\" id=\"ram-n\" min=\"0\" max=\"80\" step=\"1\" value=\"14\">\n    <span class=\"small\">try $4, 9, 14, 19$ (mod 5); $5, 12, 19, 26$ (mod 7); $6, 17, 28$ (mod 11)</span>\n  </div>\n  <svg id=\"ram-svg\" viewBox=\"0 0 620 200\" width=\"620\" height=\"200\"><title>Ramanujan congruence checker</title></svg>\n  <div class=\"readout\" id=\"ram-out\" style=\"font-size:.88rem\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-ram",
+            "title": "Ramanujan congruence checker",
+            "hint": "pick $n$; watch the three residues",
+            "svgId": "ram-svg",
+            "viewBox": "0 0 620 200",
+            "sectionComment": "============================== widget 5: Ramanujan check =========================",
+            "bodyScript": "  const svg = $('#ram-svg'), input = $('#ram-n'), out = $('#ram-out');\n  // table of p(n) up to 80 using pentagonal recurrence\n  function buildTable(N){\n    const P = new Array(N+1).fill(0); P[0] = 1;\n    const pent = [];\n    for(let k=1; k*(3*k-1)/2 <= N; k++){\n      const s = (k%2===1) ? +1 : -1;\n      pent.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n    }\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return P;\n  }\n  const Ptable = buildTable(80);\n\n  function render(){\n    let n = parseInt(input.value, 10);\n    if(!Number.isFinite(n)) n = 0;\n    n = Math.max(0, Math.min(80, n));\n    input.value = n;\n\n    const pn = Ptable[n];\n    const mods = [\n      { mod:5,  r:4, name:'5n+4' },\n      { mod:7,  r:5, name:'7n+5' },\n      { mod:11, r:6, name:'11n+6' }\n    ];\n\n    svg.innerHTML = '';\n    const W=620,H=200;\n    const labelRow = 36;\n    // Three badges\n    for(let i=0;i<mods.length;i++){\n      const { mod, r, name } = mods[i];\n      const res = ((pn % mod) + mod) % mod;\n      const inProg = (n % mod) === r;\n      const predicted = inProg ? 0 : null;\n      const passes = inProg && res === 0;\n\n      const cx = 120 + i*180;\n      const cy = 85;\n      let color = 'var(--mute)';\n      if(inProg){\n        color = res === 0 ? 'var(--green)' : 'var(--pink)';\n      } else {\n        color = 'var(--cyan)';\n      }\n      svg.appendChild(SVG('rect',{x:cx-80,y:cy-44,width:160,height:88,rx:8,\n        fill:'var(--panel2)',stroke:color,'stroke-width':2}));\n      const t1 = SVG('text',{x:cx,y:cy-24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n      t1.textContent = `mod ${mod}`; svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx,y:cy-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      t2.textContent = `p(${n}) = ${pn.toLocaleString()}`; svg.appendChild(t2);\n      const t3 = SVG('text',{x:cx,y:cy+14,'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t3.textContent = `≡ ${res} (mod ${mod})`; svg.appendChild(t3);\n      const t4 = SVG('text',{x:cx,y:cy+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      if(inProg){\n        t4.textContent = passes ? `✓ ${name} form: matches` : `✗ ${name}: expected 0!`;\n      } else {\n        t4.textContent = `n not in ${name}`;\n      }\n      svg.appendChild(t4);\n    }\n    // small note\n    const note = SVG('text',{x:W/2,y:H-14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    note.textContent = `n = ${n}.  ramanujan's congruences hold iff n ∈ {5k+4, 7k+5, 11k+6} in the corresponding column.`;\n    svg.appendChild(note);\n\n    // readout\n    const rows = [];\n    rows.push(`n = ${n},  p(n) = ${pn.toLocaleString()}`);\n    for(const { mod, r, name } of mods){\n      const inProg = (n % mod) === r;\n      const res = ((pn % mod) + mod) % mod;\n      rows.push(`  p(n) mod ${mod} = ${res}  ${inProg? (res===0?`   ← n=${n} is of form ${name}, divisible ✓` : `   ← n of form ${name}, expected 0, got ${res} (CHECK)`): ''}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  input.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ram-n\">$n$</label>\n    <input type=\"number\" id=\"ram-n\" min=\"0\" max=\"80\" step=\"1\" value=\"14\">\n    <span class=\"small\">try $4, 9, 14, 19$ (mod 5); $5, 12, 19, 26$ (mod 7); $6, 17, 28$ (mod 11)</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "ram-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"ram-out\" style=\"font-size:.88rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -170,8 +414,33 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-ram",
-          "html": "<script>\n/* ============================== widget 5: Ramanujan check ========================= */\n(function(){\n  const svg = $('#ram-svg'), input = $('#ram-n'), out = $('#ram-out');\n  // table of p(n) up to 80 using pentagonal recurrence\n  function buildTable(N){\n    const P = new Array(N+1).fill(0); P[0] = 1;\n    const pent = [];\n    for(let k=1; k*(3*k-1)/2 <= N; k++){\n      const s = (k%2===1) ? +1 : -1;\n      pent.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n    }\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return P;\n  }\n  const Ptable = buildTable(80);\n\n  function render(){\n    let n = parseInt(input.value, 10);\n    if(!Number.isFinite(n)) n = 0;\n    n = Math.max(0, Math.min(80, n));\n    input.value = n;\n\n    const pn = Ptable[n];\n    const mods = [\n      { mod:5,  r:4, name:'5n+4' },\n      { mod:7,  r:5, name:'7n+5' },\n      { mod:11, r:6, name:'11n+6' }\n    ];\n\n    svg.innerHTML = '';\n    const W=620,H=200;\n    const labelRow = 36;\n    // Three badges\n    for(let i=0;i<mods.length;i++){\n      const { mod, r, name } = mods[i];\n      const res = ((pn % mod) + mod) % mod;\n      const inProg = (n % mod) === r;\n      const predicted = inProg ? 0 : null;\n      const passes = inProg && res === 0;\n\n      const cx = 120 + i*180;\n      const cy = 85;\n      let color = 'var(--mute)';\n      if(inProg){\n        color = res === 0 ? 'var(--green)' : 'var(--pink)';\n      } else {\n        color = 'var(--cyan)';\n      }\n      svg.appendChild(SVG('rect',{x:cx-80,y:cy-44,width:160,height:88,rx:8,\n        fill:'var(--panel2)',stroke:color,'stroke-width':2}));\n      const t1 = SVG('text',{x:cx,y:cy-24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n      t1.textContent = `mod ${mod}`; svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx,y:cy-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      t2.textContent = `p(${n}) = ${pn.toLocaleString()}`; svg.appendChild(t2);\n      const t3 = SVG('text',{x:cx,y:cy+14,'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t3.textContent = `≡ ${res} (mod ${mod})`; svg.appendChild(t3);\n      const t4 = SVG('text',{x:cx,y:cy+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      if(inProg){\n        t4.textContent = passes ? `✓ ${name} form: matches` : `✗ ${name}: expected 0!`;\n      } else {\n        t4.textContent = `n not in ${name}`;\n      }\n      svg.appendChild(t4);\n    }\n    // small note\n    const note = SVG('text',{x:W/2,y:H-14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    note.textContent = `n = ${n}.  ramanujan's congruences hold iff n ∈ {5k+4, 7k+5, 11k+6} in the corresponding column.`;\n    svg.appendChild(note);\n\n    // readout\n    const rows = [];\n    rows.push(`n = ${n},  p(n) = ${pn.toLocaleString()}`);\n    for(const { mod, r, name } of mods){\n      const inProg = (n % mod) === r;\n      const res = ((pn % mod) + mod) % mod;\n      rows.push(`  p(n) mod ${mod} = ${res}  ${inProg? (res===0?`   ← n=${n} is of form ${name}, divisible ✓` : `   ← n of form ${name}, expected 0, got ${res} (CHECK)`): ''}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  input.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-ram",
+            "title": "Ramanujan congruence checker",
+            "hint": "pick $n$; watch the three residues",
+            "svgId": "ram-svg",
+            "viewBox": "0 0 620 200",
+            "sectionComment": "============================== widget 5: Ramanujan check =========================",
+            "bodyScript": "  const svg = $('#ram-svg'), input = $('#ram-n'), out = $('#ram-out');\n  // table of p(n) up to 80 using pentagonal recurrence\n  function buildTable(N){\n    const P = new Array(N+1).fill(0); P[0] = 1;\n    const pent = [];\n    for(let k=1; k*(3*k-1)/2 <= N; k++){\n      const s = (k%2===1) ? +1 : -1;\n      pent.push([k*(3*k-1)/2, s]);\n      if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n    }\n    for(let n=1;n<=N;n++){\n      let s = 0;\n      for(const [g,sign] of pent){\n        if(g>n) break;\n        s += sign * P[n-g];\n      }\n      P[n] = s;\n    }\n    return P;\n  }\n  const Ptable = buildTable(80);\n\n  function render(){\n    let n = parseInt(input.value, 10);\n    if(!Number.isFinite(n)) n = 0;\n    n = Math.max(0, Math.min(80, n));\n    input.value = n;\n\n    const pn = Ptable[n];\n    const mods = [\n      { mod:5,  r:4, name:'5n+4' },\n      { mod:7,  r:5, name:'7n+5' },\n      { mod:11, r:6, name:'11n+6' }\n    ];\n\n    svg.innerHTML = '';\n    const W=620,H=200;\n    const labelRow = 36;\n    // Three badges\n    for(let i=0;i<mods.length;i++){\n      const { mod, r, name } = mods[i];\n      const res = ((pn % mod) + mod) % mod;\n      const inProg = (n % mod) === r;\n      const predicted = inProg ? 0 : null;\n      const passes = inProg && res === 0;\n\n      const cx = 120 + i*180;\n      const cy = 85;\n      let color = 'var(--mute)';\n      if(inProg){\n        color = res === 0 ? 'var(--green)' : 'var(--pink)';\n      } else {\n        color = 'var(--cyan)';\n      }\n      svg.appendChild(SVG('rect',{x:cx-80,y:cy-44,width:160,height:88,rx:8,\n        fill:'var(--panel2)',stroke:color,'stroke-width':2}));\n      const t1 = SVG('text',{x:cx,y:cy-24,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});\n      t1.textContent = `mod ${mod}`; svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx,y:cy-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      t2.textContent = `p(${n}) = ${pn.toLocaleString()}`; svg.appendChild(t2);\n      const t3 = SVG('text',{x:cx,y:cy+14,'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t3.textContent = `≡ ${res} (mod ${mod})`; svg.appendChild(t3);\n      const t4 = SVG('text',{x:cx,y:cy+34,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      if(inProg){\n        t4.textContent = passes ? `✓ ${name} form: matches` : `✗ ${name}: expected 0!`;\n      } else {\n        t4.textContent = `n not in ${name}`;\n      }\n      svg.appendChild(t4);\n    }\n    // small note\n    const note = SVG('text',{x:W/2,y:H-14,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    note.textContent = `n = ${n}.  ramanujan's congruences hold iff n ∈ {5k+4, 7k+5, 11k+6} in the corresponding column.`;\n    svg.appendChild(note);\n\n    // readout\n    const rows = [];\n    rows.push(`n = ${n},  p(n) = ${pn.toLocaleString()}`);\n    for(const { mod, r, name } of mods){\n      const inProg = (n % mod) === r;\n      const res = ((pn % mod) + mod) % mod;\n      rows.push(`  p(n) mod ${mod} = ${res}  ${inProg? (res===0?`   ← n=${n} is of form ${name}, divisible ✓` : `   ← n of form ${name}, expected 0, got ${res} (CHECK)`): ''}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  input.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"ram-n\">$n$</label>\n    <input type=\"number\" id=\"ram-n\" min=\"0\" max=\"80\" step=\"1\" value=\"14\">\n    <span class=\"small\">try $4, 9, 14, 19$ (mod 5); $5, 12, 19, 26$ (mod 7); $6, 17, 28$ (mod 11)</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "ram-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"ram-out\" style=\"font-size:.88rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -188,9 +457,33 @@
         },
         {
           "type": "widget",
-          "id": "w-eta",
-          "html": "<div class=\"widget\" id=\"w-eta\">\n  <div class=\"hd\"><div class=\"ttl\">$\\eta$ as the partition engine</div><div class=\"hint\">compare $\\sum p(n) q^n$ with $q^{1/24}/\\eta(\\tau)$ coefficient-by-coefficient</div></div>\n  <div class=\"row\">\n    <label for=\"eta-K\">product truncation $K$</label>\n    <input type=\"range\" id=\"eta-K\" min=\"4\" max=\"25\" step=\"1\" value=\"12\">\n    <span id=\"eta-Kv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">K = 12</span>\n  </div>\n  <svg id=\"eta-svg\" viewBox=\"0 0 620 220\" width=\"620\" height=\"220\"><title>$\\eta$ as the partition engine</title></svg>\n  <div class=\"readout\" id=\"eta-out\" style=\"font-size:.85rem\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-eta",
+            "title": "$\\eta$ as the partition engine",
+            "hint": "compare $\\sum p(n) q^n$ with $q^{1/24}/\\eta(\\tau)$ coefficient-by-coefficient",
+            "svgId": "eta-svg",
+            "viewBox": "0 0 620 220",
+            "sectionComment": "============================== widget 6: 1/eta expansion =========================",
+            "bodyScript": "  const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');\n  const D = 16;\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231];\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function invOneMinus(n){\n    const p = zeros();\n    for(let k=0;k*n<=D;k++) p[k*n] = 1;\n    return p;\n  }\n  function truncRecip(K){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=K;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n  function render(){\n    const K = parseInt(Kin.value,10);\n    Kv.textContent = `K = ${K}`;\n    const P = truncRecip(K);\n    svg.innerHTML='';\n    const W=620, H=220, pad={l:50,r:14,t:22,b:34};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const maxV = Math.max(1, ...Ptrue);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m]||0;\n      const x = pad.l + m*cw;\n      const ha = scale(a)*(H-pad.t-pad.b);\n      const hb = scale(b)*(H-pad.t-pad.b);\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--violet)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.8}));\n      const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t,width:10,height:10,fill:'var(--violet)'}));\n    const t1 = SVG('text',{x:W-pad.r-174,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='q^{1/24}/η  (truncated)'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-174,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(n)'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`coefficient of q^n in q^{1/24}/η(τ) vs. p(n):`);\n    for(let m=0;m<=Math.min(12,D);m++){\n      const ok = (P[m]===Ptrue[m]) ? '✓' : '(trunc)';\n      rows.push(`  n=${String(m).padStart(2,' ')}:  ${String(P[m]).padStart(5,' ')}  vs  p(n)=${String(Ptrue[m]).padStart(5,' ')}  ${ok}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Kin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eta-K\">product truncation $K$</label>\n    <input type=\"range\" id=\"eta-K\" min=\"4\" max=\"25\" step=\"1\" value=\"12\">\n    <span id=\"eta-Kv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">K = 12</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "eta-svg",
+                "viewBox": "0 0 620 220",
+                "width": 620,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"eta-out\" style=\"font-size:.85rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -207,8 +500,33 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-eta",
-          "html": "<script>\n/* ============================== widget 6: 1/eta expansion ========================= */\n(function(){\n  const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');\n  const D = 16;\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231];\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function invOneMinus(n){\n    const p = zeros();\n    for(let k=0;k*n<=D;k++) p[k*n] = 1;\n    return p;\n  }\n  function truncRecip(K){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=K;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n  function render(){\n    const K = parseInt(Kin.value,10);\n    Kv.textContent = `K = ${K}`;\n    const P = truncRecip(K);\n    svg.innerHTML='';\n    const W=620, H=220, pad={l:50,r:14,t:22,b:34};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const maxV = Math.max(1, ...Ptrue);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m]||0;\n      const x = pad.l + m*cw;\n      const ha = scale(a)*(H-pad.t-pad.b);\n      const hb = scale(b)*(H-pad.t-pad.b);\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--violet)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.8}));\n      const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t,width:10,height:10,fill:'var(--violet)'}));\n    const t1 = SVG('text',{x:W-pad.r-174,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='q^{1/24}/η  (truncated)'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-174,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(n)'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`coefficient of q^n in q^{1/24}/η(τ) vs. p(n):`);\n    for(let m=0;m<=Math.min(12,D);m++){\n      const ok = (P[m]===Ptrue[m]) ? '✓' : '(trunc)';\n      rows.push(`  n=${String(m).padStart(2,' ')}:  ${String(P[m]).padStart(5,' ')}  vs  p(n)=${String(Ptrue[m]).padStart(5,' ')}  ${ok}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Kin.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-eta",
+            "title": "$\\eta$ as the partition engine",
+            "hint": "compare $\\sum p(n) q^n$ with $q^{1/24}/\\eta(\\tau)$ coefficient-by-coefficient",
+            "svgId": "eta-svg",
+            "viewBox": "0 0 620 220",
+            "sectionComment": "============================== widget 6: 1/eta expansion =========================",
+            "bodyScript": "  const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');\n  const D = 16;\n  const Ptrue = [1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231];\n  function zeros(){ return new Array(D+1).fill(0); }\n  function mul(A,B){\n    const C = zeros();\n    for(let i=0;i<=D;i++){\n      if(!A[i]) continue;\n      for(let j=0;i+j<=D;j++){\n        if(!B[j]) continue;\n        C[i+j] += A[i]*B[j];\n      }\n    }\n    return C;\n  }\n  function invOneMinus(n){\n    const p = zeros();\n    for(let k=0;k*n<=D;k++) p[k*n] = 1;\n    return p;\n  }\n  function truncRecip(K){\n    let P = zeros(); P[0] = 1;\n    for(let n=1;n<=K;n++) P = mul(P, invOneMinus(n));\n    return P;\n  }\n  function render(){\n    const K = parseInt(Kin.value,10);\n    Kv.textContent = `K = ${K}`;\n    const P = truncRecip(K);\n    svg.innerHTML='';\n    const W=620, H=220, pad={l:50,r:14,t:22,b:34};\n    const cw = (W-pad.l-pad.r)/(D+1);\n    const maxV = Math.max(1, ...Ptrue);\n    const scale = v => v>0 ? Math.log(1+v)/Math.log(1+maxV) : 0;\n    svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n    for(let m=0;m<=D;m++){\n      const a = P[m], b = Ptrue[m]||0;\n      const x = pad.l + m*cw;\n      const ha = scale(a)*(H-pad.t-pad.b);\n      const hb = scale(b)*(H-pad.t-pad.b);\n      if(ha>0) svg.appendChild(SVG('rect',{x:x+1,y:H-pad.b-ha,width:Math.max(1,cw/2-1),height:ha,fill:'var(--violet)',opacity:0.85}));\n      if(hb>0) svg.appendChild(SVG('rect',{x:x+cw/2,y:H-pad.b-hb,width:Math.max(1,cw/2-1),height:hb,fill:'var(--yellow)',opacity:0.8}));\n      const t = SVG('text',{x:x+cw/2,y:H-pad.b+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = m; svg.appendChild(t);\n    }\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t,width:10,height:10,fill:'var(--violet)'}));\n    const t1 = SVG('text',{x:W-pad.r-174,y:pad.t+9,'font-size':11,fill:'var(--ink)'}); t1.textContent='q^{1/24}/η  (truncated)'; svg.appendChild(t1);\n    svg.appendChild(SVG('rect',{x:W-pad.r-190,y:pad.t+16,width:10,height:10,fill:'var(--yellow)'}));\n    const t2 = SVG('text',{x:W-pad.r-174,y:pad.t+25,'font-size':11,fill:'var(--ink)'}); t2.textContent='true p(n)'; svg.appendChild(t2);\n\n    const rows = [];\n    rows.push(`coefficient of q^n in q^{1/24}/η(τ) vs. p(n):`);\n    for(let m=0;m<=Math.min(12,D);m++){\n      const ok = (P[m]===Ptrue[m]) ? '✓' : '(trunc)';\n      rows.push(`  n=${String(m).padStart(2,' ')}:  ${String(P[m]).padStart(5,' ')}  vs  p(n)=${String(Ptrue[m]).padStart(5,' ')}  ${ok}`);\n    }\n    out.textContent = rows.join('\\n');\n  }\n  Kin.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"eta-K\">product truncation $K$</label>\n    <input type=\"range\" id=\"eta-K\" min=\"4\" max=\"25\" step=\"1\" value=\"12\">\n    <span id=\"eta-Kv\" class=\"readout\" style=\"min-width:80px;flex:0 0 auto\">K = 12</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "eta-svg",
+                "viewBox": "0 0 620 220",
+                "width": 620,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"eta-out\" style=\"font-size:.85rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -225,9 +543,29 @@
         },
         {
           "type": "widget",
-          "id": "w-hr",
-          "html": "<div class=\"widget\" id=\"w-hr\">\n  <div class=\"hd\"><div class=\"ttl\">Hardy–Ramanujan vs. exact $p(n)$</div><div class=\"hint\">relative error shrinks like $1/\\sqrt{n}$</div></div>\n  <svg id=\"hr-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>Hardy–Ramanujan vs. exact $p(n)$</title></svg>\n  <div class=\"readout\" id=\"hr-out\" style=\"font-size:.85rem\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hr",
+            "title": "Hardy–Ramanujan vs. exact $p(n)$",
+            "hint": "relative error shrinks like $1/\\sqrt{n}$",
+            "svgId": "hr-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "============================== widget 7: HR asymptotic ==========================",
+            "bodyScript": "  const svg = $('#hr-svg'), out = $('#hr-out');\n  // precompute p up to 200\n  const N = 200;\n  const P = new Array(N+1).fill(0); P[0] = 1;\n  const pent = [];\n  for(let k=1; k*(3*k-1)/2 <= N; k++){\n    const s = (k%2===1) ? +1 : -1;\n    pent.push([k*(3*k-1)/2, s]);\n    if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n  }\n  for(let n=1;n<=N;n++){\n    let s = 0;\n    for(const [g,sign] of pent){\n      if(g>n) break;\n      s += sign * P[n-g];\n    }\n    P[n] = s;\n  }\n  function HR(n){\n    if(n<=0) return 1;\n    return Math.exp(Math.PI*Math.sqrt(2*n/3)) / (4*n*Math.sqrt(3));\n  }\n  svg.innerHTML = '';\n  const W=620, H=260, pad={l:60,r:20,t:24,b:40};\n  // plot log10(p(n)) and log10(HR(n)) vs n\n  const minN = 5;\n  const maxN = N;\n  const pts1=[], pts2=[];\n  for(let n=minN;n<=maxN;n++){\n    pts1.push([n, Math.log10(P[n])]);\n    pts2.push([n, Math.log10(HR(n))]);\n  }\n  const yMax = Math.log10(P[N])+1;\n  const X = x => pad.l + (x-minN)/(maxN-minN)*(W-pad.l-pad.r);\n  const Y = v => H - pad.b - (v/yMax)*(H-pad.t-pad.b);\n  svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n  for(let v=2; v<=Math.floor(yMax); v+=2){\n    const y = Y(v);\n    svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));\n    const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = '10^'+v; svg.appendChild(t);\n  }\n  for(const xv of [10,50,100,150,200]){\n    const x = X(xv);\n    svg.appendChild(SVG('line',{x1:x,y1:H-pad.b,x2:x,y2:H-pad.b+4,stroke:'var(--mute)'}));\n    const t = SVG('text',{x,y:H-pad.b+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = xv; svg.appendChild(t);\n  }\n  const pathOf = (pts, color, dash) => {\n    const d = pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');\n    const pth = SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2});\n    if(dash) pth.setAttribute('stroke-dasharray', dash);\n    svg.appendChild(pth);\n  };\n  pathOf(pts1, 'var(--blue)');\n  pathOf(pts2, 'var(--yellow)', '5 3');\n  // legend\n  const lg = SVG('g',{}); svg.appendChild(lg);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+12,x2:W-pad.r-170,y2:pad.t+12,stroke:'var(--blue)','stroke-width':2.2}));\n  const t1 = SVG('text',{x:W-pad.r-166,y:pad.t+16,'font-size':12,fill:'var(--ink)'}); t1.textContent='log₁₀ p(n)'; lg.appendChild(t1);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+30,x2:W-pad.r-170,y2:pad.t+30,stroke:'var(--yellow)','stroke-width':2.2,'stroke-dasharray':'5 3'}));\n  const t2 = SVG('text',{x:W-pad.r-166,y:pad.t+34,'font-size':12,fill:'var(--ink)'}); t2.textContent='log₁₀ HR(n)'; lg.appendChild(t2);\n  // axis labels\n  const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  xl.textContent = 'n'; svg.appendChild(xl);\n\n  const rows = [];\n  rows.push('   n      p(n)            HR(n)           rel. err');\n  for(const n of [10, 20, 50, 100, 150, 200]){\n    const ex = P[n], ap = HR(n);\n    const err = ((ap-ex)/ex)*100;\n    rows.push(`  ${String(n).padStart(3,' ')}  ${String(ex).padStart(14,' ')}  ${ap.toExponential(4).padStart(12,' ')}   ${err.toFixed(2).padStart(7,' ')}%`);\n  }\n  out.textContent = rows.join('\\n');",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hr-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"hr-out\" style=\"font-size:.85rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -235,8 +573,29 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-hr",
-          "html": "<script>\n/* ============================== widget 7: HR asymptotic ========================== */\n(function(){\n  const svg = $('#hr-svg'), out = $('#hr-out');\n  // precompute p up to 200\n  const N = 200;\n  const P = new Array(N+1).fill(0); P[0] = 1;\n  const pent = [];\n  for(let k=1; k*(3*k-1)/2 <= N; k++){\n    const s = (k%2===1) ? +1 : -1;\n    pent.push([k*(3*k-1)/2, s]);\n    if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n  }\n  for(let n=1;n<=N;n++){\n    let s = 0;\n    for(const [g,sign] of pent){\n      if(g>n) break;\n      s += sign * P[n-g];\n    }\n    P[n] = s;\n  }\n  function HR(n){\n    if(n<=0) return 1;\n    return Math.exp(Math.PI*Math.sqrt(2*n/3)) / (4*n*Math.sqrt(3));\n  }\n  svg.innerHTML = '';\n  const W=620, H=260, pad={l:60,r:20,t:24,b:40};\n  // plot log10(p(n)) and log10(HR(n)) vs n\n  const minN = 5;\n  const maxN = N;\n  const pts1=[], pts2=[];\n  for(let n=minN;n<=maxN;n++){\n    pts1.push([n, Math.log10(P[n])]);\n    pts2.push([n, Math.log10(HR(n))]);\n  }\n  const yMax = Math.log10(P[N])+1;\n  const X = x => pad.l + (x-minN)/(maxN-minN)*(W-pad.l-pad.r);\n  const Y = v => H - pad.b - (v/yMax)*(H-pad.t-pad.b);\n  svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n  for(let v=2; v<=Math.floor(yMax); v+=2){\n    const y = Y(v);\n    svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));\n    const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = '10^'+v; svg.appendChild(t);\n  }\n  for(const xv of [10,50,100,150,200]){\n    const x = X(xv);\n    svg.appendChild(SVG('line',{x1:x,y1:H-pad.b,x2:x,y2:H-pad.b+4,stroke:'var(--mute)'}));\n    const t = SVG('text',{x,y:H-pad.b+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = xv; svg.appendChild(t);\n  }\n  const pathOf = (pts, color, dash) => {\n    const d = pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');\n    const pth = SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2});\n    if(dash) pth.setAttribute('stroke-dasharray', dash);\n    svg.appendChild(pth);\n  };\n  pathOf(pts1, 'var(--blue)');\n  pathOf(pts2, 'var(--yellow)', '5 3');\n  // legend\n  const lg = SVG('g',{}); svg.appendChild(lg);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+12,x2:W-pad.r-170,y2:pad.t+12,stroke:'var(--blue)','stroke-width':2.2}));\n  const t1 = SVG('text',{x:W-pad.r-166,y:pad.t+16,'font-size':12,fill:'var(--ink)'}); t1.textContent='log₁₀ p(n)'; lg.appendChild(t1);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+30,x2:W-pad.r-170,y2:pad.t+30,stroke:'var(--yellow)','stroke-width':2.2,'stroke-dasharray':'5 3'}));\n  const t2 = SVG('text',{x:W-pad.r-166,y:pad.t+34,'font-size':12,fill:'var(--ink)'}); t2.textContent='log₁₀ HR(n)'; lg.appendChild(t2);\n  // axis labels\n  const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  xl.textContent = 'n'; svg.appendChild(xl);\n\n  const rows = [];\n  rows.push('   n      p(n)            HR(n)           rel. err');\n  for(const n of [10, 20, 50, 100, 150, 200]){\n    const ex = P[n], ap = HR(n);\n    const err = ((ap-ex)/ex)*100;\n    rows.push(`  ${String(n).padStart(3,' ')}  ${String(ex).padStart(14,' ')}  ${ap.toExponential(4).padStart(12,' ')}   ${err.toFixed(2).padStart(7,' ')}%`);\n  }\n  out.textContent = rows.join('\\n');\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hr",
+            "title": "Hardy–Ramanujan vs. exact $p(n)$",
+            "hint": "relative error shrinks like $1/\\sqrt{n}$",
+            "svgId": "hr-svg",
+            "viewBox": "0 0 620 260",
+            "sectionComment": "============================== widget 7: HR asymptotic ==========================",
+            "bodyScript": "  const svg = $('#hr-svg'), out = $('#hr-out');\n  // precompute p up to 200\n  const N = 200;\n  const P = new Array(N+1).fill(0); P[0] = 1;\n  const pent = [];\n  for(let k=1; k*(3*k-1)/2 <= N; k++){\n    const s = (k%2===1) ? +1 : -1;\n    pent.push([k*(3*k-1)/2, s]);\n    if(k*(3*k+1)/2 <= N) pent.push([k*(3*k+1)/2, s]);\n  }\n  for(let n=1;n<=N;n++){\n    let s = 0;\n    for(const [g,sign] of pent){\n      if(g>n) break;\n      s += sign * P[n-g];\n    }\n    P[n] = s;\n  }\n  function HR(n){\n    if(n<=0) return 1;\n    return Math.exp(Math.PI*Math.sqrt(2*n/3)) / (4*n*Math.sqrt(3));\n  }\n  svg.innerHTML = '';\n  const W=620, H=260, pad={l:60,r:20,t:24,b:40};\n  // plot log10(p(n)) and log10(HR(n)) vs n\n  const minN = 5;\n  const maxN = N;\n  const pts1=[], pts2=[];\n  for(let n=minN;n<=maxN;n++){\n    pts1.push([n, Math.log10(P[n])]);\n    pts2.push([n, Math.log10(HR(n))]);\n  }\n  const yMax = Math.log10(P[N])+1;\n  const X = x => pad.l + (x-minN)/(maxN-minN)*(W-pad.l-pad.r);\n  const Y = v => H - pad.b - (v/yMax)*(H-pad.t-pad.b);\n  svg.appendChild(SVG('line',{x1:pad.l,y1:H-pad.b,x2:W-pad.r,y2:H-pad.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:pad.l,y1:pad.t,x2:pad.l,y2:H-pad.b,stroke:'var(--line)'}));\n\n  for(let v=2; v<=Math.floor(yMax); v+=2){\n    const y = Y(v);\n    svg.appendChild(SVG('line',{x1:pad.l-4,y1:y,x2:pad.l,y2:y,stroke:'var(--mute)'}));\n    const t = SVG('text',{x:pad.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = '10^'+v; svg.appendChild(t);\n  }\n  for(const xv of [10,50,100,150,200]){\n    const x = X(xv);\n    svg.appendChild(SVG('line',{x1:x,y1:H-pad.b,x2:x,y2:H-pad.b+4,stroke:'var(--mute)'}));\n    const t = SVG('text',{x,y:H-pad.b+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = xv; svg.appendChild(t);\n  }\n  const pathOf = (pts, color, dash) => {\n    const d = pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');\n    const pth = SVG('path',{d,fill:'none',stroke:color,'stroke-width':2.2});\n    if(dash) pth.setAttribute('stroke-dasharray', dash);\n    svg.appendChild(pth);\n  };\n  pathOf(pts1, 'var(--blue)');\n  pathOf(pts2, 'var(--yellow)', '5 3');\n  // legend\n  const lg = SVG('g',{}); svg.appendChild(lg);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+12,x2:W-pad.r-170,y2:pad.t+12,stroke:'var(--blue)','stroke-width':2.2}));\n  const t1 = SVG('text',{x:W-pad.r-166,y:pad.t+16,'font-size':12,fill:'var(--ink)'}); t1.textContent='log₁₀ p(n)'; lg.appendChild(t1);\n  lg.appendChild(SVG('line',{x1:W-pad.r-200,y1:pad.t+30,x2:W-pad.r-170,y2:pad.t+30,stroke:'var(--yellow)','stroke-width':2.2,'stroke-dasharray':'5 3'}));\n  const t2 = SVG('text',{x:W-pad.r-166,y:pad.t+34,'font-size':12,fill:'var(--ink)'}); t2.textContent='log₁₀ HR(n)'; lg.appendChild(t2);\n  // axis labels\n  const xl = SVG('text',{x:(W+pad.l-pad.r)/2, y:H-6, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  xl.textContent = 'n'; svg.appendChild(xl);\n\n  const rows = [];\n  rows.push('   n      p(n)            HR(n)           rel. err');\n  for(const n of [10, 20, 50, 100, 150, 200]){\n    const ex = P[n], ap = HR(n);\n    const err = ((ap-ex)/ex)*100;\n    rows.push(`  ${String(n).padStart(3,' ')}  ${String(ex).padStart(14,' ')}  ${ap.toExponential(4).padStart(12,' ')}   ${err.toFixed(2).padStart(7,' ')}%`);\n  }\n  out.textContent = rows.join('\\n');",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "hr-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"hr-out\" style=\"font-size:.85rem\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
