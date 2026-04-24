@@ -179,9 +179,65 @@
         },
         {
           "type": "widget",
-          "id": "w-wk",
-          "html": "<div class=\"widget\" id=\"w-wk\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$</span><span class=\"hint\">watch the automorphy factor blow up or collapse as $k$ changes</span></div>\n  <div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>\n  <svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>\n  <div class=\"readout small\" id=\"w-wk-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
