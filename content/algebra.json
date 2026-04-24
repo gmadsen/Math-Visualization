@@ -633,9 +633,28 @@
         },
         {
           "type": "widget",
-          "id": "w-sylow",
-          "html": "<div class=\"widget\" id=\"w-sylow\">\n  <div class=\"hd\"><div class=\"ttl\">Sylow calculator</div><div class=\"hint\">enter n ≤ 200 · see allowed n_p for each prime dividing n</div></div>\n  <div class=\"row\">\n    <label for=\"sy-n\">|G| = n =</label>\n    <input type=\"number\" id=\"sy-n\" value=\"30\" min=\"2\" max=\"200\" step=\"1\" style=\"width:100px\">\n    <button id=\"sy-go\">compute</button>\n    <span class=\"small\" id=\"sy-fact\"></span>\n  </div>\n  <div id=\"sy-out\"></div>\n  <div class=\"readout\" id=\"sy-readout\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sylow",
+            "title": "Sylow calculator",
+            "hint": "enter n ≤ 200 · see allowed n_p for each prime dividing n",
+            "sectionComment": "=============================== SECTION 12: Sylow ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sy-n\">|G| = n =</label>\n    <input type=\"number\" id=\"sy-n\" value=\"30\" min=\"2\" max=\"200\" step=\"1\" style=\"width:100px\">\n    <button id=\"sy-go\">compute</button>\n    <span class=\"small\" id=\"sy-fact\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"sy-out\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sy-readout"
+              }
+            ],
+            "bodyScript": "  function factor(n){\n    const out = {};\n    for(let p=2; p*p<=n; p++){\n      while(n%p===0){ out[p]=(out[p]||0)+1; n/=p; }\n    }\n    if(n>1) out[n]=(out[n]||0)+1;\n    return out;\n  }\n  function divisors(n){\n    const ds = [];\n    for(let d=1; d*d<=n; d++){\n      if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    }\n    return ds.sort((a,b)=>a-b);\n  }\n\n  const nIn = $('#sy-n'), btn = $('#sy-go');\n  const fact = $('#sy-fact'), out = $('#sy-out'), ro = $('#sy-readout');\n\n  function draw(){\n    const n = Math.max(2, Math.min(200, parseInt(nIn.value)||30));\n    nIn.value = n;\n    const F = factor(n);\n    const primes = Object.keys(F).map(Number).sort((a,b)=>a-b);\n    const factStr = primes.map(p=>F[p]===1?`${p}`:`${p}^${F[p]}`).join(' · ');\n    fact.innerHTML = `factorization: <span style=\"color:var(--yellow)\">${n} = ${factStr}</span>`;\n\n    let html = '<div style=\"overflow:auto\"><table class=\"cayley\" style=\"margin-left:0\"><tr><td class=\"hdr\">p</td><td class=\"hdr\">p<sup>k</sup></td><td class=\"hdr\">m = n/p<sup>k</sup></td><td class=\"hdr\">n_p candidates (d ∣ m, d ≡ 1 mod p)</td><td class=\"hdr\">forced?</td></tr>';\n    let forcedNormals = [];\n    let allForced = true;\n    for(const p of primes){\n      const k = F[p];\n      const pk = Math.pow(p,k);\n      const m = n/pk;\n      const ds = divisors(m).filter(d=>d%p===1);\n      const forced = (ds.length===1 && ds[0]===1);\n      if(!forced) allForced = false;\n      if(forced) forcedNormals.push(p);\n      const badge = forced\n        ? `<span style=\"color:var(--green)\">n_${p}=1 (normal)</span>`\n        : `<span style=\"color:var(--pink)\">n_${p} ∈ {${ds.join(', ')}}</span>`;\n      html += `<tr><td>${p}</td><td>${pk}</td><td>${m}</td><td>${ds.join(', ')}</td><td>${badge}</td></tr>`;\n    }\n    html += '</table></div>';\n    out.innerHTML = html;\n\n    let msg = '';\n    if(primes.length===1){\n      msg = `n = ${n} = ${primes[0]}^${F[primes[0]]} is a prime power, so G is a p-group (Sylow gives only the whole group).`;\n    } else if(allForced){\n      msg = `Every Sylow subgroup is forced to be unique — each Sylow is normal. G is a direct product of its Sylow subgroups (e.g. for n=${n}, often cyclic).`;\n    } else if(forcedNormals.length){\n      msg = `Forced normal Sylow subgroups: ${forcedNormals.map(p=>'p='+p).join(', ')}. So G has at least one proper nontrivial normal subgroup — it cannot be simple.`;\n    } else {\n      msg = `No Sylow subgroup is forced unique; G could in principle be simple by Sylow alone. (Further element-counting arguments may still rule out simplicity — e.g. |G|=30.)`;\n    }\n    ro.innerHTML = msg;\n  }\n\n  btn.addEventListener('click',draw);\n  nIn.addEventListener('change',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -652,8 +671,28 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-sylow",
-          "html": "<script>\n/* =============================== SECTION 12: Sylow =============================== */\n(function(){\n  function factor(n){\n    const out = {};\n    for(let p=2; p*p<=n; p++){\n      while(n%p===0){ out[p]=(out[p]||0)+1; n/=p; }\n    }\n    if(n>1) out[n]=(out[n]||0)+1;\n    return out;\n  }\n  function divisors(n){\n    const ds = [];\n    for(let d=1; d*d<=n; d++){\n      if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    }\n    return ds.sort((a,b)=>a-b);\n  }\n\n  const nIn = $('#sy-n'), btn = $('#sy-go');\n  const fact = $('#sy-fact'), out = $('#sy-out'), ro = $('#sy-readout');\n\n  function draw(){\n    const n = Math.max(2, Math.min(200, parseInt(nIn.value)||30));\n    nIn.value = n;\n    const F = factor(n);\n    const primes = Object.keys(F).map(Number).sort((a,b)=>a-b);\n    const factStr = primes.map(p=>F[p]===1?`${p}`:`${p}^${F[p]}`).join(' · ');\n    fact.innerHTML = `factorization: <span style=\"color:var(--yellow)\">${n} = ${factStr}</span>`;\n\n    let html = '<div style=\"overflow:auto\"><table class=\"cayley\" style=\"margin-left:0\"><tr><td class=\"hdr\">p</td><td class=\"hdr\">p<sup>k</sup></td><td class=\"hdr\">m = n/p<sup>k</sup></td><td class=\"hdr\">n_p candidates (d ∣ m, d ≡ 1 mod p)</td><td class=\"hdr\">forced?</td></tr>';\n    let forcedNormals = [];\n    let allForced = true;\n    for(const p of primes){\n      const k = F[p];\n      const pk = Math.pow(p,k);\n      const m = n/pk;\n      const ds = divisors(m).filter(d=>d%p===1);\n      const forced = (ds.length===1 && ds[0]===1);\n      if(!forced) allForced = false;\n      if(forced) forcedNormals.push(p);\n      const badge = forced\n        ? `<span style=\"color:var(--green)\">n_${p}=1 (normal)</span>`\n        : `<span style=\"color:var(--pink)\">n_${p} ∈ {${ds.join(', ')}}</span>`;\n      html += `<tr><td>${p}</td><td>${pk}</td><td>${m}</td><td>${ds.join(', ')}</td><td>${badge}</td></tr>`;\n    }\n    html += '</table></div>';\n    out.innerHTML = html;\n\n    let msg = '';\n    if(primes.length===1){\n      msg = `n = ${n} = ${primes[0]}^${F[primes[0]]} is a prime power, so G is a p-group (Sylow gives only the whole group).`;\n    } else if(allForced){\n      msg = `Every Sylow subgroup is forced to be unique — each Sylow is normal. G is a direct product of its Sylow subgroups (e.g. for n=${n}, often cyclic).`;\n    } else if(forcedNormals.length){\n      msg = `Forced normal Sylow subgroups: ${forcedNormals.map(p=>'p='+p).join(', ')}. So G has at least one proper nontrivial normal subgroup — it cannot be simple.`;\n    } else {\n      msg = `No Sylow subgroup is forced unique; G could in principle be simple by Sylow alone. (Further element-counting arguments may still rule out simplicity — e.g. |G|=30.)`;\n    }\n    ro.innerHTML = msg;\n  }\n\n  btn.addEventListener('click',draw);\n  nIn.addEventListener('change',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-sylow",
+            "title": "Sylow calculator",
+            "hint": "enter n ≤ 200 · see allowed n_p for each prime dividing n",
+            "sectionComment": "=============================== SECTION 12: Sylow ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"sy-n\">|G| = n =</label>\n    <input type=\"number\" id=\"sy-n\" value=\"30\" min=\"2\" max=\"200\" step=\"1\" style=\"width:100px\">\n    <button id=\"sy-go\">compute</button>\n    <span class=\"small\" id=\"sy-fact\"></span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"sy-out\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "sy-readout"
+              }
+            ],
+            "bodyScript": "  function factor(n){\n    const out = {};\n    for(let p=2; p*p<=n; p++){\n      while(n%p===0){ out[p]=(out[p]||0)+1; n/=p; }\n    }\n    if(n>1) out[n]=(out[n]||0)+1;\n    return out;\n  }\n  function divisors(n){\n    const ds = [];\n    for(let d=1; d*d<=n; d++){\n      if(n%d===0){ ds.push(d); if(d!==n/d) ds.push(n/d); }\n    }\n    return ds.sort((a,b)=>a-b);\n  }\n\n  const nIn = $('#sy-n'), btn = $('#sy-go');\n  const fact = $('#sy-fact'), out = $('#sy-out'), ro = $('#sy-readout');\n\n  function draw(){\n    const n = Math.max(2, Math.min(200, parseInt(nIn.value)||30));\n    nIn.value = n;\n    const F = factor(n);\n    const primes = Object.keys(F).map(Number).sort((a,b)=>a-b);\n    const factStr = primes.map(p=>F[p]===1?`${p}`:`${p}^${F[p]}`).join(' · ');\n    fact.innerHTML = `factorization: <span style=\"color:var(--yellow)\">${n} = ${factStr}</span>`;\n\n    let html = '<div style=\"overflow:auto\"><table class=\"cayley\" style=\"margin-left:0\"><tr><td class=\"hdr\">p</td><td class=\"hdr\">p<sup>k</sup></td><td class=\"hdr\">m = n/p<sup>k</sup></td><td class=\"hdr\">n_p candidates (d ∣ m, d ≡ 1 mod p)</td><td class=\"hdr\">forced?</td></tr>';\n    let forcedNormals = [];\n    let allForced = true;\n    for(const p of primes){\n      const k = F[p];\n      const pk = Math.pow(p,k);\n      const m = n/pk;\n      const ds = divisors(m).filter(d=>d%p===1);\n      const forced = (ds.length===1 && ds[0]===1);\n      if(!forced) allForced = false;\n      if(forced) forcedNormals.push(p);\n      const badge = forced\n        ? `<span style=\"color:var(--green)\">n_${p}=1 (normal)</span>`\n        : `<span style=\"color:var(--pink)\">n_${p} ∈ {${ds.join(', ')}}</span>`;\n      html += `<tr><td>${p}</td><td>${pk}</td><td>${m}</td><td>${ds.join(', ')}</td><td>${badge}</td></tr>`;\n    }\n    html += '</table></div>';\n    out.innerHTML = html;\n\n    let msg = '';\n    if(primes.length===1){\n      msg = `n = ${n} = ${primes[0]}^${F[primes[0]]} is a prime power, so G is a p-group (Sylow gives only the whole group).`;\n    } else if(allForced){\n      msg = `Every Sylow subgroup is forced to be unique — each Sylow is normal. G is a direct product of its Sylow subgroups (e.g. for n=${n}, often cyclic).`;\n    } else if(forcedNormals.length){\n      msg = `Forced normal Sylow subgroups: ${forcedNormals.map(p=>'p='+p).join(', ')}. So G has at least one proper nontrivial normal subgroup — it cannot be simple.`;\n    } else {\n      msg = `No Sylow subgroup is forced unique; G could in principle be simple by Sylow alone. (Further element-counting arguments may still rule out simplicity — e.g. |G|=30.)`;\n    }\n    ro.innerHTML = msg;\n  }\n\n  btn.addEventListener('click',draw);\n  nIn.addEventListener('change',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
