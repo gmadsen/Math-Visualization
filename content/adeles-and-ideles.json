@@ -12,9 +12,36 @@
         },
         {
           "type": "widget",
-          "id": "w-places",
-          "html": "<div class=\"widget\" id=\"w-places\">\n  <div class=\"hd\">\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  </div>\n  <div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>\n  <svg id=\"padic-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>$p$-adic absolute value explorer</title></svg>\n  <div class=\"readout\" id=\"padic-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -31,8 +58,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-places",
-          "html": "<script>\n/* ===== Section 1: p-adic absolute value widget ===== */\n(function(){\n  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -112,9 +167,27 @@
         },
         {
           "type": "widget",
-          "id": "w-idele",
-          "html": "<div class=\"widget\" id=\"w-idele\">\n  <div class=\"hd\">\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  </div>\n  <div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>\n  <div class=\"readout\" id=\"idele-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -131,8 +204,27 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-idele",
-          "html": "<script>\n/* ===== Section 3: idèlic norm calculator ===== */\n(function(){\n  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-idele",
+            "title": "Idèlic norm calculator",
+            "hint": "enter a rational number; verify the product formula",
+            "readoutId": "idele-out",
+            "hdHtml": "\n    <div class=\"ttl\">Idèlic norm calculator</div>\n    <div class=\"hint\">enter a rational number; verify the product formula</div>\n  ",
+            "sectionComment": "===== Section 3: idèlic norm calculator =====",
+            "bodyScript": "  const inp = $('#idele-q'), go = $('#idele-go'), out = $('#idele-out');\n  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function gcd(a,b){ a=Math.abs(a);b=Math.abs(b); while(b){let t=b;b=a%b;a=t;} return a; }\n\n  function parseRational(s){\n    s = s.trim();\n    if(s.includes('/')){\n      const [a,b] = s.split('/').map(x=>parseInt(x.trim(),10));\n      if(isNaN(a)||isNaN(b)||b===0) return null;\n      const g = gcd(Math.abs(a),Math.abs(b));\n      return {num:a/g, den:b/g};\n    }\n    const n = parseInt(s,10);\n    if(isNaN(n)) return null;\n    return {num:n, den:1};\n  }\n\n  function vp(n,p){ let k=0; n=Math.abs(n); while(n>0&&n%p===0){n=n/p;k++;} return k; }\n\n  function compute(){\n    const q = parseRational(inp.value);\n    if(!q){ out.textContent = 'Could not parse input. Use integer or a/b form.'; return; }\n    const {num, den} = q;\n    if(num===0){ out.textContent = '0 is not an idèle (not invertible).'; return; }\n\n    const lines = [`q = ${num}/${den}  (simplified)\\n`];\n    lines.push('Place      v_p(q)      |q|_p');\n    lines.push('-'.repeat(40));\n\n    let logProduct = Math.log(Math.abs(num/den)); // |q|_∞\n    lines.push(`  v_∞       —          ${Math.abs(num/den).toFixed(6)}  (|q|_∞)`);\n\n    for(const p of PRIMES){\n      const kNum = vp(num, p), kDen = vp(den, p);\n      const k = kNum - kDen;\n      const absVal = Math.pow(p, -k);\n      logProduct -= k * Math.log(p);\n      if(k !== 0){\n        lines.push(`  v_${p}${p<10?' ':''}       ${k>=0?'+':''}${k}          ${absVal.toFixed(6)}`);\n      }\n    }\n\n    lines.push('-'.repeat(40));\n    const product = Math.exp(logProduct);\n    lines.push(`\\n∏_v |q|_v ≈ ${product.toFixed(8)}  (should be 1 by product formula)`);\n    const ok = Math.abs(product - 1) < 1e-8;\n    lines.push(ok ? '✓ Product formula verified!' : '(rounding; more primes needed for full verification)');\n    out.textContent = lines.join('\\n');\n  }\n\n  go.addEventListener('click', compute);\n  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') compute(); });\n  compute();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"idele-q\">$q$ = (rational, e.g. 2/15)</label>\n    <input type=\"text\" id=\"idele-q\" value=\"2/15\" style=\"width:120px\">\n    <button id=\"idele-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "idele-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -149,9 +241,36 @@
         },
         {
           "type": "widget",
-          "id": "w-crt",
-          "html": "<div class=\"widget\" id=\"w-crt\">\n  <div class=\"hd\">\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  </div>\n  <div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>\n  <svg id=\"crt-svg\" viewBox=\"0 0 620 180\" width=\"620\" height=\"180\"><title>CRT / strong approximation toy</title></svg>\n  <div class=\"readout\" id=\"crt-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -168,8 +287,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-crt",
-          "html": "<script>\n/* ===== Section 4: CRT widget ===== */\n(function(){\n  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-crt",
+            "title": "CRT / strong approximation toy",
+            "hint": "choose residues mod 2, 3, 5; find the smallest positive solution",
+            "svgId": "crt-svg",
+            "viewBox": "0 0 620 180",
+            "readoutId": "crt-out",
+            "hdHtml": "\n    <div class=\"ttl\">CRT / strong approximation toy</div>\n    <div class=\"hint\">choose residues mod 2, 3, 5; find the smallest positive solution</div>\n  ",
+            "sectionComment": "===== Section 4: CRT widget =====",
+            "bodyScript": "  const r2=$('#crt-r2'), r3=$('#crt-r3'), r5=$('#crt-r5');\n  const goBtn=$('#crt-go'), svg=$('#crt-svg'), out=$('#crt-out');\n\n  function solve(){\n    const a2=parseInt(r2.value), a3=parseInt(r3.value), a5=parseInt(r5.value);\n    // brute force mod 30\n    let sol = -1;\n    for(let n=0;n<30;n++){\n      if(n%2===a2 && n%3===a3 && n%5===a5){ sol=n; break; }\n    }\n\n    svg.innerHTML='';\n    const W=620, H=180, rowH=50, startY=30, labelW=60;\n    const mods=[2,3,5], residues=[a2,a3,a5], cols=['var(--blue)','var(--yellow)','var(--pink)'];\n\n    mods.forEach((m,i)=>{\n      const y=startY+i*rowH;\n      const cellW = (W-labelW-20)/m;\n      // label\n      const lbl=SVG('text',{x:10,y:y+16,'font-size':13,fill:cols[i]});\n      lbl.textContent=`mod ${m}:`; svg.appendChild(lbl);\n      for(let k=0;k<m;k++){\n        const x=labelW+k*cellW;\n        const isRes=k===residues[i];\n        svg.appendChild(SVG('rect',{x:x+2,y:y,width:cellW-4,height:30,rx:4,\n          fill:isRes?cols[i]:'var(--panel2)',stroke:cols[i],'stroke-width':1,opacity:isRes?0.9:0.4}));\n        const nt=SVG('text',{x:x+cellW/2,y:y+19,'text-anchor':'middle','font-size':14,\n          fill:isRes?'#111':cols[i],'font-weight':isRes?'bold':'normal'});\n        nt.textContent=String(k); svg.appendChild(nt);\n      }\n    });\n\n    if(sol>=0){\n      out.textContent = `Solution: n ≡ ${sol} (mod 30)\\nThe smallest positive n = ${sol||30}.\\n\\n` +\n        `Adèlic view: we find q ∈ ℚ in the open set\\n` +\n        `  {x : |x-${a2}|₂ < 1} ∩ {x : |x-${a3}|₃ < 1} ∩ {x : |x-${a5}|₅ < 1}.\\n` +\n        `Strong approximation guarantees such q exists; CRT gives it explicitly: q = ${sol||30}.`;\n    } else {\n      out.textContent = 'No solution exists (check residues — this should not happen for mod 2, 3, 5 which are pairwise coprime).';\n    }\n  }\n\n  goBtn.addEventListener('click', solve);\n  solve();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$n \\bmod 2$:</label>\n    <select id=\"crt-r2\"><option>0</option><option selected>1</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 3$:</label>\n    <select id=\"crt-r3\"><option>0</option><option selected>1</option><option>2</option></select>\n    <label style=\"margin-left:.8rem\">$n \\bmod 5$:</label>\n    <select id=\"crt-r5\"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select>\n    <button id=\"crt-go\" style=\"margin-left:.8rem\">Solve</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "crt-svg",
+                "viewBox": "0 0 620 180",
+                "width": 620,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "crt-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -186,9 +333,36 @@
         },
         {
           "type": "widget",
-          "id": "w-tate",
-          "html": "<div class=\"widget\" id=\"w-tate\">\n  <div class=\"hd\">\n    <div class=\"ttl\">Local Euler factor visualizer</div>\n    <div class=\"hint\">slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$</div>\n  </div>\n  <div class=\"row\">\n    <label for=\"tate-sigma\">$\\sigma = \\mathrm{Re}(s)$:</label>\n    <input type=\"range\" id=\"tate-sigma\" min=\"1.05\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span class=\"small\" id=\"tate-sigma-out\">σ = 2.00</span>\n  </div>\n  <svg id=\"tate-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Local Euler factor visualizer</title></svg>\n  <div class=\"readout\" id=\"tate-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Local Euler factor visualizer",
+            "hint": "slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$",
+            "svgId": "tate-svg",
+            "viewBox": "0 0 620 280",
+            "readoutId": "tate-out",
+            "hdHtml": "\n    <div class=\"ttl\">Local Euler factor visualizer</div>\n    <div class=\"hint\">slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$</div>\n  ",
+            "sectionComment": "===== Section 5: Euler factor visualizer =====",
+            "bodyScript": "  const sld=$('#tate-sigma'), sldo=$('#tate-sigma-out');\n  const svg=$('#tate-svg'), out=$('#tate-out');\n  const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function drawBars(sigma){\n    svg.innerHTML='';\n    const W=620, H=280, pad=50, barW=28, gap=8;\n    const maxLog = Math.log(1/(1-Math.pow(2,-sigma)));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-50,x2:W-10,y2:H-50,stroke:'var(--line)','stroke-width':1}));\n\n    let partialProduct=1;\n    const lines=[];\n\n    PRIMES.forEach((p,i)=>{\n      const factor = 1/(1-Math.pow(p,-sigma));\n      partialProduct *= factor;\n      const logFactor = Math.log(factor);\n      const barH = Math.min(180, (logFactor/maxLog)*160+2);\n      const x=pad+i*(barW+gap);\n      const y=H-50-barH;\n      const col = i<5?'var(--yellow)':i<10?'var(--cyan)':'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.8}));\n      const lbl=SVG('text',{x:x+barW/2,y:H-35,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      lbl.textContent=String(p); svg.appendChild(lbl);\n      lines.push(`p=${p}: (1-p^{-σ})^{-1} = ${factor.toFixed(5)}`);\n    });\n\n    // partial product line\n    const ppY = H-50 - Math.min(180,(Math.log(partialProduct)/maxLog)*160);\n    svg.appendChild(SVG('line',{x1:pad,y1:ppY,x2:W-10,y2:ppY,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5,4',opacity:0.6}));\n    const plbl=SVG('text',{x:W-12,y:ppY-4,'text-anchor':'end','font-size':11,fill:'var(--pink)'});\n    plbl.textContent='log ζ_partial'; svg.appendChild(plbl);\n\n    // gamma factor\n    // Stirling approx for Γ(σ/2): just show the value\n    const halfS=sigma/2;\n    // Use actual calculation via Lanczos approximation won't parse well; use simple recursion\n    function lgamma(z){\n      // simple Lanczos\n      const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n      if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);\n      z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);\n      const t=z+g+0.5;\n      return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);\n    }\n    const gammaVal = Math.exp(lgamma(halfS));\n    const piS2 = Math.pow(Math.PI,-sigma/2);\n    const xiLocal = piS2*gammaVal*partialProduct;\n\n    sldo.textContent=`σ = ${sigma.toFixed(2)}`;\n    out.textContent =\n      `σ = ${sigma.toFixed(2)}\\n` +\n      `π^{-σ/2} = ${piS2.toFixed(6)}   (archimedean gamma factor)\\n` +\n      `Γ(σ/2) ≈ ${gammaVal.toFixed(6)}\\n` +\n      `∏_{p≤47}(1-p^{-σ})^{-1} ≈ ${partialProduct.toFixed(6)}   (partial Euler product)\\n` +\n      `π^{-σ/2}·Γ(σ/2)·∏_p(1-p^{-σ})^{-1} ≈ ${xiLocal.toFixed(6)}\\n\\n` +\n      `(For reference: ζ(2) = π²/6 ≈ 1.6449, so π^{-1}·Γ(1)·ζ(2) = π^{-1}·1·1.6449 ≈ 0.5236 = ξ̃(2))`;\n  }\n\n  sld.addEventListener('input',()=>drawBars(parseFloat(sld.value)));\n  drawBars(2);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tate-sigma\">$\\sigma = \\mathrm{Re}(s)$:</label>\n    <input type=\"range\" id=\"tate-sigma\" min=\"1.05\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span class=\"small\" id=\"tate-sigma-out\">σ = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "tate-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "readout",
+                "id": "tate-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -205,8 +379,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-tate",
-          "html": "<script>\n/* ===== Section 5: Euler factor visualizer ===== */\n(function(){\n  const sld=$('#tate-sigma'), sldo=$('#tate-sigma-out');\n  const svg=$('#tate-svg'), out=$('#tate-out');\n  const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function drawBars(sigma){\n    svg.innerHTML='';\n    const W=620, H=280, pad=50, barW=28, gap=8;\n    const maxLog = Math.log(1/(1-Math.pow(2,-sigma)));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-50,x2:W-10,y2:H-50,stroke:'var(--line)','stroke-width':1}));\n\n    let partialProduct=1;\n    const lines=[];\n\n    PRIMES.forEach((p,i)=>{\n      const factor = 1/(1-Math.pow(p,-sigma));\n      partialProduct *= factor;\n      const logFactor = Math.log(factor);\n      const barH = Math.min(180, (logFactor/maxLog)*160+2);\n      const x=pad+i*(barW+gap);\n      const y=H-50-barH;\n      const col = i<5?'var(--yellow)':i<10?'var(--cyan)':'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.8}));\n      const lbl=SVG('text',{x:x+barW/2,y:H-35,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      lbl.textContent=String(p); svg.appendChild(lbl);\n      lines.push(`p=${p}: (1-p^{-σ})^{-1} = ${factor.toFixed(5)}`);\n    });\n\n    // partial product line\n    const ppY = H-50 - Math.min(180,(Math.log(partialProduct)/maxLog)*160);\n    svg.appendChild(SVG('line',{x1:pad,y1:ppY,x2:W-10,y2:ppY,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5,4',opacity:0.6}));\n    const plbl=SVG('text',{x:W-12,y:ppY-4,'text-anchor':'end','font-size':11,fill:'var(--pink)'});\n    plbl.textContent='log ζ_partial'; svg.appendChild(plbl);\n\n    // gamma factor\n    // Stirling approx for Γ(σ/2): just show the value\n    const halfS=sigma/2;\n    // Use actual calculation via Lanczos approximation won't parse well; use simple recursion\n    function lgamma(z){\n      // simple Lanczos\n      const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n      if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);\n      z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);\n      const t=z+g+0.5;\n      return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);\n    }\n    const gammaVal = Math.exp(lgamma(halfS));\n    const piS2 = Math.pow(Math.PI,-sigma/2);\n    const xiLocal = piS2*gammaVal*partialProduct;\n\n    sldo.textContent=`σ = ${sigma.toFixed(2)}`;\n    out.textContent =\n      `σ = ${sigma.toFixed(2)}\\n` +\n      `π^{-σ/2} = ${piS2.toFixed(6)}   (archimedean gamma factor)\\n` +\n      `Γ(σ/2) ≈ ${gammaVal.toFixed(6)}\\n` +\n      `∏_{p≤47}(1-p^{-σ})^{-1} ≈ ${partialProduct.toFixed(6)}   (partial Euler product)\\n` +\n      `π^{-σ/2}·Γ(σ/2)·∏_p(1-p^{-σ})^{-1} ≈ ${xiLocal.toFixed(6)}\\n\\n` +\n      `(For reference: ζ(2) = π²/6 ≈ 1.6449, so π^{-1}·Γ(1)·ζ(2) = π^{-1}·1·1.6449 ≈ 0.5236 = ξ̃(2))`;\n  }\n\n  sld.addEventListener('input',()=>drawBars(parseFloat(sld.value)));\n  drawBars(2);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Local Euler factor visualizer",
+            "hint": "slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$",
+            "svgId": "tate-svg",
+            "viewBox": "0 0 620 280",
+            "readoutId": "tate-out",
+            "hdHtml": "\n    <div class=\"ttl\">Local Euler factor visualizer</div>\n    <div class=\"hint\">slider controls $\\sigma = \\mathrm{Re}(s)$; see how local factors $|1-p^{-s}|^{-1}$ contribute to $|\\zeta(\\sigma)|$</div>\n  ",
+            "sectionComment": "===== Section 5: Euler factor visualizer =====",
+            "bodyScript": "  const sld=$('#tate-sigma'), sldo=$('#tate-sigma-out');\n  const svg=$('#tate-svg'), out=$('#tate-out');\n  const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47];\n\n  function drawBars(sigma){\n    svg.innerHTML='';\n    const W=620, H=280, pad=50, barW=28, gap=8;\n    const maxLog = Math.log(1/(1-Math.pow(2,-sigma)));\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-50,x2:W-10,y2:H-50,stroke:'var(--line)','stroke-width':1}));\n\n    let partialProduct=1;\n    const lines=[];\n\n    PRIMES.forEach((p,i)=>{\n      const factor = 1/(1-Math.pow(p,-sigma));\n      partialProduct *= factor;\n      const logFactor = Math.log(factor);\n      const barH = Math.min(180, (logFactor/maxLog)*160+2);\n      const x=pad+i*(barW+gap);\n      const y=H-50-barH;\n      const col = i<5?'var(--yellow)':i<10?'var(--cyan)':'var(--violet)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.8}));\n      const lbl=SVG('text',{x:x+barW/2,y:H-35,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      lbl.textContent=String(p); svg.appendChild(lbl);\n      lines.push(`p=${p}: (1-p^{-σ})^{-1} = ${factor.toFixed(5)}`);\n    });\n\n    // partial product line\n    const ppY = H-50 - Math.min(180,(Math.log(partialProduct)/maxLog)*160);\n    svg.appendChild(SVG('line',{x1:pad,y1:ppY,x2:W-10,y2:ppY,stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5,4',opacity:0.6}));\n    const plbl=SVG('text',{x:W-12,y:ppY-4,'text-anchor':'end','font-size':11,fill:'var(--pink)'});\n    plbl.textContent='log ζ_partial'; svg.appendChild(plbl);\n\n    // gamma factor\n    // Stirling approx for Γ(σ/2): just show the value\n    const halfS=sigma/2;\n    // Use actual calculation via Lanczos approximation won't parse well; use simple recursion\n    function lgamma(z){\n      // simple Lanczos\n      const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];\n      if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);\n      z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);\n      const t=z+g+0.5;\n      return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);\n    }\n    const gammaVal = Math.exp(lgamma(halfS));\n    const piS2 = Math.pow(Math.PI,-sigma/2);\n    const xiLocal = piS2*gammaVal*partialProduct;\n\n    sldo.textContent=`σ = ${sigma.toFixed(2)}`;\n    out.textContent =\n      `σ = ${sigma.toFixed(2)}\\n` +\n      `π^{-σ/2} = ${piS2.toFixed(6)}   (archimedean gamma factor)\\n` +\n      `Γ(σ/2) ≈ ${gammaVal.toFixed(6)}\\n` +\n      `∏_{p≤47}(1-p^{-σ})^{-1} ≈ ${partialProduct.toFixed(6)}   (partial Euler product)\\n` +\n      `π^{-σ/2}·Γ(σ/2)·∏_p(1-p^{-σ})^{-1} ≈ ${xiLocal.toFixed(6)}\\n\\n` +\n      `(For reference: ζ(2) = π²/6 ≈ 1.6449, so π^{-1}·Γ(1)·ζ(2) = π^{-1}·1·1.6449 ≈ 0.5236 = ξ̃(2))`;\n  }\n\n  sld.addEventListener('input',()=>drawBars(parseFloat(sld.value)));\n  drawBars(2);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"tate-sigma\">$\\sigma = \\mathrm{Re}(s)$:</label>\n    <input type=\"range\" id=\"tate-sigma\" min=\"1.05\" max=\"4\" step=\"0.05\" value=\"2\">\n    <span class=\"small\" id=\"tate-sigma-out\">σ = 2.00</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "tate-svg",
+                "viewBox": "0 0 620 280",
+                "width": 620,
+                "height": 280
+              },
+              {
+                "kind": "readout",
+                "id": "tate-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",

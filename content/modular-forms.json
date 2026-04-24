@@ -12,9 +12,73 @@
         },
         {
           "type": "widget",
-          "id": "w-gen",
-          "html": "<div class=\"widget\" id=\"w-gen\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 1 · Generator word → matrix</span><span class=\"hint\">click $S$ and $T$ to build a word; see the matrix and its action on $\\tau$</span></div>\n  <div class=\"row\" id=\"w-gen-buttons\">\n    <button data-g=\"S\">apply $S$</button>\n    <button data-g=\"T\">apply $T$</button>\n    <button data-g=\"Ti\">apply $T^{-1}$</button>\n    <button data-g=\"clear\" style=\"margin-left:auto\">reset</button>\n  </div>\n  <div class=\"row\"><label for=\"w-gen-re\">starting $\\tau$:</label>\n    <input id=\"w-gen-re\" type=\"number\" value=\"0.3\" step=\"0.05\" style=\"width:6em\">\n    <input id=\"w-gen-im\" type=\"number\" value=\"1.1\" step=\"0.05\" style=\"width:6em\">\n    <label class=\"small\" style=\"margin-left:1rem\" for=\"w-gen-im\">word length</label>\n    <span id=\"w-gen-len\" class=\"pill\">0</span>\n  </div>\n  <div class=\"readout\" id=\"w-gen-out\"></div>\n  <svg id=\"w-gen-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"upper half-plane with orbit points\"></svg>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const buttons = $('#w-gen-buttons');\n  const re = $('#w-gen-re'), im = $('#w-gen-im');\n  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');\n  const svg = $('#w-gen-svg');\n  const W = 720, H = 300;\n  // map tau -> pixel\n  const xmin = -2.5, xmax = 2.5, ymax = 3;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const word = []; // list of 'S' | 'T' | 'Ti'\n  function matmul(A,B){\n    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];\n  }\n  const MS = [[0,-1],[1,0]];\n  const MT = [[1,1],[0,1]];\n  const MTi = [[1,-1],[0,1]];\n  const MI = [[1,0],[0,1]];\n  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }\n\n  function apply(M, t){\n    const re = M[0][0]*t.re + M[0][1];\n    const reDen = M[1][0]*t.re + M[1][1];\n    const imNum = M[0][0]*t.im;\n    const imDen = M[1][0]*t.im;\n    // (a*tau+b)/(c*tau+d) with tau = re+i*im\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // grid\n    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){\n      const [px1] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));\n    }\n    for(let y=1;y<=3;y++){\n      const [,py1] = px({re:0,im:y});\n      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));\n    }\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // unit semicircle |tau|=1\n    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});\n    let d='';\n    for(let k=0;k<=60;k++){\n      const theta = Math.PI*k/60;\n      const t = {re:Math.cos(theta), im:Math.sin(theta)};\n      const [X,Y] = px(t);\n      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    path.setAttribute('d', d);\n    svg.appendChild(path);\n    // fundamental-domain vertical edges at x=±1/2\n    for(const x of [-0.5,0.5]){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    }\n\n    // orbit: start with (re,im), apply word\n    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};\n    if(!(t.im > 0)){ t.im = 0.1; }\n    const pts = [t];\n    let M = MI;\n    for(const g of word){\n      M = matmul(gmat(g), M);\n      pts.push(apply(gmat(g), pts[pts.length-1]));\n    }\n    // draw trail\n    for(let i=1;i<pts.length;i++){\n      const [x0,y0] = px(pts[i-1]);\n      const [x1,y1] = px(pts[i]);\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));\n    }\n    // points\n    pts.forEach((p,i) => {\n      const [X,Y] = px(p);\n      if(X<0||X>W||Y<0||Y>H) return;\n      const last = i === pts.length-1;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,\n        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));\n      if(i===0){\n        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});\n        tx.textContent = 'τ₀'; svg.appendChild(tx);\n      }\n    });\n    // readout\n    const tau = pts[pts.length-1];\n    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]\nword:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}\nτ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;\n    lenEl.textContent = word.length;\n  }\n\n  buttons.addEventListener('click', (e)=>{\n    const g = e.target.dataset && e.target.dataset.g;\n    if(!g) return;\n    if(g==='clear'){ word.length = 0; }\n    else word.push(g);\n    render();\n  });\n  re.addEventListener('input', render);\n  im.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gen",
+            "title": "Widget 1 · Generator word → matrix",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click $S$ and $T$ to build a word; see the matrix and its action on $\\tau$",
+            "svgId": "w-gen-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-gen-out",
+            "bodyScript": "  const buttons = $('#w-gen-buttons');\n  const re = $('#w-gen-re'), im = $('#w-gen-im');\n  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');\n  const svg = $('#w-gen-svg');\n  const W = 720, H = 300;\n  // map tau -> pixel\n  const xmin = -2.5, xmax = 2.5, ymax = 3;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const word = []; // list of 'S' | 'T' | 'Ti'\n  function matmul(A,B){\n    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];\n  }\n  const MS = [[0,-1],[1,0]];\n  const MT = [[1,1],[0,1]];\n  const MTi = [[1,-1],[0,1]];\n  const MI = [[1,0],[0,1]];\n  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }\n\n  function apply(M, t){\n    const re = M[0][0]*t.re + M[0][1];\n    const reDen = M[1][0]*t.re + M[1][1];\n    const imNum = M[0][0]*t.im;\n    const imDen = M[1][0]*t.im;\n    // (a*tau+b)/(c*tau+d) with tau = re+i*im\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // grid\n    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){\n      const [px1] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));\n    }\n    for(let y=1;y<=3;y++){\n      const [,py1] = px({re:0,im:y});\n      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));\n    }\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // unit semicircle |tau|=1\n    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});\n    let d='';\n    for(let k=0;k<=60;k++){\n      const theta = Math.PI*k/60;\n      const t = {re:Math.cos(theta), im:Math.sin(theta)};\n      const [X,Y] = px(t);\n      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    path.setAttribute('d', d);\n    svg.appendChild(path);\n    // fundamental-domain vertical edges at x=±1/2\n    for(const x of [-0.5,0.5]){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    }\n\n    // orbit: start with (re,im), apply word\n    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};\n    if(!(t.im > 0)){ t.im = 0.1; }\n    const pts = [t];\n    let M = MI;\n    for(const g of word){\n      M = matmul(gmat(g), M);\n      pts.push(apply(gmat(g), pts[pts.length-1]));\n    }\n    // draw trail\n    for(let i=1;i<pts.length;i++){\n      const [x0,y0] = px(pts[i-1]);\n      const [x1,y1] = px(pts[i]);\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));\n    }\n    // points\n    pts.forEach((p,i) => {\n      const [X,Y] = px(p);\n      if(X<0||X>W||Y<0||Y>H) return;\n      const last = i === pts.length-1;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,\n        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));\n      if(i===0){\n        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});\n        tx.textContent = 'τ₀'; svg.appendChild(tx);\n      }\n    });\n    // readout\n    const tau = pts[pts.length-1];\n    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]\nword:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}\nτ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;\n    lenEl.textContent = word.length;\n  }\n\n  buttons.addEventListener('click', (e)=>{\n    const g = e.target.dataset && e.target.dataset.g;\n    if(!g) return;\n    if(g==='clear'){ word.length = 0; }\n    else word.push(g);\n    render();\n  });\n  re.addEventListener('input', render);\n  im.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-gen-buttons\">\n    <button data-g=\"S\">apply $S$</button>\n    <button data-g=\"T\">apply $T$</button>\n    <button data-g=\"Ti\">apply $T^{-1}$</button>\n    <button data-g=\"clear\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"w-gen-re\">starting $\\tau$:</label>\n    <input id=\"w-gen-re\" type=\"number\" value=\"0.3\" step=\"0.05\" style=\"width:6em\">\n    <input id=\"w-gen-im\" type=\"number\" value=\"1.1\" step=\"0.05\" style=\"width:6em\">\n    <label class=\"small\" style=\"margin-left:1rem\" for=\"w-gen-im\">word length</label>\n    <span id=\"w-gen-len\" class=\"pill\">0</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-gen-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-gen-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"upper half-plane with orbit points\"></svg>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-gen",
+            "title": "Widget 1 · Generator word → matrix",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click $S$ and $T$ to build a word; see the matrix and its action on $\\tau$",
+            "svgId": "w-gen-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-gen-out",
+            "bodyScript": "  const buttons = $('#w-gen-buttons');\n  const re = $('#w-gen-re'), im = $('#w-gen-im');\n  const out = $('#w-gen-out'), lenEl = $('#w-gen-len');\n  const svg = $('#w-gen-svg');\n  const W = 720, H = 300;\n  // map tau -> pixel\n  const xmin = -2.5, xmax = 2.5, ymax = 3;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const word = []; // list of 'S' | 'T' | 'Ti'\n  function matmul(A,B){\n    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],\n            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]];\n  }\n  const MS = [[0,-1],[1,0]];\n  const MT = [[1,1],[0,1]];\n  const MTi = [[1,-1],[0,1]];\n  const MI = [[1,0],[0,1]];\n  function gmat(g){ return g==='S'?MS:(g==='T'?MT:MTi); }\n\n  function apply(M, t){\n    const re = M[0][0]*t.re + M[0][1];\n    const reDen = M[1][0]*t.re + M[1][1];\n    const imNum = M[0][0]*t.im;\n    const imDen = M[1][0]*t.im;\n    // (a*tau+b)/(c*tau+d) with tau = re+i*im\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // grid\n    for(let x=Math.ceil(xmin); x<=Math.floor(xmax); x++){\n      const [px1] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:px1,y1:0,x2:px1,y2:H,stroke:'var(--line)','stroke-width':1}));\n    }\n    for(let y=1;y<=3;y++){\n      const [,py1] = px({re:0,im:y});\n      svg.appendChild(SVG('line',{x1:0,y1:py1,x2:W,y2:py1,stroke:'var(--line)','stroke-width':1}));\n    }\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // unit semicircle |tau|=1\n    const path = SVG('path',{d:'',stroke:'var(--violet)','stroke-width':1.2,fill:'none','stroke-dasharray':'4 4'});\n    let d='';\n    for(let k=0;k<=60;k++){\n      const theta = Math.PI*k/60;\n      const t = {re:Math.cos(theta), im:Math.sin(theta)};\n      const [X,Y] = px(t);\n      d += (k===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    path.setAttribute('d', d);\n    svg.appendChild(path);\n    // fundamental-domain vertical edges at x=±1/2\n    for(const x of [-0.5,0.5]){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 4'}));\n    }\n\n    // orbit: start with (re,im), apply word\n    let t = {re: parseFloat(re.value), im: parseFloat(im.value)};\n    if(!(t.im > 0)){ t.im = 0.1; }\n    const pts = [t];\n    let M = MI;\n    for(const g of word){\n      M = matmul(gmat(g), M);\n      pts.push(apply(gmat(g), pts[pts.length-1]));\n    }\n    // draw trail\n    for(let i=1;i<pts.length;i++){\n      const [x0,y0] = px(pts[i-1]);\n      const [x1,y1] = px(pts[i]);\n      svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x1,y2:y1,stroke:'var(--cyan)','stroke-width':1.2,'stroke-opacity':0.5}));\n    }\n    // points\n    pts.forEach((p,i) => {\n      const [X,Y] = px(p);\n      if(X<0||X>W||Y<0||Y>H) return;\n      const last = i === pts.length-1;\n      svg.appendChild(SVG('circle',{cx:X,cy:Y,r:last?5:3,\n        fill:last?'var(--yellow)':'var(--cyan)','fill-opacity':last?1:0.7}));\n      if(i===0){\n        const tx = SVG('text',{x:X+6,y:Y-6,'font-size':11,fill:'var(--mute)'});\n        tx.textContent = 'τ₀'; svg.appendChild(tx);\n      }\n    });\n    // readout\n    const tau = pts[pts.length-1];\n    out.textContent = `matrix: [[${M[0][0]}, ${M[0][1]}], [${M[1][0]}, ${M[1][1]}]]\nword:   ${word.length ? word.map(g=>g==='Ti'?'T⁻¹':g).join(' · ') : '(identity)'}\nτ  →  ${tau.re.toFixed(4)} + ${tau.im.toFixed(4)} i`;\n    lenEl.textContent = word.length;\n  }\n\n  buttons.addEventListener('click', (e)=>{\n    const g = e.target.dataset && e.target.dataset.g;\n    if(!g) return;\n    if(g==='clear'){ word.length = 0; }\n    else word.push(g);\n    render();\n  });\n  re.addEventListener('input', render);\n  im.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-gen-buttons\">\n    <button data-g=\"S\">apply $S$</button>\n    <button data-g=\"T\">apply $T$</button>\n    <button data-g=\"Ti\">apply $T^{-1}$</button>\n    <button data-g=\"clear\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"w-gen-re\">starting $\\tau$:</label>\n    <input id=\"w-gen-re\" type=\"number\" value=\"0.3\" step=\"0.05\" style=\"width:6em\">\n    <input id=\"w-gen-im\" type=\"number\" value=\"1.1\" step=\"0.05\" style=\"width:6em\">\n    <label class=\"small\" style=\"margin-left:1rem\" for=\"w-gen-im\">word length</label>\n    <span id=\"w-gen-len\" class=\"pill\">0</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "w-gen-out"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-gen-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"upper half-plane with orbit points\"></svg>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -40,9 +104,65 @@
         },
         {
           "type": "widget",
-          "id": "w-tile",
-          "html": "<div class=\"widget\" id=\"w-tile\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 2 · The $\\mathrm{SL}_2(\\mathbb{Z})$-tiling of $\\mathcal{H}$</span><span class=\"hint\">toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain</span></div>\n  <div class=\"row\">\n    <button id=\"w-tile-sT\" class=\"active\">show $T$-translates</button>\n    <button id=\"w-tile-sS\" class=\"active\">show $S$-image</button>\n    <button id=\"w-tile-sTST\" class=\"active\">show $TS$, $T^{-1}S$</button>\n    <button id=\"w-tile-reset\" style=\"margin-left:auto\">reset</button>\n  </div>\n  <svg id=\"w-tile-svg\" viewBox=\"0 0 720 340\" width=\"720\" height=\"340\" aria-label=\"SL2Z tiling\"></svg>\n  <div class=\"readout small\" id=\"w-tile-out\">The darker tile is the canonical $\\mathcal{F}$. Every other tile is $\\gamma \\mathcal{F}$ for some $\\gamma \\in \\mathrm{SL}_2(\\mathbb{Z})$.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w-tile-svg');\n  const W = 720, H = 340;\n  const xmin = -2.5, xmax = 2.5, ymax = 2.5;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const state = { T:true, S:true, TST:true };\n  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');\n\n  function applyMobius(M, t){\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  // polygon for F: sample many points along its boundary, then push through M\n  const Fbdry = (function(){\n    const pts = [];\n    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2\n    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});\n    // arc from angle 2π/3 to π/3 on unit circle\n    for(let k=0;k<=30;k++){\n      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;\n      pts.push({re:Math.cos(th), im:Math.sin(th)});\n    }\n    // right vertical up\n    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});\n    return pts;\n  })();\n\n  function polyPath(pts){\n    let d = '';\n    pts.forEach((p,i)=>{\n      const [X,Y] = px(p);\n      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    });\n    return d + 'Z';\n  }\n\n  function drawTile(M, color, opacity, label){\n    const pts = Fbdry.map(p => applyMobius(M, p));\n    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,\n      stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(path);\n    if(label){\n      // centroid\n      let cx=0, cy=0;\n      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });\n      cx/=pts.length; cy/=pts.length;\n      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = label; svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // vertical grid\n    for(let x=-2;x<=2;x++){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));\n    }\n\n    // T-translates first (lighter)\n    if(state.T){\n      for(const n of [-2,-1,1,2]){\n        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');\n      }\n    }\n    // S-image: -1/tau sends F to the \"tongue\" below\n    if(state.S){\n      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');\n    }\n    // TS and T^{-1}S\n    if(state.TST){\n      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute\n      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]\n      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);\n      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');\n    }\n\n    // canonical F on top, darker\n    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');\n  }\n\n  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });\n  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });\n  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });\n  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;\n    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tile",
+            "title": "Widget 2 · The $\\mathrm{SL}_2(\\mathbb{Z})$-tiling of $\\mathcal{H}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain",
+            "svgId": "w-tile-svg",
+            "viewBox": "0 0 720 340",
+            "readoutId": "w-tile-out",
+            "bodyScript": "  const svg = $('#w-tile-svg');\n  const W = 720, H = 340;\n  const xmin = -2.5, xmax = 2.5, ymax = 2.5;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const state = { T:true, S:true, TST:true };\n  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');\n\n  function applyMobius(M, t){\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  // polygon for F: sample many points along its boundary, then push through M\n  const Fbdry = (function(){\n    const pts = [];\n    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2\n    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});\n    // arc from angle 2π/3 to π/3 on unit circle\n    for(let k=0;k<=30;k++){\n      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;\n      pts.push({re:Math.cos(th), im:Math.sin(th)});\n    }\n    // right vertical up\n    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});\n    return pts;\n  })();\n\n  function polyPath(pts){\n    let d = '';\n    pts.forEach((p,i)=>{\n      const [X,Y] = px(p);\n      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    });\n    return d + 'Z';\n  }\n\n  function drawTile(M, color, opacity, label){\n    const pts = Fbdry.map(p => applyMobius(M, p));\n    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,\n      stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(path);\n    if(label){\n      // centroid\n      let cx=0, cy=0;\n      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });\n      cx/=pts.length; cy/=pts.length;\n      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = label; svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // vertical grid\n    for(let x=-2;x<=2;x++){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));\n    }\n\n    // T-translates first (lighter)\n    if(state.T){\n      for(const n of [-2,-1,1,2]){\n        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');\n      }\n    }\n    // S-image: -1/tau sends F to the \"tongue\" below\n    if(state.S){\n      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');\n    }\n    // TS and T^{-1}S\n    if(state.TST){\n      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute\n      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]\n      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);\n      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');\n    }\n\n    // canonical F on top, darker\n    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');\n  }\n\n  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });\n  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });\n  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });\n  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;\n    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"w-tile-sT\" class=\"active\">show $T$-translates</button>\n    <button id=\"w-tile-sS\" class=\"active\">show $S$-image</button>\n    <button id=\"w-tile-sTST\" class=\"active\">show $TS$, $T^{-1}S$</button>\n    <button id=\"w-tile-reset\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-tile-svg\" viewBox=\"0 0 720 340\" width=\"720\" height=\"340\" aria-label=\"SL2Z tiling\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-tile-out\">The darker tile is the canonical $\\mathcal{F}$. Every other tile is $\\gamma \\mathcal{F}$ for some $\\gamma \\in \\mathrm{SL}_2(\\mathbb{Z})$.</div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tile",
+            "title": "Widget 2 · The $\\mathrm{SL}_2(\\mathbb{Z})$-tiling of $\\mathcal{H}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "toggle tiles copied under $S$, $T$, $T^{-1}$; each is a fundamental domain",
+            "svgId": "w-tile-svg",
+            "viewBox": "0 0 720 340",
+            "readoutId": "w-tile-out",
+            "bodyScript": "  const svg = $('#w-tile-svg');\n  const W = 720, H = 340;\n  const xmin = -2.5, xmax = 2.5, ymax = 2.5;\n  function px(t){ return [ (t.re - xmin)/(xmax-xmin) * W, H - (t.im/ymax) * H ]; }\n\n  const state = { T:true, S:true, TST:true };\n  const bT = $('#w-tile-sT'), bS = $('#w-tile-sS'), bTST = $('#w-tile-sTST'), bR = $('#w-tile-reset');\n\n  function applyMobius(M, t){\n    const a=M[0][0], b=M[0][1], c=M[1][0], d=M[1][1];\n    const nr = a*t.re + b, ni = a*t.im;\n    const dr = c*t.re + d, di = c*t.im;\n    const denom = dr*dr + di*di;\n    return { re: (nr*dr + ni*di)/denom, im: (ni*dr - nr*di)/denom };\n  }\n\n  // polygon for F: sample many points along its boundary, then push through M\n  const Fbdry = (function(){\n    const pts = [];\n    // top-left vertical: from x=-0.5, y=ymax down to y=sqrt(3)/2\n    for(let y=ymax; y>=Math.sin(Math.PI/3); y-=0.05) pts.push({re:-0.5, im:y});\n    // arc from angle 2π/3 to π/3 on unit circle\n    for(let k=0;k<=30;k++){\n      const th = 2*Math.PI/3 + (Math.PI/3 - 2*Math.PI/3)*k/30;\n      pts.push({re:Math.cos(th), im:Math.sin(th)});\n    }\n    // right vertical up\n    for(let y=Math.sin(Math.PI/3); y<=ymax; y+=0.05) pts.push({re:0.5, im:y});\n    return pts;\n  })();\n\n  function polyPath(pts){\n    let d = '';\n    pts.forEach((p,i)=>{\n      const [X,Y] = px(p);\n      d += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    });\n    return d + 'Z';\n  }\n\n  function drawTile(M, color, opacity, label){\n    const pts = Fbdry.map(p => applyMobius(M, p));\n    const path = SVG('path',{d:polyPath(pts), fill:color,'fill-opacity':opacity,\n      stroke:'var(--line)','stroke-width':1});\n    svg.appendChild(path);\n    if(label){\n      // centroid\n      let cx=0, cy=0;\n      pts.forEach(p=>{ const [X,Y]=px(p); cx+=X; cy+=Y; });\n      cx/=pts.length; cy/=pts.length;\n      const t = SVG('text',{x:cx,y:cy,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = label; svg.appendChild(t);\n    }\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    // real axis\n    svg.appendChild(SVG('line',{x1:0,y1:H-1,x2:W,y2:H-1,stroke:'var(--mute)','stroke-width':1.5}));\n    // vertical grid\n    for(let x=-2;x<=2;x++){\n      const [X] = px({re:x,im:0});\n      svg.appendChild(SVG('line',{x1:X,y1:0,x2:X,y2:H,stroke:'var(--line)','stroke-width':0.8}));\n    }\n\n    // T-translates first (lighter)\n    if(state.T){\n      for(const n of [-2,-1,1,2]){\n        drawTile([[1,n],[0,1]], 'var(--blue)', 0.08, n===-2?'T⁻²':n===-1?'T⁻¹':n===1?'T':'T²');\n      }\n    }\n    // S-image: -1/tau sends F to the \"tongue\" below\n    if(state.S){\n      drawTile([[0,-1],[1,0]], 'var(--green)', 0.10, 'S');\n    }\n    // TS and T^{-1}S\n    if(state.TST){\n      drawTile([[1,0],[1,1]], 'var(--pink)', 0.10, 'TS');        // product T·S = [[1,-1],[1,0]]? compute\n      // actually T*S = [[0,-1],[1,0]] left-multiplied by T: [[1,1],[0,1]]*[[0,-1],[1,0]] = [[1,-1],[1,0]]\n      drawTile([[1,-1],[1,0]], 'var(--pink)', 0.10, null);\n      // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n      drawTile([[-1,-1],[1,0]], 'var(--pink)', 0.10, 'T⁻¹S');\n    }\n\n    // canonical F on top, darker\n    drawTile([[1,0],[0,1]], 'var(--yellow)', 0.22, '𝓕');\n  }\n\n  bT.addEventListener('click', ()=>{ state.T = !state.T; bT.classList.toggle('active', state.T); render(); });\n  bS.addEventListener('click', ()=>{ state.S = !state.S; bS.classList.toggle('active', state.S); render(); });\n  bTST.addEventListener('click', ()=>{ state.TST = !state.TST; bTST.classList.toggle('active', state.TST); render(); });\n  bR.addEventListener('click', ()=>{ state.T=state.S=state.TST=true;\n    bT.classList.add('active'); bS.classList.add('active'); bTST.classList.add('active'); render(); });\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <button id=\"w-tile-sT\" class=\"active\">show $T$-translates</button>\n    <button id=\"w-tile-sS\" class=\"active\">show $S$-image</button>\n    <button id=\"w-tile-sTST\" class=\"active\">show $TS$, $T^{-1}S$</button>\n    <button id=\"w-tile-reset\" style=\"margin-left:auto\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-tile-svg\" viewBox=\"0 0 720 340\" width=\"720\" height=\"340\" aria-label=\"SL2Z tiling\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-tile-out\">The darker tile is the canonical $\\mathcal{F}$. Every other tile is $\\gamma \\mathcal{F}$ for some $\\gamma \\in \\mathrm{SL}_2(\\mathbb{Z})$.</div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -59,9 +179,65 @@
         },
         {
           "type": "widget",
-          "id": "w-wk",
-          "html": "<div class=\"widget\" id=\"w-wk\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$</span><span class=\"hint\">watch the automorphy factor blow up or collapse as $k$ changes</span></div>\n  <div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>\n  <svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>\n  <div class=\"readout small\" id=\"w-wk-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-wk",
+            "title": "Widget 3 · The weight-$k$ factor $(c\\tau+d)^k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "watch the automorphy factor blow up or collapse as $k$ changes",
+            "svgId": "w-wk-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-wk-out",
+            "bodyScript": "  const svg = $('#w-wk-svg');\n  const kSl = $('#w-wk-k'), kLbl = $('#w-wk-kv'), mSel = $('#w-wk-m'), out = $('#w-wk-out');\n  const W=720, H=260;\n  const Ms = {\n    S:  [[0,-1],[1,0]],\n    ST: [[0,-1],[1,1]],   // ST = [[0,-1],[1,1]] wait: S·T? S=[[0,-1],[1,0]], T=[[1,1],[0,1]] → S·T = [[0·1+-1·0, 0·1+-1·1],[1·1+0·0,1·1+0·1]] = [[0,-1],[1,1]]\n    'T2S': [[2,-1],[1,0]],\n    'T-1S': [[-1,-1],[1,0]] // T^{-1}*S = [[1,-1],[0,1]]*[[0,-1],[1,0]] = [[-1,-1],[1,0]]\n  };\n\n  function render(){\n    svg.innerHTML='';\n    const k = +kSl.value;\n    kLbl.textContent = 'k=' + k;\n    const M = Ms[mSel.value];\n    const c = M[1][0], d = M[1][1];\n\n    // sample tau along Re=0, Im from 0.2 to 2\n    // plot |c*tau+d|^k as a function of Im(tau)\n    const pad = 40;\n    const xs = [], ys = [];\n    for(let n=0;n<=120;n++){\n      const y = 0.2 + (2.2-0.2)*n/120;\n      const tre = 0, tim = y;\n      const re = c*tre + d, im = c*tim;\n      const mag = Math.hypot(re,im);\n      xs.push(y); ys.push(Math.pow(mag,k));\n    }\n    const ymin = Math.min(...ys), ymax = Math.max(...ys);\n    const logscale = ymax/Math.max(ymin,1e-9) > 30;\n    function mapy(v){\n      if(logscale){\n        const lv = Math.log(Math.max(v,1e-9));\n        const lmin = Math.log(Math.max(ymin,1e-9)), lmax = Math.log(Math.max(ymax,1e-9));\n        return pad + (H - 2*pad) * (1 - (lv-lmin)/(lmax-lmin || 1));\n      }\n      return pad + (H - 2*pad) * (1 - (v-ymin)/(ymax-ymin || 1));\n    }\n    function mapx(x){ return pad + (W-2*pad) * (x-0.2)/(2.2-0.2); }\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:pad,y1:pad,x2:pad,y2:H-pad,stroke:'var(--line)'}));\n    const xlab = SVG('text',{x:(W)/2, y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xlab.textContent = 'Im(τ), with Re(τ)=0';\n    svg.appendChild(xlab);\n    const ylab = SVG('text',{x:pad+8, y:pad+12,'font-size':11,fill:'var(--mute)'});\n    ylab.textContent = logscale ? 'log |cτ+d|ᵏ' : '|cτ+d|ᵏ';\n    svg.appendChild(ylab);\n\n    // curve\n    let dstr = '';\n    for(let i=0;i<xs.length;i++){\n      const X = mapx(xs[i]), Y = mapy(ys[i]);\n      dstr += (i===0?'M':'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';\n    }\n    svg.appendChild(SVG('path',{d:dstr, stroke:'var(--yellow)','stroke-width':2, fill:'none'}));\n\n    // mark Im=1 reference\n    const xref = mapx(1);\n    svg.appendChild(SVG('line',{x1:xref,y1:pad,x2:xref,y2:H-pad,stroke:'var(--violet)','stroke-dasharray':'4 4'}));\n    const refLabel = SVG('text',{x:xref+4, y:pad+10,'font-size':10,fill:'var(--violet)'});\n    refLabel.textContent = 'τ=i'; svg.appendChild(refLabel);\n\n    out.textContent = `γ = [[${M[0][0]},${M[0][1]}],[${M[1][0]},${M[1][1]}]]    (c,d)=(${c},${d})\n|cτ+d|ᵏ at τ=i  →  ${Math.pow(Math.hypot(c,d), k).toFixed(4)}\nf is modular of weight ${k}  ⟺  f(γτ) = (cτ+d)^${k} · f(τ)`;\n  }\n\n  kSl.addEventListener('input', render);\n  mSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-wk-k\">weight $k$:</label>\n    <input id=\"w-wk-k\" type=\"range\" min=\"2\" max=\"14\" step=\"2\" value=\"4\">\n    <span id=\"w-wk-kv\" class=\"pill\">k=4</span>\n    <label style=\"margin-left:1rem\">matrix choice:</label>\n    <select id=\"w-wk-m\">\n      <option value=\"S\">$S = [[0,-1],[1,0]]$</option>\n      <option value=\"ST\">$ST$</option>\n      <option value=\"T2S\">$T^2 S$</option>\n      <option value=\"T-1S\">$T^{-1}S$</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-wk-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"automorphy factor\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-wk-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -87,9 +263,65 @@
         },
         {
           "type": "widget",
-          "id": "w-qbar",
-          "html": "<div class=\"widget\" id=\"w-qbar\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 4 · $q$-expansion bar chart</span><span class=\"hint\">compare the Fourier coefficients of $E_4$, $E_6$, $\\Delta$ — note the signs and magnitudes</span></div>\n  <div class=\"row\" id=\"w-qbar-btns\">\n    <button data-f=\"E4\" class=\"active\">$E_4$</button>\n    <button data-f=\"E6\">$E_6$</button>\n    <button data-f=\"Delta\">$\\Delta$</button>\n    <button data-f=\"E8\">$E_8$</button>\n    <label style=\"margin-left:auto\" for=\"w-qbar-log\">log scale</label>\n    <input id=\"w-qbar-log\" type=\"checkbox\" checked>\n  </div>\n  <svg id=\"w-qbar-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"q-expansion bar chart\"></svg>\n  <div class=\"readout small\" id=\"w-qbar-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // precomputed q-expansions (standard normalization)\n  const data = {\n    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],\n    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],\n    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],\n    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)\n    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]\n  };\n  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };\n\n  const btns = $('#w-qbar-btns');\n  const svg = $('#w-qbar-svg');\n  const out = $('#w-qbar-out');\n  const logCb = $('#w-qbar-log');\n  let cur = 'E4';\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 300, pad = 40;\n    const arr = data[cur];\n    const N = arr.length;\n    const bw = (W - 2*pad) / N;\n    const log = logCb.checked;\n    const vals = arr.map(v => v);\n    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);\n    function yscale(v){\n      const signed = v;\n      const absV = Math.abs(signed);\n      if(log){\n        const lv = Math.log10(1 + absV);\n        const lm = Math.log10(1 + absMax);\n        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);\n      }\n      return (H/2 - pad/2) * (signed/absMax);\n    }\n    // axis\n    const zeroY = H/2;\n    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';\n    svg.appendChild(tt);\n\n    for(let i=0;i<N;i++){\n      const x = pad + i*bw;\n      const h = yscale(arr[i]);\n      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');\n      svg.appendChild(SVG('rect',{\n        x: x+1, y: h>=0 ? zeroY - h : zeroY,\n        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,\n        fill: color, 'fill-opacity':0.85\n      }));\n      // index labels every few\n      if(i % Math.max(1, Math.floor(N/10)) === 0){\n        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        ix.textContent = i;\n        svg.appendChild(ix);\n      }\n    }\n\n    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}\na_0 = ${arr[0]}\na_1 = ${arr[1]}\na_2 = ${arr[2]}\na_3 = ${arr[3]}`;\n  }\n\n  btns.addEventListener('click', (e)=>{\n    const f = e.target.dataset && e.target.dataset.f;\n    if(!f) return;\n    cur = f;\n    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));\n    render();\n  });\n  logCb.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qbar",
+            "title": "Widget 4 · $q$-expansion bar chart",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "compare the Fourier coefficients of $E_4$, $E_6$, $\\Delta$ — note the signs and magnitudes",
+            "svgId": "w-qbar-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-qbar-out",
+            "bodyScript": "  // precomputed q-expansions (standard normalization)\n  const data = {\n    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],\n    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],\n    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],\n    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)\n    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]\n  };\n  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };\n\n  const btns = $('#w-qbar-btns');\n  const svg = $('#w-qbar-svg');\n  const out = $('#w-qbar-out');\n  const logCb = $('#w-qbar-log');\n  let cur = 'E4';\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 300, pad = 40;\n    const arr = data[cur];\n    const N = arr.length;\n    const bw = (W - 2*pad) / N;\n    const log = logCb.checked;\n    const vals = arr.map(v => v);\n    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);\n    function yscale(v){\n      const signed = v;\n      const absV = Math.abs(signed);\n      if(log){\n        const lv = Math.log10(1 + absV);\n        const lm = Math.log10(1 + absMax);\n        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);\n      }\n      return (H/2 - pad/2) * (signed/absMax);\n    }\n    // axis\n    const zeroY = H/2;\n    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';\n    svg.appendChild(tt);\n\n    for(let i=0;i<N;i++){\n      const x = pad + i*bw;\n      const h = yscale(arr[i]);\n      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');\n      svg.appendChild(SVG('rect',{\n        x: x+1, y: h>=0 ? zeroY - h : zeroY,\n        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,\n        fill: color, 'fill-opacity':0.85\n      }));\n      // index labels every few\n      if(i % Math.max(1, Math.floor(N/10)) === 0){\n        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        ix.textContent = i;\n        svg.appendChild(ix);\n      }\n    }\n\n    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}\na_0 = ${arr[0]}\na_1 = ${arr[1]}\na_2 = ${arr[2]}\na_3 = ${arr[3]}`;\n  }\n\n  btns.addEventListener('click', (e)=>{\n    const f = e.target.dataset && e.target.dataset.f;\n    if(!f) return;\n    cur = f;\n    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));\n    render();\n  });\n  logCb.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-qbar-btns\">\n    <button data-f=\"E4\" class=\"active\">$E_4$</button>\n    <button data-f=\"E6\">$E_6$</button>\n    <button data-f=\"Delta\">$\\Delta$</button>\n    <button data-f=\"E8\">$E_8$</button>\n    <label style=\"margin-left:auto\" for=\"w-qbar-log\">log scale</label>\n    <input id=\"w-qbar-log\" type=\"checkbox\" checked>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-qbar-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"q-expansion bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-qbar-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-qbar",
+            "title": "Widget 4 · $q$-expansion bar chart",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "compare the Fourier coefficients of $E_4$, $E_6$, $\\Delta$ — note the signs and magnitudes",
+            "svgId": "w-qbar-svg",
+            "viewBox": "0 0 720 300",
+            "readoutId": "w-qbar-out",
+            "bodyScript": "  // precomputed q-expansions (standard normalization)\n  const data = {\n    E4:    [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720, 1123440, 1179360],\n    E6:    [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864, -614457576],\n    E8:    [1, 480, 61920, 1050240, 7926240, 37500480, 135480960, 395301120, 1042629600, 2468583360, 5457183264, 11323252800, 22464478080, 42564482880, 77978415360],\n    // Ramanujan tau (coefficients of Delta, normalized so that q coefficient = 1)\n    Delta: [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160, 987136]\n  };\n  const titles = { E4:'E₄', E6:'E₆', E8:'E₈', Delta:'Δ' };\n\n  const btns = $('#w-qbar-btns');\n  const svg = $('#w-qbar-svg');\n  const out = $('#w-qbar-out');\n  const logCb = $('#w-qbar-log');\n  let cur = 'E4';\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 300, pad = 40;\n    const arr = data[cur];\n    const N = arr.length;\n    const bw = (W - 2*pad) / N;\n    const log = logCb.checked;\n    const vals = arr.map(v => v);\n    const absMax = Math.max(...vals.map(v=>Math.abs(v)), 1);\n    function yscale(v){\n      const signed = v;\n      const absV = Math.abs(signed);\n      if(log){\n        const lv = Math.log10(1 + absV);\n        const lm = Math.log10(1 + absMax);\n        return (H/2 - pad/2) * (lv/lm) * Math.sign(signed);\n      }\n      return (H/2 - pad/2) * (signed/absMax);\n    }\n    // axis\n    const zeroY = H/2;\n    svg.appendChild(SVG('line',{x1:pad,y1:zeroY,x2:W-pad,y2:zeroY,stroke:'var(--line)'}));\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    tt.textContent = titles[cur] + '  —  bars = a_n  (n = 0, 1, 2, …, ' + (N-1) + ')';\n    svg.appendChild(tt);\n\n    for(let i=0;i<N;i++){\n      const x = pad + i*bw;\n      const h = yscale(arr[i]);\n      const color = arr[i] === 0 ? 'var(--line)' : (arr[i] > 0 ? 'var(--green)' : 'var(--pink)');\n      svg.appendChild(SVG('rect',{\n        x: x+1, y: h>=0 ? zeroY - h : zeroY,\n        width: Math.max(bw-2, 1), height: Math.abs(h) || 1,\n        fill: color, 'fill-opacity':0.85\n      }));\n      // index labels every few\n      if(i % Math.max(1, Math.floor(N/10)) === 0){\n        const ix = SVG('text',{x:x+bw/2, y:H-12, 'text-anchor':'middle','font-size':10, fill:'var(--mute)'});\n        ix.textContent = i;\n        svg.appendChild(ix);\n      }\n    }\n\n    out.textContent = `${titles[cur]}  —  first ${N} Fourier coefficients shown${log ? '  (log-compressed)':''}\na_0 = ${arr[0]}\na_1 = ${arr[1]}\na_2 = ${arr[2]}\na_3 = ${arr[3]}`;\n  }\n\n  btns.addEventListener('click', (e)=>{\n    const f = e.target.dataset && e.target.dataset.f;\n    if(!f) return;\n    cur = f;\n    [...btns.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.f === cur));\n    render();\n  });\n  logCb.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" id=\"w-qbar-btns\">\n    <button data-f=\"E4\" class=\"active\">$E_4$</button>\n    <button data-f=\"E6\">$E_6$</button>\n    <button data-f=\"Delta\">$\\Delta$</button>\n    <button data-f=\"E8\">$E_8$</button>\n    <label style=\"margin-left:auto\" for=\"w-qbar-log\">log scale</label>\n    <input id=\"w-qbar-log\" type=\"checkbox\" checked>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-qbar-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\" aria-label=\"q-expansion bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-qbar-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -115,9 +347,65 @@
         },
         {
           "type": "widget",
-          "id": "w-j",
-          "html": "<div class=\"widget\" id=\"w-j\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 5 · The $j$-function on a vertical strip</span><span class=\"hint\">$j(\\tau)$ along $\\mathrm{Re}\\,\\tau=x_0$, as $\\mathrm{Im}\\,\\tau$ varies: a pole at $i\\infty$, regular on $\\mathcal{H}$</span></div>\n  <div class=\"row\">\n    <label for=\"w-j-x\">$\\mathrm{Re}\\,\\tau$:</label>\n    <input id=\"w-j-x\" type=\"range\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span id=\"w-j-xv\" class=\"pill\">x=0</span>\n    <label style=\"margin-left:1rem\" for=\"w-j-y\">Im range:</label>\n    <input id=\"w-j-y\" type=\"range\" min=\"0.3\" max=\"3\" step=\"0.02\" value=\"1.3\">\n    <span id=\"w-j-yv\" class=\"pill\">y=1.30</span>\n  </div>\n  <svg id=\"w-j-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"j-function heat strip\"></svg>\n  <div class=\"readout small\" id=\"w-j-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#w-j-svg');\n  const xS = $('#w-j-x'), xL = $('#w-j-xv');\n  const yS = $('#w-j-y'), yL = $('#w-j-yv');\n  const out = $('#w-j-out');\n\n  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\n  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];\n  function jApprox(tau){\n    // q = e^{2pi i tau}\n    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);\n    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);\n    // 1/q = e^{-2pi i tau}\n    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);\n    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);\n    let re = iqre + 744, im = iqim;\n    let pre = 1, pim = 0;\n    for(let k=0;k<jcoef.length;k++){\n      // multiply p *= q\n      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;\n      pre = npre; pim = npim;\n      re += jcoef[k]*pre; im += jcoef[k]*pim;\n    }\n    return { re, im, abs: Math.hypot(re,im) };\n  }\n  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }\n\n  // HSV to hex\n  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 260, pad = 40;\n    const x0 = parseFloat(xS.value);\n    xL.textContent = 'x=' + x0.toFixed(2);\n    const ytop = parseFloat(yS.value);\n    yL.textContent = 'y=' + ytop.toFixed(2);\n    const ymin = 0.1, ymax = Math.max(ytop, 0.4);\n\n    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)\n    const strips = 120;\n    const sh = (H - 2*pad) / strips;\n    const cellX = pad+20, cellW = W - 2*pad - 40;\n\n    // first pass, collect values\n    const rows = [];\n    for(let i=0;i<strips;i++){\n      const y = ymin + (ymax - ymin) * i/(strips-1);\n      const j = jApprox({re:x0, im:y});\n      rows.push({y, j});\n    }\n    const logs = rows.map(r => Math.log10(1 + r.j.abs));\n    const lmax = Math.max(...logs), lmin = Math.min(...logs);\n\n    for(let i=0;i<strips;i++){\n      const r = rows[i];\n      const t = (logs[i]-lmin)/(lmax-lmin || 1);\n      const arg = Math.atan2(r.j.im, r.j.re);\n      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;\n      const light = 0.22 + 0.55 * t;\n      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));\n      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));\n    }\n    // frame\n    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,\n      fill:'none', stroke:'var(--line)','stroke-width':1}));\n    // y labels\n    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){\n      if(yval<ymin || yval>ymax) continue;\n      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));\n      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));\n      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});\n      t.textContent = 'Im=' + yval.toFixed(1);\n      svg.appendChild(t);\n    }\n    // caption\n    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';\n    svg.appendChild(cap);\n    // title\n    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;\n    svg.appendChild(ttl);\n\n    // sample readouts\n    const ys = [0.3, 0.5, 1.0, 2.0];\n    let ln = '';\n    for(const yv of ys){\n      const jj = jApprox({re:x0, im:yv});\n      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\\n`;\n    }\n    out.textContent = ln.trim();\n  }\n  xS.addEventListener('input', render);\n  yS.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 5 · The $j$-function on a vertical strip",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$j(\\tau)$ along $\\mathrm{Re}\\,\\tau=x_0$, as $\\mathrm{Im}\\,\\tau$ varies: a pole at $i\\infty$, regular on $\\mathcal{H}$",
+            "svgId": "w-j-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-j-out",
+            "bodyScript": "  const svg = $('#w-j-svg');\n  const xS = $('#w-j-x'), xL = $('#w-j-xv');\n  const yS = $('#w-j-y'), yL = $('#w-j-yv');\n  const out = $('#w-j-out');\n\n  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\n  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];\n  function jApprox(tau){\n    // q = e^{2pi i tau}\n    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);\n    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);\n    // 1/q = e^{-2pi i tau}\n    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);\n    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);\n    let re = iqre + 744, im = iqim;\n    let pre = 1, pim = 0;\n    for(let k=0;k<jcoef.length;k++){\n      // multiply p *= q\n      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;\n      pre = npre; pim = npim;\n      re += jcoef[k]*pre; im += jcoef[k]*pim;\n    }\n    return { re, im, abs: Math.hypot(re,im) };\n  }\n  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }\n\n  // HSV to hex\n  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 260, pad = 40;\n    const x0 = parseFloat(xS.value);\n    xL.textContent = 'x=' + x0.toFixed(2);\n    const ytop = parseFloat(yS.value);\n    yL.textContent = 'y=' + ytop.toFixed(2);\n    const ymin = 0.1, ymax = Math.max(ytop, 0.4);\n\n    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)\n    const strips = 120;\n    const sh = (H - 2*pad) / strips;\n    const cellX = pad+20, cellW = W - 2*pad - 40;\n\n    // first pass, collect values\n    const rows = [];\n    for(let i=0;i<strips;i++){\n      const y = ymin + (ymax - ymin) * i/(strips-1);\n      const j = jApprox({re:x0, im:y});\n      rows.push({y, j});\n    }\n    const logs = rows.map(r => Math.log10(1 + r.j.abs));\n    const lmax = Math.max(...logs), lmin = Math.min(...logs);\n\n    for(let i=0;i<strips;i++){\n      const r = rows[i];\n      const t = (logs[i]-lmin)/(lmax-lmin || 1);\n      const arg = Math.atan2(r.j.im, r.j.re);\n      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;\n      const light = 0.22 + 0.55 * t;\n      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));\n      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));\n    }\n    // frame\n    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,\n      fill:'none', stroke:'var(--line)','stroke-width':1}));\n    // y labels\n    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){\n      if(yval<ymin || yval>ymax) continue;\n      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));\n      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));\n      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});\n      t.textContent = 'Im=' + yval.toFixed(1);\n      svg.appendChild(t);\n    }\n    // caption\n    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';\n    svg.appendChild(cap);\n    // title\n    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;\n    svg.appendChild(ttl);\n\n    // sample readouts\n    const ys = [0.3, 0.5, 1.0, 2.0];\n    let ln = '';\n    for(const yv of ys){\n      const jj = jApprox({re:x0, im:yv});\n      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\\n`;\n    }\n    out.textContent = ln.trim();\n  }\n  xS.addEventListener('input', render);\n  yS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-x\">$\\mathrm{Re}\\,\\tau$:</label>\n    <input id=\"w-j-x\" type=\"range\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span id=\"w-j-xv\" class=\"pill\">x=0</span>\n    <label style=\"margin-left:1rem\" for=\"w-j-y\">Im range:</label>\n    <input id=\"w-j-y\" type=\"range\" min=\"0.3\" max=\"3\" step=\"0.02\" value=\"1.3\">\n    <span id=\"w-j-yv\" class=\"pill\">y=1.30</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-j-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"j-function heat strip\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-j-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-j",
+            "title": "Widget 5 · The $j$-function on a vertical strip",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$j(\\tau)$ along $\\mathrm{Re}\\,\\tau=x_0$, as $\\mathrm{Im}\\,\\tau$ varies: a pole at $i\\infty$, regular on $\\mathcal{H}$",
+            "svgId": "w-j-svg",
+            "viewBox": "0 0 720 260",
+            "readoutId": "w-j-out",
+            "bodyScript": "  const svg = $('#w-j-svg');\n  const xS = $('#w-j-x'), xL = $('#w-j-xv');\n  const yS = $('#w-j-y'), yL = $('#w-j-yv');\n  const out = $('#w-j-out');\n\n  // small finite Fourier approximation of j(tau) = 1/q + 744 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\n  const jcoef = [ 744, 196884, 21493760, 864299970, 20245856256, 333202640600, 4252023300096 ];\n  function jApprox(tau){\n    // q = e^{2pi i tau}\n    const qre = Math.exp(-2*Math.PI*tau.im) * Math.cos(2*Math.PI*tau.re);\n    const qim = Math.exp(-2*Math.PI*tau.im) * Math.sin(2*Math.PI*tau.re);\n    // 1/q = e^{-2pi i tau}\n    const iqre = Math.exp( 2*Math.PI*tau.im) * Math.cos(-2*Math.PI*tau.re);\n    const iqim = Math.exp( 2*Math.PI*tau.im) * Math.sin(-2*Math.PI*tau.re);\n    let re = iqre + 744, im = iqim;\n    let pre = 1, pim = 0;\n    for(let k=0;k<jcoef.length;k++){\n      // multiply p *= q\n      const npre = pre*qre - pim*qim, npim = pre*qim + pim*qre;\n      pre = npre; pim = npim;\n      re += jcoef[k]*pre; im += jcoef[k]*pim;\n    }\n    return { re, im, abs: Math.hypot(re,im) };\n  }\n  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }\n\n  // HSV to hex\n  function hsl(h,s,l){ return `hsl(${h} ${Math.round(s*100)}% ${Math.round(l*100)}%)`; }\n\n  function render(){\n    svg.innerHTML = '';\n    const W = 720, H = 260, pad = 40;\n    const x0 = parseFloat(xS.value);\n    xL.textContent = 'x=' + x0.toFixed(2);\n    const ytop = parseFloat(yS.value);\n    yL.textContent = 'y=' + ytop.toFixed(2);\n    const ymin = 0.1, ymax = Math.max(ytop, 0.4);\n\n    // heat strip (color by log|j|) from bottom (Im small, far from cusp) to top (Im large, cusp)\n    const strips = 120;\n    const sh = (H - 2*pad) / strips;\n    const cellX = pad+20, cellW = W - 2*pad - 40;\n\n    // first pass, collect values\n    const rows = [];\n    for(let i=0;i<strips;i++){\n      const y = ymin + (ymax - ymin) * i/(strips-1);\n      const j = jApprox({re:x0, im:y});\n      rows.push({y, j});\n    }\n    const logs = rows.map(r => Math.log10(1 + r.j.abs));\n    const lmax = Math.max(...logs), lmin = Math.min(...logs);\n\n    for(let i=0;i<strips;i++){\n      const r = rows[i];\n      const t = (logs[i]-lmin)/(lmax-lmin || 1);\n      const arg = Math.atan2(r.j.im, r.j.re);\n      const hue = ((arg + Math.PI) / (2*Math.PI)) * 360;\n      const light = 0.22 + 0.55 * t;\n      const Y = pad + (H - 2*pad) * (1 - i/(strips-1));\n      svg.appendChild(SVG('rect',{x:cellX, y:Y - sh/2, width:cellW, height:sh+1, fill: hsl(hue, 0.7, light)}));\n    }\n    // frame\n    svg.appendChild(SVG('rect',{x:cellX, y:pad, width:cellW, height:H-2*pad,\n      fill:'none', stroke:'var(--line)','stroke-width':1}));\n    // y labels\n    for(const yval of [0.1, 0.5, 1.0, 2.0, 3.0]){\n      if(yval<ymin || yval>ymax) continue;\n      const Y = pad + (H - 2*pad) * (1 - (yval-ymin)/(ymax-ymin));\n      svg.appendChild(SVG('line',{x1:cellX-4, y1:Y, x2:cellX, y2:Y, stroke:'var(--mute)'}));\n      const t = SVG('text',{x:cellX-6, y:Y+3, 'text-anchor':'end','font-size':10, fill:'var(--mute)'});\n      t.textContent = 'Im=' + yval.toFixed(1);\n      svg.appendChild(t);\n    }\n    // caption\n    const cap = SVG('text',{x:W/2, y:H-12, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n    cap.textContent = 'brightness = log|j(x₀+iy)|    hue = arg j(x₀+iy)    (cusp at top, real axis at bottom)';\n    svg.appendChild(cap);\n    // title\n    const ttl = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    ttl.textContent = `j(τ) along Re(τ) = ${x0.toFixed(2)}`;\n    svg.appendChild(ttl);\n\n    // sample readouts\n    const ys = [0.3, 0.5, 1.0, 2.0];\n    let ln = '';\n    for(const yv of ys){\n      const jj = jApprox({re:x0, im:yv});\n      ln += `τ = ${x0.toFixed(2)} + ${yv.toFixed(2)}i   →   j(τ) ≈ ${jj.re.toExponential(3)}\\n`;\n    }\n    out.textContent = ln.trim();\n  }\n  xS.addEventListener('input', render);\n  yS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-j-x\">$\\mathrm{Re}\\,\\tau$:</label>\n    <input id=\"w-j-x\" type=\"range\" min=\"-0.5\" max=\"0.5\" step=\"0.01\" value=\"0\">\n    <span id=\"w-j-xv\" class=\"pill\">x=0</span>\n    <label style=\"margin-left:1rem\" for=\"w-j-y\">Im range:</label>\n    <input id=\"w-j-y\" type=\"range\" min=\"0.3\" max=\"3\" step=\"0.02\" value=\"1.3\">\n    <span id=\"w-j-yv\" class=\"pill\">y=1.30</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-j-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\" aria-label=\"j-function heat strip\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-j-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -134,9 +422,65 @@
         },
         {
           "type": "widget",
-          "id": "w-dim",
-          "html": "<div class=\"widget\" id=\"w-dim\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 6 · Dimensions of $M_k$ and $S_k$</span><span class=\"hint\">$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$</span></div>\n  <div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>\n  <svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>\n  <div class=\"readout small\" id=\"w-dim-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -153,9 +497,53 @@
         },
         {
           "type": "widget",
-          "id": "w-id",
-          "html": "<div class=\"widget\" id=\"w-id\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\\,\\Delta$</span><span class=\"hint\">truncate $q$-expansions; check the identity coefficient-by-coefficient</span></div>\n  <div class=\"row\">\n    <label for=\"w-id-N\">compare up to $q^N$ with $N$ =</label>\n    <input id=\"w-id-N\" type=\"range\" min=\"2\" max=\"15\" step=\"1\" value=\"6\">\n    <span id=\"w-id-Nv\" class=\"pill\">N=6</span>\n  </div>\n  <div class=\"readout\" id=\"w-id-out\" style=\"min-height:10em\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];\n  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];\n  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];\n\n  function polyMul(a,b, maxLen){\n    const out = new Array(maxLen).fill(0);\n    for(let i=0;i<a.length && i<maxLen;i++)\n      for(let j=0;j<b.length && i+j<maxLen;j++)\n        out[i+j] += a[i]*b[j];\n    return out;\n  }\n  function polySub(a,b){\n    const L = Math.max(a.length,b.length);\n    const out = new Array(L).fill(0);\n    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);\n    return out;\n  }\n  function scale(a,s){ return a.map(v=>v*s); }\n\n  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');\n  function render(){\n    const N = +nS.value;\n    nL.textContent = 'N='+N;\n    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);\n    const E6_2 = polyMul(E6,E6,N+1);\n    const lhs = polySub(E4_3, E6_2);\n    const rhs = scale(Delta.slice(0,N+1), 1728);\n    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\\n';\n    let ok = true;\n    for(let n=0;n<=N;n++){\n      const L = lhs[n]||0, R = rhs[n]||0;\n      const m = L===R ? 'yes' : 'NO';\n      if(L!==R) ok = false;\n      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\\n`;\n    }\n    lines += '\\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');\n    out.textContent = lines;\n  }\n  nS.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-id",
+            "title": "Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\\,\\Delta$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "truncate $q$-expansions; check the identity coefficient-by-coefficient",
+            "readoutId": "w-id-out",
+            "bodyScript": "  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];\n  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];\n  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];\n\n  function polyMul(a,b, maxLen){\n    const out = new Array(maxLen).fill(0);\n    for(let i=0;i<a.length && i<maxLen;i++)\n      for(let j=0;j<b.length && i+j<maxLen;j++)\n        out[i+j] += a[i]*b[j];\n    return out;\n  }\n  function polySub(a,b){\n    const L = Math.max(a.length,b.length);\n    const out = new Array(L).fill(0);\n    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);\n    return out;\n  }\n  function scale(a,s){ return a.map(v=>v*s); }\n\n  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');\n  function render(){\n    const N = +nS.value;\n    nL.textContent = 'N='+N;\n    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);\n    const E6_2 = polyMul(E6,E6,N+1);\n    const lhs = polySub(E4_3, E6_2);\n    const rhs = scale(Delta.slice(0,N+1), 1728);\n    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\\n';\n    let ok = true;\n    for(let n=0;n<=N;n++){\n      const L = lhs[n]||0, R = rhs[n]||0;\n      const m = L===R ? 'yes' : 'NO';\n      if(L!==R) ok = false;\n      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\\n`;\n    }\n    lines += '\\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');\n    out.textContent = lines;\n  }\n  nS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-id-N\">compare up to $q^N$ with $N$ =</label>\n    <input id=\"w-id-N\" type=\"range\" min=\"2\" max=\"15\" step=\"1\" value=\"6\">\n    <span id=\"w-id-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"w-id-out\" style=\"min-height:10em\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-id",
+            "title": "Widget 7 · Verifying $E_4^3 - E_6^2 = 1728\\,\\Delta$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "truncate $q$-expansions; check the identity coefficient-by-coefficient",
+            "readoutId": "w-id-out",
+            "bodyScript": "  const E4 = [1, 240, 2160, 6720, 17520, 30240, 60480, 82560, 140400, 181680, 272160, 319680, 490560, 527520, 743040, 846720];\n  const E6 = [1, -504, -16632, -122976, -532728, -1575504, -4058208, -8471232, -17047800, -29621376, -52093440, -82376352, -133421040, -200525616, -297493920, -426048864];\n  const Delta = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920, 534612, -370944, -577738, 401856, 1217160];\n\n  function polyMul(a,b, maxLen){\n    const out = new Array(maxLen).fill(0);\n    for(let i=0;i<a.length && i<maxLen;i++)\n      for(let j=0;j<b.length && i+j<maxLen;j++)\n        out[i+j] += a[i]*b[j];\n    return out;\n  }\n  function polySub(a,b){\n    const L = Math.max(a.length,b.length);\n    const out = new Array(L).fill(0);\n    for(let i=0;i<L;i++) out[i] = (a[i]||0) - (b[i]||0);\n    return out;\n  }\n  function scale(a,s){ return a.map(v=>v*s); }\n\n  const nS = $('#w-id-N'), nL = $('#w-id-Nv'), out = $('#w-id-out');\n  function render(){\n    const N = +nS.value;\n    nL.textContent = 'N='+N;\n    const E4_3 = polyMul(polyMul(E4,E4,N+1), E4, N+1);\n    const E6_2 = polyMul(E6,E6,N+1);\n    const lhs = polySub(E4_3, E6_2);\n    const rhs = scale(Delta.slice(0,N+1), 1728);\n    let lines = 'n       (E4^3 - E6^2)_n         1728·Δ_n         match?\\n';\n    let ok = true;\n    for(let n=0;n<=N;n++){\n      const L = lhs[n]||0, R = rhs[n]||0;\n      const m = L===R ? 'yes' : 'NO';\n      if(L!==R) ok = false;\n      lines += `${String(n).padStart(2,' ')}     ${String(L).padStart(20,' ')}   ${String(R).padStart(14,' ')}      ${m}\\n`;\n    }\n    lines += '\\n' + (ok ? 'verified:  Δ = (E4^3 - E6^2)/1728 on all coefficients shown.' : 'mismatch — truncation too short');\n    out.textContent = lines;\n  }\n  nS.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-id-N\">compare up to $q^N$ with $N$ =</label>\n    <input id=\"w-id-N\" type=\"range\" min=\"2\" max=\"15\" step=\"1\" value=\"6\">\n    <span id=\"w-id-Nv\" class=\"pill\">N=6</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"w-id-out\" style=\"min-height:10em\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
