@@ -90,6 +90,10 @@
           "type": "string",
           "x-artifact": "script body is widget-specific; portable consumers should implement their own draw logic",
           "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — reads sliders, renders SVG, writes readout. Kept opaque because the 81+ widgets in this family each compute bespoke geometry; a React/Three.js consumer should ignore this field and drive its own renderer from sliders + any future structured `draw` params."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
         }
       }
     },
@@ -167,6 +171,10 @@
           "type": "string",
           "x-artifact": "script body is widget-specific; portable consumers should implement their own",
           "description": "ARTIFACT. Verbatim IIFE body. Same rationale as singleMode.bodyScript."
+        },
+        "trailingExplainer": {
+          "type": "string",
+          "description": "Optional <p class=\"small\">...</p> rendered after the readout. Inner HTML."
         }
       }
     }

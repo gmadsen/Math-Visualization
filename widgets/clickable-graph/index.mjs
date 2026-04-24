@@ -39,7 +39,7 @@ export function renderMarkup(params) {
   const {
     widgetId, svgId, viewBox, title,
     hint, svgWidthAttr, svgHeightAttr,
-    readoutId, initialReadoutHtml, titleTag, hintTag,
+    readoutId, initialReadoutHtml, titleTag, hintTag, trailingExplainer,
   } = params;
 
   const hintHtml = renderHintTag(hint, hintTag);
@@ -50,11 +50,15 @@ export function renderMarkup(params) {
     ? `\n  <div class="readout" id="${readoutId}">${initialReadoutHtml ?? ''}</div>`
     : '';
 
+  const trailingHtml = typeof trailingExplainer === 'string'
+    ? `\n  <p class="small">${trailingExplainer}</p>`
+    : '';
+
   return (
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}"${widthAttr}${heightAttr}><title>${title}</title></svg>` +
-    `${readoutHtml}\n` +
+    `${readoutHtml}${trailingHtml}\n` +
     `</div>`
   );
 }
