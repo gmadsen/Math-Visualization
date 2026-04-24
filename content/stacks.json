@@ -566,9 +566,55 @@
         },
         {
           "type": "widget",
-          "id": "w-jline",
-          "html": "<div class=\"widget\" id=\"w-jline\">\n  <div class=\"hd\"><div class=\"ttl\">W5 · $j$-line with stacky points</div><div class=\"hint\">hover a point to see its automorphism group</div></div>\n  <svg id=\"jline-svg\" viewBox=\"0 0 620 200\" width=\"620\" height=\"200\"><title>W5 · $j$-line with stacky points</title></svg>\n  <div class=\"readout\" id=\"jline-out\">The coarse moduli $\\mathbb{A}^1_j$ with the automorphism-group decoration coming from $\\mathcal{M}_{1,1}$.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#jline-svg'), out = $('#jline-out');\n  // horizontal line\n  svg.appendChild(SVG('line',{x1:40,y1:110,x2:580,y2:110,stroke:'var(--line)','stroke-width':1.5}));\n  // axis label\n  const axl = SVG('text',{x:600,y:114,'font-size':13,fill:'var(--mute)','font-style':'italic'}); axl.textContent='j'; svg.appendChild(axl);\n  // generic tick marks with Z/2 decoration\n  const ticks = [130,230,330,430,530];\n  for(const x of ticks){\n    svg.appendChild(SVG('circle',{cx:x,cy:110,r:3,fill:'var(--mute)'}));\n  }\n  // stacky point j = 0\n  const p0 = {x:170, y:110, j:'0', aut:'μ_6 (residual μ_3)', col:'var(--pink)'};\n  const p1728 = {x:450, y:110, j:'1728', aut:'μ_4 (residual μ_2)', col:'var(--cyan)'};\n  for(const p of [p0,p1728]){\n    // stacky thickening: dashed small circle\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:16,fill:'none',stroke:p.col,'stroke-width':1.5,'stroke-dasharray':'3 2'}));\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:5,fill:p.col}));\n    const lab = SVG('text',{x:p.x,y:p.y-24,'text-anchor':'middle','font-size':12,fill:p.col,'font-weight':600});\n    lab.textContent = 'j = '+p.j;\n    svg.appendChild(lab);\n    // hover area\n    const hit = SVG('circle',{cx:p.x,cy:p.y,r:22,fill:'transparent',style:'cursor:pointer'});\n    hit.addEventListener('mouseenter',()=>{ out.textContent = `stacky point j = ${p.j}:  Aut(E) = ${p.aut}.\\nThe stack looks like [A¹/μ_k] locally around this point.`; });\n    hit.addEventListener('mouseleave',()=>{ out.textContent = 'The coarse moduli A¹_j with the automorphism-group decoration coming from ℳ_{1,1}.'; });\n    svg.appendChild(hit);\n  }\n  // generic legend\n  const gen = SVG('text',{x:310,y:170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  gen.textContent = 'generic j: Aut = μ₂ (the [−1] map)   —   stacky j=0, j=1728';\n  svg.appendChild(gen);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jline",
+            "title": "W5 · $j$-line with stacky points",
+            "hint": "hover a point to see its automorphism group",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "jline-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "jline-out",
+                "content": "The coarse moduli $\\mathbb{A}^1_j$ with the automorphism-group decoration coming from $\\mathcal{M}_{1,1}$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#jline-svg'), out = $('#jline-out');\n  // horizontal line\n  svg.appendChild(SVG('line',{x1:40,y1:110,x2:580,y2:110,stroke:'var(--line)','stroke-width':1.5}));\n  // axis label\n  const axl = SVG('text',{x:600,y:114,'font-size':13,fill:'var(--mute)','font-style':'italic'}); axl.textContent='j'; svg.appendChild(axl);\n  // generic tick marks with Z/2 decoration\n  const ticks = [130,230,330,430,530];\n  for(const x of ticks){\n    svg.appendChild(SVG('circle',{cx:x,cy:110,r:3,fill:'var(--mute)'}));\n  }\n  // stacky point j = 0\n  const p0 = {x:170, y:110, j:'0', aut:'μ_6 (residual μ_3)', col:'var(--pink)'};\n  const p1728 = {x:450, y:110, j:'1728', aut:'μ_4 (residual μ_2)', col:'var(--cyan)'};\n  for(const p of [p0,p1728]){\n    // stacky thickening: dashed small circle\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:16,fill:'none',stroke:p.col,'stroke-width':1.5,'stroke-dasharray':'3 2'}));\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:5,fill:p.col}));\n    const lab = SVG('text',{x:p.x,y:p.y-24,'text-anchor':'middle','font-size':12,fill:p.col,'font-weight':600});\n    lab.textContent = 'j = '+p.j;\n    svg.appendChild(lab);\n    // hover area\n    const hit = SVG('circle',{cx:p.x,cy:p.y,r:22,fill:'transparent',style:'cursor:pointer'});\n    hit.addEventListener('mouseenter',()=>{ out.textContent = `stacky point j = ${p.j}:  Aut(E) = ${p.aut}.\\nThe stack looks like [A¹/μ_k] locally around this point.`; });\n    hit.addEventListener('mouseleave',()=>{ out.textContent = 'The coarse moduli A¹_j with the automorphism-group decoration coming from ℳ_{1,1}.'; });\n    svg.appendChild(hit);\n  }\n  // generic legend\n  const gen = SVG('text',{x:310,y:170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  gen.textContent = 'generic j: Aut = μ₂ (the [−1] map)   —   stacky j=0, j=1728';\n  svg.appendChild(gen);"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-jline",
+            "title": "W5 · $j$-line with stacky points",
+            "hint": "hover a point to see its automorphism group",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "jline-svg",
+                "viewBox": "0 0 620 200",
+                "width": 620,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "jline-out",
+                "content": "The coarse moduli $\\mathbb{A}^1_j$ with the automorphism-group decoration coming from $\\mathcal{M}_{1,1}$."
+              }
+            ],
+            "bodyScript": "  const svg = $('#jline-svg'), out = $('#jline-out');\n  // horizontal line\n  svg.appendChild(SVG('line',{x1:40,y1:110,x2:580,y2:110,stroke:'var(--line)','stroke-width':1.5}));\n  // axis label\n  const axl = SVG('text',{x:600,y:114,'font-size':13,fill:'var(--mute)','font-style':'italic'}); axl.textContent='j'; svg.appendChild(axl);\n  // generic tick marks with Z/2 decoration\n  const ticks = [130,230,330,430,530];\n  for(const x of ticks){\n    svg.appendChild(SVG('circle',{cx:x,cy:110,r:3,fill:'var(--mute)'}));\n  }\n  // stacky point j = 0\n  const p0 = {x:170, y:110, j:'0', aut:'μ_6 (residual μ_3)', col:'var(--pink)'};\n  const p1728 = {x:450, y:110, j:'1728', aut:'μ_4 (residual μ_2)', col:'var(--cyan)'};\n  for(const p of [p0,p1728]){\n    // stacky thickening: dashed small circle\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:16,fill:'none',stroke:p.col,'stroke-width':1.5,'stroke-dasharray':'3 2'}));\n    svg.appendChild(SVG('circle',{cx:p.x,cy:p.y,r:5,fill:p.col}));\n    const lab = SVG('text',{x:p.x,y:p.y-24,'text-anchor':'middle','font-size':12,fill:p.col,'font-weight':600});\n    lab.textContent = 'j = '+p.j;\n    svg.appendChild(lab);\n    // hover area\n    const hit = SVG('circle',{cx:p.x,cy:p.y,r:22,fill:'transparent',style:'cursor:pointer'});\n    hit.addEventListener('mouseenter',()=>{ out.textContent = `stacky point j = ${p.j}:  Aut(E) = ${p.aut}.\\nThe stack looks like [A¹/μ_k] locally around this point.`; });\n    hit.addEventListener('mouseleave',()=>{ out.textContent = 'The coarse moduli A¹_j with the automorphism-group decoration coming from ℳ_{1,1}.'; });\n    svg.appendChild(hit);\n  }\n  // generic legend\n  const gen = SVG('text',{x:310,y:170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  gen.textContent = 'generic j: Aut = μ₂ (the [−1] map)   —   stacky j=0, j=1728';\n  svg.appendChild(gen);"
+          }
         },
         {
           "type": "raw",
