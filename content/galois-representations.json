@@ -12,9 +12,37 @@
         },
         {
           "type": "widget",
-          "id": "w-profinite",
-          "html": "<div class=\"widget\" id=\"w-profinite\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$</span>\n    <span class=\"hint\">finite quotients fan out; $G_\\mathbb{Q}$ sits at the top</span></div>\n  <svg viewBox=\"0 0 820 340\" width=\"100%\"><title>Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$</title></svg>\n  <div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>\n  <div class=\"readout\" id=\"pf-text\">$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-profinite",
+            "title": "Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "finite quotients fan out; $G_\\mathbb{Q}$ sits at the top",
+            "svgId": "svg-profinite",
+            "viewBox": "0 0 820 340",
+            "readoutId": "pf-text",
+            "sectionComment": "=================== Widget 1 — Profinite cartoon ===================",
+            "bodyScript": "  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-profinite",
+                "viewBox": "0 0 820 340",
+                "width": 820,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pf-text",
+                "content": "$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit."
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -219,8 +247,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-profinite",
-          "html": "<script>\n/* =================== Widget 1 — Profinite cartoon =================== */\n(function(){\n  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-profinite",
+            "title": "Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "finite quotients fan out; $G_\\mathbb{Q}$ sits at the top",
+            "svgId": "svg-profinite",
+            "viewBox": "0 0 820 340",
+            "readoutId": "pf-text",
+            "sectionComment": "=================== Widget 1 — Profinite cartoon ===================",
+            "bodyScript": "  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-profinite",
+                "viewBox": "0 0 820 340",
+                "width": 820,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pf-text",
+                "content": "$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit."
+              }
+            ]
+          }
         },
         {
           "type": "raw",
