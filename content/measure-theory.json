@@ -216,9 +216,28 @@
         },
         {
           "type": "widget",
-          "id": "w-cantor",
-          "html": "<div class=\"widget\" id=\"w-cantor\">\n  <div class=\"hd\"><div class=\"ttl\">Middle-thirds Cantor set</div><div class=\"hint\">drag depth $k$ to iterate</div></div>\n  <svg id=\"cantor-svg\" viewBox=\"0 0 760 240\" width=\"760\" height=\"240\"><title>Middle-thirds Cantor set</title></svg>\n  <div class=\"row\">\n    <label for=\"cantor-k\">depth $k$</label>\n    <input id=\"cantor-k\" type=\"range\" min=\"0\" max=\"8\" step=\"1\" value=\"3\">\n    <span id=\"cantor-kv\" class=\"small\"></span>\n  </div>\n  <div class=\"readout\" id=\"cantor-out\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cantor",
+            "title": "Middle-thirds Cantor set",
+            "hint": "drag depth $k$ to iterate",
+            "sectionComment": "=============================== §2 Cantor set widget ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<svg id=\"cantor-svg\" viewBox=\"0 0 760 240\" width=\"760\" height=\"240\"><title>Middle-thirds Cantor set</title></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cantor-k\">depth $k$</label>\n    <input id=\"cantor-k\" type=\"range\" min=\"0\" max=\"8\" step=\"1\" value=\"3\">\n    <span id=\"cantor-kv\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "cantor-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#cantor-svg'), out = $('#cantor-out');\n  const slider = $('#cantor-k'), kv = $('#cantor-kv');\n  const W=760, H=240, pad=40;\n  function draw(){\n    const k = +slider.value;\n    kv.textContent = `k = ${k}`;\n    svg.innerHTML = '';\n    // draw iterations 0..k stacked vertically\n    const rows = k+1;\n    const rowH = (H - 2*pad) / Math.max(rows,1);\n    // start from [0,1]\n    let intervals = [[0,1]];\n    for(let j=0;j<=k;j++){\n      const y = pad + j*rowH + rowH*0.3;\n      const h = Math.max(rowH*0.45, 6);\n      for(const [a,b] of intervals){\n        const x = pad + a*(W-2*pad);\n        const w = (b-a)*(W-2*pad);\n        svg.appendChild(SVG('rect',{x,y,width:w,height:h,\n          fill:'var(--yellow)', opacity:0.85, stroke:'var(--yellow)'}));\n      }\n      // label\n      const meas = Math.pow(2/3,j);\n      const t=SVG('text',{x:pad-6,y:y+h*0.7,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = `C_${j}  m=${meas.toFixed(4)}`;\n      svg.appendChild(t);\n      // next iteration: remove middle third\n      const next = [];\n      for(const [a,b] of intervals){\n        const d=(b-a)/3;\n        next.push([a, a+d]);\n        next.push([b-d, b]);\n      }\n      intervals = next;\n    }\n    const meas = Math.pow(2/3,k);\n    out.textContent =\n      `After k = ${k} iterations:\\n`+\n      `  number of surviving intervals: 2^k = ${Math.pow(2,k)}\\n`+\n      `  each has length 3^-k = ${Math.pow(3,-k).toExponential(3)}\\n`+\n      `  total length m(C_k) = (2/3)^k = ${meas.toFixed(6)}\\n`+\n      `limit set C is uncountable (|C| = 2^ℵ₀) but m(C) = 0.`;\n  }\n  slider.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -291,8 +310,28 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-cantor",
-          "html": "<script>\n/* =============================== §2 Cantor set widget =============================== */\n(function(){\n  const svg = $('#cantor-svg'), out = $('#cantor-out');\n  const slider = $('#cantor-k'), kv = $('#cantor-kv');\n  const W=760, H=240, pad=40;\n  function draw(){\n    const k = +slider.value;\n    kv.textContent = `k = ${k}`;\n    svg.innerHTML = '';\n    // draw iterations 0..k stacked vertically\n    const rows = k+1;\n    const rowH = (H - 2*pad) / Math.max(rows,1);\n    // start from [0,1]\n    let intervals = [[0,1]];\n    for(let j=0;j<=k;j++){\n      const y = pad + j*rowH + rowH*0.3;\n      const h = Math.max(rowH*0.45, 6);\n      for(const [a,b] of intervals){\n        const x = pad + a*(W-2*pad);\n        const w = (b-a)*(W-2*pad);\n        svg.appendChild(SVG('rect',{x,y,width:w,height:h,\n          fill:'var(--yellow)', opacity:0.85, stroke:'var(--yellow)'}));\n      }\n      // label\n      const meas = Math.pow(2/3,j);\n      const t=SVG('text',{x:pad-6,y:y+h*0.7,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = `C_${j}  m=${meas.toFixed(4)}`;\n      svg.appendChild(t);\n      // next iteration: remove middle third\n      const next = [];\n      for(const [a,b] of intervals){\n        const d=(b-a)/3;\n        next.push([a, a+d]);\n        next.push([b-d, b]);\n      }\n      intervals = next;\n    }\n    const meas = Math.pow(2/3,k);\n    out.textContent =\n      `After k = ${k} iterations:\\n`+\n      `  number of surviving intervals: 2^k = ${Math.pow(2,k)}\\n`+\n      `  each has length 3^-k = ${Math.pow(3,-k).toExponential(3)}\\n`+\n      `  total length m(C_k) = (2/3)^k = ${meas.toFixed(6)}\\n`+\n      `limit set C is uncountable (|C| = 2^ℵ₀) but m(C) = 0.`;\n  }\n  slider.addEventListener('input',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cantor",
+            "title": "Middle-thirds Cantor set",
+            "hint": "drag depth $k$ to iterate",
+            "sectionComment": "=============================== §2 Cantor set widget ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<svg id=\"cantor-svg\" viewBox=\"0 0 760 240\" width=\"760\" height=\"240\"><title>Middle-thirds Cantor set</title></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cantor-k\">depth $k$</label>\n    <input id=\"cantor-k\" type=\"range\" min=\"0\" max=\"8\" step=\"1\" value=\"3\">\n    <span id=\"cantor-kv\" class=\"small\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "cantor-out"
+              }
+            ],
+            "bodyScript": "  const svg = $('#cantor-svg'), out = $('#cantor-out');\n  const slider = $('#cantor-k'), kv = $('#cantor-kv');\n  const W=760, H=240, pad=40;\n  function draw(){\n    const k = +slider.value;\n    kv.textContent = `k = ${k}`;\n    svg.innerHTML = '';\n    // draw iterations 0..k stacked vertically\n    const rows = k+1;\n    const rowH = (H - 2*pad) / Math.max(rows,1);\n    // start from [0,1]\n    let intervals = [[0,1]];\n    for(let j=0;j<=k;j++){\n      const y = pad + j*rowH + rowH*0.3;\n      const h = Math.max(rowH*0.45, 6);\n      for(const [a,b] of intervals){\n        const x = pad + a*(W-2*pad);\n        const w = (b-a)*(W-2*pad);\n        svg.appendChild(SVG('rect',{x,y,width:w,height:h,\n          fill:'var(--yellow)', opacity:0.85, stroke:'var(--yellow)'}));\n      }\n      // label\n      const meas = Math.pow(2/3,j);\n      const t=SVG('text',{x:pad-6,y:y+h*0.7,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n      t.textContent = `C_${j}  m=${meas.toFixed(4)}`;\n      svg.appendChild(t);\n      // next iteration: remove middle third\n      const next = [];\n      for(const [a,b] of intervals){\n        const d=(b-a)/3;\n        next.push([a, a+d]);\n        next.push([b-d, b]);\n      }\n      intervals = next;\n    }\n    const meas = Math.pow(2/3,k);\n    out.textContent =\n      `After k = ${k} iterations:\\n`+\n      `  number of surviving intervals: 2^k = ${Math.pow(2,k)}\\n`+\n      `  each has length 3^-k = ${Math.pow(3,-k).toExponential(3)}\\n`+\n      `  total length m(C_k) = (2/3)^k = ${meas.toFixed(6)}\\n`+\n      `limit set C is uncountable (|C| = 2^ℵ₀) but m(C) = 0.`;\n  }\n  slider.addEventListener('input',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
