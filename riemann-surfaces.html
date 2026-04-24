@@ -313,9 +313,8 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Glue two copies of $\mathbb{C}$ along $\mathbb{C}^\times$ by the transition $w = 1/z$. The result is topologically $S^2$ and is called the <em>Riemann sphere</em>; with coordinates it is the complex projective line $\mathbb{CP}^1$. The point added to $\mathbb{C}$ at infinity is genuinely a point of $X$ once you do this — in the $w$-chart it is just $w = 0$.</p>
 
 <div class="widget" id="w-sphere">
-  <div class="hd"><span class="ttl">Stereographic chart · sphere vs plane</span>
-    <span class="hint">drag the point in the plane</span></div>
-  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-sphere"><title>Stereographic chart · sphere vs plane</title></svg>
+  <div class="hd"><div class="ttl">Stereographic chart · sphere vs plane</div><div class="hint">drag the point in the plane</div></div>
+  <svg id="svg-sphere" viewBox="0 0 760 300" width="760" height="300"><title>Stereographic chart · sphere vs plane</title></svg>
   <div class="readout" id="out-sphere"></div>
 </div>
 
@@ -442,9 +441,8 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Pick a lattice $\Lambda = \mathbb{Z}\omega_1 \oplus \mathbb{Z}\omega_2$ with $\omega_1,\omega_2\in\mathbb{C}$ linearly independent over $\mathbb{R}$. The quotient $\mathbb{C}/\Lambda$ inherits charts from $\mathbb{C}$ because translations are biholomorphic; topologically it is a torus. The conformal class of this torus depends only on the <strong>modular parameter</strong> $\tau = \omega_2/\omega_1$, and we may always arrange $\mathrm{Im}\,\tau > 0$ by swapping $\omega_1\leftrightarrow \omega_2$ if necessary. Two lattices give biholomorphic tori iff their $\tau$'s are related by the $\mathrm{SL}_2(\mathbb{Z})$ action $\tau\mapsto \frac{a\tau+b}{c\tau+d}$, so the <em>moduli space</em> of complex tori is $\mathbb{H}/\mathrm{SL}_2(\mathbb{Z})$.</p>
 
 <div class="widget" id="w-torus">
-  <div class="hd"><span class="ttl">Lattice, parallelogram, and τ</span>
-    <span class="hint">drag the tips of ω₁ (yellow) and ω₂ (blue)</span></div>
-  <svg viewBox="0 0 760 320" width="760" height="320" id="svg-torus"><title>Lattice, parallelogram, and τ</title></svg>
+  <div class="hd"><div class="ttl">Lattice, parallelogram, and τ</div><div class="hint">drag the tips of ω₁ (yellow) and ω₂ (blue)</div></div>
+  <svg id="svg-torus" viewBox="0 0 760 320" width="760" height="320"><title>Lattice, parallelogram, and τ</title></svg>
   <div class="readout" id="out-torus"></div>
 </div>
 
@@ -628,8 +626,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The standard picture is a two-sheeted cover of $\mathbb{CP}^1$ glued along branch cuts joining pairs of branch points. A small loop around an odd number of branch points swaps sheets; a loop around an even number returns to the same sheet. This is the <strong>monodromy</strong> of the cover.</p>
 
 <div class="widget" id="w-branch">
-  <div class="hd"><span class="ttl">Two-sheet cover and monodromy</span>
-    <span class="hint">pick a polynomial · drag the test loop</span></div>
+  <div class="hd"><div class="ttl">Two-sheet cover and monodromy</div><div class="hint">pick a polynomial · drag the test loop</div></div>
   <div class="row">
     <label>polynomial</label>
     <select id="branch-pick">
@@ -643,11 +640,9 @@ function drawNode(svg, x, y, label, opts={}){
       <span id="branch-lam-val" class="small">0.60</span>
     </span>
   </div>
-  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-branch"><title>Two-sheet cover and monodromy</title></svg>
+  <svg id="svg-branch" viewBox="0 0 760 300" width="760" height="300"><title>Two-sheet cover and monodromy</title></svg>
   <div class="readout" id="out-branch"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('svg-branch');
   const out = document.getElementById('out-branch');
@@ -832,8 +827,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
 </ul>
 
 <div class="widget" id="w-rh">
-  <div class="hd"><span class="ttl">Riemann–Hurwitz calculator</span>
-    <span class="hint">enter degree, base genus, ramification indices</span></div>
+  <div class="hd"><div class="ttl">Riemann–Hurwitz calculator</div><div class="hint">enter degree, base genus, ramification indices</div></div>
   <div class="row">
     <label for="rh-n">deg n</label> <input type="number" id="rh-n" value="2" min="1" max="20" style="width:4em"/>
     <label for="rh-gy">g(Y)</label>  <input type="number" id="rh-gy" value="0" min="0" max="20" style="width:4em"/>
@@ -849,9 +843,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
     <button data-ex="ellcover">unramified cover of torus</button>
     <button data-ex="exotic">weird mixed</button>
   </div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const nEl = document.getElementById('rh-n');
   const gyEl = document.getElementById('rh-gy');
@@ -952,32 +944,29 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
 </ul>
 
 <div class="widget" id="w-uniform">
-  <div class="hd"><span class="ttl">The trichotomy</span>
-    <span class="hint">three worlds one list</span></div>
+  <div class="hd"><div class="ttl">The trichotomy</div><div class="hint">three worlds one list</div></div>
   <div class="cards">
     <div class="card">
       <div class="tag">positive curvature · genus 0</div>
       <h3>$\mathbb{CP}^1$ only</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un1"><title>The trichotomy</title></svg>
+      <svg id="svg-un1" viewBox="0 0 160 140" width="160" height="140"><title>The trichotomy</title></svg>
       <div class="small">One point: only $\mathbb{CP}^1$ itself covers $\mathbb{CP}^1$. Automorphism group $\mathrm{PGL}_2(\mathbb{C})$.</div>
     </div>
     <div class="card">
       <div class="tag">flat · genus 1</div>
       <h3>$\mathbb{C}/\Lambda$</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un2"><title>The trichotomy</title></svg>
+      <svg id="svg-un2" viewBox="0 0 160 140" width="160" height="140"><title>The trichotomy</title></svg>
       <div class="small">Every torus. Moduli space $\mathbb{H}/\mathrm{SL}_2(\mathbb{Z})$.</div>
     </div>
     <div class="card">
       <div class="tag">negative curvature · g ≥ 2</div>
       <h3>$\mathbb{H}/\Gamma$</h3>
-      <svg viewBox="0 0 160 140" width="160" height="140" id="svg-un3"><title>The trichotomy</title></svg>
+      <svg id="svg-un3" viewBox="0 0 160 140" width="160" height="140"><title>The trichotomy</title></svg>
       <div class="small">The "most surfaces" case. For genus $g\ge 2$, Teichmüller dim $= 6g-6$.</div>
     </div>
   </div>
   <div class="readout" id="out-un"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   // card 1: sphere
   const s1 = document.getElementById('svg-un1');
@@ -1092,17 +1081,14 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
 <p>Divisors are the algebraic bookkeeping for "orders of zero and pole" and show up everywhere: every line bundle $\mathcal{L}$ on $X$ is $\mathcal{O}(D)$ for some divisor $D$, and the degree of the line bundle equals $\deg D$.</p>
 
 <div class="widget" id="w-div">
-  <div class="hd"><span class="ttl">Place points, build a divisor</span>
-    <span class="hint">left-click adds +1, right-click (or shift-click) adds −1</span></div>
-  <svg viewBox="0 0 760 240" width="760" height="240" id="svg-div"><title>Place points, build a divisor</title></svg>
+  <div class="hd"><div class="ttl">Place points, build a divisor</div><div class="hint">left-click adds +1, right-click (or shift-click) adds −1</div></div>
+  <svg id="svg-div" viewBox="0 0 760 240" width="760" height="240"><title>Place points, build a divisor</title></svg>
   <div class="row">
     <button id="div-clear">clear</button>
     <span class="small" style="color:var(--mute)">click on the torus cross-section to add points with multiplicity</span>
   </div>
   <div class="readout" id="out-div"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('svg-div');
   const out = document.getElementById('out-div');
