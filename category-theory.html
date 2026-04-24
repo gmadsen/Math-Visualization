@@ -1862,24 +1862,63 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 /* =============================== Commutative-diagram editor prototype =============================== */
 (function(){
   if(!window.MVDiagramEditor) return;
-  window.MVDiagramEditor.init('#w-diagram-editor', {
-    title: 'Commutative-diagram editor — pullback square',
-    width: 560, height: 340,
-    objects: [
-      { id:'P', x:140, y: 90, label:'A\\times_Z B' },
-      { id:'A', x:420, y: 90, label:'A' },
-      { id:'B', x:140, y:250, label:'B' },
-      { id:'Z', x:420, y:250, label:'Z' },
+  MVDiagramEditor.init('#w-diagram-editor', {
+    "title": "Commutative-diagram editor — pullback square",
+    "width": 560,
+    "height": 340,
+    "objects": [
+      {
+        "id": "P",
+        "x": 140,
+        "y": 90,
+        "label": "A\\times_Z B"
+      },
+      {
+        "id": "A",
+        "x": 420,
+        "y": 90,
+        "label": "A"
+      },
+      {
+        "id": "B",
+        "x": 140,
+        "y": 250,
+        "label": "B"
+      },
+      {
+        "id": "Z",
+        "x": 420,
+        "y": 250,
+        "label": "Z"
+      }
     ],
-    morphisms: [
-      { from:'P', to:'A', label:'\\pi_A' },
-      { from:'P', to:'B', label:'\\pi_B' },
-      { from:'A', to:'Z', label:'f' },
-      { from:'B', to:'Z', label:'g' },
+    "morphisms": [
+      {
+        "from": "P",
+        "to": "A",
+        "label": "\\pi_A"
+      },
+      {
+        "from": "P",
+        "to": "B",
+        "label": "\\pi_B"
+      },
+      {
+        "from": "A",
+        "to": "Z",
+        "label": "f"
+      },
+      {
+        "from": "B",
+        "to": "Z",
+        "label": "g"
+      }
     ],
-    commutes: [
-      { paths: [ ['\\pi_A','f'], ['\\pi_B','g'] ],
-        description: 'the pullback square commutes: f\\,\\pi_A = g\\,\\pi_B' }
+    "commutes": [
+      {
+        "paths": [["\\pi_A","f"], ["\\pi_B","g"]],
+        "description": "the pullback square commutes: f\\,\\pi_A = g\\,\\pi_B"
+      }
     ]
   });
 })();
