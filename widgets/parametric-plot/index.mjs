@@ -29,8 +29,10 @@
 //   renderMarkup(params)  -> <div class="widget" id="..."> ... </div>
 //   renderScript(params)  -> <script>\n/* … */\n(function(){ … })();\n</script>
 
-function renderHintHtml(hint) {
-  return hint ? `<div class="hint">${hint}</div>` : '';
+function renderHintHtml(hint, hintTag) {
+  if (!hint) return '';
+  const tag = hintTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="hint">${hint}</${tag}>`;
 }
 
 function renderSliderRow(s) {
@@ -99,15 +101,20 @@ function renderReadoutDiv(outputId, outputInitial) {
   return `  <div class="readout" id="${outputId}">${init}</div>`;
 }
 
+function renderTitleTag(title, titleTag) {
+  const tag = titleTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="ttl">${title}</${tag}>`;
+}
+
 function renderHeaderAndSvg(params) {
   const {
-    widgetId, svgId, title, viewBox, svgWidth, svgHeight, svgTitle,
+    widgetId, svgId, title, viewBox, svgWidth, svgHeight, svgTitle, titleTag, hintTag,
   } = params;
-  const hintHtml = renderHintHtml(params.hint);
+  const hintHtml = renderHintHtml(params.hint, hintTag);
   const svgTitleText = svgTitle ?? title;
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}"><title>${svgTitleText}</title></svg>`
   );
 }

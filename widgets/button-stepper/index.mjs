@@ -122,19 +122,28 @@ function renderLayoutBlock(block, widgetTitle) {
 
 // -- Public API ---------------------------------------------------------------
 
-export function renderMarkup(params) {
-  const { widgetId, title, hint, layout } = params;
+function renderTitleTag(title, titleTag) {
+  const tag = titleTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="ttl">${title}</${tag}>`;
+}
 
-  const hintHtml = typeof hint === 'string' && hint.length > 0
-    ? `<div class="hint">${hint}</div>`
-    : '';
+function renderHintTag(hint, hintTag) {
+  if (typeof hint !== 'string' || hint.length === 0) return '';
+  const tag = hintTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="hint">${hint}</${tag}>`;
+}
+
+export function renderMarkup(params) {
+  const { widgetId, title, hint, layout, titleTag, hintTag } = params;
+
+  const hintHtml = renderHintTag(hint, hintTag);
 
   const blocks = Array.isArray(layout) ? layout : [];
   const bodyLines = blocks.map(b => renderLayoutBlock(b, title));
 
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
     (bodyLines.length ? bodyLines.join('\n') + '\n' : '') +
     `</div>`
   );

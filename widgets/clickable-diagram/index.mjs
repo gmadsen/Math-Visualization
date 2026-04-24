@@ -47,10 +47,21 @@
 // byte-match the legacy inline source.  They are tagged as "artifact" in the
 // README.  A portable consumer can ignore them and regenerate from `cases`.
 
+function renderTitleTag(title, titleTag) {
+  const tag = titleTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="ttl">${title}</${tag}>`;
+}
+
+function renderHintTag(hint, hintTag) {
+  if (hint === undefined) return '';
+  const tag = hintTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="hint">${hint}</${tag}>`;
+}
+
 function renderReadoutOnlyMarkup(params) {
   const {
     widgetId, pickId, outputId,
-    title, hint, pickLabel, options,
+    title, hint, pickLabel, options, titleTag, hintTag,
   } = params;
   const optionsBlock = options
     .map(o => {
@@ -60,7 +71,7 @@ function renderReadoutOnlyMarkup(params) {
     .join('\n');
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
     `  <div class="row">\n` +
     `    <label>${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
@@ -109,7 +120,7 @@ function renderProofStepperMarkup(params) {
     options,
     prevLabel, nextLabel, resetLabel,
     svgViewBox, svgWidthAttr, svgStyleAttr,
-    outputLogStyleAttr,
+    outputLogStyleAttr, titleTag, hintTag,
   } = params;
   const optionsBlock = options
     .map(o => {
@@ -119,7 +130,7 @@ function renderProofStepperMarkup(params) {
     .join('\n');
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
     `  <div class="row">\n` +
     `    <label>${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
@@ -264,7 +275,7 @@ function renderSvgDiagramMarkup(params) {
     widgetId, title, hint,
     svgId, svgViewBox, svgWidthAttr, svgHeightAttr, svgTitle,
     outputId, layout,
-    controlsLiteral,
+    controlsLiteral, titleTag, hintTag,
   } = params;
   // The <div class="row"> ... </div> block wraps controlsLiteral verbatim so
   // that each widget's bespoke control markup (labels, selects, ranges, spans)
@@ -280,7 +291,7 @@ function renderSvgDiagramMarkup(params) {
     : `${rowBlock}\n${svgBlock}`;
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${renderHintTag(hint, hintTag)}</div>\n` +
     `${middle}\n` +
     `  <div class="readout" id="${outputId}"></div>\n` +
     `</div>`

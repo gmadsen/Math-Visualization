@@ -24,16 +24,25 @@
 // `bodyScript` artifact exists so that the vanilla-HTML frontend can byte-
 // match the legacy inline source through the round-trip gate.
 
+function renderTitleTag(title, titleTag) {
+  const tag = titleTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="ttl">${title}</${tag}>`;
+}
+
+function renderHintTag(hint, hintTag) {
+  if (hint === undefined) return '';
+  const tag = hintTag === 'span' ? 'span' : 'div';
+  return `<${tag} class="hint">${hint}</${tag}>`;
+}
+
 export function renderMarkup(params) {
   const {
     widgetId, svgId, viewBox, title,
     hint, svgWidthAttr, svgHeightAttr,
-    readoutId, initialReadoutHtml,
+    readoutId, initialReadoutHtml, titleTag, hintTag,
   } = params;
 
-  const hintHtml = hint !== undefined
-    ? `<div class="hint">${hint}</div>`
-    : '';
+  const hintHtml = renderHintTag(hint, hintTag);
   const widthAttr  = svgWidthAttr  !== undefined ? ` width="${svgWidthAttr}"`   : '';
   const heightAttr = svgHeightAttr !== undefined ? ` height="${svgHeightAttr}"` : '';
 
@@ -43,7 +52,7 @@ export function renderMarkup(params) {
 
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
+    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}"${widthAttr}${heightAttr}><title>${title}</title></svg>` +
     `${readoutHtml}\n` +
     `</div>`
