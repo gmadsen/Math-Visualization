@@ -147,7 +147,12 @@
     var st = document.createElement('style');
     st.id = 'mv-lineage-style';
     st.textContent = [
-      '.lineage-strip{position:relative;margin:0.8rem 0 1.2rem;padding:0.7rem 0.85rem;',
+      // Match <main>'s centered 880px column so the banner doesn't bleed
+      // sideways into the fixed-position aside.sidetoc on wide viewports
+      // (the mount lives outside <main> — see inject-breadcrumb.mjs — so
+      // without a max-width it would span the full viewport). GH issue #30.
+      '.lineage-strip{position:relative;max-width:880px;',
+      '  margin:0.8rem auto 1.2rem;padding:0.7rem 1.5rem;',
       '  background:var(--panel);border:1px solid var(--line);',
       '  border-radius:8px;display:grid;',
       '  grid-template-columns:1fr auto 1fr auto 1fr;gap:0.6rem 0.9rem;',

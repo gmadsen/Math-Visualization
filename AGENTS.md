@@ -96,6 +96,8 @@ The hard invariant is **byte-identical round-trip**: for every topic, `render-to
 
 As of 2026-04-24 **`content/<topic>.json` is the source of truth.** `rebuild.mjs` (default, fix mode) now passes `--fix` to `test-roundtrip.mjs`, which overwrites `<topic>.html` with the rendered output when drift is detected. `rebuild.mjs --no-fix` (CI) is still strict: any drift fails the build, so a hand-edited HTML without a matching JSON update breaks CI. The practical workflow is: edit `content/<topic>.json`, run `node scripts/rebuild.mjs` (local), commit both. Direct edits to `<topic>.html` get overwritten on the next rebuild — prefer `extract-topic.mjs` to backport legitimate HTML edits into the JSON side when that's actually what you need, but the normal flow is JSON-first.
 
+A pre-commit hook at [`.githooks/pre-commit`](./.githooks/pre-commit) guards this invariant locally: when a topic HTML or its content JSON is staged, it runs `scripts/test-roundtrip.mjs` and fails the commit on drift, printing the exact remediation steps. Enable once per clone with `git config core.hooksPath .githooks` (the hooks directory is versioned so updates propagate with `git pull`). Bypass with `git commit --no-verify` if you know what you're doing.
+
 Widgets live in a registry at `widgets/<slug>/` with three files:
 
 - `schema.json` — JSON Schema 2020-12 for the widget's `params`.
