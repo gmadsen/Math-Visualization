@@ -122,8 +122,79 @@
         {
           "type": "widget",
           "id": "w-expso3",
-          "html": "<div class=\"widget\" id=\"w-expso3\">\n<div class=\"hd\"><span class=\"ttl\">Exponential map for $\\mathfrak{so}(3)$</span><span class=\"hint\">$X\\in\\mathfrak{so}(3)$ → $\\exp(tX)\\in\\mathrm{SO}(3)$</span></div>\n<div class=\"row\"><label for=\"ex-x1\">$x_1$</label><input type=\"range\" id=\"ex-x1\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.6\"><span class=\"readout\" id=\"ex-x1-r\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"ex-x2\">$x_2$</label><input type=\"range\" id=\"ex-x2\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.4\"><span class=\"readout\" id=\"ex-x2-r\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"ex-x3\">$x_3$</label><input type=\"range\" id=\"ex-x3\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.7\"><span class=\"readout\" id=\"ex-x3-r\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"ex-t\">parameter $t$</label><input type=\"range\" id=\"ex-t\" min=\"0\" max=\"6.28\" step=\"0.01\" value=\"0\"><span class=\"readout\" id=\"ex-t-r\" style=\"min-width:55px\"></span></div>\n<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$X$ (skew-symmetric)</div>\n    <div class=\"matgrid\" id=\"ex-X\"></div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$\\exp(tX)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"ex-eX\"></div>\n  </div>\n  <svg id=\"ex-svg\" viewBox=\"0 0 320 240\" width=\"320\" height=\"240\"><title>Exponential map for $\\mathfrak{so}(3)$</title></svg>\n</div>\n<div class=\"small\" id=\"ex-info\"></div>\n</div>",
-          "script": "\n<script>\n(function(){\n  const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');\n  const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');\n  const Xgrid = $('#ex-X'), Egrid = $('#ex-eX');\n  const svg = $('#ex-svg'), info = $('#ex-info');\n  // axonometric projection same as previous\n  const cx = 160, cy = 120, scale = 60;\n  function project(p){\n    const a = Math.PI/6, b = Math.PI/6;\n    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];\n    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];\n    return [cx + scale*X, cy - scale*Y];\n  }\n  function update(){\n    const a = +x1.value, b = +x2.value, c = +x3.value;\n    const t = +tS.value;\n    x1R.textContent = a.toFixed(2); x2R.textContent = b.toFixed(2);\n    x3R.textContent = c.toFixed(2); tR.textContent = t.toFixed(2);\n    // X with axis (a,b,c)\n    const X = [\n      [0, -c,  b],\n      [c,  0, -a],\n      [-b, a,  0]\n    ];\n    renderMat(Xgrid, X, 2);\n    // omega = (a,b,c); for tX, axis same, theta = t * |omega|\n    const norm = Math.hypot(a,b,c);\n    const theta = t * norm;\n    const R = rodrigues([a,b,c], theta);\n    renderMat(Egrid, R, 3);\n    // draw axis and a sample probe point (e1) under the rotation, plus the great circle traced\n    svg.innerHTML = '';\n    // base axes faint\n    const O = project([0,0,0]);\n    [[1,0,0],[0,1,0],[0,0,1]].forEach((u,i)=>{\n      const p = project(u);\n      svg.appendChild(SVG('line',{x1:O[0],y1:O[1],x2:p[0],y2:p[1],\n        stroke:'#3a4458','stroke-width':1}));\n    });\n    // axis of rotation\n    if(norm > 1e-9){\n      const u = [a/norm, b/norm, c/norm];\n      const A = project([-1.3*u[0],-1.3*u[1],-1.3*u[2]]);\n      const B = project([ 1.3*u[0], 1.3*u[1], 1.3*u[2]]);\n      svg.appendChild(SVG('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],\n        stroke:'#ffd866','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    }\n    // path of e1 under exp(sX) for s in [0, t]\n    const pts = [];\n    const N = 80;\n    for(let k=0;k<=N;k++){\n      const s = (t * k)/N;\n      const Rk = rodrigues([a,b,c], s * norm);\n      const v = [Rk[0][0], Rk[1][0], Rk[2][0]]; // R e1\n      pts.push(project(v));\n    }\n    if(pts.length > 1){\n      const d = pts.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'#7de0d6','stroke-width':1.6}));\n    }\n    // probe point e1 under current R\n    const v = [R[0][0], R[1][0], R[2][0]];\n    const pv = project(v);\n    svg.appendChild(SVG('circle',{cx:pv[0], cy:pv[1], r:5, fill:'var(--green)'}));\n    const tx = SVG('text',{x:pv[0]+8,y:pv[1]+4,'font-size':11,fill:'var(--green)'});\n    tx.textContent = 'R e₁'; svg.appendChild(tx);\n    info.textContent = `‖X‖ = ${norm.toFixed(3)},  effective angle θ = t·‖X‖ = ${theta.toFixed(3)} rad`;\n  }\n  [x1,x2,x3,tS].forEach(s => s.addEventListener('input', update));\n  update();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-expso3",
+            "title": "Exponential map for $\\mathfrak{so}(3)$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$X\\in\\mathfrak{so}(3)$ → $\\exp(tX)\\in\\mathrm{SO}(3)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x1\">$x_1$</label><input type=\"range\" id=\"ex-x1\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.6\"><span class=\"readout\" id=\"ex-x1-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x2\">$x_2$</label><input type=\"range\" id=\"ex-x2\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.4\"><span class=\"readout\" id=\"ex-x2-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x3\">$x_3$</label><input type=\"range\" id=\"ex-x3\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.7\"><span class=\"readout\" id=\"ex-x3-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-t\">parameter $t$</label><input type=\"range\" id=\"ex-t\" min=\"0\" max=\"6.28\" step=\"0.01\" value=\"0\"><span class=\"readout\" id=\"ex-t-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$X$ (skew-symmetric)</div>\n    <div class=\"matgrid\" id=\"ex-X\"></div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$\\exp(tX)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"ex-eX\"></div>\n  </div>\n  <svg id=\"ex-svg\" viewBox=\"0 0 320 240\" width=\"320\" height=\"240\"><title>Exponential map for $\\mathfrak{so}(3)$</title></svg>\n</div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" id=\"ex-info\"></div>"
+              }
+            ],
+            "bodyScript": "  const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');\n  const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');\n  const Xgrid = $('#ex-X'), Egrid = $('#ex-eX');\n  const svg = $('#ex-svg'), info = $('#ex-info');\n  // axonometric projection same as previous\n  const cx = 160, cy = 120, scale = 60;\n  function project(p){\n    const a = Math.PI/6, b = Math.PI/6;\n    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];\n    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];\n    return [cx + scale*X, cy - scale*Y];\n  }\n  function update(){\n    const a = +x1.value, b = +x2.value, c = +x3.value;\n    const t = +tS.value;\n    x1R.textContent = a.toFixed(2); x2R.textContent = b.toFixed(2);\n    x3R.textContent = c.toFixed(2); tR.textContent = t.toFixed(2);\n    // X with axis (a,b,c)\n    const X = [\n      [0, -c,  b],\n      [c,  0, -a],\n      [-b, a,  0]\n    ];\n    renderMat(Xgrid, X, 2);\n    // omega = (a,b,c); for tX, axis same, theta = t * |omega|\n    const norm = Math.hypot(a,b,c);\n    const theta = t * norm;\n    const R = rodrigues([a,b,c], theta);\n    renderMat(Egrid, R, 3);\n    // draw axis and a sample probe point (e1) under the rotation, plus the great circle traced\n    svg.innerHTML = '';\n    // base axes faint\n    const O = project([0,0,0]);\n    [[1,0,0],[0,1,0],[0,0,1]].forEach((u,i)=>{\n      const p = project(u);\n      svg.appendChild(SVG('line',{x1:O[0],y1:O[1],x2:p[0],y2:p[1],\n        stroke:'#3a4458','stroke-width':1}));\n    });\n    // axis of rotation\n    if(norm > 1e-9){\n      const u = [a/norm, b/norm, c/norm];\n      const A = project([-1.3*u[0],-1.3*u[1],-1.3*u[2]]);\n      const B = project([ 1.3*u[0], 1.3*u[1], 1.3*u[2]]);\n      svg.appendChild(SVG('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],\n        stroke:'#ffd866','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    }\n    // path of e1 under exp(sX) for s in [0, t]\n    const pts = [];\n    const N = 80;\n    for(let k=0;k<=N;k++){\n      const s = (t * k)/N;\n      const Rk = rodrigues([a,b,c], s * norm);\n      const v = [Rk[0][0], Rk[1][0], Rk[2][0]]; // R e1\n      pts.push(project(v));\n    }\n    if(pts.length > 1){\n      const d = pts.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'#7de0d6','stroke-width':1.6}));\n    }\n    // probe point e1 under current R\n    const v = [R[0][0], R[1][0], R[2][0]];\n    const pv = project(v);\n    svg.appendChild(SVG('circle',{cx:pv[0], cy:pv[1], r:5, fill:'var(--green)'}));\n    const tx = SVG('text',{x:pv[0]+8,y:pv[1]+4,'font-size':11,fill:'var(--green)'});\n    tx.textContent = 'R e₁'; svg.appendChild(tx);\n    info.textContent = `‖X‖ = ${norm.toFixed(3)},  effective angle θ = t·‖X‖ = ${theta.toFixed(3)} rad`;\n  }\n  [x1,x2,x3,tS].forEach(s => s.addEventListener('input', update));\n  update();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-expso3",
+            "title": "Exponential map for $\\mathfrak{so}(3)$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$X\\in\\mathfrak{so}(3)$ → $\\exp(tX)\\in\\mathrm{SO}(3)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x1\">$x_1$</label><input type=\"range\" id=\"ex-x1\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.6\"><span class=\"readout\" id=\"ex-x1-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x2\">$x_2$</label><input type=\"range\" id=\"ex-x2\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.4\"><span class=\"readout\" id=\"ex-x2-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-x3\">$x_3$</label><input type=\"range\" id=\"ex-x3\" min=\"-1.5\" max=\"1.5\" step=\"0.01\" value=\"0.7\"><span class=\"readout\" id=\"ex-x3-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"ex-t\">parameter $t$</label><input type=\"range\" id=\"ex-t\" min=\"0\" max=\"6.28\" step=\"0.01\" value=\"0\"><span class=\"readout\" id=\"ex-t-r\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$X$ (skew-symmetric)</div>\n    <div class=\"matgrid\" id=\"ex-X\"></div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$\\exp(tX)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"ex-eX\"></div>\n  </div>\n  <svg id=\"ex-svg\" viewBox=\"0 0 320 240\" width=\"320\" height=\"240\"><title>Exponential map for $\\mathfrak{so}(3)$</title></svg>\n</div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" id=\"ex-info\"></div>"
+              }
+            ],
+            "bodyScript": "  const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');\n  const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');\n  const Xgrid = $('#ex-X'), Egrid = $('#ex-eX');\n  const svg = $('#ex-svg'), info = $('#ex-info');\n  // axonometric projection same as previous\n  const cx = 160, cy = 120, scale = 60;\n  function project(p){\n    const a = Math.PI/6, b = Math.PI/6;\n    const X =  Math.cos(a)*p[0] - Math.cos(b)*p[2];\n    const Y = -Math.sin(a)*p[0] + p[1] - Math.sin(b)*p[2];\n    return [cx + scale*X, cy - scale*Y];\n  }\n  function update(){\n    const a = +x1.value, b = +x2.value, c = +x3.value;\n    const t = +tS.value;\n    x1R.textContent = a.toFixed(2); x2R.textContent = b.toFixed(2);\n    x3R.textContent = c.toFixed(2); tR.textContent = t.toFixed(2);\n    // X with axis (a,b,c)\n    const X = [\n      [0, -c,  b],\n      [c,  0, -a],\n      [-b, a,  0]\n    ];\n    renderMat(Xgrid, X, 2);\n    // omega = (a,b,c); for tX, axis same, theta = t * |omega|\n    const norm = Math.hypot(a,b,c);\n    const theta = t * norm;\n    const R = rodrigues([a,b,c], theta);\n    renderMat(Egrid, R, 3);\n    // draw axis and a sample probe point (e1) under the rotation, plus the great circle traced\n    svg.innerHTML = '';\n    // base axes faint\n    const O = project([0,0,0]);\n    [[1,0,0],[0,1,0],[0,0,1]].forEach((u,i)=>{\n      const p = project(u);\n      svg.appendChild(SVG('line',{x1:O[0],y1:O[1],x2:p[0],y2:p[1],\n        stroke:'#3a4458','stroke-width':1}));\n    });\n    // axis of rotation\n    if(norm > 1e-9){\n      const u = [a/norm, b/norm, c/norm];\n      const A = project([-1.3*u[0],-1.3*u[1],-1.3*u[2]]);\n      const B = project([ 1.3*u[0], 1.3*u[1], 1.3*u[2]]);\n      svg.appendChild(SVG('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],\n        stroke:'#ffd866','stroke-width':1.4,'stroke-dasharray':'4 3'}));\n    }\n    // path of e1 under exp(sX) for s in [0, t]\n    const pts = [];\n    const N = 80;\n    for(let k=0;k<=N;k++){\n      const s = (t * k)/N;\n      const Rk = rodrigues([a,b,c], s * norm);\n      const v = [Rk[0][0], Rk[1][0], Rk[2][0]]; // R e1\n      pts.push(project(v));\n    }\n    if(pts.length > 1){\n      const d = pts.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');\n      svg.appendChild(SVG('path',{d, fill:'none', stroke:'#7de0d6','stroke-width':1.6}));\n    }\n    // probe point e1 under current R\n    const v = [R[0][0], R[1][0], R[2][0]];\n    const pv = project(v);\n    svg.appendChild(SVG('circle',{cx:pv[0], cy:pv[1], r:5, fill:'var(--green)'}));\n    const tx = SVG('text',{x:pv[0]+8,y:pv[1]+4,'font-size':11,fill:'var(--green)'});\n    tx.textContent = 'R e₁'; svg.appendChild(tx);\n    info.textContent = `‖X‖ = ${norm.toFixed(3)},  effective angle θ = t·‖X‖ = ${theta.toFixed(3)} rad`;\n  }\n  [x1,x2,x3,tS].forEach(s => s.addEventListener('input', update));\n  update();"
+          }
         },
         {
           "type": "raw",

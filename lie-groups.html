@@ -559,12 +559,12 @@ $$\exp(X) = \sum_{k=0}^\infty \frac{X^k}{k!} = I + X + \tfrac{1}{2}X^2 + \tfrac{
 $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
 
 <div class="widget" id="w-expso3">
-<div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
-<div class="row"><label for="ex-x1">$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-x2">$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-x3">$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
-<div class="row"><label for="ex-t">parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div class="hd"><span class="ttl">Exponential map for $\mathfrak{so}(3)$</span><span class="hint">$X\in\mathfrak{so}(3)$ → $\exp(tX)\in\mathrm{SO}(3)$</span></div>
+  <div class="row"><label for="ex-x1">$x_1$</label><input type="range" id="ex-x1" min="-1.5" max="1.5" step="0.01" value="0.6"><span class="readout" id="ex-x1-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-x2">$x_2$</label><input type="range" id="ex-x2" min="-1.5" max="1.5" step="0.01" value="0.4"><span class="readout" id="ex-x2-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-x3">$x_3$</label><input type="range" id="ex-x3" min="-1.5" max="1.5" step="0.01" value="0.7"><span class="readout" id="ex-x3-r" style="min-width:55px"></span></div>
+  <div class="row"><label for="ex-t">parameter $t$</label><input type="range" id="ex-t" min="0" max="6.28" step="0.01" value="0"><span class="readout" id="ex-t-r" style="min-width:55px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$ (skew-symmetric)</div>
     <div class="matgrid" id="ex-X"></div>
@@ -575,9 +575,8 @@ $$\exp(\theta K) = I + \sin\theta\,K + (1-\cos\theta)\,K^2.$$
   </div>
   <svg id="ex-svg" viewBox="0 0 320 240" width="320" height="240"><title>Exponential map for $\mathfrak{so}(3)$</title></svg>
 </div>
-<div class="small" id="ex-info"></div>
-</div>
-<script>
+  <div class="small" id="ex-info"></div>
+</div><script>
 (function(){
   const x1 = $('#ex-x1'), x2 = $('#ex-x2'), x3 = $('#ex-x3'), tS = $('#ex-t');
   const x1R = $('#ex-x1-r'), x2R = $('#ex-x2-r'), x3R = $('#ex-x3-r'), tR = $('#ex-t-r');
