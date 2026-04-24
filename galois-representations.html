@@ -276,9 +276,8 @@ $$ \mathrm{Frob}_p \in \mathrm{Gal}(K/\mathbb{Q}) \big/ I_p, \qquad \mathrm{Frob
 <p>Different choices of embedding give conjugate $\mathrm{Frob}_p$'s, so $\mathrm{Frob}_p$ is well-defined as a <em>conjugacy class</em> in $G_\mathbb{Q}/I_p$.</p>
 
 <div class="widget" id="w-profinite">
-  <div class="hd"><span class="ttl">Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</span>
-    <span class="hint">finite quotients fan out; $G_\mathbb{Q}$ sits at the top</span></div>
-  <svg viewBox="0 0 820 340" width="100%"><title>Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</title></svg>
+  <div class="hd"><span class="ttl">Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</span><span class="hint">finite quotients fan out; $G_\mathbb{Q}$ sits at the top</span></div>
+  <svg id="svg-profinite" viewBox="0 0 820 340" width="820" height="340"><title>Widget 1 · Profinite cartoon of $G_\mathbb{Q}$</title></svg>
   <div class="row">
     <label>zoom to:</label>
     <button data-pf="all" class="active">all levels</button>
@@ -310,9 +309,8 @@ $$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
 <p>A Galois representation is the $\ell$-adic (or complex) analog of a representation of a finite group. For finite groups, characters classify representations, and characters are determined by conjugacy classes. For $G_\mathbb{Q}$, the <em>trace of Frobenius</em> at each unramified prime plays the role of the character — and the astonishing fact is that this finite amount of data really does determine $\rho$ (up to semisimplification).</p>
 
 <div class="widget" id="w-diagram">
-  <div class="hd"><span class="ttl">Widget 2 · The representation map</span>
-    <span class="hint">pick a coefficient field</span></div>
-  <svg viewBox="0 0 720 240" width="100%"><title>Widget 2 · The representation map</title></svg>
+  <div class="hd"><span class="ttl">Widget 2 · The representation map</span><span class="hint">pick a coefficient field</span></div>
+  <svg id="svg-diagram" viewBox="0 0 720 240" width="720" height="240"><title>Widget 2 · The representation map</title></svg>
   <div class="row">
     <label>ℓ-adic target:</label>
     <button data-field="C">$\mathrm{GL}_n(\mathbb{C})$ (Artin)</button>
@@ -357,9 +355,8 @@ $$ \chi \colon G_\mathbb{Q} \;\longrightarrow\; \varprojlim_n\, (\mathbb{Z}/\ell
 <p>This is a 1-dimensional $\ell$-adic Galois representation. At an unramified prime $p \neq \ell$, $\chi(\mathrm{Frob}_p) = p$.</p>
 
 <div class="widget" id="w-cyclo">
-  <div class="hd"><span class="ttl">Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</span>
-    <span class="hint">slide $n$; Galois elements act by multiplication in $(\mathbb{Z}/\ell^n)^\times$</span></div>
-  <svg viewBox="0 0 720 300" width="100%"><title>Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</title></svg>
+  <div class="hd"><span class="ttl">Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</span><span class="hint">slide $n$; Galois elements act by multiplication in $(\mathbb{Z}/\ell^n)^\times$</span></div>
+  <svg id="svg-cyclo" viewBox="0 0 720 300" width="720" height="300"><title>Widget 3 · Cyclotomic action on $\mu_{\ell^n}$</title></svg>
   <div class="row">
     <label>$\ell$ =</label>
     <select id="cy-ell"><option>2</option><option selected>3</option><option>5</option></select>
@@ -402,9 +399,8 @@ $$ \rho_{E,\ell} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(\mathbb{Z
 <p>Tensoring with $\mathbb{Q}_\ell$ gives a representation on a 2-dimensional $\mathbb{Q}_\ell$-vector space $V_\ell E = T_\ell E \otimes \mathbb{Q}_\ell$.</p>
 
 <div class="widget" id="w-tate">
-  <div class="hd"><span class="ttl">Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</span>
-    <span class="hint">click a level to see the $(\mathbb{Z}/\ell^n)^2$ lattice it represents</span></div>
-  <svg viewBox="0 0 780 340" width="100%"><title>Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</title></svg>
+  <div class="hd"><span class="ttl">Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</span><span class="hint">click a level to see the $(\mathbb{Z}/\ell^n)^2$ lattice it represents</span></div>
+  <svg id="svg-tate" viewBox="0 0 780 340" width="780" height="340"><title>Widget 4 · The Tate-module tower $\cdots \to E[\ell^3] \to E[\ell^2] \to E[\ell]$</title></svg>
   <div class="row">
     <label>$\ell$ =</label>
     <select id="tt-ell"><option>2</option><option selected>3</option><option>5</option></select>
@@ -433,9 +429,8 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 <p>This is the Riemann hypothesis for elliptic curves over $\mathbb{F}_p$. The eigenvalues land on a circle of radius $\sqrt{p}$.</p>
 
 <div class="widget" id="w-matrix">
-  <div class="hd"><span class="ttl">Widget 5 · The Frobenius matrix dial</span>
-    <span class="hint">slide $a_p$ within $[-2\sqrt{p},\,2\sqrt{p}]$; eigenvalues move on a circle of radius $\sqrt{p}$</span></div>
-  <svg viewBox="0 0 760 340" width="100%"><title>Widget 5 · The Frobenius matrix dial</title></svg>
+  <div class="hd"><span class="ttl">Widget 5 · The Frobenius matrix dial</span><span class="hint">slide $a_p$ within $[-2\sqrt{p},\,2\sqrt{p}]$; eigenvalues move on a circle of radius $\sqrt{p}$</span></div>
+  <svg id="svg-matrix" viewBox="0 0 760 340" width="760" height="340"><title>Widget 5 · The Frobenius matrix dial</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="mx-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
@@ -447,9 +442,8 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 </div>
 
 <div class="widget" id="w-apbar">
-  <div class="hd"><span class="ttl">Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</span>
-    <span class="hint">bars obey the Hasse bound; half are zero (the CM symmetry)</span></div>
-  <svg viewBox="0 0 820 300" width="100%"><title>Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</title></svg>
+  <div class="hd"><span class="ttl">Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</span><span class="hint">bars obey the Hasse bound; half are zero (the CM symmetry)</span></div>
+  <svg id="svg-apbar" viewBox="0 0 820 300" width="820" height="300"><title>Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \le 100$</title></svg>
   <div class="row">
     <label>curve:</label>
     <select id="ap-curve">
@@ -464,9 +458,8 @@ $$ |a_p| \;=\; |\alpha_p + \beta_p| \;\le\; 2\sqrt{p}. $$
 </div>
 
 <div class="widget" id="w-hasse">
-  <div class="hd"><span class="ttl">Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</span>
-    <span class="hint">the $\sqrt{p}$-circle; conjugate eigenvalues as two dots</span></div>
-  <svg viewBox="0 0 640 340" width="100%"><title>Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</title></svg>
+  <div class="hd"><span class="ttl">Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</span><span class="hint">the $\sqrt{p}$-circle; conjugate eigenvalues as two dots</span></div>
+  <svg id="svg-hasse" viewBox="0 0 640 340" width="640" height="340"><title>Widget 7 · Hasse disk — eigenvalues of $\mathrm{Frob}_p$</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="hs-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>
@@ -512,9 +505,8 @@ $$ L(E,s) \;=\; \prod_p L_p(E,s). $$
 <p>The local factor packages <em>all</em> the local information at $p$: how many points the reduction has, and whether reduction is good/multiplicative/additive. Different Galois representations $\rho$ give different $L$-functions — and conversely, $L(\rho,s)$ nearly determines $\rho$ (strong multiplicity one).</p>
 
 <div class="widget" id="w-lfac">
-  <div class="hd"><span class="ttl">Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</span>
-    <span class="hint">for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$</span></div>
-  <svg viewBox="0 0 720 260" width="100%"><title>Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</title></svg>
+  <div class="hd"><span class="ttl">Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</span><span class="hint">for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$</span></div>
+  <svg id="svg-lfac" viewBox="0 0 720 260" width="720" height="260"><title>Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</title></svg>
   <div class="row">
     <label>$p$ =</label>
     <select id="lf-p"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>
@@ -539,9 +531,8 @@ $$ \operatorname{tr}\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\
 <p>When $f$ has weight 2 and rational coefficients, $\rho_{f,\ell}$ lives in $\mathrm{GL}_2(\mathbb{Z}_\ell)$. Comparing $\operatorname{tr}\rho_{f,\ell}(\mathrm{Frob}_p) = a_p(f)$ to the $a_p$ of an elliptic curve, one is led to ask whether every elliptic curve arises this way. That question has an answer — but you'll find it in <a href="./modular-forms.html">its own discussion</a>, not here.</p>
 
 <div class="widget" id="w-deligne">
-  <div class="hd"><span class="ttl">Widget 9 · Eigenform $\to$ Galois representation</span>
-    <span class="hint">three prototypical examples; $a_p$ becomes $\operatorname{tr}\rho(\mathrm{Frob}_p)$</span></div>
-  <svg viewBox="0 0 820 320" width="100%"><title>Widget 9 · Eigenform $\to$ Galois representation</title></svg>
+  <div class="hd"><span class="ttl">Widget 9 · Eigenform $\to$ Galois representation</span><span class="hint">three prototypical examples; $a_p$ becomes $\operatorname{tr}\rho(\mathrm{Frob}_p)$</span></div>
+  <svg id="svg-deligne" viewBox="0 0 820 320" width="820" height="320"><title>Widget 9 · Eigenform $\to$ Galois representation</title></svg>
   <div class="row">
     <label>eigenform:</label>
     <select id="de-f">

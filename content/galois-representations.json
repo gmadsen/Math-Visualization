@@ -12,9 +12,37 @@
         },
         {
           "type": "widget",
-          "id": "w-profinite",
-          "html": "<div class=\"widget\" id=\"w-profinite\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$</span>\n    <span class=\"hint\">finite quotients fan out; $G_\\mathbb{Q}$ sits at the top</span></div>\n  <svg viewBox=\"0 0 820 340\" width=\"100%\"><title>Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$</title></svg>\n  <div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>\n  <div class=\"readout\" id=\"pf-text\">$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-profinite",
+            "title": "Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "finite quotients fan out; $G_\\mathbb{Q}$ sits at the top",
+            "svgId": "svg-profinite",
+            "viewBox": "0 0 820 340",
+            "readoutId": "pf-text",
+            "sectionComment": "=================== Widget 1 — Profinite cartoon ===================",
+            "bodyScript": "  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-profinite",
+                "viewBox": "0 0 820 340",
+                "width": 820,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pf-text",
+                "content": "$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit."
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -31,9 +59,36 @@
         },
         {
           "type": "widget",
-          "id": "w-diagram",
-          "html": "<div class=\"widget\" id=\"w-diagram\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 2 · The representation map</span>\n    <span class=\"hint\">pick a coefficient field</span></div>\n  <svg viewBox=\"0 0 720 240\" width=\"100%\"><title>Widget 2 · The representation map</title></svg>\n  <div class=\"row\">\n    <label>ℓ-adic target:</label>\n    <button data-field=\"C\">$\\mathrm{GL}_n(\\mathbb{C})$ (Artin)</button>\n    <button data-field=\"Ql\" class=\"active\">$\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$</button>\n    <button data-field=\"Fl\">$\\mathrm{GL}_n(\\bar{\\mathbb{F}}_\\ell)$ (mod ℓ)</button>\n  </div>\n  <div class=\"readout\" id=\"rep-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-diagram",
+            "title": "Widget 2 · The representation map",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "pick a coefficient field",
+            "svgId": "svg-diagram",
+            "viewBox": "0 0 720 240",
+            "readoutId": "rep-text",
+            "sectionComment": "=================== Widget 2 — Representation map ===================",
+            "bodyScript": "  const root = document.getElementById('w-diagram');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#rep-text');\n  const btns = root.querySelectorAll('button[data-field]');\n  let field = 'Ql';\n\n  const info = {\n    C:  {target:'GL_n(C)', label:'Artin', color:'var(--violet)',\n         note:\"Classical (complex) representation. Factors through a finite quotient. Image is finite. Conjectural Artin L-functions.\"},\n    Ql: {target:'GL_n(Q̄_ℓ)', label:'ℓ-adic', color:'var(--yellow)',\n         note:\"The workhorse. Comes from ℓ-adic étale cohomology of algebraic varieties. Image need NOT be finite. Used for elliptic curves, modular forms.\"},\n    Fl: {target:'GL_n(F̄_ℓ)', label:'mod ℓ', color:'var(--pink)',\n         note:\"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture: every odd, irreducible, 2-d mod-ℓ representation is modular.\"}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    // G_Q box\n    svg.appendChild(SVG('rect', {x:60, y:90, width:160, height:60, rx:8,\n      fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));\n    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t1.textContent = 'G_Q';\n    svg.appendChild(t1);\n    const t1s = SVG('text', {x:140, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1s.textContent = 'absolute Galois group';\n    svg.appendChild(t1s);\n\n    const I = info[field];\n    // target box\n    svg.appendChild(SVG('rect', {x:460, y:90, width:220, height:60, rx:8,\n      fill:'var(--panel2)', stroke:I.color, 'stroke-width':1.6}));\n    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t2.textContent = I.target;\n    svg.appendChild(t2);\n    const t2s = SVG('text', {x:570, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t2s.textContent = I.label + ' representation';\n    svg.appendChild(t2s);\n\n    drawArrow(svg, [220, 120], [460, 120], {markerId:'rep-'+field, color:I.color, label:'ρ', width:2, pad1:4, pad2:4});\n    text.textContent = I.note;\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    field = b.dataset.field;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-diagram",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>ℓ-adic target:</label>\n    <button data-field=\"C\">$\\mathrm{GL}_n(\\mathbb{C})$ (Artin)</button>\n    <button data-field=\"Ql\" class=\"active\">$\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$</button>\n    <button data-field=\"Fl\">$\\mathrm{GL}_n(\\bar{\\mathbb{F}}_\\ell)$ (mod ℓ)</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rep-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -59,9 +114,40 @@
         },
         {
           "type": "widget",
-          "id": "w-cyclo",
-          "html": "<div class=\"widget\" id=\"w-cyclo\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 3 · Cyclotomic action on $\\mu_{\\ell^n}$</span>\n    <span class=\"hint\">slide $n$; Galois elements act by multiplication in $(\\mathbb{Z}/\\ell^n)^\\times$</span></div>\n  <svg viewBox=\"0 0 720 300\" width=\"100%\"><title>Widget 3 · Cyclotomic action on $\\mu_{\\ell^n}$</title></svg>\n  <div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"cy-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label for=\"cy-n\">$n$ =</label>\n    <input type=\"range\" id=\"cy-n\" min=\"1\" max=\"3\" step=\"1\" value=\"2\">\n    <span id=\"cy-nlab\" class=\"small\">n=2</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"cy-a\">$\\chi(\\sigma)$ =</label>\n    <input type=\"number\" id=\"cy-a\" min=\"1\" value=\"2\" style=\"width:70px\">\n    <span class=\"small\" id=\"cy-ahint\"></span>\n  </div>\n  <div class=\"readout\" id=\"cy-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cyclo",
+            "title": "Widget 3 · Cyclotomic action on $\\mu_{\\ell^n}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "slide $n$; Galois elements act by multiplication in $(\\mathbb{Z}/\\ell^n)^\\times$",
+            "svgId": "svg-cyclo",
+            "viewBox": "0 0 720 300",
+            "readoutId": "cy-text",
+            "sectionComment": "=================== Widget 3 — Cyclotomic character ===================",
+            "bodyScript": "  const root = document.getElementById('w-cyclo');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#cy-ell');\n  const nRng = root.querySelector('#cy-n');\n  const nLab = root.querySelector('#cy-nlab');\n  const aIn  = root.querySelector('#cy-a');\n  const aHint = root.querySelector('#cy-ahint');\n  const text = root.querySelector('#cy-text');\n\n  function gcd(a,b){ while(b){ [a,b]=[b,a%b]; } return a; }\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const n = parseInt(nRng.value,10);\n    nLab.textContent = 'n=' + n;\n    const N = Math.pow(ell,n);\n    let a = parseInt(aIn.value,10);\n    if(!Number.isFinite(a)) a = 1;\n    // nearest valid a (coprime to ell)\n    if(a % ell === 0){ a = a+1; aIn.value = a; }\n    const amod = mod(a, N);\n    aHint.textContent = \"σ acts by ζ ↦ ζ^\" + a + \" (must be coprime to \" + ell + \"; mod \" + N + \" → \" + amod + \")\";\n\n    const cx = 360, cy = 150, R = 110;\n    // outer title\n    const tt = SVG('text',{x:cx, y:28, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)'});\n    tt.textContent = 'μ_'+N+' : '+N+' points';\n    svg.appendChild(tt);\n\n    // circle\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1}));\n    // points\n    const pts = [];\n    for(let k=0;k<N;k++){\n      const th = 2*Math.PI*k/N - Math.PI/2;\n      pts.push([cx + R*Math.cos(th), cy + R*Math.sin(th)]);\n    }\n    // action arrows k -> a*k (mod N), draw only 'primitive' images from a generator\n    for(let k=1;k<N;k++){\n      const j = mod(a*k, N);\n      const [x1,y1] = pts[k], [x2,y2] = pts[j];\n      if(k === j) continue;\n      drawArrow(svg, [x1,y1], [x2,y2], {color:'var(--cyan)', markerId:'cy-arr', width:1, pad1:6, pad2:8, curve:10});\n    }\n    // points on top\n    for(let k=0;k<N;k++){\n      const prim = (gcd(k,N)===1);\n      const r = prim ? 4.5 : 3;\n      svg.appendChild(SVG('circle',{cx:pts[k][0], cy:pts[k][1], r,\n        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'#0b0f16', 'stroke-width':1}));\n    }\n    // center label\n    const c1 = SVG('text',{x:cx, y:cy-6, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    c1.textContent = 'ζ ↦ ζ^'+amod;\n    svg.appendChild(c1);\n    const c2 = SVG('text',{x:cx, y:cy+12, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    c2.textContent = '(Z/'+N+')^× has φ('+N+')='+phi(N)+' units';\n    svg.appendChild(c2);\n\n    const isUnit = (gcd(amod, N) === 1);\n    text.textContent = isUnit\n      ? \"Valid χ(σ) = \"+amod+\" ∈ (Z/\"+N+\")^×. On the \"+N+\"-th roots of unity, σ permutes ζ^k to ζ^(\"+amod+\"·k mod \"+N+\"). Yellow dots are primitive roots; gray dots are higher-order fixed loci.\"\n      : \"NOT a unit: \"+amod+\" shares a factor with \"+N+\", so this is not a Galois action on μ_\"+N+\".\";\n  }\n\n  function phi(n){\n    let r = n, m = n;\n    for(let p=2;p*p<=m;p++){\n      if(m%p===0){ while(m%p===0) m/=p; r -= r/p; }\n    }\n    if(m>1) r -= r/m;\n    return Math.round(r);\n  }\n\n  elSel.addEventListener('change', render);\n  nRng.addEventListener('input', render);\n  aIn.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-cyclo",
+                "viewBox": "0 0 720 300",
+                "width": 720,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"cy-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label for=\"cy-n\">$n$ =</label>\n    <input type=\"range\" id=\"cy-n\" min=\"1\" max=\"3\" step=\"1\" value=\"2\">\n    <span id=\"cy-nlab\" class=\"small\">n=2</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cy-a\">$\\chi(\\sigma)$ =</label>\n    <input type=\"number\" id=\"cy-a\" min=\"1\" value=\"2\" style=\"width:70px\">\n    <span class=\"small\" id=\"cy-ahint\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "cy-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -78,9 +164,36 @@
         },
         {
           "type": "widget",
-          "id": "w-tate",
-          "html": "<div class=\"widget\" id=\"w-tate\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 4 · The Tate-module tower $\\cdots \\to E[\\ell^3] \\to E[\\ell^2] \\to E[\\ell]$</span>\n    <span class=\"hint\">click a level to see the $(\\mathbb{Z}/\\ell^n)^2$ lattice it represents</span></div>\n  <svg viewBox=\"0 0 780 340\" width=\"100%\"><title>Widget 4 · The Tate-module tower $\\cdots \\to E[\\ell^3] \\to E[\\ell^2] \\to E[\\ell]$</title></svg>\n  <div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"tt-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>level:</label>\n    <button data-lvl=\"1\">$E[\\ell]$</button>\n    <button data-lvl=\"2\" class=\"active\">$E[\\ell^2]$</button>\n    <button data-lvl=\"3\">$E[\\ell^3]$</button>\n  </div>\n  <div class=\"readout\" id=\"tt-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Widget 4 · The Tate-module tower $\\cdots \\to E[\\ell^3] \\to E[\\ell^2] \\to E[\\ell]$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click a level to see the $(\\mathbb{Z}/\\ell^n)^2$ lattice it represents",
+            "svgId": "svg-tate",
+            "viewBox": "0 0 780 340",
+            "readoutId": "tt-text",
+            "sectionComment": "=================== Widget 4 — Tate module tower ===================",
+            "bodyScript": "  const root = document.getElementById('w-tate');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#tt-ell');\n  const btns = root.querySelectorAll('button[data-lvl]');\n  const text = root.querySelector('#tt-text');\n  let lvl = 2;\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const N = Math.pow(ell, lvl);\n\n    // three small lattices in a row\n    const centers = [[170, 170], [400, 170], [630, 170]];\n    const labels  = ['E[ℓ]', 'E[ℓ²]', 'E[ℓ³]'];\n    const exps    = [1, 2, 3];\n    const sizes   = [Math.pow(ell,1), Math.pow(ell,2), Math.pow(ell,3)];\n\n    for(let i=0;i<3;i++){\n      const [cx, cy] = centers[i];\n      const Ni = sizes[i];\n      const isActive = (exps[i] === lvl);\n      // background\n      svg.appendChild(SVG('rect',{x:cx-80, y:cy-80, width:160, height:160, rx:6,\n        fill: isActive ? 'var(--panel2)' : 'var(--panel)',\n        stroke: isActive ? 'var(--yellow)' : 'var(--line)', 'stroke-width':isActive?2:1}));\n      // lattice of Ni × Ni\n      const step = 140/(Ni);\n      for(let a=0;a<Ni;a++) for(let b=0;b<Ni;b++){\n        const x = cx - 70 + step*a + step/2;\n        const y = cy - 70 + step*b + step/2;\n        const r = isActive ? 2.5 : 1.8;\n        svg.appendChild(SVG('circle',{cx:x, cy:y, r,\n          fill: (a===0 && b===0) ? 'var(--green)' : (isActive ? 'var(--yellow)' : 'var(--mute)')}));\n      }\n      const t = SVG('text',{x:cx, y:cy+100, 'text-anchor':'middle', 'font-size':14,\n        fill: isActive ? 'var(--yellow)' : 'var(--ink)', 'font-weight':600});\n      t.textContent = labels[i] + ' (' + Ni + '×' + Ni + ')';\n      svg.appendChild(t);\n      const t2 = SVG('text',{x:cx, y:cy+118, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t2.textContent = '≅ (Z/' + Ni + ')²';\n      svg.appendChild(t2);\n    }\n\n    // [ell] arrows between them (right to left)\n    drawArrow(svg, [centers[1][0] - 90, 170], [centers[0][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-1', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n    drawArrow(svg, [centers[2][0] - 90, 170], [centers[1][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-2', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n\n    // limit label\n    const lim = SVG('text',{x:390, y:40, 'text-anchor':'middle', 'font-size':15, fill:'var(--violet)', 'font-weight':600});\n    lim.textContent = 'T_ℓ E = lim← E[ℓⁿ] ≅ Z_ℓ²';\n    svg.appendChild(lim);\n    const lim2 = SVG('text',{x:390, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim2.textContent = 'ρ_{E,ℓ}: G_Q → GL₂(Z_ℓ)';\n    svg.appendChild(lim2);\n    const lim3 = SVG('text',{x:720, y:45, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim3.textContent = '···';\n    svg.appendChild(lim3);\n\n    text.textContent = \"Level \" + lvl + \": E[ℓ^\" + lvl + \"] ≅ (Z/\" + N + \")² has \" + (N*N)\n      + \" torsion points. Galois acts linearly, giving a continuous ρ: G_Q → GL₂(Z/\" + N + \"). Taking the inverse limit over all levels recovers ρ_{E,ℓ}.\";\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    lvl = parseInt(b.dataset.lvl,10);\n    render();\n  }));\n  elSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-tate",
+                "viewBox": "0 0 780 340",
+                "width": 780,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"tt-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>level:</label>\n    <button data-lvl=\"1\">$E[\\ell]$</button>\n    <button data-lvl=\"2\" class=\"active\">$E[\\ell^2]$</button>\n    <button data-lvl=\"3\">$E[\\ell^3]$</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "tt-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -97,9 +210,36 @@
         },
         {
           "type": "widget",
-          "id": "w-matrix",
-          "html": "<div class=\"widget\" id=\"w-matrix\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 5 · The Frobenius matrix dial</span>\n    <span class=\"hint\">slide $a_p$ within $[-2\\sqrt{p},\\,2\\sqrt{p}]$; eigenvalues move on a circle of radius $\\sqrt{p}$</span></div>\n  <svg viewBox=\"0 0 760 340\" width=\"100%\"><title>Widget 5 · The Frobenius matrix dial</title></svg>\n  <div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"mx-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"mx-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"mx-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"mx-alab\" class=\"small\">a=-2</span>\n  </div>\n  <div class=\"readout\" id=\"mx-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-matrix",
+            "title": "Widget 5 · The Frobenius matrix dial",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "slide $a_p$ within $[-2\\sqrt{p},\\,2\\sqrt{p}]$; eigenvalues move on a circle of radius $\\sqrt{p}$",
+            "svgId": "svg-matrix",
+            "viewBox": "0 0 760 340",
+            "readoutId": "mx-text",
+            "sectionComment": "=================== Widget 5 — Frobenius matrix dial ===================",
+            "bodyScript": "  const root = document.getElementById('w-matrix');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#mx-p');\n  const aR  = root.querySelector('#mx-a');\n  const aLab = root.querySelector('#mx-alab');\n  const text = root.querySelector('#mx-text');\n\n  function clampA(a, p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    // LEFT: matrix box\n    const mx = 170, my = 170;\n    svg.appendChild(SVG('rect',{x:mx-120, y:my-90, width:240, height:180, rx:8,\n      fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5}));\n    const tt = SVG('text',{x:mx, y:my-60, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'representative of ρ(Frob_p)';\n    svg.appendChild(tt);\n    // choose rational conjugacy-class representative with tr=a, det=p\n    // use companion matrix [[0,-p],[1,a]] so tr = a, det = p\n    const rows = [\n      ['0', String(-p)],\n      ['1', String(a)]\n    ];\n    for(let r=0;r<2;r++) for(let c=0;c<2;c++){\n      const x = mx - 55 + c*70, y = my - 20 + r*42;\n      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'#0b0f16', stroke:'var(--line)'}));\n      const t = SVG('text',{x, y:y+5, 'text-anchor':'middle', 'font-size':15, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = rows[r][c];\n      svg.appendChild(t);\n    }\n\n    // brackets\n    for(const xb of [mx-82, mx+82]){\n      const dir = xb<mx ? 1 : -1;\n      svg.appendChild(SVG('path',{d:`M${xb+dir*6} ${my-40} L${xb} ${my-40} L${xb} ${my+40} L${xb+dir*6} ${my+40}`,\n        fill:'none', stroke:'var(--ink)', 'stroke-width':1.8}));\n    }\n\n    // RIGHT: characteristic polynomial + eigenvalues\n    const rx = 550, ry = 80;\n    const chrt = SVG('text',{x:rx, y:ry, 'text-anchor':'middle', 'font-size':16, fill:'var(--yellow)', 'font-weight':600});\n    chrt.textContent = \"char poly: t² − \"+a+\"t + \"+p;\n    svg.appendChild(chrt);\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let ev = '';\n    let complex = false;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      ev = 'α = ' + ((a+s)/2).toFixed(3) + ', β = ' + ((a-s)/2).toFixed(3);\n    } else {\n      const s = Math.sqrt(-disc);\n      ev = 'α = ' + (a/2).toFixed(3) + ' + ' + (s/2).toFixed(3) + 'i,  β = conj';\n      complex = true;\n    }\n    const ep = SVG('text',{x:rx, y:ry+26, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n    ep.textContent = ev;\n    svg.appendChild(ep);\n\n    // circle of radius √p\n    const cx = 570, cy = 230, R = 80;\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));\n    svg.appendChild(SVG('line',{x1:cx-R-10, y1:cy, x2:cx+R+10, y2:cy, stroke:'var(--line)', 'stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-10, x2:cx, y2:cy+R+10, stroke:'var(--line)', 'stroke-width':0.5}));\n    const rlab = SVG('text',{x:cx+R+14, y:cy+4, 'text-anchor':'start', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+Math.sqrt(p).toFixed(2);\n    svg.appendChild(rlab);\n\n    // plot eigenvalues\n    const sp = Math.sqrt(p);\n    let a1, a2;\n    if(complex){\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re: a/2, im: s};\n      a2 = {re: a/2, im: -s};\n    } else {\n      const s = Math.sqrt(disc);\n      a1 = {re: (a+s)/2, im:0};\n      a2 = {re: (a-s)/2, im:0};\n    }\n    for(const pt of [a1,a2]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'#0b0f16', 'stroke-width':1.5}));\n    }\n\n    text.textContent = \"Representative matrix with trace \" + a + \" and determinant \" + p + \". Characteristic polynomial t² − \" + a + \"t + \" + p + \". \"\n      + (complex ? \"Complex-conjugate eigenvalues, both of modulus √p.\" : \"Real eigenvalues (only possible when a² = 4p, i.e. on the boundary).\")\n      + \"  |a| ≤ 2√p = \" + (2*Math.sqrt(p)).toFixed(2) + \".\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-matrix",
+                "viewBox": "0 0 760 340",
+                "width": 760,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"mx-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"mx-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"mx-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"mx-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "mx-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -107,9 +247,36 @@
         },
         {
           "type": "widget",
-          "id": "w-apbar",
-          "html": "<div class=\"widget\" id=\"w-apbar\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \\le 100$</span>\n    <span class=\"hint\">bars obey the Hasse bound; half are zero (the CM symmetry)</span></div>\n  <svg viewBox=\"0 0 820 300\" width=\"100%\"><title>Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \\le 100$</title></svg>\n  <div class=\"row\">\n    <label>curve:</label>\n    <select id=\"ap-curve\">\n      <option value=\"A\">$y^2 = x^3 - x$ (conductor 32, CM)</option>\n      <option value=\"B\" selected>$y^2 + y = x^3 - x^2$ (conductor 11)</option>\n      <option value=\"C\">$y^2 = x^3 - 43x + 166$ (conductor 26)</option>\n    </select>\n    <label for=\"ap-env\">show Hasse envelope:</label>\n    <input type=\"checkbox\" id=\"ap-env\" checked>\n  </div>\n  <div class=\"readout\" id=\"ap-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apbar",
+            "title": "Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \\le 100$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "bars obey the Hasse bound; half are zero (the CM symmetry)",
+            "svgId": "svg-apbar",
+            "viewBox": "0 0 820 300",
+            "readoutId": "ap-text",
+            "sectionComment": "=================== Widget 6 — a_p bar chart ===================",
+            "bodyScript": "  const root = document.getElementById('w-apbar');\n  const svg = root.querySelector('svg');\n  const curSel = root.querySelector('#ap-curve');\n  const envCk = root.querySelector('#ap-env');\n  const text = root.querySelector('#ap-text');\n\n  // simple point-count for y^2 + a1 xy + a3 y = x^3 + a2 x^2 + a4 x + a6\n  function countPts(p, coeffs){\n    const {a1=0, a2=0, a3=0, a4=0, a6=0} = coeffs;\n    let n = 1; // point at infinity\n    for(let x=0;x<p;x++){\n      const rhs = mod(x*x*x + a2*x*x + a4*x + a6, p);\n      // y^2 + (a1 x + a3) y = rhs  <=>  y^2 + By = rhs  where B = a1 x + a3\n      const B = mod(a1*x + a3, p);\n      for(let y=0;y<p;y++){\n        if(mod(y*y + B*y - rhs, p) === 0) n++;\n      }\n    }\n    return n;\n  }\n\n  // detect discriminant zero by a crude scan: if point count matches degenerate pattern, skip\n  const curves = {\n    A: {label:'y² = x³ − x', coeffs:{a4:-1}, badPrimes:[2]},\n    B: {label:'y² + y = x³ − x²', coeffs:{a2:-1, a3:1}, badPrimes:[11]},\n    C: {label:'y² = x³ − 43x + 166', coeffs:{a4:-43, a6:166}, badPrimes:[2,13]}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const cur = curves[curSel.value];\n    const ps = primesUpTo(100);\n    const W = 820, H = 300;\n    const marL = 40, marR = 20, marT = 40, marB = 40;\n    const plotW = W - marL - marR;\n    const plotH = H - marT - marB;\n\n    // compute a_p for each p\n    const vals = [];\n    let maxAbs = 0;\n    for(const p of ps){\n      if(cur.badPrimes.includes(p)){ vals.push({p, ap:null}); continue; }\n      if(p>50){ vals.push({p, ap:null, skip:true}); continue; } // avoid slow point-count at large p in browser\n      const np = countPts(p, cur.coeffs);\n      const ap = p + 1 - np;\n      vals.push({p, ap});\n      if(Math.abs(ap) > maxAbs) maxAbs = Math.abs(ap);\n    }\n    // for p>50 use Hasse bound as placeholder\n    for(const v of vals) if(v.skip) maxAbs = Math.max(maxAbs, 2*Math.sqrt(v.p));\n    if(maxAbs < 4) maxAbs = 4;\n\n    // axes\n    const y0 = marT + plotH/2;\n    svg.appendChild(SVG('line',{x1:marL, y1:y0, x2:W-marR, y2:y0, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:marL, y1:marT, x2:marL, y2:H-marB, stroke:'var(--line)', 'stroke-width':1}));\n\n    // bars\n    const n = ps.length;\n    const bw = plotW / n * 0.8;\n    for(let i=0;i<n;i++){\n      const v = vals[i];\n      const x = marL + plotW*(i+0.5)/n;\n      if(v.ap === null && !v.skip){\n        // bad prime\n        svg.appendChild(SVG('rect',{x:x-bw/2, y:marT, width:bw, height:plotH, fill:'rgba(224,122,95,0.12)'}));\n        continue;\n      }\n      if(v.skip) continue;\n      const h = plotH/2 * (v.ap / maxAbs);\n      svg.appendChild(SVG('rect',{x:x-bw/2, y: v.ap>=0 ? y0-h : y0, width:bw, height:Math.abs(h),\n        fill: v.ap===0 ? 'var(--mute)' : (v.ap>0 ? 'var(--green)' : 'var(--pink)')}));\n    }\n    // selected prime labels\n    const pickLabels = [2,7,17,31,47];\n    for(let i=0;i<n;i++){\n      if(!pickLabels.includes(ps[i])) continue;\n      const x = marL + plotW*(i+0.5)/n;\n      const t = SVG('text',{x, y:H-marB+14, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'});\n      t.textContent = ps[i];\n      svg.appendChild(t);\n    }\n\n    // Hasse envelope\n    if(envCk.checked){\n      const path1 = [], path2 = [];\n      for(let i=0;i<n;i++){\n        const p = ps[i];\n        const x = marL + plotW*(i+0.5)/n;\n        const h = plotH/2 * (2*Math.sqrt(p) / maxAbs);\n        path1.push([x, y0-h]);\n        path2.push([x, y0+h]);\n      }\n      const d1 = 'M' + path1.map(p=>p.join(' ')).join(' L');\n      const d2 = 'M' + path2.map(p=>p.join(' ')).join(' L');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n      svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n    }\n\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'});\n    tt.textContent = 'a_p for ' + cur.label + ' (red shade = bad reduction)';\n    svg.appendChild(tt);\n\n    // readout: list first few ap\n    const first = vals.filter(v=>v.ap!==null && !v.skip).slice(0, 10)\n      .map(v => 'a_'+v.p+'='+v.ap).join(', ');\n    text.textContent = first + '.  Dashed violet lines are the Hasse envelope ±2√p.';\n  }\n\n  curSel.addEventListener('change', render);\n  envCk.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-apbar",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve:</label>\n    <select id=\"ap-curve\">\n      <option value=\"A\">$y^2 = x^3 - x$ (conductor 32, CM)</option>\n      <option value=\"B\" selected>$y^2 + y = x^3 - x^2$ (conductor 11)</option>\n      <option value=\"C\">$y^2 = x^3 - 43x + 166$ (conductor 26)</option>\n    </select>\n    <label for=\"ap-env\">show Hasse envelope:</label>\n    <input type=\"checkbox\" id=\"ap-env\" checked>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -117,9 +284,36 @@
         },
         {
           "type": "widget",
-          "id": "w-hasse",
-          "html": "<div class=\"widget\" id=\"w-hasse\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 7 · Hasse disk — eigenvalues of $\\mathrm{Frob}_p$</span>\n    <span class=\"hint\">the $\\sqrt{p}$-circle; conjugate eigenvalues as two dots</span></div>\n  <svg viewBox=\"0 0 640 340\" width=\"100%\"><title>Widget 7 · Hasse disk — eigenvalues of $\\mathrm{Frob}_p$</title></svg>\n  <div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"hs-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"hs-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"hs-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"hs-alab\" class=\"small\">a=-2</span>\n  </div>\n  <div class=\"readout\" id=\"hs-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hasse",
+            "title": "Widget 7 · Hasse disk — eigenvalues of $\\mathrm{Frob}_p$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "the $\\sqrt{p}$-circle; conjugate eigenvalues as two dots",
+            "svgId": "svg-hasse",
+            "viewBox": "0 0 640 340",
+            "readoutId": "hs-text",
+            "sectionComment": "=================== Widget 7 — Hasse disk ===================",
+            "bodyScript": "  const root = document.getElementById('w-hasse');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#hs-p');\n  const aR = root.querySelector('#hs-a');\n  const aLab = root.querySelector('#hs-alab');\n  const text = root.querySelector('#hs-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n    const sp = Math.sqrt(p);\n\n    const cx = 320, cy = 170, R = 120;\n    // disk\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'rgba(88,196,221,0.06)', stroke:'var(--blue)', 'stroke-width':1.5, 'stroke-dasharray':'5 3'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:cx-R-30, y1:cy, x2:cx+R+30, y2:cy, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-30, x2:cx, y2:cy+R+30, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('text',{x:cx+R+20, y:cy+16, 'font-size':11, fill:'var(--mute)'}))\n      .textContent = 'Re';\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let a1, a2;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      a1 = {re:(a+s)/2, im:0};\n      a2 = {re:(a-s)/2, im:0};\n    } else {\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re:a/2, im:s};\n      a2 = {re:a/2, im:-s};\n    }\n    // mapping: unit circle of radius sp maps to radius R\n    for(const [pt, col] of [[a1,'var(--yellow)'],[a2,'var(--pink)']]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'#0b0f16', 'stroke-width':1.5}));\n      // dashed line to origin\n      svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:sx, y2:sy, stroke:col, 'stroke-width':1, 'stroke-dasharray':'3 3', opacity:0.5}));\n    }\n\n    // label radius\n    const rlab = SVG('text',{x:cx+R*0.70, y:cy-R*0.70-6, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+sp.toFixed(2);\n    svg.appendChild(rlab);\n\n    // text box on right\n    const tx = 480;\n    let ty = 70;\n    const add = (s, col='var(--ink)', sz=13) => {\n      const t = SVG('text',{x:tx, y:ty, 'font-size':sz, fill:col});\n      t.textContent = s; svg.appendChild(t); ty += sz+5;\n    };\n    add('p = ' + p, 'var(--yellow)', 14);\n    add('a_p = ' + a);\n    add('disc = a² − 4p = ' + disc);\n    add('|α| = |β| = √p = ' + sp.toFixed(3));\n    add('α + β = ' + a);\n    add('α · β = ' + p);\n    if(disc < 0){\n      add('eigenvalues: complex conjugate', 'var(--cyan)', 12);\n    } else if(disc === 0){\n      add('repeated root (supersingular in char p)', 'var(--pink)', 12);\n    } else {\n      add('real eigenvalues — on circle boundary', 'var(--pink)', 12);\n    }\n\n    text.textContent = \"The two Frobenius eigenvalues sit on the circle of radius √p in C. They are complex conjugates exactly when disc = a² − 4p < 0, which is the generic case.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-hasse",
+                "viewBox": "0 0 640 340",
+                "width": 640,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"hs-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"hs-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"hs-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"hs-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hs-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -145,9 +339,36 @@
         },
         {
           "type": "widget",
-          "id": "w-lfac",
-          "html": "<div class=\"widget\" id=\"w-lfac\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</span>\n    <span class=\"hint\">for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$</span></div>\n  <svg viewBox=\"0 0 720 260\" width=\"100%\"><title>Widget 8 · Local $L$-factor from Frobenius characteristic polynomial</title></svg>\n  <div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"lf-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>\n    <label for=\"lf-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"lf-a\" min=\"-12\" max=\"12\" step=\"1\" value=\"-2\">\n    <span id=\"lf-alab\" class=\"small\">a=-2</span>\n  </div>\n  <div class=\"readout\" id=\"lf-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lfac",
+            "title": "Widget 8 · Local $L$-factor from Frobenius characteristic polynomial",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$",
+            "svgId": "svg-lfac",
+            "viewBox": "0 0 720 260",
+            "readoutId": "lf-text",
+            "sectionComment": "=================== Widget 8 — Local L-factor ===================",
+            "bodyScript": "  const root = document.getElementById('w-lfac');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#lf-p');\n  const aR = root.querySelector('#lf-a');\n  const aLab = root.querySelector('#lf-alab');\n  const text = root.querySelector('#lf-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    const rows = [\n      {y:40,  col:'var(--blue)',   txt:'ρ(Frob_p)  ~  '+(a>=0?'[[α,0],[0,β]]':'[[α,0],[0,β]]')+'   with tr=α+β='+a+', αβ='+p},\n      {y:80,  col:'var(--violet)', txt:'1 − ρ(Frob_p)·p^(−s)  acts on V_ℓ E ⊗ C'},\n      {y:120, col:'var(--yellow)', txt:'det(1 − ρ(Frob_p)·p^(−s))  =  1 − a_p·p^(−s) + p·p^(−2s)'},\n      {y:160, col:'var(--green)',  txt:'L_p(E,s)  =  1 / (1 − '+a+'·p^(−s) + p^(1−2s))'}\n    ];\n    for(const r of rows){\n      svg.appendChild(SVG('rect',{x:20, y:r.y-18, width:680, height:32, rx:4, fill:'var(--panel2)', stroke:r.col, 'stroke-width':1}));\n      const t = SVG('text',{x:40, y:r.y+4, 'font-size':13, fill:r.col, 'font-family':'ui-monospace,monospace'});\n      t.textContent = r.txt;\n      svg.appendChild(t);\n    }\n    const tt = SVG('text',{x:360, y:220, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'L(E,s) = ∏_p L_p(E,s)   (Euler product, valid for Re(s) > 3/2 by Hasse)';\n    svg.appendChild(tt);\n\n    text.textContent = \"The local L-factor at a good prime is the reciprocal of the characteristic polynomial of Frobenius, evaluated at t = p^(−s). The global L-function is the product over all primes.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-lfac",
+                "viewBox": "0 0 720 260",
+                "width": 720,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"lf-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>\n    <label for=\"lf-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"lf-a\" min=\"-12\" max=\"12\" step=\"1\" value=\"-2\">\n    <span id=\"lf-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lf-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -164,9 +385,36 @@
         },
         {
           "type": "widget",
-          "id": "w-deligne",
-          "html": "<div class=\"widget\" id=\"w-deligne\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 9 · Eigenform $\\to$ Galois representation</span>\n    <span class=\"hint\">three prototypical examples; $a_p$ becomes $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$</span></div>\n  <svg viewBox=\"0 0 820 320\" width=\"100%\"><title>Widget 9 · Eigenform $\\to$ Galois representation</title></svg>\n  <div class=\"row\">\n    <label>eigenform:</label>\n    <select id=\"de-f\">\n      <option value=\"N11\" selected>$f_{11}$ (weight 2, level 11)</option>\n      <option value=\"D12\">$\\Delta$ (weight 12, level 1)</option>\n      <option value=\"E4\">$E_4$ (weight 4, non-cuspidal; for comparison)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"de-text\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-deligne",
+            "title": "Widget 9 · Eigenform $\\to$ Galois representation",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "three prototypical examples; $a_p$ becomes $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$",
+            "svgId": "svg-deligne",
+            "viewBox": "0 0 820 320",
+            "readoutId": "de-text",
+            "sectionComment": "=================== Widget 9 — Eigenform → Galois rep ===================",
+            "bodyScript": "  const root = document.getElementById('w-deligne');\n  const svg = root.querySelector('svg');\n  const fSel = root.querySelector('#de-f');\n  const text = root.querySelector('#de-text');\n\n  // curated first Fourier coefficients\n  const forms = {\n    N11: {\n      label:'f_{11} on Γ_0(11), weight 2',\n      weight:2, N:11,\n      // a_p for p = 2,3,5,7,11,13,... (well-known)\n      ap:{2:-2, 3:-1, 5:1, 7:-2, 13:4, 17:-2, 19:0, 23:-1, 29:0, 31:7, 37:3, 41:-8, 43:-6, 47:8},\n      note:'Same a_p as the elliptic curve y² + y = x³ − x².'\n    },\n    D12: {\n      label:'Δ = η(τ)^{24}, weight 12, level 1',\n      weight:12, N:1,\n      // Ramanujan τ function values\n      ap:{2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738},\n      note:\"Ramanujan's τ. Deligne proved |τ(p)| ≤ 2 p^(11/2).\"\n    },\n    E4: {\n      label:'E_4 (Eisenstein, NOT cuspidal) weight 4, level 1',\n      weight:4, N:1,\n      // a_p(E_4) = 1 + p^3 if normalized that way; this is reducible\n      ap:{2:9, 3:28, 5:126, 7:344, 11:1332},\n      note:'Eisenstein series are not cuspidal — the attached Galois representation is REDUCIBLE, a sum of two 1-d characters.'\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const key = fSel.value;\n    const F = forms[key];\n\n    // left: q-expansion\n    svg.appendChild(SVG('rect',{x:30, y:30, width:330, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.5}));\n    const t1 = SVG('text',{x:195, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n    t1.textContent = F.label;\n    svg.appendChild(t1);\n    const t1b = SVG('text',{x:195, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1b.textContent = 'f(q) = q + Σ a_n q^n';\n    svg.appendChild(t1b);\n\n    let y = 100;\n    for(const [p, ap] of Object.entries(F.ap).slice(0, 8)){\n      const t = SVG('text',{x:60, y, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = 'a_' + p + ' = ' + ap;\n      svg.appendChild(t);\n      y += 22;\n    }\n\n    // arrow to right\n    drawArrow(svg, [370, 160], [470, 160], {label:'ρ_f', color:'var(--yellow)', markerId:'de-arr', width:2, pad1:4, pad2:4});\n\n    // right: Galois rep box\n    svg.appendChild(SVG('rect',{x:480, y:30, width:320, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--pink)', 'stroke-width':1.5}));\n    const r1 = SVG('text',{x:640, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--pink)', 'font-weight':600});\n    r1.textContent = 'ρ_{f,ℓ}: G_Q → GL_2';\n    svg.appendChild(r1);\n    const r1b = SVG('text',{x:640, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    r1b.textContent = 'unramified outside Nℓ';\n    svg.appendChild(r1b);\n\n    const rules = [\n      'tr ρ(Frob_p) = a_p(f)',\n      'det ρ(Frob_p) = p^{k−1}',\n      'weight k = ' + F.weight,\n      'level N = ' + F.N\n    ];\n    let ry = 110;\n    for(const r of rules){\n      const t = SVG('text',{x:500, y:ry, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = r;\n      svg.appendChild(t);\n      ry += 24;\n    }\n\n    text.textContent = F.note + \" Continuity and compatibility across primes ℓ is part of Deligne's construction.\";\n  }\n\n  fSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-deligne",
+                "viewBox": "0 0 820 320",
+                "width": 820,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>eigenform:</label>\n    <select id=\"de-f\">\n      <option value=\"N11\" selected>$f_{11}$ (weight 2, level 11)</option>\n      <option value=\"D12\">$\\Delta$ (weight 12, level 1)</option>\n      <option value=\"E4\">$E_4$ (weight 4, non-cuspidal; for comparison)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "de-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -219,8 +467,37 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-profinite",
-          "html": "<script>\n/* =================== Widget 1 — Profinite cartoon =================== */\n(function(){\n  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-profinite",
+            "title": "Widget 1 · Profinite cartoon of $G_\\mathbb{Q}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "finite quotients fan out; $G_\\mathbb{Q}$ sits at the top",
+            "svgId": "svg-profinite",
+            "viewBox": "0 0 820 340",
+            "readoutId": "pf-text",
+            "sectionComment": "=================== Widget 1 — Profinite cartoon ===================",
+            "bodyScript": "  const root = document.getElementById('w-profinite');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#pf-text');\n  const btns = root.querySelectorAll('button[data-pf]');\n  let mode = 'all';\n\n  const layouts = {\n    all: {\n      text: \"$G_\\\\mathbb{Q}$ surjects onto every finite Galois group $\\\\mathrm{Gal}(K/\\\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'A', x:180, y:140, label:'Gal(Q(ζ₃)/Q)'},\n        {id:'B', x:410, y:140, label:'Gal(Q(√2)/Q)'},\n        {id:'C', x:640, y:140, label:'Gal(splitting x³−2)/Q)'},\n        {id:'D', x:260, y:240, label:'Z/2'},\n        {id:'E', x:410, y:240, label:'Z/2'},\n        {id:'F', x:560, y:240, label:'S₃'},\n        {id:'tr', x:410, y:300, label:'{1}'}\n      ],\n      edges: [['G','A'],['G','B'],['G','C'],['A','D'],['B','E'],['C','F'],['D','tr'],['E','tr'],['F','tr']]\n    },\n    abelian: {\n      text: \"The maximal abelian quotient $G_\\\\mathbb{Q}^{ab}$ is $\\\\widehat{\\\\mathbb{Z}}^\\\\times$, via the cyclotomic tower (Kronecker–Weber). Every 1-d Galois representation factors through this quotient.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Gab', x:410, y:140, label:'G_Q^ab ≅ Ẑ^×'},\n        {id:'A1', x:220, y:240, label:'(Z/5)^×'},\n        {id:'A2', x:400, y:240, label:'(Z/7)^×'},\n        {id:'A3', x:580, y:240, label:'(Z/11)^×'}\n      ],\n      edges: [['G','Gab'],['Gab','A1'],['Gab','A2'],['Gab','A3']]\n    },\n    cyclo: {\n      text: \"The cyclotomic tower $\\\\mathbb{Q}(\\\\mu_{\\\\ell^n})$ has $\\\\mathrm{Gal} = (\\\\mathbb{Z}/\\\\ell^n)^\\\\times$. Taking the limit gives the cyclotomic character $G_\\\\mathbb{Q} \\\\to \\\\mathbb{Z}_\\\\ell^\\\\times$.\",\n      nodes: [\n        {id:'G', x:410, y:40, label:'G_Q', big:true},\n        {id:'Z', x:410, y:140, label:'Z_ℓ^×'},\n        {id:'n3', x:410, y:210, label:'(Z/ℓ³)^×'},\n        {id:'n2', x:410, y:260, label:'(Z/ℓ²)^×'},\n        {id:'n1', x:410, y:310, label:'(Z/ℓ)^×'}\n      ],\n      edges: [['G','Z'],['Z','n3'],['n3','n2'],['n2','n1']]\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const L = layouts[mode];\n    text.textContent = L.text;\n    for(const [from, to] of L.edges){\n      const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);\n      drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});\n    }\n    for(const n of L.nodes){\n      const r = n.big ? 26 : 18;\n      const w = Math.max(n.label.length*7+18, r*2+4);\n      svg.appendChild(SVG('rect', {x:n.x-w/2, y:n.y-r*0.7, width:w, height:r*1.4, rx:6,\n        fill: n.big ? 'var(--panel2)' : 'var(--panel)',\n        stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));\n      const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,\n        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});\n      t.textContent = n.label;\n      svg.appendChild(t);\n    }\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    mode = b.dataset.pf;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-profinite",
+                "viewBox": "0 0 820 340",
+                "width": 820,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>zoom to:</label>\n    <button data-pf=\"all\" class=\"active\">all levels</button>\n    <button data-pf=\"abelian\">abelian quotients</button>\n    <button data-pf=\"cyclo\">cyclotomic tower</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "pf-text",
+                "content": "$G_\\mathbb{Q}$ surjects onto every finite Galois group $\\mathrm{Gal}(K/\\mathbb{Q})$. Reading the diagram downward is a tower of quotients; reading upward is the inverse limit."
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -228,8 +505,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-diagram",
-          "html": "<script>\n/* =================== Widget 2 — Representation map =================== */\n(function(){\n  const root = document.getElementById('w-diagram');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#rep-text');\n  const btns = root.querySelectorAll('button[data-field]');\n  let field = 'Ql';\n\n  const info = {\n    C:  {target:'GL_n(C)', label:'Artin', color:'var(--violet)',\n         note:\"Classical (complex) representation. Factors through a finite quotient. Image is finite. Conjectural Artin L-functions.\"},\n    Ql: {target:'GL_n(Q̄_ℓ)', label:'ℓ-adic', color:'var(--yellow)',\n         note:\"The workhorse. Comes from ℓ-adic étale cohomology of algebraic varieties. Image need NOT be finite. Used for elliptic curves, modular forms.\"},\n    Fl: {target:'GL_n(F̄_ℓ)', label:'mod ℓ', color:'var(--pink)',\n         note:\"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture: every odd, irreducible, 2-d mod-ℓ representation is modular.\"}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    // G_Q box\n    svg.appendChild(SVG('rect', {x:60, y:90, width:160, height:60, rx:8,\n      fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));\n    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t1.textContent = 'G_Q';\n    svg.appendChild(t1);\n    const t1s = SVG('text', {x:140, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1s.textContent = 'absolute Galois group';\n    svg.appendChild(t1s);\n\n    const I = info[field];\n    // target box\n    svg.appendChild(SVG('rect', {x:460, y:90, width:220, height:60, rx:8,\n      fill:'var(--panel2)', stroke:I.color, 'stroke-width':1.6}));\n    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t2.textContent = I.target;\n    svg.appendChild(t2);\n    const t2s = SVG('text', {x:570, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t2s.textContent = I.label + ' representation';\n    svg.appendChild(t2s);\n\n    drawArrow(svg, [220, 120], [460, 120], {markerId:'rep-'+field, color:I.color, label:'ρ', width:2, pad1:4, pad2:4});\n    text.textContent = I.note;\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    field = b.dataset.field;\n    render();\n  }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-diagram",
+            "title": "Widget 2 · The representation map",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "pick a coefficient field",
+            "svgId": "svg-diagram",
+            "viewBox": "0 0 720 240",
+            "readoutId": "rep-text",
+            "sectionComment": "=================== Widget 2 — Representation map ===================",
+            "bodyScript": "  const root = document.getElementById('w-diagram');\n  const svg = root.querySelector('svg');\n  const text = root.querySelector('#rep-text');\n  const btns = root.querySelectorAll('button[data-field]');\n  let field = 'Ql';\n\n  const info = {\n    C:  {target:'GL_n(C)', label:'Artin', color:'var(--violet)',\n         note:\"Classical (complex) representation. Factors through a finite quotient. Image is finite. Conjectural Artin L-functions.\"},\n    Ql: {target:'GL_n(Q̄_ℓ)', label:'ℓ-adic', color:'var(--yellow)',\n         note:\"The workhorse. Comes from ℓ-adic étale cohomology of algebraic varieties. Image need NOT be finite. Used for elliptic curves, modular forms.\"},\n    Fl: {target:'GL_n(F̄_ℓ)', label:'mod ℓ', color:'var(--pink)',\n         note:\"Reduction of an ℓ-adic representation mod ℓ. Image always finite. Serre's conjecture: every odd, irreducible, 2-d mod-ℓ representation is modular.\"}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    // G_Q box\n    svg.appendChild(SVG('rect', {x:60, y:90, width:160, height:60, rx:8,\n      fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));\n    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t1.textContent = 'G_Q';\n    svg.appendChild(t1);\n    const t1s = SVG('text', {x:140, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1s.textContent = 'absolute Galois group';\n    svg.appendChild(t1s);\n\n    const I = info[field];\n    // target box\n    svg.appendChild(SVG('rect', {x:460, y:90, width:220, height:60, rx:8,\n      fill:'var(--panel2)', stroke:I.color, 'stroke-width':1.6}));\n    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});\n    t2.textContent = I.target;\n    svg.appendChild(t2);\n    const t2s = SVG('text', {x:570, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t2s.textContent = I.label + ' representation';\n    svg.appendChild(t2s);\n\n    drawArrow(svg, [220, 120], [460, 120], {markerId:'rep-'+field, color:I.color, label:'ρ', width:2, pad1:4, pad2:4});\n    text.textContent = I.note;\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    field = b.dataset.field;\n    render();\n  }));\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-diagram",
+                "viewBox": "0 0 720 240",
+                "width": 720,
+                "height": 240
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>ℓ-adic target:</label>\n    <button data-field=\"C\">$\\mathrm{GL}_n(\\mathbb{C})$ (Artin)</button>\n    <button data-field=\"Ql\" class=\"active\">$\\mathrm{GL}_n(\\bar{\\mathbb{Q}}_\\ell)$</button>\n    <button data-field=\"Fl\">$\\mathrm{GL}_n(\\bar{\\mathbb{F}}_\\ell)$ (mod ℓ)</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "rep-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -237,8 +542,40 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-cyclo",
-          "html": "<script>\n/* =================== Widget 3 — Cyclotomic character =================== */\n(function(){\n  const root = document.getElementById('w-cyclo');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#cy-ell');\n  const nRng = root.querySelector('#cy-n');\n  const nLab = root.querySelector('#cy-nlab');\n  const aIn  = root.querySelector('#cy-a');\n  const aHint = root.querySelector('#cy-ahint');\n  const text = root.querySelector('#cy-text');\n\n  function gcd(a,b){ while(b){ [a,b]=[b,a%b]; } return a; }\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const n = parseInt(nRng.value,10);\n    nLab.textContent = 'n=' + n;\n    const N = Math.pow(ell,n);\n    let a = parseInt(aIn.value,10);\n    if(!Number.isFinite(a)) a = 1;\n    // nearest valid a (coprime to ell)\n    if(a % ell === 0){ a = a+1; aIn.value = a; }\n    const amod = mod(a, N);\n    aHint.textContent = \"σ acts by ζ ↦ ζ^\" + a + \" (must be coprime to \" + ell + \"; mod \" + N + \" → \" + amod + \")\";\n\n    const cx = 360, cy = 150, R = 110;\n    // outer title\n    const tt = SVG('text',{x:cx, y:28, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)'});\n    tt.textContent = 'μ_'+N+' : '+N+' points';\n    svg.appendChild(tt);\n\n    // circle\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1}));\n    // points\n    const pts = [];\n    for(let k=0;k<N;k++){\n      const th = 2*Math.PI*k/N - Math.PI/2;\n      pts.push([cx + R*Math.cos(th), cy + R*Math.sin(th)]);\n    }\n    // action arrows k -> a*k (mod N), draw only 'primitive' images from a generator\n    for(let k=1;k<N;k++){\n      const j = mod(a*k, N);\n      const [x1,y1] = pts[k], [x2,y2] = pts[j];\n      if(k === j) continue;\n      drawArrow(svg, [x1,y1], [x2,y2], {color:'var(--cyan)', markerId:'cy-arr', width:1, pad1:6, pad2:8, curve:10});\n    }\n    // points on top\n    for(let k=0;k<N;k++){\n      const prim = (gcd(k,N)===1);\n      const r = prim ? 4.5 : 3;\n      svg.appendChild(SVG('circle',{cx:pts[k][0], cy:pts[k][1], r,\n        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'#0b0f16', 'stroke-width':1}));\n    }\n    // center label\n    const c1 = SVG('text',{x:cx, y:cy-6, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    c1.textContent = 'ζ ↦ ζ^'+amod;\n    svg.appendChild(c1);\n    const c2 = SVG('text',{x:cx, y:cy+12, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    c2.textContent = '(Z/'+N+')^× has φ('+N+')='+phi(N)+' units';\n    svg.appendChild(c2);\n\n    const isUnit = (gcd(amod, N) === 1);\n    text.textContent = isUnit\n      ? \"Valid χ(σ) = \"+amod+\" ∈ (Z/\"+N+\")^×. On the \"+N+\"-th roots of unity, σ permutes ζ^k to ζ^(\"+amod+\"·k mod \"+N+\"). Yellow dots are primitive roots; gray dots are higher-order fixed loci.\"\n      : \"NOT a unit: \"+amod+\" shares a factor with \"+N+\", so this is not a Galois action on μ_\"+N+\".\";\n  }\n\n  function phi(n){\n    let r = n, m = n;\n    for(let p=2;p*p<=m;p++){\n      if(m%p===0){ while(m%p===0) m/=p; r -= r/p; }\n    }\n    if(m>1) r -= r/m;\n    return Math.round(r);\n  }\n\n  elSel.addEventListener('change', render);\n  nRng.addEventListener('input', render);\n  aIn.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cyclo",
+            "title": "Widget 3 · Cyclotomic action on $\\mu_{\\ell^n}$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "slide $n$; Galois elements act by multiplication in $(\\mathbb{Z}/\\ell^n)^\\times$",
+            "svgId": "svg-cyclo",
+            "viewBox": "0 0 720 300",
+            "readoutId": "cy-text",
+            "sectionComment": "=================== Widget 3 — Cyclotomic character ===================",
+            "bodyScript": "  const root = document.getElementById('w-cyclo');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#cy-ell');\n  const nRng = root.querySelector('#cy-n');\n  const nLab = root.querySelector('#cy-nlab');\n  const aIn  = root.querySelector('#cy-a');\n  const aHint = root.querySelector('#cy-ahint');\n  const text = root.querySelector('#cy-text');\n\n  function gcd(a,b){ while(b){ [a,b]=[b,a%b]; } return a; }\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const n = parseInt(nRng.value,10);\n    nLab.textContent = 'n=' + n;\n    const N = Math.pow(ell,n);\n    let a = parseInt(aIn.value,10);\n    if(!Number.isFinite(a)) a = 1;\n    // nearest valid a (coprime to ell)\n    if(a % ell === 0){ a = a+1; aIn.value = a; }\n    const amod = mod(a, N);\n    aHint.textContent = \"σ acts by ζ ↦ ζ^\" + a + \" (must be coprime to \" + ell + \"; mod \" + N + \" → \" + amod + \")\";\n\n    const cx = 360, cy = 150, R = 110;\n    // outer title\n    const tt = SVG('text',{x:cx, y:28, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)'});\n    tt.textContent = 'μ_'+N+' : '+N+' points';\n    svg.appendChild(tt);\n\n    // circle\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1}));\n    // points\n    const pts = [];\n    for(let k=0;k<N;k++){\n      const th = 2*Math.PI*k/N - Math.PI/2;\n      pts.push([cx + R*Math.cos(th), cy + R*Math.sin(th)]);\n    }\n    // action arrows k -> a*k (mod N), draw only 'primitive' images from a generator\n    for(let k=1;k<N;k++){\n      const j = mod(a*k, N);\n      const [x1,y1] = pts[k], [x2,y2] = pts[j];\n      if(k === j) continue;\n      drawArrow(svg, [x1,y1], [x2,y2], {color:'var(--cyan)', markerId:'cy-arr', width:1, pad1:6, pad2:8, curve:10});\n    }\n    // points on top\n    for(let k=0;k<N;k++){\n      const prim = (gcd(k,N)===1);\n      const r = prim ? 4.5 : 3;\n      svg.appendChild(SVG('circle',{cx:pts[k][0], cy:pts[k][1], r,\n        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'#0b0f16', 'stroke-width':1}));\n    }\n    // center label\n    const c1 = SVG('text',{x:cx, y:cy-6, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    c1.textContent = 'ζ ↦ ζ^'+amod;\n    svg.appendChild(c1);\n    const c2 = SVG('text',{x:cx, y:cy+12, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    c2.textContent = '(Z/'+N+')^× has φ('+N+')='+phi(N)+' units';\n    svg.appendChild(c2);\n\n    const isUnit = (gcd(amod, N) === 1);\n    text.textContent = isUnit\n      ? \"Valid χ(σ) = \"+amod+\" ∈ (Z/\"+N+\")^×. On the \"+N+\"-th roots of unity, σ permutes ζ^k to ζ^(\"+amod+\"·k mod \"+N+\"). Yellow dots are primitive roots; gray dots are higher-order fixed loci.\"\n      : \"NOT a unit: \"+amod+\" shares a factor with \"+N+\", so this is not a Galois action on μ_\"+N+\".\";\n  }\n\n  function phi(n){\n    let r = n, m = n;\n    for(let p=2;p*p<=m;p++){\n      if(m%p===0){ while(m%p===0) m/=p; r -= r/p; }\n    }\n    if(m>1) r -= r/m;\n    return Math.round(r);\n  }\n\n  elSel.addEventListener('change', render);\n  nRng.addEventListener('input', render);\n  aIn.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-cyclo",
+                "viewBox": "0 0 720 300",
+                "width": 720,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"cy-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label for=\"cy-n\">$n$ =</label>\n    <input type=\"range\" id=\"cy-n\" min=\"1\" max=\"3\" step=\"1\" value=\"2\">\n    <span id=\"cy-nlab\" class=\"small\">n=2</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cy-a\">$\\chi(\\sigma)$ =</label>\n    <input type=\"number\" id=\"cy-a\" min=\"1\" value=\"2\" style=\"width:70px\">\n    <span class=\"small\" id=\"cy-ahint\"></span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "cy-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -246,8 +583,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-tate",
-          "html": "<script>\n/* =================== Widget 4 — Tate module tower =================== */\n(function(){\n  const root = document.getElementById('w-tate');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#tt-ell');\n  const btns = root.querySelectorAll('button[data-lvl]');\n  const text = root.querySelector('#tt-text');\n  let lvl = 2;\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const N = Math.pow(ell, lvl);\n\n    // three small lattices in a row\n    const centers = [[170, 170], [400, 170], [630, 170]];\n    const labels  = ['E[ℓ]', 'E[ℓ²]', 'E[ℓ³]'];\n    const exps    = [1, 2, 3];\n    const sizes   = [Math.pow(ell,1), Math.pow(ell,2), Math.pow(ell,3)];\n\n    for(let i=0;i<3;i++){\n      const [cx, cy] = centers[i];\n      const Ni = sizes[i];\n      const isActive = (exps[i] === lvl);\n      // background\n      svg.appendChild(SVG('rect',{x:cx-80, y:cy-80, width:160, height:160, rx:6,\n        fill: isActive ? 'var(--panel2)' : 'var(--panel)',\n        stroke: isActive ? 'var(--yellow)' : 'var(--line)', 'stroke-width':isActive?2:1}));\n      // lattice of Ni × Ni\n      const step = 140/(Ni);\n      for(let a=0;a<Ni;a++) for(let b=0;b<Ni;b++){\n        const x = cx - 70 + step*a + step/2;\n        const y = cy - 70 + step*b + step/2;\n        const r = isActive ? 2.5 : 1.8;\n        svg.appendChild(SVG('circle',{cx:x, cy:y, r,\n          fill: (a===0 && b===0) ? 'var(--green)' : (isActive ? 'var(--yellow)' : 'var(--mute)')}));\n      }\n      const t = SVG('text',{x:cx, y:cy+100, 'text-anchor':'middle', 'font-size':14,\n        fill: isActive ? 'var(--yellow)' : 'var(--ink)', 'font-weight':600});\n      t.textContent = labels[i] + ' (' + Ni + '×' + Ni + ')';\n      svg.appendChild(t);\n      const t2 = SVG('text',{x:cx, y:cy+118, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t2.textContent = '≅ (Z/' + Ni + ')²';\n      svg.appendChild(t2);\n    }\n\n    // [ell] arrows between them (right to left)\n    drawArrow(svg, [centers[1][0] - 90, 170], [centers[0][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-1', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n    drawArrow(svg, [centers[2][0] - 90, 170], [centers[1][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-2', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n\n    // limit label\n    const lim = SVG('text',{x:390, y:40, 'text-anchor':'middle', 'font-size':15, fill:'var(--violet)', 'font-weight':600});\n    lim.textContent = 'T_ℓ E = lim← E[ℓⁿ] ≅ Z_ℓ²';\n    svg.appendChild(lim);\n    const lim2 = SVG('text',{x:390, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim2.textContent = 'ρ_{E,ℓ}: G_Q → GL₂(Z_ℓ)';\n    svg.appendChild(lim2);\n    const lim3 = SVG('text',{x:720, y:45, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim3.textContent = '···';\n    svg.appendChild(lim3);\n\n    text.textContent = \"Level \" + lvl + \": E[ℓ^\" + lvl + \"] ≅ (Z/\" + N + \")² has \" + (N*N)\n      + \" torsion points. Galois acts linearly, giving a continuous ρ: G_Q → GL₂(Z/\" + N + \"). Taking the inverse limit over all levels recovers ρ_{E,ℓ}.\";\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    lvl = parseInt(b.dataset.lvl,10);\n    render();\n  }));\n  elSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-tate",
+            "title": "Widget 4 · The Tate-module tower $\\cdots \\to E[\\ell^3] \\to E[\\ell^2] \\to E[\\ell]$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "click a level to see the $(\\mathbb{Z}/\\ell^n)^2$ lattice it represents",
+            "svgId": "svg-tate",
+            "viewBox": "0 0 780 340",
+            "readoutId": "tt-text",
+            "sectionComment": "=================== Widget 4 — Tate module tower ===================",
+            "bodyScript": "  const root = document.getElementById('w-tate');\n  const svg = root.querySelector('svg');\n  const elSel = root.querySelector('#tt-ell');\n  const btns = root.querySelectorAll('button[data-lvl]');\n  const text = root.querySelector('#tt-text');\n  let lvl = 2;\n\n  function render(){\n    svg.innerHTML = '';\n    const ell = parseInt(elSel.value,10);\n    const N = Math.pow(ell, lvl);\n\n    // three small lattices in a row\n    const centers = [[170, 170], [400, 170], [630, 170]];\n    const labels  = ['E[ℓ]', 'E[ℓ²]', 'E[ℓ³]'];\n    const exps    = [1, 2, 3];\n    const sizes   = [Math.pow(ell,1), Math.pow(ell,2), Math.pow(ell,3)];\n\n    for(let i=0;i<3;i++){\n      const [cx, cy] = centers[i];\n      const Ni = sizes[i];\n      const isActive = (exps[i] === lvl);\n      // background\n      svg.appendChild(SVG('rect',{x:cx-80, y:cy-80, width:160, height:160, rx:6,\n        fill: isActive ? 'var(--panel2)' : 'var(--panel)',\n        stroke: isActive ? 'var(--yellow)' : 'var(--line)', 'stroke-width':isActive?2:1}));\n      // lattice of Ni × Ni\n      const step = 140/(Ni);\n      for(let a=0;a<Ni;a++) for(let b=0;b<Ni;b++){\n        const x = cx - 70 + step*a + step/2;\n        const y = cy - 70 + step*b + step/2;\n        const r = isActive ? 2.5 : 1.8;\n        svg.appendChild(SVG('circle',{cx:x, cy:y, r,\n          fill: (a===0 && b===0) ? 'var(--green)' : (isActive ? 'var(--yellow)' : 'var(--mute)')}));\n      }\n      const t = SVG('text',{x:cx, y:cy+100, 'text-anchor':'middle', 'font-size':14,\n        fill: isActive ? 'var(--yellow)' : 'var(--ink)', 'font-weight':600});\n      t.textContent = labels[i] + ' (' + Ni + '×' + Ni + ')';\n      svg.appendChild(t);\n      const t2 = SVG('text',{x:cx, y:cy+118, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n      t2.textContent = '≅ (Z/' + Ni + ')²';\n      svg.appendChild(t2);\n    }\n\n    // [ell] arrows between them (right to left)\n    drawArrow(svg, [centers[1][0] - 90, 170], [centers[0][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-1', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n    drawArrow(svg, [centers[2][0] - 90, 170], [centers[1][0] + 90, 170],\n      {color:'var(--cyan)', markerId:'tt-2', pad1:2, pad2:2, label:'[ℓ]', width:1.8});\n\n    // limit label\n    const lim = SVG('text',{x:390, y:40, 'text-anchor':'middle', 'font-size':15, fill:'var(--violet)', 'font-weight':600});\n    lim.textContent = 'T_ℓ E = lim← E[ℓⁿ] ≅ Z_ℓ²';\n    svg.appendChild(lim);\n    const lim2 = SVG('text',{x:390, y:60, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim2.textContent = 'ρ_{E,ℓ}: G_Q → GL₂(Z_ℓ)';\n    svg.appendChild(lim2);\n    const lim3 = SVG('text',{x:720, y:45, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});\n    lim3.textContent = '···';\n    svg.appendChild(lim3);\n\n    text.textContent = \"Level \" + lvl + \": E[ℓ^\" + lvl + \"] ≅ (Z/\" + N + \")² has \" + (N*N)\n      + \" torsion points. Galois acts linearly, giving a continuous ρ: G_Q → GL₂(Z/\" + N + \"). Taking the inverse limit over all levels recovers ρ_{E,ℓ}.\";\n  }\n\n  btns.forEach(b => b.addEventListener('click', () => {\n    btns.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    lvl = parseInt(b.dataset.lvl,10);\n    render();\n  }));\n  elSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-tate",
+                "viewBox": "0 0 780 340",
+                "width": 780,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$\\ell$ =</label>\n    <select id=\"tt-ell\"><option>2</option><option selected>3</option><option>5</option></select>\n    <label>level:</label>\n    <button data-lvl=\"1\">$E[\\ell]$</button>\n    <button data-lvl=\"2\" class=\"active\">$E[\\ell^2]$</button>\n    <button data-lvl=\"3\">$E[\\ell^3]$</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "tt-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -255,8 +620,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-matrix",
-          "html": "<script>\n/* =================== Widget 5 — Frobenius matrix dial =================== */\n(function(){\n  const root = document.getElementById('w-matrix');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#mx-p');\n  const aR  = root.querySelector('#mx-a');\n  const aLab = root.querySelector('#mx-alab');\n  const text = root.querySelector('#mx-text');\n\n  function clampA(a, p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    // LEFT: matrix box\n    const mx = 170, my = 170;\n    svg.appendChild(SVG('rect',{x:mx-120, y:my-90, width:240, height:180, rx:8,\n      fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5}));\n    const tt = SVG('text',{x:mx, y:my-60, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'representative of ρ(Frob_p)';\n    svg.appendChild(tt);\n    // choose rational conjugacy-class representative with tr=a, det=p\n    // use companion matrix [[0,-p],[1,a]] so tr = a, det = p\n    const rows = [\n      ['0', String(-p)],\n      ['1', String(a)]\n    ];\n    for(let r=0;r<2;r++) for(let c=0;c<2;c++){\n      const x = mx - 55 + c*70, y = my - 20 + r*42;\n      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'#0b0f16', stroke:'var(--line)'}));\n      const t = SVG('text',{x, y:y+5, 'text-anchor':'middle', 'font-size':15, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = rows[r][c];\n      svg.appendChild(t);\n    }\n\n    // brackets\n    for(const xb of [mx-82, mx+82]){\n      const dir = xb<mx ? 1 : -1;\n      svg.appendChild(SVG('path',{d:`M${xb+dir*6} ${my-40} L${xb} ${my-40} L${xb} ${my+40} L${xb+dir*6} ${my+40}`,\n        fill:'none', stroke:'var(--ink)', 'stroke-width':1.8}));\n    }\n\n    // RIGHT: characteristic polynomial + eigenvalues\n    const rx = 550, ry = 80;\n    const chrt = SVG('text',{x:rx, y:ry, 'text-anchor':'middle', 'font-size':16, fill:'var(--yellow)', 'font-weight':600});\n    chrt.textContent = \"char poly: t² − \"+a+\"t + \"+p;\n    svg.appendChild(chrt);\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let ev = '';\n    let complex = false;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      ev = 'α = ' + ((a+s)/2).toFixed(3) + ', β = ' + ((a-s)/2).toFixed(3);\n    } else {\n      const s = Math.sqrt(-disc);\n      ev = 'α = ' + (a/2).toFixed(3) + ' + ' + (s/2).toFixed(3) + 'i,  β = conj';\n      complex = true;\n    }\n    const ep = SVG('text',{x:rx, y:ry+26, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n    ep.textContent = ev;\n    svg.appendChild(ep);\n\n    // circle of radius √p\n    const cx = 570, cy = 230, R = 80;\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));\n    svg.appendChild(SVG('line',{x1:cx-R-10, y1:cy, x2:cx+R+10, y2:cy, stroke:'var(--line)', 'stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-10, x2:cx, y2:cy+R+10, stroke:'var(--line)', 'stroke-width':0.5}));\n    const rlab = SVG('text',{x:cx+R+14, y:cy+4, 'text-anchor':'start', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+Math.sqrt(p).toFixed(2);\n    svg.appendChild(rlab);\n\n    // plot eigenvalues\n    const sp = Math.sqrt(p);\n    let a1, a2;\n    if(complex){\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re: a/2, im: s};\n      a2 = {re: a/2, im: -s};\n    } else {\n      const s = Math.sqrt(disc);\n      a1 = {re: (a+s)/2, im:0};\n      a2 = {re: (a-s)/2, im:0};\n    }\n    for(const pt of [a1,a2]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'#0b0f16', 'stroke-width':1.5}));\n    }\n\n    text.textContent = \"Representative matrix with trace \" + a + \" and determinant \" + p + \". Characteristic polynomial t² − \" + a + \"t + \" + p + \". \"\n      + (complex ? \"Complex-conjugate eigenvalues, both of modulus √p.\" : \"Real eigenvalues (only possible when a² = 4p, i.e. on the boundary).\")\n      + \"  |a| ≤ 2√p = \" + (2*Math.sqrt(p)).toFixed(2) + \".\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-matrix",
+            "title": "Widget 5 · The Frobenius matrix dial",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "slide $a_p$ within $[-2\\sqrt{p},\\,2\\sqrt{p}]$; eigenvalues move on a circle of radius $\\sqrt{p}$",
+            "svgId": "svg-matrix",
+            "viewBox": "0 0 760 340",
+            "readoutId": "mx-text",
+            "sectionComment": "=================== Widget 5 — Frobenius matrix dial ===================",
+            "bodyScript": "  const root = document.getElementById('w-matrix');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#mx-p');\n  const aR  = root.querySelector('#mx-a');\n  const aLab = root.querySelector('#mx-alab');\n  const text = root.querySelector('#mx-text');\n\n  function clampA(a, p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    // LEFT: matrix box\n    const mx = 170, my = 170;\n    svg.appendChild(SVG('rect',{x:mx-120, y:my-90, width:240, height:180, rx:8,\n      fill:'var(--panel2)', stroke:'var(--yellow)', 'stroke-width':1.5}));\n    const tt = SVG('text',{x:mx, y:my-60, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'representative of ρ(Frob_p)';\n    svg.appendChild(tt);\n    // choose rational conjugacy-class representative with tr=a, det=p\n    // use companion matrix [[0,-p],[1,a]] so tr = a, det = p\n    const rows = [\n      ['0', String(-p)],\n      ['1', String(a)]\n    ];\n    for(let r=0;r<2;r++) for(let c=0;c<2;c++){\n      const x = mx - 55 + c*70, y = my - 20 + r*42;\n      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'#0b0f16', stroke:'var(--line)'}));\n      const t = SVG('text',{x, y:y+5, 'text-anchor':'middle', 'font-size':15, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = rows[r][c];\n      svg.appendChild(t);\n    }\n\n    // brackets\n    for(const xb of [mx-82, mx+82]){\n      const dir = xb<mx ? 1 : -1;\n      svg.appendChild(SVG('path',{d:`M${xb+dir*6} ${my-40} L${xb} ${my-40} L${xb} ${my+40} L${xb+dir*6} ${my+40}`,\n        fill:'none', stroke:'var(--ink)', 'stroke-width':1.8}));\n    }\n\n    // RIGHT: characteristic polynomial + eigenvalues\n    const rx = 550, ry = 80;\n    const chrt = SVG('text',{x:rx, y:ry, 'text-anchor':'middle', 'font-size':16, fill:'var(--yellow)', 'font-weight':600});\n    chrt.textContent = \"char poly: t² − \"+a+\"t + \"+p;\n    svg.appendChild(chrt);\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let ev = '';\n    let complex = false;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      ev = 'α = ' + ((a+s)/2).toFixed(3) + ', β = ' + ((a-s)/2).toFixed(3);\n    } else {\n      const s = Math.sqrt(-disc);\n      ev = 'α = ' + (a/2).toFixed(3) + ' + ' + (s/2).toFixed(3) + 'i,  β = conj';\n      complex = true;\n    }\n    const ep = SVG('text',{x:rx, y:ry+26, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n    ep.textContent = ev;\n    svg.appendChild(ep);\n\n    // circle of radius √p\n    const cx = 570, cy = 230, R = 80;\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));\n    svg.appendChild(SVG('line',{x1:cx-R-10, y1:cy, x2:cx+R+10, y2:cy, stroke:'var(--line)', 'stroke-width':0.5}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-10, x2:cx, y2:cy+R+10, stroke:'var(--line)', 'stroke-width':0.5}));\n    const rlab = SVG('text',{x:cx+R+14, y:cy+4, 'text-anchor':'start', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+Math.sqrt(p).toFixed(2);\n    svg.appendChild(rlab);\n\n    // plot eigenvalues\n    const sp = Math.sqrt(p);\n    let a1, a2;\n    if(complex){\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re: a/2, im: s};\n      a2 = {re: a/2, im: -s};\n    } else {\n      const s = Math.sqrt(disc);\n      a1 = {re: (a+s)/2, im:0};\n      a2 = {re: (a-s)/2, im:0};\n    }\n    for(const pt of [a1,a2]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'#0b0f16', 'stroke-width':1.5}));\n    }\n\n    text.textContent = \"Representative matrix with trace \" + a + \" and determinant \" + p + \". Characteristic polynomial t² − \" + a + \"t + \" + p + \". \"\n      + (complex ? \"Complex-conjugate eigenvalues, both of modulus √p.\" : \"Real eigenvalues (only possible when a² = 4p, i.e. on the boundary).\")\n      + \"  |a| ≤ 2√p = \" + (2*Math.sqrt(p)).toFixed(2) + \".\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-matrix",
+                "viewBox": "0 0 760 340",
+                "width": 760,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"mx-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"mx-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"mx-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"mx-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "mx-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -264,8 +657,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-apbar",
-          "html": "<script>\n/* =================== Widget 6 — a_p bar chart =================== */\n(function(){\n  const root = document.getElementById('w-apbar');\n  const svg = root.querySelector('svg');\n  const curSel = root.querySelector('#ap-curve');\n  const envCk = root.querySelector('#ap-env');\n  const text = root.querySelector('#ap-text');\n\n  // simple point-count for y^2 + a1 xy + a3 y = x^3 + a2 x^2 + a4 x + a6\n  function countPts(p, coeffs){\n    const {a1=0, a2=0, a3=0, a4=0, a6=0} = coeffs;\n    let n = 1; // point at infinity\n    for(let x=0;x<p;x++){\n      const rhs = mod(x*x*x + a2*x*x + a4*x + a6, p);\n      // y^2 + (a1 x + a3) y = rhs  <=>  y^2 + By = rhs  where B = a1 x + a3\n      const B = mod(a1*x + a3, p);\n      for(let y=0;y<p;y++){\n        if(mod(y*y + B*y - rhs, p) === 0) n++;\n      }\n    }\n    return n;\n  }\n\n  // detect discriminant zero by a crude scan: if point count matches degenerate pattern, skip\n  const curves = {\n    A: {label:'y² = x³ − x', coeffs:{a4:-1}, badPrimes:[2]},\n    B: {label:'y² + y = x³ − x²', coeffs:{a2:-1, a3:1}, badPrimes:[11]},\n    C: {label:'y² = x³ − 43x + 166', coeffs:{a4:-43, a6:166}, badPrimes:[2,13]}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const cur = curves[curSel.value];\n    const ps = primesUpTo(100);\n    const W = 820, H = 300;\n    const marL = 40, marR = 20, marT = 40, marB = 40;\n    const plotW = W - marL - marR;\n    const plotH = H - marT - marB;\n\n    // compute a_p for each p\n    const vals = [];\n    let maxAbs = 0;\n    for(const p of ps){\n      if(cur.badPrimes.includes(p)){ vals.push({p, ap:null}); continue; }\n      if(p>50){ vals.push({p, ap:null, skip:true}); continue; } // avoid slow point-count at large p in browser\n      const np = countPts(p, cur.coeffs);\n      const ap = p + 1 - np;\n      vals.push({p, ap});\n      if(Math.abs(ap) > maxAbs) maxAbs = Math.abs(ap);\n    }\n    // for p>50 use Hasse bound as placeholder\n    for(const v of vals) if(v.skip) maxAbs = Math.max(maxAbs, 2*Math.sqrt(v.p));\n    if(maxAbs < 4) maxAbs = 4;\n\n    // axes\n    const y0 = marT + plotH/2;\n    svg.appendChild(SVG('line',{x1:marL, y1:y0, x2:W-marR, y2:y0, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:marL, y1:marT, x2:marL, y2:H-marB, stroke:'var(--line)', 'stroke-width':1}));\n\n    // bars\n    const n = ps.length;\n    const bw = plotW / n * 0.8;\n    for(let i=0;i<n;i++){\n      const v = vals[i];\n      const x = marL + plotW*(i+0.5)/n;\n      if(v.ap === null && !v.skip){\n        // bad prime\n        svg.appendChild(SVG('rect',{x:x-bw/2, y:marT, width:bw, height:plotH, fill:'rgba(224,122,95,0.12)'}));\n        continue;\n      }\n      if(v.skip) continue;\n      const h = plotH/2 * (v.ap / maxAbs);\n      svg.appendChild(SVG('rect',{x:x-bw/2, y: v.ap>=0 ? y0-h : y0, width:bw, height:Math.abs(h),\n        fill: v.ap===0 ? 'var(--mute)' : (v.ap>0 ? 'var(--green)' : 'var(--pink)')}));\n    }\n    // selected prime labels\n    const pickLabels = [2,7,17,31,47];\n    for(let i=0;i<n;i++){\n      if(!pickLabels.includes(ps[i])) continue;\n      const x = marL + plotW*(i+0.5)/n;\n      const t = SVG('text',{x, y:H-marB+14, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'});\n      t.textContent = ps[i];\n      svg.appendChild(t);\n    }\n\n    // Hasse envelope\n    if(envCk.checked){\n      const path1 = [], path2 = [];\n      for(let i=0;i<n;i++){\n        const p = ps[i];\n        const x = marL + plotW*(i+0.5)/n;\n        const h = plotH/2 * (2*Math.sqrt(p) / maxAbs);\n        path1.push([x, y0-h]);\n        path2.push([x, y0+h]);\n      }\n      const d1 = 'M' + path1.map(p=>p.join(' ')).join(' L');\n      const d2 = 'M' + path2.map(p=>p.join(' ')).join(' L');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n      svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n    }\n\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'});\n    tt.textContent = 'a_p for ' + cur.label + ' (red shade = bad reduction)';\n    svg.appendChild(tt);\n\n    // readout: list first few ap\n    const first = vals.filter(v=>v.ap!==null && !v.skip).slice(0, 10)\n      .map(v => 'a_'+v.p+'='+v.ap).join(', ');\n    text.textContent = first + '.  Dashed violet lines are the Hasse envelope ±2√p.';\n  }\n\n  curSel.addEventListener('change', render);\n  envCk.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-apbar",
+            "title": "Widget 6 · $a_p$ bar chart for $E: y^2 = x^3 - x$, primes $p \\le 100$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "bars obey the Hasse bound; half are zero (the CM symmetry)",
+            "svgId": "svg-apbar",
+            "viewBox": "0 0 820 300",
+            "readoutId": "ap-text",
+            "sectionComment": "=================== Widget 6 — a_p bar chart ===================",
+            "bodyScript": "  const root = document.getElementById('w-apbar');\n  const svg = root.querySelector('svg');\n  const curSel = root.querySelector('#ap-curve');\n  const envCk = root.querySelector('#ap-env');\n  const text = root.querySelector('#ap-text');\n\n  // simple point-count for y^2 + a1 xy + a3 y = x^3 + a2 x^2 + a4 x + a6\n  function countPts(p, coeffs){\n    const {a1=0, a2=0, a3=0, a4=0, a6=0} = coeffs;\n    let n = 1; // point at infinity\n    for(let x=0;x<p;x++){\n      const rhs = mod(x*x*x + a2*x*x + a4*x + a6, p);\n      // y^2 + (a1 x + a3) y = rhs  <=>  y^2 + By = rhs  where B = a1 x + a3\n      const B = mod(a1*x + a3, p);\n      for(let y=0;y<p;y++){\n        if(mod(y*y + B*y - rhs, p) === 0) n++;\n      }\n    }\n    return n;\n  }\n\n  // detect discriminant zero by a crude scan: if point count matches degenerate pattern, skip\n  const curves = {\n    A: {label:'y² = x³ − x', coeffs:{a4:-1}, badPrimes:[2]},\n    B: {label:'y² + y = x³ − x²', coeffs:{a2:-1, a3:1}, badPrimes:[11]},\n    C: {label:'y² = x³ − 43x + 166', coeffs:{a4:-43, a6:166}, badPrimes:[2,13]}\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const cur = curves[curSel.value];\n    const ps = primesUpTo(100);\n    const W = 820, H = 300;\n    const marL = 40, marR = 20, marT = 40, marB = 40;\n    const plotW = W - marL - marR;\n    const plotH = H - marT - marB;\n\n    // compute a_p for each p\n    const vals = [];\n    let maxAbs = 0;\n    for(const p of ps){\n      if(cur.badPrimes.includes(p)){ vals.push({p, ap:null}); continue; }\n      if(p>50){ vals.push({p, ap:null, skip:true}); continue; } // avoid slow point-count at large p in browser\n      const np = countPts(p, cur.coeffs);\n      const ap = p + 1 - np;\n      vals.push({p, ap});\n      if(Math.abs(ap) > maxAbs) maxAbs = Math.abs(ap);\n    }\n    // for p>50 use Hasse bound as placeholder\n    for(const v of vals) if(v.skip) maxAbs = Math.max(maxAbs, 2*Math.sqrt(v.p));\n    if(maxAbs < 4) maxAbs = 4;\n\n    // axes\n    const y0 = marT + plotH/2;\n    svg.appendChild(SVG('line',{x1:marL, y1:y0, x2:W-marR, y2:y0, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:marL, y1:marT, x2:marL, y2:H-marB, stroke:'var(--line)', 'stroke-width':1}));\n\n    // bars\n    const n = ps.length;\n    const bw = plotW / n * 0.8;\n    for(let i=0;i<n;i++){\n      const v = vals[i];\n      const x = marL + plotW*(i+0.5)/n;\n      if(v.ap === null && !v.skip){\n        // bad prime\n        svg.appendChild(SVG('rect',{x:x-bw/2, y:marT, width:bw, height:plotH, fill:'rgba(224,122,95,0.12)'}));\n        continue;\n      }\n      if(v.skip) continue;\n      const h = plotH/2 * (v.ap / maxAbs);\n      svg.appendChild(SVG('rect',{x:x-bw/2, y: v.ap>=0 ? y0-h : y0, width:bw, height:Math.abs(h),\n        fill: v.ap===0 ? 'var(--mute)' : (v.ap>0 ? 'var(--green)' : 'var(--pink)')}));\n    }\n    // selected prime labels\n    const pickLabels = [2,7,17,31,47];\n    for(let i=0;i<n;i++){\n      if(!pickLabels.includes(ps[i])) continue;\n      const x = marL + plotW*(i+0.5)/n;\n      const t = SVG('text',{x, y:H-marB+14, 'text-anchor':'middle', 'font-size':10, fill:'var(--mute)'});\n      t.textContent = ps[i];\n      svg.appendChild(t);\n    }\n\n    // Hasse envelope\n    if(envCk.checked){\n      const path1 = [], path2 = [];\n      for(let i=0;i<n;i++){\n        const p = ps[i];\n        const x = marL + plotW*(i+0.5)/n;\n        const h = plotH/2 * (2*Math.sqrt(p) / maxAbs);\n        path1.push([x, y0-h]);\n        path2.push([x, y0+h]);\n      }\n      const d1 = 'M' + path1.map(p=>p.join(' ')).join(' L');\n      const d2 = 'M' + path2.map(p=>p.join(' ')).join(' L');\n      svg.appendChild(SVG('path',{d:d1, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n      svg.appendChild(SVG('path',{d:d2, fill:'none', stroke:'var(--violet)', 'stroke-width':1.3, 'stroke-dasharray':'3 3'}));\n    }\n\n    // title\n    const tt = SVG('text',{x:W/2, y:20, 'text-anchor':'middle', 'font-size':13, fill:'var(--yellow)'});\n    tt.textContent = 'a_p for ' + cur.label + ' (red shade = bad reduction)';\n    svg.appendChild(tt);\n\n    // readout: list first few ap\n    const first = vals.filter(v=>v.ap!==null && !v.skip).slice(0, 10)\n      .map(v => 'a_'+v.p+'='+v.ap).join(', ');\n    text.textContent = first + '.  Dashed violet lines are the Hasse envelope ±2√p.';\n  }\n\n  curSel.addEventListener('change', render);\n  envCk.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-apbar",
+                "viewBox": "0 0 820 300",
+                "width": 820,
+                "height": 300
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve:</label>\n    <select id=\"ap-curve\">\n      <option value=\"A\">$y^2 = x^3 - x$ (conductor 32, CM)</option>\n      <option value=\"B\" selected>$y^2 + y = x^3 - x^2$ (conductor 11)</option>\n      <option value=\"C\">$y^2 = x^3 - 43x + 166$ (conductor 26)</option>\n    </select>\n    <label for=\"ap-env\">show Hasse envelope:</label>\n    <input type=\"checkbox\" id=\"ap-env\" checked>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "ap-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -273,8 +694,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-hasse",
-          "html": "<script>\n/* =================== Widget 7 — Hasse disk =================== */\n(function(){\n  const root = document.getElementById('w-hasse');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#hs-p');\n  const aR = root.querySelector('#hs-a');\n  const aLab = root.querySelector('#hs-alab');\n  const text = root.querySelector('#hs-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n    const sp = Math.sqrt(p);\n\n    const cx = 320, cy = 170, R = 120;\n    // disk\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'rgba(88,196,221,0.06)', stroke:'var(--blue)', 'stroke-width':1.5, 'stroke-dasharray':'5 3'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:cx-R-30, y1:cy, x2:cx+R+30, y2:cy, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-30, x2:cx, y2:cy+R+30, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('text',{x:cx+R+20, y:cy+16, 'font-size':11, fill:'var(--mute)'}))\n      .textContent = 'Re';\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let a1, a2;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      a1 = {re:(a+s)/2, im:0};\n      a2 = {re:(a-s)/2, im:0};\n    } else {\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re:a/2, im:s};\n      a2 = {re:a/2, im:-s};\n    }\n    // mapping: unit circle of radius sp maps to radius R\n    for(const [pt, col] of [[a1,'var(--yellow)'],[a2,'var(--pink)']]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'#0b0f16', 'stroke-width':1.5}));\n      // dashed line to origin\n      svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:sx, y2:sy, stroke:col, 'stroke-width':1, 'stroke-dasharray':'3 3', opacity:0.5}));\n    }\n\n    // label radius\n    const rlab = SVG('text',{x:cx+R*0.70, y:cy-R*0.70-6, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+sp.toFixed(2);\n    svg.appendChild(rlab);\n\n    // text box on right\n    const tx = 480;\n    let ty = 70;\n    const add = (s, col='var(--ink)', sz=13) => {\n      const t = SVG('text',{x:tx, y:ty, 'font-size':sz, fill:col});\n      t.textContent = s; svg.appendChild(t); ty += sz+5;\n    };\n    add('p = ' + p, 'var(--yellow)', 14);\n    add('a_p = ' + a);\n    add('disc = a² − 4p = ' + disc);\n    add('|α| = |β| = √p = ' + sp.toFixed(3));\n    add('α + β = ' + a);\n    add('α · β = ' + p);\n    if(disc < 0){\n      add('eigenvalues: complex conjugate', 'var(--cyan)', 12);\n    } else if(disc === 0){\n      add('repeated root (supersingular in char p)', 'var(--pink)', 12);\n    } else {\n      add('real eigenvalues — on circle boundary', 'var(--pink)', 12);\n    }\n\n    text.textContent = \"The two Frobenius eigenvalues sit on the circle of radius √p in C. They are complex conjugates exactly when disc = a² − 4p < 0, which is the generic case.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-hasse",
+            "title": "Widget 7 · Hasse disk — eigenvalues of $\\mathrm{Frob}_p$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "the $\\sqrt{p}$-circle; conjugate eigenvalues as two dots",
+            "svgId": "svg-hasse",
+            "viewBox": "0 0 640 340",
+            "readoutId": "hs-text",
+            "sectionComment": "=================== Widget 7 — Hasse disk ===================",
+            "bodyScript": "  const root = document.getElementById('w-hasse');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#hs-p');\n  const aR = root.querySelector('#hs-a');\n  const aLab = root.querySelector('#hs-alab');\n  const text = root.querySelector('#hs-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n    const sp = Math.sqrt(p);\n\n    const cx = 320, cy = 170, R = 120;\n    // disk\n    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'rgba(88,196,221,0.06)', stroke:'var(--blue)', 'stroke-width':1.5, 'stroke-dasharray':'5 3'}));\n    // axes\n    svg.appendChild(SVG('line',{x1:cx-R-30, y1:cy, x2:cx+R+30, y2:cy, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx, y1:cy-R-30, x2:cx, y2:cy+R+30, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('text',{x:cx+R+20, y:cy+16, 'font-size':11, fill:'var(--mute)'}))\n      .textContent = 'Re';\n\n    // eigenvalues\n    const disc = a*a - 4*p;\n    let a1, a2;\n    if(disc >= 0){\n      const s = Math.sqrt(disc);\n      a1 = {re:(a+s)/2, im:0};\n      a2 = {re:(a-s)/2, im:0};\n    } else {\n      const s = Math.sqrt(-disc)/2;\n      a1 = {re:a/2, im:s};\n      a2 = {re:a/2, im:-s};\n    }\n    // mapping: unit circle of radius sp maps to radius R\n    for(const [pt, col] of [[a1,'var(--yellow)'],[a2,'var(--pink)']]){\n      const sx = cx + R * pt.re / sp;\n      const sy = cy - R * pt.im / sp;\n      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'#0b0f16', 'stroke-width':1.5}));\n      // dashed line to origin\n      svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:sx, y2:sy, stroke:col, 'stroke-width':1, 'stroke-dasharray':'3 3', opacity:0.5}));\n    }\n\n    // label radius\n    const rlab = SVG('text',{x:cx+R*0.70, y:cy-R*0.70-6, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    rlab.textContent = '|α|=√p='+sp.toFixed(2);\n    svg.appendChild(rlab);\n\n    // text box on right\n    const tx = 480;\n    let ty = 70;\n    const add = (s, col='var(--ink)', sz=13) => {\n      const t = SVG('text',{x:tx, y:ty, 'font-size':sz, fill:col});\n      t.textContent = s; svg.appendChild(t); ty += sz+5;\n    };\n    add('p = ' + p, 'var(--yellow)', 14);\n    add('a_p = ' + a);\n    add('disc = a² − 4p = ' + disc);\n    add('|α| = |β| = √p = ' + sp.toFixed(3));\n    add('α + β = ' + a);\n    add('α · β = ' + p);\n    if(disc < 0){\n      add('eigenvalues: complex conjugate', 'var(--cyan)', 12);\n    } else if(disc === 0){\n      add('repeated root (supersingular in char p)', 'var(--pink)', 12);\n    } else {\n      add('real eigenvalues — on circle boundary', 'var(--pink)', 12);\n    }\n\n    text.textContent = \"The two Frobenius eigenvalues sit on the circle of radius √p in C. They are complex conjugates exactly when disc = a² − 4p < 0, which is the generic case.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-hasse",
+                "viewBox": "0 0 640 340",
+                "width": 640,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"hs-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option><option>37</option><option>53</option></select>\n    <label for=\"hs-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"hs-a\" min=\"-14\" max=\"14\" step=\"1\" value=\"-2\">\n    <span id=\"hs-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "hs-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -282,8 +731,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-lfac",
-          "html": "<script>\n/* =================== Widget 8 — Local L-factor =================== */\n(function(){\n  const root = document.getElementById('w-lfac');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#lf-p');\n  const aR = root.querySelector('#lf-a');\n  const aLab = root.querySelector('#lf-alab');\n  const text = root.querySelector('#lf-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    const rows = [\n      {y:40,  col:'var(--blue)',   txt:'ρ(Frob_p)  ~  '+(a>=0?'[[α,0],[0,β]]':'[[α,0],[0,β]]')+'   with tr=α+β='+a+', αβ='+p},\n      {y:80,  col:'var(--violet)', txt:'1 − ρ(Frob_p)·p^(−s)  acts on V_ℓ E ⊗ C'},\n      {y:120, col:'var(--yellow)', txt:'det(1 − ρ(Frob_p)·p^(−s))  =  1 − a_p·p^(−s) + p·p^(−2s)'},\n      {y:160, col:'var(--green)',  txt:'L_p(E,s)  =  1 / (1 − '+a+'·p^(−s) + p^(1−2s))'}\n    ];\n    for(const r of rows){\n      svg.appendChild(SVG('rect',{x:20, y:r.y-18, width:680, height:32, rx:4, fill:'var(--panel2)', stroke:r.col, 'stroke-width':1}));\n      const t = SVG('text',{x:40, y:r.y+4, 'font-size':13, fill:r.col, 'font-family':'ui-monospace,monospace'});\n      t.textContent = r.txt;\n      svg.appendChild(t);\n    }\n    const tt = SVG('text',{x:360, y:220, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'L(E,s) = ∏_p L_p(E,s)   (Euler product, valid for Re(s) > 3/2 by Hasse)';\n    svg.appendChild(tt);\n\n    text.textContent = \"The local L-factor at a good prime is the reciprocal of the characteristic polynomial of Frobenius, evaluated at t = p^(−s). The global L-function is the product over all primes.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-lfac",
+            "title": "Widget 8 · Local $L$-factor from Frobenius characteristic polynomial",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "for an elliptic curve, the matrix has characteristic polynomial $t^2 - a_p t + p$",
+            "svgId": "svg-lfac",
+            "viewBox": "0 0 720 260",
+            "readoutId": "lf-text",
+            "sectionComment": "=================== Widget 8 — Local L-factor ===================",
+            "bodyScript": "  const root = document.getElementById('w-lfac');\n  const svg = root.querySelector('svg');\n  const pSel = root.querySelector('#lf-p');\n  const aR = root.querySelector('#lf-a');\n  const aLab = root.querySelector('#lf-alab');\n  const text = root.querySelector('#lf-text');\n\n  function clampA(a,p){\n    const m = Math.floor(2*Math.sqrt(p));\n    return Math.max(-m, Math.min(m, a));\n  }\n  function updateRange(){\n    const p = parseInt(pSel.value,10);\n    const m = Math.floor(2*Math.sqrt(p));\n    aR.min = -m; aR.max = m;\n    aR.value = clampA(parseInt(aR.value,10), p);\n  }\n\n  function render(){\n    svg.innerHTML = '';\n    const p = parseInt(pSel.value,10);\n    updateRange();\n    const a = clampA(parseInt(aR.value,10), p);\n    aLab.textContent = 'a='+a;\n\n    const rows = [\n      {y:40,  col:'var(--blue)',   txt:'ρ(Frob_p)  ~  '+(a>=0?'[[α,0],[0,β]]':'[[α,0],[0,β]]')+'   with tr=α+β='+a+', αβ='+p},\n      {y:80,  col:'var(--violet)', txt:'1 − ρ(Frob_p)·p^(−s)  acts on V_ℓ E ⊗ C'},\n      {y:120, col:'var(--yellow)', txt:'det(1 − ρ(Frob_p)·p^(−s))  =  1 − a_p·p^(−s) + p·p^(−2s)'},\n      {y:160, col:'var(--green)',  txt:'L_p(E,s)  =  1 / (1 − '+a+'·p^(−s) + p^(1−2s))'}\n    ];\n    for(const r of rows){\n      svg.appendChild(SVG('rect',{x:20, y:r.y-18, width:680, height:32, rx:4, fill:'var(--panel2)', stroke:r.col, 'stroke-width':1}));\n      const t = SVG('text',{x:40, y:r.y+4, 'font-size':13, fill:r.col, 'font-family':'ui-monospace,monospace'});\n      t.textContent = r.txt;\n      svg.appendChild(t);\n    }\n    const tt = SVG('text',{x:360, y:220, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tt.textContent = 'L(E,s) = ∏_p L_p(E,s)   (Euler product, valid for Re(s) > 3/2 by Hasse)';\n    svg.appendChild(tt);\n\n    text.textContent = \"The local L-factor at a good prime is the reciprocal of the characteristic polynomial of Frobenius, evaluated at t = p^(−s). The global L-function is the product over all primes.\";\n  }\n\n  pSel.addEventListener('change', render);\n  aR.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-lfac",
+                "viewBox": "0 0 720 260",
+                "width": 720,
+                "height": 260
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>$p$ =</label>\n    <select id=\"lf-p\"><option>5</option><option>7</option><option selected>11</option><option>13</option><option>17</option><option>23</option></select>\n    <label for=\"lf-a\">$a_p$ =</label>\n    <input type=\"range\" id=\"lf-a\" min=\"-12\" max=\"12\" step=\"1\" value=\"-2\">\n    <span id=\"lf-alab\" class=\"small\">a=-2</span>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lf-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -291,8 +768,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-deligne",
-          "html": "<script>\n/* =================== Widget 9 — Eigenform → Galois rep =================== */\n(function(){\n  const root = document.getElementById('w-deligne');\n  const svg = root.querySelector('svg');\n  const fSel = root.querySelector('#de-f');\n  const text = root.querySelector('#de-text');\n\n  // curated first Fourier coefficients\n  const forms = {\n    N11: {\n      label:'f_{11} on Γ_0(11), weight 2',\n      weight:2, N:11,\n      // a_p for p = 2,3,5,7,11,13,... (well-known)\n      ap:{2:-2, 3:-1, 5:1, 7:-2, 13:4, 17:-2, 19:0, 23:-1, 29:0, 31:7, 37:3, 41:-8, 43:-6, 47:8},\n      note:'Same a_p as the elliptic curve y² + y = x³ − x².'\n    },\n    D12: {\n      label:'Δ = η(τ)^{24}, weight 12, level 1',\n      weight:12, N:1,\n      // Ramanujan τ function values\n      ap:{2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738},\n      note:\"Ramanujan's τ. Deligne proved |τ(p)| ≤ 2 p^(11/2).\"\n    },\n    E4: {\n      label:'E_4 (Eisenstein, NOT cuspidal) weight 4, level 1',\n      weight:4, N:1,\n      // a_p(E_4) = 1 + p^3 if normalized that way; this is reducible\n      ap:{2:9, 3:28, 5:126, 7:344, 11:1332},\n      note:'Eisenstein series are not cuspidal — the attached Galois representation is REDUCIBLE, a sum of two 1-d characters.'\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const key = fSel.value;\n    const F = forms[key];\n\n    // left: q-expansion\n    svg.appendChild(SVG('rect',{x:30, y:30, width:330, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.5}));\n    const t1 = SVG('text',{x:195, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n    t1.textContent = F.label;\n    svg.appendChild(t1);\n    const t1b = SVG('text',{x:195, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1b.textContent = 'f(q) = q + Σ a_n q^n';\n    svg.appendChild(t1b);\n\n    let y = 100;\n    for(const [p, ap] of Object.entries(F.ap).slice(0, 8)){\n      const t = SVG('text',{x:60, y, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = 'a_' + p + ' = ' + ap;\n      svg.appendChild(t);\n      y += 22;\n    }\n\n    // arrow to right\n    drawArrow(svg, [370, 160], [470, 160], {label:'ρ_f', color:'var(--yellow)', markerId:'de-arr', width:2, pad1:4, pad2:4});\n\n    // right: Galois rep box\n    svg.appendChild(SVG('rect',{x:480, y:30, width:320, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--pink)', 'stroke-width':1.5}));\n    const r1 = SVG('text',{x:640, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--pink)', 'font-weight':600});\n    r1.textContent = 'ρ_{f,ℓ}: G_Q → GL_2';\n    svg.appendChild(r1);\n    const r1b = SVG('text',{x:640, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    r1b.textContent = 'unramified outside Nℓ';\n    svg.appendChild(r1b);\n\n    const rules = [\n      'tr ρ(Frob_p) = a_p(f)',\n      'det ρ(Frob_p) = p^{k−1}',\n      'weight k = ' + F.weight,\n      'level N = ' + F.N\n    ];\n    let ry = 110;\n    for(const r of rules){\n      const t = SVG('text',{x:500, y:ry, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = r;\n      svg.appendChild(t);\n      ry += 24;\n    }\n\n    text.textContent = F.note + \" Continuity and compatibility across primes ℓ is part of Deligne's construction.\";\n  }\n\n  fSel.addEventListener('change', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-deligne",
+            "title": "Widget 9 · Eigenform $\\to$ Galois representation",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "three prototypical examples; $a_p$ becomes $\\operatorname{tr}\\rho(\\mathrm{Frob}_p)$",
+            "svgId": "svg-deligne",
+            "viewBox": "0 0 820 320",
+            "readoutId": "de-text",
+            "sectionComment": "=================== Widget 9 — Eigenform → Galois rep ===================",
+            "bodyScript": "  const root = document.getElementById('w-deligne');\n  const svg = root.querySelector('svg');\n  const fSel = root.querySelector('#de-f');\n  const text = root.querySelector('#de-text');\n\n  // curated first Fourier coefficients\n  const forms = {\n    N11: {\n      label:'f_{11} on Γ_0(11), weight 2',\n      weight:2, N:11,\n      // a_p for p = 2,3,5,7,11,13,... (well-known)\n      ap:{2:-2, 3:-1, 5:1, 7:-2, 13:4, 17:-2, 19:0, 23:-1, 29:0, 31:7, 37:3, 41:-8, 43:-6, 47:8},\n      note:'Same a_p as the elliptic curve y² + y = x³ − x².'\n    },\n    D12: {\n      label:'Δ = η(τ)^{24}, weight 12, level 1',\n      weight:12, N:1,\n      // Ramanujan τ function values\n      ap:{2:-24, 3:252, 5:4830, 7:-16744, 11:534612, 13:-577738},\n      note:\"Ramanujan's τ. Deligne proved |τ(p)| ≤ 2 p^(11/2).\"\n    },\n    E4: {\n      label:'E_4 (Eisenstein, NOT cuspidal) weight 4, level 1',\n      weight:4, N:1,\n      // a_p(E_4) = 1 + p^3 if normalized that way; this is reducible\n      ap:{2:9, 3:28, 5:126, 7:344, 11:1332},\n      note:'Eisenstein series are not cuspidal — the attached Galois representation is REDUCIBLE, a sum of two 1-d characters.'\n    }\n  };\n\n  function render(){\n    svg.innerHTML = '';\n    const key = fSel.value;\n    const F = forms[key];\n\n    // left: q-expansion\n    svg.appendChild(SVG('rect',{x:30, y:30, width:330, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.5}));\n    const t1 = SVG('text',{x:195, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--yellow)', 'font-weight':600});\n    t1.textContent = F.label;\n    svg.appendChild(t1);\n    const t1b = SVG('text',{x:195, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    t1b.textContent = 'f(q) = q + Σ a_n q^n';\n    svg.appendChild(t1b);\n\n    let y = 100;\n    for(const [p, ap] of Object.entries(F.ap).slice(0, 8)){\n      const t = SVG('text',{x:60, y, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = 'a_' + p + ' = ' + ap;\n      svg.appendChild(t);\n      y += 22;\n    }\n\n    // arrow to right\n    drawArrow(svg, [370, 160], [470, 160], {label:'ρ_f', color:'var(--yellow)', markerId:'de-arr', width:2, pad1:4, pad2:4});\n\n    // right: Galois rep box\n    svg.appendChild(SVG('rect',{x:480, y:30, width:320, height:260, rx:8, fill:'var(--panel2)', stroke:'var(--pink)', 'stroke-width':1.5}));\n    const r1 = SVG('text',{x:640, y:56, 'text-anchor':'middle', 'font-size':14, fill:'var(--pink)', 'font-weight':600});\n    r1.textContent = 'ρ_{f,ℓ}: G_Q → GL_2';\n    svg.appendChild(r1);\n    const r1b = SVG('text',{x:640, y:76, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});\n    r1b.textContent = 'unramified outside Nℓ';\n    svg.appendChild(r1b);\n\n    const rules = [\n      'tr ρ(Frob_p) = a_p(f)',\n      'det ρ(Frob_p) = p^{k−1}',\n      'weight k = ' + F.weight,\n      'level N = ' + F.N\n    ];\n    let ry = 110;\n    for(const r of rules){\n      const t = SVG('text',{x:500, y:ry, 'font-size':13, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});\n      t.textContent = r;\n      svg.appendChild(t);\n      ry += 24;\n    }\n\n    text.textContent = F.note + \" Continuity and compatibility across primes ℓ is part of Deligne's construction.\";\n  }\n\n  fSel.addEventListener('change', render);\n  render();",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "svg-deligne",
+                "viewBox": "0 0 820 320",
+                "width": 820,
+                "height": 320
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>eigenform:</label>\n    <select id=\"de-f\">\n      <option value=\"N11\" selected>$f_{11}$ (weight 2, level 11)</option>\n      <option value=\"D12\">$\\Delta$ (weight 12, level 1)</option>\n      <option value=\"E4\">$E_4$ (weight 4, non-cuspidal; for comparison)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "de-text"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
