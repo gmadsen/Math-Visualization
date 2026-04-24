@@ -1084,15 +1084,14 @@ $$[h,e] = 2e, \qquad [h,f] = -2f, \qquad [h,h]=0.$$
 <p>For $\mathfrak{sl}_3(\mathbb{C})$, $\mathfrak{h}$ is the 2-dimensional space of traceless diagonal matrices $\operatorname{diag}(h_1,h_2,h_3)$ with $\sum h_i = 0$. Define $\varepsilon_i\in\mathfrak{h}^*$ by $\varepsilon_i(H) = h_i$. The roots are the six functionals $\varepsilon_i - \varepsilon_j$ ($i\ne j$): they form a regular hexagon in the plane $\{\sum h_i = 0\}\cong\mathbb{R}^2$.</p>
 
 <div class="widget" id="w-roots">
-<div class="hd"><span class="ttl">Root systems $A_1$ and $A_2$</span><span class="hint">click a root to apply the Weyl reflection through its perpendicular hyperplane</span></div>
-<div class="tabs">
+  <div class="hd"><span class="ttl">Root systems $A_1$ and $A_2$</span><span class="hint">click a root to apply the Weyl reflection through its perpendicular hyperplane</span></div>
+  <div class="tabs">
   <button id="rt-a1" class="active">$A_1$ (𝔰𝔩₂)</button>
   <button id="rt-a2">$A_2$ (𝔰𝔩₃)</button>
 </div>
-<svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"><title>Root systems $A_1$ and $A_2$</title></svg>
-<div class="small" id="rt-info"></div>
-</div>
-<script>
+  <svg id="rt-svg" viewBox="-180 -160 360 320" width="360" height="320"><title>Root systems $A_1$ and $A_2$</title></svg>
+  <div class="small" id="rt-info"></div>
+</div><script>
 (function(){
   const a1Btn = $('#rt-a1'), a2Btn = $('#rt-a2'), svg = $('#rt-svg'), info = $('#rt-info');
   let mode = 'A1';
