@@ -235,9 +235,7 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg id="et-svg" viewBox="0 0 560 360" width="560" height="360"><title>Étale cover explorer: $t\mapsto t^n$ on $\mathbb{G}_m$</title></svg>
   <div class="readout" id="et-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg=$('#et-svg'), out=$('#et-out'), nSl=$('#et-n'), pSel=$('#et-p'), nVal=$('#et-n-val');
   const cx=280, cyB=260, cyT=120, rB=90, rT=55, M=12;
@@ -353,9 +351,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
   </div>
   <svg id="la-svg" viewBox="0 0 560 160" width="560" height="160"><title>ℓ-adic Betti table</title></svg>
   <div class="readout" id="la-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const sel=$('#la-sel'), out=$('#la-out'), svg=$('#la-svg');
   const gSl=$('#la-g'), dSl=$('#la-d'), gVal=$('#la-g-val'), dVal=$('#la-d-val');
@@ -402,9 +398,7 @@ $$H^i_{\text{ét}}(X,\mathbb{Q}_\ell) \;:=\; \Big(\varprojlim_n H^i_{\text{ét}}
   </div>
   <svg id="tw-svg" viewBox="0 0 560 180" width="560" height="180"><title>Inverse-limit tower sampler</title></svg>
   <div class="readout" id="tw-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const lSel=$('#tw-l'), nSl=$('#tw-n'), nv=$('#tw-nv'), svg=$('#tw-svg'), out=$('#tw-out');
   function render(){
@@ -480,9 +474,7 @@ $$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^
     <span id="lf-m-val" class="small">m = 2</span>
   </div>
   <div class="readout" id="lf-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const sel=$('#lf-sel'), qSel=$('#lf-q'), nSl=$('#lf-n'), nv=$('#lf-n-val');
   const gSl=$('#lf-g'), gv=$('#lf-g-val'), aSl=$('#lf-a'), av=$('#lf-a-val');
@@ -548,9 +540,7 @@ $$\#X(\mathbb{F}_{q^m}) \;=\; \sum_{i=0}^{2\dim X}(-1)^i\,\mathrm{Tr}\!\big(F_q^
   <svg id="l2-svg" viewBox="0 0 560 220" width="560" height="220"><title>Betti numbers → Lefschetz point count</title></svg>
   <div class="readout" id="l2-out"></div>
   <div class="small" id="l2-small" style="margin-top:.4rem"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const sel=$('#l2-sel'), qSel=$('#l2-q'), mSl=$('#l2-m'), mv=$('#l2-mv');
   const svg=$('#l2-svg'), out=$('#l2-out'), small=$('#l2-small');
@@ -698,9 +688,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
   </div>
   <svg id="we-svg" viewBox="0 0 560 300" width="560" height="300"><title>Zeta-function factoring for $E/\mathbb{F}_q$</title></svg>
   <div class="readout" id="we-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const sel=$('#we-sel'), out=$('#we-out'), svg=$('#we-svg');
   const qSel=$('#we-q'), aSl=$('#we-a'), aVal=$('#we-a-val'), rowA=$('#we-row-a');
@@ -768,9 +756,7 @@ $$Z(X,t) \;=\; \prod_{i=0}^{2\dim X}\det\!\big(1 - t\,\operatorname{Frob}_q\,\bi
   <svg id="sc-svg" viewBox="0 0 560 320" width="560" height="320"><title>Frobenius eigenvalue sweep on the Riemann sphere</title></svg>
   <div class="readout" id="sc-out"></div>
   <div class="small" id="sc-small" style="margin-top:.4rem"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const mode=$('#sc-mode'), qSel=$('#sc-q'), aSl=$('#sc-a'), av=$('#sc-av');
   const norm=$('#sc-norm'), svg=$('#sc-svg'), out=$('#sc-out'), small=$('#sc-small');
@@ -929,9 +915,7 @@ $$H^i_{\text{ét}}(X_{\bar K},\mathbb{Q}_p)\otimes_{\mathbb{Q}_p}B_{\text{cris}}
   </div>
   <svg id="cm-svg" viewBox="0 0 560 200" width="560" height="200"><title>Pick a geometry, watch the cohomologies line up</title></svg>
   <div class="readout" id="cm-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const sel=$('#cm-sel'), svg=$('#cm-svg'), out=$('#cm-out');
   const data={
