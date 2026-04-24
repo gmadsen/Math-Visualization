@@ -333,8 +333,79 @@
         {
           "type": "widget",
           "id": "w-cover",
-          "html": "<div class=\"widget\" id=\"w-cover\">\n<div class=\"hd\"><span class=\"ttl\">SU(2) → SO(3) double cover</span><span class=\"hint\">$q\\mapsto R(q) = R(-q)$</span></div>\n<div class=\"row\"><label for=\"qv-a\">$a$</label><input type=\"range\" id=\"qv-a\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.7\"><span class=\"readout\" id=\"qv-ar\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"qv-b\">$b$</label><input type=\"range\" id=\"qv-b\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.4\"><span class=\"readout\" id=\"qv-br\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"qv-c\">$c$</label><input type=\"range\" id=\"qv-c\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.3\"><span class=\"readout\" id=\"qv-cr\" style=\"min-width:55px\"></span></div>\n<div class=\"row\"><label for=\"qv-d\">$d$</label><input type=\"range\" id=\"qv-d\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.5\"><span class=\"readout\" id=\"qv-dr\" style=\"min-width:55px\"></span></div>\n<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">normalised quaternion $q$</div>\n    <div class=\"readout\" id=\"qv-q\" style=\"min-width:280px\"></div>\n    <div style=\"margin-top:.6rem\">\n      <button id=\"qv-flip\">flip $q \\to -q$</button>\n      <button id=\"qv-rand\">random</button>\n    </div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$R(q)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"qv-R\"></div>\n  </div>\n</div>\n<div class=\"small\" id=\"qv-info\"></div>\n</div>",
-          "script": "\n<script>\n(function(){\n  const sa = $('#qv-a'), sb = $('#qv-b'), sc = $('#qv-c'), sd = $('#qv-d');\n  const ra = $('#qv-ar'), rb = $('#qv-br'), rc = $('#qv-cr'), rd = $('#qv-dr');\n  const qOut = $('#qv-q'), Rgrid = $('#qv-R'), info = $('#qv-info');\n  const flip = $('#qv-flip'), rand = $('#qv-rand');\n  let lastR = null;\n  function update(){\n    let a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    const N = Math.hypot(a,b,c,d) || 1;\n    a/=N; b/=N; c/=N; d/=N;\n    ra.textContent = a.toFixed(3); rb.textContent = b.toFixed(3);\n    rc.textContent = c.toFixed(3); rd.textContent = d.toFixed(3);\n    qOut.textContent = `q = ${a.toFixed(3)} + ${b.toFixed(3)}i + ${c.toFixed(3)}j + ${d.toFixed(3)}k\\n‖q‖ = ${(a*a+b*b+c*c+d*d).toFixed(4)}`;\n    const R = [\n      [a*a+b*b-c*c-d*d, 2*(b*c-a*d),       2*(b*d+a*c)],\n      [2*(b*c+a*d),     a*a-b*b+c*c-d*d,   2*(c*d-a*b)],\n      [2*(b*d-a*c),     2*(c*d+a*b),       a*a-b*b-c*c+d*d]\n    ];\n    renderMat(Rgrid, R, 3);\n    let same = '';\n    if(lastR){\n      let diff = 0;\n      for(let i=0;i<3;i++) for(let j=0;j<3;j++) diff += Math.abs(R[i][j] - lastR[i][j]);\n      same = diff < 1e-6 ? '  ←  identical to previous (kernel element ±I)' : '';\n    }\n    lastR = R;\n    info.textContent = `det R = ${(R[0][0]*(R[1][1]*R[2][2]-R[1][2]*R[2][1]) - R[0][1]*(R[1][0]*R[2][2]-R[1][2]*R[2][0]) + R[0][2]*(R[1][0]*R[2][1]-R[1][1]*R[2][0])).toFixed(4)}${same}`;\n  }\n  [sa,sb,sc,sd].forEach(s => s.addEventListener('input', update));\n  flip.addEventListener('click', ()=>{\n    sa.value = -(+sa.value);\n    sb.value = -(+sb.value);\n    sc.value = -(+sc.value);\n    sd.value = -(+sd.value);\n    update();\n  });\n  rand.addEventListener('click', ()=>{\n    sa.value = (Math.random()*2-1).toFixed(3);\n    sb.value = (Math.random()*2-1).toFixed(3);\n    sc.value = (Math.random()*2-1).toFixed(3);\n    sd.value = (Math.random()*2-1).toFixed(3);\n    update();\n  });\n  update();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cover",
+            "title": "SU(2) → SO(3) double cover",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$q\\mapsto R(q) = R(-q)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-a\">$a$</label><input type=\"range\" id=\"qv-a\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.7\"><span class=\"readout\" id=\"qv-ar\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-b\">$b$</label><input type=\"range\" id=\"qv-b\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.4\"><span class=\"readout\" id=\"qv-br\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-c\">$c$</label><input type=\"range\" id=\"qv-c\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.3\"><span class=\"readout\" id=\"qv-cr\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-d\">$d$</label><input type=\"range\" id=\"qv-d\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.5\"><span class=\"readout\" id=\"qv-dr\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">normalised quaternion $q$</div>\n    <div class=\"readout\" id=\"qv-q\" style=\"min-width:280px\"></div>\n    <div style=\"margin-top:.6rem\">\n      <button id=\"qv-flip\">flip $q \\to -q$</button>\n      <button id=\"qv-rand\">random</button>\n    </div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$R(q)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"qv-R\"></div>\n  </div>\n</div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" id=\"qv-info\"></div>"
+              }
+            ],
+            "bodyScript": "  const sa = $('#qv-a'), sb = $('#qv-b'), sc = $('#qv-c'), sd = $('#qv-d');\n  const ra = $('#qv-ar'), rb = $('#qv-br'), rc = $('#qv-cr'), rd = $('#qv-dr');\n  const qOut = $('#qv-q'), Rgrid = $('#qv-R'), info = $('#qv-info');\n  const flip = $('#qv-flip'), rand = $('#qv-rand');\n  let lastR = null;\n  function update(){\n    let a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    const N = Math.hypot(a,b,c,d) || 1;\n    a/=N; b/=N; c/=N; d/=N;\n    ra.textContent = a.toFixed(3); rb.textContent = b.toFixed(3);\n    rc.textContent = c.toFixed(3); rd.textContent = d.toFixed(3);\n    qOut.textContent = `q = ${a.toFixed(3)} + ${b.toFixed(3)}i + ${c.toFixed(3)}j + ${d.toFixed(3)}k\\n‖q‖ = ${(a*a+b*b+c*c+d*d).toFixed(4)}`;\n    const R = [\n      [a*a+b*b-c*c-d*d, 2*(b*c-a*d),       2*(b*d+a*c)],\n      [2*(b*c+a*d),     a*a-b*b+c*c-d*d,   2*(c*d-a*b)],\n      [2*(b*d-a*c),     2*(c*d+a*b),       a*a-b*b-c*c+d*d]\n    ];\n    renderMat(Rgrid, R, 3);\n    let same = '';\n    if(lastR){\n      let diff = 0;\n      for(let i=0;i<3;i++) for(let j=0;j<3;j++) diff += Math.abs(R[i][j] - lastR[i][j]);\n      same = diff < 1e-6 ? '  ←  identical to previous (kernel element ±I)' : '';\n    }\n    lastR = R;\n    info.textContent = `det R = ${(R[0][0]*(R[1][1]*R[2][2]-R[1][2]*R[2][1]) - R[0][1]*(R[1][0]*R[2][2]-R[1][2]*R[2][0]) + R[0][2]*(R[1][0]*R[2][1]-R[1][1]*R[2][0])).toFixed(4)}${same}`;\n  }\n  [sa,sb,sc,sd].forEach(s => s.addEventListener('input', update));\n  flip.addEventListener('click', ()=>{\n    sa.value = -(+sa.value);\n    sb.value = -(+sb.value);\n    sc.value = -(+sc.value);\n    sd.value = -(+sd.value);\n    update();\n  });\n  rand.addEventListener('click', ()=>{\n    sa.value = (Math.random()*2-1).toFixed(3);\n    sb.value = (Math.random()*2-1).toFixed(3);\n    sc.value = (Math.random()*2-1).toFixed(3);\n    sd.value = (Math.random()*2-1).toFixed(3);\n    update();\n  });\n  update();"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cover",
+            "title": "SU(2) → SO(3) double cover",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$q\\mapsto R(q) = R(-q)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-a\">$a$</label><input type=\"range\" id=\"qv-a\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.7\"><span class=\"readout\" id=\"qv-ar\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-b\">$b$</label><input type=\"range\" id=\"qv-b\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.4\"><span class=\"readout\" id=\"qv-br\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-c\">$c$</label><input type=\"range\" id=\"qv-c\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.3\"><span class=\"readout\" id=\"qv-cr\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\"><label for=\"qv-d\">$d$</label><input type=\"range\" id=\"qv-d\" min=\"-1\" max=\"1\" step=\"0.005\" value=\"0.5\"><span class=\"readout\" id=\"qv-dr\" style=\"min-width:55px\"></span></div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\" style=\"align-items:flex-start;gap:1.2rem;flex-wrap:wrap\">\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">normalised quaternion $q$</div>\n    <div class=\"readout\" id=\"qv-q\" style=\"min-width:280px\"></div>\n    <div style=\"margin-top:.6rem\">\n      <button id=\"qv-flip\">flip $q \\to -q$</button>\n      <button id=\"qv-rand\">random</button>\n    </div>\n  </div>\n  <div>\n    <div class=\"small\" style=\"margin-bottom:.3rem\">$R(q)\\in\\mathrm{SO}(3)$</div>\n    <div class=\"matgrid\" id=\"qv-R\"></div>\n  </div>\n</div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"small\" id=\"qv-info\"></div>"
+              }
+            ],
+            "bodyScript": "  const sa = $('#qv-a'), sb = $('#qv-b'), sc = $('#qv-c'), sd = $('#qv-d');\n  const ra = $('#qv-ar'), rb = $('#qv-br'), rc = $('#qv-cr'), rd = $('#qv-dr');\n  const qOut = $('#qv-q'), Rgrid = $('#qv-R'), info = $('#qv-info');\n  const flip = $('#qv-flip'), rand = $('#qv-rand');\n  let lastR = null;\n  function update(){\n    let a=+sa.value, b=+sb.value, c=+sc.value, d=+sd.value;\n    const N = Math.hypot(a,b,c,d) || 1;\n    a/=N; b/=N; c/=N; d/=N;\n    ra.textContent = a.toFixed(3); rb.textContent = b.toFixed(3);\n    rc.textContent = c.toFixed(3); rd.textContent = d.toFixed(3);\n    qOut.textContent = `q = ${a.toFixed(3)} + ${b.toFixed(3)}i + ${c.toFixed(3)}j + ${d.toFixed(3)}k\\n‖q‖ = ${(a*a+b*b+c*c+d*d).toFixed(4)}`;\n    const R = [\n      [a*a+b*b-c*c-d*d, 2*(b*c-a*d),       2*(b*d+a*c)],\n      [2*(b*c+a*d),     a*a-b*b+c*c-d*d,   2*(c*d-a*b)],\n      [2*(b*d-a*c),     2*(c*d+a*b),       a*a-b*b-c*c+d*d]\n    ];\n    renderMat(Rgrid, R, 3);\n    let same = '';\n    if(lastR){\n      let diff = 0;\n      for(let i=0;i<3;i++) for(let j=0;j<3;j++) diff += Math.abs(R[i][j] - lastR[i][j]);\n      same = diff < 1e-6 ? '  ←  identical to previous (kernel element ±I)' : '';\n    }\n    lastR = R;\n    info.textContent = `det R = ${(R[0][0]*(R[1][1]*R[2][2]-R[1][2]*R[2][1]) - R[0][1]*(R[1][0]*R[2][2]-R[1][2]*R[2][0]) + R[0][2]*(R[1][0]*R[2][1]-R[1][1]*R[2][0])).toFixed(4)}${same}`;\n  }\n  [sa,sb,sc,sd].forEach(s => s.addEventListener('input', update));\n  flip.addEventListener('click', ()=>{\n    sa.value = -(+sa.value);\n    sb.value = -(+sb.value);\n    sc.value = -(+sc.value);\n    sd.value = -(+sd.value);\n    update();\n  });\n  rand.addEventListener('click', ()=>{\n    sa.value = (Math.random()*2-1).toFixed(3);\n    sb.value = (Math.random()*2-1).toFixed(3);\n    sc.value = (Math.random()*2-1).toFixed(3);\n    sd.value = (Math.random()*2-1).toFixed(3);\n    update();\n  });\n  update();"
+          }
         },
         {
           "type": "raw",
