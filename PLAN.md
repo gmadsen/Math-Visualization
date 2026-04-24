@@ -12,16 +12,20 @@ The structured-content pipeline is the big recent shift. See `widgets/README.md`
 - Explicit schemas for `concepts/<topic>.json` and `quizzes/<topic>.json` (`schemas/*.schema.json`).
 - Shared content-model loader (`scripts/lib/content-model.mjs`) and audit utils (`scripts/lib/audit-utils.mjs`); seven audits migrated; ~1,200 lines of duplicated code deleted.
 - Every topic has a `content/<topic>.json` — an ordered block decomposition (raw / widget / widget-script / quiz) that renders byte-identical to the handwritten HTML via `scripts/render-topic.mjs`.
-- Widget registry with three entries (`composition-explorer`, `natural-transformation-explorer`, `clickable-diagram`); five widgets in category-theory now registry-driven (5 of 13).
-- CI gates: `validate-schema`, `validate-widget-params`, `test-roundtrip` all wired into `rebuild.mjs`.
+- **Widget registry at 10 slugs covering 450/452 widgets (99.6%).** Slugs: composition-explorer, natural-transformation-explorer, clickable-diagram, clickable-graph, parametric-plot, button-stepper, input-form, surface-viewer, svg-illustration, declarative-host. Five sub-variant flags on shared renderers (labelWraps, titleTag, hintTag, trailingExplainer, hdHtml) cover the header/layout idiosyncrasies of the hand-authored corpus; `button-stepper`'s `layout: [{kind:"raw", html}, …]` escape hatch absorbs any remaining one-off chrome.
+- **Content-as-source-of-truth flip (2026-04-24):** `rebuild.mjs` (fix mode) auto-writes HTML from JSON via `test-roundtrip.mjs --fix`; CI (`--no-fix`) fails on drift. `.githooks/pre-commit` is the local guard — enable with `git config core.hooksPath .githooks`.
+- `scripts/repair-widget-scripts.mjs` splits legacy `<script>` tags buried in `rawBodySuffix` into properly-linked `widget-script` blocks; bail-out-safe on ambiguous references. One-shot tool but idempotent.
+- CI gates: `validate-schema`, `validate-widget-params`, `test-roundtrip` all wired into `rebuild.mjs` (18 steps).
 - Prototypes of alternate frontends: `examples/react-consumer/` (SSR via React+ajv), `examples/threejs-prototype/` (tangent bundle on S², Three.js from CDN).
 
-**Next moves (in priority order):**
-- Widen the registry: keep migrating widgets where a shared renderer is a clean fit. The 8 category-theory widgets skipped by `clickable-diagram` are domain-logic-heavy (randomized-functor tables, sets-and-maps blob renderers, group-theory computations); they want bespoke modules, not a shared abstraction.
-- Full-topic React frontend: current POC renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry.
-- Three.js adoption decision: the prototype validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). If you green-light it, first real use would be the Gauss-curvature surface in `differential-geometry.html`, behind a widget-registry slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
-- ~~Flip `content/` to the source of truth~~ — *shipped 2026-04-24.* `rebuild.mjs` (fix mode) now auto-writes HTML from JSON via `test-roundtrip.mjs --fix`; CI (`--no-fix`) still fails on drift.
-- Markdown prose: reversibly convert raw HTML prose blocks to Markdown while preserving byte-identical round-trip on the restricted subset the notebook uses. This was the deferred Phase 3c — worth revisiting once the registry coverage is higher.
+**Remaining inline widgets (2/452, genuinely idiosyncratic — skip or custom-module):**
+- `galois/w-quintic-scrub`: uses `MVProofScrubber` with per-step `render(svg)` JS closures over local helpers. Closures aren't data; can't migrate to declarative form.
+- `class-field-theory/w-dict`: static `<div class="dict">` grid, no script, no svg. Would need a "static-grid" renderer — not worth a module for one widget.
+
+**Next moves (non-content):**
+- Full-topic React frontend: current POC renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 10 slugs should work since `renderMarkup` / `renderScript` are pure string functions.
+- Three.js adoption decision: the prototype validates the ceiling-raise for 3D-heavy topics (Riemannian geometry, Lie groups, Riemann surfaces, moduli). Would converge with the existing `surface-viewer` slug. Requires an `AGENTS.md` amendment — the current rule is "no deps beyond KaTeX."
+- Lighter prose-block authoring format: now that `content/<topic>.json` is source of truth, prose blocks could move from raw HTML to an mdx-lite / tag-whitelist dialect. Needs reversibility so existing prose round-trips without loss.
 
 ## Backlog — project health + standards (Apr 2026)
 
@@ -38,14 +42,11 @@ Concretely:
 - **New-widget is not scaffolded.** The current path is a 6-step manual process in `widgets/README.md`. Worth building a skill or a tiny scaffold command that creates `widgets/<slug>/{schema.json, index.mjs, README.md}` with filled-in `meta` block, picks a family from a small menu, and leaves the author only the params + render functions to write.
 - **Adding a concept to an existing topic** currently means editing `concepts/<topic>.json`, the matching section in `<topic>.html`, and the quiz bank — plus re-extracting `content/<topic>.json`. A new-concept scaffold could do all four.
 
-### Widget registry — is it paying off?
+### Widget registry — answered
 
-Honest read: the registry is at **5 of 452 widgets (1.1%)**. Three modules (`composition-explorer`, `natural-transformation-explorer`, `clickable-diagram`) maintained; clickable-diagram absorbed 3 category-theory widgets that genuinely shared structure. The other 8 category-theory widgets are domain-specific (randomized-functor tables, sets-and-maps blob renderers, group-theory computations) — bespoke modules if migrated at all.
+The "is it paying off?" question from the April review is now answered: **450/452 slug-driven (99.6%)** across 10 shared renderers. The byte-identity-with-today's-HTML question is also answered — the 2026-04-24 flip made `content/<topic>.json` source of truth and `rebuild --fix` regenerates canonical HTML from JSON, retiring the artifact-param workarounds for most widgets. `sectionComment` and `bodyScript` remain as artifacts by necessity (IIFE bodies are opaque JS), but idiosyncratic hand-written whitespace / attribute ordering no longer propagates through migrations.
 
-Open questions:
-- The byte-identity requirement pushed us to add "artifact" params (`sectionComment`, `proofsLiteral`, `svgStyleAttr`, etc.) that exist only for reproducing the current hand-written source. That's technical debt. Worth revisiting once we decide whether byte-identity-with-today's-HTML is a forever requirement or just a migration-safety one.
-- Registry value is largely speculative right now — it's a bet on alternate frontends (React, mobile, etc.) that may or may not ship. The React POC is 160 lines and works; it proves portability but nothing production uses it yet.
-- **Decision point**: commit more widget migration (say, 30 of 452), or accept the registry as a sparse high-value subset serving cross-framework portability examples?
+Decision point closed: the registry ships as the rendering foundation for every frontend, not a sparse example set.
 
 ### Quizzes — do they need the same treatment?
 
@@ -81,7 +82,7 @@ For brand-new functionality (stats-coverage, display-prefs) native Node / vanill
 
 ### Docs — currency check
 
-`AGENTS.md` and `README.md` were stale by ~10 commits until the Apr 2026 refresh. An `audit-doc-drift.mjs` that actually catches this is worth the effort — or bake doc-mentioning-infrastructure checks into CI (e.g. fail if `AGENTS.md` doesn't mention any `scripts/*.mjs` added in the last N commits).
+`scripts/audit-doc-drift.mjs` now runs as the final rebuild step and surfaced 19 issues at the start of the April sweep (all fixed except one advisory false-positive from generic-token collision). Ongoing drift will be caught automatically; revisit only if the false-positive rate starts overwhelming the signal.
 
 ### Items added to the general backlog list that follows
 
