@@ -535,11 +535,9 @@ $$T_p f \;=\; \sum_{n \ge 0} c_n q^n, \qquad c_n \;=\; a_{pn} + p^{k-1} a_{n/p},
     <label style="margin-left:.8rem">form</label>
     <select id="qact-f"><option value="delta">Δ (cusp, weight 12)</option><option value="E4">E_4 (Eisenstein, weight 4)</option></select>
   </div>
-  <svg id="qact-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="q-expansion action"></svg>
+  <svg id="qact-svg" viewBox="0 0 720 260" width="720" height="260"><title>$T_p$ on the Fourier coefficients</title></svg>
   <div class="readout small" id="qact-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('qact-svg');
   const out = document.getElementById('qact-out');
@@ -672,11 +670,9 @@ For $n = p$ prime this specializes to the formula above. The crucial structural 
 
 <div class="widget" id="w-commute">
   <div class="hd"><div class="ttl">Hecke algebra commutativity</div><div class="hint">$T_m T_n = T_n T_m$</div></div>
-  <svg id="cm-svg" viewBox="0 0 720 260" width="720" height="260" aria-label="commutativity diagram"></svg>
+  <svg id="cm-svg" viewBox="0 0 720 260" width="720" height="260"><title>Hecke algebra commutativity</title></svg>
   <div class="readout small" id="cm-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('cm-svg');
   const out = document.getElementById('cm-out');
@@ -765,11 +761,9 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
 
 <div class="widget" id="w-eig">
   <div class="hd"><div class="ttl">Ramanujan $\tau$: eigenvalues of $\Delta$</div><div class="hint">$a_p = \tau(p)$ for $\Delta$, weight 12</div></div>
-  <svg id="eig-svg" viewBox="0 0 720 240" width="720" height="240" aria-label="tau eigenvalues"></svg>
+  <svg id="eig-svg" viewBox="0 0 720 240" width="720" height="240"><title>Ramanujan $\tau$: eigenvalues of $\Delta$</title></svg>
   <div class="readout small" id="eig-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('eig-svg');
   const out = document.getElementById('eig-out');
@@ -833,9 +827,7 @@ for any normalized Hecke eigenform. More generally, $a_m a_n = \sum_{d \mid \gcd
     <button id="mult-go">check</button>
   </div>
   <div class="readout" id="mult-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const out = document.getElementById('mult-out');
   if(!out) return;
@@ -931,11 +923,9 @@ where $\tau = x + iy$, $y = \mathrm{Im}(\tau) > 0$, and $\mathcal{F}$ is the sta
 
 <div class="widget" id="w-pet">
   <div class="hd"><div class="ttl">Petersson integral on the fundamental domain</div><div class="hint">$\mathcal{F}$ with hyperbolic measure $y^{-2}\,dx\,dy$</div></div>
-  <svg id="pet-svg" viewBox="0 0 720 300" width="720" height="300" aria-label="fundamental domain"></svg>
+  <svg id="pet-svg" viewBox="0 0 720 300" width="720" height="300"><title>Petersson integral on the fundamental domain</title></svg>
   <div class="readout small" id="pet-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('pet-svg');
   const out = document.getElementById('pet-out');
@@ -1079,11 +1069,9 @@ $$L(f, s) \;=\; \prod_{p} \frac{1}{1 \,-\, a_p\, p^{-s} \,+\, p^{\,k-1}\, p^{-2s
       <option value="7" selected>7</option><option value="11">11</option><option value="13">13</option>
     </select>
   </div>
-  <svg id="eu-svg" viewBox="0 0 720 200" width="720" height="200" aria-label="Euler factor"></svg>
+  <svg id="eu-svg" viewBox="0 0 720 200" width="720" height="200"><title>Euler factor of $\Delta$ at $p$</title></svg>
   <div class="readout small" id="eu-out"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('eu-svg');
   const out = document.getElementById('eu-out');
