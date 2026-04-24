@@ -193,9 +193,24 @@
         },
         {
           "type": "widget",
-          "id": "w-rad",
-          "html": "<div class=\"widget\" id=\"w-rad\">\n  <div class=\"hd\"><div class=\"ttl\">Radical computer</div><div class=\"hint\">pick a ring; see nilradical & Jacobson side by side</div></div>\n  <div class=\"row\">\n    <label>ring:</label>\n    <select id=\"rad-ring\">\n      <option value=\"Z72\">ℤ/72</option>\n      <option value=\"Z100\">ℤ/100</option>\n      <option value=\"Z30\">ℤ/30</option>\n      <option value=\"kxy-x2\">k[x,y]/(x²)</option>\n      <option value=\"kxy-x2y2\">k[x,y]/(x²,y²)</option>\n      <option value=\"Z\">ℤ</option>\n      <option value=\"Zp\">ℤ_(p) (local)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"rad-out\" style=\"min-height:8em\"></div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rad",
+            "title": "Radical computer",
+            "hint": "pick a ring; see nilradical & Jacobson side by side",
+            "sectionComment": "=============================== SECTION 4: radicals ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>ring:</label>\n    <select id=\"rad-ring\">\n      <option value=\"Z72\">ℤ/72</option>\n      <option value=\"Z100\">ℤ/100</option>\n      <option value=\"Z30\">ℤ/30</option>\n      <option value=\"kxy-x2\">k[x,y]/(x²)</option>\n      <option value=\"kxy-x2y2\">k[x,y]/(x²,y²)</option>\n      <option value=\"Z\">ℤ</option>\n      <option value=\"Zp\">ℤ_(p) (local)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"rad-out\" style=\"min-height:8em\"></div>"
+              }
+            ],
+            "bodyScript": "  function radOfN(n){\n    let r = 1;\n    for(const [p] of factorizeInt(n)) r *= p;\n    return r;\n  }\n  const PRESETS = {\n    'Z72': ()=>{\n      const n = 72; const r = radOfN(n);\n      return {\n        title:'ℤ/72',\n        primes: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        max: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        nil: `(${r}) = intersection of primes = (2)∩(3) = (6)`,\n        jac: `(${r}) = (6) — agrees with nilradical (Artinian)`,\n        reduced: r===1\n      };\n    },\n    'Z100': ()=>{\n      const n=100; const r=radOfN(n);\n      return { title:'ℤ/100', primes:'(2), (5)', max:'(2), (5)',\n        nil:`(${r}) = (10) — nilpotent = divisible by 10`,\n        jac:`(${r}) = (10) — same (Artinian)`, reduced:r===1 };\n    },\n    'Z30': ()=>({ title:'ℤ/30', primes:'(2), (3), (5)', max:'(2), (3), (5)',\n      nil:'(30)=(0) — no nilpotents beyond 0; ℤ/30 is REDUCED',\n      jac:'(30)=(0) — intersection of all three maximals is 0',\n      reduced:true }),\n    'kxy-x2': ()=>({ title:'k[x,y]/(x²)', primes:'(x) (unique minimal)', max:'(x, y−a) for a∈k',\n      nil:'(x) = the nilpotent ideal; x²=0',\n      jac:'(x) — agrees (Jacobson ring)',\n      reduced:false }),\n    'kxy-x2y2': ()=>({ title:'k[x,y]/(x²,y²)', primes:'(x,y) unique', max:'(x,y)',\n      nil:'(x,y) — both x,y nilpotent',\n      jac:'(x,y) — same (Artinian local)',\n      reduced:false }),\n    'Z': ()=>({ title:'ℤ', primes:'(0), (p) for all primes p', max:'(p) for primes p',\n      nil:'(0) — ℤ is REDUCED',\n      jac:'∩_p (p) = (0) — ℤ is Jacobson',\n      reduced:true }),\n    'Zp': ()=>({ title:'ℤ_(p) · local at p', primes:'(0), (p)', max:'(p) only',\n      nil:'(0) — domain',\n      jac:'(p) — ≠ nilradical! ℤ_(p) is NOT Jacobson',\n      reduced:true })\n  };\n  const pick = $('#rad-ring'), out = $('#rad-out');\n  function draw(){\n    const R = PRESETS[pick.value]();\n    let msg = `ring: ${R.title}\\n\\nprimes: ${R.primes}\\nmaximals: ${R.max}\\n\\n`;\n    msg += `nilradical = ${R.nil}\\n`;\n    msg += `Jacobson = ${R.jac}\\n\\n`;\n    msg += R.reduced ? '→ REDUCED (no nonzero nilpotents)' : '→ NOT reduced';\n    out.textContent = msg;\n  }\n  pick.addEventListener('change', draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -212,8 +227,24 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-rad",
-          "html": "<script>\n/* =============================== SECTION 4: radicals =============================== */\n(function(){\n  function radOfN(n){\n    let r = 1;\n    for(const [p] of factorizeInt(n)) r *= p;\n    return r;\n  }\n  const PRESETS = {\n    'Z72': ()=>{\n      const n = 72; const r = radOfN(n);\n      return {\n        title:'ℤ/72',\n        primes: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        max: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        nil: `(${r}) = intersection of primes = (2)∩(3) = (6)`,\n        jac: `(${r}) = (6) — agrees with nilradical (Artinian)`,\n        reduced: r===1\n      };\n    },\n    'Z100': ()=>{\n      const n=100; const r=radOfN(n);\n      return { title:'ℤ/100', primes:'(2), (5)', max:'(2), (5)',\n        nil:`(${r}) = (10) — nilpotent = divisible by 10`,\n        jac:`(${r}) = (10) — same (Artinian)`, reduced:r===1 };\n    },\n    'Z30': ()=>({ title:'ℤ/30', primes:'(2), (3), (5)', max:'(2), (3), (5)',\n      nil:'(30)=(0) — no nilpotents beyond 0; ℤ/30 is REDUCED',\n      jac:'(30)=(0) — intersection of all three maximals is 0',\n      reduced:true }),\n    'kxy-x2': ()=>({ title:'k[x,y]/(x²)', primes:'(x) (unique minimal)', max:'(x, y−a) for a∈k',\n      nil:'(x) = the nilpotent ideal; x²=0',\n      jac:'(x) — agrees (Jacobson ring)',\n      reduced:false }),\n    'kxy-x2y2': ()=>({ title:'k[x,y]/(x²,y²)', primes:'(x,y) unique', max:'(x,y)',\n      nil:'(x,y) — both x,y nilpotent',\n      jac:'(x,y) — same (Artinian local)',\n      reduced:false }),\n    'Z': ()=>({ title:'ℤ', primes:'(0), (p) for all primes p', max:'(p) for primes p',\n      nil:'(0) — ℤ is REDUCED',\n      jac:'∩_p (p) = (0) — ℤ is Jacobson',\n      reduced:true }),\n    'Zp': ()=>({ title:'ℤ_(p) · local at p', primes:'(0), (p)', max:'(p) only',\n      nil:'(0) — domain',\n      jac:'(p) — ≠ nilradical! ℤ_(p) is NOT Jacobson',\n      reduced:true })\n  };\n  const pick = $('#rad-ring'), out = $('#rad-out');\n  function draw(){\n    const R = PRESETS[pick.value]();\n    let msg = `ring: ${R.title}\\n\\nprimes: ${R.primes}\\nmaximals: ${R.max}\\n\\n`;\n    msg += `nilradical = ${R.nil}\\n`;\n    msg += `Jacobson = ${R.jac}\\n\\n`;\n    msg += R.reduced ? '→ REDUCED (no nonzero nilpotents)' : '→ NOT reduced';\n    out.textContent = msg;\n  }\n  pick.addEventListener('change', draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rad",
+            "title": "Radical computer",
+            "hint": "pick a ring; see nilradical & Jacobson side by side",
+            "sectionComment": "=============================== SECTION 4: radicals ===============================",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>ring:</label>\n    <select id=\"rad-ring\">\n      <option value=\"Z72\">ℤ/72</option>\n      <option value=\"Z100\">ℤ/100</option>\n      <option value=\"Z30\">ℤ/30</option>\n      <option value=\"kxy-x2\">k[x,y]/(x²)</option>\n      <option value=\"kxy-x2y2\">k[x,y]/(x²,y²)</option>\n      <option value=\"Z\">ℤ</option>\n      <option value=\"Zp\">ℤ_(p) (local)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"rad-out\" style=\"min-height:8em\"></div>"
+              }
+            ],
+            "bodyScript": "  function radOfN(n){\n    let r = 1;\n    for(const [p] of factorizeInt(n)) r *= p;\n    return r;\n  }\n  const PRESETS = {\n    'Z72': ()=>{\n      const n = 72; const r = radOfN(n);\n      return {\n        title:'ℤ/72',\n        primes: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        max: factorizeInt(n).map(([p])=>`(${p})`).join(', '),\n        nil: `(${r}) = intersection of primes = (2)∩(3) = (6)`,\n        jac: `(${r}) = (6) — agrees with nilradical (Artinian)`,\n        reduced: r===1\n      };\n    },\n    'Z100': ()=>{\n      const n=100; const r=radOfN(n);\n      return { title:'ℤ/100', primes:'(2), (5)', max:'(2), (5)',\n        nil:`(${r}) = (10) — nilpotent = divisible by 10`,\n        jac:`(${r}) = (10) — same (Artinian)`, reduced:r===1 };\n    },\n    'Z30': ()=>({ title:'ℤ/30', primes:'(2), (3), (5)', max:'(2), (3), (5)',\n      nil:'(30)=(0) — no nilpotents beyond 0; ℤ/30 is REDUCED',\n      jac:'(30)=(0) — intersection of all three maximals is 0',\n      reduced:true }),\n    'kxy-x2': ()=>({ title:'k[x,y]/(x²)', primes:'(x) (unique minimal)', max:'(x, y−a) for a∈k',\n      nil:'(x) = the nilpotent ideal; x²=0',\n      jac:'(x) — agrees (Jacobson ring)',\n      reduced:false }),\n    'kxy-x2y2': ()=>({ title:'k[x,y]/(x²,y²)', primes:'(x,y) unique', max:'(x,y)',\n      nil:'(x,y) — both x,y nilpotent',\n      jac:'(x,y) — same (Artinian local)',\n      reduced:false }),\n    'Z': ()=>({ title:'ℤ', primes:'(0), (p) for all primes p', max:'(p) for primes p',\n      nil:'(0) — ℤ is REDUCED',\n      jac:'∩_p (p) = (0) — ℤ is Jacobson',\n      reduced:true }),\n    'Zp': ()=>({ title:'ℤ_(p) · local at p', primes:'(0), (p)', max:'(p) only',\n      nil:'(0) — domain',\n      jac:'(p) — ≠ nilradical! ℤ_(p) is NOT Jacobson',\n      reduced:true })\n  };\n  const pick = $('#rad-ring'), out = $('#rad-out');\n  function draw(){\n    const R = PRESETS[pick.value]();\n    let msg = `ring: ${R.title}\\n\\nprimes: ${R.primes}\\nmaximals: ${R.max}\\n\\n`;\n    msg += `nilradical = ${R.nil}\\n`;\n    msg += `Jacobson = ${R.jac}\\n\\n`;\n    msg += R.reduced ? '→ REDUCED (no nonzero nilpotents)' : '→ NOT reduced';\n    out.textContent = msg;\n  }\n  pick.addEventListener('change', draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
