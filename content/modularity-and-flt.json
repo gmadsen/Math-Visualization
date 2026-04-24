@@ -12,9 +12,63 @@
         },
         {
           "type": "widget",
-          "id": "w-frey",
-          "html": "<div class=\"widget\" id=\"w-frey\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 1 · Frey curve explorer</div><div class=\"hint\">sliders for $a, b$; dropdown for exponent $p$</div></div>\n  <div class=\"row\">\n    <label for=\"fr-a\">$a$</label><input id=\"fr-a\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"3\"><span id=\"fr-aVal\" class=\"pill\">3</span>\n    <label for=\"fr-b\">$b$</label><input id=\"fr-b\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"><span id=\"fr-bVal\" class=\"pill\">4</span>\n    <label>$p$</label>\n    <select id=\"fr-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n  </div>\n  <svg id=\"fr-svg\" viewBox=\"0 0 640 260\" width=\"640\" height=\"260\"><title>Widget 1 · Frey curve explorer</title></svg>\n  <div class=\"readout\" id=\"fr-out\">…</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const aSl=$('#fr-a'), bSl=$('#fr-b'), pSel=$('#fr-p');\n  const aV=$('#fr-aVal'), bV=$('#fr-bVal');\n  const svg=$('#fr-svg'), out=$('#fr-out');\n  function draw(){\n    const a=+aSl.value, b=+bSl.value, p=+pSel.value;\n    aV.textContent=a; bV.textContent=b;\n    const A = Math.pow(a,p), B = Math.pow(b,p);\n    const C = Math.pow(A+B, 1/p);       // numerical c (not integer)\n    const logDelta = 2*p*Math.log10(a*b*C) - 8*Math.log10(2);\n    // roots: x = -B, 0, A.   domain [-B-1, A+1]\n    svg.innerHTML='';\n    const W=640, H=260, pad=30;\n    const xmin=-B-1, xmax=A+1;\n    // If too extreme, compress via signed log\n    const sx = v => {\n      const s = Math.sign(v), lv = s*Math.log10(1+Math.abs(v));\n      return lv;\n    };\n    const u0=sx(xmin), u1=sx(xmax);\n    const X = v => pad + (sx(v)-u0)/(u1-u0) * (W-2*pad);\n    // y axis: f(x)=x(x-A)(x+B); sample to find range of y=±sqrt(f)\n    const N=400;\n    let ymax=1;\n    const xs=[], fs=[];\n    for(let i=0;i<=N;i++){\n      const t=i/N; const x = xmin + t*(xmax-xmin);\n      const f = x*(x-A)*(x+B);\n      xs.push(x); fs.push(f);\n      if(f>0) ymax = Math.max(ymax, Math.sqrt(f));\n    }\n    ymax = Math.max(ymax, 1);\n    const Y = y => H/2 - (y/ymax)*(H/2 - pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    // roots as yellow dots + labels\n    [[-B,'−bᵖ'],[0,'0'],[A,'aᵖ']].forEach(([v,lab])=>{\n      svg.appendChild(SVG('circle',{cx:X(v),cy:H/2,r:4,fill:'var(--yellow)'}));\n      const t=SVG('text',{x:X(v),y:H/2+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = lab;\n      svg.appendChild(t);\n    });\n    // curve: upper branch where f>=0, then lower branch\n    let dU='', dL='';\n    let upOpen=false, lowOpen=false;\n    for(let i=0;i<xs.length;i++){\n      const x=xs[i], f=fs[i];\n      if(f>=0){\n        const yy=Math.sqrt(f);\n        const px=X(x), pyU=Y(yy), pyL=Y(-yy);\n        dU += (upOpen?' L':'M')+px+' '+pyU;\n        dL += (lowOpen?' L':'M')+px+' '+pyL;\n        upOpen=true; lowOpen=true;\n      } else { upOpen=false; lowOpen=false; }\n    }\n    svg.appendChild(SVG('path',{d:dU,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    svg.appendChild(SVG('path',{d:dL,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    // legend\n    const lg=SVG('text',{x:W-pad,y:20,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lg.textContent = 'E : y² = x(x − aᵖ)(x + bᵖ)';\n    svg.appendChild(lg);\n\n    out.textContent =\n      `a=${a},  b=${b},  p=${p}\\n`+\n      `aᵖ = ${A}    bᵖ = ${B}    cᵖ = aᵖ+bᵖ = ${A+B}    c ≈ ${C.toFixed(4)}\\n`+\n      `2-torsion: (0,0),  (aᵖ,0) = (${A},0),  (−bᵖ,0) = (${-B},0)\\n`+\n      `Δ = (abc)^{2p}/2^{8}   →   log₁₀ Δ ≈ ${logDelta.toFixed(2)}\\n`+\n      `(semistable away from 2; conductor N_E squarefree outside 2)`;\n  }\n  aSl.oninput=draw; bSl.oninput=draw; pSel.onchange=draw;\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-frey",
+            "title": "Widget 1 · Frey curve explorer",
+            "hint": "sliders for $a, b$; dropdown for exponent $p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fr-a\">$a$</label><input id=\"fr-a\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"3\"><span id=\"fr-aVal\" class=\"pill\">3</span>\n    <label for=\"fr-b\">$b$</label><input id=\"fr-b\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"><span id=\"fr-bVal\" class=\"pill\">4</span>\n    <label>$p$</label>\n    <select id=\"fr-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "fr-svg",
+                "viewBox": "0 0 640 260",
+                "width": 640,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "fr-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const aSl=$('#fr-a'), bSl=$('#fr-b'), pSel=$('#fr-p');\n  const aV=$('#fr-aVal'), bV=$('#fr-bVal');\n  const svg=$('#fr-svg'), out=$('#fr-out');\n  function draw(){\n    const a=+aSl.value, b=+bSl.value, p=+pSel.value;\n    aV.textContent=a; bV.textContent=b;\n    const A = Math.pow(a,p), B = Math.pow(b,p);\n    const C = Math.pow(A+B, 1/p);       // numerical c (not integer)\n    const logDelta = 2*p*Math.log10(a*b*C) - 8*Math.log10(2);\n    // roots: x = -B, 0, A.   domain [-B-1, A+1]\n    svg.innerHTML='';\n    const W=640, H=260, pad=30;\n    const xmin=-B-1, xmax=A+1;\n    // If too extreme, compress via signed log\n    const sx = v => {\n      const s = Math.sign(v), lv = s*Math.log10(1+Math.abs(v));\n      return lv;\n    };\n    const u0=sx(xmin), u1=sx(xmax);\n    const X = v => pad + (sx(v)-u0)/(u1-u0) * (W-2*pad);\n    // y axis: f(x)=x(x-A)(x+B); sample to find range of y=±sqrt(f)\n    const N=400;\n    let ymax=1;\n    const xs=[], fs=[];\n    for(let i=0;i<=N;i++){\n      const t=i/N; const x = xmin + t*(xmax-xmin);\n      const f = x*(x-A)*(x+B);\n      xs.push(x); fs.push(f);\n      if(f>0) ymax = Math.max(ymax, Math.sqrt(f));\n    }\n    ymax = Math.max(ymax, 1);\n    const Y = y => H/2 - (y/ymax)*(H/2 - pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    // roots as yellow dots + labels\n    [[-B,'−bᵖ'],[0,'0'],[A,'aᵖ']].forEach(([v,lab])=>{\n      svg.appendChild(SVG('circle',{cx:X(v),cy:H/2,r:4,fill:'var(--yellow)'}));\n      const t=SVG('text',{x:X(v),y:H/2+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = lab;\n      svg.appendChild(t);\n    });\n    // curve: upper branch where f>=0, then lower branch\n    let dU='', dL='';\n    let upOpen=false, lowOpen=false;\n    for(let i=0;i<xs.length;i++){\n      const x=xs[i], f=fs[i];\n      if(f>=0){\n        const yy=Math.sqrt(f);\n        const px=X(x), pyU=Y(yy), pyL=Y(-yy);\n        dU += (upOpen?' L':'M')+px+' '+pyU;\n        dL += (lowOpen?' L':'M')+px+' '+pyL;\n        upOpen=true; lowOpen=true;\n      } else { upOpen=false; lowOpen=false; }\n    }\n    svg.appendChild(SVG('path',{d:dU,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    svg.appendChild(SVG('path',{d:dL,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    // legend\n    const lg=SVG('text',{x:W-pad,y:20,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lg.textContent = 'E : y² = x(x − aᵖ)(x + bᵖ)';\n    svg.appendChild(lg);\n\n    out.textContent =\n      `a=${a},  b=${b},  p=${p}\\n`+\n      `aᵖ = ${A}    bᵖ = ${B}    cᵖ = aᵖ+bᵖ = ${A+B}    c ≈ ${C.toFixed(4)}\\n`+\n      `2-torsion: (0,0),  (aᵖ,0) = (${A},0),  (−bᵖ,0) = (${-B},0)\\n`+\n      `Δ = (abc)^{2p}/2^{8}   →   log₁₀ Δ ≈ ${logDelta.toFixed(2)}\\n`+\n      `(semistable away from 2; conductor N_E squarefree outside 2)`;\n  }\n  aSl.oninput=draw; bSl.oninput=draw; pSel.onchange=draw;\n  draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-frey",
+            "title": "Widget 1 · Frey curve explorer",
+            "hint": "sliders for $a, b$; dropdown for exponent $p$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"fr-a\">$a$</label><input id=\"fr-a\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"3\"><span id=\"fr-aVal\" class=\"pill\">3</span>\n    <label for=\"fr-b\">$b$</label><input id=\"fr-b\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"4\"><span id=\"fr-bVal\" class=\"pill\">4</span>\n    <label>$p$</label>\n    <select id=\"fr-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "fr-svg",
+                "viewBox": "0 0 640 260",
+                "width": 640,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "fr-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const aSl=$('#fr-a'), bSl=$('#fr-b'), pSel=$('#fr-p');\n  const aV=$('#fr-aVal'), bV=$('#fr-bVal');\n  const svg=$('#fr-svg'), out=$('#fr-out');\n  function draw(){\n    const a=+aSl.value, b=+bSl.value, p=+pSel.value;\n    aV.textContent=a; bV.textContent=b;\n    const A = Math.pow(a,p), B = Math.pow(b,p);\n    const C = Math.pow(A+B, 1/p);       // numerical c (not integer)\n    const logDelta = 2*p*Math.log10(a*b*C) - 8*Math.log10(2);\n    // roots: x = -B, 0, A.   domain [-B-1, A+1]\n    svg.innerHTML='';\n    const W=640, H=260, pad=30;\n    const xmin=-B-1, xmax=A+1;\n    // If too extreme, compress via signed log\n    const sx = v => {\n      const s = Math.sign(v), lv = s*Math.log10(1+Math.abs(v));\n      return lv;\n    };\n    const u0=sx(xmin), u1=sx(xmax);\n    const X = v => pad + (sx(v)-u0)/(u1-u0) * (W-2*pad);\n    // y axis: f(x)=x(x-A)(x+B); sample to find range of y=±sqrt(f)\n    const N=400;\n    let ymax=1;\n    const xs=[], fs=[];\n    for(let i=0;i<=N;i++){\n      const t=i/N; const x = xmin + t*(xmax-xmin);\n      const f = x*(x-A)*(x+B);\n      xs.push(x); fs.push(f);\n      if(f>0) ymax = Math.max(ymax, Math.sqrt(f));\n    }\n    ymax = Math.max(ymax, 1);\n    const Y = y => H/2 - (y/ymax)*(H/2 - pad);\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    // roots as yellow dots + labels\n    [[-B,'−bᵖ'],[0,'0'],[A,'aᵖ']].forEach(([v,lab])=>{\n      svg.appendChild(SVG('circle',{cx:X(v),cy:H/2,r:4,fill:'var(--yellow)'}));\n      const t=SVG('text',{x:X(v),y:H/2+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t.textContent = lab;\n      svg.appendChild(t);\n    });\n    // curve: upper branch where f>=0, then lower branch\n    let dU='', dL='';\n    let upOpen=false, lowOpen=false;\n    for(let i=0;i<xs.length;i++){\n      const x=xs[i], f=fs[i];\n      if(f>=0){\n        const yy=Math.sqrt(f);\n        const px=X(x), pyU=Y(yy), pyL=Y(-yy);\n        dU += (upOpen?' L':'M')+px+' '+pyU;\n        dL += (lowOpen?' L':'M')+px+' '+pyL;\n        upOpen=true; lowOpen=true;\n      } else { upOpen=false; lowOpen=false; }\n    }\n    svg.appendChild(SVG('path',{d:dU,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    svg.appendChild(SVG('path',{d:dL,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));\n    // legend\n    const lg=SVG('text',{x:W-pad,y:20,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n    lg.textContent = 'E : y² = x(x − aᵖ)(x + bᵖ)';\n    svg.appendChild(lg);\n\n    out.textContent =\n      `a=${a},  b=${b},  p=${p}\\n`+\n      `aᵖ = ${A}    bᵖ = ${B}    cᵖ = aᵖ+bᵖ = ${A+B}    c ≈ ${C.toFixed(4)}\\n`+\n      `2-torsion: (0,0),  (aᵖ,0) = (${A},0),  (−bᵖ,0) = (${-B},0)\\n`+\n      `Δ = (abc)^{2p}/2^{8}   →   log₁₀ Δ ≈ ${logDelta.toFixed(2)}\\n`+\n      `(semistable away from 2; conductor N_E squarefree outside 2)`;\n  }\n  aSl.oninput=draw; bSl.oninput=draw; pSel.onchange=draw;\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -22,9 +76,71 @@
         },
         {
           "type": "widget",
-          "id": "w-cond",
-          "html": "<div class=\"widget\" id=\"w-cond\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 1b · Frey conductor calculator</div><div class=\"hint\">enter $a, b$; read off $N_E$, bad primes, and the level-lowering target</div></div>\n  <div class=\"row\">\n    <label for=\"cd-a\">$a$</label><input id=\"cd-a\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"5\" style=\"width:5.5rem\">\n    <label for=\"cd-b\">$b$</label><input id=\"cd-b\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"12\" style=\"width:5.5rem\">\n    <label>$p$</label>\n    <select id=\"cd-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n    <label>preset</label>\n    <select id=\"cd-preset\">\n      <option value=\"\">(custom)</option>\n      <option value=\"3,5\">a=3, b=5 (Euler-style near-miss)</option>\n      <option value=\"7,9\">a=7, b=9</option>\n      <option value=\"12,35\">a=12, b=35 (mostly-coprime, many bad primes)</option>\n      <option value=\"27,84\">a=27, b=84 (not coprime — flag)</option>\n      <option value=\"5,12\">a=5, b=12 (two odd bad primes: 3, 5)</option>\n    </select>\n  </div>\n  <svg id=\"cd-svg\" viewBox=\"0 0 640 200\" width=\"640\" height=\"200\"><title>Widget 1b · Frey conductor calculator</title></svg>\n  <div class=\"readout\" id=\"cd-out\">…</div>\n  <p class=\"small\">$N_E$ is computed as $2 \\cdot \\prod_{\\ell \\mid abc,\\ \\ell\\text{ odd}} \\ell$ (the semistable-squarefree-outside-2 rule). The ramification at $2$ can grow to $\\mathrm{ord}_2(N_E) \\le 8$ in the worst cases; here we cap it at the semistable value.</p>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const aI=$('#cd-a'), bI=$('#cd-b'), pSel=$('#cd-p'), pre=$('#cd-preset');\n  const svg=$('#cd-svg'), out=$('#cd-out');\n  // small-prime sieve\n  const PRIMES = (()=>{ const lim=2000, ok=new Array(lim+1).fill(true); ok[0]=ok[1]=false;\n    for(let i=2;i*i<=lim;i++) if(ok[i]) for(let j=i*i;j<=lim;j+=i) ok[j]=false;\n    return ok.map((v,i)=>v?i:-1).filter(i=>i>0);\n  })();\n  function factor(n){\n    n = Math.abs(n|0);\n    const f = {};\n    if(n<=1) return f;\n    for(const q of PRIMES){\n      if(q*q>n) break;\n      while(n%q===0){ f[q]=(f[q]||0)+1; n=n/q; }\n    }\n    if(n>1) f[n]=(f[n]||0)+1;\n    return f;\n  }\n  function gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }\n  function fmtFact(f){\n    const ks = Object.keys(f).map(k=>+k).sort((x,y)=>x-y);\n    if(!ks.length) return '1';\n    return ks.map(k => f[k]===1 ? String(k) : `${k}^${f[k]}`).join(' · ');\n  }\n  pre.addEventListener('change', ()=>{\n    const v = pre.value; if(!v) return;\n    const [x,y] = v.split(',').map(s=>+s);\n    aI.value = x; bI.value = y; draw();\n  });\n  function draw(){\n    const a=Math.max(1,Math.min(999,+aI.value||1));\n    const b=Math.max(1,Math.min(999,+bI.value||1));\n    const p=+pSel.value;\n    const g = gcd(a,b);\n    const c = a+b;                              // integer stand-in for c = (a^p+b^p)^{1/p}; we only need primes dividing abc\n    const fa = factor(a), fb = factor(b), fc = factor(c);\n    // odd primes dividing abc:\n    const oddSupport = new Set();\n    for(const f of [fa,fb,fc]) for(const q of Object.keys(f)){ const Q=+q; if(Q!==2) oddSupport.add(Q); }\n    const oddList = [...oddSupport].sort((x,y)=>x-y);\n    // conductor (semistable model): N_E = 2 * prod(odd bad primes)\n    const N = 2 * oddList.reduce((s,q)=>s*q, 1);\n\n    // draw a linear \"factor tower\": primes as boxes along a number line, with exponent 2p shown\n    svg.innerHTML='';\n    const W=640, H=200, pad=40;\n    // headline: Δ = (abc)^{2p}/2^8, conductor below\n    const hd = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    hd.textContent = `Δ = (abc)^{2p}/2^{8}    with abc = ${a}·${b}·${c} = ${a*b*c}`;\n    svg.appendChild(hd);\n\n    // top row: the primes from factor(abc) with combined exponents (scaled by 2p for odd, and the raw exponent − 8/p-ish shown schematically for 2)\n    const abcF = {};\n    for(const f of [fa,fb,fc]) for(const [q,e] of Object.entries(f)){ abcF[q]=(abcF[q]||0)+e; }\n    const qs = Object.keys(abcF).map(k=>+k).sort((x,y)=>x-y);\n    const box = 72, gap = 14;\n    const total = qs.length*box + Math.max(qs.length-1,0)*gap;\n    let x0 = (W-total)/2;\n    qs.forEach((q,i)=>{\n      const ex = abcF[q];\n      const isTwo = (q===2);\n      const cx = x0 + i*(box+gap) + box/2;\n      const color = isTwo ? 'var(--pink)' : 'var(--cyan)';\n      svg.appendChild(SVG('rect',{x:cx-box/2, y:50, width:box, height:52, rx:6,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.5}));\n      const t1 = SVG('text',{x:cx, y:72, 'text-anchor':'middle','font-size':14, fill:color,'font-weight':600});\n      t1.textContent = 'ℓ = '+q;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx, y:92, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n      t2.textContent = isTwo ? `v_2(abc)=${ex}` : `v_ℓ(Δ)=${2*p*ex}`;\n      svg.appendChild(t2);\n      // exponent decoration: odd primes carry an exponent that is a multiple of 2p → double circle\n      if(!isTwo){\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:6, fill:'var(--cyan)','opacity':0.35}));\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:3, fill:'var(--cyan)'}));\n      }\n    });\n\n    // bottom: conductor formula\n    const cond = SVG('text',{x:W/2, y:135, 'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-weight':600});\n    cond.textContent = `N_E  =  2 · ${oddList.length?oddList.join(' · '):'1'}  =  ${N}`;\n    svg.appendChild(cond);\n\n    const ribetTarget = SVG('text',{x:W/2, y:160, 'text-anchor':'middle','font-size':12, fill:'var(--green)'});\n    ribetTarget.textContent = oddList.length\n      ? `Ribet strips ${oddList.length} odd prime${oddList.length>1?'s':''} → target level = 2`\n      : `Already at level 2 — nothing to strip.`;\n    svg.appendChild(ribetTarget);\n\n    const flt = SVG('text',{x:W/2, y:184, 'text-anchor':'middle','font-size':12, fill:'var(--pink)','font-style':'italic'});\n    flt.textContent = 'dim S_2(Γ_0(2)) = 0 → no such newform exists → no (a,b,c,p) triple exists';\n    svg.appendChild(flt);\n\n    // readout\n    const notCo = (g!==1);\n    const parts = [];\n    parts.push(`a = ${a}   =  ${fmtFact(fa)||'1'}`);\n    parts.push(`b = ${b}   =  ${fmtFact(fb)||'1'}`);\n    parts.push(`c = a+b = ${c}   =  ${fmtFact(fc)||'1'}     (primes dividing c shown as proxy for c^p)`);\n    parts.push(`gcd(a,b) = ${g}${notCo?'  ⚠ a,b not coprime — FLT reduces to the coprime case, so the widget warns but still computes':''}`);\n    parts.push(`odd primes dividing abc : ${oddList.length?oddList.join(', '):'(none)'}`);\n    parts.push(`bad reduction primes of E_{a,b,c}: { 2, ${oddList.join(', ')} }`);\n    parts.push(`Δ prime factorization (symbolic):  2^{v_2(abc)·2p − 8} · ${oddList.map(q=>`${q}^{${2*p*(abcF[q]||0)}}`).join(' · ')||'1'}`);\n    parts.push(`conductor N_E = 2 · ∏(odd ℓ | abc) ℓ = ${N}`);\n    parts.push(`Ribet goal: level ${N} → … → 2.  Target space S_2(Γ_0(2)) is empty, so the chain cannot terminate.`);\n    parts.push(`VERDICT: the hypothetical Frey curve for (a,b,p) = (${a},${b},${p}) would be modular (Wiles §2) yet force level-lowering to the empty space S_2(Γ_0(2)) — contradiction.`);\n    out.textContent = parts.join('\\n');\n  }\n  aI.addEventListener('input',draw); bI.addEventListener('input',draw); pSel.addEventListener('change',draw);\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cond",
+            "title": "Widget 1b · Frey conductor calculator",
+            "hint": "enter $a, b$; read off $N_E$, bad primes, and the level-lowering target",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cd-a\">$a$</label><input id=\"cd-a\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"5\" style=\"width:5.5rem\">\n    <label for=\"cd-b\">$b$</label><input id=\"cd-b\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"12\" style=\"width:5.5rem\">\n    <label>$p$</label>\n    <select id=\"cd-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n    <label>preset</label>\n    <select id=\"cd-preset\">\n      <option value=\"\">(custom)</option>\n      <option value=\"3,5\">a=3, b=5 (Euler-style near-miss)</option>\n      <option value=\"7,9\">a=7, b=9</option>\n      <option value=\"12,35\">a=12, b=35 (mostly-coprime, many bad primes)</option>\n      <option value=\"27,84\">a=27, b=84 (not coprime — flag)</option>\n      <option value=\"5,12\">a=5, b=12 (two odd bad primes: 3, 5)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "cd-svg",
+                "viewBox": "0 0 640 200",
+                "width": 640,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "cd-out",
+                "content": "…"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">$N_E$ is computed as $2 \\cdot \\prod_{\\ell \\mid abc,\\ \\ell\\text{ odd}} \\ell$ (the semistable-squarefree-outside-2 rule). The ramification at $2$ can grow to $\\mathrm{ord}_2(N_E) \\le 8$ in the worst cases; here we cap it at the semistable value.</p>"
+              }
+            ],
+            "bodyScript": "  const aI=$('#cd-a'), bI=$('#cd-b'), pSel=$('#cd-p'), pre=$('#cd-preset');\n  const svg=$('#cd-svg'), out=$('#cd-out');\n  // small-prime sieve\n  const PRIMES = (()=>{ const lim=2000, ok=new Array(lim+1).fill(true); ok[0]=ok[1]=false;\n    for(let i=2;i*i<=lim;i++) if(ok[i]) for(let j=i*i;j<=lim;j+=i) ok[j]=false;\n    return ok.map((v,i)=>v?i:-1).filter(i=>i>0);\n  })();\n  function factor(n){\n    n = Math.abs(n|0);\n    const f = {};\n    if(n<=1) return f;\n    for(const q of PRIMES){\n      if(q*q>n) break;\n      while(n%q===0){ f[q]=(f[q]||0)+1; n=n/q; }\n    }\n    if(n>1) f[n]=(f[n]||0)+1;\n    return f;\n  }\n  function gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }\n  function fmtFact(f){\n    const ks = Object.keys(f).map(k=>+k).sort((x,y)=>x-y);\n    if(!ks.length) return '1';\n    return ks.map(k => f[k]===1 ? String(k) : `${k}^${f[k]}`).join(' · ');\n  }\n  pre.addEventListener('change', ()=>{\n    const v = pre.value; if(!v) return;\n    const [x,y] = v.split(',').map(s=>+s);\n    aI.value = x; bI.value = y; draw();\n  });\n  function draw(){\n    const a=Math.max(1,Math.min(999,+aI.value||1));\n    const b=Math.max(1,Math.min(999,+bI.value||1));\n    const p=+pSel.value;\n    const g = gcd(a,b);\n    const c = a+b;                              // integer stand-in for c = (a^p+b^p)^{1/p}; we only need primes dividing abc\n    const fa = factor(a), fb = factor(b), fc = factor(c);\n    // odd primes dividing abc:\n    const oddSupport = new Set();\n    for(const f of [fa,fb,fc]) for(const q of Object.keys(f)){ const Q=+q; if(Q!==2) oddSupport.add(Q); }\n    const oddList = [...oddSupport].sort((x,y)=>x-y);\n    // conductor (semistable model): N_E = 2 * prod(odd bad primes)\n    const N = 2 * oddList.reduce((s,q)=>s*q, 1);\n\n    // draw a linear \"factor tower\": primes as boxes along a number line, with exponent 2p shown\n    svg.innerHTML='';\n    const W=640, H=200, pad=40;\n    // headline: Δ = (abc)^{2p}/2^8, conductor below\n    const hd = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    hd.textContent = `Δ = (abc)^{2p}/2^{8}    with abc = ${a}·${b}·${c} = ${a*b*c}`;\n    svg.appendChild(hd);\n\n    // top row: the primes from factor(abc) with combined exponents (scaled by 2p for odd, and the raw exponent − 8/p-ish shown schematically for 2)\n    const abcF = {};\n    for(const f of [fa,fb,fc]) for(const [q,e] of Object.entries(f)){ abcF[q]=(abcF[q]||0)+e; }\n    const qs = Object.keys(abcF).map(k=>+k).sort((x,y)=>x-y);\n    const box = 72, gap = 14;\n    const total = qs.length*box + Math.max(qs.length-1,0)*gap;\n    let x0 = (W-total)/2;\n    qs.forEach((q,i)=>{\n      const ex = abcF[q];\n      const isTwo = (q===2);\n      const cx = x0 + i*(box+gap) + box/2;\n      const color = isTwo ? 'var(--pink)' : 'var(--cyan)';\n      svg.appendChild(SVG('rect',{x:cx-box/2, y:50, width:box, height:52, rx:6,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.5}));\n      const t1 = SVG('text',{x:cx, y:72, 'text-anchor':'middle','font-size':14, fill:color,'font-weight':600});\n      t1.textContent = 'ℓ = '+q;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx, y:92, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n      t2.textContent = isTwo ? `v_2(abc)=${ex}` : `v_ℓ(Δ)=${2*p*ex}`;\n      svg.appendChild(t2);\n      // exponent decoration: odd primes carry an exponent that is a multiple of 2p → double circle\n      if(!isTwo){\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:6, fill:'var(--cyan)','opacity':0.35}));\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:3, fill:'var(--cyan)'}));\n      }\n    });\n\n    // bottom: conductor formula\n    const cond = SVG('text',{x:W/2, y:135, 'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-weight':600});\n    cond.textContent = `N_E  =  2 · ${oddList.length?oddList.join(' · '):'1'}  =  ${N}`;\n    svg.appendChild(cond);\n\n    const ribetTarget = SVG('text',{x:W/2, y:160, 'text-anchor':'middle','font-size':12, fill:'var(--green)'});\n    ribetTarget.textContent = oddList.length\n      ? `Ribet strips ${oddList.length} odd prime${oddList.length>1?'s':''} → target level = 2`\n      : `Already at level 2 — nothing to strip.`;\n    svg.appendChild(ribetTarget);\n\n    const flt = SVG('text',{x:W/2, y:184, 'text-anchor':'middle','font-size':12, fill:'var(--pink)','font-style':'italic'});\n    flt.textContent = 'dim S_2(Γ_0(2)) = 0 → no such newform exists → no (a,b,c,p) triple exists';\n    svg.appendChild(flt);\n\n    // readout\n    const notCo = (g!==1);\n    const parts = [];\n    parts.push(`a = ${a}   =  ${fmtFact(fa)||'1'}`);\n    parts.push(`b = ${b}   =  ${fmtFact(fb)||'1'}`);\n    parts.push(`c = a+b = ${c}   =  ${fmtFact(fc)||'1'}     (primes dividing c shown as proxy for c^p)`);\n    parts.push(`gcd(a,b) = ${g}${notCo?'  ⚠ a,b not coprime — FLT reduces to the coprime case, so the widget warns but still computes':''}`);\n    parts.push(`odd primes dividing abc : ${oddList.length?oddList.join(', '):'(none)'}`);\n    parts.push(`bad reduction primes of E_{a,b,c}: { 2, ${oddList.join(', ')} }`);\n    parts.push(`Δ prime factorization (symbolic):  2^{v_2(abc)·2p − 8} · ${oddList.map(q=>`${q}^{${2*p*(abcF[q]||0)}}`).join(' · ')||'1'}`);\n    parts.push(`conductor N_E = 2 · ∏(odd ℓ | abc) ℓ = ${N}`);\n    parts.push(`Ribet goal: level ${N} → … → 2.  Target space S_2(Γ_0(2)) is empty, so the chain cannot terminate.`);\n    parts.push(`VERDICT: the hypothetical Frey curve for (a,b,p) = (${a},${b},${p}) would be modular (Wiles §2) yet force level-lowering to the empty space S_2(Γ_0(2)) — contradiction.`);\n    out.textContent = parts.join('\\n');\n  }\n  aI.addEventListener('input',draw); bI.addEventListener('input',draw); pSel.addEventListener('change',draw);\n  draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-cond",
+            "title": "Widget 1b · Frey conductor calculator",
+            "hint": "enter $a, b$; read off $N_E$, bad primes, and the level-lowering target",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"cd-a\">$a$</label><input id=\"cd-a\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"5\" style=\"width:5.5rem\">\n    <label for=\"cd-b\">$b$</label><input id=\"cd-b\" type=\"number\" min=\"1\" max=\"999\" step=\"1\" value=\"12\" style=\"width:5.5rem\">\n    <label>$p$</label>\n    <select id=\"cd-p\"><option>3</option><option selected>5</option><option>7</option><option>11</option></select>\n    <label>preset</label>\n    <select id=\"cd-preset\">\n      <option value=\"\">(custom)</option>\n      <option value=\"3,5\">a=3, b=5 (Euler-style near-miss)</option>\n      <option value=\"7,9\">a=7, b=9</option>\n      <option value=\"12,35\">a=12, b=35 (mostly-coprime, many bad primes)</option>\n      <option value=\"27,84\">a=27, b=84 (not coprime — flag)</option>\n      <option value=\"5,12\">a=5, b=12 (two odd bad primes: 3, 5)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "cd-svg",
+                "viewBox": "0 0 640 200",
+                "width": 640,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "cd-out",
+                "content": "…"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">$N_E$ is computed as $2 \\cdot \\prod_{\\ell \\mid abc,\\ \\ell\\text{ odd}} \\ell$ (the semistable-squarefree-outside-2 rule). The ramification at $2$ can grow to $\\mathrm{ord}_2(N_E) \\le 8$ in the worst cases; here we cap it at the semistable value.</p>"
+              }
+            ],
+            "bodyScript": "  const aI=$('#cd-a'), bI=$('#cd-b'), pSel=$('#cd-p'), pre=$('#cd-preset');\n  const svg=$('#cd-svg'), out=$('#cd-out');\n  // small-prime sieve\n  const PRIMES = (()=>{ const lim=2000, ok=new Array(lim+1).fill(true); ok[0]=ok[1]=false;\n    for(let i=2;i*i<=lim;i++) if(ok[i]) for(let j=i*i;j<=lim;j+=i) ok[j]=false;\n    return ok.map((v,i)=>v?i:-1).filter(i=>i>0);\n  })();\n  function factor(n){\n    n = Math.abs(n|0);\n    const f = {};\n    if(n<=1) return f;\n    for(const q of PRIMES){\n      if(q*q>n) break;\n      while(n%q===0){ f[q]=(f[q]||0)+1; n=n/q; }\n    }\n    if(n>1) f[n]=(f[n]||0)+1;\n    return f;\n  }\n  function gcd(a,b){ a=Math.abs(a|0); b=Math.abs(b|0); while(b){ [a,b]=[b,a%b]; } return a; }\n  function fmtFact(f){\n    const ks = Object.keys(f).map(k=>+k).sort((x,y)=>x-y);\n    if(!ks.length) return '1';\n    return ks.map(k => f[k]===1 ? String(k) : `${k}^${f[k]}`).join(' · ');\n  }\n  pre.addEventListener('change', ()=>{\n    const v = pre.value; if(!v) return;\n    const [x,y] = v.split(',').map(s=>+s);\n    aI.value = x; bI.value = y; draw();\n  });\n  function draw(){\n    const a=Math.max(1,Math.min(999,+aI.value||1));\n    const b=Math.max(1,Math.min(999,+bI.value||1));\n    const p=+pSel.value;\n    const g = gcd(a,b);\n    const c = a+b;                              // integer stand-in for c = (a^p+b^p)^{1/p}; we only need primes dividing abc\n    const fa = factor(a), fb = factor(b), fc = factor(c);\n    // odd primes dividing abc:\n    const oddSupport = new Set();\n    for(const f of [fa,fb,fc]) for(const q of Object.keys(f)){ const Q=+q; if(Q!==2) oddSupport.add(Q); }\n    const oddList = [...oddSupport].sort((x,y)=>x-y);\n    // conductor (semistable model): N_E = 2 * prod(odd bad primes)\n    const N = 2 * oddList.reduce((s,q)=>s*q, 1);\n\n    // draw a linear \"factor tower\": primes as boxes along a number line, with exponent 2p shown\n    svg.innerHTML='';\n    const W=640, H=200, pad=40;\n    // headline: Δ = (abc)^{2p}/2^8, conductor below\n    const hd = SVG('text',{x:W/2, y:24, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    hd.textContent = `Δ = (abc)^{2p}/2^{8}    with abc = ${a}·${b}·${c} = ${a*b*c}`;\n    svg.appendChild(hd);\n\n    // top row: the primes from factor(abc) with combined exponents (scaled by 2p for odd, and the raw exponent − 8/p-ish shown schematically for 2)\n    const abcF = {};\n    for(const f of [fa,fb,fc]) for(const [q,e] of Object.entries(f)){ abcF[q]=(abcF[q]||0)+e; }\n    const qs = Object.keys(abcF).map(k=>+k).sort((x,y)=>x-y);\n    const box = 72, gap = 14;\n    const total = qs.length*box + Math.max(qs.length-1,0)*gap;\n    let x0 = (W-total)/2;\n    qs.forEach((q,i)=>{\n      const ex = abcF[q];\n      const isTwo = (q===2);\n      const cx = x0 + i*(box+gap) + box/2;\n      const color = isTwo ? 'var(--pink)' : 'var(--cyan)';\n      svg.appendChild(SVG('rect',{x:cx-box/2, y:50, width:box, height:52, rx:6,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.5}));\n      const t1 = SVG('text',{x:cx, y:72, 'text-anchor':'middle','font-size':14, fill:color,'font-weight':600});\n      t1.textContent = 'ℓ = '+q;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:cx, y:92, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});\n      t2.textContent = isTwo ? `v_2(abc)=${ex}` : `v_ℓ(Δ)=${2*p*ex}`;\n      svg.appendChild(t2);\n      // exponent decoration: odd primes carry an exponent that is a multiple of 2p → double circle\n      if(!isTwo){\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:6, fill:'var(--cyan)','opacity':0.35}));\n        svg.appendChild(SVG('circle',{cx, cy:50-6, r:3, fill:'var(--cyan)'}));\n      }\n    });\n\n    // bottom: conductor formula\n    const cond = SVG('text',{x:W/2, y:135, 'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-weight':600});\n    cond.textContent = `N_E  =  2 · ${oddList.length?oddList.join(' · '):'1'}  =  ${N}`;\n    svg.appendChild(cond);\n\n    const ribetTarget = SVG('text',{x:W/2, y:160, 'text-anchor':'middle','font-size':12, fill:'var(--green)'});\n    ribetTarget.textContent = oddList.length\n      ? `Ribet strips ${oddList.length} odd prime${oddList.length>1?'s':''} → target level = 2`\n      : `Already at level 2 — nothing to strip.`;\n    svg.appendChild(ribetTarget);\n\n    const flt = SVG('text',{x:W/2, y:184, 'text-anchor':'middle','font-size':12, fill:'var(--pink)','font-style':'italic'});\n    flt.textContent = 'dim S_2(Γ_0(2)) = 0 → no such newform exists → no (a,b,c,p) triple exists';\n    svg.appendChild(flt);\n\n    // readout\n    const notCo = (g!==1);\n    const parts = [];\n    parts.push(`a = ${a}   =  ${fmtFact(fa)||'1'}`);\n    parts.push(`b = ${b}   =  ${fmtFact(fb)||'1'}`);\n    parts.push(`c = a+b = ${c}   =  ${fmtFact(fc)||'1'}     (primes dividing c shown as proxy for c^p)`);\n    parts.push(`gcd(a,b) = ${g}${notCo?'  ⚠ a,b not coprime — FLT reduces to the coprime case, so the widget warns but still computes':''}`);\n    parts.push(`odd primes dividing abc : ${oddList.length?oddList.join(', '):'(none)'}`);\n    parts.push(`bad reduction primes of E_{a,b,c}: { 2, ${oddList.join(', ')} }`);\n    parts.push(`Δ prime factorization (symbolic):  2^{v_2(abc)·2p − 8} · ${oddList.map(q=>`${q}^{${2*p*(abcF[q]||0)}}`).join(' · ')||'1'}`);\n    parts.push(`conductor N_E = 2 · ∏(odd ℓ | abc) ℓ = ${N}`);\n    parts.push(`Ribet goal: level ${N} → … → 2.  Target space S_2(Γ_0(2)) is empty, so the chain cannot terminate.`);\n    parts.push(`VERDICT: the hypothetical Frey curve for (a,b,p) = (${a},${b},${p}) would be modular (Wiles §2) yet force level-lowering to the empty space S_2(Γ_0(2)) — contradiction.`);\n    out.textContent = parts.join('\\n');\n  }\n  aI.addEventListener('input',draw); bI.addEventListener('input',draw); pSel.addEventListener('change',draw);\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -50,9 +166,57 @@
         },
         {
           "type": "widget",
-          "id": "w-mod",
-          "html": "<div class=\"widget\" id=\"w-mod\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 2 · Modularity correspondence</div><div class=\"hint\">switch curve to compare $a_p(E)$ and $a_p(f_E)$</div></div>\n  <div class=\"row\">\n    <label>curve</label>\n    <select id=\"md-pick\">\n      <option value=\"11a\" selected>E₁: y²+y = x³−x², conductor 11</option>\n      <option value=\"32a\">E₂: y² = x³ − x, conductor 32 (CM)</option>\n    </select>\n  </div>\n  <div id=\"md-tab\"></div>\n  <div class=\"readout\" id=\"md-out\">…</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  // a_n for the newform f_{11a} = η(τ)²η(11τ)²  (n=1..20)\n  const F11 = [1,-2,-1,2,1,2,-2,0,-2,-2,1,-2,4,4,-1,-4,-2,4,0,2];\n  // a_p(E) for E: y²+y = x³−x², conductor 11\n  // a_p = p+1 - #E(F_p) for good primes p ≠ 11; a_11 = 1 (split multiplicative)\n  const Ap_E11 = { 2:-2, 3:-1, 5:1, 7:-2, 11:1, 13:4, 17:-2, 19:0 };\n\n  // a_n for the newform associated to y²=x³−x  (conductor 32, CM by Z[i]).\n  // Hardcoded first 20 q-expansion coefficients (LMFDB 32.2.a.a).\n  const F32 = [1,0,0,0,0,0,0,0,0,0,0,0,-6,0,0,0,2,0,0,0];\n  // a_p(E) for y²=x³−x, conductor 32.\n  // #E(F_p) for p ≠ 2: if p ≡ 3 (mod 4), #E(F_p) = p+1 (supersingular, a_p=0).\n  // if p ≡ 1 (mod 4), write p = a²+b² with a odd, b even, a+b ≡ 1 (mod 4):  a_p = 2a.\n  const Ap_E32 = { 2:0, 3:0, 5:-2, 7:0, 11:0, 13:-6, 17:2, 19:0 };\n\n  const SETS = {\n    '11a': {\n      label:'E₁ : y² + y = x³ − x²   (N = 11)',\n      form:'f_E(τ) = η(τ)² η(11τ)² = q − 2q² − q³ + 2q⁴ + q⁵ + 2q⁶ − 2q⁷ + … + q¹⁰ + …',\n      coefs: F11, apE: Ap_E11,\n      primes: [2,3,5,7,11,13,17,19]\n    },\n    '32a': {\n      label:'E₂ : y² = x³ − x   (N = 32, CM by ℤ[i])',\n      form:'f_E is the CM newform attached to ℤ[i]; supported on primes p ≡ 1 (mod 4).',\n      coefs: F32, apE: Ap_E32,\n      primes: [2,3,5,7,11,13,17,19]\n    }\n  };\n\n  const pick = $('#md-pick'), tab = $('#md-tab'), out = $('#md-out');\n\n  function render(){\n    const S = SETS[pick.value];\n    let html = '<table class=\"plain\"><thead><tr><th>p</th><th>#E(𝔽_p)</th><th>a_p(E) = p+1−#E</th><th>a_p(f_E)</th><th>match?</th></tr></thead><tbody>';\n    let matches=0, total=0;\n    for(const p of S.primes){\n      const ap = S.apE[p];\n      const af = S.coefs[p-1]; // index p-1 since coefs[0] = a_1\n      const hits = (ap===af);\n      const sharpE = (p===11 && pick.value==='11a') ? '—' : (p+1-ap);\n      if(hits) matches++;\n      total++;\n      html += `<tr><td>${p}</td><td>${sharpE}</td><td>${ap}</td><td>${af}</td>`+\n        `<td class=\"${hits?'match':''}\">${hits?'✓':'✗'}</td></tr>`;\n    }\n    html += '</tbody></table>';\n    tab.innerHTML = html;\n    out.textContent =\n      `${S.label}\\n`+\n      `${S.form}\\n`+\n      `Frobenius traces a_p(E) match Fourier coefficients a_p(f_E): ${matches}/${total} primes shown.\\n`+\n      `This is the modularity theorem in one row at a time.`;\n  }\n  pick.onchange = render;\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mod",
+            "title": "Widget 2 · Modularity correspondence",
+            "hint": "switch curve to compare $a_p(E)$ and $a_p(f_E)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve</label>\n    <select id=\"md-pick\">\n      <option value=\"11a\" selected>E₁: y²+y = x³−x², conductor 11</option>\n      <option value=\"32a\">E₂: y² = x³ − x, conductor 32 (CM)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"md-tab\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "md-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  // a_n for the newform f_{11a} = η(τ)²η(11τ)²  (n=1..20)\n  const F11 = [1,-2,-1,2,1,2,-2,0,-2,-2,1,-2,4,4,-1,-4,-2,4,0,2];\n  // a_p(E) for E: y²+y = x³−x², conductor 11\n  // a_p = p+1 - #E(F_p) for good primes p ≠ 11; a_11 = 1 (split multiplicative)\n  const Ap_E11 = { 2:-2, 3:-1, 5:1, 7:-2, 11:1, 13:4, 17:-2, 19:0 };\n\n  // a_n for the newform associated to y²=x³−x  (conductor 32, CM by Z[i]).\n  // Hardcoded first 20 q-expansion coefficients (LMFDB 32.2.a.a).\n  const F32 = [1,0,0,0,0,0,0,0,0,0,0,0,-6,0,0,0,2,0,0,0];\n  // a_p(E) for y²=x³−x, conductor 32.\n  // #E(F_p) for p ≠ 2: if p ≡ 3 (mod 4), #E(F_p) = p+1 (supersingular, a_p=0).\n  // if p ≡ 1 (mod 4), write p = a²+b² with a odd, b even, a+b ≡ 1 (mod 4):  a_p = 2a.\n  const Ap_E32 = { 2:0, 3:0, 5:-2, 7:0, 11:0, 13:-6, 17:2, 19:0 };\n\n  const SETS = {\n    '11a': {\n      label:'E₁ : y² + y = x³ − x²   (N = 11)',\n      form:'f_E(τ) = η(τ)² η(11τ)² = q − 2q² − q³ + 2q⁴ + q⁵ + 2q⁶ − 2q⁷ + … + q¹⁰ + …',\n      coefs: F11, apE: Ap_E11,\n      primes: [2,3,5,7,11,13,17,19]\n    },\n    '32a': {\n      label:'E₂ : y² = x³ − x   (N = 32, CM by ℤ[i])',\n      form:'f_E is the CM newform attached to ℤ[i]; supported on primes p ≡ 1 (mod 4).',\n      coefs: F32, apE: Ap_E32,\n      primes: [2,3,5,7,11,13,17,19]\n    }\n  };\n\n  const pick = $('#md-pick'), tab = $('#md-tab'), out = $('#md-out');\n\n  function render(){\n    const S = SETS[pick.value];\n    let html = '<table class=\"plain\"><thead><tr><th>p</th><th>#E(𝔽_p)</th><th>a_p(E) = p+1−#E</th><th>a_p(f_E)</th><th>match?</th></tr></thead><tbody>';\n    let matches=0, total=0;\n    for(const p of S.primes){\n      const ap = S.apE[p];\n      const af = S.coefs[p-1]; // index p-1 since coefs[0] = a_1\n      const hits = (ap===af);\n      const sharpE = (p===11 && pick.value==='11a') ? '—' : (p+1-ap);\n      if(hits) matches++;\n      total++;\n      html += `<tr><td>${p}</td><td>${sharpE}</td><td>${ap}</td><td>${af}</td>`+\n        `<td class=\"${hits?'match':''}\">${hits?'✓':'✗'}</td></tr>`;\n    }\n    html += '</tbody></table>';\n    tab.innerHTML = html;\n    out.textContent =\n      `${S.label}\\n`+\n      `${S.form}\\n`+\n      `Frobenius traces a_p(E) match Fourier coefficients a_p(f_E): ${matches}/${total} primes shown.\\n`+\n      `This is the modularity theorem in one row at a time.`;\n  }\n  pick.onchange = render;\n  render();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-mod",
+            "title": "Widget 2 · Modularity correspondence",
+            "hint": "switch curve to compare $a_p(E)$ and $a_p(f_E)$",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>curve</label>\n    <select id=\"md-pick\">\n      <option value=\"11a\" selected>E₁: y²+y = x³−x², conductor 11</option>\n      <option value=\"32a\">E₂: y² = x³ − x, conductor 32 (CM)</option>\n    </select>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div id=\"md-tab\"></div>"
+              },
+              {
+                "kind": "readout",
+                "id": "md-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  // a_n for the newform f_{11a} = η(τ)²η(11τ)²  (n=1..20)\n  const F11 = [1,-2,-1,2,1,2,-2,0,-2,-2,1,-2,4,4,-1,-4,-2,4,0,2];\n  // a_p(E) for E: y²+y = x³−x², conductor 11\n  // a_p = p+1 - #E(F_p) for good primes p ≠ 11; a_11 = 1 (split multiplicative)\n  const Ap_E11 = { 2:-2, 3:-1, 5:1, 7:-2, 11:1, 13:4, 17:-2, 19:0 };\n\n  // a_n for the newform associated to y²=x³−x  (conductor 32, CM by Z[i]).\n  // Hardcoded first 20 q-expansion coefficients (LMFDB 32.2.a.a).\n  const F32 = [1,0,0,0,0,0,0,0,0,0,0,0,-6,0,0,0,2,0,0,0];\n  // a_p(E) for y²=x³−x, conductor 32.\n  // #E(F_p) for p ≠ 2: if p ≡ 3 (mod 4), #E(F_p) = p+1 (supersingular, a_p=0).\n  // if p ≡ 1 (mod 4), write p = a²+b² with a odd, b even, a+b ≡ 1 (mod 4):  a_p = 2a.\n  const Ap_E32 = { 2:0, 3:0, 5:-2, 7:0, 11:0, 13:-6, 17:2, 19:0 };\n\n  const SETS = {\n    '11a': {\n      label:'E₁ : y² + y = x³ − x²   (N = 11)',\n      form:'f_E(τ) = η(τ)² η(11τ)² = q − 2q² − q³ + 2q⁴ + q⁵ + 2q⁶ − 2q⁷ + … + q¹⁰ + …',\n      coefs: F11, apE: Ap_E11,\n      primes: [2,3,5,7,11,13,17,19]\n    },\n    '32a': {\n      label:'E₂ : y² = x³ − x   (N = 32, CM by ℤ[i])',\n      form:'f_E is the CM newform attached to ℤ[i]; supported on primes p ≡ 1 (mod 4).',\n      coefs: F32, apE: Ap_E32,\n      primes: [2,3,5,7,11,13,17,19]\n    }\n  };\n\n  const pick = $('#md-pick'), tab = $('#md-tab'), out = $('#md-out');\n\n  function render(){\n    const S = SETS[pick.value];\n    let html = '<table class=\"plain\"><thead><tr><th>p</th><th>#E(𝔽_p)</th><th>a_p(E) = p+1−#E</th><th>a_p(f_E)</th><th>match?</th></tr></thead><tbody>';\n    let matches=0, total=0;\n    for(const p of S.primes){\n      const ap = S.apE[p];\n      const af = S.coefs[p-1]; // index p-1 since coefs[0] = a_1\n      const hits = (ap===af);\n      const sharpE = (p===11 && pick.value==='11a') ? '—' : (p+1-ap);\n      if(hits) matches++;\n      total++;\n      html += `<tr><td>${p}</td><td>${sharpE}</td><td>${ap}</td><td>${af}</td>`+\n        `<td class=\"${hits?'match':''}\">${hits?'✓':'✗'}</td></tr>`;\n    }\n    html += '</tbody></table>';\n    tab.innerHTML = html;\n    out.textContent =\n      `${S.label}\\n`+\n      `${S.form}\\n`+\n      `Frobenius traces a_p(E) match Fourier coefficients a_p(f_E): ${matches}/${total} primes shown.\\n`+\n      `This is the modularity theorem in one row at a time.`;\n  }\n  pick.onchange = render;\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -60,9 +224,61 @@
         },
         {
           "type": "widget",
-          "id": "w-resid",
-          "html": "<div class=\"widget\" id=\"w-resid\">\n  <div class=\"hd\"><div class=\"ttl\">Trace mismatch meter</div><div class=\"hint\">select displayed prime range</div></div>\n  <div class=\"row\">\n    <label>up to prime <input id=\"rs-max\" type=\"range\" min=\"7\" max=\"19\" step=\"2\" value=\"19\"></label>\n    <span id=\"rs-v\" class=\"small\">p ≤ 19</span>\n  </div>\n  <svg id=\"rs-svg\" viewBox=\"0 0 640 180\" width=\"640\" height=\"180\"><title>Trace mismatch meter</title></svg>\n  <div class=\"readout\" id=\"rs-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const maxSl=$('#rs-max'), vv=$('#rs-v'), svg=$('#rs-svg'), out=$('#rs-out'), pick=$('#md-pick');\n  const data={\n    '11a':{p:[2,3,5,7,11,13,17,19], ap:[-2,-1,1,-2,1,4,-2,0], af:[-2,-1,1,-2,1,4,-2,0]},\n    '32a':{p:[2,3,5,7,11,13,17,19], ap:[0,0,-2,0,0,-6,2,0], af:[0,0,0,0,0,-6,2,0]}\n  };\n  function draw(){\n    const k=pick.value, lim=+maxSl.value; vv.textContent='p ≤ '+lim;\n    const P=[],D=[]; data[k].p.forEach((p,i)=>{ if(p<=lim){ P.push(p); D.push(data[k].ap[i]-data[k].af[i]); }});\n    svg.innerHTML=''; const W=640,H=180,pad=30,pw=W-2*pad; const X=i=>pad+pw*(i+0.5)/Math.max(P.length,1), Y=v=>H/2-30*v;\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    for(let i=0;i<P.length;i++){\n      const x=X(i),d=D[i];\n      svg.appendChild(SVG('rect',{x:x-14,y:Math.min(Y(0),Y(d)),width:28,height:Math.abs(Y(d)-Y(0)),fill:d===0?'var(--green)':'var(--pink)',opacity:0.75}));\n      const t=SVG('text',{x,y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(P[i]); svg.appendChild(t);\n    }\n    const mism=D.filter(x=>x!==0).length;\n    out.textContent=`Displayed primes: ${P.join(', ')}\nResiduals a_p(E)-a_p(f): [${D.join(', ')}]\nMismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;\n  }\n  maxSl.addEventListener('input',draw); pick.addEventListener('change',draw); draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-resid",
+            "title": "Trace mismatch meter",
+            "hint": "select displayed prime range",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>up to prime <input id=\"rs-max\" type=\"range\" min=\"7\" max=\"19\" step=\"2\" value=\"19\"></label>\n    <span id=\"rs-v\" class=\"small\">p ≤ 19</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "rs-svg",
+                "viewBox": "0 0 640 180",
+                "width": 640,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "rs-out"
+              }
+            ],
+            "bodyScript": "  const maxSl=$('#rs-max'), vv=$('#rs-v'), svg=$('#rs-svg'), out=$('#rs-out'), pick=$('#md-pick');\n  const data={\n    '11a':{p:[2,3,5,7,11,13,17,19], ap:[-2,-1,1,-2,1,4,-2,0], af:[-2,-1,1,-2,1,4,-2,0]},\n    '32a':{p:[2,3,5,7,11,13,17,19], ap:[0,0,-2,0,0,-6,2,0], af:[0,0,0,0,0,-6,2,0]}\n  };\n  function draw(){\n    const k=pick.value, lim=+maxSl.value; vv.textContent='p ≤ '+lim;\n    const P=[],D=[]; data[k].p.forEach((p,i)=>{ if(p<=lim){ P.push(p); D.push(data[k].ap[i]-data[k].af[i]); }});\n    svg.innerHTML=''; const W=640,H=180,pad=30,pw=W-2*pad; const X=i=>pad+pw*(i+0.5)/Math.max(P.length,1), Y=v=>H/2-30*v;\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    for(let i=0;i<P.length;i++){\n      const x=X(i),d=D[i];\n      svg.appendChild(SVG('rect',{x:x-14,y:Math.min(Y(0),Y(d)),width:28,height:Math.abs(Y(d)-Y(0)),fill:d===0?'var(--green)':'var(--pink)',opacity:0.75}));\n      const t=SVG('text',{x,y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(P[i]); svg.appendChild(t);\n    }\n    const mism=D.filter(x=>x!==0).length;\n    out.textContent=`Displayed primes: ${P.join(', ')}\nResiduals a_p(E)-a_p(f): [${D.join(', ')}]\nMismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;\n  }\n  maxSl.addEventListener('input',draw); pick.addEventListener('change',draw); draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-resid",
+            "title": "Trace mismatch meter",
+            "hint": "select displayed prime range",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>up to prime <input id=\"rs-max\" type=\"range\" min=\"7\" max=\"19\" step=\"2\" value=\"19\"></label>\n    <span id=\"rs-v\" class=\"small\">p ≤ 19</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "rs-svg",
+                "viewBox": "0 0 640 180",
+                "width": 640,
+                "height": 180
+              },
+              {
+                "kind": "readout",
+                "id": "rs-out"
+              }
+            ],
+            "bodyScript": "  const maxSl=$('#rs-max'), vv=$('#rs-v'), svg=$('#rs-svg'), out=$('#rs-out'), pick=$('#md-pick');\n  const data={\n    '11a':{p:[2,3,5,7,11,13,17,19], ap:[-2,-1,1,-2,1,4,-2,0], af:[-2,-1,1,-2,1,4,-2,0]},\n    '32a':{p:[2,3,5,7,11,13,17,19], ap:[0,0,-2,0,0,-6,2,0], af:[0,0,0,0,0,-6,2,0]}\n  };\n  function draw(){\n    const k=pick.value, lim=+maxSl.value; vv.textContent='p ≤ '+lim;\n    const P=[],D=[]; data[k].p.forEach((p,i)=>{ if(p<=lim){ P.push(p); D.push(data[k].ap[i]-data[k].af[i]); }});\n    svg.innerHTML=''; const W=640,H=180,pad=30,pw=W-2*pad; const X=i=>pad+pw*(i+0.5)/Math.max(P.length,1), Y=v=>H/2-30*v;\n    svg.appendChild(SVG('line',{x1:pad,y1:H/2,x2:W-pad,y2:H/2,stroke:'var(--line)'}));\n    for(let i=0;i<P.length;i++){\n      const x=X(i),d=D[i];\n      svg.appendChild(SVG('rect',{x:x-14,y:Math.min(Y(0),Y(d)),width:28,height:Math.abs(Y(d)-Y(0)),fill:d===0?'var(--green)':'var(--pink)',opacity:0.75}));\n      const t=SVG('text',{x,y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); t.textContent=String(P[i]); svg.appendChild(t);\n    }\n    const mism=D.filter(x=>x!==0).length;\n    out.textContent=`Displayed primes: ${P.join(', ')}\nResiduals a_p(E)-a_p(f): [${D.join(', ')}]\nMismatches: ${mism} (should be 0 at good primes for the matched modular pair).`;\n  }\n  maxSl.addEventListener('input',draw); pick.addEventListener('change',draw); draw();"
+          }
         },
         {
           "type": "raw",
@@ -88,9 +304,55 @@
         },
         {
           "type": "widget",
-          "id": "w-chain",
-          "html": "<div class=\"widget\" id=\"w-chain\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 3 · The contradiction chain</div><div class=\"hint\">click a node for the reasoning at that step</div></div>\n  <svg id=\"ch-svg\" viewBox=\"0 0 700 380\" width=\"700\" height=\"380\"><title>Widget 3 · The contradiction chain</title></svg>\n  <div class=\"readout\" id=\"ch-out\">Click any node to expand the step.</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg=$('#ch-svg'), out=$('#ch-out');\n  const nodes = [\n    {id:'assume', x:110, y:50,  label:'Assume',\n      text:'Assume integers a,b,c pairwise coprime, p ≥ 5 prime, with a^p + b^p = c^p. We will derive a contradiction, so this assumption is false — no such triple exists.'},\n    {id:'frey',   x:350, y:50,  label:'Frey E',\n      text:'Attach the Frey curve E_{a,b,c}: y² = x(x−aᵖ)(x+bᵖ). Its three 2-torsion points are rational, and Δ(E) = (abc)^{2p}/2⁸ is a perfect 2p-th power away from 2.'},\n    {id:'semi',   x:590, y:50,  label:'semi­stable',\n      text:'At every odd prime ℓ | abc, ℓ appears in Δ with multiplicity 2p (a square). Tate\\'s algorithm → multiplicative reduction, so E is semistable. Conductor N_E is squarefree away from 2.'},\n    {id:'wiles',  x:590, y:180, label:'Wiles',\n      text:'Modularity theorem (Wiles + Taylor–Wiles, semistable case): E is modular. Its mod-p Galois representation ρ̄_{E,p} comes from a weight-2 newform in S_2(Γ_0(N_E)).'},\n    {id:'ribet',  x:350, y:180, label:'Ribet',\n      text:'Level lowering: because the ramification at every odd ℓ | abc is carried by a p-th power, ρ̄_{E,p} is unramified at ℓ mod p. Ribet\\'s theorem peels ℓ off the level. Iterating, the level drops from N_E down to 2.'},\n    {id:'empty',  x:110, y:180, label:'S₂(Γ₀(2))',\n      text:'But dim S_2(Γ_0(2)) = genus X_0(2) = 0. There is no weight-2 newform of level 2 for ρ̄_{E,p} to come from.'},\n    {id:'flt',    x:350, y:320, label:'FLT ✓',\n      text:'Contradiction. The assumption fails, so Fermat\\'s equation has no nontrivial integer solutions. QED — a 350-year proof, in one page.'},\n  ];\n  const edges = [\n    ['assume','frey'], ['frey','semi'], ['semi','wiles'],\n    ['wiles','ribet'], ['ribet','empty'], ['empty','flt'],\n  ];\n  let active=null;\n  function draw(){\n    svg.innerHTML='';\n    // edges\n    for(const [u,v] of edges){\n      const A=nodes.find(n=>n.id===u), B=nodes.find(n=>n.id===v);\n      drawArrow(svg,[A.x,A.y],[B.x,B.y],{color:'var(--violet)',markerId:'ch-arr',pad1:38,pad2:42,width:1.6});\n    }\n    // nodes\n    for(const n of nodes){\n      const hl = (n.id===active);\n      const stroke = (n.id==='flt') ? 'var(--green)'\n                   : (n.id==='empty') ? 'var(--pink)'\n                   : hl ? 'var(--yellow)' : 'var(--blue)';\n      drawNode(svg,n.x,n.y,n.label,{r:34,stroke,fontSize:12,fill:hl?'#2a2410':'var(--panel2)'});\n      // click target\n      const r = SVG('rect',{x:n.x-40,y:n.y-40,width:80,height:80,fill:'transparent',\n        style:'cursor:pointer','data-nid':n.id});\n      svg.appendChild(r);\n    }\n  }\n  svg.addEventListener('click', e=>{\n    const t = e.target.closest('[data-nid]');\n    if(!t) return;\n    active = t.getAttribute('data-nid');\n    const n = nodes.find(x=>x.id===active);\n    out.textContent = `[${n.label}] ${n.text}`;\n    draw();\n  });\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chain",
+            "title": "Widget 3 · The contradiction chain",
+            "hint": "click a node for the reasoning at that step",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ch-svg",
+                "viewBox": "0 0 700 380",
+                "width": 700,
+                "height": 380
+              },
+              {
+                "kind": "readout",
+                "id": "ch-out",
+                "content": "Click any node to expand the step."
+              }
+            ],
+            "bodyScript": "  const svg=$('#ch-svg'), out=$('#ch-out');\n  const nodes = [\n    {id:'assume', x:110, y:50,  label:'Assume',\n      text:'Assume integers a,b,c pairwise coprime, p ≥ 5 prime, with a^p + b^p = c^p. We will derive a contradiction, so this assumption is false — no such triple exists.'},\n    {id:'frey',   x:350, y:50,  label:'Frey E',\n      text:'Attach the Frey curve E_{a,b,c}: y² = x(x−aᵖ)(x+bᵖ). Its three 2-torsion points are rational, and Δ(E) = (abc)^{2p}/2⁸ is a perfect 2p-th power away from 2.'},\n    {id:'semi',   x:590, y:50,  label:'semi­stable',\n      text:'At every odd prime ℓ | abc, ℓ appears in Δ with multiplicity 2p (a square). Tate\\'s algorithm → multiplicative reduction, so E is semistable. Conductor N_E is squarefree away from 2.'},\n    {id:'wiles',  x:590, y:180, label:'Wiles',\n      text:'Modularity theorem (Wiles + Taylor–Wiles, semistable case): E is modular. Its mod-p Galois representation ρ̄_{E,p} comes from a weight-2 newform in S_2(Γ_0(N_E)).'},\n    {id:'ribet',  x:350, y:180, label:'Ribet',\n      text:'Level lowering: because the ramification at every odd ℓ | abc is carried by a p-th power, ρ̄_{E,p} is unramified at ℓ mod p. Ribet\\'s theorem peels ℓ off the level. Iterating, the level drops from N_E down to 2.'},\n    {id:'empty',  x:110, y:180, label:'S₂(Γ₀(2))',\n      text:'But dim S_2(Γ_0(2)) = genus X_0(2) = 0. There is no weight-2 newform of level 2 for ρ̄_{E,p} to come from.'},\n    {id:'flt',    x:350, y:320, label:'FLT ✓',\n      text:'Contradiction. The assumption fails, so Fermat\\'s equation has no nontrivial integer solutions. QED — a 350-year proof, in one page.'},\n  ];\n  const edges = [\n    ['assume','frey'], ['frey','semi'], ['semi','wiles'],\n    ['wiles','ribet'], ['ribet','empty'], ['empty','flt'],\n  ];\n  let active=null;\n  function draw(){\n    svg.innerHTML='';\n    // edges\n    for(const [u,v] of edges){\n      const A=nodes.find(n=>n.id===u), B=nodes.find(n=>n.id===v);\n      drawArrow(svg,[A.x,A.y],[B.x,B.y],{color:'var(--violet)',markerId:'ch-arr',pad1:38,pad2:42,width:1.6});\n    }\n    // nodes\n    for(const n of nodes){\n      const hl = (n.id===active);\n      const stroke = (n.id==='flt') ? 'var(--green)'\n                   : (n.id==='empty') ? 'var(--pink)'\n                   : hl ? 'var(--yellow)' : 'var(--blue)';\n      drawNode(svg,n.x,n.y,n.label,{r:34,stroke,fontSize:12,fill:hl?'#2a2410':'var(--panel2)'});\n      // click target\n      const r = SVG('rect',{x:n.x-40,y:n.y-40,width:80,height:80,fill:'transparent',\n        style:'cursor:pointer','data-nid':n.id});\n      svg.appendChild(r);\n    }\n  }\n  svg.addEventListener('click', e=>{\n    const t = e.target.closest('[data-nid]');\n    if(!t) return;\n    active = t.getAttribute('data-nid');\n    const n = nodes.find(x=>x.id===active);\n    out.textContent = `[${n.label}] ${n.text}`;\n    draw();\n  });\n  draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-chain",
+            "title": "Widget 3 · The contradiction chain",
+            "hint": "click a node for the reasoning at that step",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "ch-svg",
+                "viewBox": "0 0 700 380",
+                "width": 700,
+                "height": 380
+              },
+              {
+                "kind": "readout",
+                "id": "ch-out",
+                "content": "Click any node to expand the step."
+              }
+            ],
+            "bodyScript": "  const svg=$('#ch-svg'), out=$('#ch-out');\n  const nodes = [\n    {id:'assume', x:110, y:50,  label:'Assume',\n      text:'Assume integers a,b,c pairwise coprime, p ≥ 5 prime, with a^p + b^p = c^p. We will derive a contradiction, so this assumption is false — no such triple exists.'},\n    {id:'frey',   x:350, y:50,  label:'Frey E',\n      text:'Attach the Frey curve E_{a,b,c}: y² = x(x−aᵖ)(x+bᵖ). Its three 2-torsion points are rational, and Δ(E) = (abc)^{2p}/2⁸ is a perfect 2p-th power away from 2.'},\n    {id:'semi',   x:590, y:50,  label:'semi­stable',\n      text:'At every odd prime ℓ | abc, ℓ appears in Δ with multiplicity 2p (a square). Tate\\'s algorithm → multiplicative reduction, so E is semistable. Conductor N_E is squarefree away from 2.'},\n    {id:'wiles',  x:590, y:180, label:'Wiles',\n      text:'Modularity theorem (Wiles + Taylor–Wiles, semistable case): E is modular. Its mod-p Galois representation ρ̄_{E,p} comes from a weight-2 newform in S_2(Γ_0(N_E)).'},\n    {id:'ribet',  x:350, y:180, label:'Ribet',\n      text:'Level lowering: because the ramification at every odd ℓ | abc is carried by a p-th power, ρ̄_{E,p} is unramified at ℓ mod p. Ribet\\'s theorem peels ℓ off the level. Iterating, the level drops from N_E down to 2.'},\n    {id:'empty',  x:110, y:180, label:'S₂(Γ₀(2))',\n      text:'But dim S_2(Γ_0(2)) = genus X_0(2) = 0. There is no weight-2 newform of level 2 for ρ̄_{E,p} to come from.'},\n    {id:'flt',    x:350, y:320, label:'FLT ✓',\n      text:'Contradiction. The assumption fails, so Fermat\\'s equation has no nontrivial integer solutions. QED — a 350-year proof, in one page.'},\n  ];\n  const edges = [\n    ['assume','frey'], ['frey','semi'], ['semi','wiles'],\n    ['wiles','ribet'], ['ribet','empty'], ['empty','flt'],\n  ];\n  let active=null;\n  function draw(){\n    svg.innerHTML='';\n    // edges\n    for(const [u,v] of edges){\n      const A=nodes.find(n=>n.id===u), B=nodes.find(n=>n.id===v);\n      drawArrow(svg,[A.x,A.y],[B.x,B.y],{color:'var(--violet)',markerId:'ch-arr',pad1:38,pad2:42,width:1.6});\n    }\n    // nodes\n    for(const n of nodes){\n      const hl = (n.id===active);\n      const stroke = (n.id==='flt') ? 'var(--green)'\n                   : (n.id==='empty') ? 'var(--pink)'\n                   : hl ? 'var(--yellow)' : 'var(--blue)';\n      drawNode(svg,n.x,n.y,n.label,{r:34,stroke,fontSize:12,fill:hl?'#2a2410':'var(--panel2)'});\n      // click target\n      const r = SVG('rect',{x:n.x-40,y:n.y-40,width:80,height:80,fill:'transparent',\n        style:'cursor:pointer','data-nid':n.id});\n      svg.appendChild(r);\n    }\n  }\n  svg.addEventListener('click', e=>{\n    const t = e.target.closest('[data-nid]');\n    if(!t) return;\n    active = t.getAttribute('data-nid');\n    const n = nodes.find(x=>x.id===active);\n    out.textContent = `[${n.label}] ${n.text}`;\n    draw();\n  });\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -98,9 +360,47 @@
         },
         {
           "type": "widget",
-          "id": "w-level",
-          "html": "<div class=\"widget\" id=\"w-level\">\n  <div class=\"hd\"><div class=\"ttl\">Level-lowering simulator</div><div class=\"hint\">add odd bad primes, then peel them off mod p</div></div>\n  <div class=\"row\">\n    <label>odd bad primes dividing abc</label>\n    <button class=\"lv-add\" data-q=\"3\">+3</button>\n    <button class=\"lv-add\" data-q=\"5\">+5</button>\n    <button class=\"lv-add\" data-q=\"7\">+7</button>\n    <button class=\"lv-add\" data-q=\"11\">+11</button>\n    <button id=\"lv-step\">lower one prime</button>\n    <button id=\"lv-reset\">reset</button>\n  </div>\n  <div class=\"readout\" id=\"lv-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const adds=$$('.lv-add'), step=$('#lv-step'), reset=$('#lv-reset'), out=$('#lv-out');\n  let S=[];\n  function level(){ return 2*S.reduce((a,v)=>a*v,1); }\n  function draw(){ out.textContent=`Current odd support: ${S.length?S.join('·'):'(none)'}\nConductor model N_E = 2·∏ℓ = ${level()}\nRibet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`; }\n  adds.forEach(b=>b.addEventListener('click',()=>{ const q=+b.dataset.q; if(!S.includes(q)) S.push(q); S.sort((a,b)=>a-b); draw(); }));\n  step.addEventListener('click',()=>{ if(S.length) S.pop(); draw(); });\n  reset.addEventListener('click',()=>{ S=[]; draw(); });\n  draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-level",
+            "title": "Level-lowering simulator",
+            "hint": "add odd bad primes, then peel them off mod p",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>odd bad primes dividing abc</label>\n    <button class=\"lv-add\" data-q=\"3\">+3</button>\n    <button class=\"lv-add\" data-q=\"5\">+5</button>\n    <button class=\"lv-add\" data-q=\"7\">+7</button>\n    <button class=\"lv-add\" data-q=\"11\">+11</button>\n    <button id=\"lv-step\">lower one prime</button>\n    <button id=\"lv-reset\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lv-out"
+              }
+            ],
+            "bodyScript": "  const adds=$$('.lv-add'), step=$('#lv-step'), reset=$('#lv-reset'), out=$('#lv-out');\n  let S=[];\n  function level(){ return 2*S.reduce((a,v)=>a*v,1); }\n  function draw(){ out.textContent=`Current odd support: ${S.length?S.join('·'):'(none)'}\nConductor model N_E = 2·∏ℓ = ${level()}\nRibet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`; }\n  adds.forEach(b=>b.addEventListener('click',()=>{ const q=+b.dataset.q; if(!S.includes(q)) S.push(q); S.sort((a,b)=>a-b); draw(); }));\n  step.addEventListener('click',()=>{ if(S.length) S.pop(); draw(); });\n  reset.addEventListener('click',()=>{ S=[]; draw(); });\n  draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-level",
+            "title": "Level-lowering simulator",
+            "hint": "add odd bad primes, then peel them off mod p",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>odd bad primes dividing abc</label>\n    <button class=\"lv-add\" data-q=\"3\">+3</button>\n    <button class=\"lv-add\" data-q=\"5\">+5</button>\n    <button class=\"lv-add\" data-q=\"7\">+7</button>\n    <button class=\"lv-add\" data-q=\"11\">+11</button>\n    <button id=\"lv-step\">lower one prime</button>\n    <button id=\"lv-reset\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "lv-out"
+              }
+            ],
+            "bodyScript": "  const adds=$$('.lv-add'), step=$('#lv-step'), reset=$('#lv-reset'), out=$('#lv-out');\n  let S=[];\n  function level(){ return 2*S.reduce((a,v)=>a*v,1); }\n  function draw(){ out.textContent=`Current odd support: ${S.length?S.join('·'):'(none)'}\nConductor model N_E = 2·∏ℓ = ${level()}\nRibet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`; }\n  adds.forEach(b=>b.addEventListener('click',()=>{ const q=+b.dataset.q; if(!S.includes(q)) S.push(q); S.sort((a,b)=>a-b); draw(); }));\n  step.addEventListener('click',()=>{ if(S.length) S.pop(); draw(); });\n  reset.addEventListener('click',()=>{ S=[]; draw(); });\n  draw();"
+          }
         },
         {
           "type": "raw",
@@ -108,9 +408,71 @@
         },
         {
           "type": "widget",
-          "id": "w-step",
-          "html": "<div class=\"widget\" id=\"w-step\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 3b · Ribet level-lowering stepper</div><div class=\"hint\">pick an initial conductor, click \"next step\" to peel a prime</div></div>\n  <div class=\"row\">\n    <label>start conductor $N_E$</label>\n    <select id=\"st-pick\">\n      <option value=\"30\" selected>N = 2·3·5 = 30</option>\n      <option value=\"42\">N = 2·3·7 = 42</option>\n      <option value=\"2310\">N = 2·3·5·7·11 = 2310</option>\n      <option value=\"6\">N = 2·3 = 6</option>\n    </select>\n    <button id=\"st-next\">next step →</button>\n    <button id=\"st-auto\">auto-run</button>\n    <button id=\"st-reset\">reset</button>\n  </div>\n  <svg id=\"st-svg\" viewBox=\"0 0 700 260\" width=\"700\" height=\"260\"><title>Widget 3b · Ribet level-lowering stepper</title></svg>\n  <div class=\"readout\" id=\"st-out\">…</div>\n  <p class=\"small\">Arrows are labelled by the prime $\\ell$ being removed. Each step requires that $\\overline\\rho_{E,p}$ be unramified mod $p$ at $\\ell$ — always true for the Frey curve because $v_\\ell(\\Delta) = 2p$ is a perfect $p$-th power. The terminal box is flagged red when level $2$ is reached, because $\\dim S_2(\\Gamma_0(2)) = 0$ makes that box uninhabitable.</p>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const pick=$('#st-pick'), next=$('#st-next'), auto=$('#st-auto'), reset=$('#st-reset');\n  const svg=$('#st-svg'), out=$('#st-out');\n  let chain = []; // array of {level, odds, removed}  where odds=[odd primes still present], removed=the prime just stripped\n  let autoTimer = null;\n  function factorOdd(N){\n    const out = []; let n = Math.abs(N|0); if(n%2===0) n=n/2; // strip the 2\n    for(let q=3; q*q<=n; q+=2){ while(n%q===0){ out.push(q); n=n/q; } }\n    if(n>1) out.push(n);\n    // dedupe (semistable → squarefree)\n    return [...new Set(out)].sort((a,b)=>a-b);\n  }\n  function start(){\n    const N = +pick.value;\n    const odds = factorOdd(N);\n    chain = [{ level:N, odds, removed:null }];\n  }\n  function stepOnce(){\n    const last = chain[chain.length-1];\n    if(!last.odds.length) return; // already at level 2 (or no more odd primes)\n    // strip the largest odd prime (cosmetic — Ribet works one prime at a time; order matters for bookkeeping but not the result)\n    const odds = last.odds.slice();\n    const removed = odds.pop();\n    const level = last.level / removed;\n    chain.push({ level, odds, removed });\n  }\n  function draw(){\n    svg.innerHTML='';\n    const W=700, H=260;\n    const n = chain.length;\n    // layout: horizontal chain of boxes\n    const boxW=120, boxH=66;\n    const totalW = n*boxW + (n-1)*60;\n    const x0 = (W-totalW)/2;\n    const y = 90;\n    // arrows (behind boxes)\n    for(let i=0;i<n-1;i++){\n      const ax = x0 + i*(boxW+60) + boxW;\n      const bx = x0 + (i+1)*(boxW+60);\n      const midx = (ax+bx)/2;\n      drawArrow(svg, [ax, y+boxH/2], [bx, y+boxH/2],\n        {color:'var(--violet)', markerId:'st-arr', pad1:4, pad2:8, width:1.5, label:'drop ℓ='+chain[i+1].removed, labelSide:1});\n    }\n    // boxes\n    for(let i=0;i<n;i++){\n      const node = chain[i];\n      const bx = x0 + i*(boxW+60);\n      const atTwo = (node.level===2);\n      const stroke = atTwo ? 'var(--pink)' : (i===n-1 ? 'var(--yellow)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x:bx, y, width:boxW, height:boxH, rx:8,\n        fill:'var(--panel2)', stroke, 'stroke-width':1.8}));\n      const t1 = SVG('text',{x:bx+boxW/2, y:y+22, 'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});\n      t1.textContent = 'level '+node.level;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:bx+boxW/2, y:y+40, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t2.textContent = node.odds.length ? 'odd: '+node.odds.join(',') : 'odd: (none)';\n      svg.appendChild(t2);\n      const t3 = SVG('text',{x:bx+boxW/2, y:y+56, 'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});\n      t3.textContent = 'ρ̄ modular';\n      svg.appendChild(t3);\n    }\n    // legend line\n    const lg = SVG('text',{x:W/2, y:30, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    lg.textContent = 'ρ̄ = mod-p Galois representation of the Frey curve — fixed across the chain; only the newform level changes';\n    svg.appendChild(lg);\n\n    // termination flag\n    const last = chain[chain.length-1];\n    if(last.level===2){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-weight':600});\n      flag.textContent = 'Landed at level 2 — but dim S_2(Γ_0(2)) = 0. No newform here. ✗';\n      svg.appendChild(flag);\n      const flt = SVG('text',{x:W/2, y:y+boxH+56, 'text-anchor':'middle','font-size':12,fill:'var(--green)','font-style':'italic'});\n      flt.textContent = 'Contradiction ⇒ Fermat\\u2019s last theorem.';\n      svg.appendChild(flt);\n    } else if(!last.odds.length){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});\n      flag.textContent = 'No more odd primes to strip; level stabilizes at '+last.level+'.';\n      svg.appendChild(flag);\n    }\n\n    // readout\n    const lines = chain.map((c,i)=>{\n      const arrow = (i===0) ? 'start' : `via ℓ=${c.removed}`;\n      return `[step ${i}]  level=${c.level}  odd support=${c.odds.length?c.odds.join('·'):'(none)'}   (${arrow})`;\n    });\n    lines.push('');\n    if(last.level===2) lines.push('→ Ribet chain terminates in the empty space S_2(Γ_0(2)). FLT closed.');\n    else if(!last.odds.length) lines.push('→ Chain stops: no odd prime remains to strip.');\n    else lines.push('→ Click \"next step\" to remove ℓ = '+last.odds[last.odds.length-1]+' from the level.');\n    out.textContent = lines.join('\\n');\n  }\n  function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; auto.classList.remove('active'); auto.textContent='auto-run'; } }\n  pick.addEventListener('change', ()=>{ stopAuto(); start(); draw(); });\n  next.addEventListener('click', ()=>{ stopAuto(); stepOnce(); draw(); });\n  reset.addEventListener('click', ()=>{ stopAuto(); start(); draw(); });\n  auto.addEventListener('click', ()=>{\n    if(autoTimer){ stopAuto(); return; }\n    auto.classList.add('active'); auto.textContent='pause';\n    autoTimer = setInterval(()=>{\n      const last = chain[chain.length-1];\n      if(!last.odds.length){ stopAuto(); return; }\n      stepOnce(); draw();\n    }, 750);\n  });\n  start(); draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-step",
+            "title": "Widget 3b · Ribet level-lowering stepper",
+            "hint": "pick an initial conductor, click \"next step\" to peel a prime",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>start conductor $N_E$</label>\n    <select id=\"st-pick\">\n      <option value=\"30\" selected>N = 2·3·5 = 30</option>\n      <option value=\"42\">N = 2·3·7 = 42</option>\n      <option value=\"2310\">N = 2·3·5·7·11 = 2310</option>\n      <option value=\"6\">N = 2·3 = 6</option>\n    </select>\n    <button id=\"st-next\">next step →</button>\n    <button id=\"st-auto\">auto-run</button>\n    <button id=\"st-reset\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "st-svg",
+                "viewBox": "0 0 700 260",
+                "width": 700,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "st-out",
+                "content": "…"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">Arrows are labelled by the prime $\\ell$ being removed. Each step requires that $\\overline\\rho_{E,p}$ be unramified mod $p$ at $\\ell$ — always true for the Frey curve because $v_\\ell(\\Delta) = 2p$ is a perfect $p$-th power. The terminal box is flagged red when level $2$ is reached, because $\\dim S_2(\\Gamma_0(2)) = 0$ makes that box uninhabitable.</p>"
+              }
+            ],
+            "bodyScript": "  const pick=$('#st-pick'), next=$('#st-next'), auto=$('#st-auto'), reset=$('#st-reset');\n  const svg=$('#st-svg'), out=$('#st-out');\n  let chain = []; // array of {level, odds, removed}  where odds=[odd primes still present], removed=the prime just stripped\n  let autoTimer = null;\n  function factorOdd(N){\n    const out = []; let n = Math.abs(N|0); if(n%2===0) n=n/2; // strip the 2\n    for(let q=3; q*q<=n; q+=2){ while(n%q===0){ out.push(q); n=n/q; } }\n    if(n>1) out.push(n);\n    // dedupe (semistable → squarefree)\n    return [...new Set(out)].sort((a,b)=>a-b);\n  }\n  function start(){\n    const N = +pick.value;\n    const odds = factorOdd(N);\n    chain = [{ level:N, odds, removed:null }];\n  }\n  function stepOnce(){\n    const last = chain[chain.length-1];\n    if(!last.odds.length) return; // already at level 2 (or no more odd primes)\n    // strip the largest odd prime (cosmetic — Ribet works one prime at a time; order matters for bookkeeping but not the result)\n    const odds = last.odds.slice();\n    const removed = odds.pop();\n    const level = last.level / removed;\n    chain.push({ level, odds, removed });\n  }\n  function draw(){\n    svg.innerHTML='';\n    const W=700, H=260;\n    const n = chain.length;\n    // layout: horizontal chain of boxes\n    const boxW=120, boxH=66;\n    const totalW = n*boxW + (n-1)*60;\n    const x0 = (W-totalW)/2;\n    const y = 90;\n    // arrows (behind boxes)\n    for(let i=0;i<n-1;i++){\n      const ax = x0 + i*(boxW+60) + boxW;\n      const bx = x0 + (i+1)*(boxW+60);\n      const midx = (ax+bx)/2;\n      drawArrow(svg, [ax, y+boxH/2], [bx, y+boxH/2],\n        {color:'var(--violet)', markerId:'st-arr', pad1:4, pad2:8, width:1.5, label:'drop ℓ='+chain[i+1].removed, labelSide:1});\n    }\n    // boxes\n    for(let i=0;i<n;i++){\n      const node = chain[i];\n      const bx = x0 + i*(boxW+60);\n      const atTwo = (node.level===2);\n      const stroke = atTwo ? 'var(--pink)' : (i===n-1 ? 'var(--yellow)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x:bx, y, width:boxW, height:boxH, rx:8,\n        fill:'var(--panel2)', stroke, 'stroke-width':1.8}));\n      const t1 = SVG('text',{x:bx+boxW/2, y:y+22, 'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});\n      t1.textContent = 'level '+node.level;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:bx+boxW/2, y:y+40, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t2.textContent = node.odds.length ? 'odd: '+node.odds.join(',') : 'odd: (none)';\n      svg.appendChild(t2);\n      const t3 = SVG('text',{x:bx+boxW/2, y:y+56, 'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});\n      t3.textContent = 'ρ̄ modular';\n      svg.appendChild(t3);\n    }\n    // legend line\n    const lg = SVG('text',{x:W/2, y:30, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    lg.textContent = 'ρ̄ = mod-p Galois representation of the Frey curve — fixed across the chain; only the newform level changes';\n    svg.appendChild(lg);\n\n    // termination flag\n    const last = chain[chain.length-1];\n    if(last.level===2){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-weight':600});\n      flag.textContent = 'Landed at level 2 — but dim S_2(Γ_0(2)) = 0. No newform here. ✗';\n      svg.appendChild(flag);\n      const flt = SVG('text',{x:W/2, y:y+boxH+56, 'text-anchor':'middle','font-size':12,fill:'var(--green)','font-style':'italic'});\n      flt.textContent = 'Contradiction ⇒ Fermat\\u2019s last theorem.';\n      svg.appendChild(flt);\n    } else if(!last.odds.length){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});\n      flag.textContent = 'No more odd primes to strip; level stabilizes at '+last.level+'.';\n      svg.appendChild(flag);\n    }\n\n    // readout\n    const lines = chain.map((c,i)=>{\n      const arrow = (i===0) ? 'start' : `via ℓ=${c.removed}`;\n      return `[step ${i}]  level=${c.level}  odd support=${c.odds.length?c.odds.join('·'):'(none)'}   (${arrow})`;\n    });\n    lines.push('');\n    if(last.level===2) lines.push('→ Ribet chain terminates in the empty space S_2(Γ_0(2)). FLT closed.');\n    else if(!last.odds.length) lines.push('→ Chain stops: no odd prime remains to strip.');\n    else lines.push('→ Click \"next step\" to remove ℓ = '+last.odds[last.odds.length-1]+' from the level.');\n    out.textContent = lines.join('\\n');\n  }\n  function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; auto.classList.remove('active'); auto.textContent='auto-run'; } }\n  pick.addEventListener('change', ()=>{ stopAuto(); start(); draw(); });\n  next.addEventListener('click', ()=>{ stopAuto(); stepOnce(); draw(); });\n  reset.addEventListener('click', ()=>{ stopAuto(); start(); draw(); });\n  auto.addEventListener('click', ()=>{\n    if(autoTimer){ stopAuto(); return; }\n    auto.classList.add('active'); auto.textContent='pause';\n    autoTimer = setInterval(()=>{\n      const last = chain[chain.length-1];\n      if(!last.odds.length){ stopAuto(); return; }\n      stepOnce(); draw();\n    }, 750);\n  });\n  start(); draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-step",
+            "title": "Widget 3b · Ribet level-lowering stepper",
+            "hint": "pick an initial conductor, click \"next step\" to peel a prime",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>start conductor $N_E$</label>\n    <select id=\"st-pick\">\n      <option value=\"30\" selected>N = 2·3·5 = 30</option>\n      <option value=\"42\">N = 2·3·7 = 42</option>\n      <option value=\"2310\">N = 2·3·5·7·11 = 2310</option>\n      <option value=\"6\">N = 2·3 = 6</option>\n    </select>\n    <button id=\"st-next\">next step →</button>\n    <button id=\"st-auto\">auto-run</button>\n    <button id=\"st-reset\">reset</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "st-svg",
+                "viewBox": "0 0 700 260",
+                "width": 700,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "st-out",
+                "content": "…"
+              },
+              {
+                "kind": "raw",
+                "html": "<p class=\"small\">Arrows are labelled by the prime $\\ell$ being removed. Each step requires that $\\overline\\rho_{E,p}$ be unramified mod $p$ at $\\ell$ — always true for the Frey curve because $v_\\ell(\\Delta) = 2p$ is a perfect $p$-th power. The terminal box is flagged red when level $2$ is reached, because $\\dim S_2(\\Gamma_0(2)) = 0$ makes that box uninhabitable.</p>"
+              }
+            ],
+            "bodyScript": "  const pick=$('#st-pick'), next=$('#st-next'), auto=$('#st-auto'), reset=$('#st-reset');\n  const svg=$('#st-svg'), out=$('#st-out');\n  let chain = []; // array of {level, odds, removed}  where odds=[odd primes still present], removed=the prime just stripped\n  let autoTimer = null;\n  function factorOdd(N){\n    const out = []; let n = Math.abs(N|0); if(n%2===0) n=n/2; // strip the 2\n    for(let q=3; q*q<=n; q+=2){ while(n%q===0){ out.push(q); n=n/q; } }\n    if(n>1) out.push(n);\n    // dedupe (semistable → squarefree)\n    return [...new Set(out)].sort((a,b)=>a-b);\n  }\n  function start(){\n    const N = +pick.value;\n    const odds = factorOdd(N);\n    chain = [{ level:N, odds, removed:null }];\n  }\n  function stepOnce(){\n    const last = chain[chain.length-1];\n    if(!last.odds.length) return; // already at level 2 (or no more odd primes)\n    // strip the largest odd prime (cosmetic — Ribet works one prime at a time; order matters for bookkeeping but not the result)\n    const odds = last.odds.slice();\n    const removed = odds.pop();\n    const level = last.level / removed;\n    chain.push({ level, odds, removed });\n  }\n  function draw(){\n    svg.innerHTML='';\n    const W=700, H=260;\n    const n = chain.length;\n    // layout: horizontal chain of boxes\n    const boxW=120, boxH=66;\n    const totalW = n*boxW + (n-1)*60;\n    const x0 = (W-totalW)/2;\n    const y = 90;\n    // arrows (behind boxes)\n    for(let i=0;i<n-1;i++){\n      const ax = x0 + i*(boxW+60) + boxW;\n      const bx = x0 + (i+1)*(boxW+60);\n      const midx = (ax+bx)/2;\n      drawArrow(svg, [ax, y+boxH/2], [bx, y+boxH/2],\n        {color:'var(--violet)', markerId:'st-arr', pad1:4, pad2:8, width:1.5, label:'drop ℓ='+chain[i+1].removed, labelSide:1});\n    }\n    // boxes\n    for(let i=0;i<n;i++){\n      const node = chain[i];\n      const bx = x0 + i*(boxW+60);\n      const atTwo = (node.level===2);\n      const stroke = atTwo ? 'var(--pink)' : (i===n-1 ? 'var(--yellow)' : 'var(--blue)');\n      svg.appendChild(SVG('rect',{x:bx, y, width:boxW, height:boxH, rx:8,\n        fill:'var(--panel2)', stroke, 'stroke-width':1.8}));\n      const t1 = SVG('text',{x:bx+boxW/2, y:y+22, 'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});\n      t1.textContent = 'level '+node.level;\n      svg.appendChild(t1);\n      const t2 = SVG('text',{x:bx+boxW/2, y:y+40, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      t2.textContent = node.odds.length ? 'odd: '+node.odds.join(',') : 'odd: (none)';\n      svg.appendChild(t2);\n      const t3 = SVG('text',{x:bx+boxW/2, y:y+56, 'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});\n      t3.textContent = 'ρ̄ modular';\n      svg.appendChild(t3);\n    }\n    // legend line\n    const lg = SVG('text',{x:W/2, y:30, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});\n    lg.textContent = 'ρ̄ = mod-p Galois representation of the Frey curve — fixed across the chain; only the newform level changes';\n    svg.appendChild(lg);\n\n    // termination flag\n    const last = chain[chain.length-1];\n    if(last.level===2){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-weight':600});\n      flag.textContent = 'Landed at level 2 — but dim S_2(Γ_0(2)) = 0. No newform here. ✗';\n      svg.appendChild(flag);\n      const flt = SVG('text',{x:W/2, y:y+boxH+56, 'text-anchor':'middle','font-size':12,fill:'var(--green)','font-style':'italic'});\n      flt.textContent = 'Contradiction ⇒ Fermat\\u2019s last theorem.';\n      svg.appendChild(flt);\n    } else if(!last.odds.length){\n      const flag = SVG('text',{x:W/2, y:y+boxH+36, 'text-anchor':'middle','font-size':13,fill:'var(--yellow)'});\n      flag.textContent = 'No more odd primes to strip; level stabilizes at '+last.level+'.';\n      svg.appendChild(flag);\n    }\n\n    // readout\n    const lines = chain.map((c,i)=>{\n      const arrow = (i===0) ? 'start' : `via ℓ=${c.removed}`;\n      return `[step ${i}]  level=${c.level}  odd support=${c.odds.length?c.odds.join('·'):'(none)'}   (${arrow})`;\n    });\n    lines.push('');\n    if(last.level===2) lines.push('→ Ribet chain terminates in the empty space S_2(Γ_0(2)). FLT closed.');\n    else if(!last.odds.length) lines.push('→ Chain stops: no odd prime remains to strip.');\n    else lines.push('→ Click \"next step\" to remove ℓ = '+last.odds[last.odds.length-1]+' from the level.');\n    out.textContent = lines.join('\\n');\n  }\n  function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; auto.classList.remove('active'); auto.textContent='auto-run'; } }\n  pick.addEventListener('change', ()=>{ stopAuto(); start(); draw(); });\n  next.addEventListener('click', ()=>{ stopAuto(); stepOnce(); draw(); });\n  reset.addEventListener('click', ()=>{ stopAuto(); start(); draw(); });\n  auto.addEventListener('click', ()=>{\n    if(autoTimer){ stopAuto(); return; }\n    auto.classList.add('active'); auto.textContent='pause';\n    autoTimer = setInterval(()=>{\n      const last = chain[chain.length-1];\n      if(!last.odds.length){ stopAuto(); return; }\n      stepOnce(); draw();\n    }, 750);\n  });\n  start(); draw();"
+          }
         },
         {
           "type": "raw",
@@ -136,9 +498,49 @@
         },
         {
           "type": "widget",
-          "id": "w-def",
-          "html": "<div class=\"widget\" id=\"w-def\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 4 · Deformation ring dimension counter</div><div class=\"hint\">toggle local conditions; track the Selmer dimension</div></div>\n  <div class=\"row\">\n    <label>allow ramification at $\\ell=3$?</label>\n    <button class=\"df-tog\" data-k=\"ram3\">off</button>\n    <label>allow ramification at $\\ell=5$?</label>\n    <button class=\"df-tog\" data-k=\"ram5\">off</button>\n    <label>ordinary at $p$?</label>\n    <button class=\"df-tog\" data-k=\"ord\">on</button>\n  </div>\n  <div class=\"readout\" id=\"df-out\">…</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const state = { ram3:false, ram5:false, ord:true };\n  const btns = $$('.df-tog'), out = $('#df-out');\n  function render(){\n    // toy model: dim = base 0 + 1 per extra ramification prime + 1 if non-ordinary (irregular local condition)\n    let dim = 0;\n    let narr = [];\n    narr.push('Residual $\\\\overline\\\\rho$ ramified at $\\\\{2, p\\\\}$; start with trivial Selmer.');\n    if(state.ram3){ dim++; narr.push('allow ramification at 3 → +1 local tangent direction'); }\n    if(state.ram5){ dim++; narr.push('allow ramification at 5 → +1 local tangent direction'); }\n    if(!state.ord){ dim++; narr.push('drop ordinary condition at p → +1 Selmer dimension'); }\n    btns.forEach(b=>{ const k=b.dataset.k; b.textContent = state[k] ? 'on' : 'off'; b.classList.toggle('active', state[k]); });\n    out.textContent =\n      narr.map(s=>'• '+s.replace(/\\\\\\$/g,'').replace(/\\\\\\\\/g,'')).join('\\n') + '\\n' +\n      `Relative Selmer dim (toy count): ${dim}\\n`+\n      `R_Σ is a quotient of Z_p[[x_1,…,x_${Math.max(dim,1)}]] (dim ≤ ${dim}).`;\n  }\n  btns.forEach(b=>b.addEventListener('click',()=>{ state[b.dataset.k] = !state[b.dataset.k]; render(); }));\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-def",
+            "title": "Widget 4 · Deformation ring dimension counter",
+            "hint": "toggle local conditions; track the Selmer dimension",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>allow ramification at $\\ell=3$?</label>\n    <button class=\"df-tog\" data-k=\"ram3\">off</button>\n    <label>allow ramification at $\\ell=5$?</label>\n    <button class=\"df-tog\" data-k=\"ram5\">off</button>\n    <label>ordinary at $p$?</label>\n    <button class=\"df-tog\" data-k=\"ord\">on</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "df-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const state = { ram3:false, ram5:false, ord:true };\n  const btns = $$('.df-tog'), out = $('#df-out');\n  function render(){\n    // toy model: dim = base 0 + 1 per extra ramification prime + 1 if non-ordinary (irregular local condition)\n    let dim = 0;\n    let narr = [];\n    narr.push('Residual $\\\\overline\\\\rho$ ramified at $\\\\{2, p\\\\}$; start with trivial Selmer.');\n    if(state.ram3){ dim++; narr.push('allow ramification at 3 → +1 local tangent direction'); }\n    if(state.ram5){ dim++; narr.push('allow ramification at 5 → +1 local tangent direction'); }\n    if(!state.ord){ dim++; narr.push('drop ordinary condition at p → +1 Selmer dimension'); }\n    btns.forEach(b=>{ const k=b.dataset.k; b.textContent = state[k] ? 'on' : 'off'; b.classList.toggle('active', state[k]); });\n    out.textContent =\n      narr.map(s=>'• '+s.replace(/\\\\\\$/g,'').replace(/\\\\\\\\/g,'')).join('\\n') + '\\n' +\n      `Relative Selmer dim (toy count): ${dim}\\n`+\n      `R_Σ is a quotient of Z_p[[x_1,…,x_${Math.max(dim,1)}]] (dim ≤ ${dim}).`;\n  }\n  btns.forEach(b=>b.addEventListener('click',()=>{ state[b.dataset.k] = !state[b.dataset.k]; render(); }));\n  render();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-def",
+            "title": "Widget 4 · Deformation ring dimension counter",
+            "hint": "toggle local conditions; track the Selmer dimension",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label>allow ramification at $\\ell=3$?</label>\n    <button class=\"df-tog\" data-k=\"ram3\">off</button>\n    <label>allow ramification at $\\ell=5$?</label>\n    <button class=\"df-tog\" data-k=\"ram5\">off</button>\n    <label>ordinary at $p$?</label>\n    <button class=\"df-tog\" data-k=\"ord\">on</button>\n  </div>"
+              },
+              {
+                "kind": "readout",
+                "id": "df-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const state = { ram3:false, ram5:false, ord:true };\n  const btns = $$('.df-tog'), out = $('#df-out');\n  function render(){\n    // toy model: dim = base 0 + 1 per extra ramification prime + 1 if non-ordinary (irregular local condition)\n    let dim = 0;\n    let narr = [];\n    narr.push('Residual $\\\\overline\\\\rho$ ramified at $\\\\{2, p\\\\}$; start with trivial Selmer.');\n    if(state.ram3){ dim++; narr.push('allow ramification at 3 → +1 local tangent direction'); }\n    if(state.ram5){ dim++; narr.push('allow ramification at 5 → +1 local tangent direction'); }\n    if(!state.ord){ dim++; narr.push('drop ordinary condition at p → +1 Selmer dimension'); }\n    btns.forEach(b=>{ const k=b.dataset.k; b.textContent = state[k] ? 'on' : 'off'; b.classList.toggle('active', state[k]); });\n    out.textContent =\n      narr.map(s=>'• '+s.replace(/\\\\\\$/g,'').replace(/\\\\\\\\/g,'')).join('\\n') + '\\n' +\n      `Relative Selmer dim (toy count): ${dim}\\n`+\n      `R_Σ is a quotient of Z_p[[x_1,…,x_${Math.max(dim,1)}]] (dim ≤ ${dim}).`;\n  }\n  btns.forEach(b=>b.addEventListener('click',()=>{ state[b.dataset.k] = !state[b.dataset.k]; render(); }));\n  render();"
+          }
         },
         {
           "type": "raw",
@@ -164,9 +566,63 @@
         },
         {
           "type": "widget",
-          "id": "w-rt",
-          "html": "<div class=\"widget\" id=\"w-rt\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 5 · Taylor–Wiles patching</div><div class=\"hint\">grow the auxiliary prime set and watch $R_n, T_n$ equalize</div></div>\n  <div class=\"row\">\n    <label for=\"rt-n\">patching level $n$</label>\n    <input id=\"rt-n\" type=\"range\" min=\"0\" max=\"6\" step=\"1\" value=\"0\">\n    <span id=\"rt-nv\" class=\"pill\">n=0</span>\n  </div>\n  <svg id=\"rt-svg\" viewBox=\"0 0 640 200\" width=\"640\" height=\"200\"><title>Widget 5 · Taylor–Wiles patching</title></svg>\n  <div class=\"readout\" id=\"rt-out\">…</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const sl=$('#rt-n'), sv=$('#rt-nv'), svg=$('#rt-svg'), out=$('#rt-out');\n  function draw(){\n    const n=+sl.value; sv.textContent='n='+n;\n    svg.innerHTML='';\n    const W=640,H=200,pad=30;\n    // two stacks of boxes: R on left, T on right; each grows with n\n    const boxH = 22, gap = 4;\n    function stack(x, label, count, color){\n      const t = SVG('text',{x, y:30, 'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t.textContent = label; svg.appendChild(t);\n      for(let i=0;i<count;i++){\n        svg.appendChild(SVG('rect',{x:x-60, y:50+i*(boxH+gap), width:120, height:boxH,\n          fill:'var(--panel2)', stroke:color, 'stroke-width':1.5, rx:4}));\n        const tt = SVG('text',{x, y:50+i*(boxH+gap)+boxH*0.7, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n        tt.textContent = (label==='R_n' ? 'x_'+(i+1) : 'T_{ℓ_'+(i+1)+'}');\n        svg.appendChild(tt);\n      }\n    }\n    stack(180, 'R_n', n+1, 'var(--violet)');\n    stack(460, 'T_n', n+1, 'var(--cyan)');\n    // equal sign when n≥6 (limit reached in this toy)\n    const eq = SVG('text',{x:320, y:120, 'text-anchor':'middle','font-size':28,\n      fill: n>=6 ? 'var(--green)' : 'var(--mute)', 'font-weight':700});\n    eq.textContent = (n>=6 ? 'R = T' : 'R ↠ T');\n    svg.appendChild(eq);\n\n    out.textContent =\n      `Patching level n = ${n}\\n`+\n      `Auxiliary Taylor–Wiles primes Q_n: |Q_n| = ${n}.\\n`+\n      `R_n := R_{Σ∪Q_n},   T_n := T_{Σ∪Q_n}.\\n`+\n      `At each finite n, R_n ≅ Z_p[[x_1,…,x_${n+1}]]/I_n and T_n has the same form.\\n`+\n      (n<6 ? 'Surjection R_n ↠ T_n; equality not yet forced.' :\n             'Limit: R_Σ ≅ T_Σ. Every Σ-ramified deformation of ρ̄ is modular.');\n  }\n  sl.oninput = draw; draw();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rt",
+            "title": "Widget 5 · Taylor–Wiles patching",
+            "hint": "grow the auxiliary prime set and watch $R_n, T_n$ equalize",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"rt-n\">patching level $n$</label>\n    <input id=\"rt-n\" type=\"range\" min=\"0\" max=\"6\" step=\"1\" value=\"0\">\n    <span id=\"rt-nv\" class=\"pill\">n=0</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "rt-svg",
+                "viewBox": "0 0 640 200",
+                "width": 640,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "rt-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const sl=$('#rt-n'), sv=$('#rt-nv'), svg=$('#rt-svg'), out=$('#rt-out');\n  function draw(){\n    const n=+sl.value; sv.textContent='n='+n;\n    svg.innerHTML='';\n    const W=640,H=200,pad=30;\n    // two stacks of boxes: R on left, T on right; each grows with n\n    const boxH = 22, gap = 4;\n    function stack(x, label, count, color){\n      const t = SVG('text',{x, y:30, 'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t.textContent = label; svg.appendChild(t);\n      for(let i=0;i<count;i++){\n        svg.appendChild(SVG('rect',{x:x-60, y:50+i*(boxH+gap), width:120, height:boxH,\n          fill:'var(--panel2)', stroke:color, 'stroke-width':1.5, rx:4}));\n        const tt = SVG('text',{x, y:50+i*(boxH+gap)+boxH*0.7, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n        tt.textContent = (label==='R_n' ? 'x_'+(i+1) : 'T_{ℓ_'+(i+1)+'}');\n        svg.appendChild(tt);\n      }\n    }\n    stack(180, 'R_n', n+1, 'var(--violet)');\n    stack(460, 'T_n', n+1, 'var(--cyan)');\n    // equal sign when n≥6 (limit reached in this toy)\n    const eq = SVG('text',{x:320, y:120, 'text-anchor':'middle','font-size':28,\n      fill: n>=6 ? 'var(--green)' : 'var(--mute)', 'font-weight':700});\n    eq.textContent = (n>=6 ? 'R = T' : 'R ↠ T');\n    svg.appendChild(eq);\n\n    out.textContent =\n      `Patching level n = ${n}\\n`+\n      `Auxiliary Taylor–Wiles primes Q_n: |Q_n| = ${n}.\\n`+\n      `R_n := R_{Σ∪Q_n},   T_n := T_{Σ∪Q_n}.\\n`+\n      `At each finite n, R_n ≅ Z_p[[x_1,…,x_${n+1}]]/I_n and T_n has the same form.\\n`+\n      (n<6 ? 'Surjection R_n ↠ T_n; equality not yet forced.' :\n             'Limit: R_Σ ≅ T_Σ. Every Σ-ramified deformation of ρ̄ is modular.');\n  }\n  sl.oninput = draw; draw();"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-rt",
+            "title": "Widget 5 · Taylor–Wiles patching",
+            "hint": "grow the auxiliary prime set and watch $R_n, T_n$ equalize",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"rt-n\">patching level $n$</label>\n    <input id=\"rt-n\" type=\"range\" min=\"0\" max=\"6\" step=\"1\" value=\"0\">\n    <span id=\"rt-nv\" class=\"pill\">n=0</span>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "rt-svg",
+                "viewBox": "0 0 640 200",
+                "width": 640,
+                "height": 200
+              },
+              {
+                "kind": "readout",
+                "id": "rt-out",
+                "content": "…"
+              }
+            ],
+            "bodyScript": "  const sl=$('#rt-n'), sv=$('#rt-nv'), svg=$('#rt-svg'), out=$('#rt-out');\n  function draw(){\n    const n=+sl.value; sv.textContent='n='+n;\n    svg.innerHTML='';\n    const W=640,H=200,pad=30;\n    // two stacks of boxes: R on left, T on right; each grows with n\n    const boxH = 22, gap = 4;\n    function stack(x, label, count, color){\n      const t = SVG('text',{x, y:30, 'text-anchor':'middle','font-size':14,fill:color,'font-weight':600});\n      t.textContent = label; svg.appendChild(t);\n      for(let i=0;i<count;i++){\n        svg.appendChild(SVG('rect',{x:x-60, y:50+i*(boxH+gap), width:120, height:boxH,\n          fill:'var(--panel2)', stroke:color, 'stroke-width':1.5, rx:4}));\n        const tt = SVG('text',{x, y:50+i*(boxH+gap)+boxH*0.7, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n        tt.textContent = (label==='R_n' ? 'x_'+(i+1) : 'T_{ℓ_'+(i+1)+'}');\n        svg.appendChild(tt);\n      }\n    }\n    stack(180, 'R_n', n+1, 'var(--violet)');\n    stack(460, 'T_n', n+1, 'var(--cyan)');\n    // equal sign when n≥6 (limit reached in this toy)\n    const eq = SVG('text',{x:320, y:120, 'text-anchor':'middle','font-size':28,\n      fill: n>=6 ? 'var(--green)' : 'var(--mute)', 'font-weight':700});\n    eq.textContent = (n>=6 ? 'R = T' : 'R ↠ T');\n    svg.appendChild(eq);\n\n    out.textContent =\n      `Patching level n = ${n}\\n`+\n      `Auxiliary Taylor–Wiles primes Q_n: |Q_n| = ${n}.\\n`+\n      `R_n := R_{Σ∪Q_n},   T_n := T_{Σ∪Q_n}.\\n`+\n      `At each finite n, R_n ≅ Z_p[[x_1,…,x_${n+1}]]/I_n and T_n has the same form.\\n`+\n      (n<6 ? 'Surjection R_n ↠ T_n; equality not yet forced.' :\n             'Limit: R_Σ ≅ T_Σ. Every Σ-ramified deformation of ρ̄ is modular.');\n  }\n  sl.oninput = draw; draw();"
+          }
         },
         {
           "type": "raw",
