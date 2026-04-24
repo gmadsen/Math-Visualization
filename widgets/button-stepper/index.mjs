@@ -134,7 +134,7 @@ function renderHintTag(hint, hintTag) {
 }
 
 export function renderMarkup(params) {
-  const { widgetId, title, hint, layout, titleTag, hintTag, trailingExplainer } = params;
+  const { widgetId, title, hint, layout, titleTag, hintTag, trailingExplainer, hdHtml } = params;
 
   const hintHtml = renderHintTag(hint, hintTag);
 
@@ -145,9 +145,13 @@ export function renderMarkup(params) {
     ? `  <p class="small">${trailingExplainer}</p>\n`
     : '';
 
+  const hdLine = typeof hdHtml === 'string'
+    ? `  <div class="hd">${hdHtml}</div>\n`
+    : `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n`;
+
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd">${renderTitleTag(title, titleTag)}${hintHtml}</div>\n` +
+    hdLine +
     (bodyLines.length ? bodyLines.join('\n') + '\n' : '') +
     trailingLine +
     `</div>`
