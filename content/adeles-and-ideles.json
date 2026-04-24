@@ -12,9 +12,36 @@
         },
         {
           "type": "widget",
-          "id": "w-places",
-          "html": "<div class=\"widget\" id=\"w-places\">\n  <div class=\"hd\">\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  </div>\n  <div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>\n  <svg id=\"padic-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>$p$-adic absolute value explorer</title></svg>\n  <div class=\"readout\" id=\"padic-out\">&nbsp;</div>\n</div>",
-          "script": null
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
@@ -31,8 +58,36 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-places",
-          "html": "<script>\n/* ===== Section 1: p-adic absolute value widget ===== */\n(function(){\n  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-places",
+            "title": "$p$-adic absolute value explorer",
+            "hint": "enter an integer; see its valuation and absolute value at each small prime",
+            "svgId": "padic-svg",
+            "viewBox": "0 0 620 260",
+            "readoutId": "padic-out",
+            "hdHtml": "\n    <div class=\"ttl\">$p$-adic absolute value explorer</div>\n    <div class=\"hint\">enter an integer; see its valuation and absolute value at each small prime</div>\n  ",
+            "sectionComment": "===== Section 1: p-adic absolute value widget =====",
+            "bodyScript": "  const ni = $('#padic-n'), go = $('#padic-go');\n  const svg = $('#padic-svg'), out = $('#padic-out');\n  const primes = [2,3,5,7,11,13,17,19,23,29];\n\n  function vp(n, p){\n    if(n === 0) return Infinity;\n    let k = 0;\n    // work with integer factoring only\n    n = Math.abs(Math.round(n));\n    while(n % p === 0){ n = n/p; k++; }\n    return k;\n  }\n\n  function draw(n){\n    svg.innerHTML = '';\n    n = Math.abs(Math.round(parseFloat(ni.value)||1));\n    if(n < 1) n = 1;\n    ni.value = n;\n\n    const W=620, H=260, pad=48, barW=40, gap=14;\n    const maxVal = Math.log2(n)+1||1;\n\n    // axes\n    svg.appendChild(SVG('line',{x1:pad,y1:H-40,x2:W-10,y2:H-40,stroke:'var(--line)','stroke-width':1}));\n\n    let infoLines = [`n = ${n}  (factored: ${factorStr(n)})`,'','Place     v_p(n)     |n|_p'];\n    let productLog = Math.log(n); // log|n|_inf\n\n    primes.forEach((p,i)=>{\n      const k = vp(n, p);\n      const absVal = Math.pow(p,-k);\n      productLog -= k * Math.log(p);\n      const barH = k === 0 ? 4 : Math.min(160, k * 28);\n      const x = pad + i*(barW+gap);\n      const y = H-40-barH;\n      const col = k===0 ? 'var(--mute)' : 'var(--yellow)';\n      svg.appendChild(SVG('rect',{x,y,width:barW,height:barH,fill:col,rx:3,opacity:0.85}));\n      // label below\n      const lbl = SVG('text',{x:x+barW/2,y:H-24,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n      lbl.textContent = 'p='+p;\n      svg.appendChild(lbl);\n      const klbl = SVG('text',{x:x+barW/2,y:Math.max(y-5,14),'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      if(k>0) klbl.textContent = 'v='+k;\n      svg.appendChild(klbl);\n      infoLines.push(`  v_${p}      ${k}          ${absVal.toFixed(6)}`);\n    });\n\n    // title\n    const ttl = SVG('text',{x:pad,y:18,'font-size':13,fill:'var(--mute)'});\n    ttl.textContent = 'Bar height = v_p(n); yellow = non-trivial valuation';\n    svg.appendChild(ttl);\n\n    // product formula check\n    const prodCheck = Math.exp(-productLog);\n    infoLines.push('');\n    infoLines.push(`|n|_∞ = ${n}`);\n    infoLines.push(`Product ∏|n|_v over all primes shown: ${prodCheck.toFixed(6)}`);\n    infoLines.push(`(should equal 1 when all primes are included)`);\n    out.textContent = infoLines.join('\\n');\n  }\n\n  function factorStr(n){\n    if(n <= 1) return String(n);\n    const facts = [];\n    let m = n;\n    for(const p of primes){\n      let k=0;\n      while(m%p===0){m=m/p;k++;}\n      if(k>0) facts.push(k>1?`${p}^${k}`:String(p));\n      if(m===1) break;\n    }\n    if(m>1) facts.push(String(m));\n    return facts.join(' · ');\n  }\n\n  go.addEventListener('click', ()=>draw(parseFloat(ni.value)));\n  ni.addEventListener('keydown', e=>{ if(e.key==='Enter') draw(parseFloat(ni.value)); });\n  draw(360);",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"padic-n\">$n$ =</label>\n    <input type=\"number\" id=\"padic-n\" value=\"360\" style=\"width:120px\">\n    <button id=\"padic-go\">Compute</button>\n  </div>"
+              },
+              {
+                "kind": "svg",
+                "id": "padic-svg",
+                "viewBox": "0 0 620 260",
+                "width": 620,
+                "height": 260
+              },
+              {
+                "kind": "readout",
+                "id": "padic-out",
+                "content": "&nbsp;"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
