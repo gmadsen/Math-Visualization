@@ -30,9 +30,19 @@
         },
         {
           "type": "widget",
-          "id": "w-sphere",
-          "html": "<div class=\"widget\" id=\"w-sphere\">\n  <div class=\"hd\"><span class=\"ttl\">Stereographic chart · sphere vs plane</span>\n    <span class=\"hint\">drag the point in the plane</span></div>\n  <svg viewBox=\"0 0 760 300\" width=\"760\" height=\"300\" id=\"svg-sphere\"><title>Stereographic chart · sphere vs plane</title></svg>\n  <div class=\"readout\" id=\"out-sphere\"></div>\n</div>",
-          "script": null
+          "slug": "svg-illustration",
+          "params": {
+            "widgetId": "w-sphere",
+            "svgId": "svg-sphere",
+            "viewBox": "0 0 760 300",
+            "title": "Stereographic chart · sphere vs plane",
+            "hint": "drag the point in the plane",
+            "svgInner": "",
+            "caption": {
+              "kind": "readout",
+              "id": "out-sphere"
+            }
+          }
         },
         {
           "type": "raw",
