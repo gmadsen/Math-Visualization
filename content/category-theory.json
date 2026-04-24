@@ -1446,9 +1446,34 @@
         },
         {
           "type": "widget",
-          "id": "w-diagram-editor",
-          "html": "<div class=\"widget\" id=\"w-diagram-editor\"></div>",
-          "script": null
+          "slug": "declarative-host",
+          "params": {
+            "widgetId": "w-diagram-editor",
+            "library": "MVDiagramEditor",
+            "config": {
+              "title": "Commutative-diagram editor — pullback square",
+              "width": 560,
+              "height": 340,
+              "objects": [
+                { "id": "P", "x": 140, "y":  90, "label": "A\\times_Z B" },
+                { "id": "A", "x": 420, "y":  90, "label": "A" },
+                { "id": "B", "x": 140, "y": 250, "label": "B" },
+                { "id": "Z", "x": 420, "y": 250, "label": "Z" }
+              ],
+              "morphisms": [
+                { "from": "P", "to": "A", "label": "\\pi_A" },
+                { "from": "P", "to": "B", "label": "\\pi_B" },
+                { "from": "A", "to": "Z", "label": "f" },
+                { "from": "B", "to": "Z", "label": "g" }
+              ],
+              "commutes": [
+                {
+                  "paths": [ ["\\pi_A", "f"], ["\\pi_B", "g"] ],
+                  "description": "the pullback square commutes: f\\,\\pi_A = g\\,\\pi_B"
+                }
+              ]
+            }
+          }
         },
         {
           "type": "raw",
@@ -1534,7 +1559,44 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<script>\n/* =============================== Commutative-diagram editor prototype =============================== */\n(function(){\n  if(!window.MVDiagramEditor) return;\n  window.MVDiagramEditor.init('#w-diagram-editor', {\n    title: 'Commutative-diagram editor — pullback square',\n    width: 560, height: 340,\n    objects: [\n      { id:'P', x:140, y: 90, label:'A\\\\times_Z B' },\n      { id:'A', x:420, y: 90, label:'A' },\n      { id:'B', x:140, y:250, label:'B' },\n      { id:'Z', x:420, y:250, label:'Z' },\n    ],\n    morphisms: [\n      { from:'P', to:'A', label:'\\\\pi_A' },\n      { from:'P', to:'B', label:'\\\\pi_B' },\n      { from:'A', to:'Z', label:'f' },\n      { from:'B', to:'Z', label:'g' },\n    ],\n    commutes: [\n      { paths: [ ['\\\\pi_A','f'], ['\\\\pi_B','g'] ],\n        description: 'the pullback square commutes: f\\\\,\\\\pi_A = g\\\\,\\\\pi_B' }\n    ]\n  });\n})();\n</script>\n\n"
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "declarative-host",
+          "forWidget": "w-diagram-editor",
+          "params": {
+            "widgetId": "w-diagram-editor",
+            "library": "MVDiagramEditor",
+            "sectionComment": "=============================== Commutative-diagram editor prototype ===============================",
+            "config": {
+              "title": "Commutative-diagram editor — pullback square",
+              "width": 560,
+              "height": 340,
+              "objects": [
+                { "id": "P", "x": 140, "y":  90, "label": "A\\times_Z B" },
+                { "id": "A", "x": 420, "y":  90, "label": "A" },
+                { "id": "B", "x": 140, "y": 250, "label": "B" },
+                { "id": "Z", "x": 420, "y": 250, "label": "Z" }
+              ],
+              "morphisms": [
+                { "from": "P", "to": "A", "label": "\\pi_A" },
+                { "from": "P", "to": "B", "label": "\\pi_B" },
+                { "from": "A", "to": "Z", "label": "f" },
+                { "from": "B", "to": "Z", "label": "g" }
+              ],
+              "commutes": [
+                {
+                  "paths": [ ["\\pi_A", "f"], ["\\pi_B", "g"] ],
+                  "description": "the pullback square commutes: f\\,\\pi_A = g\\,\\pi_B"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         }
       ]
     },

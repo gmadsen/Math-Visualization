@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/declarative-host/schema.json",
+  "title": "declarative-host widget params",
+  "description": "Shared renderer for widgets that ship as an empty `<div class=\"widget\" id=\"…\"></div>` host plus a self-contained `<script>` calling a well-known page-global library's `init(selector, config)` function. The widget contributes NO per-widget script beyond that init call — all rendering, DOM construction, and event wiring happens inside the library. The `config` object is pure data: a portable frontend can ignore the vanilla `renderScript` and drive its own renderer directly from `library` + `config`. Two libraries supported today: `MVPatternInduction` (rule-induction grid with examples / test cases / canonical-formula answer) and `MVDiagramEditor` (draggable commutative-diagram editor with objects / morphisms / commuting paths). The `oneOf` on `library` validates the top-level keys of `config` per library; `additionalProperties: true` on the config branches tolerates library-internal flags we don't want to re-describe here.",
+  "meta": {
+    "family": "declarative-host",
+    "dimension": "2d",
+    "gesture": "interactive",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["widgetId", "library", "config"],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer `<div class=\"widget\">` host that the library will mount into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Optional display title rendered inside `.hd > .ttl` on the host div. Most declarative-host widgets ship a title-less empty div and let the library build its own header from `config.title`; when present here it's emitted into the host's `.hd` block (rare)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside `.hd > .hint`. Same caveat as `title` — usually absent because the library renders its own header from `config.hint`."
+    },
+    "titleTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the `.ttl` header element when `title` is present. Mirrors button-stepper for layout-variant compatibility."
+    },
+    "hintTag": {
+      "type": "string",
+      "enum": ["div", "span"],
+      "default": "div",
+      "description": "Tag used for the `.hint` header element when `hint` is present."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "Raw text placed between `<script>` and `(function(){` as `/* <here> */`. Preserves an original source's section banner when present."
+    },
+    "library": {
+      "type": "string",
+      "enum": ["MVPatternInduction", "MVDiagramEditor"],
+      "description": "Name of the page-global library whose `.init(selector, config)` method is called. The `oneOf` below constrains `config` to that library's shape."
+    },
+    "config": {
+      "type": "object",
+      "description": "Declarative configuration passed as the second argument to `<library>.init(selector, config)`. Shape depends on `library` (see `oneOf`)."
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "library": { "const": "MVPatternInduction" },
+        "config": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["examples", "testCases"],
+          "properties": {
+            "title":            { "type": "string" },
+            "hint":             { "type": "string" },
+            "examples": {
+              "type": "array",
+              "minItems": 1,
+              "description": "Array of `[input, expectedOutput]` pairs shown to the learner.",
+              "items": { "type": "array" }
+            },
+            "testCases": {
+              "type": "array",
+              "minItems": 1,
+              "description": "Array of `[input, expectedOutput]` pairs hidden behind the learner's answer.",
+              "items": { "type": "array" }
+            },
+            "inputKind":        { "type": "string" },
+            "outputKind":       { "type": "string" },
+            "canonicalLatex":   { "type": "string" },
+            "canonicalFormula": { "type": "string" },
+            "mode":             { "type": "string" },
+            "tol":              { "type": "number" }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "library": { "const": "MVDiagramEditor" },
+        "config": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["objects", "morphisms"],
+          "properties": {
+            "title":  { "type": "string" },
+            "hint":   { "type": "string" },
+            "width":  { "type": ["integer", "number"] },
+            "height": { "type": ["integer", "number"] },
+            "objects": {
+              "type": "array",
+              "minItems": 1,
+              "description": "Diagram objects — each has an `id`, a draggable `(x, y)` position, and a `label` (may contain TeX).",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": ["id", "x", "y", "label"],
+                "properties": {
+                  "id":    { "type": "string" },
+                  "x":     { "type": ["integer", "number"] },
+                  "y":     { "type": ["integer", "number"] },
+                  "label": { "type": "string" }
+                }
+              }
+            },
+            "morphisms": {
+              "type": "array",
+              "description": "Arrows between objects; `from` / `to` are object ids.",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": ["from", "to"],
+                "properties": {
+                  "from":  { "type": "string" },
+                  "to":    { "type": "string" },
+                  "label": { "type": "string" }
+                }
+              }
+            },
+            "commutes": {
+              "type": "array",
+              "description": "Declared commuting-path equivalences. Each entry lists `paths` (each path is an array of morphism labels) that must compose equal.",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "paths":       { "type": "array", "items": { "type": "array" } },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
