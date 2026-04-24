@@ -804,8 +804,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
 <p>For matrices this is a one-line check. Conceptually it says that $\operatorname{ad}_X = [X,\cdot] : \mathfrak{g}\to\mathfrak{g}$ is a derivation: $\operatorname{ad}_X[Y,Z] = [\operatorname{ad}_X Y, Z] + [Y,\operatorname{ad}_X Z]$.</p>
 
 <div class="widget" id="w-comm">
-<div class="hd"><span class="ttl">Commutator and BCH numerical check</span><span class="hint">$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY)\stackrel{?}{=}I + t^2[X,Y]$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Commutator and BCH numerical check</span><span class="hint">$\exp(tX)\exp(tY)\exp(-tX)\exp(-tY)\stackrel{?}{=}I + t^2[X,Y]$</span></div>
+  <div class="row">
   <label>basis:</label>
   <select id="cm-basis">
     <option value="sl2">𝔰𝔩₂ basis (e, f, h)</option>
@@ -814,8 +814,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
   <label style="margin-left:1rem">$X$:</label><select id="cm-X"></select>
   <label>$Y$:</label><select id="cm-Y"></select>
 </div>
-<div class="row"><label for="cm-t">parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
-<div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
+  <div class="row"><label for="cm-t">parameter $t$</label><input type="range" id="cm-t" min="0.01" max="0.6" step="0.005" value="0.15"><span class="readout" id="cm-t-r" style="min-width:55px"></span></div>
+  <div class="row" style="align-items:flex-start;gap:1.2rem;flex-wrap:wrap">
   <div>
     <div class="small" style="margin-bottom:.3rem">$X$</div>
     <div class="matgrid" id="cm-Xm"></div>
@@ -833,9 +833,8 @@ $$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0.$$
     <div class="matgrid" id="cm-Lm"></div>
   </div>
 </div>
-<div class="small" id="cm-info"></div>
-</div>
-<script>
+  <div class="small" id="cm-info"></div>
+</div><script>
 (function(){
   const basisSel = $('#cm-basis'), Xsel = $('#cm-X'), Ysel = $('#cm-Y'), tS = $('#cm-t'), tR = $('#cm-t-r');
   const Xm = $('#cm-Xm'), Ym = $('#cm-Ym'), Bm = $('#cm-Bm'), Lm = $('#cm-Lm');
