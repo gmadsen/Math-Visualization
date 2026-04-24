@@ -141,9 +141,53 @@
         },
         {
           "type": "widget",
-          "id": "w-fib",
-          "html": "<div class=\"widget\" id=\"w-fib\">\n  <div class=\"hd\"><div class=\"ttl\">W·A · Fibered category</div><div class=\"hint\">a category sitting over $\\mathrm{Sch}$</div></div>\n  <svg id=\"fib-svg\" viewBox=\"0 0 620 340\" width=\"620\" height=\"340\"><title>W·A · Fibered category</title></svg>\n  <div class=\"readout\" id=\"fib-out\">Top row: the total category $\\mathcal{M}$. Bottom row: the base $\\mathrm{Sch}$.\nCartesian squares upstairs project to commuting squares downstairs — \"pullback of a family along a ring map\".</div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = $('#fib-svg');\n  // upstairs: families; downstairs: spec R\n  const up = [\n    {x:120,y:90,label:'X_R'},\n    {x:320,y:90,label:'X_S'},\n    {x:520,y:90,label:'X_T'},\n  ];\n  const dn = [\n    {x:120,y:250,label:'Spec R'},\n    {x:320,y:250,label:'Spec S'},\n    {x:520,y:250,label:'Spec T'},\n  ];\n  // horizontal cartesian arrows upstairs (right-to-left: pullback direction)\n  drawArrow(svg,[up[1].x,up[1].y],[up[0].x,up[0].y],{color:'var(--yellow)',markerId:'fu1',label:'f*'});\n  drawArrow(svg,[up[2].x,up[2].y],[up[1].x,up[1].y],{color:'var(--yellow)',markerId:'fu2',label:'g*'});\n  // downstairs arrows (left-to-right: spec map direction)\n  drawArrow(svg,[dn[0].x,dn[0].y],[dn[1].x,dn[1].y],{color:'var(--blue)',markerId:'fd1',label:'f'});\n  drawArrow(svg,[dn[1].x,dn[1].y],[dn[2].x,dn[2].y],{color:'var(--blue)',markerId:'fd2',label:'g'});\n  // projection arrows (vertical)\n  for(let i=0;i<3;i++){\n    drawArrow(svg,[up[i].x,up[i].y],[dn[i].x,dn[i].y],{color:'var(--mute)',markerId:'fp'+i,dash:'4 3'});\n  }\n  // label projection\n  const pr = SVG('text',{x:580,y:170,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  pr.textContent = 'π';\n  svg.appendChild(pr);\n  // nodes\n  for(const p of up) drawNode(svg,p.x,p.y,p.label,{r:26,stroke:'var(--yellow)'});\n  for(const p of dn) drawNode(svg,p.x,p.y,p.label,{r:28,stroke:'var(--blue)'});\n  // side labels\n  const lu = SVG('text',{x:30,y:95,'font-size':13,fill:'var(--mute)'}); lu.textContent = 'ℳ'; svg.appendChild(lu);\n  const ld = SVG('text',{x:30,y:255,'font-size':13,fill:'var(--mute)'}); ld.textContent = 'Sch'; svg.appendChild(ld);\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-fib",
+            "title": "W·A · Fibered category",
+            "hint": "a category sitting over $\\mathrm{Sch}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fib-svg",
+                "viewBox": "0 0 620 340",
+                "width": 620,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"fib-out\">Top row: the total category $\\mathcal{M}$. Bottom row: the base $\\mathrm{Sch}$.\nCartesian squares upstairs project to commuting squares downstairs — \"pullback of a family along a ring map\".</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#fib-svg');\n  // upstairs: families; downstairs: spec R\n  const up = [\n    {x:120,y:90,label:'X_R'},\n    {x:320,y:90,label:'X_S'},\n    {x:520,y:90,label:'X_T'},\n  ];\n  const dn = [\n    {x:120,y:250,label:'Spec R'},\n    {x:320,y:250,label:'Spec S'},\n    {x:520,y:250,label:'Spec T'},\n  ];\n  // horizontal cartesian arrows upstairs (right-to-left: pullback direction)\n  drawArrow(svg,[up[1].x,up[1].y],[up[0].x,up[0].y],{color:'var(--yellow)',markerId:'fu1',label:'f*'});\n  drawArrow(svg,[up[2].x,up[2].y],[up[1].x,up[1].y],{color:'var(--yellow)',markerId:'fu2',label:'g*'});\n  // downstairs arrows (left-to-right: spec map direction)\n  drawArrow(svg,[dn[0].x,dn[0].y],[dn[1].x,dn[1].y],{color:'var(--blue)',markerId:'fd1',label:'f'});\n  drawArrow(svg,[dn[1].x,dn[1].y],[dn[2].x,dn[2].y],{color:'var(--blue)',markerId:'fd2',label:'g'});\n  // projection arrows (vertical)\n  for(let i=0;i<3;i++){\n    drawArrow(svg,[up[i].x,up[i].y],[dn[i].x,dn[i].y],{color:'var(--mute)',markerId:'fp'+i,dash:'4 3'});\n  }\n  // label projection\n  const pr = SVG('text',{x:580,y:170,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  pr.textContent = 'π';\n  svg.appendChild(pr);\n  // nodes\n  for(const p of up) drawNode(svg,p.x,p.y,p.label,{r:26,stroke:'var(--yellow)'});\n  for(const p of dn) drawNode(svg,p.x,p.y,p.label,{r:28,stroke:'var(--blue)'});\n  // side labels\n  const lu = SVG('text',{x:30,y:95,'font-size':13,fill:'var(--mute)'}); lu.textContent = 'ℳ'; svg.appendChild(lu);\n  const ld = SVG('text',{x:30,y:255,'font-size':13,fill:'var(--mute)'}); ld.textContent = 'Sch'; svg.appendChild(ld);"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-fib",
+            "title": "W·A · Fibered category",
+            "hint": "a category sitting over $\\mathrm{Sch}$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "fib-svg",
+                "viewBox": "0 0 620 340",
+                "width": 620,
+                "height": 340
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout\" id=\"fib-out\">Top row: the total category $\\mathcal{M}$. Bottom row: the base $\\mathrm{Sch}$.\nCartesian squares upstairs project to commuting squares downstairs — \"pullback of a family along a ring map\".</div>"
+              }
+            ],
+            "bodyScript": "  const svg = $('#fib-svg');\n  // upstairs: families; downstairs: spec R\n  const up = [\n    {x:120,y:90,label:'X_R'},\n    {x:320,y:90,label:'X_S'},\n    {x:520,y:90,label:'X_T'},\n  ];\n  const dn = [\n    {x:120,y:250,label:'Spec R'},\n    {x:320,y:250,label:'Spec S'},\n    {x:520,y:250,label:'Spec T'},\n  ];\n  // horizontal cartesian arrows upstairs (right-to-left: pullback direction)\n  drawArrow(svg,[up[1].x,up[1].y],[up[0].x,up[0].y],{color:'var(--yellow)',markerId:'fu1',label:'f*'});\n  drawArrow(svg,[up[2].x,up[2].y],[up[1].x,up[1].y],{color:'var(--yellow)',markerId:'fu2',label:'g*'});\n  // downstairs arrows (left-to-right: spec map direction)\n  drawArrow(svg,[dn[0].x,dn[0].y],[dn[1].x,dn[1].y],{color:'var(--blue)',markerId:'fd1',label:'f'});\n  drawArrow(svg,[dn[1].x,dn[1].y],[dn[2].x,dn[2].y],{color:'var(--blue)',markerId:'fd2',label:'g'});\n  // projection arrows (vertical)\n  for(let i=0;i<3;i++){\n    drawArrow(svg,[up[i].x,up[i].y],[dn[i].x,dn[i].y],{color:'var(--mute)',markerId:'fp'+i,dash:'4 3'});\n  }\n  // label projection\n  const pr = SVG('text',{x:580,y:170,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  pr.textContent = 'π';\n  svg.appendChild(pr);\n  // nodes\n  for(const p of up) drawNode(svg,p.x,p.y,p.label,{r:26,stroke:'var(--yellow)'});\n  for(const p of dn) drawNode(svg,p.x,p.y,p.label,{r:28,stroke:'var(--blue)'});\n  // side labels\n  const lu = SVG('text',{x:30,y:95,'font-size':13,fill:'var(--mute)'}); lu.textContent = 'ℳ'; svg.appendChild(lu);\n  const ld = SVG('text',{x:30,y:255,'font-size':13,fill:'var(--mute)'}); ld.textContent = 'Sch'; svg.appendChild(ld);"
+          }
         },
         {
           "type": "raw",
