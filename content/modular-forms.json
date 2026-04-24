@@ -422,9 +422,65 @@
         },
         {
           "type": "widget",
-          "id": "w-dim",
-          "html": "<div class=\"widget\" id=\"w-dim\">\n  <div class=\"hd\"><span class=\"ttl\">Widget 6 · Dimensions of $M_k$ and $S_k$</span><span class=\"hint\">$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$</span></div>\n  <div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>\n  <svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>\n  <div class=\"readout small\" id=\"w-dim-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-dim",
+            "title": "Widget 6 · Dimensions of $M_k$ and $S_k$",
+            "titleTag": "span",
+            "hintTag": "span",
+            "hint": "$\\dim M_k = \\lfloor k/12 \\rfloor + \\epsilon_k$ with a single correction at $k \\equiv 2 \\pmod{12}$",
+            "svgId": "w-dim-svg",
+            "viewBox": "0 0 720 280",
+            "readoutId": "w-dim-out",
+            "bodyScript": "  function dimMk(k){\n    if(k < 0 || k % 2 !== 0) return 0;\n    const q = Math.floor(k/12), r = k % 12;\n    if(r === 2) return q;\n    return q + 1;\n  }\n  function dimSk(k){\n    if(k < 12) return 0;\n    return dimMk(k) - 1;\n  }\n\n  const kSl = $('#w-dim-kmax'), kLbl = $('#w-dim-kv'), svg = $('#w-dim-svg'), out = $('#w-dim-out');\n\n  function render(){\n    svg.innerHTML = '';\n    const kmax = +kSl.value;\n    kLbl.textContent = 'k ≤ ' + kmax;\n    const W=720, H=280, pad=40;\n    const weights = [];\n    for(let k=0;k<=kmax;k+=2) weights.push(k);\n    const N = weights.length;\n    const bw = (W - 2*pad)/N;\n    const maxDim = Math.max(...weights.map(k => dimMk(k)), 2);\n    function mapy(v){ return pad + (H - 2*pad) * (1 - v/maxDim); }\n\n    // grid\n    for(let g=0; g<=maxDim; g++){\n      const Y = mapy(g);\n      svg.appendChild(SVG('line',{x1:pad,y1:Y,x2:W-pad,y2:Y,stroke:'var(--line)','stroke-width':0.7}));\n    }\n\n    weights.forEach((k,i)=>{\n      const x = pad + i*bw;\n      const dM = dimMk(k), dS = dimSk(k);\n      // M_k bar (yellow, faint)\n      svg.appendChild(SVG('rect',{x:x+1, y:mapy(dM), width:bw-2, height:mapy(0)-mapy(dM),\n        fill:'var(--yellow)','fill-opacity':0.35}));\n      // S_k bar (green, darker)\n      if(dS>0){\n        svg.appendChild(SVG('rect',{x:x+1, y:mapy(dS), width:bw-2, height:mapy(0)-mapy(dS),\n          fill:'var(--green)','fill-opacity':0.85}));\n      }\n      const tx = SVG('text',{x:x+bw/2, y:H-12,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      tx.textContent = k;\n      svg.appendChild(tx);\n    });\n\n    // legend\n    const lg = SVG('text',{x:W/2, y:20, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});\n    lg.textContent = 'yellow = dim Mₖ       green = dim Sₖ      (weights k on x-axis)';\n    svg.appendChild(lg);\n\n    // readout table\n    let lines = 'k     dim M_k    dim S_k\\n';\n    for(let k=0;k<=Math.min(kmax,28);k+=2){\n      lines += `${String(k).padStart(2,' ')}    ${String(dimMk(k)).padStart(5,' ')}     ${String(dimSk(k)).padStart(5,' ')}\\n`;\n    }\n    out.textContent = lines.trim();\n  }\n  kSl.addEventListener('input', render);\n  render();",
+            "layout": [
+              {
+                "kind": "raw",
+                "html": "<div class=\"row\">\n    <label for=\"w-dim-kmax\">max weight:</label>\n    <input id=\"w-dim-kmax\" type=\"range\" min=\"12\" max=\"36\" step=\"2\" value=\"24\">\n    <span id=\"w-dim-kv\" class=\"pill\">k ≤ 24</span>\n  </div>"
+              },
+              {
+                "kind": "raw",
+                "html": "<svg id=\"w-dim-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\" aria-label=\"dimension bar chart\"></svg>"
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"w-dim-out\"></div>"
+              }
+            ]
+          }
         },
         {
           "type": "raw",
