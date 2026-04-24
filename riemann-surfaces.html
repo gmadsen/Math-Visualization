@@ -626,8 +626,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The standard picture is a two-sheeted cover of $\mathbb{CP}^1$ glued along branch cuts joining pairs of branch points. A small loop around an odd number of branch points swaps sheets; a loop around an even number returns to the same sheet. This is the <strong>monodromy</strong> of the cover.</p>
 
 <div class="widget" id="w-branch">
-  <div class="hd"><span class="ttl">Two-sheet cover and monodromy</span>
-    <span class="hint">pick a polynomial · drag the test loop</span></div>
+  <div class="hd"><div class="ttl">Two-sheet cover and monodromy</div><div class="hint">pick a polynomial · drag the test loop</div></div>
   <div class="row">
     <label>polynomial</label>
     <select id="branch-pick">
@@ -641,11 +640,9 @@ function drawNode(svg, x, y, label, opts={}){
       <span id="branch-lam-val" class="small">0.60</span>
     </span>
   </div>
-  <svg viewBox="0 0 760 300" width="760" height="300" id="svg-branch"><title>Two-sheet cover and monodromy</title></svg>
+  <svg id="svg-branch" viewBox="0 0 760 300" width="760" height="300"><title>Two-sheet cover and monodromy</title></svg>
   <div class="readout" id="out-branch"></div>
-</div>
-
-<script>
+</div><script>
 (function(){
   const svg = document.getElementById('svg-branch');
   const out = document.getElementById('out-branch');
