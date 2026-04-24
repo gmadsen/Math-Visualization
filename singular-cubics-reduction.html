@@ -423,18 +423,16 @@ The cusp itself is the image of $t = 0$. Removing it identifies the smooth locus
 <div class="ok"><b>Statement.</b> On a cuspidal cubic, $C^{\mathrm{sm}}(\bar k) \cong \mathbb{G}_a(\bar k) = \bar k$ as algebraic groups.</div>
 
 <div class="widget" id="w-param">
-<div class="hd"><span class="ttl">Parametrize the smooth locus</span><span class="hint">drag $t$; watch the point sweep</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Parametrize the smooth locus</span><span class="hint">drag $t$; watch the point sweep</span></div>
+  <div class="row">
   <label><input type="radio" name="pm" value="node" checked> nodal</label>
   <label><input type="radio" name="pm" value="cusp"> cuspidal</label>
   <label>$t$ <input type="range" id="pm-t" min="-2.5" max="2.5" step="0.02" value="1.2"></label>
   <span id="pm-tv" class="small">1.20</span>
 </div>
-<svg id="pm-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Parametrize the smooth locus</title></svg>
-<div id="pm-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="pm-svg" viewBox="0 0 560 360" width="560" height="360" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Parametrize the smooth locus</title></svg>
+  <div class="readout" id="pm-out"></div>
+</div><script>
 (function(){
   const svg=$('#pm-svg'), tsl=$('#pm-t'), tv=$('#pm-tv'), out=$('#pm-out');
   const radios=$$('input[name="pm"]');
@@ -528,8 +526,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
 <p>Because $\Delta$ is an integer, only finitely many primes divide it. Almost every prime is a prime of good reduction; the finitely many primes of bad reduction are distinguished arithmetic features of $E$ and collectively form its <em>conductor</em>.</p>
 
 <div class="widget" id="w-fibration">
-<div class="hd"><span class="ttl">Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</span><span class="hint">each vertical fiber is $\tilde E_p$ over $\mathbb{F}_p$</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</span><span class="hint">each vertical fiber is $\tilde E_p$ over $\mathbb{F}_p$</span></div>
+  <div class="row">
   <label>curve <select id="fb-curve">
     <option value="-1,0">y² = x³ - x   (Δ = 64 = 2⁶)</option>
     <option value="0,1" selected>y² = x³ + 1   (Δ = -432 = -2⁴·3³)</option>
@@ -537,11 +535,9 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
     <option value="1,-1">y² = x³ + x - 1</option>
   </select></label>
 </div>
-<svg id="fb-svg" viewBox="0 0 640 280" width="640" height="280" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</title></svg>
-<div id="fb-out" class="readout"></div>
-</div>
-
-<script>
+  <svg id="fb-svg" viewBox="0 0 640 280" width="640" height="280" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Arithmetic surface $\mathcal{E} \to \operatorname{Spec}\mathbb{Z}$</title></svg>
+  <div class="readout" id="fb-out"></div>
+</div><script>
 (function(){
   const sel=$('#fb-curve'), svg=$('#fb-svg'), out=$('#fb-out');
   const W=640,H=280,PADX=40,PADY=50;
@@ -646,8 +642,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
 <p>The table below shows reduction types for several small examples. Scan for the pattern: good primes are the ones where $\Delta$ remains a unit in $\mathbb{F}_p$; bad primes are the ones where $p$ divides $\Delta$.</p>
 
 <div class="widget" id="w-dtable">
-<div class="hd"><span class="ttl">Discriminant-mod-$p$ table</span><span class="hint">pick a curve; primes up to 19</span></div>
-<div class="row">
+  <div class="hd"><span class="ttl">Discriminant-mod-$p$ table</span><span class="hint">pick a curve; primes up to 19</span></div>
+  <div class="row">
   <label>curve <select id="dt-curve">
     <option value="-1,0">y² = x³ - x  (Δ = 64)</option>
     <option value="0,1" selected>y² = x³ + 1  (Δ = -432)</option>
@@ -656,10 +652,8 @@ This reduced curve $\tilde E_p / \mathbb{F}_p$ is sometimes an elliptic curve an
     <option value="1,-1">y² = x³ + x - 1  (Δ = -496)</option>
   </select></label>
 </div>
-<div id="dt-out"></div>
-</div>
-
-<script>
+  <div id="dt-out"></div>
+</div><script>
 (function(){
   const sel=$('#dt-curve'), host=$('#dt-out');
   const primes=[2,3,5,7,11,13,17,19];
