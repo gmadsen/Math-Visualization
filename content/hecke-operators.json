@@ -12,9 +12,49 @@
         },
         {
           "type": "widget",
-          "id": "w-motive",
-          "html": "<div class=\"widget\" id=\"w-motive\">\n  <div class=\"hd\"><div class=\"ttl\">The spectral decomposition of $M_k$</div><div class=\"hint\">dimensions of $M_k$ for $k = 4,6,8,\\ldots,26$</div></div>\n  <svg id=\"motive-svg\" viewBox=\"0 0 720 220\" width=\"720\" height=\"220\" aria-label=\"dimensions of weight-k forms\"></svg>\n  <div class=\"readout small\" id=\"motive-out\"></div>\n</div>",
-          "script": "\n\n<script>\n(function(){\n  const svg = document.getElementById('motive-svg');\n  const out = document.getElementById('motive-out');\n  if(!svg) return;\n  // dim M_k(SL_2(Z)) for even k >= 4:  floor(k/12) + 1 if k != 2 mod 12, else floor(k/12)\n  function dimMk(k){\n    if(k < 0 || k%2) return 0;\n    if(k === 0) return 1;\n    if(k === 2) return 0;\n    return (k%12 === 2) ? Math.floor(k/12) : Math.floor(k/12)+1;\n  }\n  const ks = [4,6,8,10,12,14,16,18,20,22,24,26];\n  const W = 720, H = 220, m = {l:50, r:20, t:20, b:40};\n  const bw = (W - m.l - m.r) / ks.length;\n  const maxD = 3;\n  const yScale = v => H - m.b - (v / maxD) * (H - m.t - m.b);\n  // axes\n  svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,stroke:'var(--line)'}));\n  for(let d=0; d<=maxD; d++){\n    const y = yScale(d);\n    const t = SVG('text',{x:m.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = d;\n    svg.appendChild(t);\n    if(d>0) svg.appendChild(SVG('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--line)','stroke-dasharray':'2,3'}));\n  }\n  ks.forEach((k,i) => {\n    const d = dimMk(k);\n    const x = m.l + bw*i + bw*0.15;\n    const y = yScale(d);\n    const w = bw*0.7;\n    const h = (H - m.b) - y;\n    svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--yellow)',opacity:0.85,rx:2}));\n    const tk = SVG('text',{x:x+w/2,y:H-m.b+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tk.textContent = 'k='+k;\n    svg.appendChild(tk);\n    if(d>0){\n      const td = SVG('text',{x:x+w/2,y:y-4,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n      td.textContent = d;\n      svg.appendChild(td);\n    }\n  });\n  const t = SVG('text',{x:W-m.r,y:m.t+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  t.textContent = 'dim M_k';\n  svg.appendChild(t);\n  out.textContent = 'Each bar is dim M_k. The Hecke algebra acts, and the space splits as an orthogonal sum of eigenspaces — each atom a single eigenform.';\n})();\n</script>"
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-motive",
+            "title": "The spectral decomposition of $M_k$",
+            "hint": "dimensions of $M_k$ for $k = 4,6,8,\\ldots,26$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "motive-svg",
+                "viewBox": "0 0 720 220",
+                "width": 720,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"motive-out\"></div>"
+              }
+            ],
+            "bodyScript": "  const svg = document.getElementById('motive-svg');\n  const out = document.getElementById('motive-out');\n  if(!svg) return;\n  // dim M_k(SL_2(Z)) for even k >= 4:  floor(k/12) + 1 if k != 2 mod 12, else floor(k/12)\n  function dimMk(k){\n    if(k < 0 || k%2) return 0;\n    if(k === 0) return 1;\n    if(k === 2) return 0;\n    return (k%12 === 2) ? Math.floor(k/12) : Math.floor(k/12)+1;\n  }\n  const ks = [4,6,8,10,12,14,16,18,20,22,24,26];\n  const W = 720, H = 220, m = {l:50, r:20, t:20, b:40};\n  const bw = (W - m.l - m.r) / ks.length;\n  const maxD = 3;\n  const yScale = v => H - m.b - (v / maxD) * (H - m.t - m.b);\n  // axes\n  svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,stroke:'var(--line)'}));\n  for(let d=0; d<=maxD; d++){\n    const y = yScale(d);\n    const t = SVG('text',{x:m.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = d;\n    svg.appendChild(t);\n    if(d>0) svg.appendChild(SVG('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--line)','stroke-dasharray':'2,3'}));\n  }\n  ks.forEach((k,i) => {\n    const d = dimMk(k);\n    const x = m.l + bw*i + bw*0.15;\n    const y = yScale(d);\n    const w = bw*0.7;\n    const h = (H - m.b) - y;\n    svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--yellow)',opacity:0.85,rx:2}));\n    const tk = SVG('text',{x:x+w/2,y:H-m.b+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tk.textContent = 'k='+k;\n    svg.appendChild(tk);\n    if(d>0){\n      const td = SVG('text',{x:x+w/2,y:y-4,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n      td.textContent = d;\n      svg.appendChild(td);\n    }\n  });\n  const t = SVG('text',{x:W-m.r,y:m.t+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  t.textContent = 'dim M_k';\n  svg.appendChild(t);\n  out.textContent = 'Each bar is dim M_k. The Hecke algebra acts, and the space splits as an orthogonal sum of eigenspaces — each atom a single eigenform.';"
+          }
+        },
+        {
+          "type": "widget-script",
+          "slug": "button-stepper",
+          "params": {
+            "widgetId": "w-motive",
+            "title": "The spectral decomposition of $M_k$",
+            "hint": "dimensions of $M_k$ for $k = 4,6,8,\\ldots,26$",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "motive-svg",
+                "viewBox": "0 0 720 220",
+                "width": 720,
+                "height": 220
+              },
+              {
+                "kind": "raw",
+                "html": "<div class=\"readout small\" id=\"motive-out\"></div>"
+              }
+            ],
+            "bodyScript": "  const svg = document.getElementById('motive-svg');\n  const out = document.getElementById('motive-out');\n  if(!svg) return;\n  // dim M_k(SL_2(Z)) for even k >= 4:  floor(k/12) + 1 if k != 2 mod 12, else floor(k/12)\n  function dimMk(k){\n    if(k < 0 || k%2) return 0;\n    if(k === 0) return 1;\n    if(k === 2) return 0;\n    return (k%12 === 2) ? Math.floor(k/12) : Math.floor(k/12)+1;\n  }\n  const ks = [4,6,8,10,12,14,16,18,20,22,24,26];\n  const W = 720, H = 220, m = {l:50, r:20, t:20, b:40};\n  const bw = (W - m.l - m.r) / ks.length;\n  const maxD = 3;\n  const yScale = v => H - m.b - (v / maxD) * (H - m.t - m.b);\n  // axes\n  svg.appendChild(SVG('line',{x1:m.l,y1:H-m.b,x2:W-m.r,y2:H-m.b,stroke:'var(--line)'}));\n  svg.appendChild(SVG('line',{x1:m.l,y1:m.t,x2:m.l,y2:H-m.b,stroke:'var(--line)'}));\n  for(let d=0; d<=maxD; d++){\n    const y = yScale(d);\n    const t = SVG('text',{x:m.l-8,y:y+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n    t.textContent = d;\n    svg.appendChild(t);\n    if(d>0) svg.appendChild(SVG('line',{x1:m.l,y1:y,x2:W-m.r,y2:y,stroke:'var(--line)','stroke-dasharray':'2,3'}));\n  }\n  ks.forEach((k,i) => {\n    const d = dimMk(k);\n    const x = m.l + bw*i + bw*0.15;\n    const y = yScale(d);\n    const w = bw*0.7;\n    const h = (H - m.b) - y;\n    svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--yellow)',opacity:0.85,rx:2}));\n    const tk = SVG('text',{x:x+w/2,y:H-m.b+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    tk.textContent = 'k='+k;\n    svg.appendChild(tk);\n    if(d>0){\n      const td = SVG('text',{x:x+w/2,y:y-4,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n      td.textContent = d;\n      svg.appendChild(td);\n    }\n  });\n  const t = SVG('text',{x:W-m.r,y:m.t+10,'text-anchor':'end','font-size':12,fill:'var(--mute)'});\n  t.textContent = 'dim M_k';\n  svg.appendChild(t);\n  out.textContent = 'Each bar is dim M_k. The Hecke algebra acts, and the space splits as an orthogonal sum of eigenspaces — each atom a single eigenform.';"
+          }
         },
         {
           "type": "raw",
