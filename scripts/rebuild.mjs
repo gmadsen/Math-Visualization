@@ -77,6 +77,7 @@ const STEPS = [
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
+  { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 

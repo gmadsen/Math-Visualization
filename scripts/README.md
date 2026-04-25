@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 19-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 20-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -87,6 +87,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`audit-responsive.mjs`](./audit-responsive.mjs) | Viewport meta, fixed widths, missing `viewBox`, overflow hazards. |
 | [`audit-cross-page-consistency.mjs`](./audit-cross-page-consistency.mjs) | `<head>` + sidetoc + body-attr consistency across topic HTML. |
 | [`audit-bundle-staleness.mjs`](./audit-bundle-staleness.mjs) | Fast check of `concepts/bundle.js` + `quizzes/bundle.js` vs source. |
+| [`audit-draft-index-cards.mjs`](./audit-draft-index-cards.mjs) | Flags `index.html` cards still in `new-topic.mjs` placeholder state — literal "draft" text in thumb SVG, placeholder `.desc`, or unfilled TODO comment. Advisory; gates nothing. |
 | [`audit-doc-drift.mjs`](./audit-doc-drift.mjs) | `PLAN.md` / `AGENTS.md` / this `README.md` vs on-disk reality. Final rebuild step. |
 
 ## Tests and offline
@@ -108,7 +109,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 19 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 20 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```

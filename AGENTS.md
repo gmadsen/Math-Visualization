@@ -418,6 +418,8 @@ Quickstart: `node scripts/new-topic.mjs <slug> <section>` scaffolds steps 1, 3�
 When you publish `new-topic.html`:
 
 1. **Handled by `scripts/new-topic.mjs` automatically** — the scaffolder inserts an `<a class="card">` draft into the right section of [`index.html`](./index.html) using a neighbor-matching shape (colored thumb SVG placeholder, `.tt`, `.desc`, `.tag`). Drop it in as a placeholder and refine the copy and thumb motif later. **Manual fallback** (if the scaffolder skipped with a warning, or you want to hand-tune): add a card to the right section of [`index.html`](./index.html), matching the `a.card` structure of neighboring cards (colored thumb SVG, `.tt` with optional level badge, `.desc`, `.tag`). Put it under the appropriate section header from the 7-section list above. The scaffolder is idempotent and will refuse to duplicate an existing card.
+
+   > **When the topic actually has content**, replace the draft thumb + `.desc` + `.tag` with real ones. The scaffolder leaves the literal text "draft" in the SVG and `Draft — fill in once the page has real content.` in `.desc`; both are flagged by [`scripts/audit-draft-index-cards.mjs`](./scripts/audit-draft-index-cards.mjs) (run by `rebuild.mjs` as the `draft-cards` step). The card needs: (a) a motif SVG matching one of the topic's central diagrams, (b) a 1–2 sentence `.desc` summarizing what the page covers, (c) a `.tag` with 3–4 dot-separated keywords (e.g. `functors · Yoneda · adjoints` rather than the section name). See `category-theory`'s card in `index.html` as the template.
 2. Add a bullet to [`README.md`](./README.md) under the matching `###` section.
 3. Create `concepts/new-topic.json` and register it in `concepts/index.json`.
 4. Create `quizzes/new-topic.json` with one quiz per concept id.
@@ -429,7 +431,7 @@ When you publish `new-topic.html`:
    node scripts/build-quizzes-bundle.mjs
    ```
    `concepts/bundle.js` feeds `pathway.html`; `quizzes/bundle.js` feeds `MVQuiz.init` on every topic page. Both fall back to `fetch()` under a dev server but silently break under double-click if stale or missing.
-8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 19 steps, summarized here:
+8. **All-in-one verification**: `node scripts/rebuild.mjs` runs the full chain, bailing on the first non-zero exit. The authoritative step order is the `STEPS` array in `scripts/rebuild.mjs`; currently 20 steps, summarized here:
    1. `build-concepts-bundle.mjs`
    2. `build-quizzes-bundle.mjs`
    3. `build-widgets-bundle.mjs`
@@ -448,9 +450,10 @@ When you publish `new-topic.html`:
    16. `smoke-test.mjs`
    17. `test-roundtrip.mjs`
    18. `stats-coverage.mjs`
-   19. `audit-doc-drift.mjs`
+   19. `audit-draft-index-cards.mjs`
+   20. `audit-doc-drift.mjs`
 
-   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `doc-drift`.
+   Use `--no-fix` for audit-only mode (mirrors CI). Use `--only <step>` to run one step — valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `validate`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `roundtrip`, `stats`, `draft-cards`, `doc-drift`.
 
    `inject-changelog-footer.mjs` is intentionally NOT in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
 
